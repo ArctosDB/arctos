@@ -330,8 +330,10 @@ function addTransAgent (id,name) {
   			d+=' onchange="getAgent(\'trans_agent_id_' + i + '\',\'trans_agent_' + i + '\',\'editloan\',this.value);"';
   			d+=' return false;"	onKeyPress="return noenter(event);">';
   			console.log(d);
+  			d+='<input type="hidden" name="trans_agent_id_' + i + '" value="' + id + '">';
+  			console.log(d);
   			/*
-  				<input type="hidden" name="trans_agent_id_#i#" value="#agent_id#">
+  				
 			</td>
 			<td>
 				<select name="trans_agent_role_#trans_agent_id#">
