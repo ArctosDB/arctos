@@ -314,7 +314,7 @@ function addLink (n) {
 }
 function cloneTransAgent(i){
 	var id=jQuery('#trans_agent_id_' + i).val();
-	console.log('got id ' + id);
+	console.log('got id ' + i + '--------' + id);
 }
 function addTransAgent (id,name,role) {
 	if (typeof id == "undefined") {
