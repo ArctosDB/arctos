@@ -59,11 +59,9 @@
 <cfif #action# is "nothing">
 <cfset title="Manage Loans">
 <cfoutput>
-<form action="Loan.cfm" method="post">
+	<form action="Loan.cfm" method="post">
 		<input type="hidden" name="action" value="newLoan">
-		 <input type="submit" value="Create a new loan" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">	
-
+		 <input type="submit" value="Create a new loan" class="insBtn">	
 	</form>
 	<form action="Loan.cfm" method="post">
 		<input type="hidden" name="action" value="addItems">
@@ -71,12 +69,11 @@
 	</form>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 		<form action="/loanBulkload.cfm" method="post">
-		<input type="submit" value="Bulk Add Loan Items" class="insBtn">	
-	</form>
+			<input type="submit" value="Bulk Add Loan Items" class="insBtn">	
+		</form>
 	</cfif>
 </cfoutput>
 </cfif>
-<!-------------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------------->
 <cfif  #action# is "newLoan">
 <cfset title="New Loan">
@@ -277,19 +274,6 @@
 </div>
 	</cfoutput>
 </cfif>
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "editLoan">
 	<cfset title="Edit Loan">
@@ -340,6 +324,7 @@
 		<input type="hidden" name="action" value="saveEdits">
 		<input type="hidden" name="transaction_id" value="#loanDetails.transaction_id#">
 		<strong>Edit Loan #loanDetails.collection# #loanDetails.loan_number#</strong>
+		<span style="font-size:small;">Entered by #loanDetails.enteredby#</span>
 		<label for="loan_number">Loan Number</label>
 		<select name="collection_id" id="collection_id" size="1">
 			<cfloop query="ctcollection">
@@ -348,7 +333,6 @@
 			</cfloop>
 		</select>
 		<input type="text" name="loan_number" id="loan_number" value="#loanDetails.loan_number#" class="reqdClr">
-		<br><span style="font-size:small;">Entered by #loanDetails.enteredby#</span>
 		<table id="loanAgents" border>
 			<tr>
 				<th>Agent Name <span class="likeLink" onclick="addTransAgent()">Add Row</span></th>
@@ -394,7 +378,7 @@
 				<cfset i=i+1>
 			</cfloop>
 			<cfset na=i-1>
-			<input type="text" id="numAgents" name="numAgents" value="#na#">				
+			<input type="hidden" id="numAgents" name="numAgents" value="#na#">				
 		</table><!-- end agents table --->
 		<table width="100%">
 			<tr>
@@ -467,46 +451,29 @@
 			<option value="/Reports/report_printer.cfm?transaction_id=#transaction_id#">Any Report</option>
 		</select>
 	</td><!---- end left cell --->
-	<td><!---- right cell ---->
-	
-	
-	
-	<strong>Projects associated with this loan:</strong>
-			<p>
-				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select project_name, project.project_id from project,
-					project_trans where 
-					project_trans.project_id =  project.project_id
-					and transaction_id=#transaction_id#
-				</cfquery>
-				<cfif #projs.recordcount# gt 0>
-					<cfloop query="projs">
-						<a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a><br>
-					</cfloop>
-				<cfelse>
-					None
-				</cfif>
-			</p>
-			<table class="newRec" width="100%">
-				<tr>
-					<td>Associate Project</td>
-				</tr>
-				<tr>
-					<td>
-							<input type="hidden" name="project_id">
-							<input type="text" 
-								size="50"
-								name="pick_project_name" 
-								class="reqdClr" 
-								onchange="getProject('project_id','pick_project_name','editloan',this.value); return false;"
-								onKeyPress="return noenter(event);">
-						
-					</td>
-				</tr>
-					
-				
-			</table>
-			<hr />
+	<td valign="top"><!---- right cell ---->	
+		<strong>Projects associated with this loan:</strong>
+		<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select project_name, project.project_id from project,
+			project_trans where 
+			project_trans.project_id =  project.project_id
+			and transaction_id=#transaction_id#
+		</cfquery>
+		<cfif projs.recordcount gt 0>
+			<cfloop query="projs">
+				<a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a><br>
+			</cfloop>
+		<cfelse>
+			<br>None
+		</cfif>
+			<label for="project_id">Pick New Project</label>
+			<input type="hidden" name="project_id">
+			<input type="text" 
+				size="50"
+				name="pick_project_name" 
+				class="reqdClr" 
+				onchange="getProject('project_id','pick_project_name','editloan',this.value); return false;"
+				onKeyPress="return noenter(event);">
 			<table border="1" class="newRec">
 				<tr>
 					<td colspan="4">
