@@ -1032,7 +1032,7 @@ Shipment Information:
 									trans_agent_role
 								) values (
 									#transaction_id#,
-									#trans_agent_id_#,
+									#agent_id_#,
 									'#trans_agent_role_#'
 								)
 							</cfquery>
@@ -1042,7 +1042,7 @@ Shipment Information:
 									trans_agent_role
 								) values (
 									#transaction_id#,
-									#trans_agent_id_#,
+									#agent_id_#,
 									'#trans_agent_role_#'
 								)<hr>
 						<cfelse>
