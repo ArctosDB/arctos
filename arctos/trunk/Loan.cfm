@@ -2,9 +2,7 @@
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
-<cfif not isdefined("project_id")>
-	<cfset project_id = -1>
-</cfif>
+<cfif not isdefined("project_id")><cfset project_id = -1></cfif>
 <cfquery name="ctLoanType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select loan_type from ctloan_type order by loan_type
 </cfquery>
@@ -20,8 +18,15 @@
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from collection order by collection
 </cfquery>
-
-<script>
+<style>
+	.nextnum{
+		border:2px solid green;
+		position:absolute;
+		top:10em;
+		right:1em;
+	}
+</style>
+<script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery(function() {
 			jQuery("#trans_date").datepicker();
@@ -29,6 +34,8 @@
 			jQuery("#return_due_date").datepicker();	
 			jQuery("#to_return_due_date").datepicker();
 			jQuery("#initiating_date").datepicker();
+			jQuery("#shipped_date").datepicker();
+			
 		});
 	});
 	function setAccnNum(i,v) {
@@ -56,158 +63,128 @@
 	}
 </script>
 <!-------------------------------------------------------------------------------------------------->
-<cfif #action# is "nothing">
-<cfset title="Manage Loans">
-<cfoutput>
-	<form action="Loan.cfm" method="post">
-		<input type="hidden" name="action" value="newLoan">
-		 <input type="submit" value="Create a new loan" class="insBtn">	
-	</form>
-	<form action="Loan.cfm" method="post">
-		<input type="hidden" name="action" value="addItems">
-		<input type="submit" value="Manage an existing loan" class="schBtn">	
-	</form>
-	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-		<form action="/loanBulkload.cfm" method="post">
-			<input type="submit" value="Bulk Add Loan Items" class="insBtn">	
-		</form>
-	</cfif>
-</cfoutput>
+<cfif action is "nothing">
+	<cflocation url="Loan.cfm?action=addItems" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
-<cfif  #action# is "newLoan">
+<cfif  action is "newLoan">
 <cfset title="New Loan">
 	Initiate a loan: <span class="infoLink" onClick="getDocs('loan')">Help</span>
 	<cfoutput>
 		<form name="newloan" action="Loan.cfm" method="post" onSubmit="return noenter();">
 			<input type="hidden" name="action" value="makeLoan">
-			<!--- set loan_number - same code works for accn_num --->
-<table border>
-	<tr>
-		<td>
-			<label for="collection_id">Collection
-			</label>
-			<select name="collection_id" size="1" id="collection_id">
-				<cfloop query="ctcollection">
-					<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
-				</cfloop>
-			</select>
-		</td>
-		<td>
-			<label for="loan_number">Loan Number</label>
-			<input type="text" name="loan_number" class="reqdClr" id="loan_number">
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<label for="auth_agent_name">Authorized By</label>
-			<input type="text" name="auth_agent_name" class="reqdClr" size="40" 
-			  onchange="getAgent('auth_agent_id','auth_agent_name','newloan',this.value); return false;"
-			  onKeyPress="return noenter(event);"> 
-			<input type="hidden" name="auth_agent_id">
-		</td>
-		<td>
-			<label for="rec_agent_name"><a href="javascript:void(0);" onClick="getDocs('loan','to')">To:</a></label>
-			<input type="text" name="rec_agent_name" class="reqdClr" size="40" 
-			  onchange="getAgent('rec_agent_id','rec_agent_name','newloan',this.value); return false;"
-			  onKeyPress="return noenter(event);"> 			  
-			<input type="hidden" name="rec_agent_id">
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<label for="in_house_contact_agent_name">In-House Contact:</label>
-			<input type="text" name="in_house_contact_agent_name" size="40" 
-			  onchange="getAgent('in_house_contact_agent_id','in_house_contact_agent_name','newloan',this.value); return false;"
-			  onKeyPress="return noenter(event);"> 
-			<input type="hidden" name="in_house_contact_agent_id">
-		</td>
-		<td>
-			<label for="outside_contact_agent_name">Outside Contact:</label>
-			<input type="text" name="outside_contact_agent_name" size="40" 
-			  onchange="getAgent('outside_contact_agent_id','outside_contact_agent_name','newloan',this.value); return false;"
-			  onKeyPress="return noenter(event);"> 			  
-			<input type="hidden" name="outside_contact_agent_id">
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<label for="loan_type">Loan Type</label>
-			<select name="loan_type" id="loan_type" class="reqdClr">
-				<cfloop query="ctLoanType">
-					<option value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
-				</cfloop>
-			</select>
-		</td>
-		<td>
-			<label for="loan_status">Loan Status</label>
-			<select name="loan_status" id="loan_status" class="reqdClr">
-				<cfloop query="ctLoanStatus">
-					<option value="#ctLoanStatus.loan_status#" 
-							<cfif #ctLoanStatus.loan_status# is "open">selected='selected'</cfif>
-							>#ctLoanStatus.loan_status#</option>
-				</cfloop>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<label for="initiating_date">Transaction Date</label>
-			<input type="text" name="initiating_date" id="initiating_date" value="#dateformat(now(),"dd-mmm-yyyy")#">
-		</td>
-		<td>
-			<label for="return_due_date">Return Due Date</label>
-			<input type="text" name="return_due_date" id="return_due_date">
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<label for="nature_of_material">Nature of Material</label>
-			<textarea name="nature_of_material" id="nature_of_material" rows="3" cols="80" class="reqdClr"></textarea>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<label for="loan_instructions">Loan Instructions</label>
-			<textarea name="loan_instructions" id="loan_instructions" rows="3" cols="80"></textarea>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<label for="loan_description">Description</label>
-			<textarea name="loan_description" id="loan_description" rows="3" cols="80"></textarea>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<label for="trans_remarks">Remarks</label>
-			<textarea name="trans_remarks" id="trans_remarks" rows="3" cols="80"></textarea>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" align="center">
-		 <input type="submit" value="Create Loan" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">	
-
-			&nbsp;
-			
-			   <input type="button" value="Quit" class="qutBtn"
-   onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'"
-   onClick="document.location = 'Loan.cfm'">	
-   </td>
-	</tr>
-</table>
-</form>
-
-<style>
-.nextnum{
-	border:2px solid green;
-	position:absolute;
-	top:10em;
-	right:1em;
-}
-</style>
-<div class="nextnum">
+			<table border>
+				<tr>
+					<td>
+						<label for="collection_id">Collection
+						</label>
+						<select name="collection_id" size="1" id="collection_id">
+							<cfloop query="ctcollection">
+								<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="loan_number">Loan Number</label>
+						<input type="text" name="loan_number" class="reqdClr" id="loan_number">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="auth_agent_name">Authorized By</label>
+						<input type="text" name="auth_agent_name" class="reqdClr" size="40" 
+						  onchange="getAgent('auth_agent_id','auth_agent_name','newloan',this.value); return false;"
+						  onKeyPress="return noenter(event);"> 
+						<input type="hidden" name="auth_agent_id">
+					</td>
+					<td>
+						<label for="rec_agent_name"><a href="javascript:void(0);" onClick="getDocs('loan','to')">To:</a></label>
+						<input type="text" name="rec_agent_name" class="reqdClr" size="40" 
+						  onchange="getAgent('rec_agent_id','rec_agent_name','newloan',this.value); return false;"
+						  onKeyPress="return noenter(event);"> 			  
+						<input type="hidden" name="rec_agent_id">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="in_house_contact_agent_name">In-House Contact:</label>
+						<input type="text" name="in_house_contact_agent_name" size="40" 
+						  onchange="getAgent('in_house_contact_agent_id','in_house_contact_agent_name','newloan',this.value); return false;"
+						  onKeyPress="return noenter(event);"> 
+						<input type="hidden" name="in_house_contact_agent_id">
+					</td>
+					<td>
+						<label for="outside_contact_agent_name">Outside Contact:</label>
+						<input type="text" name="outside_contact_agent_name" size="40" 
+						  onchange="getAgent('outside_contact_agent_id','outside_contact_agent_name','newloan',this.value); return false;"
+						  onKeyPress="return noenter(event);"> 			  
+						<input type="hidden" name="outside_contact_agent_id">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="loan_type">Loan Type</label>
+						<select name="loan_type" id="loan_type" class="reqdClr">
+							<cfloop query="ctLoanType">
+								<option value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="loan_status">Loan Status</label>
+						<select name="loan_status" id="loan_status" class="reqdClr">
+							<cfloop query="ctLoanStatus">
+								<option value="#ctLoanStatus.loan_status#" 
+										<cfif #ctLoanStatus.loan_status# is "open">selected='selected'</cfif>
+										>#ctLoanStatus.loan_status#</option>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="initiating_date">Transaction Date</label>
+						<input type="text" name="initiating_date" id="initiating_date" value="#dateformat(now(),"dd-mmm-yyyy")#">
+					</td>
+					<td>
+						<label for="return_due_date">Return Due Date</label>
+						<input type="text" name="return_due_date" id="return_due_date">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="nature_of_material">Nature of Material</label>
+						<textarea name="nature_of_material" id="nature_of_material" rows="3" cols="80" class="reqdClr"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="loan_instructions">Loan Instructions</label>
+						<textarea name="loan_instructions" id="loan_instructions" rows="3" cols="80"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="loan_description">Description</label>
+						<textarea name="loan_description" id="loan_description" rows="3" cols="80"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="trans_remarks">Remarks</label>
+						<textarea name="trans_remarks" id="trans_remarks" rows="3" cols="80"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value="Create Loan" class="insBtn">
+						&nbsp;
+						<input type="button" value="Quit" class="qutBtn" onClick="document.location = 'Loan.cfm'">	
+			   		</td>
+				</tr>
+			</table>
+		</form>
+		<div class="nextnum">
 			Next Available Loan Number:
 			<br>
 			<cfquery name="all_coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -271,7 +248,7 @@
 				</cfif>
 				<br>
 			</cfloop>
-</div>
+		</div>
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
@@ -510,215 +487,163 @@
 		<input type="checkbox" value="yes" name="saveNewProject">
 	</form>
 	</td></tr></table>
-	
-	
-<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from shipment where transaction_id = #transaction_id#
-</cfquery>
-<cfquery name="ctShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select shipped_carrier_method from ctshipped_carrier_method
-</cfquery>
-<cfif ship.recordcount gt 0>
+	<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from shipment where transaction_id = #transaction_id#
+	</cfquery>
+	<cfquery name="ctShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select shipped_carrier_method from ctshipped_carrier_method order by shipped_carrier_method
+	</cfquery>
+	<cfif ship.recordcount gt 0>
 	<!--- get some other info --->
-	<cfquery name="packed_by_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select agent_name from preferred_agent_name where 
-		agent_id = #ship.packed_by_agent_id#
-	</cfquery>
-		<cfset packed_by_agent = "#packed_by_agent.agent_name#">
-		<cfset packed_by_agent_id = #ship.packed_by_agent_id#>
-		<cfset thisCarrier = #ship.shipped_carrier_method#>
-		<cfset carriers_tracking_number = #ship.carriers_tracking_number#>
-		<cfset shipped_date = #ship.shipped_date#>
-		<cfset package_weight = #ship.package_weight#>
-		<cfset hazmat_fg = #ship.hazmat_fg#>
-		<cfset INSURED_FOR_INSURED_VALUE = #ship.INSURED_FOR_INSURED_VALUE#>
-		<cfset shipment_remarks = #ship.shipment_remarks#>
-		<cfset contents = #ship.contents#>
-		<cfset FOREIGN_SHIPMENT_FG = #ship.FOREIGN_SHIPMENT_FG#>
-	<cfquery name="shipped_to_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select formatted_addr from addr where 
-		addr_id = #ship.shipped_to_addr_id#
-	</cfquery>
-		<cfset shipped_to_addr = "#shipped_to_addr_id.formatted_addr#">
-		<cfset shipped_to_addr_id = #ship.shipped_to_addr_id#>
-	<cfquery name="shipped_from_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select formatted_addr from addr where 
-		addr_id = #ship.shipped_from_addr_id#
-	</cfquery>
-		<cfset shipped_from_addr = "#shipped_from_addr_id.formatted_addr#">
-		<cfset shipped_from_addr_id = #ship.shipped_from_addr_id#>
-		
-  <cfelse>
-  	<cfset packed_by_agent = "">
-	<cfset packed_by_agent_id = "">
-	<cfset thisCarrier = "">
-	<cfset carriers_tracking_number = "">
-	<cfset shipped_date = "">
-	<cfset package_weight = "">
-	<cfset hazmat_fg = "">
-	<cfset INSURED_FOR_INSURED_VALUE = "">
-	<cfset shipment_remarks = "">
-	<cfset contents = "">
-	<cfset FOREIGN_SHIPMENT_FG = "">
-	<cfset shipped_to_addr = "">
-	<cfset shipped_to_addr_id = "">
-	<cfset shipped_from_addr = "">
-	<cfset shipped_from_addr_id = "">
-</cfif>
-<hr>
-Shipment Information:
-<table>
+		<cfquery name="packed_by_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select agent_name from preferred_agent_name where 
+			agent_id = #ship.packed_by_agent_id#
+		</cfquery>
+			<cfset packed_by_agent = packed_by_agent.agent_name>
+			<cfset packed_by_agent_id = ship.packed_by_agent_id>
+			<cfset thisCarrier = ship.shipped_carrier_method>
+			<cfset carriers_tracking_number = ship.carriers_tracking_number>
+			<cfset shipped_date = ship.shipped_date>
+			<cfset package_weight = ship.package_weight>
+			<cfset hazmat_fg = ship.hazmat_fg>
+			<cfset INSURED_FOR_INSURED_VALUE = ship.INSURED_FOR_INSURED_VALUE>
+			<cfset shipment_remarks = ship.shipment_remarks>
+			<cfset contents = ship.contents>
+			<cfset FOREIGN_SHIPMENT_FG = ship.FOREIGN_SHIPMENT_FG>
+		<cfquery name="shipped_to_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select formatted_addr from addr where 
+			addr_id = #ship.shipped_to_addr_id#
+		</cfquery>
+			<cfset shipped_to_addr = shipped_to_addr_id.formatted_addr>
+			<cfset shipped_to_addr_id = ship.shipped_to_addr_id>
+		<cfquery name="shipped_from_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select formatted_addr from addr where 
+			addr_id = #ship.shipped_from_addr_id#
+		</cfquery>
+			<cfset shipped_from_addr = shipped_from_addr_id.formatted_addr>
+			<cfset shipped_from_addr_id = ship.shipped_from_addr_id>
+	<cfelse>
+		<cfset packed_by_agent = "">
+		<cfset packed_by_agent_id = "">
+		<cfset thisCarrier = "">
+		<cfset carriers_tracking_number = "">
+		<cfset shipped_date = "">
+		<cfset package_weight = "">
+		<cfset hazmat_fg = "">
+		<cfset INSURED_FOR_INSURED_VALUE = "">
+		<cfset shipment_remarks = "">
+		<cfset contents = "">
+		<cfset FOREIGN_SHIPMENT_FG = "">
+		<cfset shipped_to_addr = "">
+		<cfset shipped_to_addr_id = "">
+		<cfset shipped_from_addr = "">
+		<cfset shipped_from_addr_id = "">
+	</cfif>
+	<hr>
+	Shipment Information:
 	<cfform name="shipment" method="post" action="Loan.cfm">
 		<input type="hidden" name="Action" value="saveShip">
 		<input type="hidden" name="transaction_id" value="#transaction_id#">
-		<tr><td align="right">
-		Packed By:
-		</td>
-		<td>
+		<label for="packed_by_agent">Packed By Agent</label>
 		<input type="text" name="packed_by_agent" class="reqdClr" size="50" value="#packed_by_agent#"
 			  onchange="getAgent('packed_by_agent_id','packed_by_agent','shipment',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 
-			<input type="hidden" name="packed_by_agent_id" value="#packed_by_agent_id#">
-		</td>
-		</tr>
-		<tr>
-			<td align="right">Shipped Method:</td>
-			<td><select name="shipped_carrier_method" size="1" class="reqdClr">
-				<option value=""></option>
-				<cfloop query="ctShip">
-					<option 
-						<cfif #ctShip.shipped_carrier_method# is "#thisCarrier#"> selected </cfif>value="#ctShip.shipped_carrier_method#">#ctShip.shipped_carrier_method#</option>
-				</cfloop>
-			</select></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td>
-				<em><font size="-1">Please note: Linebreaks may have been replaced with "-" in order to make the
-				JavaScript picks work. The address will be formatted properly after save.</font></em>
-			</td>
-		</tr>
-		<tr>
-			<td align="right" valign="top">Shipped To Address:</td>
-			<td><textarea name="shipped_to_addr" cols="60" rows="5" readonly="yes" class="reqdClr">#shipped_to_addr#</textarea>
-				<input type="hidden" name="shipped_to_addr_id" value="#shipped_to_addr_id#">
-			 <input type="button" value="Pick" class="picBtn"
-   onmouseover="this.className='picBtn btnhov'" onmouseout="this.className='picBtn'"
-   onClick="addrPick('shipped_to_addr_id','shipped_to_addr','shipment'); return false;">
-</td>
-		</tr>
-		<tr>
-		  <td align="right" valign="top">Shipped From Address:
-			</td>
-			<td>
-			<textarea name="shipped_from_addr" cols="60" rows="5" readonly="yes" class="reqdClr">#shipped_from_addr#</textarea>
-				<input type="hidden" name="shipped_from_addr_id" value="#shipped_from_addr_id#">
-			 <input type="button" value="Pick" class="picBtn"
-   onmouseover="this.className='picBtn btnhov'" onmouseout="this.className='picBtn'"
-   onClick="addrPick('shipped_from_addr_id','shipped_from_addr','shipment'); return false;">
-   </td>
-		</tr>
-		<tr>
-			<td align="right">Tracking ##: </td>
-			<td><input type="text" value="#carriers_tracking_number#" name="carriers_tracking_number"></td>
-		</tr>
-		<tr>
-			<td align="right">Ship Date:</td>
-			<td><input type="text" value="#dateformat(shipped_date,'dd mmm yyyy')#" name="shipped_date"></td>
-		</tr>
-		<tr>
-			<td align="right">Package Weight:</td>
-			<td><input type="text" value="#package_weight#" name="package_weight"></td>
-		</tr>
-		<tr>
-			<td align="right">Hazmat?:</td>
-			<td><select name="hazmat_fg" size="1">
-				<option <cfif #hazmat_fg# is 0> selected </cfif>value="0">no</option>
-				<option <cfif #hazmat_fg# is 1> selected </cfif>value="1">yes</option>
-			</select></td>
-		</tr>
-		<tr>
-			<td align="right">$ Insured Value:</td>
-			<td><cfinput type="text" validate="float" label="Numeric value required."
-					 value="#INSURED_FOR_INSURED_VALUE#" name="INSURED_FOR_INSURED_VALUE"></td>
-		</tr>
-		<tr>
-			<td align="right">Remarks:</td>
-			<td><input type="text" value="#shipment_remarks#" name="shipment_remarks"></td>
-		</tr>
-		<tr>
-			<td align="right">Contents:</td>
-			<td><input type="text" value="#contents#" name="contents"></td>
-		</tr>
-		<tr>
-			<td align="right">Foreign shipment?: </td>
-			<td><select name="FOREIGN_SHIPMENT_FG" size="1">
-				<option <cfif #FOREIGN_SHIPMENT_FG# is 0> selected </cfif>value="0">no</option>
-				<option <cfif #FOREIGN_SHIPMENT_FG# is 1> selected </cfif>value="1">yes</option>
-			</select></td>
-		</tr>
-		
-		<tr>
-			<td colspan="2">
-			<input type="submit" value="Save Shipment" class="savBtn"
-   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
-   </td>
-			
-		</tr>
-		
+		<input type="hidden" name="packed_by_agent_id" value="#packed_by_agent_id#">
+		<label for="shipped_carrier_method">Shipped Method</label>
+		<select name="shipped_carrier_method" id="shipped_carrier_method" size="1" class="reqdClr">
+			<option value=""></option>
+			<cfloop query="ctShip">
+				<option 
+					<cfif ctShip.shipped_carrier_method is thisCarrier> selected="selected" </cfif>
+						value="#ctShip.shipped_carrier_method#">#ctShip.shipped_carrier_method#</option>
+			</cfloop>
+		</select>
+		<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
+		<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5" 
+			readonly="yes" class="reqdClr">#shipped_to_addr#</textarea>
+		<input type="hidden" name="shipped_to_addr_id" value="#shipped_to_addr_id#">
+		<input type="button" value="Pick Address" class="picBtn"
+			onClick="addrPick('shipped_to_addr_id','shipped_to_addr','shipment'); return false;">
+		<label for="packed_by_agent">Shipped From Address</label>
+		<textarea name="shipped_from_addr" id="shipped_from_addr" cols="60" rows="5" 
+			readonly="yes" class="reqdClr">#shipped_from_addr#</textarea>
+		<input type="hidden" name="shipped_from_addr_id" value="#shipped_from_addr_id#">
+		<input type="button" value="Pick Address" class="picBtn"
+			onClick="addrPick('shipped_from_addr_id','shipped_from_addr','shipment'); return false;">
+		<label for="carriers_tracking_number">Tracking Number</label>
+		<input type="text" value="#carriers_tracking_number#" name="carriers_tracking_number" id="carriers_tracking_number">
+		<label for="shipped_date">Ship Date</label>
+		<input type="text" value="#dateformat(shipped_date,'dd mmm yyyy')#" name="shipped_date" id="shipped_date">
+		<label for="package_weight">Package Weight (TEXT, include units)</label>
+		<input type="text" value="#package_weight#" name="package_weight" id="package_weight">
+		<label for="hazmat_fg">Hazmat?</label>
+		<select name="hazmat_fg" id="hazmat_fg" size="1">
+			<option <cfif hazmat_fg is 0> selected="selected" </cfif>value="0">no</option>
+			<option <cfif hazmat_fg is 1> selected="selected" </cfif>value="1">yes</option>
+		</select>
+		<label for="insured_for_insured_value">Insured Value (NUMBER, US$)</label>
+		<cfinput type="text" validate="float" label="Numeric value required."
+			 value="#INSURED_FOR_INSURED_VALUE#" name="insured_for_insured_value" id="insured_for_insured_value">
+		<label for="shipment_remarks">Remarks</label>
+		<input type="text" value="#shipment_remarks#" name="shipment_remarks" id="shipment_remarks">
+		<label for="contents">Contents</label>
+		<input type="text" value="#contents#" name="contents" id="contents" size="60">
+		<label for="foreign_shipment_fg">Foreign shipment?</label>
+		<select name="foreign_shipment_fg" id="foreign_shipment_fg" size="1">
+			<option <cfif foreign_shipment_fg is 0> selected="selected" </cfif>value="0">no</option>
+			<option <cfif foreign_shipment_fg is 1> selected="selected" </cfif>value="1">yes</option>
+		</select>
+		<br><input type="submit" value="Save Shipment" class="savBtn">			
 	</cfform>
-	
-</table>
-
-<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	SELECT 
-		permit.permit_id,
-		issuedBy.agent_name as IssuedByAgent,
-		issuedTo.agent_name as IssuedToAgent,
-		issued_Date,
-		renewed_Date,
-		exp_Date,
-		permit_Num,
-		permit_Type,
-		permit_remarks	
-	FROM
-		permit, 
-		permit_trans, 
-		preferred_agent_name issuedTo, 
-		preferred_agent_name issuedBy
-	WHERE
-		permit.permit_id = permit_trans.permit_id AND
-		permit.issued_by_agent_id = issuedBy.agent_id AND
-		permit.issued_to_agent_id = issuedTo.agent_id AND
-		permit_trans.transaction_id = #loanDetails.transaction_id#
-</cfquery>
-<br><strong>Permits:</strong>  
-<cfloop query="getPermits">
-
-<form name="killPerm#currentRow#" method="post" action="Loan.cfm">
-<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to
- #IssuedToAgent# by #IssuedByAgent# on 
-#dateformat(issued_Date,"dd mmm yyyy")#. 
-<cfif len(#renewed_Date#) gt 0> 
-	(renewed #renewed_Date#)
-</cfif>Expires #dateformat(exp_Date,"dd mmm yyyy")#  
-<cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> 
-<br>
-<input type="hidden" name="transaction_id" value="#transaction_id#">
-	<input type="hidden" name="action" value="delePermit">
-	<input type="hidden" name="permit_id" value="#permit_id#">
-	 <input type="submit" value="Remove this Permit" class="delBtn"
-   onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'">	
-</form>
-</cfloop>
-<form name="addPermit" action="Loan.cfm" method="post">
-	<input type="hidden" name="transaction_id" value="#transaction_id#">
-	<input type="hidden" name="permit_id">
-	  <input type="button" value="Add a permit" class="picBtn"
-   onmouseover="this.className='picBtn btnhov'" onmouseout="this.className='picBtn'"
-   onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
-'resizable,scrollbars=yes,width=600,height=600')">	
-</form>
+	<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT 
+			permit.permit_id,
+			issuedBy.agent_name as IssuedByAgent,
+			issuedTo.agent_name as IssuedToAgent,
+			issued_Date,
+			renewed_Date,
+			exp_Date,
+			permit_Num,
+			permit_Type,
+			permit_remarks	
+		FROM
+			permit, 
+			permit_trans, 
+			preferred_agent_name issuedTo, 
+			preferred_agent_name issuedBy
+		WHERE
+			permit.permit_id = permit_trans.permit_id AND
+			permit.issued_by_agent_id = issuedBy.agent_id AND
+			permit.issued_to_agent_id = issuedTo.agent_id AND
+			permit_trans.transaction_id = #loanDetails.transaction_id#
+	</cfquery>
+	<br><strong>Permits:</strong>  
+	<cfloop query="getPermits">
+		<form name="killPerm#currentRow#" method="post" action="Loan.cfm">
+			<p>
+				<strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to
+			 	#IssuedToAgent# by #IssuedByAgent# on 
+				#dateformat(issued_Date,"dd mmm yyyy")#. 
+				<cfif len(renewed_Date) gt 0> 
+					(renewed #renewed_Date#)
+				</cfif>
+				Expires #dateformat(exp_Date,"dd mmm yyyy")#  
+				<cfif len(permit_remarks) gt 0>Remarks: #permit_remarks#</cfif> 
+				<br>
+				<input type="hidden" name="transaction_id" value="#transaction_id#">
+				<input type="hidden" name="action" value="delePermit">
+				<input type="hidden" name="permit_id" value="#permit_id#">
+				<input type="submit" value="Remove this Permit" class="delBtn">
+			</p>	
+		</form>
+	</cfloop>
+	<form name="addPermit" action="Loan.cfm" method="post">
+		<input type="hidden" name="transaction_id" value="#transaction_id#">
+		<input type="hidden" name="permit_id">
+		 <input type="button" value="Add a permit" class="picBtn"
+		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
+				'resizable,scrollbars=yes,width=600,height=600')">	
+	</form>
 </cfoutput>
 <script>
 	dCount();
