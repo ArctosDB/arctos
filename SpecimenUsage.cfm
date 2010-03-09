@@ -423,12 +423,12 @@
 		<a href="/Reports/SpecUsageReport.cfm">Create Report Data</a>
 		<cfset params="">
 		<cfloop list="#StructKeyList(form)#" index="key">
-			<cfif len(form[key]) gt 0 and key is not "FIELDNAMES">
+			<cfif len(form[key]) gt 0 and key is not "FIELDNAMES" and key is not "ACTION">
 					<cfset params=listappend(params,"#key#=#form[key]#","&")>
 			</cfif>
 		</cfloop>
 		<cfloop list="#StructKeyList(url)#" index="key">
-			<cfif len(url[key]) gt 0 and key is not "FIELDNAMES">
+			<cfif len(url[key]) gt 0 and key is not "FIELDNAMES" and key is not "ACTION">
 					<cfset params=listappend(params,"#key#=#url[key]#","&")>
 			</cfif>
 		</cfloop>
