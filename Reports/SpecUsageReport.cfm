@@ -2,8 +2,11 @@
 <cfoutput>
 	<cfdump var=#url#>
 	<cfloop list="#url.p#" index="l" delimiters="&">
+		------#l#-------
 		<cfset k=listgetat(l,1,"=")>
 		<cfset v=listgetat(l,2,"=")>
+		-------#k#--------
+		----------#v#--------
 		<cfset "#k#"=v>
 	</cfloop>
 	<cfdump var=#variables#>
