@@ -1,5 +1,13 @@
 <cfcomponent>
-	<!------------------------------------------------------->
+	
+<!------------------------------------------------------->
+<cffunction name="getTrans_agent_role" access="remote">
+	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select trans_agent_role from cttrans_agent_role order by trans_agent_role
+	</cfquery>
+	<cfreturn k>
+</cffunction>
+<!------------------------------------------------------->
 <cffunction name="insertAgentName" access="remote">
 	<cfargument name="name" type="string" required="yes">	
 	<cfargument name="id" type="numeric" required="yes">
