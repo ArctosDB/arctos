@@ -352,109 +352,79 @@
 		</select>
 		<input type="text" name="loan_number" id="loan_number" value="#loanDetails.loan_number#" class="reqdClr">
 		<br><span style="font-size:small;">Entered by #loanDetails.enteredby#</span>
-		
-		
-			</td>
-	</tr>
-	<!---
-	<tr>
-		<td align="right">To: </td>
-		<td>
-		<input type="text" name="rec_agent_name" class="reqdClr" size="50" value="#rec_agent#"
-			  onchange="getAgent('rec_agent_id','rec_agent_name','editloan',this.value); return false;"
-			  onKeyPress="return noenter(event);"> 
-			<input type="hidden" name="rec_agent_id">
-			 </td>
-	</tr>
-	<tr>
-		<td align="right">Authorized By: </td>
-		<td><input type="hidden" name="auth_agent_id">
-			<input type="text" name="auth_agent_name" class="reqdClr" size="50" value="#auth_agent#"
-			  onchange="getAgent('auth_agent_id','auth_agent_name','editloan',this.value); return false;"
-			  onKeyPress="return noenter(event);"> 
-   </td>
-
-	</tr>
-	--->
-	<tr>
-		<td colspan="2">
-			<table border>
+		<table border>
+			<tr>
+				<th>Agent Name</th>
+				<th>Role</th>
+				<th>Delete?</th>
+				<th></th>
+			</tr>
+			<cfloop query="loanAgents">
 				<tr>
-					<th>Agent Name</th>
-					<th>Role</th>
-					<th>Delete?</th>
-					<th></th>
+					<td>
+						<input type="text" name="trans_agent_#trans_agent_id#" class="reqdClr" size="50" value="#agent_name#"
+		  					onchange="getAgent('trans_agent_id_#trans_agent_id#','trans_agent_#trans_agent_id#','editloan',this.value); return false;"
+		  					onKeyPress="return noenter(event);">
+		  				<input type="hidden" name="trans_agent_id_#trans_agent_id#" value="#agent_id#">
+					</td>
+					<td>
+						<cfset thisRole = #trans_agent_role#>
+						<select name="trans_agent_role_#trans_agent_id#">
+							<cfloop query="cttrans_agent_role">
+								<option 
+									<cfif #trans_agent_role# is #thisRole#> selected="selected"</cfif>
+									value="#trans_agent_role#">#trans_agent_role#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<input type="checkbox" name="del_agnt_#trans_agent_id#">
+					</td>
+					<td><span class="infoLink" onclick="rankAgent('#agent_id#');">Rank</span></td>
 				</tr>
-				<cfloop query="loanAgents">
-					<tr>
-						<td>
-							<input type="text" name="trans_agent_#trans_agent_id#" class="reqdClr" size="50" value="#agent_name#"
-			  					onchange="getAgent('trans_agent_id_#trans_agent_id#','trans_agent_#trans_agent_id#','editloan',this.value); return false;"
-			  					onKeyPress="return noenter(event);">
-			  				<input type="hidden" name="trans_agent_id_#trans_agent_id#" value="#agent_id#">
-						</td>
-						<td>
-							<cfset thisRole = #trans_agent_role#>
-							<select name="trans_agent_role_#trans_agent_id#">
-								<cfloop query="cttrans_agent_role">
-									<option 
-										<cfif #trans_agent_role# is #thisRole#> selected="selected"</cfif>
-										value="#trans_agent_role#">#trans_agent_role#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="checkbox" name="del_agnt_#trans_agent_id#">
-						</td>
-						<td><span class="infoLink" onclick="rankAgent('#agent_id#');">Rank</span></td>
-					</tr>
-				</cfloop>
-					<tr class="newRec">
-						<td>
-							<label for="new_trans_agent">Add Agent:</label>
-							<input type="text" name="new_trans_agent" id="new_trans_agent" class="reqdClr" size="50"
-			  					onchange="getAgent('new_trans_agent_id','new_trans_agent','editloan',this.value); return false;"
-			  					onKeyPress="return noenter(event);">
-			  				<input type="hidden" name="new_trans_agent_id">
-						</td>
-						<td>
-							<label for="new_trans_agent_role">&nbsp;</label>
-							<select name="new_trans_agent_role" id="new_trans_agent_role">
-								<cfloop query="cttrans_agent_role">
-									<option value="#trans_agent_role#">#trans_agent_role#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>&nbsp;</td>
-					</tr>				
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td align="right">Type: </td>
-		<td><select name="loan_type" class="reqdClr">
-					<cfloop query="ctLoanType">
-						<option <cfif ctLoanType.loan_type is loanDetails.loan_type> selected </cfif>value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
-					</cfloop>
-				</select>
-	<img src="images/nada.gif" width="60" height="1">
-	Status:&nbsp;<select name="loan_status" class="reqdClr">
-					<cfloop query="ctLoanStatus">
-						<option <cfif #ctLoanStatus.loan_status# is "#loanDetails.loan_status#"> selected </cfif>value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
-					</cfloop>
-				</select>
-	</td>
-	</tr>	
-	<tr>
-		<td align="right">Transaction Date: </td>
-		<td><input type="text" name="initiating_date" id="initiating_date" value="#dateformat(loanDetails.trans_date,"dd-mmm-yyyy")#" class="reqdClr">
-		<img src="images/nada.gif" width="60" height="1">Due Date:&nbsp;<input type="text" id="return_due_date" name="return_due_date" value="#dateformat(loanDetails.return_due_date,'dd mmm yyyy')#">
-		</td>
-	</tr>
-	<tr>
-		<td align="right">Nature of Material:<br><span class="cntr" id="lbl_nature_of_material"></span></td>
-		<td><textarea name="nature_of_material" id="nature_of_material" rows="7" cols="60" class="reqdClr">#loanDetails.nature_of_material#</textarea></td>
-	</tr>
+			</cfloop>
+			<tr class="newRec">
+				<td>
+					<label for="new_trans_agent">Add Agent:</label>
+					<input type="text" name="new_trans_agent" id="new_trans_agent" class="reqdClr" size="50"
+	  					onchange="getAgent('new_trans_agent_id','new_trans_agent','editloan',this.value); return false;"
+	  					onKeyPress="return noenter(event);">
+	  				<input type="hidden" name="new_trans_agent_id">
+				</td>
+				<td>
+					<label for="new_trans_agent_role">&nbsp;</label>
+					<select name="new_trans_agent_role" id="new_trans_agent_role">
+						<cfloop query="cttrans_agent_role">
+							<option value="#trans_agent_role#">#trans_agent_role#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>&nbsp;</td>
+			</tr>				
+		</table><!-- end agents table --->
+		<label for="Loan Type">
+		<select name="loan_type" id="loan_type" class="reqdClr">
+			<cfloop query="ctLoanType">
+				<option <cfif ctLoanType.loan_type is loanDetails.loan_type> selected="selected" </cfif>
+					value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
+			</cfloop>
+		</select>
+		<label for="">Loan Status</label>
+		<select name="loan_status" id="loan_status" class="reqdClr">
+			<cfloop query="ctLoanStatus">
+				<option <cfif ctLoanStatus.loan_status is loanDetails.loan_status> selected="selected" </cfif>
+					value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
+			</cfloop>
+		</select>
+		<label for="initiating_date">Transaction Date</label>
+		<input type="text" name="initiating_date" id="initiating_date" 
+			value="#dateformat(loanDetails.trans_date,"dd-mmm-yyyy")#" class="reqdClr">
+		<label for="initiating_date">Due Date</label>
+		<input type="text" id="return_due_date" name="return_due_date"
+			value="#dateformat(loanDetails.return_due_date,'dd mmm yyyy')#">
+		<label for="">Nature of Material<span class="cntr" id="lbl_nature_of_material"></span></label>
+		<textarea name="nature_of_material" id="nature_of_material" rows="7" cols="60" 
+			class="reqdClr">#loanDetails.nature_of_material#</textarea>
 	<tr>
 		<td align="right">Description:<br><span class="cntr" id="lbl_loan_description"></span></td>
 		<td><textarea name="loan_description" id="loan_description" rows="7" cols="60">#loanDetails.loan_description#</textarea></td>
