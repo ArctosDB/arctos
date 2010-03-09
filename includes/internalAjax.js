@@ -313,8 +313,12 @@ function addLink (n) {
 	document.getElementById('numberLinks').value=thisID;
 }
 function addTransAgent (id,name) {
-	var id;
-	var name;
+	if (typeof id == "undefined") {
+		id = "";
+	 }
+	if (typeof name == "undefined") {
+		name = "";
+	 }
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getTrans_agent_role",
