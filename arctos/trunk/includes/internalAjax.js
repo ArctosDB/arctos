@@ -348,25 +348,19 @@ function addTransAgent (id,name,role) {
 				}
 				d+=' value="' + data.DATA.TRANS_AGENT_ROLE[i] + '">'+ data.DATA.TRANS_AGENT_ROLE[i] +'</option>';
 			}
-  			
+  			d+='</td><td>';
+  			d+='<input type="checkbox" name="del_agnt_' + i + '">';
+  			d+='</td><td>-</td></tr>';
   			console.log(d);
+  			jQuery('#loanAgents tr:last').after(d);
   			/*
   				
 			
 				
-					<cfloop query="cttrans_agent_role">
-						<option 
-							<cfif cttrans_agent_role.trans_agent_role is loanAgents.trans_agent_role>
-								selected="selected"
-							</cfif>
-							value="#trans_agent_role#">#trans_agent_role#</option>
-					</cfloop>
-				</select>
-			</td>
-			<td>
-				<input type="checkbox" name="del_agnt_#i#">
-			</td>
-			<td><span class="infoLink" onclick="rankAgent('#agent_id#');">Rank</span></td>
+					
+			
+				
+			
 		</tr>
 			var lid=jQuery('#attTab tr:last').attr("id");
 			if(lid.length==0){
