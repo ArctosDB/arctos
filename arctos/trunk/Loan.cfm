@@ -640,7 +640,8 @@
 	<form name="addPermit" action="Loan.cfm" method="post">
 		<input type="hidden" name="transaction_id" value="#transaction_id#">
 		<input type="hidden" name="permit_id">
-		 <input type="button" value="Add a permit" class="picBtn"
+		<label for="">Click to add Permit. Reload to see added permits.</label>
+		<input type="button" value="Add a permit" class="picBtn"
 		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
 				'resizable,scrollbars=yes,width=600,height=600')">	
 	</form>
@@ -650,131 +651,83 @@
 </script>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
-
-<cfif #Action# is "delePermit">
-<cfquery name="killPerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
-			permit_id=#permit_id#
-		</cfquery>
-		<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
+<cfif Action is "delePermit">
+	<cfquery name="killPerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
+		permit_id=#permit_id#
+	</cfquery>
+	<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
-<cfif #Action# is "saveShip">
+<cfif action is "saveShip">
 	<cfoutput>
 		<cfquery name="isShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from shipment where transaction_id = #transaction_id#
 		</cfquery>
-		<cfif #isShip.recordcount# is 0>
-			<!--- new record --->
+		<cfif isShip.recordcount is 0>
 			<cfquery name="newShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO shipment (
-					 TRANSACTION_ID
-					 ,PACKED_BY_AGENT_ID
-					 ,SHIPPED_CARRIER_METHOD
-					 <cfif len(#CARRIERS_TRACKING_NUMBER#) gt 0>
-					 	,CARRIERS_TRACKING_NUMBER
-					 </cfif>
-					 <cfif len(#SHIPPED_DATE#) gt 0>
-					 	,SHIPPED_DATE
-					 </cfif> 
-					 <cfif len(#PACKAGE_WEIGHT#) gt 0>
-					 	,PACKAGE_WEIGHT
-					 </cfif>
-					 ,HAZMAT_FG
-					 <cfif len(#INSURED_FOR_INSURED_VALUE#) gt 0>
-					 	,INSURED_FOR_INSURED_VALUE
-					 </cfif>
-					 <cfif len(#SHIPMENT_REMARKS#) gt 0>
-					 	,SHIPMENT_REMARKS
-					 </cfif> 
-					 <cfif len(#CONTENTS#) gt 0>
-					 	,CONTENTS
-					 </cfif>
-					 ,FOREIGN_SHIPMENT_FG
-					 ,SHIPPED_TO_ADDR_ID
-					 ,SHIPPED_FROM_ADDR_ID)
-				VALUES (
-					 #TRANSACTION_ID#
-					 ,#PACKED_BY_AGENT_ID#
-					 ,'#SHIPPED_CARRIER_METHOD#'
-					 <cfif len(#CARRIERS_TRACKING_NUMBER#) gt 0>
-					 	,'#CARRIERS_TRACKING_NUMBER#'
-					 </cfif>
-					 <cfif len(#SHIPPED_DATE#) gt 0>
-					 	,'#dateformat(SHIPPED_DATE,"dd-mmm-yyyy")#'
-					 </cfif> 
-					 <cfif len(#PACKAGE_WEIGHT#) gt 0>
-					 	,'#PACKAGE_WEIGHT#'
-					 </cfif>
-					 ,#HAZMAT_FG#
-					 <cfif len(#INSURED_FOR_INSURED_VALUE#) gt 0>
-					 	,'#INSURED_FOR_INSURED_VALUE#'
-					 </cfif>
-					 <cfif len(#SHIPMENT_REMARKS#) gt 0>
-					 	,'#SHIPMENT_REMARKS#'
-					 </cfif> 
-					 <cfif len(#CONTENTS#) gt 0>
-					 	,'#CONTENTS#'
-					 </cfif>
-					 ,#FOREIGN_SHIPMENT_FG#
-					 ,#SHIPPED_TO_ADDR_ID#
-					 ,#SHIPPED_FROM_ADDR_ID#)
-
+					TRANSACTION_ID
+					,PACKED_BY_AGENT_ID
+					,SHIPPED_CARRIER_METHOD
+					,CARRIERS_TRACKING_NUMBER
+					,SHIPPED_DATE
+					,PACKAGE_WEIGHT
+					,HAZMAT_FG
+					,INSURED_FOR_INSURED_VALUE
+					,SHIPMENT_REMARKS
+					,CONTENTS
+					,FOREIGN_SHIPMENT_FG
+					,SHIPPED_TO_ADDR_ID
+					,SHIPPED_FROM_ADDR_ID
+				) VALUES (
+					#TRANSACTION_ID#
+					,#PACKED_BY_AGENT_ID#
+					,'#SHIPPED_CARRIER_METHOD#'
+					,'#CARRIERS_TRACKING_NUMBER#'
+					,'#dateformat(SHIPPED_DATE,"dd-mmm-yyyy")#'
+					,'#PACKAGE_WEIGHT#'
+					,#HAZMAT_FG#
+					<cfif len(INSURED_FOR_INSURED_VALUE) gt 0>
+						,#INSURED_FOR_INSURED_VALUE#
+					<cfelse>
+					 	,NULL
+					</cfif>
+					,'#SHIPMENT_REMARKS#'
+					,'#CONTENTS#'
+					,#FOREIGN_SHIPMENT_FG#
+					,#SHIPPED_TO_ADDR_ID#
+					,#SHIPPED_FROM_ADDR_ID#
+				)
 			</cfquery>
 		  <cfelse>
-		  	<!--- update --->
 			<cfquery name="upShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				 UPDATE shipment SET
 					PACKED_BY_AGENT_ID = #PACKED_BY_AGENT_ID#
 					,SHIPPED_CARRIER_METHOD = '#SHIPPED_CARRIER_METHOD#'
-					 <cfif len(#CARRIERS_TRACKING_NUMBER#) gt 0>
-					 	,CARRIERS_TRACKING_NUMBER='#CARRIERS_TRACKING_NUMBER#'
-					  <cfelse>
-					  	,CARRIERS_TRACKING_NUMBER=null
-					 </cfif>
-					 <cfif len(#SHIPPED_DATE#) gt 0>
-					 	,SHIPPED_DATE='#dateformat(SHIPPED_DATE,"dd-mmm-yyyy")#'
-					  <cfelse>
-					  	,SHIPPED_DATE=null
-					 </cfif> 
-					 <cfif len(#PACKAGE_WEIGHT#) gt 0>
-					 	,PACKAGE_WEIGHT='#PACKAGE_WEIGHT#'
-					  <cfelse>
-					  	,PACKAGE_WEIGHT=null
-					 </cfif>
-					 ,HAZMAT_FG=#HAZMAT_FG#
-					 <cfif len(#INSURED_FOR_INSURED_VALUE#) gt 0>
-					 	,INSURED_FOR_INSURED_VALUE='#INSURED_FOR_INSURED_VALUE#'
-					  <cfelse>
-					  	,INSURED_FOR_INSURED_VALUE=null
-					 </cfif>
-					 <cfif len(#SHIPMENT_REMARKS#) gt 0>
-					 	,SHIPMENT_REMARKS='#SHIPMENT_REMARKS#'
-					  <cfelse>
-					  ,	SHIPMENT_REMARKS=null
-					 </cfif> 
-					 <cfif len(#CONTENTS#) gt 0>
-					 	,CONTENTS='#CONTENTS#'
-					  <cfelse>
-					  	,CONTENTS=null
-					 </cfif>
-					 ,FOREIGN_SHIPMENT_FG=#FOREIGN_SHIPMENT_FG#
-					 ,SHIPPED_TO_ADDR_ID=#SHIPPED_TO_ADDR_ID#
-					 ,SHIPPED_FROM_ADDR_ID=#SHIPPED_FROM_ADDR_ID#
+					,CARRIERS_TRACKING_NUMBER='#CARRIERS_TRACKING_NUMBER#'
+					,SHIPPED_DATE='#dateformat(SHIPPED_DATE,"dd-mmm-yyyy")#'
+					,PACKAGE_WEIGHT='#PACKAGE_WEIGHT#'
+					,HAZMAT_FG=#HAZMAT_FG#
+					<cfif len(#INSURED_FOR_INSURED_VALUE#) gt 0>
+						,INSURED_FOR_INSURED_VALUE=#INSURED_FOR_INSURED_VALUE#
+					<cfelse>
+					 	,INSURED_FOR_INSURED_VALUE=null
+					</cfif>
+					,SHIPMENT_REMARKS='#SHIPMENT_REMARKS#'
+					,CONTENTS='#CONTENTS#'
+					,FOREIGN_SHIPMENT_FG=#FOREIGN_SHIPMENT_FG#
+					,SHIPPED_TO_ADDR_ID=#SHIPPED_TO_ADDR_ID#
+					,SHIPPED_FROM_ADDR_ID=#SHIPPED_FROM_ADDR_ID#
 				WHERE
-					 transaction_id = #TRANSACTION_ID#
+					transaction_id = #TRANSACTION_ID#
 			</cfquery>
 		</cfif>
-		<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
-		
+		<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
-
-
-<!-------------------------------------------------------------------------------------------------->
-<cfif #Action# is "saveEdits">
-
+<cfif action is "saveEdits">
 	<cfoutput>
 		<cftransaction>
 			<cfquery name="upTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -903,29 +856,25 @@
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "makeLoan">
 	<cfoutput>
-		<!--- get the next loan_number --->
-		<!------#loan_type# - #loan_num# - #initiating_date# - #loan_num_suffix# - #rec_agent_id# - #loan_num# - #auth_agent_id#---
-		<cfabort>--->
-		<!--- make sure they filled in all the good stuff. --->
 		<cfif 
-			len(#loan_type#) is 0 OR
-			len(#loan_number#) is 0 OR
-			len(#initiating_date#) is 0 OR
-			len(#rec_agent_id#) is 0 OR
-			len(#auth_agent_id#) is 0
+			len(loan_type) is 0 OR
+			len(loan_number) is 0 OR
+			len(initiating_date) is 0 OR
+			len(rec_agent_id) is 0 OR
+			len(auth_agent_id) is 0
 		>
 			<br>Something bad happened.
 			<br>You must fill in loan_type, loannumber, authorizing_agent_name, initiating_date, loan_num_prefix, received_agent_name.
 			<br>Use your browser's back button to fix the problem and try again.
 			<cfabort>
 		</cfif>
-		<cfif len(#in_house_contact_agent_id#) is 0>
-			<cfset in_house_contact_agent_id=#auth_agent_id#>
+		<cfif len(in_house_contact_agent_i#) is 0>
+			<cfset in_house_contact_agent_id=auth_agent_id>
 		</cfif>
-		<cfif len(#outside_contact_agent_id#) is 0>
-			<cfset outside_contact_agent_id=#REC_AGENT_ID#>
+		<cfif len(outside_contact_agent_id) is 0>
+			<cfset outside_contact_agent_id=REC_AGENT_ID>
 		</cfif>	
-	<cftransaction>
+		<cftransaction>
 			<cfquery name="newLoanTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans (
 					TRANSACTION_ID,
@@ -1029,47 +978,42 @@
 				select sq_transaction_id.currval nextTransactionId from dual
 			</cfquery>
 		</cftransaction>	
-		<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#nextTransId.nextTransactionId#">
+		<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#nextTransId.nextTransactionId#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
-
-<!-------------------------------------------------------------------------------------------------->
-<cfif #action# is "addItems">
+<cfif action is "addItems">
 <cfset title="Search for Loans">
 	<cfoutput>
 	<div style="float:right; clear:left; border:1px solid black; padding:5px;">
-			<form action="Loan.cfm" method="post" name="stuff">
-				<input type="hidden" name="Action" value="listLoans">
-				<input name="notClosed" type="hidden" value="true">
-				 <input type="submit" 
-				 	value="Find all loans that are not 'closed'" class="schBtn"
-   onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
-			</form>
-		</div>
+		<form action="Loan.cfm" method="post" name="stuff">
+			<input type="hidden" name="Action" value="listLoans">
+			<input name="notClosed" type="hidden" value="true">
+			 <input type="submit" 
+			 	value="Find all loans that are not 'closed'" class="schBtn">	
+		</form>
+	</div>
 	<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select loan_type from ctloan_type
+		select loan_type from ctloan_type order by loan_type
 	</cfquery>
 	<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select loan_status from ctloan_status
+		select loan_status from ctloan_status order by loan_status
 	</cfquery>
 	<br><form name="SpecData" action="Loan.cfm" method="post">
 			<input type="hidden" name="Action" value="listLoans">
-			<input type="hidden" name="project_id" <cfif #project_id# gt 0> value = "#project_id#" </cfif>>
-
-
+			<input type="hidden" name="project_id" <cfif project_id gt 0> value="#project_id#" </cfif>>
 	<table>
 	<tr>
 		<td align="right"><strong>Find Loan:</strong> </td>
 		<td>
-		<select name="collection_id" size="1">
-			<option value=""></option>
-			<cfloop query="ctcollection">
-				<option value="#collection_id#">#collection#</option>
-			</cfloop>
-		</select>
-		<input type="text" name="loan_number">
-			</td>
+			<select name="collection_id" size="1">
+				<option value=""></option>
+				<cfloop query="ctcollection">
+					<option value="#collection_id#">#collection#</option>
+				</cfloop>
+			</select>
+			<input type="text" name="loan_number">
+		</td>
 	</tr>
 	<tr>
 		<td align="right">
@@ -1113,15 +1057,16 @@
 	
 	<tr>
 		<td align="right">Type: </td>
-		<td><select name="loan_type">
-		<option value=""></option>
-					<cfloop query="ctLoanType">
-						<option value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
-					</cfloop>
-				</select>
-	<img src="images/nada.gif" width="60" height="1">
-	Status:&nbsp;<select name="loan_status">
-	<option value=""></option>
+		<td>
+			<select name="loan_type">
+				<option value=""></option>
+				<cfloop query="ctLoanType">
+					<option value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
+				</cfloop>
+			</select>
+			<img src="images/nada.gif" width="60" height="1">
+			Status:&nbsp;<select name="loan_status">
+				<option value=""></option>
 					<cfloop query="ctLoanStatus">
 						<option value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
 					</cfloop>
@@ -1168,27 +1113,18 @@
 		<td align="right">Remarks: </td>
 		<td><textarea name="trans_remarks" rows="3" cols="50"></textarea></td>
 	</tr>
-	
-		<td colspan="2" align="center">
-		
-		
-		 <input type="submit" value="Find Loans" class="schBtn"
-   onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
-&nbsp;
-		   <input type="reset" value="Clear" class="qutBtn"
-   onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'">	
+	<td colspan="2" align="center">
+		<input type="submit" value="Find Loans" class="schBtn">	
+		&nbsp;
+		<input type="reset" value="Clear" class="qutBtn">	
    </td>
 	</tr>
 </table>
-	
-
-		</form>
-		
-		</cfoutput>
+</form>
+</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
-<!-------------------------------------------------------------------------------------------------->
-<cfif #Action# is "listLoans">
+<cfif action is "listLoans">
 <cfset title="Loan Item List">
 <cfset sel = "select 
 					trans.transaction_id,
@@ -1345,8 +1281,6 @@ ORDER BY loan_number">
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	
-	
 	<cfif allLoans.recordcount is 0>
 		Nothing matched your search criteria.
 	<cfelse>
@@ -1359,23 +1293,6 @@ ORDER BY loan_number">
 		
 	</cfif>
 	</cfoutput>
-	<!----
-	<!--- get preferred agent_names to display --->
-	<cfquery name="allLoans" dbtype="query">
-	 select * from allLoansRaw where transaction_id > 0 
-		<cfif len(#allLoansRaw.rec_agnt_type#) gt 0>
-			AND rec_agnt_type = 'preferred'
-		</cfif>  
-		<cfif len(#allLoansRaw.auth_agnt_type#) gt 0>
-			AND auth_agnt_type = 'preferred'
-		</cfif>  
-		<cfif len(#allLoansRaw.ent_agnt_type#) gt 0>
-			AND ent_agnt_type = 'preferred'
-		</cfif>  
-		ORDER BY loan_num_prefix, loan_num, loan_num_suffix, transaction_id					
-	</cfquery>
-	---->
-	
 			<table>
 			<cfset i=1>
 	<cfoutput query="allLoans" group="transaction_id">
@@ -1470,10 +1387,7 @@ ORDER BY loan_number">
 				</cfloop>
 			</td>
 		</tr>
-						
-					
-	
-					<tr>
+		<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap colspan="2">
 						<table width="100%">
@@ -1497,17 +1411,13 @@ ORDER BY loan_number">
 								</cfif>
 							</tr>
 						</table>
-							
-								
 						</td>
 					</tr>
 					</table>
 					</td>
 		</tr>
-			
 		<cfset i=#i#+1>
 	</cfoutput>
 </table>
 </cfif>
 <cfinclude template="includes/_footer.cfm">
-<!-------------------------------------------------------------------------------------------------->
