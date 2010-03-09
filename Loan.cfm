@@ -1024,7 +1024,7 @@ Shipment Information:
 						</cfquery>
 						delete from trans_agent where trans_agent_id=#trans_agent_id_#<hr>
 					<cfelse>
-						<cfif trans_agent_id_ is "new">
+						<cfif trans_agent_id_ is "new" and del_agnt_ is 0>
 							<cfquery name="newTransAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								insert into trans_agent (
 									transaction_id,
@@ -1045,7 +1045,7 @@ Shipment Information:
 									#agent_id_#,
 									'#trans_agent_role_#'
 								)<hr>
-						<cfelse>
+						<cfelseif del_agnt_ is 0>
 							<cfquery name="upTransAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								update trans_agent set
 									agent_id = #agent_id_#,
