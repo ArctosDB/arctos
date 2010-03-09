@@ -71,7 +71,7 @@
 		</cfquery>
 		<cfif r.collection_object_id gt 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select guid from flat where collection_object_id=#r.collection_object_id#
+				select guid from #session.flatTableName# where collection_object_id=#r.collection_object_id#
 			</cfquery>
 			<cfset rt="cataloged_item">
 			<cfset rs="#d.guid#">
@@ -153,6 +153,9 @@
 	<cfif session.roles does not contain "coldfusion_user">
 		<cfset session.dbuser=portalInfo.dbusername>
 		<cfset session.epw = encrypt(portalInfo.dbpwd,cfid)>
+		<cfset session.flatTableName = "filtered_flat">
+	<cfelse>
+		<cfset session.flatTableName = "flat">	
 	</cfif>
 	<cfset session.portal_id=portal_id>
 	<!--- may need to get generic appearance --->

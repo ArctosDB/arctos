@@ -154,40 +154,35 @@
 <!------------------------------------------------------------------->
 <cfif #action# is "getGraph">
 <cfoutput>
-			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-	<cfset flatTableName = "flat">
-<cfelse>
-	<cfset flatTableName = "filtered_flat">
-</cfif>
 	<cfset chartHeight = listfirst(size," x ")>
 	<cfset chartWidth = listlast(size," x ")>
 	<cfloop list="#graphThis#" index="item">
 		<cfset x = "#item#">
 		<cfset y="Specimens">
 			<cfif listcontains("family,phylorder,genus",#item#)>
-				<cfset basSelect = "SELECT count(#flatTableName#.cat_num) as y_data,
-					getTaxa(#flatTableName#.collection_object_id,'#item#') as x_data">
-				<cfset basGroup = "GROUP BY getTaxa(#flatTableName#.collection_object_id,'#item#')">
+				<cfset basSelect = "SELECT count(#session.flatTableName#.cat_num) as y_data,
+					getTaxa(#session.flatTableName#.collection_object_id,'#item#') as x_data">
+				<cfset basGroup = "GROUP BY getTaxa(#session.flatTableName#.collection_object_id,'#item#')">
 			<cfelse>
-				<cfset basSelect = "SELECT count(#flatTableName#.cat_num) y_data,
-					decode(#flatTableName#.#item#,
+				<cfset basSelect = "SELECT count(#session.flatTableName#.cat_num) y_data,
+					decode(#session.flatTableName#.#item#,
 					NULL,'not recorded',
-					#flatTableName#.#item#) as x_data">
+					#session.flatTableName#.#item#) as x_data">
 				<cfif #item# is "scientific_name">
-					<cfset basGroup = "GROUP BY #flatTableName#.#item#">
+					<cfset basGroup = "GROUP BY #session.flatTableName#.#item#">
 				<cfelse>
 					<cfset basGroup = "GROUP BY #item#">
 				</cfif>
 				
 			</cfif>
 			
-			<cfset basFrom = " FROM #flatTableName#">
-			<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
-			<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">	
+			<cfset basFrom = " FROM #session.flatTableName#">
+			<cfset basJoin = "INNER JOIN cataloged_item ON (#session.flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
+			<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">	
 			
 			<cfset basQual = "">
 			<cfset mapurl="">
-			<cfset basOrder = "ORDER BY count(#flatTableName#.cat_num) DESC">
+			<cfset basOrder = "ORDER BY count(#session.flatTableName#.cat_num) DESC">
 			<cfinclude template="includes/SearchSql.cfm">
 			<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# #basGroup# #basOrder#">	
 			<cfquery name="getGraph" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

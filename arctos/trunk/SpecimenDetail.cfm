@@ -1,14 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
-<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-	<cfset flatTableName = "flat">
-<cfelse>
-	<cfset flatTableName = "filtered_flat">
-</cfif>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select GUID from #flatTableName# where collection_object_id=#collection_object_id# 
+			select GUID from #session.flatTableName# where collection_object_id=#collection_object_id# 
 		</cfquery>
 		<cflocation url="/guid/#c.guid#" addtoken="false">
 	</cfoutput>	
@@ -18,7 +13,7 @@
 	<cfif guid contains ":">
 		<cfoutput>
 			<cfset sql="select collection_object_id from 
-					#flatTableName#
+					#session.flatTableName#
 				WHERE
 					upper(guid)='#ucase(guid)#'">
 			<cfset checkSql(sql)>
@@ -54,43 +49,43 @@
 </cfif>
 <cfset detSelect = "
 	SELECT DISTINCT
-		#flatTableName#.collection,
-		#flatTableName#.collection_id,
+		#session.flatTableName#.collection,
+		#session.flatTableName#.collection_id,
 		web_link,
 		web_link_text,
-		#flatTableName#.cat_num,
-		#flatTableName#.collection_object_id as collection_object_id,
-		#flatTableName#.scientific_name,
-		#flatTableName#.continent_ocean,
-		#flatTableName#.country,
-		#flatTableName#.collecting_event_id,
-		#flatTableName#.state_prov,
-		#flatTableName#.quad,
-		#flatTableName#.higher_geog,
-		#flatTableName#.county,
-		#flatTableName#.island,
-		#flatTableName#.island_group,
-		#flatTableName#.spec_locality,
-		#flatTableName#.verbatim_date,
-		#flatTableName#.BEGAN_DATE,
-		#flatTableName#.ended_date,
-		#flatTableName#.sea,
-		#flatTableName#.feature,
-		concatparts(#flatTableName#.collection_object_id) as partString,
-		concatEncumbrances(#flatTableName#.collection_object_id) as encumbrance_action,
-		#flatTableName#.dec_lat,
-		#flatTableName#.dec_long">
+		#session.flatTableName#.cat_num,
+		#session.flatTableName#.collection_object_id as collection_object_id,
+		#session.flatTableName#.scientific_name,
+		#session.flatTableName#.continent_ocean,
+		#session.flatTableName#.country,
+		#session.flatTableName#.collecting_event_id,
+		#session.flatTableName#.state_prov,
+		#session.flatTableName#.quad,
+		#session.flatTableName#.higher_geog,
+		#session.flatTableName#.county,
+		#session.flatTableName#.island,
+		#session.flatTableName#.island_group,
+		#session.flatTableName#.spec_locality,
+		#session.flatTableName#.verbatim_date,
+		#session.flatTableName#.BEGAN_DATE,
+		#session.flatTableName#.ended_date,
+		#session.flatTableName#.sea,
+		#session.flatTableName#.feature,
+		concatparts(#session.flatTableName#.collection_object_id) as partString,
+		concatEncumbrances(#session.flatTableName#.collection_object_id) as encumbrance_action,
+		#session.flatTableName#.dec_lat,
+		#session.flatTableName#.dec_long">
 		<cfif len(#session.CustomOtherIdentifier#) gt 0>
 			<cfset detSelect = "#detSelect#
-			,concatSingleOtherId(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') as	CustomID">
+			,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') as	CustomID">
 		</cfif>		
 <cfset detSelect = "#detSelect#	
 	FROM 
-		#flatTableName#,
+		#session.flatTableName#,
 		collection
 	where
-		#flatTableName#.collection_id = collection.collection_id AND
-		#flatTableName#.collection_object_id = #collection_object_id#
+		#session.flatTableName#.collection_id = collection.collection_id AND
+		#session.flatTableName#.collection_object_id = #collection_object_id#
 	ORDER BY
 		cat_num">
 <cfset checkSql(detSelect)>	
