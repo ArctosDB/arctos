@@ -476,7 +476,7 @@
 				onKeyPress="return noenter(event);">
 			<label for="">Create a project from this loan</label>
 			<label for="newAgent_name">Project Agent Name</label>
-			<input type="text" name="newAgent_name" 
+			<input type="text" name="newAgent_name" id="newAgent_name" 
 				class="reqdClr" 
 				onchange="findAgentName('newAgent_name_id','newAgent_name',this.value); return false;"
 				onKeyPress="return noenter(event);"
