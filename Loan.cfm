@@ -1063,10 +1063,12 @@ Shipment Information:
 					</cfif>
 				</cfloop>
 			</cftransaction>
-			<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
 			<!---
+			<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
 
 			--->
+			
+			<a href="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">back</a>
 	</cfoutput>
 
 </cfif>
