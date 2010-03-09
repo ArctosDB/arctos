@@ -868,7 +868,7 @@
 			<br>Use your browser's back button to fix the problem and try again.
 			<cfabort>
 		</cfif>
-		<cfif len(in_house_contact_agent_i#) is 0>
+		<cfif len(in_house_contact_agent_id) is 0>
 			<cfset in_house_contact_agent_id=auth_agent_id>
 		</cfif>
 		<cfif len(outside_contact_agent_id) is 0>
