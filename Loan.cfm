@@ -386,7 +386,8 @@
 				</tr>
 				<cfset i=i+1>
 			</cfloop>
-			<input type="text" id="numAgents" name="numAgents" value="#i#">
+			<cfset na=i-1>
+			<input type="text" id="numAgents" name="numAgents" value="#na#">
 			<tr class="newRec">
 				<td>
 					<label for="new_trans_agent" onclick="addTransAgent()">Add Agent:</label>
