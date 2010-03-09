@@ -341,12 +341,12 @@ function addTransAgent (id,name,role) {
   			console.log(d);
   			d+='</td><td>';
   			d+='<select name="trans_agent_role_' + i + '" id="trans_agent_role_' + i + '">';
-  			for (i=0; i<data.ROWCOUNT; ++i) {
+  			for (a=0; a<data.ROWCOUNT; ++a) {
 				d+='<option ';
-				if(role==data.DATA.TRANS_AGENT_ROLE[i]){
+				if(role==data.DATA.TRANS_AGENT_ROLE[a]){
 					d+=' selected="selected"';
 				}
-				d+=' value="' + data.DATA.TRANS_AGENT_ROLE[i] + '">'+ data.DATA.TRANS_AGENT_ROLE[i] +'</option>';
+				d+=' value="' + data.DATA.TRANS_AGENT_ROLE[a] + '">'+ data.DATA.TRANS_AGENT_ROLE[a] +'</option>';
 			}
   			d+='</td><td>';
   			d+='<input type="checkbox" name="del_agnt_' + i + '">';
