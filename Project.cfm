@@ -1,5 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-
 <script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
@@ -23,7 +22,7 @@
 	select project_agent_role from ctproject_agent_role
 </cfquery>
 
-<cfif #Action# is "nothing">
+<cfif action is "nothing">
 <cfset title = "Search for Projects">
 <table width="75%"><tr valign="top"><td>
 <h2>Project Search</h2>
