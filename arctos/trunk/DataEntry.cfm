@@ -23,7 +23,7 @@
 			}
 		});
 		jQuery("input[type=text]").focus(function(){
-		    this.select();
+		    //this.select();
 		});
 		$("select[id^='geology_attribute_']").each(function(e){
 			var gid='geology_attribute_' + String(e+1);
