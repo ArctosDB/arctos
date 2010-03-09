@@ -431,7 +431,7 @@
 				</tr>
 				<tr>
 					<td align="right"><a href="javascript:void(0);" onClick="getDocs('project','date')">Start&nbsp;Date</a> </td>
-					<td><input type="text" name="start_date" value="#dateformat(trans_date,"dd-mmm-yyyy")#"></td>
+					<td><input type="text" name="start_date" value="#dateformat(loanDetails.trans_date,"dd-mmm-yyyy")#"></td>
 					<td align="right">End Date</td>
 					<td><input type="text" name="end_date"></td>
 				</tr>
@@ -440,12 +440,12 @@
 						<a href="javascript:void(0);" onClick="getDocs('project','description')">Description</a>
 					</td>
 					<td colspan="3"><textarea name="project_description" 
-								id="project_description" cols="50" rows="6">#loan_description#</textarea>
+								id="project_description" cols="50" rows="6">#loanDetails.loan_description#</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td align="right">Remarks</td>
-					<td colspan="3"><textarea name="project_remarks" cols="50" rows="3">#trans_remarks#</textarea></td>
+					<td colspan="3"><textarea name="project_remarks" cols="50" rows="3">#loanDetails.trans_remarks#</textarea></td>
 				</tr>
 				<tr>
 					<td align="right">
