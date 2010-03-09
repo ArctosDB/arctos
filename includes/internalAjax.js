@@ -325,7 +325,7 @@ function addTransAgent (id,name) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		function (d) {
+		function (data) {
 			var i=parseInt(document.getElementById('numAgents').value)+1;
 			console.log('i: ' + i);
 			
@@ -338,8 +338,8 @@ function addTransAgent (id,name) {
   			console.log(d);
   			d+='</td><td>';
   			d+='<select name="trans_agent_role_' + i + '" id="trans_agent_role_' + i + '">';
-  			for (i=0; i<d.ROWCOUNT; ++i) {
-				d+='<option value="' + d.DATA.TRANS_AGENT_ROLE[i] + '">'+ d.DATA.TRANS_AGENT_ROLE[i] +'</option>';
+  			for (i=0; i<data.ROWCOUNT; ++i) {
+				d+='<option value="' + data.DATA.TRANS_AGENT_ROLE[i] + '">'+ data.DATA.TRANS_AGENT_ROLE[i] +'</option>';
 			}
   			
   			console.log(d);
