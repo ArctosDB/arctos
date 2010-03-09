@@ -391,6 +391,7 @@
 			<tr class="newRec">
 				<td>
 					<label for="new_trans_agent" onclick="addTransAgent()">Add Agent:</label>
+					<span onclick="addTransAgent (2072,'meeee','received by')">addMe</span>
 					<input type="text" name="new_trans_agent" id="new_trans_agent" class="reqdClr" size="50"
 	  					onchange="getAgent('new_trans_agent_id','new_trans_agent','editloan',this.value); return false;"
 	  					onKeyPress="return noenter(event);">

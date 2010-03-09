@@ -312,12 +312,15 @@ function addLink (n) {
 	jQuery('#linkTab tr:last').after(newRow);
 	document.getElementById('numberLinks').value=thisID;
 }
-function addTransAgent (id,name) {
+function addTransAgent (id,name,role) {
 	if (typeof id == "undefined") {
 		id = "";
 	 }
 	if (typeof name == "undefined") {
 		name = "";
+	 }
+	if (typeof role == "undefined") {
+		role = "";
 	 }
 	jQuery.getJSON("/component/functions.cfc",
 		{
@@ -339,7 +342,11 @@ function addTransAgent (id,name) {
   			d+='</td><td>';
   			d+='<select name="trans_agent_role_' + i + '" id="trans_agent_role_' + i + '">';
   			for (i=0; i<data.ROWCOUNT; ++i) {
-				d+='<option value="' + data.DATA.TRANS_AGENT_ROLE[i] + '">'+ data.DATA.TRANS_AGENT_ROLE[i] +'</option>';
+				d+='<option ';
+				if(role==data.DATA.TRANS_AGENT_ROLE[i]){
+					d+=' selected="selected"';
+				}
+				d+=' value="' + data.DATA.TRANS_AGENT_ROLE[i] + '">'+ data.DATA.TRANS_AGENT_ROLE[i] +'</option>';
 			}
   			
   			console.log(d);
