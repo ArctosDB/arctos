@@ -1,9 +1,3 @@
-<cfinclude template="/includes/_header.cfm">
-			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-	<cfset flatTableName = "flat">
-<cfelse>
-	<cfset flatTableName = "filtered_flat">
-</cfif>
 <script>
  function checkUncheck(formName,CollObjValue)
  {
@@ -67,43 +61,43 @@
 
 <cfif #newQuery# is 1>	<!--- build and send the query--->
 	<cfset basSelect = " SELECT 
-		#flatTableName#.collection_object_id,
-		#flatTableName#.cat_num,
-		#flatTableName#.institution_acronym,
-		#flatTableName#.collection_cde,
-		#flatTableName#.collection_id,
-		#flatTableName#.parts,
-		#flatTableName#.sex,
-		#flatTableName#.scientific_name,
-		#flatTableName#.country,
-		#flatTableName#.state_prov,
-		#flatTableName#.spec_locality,
-		#flatTableName#.verbatim_date
+		#session.flatTableName#.collection_object_id,
+		#session.flatTableName#.cat_num,
+		#session.flatTableName#.institution_acronym,
+		#session.flatTableName#.collection_cde,
+		#session.flatTableName#.collection_id,
+		#session.flatTableName#.parts,
+		#session.flatTableName#.sex,
+		#session.flatTableName#.scientific_name,
+		#session.flatTableName#.country,
+		#session.flatTableName#.state_prov,
+		#session.flatTableName#.spec_locality,
+		#session.flatTableName#.verbatim_date
 		">
 	<cfif len(#session.CustomOtherIdentifier#) gt 0>
 		<cfset basSelect = "#basSelect# 
-			,concatSingleOtherId(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-			to_number(ConcatSingleOtherIdInt(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
+			,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+			to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 	</cfif>
-	<cfset basFrom = " FROM #flatTableName#">
-	<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
-	<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">	
+	<cfset basFrom = " FROM #session.flatTableName#">
+	<cfset basJoin = "INNER JOIN cataloged_item ON (#session.flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
+	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">	
 <!--------------------------------------------------------------->
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="includes/SearchSql.cfm">
 	<cfif #detail_level# gte 2>
 		<cfset basSelect = "#basSelect#,
-			#flatTableName#.accession,
-			#flatTableName#.coll_obj_disposition,
-			#flatTableName#.county,
-			#flatTableName#.feature,
-			#flatTableName#.quad,
-			#flatTableName#.remarks,
-			#flatTableName#.ISLAND,
-			#flatTableName#.ISLAND_GROUP,
-			#flatTableName#.associated_species,
-			#flatTableName#.habitat,
+			#session.flatTableName#.accession,
+			#session.flatTableName#.coll_obj_disposition,
+			#session.flatTableName#.county,
+			#session.flatTableName#.feature,
+			#session.flatTableName#.quad,
+			#session.flatTableName#.remarks,
+			#session.flatTableName#.ISLAND,
+			#session.flatTableName#.ISLAND_GROUP,
+			#session.flatTableName#.associated_species,
+			#session.flatTableName#.habitat,
 			 round(MIN_ELEV_IN_M) MIN_ELEV_IN_M,
 			 round(MAX_ELEV_IN_M) MAX_ELEV_IN_M">
 	</cfif><!--- end detail_level 2---->
@@ -118,26 +112,26 @@
 			<cfset thisName = #left(thisName,20)#>
 			<cfif #thisName# is not "sex"><!--- already got it --->
 				<cfset basSelect = "#basSelect# ,
-							ConcatAttributeValue(#flatTableName#.collection_object_id,'#ctAtt.attribute_type#') 
+							ConcatAttributeValue(#session.flatTableName#.collection_object_id,'#ctAtt.attribute_type#') 
 				#thisName#">
 			</cfif>
 		</cfloop>
 		<cfset basSelect = "#basSelect# ,
-					#flatTableName#.began_date, 
-						#flatTableName#.ended_date, 
-							get_scientific_name_auths(#flatTableName#.collection_object_id) sci_name_with_auth,
-							concatAcceptedIdentifyingAgent(#flatTableName#.collection_object_id) identified_by">
+					#session.flatTableName#.began_date, 
+						#session.flatTableName#.ended_date, 
+							get_scientific_name_auths(#session.flatTableName#.collection_object_id) sci_name_with_auth,
+							concatAcceptedIdentifyingAgent(#session.flatTableName#.collection_object_id) identified_by">
 	</cfif><!--- end detail_level 3---->
 	<cfif #detail_level# gte 4>
 		<cfset basSelect = "#basSelect#,
-			#flatTableName#.datum,
-			#flatTableName#.orig_lat_long_units,
-			#flatTableName#.lat_long_determiner,
-			#flatTableName#.lat_long_ref_source,
-			#flatTableName#.lat_long_remarks,
-			#flatTableName#.COORDINATEUNCERTAINTYINMETERS,
-			#flatTableName#.CONTINENT_OCEAN,
-			#flatTableName#.SEA,
+			#session.flatTableName#.datum,
+			#session.flatTableName#.orig_lat_long_units,
+			#session.flatTableName#.lat_long_determiner,
+			#session.flatTableName#.lat_long_ref_source,
+			#session.flatTableName#.lat_long_remarks,
+			#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS,
+			#session.flatTableName#.CONTINENT_OCEAN,
+			#session.flatTableName#.SEA,
 			get_taxonomy(cataloged_item.collection_object_id,'family') family,
 			get_taxonomy(cataloged_item.collection_object_id,'phylorder') phylorder
 		">

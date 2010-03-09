@@ -99,12 +99,7 @@ function removeHelpDiv() {
 	Page loading....
 </div>
 <cfflush>
-	<cfoutput>
-<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-	<cfset flatTableName = "flat">
-<cfelse>
-	<cfset flatTableName = "filtered_flat">
-</cfif>
+<cfoutput>
 <cfif not isdefined("displayrows")>
 	<cfset displayrows = session.displayrows>
 </cfif>
@@ -137,12 +132,12 @@ function removeHelpDiv() {
 		<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
 	</cfif>
 </cfloop>
-<cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id">
+<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 <cfif len(#session.CustomOtherIdentifier#) gt 0>
 	<cfset basSelect = "#basSelect# 
-		,concatSingleOtherId(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+		,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		'#session.CustomOtherIdentifier#' as myCustomIdType,
-		to_number(ConcatSingleOtherIdInt(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
+		to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 </cfif>
 <cfloop query="r_d">
 	<cfif left(column_name,1) is not "_" and (
@@ -156,9 +151,9 @@ function removeHelpDiv() {
 <cfif ListContainsNoCase(session.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif> 
-	<cfset basFrom = " FROM #flatTableName#">
-	<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
-	<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">	
+	<cfset basFrom = " FROM #session.flatTableName#">
+	<cfset basJoin = "INNER JOIN cataloged_item ON (#session.flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
+	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">	
 
 	<cfset basQual = "">
 	<cfset mapurl="">
@@ -166,7 +161,7 @@ function removeHelpDiv() {
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 	
-	<cfset sqlstring = replace(sqlstring,"flatTableName","#flatTableName#","all")>
+	<cfset sqlstring = replace(sqlstring,"session.flatTableName","#session.flatTableName#","all")>
 	<!--- require some actual searching --->
 	<cfset srchTerms="">
 	<cfloop list="#mapurl#" delimiters="&" index="t">
