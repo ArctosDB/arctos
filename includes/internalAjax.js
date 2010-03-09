@@ -312,7 +312,9 @@ function addLink (n) {
 	jQuery('#linkTab tr:last').after(newRow);
 	document.getElementById('numberLinks').value=thisID;
 }
-function addTransAgent (aid,name) {
+function addTransAgent (id,name) {
+	var id;
+	var name;
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getTrans_agent_role",
