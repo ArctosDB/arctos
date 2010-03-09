@@ -312,7 +312,7 @@ function addLink (n) {
 	jQuery('#linkTab tr:last').after(newRow);
 	document.getElementById('numberLinks').value=thisID;
 }
-function addTransAgent () {
+function addTransAgent (aid,name) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getTrans_agent_role",
@@ -320,15 +320,15 @@ function addTransAgent () {
 			queryformat : 'column'
 		},
 		function (d) {
-			var numAgents=parseInt(document.getElementById('numAgents').value)+1;
-
-			console.log('numAgents: ' + numAgents);
+			var i=parseInt(document.getElementById('numAgents').value)+1;
+			console.log('i: ' + i);
 			
-			/*
 			var d='<tr><td>';
-			d+='<input type="text" name="trans_agent_#i#" class="reqdClr" size="30" value="#agent_name#"
-  					onchange="getAgent('trans_agent_id_#i#','trans_agent_#i#','editloan',this.value); return false;"
-  					onKeyPress="return noenter(event);">
+			d+='<input type="text" name="trans_agent_' + i + '" class="reqdClr" size="30" value="' + name + '"';
+  			d+=' onchange="getAgent(\'trans_agent_id_' + i + "\',\'trans_agent_' + i + '\','editloan',this.value);';" +
+  			d+=' return false;"	onKeyPress="return noenter(event);">';
+  			console.log(d);
+  			/*
   				<input type="hidden" name="trans_agent_id_#i#" value="#agent_id#">
 			</td>
 			<td>
