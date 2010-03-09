@@ -421,6 +421,8 @@
 	
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<a href="/Reports/SpecUsageReport.cfm">Create Report Data</a>
+		<cfdump var=#form#>
+		<cfdump var=#url#>
 		----------#sql#--------
 		<hr>----------#basSQL#----------
 	</cfif>
