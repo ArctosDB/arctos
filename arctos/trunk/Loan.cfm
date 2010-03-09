@@ -349,7 +349,7 @@
 					value="#ctcollection.collection_id#">#ctcollection.collection#</option>
 			</cfloop>
 		</select>
-		<input type="text" name="loan_number" id="loan_number" value="#loan_number#" class="reqdClr">
+		<input type="text" name="loan_number" id="loan_number" value="#loanDetails.loan_number#" class="reqdClr">
 		<br><span style="font-size:small;">Entered by #enteredby#</span>
 		</td>
 			<td colspan="99" rowspan="99" valign="top">
