@@ -384,7 +384,7 @@
 						<input type="checkbox" name="del_agnt_#i#">
 					</td>
 					<td>
-						<select id="cloneTransAgent_#i#" onchange="cloneTransAgent(#i#)">
+						<select id="cloneTransAgent_#i#" onchange="cloneTransAgent(#i#)" style="width:20px">
 							<option value=""></option>
 							<cfloop query="cttrans_agent_role">
 								<option value="#trans_agent_role#">#trans_agent_role#</option>
