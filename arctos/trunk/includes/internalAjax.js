@@ -320,7 +320,7 @@ function addTransAgent () {
 			queryformat : 'column'
 		},
 		function (d) {
-			var numAgents=document.getElementById('numAgents').value;
+			var numAgents=document.getElementById('numAgents').value+1;
 
 			console.log('numAgents: ' + numAgents);
 			
