@@ -1018,7 +1018,7 @@ Shipment Information:
 						<cfset del_agnt_=0>
 					</cfcatch>
 					</cftry>
-					<cfif  del_agnt_ is "1" and trans_agent_id_ gt 0>
+					<cfif  del_agnt_ is "1" and isnumeric(trans_agent_id_) and trans_agent_id_ gt 0>
 						<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							delete from trans_agent where trans_agent_id=#trans_agent_id_#
 						</cfquery>
