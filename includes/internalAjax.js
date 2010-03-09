@@ -352,6 +352,7 @@ function addTransAgent (id,name,role) {
   			d+='<input type="checkbox" name="del_agnt_' + i + '">';
   			d+='</td><td>-</td></tr>';
   			console.log(d);
+  			document.getElementById('numAgents').value=i;
   			jQuery('#loanAgents tr:last').after(d);
   			/*
   				
