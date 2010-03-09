@@ -3,7 +3,7 @@
 <!------------------------------------------------------->
 <cffunction name="getTrans_agent_role" access="remote">
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select trans_agent_role from cttrans_agent_role where trans_agent_role != 'enterd by' order by trans_agent_role
+		select trans_agent_role from cttrans_agent_role where trans_agent_role != 'entered by' order by trans_agent_role
 	</cfquery>
 	<cfreturn k>
 </cffunction>
