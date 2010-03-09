@@ -357,6 +357,7 @@
 				<th>Agent Name <span class="likeLink" onclick="addTransAgent()">Add Row</span></th>
 				<th>Role</th>
 				<th>Delete?</th>
+				<th>CloneAs</th>
 				<th></th>
 			</tr>
 			<cfset i=1>
@@ -381,6 +382,14 @@
 					</td>
 					<td>
 						<input type="checkbox" name="del_agnt_#i#">
+					</td>
+					<td>
+						<select id="cloneTransAgent_#i#" onchange="cloneTransAgent(#i#)">
+							<option value=""></option>
+							<cfloop query="cttrans_agent_role">
+								<option value="#trans_agent_role#">#trans_agent_role#</option>
+							</cfloop>
+						</select>
 					</td>
 					<td><span class="infoLink" onclick="rankAgent('#agent_id#');">Rank</span></td>
 				</tr>
