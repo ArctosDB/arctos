@@ -320,7 +320,7 @@ function addTransAgent () {
 			queryformat : 'column'
 		},
 		function (d) {
-			var numAgents=jQuery('#numAgents#').val + 1;
+			var numAgents=jQuery('#numAgents').val + 1;
 			console.log('numAgents: ' + numAgents);
 			
 			/*
