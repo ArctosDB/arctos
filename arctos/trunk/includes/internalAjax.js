@@ -357,6 +357,13 @@ function addTransAgent (id,name,role) {
 			}
   			d+='</td><td>';
   			d+='<input type="checkbox" name="del_agnt_' + i + '">';
+  			d+='</td><td>';
+  			d+='<select id="cloneTransAgent_' + i + '" onchange="cloneTransAgent(' + i + ')" style="width:8em">';
+  			d+='<option value=""></option>';
+  			for (a=0; a<data.ROWCOUNT; ++a) {
+				d+='<option value="' + data.DATA.TRANS_AGENT_ROLE[a] + '">'+ data.DATA.TRANS_AGENT_ROLE[a] +'</option>';
+			}
+			d+='</select>';		
   			d+='</td><td>-</td></tr>';
   			console.log(d);
   			document.getElementById('numAgents').value=i;
