@@ -312,6 +312,10 @@ function addLink (n) {
 	jQuery('#linkTab tr:last').after(newRow);
 	document.getElementById('numberLinks').value=thisID;
 }
+function cloneTransAgent(i){
+	var id=jQuery('#trans_agent_id_' + i).val();
+	console.log('got id ' + id);
+}
 function addTransAgent (id,name,role) {
 	if (typeof id == "undefined") {
 		id = "";
