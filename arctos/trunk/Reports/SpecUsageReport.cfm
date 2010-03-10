@@ -87,11 +87,21 @@
 			</cfquery>
 			<cfif pa.recordcount is 1>
 				<cfset project_agents=pa.agent_name>
+			<cfelseif pa.recordcount is 2>
+				<cfset project_agents=valuelist(pa.agent_name," and ")>
 			<cfelse>
-				<cfset project_agents=valuelist(pa.agent_name,", ")>
+			<hr>
+			--#project_agents#
+				<cfset project_agents=valuelist(pa.agent_name,",")>
+				<cfset lval = "and " & trim(ListLast(project_agents)>
+				<cfset project_agents=listdeleteat(project_agents,listlen(project_agents))>
+				<cfset project_agents=listappend(project_agents,lval)>
+				<cfset project_agents=listchangedelims(project_agents,", ")>
+				
 			</cfif>
+			<br>
 			project_agents: #project_agents#
-			
+			<hr>
 			
 			project_id number,
 			project_name varchar2(4000),
