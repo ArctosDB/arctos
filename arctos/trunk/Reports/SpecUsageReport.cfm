@@ -28,8 +28,8 @@
 			select
 				project.project_id,
 				project.project_name,
-				project.start_date,
-				project.end_date
+				to_char(project.start_date,'DD Mon YYYY') start_date,
+				to_char(project.end_date,'DD Mon YYYY') end_date
 			from
 				project
 			where
@@ -90,37 +90,59 @@
 			<cfelseif pa.recordcount is 2>
 				<cfset project_agents=valuelist(pa.agent_name," and ")>
 			<cfelse>
-			<hr>
-			--#project_agents#
 				<cfset project_agents=valuelist(pa.agent_name,",")>
 				<cfset lval = "and " & trim(ListLast(project_agents))>
 				<cfset project_agents=listdeleteat(project_agents,listlen(project_agents))>
 				<cfset project_agents=listappend(project_agents,lval)>
 				<cfset project_agents=listchangedelims(project_agents,", ")>
-				
 			</cfif>
-			<br>
-			project_agents: #project_agents#
-			<hr>
 			
-			project_id number,
-			project_name varchar2(4000),
-			project_dates varchar2(4000),
-			project_agents varchar2(4000),
-			project_sponsors varchar2(4000),
-			numberProjectAccnSpecimens number,
-			numberProjectLoanSpecimens number,
-			
-			test-uam> desc 
- Name										     Null?    Type
- ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
- PROJECT_ID									     NOT NULL NUMBER
- TRANSACTION_ID 								     NOT NULL NUMBER
- PROJECT_TRANS_REMARKS									      VARCHAR2(255)
-
-
+			<cfif ps.recordcount is 1>
+				<cfset project_sponsors=ps.agent_name>
+			<cfelseif ps.recordcount is 2>
+				<cfset project_sponsors=valuelist(ps.agent_name," and ")>
+			<cfelse>
+				<cfset project_sponsors=valuelist(ps.agent_name,",")>
+				<cfset lval = "and " & trim(ListLast(project_sponsors))>
+				<cfset project_sponsors=listdeleteat(project_sponsors,listlen(project_sponsors))>
+				<cfset project_sponsors=listappend(project_sponsors,lval)>
+				<cfset project_sponsors=listchangedelims(project_sponsors,", ")>
+			</cfif>
+			<cfif p.start_date is p.end_date>
+				<cfset project_dates=p.start_date>
+			<cfelseif len(p.start_date) gt 0 and len(p.end_date) gt 0>
+				<cfset project_dates=p.start_date & '-' & p.end_date>
+			<cfelseif len(p.start_date) gt 0>
+				<cfset project_dates=p.start_date>
+			<cfelseif len(p.end_date) gt 0>
+				<cfset project_dates=p.end_date>			
+			</cfif>
+			<cfquery name="insProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into #session.projectReportTable# (
+					project_id,
+					project_name,
+					project_dates,
+					project_agents,
+					project_sponsors,
+					numberProjectAccnSpecimens,
+					numberProjectLoanSpecimens
+				) values (
+					#p.project_id#,
+					#p.project_name#
+					'#project_dates#',
+					'#project_agents#',
+					'#project_sponsors#',
+					#pan.numSpec#,
+					#plo.numSpec#
+				)
+			</cfquery>
 		</cfloop>
 	</cfif>
+	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from #session.projectReportTable#
+	</cfquery>
+	<cfdump var="#r#">
+
 </cfoutput>
 	<!----------
 	<cfabort>
