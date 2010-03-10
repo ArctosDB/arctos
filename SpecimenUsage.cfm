@@ -420,19 +420,7 @@
 	</cfquery>
 	
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-		<a href="/Reports/SpecUsageReport.cfm">Create Report Data</a>
-		<cfset params="">
-		<cfloop list="#StructKeyList(form)#" index="key">
-			<cfif len(form[key]) gt 0 and key is not "FIELDNAMES" and key is not "ACTION">
-					<cfset params=listappend(params,"#key#=#form[key]#","&")>
-			</cfif>
-		</cfloop>
-		<cfloop list="#StructKeyList(url)#" index="key">
-			<cfif len(url[key]) gt 0 and key is not "FIELDNAMES" and key is not "ACTION">
-					<cfset params=listappend(params,"#key#=#url[key]#","&")>
-			</cfif>
-		</cfloop>
-		<a href="/Reports/SpecUsageReport.cfm?p=#params#">Create Report Data</a>
+		<a href="/Reports/SpecUsageReport.cfm?project_id=#valuelist(projects.project_id)#&publication_id=#valuelist(publication.publication_id)#">Create Report Data</a>
 	</cfif>	
 	<h3>Publications</h3>
 	<cfif publication.recordcount is 0>
