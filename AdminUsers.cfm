@@ -381,7 +381,7 @@
 				You have been invited to become an Arctos Operator by #session.username#.
 				<br>The next time you log in, your Profile page (#application.serverRootUrl#/myArctos.cfm)
 				will contain an authentication form.
-				<br>You must complete this form. If you password does not meet our rules you may be required
+				<br>You must complete this form. If your password does not meet our rules you may be required
 				to create a new password by following the link from your Profile page. 
 				You will then be required to fill out the authentication form again.
 				The form will be replaced with a message when you have successfully authenticated.
