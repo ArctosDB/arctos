@@ -89,24 +89,27 @@
 				<cfset project_agents=pa.agent_name>
 			<cfelseif pa.recordcount is 2>
 				<cfset project_agents=valuelist(pa.agent_name," and ")>
-			<cfelse>
+			<cfelseif pa.recordcount gt 2>
 				<cfset project_agents=valuelist(pa.agent_name,",")>
 				<cfset lval = "and " & trim(ListLast(project_agents))>
 				<cfset project_agents=listdeleteat(project_agents,listlen(project_agents))>
 				<cfset project_agents=listappend(project_agents,lval)>
 				<cfset project_agents=listchangedelims(project_agents,", ")>
+			<cfelse>
+				<cfset project_agents="">
 			</cfif>
-			
 			<cfif ps.recordcount is 1>
 				<cfset project_sponsors=ps.agent_name>
 			<cfelseif ps.recordcount is 2>
 				<cfset project_sponsors=valuelist(ps.agent_name," and ")>
-			<cfelse>
+			<cfelseif ps.recordcount gt 2>
 				<cfset project_sponsors=valuelist(ps.agent_name,",")>
 				<cfset lval = "and " & trim(ListLast(project_sponsors))>
 				<cfset project_sponsors=listdeleteat(project_sponsors,listlen(project_sponsors))>
 				<cfset project_sponsors=listappend(project_sponsors,lval)>
 				<cfset project_sponsors=listchangedelims(project_sponsors,", ")>
+			<cfelse>
+				<cfset project_sponsors="">
 			</cfif>
 			<cfif p.start_date is p.end_date>
 				<cfset project_dates=p.start_date>
