@@ -131,7 +131,7 @@
 					numberProjectLoanSpecimens
 				) values (
 					#p.project_id#,
-					#p.project_name#
+					'#p.project_name#',
 					'#project_dates#',
 					'#project_agents#',
 					'#project_sponsors#',
