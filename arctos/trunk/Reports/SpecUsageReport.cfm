@@ -153,6 +153,7 @@
 				</cfif>
 				<cfquery name="insProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into #session.projectReportTable# (
+						report_title,
 						project_id,
 						project_name,
 						project_dates,
@@ -161,6 +162,7 @@
 						numberProjectAccnSpecimens,
 						numberProjectLoanSpecimens
 					) values (
+						'#report_title#',
 						#p.project_id#,
 						'#p.project_name#',
 						'#project_dates#',
@@ -175,7 +177,7 @@
 		<cfif len(publication_id) gt 0>
 			<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select
-					publication_id,
+					formatted_publication.publication_id,
 					formatted_publication,
 					count(distinct(citation.collection_object_id)) numCits
 				from
@@ -189,10 +191,12 @@
 			<cfloop query="p">
 				<cfquery name="insPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into #session.projectReportTable# (
+						report_title,
 						publication_id,
 						formatted_publication,
 						numberOfCitations
 					) values (
+						'#report_title#',
 						#publication_id#,
 						'#formatted_publication#',
 						#numCits#
