@@ -187,6 +187,9 @@
 					formatted_publication.publication_id = citation.publication_id (+) and
 					formatted_publication.format_style = 'long' and
 					formatted_publication.publication_id in (#publication_id#)
+				group by
+					formatted_publication.publication_id,
+					formatted_publication
 			</cfquery>
 			<cfloop query="p">
 				<cfquery name="insPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
