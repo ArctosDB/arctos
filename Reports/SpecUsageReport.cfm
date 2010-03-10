@@ -93,7 +93,7 @@
 			<hr>
 			--#project_agents#
 				<cfset project_agents=valuelist(pa.agent_name,",")>
-				<cfset lval = "and " & trim(ListLast(project_agents)>
+				<cfset lval = "and " & trim(ListLast(project_agents))>
 				<cfset project_agents=listdeleteat(project_agents,listlen(project_agents))>
 				<cfset project_agents=listappend(project_agents,lval)>
 				<cfset project_agents=listchangedelims(project_agents,", ")>
