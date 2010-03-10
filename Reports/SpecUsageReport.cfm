@@ -208,7 +208,7 @@
 			</cfloop>		
 		</cfif>
 	</cfif>
-	All done. <a href="reporter.cfm">proceed to Reporter</a>
+	All done. <a href="report_printer.cfm">proceed to Reporter</a>
 
 </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">

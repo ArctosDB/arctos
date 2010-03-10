@@ -72,6 +72,9 @@
 		<cfif sql contains "##session.SpecSrchTab##">
 			<cfset sql=replace(sql,"##session.SpecSrchTab##",#session.SpecSrchTab#,"all")>
 		</cfif>
+		<cfif sql contains "##session.projectReportTable##">
+			<cfset sql=replace(sql,"##session.projectReportTable##",#session.projectReportTable#,"all")>
+		</cfif>
 		
 		
 		 
