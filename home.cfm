@@ -203,7 +203,7 @@ encumbered for proprietary reasons, data are open to the public.
 			<strong>Publications</strong> are attached to specimens by way of citations, and are often created by projects.
 		</li>
 		<li>
-			<strong>Projects</strong> create and use specimens, produce publications, group taxonomy into checklists, and record usage of speciemns
+			<strong>Projects</strong> create and use specimens, produce publications, group taxonomy into checklists, and record usage of specimens
 			in the absence of formal citations.
 		</li>
 		<li>
