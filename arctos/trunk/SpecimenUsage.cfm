@@ -121,9 +121,8 @@
 <cfif action is "search">
 <cfoutput>
 	<cfset title = "Usage Search Results">
-	<cfset i=1>
-	<table border width="90%"><tr><td width="50%" valign="top">
-		<cfset sel = "
+	
+	<cfset sel = "
 				SELECT 
 					project.project_id,
 					project.project_name,
@@ -240,65 +239,11 @@
 			ORDER BY
 				project_name
 		</cfquery>
-		<h3>Projects</h3>
-		<cfif projNames.recordcount is 0>
-			<div class="notFound">
-				No projects matched your criteria.
-			</div>
-		</cfif>
+		
+		
+		
+		
 		<cfset i=1>
-		<cfloop query="projNames">
-			<cfquery name="thisAuth" dbtype="query">
-				SELECT 
-					agent_name, 
-					project_agent_role 
-				FROM 
-					projects 
-				WHERE 
-					project_id = #project_id# 
-				GROUP BY 
-					agent_name, 
-					project_agent_role 
-				ORDER BY 
-					agent_position
-			</cfquery>
-			<cfquery name="thisSponsor" dbtype="query">
-				SELECT 
-					ACKNOWLEDGEMENT,
-					sponsor_name
-				FROM 
-					projects 
-				WHERE 
-					project_id = #project_id# and
-					sponsor_name is not null
-				GROUP BY 
-					ACKNOWLEDGEMENT,
-					sponsor_name
-				ORDER BY 
-					sponsor_name
-			</cfquery>
-			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-				<a href="/ProjectDetail.cfm?project_id=#project_id#">
-					<div class="indent">
-					#project_name#
-					</div>
-				</a>
-				<cfloop query="thisSponsor">
-					Sponsored by #sponsor_name# <cfif len(ACKNOWLEDGEMENT) gt 0>: #ACKNOWLEDGEMENT#</cfif><br>
-				</cfloop>
-				<cfloop query="thisAuth">
-					#agent_name# (#project_agent_role#)<br>
-				</cfloop>
-				#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
-				<br><a href="javascript: openAnnotation('project_id=#project_id#')">Annotate</a>
-				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-					<br><a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
-				</cfif>
-			</div>
-			<cfset i=i+1>
-		</cfloop>
-	</td><td width="50%" valign="top">
-	<cfset i=1>
 	<cfset go="no">
 	<cfset basSQL = "SELECT 
 			publication.publication_title,
@@ -422,6 +367,72 @@
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<a href="/Reports/SpecUsageReport.cfm?project_id=#valuelist(projects.project_id)#&publication_id=#valuelist(publication.publication_id)#">Create Report Data</a>
 	</cfif>	
+	
+	
+	
+	
+	<cfset i=1>
+	<table border width="90%"><tr><td width="50%" valign="top">
+		
+		<h3>Projects</h3>
+		<cfif projNames.recordcount is 0>
+			<div class="notFound">
+				No projects matched your criteria.
+			</div>
+		</cfif>
+		<cfset i=1>
+		<cfloop query="projNames">
+			<cfquery name="thisAuth" dbtype="query">
+				SELECT 
+					agent_name, 
+					project_agent_role 
+				FROM 
+					projects 
+				WHERE 
+					project_id = #project_id# 
+				GROUP BY 
+					agent_name, 
+					project_agent_role 
+				ORDER BY 
+					agent_position
+			</cfquery>
+			<cfquery name="thisSponsor" dbtype="query">
+				SELECT 
+					ACKNOWLEDGEMENT,
+					sponsor_name
+				FROM 
+					projects 
+				WHERE 
+					project_id = #project_id# and
+					sponsor_name is not null
+				GROUP BY 
+					ACKNOWLEDGEMENT,
+					sponsor_name
+				ORDER BY 
+					sponsor_name
+			</cfquery>
+			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<a href="/ProjectDetail.cfm?project_id=#project_id#">
+					<div class="indent">
+					#project_name#
+					</div>
+				</a>
+				<cfloop query="thisSponsor">
+					Sponsored by #sponsor_name# <cfif len(ACKNOWLEDGEMENT) gt 0>: #ACKNOWLEDGEMENT#</cfif><br>
+				</cfloop>
+				<cfloop query="thisAuth">
+					#agent_name# (#project_agent_role#)<br>
+				</cfloop>
+				#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
+				<br><a href="javascript: openAnnotation('project_id=#project_id#')">Annotate</a>
+				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
+					<br><a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
+				</cfif>
+			</div>
+			<cfset i=i+1>
+		</cfloop>
+	</td><td width="50%" valign="top">
+	
 	<h3>Publications</h3>
 	<cfif publication.recordcount is 0>
 		<div class="notFound">
