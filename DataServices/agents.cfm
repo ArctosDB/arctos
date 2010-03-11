@@ -155,13 +155,12 @@ sho err
 					queryformat : 'column'
 				},
 				function (r) {
-					/*
 					if(r.ROWCOUNT > 0) {
 						console.log(result);
 					} else {
+						jQuery("#arctos_name__" + #key#
 						console.log('nuthin');
 					}
-					*/
 					console.log(r.ROWCOUNT);
 				}
 			);

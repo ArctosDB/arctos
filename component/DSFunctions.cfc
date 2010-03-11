@@ -17,6 +17,7 @@
 	</cfquery>
 	<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
+	        #key# key,
 	        first_name,
 	        middle_name,
 	        last_name,
