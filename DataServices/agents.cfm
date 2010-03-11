@@ -223,7 +223,9 @@ sho err
 					<cfelse>
 						<select>
 							<option value="#preferred_name#">#preferred_name# (loaded)</option>
-							<option value="#agent.agent_name#">#agent.agent_name# (existing)</option>
+							<cfloop query="agent">
+								<option value="#agent.agent_name#">#agent.agent_name# (existing)</option>
+							</cfloop>
 						</select>
 					</cfif>
 				</td>
