@@ -118,7 +118,7 @@ sho err
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)				
 			</cfquery>
-			insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)
+			<hr>insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)
 		</cfif>
 	</cfloop>
 </cfoutput>
