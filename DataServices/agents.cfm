@@ -158,7 +158,7 @@ sho err
 					preferred_agent_name
 				where 
 					agent_name.agent_id=preferred_agent_name.agent_id and
-					agent_name.agent_name in ('preferred_name','aka_1','aka_2','aka_3')
+					agent_name.agent_name in ('#preferred_name#','#aka_1#','#aka_2#','#aka_3#')
 			</cfquery>
 			
 			<tr id="row#key#">
