@@ -175,7 +175,11 @@ sho err
 				<td>#aka_2#&nbsp;</td>
 				<td>#aka_3#&nbsp;</td>
 				<td>#aka_3#&nbsp;</td>
-				<td>#eName.agent_name# (#eName.agent_id#)&nbsp;</td>
+				<td>
+					<cfloop query="eName">
+						<div>#eName.agent_name# (#eName.agent_id#)</div>
+					</cfloop>
+				</td>
 			</tr>
 		</cfloop>
 	</table>
