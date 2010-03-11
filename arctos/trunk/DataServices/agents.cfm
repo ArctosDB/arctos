@@ -185,6 +185,18 @@ sho err
 						agent_name.agent_id=person.person_id and
 						agent_name.agent_id=preferred_agent_name.agent_id and
 						srch.agent_name in ('#preferred_name#','#other_name_1#','#other_name_2#','#other_name_3#')
+				</cfquery>
+				<cfquery name="agent" dbtype="query">
+					select
+						first_name,
+						middle_name,
+						last_name,
+						birth_date,
+						death_date,
+						suffix,
+						agent_id, 
+						agent_name
+					from eName
 					group by
 						first_name,
 						middle_name,
@@ -192,14 +204,29 @@ sho err
 						birth_date,
 						death_date,
 						suffix,
-						preferred_agent_name.agent_id, 
-						preferred_agent_name.agent_name,
-						agent_name.agent_name					
+						agent_id, 
+						agent_name
+				</cfquery>
+				<cfquery name="names" dbtype="query">
+					select
+						otherName
+					from eName
+					group by
+						otherName
 				</cfquery>
 			</cfif>
 			<tr id="row#key#">
 				<td>#agent_type#&nbsp;</td>
-				<td>#preferred_name#&nbsp;</td>
+				<td>
+					<cfif agent.agent_name is preferred_name>
+						#preferred_name#
+					<cfelse>
+						<select>
+							<option value="#preferred_name#">#preferred_name# (loaded)</option>
+							<option value="#agent.agent_name#">#agent.agent_name# (existing)</option>
+						</select>
+					</cfif>
+				</td>
 				<td>#first_name#&nbsp;</td>
 				<td>#middle_name#&nbsp;</td>
 				<td>#last_name#&nbsp;</td>
