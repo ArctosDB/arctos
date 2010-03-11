@@ -141,10 +141,17 @@ sho err
 </cfif>
 <cfif action is "validate">
 <script src="/includes/sorttable.js"></script>
+<script type='text/javascript' language='javascript'>
+	jQuery(document).ready(function() {
+	  	var keyList = document.getElementById('keyList').value;
+	  	console.log(keyList);
+	});
+</script>
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent
 	</cfquery>
+	<input type="hidden" id="keyList" value="#valuelist(d.key)#">
 	<table border id="theTable" class="sortable">
 		<tr>
 			<th>agent_type</th>
@@ -162,19 +169,6 @@ sho err
 			<th>ExistingAgent</th>
 		</tr>
 		<cfloop query="d">
-			<cfif agent_type is "person">
-				<cfquery name="eName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select 
-						preferred_agent_name.agent_id, 
-						preferred_agent_name.agent_name arctos_name
-					from 
-						agent_name srch,
-						preferred_agent_name
-					where 
-						srch.agent_id=preferred_agent_name.agent_id and
-						srch.agent_name in ('#preferred_name#','#other_name_1#','#other_name_2#','#other_name_3#')
-				</cfquery>
-			</cfif>
 			<tr id="row#key#">
 				<td id="agent_type__#key#">#agent_type#&nbsp;</td>
 				<td id="preferred_name__#key#">#preferred_name#</td>
@@ -188,14 +182,7 @@ sho err
 				<td id="other_name_1__#key#">#other_name_1# (#other_name_type_1#)</td>
 				<td id="other_name_2__#key#">#other_name_2# (#other_name_type_2#)</td>
 				<td id="other_name_3__#key#">#other_name_3# (#other_name_type_3#)</td>
-				<td id="arctos_name__#key#">
-					<cfloop query="eName">
-						<div>
-							
-							<a href="/agents.cfm?agent_id=#agent_id#" target="blank">#arctos_name#</a>
-						</div>
-					</cfloop>
-				</td>
+				<td id="arctos_name__#key#"></td>
 			</tr>
 		</cfloop>
 	</table>
