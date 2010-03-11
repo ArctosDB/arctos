@@ -188,8 +188,8 @@
 				</cfquery>
 			</cfloop>		
 		</cfif>
-	</cfif>
-	You just created a table named #session.projectReportTable#.
+		
+		You just created a table named #session.projectReportTable#.
 	
 	<p>
 		Table structure is:
@@ -211,10 +211,14 @@
 	<p>
 		You may access this table in Reports as
 		##session.projectReportTable##, or query #session.projectReportTable# in Write SQL.
+		<br>
+		See Reports ProjectTemplate and PublicationTemplate
+		in the <a href="http://arctos-test.arctos.database.museum/Reports/report_printer.cfm">Reporter</a>
 	</p>
 	<p>
 		#session.projectReportTable# is attached to your session, and will need rebuilt after you 
 		log out, or after 2 hours.
 	</p>
+	</cfif>
 </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">
