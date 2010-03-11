@@ -116,12 +116,15 @@ sho err
 				</cfloop>
 			</cfif>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)
+				insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)				
 			</cfquery>
+			insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)
 		</cfif>
 	</cfloop>
 </cfoutput>
-<cflocation url="agents.cfm?action=validate">
+<!---
+<cflocation url="agents.cfm?action=validate" addtoken="false">
+---->
 </cfif>
 <cfif action is "validate">
 <cfoutput>
