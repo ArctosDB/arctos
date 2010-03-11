@@ -182,7 +182,7 @@ sho err
 					where 
 						agent_name.agent_id=preferred_agent_name.agent_id and
 						agent_name.agent_id=srch.agent_id and
-						agent_name.agent_id=person.agent_id and
+						agent_name.agent_id=person.person_id and
 						agent_name.agent_id=preferred_agent_name.agent_id and
 						srch.agent_name in ('#preferred_name#','#other_name_1#','#other_name_2#','#other_name_3#')
 					group by
