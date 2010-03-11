@@ -17,7 +17,7 @@
 	</cfquery>
 	<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
-	        #key# key,
+	        'the key is #d.key#' key,
 	        first_name,
 	        middle_name,
 	        last_name,
@@ -48,7 +48,7 @@
 	<cfset i=1>
 	<cfloop query="n">
 		<cfset temp = queryaddrow(result,1)>
-		<cfset temp = QuerySetCell(result, "key", key, i)>
+		<cfset temp = QuerySetCell(result, "key", n.key, i)>
 		<cfset temp = QuerySetCell(result, "first_name", n.first_name, i)>
 		<cfset temp = QuerySetCell(result, "middle_name", n.middle_name, i)>
 		<cfset temp = QuerySetCell(result, "last_name", n.last_name, i)>
