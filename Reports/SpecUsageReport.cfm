@@ -1,26 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfif action is "nothing">
-		This form creates a table named #session.projectReportTable#, which you may access in reports as
-		##session.projectReportTable##. The table contains a summary of data returned in a
-		project/publication search.
-		<p>
-			Table structure is:
-			<ul>
-				<li>report_title</li>
-				<li>project_id</li>
-				<li>project_name</li>
-				<li>project_dates</li>
-				<li>project_agents</li>
-				<li>project_sponsors</li>
-				<li>numberProjectAccnSpecimens</li>
-				<li>numberProjectLoanSpecimens</li>
-				<li>publication_id</li>
-				<li>formatted_publication</li>
-				<li>numberOfCitations</li>
-			</ul>		
-			Each row will contain either report or project data, neither both. Just create a report title in the form below
-			to get started.
+		Enter a report title in the form below to get started.
 		</p>
 		<form name="a" method="post" action="SpecUsageReport.cfm">
 			<input type="hidden" name="action" value="buildIt">
@@ -208,7 +189,32 @@
 			</cfloop>		
 		</cfif>
 	</cfif>
-	All done. <a href="report_printer.cfm">proceed to Reporter</a>
-
+	You just created a table named #session.projectReportTable#.
+	
+	<p>
+		Table structure is:
+		<ul>
+			<li>report_title</li>
+			<li>project_id</li>
+			<li>project_name</li>
+			<li>project_dates</li>
+			<li>project_agents</li>
+			<li>project_sponsors</li>
+			<li>numberProjectAccnSpecimens</li>
+			<li>numberProjectLoanSpecimens</li>
+			<li>publication_id</li>
+			<li>formatted_publication</li>
+			<li>numberOfCitations</li>
+		</ul>
+		Each row will contain either report or project data, never both.
+	</p>
+	<p>
+		You may access this table in Reports as
+		##session.projectReportTable##, or query #session.projectReportTable# in Write SQL.
+	</p>
+	<p>
+		#session.projectReportTable# is attached to your session, and will need rebuilt after you 
+		log out, or after 2 hours.
+	</p>
 </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">
