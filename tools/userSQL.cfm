@@ -48,7 +48,7 @@
 	                 <cfquery name="user_sql" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		                #preservesinglequotes(sql)#
 		            </cfquery>
-                    <cfif #format# is "csv">
+                    <cfif format is "csv">
                         <cfset ac = user_sql.columnlist>
                         <cfset fileDir = "#Application.webDirectory#">
 				        <cfset fileName = "/download/ArctosUserSql_#cfid#_#cftoken#.csv">
@@ -67,6 +67,7 @@
 					        <cfset oneLine = trim(oneLine)>
 					        <cffile action="append" file="#fileDir##fileName#" addnewline="yes" output="#oneLine#">
 				        </cfloop>
+				        <a href="/download.cfm?file=#Application.serverRootUrl#/#fileName#">download</a>
 				        <a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download.</a>
                     <cfelse>
                         <cfdump var=#user_sql#>
