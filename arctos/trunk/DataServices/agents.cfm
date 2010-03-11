@@ -179,7 +179,10 @@ sho err
 				<td>#aka_3#&nbsp;</td>
 				<td>
 					<cfloop query="eName">
-						<div>#eName.agent_name# (#eName.agent_id#)</div>
+						<div>
+							#agent_name#
+							<a href="/agents.cfm?agent_id=#agent_id#" target="blank" class="infoLink">Data</a>
+						</div>
 					</cfloop>
 				</td>
 			</tr>
