@@ -44,6 +44,7 @@
 	        preferred_agent_name.agent_id, 
 	        preferred_agent_name.agent_name
 	</cfquery>
+	<cfdump var=#n#>
 	<cfset result = querynew("key,first_name,middle_name,last_name,birth_date,death_date,suffix,agent_id,preferred_agent_name,othernames")>
 	<cfset i=1>
 	<cfloop query="n">
