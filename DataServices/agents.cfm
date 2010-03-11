@@ -159,6 +159,9 @@ sho err
 				where 
 					agent_name.agent_id=preferred_agent_name.agent_id and
 					agent_name.agent_name in ('#preferred_name#','#aka_1#','#aka_2#','#aka_3#')
+				group by
+					preferred_agent_name.agent_id, 
+					preferred_agent_name.agent_name					
 			</cfquery>
 			
 			<tr id="row#key#">
@@ -173,7 +176,6 @@ sho err
 				<td>#suffix#&nbsp;</td>
 				<td>#aka_1#&nbsp;</td>
 				<td>#aka_2#&nbsp;</td>
-				<td>#aka_3#&nbsp;</td>
 				<td>#aka_3#&nbsp;</td>
 				<td>
 					<cfloop query="eName">
