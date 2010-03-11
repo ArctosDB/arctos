@@ -194,7 +194,7 @@ sho err
 						suffix,
 						preferred_agent_name.agent_id, 
 						preferred_agent_name.agent_name,
-						agent_name.agent_name otherName					
+						agent_name.agent_name					
 				</cfquery>
 			</cfif>
 			<tr id="row#key#">
