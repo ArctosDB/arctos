@@ -155,7 +155,7 @@ sho err
 					queryformat : 'column'
 				},
 				function (result) {
-					alert(result);
+					console.log(result);
 				}
 			);
 	  	}
