@@ -147,7 +147,17 @@ sho err
 	  	console.log(keyList);
 	  	kAry=keyList.split(",");
 	  	for (i=0; i<kAry.length; ++i) {
-	  		console.log('key ' + i + ' is ' + kAry[i]);
+	  		jQuery.getJSON("/component/DSFunctions.cfc",
+				{
+					method : "findAgentMatch",
+					key : kAry[i],
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (result) {
+					alert(result);
+				}
+			);
 	  	}
 	});
 </script>
