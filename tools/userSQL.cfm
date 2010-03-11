@@ -67,7 +67,7 @@
 					        <cfset oneLine = trim(oneLine)>
 					        <cffile action="append" file="#fileDir##fileName#" addnewline="yes" output="#oneLine#">
 				        </cfloop>
-				        <a href="/download.cfm?file=#fileName#">Click to sdownload</a>
+				        <a href="/download.cfm?file=#fileName#">Click to download</a>
                     <cfelse>
                         <cfdump var=#user_sql#>
                     </cfif>

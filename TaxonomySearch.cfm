@@ -11,7 +11,9 @@
 <cfquery name="CTTAXONOMIC_AUTHORITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
 </cfquery>
-			
+<cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
+</cfquery>		
 <cfoutput>
 <br>
 	<form ACTION="TaxonomyResults.cfm" METHOD="post" name="taxa">
@@ -146,6 +148,17 @@
 					<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='='+e.value;">
 						Add = for exact match
 					</span>
+				</td>
+			</tr>
+			<tr>
+				<td align="right"><b><nobr>Nomenclatural&nbsp;Code:</nobr></b></td>
+				<td nowrap="nowrap">
+					<select name="nomenclatural_code" id="nomenclatural_code" size="1">
+						<option></option>
+						<cfloop query="ctnomenclatural_code">
+							<option value="#nomenclatural_code#">#nomenclatural_code#</option>
+						</cfloop>
+					</select>							
 				</td>
 			</tr>
 			<tr>

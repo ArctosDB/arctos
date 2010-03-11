@@ -78,9 +78,11 @@
 			<cfset stringOfStuffToClean = "#stringOfStuffToClean##common_name#">
 			<cfset titleTerms=listappend(titleTerms,'#common_name#')>
 		</cfif>
-		
 		<cfif isdefined("source_authority") AND len(#source_authority#) gt 0>
 			<CFSET SQL = "#SQL# AND source_authority = '#source_authority#'">
+		</cfif>
+		<cfif isdefined("nomenclatural_code") AND len(nomenclatural_code) gt 0>
+			<CFSET SQL = "#SQL# AND nomenclatural_code = '#nomenclatural_code#'">
 		</cfif>
 		<cfif isdefined("genus") AND len(#genus#) gt 0>
 			<cfif left(genus,1) is "=">
