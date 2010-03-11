@@ -50,8 +50,8 @@
 		            </cfquery>
                     <cfif format is "csv">
                         <cfset ac = user_sql.columnlist>
-                        <cfset fileDir = "#Application.webDirectory#">
-				        <cfset fileName = "/download/ArctosUserSql_#cfid#_#cftoken#.csv">
+                        <cfset fileDir = "#Application.webDirectory#/download/">
+				        <cfset fileName = "ArctosUserSql_#cfid#_#cftoken#.csv">
 				        <cfset header=#trim(ac)#>
 				        <cffile action="write" file="#fileDir##fileName#" addnewline="yes" output="#header#">
 				        <cfloop query="user_sql">
@@ -67,7 +67,7 @@
 					        <cfset oneLine = trim(oneLine)>
 					        <cffile action="append" file="#fileDir##fileName#" addnewline="yes" output="#oneLine#">
 				        </cfloop>
-				        <a href="/download.cfm?file=#Application.serverRootUrl#/#fileName#">download</a>
+				        <a href="/download.cfm?file=#fileName#">download</a>
 				        <a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download.</a>
                     <cfelse>
                         <cfdump var=#user_sql#>
