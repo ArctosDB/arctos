@@ -17,7 +17,7 @@
 	        suffix,
 	        preferred_agent_name.agent_id, 
 	        preferred_agent_name.agent_name,
-	        '#getAllAgentNames#' names
+	        '#getAllAgentNames()#' names
 		from 
 	        person,
 	        agent_name srch,
