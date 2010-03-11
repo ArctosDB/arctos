@@ -1,3 +1,8 @@
+<!----
+
+
+
+
 drop table ds_temp_agent;
 
 create table ds_temp_agent (
@@ -17,6 +22,7 @@ create table ds_temp_agent (
 	other_name_type_2   varchar2(255),
 	other_name_3  varchar2(255),
 	other_name_type_3   varchar2(255),
+	agent_remark varchar2(4000),
 	new_agent_type varchar2(255),
 	new_preferred_name varchar2(255),
 	new_first_name varchar2(255),
@@ -45,6 +51,10 @@ grant select on ds_temp_agent to public;
 /
 sho err
 
+
+
+
+---->
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
 	Step 1: Upload a comma-delimited text file (csv). 
@@ -121,12 +131,12 @@ sho err
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)				
 			</cfquery>
-			<hr>insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)
 		</cfif>
 	</cfloop>
 </cfoutput>
-<!---
 <cflocation url="agents.cfm?action=validate" addtoken="false">
+
+<!---
 ---->
 </cfif>
 <cfif action is "validate">
@@ -174,7 +184,7 @@ sho err
 						agent_name.agent_id=srch.agent_id and
 						agent_name.agent_id=person.agent_id and
 						agent_name.agent_id=preferred_agent_name.agent_id and
-						srch.agent_name in ('#preferred_name#','#aka_1#','#aka_2#','#aka_3#')
+						srch.agent_name in ('#preferred_name#','#other_name_1#','#other_name_2#','#other_name_3#')
 					group by
 						preferred_agent_name.agent_id, 
 						preferred_agent_name.agent_name					
@@ -190,9 +200,9 @@ sho err
 				<td>#death_date#&nbsp;</td>
 				<td>#prefix#&nbsp;</td>
 				<td>#suffix#&nbsp;</td>
-				<td>#aka_1#&nbsp;</td>
-				<td>#aka_2#&nbsp;</td>
-				<td>#aka_3#&nbsp;</td>
+				<td>#other_name_1# (#other_name_type_1#)</td>
+				<td>#other_name_2# (#other_name_type_2#)</td>
+				<td>#other_name_3# (#other_name_type_3#)</td>
 				<td>
 					<cfloop query="eName">
 						<div>
