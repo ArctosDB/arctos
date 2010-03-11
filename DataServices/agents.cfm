@@ -154,8 +154,15 @@ sho err
 					returnformat : "json",
 					queryformat : 'column'
 				},
-				function (result) {
-					console.log(result);
+				function (r) {
+					/*
+					if(r.ROWCOUNT > 0) {
+						console.log(result);
+					} else {
+						console.log('nuthin');
+					}
+					*/
+					console.log(r.ROWCOUNT);
 				}
 			);
 	  	}
