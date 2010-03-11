@@ -226,8 +226,8 @@
 		for example usage.
 	</p>
 	<p>
-		#session.projectReportTable# is attached to your session, and will need rebuilt after you 
-		log out, or after 2 hours.
+		#session.projectReportTable# is a temporary table attached to your session. It is only available to you, 
+		and will need rebuilt after you log out or in approximately 2 hours.
 	</p>
 	</cfif>
 </cfoutput>
