@@ -20,8 +20,7 @@
 	        death_date,
 	        suffix,
 	        preferred_agent_name.agent_id, 
-	        preferred_agent_name.agent_name,
-	        '#getAllAgentNames(person.person_id)#' names
+	        preferred_agent_name.agent_name
 		from 
 	        person,
 	        agent_name srch,
@@ -31,6 +30,20 @@
 	        person.person_id=preferred_agent_name.agent_id and
 	        srch.agent_name in ('#d.preferred_name#','#d.other_name_1#','#d.other_name_2#','#d.other_name_3#')
 	</cfquery>
-	<cfreturn eName>
+	<cfquery name="r" dbtype="query">
+		select
+			first_name,
+	        middle_name,
+	        last_name,
+	        birth_date,
+	        death_date,
+	        suffix,
+	        preferred_agent_name.agent_id, 
+	        preferred_agent_name.agent_name,
+	        '#getAllAgentNames(agent_id)#' names
+	    from
+	    	eName
+	</cfquery>
+	<cfreturn r>
 </cffunction>
 </cfcomponent>
