@@ -1,10 +1,14 @@
 <cfcomponent>
 <cffunction name="getAllAgentNames" access="remote">
-	<cfargument name="agent_id" type="numeric" required="yes">	
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select agent_name from agent_name where agent_id=#agent_id# order by agent_name
-	</cfquery>
-	<cfreturn valuelist(d.agent_name,';')>
+	<cfargument name="agent_id" type="any" required="yes">
+	<cfif isnumeric(agent_id) and len(agent_id) gt 0>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select agent_name from agent_name where agent_id=#agent_id# order by agent_name
+		</cfquery>
+		<cfreturn valuelist(d.agent_name,';')>
+	<cfelse>
+		<cfreturn "">
+	</cfif>
 </cffunction>
 <cffunction name="findAgentMatch" access="remote">
 	<cfargument name="key" type="numeric" required="yes">	
