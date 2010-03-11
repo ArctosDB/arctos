@@ -214,11 +214,13 @@
 	</p>
 	<p>
 	
-		See Reports 
+		See Reports and handlers for
 		<a href="http://arctos-test.arctos.database.museum/Reports/report_printer.cfm?report=ProjectTemplate">ProjectTemplate</a>
 		 and 
 		<a href="http://arctos-test.arctos.database.museum/Reports/report_printer.cfm?report=PublicationTemplate">PublicationTemplate</a>
-		in the <a href="http://arctos-test.arctos.database.museum/Reports/report_printer.cfm">Reporter</a>
+		in the 
+		<a href="http://arctos-test.arctos.database.museum/Reports/reporter.cfm">Reporter</a> and
+		<a href="http://arctos-test.arctos.database.museum/Reports/report_printer.cfm">Report Printer</a>
 		for example usage.
 	</p>
 	<p>
