@@ -165,85 +165,34 @@ sho err
 			<cfif agent_type is "person">
 				<cfquery name="eName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
-						first_name,
-						middle_name,
-						last_name,
-						birth_date,
-						death_date,
-						suffix,
 						preferred_agent_name.agent_id, 
-						preferred_agent_name.agent_name,
-						agent_name.agent_name otherName
+						preferred_agent_name.agent_name arctos_name
 					from 
-						agent_name,
 						agent_name srch,
-						person,
 						preferred_agent_name
 					where 
-						agent_name.agent_id=preferred_agent_name.agent_id and
-						agent_name.agent_id=srch.agent_id and
-						agent_name.agent_id=person.person_id and
-						agent_name.agent_id=preferred_agent_name.agent_id and
+						srch.agent_id=preferred_agent_name.agent_id and
 						srch.agent_name in ('#preferred_name#','#other_name_1#','#other_name_2#','#other_name_3#')
-				</cfquery>
-				<cfquery name="agent" dbtype="query">
-					select
-						first_name,
-						middle_name,
-						last_name,
-						birth_date,
-						death_date,
-						suffix,
-						agent_id, 
-						agent_name
-					from eName
-					group by
-						first_name,
-						middle_name,
-						last_name,
-						birth_date,
-						death_date,
-						suffix,
-						agent_id, 
-						agent_name
-				</cfquery>
-				<cfquery name="names" dbtype="query">
-					select
-						otherName
-					from eName
-					group by
-						otherName
 				</cfquery>
 			</cfif>
 			<tr id="row#key#">
-				<td>#agent_type#&nbsp;</td>
-				<td>
-					<cfif agent.agent_name is preferred_name>
-						#preferred_name#
-					<cfelse>
-						<select>
-							<option value="#preferred_name#">#preferred_name# (loaded)</option>
-							<cfloop query="agent">
-								<option value="#agent.agent_name#">#agent.agent_name# (existing)</option>
-							</cfloop>
-						</select>
-					</cfif>
-				</td>
-				<td>#first_name#&nbsp;</td>
-				<td>#middle_name#&nbsp;</td>
-				<td>#last_name#&nbsp;</td>
-				<td>#birth_date#&nbsp;</td>
-				<td>#death_date#&nbsp;</td>
-				<td>#prefix#&nbsp;</td>
-				<td>#suffix#&nbsp;</td>
-				<td>#other_name_1# (#other_name_type_1#)</td>
-				<td>#other_name_2# (#other_name_type_2#)</td>
-				<td>#other_name_3# (#other_name_type_3#)</td>
-				<td>
+				<td id="agent_type__#key#">#agent_type#&nbsp;</td>
+				<td id="preferred_name__#key#">#preferred_name#</td>
+				<td id="first_name__#key#">#first_name#&nbsp;</td>
+				<td id="middle_namee__#key#">#middle_name#&nbsp;</td>
+				<td id="last_name__#key#">#last_name#&nbsp;</td>
+				<td id="birth_date__#key#">#birth_date#&nbsp;</td>
+				<td id="death_date__#key#">#death_date#&nbsp;</td>
+				<td id="prefix__#key#">#prefix#&nbsp;</td>
+				<td id="suffix__#key#">#suffix#&nbsp;</td>
+				<td id="other_name_1__#key#">#other_name_1# (#other_name_type_1#)</td>
+				<td id="other_name_2__#key#">#other_name_2# (#other_name_type_2#)</td>
+				<td id="other_name_3__#key#">#other_name_3# (#other_name_type_3#)</td>
+				<td id="arctos_name__#key#">
 					<cfloop query="eName">
 						<div>
-							#agent_name#
-							<a href="/agents.cfm?agent_id=#agent_id#" target="blank" class="infoLink">Data</a>
+							
+							<a href="/agents.cfm?agent_id=#agent_id#" target="blank">#arctos_name#</a>
 						</div>
 					</cfloop>
 				</td>
