@@ -9,9 +9,11 @@ create table ds_temp_agent (
 	last_name varchar2(255),
 	birth_date date,
 	death_date date,
-	agent_remark varchar2(255),
 	prefix varchar2(255),
 	suffix varchar2(255),
+	aka_1  varchar2(255),
+	aka_2  varchar2(255),
+	aka_3  varchar2(255),
 	new_agent_type varchar2(255),
 	new_preferred_name varchar2(255),
 	new_first_name varchar2(255),
@@ -105,7 +107,7 @@ sho err
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
 		</cfif>	
-		<cfif len(#colVals#) gt 1>
+		<cfif len(colVal) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfif numColsRec lt numberOfColumns>
 				<cfset missingNumber = numberOfColumns - numColsRec>
@@ -126,7 +128,40 @@ sho err
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent
 	</cfquery>
-	<cfdump var=#d#>
+	<table border>
+		<tr>
+			<th>agent_type</th>
+			<th>preferred_name</th>
+			<th>first_name</th>
+			<th>middle_name</th>
+			<th>last_name</th>
+			<th>birth_date</th>
+			<th>death_date</th>
+			<th>prefix</th>
+			<th>suffix</th>
+			<th>aka_1</th>
+			<th>aka_2</th>
+			<th>aka_3</th>
+			<th></th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#agent_type#</td>
+				<td>#preferred_name#</td>
+				<td>#first_name#</td>
+				<td>#middle_name#</td>
+				<td>#last_name#</td>
+				<td>#birth_date#</td>
+				<td>#death_date#</td>
+				<td>#prefix#</td>
+				<td>#suffix#</td>
+				<td>#aka_1#</td>
+				<td>#aka_2#</td>
+				<td>#aka_3#</td>
+				<td>##</td>
+			</tr>
+		</cfloop>
+	</table>
 </cfoutput>
 </cfif>
 
