@@ -186,8 +186,15 @@ sho err
 						agent_name.agent_id=preferred_agent_name.agent_id and
 						srch.agent_name in ('#preferred_name#','#other_name_1#','#other_name_2#','#other_name_3#')
 					group by
+						first_name,
+						middle_name,
+						last_name,
+						birth_date,
+						death_date,
+						suffix,
 						preferred_agent_name.agent_id, 
-						preferred_agent_name.agent_name					
+						preferred_agent_name.agent_name,
+						agent_name.agent_name otherName					
 				</cfquery>
 			</cfif>
 			<tr id="row#key#">
