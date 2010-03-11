@@ -211,9 +211,15 @@
 	<p>
 		You may access this table in Reports as
 		##session.projectReportTable##, or query #session.projectReportTable# in Write SQL.
-		<br>
-		See Reports ProjectTemplate and PublicationTemplate
+	</p>
+	<p>
+	
+		See Reports 
+		<a href="http://arctos-test.arctos.database.museum/Reports/report_printer.cfm?report=ProjectTemplate">ProjectTemplate</a>
+		 and 
+		<a href="http://arctos-test.arctos.database.museum/Reports/report_printer.cfm?report=PublicationTemplate">PublicationTemplate</a>
 		in the <a href="http://arctos-test.arctos.database.museum/Reports/report_printer.cfm">Reporter</a>
+		for example usage.
 	</p>
 	<p>
 		#session.projectReportTable# is attached to your session, and will need rebuilt after you 
