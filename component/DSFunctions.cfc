@@ -24,7 +24,7 @@
 	        death_date,
 	        suffix,
 	        preferred_agent_name.agent_id, 
-	        preferred_agent_name.agent_name
+	        preferred_agent_name.agent_name preferred_agent_name
 		from 
 	        person,
 	        agent_name srch,
