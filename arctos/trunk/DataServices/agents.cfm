@@ -107,7 +107,7 @@ sho err
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
 		</cfif>	
-		<cfif len(colVal) gt 1>
+		<cfif len(#colVal#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfif numColsRec lt numberOfColumns>
 				<cfset missingNumber = numberOfColumns - numColsRec>
