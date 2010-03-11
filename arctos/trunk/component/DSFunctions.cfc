@@ -40,7 +40,7 @@
 	        suffix,
 	        preferred_agent_name.agent_id, 
 	        preferred_agent_name.agent_name,
-	        '#getAllAgentNames(agent_id)#' names
+	        '#getAllAgentNames(eName.agent_id)#' names
 	    from
 	    	eName
 	</cfquery>
