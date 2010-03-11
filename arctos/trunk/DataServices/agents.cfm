@@ -156,10 +156,11 @@ sho err
 				},
 				function (r) {
 					if(r.ROWCOUNT > 0) {
-					for (i=0; i<result.ROWCOUNT; ++i) {
-						var preferred_name=r.DATA.preferred_name[i];
-						var preferred_name__=$('preferred_name__' + r.DATA.key[i]).val();
-						console.log(preferred_name + '------' + preferred_name__);
+						for (i=0; i<result.ROWCOUNT; ++i) {
+							var preferred_name=r.DATA.preferred_name[i];
+							var preferred_name__=$('preferred_name__' + r.DATA.key[i]).val();
+							console.log(preferred_name + '------' + preferred_name__);
+						}
 					}
 				}
 			);
