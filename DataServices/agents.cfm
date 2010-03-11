@@ -127,11 +127,12 @@ sho err
 ---->
 </cfif>
 <cfif action is "validate">
+<script src="/includes/sorttable.js"></script>
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent
 	</cfquery>
-	<table border>
+	<table border id="theTable" class="sortable">
 		<tr>
 			<th>agent_type</th>
 			<th>preferred_name</th>
@@ -145,23 +146,36 @@ sho err
 			<th>aka_1</th>
 			<th>aka_2</th>
 			<th>aka_3</th>
-			<th></th>
+			<th>ExistingAgent</th>
 		</tr>
 		<cfloop query="d">
-			<tr>
-				<td>#agent_type#</td>
-				<td>#preferred_name#</td>
-				<td>#first_name#</td>
-				<td>#middle_name#</td>
-				<td>#last_name#</td>
-				<td>#birth_date#</td>
-				<td>#death_date#</td>
-				<td>#prefix#</td>
-				<td>#suffix#</td>
-				<td>#aka_1#</td>
-				<td>#aka_2#</td>
-				<td>#aka_3#</td>
-				<td>##</td>
+			<cfquery name="eName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					preferred_agent_name.agent_id, 
+					preferred_agent_name.agent_name 
+				from 
+					agent_name,
+					preferred_agent_name
+				where 
+					agent_name.agent_id=preferred_agent_name.agent_id and
+					agent_name.agent_name in ('preferred_name','aka_1','aka_2','aka_3')
+			</cfquery>
+			
+			<tr id="row#key#">
+				<td>#agent_type#&nbsp;</td>
+				<td>#preferred_name#&nbsp;</td>
+				<td>#first_name#&nbsp;</td>
+				<td>#middle_name#&nbsp;</td>
+				<td>#last_name#&nbsp;</td>
+				<td>#birth_date#&nbsp;</td>
+				<td>#death_date#&nbsp;</td>
+				<td>#prefix#&nbsp;</td>
+				<td>#suffix#&nbsp;</td>
+				<td>#aka_1#&nbsp;</td>
+				<td>#aka_2#&nbsp;</td>
+				<td>#aka_3#&nbsp;</td>
+				<td>#aka_3#&nbsp;</td>
+				<td>#eName.agent_name# (#eName.agent_id#)&nbsp;</td>
 			</tr>
 		</cfloop>
 	</table>
