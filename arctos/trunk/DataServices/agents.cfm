@@ -145,6 +145,10 @@ sho err
 	jQuery(document).ready(function() {
 	  	var keyList = document.getElementById('keyList').value;
 	  	console.log(keyList);
+	  	kAry=keyList.split(",");
+	  	for (i=0; i<kAry.length; ++i) {
+	  		console.log('key ' + i + ' is ' + kAry[i]);
+	  	}
 	});
 </script>
 <cfoutput>
