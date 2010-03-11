@@ -156,12 +156,11 @@ sho err
 				},
 				function (r) {
 					if(r.ROWCOUNT > 0) {
-						console.log(result);
-					} else {
-						jQuery("#arctos_name__" + #key#
-						console.log('nuthin');
+					for (i=0; i<result.ROWCOUNT; ++i) {
+						var preferred_name=r.DATA.preferred_name[i];
+						var preferred_name__=$('preferred_name__' + r.DATA.key[i]).val();
+						console.log(preferred_name + '------' + preferred_name__);
 					}
-					console.log(r.ROWCOUNT);
 				}
 			);
 	  	}
@@ -202,7 +201,7 @@ sho err
 				<td id="other_name_1__#key#">#other_name_1# (#other_name_type_1#)</td>
 				<td id="other_name_2__#key#">#other_name_2# (#other_name_type_2#)</td>
 				<td id="other_name_3__#key#">#other_name_3# (#other_name_type_3#)</td>
-				<td id="arctos_name__#key#"></td>
+				<td id="arctos_name__#key#">NOTFOUND</td>
 			</tr>
 		</cfloop>
 	</table>
