@@ -11,9 +11,12 @@ create table ds_temp_agent (
 	death_date date,
 	prefix varchar2(255),
 	suffix varchar2(255),
-	aka_1  varchar2(255),
-	aka_2  varchar2(255),
-	aka_3  varchar2(255),
+	other_name_1  varchar2(255),
+	other_name_type_1   varchar2(255),
+	other_name_2  varchar2(255),
+	other_name_type_2   varchar2(255),
+	other_name_3  varchar2(255),
+	other_name_type_3   varchar2(255),
 	new_agent_type varchar2(255),
 	new_preferred_name varchar2(255),
 	new_first_name varchar2(255),
@@ -149,21 +152,34 @@ sho err
 			<th>ExistingAgent</th>
 		</tr>
 		<cfloop query="d">
-			<cfquery name="eName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select 
-					preferred_agent_name.agent_id, 
-					preferred_agent_name.agent_name 
-				from 
-					agent_name,
-					preferred_agent_name
-				where 
-					agent_name.agent_id=preferred_agent_name.agent_id and
-					agent_name.agent_name in ('#preferred_name#','#aka_1#','#aka_2#','#aka_3#')
-				group by
-					preferred_agent_name.agent_id, 
-					preferred_agent_name.agent_name					
-			</cfquery>
-			
+			<cfif agent_type is "person">
+				<cfquery name="eName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select 
+						first_name,
+						middle_name,
+						last_name,
+						birth_date,
+						death_date,
+						suffix,
+						preferred_agent_name.agent_id, 
+						preferred_agent_name.agent_name,
+						agent_name.agent_name otherName
+					from 
+						agent_name,
+						agent_name srch,
+						person,
+						preferred_agent_name
+					where 
+						agent_name.agent_id=preferred_agent_name.agent_id and
+						agent_name.agent_id=srch.agent_id and
+						agent_name.agent_id=person.agent_id and
+						agent_name.agent_id=preferred_agent_name.agent_id and
+						srch.agent_name in ('#preferred_name#','#aka_1#','#aka_2#','#aka_3#')
+					group by
+						preferred_agent_name.agent_id, 
+						preferred_agent_name.agent_name					
+				</cfquery>
+			</cfif>
 			<tr id="row#key#">
 				<td>#agent_type#&nbsp;</td>
 				<td>#preferred_name#&nbsp;</td>
