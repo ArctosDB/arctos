@@ -164,6 +164,9 @@ sho err
 						console.log(ns);
 						//$('#suggested__' + r.DATA.KEY[a]).html(ns);
 						$('#suggested__' + r.DATA.KEY[a]).append('something');
+						var tt='#suggested__' + r.DATA.KEY[a];
+						console.log(tt);
+						$('#' + tt  + r.DATA.KEY[a]).html(ns);
 					}
 				}
 			);
@@ -206,7 +209,7 @@ sho err
 				<td id="other_name_1__#key#">#other_name_1# (#other_name_type_1#)</td>
 				<td id="other_name_2__#key#">#other_name_2# (#other_name_type_2#)</td>
 				<td id="other_name_3__#key#">#other_name_3# (#other_name_type_3#)</td>
-				<td id="d"><div id="suggested__#key#"></div>-</td>
+				<td id="d"><div id="suggested__#key#">dc</div>-</td>
 				<td id="picked__#key#">No Suggestions</td>
 			</tr>
 		</cfloop>
