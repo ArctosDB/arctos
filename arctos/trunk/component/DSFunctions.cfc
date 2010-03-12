@@ -127,6 +127,7 @@
 			</cftransaction>
 			<cfset status="PASS">
 			<cfset msg=listappend(msg,'<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent record</a>')>
+			<cfset msg=listchangedelims(msg,"<br>")>
 		<cfcatch>
 			<cfset status="FAIL">
 			<cfset msg="agent could not be updated: #cfcatch.message#: #cfcatch.detail#">
