@@ -162,9 +162,10 @@ sho err
 					} else if (status=='PASS') {
 						$('#msgDiv_' + key).remove();
 						var ns='<div style="border:2px solid green;" id="msgDiv_' + key + '>';
-						ns+=msg;
 						ns+='</div>';
 						$('#suggested__' + key).html(ns);
+						$('#msgDiv_' + key).html(msg);
+						
 					}
 				}
 			);
