@@ -155,7 +155,7 @@ sho err
 					queryformat : 'column'
 				},
 				function (r) {
-					if(r.ROWCOUNT > 0) {
+					if (r.DATA.AGENT_ID[0] > -1) {
 						var ns='<select>';
 						for (a=0; a<r.ROWCOUNT; ++a) {
 							ns+='<option value="' + r.DATA.AGENT_ID[a] + '">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</option>';
@@ -164,10 +164,11 @@ sho err
 						console.log(ns);
 						//$('#suggested__' + r.DATA.KEY[a]).html(ns);
 						$('#suggested__' + r.DATA.KEY[a]).append('something');
-						var tt='#suggested__' + r.DATA.KEY[0];
-						console.log(tt);
-						$("#suggested__"  + r.DATA.KEY[0]).html(ns);
+						//$("#suggested__"  + r.DATA.KEY[0]).html(ns);
+					} else {
+						var ns='nada';
 					}
+					$("#suggested__"  + r.DATA.KEY[0]).html(ns);
 				}
 			);
 	  	}
