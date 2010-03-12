@@ -166,7 +166,7 @@ sho err
 						ns+="useThis('" + key + "','" + r.DATA.PREFERRED_AGENT_NAME[a] + "',";
 						ns+="'" + r.DATA.AGENT_ID[a] + "')";
 						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
-						ns+='<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
+						//ns+='<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
 						console.log(ns);
 						$('#suggested__' + key).append(ns);
 					}
