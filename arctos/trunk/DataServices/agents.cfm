@@ -152,6 +152,8 @@ sho err
 					console.log(msg);
 					if (msg=='FAIL'){
 						$('#msgDiv_' + key).remove();
+						console.log('looking for #msgDiv_' + key);
+						
 						var ns='<div style="border:2px solid red;" id="msgDiv_' + key + '>';
 						ns+='RECORD NOT SAVED!<br>';
 						ns+=msg;
