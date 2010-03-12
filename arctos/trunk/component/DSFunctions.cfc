@@ -10,6 +10,9 @@
 		<cfreturn "">
 	</cfif>
 </cffunction>
+
+
+
 <cffunction name="findAgentMatch" access="remote">
 	<cfargument name="key" type="numeric" required="yes">	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -28,7 +31,7 @@
 	        srch.agent_name in ('#d.preferred_name#','#d.other_name_1#','#d.other_name_2#','#d.other_name_3#')
 	    group by
 	    	preferred_agent_name.agent_id, 
-	        preferred_agent_name.agent_name preferred_agent_name
+	        preferred_agent_name.agent_name
 	</cfquery>
 	<cfreturn result>
 </cffunction>
