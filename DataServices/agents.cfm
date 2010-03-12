@@ -167,7 +167,8 @@ sho err
 						ns+="'" + r.DATA.AGENT_ID[a] + "')";
 						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
 						ns+='<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
-						$('#suggested__' + r.DATA.KEY[a]).append(ns);
+						console.log(ns);
+						$('#suggested__' + key).append(ns);
 					}
 				}
 			);
