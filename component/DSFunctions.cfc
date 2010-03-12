@@ -205,8 +205,8 @@
 						) VALUES (
 							#agentNameID.nextAgentNameId#,
 							#agentID.nextAgentId#,
-							'#other_name_type_1#',
-							'#other_name_1#',
+							'#d.other_name_type_1#',
+							'#d.other_name_1#',
 							0
 						)
 					</cfquery>
