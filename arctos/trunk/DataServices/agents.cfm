@@ -152,11 +152,9 @@ sho err
 					console.log(msg);
 					if (status=='FAIL'){
 						$('#msgDiv_' + key).remove();						
-						var ns='<div style="border:2px solid red;" id="msgDiv_' + key + '>';
-						ns+='RECORD NOT SAVED!<br>';
-						ns+=msg;
-						ns+='</div>';
+						var ns='<div style="border:2px solid red;" id="msgDiv_' + key + '></div>';
 						$('#suggested__' + key).append(ns);
+						$('#msgDiv_' + key).html(msg);
 					} else if (status=='PASS') {
 						$('#msgDiv_' + key).remove();
 						var ns='<div style="border:2px solid green;" id="msgDiv_' + key + '>';
