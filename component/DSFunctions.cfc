@@ -12,8 +12,6 @@
 </cffunction>
 
 
-loadAgent
-
 <cffunction name="loadAgent" access="remote">
 	<cfargument name="key" type="numeric" required="yes">
 	<cfargument name="agent_id" type="numeric" required="yes">
@@ -26,6 +24,8 @@ loadAgent
 	</cfif>
 	<cfreturn result>
 </cffunction>
+
+
 <cffunction name="findAgentMatch" access="remote">
 	<cfargument name="key" type="numeric" required="yes">	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
