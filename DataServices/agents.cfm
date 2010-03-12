@@ -142,6 +142,10 @@ sho err
 <cfif action is "validate">
 <script src="/includes/sorttable.js"></script>
 <script type='text/javascript' language='javascript'>
+	function useThis(key,name,id) {
+		$('#name_' + key).val(name);
+		$('#agent_id_' + key).val(id);
+	}
 	jQuery(document).ready(function() {
 	  	var keyList = document.getElementById('keyList').value;
 	  	console.log(keyList);
@@ -156,17 +160,10 @@ sho err
 				},
 				function (r) {
 					var key=r.DATA.KEY[0];
-					var n='<input type="text" name="name' + key + '" class="reqdClr"';
-					n+='onchange="getAgent(\'agentID_' + key + '\',\'name\',\'f\',this.value); return false;"';
-					n+='onKeyPress="return noenter(event);">';
-					n+='<input type="hidden" name="agentID_' + key + ' id="agentID_' + key + '">';
+					
 					
 					/*
 					if (r.DATA.AGENT_ID[0] > -1) {
-						
-						
-						var ns='<select>';
-						ns+='<option value="new">Force Create New</option>';
 						for (a=0; a<r.ROWCOUNT; ++a) {
 							ns+='<option';
 							if(a==0){
@@ -209,7 +206,6 @@ sho err
 			<th>aka_2</th>
 			<th>aka_3</th>
 			<th>SuggestedAgent</th>
-			<th>mapToAgent</th>
 		</tr>
 		<cfloop query="d">
 			<tr id="row#key#">
@@ -225,14 +221,26 @@ sho err
 				<td id="other_name_1__#key#">#other_name_1# (#other_name_type_1#)</td>
 				<td id="other_name_2__#key#">#other_name_2# (#other_name_type_2#)</td>
 				<td id="other_name_3__#key#">#other_name_3# (#other_name_type_3#)</td>
-				<td id="suggested__#key#">-</td>
-				<td id="picked__#key#">No Suggestions</td>
+				<td id="suggested__#key#">
+					<label for="">Map To Agent</label>
+					<input type="text" name="name_#key#" class="reqdClr" 
+						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
+		 				onKeyPress="return noenter(event);">
+					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
+					<br><span class="infoLink" onclick="useThis(#key#,'#preferred_name#',-1)">Use This Row</span>
+				</td>
 			</tr>
 		</cfloop>
 	</table>
 	</form>
 </cfoutput>
 </cfif>
-
+<!----
+var n='<input type="text" name="name' + key + '" class="reqdClr"';
+					n+='onchange="getAgent(\'agentID_' + key + '\',\'name\',\'f\',this.value); return false;"';
+					n+='onKeyPress="return noenter(event);">';
+					n+='<input type="hidden" name="agentID_' + key + ' id="agentID_' + key + '">';
+					
+					---->
 
 <cfinclude template="/includes/_footer.cfm">
