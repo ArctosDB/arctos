@@ -35,16 +35,6 @@
 	        preferred_agent_name.agent_name,
 	        #key#
 	</cfquery>
-	<cfif result.recordcount is 0>
-		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select
-		        #KEY# key,
-		        -1 agent_id, 
-		        '' preferred_agent_name
-			from 
-		       dual
-		</cfquery>
-	</cfif>
 	<cfreturn result>
 </cffunction>
 <cffunction name="findAgentMatchOld" access="remote">

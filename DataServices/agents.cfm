@@ -161,27 +161,14 @@ sho err
 				},
 				function (r) {
 					var key=r.DATA.KEY[0];
-					
-					
-					/*
-					if (r.DATA.AGENT_ID[0] > -1) {
-						for (a=0; a<r.ROWCOUNT; ++a) {
-							ns+='<option';
-							if(a==0){
-								ns+=' selected="selected"';
-							}
-							ns+=' value="' + r.DATA.AGENT_ID[a] + '">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</option>';
-						}
-						ns+='</select>';
-						console.log(ns);
-						$('#suggested__' + r.DATA.KEY[a]).append('something');
-						/*
-					} else {
-						var ns='nada';
+					for (a=0; a<r.ROWCOUNT; ++a) {
+						ns+='<br><span class="infoLink" onclick="';
+						ns+="useThis('" + key + "','" + r.DATA.PREFERRED_AGENT_NAME[a] + "',";
+						ns+="'" + r.DATA.AGENT_ID[a] + "')";
+						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
+						ns+='<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
+						$('#suggested__' + r.DATA.KEY[a]).append(ns);
 					}
-					$("#suggested__"  + key).html(n);
-					*/
-					
 				}
 			);
 	  	}
