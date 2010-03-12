@@ -211,7 +211,7 @@
 							agent_name,
 							donor_card_present_fg
 						) VALUES (
-							#agentNameID.nextAgentNameId#,
+							sq_agent_name_id.nextval,
 							#agentID.nextAgentId#,
 							'#d.other_name_type_1#',
 							'#d.other_name_1#',
@@ -228,7 +228,7 @@
 							agent_name,
 							donor_card_present_fg
 						) VALUES (
-							#agentNameID.nextAgentNameId#,
+							sq_agent_name_id.nextval,
 							#agentID.nextAgentId#,
 							'#d.other_name_type_2#',
 							'#d.other_name_2#',
@@ -245,7 +245,7 @@
 							agent_name,
 							donor_card_present_fg
 						) VALUES (
-							#agentNameID.nextAgentNameId#,
+							sq_agent_name_id.nextval,
 							#agentID.nextAgentId#,
 							'#d.other_name_type_3#',
 							'#d.other_name_3#',
