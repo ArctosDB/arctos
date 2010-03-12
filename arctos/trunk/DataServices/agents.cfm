@@ -87,6 +87,22 @@ sho err
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
+	<style>
+		.cfcatch{
+			font-size:.6em;
+			padding-left:1em;
+		}
+		.infobox{
+			font-size:.7em;
+			width:250px;
+		}
+		.rBorder {
+			border:2px solid red;
+		}
+		.gBorder {
+			border:2px solid green;
+		}
+	</style>
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from ds_temp_agent
 	</cfquery>
@@ -150,12 +166,12 @@ sho err
 					var agent_id=r.DATA.AGENT_ID[0];
 					if (status=='FAIL'){
 						$('#msgDiv_' + key).remove();						
-						var ns='<div style="border:2px solid red;width:150px;" id="msgDiv_' + key + '></div>';
+						var ns='<div class="infobox rBorder" id="msgDiv_' + key + '></div>';
 						$('#suggested__' + key).append(ns);
 						$('#msgDiv_' + key).html(msg);
 					} else if (status=='PASS') {
 						$('#msgDiv_' + key).remove();
-						var ns='<div style="border:2px solid green;width:150px;" id="msgDiv_' + key + '>';
+						var ns='<div class="infobox gBorder" id="msgDiv_' + key + '>';
 						ns+='</div>';
 						$('#suggested__' + key).html(ns);
 						$('#msgDiv_' + key).html(msg);
