@@ -38,9 +38,9 @@
 							'#thisName#'
 						)
 					</cfquery>
-					<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
+					<cfset msg=listappend(msg,'Added #thisName# as #nametype#')>
 				<cfcatch>
-					<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.(#cfcatch.detail#)')>
+					<cfset msg=listappend(msg,'Failed to add #thisName# as #nametype# - it probably already exists for the agent.(#cfcatch.detail#)')>
 				</cfcatch>
 				</cftry>
 				<cfif len(d.other_name_1) gt 0>
@@ -60,9 +60,9 @@
 								'#thisName#'
 							)
 						</cfquery>
-						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
+						<cfset msg=listappend(msg,'Added #thisName# as #nametype#')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.(#cfcatch.detail#)')>
+						<cfset msg=listappend(msg,'Failed to add #thisName# as #nametype# - it probably already exists for the agent.(#cfcatch.detail#)')>
 					</cfcatch>
 					</cftry>
 				</cfif>
@@ -84,9 +84,9 @@
 								'#thisName#'
 							)
 						</cfquery>
-						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
+						<cfset msg=listappend(msg,'Added #thisName# as #nametype#')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.(#cfcatch.detail#)')>
+						<cfset msg=listappend(msg,'Failed to add #thisName# as #nametype# - it probably already exists for the agent.(#cfcatch.detail#)')>
 					</cfcatch>
 					</cftry>
 				</cfif>
@@ -107,9 +107,9 @@
 								'#thisName#'
 							)
 						</cfquery>
-						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
+						<cfset msg=listappend(msg,'Added #thisName# as #nametype#')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.(#cfcatch.detail#)')>
+						<cfset msg=listappend(msg,'Failed to add #thisName# as #nametype# - it probably already exists for the agent.(#cfcatch.detail#)')>
 					</cfcatch>
 					</cftry>
 				</cfif>
