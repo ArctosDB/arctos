@@ -22,18 +22,7 @@ create table ds_temp_agent (
 	other_name_type_2   varchar2(255),
 	other_name_3  varchar2(255),
 	other_name_type_3   varchar2(255),
-	agent_remark varchar2(4000),
-	new_agent_type varchar2(255),
-	new_preferred_name varchar2(255),
-	new_first_name varchar2(255),
-	new_middle_name varchar2(255),
-	new_last_name varchar2(255),
-	new_birth_date date,
-	new_death_date date,
-	new_agent_remark varchar2(255),
-	new_prefix varchar2(255),
-	new_suffix varchar2(255),
-	new_existing_agent_id number
+	agent_remark varchar2(4000)
 	);
 	
 create public synonym ds_temp_agent for ds_temp_agent;
@@ -174,21 +163,39 @@ sho err
 				}
 			);
 	  	}
-	  	alert('OK, the suggestions are complete. Now it\'s your turn.');
 	});
 </script>
 <cfoutput>
 	<hr>
-	Let all the JavaScript run. It'll take a while, and you'll be alerted when it's done.
+	Let all the JavaScript run. It'll take a while, and your page will bounce around while it's doing it's thing.
 	Then, for each agent, do one of three things:
 	<ul>
 		<li>Create a new agent by clicking the preferred name you uploaded. It's the one in [ square brackets ].</li>
 		<li>Map your agent to an existing agent by clicking one of the suggest links. They're not in square brackets.</li>
 		<li>Pick another existing agent by typing in the box and tabbing out, just like any other agent pick.</li>
 	</ul>
+	Click Save when you're done. 
+	<p>
+	If you picked an existing agent, we'll add all of your names to that agent. 
+	</p>
+	<p>
+		If you chose to use your agent, we'll create an agent with all the names you supplied.
+	</p>
+	
+	<p>
+		Once everything has saved you can load specimen data using any of the names you loaded or, for pre-existing agents,
+		any name that they already had.
+	</p>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent
 	</cfquery>
+	<cfquery name="p" dbtype="query">
+		select distinct(agent_type) agent_type from d
+	</cfquery>
+	<cfif valuelist(p.agent_type) is not "person">
+		Sorry, we can only deal with agent type=person here.
+		<cfabort>
+	</cfif>
 	<form name="f">
 	<input type="hidden" id="keyList" value="#valuelist(d.key)#">
 	<table border id="theTable" class="sortable">
@@ -206,21 +213,34 @@ sho err
 			<th>aka_2</th>
 			<th>aka_3</th>
 			<th>SuggestedAgent</th>
+			<th>Remark</th>
 		</tr>
 		<cfloop query="d">
 			<tr id="row#key#">
-				<td id="agent_type__#key#">#agent_type#&nbsp;</td>
-				<td id="preferred_name__#key#">#preferred_name#</td>
-				<td id="first_name__#key#">#first_name#&nbsp;</td>
-				<td id="middle_namee__#key#">#middle_name#&nbsp;</td>
-				<td id="last_name__#key#">#last_name#&nbsp;</td>
-				<td id="birth_date__#key#">#birth_date#&nbsp;</td>
-				<td id="death_date__#key#">#death_date#&nbsp;</td>
-				<td id="prefix__#key#">#prefix#&nbsp;</td>
-				<td id="suffix__#key#">#suffix#&nbsp;</td>
-				<td id="other_name_1__#key#">#other_name_1# (#other_name_type_1#)</td>
-				<td id="other_name_2__#key#">#other_name_2# (#other_name_type_2#)</td>
-				<td id="other_name_3__#key#">#other_name_3# (#other_name_type_3#)</td>
+				<td>#agent_type#</td>
+				<td>#preferred_name#</td>
+				<td>#first_name#&nbsp;</td>
+				<td>#middle_name#&nbsp;</td>
+				<td>#last_name#&nbsp;</td>
+				<td>#birth_date#&nbsp;</td>
+				<td>#death_date#&nbsp;</td>
+				<td>#prefix#&nbsp;</td>
+				<td>#suffix#&nbsp;</td>
+				<td>
+					<cfif len(other_name_1) gt 0>
+						#other_name_1# (#other_name_type_1#)
+					</cfif>
+				</td>
+				<td>
+					<cfif len(other_name_2) gt 0>
+						#other_name_2# (#other_name_type_2#)
+					</cfif>
+				</td>
+				<td>
+					<cfif len(other_name_3) gt 0>
+						#other_name_3# (#other_name_type_3#)
+					</cfif>
+				</td>
 				<td nowrap="nowrap" id="suggested__#key#">
 					<label for="">Map To Agent</label>
 					<input type="text" name="name_#key#" id="name_#key#" class="reqdClr" 
@@ -229,6 +249,7 @@ sho err
 					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
 					<br><span class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">[ #preferred_name# ]</span>
 				</td>
+				<td>#agent_remark#</td>
 			</tr>
 		</cfloop>
 	</table>
