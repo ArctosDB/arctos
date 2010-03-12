@@ -15,11 +15,7 @@
 <cffunction name="loadAgent" access="remote">
 	<cfargument name="key" type="numeric" required="yes">
 	<cfargument name="agent_id" type="any" required="yes">	
-	<cfif len(agent_id) is 0>
-		<cfset status="FAIL">
-		<cfset agent_id="">
-		<cfset msg="No agent was selected">
-	<cfelseif isnumeric(agent_id) and agent_id gt -1>
+	<cfif isnumeric(agent_id) and agent_id gt -1>
 		<cftry>
 			<cfset msg="">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -255,9 +251,6 @@
 			<cfset msg="agent could not be created: #cfcatch.message#: #cfcatch.detail#">
 		</cfcatch>
 		</cftry>
-	<cfelse>
-		<cfset status="FAIL">
-		<cfset msg="unknown error with input">
 	</cfif>
 	<cfset result = querynew("KEY,STATUS,MSG,AGENT_ID")>
 	<cfset temp = queryaddrow(result,1)>
