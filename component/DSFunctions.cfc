@@ -162,7 +162,7 @@
 						#agentID.nextAgentId#,
 						'person',
 						#agentNameID.nextAgentNameId#,
-						'trim(#d.agent_remark#)'
+						'#trim(d.agent_remark)#'
 						)
 				</cfquery>		
 				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -177,13 +177,13 @@
 						DEATH_DATE
 					) VALUES (
 						#agentID.nextAgentId#
-						,'trim(#d.prefix#)'
-						,'trim(#d.LAST_NAME#)'
-						,'trim(#d.FIRST_NAME#)'
-						,'trim(#d.MIDDLE_NAME#)'
-						,'trim(#d.SUFFIX#)'
-						,'trim(#d.birth_date#)'
-						,'trim(#d.death_date#)'
+						,'#trim(d.prefix)#'
+						,'#trim(d.LAST_NAME)#'
+						,'#trim(d.FIRST_NAME)#'
+						,'#trim(d.MIDDLE_NAME)#'
+						,'#trim(d.SUFFIX)#'
+						,'#trim(d.birth_date)#'
+						,'#trim(d.death_date)#'
 					)
 				</cfquery>
 				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -197,7 +197,7 @@
 						#agentNameID.nextAgentNameId#,
 						#agentID.nextAgentId#,
 						'preferred',
-						'trim(#d.preferred_name#)',
+						'#trim(d.preferred_name)#',
 						0
 					)
 				</cfquery>
@@ -214,7 +214,7 @@
 							sq_agent_name_id.nextval,
 							#agentID.nextAgentId#,
 							'#d.other_name_type_1#',
-							'trim(#d.other_name_1#)',
+							'#trim(d.other_name_1)#',
 							0
 						)
 					</cfquery>
@@ -231,7 +231,7 @@
 							sq_agent_name_id.nextval,
 							#agentID.nextAgentId#,
 							'#d.other_name_type_2#',
-							'trim(#d.other_name_2#)',
+							'#trim(d.other_name_2)#',
 							0
 						)
 					</cfquery>
@@ -248,7 +248,7 @@
 							sq_agent_name_id.nextval,
 							#agentID.nextAgentId#,
 							'#d.other_name_type_3#',
-							'trim(#d.other_name_3#)',
+							'#trim(d.other_name_3)#',
 							0
 						)
 					</cfquery>
