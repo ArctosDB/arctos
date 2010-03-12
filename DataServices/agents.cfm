@@ -161,6 +161,7 @@ sho err
 							ns+='<option value="' + r.DATA.AGENT_ID[a] + '"">' + r.DATA.PREFERRED_AGENT_NAME + '"</option>';
 						}
 						ns+='</select>';
+						console.log(ns);
 						$('#suggested__' + r.DATA.key[a]).html(ns);
 					}
 				}
