@@ -26,7 +26,7 @@
 				select * from ds_temp_agent where key=#key#
 			</cfquery>
 			<cftransaction>
-				<cfset thisName=preferred_name>
+				<cfset thisName=d.preferred_name>
 				<cfset nametype='aka'>
 				<cftry>
 					<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -45,9 +45,9 @@
 					<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
 				</cfcatch>
 				</cftry>
-				<cfif len(other_name_1) gt 0>
-					<cfset thisName=other_name_1>
-					<cfset nametype=other_name_type_1>
+				<cfif len(d.other_name_1) gt 0>
+					<cfset thisName=d.other_name_1>
+					<cfset nametype=d.other_name_type_1>
 					<cftry>
 						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							insert into agent_name (
@@ -67,9 +67,9 @@
 					</cftry>
 				</cfif>
 				
-				<cfif len(other_name_2) gt 0>
-					<cfset thisName=other_name_2>
-					<cfset nametype=other_name_type_2>
+				<cfif len(d.other_name_2) gt 0>
+					<cfset thisName=d.other_name_2>
+					<cfset nametype=d.other_name_type_2>
 					<cftry>
 						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							insert into agent_name (
@@ -88,9 +88,9 @@
 					</cfcatch>
 					</cftry>
 				</cfif>
-				<cfif len(other_name_3) gt 0>
-					<cfset thisName=other_name_3>
-					<cfset nametype=other_name_type_3>
+				<cfif len(d.other_name_3) gt 0>
+					<cfset thisName=d.other_name_3>
+					<cfset nametype=d.other_name_type_3>
 					<cftry>
 						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							insert into agent_name (
