@@ -162,10 +162,10 @@ sho err
 				function (r) {
 					var key=r.DATA.KEY[0];
 					for (a=0; a<r.ROWCOUNT; ++a) {
-						var ns='<br><div class="infoLink" onclick="';
+						var ns='<br><span class="infoLink" onclick="';
 						ns+="useThis('" + key + "','" + r.DATA.PREFERRED_AGENT_NAME[a] + "',";
 						ns+="'" + r.DATA.AGENT_ID[a] + "')";
-						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</div>';
+						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
 						ns+='&nbsp;<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
 
 						console.log(ns);
@@ -212,13 +212,13 @@ sho err
 				<td id="other_name_1__#key#">#other_name_1# (#other_name_type_1#)</td>
 				<td id="other_name_2__#key#">#other_name_2# (#other_name_type_2#)</td>
 				<td id="other_name_3__#key#">#other_name_3# (#other_name_type_3#)</td>
-				<td id="suggested__#key#">
+				<td nowrap="nowrap" id="suggested__#key#">
 					<label for="">Map To Agent</label>
 					<input type="text" name="name_#key#" id="name_#key#" class="reqdClr" 
 						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
 		 				onKeyPress="return noenter(event);">
 					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
-					<br><div class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">Use This Row</div>
+					<br><span class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">Use This Row</span>
 				</td>
 			</tr>
 		</cfloop>
