@@ -158,7 +158,7 @@ sho err
 					if(r.ROWCOUNT > 0) {
 						for (a=0; a<r.ROWCOUNT; ++a) {
 							var preferred_name=r.DATA.preferred_agent_name[a];
-							var preferred_name__=$('preferred_name__' + r.DATA.key[a]).html();
+							var preferred_name__=$('preferred_name__' + r.DATA.key[a]).text();
 							console.log(preferred_name + '------' + preferred_name__);
 						}
 					}
