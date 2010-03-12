@@ -18,9 +18,9 @@
 	<cfif len(agent_id) is 0>
 		<cfset rl="#key#,got no agent_id">
 	<cfelseif agent_id gt 0>
-		<cfset rl="#key#,using old")>
+		<cfset rl="#key#,using old">
 	<cfelse>
-		<cfset rl="#key#,makin agent")>
+		<cfset rl="#key#,makin agent">
 	</cfif>
 	<cfset result=serializejson(rl,0)>
 	<cfreturn result>
