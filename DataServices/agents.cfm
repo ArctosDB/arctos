@@ -164,7 +164,7 @@ sho err
 						ns+='</select>';
 						console.log(ns);
 						//$('#suggested__' + r.DATA.KEY[a]).html(ns);
-						$('#suggested__' + r.DATA.KEY[a]).text('<p>html>/p>');
+						$('#suggested__' + r.DATA.KEY[a]).append('i am text');
 					}
 				}
 			);
