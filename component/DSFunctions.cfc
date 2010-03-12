@@ -29,7 +29,7 @@
 	        preferred_agent_name
 		where 
 	        srch.agent_id=preferred_agent_name.agent_id and
-	        srch.agent_name in ('#d.preferred_name#','#d.other_name_1#','#d.other_name_2#','#d.other_name_3#')
+	        srch.agent_name in (trim('#d.preferred_name#'),trim('#d.other_name_1#'),trim('#d.other_name_2#'),trim('#d.other_name_3#'))
 	    group by
 	    	preferred_agent_name.agent_id, 
 	        preferred_agent_name.agent_name,
