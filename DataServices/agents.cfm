@@ -162,7 +162,7 @@ sho err
 				function (r) {
 					var key=r.DATA.KEY[0];
 					for (a=0; a<r.ROWCOUNT; ++a) {
-						ns+='<br><span class="infoLink" onclick="';
+						var ns='<br><span class="infoLink" onclick="';
 						ns+="useThis('" + key + "','" + r.DATA.PREFERRED_AGENT_NAME[a] + "',";
 						ns+="'" + r.DATA.AGENT_ID[a] + "')";
 						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
