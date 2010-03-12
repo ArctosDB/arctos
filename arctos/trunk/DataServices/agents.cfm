@@ -150,7 +150,7 @@ sho err
 					var agent_id=r.DATA.AGENT_ID[0];
 					
 					console.log(msg);
-					if (msg=='FAIL'){
+					if (status=='FAIL'){
 						$('#msgDiv_' + key).remove();
 						console.log('looking for #msgDiv_' + key);
 						
@@ -159,7 +159,7 @@ sho err
 						ns+=msg;
 						ns+='</div>';
 						$('#suggested__' + key).append(ns);
-					} else if (msg=='PASS') {
+					} else if (status=='PASS') {
 						$('#msgDiv_' + key).remove();
 						var ns='<div style="border:2px solid green;" id="msgDiv_' + key + '>';
 						ns+=msg;
