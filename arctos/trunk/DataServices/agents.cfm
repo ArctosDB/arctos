@@ -225,7 +225,7 @@ sho err
 				<td id="other_name_3__#key#">#other_name_3# (#other_name_type_3#)</td>
 				<td id="suggested__#key#">
 					<label for="">Map To Agent</label>
-					<input type="text" name="name_#key#" class="reqdClr" 
+					<input type="text" name="name_#key#" id="name_#key#" class="reqdClr" 
 						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
 		 				onKeyPress="return noenter(event);">
 					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
