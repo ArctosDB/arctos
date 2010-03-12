@@ -14,13 +14,16 @@
 
 <cffunction name="loadAgent" access="remote">
 	<cfargument name="key" type="numeric" required="yes">
-	<cfargument name="agent_id" type="numeric" required="yes">
+	<cfargument name="agent_id" type="any" required="yes">
 	<cfif len(agent_id) is 0>
 		<cfset rl="#key#,got no agent_id">
-	<cfelseif agent_id gt 0>
+	<cfelseif isnumeric(agent_id) and agent_id gt 0>
 		<cfset rl="#key#,using old">
-	<cfelse>
+	<cfelseif agent_id is -1>
 		<cfset rl="#key#,makin agent">
+	<cfelse>
+		
+		<cfset rl="#key#,unknown error">
 	</cfif>
 	<cfset result=serializejson(rl,0)>
 	<cfreturn result>
