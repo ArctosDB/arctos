@@ -162,11 +162,11 @@ sho err
 				function (r) {
 					var key=r.DATA.KEY[0];
 					for (a=0; a<r.ROWCOUNT; ++a) {
-						var ns='<br><span class="infoLink" onclick="';
+						var ns='<br><div class="infoLink" onclick="';
 						ns+="useThis('" + key + "','" + r.DATA.PREFERRED_AGENT_NAME[a] + "',";
 						ns+="'" + r.DATA.AGENT_ID[a] + "')";
-						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
-						ns+='<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
+						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</div>';
+						ns+='&nbsp;<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
 
 						console.log(ns);
 						$('#suggested__' + key).append(ns);
@@ -218,7 +218,7 @@ sho err
 						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
 		 				onKeyPress="return noenter(event);">
 					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
-					<br><span class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">Use This Row</span>
+					<br><div class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">Use This Row</div>
 				</td>
 			</tr>
 		</cfloop>
