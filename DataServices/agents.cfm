@@ -263,7 +263,7 @@ sho err
 		where nt not in (select agent_name_type from ctagent_name_type)
 	</cfquery>
 	<cfif ctont.recordcount gt 0>
-		<div class="error">#valuelist(ctont.nt)# are not accepable name types.</div>
+		<div class="error">Unaccepable name type(s): #valuelist(ctont.nt)#</div>
 		<cfabort>
 	</cfif>
 	<hr>
