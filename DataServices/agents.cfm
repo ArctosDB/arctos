@@ -213,7 +213,7 @@ sho err
 		<cfabort>
 	</cfif>
 	<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select count(*) from ds_temp_agent where preferred_name is null
+		select count(*) c from ds_temp_agent where preferred_name is null
 	</cfquery>
 	<cfif rpn.c is not 0>
 		<div class="error">Preferred name is required for every agent.</div>
