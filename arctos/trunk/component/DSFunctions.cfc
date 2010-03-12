@@ -14,7 +14,9 @@
 
 <cffunction name="loadAgent" access="remote">
 	<cfargument name="key" type="numeric" required="yes">
-	<cfargument name="agent_id" type="any" required="yes">	
+	<cfargument name="agent_id" type="any" required="yes">
+	<cfset status="">
+	<cfset msg="">
 	<cfif isnumeric(agent_id) and agent_id gt -1>
 		<cftry>
 			<cfset msg="">
