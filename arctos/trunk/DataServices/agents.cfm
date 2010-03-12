@@ -132,13 +132,11 @@ sho err
 <script src="/includes/sorttable.js"></script>
 <script type='text/javascript' language='javascript'>
 	function useThis(key,name,id) {
-		console.log('useThis(' + key + '::' + name + '::' + id);
 		$('#name_' + key).val(name);
 		$('#agent_id_' + key).val(id);
 	}
 	jQuery(document).ready(function() {
 	  	var keyList = document.getElementById('keyList').value;
-	  	console.log(keyList);
 	  	kAry=keyList.split(",");
 	  	for (i=0; i<kAry.length; ++i) {
 	  		jQuery.getJSON("/component/DSFunctions.cfc",
@@ -156,8 +154,6 @@ sho err
 						ns+="'" + r.DATA.AGENT_ID[a] + "')";
 						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
 						ns+='&nbsp;<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
-
-						console.log(ns);
 						$('#suggested__' + key).append(ns);
 					}
 				}
