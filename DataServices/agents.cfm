@@ -144,22 +144,23 @@ sho err
 					queryformat : 'column'
 				},
 				function (r) {
-					var R=r.split(",");
-					var key=R[0];
-					var msg=R[1];
+					var key=r.DATA.KEY[0];
+					var msg=r.DATA.MSG[0];
+					var status=r.DATA.STATUS[0];
+					var agent_id=r.DATA.AGENT_ID[0];
 					
 					console.log(msg);
 					if (msg=='FAIL'){
 						$('#msgDiv_' + key).remove();
 						var ns='<div style="border:2px solid red;" id="msgDiv_' + key + '>';
 						ns+='RECORD NOT SAVED!<br>';
-						ns+=R[2];
+						ns+=msg;
 						ns+='</div>';
 						$('#suggested__' + key).append(ns);
 					} else if (msg=='PASS') {
 						$('#msgDiv_' + key).remove();
 						var ns='<div style="border:2px solid green;" id="msgDiv_' + key + '>';
-						ns+=R[2];
+						ns+=msg;
 						ns+='</div>';
 						$('#suggested__' + key).html(ns);
 					}

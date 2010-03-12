@@ -14,19 +14,259 @@
 
 <cffunction name="loadAgent" access="remote">
 	<cfargument name="key" type="numeric" required="yes">
-	<cfargument name="agent_id" type="any" required="yes">
+	<cfargument name="agent_id" type="any" required="yes">	
 	<cfif len(agent_id) is 0>
-		<cfset rl="#key#,FAIL,No agent was selected">
+		<cfset status="FAIL">
+		<cfset agent_id="">
+		<cfset msg="No agent was selected">
 	<cfelseif isnumeric(agent_id) and agent_id gt -1>
-		<cfset rl="#key#,PASS,agent updated">
+		<cftry>
+			<cfset msg="">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from ds_temp_agent where key=#key#
+			</cfquery>
+			<cftransaction>
+				<cfif len(preferred_name) gt 0>
+					<cfset thisName=preferred_name>
+					<cfset nametype='aka'>
+					<cftry>
+						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							insert into agent_name (
+								AGENT_ID,
+								AGENT_NAME_TYPE,
+								AGENT_NAME
+							) values (
+								#agent_id#,
+								'#nametype#',
+								'#thisName#'
+							)
+						</cfquery>
+						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
+					<cfcatch>
+						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
+					</cfcatch>
+					</cftry>
+				</cfif>
+				<cfif len(other_name_1) gt 0>
+					<cfset thisName=other_name_1>
+					<cfset nametype=other_name_type_1>
+					<cftry>
+						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							insert into agent_name (
+								AGENT_ID,
+								AGENT_NAME_TYPE,
+								AGENT_NAME
+							) values (
+								#agent_id#,
+								'#nametype#',
+								'#thisName#'
+							)
+						</cfquery>
+						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
+					<cfcatch>
+						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
+					</cfcatch>
+					</cftry>
+				</cfif>
+				
+				<cfif len(other_name_2) gt 0>
+					<cfset thisName=other_name_2>
+					<cfset nametype=other_name_type_2>
+					<cftry>
+						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							insert into agent_name (
+								AGENT_ID,
+								AGENT_NAME_TYPE,
+								AGENT_NAME
+							) values (
+								#agent_id#,
+								'#nametype#',
+								'#thisName#'
+							)
+						</cfquery>
+						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
+					<cfcatch>
+						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
+					</cfcatch>
+					</cftry>
+				</cfif>
+				<cfif len(other_name_3) gt 0>
+					<cfset thisName=other_name_3>
+					<cfset nametype=other_name_type_3>
+					<cftry>
+						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							insert into agent_name (
+								AGENT_ID,
+								AGENT_NAME_TYPE,
+								AGENT_NAME
+							) values (
+								#agent_id#,
+								'#nametype#',
+								'#thisName#'
+							)
+						</cfquery>
+						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
+					<cfcatch>
+						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
+					</cfcatch>
+					</cftry>
+				</cfif>
+				<cfif len(agent_remark) gt 0>
+					<cftry>
+						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							update agent set agent_remarks=
+								decode(agent_remarks,
+								null,'#agent_remark#',
+								agent_remarks || '; #agent_remark#')
+								where agent_id=#agent_id#
+						</cfquery>
+						<cfset msg=listappend(msg,'Added remark')>
+					<cfcatch>
+						<cfset msg=listappend(msg,'Failed to add remark! That could be bad.')>
+					</cfcatch>
+					</cftry>
+				</cfif>
+			</cftransaction>
+			<cfset status="PASS">
+			<cfset msg=listappend(msg,'<a href="/agents.cfm?agent_id=#agent_id# target="_blank">agent record</a>')>
+		<cfcatch>
+			<cfset status="FAIL">
+			<cfset msg="agent could not be updated: #cfcatch.message#: #cfcatch.detail#">
+		</cfcatch>
+		</cftry>
 	<cfelseif agent_id is -1>
-		<cfset rl="#key#,PASS,agent created">
+		<cftry>
+			<cftransaction>
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select * from ds_temp_agent where key=#key#
+				</cfquery>
+				<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select sq_agent_id.nextval nextAgentId from dual
+				</cfquery>
+				<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select sq_agent_name_id.nextval nextAgentNameId from dual
+				</cfquery>		
+				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					INSERT INTO agent (
+						agent_id,
+						agent_type,
+						preferred_agent_name_id,
+						AGENT_REMARKS
+					) VALUES (
+						#agentID.nextAgentId#,
+						'person',
+						#agentNameID.nextAgentNameId#,
+						'#agent_remark#'
+						)
+				</cfquery>		
+				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					INSERT INTO person ( 
+						PERSON_ID
+						,prefix
+						,LAST_NAME
+						,FIRST_NAME
+						,MIDDLE_NAME
+						,SUFFIX,
+						BIRTH_DATE,
+						DEATH_DATE
+					) VALUES (
+						#agentID.nextAgentId#
+						,'#d.prefix#'
+						,'#d.LAST_NAME#'
+						,'#d.FIRST_NAME#'
+						,'#d.MIDDLE_NAME#'
+						,'#SUFFIX#'
+						,'#birth_date#'
+						,'#death_date#'
+					)
+				</cfquery>
+				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					INSERT INTO agent_name (
+						agent_name_id,
+						agent_id,
+						agent_name_type,
+						agent_name,
+						donor_card_present_fg
+					) VALUES (
+						#agentNameID.nextAgentNameId#,
+						#agentID.nextAgentId#,
+						'preferred',
+						'#preferred_name#',
+						0
+					)
+				</cfquery>
+				<cfif len(other_name_1) gt 0>
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO agent_name (
+							agent_name_id,
+							agent_id,
+							agent_name_type,
+							agent_name,
+							donor_card_present_fg
+						) VALUES (
+							#agentNameID.nextAgentNameId#,
+							#agentID.nextAgentId#,
+							'#other_name_type_1#',
+							'#other_name_1#',
+							0
+						)
+					</cfquery>
+				</cfif>
+				<cfif len(other_name_2) gt 0>
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO agent_name (
+							agent_name_id,
+							agent_id,
+							agent_name_type,
+							agent_name,
+							donor_card_present_fg
+						) VALUES (
+							#agentNameID.nextAgentNameId#,
+							#agentID.nextAgentId#,
+							'#other_name_type_2#',
+							'#other_name_2#',
+							0
+						)
+					</cfquery>
+				</cfif>
+				<cfif len(other_name_3) gt 0>
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO agent_name (
+							agent_name_id,
+							agent_id,
+							agent_name_type,
+							agent_name,
+							donor_card_present_fg
+						) VALUES (
+							#agentNameID.nextAgentNameId#,
+							#agentID.nextAgentId#,
+							'#other_name_type_3#',
+							'#other_name_3#',
+							0
+						)
+					</cfquery>
+				</cfif>
+			</cftransaction>	
+		<cfcatch>
+			<cfset status="FAIL">
+			<cfset agent_id="">
+			<cfset msg="agent could not be created: #cfcatch.message#: #cfcatch.detail#">
+		</cfcatch>
+		</cftry>
+		<cfset status="PASS">
+		<cfset agent_id=agentID.nextAgentId>
+		<cfset msg='<a href="/agents.cfm?agent_id=#agent_id# target="_blank">agent record</a> created'>
 	<cfelse>
-		
-		<cfset rl="#key#,unknown error">
+		<cfset status="FAIL">
+		<cfset msg="unknown error with input">
 	</cfif>
-	<cfset result=serializejson(rl,1)>
-	<cfreturn rl>
+	<cfset result = querynew("KEY,STATUS,MSG,AGENT_ID")>
+	<cfset temp = queryaddrow(result,1)>
+	<cfset temp = QuerySetCell(result, "KEY", key, 1)>
+	<cfset temp = QuerySetCell(result, "STATUS", status, 1)>
+	<cfset temp = QuerySetCell(result, "MSG", msg, 1)>
+	<cfset temp = QuerySetCell(result, "AGENT_ID", agent_id, 1)>
+	<cfreturn result>
 </cffunction>
 
 
