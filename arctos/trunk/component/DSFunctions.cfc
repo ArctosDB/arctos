@@ -128,7 +128,7 @@
 				</cfif>
 			</cftransaction>
 			<cfset status="PASS">
-			<cfset msg=listappend(msg,'<a href="/agents.cfm?agent_id=#agent_id# target="_blank">agent record</a>')>
+			<cfset msg=listappend(msg,'<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent record</a>')>
 		<cfcatch>
 			<cfset status="FAIL">
 			<cfset msg="agent could not be updated: #cfcatch.message#: #cfcatch.detail#">
@@ -255,7 +255,7 @@
 		</cftry>
 		<cfset status="PASS">
 		<cfset agent_id=agentID.nextAgentId>
-		<cfset msg='<a href="/agents.cfm?agent_id=#agent_id# target="_blank">agent record</a> created'>
+		<cfset msg='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent record</a> created'>
 	<cfelse>
 		<cfset status="FAIL">
 		<cfset msg="unknown error with input">
