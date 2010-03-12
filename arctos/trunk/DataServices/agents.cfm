@@ -178,8 +178,9 @@ sho err
 					} else {
 						var ns='nada';
 					}
-					*/
 					$("#suggested__"  + key).html(n);
+					*/
+					
 				}
 			);
 	  	}
