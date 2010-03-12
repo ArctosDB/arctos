@@ -260,7 +260,7 @@
 		<cfcatch>
 			<cfset status="FAIL">
 			<cfset agent_id="">
-			<cfset msg='Failed: Create agent<span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")# #cfcatch.sql#</span>'>
+			<cfset msg='Failed: Create agent<span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]","","all")#</span>'>
 		</cfcatch>
 		</cftry>
 	</cfif>
