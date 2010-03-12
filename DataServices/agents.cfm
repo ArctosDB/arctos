@@ -174,9 +174,18 @@ sho err
 				}
 			);
 	  	}
+	  	alert('OK, the suggestions are complete. Now it\'s your turn.');
 	});
 </script>
 <cfoutput>
+	<hr>
+	Let all the JavaScript run. It'll take a while, and you'll be alerted when it's done.
+	Then, for each agent, do one of three things:
+	<ul>
+		<li>Create a new agent by clicking the preferred name you uploaded. It's the one in [ square brackets ].</li>
+		<li>Map your agent to an existing agent by clicking one of the suggest links. They're not in square brackets.</li>
+		<li>Pick another existing agent by typing in the box and tabbing out, just like any other agent pick.</li>
+	</ul>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent
 	</cfquery>
