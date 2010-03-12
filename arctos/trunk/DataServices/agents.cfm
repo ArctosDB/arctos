@@ -155,12 +155,13 @@ sho err
 					queryformat : 'column'
 				},
 				function (r) {
-					if(r.ROWCOUNT > 0) {
+					if(r.ROWCOUNT == 0) {
+						ns='<select>';
 						for (a=0; a<r.ROWCOUNT; ++a) {
-							var preferred_name=r.DATA.preferred_agent_name[a];
-							var preferred_name__=$('#preferred_name__' + r.DATA.key[a]).text();
-							console.log(preferred_name + '------' + preferred_name__);
+							ns+='<option value="' + r.DATA.agent_id[a] + '"">' + r.DATA.preferred_agent_name + '"</option>';
 						}
+						ns+='</select>';
+						$('#suggested__' + r.DATA.key[a]).html(ns);
 					}
 				}
 			);
@@ -186,7 +187,8 @@ sho err
 			<th>aka_1</th>
 			<th>aka_2</th>
 			<th>aka_3</th>
-			<th>ExistingAgent</th>
+			<th>SuggestedAgent</th>
+			<th>mapToAgent</th>
 		</tr>
 		<cfloop query="d">
 			<tr id="row#key#">
@@ -202,7 +204,8 @@ sho err
 				<td id="other_name_1__#key#">#other_name_1# (#other_name_type_1#)</td>
 				<td id="other_name_2__#key#">#other_name_2# (#other_name_type_2#)</td>
 				<td id="other_name_3__#key#">#other_name_3# (#other_name_type_3#)</td>
-				<td id="arctos_name__#key#">NOTFOUND</td>
+				<td id="suggested__#key#">-</td>
+				<td id="picked__#key#">No Suggestions</td>
 			</tr>
 		</cfloop>
 	</table>
