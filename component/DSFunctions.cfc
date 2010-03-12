@@ -259,7 +259,7 @@
 		<cfcatch>
 			<cfset status="FAIL">
 			<cfset agent_id="">
-			<cfset msg="agent could not be created: #cfcatch.message#: #cfcatch.detail#">
+			<cfset msg="agent could not be created: #cfcatch.message#: #cfcatch.detail# #cfcatch.sql#">
 		</cfcatch>
 		</cftry>
 	</cfif>
