@@ -148,6 +148,13 @@ sho err
 					var R=r.split(",");
 					var key=R[0];
 					var msg=R[1];
+					if (msg=='FAIL'){
+						var ns='<div style="border:2px solid red;">';
+						ns+='RECORD NOT SAVED!<br>';
+						ns+=R[2];
+						ns+='</div>
+						$('#suggested__' + key).append(ns);
+					}
 					//console.log(msg);
 				}
 			);
@@ -248,7 +255,7 @@ sho err
 						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
 		 				onKeyPress="return noenter(event);" size="30">
 					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
-					<br><span class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">[ #preferred_name# ]</span>
+					<br><span class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">[ #preferred_name# ] (new agent)</span>
 				</td>
 				<td>#first_name#&nbsp;</td>
 				<td>#middle_name#&nbsp;</td>
