@@ -17,7 +17,7 @@
 	<cfargument name="agent_id" type="any" required="yes">
 	<cfif len(agent_id) is 0>
 		<cfset rl="#key#,FAIL,No agent was selected">
-	<cfelseif isnumeric(agent_id) and agent_id gt 0>
+	<cfelseif isnumeric(agent_id) and agent_id gt -1>
 		<cfset rl="#key#,PASS,agent updated">
 	<cfelseif agent_id is -1>
 		<cfset rl="#key#,PASS,agent created">
