@@ -186,7 +186,6 @@
 						,'#d.death_date#'
 					)
 				</cfquery>
-			<cftransaction action="commit">
 				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO agent_name (
 						agent_name_id,
@@ -202,6 +201,7 @@
 						0
 					)
 				</cfquery>
+			<cftransaction action="commit"><!--- stoopid trigger workaround to have preferred name --->
 				<cfif len(d.other_name_1) gt 0>
 					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO agent_name (
