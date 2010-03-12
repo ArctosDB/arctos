@@ -228,7 +228,7 @@ sho err
 						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
 		 				onKeyPress="return noenter(event);">
 					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
-					<br><span class="infoLink" onclick="useThis(#key#,'#preferred_name#',-1)">Use This Row</span>
+					<br><span class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">Use This Row</span>
 				</td>
 			</tr>
 		</cfloop>
