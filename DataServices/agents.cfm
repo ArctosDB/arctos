@@ -152,7 +152,7 @@ sho err
 						var ns='<div style="border:2px solid red;">';
 						ns+='RECORD NOT SAVED!<br>';
 						ns+=R[2];
-						ns+='</div>
+						ns+='</div>';
 						$('#suggested__' + key).append(ns);
 					}
 					//console.log(msg);
