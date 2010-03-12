@@ -27,10 +27,12 @@
 				<cftry>
 					<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						insert into agent_name (
+							agent_name_id,
 							AGENT_ID,
 							AGENT_NAME_TYPE,
 							AGENT_NAME
 						) values (
+							sq_agent_name_id.nextval,
 							#agent_id#,
 							'#nametype#',
 							'#thisName#'
@@ -47,10 +49,12 @@
 					<cftry>
 						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							insert into agent_name (
+								agent_name_id,
 								AGENT_ID,
 								AGENT_NAME_TYPE,
 								AGENT_NAME
 							) values (
+								sq_agent_name_id.nextval,
 								#agent_id#,
 								'#nametype#',
 								'#thisName#'
@@ -69,10 +73,12 @@
 					<cftry>
 						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							insert into agent_name (
+								agent_name_id,
 								AGENT_ID,
 								AGENT_NAME_TYPE,
 								AGENT_NAME
 							) values (
+								sq_agent_name_id.nextval,
 								#agent_id#,
 								'#nametype#',
 								'#thisName#'
@@ -90,6 +96,8 @@
 					<cftry>
 						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							insert into agent_name (
+								sq_agent_name_id.nextval,
+								agent_name_id,
 								AGENT_ID,
 								AGENT_NAME_TYPE,
 								AGENT_NAME
