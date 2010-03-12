@@ -42,7 +42,7 @@
 					</cfquery>
 					<cfset msg=listappend(msg,'Added #thisName# (#nametype#)')>
 				<cfcatch>
-					<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#cfcatch.detail#</span>')>
+					<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>')>
 				</cfcatch>
 				</cftry>
 				<cfif len(d.other_name_1) gt 0>
@@ -64,7 +64,7 @@
 						</cfquery>
 						<cfset msg=listappend(msg,'Added #thisName# (#nametype#)')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#cfcatch.detail#</span>')>
+						<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>')>
 					</cfcatch>
 					</cftry>
 				</cfif>
@@ -88,7 +88,7 @@
 						</cfquery>
 						<cfset msg=listappend(msg,'Added #thisName# (#nametype#)')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#cfcatch.detail#</span>')>
+						<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>')>
 					</cfcatch>
 					</cftry>
 				</cfif>
@@ -111,7 +111,7 @@
 						</cfquery>
 						<cfset msg=listappend(msg,'Added #thisName# (#nametype#)')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#cfcatch.detail#</span>')>
+						<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>')>
 					</cfcatch>
 					</cftry>
 				</cfif>
@@ -127,7 +127,7 @@
 						</cfquery>
 						<cfset msg=listappend(msg,'Added remark')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed: add remark<br><span class="cfcatch">#cfcatch.detail#</span>')>
+						<cfset msg=listappend(msg,'Failed: add remark<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>')>
 					</cfcatch>
 					</cftry>
 				</cfif>
@@ -137,7 +137,7 @@
 			<cfset msg=listchangedelims(msg,"<br>")>
 		<cfcatch>
 			<cfset status="FAIL">
-			<cfset msg='Failed: update agent<br><span class="cfcatch">#cfcatch.detail#</span>'>
+			<cfset msg='Failed: update agent<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>'>
 		</cfcatch>
 		</cftry>
 	<cfelseif agent_id is -1>
@@ -260,7 +260,7 @@
 		<cfcatch>
 			<cfset status="FAIL">
 			<cfset agent_id="">
-			<cfset msg='Failed: Create agent<span class="cfcatch">#cfcatch.detail#</span>'>
+			<cfset msg='Failed: Create agent<span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>'>
 		</cfcatch>
 		</cftry>
 	</cfif>
