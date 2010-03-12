@@ -21,6 +21,7 @@
 	</cfquery>
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
+	        #KEY# key,
 	        preferred_agent_name.agent_id, 
 	        preferred_agent_name.agent_name preferred_agent_name
 		from 
@@ -31,7 +32,8 @@
 	        srch.agent_name in ('#d.preferred_name#','#d.other_name_1#','#d.other_name_2#','#d.other_name_3#')
 	    group by
 	    	preferred_agent_name.agent_id, 
-	        preferred_agent_name.agent_name
+	        preferred_agent_name.agent_name,
+	        #key#
 	</cfquery>
 	<cfreturn result>
 </cffunction>
