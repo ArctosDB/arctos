@@ -157,7 +157,7 @@ sho err
 				function (r) {
 					var key=r.DATA.KEY[0];
 					var n='<input type="text" name="name' + key + '" class="reqdClr"';
-					n+='onchange="getAgent(\'agentID_\' + key + ',\'name\',\'f\',this.value); return false;"';
+					n+='onchange="getAgent(\'agentID_' + key + ',\'name\',\'f\',this.value); return false;"';
 					n+='onKeyPress="return noenter(event);">';
 					n+='<input type="hidden" name="agentID_' + key + ' id="agentID_' + key + '">';
 					
