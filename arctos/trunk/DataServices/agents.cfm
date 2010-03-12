@@ -158,13 +158,7 @@ sho err
 						var ns='<div style="border:2px solid green;" id="msgDiv_' + key + '>';
 						ns+=R[2];
 						ns+='</div>';
-						$.each($("span[id^='clkUseAgent_']"), function() {
-						     $("#" + this.id).hide();
-					    });
-					    $.each($("input[id^='name_']"), function() {
-						     $("#" + this.id).hide();
-					    });
-						$('#suggested__' + key).append(ns);
+						$('#suggested__' + key).html(ns);
 					}
 					//console.log(msg);
 				}
