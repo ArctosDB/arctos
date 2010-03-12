@@ -224,8 +224,8 @@ sho err
 	<input type="hidden" id="keyList" value="#valuelist(d.key)#">
 	<table border id="theTable" class="sortable">
 		<tr>
-			<th>agent_type</th>
 			<th>preferred_name</th>
+			<th>SuggestedAgent</th>
 			<th>first_name</th>
 			<th>middle_name</th>
 			<th>last_name</th>
@@ -236,13 +236,20 @@ sho err
 			<th>aka_1</th>
 			<th>aka_2</th>
 			<th>aka_3</th>
-			<th>SuggestedAgent</th>
+			<th>agent_type</th>
 			<th>Remark</th>
 		</tr>
 		<cfloop query="d">
 			<tr id="row_#key#">
-				<td>#agent_type#</td>
 				<td>#preferred_name#</td>
+				<td nowrap="nowrap" id="suggested__#key#">
+					<label for="">Map To Agent</label>
+					<input type="text" name="name_#key#" id="name_#key#" class="reqdClr" 
+						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
+		 				onKeyPress="return noenter(event);" size="40">
+					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
+					<br><span class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">[ #preferred_name# ]</span>
+				</td>
 				<td>#first_name#&nbsp;</td>
 				<td>#middle_name#&nbsp;</td>
 				<td>#last_name#&nbsp;</td>
@@ -265,14 +272,7 @@ sho err
 						#other_name_3# (#other_name_type_3#)
 					</cfif>
 				</td>
-				<td nowrap="nowrap" id="suggested__#key#">
-					<label for="">Map To Agent</label>
-					<input type="text" name="name_#key#" id="name_#key#" class="reqdClr" 
-						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
-		 				onKeyPress="return noenter(event);">
-					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
-					<br><span class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">[ #preferred_name# ]</span>
-				</td>
+				<td>#agent_type#</td>
 				<td nowrap="nowrap">#agent_remark#</td>
 			</tr>
 		</cfloop>
