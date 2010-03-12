@@ -156,9 +156,9 @@ sho err
 				},
 				function (r) {
 					if(r.ROWCOUNT > 0) {
-						for (i=0; i<r.ROWCOUNT; ++i) {
-							var preferred_name=r.DATA.preferred_name[i];
-							var preferred_name__=$('preferred_name__' + r.DATA.key[i]).val();
+						for (a=0; a<r.ROWCOUNT; ++a) {
+							var preferred_name=r.DATA.preferred_name[a];
+							var preferred_name__=$('preferred_name__' + r.DATA.key[a]).val();
 							console.log(preferred_name + '------' + preferred_name__);
 						}
 					}
