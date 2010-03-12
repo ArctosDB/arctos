@@ -147,12 +147,23 @@ sho err
 					var R=r.split(",");
 					var key=R[0];
 					var msg=R[1];
+					$('#msgDiv_' + key).remove();
 					if (msg=='FAIL'){
-						$('#msgDiv_' + key).remove();
 						var ns='<div style="border:2px solid red;" id="msgDiv_' + key + '>';
 						ns+='RECORD NOT SAVED!<br>';
 						ns+=R[2];
 						ns+='</div>';
+						$('#suggested__' + key).append(ns);
+					} else {
+						var ns='<div style="border:2px solid green;" id="msgDiv_' + key + '>';
+						ns+=R[2];
+						ns+='</div>';
+						$.each($("span[id^='clkUseAgent_']"), function() {
+						     $("#" + this.id).hide();
+					    });
+					    $.each($("input[id^='name_']"), function() {
+						     $("#" + this.id).hide();
+					    });
 						$('#suggested__' + key).append(ns);
 					}
 					//console.log(msg);
@@ -178,7 +189,7 @@ sho err
 				function (r) {
 					var key=r.DATA.KEY[0];
 					for (a=0; a<r.ROWCOUNT; ++a) {
-						var ns='<br><span class="infoLink" onclick="';
+						var ns='<br><span  id="clkUseAgent_' + key + '" class="infoLink" onclick="';
 						ns+="useThis('" + key + "','" + r.DATA.PREFERRED_AGENT_NAME[a] + "',";
 						ns+="'" + r.DATA.AGENT_ID[a] + "')";
 						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
@@ -255,7 +266,7 @@ sho err
 						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
 		 				onKeyPress="return noenter(event);" size="30">
 					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
-					<br><span class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">[ #preferred_name# ] (new agent)</span>
+					<br><span id="clkUseAgent_#key#" class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">[ #preferred_name# ] (new agent)</span>
 				</td>
 				<td>#first_name#&nbsp;</td>
 				<td>#middle_name#&nbsp;</td>

@@ -18,9 +18,9 @@
 	<cfif len(agent_id) is 0>
 		<cfset rl="#key#,FAIL,No agent was selected">
 	<cfelseif isnumeric(agent_id) and agent_id gt 0>
-		<cfset rl="#key#,using old">
+		<cfset rl="#key#,PASS,agent updated">
 	<cfelseif agent_id is -1>
-		<cfset rl="#key#,">
+		<cfset rl="#key#,PASS,agent created">
 	<cfelse>
 		
 		<cfset rl="#key#,unknown error">
