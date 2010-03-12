@@ -26,7 +26,7 @@
 		<cfset rl="#key#,unknown error">
 	</cfif>
 	<cfset result=serializejson(rl,1)>
-	<cfreturn result>
+	<cfreturn rl>
 </cffunction>
 
 
