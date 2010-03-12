@@ -150,12 +150,12 @@ sho err
 					var agent_id=r.DATA.AGENT_ID[0];
 					if (status=='FAIL'){
 						$('#msgDiv_' + key).remove();						
-						var ns='<div style="border:2px solid red;" id="msgDiv_' + key + '></div>';
+						var ns='<div style="border:2px solid red;width:150px;" id="msgDiv_' + key + '></div>';
 						$('#suggested__' + key).append(ns);
 						$('#msgDiv_' + key).html(msg);
 					} else if (status=='PASS') {
 						$('#msgDiv_' + key).remove();
-						var ns='<div style="border:2px solid green;" id="msgDiv_' + key + '>';
+						var ns='<div style="border:2px solid green;width:150px;" id="msgDiv_' + key + '>';
 						ns+='</div>';
 						$('#suggested__' + key).html(ns);
 						$('#msgDiv_' + key).html(msg);
