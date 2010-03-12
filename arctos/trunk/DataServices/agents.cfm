@@ -131,6 +131,26 @@ sho err
 <cfif action is "validate">
 <script src="/includes/sorttable.js"></script>
 <script type='text/javascript' language='javascript'>
+	function saveAll() {
+		var keyList = document.getElementById('keyList').value;
+	  	kAry=keyList.split(",");
+	  	for (i=0; i<kAry.length; ++i) {
+	  		jQuery.getJSON("/component/DSFunctions.cfc",
+				{
+					method : "loadAgent",
+					key : kAry[i],
+					agent_id : $('#agent_id_' + key).val();
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					var key=r.DATA.KEY[0];
+					var msg=r.DATA.MSG[0];
+					alert(msg);
+				}
+			);
+		}
+	}
 	function useThis(key,name,id) {
 		$('#name_' + key).val(name);
 		$('#agent_id_' + key).val(id);
@@ -153,7 +173,7 @@ sho err
 						ns+="useThis('" + key + "','" + r.DATA.PREFERRED_AGENT_NAME[a] + "',";
 						ns+="'" + r.DATA.AGENT_ID[a] + "')";
 						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
-						ns+='&nbsp;<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
+						ns+='&nbsp;<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[info]</a>';
 						$('#suggested__' + key).append(ns);
 					}
 				}
@@ -164,7 +184,12 @@ sho err
 <cfoutput>
 	<hr>
 	Let all the JavaScript run. It'll take a while, and your page will bounce around while it's doing it's thing.
-	Then, for each agent, do one of three things:
+	You might need to split your load up into smaller batches, depending on your computer and how many
+	suggestions we have. There is no recordlimit, and at least several thousand agents are possible with lots of RAM, 
+	but who wants to look at that many records on one screen anyway?
+	<p>
+		Then, for each agent, do one of three things:
+	</p>
 	<ul>
 		<li>Create a new agent by clicking the preferred name you uploaded. It's the one in [ square brackets ].</li>
 		<li>Map your agent to an existing agent by clicking one of the suggest links. They're not in square brackets.</li>
@@ -172,7 +197,7 @@ sho err
 	</ul>
 	Click Save when you're done. 
 	<p>
-	If you picked an existing agent, we'll add all of your names to that agent. 
+		If you picked an existing agent, we'll add all of your names to that agent. 
 	</p>
 	<p>
 		If you chose to use your agent, we'll create an agent with all the names you supplied.
@@ -189,13 +214,14 @@ sho err
 		select distinct(agent_type) agent_type from d
 	</cfquery>
 	<cfif valuelist(p.agent_type) is not "person">
-		Sorry, we can only deal with agent type=person here.
+		<div class="error">Sorry, we can only deal with agent type=person here.</div>
 		<cfabort>
 	</cfif>
 	<form name="f">
+	<input type="button" onclick="saveAll()" value="save to Arctos">
 	<input type="hidden" id="keyList" value="#valuelist(d.key)#">
 	<table border id="theTable" class="sortable">
-		<tr>
+		<tr id="row_#key#">
 			<th>agent_type</th>
 			<th>preferred_name</th>
 			<th>first_name</th>
