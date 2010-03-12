@@ -16,11 +16,11 @@
 	<cfargument name="key" type="numeric" required="yes">
 	<cfargument name="agent_id" type="any" required="yes">
 	<cfif len(agent_id) is 0>
-		<cfset rl="#key#,got no agent_id">
+		<cfset rl="#key#,FAIL,No agent was selected">
 	<cfelseif isnumeric(agent_id) and agent_id gt 0>
 		<cfset rl="#key#,using old">
 	<cfelseif agent_id is -1>
-		<cfset rl="#key#,makin agent">
+		<cfset rl="#key#,">
 	<cfelse>
 		
 		<cfset rl="#key#,unknown error">
@@ -46,7 +46,12 @@
 	        preferred_agent_name
 		where 
 	        srch.agent_id=preferred_agent_name.agent_id and
-	        srch.agent_name in (trim('#d.preferred_name#'),trim('#d.other_name_1#'),trim('#d.other_name_2#'),trim('#d.other_name_3#'))
+	        srch.agent_name in (
+	        	trim('#d.preferred_name#'),
+	        	trim('#d.other_name_1#'),
+	        	trim('#d.other_name_2#'),
+	        	trim('#d.other_name_3#')
+	        )
 	    group by
 	    	preferred_agent_name.agent_id, 
 	        preferred_agent_name.agent_name,
