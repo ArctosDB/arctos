@@ -255,7 +255,7 @@
 		</cftry>
 		<cfset status="PASS">
 		<cfset agent_id=agentID.nextAgentId>
-		<cfset msg='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent record</a> created'>
+		<cfset msg='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent</a> created'>
 	<cfelse>
 		<cfset status="FAIL">
 		<cfset msg="unknown error with input">
