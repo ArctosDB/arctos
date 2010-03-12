@@ -229,14 +229,14 @@ sho err
 			<th>first_name</th>
 			<th>middle_name</th>
 			<th>last_name</th>
-			<th>birth_date</th>
-			<th>death_date</th>
 			<th>prefix</th>
 			<th>suffix</th>
 			<th>aka_1</th>
 			<th>aka_2</th>
 			<th>aka_3</th>
 			<th>agent_type</th>
+			<th>birth_date</th>
+			<th>death_date</th>
 			<th>Remark</th>
 		</tr>
 		<cfloop query="d">
@@ -253,8 +253,6 @@ sho err
 				<td>#first_name#&nbsp;</td>
 				<td>#middle_name#&nbsp;</td>
 				<td>#last_name#&nbsp;</td>
-				<td>#birth_date#&nbsp;</td>
-				<td>#death_date#&nbsp;</td>
 				<td>#prefix#&nbsp;</td>
 				<td>#suffix#&nbsp;</td>
 				<td>
@@ -273,6 +271,8 @@ sho err
 					</cfif>
 				</td>
 				<td>#agent_type#</td>
+				<td>#birth_date#&nbsp;</td>
+				<td>#death_date#&nbsp;</td>
 				<td nowrap="nowrap">#agent_remark#</td>
 			</tr>
 		</cfloop>
