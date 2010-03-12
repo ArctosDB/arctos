@@ -157,6 +157,8 @@ sho err
 				function (r) {
 					if (r.DATA.AGENT_ID[0] > -1) {
 						var ns='<select>';
+						ns+='<option value="">' + r.ROWCOUNT + ' suggestions....</option>';
+						ns+='<option value="new">Force Creation</option>';
 						for (a=0; a<r.ROWCOUNT; ++a) {
 							ns+='<option value="' + r.DATA.AGENT_ID[a] + '">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</option>';
 						}
