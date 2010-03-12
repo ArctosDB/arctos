@@ -148,8 +148,6 @@ sho err
 					var msg=r.DATA.MSG[0];
 					var status=r.DATA.STATUS[0];
 					var agent_id=r.DATA.AGENT_ID[0];
-					
-					console.log(msg);
 					if (status=='FAIL'){
 						$('#msgDiv_' + key).remove();						
 						var ns='<div style="border:2px solid red;" id="msgDiv_' + key + '></div>';
@@ -292,7 +290,8 @@ sho err
 		any name that they already had.
 	</p>
 	<p>
-		Reloading this form before you complete can have unpredictable consequences.
+		Reloading this form before you complete can have unpredictable consequences. Try to avoid that, and proceed with extreme caution
+		if you must reload.
 	</p>
 	
 	<form name="f">
