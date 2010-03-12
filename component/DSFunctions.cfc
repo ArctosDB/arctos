@@ -34,6 +34,18 @@
 	    	preferred_agent_name.agent_id, 
 	        preferred_agent_name.agent_name,
 	        #key#
+	    union
+	    select
+	    	#KEY# key,
+	        preferred_agent_name.agent_id, 
+	        preferred_agent_name.agent_name preferred_agent_name
+		from
+			person,
+			preferred_agent_name
+		where
+			person.person_id=preferred_agent_name.agent_id and
+			upper(first_name) = trim(upper('#d.first_name#')) and
+			upper(last_name) = trim(upper('#d.last_name#'))			
 	</cfquery>
 	<cfreturn result>
 </cffunction>
