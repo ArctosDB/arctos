@@ -154,7 +154,7 @@ sho err
 						ns+=R[2];
 						ns+='</div>';
 						$('#suggested__' + key).append(ns);
-					} else if (msg=='PASS' {
+					} else if (msg=='PASS') {
 						$('#msgDiv_' + key).remove();
 						var ns='<div style="border:2px solid green;" id="msgDiv_' + key + '>';
 						ns+=R[2];
