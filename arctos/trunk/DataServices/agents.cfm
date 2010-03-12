@@ -139,7 +139,7 @@ sho err
 				{
 					method : "loadAgent",
 					key : kAry[i],
-					agent_id : $('#agent_id_' + key).val(),
+					agent_id : $('#agent_id_' + kAry[i]).val(),
 					returnformat : "json",
 					queryformat : 'column'
 				},
