@@ -16,12 +16,13 @@
 	<cfargument name="key" type="numeric" required="yes">
 	<cfargument name="agent_id" type="numeric" required="yes">
 	<cfif len(agent_id) is 0>
-		<cfset return=serializeJSON(key,"got no agent_id")>
+		<cfset rl="#key#,got no agent_id">
 	<cfelseif agent_id gt 0>
-		<cfset return=serializeJSON(key,"using old")>
+		<cfset rl="#key#,using old")>
 	<cfelse>
-		<cfset return=serializeJSON(key,"makin agent")>
+		<cfset rl="#key#,makin agent")>
 	</cfif>
+	<cfset result=serializejson(rl,0)>
 	<cfreturn result>
 </cffunction>
 

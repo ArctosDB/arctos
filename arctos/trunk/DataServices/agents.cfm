@@ -221,7 +221,7 @@ sho err
 	<input type="button" onclick="saveAll()" value="save to Arctos">
 	<input type="hidden" id="keyList" value="#valuelist(d.key)#">
 	<table border id="theTable" class="sortable">
-		<tr id="row_#key#">
+		<tr>
 			<th>agent_type</th>
 			<th>preferred_name</th>
 			<th>first_name</th>
@@ -238,7 +238,7 @@ sho err
 			<th>Remark</th>
 		</tr>
 		<cfloop query="d">
-			<tr id="row#key#">
+			<tr id="row_#key#">
 				<td>#agent_type#</td>
 				<td>#preferred_name#</td>
 				<td>#first_name#&nbsp;</td>
