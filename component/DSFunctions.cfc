@@ -121,7 +121,7 @@
 							update agent set agent_remarks=
 								decode(agent_remarks,
 								null,'#d.agent_remark#',
-								'#d.agent_remark#',#d.agent_remark#,
+								'#d.agent_remark#','#d.agent_remark#',
 								agent_remarks || '; #d.agent_remark#')
 								where agent_id=#agent_id#
 						</cfquery>
