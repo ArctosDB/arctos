@@ -87,22 +87,6 @@ sho err
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<style>
-		.cfcatch{
-			font-size:.6em;
-			padding-left:1em;
-		}
-		.infobox{
-			font-size:.7em;
-			width:250px;
-		}
-		.rBorder {
-			border:2px solid red;
-		}
-		.gBorder {
-			border:2px solid green;
-		}
-	</style>
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from ds_temp_agent
 	</cfquery>
@@ -146,6 +130,22 @@ sho err
 </cfif>
 <cfif action is "validate">
 <script src="/includes/sorttable.js"></script>
+<style>
+	.cfcatch{
+		font-size:.6em;
+		padding-left:1em;
+	}
+	.infobox{
+		font-size:.7em;
+		width:250px;
+	}
+	.rBorder {
+		border:2px solid red;
+	}
+	.gBorder {
+		border:2px solid green;
+	}
+</style>
 <script type='text/javascript' language='javascript'>
 	function saveAll() {
 		var keyList = document.getElementById('keyList').value;
