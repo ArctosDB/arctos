@@ -143,6 +143,7 @@ sho err
 <script src="/includes/sorttable.js"></script>
 <script type='text/javascript' language='javascript'>
 	function useThis(key,name,id) {
+		console.log('useThis(' + key + '::' + name + '::' + id);
 		$('#name_' + key).val(name);
 		$('#agent_id_' + key).val(id);
 	}
