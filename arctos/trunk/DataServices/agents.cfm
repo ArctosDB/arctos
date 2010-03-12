@@ -144,8 +144,8 @@ sho err
 					queryformat : 'column'
 				},
 				function (r) {
-					var key=r.DATA.KEY[0];
-					var msg=r.DATA.MSG[0];
+					var key=r.[0];
+					var msg=r.[1];
 					alert(msg);
 				}
 			);
