@@ -166,6 +166,8 @@ sho err
 						ns+="useThis('" + key + "','" + r.DATA.PREFERRED_AGENT_NAME[a] + "',";
 						ns+="'" + r.DATA.AGENT_ID[a] + "')";
 						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
+						ns+='<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
+
 						console.log(ns);
 						$('#suggested__' + key).append(ns);
 					}
@@ -227,7 +229,6 @@ sho err
 <!----
 
 
-						//ns+='<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[agent]</a>';
 
 var n='<input type="text" name="name' + key + '" class="reqdClr"';
 					n+='onchange="getAgent(\'agentID_' + key + '\',\'name\',\'f\',this.value); return false;"';
