@@ -147,14 +147,15 @@ sho err
 					var R=r.split(",");
 					var key=R[0];
 					var msg=R[1];
-					$('#msgDiv_' + key).remove();
 					if (msg=='FAIL'){
+						$('#msgDiv_' + key).remove();
 						var ns='<div style="border:2px solid red;" id="msgDiv_' + key + '>';
 						ns+='RECORD NOT SAVED!<br>';
 						ns+=R[2];
 						ns+='</div>';
 						$('#suggested__' + key).append(ns);
-					} else {
+					} else if (msg=='PASS' {
+						$('#msgDiv_' + key).remove();
 						var ns='<div style="border:2px solid green;" id="msgDiv_' + key + '>';
 						ns+=R[2];
 						ns+='</div>';
@@ -218,8 +219,15 @@ sho err
 	</p>
 	
 	<p>
+		Successfully saved records will contain nothing but a green message box in the MapToAgent column.
+		You must deal with anything else.
+	</p>
+	<p>
 		Once everything has saved you can load specimen data using any of the names you loaded or, for pre-existing agents,
 		any name that they already had.
+	</p>
+	<p>
+		Reloading this form before you complete can have unpredictable consequences.
 	</p>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent
@@ -237,7 +245,7 @@ sho err
 	<table border id="theTable" class="sortable">
 		<tr>
 			<th>preferred_name</th>
-			<th>SuggestedAgent</th>
+			<th>MapToAgent</th>
 			<th>first_name</th>
 			<th>middle_name</th>
 			<th>last_name</th>
