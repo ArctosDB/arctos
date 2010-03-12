@@ -273,7 +273,7 @@ sho err
 					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
 					<br><span class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">[ #preferred_name# ]</span>
 				</td>
-				<td>#agent_remark#</td>
+				<td nowrap="nowrap">#agent_remark#</td>
 			</tr>
 		</cfloop>
 	</table>
