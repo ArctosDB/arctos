@@ -158,7 +158,7 @@ sho err
 					if(r.ROWCOUNT == 0) {
 						ns='<select>';
 						for (a=0; a<r.ROWCOUNT; ++a) {
-							ns+='<option value="' + r.DATA.agent_id[a] + '"">' + r.DATA.preferred_agent_name + '"</option>';
+							ns+='<option value="' + r.DATA.AGENT_ID[a] + '"">' + r.DATA.PREFERRED_AGENT_NAME + '"</option>';
 						}
 						ns+='</select>';
 						$('#suggested__' + r.DATA.key[a]).html(ns);
