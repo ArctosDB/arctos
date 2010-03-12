@@ -147,6 +147,8 @@ sho err
 					var R=r.split(",");
 					var key=R[0];
 					var msg=R[1];
+					
+					console.log(msg);
 					if (msg=='FAIL'){
 						$('#msgDiv_' + key).remove();
 						var ns='<div style="border:2px solid red;" id="msgDiv_' + key + '>';
@@ -161,7 +163,6 @@ sho err
 						ns+='</div>';
 						$('#suggested__' + key).html(ns);
 					}
-					//console.log(msg);
 				}
 			);
 		}
