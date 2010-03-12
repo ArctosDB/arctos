@@ -159,7 +159,7 @@ sho err
 						var ns='<select>';
 						console.log(ns);
 						for (a=0; a<r.ROWCOUNT; ++a) {
-							ns+='<option value="' + r.DATA.AGENT_ID[a] + '"">' + r.DATA.PREFERRED_AGENT_NAME + '"</option>';
+							ns+='<option value="' + r.DATA.AGENT_ID[a] + '">' + r.DATA.PREFERRED_AGENT_NAME + '</option>';
 						}
 						ns+='</select>';
 						console.log(ns);
