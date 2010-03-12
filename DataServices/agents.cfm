@@ -202,6 +202,70 @@ sho err
 	});
 </script>
 <cfoutput>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from ds_temp_agent
+	</cfquery>
+	<cfquery name="p" dbtype="query">
+		select distinct(agent_type) agent_type from d
+	</cfquery>
+	<cfif valuelist(p.agent_type) is not "person">
+		<div class="error">Sorry, we can only deal with agent type=person here.</div>
+		<cfabort>
+	</cfif>
+	<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select count(*) from ds_temp_agent where preferred_name is null
+	</cfquery>
+	<cfif rpn.c is not 0>
+		<div class="error">Preferred name is required for every agent.</div>
+		<cfabort>
+	</cfif>
+	<cfquery name="ont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select nt from (
+			select
+				other_name_type_1 nt
+			from
+				ds_temp_agent
+			union
+			select
+				other_name_type_2 nt
+			from
+				ds_temp_agent
+			union
+			select
+				other_name_type_3 nt
+			from
+				ds_temp_agent
+		)
+		group by nt
+	</cfquery>
+	<cfif listfind(valuelist(ont.nt),"preferred")>
+		<div class="error">Other name types may not be "preferred"</div>
+		<cfabort>
+	</cfif>
+	<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select nt from  
+		(
+			select
+				other_name_type_1 nt
+			from
+				ds_temp_agent
+			union
+			select
+				other_name_type_2 nt
+			from
+				ds_temp_agent
+			union
+			select
+				other_name_type_3 nt
+			from
+				ds_temp_agent
+		)
+		where nt not in (select agent_name_type from ctagent_name_type)
+	</cfquery>
+	<cfif ctont.recordcount gt 0>
+		<div class="error">#valuelist(ctont.nt)# are not accepable name types.</div>
+		<cfabort>
+	</cfif>
 	<hr>
 	Let all the JavaScript run. It'll take a while, and your page will bounce around while it's doing it's thing.
 	You might need to split your load up into smaller batches, depending on your computer and how many
@@ -234,16 +298,7 @@ sho err
 	<p>
 		Reloading this form before you complete can have unpredictable consequences.
 	</p>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from ds_temp_agent
-	</cfquery>
-	<cfquery name="p" dbtype="query">
-		select distinct(agent_type) agent_type from d
-	</cfquery>
-	<cfif valuelist(p.agent_type) is not "person">
-		<div class="error">Sorry, we can only deal with agent type=person here.</div>
-		<cfabort>
-	</cfif>
+	
 	<form name="f">
 	<input type="button" onclick="saveAll()" value="save to Arctos">
 	<input type="hidden" id="keyList" value="#valuelist(d.key)#">

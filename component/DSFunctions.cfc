@@ -26,27 +26,25 @@
 				select * from ds_temp_agent where key=#key#
 			</cfquery>
 			<cftransaction>
-				<cfif len(preferred_name) gt 0>
-					<cfset thisName=preferred_name>
-					<cfset nametype='aka'>
-					<cftry>
-						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							insert into agent_name (
-								AGENT_ID,
-								AGENT_NAME_TYPE,
-								AGENT_NAME
-							) values (
-								#agent_id#,
-								'#nametype#',
-								'#thisName#'
-							)
-						</cfquery>
-						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
-					<cfcatch>
-						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
-					</cfcatch>
-					</cftry>
-				</cfif>
+				<cfset thisName=preferred_name>
+				<cfset nametype='aka'>
+				<cftry>
+					<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						insert into agent_name (
+							AGENT_ID,
+							AGENT_NAME_TYPE,
+							AGENT_NAME
+						) values (
+							#agent_id#,
+							'#nametype#',
+							'#thisName#'
+						)
+					</cfquery>
+					<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
+				<cfcatch>
+					<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
+				</cfcatch>
+				</cftry>
 				<cfif len(other_name_1) gt 0>
 					<cfset thisName=other_name_1>
 					<cfset nametype=other_name_type_1>
@@ -111,13 +109,13 @@
 					</cfcatch>
 					</cftry>
 				</cfif>
-				<cfif len(agent_remark) gt 0>
+				<cfif len(d.agent_remark) gt 0>
 					<cftry>
 						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							update agent set agent_remarks=
 								decode(agent_remarks,
-								null,'#agent_remark#',
-								agent_remarks || '; #agent_remark#')
+								null,'#d.agent_remark#',
+								agent_remarks || '; #d.agent_remark#')
 								where agent_id=#agent_id#
 						</cfquery>
 						<cfset msg=listappend(msg,'Added remark')>
@@ -156,7 +154,7 @@
 						#agentID.nextAgentId#,
 						'person',
 						#agentNameID.nextAgentNameId#,
-						'#agent_remark#'
+						'#d.agent_remark#'
 						)
 				</cfquery>		
 				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -175,9 +173,9 @@
 						,'#d.LAST_NAME#'
 						,'#d.FIRST_NAME#'
 						,'#d.MIDDLE_NAME#'
-						,'#SUFFIX#'
-						,'#birth_date#'
-						,'#death_date#'
+						,'#d.SUFFIX#'
+						,'#d.birth_date#'
+						,'#d.death_date#'
 					)
 				</cfquery>
 				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -191,11 +189,11 @@
 						#agentNameID.nextAgentNameId#,
 						#agentID.nextAgentId#,
 						'preferred',
-						'#preferred_name#',
+						'#d.preferred_name#',
 						0
 					)
 				</cfquery>
-				<cfif len(other_name_1) gt 0>
+				<cfif len(d.other_name_1) gt 0>
 					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO agent_name (
 							agent_name_id,
@@ -212,7 +210,7 @@
 						)
 					</cfquery>
 				</cfif>
-				<cfif len(other_name_2) gt 0>
+				<cfif len(d.other_name_2) gt 0>
 					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO agent_name (
 							agent_name_id,
@@ -223,13 +221,13 @@
 						) VALUES (
 							#agentNameID.nextAgentNameId#,
 							#agentID.nextAgentId#,
-							'#other_name_type_2#',
-							'#other_name_2#',
+							'#d.other_name_type_2#',
+							'#d.other_name_2#',
 							0
 						)
 					</cfquery>
 				</cfif>
-				<cfif len(other_name_3) gt 0>
+				<cfif len(d.other_name_3) gt 0>
 					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO agent_name (
 							agent_name_id,
@@ -240,8 +238,8 @@
 						) VALUES (
 							#agentNameID.nextAgentNameId#,
 							#agentID.nextAgentId#,
-							'#other_name_type_3#',
-							'#other_name_3#',
+							'#d.other_name_type_3#',
+							'#d.other_name_3#',
 							0
 						)
 					</cfquery>
