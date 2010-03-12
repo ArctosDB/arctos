@@ -148,7 +148,8 @@ sho err
 					var key=R[0];
 					var msg=R[1];
 					if (msg=='FAIL'){
-						var ns='<div style="border:2px solid red;">';
+						$('#msgDiv_' + key).remove();
+						var ns='<div style="border:2px solid red;" id="msgDiv_' + key + '>';
 						ns+='RECORD NOT SAVED!<br>';
 						ns+=R[2];
 						ns+='</div>';
