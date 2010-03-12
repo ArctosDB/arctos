@@ -144,9 +144,10 @@ sho err
 					queryformat : 'column'
 				},
 				function (r) {
-					var key=r.[0];
-					var msg=r.[1];
-					alert(msg);
+					var R=r.split(",");
+					var key=R[0];
+					var msg=R[1];
+					console.log(msg);
 				}
 			);
 		}
