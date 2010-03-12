@@ -38,7 +38,7 @@
 					</cfquery>
 					<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
 				<cfcatch>
-					<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
+					<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.(#cfcatch.detail#)')>
 				</cfcatch>
 				</cftry>
 				<cfif len(d.other_name_1) gt 0>
@@ -58,7 +58,7 @@
 						</cfquery>
 						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
+						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.(#cfcatch.detail#)')>
 					</cfcatch>
 					</cftry>
 				</cfif>
@@ -80,7 +80,7 @@
 						</cfquery>
 						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
+						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.(#cfcatch.detail#)')>
 					</cfcatch>
 					</cftry>
 				</cfif>
@@ -101,7 +101,7 @@
 						</cfquery>
 						<cfset msg=listappend(msg,'Added #thisName# as #thisName#')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.')>
+						<cfset msg=listappend(msg,'Failed to add #thisName# as #thisName# - it probably already exists for the agent.(#cfcatch.detail#)')>
 					</cfcatch>
 					</cftry>
 				</cfif>
@@ -116,7 +116,7 @@
 						</cfquery>
 						<cfset msg=listappend(msg,'Added remark')>
 					<cfcatch>
-						<cfset msg=listappend(msg,'Failed to add remark! That could be bad.')>
+						<cfset msg=listappend(msg,'Failed to add remark! That could be bad.(#cfcatch.detail#)')>
 					</cfcatch>
 					</cftry>
 				</cfif>
