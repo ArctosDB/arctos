@@ -132,12 +132,13 @@ sho err
 <script src="/includes/sorttable.js"></script>
 <style>
 	.cfcatch{
-		font-size:.6em;
+		font-size:.9em;
 		padding-left:1em;
 	}
 	.infobox{
 		font-size:.7em;
 		width:250px;
+		overflow:auto;
 	}
 	.rBorder {
 		border:2px solid red;
