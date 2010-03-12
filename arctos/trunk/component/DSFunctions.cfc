@@ -246,16 +246,16 @@
 						)
 					</cfquery>
 				</cfif>
-			</cftransaction>	
+			</cftransaction>
+			<cfset status="PASS">
+			<cfset agent_id=agentID.nextAgentId>
+			<cfset msg='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent</a> created'>	
 		<cfcatch>
 			<cfset status="FAIL">
 			<cfset agent_id="">
 			<cfset msg="agent could not be created: #cfcatch.message#: #cfcatch.detail#">
 		</cfcatch>
 		</cftry>
-		<cfset status="PASS">
-		<cfset agent_id=agentID.nextAgentId>
-		<cfset msg='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent</a> created'>
 	<cfelse>
 		<cfset status="FAIL">
 		<cfset msg="unknown error with input">
