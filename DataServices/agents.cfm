@@ -155,7 +155,16 @@ sho err
 					queryformat : 'column'
 				},
 				function (r) {
+					var key=r.DATA.KEY[0];
+					var n='<input type="text" name="name' + key + '" class="reqdClr"';
+					n+='onchange="getAgent(\'agentID_\'' + key + ',\'name\',\'f\',this.value); return false;"';
+					n+='onKeyPress="return noenter(event);">';
+					n+='<input type="hidden" name="agentID_' + key + ' id="agentID_' + key + '">';
+					
+					/*
 					if (r.DATA.AGENT_ID[0] > -1) {
+						
+						
 						var ns='<select>';
 						ns+='<option value="new">Force Create New</option>';
 						for (a=0; a<r.ROWCOUNT; ++a) {
@@ -167,12 +176,12 @@ sho err
 						}
 						ns+='</select>';
 						console.log(ns);
-						//$('#suggested__' + r.DATA.KEY[a]).html(ns);
 						$('#suggested__' + r.DATA.KEY[a]).append('something');
-						//$("#suggested__"  + r.DATA.KEY[0]).html(ns);
+						/*
 					} else {
 						var ns='nada';
 					}
+					*/
 					$("#suggested__"  + r.DATA.KEY[0]).html(ns);
 				}
 			);
@@ -183,6 +192,7 @@ sho err
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent
 	</cfquery>
+	<form name="f">
 	<input type="hidden" id="keyList" value="#valuelist(d.key)#">
 	<table border id="theTable" class="sortable">
 		<tr>
@@ -220,6 +230,7 @@ sho err
 			</tr>
 		</cfloop>
 	</table>
+	</form>
 </cfoutput>
 </cfif>
 
