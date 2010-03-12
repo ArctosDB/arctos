@@ -163,7 +163,7 @@ sho err
 						}
 						ns+='</select>';
 						console.log(ns);
-						$('#suggested__' + r.DATA.key[a]).html(ns);
+						$('#suggested__' + r.DATA.KEY[a]).html(ns);
 					}
 				}
 			);
