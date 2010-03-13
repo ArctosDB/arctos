@@ -318,6 +318,9 @@ sho err
 		You must deal with anything else.
 	</p>
 	<p>
+		You can sort the table below by clicking on column headers.
+	</p>
+	<p>
 		Once everything has saved you can load specimen data using any of the names you loaded or, for pre-existing agents,
 		any name that they already had.
 	</p>
