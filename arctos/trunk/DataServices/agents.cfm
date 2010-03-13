@@ -278,21 +278,36 @@ sho err
 		<cfabort>
 	</cfif>
 	<hr>
-	Let all the JavaScript run. It'll take a while, and your page will bounce around while it's doing it's thing.
-	You might need to split your load up into smaller batches, depending on your computer and how many
-	suggestions we have. There is no recordlimit, and at least several thousand agents are possible with lots of RAM, 
-	but who wants to look at that many records on one screen anyway?
+	If you made it this far, your data are more-or-less acceptable. Congratulations!
+	
+	<br>There is a bunch of JavaScript off looking for likely agent matches. Give it some time to run - maybe while reading these
+	instructions. It'll take a while, and your page will bounce around while it's doing it's thing.
+	
+	<br>You might need to split your load up into smaller batches, depending on your computer and how many
+	suggestions we have. There is no fixed record limit, and at least several thousand agents are possible with lots of RAM.
+	However, it's best to deal with a batch all at once, and the app gets smarter with every agent that's loaded. So, a duplicate that
+	might be missed in one big batch is likely to be detected as part of several smaller runs.
 	<p>
-		Then, for each agent, do one of three things:
+		Once everything is ready, do one of three things for each agent:
+		<ol>
+			<li>Create a new agent by clicking the preferred name you uploaded. It's the one in [ square brackets ], and says 
+				"(new agent)" after it.
+			</li>
+			<li>Map your agent to an existing agent by clicking one of the suggest links. They're not in square brackets, and
+				say [info] after them. Clicking [info] will take you to the agent detail page, where you can also access
+				agent activity.
+			</li>
+			<li>Pick another existing agent by typing in the box and tabbing out, just like any other agent pick.</li>
+		</ol>		
+		Click Save to Arctos when you're done. You can actually click that anytime, and it will try to save what you've done.
+		However, if you then reload it can be hard to tell what's what. Proceed with extreme caution
+		if you must reload.
 	</p>
-	<ul>
-		<li>Create a new agent by clicking the preferred name you uploaded. It's the one in [ square brackets ].</li>
-		<li>Map your agent to an existing agent by clicking one of the suggest links. They're not in square brackets.</li>
-		<li>Pick another existing agent by typing in the box and tabbing out, just like any other agent pick.</li>
-	</ul>
-	Click Save when you're done. 
 	<p>
-		If you picked an existing agent, we'll add all of your names to that agent. 
+		If you picked an existing agent, we'll try to add all of your names to that agent.
+		Your preferred name will be loaded as name type "aka". Attempting to load duplicate names to an agent will return
+		"unique constraint (UAM.IU_AGENTNAME_AGENTNAME_AID) violated" - it's usually safe to ignore those, since they just mean the 
+		name is already in Arctos.
 	</p>
 	<p>
 		If you chose to use your agent, we'll create an agent with all the names you supplied.
@@ -305,10 +320,6 @@ sho err
 	<p>
 		Once everything has saved you can load specimen data using any of the names you loaded or, for pre-existing agents,
 		any name that they already had.
-	</p>
-	<p>
-		Reloading this form before you complete can have unpredictable consequences. Try to avoid that, and proceed with extreme caution
-		if you must reload.
 	</p>
 	
 	<form name="f">
