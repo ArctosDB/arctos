@@ -8,17 +8,22 @@
 					RETURN_DUE_DATE,
 					LOAN_NUMBER,
 					address,
-					round(RETURN_DUE_DATE - sysdate) expires_in_days,
+					round(RETURN_DUE_DATE - sysdate)+1 expires_in_days,
 					trans_agent.trans_agent_role,
-					preferred_agent_name.agent_name
+					preferred_agent_name.agent_name,
+					nnName loan_request_name
 				FROM 
 					loan,
 					trans,
 					trans_agent,
 					preferred_agent_name,
-					electronic_address
+					preferred_agent_name nnName,
+					electronic_address,
+					(select * from collection_contacts where contact_agent_role='loan request') collection_contacts
 				WHERE
 					loan.transaction_id = trans.transaction_id AND
+					trans.collection_id=collection_contacts.collection_id (+) and
+					collection_contacts.agent_id=nnName.agent_id (+) and
 					trans.transaction_id=trans_agent.transaction_id and
 					trans_agent.agent_id = preferred_agent_name.agent_id AND
 					preferred_agent_name.agent_id = electronic_address.agent_id AND
