@@ -129,7 +129,7 @@
 				<cfset c=c & "</p><p>The nature of the loaned material is:<blockquote>#nature_of_material#</blockquote></p>">
 				<cfset c=c & "<p>Loaned specimen data, unless restricted, may be accessed at ">
 				<cfset c=c & '<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_id=#collection_id#&loan_number=#loan_number#">#application.serverRootUrl#/SpecimenDetail.cfm?collection_id=#collection_id#&loan_number=#loan_number#</a></p>".'>
-			
+				<hr>#c#<hr>
 			
 			
 			</cfif>
