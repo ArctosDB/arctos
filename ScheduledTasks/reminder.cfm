@@ -147,7 +147,7 @@
 				Dear #agent_name#,
 				<p>
 					You are receiving this message because you are listed as in-house contact for loan 
-					#collection# #loan_number#, which is due on #return_due_date#.
+					#loan.collection# #loan_number#, which is due on #return_due_date#.
 				</p>
 				<p>
 					You may edit the loan, after signing in to Arctos, at
@@ -163,7 +163,7 @@
 					Dear #agent_name#,
 					<p>
 						You are receiving this message because you are listed as a collection contact. 
-						Loan #collection# #loan_number# was due on #return_due_date#, and is not listed as "closed."
+						Loan #loan.collection# #loan_number# was due on #return_due_date#, and is not listed as "closed."
 					</p>
 					<p>
 						You may edit the loan, after signing in to Arctos, at
