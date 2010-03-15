@@ -104,11 +104,12 @@
 			<cfdump var=#inhouseAgents#>
 			<cfdump var=#notificationAgents#>
 			<cfdump var=#collectionAgents#>
-			<cfsavecontent variable="common">
+			
+			<cfsavecontent variable="contacts">
 				<p>
 					inhouseAgents.recordcount:#inhouseAgents.recordcount#;
 					collectionAgents.recordcount:#collectionAgents.recordcount#;
-					
+					<p></p>
 					<cfif inhouseAgents.recordcount is 1>
 						Contact #inhouseAgents.agent_name# at #inhouseAgents.address# with any questions or concerns.
 					<cfelseif inhouseAgents.recordcount gt 1>
@@ -132,6 +133,8 @@
 						<a href="#application.serverRootUrl#/contact.cfm">#application.serverRootUrl#/contact.cfm</a>
 					</cfif>
 				</p>
+			</cfsavecontent>
+			<cfsavecontent variable="common">
 				<p>The nature of the loaned material is:
 					<blockquote>#loan.nature_of_material#</blockquote>
 				</p>
@@ -149,6 +152,7 @@
 						You are receiving this message because you are listed as a contact for loan 
 						#loan.collection# #loan.loan_number#, which is due on #loan.return_due_date#.
 					</p>
+					#contacts#
 					#common#
 				</cfloop>
 			</cfif>
