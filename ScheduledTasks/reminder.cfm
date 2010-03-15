@@ -63,8 +63,6 @@
 		</cfquery>
 		<cfdump var=#loan#>
 		<cfloop query="loan">
-			#LOAN_NUMBER#
-			<br>
 			<cfquery name="inhouseAgents" dbtype="query">
 				select
 					address,
@@ -103,12 +101,16 @@
 					collection_agent_name,
 					collection_email
 			</cfquery>
-			
+			<cfif notificationAgents.recordcount is 0>
+				<cfset nagnts="[ no notification agents listed ]">
+			<cfelse>
+				<cfset nagnts=valuelist(notificationAgents.agent_name)>
+			</cfif>
 			<cfdump var=#inhouseAgents#>
 			<cfdump var=#notificationAgents#>
 			<cfdump var=#collectionAgents#>
-			<cfif expires_in_days lt 0>
-				<cfset c="Dear #valuelist(notificationAgents.agent_name)#,">
+			<cfif expires_in_days lte 0>
+				<cfset c="Dear #nagnts#,">
 				<cfset c=c&"<p>You are receiving this message because you are listed as a contact for loan #collection# #loan_number#, which is due on #return_due_date#.</p>">
 				<cfset c=c&"<p>Do not reply to this email.">
 				<cfif notificationAgents.recordcount gt 0>
@@ -128,7 +130,7 @@
 				</cfif>
 				<cfset c=c & "</p><p>The nature of the loaned material is:<blockquote>#nature_of_material#</blockquote></p>">
 				<cfset c=c & "<p>Loaned specimen data, unless restricted, may be accessed at ">
-				<cfset c=c & '<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_id=#collection_id#&loan_number=#loan_number#">#application.serverRootUrl#/SpecimenDetail.cfm?collection_id=#collection_id#&loan_number=#loan_number#</a></p>".'>
+				<cfset c=c & '<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#collection_id#&loan_number=#loan_number#">#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#collection_id#&loan_number=#loan_number#</a></p>".'>
 				<hr>#c#<hr>
 			
 			
