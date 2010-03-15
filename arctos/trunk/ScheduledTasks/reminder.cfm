@@ -106,6 +106,9 @@
 			<cfdump var=#collectionAgents#>
 			<cfsavecontent variable="common">
 				<p>
+					inhouseAgents.recordcount:#inhouseAgents.recordcount#;
+					collectionAgents.recordcount:#collectionAgents.recordcount#;
+					
 					<cfif inhouseAgents.recordcount is 1>
 						Contact #inhouseAgents.agent_name# at #inhouseAgents.address# with any questions or concerns.
 					<cfelseif inhouseAgents.recordcount gt 1>
