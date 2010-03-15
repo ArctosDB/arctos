@@ -9,7 +9,8 @@
 					LOAN_NUMBER,
 					address,
 					round(RETURN_DUE_DATE - sysdate) expires_in_days,
-					trans_agent.trans_agent_role
+					trans_agent.trans_agent_role,
+					preferred_agent_name.agent_name
 				FROM 
 					loan,
 					trans,
