@@ -115,7 +115,7 @@
 					<cfelseif inhouseAgents.recordcount gt 1>
 						Contact the following with any questions or concern:
 						<ul>
-						<cfloop query="collectionAgents">
+						<cfloop query="inhouseAgents">
 							<li>#agent_name#: #address#</li>
 						</cfloop>
 						</ul>
