@@ -103,14 +103,7 @@
 			</cfquery>
 			<cfsavecontent variable="common">
 				<p>
-					<cfif notificationAgents.recordcount gt 0>
-						Contact the following with any questions or concerns:
-						<ul>
-						<cfloop query="notificationAgents">
-							<li>#agent_name#: #address#</li>
-						</cfloop>
-						</ul>
-					<cfelseif collectionAgents.recordcount gt 0>
+					<cfif collectionAgents.recordcount gt 0>
 						Contact the following with any questions or concerns:
 						<ul>
 						<cfloop query="collectionAgents">
