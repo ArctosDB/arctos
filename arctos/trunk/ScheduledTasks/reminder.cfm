@@ -62,7 +62,7 @@
 					address,
 					agent_name
 				from
-					loan
+					expLoan
 				where
 					transaction_id=#transaction_id# and
 					trans_agent_role='in-house contact'
@@ -75,7 +75,7 @@
 					address,
 					agent_name
 				from
-					loan
+					expLoan
 				where
 					transaction_id=#transaction_id# and
 					trans_agent_role='notification contact'
@@ -88,7 +88,7 @@
 					collection_agent_name,
 					collection_email
 				from
-					loan
+					expLoan
 				where
 					transaction_id=#transaction_id#
 				group by
