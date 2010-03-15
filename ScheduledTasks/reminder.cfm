@@ -22,7 +22,7 @@
 					preferred_agent_name.agent_id = electronic_address.agent_id AND
 					electronic_address.ADDRESS_TYPE='e-mail' AND
 					trans_agent.trans_agent_role in ('notification contact','in-house contact') and
-					round(RETURN_DUE_DATE + sysdate) = #i# and 
+					round(RETURN_DUE_DATE - sysdate) = #i# and 
 					LOAN_STATUS != 'closed'
 			</cfquery>
 			<cfdump var=#expLoan#>
