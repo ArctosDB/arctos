@@ -19,7 +19,7 @@
 					preferred_agent_name,
 					preferred_agent_name nnName,
 					electronic_address,
-					(select * from collection_contacts where contact_agent_role='loan request') collection_contacts
+					(select * from collection_contacts where contact_role='loan request') collection_contacts
 				WHERE
 					loan.transaction_id = trans.transaction_id AND
 					trans.collection_id=collection_contacts.collection_id (+) and
