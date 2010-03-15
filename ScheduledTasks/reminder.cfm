@@ -114,7 +114,7 @@
 						Contact the following with any questions or concerns:
 						<ul>
 						<cfloop query="collectionAgents">
-							<li>#collection_agent_name#: #collection_email#</li>
+							<li>#agent_name#: #address#</li>
 						</cfloop>
 						</ul>
 					<cfelse>
