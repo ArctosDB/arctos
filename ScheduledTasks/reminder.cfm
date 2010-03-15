@@ -151,8 +151,8 @@
 				</p>
 				<p>
 					You may edit the loan, after signing in to Arctos, at
-					<a href="#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#">
-						#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#
+					<a href="#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#">
+						#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#
 					</a>
 				</p>
 				#common#
@@ -167,8 +167,8 @@
 					</p>
 					<p>
 						You may edit the loan, after signing in to Arctos, at
-						<a href="#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
-							#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#
+						<a href="#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
+							#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#
 						</a>
 					</p>
 					#common#
