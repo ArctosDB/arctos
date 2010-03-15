@@ -23,7 +23,7 @@
 				WHERE
 					loan.transaction_id = trans.transaction_id AND
 					trans.collection_id=collection_contacts.collection_id (+) and
-					collection_contacts.agent_id=nnName.agent_id (+) and
+					collection_contacts.contact_agent_id=nnName.agent_id (+) and
 					trans.transaction_id=trans_agent.transaction_id and
 					trans_agent.agent_id = preferred_agent_name.agent_id AND
 					preferred_agent_name.agent_id = electronic_address.agent_id AND
