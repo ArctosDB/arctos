@@ -48,34 +48,33 @@ sho err
 <cfif action is "nothing">
 	Step 1: Upload a comma-delimited text file (csv). 
 	Include column headings, spelled exactly as below. 
+	<br>
+	NOTE: This application currently handles only agent_type='person'
 	<div id="template">
 		<label for="t">Copy and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,agent_remark</textarea>
+		<textarea rows="2" cols="80" id="t">agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,prefix,suffix,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,agent_remark</textarea>
 	</div> 
-	<p></p>
-	
-	
-	
-	
+	<p></p>	
 	Columns in <span style="color:red">red</span> are required; others are optional:
 	<ul>
 		<li style="color:red">agent_type</li>
 		<li style="color:red">preferred_name</li>
 		<li>first_name (agent_type="person" only)</li>
 		<li>middle_name (agent_type="person" only)</li>
-		<li>last_name (agent_type="person" only)</li>
+		<li style="color:red">last_name (agent_type="person" only)</li>
 		<li>birth_date (agent_type="person" only; format 1-Jan-2000)</li>
 		<li>death_date (agent_type="person" only; format 1-Jan-2000)</li>
 		<li>agent_remark</li>
 		<li>prefix (agent_type="person" only)</li>
 		<li>suffix (agent_type="person" only)</li>
-		<li>other_name_type (second name type)</li>
-		<li>other_name (second name)</li>
-	    <li>other_name_type_2</li>
+		<li>other_name_1</li>
+		<li>other_name_type_1</li>
 		<li>other_name_2</li>
-	    <li>other_name_type_3</li>
-		<li>other_name_3</li>				 
+		<li>other_name_type_2</li>
+		<li>other_name_3</li>
+		<li>other_name_type_3</li>	 
 	</ul>
+	
 	
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
@@ -324,6 +323,9 @@ sho err
 	</p>
 	<p>
 		You can sort the table below by clicking on column headers.
+	</p>
+	<p>
+		Leading and trailing spaces are TRIMmed, but get them out of your data anyway.
 	</p>
 	<p>
 		Once everything has saved you can load specimen data using any of the names you loaded or, for pre-existing agents,
