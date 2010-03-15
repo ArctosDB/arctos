@@ -103,8 +103,20 @@
 			</cfquery>
 			<cfsavecontent variable="common">
 				<p>
-					<cfif collectionAgents.recordcount gt 0>
-						Contact the following with any questions or concerns:
+					
+					<cfif inhouseAgents.recordcount is 1>
+						Contact #inhouseAgents.agent_name# at #inhouseAgents.address# with any questions or concerns.
+					<cfelseif inhouseAgents.recordcount gt 1>
+						Contact the following with any questions or concern:
+						<ul>
+						<cfloop query="collectionAgents">
+							<li>#agent_name#: #address#</li>
+						</cfloop>
+						</ul>
+					<cfelseif collectionAgents.recordcount is 1>
+						Contact #collectionAgents.agent_name# at #collectionAgents.address# with any questions or concerns.
+					<cfelseif collectionAgents.recordcount gt 1>
+						Contact the following with any questions or concern:
 						<ul>
 						<cfloop query="collectionAgents">
 							<li>#agent_name#: #address#</li>
