@@ -137,7 +137,7 @@
 					Dear #agent_name#,
 					<p>
 						You are receiving this message because you are listed as a contact for loan 
-						#collection# #loan_number#, which is due on #return_due_date#.
+						#loan.collection# #loan_number#, which is due on #return_due_date#.
 					</p>
 					#common#
 				</cfloop>
