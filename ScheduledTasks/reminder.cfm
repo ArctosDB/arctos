@@ -6,12 +6,12 @@
 				loan.transaction_id,
 				RETURN_DUE_DATE,
 				LOAN_NUMBER,
-				address,
+				electronic_address.address,
 				round(RETURN_DUE_DATE - sysdate)+1 expires_in_days,
 				trans_agent.trans_agent_role,
 				preferred_agent_name.agent_name,
 				nnName.agent_name collection_agent_name,
-				nnAddr.electronic_address collection_email
+				nnAddr.address collection_email
 			FROM 
 				loan,
 				trans,
