@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
-		<cfset eid="-30,-7,0,7,30">
+		<cfset eid="-30,-7,0,7,30,60,90,120,150,180">
 		<cfquery name="expLoan" datasource="uam_god">
 			select 
 				loan.transaction_id,
@@ -11,10 +11,12 @@
 				trans_agent.trans_agent_role,
 				preferred_agent_name.agent_name,
 				nnName.agent_name collection_agent_name,
-				nnAddr.address collection_email
+				nnAddr.address collection_email,
+				collection
 			FROM 
 				loan,
 				trans,
+				collection,
 				trans_agent,
 				preferred_agent_name,
 				preferred_agent_name nnName,
@@ -24,6 +26,7 @@
 			WHERE
 				loan.transaction_id = trans.transaction_id AND
 				trans.collection_id=collection_contacts.collection_id (+) and
+				trans.collection_id=collection.collection_id and
 				collection_contacts.contact_agent_id=nnName.agent_id (+) and
 				collection_contacts.contact_agent_id=nnAddr.agent_id (+) and
 				trans.transaction_id=trans_agent.transaction_id and
@@ -35,6 +38,68 @@
 				LOAN_STATUS != 'closed'
 		</cfquery>
 		<cfdump var=#expLoan#>
+
+		<cfquery name="loan" dbtype="query">
+			select
+				transaction_id,
+				RETURN_DUE_DATE,
+				LOAN_NUMBER,
+				expires_in_days,
+				collection
+			from
+				expLoan
+			group by
+				transaction_id,
+				RETURN_DUE_DATE,
+				LOAN_NUMBER,
+				expires_in_days,
+				collection
+		</cfquery>
+		<cfdump var=#loan#>
+		<cfloop query="loan">
+			<cfquery name="inhouseAgents" dbtype="query">
+				select
+					address,
+					agent_name
+				from
+					loan
+				where
+					transaction_id=#transaction_id# and
+					trans_agent_role='in-house contact'
+				group by
+					address,
+					agent_name
+			</cfquery>
+			<cfquery name="notificationAgents" dbtype="query">
+				select
+					address,
+					agent_name
+				from
+					loan
+				where
+					transaction_id=#transaction_id# and
+					trans_agent_role='notification contact'
+				group by
+					address,
+					agent_name
+			</cfquery>
+			<cfquery name="collectionAgents" dbtype="query">
+				select
+					collection_agent_name,
+					collection_email
+				from
+					loan
+				where
+					transaction_id=#transaction_id#
+				group by
+					collection_agent_name,
+					collection_email
+			</cfquery>
+			
+			<cfdump var=#inhouseAgents#>
+			<cfdump var=#notificationAgents#>
+			<cfdump var=#collectionAgents#>
+		</cfloop>
 		<!----
 		<cfloop query="expLoan">
 			<cfquery name="expLoanAddr" dbtype="query">
