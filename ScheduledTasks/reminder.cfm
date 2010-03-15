@@ -4,7 +4,7 @@
 		<cfquery name="expLoan" datasource="uam_god">
 			select 
 				loan.transaction_id,
-				RETURN_DUE_DATE,
+				to_char(RETURN_DUE_DATE,'dd Month yyyy') return_due_date,
 				LOAN_NUMBER,
 				electronic_address.address,
 				round(RETURN_DUE_DATE - sysdate)+1 expires_in_days,
