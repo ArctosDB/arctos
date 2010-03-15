@@ -138,7 +138,7 @@
 				<p>The nature of the loaned material is:
 					<blockquote>#loan.nature_of_material#</blockquote>
 				</p>
-				<p>Loaned specimen data, unless restricted, may be accessed at
+				<p>Specimen data for this loan, unless restricted, may be accessed at
 					<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#">
 						#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#
 					</a>
@@ -176,7 +176,7 @@
 					<hr>
 					Dear #agent_name#,
 					<p>
-						You are receiving this message because you are listed as a collection contact. 
+						You are receiving this message because you are listed as a #loan.collection# loan request collection contact. 
 						Loan #loan.collection# #loan.loan_number# was due on #loan.return_due_date#, and is not listed as "closed."
 					</p>
 					<p>
