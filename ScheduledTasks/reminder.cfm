@@ -10,19 +10,22 @@
 				round(RETURN_DUE_DATE - sysdate)+1 expires_in_days,
 				trans_agent.trans_agent_role,
 				preferred_agent_name.agent_name,
-				nnName.agent_name loan_request_name
+				nnName.agent_name collection_agent_name,
+				nnAddr.electronic_address collection_email
 			FROM 
 				loan,
 				trans,
 				trans_agent,
 				preferred_agent_name,
 				preferred_agent_name nnName,
-				electronic_address,
+				(select * from electronic_address where address_type='e-mail') electronic_address,
+				(select * from electronic_address where address_type='e-mail') nnAddr,
 				(select * from collection_contacts where contact_role='loan request') collection_contacts
 			WHERE
 				loan.transaction_id = trans.transaction_id AND
 				trans.collection_id=collection_contacts.collection_id (+) and
 				collection_contacts.contact_agent_id=nnName.agent_id (+) and
+				collection_contacts.contact_agent_id=nnAddr.agent_id (+) and
 				trans.transaction_id=trans_agent.transaction_id and
 				trans_agent.agent_id = preferred_agent_name.agent_id AND
 				preferred_agent_name.agent_id = electronic_address.agent_id AND
