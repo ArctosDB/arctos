@@ -310,6 +310,11 @@ sho err
 		name is already in Arctos.
 	</p>
 	<p>
+		Just do nothing if you decide to not use an agent that you've loaded here - for example, if you notice that it's 
+		mis-spelled. You can then either upload a revised file containing the corrected agent, or create the agent using other tools.
+		Don't forget to update your specimen records to reflect the changes.
+	</p>
+	<p>
 		If you chose to use your agent, we'll create an agent with all the names you supplied.
 	</p>
 	
