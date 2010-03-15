@@ -932,9 +932,6 @@
       <!---------------------------------------------------------------------------------------------------->
 <cfif #action# is "saveChange">
 <cfoutput>
-<cfdump var=#form#>
-
-<cfabort>
 <cfset btime=now()>
 	
 	<cfset maxNumGeolAtts=10><!--- wild overestimation of the maximum number of geologic attributes; guess high or this form dies --->
