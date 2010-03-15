@@ -91,8 +91,8 @@
 			</cfquery>
 			<cfquery name="collectionAgents" dbtype="query">
 				select
-					collection_agent_name,
-					collection_email
+					collection_agent_name agent_name,
+					collection_email address
 				from
 					expLoan
 				where
@@ -101,54 +101,84 @@
 					collection_agent_name,
 					collection_email
 			</cfquery>
-			<cfif notificationAgents.recordcount is 0>
-				<cfset nagnts="[ no notification agents listed ]">
-			<cfelse>
-				<cfset nagnts=valuelist(notificationAgents.agent_name)>
+			<cfsavecontent variable="common">
+				<p>
+					<cfif notificationAgents.recordcount gt 0>
+						Contact the following with any questions or concerns:
+						<ul>
+						<cfloop query="notificationAgents">
+							<li>#agent_name#: #address#</li>
+						</cfloop>
+						</ul>
+					<cfelseif collectionAgents.recordcount gt 0>
+						Contact the following with any questions or concerns:
+						<ul>
+						<cfloop query="collectionAgents">
+							<li>#collection_agent_name#: #collection_email#</li>
+						</cfloop>
+						</ul>
+					<cfelse>
+						Please contact the Arctos folks with any questions or concerns by visiting 
+						<a href="#application.serverRootUrl#/contact.cfm">#application.serverRootUrl#/contact.cfm</a>
+					</cfif>
+				</p>
+				<p>The nature of the loaned material is:
+					<blockquote>#nature_of_material#</blockquote>
+				</p>
+				<p>Loaned specimen data, unless restricted, may be accessed at
+					<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#collection_id#&loan_number=#loan_number#">
+						#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#collection_id#&loan_number=#loan_number#
+					</a>
+				</p>
+			</cfsavecontent>
+			<cfif notificationAgents.recordcount gt 0 and expires_in_days lte 0>
+				<cfloop query="notificationAgents">
+					<hr>
+					Dear #agent_name#,
+					<p>
+						You are receiving this message because you are listed as a contact for loan 
+						#collection# #loan_number#, which is due on #return_due_date#.
+					</p>
+					#common#
+				</cfloop>
+			</cfif>
+			<cfloop query="inhouseAgents">
+				<hr>
+				Dear #agent_name#,
+				<p>
+					You are receiving this message because you are listed as in-house contact for loan 
+					#collection# #loan_number#, which is due on #return_due_date#.
+				</p>
+				<p>
+					You may edit the loan, after signing in to Arctos, at
+					<a href="#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
+						#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#
+					</a>
+				</p>
+				#common#
+			</cfloop>
+			<cfif expires_in_days gte 0>
+				<cfloop query="collectionAgents">
+					<hr>
+					Dear #agent_name#,
+					<p>
+						You are receiving this message because you are listed as a collection contact. 
+						Loan #collection# #loan_number# was due on #return_due_date#, and is not listed as "closed."
+					</p>
+					<p>
+						You may edit the loan, after signing in to Arctos, at
+						<a href="#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
+							#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#
+						</a>
+					</p>
+					#common#
+				</cfloop>
 			</cfif>
 			<cfdump var=#inhouseAgents#>
 			<cfdump var=#notificationAgents#>
 			<cfdump var=#collectionAgents#>
-			<cfif expires_in_days lte 0>
-				<cfset c="Dear #nagnts#,">
-				<cfset c=c&"<p>You are receiving this message because you are listed as a contact for loan #collection# #loan_number#, which is due on #return_due_date#.</p>">
-				<cfset c=c&"<p>Do not reply to this email.">
-				<cfif notificationAgents.recordcount gt 0>
-					<cfset c=c & "Contact the following with any questions or concerns:<ul>">
-					<cfloop query="notificationAgents">
-						<cfset c=c & "<li>#agent_name#: #address#</li>">
-					</cfloop>
-					<cfset c=c & "</ul>">
-				<cfelseif collectionAgents.recordcount gt 0>
-					<cfset c=c & "Contact the following with any questions or concerns:<ul>">
-					<cfloop query="collectionAgents">
-						<cfset c=c & "<li>#collection_agent_name#: #collection_email#</li>">
-					</cfloop>
-					<cfset c=c & "</ul>">
-				<cfelse>
-					<cfset c=c & 'Please contact the Arctos folks by visiting <a href="#application.serverRootUrl#/contact.cfm">#application.serverRootUrl#/contact.cfm</a>'>
-				</cfif>
-				<cfset c=c & "</p><p>The nature of the loaned material is:<blockquote>#nature_of_material#</blockquote></p>">
-				<cfset c=c & "<p>Loaned specimen data, unless restricted, may be accessed at ">
-				<cfset c=c & '<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#collection_id#&loan_number=#loan_number#">#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#collection_id#&loan_number=#loan_number#</a></p>".'>
-				<hr>#c#<hr>
 			
 			
-			</cfif>
-			
-------------------------------
-Dear {notification_contact.preferred_agent_name},
-
-
-
-
-
-
-
-{nature_of_material}
-
-
-			<hr>
 		</cfloop>
 		<!----
 		<cfloop query="expLoan">
