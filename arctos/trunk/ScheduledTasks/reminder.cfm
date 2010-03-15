@@ -171,7 +171,7 @@
 				</p>
 				#common#
 			</cfloop>
-			<cfif expires_in_days gte 0>
+			<cfif expires_in_days lte 0>
 				<cfloop query="collectionAgents">
 					<hr>
 					Dear #agent_name#,
