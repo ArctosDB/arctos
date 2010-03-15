@@ -114,13 +114,13 @@
 				<cfif notificationAgents.recordcount gt 0>
 					<cfset c=c & "Contact the following with any questions or concerns:<ul>">
 					<cfloop query="notificationAgents">
-						<cfset c=c & "<li>agent_name: #address#</li>">
+						<cfset c=c & "<li>#agent_name#: #address#</li>">
 					</cfloop>
 					<cfset c=c & "</ul>">
 				<cfelseif collectionAgents.recordcount gt 0>
 					<cfset c=c & "Contact the following with any questions or concerns:<ul>">
 					<cfloop query="collectionAgents">
-						<cfset c=c & "<li>agent_name: #address#</li>">
+						<cfset c=c & "<li>#collection_agent_name#: #collection_email#</li>">
 					</cfloop>
 					<cfset c=c & "</ul>">
 				<cfelse>
