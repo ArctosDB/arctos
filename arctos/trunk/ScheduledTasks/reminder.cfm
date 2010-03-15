@@ -163,22 +163,18 @@
 					Dear #agent_name#,
 					<p>
 						You are receiving this message because you are listed as a collection contact. 
-						Loan #loan.collection# #loan_number# was due on #return_due_date#, and is not listed as "closed."
+						Loan #loan.collection# #loan.loan_number# was due on #loan.return_due_date#, and is not listed as "closed."
 					</p>
 					<p>
 						You may edit the loan, after signing in to Arctos, at
-						<a href="#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
-							#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#
+						<a href="#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#">
+							#application.serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#
 						</a>
 					</p>
 					#common#
 				</cfloop>
 			</cfif>
-			<cfdump var=#inhouseAgents#>
-			<cfdump var=#notificationAgents#>
-			<cfdump var=#collectionAgents#>
-			
-			
+			<hr><hr>
 		</cfloop>
 		<!----
 		<cfloop query="expLoan">
