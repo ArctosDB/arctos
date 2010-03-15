@@ -1,39 +1,37 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
 		<cfset eid="-30,-7,0,7,30">
-		<cfloop list="#eid#" index="i">
-			<cfquery name="expLoan" datasource="uam_god">
-				select 
-					loan.transaction_id,
-					RETURN_DUE_DATE,
-					LOAN_NUMBER,
-					address,
-					round(RETURN_DUE_DATE - sysdate)+1 expires_in_days,
-					trans_agent.trans_agent_role,
-					preferred_agent_name.agent_name,
-					nnName.agent_name loan_request_name
-				FROM 
-					loan,
-					trans,
-					trans_agent,
-					preferred_agent_name,
-					preferred_agent_name nnName,
-					electronic_address,
-					(select * from collection_contacts where contact_role='loan request') collection_contacts
-				WHERE
-					loan.transaction_id = trans.transaction_id AND
-					trans.collection_id=collection_contacts.collection_id (+) and
-					collection_contacts.contact_agent_id=nnName.agent_id (+) and
-					trans.transaction_id=trans_agent.transaction_id and
-					trans_agent.agent_id = preferred_agent_name.agent_id AND
-					preferred_agent_name.agent_id = electronic_address.agent_id AND
-					electronic_address.ADDRESS_TYPE='e-mail' AND
-					trans_agent.trans_agent_role in ('notification contact','in-house contact') and
-					round(RETURN_DUE_DATE - sysdate) +1 = #i# and 
-					LOAN_STATUS != 'closed'
-			</cfquery>
-			<cfdump var=#expLoan#>
-		</cfloop>
+		<cfquery name="expLoan" datasource="uam_god">
+			select 
+				loan.transaction_id,
+				RETURN_DUE_DATE,
+				LOAN_NUMBER,
+				address,
+				round(RETURN_DUE_DATE - sysdate)+1 expires_in_days,
+				trans_agent.trans_agent_role,
+				preferred_agent_name.agent_name,
+				nnName.agent_name loan_request_name
+			FROM 
+				loan,
+				trans,
+				trans_agent,
+				preferred_agent_name,
+				preferred_agent_name nnName,
+				electronic_address,
+				(select * from collection_contacts where contact_role='loan request') collection_contacts
+			WHERE
+				loan.transaction_id = trans.transaction_id AND
+				trans.collection_id=collection_contacts.collection_id (+) and
+				collection_contacts.contact_agent_id=nnName.agent_id (+) and
+				trans.transaction_id=trans_agent.transaction_id and
+				trans_agent.agent_id = preferred_agent_name.agent_id AND
+				preferred_agent_name.agent_id = electronic_address.agent_id AND
+				electronic_address.ADDRESS_TYPE='e-mail' AND
+				trans_agent.trans_agent_role in ('notification contact','in-house contact') and
+				round(RETURN_DUE_DATE - sysdate) +1 in (#eid#) and 
+				LOAN_STATUS != 'closed'
+		</cfquery>
+		<cfdump var=#expLoan#>
 		<!----
 		<cfloop query="expLoan">
 			<cfquery name="expLoanAddr" dbtype="query">
