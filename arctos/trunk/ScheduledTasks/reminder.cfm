@@ -123,11 +123,11 @@
 					</cfif>
 				</p>
 				<p>The nature of the loaned material is:
-					<blockquote>#nature_of_material#</blockquote>
+					<blockquote>#loan.nature_of_material#</blockquote>
 				</p>
 				<p>Loaned specimen data, unless restricted, may be accessed at
-					<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#collection_id#&loan_number=#loan_number#">
-						#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#collection_id#&loan_number=#loan_number#
+					<a href="#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#">
+						#application.serverRootUrl#/SpecimenResults.cfm?collection_id=#loan.collection_id#&loan_number=#loan.loan_number#
 					</a>
 				</p>
 			</cfsavecontent>
@@ -137,7 +137,7 @@
 					Dear #agent_name#,
 					<p>
 						You are receiving this message because you are listed as a contact for loan 
-						#loan.collection# #loan_number#, which is due on #return_due_date#.
+						#loan.collection# #loan.loan_number#, which is due on #loan.return_due_date#.
 					</p>
 					#common#
 				</cfloop>
@@ -147,12 +147,12 @@
 				Dear #agent_name#,
 				<p>
 					You are receiving this message because you are listed as in-house contact for loan 
-					#loan.collection# #loan_number#, which is due on #return_due_date#.
+					#loan.collection# #loan.loan_number#, which is due on #loan.return_due_date#.
 				</p>
 				<p>
 					You may edit the loan, after signing in to Arctos, at
-					<a href="#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
-						#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#
+					<a href="#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#">
+						#serverRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#loan.transaction_id#
 					</a>
 				</p>
 				#common#
