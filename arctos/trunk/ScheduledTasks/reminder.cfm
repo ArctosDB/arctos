@@ -12,7 +12,9 @@
 				preferred_agent_name.agent_name,
 				nnName.agent_name collection_agent_name,
 				nnAddr.address collection_email,
-				collection
+				collection,
+				collection.collection_id,
+				nature_of_material
 			FROM 
 				loan,
 				trans,
@@ -45,7 +47,9 @@
 				RETURN_DUE_DATE,
 				LOAN_NUMBER,
 				expires_in_days,
-				collection
+				collection,
+				nature_of_material,
+				collection_id
 			from
 				expLoan
 			group by
@@ -53,7 +57,9 @@
 				RETURN_DUE_DATE,
 				LOAN_NUMBER,
 				expires_in_days,
-				collection
+				collection,
+				nature_of_material,
+				collection_id
 		</cfquery>
 		<cfdump var=#loan#>
 		<cfloop query="loan">
@@ -101,6 +107,45 @@
 			<cfdump var=#inhouseAgents#>
 			<cfdump var=#notificationAgents#>
 			<cfdump var=#collectionAgents#>
+			<cfif expires_in_days lt 0>
+				<cfset c="Dear #valuelist(notificationAgents.agent_name)#,">
+				<cfset c=c&"<p>You are receiving this message because you are listed as a contact for loan #collection# #loan_number#, which is due on #return_due_date#.</p>">
+				<cfset c=c&"<p>Do not reply to this email.">
+				<cfif notificationAgents.recordcount gt 0>
+					<cfset c=c & "Contact the following with any questions or concerns:<ul>">
+					<cfloop query="notificationAgents">
+						<cfset c=c & "<li>agent_name: #address#</li>">
+					</cfloop>
+					<cfset c=c & "</ul>">
+				<cfelseif collectionAgents.recordcount gt 0>
+					<cfset c=c & "Contact the following with any questions or concerns:<ul>">
+					<cfloop query="collectionAgents">
+						<cfset c=c & "<li>agent_name: #address#</li>">
+					</cfloop>
+					<cfset c=c & "</ul>">
+				<cfelse>
+					<cfset c=c & 'Please contact the Arctos folks by visiting <a href="#application.serverRootUrl#/contact.cfm">#application.serverRootUrl#/contact.cfm</a>'>
+				</cfif>
+				<cfset c=c & "</p><p>The nature of the loaned material is:<blockquote>#nature_of_material#</blockquote></p>">
+				<cfset c=c & "<p>Loaned specimen data, unless restricted, may be accessed at ">
+				<cfset c=c & '<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_id=#collection_id#&loan_number=#loan_number#">#application.serverRootUrl#/SpecimenDetail.cfm?collection_id=#collection_id#&loan_number=#loan_number#</a></p>".'>
+			
+			
+			
+			</cfif>
+			
+------------------------------
+Dear {notification_contact.preferred_agent_name},
+
+
+
+
+
+
+
+{nature_of_material}
+
+
 			<hr>
 		</cfloop>
 		<!----
