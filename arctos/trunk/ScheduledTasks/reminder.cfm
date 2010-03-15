@@ -57,6 +57,8 @@
 		</cfquery>
 		<cfdump var=#loan#>
 		<cfloop query="loan">
+			#LOAN_NUMBER#
+			<br>
 			<cfquery name="inhouseAgents" dbtype="query">
 				select
 					address,
@@ -99,6 +101,7 @@
 			<cfdump var=#inhouseAgents#>
 			<cfdump var=#notificationAgents#>
 			<cfdump var=#collectionAgents#>
+			<hr>
 		</cfloop>
 		<!----
 		<cfloop query="expLoan">
