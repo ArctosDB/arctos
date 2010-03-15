@@ -11,7 +11,7 @@
 					round(RETURN_DUE_DATE - sysdate)+1 expires_in_days,
 					trans_agent.trans_agent_role,
 					preferred_agent_name.agent_name,
-					nnName loan_request_name
+					nnName.agent_name loan_request_name
 				FROM 
 					loan,
 					trans,
