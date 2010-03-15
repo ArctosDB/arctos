@@ -1,3 +1,5 @@
+obsolete
+<cfabort>
 <!---
 drop table cf_temp_agents;
 

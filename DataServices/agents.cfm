@@ -50,6 +50,10 @@ sho err
 	Include column headings, spelled exactly as below. 
 	<br>
 	NOTE: This application currently handles only agent_type='person'
+	<br>
+	<a href="/info/ctDocumentation.cfm?table=ctagent_name_type">Valid agent name types</a>
+	<br>
+	<a href="/info/ctDocumentation.cfm?table=ctagent_type">Valid agent types</a>
 	<div id="template">
 		<label for="t">Copy and save as a .csv file</label>
 		<textarea rows="2" cols="80" id="t">agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,prefix,suffix,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,agent_remark</textarea>
