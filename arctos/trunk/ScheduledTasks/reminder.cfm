@@ -141,7 +141,7 @@
 					</a>
 				</p>
 			</cfsavecontent>
-			<cfif notificationAgents.recordcount gt 0 and expires_in_days lte 0>
+			<cfif notificationAgents.recordcount gt 0 and expires_in_days gte 0>
 				<cfloop query="notificationAgents">
 					<hr>
 					#address# Dear #agent_name#,
