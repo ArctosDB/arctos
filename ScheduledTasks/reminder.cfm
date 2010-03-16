@@ -85,7 +85,8 @@
 					expLoan
 				where
 					transaction_id=#transaction_id# and
-					trans_agent_role='notification contact'
+					trans_agent_role='notification contact' and
+					address is not null
 				group by
 					address,
 					agent_name
@@ -97,7 +98,8 @@
 				from
 					expLoan
 				where
-					transaction_id=#transaction_id#
+					transaction_id=#transaction_id# and
+					collection_email is not null
 				group by
 					collection_agent_name,
 					collection_email
