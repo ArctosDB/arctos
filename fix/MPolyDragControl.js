@@ -2,7 +2,7 @@
 	styleStr += '<style>';
 	styleStr += '.MDR_labelStyle {background: #FFFF40;font: bold 10px verdana;text-align: left;border: 1px solid gray;width: 180px;padding: 2px;}';
 	styleStr += '</style>';
-	styleStr += '<script src="/elabel.js"></script>';
+	styleStr += '<script src="elabel.js"></script>';
 	document.write(styleStr);
 
 
