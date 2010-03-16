@@ -3,7 +3,11 @@
 		<!--- start of loan code --->
 		<!--- days after and before return_due_date on which to send email. Negative is after ---->
 		<cfset eid="-365,-180,-150,-120,-90,-60,-30,-7,0,7,30">
-		<!--- query to get all loan data from the server --->
+		<!--- 
+			Query to get all loan data from the server. Use GOD query so we can ignore collection partitions.
+			This form has no output and relies on system time to run, so only danger is in sending multiple copies
+			of notification to loan folks. No real risk in not using a lesser agent for the queries.
+		--->
 		<cfquery name="expLoan" datasource="uam_god">
 			select 
 				loan.transaction_id,
