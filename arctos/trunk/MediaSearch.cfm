@@ -214,18 +214,28 @@
 			</ul>
 			<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
-					media.media_id,
-					media.media_type,
-					media.mime_type,
-					media.preview_uri,
-					media.media_uri	
+					media.media_id, 
+					media.media_type, 
+					media.mime_type, 
+					media.preview_uri, 
+					media.media_uri 
 				from 
-					media,
-					media_relations
-				where
+					media, 
+					media_relations 
+				where 
+					media.media_id=media_relations.related_primary_key and
+					media_relationship like '% media' 
+					and media_relations.media_id =#media_id#
+					and media.media_id != #media_id#
+				UNION
+				select media.media_id, media.media_type,
+					media.mime_type, media.preview_uri, media.media_uri 
+				from media, media_relations 
+				where 
 					media.media_id=media_relations.media_id and
-					media_relationship like '% media' and
-					(media_relations.media_id=#media_id# OR related_primary_key=#media_id#)
+					media_relationship like '% media' and 
+					media_relations.related_primary_key=#media_id#
+					 and media.media_id != #media_id#
 			</cfquery>
 			<cfif relM.recordcount gt 0>
 				<br>Related Media
