@@ -1,7 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
-	
+	<!---
 	<script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
+	--->
 <label for="map_canvas">
 	Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
 	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
@@ -30,6 +31,7 @@
 			map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
 			
 			map.enableGoogleBar();
+			/*
 			var boxStyleOpts = {
 				opacity:.0,
 				border:"2px solid green"
@@ -52,7 +54,8 @@
 					jQuery('#selong').val(se.lng());
 					jQuery('#selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
 				}
-			};			
+			};		
+			*/	
 			//map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(325,4)));
 		}
 	}
