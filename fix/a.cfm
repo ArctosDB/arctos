@@ -31,6 +31,8 @@
 			map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
 			
 			map.enableGoogleBar();
+			
+			new google.maps.Rectangle();
 			/*
 			var boxStyleOpts = {
 				opacity:.0,
