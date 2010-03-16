@@ -72,7 +72,7 @@
 				where
 					transaction_id=#transaction_id# and
 					trans_agent_role='in-house contact' and
-					address is not null				
+					len(address) gt 0				
 				group by
 					address,
 					agent_name
