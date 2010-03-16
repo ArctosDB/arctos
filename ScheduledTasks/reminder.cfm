@@ -1,6 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
+		<!--- start of loan code --->
+		<!--- days after and before return_due_date on which to send email. Negative is after ---->
 		<cfset eid="-365,-180,-150,-120,-90,-60,-30,-7,0,7,30">
+		<!--- query to get all loan data from the server --->
 		<cfquery name="expLoan" datasource="uam_god">
 			select 
 				loan.transaction_id,
@@ -39,6 +42,7 @@
 				round(RETURN_DUE_DATE - sysdate) +1 in (#eid#) and 
 				LOAN_STATUS != 'closed'
 		</cfquery>
+		<!--- local query to organize and flatten loan data --->
 		<cfquery name="loan" dbtype="query">
 			select
 				transaction_id,
@@ -59,7 +63,9 @@
 				nature_of_material,
 				collection_id
 		</cfquery>
+		<!--- loop once for each loan --->
 		<cfloop query="loan">
+			<!--- local queries to organize and flatten loan data --->
 			<cfquery name="inhouseAgents" dbtype="query">
 				select
 					address,
@@ -104,8 +110,10 @@
 			<cfsavecontent variable="contacts">
 				<p>
 					<cfif inhouseAgents.recordcount is 1>
+						<!--- there is one in-house contact --->
 						Contact #inhouseAgents.agent_name# at #inhouseAgents.address# with any questions or concerns.
 					<cfelseif inhouseAgents.recordcount gt 1>
+						<!--- there are multiple in-house contacts --->
 						Contact the following with any questions or concern:
 						<ul>
 						<cfloop query="inhouseAgents">
@@ -113,8 +121,10 @@
 						</cfloop>
 						</ul>
 					<cfelseif collectionAgents.recordcount is 1>
+						<!--- there are no in-house contacts, but there is one "loan request" agent for the collection --->
 						Contact #collectionAgents.agent_name# at #collectionAgents.address# with any questions or concerns.
 					<cfelseif collectionAgents.recordcount gt 1>
+						<!--- there are no in-house contacts, but there are multipls "loan request" agents for the collection --->
 						Contact the following with any questions or concern:
 						<ul>
 						<cfloop query="collectionAgents">
@@ -122,6 +132,7 @@
 						</cfloop>
 						</ul>
 					<cfelse>
+						<!--- there are no curatorial contacts given - send them to the Arctos contact form --->
 						Please contact the Arctos folks with any questions or concerns by visiting 
 						<a href="#application.serverRootUrl#/contact.cfm">#application.serverRootUrl#/contact.cfm</a>
 					</cfif>
@@ -138,6 +149,12 @@
 				</p>
 			</cfsavecontent>
 			<cfif notificationAgents.recordcount gt 0 and expires_in_days gte 0>
+				<!--- 
+					there's at least one noticifation agent, and the loan expires on or after today
+					Loop through the list of notification agents and email each of them. Blind copy
+					Dusty for a while, since it's pretty much impossible to actually test a form that 
+					sends email and something somewhere is probably misspelled or something
+				 --->
 				<cfloop query="notificationAgents">
 					<cfmail to="#address#" bcc="dustymc@gmail.com" 
 						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">
@@ -146,11 +163,12 @@
 							You are receiving this message because you are listed as a contact for loan 
 							#loan.collection# #loan.loan_number#, which is due on #loan.return_due_date#.
 						</p>
-						#contacts#
-						#common#
+						#contacts#<!--- from cfsavecontent above ---->
+						#common#<!--- from cfsavecontent above ---->
 					</cfmail>
 				</cfloop>
 			</cfif>
+			<!--- and an email for each in-house contact --->
 			<cfloop query="inhouseAgents">
 				<cfmail to="#address#" bcc="dustymc@gmail.com" 
 					subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">
@@ -169,6 +187,7 @@
 				</cfmail>
 			</cfloop>
 			<cfif expires_in_days lte 0>
+				<!--- the loan expires on or BEFORE today; also email the collection's loan request agent --->
 				<cfloop query="collectionAgents">
 					<cfmail to="#address#" bcc="dustymc@gmail.com" 
 						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">Dear #agent_name#,
@@ -188,8 +207,8 @@
 			</cfif>
 			<hr><hr>
 		</cfloop>
-	
-	<!----------- permit ------------>
+		<!--- end of loan code --->
+		<!----------- permit ------------>
 		<cfset cInt = "365,180,30,0">
 		<cfloop list="#cInt#" index="inDays">
 			<cfquery name="permitExpOneYear" datasource="uam_god">
