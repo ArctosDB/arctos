@@ -12,7 +12,7 @@
 <input type="hidden" name="nwlong" id="nwlong">
 <input type="hidden" name="selat" id="selat">
 <input type="hidden" name="selong" id="selong">
-<div id="map_canvas" style="width: 100%; height: 400px;"></div>
+<div id="map" style="width: 600px; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 	  	initializeMap();
