@@ -10,7 +10,7 @@ body {font: normal 12px verdana;}
 .link {color:blue;text-decoration:underline;cursor:pointer};
 </style>
 
-<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 
 
 <script src="MStatusControl.js"></script>
