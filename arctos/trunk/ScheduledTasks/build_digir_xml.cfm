@@ -2,7 +2,12 @@
 <cfquery name="colls" datasource="uam_god">
 	select * from collection	
 </cfquery>
-<cfset mappings = "GlobalUniqueIdentifier:GUID|DateLastModified:LAST_EDIT_DATE|BasisOfRecord:BASISOFRECORD|InstitutionCode:INSTITUTION_ACRONYM|CollectionCode:COLLECTION_CDE|CatalogNumber:CAT_NUM|CatalogNumberText:CAT_NUM|InformationWithheld:ENCUMBRANCES|Remarks:REMARKS|ScientificName:SCIENTIFIC_NAME|HigherTaxon:FULL_TAXON_NAME|Kingdom:KINGDOM|Phylum:PHYLUM|Class:PHYLCLASS|Order:PHYLORDER|Family:FAMILY|Genus:GENUS|SpecificEpithet:SPECIES|Species:SPECIES|InfraspecificRank:INFRASPECIFIC_RANK|InfraspecificEpithet:SUBSPECIES|AuthorYearOfScientificName:AUTHOR_TEXT|NomenclaturalCode:NOMENCLATURAL_CODE|IdentificationQualifier:IDENTIFICATIONMODIFIER|HigherGeography:HIGHER_GEOG|Continent:CONTINENT_OCEAN|IslandGroup:ISLAND_GROUP|Island:ISLAND|Country:COUNTRY|StateProvince:STATE_PROV|County:COUNTY|Locality:SPEC_LOCALITY|MinimumElevationInMeters:MIN_ELEV_IN_M|MaximumElevationInMeters:MAX_ELEV_IN_M|MinimumDepthInMeters:MIN_DEPTH_IN_M|MaximumDepthInMeters:MAX_DEPTH_IN_M|CollectingMethod:COLLECTING_METHOD|ValidDistributionFlag:COLLECTING_SOURCE|EarliestDateCollected:BEGAN_DATE|LatestDateCollected:ENDED_DATE|DayOfYear:DAYOFYEAR|Collector:COLLECTORS|Sex:SEX|LifeStage:AGE_CLASS|Attributes:ATTRIBUTES|ImageURL:IMAGEURL|RelatedInformation:SPECIMENDETAILURL|CatalogNumberNumeric:CAT_NUM|IdentifiedBy:IDENTIFIEDBY|DateIdentified:MADE_DATE|CollectorNumber:COLLECTORNUMBER|FieldNumber:FIELD_NUM|FieldNotes:FIELDNOTESURL|VerbatimCollectingDate:VERBATIM_DATE|VerbatimElevation:VERBATIMELEVATION|Preparations:PARTS|TypeStatus:TYPESTATUS|GenBankNumber:GENBANKNUM|OtherCatalogNumbers:OTHERCATALOGNUMBERS|RelatedCatalogedItems:RELATEDCATALOGEDITEMS|Disposition:COLL_OBJ_DISPOSITION|IndividualCount:INDIVIDUALCOUNT|DecimalLatitude:DEC_LAT|DecimalLongitude:DEC_LONG|GeodeticDatum:DATUM|CoordinateUncertaintyInMeters:COORDINATEUNCERTAINTYINMETERS|VerbatimLatitude:VERBATIMLATITUDE|VerbatimLongitude:VERBATIMLONGITUDE|VerbatimCoordinateSystem:ORIG_LAT_LONG_UNITS|GeoreferenceProtocol:GEOREFMETHOD|GeoreferenceSources:LAT_LONG_REF_SOURCE|GeoreferenceVerificationStatus:VERIFICATIONSTATUS|GeoreferenceRemarks:LAT_LONG_REMARKS">
+<!---<cfset mappings = "GlobalUniqueIdentifier:GUID|DateLastModified:LAST_EDIT_DATE|BasisOfRecord:BASISOFRECORD|InstitutionCode:INSTITUTION_ACRONYM|CollectionCode:COLLECTION_CDE|CatalogNumber:CAT_NUM|CatalogNumberText:CAT_NUM|InformationWithheld:ENCUMBRANCES|Remarks:REMARKS|ScientificName:SCIENTIFIC_NAME|HigherTaxon:FULL_TAXON_NAME|Kingdom:KINGDOM|Phylum:PHYLUM|Class:PHYLCLASS|Order:PHYLORDER|Family:FAMILY|Genus:GENUS|SpecificEpithet:SPECIES|Species:SPECIES|InfraspecificRank:INFRASPECIFIC_RANK|InfraspecificEpithet:SUBSPECIES|AuthorYearOfScientificName:AUTHOR_TEXT|NomenclaturalCode:NOMENCLATURAL_CODE|IdentificationQualifier:IDENTIFICATIONMODIFIER|HigherGeography:HIGHER_GEOG|Continent:CONTINENT_OCEAN|IslandGroup:ISLAND_GROUP|Island:ISLAND|Country:COUNTRY|StateProvince:STATE_PROV|County:COUNTY|Locality:SPEC_LOCALITY|MinimumElevationInMeters:MIN_ELEV_IN_M|MaximumElevationInMeters:MAX_ELEV_IN_M|MinimumDepthInMeters:MIN_DEPTH_IN_M|MaximumDepthInMeters:MAX_DEPTH_IN_M|CollectingMethod:COLLECTING_METHOD|ValidDistributionFlag:COLLECTING_SOURCE|EarliestDateCollected:BEGAN_DATE|LatestDateCollected:ENDED_DATE|DayOfYear:DAYOFYEAR|Collector:COLLECTORS|Sex:SEX|LifeStage:AGE_CLASS|Attributes:ATTRIBUTES|ImageURL:IMAGEURL|RelatedInformation:SPECIMENDETAILURL|CatalogNumberNumeric:CAT_NUM|IdentifiedBy:IDENTIFIEDBY|DateIdentified:MADE_DATE|CollectorNumber:COLLECTORNUMBER|FieldNumber:FIELD_NUM|FieldNotes:FIELDNOTESURL|VerbatimCollectingDate:VERBATIM_DATE|VerbatimElevation:VERBATIMELEVATION|Preparations:PARTS|TypeStatus:TYPESTATUS|GenBankNumber:GENBANKNUM|OtherCatalogNumbers:OTHERCATALOGNUMBERS|RelatedCatalogedItems:RELATEDCATALOGEDITEMS|Disposition:COLL_OBJ_DISPOSITION|IndividualCount:INDIVIDUALCOUNT|DecimalLatitude:DEC_LAT|DecimalLongitude:DEC_LONG|GeodeticDatum:DATUM|CoordinateUncertaintyInMeters:COORDINATEUNCERTAINTYINMETERS|VerbatimLatitude:VERBATIMLATITUDE|VerbatimLongitude:VERBATIMLONGITUDE|VerbatimCoordinateSystem:ORIG_LAT_LONG_UNITS|GeoreferenceProtocol:GEOREFMETHOD|GeoreferenceSources:LAT_LONG_REF_SOURCE|GeoreferenceVerificationStatus:VERIFICATIONSTATUS|GeoreferenceRemarks:LAT_LONG_REMARKS">
+
+--->
+
+<!--- JRW edits --->
+<cfset mappings ="DateLastModified:LAST_EDIT_DATE|BasisOfRecord:BASISOFRECORD|InstitutionCode:INSTITUTION_ACRONYM|CollectionCode:COLLECTION_CDE|CatalogNumberText:CAT_NUM|CatalogNumberNumeric:CAT_NUM|Collector:COLLECTORS|CollectorNumber:COLLECTORNUMBER|FieldNumber:FIELD_NUM|YearCollected:YEAR|MonthCollected:MONTH|DayCollected:DAY|TimeCollected:EMPTYSTRING|VerbatimCollectingDate:VERBATIM_DATE|FieldNotes:FIELDNOTESURL|JulianDay:DAYOFYEAR|HigherGeography:HIGHER_GEOG|ContinentOcean:CONTINENT_OCEAN|IslandGroup:ISLAND_GROUP|Island:ISLAND|Country:COUNTRY|StateProvince:STATE_PROV|County:COUNTY|Locality:SPEC_LOCALITY|DecimalLatitude:DEC_LAT|DecimalLongitude:DEC_LONG|HorizontalDatum:DATUM|OriginalCoordinateSystem:ORIG_LAT_LONG_UNITS|VerbatimLatitude:VERBATIMLATITUDE|VerbatimLongitude:VERBATIMLONGITUDE|GeorefMethod:GEOREFMETHOD|CoordinateUncertaintyInMeters:COORDINATEUNCERTAINTYINMETERS|LatLongComments:LAT_LONG_REMARKS|BoundingBox:EMPTYSTRING|MinimumElevationInMeters:MIN_ELEV_IN_M|MaximumElevationInMeters:MAX_ELEV_IN_M|VerbatimElevation:VERBATIMELEVATION|MinimumDepthInMeters:MIN_DEPTH_IN_M|MaximumDepthInMeters:MAX_DEPTH_IN_M|VerbatimDepth:EMPTYSTRING|ScientificName:SCIENTIFIC_NAME|HigherTaxon:FULL_TAXON_NAME|Kingdom:KINGDOM|Phylum:PHYLUM|Class:PHYLCLASS|Order:PHYLORDER|Family:FAMILY|Genus:GENUS|Species:SPECIES|Subspecies:SUBSPECIES|ScientificNameAuthor:AUTHOR_TEXT|IdentificationModifier:IDENTIFICATIONMODIFIER|IdentifiedBy:IDENTIFIEDBY|YearIdentified:EMPTYSTRING|MonthIdentified:EMPTYSTRING|DayIdentified:EMPTYSTRING|TypeStatus:TYPESTATUS|Sex:SEX|Preparations:PARTS|Tissues:EMPTYSTRING|IndividualCount:INDIVIDUALCOUNT|AgeClass:AGE_CLASS|GenBankNum:GENBANKNUM|OtherCatalogNumbers:OTHERCATALOGNUMBERS|RelatedCatalogedItems:RELATEDCATALOGEDITEMS|Remarks:REMARKS">
 <!---- may want to put these in a table at some point, for now we can just set them here --->
 <cfif #cgi.HTTP_HOST# contains "database.museum">
 	<cfset constr = "db.arctos.database.museum:1522">
@@ -54,23 +59,23 @@
 	<cfloop list="#mappings#" index="p" delimiters="|">
 		<cfset dwcName = listgetat(p,1,":")>
 		<cfset fieldName = listgetat(p,2,":")>
-		<!---
-		p:#p#<br><cfflush>
-		
-		dwcName:#dwcName#<br><cfflush>
-		
-		fieldName:#fieldName#<br><cfflush>
-		--->
-		<cfif #dwcName# is "CatalogNumberNumeric"
-			OR #dwcName# is "YearCollected"
-			OR #dwcName# is "MonthCollected"
-			OR #dwcName# is "DayCollected"
-			OR #dwcName# is "DecimalLatitude"
-			OR #dwcName# is "DecimalLongitude"
-			OR #dwcName# is "CoordinateUncertaintyInMeters"
-			OR #dwcName# is "MinimumElevationInMeters"
-			OR #dwcName# is "MaximumElevationInMeters"
-			OR #dwcName# is "IndividualCount">	
+		<cfif dwcName is "CatalogNumberNumeric"
+			OR dwcName is "YearCollected"
+			OR dwcName is "MonthCollected"
+			OR dwcName is "DayCollected"
+			OR dwcName is "TimeCollected"
+			OR dwcName is "JulianDay"
+			OR dwcName is "DecimalLatitude"
+			OR dwcName is "DecimalLongitude"
+			OR dwcName is "CoordinateUncertaintyInMeters"
+			OR dwcName is "MinimumElevationInMeters"
+			OR dwcName is "MaximumElevationInMeters"
+			OR dwcName is "MinimumDepthInMeters"
+			OR dwcName is "MaximumDepthInMeters"
+			OR dwcName is "YearIdentified"
+			OR dwcName is "MonthIdentified"
+			OR dwcName is "DayIdentified"
+			OR dwcName is "IndividualCount">
 			<cfset thisType = "numeric">
 		<cfelse>
 			<cfset thisType = "text">
