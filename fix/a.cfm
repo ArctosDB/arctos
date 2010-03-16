@@ -12,13 +12,9 @@ body {font: normal 12px verdana;}
 
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 
-<script>
-	var scriptTag = '<' + 'script src="http://maps.google.com/maps?file=api&v=2&key=' + myKey + '">'+'<'+'/script>';
-	document.write(scriptTag);
-</script>
 
-<script src="/MStatusControl.js"></script>
-<script src="/MPolyDragControl.js"></script>
+<script src="MStatusControl.js"></script>
+<script src="MPolyDragControl.js"></script>
 
 
 
