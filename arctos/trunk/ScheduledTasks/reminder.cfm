@@ -147,7 +147,7 @@
 			<cfif notificationAgents.recordcount gt 0 and expires_in_days lte 0>
 				<cfloop query="notificationAgents">
 					<hr>
-					Dear #agent_name#,
+					#address# Dear #agent_name#,
 					<p>
 						You are receiving this message because you are listed as a contact for loan 
 						#loan.collection# #loan.loan_number#, which is due on #loan.return_due_date#.
@@ -158,7 +158,7 @@
 			</cfif>
 			<cfloop query="inhouseAgents">
 				<hr>
-				Dear #agent_name#,
+				#address# Dear #agent_name#,
 				<p>
 					You are receiving this message because you are listed as in-house contact for loan 
 					#loan.collection# #loan.loan_number#, which is due on #loan.return_due_date#.
@@ -174,7 +174,7 @@
 			<cfif expires_in_days lte 0>
 				<cfloop query="collectionAgents">
 					<hr>
-					Dear #agent_name#,
+					#address# Dear #agent_name#,
 					<p>
 						You are receiving this message because you are listed as a #loan.collection# loan request collection contact. 
 						Loan #loan.collection# #loan.loan_number# was due on #loan.return_due_date#, and is not listed as "closed."
