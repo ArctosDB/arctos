@@ -110,7 +110,8 @@
 				group by
 					collection_agent_name,
 					collection_email
-			</cfquery>			
+			</cfquery>
+			<!--- the "contact if" section of the form we'll send to notification agents --->		
 			<cfsavecontent variable="contacts">
 				<p>
 					<cfif inhouseAgents.recordcount is 1>
@@ -142,6 +143,7 @@
 					</cfif>
 				</p>
 			</cfsavecontent>
+			<!--- the data we'll send to everyone --->
 			<cfsavecontent variable="common">
 				<p>The nature of the loaned material is:
 					<blockquote>#loan.nature_of_material#</blockquote>
@@ -191,7 +193,7 @@
 				</cfmail>
 			</cfloop>
 			<cfif expires_in_days lte 0>
-				<!--- the loan expires on or BEFORE today; also email the collection's loan request agent --->
+				<!--- the loan expires on or BEFORE today; also email the collection's loan request agent, if there is one --->
 				<cfloop query="collectionAgents">
 					<cfmail to="#address#" bcc="dustymc@gmail.com" 
 						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">Dear #agent_name#,
