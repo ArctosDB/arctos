@@ -372,11 +372,17 @@ DragZoomControl.prototype.drag_ = function(e){
     
 	  
 	  console.log('G.draggingOn');
+	  console.log('G');
 	  console.log(G);
+	  console.log('e');
 	  console.log(e);
 	  
 	  var pos = this.getRelPos_(e);
     
+	  console.log('pos');
+	  console.log(pos);
+	  
+	  
 	  var rect = this.getRectangle_(G.startX, G.startY, pos, G.mapRatio);
 
     if (rect.left) {
