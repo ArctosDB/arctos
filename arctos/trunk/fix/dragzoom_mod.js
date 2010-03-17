@@ -367,11 +367,13 @@ DragZoomControl.prototype.coverMousedown_ = function(e){
  */
 DragZoomControl.prototype.drag_ = function(e){
   var G = this.globals;
-  console.log(G);
+ 
   if(G.draggingOn) {
     
+	  
 	  console.log('G.draggingOn');
-	 
+	  console.log(G);
+	  console.log(e);
 	  
 	  var pos = this.getRelPos_(e);
     
