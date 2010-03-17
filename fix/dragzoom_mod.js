@@ -370,6 +370,8 @@ DragZoomControl.prototype.drag_ = function(e){
   if(G.draggingOn) {
     
 	  console.log('G.draggingOn');
+	 
+	  
 	  var pos = this.getRelPos_(e);
     var rect = this.getRectangle_(G.startX, G.startY, pos, G.mapRatio);
 
@@ -600,11 +602,11 @@ DragZoomControl.prototype.getRelPos_ = function(e) {
  * @return {Object} Describes the rectangle
  */
 DragZoomControl.prototype.getRectangle_ = function(startX, startY, pos, ratio){
-  console.log('--------------------');
-  console.log(startX);
-  console.log(startY);
-  console.log(pos);
-  console.log(ratio);
+  //console.log('--------------------');
+  //console.log(startX);
+  //console.log(startY);
+  //console.log(pos);
+  //console.log(ratio);
   
 	var left = false;
   var top = false;
