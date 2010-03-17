@@ -34,7 +34,7 @@ MPolyDragControl.prototype.initialize = function() {
 	baseIcon.infoWindowAnchor = new GPoint(1,1);
 	baseIcon.dragCrossSize = new GSize(0,0);
 	baseIcon.maxHeight = 0.1;
-	this.polyEditIcon = (new GIcon(baseIcon, "/images/polyEditSquare.png"));
+	this.polyEditIcon = (new GIcon(baseIcon, "polyEditSquare.png"));
 
 
 	this.floatingLabel = new ELabel(this.map.getCenter(), 'Label text', 'MDR_labelStyle',new GSize(10,20));
