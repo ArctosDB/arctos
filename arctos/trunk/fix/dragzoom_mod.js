@@ -437,8 +437,8 @@ DragZoomControl.prototype.mouseup_ = function(e){
       var zoomAreaPoly = new GPolyline([nw, ne, se, sw, nw], G.style.outlineColor, G.style.outlineWidth + 1,.4);
 
       try{
-        //G.map.addOverlay(zoomAreaPoly);
-       //setTimeout (function() {G.map.removeOverlay(zoomAreaPoly)}, G.options.overlayRemoveTime);  
+        G.map.addOverlay(zoomAreaPoly);
+       setTimeout (function() {G.map.removeOverlay(zoomAreaPoly)}, G.options.overlayRemoveTime);  
       }catch(e) {}
 
       var polyBounds = zoomAreaPoly.getBounds();
@@ -455,7 +455,7 @@ DragZoomControl.prototype.mouseup_ = function(e){
         var zoomLevel = G.map.getBoundsZoomLevel(polyBounds);
       }
       var center = polyBounds.getCenter();
-      G.map.setCenter(center, zoomLevel);
+      //G.map.setCenter(center, zoomLevel);
 
       // invoke callback if provided
       if (G.callbacks.dragend != null) {
