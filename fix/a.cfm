@@ -1,19 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
-
-<head>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
-<title>Google Maps</title>
-
-<style>
-body {font: normal 12px verdana;}
-.link {color:blue;text-decoration:underline;cursor:pointer};
-</style>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
+<cfinclude template="/includes/_header.cfm">
+<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 <script src="dragzoom_mod.js" language="javascript" type="text/javascript"></script>
 
-</script>
-</head>
 <div id="map_canvas" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
@@ -60,10 +48,5 @@ body {font: normal 12px verdana;}
 		}
 	}
 </script>
-<body>
 
-</body>
-</html>
-
-
-
+<cfinclude template="/includes/_footer.cfm">
