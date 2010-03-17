@@ -256,6 +256,11 @@ DragZoomControl.prototype.initialize = function(map) {
   // Add the two buttons to the map 					
   mapDiv.appendChild(buttonContainerDiv);
  
+  
+  
+  
+  
+  
   //DOM:map covers
   var zoomDiv = document.createElement("div");
   var DIVS_TO_CREATE = ['outlineDiv', 'cornerTopDiv', 'cornerLeftDiv', 'cornerRightDiv', 'cornerBottomDiv'];
@@ -428,11 +433,12 @@ DragZoomControl.prototype.mouseup_ = function(e){
       var se = G.map.fromContainerPixelToLatLng(sepx); 
       var sw = G.map.fromContainerPixelToLatLng(swpx); 
 
+      /*
       var zoomAreaPoly = new GPolyline([nw, ne, se, sw, nw], G.style.outlineColor, G.style.outlineWidth + 1,.4);
 
       try{
         G.map.addOverlay(zoomAreaPoly);
-        setTimeout (function() {G.map.removeOverlay(zoomAreaPoly)}, G.options.overlayRemoveTime);  
+       setTimeout (function() {G.map.removeOverlay(zoomAreaPoly)}, G.options.overlayRemoveTime);  
       }catch(e) {}
 
       var polyBounds = zoomAreaPoly.getBounds();
@@ -450,7 +456,7 @@ DragZoomControl.prototype.mouseup_ = function(e){
       }
       var center = polyBounds.getCenter();
       G.map.setCenter(center, zoomLevel);
-
+*/
       // invoke callback if provided
       if (G.callbacks.dragend != null) {
         G.callbacks.dragend(nw, ne, se, sw, nwpx, nepx, sepx, swpx);
