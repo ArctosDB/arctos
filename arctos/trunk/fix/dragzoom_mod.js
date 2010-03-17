@@ -598,7 +598,13 @@ DragZoomControl.prototype.getRelPos_ = function(e) {
  * @return {Object} Describes the rectangle
  */
 DragZoomControl.prototype.getRectangle_ = function(startX, startY, pos, ratio){
-  var left = false;
+  console.log('--------------------');
+  console.log(startX);
+  console.log(startY);
+  console.log(pos);
+  console.log(ratio);
+  
+	var left = false;
   var top = false;
   var dX = pos.left - startX;
   var dY = pos.top - startY;	
