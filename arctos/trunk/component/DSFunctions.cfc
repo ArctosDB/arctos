@@ -1,4 +1,12 @@
 <cfcomponent>
+	
+<cffunction name="getAllAgentNames" access="remote">
+	<cfargument name="filename" type="any" required="yes">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select count(*) c from media where media_uri like '%#filename#%'
+	</cfquery>
+	<cfreturn d.c>
+</cffunction>
 <cffunction name="getAllAgentNames" access="remote">
 	<cfargument name="agent_id" type="any" required="yes">
 	<cfif isnumeric(agent_id) and len(agent_id) gt 0>
