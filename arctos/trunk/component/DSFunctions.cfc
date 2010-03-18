@@ -2,7 +2,7 @@
 	
 <cffunction name="getMediaByFilename" access="remote">
 	<cfargument name="filename" type="any" required="yes">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="uam_god">
 		select count(*) c from media where media_uri like '%/#filename#%'
 	</cfquery>
 	<cfreturn d.c>
