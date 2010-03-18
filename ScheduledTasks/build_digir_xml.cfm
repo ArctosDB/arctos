@@ -143,7 +143,7 @@
 		<cfset data = '#data#</contact>
 		'>
 	</cfloop>	
-	<cfset data = '#data#<conceptualSchema schemaLocation="http://bnhm.berkeley.edu/manis/DwC/darwin2jrw030315.xsd">http://digir.net/schema/conceptual/darwin/2003/1.0</conceptualSchema>
+	<cfset data = '#data#<conceptualSchema schemaLocation="http://bnhm.berkeley.edu/manis/DwC/darwin2jrw100317.xsd">http://digir.net/schema/conceptual/darwin/2003/1.0</conceptualSchema>
 	'>
 
 	<cfset data = '#data#<recordIdentifier>#collection#</recordIdentifier>
