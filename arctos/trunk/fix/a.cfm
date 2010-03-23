@@ -49,7 +49,10 @@
       // get the size and position of our rectangle
       var c1 = this.map_.fromLatLngToDivPixel(this.bounds_.getSouthWest());
       var c2 = this.map_.fromLatLngToDivPixel(this.bounds_.getNorthEast());
-
+	
+	console.log('c1: ' + c1 + '; c2: ' + c2);
+	
+	
       // Now position our DIV based on the DIV coordinates of our bounds
       this.div_.style.width = Math.abs(c2.x - c1.x) + "px";
       this.div_.style.height = Math.abs(c2.y - c1.y) + "px";
