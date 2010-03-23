@@ -1460,8 +1460,8 @@ function showHide(id,onOff) {
 		
 		console.log('t=' + t + '; z=' + z);
 		if (t=='e_spatial_query'){
-			onText='Show Google Map';
-			offText='Hide Google Map';
+			offText='Show Google Map';
+			onText='Hide Google Map';
 		} else {
 			onText='Show Fewer Options';
 			offText='Show More Options';
