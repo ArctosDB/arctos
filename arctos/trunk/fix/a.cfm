@@ -2,6 +2,8 @@
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 
 <style>
+
+
 .jqHandle {
    background: red;
    height:15px;
@@ -21,7 +23,7 @@
 }
 
 .jqDnR {
-    z-index: 3;
+    z-index: 3000;
     position: relative;
     
     width: 180px;
@@ -61,7 +63,7 @@
 	div.id='ex3';
 	div.className='jqDnR';
 	
-	//var div = innerHTML='<div class="jqHandle jqDrag"></div><br />I am an example Box "#ex3"<br />Using the Handles, you can *RESIZE*and *DRAG* me.<div class="jqHandle jqResize"></div>';
+	//var div = innerHTML='<div class="jqDrag"></div><br />I am an example Box "#ex3"<br />Using the Handles, you can *RESIZE*and *DRAG* me.<div class="jqHandle jqResize"></div>';
 	
 var div2 = document.createElement("div");
 	div2.id='test';
