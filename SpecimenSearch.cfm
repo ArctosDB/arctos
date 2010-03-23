@@ -252,6 +252,7 @@
 </div>
 
 <div class="secDiv">
+	<!---
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
@@ -264,6 +265,7 @@
 			</td>
 		</tr>
 	</table>
+	--->
 	<div id="e_spatial_query"></div>
 </div>
 <div class="secDiv">
