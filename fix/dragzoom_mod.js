@@ -385,6 +385,8 @@ DragZoomControl.prototype.drag_ = function(e){
 	  //e.clientX,e.clientY=bottom right of div
 	  //G.startX,G.startY=top left;
 	  
+	  console.log('bottomright: ' + e.clientX + ', ' + e.clientY);
+	  console.log('topleft: ' + G.startX + ', ' + G.startY);
 	  
 	  var rect = this.getRectangle_(G.startX, G.startY, pos, G.mapRatio);
 
