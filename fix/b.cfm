@@ -91,7 +91,8 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
   var me = this;
   var ele = xGetElementById(eleId);
   var rBtn = xGetElementById(resBtnId);
-  var zBtn = xGetElementById(zoomBtnId);
+  
+  //var zBtn = xGetElementById(zoomBtnId);
 
   // Public Methods
   this.onunload = function()
