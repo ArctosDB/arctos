@@ -179,7 +179,19 @@
 						where 
 							media_id=#media_id#
 					</cfquery>
-				<cfelse>
+				<cfelseif isHash.recordcount is 1 and isHash.LABEL_VALUE is remote_hash>
+					<cfquery name="fit" datasource="uam_god">
+						update media set media_uri='#remote_uri#' where media_id=#media_id#
+					</cfquery>
+					<cfquery name="fit" datasource="uam_god">
+						update 
+							cf_tacc_transfer 
+						set 
+							status='complete'
+						where 
+							media_id=#media_id#
+					</cfquery>
+				<cfelseif isHash.recordcount is 0>
 					<cfquery name="newLBL" datasource="uam_god">
 						insert into media_labels (
 							media_id,
@@ -195,9 +207,6 @@
 					</cfquery>
 					<cfquery name="fit" datasource="uam_god">
 						update media set media_uri='#remote_uri#' where media_id=#media_id#
-					</cfquery>
-					<cfquery name="fpt" datasource="uam_god">
-						update publication_url set LINK='#remote_uri#' where LINK='#LOCAL_URI#'
 					</cfquery>
 					<cfquery name="fit" datasource="uam_god">
 						update 
