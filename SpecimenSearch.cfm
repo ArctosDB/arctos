@@ -284,6 +284,8 @@
 			</td>
 			<td class="srch">
 				<input type="text" name="any_geog" id="any_geog" size="50">
+				<span class="secControl" id="c_spatial_query" onclick="showHide('spatial_query',1)">Show More Options</span>
+
 			</td>
 		</tr>
 	</table>
