@@ -51,6 +51,8 @@
       var c2 = this.map_.fromLatLngToDivPixel(this.bounds_.getNorthEast());
 	
 	console.log('c1: ' + c1 + '; c2: ' + c2);
+	console.log('SW: ' + this.bounds_.getSouthWest());
+	console.log('NE: ' + this.bounds_.getNorthEast());
 	
 	
       // Now position our DIV based on the DIV coordinates of our bounds
