@@ -5,8 +5,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="robots" content="noindex,nofollow">
 	<link href="../styles/globals.css" type="text/css" rel="stylesheet">
-<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
-
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 <script type='text/javascript' src='x_core.js'></script>
 
 <script type='text/javascript' src='x_event.js'></script>
