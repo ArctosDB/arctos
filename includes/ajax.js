@@ -1457,6 +1457,9 @@ function showHide(id,onOff) {
 	if (document.getElementById(t) && document.getElementById(z)) {	
 		var tab=document.getElementById(t);
 		var ctl=document.getElementById(z);
+		
+		console.lof('t=' + t + '; z=' + z);
+		
 		if (onOff==1) {
 			var ptl="/includes/SpecSearch/" + id + ".cfm";
 			jQuery.get(ptl, function(data){
