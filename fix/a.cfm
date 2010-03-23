@@ -140,7 +140,7 @@ var div2 = document.createElement("div");
 
 var div3 = document.createElement("div");
 	div3.className='jqHandle jqResize';
-  document.body.appendChild(div);
+  $('#map_canvas').append(div);
   div.appendChild(div2);
 		div.appendChild(div3);
 		
