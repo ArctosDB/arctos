@@ -34,14 +34,7 @@
 }
 </style>
 
-<div id="ex3" class="jqDnR">
-  <div class="jqHandle jqDrag"></div>
-  <br />
-  I am an example Box "#ex3"<br />
-  Using the Handles, you can *RESIZE*
-  and *DRAG* me.
-  <div class="jqHandle jqResize"></div>
-</div>
+
 
 
 
@@ -61,9 +54,17 @@
     // Creates the DIV representing this rectangle.
     Rectangle.prototype.initialize = function(map) {
       // Create the DIV representing our rectangle
-      var div = document.createElement("div");
-      div.style.border = this.weight_ + "px solid " + this.color_;
-      div.style.position = "absolute";
+     // var div = document.createElement("div");
+     // div.style.border = this.weight_ + "px solid " + this.color_;
+     // div.style.position = "absolute";
+	var div = document.createElement("div");
+	div.id='ex3';
+	div.className='jqDnR';
+
+	var div = innerHTML='<div class="jqHandle jqDrag"></div><br />I am an example Box "#ex3"<br />Using the Handles, you can *RESIZE*and *DRAG* me.<div class="jqHandle jqResize"></div>';
+	
+
+
 
       // Our rectangle is flat against the map, so we add our selves to the
       // MAP_PANE pane, which is at the same z-index as the map itself (i.e.,
