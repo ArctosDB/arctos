@@ -120,7 +120,7 @@
 		<cfquery name="termCrash" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from (
 				select
-					nomenclatural_code,a.#lterm# l,a.#hterm# h
+					a.nomenclatural_code,a.#lterm# l,a.#hterm# h
 				from
 					(select nomenclatural_code,#lterm#,#hterm# from taxonomy group by nomenclatural_code,#lterm#,#hterm#) a,
 					(select nomenclatural_code,#lterm#,#hterm# from taxonomy group by nomenclatural_code,#lterm#,#hterm#) b
@@ -128,9 +128,9 @@
 					a.#lterm#=b.#lterm# and
 					a.#hterm#!=b.#hterm#
 				group by
-					nomenclatural_code,a.#lterm#,a.#hterm#
+					a.nomenclatural_code,a.#lterm#,a.#hterm#
 				order by 
-					a.#lterm#,a.#hterm#,nomenclatural_code
+					a.#lterm#,a.#hterm#,a.nomenclatural_code
 			) where rownum<=#limit#
 		</cfquery>
 		<table border>
