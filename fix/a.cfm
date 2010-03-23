@@ -60,17 +60,20 @@
 	var div = document.createElement("div");
 	div.id='ex3';
 	div.className='jqDnR';
-
+	
 	//var div = innerHTML='<div class="jqHandle jqDrag"></div><br />I am an example Box "#ex3"<br />Using the Handles, you can *RESIZE*and *DRAG* me.<div class="jqHandle jqResize"></div>';
 	
-
+var div2 = document.createElement("div");
+	div2.id='test';
+	div2.className='jqHandle jqDrag';
 
 
       // Our rectangle is flat against the map, so we add our selves to the
       // MAP_PANE pane, which is at the same z-index as the map itself (i.e.,
       // below the marker shadows)
       map.getPane(G_MAP_MAP_PANE).appendChild(div);
-
+	div.appenChild(div2);
+	
       this.map_ = map;
       this.div_ = div;
     }
