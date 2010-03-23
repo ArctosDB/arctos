@@ -1460,9 +1460,11 @@ function showHide(id,onOff) {
 		
 		console.log('t=' + t + '; z=' + z);
 		if (t=='e_spatial_query'){
-			theText='Google Map';
+			onText='Show Google Map';
+			offText='Hide Google Map';
 		} else {
-			theText='More Options';
+			onText='Show Fewer Options';
+			offText='Show More Options';
 		}
 		if (onOff==1) {
 			var ptl="/includes/SpecSearch/" + id + ".cfm";
@@ -1470,14 +1472,14 @@ function showHide(id,onOff) {
 				jQuery(tab).html(data);
 			});
 			ctl.setAttribute("onclick","showHide('" + id + "',0)");
-			ctl.innerHTML='Show ' + theText;
+			ctl.innerHTML=onText;;
 			if (t=='e_spatial_query'){
 				tab.className='secDiv';
 			}
 		} else {
 			tab.innerHTML='';
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
-			ctl.innerHTML='Show ' + theText;
+			ctl.innerHTML=offText;
 			if (t=='e_spatial_query'){
 				tab.className='';
 			}
