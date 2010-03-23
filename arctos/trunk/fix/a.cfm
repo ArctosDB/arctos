@@ -1,6 +1,48 @@
 <cfinclude template="/includes/_header.cfm">
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 
+<style>
+.jqHandle {
+   background: red;
+   height:15px;
+}
+
+.jqDrag {
+  width: 100%;
+  cursor: move;
+}
+
+.jqResize {
+   width: 15px;
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   cursor: se-resize;
+}
+
+.jqDnR {
+    z-index: 3;
+    position: relative;
+    
+    width: 180px;
+    font-size: 0.77em;
+    color: #618d5e;
+    margin: 5px 10px 10px 10px;
+    padding: 8px;
+    background-color: #EEE;
+    border: 1px solid #CCC;
+}
+</style>
+
+<div id="ex1" class="jqDnR">
+  I am an example Box "#ex1"<br />
+  You can *RESIZE* Me.
+  <div class="jqHandle jqResize"></div>
+</div>
+
+
+
+<script type='text/javascript' language="javascript" src='dd.js'></script>
     <script type="text/javascript">
 
     // A Rectangle is a simple overlay that outlines a lat/lng bounds on the
@@ -86,6 +128,10 @@
       }
     }
 
+
+$().ready(function() {
+  $('#ex1').jqResize('.jqResize');
+});
     </script>
   </head>
 
