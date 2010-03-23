@@ -92,7 +92,7 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
   var ele = xGetElementById(eleId);
   var rBtn = xGetElementById(resBtnId);
   
-  //var zBtn = xGetElementById(zoomBtnId);
+  var zBtn = xGetElementById(zoomBtnId);
 
   // Public Methods
   this.onunload = function()
@@ -246,6 +246,7 @@ function ToggleDisplay(id){
 					<!---
 					<div id="ZoomBtn" class="ZoomBtn" title="Click to Zoom"></div>
 					--->
+					<div id="ZoomBtn"></div>
 					<div id="ResBtn" class="ResBtn" title="Drag to Resize"></div>
 				</div>
 				<div id="map" style="width: 100%; height: 90%"></div>
