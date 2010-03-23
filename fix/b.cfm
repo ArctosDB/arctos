@@ -242,7 +242,9 @@ function ToggleDisplay(id){
 				<div class="divlayer" id="zoomLayer" title="Drag to Move">
 					<div id="Bar" class="Bar" title="Drag to Move"></div>
 
+					<!---
 					<div id="ZoomBtn" class="ZoomBtn" title="Click to Zoom"></div>
+					--->
 					<div id="ResBtn" class="ResBtn" title="Drag to Resize"></div>
 				</div>
 				<div id="map" style="width: 100%; height: 90%"></div>
