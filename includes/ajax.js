@@ -1459,18 +1459,28 @@ function showHide(id,onOff) {
 		var ctl=document.getElementById(z);
 		
 		console.log('t=' + t + '; z=' + z);
-		
+		if (t=='e_spatial_query'){
+			theText='Google Map';
+		} else {
+			theText='More Options';
+		}
 		if (onOff==1) {
 			var ptl="/includes/SpecSearch/" + id + ".cfm";
 			jQuery.get(ptl, function(data){
 				jQuery(tab).html(data);
 			});
 			ctl.setAttribute("onclick","showHide('" + id + "',0)");
-			ctl.innerHTML='Show Fewer Options';	
+			ctl.innerHTML='Show ' + theText;
+			if (t=='e_spatial_query'){
+				tab.className='secDiv';
+			}
 		} else {
 			tab.innerHTML='';
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
-			ctl.innerHTML='Show More Options';
+			ctl.innerHTML='Show ' + theText;
+			if (t=='e_spatial_query'){
+				tab.className='';
+			}
 		}
 		jQuery.getJSON("/component/functions.cfc",
   			{
