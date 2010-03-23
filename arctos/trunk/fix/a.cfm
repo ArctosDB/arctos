@@ -72,7 +72,7 @@ var div2 = document.createElement("div");
       // MAP_PANE pane, which is at the same z-index as the map itself (i.e.,
       // below the marker shadows)
       map.getPane(G_MAP_MAP_PANE).appendChild(div);
-	div.appenChild(div2);
+	div.appendChild(div2);
 	
       this.map_ = map;
       this.div_ = div;
