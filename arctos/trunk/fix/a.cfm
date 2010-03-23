@@ -61,7 +61,7 @@
 	div.id='ex3';
 	div.className='jqDnR';
 
-	var div = innerHTML='<div class="jqHandle jqDrag"></div><br />I am an example Box "#ex3"<br />Using the Handles, you can *RESIZE*and *DRAG* me.<div class="jqHandle jqResize"></div>';
+	//var div = innerHTML='<div class="jqHandle jqDrag"></div><br />I am an example Box "#ex3"<br />Using the Handles, you can *RESIZE*and *DRAG* me.<div class="jqHandle jqResize"></div>';
 	
 
 
