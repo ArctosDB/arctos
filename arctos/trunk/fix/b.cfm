@@ -4,7 +4,7 @@
 	<title>Bounds Test</title>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="robots" content="noindex,nofollow">
-	<link href="../styles/globals.css" type="text/css" rel="stylesheet">
+	<link href="g.css" type="text/css" rel="stylesheet">
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 <script type='text/javascript' src='x_core.js'></script>
 
@@ -41,7 +41,7 @@
 		  width:0px;
 		}
 		.ResBtn {
-		  background-image: url(../images/resize.gif);
+		  background-image: url(resize.gif);
 		  background-repeat:no-repeat;
 		  background-position:center;
 		  position:absolute;
