@@ -80,16 +80,6 @@
 						<br>Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
 						<br>&nbsp;
 					</li>
-					<li>
-						#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
-						<br>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
-						<br>&nbsp;
-					</li>
-					<li>
-						#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
-						<br>Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1
-						<br>
-					</li>
 				</ul>
 			</li>
 		</ul>			

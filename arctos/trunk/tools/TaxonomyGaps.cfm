@@ -120,7 +120,7 @@
 		<cfquery name="termCrash" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from (
 				select
-					a.#lterm# l,a.#hterm# h
+					nomenclatural_code,a.#lterm# l,a.#hterm# h
 				from
 					(select #lterm#,#hterm# from taxonomy group by #lterm#,#hterm#) a,
 					(select #lterm#,#hterm# from taxonomy group by #lterm#,#hterm#) b
@@ -128,18 +128,20 @@
 					a.#lterm#=b.#lterm# and
 					a.#hterm#!=b.#hterm#
 				group by
-					a.#lterm#,a.#hterm#
+					nomenclatural_code,a.#lterm#,a.#hterm#
 				order by 
-					a.#lterm#,a.#hterm#
+					a.#lterm#,a.#hterm#,nomenclatural_code
 			) where rownum<=#limit#
 		</cfquery>
 		<table border>
 			<tr>
 				<td>#lterm#</td>
-				<td>#hterm#</td>
+				<td>#lterm#</td>
+				<td>nomenclatural_code</td>
 			</tr>
 			<cfloop query="termCrash">
 				<tr>
+					<td>#nomenclatural_code#</td>
 					<td>
 						<a href="/TaxonomyResults.cfm?#lterm#=#l#">#l#</a>
 					</td>
