@@ -60,24 +60,12 @@ z-index:3001;
      // var div = document.createElement("div");
      // div.style.border = this.weight_ + "px solid " + this.color_;
      // div.style.position = "absolute";
-	var div = document.createElement("div");
-	div.id='ex3';
-	div.className='jqDnR';
 	
-	//var div = innerHTML='<div class="jqHandle jqDrag"></div><br />I am an example Box "#ex3"<br />Using the Handles, you can *RESIZE*and *DRAG* me.';
-	
-var div2 = document.createElement("div");
-	div2.className='jqHandle jqDrag';
-
-var div3 = document.createElement("div");
-	div3.className='jqHandle jqResize';
-
       // Our rectangle is flat against the map, so we add our selves to the
       // MAP_PANE pane, which is at the same z-index as the map itself (i.e.,
       // below the marker shadows)
-      map.getPane(G_MAP_MAP_PANE).appendChild(div);
-	div.appendChild(div2);
-		div.appendChild(div3);
+     // map.getPane(G_MAP_MAP_PANE).appendChild(div);
+	
 	
       this.map_ = map;
       this.div_ = div;
@@ -136,12 +124,27 @@ var div3 = document.createElement("div");
                         southWest.lng() + lngDelta),
             new GLatLng(northEast.lat() - latDelta,
                         northEast.lng() - lngDelta));
-        map.addOverlay(new Rectangle(rectBounds));
+       // map.addOverlay(new Rectangle(rectBounds));
       }
     }
 
 
 $().ready(function() {
+  var div = document.createElement("div");
+	div.id='ex3';
+	div.className='jqDnR';
+	
+	
+var div2 = document.createElement("div");
+	div2.className='jqHandle jqDrag';
+
+var div3 = document.createElement("div");
+	div3.className='jqHandle jqResize';
+  document.body.appendChild(div);
+  div.appendChild(div2);
+		div.appendChild(div3);
+		
+		
   $('#ex3').jqDrag('.jqDrag').jqResize('.jqResize');
 });
     </script>
