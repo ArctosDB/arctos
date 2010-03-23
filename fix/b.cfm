@@ -116,13 +116,14 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
   {
     xMoveTo(ele, xLeft(ele) + mdx, xTop(ele) + mdy);
     //console.log('barOnDrag: ' + mdx + '; ' + mdy + '; ' + e);
+    whereAreYou();
   }
 
   function resOnDrag(e, mdx, mdy)
   {
     xResizeTo(ele, xWidth(ele) + mdx, xHeight(ele) + mdy);
     me.paint();
-    console.log('resOnDrag: ' + mdx + '; ' + mdy + '; ' + e + '; ' + xWidth(ele));
+    //console.log('resOnDrag: ' + mdx + '; ' + mdy + '; ' + e + '; ' + xWidth(ele));
     whereAreYou();
   }
 
