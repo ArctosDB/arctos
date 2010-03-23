@@ -115,13 +115,14 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
   function barOnDrag(e, mdx, mdy)
   {
     xMoveTo(ele, xLeft(ele) + mdx, xTop(ele) + mdy);
-    console.log('barOnDrag: ' + mdx + '; ' + mdy + '; ' + e);
+    //console.log('barOnDrag: ' + mdx + '; ' + mdy + '; ' + e);
   }
 
   function resOnDrag(e, mdx, mdy)
   {
     xResizeTo(ele, xWidth(ele) + mdx, xHeight(ele) + mdy);
     me.paint();
+    console.log('resOnDrag: ' + mdx + '; ' + mdy + '; ' + e + '; ' + xWidth(ele));
   }
 
   function fenOnMousedown()
