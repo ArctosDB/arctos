@@ -128,8 +128,8 @@ z-index:3001;
       }
     }
 
-
-$().ready(function() {
+function addDiv() {
+//$().ready(function() {
   var div = document.createElement("div");
 	div.id='ex3';
 	div.className='jqDnR';
@@ -146,10 +146,12 @@ var div3 = document.createElement("div");
 		
 		
   $('#ex3').jqDrag('.jqDrag').jqResize('.jqResize');
-});
+//});
+}
     </script>
   </head>
 
+<span onclick="addDiv()">addDiv</span>
   <body onload="initialize()" onunload="GUnload()">
     <div id="map_canvas" style="width: 500px; height: 300px"></div>
   </body>
