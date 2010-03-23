@@ -115,6 +115,7 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
   function barOnDrag(e, mdx, mdy)
   {
     xMoveTo(ele, xLeft(ele) + mdx, xTop(ele) + mdy);
+    console.log('barOnDrag');
   }
 
   function resOnDrag(e, mdx, mdy)
