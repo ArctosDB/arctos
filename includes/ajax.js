@@ -1457,8 +1457,6 @@ function showHide(id,onOff) {
 	if (document.getElementById(t) && document.getElementById(z)) {	
 		var tab=document.getElementById(t);
 		var ctl=document.getElementById(z);
-		
-		console.log('t=' + t + '; z=' + z);
 		if (t=='e_spatial_query'){
 			offText='Show Google Map';
 			onText='Hide Google Map';
@@ -1473,16 +1471,10 @@ function showHide(id,onOff) {
 			});
 			ctl.setAttribute("onclick","showHide('" + id + "',0)");
 			ctl.innerHTML=onText;;
-			if (t=='e_spatial_query'){
-				//tab.className='secDiv';
-			}
 		} else {
 			tab.innerHTML='';
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
 			ctl.innerHTML=offText;
-			if (t=='e_spatial_query'){
-				//tab.className='';
-			}
 		}
 		jQuery.getJSON("/component/functions.cfc",
   			{
