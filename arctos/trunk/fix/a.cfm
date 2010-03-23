@@ -34,9 +34,12 @@
 }
 </style>
 
-<div id="ex1" class="jqDnR">
-  I am an example Box "#ex1"<br />
-  You can *RESIZE* Me.
+<div id="ex3" class="jqDnR">
+  <div class="jqHandle jqDrag"></div>
+  <br />
+  I am an example Box "#ex3"<br />
+  Using the Handles, you can *RESIZE*
+  and *DRAG* me.
   <div class="jqHandle jqResize"></div>
 </div>
 
@@ -130,7 +133,7 @@
 
 
 $().ready(function() {
-  $('#ex1').jqResize('.jqResize');
+  $('#ex3').jqDrag('.jqDrag').jqResize('.jqResize');
 });
     </script>
   </head>
