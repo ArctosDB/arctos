@@ -140,6 +140,7 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
   	gpstart = getLatLonFromPixel(xLeft(ele), xTop(ele));
   	gpend = getLatLonFromPixel(xLeft(ele) + xWidth(ele), xTop(ele) + xHeight(ele));
 
+/*
         // ===== Start with an empty GLatLngBounds object =====
         var bounds = new GLatLngBounds();
         var tlpoint = new GLatLng(gpstart.lat(), gpstart.lng());
@@ -154,7 +155,7 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
           var clat = (bounds.getNorthEast().lat() + bounds.getSouthWest().lat()) /2;
           var clng = (bounds.getNorthEast().lng() + bounds.getSouthWest().lng()) /2;
           map.setCenter(new GLatLng(clat,clng));
-
+*/
 	// show the coords for params
 	var	dMessage = document.getElementById("message");
 	dMessage.innerHTML = "start x=" + gpstart.lat() + " - start y=" + gpstart.lng()
