@@ -221,7 +221,7 @@ Alphabetical Listing of all quads used in Arctos:
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
 	
-<cfset thisArea = "Mt Michelson">
+<cfset thisArea = "Mt. Michelson">
 <cfset coords = "415,116,464,106,473,149,424,160">
    <area 
 	shape="poly" 
@@ -254,7 +254,7 @@ Alphabetical Listing of all quads used in Arctos:
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
 	
-<cfset thisArea = "DeLong Mts">
+<cfset thisArea = "De Long Mts.">
 <cfset coords = "125,163,175,168,171,216,118,209">
    <area 
 	shape="poly" 
@@ -265,7 +265,7 @@ Alphabetical Listing of all quads used in Arctos:
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
 	
-<cfset thisArea = "Misheguk Mtn">
+<cfset thisArea = "Misheguk Mtn.">
 <cfset coords = "174,169,224,172,223,217,170,216">
    <area 
 	shape="poly" 
@@ -309,7 +309,7 @@ Alphabetical Listing of all quads used in Arctos:
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
 	
-<cfset thisArea = "Phillip Smith Mts">
+<cfset thisArea = "Phillip Smith Mts.">
 <cfset coords = "373,168,420,162,430,204,379,214">
    <area 
 	shape="poly" 
@@ -331,7 +331,7 @@ Alphabetical Listing of all quads used in Arctos:
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
 	
-<cfset thisArea = "Baird Mts">
+<cfset thisArea = "Baird Mts.">
 <cfset coords = "170,214,224,217,223,263,166,260">
    <area 
 	shape="poly" 
@@ -368,7 +368,7 @@ Alphabetical Listing of all quads used in Arctos:
   <!-------------------------------- Southwest ------------------------------->
   <map name="swest">
     
-<cfset thisArea = "Taylor Mts">
+<cfset thisArea = "Taylor Mts.">
 <cfset coords = "800,22,865,21,865,69,796,67">
    <area 
 	shape="poly" 
@@ -434,7 +434,7 @@ Alphabetical Listing of all quads used in Arctos:
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
 	
-<cfset thisArea = "Mt Katmai">
+<cfset thisArea = "Mt. Katmai">
 <cfset coords = "866,115,913,113,916,159,867,158">
    <area 
 	shape="poly" 
@@ -767,7 +767,7 @@ Alphabetical Listing of all quads used in Arctos:
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
 	
-<cfset thisArea = "Mt Fairweather">
+<cfset thisArea = "Mt. Fairweather">
 <cfset coords = "75,125,125,109,142,151,86,164">
    <area 
 	shape="poly" 
@@ -913,7 +913,7 @@ Alphabetical Listing of all quads used in Arctos:
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
 	
-<cfset thisArea = "Talkeetna Mts">
+<cfset thisArea = "Talkeetna Mts.">
 <cfset coords = "118,83,179,78,187,126,124,132">
    <area 
 	shape="poly" 
@@ -1023,7 +1023,7 @@ Alphabetical Listing of all quads used in Arctos:
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
 	
-<cfset thisArea = "Mt St Elias">
+<cfset thisArea = "Mt. St Elias">
 <cfset coords = "327,143,386,128,399,172,335,188">
    <area 
 	shape="poly" 
@@ -1093,7 +1093,7 @@ Alphabetical Listing of all quads used in Arctos:
 <!------------------------------------ western ------------------------------------------->
 
 <map name="WestQuads">
-<cfset thisArea = "St Matthew">
+<cfset thisArea = "St. Matthew">
 <cfset coords = "78,298,137,312,129,355,62,339">
    <area 
 	shape="poly" 
@@ -1258,7 +1258,7 @@ Alphabetical Listing of all quads used in Arctos:
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
 		
-	<cfset thisArea = "St Lawrence">
+	<cfset thisArea = "St. Lawrence">
 	  <cfset coords = "147,177,216,193,206,237,136,222">
 	   <area 
 		shape="poly" 
@@ -1269,7 +1269,7 @@ Alphabetical Listing of all quads used in Arctos:
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
 		
-	<cfset thisArea = "St Michael">
+	<cfset thisArea = "St. Michael">
 	  <cfset coords = "287,197,346,203,341,250,279,242">
 	   <area 
 		shape="poly" 
@@ -1663,7 +1663,7 @@ Alphabetical Listing of all quads used in Arctos:
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
-  <cfset thisArea = "Mt McKinley">
+  <cfset thisArea = "Mt. McKinley">
   <cfset coords = "150,401,210,395,216,438,153,444">
   <area 
   	shape="poly" 
@@ -1683,7 +1683,7 @@ Alphabetical Listing of all quads used in Arctos:
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
-  <cfset thisArea = "Mt Hayes">
+  <cfset thisArea = "Mt. Hayes">
   <cfset coords = "271,390,331,380,337,423,277,434">
   <area 
   	shape="poly" 
