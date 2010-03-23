@@ -1474,14 +1474,14 @@ function showHide(id,onOff) {
 			ctl.setAttribute("onclick","showHide('" + id + "',0)");
 			ctl.innerHTML=onText;;
 			if (t=='e_spatial_query'){
-				tab.className='secDiv';
+				//tab.className='secDiv';
 			}
 		} else {
 			tab.innerHTML='';
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
 			ctl.innerHTML=offText;
 			if (t=='e_spatial_query'){
-				tab.className='';
+				//tab.className='';
 			}
 		}
 		jQuery.getJSON("/component/functions.cfc",
