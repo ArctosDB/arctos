@@ -122,8 +122,8 @@
 				select
 					nomenclatural_code,a.#lterm# l,a.#hterm# h
 				from
-					(select #lterm#,#hterm# from taxonomy group by #lterm#,#hterm#) a,
-					(select #lterm#,#hterm# from taxonomy group by #lterm#,#hterm#) b
+					(select nomenclatural_code,#lterm#,#hterm# from taxonomy group by nomenclatural_code,#lterm#,#hterm#) a,
+					(select nomenclatural_code,#lterm#,#hterm# from taxonomy group by nomenclatural_code,#lterm#,#hterm#) b
 				where
 					a.#lterm#=b.#lterm# and
 					a.#hterm#!=b.#hterm#
