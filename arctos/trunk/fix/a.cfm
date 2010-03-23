@@ -50,8 +50,8 @@
       var c1 = this.map_.fromLatLngToDivPixel(this.bounds_.getSouthWest());
       var c2 = this.map_.fromLatLngToDivPixel(this.bounds_.getNorthEast());
 	
-		var sw=fromDivPixelToLatLng(c1);
-		var ne=fromDivPixelToLatLng(c2)
+		var sw=this.map_.fromDivPixelToLatLng(c1);
+		var ne=this.map_.fromDivPixelToLatLng(c2)
 	console.log('c1: ' + c1 + '; c2: ' + c2);
 	console.log('SW: ' + sw);
 	console.log('NE: ' + ne);
