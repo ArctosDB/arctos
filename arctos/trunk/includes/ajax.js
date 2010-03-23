@@ -1458,7 +1458,7 @@ function showHide(id,onOff) {
 		var tab=document.getElementById(t);
 		var ctl=document.getElementById(z);
 		
-		console.lof('t=' + t + '; z=' + z);
+		console.log('t=' + t + '; z=' + z);
 		
 		if (onOff==1) {
 			var ptl="/includes/SpecSearch/" + id + ".cfm";
