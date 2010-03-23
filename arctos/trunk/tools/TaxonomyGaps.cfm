@@ -141,13 +141,13 @@
 			</tr>
 			<cfloop query="termCrash">
 				<tr>
+					<td>
+						<a href="/TaxonomyResults.cfm?#lterm#==#l#">#l#</a>
+					</td>
+					<td>
+						<a href="/TaxonomyResults.cfm?#hterm#==#h#">#h#</a>
+					</td>
 					<td>#nomenclatural_code#</td>
-					<td>
-						<a href="/TaxonomyResults.cfm?#lterm#=#l#">#l#</a>
-					</td>
-					<td>
-						<a href="/TaxonomyResults.cfm?#hterm#=#h#">#h#</a>
-					</td>
 				</tr>
 			</cfloop>
 		</table>
