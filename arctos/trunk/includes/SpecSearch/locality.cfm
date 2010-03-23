@@ -109,11 +109,11 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_quad">Map Name:</span>
+			<span class="helpLink" id="_quad">USGS Quad Map:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="quad" id="quad" size="50">
-			<span class="infoLink" onclick="getQuadHelp();">Choose</span>
+			<span class="infoLink" onclick="getQuadHelp();">Pick Quad (for Alaska only)</span>
 		</td>
 	</tr>
 	<tr>

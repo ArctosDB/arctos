@@ -140,7 +140,7 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 						2072
 					)
 				</cfquery>
-				<br>made #ala.display_value#
+				<br>made #ala.ala#
 				<cfquery name="spiffy" datasource="uam_god">
 					update tacc_check set status='all_done' where collection_object_id=#collection_object_id#
 				</cfquery>							
