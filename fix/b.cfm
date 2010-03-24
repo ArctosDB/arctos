@@ -116,7 +116,8 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
   {
     xMoveTo(ele, xLeft(ele) + mdx, xTop(ele) + mdy);
     //console.log('barOnDrag: ' + mdx + '; ' + mdy + '; ' + e);
-    whereAreYou();
+    //whereAreYou();
+    whurUB();
   }
 
   function resOnDrag(e, mdx, mdy)
@@ -124,7 +125,8 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
     xResizeTo(ele, xWidth(ele) + mdx, xHeight(ele) + mdy);
     me.paint();
     //console.log('resOnDrag: ' + mdx + '; ' + mdy + '; ' + e + '; ' + xWidth(ele));
-    whereAreYou();
+   // whereAreYou();
+   whurUB();
   }
 
   function fenOnMousedown()
