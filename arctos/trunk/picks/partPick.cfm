@@ -21,7 +21,9 @@
 <cfif not isdefined("id_value")>
 	<cfset id_value =''>
 </cfif>
-
+<cfdump var="#variables#">
+<cfdump var="#form#">
+<cfdump var="#url#">
 </cfoutput>
 <div id="thisWholePage">
 <cfif action is "nothing">
