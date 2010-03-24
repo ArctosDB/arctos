@@ -396,7 +396,7 @@ a:hover div
 	map.addControl(new GMapTypeControl());
 	map.addControl(new GScaleControl());
 	map.addControl(new ToggleZoomControl());
-	map.setCenter(new GLatLng(54.70235509327093, -3.2080078125), 6);
+	map.setCenter(new GLatLng(55, -135), 3);
 	setDiv();
 	
 	GEvent.addListener(map, "moveend", function() {
