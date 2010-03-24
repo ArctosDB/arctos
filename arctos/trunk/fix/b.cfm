@@ -337,51 +337,27 @@ a:hover div
 
   	</style>
 
-<!---
-  </head>
---->
-<!---
-<body onunload="GUnload()">
---->
-				<div class="divlayer" id="zoomLayer" title="Drag to Move">
-					<div id="Bar" class="Bar" title="Drag to Move"></div>
+<div class="divlayer" id="zoomLayer" title="Drag to Move">
+	<div id="Bar" class="Bar" title="Drag to Move"></div>
 
-					<!---
-					<div id="ZoomBtn"></div>
-					---><div id="ZoomBtn" class="ZoomBtn" title="Click to Zoom"></div>
-					
-					<div id="ResBtn" class="ResBtn" title="Drag to Resize"></div>
-				</div>
-				<!---<div id="map" style="width: 100%; height: 90%"></div>--->
-				<div id="message"></div>
-<!----
-<script>
-	var map = new GMap2(document.getElementById("map"));
-	map.addControl(new GLargeMapControl());
-	map.addControl(new GMapTypeControl());
-	map.addControl(new GScaleControl());
-	map.addControl(new ToggleZoomControl());
-	map.setCenter(new GLatLng(54.70235509327093, -3.2080078125), 6);
-	setDiv();
+	<!---
+	<div id="ZoomBtn"></div>
+	---><div id="ZoomBtn" class="ZoomBtn" title="Click to Zoom"></div>
 	
-	GEvent.addListener(map, "moveend", function() {
-		  console.log('whurUB');
-		  whurUB();
-		});
-			
-	
-	
-</script>
----->
+	<div id="ResBtn" class="ResBtn" title="Drag to Resize"></div>
+</div>
+<!---<div id="map" style="width: 100%; height: 90%"></div>--->
+<div id="message"></div>
+
 <label for="map">
 	Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
 	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
 </label>
 <input type="text" style="font-weight:bold;border:none;width:100%" id="selectedCoords">
-<input type="hidden" name="nwLat" id="nwLat">
-<input type="hidden" name="nwlong" id="nwlong">
-<input type="hidden" name="selat" id="selat">
-<input type="hidden" name="selong" id="selong">
+<input type="text" name="nwLat" id="nwLat">
+<input type="text" name="nwlong" id="nwlong">
+<input type="text" name="selat" id="selat">
+<input type="text" name="selong" id="selong">
 <div id="map" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
 	//jQuery(document).ready(function() {
@@ -390,71 +366,18 @@ a:hover div
 	jQuery(document.body).unload(function() {
 		GUnload();
 	});
-	
 	var map = new GMap2(document.getElementById("map"));
 	map.addControl(new GLargeMapControl());
-	
 	map.addControl(new GMapTypeControl());
-	
 	map.addMapType(G_PHYSICAL_MAP);
-	
-	
 	map.addControl(new GScaleControl());
 	map.addControl(new ToggleZoomControl());
-	
 	map.enableGoogleBar();
-	
-	
 	map.setCenter(new GLatLng(55, -135), 3);
 	setDiv();
-	
 	GEvent.addListener(map, "moveend", function() {
 		whurUB();
 	});
-		
-	/*
-	function initializeMap() {
-		if (GBrowserIsCompatible()) {
-			
-			
-			
-			
-			 
-			
-			
-			
-			
-			
-			
-			
-			
-			var map = new GMap2(document.getElementById("map"));
-			var center = new GLatLng(55, -135);
-			map.setCenter(center, 3);
-			map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
-			map.addMapType(G_PHYSICAL_MAP);
-			map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,50)));
-			map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
-			
-			map.enableGoogleBar();
-			var boxStyleOpts = {
-				opacity:.0,
-				border:"2px solid green"
-			}
-		
-			/// newcode
-			setDiv();
-			
-			
-			GEvent.addListener(map, "moveend", function() {
-		  console.log('whurUB');
-		  whurUB();
-		});
-			
-		}
-	}
-	*/
-	
 </script>
 
 
