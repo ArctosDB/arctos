@@ -493,26 +493,23 @@
 		        </td>
 		    </tr>
 		</table>
+		<table width="100%">
+			<tr>
+				<td>
+					<div id="fHolder">
+						<iframe class="thisFrame" 
+							style="border:none;width:100%;"
+	                        id="theFrame" 
+							name="theFrame" 
+							src="/SpecimenDetail_body.cfm?collection_object_id=#collection_object_id#">
+						</iframe>
+					</div>
+				</td>
+			</tr>
+		</table>
+	<cfelse><!--- not coldfusion user --->
+		<cfinclude template="SpecimenDetail_body.cfm">
 	</cfif>	
-	
-	
-	<cfinclude template="SpecimenDetail_body.cfm">
-	
-	<cfabort>
-	<table width="100%">
-		<tr>
-			<td>
-				<div id="fHolder">
-					<iframe class="thisFrame" 
-						style="border:none;width:100%;"
-                        id="theFrame" 
-						name="theFrame" 
-						src="/SpecimenDetail_body.cfm?collection_object_id=#collection_object_id#">
-					</iframe>
-				</div>
-			</td>
-		</tr>
-	</table>
 <cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and #showAnnotation# is "true">
 		<script language="javascript" type="text/javascript">
