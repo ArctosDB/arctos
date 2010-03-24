@@ -5,14 +5,14 @@
 	<div id="ResBtn" class="ResBtn" title="Drag to Resize"></div>
 </div>
 <label for="map">
-	Click <img src="/images/selector.png"> to open spatial query tool. Click again to cancel.
+	Click <img src="/images/selector.png"> (on the map by the pan tool) to open spatial query tool. Click it again to cancel.
 	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
 </label>
 <input type="text" style="font-weight:bold;border:none;width:100%" id="selectedCoords">
-<input type="text" name="nwLat" id="nwLat">
-<input type="text" name="nwlong" id="nwlong">
-<input type="text" name="selat" id="selat">
-<input type="text" name="selong" id="selong">
+<input type="hidden" name="nwLat" id="nwLat">
+<input type="hidden" name="nwlong" id="nwlong">
+<input type="hidden" name="selat" id="selat">
+<input type="hidden" name="selong" id="selong">
 <div id="map" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
 	//jQuery(document).ready(function() {
