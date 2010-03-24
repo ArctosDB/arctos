@@ -1276,7 +1276,7 @@ gonna try this:
 					) values (
 						sq_lat_long_id.nextval,
 						#nlid.nlid#,
-						<cfif len(LAT_DEG) gt 0>
+						<cfif len(LAT_DEG) gt 0 or len(dmLAT_DEG) gt 0>
 							<cfif orig_lat_long_units is "degrees dec. minutes">
 								#dmLAT_DEG#,
 							<cfelse>
@@ -1305,7 +1305,7 @@ gonna try this:
 						<cfelse>
 							'#LAT_DIR#',
 						</cfif>						
-						<cfif len(LONG_DEG) gt 0>
+						<cfif len(LONG_DEG) gt 0 or len(dmLONG_DEG) gt 0>
 							<cfif orig_lat_long_units is "degrees dec. minutes">
 								#dmLONG_DEG#,
 							<cfelse>
