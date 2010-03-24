@@ -291,12 +291,13 @@ function ToggleDisplay(id){
 	map.addControl(new ToggleZoomControl());
 	map.setCenter(new GLatLng(54.70235509327093, -3.2080078125), 6);
 	setDiv();
-	GEvent.addListener(marker, 'dragend', function(position) {
-       console.log('dragend');
-        // position is a GLatLng containing the position of
-        // of where the marker was dropped
-
-}); 
+	GEvent.addListener(map, "moveend", function() {
+   console.log('moveend');
+       whereAreYou();
+   
+});
+	
+	
 //]]>
 </script>
 </body>
