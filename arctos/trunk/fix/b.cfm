@@ -495,6 +495,7 @@ var nepixel = map.getCurrentMapType().getProjection().fromLatLngToPixel(map.getB
 // ******************************* //
 // function to initiate the div layer
 // ******************************* //
+/*
 function setDiv() {
 	fen1 = new xFenster('zoomLayer', 0, 0, 'zoomLayer', 'ResBtn', 'ZoomBtn');
 	pos = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(47,73));
@@ -502,7 +503,7 @@ function setDiv() {
 	map.getContainer().appendChild(document.getElementById("zoomLayer"));
 	document.getElementById("zoomLayer").style.visibility = 'hidden'
 }
-
+*/
 // ******************************* //
 // function to set the custom control
 // ******************************* //
@@ -651,6 +652,14 @@ function ToggleDisplay(id){
 			
 		}
 	}
+	
+	function setDiv() {
+	fen1 = new xFenster('zoomLayer', 0, 0, 'zoomLayer', 'ResBtn', 'ZoomBtn');
+	pos = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(47,73));
+	pos.apply(document.getElementById("zoomLayer"));
+	map.getContainer().appendChild(document.getElementById("zoomLayer"));
+	document.getElementById("zoomLayer").style.visibility = 'hidden'
+}
 </script>
 
 
