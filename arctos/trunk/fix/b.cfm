@@ -214,6 +214,9 @@ var nepixel = map.getCurrentMapType().getProjection().fromLatLngToPixel(map.getB
 
  function whurUB()
   {
+  	  var ele = xGetElementById('zoomLayer');
+  	
+  	
   	gpstart = getLatLonFromPixel(xLeft(ele), xTop(ele));
   	gpend = getLatLonFromPixel(xLeft(ele) + xWidth(ele), xTop(ele) + xHeight(ele));
 
