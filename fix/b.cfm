@@ -78,6 +78,261 @@
 		  cursor:pointer;
 		}
 -->
+
+
+
+
+
+html, BODY
+{
+    height:100%;
+    margin: 0px auto;
+}
+body 
+{
+    font-family: verdana, helvetica, sans-serif;
+    font-size: 12px;
+    color: #555;
+    background-color: #efefef;
+}
+.maintext
+{
+    font-family: verdana, helvetica, sans-serif;
+    font-size: 12px;
+    color: #555;
+}
+
+#wrapper 
+{
+    width : 100%;
+    height: 100%;
+}
+#header 
+{
+    background-color: #000000;
+    width: 100%;
+    height: 5%;
+}
+.headercontent
+{
+    padding: 0px 0px 0px 30px;
+    color: #efefef;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+#leftcol 
+{
+    background-color: #000000;
+    float: left;
+    width: 400px;
+    height: 95%;
+}
+#leftcolwrapper
+{
+    background-color: #efefef;
+    overflow :auto;
+    height: 98%;
+}
+#left
+{
+    margin: 20px 20px 20px 20px;
+    z-index: 1;
+}
+#content 
+{
+    overflow:auto;
+    height: 95%;
+}
+#mapwrapper
+{
+    margin: 20px 20px 0px 20px;
+    height:100%;
+}
+#map 
+{
+    overflow:auto;
+    height:100%;
+}
+#copy
+{
+    margin: 7px 0px 0px 10px;
+    color: #efefef;
+}
+.accordianHeader
+{
+    border: 1px solid #cccccc;
+    color: White;
+    background-color: #000000;
+    font-family: verdana, helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px;
+    margin-top: 5px;
+    cursor: pointer;  
+}
+.accordianContent
+{
+    background-color: #d3deef;
+    border: 1px dashed #cccccc;
+    border-top: none;
+    padding: 5px;
+    padding-top: 10px; 
+}
+.accordianLink
+{
+    color: #efefef;
+}
+#debug
+{
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 90%;
+    overflow: auto;
+    height: 250px;
+    font-family: Courier;
+}
+.Node, .NodeOver, .NodeSelected, .NodeLoading 
+{ 
+   cursor: hand; 
+} 
+
+.Node 
+{ 
+   color: #000000; 
+} 
+
+.NodeUnModerated 
+{ 
+   color: red; 
+} 
+
+.NodeOver 
+{ 
+   color: #000000; 
+} 
+
+.NodeSelected 
+{ 
+   background-color: #000000; 
+   color: white; 
+} 
+
+.NodeLoading 
+{ 
+   color: red; 
+}
+.WinGridHeader
+{
+    font-size: 13px;
+    background-color: #000000;
+    color: #efefef;
+    font-weight: bold;
+}
+.WinGridItem
+{
+    font-size: 12px;
+    background-color: #efefef;
+    color: #555;
+}
+.WinGridItemAlt
+{
+    font-size: 12px;
+    background-color: #d3deef;
+    color: #555;
+}
+.WinGridFooter
+{
+    font-size: 12px;
+    color: #555;
+}
+.WinGridPager
+{
+    font-size: 10px;
+    color: #555;
+}
+.WinGrid tr th, .WinGrid tr td
+{
+    border: solid 1px #555;
+}
+.rpheader 
+{
+	cursor: hand; 
+	cursor: pointer; 
+	color: #555;
+	padding: 10px 10px 10px 10px; 
+}
+.rpdetails 
+{ 
+	display:none; 
+	visibility:hidden; 
+	padding: 10px 10px 10px 10px; 
+}
+/* Caption Images for TabControl etc */
+.catItemsTabControlIcon
+{
+	background:transparent url(../images/tabicons/application_view_list.gif) no-repeat 0 0;
+	padding-left:20px !important;
+}
+.catReadingTabControlIcon
+{
+	background:transparent url(../images/tabicons/book_open.gif) no-repeat 0 0;
+	padding-left:20px !important;
+}
+.itemDetailsTabControlIcon
+{
+	background:transparent url(../images/tabicons/application_view_detail.gif) no-repeat 0 0;
+	padding-left:20px !important;
+}
+.itemCommentsTabControlIcon
+{
+	background:transparent url(../images/tabicons/comments.gif) no-repeat 0 0;
+	padding-left:20px !important;
+}
+.itemCommentsAddTabControlIcon
+{
+	background:transparent url(../images/tabicons/comments_add.gif) no-repeat 0 0;
+	padding-left:20px !important;
+}
+.instructionsFlyoutPopup
+{
+    width:500px;
+    background-color:white;
+    border: solid 1px silver;
+    padding:10px;
+    z-index:2000;
+}
+.WinGridItemLight
+{
+    font-size: 12px;
+    background-color: #efefef;
+    color: #000000;
+}
+.contextMenu
+{
+    font-family: verdana, helvetica, sans-serif;
+    font-size: 12px;
+    color: #555;
+}
+.context 
+{
+    font-family:Arial, sans-serif;
+    text-decoration:none;
+    color:#4444ff;
+    font-size:small;
+}
+a:link div
+{
+    text-decoration:none;
+}
+a:hover div 
+{
+    background:#eee;
+}       
+
+
+
+
+
   	</style>
 <script>
 
