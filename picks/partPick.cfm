@@ -21,8 +21,6 @@
 <cfif not isdefined("id_value")>
 	<cfset id_value =''>
 </cfif>
-<cfdump var="#variables#">
-<cfdump var="#form#">
 <cfdump var="#url#">
 </cfoutput>
 <div id="thisWholePage">
@@ -39,6 +37,7 @@
 	</cfquery>
 	<cfif isdefined("institution_acronym") and len(institution_acronym) gt 0 
 		and isdefined("collection_cde") and len(collection_cde) gt 0>
+		looking for a collection.....
 		<cfquery name="cidl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select collection_id from collection where 
 			institution_acronym='#institution_acronym#' and collection_cde='#collection_cde#'
