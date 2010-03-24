@@ -166,10 +166,11 @@
 	</cfif>
 	<tr #iif(r MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
-			URI: <a href="#media_uri#" target="_blank">#media_uri#</a>
-            <cfset mp=getMediaPreview(preview_uri,media_type)>
-			<br>
+			 <cfset mp=getMediaPreview(preview_uri,media_type)>
             <a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#"></a>
+			<br><span style='font-size:small'>#media_type# (#mime_type#)</span>
+			<br>URI: <a href="#media_uri#" target="_blank">#media_uri#</a>
+           
 			<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) n from tag where media_id=#media_id#
 			</cfquery>
@@ -184,8 +185,6 @@
 		    <cfif tag.n gt 0>
 				<a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
 			</cfif>
-			<br>MIME Type: #mime_type# 
-            <br>Media Type: #media_type#
 			<br>Labels:	
 			<cfif labels.recordcount gt 0>
 				<ul>
