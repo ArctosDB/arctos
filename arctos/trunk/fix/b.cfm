@@ -401,6 +401,10 @@ a:hover div
 	
 	map.addControl(new GScaleControl());
 	map.addControl(new ToggleZoomControl());
+	
+	map.enableGoogleBar();
+	
+	
 	map.setCenter(new GLatLng(55, -135), 3);
 	setDiv();
 	
