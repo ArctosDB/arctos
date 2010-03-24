@@ -586,7 +586,7 @@ function ToggleDisplay(id){
 	
 </script>
 ---->
-<label for="map_canvas">
+<label for="map">
 	Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
 	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
 </label>
@@ -595,7 +595,7 @@ function ToggleDisplay(id){
 <input type="hidden" name="nwlong" id="nwlong">
 <input type="hidden" name="selat" id="selat">
 <input type="hidden" name="selong" id="selong">
-<div id="map_canvas" style="width: 100%; height: 400px;"></div>
+<div id="map" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 	  	initializeMap();
@@ -605,7 +605,7 @@ function ToggleDisplay(id){
 	});
 	function initializeMap() {
 		if (GBrowserIsCompatible()) {
-			var map = new GMap2(document.getElementById("map_canvas"));
+			var map = new GMap2(document.getElementById("map"));
 			var center = new GLatLng(55, -135);
 			map.setCenter(center, 3);
 			map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
