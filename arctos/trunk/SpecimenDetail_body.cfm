@@ -1,4 +1,6 @@
+<cfif not isdefined("toProperCase")>
 <cfinclude template="/includes/_frameHeader.cfm">
+</cfif>
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
