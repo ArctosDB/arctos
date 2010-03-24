@@ -141,7 +141,7 @@
 	<a href="#h#">Create media</a>
 </cfif>
 <cfloop query="findIDs">
-	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			media_label,
 			label_value,
@@ -152,6 +152,9 @@
 		where
 			media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
 			media_id=#media_id#
+	</cfquery>
+	<cfquery name="labels" dbtype="query">
+		select media_label,label_value from labels where media_label != 'description'
 	</cfquery>
 	<cfquery name="desc" dbtype="query">
 		select label_value from labels where media_label='description'
@@ -167,7 +170,8 @@
 	<tr #iif(r MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
 			 <cfset mp=getMediaPreview(preview_uri,media_type)>
-            <a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#"></a>
+            <a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" align="left"></a>
+			#desc.label_value#
 			<br><span style='font-size:small'>#media_type# (#mime_type#)</span>
 			<br>URI: <a href="#media_uri#" target="_blank">#media_uri#</a>
            
