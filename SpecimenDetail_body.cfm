@@ -7,23 +7,7 @@
 			Improper call. Aborting.....
 		</div>
 		<cfabort>
-		<!---
-		<script>
-			setTimeout("go_now()",1000);
-			function go_now () {
-				document.location='/';
-				//alert('go');
-			}
-		</script>
-		---->
 	</cfif>
-	<!---
-	<script>
-		if (top.frames.length == 0) {
-		    document.location='/SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
-	    }
-	</script>
-	--->
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset oneOfUs = 1>
 	<cfset isClicky = "likeLink">
@@ -1293,71 +1277,13 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 					</cfloop>
 					<div class="thumb_spcr">&nbsp;</div>
 				</div>
-				
-				<!--------
-				<table border="1">
-                <cfloop query="media">
-					
-					<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select
-							media_label,
-							label_value
-						from
-							media_labels
-						where
-							media_id=#media_id#
-					</cfquery>
-                    <cfset mrel=getMediaRelations(#media_id#)>
-                    <tr>
-                        <td align="center" style="font-size:.8em">
-                            
-							<cfset aTxt="#one.collection# #one.cat_num#: #one.scientific_name#">
-							<cfset niceMimeType="image/jpeg,text/html,application/pdf">
-							<cfset scaryMimeType="image/dng,image/tiff">
- 							<cfif listfind(niceMimeType,mime_type,",")>
-								<cfset bgc="greenBorder">
-							<cfelseif listfind(scaryMimeType,mime_type,",")>
-								<cfset bgc="redBorder">
-							<cfelse>
-								<cfset bgc="blackBorder">
-							</cfif>
-							<style>
-								.imgStyle{
-									border:1px solid #bgc#;
-								}
-							</style>
-							<a href="#media_uri#" target="_blank"><img src="#puri#" alt="#aTxt#" class="imgStyle #bgc#"></a>
-                            <br>#media_type# (#mime_type#)
-							<br><a href="/media/#media_id#">Media Details</a>
-                        </td>
-                        <td style="font-size:.8em">
-                            <ul>
-								<cfloop query="mrel">
-	                            	<li>#media_relationship#: 
-									<cfif len(#link#) gt 0>
-					                	<a href="#link#" target="_blank">#summary#</a>
-					                <cfelse>
-										#summary#
-									</cfif></li>
-	                            </cfloop>
-                                <cfloop query="labels">
-		                            <li>#media_label#: #label_value#</li>
-		                        </cfloop>
-                            </ul>
-                        </td>
-                    </tr>
-                </cfloop>
-                </table>
-				
-				
-				------------------->
 	        </span>		
 		</div>
 	</div>		
 </cfif>
 	</td><!--- end right half of table --->
 </table>
-	<cfif oneOfUs is 1>
+<cfif oneOfUs is 1>
 </form>
 </cfif>
 </cfoutput> 	
