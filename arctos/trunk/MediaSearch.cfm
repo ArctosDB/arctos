@@ -192,9 +192,6 @@
 					<cfloop query="labels">
 						<li>
 							#media_label#: #label_value#
-							<cfif len(#agent_name#) gt 0>
-								(Assigned by #agent_name#)
-							</cfif>
 						</li>
 					</cfloop>
 				</ul>
