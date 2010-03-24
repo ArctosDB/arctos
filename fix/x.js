@@ -44,7 +44,6 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
   function fenOnMousedown()
   {
     xZIndex(ele, xFenster.z++);
-    console.log('fenOnMousedown');
   }
   
   function ZoomOnClick()
@@ -100,12 +99,6 @@ function ubGone() {
   	document.getElementById('selat').value='';
   	document.getElementById('selong').value='';
 }
-  
-  
-  
-// ******************************* //
-// function to initiate the div layer
-// ******************************* //
 
 function setDiv() {
 	fen1 = new xFenster('zoomLayer', 0, 0, 'zoomLayer', 'ResBtn', 'ZoomBtn');
@@ -115,9 +108,6 @@ function setDiv() {
 	document.getElementById("zoomLayer").style.visibility = 'hidden'
 }
 
-// ******************************* //
-// function to set the custom control
-// ******************************* //
 function ToggleZoomControl() {
 }
 ToggleZoomControl.prototype = new GControl();
@@ -140,7 +130,6 @@ ToggleZoomControl.prototype.getDefaultPosition = function() {
   return new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(47, 47));
 }
 
-// Sets the proper CSS for the given img element.
 ToggleZoomControl.prototype.setImageStyle_ = function(img) {
 	img.src = "selector.png";
 	img.style.cursor = "pointer";
@@ -148,7 +137,6 @@ ToggleZoomControl.prototype.setImageStyle_ = function(img) {
 }
 
 function ToggleDisplay(id){
-	console.log('ToggleDisplay');
 	var elem = document.getElementById(id);
 	if (elem){
 		if (elem.style.display != 'block'){
