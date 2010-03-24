@@ -642,8 +642,13 @@ function ToggleDisplay(id){
 			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(325,4)));
 			*/
 			/// newcode
-			setDiv();
-			
+			//setDiv();
+			fen1 = new xFenster('zoomLayer', 0, 0, 'zoomLayer', 'ResBtn', 'ZoomBtn');
+	pos = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(47,73));
+	pos.apply(document.getElementById("zoomLayer"));
+	map.getContainer().appendChild(document.getElementById("zoomLayer"));
+	document.getElementById("zoomLayer").style.visibility = 'hidden'
+	
 			
 			GEvent.addListener(map, "moveend", function() {
 		  console.log('whurUB');
@@ -653,13 +658,7 @@ function ToggleDisplay(id){
 		}
 	}
 	
-	function setDiv() {
-	fen1 = new xFenster('zoomLayer', 0, 0, 'zoomLayer', 'ResBtn', 'ZoomBtn');
-	pos = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(47,73));
-	pos.apply(document.getElementById("zoomLayer"));
-	map.getContainer().appendChild(document.getElementById("zoomLayer"));
-	document.getElementById("zoomLayer").style.visibility = 'hidden'
-}
+	
 </script>
 
 
