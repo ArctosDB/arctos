@@ -565,7 +565,7 @@ function ToggleDisplay(id){
 					
 					<div id="ResBtn" class="ResBtn" title="Drag to Resize"></div>
 				</div>
-				<div id="map" style="width: 100%; height: 90%"></div>
+				<!---<div id="map" style="width: 100%; height: 90%"></div>--->
 				<div id="message"></div>
 <!----
 <script>
