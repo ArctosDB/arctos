@@ -1,4 +1,4 @@
-<script type='text/javascript' src='/includes/gmaps.js'></script>
+<script type='text/javascript' src='/includes/gmaps.min.js'></script>
 <div class="divlayer" id="zoomLayer" title="Drag to Move">
 	<div id="Bar" class="Bar" title="Drag to Move"></div>
 	<div id="ZoomBtn" class="ZoomBtn" title="Click to Zoom"></div>
