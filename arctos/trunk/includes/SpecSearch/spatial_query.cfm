@@ -5,7 +5,7 @@
 	<div id="ResBtn" class="ResBtn" title="Drag to Resize"></div>
 </div>
 <label for="map">
-	Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
+	Click <img src="/images/selector.png"> to open spatial query tool. Click again to cancel.
 	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
 </label>
 <input type="text" style="font-weight:bold;border:none;width:100%" id="selectedCoords">
