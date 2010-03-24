@@ -618,6 +618,7 @@ function ToggleDisplay(id){
 				opacity:.0,
 				border:"2px solid green"
 			}
+			/*
 			var otherOpts = {
 				overlayRemoveTime:99999999999999,  
 				buttonHTML:"Turn on Select",
@@ -638,7 +639,7 @@ function ToggleDisplay(id){
 				}
 			};			
 			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(325,4)));
-			
+			*/
 			/// newcode
 			setDiv();
 			
