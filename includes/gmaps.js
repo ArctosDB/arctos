@@ -141,7 +141,7 @@ ToggleZoomControl.prototype.getDefaultPosition = function() {
 }
 
 ToggleZoomControl.prototype.setImageStyle_ = function(img) {
-	img.src = "selector.png";
+	img.src = "/images/selector.png";
 	img.style.cursor = "pointer";
 	img.alt = "Show/Hide Selector Box";
 }
