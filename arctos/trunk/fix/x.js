@@ -95,7 +95,7 @@ function whurUB() {
 
 function ubGone() {
 	document.getElementById('selectedCoords').value='';
-  	document.getElementById('nwLat').value='');
+  	document.getElementById('nwLat').value='';
   	document.getElementById('nwlong').value='';
   	document.getElementById('selat').value='';
   	document.getElementById('selong').value='';
