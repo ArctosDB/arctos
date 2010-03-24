@@ -10,11 +10,14 @@
 
 <script type='text/javascript' src='x_event.js'></script>
 <script type='text/javascript' src='x_drag.js'></script>
+
+<!----
 <style type="text/css">
       v\:* {
         behavior:url(#default#VML);
       }
     </style>
+	---->
 	<style type="text/css">
 		<!--
 		.divlayer {
