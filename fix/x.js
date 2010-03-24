@@ -1,5 +1,6 @@
  	
-	  	
+	  	<![CDATA[
+
 	  	
 	  	
 	  	
@@ -222,7 +223,8 @@ function ToggleDisplay(id){
 			
 			
 			
-			
+//]]>
+
 			
 			
 			
