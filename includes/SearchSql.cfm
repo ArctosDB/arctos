@@ -1014,7 +1014,7 @@
 		<cfset basQual = " #basQual# dec_lat BETWEEN #SELat# AND #NWLat#">
 		<cfif nwlong gt 0 and selong lt 0>
 			<cfset basQual = " #basQual# AND (
-				dec_long between #nwlong# and 180 OR dec_long between #selong# and -180)">
+				dec_long between #nwlong# and 180 OR dec_long between -180 and #selong#)">
 		<cfelse>
 			<cfset basQual = " #basQual# AND dec_long BETWEEN #NWLong# AND #SELong#">
 		</cfif>
