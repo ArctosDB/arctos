@@ -157,10 +157,10 @@
 			media_id=#media_id#
 	</cfquery>
 	<cfquery name="labels" dbtype="query">
-		select media_label,label_value from labels where media_label <> 'description'
+		select media_label,label_value from labels_raw where media_label != 'description'
 	</cfquery>
 	<cfquery name="desc" dbtype="query">
-		select label_value from labels where media_label='description'
+		select label_value from labels_raw where media_label='description'
 	</cfquery>
 	<cfset alt="#media_uri#">
 	<cfif desc.recordcount is 1>
