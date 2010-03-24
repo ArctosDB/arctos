@@ -496,7 +496,7 @@
 	</cfif>	
 	
 	
-	<cfinclude template="SpecimenDetail_body.cfm?collection_object_id=#collection_object_id#">
+	<cfinclude template="SpecimenDetail_body.cfm">
 	
 	<cfabort>
 	<table width="100%">
