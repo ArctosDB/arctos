@@ -118,9 +118,10 @@
 <cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(ssql)#
 </cfquery>
+	<!---
+
 <cfif findIDs.recordcount is 0>
 	<div class="error">Nothing found.</div>
-	<!---
 <cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/media/#findIDs.media_id#">
