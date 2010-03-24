@@ -84,6 +84,7 @@ window.onunload = function()
 // ******************************* //
 // main object: http://cross-browser.com/x/examples/drag2.php
 // ******************************* //
+
 function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
 {
   // Private Properties
@@ -210,6 +211,36 @@ var nepixel = map.getCurrentMapType().getProjection().fromLatLngToPixel(map.getB
  return map.getCurrentMapType().getProjection().fromPixelToLatLng(new GPoint(swpixel.x + x,nepixel.y + y),map.getZoom());
 }
 
+
+ function whurUB()
+  {
+  	gpstart = getLatLonFromPixel(xLeft(ele), xTop(ele));
+  	gpend = getLatLonFromPixel(xLeft(ele) + xWidth(ele), xTop(ele) + xHeight(ele));
+
+/*
+        // ===== Start with an empty GLatLngBounds object =====
+        var bounds = new GLatLngBounds();
+        var tlpoint = new GLatLng(gpstart.lat(), gpstart.lng());
+        bounds.extend(tlpoint);
+        var brpoint = new GLatLng(gpend.lat(), gpend.lng());
+        bounds.extend(brpoint);
+
+        // ===== determine the zoom level from the bounds =====
+          map.setZoom(map.getBoundsZoomLevel(bounds));
+
+		// ===== determine the centre from the bounds ======
+          var clat = (bounds.getNorthEast().lat() + bounds.getSouthWest().lat()) /2;
+          var clng = (bounds.getNorthEast().lng() + bounds.getSouthWest().lng()) /2;
+          map.setCenter(new GLatLng(clat,clng));
+*/
+	// show the coords for params
+	var	dMessage = document.getElementById("message");
+	dMessage.innerHTML = "start x=" + gpstart.lat() + " - start y=" + gpstart.lng()
+		+ "<br>end x=" + gpend.lat() + " - end y=" + gpend.lng();
+  }
+  
+  
+  
 // ******************************* //
 // function to initiate the div layer
 // ******************************* //
@@ -289,12 +320,12 @@ function ToggleDisplay(id){
 	map.addControl(new ToggleZoomControl());
 	map.setCenter(new GLatLng(54.70235509327093, -3.2080078125), 6);
 	setDiv();
+	
 	GEvent.addListener(map, "moveend", function() {
-   console.log('moveend');
-      // 
-      xFenster.whereAreYou();
-   
+  console.log('whurUB');
+  whurUB();
 });
+	
 	
 	
 </script>
