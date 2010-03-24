@@ -5,7 +5,7 @@
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
-			Improper call. You will be redirected shortly.....
+			Improper call. Aborting.....
 		</div>
 		<cfabort>
 		<!---
@@ -32,6 +32,9 @@
 <cfelse>
 	<cfset oneOfUs = 0>
 	<cfset isClicky = "">
+</cfif>
+<cfif oneOfUs is 0 and cgi.CF_TEMPLATE_PATH contains "/SpecimenDetail_body.cfm">
+	REDIRECTING.......
 </cfif>
 <cfset detSelect = "
 	SELECT
