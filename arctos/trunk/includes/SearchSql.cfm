@@ -1010,7 +1010,7 @@
 		<hr>
 		
 		<cfset basQual = " #basQual# AND ">
-		<cfset basQual = " #basQual dec_lat BETWEEN #SELat# AND #NWLat#">
+		<cfset basQual = " #basQual# dec_lat BETWEEN #SELat# AND #NWLat#">
 		<cfif nwlong gt 0 and selong lt 0>
 			<cfset basQual = " #basQual# AND (
 				dec_long between #nwlong# and 180 OR dec_long between #selong# and -180">
