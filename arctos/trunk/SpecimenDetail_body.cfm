@@ -3,9 +3,12 @@
 </cfif>
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
+		
+		
 		<div class="error">
 			Improper call. You will be redirected shortly.....
 		</div>
+		<!---
 		<script>
 			setTimeout("go_now()",1000);
 			function go_now () {
@@ -14,12 +17,15 @@
 			}
 		</script>
 		<cfabort>
+		---->
 	</cfif>
+	<!---
 	<script>
 		if (top.frames.length == 0) {
 		    document.location='/SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
 	    }
 	</script>
+	-->
 </cfoutput>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset oneOfUs = 1>
