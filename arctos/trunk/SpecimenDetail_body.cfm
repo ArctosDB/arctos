@@ -3,11 +3,10 @@
 </cfif>
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
-		
-		
 		<div class="error">
 			Improper call. You will be redirected shortly.....
 		</div>
+		<cfabort>
 		<!---
 		<script>
 			setTimeout("go_now()",1000);
@@ -16,7 +15,6 @@
 				//alert('go');
 			}
 		</script>
-		<cfabort>
 		---->
 	</cfif>
 	<!---

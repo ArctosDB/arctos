@@ -95,9 +95,6 @@
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfoutput>
-	
-		#preservesinglequotes(detSelect)#
-
 <cfif detail.recordcount lt 1>
 	<div class="error">
 		Oops! No specimen was found for that URL.
@@ -117,93 +114,7 @@
 <cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 <cf_customizeHeader collection_id=#detail.collection_id#>
 --->
-<script type="text/javascript" language="javascript">
-	/***********************************************
-	* IFrame SSI script- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
-	* Visit DynamicDrive.com for hundreds of original DHTML scripts
-	* This notice must stay intact for legal use
-	***********************************************/
-	var iframeids=["theFrame"]
-	var iframehide="yes"
-	var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1]
-	var FFextraHeight=parseFloat(getFFVersion)>=0.1? 18 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
-	FFextraHeight = 60; // DLM - sometimes it doesn't fit
-	function dyniframesize() {
-	var dyniframe=new Array()
-	for (i=0; i<iframeids.length; i++){
-	    if (document.getElementById){ //begin resizing iframe procedure
-	        dyniframe[dyniframe.length] = document.getElementById(iframeids[i]);
-	        if (dyniframe[i] && !window.opera){
-	            dyniframe[i].style.display="block"
-	            if (dyniframe[i].contentDocument && dyniframe[i].contentDocument.body.offsetHeight) //ns6 syntax
-	                dyniframe[i].height = dyniframe[i].contentDocument.body.offsetHeight+FFextraHeight;
-	            else if (dyniframe[i].Document && dyniframe[i].Document.body.scrollHeight) //ie5+ syntax
-	                dyniframe[i].height = dyniframe[i].Document.body.scrollHeight;
-	            }
-	        }
-	        if ((document.all || document.getElementById) && iframehide=="no"){
-	            var tempobj=document.all? document.all[iframeids[i]] : document.getElementById(iframeids[i])
-	            tempobj.style.display="block"
-	        }
-	    }
-	}
-	if (window.addEventListener)
-	    window.addEventListener("load", dyniframesize, false)
-	else if (window.attachEvent)
-	    window.attachEvent("onload", dyniframesize)
-	else
-        window.onload=dyniframesize
-		function switchIFrame(page,id, addlParamName, addlParamVal) {
-		    var theFrame = document.getElementById("theFrame");
-		    var theID = #collection_object_id#
-		    var theExt = ".cfm";
-			if (id) {
-				} else {
-				id = "collection_object_id";
-			}
-			var theURL = '/' + page + theExt + "?" + id + "=" + theID;
-			theFrame.src=theURL;
-			var ms = document.getElementById("SpecimenDetail_bodySpan");
-			var ids = document.getElementById("editIdentificationSpan");
-			var ac = document.getElementById("addAccnSpan");
-			var loc = document.getElementById("specLocalitySpan");
-			var cev = document.getElementById("changeCollEventSpan");
-			
-			var col = document.getElementById("editCollsSpan");
-			var rel = document.getElementById("editRelationshipSpan");
-			var par = document.getElementById("editPartsSpan");
-			var ctron = document.getElementById("findContainerSpan");
-			var bi = document.getElementById("editBiolIndivSpan");
-			var oid = document.getElementById("editIdentifiersSpan");
-			var img = document.getElementById("MediaSearchSpan");
-			var enc = document.getElementById("EncumbrancesSpan");
-			var cce = document.getElementById("changeCollEventSpan");
-			var cspan = document.getElementById("catalogSpan");
-			var slspan = document.getElementById("specLocalitySpan");		
-			ms.className = 'likeLink';
-			ids.className = 'likeLink';
-			cev.className = 'likeLink';
-			ac.className = 'likeLink';
-			loc.className = 'likeLink';
-			col.className = 'likeLink';
-			rel.className = 'likeLink';
-			par.className = 'likeLink';
-			ctron.className = 'likeLink';
-			bi.className = 'likeLink';
-			oid.className = 'likeLink';
-			img.className = 'likeLink';
-			enc.className = 'likeLink';
-			cce.className = 'likeLink';
-			cspan.className = 'likeLink';
-			slspan.className = 'likeLink';
-			var thisID = page + 'Span';
-			var thisSpan = "document.getElementById('" + thisID + "');";
-			//alert(thisSpan);
-			var theSpanEl = eval(thisSpan);
-			theSpanEl.className = 'likeLink active';
-			dyniframesize();
-	}
-</script>
+
 <!---
 <div style="background-color:blue;">
 	--->
@@ -375,7 +286,94 @@
 	<cfelse>
 		<cfset isMS = "f">
 	</cfif>
-	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
+	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+		<script type="text/javascript" language="javascript">
+			/***********************************************
+			* IFrame SSI script- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
+			* Visit DynamicDrive.com for hundreds of original DHTML scripts
+			* This notice must stay intact for legal use
+			***********************************************/
+			var iframeids=["theFrame"]
+			var iframehide="yes"
+			var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1]
+			var FFextraHeight=parseFloat(getFFVersion)>=0.1? 18 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
+			FFextraHeight = 60; // DLM - sometimes it doesn't fit
+			function dyniframesize() {
+			var dyniframe=new Array()
+			for (i=0; i<iframeids.length; i++){
+			    if (document.getElementById){ //begin resizing iframe procedure
+			        dyniframe[dyniframe.length] = document.getElementById(iframeids[i]);
+			        if (dyniframe[i] && !window.opera){
+			            dyniframe[i].style.display="block"
+			            if (dyniframe[i].contentDocument && dyniframe[i].contentDocument.body.offsetHeight) //ns6 syntax
+			                dyniframe[i].height = dyniframe[i].contentDocument.body.offsetHeight+FFextraHeight;
+			            else if (dyniframe[i].Document && dyniframe[i].Document.body.scrollHeight) //ie5+ syntax
+			                dyniframe[i].height = dyniframe[i].Document.body.scrollHeight;
+			            }
+			        }
+			        if ((document.all || document.getElementById) && iframehide=="no"){
+			            var tempobj=document.all? document.all[iframeids[i]] : document.getElementById(iframeids[i])
+			            tempobj.style.display="block"
+			        }
+			    }
+			}
+			if (window.addEventListener)
+			    window.addEventListener("load", dyniframesize, false)
+			else if (window.attachEvent)
+			    window.attachEvent("onload", dyniframesize)
+			else
+		        window.onload=dyniframesize
+				function switchIFrame(page,id, addlParamName, addlParamVal) {
+				    var theFrame = document.getElementById("theFrame");
+				    var theID = #collection_object_id#
+				    var theExt = ".cfm";
+					if (id) {
+						} else {
+						id = "collection_object_id";
+					}
+					var theURL = '/' + page + theExt + "?" + id + "=" + theID;
+					theFrame.src=theURL;
+					var ms = document.getElementById("SpecimenDetail_bodySpan");
+					var ids = document.getElementById("editIdentificationSpan");
+					var ac = document.getElementById("addAccnSpan");
+					var loc = document.getElementById("specLocalitySpan");
+					var cev = document.getElementById("changeCollEventSpan");
+					
+					var col = document.getElementById("editCollsSpan");
+					var rel = document.getElementById("editRelationshipSpan");
+					var par = document.getElementById("editPartsSpan");
+					var ctron = document.getElementById("findContainerSpan");
+					var bi = document.getElementById("editBiolIndivSpan");
+					var oid = document.getElementById("editIdentifiersSpan");
+					var img = document.getElementById("MediaSearchSpan");
+					var enc = document.getElementById("EncumbrancesSpan");
+					var cce = document.getElementById("changeCollEventSpan");
+					var cspan = document.getElementById("catalogSpan");
+					var slspan = document.getElementById("specLocalitySpan");		
+					ms.className = 'likeLink';
+					ids.className = 'likeLink';
+					cev.className = 'likeLink';
+					ac.className = 'likeLink';
+					loc.className = 'likeLink';
+					col.className = 'likeLink';
+					rel.className = 'likeLink';
+					par.className = 'likeLink';
+					ctron.className = 'likeLink';
+					bi.className = 'likeLink';
+					oid.className = 'likeLink';
+					img.className = 'likeLink';
+					enc.className = 'likeLink';
+					cce.className = 'likeLink';
+					cspan.className = 'likeLink';
+					slspan.className = 'likeLink';
+					var thisID = page + 'Span';
+					var thisSpan = "document.getElementById('" + thisID + "');";
+					//alert(thisSpan);
+					var theSpanEl = eval(thisSpan);
+					theSpanEl.className = 'likeLink active';
+					dyniframesize();
+			}
+		</script>				
 	    <table>
 		    <tr>
 			    <td align="center">
