@@ -280,19 +280,21 @@
 	}
 </style>		
 <cfoutput query="one">
+	<cfif oneOfUs is 1>
 <form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
 	<input type="hidden" name="collection_object_id" value="#one.collection_object_id#">
 	<input type="hidden" name="suppressHeader" value="true">
 	<input type="hidden" name="action" value="nothing">
 	<input type="hidden" name="Srch" value="Part">
 	<input type="hidden" name="collecting_event_id" value="#one.collecting_event_id#">
+	</cfif>
 <table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
 	<tr>
 		<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
 			<div class="detailCell">				
 				<div class="detailLabel">&nbsp;
-					<cfif #oneOfUs# is 1>
+					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
 					</cfif>
 				</div>
@@ -1351,6 +1353,8 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 </cfif>
 	</td><!--- end right half of table --->
 </table>
+	<cfif oneOfUs is 1>
 </form>
+</cfif>
 </cfoutput> 	
 <cf_customizeIFrame>
