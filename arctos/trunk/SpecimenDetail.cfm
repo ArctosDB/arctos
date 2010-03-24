@@ -490,6 +490,11 @@
 		    </tr>
 		</table>
 	</cfif>	
+	
+	
+	<cfinclude template="SpecimenDetail_body.cfm">
+	
+	<cfabort>
 	<table width="100%">
 		<tr>
 			<td>
