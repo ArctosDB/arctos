@@ -992,20 +992,35 @@
 					<= #chronological_extent#">
 </cfif>
 	
-<cfif (isdefined("NWLat") and len(#NWLat#) gt 0)
-	OR (isdefined("NWLong") and len(#NWLong#) gt 0)
-	OR (isdefined("SELat") and len(#SELat#) gt 0)
-	OR (isdefined("SELong") and len(#SELong#) gt 0)>
+<cfif (isdefined("NWLat") and len(NWLat) gt 0)
+	OR (isdefined("NWLong") and len(NWLong) gt 0)
+	OR (isdefined("SELat") and len(SELat) gt 0)
+	OR (isdefined("SELong") and len(SELong) gt 0)>
 	<!--- got at least one point, see if we got enough to run ---->
-	<cfif (isdefined("NWLat") and isnumeric(#NWLat#))
-		AND (isdefined("NWLong") and isnumeric(#NWLong#))
-		AND (isdefined("SELat") and isnumeric(#SELat#))
-		AND (isdefined("SELong") and isnumeric(#SELong#))>
+	<cfif (isdefined("NWLat") and isnumeric(NWLat))
+		AND (isdefined("NWLong") and isnumeric(NWLong))
+		AND (isdefined("SELat") and isnumeric(SELat))
+		AND (isdefined("SELong") and isnumeric(SELong))>
 		<!---- got enough data to run ---->
+		<hr>
+			<br>NWLat: #NWLat#
+			<br>NWLong: #NWLong#
+			<br>SELat: #SELat#
+			<br>SELong: #SELong#
+		<hr>
 		
-		
-		<cfset basQual = " #basQual# AND dec_lat BETWEEN #SELat# AND #NWLat#
-									AND dec_long BETWEEN #NWLong# AND #SELong#">
+		<cfset basQual = " #basQual# AND ">
+		<cfset basQual = " #basQual dec_lat BETWEEN #SELat# AND #NWLat#">
+		<cfif nwlong gt 0 and selong lt 0>
+			<cfset basQual = " #basQual# AND (
+				dec_long between #nwlong# and 180 OR dec_long between #selong# and -180">
+		<cfelse>
+			<cfset basQual = " #basQual# AND dec_long BETWEEN #NWLong# AND #SELong#">
+		</cfif>
+			
+
+		 
+									
 		<cfset mapurl = "#mapurl#&NWLat=#NWLat#">
 		<cfset mapurl = "#mapurl#&NWLong=#NWLong#">
 		<cfset mapurl = "#mapurl#&SELat=#SELat#">
