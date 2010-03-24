@@ -91,11 +91,6 @@ function whurUB() {
   	document.getElementById('nwlong').value=gpstart.lng();
   	document.getElementById('selat').value=gpend.lat();
   	document.getElementById('selong').value=gpend.lng();
-  	
-  	
-	var	dMessage = document.getElementById("message");
-	dMessage.innerHTML = "start x=" + gpstart.lat() + " - start y=" + gpstart.lng()
-		+ "<br>end x=" + gpend.lat() + " - end y=" + gpend.lng();
   }
   
   
