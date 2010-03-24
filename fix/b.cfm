@@ -68,7 +68,6 @@
 -->
   	</style>
 <script>
-//<![CDATA[
 
 // ******************************* //
 var fen1;
@@ -267,7 +266,6 @@ function ToggleDisplay(id){
 	}
 }
 
-//]]>
   </script>
   </head>
 <body onunload="GUnload()">
