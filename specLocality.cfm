@@ -995,8 +995,6 @@
 							NVL(LONG_DEG,-1) = nvl('#LONG_DEG#',-1) AND
 							NVL(LONG_DIR,'NULL') = NVL('#LONG_DIR#','NULL') AND">
 					</cfif>
-					
-					
 					<cfset fLocS=fLocS & " NVL(DEC_LAT_MIN,-1) = nvl('#DEC_LAT_MIN#',-1) AND
 					NVL(DEC_LONG_MIN,-1) = nvl('#DEC_LONG_MIN#',-1) AND
 					NVL(LAT_MIN,-1) = nvl('#LAT_MIN#',-1) AND

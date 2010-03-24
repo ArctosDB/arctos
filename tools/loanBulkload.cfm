@@ -83,7 +83,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 				<cfif #o# is 1>
 					<cfset colNames="#colNames#,#thisBit#">
 				<cfelse>
-					<cfset colVals="#colVals#,'#thisBit#'">
+					<cfset colVals="#colVals#,'#trim(thisBit)#'">
 				</cfif>
 			</cfloop>
 		<cfif #o# is 1>
