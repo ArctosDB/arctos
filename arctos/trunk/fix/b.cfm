@@ -1,13 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 
-<script type='text/javascript' src='x.js'></script>
 
 <script type='text/javascript' src='x_core.js'></script>
 
 <script type='text/javascript' src='x_event.js'></script>
 <script type='text/javascript' src='x_drag.js'></script>
 
+<script type='text/javascript' src='x.js'></script>
 
 <!----
 <link href="g.css" type="text/css" rel="stylesheet">
@@ -384,16 +384,29 @@ a:hover div
 <input type="hidden" name="selong" id="selong">
 <div id="map" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
-	jQuery(document).ready(function() {
-	  	
-	
-
-	  	
-	  	initializeMap();
-	});
+	//jQuery(document).ready(function() {
+	//  	initializeMap();
+	//});
 	jQuery(document.body).unload(function() {
 		GUnload();
 	});
+	
+	
+	var map = new GMap2(document.getElementById("map"));
+	map.addControl(new GLargeMapControl());
+	map.addControl(new GMapTypeControl());
+	map.addControl(new GScaleControl());
+	map.addControl(new ToggleZoomControl());
+	map.setCenter(new GLatLng(54.70235509327093, -3.2080078125), 6);
+	setDiv();
+	
+	GEvent.addListener(map, "moveend", function() {
+		  console.log('whurUB');
+		  whurUB();
+		});
+		
+		
+	/*
 	function initializeMap() {
 		if (GBrowserIsCompatible()) {
 			
@@ -455,7 +468,7 @@ a:hover div
 			
 		}
 	}
-	
+	*/
 	
 </script>
 
