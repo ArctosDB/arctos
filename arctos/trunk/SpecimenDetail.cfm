@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<!---
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -48,7 +47,6 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
---->
 <cfset detSelect = "
 	SELECT DISTINCT
 		#session.flatTableName#.collection,
@@ -109,11 +107,9 @@
 		</ul>
 	</div>
 </cfif>
-<!---
 <cfset title="#detail.collection# #detail.cat_num#: #detail.scientific_name#">
 <cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 <cf_customizeHeader collection_id=#detail.collection_id#>
---->
 
 <!---
 <div style="background-color:blue;">
