@@ -983,13 +983,22 @@
 					NVL(DEC_LONG,-1) = nvl('#DEC_LONG#',-1) AND
 					NVL(UTM_EW,-1) = nvl('#UTM_EW#',-1) AND
 					NVL(UTM_NS,-1) = nvl('#UTM_NS#',-1) AND
-					NVL(UTM_ZONE,'NULL') = NVL('#UTM_ZONE#','NULL') AND
-					NVL(LAT_DEG,-1) = nvl('#LAT_DEG#',-1) AND
-					NVL(DEC_LAT_MIN,-1) = nvl('#DEC_LAT_MIN#',-1) AND
-					NVL(LAT_DIR,'NULL') = NVL('#LAT_DIR#','NULL') AND
-					NVL(LONG_DEG,-1) = nvl('#LONG_DEG#',-1) AND
+					NVL(UTM_ZONE,'NULL') = NVL('#UTM_ZONE#','NULL') AND">
+					<cfif orig_lat_long_units is "degrees dec. minutes">
+						<cfset fLocS=fLocS & " NVL(LAT_DEG,-1) = nvl('#dmLAT_DEG#',-1) AND
+							NVL(LAT_DIR,'NULL') = NVL('#dmlat_dir#','NULL') AND
+							NVL(LONG_DEG,-1) = nvl('#dmLONG_DEG#',-1) AND
+							NVL(LONG_DIR,'NULL') = NVL('#dmlong_dir#','NULL') AND">
+					<cfelse>
+						<cfset fLocS=fLocS & " NVL(LAT_DEG,-1) = nvl('#LAT_DEG#',-1) AND
+							NVL(LAT_DIR,'NULL') = NVL('#LAT_DIR#','NULL') AND
+							NVL(LONG_DEG,-1) = nvl('#LONG_DEG#',-1) AND
+							NVL(LONG_DIR,'NULL') = NVL('#LONG_DIR#','NULL') AND">
+					</cfif>
+					
+					
+					<cfset fLocS=fLocS & " NVL(DEC_LAT_MIN,-1) = nvl('#DEC_LAT_MIN#',-1) AND
 					NVL(DEC_LONG_MIN,-1) = nvl('#DEC_LONG_MIN#',-1) AND
-					NVL(LONG_DIR,'NULL') = NVL('#LONG_DIR#','NULL') AND
 					NVL(LAT_MIN,-1) = nvl('#LAT_MIN#',-1) AND
 					NVL(LAT_SEC,-1) = nvl('#LAT_SEC#',-1) AND
 					NVL(LONG_MIN,-1) = nvl('#LONG_MIN#',-1) AND
@@ -1268,7 +1277,11 @@ gonna try this:
 						sq_lat_long_id.nextval,
 						#nlid.nlid#,
 						<cfif len(LAT_DEG) gt 0>
-							#LAT_DEG#,
+							<cfif orig_lat_long_units is "degrees dec. minutes">
+								#dmLAT_DEG#,
+							<cfelse>
+								#LAT_DEG#,
+							</cfif>	
 						<cfelse>
 							NULL,
 						</cfif>
@@ -1287,9 +1300,17 @@ gonna try this:
 						<cfelse>
 							NULL,
 						</cfif>
-						'#LAT_DIR#',
+						<cfif orig_lat_long_units is "degrees dec. minutes">
+							'#dmLAT_DIR#',
+						<cfelse>
+							'#LAT_DIR#',
+						</cfif>						
 						<cfif len(LONG_DEG) gt 0>
-							#LONG_DEG#,
+							<cfif orig_lat_long_units is "degrees dec. minutes">
+								#dmLONG_DEG#,
+							<cfelse>
+								#LONG_DEG#,
+							</cfif>
 						<cfelse>
 							NULL,
 						</cfif>
@@ -1308,7 +1329,11 @@ gonna try this:
 						<cfelse>
 							NULL,
 						</cfif>
-						'#LONG_DIR#',
+						<cfif orig_lat_long_units is "degrees dec. minutes">
+							'#dmLONG_DIR#',
+						<cfelse>
+							'#LONG_DIR#',
+						</cfif>
 						<cfif len(DEC_LAT) gt 0>
 							#DEC_LAT#,
 						<cfelse>
