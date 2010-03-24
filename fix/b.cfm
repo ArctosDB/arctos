@@ -396,19 +396,20 @@ a:hover div
 	var center = new GLatLng(55, -135);
 	map.setCenter(center, 3);
 	
-	map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
-			map.addMapType(G_PHYSICAL_MAP);
-			map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,50)));
-			map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
-			
-			map.enableGoogleBar();
-			var boxStyleOpts = {
-				opacity:.0,
-				border:"2px solid green"
-			}
+	//map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
+	map.addControl(new GLargeMapControl());
+	//map.addMapType(G_PHYSICAL_MAP);
+	//map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,50)));
+	//map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
+		
+	//		map.enableGoogleBar();
+	//		var boxStyleOpts = {
+	//			opacity:.0,
+	//			border:"2px solid green"
+	//		}
 			
 			/*
-	map.addControl(new GLargeMapControl());
+	
 	map.addControl(new GMapTypeControl());
 	map.addControl(new GScaleControl());
 	map.addControl(new ToggleZoomControl());
