@@ -42,6 +42,7 @@
 			select collection_id from collection where 
 			institution_acronym='#institution_acronym#' and collection_cde='#collection_cde#'
 		</cfquery>
+		<cfdump var=#cidl#>
 		<cfif cidl.recordcount is 1>
 			<cfset collection_id=cidl.collection_id>
 		</cfif>
