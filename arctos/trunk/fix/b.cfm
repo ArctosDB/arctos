@@ -129,6 +129,7 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
   function fenOnMousedown()
   {
     xZIndex(ele, xFenster.z++);
+    console.log('fenOnMousedown');
   }
 
 // ******************************* //
@@ -290,7 +291,7 @@ function ToggleDisplay(id){
 	setDiv();
 	GEvent.addListener(map, "moveend", function() {
    console.log('moveend');
-       whereAreYou();
+      // whereAreYou();
    
 });
 	
