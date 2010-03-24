@@ -82,7 +82,11 @@
 					</li>
 				</ul>
 			</li>
-		</ul>			
+		</ul>
+		Some specimens are restricted. You may <a href="/contact.cfm">contact us</a> for more information.
+		<p>
+			Occasionally, a specimen is recataloged. You may be able to find them by using Other Identifiers in Specimen Search.
+		</p>	
 	</p>
 	<cfmail subject="Dead Link" to="#Application.PageProblemEmail#" from="dead.link@#application.fromEmail#" type="html">
 		A user found a dead link! The referring site was #cgi.HTTP_REFERER#.
