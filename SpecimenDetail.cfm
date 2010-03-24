@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<!---
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -47,6 +48,7 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
+--->
 <cfset detSelect = "
 	SELECT DISTINCT
 		#session.flatTableName#.collection,
@@ -492,7 +494,7 @@
 	</cfif>	
 	
 	
-	<cfinclude template="SpecimenDetail_body.cfm">
+	<cfinclude template="SpecimenDetail_body.cfm?collection_object_id=#collection_object_id#">
 	
 	<cfabort>
 	<table width="100%">
