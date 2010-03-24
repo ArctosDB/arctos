@@ -384,7 +384,21 @@ a:hover div
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 	  	
+	
+
 	  	
+	  	initializeMap();
+	});
+	jQuery(document.body).unload(function() {
+		GUnload();
+	});
+	function initializeMap() {
+		if (GBrowserIsCompatible()) {
+			
+			
+			
+			
+			  	
 	  	
 	  	
 	  	
@@ -605,16 +619,21 @@ function ToggleDisplay(id){
 
 
 
-
-
-	  	
-	  	initializeMap();
-	});
-	jQuery(document.body).unload(function() {
-		GUnload();
-	});
-	function initializeMap() {
-		if (GBrowserIsCompatible()) {
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			var map = new GMap2(document.getElementById("map"));
 			var center = new GLatLng(55, -135);
 			map.setCenter(center, 3);
