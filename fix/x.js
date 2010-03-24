@@ -140,6 +140,7 @@ ToggleZoomControl.prototype.setImageStyle_ = function(img) {
 }
 
 function ToggleDisplay(id){
+	console.log('ToggleDisplay');
 	var elem = document.getElementById(id);
 	if (elem){
 		if (elem.style.display != 'block'){
