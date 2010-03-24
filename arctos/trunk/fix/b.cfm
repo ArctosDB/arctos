@@ -283,7 +283,6 @@ function ToggleDisplay(id){
 				<div id="map" style="width: 100%; height: 90%"></div>
 				<div id="message"></div>
 <script>
-//<![CDATA[
 	var map = new GMap2(document.getElementById("map"));
 	map.addControl(new GLargeMapControl());
 	map.addControl(new GMapTypeControl());
@@ -298,7 +297,6 @@ function ToggleDisplay(id){
 });
 	
 	
-//]]>
 </script>
 </body>
 </html>
