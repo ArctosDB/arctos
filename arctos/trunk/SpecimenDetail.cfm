@@ -95,6 +95,9 @@
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfoutput>
+	
+		#preservesinglequotes(detSelect)#
+
 <cfif detail.recordcount lt 1>
 	<div class="error">
 		Oops! No specimen was found for that URL.
