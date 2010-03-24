@@ -1002,18 +1002,19 @@
 		AND (isdefined("SELat") and isnumeric(SELat))
 		AND (isdefined("SELong") and isnumeric(SELong))>
 		<!---- got enough data to run ---->
+		<cfoutput>
 		<hr>
 			<br>NWLat: #NWLat#
 			<br>NWLong: #NWLong#
 			<br>SELat: #SELat#
 			<br>SELong: #SELong#
 		<hr>
-		
+		</cfoutput>
 		<cfset basQual = " #basQual# AND ">
 		<cfset basQual = " #basQual# dec_lat BETWEEN #SELat# AND #NWLat#">
 		<cfif nwlong gt 0 and selong lt 0>
 			<cfset basQual = " #basQual# AND (
-				dec_long between #nwlong# and 180 OR dec_long between #selong# and -180">
+				dec_long between #nwlong# and 180 OR dec_long between #selong# and -180)">
 		<cfelse>
 			<cfset basQual = " #basQual# AND dec_long BETWEEN #NWLong# AND #SELong#">
 		</cfif>
