@@ -1,7 +1,6 @@
 <cfif not isdefined("toProperCase")>
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
-<cfdump var=#cgi#>
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
@@ -25,7 +24,6 @@
 	    }
 	</script>
 	--->
-</cfoutput>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset oneOfUs = 1>
 	<cfset isClicky = "likeLink">
@@ -34,8 +32,10 @@
 	<cfset isClicky = "">
 </cfif>
 <cfif oneOfUs is 0 and cgi.CF_TEMPLATE_PATH contains "/SpecimenDetail_body.cfm">
-	REDIRECTING.......
+	<cfheader statuscode="301" statustext="Moved permanently">
+	<cfheader name="Location" value="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
 </cfif>
+</cfoutput>
 <cfset detSelect = "
 	SELECT
 		cataloged_item.collection_object_id as collection_object_id,
