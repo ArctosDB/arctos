@@ -1,57 +1,53 @@
+/* GMaps selector */
 .divlayer {
-		 border: 2px solid #ff0000;
-		 background-color:#ffe4e1;
-		 filter:alpha(opacity=50);
-		 opacity: 0.5;
-		 -moz-opacity:0.5;
-		 z-index: 10000;
-		 height: 100px;
-		 width: 100px;
-		 left: 0px;
-		 top: 0px;
-		 margin: 0px;
-		 padding: 0px;
-		 position: absolute;
-		 line-height:0px;
-		 cursor:move;
-		}
-		.Bar {
-		  position:absolute;
-		  overflow:hidden;
-		  height:0px;
-		  width:0px;
-		}
-		.ResBtn {
-		  background-image: url(resize.gif);
-		  background-repeat:no-repeat;
-		  background-position:center;
-		  position:absolute;
-		  overflow:hidden;
-		  width:20px;
-		  height:20px;
-		  margin:0;
-		  padding:0;
-		  cursor:se-resize;
-		}
-		.ZoomBtn {
-		  background-image: url(magnify.png);
-		  background-repeat:no-repeat;
-		  background-position:center;
-		  position:absolute;
-		  overflow:hidden;
-		  width:20px;
-		  height:20px;
-		  margin:0;
-		  padding:0;
-		  cursor:hand;
-		  cursor:pointer;
-		}
-		
-		
-		
-		
-		
-		
+ border: 2px solid #ff0000;
+ background-color:#ffe4e1;
+ filter:alpha(opacity=50);
+ opacity: 0.5;
+ -moz-opacity:0.5;
+ z-index: 10000;
+ height: 100px;
+ width: 100px;
+ left: 0px;
+ top: 0px;
+ margin: 0px;
+ padding: 0px;
+ position: absolute;
+ line-height:0px;
+ cursor:move;
+}
+.Bar {
+  position:absolute;
+  overflow:hidden;
+  height:0px;
+  width:0px;
+}
+.ResBtn {
+  background-image: url(/images/resize.gif);
+  background-repeat:no-repeat;
+  background-position:center;
+  position:absolute;
+  overflow:hidden;
+  width:20px;
+  height:20px;
+  margin:0;
+  padding:0;
+  cursor:se-resize;
+}
+.ZoomBtn {
+  background-image: url(/images/magnify.png);
+  background-repeat:no-repeat;
+  background-position:center;
+  position:absolute;
+  overflow:hidden;
+  width:20px;
+  height:20px;
+  margin:0;
+  padding:0;
+  cursor:hand;
+  cursor:pointer;
+}
+/* / GMaps selector */	
 
 div.bigThumbDiv {
  	float: left;

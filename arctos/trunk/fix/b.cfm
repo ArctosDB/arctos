@@ -7,7 +7,7 @@
 <script type='text/javascript' src='x_event.js'></script>
 <script type='text/javascript' src='x_drag.js'></script>
 
-<script type='text/javascript' src='x.js'></script>
+<script type='text/javascript' src='/includes/gmaps.js'></script>
 
 
 <div class="divlayer" id="zoomLayer" title="Drag to Move">
