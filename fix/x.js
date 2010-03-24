@@ -92,6 +92,14 @@ function whurUB() {
   	document.getElementById('selat').value=gpend.lat();
   	document.getElementById('selong').value=gpend.lng();
   }
+
+function ubGone() {
+	document.getElementById('selectedCoords').value='';
+  	document.getElementById('nwLat').value='');
+  	document.getElementById('nwlong').value='';
+  	document.getElementById('selat').value='';
+  	document.getElementById('selong').value='';
+}
   
   
   
@@ -146,10 +154,12 @@ function ToggleDisplay(id){
 		if (elem.style.display != 'block'){
 			elem.style.display = 'block';
 			elem.style.visibility = 'visible';
+			whurUB();
 		}
 		else{
 			elem.style.display = 'none';
 			elem.style.visibility = 'hidden';
+			ubGone();
 		}
 	}
 }
