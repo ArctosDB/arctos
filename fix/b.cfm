@@ -6,9 +6,9 @@
 <script type='text/javascript' src='x_event.js'></script>
 <script type='text/javascript' src='x_drag.js'></script>
 
-<link href="g.css" type="text/css" rel="stylesheet">
 
 <!----
+<link href="g.css" type="text/css" rel="stylesheet">
 
 
 
