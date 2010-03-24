@@ -154,7 +154,7 @@
 			media_id=#media_id#
 	</cfquery>
 	<cfquery name="labels" dbtype="query">
-		select media_label,label_value from labels where media_label != 'description'
+		select media_label,label_value from labels where media_label <> 'description'
 	</cfquery>
 	<cfquery name="desc" dbtype="query">
 		select label_value from labels where media_label='description'
