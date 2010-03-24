@@ -291,7 +291,8 @@ function ToggleDisplay(id){
 	setDiv();
 	GEvent.addListener(map, "moveend", function() {
    console.log('moveend');
-      // whereAreYou();
+      // 
+      xFenster.whereAreYou();
    
 });
 	
