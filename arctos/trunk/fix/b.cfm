@@ -392,7 +392,9 @@ a:hover div
 	});
 	
 	var map = new GMap2(document.getElementById("map"));
-	map.addControl(new GLargeMapControl());
+	//map.addControl(new GLargeMapControl());
+	map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
+	
 	map.addControl(new GMapTypeControl());
 	map.addControl(new GScaleControl());
 	map.addControl(new ToggleZoomControl());
