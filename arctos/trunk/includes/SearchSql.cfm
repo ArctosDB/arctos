@@ -1001,27 +1001,12 @@
 		AND (isdefined("NWLong") and isnumeric(NWLong))
 		AND (isdefined("SELat") and isnumeric(SELat))
 		AND (isdefined("SELong") and isnumeric(SELong))>
-		<!---- got enough data to run ---->
-		<cfoutput>
-		<hr>
-			<br>NWLat: #NWLat#
-			<br>NWLong: #NWLong#
-			<br>SELat: #SELat#
-			<br>SELong: #SELong#
-		<hr>
-		</cfoutput>
-		<cfset basQual = " #basQual# AND ">
-		<cfset basQual = " #basQual# dec_lat BETWEEN #SELat# AND #NWLat#">
+		<cfset basQual = " #basQual# AND dec_lat BETWEEN #SELat# AND #NWLat#">
 		<cfif nwlong gt 0 and selong lt 0>
-			<cfset basQual = " #basQual# AND (
-				dec_long between #nwlong# and 180 OR dec_long between -180 and #selong#)">
+			<cfset basQual = " #basQual# AND (dec_long between #nwlong# and 180 OR dec_long between -180 and #selong#)">
 		<cfelse>
 			<cfset basQual = " #basQual# AND dec_long BETWEEN #NWLong# AND #SELong#">
 		</cfif>
-			
-
-		 
-									
 		<cfset mapurl = "#mapurl#&NWLat=#NWLat#">
 		<cfset mapurl = "#mapurl#&NWLong=#NWLong#">
 		<cfset mapurl = "#mapurl#&SELat=#SELat#">
@@ -1033,7 +1018,7 @@
 		<cfabort>
 	</cfif>
 </cfif>
-<cfif isdefined("spec_locality") and len(#spec_locality#) gt 0>
+<cfif isdefined("spec_locality") and len(spec_locality) gt 0>
 	<cfset mapurl = "#mapurl#&spec_locality=#spec_locality#">
 	<cfif #compare(spec_locality,"NULL")# is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.spec_locality is null">
@@ -1046,7 +1031,7 @@
 	</cfif>	
 </cfif>
 
-<cfif isdefined("verbatim_locality") and len(#verbatim_locality#) gt 0>
+<cfif isdefined("verbatim_locality") and len(verbatim_locality) gt 0>
 	<cfset mapurl = "#mapurl#&verbatim_locality=#verbatim_locality#">
 	<cfif basJoin does not contain " collecting_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (cataloged_item.collecting_event_id = collecting_event.collecting_event_id)">
@@ -1057,7 +1042,7 @@
 		<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_locality) like '%#ucase(escapeQuotes(verbatim_locality))#%'">
 	</cfif>	
 </cfif>
-<cfif isdefined("minimum_elevation") and len(#minimum_elevation#) gt 0>
+<cfif isdefined("minimum_elevation") and len(minimum_elevation) gt 0>
 	<cfif not isdefined("orig_elev_units") OR len(#orig_elev_units#) is 0>
 		<font color="#FF0000" size="+1">You must supply units to search by elevation.</font>
 		<cfabort>
