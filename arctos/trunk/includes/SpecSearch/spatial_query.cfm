@@ -25,6 +25,7 @@
 	map.addControl(new GScaleControl());
 	map.addControl(new ToggleZoomControl());
 	map.enableGoogleBar();
+	map.enableScrollWheelZoom();
 	map.setCenter(new GLatLng(55, -135), 3);
 	setDiv();
 	GEvent.addListener(map, "moveend", function() {
