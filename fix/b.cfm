@@ -139,32 +139,7 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
 // added function to handle zoom on bounds
 // with code taken from Mike Williams tutorial: http://www.econym.demon.co.uk/googlemaps/basic14.htm
 // ******************************* //
-  function whereAreYou()
-  {
-  	gpstart = getLatLonFromPixel(xLeft(ele), xTop(ele));
-  	gpend = getLatLonFromPixel(xLeft(ele) + xWidth(ele), xTop(ele) + xHeight(ele));
-
-/*
-        // ===== Start with an empty GLatLngBounds object =====
-        var bounds = new GLatLngBounds();
-        var tlpoint = new GLatLng(gpstart.lat(), gpstart.lng());
-        bounds.extend(tlpoint);
-        var brpoint = new GLatLng(gpend.lat(), gpend.lng());
-        bounds.extend(brpoint);
-
-        // ===== determine the zoom level from the bounds =====
-          map.setZoom(map.getBoundsZoomLevel(bounds));
-
-		// ===== determine the centre from the bounds ======
-          var clat = (bounds.getNorthEast().lat() + bounds.getSouthWest().lat()) /2;
-          var clng = (bounds.getNorthEast().lng() + bounds.getSouthWest().lng()) /2;
-          map.setCenter(new GLatLng(clat,clng));
-*/
-	// show the coords for params
-	var	dMessage = document.getElementById("message");
-	dMessage.innerHTML = "start x=" + gpstart.lat() + " - start y=" + gpstart.lng()
-		+ "<br>end x=" + gpend.lat() + " - end y=" + gpend.lng();
-  }
+ 
   
   function ZoomOnClick()
   {
@@ -187,9 +162,13 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
           map.setCenter(new GLatLng(clat,clng));
 
 	// show the coords for params
+	/*
 	var	dMessage = document.getElementById("message");
 	dMessage.innerHTML = "start x=" + gpstart.lat() + " - start y=" + gpstart.lng()
 		+ "<br>end x=" + gpend.lat() + " - end y=" + gpend.lng();
+		*/
+		
+		whurUB();
   }
 
   // Constructor Code
@@ -310,9 +289,9 @@ function ToggleDisplay(id){
 					<div id="Bar" class="Bar" title="Drag to Move"></div>
 
 					<!---
-					<div id="ZoomBtn" class="ZoomBtn" title="Click to Zoom"></div>
-					--->
 					<div id="ZoomBtn"></div>
+					---><div id="ZoomBtn" class="ZoomBtn" title="Click to Zoom"></div>
+					
 					<div id="ResBtn" class="ResBtn" title="Drag to Resize"></div>
 				</div>
 				<div id="map" style="width: 100%; height: 90%"></div>
