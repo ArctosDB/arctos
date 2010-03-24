@@ -1,3 +1,19 @@
+<cfinclude template="/includes/_header.cfm">
+<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
+
+<script type='text/javascript' src='x_core.js'></script>
+
+<script type='text/javascript' src='x_event.js'></script>
+<script type='text/javascript' src='x_drag.js'></script>
+
+<link href="g.css" type="text/css" rel="stylesheet">
+
+<!----
+
+
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
@@ -5,18 +21,6 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="robots" content="noindex,nofollow">
 	
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
-<script type='text/javascript' src='x_core.js'></script>
-
-<script type='text/javascript' src='x_event.js'></script>
-<script type='text/javascript' src='x_drag.js'></script>
-
-<!----
-
-
-<link href="g.css" type="text/css" rel="stylesheet">
-
-
 <style type="text/css">
       v\:* {
         behavior:url(#default#VML);
@@ -291,8 +295,12 @@ function ToggleDisplay(id){
 }
 
   </script>
+<!---
   </head>
+--->
+<!---
 <body onunload="GUnload()">
+--->
 				<div class="divlayer" id="zoomLayer" title="Drag to Move">
 					<div id="Bar" class="Bar" title="Drag to Move"></div>
 
@@ -314,12 +322,17 @@ function ToggleDisplay(id){
 	setDiv();
 	
 	GEvent.addListener(map, "moveend", function() {
-  console.log('whurUB');
-  whurUB();
-});
-	
+		  console.log('whurUB');
+		  whurUB();
+		});
+			
 	
 	
 </script>
+
+<!---
 </body>
 </html>
+--->
+
+<cfinclude template="/includes/_footer.cfm">
