@@ -55,7 +55,7 @@
 		<select name="collection_id" id="collection_id" size="1">
 			<cfloop query="ctcollection">
 				<option 
-					<cfif ctcollection.collection is collection or collection_id is cid> selected="selected" </cfif> 
+					<cfif ctcollection.collection_id is cidl.collection_id> selected="selected" </cfif> 
 					value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
