@@ -1,32 +1,17 @@
-
-	  	
-	  	
-	  	// ******************************* //
 var fen1;
 var gpstart, gpend;
-
-// ******************************* //
-// from the documentation here: http://cross-browser.com/x/examples/drag2.php
-// ******************************* //
 window.onunload = function()
 {
     fen1.onunload();
 }
 
-// ******************************* //
-// main object: http://cross-browser.com/x/examples/drag2.php
-// ******************************* //
-
 function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
 {
-  // Private Properties
   var me = this;
   var ele = xGetElementById(eleId);
-  var rBtn = xGetElementById(resBtnId);
-  
+  var rBtn = xGetElementById(resBtnId);  
   var zBtn = xGetElementById(zoomBtnId);
 
-  // Public Methods
   this.onunload = function()
   {
     if (xIE4Up) { // clear cir refs
@@ -43,12 +28,9 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
     xMoveTo(zBtn, 0, xHeight(ele) - xHeight(zBtn) - 2);
   }
 
-  // Private Event Listeners
   function barOnDrag(e, mdx, mdy)
   {
     xMoveTo(ele, xLeft(ele) + mdx, xTop(ele) + mdy);
-    //console.log('barOnDrag: ' + mdx + '; ' + mdy + '; ' + e);
-    //whereAreYou();
     whurUB();
   }
 
@@ -56,9 +38,7 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
   {
     xResizeTo(ele, xWidth(ele) + mdx, xHeight(ele) + mdy);
     me.paint();
-    //console.log('resOnDrag: ' + mdx + '; ' + mdy + '; ' + e + '; ' + xWidth(ele));
-   // whereAreYou();
-   whurUB();
+    whurUB();
   }
 
   function fenOnMousedown()
@@ -66,44 +46,23 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
     xZIndex(ele, xFenster.z++);
     console.log('fenOnMousedown');
   }
-
-// ******************************* //
-// added function to handle zoom on bounds
-// with code taken from Mike Williams tutorial: http://www.econym.demon.co.uk/googlemaps/basic14.htm
-// ******************************* //
- 
   
   function ZoomOnClick()
   {
   	gpstart = getLatLonFromPixel(xLeft(ele), xTop(ele));
   	gpend = getLatLonFromPixel(xLeft(ele) + xWidth(ele), xTop(ele) + xHeight(ele));
-
-        // ===== Start with an empty GLatLngBounds object =====
         var bounds = new GLatLngBounds();
         var tlpoint = new GLatLng(gpstart.lat(), gpstart.lng());
         bounds.extend(tlpoint);
         var brpoint = new GLatLng(gpend.lat(), gpend.lng());
         bounds.extend(brpoint);
-
-        // ===== determine the zoom level from the bounds =====
           map.setZoom(map.getBoundsZoomLevel(bounds));
-
-		// ===== determine the centre from the bounds ======
           var clat = (bounds.getNorthEast().lat() + bounds.getSouthWest().lat()) /2;
           var clng = (bounds.getNorthEast().lng() + bounds.getSouthWest().lng()) /2;
           map.setCenter(new GLatLng(clat,clng));
-
-	// show the coords for params
-	/*
-	var	dMessage = document.getElementById("message");
-	dMessage.innerHTML = "start x=" + gpstart.lat() + " - start y=" + gpstart.lng()
-		+ "<br>end x=" + gpend.lat() + " - end y=" + gpend.lng();
-		*/
-		
-		whurUB();
+          whurUB();
   }
 
-  // Constructor Code
   xFenster.z++;
   this.paint();
   xEnableDrag(barId, null, barOnDrag, null);
@@ -115,41 +74,25 @@ function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
 
 xFenster.z = 1000; // xFenster static property
 
-// ******************************* //
-// code taken from Dave: http://groups.google.com/group/Google-Maps-API/browse_thread/thread/2a760c375e1ff905/8ed93dddcecfbdb0?q=selection&rnum=8#8ed93dddcecfbdb0
-// ******************************* //
 function getLatLonFromPixel(x,y) {
-var swpixel = map.getCurrentMapType().getProjection().fromLatLngToPixel(map.getBounds().getSouthWest(),map.getZoom());
-var nepixel = map.getCurrentMapType().getProjection().fromLatLngToPixel(map.getBounds().getNorthEast(),map.getZoom());
- return map.getCurrentMapType().getProjection().fromPixelToLatLng(new GPoint(swpixel.x + x,nepixel.y + y),map.getZoom());
+	var swpixel = map.getCurrentMapType().getProjection().fromLatLngToPixel(map.getBounds().getSouthWest(),map.getZoom());
+	var nepixel = map.getCurrentMapType().getProjection().fromLatLngToPixel(map.getBounds().getNorthEast(),map.getZoom());
+	return map.getCurrentMapType().getProjection().fromPixelToLatLng(new GPoint(swpixel.x + x,nepixel.y + y),map.getZoom());
 }
 
-
- function whurUB()
-  {
-  	  var ele = xGetElementById('zoomLayer');
-  	
-  	
+function whurUB() {
+	var ele = xGetElementById('zoomLayer');
   	gpstart = getLatLonFromPixel(xLeft(ele), xTop(ele));
   	gpend = getLatLonFromPixel(xLeft(ele) + xWidth(ele), xTop(ele) + xHeight(ele));
 
-/*
-        // ===== Start with an empty GLatLngBounds object =====
-        var bounds = new GLatLngBounds();
-        var tlpoint = new GLatLng(gpstart.lat(), gpstart.lng());
-        bounds.extend(tlpoint);
-        var brpoint = new GLatLng(gpend.lat(), gpend.lng());
-        bounds.extend(brpoint);
-
-        // ===== determine the zoom level from the bounds =====
-          map.setZoom(map.getBoundsZoomLevel(bounds));
-
-		// ===== determine the centre from the bounds ======
-          var clat = (bounds.getNorthEast().lat() + bounds.getSouthWest().lat()) /2;
-          var clng = (bounds.getNorthEast().lng() + bounds.getSouthWest().lng()) /2;
-          map.setCenter(new GLatLng(clat,clng));
-*/
-	// show the coords for params
+  	var selectedCoords=gpstart.lat() + ", " + gpstart.lng() + "; " + gpend.lat() + ", " + gpend.lng();
+  	document.getElementById('selectedCoords').value=selectedCoords;
+  	document.getElementById('nwLat').value=gpstart.lat();
+  	document.getElementById('nwlong').value=gpstart.lng();
+  	document.getElementById('selat').value=gpend.lat();
+  	document.getElementById('selong').value=gpend.lng();
+  	
+  	
 	var	dMessage = document.getElementById("message");
 	dMessage.innerHTML = "start x=" + gpstart.lat() + " - start y=" + gpstart.lng()
 		+ "<br>end x=" + gpend.lat() + " - end y=" + gpend.lng();
