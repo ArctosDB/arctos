@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
+<cfdump var=#cgi#>
+<cfdump var=#cgi.REDIRECT_URL#>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
