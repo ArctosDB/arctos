@@ -32,6 +32,9 @@
 			#preservesinglequotes(ssql)#
 		</cfquery>
 		---->
+		
+		
+		<cfabort>
 	<cfelse>
 		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 		<cfset frm="from media">			
