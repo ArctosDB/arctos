@@ -177,7 +177,9 @@
 						<br><span style='font-size:small'>#media_type#&nbsp;(#mime_type#)</span>
 					</td>
 					<td>
-						#desc.label_value#
+						<cfif len(desc.label_value) gt 0>
+							<ul><li>#desc.label_value#</li></ul>
+						</cfif>
 						<cfif labels.recordcount gt 0>
 							<ul>
 								<cfloop query="labels">
