@@ -6,6 +6,10 @@
 			select GUID from #session.flatTableName# where collection_object_id=#collection_object_id# 
 		</cfquery>
 		<cfdump var=#c#>
+		
+		header statuscode="301" statustext="Moved permanently
+		
+		fheader name="Location" value="/guid/#c.guid#
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/guid/#c.guid#">
 		<!---
