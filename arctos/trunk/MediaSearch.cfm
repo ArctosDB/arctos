@@ -30,7 +30,22 @@
 		<input type="hidden" name="srchType" value="key">
 		<label for="keyword">Keyword</label>
 		<input type="text" name="keyword" id="keyword">
-		
+		<label for="tag">Require TAG?</label>
+		<input type="checkbox" id="tag" name="tag" value="1">
+		<label for="mime_type">MIME Type</label>
+		<select name="mime_type" id="mime_type" multiple="multiple" size="2">
+			<option value=""></option>
+				<cfloop query="ctmime_type">
+					<option value="#mime_type#">#mime_type#</option>
+				</cfloop>
+		</select>
+           <label for="media_type">Media Type</label>
+		<select name="media_type" id="media_type" multiple="multiple" size="2">
+			<option value=""></option>
+				<cfloop query="ctmedia_type">
+					<option value="#media_type#">#media_type#</option>
+				</cfloop>
+		</select>
 		<br>
 		<input type="submit" 
 			value="Find Media" 
@@ -112,6 +127,21 @@
 			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
 			<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 		</cfif>
+		<cfif isdefined("tag") and len(tag) gt 0>
+			<cfset whr="#whr# AND media.media_id in (select media_id from tag)">
+		</cfif>
+		<cfif isdefined("media_type") and len(media_type) gt 0>
+			<cfset srch="#srch# AND media_type in (#listQualify(media_type,',')#)">
+		</cfif>
+		<cfif isdefined("media_id") and len(#media_id#) gt 0>
+			<cfset whr="#whr# AND media.media_id in (#media_id#)">
+		</cfif>
+		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
+			<cfset srch="#srch# AND mime_type in (#listQualify(mime_type,',')#">
+		</cfif>
+		
+		
+		
 		<cfset ssql="#sel# #frm# #whr# #srch#">
 		
 		#preservesinglequotes(ssql)#
