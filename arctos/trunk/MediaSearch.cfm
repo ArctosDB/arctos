@@ -378,7 +378,7 @@
 							</cfloop>
 							</ul>
 						</cfif>
-						<cfif isdefined("kw.keywords") and len(kw.keywords gt 0>
+						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
 							<div style="font-size:small">Keywords: #kw.keywords#</div>
 						</cfif>
 					</td>
