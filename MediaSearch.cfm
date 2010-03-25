@@ -174,7 +174,7 @@
 				<tr>
 					<td>
 						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#"></a>
-						<br><span style='font-size:small'>#media_type# (#mime_type#)</span>
+						<br><span style='font-size:small'>#media_type#&nbsp;(#mime_type#)</span>
 					</td>
 					<td>
 						#desc.label_value#
