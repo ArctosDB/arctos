@@ -293,6 +293,7 @@
 <cfelse>
 	<cfset title="Media Results: #findIDs.recordcount# records found">
 	<cfset metaDesc="Results of Media search: Multiple records found.">
+	<a href="/MediaSearch.cfm">[ Media Search ]</a>
 </cfif>
 <table>
 <cfset r=1>
