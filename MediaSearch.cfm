@@ -117,14 +117,18 @@
 		#preservesinglequotes(ssql)#
 		
 		<cfflush>
-		<!----
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
+		
+		<!----
+		
+		
+				<cfabort>
+
 		---->
 		
 		
-		<cfabort>
 	<cfelse>
 		wtf?<cfabort>
 		
