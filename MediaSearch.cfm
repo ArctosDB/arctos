@@ -181,6 +181,35 @@
 					</td>
 					<td>
 						#desc.label_value#
+						
+						
+						
+						<cfif labels.recordcount gt 0>
+							<br>Labels:	
+							<ul>
+								<cfloop query="labels">
+									<li>
+										#media_label#: #label_value#
+									</li>
+								</cfloop>
+							</ul>
+						</cfif>
+						
+						<cfset mrel=getMediaRelations(#media_id#)>
+						<cfif mrel.recordcount gt 0>
+						<br>Relationships:
+							<ul>
+							<cfloop query="mrel">
+								<li>#media_relationship#:  
+				                    <cfif len(#link#) gt 0>
+				                        <a href="#link#" target="_blank">#summary#</a>
+				                    <cfelse>
+										#summary#
+									</cfif>
+				                </li>
+							</cfloop>
+							</ul>
+						</cfif>
 					</td>
 				</tr>
 			</table>
@@ -200,29 +229,7 @@
 		    <cfif tag.n gt 0>
 				<a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
 			</cfif>
-			<br>Labels:	
-			<cfif labels.recordcount gt 0>
-				<ul>
-					<cfloop query="labels">
-						<li>
-							#media_label#: #label_value#
-						</li>
-					</cfloop>
-				</ul>
-			</cfif>
-			<br>Relationships:
-			<cfset mrel=getMediaRelations(#media_id#)>
-			<ul>
-			<cfloop query="mrel">
-				<li>#media_relationship#:  
-                    <cfif len(#link#) gt 0>
-                        <a href="#link#" target="_blank">#summary#</a>
-                    <cfelse>
-						#summary#
-					</cfif>
-                </li>
-			</cfloop>
-			</ul>
+			
 			<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					media.media_id, 
