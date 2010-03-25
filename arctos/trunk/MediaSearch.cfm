@@ -366,7 +366,14 @@
 							</ul>
 						</cfif>
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
-							<div style="font-size:.6em;max-width:60em;margin-left:3em;border:1px solid black;">Keywords: #kw.keywords#</div>
+							<cfif isdefined("keyword") and len(keyword) gt 0>
+								<cfset kwds=replace(kw.keywords,keyword,"<strong>" & keyword & "</strong>","all")>
+							<cfelse>
+								<cfset kwds=kw.keywords>
+							</cfif>
+							<div style="font-size:.6em;max-width:60em;margin-left:3em;border:1px solid black;">
+								Keywords: #kwds#
+							</div>
 						</cfif>
 					</td>
 				</tr>
