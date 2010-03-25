@@ -12,112 +12,130 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "search">
 <cfoutput>
-<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
-<cfset frm="from media">			
-<cfset whr=" where media.media_id > 0">
-<cfset srch=" ">
-<cfif isdefined("media_uri") and len(media_uri) gt 0>
-	<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
-</cfif>
-<cfif isdefined("media_type") and len(media_type) gt 0>
-	<cfset srch="#srch# AND upper(media_type) like '%#ucase(media_type)#%'">
-</cfif>
-<cfif isdefined("tag") and len(tag) gt 0>
-	<cfset whr="#whr# AND media.media_id in (select media_id from tag)">
-</cfif>
-<cfif isdefined("media_id") and len(#media_id#) gt 0>
-	<cfset whr="#whr# AND media.media_id in (#media_id#)">
-</cfif>
-<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
-	<cfset srch="#srch# AND mime_type = '#mime_type#'">
-</cfif>
-<cfif not isdefined("number_of_relations")>
-    <cfif (isdefined("relationship") and len(relationship) gt 0) or (isdefined("related_to") and len(related_to) gt 0)>
-		<cfset number_of_relations=1>
-		<cfif isdefined("relationship") and len(relationship) gt 0>
-			<cfset relationship__1=relationship>
+	<cfif srchType is "key">
+		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
+		<cfset frm="from media">			
+		<cfset whr=" where media.media_id > 0">
+		<cfset srch=" ">
+		<cfif isdefined("keywords") and len(keywords) gt 0>
+			<cfset frm="#frm#,media_keywords">
+			<cfset whr="#whr# and media.media_id=media_keywords.media_id (+)">
+			<cfset srch="#srch# AND upper(keyword) like '%#ucase(keywords)#%'">
 		</cfif>
-		 <cfif isdefined("related_to") and len(related_to) gt 0>
-			<cfset related_value__1=related_to>
-		</cfif>
+		<cfset ssql="#sel# #frm# #whr# #srch#">
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(ssql)#
+		</cfquery>
+		
 	<cfelse>
-		<cfset number_of_relations=1>
-	</cfif>
-</cfif>
-<cfif not isdefined("number_of_labels")>
-    <cfif (isdefined("label") and len(label) gt 0) or (isdefined("label__1") and len(label__1) gt 0)>
-		<cfset number_of_labels=1>
-		<cfif isdefined("label") and len(label) gt 0>
-			<cfset label__1=label>
+		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
+		<cfset frm="from media">			
+		<cfset whr=" where media.media_id > 0">
+		<cfset srch=" ">
+		<cfif isdefined("media_uri") and len(media_uri) gt 0>
+			<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
 		</cfif>
-		<cfif isdefined("label_value") and len(label_value) gt 0>
-			<cfset label_value__1=label_value>
+		<cfif isdefined("media_type") and len(media_type) gt 0>
+			<cfset srch="#srch# AND upper(media_type) like '%#ucase(media_type)#%'">
 		</cfif>
-	<cfelse>
-		<cfset number_of_labels=0>
-	</cfif>
-</cfif>
-<cfloop from="1" to="#number_of_relations#" index="n">
-	<cftry>
-        <cfset thisRelationship = #evaluate("relationship__" & n)#>
-	    <cfcatch>
-	        <cfset thisRelationship = "">
-	    </cfcatch>
-    </cftry>
-    <cftry>
-        <cfset thisRelatedItem = #evaluate("related_value__" & n)#>
-	    <cfcatch>
-            <cfset thisRelatedItem = "">
-	    </cfcatch>
-    </cftry>
-    <cftry>
-         <cfset thisRelatedKey = #evaluate("related_primary_key__" & n)#>
-	    <cfcatch>
-            <cfset thisRelatedKey = "">
-	    </cfcatch>
-    </cftry>
-    <cfset frm="#frm#,media_relations media_relations#n#">
-	<cfset whr="#whr# and media.media_id=media_relations#n#.media_id (+)">
-	<cfif len(#thisRelationship#) gt 0>
-		<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
-	</cfif>
-	<cfif len(#thisRelatedItem#) gt 0>
-		<cfset srch="#srch# AND upper(media_relation_summary(media_relations#n#.media_relations_id)) like '%#ucase(thisRelatedItem)#%'">
-	</cfif>
-    <cfif len(#thisRelatedKey#) gt 0>
-		<cfset srch="#srch# AND media_relations#n#.related_primary_key = #thisRelatedKey#">
-	</cfif>
-</cfloop>
-	<cfloop from="1" to="#number_of_labels#" index="n">
-		<cftry>
-	        <cfset thisLabel = #evaluate("label__" & n)#>
-		    <cfcatch>
-	            <cfset thisLabel = "">
-		    </cfcatch>
-        </cftry>
-        <cftry>
-	        <cfset thisLabelValue = #evaluate("label_value__" & n)#>
-		    <cfcatch>
-	            <cfset thisLabelValue = "">
-		    </cfcatch>
-        </cftry>		
-		<cfset frm="#frm#,media_labels media_labels#n#">
-	    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id (+)">
-        <cfif len(#thisLabel#) gt 0>
-			<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
+		<cfif isdefined("tag") and len(tag) gt 0>
+			<cfset whr="#whr# AND media.media_id in (select media_id from tag)">
 		</cfif>
-		<cfif len(#thisLabelValue#) gt 0>
-			<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
+		<cfif isdefined("media_id") and len(#media_id#) gt 0>
+			<cfset whr="#whr# AND media.media_id in (#media_id#)">
 		</cfif>
-	</cfloop>
-<cfif len(srch) is 0>
-	<div class="error">You must enter search criteria.</div>
-	<cfabort>
-</cfif>
-<cfset ssql="#sel# #frm# #whr# #srch#">
-<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	#preservesinglequotes(ssql)#
-</cfquery>
+		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
+			<cfset srch="#srch# AND mime_type = '#mime_type#'">
+		</cfif>
+		<cfif not isdefined("number_of_relations")>
+		    <cfif (isdefined("relationship") and len(relationship) gt 0) or (isdefined("related_to") and len(related_to) gt 0)>
+				<cfset number_of_relations=1>
+				<cfif isdefined("relationship") and len(relationship) gt 0>
+					<cfset relationship__1=relationship>
+				</cfif>
+				 <cfif isdefined("related_to") and len(related_to) gt 0>
+					<cfset related_value__1=related_to>
+				</cfif>
+			<cfelse>
+				<cfset number_of_relations=1>
+			</cfif>
+		</cfif>
+		<cfif not isdefined("number_of_labels")>
+		    <cfif (isdefined("label") and len(label) gt 0) or (isdefined("label__1") and len(label__1) gt 0)>
+				<cfset number_of_labels=1>
+				<cfif isdefined("label") and len(label) gt 0>
+					<cfset label__1=label>
+				</cfif>
+				<cfif isdefined("label_value") and len(label_value) gt 0>
+					<cfset label_value__1=label_value>
+				</cfif>
+			<cfelse>
+				<cfset number_of_labels=0>
+			</cfif>
+		</cfif>
+		<cfloop from="1" to="#number_of_relations#" index="n">
+			<cftry>
+		        <cfset thisRelationship = #evaluate("relationship__" & n)#>
+			    <cfcatch>
+			        <cfset thisRelationship = "">
+			    </cfcatch>
+		    </cftry>
+		    <cftry>
+		        <cfset thisRelatedItem = #evaluate("related_value__" & n)#>
+			    <cfcatch>
+		            <cfset thisRelatedItem = "">
+			    </cfcatch>
+		    </cftry>
+		    <cftry>
+		         <cfset thisRelatedKey = #evaluate("related_primary_key__" & n)#>
+			    <cfcatch>
+		            <cfset thisRelatedKey = "">
+			    </cfcatch>
+		    </cftry>
+		    <cfset frm="#frm#,media_relations media_relations#n#">
+			<cfset whr="#whr# and media.media_id=media_relations#n#.media_id (+)">
+			<cfif len(#thisRelationship#) gt 0>
+				<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
+			</cfif>
+			<cfif len(#thisRelatedItem#) gt 0>
+				<cfset srch="#srch# AND upper(media_relation_summary(media_relations#n#.media_relations_id)) like '%#ucase(thisRelatedItem)#%'">
+			</cfif>
+		    <cfif len(#thisRelatedKey#) gt 0>
+				<cfset srch="#srch# AND media_relations#n#.related_primary_key = #thisRelatedKey#">
+			</cfif>
+		</cfloop>
+			<cfloop from="1" to="#number_of_labels#" index="n">
+				<cftry>
+			        <cfset thisLabel = #evaluate("label__" & n)#>
+				    <cfcatch>
+			            <cfset thisLabel = "">
+				    </cfcatch>
+		        </cftry>
+		        <cftry>
+			        <cfset thisLabelValue = #evaluate("label_value__" & n)#>
+				    <cfcatch>
+			            <cfset thisLabelValue = "">
+				    </cfcatch>
+		        </cftry>		
+				<cfset frm="#frm#,media_labels media_labels#n#">
+			    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id (+)">
+		        <cfif len(#thisLabel#) gt 0>
+					<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
+				</cfif>
+				<cfif len(#thisLabelValue#) gt 0>
+					<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
+				</cfif>
+			</cfloop>
+		<cfif len(srch) is 0>
+			<div class="error">You must enter search criteria.</div>
+			<cfabort>
+		</cfif>
+		<cfset ssql="#sel# #frm# #whr# #srch#">
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(ssql)#
+		</cfquery>
+	</cfif><!--- end srchType --->
+
 <cfif findIDs.recordcount is 0>
 	<div class="error">Nothing found.</div>
 <cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
@@ -304,11 +322,27 @@
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	Search for Media 
+	<form name="newMedia" method="post" action="">
+		<input type="hidden" name="action" value="search">
+		<input type="hidden" name="srchType" value="key">
+		<label for="keyword">Keyword</label>
+		<input type="text" name="keyword" id="keyword">
+		
+		<br>
+		<input type="submit" 
+			value="Find Media" 
+			class="insBtn"
+			onmouseover="this.className='insBtn btnhov'" 
+			onmouseout="this.className='insBtn'">
+	</form>
+	<hr>
+	
     <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
         OR <a href="/media.cfm?action=newMedia">Create media</a>
     </cfif>
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">
+			<input type="hidden" name="srchType" value="full">
 			<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
 			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
 			<label for="media_uri">Media URI</label>
