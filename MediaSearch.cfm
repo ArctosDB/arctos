@@ -131,13 +131,13 @@
 			<cfset whr="#whr# AND media.media_id in (select media_id from tag)">
 		</cfif>
 		<cfif isdefined("media_type") and len(media_type) gt 0>
-			<cfset srch="#srch# AND media_type in (#listQualify(media_type,',')#)">
+			<cfset srch="#srch# AND media_type in (#listQualify(media_type,"'")#)">
 		</cfif>
 		<cfif isdefined("media_id") and len(#media_id#) gt 0>
 			<cfset whr="#whr# AND media.media_id in (#media_id#)">
 		</cfif>
 		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
-			<cfset srch="#srch# AND mime_type in (#listQualify(mime_type,',')#">
+			<cfset srch="#srch# AND mime_type in (#listQualify(mime_type,"'")#">
 		</cfif>
 		
 		
