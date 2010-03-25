@@ -7,10 +7,18 @@
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select GUID from #session.flatTableName# where collection_object_id=#collection_object_id# 
 		</cfquery>
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="/guid/#c.guid#">
+		<!---
 		<cflocation url="/guid/#c.guid#" addtoken="false">
+		--->
 	</cfoutput>	
 </cfif>
 <cfif isdefined("guid")>
+	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="/guid/#guid#">
+	</cfif>
 	<cfset checkSql(guid)>
 	<cfif guid contains ":">
 		<cfoutput>
