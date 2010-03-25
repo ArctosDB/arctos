@@ -7,6 +7,7 @@
 		</cfquery>
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/guid/#c.guid#">
+		<cfabort>
 	</cfoutput>	
 </cfif>
 <cfif isdefined("guid")>
