@@ -74,17 +74,7 @@
 					</td>
 				</tr>
 			</table>
-			<div id="cse" style="width: 100%;">Loading</div>
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript">
-  google.load('search', '1', {language : 'en'});
-  google.setOnLoadCallback(function(){
-    var customSearchControl = new google.search.CustomSearchControl('011384802149075345004:_xhrdehjm50');
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    customSearchControl.draw('cse');
-  }, true);
-</script>
-<link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />	
+			<div id="cse" style="width: 100%;">Loading</div>	
 			<div style="float:right;position:absolute;top:5px;right:5px;clear:both;">
 		    	<cfif len(#session.username#) gt 0>
 					<a target="_top" href="##" onClick="getDocs('index')">Help</a> ~ 
@@ -148,6 +138,7 @@
 						<a target="_top" href="/SpecimenSearch.cfm">Search</a>
 						<ul>
 							<li><a target="_top" href="/SpecimenSearch.cfm">Specimens</a></li>
+							<li><a target="_top" href="/googlesearch.cfm">Google&nbsp;Custom&nbsp;(BETA)</a></li>
 							<li><a target="_top" href="/SpecimenUsage.cfm">Publications/Projects</a></li>
 							<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
 			                <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
