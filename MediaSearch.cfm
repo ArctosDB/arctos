@@ -329,11 +329,9 @@
 		select label_value from labels_raw where media_label='description'
 	</cfquery>
 	<cfif isdefined("findIDs.keywords")>
-		got some keywords
 		<cfquery name="kw" dbtype="query">
-		select keywords from findIDs where media_id=#media_id#
-	</cfquery>
-	<cfdump var="#kw#">
+			select keywords from findIDs where media_id=#media_id#
+		</cfquery>	
 	</cfif>
 	<cfset alt="#media_uri#">
 	<cfif desc.recordcount is 1>
@@ -379,6 +377,9 @@
 				                </li>
 							</cfloop>
 							</ul>
+						</cfif>
+						<cfif isdefined("kw.keywords") and len(kw.keywords gt 0>
+							<div style="font-size:small">Keywords: #kw.keywords#</div>
 						</cfif>
 					</td>
 				</tr>
