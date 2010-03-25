@@ -138,6 +138,7 @@
 		<cfset whr=" where media.media_id > 0">
 		<cfset srch=" ">
 		<cfif isdefined("keyword") and len(keyword) gt 0>
+			<cfset sel=sel & ",media_keywords.keywords">
 			<cfset frm="#frm#,media_keywords">
 			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
 			<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
@@ -327,6 +328,13 @@
 	<cfquery name="desc" dbtype="query">
 		select label_value from labels_raw where media_label='description'
 	</cfquery>
+	<cfif isdefined("findIDs.keywords")>
+		got some keywords
+		<cfquery name="kw" dbtype="query">
+		select keywords from findIDs where media_id=#media_id#
+	</cfquery>
+	<cfdump var="#kw#">
+	</cfif>
 	<cfset alt="#media_uri#">
 	<cfif desc.recordcount is 1>
 		<cfif findIDs.recordcount is 1>
