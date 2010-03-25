@@ -118,8 +118,6 @@
 <cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(ssql)#
 </cfquery>
-	<!---
-
 <cfif findIDs.recordcount is 0>
 	<div class="error">Nothing found.</div>
 <cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
@@ -129,7 +127,6 @@
 	<cfset title="Media Results: #findIDs.recordcount# records found">
 	<cfset metaDesc="Results of Media search: Multiple records found.">
 </cfif>
---->
 <table>
 <cfset r=1>
 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
@@ -181,11 +178,7 @@
 					</td>
 					<td>
 						#desc.label_value#
-						
-						
-						
 						<cfif labels.recordcount gt 0>
-							<br>Labels:	
 							<ul>
 								<cfloop query="labels">
 									<li>
@@ -197,10 +190,9 @@
 						
 						<cfset mrel=getMediaRelations(#media_id#)>
 						<cfif mrel.recordcount gt 0>
-						<br>Relationships:
 							<ul>
 							<cfloop query="mrel">
-								<li>#media_relationship#:  
+								<li>#media_relationship#  
 				                    <cfif len(#link#) gt 0>
 				                        <a href="#link#" target="_blank">#summary#</a>
 				                    <cfelse>
