@@ -1,12 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
-<cfdump var=#cgi#>
-<cfdump var=#cgi.REDIRECT_URL#>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select GUID from #session.flatTableName# where collection_object_id=#collection_object_id# 
 		</cfquery>
+		<cfdump var=#c#>
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/guid/#c.guid#">
 		<!---
