@@ -379,7 +379,7 @@
 							</ul>
 						</cfif>
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
-							<div style="font-size:small">Keywords: #kw.keywords#</div>
+							<div style="font-size:.5em;padding-left:3em;border:1px solid black;">Keywords: #kw.keywords#</div>
 						</cfif>
 					</td>
 				</tr>
