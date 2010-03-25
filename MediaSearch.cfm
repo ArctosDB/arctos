@@ -205,8 +205,6 @@
 					</td>
 				</tr>
 			</table>
-			<br>URI: <a href="#media_uri#" target="_blank">#media_uri#</a>
-           
 			<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) n from tag where media_id=#media_id#
 			</cfquery>
