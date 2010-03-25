@@ -14,6 +14,8 @@
 		set status
 		<cfheader name="Location" value="/guid/#c.guid#">
 		set location
+		
+		<cfabort>
 		<!---
 		<cflocation url="/guid/#c.guid#" addtoken="false">
 		--->
