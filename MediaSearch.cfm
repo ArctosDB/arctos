@@ -24,7 +24,16 @@
 	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
-	Search for Media 
+	 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+        <a href="/media.cfm?action=newMedia">[ Create media ]</a>
+    </cfif>
+	<br>
+	Search for Media
+	<a name="kwFrm"></a>
+	<div style="font-size:small;font-weight:bold;">
+		This form may not find very recent changes. You can use the also use the 
+		<a href="##relFrm">relational search form</a>.
+	</div>
 	<form name="newMedia" method="post" action="">
 		<input type="hidden" name="action" value="search">
 		<input type="hidden" name="srchType" value="key">
@@ -49,15 +58,20 @@
 		<br>
 		<input type="submit" 
 			value="Find Media" 
-			class="insBtn"
-			onmouseover="this.className='insBtn btnhov'" 
-			onmouseout="this.className='insBtn'">
+			class="insBtn">
+		<input type="reset" 
+			value="reset form" 
+			class="clrBtn">
 	</form>
-	<hr>
 	
-    <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-        OR <a href="/media.cfm?action=newMedia">Create media</a>
-    </cfif>
+	<p>
+		<hr>
+	</p>
+   <a name="relFrm"></a>
+	<div style="font-size:small;font-weight:bold;">
+		You can use the also use the 
+		<a href="##kwFrm">keyword search form</a>.
+	</div>
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">
 			<input type="hidden" name="srchType" value="full">
