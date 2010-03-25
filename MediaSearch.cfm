@@ -107,10 +107,10 @@
 		<cfset frm="from media">			
 		<cfset whr=" where media.media_id > 0">
 		<cfset srch=" ">
-		<cfif isdefined("keywords") and len(keywords) gt 0>
+		<cfif isdefined("keyword") and len(keyword) gt 0>
 			<cfset frm="#frm#,media_keywords">
 			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
-			<cfset srch="#srch# AND upper(keyword) like '%#ucase(keywords)#%'">
+			<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 		</cfif>
 		<cfset ssql="#sel# #frm# #whr# #srch#">
 		
