@@ -5,20 +5,9 @@
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select GUID from #session.flatTableName# where collection_object_id=#collection_object_id# 
 		</cfquery>
-		<cfdump var=#c#>
-		
-		header statuscode="301" statustext="Moved permanently
-		
-		fheader name="Location" value="/guid/#c.guid#
 		<cfheader statuscode="301" statustext="Moved permanently">
-		set status
 		<cfheader name="Location" value="/guid/#c.guid#">
-		set location
-		
 		<cfabort>
-		<!---
-		<cflocation url="/guid/#c.guid#" addtoken="false">
-		--->
 	</cfoutput>	
 </cfif>
 <cfif isdefined("guid")>
