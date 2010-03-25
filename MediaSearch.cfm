@@ -159,23 +159,10 @@
 			<cfset srch="#srch# AND mime_type in (#listQualify(mime_type,"'")#)">
 		</cfif>
 		
-		
-		
 		<cfset ssql="#sel# #frm# #whr# #srch#">
-		
-		
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
-		
-		<!----
-		
-		
-				<cfabort>
-
-		---->
-		
-		
 	<cfelse>
 		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 		<cfset frm="from media">			
@@ -297,7 +284,6 @@
 	<a href="/MediaSearch.cfm">[ Media Search ]</a>
 </cfif>
 <table>
-<cfset r=1>
 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
     <cfset h="/media.cfm?action=newMedia">
 	<cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
@@ -307,8 +293,9 @@
 			<br>
 		</cfif>
 	</cfif>
-	<a href="#h#">Create media</a>
+	<a href="#h#">[ Create media ]</a>
 </cfif>
+<cfset rownum=1>
 <cfloop query="findIDs">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
@@ -341,7 +328,7 @@
 		</cfif>
 		<cfset alt=desc.label_value>
 	</cfif>
-	<tr #iif(r MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
 			<cfset mp=getMediaPreview(preview_uri,media_type)>
             <table>
@@ -460,7 +447,7 @@
 			</cfif>
 		</td>
 	</tr>
-	<cfset r=r+1>
+	<cfset rownum=rownum+1>
 </cfloop>
 </table>
 </cfoutput>
