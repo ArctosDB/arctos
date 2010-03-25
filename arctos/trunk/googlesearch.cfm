@@ -1,7 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Search Arctos: Google Custom Search">
-<hr>
-			<div id="cse" style="width: 100%;">Loading</div>	
+			<div id="cse" style="width: 50%;">Loading</div>	
 
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 <script type="text/javascript">
