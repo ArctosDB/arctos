@@ -162,7 +162,6 @@
 		
 		<cfset ssql="#sel# #frm# #whr# #srch#">
 		
-		#preservesinglequotes(ssql)#
 		
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
@@ -177,8 +176,6 @@
 		
 		
 	<cfelse>
-		wtf?<cfabort>
-		
 		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 		<cfset frm="from media">			
 		<cfset whr=" where media.media_id > 0">
@@ -292,6 +289,7 @@
 <cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/media/#findIDs.media_id#">
+	<cfabort>
 <cfelse>
 	<cfset title="Media Results: #findIDs.recordcount# records found">
 	<cfset metaDesc="Results of Media search: Multiple records found.">
