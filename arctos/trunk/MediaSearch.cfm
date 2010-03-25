@@ -27,10 +27,11 @@
 		#preservesinglequotes(ssql)#
 		
 		<cfflush>
+		<!----
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
-		
+		---->
 	<cfelse>
 		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 		<cfset frm="from media">			
