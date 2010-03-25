@@ -30,18 +30,20 @@
 		<input type="hidden" name="srchType" value="key">
 		<label for="keyword">Keyword</label>
 		<input type="text" name="keyword" id="keyword">
+		<label for="media_uri">Media URI</label>
+		<input type="text" name="media_uri" id="media_uri" size="90">
 		<label for="tag">Require TAG?</label>
 		<input type="checkbox" id="tag" name="tag" value="1">
 		<label for="mime_type">MIME Type</label>
-		<select name="mime_type" id="mime_type" multiple="multiple" size="2">
-			<option value=""></option>
+		<select name="mime_type" id="mime_type" multiple="multiple" size="3">
+			<option value="">Anything</option>
 				<cfloop query="ctmime_type">
 					<option value="#mime_type#">#mime_type#</option>
 				</cfloop>
 		</select>
            <label for="media_type">Media Type</label>
-		<select name="media_type" id="media_type" multiple="multiple" size="2">
-			<option value=""></option>
+		<select name="media_type" id="media_type" multiple="multiple" size="3">
+			<option value="">Anything</option>
 				<cfloop query="ctmedia_type">
 					<option value="#media_type#">#media_type#</option>
 				</cfloop>
@@ -108,9 +110,10 @@
 			<br>
 			<input type="submit" 
 				value="Find Media" 
-				class="insBtn"
-				onmouseover="this.className='insBtn btnhov'" 
-				onmouseout="this.className='insBtn'">
+				class="insBtn">
+			<input type="reset" 
+				value="reset form" 
+				class="clrBtn">
 		</form>
 		</cfoutput>
 </cfif>
@@ -126,6 +129,9 @@
 			<cfset frm="#frm#,media_keywords">
 			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
 			<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
+		</cfif>
+		<cfif isdefined("media_uri") and len(media_uri) gt 0>
+			<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
 		</cfif>
 		<cfif isdefined("tag") and len(tag) gt 0>
 			<cfset whr="#whr# AND media.media_id in (select media_id from tag)">
