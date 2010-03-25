@@ -11,7 +11,9 @@
 		
 		fheader name="Location" value="/guid/#c.guid#
 		<cfheader statuscode="301" statustext="Moved permanently">
+		set status
 		<cfheader name="Location" value="/guid/#c.guid#">
+		set location
 		<!---
 		<cflocation url="/guid/#c.guid#" addtoken="false">
 		--->
