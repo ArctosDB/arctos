@@ -172,12 +172,18 @@
 	</cfif>
 	<tr #iif(r MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
-			 <cfset mp=getMediaPreview(preview_uri,media_type)>
-            <div>
-			<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" align="left"></a>
-			#desc.label_value#
-			</div>
-			<br><span style='font-size:small'>#media_type# (#mime_type#)</span>
+			<cfset mp=getMediaPreview(preview_uri,media_type)>
+            <table>
+				<tr>
+					<td>
+						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#"></a>
+						<br><span style='font-size:small'>#media_type# (#mime_type#)</span>
+					</td>
+					<td>
+						#desc.label_value#
+					</td>
+				</tr>
+			</table>
 			<br>URI: <a href="#media_uri#" target="_blank">#media_uri#</a>
            
 			<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
