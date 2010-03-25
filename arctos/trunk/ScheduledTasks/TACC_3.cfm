@@ -107,29 +107,29 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 					<br>200: file exists (http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg)
 					<cftransaction>
 							<cfquery name="ala" datasource="uam_god">
-								select 
-									'ALA Accession ' || display_value ala,
-									scientific_name
+								 select
+									decode(ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC'),
+										null,'UAM:Herb:' || cat_num || ' (ALA)',
+										'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
+									)  || ': ' ||
+									get_taxonomy(coll_obj_other_id_num.collection_object_id,'display_name') descr
 								from 
-									coll_obj_other_id_num,
-									identification
+									coll_obj_other_id_num
 								where 
-									coll_obj_other_id_num.collection_object_id=identification.collection_object_id and
-									accepted_id_fg=1 and
 									other_id_type='ALAAC' and 
 									coll_obj_other_id_num.collection_object_id=#collection_object_id#
 							</cfquery>
 							<cfif ala.recordcount is not 1>
 								<cfquery name="ala" datasource="uam_god">
-									select 
-										'ISC ' || display_value ala,
-										scientific_name
+									select
+										decode(ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC'),
+											null,'UAM:Herb:' || cat_num || ' (ALA)',
+											'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
+										)  || ': ' ||
+										get_taxonomy(coll_obj_other_id_num.collection_object_id,'display_name') descr
 									from 
-										coll_obj_other_id_num,
-										identification
+										coll_obj_other_id_num
 									where 
-										coll_obj_other_id_num.collection_object_id=identification.collection_object_id and
-										accepted_id_fg=1 and
 										other_id_type='ISC: Ada Hayden Herbarium, Iowa State University' and 
 										coll_obj_other_id_num.collection_object_id=#collection_object_id#
 								</cfquery>
@@ -216,7 +216,7 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 									) values (
 										#nid.media_id#,
 										'description',
-										'High resolution JPG of #ala.ala# (#ala.scientific_name#).',
+										'#ala.descr#',
 										2072
 									)
 								</cfquery>
