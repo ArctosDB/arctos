@@ -201,12 +201,9 @@
 		</cfif>
 				
 		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <=500">
-	<cfset bq=GetTickCount()>
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
-	<cfset aq=GetTickCount()-bq>
-	<br>aq: #aq#
 	<cfelse>
 		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 		<cfset frm="from media">			
@@ -311,7 +308,7 @@
 			<cfabort>
 		</cfif>
 		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <= 500">
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	</cfif><!--- end srchType --->
