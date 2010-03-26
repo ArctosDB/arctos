@@ -316,14 +316,14 @@
 	 </cfif>
 </cfloop>
 <cfsavecontent variable="pager">
+	<cfset Result_Per_Page=10>
+	<cfset Total_Records=findIDs.recordcount> 
+	<cfparam name="URL.offset" default="0"> 
+	<cfset limit=URL.offset+Result_Per_Page> 
+	<cfset start_result=URL.offset+1> 
 	<cfif findIDs.recordcount gt 1>
 		<div style="text-align:center">
-		<cfset Result_Per_Page=10>
-		<cfset Total_Records=findIDs.recordcount> 
-		<cfparam name="URL.offset" default="0"> 
-		<cfset limit=URL.offset+Result_Per_Page> 
-		<cfset start_result=URL.offset+1> 
-		<br>Showing results #start_result# - 
+		Showing results #start_result# - 
 		<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
 		<cfset URL.offset=URL.offset+1> 
 		<cfif Total_Records GT Result_Per_Page> 
