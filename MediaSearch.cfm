@@ -39,14 +39,13 @@
 			font-size:small;
 			font-weight:bold;
 			border:1px dotted green;
-			margin-left:5px;
 		}
 	</style>
 	<form name="newMedia" method="post" action="">
 		<input type="hidden" name="action" value="search">
 		<input type="hidden" name="srchType" value="key">
 		<label for="keyword">Keyword</label>
-		<input type="text" name="keyword" id="keyword" size="60">
+		<input type="text" name="keyword" id="keyword" size="40">
 		<span class="rdoCtl">Match Any<input type="radio" name="kwType" value="any"></span>
 		<span class="rdoCtl">Match All<input type="radio" name="kwType" value="all" checked="checked"></span>
 		<span class="rdoCtl">Match Phrase<input type="radio" name="kwType" value="phrase"></span>
