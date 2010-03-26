@@ -318,7 +318,8 @@
 <cfsavecontent variable="pager">
 	<cfset Result_Per_Page=10>
 	<cfset Total_Records=findIDs.recordcount> 
-	<cfparam name="URL.offset" default="0"> 
+	<cfparam name="URL.offset" default="1"> 
+	<cfparam name="limit" default="1">
 	<cfset limit=URL.offset+Result_Per_Page> 
 	<cfset start_result=URL.offset+1> 
 	<cfif findIDs.recordcount gt 1>
