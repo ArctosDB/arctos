@@ -76,9 +76,11 @@
 			class="clrBtn">
 	</form>
 	
+	<p>&nbsp;</p>
 	<p>
 		<hr>
 	</p>
+	<p>&nbsp;</p>
    <a name="relFrm"></a>
 	<div style="font-size:small;font-weight:bold;">
 		You can use the also use the 
