@@ -46,10 +46,10 @@
 		<input type="hidden" name="action" value="search">
 		<input type="hidden" name="srchType" value="key">
 		<label for="keyword">Keyword</label>
-		<input type="text" name="keyword" id="keyword">
+		<input type="text" name="keyword" id="keyword" size="60">
 		<span class="rdoCtl">Match Any<input type="radio" name="kwType" value="any"></span>
-		<span class="rdoCtl">Match All<input type="radio" name="kwType" value="all"></span>
-		<span class="rdoCtl">Match Phrase<input type="radio" name="kwType" value="phrase" checked="checked"></span>
+		<span class="rdoCtl">Match All<input type="radio" name="kwType" value="all" checked="checked"></span>
+		<span class="rdoCtl">Match Phrase<input type="radio" name="kwType" value="phrase"></span>
 		<label for="media_uri">Media URI</label>
 		<input type="text" name="media_uri" id="media_uri" size="90">
 		<label for="tag">Require TAG?</label>
@@ -153,7 +153,7 @@
 			<cfset sel=sel & ",media_keywords.keywords">
 			<cfset frm="#frm#,media_keywords">
 			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
-			<cfif not isdefined("kwType") ><cfset kwType="phrase"></cfif>
+			<cfif not isdefined("kwType") ><cfset kwType="all"></cfif>
 			<cfif kwType is "any">
 				<cfset kwsql="">
 				<cfloop list="#keyword#" index="i" delimiters=",;: ">
