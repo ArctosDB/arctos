@@ -1,4 +1,13 @@
 <cfinclude template = "/includes/functionLib.cfm">
+<script>
+	function npPage(offset,rpp,q){
+		var guts = "/includes/specTaxMedia.cfm?Result_Per_Page=" + rpp + '&offset=' + offset + '&q=' & q;
+		jQuery('#specTaxMedia').load(guts,{},function(){
+		});
+	}
+</script>
+
+
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	select * from (
@@ -72,21 +81,24 @@
 					<br> 
 					<cfif offset GT Result_Per_Page> 
 						<cfset prev_link=offset-Result_Per_Page-1> 
-						<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>
+						<span class="likeLink" onclick="npPage('#prev_link#','#Result_Per_Page#','#q#');">PREV</span>
 					</cfif> 
 					<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
 					<cfloop index="i" from="1" to="#Total_Pages#"> 
 						<cfset j=i-1> 
 						<cfset offset_value=j*Result_Per_Page> 
+						<!---
 						<cfif offset_value EQ offset-1 > 
 							#i# 
 						<cfelse> 
 							<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
 						</cfif> 
+						--->
 					</cfloop> 
 					<cfif limit LT Total_Records> 
 						<cfset next_link=offset+Result_Per_Page-1> 
-						<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a>
+						<span class="likeLink" onclick="npPage('#next_link#','#Result_Per_Page#','#q#');">PREV</span>
+
 					</cfif> 
 				</cfif>
 			</div>
@@ -96,7 +108,7 @@
 		<cfset rownum=1>
 		<cfif offset is 0><cfset offset=1></cfif>
 		
-		<div class="thumbs" id="theThumbDiv">
+		<div class="thumbs">
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="d" startrow="#offset#" endrow="#limit#">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
