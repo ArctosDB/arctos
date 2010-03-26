@@ -285,7 +285,7 @@
 	<cfset title="Media Results: #findIDs.recordcount# records found">
 	<cfset metaDesc="Results of Media search: Multiple records found.">
 	<cfif findIDs.recordcount is 500>
-		<div style="border:2px solid red;">
+		<div style="border:2px solid red;text-align:center;">
 			Note: This form will return a maximum of 500 records.
 		</div>
 	</cfif>
@@ -321,7 +321,7 @@
 	<cfparam name="URL.offset" default="0"> 
 	<cfset limit=URL.offset+Result_Per_Page> 
 	<cfset start_result=URL.offset+1> 
-	Showing results #start_result# - 
+	<br>Showing results #start_result# - 
 	<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
 	<cfset URL.offset=URL.offset+1> 
 	<cfif Total_Records GT Result_Per_Page> 
