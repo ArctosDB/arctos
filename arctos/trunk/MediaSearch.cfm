@@ -161,7 +161,6 @@
 				</cfloop>
 				<cfset kwsql=replace(kwsql,"|"," OR ","all")>
 				<cfset srch="#srch# AND ( #kwsql# ) ">
-				<br>kwsql: #kwsql#
 			<cfelseif kwType is "all">
 				<cfset kwsql="">
 				<cfloop list="#keyword#" index="i" delimiters=",;: ">
@@ -169,7 +168,6 @@
 				</cfloop>
 				<cfset kwsql=replace(kwsql,"|"," AND ","all")>
 				<cfset srch="#srch# AND ( #kwsql# ) ">
-				<br>kwsql: #kwsql#
 			<cfelse>
 				<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 			</cfif>
