@@ -152,7 +152,7 @@
 					<cfset kwsql=listappend(kwsql,"upper(keywords) like '%#ucase(trim(i))#%'","|")>
 				</cfloop>
 				<cfset kwsql=replace(kwsql,"|"," OR ","all")>
-				<cfset srch="#srch# ( #kwsql# ) ">
+				<cfset srch="#srch# AND ( #kwsql# ) ">
 				<br>kwsql: #kwsql#
 			<cfelseif kwType is "all">
 				<cfset kwsql="">
@@ -160,7 +160,7 @@
 					<cfset kwsql=listappend(kwsql,"upper(keywords) like '%#ucase(trim(i))#%'","|")>
 				</cfloop>
 				<cfset kwsql=replace(kwsql,"|"," AND ","all")>
-				<cfset srch="#srch# ( #kwsql# ) ">
+				<cfset srch="#srch# AND ( #kwsql# ) ">
 				<br>kwsql: #kwsql#
 			<cfelse>
 				<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
