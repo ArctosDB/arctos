@@ -132,6 +132,15 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "search">
 <cfoutput>
+
+
+
+<cfset btime=now()>
+
+
+
+
+
 	<cfif isdefined("srchType") and srchType is "key">
 		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 		<cfset frm="from media">			
@@ -163,12 +172,15 @@
 		
 		<cfset ssql="#sel# #frm# #whr# #srch#">
 		
-		
-		<br>before query: #now()#
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfset etime=now()>
+	<cfset tt=DateDiff("s", btime, etime)>
+	<br>Runtime: #tt#
+		<cfquery name="findIDs_raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
-		<br>after query: #now()#
+	<cfset etime=now()>
+	<cfset tt=DateDiff("s", btime, etime)>
+	<br>Runtime: #tt#
 
 	<cfelse>
 		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
@@ -302,6 +314,13 @@
 	</cfif>
 	<a href="#h#">[ Create media ]</a>
 </cfif>
+<cfquery name="findIDs" dbtype="query">
+	select * from findIDs_raw 
+</cfquery>
+
+
+
+
 <cfset rownum=1>
 <cfloop query="findIDs">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -465,8 +484,9 @@
 </cfloop>
 </table>
 
-
-		<br>all done: #now()#
+<cfset etime=now()>
+	<cfset tt=DateDiff("s", btime, etime)>
+	<br>Runtime: #tt#
 
 </cfoutput>
 </cfif>
