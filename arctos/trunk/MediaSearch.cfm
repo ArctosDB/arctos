@@ -465,10 +465,8 @@
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
 							<cfif isdefined("keyword") and len(keyword) gt 0>
 								<cfset kwds=kw.keywords>
-								<br>kwds: #kwds#
 								<cfloop list="#keyword#" index="k" delimiters=",;: ">
 									<cfset kwds=highlight(kwds,k)>
-									<br>kwds: #kwds#
 								</cfloop>
 								<!---
 								<cfset kwds=kw.keywords>
