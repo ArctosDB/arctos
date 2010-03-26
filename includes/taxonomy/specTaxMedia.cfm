@@ -67,25 +67,25 @@
 				<div style="margin-left:20%;">
 				Showing results #start_result# - 
 				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
-				<cfset URL.offset=URL.offset+1> 
+				<cfset offset=offset+1> 
 				<cfif Total_Records GT Result_Per_Page> 
 					<br> 
-					<cfif URL.offset GT Result_Per_Page> 
-						<cfset prev_link=URL.offset-Result_Per_Page-1> 
+					<cfif offset GT Result_Per_Page> 
+						<cfset prev_link=offset-Result_Per_Page-1> 
 						<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>
 					</cfif> 
 					<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
 					<cfloop index="i" from="1" to="#Total_Pages#"> 
 						<cfset j=i-1> 
 						<cfset offset_value=j*Result_Per_Page> 
-						<cfif offset_value EQ URL.offset-1 > 
+						<cfif offset_value EQ offset-1 > 
 							#i# 
 						<cfelse> 
 							<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
 						</cfif> 
 					</cfloop> 
 					<cfif limit LT Total_Records> 
-						<cfset next_link=URL.offset+Result_Per_Page-1> 
+						<cfset next_link=offset+Result_Per_Page-1> 
 						<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a>
 					</cfif> 
 				</cfif>
@@ -94,11 +94,11 @@
 		</cfsavecontent>
 		#pager#
 		<cfset rownum=1>
-		<cfif url.offset is 0><cfset url.offset=1></cfif>
+		<cfif offset is 0><cfset offset=1></cfif>
 		
 		<div class="thumbs" id="theThumbDiv">
 			<div class="thumb_spcr">&nbsp;</div>
-			<cfloop query="d" startrow="#URL.offset#" endrow="#limit#">
+			<cfloop query="d" startrow="#offset#" endrow="#limit#">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						media_label,
