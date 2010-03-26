@@ -426,7 +426,7 @@
 						</cfif>
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
 							<cfif isdefined("keyword") and len(keyword) gt 0>
-								<cfset kwds=replace(kw.keywords,keyword,"<strong>" & keyword & "</strong>","all")>
+								<cfset kwds=replacenocase(kw.keywords,keyword,'<span style="font-weight:bold;color:green">' & keyword & '</span>','all')>
 							<cfelse>
 								<cfset kwds=kw.keywords>
 							</cfif>
