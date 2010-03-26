@@ -79,14 +79,15 @@ function openAnnotation(q) {
 function npPage(offset,rpp,q){
 	console.log('offset: ' + offset + '; rpp: ' + rpp + '; q: ' + q);
 	
-	var guts = "/includes/taxonomy/specTaxMedia.cfm?Result_Per_Page=" + rpp + '&offset=' + offset + '&q=' & q;
+	var stm = "/includes/taxonomy/specTaxMedia.cfm?Result_Per_Page=" + rpp + '&offset=' + offset + '&q=' & q;
 	
 	//$('#specTaxMedia').load(guts, function() {
 	//	  alert('Load was performed.');
 	//	});
 	
+	console.log(stm);
 	
-	jQuery.get(guts, function(data){
+	jQuery.get(stm, function(data){
 		console.log(data);
 		
 		
