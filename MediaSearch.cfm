@@ -318,7 +318,7 @@
 <cfsavecontent variable="pager">
 	<cfset Result_Per_Page=10>
 	<cfset Total_Records=findIDs.recordcount> 
-	<cfparam name="URL.offset" default="1"> 
+	<cfparam name="URL.offset" default="0"> 
 	<cfparam name="limit" default="1">
 	<cfset limit=URL.offset+Result_Per_Page> 
 	<cfset start_result=URL.offset+1> 
@@ -354,6 +354,7 @@
 #pager#
 <cfset rownum=1>
 <table>
+<cfif url.offset is 0><cfset url.offset=1></cfif>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
