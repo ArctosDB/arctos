@@ -142,6 +142,12 @@
 			<cfset sel=sel & ",media_keywords.keywords">
 			<cfset frm="#frm#,media_keywords">
 			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
+			<cfloop list="#keyword#" index="i">
+				<br>#i#
+			</cfloop>
+			<cfabort>
+			
+			
 			<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 		</cfif>
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
