@@ -1,12 +1,4 @@
 <cfinclude template = "/includes/functionLib.cfm">
-<script>
-	function npPage(offset,rpp,q){
-		var guts = "/includes/specTaxMedia.cfm?Result_Per_Page=" + rpp + '&offset=' + offset + '&q=' & q;
-		jQuery('#specTaxMedia').load(guts,{},function(){
-		});
-	}
-</script>
-
 
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">

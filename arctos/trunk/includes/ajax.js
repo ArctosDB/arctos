@@ -70,6 +70,23 @@ function openAnnotation(q) {
 		viewport.init("#bgDiv");
 	});
 }
+
+
+
+
+
+
+function npPage(offset,rpp,q){
+	var guts = "/includes/specTaxMedia.cfm?Result_Per_Page=" + rpp + '&offset=' + offset + '&q=' & q;
+	jQuery('#specTaxMedia').load(guts,{},function(){
+	});
+}
+
+
+
+
+
+
 function closeAnnotation() {
 	var theDiv = document.getElementById('bgDiv');
 	document.body.removeChild(theDiv);
