@@ -145,7 +145,7 @@
 			<cfset sel=sel & ",media_keywords.keywords">
 			<cfset frm="#frm#,media_keywords">
 			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
-			<cfif not isdefined("kwType") ><cfset kwType="all"></cfif>
+			<cfif not isdefined("kwType") ><cfset kwType="phrase"></cfif>
 			<cfif kwType is "any">
 				<cfset kwsql="">
 				<cfloop list="#keyword#" index="i" delimiters=",;: ">
