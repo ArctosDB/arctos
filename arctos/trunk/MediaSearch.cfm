@@ -146,6 +146,8 @@
 			<cfloop list="#keyword#" index="i">
 				<cfset kwsql=listappend(kwsql,"upper(keywords) like '%#ucase(i)#%'","|")>
 			</cfloop>
+			<cfset kwsql=replace(kwsql,"|"," OR ","all")>
+			<cfset srch="#srch# AND ( #kwsql# ) ">
 			<br>kwsql: #kwsql#
 			----------#srch#--------
 			<cfabort>
