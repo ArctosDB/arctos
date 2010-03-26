@@ -312,35 +312,35 @@
 	 </cfif>
 </cfloop>
 <cfsavecontent variable="pager">
-<cfset Result_Per_Page="10"> 
-<cfset Total_Records=findIDs.recordcount> 
-<cfparam name="URL.offset" default="0"> 
-<cfset limit=URL.offset+Result_Per_Page> 
-<cfset start_result=URL.offset+1> 
-Showing results #start_result# - 
-<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
-<cfset URL.offset=URL.offset+1> 
-<cfif Total_Records GT Result_Per_Page> 
-	<br> 
-	<cfif URL.offset GT Result_Per_Page> 
-		<cfset prev_link=URL.offset-Result_Per_Page-1> 
-		<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>
-	</cfif> 
-	<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
-	<cfloop index="i" from="1" to="#Total_Pages#"> 
-		<cfset j=i-1> 
-		<cfset offset_value=j*Result_Per_Page> 
-		<cfif offset_value EQ URL.offset-1 > 
-			#i# 
-		<cfelse> 
-			<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
+	<cfset Result_Per_Page=10>
+	<cfset Total_Records=findIDs.recordcount> 
+	<cfparam name="URL.offset" default="0"> 
+	<cfset limit=URL.offset+Result_Per_Page> 
+	<cfset start_result=URL.offset+1> 
+	Showing results #start_result# - 
+	<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
+	<cfset URL.offset=URL.offset+1> 
+	<cfif Total_Records GT Result_Per_Page> 
+		<br> 
+		<cfif URL.offset GT Result_Per_Page> 
+			<cfset prev_link=URL.offset-Result_Per_Page-1> 
+			<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>
 		</cfif> 
-	</cfloop> 
-	<cfif limit LT Total_Records> 
-		<cfset next_link=URL.offset+Result_Per_Page-1> 
-		<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a>
+		<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
+		<cfloop index="i" from="1" to="#Total_Pages#"> 
+			<cfset j=i-1> 
+			<cfset offset_value=j*Result_Per_Page> 
+			<cfif offset_value EQ URL.offset-1 > 
+				#i# 
+			<cfelse> 
+				<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
+			</cfif> 
+		</cfloop> 
+		<cfif limit LT Total_Records> 
+			<cfset next_link=URL.offset+Result_Per_Page-1> 
+			<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a>
+		</cfif> 
 	</cfif> 
-</cfif> 
 </cfsavecontent>
 #pager#
 <cfset rownum=1>
