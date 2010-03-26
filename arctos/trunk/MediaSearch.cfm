@@ -451,9 +451,11 @@
 								<cfloop list="#keyword#" index="k" delimiters=",;: ">
 									<cfset oldResults = kw.keywords>
 									<cfset kwds = REReplaceNoCase(kw.keywords, '(([^A-Za-z])(#Trim(k)#)([^A-Za-z]))', '\2<span  style="background-color:yellow">\3</span>\4', 'ALL')>
+									<!---
 									<cfif Left(kwds, Len(Trim(k))) IS Trim(k)>
 									    <cfset newResults = REReplaceNoCase(kwds, '((#Trim(k)#)([^A-Za-z]))', '<span style="background-color:yellow">\2</span>\3', 'ONE')>
 									</cfif>
+									--->
 								</cfloop>
 							<cfelse>
 								<cfset kwds=kw.keywords>
