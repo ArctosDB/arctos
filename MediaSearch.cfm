@@ -160,9 +160,16 @@
 		</cfif>
 		
 		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <= 10">
+		
+		<cfset ssql="#sel# #frm# #whr# #srch#">
+		
+		
+		<br>before query: #now()#
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
+		<br>after query: #now()#
+
 	<cfelse>
 		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 		<cfset frm="from media">			
@@ -457,6 +464,10 @@
 	<cfset rownum=rownum+1>
 </cfloop>
 </table>
+
+
+		<br>all done: #now()#
+
 </cfoutput>
 </cfif>
 <div id="_footer">
