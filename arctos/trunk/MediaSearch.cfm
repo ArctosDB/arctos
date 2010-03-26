@@ -39,9 +39,9 @@
 		<input type="hidden" name="srchType" value="key">
 		<label for="keyword">Keyword</label>
 		<input type="text" name="keyword" id="keyword">
-		<input type="radio" name="kwType" value="any">
-		<input type="radio" name="kwType" value="all">
-		<input type="radio" name="kwType" value="phrase">
+		Match Any<input type="radio" name="kwType" value="any">
+		Match All<input type="radio" name="kwType" value="all">
+		Match Phrase<input type="radio" name="kwType" value="phrase" checked="checked">
 		<label for="media_uri">Media URI</label>
 		<input type="text" name="media_uri" id="media_uri" size="90">
 		<label for="tag">Require TAG?</label>
@@ -450,13 +450,10 @@
 							<cfif isdefined("keyword") and len(keyword) gt 0>
 								<cfset kwds=kw.keywords>
 								<cfloop list="#keyword#" index="k" delimiters=",;: ">
-									<br>k: -#k#-
 									<cfset kwds = REReplaceNoCase(kwds, '(([^A-Za-z])(#Trim(k)#)([^A-Za-z]))', '\2<span  style="background-color:yellow">\3</span>\4', 'ALL')>
-									<br>kwds: #kwds#
 									<cfif Left(kwds, Len(Trim(k))) IS Trim(k)>
 									    <cfset kwds = REReplaceNoCase(kwds, '((#Trim(k)#)([^A-Za-z]))', '<span style="background-color:yellow">\2</span>\3', 'ONE')>
 									</cfif>
-									<br>kwds2: #kwds#
 								</cfloop>
 							<cfelse>
 								<cfset kwds=kw.keywords>
