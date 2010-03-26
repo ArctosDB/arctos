@@ -175,7 +175,7 @@
 		<cfset etime=now()>
 	<cfset tt=DateDiff("s", btime, etime)>
 	<br>Runtime: #tt#
-		<cfquery name="findIDs_raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	<cfset etime=now()>
@@ -286,19 +286,19 @@
 			<cfabort>
 		</cfif>
 		<cfset ssql="#sel# #frm# #whr# #srch#">
-		<cfquery name="findIDs_raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	</cfif><!--- end srchType --->
 
-<cfif findIDs_raw.recordcount is 0>
+<cfif findIDs.recordcount is 0>
 	<div class="error">Nothing found.</div>
-<cfelseif findIDs_raw.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
+<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
 	<cfheader statuscode="301" statustext="Moved permanently">
-	<cfheader name="Location" value="/media/#findIDs_raw.media_id#">
+	<cfheader name="Location" value="/media/#findIDs.media_id#">
 	<cfabort>
 <cfelse>
-	<cfset title="Media Results: #findIDs_raw.recordcount# records found">
+	<cfset title="Media Results: #findIDs.recordcount# records found">
 	<cfset metaDesc="Results of Media search: Multiple records found.">
 	<a href="/MediaSearch.cfm">[ Media Search ]</a>
 </cfif>
@@ -321,13 +321,13 @@
 
 
 <cfloop list="#StructKeyList(form)#" index="key">
-			<cfif len(form[key]) gt 0 and form[key] is not "FIELDNAMES">
+			<cfif len(form[key]) gt 0 and key is not "FIELDNAMES">
 				<cfset q=listappend(q,"#key#=#form[key]#","&")>
 			 </cfif>
 		</cfloop>
 		<!---- also grab anything from the URL --->
 		<cfloop list="#StructKeyList(url)#" index="key">
-			 <cfif len(url[key]) gt 0 and url[key] is not "FIELDNAMES">
+			 <cfif len(url[key]) gt 0 and key is not "FIELDNAMES">
 				<cfset q=listappend(q,"#key#=#url[key]#","&")>
 			 </cfif>
 		</cfloop>
@@ -335,20 +335,6 @@
 		
 		
 		
-
-<cfquery name="findIDs" dbtype="query">
-	select * from findIDs_raw 
-</cfquery>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -413,9 +399,7 @@ Showing results #start_result# -
 
 
 <!--- display the result on the screen ---> 
-<cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#"> 
-#media_id# <br>
-</cfloop> 
+
 
 
 
@@ -430,7 +414,7 @@ Showing results #start_result# -
 
 
 <cfset rownum=1>
-<cfloop query="findIDs">
+<cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			media_label,
