@@ -148,14 +148,27 @@
 			<cfif not isdefined("kwType") ><cfset kwType="all"></cfif>
 			<cfif kwType is "any">
 				<cfset kwsql="">
-				<cfloop list="#keyword#" index="i">
-					<cfset kwsql=listappend(kwsql,"upper(keywords) like '%#ucase(i)#%'","|")>
+				<cfloop list="#keyword#" index="i" delimiters=",;: ">
+					<cfset kwsql=listappend(kwsql,"upper(keywords) like '%#ucase(trim(i))#%'","|")>
 				</cfloop>
 				<cfset kwsql=replace(kwsql,"|"," OR ","all")>
 				<cfset srch="#srch# ( #kwsql# ) ">
 				<br>kwsql: #kwsql#
-				----------#srch#--------
+			<cfelseif kwType is "all">
+				<cfset kwsql="">
+				<cfloop list="#keyword#" index="i" delimiters=",;: ">
+					<cfset kwsql=listappend(kwsql,"upper(keywords) like '%#ucase(trim(i))#%'","|")>
+				</cfloop>
+				<cfset kwsql=replace(kwsql,"|"," AND ","all")>
+				<cfset srch="#srch# ( #kwsql# ) ">
+				<br>kwsql: #kwsql#
+			<cfelse>
+				<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 			</cfif>
+			
+			
+							----------#srch#--------
+
 			<cfabort>
 			
 			
