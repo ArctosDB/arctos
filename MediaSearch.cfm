@@ -464,16 +464,22 @@
 						</cfif>
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
 							<cfif isdefined("keyword") and len(keyword) gt 0>
+								<cfset kwds=kw.keywords>
+								<br>kwds: #kwds#
+								<cfloop list="#keyword#" index="k" delimiters=",;: ">
+									<cfset kwds=highlight(kwds,k)>
+									<br>kwds: #kwds#
+								</cfloop>
 								<!---
 								<cfset kwds=kw.keywords>
-								<cfloop list="#keyword#" index="k" delimiters=",;: ">
+								
 									<cfset kwds = REReplaceNoCase(kwds, '(([^A-Za-z])(#Trim(k)#)([^A-Za-z]))', '\2<span  style="background-color:yellow">\3</span>\4', 'ALL')>
 									<cfif Left(kwds, Len(Trim(k))) IS Trim(k)>
 									    <cfset kwds = REReplaceNoCase(kwds, '((#Trim(k)#)([^A-Za-z]))', '<span style="background-color:yellow">\2</span>\3', 'ONE')>
 									</cfif>
 								</cfloop>
+								cfset kwds=highlight(kw.keywords,keyword)>
 								--->
-								<cfset kwds=highlight(kw.keywords,keyword)>
 							<cfelse>
 								<cfset kwds=kw.keywords>
 							</cfif>
