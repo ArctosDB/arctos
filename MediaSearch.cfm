@@ -142,9 +142,11 @@
 			<cfset sel=sel & ",media_keywords.keywords">
 			<cfset frm="#frm#,media_keywords">
 			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
+			<cfset kwsql="">
 			<cfloop list="#keyword#" index="i">
-				<cfset srch="#srch# AND upper(keywords) like '%#ucase(i)#%'">
+				<cfset kwsql=listappen(kwsql,"upper(keywords) like '%#ucase(i)#%'"," OR ")>
 			</cfloop>
+			<br>kwsql: #kwsql#
 			----------#srch#--------
 			<cfabort>
 			
