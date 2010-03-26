@@ -382,7 +382,7 @@ Showing results #start_result# -
 <cfif URL.offset GT Result_Per_Page> 
 <!--- Previous Link Offset ---> 
 <cfset prev_link=URL.offset-Result_Per_Page-1> 
-<cfoutput><a href="#cgi.script_name#?offset=#prev_link##q#">PREV</a></cfoutput> 
+<cfoutput><a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a></cfoutput> 
 </cfif> 
  
 <!--- Find out how many pages are there for display  ---> 
@@ -398,7 +398,7 @@ Showing results #start_result# -
 <cfif offset_value EQ URL.offset-1 > 
 #i# 
 <cfelse> 
-<a href="#cgi.script_name#?offset=#offset_value##q#">#i#</a>
+<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
 </cfif> 
 </cfloop> 
  
@@ -406,7 +406,7 @@ Showing results #start_result# -
 <cfif limit LT Total_Records> 
 <!--- Next Link Offset ---> 
 <cfset next_link=URL.offset+Result_Per_Page-1> 
-<cfoutput><a href="#cgi.script_name#?offset=#next_link##q#">NEXT</a></cfoutput> 
+<cfoutput><a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a></cfoutput> 
 </cfif> 
 </cfif> 
 
