@@ -54,7 +54,7 @@
 				    related_primary_key
 			) where rownum <= 100
 	</cfquery>
-	<fset q="">
+	<cfset q="">
 	<cfif d.recordcount gt 0>
 		<cfsavecontent variable="pager">
 			<cfset Result_Per_Page=10>
