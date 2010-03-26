@@ -448,10 +448,10 @@
 						</cfif>
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
 							<cfif isdefined("keyword") and len(keyword) gt 0>
-								<cfset kwrds=kw.keywords>
+								<cfset kwds=kw.keywords>
 								<cfloop list="#keyword#" index="k" delimiters=",;: ">
 									<br>k: -#k#-
-									<cfset kwds = REReplaceNoCase(kwrds, '(([^A-Za-z])(#Trim(k)#)([^A-Za-z]))', '\2<span  style="background-color:yellow">\3</span>\4', 'ALL')>
+									<cfset kwds = REReplaceNoCase(kwds, '(([^A-Za-z])(#Trim(k)#)([^A-Za-z]))', '\2<span  style="background-color:yellow">\3</span>\4', 'ALL')>
 									<br>kwds: #kwds#
 									<cfif Left(kwds, Len(Trim(k))) IS Trim(k)>
 									    <cfset kwds = REReplaceNoCase(kwds, '((#Trim(k)#)([^A-Za-z]))', '<span style="background-color:yellow">\2</span>\3', 'ONE')>
