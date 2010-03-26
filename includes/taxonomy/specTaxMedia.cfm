@@ -1,6 +1,6 @@
 <cfinclude template = "/includes/functionLib.cfm">
 <cfoutput>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	select * from (
 			   	select
 			   		 media_id,
