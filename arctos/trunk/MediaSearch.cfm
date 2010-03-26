@@ -382,7 +382,7 @@ Showing results #start_result# -
             <table>
 				<tr>
 					<td align="middle">
-						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#"></a>
+						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
 						<br><span style='font-size:small'>#media_type#&nbsp;(#mime_type#)</span>
 					</td>
 					<td>
