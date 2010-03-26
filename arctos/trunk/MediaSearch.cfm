@@ -146,14 +146,13 @@
 <cfoutput>
 <cfscript>
     function highlight(findIn,replaceThis) {
-                        foundAt = FindNoCase(replaceThis, findIn);
-                        endAt = FindNoCase(replaceThis, findIn) + len(replaceThis);
-                        if(foundAt gt 0)
-                        {        
-                            findIn =Insert('</span>', findIn, endAt-1);
-                            findIn =Insert('<span style="background-color:yellow">', findIn, foundAt-1);
-                        }    
-                        return findIn;
+    	foundAt=FindNoCase(replaceThis,findIn);
+    	endAt=FindNoCase(replaceThis,findIn)+len(replaceThis);
+    	if(foundAt gt 0) {
+    		findIn=Insert('</span>', findIn, endAt-1);
+    		findIn=Insert('<span style="background-color:yellow">', findIn, foundAt-1);
+    	}
+    	return findIn;
     }
 </cfscript>
 	<cfif isdefined("srchType") and srchType is "key">
@@ -199,7 +198,6 @@
 		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
 			<cfset srch="#srch# AND mime_type in (#listQualify(mime_type,"'")#)">
 		</cfif>
-				
 		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <=500">
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
@@ -281,28 +279,28 @@
 				<cfset srch="#srch# AND media_relations#n#.related_primary_key = #thisRelatedKey#">
 			</cfif>
 		</cfloop>
-			<cfloop from="1" to="#number_of_labels#" index="n">
-				<cftry>
-			        <cfset thisLabel = #evaluate("label__" & n)#>
-				    <cfcatch>
-			            <cfset thisLabel = "">
-				    </cfcatch>
-		        </cftry>
-		        <cftry>
-			        <cfset thisLabelValue = #evaluate("label_value__" & n)#>
-				    <cfcatch>
-			            <cfset thisLabelValue = "">
-				    </cfcatch>
-		        </cftry>		
-				<cfset frm="#frm#,media_labels media_labels#n#">
-			    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id (+)">
-		        <cfif len(#thisLabel#) gt 0>
-					<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
-				</cfif>
-				<cfif len(#thisLabelValue#) gt 0>
-					<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
-				</cfif>
-			</cfloop>
+		<cfloop from="1" to="#number_of_labels#" index="n">
+			<cftry>
+		        <cfset thisLabel = #evaluate("label__" & n)#>
+			    <cfcatch>
+		            <cfset thisLabel = "">
+			    </cfcatch>
+	        </cftry>
+	        <cftry>
+		        <cfset thisLabelValue = #evaluate("label_value__" & n)#>
+			    <cfcatch>
+		            <cfset thisLabelValue = "">
+			    </cfcatch>
+	        </cftry>		
+			<cfset frm="#frm#,media_labels media_labels#n#">
+		    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id (+)">
+	        <cfif len(#thisLabel#) gt 0>
+				<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
+			</cfif>
+			<cfif len(#thisLabelValue#) gt 0>
+				<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
+			</cfif>
+		</cfloop>
 		<cfif len(srch) is 0>
 			<div class="error">You must enter search criteria.</div>
 			<cfabort>
@@ -312,87 +310,85 @@
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	</cfif><!--- end srchType --->
-
-<cfif findIDs.recordcount is 0>
-	<div class="error">Nothing found.</div>
-<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
-	<cfheader statuscode="301" statustext="Moved permanently">
-	<cfheader name="Location" value="/media/#findIDs.media_id#">
-	<cfabort>
-<cfelse>
-	<cfset title="Media Results: #findIDs.recordcount# records found">
-	<cfset metaDesc="Results of Media search: Multiple records found.">
-	<cfif findIDs.recordcount is 500>
-		<div style="border:2px solid red;text-align:center;margin:0 10em;">
-			Note: This form will return a maximum of 500 records.
-		</div>
-	</cfif>
-
-	<a href="/MediaSearch.cfm">[ Media Search ]</a>
-</cfif>
-
-<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-    <cfset h="/media.cfm?action=newMedia">
-	<cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
-		<cfif url.relationship__1 is "cataloged_item">
-			<cfset h=h & '&collection_object_id=#url.related_primary_key__1#'>
-			( find Media and pick an item to link to existing Media )
-			<br>
+	<cfif findIDs.recordcount is 0>
+		<div class="error">Nothing found.</div>
+		<cfabort>
+	<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="/media/#findIDs.media_id#">
+		<cfabort>
+	<cfelse>
+		<cfset title="Media Results: #findIDs.recordcount# records found">
+		<cfset metaDesc="Results of Media search: #findIDs.recordcount# records found.">
+		<cfif findIDs.recordcount is 500>
+			<div style="border:2px solid red;text-align:center;margin:0 10em;">
+				Note: This form will return a maximum of 500 records.
+			</div>
 		</cfif>
+		<a href="/MediaSearch.cfm">[ Media Search ]</a>
 	</cfif>
-	<a href="#h#">[ Create media ]</a>
-</cfif>
-<cfset q="">
-<cfloop list="#StructKeyList(form)#" index="key">
-	<cfif len(form[key]) gt 0 and key is not "FIELDNAMES" and key is not "offset">
-		<cfset q=listappend(q,"#key#=#form[key]#","&")>
-	 </cfif>
-</cfloop>
-<cfloop list="#StructKeyList(url)#" index="key">
-	 <cfif len(url[key]) gt 0 and key is not "FIELDNAMES" and key is not "offset">
-		<cfset q=listappend(q,"#key#=#url[key]#","&")>
-	 </cfif>
-</cfloop>
-<cfsavecontent variable="pager">
-	<cfset Result_Per_Page=10>
-	<cfset Total_Records=findIDs.recordcount> 
-	<cfparam name="URL.offset" default="0"> 
-	<cfparam name="limit" default="1">
-	<cfset limit=URL.offset+Result_Per_Page> 
-	<cfset start_result=URL.offset+1> 
-	<cfif findIDs.recordcount gt 1>
-		<div style="margin-left:20%;">
-		Showing results #start_result# - 
-		<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
-		<cfset URL.offset=URL.offset+1> 
-		<cfif Total_Records GT Result_Per_Page> 
-			<br> 
-			<cfif URL.offset GT Result_Per_Page> 
-				<cfset prev_link=URL.offset-Result_Per_Page-1> 
-				<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>
-			</cfif> 
-			<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
-			<cfloop index="i" from="1" to="#Total_Pages#"> 
-				<cfset j=i-1> 
-				<cfset offset_value=j*Result_Per_Page> 
-				<cfif offset_value EQ URL.offset-1 > 
-					#i# 
-				<cfelse> 
-					<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
+	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+	    <cfset h="/media.cfm?action=newMedia">
+		<cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
+			<cfif url.relationship__1 is "cataloged_item">
+				<cfset h=h & '&collection_object_id=#url.related_primary_key__1#'>
+				( find Media and pick an item to link to existing Media )
+				<br>
+			</cfif>
+		</cfif>
+		<a href="#h#">[ Create media ]</a>
+	</cfif>
+	<cfset q="">
+	<cfloop list="#StructKeyList(form)#" index="key">
+		<cfif len(form[key]) gt 0 and key is not "FIELDNAMES" and key is not "offset">
+			<cfset q=listappend(q,"#key#=#form[key]#","&")>
+		 </cfif>
+	</cfloop>
+	<cfloop list="#StructKeyList(url)#" index="key">
+		 <cfif len(url[key]) gt 0 and key is not "FIELDNAMES" and key is not "offset">
+			<cfset q=listappend(q,"#key#=#url[key]#","&")>
+		 </cfif>
+	</cfloop>
+	<cfsavecontent variable="pager">
+		<cfset Result_Per_Page=10>
+		<cfset Total_Records=findIDs.recordcount> 
+		<cfparam name="URL.offset" default="0"> 
+		<cfparam name="limit" default="1">
+		<cfset limit=URL.offset+Result_Per_Page> 
+		<cfset start_result=URL.offset+1> 
+		<cfif findIDs.recordcount gt 1>
+			<div style="margin-left:20%;">
+			Showing results #start_result# - 
+			<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
+			<cfset URL.offset=URL.offset+1> 
+			<cfif Total_Records GT Result_Per_Page> 
+				<br> 
+				<cfif URL.offset GT Result_Per_Page> 
+					<cfset prev_link=URL.offset-Result_Per_Page-1> 
+					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>
 				</cfif> 
-			</cfloop> 
-			<cfif limit LT Total_Records> 
-				<cfset next_link=URL.offset+Result_Per_Page-1> 
-				<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a>
-			</cfif> 
+				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
+				<cfloop index="i" from="1" to="#Total_Pages#"> 
+					<cfset j=i-1> 
+					<cfset offset_value=j*Result_Per_Page> 
+					<cfif offset_value EQ URL.offset-1 > 
+						#i# 
+					<cfelse> 
+						<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
+					</cfif> 
+				</cfloop> 
+				<cfif limit LT Total_Records> 
+					<cfset next_link=URL.offset+Result_Per_Page-1> 
+					<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a>
+				</cfif> 
+			</cfif>
+		</div>
 		</cfif>
-	</div>
-	</cfif>
-</cfsavecontent>
-#pager#
-<cfset rownum=1>
+	</cfsavecontent>
+	#pager#
+	<cfset rownum=1>
+	<cfif url.offset is 0><cfset url.offset=1></cfif>
 <table>
-<cfif url.offset is 0><cfset url.offset=1></cfif>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
@@ -447,7 +443,6 @@
 								</cfloop>
 							</ul>
 						</cfif>
-						
 						<cfset mrel=getMediaRelations(#media_id#)>
 						<cfif mrel.recordcount gt 0>
 							<ul>
@@ -468,21 +463,11 @@
 								<cfloop list="#keyword#" index="k" delimiters=",;: ">
 									<cfset kwds=highlight(kwds,k)>
 								</cfloop>
-								<!---
-								<cfset kwds=kw.keywords>
-								
-									<cfset kwds = REReplaceNoCase(kwds, '(([^A-Za-z])(#Trim(k)#)([^A-Za-z]))', '\2<span  style="background-color:yellow">\3</span>\4', 'ALL')>
-									<cfif Left(kwds, Len(Trim(k))) IS Trim(k)>
-									    <cfset kwds = REReplaceNoCase(kwds, '((#Trim(k)#)([^A-Za-z]))', '<span style="background-color:yellow">\2</span>\3', 'ONE')>
-									</cfif>
-								</cfloop>
-								cfset kwds=highlight(kw.keywords,keyword)>
-								--->
 							<cfelse>
 								<cfset kwds=kw.keywords>
 							</cfif>
 							<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
-								Keywords: #kwds#
+								<strong>Keywords:</strong> #kwds#
 							</div>
 						</cfif>
 					</td>
@@ -502,7 +487,6 @@
 		    <cfif tag.n gt 0>
 				<a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
 			</cfif>
-			
 			<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					media.media_id, 
