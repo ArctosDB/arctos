@@ -143,8 +143,7 @@
 			<cfset frm="#frm#,media_keywords">
 			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
 			<cfloop list="#keyword#" index="i">
-				<br>#i#
-				<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
+				<cfset srch="#srch# AND upper(keywords) like '%#ucase(i)#%'">
 			</cfloop>
 			----------#srch#--------
 			<cfabort>
