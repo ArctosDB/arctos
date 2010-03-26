@@ -286,19 +286,19 @@
 			<cfabort>
 		</cfif>
 		<cfset ssql="#sel# #frm# #whr# #srch#">
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="findIDs_raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	</cfif><!--- end srchType --->
 
-<cfif findIDs.recordcount is 0>
+<cfif findIDs_raw.recordcount is 0>
 	<div class="error">Nothing found.</div>
-<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
+<cfelseif findIDs_raw.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
 	<cfheader statuscode="301" statustext="Moved permanently">
-	<cfheader name="Location" value="/media/#findIDs.media_id#">
+	<cfheader name="Location" value="/media/#findIDs_raw.media_id#">
 	<cfabort>
 <cfelse>
-	<cfset title="Media Results: #findIDs.recordcount# records found">
+	<cfset title="Media Results: #findIDs_raw.recordcount# records found">
 	<cfset metaDesc="Results of Media search: Multiple records found.">
 	<a href="/MediaSearch.cfm">[ Media Search ]</a>
 </cfif>
