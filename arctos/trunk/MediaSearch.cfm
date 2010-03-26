@@ -159,10 +159,8 @@
 		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
 			<cfset srch="#srch# AND mime_type in (#listQualify(mime_type,"'")#)">
 		</cfif>
-		
-		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <= 10">
-		
-		<cfset ssql="#sel# #frm# #whr# #srch#">
+				
+		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <=500">
 	
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
@@ -271,7 +269,7 @@
 			<div class="error">You must enter search criteria.</div>
 			<cfabort>
 		</cfif>
-		<cfset ssql="#sel# #frm# #whr# #srch#">
+		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <= 500">
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
@@ -286,9 +284,15 @@
 <cfelse>
 	<cfset title="Media Results: #findIDs.recordcount# records found">
 	<cfset metaDesc="Results of Media search: Multiple records found.">
+	<cfif findIDs.recordcount is 500>
+		<div style="border:2px solid red;">
+			Note: This form will return a maximum of 500 records.
+		</div>
+	</cfif>
+
 	<a href="/MediaSearch.cfm">[ Media Search ]</a>
 </cfif>
-<table>
+
 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
     <cfset h="/media.cfm?action=newMedia">
 	<cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
@@ -344,6 +348,7 @@
 </cfsavecontent>
 #pager#
 <cfset rownum=1>
+<table>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
