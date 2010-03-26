@@ -323,7 +323,7 @@
 	<cfset limit=URL.offset+Result_Per_Page> 
 	<cfset start_result=URL.offset+1> 
 	<cfif findIDs.recordcount gt 1>
-		<div style="text-align:center">
+		<div style="margin-left:20%;">
 		Showing results #start_result# - 
 		<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
 		<cfset URL.offset=URL.offset+1> 
