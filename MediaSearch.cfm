@@ -314,9 +314,117 @@
 	</cfif>
 	<a href="#h#">[ Create media ]</a>
 </cfif>
+
+
+
+<cfset q="r=1">
+
+
+<cfloop list="#StructKeyList(form)#" index="key">
+			<cfif len(form[key]) gt 0>
+				<cfset q=listappend(q,"#key#=#form[key]#","&">
+			 </cfif>
+		</cfloop>
+		<!---- also grab anything from the URL --->
+		<cfloop list="#StructKeyList(url)#" index="key">
+			 <cfif len(url[key]) gt 0>
+				<cfset q=listappend(q,"#key#=#url[key]#","&">
+			 </cfif>
+		</cfloop>
+<br>q: #q#		
+		
+		
+		
+
 <cfquery name="findIDs" dbtype="query">
 	select * from findIDs_raw 
 </cfquery>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--- set how many records you want to display per page ---> 
+<cfset Result_Per_Page="10"> 
+ 
+<!--- get the total record count from q_fetch query --->
+<cfset Total_Records="#findIDs.recordcount#"> 
+ 
+<!--- set the default value for the offset record set number ---> 
+<cfparam name="URL.offset" default="0"> 
+ 
+<!--- the limit result set(i.e., end row) ---> 
+<cfset limit=URL.offset+Result_Per_Page> 
+ 
+<!--- page results start from? ---> 
+<cfset start_result=URL.offset+1> 
+ 
+<!--- showing results 1 - 10 of total record --->
+Showing results #start_result# - 
+<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
+ 
+<!--- make sure that the initial start row is starting from 1 ---> 
+<cfset URL.offset=URL.offset+1> 
+ 
+<!--- if the record is their more than one page so show the navigation bar ---> 
+<cfif Total_Records GT Result_Per_Page> 
+<br> 
+ 
+<!--- Create Previous Link ---> 
+<cfif URL.offset GT Result_Per_Page> 
+<!--- Previous Link Offset ---> 
+<cfset prev_link=URL.offset-Result_Per_Page-1> 
+<cfoutput><a href="#cgi.script_name#?offset=#prev_link#">PREV</a></cfoutput> 
+</cfif> 
+ 
+<!--- Find out how many pages are there for display  ---> 
+<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
+ 
+<!--- now loop it for navigation page numbers ---> 
+<cfloop index="i" from="1" to="#Total_Pages#"> 
+<cfset j=i-1> 
+<!--- create offset value for page numbers ---> 
+<cfset offset_value=j*Result_Per_Page> 
+ 
+<!--- deactivate the link if the page number is current page ---> 
+<cfif offset_value EQ URL.offset-1 > 
+#i# 
+<cfelse> 
+<a href="#cgi.script_name#?offset=#offset_value#">#i#</a>
+</cfif> 
+</cfloop> 
+ 
+<!--- create Next Link ---> 
+<cfif limit LT Total_Records> 
+<!--- Next Link Offset ---> 
+<cfset next_link=URL.offset+Result_Per_Page-1> 
+<cfoutput><a href="#cgi.script_name#?offset=#next_link#">NEXT</a></cfoutput> 
+</cfif> 
+</cfif> 
+
+
+
+<!--- display the result on the screen ---> 
+<cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#"> 
+#media_id# <br>
+</cfloop> 
+
+
+
+
+
+
+
+
+
 
 
 
