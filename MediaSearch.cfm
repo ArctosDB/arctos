@@ -165,15 +165,6 @@
 			<cfelse>
 				<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 			</cfif>
-			
-			
-							----------#srch#--------
-
-			<cfabort>
-			
-			
-			
-			<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 		</cfif>
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
 			<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
