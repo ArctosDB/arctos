@@ -87,7 +87,10 @@ function npPage(offset,rpp,q){
 	
 	
 	jQuery.get(guts, function(data){
-		 jQuery('#specTaxMedia').html(data);
+		console.log(data);
+		
+		
+		jQuery('#specTaxMedia').html(data);
 	})
 	
 	
