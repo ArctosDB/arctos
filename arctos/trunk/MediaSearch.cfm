@@ -39,6 +39,9 @@
 		<input type="hidden" name="srchType" value="key">
 		<label for="keyword">Keyword</label>
 		<input type="text" name="keyword" id="keyword">
+		<input type="radio" name="kwType" value="any">
+		<input type="radio" name="kwType" value="all">
+		<input type="radio" name="kwType" value="phrase">
 		<label for="media_uri">Media URI</label>
 		<input type="text" name="media_uri" id="media_uri" size="90">
 		<label for="tag">Require TAG?</label>
@@ -142,14 +145,17 @@
 			<cfset sel=sel & ",media_keywords.keywords">
 			<cfset frm="#frm#,media_keywords">
 			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
-			<cfset kwsql="">
-			<cfloop list="#keyword#" index="i">
-				<cfset kwsql=listappend(kwsql,"upper(keywords) like '%#ucase(i)#%'","|")>
-			</cfloop>
-			<cfset kwsql=replace(kwsql,"|"," OR ","all")>
-			<cfset srch="#srch# AND ( #kwsql# ) ">
-			<br>kwsql: #kwsql#
-			----------#srch#--------
+			<cfif not isdefined("kwType") ><cfset kwType="all"></cfif>
+			<cfif kwType is "any">
+				<cfset kwsql="">
+				<cfloop list="#keyword#" index="i">
+					<cfset kwsql=listappend(kwsql,"upper(keywords) like '%#ucase(i)#%'","|")>
+				</cfloop>
+				<cfset kwsql=replace(kwsql,"|"," OR ","all")>
+				<cfset srch="#srch# ( #kwsql# ) ">
+				<br>kwsql: #kwsql#
+				----------#srch#--------
+			</cfif>
 			<cfabort>
 			
 			
