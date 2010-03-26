@@ -81,7 +81,7 @@ div.shortThumb {
 }
 div.thumbs {
 	border: 1px dashed black;
-	overflow:scroll;
+	overflow:auto;
 	max-height:400px;
 }
 div.one_thumb {
