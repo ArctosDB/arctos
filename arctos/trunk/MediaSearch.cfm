@@ -39,7 +39,7 @@
 			font-size:small;
 			font-weight:bold;
 			border:1px dotted green;
-			margin-left:10px;
+			margin-left:5px;
 		}
 	</style>
 	<form name="newMedia" method="post" action="">
