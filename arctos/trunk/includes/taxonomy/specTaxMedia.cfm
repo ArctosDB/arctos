@@ -1,6 +1,6 @@
 <cfinclude template = "/includes/functionLib.cfm">
 <cfoutput>
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	select * from (
 			   	select
 			   		 media_id,
@@ -54,16 +54,16 @@
 				    related_primary_key
 			) where rownum <= 100
 	</cfquery>
-	
-	<cfif q.recordcount gt 0>
+	<fset q="">
+	<cfif d.recordcount gt 0>
 		<cfsavecontent variable="pager">
 			<cfset Result_Per_Page=10>
-			<cfset Total_Records=q.recordcount> 
-			<cfparam name="URL.offset" default="0"> 
+			<cfset Total_Records=d.recordcount> 
+			<cfparam name="offset" default="0"> 
 			<cfparam name="limit" default="1">
-			<cfset limit=URL.offset+Result_Per_Page> 
-			<cfset start_result=URL.offset+1> 
-			<cfif q.recordcount gt 1>
+			<cfset limit=offset+Result_Per_Page> 
+			<cfset start_result=offset+1> 
+			<cfif d.recordcount gt 1>
 				<div style="margin-left:20%;">
 				Showing results #start_result# - 
 				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
@@ -98,7 +98,7 @@
 		
 		<div class="thumbs" id="theThumbDiv">
 			<div class="thumb_spcr">&nbsp;</div>
-			<cfloop query="q" startrow="#URL.offset#" endrow="#limit#">
+			<cfloop query="d" startrow="#URL.offset#" endrow="#limit#">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						media_label,
