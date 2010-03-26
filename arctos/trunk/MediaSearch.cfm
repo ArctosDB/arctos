@@ -429,7 +429,7 @@
 							<cfelse>
 								<cfset kwds=kw.keywords>
 							</cfif>
-							<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;">
+							<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
 								Keywords: #kwds#
 							</div>
 						</cfif>
