@@ -142,7 +142,18 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "search">
 <cfoutput>
-
+<cfscript>
+    function highlight(findIn,replaceThis) {
+                        foundAt = FindNoCase(replaceThis, findIn);
+                        endAt = FindNoCase(replaceThis, findIn) + len(replaceThis);
+                        if(foundAt gt 0)
+                        {        
+                            findIn =Insert('</span>', findIn, endAt-1);
+                            findIn =Insert('<span style="background-color:yellow">', findIn, foundAt-1);
+                        }    
+                        return findIn;
+    }
+</cfscript>
 	<cfif isdefined("srchType") and srchType is "key">
 		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 		<cfset frm="from media">			
@@ -453,6 +464,7 @@
 						</cfif>
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
 							<cfif isdefined("keyword") and len(keyword) gt 0>
+								<!---
 								<cfset kwds=kw.keywords>
 								<cfloop list="#keyword#" index="k" delimiters=",;: ">
 									<cfset kwds = REReplaceNoCase(kwds, '(([^A-Za-z])(#Trim(k)#)([^A-Za-z]))', '\2<span  style="background-color:yellow">\3</span>\4', 'ALL')>
@@ -460,6 +472,8 @@
 									    <cfset kwds = REReplaceNoCase(kwds, '((#Trim(k)#)([^A-Za-z]))', '<span style="background-color:yellow">\2</span>\3', 'ONE')>
 									</cfif>
 								</cfloop>
+								--->
+								<cfset kwds=highlight(kw.keywords,keyword)>
 							<cfelse>
 								<cfset kwds=kw.keywords>
 							</cfif>
