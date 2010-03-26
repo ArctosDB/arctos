@@ -1,56 +1,58 @@
 <cfinclude template = "/includes/functionLib.cfm">
 <cfoutput>
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	   	select
-	   		 media_id,
-		     media_uri,
-		     mime_type,
-		     media_type,
-		     preview_uri,
-		     related_primary_key
-		from (
-	   		select  
-		        media.media_id,
-		        media.media_uri,
-		        media.mime_type,
-		        media.media_type,
-		        media.preview_uri,
-		        media_relations.related_primary_key
-		     from
-		        media,
-		        media_relations,
-		        identification,
-		        identification_taxonomy
-		     where
-		        media.media_id=media_relations.media_id and
-		        media_relations.media_relationship like '% cataloged_item' and
-		        identification.accepted_id_fg=1 and
-		        media_relations.related_primary_key = identification.collection_object_id and
-		        identification.identification_id=identification_taxonomy.identification_id and
-		        --media.preview_uri is not null and
-		        identification_taxonomy.taxon_name_id=#taxon_name_id#
-		    UNION
-		    select 
-		        media.media_id,
-		        media.media_uri,
-		        media.mime_type,
-		        media.media_type,
-		        media.preview_uri,
-		        media_relations.related_primary_key
-		     from
-		         media,
-		         media_relations
-		     where
-		         media.media_id=media_relations.media_id and
-		         media_relations.media_relationship like '%taxonomy' and
-		         media_relations.related_primary_key = #taxon_name_id#
-		 ) group by
-		 	media_id,
-		    media_uri,
-		    mime_type,
-		    media_type,
-		    preview_uri,
-		    related_primary_key
+	   	select * from (
+			   	select
+			   		 media_id,
+				     media_uri,
+				     mime_type,
+				     media_type,
+				     preview_uri,
+				     related_primary_key
+				from (
+			   		select  
+				        media.media_id,
+				        media.media_uri,
+				        media.mime_type,
+				        media.media_type,
+				        media.preview_uri,
+				        media_relations.related_primary_key
+				     from
+				        media,
+				        media_relations,
+				        identification,
+				        identification_taxonomy
+				     where
+				        media.media_id=media_relations.media_id and
+				        media_relations.media_relationship like '% cataloged_item' and
+				        identification.accepted_id_fg=1 and
+				        media_relations.related_primary_key = identification.collection_object_id and
+				        identification.identification_id=identification_taxonomy.identification_id and
+				        --media.preview_uri is not null and
+				        identification_taxonomy.taxon_name_id=#taxon_name_id#
+				    UNION
+				    select 
+				        media.media_id,
+				        media.media_uri,
+				        media.mime_type,
+				        media.media_type,
+				        media.preview_uri,
+				        media_relations.related_primary_key
+				     from
+				         media,
+				         media_relations
+				     where
+				         media.media_id=media_relations.media_id and
+				         media_relations.media_relationship like '%taxonomy' and
+				         media_relations.related_primary_key = #taxon_name_id#
+				 ) group by
+				 	media_id,
+				    media_uri,
+				    mime_type,
+				    media_type,
+				    preview_uri,
+				    related_primary_key
+			) where rownum < 100
 	</cfquery>
 	
 	<cfif media.recordcount gt 0>
