@@ -322,13 +322,13 @@
 
 <cfloop list="#StructKeyList(form)#" index="key">
 			<cfif len(form[key]) gt 0>
-				<cfset q=listappend(q,"#key#=#form[key]#","&">
+				<cfset q=listappend(q,"#key#=#form[key]#","&")>
 			 </cfif>
 		</cfloop>
 		<!---- also grab anything from the URL --->
 		<cfloop list="#StructKeyList(url)#" index="key">
 			 <cfif len(url[key]) gt 0>
-				<cfset q=listappend(q,"#key#=#url[key]#","&">
+				<cfset q=listappend(q,"#key#=#url[key]#","&")>
 			 </cfif>
 		</cfloop>
 <br>q: #q#		
