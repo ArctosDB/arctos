@@ -34,14 +34,22 @@
 		This form may not find very recent changes. You can use the also use the 
 		<a href="##relFrm">relational search form</a>.
 	</div>
+	<style>
+		.rdoCtl {
+			font-size:small;
+			font-weight:bold;
+			border:1px dotted green;
+			margin-left:10px;
+		}
+	</style>
 	<form name="newMedia" method="post" action="">
 		<input type="hidden" name="action" value="search">
 		<input type="hidden" name="srchType" value="key">
 		<label for="keyword">Keyword</label>
 		<input type="text" name="keyword" id="keyword">
-		Match Any<input type="radio" name="kwType" value="any">
-		Match All<input type="radio" name="kwType" value="all">
-		Match Phrase<input type="radio" name="kwType" value="phrase" checked="checked">
+		<span class="rdoCtl">Match Any<input type="radio" name="kwType" value="any"></span>
+		<span class="rdoCtl">Match All<input type="radio" name="kwType" value="all"></span>
+		<span class="rdoCtl">Match Phrase<input type="radio" name="kwType" value="phrase" checked="checked"></span>
 		<label for="media_uri">Media URI</label>
 		<input type="text" name="media_uri" id="media_uri" size="90">
 		<label for="tag">Require TAG?</label>
