@@ -427,9 +427,9 @@
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
 							<cfif isdefined("keyword") and len(keyword) gt 0>
 								<cfset oldResults = kw.keywords>
-								<cfset kwds = REReplaceNoCase(kw.keywords, "(([^A-Za-z])(#Trim(keyword)#)([^A-Za-z]))", "\2<span  style='background=color:yellow'>\3</span>\4", "ALL")>
+								<cfset kwds = REReplaceNoCase(kw.keywords, '(([^A-Za-z])(#Trim(keyword)#)([^A-Za-z]))', '\2<span  style="background=color:yellow">\3</span>\4', 'ALL')>
 								<cfif Left(kwds, Len(Trim(keyword))) IS Trim(keyword)>
-								    <cfset newResults = REReplaceNoCase(kwds, "((#Trim(keyword)#)([^A-Za-z]))", "<span style='background-color:yellow'>\2</span>\3", "ONE")>
+								    <cfset newResults = REReplaceNoCase(kwds, '((#Trim(keyword)#)([^A-Za-z]))', '<span style="background-color:yellow">\2</span>\3', 'ONE')>
 								</cfif>
 								<!---
 								<cfset kwds=replacenocase(kw.keywords,keyword,'<span style="background:yellow">' & keyword & '</span>','all')>
