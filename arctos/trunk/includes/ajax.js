@@ -80,7 +80,10 @@ function npPage(offset,rpp,q){
 	console.log('offset: ' + offset + '; rpp: ' + rpp + '; q: ' + q);
 	
 	var guts = "/includes/specTaxMedia.cfm?Result_Per_Page=" + rpp + '&offset=' + offset + '&q=' & q;
-	jQuery('#specTaxMedia').load(guts);
+	$('#specTaxMedia').load(guts, function() {
+		  alert('Load was performed.');
+		});
+	
 }
 
 
