@@ -193,7 +193,8 @@
 <cfoutput>
 	<script>
 		jQuery(document).ready(function(){
-			var elemsToLoad='specTaxMedia,taxRelatedNames';
+			//var elemsToLoad='specTaxMedia,taxRelatedNames';
+			var elemsToLoad='taxRelatedNames';
 			var elemAry = elemsToLoad.split(",");
 			for(var i=0; i<elemAry.length; i++){
 				load(elemAry[i]);
@@ -310,7 +311,7 @@
 			</cfif>
 		</ul>    
     </div>
-	<p id="specTaxMedia"></p>
+	<div id="specTaxMedia"></div>
 	<p>
 		Arctos Links:
 		<ul>
