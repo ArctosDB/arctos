@@ -53,19 +53,19 @@
 				    media_type,
 				    preview_uri,
 				    related_primary_key
-			) where rownum <= 100
+			) where rownum <= 500
 	</cfquery>
 	<cfset q="#taxon_name_id#">
 	<cfif d.recordcount gt 0>
 		<cfsavecontent variable="pager">
-			<cfset Result_Per_Page=10>
+			<cfset Result_Per_Page=8>
 			<cfset Total_Records=d.recordcount> 
 			<cfparam name="offset" default="0"> 
 			<cfparam name="limit" default="1">
 			<cfset limit=offset+Result_Per_Page> 
 			<cfset start_result=offset+1> 
 			<cfif d.recordcount gt 1>
-				<div style="margin-left:20%;">
+				<div style="width:100%;text-align:center;">
 				Showing results #start_result# - 
 				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
 				<cfset offset=offset+1> 
@@ -73,7 +73,7 @@
 					<br> 
 					<cfif offset GT Result_Per_Page> 
 						<cfset prev_link=offset-Result_Per_Page-1> 
-						<span class="likeLink" onclick="npPage('#prev_link#','#Result_Per_Page#','#q#');">PREV</span>
+						<span class="likeLink" onclick="npPage('#prev_link#','#Result_Per_Page#','#q#');"><<PREV</span>
 					</cfif> 
 					<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
 					<cfloop index="i" from="1" to="#Total_Pages#"> 
@@ -89,7 +89,7 @@
 					</cfloop> 
 					<cfif limit LT Total_Records> 
 						<cfset next_link=offset+Result_Per_Page-1> 
-						<span class="likeLink" onclick="npPage('#next_link#','#Result_Per_Page#','#q#');">PREV</span>
+						<span class="likeLink" onclick="npPage('#next_link#','#Result_Per_Page#','#q#');">NEXT>></span>
 
 					</cfif> 
 				</cfif>
