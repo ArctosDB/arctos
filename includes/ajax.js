@@ -85,7 +85,7 @@ function npPage(offset,rpp,tnid){
 	console.log(stm);
 	console.log(v);
 	
-	//stm=stm + v;
+	stm+=v;
 	
 	//$('#specTaxMedia').load(guts, function() {
 	//	  alert('Load was performed.');
