@@ -58,7 +58,7 @@
 	<cfset q="#taxon_name_id#">
 	<cfif d.recordcount gt 0>
 		<cfsavecontent variable="pager">
-			<cfset Result_Per_Page=8>
+			<cfset Result_Per_Page=10>
 			<cfset Total_Records=d.recordcount> 
 			<cfparam name="offset" default="0"> 
 			<cfparam name="limit" default="1">
