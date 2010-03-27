@@ -73,7 +73,7 @@
 					<br> 
 					<cfif offset GT Result_Per_Page> 
 						<cfset prev_link=offset-Result_Per_Page-1> 
-						<span class="likeLink" onclick="npPage('#prev_link#','#Result_Per_Page#','#q#');"><<PREV</span>
+						<span class="likeLink" onclick="npPage('#prev_link#','#Result_Per_Page#','#q#');">&lt;&lt;PREVIOUS&nbsp;&nbsp;&nbsp;</span>
 					</cfif> 
 					<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
 					<cfloop index="i" from="1" to="#Total_Pages#"> 
@@ -89,7 +89,7 @@
 					</cfloop> 
 					<cfif limit LT Total_Records> 
 						<cfset next_link=offset+Result_Per_Page-1> 
-						<span class="likeLink" onclick="npPage('#next_link#','#Result_Per_Page#','#q#');">NEXT>></span>
+						<span class="likeLink" onclick="npPage('#next_link#','#Result_Per_Page#','#q#');">&nbsp;&nbsp;&nbsp;NEXT&gt;&gt;</span>
 
 					</cfif> 
 				</cfif>
