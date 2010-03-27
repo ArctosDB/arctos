@@ -53,7 +53,8 @@
 				    media_type,
 				    preview_uri,
 				    related_primary_key
-			) where rownum <= 500
+			) 
+			--where rownum <= 500
 	</cfquery>
 	<cfset q="#taxon_name_id#">
 	<cfif d.recordcount gt 0>
@@ -66,7 +67,7 @@
 			<cfset start_result=offset+1> 
 			<cfif d.recordcount gt 1>
 				<div style="width:100%;text-align:center;">
-				Showing results #start_result# - 
+				Showing Media results #start_result# - 
 				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
 				<cfset offset=offset+1> 
 				<cfif Total_Records GT Result_Per_Page> 
