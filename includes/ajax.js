@@ -79,13 +79,13 @@ function openAnnotation(q) {
 function npPage(offset,rpp,q){
 	console.log('offset: ' + offset + '; rpp: ' + rpp + '; q: ' + q);
 	var stm = "/includes/taxonomy/specTaxMedia.cfm";
-	var v="?Result_Per_Page" + rpp;
-	//+ "&offset=" + offset + "&taxon_name_id=" & q;
+	var v="?Result_Per_Page=" + rpp + "&offset=" + offset + "&taxon_name_id=" & q;
+	//
 	
 	console.log(stm);
 	console.log(v);
 	
-	stm=stm + v;
+	//stm=stm + v;
 	
 	//$('#specTaxMedia').load(guts, function() {
 	//	  alert('Load was performed.');
