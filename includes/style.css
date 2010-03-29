@@ -81,14 +81,11 @@ div.shortThumb {
 }
 div.thumbs {
 	border: 1px dashed black;
-	overflow:auto;
-	max-height:400px;
 }
 div.one_thumb {
  	float: left;
- 	width: 130px;
+ 	width: 200px;
  	padding: 1px;
-	border:1px solid green;
 	height:187px;
 	overflow:hidden;
 	text-align: center;
@@ -101,7 +98,6 @@ div.one_thumb p {
 	max-width:120px;
 	max-height:120px;
 }
-
 
 
 /* TAG style */
