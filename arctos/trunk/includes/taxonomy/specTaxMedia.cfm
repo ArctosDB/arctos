@@ -66,7 +66,7 @@
 			<cfset limit=offset+Result_Per_Page> 
 			<cfset start_result=offset+1> 
 			<cfif d.recordcount gt 1>
-				<div style="width:100%;text-align:center;">
+				<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
 				Showing Media results #start_result# - 
 				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
 				<cfset offset=offset+1> 

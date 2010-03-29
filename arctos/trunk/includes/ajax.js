@@ -77,6 +77,7 @@ function npPage(offset,rpp,tnid){
 	var stm = "/includes/taxonomy/specTaxMedia.cfm";
 	var v="?Result_Per_Page=" + rpp + "&offset=" + offset + "&taxon_name_id=" + tnid;
 	stm+=v;
+	$('#imgBrowserCtlDiv').append('<img src="/images/indicator.gif">');
 	jQuery.get(stm, function(data){
 		jQuery('#specTaxMedia').html(data);
 	})
