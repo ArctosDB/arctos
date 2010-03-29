@@ -114,7 +114,7 @@
 					<cfset alt=desc.label_value>
 				</cfif>
 				<cfif len(alt) gt 34>
-					<cfset aTxt=left(alt,34) & "...">
+					<cfset aTxt=REReplaceNoCase(left(alt,34) & "...","<[^>]*>","","ALL")>
 				<cfelse>
 					<cfset aTxt=alt>
 				</cfif>
