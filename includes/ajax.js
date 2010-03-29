@@ -73,37 +73,14 @@ function openAnnotation(q) {
 
 
 
-
-
-
 function npPage(offset,rpp,tnid){
 	console.log('offset: ' + offset + '; rpp: ' + rpp + '; tnid: ' + tnid);
 	var stm = "/includes/taxonomy/specTaxMedia.cfm";
 	var v="?Result_Per_Page=" + rpp + "&offset=" + offset + "&taxon_name_id=" + tnid;
-	// & q
-	
-	console.log(stm);
-	console.log(v);
-	
 	stm+=v;
-	
-	//$('#specTaxMedia').load(guts, function() {
-	//	  alert('Load was performed.');
-	//	});
-	
-	console.log(stm);
-	
 	jQuery.get(stm, function(data){
-		console.log(data);
-		
-		
 		jQuery('#specTaxMedia').html(data);
 	})
-	
-	
-	
-	
-	
 }
 
 
