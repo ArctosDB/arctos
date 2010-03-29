@@ -74,7 +74,6 @@ function openAnnotation(q) {
 
 
 function npPage(offset,rpp,tnid){
-	console.log('offset: ' + offset + '; rpp: ' + rpp + '; tnid: ' + tnid);
 	var stm = "/includes/taxonomy/specTaxMedia.cfm";
 	var v="?Result_Per_Page=" + rpp + "&offset=" + offset + "&taxon_name_id=" + tnid;
 	stm+=v;
