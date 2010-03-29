@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif len(session.displayrows) is 0>
 	<cfset session.displayrows=20>
-</cfif>
+</cfif> 
 <cfset btime=now()>
 <cfhtmlhead text="<title>Specimen Results</title>">
 <cfoutput>
