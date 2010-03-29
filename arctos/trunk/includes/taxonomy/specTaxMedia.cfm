@@ -80,13 +80,6 @@
 					<cfloop index="i" from="1" to="#Total_Pages#"> 
 						<cfset j=i-1> 
 						<cfset offset_value=j*Result_Per_Page> 
-						<!---
-						<cfif offset_value EQ offset-1 > 
-							#i# 
-						<cfelse> 
-							<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
-						</cfif> 
-						--->
 					</cfloop> 
 					<cfif limit LT Total_Records> 
 						<cfset next_link=offset+Result_Per_Page-1> 
