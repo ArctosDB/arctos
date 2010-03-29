@@ -113,8 +113,8 @@
 				<cfif desc.recordcount is 1>
 					<cfset alt=desc.label_value>
 				</cfif>
-				<cfif len(alt) gt 34>
-					<cfset aTxt=REReplaceNoCase(left(alt,34) & "...","<[^>]*>","","ALL")>
+				<cfif len(alt) gt 50>
+					<cfset aTxt=REReplaceNoCase(left(alt,50) & "...","<[^>]*>","","ALL")>
 				<cfelse>
 					<cfset aTxt=alt>
 				</cfif>
