@@ -254,6 +254,7 @@
 		<cfset thiscoll_object_remarks = #evaluate("coll_object_remarks" & n)#>
 		<cfset thisnewCode = #evaluate("newCode" & n)#>
 		<cfset thisprint_fg = #evaluate("print_fg" & n)#>
+		-----thisprint_fg: #thisprint_fg#
 		<cfset thislabel = #evaluate("label" & n)#>
 		<cfset thisparentContainerId = #evaluate("parentContainerId" & n)#>
 		<cfset thispartContainerId = #evaluate("partContainerId" & n)#>
@@ -313,7 +314,8 @@
 					container_type='cryovial label'
 				</cfquery>
 			</cfif>
-			<cfif #isCont.recordcount# is 1>
+			isCont.recordcount: #isCont.recordcount#
+			<cfif isCont.recordcount is 1>
 				<cfquery name="thisCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					SELECT 
 						container_id 
@@ -360,7 +362,10 @@
 			<cfabort>
 		</cfif>		
 	</cfloop>
+	<!---
 	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
+	--->
+	spiffy
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
