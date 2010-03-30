@@ -116,14 +116,14 @@
 					<input type="text" name="coll_object_remarks#i#" id="coll_object_remarks#i#" value="#getparts.coll_object_remarks#">
 				</td>
 				<td>
-					<label for="print_fg#i#">Fg</label>
+					<label for="print_fg#i#">P Fg</label>
 					<select name="print_fg#i#" id="print_fg#i#">
 						<option <cfif getParts.print_fg is 0>selected="selected" </cfif>value="0">-</option>
 						<option <cfif getParts.print_fg is 1>selected="selected" </cfif>value="0">C</option>
 						<option <cfif getParts.print_fg is 2>selected="selected" </cfif>value="2">V</option>
 					</select>
 				</td>
-				<td>
+				<td align="middle">
 					<input type="button" value="Delete" class="delBtn"
 						onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
 					<br>
