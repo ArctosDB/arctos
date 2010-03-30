@@ -79,7 +79,7 @@
 				</td>
 				<td>
 					<label for="coll_obj_disposition#i#">Disposition</label>
-					<select name="coll_obj_disposition#i#" size="1" class="reqdClr" style="width:75px";>
+					<select name="coll_obj_disposition#i#" size="1" class="reqdClr" style="width:100px";>
 		              <cfloop query="ctDisp">
 			              <option <cfif ctdisp.coll_obj_disposition is getParts.coll_obj_disposition> selected </cfif>value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 		              </cfloop>
@@ -114,6 +114,14 @@
 				<td>
 					<label for="coll_object_remarks#i#">Remark</label>
 					<input type="text" name="coll_object_remarks#i#" id="coll_object_remarks#i#" value="#getparts.coll_object_remarks#">
+				</td>
+				<td>
+					<label for="print_fg#i#">Fg</label>
+					<select name="print_fg#i#" id="print_fg#i#">
+						<option <cfif getParts.print_fg is 0>selected="selected" </cfif>value="0">-</option>
+						<option <cfif getParts.print_fg is 1>selected="selected" </cfif>value="0">C</option>
+						<option <cfif getParts.print_fg is 2>selected="selected" </cfif>value="2">V</option>
+					</select>
 				</td>
 				<td>
 					<input type="button" value="Delete" class="delBtn"
