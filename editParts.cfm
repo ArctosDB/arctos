@@ -116,7 +116,7 @@
 					<input type="text" name="coll_object_remarks#i#" id="coll_object_remarks#i#" value="#getparts.coll_object_remarks#">
 				</td>
 				<td>
-					<label for="print_fg#i#">P Fg - #getParts.print_fg#</label>
+					<label for="print_fg#i#">PrFg</label>
 					<select name="print_fg#i#" id="print_fg#i#" style="width:40px;">
 						<option <cfif getParts.print_fg is 0>selected="selected" </cfif>value="0">no print flag</option>
 						<option <cfif getParts.print_fg is 1>selected="selected" </cfif>value="1">box</option>
