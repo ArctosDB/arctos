@@ -1,5 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 <cfoutput>
 <cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
@@ -8,8 +8,6 @@
 		collection.institution_acronym,
 		coll_obj_disposition,
 		condition,
-		part_modifier,
-		preserve_method,
 		sampled_from_obj_id,
 		cataloged_item.collection_cde,
 		cat_num,
@@ -43,14 +41,6 @@
 <cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select coll_obj_disposition from ctcoll_obj_disp
 </cfquery>
-<cfquery name="ctPresMeth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select preserve_method from ctspecimen_preserv_method
-	where collection_cde=trim('#getParts.collection_cde#')
-</cfquery>
-<cfquery name="ctPartMod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select part_modifier from ctspecimen_part_modifier
-</cfquery>
-
  
 <b>Edit #getParts.recordcount# Specimen Parts</b>
 &nbsp;
@@ -94,25 +84,10 @@
 									class="likeLink" 
 									src="/images/ctinfo.gif" 
 									border="0"
-									onMouseOver="self.status='Code Table Value Definition';return true;"
-									onmouseout="self.status='';return true;"
 									onClick="getCtDoc('ctspecimen_part_name')">
 								<span>Define values</span>
 								</a>
 	</font></td>
-	<td><font color="#lblClr#">Modifier</font></td>
-	<td><font color="#lblClr#">Pres Meth</font>
-	 <a class="info" href="javascript:void(0);">
-								<img 
-									class="likeLink" 
-									src="/images/ctinfo.gif" 
-									border="0"
-									onMouseOver="self.status='Code Table Value Definition';return true;"
-									onmouseout="self.status='';return true;"
-									onClick="getCtDoc('ctspecimen_preserv_method')">
-								<span>Define values</span>
-								</a>
-								</td>
 	<td><font color="#lblClr#">Disposition</font></td>
 	<td><font color="#lblClr#">
 	Condition</font>
@@ -130,8 +105,6 @@
    			onmouseover="this.className='insBtn btnhov'" 
 			onmouseout="this.className='insBtn'"
 			onClick="newPart.part_name.value='#part_name#';
-				newPart.part_modifier.value='#part_modifier#';
-				newPart.preserve_method.value='#preserve_method#';
 				newPart.lot_count.value='#lot_count#';
 				newPart.coll_obj_disposition.value='#coll_obj_disposition#';
 				newPart.condition.value='#condition#';
@@ -158,23 +131,6 @@
 			 
             </select>
 	</td>
-	<td>
-	<cfset thisMod = #getParts.part_modifier#>
-	<select name="part_modifier#i#" size="1">
-		<option value=""></option>
-		<cfloop query="ctPartMod">
-			<option <cfif #thisMod# is "#ctPartMod.part_modifier#"> selected </cfif>value="#ctPartMod.part_modifier#">#ctPartMod.part_modifier#</option>
-		</cfloop>
-	</select>
-	<td>
-	<cfset thisMeth = #getParts.preserve_method#>
-	<select name="preserve_method#i#" size="1">
-		<option value=""></option>
-		<cfloop query="ctPresMeth">
-			<option <cfif #thisMeth# is "#ctPresMeth.preserve_method#"> selected </cfif>value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-		</cfloop>
-	</select>
-		
 	<td><select name="coll_obj_disposition#i#" size="1"  class="reqdClr">
               <cfset thisDisp = #getParts.coll_obj_disposition#>
               <cfloop query="ctDisp">
@@ -275,16 +231,6 @@
             </cfloop>
           </select></td>
       </tr>
-      <tr> 
-        <td><div align="right">Modifier:</div></td>
-        <td>
-		<select name="part_modifier" size="1">
-		<option value=""></option>
-		<cfloop query="ctPartMod">
-			<option value="#ctPartMod.part_modifier#">#ctPartMod.part_modifier#</option>
-		</cfloop>
-	</select></td>
-      </tr>
 	   <tr> 
         <td><div align="right">Count:</div></td>
         <td><input type="text" name="lot_count" class="reqdClr" size="2"></td>
@@ -297,15 +243,6 @@
 				<option value="1">yes</option>
 			</select>
 		</td>
-      </tr>
-      <tr> 
-        <td><div align="right">Preserve Method:</div></td>
-        <td><select name="preserve_method" size="1">
-		<option value=""></option>
-		<cfloop query="ctPresMeth">
-			<option value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-		</cfloop>
-	</select></td>
       </tr>
      
       <tr> 
@@ -371,8 +308,6 @@
 	<cfloop from="1" to="#numberOfParts#" index="n">
 		<cfset thisPartId = #evaluate("partID" & n)#>
 		<cfset thisPartName = #evaluate("Part_name" & n)#>
-		<cfset thisPartModifier = #evaluate("part_modifier" & n)#>
-		<cfset thisPresMeth = #evaluate("preserve_method" & n)#>
 		<cfset thisDisposition = #evaluate("coll_obj_disposition" & n)#>
 		<cfset thisCondition = #evaluate("condition" & n)#>
 		<cfset thisLotCount = #evaluate("lot_count" & n)#>
@@ -387,16 +322,6 @@
 			UPDATE specimen_part SET 
 				Part_name = '#thisPartName#',
 				is_tissue = #thisIsTissue#
-			<cfif len(#thisPartModifier#) gt 0>
-				,part_modifier = '#thisPartModifier#'
-			 <cfelse>
-			 	,part_modifier = null	
-			</cfif>
-			<cfif len(#thisPresMeth#) gt 0>
-				,preserve_method = '#thisPresMeth#'
-			  <cfelse>
-			  	,preserve_method = null	
-			</cfif>
 			WHERE collection_object_id = #thisPartId#
 		</cfquery>
 		<cfquery name="upPartCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -537,23 +462,11 @@
 		INSERT INTO specimen_part (
 			  COLLECTION_OBJECT_ID,
 			  PART_NAME
-			  <cfif len(#PART_MODIFIER#) gt 0>
-			  		,PART_MODIFIER
-			  </cfif>
-			  <cfif len(#PRESERVE_METHOD#) gt 0>
-			  		,PRESERVE_METHOD
-			  </cfif>
 				,DERIVED_FROM_cat_item,
 				is_tissue )
 			VALUES (
 				sq_collection_object_id.currval,
 			  '#PART_NAME#'
-			  <cfif len(#PART_MODIFIER#) gt 0>
-			  		,'#PART_MODIFIER#'
-			  </cfif>
-			  <cfif len(#PRESERVE_METHOD#) gt 0>
-			  		,'#PRESERVE_METHOD#'
-			  </cfif>
 				,#collection_object_id#,
 				#is_tissue# )
 	</cfquery>
