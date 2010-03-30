@@ -254,7 +254,6 @@
 		<cfset thiscoll_object_remarks = #evaluate("coll_object_remarks" & n)#>
 		<cfset thisnewCode = #evaluate("newCode" & n)#>
 		<cfset thisprint_fg = #evaluate("print_fg" & n)#>
-		-----thisprint_fg: #thisprint_fg#
 		<cfset thislabel = #evaluate("label" & n)#>
 		<cfset thisparentContainerId = #evaluate("parentContainerId" & n)#>
 		<cfset thispartContainerId = #evaluate("partContainerId" & n)#>
@@ -272,7 +271,7 @@
 				lot_count = #thisLotCount#
 			WHERE collection_object_id = #thisPartId#
 		</cfquery>
-		<cfif len(#thiscoll_object_remarks#) gt 0>
+		<cfif len(thiscoll_object_remarks) gt 0>
 			<cfquery name="ispartRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select coll_object_remarks from coll_object_remark where
 				collection_object_id = #thisPartId#
@@ -296,7 +295,7 @@
 				 WHERE collection_object_id = #thisPartId#
 			</cfquery>
 		</cfif>
-		<cfif len(#thisnewCode#) gt 0>
+		<cfif len(thisnewCode) gt 0>
 			<cfquery name="isCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				SELECT
 					container_id, container_type, parent_container_id
@@ -314,7 +313,6 @@
 					container_type='cryovial label'
 				</cfquery>
 			</cfif>
-			isCont.recordcount: #isCont.recordcount#
 			<cfif isCont.recordcount is 1>
 				<cfquery name="thisCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					SELECT 
@@ -338,7 +336,7 @@
 					container_id = #isCont.container_id#
 				</cfquery>
 			</cfif>
-			<cfif #isCont.recordcount# lt 1>
+			<cfif isCont.recordcount lt 1>
 				That barcode was not found in the container database. You can only put parts into appropriate pre-existing containers.
 				<br>Click <a href="editParts.cfm?collection_object_id=#collection_object_id#">here</a> to return to editing parts.
 				<cfabort>
@@ -349,7 +347,7 @@
 				<cfabort>
 			</cfif>
 		</cfif>
-		<cfif len(#thislabel#) gt 0>
+		<cfif len(thislabel) gt 0>
 			<cfquery name="upPartPLF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE container SET print_fg = #thisprint_fg# WHERE
 				container_id = #thisparentContainerId#
@@ -362,11 +360,7 @@
 			<cfabort>
 		</cfif>		
 	</cfloop>
-	<!---
 	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
-	--->
-	spiffy
-	<cfabort>
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
