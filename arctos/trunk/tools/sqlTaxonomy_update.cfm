@@ -200,7 +200,8 @@ sho err
  
 <cfinclude template="/includes/_frameHeader.cfm">
 <!--- no security --->
-<cfif session.username is not "gordon" and session.username is not "dlm" and session.username is not "ccicero">
+<cfif session.username is not "gordon" and session.username is not "dlm" and session.username is not "ccicero"
+		and session.username is not "AlanBatten">
 	Not yours. Go away.
 	<cfabort>
 </cfif>
