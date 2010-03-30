@@ -106,8 +106,6 @@
 							newPart.condition.value='#condition#';
 							newPart.coll_object_remarks.value='#coll_object_remarks#';">	
 				</td>
-			</tr>
-			<tr bgcolor="#bgc#">
 				<td>
 					<label for="is_tissue#i#">Tissue?</label>
 					<select name="is_tissue#i#" size="1" class="reqdClr">
