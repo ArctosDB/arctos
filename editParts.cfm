@@ -79,7 +79,7 @@
 				</td>
 				<td>
 					<label for="coll_obj_disposition#i#">Disposition</label>
-					<select name="coll_obj_disposition#i#" size="1"  class="reqdClr">
+					<select name="coll_obj_disposition#i#" size="1" class="reqdClr" style="width:75px";>
 		              <cfloop query="ctDisp">
 			              <option <cfif ctdisp.coll_obj_disposition is getParts.coll_obj_disposition> selected </cfif>value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 		              </cfloop>
@@ -101,7 +101,7 @@
 					</select>
 				</td>
 				<td>
-					<label for=""In Container Label></label>
+					<label for="label#i#">In Container Label</label>
 					<span style="font-size:small">#getparts.label#</span>
 					<input type="hidden" name="label#i#" value="#getparts.label#">
 					<input type="hidden" name="parentContainerId#i#" value="#getparts.parentContainerId#">
@@ -129,56 +129,12 @@
 							newPart.coll_object_remarks.value='#coll_object_remarks#';">	
 				</td>
 			</tr>
-			<!----
-	<td align="right"><font color="#lblClr#">Lot Count</font></td>
-	<td align="right"><font color="#lblClr#">Is Tissue?</font></td>
-	
-	<td align="center"><font color="#lblClr#">In Container Label</font></td>
-	<td align="center"><font size="-1"><font color="#lblClr#"></font>
-      </font> </td>
-	<td align="center"><font size="-1">&nbsp;</font><font color="#lblClr#">Flag for print?</font></td>
-	<td><font color="#lblClr#">Remarks</font></td>
-	
-	
-</tr>
-	
-	
-								
-								<td align="right">
-									
-								</td>
-	
-	<td nowrap>
-	
-	
-		<!---
-		Label: <input type="text" name="label" value="#getparts.label#">
-		Barcode: <input type="text" name="barcode" value="#getparts.barcode#">
-		--->
-	</td>
-	<td nowrap></td>
-	<td nowrap>
-		C <input type="radio" name="print_fg#i#" value="1"
-			<cfif #getParts.print_fg# is 1>checked</cfif>>
-		V<input type="radio" name="print_fg#i#" value="2"
-			<cfif #getParts.print_fg# is 2>checked</cfif>>
-		N<input type="radio" name="print_fg#i#" value="0"
-			<cfif #getParts.print_fg# neq 1 AND #getParts.print_fg# neq 2>checked</cfif>>
-		</td>
-		<td>
-			
-		</td>
-</tr>
----->
-<cfset i = #i#+1>
+			<cfset i = #i#+1>
      </cfif><!---- end of the list ---->
-   
- 
-
 </cfloop>
 <tr bgcolor="##00CC00">
-	<td colspan="6" align="center"> <input type="button" value="Save All Changes" class="savBtn"
-		   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'"
+	<td colspan="10" align="center">
+		<input type="button" value="Save All Changes" class="savBtn"
 		   onclick="parts.action.value='saveEdits';submit();">
    </td>
 </tr>
@@ -192,7 +148,7 @@
 <a name="newPart"></a>
 
 <table class="newRec"><tr><td>
-<b>Add Specimen Part for <a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#getParts.collection_cde# #GETpARTS.CAT_NUM#</a>:</b>
+<strong>Add Specimen Part</strong>
 <form name="newPart" method="post" action="editParts.cfm">
 	<input type="hidden" name="Action" value="newPart">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -205,13 +161,6 @@
 			<input type="text" name="part_name"	class="reqdClr"
 				onchange="findPart(this.value,'#getParts.collection_cde#',this.name,'newPart');" 
 				onkeypress="return noenter(event);">
-<!---
-			<select name="part_name" size="1" class="reqdClr">
-            <cfloop query="Part">
-              <option value="#Part.Part_Name#">#Part.Part_Name#</option>
-            </cfloop>
-          </select>
-		--->
 		</td>
       </tr>
 	   <tr> 
