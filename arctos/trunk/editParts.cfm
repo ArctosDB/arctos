@@ -90,21 +90,8 @@
 					<input type="text" name="condition#i#" id="condition#i#" value="#getparts.condition#"  class="reqdClr">
 				</td>
 				<td>
-					<label for="lot_count#i#">Lot Count</label>
+					<label for="lot_count#i#">##</label>
 					<input type="text" id="lot_count#i#" name="lot_count#i#" value="#getparts.lot_count#"  class="reqdClr" size="2">
-				</td>
-				<td rowspan="2" align="middle">
-					<input type="button" value="Delete" class="delBtn"
-						onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
-					<br>
-					<input type="button" 
-						value="Copy" 
-						class="insBtn"
-						onClick="newPart.part_name.value='#part_name#';
-							newPart.lot_count.value='#lot_count#';
-							newPart.coll_obj_disposition.value='#coll_obj_disposition#';
-							newPart.condition.value='#condition#';
-							newPart.coll_object_remarks.value='#coll_object_remarks#';">	
 				</td>
 				<td>
 					<label for="is_tissue#i#">Tissue?</label>
@@ -127,6 +114,19 @@
 				<td>
 					<label for="coll_object_remarks#i#">Remark</label>
 					<input type="text" name="coll_object_remarks#i#" id="coll_object_remarks#i#" value="#getparts.coll_object_remarks#">
+				</td>
+				<td>
+					<input type="button" value="Delete" class="delBtn"
+						onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
+					<br>
+					<input type="button" 
+						value="Copy" 
+						class="insBtn"
+						onClick="newPart.part_name.value='#part_name#';
+							newPart.lot_count.value='#lot_count#';
+							newPart.coll_obj_disposition.value='#coll_obj_disposition#';
+							newPart.condition.value='#condition#';
+							newPart.coll_object_remarks.value='#coll_object_remarks#';">	
 				</td>
 			</tr>
 			<!----
