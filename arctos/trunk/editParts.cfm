@@ -73,7 +73,7 @@
 						&nbsp;<span class="likeLink" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
 					</label>
 					<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
-						value="#getParts.part_name#"
+						value="#getParts.part_name#" size="25"
 						onchange="findPart(this.value,'#getParts.collection_cde#',this.name,'parts');" 
 						onkeypress="return noenter(event);">
 				</td>
@@ -94,7 +94,7 @@
 					<input type="text" id="lot_count#i#" name="lot_count#i#" value="#getparts.lot_count#"  class="reqdClr" size="2">
 				</td>
 				<td>
-					<label for="is_tissue#i#">Tissue?</label>
+					<label for="is_tissue#i#">Tiss?</label>
 					<select name="is_tissue#i#" size="1" class="reqdClr">
 						<option value="0" <cfif is_tissue is 0> selected </cfif>>No</option>
 						<option value="1" <cfif is_tissue is 1> selected </cfif>>Yes</option>
@@ -109,7 +109,7 @@
 				</td>
 				<td>
 					<label for="newCode#i#">Add to barcode</label>
-					<input type="text" name="newCode#i#" id="newCode#i#" size="15">
+					<input type="text" name="newCode#i#" id="newCode#i#" size="10">
 				</td>
 				<td>
 					<label for="coll_object_remarks#i#">Remark</label>
