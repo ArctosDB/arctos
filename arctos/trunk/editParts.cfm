@@ -35,7 +35,7 @@
 	<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 	</cfquery>
- 	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="infoLink" onClick="getDocs('parts')">help</a>
+ 	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="infoLink" onClick="getDocs('parts')">help</span>
 	<br><a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
 	<br><a href="##newPart">New</a>
 	<cfset i = 1>
@@ -61,7 +61,7 @@
 		<cfif len(sampled_from_obj_id) gt 0>
 			<cfset bgc="##669999">
 		</cfif>
-		<table border bgcolor="#bgc#" id="partRow#partID#">
+		<table border bgcolor="#bgc#" id="partRow#partID#" width="100%">
 			<tr>
 				<td>
 					<label for="part_name#i#">
