@@ -6,8 +6,8 @@
 </div>
 <label for="map">
 	Click <img src="/images/selector.png"> (on the map by the pan tool) to open spatial query tool. Click it again to cancel.
-	<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
 	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
+	<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
 </label>
 <input type="text" style="font-weight:bold;border:none;width:100%" id="selectedCoords">
 <input type="hidden" name="nwLat" id="nwLat">
