@@ -1,162 +1,141 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfif action is "nothing">
-<cfoutput>
-<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	SELECT
-		specimen_part.collection_object_id as partID,
-		part_name,
-		collection.institution_acronym,
-		coll_obj_disposition,
-		condition,
-		sampled_from_obj_id,
-		cataloged_item.collection_cde,
-		cat_num,
-		lot_count,
-		parentContainer.barcode,
-		parentContainer.label,
-		parentContainer.container_id AS parentContainerId,
-		thisContainer.container_id AS partContainerId,
-		parentContainer.print_fg,
-		coll_object_remarks,
-		is_tissue
-	FROM
-		cataloged_item
-		INNER JOIN collection ON (cataloged_item.collection_id = collection.collection_id)
-		LEFT OUTER JOIN specimen_part ON (cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)
-		LEFT OUTER JOIN coll_object ON (specimen_part.collection_object_id = coll_object.collection_object_id)
-		LEFT OUTER JOIN coll_obj_cont_hist ON (specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id)
-		LEFT OUTER JOIN container thisContainer ON (coll_obj_cont_hist.container_id = thisContainer.container_id)
-		LEFT OUTER JOIN container parentContainer ON (thisContainer.parent_container_id = parentContainer.container_id)
-		LEFT OUTER JOIN coll_object_remark ON (specimen_part.collection_object_id = coll_object_remark.collection_object_id)		
-	WHERE
-		cataloged_item.collection_object_id = #collection_object_id#
-	ORDER BY sampled_from_obj_id DESC,part_name ASC
-</cfquery>
-
-<cfquery name="Part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select part_name from ctspecimen_part_name 
-	where collection_cde=trim('#getParts.collection_cde#')
-	order by part_name
-</cfquery>
-<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select coll_obj_disposition from ctcoll_obj_disp
-</cfquery>
- 
-<b>Edit #getParts.recordcount# Specimen Parts</b>
-&nbsp;
-<a href="javascript:void(0);" onClick="getDocs('parts')"><img src="/images/info.gif" border="0"></a>
-<br>
-<a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
-<br><a href="##newPart">New</a>
-<cfset i = 1>
-<cfset listedParts = "">
-<form name="parts" method="post" action="editParts.cfm">
-<input type="hidden" name="action" value="saveEdits">
-<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-<input type="hidden" name="institution_acronym" value="#getParts.institution_acronym#">
-
-<cfloop query="getParts">
-	<!--- next couple lines and the if statement stop us from putting the same part in the 
+	<cfoutput>
+	<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT
+			specimen_part.collection_object_id as partID,
+			part_name,
+			collection.institution_acronym,
+			coll_obj_disposition,
+			condition,
+			sampled_from_obj_id,
+			cataloged_item.collection_cde,
+			cat_num,
+			lot_count,
+			parentContainer.barcode,
+			parentContainer.label,
+			parentContainer.container_id AS parentContainerId,
+			thisContainer.container_id AS partContainerId,
+			parentContainer.print_fg,
+			coll_object_remarks,
+			is_tissue
+		FROM
+			cataloged_item
+			INNER JOIN collection ON (cataloged_item.collection_id = collection.collection_id)
+			LEFT OUTER JOIN specimen_part ON (cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)
+			LEFT OUTER JOIN coll_object ON (specimen_part.collection_object_id = coll_object.collection_object_id)
+			LEFT OUTER JOIN coll_obj_cont_hist ON (specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id)
+			LEFT OUTER JOIN container thisContainer ON (coll_obj_cont_hist.container_id = thisContainer.container_id)
+			LEFT OUTER JOIN container parentContainer ON (thisContainer.parent_container_id = parentContainer.container_id)
+			LEFT OUTER JOIN coll_object_remark ON (specimen_part.collection_object_id = coll_object_remark.collection_object_id)		
+		WHERE
+			cataloged_item.collection_object_id = #collection_object_id#
+		ORDER BY sampled_from_obj_id DESC,part_name ASC
+	</cfquery>
+	<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
+	</cfquery>
+ 	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="infoLink" onClick="getDocs('parts')">help</a>
+	<br><a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
+	<br><a href="##newPart">New</a>
+	<cfset i = 1>
+	<cfset listedParts = "">
+	<form name="parts" method="post" action="editParts.cfm">
+		<input type="hidden" name="action" value="saveEdits">
+		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+		<input type="hidden" name="institution_acronym" value="#getParts.institution_acronym#">
+		<input type="hidden" name="partID#i#" value="#getParts.partID#">
+	<cfloop query="getParts">
+		<!--- next couple lines and the if statement stop us from putting the same part in the 
 		grid twice, which seems to happen when tehre are 2 parts in different containers - 
 		voodoo solution, but it works.....
 		---->
-	<cfif not #listcontains(listedParts, getParts.partID)#>
-		<cfset listedParts = "#listedParts#,#getParts.partID#">
-	<cfif #i# mod 2 eq 0>
-		<cfset bgc = "##C0C0C0">
-	<cfelse>
-		<cfset bgc="##F5F5F5">
-	</cfif>
-	<cfset lblClr = "red">
-
-<table border bgcolor="#bgc#" id="partRow#partID#">
-<tr>
-	<td colspan="2"><font color="#lblClr#">Part
-		<cfif len(#sampled_from_obj_id#) gt 0>
-			Subsample
-			<script type="text/javascript">
-				var thisRow = document.getElementById('partRow#partID#');
-				thisRow.style.backgroundColor ='##669999';
-			</script>
+		<cfif not #listcontains(listedParts, getParts.partID)#>
+			<cfset listedParts = "#listedParts#,#getParts.partID#">
+		<cfif #i# mod 2 eq 0>
+			<cfset bgc = "##C0C0C0">
+		<cfelse>
+			<cfset bgc="##F5F5F5">
 		</cfif>
-		<a class="info" href="javascript:void(0);">
-								<img 
-									class="likeLink" 
-									src="/images/ctinfo.gif" 
-									border="0"
-									onClick="getCtDoc('ctspecimen_part_name')">
-								<span>Define values</span>
-								</a>
-	</font></td>
-	<td><font color="#lblClr#">Disposition</font></td>
-	<td><font color="#lblClr#">
-	Condition</font>
-	<img src="/images/info.gif" border="0" class="likeLink" onClick="chgCondition('#getParts.partID#')"></td>
-
-	<td nowrap valign="middle" rowspan="4">
-			<input type="button" value="Delete" class="delBtn"
-   onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
-   onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
-			
-	<br>
-		<input type="button" 
-			value="Copy" 
-			class="insBtn"
-   			onmouseover="this.className='insBtn btnhov'" 
-			onmouseout="this.className='insBtn'"
-			onClick="newPart.part_name.value='#part_name#';
-				newPart.lot_count.value='#lot_count#';
-				newPart.coll_obj_disposition.value='#coll_obj_disposition#';
-				newPart.condition.value='#condition#';
-				newPart.coll_object_remarks.value='#coll_object_remarks#';">	
-	</td>
-	
-</tr>
-<tr>
-	
-
-
-	
-	<input type="hidden" name="partID#i#" value="#getParts.partID#">
-	<td colspan="2">
-		<input type="text" name="part_name#i#"	class="reqdClr"
-			value="#getParts.part_name#"
-			onchange="findPart(this.value,'#getParts.collection_cde#',this.name,'parts');" 
-			onkeypress="return noenter(event);">
-		<!---
-		<cfset thisPart = "#getParts.Part_Name#">
-		<select name="Part_name#i#" size="1" class="reqdClr">
-              <cfif len(#thisPart#) is 0>
-			  	<option selected value="" style="background-color:##FF0000 ">NOTHING</option>
-			 <cfelse>
-			 	 <cfloop query="Part">
-                <option <cfif #part.part_name# is "#thispart#"> selected </cfif>value="#Part.Part_Name#">#Part.Part_Name#</option>
-              </cfloop>			 
-			  </cfif>
-			 
-            </select>
-			--->
-	</td>
-	<td><select name="coll_obj_disposition#i#" size="1"  class="reqdClr">
-              <cfset thisDisp = #getParts.coll_obj_disposition#>
-              <cfloop query="ctDisp">
-                <option <cfif #ctdisp.coll_obj_disposition# is #thisdisp#> selected </cfif>value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
-              </cfloop>
-            </select>
-	</td>
-	<td><input type="text" name="condition#i#" value="#getparts.condition#"  class="reqdClr">
-	</td>
-	
-	
-	</tr>
-	<tr>
-	
-	
+		<cfset lblClr = "red">
+		<cfif len(sampled_from_obj_id) gt 0>
+			<cfset bgc="##669999">
+		</cfif>
+		<table border bgcolor="#bgc#" id="partRow#partID#">
+			<tr>
+				<td>
+					<label for="part_name#i#">
+						Part
+						<cfif len(sampled_from_obj_id) gt 0>
+							Subsample
+						</cfif>
+						<span class="infoLink" onClick="getCtDoc('ctspecimen_part_name')">Define values</span>
+					</label>
+					<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
+						value="#getParts.part_name#"
+						onchange="findPart(this.value,'#getParts.collection_cde#',this.name,'parts');" 
+						onkeypress="return noenter(event);">
+				</td>
+				<td>
+					<label for="coll_obj_disposition#i#">Disposition</label>
+					<select name="coll_obj_disposition#i#" size="1"  class="reqdClr">
+		              <cfloop query="ctDisp">
+			              <option <cfif ctdisp.coll_obj_disposition is getParts.coll_obj_disposition> selected </cfif>value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+		              </cfloop>
+		            </select>
+				</td>
+				<td>
+					<span class="infoLink" onClick="chgCondition('#getParts.partID#')">History</span>
+					<input type="text" name="condition#i#" value="#getparts.condition#"  class="reqdClr">
+				</td>
+				<td>
+					<label for="lot_count#i#">##</label>
+					<input type="text" id="lot_count#i#" name="lot_count#i#" value="#getparts.lot_count#"  class="reqdClr" size="2">
+				</td>
+				<td rowspan="2">
+					<input type="button" value="Delete" class="delBtn"
+						onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
+					<br>
+					<input type="button" 
+						value="Copy" 
+						class="insBtn"
+						onClick="newPart.part_name.value='#part_name#';
+							newPart.lot_count.value='#lot_count#';
+							newPart.coll_obj_disposition.value='#coll_obj_disposition#';
+							newPart.condition.value='#condition#';
+							newPart.coll_object_remarks.value='#coll_object_remarks#';">	
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="is_tissue#i#">Tissue?</label>
+					<select name="is_tissue#i#" size="1" class="reqdClr">
+						<option value="0" <cfif is_tissue is 0> selected </cfif>>No</option>
+						<option value="1" <cfif is_tissue is 1> selected </cfif>>Yes</option>
+					</select>
+				</td>
+				<td>
+					In Container Label
+					#getparts.label#&nbsp;
+					<input type="hidden" name="label#i#" value="#getparts.label#">
+					<input type="hidden" name="parentContainerId#i#" value="#getparts.parentContainerId#">
+					<input type="hidden" name="partContainerId#i#" value="#getparts.partContainerId#">
+				</td>
+				<td>
+					<label for="newCode#i#">Add to container barcode</label>
+					<input type="text" name="newCode#i#" id="newCode#i#">
+				</td>
+				<td>
+					<label for="coll_object_remarks#i#">Remark</label>
+					<input type="text" name="coll_object_remarks#i#" id="coll_object_remarks#i#" value="#getparts.coll_object_remarks#">
+				</td>
+			</tr>
+			<!----
 	<td align="right"><font color="#lblClr#">Lot Count</font></td>
 	<td align="right"><font color="#lblClr#">Is Tissue?</font></td>
 	
 	<td align="center"><font color="#lblClr#">In Container Label</font></td>
-	<td align="center"><font size="-1"><font color="#lblClr#">Add to container barcode</font>
+	<td align="center"><font size="-1"><font color="#lblClr#"></font>
       </font> </td>
 	<td align="center"><font size="-1">&nbsp;</font><font color="#lblClr#">Flag for print?</font></td>
 	<td><font color="#lblClr#">Remarks</font></td>
@@ -166,28 +145,19 @@
 	
 	
 								
-								<td align="right"><input type="text" name="lot_count#i#" value="#getparts.lot_count#"  class="reqdClr" size="2"></td>
 								<td align="right">
-									<select name="is_tissue#i#" size="1" class="reqdClr">
-										<option value="0" <cfif #is_tissue# is 0> selected </cfif>>No</option>
-										<option value="1" <cfif #is_tissue# is 1> selected </cfif>>Yes</option>
-									</select>
+									
 								</td>
 	
 	<td nowrap>
-	#getparts.label#&nbsp;
-	<input type="hidden" name="label#i#" value="#getparts.label#">
-	<input type="hidden" name="parentContainerId#i#" value="#getparts.parentContainerId#">
 	
-	
-	<input type="hidden" name="partContainerId#i#" value="#getparts.partContainerId#">
 	
 		<!---
 		Label: <input type="text" name="label" value="#getparts.label#">
 		Barcode: <input type="text" name="barcode" value="#getparts.barcode#">
 		--->
 	</td>
-	<td nowrap><input type="text" name="newCode#i#"></td>
+	<td nowrap></td>
 	<td nowrap>
 		C <input type="radio" name="print_fg#i#" value="1"
 			<cfif #getParts.print_fg# is 1>checked</cfif>>
@@ -197,9 +167,10 @@
 			<cfif #getParts.print_fg# neq 1 AND #getParts.print_fg# neq 2>checked</cfif>>
 		</td>
 		<td>
-			<input type="text" name="coll_object_remarks#i#" value="#getparts.coll_object_remarks#">
+			
 		</td>
 </tr>
+---->
 <cfset i = #i#+1>
      </cfif><!---- end of the list ---->
    
