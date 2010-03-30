@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Search Arctos: Google Custom Search">
-This form searches Arctos using Google's algorythyms. Not everything in Arctos is indexed, and the results can be a bit quirky.
+This form searches Arctos using Google's cache. Not everything in Arctos is indexed, and the results can be a bit quirky.
 We're working to make that better.
 <p>
 	Use one of the other search options if you don't find what you expect here.
