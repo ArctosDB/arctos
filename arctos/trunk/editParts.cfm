@@ -127,14 +127,11 @@
 					<input type="button" value="Delete" class="delBtn"
 						onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
 					<br>
-					<input type="button" 
-						value="Copy" 
-						class="insBtn"
-						onClick="newPart.part_name.value='#part_name#';
+					<span class="infoLink" onClick="newPart.part_name.value='#part_name#';
 							newPart.lot_count.value='#lot_count#';
 							newPart.coll_obj_disposition.value='#coll_obj_disposition#';
 							newPart.condition.value='#condition#';
-							newPart.coll_object_remarks.value='#coll_object_remarks#';">	
+							newPart.coll_object_remarks.value='#coll_object_remarks#';">[ Copy ]</span>
 				</td>
 			</tr>
 			<cfset i = #i#+1>
