@@ -234,6 +234,17 @@ Begin typing below to see it in action. These data are for all collections, and 
 		<th>Combined</th>
 		<th>ImperfectLinkToSpecimens</th>
 	</tr>
+	<cfset header="part_name,used_by">
+	<cfset variables.encoding="UTF-8">
+	<cfset fname = "SpecPartCleanup.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(header); 
+	</cfscript>
+		
+			
+			
 	<cfloop query="currpart">
 		<cfquery name="s" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
@@ -267,6 +278,9 @@ Begin typing below to see it in action. These data are for all collections, and 
 			<cfset tel='<a href="/SpecimenResults.cfm?collection_id=#collection_id#&part_name=#currpart.part_name#&preserv_method=#currpart.preserve_method#&part_modifier=#currpart.part_modifier#">#s.c# #s.collection#</a>'>
 			<cfset cList=listappend(cList,tel,";")>
 		</cfloop>
+		<cfscript>
+			variables.joFileWriter.writeLine('"' & cpn & '","' &  REReplaceNoCase(cList,"<[^>]*>","","ALL") & '"');
+		</cfscript>
 		<tr>
 			<td>#part_name#</td>
 			<td>#part_modifier#</td>
@@ -278,4 +292,8 @@ Begin typing below to see it in action. These data are for all collections, and 
 </table>
 </cfoutput>
 </p>
+<cfscript>	
+	variables.joFileWriter.close();
+</cfscript>
+<a href="/download/#fname#">CSV</a>
 <cfinclude template="/includes/_footer.cfm">
