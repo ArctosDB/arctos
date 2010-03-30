@@ -92,7 +92,6 @@
 		</cfsavecontent>
 		<cfset rownum=1>
 		<cfif offset is 0><cfset offset=1></cfif>
-		
 		<div class="thumbs">
 			#pager#
 			<div class="thumb_spcr">&nbsp;</div>
