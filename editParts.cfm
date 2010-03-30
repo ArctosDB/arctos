@@ -44,10 +44,10 @@
 		<input type="hidden" name="action" value="saveEdits">
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		<input type="hidden" name="institution_acronym" value="#getParts.institution_acronym#">
-		<input type="hidden" name="partID#i#" value="#getParts.partID#">
 	
 	<table border>
 	<cfloop query="getParts">
+		<input type="hidden" name="partID#i#" value="#getParts.partID#">
 		<!--- next couple lines and the if statement stop us from putting the same part in the 
 		grid twice, which seems to happen when tehre are 2 parts in different containers - 
 		voodoo solution, but it works.....
