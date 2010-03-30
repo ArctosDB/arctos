@@ -366,6 +366,7 @@
 	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
 	--->
 	spiffy
+	<cfabort>
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
