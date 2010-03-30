@@ -1,11 +1,4 @@
 <cfoutput>
-<cfquery name="pres" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select distinct(preserve_method) from CTSPECIMEN_PRESERV_METHOD
-	ORDER BY preserve_method
-</cfquery>
-<cfquery name="ctpart_mod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select distinct part_modifier from CTSPECIMEN_PART_MODIFIER order by part_modifier
-</cfquery>
 <cfquery name="ctbiol_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select biol_indiv_relationship  from ctbiol_relations
 </cfquery>
@@ -13,33 +6,6 @@
 	select distinct(attribute_type) from ctattribute_type order by attribute_type
 </cfquery>				
 <table id="t_identifiers" class="ssrch">
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="_preserve_method">Preservation Method:</span>
-		</td>
-		<td class="srch">
-			<select name="preserv_method" id="preserv_method" size="1">
-				<option value=""></option>
-				<cfloop query="pres"> 
-					<option value="#pres.preserve_method#">#pres.preserve_method#</option>
-				</cfloop>
-			</select>
-			<span class="infoLink" onclick="getCtDoc('ctspecimen_preserv_method',SpecData.preserv_method.value);">Define</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="_part_modifier">Part Modifier:</span>
-		</td>
-		<td class="srch">
-			<select name="part_modifier" id="part_modifier" size="1">
-				<option value=""></option>
-				<cfloop query="ctpart_mod"> 
-					<option value="#ctpart_mod.part_modifier#">#ctpart_mod.part_modifier#</option>
-				</cfloop>
-			</select>
-		</td>
-	</tr>
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="biol_indiv_relationship">Relationship:</span>

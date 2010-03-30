@@ -1140,16 +1140,13 @@
 </cfif>		
 <cfif isdefined("part_name") AND len(#part_name#) gt 0>
 	<cfset mapurl = "#mapurl#&part_name=#part_name#">
-	<cfif 
-		(isdefined("is_tissue") AND is_tissue is true) OR
-		(isdefined("preserv_method") AND len(#preserv_method#) gt 0) OR
-		(isdefined("part_modifier") AND len(#part_modifier#) gt 0)>
-		<cfif #basJoin# does not contain " specimen_part ">
+	<cfif isdefined("is_tissue") AND is_tissue is true>
+		<cfif basJoin does not contain " specimen_part ">
 			<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 
 			(cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
 		</cfif>
 		<cfset basQual = " #basQual# AND part_name = '#part_name#'">	
-	<cfelseif #part_name# contains "|">
+	<cfelseif part_name contains "|">
 		<cfset i=1>
 		<cfloop list="#part_name#" delimiters="|" index="p">
 			<cfset basJoin = " #basJoin# INNER JOIN specimen_part sp#i# ON 
@@ -1158,7 +1155,7 @@
 			<cfset i=i+1>
 		</cfloop>
 	<cfelseif left(part_name,1) is '='>
-		<cfif #basJoin# does not contain " specimen_part ">
+		<cfif basJoin does not contain " specimen_part ">
 			<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 
 			(cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
 		</cfif>
@@ -1188,27 +1185,6 @@
 			connect by prior parent_part_id = part_id)">
 	<cfset mapurl = "#mapurl#&srchParts=#srchParts#">
 </cfif>
-
-<cfif isdefined("preserv_method") AND len(#preserv_method#) gt 0>
-	<cfset preserv_method=#replace(preserv_method,"'","''","all")#>
-	<cfif #basJoin# does not contain " specimen_part ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 
-		(cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
-	</cfif>
-	<cfset basQual = " #basQual# AND preserve_method LIKE '#preserv_method#'">
-	<cfset mapurl = "#mapurl#&preserv_method=#preserv_method#">
-</cfif>
-
-<cfif isdefined("part_modifier") AND len(#part_modifier#) gt 0>
-	<cfif #basJoin# does not contain " specimen_part ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 
-		(cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
-	</cfif>
-	<cfset basQual = " #basQual# AND part_modifier LIKE '#part_modifier#'">
-	<cfset mapurl = "#mapurl#&part_modifier=#part_modifier#">
-</cfif>
-	
-
 <cfif isdefined("Common_Name") AND len(#Common_Name#) gt 0>
 	<cfif #basJoin# does not contain " identification ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON 
