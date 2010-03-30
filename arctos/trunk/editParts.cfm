@@ -117,7 +117,7 @@
 				</td>
 				<td>
 					<label for=""In Container Label></label>
-					#getparts.label#
+					<span style="font-size:small">#getparts.label#</span>
 					<input type="hidden" name="label#i#" value="#getparts.label#">
 					<input type="hidden" name="parentContainerId#i#" value="#getparts.parentContainerId#">
 					<input type="hidden" name="partContainerId#i#" value="#getparts.partContainerId#">
