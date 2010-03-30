@@ -45,6 +45,8 @@
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		<input type="hidden" name="institution_acronym" value="#getParts.institution_acronym#">
 		<input type="hidden" name="partID#i#" value="#getParts.partID#">
+	
+	<table border  width="100%">
 	<cfloop query="getParts">
 		<!--- next couple lines and the if statement stop us from putting the same part in the 
 		grid twice, which seems to happen when tehre are 2 parts in different containers - 
@@ -61,8 +63,7 @@
 		<cfif len(sampled_from_obj_id) gt 0>
 			<cfset bgc="##669999">
 		</cfif>
-		<table border bgcolor="#bgc#" id="partRow#partID#" width="100%">
-			<tr>
+			<tr bgcolor="#bgc#">
 				<td>
 					<label for="part_name#i#">
 						Part
@@ -106,7 +107,7 @@
 							newPart.coll_object_remarks.value='#coll_object_remarks#';">	
 				</td>
 			</tr>
-			<tr>
+			<tr bgcolor="#bgc#">
 				<td>
 					<label for="is_tissue#i#">Tissue?</label>
 					<select name="is_tissue#i#" size="1" class="reqdClr">
