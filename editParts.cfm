@@ -119,7 +119,7 @@
 					<label for="print_fg#i#">P Fg - #getParts.print_fg#</label>
 					<select name="print_fg#i#" id="print_fg#i#" style="width:40px;">
 						<option <cfif getParts.print_fg is 0>selected="selected" </cfif>value="0">no print flag</option>
-						<option <cfif getParts.print_fg is 1>selected="selected" </cfif>value="0">box</option>
+						<option <cfif getParts.print_fg is 1>selected="selected" </cfif>value="1">box</option>
 						<option <cfif getParts.print_fg is 2>selected="selected" </cfif>value="2">vial</option>
 					</select>
 				</td>
