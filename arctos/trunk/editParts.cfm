@@ -119,6 +119,11 @@
 	
 	<input type="hidden" name="partID#i#" value="#getParts.partID#">
 	<td colspan="2">
+		<input type="text" name="part_name#i#"	class="reqdClr"
+			value="#getParts.part_name#"
+			onchange="findPart(this.value,'#getParts.collection_cde#',this.name,'parts');" 
+			onkeypress="return noenter(event);">
+		<!---
 		<cfset thisPart = "#getParts.Part_Name#">
 		<select name="Part_name#i#" size="1" class="reqdClr">
               <cfif len(#thisPart#) is 0>
@@ -130,6 +135,7 @@
 			  </cfif>
 			 
             </select>
+			--->
 	</td>
 	<td><select name="coll_obj_disposition#i#" size="1"  class="reqdClr">
               <cfset thisDisp = #getParts.coll_obj_disposition#>
@@ -225,11 +231,18 @@
     <table>
       <tr> 
         <td><div align="right">Part Name: </div></td>
-        <td><select name="part_name" size="1" class="reqdClr">
+        <td>
+			<input type="text" name="part_name"	class="reqdClr"
+				onchange="findPart(this.value,'#getParts.collection_cde#',this.name,'newPart');" 
+				onkeypress="return noenter(event);">
+<!---
+			<select name="part_name" size="1" class="reqdClr">
             <cfloop query="Part">
               <option value="#Part.Part_Name#">#Part.Part_Name#</option>
             </cfloop>
-          </select></td>
+          </select>
+		--->
+		</td>
       </tr>
 	   <tr> 
         <td><div align="right">Count:</div></td>
