@@ -46,7 +46,7 @@
 		<input type="hidden" name="institution_acronym" value="#getParts.institution_acronym#">
 		<input type="hidden" name="partID#i#" value="#getParts.partID#">
 	
-	<table border  width="100%">
+	<table border>
 	<cfloop query="getParts">
 		<!--- next couple lines and the if statement stop us from putting the same part in the 
 		grid twice, which seems to happen when tehre are 2 parts in different containers - 
@@ -93,7 +93,7 @@
 					<label for="lot_count#i#">Lot Count</label>
 					<input type="text" id="lot_count#i#" name="lot_count#i#" value="#getparts.lot_count#"  class="reqdClr" size="2">
 				</td>
-				<td rowspan="2">
+				<td rowspan="2" align="middle">
 					<input type="button" value="Delete" class="delBtn"
 						onclick="parts.action.value='deletePart';parts.partID.value='#partID#';confirmDelete('parts','#part_name#');">
 					<br>
