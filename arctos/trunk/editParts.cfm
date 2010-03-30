@@ -108,8 +108,8 @@
 					<input type="hidden" name="partContainerId#i#" value="#getparts.partContainerId#">
 				</td>
 				<td>
-					<label for="newCode#i#">Add to container barcode</label>
-					<input type="text" name="newCode#i#" id="newCode#i#">
+					<label for="newCode#i#">Add to barcode</label>
+					<input type="text" name="newCode#i#" id="newCode#i#" size="15">
 				</td>
 				<td>
 					<label for="coll_object_remarks#i#">Remark</label>
