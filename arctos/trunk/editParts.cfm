@@ -69,7 +69,7 @@
 						<cfif len(sampled_from_obj_id) gt 0>
 							Subsample
 						</cfif>
-						<span class="infoLink" onClick="getCtDoc('ctspecimen_part_name')">Define values</span>
+						<span class="likeLink" onClick="getCtDoc('ctspecimen_part_name')">Define values</span>
 					</label>
 					<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
 						value="#getParts.part_name#"
@@ -85,11 +85,11 @@
 		            </select>
 				</td>
 				<td>
-					<span class="infoLink" onClick="chgCondition('#getParts.partID#')">History</span>
-					<input type="text" name="condition#i#" value="#getparts.condition#"  class="reqdClr">
+					<label for="condition#i#">Condition<span class="likeLink" onClick="chgCondition('#getParts.partID#')">History</span></label>
+					<input type="text" name="condition#i#" id="condition#i#" value="#getparts.condition#"  class="reqdClr">
 				</td>
 				<td>
-					<label for="lot_count#i#">##</label>
+					<label for="lot_count#i#">Lot Count</label>
 					<input type="text" id="lot_count#i#" name="lot_count#i#" value="#getparts.lot_count#"  class="reqdClr" size="2">
 				</td>
 				<td rowspan="2">
@@ -115,8 +115,8 @@
 					</select>
 				</td>
 				<td>
-					In Container Label
-					#getparts.label#&nbsp;
+					<label for=""In Container Label></label>
+					#getparts.label#
 					<input type="hidden" name="label#i#" value="#getparts.label#">
 					<input type="hidden" name="parentContainerId#i#" value="#getparts.parentContainerId#">
 					<input type="hidden" name="partContainerId#i#" value="#getparts.partContainerId#">
