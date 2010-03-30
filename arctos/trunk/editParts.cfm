@@ -70,7 +70,7 @@
 						<cfif len(sampled_from_obj_id) gt 0>
 							Subsample
 						</cfif>
-						<span class="likeLink" onClick="getCtDoc('ctspecimen_part_name')">Define values</span>
+						&nbsp;<span class="likeLink" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
 					</label>
 					<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
 						value="#getParts.part_name#"
@@ -86,7 +86,7 @@
 		            </select>
 				</td>
 				<td>
-					<label for="condition#i#">Condition<span class="likeLink" onClick="chgCondition('#getParts.partID#')">History</span></label>
+					<label for="condition#i#">Condition&nbsp;<span class="likeLink" onClick="chgCondition('#getParts.partID#')">[ History ]</span></label>
 					<input type="text" name="condition#i#" id="condition#i#" value="#getparts.condition#"  class="reqdClr">
 				</td>
 				<td>
