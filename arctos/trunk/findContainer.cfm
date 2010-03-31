@@ -6,14 +6,16 @@
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 
 <script>
-jQuery("#part_name").autocomplete("/ajax/part_name.cfm", {
-		width: 320,
-		max: 20,
-		autofill: true,
-		highlight: false,
-		multiple: false,
-		scroll: true,
-		scrollHeight: 300
+	jQuery(document).ready(function() {
+		jQuery("#part_name").autocomplete("/ajax/part_name.cfm", {
+			width: 320,
+			max: 20,
+			autofill: true,
+			highlight: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300
+		});
 	});
 </script>
 <style >
