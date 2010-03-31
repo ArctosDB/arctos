@@ -22,7 +22,7 @@
 						$('tr#r' + ctspnid).remove();
 					} else {
 						alert('An error occured! \n ' + r);
-					}	
+					}
 				}
 			);
 		}		
