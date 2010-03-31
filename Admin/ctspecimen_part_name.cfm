@@ -63,6 +63,7 @@
 		
 		$('tr#r' + ctspnid).children().remove();
 		$('tr#r' + ctspnid).append(r);
+		doneSaving();
 	}
 	
 	
