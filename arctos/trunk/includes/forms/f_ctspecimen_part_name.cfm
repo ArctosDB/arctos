@@ -58,7 +58,7 @@
 			update ctspecimen_part_name set
 				collection_cde='#collection_cde#',
 				part_name='#part_name#',
-				is_tissue=#is_tissue#
+				is_tissue=#is_tissue#,
 				description='#description#'
 			where ctspnid=#ctspnid#
 		</cfquery>
