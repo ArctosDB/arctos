@@ -3,7 +3,7 @@
 <br>
 <cfif action is "nothing">
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from ctspecimen_part where ctspnid=#ctspnid#
+	select * from ctspecimen_part_name where ctspnid=#ctspnid#
 </cfquery>
 <cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct collection_cde from ctcollection_cde order by collection_cde
@@ -55,7 +55,7 @@
 <cfoutput>
 	<cftransaction>
 		<cfquery name="usp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			update ctspecimen_part set
+			update ctspecimen_part_name set
 				collection_cde='#collection_cde#',
 				part_name='#part_name#',
 				is_tissue=#is_tissue#
@@ -64,7 +64,7 @@
 		</cfquery>
 		<cfif upAllDesc is 1>
 			<cfquery name="upalld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				update ctspecimen_part set
+				update ctspecimen_part_name set
 				description='#description#'
 				where
 				part_name='#part_name#'			
@@ -72,7 +72,7 @@
 		</cfif>
 		<cfif upAllTiss is 1>
 			<cfquery name="upallt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				update ctspecimen_part set
+				update ctspecimen_part_name set
 				is_tissue=#is_tissue#
 				where
 				part_name='#part_name#'			
