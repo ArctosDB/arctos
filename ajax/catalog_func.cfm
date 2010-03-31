@@ -338,6 +338,11 @@
 <cfset result = "#i#">
 <cftry>
 	<cftransaction>
+		
+		<cfquery name="getContID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select container_id from coll_obj_cont_hist where
+			collection_object_id = #partID#
+		</cfquery>
 		<cfquery name="delePart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM specimen_part WHERE collection_object_id = #partID#
 		</cfquery>
@@ -346,10 +351,6 @@
 		</cfquery>
 		<cfquery name="delePartRemark" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM coll_object_remark WHERE collection_object_id = #partID#
-		</cfquery>
-		<cfquery name="getContID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select container_id from coll_obj_cont_hist where
-			collection_object_id = #partID#
 		</cfquery>
 		<cfif getContID.container_id gt 0>
 			<cfquery name="deleCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
