@@ -47,10 +47,6 @@
 
 
 <cfif action is "updatePartForm">
-	<script>
-		$('#_header').hide();
-		$('#_footer').hide();
-	</script>
 	Hi, I'm update part form.
 </cfif>
 <cfif action is "nothing">
