@@ -1,7 +1,6 @@
-<cfcomponent>
-<!------------------------------------------->
 	
-</cfcomponent>
+<cfinclude template="/includes/_header.cfm">
+
 <script>
 	function deletePart(ctspnid){
 		var answer = confirm("Delete Part?")
@@ -42,8 +41,11 @@
 			viewport.init("#bgDiv");
 		});
 	}
-</script>	
-<cfinclude template="/includes/_header.cfm">
+</script>
+
+
+
+
 <cfif action is "updatePartForm">
 	Hi, I'm update part form.
 </cfif>
