@@ -79,7 +79,7 @@
 			</cfquery>
 		</cfif>
 		<script>
-			parent.successUpdate('#collection_cde#','#part_name#','#is_tissue#',escape('#description#'),'#upAllDesc#','#upAllTiss#');
+			parent.successUpdate('#ctspnid#','#collection_cde#','#part_name#','#is_tissue#',escape('#description#'),'#upAllDesc#','#upAllTiss#');
 		</script>
 	</cftransaction>			
 </cfoutput>

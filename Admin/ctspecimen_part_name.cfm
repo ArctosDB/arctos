@@ -49,12 +49,18 @@
 			viewport.init("#bgDiv");
 	    });
 	}
-	function successUpdate(collection_cde,part_name,is_tissue,description,upAllDesc,upAllTiss) {
+	function successUpdate(ctspnid,collection_cde,part_name,is_tissue,description,upAllDesc,upAllTiss) {
 		console.log('successUpdate');
 		if(	upAllDesc==1 || upAllTiss==1 ) {
 			document.location=document.location;
 		}
+		var row="<td>" & collection_cde & "</td><td>" & part_name & "</td><td>" & is_tissue & "</td>";
+		row+="<td>" & description & "</td><td>";
+		row+='<span class="likeLink" onclick="deletePart(' & ctspnid & ')">Delete</span>';
+		row+='<span class="likeLink" onclick="updatePart(' & ctspnid & ')">Update</span>';
+		console.log(row);
 		
+		$('tr#r' + ctspnid).children().replace(row);
 	}
 	
 	
