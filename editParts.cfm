@@ -74,7 +74,7 @@
 					</label>
 					<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
 						value="#getParts.part_name#" size="25"
-						onchange="findPart(this.name,this.value,'#getParts.collection_cde#');" 
+						onchange="findPart(this.id,this.value,'#getParts.collection_cde#');" 
 						onkeypress="return noenter(event);">
 				</td>
 				<td>
@@ -173,8 +173,8 @@
       <tr> 
         <td><div align="right">Part Name: </div></td>
         <td>
-			<input type="text" name="part_name"	class="reqdClr"
-				onchange="findPart(this.name,this.value,'#getParts.collection_cde#');" 
+			<input type="text" name="part_name" id="part_name" class="reqdClr"
+				onchange="findPart(this.id,this.value,'#getParts.collection_cde#');" 
 				onkeypress="return noenter(event);">
 		</td>
       </tr>
