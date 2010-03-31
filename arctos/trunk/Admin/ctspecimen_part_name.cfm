@@ -35,11 +35,22 @@
 		theDiv.innerHTML='';
 		theDiv.src = "";
 		document.body.appendChild(theDiv);
+		
+		$('#annotateDiv').append('<IFRAME id="ctspid" width="100%">');
+	    
+	    
 		var guts = "/includes/forms/f_ctspecimen_part_name.cfm";
-		jQuery('#annotateDiv').load(guts,{},function(){
-			viewport.init("#annotateDiv");
+		
+	    $('iframe#ctspid').attr('src', guts);
+	
+	    $('iframe#ctspid').load(function() 
+	    {
+	        viewport.init("#annotateDiv");
 			viewport.init("#bgDiv");
-		});
+	    });
+		
+		
+		
 	}
 </script>
 
