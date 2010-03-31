@@ -84,7 +84,7 @@
 			console.log(desc);
 			
 			
-			//parent.successUpdate('#ctspnid#','#collection_cde#','#part_name#','#is_tissue#','escape(#description#)','#upAllDesc#','#upAllTiss#');
+			parent.successUpdate('#ctspnid#','#collection_cde#','#part_name#','#is_tissue#',desc,'#upAllDesc#','#upAllTiss#');
 		</script>
 	</cftransaction>
 	<cfcatch><cfdump var=#cfcatch#></cfcatch>
