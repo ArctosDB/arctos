@@ -1,5 +1,16 @@
 <cfcomponent>
-	
+<cffunction name="deleteCtPartName" access="remote">
+	<cfargument name="ctspnid" type="numeric" required="yes">
+	<cftry>
+		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from ctspecimen_part_name where ctspnid=#ctspnid#
+		</cfquery>
+		<cfreturn ctspnid>
+	<cfcatch>
+		<cfreturn cfcatch.message & ': ' & cfcatch.detail>
+	</cfcatch>
+	</cftry>
+</cffunction>
 <!------------------------------------------------------->
 <cffunction name="getTrans_agent_role" access="remote">
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
