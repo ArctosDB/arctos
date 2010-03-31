@@ -54,7 +54,11 @@
 		if(	upAllDesc==1 || upAllTiss==1 ) {
 			document.location=document.location;
 		}
-		var r="<td>" & collection_cde & "</td><td>" & part_name & "</td><td>" & is_tissue & "</td>";
+		
+		var r='<td>';
+						console.log(r);
+		
+		r+= collection_cde & "</td><td>" & part_name & "</td><td>" & is_tissue & "</td>";
 				console.log(r);
 		
 		r+="<td>" & description & "</td><td>";
