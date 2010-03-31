@@ -1,6 +1,6 @@
-	
+<div id="_header">
 <cfinclude template="/includes/_header.cfm">
-
+</div>
 <script>
 	function deletePart(ctspnid){
 		var answer = confirm("Delete Part?")
@@ -47,7 +47,10 @@
 
 
 <cfif action is "updatePartForm">
-	<cf_suppressHeader>
+	<script>
+		$('#_header').hide();
+		$('#_footer').hide();
+	</script>
 	Hi, I'm update part form.
 </cfif>
 <cfif action is "nothing">
@@ -141,7 +144,9 @@
 </cfif>	
 		
 
-
+<div id="_footer.cfm">
+	<cfinclude template="/includes/_footer.cfm">
+</div>
 
 
 
