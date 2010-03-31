@@ -3,6 +3,18 @@
 <script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 <script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
 <link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
+
+<script>
+jQuery("#part_name").autocomplete("/ajax/part_name.cfm", {
+		width: 320,
+		max: 20,
+		autofill: true,
+		highlight: false,
+		multiple: false,
+		scroll: true,
+		scrollHeight: 300
+	});
+</script>
 <style >
 	.cTreePane {
 		height:400px;	
@@ -36,9 +48,6 @@ padding-right:10px;
 <cfquery name="contType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select container_type from ctContainer_Type order by container_type
 </cfquery>
- <cfquery name="PartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select distinct part_name from specimen_part ORDER BY part_name
-</cfquery>
 <cfquery name="collections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_id, institution_acronym || ' ' || collection_cde coll from collection
 </cfquery>
@@ -71,12 +80,7 @@ padding-right:10px;
 				<label for="description">Description (% for wildcard)</label>
 				<input type="text" name="description" id="description"  />
 				<label for="part_name">Part</label>
-				<select name="part_name" id="part_name" size="1">
-					<option value=""></option>
-						  <cfloop query="partName"> 
-							<option value="#partName.part_name#">#partName.part_name#</option>
-						  </cfloop>
-				</select>
+				<input type="text" id="part_name" name="part_name">
 				<label for="container_type">Container Type</label>
 				<select name="container_type" id="container_type" size="1">
 					<option value=""></option>
