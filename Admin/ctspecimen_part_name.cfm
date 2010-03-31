@@ -40,7 +40,7 @@
 		theDiv.innerHTML='';
 		theDiv.src = "";
 		document.body.appendChild(theDiv);
-		$('#annotateDiv').append('<IFRAME id="frame_ctspid" width="100%">');
+		$('#annotateDiv').append('<IFRAME id="frame_ctspid" width="100%" height="100%">');
 	  	var guts = "/includes/forms/f_ctspecimen_part_name.cfm?ctspnid=" + ctspnid;
 	    $('iframe#frame_ctspid').attr('src', guts);
 	    $('iframe#frame_ctspid').load(function() 
