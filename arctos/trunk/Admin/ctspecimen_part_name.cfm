@@ -58,7 +58,7 @@
 		var r='<td>';
 						console.log(r);
 		
-		r+= collection_cde & '</td><td>' & part_name & '</td><td>' & is_tissue & '</td>';
+		r+= collection_cde & '<\/td><td>' & part_name & '<\/td><td>' & is_tissue & '<\/td>';
 				console.log(r);
 		
 		r+='<td>' & description & '</td><td>';
