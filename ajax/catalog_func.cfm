@@ -336,6 +336,7 @@
 <cfargument name="partID" type="numeric" required="yes">
 <cfargument name="i" type="numeric" required="yes">
 <cfset result = "#i#">
+<cfreturn 'boogity'>
 <cftry>
 	<cftransaction>
 		<cfquery name="delePart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
