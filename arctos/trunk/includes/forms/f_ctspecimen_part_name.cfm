@@ -81,9 +81,6 @@
 		</cfif>
 		<script>
 			var desc=escape('#replace(description,"'","\'","all")#');
-			console.log(desc);
-			
-			
 			parent.successUpdate('#ctspnid#','#collection_cde#','#part_name#','#is_tissue#',desc,'#upAllDesc#','#upAllTiss#');
 		</script>
 	</cftransaction>

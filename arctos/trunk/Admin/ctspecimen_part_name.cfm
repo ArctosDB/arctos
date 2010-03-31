@@ -19,7 +19,7 @@
 				},
 				function(r) {
 					if (r == ctspnid) {
-						console.log('zapped ' + ctspnid);	
+						$('tr#r' + ctspnid).remove();
 					} else {
 						alert('An error occured! \n ' + r);
 					}	
