@@ -80,10 +80,9 @@
 			</cfquery>
 		</cfif>
 		<script>
-			var desc=escape(#description#);
+			var desc=escape('#replace(description,"'","\'","all")#');
 			console.log(desc);
 			
-			console.log(escape(#description#));
 			
 			//parent.successUpdate('#ctspnid#','#collection_cde#','#part_name#','#is_tissue#','escape(#description#)','#upAllDesc#','#upAllTiss#');
 		</script>
