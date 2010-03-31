@@ -47,6 +47,7 @@
 
 
 <cfif action is "updatePartForm">
+	<cf_suppressHeader>
 	Hi, I'm update part form.
 </cfif>
 <cfif action is "nothing">
