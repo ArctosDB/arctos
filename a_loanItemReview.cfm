@@ -11,7 +11,7 @@
 <!-------------------------------------------------------------------------------->
 <cfif #Action# is "delete">
 	<cfoutput>
-	<cfif isdefined("coll_obj_disposition") AND #coll_obj_disposition# is "on loan">
+	<cfif isdefined("coll_obj_disposition") AND coll_obj_disposition is "on loan">
 		<!--- see if it's a subsample --->
 		<cfquery name="isSSP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select SAMPLED_FROM_OBJ_ID from specimen_part where collection_object_id = #partID#
@@ -193,8 +193,6 @@
 		cataloged_item.collection_object_id,
 		collection,
 		part_name,
-		 part_modifier,
-		 preserve_method,
 		condition,
 		 sampled_from_obj_id,
 		 item_descr,
@@ -347,15 +345,7 @@ Review items in loan<b>
 			<em>#scientific_name#</em>&nbsp;
 		</td>
 		<td>
-			<cfset thisPart=#part_name#>
-			<cfif len(#part_modifier#) gt 0>
-				<cfset thisPart="#part_modifier# #thisPart#">
-			</cfif>
-			<cfif len(#preserve_method#) gt 0>
-				<cfset thisPart="#thisPart# (#preserve_method#)">
-			</cfif>
-			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#thisPart#</a>
-			&nbsp;
+			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#part_name#</a>
 		</td>
 		<td>
 			<textarea name="condition#partID#" 
