@@ -61,8 +61,6 @@
 		part_name,
 		partcollobj.coll_obj_disposition as part_disposition,
 		partcollobj.condition as part_condition,
-		part_modifier,
-		preserve_method,
 		sampled_from_obj_id,
 		partcollobj.lot_count as part_count,
 		parentContainer.barcode,
@@ -233,8 +231,6 @@
 		part_name,
 		part_disposition,
 		part_condition,
-		part_modifier,
-		preserve_method,
 		sampled_from_obj_id,
 		part_count,
 		barcode,
@@ -248,8 +244,6 @@
 		part_name,
 		part_disposition,
 		part_condition,
-		part_modifier,
-		preserve_method,
 		sampled_from_obj_id,
 		part_count,
 		barcode,
@@ -326,15 +320,6 @@
 				WHERE collection_cde='#collection_cde#'
 				order by part_name
         </cfquery>
-		<cfquery name="ctPartModifier" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT distinct(part_modifier) FROM ctSpecimen_part_modifier
-			order by part_modifier
-        </cfquery>
-		<cfquery name="ctPresMeth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-			select preserve_method from ctspecimen_preserv_method
-				WHERE collection_cde='#collection_cde#'
-				order by preserve_method
-		</cfquery>
 		<cfquery name="ctLength_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
 			select length_units from ctLength_Units
 			order by length_units
@@ -531,16 +516,6 @@
 		<cfset thisPartName = "#thisPartName#|#part_name#">
 	</cfloop>
 	<input type="hidden" name="part_name_list" id="part_name_list" value="#thisPartName#" />
-	<cfset thisPartMod = "">
-	<cfloop query="ctPartModifier">
-		<cfset thisPartMod = "#thisPartMod#|#part_modifier#">
-	</cfloop>
-	<input type="hidden" name="part_mod_list" id="part_mod_list" value="#thisPartMod#" />
-	<cfset thispmeth = "">
-	<cfloop query="ctPresMeth">
-		<cfset thispmeth = "#thispmeth#|#preserve_method#">
-	</cfloop>
-	<input type="hidden" name="pres_meth_list" id="pres_meth_list" value="#thispmeth#" />
 	<cfset thisdisp = "">
 	<cfloop query="CTCOLL_OBJ_DISP">
 		<cfset thisdisp = "#thisdisp#|#coll_obj_disposition#">
@@ -555,8 +530,6 @@
 				<td>
 					<span class="d11a">Part</span>
 				</td>
-				<td><span class="d11a">Modifier</span></td>
-				<td><span class="d11a">Pres Meth</span></td>
 				<td><span class="d11a">Disposition</span></td>
 				<td><span class="d11a">Condition</span></td>
 				<td><span class="d11a">##</span></td>
@@ -579,32 +552,6 @@
 								value="#part_name#">#part_name#</option>
 							</cfloop>
 						</select>
-					</td>
-					<td>	
-						<cfset tpm = #part_modifier#>
-						<select name="part_modifier_#i#" id="part_modifier_#i#" size="1" class="d11a"
-							onchange="this.className='saving';upPartMod(#i#);">
-							<option  value=""></option>
-							<cfloop query="ctPartModifier">
-								<option 
-									<cfif #tpm# is #part_modifier#> selected </cfif>
-								value="#part_modifier#">#part_modifier#</option>
-							</cfloop>
-						</select>
-					
-					</td>
-					<td>	
-						<cfset tps = #preserve_method#>
-						<select name="preserve_method_#i#" id="preserve_method_#i#" size="1" class="d11a"
-							onchange="this.className='saving';upPartPres(#i#);">
-							<option  value=""></option>
-							<cfloop query="ctPresMeth">
-								<option 
-									<cfif #tps# is #preserve_method#> selected </cfif>
-								value="#preserve_method#">#preserve_method#</option>
-							</cfloop>
-						</select>
-					
 					</td>
 					<td>	
 						<cfset pd = #part_disposition#>
@@ -662,24 +609,6 @@
 								<option value="#part_name#">#part_name#</option>
 							</cfloop>
 						</select>
-					</td>
-					<td>	
-						<select name="part_modifier_n" id="part_modifier_n" size="1" class="d11a">
-							<option  value=""></option>
-							<cfloop query="ctPartModifier">
-								<option value="#part_modifier#">#part_modifier#</option>
-							</cfloop>
-						</select>
-					
-					</td>
-					<td>	
-							<select name="preserve_method_n" id="preserve_method_n" size="1" class="d11a">
-							<option  value=""></option>
-							<cfloop query="ctPresMeth">
-								<option value="#preserve_method#">#preserve_method#</option>
-							</cfloop>
-						</select>
-					
 					</td>
 					<td>	
 						<select name="part_disposition_n" id="part_disposition_n" size="1" class="d11a">
