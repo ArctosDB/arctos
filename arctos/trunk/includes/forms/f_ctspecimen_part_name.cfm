@@ -1,3 +1,4 @@
+<cfinclude template="/includes/_frameHeader.cfm">
 <cfif action is "nothing">
 i am form
 <a href="f_ctspecimen_part_name.cfm?action=something">something</a>
