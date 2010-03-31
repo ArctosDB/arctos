@@ -31,7 +31,7 @@
 			order by partname, part_name
 		</cfquery>
 	<cfloop query="gp">
-	<br><a href="##" onClick="javascript: document.getElementById('#partFld#').value='#part_name#';self.close();">#part_name#</a>
+	<br><a href="##" onClick="javascript: opener.document.getElementById('#partFld#').value='#part_name#';self.close();">#part_name#</a>
 	<!---	
 		<br><a href="##" onClick="javascript: document.selectedAgent.agentID.value='#agent_id#';document.selectedAgent.agentName.value='#agent_name#';document.selectedAgent.submit();">#agent_name# - #agent_id#</a> - 
 	--->
