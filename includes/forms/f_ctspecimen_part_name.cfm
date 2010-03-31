@@ -80,7 +80,7 @@
 			</cfquery>
 		</cfif>
 		<script>
-			var desc=escape('#description#');
+			var desc=escape(#description#);
 			console.log(desc);
 			
 			console.log(escape(#description#));
