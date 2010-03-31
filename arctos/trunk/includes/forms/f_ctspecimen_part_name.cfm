@@ -53,6 +53,7 @@
 
 <cfif action is "update">
 <cfoutput>
+	<cftry>
 	<cftransaction>
 		<cfquery name="usp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update ctspecimen_part_name set
@@ -81,6 +82,8 @@
 		<script>
 			parent.successUpdate('#ctspnid#','#collection_cde#','#part_name#','#is_tissue#',escape('#description#'),'#upAllDesc#','#upAllTiss#');
 		</script>
-	</cftransaction>			
+	</cftransaction>
+	<cfcatch><cfdump var=#cfcatch#></cfcatch>
+	</cftry>			
 </cfoutput>
 </cfif>
