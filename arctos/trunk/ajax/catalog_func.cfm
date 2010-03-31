@@ -336,7 +336,6 @@
 <cfargument name="partID" type="numeric" required="yes">
 <cfargument name="i" type="numeric" required="yes">
 <cfset result = "#i#">
-<cfreturn 'boogity'>
 <cftry>
 	<cftransaction>
 		<cfquery name="delePart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -363,16 +362,15 @@
 			DELETE FROM container WHERE container_id = #getContID.container_id#
 		</cfquery>
 	</cftransaction>
-<cfcatch>
-					<cfset result = 'A database error occured! #cfcatch.msg# #cfcatch.detail#'>
-				</cfcatch>
-			</cftry>	
+	<cfcatch>
+			<cfset result = 'A database error occured! #cfcatch.msg# #cfcatch.detail#'>
+			<cfreturn result>
+	</cfcatch>
+</cftry>	
 
 
 			
-				<!---
 	  <cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-	  ---->
 		<cfreturn result>
 </cffunction>
 <!-------------------------------------------------------------------------->
