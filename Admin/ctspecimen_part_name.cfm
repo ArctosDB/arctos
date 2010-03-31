@@ -2,6 +2,11 @@
 <cfinclude template="/includes/_header.cfm">
 </div>
 <script>
+	function doneSaving(){
+		$('#frame_ctspid').remove();
+		$('#annotateDiv').remove();
+		$('#bgDiv').remove();
+	}
 	function deletePart(ctspnid){
 		var answer = confirm("Delete Part?")
 		if (answer){
@@ -36,14 +41,14 @@
 		theDiv.src = "";
 		document.body.appendChild(theDiv);
 		
-		$('#annotateDiv').append('<IFRAME id="ctspid" width="100%">');
+		$('#annotateDiv').append('<IFRAME id="frame_ctspid" width="100%">');
 	    
 	    
 		var guts = "/includes/forms/f_ctspecimen_part_name.cfm";
 		
-	    $('iframe#ctspid').attr('src', guts);
+	    $('iframe#frame_ctspid').attr('src', guts);
 	
-	    $('iframe#ctspid').load(function() 
+	    $('iframe#frame_ctspid').load(function() 
 	    {
 	        viewport.init("#annotateDiv");
 			viewport.init("#bgDiv");
