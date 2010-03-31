@@ -58,10 +58,10 @@
 		var r='<td>';
 						console.log(r);
 		
-		r+= collection_cde & "</td><td>" & part_name & "</td><td>" & is_tissue & "</td>";
+		r+= collection_cde & '</td><td>' & part_name & '</td><td>' & is_tissue & '</td>';
 				console.log(r);
 		
-		r+="<td>" & description & "</td><td>";
+		r+='<td>' & description & '</td><td>';
 		
 				console.log(r);
 		r+='<span class="likeLink" onclick="deletePart(' & ctspnid & ')">Delete</span>';
@@ -69,7 +69,7 @@
 		r+='<span class="likeLink" onclick="updatePart(' & ctspnid & ')">Update</span>';
 		console.log(r);
 		
-		//$('tr#r' + ctspnid).children().replaceWith(r);
+		$('tr#r' + ctspnid).children().replaceWith(r);
 	}
 	
 	
