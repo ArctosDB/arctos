@@ -221,8 +221,6 @@
 <cfargument name="collection_object_id" type="numeric" required="yes">
 
 <cfargument name="part_name" type="string" required="yes">
-<cfargument name="part_modifier" type="string" required="yes">
-<cfargument name="preserve_method" type="string" required="yes">
 <cfargument name="part_disposition" type="string" required="yes">
 <cfargument name="part_condition" type="string" required="yes">
 <cfargument name="part_count" type="string" required="yes">
@@ -300,22 +298,10 @@
 		INSERT INTO specimen_part (
 			  COLLECTION_OBJECT_ID,
 			  PART_NAME
-			  <cfif len(#PART_MODIFIER#) gt 0>
-					,PART_MODIFIER
-			  </cfif>
-			  <cfif len(#PRESERVE_METHOD#) gt 0>
-					,PRESERVE_METHOD
-			  </cfif>
 				,DERIVED_FROM_cat_item )
 			VALUES (
 				sq_collection_object_id.currval,
 			  '#PART_NAME#'
-			  <cfif len(#PART_MODIFIER#) gt 0>
-					,'#PART_MODIFIER#'
-			  </cfif>
-			  <cfif len(#PRESERVE_METHOD#) gt 0>
-					,'#PRESERVE_METHOD#'
-			  </cfif>
 				,#collection_object_id# )
 		</cfquery>
 			
@@ -333,7 +319,7 @@
 				</cfquery>
 			</cfif>
 	</cftransaction>
-	<cfset result = "1|#PART_NAME#|#PART_MODIFIER#|#PRESERVE_METHOD#|#part_disposition#|#part_condition#|#part_count#|#pb_label#|#pb_barcode#|#print_fg#|#part_remark#">
+	<cfset result = "1|#PART_NAME#|#part_disposition#|#part_condition#|#part_count#|#pb_label#|#pb_barcode#|#print_fg#|#part_remark#">
 	<cfcatch>
 		<cfset result = '-1|A database error occurred! #cfcatch.Detail#'>
 	</cfcatch>
@@ -590,43 +576,6 @@
 			<cftry>
 				<cfquery name="upid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update specimen_part set part_name='#part_name#'
-					where collection_object_id = #partID#
-				</cfquery>
-				<cfcatch>
-					<cfset result = 'A database error occured!'>
-				</cfcatch>
-			</cftry>	
-	  <cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-		<cfreturn result>
-</cffunction>
-<!------------------------------------------------------------------------------------------------>
-
-<cffunction name="upPartPres" returntype="string">
-<cfargument name="partID" type="numeric" required="yes">
-<cfargument name="i" type="numeric" required="yes">
-<cfargument name="preserve_method" type="string" required="yes">
-<cfset result = "#i#">
-			<cftry>
-				<cfquery name="upid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					update specimen_part set preserve_method='#preserve_method#'
-					where collection_object_id = #partID#
-				</cfquery>
-				<cfcatch>
-					<cfset result = 'A database error occured!'>
-				</cfcatch>
-			</cftry>	
-	  	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-		<cfreturn result>
-</cffunction>
-<!------------------------------------------------------------------------------------------------>
-<cffunction name="upPartMod" returntype="string">
-<cfargument name="partID" type="numeric" required="yes">
-<cfargument name="i" type="numeric" required="yes">
-<cfargument name="part_modifier" type="string" required="yes">
-<cfset result = "#i#">
-			<cftry>
-				<cfquery name="upid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					update specimen_part set part_modifier='#part_modifier#'
 					where collection_object_id = #partID#
 				</cfquery>
 				<cfcatch>

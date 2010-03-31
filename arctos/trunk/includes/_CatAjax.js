@@ -578,48 +578,7 @@ function IsNumeric(sText)
 	}
 }
 
-function upPartPres(i) {
-	//	alert(i);
-	var s = "document.getElementById('partID_" + i + "').value";
-	var partID = eval(s);
-	var v = "document.getElementById('preserve_method_" + i + "').value";
-	var preserve_method = eval(v);
-	//alert(preserve_method);
-	//alert(preserve_method);
-	DWREngine._execute(_catalog_func, null, 'upPartPres', partID,i,preserve_method, success_upPartPres);
-}
-function success_upPartPres(result) {
-	//alert(result);
-	if (IsNumeric(result)) {
-		// got a rownumber back
-		var s = "document.getElementById('preserve_method_" + result + "')";
-		var se = eval(s);
-		se.className = 'd11a';
-	} else {
-		alert(result);
-	}
-}
-function upPartMod(i) {
-	//	alert(i);
-	var s = "document.getElementById('partID_" + i + "').value";
-	var partID = eval(s);
-	var v = "document.getElementById('part_modifier_" + i + "').value";
-	var part_modifier = eval(v);
-	//alert(attribute_id);
-	//alert(attribute_remark);
-	DWREngine._execute(_catalog_func, null, 'upPartMod', partID,i,part_modifier, success_upPartMod);
-}
-function success_upPartMod(result) {
-	//alert(result);
-	if (IsNumeric(result)) {
-		// got a rownumber back
-		var s = "document.getElementById('part_modifier_" + result + "')";
-		var se = eval(s);
-		se.className = 'd11a';
-	} else {
-		alert(result);
-	}
-}
+
 
 
 function upPartLabel(i) {
@@ -1066,9 +1025,6 @@ function success_delPart(result) {
 function newpart() {
 	//alert('makin a new part');
 	var part_name = document.getElementById('part_name_n').value;
-	var part_modifier = document.getElementById('part_modifier_n').value;
-	var part_modifier = document.getElementById('part_modifier_n').value;
-	var preserve_method = document.getElementById('preserve_method_n').value;
 	var part_disposition = document.getElementById('part_disposition_n').value;
 	var part_condition = document.getElementById('part_condition_n').value;
 	var part_count = document.getElementById('part_count_n').value;
@@ -1077,10 +1033,10 @@ function newpart() {
 	var part_remark = document.getElementById('part_remark_n').value;
 	var collection_object_id = document.getElementById('collection_object_id').value;
 
-	if (part_name.length < 1 || part_disposition.length < 1 || part_condition.length < 1 || part_count.length < 1) {
-		alert('Part Name,  Disposition, Condition and Count are required.');
+	if (part_name.length < 1 || part_condition.length < 1 || part_count.length < 1) {
+		alert('Part Name, Condition and Count are required.');
 	} else {
-		DWREngine._execute(_catalog_func, null, 'newpart', collection_object_id,part_name,part_modifier,preserve_method,part_disposition,part_condition,part_count,label,print_fg,part_remark, success_newpart);
+		DWREngine._execute(_catalog_func, null, 'newpart', collection_object_id,part_name,part_disposition,part_condition,part_count,label,print_fg,part_remark, success_newpart);
 		//alert('somethin should happen bout now.....');
 	}
 }
@@ -1095,33 +1051,16 @@ function success_newpart(result) {
 		alert(part_name);
 	} else {
 	
-	var part_modifier = pArray[2];
-	var pres_meth = pArray[3];
-	var disposition = pArray[4];
-	var condition = pArray[5];
-	var lcount = pArray[6];
-	var label = pArray[7];
-	var barcode = pArray[8];
-	var pfg = pArray[9];
-	var remk = pArray[10];
-	/*
-	alert('numberOfParts: ' +numberOfParts );
-	alert('partID: ' +partID );
-	alert('part_name: ' +part_name );
-	alert('part_modifier: ' +part_modifier );
-	alert('pres_meth: ' +pres_meth );
-	alert('disposition: ' +disposition );
-	alert('condition: ' +condition );
-	alert('lcount: ' +lcount );
-	alert('label: ' +label );
-	alert('pfg: ' +pfg );
-	alert('remk: ' +remk );
-	*/
+	var disposition = pArray[2];
+	var condition = pArray[3];
+	var lcount = pArray[4];
+	var label = pArray[5];
+	var barcode = pArray[6];
+	var pfg = pArray[7];
+	var remk = pArray[8];
 	var theTable = document.getElementById('partTable');
 	var nRow = document.createElement("TR");
 	var pNameCell = document.createElement("TD");
-	var pModCell = document.createElement("TD");
-	var pMethCell = document.createElement("TD");
 	var pDispCell = document.createElement("TD");
 	var pCondCell = document.createElement("TD");
 	var pCountCell = document.createElement("TD");
@@ -1132,8 +1071,6 @@ function success_newpart(result) {
 		
 	theTable.appendChild(nRow);
 		nRow.appendChild(pNameCell);
-		nRow.appendChild(pModCell);
-		nRow.appendChild(pMethCell);
 		nRow.appendChild(pDispCell);
 		nRow.appendChild(pCondCell);
 		nRow.appendChild(pCountCell);
@@ -1167,39 +1104,7 @@ function success_newpart(result) {
 	partnameSelect.setAttribute("onchange",ocstr);
 	pNameCell.appendChild(partnameSelect);
 	
-	
-	var partModSelect = document.createElement("select");
-	var psm = "part_modifier_" + numberOfParts;
-	partModSelect.setAttribute("name",psm);
-	partModSelect.setAttribute("id",psm);
-	var pnvs = document.getElementById('part_mod_list').value;
-	var pnArray = pnvs.split("|");
-	for (i=0;i<pnArray.length;i++) {
-			//alert(pnArray[i]);
-			partModSelect.options[i] = new Option(pnArray[i],pnArray[i]);
-	}
-	partModSelect.value = part_modifier;
-	partModSelect.className="d11a" ;
-	ocstr = "this.className='saving';upPartMod(" + numberOfParts + ")";
-	partModSelect.setAttribute("onchange",ocstr);
-	pModCell.appendChild(partModSelect);
-	
-	var presmethSelect = document.createElement("select");
-	var pms = "preserve_method_" + numberOfParts;
-	presmethSelect.setAttribute("name",pms);
-	presmethSelect.setAttribute("id",pms);
-	var pnvs = document.getElementById('pres_meth_list').value;
-	var pnArray = pnvs.split("|");
-	for (i=0;i<pnArray.length;i++) {
-			//alert(pnArray[i]);
-			presmethSelect.options[i] = new Option(pnArray[i],pnArray[i]);
-	}
-	presmethSelect.value = pres_meth;
-	presmethSelect.className="d11a" ;
-	ocstr = "this.className='saving';upPartPres(" + numberOfParts + ")";
-	presmethSelect.setAttribute("onchange",ocstr);
-	pMethCell.appendChild(presmethSelect);
-	
+
 	var dispSelect = document.createElement("select");
 	var dsn = "part_disposition_" + numberOfParts;
 	dispSelect.setAttribute("name",dsn);
