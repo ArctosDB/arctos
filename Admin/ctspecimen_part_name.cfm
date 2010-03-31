@@ -55,10 +55,10 @@
 			document.location=document.location;
 		}
 		
-		var r='<td>';
+		var r='<td>' & collection_cde & '</td><td>' & part_name & '</td><td>' & is_tissue & '</td>';
 						console.log(r);
 		
-		r+= collection_cde & '<\/td><td>' & part_name & '<\/td><td>' & is_tissue & '<\/td>';
+		r+= '<\/td><td>' & part_name & '<\/td><td>' & is_tissue & '<\/td>';
 				console.log(r);
 		
 		r+='<td>' & description & '</td><td>';
