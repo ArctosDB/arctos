@@ -76,7 +76,7 @@
 </cfif>
 <cfif action is "insert">
 	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		insert into ctspecimen_name_name (
+		insert into ctspecimen_part_name (
 			part_name,
 			DESCRIPTION,
 			is_tissue
