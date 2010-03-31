@@ -363,12 +363,11 @@
 		</cfquery>
 	</cftransaction>
 	<cfcatch>
-			<cfset result = 'A database error occured! #cfcatch.msg# #cfcatch.detail#'>
-			<cfreturn result>
+			<cfreturn 'A database error occured! #cfcatch.msg# #cfcatch.detail#'>
 	</cfcatch>
 </cftry>	
 
-
+<cfreturn 'nocatch'>
 			
 	  <cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
 		<cfreturn result>
