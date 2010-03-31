@@ -23,7 +23,6 @@
 			</tr>
 			<form name="newData" method="post" action="CodeTableEditor.cfm">
 				<input type="hidden" name="action" value="newValue">
-				<input type="hidden" name="tbl" value="#tbl#">
 				<tr>
 					<td>
 						<select name="collection_cde" size="1">
