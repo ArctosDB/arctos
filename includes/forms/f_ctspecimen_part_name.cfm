@@ -80,7 +80,10 @@
 			</cfquery>
 		</cfif>
 		<script>
-			console.log('escape(#description#)');
+			var desc=escape('#description#');
+			console.log(desc);
+			
+			console.log(escape(#description#));
 			
 			//parent.successUpdate('#ctspnid#','#collection_cde#','#part_name#','#is_tissue#','escape(#description#)','#upAllDesc#','#upAllTiss#');
 		</script>
