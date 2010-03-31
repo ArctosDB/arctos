@@ -35,7 +35,7 @@
 		theDiv.innerHTML='';
 		theDiv.src = "";
 		document.body.appendChild(theDiv);
-		var guts = "/includes/forms/f_ctspecimen_part_name.cfm.cfm";
+		var guts = "/includes/forms/f_ctspecimen_part_name.cfm";
 		jQuery('#annotateDiv').load(guts,{},function(){
 			viewport.init("#annotateDiv");
 			viewport.init("#bgDiv");
