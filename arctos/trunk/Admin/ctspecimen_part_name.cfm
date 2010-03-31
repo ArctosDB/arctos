@@ -33,30 +33,31 @@
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
 		document.body.appendChild(bgDiv);
-		
+		bgDiv.setAttribute('onclick','doneSaving()');
 		var theDiv = document.createElement('div');
 		theDiv.id = 'annotateDiv';
 		theDiv.className = 'annotateBox';
 		theDiv.innerHTML='';
 		theDiv.src = "";
 		document.body.appendChild(theDiv);
-		
 		$('#annotateDiv').append('<IFRAME id="frame_ctspid" width="100%">');
-	    
-	    
-		var guts = "/includes/forms/f_ctspecimen_part_name.cfm";
-		
+	  	var guts = "/includes/forms/f_ctspecimen_part_name.cfm?ctspnid=" + ctspnid;
 	    $('iframe#frame_ctspid').attr('src', guts);
-	
 	    $('iframe#frame_ctspid').load(function() 
 	    {
 	        viewport.init("#annotateDiv");
 			viewport.init("#bgDiv");
 	    });
-		
-		
+	}
+	function successUpdate(collection_cde,part_name,is_tissue,description,upAllDesc,upAllTiss) {
+		console.log('successUpdate');
+		if(	upAllDesc==1 || upAllTiss==1 ) {
+			document.location=document.location;
+		}
 		
 	}
+	
+	
 </script>
 
 
