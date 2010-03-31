@@ -35,7 +35,7 @@
 		theDiv.innerHTML='';
 		theDiv.src = "";
 		document.body.appendChild(theDiv);
-		var guts = "/Admin/ctspecimen_part_name.cfm?action=updatePartForm";
+		var guts = "/includes/forms/f_ctspecimen_part_name.cfm.cfm";
 		jQuery('#annotateDiv').load(guts,{},function(){
 			viewport.init("#annotateDiv");
 			viewport.init("#bgDiv");
@@ -46,9 +46,6 @@
 
 
 
-<cfif action is "updatePartForm">
-	Hi, I'm update part form.
-</cfif>
 <cfif action is "nothing">
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
