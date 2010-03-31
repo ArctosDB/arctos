@@ -61,7 +61,8 @@
 		r+='<span class="likeLink" onclick="updatePart(' + ctspnid + ')">Update</span>';
 		console.log(r);
 		
-		$('tr#r' + ctspnid).children().remove().append(r);
+		$('tr#r' + ctspnid).children().remove();
+		$('tr#r' + ctspnid).append(r);
 	}
 	
 	
