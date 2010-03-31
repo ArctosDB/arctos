@@ -365,11 +365,10 @@
 		</cfif>
 	</cftransaction>
 	<cfcatch>
-			<cfreturn 'A database error occured! fail' & ReReplace(cfcatch.detail,"[#CHR(10)##CHR(13)#]","","ALL") & ReReplace(cfcatch.sql,"[#CHR(10)##CHR(13)#]","","ALL")>
+			<cfreturn 'A database error occured!'>
 	</cfcatch>
 </cftry>	
 
-<cfreturn 'nocatch'>
 			
 	  <cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
 		<cfreturn result>
