@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
-<span onclick="doneSaving">remove</span>
+<span onclick="parent.doneSaving()">remove</span>
 <cfif action is "nothing">
 i am form
 <a href="f_ctspecimen_part_name.cfm?action=something">something</a>
