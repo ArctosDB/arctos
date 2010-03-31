@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfif action is "nothing">
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			part_name,
@@ -21,8 +22,8 @@
 				<td>IsTissue</td>
 				<th>Description</th>
 			</tr>
-			<form name="newData" method="post" action="CodeTableEditor.cfm">
-				<input type="hidden" name="action" value="newValue">
+			<form name="newData" method="post" action="">
+				<input type="hidden" name="action" value="insert">
 				<tr>
 					<td>
 						<select name="collection_cde" size="1">
@@ -72,7 +73,21 @@
 			</cfloop>
 		</table>
 	</cfoutput>
-		
+</cfif>
+<cfif action is "insert">
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		insert into ctspecimen_name_name (
+			part_name,
+			DESCRIPTION,
+			is_tissue
+		) values (
+			'#part_name#',
+			'#description#',
+			#is_tissue#
+		)
+	</cfquery>
+	<cflocation url="ctspecimen_part_name.cfm" addtoken="false">
+</cfif>	
 		
 
 
@@ -101,17 +116,7 @@
 		</cfquery>
 	
 	<cfelseif tbl is "ctspecimen_name_name">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			insert into ctspecimen_name_name (
-				part_name,
-				DESCRIPTION,
-				is_tissue
-			) values (
-				'#part_name#',
-				'#description#',
-				#is_tissue#
-			)
-		</cfquery>
+		
 	
 
 
