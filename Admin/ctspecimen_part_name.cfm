@@ -77,10 +77,12 @@
 <cfif action is "insert">
 	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		insert into ctspecimen_part_name (
+			collection_cde,
 			part_name,
 			DESCRIPTION,
 			is_tissue
 		) values (
+			'#collection_cde#',
 			'#part_name#',
 			'#description#',
 			#is_tissue#
