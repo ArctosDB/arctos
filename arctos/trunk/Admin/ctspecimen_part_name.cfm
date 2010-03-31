@@ -60,7 +60,7 @@
 		row+='<span class="likeLink" onclick="updatePart(' & ctspnid & ')">Update</span>';
 		console.log(row);
 		
-		$('tr#r' + ctspnid).children().replace(row);
+		$('tr#r' + ctspnid).children().replaceWith(row);
 	}
 	
 	
