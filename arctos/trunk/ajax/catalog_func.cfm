@@ -351,16 +351,17 @@
 			select container_id from coll_obj_cont_hist where
 			collection_object_id = #partID#
 		</cfquery>
-		
-		<cfquery name="deleCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			DELETE FROM coll_obj_cont_hist WHERE collection_object_id = #partID#
-		</cfquery>
-		<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			DELETE FROM container_history WHERE container_id = #getContID.container_id#
-		</cfquery>
-		<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			DELETE FROM container WHERE container_id = #getContID.container_id#
-		</cfquery>
+		<cfif getContID.container_id gt 0>
+			<cfquery name="deleCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				DELETE FROM coll_obj_cont_hist WHERE collection_object_id = #partID#
+			</cfquery>
+			<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				DELETE FROM container_history WHERE container_id = #getContID.container_id#
+			</cfquery>
+			<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				DELETE FROM container WHERE container_id = #getContID.container_id#
+			</cfquery>
+		</cfif>
 	</cftransaction>
 	<cfcatch>
 			<cfreturn 'A database error occured! fail' & ReReplace(cfcatch.detail,"[#CHR(10)##CHR(13)#]","","ALL") & ReReplace(cfcatch.sql,"[#CHR(10)##CHR(13)#]","","ALL")>
