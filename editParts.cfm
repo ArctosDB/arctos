@@ -102,7 +102,13 @@
 				</td>
 				<td>
 					<label for="label#i#">In Container Label</label>
-					<span style="font-size:small">#getparts.label#</span>
+					<span style="font-size:small">
+						<cfif len(getparts.label) gt 0>
+							#getparts.label#	
+						<cfelse>
+							-NONE-
+						</cfif>
+					</span>
 					<input type="hidden" name="label#i#" value="#getparts.label#">
 					<input type="hidden" name="parentContainerId#i#" value="#getparts.parentContainerId#">
 					<input type="hidden" name="partContainerId#i#" value="#getparts.partContainerId#">
