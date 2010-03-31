@@ -1,11 +1,56 @@
+<cfcomponent>
+<!------------------------------------------->
+	
+</cfcomponent>
+<script>
+	function deletePart(ctspnid){
+		var answer = confirm("Delete Part?")
+		if (answer){
+			$.getJSON("/component/functions.cfc",
+				{
+					method : "deleteCtPartName",
+					ctspnid : ctspnid,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function(r) {
+					if (r == ctspnid) {
+						console.log('zapped ' + ctspnid);	
+					} else {
+						alert('An error occured! \n ' + r);
+					}	
+				}
+			);
+		}		
+	}
+	function updatePart(ctspnid) {
+		console.log('updating part');
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		document.body.appendChild(bgDiv);
+		
+		var theDiv = document.createElement('div');
+		theDiv.id = 'annotateDiv';
+		theDiv.className = 'annotateBox';
+		theDiv.innerHTML='';
+		theDiv.src = "";
+		document.body.appendChild(theDiv);
+		var guts = "/Admin/ctspecimen_part_name.cfm?action=updatePartForm";
+		jQuery('#annotateDiv').load(guts,{},function(){
+			viewport.init("#annotateDiv");
+			viewport.init("#bgDiv");
+		});
+	}
+</script>	
 <cfinclude template="/includes/_header.cfm">
+<cfif action is "updatePartForm">
+	Hi, I'm update part form.
+</cfif>
 <cfif action is "nothing">
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
-			part_name,
-			description,
-			is_tissue,
-			collection_cde
+			*
 		from ctspecimen_part_name
 		ORDER BY
 			collection_cde,part_name
@@ -60,13 +105,14 @@
 				<th>Description</th>
 			</tr>
 			<cfloop query="q">
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# id="r#ctspnid#">
 					<td>#collection_cde#</td>
 					<td>#q.part_name#</td>
 					<td>#is_tissue#</td>
 					<td>#q.description#</td>				
 					<td>
-							buttons!	
+						<span class="likeLink" onclick="deletePart(#ctspnid#)">Delete</span>
+						<span class="likeLink" onclick="updatePart(#ctspnid#)">Update</span>	
 					</td>
 				</tr>
 				<cfset i = #i#+1>
