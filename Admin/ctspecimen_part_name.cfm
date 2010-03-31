@@ -28,7 +28,6 @@
 		}		
 	}
 	function updatePart(ctspnid) {
-		console.log('updating part');
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -50,19 +49,16 @@
 	    });
 	}
 	function successUpdate(ctspnid,collection_cde,part_name,is_tissue,description,upAllDesc,upAllTiss) {
-		console.log('successUpdate');
 		if(	upAllDesc==1 || upAllTiss==1 ) {
 			document.location=document.location;
 		}
 		
 		var r='<td>' + collection_cde + '</td><td>' + part_name + '</td><td>' + is_tissue + '</td>';
 		r+='<td>' + description + '</td><td>';
-		r+='<span class="likeLink" onclick="deletePart(' + ctspnid + ')">Delete</span>';
-		r+='<span class="likeLink" onclick="updatePart(' + ctspnid + ')">Update</span>';
-		console.log(r);
-		
-		$('tr#r' + ctspnid).children().remove().append(r);
-		//$('tr#r' + ctspnid).append(r);
+		r+='<span class="likeLink" onclick="deletePart(' + ctspnid + ')">[ Delete ]</span><br>';
+		r+='<span class="likeLink" onclick="updatePart(' + ctspnid + ')">[ Update ]</span>';		
+		$('tr#r' + ctspnid).children().remove();
+		$('tr#r' + ctspnid).append(r);
 		doneSaving();
 	}
 	
@@ -136,8 +132,8 @@
 					<td>#is_tissue#</td>
 					<td>#q.description#</td>				
 					<td>
-						<span class="likeLink" onclick="deletePart(#ctspnid#)">Delete</span>
-						<span class="likeLink" onclick="updatePart(#ctspnid#)">Update</span>	
+						<span class="likeLink" onclick="deletePart(#ctspnid#)">[ Delete ]</span>
+						<br><span class="likeLink" onclick="updatePart(#ctspnid#)">[ Update ]</span>	
 					</td>
 				</tr>
 				<cfset i = #i#+1>
