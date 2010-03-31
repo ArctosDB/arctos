@@ -363,7 +363,7 @@
 		</cfquery>
 	</cftransaction>
 	<cfcatch>
-			<cfreturn 'A database error occured! #cfcatch.msg#'>
+			<cfreturn 'A database error occured! fail'>
 	</cfcatch>
 </cftry>	
 
