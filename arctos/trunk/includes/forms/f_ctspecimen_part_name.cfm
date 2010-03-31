@@ -24,8 +24,8 @@
 		<input type="text" name="part_name" id="part_name" value="#d.part_name#" size="50">
 		<label for="is_tissue">Tissue?</label>
 		<select name="is_tissue">
-			<option <cfif f.is_tissue is 0>selected="selected" </cfif>value="0">no</option>
-			<option <cfif f.is_tissue is 1>selected="selected" </cfif>value="1">yes</option>
+			<option <cfif d.is_tissue is 0>selected="selected" </cfif>value="0">no</option>
+			<option <cfif d.is_tissue is 1>selected="selected" </cfif>value="1">yes</option>
 		</select>
 		<label for="upAllTiss">
 			Update is_tissue for all parts, regardless of collection, to this value?<br>
@@ -38,7 +38,7 @@
 		</select>
 		<br>
 		<label for="description">Description</label>
-		<textarea name="description" id="description" rows="4" cols="40">#q.description#</textarea>
+		<textarea name="description" id="description" rows="4" cols="40">#d.description#</textarea>
 		<label for="upAllDesc">Update description for all parts, regardless of collection, to this value?</label>
 		<select name="upAllDesc">
 			<option selected="selected" value="0">Just this one please</option>
