@@ -208,8 +208,6 @@
 			<cfquery name="part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					part_name,
-					part_modifier,
-					preserve_method,
 					condition,
 					p.barcode,
 					p.label,
@@ -238,8 +236,6 @@
 				<cfloop query="part">
 					<cfif i lt 13>
 						<cfset sql=sql & "PART_NAME_#i# = '#part_name#',
-							PART_MODIFIER_#i#='#part_modifier#',
-							PRESERV_METHOD_#i#='#preserve_method#',
 							PART_CONDITION_#i#='#condition#',
 							PART_BARCODE_#i#='#barcode#',
 							PART_CONTAINER_LABEL_#i#='#label#',
@@ -1121,10 +1117,8 @@
 <cffunction name="makePart" access="remote">
 	<cfargument name="collection_object_id" type="string" required="yes">
 	<cfargument name="part_name" type="string" required="yes">
-	<cfargument name="part_modifier" type="string" required="yes">
 	<cfargument name="lot_count" type="string" required="yes">
 	<cfargument name="is_tissue" type="string" required="yes">
-	<cfargument name="preserve_method" type="string" required="yes">
 	<cfargument name="coll_obj_disposition" type="string" required="yes">
 	<cfargument name="condition" type="string" required="yes">
 	<cfargument name="coll_object_remarks" type="string" required="yes">
@@ -1162,23 +1156,11 @@
 				INSERT INTO specimen_part (
 					  COLLECTION_OBJECT_ID,
 					  PART_NAME
-					  <cfif len(#PART_MODIFIER#) gt 0>
-					  		,PART_MODIFIER
-					  </cfif>
-					  <cfif len(#PRESERVE_METHOD#) gt 0>
-					  		,PRESERVE_METHOD
-					  </cfif>
 						,DERIVED_FROM_cat_item,
 						is_tissue )
 					VALUES (
 						#ccid.nv#,
 					  '#PART_NAME#'
-					  <cfif len(#PART_MODIFIER#) gt 0>
-					  		,'#PART_MODIFIER#'
-					  </cfif>
-					  <cfif len(#PRESERVE_METHOD#) gt 0>
-					  		,'#PRESERVE_METHOD#'
-					  </cfif>
 						,#collection_object_id#,
 						#is_tissue# )
 			</cfquery>
@@ -1205,14 +1187,12 @@
 					</cfquery>					
 				</cfif>
 			</cfif>
-			<cfset q=queryNew("STATUS,PART_NAME,PART_MODIFIER,LOT_COUNT,IS_TISSUE,PRESERVE_METHOD,COLL_OBJ_DISPOSITION,CONDITION,COLL_OBJECT_REMARKS,BARCODE,NEW_CONTAINER_TYPE")>
+			<cfset q=queryNew("STATUS,PART_NAME,LOT_COUNT,IS_TISSUE,COLL_OBJ_DISPOSITION,CONDITION,COLL_OBJECT_REMARKS,BARCODE,NEW_CONTAINER_TYPE")>
 			<cfset t = queryaddrow(q,1)>
 			<cfset t = QuerySetCell(q, "STATUS", "success", 1)>
 			<cfset t = QuerySetCell(q, "part_name", "#part_name#", 1)>
-			<cfset t = QuerySetCell(q, "part_modifier", "#part_modifier#", 1)>
 			<cfset t = QuerySetCell(q, "lot_count", "#lot_count#", 1)>
 			<cfset t = QuerySetCell(q, "is_tissue", "#is_tissue#", 1)>
-			<cfset t = QuerySetCell(q, "preserve_method", "#preserve_method#", 1)>
 			<cfset t = QuerySetCell(q, "coll_obj_disposition", "#coll_obj_disposition#", 1)>
 			<cfset t = QuerySetCell(q, "condition", "#condition#", 1)>
 			<cfset t = QuerySetCell(q, "coll_object_remarks", "#coll_object_remarks#", 1)>
@@ -1240,9 +1220,7 @@
 			coll_object.LOT_COUNT,
 			coll_object.CONDITION,
 			specimen_part.PART_NAME,
-			specimen_part.PART_MODIFIER,
 			specimen_part.SAMPLED_FROM_OBJ_ID,
-			specimen_part.PRESERVE_METHOD,
 			specimen_part.IS_TISSUE,
 			concatEncumbrances(cataloged_item.collection_object_id) as encumbrance_action,
 			loan_item.transaction_id
@@ -1306,8 +1284,6 @@
 					coll_obj_disposition, 
 					condition,
 					part_name,
-					part_modifier,
-					PRESERVE_METHOD,
 					derived_from_cat_item,
 					is_tissue
 				FROM
@@ -1342,25 +1318,13 @@
 				INSERT INTO specimen_part (
 					COLLECTION_OBJECT_ID
 					,PART_NAME
-					<cfif len(#parentData.PART_MODIFIER#) gt 0>
-						,PART_MODIFIER
-					</cfif>
 					,SAMPLED_FROM_OBJ_ID
-					<cfif len(#parentData.PRESERVE_METHOD#) gt 0>
-						,PRESERVE_METHOD
-					</cfif>
 					,DERIVED_FROM_CAT_ITEM,
 					is_tissue)
 				VALUES (
 					#n.n#
 					,'#parentData.part_name#'
-					<cfif len(#parentData.PART_MODIFIER#) gt 0>
-						,'#parentData.PART_MODIFIER#'
-					</cfif>
 					,#partID#
-					<cfif len(#parentData.PRESERVE_METHOD#) gt 0>
-						,'#parentData.PRESERVE_METHOD#'
-					</cfif>
 					,#parentData.derived_from_cat_item#,
 					#parentData.is_tissue#)				
 			</cfquery>

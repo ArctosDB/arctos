@@ -24,9 +24,9 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
-function findPart(part_name,collCde,partFld,formName){
+function findPart(partFld,part_name,collCde){
 	var url="/picks/findPart.cfm";
-	var popurl=url+"?part_name="+part_name+"&collCde="+collCde+"&partFld="+partFld+"&formName="+formName;
+	var popurl=url+"?part_name="+part_name+"&collCde="+collCde+"&partFld="+partFld;
 	partpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
 function saveThisAnnotation() {
