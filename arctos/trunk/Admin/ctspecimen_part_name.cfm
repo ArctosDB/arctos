@@ -54,7 +54,7 @@
 		}
 		
 		var r='<td>' + collection_cde + '</td><td>' + part_name + '</td><td>' + is_tissue + '</td>';
-		r+='<td>' + description + '</td><td>';
+		r+='<td>' + description + '</td><td nowrap="nowrap">';
 		r+='<span class="likeLink" onclick="deletePart(' + ctspnid + ')">[ Delete ]</span><br>';
 		r+='<span class="likeLink" onclick="updatePart(' + ctspnid + ')">[ Update ]</span>';		
 		$('tr#r' + ctspnid).children().remove();
@@ -131,7 +131,7 @@
 					<td>#q.part_name#</td>
 					<td>#is_tissue#</td>
 					<td>#q.description#</td>				
-					<td>
+					<td nowrap="nowrap">
 						<span class="likeLink" onclick="deletePart(#ctspnid#)">[ Delete ]</span>
 						<br><span class="likeLink" onclick="updatePart(#ctspnid#)">[ Update ]</span>	
 					</td>
