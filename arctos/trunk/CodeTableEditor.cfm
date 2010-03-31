@@ -30,7 +30,8 @@
 			select 
 				part_name,
 				description,
-				is_tissue
+				is_tissue,
+				collection_cde
 			from #tbl#
 			ORDER BY
 				collection_cde,part_name
