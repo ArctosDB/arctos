@@ -15,8 +15,6 @@
 		flat.ended_date,
 		flat.verbatim_date,
 		flat.scientific_name,
-		specimen_part.part_modifier,
-		specimen_part.preserve_method,
 		accn.received_date,
 		loan.loan_number,
 		trans.TRANS_DATE,
@@ -48,8 +46,6 @@
 		flat.collection,
 		flat.cat_num,
 		specimen_part.part_name,
-		specimen_part.part_modifier,
-		specimen_part.preserve_method,
 		loan_number
 </cfquery>
 <cfquery name="d" dbtype="query">
@@ -65,8 +61,6 @@
 		ended_date,
 		verbatim_date,
 		scientific_name,
-		part_modifier,
-		preserve_method,
 		received_date,
 		SAMPLED_FROM_OBJ_ID
 	from raw group by
@@ -81,8 +75,6 @@
 		ended_date,
 		verbatim_date,
 		scientific_name,
-		part_modifier,
-		preserve_method,
 		received_date,
 		SAMPLED_FROM_OBJ_ID
 </cfquery>
@@ -99,8 +91,6 @@
 			<th>VerbatimDate</th>
 			<th>AccesionedDate</th>
 			<th>Part</th>
-			<th>Modifier</th>
-			<th>Pres</th>
 			<th>InBarcode</th>
 			<th>Loan</th>
 		</tr>
@@ -119,8 +109,6 @@
 						(subsample)
 					</cfif>
 				</td>
-				<td>#part_modifier#</td>
-				<td>#preserve_method#</td>
 				<td>#barcode#</td>
 				<cfquery name="l" dbtype="query">
 					select
@@ -166,7 +154,7 @@
 		<cfelse>
 			<cfset p=part_name>
 		</cfif>
-		<cfset oneLine=oneLine & '"#p#","#part_modifier#","#preserve_method#","#barcode#"'>
+		<cfset oneLine=oneLine & '"#p#","#barcode#"'>
 		<cfquery name="l" dbtype="query">
 			select
 				loan_number,

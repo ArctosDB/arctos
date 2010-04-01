@@ -28,9 +28,6 @@
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection,collection_id from collection group by collection,collection_id order by collection,collection_id 
 	</cfquery>
-	<cfquery name="ctpart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select part_name from ctspecimen_part_name group by part_name order by part_name 
-	</cfquery>
 	<cfquery name="ctOID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select other_id_type from ctcoll_other_id_type group by other_id_type order by other_id_type 
 	</cfquery>
@@ -57,14 +54,10 @@
 			</cfloop>
 		</select>
 		<label for="part">Part</label>
-		<select name="part" id="part" size="1">
-			<option value="">-Anything-</option>
-			<cfloop query="ctpart">
-				<option 
-					<cfif ctpart.part_name is part> selected="selected" </cfif> 
-					value="#part_name#">#part_name#</option>
-			</cfloop>
-		</select>
+		<input type="text" name="part" id="part" class="reqdClr"
+			value="#part#" size="25"
+			onchange="findPart(this.id,this.value,'#collection_cde#');" 
+			onkeypress="return noenter(event);">
 		<label for="id_type">Identifier Type</label>
 		<select name="id_type" id="id_type" size="1">
 			<option <cfif id_type is 'catalog_number'> selected="selected" </cfif> 
@@ -87,7 +80,7 @@
 	<cfset s="select cat_num,collection.collection,cataloged_item.collection_object_id,
 		specimen_part.collection_object_id partID,
 		COLL_OBJECT_REMARKS,COLL_OBJ_DISPOSITION,CONDITION,DISPOSITION_REMARKS,
-		IS_TISSUE,LOT_COUNT,PART_MODIFIER,PART_NAME,PRESERVE_METHOD,SAMPLED_FROM_OBJ_ID,
+		IS_TISSUE,LOT_COUNT,PART_NAME,SAMPLED_FROM_OBJ_ID,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID 
 		from collection,cataloged_item,specimen_part,coll_object,coll_object_remark,coll_obj_other_id_num">
 			
@@ -133,7 +126,7 @@
 			<cfloop query="data">
 				<tr>
 					<td>
-						#collection# #cat_num# #PART_MODIFIER# #PART_NAME# #PRESERVE_METHOD#					
+						#collection# #cat_num# #PART_NAME#					
 					</td>
 					<cfif len(#session.CustomOtherIdentifier#) gt 0 >
 						<td>#CustomID#</td>

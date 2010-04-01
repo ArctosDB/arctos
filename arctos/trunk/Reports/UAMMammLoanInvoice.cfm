@@ -299,8 +299,6 @@ select
 		decode (sampled_from_obj_id,
 			null,part_name,
 			part_name || ' sample') part_name,
-		 part_modifier,
-		 preserve_method,
 		condition,
 		 item_instructions,
 		 loan_item_remarks,
@@ -440,8 +438,6 @@ select
 	select 
 		collection_object_id,
 		part_name,
-		part_modifier,
-		preserve_method,
 		condition,
 		item_instructions,
 		loan_item_remarks,
@@ -451,8 +447,6 @@ select
 	GROUP BY
 		collection_object_id,
 		part_name,
-		part_modifier,
-		preserve_method,
 		condition,
 		item_instructions,
 		loan_item_remarks,
@@ -605,10 +599,7 @@ select
 		</cfif>
 		<td >
 			<span class="times10">
-				#items.part_modifier# #items.part_name# 
-				<cfif len(#items.preserve_method#) gt 0>
-					(#items.preserve_method#)&nbsp;
-				</cfif>
+				#items.part_name#
 			</span>	
 			
 			
@@ -755,8 +746,6 @@ select
 		collection_cde,
 		concatsingleotherid(cataloged_item.collection_object_id,'AF') as af_num,
 		part_name,
-		 part_modifier,
-		 preserve_method,
 		condition,
 		loan_number
 	 from 
@@ -848,10 +837,7 @@ select
 		
 		<td>
 			<span class="times10">
-			#part_modifier# #part_name# 
-			<cfif len(#preserve_method#) gt 0>
-				(#preserve_method#)&nbsp;
-			</cfif>
+			#part_name#
 			</span>
 		</td>
 		<td>

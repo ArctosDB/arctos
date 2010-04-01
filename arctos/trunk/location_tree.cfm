@@ -163,9 +163,7 @@ parent_container_id,
 </cfif>
 	<link rel="StyleSheet" href="/includes/dtree.css" type="text/css" />
 	<script type="text/javascript" src="/includes/dtree.js"></script>
-	<a href="/start.cfm?Action=container" target="_top" class="noVisit">New container search</a>
-	&nbsp;&nbsp;~&nbsp;&nbsp;
-	<a href="/start.cfm?Action=part" target="_top" class="noVisit">New part search</a>
+	<a href="/findContainer.cfm">New container search</a>
 <div class="dtree">
 
 	<p><a href="javascript: d.openAll();">open all</a> | <a href="javascript: d.closeAll();">close all</a></p>

@@ -269,8 +269,6 @@ select
 		decode (sampled_from_obj_id,
 			null,part_name,
 			part_name || ' sample') part_name,
-		 part_modifier,
-		 preserve_method,
 		 lot_count,
 		condition,
 		 item_instructions,
@@ -409,8 +407,6 @@ select
 	select 
 		collection_object_id,
 		part_name,
-		part_modifier,
-		preserve_method,
 		lot_count,
 		condition,
 		item_instructions,
@@ -421,8 +417,6 @@ select
 	GROUP BY
 		collection_object_id,
 		part_name,
-		part_modifier,
-		preserve_method,
 		lot_count,
 		condition,
 		item_instructions,
@@ -564,13 +558,8 @@ select
 				<cfif #lot_count# gt 1>
 					#lot_count#&nbsp;
 				</cfif>				
-				#items.part_modifier# #items.part_name# 
-				<cfif len(#items.preserve_method#) gt 0>
-					(#items.preserve_method#)&nbsp;
-				</cfif>
+				#items.part_name#
 			</span>	
-			
-			
 		</td>
 		<td >
 			<span class="times10">
@@ -712,8 +701,6 @@ select
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		collection_cde,
 		part_name,
-		 part_modifier,
-		 preserve_method,
 		condition,
 		loan_number
 	 from 
@@ -804,10 +791,7 @@ select
 		
 		<td>
 			<span class="times10">
-			#part_modifier# #part_name# 
-			<cfif len(#preserve_method#) gt 0>
-				(#preserve_method#)&nbsp;
-			</cfif>
+			#part_name#
 			</span>
 		</td>
 		<td>

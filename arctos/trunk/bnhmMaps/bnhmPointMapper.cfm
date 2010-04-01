@@ -26,7 +26,7 @@ Retrieving map data - please wait....
 	</cfquery>
 	</cfoutput>
 
-<cfset dlPath = "#Application.webDirectory#/bnhmMaps/">
+<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles/">
 <cfset dlFile = "tabfile#cfid##cftoken#.txt">
 <cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="" nameconflict="overwrite">
 <cfoutput query="getMapData">
@@ -40,7 +40,7 @@ Retrieving map data - please wait....
 <cfoutput>
 
 
-	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/index.php?ViewResults=tab&tabfile=#Application.ServerRootUrl#/bnhmMaps/#dlFile#&configfile=#Application.ServerRootUrl#/bnhmMaps/PointMap.xml&sourcename=Locality">
+	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/index.php?ViewResults=tab&tabfile=#Application.ServerRootUrl#/bnhmMaps/tabfiles/#dlFile#&configfile=#Application.ServerRootUrl#/bnhmMaps/PointMap.xml&sourcename=Locality">
 	
 
 	<script type="text/javascript" language="javascript">

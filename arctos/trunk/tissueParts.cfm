@@ -61,8 +61,6 @@
 				decode(SAMPLED_FROM_OBJ_ID,
 					NULL, PART_NAME,
 					part_name || ' sample') part_name,
-				PART_MODIFIER,
-				PRESERVE_METHOD,
 				IS_TISSUE 
 			FROM
 				cataloged_item,
@@ -130,8 +128,6 @@
 					select 
 						part_id,
 						part_name,
-						PART_MODIFIER,
-						PRESERVE_METHOD,
 						IS_TISSUE 
 					FROM
 						specData
@@ -148,7 +144,7 @@
 							<cfloop query="partData">
 								<tr>
 									<td>
-										#PART_MODIFIER# #part_name# 
+										#part_name# 
 									</td>
 									<td align="right">
 										Tiss? <input type="checkbox" 
