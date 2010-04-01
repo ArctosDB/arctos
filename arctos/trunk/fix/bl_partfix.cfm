@@ -13,7 +13,7 @@
 				<cfset thisNewPart = thisMod & ' ' & thisNewPart>
 			</cfif>
 			<cfif len(thispres) gt 0>
-				<cfset thisNewPart = thisNewPart & ' (' & thisNewPart & ')'>
+				<cfset thisNewPart = thisNewPart & ' (' & thispres & ')'>
 			</cfif>
 			<br>thisPart: #thisPart#
 			<br>thismod: #thismod#
