@@ -3,13 +3,15 @@
 		select
 			part_name
 		from
-			ctspecimen_part_name
+			ctspecimen_part_name,
+		    ctspecimen_part_list_order
 		where 
+			ctspecimen_part_name.part_name =  ctspecimen_part_list_order.partname (+) and
 			upper(part_name) like '#ucase(q)#%'
 		group by
 			part_name
 		order by
-			part_name
+			partname,part_name
 	</cfquery>
 	<cfloop query="pn">
 		#part_name# #chr(10)#
