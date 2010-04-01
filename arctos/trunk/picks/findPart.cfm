@@ -23,9 +23,7 @@
 				ctspecimen_part_name,
 		    	ctspecimen_part_list_order
 			where 
-				<cfif len(collCde) gt 0>
-					ctspecimen_part_name.collection_cde=trim('#collCde#') and
-				</cfif>
+				ctspecimen_part_name.collection_cde=trim('#collCde#') and
 		  		ctspecimen_part_name.part_name =  ctspecimen_part_list_order.partname (+) and
 		  		upper(part_name) like '%#ucase(part_name)#%'		  		
 			order by partname, part_name

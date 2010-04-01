@@ -1281,10 +1281,8 @@ function divpopClose(){
 function makePart(){
 	var collection_object_id=document.getElementById('collection_object_id').value;
 	var part_name=document.getElementById('npart_name').value;
-	var part_modifier=document.getElementById('part_modifier').value;
 	var lot_count=document.getElementById('lot_count').value;
 	var is_tissue=document.getElementById('is_tissue').value;
-	var preserve_method=document.getElementById('preserve_method').value;
 	var coll_obj_disposition=document.getElementById('coll_obj_disposition').value;
 	var condition=document.getElementById('condition').value;
 	var coll_object_remarks=document.getElementById('coll_object_remarks').value;
@@ -1295,10 +1293,8 @@ function makePart(){
 			method : "makePart",
 			collection_object_id : collection_object_id,
 			part_name : part_name,
-			part_modifier : part_modifier,
 			lot_count : lot_count,
 			is_tissue : is_tissue,
-			preserve_method : preserve_method,
 			coll_obj_disposition : coll_obj_disposition,
 			condition : condition,
 			coll_object_remarks : coll_object_remarks,
@@ -1315,13 +1311,7 @@ function makePart(){
 				alert(msg);
 			} else {
 				var msg="Created part: ";
-				if (result.PART_MODIFIER[0]!==null) {
-					msg +=result.PART_MODIFIER[0] + " ";
-				}
 				msg += result.PART_NAME[0] + " ";
-				if (result.PRESERVE_METHOD[0]!==null) {
-					msg += "(" + result.PRESERVE_METHOD[0] + ") ";
-				}
 				if (result.IS_TISSUE[0]== 1) {
 					msg += "(tissue) ";
 				}
