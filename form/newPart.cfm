@@ -4,12 +4,6 @@
 		select container_type from ctcontainer_type
 		order by container_type
 	</cfquery>
-	<cfquery name="ctpart_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select part_name from ctspecimen_part_name,collection
-		where ctspecimen_part_name.collection_cde=collection.collection_cde and
-		collection_id=#collection_id#
-		order by part_name
-	</cfquery>
 	<cfquery name="ctpart_modifier" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select part_modifier from ctspecimen_part_modifier
 	</cfquery>
