@@ -3,6 +3,7 @@
 </cfquery>
 <cfoutput>
 	<cfloop query="d">
+		<hr>
 		<cfloop from="1" to="12" index="i">
 			<cfset thisPart=evaluate("part_name_" & i)>
 			<cfset thismod=evaluate("part_modifier_" & i)>
@@ -14,7 +15,6 @@
 			<cfif len(thispres) gt 0>
 				<cfset thisNewPart = thisNewPart & ' (' & thisNewPart & ')'>
 			</cfif>
-			<hr>
 			<br>thisPart: #thisPart#
 			<br>thismod: #thismod#
 			<br>thispres: #thispres#
