@@ -77,8 +77,6 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 				coll_obj_disposition, 
 				condition,
 				part_name,
-				part_modifier,
-				PRESERVE_METHOD,
 				derived_from_cat_item
 			FROM
 				coll_object, specimen_part
@@ -112,24 +110,12 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 			INSERT INTO specimen_part (
 				COLLECTION_OBJECT_ID
 				,PART_NAME
-				<cfif len(#parentData.PART_MODIFIER#) gt 0>
-					,PART_MODIFIER
-				</cfif>
 				,SAMPLED_FROM_OBJ_ID
-				<cfif len(#parentData.PRESERVE_METHOD#) gt 0>
-					,PRESERVE_METHOD
-				</cfif>
 				,DERIVED_FROM_CAT_ITEM)
 			VALUES (
 				sq_collection_object_id.currval
 				,'#parentData.part_name#'
-				<cfif len(#parentData.PART_MODIFIER#) gt 0>
-					,'#parentData.PART_MODIFIER#'
-				</cfif>
 				,#collection_object_id#
-				<cfif len(#parentData.PRESERVE_METHOD#) gt 0>
-					,'#parentData.PRESERVE_METHOD#'
-				</cfif>
 				,#parentData.derived_from_cat_item#)				
 		</cfquery>
 		

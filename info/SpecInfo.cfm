@@ -150,9 +150,7 @@
 <cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT
 			part_name,
-			part_modifier,
 			sampled_from_obj_id,
-			preserve_method,
 			condition,
 			coll_obj_disposition,
 			enteredPerson.agent_name enteredBy,
@@ -175,8 +173,6 @@
 	<table border>
 		<tr>
 			<td><b>Part Name</b></td>
-			<td><b>Part Modifier</b></td>
-			<td><b>Pres Meth</b></td>
 			<td><b>Condition</b></td>
 			<td><b>Disposition</b></td>
 			<td><b>Cnt</b></td>

@@ -195,8 +195,6 @@ select
 		cataloged_item.collection_object_id,
 		collection,
 		part_name,
-		 part_modifier,
-		 preserve_method,
 		condition,
 		 sampled_from_obj_id,
 		 item_instructions,
@@ -328,11 +326,7 @@ select
 			<i>#scientific_name#</i>&nbsp;
 		</td>
 		<td>
-			#part_modifier# #part_name# 
-			<cfif len(#preserve_method#) gt 0>
-				(#preserve_method#)&nbsp;
-			</cfif>
-			
+			#part_name#
 		</td>
 		<td>
 			<cfif len(#Condition#) gt 15>
@@ -410,8 +404,6 @@ select
 		collection,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		part_name,
-		 part_modifier,
-		 preserve_method,
 		condition,
 		loan_number
 	 from 
@@ -479,11 +471,7 @@ Loan ## #getItems.loan_number#
 		</td>
 		
 		<td>
-			#part_modifier# #part_name# 
-			<cfif len(#preserve_method#) gt 0>
-				(#preserve_method#)&nbsp;
-			</cfif>
-			
+			#part_name# 
 		</td>
 		<td>
 				#Condition#

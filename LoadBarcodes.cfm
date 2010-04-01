@@ -88,40 +88,6 @@ Return TempList;
 				
     </cfform>
 	
-	
-	<!---
-	<form action="LoadBarcodes.cfm?action=update" method="post">
-      <input type="submit" 
-				value="Yep, that's the right stuff. Let's do this." 
-				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'"
-				onmouseout="this.className='savBtn'">
-				
-				
-    </form>
-    <form action="start.cfm" method="get">
-      <input type="submit" 
-				value="I'm like so lost. Take me somewhere safe." 
-				class="qutBtn"
-				onmouseover="this.className='qutBtn btnhov'"
-				onmouseout="this.className='qutBtn'">
-				
-    </form>
-	
-      <input type="button" 
-				value="Check These Scans" 
-				class="lnkBtn"
-				onmouseover="this.className='lnkBtn btnhov'"
-				onmouseout="this.className='lnkBtn'"
-				onclick="window.open('checkContainerMovement.cfm');">
-		 <br /><input type="button" 
-				value="What's Loaded?" 
-				class="lnkBtn"
-				onmouseover="this.className='lnkBtn btnhov'"
-				onmouseout="this.className='lnkBtn'"
-				onclick="window.open('LoadBarcodes.cfm?action=checkIsLoaded');">
-				
-	--->
     <p>The current batch of scans contains the following data. Continue only 
       if this is correct and you have searched these data for strangeness (ie, 
       scans placing the museum building into a nunc tube are probably erroneous, 

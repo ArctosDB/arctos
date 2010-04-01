@@ -6,7 +6,7 @@ Retrieving map data - please wait....
 	<cfelse>
 		<cfset flatTableName = "filtered_flat">
 	</cfif>
-	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/">
+	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles/">
 	<cfset dlFile = "tabfile#cfid##cftoken#.txt">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
@@ -96,7 +96,7 @@ Retrieving map data - please wait....
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#oneLine#">
 	</cfloop>
 
-	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/index.php?ViewResults=tab&tabfile=#Application.ServerRootUrl#/bnhmMaps/#dlFile#&configfile=#Application.ServerRootUrl#/bnhmMaps/SpecByLoc.xml&sourcename=Locality">
+	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/index.php?ViewResults=tab&tabfile=#Application.ServerRootUrl#/bnhmMaps/tabfiles/#dlFile#&configfile=#Application.ServerRootUrl#/bnhmMaps/SpecByLoc.xml&sourcename=Locality">
 	
 
 	<script type="text/javascript" language="javascript">
