@@ -15,11 +15,12 @@
 			<cfif len(thispres) gt 0>
 				<cfset thisNewPart = thisNewPart & ' (' & thispres & ')'>
 			</cfif>
-			<br>thisPart: #thisPart#
-			<br>thismod: #thismod#
-			<br>thispres: #thispres#
-			<br>thisNewPart: #thisNewPart#
-			
+			<cfif len(thisNewPart) gt 0>
+				<br>thisPart: #thisPart#
+				<br>thismod: #thismod#
+				<br>thispres: #thispres#
+				<br>thisNewPart: #thisNewPart#
+			</cfif>
 		</cfloop>
 	</cfloop>
 </cfoutput>
