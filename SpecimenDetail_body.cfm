@@ -633,7 +633,6 @@
 		pc.label,
 		part_name,
 		sampled_from_obj_id,
-		is_tissue,
 		coll_object.COLL_OBJ_DISPOSITION part_disposition,
 		coll_object.CONDITION part_condition,
 		lot_count,

@@ -239,14 +239,12 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 			 				COLLECTION_OBJECT_ID,
 			  				PART_NAME,
 			  				DERIVED_FROM_cat_item,
-			  				sampled_from_obj_id,
-			  				is_tissue)
+			  				sampled_from_obj_id)
 			  			( select
 			  				sq_collection_object_id.currval,
 			  				part_name,
 			  				DERIVED_FROM_cat_item,
-			  				#collObj.collection_object_id#,
-			  				is_tissue
+			  				#collObj.collection_object_id#
 			  			FROM
 			  				specimen_part
 			  			WHERE

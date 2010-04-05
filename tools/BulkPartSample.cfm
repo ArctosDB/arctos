@@ -311,14 +311,12 @@ Columns that begin with r$ are required; others are optional:
 				  COLLECTION_OBJECT_ID,
 				  PART_NAME
 					,DERIVED_FROM_cat_item,
-					SAMPLED_FROM_OBJ_ID,
-					IS_TISSUE )
+					SAMPLED_FROM_OBJ_ID)
 				VALUES (
 					sq_collection_object_id.currval,
 				  '#r$sample_name#'
 					,#i$collection_object_id#,
-					#i$exist_part_id#,
-					1
+					#i$exist_part_id#
 				)
 			</cfquery>
 			<cfif len(#sample_remarks#) gt 0>

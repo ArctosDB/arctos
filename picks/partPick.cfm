@@ -80,7 +80,7 @@
 	<cfset s="select cat_num,collection.collection,cataloged_item.collection_object_id,
 		specimen_part.collection_object_id partID,
 		COLL_OBJECT_REMARKS,COLL_OBJ_DISPOSITION,CONDITION,DISPOSITION_REMARKS,
-		IS_TISSUE,LOT_COUNT,PART_NAME,SAMPLED_FROM_OBJ_ID,
+		LOT_COUNT,PART_NAME,SAMPLED_FROM_OBJ_ID,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID 
 		from collection,cataloged_item,specimen_part,coll_object,coll_object_remark,coll_obj_other_id_num">
 			

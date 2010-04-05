@@ -26,7 +26,6 @@
 			part_name,
 			part_modifier,
 			lot_count,
-			is_tissue,
 			preserve_method,
 			coll_obj_disposition,
 			condition,
@@ -57,11 +56,6 @@
 		onkeypress="return noenter(event);">
 	<label for="lot_count">Lot Count</label>
 	<input type="text" name="lot_count" id="lot_count" class="reqdClr" size="2" value="#defaults.lot_count#">
-	<label for="is_tissue">Tissue?</label>
-	<select name="is_tissue" id="is_tissue" size="1" class="reqdClr">
-		<option <cfif defaults.is_tissue is 0>selected="selected"</cfif> value="0">No</option>
-		<option <cfif defaults.is_tissue is 1>selected="selected"</cfif> value="1">yes</option>
-	</select>
 	<label for="coll_obj_disposition">Disposition</label>
 	<select name="coll_obj_disposition" id="coll_obj_disposition" size="1"  class="reqdClr">
     	<cfloop query="ctcoll_obj_disposition">
