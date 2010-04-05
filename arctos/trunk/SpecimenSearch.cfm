@@ -582,6 +582,7 @@
 		document.SpecData.action = tvalue;
 	}
 	function setPrevSearch(){
+		console.log('setPrevSearch');
 		var schParam=get_cookie ('schParams');
 		console.log(schParam);
 		var pAry=schParam.split("|");
