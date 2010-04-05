@@ -509,8 +509,7 @@
 		max: 20,
 		autofill: true,
 		highlight: false,
-		multiple: true,
-		multipleSeparator: "|",
+		multiple: false,
 		scroll: true,
 		scrollHeight: 300
 	});

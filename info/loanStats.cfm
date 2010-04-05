@@ -45,8 +45,7 @@
 				select 
 					collection,
 					count(distinct(cataloged_item.collection_object_id)) CntCatNum,
-					count(distinct(citation.collection_object_id)) cntCited,
-					'part' ltype
+					count(distinct(citation.collection_object_id)) cntCited
 				from
 					loan_item,
 					specimen_part,
@@ -64,7 +63,7 @@
 			</cfquery>
 			<td>
 				<cfloop query="wtf">
-					<a href="/SpecimenResults.cfm?loan_trans_id=#loanData.TRANSACTION_ID#&collection_id=#loanData.collection_id#">#CntCatNum# (#collection#: #ltype#)</a>
+					<a href="/SpecimenResults.cfm?loan_trans_id=#loanData.TRANSACTION_ID#&collection_id=#loanData.collection_id#">#CntCatNum# (#collection#)</a>
 				</cfloop>&nbsp;
 			</td>
 			<td><a href="/SpecimenResults.cfm?loan_trans_id=#loanData.TRANSACTION_ID#&collection_id=#loanData.collection_id#&type_status=any">
