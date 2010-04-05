@@ -210,16 +210,5 @@
 			</select>
 		</td>
 	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="bounding_box">Bounding Box:</span>
-		</td>
-		<td class="srch">
-			<input type="text" name="nwLat" id="nwLat" size="8"
-			<input type="text" name="nwlong" id="nwlong" size="8">		
-			<input type="text" name="selat" id="selat" size="8">			
-			<input type="text" name="selong" id="selong" size="8">
-		</td>
-	</tr>	
 </table>
 </cfoutput>
