@@ -43,13 +43,6 @@
 	   					<label for="lot_count_#i#">Part Count</label>
 	   					<input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
 	   				</td>
-	   				<td>
-	   					<label for="is_tissue_#i#">Is Tissue?</label>
-	   					<select name="is_tissue_#i#" id="is_tissue_#i#" size="1" class="reqdClr">
-							<option value="0">No</option>
-							<option value="1">yes</option>
-						</select>
-	   				</td>
 	   			</tr>
 	   			<tr>
 	   				<td>
@@ -97,7 +90,6 @@
 			<cfloop from="1" to="#numParts#" index="n">
 				<cfset thisPartName = #evaluate("part_name_" & n)#>
 				<cfset thisLotCount = #evaluate("lot_count_" & n)#>
-				<cfset thisIsTissue = #evaluate("is_tissue_" & n)#>
 				<cfset thisDisposition = #evaluate("coll_obj_disposition_" & n)#>
 				<cfset thisCondition = #evaluate("condition_" & n)#>
 				<cfset thisRemark = #evaluate("coll_object_remarks_" & n)#>
@@ -128,13 +120,11 @@
 						INSERT INTO specimen_part (
 							  COLLECTION_OBJECT_ID,
 							  PART_NAME
-								,DERIVED_FROM_cat_item,
-								is_tissue )
+								,DERIVED_FROM_cat_item)
 							VALUES (
 								sq_collection_object_id.currval,
 							  '#thisPartName#'
-								,#ids.collection_object_id#,
-								#thisIsTissue# )
+								,#ids.collection_object_id#)
 					</cfquery>
 					<cfif len(#thisRemark#) gt 0>
 						<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

@@ -98,7 +98,6 @@
 	<cfargument name="part_name" type="string" required="yes">
 	<cfargument name="part_modifier" type="string" required="yes">
 	<cfargument name="lot_count" type="string" required="yes">
-	<cfargument name="is_tissue" type="string" required="yes">
 	<cfargument name="preserve_method" type="string" required="yes">
 	<cfargument name="coll_obj_disposition" type="string" required="yes">
 	<cfargument name="condition" type="string" required="yes">
@@ -143,8 +142,7 @@
 					  <cfif len(#PRESERVE_METHOD#) gt 0>
 					  		,PRESERVE_METHOD
 					  </cfif>
-						,DERIVED_FROM_cat_item,
-						is_tissue )
+						,DERIVED_FROM_cat_item)
 					VALUES (
 						#ccid.nv#,
 					  '#PART_NAME#'
@@ -154,8 +152,7 @@
 					  <cfif len(#PRESERVE_METHOD#) gt 0>
 					  		,'#PRESERVE_METHOD#'
 					  </cfif>
-						,#collection_object_id#,
-						#is_tissue# )
+						,#collection_object_id# )
 			</cfquery>
 			<cfif len(#coll_object_remarks#) gt 0>
 				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -180,13 +177,12 @@
 					</cfquery>					
 				</cfif>
 			</cfif>
-			<cfset q=queryNew("status,part_name,part_modifier,lot_count,is_tissue,preserve_method,coll_obj_disposition,condition,coll_object_remarks,barcode,new_container_type")>
+			<cfset q=queryNew("status,part_name,part_modifier,lot_count,preserve_method,coll_obj_disposition,condition,coll_object_remarks,barcode,new_container_type")>
 			<cfset t = queryaddrow(q,1)>
 			<cfset t = QuerySetCell(q, "status", "success", 1)>
 			<cfset t = QuerySetCell(q, "part_name", "#part_name#", 1)>
 			<cfset t = QuerySetCell(q, "part_modifier", "#part_modifier#", 1)>
 			<cfset t = QuerySetCell(q, "lot_count", "#lot_count#", 1)>
-			<cfset t = QuerySetCell(q, "is_tissue", "#is_tissue#", 1)>
 			<cfset t = QuerySetCell(q, "preserve_method", "#preserve_method#", 1)>
 			<cfset t = QuerySetCell(q, "coll_obj_disposition", "#coll_obj_disposition#", 1)>
 			<cfset t = QuerySetCell(q, "condition", "#condition#", 1)>
@@ -556,7 +552,6 @@
 				coll_obj_cont_hist.container_id=container.container_id and
 				(container.parent_container_id is null or
 				container.parent_container_id=0) and
-				specimen_part.is_tissue=1 and
 				cataloged_item.collection_id=#collection_id# and
 				cat_num=#oidnum# AND
 				part_name='#part_name#'
@@ -581,7 +576,6 @@
 				coll_obj_cont_hist.container_id=container.container_id and
 				(container.parent_container_id is null or
 				container.parent_container_id=0) and
-				specimen_part.is_tissue=1 and
 				cataloged_item.collection_id=#collection_id# AND
 				other_id_type='#other_id_type#' AND
 				display_value= '#oidnum#' AND
@@ -1039,8 +1033,7 @@
 					part_name,
 					part_modifier,
 					PRESERVE_METHOD,
-					derived_from_cat_item,
-					is_tissue
+					derived_from_cat_item
 				FROM
 					coll_object, specimen_part
 				WHERE 
@@ -1080,8 +1073,7 @@
 					<cfif len(#parentData.PRESERVE_METHOD#) gt 0>
 						,PRESERVE_METHOD
 					</cfif>
-					,DERIVED_FROM_CAT_ITEM,
-					is_tissue)
+					,DERIVED_FROM_CAT_ITEM)
 				VALUES (
 					#n.n#
 					,'#parentData.part_name#'
@@ -1092,8 +1084,7 @@
 					<cfif len(#parentData.PRESERVE_METHOD#) gt 0>
 						,'#parentData.PRESERVE_METHOD#'
 					</cfif>
-					,#parentData.derived_from_cat_item#,
-					#parentData.is_tissue#)				
+					,#parentData.derived_from_cat_item#)				
 			</cfquery>
 		</cfif>
 		<cfquery name="addLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1161,7 +1152,6 @@
 			specimen_part.PART_MODIFIER,
 			specimen_part.SAMPLED_FROM_OBJ_ID,
 			specimen_part.PRESERVE_METHOD,
-			specimen_part.IS_TISSUE,
 			concatEncumbrances(cataloged_item.collection_object_id) as encumbrance_action,
 			loan_item.transaction_id
 		from

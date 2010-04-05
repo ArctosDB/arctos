@@ -1282,7 +1282,6 @@ function makePart(){
 	var collection_object_id=document.getElementById('collection_object_id').value;
 	var part_name=document.getElementById('npart_name').value;
 	var lot_count=document.getElementById('lot_count').value;
-	var is_tissue=document.getElementById('is_tissue').value;
 	var coll_obj_disposition=document.getElementById('coll_obj_disposition').value;
 	var condition=document.getElementById('condition').value;
 	var coll_object_remarks=document.getElementById('coll_object_remarks').value;
@@ -1294,7 +1293,6 @@ function makePart(){
 			collection_object_id : collection_object_id,
 			part_name : part_name,
 			lot_count : lot_count,
-			is_tissue : is_tissue,
 			coll_obj_disposition : coll_obj_disposition,
 			condition : condition,
 			coll_object_remarks : coll_object_remarks,
@@ -1312,9 +1310,6 @@ function makePart(){
 			} else {
 				var msg="Created part: ";
 				msg += result.PART_NAME[0] + " ";
-				if (result.IS_TISSUE[0]== 1) {
-					msg += "(tissue) ";
-				}
 				if (result.BARCODE[0]!==null) {
 					msg += "barcode " + result.BARCODE[0];
 					if (result.NEW_CONTAINER_TYPE[0]!==null) {

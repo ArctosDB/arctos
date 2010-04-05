@@ -1158,7 +1158,6 @@
 		<cfset basQual = " #basQual# AND upper(PARTS) LIKE '%#ucase(part_name)#%'">
 	</cfif>
 </cfif>
-
 <cfif isdefined("is_tissue") AND is_tissue is 1>
 	<cfset mapurl = "#mapurl#&is_tissue=#is_tissue#">
 	<cfset basJoin = " #basJoin# INNER JOIN specimen_part spt ON (cataloged_item.collection_object_id = spt.derived_from_cat_item)
@@ -1166,11 +1165,6 @@
 		inner join ctspecimen_part_name on (spt.part_name=ctspecimen_part_name.part_name)">	
 	<cfset basQual = " #basQual# AND ctspecimen_part_name.is_tissue = 1">
 </cfif>
-
-
-
-
-
 <cfif isdefined("srchParts") AND len(#srchParts#) gt 0>
 	<cfif #basJoin# does not contain " specimen_part ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 

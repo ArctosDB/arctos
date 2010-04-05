@@ -419,9 +419,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/Encumbrances.cfm">
 						Encumbrances
 					</option>
-					<option value="/tissueParts.cfm">
-						Flag Parts as Tissues
-					</option>
 					<option value="/multiIdentification.cfm">
 						Identification
 					</option>

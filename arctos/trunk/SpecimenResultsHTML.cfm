@@ -1529,9 +1529,6 @@ document.getElementById('saveme').submit();
 			<option value="wideLabels.cfm?collection_object_id=#collObjIdList#">
 				MVZ wide Labels
 			</option>
-			<option value="tissueParts.cfm?collection_object_id=#collObjIdList#">
-				Flag Parts as Tissues
-			</option>
 			<option value="editIdentification.cfm?collection_object_id=#collObjIdList#&Action=multi">
 				Identification
 			</option>

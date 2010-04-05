@@ -17,8 +17,7 @@
 			parentContainer.container_id AS parentContainerId,
 			thisContainer.container_id AS partContainerId,
 			parentContainer.print_fg,
-			coll_object_remarks,
-			is_tissue
+			coll_object_remarks
 		FROM
 			cataloged_item
 			INNER JOIN collection ON (cataloged_item.collection_id = collection.collection_id)
@@ -92,13 +91,6 @@
 				<td>
 					<label for="lot_count#i#">##</label>
 					<input type="text" id="lot_count#i#" name="lot_count#i#" value="#getparts.lot_count#"  class="reqdClr" size="2">
-				</td>
-				<td>
-					<label for="is_tissue#i#">Tiss?</label>
-					<select name="is_tissue#i#" size="1" class="reqdClr">
-						<option value="0" <cfif is_tissue is 0> selected </cfif>>No</option>
-						<option value="1" <cfif is_tissue is 1> selected </cfif>>Yes</option>
-					</select>
 				</td>
 				<td>
 					<label for="label#i#">In Container Label</label>
@@ -182,16 +174,6 @@
         <td><div align="right">Count:</div></td>
         <td><input type="text" name="lot_count" class="reqdClr" size="2"></td>
       </tr>
-	  <tr> 
-        <td><div align="right">Tissue:</div></td>
-        <td>
-			<select name="is_tissue" size="1" class="reqdClr">
-				<option value="0">No</option>
-				<option value="1">yes</option>
-			</select>
-		</td>
-      </tr>
-     
       <tr> 
         <td><div align="right">Disposition:</div></td>
         <td><select name="coll_obj_disposition" size="1"  class="reqdClr">
@@ -264,11 +246,9 @@
 		<cfset thislabel = #evaluate("label" & n)#>
 		<cfset thisparentContainerId = #evaluate("parentContainerId" & n)#>
 		<cfset thispartContainerId = #evaluate("partContainerId" & n)#>
-		<cfset thisIsTissue = #evaluate("is_tissue" & n)#>
 		<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE specimen_part SET 
-				Part_name = '#thisPartName#',
-				is_tissue = #thisIsTissue#
+				Part_name = '#thisPartName#'
 			WHERE collection_object_id = #thisPartId#
 		</cfquery>
 		<cfquery name="upPartCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -409,13 +389,11 @@
 		INSERT INTO specimen_part (
 			  COLLECTION_OBJECT_ID,
 			  PART_NAME
-				,DERIVED_FROM_cat_item,
-				is_tissue )
+				,DERIVED_FROM_cat_item)
 			VALUES (
 				sq_collection_object_id.currval,
 			  '#PART_NAME#'
-				,#collection_object_id#,
-				#is_tissue# )
+				,#collection_object_id#)
 	</cfquery>
 	<cfif len(#coll_object_remarks#) gt 0>
 			<!---- new remark --->

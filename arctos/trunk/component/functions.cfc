@@ -1118,7 +1118,6 @@
 	<cfargument name="collection_object_id" type="string" required="yes">
 	<cfargument name="part_name" type="string" required="yes">
 	<cfargument name="lot_count" type="string" required="yes">
-	<cfargument name="is_tissue" type="string" required="yes">
 	<cfargument name="coll_obj_disposition" type="string" required="yes">
 	<cfargument name="condition" type="string" required="yes">
 	<cfargument name="coll_object_remarks" type="string" required="yes">
@@ -1156,13 +1155,11 @@
 				INSERT INTO specimen_part (
 					  COLLECTION_OBJECT_ID,
 					  PART_NAME
-						,DERIVED_FROM_cat_item,
-						is_tissue )
+						,DERIVED_FROM_cat_item)
 					VALUES (
 						#ccid.nv#,
 					  '#PART_NAME#'
-						,#collection_object_id#,
-						#is_tissue# )
+						,#collection_object_id#)
 			</cfquery>
 			<cfif len(#coll_object_remarks#) gt 0>
 				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1187,12 +1184,11 @@
 					</cfquery>					
 				</cfif>
 			</cfif>
-			<cfset q=queryNew("STATUS,PART_NAME,LOT_COUNT,IS_TISSUE,COLL_OBJ_DISPOSITION,CONDITION,COLL_OBJECT_REMARKS,BARCODE,NEW_CONTAINER_TYPE")>
+			<cfset q=queryNew("STATUS,PART_NAME,LOT_COUNT,COLL_OBJ_DISPOSITION,CONDITION,COLL_OBJECT_REMARKS,BARCODE,NEW_CONTAINER_TYPE")>
 			<cfset t = queryaddrow(q,1)>
 			<cfset t = QuerySetCell(q, "STATUS", "success", 1)>
 			<cfset t = QuerySetCell(q, "part_name", "#part_name#", 1)>
 			<cfset t = QuerySetCell(q, "lot_count", "#lot_count#", 1)>
-			<cfset t = QuerySetCell(q, "is_tissue", "#is_tissue#", 1)>
 			<cfset t = QuerySetCell(q, "coll_obj_disposition", "#coll_obj_disposition#", 1)>
 			<cfset t = QuerySetCell(q, "condition", "#condition#", 1)>
 			<cfset t = QuerySetCell(q, "coll_object_remarks", "#coll_object_remarks#", 1)>
@@ -1221,7 +1217,6 @@
 			coll_object.CONDITION,
 			specimen_part.PART_NAME,
 			specimen_part.SAMPLED_FROM_OBJ_ID,
-			specimen_part.IS_TISSUE,
 			concatEncumbrances(cataloged_item.collection_object_id) as encumbrance_action,
 			loan_item.transaction_id
 		from
@@ -1284,8 +1279,7 @@
 					coll_obj_disposition, 
 					condition,
 					part_name,
-					derived_from_cat_item,
-					is_tissue
+					derived_from_cat_item
 				FROM
 					coll_object, specimen_part
 				WHERE 
@@ -1319,14 +1313,12 @@
 					COLLECTION_OBJECT_ID
 					,PART_NAME
 					,SAMPLED_FROM_OBJ_ID
-					,DERIVED_FROM_CAT_ITEM,
-					is_tissue)
+					,DERIVED_FROM_CAT_ITEM)
 				VALUES (
 					#n.n#
 					,'#parentData.part_name#'
 					,#partID#
-					,#parentData.derived_from_cat_item#,
-					#parentData.is_tissue#)				
+					,#parentData.derived_from_cat_item#)				
 			</cfquery>
 		</cfif>
 		<cfquery name="addLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
