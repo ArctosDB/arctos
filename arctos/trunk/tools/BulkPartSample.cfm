@@ -188,42 +188,6 @@ Columns that begin with r$ are required; others are optional:
 		<cfelse>
 			<cfset status=listappend(status,'cataloged item not found')>
 			<cfset cat_item_id=-1>
-		</cfif>		
-		<cfif len(SAMPLE_PRESERVE_METHOD) gt 0>
-			<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select count(*) c from CTSPECIMEN_PRESERV_METHOD where PRESERVE_METHOD='#SAMPLE_PRESERVE_METHOD#'
-				 and collection_cde='#R$COLLECTION_CDE#'
-			</cfquery>
-			<cfif bads.c is not 1>
-				<cfset status=listappend(status,'bad SAMPLE_PRESERVE_METHOD')>
-			</cfif>
-		</cfif>
-		<cfif len(EXIST_PRESERVE_METHOD) gt 0>
-			<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select count(*) c from CTSPECIMEN_PRESERV_METHOD where PRESERVE_METHOD='#EXIST_PRESERVE_METHOD#'
-				 and collection_cde='#R$COLLECTION_CDE#'
-			</cfquery>
-			<cfif bads.c is not 1>
-				<cfset status=listappend(status,'bad EXIST_PRESERVE_METHOD')>
-			</cfif>
-		</cfif>
-		<cfif len(EXIST_PART_MODIFIER) gt 0>
-			<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select count(*) c from CTSPECIMEN_PART_MODIFIER where PART_MODIFIER='#EXIST_PART_MODIFIER#'
-				 and collection_cde='#R$COLLECTION_CDE#'
-			</cfquery>
-			<cfif bads.c is not 1>
-				<cfset status=listappend(status,'bad EXIST_PART_MODIFIER')>
-			</cfif>
-		</cfif>
-		<cfif len(SAMPLE_MODIFIER) gt 0>
-			<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select count(*) c from CTSPECIMEN_PART_MODIFIER where PART_MODIFIER='#SAMPLE_MODIFIER#'
-				 and collection_cde='#R$COLLECTION_CDE#'
-			</cfquery>
-			<cfif bads.c is not 1>
-				<cfset status=listappend(status,'bad SAMPLE_MODIFIER')>
-			</cfif>
 		</cfif>
 		<cfif len(R$SAMPLE_CONTAINER_TYPE) gt 0>
 			<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -254,17 +218,7 @@ Columns that begin with r$ are required; others are optional:
 			from 
 			specimen_part where
 			derived_from_cat_item=#cat_item_id# and
-			part_name='#r$exist_part_name#' and
-			<cfif len(#exist_part_modifier#) gt 0>
-				part_modifier='#exist_part_modifier#' and
-			<cfelse>
-				part_modifier is null and
-			</cfif>
-			<cfif len(#exist_preserve_method#) gt 0>
-				preserve_method='#exist_preserve_method#'
-			<cfelse>
-				preserve_method is null
-			</cfif>			
+			part_name='#r$exist_part_name#'
 		</cfquery>
 		<cfif pPart.recordcount is 1 and len(pPart.collection_object_id) gt 0>
 			<cfset partID=pPart.collection_object_id>
@@ -356,24 +310,12 @@ Columns that begin with r$ are required; others are optional:
 				INSERT INTO specimen_part (
 				  COLLECTION_OBJECT_ID,
 				  PART_NAME
-				  <cfif len(#sample_modifier#) gt 0>
-				  		,PART_MODIFIER
-				  </cfif>
-				  <cfif len(#sample_preserve_method#) gt 0>
-				  		,PRESERVE_METHOD
-				  </cfif>
 					,DERIVED_FROM_cat_item,
 					SAMPLED_FROM_OBJ_ID,
 					IS_TISSUE )
 				VALUES (
 					sq_collection_object_id.currval,
 				  '#r$sample_name#'
-				  <cfif len(#sample_modifier#) gt 0>
-				  		,'#sample_modifier#'
-				  </cfif>
-				  <cfif len(#sample_preserve_method#) gt 0>
-				  		,'#sample_preserve_method#'
-				  </cfif>
 					,#i$collection_object_id#,
 					#i$exist_part_id#,
 					1

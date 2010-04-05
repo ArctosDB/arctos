@@ -2,15 +2,6 @@
 
 <!------------------------------------------------------------------->
 <cfif #action# is not "validateFromFile">
-<cfquery name="ctCollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select collection_cde, institution_acronym, collection_id FROM collection
-</cfquery>
-<cfquery name="ctPartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select distinct(part_name) FROM ctspecimen_part_name
-</cfquery>
-<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select distinct(other_id_type) FROM ctcoll_other_id_type
-</cfquery>
 <cfparam name="part_name" default="">
 <cfparam name="collection_id" default="">
 <cfparam name="other_id_type" default="">

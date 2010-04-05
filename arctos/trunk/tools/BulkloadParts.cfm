@@ -47,8 +47,6 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<li style="color:red">other_id_type ("catalog number" is OK)</li>
 	<li style="color:red">other_id_number</li>
 	<li style="color:red">part_name</li>
-	<li>part_modifier</li>
-	<li>preserve_method</li>
 	<li style="color:red">disposition</li>
 	<li style="color:red">lot_count</li>
 	<li>remarks</li>		
@@ -172,20 +170,6 @@ validate
 			select part_name|| '|' ||collection_cde from ctspecimen_part_name
 			)
 			OR part_name is null
-	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update cf_temp_parts set validated_status = validated_status || ';Invalid PRESERVE_METHOD'
-		where PRESERVE_METHOD|| '|' ||collection_cde NOT IN (
-			select PRESERVE_METHOD|| '|' ||collection_cde from CTSPECIMEN_PRESERV_METHOD
-			)
-		AND PRESERVE_METHOD is not null
-	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update cf_temp_parts set validated_status = validated_status || ';Invalid PART_MODIFIER'
-		where PART_MODIFIER|| '|' ||collection_cde NOT IN (
-			select PART_MODIFIER|| '|' ||collection_cde from CTSPECIMEN_PART_MODIFIER
-			)
-		AND PART_MODIFIER is not null
 	</cfquery>
 	<cfquery name="isValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_parts set validated_status = validated_status || ';Invalid use_existing flag'
@@ -339,8 +323,6 @@ validate
 			<td>OTHER_ID_TYPE</td>
 			<td>OTHER_ID_NUMBER</td>
 			<td>part_name</td>
-			<td>part_modifier</td>
-			<td>preserve_method</td>
 			<td>disposition</td>
 			<td>lot_count</td>
 			<td>remarks</td>
@@ -369,8 +351,6 @@ validate
 				<td>#OTHER_ID_TYPE#</td>
 				<td>#OTHER_ID_NUMBER#</td>
 				<td>#part_name#</td>
-				<td>#part_modifier#</td>
-				<td>#preserve_method#</td>
 				<td>#disposition#</td>
 				<td>#lot_count#</td>
 				<td>#remarks#</td>
@@ -447,22 +427,10 @@ validate
 			INSERT INTO specimen_part (
 				  COLLECTION_OBJECT_ID,
 				  PART_NAME
-				  <cfif len(#PART_MODIFIER#) gt 0>
-				  		,PART_MODIFIER
-				  </cfif>
-				  <cfif len(#PRESERVE_METHOD#) gt 0>
-				  		,PRESERVE_METHOD
-				  </cfif>
 					,DERIVED_FROM_cat_item )
 				VALUES (
 					sq_collection_object_id.currval,
 				  '#PART_NAME#'
-				  <cfif len(#PART_MODIFIER#) gt 0>
-				  		,'#PART_MODIFIER#'
-				  </cfif>
-				  <cfif len(#PRESERVE_METHOD#) gt 0>
-				  		,'#PRESERVE_METHOD#'
-				  </cfif>
 					,#collection_object_id# )
 		</cfquery>
 		

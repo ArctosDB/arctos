@@ -238,16 +238,12 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 						INSERT INTO specimen_part (
 			 				COLLECTION_OBJECT_ID,
 			  				PART_NAME,
-			  				PART_MODIFIER,
-			  				PRESERVE_METHOD,
 			  				DERIVED_FROM_cat_item,
 			  				sampled_from_obj_id,
 			  				is_tissue)
 			  			( select
 			  				sq_collection_object_id.currval,
 			  				part_name,
-			  				part_modifier,
-			  				preserve_method,
 			  				DERIVED_FROM_cat_item,
 			  				#collObj.collection_object_id#,
 			  				is_tissue
