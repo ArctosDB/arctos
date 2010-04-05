@@ -416,28 +416,28 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<label for="goWhere">Manage...</label>
 				<select name="goWhere" id="goWhere" size="1">
 					<option value="">::Change Stuff::</option>
-					<option value="Encumbrances.cfm">
+					<option value="/Encumbrances.cfm">
 						Encumbrances
 					</option>
-					<option value="tissueParts.cfm">
+					<option value="/tissueParts.cfm">
 						Flag Parts as Tissues
 					</option>
-					<option value="multiIdentification.cfm">
+					<option value="/multiIdentification.cfm">
 						Identification
 					</option>
-					<option value="multiAgent.cfm">
+					<option value="/multiAgent.cfm">
 						Agents
 					</option>
-					<option value="findContainer.cfm?showControl=1">
+					<option value="/findContainer.cfm?showControl=1">
 						Part Locations
 					</option>
-					<option value="bulkCollEvent.cfm">
+					<option value="/bulkCollEvent.cfm">
 						Collecting Events
 					</option>
-					<option value="addAccn.cfm">
+					<option value="/addAccn.cfm">
 						Accession
 					</option>
-					<option value="compDGR.cfm">
+					<option value="/compDGR.cfm">
 						MSB<->DGR
 					</option>
 					<option value="/tools/bulkPart.cfm">
@@ -454,14 +454,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
 						MSB Mammals Vial Labels
 					</option>					
-					<option value="narrowLabels.cfm">
+					<option value="/narrowLabels.cfm">
 						MVZ narrow Labels
 					</option>
-					<option value="wideLabels.cfm">
+					<option value="/wideLabels.cfm">
 						MVZ wide Labels
 					</option>
 					<cfif isdefined('permit_num') and len(permit_num) gt 0>
-						<option value="Reports/permit.cfm">
+						<option value="/Reports/permit.cfm">
 							MVZ Permit Report
 						</option>
 					</cfif>					
