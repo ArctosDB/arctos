@@ -1466,7 +1466,7 @@ function showHide(id,onOff) {
 		var tab=document.getElementById(t);
 		var ctl=document.getElementById(z);
 		if (t=='e_spatial_query'){
-			offText='Show Google Map';
+			offText='Query with Google Map';
 			onText='Hide Google Map';
 		} else {
 			onText='Show Fewer Options';
@@ -1517,6 +1517,8 @@ function getFormValues() {
 		}
 	}
 	var str=spAry.join("|");
+	console.log(str);
+	return false;
 	document.cookie = 'schParams=' + str;
  }
 function nada(){
