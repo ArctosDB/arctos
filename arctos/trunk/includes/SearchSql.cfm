@@ -1161,12 +1161,9 @@
 
 <cfif isdefined("is_tissue") AND is_tissue is 1>
 	<cfset mapurl = "#mapurl#&is_tissue=#is_tissue#">
-	<cfset basJoin = " #basJoin# INNER JOIN specimen_part spt ON 
-		(cataloged_item.collection_object_id = spt.derived_from_cat_item)
+	<cfset basJoin = " #basJoin# INNER JOIN specimen_part spt ON (cataloged_item.collection_object_id = spt.derived_from_cat_item)
 		inner join collection spcn on (cataloged_item.collection_id=spcn.collection_id)
-		inner join ctspecimen_part_name on (spt.part_name=ctspecimen_part_name.part_name)">
-	</cfif>
-	
+		inner join ctspecimen_part_name on (spt.part_name=ctspecimen_part_name.part_name)">	
 	<cfset basQual = " #basQual# AND ctspecimen_part_name.is_tissue = 1">
 </cfif>
 
