@@ -590,6 +590,7 @@
 	 		var eVl=eAry[1];
 	 		if (document.getElementById(eName)){
 				document.getElementById(eName).value=eVl;
+				console.log(eVl);
 				if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
 					// also fire off the options div
 					changeTarget(eName,eVl);
