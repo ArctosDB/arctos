@@ -1140,13 +1140,7 @@
 </cfif>		
 <cfif isdefined("part_name") AND len(#part_name#) gt 0>
 	<cfset mapurl = "#mapurl#&part_name=#part_name#">
-	<cfif isdefined("is_tissue") AND is_tissue is true>
-		<cfif basJoin does not contain " specimen_part ">
-			<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 
-			(cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
-		</cfif>
-		<cfset basQual = " #basQual# AND part_name = '#part_name#'">	
-	<cfelseif part_name contains "|">
+	<cfif part_name contains "|">
 		<cfset i=1>
 		<cfloop list="#part_name#" delimiters="|" index="p">
 			<cfset basJoin = " #basJoin# INNER JOIN specimen_part sp#i# ON 
@@ -1164,14 +1158,22 @@
 		<cfset basQual = " #basQual# AND upper(PARTS) LIKE '%#ucase(part_name)#%'">
 	</cfif>
 </cfif>
-<cfif isdefined("is_tissue") AND #is_tissue# is 1>
+
+<cfif isdefined("is_tissue") AND is_tissue is 1>
 	<cfset mapurl = "#mapurl#&is_tissue=#is_tissue#">
-	<cfif #basJoin# does not contain " specimen_part ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 
-		(cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
+	<cfset basJoin = " #basJoin# INNER JOIN specimen_part spt ON 
+		(cataloged_item.collection_object_id = spt.derived_from_cat_item)
+		inner join collection spcn on (cataloged_item.collection_id=spcn.collection_id)
+		inner join ctspecimen_part_name on (spt.part_name=ctspecimen_part_name.part_name)">
 	</cfif>
-	<cfset basQual = " #basQual# AND is_tissue = 1">
+	
+	<cfset basQual = " #basQual# AND ctspecimen_part_name.is_tissue = 1">
 </cfif>
+
+
+
+
+
 <cfif isdefined("srchParts") AND len(#srchParts#) gt 0>
 	<cfif #basJoin# does not contain " specimen_part ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 
