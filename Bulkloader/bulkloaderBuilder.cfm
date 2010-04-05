@@ -38,8 +38,6 @@
 	<cfset part=""> 
 	<cfloop from="1" to="#n#" index="i">
 		<cfset part=listappend(part,"PART_NAME_" & i)>
-		<cfset part=listappend(part,"PART_MODIFIER_" & i)>
-		<cfset part=listappend(part,"PRESERV_METHOD_" & i)>
 		<cfset part=listappend(part,"PART_CONDITION_" & i)>
 		<cfset part=listappend(part,"PART_BARCODE_" & i)>
 		<cfset part=listappend(part,"PART_CONTAINER_LABEL_" & i)>
