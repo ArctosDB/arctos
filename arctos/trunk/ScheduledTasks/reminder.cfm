@@ -167,7 +167,7 @@
 						Dear #agent_name#,
 						<p>
 							You are receiving this message because you are listed as a contact for loan 
-							#loan.collection# #loan.loan_number#, which is due on #loan.return_due_date#.
+							#loan.collection# #loan.loan_number#, due date #loan.return_due_date#.
 						</p>
 						#contacts#<!--- from cfsavecontent above ---->
 						#common#<!--- from cfsavecontent above ---->
@@ -181,7 +181,7 @@
 					Dear #agent_name#,
 					<p>
 						You are receiving this message because you are listed as in-house contact for loan 
-						#loan.collection# #loan.loan_number#, which is due on #loan.return_due_date#.
+						#loan.collection# #loan.loan_number#, due date #loan.return_due_date#.
 					</p>
 					<p>
 						You may edit the loan, after signing in to Arctos, at
@@ -199,7 +199,7 @@
 						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">Dear #agent_name#,
 						<p>
 							You are receiving this message because you are listed as a #loan.collection# loan request collection contact. 
-							Loan #loan.collection# #loan.loan_number# was due on #loan.return_due_date#, and is not listed as "closed."
+							Loan #loan.collection# #loan.loan_number# due date #loan.return_due_date# is not listed as "closed."
 						</p>
 						<p>
 							You may edit the loan, after signing in to Arctos, at

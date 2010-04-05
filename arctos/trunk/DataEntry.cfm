@@ -225,27 +225,6 @@
 	      	select BIOL_INDIV_RELATIONSHIP from ctbiol_relations
 			order by BIOL_INDIV_RELATIONSHIP
 	    </cfquery>
-		<cfquery name="ctPartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT 
-				part_name 
-			FROM 
-				ctSpecimen_part_name
-				<cfif len(collection_cde) gt 0>
-					WHERE ctSpecimen_part_name.collection_cde='#collection_cde#'
-				</cfif>
-			order by part_name
-	    </cfquery>
-		<cfquery name="ctPartModifier" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT distinct(part_modifier) FROM ctSpecimen_part_modifier
-			order by part_modifier
-	    </cfquery>
-		<cfquery name="ctPresMeth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select preserve_method from ctspecimen_preserv_method
-			<cfif len(#collection_cde#) gt 0>
-				WHERE collection_cde='#collection_cde#'
-			</cfif>
-			order by preserve_method
-		</cfquery>
 		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select distinct(attribute_type) from ctattribute_type
 			<cfif len(#collection_cde#) gt 0>
@@ -1329,8 +1308,6 @@
 							<img src="/images/info.gif" border="0" onClick="getDocs('parts')" class="likeLink" alt="[ help ]">
 						</td>
 						<th><span class="f11a">Part Name</span></th>
-						<th><span class="f11a">Part Modifier</span></th>
-						<th><span class="f11a">Preserv Method</span></th>
 						<th><span class="f11a">Condition</span></th>
 						<th><span class="f11a">Disposition</span></th>
 						<th><span class="f11a">##</span></th>
@@ -1341,34 +1318,11 @@
 					<cfloop from="1" to="12" index="i">
 						<tr>
 							<td>
-								<select name="part_name_#i#" <cfif i is 1>class="reqdClr"</cfif> id="part_name_#i#"
-									onchange="requirePartAtts('#i#',this.value)">
-									<cfset lc=1>
-									<cfloop query="ctPartName">
-										<cfif lc is 1 and i gt 1><option value=""></option></cfif>
-										<option <cfif evaluate("data.part_name_" & i) is ctPartName.part_name> selected="selected" </cfif>
-											value="#part_name#">#part_name#</option>
-										<cfset lc=lc+1>
-									</cfloop>
-								</select>
-							</td>
-							<td>
-								<select name="part_modifier_#i#" id="part_modifier_#i#">
-									<option value=""></option>
-									<cfloop query="ctPartModifier">
-										<option <cfif evaluate("data.part_modifier_" & i) is ctPartModifier.part_modifier> selected="selected" </cfif>
-											value="#part_modifier#">#part_modifier#</option>
-									</cfloop>
-								</select>
-							</td>
-							<td>
-								<select name="preserv_method_#i#" id="preserv_method_#i#">
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif evaluate("data.preserv_method_" & i) is ctPresMeth.preserve_method> selected="selected" </cfif>
-											value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
+								<cfset tpn=evaluate("data.part_name_" & i)>
+								<input type="text" name="part_name_#i#" id="part_name_#i#" <cfif i is 1>class="reqdClr"</cfif>
+									value="#tpn#" size="25"
+									onchange="findPart(this.id,this.value,'#collection_cde#');requirePartAtts('#i#',this.value);" 
+									onkeypress="return noenter(event);">
 							</td>
 							<td>
 								<input type="text" name="part_condition_#i#" id="part_condition_#i#"

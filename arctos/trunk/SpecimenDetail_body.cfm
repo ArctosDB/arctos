@@ -632,9 +632,7 @@
 		specimen_part.collection_object_id part_id,
 		pc.label,
 		part_name,
-		part_modifier,
 		sampled_from_obj_id,
-		preserve_method,
 		is_tissue,
 		coll_object.COLL_OBJ_DISPOSITION part_disposition,
 		coll_object.CONDITION part_condition,
@@ -681,7 +679,7 @@
 							<cfloop query="mPart">
 								<tr>
 									<td>
-										#part_modifier# #part_name#
+										#part_name#
 									</td>
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
@@ -696,7 +694,7 @@
 									<tr>
 										<td>
 											&nbsp;&nbsp;&nbsp;
-											#part_modifier# #part_name#
+											#part_name#
 										</td>
 										<td>#part_condition#</td>
 										<td>#part_disposition#</td>
