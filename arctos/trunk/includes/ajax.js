@@ -1459,72 +1459,6 @@ function changeshowObservations (tgt) {
 	);
 }
 
-function showHide(id,onOff) {
-	var t='e_' + id;
-	var z='c_' + id;
-	console.log(t);
-	if (document.getElementById(t) && document.getElementById(z)) {	
-		var tab=document.getElementById(t);
-		var ctl=document.getElementById(z);
-		if (t=='e_spatial_query'){
-			offText='Select on Google Map';
-			onText='Hide Google Map';
-		} else {
-			onText='Show Fewer Options';
-			offText='Show More Options';
-		}
-		if (onOff==1) {
-			var ptl="/includes/SpecSearch/" + id + ".cfm";
-			ctl.innerHTML='<img src="/images/indicator.gif">';
-			jQuery.get(ptl, function(data){
-				jQuery(tab).html(data);
-				ctl.innerHTML=onText;
-				ctl.setAttribute("onclick","showHide('" + id + "',0)");
-			});
-			
-		} else {
-			tab.innerHTML='';
-			ctl.setAttribute("onclick","showHide('" + id + "',1)");
-			ctl.innerHTML=offText;
-		}
-		jQuery.getJSON("/component/functions.cfc",
-  			{
- 				method : "saveSpecSrchPref",
- 				id : id,
-  				onOff : onOff,
- 				returnformat : "json",
- 				queryformat : 'column'
- 			},
-  			saveComplete
- 		);
-	}
-}
-function closeAndRefresh(){
-	document.location=location.href;
-	var theDiv = document.getElementById('customDiv');
-	document.body.removeChild(theDiv);
-}
-function getFormValues() {
- 	var theForm=document.getElementById('SpecData');
- 	var nval=theForm.length;
- 	var spAry = new Array();
- 	for (var i=0; i<nval; i++) {
-		var theElement = theForm.elements[i];
-		var element_name = theElement.name;
-		var element_value = theElement.value;
-		if (element_name.length>0 && element_value.length>0) {
-			var thisPair=element_name + '::' + element_value;
-			if (spAry.indexOf(thisPair)==-1) {
-				spAry.push(thisPair);
-			}
-		}
-	}
-	var str=spAry.join("|");
-	document.cookie = 'schParams=' + str;
- }
-function nada(){
-	return false;
-}
 function saveComplete(savedStr){
 	var savedArray = savedStr.split(",");
 	var result = savedArray[0];
@@ -1554,6 +1488,77 @@ function saveComplete(savedStr){
 		var nCookie = cookieArray.join();
 		createCookie("specsrchprefs", nCookie, 0);
 	}
+}
+function saveSpecSrchPref(id,onOff){
+	jQuery.getJSON("/component/functions.cfc",
+	{
+		method : "saveSpecSrchPref",
+		id : id,
+		onOff : onOff,
+		returnformat : "json",
+		queryformat : 'column'
+	},
+	saveComplete
+);
+
+function showHide(id,onOff) {
+	var t='e_' + id;
+	var z='c_' + id;
+	console.log(t);
+	if (document.getElementById(t) && document.getElementById(z)) {	
+		var tab=document.getElementById(t);
+		var ctl=document.getElementById(z);
+		if (t=='e_spatial_query'){
+			offText='Select on Google Map';
+			onText='Hide Google Map';
+		} else {
+			onText='Show Fewer Options';
+			offText='Show More Options';
+		}
+		if (onOff==1) {
+			var ptl="/includes/SpecSearch/" + id + ".cfm";
+			ctl.innerHTML='<img src="/images/indicator.gif">';
+			jQuery.get(ptl, function(data){
+				jQuery(tab).html(data);
+				ctl.innerHTML=onText;
+				ctl.setAttribute("onclick","showHide('" + id + "',0)");
+				saveSpecSrchPref(id,onOff);
+			});
+			
+		} else {
+			tab.innerHTML='';
+			ctl.setAttribute("onclick","showHide('" + id + "',1)");
+			ctl.innerHTML=offText;
+			saveSpecSrchPref(id,onOff);
+		}
+		
+	}
+}
+function closeAndRefresh(){
+	document.location=location.href;
+	var theDiv = document.getElementById('customDiv');
+	document.body.removeChild(theDiv);
+}
+function getFormValues() {
+ 	var theForm=document.getElementById('SpecData');
+ 	var nval=theForm.length;
+ 	var spAry = new Array();
+ 	for (var i=0; i<nval; i++) {
+		var theElement = theForm.elements[i];
+		var element_name = theElement.name;
+		var element_value = theElement.value;
+		if (element_name.length>0 && element_value.length>0) {
+			var thisPair=element_name + '::' + element_value;
+			if (spAry.indexOf(thisPair)==-1) {
+				spAry.push(thisPair);
+			}
+		}
+	}
+	var str=spAry.join("|");
+	document.cookie = 'schParams=' + str;
+ }
+function nada(){
+	return false;
 }
 function createCookie(name,value,days) {
 	if (days) {
