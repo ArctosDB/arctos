@@ -284,7 +284,7 @@
 			</td>
 			<td class="srch">
 				<input type="text" name="any_geog" id="any_geog" size="50">
-				<span class="secControl" style="font-size:larger" id="c_spatial_query" onclick="showHide('spatial_query',1)">Select on Google Map</span>
+				<span class="secControl" style="font-size:.9em;" id="c_spatial_query" onclick="showHide('spatial_query',1)">Select on Google Map</span>
 			</td>
 		</tr>
 		<tr>
