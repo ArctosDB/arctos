@@ -508,7 +508,6 @@
 		width: 320,
 		max: 20,
 		autofill: false,
-		highlight: false,
 		multiple: false,
 		scroll: true,
 		scrollHeight: 300,
