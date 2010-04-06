@@ -9,7 +9,7 @@
 	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
 	<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
 </label>
-<input type="text" style="font-weight:bold;border:none;width:100%" id="selectedCoords" name="selectedCoords">
+<input type="text" style="font-weight:bold;border:none;width:100%;color:red;" id="selectedCoords" name="selectedCoords">
 <input type="hidden" name="nwLat" id="nwLat">
 <input type="hidden" name="nwlong" id="nwlong">
 <input type="hidden" name="selat" id="selat">
