@@ -1511,14 +1511,13 @@ function getFormValues() {
 		var element_value = theElement.value;
 		if (element_name.length>0 && element_value.length>0) {
 			var thisPair=element_name + '::' + element_value;
+			console.log(thisPair);
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
 			}
 		}
 	}
 	var str=spAry.join("|");
-	console.log(str);
-	return false;
 	document.cookie = 'schParams=' + str;
  }
 function nada(){
