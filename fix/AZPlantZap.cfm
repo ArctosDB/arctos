@@ -3,7 +3,6 @@
 		select taxonomy.taxon_name_id,genus,species,scientific_name from taxonomy,identification_taxonomy
 		where taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id and
 		scientific_name like '%A-Z'
-		and rownum=1
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
