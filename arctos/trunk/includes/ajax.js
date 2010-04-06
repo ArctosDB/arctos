@@ -1500,7 +1500,7 @@ function saveSpecSrchPref(id,onOff){
 	},
 	saveComplete
 );
-
+}
 function showHide(id,onOff) {
 	var t='e_' + id;
 	var z='c_' + id;
