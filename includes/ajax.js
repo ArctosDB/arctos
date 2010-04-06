@@ -1491,20 +1491,19 @@ function saveComplete(savedStr){
 }
 function saveSpecSrchPref(id,onOff){
 	jQuery.getJSON("/component/functions.cfc",
-	{
-		method : "saveSpecSrchPref",
-		id : id,
-		onOff : onOff,
-		returnformat : "json",
-		queryformat : 'column'
-	},
-	saveComplete
-);
+		{
+			method : "saveSpecSrchPref",
+			id : id,
+			onOff : onOff,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		saveComplete
+	);
 }
 function showHide(id,onOff) {
 	var t='e_' + id;
 	var z='c_' + id;
-	console.log(t);
 	if (document.getElementById(t) && document.getElementById(z)) {	
 		var tab=document.getElementById(t);
 		var ctl=document.getElementById(z);
@@ -1524,14 +1523,12 @@ function showHide(id,onOff) {
 				ctl.setAttribute("onclick","showHide('" + id + "',0)");
 				saveSpecSrchPref(id,onOff);
 			});
-			
 		} else {
 			tab.innerHTML='';
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
 			ctl.innerHTML=offText;
 			saveSpecSrchPref(id,onOff);
 		}
-		
 	}
 }
 function closeAndRefresh(){
