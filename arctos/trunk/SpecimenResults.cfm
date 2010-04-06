@@ -330,7 +330,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		</select>
 		</td>
 		<td nowrap="nowrap">
-			<label for="orderBy1">Order By</label>
+			<label for="orderBy1">Order by...</label>
 			<select name="orderBy1" id="orderBy1" size="1">
 				<!--- prepend their CustomID and integer sort of their custom ID to the list --->
 				<cfif len(#session.CustomOtherIdentifier#) gt 0>
@@ -343,7 +343,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			</select>			
 		</td>
 		<td>
-			<label for="orderBy2">Then Order By</label>
+			<label for="orderBy2">...then order by</label>
 			<select name="orderBy2" id="orderBy2" size="1">
 				<cfloop list="#resultList#" index="i">
 					<option value="#i#">#i#</option>
