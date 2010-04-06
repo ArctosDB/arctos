@@ -22,7 +22,7 @@
 				</cfquery>
 				<cfquery name="uidt" datasource="uam_god">
 					update identification set TAXA_FORMULA='A sp.',
-					scientific_name='#gen.scientific_name# sp.'
+					scientific_name='#gen.scientific_name# sp.',
 					IDENTIFICATION_REMARKS=decode(IDENTIFICATION_REMARKS,
 					null,'Originally entered as ' || scientific_name,
 					IDENTIFICATION_REMARKS || '; Originally entered as ' || scientific_name)
