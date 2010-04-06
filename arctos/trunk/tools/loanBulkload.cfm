@@ -177,6 +177,14 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 			</cfif>
 			<cfif #collObj.recordcount# is 1>
 				collObj.recordcount is 1....
+				<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update
+						cf_temp_loan_item
+					set
+						status='spiffy'
+					where
+						key=#key#
+				</cfquery>
 				<cfquery name="defDescr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update 
 						cf_temp_loan_item 
@@ -194,67 +202,12 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					)
 					where key=#key#
 				</cfquery>
-				<cfif #subsample# is "no">
-					<cfif len(partID) is 0>
-						<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							update
-								cf_temp_loan_item
-							set
-								partID = #collObj.collection_object_id#,
-								status='spiffy'
-							where
-								key=#key#
-						</cfquery>
-					</cfif>
-				<cfelse>
-					<!--- make a subsample from the part we found--->
-					<cfquery name="makeSubsampleObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						INSERT INTO coll_object (
-							COLLECTION_OBJECT_ID,
-							COLL_OBJECT_TYPE,
-							ENTERED_PERSON_ID,
-							COLL_OBJECT_ENTERED_DATE,
-							LAST_EDITED_PERSON_ID,
-							COLL_OBJ_DISPOSITION,
-							LOT_COUNT,
-							CONDITION,
-							FLAGS
-						) (select
-								sq_collection_object_id.nextval,
-								'ss',
-								#session.myAgentId#,
-								sysdate,
-								NULL,
-								'on loan',
-								lot_count,
-								condition,
-								flags
-							from
-								coll_object
-							where
-								collection_object_id = #collObj.collection_object_id#)
-					</cfquery>
-					<cfquery name="makeSubsample" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						INSERT INTO specimen_part (
-			 				COLLECTION_OBJECT_ID,
-			  				PART_NAME,
-			  				DERIVED_FROM_cat_item,
-			  				sampled_from_obj_id)
-			  			( select
-			  				sq_collection_object_id.currval,
-			  				part_name,
-			  				DERIVED_FROM_cat_item,
-			  				#collObj.collection_object_id#
-			  			FROM
-			  				specimen_part
-			  			WHERE
-			  				collection_object_id = #collObj.collection_object_id#)
-			  		</cfquery>
+				<cfif #subsample# is "no" and len(partID) is 0>
 					<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						update
 							cf_temp_loan_item
 						set
-							partID = sq_collection_object_id.currval,
+							partID = #collObj.collection_object_id#,
 							status='spiffy'
 						where
 							key=#key#
@@ -270,7 +223,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					where
 						key=#key#
 				</cfquery>
-			<cfelseif #collObj.recordcount# gt 1 and len(partID) is 0>
+			<cfelseif collObj.recordcount gt 1 and len(partID) is 0>
 				<cfquery name="BooCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update
 						cf_temp_loan_item
@@ -357,39 +310,129 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 <!------------------------------------------------------->
 <cfif #action# is "loadData">
 <cfoutput>
-	
-		<cfset RECONCILED_DATE = #dateformat(now(),"dd-mmm-yyyy")#>
-		
-		
-		
+	<cfset RECONCILED_DATE = #dateformat(now(),"dd-mmm-yyyy")#>
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_loan_item
 	</cfquery>
 	<cftransaction>
-	<cfloop query="getTempData">
-	<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		INSERT INTO loan_item (
-			transaction_id,
-			collection_object_id,
-			RECONCILED_BY_PERSON_ID,
-			reconciled_date,
-			item_descr
-			<cfif len(#ITEM_REMARKS#) gt 0>
-				,LOAN_ITEM_REMARKS
+		<cfloop query="getTempData">
+			<cfif subsample is "yes" and len(partID) is 0>
+				<cfif other_id_type is "catalog number">
+					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select 
+							specimen_part.collection_object_id 
+						from
+							cataloged_item,
+							collection,
+							specimen_part,
+							coll_object
+						where
+							cataloged_item.collection_id = collection.collection_id and
+							cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
+							specimen_part.collection_object_id = coll_object.collection_object_id and
+							collection.institution_acronym = '#institution_acronym#' and
+							collection.collection_cde = '#collection_cde#' and
+							part_name = '#part_name#' and
+							cat_num = #other_id_number# and
+							coll_obj_disposition != 'on loan' and
+							sampled_from_obj_id is null
+					</cfquery>
+				<cfelse>
+					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select 
+							specimen_part.collection_object_id 
+						from
+							cataloged_item,
+							collection,
+							specimen_part,
+							coll_object,
+							coll_obj_other_id_num
+						where
+							cataloged_item.collection_id = collection.collection_id and
+							cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
+							cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
+							specimen_part.collection_object_id = coll_object.collection_object_id and
+							collection.institution_acronym = '#institution_acronym#' and
+							collection.collection_cde = '#collection_cde#' and
+							part_name = '#part_name#' and
+							display_value = '#other_id_number#' and
+							other_id_type = '#other_id_type#' and
+							coll_obj_disposition != 'on loan' and
+							sampled_from_obj_id  is null
+					</cfquery>
+				</cfif>
+				<cfquery name="nid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select sq_collection_object_id.nextval nid from dual
+				</cfquery>
+				<cfset thisPartId=nid.nid>
+				<cfquery name="makeSubsampleObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					INSERT INTO coll_object (
+						COLLECTION_OBJECT_ID,
+						COLL_OBJECT_TYPE,
+						ENTERED_PERSON_ID,
+						COLL_OBJECT_ENTERED_DATE,
+						LAST_EDITED_PERSON_ID,
+						COLL_OBJ_DISPOSITION,
+						LOT_COUNT,
+						CONDITION,
+						FLAGS
+					) (select
+							#thisPartId#,
+							'ss',
+							#session.myAgentId#,
+							sysdate,
+							NULL,
+							'on loan',
+							lot_count,
+							condition,
+							flags
+						from
+							coll_object
+						where
+							collection_object_id = #collObj.collection_object_id#)
+				</cfquery>
+				<cfquery name="makeSubsample" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					INSERT INTO specimen_part (
+		 				COLLECTION_OBJECT_ID,
+		  				PART_NAME,
+		  				DERIVED_FROM_cat_item,
+		  				sampled_from_obj_id)
+		  			( select
+		  				#thisPartId#,
+		  				part_name,
+		  				DERIVED_FROM_cat_item,
+		  				#collObj.collection_object_id#
+		  			FROM
+		  				specimen_part
+		  			WHERE
+		  				collection_object_id = #collObj.collection_object_id#)
+		  		</cfquery>
+			<cfelse>
+				<cfset thisPartId=partID>
 			</cfif>
-			)
-		VALUES (
-			 #transaction_id#,
-			  #partID#,
-			  #session.myAgentId#,
-			  '#reconciled_date#',
-			  '#ITEM_DESCRIPTION#'
-			  <cfif len(#ITEM_REMARKS#) gt 0>
-				,'#ITEM_REMARKS#'
-			</cfif>
-			)
+			<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				INSERT INTO loan_item (
+					transaction_id,
+					collection_object_id,
+					RECONCILED_BY_PERSON_ID,
+					reconciled_date,
+					item_descr
+					<cfif len(#ITEM_REMARKS#) gt 0>
+						,LOAN_ITEM_REMARKS
+					</cfif>
+					)
+				VALUES (
+					 #transaction_id#,
+					  #thisPartId#,
+					  #session.myAgentId#,
+					  '#reconciled_date#',
+					  '#ITEM_DESCRIPTION#'
+					  <cfif len(#ITEM_REMARKS#) gt 0>
+						,'#ITEM_REMARKS#'
+					</cfif>
+					)
 			</cfquery>
-	</cfloop>
+		</cfloop>
 	</cftransaction>
 	Spiffy, all done.
 </cfoutput>
