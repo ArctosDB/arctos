@@ -1477,9 +1477,10 @@ function showHide(id,onOff) {
 			ctl.innerHTML='<img src="/images/indicator.gif">';
 			jQuery.get(ptl, function(data){
 				jQuery(tab).html(data);
-				ctl.innerHTML=onText;;
+				ctl.innerHTML=onText;
+				ctl.setAttribute("onclick","showHide('" + id + "',0)");
 			});
-			ctl.setAttribute("onclick","showHide('" + id + "',0)");
+			
 		} else {
 			tab.innerHTML='';
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
