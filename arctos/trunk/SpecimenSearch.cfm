@@ -507,11 +507,13 @@
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
 		max: 20,
-		autofill: true,
+		autofill: false,
 		highlight: false,
 		multiple: false,
 		scroll: true,
-		scrollHeight: 300
+		scrollHeight: 300,
+		matchContains: true,
+		minChars: 1
 	});
 	jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
 		width: 320,
