@@ -508,12 +508,13 @@
 		width: 320,
 		max: 20,
 		autofill: false,
-		highlight: false,
+		highlight: true,
 		multiple: false,
 		scroll: true,
 		scrollHeight: 300,
 		matchContains: true,
-		minChars: 1
+		minChars: 1,
+		selectFirst:false
 	});
 	jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
 		width: 320,
