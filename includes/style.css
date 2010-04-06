@@ -580,7 +580,6 @@ table.specResultTab th {
 	padding: 0px 1px 0px 1px;
 	border-style: solid solid solid solid;
 	border-color: gray gray gray gray;
-	background-color: white;
 	-moz-border-radius: 0px 0px 0px 0px;
 	color:gray;
 }
@@ -589,7 +588,6 @@ table.specResultTab td {
 	padding: 0px 1px 0px 1px;
 	border-style: solid solid solid solid;
 	border-color: gray gray gray gray;
-	background-color: white;
 	-moz-border-radius: 0px 0px 0px 0px;
 }
 .wrapLong {
