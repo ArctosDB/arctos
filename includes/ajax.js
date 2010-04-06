@@ -1474,7 +1474,7 @@ function showHide(id,onOff) {
 		}
 		if (onOff==1) {
 			var ptl="/includes/SpecSearch/" + id + ".cfm";
-			ctl.innerHTML='loading...';
+			ctl.innerHTML='<img src="/images/indicator.gif">';
 			jQuery.get(ptl, function(data){
 				jQuery(tab).html(data);
 				ctl.innerHTML=onText;;
