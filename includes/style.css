@@ -574,7 +574,6 @@ table.specResultTab {
 	border-style: outset outset outset outset;
 	border-color: gray gray gray gray;
 	border-collapse: collapse;
-	background-color: white;
 }
 table.specResultTab th {
 	border-width: 1px 1px 1px 1px;
