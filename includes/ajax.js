@@ -1466,7 +1466,7 @@ function showHide(id,onOff) {
 		var tab=document.getElementById(t);
 		var ctl=document.getElementById(z);
 		if (t=='e_spatial_query'){
-			offText='Query with Google Map';
+			offText='Select on Google Map';
 			onText='Hide Google Map';
 		} else {
 			onText='Show Fewer Options';
@@ -1474,11 +1474,12 @@ function showHide(id,onOff) {
 		}
 		if (onOff==1) {
 			var ptl="/includes/SpecSearch/" + id + ".cfm";
+			ctl.innerHTML='loading...';
 			jQuery.get(ptl, function(data){
 				jQuery(tab).html(data);
+				ctl.innerHTML=onText;;
 			});
 			ctl.setAttribute("onclick","showHide('" + id + "',0)");
-			ctl.innerHTML=onText;;
 		} else {
 			tab.innerHTML='';
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
