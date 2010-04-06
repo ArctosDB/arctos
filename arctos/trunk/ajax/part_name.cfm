@@ -5,7 +5,7 @@
 		        select part_name, partname
 		        from ctspecimen_part_name, ctspecimen_part_list_order
 		        where ctspecimen_part_name.part_name =  ctspecimen_part_list_order.partname (+)
-		        and upper(part_name) like '#ucase(q)#%'
+		        and upper(part_name) like '%#ucase(q)#%'
 		) a
 		group by a.part_name, a.partname
 		order by a.partname asc, a.part_name
