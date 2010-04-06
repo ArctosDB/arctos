@@ -318,3 +318,12 @@
     startTime = "02:34 AM"
     interval = "weekly"
     requestTimeOut = "600">
+
+<cfschedule action = "update"
+    task = "dupsAtTacc" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/dupsAtTacc.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:34 AM"
+    interval = "600"
+    requestTimeOut = "600">

@@ -32,3 +32,6 @@
 	</cfloop>
 	
 </cfoutput>
+
+
+delete from taxonomy where scientific_name like '%A-Z'
