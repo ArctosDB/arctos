@@ -777,7 +777,15 @@ function success_getSpecResultsData(result){
 		}
 		for (i=0; i<result.ROWCOUNT; ++i) {
 			orderedCollObjIdArray.push(data.COLLECTION_OBJECT_ID[i]);
-			theInnerHtml += '<tr>';
+
+			if (i%2) {
+				theInnerHtml += '<tr class="oddRow">';
+			} else {
+				theInnerHtml += '<tr class="evenRow">';
+			}
+
+			
+			
 				if (killrow == 1){
 					theInnerHtml += '<td align="center"><input type="checkbox" onchange="toggleKillrow(' + "'";
 					theInnerHtml +=data.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
