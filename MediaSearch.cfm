@@ -426,6 +426,73 @@
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
 			<cfset mp=getMediaPreview(preview_uri,media_type)>
+			<cfset mrel=getMediaRelations2(#media_id#)>
+			
+			<cfset media_details_url = "http://arctos.database.museum/MediaSearch.cfm?action=search&media_id="& " " & #media_id#>
+			<cfset agent_name="">
+			<cfset cat_item_url="">
+			<cfset cat_item_sum="">
+			<cfset taxonomy="">
+			<cfset project_sum="">
+			<cfset project_url="">
+			<cfif mrel.recordcount gt 0>				
+				<cfloop query="mrel">
+					<cfif #rel_type# is "agent">
+						<cfset agent_name=#created_agent_name#>
+					<cfelseif #rel_type# is "cataloged_item">
+						<cfset cat_item_url=#link#>
+						<cfset cat_item_sum=#summary#>
+					<cfelseif #rel_type# is "taxonomy">
+						<cfset taxonomy=#summary#>
+					<cfelseif #rel_type# is "project">
+						<cfset project_sum=#summary#>
+						<cfset project_url=#link#>
+					</cfif>
+
+				</cfloop>			
+			</cfif>
+			<table>
+				<tr>
+					<td align="middle">
+						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
+					</td>
+					<td>#media_id#</td>
+					<td>#media_type#&nbsp;(#mime_type#)</td>
+					<td>
+						<cfif len(#taxonomy#) gt 0>
+							#taxonomy#
+						<cfelse>
+							No related taxonomy name
+						</cfif>
+					</td>
+					<td>map</td>
+					<td><a href="#media_uri#" target="_blank">Download</a></td>
+					<td><a href="#media_details_url##" target="_blank">Details</a></td>
+					<td>
+						<cfif len(#agent_name#) gt 0>
+							#agent_name#
+						<cfelse>
+							No related agent
+						</cfif>
+					</td>
+					<td>
+						<cfif len(#cat_item_url#) gt 0>
+							<a href="#cat_item_url#" target= "_blank">#cat_item_sum#</a>
+						<cfelse>
+							No related specimen
+						</cfif>
+					</td>
+					<td>
+						<cfif len(#project_url#) gt 0>
+							<a href="#project_url#" target= "_blank">#project_sum#</a>
+						<cfelse>
+							No related project
+						</cfif>
+					</td>
+					<td>date</td>
+				</tr>
+			</table>
+			<!-->
             <table>
 				<tr> 
 					<td align="middle">
@@ -475,6 +542,7 @@
 					</td>
 				</tr>
 			</table>
+			-->
 			<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) n from tag where media_id=#media_id#
 			</cfquery>
