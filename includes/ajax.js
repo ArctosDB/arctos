@@ -1461,7 +1461,8 @@ function changeshowObservations (tgt) {
 
 function showHide(id,onOff) {
 	var t='e_' + id;
-	var z='c_' + id;	
+	var z='c_' + id;
+	console.log(t);
 	if (document.getElementById(t) && document.getElementById(z)) {	
 		var tab=document.getElementById(t);
 		var ctl=document.getElementById(z);
