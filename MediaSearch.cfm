@@ -54,14 +54,14 @@
 		<label for="tag">Require TAG?</label>
 		<input type="checkbox" id="tag" name="tag" value="1">
 		<label for="mime_type">MIME Type</label>
-		<select name="mime_type" id="mime_type" multiple="multiple" size="3">
+		<select name="mime_type" id="mime_type" multiple="multiple" size="5">
 			<option value="" selected="selected">Anything</option>
 			<cfloop query="ctmime_type">
 				<option value="#mime_type#">#mime_type#</option>
 			</cfloop>
 		</select>
         <label for="media_type">Media Type</label>
-		<select name="media_type" id="media_type" multiple="multiple" size="3">
+		<select name="media_type" id="media_type" multiple="multiple" size="5">
 			<option value="" selected="selected">Anything</option>
 			<cfloop query="ctmedia_type">
 				<option value="#media_type#">#media_type#</option>
@@ -69,11 +69,9 @@
 		</select>
 		<br>
 		<input type="submit" 
-			value="Find Media" 
-			class="insBtn">
+			value="Find Media" class="insBtn">
 		<input type="reset" 
-			value="reset form" 
-			class="clrBtn">
+			value="reset form" class="clrBtn">
 	</form>
 	
 	<p>&nbsp;</p>
