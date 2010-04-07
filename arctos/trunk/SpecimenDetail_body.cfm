@@ -366,7 +366,7 @@
 									Page #occurs_page_number#,
 								</cfif>
 								#type_status# of 
-								<a href="TaxonomyDetails.cfm?taxon_name_id=#cited_name_id#" target="_mainFrame"><i>#replace(cited_name," ","&nbsp;","all")#</i></a>
+								<a href="/TaxonomyDetails.cfm?taxon_name_id=#cited_name_id#" target="_mainFrame"><i>#replace(cited_name," ","&nbsp;","all")#</i></a>
 								<div class="detailCellSmall">
 									#CITATION_REMARKS#
 								</div>
@@ -761,7 +761,7 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
-									&nbsp;&nbsp;&nbsp;<a href="SpecimenResults.cfm?collection_object_id=#valuelist(relns.related_coll_object_id)#" 
+									&nbsp;&nbsp;&nbsp;<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(relns.related_coll_object_id)#" 
 											 target="_top">"Related To" Specimens List</a>										
 							</span>
 						</div>
@@ -776,7 +776,7 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">#invReln#</span>
-								<a href="SpecimenDetail.cfm?collection_object_id=#invRel.collection_object_id#" 
+								<a href="/SpecimenDetail.cfm?collection_object_id=#invRel.collection_object_id#" 
 									target="_top">#invRel.collection# #invRel.cat_num#</a>
 							</span>
 						</div>
@@ -785,7 +785,7 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
-								&nbsp;&nbsp;&nbsp;<a href="SpecimenResults.cfm?collection_object_id=#valuelist(invRel.collection_object_id)#" 
+								&nbsp;&nbsp;&nbsp;<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(invRel.collection_object_id)#" 
 											 target="_top">"Related IS" Specimens List</a>
 							</span>
 						</div>
@@ -1130,7 +1130,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 				<div class="detailBlock">
 					<span class="detailData">
 						<cfif #oneOfUs# is 1>
-							<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="_blank">#accession#</a>
+							<a href="/editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="_blank">#accession#</a>
 						<cfelse>
 							#accession#
 						</cfif>
@@ -1146,7 +1146,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Contributed By Project:</span>
-									<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#">#isProj.project_name#</a>
+									<a href="/ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#">#isProj.project_name#</a>
 							</span>
 						</div>
 					</cfloop>
@@ -1154,7 +1154,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Used By Project:</span>
-		 						<a href="ProjectDetail.cfm?src=proj&project_id=#isLoan.project_id#" target="_mainFrame">#isLoan.project_name#</a>
+		 						<a href="/ProjectDetail.cfm?src=proj&project_id=#isLoan.project_id#" target="_mainFrame">#isLoan.project_name#</a>
 							</span>
 						</div>
 					</cfloop>
@@ -1162,7 +1162,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Loan History:</span>
-									<a href="Loan.cfm?action=listLoans&collection_object_id=#valuelist(isLoanedItem.collection_object_id)#" 
+									<a href="/Loan.cfm?action=listLoans&collection_object_id=#valuelist(isLoanedItem.collection_object_id)#" 
 										target="_mainFrame">Click for loan list</a>
 							</span>
 						</div>
