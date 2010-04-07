@@ -177,7 +177,6 @@
 	<cfset maxPage=pg.npgs>
 	<cfset title=doc.mtitle>
 	<strong>#doc.mtitle#</strong>
-	<a href="/document.cfm?ttl=#ttl#&action=pdf">PDF</a>
 	<table>
 		<tr>
 			<td>Page</td>
@@ -203,6 +202,9 @@
 			<td> of #maxPage#</td>
 		</tr>
 	</table>
+	<a href="/document.cfm?ttl=#ttl#&action=pdf">[ PDF ]</a>
+	<a href="/media/#media_id#">[ Media Details ]</a>
+	
 	<cfquery name="cpg" dbtype="query">
 		select media_uri,media_id from doc where page=#p#
 	</cfquery>
