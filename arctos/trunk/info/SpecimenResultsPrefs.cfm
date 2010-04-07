@@ -53,7 +53,7 @@
 <form name="setPrefs" method="post" action="SpecimenResultsPrefs.cfm">
 	<input type="hidden" name="action" value="set">
 
-	<table border>
+	<table border width="100%">
 		<tr>
 			<td align="center" valign="top">
 				Locality
