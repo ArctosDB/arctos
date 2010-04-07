@@ -467,7 +467,7 @@
 					</td>
 					<td>map</td>
 					<td><a href="#media_uri#" target="_blank">Download</a></td>
-					<td><a href="#media_details_url##" target="_blank">Details</a></td>
+					<td><a href="#media_details_url#" target="_blank">Details</a></td>
 					<td>
 						<cfif len(#agent_name#) gt 0>
 							#agent_name#
