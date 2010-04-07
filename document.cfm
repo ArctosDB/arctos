@@ -203,7 +203,7 @@
 		</tr>
 	</table>
 	<a href="/document.cfm?ttl=#ttl#&action=pdf">[ PDF ]</a>
-	<a href="/media/#media_id#">[ Media Details ]</a>
+	<a href="/media/#doc.media_id#">[ Media Details ]</a>
 	
 	<cfquery name="cpg" dbtype="query">
 		select media_uri,media_id from doc where page=#p#
