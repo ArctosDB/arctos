@@ -37,7 +37,7 @@
 		<cfset cname=column_name>
 	</cfif>
 	<cfset retval = "<tr>">
-	<cfset retval = '#retval#<td><label for="#cname#">#cname#</label></td>'>
+	<cfset retval = '#retval#<td><label for="#column_name#">#cname#</label></td>'>
 	<cfset retval = '#retval#<td><input type="checkbox" 
 			name="#column_name#"
 			id="#lcase(column_name)#"'>
