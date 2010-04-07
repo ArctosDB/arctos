@@ -457,7 +457,7 @@
 						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
 					</td>
 					<td>#media_id#</td>
-					<td>#media_type#&nbsp;(#mime_type#)</td>
+					<td>#media_type#</td>
 					<td>
 						<cfif len(#taxonomy#) gt 0>
 							#taxonomy#
@@ -492,7 +492,7 @@
 					<td>date</td>
 				</tr>
 			</table>
-			<!-->
+			<!--
             <table>
 				<tr> 
 					<td align="middle">
