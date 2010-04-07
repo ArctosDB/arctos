@@ -35,7 +35,7 @@
 	<cfif left(column_name,1) is "_">
 		<cfset retval = "#retval##right(column_name,len(column_name)-1)#">
 	<cfelse>
-		<cfset retval = "#retval##column_name#">
+		<cfset retval = '#retval#<label for="#column_name#">#column_name#</label>'>
 	</cfif>
 	<cfset retval = '#retval#<input type="checkbox" 
 			name="#column_name#"
@@ -82,7 +82,7 @@
 				</div>
 			</td>
 			<td valign="top" nowrap="nowrap">
-				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
+				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
 			<table cellpadding="0" cellspacing="0">
 				<cfloop query="curatorial">
 					#displayColumn(column_name,session.resultColumnList)#					
@@ -91,7 +91,7 @@
 				</div>
 			</td>
 			<td valign="top" nowrap="nowrap">
-				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
+				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
 			<table cellpadding="0" cellspacing="0">
 				<cfloop query="attribute">	
 					#displayColumn(column_name,session.resultColumnList)#			
