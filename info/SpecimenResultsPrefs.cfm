@@ -37,8 +37,8 @@
 		<cfset cname=column_name>
 	</cfif>
 	<cfset retval = "<tr>">
-	<cfset retval = '#retval#<td><label for="#lcase(column_name)#">#cname#</label></td>'>
-	<cfset retval = '#retval#<td><input type="checkbox" 
+	<cfset retval = '#retval#<td align="right"><label for="#lcase(column_name)#">#cname#</label></td>'>
+	<cfset retval = '#retval#<td align="left"><input type="checkbox" 
 			name="#column_name#"
 			id="#lcase(column_name)#"'>
 	<cfif listfindnocase(resultColList,column_name)> 
@@ -75,7 +75,7 @@
 		<tr>
 			<td valign="top" align="center" nowrap="nowrap">
 				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
-			<table cellpadding="0" cellspacing="0">
+			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="locality">
 					#displayColumn(column_name,session.resultColumnList)#
 				</cfloop>
@@ -84,7 +84,7 @@
 			</td>
 			<td valign="top" align="center" nowrap="nowrap">
 				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
-			<table cellpadding="0" cellspacing="0">
+			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="curatorial">
 					#displayColumn(column_name,session.resultColumnList)#					
 				</cfloop>
@@ -93,7 +93,7 @@
 			</td>
 			<td valign="top" align="center" nowrap="nowrap">
 				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
-			<table cellpadding="0" cellspacing="0">
+			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="attribute">	
 					#displayColumn(column_name,session.resultColumnList)#			
 				</cfloop>
