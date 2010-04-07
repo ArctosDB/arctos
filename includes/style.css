@@ -121,7 +121,7 @@ div.one_thumb p {
 	border:1px solid green;
 	width:35%;
 	height:500px;
-	overflow:scroll;
+	overflow:auto;
 	margin:5px;
 	padding:5px;
 	position:fixed;
