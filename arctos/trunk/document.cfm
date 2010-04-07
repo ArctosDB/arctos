@@ -204,7 +204,7 @@
 	</table>
 	<a href="/document.cfm?ttl=#ttl#&action=pdf">[ PDF ]</a>
 	<a href="/media/#doc.media_id#">[ Media Details ]</a>
-	<span style="font-weight:bold;font-size:small;font-style:italics">See Media Details for relationships, originals, and derivatives.</span>
+	<span style="font-weight:bold;font-size:small;font-style:italic">See Media Details for relationships, originals, and derivatives.</span>
 	<cfquery name="cpg" dbtype="query">
 		select media_uri,media_id from doc where page=#p#
 	</cfquery>
