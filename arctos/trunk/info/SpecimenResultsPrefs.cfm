@@ -32,9 +32,9 @@
 	<cfargument name="column_name">
 	<cfargument name="resultColList">
 	<cfif left(column_name,1) is "_">
-		<cfset cname=right(column_name,len(column_name)-1)>
+		<cfset cname=lower(right(column_name,len(column_name)-1))>
 	<cfelse>
-		<cfset cname=column_name>
+		<cfset cname=lower(column_name)>
 	</cfif>
 	<cfset retval = "<tr>">
 	<cfset retval = '#retval#<td><label for="#column_name#">#cname#</label></td>'>
