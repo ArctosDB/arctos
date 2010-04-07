@@ -73,7 +73,7 @@
 		</tr>
 		<tr>
 			<td valign="top" nowrap="nowrap">
-				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
+				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
 			<table cellpadding="0" cellspacing="0">
 				<cfloop query="locality">
 					#displayColumn(column_name,session.resultColumnList)#
