@@ -32,12 +32,12 @@
 	<cfargument name="column_name">
 	<cfargument name="resultColList">
 	<cfif left(column_name,1) is "_">
-		<cfset cname=lcase(right(column_name,len(column_name)-1))>
+		<cfset cname=right(column_name,len(column_name)-1)>
 	<cfelse>
-		<cfset cname=lcase(column_name)>
+		<cfset cname=column_name>
 	</cfif>
 	<cfset retval = "<tr>">
-	<cfset retval = '#retval#<td><label for="#column_name#">#cname#</label></td>'>
+	<cfset retval = '#retval#<td><label for="#lcase(column_name)#">#cname#</label></td>'>
 	<cfset retval = '#retval#<td><input type="checkbox" 
 			name="#column_name#"
 			id="#lcase(column_name)#"'>
