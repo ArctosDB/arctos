@@ -12,7 +12,7 @@ create table tacc_dup as select
 ---->
 
 <cfquery name="d" datasource="uam_god">
-	select * from tacc_dup where checksum is null and rownum < 10
+	select * from tacc_dup where checksum is null and rownum < 101
 </cfquery>
 <cfoutput>
 	<cfset t=1>	
