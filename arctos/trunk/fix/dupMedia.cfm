@@ -10,7 +10,8 @@ update temp_media set checksum=(
 	media_label='MD5 checksum' and
 	temp_media.media_id=media_labels.media_id);
 	
-	
+select media_id,count(*) from temp_media where checksum is not null  group by media_id having count(*) > 1;
+
 <cfoutput>
 	
 </cfoutput>
