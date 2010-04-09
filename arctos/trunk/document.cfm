@@ -213,6 +213,7 @@
 	<a href="/media/#cpg.media_id#">[ Media Details ]</a>
 	<cfquery name="relMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
+			media_uri,
 			media_type,
 			related_primary_key from 
 			media,media_relations where 
@@ -221,7 +222,7 @@
 			media_relationship = 'derived from media' and media_relations.media_id=#cpg.media_id#
 	</cfquery>
 	<cfloop query="relMedia">
-		<br><a href="/media/#related_primary_key#">[ master #media_type# ]</a>
+		<br><a target="_blank" href="#media_uri#">[ download master ]</a>
 	</cfloop>
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) n from tag where media_id=#cpg.media_id#
