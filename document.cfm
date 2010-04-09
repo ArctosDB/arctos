@@ -216,7 +216,7 @@
 			media_type,
 			related_primary_key from 
 			media,media_relations where 
-			media.media_id=media_relations.media_id and
+			media.media_id=media_relations.related_primary_key and
 			media_relationship like '% media' and media_relations.media_id=#cpg.media_id#
 	</cfquery>
 	<cfloop query="relMedia">
