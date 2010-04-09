@@ -95,6 +95,7 @@
 			media_label='title'
 		group by
 			label_value
+		order by label_value
 	</cfquery>
 	<form name="g" method="post" action="document.cfm">
 		<input type="hidden" name="action" value="srchResult">

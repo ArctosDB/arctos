@@ -10,10 +10,10 @@
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		cataloged_item.collection_object_id,
-		cat_num,
-		accn_number,
-		agent_name,
-		coll_order,
+		cataloged_item.cat_num,
+		accn.accn_number,
+		preferred_agent_name.agent_name,
+		collector.coll_order,
 		higher_geog,
 		spec_locality,
 		verbatim_date,
@@ -34,7 +34,8 @@
 		preferred_agent_name,
 		identification,
 		collection,
-		collection a_coll
+		collection a_coll,
+		#session.SpecSrchTab#
 	WHERE
 		cataloged_item.accn_id = accn.transaction_id AND
 		accn.transaction_id = trans.transaction_id AND
@@ -48,7 +49,7 @@
 		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
 		identification.accepted_id_fg = 1 AND
-		cataloged_item.collection_object_id IN (#collection_object_id#)
+		cataloged_item.collection_object_id = #session.SpecSrchTab#.collection_object_id
 	ORDER BY cataloged_item.collection_object_id
 	</cfquery>
 	Add all the items listed below to accession:
@@ -136,11 +137,10 @@
 		</cfquery>
 		<cfif accn.recordcount is 1 and accn.transaction_id gt 0>
 			<cftransaction>
-			<cfloop list="#collection_object_id#" index="i">
 				<cfquery name="upAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					UPDATE cataloged_item SET accn_id = #accn.transaction_id# where collection_object_id = #i#
+					UPDATE cataloged_item SET accn_id = #accn.transaction_id# where collection_object_id  in (
+						select collection_object_id from #session.SpecSrchTab#) 
 				</cfquery>
-			</cfloop>
 			</cftransaction>
 		<cfelse>
       <font color="##FF0000" size="+2">That accn was not found! 
@@ -151,7 +151,7 @@
       <cfabort>
 		</cfif>
 		
-		<cflocation url="addAccn.cfm?collection_object_id=#collection_object_id#">
+		<cflocation url="addAccn.cfm">
 		
 	</cfoutput>
 </cfif>
