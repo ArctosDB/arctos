@@ -178,6 +178,7 @@
 	<cfset maxPage=pg.npgs>
 	<cfset title=doc.mtitle>
 	<strong>#doc.mtitle#</strong>
+	<cfsavecontent variable="controls">
 	<table>
 		<tr>
 			<td>Page</td>
@@ -203,6 +204,8 @@
 			<td> of #maxPage#</td>
 		</tr>
 	</table>
+	</cfsavecontent>
+	#controls#
 	<cfquery name="cpg" dbtype="query">
 		select media_uri,media_id from doc where page=#p#
 	</cfquery>
@@ -233,6 +236,8 @@
 	<div id="imgDiv">
 		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
+	
+	#controls#
 	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")) or tag.n gt 0>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function () {		
