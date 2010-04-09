@@ -221,9 +221,9 @@
 			mime_type in ('image/tiff','image/dng') and
 			media_relationship = 'derived from media' and media_relations.media_id=#cpg.media_id#
 	</cfquery>
-	<cfloop query="relMedia">
-		<br><a target="_blank" href="#media_uri#">[ download master ]</a>
-	</cfloop>
+	<cfif relMedia.recordcount is 1>
+		<a target="_blank" href="#media_uri#">[ download master ]</a>
+	</cfif>
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) n from tag where media_id=#cpg.media_id#
 	</cfquery>
