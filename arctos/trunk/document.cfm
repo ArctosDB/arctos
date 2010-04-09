@@ -217,10 +217,11 @@
 			related_primary_key from 
 			media,media_relations where 
 			media.media_id=media_relations.related_primary_key and
-			media_relationship like '% media' and media_relations.media_id=#cpg.media_id#
+			mime_type in ('image/tiff','image/dng') and
+			media_relationship = 'derived from media' and media_relations.media_id=#cpg.media_id#
 	</cfquery>
 	<cfloop query="relMedia">
-		<br>related <a href="/media/#related_primary_key#">[ #media_type# ]</a>
+		<br><a href="/media/#related_primary_key#">[ master #media_type# ]</a>
 	</cfloop>
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) n from tag where media_id=#cpg.media_id#
