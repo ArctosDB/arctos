@@ -211,6 +211,10 @@
 	</cfquery>
 	<a href="/document.cfm?ttl=#ttl#&action=pdf">[ PDF ]</a>
 	<a href="/media/#cpg.media_id#">[ Media Details ]</a>
+	<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select media_id from media_relations where relationship like ' %media' and related_primary_key=#cpg.media_id#
+	</cfquery>
+	<cfdump var="#relMedia#">
 	<span style="font-weight:bold;font-size:small;font-style:italic">See Media Details for related items and documents.</span>
 	
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -236,8 +240,6 @@
 	<div id="imgDiv">
 		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
-	
-	#controls#
 	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")) or tag.n gt 0>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function () {		
