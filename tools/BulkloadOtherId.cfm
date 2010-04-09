@@ -127,7 +127,7 @@ Include column headings, spelled exactly as below.
 			</cfquery>
     </cfloop>
 	---->
-	<cflocation url="BulkloadOtherId.cfm?action=validate">
+	<cflocation url="BulkloadOtherId.cfm?action=validate" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
