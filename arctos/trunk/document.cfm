@@ -212,11 +212,16 @@
 	<a href="/document.cfm?ttl=#ttl#&action=pdf">[ PDF ]</a>
 	<a href="/media/#cpg.media_id#">[ Media Details ]</a>
 	<cfquery name="relMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select related_primary_key from media_relations where media_relationship like ' %media' and media_id=#cpg.media_id#
+		select 
+			media_type,
+			related_primary_key from 
+			media,media_relations where 
+			media.media_id=media_relations.media_id and
+			media_relationship like '% media' and media_relations.media_id=#cpg.media_id#
 	</cfquery>
-	<cfdump var="#relMedia#">
-	<span style="font-weight:bold;font-size:small;font-style:italic">See Media Details for related items and documents.</span>
-	
+	<cfloop query="relMedia">
+		<br>related <a href="/media/#related_primary_key#">[ #media_type# ]</a>
+	</cfloop>
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) n from tag where media_id=#cpg.media_id#
 	</cfquery>
