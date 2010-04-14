@@ -69,7 +69,7 @@
 						<cfif len(sampled_from_obj_id) gt 0>
 							Subsample
 						</cfif>
-						&nbsp;<span class="likeLink" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
+						&nbsp;<span class="likeLink" style="font-weight:100" onClick="getCtDoc('ctspecimen_part_name')">[ Define values ]</span>
 					</label>
 					<input type="text" name="part_name#i#" id="part_name#i#" class="reqdClr"
 						value="#getParts.part_name#" size="25"
@@ -78,7 +78,7 @@
 				</td>
 				<td>
 					<label for="coll_obj_disposition#i#">Disposition</label>
-					<select name="coll_obj_disposition#i#" size="1" class="reqdClr" style="width:100px";>
+					<select name="coll_obj_disposition#i#" size="1" class="reqdClr" style="width:150px";>
 		              <cfloop query="ctDisp">
 			              <option <cfif ctdisp.coll_obj_disposition is getParts.coll_obj_disposition> selected </cfif>value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 		              </cfloop>
@@ -114,8 +114,8 @@
 					<input type="text" name="coll_object_remarks#i#" id="coll_object_remarks#i#" value="#getparts.coll_object_remarks#">
 				</td>
 				<td>
-					<label for="print_fg#i#">PrFg</label>
-					<select name="print_fg#i#" id="print_fg#i#" style="width:40px;">
+					<label for="print_fg#i#">PrtFg</label>
+					<select name="print_fg#i#" id="print_fg#i#" style="width:60px;">
 						<option <cfif getParts.print_fg is 0>selected="selected" </cfif>value="0">no print flag</option>
 						<option <cfif getParts.print_fg is 1>selected="selected" </cfif>value="1">box</option>
 						<option <cfif getParts.print_fg is 2>selected="selected" </cfif>value="2">vial</option>
