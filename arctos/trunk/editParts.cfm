@@ -85,7 +85,7 @@
 		            </select>
 				</td>
 				<td>
-					<label for="condition#i#">Condition&nbsp;<span class="likeLink" onClick="chgCondition('#getParts.partID#')">[ History ]</span></label>
+					<label for="condition#i#">Condition&nbsp;<span class="likeLink" style="font-weight:100" onClick="chgCondition('#getParts.partID#')">[ History ]</span></label>
 					<input type="text" name="condition#i#" id="condition#i#" value="#getparts.condition#"  class="reqdClr">
 				</td>
 				<td>
