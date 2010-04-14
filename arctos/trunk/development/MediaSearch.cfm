@@ -423,12 +423,23 @@
 		</cfif>
 		<cfset alt=desc.label_value>
 	</cfif>
+	
+	<!-- Header -->
+	<tr>
+		<td>Media Preview</td>
+		<td>Mime Type</td>
+		<td>Scientific Name</td>
+		<td>Details</td>
+		<td>Download</td>
+		<td>Map</td>
+		<td>Related Keywords</td>
+	</tr>
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
 			<cfset mp=getMediaPreview(preview_uri,media_type)>
 			<cfset mrel=getMediaRelations2(#media_id#)>
 			
-			<cfset media_details_url = "http://arctos.database.museum/MediaSearch.cfm?action=search&media_id="& " " & #media_id#>
+			<cfset media_details_url = "http://arctos.database.museum/media/" & "" & #media_id#>
 			<cfset agent_name="">
 			<cfset cat_item_url="">
 			<cfset cat_item_sum="">
@@ -465,9 +476,9 @@
 							No related taxonomy name
 						</cfif>
 					</td>
-					<td>map</td>
-					<td><a href="#media_uri#" target="_blank">Download</a></td>
 					<td><a href="#media_details_url#" target="_blank">Details</a></td>
+					<td><a href="#media_uri#" target="_blank">Download</a></td>
+					<td>Map</td>
 					<td>
 						<cfif len(#agent_name#) gt 0>
 							#agent_name#
@@ -475,7 +486,23 @@
 							No related agent
 						</cfif>
 					</td>
-					<td>
+					<td>						
+						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
+							<cfif isdefined("keyword") and len(keyword) gt 0>
+								<cfset kwds=kw.keywords>
+								<cfloop list="#keyword#" index="k" delimiters=",;: ">
+									<cfset kwds=highlight(kwds,k)>
+								</cfloop>
+							<cfelse>
+								<cfset kwds=kw.keywords>
+							</cfif>
+							<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
+								<strong>Keywords:</strong> #kwds#
+							</div>
+						</cfif>
+					</td>
+					
+					<!-- <td>
 						<cfif len(#cat_item_url#) gt 0>
 							<a href="#cat_item_url#" target= "_blank">#cat_item_sum#</a>
 						<cfelse>
@@ -489,7 +516,7 @@
 							No related project
 						</cfif>
 					</td>
-					<td>date</td>
+					<td>date</td> -->
 				</tr>
 			</table>
 			<!--
