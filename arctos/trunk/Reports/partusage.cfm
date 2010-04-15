@@ -20,7 +20,10 @@
 		specimen_part.part_name=ctspecimen_part_name.part_name and
 		cataloged_item.collection_id=collection.collection_id 
 	group by
-		collection,specimen_part.part_name
+		collection.collection, 
+		collection.collection_id, 
+		specimen_part.part_name,
+		ctspecimen_part_name.is_tissue
 </cfquery>
 <cfquery name="dp" dbtype="query">
 	select part_name,is_tissue from p group by part_name,is_tissue
