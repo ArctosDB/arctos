@@ -38,7 +38,7 @@
 	</tr>
 	<cfloop query="dp">
 		<cfquery name="cp" dbtype="query">
-			select * from p where part_name='#part_name#'
+			select collection,collection_id,cnt from p where part_name='#part_name#' group by collection,collection_id,cnt
 		</cfquery>
 		<cfquery name="it" dbtype="query">
 			select is_tissue from cp group by is_tissue
