@@ -7,7 +7,7 @@
 	select
 		collection, 
 		collection_id, 
-		part_name,
+		specimen_part.part_name,
 		count(*) cnt,
 		is_tissue
 	from
@@ -20,7 +20,7 @@
 		specimen_part.part_name=ctspecimen_part_name.part_name and
 		cataloged_item.collection_id=collection.collection_id 
 	group by
-		collection,part_name
+		collection,specimen_part.part_name
 </cfquery>
 <cfquery name="dp" dbtype="query">
 	select part_name,is_tissue from p group by part_name,is_tissue
