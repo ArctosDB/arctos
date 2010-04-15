@@ -3,12 +3,12 @@
 	<script src="/includes/sorttable.js"></script>
 <cfoutput>
 
-<cfquery name="p" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="p" datasource="uam_god">
 	select
 		collection.collection, 
 		collection.collection_id, 
 		specimen_part.part_name,
-		count(*) cnt,
+		count(distinct(cataloged_item.collection_object_id)) cnt,
 		ctspecimen_part_name.is_tissue
 	from
 		specimen_part,
@@ -48,7 +48,7 @@
 			<td>#tc.sc#</td>
 			<td>
 				<cfloop query="cp">
-					<br><a href="/SpecimenResults.cfm?collection_id=#collection_id#&part_name=#part_name#">#collection#: #cnt#</a>
+					<br><a href="/SpecimenResults.cfm?collection_id=#collection_id#&part_name==#part_name#">#collection#: #cnt#</a>
 				</cfloop>
 			</td>
 		</tr>
