@@ -44,13 +44,13 @@
 			select is_tissue from cp group by is_tissue
 		</cfquery>
 		<cfif it.recordcount gt 1>
-			<cfset tiss='y/n'>
+			<cfset tiss='sometimes'>
 		<cfelseif it.is_tissue is 1>
-			<cfset tiss='y'>
+			<cfset tiss='yes'>
 		<cfelseif it.is_tissue is 0>
-			<cfset tiss='n'>
+			<cfset tiss='no'>
 		<cfelse>
-			<cfset tiss='?'>
+			<cfset tiss='FAIL'>
 		</cfif>
 		<cfquery name="tc" dbtype="query">
 			select sum(cnt) sc from p where part_name='#part_name#'
