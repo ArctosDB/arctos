@@ -43,7 +43,7 @@
 			<td>#is_tissue#</td>
 			<td>
 				<cfloop query="cp">
-					<br>#collection#: #cnt#
+					<br><a href="/SpecimenResults.cfm?collection_id=#collection_id#&part_name=#part_name#">#collection#: #cnt#</a>
 				</cfloop>
 			</td>
 		</tr>
