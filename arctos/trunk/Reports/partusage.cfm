@@ -5,11 +5,11 @@
 
 <cfquery name="p" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select
-		collection, 
-		collection_id, 
+		collection.collection, 
+		collection.collection_id, 
 		specimen_part.part_name,
 		count(*) cnt,
-		is_tissue
+		ctspecimen_part_name.is_tissue
 	from
 		specimen_part,
 		ctspecimen_part_name,
