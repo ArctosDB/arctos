@@ -391,6 +391,16 @@
 	<cfset rownum=1>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 <table>
+	<!-- Header -->
+	<tr>
+		<td>Media Preview</td>
+		<td>Mime Type</td>
+		<td>Scientific Name</td>
+		<td>Details</td>
+		<td>Download</td>
+		<td>Map</td>
+		<td>Related Keywords</td>
+	</tr>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
@@ -422,18 +432,8 @@
 			<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
 		</cfif>
 		<cfset alt=desc.label_value>
-	</cfif>
-	
-	<!-- Header -->
-	<tr>
-		<td>Media Preview</td>
-		<td>Mime Type</td>
-		<td>Scientific Name</td>
-		<td>Details</td>
-		<td>Download</td>
-		<td>Map</td>
-		<td>Related Keywords</td>
-	</tr>
+	</cfif>	
+
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
 			<cfset mp=getMediaPreview(preview_uri,media_type)>
@@ -467,8 +467,8 @@
 					<td align="middle">
 						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
 					</td>
-					<td>#media_id#</td>
-					<td>#media_type#</td>
+					<!--<td>#media_id#</td>-->
+					<td>#media_type#</td> 
 					<td>
 						<cfif len(#taxonomy#) gt 0>
 							#taxonomy#
@@ -479,13 +479,6 @@
 					<td><a href="#media_details_url#" target="_blank">Details</a></td>
 					<td><a href="#media_uri#" target="_blank">Download</a></td>
 					<td>Map</td>
-					<td>
-						<cfif len(#agent_name#) gt 0>
-							#agent_name#
-						<cfelse>
-							No related agent
-						</cfif>
-					</td>
 					<td>						
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
 							<cfif isdefined("keyword") and len(keyword) gt 0>
@@ -502,7 +495,14 @@
 						</cfif>
 					</td>
 					
-					<!-- <td>
+					<!--<td>
+						<cfif len(#agent_name#) gt 0>
+							#agent_name#
+						<cfelse>
+							No related agent
+						</cfif>
+					</td>
+					<td>
 						<cfif len(#cat_item_url#) gt 0>
 							<a href="#cat_item_url#" target= "_blank">#cat_item_sum#</a>
 						<cfelse>
