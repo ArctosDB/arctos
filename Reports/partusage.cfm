@@ -61,7 +61,7 @@
 			<td>#tc.sc#</td>
 			<td>
 				<cfloop query="cp">
-					<br><a href="/SpecimenResults.cfm?collection_id=#collection_id#&part_name==#part_name#">#collection#: #cnt#</a>
+					<a href="/SpecimenResults.cfm?collection_id=#collection_id#&part_name==#part_name#">#collection#: #cnt#</a><br>
 				</cfloop>
 			</td>
 		</tr>
