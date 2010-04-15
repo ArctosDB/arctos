@@ -26,7 +26,6 @@
 		ctspecimen_part_name.is_tissue
 	order by specimen_part.part_name
 </cfquery>
-<cfdump var=#p#>
 <cfquery name="dp" dbtype="query">
 	select part_name from p group by part_name
 </cfquery>
@@ -44,7 +43,7 @@
 		<cfquery name="it" dbtype="query">
 			select is_tissue from cp group by is_tissue
 		</cfquery>
-		<cfif it.recordcount gt 0>
+		<cfif it.recordcount gt 1>
 			<cfset tiss='y/n'>
 		<cfelseif it.is_tissue is 1>
 			<cfset tiss='y'>
