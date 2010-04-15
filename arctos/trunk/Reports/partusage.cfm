@@ -32,15 +32,20 @@
 	<tr>
 		<th>Part</th>
 		<th>isTissue</th>
+		<th>##</th>
 		<th>UsedByCollections</th>
 	</tr>
 	<cfloop query="dp">
 		<cfquery name="cp" dbtype="query">
 			select * from p where part_name='#part_name#'
 		</cfquery>
+		<cfquery name="tc" dbtype="query">
+			select sum(cnt) sc from p where part_name='#part_name#'
+		</cfquery>
 		<tr>
 			<td>#part_name#</td>
 			<td>#is_tissue#</td>
+			<td>#tc.sc#</td>
 			<td>
 				<cfloop query="cp">
 					<br><a href="/SpecimenResults.cfm?collection_id=#collection_id#&part_name=#part_name#">#collection#: #cnt#</a>
