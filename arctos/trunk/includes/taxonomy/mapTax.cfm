@@ -30,7 +30,7 @@
 	</cfif>
 	<cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
 	<cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
-	<cfset fn="#n.n#.kml">
+	<cfset fn="#replace(n.n,' ','-','all')#.kml">
 		<cfset variables.encoding="UTF-8">
 
 	<cfset variables.fileName=internalPath & fn>
