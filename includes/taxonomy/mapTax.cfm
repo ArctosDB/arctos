@@ -23,7 +23,8 @@
 	<cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
 	<cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
 	<cfset fn="#n.n#.kml">
-	
+		<cfset variables.encoding="UTF-8">
+
 	<cfset variables.fileName=internalPath & fn>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
