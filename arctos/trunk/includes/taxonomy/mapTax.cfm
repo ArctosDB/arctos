@@ -89,6 +89,7 @@ float:right;
 
 geoXml = new GGeoXml("#externalPath##fn#", geoCallback);
 
+ map.addOverlay(geoXml);
 
 		
 		
