@@ -45,6 +45,7 @@ float:right;
 			variables.joFileWriter.writeLine(kml);      
 		</cfscript>
 		<cfloop query="d">
+			-------#locality_id#----------<br>
 			<cfscript>
 				kml=chr(9) & chr(9) & '<Placemark>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & '<name>#c# #scientific_name#</name>' & chr(10) &
