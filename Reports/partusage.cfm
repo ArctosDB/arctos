@@ -53,7 +53,7 @@
 			<cfset tiss='FAIL'>
 		</cfif>
 		<cfquery name="tc" dbtype="query">
-			select sum(cnt) sc from p where part_name='#part_name#'
+			select sum(cnt) sc from cp
 		</cfquery>
 		<tr>
 			<td>#part_name#</td>
