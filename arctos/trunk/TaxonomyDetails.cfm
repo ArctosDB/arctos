@@ -321,18 +321,15 @@
 				</a>
 			</li>
 			<li>
-				 <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
-					Specimen Results: exactly #one.display_name#
-				</a>
-			</li>
-			<li>
 				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">
-					Specimen Results: like #one.display_name#
+					Specimens identified as #one.display_name#
 				</a>
-			</li>
-			<li>
+				|  <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
+					exact matches only
+				</a>
+				| 
 				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&media_type=any">
-					Specimen Results with Media: like #one.display_name#
+					with Media
 				</a>
 			</li>
 			<li>
