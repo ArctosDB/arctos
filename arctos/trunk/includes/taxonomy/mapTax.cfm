@@ -75,38 +75,17 @@ float:right;
 		map.addMapType(G_PHYSICAL_MAP);
 		map.addControl(new GScaleControl());
 		map.enableScrollWheelZoom();
-		
-		/*
-		var geoxml = new GGeoXML("#externalPath##fn#", function() {
-  if (geoxml.loadedCorrectly()) {
-    geoxml.gotoDefaultViewport(map);
-  }
-});
-map.addOverlay(geoxml);
-		
-		
-		*/
-		
-		
-		
-		//map.setCenter(new GLatLng(55, -135), 3);
-		//var gx = new GGeoXml("#externalPath##fn#");
-		//map.addOverlay(gx);
-		
-		
-	
-	var geoCallback = function()
-{
-  geoXml.gotoDefaultViewport(map);
-}
 
 
 var geoXml = new GGeoXml("#externalPath##fn#", geoCallback);
 
 
-		map.addOverlay(geoXml);
 		
+		 GEvent.addListener(geoXml,"load",function() {
+    geoXml.gotoDefaultViewport(map);
+  });
 		
+			map.addOverlay(geoXml);
 		
 		
 	</script>
