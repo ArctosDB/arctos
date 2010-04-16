@@ -78,7 +78,7 @@ float:right;
 		
 		
 		var geoxml = new GGeoXML("#externalPath##fn#", function() {
-  if (geoxml.loadedCorrectly()) {
+  if (geoxml.hasLoaded()) {
     geoxml.gotoDefaultViewport(map);
   }
 });
