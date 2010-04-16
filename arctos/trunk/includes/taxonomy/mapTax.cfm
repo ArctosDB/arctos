@@ -43,17 +43,16 @@
 	</cfscript>
 	
 	<cfloop query="d">
-			
-			<cfscript>
-				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark>  <name>#c# #scientific_name#</name>
-      <description>
-        <![CDATA[
-          <a href="http://arctos.database.museum/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=#scientific_name#">Arctos</a>
-        ]]>
-      </description>
-<Point>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & '</Point></Placemark>';
+		<cfscript>
+			kml=chr(9) & chr(9) & '<Placemark>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & '<name>#c# #scientific_name#</name>' & chr(10) &
+      			chr(9) & chr(9) & chr(9) & '<description>' & chr(10) &
+		        chr(9) & chr(9) & chr(9) & chr(9) '<![CDATA[<a href="http://arctos.database.museum/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=#scientific_name#">Arctos</a>]]>' & chr(10) &
+		      	chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
+				chr(9) & chr(9) &  chr(9) & '</Point>' & chr(10) &
+				chr(9) & chr(9) & '</Placemark>';
 				variables.joFileWriter.writeLine(kml);
 				variables.joFileWriter.writeLine(kml);
 			</cfscript>
