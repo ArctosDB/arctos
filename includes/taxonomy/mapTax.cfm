@@ -76,14 +76,35 @@ float:right;
 		map.addControl(new GScaleControl());
 		map.enableScrollWheelZoom();
 		
-		
+		/*
 		var geoxml = new GGeoXML("#externalPath##fn#", function() {
-  if (geoxml.hasLoaded()) {
+  if (geoxml.loadedCorrectly()) {
     geoxml.gotoDefaultViewport(map);
   }
 });
 map.addOverlay(geoxml);
 		
+		
+		*/
+		
+		
+		
+		//map.setCenter(new GLatLng(55, -135), 3);
+		//var gx = new GGeoXml("#externalPath##fn#");
+		//map.addOverlay(gx);
+		
+		
+	
+	var geoCallback = function()
+{
+  geoXml.gotoDefaultViewport(map);
+}
+
+
+geoXml = new GGeoXml("#externalPath##fn#", geoCallback);
+
+
+		map.addOverlay(geoxml);
 		
 		
 		
