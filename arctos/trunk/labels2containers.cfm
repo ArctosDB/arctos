@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="labels2containers">
 <cfif #action# IS "nothing">
 	This form will function with a few thousand labels. If you need to do more, break them into batches or get a DBA to help.
 	<p></p>
@@ -10,7 +11,7 @@ To use this form, all of the following must be true:
 	<li>The barcodes are
 		<ul>
 			<li>Integers</li>
-			<li>Integers with a prefix or suffix</li>
+			<li>Integers with a prefix</li>
 		</ul>
 	</li>
 </ul>
@@ -34,7 +35,7 @@ To use this form, all of the following must be true:
 				<option value="#container_type#">#container_type#</option>
 			</cfloop>
 		</select>
-		<label for="barcode_prefix">Barcode Prefix (include spaces if necessary)</label>
+		<label for="barcode_prefix">Barcode Prefix (include spaces, leading zeros if necessary)</label>
 		<input type="text" name="barcode_prefix" id="barcode_prefix" size="3">
 		<!---
 		<label for="barcode_suffix">Barcode Suffix</label>
