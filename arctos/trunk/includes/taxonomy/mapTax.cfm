@@ -77,13 +77,13 @@ float:right;
 		map.enableScrollWheelZoom();
 
 
-var geoXml = new GGeoXml("#externalPath##fn#");
 
 
 		
 		 GEvent.addListener(geoXml,"load",function() {
     geoXml.gotoDefaultViewport(map);
   });
+		var geoXml = new GGeoXml("#externalPath##fn#");
 		
 			map.addOverlay(geoXml);
 		
