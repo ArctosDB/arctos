@@ -75,22 +75,15 @@ float:right;
 		map.addMapType(G_PHYSICAL_MAP);
 		map.addControl(new GScaleControl());
 		map.enableScrollWheelZoom();
-		//map.setCenter(new GLatLng(55, -135), 3);
-		//var gx = new GGeoXml("#externalPath##fn#");
-		//map.addOverlay(gx);
 		
 		
-	
-	var geoCallback = function()
-{
-  geoXml.gotoDefaultViewport(map);
-}
-
-
-geoXml = new GGeoXml("#externalPath##fn#", geoCallback);
-
- map.addOverlay(geoXml);
-
+		var geoxml = new GGeoXML("#externalPath##fn#", function() {
+  if (geoxml.loadedCorrectly()) {
+    geoxml.gotoDefaultViewport(map);
+  }
+});
+map.addOverlay(geoxml);
+		
 		
 		
 		
