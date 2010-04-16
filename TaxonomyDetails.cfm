@@ -215,7 +215,6 @@
 	<cfloop query="common_name">
 		<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
 	</cfloop>
-	<div id="mapTax"></div>
 	<span class="annotateSpace">
 		<cfif len(session.username) gt 0>
 			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -273,6 +272,8 @@
 			</cfloop>
 		</tr>
 	</table>
+	
+	<div id="mapTax"></div>
 	<p>Name Authority: <b>#one.source_Authority#</b></p>
 	<p>Common Name(s):
 	<ul>

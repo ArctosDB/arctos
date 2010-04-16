@@ -1,5 +1,11 @@
 <cfinclude template = "/includes/_frameHeader.cfm">
-
+<style>
+#mapTax{
+border:2px solid red;
+width:40%;
+float:right;
+}
+</style>
 <cfoutput>
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -75,7 +81,7 @@
 	map.addMapType(G_PHYSICAL_MAP);
 	map.addControl(new GScaleControl());
 	map.enableScrollWheelZoom();
-	//map.setCenter(new GLatLng(55, -135), 3);
+	map.setCenter(new GLatLng(55, -135), 3);
 	var gx = new GGeoXml("#externalPath##fn#");
 	map.addOverlay(gx);
 	
