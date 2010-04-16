@@ -45,7 +45,16 @@
 	<cfloop query="d">
 			
 			<cfscript>
-				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark><Name>woodpeckers</Name><Description>#c# specimens</Description><Point>' & chr(10) &
+				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark>  <name>CDATA example</name>
+      <description>
+        <![CDATA[
+          <h1>CDATA Tags are useful!</h1>
+          <p><font color="red">Text is <i>more readable</i> and 
+          <b>easier to write</b> when you can avoid using entity 
+          references.</font></p>
+        ]]>
+      </description>
+<Point>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</Point></Placemark>';
 				variables.joFileWriter.writeLine(kml);
