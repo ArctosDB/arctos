@@ -76,12 +76,20 @@ float:right;
 		map.addControl(new GScaleControl());
 		map.enableScrollWheelZoom();
 		//map.setCenter(new GLatLng(55, -135), 3);
-		var gx = new GGeoXml("#externalPath##fn#");
-		map.addOverlay(gx);
+		//var gx = new GGeoXml("#externalPath##fn#");
+		//map.addOverlay(gx);
 		
-		 GEvent.addListener(gx,"load",function() {
-		    gx.gotoDefaultViewport(map);
-		  });
+		
+		
+		var geoxml = new GGeoXML("#externalPath##fn#", function() {
+  if (geoxml.loadedCorrectly()) {
+    geoxml.gotoDefaultViewport(map);
+  }
+});
+map.addOverlay(geoxml);
+		
+		
+		
 		
 		gx.gotoDefaultViewport(map);
 	</script>
