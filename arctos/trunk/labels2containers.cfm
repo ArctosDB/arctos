@@ -1,5 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# IS "nothing">
+	This form will function with a few thousand labels. If you need to do more, break them into batches or get a DBA to help.
+	<p></p>
 To use this form, all of the following must be true:
 
 <ul>
@@ -13,7 +15,6 @@ To use this form, all of the following must be true:
 	</li>
 </ul>
 
-Leading zeroes will be ignored.
 <cfoutput>
 	<cfquery name="ctContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(container_type) container_type from ctcontainer_type
@@ -94,6 +95,9 @@ Leading zeroes will be ignored.
 					container_type='#origContType#' and
 					barcode = '#bc#'
 			</cfquery>
+			<p>
+				Updated container #bc#
+			</p>
 		</cfloop>
 	</cftransaction>
 </cfoutput>
