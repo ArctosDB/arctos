@@ -48,10 +48,7 @@
 				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark>  <name>#c# Specimens</name>
       <description>
         <![CDATA[
-          <h1>CDATA Tags are useful!</h1>
-          <p><font color="red">Text is <i>more readable</i> and 
-          <b>easier to write</b> when you can avoid using entity 
-          references.</font></p>
+          <a href="http://arctos.database.museum/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=scientific_name##">Arctos</a>
         ]]>
       </description>
 <Point>' & chr(10) &
