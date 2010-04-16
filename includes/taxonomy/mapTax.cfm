@@ -35,27 +35,18 @@
 			chr(9) & chr(9) & '<open>1</open>';
 		variables.joFileWriter.writeLine(kml);      
 	</cfscript>
-	<cfscript>
-		kml=chr(9) & chr(9) & '<Folder>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & '<name>#n.n#</name>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>';
-		variables.joFileWriter.writeLine(kml);      
-	</cfscript>
+	
 	<cfloop query="d">
 			
 			<cfscript>
-				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
+				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark><Point>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & '</Point>';
+					chr(9) & chr(9) & chr(9) & chr(9) & '</Point></Placemark>';
 				variables.joFileWriter.writeLine(kml);
 				variables.joFileWriter.writeLine(kml);
 			</cfscript>
 		</cfloop>
 		
-		<cfscript>
-			kml=chr(9) & chr(9) & '</Folder>';
-			variables.joFileWriter.writeLine(kml);
-		</cfscript>
 
 
 	<cfscript>
