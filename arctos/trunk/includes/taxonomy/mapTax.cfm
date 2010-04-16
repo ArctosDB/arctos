@@ -47,7 +47,7 @@
 			kml=chr(9) & chr(9) & '<Placemark>' & chr(10) &
 				chr(9) & chr(9) & chr(9) & '<name>#c# #scientific_name#</name>' & chr(10) &
       			chr(9) & chr(9) & chr(9) & '<description>' & chr(10) &
-		        chr(9) & chr(9) & chr(9) & chr(9) '<![CDATA[<a href="http://arctos.database.museum/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=#scientific_name#">Arctos</a>]]>' & chr(10) &
+		        chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[<a href="http://arctos.database.museum/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=#scientific_name#">Arctos</a>]]>' & chr(10) &
 		      	chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
 				chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
 				chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
