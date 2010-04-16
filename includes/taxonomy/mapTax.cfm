@@ -80,19 +80,16 @@ float:right;
 		//map.addOverlay(gx);
 		
 		
-		/*
-		var geoxml = new GGeoXML("#externalPath##fn#", function() {
-  if (geoxml.loadedCorrectly()) {
-    geoxml.gotoDefaultViewport(map);
-  }
-});
-map.addOverlay(geoxml);
-		*/
-				var gdir = new GGeoXML("#externalPath##fn#");
-		
-		 GEvent.addListener(gdir,"load",function() {
-    gdir.gotoDefaultViewport(map);
-  });
+	
+	var geoCallback = function()
+{
+  geoXml.gotoDefaultViewport(map);
+}
+
+
+geoXml = new GGeoXml("#externalPath##fn#", geoCallback);
+
+
 		
 		
 		
