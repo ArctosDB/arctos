@@ -77,7 +77,7 @@ float:right;
 		map.enableScrollWheelZoom();
 
 
-var geoXml = new GGeoXml("#externalPath##fn#", geoCallback);
+var geoXml = new GGeoXml("#externalPath##fn#");
 
 
 		
