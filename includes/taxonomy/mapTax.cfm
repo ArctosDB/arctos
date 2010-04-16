@@ -75,8 +75,9 @@ float:right;
 		map.addMapType(G_PHYSICAL_MAP);
 		map.addControl(new GScaleControl());
 		map.enableScrollWheelZoom();
-		map.setCenter(new GLatLng(55, -135), 3);
+		//map.setCenter(new GLatLng(55, -135), 3);
 		var gx = new GGeoXml("#externalPath##fn#");
 		map.addOverlay(gx);
+		gx.gotoDefaultViewport(map);
 	</script>
 </cfoutput>
