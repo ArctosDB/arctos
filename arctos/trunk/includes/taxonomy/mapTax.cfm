@@ -78,11 +78,12 @@ float:right;
         map.setCenter(new GLatLng(89.5,0.1), 11); 
 var kmlfile='#externalPath##fn#';
 
-var geoxml = new GGeoXML(kmlfile, function() {
-  if (geoxml.loadedCorrectly()) {
+ GEvent.addListener(geoxml,"load",function() {
     geoxml.gotoDefaultViewport(map);
-  }
-});
+  });
+
+
+
 map.addOverlay(geoxml);
 
 
