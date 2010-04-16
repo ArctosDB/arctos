@@ -33,7 +33,7 @@
 	<tr>
 		<th>Part</th>
 		<th>isTissue</th>
-		<th>##</th>
+		<th>sum</th>
 		<th>UsedByCollections</th>
 	</tr>
 	<cfloop query="dp">

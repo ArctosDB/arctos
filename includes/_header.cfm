@@ -338,6 +338,7 @@
 											<li><a target="_top" href="/tools/TaxonomyGaps.cfm">Messy Taxonomy</a></li>
 											<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
 											<li><a target="_top" href="/info/dupAgent.cfm">Duplicate Agents</a></li>
+											<li><a target="_top" href="/Reports/partusage.cfm">Part Usage</a></li>
 										</ul>
 									</li>
 								</ul>
