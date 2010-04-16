@@ -75,7 +75,7 @@ To use this form, all of the following must be true:
 					container_type='#origContType#' and
 					barcode = '#bc#'
 			</cfquery>
-			#bc#: <cfif bctest.recorcount is 1>spiffy<cfelse>FAIL</cfif><br>
+			#bc#: <cfif bctest.recordcount is 1>spiffy<cfelse>FAIL</cfif><br>
 		</cfloop>
 	</cfoutput>
 </cfif>
