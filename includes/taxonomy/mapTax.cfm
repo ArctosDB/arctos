@@ -91,6 +91,5 @@ map.addOverlay(geoxml);
 		
 		
 		
-		gx.gotoDefaultViewport(map);
 	</script>
 </cfoutput>
