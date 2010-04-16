@@ -279,7 +279,7 @@
 		<cfSet basQual = " #basQual# AND UPPER(srchColl.Agent_Name) LIKE '%#UCASE(coll)#%'
 			AND collector_role = '#coll_role#'">
 	<cfelse>
-		<cfSet basQual = " #basQual# AND UPPER(#session.flatTableName#.COLLECTORS) LIKE '%#UCASE(coll)#%'">
+		<cfSet basQual = " #basQual# AND UPPER(#session.flatTableName#.COLLECTORS) LIKE '%#UCASE(escapeQuotes(coll))#%'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&coll=#coll#">  
 	<cfset mapurl = "#mapurl#&coll_role=#coll_role#">
