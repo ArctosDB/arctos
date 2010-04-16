@@ -11,23 +11,24 @@ float:right;
 	<cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
 	<cfset fn="#replace(scientific_name,' ','-','all')#.kml">
 	<cfif not fileexists("#internalPath##fn#")>
+	makin a new file
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		   	select 
-		   		count(*) c,
-		   		locality_id,
-		   		scientific_name, 
-		   		dec_lat,
-		   		dec_long 
-		   	from flat
-		   	 where 
-		   	 dec_lat is not null and 
-		   	 dec_long is not null and
-		   	 flat.scientific_name like '#scientific_name#%'
-		   	 group by
-		   	 locality_id,
-		   	 scientific_name, 
-		   		dec_lat,
-		   		dec_long 
+		 	select 
+		 		count(*) c,
+		 		locality_id,
+		 		scientific_name, 
+		 		dec_lat,
+		 		dec_long 
+		 	from flat
+		 	where 
+				dec_lat is not null and 
+		 		dec_long is not null and
+		 		flat.scientific_name like '#scientific_name#%'
+		 	group by
+		 		locality_id,
+		 	 	scientific_name, 
+		 		dec_lat,
+		 		dec_long 
 		</cfquery>
 		<cfif d.recordcount is 0>
 			<cfabort>
@@ -64,6 +65,7 @@ float:right;
 			variables.joFileWriter.writeLine(kml);		
 			variables.joFileWriter.close();
 		</cfscript>
+	<cfelse>using the old file
 	</cfif>
 	<div id="map" style="width: 100%; height: 400px;"></div>
 	<script language="javascript" type="text/javascript">
