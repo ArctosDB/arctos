@@ -45,7 +45,7 @@
 	<cfloop query="d">
 			
 			<cfscript>
-				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark>  <name>CDATA example</name>
+				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark>  <name>#c# Specimens</name>
       <description>
         <![CDATA[
           <h1>CDATA Tags are useful!</h1>
