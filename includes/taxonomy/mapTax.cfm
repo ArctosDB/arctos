@@ -45,7 +45,7 @@
 	<cfloop query="d">
 			
 			<cfscript>
-				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark>  <name>#c# Specimens</name>
+				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark>  <name>#c# #scientific_name#</name>
       <description>
         <![CDATA[
           <a href="http://arctos.database.museum/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=#scientific_name#">Arctos</a>
