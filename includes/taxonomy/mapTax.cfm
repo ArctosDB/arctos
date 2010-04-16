@@ -75,7 +75,7 @@ float:right;
 		map.addMapType(G_PHYSICAL_MAP);
 		map.addControl(new GScaleControl());
 		map.enableScrollWheelZoom();
-
+        map.setCenter(new GLatLng(89.5,0.1), 11); 
 var kmlfile='#externalPath##fn#';
 
 var geoxml = new GGeoXML(kmlfile, function() {
