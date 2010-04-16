@@ -64,9 +64,10 @@ To use this form, all of the following must be true:
 <!--------------------------------------->
 <cfif action is "test">
 	<cfoutput>
-		<hr>This for will execute the select portion of the update statement.
+		This form will execute the select portion of the update statement.
 		<br>If this page contains the word FAIL, you probably aren't doing what you think you're doing.
-		<br>Use your back button, then Make Changes if everything works here.
+		<br>Use your back button, then click Make Changes to finish.
+		<hr>
 		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
 			<cfset bc = barcode_prefix & i>
 			<cfquery name="bctest" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
