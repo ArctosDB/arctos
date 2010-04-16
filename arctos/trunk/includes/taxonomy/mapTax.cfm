@@ -101,10 +101,10 @@ map.addOverlay(geoxml);
 }
 
 
-geoXml = new GGeoXml("#externalPath##fn#", geoCallback);
+var geoXml = new GGeoXml("#externalPath##fn#", geoCallback);
 
 
-		map.addOverlay(geoxml);
+		map.addOverlay(geoXml);
 		
 		
 		
