@@ -75,8 +75,6 @@
 	map.addControl(new GMapTypeControl());
 	map.addMapType(G_PHYSICAL_MAP);
 	map.addControl(new GScaleControl());
-	map.addControl(new ToggleZoomControl());
-	map.enableGoogleBar();
 	map.enableScrollWheelZoom();
 	map.setCenter(new GLatLng(55, -135), 3);
 </script>
