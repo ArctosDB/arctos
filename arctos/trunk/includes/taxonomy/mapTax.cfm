@@ -2,7 +2,11 @@
 
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	   	select flat.scientific_name, dec_lat,dec_long from flat,taxonomy
+	   	select 
+	   		flat.scientific_name scientific_name, 
+	   		dec_lat,
+	   		dec_long 
+	   	from flat,taxonomy
 	   	 where 
 	   	 dec_lat is not null and 
 	   	 dec_long is not null and
