@@ -202,7 +202,7 @@
 		});
 		function load(name){
 			//var el=document.getElementById(name);
-			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=#one.taxon_name_id#";
+			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=#one.taxon_name_id#&scientific_name=#one.scientific_name#";
 			jQuery.get(ptl, function(data){
 				 jQuery('##' + name).html(data);
 			})

@@ -3,15 +3,20 @@
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	select 
-	   		flat.scientific_name, 
+	   		locality_id,
+	   		scientific_name, 
 	   		dec_lat,
 	   		dec_long 
-	   	from flat,taxonomy
+	   	from flat
 	   	 where 
 	   	 dec_lat is not null and 
 	   	 dec_long is not null and
-	   	 flat.scientific_name =taxonomy.scientific_name and 
-	   	 taxon_name_id=#taxon_name_id#
+	   	 flat.scientific_name like '#scientific_name#%'
+	   	 group by
+	   	 locality_id,
+	   	 scientific_name, 
+	   		dec_lat,
+	   		dec_long 
 	</cfquery>
 	<cfif d.recordcount is 0>
 		<cfabort>
@@ -39,7 +44,7 @@
 	<cfloop query="d">
 			
 			<cfscript>
-				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark><Point>' & chr(10) &
+				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark><Name>woodpeckers</Name><Point>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</Point></Placemark>';
 				variables.joFileWriter.writeLine(kml);
