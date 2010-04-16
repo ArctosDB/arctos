@@ -77,7 +77,7 @@
 	map.addControl(new GScaleControl());
 	map.enableScrollWheelZoom();
 	map.setCenter(new GLatLng(55, -135), 3);
-	var gx = new GGeoXml("#internalPath##fn#");
+	var gx = new GGeoXml("#externalPath##fn#");
 	map.addOverlay(gx);
 	
 </script>
