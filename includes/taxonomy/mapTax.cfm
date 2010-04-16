@@ -78,6 +78,11 @@ float:right;
 		//map.setCenter(new GLatLng(55, -135), 3);
 		var gx = new GGeoXml("#externalPath##fn#");
 		map.addOverlay(gx);
+		
+		 GEvent.addListener(gx,"load",function() {
+		    gx.gotoDefaultViewport(map);
+		  });
+		
 		gx.gotoDefaultViewport(map);
 	</script>
 </cfoutput>
