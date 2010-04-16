@@ -278,7 +278,7 @@
 							<a href="/login.cfm">Login or Create Account</a>
 						</cfif>
 						<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
-							<br><a onclick="document.location='/SpecimenResults.cfm?#URLEncodedFormat(session.mapURL)#'">[Return to results]</a>
+							<br><a onclick="document.location=escape('/SpecimenResults.cfm?#session.mapURL#')">[Return to results]</a>
 						</cfif>	
 	                </span>
 	            </td>
