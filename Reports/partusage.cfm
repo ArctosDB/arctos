@@ -38,10 +38,10 @@
 	</tr>
 	<cfloop query="dp">
 		<cfquery name="cp" dbtype="query">
-			select collection,collection_id,cnt from p where part_name='#part_name#' group by collection,collection_id,cnt
+			select collection,collection_id,cnt from p where part_name='#dp.part_name#' group by collection,collection_id,cnt
 		</cfquery>
 		<cfquery name="it" dbtype="query">
-			select is_tissue from p where part_name='#part_name#' group by is_tissue
+			select is_tissue from p where part_name='#dp.part_name#' group by is_tissue
 		</cfquery>
 		<cfif it.recordcount gt 1>
 			<cfset tiss='sometimes'>
