@@ -193,7 +193,7 @@
 <cfoutput>
 	<script>
 		jQuery(document).ready(function(){
-			var elemsToLoad='specTaxMedia,taxRelatedNames';
+			var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
 			//var elemsToLoad='taxRelatedNames';
 			var elemAry = elemsToLoad.split(",");
 			for(var i=0; i<elemAry.length; i++){
@@ -214,6 +214,7 @@
 	<cfloop query="common_name">
 		<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
 	</cfloop>
+	<div id="mapTax"></div>
 	<span class="annotateSpace">
 		<cfif len(session.username) gt 0>
 			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -327,7 +328,6 @@
 				<a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
 					[ exact matches only ]
 				</a>
-				| 
 				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&media_type=any">
 					[ with Media ]
 				</a>
