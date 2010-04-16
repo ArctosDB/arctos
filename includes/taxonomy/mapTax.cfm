@@ -76,17 +76,17 @@ float:right;
 		map.addControl(new GScaleControl());
 		map.enableScrollWheelZoom();
 
+var kmlfile='#externalPath##fn#';
+
+var geoxml = new GGeoXML(kmlfile, function() {
+  if (geoxml.loadedCorrectly()) {
+    geoxml.gotoDefaultViewport(map);
+  }
+});
+map.addOverlay(geoxml);
 
 
 
-		
-		 GEvent.addListener(geoXml,"load",function() {
-    geoXml.gotoDefaultViewport(map);
-  });
-		var geoXml = new GGeoXml("#externalPath##fn#");
-		
-			map.addOverlay(geoXml);
-		
 		
 	</script>
 </cfoutput>
