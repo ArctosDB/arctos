@@ -3,6 +3,7 @@
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	select 
+	   		count(*) c,
 	   		locality_id,
 	   		scientific_name, 
 	   		dec_lat,
@@ -44,7 +45,7 @@
 	<cfloop query="d">
 			
 			<cfscript>
-				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark><Name>woodpeckers</Name><Point>' & chr(10) &
+				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark><Name>woodpeckers</Name><Description>#c# specimens</Description><Point>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</Point></Placemark>';
 				variables.joFileWriter.writeLine(kml);
