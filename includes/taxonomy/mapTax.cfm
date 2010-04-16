@@ -3,7 +3,7 @@
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	select 
-	   		flat.scientific_name scientific_name, 
+	   		flat.scientific_name, 
 	   		dec_lat,
 	   		dec_long 
 	   	from flat,taxonomy
@@ -17,7 +17,7 @@
 		<cfabort>
 	<cfelse>
 		<cfquery name="n" dbtype="query">
-			select distinct(scientfic_name) n from d
+			select distinct(scientific_name) n from d
 		</cfquery>
 	</cfif>
 	<cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
