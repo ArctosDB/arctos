@@ -56,11 +56,30 @@ To use this form, all of the following must be true:
 		<input type="text" name="width" id="width">
 		<label for="number_positions">New Number of Positions</label>
 		<input type="text" name="number_positions" id="number_positions">
-		<br><input type="submit" value="save" class="savBtn">
+		<br><input type="button" value="Test Changes (recommended)" class="lnkBtn" onclick="wtf.action.value='test';submit();">
+		<br><input type="button" value="Make Changes (scary)" class="savBtn" onclick="wtf.action.value='change';submit();">
 	</form>
 </cfoutput>
 </cfif>
 <!--------------------------------------->
+<cfif action is "test">
+	<cfoutput>
+		<hr>This for will execute the select portion of the update statement.
+		<br>If this page contains the word FAIL, you probably aren't doing what you think you're doing.
+		<br>Use your back button, then Make Changes if everything works here.
+		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
+			<cfset bc = barcode_prefix & i>
+			<cfquery name="bctest" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select barcode from container
+				where
+					container_type='#origContType#' and
+					barcode = '#bc#'
+			</cfquery>
+			#bc#: <cfif bctest.recorcount is 1>spiffy<cfelse>FAIL</cfif><br>
+		</cfloop>
+	</cfoutput>
+</cfif>
+
 <cfif #action# IS "change">
 <cfoutput>
 <cfif #origContType# is "collection object">
@@ -95,9 +114,7 @@ To use this form, all of the following must be true:
 					container_type='#origContType#' and
 					barcode = '#bc#'
 			</cfquery>
-			<p>
-				Updated container #bc#
-			</p>
+			Updated container #bc#<br>
 		</cfloop>
 	</cftransaction>
 </cfoutput>
