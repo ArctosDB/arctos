@@ -272,8 +272,6 @@
 			</cfloop>
 		</tr>
 	</table>
-	
-	<div id="mapTax"></div>
 	<p>Name Authority: <b>#one.source_Authority#</b></p>
 	<p>Common Name(s):
 	<ul>
@@ -315,6 +313,7 @@
 		</ul>    
     </div>
 	<div id="specTaxMedia"></div>
+	<div id="mapTax"></div>
 	<p>
 		Arctos Links:
 		<ul>
