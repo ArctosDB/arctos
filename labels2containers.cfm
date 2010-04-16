@@ -114,10 +114,9 @@ To use this form, all of the following must be true:
 					container_type='#origContType#' and
 					barcode = '#bc#'
 			</cfquery>
-			Updated container #bc#<br>
 		</cfloop>
 	</cftransaction>
 </cfoutput>
-done.
+	Done. Check containers to make sure you did what you thought you were doing.
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
