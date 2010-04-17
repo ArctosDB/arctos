@@ -1,9 +1,9 @@
-<cfinclude template = "/includes/_frameHeader.cfm">
+<cfinclude template = "/includes/alwaysInclude.cfm">
 <style>
 #mapTax{
-border:2px solid red;
-width:40%;
-float:right;
+	width:40%;
+	float:right;
+	height: 400px;
 }
 </style>
 <cfoutput>
@@ -64,7 +64,7 @@ float:right;
 			variables.joFileWriter.close();
 		</cfscript>
 	</cfif>
-	<div id="map" style="width: 100%; height: 400px;"></div>
+	<div id="map" style="width: 100%; ;"></div>
 	<script language="javascript" type="text/javascript">
 		jQuery(document.body).unload(function() {
 			GUnload();
@@ -76,19 +76,11 @@ float:right;
 		map.addControl(new GScaleControl());
 		map.enableScrollWheelZoom();
         map.setCenter(new GLatLng(89.5,0.1), 11); 
-var kmlfile='#externalPath##fn#';
- geoxml = new GGeoXml(kmlfile);
-
- GEvent.addListener(geoxml,"load",function() {
-    geoxml.gotoDefaultViewport(map);
-  });
-
-
-
-map.addOverlay(geoxml);
-
-
-
-		
+		var kmlfile='#externalPath##fn#';
+ 		geoxml = new GGeoXml(kmlfile);
+		GEvent.addListener(geoxml,"load",function() {
+			geoxml.gotoDefaultViewport(map);
+		});
+		map.addOverlay(geoxml);
 	</script>
 </cfoutput>

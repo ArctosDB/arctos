@@ -3,10 +3,10 @@
 	Run daily
  --->
 <cfoutput>
-<!---- berkeleymapper tabfiles more than 3 days ---->
+<!---- berkeleymapper tabfiles more than 7 days ---->
 <CFDIRECTORY ACTION="List" DIRECTORY="#Application.webDirectory#/bnhmMaps/tabfiles/" NAME="dir_listing"> 
 	<cfloop query="dir_listing">
-		<cfif (dateCompare(dateAdd("d",3,datelastmodified),now()) LTE 0) and left(name,1) neq "."
+		<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq "."
 			and not right(name,4) eq '.cfm'> 
 		 	<cffile action="DELETE" file="#Application.webDirectory#/bnhmMaps/tabfiles/#name#">
 		 </cfif> 
