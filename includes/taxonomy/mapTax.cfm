@@ -1,15 +1,20 @@
-<cfinclude template = "/includes/alwaysInclude.cfm">
 <style>
 #mapTax{
 	width:40%;
 	float:right;
-	height: 400px;
 }
 </style>
 <cfoutput>
 	<cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
 	<cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
-	<cfset fn="#replace(scientific_name,' ','-','all')#.kml">
+	<cfif not isdefined("method")>
+		<cfset method="">
+	</cfif>
+	<cfif method is "exact">
+		<cfset fn="_#replace(scientific_name,' ','-','all')#.kml">
+	<cfelse>
+		<cfset fn="#replace(scientific_name,' ','-','all')#.kml">
+	</cfif>
 	<cfif not fileexists("#internalPath##fn#")>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		 	select 
@@ -17,17 +22,25 @@
 		 		locality_id,
 		 		scientific_name, 
 		 		dec_lat,
-		 		dec_long 
-		 	from flat
+		 		dec_long,
+		 		datum,
+		 		COORDINATEUNCERTAINTYINMETERS
+		 	from #session.flatTableName#
 		 	where 
 				dec_lat is not null and 
 		 		dec_long is not null and
-		 		flat.scientific_name like '#scientific_name#%'
+		 		<cfif method is "exact">
+					scientific_name = '#scientific_name#'
+				<cfelse>
+					scientific_name like '#scientific_name#%'
+				</cfif>
 		 	group by
 		 		locality_id,
 		 	 	scientific_name, 
 		 		dec_lat,
-		 		dec_long 
+		 		dec_long,
+		 		datum,
+		 		COORDINATEUNCERTAINTYINMETERS
 		</cfquery>
 		<cfif d.recordcount is 0>
 			<cfabort>
@@ -48,7 +61,10 @@
 				kml=chr(9) & chr(9) & '<Placemark>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & '<name>#c# #scientific_name#</name>' & chr(10) &
 	      			chr(9) & chr(9) & chr(9) & '<description>' & chr(10) &
-			        chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[<a href="http://arctos.database.museum/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=#scientific_name#">Arctos Specimen Records</a>]]>' & chr(10) &
+			        chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[' & chr(10) &
+			        chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<a href="http://arctos.database.museum/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=#scientific_name#">Arctos Specimen Records</a>' & chr(10) & 
+			        chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<br><span style="font-size:smaller">Datum: #datum#; error: #COORDINATEUNCERTAINTYINMETERS# m</span>' & chr(10) &
+			       	chr(9) & chr(9) & chr(9) & chr(9) & ' ]]>' & chr(10) &
 			      	chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
@@ -64,12 +80,12 @@
 			variables.joFileWriter.close();
 		</cfscript>
 	</cfif>
-	<div id="map" style="width: 100%; ;"></div>
+	<div id="taxarangemap" style="width: 100%;; height: 400px;"></div>
 	<script language="javascript" type="text/javascript">
 		jQuery(document.body).unload(function() {
 			GUnload();
 		});
-		var map = new GMap2(document.getElementById("map"));
+		var map = new GMap2(document.getElementById("taxarangemap"));
 		map.addControl(new GLargeMapControl());
 		map.addControl(new GMapTypeControl());
 		map.addMapType(G_PHYSICAL_MAP);
@@ -82,5 +98,20 @@
 			geoxml.gotoDefaultViewport(map);
 		});
 		map.addOverlay(geoxml);
+		
+		function reloadThis(method){
+			$('##toggleExactmatch').html('<img src="/images/indicator.gif">');
+			var ptl="/includes/taxonomy/mapTax.cfm?scientific_name=#scientific_name#&method=" + method;
+			jQuery.get(ptl, function(data){
+				 jQuery('##mapTax').html(data);
+			})
+		}	
 	</script>
+	<span id="toggleExactmatch">
+		<cfif method is "exact">
+			Showing exact matches - <span class="likeLink" onclick="reloadThis('')"> show matches for '#scientific_name#%'</span>
+		<cfelse>
+			Showing fuzzy matches - <span class="likeLink" onclick="reloadThis('exact')"> show matches for exactly '#scientific_name#'</span>
+		</cfif>
+	</span>
 </cfoutput>
