@@ -5,8 +5,8 @@
 }
 </style>
 <cfoutput>
-		<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
-
+		<cfhtmlhead text=''>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 	<cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
 	<cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
 	<cfif not isdefined("method")>

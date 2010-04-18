@@ -187,8 +187,6 @@
 				
 				<td>#part_name#<cfif len(sampled_from_obj_id) gt 0>&nbsp;subsample</cfif>
 				</td>
-				<td>#part_modifier#&nbsp;</td>
-				<td>#preserve_method#&nbsp;</td>
 				<td>#condition#</td>
 				<td>#coll_obj_disposition#&nbsp;</td>
 				<td>#lot_count#&nbsp;</td>
