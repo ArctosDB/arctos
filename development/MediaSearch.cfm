@@ -435,7 +435,7 @@
 	</cfif>	
 
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-		<td>
+	<!--	<td> -->
 			<cfset mp=getMediaPreview(preview_uri,media_type)>
 			<cfset mrel=getMediaRelations2(#media_id#)>
 			
@@ -443,6 +443,7 @@
 			<cfset agent_name="">
 			<cfset cat_item_url="">
 			<cfset cat_item_sum="">
+			<cfset scientific_name="">
 			<cfset taxonomy="">
 			<cfset project_sum="">
 			<cfset project_url="">
@@ -453,6 +454,13 @@
 					<cfelseif #rel_type# is "cataloged_item">
 						<cfset cat_item_url=#link#>
 						<cfset cat_item_sum=#summary#>
+						
+						<cfset begPos = find('(', cat_item_sum)>
+						
+						<cfif begPos gt 0>
+							<cfset endPos = find(')', cat_item_sum>
+							<cfset scientific_name=mid(cat_item_sum,begPos+1, endPos-begPos)>
+						</cfif>
 					<cfelseif #rel_type# is "taxonomy">
 						<cfset taxonomy=#summary#>
 					<cfelseif #rel_type# is "project">
@@ -469,13 +477,7 @@
 					</td>
 					<!--<td>#media_id#</td>-->
 					<td>#media_type#</td> 
-					<td>
-						<cfif len(#taxonomy#) gt 0>
-							#taxonomy#
-						<cfelse>
-							No related taxonomy name
-						</cfif>
-					</td>
+					<td>#scientific_name#</td>
 					<td><a href="#media_details_url#" target="_blank">Details</a></td>
 					<td><a href="#media_uri#" target="_blank">Download</a></td>
 					<td>Map</td>
@@ -643,7 +645,7 @@
 					<div class="thumb_spcr">&nbsp;</div>
 				</div>
 			</cfif>
-		</td>
+		<!-- </td> -->
 	</tr>
 	<cfset rownum=rownum+1>
 </cfloop>
