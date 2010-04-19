@@ -395,7 +395,6 @@
 	<tr>
 		<td>Media Preview</td>
 		<td>Mime Type</td>
-		<td>Scientific Name</td>
 		<td>Details</td>
 		<td>Download</td>
 		<td>Map</td>
@@ -444,13 +443,19 @@
 			<cfset cat_item_url="">
 			<cfset cat_item_sum="">
 			<cfset scientific_name="">
-			<cfset taxonomy="">
-			<cfset project_sum="">
-			<cfset project_url="">
+			<cfset higherGeog="">
+			<cfset specLoc="">
+			<cfset kw="">
 			<cfif mrel.recordcount gt 0>				
 				<cfloop query="mrel">
 					<cfif #rel_type# is "agent">
 						<cfset agent_name=#created_agent_name#>
+						
+						<cfif len(kw) gt 0>
+							<cfset kw= kw &"; " & agent_name>
+						<cfelse>
+							<cfset kw="" & agent_name>
+						</cfif>
 					<cfelseif #rel_type# is "cataloged_item">
 						<cfset cat_item_url=#link#>
 						<cfset cat_item_sum=#summary#>
@@ -461,13 +466,22 @@
 							<cfset endPos = find(')', cat_item_sum>
 							<cfset scientific_name=mid(cat_item_sum,begPos+1, endPos-begPos)>
 						</cfif>
-					<cfelseif #rel_type# is "taxonomy">
-						<cfset taxonomy=#summary#>
-					<cfelseif #rel_type# is "project">
-						<cfset project_sum=#summary#>
-						<cfset project_url=#link#>
+						
+						<cfif len(kw) gt 0>
+							<cfset kw= kw &"; " & scientific_name>
+						<cfelse>
+							<cfset kw=""&scientific_name>
+						</cfif>
+					<cfelseif #rel_type# is "collecting_event">					
+						<cfset locality = replace(#summary#,"[:\(]",";")>
+						<cfset locality = replace(#summary#, "\)", "")>
+						
+						<cfif len(kw) gt 0>
+							<cfset kw= kw &"; " & locality>
+						<cfelse>
+							<cfset kw=""&locality>
+						</cfif>
 					</cfif>
-
 				</cfloop>			
 			</cfif>
 			<table>
@@ -477,11 +491,16 @@
 					</td>
 					<!--<td>#media_id#</td>-->
 					<td>#media_type#</td> 
-					<td>#scientific_name#</td>
 					<td><a href="#media_details_url#" target="_blank">Details</a></td>
 					<td><a href="#media_uri#" target="_blank">Download</a></td>
 					<td>Map</td>
-					<td>						
+					<td>							
+						<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
+								<strong>Keywords:</strong> #kw#
+						</div>
+					</td>
+					
+					<!--<td>						
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
 							<cfif isdefined("keyword") and len(keyword) gt 0>
 								<cfset kwds=kw.keywords>
@@ -495,7 +514,7 @@
 								<strong>Keywords:</strong> #kwds#
 							</div>
 						</cfif>
-					</td>
+					</td>-->
 					
 					<!--<td>
 						<cfif len(#agent_name#) gt 0>

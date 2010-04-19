@@ -444,6 +444,9 @@
 							</ul>
 						</cfif>
 						<cfset mrel=getMediaRelations(#media_id#)>
+						<cfset collExist=0>
+						<cfset catExist=0>
+						<cfset catnum=0>
 						<cfif mrel.recordcount gt 0>
 							<ul>
 							<cfloop query="mrel">
@@ -453,8 +456,31 @@
 				                    <cfelse>
 										#summary#
 									</cfif>
+									
+									<cfif #media_relationship# is "created from collecting_event">
+										<cfset collExist=1>
+									<cfelseif #media_relationship is "shows cataloged_item">
+										<cfset catExist=1>
+										<cfset catnum=#related_primary_key#>
+									</cfif>
 				                </li>
 							</cfloop>
+								<cfif catExist gt 0 and collExist eq 0>
+									<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+										select 
+											higher_geog || ': ' || specific_locality || ' (' || verbatim_date || ')' data, collecting_event_id
+										from 
+											collecting_event,
+											locality, 
+											geog_auth_rec 
+										where 
+											collecting_event.locality_id=locality.locality_id and
+											locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+											collecting_event.collecting_event_id=cataloged_item.collecting_event_id and
+											cataloged_item.collection_object_id=catnum
+									</cfquery>
+									<li>created from collecting_event <a href="/showLocality.cfm?action=srch&collecting_event_id=#d.collecting_event_id#">#d.data#</a></li>
+								</cfif>
 							</ul>
 						</cfif>
 						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
