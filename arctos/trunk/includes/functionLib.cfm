@@ -371,7 +371,7 @@
 		<cfelseif table_name is "collecting_event">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
-					higher_geog || ': ' || verbatim_locality || ' (' || verbatim_date || ')' data 
+					higher_geog || ': ' || specific_locality || ' (' || verbatim_date || ')' data 
 				from 
 					collecting_event,
 					locality, 
@@ -491,7 +491,7 @@
 		<cfelseif table_name is "collecting_event">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
-					higher_geog || ': ' || verbatim_locality || ' (' || verbatim_date || ')' data 
+					higher_geog || ': ' || specific_locality || ' (' || verbatim_date || ')' data 
 				from 
 					collecting_event,
 					locality, 
@@ -570,7 +570,7 @@
             <cfset temp = QuerySetCell(result, "link", "/name/#d.scientific_name#", i)>
 			<cfset temp = QuerySetCell(result, "rel_type", "taxonomy", i)>
 		<cfelse>
-		<cfset temp = QuerySetCell(result, "summary", "#table_name# is not currently supported.", i)>
+			<cfset temp = QuerySetCell(result, "summary", "#table_name# is not currently supported.", i)>
 		</cfif>
 		<cfset i=i+1>
 	</cfloop>
