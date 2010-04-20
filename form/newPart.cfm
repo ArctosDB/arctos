@@ -7,6 +7,11 @@
 	<cfquery name="ctcoll_obj_disposition" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select coll_obj_disposition from ctcoll_obj_disp
 	</cfquery>
+	<cfquery name="thisCC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select collection.collection_cde from collection,cataloged_item where cataloged_item.collection_id=collection.collection_id and
+		cataloged_item.collection_object_id=#collection_object_id#
+	</cfquery>
+
 	<cfquery name="defaults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			part_name,
@@ -36,7 +41,7 @@
 	<label for="npart_name">Part Name</label>
 	<input type="text" name="npart_name" id="npart_name" class="reqdClr"
 		value="#defaults.part_name#" size="25"
-		onchange="findPart(this.id,this.value,'#defaults.collection_cde#');" 
+		onchange="findPart(this.id,this.value,'#thisCC.collection_cde#');" 
 		onkeypress="return noenter(event);">
 	<label for="lot_count">Lot Count</label>
 	<input type="text" name="lot_count" id="lot_count" class="reqdClr" size="2" value="#defaults.lot_count#">
