@@ -4,29 +4,13 @@
 		select container_type from ctcontainer_type
 		order by container_type
 	</cfquery>
-	<cfquery name="ctpart_modifier" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select part_modifier from ctspecimen_part_modifier
-	</cfquery>
-	<cfquery name="ctpreserve_method" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select 
-			preserve_method 
-		from 
-			ctspecimen_preserv_method,collection
-		where 
-			ctspecimen_preserv_method.collection_cde=collection.collection_cde and
-			collection_id=#collection_id#
-		order by 
-			preserve_method
-	</cfquery>
 	<cfquery name="ctcoll_obj_disposition" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select coll_obj_disposition from ctcoll_obj_disp
 	</cfquery>
 	<cfquery name="defaults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			part_name,
-			part_modifier,
 			lot_count,
-			preserve_method,
 			coll_obj_disposition,
 			condition,
 			collection.collection_cde
