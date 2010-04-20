@@ -156,8 +156,8 @@ div.one_thumb p {
 .refPane_editing {
 	border:3px solid red;
 }
-#theImageDISABLEED{
-	width:100%;
+#theImage{
+	max-width:100%;
 }
 .highlight {
 	border:2px solid yellow;
