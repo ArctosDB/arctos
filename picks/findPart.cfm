@@ -27,7 +27,6 @@
 	  		upper(part_name) like '%#ucase(part_name)#%'		  		
 		order by partname, part_name
 	</cfquery>
-	<cfdump var=#gp#>
 	<cfif gp.recordcount is 0>Nothing Found</cfif>
 	<cfloop query="gp">
 	<br><a href="##" onClick="javascript: opener.document.getElementById('#partFld#').value='#part_name#';self.close();">#part_name#</a>	
