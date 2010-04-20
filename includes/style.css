@@ -114,7 +114,7 @@ div.one_thumb p {
 	position:absolute;
 	border:1px solid black;
 	float: left;
-	width:60%;
+	max-width:60%;
 }
 #navDiv {
 	float:right;
