@@ -443,10 +443,12 @@
 			<cfset cat_item_url="">
 			<cfset cat_item_sum="">
 			<cfset coll_obj_id=0>
+			<cfset coll_event_id>
 			<cfset scientific_name="">
 			<cfset higherGeog="">
 			<cfset specLoc="">
 			<cfset kw="">
+			<cfset locality="">
 			<cfset dec_long=0>
 			<cfset dec_long=0>
 			<cfif mrel.recordcount gt 0>				
@@ -477,7 +479,8 @@
 						<cfelse>
 							<cfset kw=""&scientific_name>
 						</cfif>
-					<cfelseif #rel_type# is "collecting_event">					
+					<cfelseif #rel_type# is "collecting_event">		
+						<cfset coll_event_id=#related_primary_key#>			
 						<cfset locality = replace(#summary#,"[:\(]",";")>
 						<cfset locality = replace(#summary#, "\)", "")>
 						
@@ -486,24 +489,15 @@
 						<cfelse>
 							<cfset kw=""&locality>
 						</cfif>
-						
-						<!-- query lat/long for inputting to map -->
-						<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							select dec_lat, dec_long
-							from collecting_event, lat_long
-							where collecting_event.collecting_event_id=#related_primary_key#
-								and collecting_event.locality_id=lat_long.locality_id
-						</cfquery>
-						
-						<cfset dec_lat=#d.dec_lat#>
-						<cfset dec_long=#d.dec_long#>
+
 					</cfif>
 				</cfloop>		
 				
+				<!-- If can't find a collecting event, try to find one through available cataloged item -->		
 				<cfif len(locality) eq 0 && coll_obj_id gt 0>
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
-							higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data 
+							higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data , collecting_event_id
 						from 
 							collecting_event,
 							locality, 
@@ -517,6 +511,7 @@
 					</cfquery>
 					
 					<cfset locality = #d.data#>
+					<cfset coll_event_id=#d.collecting_event_id#>
 					<cfset locality = replace(#locality#,"[:\(]",";")>
 					<cfset locality = replace(#locality#, "\)", "")>
 					
@@ -526,35 +521,48 @@
 						<cfset kw=""&locality>
 					</cfif>
 				</cfif>
+									
+				<!-- query lat/long for inputting to map -->
+				<cfif coll_event_id gt 0>
+					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select dec_lat, dec_long
+						from collecting_event, lat_long
+						where collecting_event.collecting_event_id=#coll_event_id#
+							and collecting_event.locality_id=lat_long.locality_id
+					</cfquery>
+					
+					<cfset dec_lat=#d.dec_lat#>
+					<cfset dec_long=#d.dec_long#>
+				</cfif>
 			</cfif>
 			
 			<!-- Grid Display -->
-			<table>
-				<tr>
-					<td align="middle">
-						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
-					</td>
-					<td>#media_type#</td> 
-					<td><a href="#media_details_url#" target="_blank">Details</a></td>
-					<td><a href="#media_uri#" target="_blank">Download</a></td>
-					<td>					
-						<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
-							<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
-							<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
-							<cfset iu=iu & "&maptype=roadmap">
-							<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#" target="_blank">
-								<img src="#iu#" alt="Google Map">
-							</a>
-						</cfif>
-					</td>
-					<td>							
-						<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
-								<strong>Keywords:</strong> #kw#
-						</div>
-					</td>
+			<!-- <table>
+				<tr> -->
+			<td align="middle">
+				<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
+			</td>
+			<td>#media_type#</td> 
+			<td><a href="#media_details_url#" target="_blank">Details</a></td>
+			<td><a href="#media_uri#" target="_blank">Download</a></td>
+			<td>					
+				<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
+					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
+					<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+					<cfset iu=iu & "&maptype=roadmap">
+					<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#" target="_blank">
+						<img src="#iu#" alt="Google Map">
+					</a>
+				</cfif>
+			</td>
+			<td>							
+				<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
+						<strong>Keywords:</strong> #kw#
+				</div>
+			</td>
 			
-				</tr>
-			</table>
+			<!--	</tr>
+			</table> -->
 		
 			<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) n from tag where media_id=#media_id#
