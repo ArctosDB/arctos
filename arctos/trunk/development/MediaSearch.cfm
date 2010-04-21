@@ -527,12 +527,13 @@
 					</cfif>
 				</cfif>
 			</cfif>
+			
+			<!-- Grid Display -->
 			<table>
 				<tr>
 					<td align="middle">
 						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
 					</td>
-					<!--<td>#media_id#</td>-->
 					<td>#media_type#</td> 
 					<td><a href="#media_details_url#" target="_blank">Details</a></td>
 					<td><a href="#media_uri#" target="_blank">Download</a></td>
@@ -551,98 +552,10 @@
 								<strong>Keywords:</strong> #kw#
 						</div>
 					</td>
-					
-					<!--<td>						
-						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
-							<cfif isdefined("keyword") and len(keyword) gt 0>
-								<cfset kwds=kw.keywords>
-								<cfloop list="#keyword#" index="k" delimiters=",;: ">
-									<cfset kwds=highlight(kwds,k)>
-								</cfloop>
-							<cfelse>
-								<cfset kwds=kw.keywords>
-							</cfif>
-							<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
-								<strong>Keywords:</strong> #kwds#
-							</div>
-						</cfif>
-					</td>-->
-					
-					<!--<td>
-						<cfif len(#agent_name#) gt 0>
-							#agent_name#
-						<cfelse>
-							No related agent
-						</cfif>
-					</td>
-					<td>
-						<cfif len(#cat_item_url#) gt 0>
-							<a href="#cat_item_url#" target= "_blank">#cat_item_sum#</a>
-						<cfelse>
-							No related specimen
-						</cfif>
-					</td>
-					<td>
-						<cfif len(#project_url#) gt 0>
-							<a href="#project_url#" target= "_blank">#project_sum#</a>
-						<cfelse>
-							No related project
-						</cfif>
-					</td>
-					<td>date</td> -->
+			
 				</tr>
 			</table>
-			<!--
-            <table>
-				<tr> 
-					<td align="middle">
-						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
-						<br><span style='font-size:small'>#media_type#&nbsp;(#mime_type#)</span>
-					</td>
-					<td>
-						<cfif len(desc.label_value) gt 0>
-							<ul><li>#desc.label_value#</li></ul>
-						</cfif>
-						<cfif labels.recordcount gt 0>
-							<ul>
-								<cfloop query="labels">
-									<li>
-										#media_label#: #label_value#
-									</li>
-								</cfloop>
-							</ul>
-						</cfif>
-						<cfset mrel=getMediaRelations(#media_id#)>
-						<cfif mrel.recordcount gt 0>
-							<ul>
-							<cfloop query="mrel">
-								<li>#media_relationship#  
-				                    <cfif len(#link#) gt 0>
-				                        <a href="#link#" target="_blank">#summary#</a>
-				                    <cfelse>
-										#summary#
-									</cfif>
-				                </li>
-							</cfloop>
-							</ul>
-						</cfif>
-						<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
-							<cfif isdefined("keyword") and len(keyword) gt 0>
-								<cfset kwds=kw.keywords>
-								<cfloop list="#keyword#" index="k" delimiters=",;: ">
-									<cfset kwds=highlight(kwds,k)>
-								</cfloop>
-							<cfelse>
-								<cfset kwds=kw.keywords>
-							</cfif>
-							<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
-								<strong>Keywords:</strong> #kwds#
-							</div>
-						</cfif>
-					</td>
-				</tr>
-			</table>
-			-->
+		
 			<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) n from tag where media_id=#media_id#
 			</cfquery>
