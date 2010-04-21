@@ -1,5 +1,25 @@
 <cfcomponent>
-	
+<cffunction name="getGuidByPartBarcode" access="remote">
+	<cfargument name="barcode" type="any" required="yes">
+	<cfquery name="d" datasource="uam_god">
+		select 
+			guid 
+		from 
+			flat,
+			specimen_part,
+			coll_obj_cont_hist,
+			container p,
+			container c 
+		where 
+			flat.collection_object_id=specimen_part.derived_from_cat_item and
+			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+			coll_obj_cont_hist.container_id=p.container_id and
+			p.parent_container_id=c.container_id and
+			c.barcode in (#ListQualify(barcode, "'")#)
+	</cfquery>
+	<cfreturn d>
+</cffunction>
+
 <cffunction name="getMediaByFilename" access="remote">
 	<cfargument name="filename" type="any" required="yes">
 	<cfquery name="d" datasource="uam_god">
