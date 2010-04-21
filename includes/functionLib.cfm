@@ -35,6 +35,8 @@
 				<cfreturn "/images/audioNoThumb.png">
 			<cfelseif mt is "text">
 				<cfreturn "/images/documentNoThumb.png">
+			<cfelseif mt is "multi-page document">
+				<cfreturn "/images/document_thumbnail.png">
 			<cfelse>
 				<cfreturn "/images/noThumb.jpg">
 			</cfif>
