@@ -503,7 +503,7 @@
 				<cfif len(locality) eq 0 && coll_obj_id gt 0>
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
-							higher_geog || ': ' || specific_locality || ' (' || verbatim_date || ')' data 
+							higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data 
 						from 
 							collecting_event,
 							locality, 
