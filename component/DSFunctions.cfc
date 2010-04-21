@@ -3,6 +3,7 @@
 	<cfargument name="barcode" type="any" required="yes">
 	<cfquery name="d" datasource="uam_god">
 		select 
+			c.barcode,
 			guid 
 		from 
 			flat,
