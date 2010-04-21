@@ -442,10 +442,13 @@
 			<cfset agent_name="">
 			<cfset cat_item_url="">
 			<cfset cat_item_sum="">
+			<cfset coll_obj_id=0>
 			<cfset scientific_name="">
 			<cfset higherGeog="">
 			<cfset specLoc="">
 			<cfset kw="">
+			<cfset dec_long=0>
+			<cfset dec_long=0>
 			<cfif mrel.recordcount gt 0>				
 				<cfloop query="mrel">
 					<cfif #rel_type# is "agent">
@@ -459,11 +462,13 @@
 					<cfelseif #rel_type# is "cataloged_item">
 						<cfset cat_item_url=#link#>
 						<cfset cat_item_sum=#summary#>
+						<cfset coll_obj_id=#related_primary_key#>
 						
+						<!-- extract the scientific name -->
 						<cfset begPos = find('(', cat_item_sum)>
 						
 						<cfif begPos gt 0>
-							<cfset endPos = find(')', cat_item_sum>
+							<cfset endPos = find(')', cat_item_sum)>
 							<cfset scientific_name=mid(cat_item_sum,begPos+1, endPos-begPos)>
 						</cfif>
 						
@@ -481,8 +486,46 @@
 						<cfelse>
 							<cfset kw=""&locality>
 						</cfif>
+						
+						<!-- query lat/long for inputting to map -->
+						<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							select dec_lat, dec_long
+							from collecting_event, lat_long
+							where collecting_event.collecting_event_id=#related_primary_key#
+								and collecting_event.locality_id=lat_long.locality_id
+						</cfquery>
+						
+						<cfset dec_lat=#d.dec_lat#>
+						<cfset dec_long=#d.dec_long#>
 					</cfif>
-				</cfloop>			
+				</cfloop>		
+				
+				<cfif len(locality) eq 0 && coll_obj_id gt 0>
+					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select 
+							higher_geog || ': ' || specific_locality || ' (' || verbatim_date || ')' data 
+						from 
+							collecting_event,
+							locality, 
+							geog_auth_rec,
+							cataloged_item
+						where 
+							collecting_event.locality_id=locality.locality_id and
+							locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+							collecting_event.collecting_event_id=cataloged_item.collecting_event_id and
+							cataloged_item.collection_object_id=#coll_obj_id#
+					</cfquery>
+					
+					<cfset locality = #d.data#>
+					<cfset locality = replace(#locality#,"[:\(]",";")>
+					<cfset locality = replace(#locality#, "\)", "")>
+					
+					<cfif len(kw) gt 0>
+						<cfset kw= kw &"; " & locality>
+					<cfelse>
+						<cfset kw=""&locality>
+					</cfif>
+				</cfif>
 			</cfif>
 			<table>
 				<tr>
@@ -493,7 +536,16 @@
 					<td>#media_type#</td> 
 					<td><a href="#media_details_url#" target="_blank">Details</a></td>
 					<td><a href="#media_uri#" target="_blank">Download</a></td>
-					<td>Map</td>
+					<td>					
+						<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
+							<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
+							<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+							<cfset iu=iu & "&maptype=roadmap">
+							<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#" target="_blank">
+								<img src="#iu#" alt="Google Map">
+							</a>
+						</cfif>
+					</td>
 					<td>							
 						<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
 								<strong>Keywords:</strong> #kw#
