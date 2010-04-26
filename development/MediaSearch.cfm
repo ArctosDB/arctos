@@ -378,7 +378,7 @@
 					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>
 				</cfif> 
 				
-				<cfset start_page=((roundDown(URL.offset/100)*100)/Result_Per_Page)+1>
+				<cfset start_page=((int(URL.offset/100)*100)/Result_Per_Page)+1>
 				<cfset end_page=min(start_page+9,Total_Pages)>
 				
 				<cfloop index="i" from="#start_page#" to="#end_page#"> 
