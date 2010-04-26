@@ -461,7 +461,7 @@
 			<cfset cat_item_url="">
 			<cfset cat_item_sum="">
 			<cfset coll_obj_id=0>
-			<cfset coll_event_id>
+			<cfset coll_event_id=0>
 			<cfset scientific_name="">
 			<cfset higherGeog="">
 			<cfset specLoc="">
