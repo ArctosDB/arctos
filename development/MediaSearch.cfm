@@ -370,12 +370,12 @@
 
 				<cfif URL.offset gt 10*Result_Per_Page>
 					<cfset prev_link=URL.offset-1-(10*Result_Per_Page)> 
-					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV 10</a>
+					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV 10&nbsp&nbsp&nbsp&nbsp&nbsp</a>
 				</cfif>
 				
 				<cfif URL.offset GT Result_Per_Page> 
 					<cfset prev_link=URL.offset-Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>
+					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV&nbsp&nbsp&nbsp&nbsp&nbsp</a>
 				</cfif> 
 				
 				<cfset start_page=((int(URL.offset/100)*100)/Result_Per_Page)+1>
@@ -393,12 +393,12 @@
 								
 				<cfif limit LT Total_Records> 
 					<cfset next_link=URL.offset+Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a>
+					<a href="#cgi.script_name#?offset=#next_link#&#q#">&nbsp&nbsp&nbsp&nbsp&nbspNEXT</a>
 				</cfif>
 				
 				<cfif end_page lt Total_Pages>
 					<cfset next_link=(end_page*Result_Per_Page)> 
-					<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT 10</a>
+					<a href="#cgi.script_name#?offset=#next_link#&#q#">&nbsp&nbsp&nbsp&nbsp&nbspNEXT 10</a>
 				</cfif>
 				
 			</cfif>
@@ -410,14 +410,13 @@
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 <table>
 	<!-- Results Table Header -->
-	<tr><b>
-		<td>Media Preview</td>
-		<td>Mime Type</td>
-		<td>Details</td>
-		<td>Download</td>
-		<td>Map</td>
-		<td>Related Keywords</td>
-		</b>
+	<tr>
+		<td><strong>Media Preview</strong></td>
+		<td><strong>Mime Type</strong></td>
+		<td><strong>Details</strong></td>
+		<td><strong>Download</strong></td>
+		<td><strong>Map</strong></td>
+		<td><strong>Related Keywords</strong></td>		
 	</tr>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -578,7 +577,7 @@
 				<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
 						<strong>Keywords:</strong> #kw#
 				</div>
-			</td>
+			
 			
 			<!--	</tr>
 			</table> -->
@@ -656,6 +655,7 @@
 					<div class="thumb_spcr">&nbsp;</div>
 				</div>
 			</cfif>
+			</td>
 		<!-- </td> -->
 	</tr>
 	<cfset rownum=rownum+1>
