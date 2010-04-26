@@ -579,6 +579,12 @@
 	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
+<cffunction name="roundDown" output="no">
+    <cfargument name="target" type="numeric" required="true"/>
+    <cfreturn (round((arguments.target * -1))) * -1/>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
+
 <cfscript>
     /**
         * Returns a random hexadecimal color    
