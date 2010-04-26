@@ -409,14 +409,15 @@
 	<cfset rownum=1>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 <table>
-	<!-- Header -->
-	<tr>
+	<!-- Results Table Header -->
+	<tr><b>
 		<td>Media Preview</td>
 		<td>Mime Type</td>
 		<td>Details</td>
 		<td>Download</td>
 		<td>Map</td>
 		<td>Related Keywords</td>
+		</b>
 	</tr>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -515,7 +516,7 @@
 				<cfif len(locality) eq 0 && coll_obj_id gt 0>
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
-							higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data , collecting_event_id
+							higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data , collecting_event.collecting_event_id id
 						from 
 							collecting_event,
 							locality, 
@@ -529,7 +530,7 @@
 					</cfquery>
 					
 					<cfset locality = #d.data#>
-					<cfset coll_event_id=#d.collecting_event_id#>
+					<cfset coll_event_id=#d.id#>
 					<cfset locality = replace(#locality#,"[:\(]",";")>
 					<cfset locality = replace(#locality#, "\)", "")>
 					
@@ -560,10 +561,10 @@
 			<td align="middle">
 				<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
 			</td>
-			<td>#media_type#</td> 
-			<td><a href="#media_details_url#" target="_blank">Details</a></td>
-			<td><a href="#media_uri#" target="_blank">Download</a></td>
-			<td>					
+			<td align="middle">#media_type#</td> 
+			<td align="middle"><a href="#media_details_url#" target="_blank">Details</a></td>
+			<td align="middle"><a href="#media_uri#" target="_blank">Download</a></td>
+			<td align="middle">					
 				<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
 					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
 					<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
@@ -573,7 +574,7 @@
 					</a>
 				</cfif>
 			</td>
-			<td>							
+			<td align="middle">							
 				<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
 						<strong>Keywords:</strong> #kw#
 				</div>
