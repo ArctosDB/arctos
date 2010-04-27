@@ -52,9 +52,7 @@
 						</select>
 					</td>
 					<td>
-						<input type="submit" 
-							value="Create" 
-							class="insBtn">	
+						<input type="submit" value="Create" class="insBtn">	
 					</td>
 				</tr>
 			</form>
@@ -69,22 +67,15 @@
 				</tr>
 				<cfset i=1>
 				<cfloop query="thisRec">
-					<form name="att#i#" method="post" action="CodeTableEditor.cfm">
-						<input type="hidden" name="action" value="">
-						<input type="hidden" name="tbl" value="#tbl#">
+					<form name="att#i#" method="post" action="ctspec_part_att_att.cfm">
+						<input type="hidden" name="action" value="update">
 						<input type="hidden" name="oldAttribute_type" value="#Attribute_type#">
 						<input type="hidden" name="oldvalue_code_table" value="#value_code_table#">
 						<input type="hidden" name="oldunit_code_table" value="#unit_code_table#">
 						<tr>
 							<td>
-								<cfset thisAttType = #thisRec.attribute_type#>
-									<select name="attribute_type" size="1">
-										<option value=""></option>
-										<cfloop query="ctAttribute_type">
-										<option 
-													<cfif #thisAttType# is "#ctAttribute_type.attribute_type#"> selected </cfif>value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
-										</cfloop>
-									</select>
+								<input type="hidden" name="attribute_type" value="#thisRec.attribute_type#">
+								#attribute_type#
 							</td>
 							<td>
 								<cfset thisValueTable = #thisRec.value_code_table#>
@@ -122,5 +113,18 @@
 			</cfloop>
 		</table>
 	</cfoutput>
+</cfif>
+<cfif action is "newValue">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		insert into ctspec_part_att_att (
+    		attribute_type,
+			VALUE_code_table,
+			unit_code_table
+		) values (
+			'#attribute_type#',
+			'#value_code_table#',
+			'#unit_code_table#'
+		)
+	</cfquery>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
