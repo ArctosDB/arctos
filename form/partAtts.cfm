@@ -43,7 +43,7 @@
 	
 	<hr>
 	<form name="f">
-		<input type="partID" id="partID" value="partID">
+		<input type="hidden" name="partID" id="partID" value="#partID#">
 	<table border>
 		<tr>
 			<th>Attribute</th>
