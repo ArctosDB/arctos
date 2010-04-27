@@ -18,7 +18,7 @@
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is not "description" and i is not "collection_cde">
 				<cfquery name="r" dbtype="query">
-					selet #i# from d order by #i#
+					select #i# from d order by #i#
 				</cfquery>
 			</cfif>
 		</cfloop>
