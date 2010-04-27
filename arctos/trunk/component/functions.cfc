@@ -2,6 +2,7 @@
 
 <cffunction name="getPartAttOptions" access="remote">
 	<cfargument name="patype" type="string" required="yes">
+	<cfoutput>
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ctspec_part_att_att where attribute_type='#patype#'
 	</cfquery>
@@ -35,6 +36,7 @@
 	<cfelse>
 		<cfreturn "no control">
 	</cfif>
+	</cfoutput>
 </cffunction>
 
 <cffunction name="deleteCtPartName" access="remote">
