@@ -19,7 +19,7 @@
 				<th>unit Code Table</th>
 				<th>&nbsp;</th>
 			</tr>
-			<form method="post" action="f_ctspec_part_att_att.cfm">
+			<form method="post" action="ctspec_part_att_att.cfm">
 				<input type="hidden" name="action" value="newValue">
 				<tr>
 					<td>				
