@@ -19,7 +19,15 @@ function setPartAttOptions(id,patype) {
 					console.log(d);
 		  			$('#' + theElem).replaceWith(d);
 				} else if (data.TYPE=='value') {
-					$('#' + theElem).remove();
+					var theElem='attribute_value_' + id;
+					var theVals=data.VALUES.split(',');
+					var d='<select name="' + theElem + '" id="' + theElem + '">';
+		  			for (a=0; a<theVals.length; ++a) {
+						d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
+					}
+		  			d+="</select>";
+					console.log(d);
+		  			$('#' + theElem).replaceWith(d);
 				} else {
 					
 				}
