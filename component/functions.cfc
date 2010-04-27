@@ -13,14 +13,17 @@
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is not "description" and i is not "collection_cde">
 				<cfquery name="r" dbtype="query">
-					select #i# d from d order by #i#
+					select 'value' type, #i# d from d order by #i#
 				</cfquery>
 			</cfif>
 		</cfloop>
+		<!---
 		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"value","COLUMNS":["D"],"DATA":{"D":['>
 		<cfset vals=listqualify(valuelist(r.d),'"')>
 		<cfset rStr=rStr & vals & ']}}'>
 		<cfreturn SerializeJSON(rStr)>
+		--->
+		<cfreturn r>
 	<cfelseif len(k.unit_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #k.unit_code_table#
@@ -28,14 +31,19 @@
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is not "description" and i is not "collection_cde">
 				<cfquery name="r" dbtype="query">
-					select #i# d from d order by #i#
+					select 'unit' type, #i# d from d order by #i#
 				</cfquery>
 			</cfif>
 		</cfloop>
+		
+				<cfreturn r>
+<!---
 		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"units","COLUMNS":["D"],"DATA":{"D":['>
 		<cfset vals=listqualify(valuelist(r.d),'"')>
 		<cfset rStr=rStr & vals & ']}}'>
 		<cfreturn SerializeJSON(rStr)>
+		
+		--->
 	<cfelse>
 		<cfset rStr='{"ROWCOUNT":0,"CONTROLTYPE":"none"}'>
 		<cfreturn SerializeJSON(rStr)>
