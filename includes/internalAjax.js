@@ -10,7 +10,13 @@ function setPartAttOptions(id,patype) {
 				console.log(cType);
 				if (data.TYPE=='unit') {
 					var theElem='attribute_units_' + id;
-					$('#' + theElem).remove();
+					var theVals=data.VALUES.split(',');
+					var d='<select name="' + theElem + '" id="' + theElem + '">';
+		  			for (a=0; a<theVals.length; ++a) {
+						d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
+					}
+					console.log(d);
+		  			//$('#' + theElem).remove();
 				} else if (data.TYPE=='value') {
 					$('#' + theElem).remove();
 				} else {
