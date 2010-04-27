@@ -26,7 +26,7 @@
 		<cfdump var="#r#">
 		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"units","COLUMNS":["DV"],"DATA":{"DV":['>
 		<cfloop query="r">
-			<cfset vals=valuelist(rStr.#cName#)>
+			<cfset vals=valuelist(evaluate("rStr." & cName))>
 		</cfloop>
 		<cfset vals=listqualify(vals,'"')>
 		<cfset rStr=rStr & vals & ']}}'>
