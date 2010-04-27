@@ -15,7 +15,14 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #k.unit_code_table#
 		</cfquery>
-		<cfdump var=#d#>
+		<cfloop list="#d.columnlist#" index="i">
+			<cfif i is not "description" and i is not "collection_cde">
+				<cfquery name="r" dbtype="query">
+					selet #i# from d order by #i#
+				</cfquery>
+			</cfif>
+		</cfloop>
+		<cfdump var="#r#">
 		<cfreturn d>
 	<cfelse>
 		<cfreturn "no control">
