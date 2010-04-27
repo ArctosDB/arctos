@@ -29,7 +29,8 @@
 			<option value="#attribute_type#">#attribute_type#</option>
 		</cfloop>
 	</select>
-	<label for="attribute_value_new">Attribute Value</label>
+	<div id='pattr_new'></div>
+	
 	<input type="text" id="attribute_value_new" name="attribute_value_new">
 	<label for="attribute_units_new">Attribute Units</label>
 	<input type="text" id="attribute_units_new" name="attribute_units_new">
