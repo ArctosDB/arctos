@@ -16,7 +16,7 @@
 			<tr>
 				<th>Attribute</th>
 				<th>Value Code Table</th>
-				<th>Units Code Table</th>
+				<th>unit Code Table</th>
 				<th>&nbsp;</th>
 			</tr>
 			<form method="post" action="f_ctspec_part_att_att.cfm">
@@ -42,8 +42,8 @@
 						</select>			
 					</td>
 					<td>
-						<cfset thisUnitsTable = #thisRec.units_code_table#>
-						<select name="units_code_table" size="1">
+						<cfset thisunitTable = #thisRec.unit_code_table#>
+						<select name="unit_code_table" size="1">
 							<option value="">none</option>
 							<cfloop query="allCTs">
 							<option 
@@ -64,7 +64,7 @@
 				<tr>
 					<th>Attribute</th>
 					<th>Value Code Table</th>
-					<th>Units Code Table</th>
+					<th>unit Code Table</th>
 					<th>&nbsp;</th>
 				</tr>
 				<cfset i=1>
@@ -74,7 +74,7 @@
 						<input type="hidden" name="tbl" value="#tbl#">
 						<input type="hidden" name="oldAttribute_type" value="#Attribute_type#">
 						<input type="hidden" name="oldvalue_code_table" value="#value_code_table#">
-						<input type="hidden" name="oldunits_code_table" value="#units_code_table#">
+						<input type="hidden" name="oldunit_code_table" value="#unit_code_table#">
 						<tr>
 							<td>
 								<cfset thisAttType = #thisRec.attribute_type#>
@@ -97,12 +97,12 @@
 								</select>
 							</td>
 							<td>
-								<cfset thisUnitsTable = #thisRec.units_code_table#>
-								<select name="units_code_table" size="1">
+								<cfset thisunitTable = #thisRec.unit_code_table#>
+								<select name="unit_code_table" size="1">
 									<option value="">none</option>
 									<cfloop query="allCTs">
 									<option 
-									<cfif #thisUnitsTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
+									<cfif #thisunitTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
 									</cfloop>
 								</select>
 							</td>
