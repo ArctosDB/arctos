@@ -11,14 +11,15 @@ function setPartAttOptions(id,patype) {
 				var valElem='attribute_value_' + id;
 				var unitElem='attribute_units_' + id;
 				if (data.TYPE=='unit') {
-					var dv='<input type="text" name="' + valElem + '" id="' + valElem + '">';
-					$('#v_' + id).html(dv);
+					var d='<input type="text" name="' + valElem + '" id="' + valElem + '">';
+					$('#v_' + id).html(d);
 					var theVals=data.VALUES.split(',');
 					var d='<select name="' + unitElem + '" id="' + unitElem + '">';
 		  			for (a=0; a<theVals.length; ++a) {
 						d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
 					}
 		  			d+="</select>";
+		  			console.log(d);
 		  			$('#u_' + id).html(d);
 				} else if (data.TYPE=='value') {
 					var theVals=data.VALUES.split(',');
