@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
+<script type='text/javascript' language="javascript" src='/includes/internalAjax.js'></script>
+
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
