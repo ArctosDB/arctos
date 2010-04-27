@@ -24,7 +24,7 @@
 			</cfif>
 		</cfloop>
 		<cfdump var="#r#">
-		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"units",#"COLUMNS":["DV"],"DATA":{"DV":['>
+		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"units","COLUMNS":["DV"],"DATA":{"DV":['>
 		<cfloop query="r">
 			<cfset vals=valuelist(rStr.#cName#)>
 		</cfloop>
