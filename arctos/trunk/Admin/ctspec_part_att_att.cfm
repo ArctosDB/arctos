@@ -126,5 +126,6 @@
 			'#unit_code_table#'
 		)
 	</cfquery>
+	<cflocation addtoken="false" url="ctspec_part_att_att.cfm">
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
