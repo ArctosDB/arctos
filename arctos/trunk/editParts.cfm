@@ -136,7 +136,7 @@
 							newPart.coll_object_remarks.value='#coll_object_remarks#';">	
 				</td>
 			</tr>
-			<tr>
+			<tr bgcolor="#bgc#">
 				<td colspan="8">
 					attributes
 				</td>
