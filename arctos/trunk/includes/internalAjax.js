@@ -3,14 +3,15 @@ function mgPartAtts(partID) {
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
 	bgDiv.setAttribute('onclick','closePartAtts()');
-	document.body.appendChild(bgDiv);
+	$(window.parent.document).append(bgDiv);
+	//document.body.appendChild(bgDiv);
 	
 	var theDiv = document.createElement('div');
 	theDiv.id = 'partsAttDiv';
 	theDiv.className = 'annotateBox';
 	theDiv.innerHTML='';
 	theDiv.src = "";
-	$(window.parent.document).append(theDiv);
+	
 	//parent.document.appendChild(theDiv);
 	var guts = "/form/partAtts.cfm?partID=" + partID;
 	jQuery('#partsAttDiv').load(guts,{},function(){
