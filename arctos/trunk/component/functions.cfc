@@ -15,6 +15,7 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #k.unit_code_table#
 		</cfquery>
+		<cfdump var=#d#>
 		<cfreturn d>
 	<cfelse>
 		<cfreturn "no control">
