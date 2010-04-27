@@ -20,7 +20,7 @@
 		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"value","COLUMNS":["D"],"DATA":{"D":['>
 		<cfset vals=listqualify(valuelist(r.d),'"')>
 		<cfset rStr=rStr & vals & ']}}'>
-		<cfreturn rStr>
+		<cfreturn SerializeJSON(rStr)>
 	<cfelseif len(k.unit_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #k.unit_code_table#
@@ -35,10 +35,10 @@
 		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"units","COLUMNS":["D"],"DATA":{"D":['>
 		<cfset vals=listqualify(valuelist(r.d),'"')>
 		<cfset rStr=rStr & vals & ']}}'>
-		<cfreturn rStr>
+		<cfreturn SerializeJSON(rStr)>
 	<cfelse>
 		<cfset rStr='{"ROWCOUNT":0,"CONTROLTYPE":"none"}'>
-		<cfreturn rStr>
+		<cfreturn SerializeJSON(rStr)>
 	</cfif>
 	</cfoutput>
 </cffunction>
