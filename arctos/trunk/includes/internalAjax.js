@@ -34,8 +34,7 @@ function setPartAttOptions(id,patype) {
 					$('#' + theDiv).append(vLbl).append(d);
 				} else {
 					var dv='<input type="text" name="' + valElem + '" id="' + valElem + '">';
-					var d='<input type="text" name="' + unitElem + '" id="' + unitElem + '">';
-					$('#' + theDiv).append(vLbl).append(dv).append(uLbl).append(d);
+					$('#' + theDiv).append(vLbl).append(dv);
 				}
 				/*
 				=parseInt(document.getElementById('numAgents').value)+1;
