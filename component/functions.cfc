@@ -43,7 +43,7 @@
 		<cfset vals=listqualify(valuelist(r.d),'"')>
 		<cfset rStr=rStr & vals & ']}}'>
 		--->
-		<cfreturn SerializeJSON(rA)>
+		<cfreturn rA>
 		
 	<cfelse>
 		<cfset rStr='{"ROWCOUNT":0,"CONTROLTYPE":"none"}'>
