@@ -17,7 +17,7 @@ function saveNewPartAtt () {
 		}
 	);
 }
-function setPartAttOptions(id,patype) {
+function setPartAttOptions(id,patype,vVal,uVal) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getPartAttOptions",
@@ -30,27 +30,35 @@ function setPartAttOptions(id,patype) {
 			var valElem='attribute_value_' + id;
 			var unitElem='attribute_units_' + id;
 			if (data.TYPE=='unit') {
-				var d='<input type="text" name="' + valElem + '" id="' + valElem + '">';
+				var d='<input type="text" name="' + valElem + '" id="' + valElem + '" value="' + vVal + '">';
 				$('#v_' + id).html(d);
 				var theVals=data.VALUES.split(',');
 				var d='<select name="' + unitElem + '" id="' + unitElem + '">';
 	  			for (a=0; a<theVals.length; ++a) {
-					d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
+					d+='<option ';
+					if(theVals==uVal){
+						d+=' selected="selected" ';
+					}
+					d+='value="' + theVals[a] + '">'+ theVals[a] +'</option>';
 				}
 	  			d+="</select>";
 	  			console.log(d);
 	  			$('#u_' + id).html(d);
 			} else if (data.TYPE=='value') {
 				var theVals=data.VALUES.split(',');
-				var d='<select name="' + valElem + '" id="' + valElem + '">';
+				var d='<select name="' + valElem + '" id="' + valElem + '" value="' + vVal + '">';
 	  			for (a=0; a<theVals.length; ++a) {
-					d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
+					d+='<option ';
+					if(theVals==vVal){
+						d+=' selected="selected" ';
+					}
+					d+='value="' + theVals[a] + '">'+ theVals[a] +'</option>';
 				}
 	  			d+="</select>";
 	  			$('#v_' + id).html(d);
 				$('#u_' + id).html('');
 			} else {
-				var dv='<input type="text" name="' + valElem + '" id="' + valElem + '">';
+				var dv='<input type="text" name="' + valElem + '" id="' + valElem + '" value="' + vVal + '">';
 				$('#v_' + id).html(dv);
 				$('#u_' + id).html('');
 			}

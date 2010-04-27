@@ -56,8 +56,8 @@
 		<cfloop query="pAtt">
 			<tr id="r_#part_attribute_id#">
 				<td>#attribute_type#</td>
-				<td>#attribute_value#</td>
-				<td>#attribute_units#</td>
+				<td id="v_#part_attribute_id#">#attribute_value#</td>
+				<td id="u_#part_attribute_id#">#attribute_units#</td>
 				<td>#determined_date#</td>
 				<td>#determined_by_agent_id#</td>
 				<td>#attribute_remark#</td>
