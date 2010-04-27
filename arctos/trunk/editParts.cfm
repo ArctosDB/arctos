@@ -136,6 +136,11 @@
 							newPart.coll_object_remarks.value='#coll_object_remarks#';">	
 				</td>
 			</tr>
+			<tr>
+				<td colspan="8">
+					attributes
+				</td>
+			</tr>
 			<cfset i = #i#+1>
      </cfif><!---- end of the list ---->
 </cfloop>
