@@ -8,6 +8,14 @@ function setPartAttOptions(id,patype) {
 			function (data) {
 				var cType=data.TYPE;
 				console.log(cType);
+				if (data.TYPE=='unit') {
+					var theElem='attribute_units_' + id;
+					$('#' + theElem).remove();
+				} else if (data.TYPE=='value') {
+					$('#' + theElem).remove();
+				} else {
+					
+				}
 				/*
 				=parseInt(document.getElementById('numAgents').value)+1;
 				var d='<tr><td>';
