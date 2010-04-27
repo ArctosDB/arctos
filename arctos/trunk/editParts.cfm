@@ -1,4 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+<script type='text/javascript' language="javascript" src='/includes/internalAjax.js'></script>
 
 
 <cfif action is "nothing">
