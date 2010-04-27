@@ -154,6 +154,7 @@
 				<td colspan="8">
 					<cfdump var="#pAtt#">
 				</td>
+				<td>add attribute</td>
 			</tr>
 			<cfset i = i+1>
      </cfif><!---- end of the list ---->
