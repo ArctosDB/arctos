@@ -48,6 +48,7 @@ create table tacc_check (
 				tacc_check
 			where
 				collection_object_id is null
+			and status is null
 	</cfquery>
 	<cfloop query="data">
 		<cfquery name="bc" datasource="uam_god">

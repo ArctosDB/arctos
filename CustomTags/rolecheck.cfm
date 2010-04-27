@@ -17,6 +17,7 @@
 			Form #escapeGoofyInstall# needs some control. 
 			Found by #session.username# (#cgi.HTTP_X_Forwarded_For# - #remote_host#)
 		</cfmail>
+		<cfheader statuscode="403" statustext="Forbidden">
 		<cfabort>
 	<cfelseif valuelist(isValid.role_name) is not "public">
 		<cfloop query="isValid">
@@ -97,6 +98,7 @@
 			</td>
 		</tr>
 		</table>
+		<cfheader statuscode="403" statustext="Forbidden">
 		<cfabort>
 	</cfif>
 </cfoutput>

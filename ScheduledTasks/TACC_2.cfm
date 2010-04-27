@@ -47,10 +47,31 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 			and rownum<10000
 	</cfquery>
 	<cfloop query="data">
+		<cfset go=false>
 		<cfquery name="izaplant" datasource="uam_god">
 			select collection_id from cataloged_item where collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfif izaplant.collection_id is 6>
+			<cfset go=true>
+		<cfelse><!--- not a plant --->
+			<cfset go=false>
+			<cfquery name="izaplant" datasource="uam_god">
+				update tacc_check set status='not_a_plant' where collection_object_id=#collection_object_id#
+			</cfquery>
+		</cfif>
+		<cfquery name="izadup" datasource="uam_god">
+			select count(*) c from media where media_uri like '%#barcode#.dng'
+		</cfquery>
+		<cfif izadup.c is 0>
+			<cfset go=true>
+		<cfelse><!--- not a plant --->
+			<cfset go=false>
+			<cfquery name="izaplant" datasource="uam_god">
+				update tacc_check set status='duplicate_barcode' where barcode='#barcode#'
+			</cfquery>
+		</cfif>
+		
+		<cfif go is true>
 			<cfquery name="ixrel" datasource="uam_god">
 				select count(*) c from biol_indiv_relations where related_coll_object_id = #collection_object_id#
 			</cfquery>
@@ -150,10 +171,6 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 					update tacc_check set status='in_relations' where collection_object_id=#collection_object_id#
 				</cfquery>
 			</cfif><!--- in rel --->
-		<cfelse><!--- not a plant --->
-			<cfquery name="izaplant" datasource="uam_god">
-				update tacc_check set status='not_a_plant' where collection_object_id=#collection_object_id#
-			</cfquery>
 		</cfif><!--- not a plant --->
 	</cfloop>
 </cfoutput>

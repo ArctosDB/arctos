@@ -29,8 +29,6 @@
 		</select>
 		<label for="upAllTiss">
 			Update is_tissue for all parts, regardless of collection, to this value?<br>
-			Note: This does not change existing data, only the defaul for new entries
-			where is_tissue is not specified.
 		</label>
 		<select name="upAllTiss">
 			<option selected="selected" value="0">Just this one please</option>
