@@ -31,9 +31,6 @@
 	</select>
 	<div id='pattr_new'></div>
 	
-	<input type="text" id="attribute_value_new" name="attribute_value_new">
-	<label for="attribute_units_new">Attribute Units</label>
-	<input type="text" id="attribute_units_new" name="attribute_units_new">
 	
 			part_attribute_id NUMBER NOT NULL,
     collection_object_id NUMBER NOT NULL,
