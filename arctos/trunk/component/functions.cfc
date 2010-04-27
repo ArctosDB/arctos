@@ -1,14 +1,4 @@
-<cfcomponent>
-method : "",
-			returnformat : "json",
-			attribute_type: $('attribute_type_new').val(),
-			: $('attribute_value_new').val(),
-			attribute_units: $('attribute_units_new').val(),
-			determined_date: $('determined_date_new').val(),
-			determined_by_agent_id: $('determined_id_new').val(),
-			attribute_remark: $('attribute_remark_new').val()
-			
-			
+<cfcomponent>		
 
 <cffunction name="saveNewPartAtt" access="remote">
 	<cfargument name="attribute_type" type="string" required="yes">
