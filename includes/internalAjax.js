@@ -6,7 +6,7 @@ function setPartAttOptions(id,patype) {
 				patype      : patype
 			},
 			function (data) {
-				var cType=data.CONTROLTYPE;
+				var cType=data.TYPE;
 				console.log(cType);
 				/*
 				=parseInt(document.getElementById('numAgents').value)+1;
