@@ -10,7 +10,7 @@ function mgPartAtts(partID) {
 	theDiv.className = 'annotateBox';
 	theDiv.innerHTML='';
 	theDiv.src = "";
-	document.body.appendChild(theDiv);
+	document.parent.appendChild(theDiv);
 	var guts = "/form/partAtts.cfm?partID=" + partID;
 	jQuery('#partsAttDiv').load(guts,{},function(){
 		viewport.init("#partsAttDiv");
