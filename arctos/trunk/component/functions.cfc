@@ -17,13 +17,16 @@
 				</cfquery>
 			</cfif>
 		</cfloop>
+		<cfset rA=structNew()>
+		<cfset rA.type='unit'>
+		<cfset rA.values=valuelist(r.d)>
 		<!---
 		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"value","COLUMNS":["D"],"DATA":{"D":['>
 		<cfset vals=listqualify(valuelist(r.d),'"')>
 		<cfset rStr=rStr & vals & ']}}'>
 		<cfreturn SerializeJSON(rStr)>
 		--->
-		<cfreturn r>
+		<cfreturn rA>
 	<cfelseif len(k.unit_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #k.unit_code_table#
@@ -46,8 +49,9 @@
 		<cfreturn rA>
 		
 	<cfelse>
-		<cfset rStr='{"ROWCOUNT":0,"CONTROLTYPE":"none"}'>
-		<cfreturn SerializeJSON(rStr)>
+		<cfset rA=structNew()>
+		<cfset rA.type='none'>
+		<cfreturn rA>
 	</cfif>
 	</cfoutput>
 </cffunction>
