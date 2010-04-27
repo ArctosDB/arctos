@@ -1,4 +1,6 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+<cfinclude template="/includes/internalAjax.js">
+
 <cfif action is "nothing">
 	<cfoutput>
 	<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -154,7 +156,7 @@
 				<td colspan="8">
 					<cfdump var="#pAtt#">
 				</td>
-				<td>add attribute</td>
+				<td><span onclick="mgPartAtts()">Manage Attributes</span></td>
 			</tr>
 			<cfset i = i+1>
      </cfif><!---- end of the list ---->

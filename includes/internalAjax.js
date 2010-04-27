@@ -1,3 +1,29 @@
+function mgPartAtts(partID) {
+	var bgDiv = document.createElement('div');
+	bgDiv.id = 'bgDiv';
+	bgDiv.className = 'bgDiv';
+	bgDiv.setAttribute('onclick','closePartAtts()');
+	document.body.appendChild(bgDiv);
+	
+	var theDiv = document.createElement('div');
+	theDiv.id = 'partsAttDiv';
+	theDiv.className = 'annotateBox';
+	theDiv.innerHTML='';
+	theDiv.src = "";
+	document.body.appendChild(theDiv);
+	var guts = "/form/partAtts.cfm?partID=" + partID;
+	jQuery('#partsAttDiv').load(guts,{},function(){
+		viewport.init("#partsAttDiv");
+		viewport.init("#bgDiv");
+	});
+}
+
+function closePartAtts() {
+	var theDiv = document.getElementById('bgDiv');
+	document.body.removeChild(theDiv);
+	var theDiv = document.getElementById('partsAttDiv');
+	document.body.removeChild(theDiv);
+}
 function cloneTransAgent(i){
 	var id=jQuery('#agent_id_' + i).val();
 	var name=jQuery('#trans_agent_' + i).val();
