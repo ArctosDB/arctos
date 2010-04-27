@@ -10,31 +10,35 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #k.VALUE_code_table#
 		</cfquery>
-
-		<cfreturn d>
+		<cfloop list="#d.columnlist#" index="i">
+			<cfif i is not "description" and i is not "collection_cde">
+				<cfquery name="r" dbtype="query">
+					select #i# d from d order by #i#
+				</cfquery>
+			</cfif>
+		</cfloop>
+		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"value","COLUMNS":["D"],"DATA":{"D":['>
+		<cfset vals=listqualify(valuelist(r.d),'"')>
+		<cfset rStr=rStr & vals & ']}}'>
+		<cfreturn rStr>
 	<cfelseif len(k.unit_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #k.unit_code_table#
 		</cfquery>
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is not "description" and i is not "collection_cde">
-				<cfset cName="#i#">
 				<cfquery name="r" dbtype="query">
-					select #cName# d from d order by #cName#
+					select #i# d from d order by #i#
 				</cfquery>
 			</cfif>
 		</cfloop>
-		<cfdump var="#r#">
-		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"units","COLUMNS":["DV"],"DATA":{"DV":['>
-		<cfset vals=valuelist(r.d)>
-		<cfset vals=listqualify(vals,'"')>
+		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"units","COLUMNS":["D"],"DATA":{"D":['>
+		<cfset vals=listqualify(valuelist(r.d),'"')>
 		<cfset rStr=rStr & vals & ']}}'>
-		<hr>
-		-------------#rStr#-----------
-		<hr>
-		<cfreturn d>
+		<cfreturn rStr>
 	<cfelse>
-		<cfreturn "no control">
+		<cfset rStr='{"ROWCOUNT":0,"CONTROLTYPE":"none"}'>
+		<cfreturn rStr>
 	</cfif>
 	</cfoutput>
 </cffunction>
