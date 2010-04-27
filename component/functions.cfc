@@ -19,13 +19,13 @@
 			<cfif i is not "description" and i is not "collection_cde">
 				<cfset cName="#i#">
 				<cfquery name="r" dbtype="query">
-					select #cName# from d order by #cName#
+					select #cName# d from d order by #cName#
 				</cfquery>
 			</cfif>
 		</cfloop>
 		<cfdump var="#r#">
 		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"units","COLUMNS":["DV"],"DATA":{"DV":['>
-		<cfset vals=valuelist(r.#cName#)>
+		<cfset vals=valuelist(r.d)>
 		<cfset vals=listqualify(vals,'"')>
 		<cfset rStr=rStr & vals & ']}}'>
 		<hr>
