@@ -18,8 +18,8 @@ function saveNewPartAtt () {
 	);
 }
 function setPartAttOptions(id,patype,vVal,uVal) {
-	var vVal;
-	var uVal;
+	var vVal = vVal || '';
+	var uVal = uVal || '';
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getPartAttOptions",
