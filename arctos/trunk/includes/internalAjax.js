@@ -12,7 +12,7 @@ function mgPartAtts(partID) {
 	theDiv.innerHTML='';
 	theDiv.src = "";
 	
-	//bgDiv.appendChild(theDiv);
+	document.body.appendChild(theDiv);
 	var guts = "/form/partAtts.cfm?partID=" + partID;
 	jQuery('#partsAttDiv').load(guts,{},function(){
 		viewport.init("#partsAttDiv");
