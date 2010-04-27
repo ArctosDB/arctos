@@ -157,7 +157,7 @@
 				<td colspan="8">
 					<cfdump var="#pAtt#">
 				</td>
-				<td><span onclick="mgPartAtts()">Manage Attributes</span></td>
+				<td><span onclick="mgPartAtts(#partID#)">Manage Attributes</span></td>
 			</tr>
 			<cfset i = i+1>
      </cfif><!---- end of the list ---->
