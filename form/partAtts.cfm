@@ -53,6 +53,17 @@
 			<th>DeterminedBy</th>
 			<th>Remark</th>
 		</tr>
+		<cfloop query="pAtt">
+			<tr id="r_#part_attribute_id#">
+				<td>#attribute_type#</td>
+				<td>#attribute_value#</td>
+				<td>#attribute_units#</td>
+				<td>#determined_date#</td>
+				<td>#determined_by_agent_id#</td>
+				<td>#attribute_remark#</td>
+				<td>woot</td>
+			</tr>
+		</cfloop>
 		<tr id="r_new" class="newRec">
 			<td>
 				<select id="attribute_type_new" name="attribute_type_new" onchange="setPartAttOptions('new',this.value)">
