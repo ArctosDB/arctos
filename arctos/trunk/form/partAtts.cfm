@@ -62,7 +62,7 @@
 				</select>
 			</td>
 			<td id="v_new"></td>
-			<td is="u_new"></td>
+			<td is="unit_new">some stuff</td>
 			<td id="d_new">
 				<input type="text" name="determined_date_new" id="determined_date_new">
 			</td>

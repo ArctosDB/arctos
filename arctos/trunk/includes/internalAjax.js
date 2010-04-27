@@ -20,7 +20,7 @@ function setPartAttOptions(id,patype) {
 					}
 		  			d+="</select>";
 		  			console.log(d);
-		  			$('#u_' + id).html('boogity!!');
+		  			$('#unit_' + id).html('boogity!!');
 				} else if (data.TYPE=='value') {
 					var theVals=data.VALUES.split(',');
 					var d='<select name="' + valElem + '" id="' + valElem + '">';
@@ -29,11 +29,11 @@ function setPartAttOptions(id,patype) {
 					}
 		  			d+="</select>";
 		  			$('#v_' + id).html(d);
-					$('#u_' + id).html('');
+					$('#unit_' + id).html('');
 				} else {
 					var dv='<input type="text" name="' + valElem + '" id="' + valElem + '">';
 					$('#v_' + id).html(dv);
-					$('#u_' + id).html('');
+					$('#unit_' + id).html('');
 				}
 				/*
 				=parseInt(document.getElementById('numAgents').value)+1;
