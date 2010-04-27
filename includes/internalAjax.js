@@ -31,7 +31,7 @@ function setPartAttOptions(id,patype) {
 					$('#u_' + id).html('');
 				} else {
 					var dv='<input type="text" name="' + valElem + '" id="' + valElem + '">';
-					$('#v_' + id).html(d);
+					$('#v_' + id).html(dv);
 					$('#u_' + id).html('');
 				}
 				/*
