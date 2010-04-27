@@ -20,7 +20,7 @@ function setPartAttOptions(id,patype) {
 					}
 		  			d+="</select>";
 		  			console.log(d);
-		  			$('#u_' + id).html('boogity!!');
+		  			$('#u_' + id).html(d);
 				} else if (data.TYPE=='value') {
 					var theVals=data.VALUES.split(',');
 					var d='<select name="' + valElem + '" id="' + valElem + '">';
