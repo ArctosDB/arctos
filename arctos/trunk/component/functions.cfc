@@ -11,13 +11,13 @@
 		</cfquery>
 
 		<cfreturn d>
-	<cfelseif k.unit_code_table) gt 0>
+	<cfelseif len(k.unit_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #k.VALUE_code_table#
 		</cfquery>
 		<cfreturn d>
 	<cfelse>
-		no control
+		<cfreturn "no control">
 	</cfif>
 </cffunction>
 
