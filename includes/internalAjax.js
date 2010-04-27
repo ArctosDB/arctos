@@ -2,6 +2,7 @@ function setPartAttOptions(id,patype) {
 	jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getPartAttOptions",
+				returnformat : "json",
 				patype      : patype
 			},
 			function (data) {
