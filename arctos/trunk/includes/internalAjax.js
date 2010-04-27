@@ -3,7 +3,8 @@ function mgPartAtts(partID) {
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
 	bgDiv.setAttribute('onclick','closePartAtts()');
-	$(window.parent.document).append(bgDiv);
+	$(document).append(bgDiv);
+	console.log('k');
 	//document.body.appendChild(bgDiv);
 	
 	var theDiv = document.createElement('div');
