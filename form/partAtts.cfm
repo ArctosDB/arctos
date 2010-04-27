@@ -43,6 +43,7 @@
 	
 	<hr>
 	<form name="f">
+		<input type="partID" id="partID" value="partID">
 	<table border>
 		<tr>
 			<th>Attribute</th>
@@ -72,7 +73,10 @@
 					onchange="getAgent('determined_id_new',this.id,'f',this.value);" onkeypress="return noenter(event);">
 			</td>
 			<td id="r_new">
-				<input type="text" name="attribute_remark" id="attribute_remark">
+				<input type="text" name="attribute_remark_new" id="attribute_remark_new">
+			</td>
+			<td>
+				<input type="button" onclick="saveNewPartAtt()" value="Create">
 			</td>
 		</tr>
 	</table>
