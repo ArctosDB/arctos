@@ -136,12 +136,26 @@
 							newPart.coll_object_remarks.value='#coll_object_remarks#';">	
 				</td>
 			</tr>
+			<cfquery name="pAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select
+					 part_attribute_id,
+					 attribute_type,
+					 attribute_value,
+					 attribute_units,
+					 determined_date,
+					 determined_by_agent_id,
+					 attribute_remark
+				from
+					specimen_part_attribute
+				where
+					collection_object_id=#partID#
+			</cfquery>
 			<tr bgcolor="#bgc#">
 				<td colspan="8">
-					attributes
+					<cfdump var="#pAtt#">
 				</td>
 			</tr>
-			<cfset i = #i#+1>
+			<cfset i = i+1>
      </cfif><!---- end of the list ---->
 </cfloop>
 <tr bgcolor="##00CC00">
