@@ -8,21 +8,18 @@ function setPartAttOptions(id,patype) {
 			function (data) {
 				var cType=data.TYPE;
 				console.log(cType);
-				theDiv='pattr_' + id;
 				var valElem='attribute_value_' + id;
 				var unitElem='attribute_units_' + id;
-				var vLbl='<label for="attribute_value_' + id + '">Attribute Value</label>';
-				var uLbl='<label for="attribute_unit_' + id + '">Attribute Units</label>';
-	  			$('#' + theDiv).html('');
 				if (data.TYPE=='unit') {
 					var dv='<input type="text" name="' + valElem + '" id="' + valElem + '">';
+					$('#v_' + id).html(dv);
 					var theVals=data.VALUES.split(',');
 					var d='<select name="' + unitElem + '" id="' + unitElem + '">';
 		  			for (a=0; a<theVals.length; ++a) {
 						d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
 					}
 		  			d+="</select>";
-		  			$('#' + theDiv).append(vLbl).append(dv).append(uLbl).append(d);
+		  			$('#u_' + id).html(d);
 				} else if (data.TYPE=='value') {
 					var theVals=data.VALUES.split(',');
 					var d='<select name="' + valElem + '" id="' + valElem + '">';
@@ -30,11 +27,12 @@ function setPartAttOptions(id,patype) {
 						d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
 					}
 		  			d+="</select>";
-					console.log(d);
-					$('#' + theDiv).append(vLbl).append(d);
+		  			$('#v_' + id).html(d);
+					$('#u_' + id).html('');
 				} else {
 					var dv='<input type="text" name="' + valElem + '" id="' + valElem + '">';
-					$('#' + theDiv).append(vLbl).append(dv);
+					$('#v_' + id).html(d);
+					$('#u_' + id).html('');
 				}
 				/*
 				=parseInt(document.getElementById('numAgents').value)+1;
