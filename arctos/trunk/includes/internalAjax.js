@@ -8,20 +8,24 @@ function setPartAttOptions(id,patype) {
 			function (data) {
 				var cType=data.TYPE;
 				console.log(cType);
+				theDiv='pattr_' + id;
+				var valElem='attribute_value_' + id;
+				var unitElem='attribute_units_' + id;
+				var vLbl='<label for="attribute_value_' + id + '">Attribute Value</label>';
+				var uLbl='<label for="attribute_unit_' + id + '">Attribute Units</label>';
+	  			$('#' + theDiv).html('');
 				if (data.TYPE=='unit') {
-					var theElem='attribute_units_' + id;
+					var dv='<input type="text" name="' + valElem + '" id="' + valElem + '">';
 					var theVals=data.VALUES.split(',');
-					var d='<select name="' + theElem + '" id="' + theElem + '">';
+					var d='<select name="' + unitElem + '" id="' + unitElem + '">';
 		  			for (a=0; a<theVals.length; ++a) {
 						d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
 					}
 		  			d+="</select>";
-					console.log(d);
-		  			$('#' + theElem).replaceWith(d);
+		  			$('#' + theDiv).append(vLbl).append(dv).append(uLbl).append(d);
 				} else if (data.TYPE=='value') {
-					var theElem='attribute_value_' + id;
 					var theVals=data.VALUES.split(',');
-					var d='<select name="' + theElem + '" id="' + theElem + '">';
+					var d='<select name="' + valElem + '" id="' + valElem + '">';
 		  			for (a=0; a<theVals.length; ++a) {
 						d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
 					}
