@@ -15,8 +15,9 @@ function setPartAttOptions(id,patype) {
 		  			for (a=0; a<theVals.length; ++a) {
 						d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
 					}
+		  			d+="</select>";
 					console.log(d);
-		  			//$('#' + theElem).remove();
+		  			$('#' + theElem).replaceWith(d);
 				} else if (data.TYPE=='value') {
 					$('#' + theElem).remove();
 				} else {
