@@ -16,26 +16,6 @@ function saveNewPartAtt () {
 				console.log(data);
 			}
 		);
-	
-	<td>
-	
-</td>
-<td id="v_new"></td>
-<td id="u_new"></td>
-<td id="d_new">
-	<input type="text" name="" id="determined_date_new">
-</td>
-<td id="a_new">
-	<input type="hidden" name="" id="determined_id_new">
-	<input type="text" name="determined_agent_new" id="determined_agent_new"
-		onchange="getAgent('determined_id_new',this.id,'f',this.value);" onkeypress="return noenter(event);">
-</td>
-<td id="r_new">
-	<input type="text" name="" id="attribute_remark">
-</td>
-<td>
-	<input type="button" onclick="saveNewPartAtt()" value="Create">
-</td>
 }
 function setPartAttOptions(id,patype) {
 	jQuery.getJSON("/component/functions.cfc",
