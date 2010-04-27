@@ -13,7 +13,7 @@
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is not "description" and i is not "collection_cde">
 				<cfquery name="r" dbtype="query">
-					select 'value' type, #i# d from d order by #i#
+					select #i# d from d order by #i#
 				</cfquery>
 			</cfif>
 		</cfloop>
@@ -31,19 +31,20 @@
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is not "description" and i is not "collection_cde">
 				<cfquery name="r" dbtype="query">
-					select 'unit' type, #i# d from d order by #i#
+					select #i# d from d order by #i#
 				</cfquery>
 			</cfif>
 		</cfloop>
-		
-				<cfreturn r>
-<!---
+		<cfset rA=structNew()>
+		<cfset rA.type='unit'>
+		<cfset rA.values=valuelist(r.d)>
+		<!---
 		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"units","COLUMNS":["D"],"DATA":{"D":['>
 		<cfset vals=listqualify(valuelist(r.d),'"')>
 		<cfset rStr=rStr & vals & ']}}'>
-		<cfreturn SerializeJSON(rStr)>
-		
 		--->
+		<cfreturn SerializeJSON(rA)>
+		
 	<cfelse>
 		<cfset rStr='{"ROWCOUNT":0,"CONTROLTYPE":"none"}'>
 		<cfreturn SerializeJSON(rStr)>
