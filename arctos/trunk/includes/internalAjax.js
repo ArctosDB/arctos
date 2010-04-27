@@ -1,3 +1,43 @@
+function setPartAttOptions(id,patype) {
+	jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getPartAttOptions",
+				returnformat : "json",
+				queryformat : 'column',
+				patype      : patype
+			},
+			function (data) {
+				var i=parseInt(document.getElementById('numAgents').value)+1;
+				var d='<tr><td>';
+				d+='<input type="hidden" name="trans_agent_id_' + i + '" id="trans_agent_id_' + i + '" value="new">';
+				d+='<input type="text" id="trans_agent_' + i + '" name="trans_agent_' + i + '" class="reqdClr" size="30" value="' + name + '"';
+	  			d+=' onchange="getAgent(\'agent_id_' + i + '\',\'trans_agent_' + i + '\',\'editloan\',this.value);"';
+	  			d+=' return false;"	onKeyPress="return noenter(event);">';
+	  			d+='<input type="hidden" id="agent_id_' + i + '" name="agent_id_' + i + '" value="' + id + '">';
+	  			d+='</td><td>';
+	  			d+='<select name="trans_agent_role_' + i + '" id="trans_agent_role_' + i + '">';
+	  			for (a=0; a<data.ROWCOUNT; ++a) {
+					d+='<option ';
+					if(role==data.DATA.TRANS_AGENT_ROLE[a]){
+						d+=' selected="selected"';
+					}
+					d+=' value="' + data.DATA.TRANS_AGENT_ROLE[a] + '">'+ data.DATA.TRANS_AGENT_ROLE[a] +'</option>';
+				}
+	  			d+='</td><td>';
+	  			d+='<input type="checkbox" name="del_agnt_' + i + '" name="del_agnt_' + i + '" value="1">';
+	  			d+='</td><td>';
+	  			d+='<select id="cloneTransAgent_' + i + '" onchange="cloneTransAgent(' + i + ')" style="width:8em">';
+	  			d+='<option value=""></option>';
+	  			for (a=0; a<data.ROWCOUNT; ++a) {
+					d+='<option value="' + data.DATA.TRANS_AGENT_ROLE[a] + '">'+ data.DATA.TRANS_AGENT_ROLE[a] +'</option>';
+				}
+				d+='</select>';		
+	  			d+='</td><td>-</td></tr>';
+	  			document.getElementById('numAgents').value=i;
+	  			jQuery('#loanAgents tr:last').after(d);
+			}
+		);
+}
 function mgPartAtts(partID) {
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';

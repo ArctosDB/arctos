@@ -1,4 +1,26 @@
 <cfcomponent>
+
+<cffunction name="getPartAttOptions" access="remote">
+	<cfargument name="patype" type="string" required="yes">
+	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from ctspec_part_att_att where attribute_type='#patype#'
+	</cfquery>
+	<cfif len(k.VALUE_code_table) gt 0>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from #k.VALUE_code_table#
+		</cfquery>
+
+		<cfreturn d>
+	<cfelseif k.unit_code_table) gt 0>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from #k.VALUE_code_table#
+		</cfquery>
+		<cfreturn d>
+	<cfelse>
+		no control
+	</cfif>
+</cffunction>
+
 <cffunction name="deleteCtPartName" access="remote">
 	<cfargument name="ctspnid" type="numeric" required="yes">
 	<cftry>
