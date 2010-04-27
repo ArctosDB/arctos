@@ -7,7 +7,10 @@ function setPartAttOptions(id,patype) {
 				patype      : patype
 			},
 			function (data) {
-				var i=parseInt(document.getElementById('numAgents').value)+1;
+				var cType=data.CONTROLTYPE;
+				console.log(cType);
+				/*
+				=parseInt(document.getElementById('numAgents').value)+1;
 				var d='<tr><td>';
 				d+='<input type="hidden" name="trans_agent_id_' + i + '" id="trans_agent_id_' + i + '" value="new">';
 				d+='<input type="text" id="trans_agent_' + i + '" name="trans_agent_' + i + '" class="reqdClr" size="30" value="' + name + '"';
@@ -35,6 +38,7 @@ function setPartAttOptions(id,patype) {
 	  			d+='</td><td>-</td></tr>';
 	  			document.getElementById('numAgents').value=i;
 	  			jQuery('#loanAgents tr:last').after(d);
+	  			*/
 			}
 		);
 }
