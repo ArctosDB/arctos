@@ -17,12 +17,22 @@
 		</cfquery>
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is not "description" and i is not "collection_cde">
+				<cfset cName="#i#">
 				<cfquery name="r" dbtype="query">
-					select #i# from d order by #i#
+					select #cName# from d order by #cName#
 				</cfquery>
 			</cfif>
 		</cfloop>
 		<cfdump var="#r#">
+		<cfset rStr='{"ROWCOUNT":#r.recordcount#,"CONTROLTYPE":"units",#"COLUMNS":["DV"],"DATA":{"DV":['>
+		<cfloop query="r">
+			<cfset vals=valuelist(rStr.#cName#)>
+		</cfloop>
+		<cfset vals=listqualify(vals,'"')>
+		<cfset rStr=rStr & vals & ']}}'>
+		<hr>
+		-------------#rStr#-----------
+		<hr>
 		<cfreturn d>
 	<cfelse>
 		<cfreturn "no control">
