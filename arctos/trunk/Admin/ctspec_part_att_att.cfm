@@ -1,4 +1,4 @@
-<cfinclude template="includes/_header.cfm">
+<cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
 	<cfoutput>
 		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -123,3 +123,4 @@
 		</table>
 	</cfoutput>
 </cfif>
+<cfinclude template="/includes/_footer.cfm">
