@@ -86,19 +86,20 @@
 			<th>DeterminedBy</th>
 			<th>Remark</th>
 		</tr>
+		<cfset i=0>
 		<cfloop query="pAtt">
 			<tr id="r_#part_attribute_id#">
 				<td>#attribute_type#</td>
-				<td id="v_#part_attribute_id#">#attribute_value#</td>
+				<td id="v_#part_attribute_id#">#getSel(partID)#</td>
 				<td id="u_#part_attribute_id#">#attribute_units#</td>
 				<td>#determined_date#</td>
 				<td>#determined_by_agent_id#</td>
 				<td>#attribute_remark#</td>
 				<td>woot</td>
 			</tr>
+			<cfset i=i+1>
 		</cfloop>
-		
-	
+		<input type="hidden" name="numPAtt" value="#i#">	
 		<tr id="r_new" class="newRec">
 			<td>
 				<select id="attribute_type_new" name="attribute_type_new" onchange="setPartAttOptions('new',this.value)">
@@ -111,7 +112,9 @@
 			<td id="v_new">
 				<INPut type="hidden" name="attribute_value_new">
 			</td>
-			<td id="u_new"></td>
+			<td id="u_new">
+				<input type="hidden" name="attribute_units_new">
+			</td>
 			<td id="d_new">
 				<input type="text" name="determined_date_new" id="determined_date_new">
 			</td>
