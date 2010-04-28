@@ -90,11 +90,10 @@
 			specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
 			collection_object_id=#partID#
 	</cfquery>	
-		<form name="f" method="post" action="partAtts.cfm">
+	<form name="f" method="post" action="partAtts.cfm">
 		<input type="hidden" name="partID" value="#partID#">
 		<input type="hidden" name="action">
 	<table border>
-		
 		<tr>
 			<th>Attribute</th>
 			<th>Value</th>
@@ -102,8 +101,9 @@
 			<th>Date</th>
 			<th>DeterminedBy</th>
 			<th>Remark</th>
+			<th>Delete?</th>
 		</tr>
-		<cfset np=0>
+		<cfset np=1>
 		<cfloop query="pAtt">
 			<tr id="r_#part_attribute_id#">
 				<td>#attribute_type#</td>
@@ -114,7 +114,7 @@
 					#getPartAttrSelect('u',attribute_type,attribute_units,part_attribute_id)#
 				</td>
 				<td>
-					<input type="text" name="determined_date_#part_attribute_id#" value="#dateformat(determined_date,"dd mon yyyy")#">
+					<input type="text" name="determined_date_#part_attribute_id#" value="#dateformat(determined_date,"dd mmm yyyy")#">
 				</td>
 				<td>
 					<input type="hidden" name="determined_by_agent_id_#part_attribute_id#">
@@ -126,13 +126,18 @@
 				<td>
 					<input type="text" name="attribute_remark_#part_attribute_id#" value="#attribute_remark#">
 				</td>
+				<td>
+					<input type="checkbox" name="delete_#part_attribute_id#" value="1">
+				</td>
 			</tr>
 			<cfset np=np+1>
 		</cfloop>
+		<input type="hidden" name="patidlist" value="#valuelist(pAtt.part_attribute_id)#">
+		<cfset np=np-1>
 		<input type="hidden" name="numPAtt" value="#np#">	
 		<tr>
 			<td colspan="6" align="center">
-				save
+				<input type="button" onclick="f.action.value='saveEdit';submit();" value="Save Edits">
 			</td>
 		</tr>
 		<tr id="r_new" class="newRec">
@@ -201,3 +206,47 @@
 	</cfquery>
 	<cflocation url="partAtts.cfm?partID=#partID#" addtoken="false">
 </cfif>
+<cfif action is "saveEdit">
+	<cfoutput>
+		<cfloop from="1" to="#listlen(patidlist)#" index="i">
+			<cfset thisPartAtId=i>
+			<cfif isdefined("delete_#i#") and "delete_#i#" is 1>
+				deleting....
+			<cfelse>
+				<br>#i#
+			</cfif>
+		</cfloop>
+	</cfoutput>
+</cfif>
+<!----
+<tr id="r_#part_attribute_id#">
+				<td>#attribute_type#</td>
+				<td id="v_#part_attribute_id#">
+					#getPartAttrSelect('v',attribute_type,attribute_value,part_attribute_id)#
+				</td>
+				<td id="u_#part_attribute_id#">
+					#getPartAttrSelect('u',attribute_type,attribute_units,part_attribute_id)#
+				</td>
+				<td>
+					<input type="text" name="determined_date_#part_attribute_id#" value="#dateformat(determined_date,"dd mmm yyyy")#">
+				</td>
+				<td>
+					<input type="hidden" name="determined_by_agent_id_#part_attribute_id#">
+					<input type="text" name="determined_agent_#part_attribute_id#" id="determined_agent_#part_attribute_id#"
+						onchange="getAgent('determined_by_agent_id_#part_attribute_id#',this.id,'f',this.value);" 
+						onkeypress="return noenter(event);"
+						value="#agent_name#">
+					</td>
+				<td>
+					<input type="text" name="attribute_remark_#part_attribute_id#" value="#attribute_remark#">
+				</td>
+			</tr>
+			<cfset np=np+1>
+		</cfloop>
+		<input type="hidden" name="" value="#np#">	
+		<tr>
+			<td colspan="6" align="center">
+				<input type="button" onclick="f.action.value='';submit();" value="Save Edits">
+				
+				
+				---->
