@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_pickHeader.cfm">
+<script type='text/javascript' language="javascript" src='/includes/internalAjax.js'></script>
 
 <cffunction name="getSel">
 	<cfargument name="patype" type="string">
