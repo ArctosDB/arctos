@@ -29,10 +29,38 @@
 						</cfloop>
 					</select>
 				</cfsavecontent>
-				<cfreturn rv>
+			<cfelse>
+				<cfsavecontent variable="rv">
+					<input name="attribute_value_#paid#" value="#paval#">
+				</cfsavecontent>
+			</cfif>
+		<cfelse>
+			<cfif len(k.unit_code_table) gt 0>
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select * from #k.unit_code_table#
+				</cfquery>
+				<cfloop list="#d.columnlist#" index="i">
+					<cfif i is not "description" and i is not "collection_cde">
+						<cfquery name="r" dbtype="query">
+							select #i# d from d order by #i#
+						</cfquery>
+					</cfif>
+				</cfloop>
+				<cfsavecontent variable="rv">
+					<select name="attribute_units_#paid#">
+						<cfloop query="r">
+							<option <cfif paval is r.d>selected="selected" </cfif> value="#r.d#">#r.d#</option>
+						</cfloop>
+					</select>
+				</cfsavecontent>
+			<cfelse>
+				<cfsavecontent variable="rv">
+					<input name="attribute_units_#paid#" value="#paval#">
+				</cfsavecontent>
 			</cfif>
 		</cfif>
 	</cfoutput>
+	<cfreturn rv>
 	<!--------
 	<cfif len(k.VALUE_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
