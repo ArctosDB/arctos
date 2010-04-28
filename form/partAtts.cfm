@@ -226,7 +226,7 @@
 			<cfset thisAttributeRemark=evaluate("attribute_remark_" & thisPartAtId)>
 			<cfset thisAttributeValue=evaluate("attribute_value_" & thisPartAtId)>
 			<cfset thisDeterminerId=evaluate("determined_by_agent_id_" & thisPartAtId)>
-			<cfset thisDate=evaluate("determined_date" & thisPartAtId)>
+			<cfset thisDate=evaluate("determined_date_" & thisPartAtId)>
 			<cfif thisDeleteFlag is 1>
 				<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					delete from part_attributes where part_attribute_id=#thisPartAtId#
