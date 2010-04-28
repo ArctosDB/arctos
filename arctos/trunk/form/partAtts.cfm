@@ -210,6 +210,7 @@
 	<cfoutput>
 		<cfloop from="1" to="#listlen(patidlist)#" index="i">
 			<cfset thisPartAtId=listgetat(patidlist,i)>
+			<br>thisPartAtId: #thisPartAtId#
 			<cfif isdefined("delete_#thisPartAtId#") and "delete_#thisPartAtId#" is 1>
 				deleting....
 			<cfelse>
