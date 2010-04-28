@@ -129,8 +129,8 @@ function closePartAtts() {
 	*/
 	$('#bgDiv').remove();
 	$('#partsAttDiv').remove();
-	$('#bgDiv' window.parent.document).remove();
-	$('#partsAttDiv' window.parent.document).remove();
+	$('#bgDiv', window.parent.document).remove();
+	$('#partsAttDiv', window.parent.document).remove();
 
 	
 }
