@@ -209,6 +209,7 @@
 <cfif action is "saveEdit">
 	<cfdump var="#form#">
 	<cfoutput>
+		<cftransaction>
 		<cfloop from="1" to="#listlen(patidlist)#" index="i">
 			<cfset thisPartAtId=listgetat(patidlist,i)>
 			<cftry>
@@ -229,11 +230,11 @@
 			<cfset thisDate=evaluate("determined_date_" & thisPartAtId)>
 			<cfif thisDeleteFlag is 1>
 				<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					delete from part_attributes where part_attribute_id=#thisPartAtId#
+					delete from specimen_part_attribute where part_attribute_id=#thisPartAtId#
 				</cfquery>
 			<cfelse>
 				<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					update part_attributes set
+					update specimen_part_attribute set
 						attribute_units='#thisAttributeUnits#',
 						attribute_remark='#thisAttributeRemark#',
 						attribute_value='#thisAttributeValue#',
@@ -243,6 +244,7 @@
 				</cfquery>
 			</cfif>
 		</cfloop>
+		</cftransaction>
 		<cflocation url="partAtts.cfm?partID=#partID#" addtoken="false">
 	</cfoutput>
 </cfif>
