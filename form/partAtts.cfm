@@ -4,7 +4,7 @@
 <cffunction name="getPartAttrSelect">
 	<cfargument name="u_or_v" type="string">
 	<cfargument name="patype" type="string">
-	<cfargument name="paval" type="string">
+	<cfargument name="val" type="string">
 	<cfargument name="paid" type="numeric">
 	<cfoutput>
 		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -25,16 +25,16 @@
 				<cfsavecontent variable="rv">
 					<select name="attribute_value_#paid#">
 						<cfloop query="r">
-							<option <cfif paval is r.d>selected="selected" </cfif> value="#r.d#">#r.d#</option>
+							<option <cfif val is r.d>selected="selected" </cfif> value="#r.d#">#r.d#</option>
 						</cfloop>
 					</select>
 				</cfsavecontent>
 			<cfelse>
 				<cfsavecontent variable="rv">
-					<input name="attribute_value_#paid#" value="#paval#">
+					<input name="attribute_value_#paid#" value="#val#">
 				</cfsavecontent>
 			</cfif>
-		<cfelse>
+		<cfelseif u_or_v is "u">
 			<cfif len(k.unit_code_table) gt 0>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select * from #k.unit_code_table#
@@ -49,7 +49,7 @@
 				<cfsavecontent variable="rv">
 					<select name="attribute_units_#paid#">
 						<cfloop query="r">
-							<option <cfif paval is r.d>selected="selected" </cfif> value="#r.d#">#r.d#</option>
+							<option <cfif val is r.d>selected="selected" </cfif> value="#r.d#">#r.d#</option>
 						</cfloop>
 					</select>
 				</cfsavecontent>
@@ -138,7 +138,9 @@
 				<td id="v_#part_attribute_id#">
 					---#attribute_value#--
 					#getPartAttrSelect('v',attribute_type,attribute_value,part_attribute_id)#</td>
-				<td id="u_#part_attribute_id#">#getPartAttrSelect('u',attribute_type,attribute_units,part_attribute_id)#
+				<td id="u_#part_attribute_id#">
+					----#attribute_units#-----
+					#getPartAttrSelect('u',attribute_type,attribute_units,part_attribute_id)#
 					
 				</td>
 				<td>#determined_date#</td>
