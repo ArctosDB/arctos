@@ -39,7 +39,7 @@ function setPartAttOptions(id,patype) {
 	  			d+="</select>";
 	  			$('#u_' + id).html(d);
 			} else if (data.TYPE=='value') {
-				var theVals=data.VALUES.split(',');
+				var theVals=data.VALUES.split('|');
 				var d='<select name="' + valElem + '" id="' + valElem + '">';
 	  			for (a=0; a<theVals.length; ++a) {
 					d+='<option value="' + theVals[a] + '">'+ theVals[a] +'</option>';
