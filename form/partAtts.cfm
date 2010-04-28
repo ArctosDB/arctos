@@ -107,7 +107,7 @@
 			<th>DeterminedBy</th>
 			<th>Remark</th>
 		</tr>
-		<cfset r=0>
+		<cfset np=0>
 		<cfloop query="pAtt">
 			<tr id="r_#part_attribute_id#">
 				<td>#attribute_type#</td>
@@ -122,9 +122,9 @@
 				<td>#attribute_remark#</td>
 				<td>woot</td>
 			</tr>
-			<cfset r=r+1>
+			<cfset np=np+1>
 		</cfloop>
-		<input type="hidden" name="numPAtt" value="#r#">	
+		<input type="hidden" name="numPAtt" value="#np#">	
 		<tr id="r_new" class="newRec">
 			<td>
 				<select id="attribute_type_new" name="attribute_type_new" onchange="setPartAttOptions('new',this.value)">
