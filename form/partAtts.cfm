@@ -119,12 +119,12 @@
 				<td>
 					<input type="hidden" name="determined_by_agent_id_#part_attribute_id#">
 					<input type="text" name="determined_agent_#part_attribute_id#" id="determined_agent_#part_attribute_id#"
-						onchange="getAgent('determined_by_agent_id_#part_attribute_id',this.id,'f',this.value);" 
+						onchange="getAgent('determined_by_agent_id_#part_attribute_id#',this.id,'f',this.value);" 
 						onkeypress="return noenter(event);"
 						value="#agent_name#">
 					</td>
 				<td>
-					<input type="text" name="attribute_remark_#part_attribute_id" value="#attribute_remark#">
+					<input type="text" name="attribute_remark_#part_attribute_id#" value="#attribute_remark#">
 				</td>
 			</tr>
 			<cfset np=np+1>
