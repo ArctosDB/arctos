@@ -103,6 +103,7 @@ function setPartAttOptions(id,patype,vVal,uVal) {
 	);
 }
 function mgPartAtts(partID) {
+	console.log('ffffffffffffffffff');
 	/*
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
