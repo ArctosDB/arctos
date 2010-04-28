@@ -157,7 +157,7 @@
 					collection_object_id=#partID#
 			</cfquery>
 			<tr bgcolor="#bgc#">
-				<td colspan="8">
+				<td colspan="8" align="right">
 					<table border>
 						<tr>
 							<th>Attribute</th>
