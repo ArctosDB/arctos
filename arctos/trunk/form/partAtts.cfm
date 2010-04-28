@@ -137,7 +137,7 @@
 		<input type="hidden" name="numPAtt" value="#np#">	
 		<tr>
 			<td colspan="6" align="center">
-				<input type="button" onclick="f.action.value='saveEdit';submit();" value="Save Edits">
+				<input type="button" onclick="f.action.value='saveEdit';submit();" value="Save Edits" class="savBtn">
 			</td>
 		</tr>
 		<tr id="r_new" class="newRec">
@@ -167,13 +167,11 @@
 				<input type="text" name="attribute_remark_new" id="attribute_remark_new">
 			</td>
 			<td>
-				<input type="button" onclick="f.action.value='insPart';submit();" value="Create">
+				<input type="button" onclick="f.action.value='insPart';submit();" class="insBtn" value="Create">
 			</td>
 		</tr>
 	</table>
 	</form>
-	<cfdump var="#pAtt#">
-
 </cfoutput>	
 </cfif>
 <cfif action is "insPart">
