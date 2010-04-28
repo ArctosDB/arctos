@@ -207,18 +207,18 @@
 	<cflocation url="partAtts.cfm?partID=#partID#" addtoken="false">
 </cfif>
 <cfif action is "saveEdit">
+	<cfdump var="#form#">
 	<cfoutput>
 		<cfloop from="1" to="#listlen(patidlist)#" index="i">
 			<cfset thisPartAtId=listgetat(patidlist,i)>
 			<br>thisPartAtId: #thisPartAtId#
-			<cfif isdefined(evaluate("delete_" & thisPartAtId))>
-				<cfif "delete_#thisPartAtId#" is 1>
-					
-					deleting....
-				</cfif>
-			<cfelse>
-				<br>#i#
-			</cfif>
+			<cftry>
+				<cfset thisDeleteFlag=evaluate("delete_" & thisPartAtId)>
+			<cfcatch>
+				<cfset thisDeleteFlag="">
+			</cfcatch>
+			</cftry>
+			<br>thisDeleteFlag: #thisDeleteFlag#
 		</cfloop>
 	</cfoutput>
 </cfif>
