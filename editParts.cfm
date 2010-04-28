@@ -171,7 +171,7 @@
 									#attribute_value#
 								</td>
 								<td>
-									#attribute_units)#
+									#attribute_units#
 								</td>
 								<td>
 									#dateformat(determined_date,"dd mmm yyyy")#
