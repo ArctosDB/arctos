@@ -163,6 +163,9 @@
 </cfoutput>	
 </cfif>
 <cfif action is "insPart">
+	<cfif not isdefined("attribute_value_new")>
+		<cfset attribute_value_new="">
+	</cfif>
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		insert into specimen_part_attribute (
 			collection_object_id,
