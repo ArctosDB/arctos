@@ -155,9 +155,40 @@
 			</cfquery>
 			<tr bgcolor="#bgc#">
 				<td colspan="8">
-					<cfdump var="#pAtt#">
+					<table border>
+						<tr>
+							<th>Attribute</th>
+							<th>Value</th>
+							<th>Units</th>
+							<th>Date</th>
+							<th>DeterminedBy</th>
+							<th>Remark</th>
+						</tr>
+						<cfloop query="pAtt">
+							<tr>
+								<td>#attribute_type#</td>
+								<td>
+									#attribute_value#
+								</td>
+								<td>
+									#attribute_units)#
+								</td>
+								<td>
+									#dateformat(determined_date,"dd mmm yyyy")#
+								</td>
+								<td>
+									#agent_name
+								</td>
+								<td>
+									#attribute_remark#
+								</td>
+							</tr>
+						</cfloop>
+					</td>
+				</table>
+				<td><input type="button" value="Manage Attributes" class="savBtn"
+		   			onclick="mgPartAtts(#partID#);">
 				</td>
-				<td><span onclick="mgPartAtts(#partID#)">Manage Attributes</span></td>
 			</tr>
 			<cfset i = i+1>
      </cfif><!---- end of the list ---->

@@ -33,7 +33,6 @@ function setPartAttOptions(id,patype,vVal,uVal) {
 		},
 		function (data) {
 			var cType=data.TYPE;
-			console.log(cType);
 			var valElem='attribute_value_' + id;
 			var unitElem='attribute_units_' + id;
 			if (data.TYPE=='unit') {
@@ -49,7 +48,6 @@ function setPartAttOptions(id,patype,vVal,uVal) {
 					d+='value="' + theVals[a] + '">'+ theVals[a] +'</option>';
 				}
 	  			d+="</select>";
-	  			console.log(d);
 	  			$('#u_' + id).html(d);
 			} else if (data.TYPE=='value') {
 				var theVals=data.VALUES.split(',');
@@ -103,30 +101,6 @@ function setPartAttOptions(id,patype,vVal,uVal) {
 	);
 }
 function mgPartAtts(partID) {
-	console.log('ffffffffffffffffff');
-	/*
-	var bgDiv = document.createElement('div');
-	bgDiv.id = 'bgDiv';
-	bgDiv.className = 'bgDiv';
-	bgDiv.setAttribute('onclick','closePartAtts()');
-	//parent.document.body.appendChild(bgDiv);
-	document.body.appendChild(bgDiv);
-	
-	var theDiv = document.createElement('iFrame');
-	theDiv.id = 'partsAttDiv';
-	theDiv.className = 'annotateBox';
-	theDiv.innerHTML='';
-	theDiv.src = "";
-	
-	document.body.appendChild(theDiv);
-	var guts = "/form/partAtts.cfm?partID=" + partID;
-	jQuery('#partsAttDiv').load(guts,{},function(){
-		viewport.init("#partsAttDiv");
-		viewport.init("#bgDiv");
-	});
-	
-	*/
-	
 	addBGDiv('closePartAtts()');
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'partsAttDiv';
