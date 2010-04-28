@@ -17,10 +17,7 @@
 				</cfquery>
 			</cfif>
 		</cfloop>
-		<cfset rA=structNew()>
-		<cfset rA.type='value'>
-		<cfset rA.values=valuelist(r.d)>
-		<cfreturn rA>
+		<cfreturn "boogity@@">
 	<cfelseif len(k.unit_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #k.unit_code_table#
@@ -32,14 +29,9 @@
 				</cfquery>
 			</cfif>
 		</cfloop>
-		<cfset rA=structNew()>
-		<cfset rA.type='unit'>
-		<cfset rA.values=valuelist(r.d)>
-		<cfreturn rA>
+		<cfreturn "boogity@@">
 	<cfelse>
-		<cfset rA=structNew()>
-		<cfset rA.type='none'>
-		<cfreturn rA>
+		<cfreturn "boogity@@">
 	</cfif>
 </cffunction>
 <cfif action is "nothing">
