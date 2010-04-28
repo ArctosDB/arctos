@@ -7,6 +7,7 @@
 	<cfargument name="val" type="string">
 	<cfargument name="paid" type="numeric">
 	<cfoutput>
+		<cfset rv="">
 		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from ctspec_part_att_att where attribute_type='#patype#'
 		</cfquery>
