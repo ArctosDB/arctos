@@ -211,46 +211,38 @@
 	<cfoutput>
 		<cfloop from="1" to="#listlen(patidlist)#" index="i">
 			<cfset thisPartAtId=listgetat(patidlist,i)>
-			<br>thisPartAtId: #thisPartAtId#
 			<cftry>
 				<cfset thisDeleteFlag=evaluate("delete_" & thisPartAtId)>
-			<cfcatch>
-				<cfset thisDeleteFlag="">
-			</cfcatch>
+				<cfcatch>
+					<cfset thisDeleteFlag="">
+				</cfcatch>
 			</cftry>
-			<br>thisDeleteFlag: #thisDeleteFlag#
+			<cftry>
+				<cfset thisAttributeUnits=evaluate("attribute_units_" & thisPartAtId)>
+				<cfcatch>
+					<cfset thisAttributeUnits="">
+				</cfcatch>
+			</cftry>
+			<cfset thisAttributeRemark=evaluate("attribute_remark_" & thisPartAtId)>
+			<cfset thisAttributeValue=evaluate("attribute_value_" & thisPartAtId)>
+			<cfset thisDeterminerId=evaluate("determined_by_agent_id_" & thisPartAtId)>
+			<cfset thisDate=evaluate("determined_date" & thisPartAtId)>
+			<cfif thisDeleteFlag is 1>
+				<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					delete from part_attributes where part_attribute_id=#thisPartAtId#
+				</cfquery>
+			<cfelse>
+				<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update part_attributes set
+						attribute_units='#thisAttributeUnits#',
+						attribute_remark='#thisAttributeRemark#',
+						attribute_value='#thisAttributeValue#',
+						determined_by_agent_id='#thisDeterminerId#',
+						determined_date='#thisDate#'
+					where part_attribute_id=#thisPartAtId#
+				</cfquery>
+			</cfif>
 		</cfloop>
+		<cflocation url="partAtts.cfm?partID=#partID#" addtoken="false">
 	</cfoutput>
 </cfif>
-<!----
-<tr id="r_#part_attribute_id#">
-				<td>#attribute_type#</td>
-				<td id="v_#part_attribute_id#">
-					#getPartAttrSelect('v',attribute_type,attribute_value,part_attribute_id)#
-				</td>
-				<td id="u_#part_attribute_id#">
-					#getPartAttrSelect('u',attribute_type,attribute_units,part_attribute_id)#
-				</td>
-				<td>
-					<input type="text" name="determined_date_#part_attribute_id#" value="#dateformat(determined_date,"dd mmm yyyy")#">
-				</td>
-				<td>
-					<input type="hidden" name="determined_by_agent_id_#part_attribute_id#">
-					<input type="text" name="determined_agent_#part_attribute_id#" id="determined_agent_#part_attribute_id#"
-						onchange="getAgent('determined_by_agent_id_#part_attribute_id#',this.id,'f',this.value);" 
-						onkeypress="return noenter(event);"
-						value="#agent_name#">
-					</td>
-				<td>
-					<input type="text" name="attribute_remark_#part_attribute_id#" value="#attribute_remark#">
-				</td>
-			</tr>
-			<cfset np=np+1>
-		</cfloop>
-		<input type="hidden" name="" value="#np#">	
-		<tr>
-			<td colspan="6" align="center">
-				<input type="button" onclick="f.action.value='';submit();" value="Save Edits">
-				
-				
-				---->
