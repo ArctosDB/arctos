@@ -1,8 +1,11 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <script type='text/javascript' language="javascript" src='/includes/internalAjax.js'></script>
 
-<cffunction name="getSel">
+<cffunction name="getPartAttrSelect">
+	<cfargument name="u_or_v" type="string">
 	<cfargument name="patype" type="string">
+	<cfargument name="paval" type="string">
+	<cfreturn "#u_or_v#: #patype#: #paval#">
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ctspec_part_att_att where attribute_type='#patype#'
 	</cfquery>
@@ -82,7 +85,7 @@
 		<cfloop query="pAtt">
 			<tr id="r_#part_attribute_id#">
 				<td>#attribute_type#</td>
-				<td id="v_#part_attribute_id#">#getSel(partID)#</td>
+				<td id="v_#part_attribute_id#">#getPartAttrSelect('value',attribute_type,attribute_value)#</td>
 				<td id="u_#part_attribute_id#">#attribute_units#</td>
 				<td>#determined_date#</td>
 				<td>#determined_by_agent_id#</td>
