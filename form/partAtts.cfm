@@ -138,6 +138,7 @@
 		<tr>
 			<td colspan="6" align="center">
 				<input type="button" onclick="f.action.value='saveEdit';submit();" value="Save Edits" class="savBtn">
+				<input type="button" onclick="closePartAtts();" value="Close Window" class="qutBtn">
 			</td>
 		</tr>
 		<tr id="r_new" class="newRec">
