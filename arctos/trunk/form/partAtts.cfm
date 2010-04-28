@@ -41,26 +41,13 @@
 		<cfreturn rA>
 	</cfif>
 </cffunction>
+<cfif action is "nothing">
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script>
 	jQuery(document).ready(function() {
 		jQuery(function() {
-			jQuery("#made_date").datepicker();
-			jQuery("#began_date").datepicker();
-			jQuery("#ended_date").datepicker();	
-			jQuery("#determined_date").datepicker();
-			for (i=1;i<=12;i++){
-				jQuery("#geo_att_determined_date_" + i).datepicker();
-				jQuery("#attribute_date_" + i).datepicker();
-			}
+			jQuery("#determined_date_new").datepicker();
 		});
-		jQuery("input[type=text]").focus(function(){
-		    //this.select();
-		});
-		$("select[id^='geology_attribute_']").each(function(e){
-			var gid='geology_attribute_' + String(e+1);
-			populateGeology(gid);			
-		});		
 	});
 </script>
 <cfoutput>
@@ -84,9 +71,10 @@
 	</cfquery>
 	
 	<hr>
-	<form name="f">
-		<input type="hidden" name="partID" id="partID" value="#partID#">
+	
 	<table border>
+		<form name="f">
+		<input type="hidden" name="partID" id="partID" value="#partID#">
 		<tr>
 			<th>Attribute</th>
 			<th>Value</th>
@@ -106,6 +94,10 @@
 				<td>woot</td>
 			</tr>
 		</cfloop>
+		</form>
+		<form name="nf" method="post" action="partAtts.cfm">
+		<input type="hidden" name="partID" value="#partID#">
+		<input type="hidden" name="action" value="insPart">
 		<tr id="r_new" class="newRec">
 			<td>
 				<select id="attribute_type_new" name="attribute_type_new" onchange="setPartAttOptions('new',this.value)">
@@ -129,7 +121,7 @@
 				<input type="text" name="attribute_remark_new" id="attribute_remark_new">
 			</td>
 			<td>
-				<input type="button" onclick="saveNewPartAtt()" value="Create">
+				<input type="submit" value="Create">
 			</td>
 		</tr>
 	</table>
@@ -137,3 +129,26 @@
 	<cfdump var="#pAtt#">
 
 </cfoutput>	
+</cfif>
+<cfif action is "insPart">
+	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		insert into specimen_part_attribute (
+			collection_object_id,
+			attribute_type,
+			attribute_value,
+			attribute_units,
+			determined_date,
+			determined_by_agent_id,
+			attribute_remark
+		) values (
+			#partID#,
+			'#attribute_type_new#',
+			'#attribute_value_new#',
+			'#attribute_units_new#',
+			'#determined_date_new#',
+			'#determined_by_agent_id_new#',
+			'#attribute_remark_new#'
+		)	
+	</cfquery>
+	<cflocation url="partAtts.cfm?partID=#partID#" addtoken="false">
+</cfif>
