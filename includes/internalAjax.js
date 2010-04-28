@@ -110,7 +110,7 @@ function mgPartAtts(partID) {
 	//parent.document.body.appendChild(bgDiv);
 	document.body.appendChild(bgDiv);
 	
-	var theDiv = document.createElement('div');
+	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'partsAttDiv';
 	theDiv.className = 'annotateBox';
 	theDiv.innerHTML='';

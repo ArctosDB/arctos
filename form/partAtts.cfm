@@ -1,4 +1,46 @@
 <cfinclude template="/includes/_pickHeader.cfm">
+
+<cffunction name="getSel">
+	<cfargument name="patype" type="string">
+	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from ctspec_part_att_att where attribute_type='#patype#'
+	</cfquery>
+	<cfif len(k.VALUE_code_table) gt 0>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from #k.VALUE_code_table#
+		</cfquery>
+		<cfloop list="#d.columnlist#" index="i">
+			<cfif i is not "description" and i is not "collection_cde">
+				<cfquery name="r" dbtype="query">
+					select #i# d from d order by #i#
+				</cfquery>
+			</cfif>
+		</cfloop>
+		<cfset rA=structNew()>
+		<cfset rA.type='value'>
+		<cfset rA.values=valuelist(r.d)>
+		<cfreturn rA>
+	<cfelseif len(k.unit_code_table) gt 0>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from #k.unit_code_table#
+		</cfquery>
+		<cfloop list="#d.columnlist#" index="i">
+			<cfif i is not "description" and i is not "collection_cde">
+				<cfquery name="r" dbtype="query">
+					select #i# d from d order by #i#
+				</cfquery>
+			</cfif>
+		</cfloop>
+		<cfset rA=structNew()>
+		<cfset rA.type='unit'>
+		<cfset rA.values=valuelist(r.d)>
+		<cfreturn rA>
+	<cfelse>
+		<cfset rA=structNew()>
+		<cfset rA.type='none'>
+		<cfreturn rA>
+	</cfif>
+</cffunction>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script>
 	jQuery(document).ready(function() {
