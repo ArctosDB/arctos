@@ -113,10 +113,18 @@ function mgPartAtts(partID) {
 }
 
 function closePartAtts() {
-	var theDiv = document.getElementById('bgDiv');
+	/*var theDiv = document.getElementById('bgDiv');
 	document.body.removeChild(theDiv);
 	var theDiv = document.getElementById('partsAttDiv');
 	document.body.removeChild(theDiv);
+	var theDiv = parent.document.getElementById('bgDiv');
+	parent.document.body.removeChild(theDiv);
+	var theDiv = parent.document.getElementById('partsAttDiv');
+	parent.document.body.removeChild(theDiv);
+	*/
+	$('#bgDiv').remove();
+	$('#partsAttDiv').remove();
+	
 }
 function cloneTransAgent(i){
 	var id=jQuery('#agent_id_' + i).val();
