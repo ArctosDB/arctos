@@ -116,7 +116,7 @@
 			<td id="a_new">
 				<input type="hidden" name="determined_id_new" id="determined_id_new">
 				<input type="text" name="determined_agent_new" id="determined_agent_new"
-					onchange="getAgent('determined_id_new',this.id,'f',this.value);" onkeypress="return noenter(event);">
+					onchange="getAgent('determined_id_new',this.id,'nf',this.value);" onkeypress="return noenter(event);">
 			</td>
 			<td id="r_new">
 				<input type="text" name="attribute_remark_new" id="attribute_remark_new">
@@ -125,8 +125,9 @@
 				<input type="submit" value="Create">
 			</td>
 		</tr>
-	</table>
+		
 	</form>
+	</table>
 	<cfdump var="#pAtt#">
 
 </cfoutput>	
