@@ -166,9 +166,7 @@
 			<td id="r_new">
 				<input type="text" name="attribute_remark_new" id="attribute_remark_new">
 			</td>
-		</tr>
-		<tr  class="newRec">
-			<td colspan="6" align="center">
+			<td>
 				<input type="button" onclick="f.action.value='insPart';submit();" value="Create">
 			</td>
 		</tr>
