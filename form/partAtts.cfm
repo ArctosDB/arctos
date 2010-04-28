@@ -73,9 +73,9 @@
 	
 	<hr>
 		
-		<form name="nf" method="post" action="partAtts.cfm">
+		<form name="f" method="post" action="partAtts.cfm">
 		<input type="hidden" name="partID" value="#partID#">
-		<input type="hidden" name="action" value="insPart">
+		<input type="hidden" name="action">
 	<table border>
 		
 		<tr>
@@ -118,13 +118,13 @@
 			<td id="a_new">
 				<input type="hidden" name="determined_id_new" id="determined_id_new">
 				<input type="text" name="determined_agent_new" id="determined_agent_new"
-					onchange="getAgent('determined_id_new',this.id,'nf',this.value);" onkeypress="return noenter(event);">
+					onchange="getAgent('determined_id_new',this.id,'f',this.value);" onkeypress="return noenter(event);">
 			</td>
 			<td id="r_new">
 				<input type="text" name="attribute_remark_new" id="attribute_remark_new">
 			</td>
 			<td>
-				<input type="submit" value="Create">
+				<input type="button" onclick="f.action.value='insPart';submit();" value="Create">
 			</td>
 		</tr>
 		
@@ -150,7 +150,7 @@
 			'#attribute_value_new#',
 			'#attribute_units_new#',
 			'#determined_date_new#',
-			'#determined_by_agent_id_new#',
+			'#determined_id_new#',
 			'#attribute_remark_new#'
 		)	
 	</cfquery>
