@@ -120,15 +120,18 @@ function closePartAtts() {
 	var theDiv = document.getElementById('partsAttDiv');
 	document.body.removeChild(theDiv);
 	
-	
-	$('#bgDiv').remove();
-	$('#partsAttDiv').remove();
-	*/
-	var theDiv = parent.document.getElementById('bgDiv');
+		var theDiv = parent.document.getElementById('bgDiv');
 	parent.document.body.removeChild(theDiv);
 	var theDiv = parent.document.getElementById('partsAttDiv');
 	parent.document.body.removeChild(theDiv);
 	
+	
+	*/
+	$('#bgDiv').remove();
+	$('#partsAttDiv').remove();
+	$('#bgDiv' window.parent.document).remove();
+	$('#partsAttDiv' window.parent.document).remove();
+
 	
 }
 function cloneTransAgent(i){
