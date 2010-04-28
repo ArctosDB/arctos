@@ -131,7 +131,7 @@
 		</cfloop>
 		<input type="hidden" name="numPAtt" value="#np#">	
 		<tr>
-			<td rowspan="6" align="middle">
+			<td colspan="6" align="middle">
 				save
 			</td>
 		</tr>
@@ -163,7 +163,7 @@
 			</td>
 		</tr>
 		<tr  class="newRec">
-			<td rowspan="6" align="middle">
+			<td colspan="6" align="middle">
 				<input type="button" onclick="f.action.value='insPart';submit();" value="Create">
 			</td>
 		</tr>
