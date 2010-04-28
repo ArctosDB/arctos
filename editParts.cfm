@@ -157,7 +157,8 @@
 					collection_object_id=#partID#
 			</cfquery>
 			<tr bgcolor="#bgc#">
-				<td colspan="8" align="right">
+				<td colspan="8" align="center">
+					<cfif pAtt.recordcount gt 0>
 					<table border>
 						<tr>
 							<th>Attribute</th>
@@ -189,6 +190,9 @@
 						</cfloop>
 					</td>
 				</table>
+				<cfelse>
+					--no attributes--
+				</cfif>
 				<td><input type="button" value="Manage Attributes" class="savBtn"
 		   			onclick="mgPartAtts(#partID#);">
 				</td>
