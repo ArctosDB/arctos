@@ -209,8 +209,8 @@
 <cfif action is "saveEdit">
 	<cfoutput>
 		<cfloop from="1" to="#listlen(patidlist)#" index="i">
-			<cfset thisPartAtId=i>
-			<cfif isdefined("delete_#i#") and "delete_#i#" is 1>
+			<cfset thisPartAtId=listgetat(patidlist,i)>
+			<cfif isdefined("delete_#thisPartAtId#") and "delete_#thisPartAtId#" is 1>
 				deleting....
 			<cfelse>
 				<br>#i#
