@@ -131,14 +131,14 @@
 		</cfloop>
 		<input type="hidden" name="numPAtt" value="#np#">	
 		<tr>
-			<td colspan="6" align="middle">
+			<td colspan="6" align="center">
 				save
 			</td>
 		</tr>
 		<tr id="r_new" class="newRec">
 			<td>
 				<select id="attribute_type_new" name="attribute_type_new" onchange="setPartAttOptions('new',this.value)">
-					<option value=""></option>
+					<option value="">Create New Part Attribute....</option>
 					<cfloop query="ctspecpart_attribute_type">
 						<option value="#attribute_type#">#attribute_type#</option>
 					</cfloop>
@@ -163,7 +163,7 @@
 			</td>
 		</tr>
 		<tr  class="newRec">
-			<td colspan="6" align="middle">
+			<td colspan="6" align="center">
 				<input type="button" onclick="f.action.value='insPart';submit();" value="Create">
 			</td>
 		</tr>
