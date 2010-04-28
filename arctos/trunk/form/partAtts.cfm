@@ -58,35 +58,6 @@
 		</cfif>
 	</cfoutput>
 	<cfreturn rv>
-	<!--------
-	<cfif len(k.VALUE_code_table) gt 0>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from #k.VALUE_code_table#
-		</cfquery>
-		<cfloop list="#d.columnlist#" index="i">
-			<cfif i is not "description" and i is not "collection_cde">
-				<cfquery name="r" dbtype="query">
-					select #i# d from d order by #i#
-				</cfquery>
-			</cfif>
-		</cfloop>
-		<cfreturn "boogity@@">
-	<cfelseif len(k.unit_code_table) gt 0>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from #k.unit_code_table#
-		</cfquery>
-		<cfloop list="#d.columnlist#" index="i">
-			<cfif i is not "description" and i is not "collection_cde">
-				<cfquery name="r" dbtype="query">
-					select #i# d from d order by #i#
-				</cfquery>
-			</cfif>
-		</cfloop>
-		<cfreturn "boogity@@">
-	<cfelse>
-		<cfreturn "boogity@@">
-	</cfif>
-	------------>
 </cffunction>
 <cfif action is "nothing">
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
@@ -110,15 +81,15 @@
 			 attribute_units,
 			 determined_date,
 			 determined_by_agent_id,
-			 attribute_remark
+			 attribute_remark,
+			 agent_name
 		from
-			specimen_part_attribute
+			specimen_part_attribute,
+			preferred_agent_name
 		where
+			specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
 			collection_object_id=#partID#
-	</cfquery>
-	
-	<hr>
-		
+	</cfquery>	
 		<form name="f" method="post" action="partAtts.cfm">
 		<input type="hidden" name="partID" value="#partID#">
 		<input type="hidden" name="action">
@@ -137,21 +108,33 @@
 			<tr id="r_#part_attribute_id#">
 				<td>#attribute_type#</td>
 				<td id="v_#part_attribute_id#">
-					---#attribute_value#--
-					#getPartAttrSelect('v',attribute_type,attribute_value,part_attribute_id)#</td>
-				<td id="u_#part_attribute_id#">
-					----#attribute_units#-----
-					#getPartAttrSelect('u',attribute_type,attribute_units,part_attribute_id)#
-					
+					#getPartAttrSelect('v',attribute_type,attribute_value,part_attribute_id)#
 				</td>
-				<td>#determined_date#</td>
-				<td>#determined_by_agent_id#</td>
-				<td>#attribute_remark#</td>
-				<td>woot</td>
+				<td id="u_#part_attribute_id#">
+					#getPartAttrSelect('u',attribute_type,attribute_units,part_attribute_id)#
+				</td>
+				<td>
+					<input type="text" name="determined_date_#part_attribute_id#" value="#dateformat(determined_date,"dd mon yyyy")#">
+				</td>
+				<td>
+					<input type="hidden" name="determined_by_agent_id_#part_attribute_id#">
+					<input type="text" name="determined_agent_#part_attribute_id#" id="determined_agent_#part_attribute_id#"
+						onchange="getAgent('determined_by_agent_id_#part_attribute_id',this.id,'f',this.value);" 
+						onkeypress="return noenter(event);"
+						value="#agent_name#">
+					</td>
+				<td>
+					<input type="text" name="attribute_remark_#part_attribute_id" value="#attribute_remark#">
+				</td>
 			</tr>
 			<cfset np=np+1>
 		</cfloop>
 		<input type="hidden" name="numPAtt" value="#np#">	
+		<tr>
+			<td rowspan="6" align="middle">
+				save
+			</td>
+		</tr>
 		<tr id="r_new" class="newRec">
 			<td>
 				<select id="attribute_type_new" name="attribute_type_new" onchange="setPartAttOptions('new',this.value)">
@@ -178,11 +161,12 @@
 			<td id="r_new">
 				<input type="text" name="attribute_remark_new" id="attribute_remark_new">
 			</td>
-			<td>
+		</tr>
+		<tr  class="newRec">
+			<td rowspan="6" align="middle">
 				<input type="button" onclick="f.action.value='insPart';submit();" value="Create">
 			</td>
 		</tr>
-		
 	</table>
 	</form>
 	<cfdump var="#pAtt#">
