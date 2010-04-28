@@ -69,7 +69,7 @@
 		</cfloop>
 		<cfset rA=structNew()>
 		<cfset rA.type='value'>
-		<cfset rA.values=valuelist(r.d)>
+		<cfset rA.values=valuelist(r.d,"|")>
 		<cfreturn rA>
 	<cfelseif len(k.unit_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -84,7 +84,7 @@
 		</cfloop>
 		<cfset rA=structNew()>
 		<cfset rA.type='unit'>
-		<cfset rA.values=valuelist(r.d)>
+		<cfset rA.values=valuelist(r.d,"|")>
 		<cfreturn rA>
 	<cfelse>
 		<cfset rA=structNew()>
