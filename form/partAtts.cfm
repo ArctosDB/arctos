@@ -96,6 +96,7 @@
 			</tr>
 		</cfloop>
 		</form>
+		
 		<form name="nf" method="post" action="partAtts.cfm">
 		<input type="hidden" name="partID" value="#partID#">
 		<input type="hidden" name="action" value="insPart">
@@ -108,7 +109,9 @@
 					</cfloop>
 				</select>
 			</td>
-			<td id="v_new"></td>
+			<td id="v_new">
+				<INPut type="hidden" name="attribute_value_new">
+			</td>
 			<td id="u_new"></td>
 			<td id="d_new">
 				<input type="text" name="determined_date_new" id="determined_date_new">
