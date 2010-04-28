@@ -5,10 +5,33 @@
 	<cfargument name="u_or_v" type="string">
 	<cfargument name="patype" type="string">
 	<cfargument name="paval" type="string">
-	<cfreturn "#u_or_v#: #patype#: #paval#">
+	<cfargument name="paid" type="paid">
+	
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ctspec_part_att_att where attribute_type='#patype#'
 	</cfquery>
+	<cfif u_or_v is "v">
+		<cfif len(k.VALUE_code_table) gt 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from #k.VALUE_code_table#
+			</cfquery>
+			<cfloop list="#d.columnlist#" index="i">
+				<cfif i is not "description" and i is not "collection_cde">
+					<cfquery name="r" dbtype="query">
+						select #i# d from d order by #i#
+					</cfquery>
+				</cfif>
+			</cfloop>
+			<cfsavecontent variable="rv">
+				<select name="attribute_value_#paid">
+					<cfloop query="r">
+						<option <cfif paval is r.d>selected="selected" </cfif> value="#r.d#">#r.d#</option>
+					</cfloop>
+				</select>
+			</cfsavecontent>
+			<cfreturn rv>
+	
+	</cfif>
 	<cfif len(k.VALUE_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #k.VALUE_code_table#
@@ -85,8 +108,10 @@
 		<cfloop query="pAtt">
 			<tr id="r_#part_attribute_id#">
 				<td>#attribute_type#</td>
-				<td id="v_#part_attribute_id#">#getPartAttrSelect('value',attribute_type,attribute_value)#</td>
-				<td id="u_#part_attribute_id#">#attribute_units#</td>
+				<td id="v_#part_attribute_id#">#getPartAttrSelect('v',attribute_type,attribute_value,part_attribute_id)#</td>
+				<td id="u_#part_attribute_id#">#getPartAttrSelect('u',attribute_type,attribute_units,part_attribute_id)#
+					
+				</td>
 				<td>#determined_date#</td>
 				<td>#determined_by_agent_id#</td>
 				<td>#attribute_remark#</td>
