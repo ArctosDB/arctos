@@ -72,10 +72,12 @@
 	</cfquery>
 	
 	<hr>
-	
+		
+		<form name="nf" method="post" action="partAtts.cfm">
+		<input type="hidden" name="partID" value="#partID#">
+		<input type="hidden" name="action" value="insPart">
 	<table border>
-		<form name="f">
-		<input type="hidden" name="partID" id="partID" value="#partID#">
+		
 		<tr>
 			<th>Attribute</th>
 			<th>Value</th>
@@ -95,11 +97,8 @@
 				<td>woot</td>
 			</tr>
 		</cfloop>
-		</form>
 		
-		<form name="nf" method="post" action="partAtts.cfm">
-		<input type="hidden" name="partID" value="#partID#">
-		<input type="hidden" name="action" value="insPart">
+	
 		<tr id="r_new" class="newRec">
 			<td>
 				<select id="attribute_type_new" name="attribute_type_new" onchange="setPartAttOptions('new',this.value)">
@@ -129,8 +128,8 @@
 			</td>
 		</tr>
 		
-	</form>
 	</table>
+	</form>
 	<cfdump var="#pAtt#">
 
 </cfoutput>	
