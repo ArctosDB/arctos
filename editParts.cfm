@@ -147,10 +147,13 @@
 					 attribute_units,
 					 determined_date,
 					 determined_by_agent_id,
-					 attribute_remark
+					 attribute_remark,
+					 agent_name
 				from
-					specimen_part_attribute
+					specimen_part_attribute,
+					preferred_agent_name
 				where
+					specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
 					collection_object_id=#partID#
 			</cfquery>
 			<tr bgcolor="#bgc#">
