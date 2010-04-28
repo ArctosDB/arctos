@@ -53,10 +53,6 @@
 						</cfloop>
 					</select>
 				</cfsavecontent>
-			<cfelse>
-				<cfsavecontent variable="rv">
-					<input name="attribute_units_#paid#" value="#paval#">
-				</cfsavecontent>
 			</cfif>
 		</cfif>
 	</cfoutput>
