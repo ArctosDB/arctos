@@ -23,7 +23,7 @@
 					</cfif>
 				</cfloop>
 				<cfsavecontent variable="rv">
-					<select name="attribute_value_#paid">
+					<select name="attribute_value_#paid#">
 						<cfloop query="r">
 							<option <cfif paval is r.d>selected="selected" </cfif> value="#r.d#">#r.d#</option>
 						</cfloop>
