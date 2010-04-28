@@ -177,7 +177,7 @@
 									#dateformat(determined_date,"dd mmm yyyy")#
 								</td>
 								<td>
-									#agent_name
+									#agent_name#
 								</td>
 								<td>
 									#attribute_remark#
