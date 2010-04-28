@@ -103,6 +103,7 @@ function setPartAttOptions(id,patype,vVal,uVal) {
 	);
 }
 function mgPartAtts(partID) {
+	/*
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
@@ -122,6 +123,18 @@ function mgPartAtts(partID) {
 		viewport.init("#partsAttDiv");
 		viewport.init("#bgDiv");
 	});
+	
+	*/
+	
+	addBGDiv('closePartAtts()');
+	var theDiv = document.createElement('iFrame');
+	theDiv.id = 'partsAttDiv';
+	theDiv.className = 'annotateBox';
+	theDiv.innerHTML='<br>Loading...';
+	document.body.appendChild(theDiv);
+	var ptl="/form/partAtts.cfm?partID=" + partID;
+	theDiv.src=ptl;
+	viewport.init("#partsAttDiv");
 }
 
 function closePartAtts() {
