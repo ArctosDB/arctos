@@ -172,19 +172,19 @@
 							<tr>
 								<td>#attribute_type#</td>
 								<td>
-									#attribute_value#
+									#attribute_value#&nbsp;
 								</td>
 								<td>
-									#attribute_units#
+									#attribute_units#&nbsp;
 								</td>
 								<td>
-									#dateformat(determined_date,"dd mmm yyyy")#
+									#dateformat(determined_date,"dd mmm yyyy")#&nbsp;
 								</td>
 								<td>
-									#agent_name#
+									#agent_name#&nbsp;
 								</td>
 								<td>
-									#attribute_remark#
+									#attribute_remark#&nbsp;
 								</td>
 							</tr>
 						</cfloop>
