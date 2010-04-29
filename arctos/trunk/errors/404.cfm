@@ -16,7 +16,9 @@
 	cgi.redirect_url contains ".dll" or
 	cgi.redirect_url contains ".asp" or
 	cgi.redirect_url contains ".cgi" or
-	cgi.redirect_url contains ".ini">
+	cgi.redirect_url contains ".ini" or
+	cgi.redirect_url contains "/config/" or
+	cgi.redirect_url contains "/client/">
 	<!--- auto blacklist them --->
 	<cfinclude template="/errors/autoblacklist.cfm">
 <cfelse>
