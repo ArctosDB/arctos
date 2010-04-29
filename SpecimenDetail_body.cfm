@@ -364,7 +364,8 @@
 											#full_taxon_name#
 										</div>
 										<cfquery name="cName" dbtype="query">
-											select common_name from getTaxa_r group by common_name order by common_name
+											select common_name from getTaxa_r where taxon_name_id=#taxon_name_id#
+											group by common_name order by common_name
 										</cfquery>
 										<cfloop query="cName">
 											<div style="font-size:small;color:gray;padding-left:1em;">
