@@ -357,12 +357,15 @@
 								</cfloop>
 								#thisSciName#
 							</cfif>
-							
+							<cfif not isdefined("metaDesc")>
+								<cfset metaDesc="">
+							</cfif>
 								<div class="taxDetDiv">
 									<cfloop query="getTaxa">
 										<div style="font-size:small;color:gray;">
 											#full_taxon_name#
 										</div>
+										<cfset metaDesc=metaDesc & '; ' & full_taxon_name>
 										<cfquery name="cName" dbtype="query">
 											select common_name from getTaxa_r where taxon_name_id=#taxon_name_id#
 											and common_name is not null
@@ -372,6 +375,7 @@
 											<div style="font-size:small;color:gray;padding-left:1em;">
 												#common_name#
 											</div>
+											<cfset metaDesc=metaDesc & '; ' & common_name>
 										</cfloop>
 									</cfloop>
 									Identified by #agent_name# 
