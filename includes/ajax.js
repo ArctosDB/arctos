@@ -344,8 +344,8 @@ function splitByLF(str) {
 	} else {
 		var rExp = /chr(10) /gi;
 		rStr = str.replace(rExp,'<br>');
-		rExp = / /gi;
-		rStr = rStr.replace(rExp,'&nbsp;');
+		//rExp = / /gi;
+		//rStr = rStr.replace(rExp,'&nbsp;');
 	}
 	return rStr;
 }
