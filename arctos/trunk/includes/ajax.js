@@ -337,6 +337,18 @@ function splitByComma(str) {
 	}
 	return rStr;
 }
+function splitByLF(str) {
+	var rStr;
+	if (str==null) {
+		rStr='';
+	} else {
+		var rExp = /chr(10) /gi;
+		rStr = str.replace(rExp,'<br>');
+		rExp = / /gi;
+		rStr = rStr.replace(rExp,'&nbsp;');
+	}
+	return rStr;
+}
 function splitBySemicolon(str) {
 	var rStr;
 	if (str==null) {
@@ -971,7 +983,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('PARTDETAIL')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + replace(data.PARTDETAIL[i],chr(10),'<br>') + '</div></td>';
+					theInnerHtml += '<td><div class="wrapLong">' + splitByLF(data.PARTDETAIL[i]) + '</div></td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('SEX')> -1) {
 					theInnerHtml += '<td>' + data.SEX[i] + '</td>';
