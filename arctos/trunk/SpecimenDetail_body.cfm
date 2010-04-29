@@ -357,18 +357,22 @@
 								</cfloop>
 								#thisSciName#
 							</cfif>
-							<cfquery name="cName" dbtype="query">
-								select common_name from getTaxa_r group by common_name order by common_name
-							</cfquery>
+							
 								<div class="taxDetDiv">
-									<div style="font-size:small;color:lightgray;">
-										#getTaxa.full_taxon_name#
-									</div>
-									<cfloop query="cName">
-										<div style="font-size:small;color:lightgray;padding-left:1em;">
-											#common_name#
+									<cfloop query="getTaxa">
+										<div style="font-size:small;color:gray;">
+											#full_taxon_name#
 										</div>
+										<cfquery name="cName" dbtype="query">
+											select common_name from getTaxa_r group by common_name order by common_name
+										</cfquery>
+										<cfloop query="cName">
+											<div style="font-size:small;color:gray;padding-left:1em;">
+												#common_name#
+											</div>
+										</cfloop>
 									</cfloop>
+									
 									
 									
 								
