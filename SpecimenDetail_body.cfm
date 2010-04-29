@@ -365,6 +365,7 @@
 										</div>
 										<cfquery name="cName" dbtype="query">
 											select common_name from getTaxa_r where taxon_name_id=#taxon_name_id#
+											and common_name is not null
 											group by common_name order by common_name
 										</cfquery>
 										<cfloop query="cName">
@@ -373,14 +374,6 @@
 											</div>
 										</cfloop>
 									</cfloop>
-									
-									
-									
-								
-								
-								
-								
-								
 									Identified by #agent_name# 
 									<cfif len(made_date) gt 0>
 										on #dateformat(made_date,"dd mmm yyyy")#
