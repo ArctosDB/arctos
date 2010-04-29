@@ -342,10 +342,7 @@ function splitByLF(str) {
 	if (str==null) {
 		rStr='';
 	} else {
-		//var rExp = /\n /gi;
 		rStr = str.replace('\n','<br>','g');
-		//rExp = / /gi;
-		//rStr = rStr.replace(rExp,'&nbsp;');
 	}
 	return rStr;
 }
