@@ -741,6 +741,9 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 				theInnerHtml += '<th>Parts</th>';
 			}
+			if (data.COLUMNLIST[0].indexOf('PARTDETAIL')> -1) {
+				theInnerHtml += '<th>Part Detail</th>';
+			}
 			if (data.COLUMNLIST[0].indexOf('SEX')> -1) {
 				theInnerHtml += '<th>Sex</th>';
 			}
@@ -966,6 +969,9 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('PARTDETAIL')> -1) {
+					theInnerHtml += '<td><div class="wrapLong">' + data.PARTDETAIL[i] + '</div></td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('SEX')> -1) {
 					theInnerHtml += '<td>' + data.SEX[i] + '</td>';
