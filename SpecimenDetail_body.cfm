@@ -338,7 +338,7 @@
 									author_text,
 									full_taxon_name
 							</cfquery>
-							<cfif #accepted_id_fg# is 1>
+							<cfif accepted_id_fg is 1>
 					        	<div class="acceptedIdDiv">
 						    <cfelse>
 					        	<div class="unAcceptedIdDiv">
@@ -356,15 +356,21 @@
 									<cfset i=#i#+1>
 								</cfloop>
 								#thisSciName#
-								<br>#getTaxa.full_taxon_name#
+							</cfif>
+							
+								<div class="taxDetDiv">
+									
+									
+									<br>#getTaxa.full_taxon_name#
 								<cfquery name="cName" dbtype="query">
 									select common_name from getTaxa_r group by common_name order by common_name
 								</cfquery>
 								<cfloop query="cName">
 									<br>#common_name#
 								</cfloop>
-							</cfif>
-								<div class="taxDetDiv">
+								
+								
+								
 									Identified by #agent_name# 
 									<cfif len(made_date) gt 0>
 										on #dateformat(made_date,"dd mmm yyyy")#
