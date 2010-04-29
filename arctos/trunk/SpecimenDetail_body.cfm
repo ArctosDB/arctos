@@ -361,13 +361,16 @@
 								select common_name from getTaxa_r group by common_name order by common_name
 							</cfquery>
 								<div class="taxDetDiv">
-									<div class="font-size:small;">
+									<div style="font-size:small;font-color:lightgray;">
 										#getTaxa.full_taxon_name#
-									<cfloop query="cName">
-									#common_name#<br>
-								</cfloop>
-									
 									</div>
+									<cfloop query="cName">
+										<div style="font-size:small;font-color:lightgray;padding-left:1em;">
+											#common_name#
+										</div>
+									</cfloop>
+									
+									
 								
 								
 								
