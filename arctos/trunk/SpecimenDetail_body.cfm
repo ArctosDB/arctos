@@ -305,18 +305,38 @@
 							ORDER BY accepted_id_fg DESC,made_date DESC
 						</cfquery>
 						<cfloop query="identification">
-							<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							<cfquery name="getTaxa_r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								select 
 									taxonomy.taxon_name_id,
 									display_name,
 									scientific_name,
-									author_text
+									author_text,
+									common_name,
+									full_taxon_name
 								FROM
 									identification_taxonomy,
-									taxonomy
+									taxonomy,
+									common_name
 								WHERE
 									identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id and
+									taxonomy.taxon_name_id=common_name.taxon_name_id (+) and
 									identification_id=#identification_id#
+							</cfquery>
+							<cfquery name="getTaxa" dbtype="query">
+								select 
+									taxon_name_id,
+									display_name,
+									scientific_name,
+									author_text,
+									full_taxon_name
+								from
+									getTaxa_r
+								group by
+									taxon_name_id,
+									display_name,
+									scientific_name,
+									author_text,
+									full_taxon_name
 							</cfquery>
 							<cfif #accepted_id_fg# is 1>
 					        	<div class="acceptedIdDiv">
@@ -336,6 +356,13 @@
 									<cfset i=#i#+1>
 								</cfloop>
 								#thisSciName#
+								<br>#getTaxa.full_taxon_name#
+								<cfquery name="cName" dbtype="query">
+									select common_name from getTaxa_r group by common_name order by common_name
+								</cfquery>
+								<cfloop query="cName">
+									<br>#common_name#
+								</cfloop>
 							</cfif>
 								<div class="taxDetDiv">
 									Identified by #agent_name# 
