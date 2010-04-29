@@ -5,8 +5,8 @@
 }
 </style>
 <cfoutput>
-	<cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
-	<cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
+	<cfset internalPath="#Application.webDirectory#/cache/">
+	<cfset externalPath="#Application.ServerRootUrl#/cache/">
 	<cfif not isdefined("method")>
 		<cfset method="">
 	</cfif>

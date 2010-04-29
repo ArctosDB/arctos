@@ -4,6 +4,12 @@
  --->
 <cfoutput>
 <!---- berkeleymapper tabfiles more than 7 days ---->
+<CFDIRECTORY ACTION="List" DIRECTORY="#Application.webDirectory#/cache/" NAME="dir_listing"> 
+	<cfloop query="dir_listing">
+		<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq "."> 
+		 	<cffile action="DELETE" file="#Application.webDirectory#/cache/#name#">
+		 </cfif> 
+	</cfloop>
 <CFDIRECTORY ACTION="List" DIRECTORY="#Application.webDirectory#/bnhmMaps/tabfiles/" NAME="dir_listing"> 
 	<cfloop query="dir_listing">
 		<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq "."
