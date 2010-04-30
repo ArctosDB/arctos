@@ -17,6 +17,7 @@
 		$.getJSON("/component/functions.cfc",
 		{
 			method : "addAccnContainer",
+			transaction_id : transaction_id,
 			barcode : barcode,
 			returnformat : "json",
 			queryformat : 'column'
