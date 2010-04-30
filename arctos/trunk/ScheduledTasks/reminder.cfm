@@ -259,10 +259,6 @@
 		</cfloop>
 		---->
 		<!---- year=old accessions with no specimens ---->
-		<cfset yearList="">
-		<cfloop from="1" to="20" index="i">
-			<cfset yearList=listappend(yearlist,365*i)>
-		</cfloop>
 		<cfquery name="yearOldAccn" datasource="uam_god">
 			select 
 				accn.transaction_id,
@@ -279,8 +275,9 @@
 				accn.transaction_id=trans.transaction_id and
 				trans.collection_id=collection.collection_id and
 				accn.transaction_id=cataloged_item.accn_id (+) and
-				cataloged_item.accn_id is null and 
-				round(sysdate-RECEIVED_DATE) in (#yearList#)
+				cataloged_item.accn_id is null and
+				to_char(sysdate,'DD-Mon')=to_char(RECEIVED_DATE,'DD-Mon') and
+				to_char(sysdate,'YYYY')-to_char(RECEIVED_DATE,'YYYY')>=1
 		</cfquery>
 		<cfdump var=#yearOldAccn#>
 		<!---
