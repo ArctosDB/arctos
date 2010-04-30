@@ -18,7 +18,11 @@
 	cgi.redirect_url contains ".cgi" or
 	cgi.redirect_url contains ".ini" or
 	cgi.redirect_url contains "/config/" or
-	cgi.redirect_url contains "/client/">
+	cgi.redirect_url contains "/client/" or
+	cgi.redirect_url contains "/config/" or
+	cgi.redirect_url contains "/webmail/" or
+	cgi.redirect_url contains "/roundcubemail/" or
+	cgi.redirect_url contains "/roundcube/">
 	<!--- auto blacklist them --->
 	<cfinclude template="/errors/autoblacklist.cfm">
 <cfelse>
