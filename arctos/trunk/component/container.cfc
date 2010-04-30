@@ -132,6 +132,7 @@
 	<cfset loan_trans_id="">
 	<cfset table_name="">
 	<cfset in_container_type="">
+	<cfset transaction_id="">
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
@@ -150,6 +151,7 @@
 		len(#loan_trans_id#) is 0 and
 		len(#table_name#) is 0 and
 		len(#in_container_type#) is 0
+		len(transaction_id) is 0
 		>
 		 <cfset result = querynew("CONTAINER_ID,MSG")>
 		<cfset temp = queryaddrow(result,1)>
@@ -169,6 +171,11 @@
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
 		<cfset frm = "#frm# inner join #session.username#.#table_name# #table_name# on (#table_name#.collection_object_id=specimen_part.derived_from_cat_item)">
+	</cfif>
+	<cfif len(transaction_id) gt 0>
+		<cfset frm = "#frm# inner join trans_container on (trans_container.container_id=container.container_id)">
+		<cfset whr = "#whr# AND trans_container.transaction_id IN (#transaction_id#)">
+
 	</cfif>
 	<cfif len(#collection_object_id#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
