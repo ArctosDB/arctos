@@ -156,7 +156,7 @@
 		 <cfset result = querynew("CONTAINER_ID,MSG")>
 		<cfset temp = queryaddrow(result,1)>
 		<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
-		<cfset temp = QuerySetCell(result, "msg", "You must enter search criteria.", 1)>
+		<cfset temp = QuerySetCell(result, "msg", "You must enter search criteria. #transaction_id#", 1)>
 		<cfreturn result>
 	</cfif>
 
