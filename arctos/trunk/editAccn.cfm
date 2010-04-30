@@ -14,6 +14,7 @@
 		});
 	});
 	function addAccnContainer(transaction_id,barcode){
+		$('#newbarcode').css('style:red');
 		$.getJSON("/component/functions.cfc",
 		{
 			method : "addAccnContainer",
@@ -24,8 +25,7 @@
 		},
 		function(r) {
 			if (r.STATUS == 'success') {
-				alert('spiffy');
-				var d=r.BARCODE + '<span class="infoLink" onclick="removeAccnContainer(' + r.TRANSACTION_ID + ',\'' + r.BARCODE + '\')">Remove</span><br>';
+				var d=r.BARCODE + '&nbsp;<span class="infoLink" onclick="removeAccnContainer(' + r.TRANSACTION_ID + ',\'' + r.BARCODE + '\')">Remove</span><br>';
 				$('#existingAccnContainers').append(d);					
 			} else {
 				alert('An error occured! \n ' + r.ERROR);
