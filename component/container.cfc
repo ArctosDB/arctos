@@ -288,28 +288,32 @@
 		<cfset whr = "#whr# AND cataloged_item.collection_id = #collection_id#">
 	 </cfif>
 	 <cfset sql = "#sel# #frm# #whr#">
-	<cfset thisSql = "
-				SELECT 
-					CONTAINER_ID,
-					nvl(PARENT_CONTAINER_ID,0) PARENT_CONTAINER_ID,
-				CONTAINER_TYPE,
-				DESCRIPTION,
-				PARENT_INSTALL_DATE,
-				CONTAINER_REMARKS,
-				someRandomSequence.nextval ID,
-				label,
-				SYS_CONNECT_BY_PATH(container_type,':') thepath
-				 from container
-				start with container_id IN (
-					#sql#
-				)
-				connect by prior parent_container_id = container_id
-			">
+	
 
 			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
+			 	<cfquery name="base" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
+					#preservesinglequotes(sql)#
+				</cfquery>
+				 <cfset thisSql = "
+					SELECT 
+						CONTAINER_ID,
+						nvl(PARENT_CONTAINER_ID,0) PARENT_CONTAINER_ID,
+					CONTAINER_TYPE,
+					DESCRIPTION,
+					PARENT_INSTALL_DATE,
+					CONTAINER_REMARKS,
+					someRandomSequence.nextval ID,
+					label,
+					SYS_CONNECT_BY_PATH(container_type,':') thepath
+					 from container
+					start with container_id IN (
+						#valuelist(base.container_id)#
+					)
+					connect by prior parent_container_id = container_id
+				">
+			 	<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
 					#preservesinglequotes(thisSql)#
-				 </cfquery>
+				</cfquery>
 				<cfcatch>
 					<cfset result = querynew("CONTAINER_ID,MSG")>
 					<cfset temp = queryaddrow(result,1)>
