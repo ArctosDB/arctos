@@ -173,7 +173,7 @@
 		<cfset frm = "#frm# inner join #session.username#.#table_name# #table_name# on (#table_name#.collection_object_id=specimen_part.derived_from_cat_item)">
 	</cfif>
 	<cfif len(transaction_id) gt 0>
-		<cfset frm = "#frm# inner join trans_container on (trans_container.container_id=container.container_id) inner join trans on (trans_container.transaction_id=trans.transaction_id")>
+		<cfset frm = "#frm# inner join trans_container on (trans_container.container_id=container.container_id) inner join trans on (trans_container.transaction_id=trans.transaction_id)">
 		<cfset whr = "#whr# AND trans.transaction_id = #transaction_id#">
 	</cfif>
 	<cfif len(collection_object_id) gt 0>
