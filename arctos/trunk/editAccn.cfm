@@ -25,11 +25,12 @@
 		},
 		function(r) {
 			if (r.STATUS == 'success') {
-				$('#newbarcode').removeClass('red').val('');
+				$('#newbarcode').removeClass('red').val('').focus();
 				var d='<div id="tc_' + r.BARCODE + '">' + r.BARCODE + '&nbsp;<span class="infoLink" onclick="removeAccnContainer(' + r.TRANSACTION_ID + ',\'' + r.BARCODE + '\')">Remove</span></div>';
 				$('#existingAccnContainers').append(d);					
 			} else {
 				alert('An error occured! \n ' + r.ERROR);
+				$('#newbarcode').focus();
 			}	
 		}
 	);	
