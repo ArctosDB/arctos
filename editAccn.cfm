@@ -25,6 +25,8 @@
 		},
 		function(r) {
 			if (r.STATUS == 'success') {
+				$('#newbarcode').removeClass('red').val('');
+		
 				var d=r.BARCODE + '&nbsp;<span class="infoLink" onclick="removeAccnContainer(' + r.TRANSACTION_ID + ',\'' + r.BARCODE + '\')">Remove</span><br>';
 				$('#existingAccnContainers').append(d);					
 			} else {
