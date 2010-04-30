@@ -1,5 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
+		<!----
+		
 		<!--- start of loan code --->
 		<!--- days after and before return_due_date on which to send email. Negative is after ---->
 		<cfset eid="-365,-180,-150,-120,-90,-60,-30,-7,0,7,30">
@@ -255,5 +257,71 @@
 				</cfmail>
 			</cfloop>
 		</cfloop>
+		----->
+		<!---- year=old accessions with no specimens ---->
+		<cfquery name="yearOldAccn" datasource="uam_god">
+			select 
+				accn.transaction_id,
+				collection.collection,
+				collection.collection_id,
+				accn_number,
+				to_char(RECEIVED_DATE,'DD Mon YYYY') received_date
+			from 
+				accn,
+				trans,
+				collection,
+				cataloged_item
+			where 
+				accn.transaction_id=trans.transaction_id and
+				trans.collection_id=collection.collection_id and
+				accn.transaction_id=cataloged_item.accn_id (+) and
+				cataloged_item.accn_id is null and 
+				sysdate-RECEIVED_DATE between 300 and 365
+		</cfquery>
+		<cfquery name="colns" dbtype="query">
+			select collection,collection_id from yearOldAccn group by collection,collection_id
+		</cfquery>
+		<cfloop query="colns">
+			<cfquery name="contact" datasource="uam_god">
+				select
+					electronic_address.address
+				from
+					(select * from electronic_address where address_type='e-mail') electronic_address,
+					(select * from collection_contacts where contact_role='data quality') collection_contacts
+				where
+					collection_contacts.CONTACT_AGENT_ID=electronic_address.AGENT_ID and
+					collection_contacts.collection_id=#collection_id#
+			</cfquery>
+			<cfquery name="data" dbtype="query">
+				select 
+					transaction_id,
+					collection,
+					accn_number,
+					received_date
+				from
+					yearOldAccn
+				where collection_id=#collection_id#
+				group by
+					transaction_id,
+					collection,
+					accn_number,
+					received_date
+			</cfquery>
+			cfmail to="#permitExpOneYearnames.ADDRESS#" subject="Expiring Permits" from="reminder@#Application.fromEmail#" type="html">
+				You are receiving this message because you are the data quality contact for collection #collection#.
+				The following accessions are one year old and have no specimens attached.
+				<p>
+					<cfloop query="data">
+						<a href="#Application.ServerRootUrl#/editAccn.cfm?Action=edit&transaction_id=#transaction_id#">
+							#collection# #accn_number#
+						</a>
+						<br>
+					</cfloop>
+				</p>
+							/cfmail>
+		</cfloop>
+
+
+
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
