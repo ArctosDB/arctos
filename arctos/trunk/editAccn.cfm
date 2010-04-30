@@ -13,6 +13,23 @@
 			jQuery("#exp_date").datepicker();
 		});
 	});
+	function addAccnContainer(transaction_id,barcode){
+		$.getJSON("/component/functions.cfc",
+		{
+			method : "addAccnContainer",
+			barcode : barcode,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			if (r.status == 'success') {
+				alert('spiffy');
+				} else {
+				alert('An error occured! \n ' + r.error);
+			}	
+		}
+	);	
+	}
 	function removeMediaDiv() {
 		if(document.getElementById('bgDiv')){
 			jQuery('#bgDiv').remove();
@@ -268,8 +285,8 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="">Scan New Barcodes</label>
-						<input type="text" id="newbarcode1" name="newbarcode1" size="10">
+						<label for="">Scan New Barcode</label>
+						<input type="text" id="newbarcode" name="newbarcode" onchange="addAccnContainer(#transaction_id#,this.value)">
 						<input type="text" id="newbarcode2" name="newbarcode2">
 						<input type="text" id="newbarcode3" name="newbarcode3">
 						<input type="text" id="newbarcode4" name="newbarcode4">
