@@ -174,8 +174,7 @@
 	</cfif>
 	<cfif len(transaction_id) gt 0>
 		<cfset frm = "#frm# inner join trans_container on (trans_container.container_id=container.container_id)">
-		<cfset whr = "#whr# AND trans_container.transaction_id IN (#transaction_id#)">
-
+		<cfset whr = "#whr# AND trans_container.transaction_id = #transaction_id#">
 	</cfif>
 	<cfif len(#collection_object_id#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
