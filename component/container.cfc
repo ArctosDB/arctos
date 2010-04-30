@@ -138,22 +138,22 @@
 		<cfset v=listgetat(p,2,"=")>
 		<cfset variables[ k ] = v >
 	</cfloop>
-	<cfif len(#cat_num#) is 0 AND
-		len(#barcode#) is 0 AND
-		len(#container_label#) is 0 AND
-		len(#description#) is 0 AND
-		len(#container_type#) is 0 AND
-		len(#part_name#) is 0 AND
-		len(#collection_id#) is 0 and
-		len(#other_id_type#) is 0 and
-		len(#other_id_value#) is 0 and
-		len(#collection_object_id#) is 0 and
-		len(#loan_trans_id#) is 0 and
-		len(#table_name#) is 0 and
-		len(#in_container_type#) is 0 and
+	<cfif len(cat_num) is 0 AND
+		len(barcode) is 0 AND
+		len(container_label) is 0 AND
+		len(description) is 0 AND
+		len(container_type) is 0 AND
+		len(part_name) is 0 AND
+		len(collection_id) is 0 and
+		len(other_id_type) is 0 and
+		len(other_id_value) is 0 and
+		len(collection_object_id) is 0 and
+		len(loan_trans_id) is 0 and
+		len(table_name) is 0 and
+		len(in_container_type) is 0 and
 		len(transaction_id) is 0
 		>
-		 <cfset result = querynew("CONTAINER_ID,MSG")>
+		<cfset result = querynew("CONTAINER_ID,MSG")>
 		<cfset temp = queryaddrow(result,1)>
 		<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
 		<cfset temp = QuerySetCell(result, "msg", "You must enter search criteria. ---#transaction_id#---", 1)>
@@ -163,11 +163,11 @@
 	<cfset sel = "SELECT container.container_id">
 	<cfset frm = " FROM container ">
 	<cfset whr=" where 1=1 ">
-	<cfif len(#table_name#) gt 0>
-		<cfif #frm# does not contain " coll_obj_cont_hist ">
+	<cfif len(table_name) gt 0>
+		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
-		<cfif #frm# does not contain " specimen_part ">
+		<cfif frm does not contain " specimen_part ">
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
 		<cfset frm = "#frm# inner join #session.username#.#table_name# #table_name# on (#table_name#.collection_object_id=specimen_part.derived_from_cat_item)">
@@ -176,66 +176,66 @@
 		<cfset frm = "#frm# inner join trans_container on (trans_container.container_id=container.container_id)">
 		<cfset whr = "#whr# AND trans_container.transaction_id = #transaction_id#">
 	</cfif>
-	<cfif len(#collection_object_id#) gt 0>
-		<cfif #frm# does not contain " coll_obj_cont_hist ">
+	<cfif len(collection_object_id) gt 0>
+		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
-		<cfif #frm# does not contain " specimen_part ">
+		<cfif frm does not contain " specimen_part ">
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
-		<cfif #frm# does not contain " cataloged_item ">
+		<cfif frm does not contain " cataloged_item ">
 			<cfset frm = "#frm# inner join cataloged_item on (specimen_part.derived_from_cat_item=cataloged_item.collection_object_id)">
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.collection_object_id IN (#collection_object_id#)">
 	 </cfif>
 	 
-	 <cfif len(#cat_num#) gt 0>
-		<cfif #frm# does not contain " coll_obj_cont_hist ">
+	 <cfif len(cat_num) gt 0>
+		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
-		<cfif #frm# does not contain " specimen_part ">
+		<cfif frm does not contain " specimen_part ">
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
-		<cfif #frm# does not contain " cataloged_item ">
+		<cfif frm does not contain " cataloged_item ">
 			<cfset frm = "#frm# inner join cataloged_item on (specimen_part.derived_from_cat_item=cataloged_item.collection_object_id)">
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#cat_num#)">
 	</cfif>
 	 
-	<cfif len(#other_id_type#) gt 0>
-		<cfif #frm# does not contain " coll_obj_cont_hist ">
+	<cfif len(other_id_type) gt 0>
+		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
-		<cfif #frm# does not contain " specimen_part ">
+		<cfif frm does not contain " specimen_part ">
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
-		<cfif #frm# does not contain " cataloged_item ">
+		<cfif frm does not contain " cataloged_item ">
 			<cfset frm = "#frm# inner join cataloged_item on (specimen_part.derived_from_cat_item=cataloged_item.collection_object_id)">
 		</cfif>
-		<cfif #frm# does not contain " coll_obj_other_id_num ">
+		<cfif frm does not contain " coll_obj_other_id_num ">
 			<cfset frm = "#frm# inner join coll_obj_other_id_num on (cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id)">
 		</cfif>
 		<cfset whr = "#whr# AND OTHER_ID_TYPE = '#other_id_type#'">
 	 </cfif>
-	 <cfif len(#other_id_value#) gt 0>
-		<cfif #frm# does not contain " coll_obj_cont_hist ">
+	 <cfif len(other_id_value) gt 0>
+		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
-		<cfif #frm# does not contain " specimen_part ">
+		<cfif frm does not contain " specimen_part ">
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
-		<cfif #frm# does not contain " cataloged_item ">
+		<cfif frm does not contain " cataloged_item ">
 			<cfset frm = "#frm# inner join cataloged_item on (specimen_part.derived_from_cat_item=cataloged_item.collection_object_id)">
 		</cfif>
-		<cfif #frm# does not contain " coll_obj_other_id_num ">
+		<cfif frm does not contain " coll_obj_other_id_num ">
 			<cfset frm = "#frm# inner join coll_obj_other_id_num on (cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id)">
 		</cfif>		
 		<cfset whr = "#whr# AND upper(display_value) like '#ucase(other_id_value)#'">
 	 </cfif>
-	 <cfif len(#barcode#) gt 0>
+	 <cfif len(barcode) gt 0>
 	 	<cfset bclist = "">
 		<cfloop list="#barcode#" index="i">
-			<cfif len(#bclist#) is 0>
+			<cfif len(bclist) is 0>
 				<cfset bclist = "'#i#'">
 			<cfelse>
 				<cfset bclist = "#bclist#,'#i#'">
@@ -243,46 +243,46 @@
 		</cfloop>
 		<cfset whr = "#whr# AND barcode IN (#bclist#)">
 	</cfif>
-	<cfif len(#container_label#) gt 0>
+	<cfif len(container_label) gt 0>
 		<cfset whr = "#whr# AND upper(label) like '#ucase(container_label)#'">
 	 </cfif>
-	  <cfif len(#description#) gt 0>
+	  <cfif len(description) gt 0>
 		<cfset whr = "#whr# AND upper(description) LIKE '%#ucase(description)#%'">
 	 </cfif>
-	  <cfif len(#container_type#) gt 0>
+	  <cfif len(container_type) gt 0>
 		<cfset whr = "#whr# AND container_type='#container_type#'">
 	 </cfif>
 	 
-	 <cfif len(#part_name#) gt 0>
-		<cfif #frm# does not contain " coll_obj_cont_hist ">
+	 <cfif len(part_name) gt 0>
+		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
-		<cfif #frm# does not contain " specimen_part ">
+		<cfif frm does not contain " specimen_part ">
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
 		<cfset whr = "#whr# AND specimen_part.part_Name='#part_Name#'">
 	 </cfif>
-	  <cfif len(#loan_trans_id#) gt 0>
-		<cfif #frm# does not contain " coll_obj_cont_hist ">
+	  <cfif len(loan_trans_id) gt 0>
+		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
-		<cfif #frm# does not contain " specimen_part ">
+		<cfif frm does not contain " specimen_part ">
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
-		<cfif #frm# does not contain " loan_item ">
+		<cfif frm does not contain " loan_item ">
 			<cfset frm = "#frm# inner join loan_item on (specimen_part.collection_object_id=loan_item.collection_object_id)">
 		</cfif>
 		<cfset whr = "#whr# AND loan_item.transaction_id = #loan_trans_id#">
 	 </cfif>
 
-	<cfif len(#collection_id#) gt 0>
-		<cfif #frm# does not contain " coll_obj_cont_hist ">
+	<cfif len(collection_id) gt 0>
+		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
-		<cfif #frm# does not contain " specimen_part ">
+		<cfif frm does not contain " specimen_part ">
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
-		<cfif #frm# does not contain " cataloged_item ">
+		<cfif frm does not contain " cataloged_item ">
 			<cfset frm = "#frm# inner join cataloged_item on (specimen_part.derived_from_cat_item=cataloged_item.collection_object_id)">
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.collection_id = #collection_id#">
