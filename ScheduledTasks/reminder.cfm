@@ -280,7 +280,7 @@
 				trans.collection_id=collection.collection_id and
 				accn.transaction_id=cataloged_item.accn_id (+) and
 				cataloged_item.accn_id is null and 
-				sysdate-RECEIVED_DATE in (#yearList#)
+				round(sysdate-RECEIVED_DATE) in (#yearList#)
 		</cfquery>
 		<cfdump var=#yearOldAccn#>
 		<!---
