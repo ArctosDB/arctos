@@ -259,7 +259,25 @@
 				</table>
 		</div>
 		</td><td valign="top">
-			barcodes
+			<table border="1">
+				<tr>
+					<td>
+						<strong>Accn Containers</strong>
+						<br><a target="_blank" href="/findContainer.cfm?accn_id=#transaction_id#">Show Locations</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="">Scan New Barcodes</label>
+						<input type="text" id="newbarcode1" name="newbarcode1">
+						<input type="text" id="newbarcode2" name="newbarcode2">
+						<input type="text" id="newbarcode3" name="newbarcode3">
+						<input type="text" id="newbarcode4" name="newbarcode4">
+						<input type="text" id="newbarcode5" name="newbarcode5">
+						<input type="text" id="newbarcode6" name="newbarcode6">
+					</td>
+				</tr>
+			</table>
 		</td><td valign="top">
 			<strong>Projects associated with this Accn:</strong>
 			<ul>
