@@ -35,6 +35,27 @@
 		}
 	);	
 	}
+	function removeAccnContainer(transaction_id,barcode){
+		$('#newbarcode').addClass('red');
+		$.getJSON("/component/functions.cfc",
+		{
+			method : "removeAccnContainer",
+			transaction_id : transaction_id,
+			barcode : barcode,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			if (r.STATUS == 'success') {
+				$('#tc_' + r.BARCODE).remove();
+				$('#newbarcode').focus();
+			} else {
+				alert('An error occured! \n ' + r.ERROR);
+				$('#newbarcode').focus();
+			}	
+		}
+	);	
+	}
 	function removeMediaDiv() {
 		if(document.getElementById('bgDiv')){
 			jQuery('#bgDiv').remove();
