@@ -67,6 +67,7 @@ padding-right:10px;
 		<td valign="top"><!--------------------------- search pane ----------------------------->
 			<div id="searchPane">
 				<form onSubmit="loadTree();return false;">
+				<input type="hidden" name="transaction_id" id="transaction_id">
 				<label for="cat_num">Cat Num (comma-list OK)</label>
 				<input type="text" name="cat_num" id="cat_num"  />
 				<label for="barcode">Barcode (comma-list OK)</label>

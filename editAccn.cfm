@@ -311,13 +311,13 @@
 				<tr>
 					<td>
 						<strong>Accn Containers</strong>
-						<br><a target="_blank" href="/findContainer.cfm?barcode=#valuelist(accncontainers.barcode)#&autosubmit=true">Show Locations</a>
+						<br><a target="_blank" href="/findContainer.cfm?transaction_id=#transaction_id#&autosubmit=true">Show Locations</a>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label for="">Scan New Barcode</label>
-						<input type="text" id="newbarcode" name="newbarcode" onchange="addAccnContainer(#transaction_id#,this.value)">
+						<input type="text" id="newbarcode" name="newbarcode" size="15" onchange="addAccnContainer(#transaction_id#,this.value)">
 					</td>
 				</tr>
 				<tr>
