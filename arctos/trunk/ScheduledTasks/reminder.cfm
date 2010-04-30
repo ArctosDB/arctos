@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
-	<cfoutput>
-		<!----
+	<cfoutput>		
+		<!---
 		
 		<!--- start of loan code --->
 		<!--- days after and before return_due_date on which to send email. Negative is after ---->
@@ -257,8 +257,13 @@
 				</cfmail>
 			</cfloop>
 		</cfloop>
-		----->
+		---->
 		<!---- year=old accessions with no specimens ---->
+		<cfset yearList="">
+		<cfloop from="1" to="10" index="i">
+			<cfset i=i+365>
+			<cfset yearList=listappend(yearlist,i)>
+		</cfloop>
 		<cfquery name="yearOldAccn" datasource="uam_god">
 			select 
 				accn.transaction_id,
@@ -276,8 +281,10 @@
 				trans.collection_id=collection.collection_id and
 				accn.transaction_id=cataloged_item.accn_id (+) and
 				cataloged_item.accn_id is null and 
-				sysdate-RECEIVED_DATE between 300 and 365
+				sysdate-RECEIVED_DATE in (#yearList#)
 		</cfquery>
+		<cfdump var=#yearOldAccn#>
+		<!---
 		<cfquery name="colns" dbtype="query">
 			select collection,collection_id from yearOldAccn group by collection,collection_id
 		</cfquery>
@@ -307,10 +314,11 @@
 					accn_number,
 					received_date
 			</cfquery>
-			<hr>
-			cfmail to="#valuelist(contact.ADDRESS)#" subject="Bare Accession" from="bare_accession@#Application.fromEmail#" type="html">
+			<cfmail to="#valuelist(contact.ADDRESS)#" subject="Bare Accession" from="bare_accession@#Application.fromEmail#" type="html">
 				You are receiving this message because you are the data quality contact for collection #collection#.
-				The following accessions are one year old and have no specimens attached.
+				<p>
+					The following accessions are one year old and have no specimens attached.
+				</p>
 				<p>
 					<cfloop query="data">
 						<a href="#Application.ServerRootUrl#/editAccn.cfm?Action=edit&transaction_id=#transaction_id#">
@@ -319,10 +327,8 @@
 						<br>
 					</cfloop>
 				</p>
-							/cfmail>
+			</cfmail>
 		</cfloop>
-
-
-
+		---->
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
