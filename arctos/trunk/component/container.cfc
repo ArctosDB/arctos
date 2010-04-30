@@ -323,7 +323,7 @@
 				<cfset result = querynew("CONTAINER_ID,MSG")>
 				<cfset temp = queryaddrow(result,1)>
 				<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
-				<cfset temp = QuerySetCell(result, "msg", "No records were found.", 1)>
+				<cfset temp = QuerySetCell(result, "msg", "No records were found.#sql#", 1)>
 				<cfreturn result>
 	   		</cfif>
 	   
