@@ -118,6 +118,7 @@
 <!-------------------------------------------------------------->
 <cffunction name="get_containerTree" access="remote">
 	<cfargument name="q" type="string" required="true">
+	<cfreturn q>
 	<!--- accept a url-type argument, parse it out here --->
 	<cfset cat_num="">
 	<cfset barcode="">
