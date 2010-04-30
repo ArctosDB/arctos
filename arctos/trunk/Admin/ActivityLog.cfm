@@ -24,6 +24,10 @@
 <cfparam name="sql" default="">
 <cfparam name="object" default="">
 <cfoutput>
+	This form accesses Oracle Audit data, which includes most UPDATE, INSERT, and DELETE statements.
+	
+	<br>Data are updated nightly, and the last 24h may not be available here.
+	
 	<form name="srch" method="post" action="ActivityLog.cfm">
 		<input type="hidden" name="action" id="action" value="search">
 		<label for="uname">Username</label>
