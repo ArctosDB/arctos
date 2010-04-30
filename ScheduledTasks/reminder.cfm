@@ -260,9 +260,8 @@
 		---->
 		<!---- year=old accessions with no specimens ---->
 		<cfset yearList="">
-		<cfloop from="1" to="10" index="z">
-			<cfset i=i+365>
-			<cfset yearList=listappend(yearlist,i)>
+		<cfloop from="1" to="10" index="i">
+			<cfset yearList=listappend(yearlist,365*i)>
 		</cfloop>
 		<cfquery name="yearOldAccn" datasource="uam_god">
 			select 
