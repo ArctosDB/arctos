@@ -259,6 +259,8 @@
 				</table>
 		</div>
 		</td><td valign="top">
+			barcodes
+		</td><td valign="top">
 			<strong>Projects associated with this Accn:</strong>
 			<ul>
 				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
