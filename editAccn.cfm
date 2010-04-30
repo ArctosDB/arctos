@@ -269,7 +269,7 @@
 				<tr>
 					<td>
 						<label for="">Scan New Barcodes</label>
-						<input type="text" id="newbarcode1" name="newbarcode1">
+						<input type="text" id="newbarcode1" name="newbarcode1" size="10">
 						<input type="text" id="newbarcode2" name="newbarcode2">
 						<input type="text" id="newbarcode3" name="newbarcode3">
 						<input type="text" id="newbarcode4" name="newbarcode4">
