@@ -14,7 +14,7 @@
 		});
 	});
 	function addAccnContainer(transaction_id,barcode){
-		$('#newbarcode').css('style:red');
+		$('#newbarcode').addClass('red');
 		$.getJSON("/component/functions.cfc",
 		{
 			method : "addAccnContainer",
