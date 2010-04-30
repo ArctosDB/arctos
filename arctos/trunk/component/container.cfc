@@ -173,8 +173,8 @@
 		<cfset frm = "#frm# inner join #session.username#.#table_name# #table_name# on (#table_name#.collection_object_id=specimen_part.derived_from_cat_item)">
 	</cfif>
 	<cfif len(transaction_id) gt 0>
-		<cfset frm = "#frm# inner join trans_container on (trans_container.container_id=container.container_id)">
-		<cfset whr = "#whr# AND trans_container.transaction_id = #transaction_id#">
+		<cfset frm = "#frm# inner join trans_container on (trans_container.container_id=container.container_id) inner join trans on (trans_container.transaction_id=trans.transaction_id")>
+		<cfset whr = "#whr# AND trans.transaction_id = #transaction_id#">
 	</cfif>
 	<cfif len(collection_object_id) gt 0>
 		<cfif frm does not contain " coll_obj_cont_hist ">
@@ -288,29 +288,25 @@
 		<cfset whr = "#whr# AND cataloged_item.collection_id = #collection_id#">
 	 </cfif>
 	 <cfset sql = "#sel# #frm# #whr#">
-	
+	<cfset thisSql = "
+				SELECT 
+					CONTAINER_ID,
+					nvl(PARENT_CONTAINER_ID,0) PARENT_CONTAINER_ID,
+				CONTAINER_TYPE,
+				DESCRIPTION,
+				PARENT_INSTALL_DATE,
+				CONTAINER_REMARKS,
+				someRandomSequence.nextval ID,
+				label,
+				SYS_CONNECT_BY_PATH(container_type,':') thepath
+				 from container
+				start with container_id IN (
+					#sql#
+				)
+				connect by prior parent_container_id = container_id
+			">
 
 			 <cftry>
-			 	<cfquery name="base" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
-					#preservesinglequotes(sql)#
-				</cfquery>
-				 <cfset thisSql = "
-					SELECT 
-						CONTAINER_ID,
-						nvl(PARENT_CONTAINER_ID,0) PARENT_CONTAINER_ID,
-					CONTAINER_TYPE,
-					DESCRIPTION,
-					PARENT_INSTALL_DATE,
-					CONTAINER_REMARKS,
-					someRandomSequence.nextval ID,
-					label,
-					SYS_CONNECT_BY_PATH(container_type,':') thepath
-					 from container
-					start with container_id IN (
-						#valuelist(base.container_id)#
-					)
-					connect by prior parent_container_id = container_id
-				">
 			 	<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
 					#preservesinglequotes(thisSql)#
 				</cfquery>
