@@ -311,7 +311,7 @@
 				<tr>
 					<td>
 						<strong>Accn Containers</strong>
-						<br><a target="_blank" href="/findContainer.cfm?accn_id=#transaction_id#">Show Locations</a>
+						<br><a target="_blank" href="/findContainer.cfm?barcode=#valuelist(accncontainers.barcode)#&autosubmit=true">Show Locations</a>
 					</td>
 				</tr>
 				<tr>
