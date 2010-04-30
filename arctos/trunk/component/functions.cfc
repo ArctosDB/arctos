@@ -1,4 +1,38 @@
 <cfcomponent>
+<cffunction name="removeAccnContainer" access="remote">
+	<cfargument name="transaction_id" type="numeric" required="yes">
+	<cfargument name="barcode" type="string" required="yes">
+	<cftry>
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select container_id from container where barcode='#barcode#'
+		</cfquery>
+		<cfif c.recordcount is 1>
+			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				delete from trans_container where
+					transaction_id=#transaction_id# and
+					container_id='#c.container_id#'
+			</cfquery>
+			<cfset r=structNew()>
+			<cfset r.status="success">
+			<cfset r.transaction_id=transaction_id>
+			<cfset r.barcode=barcode>
+		<cfelse>
+			<cfset r=structNew()>
+			<cfset r.status="fail">
+			<cfset r.transaction_id=transaction_id>
+			<cfset r.barcode=barcode>
+			<cfset r.error="barcode not found">
+		</cfif>
+		<cfcatch>
+			<cfset r.status="fail">
+			<cfset r.transaction_id=transaction_id>
+			<cfset r.barcode=barcode>
+			<cfset r.error=cfcatch.message & '; ' & cfcatch.detail>
+		</cfcatch>		
+	</cftry>
+	<cfreturn r>
+</cffunction>
+<!----------------------------------------------->
 <cffunction name="addAccnContainer" access="remote">
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
