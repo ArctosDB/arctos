@@ -23,10 +23,10 @@
 			queryformat : 'column'
 		},
 		function(r) {
-			if (r.status == 'success') {
+			if (r.STATUS == 'success') {
 				alert('spiffy');
 				} else {
-				alert('An error occured! \n ' + r.error);
+				alert('An error occured! \n ' + r.ERROR);
 			}	
 		}
 	);	
