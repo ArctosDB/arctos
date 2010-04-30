@@ -307,7 +307,7 @@
 					accn_number,
 					received_date
 			</cfquery>
-			cfmail to="#permitExpOneYearnames.ADDRESS#" subject="Expiring Permits" from="reminder@#Application.fromEmail#" type="html">
+			cfmail to="#valuelist(contact.ADDRESS#" subject="Bare Accession" from="bare_accession@#Application.fromEmail#" type="html">
 				You are receiving this message because you are the data quality contact for collection #collection#.
 				The following accessions are one year old and have no specimens attached.
 				<p>
