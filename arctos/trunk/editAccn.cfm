@@ -25,7 +25,7 @@
 		function(r) {
 			if (r.STATUS == 'success') {
 				alert('spiffy');
-				var d=r.BARCODE + '<span class="infoLink" onclick="removeAccnContainer(' + r.TRANSACTION_ID + ',\' + r.BARCODE + \')">Remove</span><br>';
+				var d=r.BARCODE + '<span class="infoLink" onclick="removeAccnContainer(' + r.TRANSACTION_ID + ',\'' + r.BARCODE + '\')">Remove</span><br>';
 				$('#existingAccnContainers').append(d);					
 			} else {
 				alert('An error occured! \n ' + r.ERROR);
