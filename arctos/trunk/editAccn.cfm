@@ -310,7 +310,7 @@
 			<table border="1">
 				<tr>
 					<td>
-						<strong>Accn Containers</strong>
+						<strong>Accn&nbsp;Containers</strong>
 						<br><a target="_blank" href="/findContainer.cfm?transaction_id=#transaction_id#&autosubmit=true">Show Locations</a>
 					</td>
 				</tr>
