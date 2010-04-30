@@ -25,7 +25,9 @@
 		function(r) {
 			if (r.STATUS == 'success') {
 				alert('spiffy');
-				} else {
+				var d=r.BARCODE + '<span class="infoLink" onclick="removeAccnContainer(' + r.TRANSACTION_ID + ',\' + r.BARCODE + \')">Remove</span><br>';
+				$('#existingAccnContainers').append(d);					
+			} else {
 				alert('An error occured! \n ' + r.ERROR);
 			}	
 		}
@@ -277,6 +279,11 @@
 				</table>
 		</div>
 		</td><td valign="top">
+			<cfquery name="accncontainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select barcode from container, trans_container where
+				container.container_id=trans_container.container_id and
+				transaction_id=#transaction_id#
+			</cfquery>
 			<table border="1">
 				<tr>
 					<td>
@@ -288,13 +295,16 @@
 					<td>
 						<label for="">Scan New Barcode</label>
 						<input type="text" id="newbarcode" name="newbarcode" onchange="addAccnContainer(#transaction_id#,this.value)">
-						<input type="text" id="newbarcode2" name="newbarcode2">
-						<input type="text" id="newbarcode3" name="newbarcode3">
-						<input type="text" id="newbarcode4" name="newbarcode4">
-						<input type="text" id="newbarcode5" name="newbarcode5">
-						<input type="text" id="newbarcode6" name="newbarcode6">
 					</td>
 				</tr>
+				<tr>
+					<td id="existingAccnContainers">
+						<cfloop query="accncontainers">
+							#barcode# <span class="infoLink" onclick="removeAccnContainer(#transaction_id#,'#barcode#')">Remove</span><br>
+						</cfloop>
+					</td>
+				</tr>
+
 			</table>
 		</td><td valign="top">
 			<strong>Projects associated with this Accn:</strong>
