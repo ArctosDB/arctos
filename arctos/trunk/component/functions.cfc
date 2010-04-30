@@ -17,7 +17,7 @@
 				)	
 			</cfquery>
 			<cfset r=structNew()>
-			<cfset r.status="spiffy">
+			<cfset r.status="success">
 			<cfset r.transaction_id=transaction_id>
 			<cfset r.barcode=barcode>
 		<cfelse>
