@@ -1,7 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>		
-		<!---
-		
 		<!--- start of loan code --->
 		<!--- days after and before return_due_date on which to send email. Negative is after ---->
 		<cfset eid="-365,-180,-150,-120,-90,-60,-30,-7,0,7,30">
@@ -257,7 +255,6 @@
 				</cfmail>
 			</cfloop>
 		</cfloop>
-		---->
 		<!---- year=old accessions with no specimens ---->
 		<cfquery name="yearOldAccn" datasource="uam_god">
 			select 
@@ -279,8 +276,6 @@
 				to_char(sysdate,'DD-Mon')=to_char(RECEIVED_DATE,'DD-Mon') and
 				to_char(sysdate,'YYYY')-to_char(RECEIVED_DATE,'YYYY')>=1
 		</cfquery>
-		<cfdump var=#yearOldAccn#>
-		<!---
 		<cfquery name="colns" dbtype="query">
 			select collection,collection_id from yearOldAccn group by collection,collection_id
 		</cfquery>
@@ -325,6 +320,5 @@
 				</p>
 			</cfmail>
 		</cfloop>
-		---->
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
