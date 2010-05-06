@@ -22,7 +22,8 @@
 	cgi.redirect_url contains "/config/" or
 	cgi.redirect_url contains "/webmail/" or
 	cgi.redirect_url contains "/roundcubemail/" or
-	cgi.redirect_url contains "/roundcube/">
+	cgi.redirect_url contains "/roundcube/" or
+	cgi.redirect_url contains "/HovercardLauncher/">
 	<!--- auto blacklist them --->
 	<cfinclude template="/errors/autoblacklist.cfm">
 <cfelse>
