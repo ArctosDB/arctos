@@ -31,13 +31,13 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 <cffunction name="getTnPath">
 	<cfargument name="inpStr" type="string" required="yes">
 	<cfset filename=listfirst(listlast(inpStr,"/"),".")>
-	<cfset tnPath=replace(inpStr,"#filename#.dng","jpegs/tn_#filename#.jpg">
+	<cfset tnPath=replace(inpStr,"#filename#.dng","jpegs/tn_#filename#.jpg")>
 	<cfreturn "http://goodnight.corral.tacc.utexas.edu/UAF/" & tnPath>
 </cffunction>
 <cffunction name="getJpgPath">
 	<cfargument name="inpStr" type="string" required="yes">
 	<cfset filename=listfirst(listlast(inpStr,"/"),".")>
-	<cfset jpgPath=replace(inpStr,"#filename#.dng","jpegs/#filename#.jpg">
+	<cfset jpgPath=replace(inpStr,"#filename#.dng","jpegs/#filename#.jpg")>
 	<cfreturn "http://goodnight.corral.tacc.utexas.edu/UAF/" & jpgPath>
 </cffunction>
 <cffunction name="getFiletype">
