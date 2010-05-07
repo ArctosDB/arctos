@@ -44,8 +44,8 @@ function clearNewIdBy (n) {
 	theES.style.display='none';
 	*/
 	$('#addNewIdBy_' + n).hide();
-	$('#newIdBy_' + n).removeClass('reqdClr');
-	$('#newIdBy_' + n + '_id').removeClass('reqdClr');
+	$('#newIdBy_' + n).val('').removeClass('reqdClr');
+	$('#newIdBy_' + n + '_id').val('').removeClass('reqdClr');
 }
 function newIdFormula (f) {
 	var bTr = document.getElementById('taxon_b_row');
