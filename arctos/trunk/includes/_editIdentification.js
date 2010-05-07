@@ -17,13 +17,17 @@ function addNewIdBy(n) {
 	var v=document.getElementById(vS);
 	var i=document.getElementById(iS)
 	v.className='reqdClr agntpick';
-	v.setAttribute("onfocus", "attachAgentPick(this)");
+	//v.setAttribute("onfocus", "attachAgentPick(this)");
+	vS.setAttribute("onclick","getAgent('newIdBy_id',this.id,'newID',this.value)");
 	i.className='reqdClr';		
 }
 function clearNewIdBy (n) {
 	var idS = "idBy_" + n;
 	var idN = "newIdById_" + n;
-	var vS='idBy_' + n;
+	$('#idBy_' + n).remove();
+	$('#newIdById_' + n).remove();
+	/*
+	 * var vS='idBy_' + n;
 	var iS='newIdById_' + n;
 	var idS = "addNewIdBy_" + n;
 	var v=document.getElementById(vS);
@@ -34,6 +38,7 @@ function clearNewIdBy (n) {
 	v.value='';
 	i.value='';
 	theES.style.display='none';
+	*/
 }
 function newIdFormula (f) {
 	var bTr = document.getElementById('taxon_b_row');
