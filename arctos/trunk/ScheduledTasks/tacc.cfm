@@ -263,7 +263,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					pc.parent_container_id = prnt.container_id and
 					prnt.barcode='#filename#'
 			</cfquery>
-			<cfif bc.recordcount is 1 and bc.collection_id is 6>
+			<cfif bc.recordcount is 1 and len(bc.collection_object_id) gt 0 and bc.collection_id is 6>
 				<cfquery name="data" datasource="uam_god">
 					update tacc set collection_object_id=#bc.collection_object_id# where filename='#filename#'
 				</cfquery>
