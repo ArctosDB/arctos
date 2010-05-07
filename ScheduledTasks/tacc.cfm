@@ -28,6 +28,8 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 	order by barcode;
 
 --->
+<cfsetting requesttimeout="6000">
+
 <cffunction name="getTnPath">
 	<cfargument name="inpStr" type="string" required="yes">
 	<cfset filename=listfirst(listlast(inpStr,"/"),".")>
@@ -108,9 +110,16 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 		<cfreturn "descr_not_found">
 	</cfif>
 </cffunction>
+<!----------------------------------------- nothing  --------------------------------------------->
+<cfif not isdefined("action")><cfset action="nothing"></cfif>
+<cfif action is "nothing">
+	<br><a href="tacc.cfm?action=findFilesOnePath">findFilesOnePath</a>
+	<br><a href="tacc.cfm?action=linkToSpecimens">linkToSpecimens</a>
+	<br><a href="tacc.cfm?action=makeDNGMedia">makeDNGMedia</a>
+	<br><a href="tacc.cfm?action=makeJPGMedia">makeJPGMedia</a>
+</cfif>
 <!----------------------------------------- findAllDirectories  --------------------------------------------->
 <cfif action is "findAllDirectories">
-	<cfsetting requesttimeout="6000">
 	<cfoutput>
 	<cfset dirs=arraynew(1)>
 	<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF" charset="utf-8" method="get"></cfhttp>
@@ -180,7 +189,6 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 </cfif>
 <!----------------------------------------- findFilesOnePath  --------------------------------------------->
 <cfif action is "findFilesOnePath">
-	<cfsetting requesttimeout="6000">
 	<cfoutput>
 		<cfquery name="path" datasource="uam_god">
 			select fullpath from tacc where
