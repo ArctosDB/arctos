@@ -426,7 +426,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					update tacc set status='#descr#' where collection_object_id=#collection_object_id#
 				</cfquery>
 			</cfif>
-			<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/##fullpath#" charset="utf-8" method="head"></cfhttp>
+			<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#fullpath#" charset="utf-8" method="head"></cfhttp>
 			<cfif left(cfhttp.statusCode,3) is not "200">
 				<cfset go=false>
 				<cfquery name="fail" datasource="uam_god">
