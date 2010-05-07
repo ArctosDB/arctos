@@ -3,7 +3,7 @@ create table tacc_folder (
 	folder varchar2(255),
 	file_count number
 	);
-
+	
 create table tacc_check (
 	collection_object_id number,
 	barcode varchar2(255),
@@ -328,11 +328,13 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 						insert into media (
 							media_id,
 							media_uri,
+							preview_uri,
 							mime_type,
 							media_type
 						) values (
 							#nid.media_id#,
 							'#muri#',
+							'#getTnPath(fullpath)#',
 							'image/dng',
 							'image'
 						)
