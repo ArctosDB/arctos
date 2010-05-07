@@ -465,7 +465,6 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 						<cfquery name="nid" datasource="uam_god">
 							select sq_media_id.nextval media_id from dual
 						</cfquery>
-						<cfset muri='http://goodnight.corral.tacc.utexas.edu/UAF/#fullpath#'>
 						<cfquery name="media" datasource="uam_god">	
 							insert into media (
 								media_id,
@@ -475,8 +474,8 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 								media_type
 							) values (
 								#nid.media_id#,
-								'#muri#',
-								'#preview_uri#',
+								'#jpgPath#',
+								'#tnPath#',
 								'image/jpeg',
 								'image'
 							)
@@ -538,7 +537,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 						</cfquery>
 						<cfcatch>
 							<cfquery name="notspiffy" datasource="uam_god">
-								update tacc set jpg_status='fail_at_jpg: #cfcatch.message#' where collection_object_id=#collection_object_id#
+								update tacc set status='fail_at_jpg: #cfcatch.message#' where collection_object_id=#collection_object_id#
 							</cfquery>
 						</cfcatch>
 					</cftry>	
