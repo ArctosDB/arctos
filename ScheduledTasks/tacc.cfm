@@ -267,6 +267,14 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 				<cfquery name="data" datasource="uam_god">
 					update tacc set collection_object_id=#bc.collection_object_id# where filename='#filename#'
 				</cfquery>
+				<cfquery name="ixrel" datasource="uam_god">
+					select count(*) c from biol_indiv_relations where related_coll_object_id = #bc.collection_object_id#
+				</cfquery>
+				<cfif ixrel.c neq 0>
+					<cfquery name="izaplant" datasource="uam_god">
+						update tacc set status='in_relations' where filename='#filename#'
+					</cfquery>
+				</cfif>
 			<cfelseif bc.recordcount gt 1>
 				<cfquery name="data" datasource="uam_god">
 					update tacc set status='specimencount: #bc.recordcount#' where filename='#filename#'
@@ -274,14 +282,6 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			<cfelse>
 				<cfquery name="data" datasource="uam_god">
 					update tacc set status='plant_specimen_not_found' where filename='#filename#'
-				</cfquery>
-			</cfif>
-			<cfquery name="ixrel" datasource="uam_god">
-				select count(*) c from biol_indiv_relations where related_coll_object_id = #bc.collection_object_id#
-			</cfquery>
-			<cfif ixrel.c neq 0>
-				<cfquery name="izaplant" datasource="uam_god">
-					update tacc set status='in_relations' where filename='#filename#'
 				</cfquery>
 			</cfif>
 		</cfloop>
