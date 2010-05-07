@@ -3,7 +3,7 @@ create table tacc_folder (
 	folder varchar2(255),
 	file_count number
 	);
-	
+
 create table tacc_check (
 	collection_object_id number,
 	barcode varchar2(255),
