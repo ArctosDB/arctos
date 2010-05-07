@@ -10,7 +10,7 @@ function flippedAccepted(c) {
 	}
 }
 function addNewIdBy(n) {
-	var idS = "addNewIdBy_" + n;
+	/*var idS = "addNewIdBy_" + n;
 	var theES = document.getElementById(idS).style.display='';
 	var vS='newIdBy_' + n;
 	var iS='newIdBy_' + n + '_id';
@@ -19,14 +19,18 @@ function addNewIdBy(n) {
 	v.className='reqdClr agntpick';
 	//v.setAttribute("onfocus", "attachAgentPick(this)");
 	vS.setAttribute("onclick","getAgent('newIdBy_id',this.id,'newID',this.value)");
-	i.className='reqdClr';		
+	i.className='reqdClr';	
+	*/
+	$('#addNewIdBy_' + n).show();
+	$('#newIdBy_' + n).addClass('reqdClr');
+	$('#newIdBy_' + n + '_id').addClass('reqdClr');
 }
 function clearNewIdBy (n) {
-	var idS = "idBy_" + n;
+	/*var idS = "idBy_" + n;
 	var idN = "newIdById_" + n;
 	$('#idBy_' + n).remove();
 	$('#newIdById_' + n).remove();
-	/*
+	
 	 * var vS='idBy_' + n;
 	var iS='newIdById_' + n;
 	var idS = "addNewIdBy_" + n;
@@ -39,6 +43,9 @@ function clearNewIdBy (n) {
 	i.value='';
 	theES.style.display='none';
 	*/
+	$('#addNewIdBy_' + n).hide();
+	$('#newIdBy_' + n).removeClass('reqdClr');
+	$('#newIdBy_' + n + '_id').removeClass('reqdClr');
 }
 function newIdFormula (f) {
 	var bTr = document.getElementById('taxon_b_row');
