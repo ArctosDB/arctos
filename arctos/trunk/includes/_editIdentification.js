@@ -10,39 +10,11 @@ function flippedAccepted(c) {
 	}
 }
 function addNewIdBy(n) {
-	/*var idS = "addNewIdBy_" + n;
-	var theES = document.getElementById(idS).style.display='';
-	var vS='newIdBy_' + n;
-	var iS='newIdBy_' + n + '_id';
-	var v=document.getElementById(vS);
-	var i=document.getElementById(iS)
-	v.className='reqdClr agntpick';
-	//v.setAttribute("onfocus", "attachAgentPick(this)");
-	vS.setAttribute("onclick","getAgent('newIdBy_id',this.id,'newID',this.value)");
-	i.className='reqdClr';	
-	*/
 	$('#addNewIdBy_' + n).show();
 	$('#newIdBy_' + n).addClass('reqdClr');
 	$('#newIdBy_' + n + '_id').addClass('reqdClr');
 }
 function clearNewIdBy (n) {
-	/*var idS = "idBy_" + n;
-	var idN = "newIdById_" + n;
-	$('#idBy_' + n).remove();
-	$('#newIdById_' + n).remove();
-	
-	 * var vS='idBy_' + n;
-	var iS='newIdById_' + n;
-	var idS = "addNewIdBy_" + n;
-	var v=document.getElementById(vS);
-	var i=document.getElementById(iS)
-	var theES = document.getElementById(idS);
-	v.className='';
-	i.className='';
-	v.value='';
-	i.value='';
-	theES.style.display='none';
-	*/
 	$('#addNewIdBy_' + n).hide();
 	$('#newIdBy_' + n).val('').removeClass('reqdClr');
 	$('#newIdBy_' + n + '_id').val('').removeClass('reqdClr');
