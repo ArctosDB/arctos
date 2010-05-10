@@ -148,29 +148,17 @@
 			<cfif not isdefined("err") or len(err) is 0>
 				<cfset err="Your username or password was not recognized. Please try again.">
 			</cfif>
-			<div style="background-color:##FF0000; font-size:smaller; font-style:italic;">
+			<span style="background-color:##FF0000; font-size:smaller; font-style:italic; margin:.5em;padding:.5em;">
 				#err#
 				<script>
 					$('##username').css('backgroundColor','red');
 					$('##password').val('').css('backgroundColor','red').select().focus();
-					
-					/*					var un  = document.getElementById('username');
-									var ps = document.getElementById('password');
-												ps.value='some big long string';
-												ps.value='';
-												ps.style.backgroundColor='##FF0000';
-												un.style.backgroundColor='##FF0000';
-												un.select();
-												un.focus();
-												*/
 				</script>
-			</div>
+			</span>
 		</cfif>
 		<br>
-		<input type="submit" value="Sign In" class="savBtn"
-		   onClick="signIn.action.value='signIn';submit();" tabindex="3">
-		or <input type="button" value="Create an Account" class="insBtn"
-		   	onClick="isInfo();" tabindex="4">
+		<input type="submit" value="Sign In" class="savBtn" onClick="signIn.action.value='signIn';submit();" tabindex="3">
+		&nbsp;or&nbsp;<input type="button" value="Create an Account" class="insBtn" onClick="isInfo();" tabindex="4">
 
 </cfoutput>
 		
