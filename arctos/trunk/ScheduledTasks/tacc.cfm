@@ -113,6 +113,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 <!----------------------------------------- nothing  --------------------------------------------->
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
 <cfif action is "nothing">
+	<br><a href="tacc.cfm?action=findAllDirectories">findAllDirectories</a>
 	<br><a href="tacc.cfm?action=findFilesOnePath">findFilesOnePath</a>
 	<br><a href="tacc.cfm?action=linkToSpecimens">linkToSpecimens</a>
 	<br><a href="tacc.cfm?action=makeDNGMedia">makeDNGMedia</a>
