@@ -25,9 +25,6 @@
 <cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select coll_obj_disposition from ctcoll_obj_disp
 </cfquery>
-<cfquery name="ctpart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select distinct(part_name) from ctspecimen_part_name where collection_cde='#colcdes#'
-</cfquery>
 	<p><strong>Option 1: Add Part(s) to all specimens listed below</strong></p>
 	<form name="newPart" method="post" action="bulkPart.cfm">
 		<input type="hidden" name="action" value="newPart">
@@ -36,12 +33,9 @@
 	    	
 	    <cfloop from="1" to="#numParts#" index="i">
 	   		<label for="part_name_#i#">Add Part (#i#)</label>
-	   		<select name="part_name_#i#" id="part_name_#i#" size="1" class="reqdClr">
-				<option selected="selected" value=""></option>
-					<cfloop query="ctpart">
-				    	<option value="#ctpart.Part_Name#">#ctpart.Part_Name#</option>
-					</cfloop>
-			</select>
+	   		<input type="text" name="part_name_#i#" id="part_name_#i#" class="reqdClr"
+				onchange="findPart(this.id,this.value,'#colcdes#');" 
+				onkeypress="return noenter(event);">
 	   		<label for="lot_count_#i#">Part Count (#i#)</label>
 	   		<input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
 	   		<label for="coll_obj_disposition_#i#">Disposition (#i#)</label>
@@ -98,13 +92,13 @@
 		<input type="hidden" name="table_name" value="#table_name#">
 		<table border>
 			<tr>
+				<td></td>
 				<td>
 					Filter specimens for part...
 				</td>
 				<td>
 					Update to...
 				</td>
-				<td></td>
 			</tr>
 			<tr>
 				<td>Part Name</td>
@@ -118,34 +112,62 @@
 					</select>
 				</td>
 				<td>
-					<select name="new_part_name" id="new_part_name" size="1" class="reqdClr">
-						<option selected="selected" value=""></option>
-							<cfloop query="ctpart">
-						    	<option value="#ctpart.Part_Name#">#ctpart.Part_Name#</option>
+					<input type="text" name="new_part_name" id="new_part_name" class="reqdClr"
+						onchange="findPart(this.id,this.value,'#colcdes#');" 
+						onkeypress="return noenter(event);">
+				</td>
+			</tr>
+    		<tr>
+				<td>Lot Count</td>
+				<td>
+					<select name="existing_lot_count" id="existing_lot_count" size="1" class="reqdClr">
+						<option selected="selected" value="">ignore</option>
+							<cfloop query="existLotCount">
+						    	<option value="#lot_count#">#lot_count#</option>
 							</cfloop>
 					</select>
 				</td>
+				<td>
+					<input type="text" name="new_lot_count" id="new_lot_count">
+				</td>
 			</tr>
-    	
-   		<label for="existing_lot_count">Existing Part Count</label>
-		<select name="existing_lot_count" id="existing_lot_count" size="1" class="reqdClr">
-			<option selected="selected" value="">ignore</option>
-				<cfloop query="existLotCount">
-			    	<option value="#lot_count#">#lot_count#</option>
-				</cfloop>
-		</select>
-   		<label for="existing_coll_obj_disposition">Existing Disposition</label>
-   		<select name="existing_coll_obj_disposition" id="existing_coll_obj_disposition" size="1" class="reqdClr">
-			<option selected="selected" value="">ignore</option>
-				<cfloop query="existDisp">
-			    	<option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
-				</cfloop>
-		</select>
-		<br>Existing CONDITION will be ignored.
-		<br>Existing REMARKS will be ignored.
-	  	<br>
-	  	
-	  	<input type="submit" value="Add Parts" class="savBtn">
+			<tr>
+				<td>Disposition</td>
+				<td>
+					<select name="existing_coll_obj_disposition" id="existing_coll_obj_disposition" size="1" class="reqdClr">
+						<option selected="selected" value="">ignore</option>
+							<cfloop query="existDisp">
+						    	<option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
+							</cfloop>
+					</select>
+				</td>
+				<td>
+					<input type="text" name="new_coll_obj_disposition" id="new_coll_obj_disposition">
+				</td>
+			</tr>
+			<tr>
+				<td>Condition</td>
+				<td>
+					Existing CONDITION will be ignored
+				</td>
+				<td>
+					<input type="text" name="new_condition" id="new_condition">
+				</td>
+			</tr>
+			<tr>
+				<td>Remark</td>
+				<td>
+					Existing REMARKS will be ignored
+				</td>
+				<td>
+					<input type="text" name="new_remark" id="new_remark">
+				</td>
+			</tr>
+			<td>
+				<td colspan="3">
+					<input type="submit" value="Update Parts" class="savBtn">
+				</td>
+			</td>
 	  	</table>
 	</form>
 	<!------------------------------------------------------------------------->
