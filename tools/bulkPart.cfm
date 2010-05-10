@@ -283,7 +283,7 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
-<cfif action is "delPart">
+<cfif action is "delPart2">
 	<cfoutput>
 		<cftransaction>
 			<cfloop list="#partID#" index="i">
