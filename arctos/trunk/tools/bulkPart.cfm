@@ -217,7 +217,7 @@
 	<cftransaction>
 		<cfloop list="#partID#" index="i">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				update specimen_part set part_name='#new_part_name#' where part_id=#i#
+				update specimen_part set part_name='#new_part_name#' where collection_object_id=#i#
 			</cfquery>			
 			<cfif len(new_lot_count) gt 0 or len(new_coll_obj_disposition) gt 0 or len(new_condition) gt 0>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
