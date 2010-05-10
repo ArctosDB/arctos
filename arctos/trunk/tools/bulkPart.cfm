@@ -260,7 +260,7 @@
 							collection_object_id=#collection_object_id#
 					</cfquery>
 					<td>
-						<table border>
+						<table border width="100%">
 							<th>Part</th>
 							<th>Condition</th>
 							<th>Count</th>
@@ -282,6 +282,81 @@
 		</table>
 </cfoutput>
 </cfif>
+<!---------------------------------------------------------------------------->
+<cfif action is "delPart">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select
+				specimen_part.collection_object_id partID,
+				collection.collection,
+				cataloged_item.cat_num,
+				identification.scientific_name,
+				specimen_part.part_name,
+				coll_object.condition,
+				coll_object.lot_count,
+				coll_object.coll_obj_disposition,
+				coll_object_remark.coll_object_remarks
+			from
+				cataloged_item,
+				collection,
+				coll_object,
+				specimen_part,
+				identification,
+				coll_object_remark,
+				#table_name#
+			where
+				cataloged_item.collection_id=collection.collection_id and
+				cataloged_item.collection_object_id=#table_name#.collection_object_id and
+				cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id=coll_object.collection_object_id and
+				specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
+				cataloged_item.collection_object_id=identification.collection_object_id and
+				accepted_id_fg=1 and
+				part_name='#exist_part_name#'
+				<cfif len(existing_lot_count) gt 0>
+					and lot_count=#existing_lot_count#
+				</cfif>
+				<cfif len(existing_coll_obj_disposition) gt 0>
+					and coll_obj_disposition='#existing_coll_obj_disposition#'
+				</cfif>
+			order by
+				collection.collection,cataloged_item.cat_num		
+		</cfquery>
+		<form name="modPart" method="post" action="bulkPart.cfm">
+			<input type="hidden" name="action" value="delPart2">
+			<input type="hidden" name="table_name" value="#table_name#">
+			<input type="hidden" name="exist_part_name" value="#exist_part_name#">
+			<input type="hidden" name="existing_lot_count" value="#existing_lot_count#">
+			<input type="hidden" name="existing_coll_obj_disposition" value="#existing_coll_obj_disposition#">
+			<input type="hidden" name="partID" value="#valuelist(d.partID)#">
+			<input type="submit" value="Looks good - do it" class="savBtn">
+		</form>
+		<table border>
+			<tr>
+				<th>Specimen</th>
+				<th>ID</th>
+				<th>PartToBeDeleted</th>
+				<th>Condition</th>
+				<th>Cnt</th>
+				<th>Dispn</th>
+				<th>Remark</th>
+			</tr>
+			<cfloop query="d">
+				<tr>
+					<td>#collection# #cat_num#</td>
+					<td>#scientific_name#</td>
+					<td>#part_name#</td>
+					<td>#new_part_name#</td>
+					<td>#condition#</td>
+					<td>#lot_count#</td>
+					<td>#coll_obj_disposition#</td>
+					<td>#coll_object_remarks#</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
+</cfif>
+
 <!---------------------------------------------------------------------------->
 <cfif action is "modPart2">
 	<cfoutput>
@@ -438,33 +513,6 @@
 				</tr>
 			</cfloop>
 		</table>
-		<!----
-			
-				<td>Condition</td>
-				<td>
-					Existing CONDITION will be ignored
-				</td>
-				<td>
-					<input type="text" name="new_condition" id="new_condition" class="reqdClr">
-				</td>
-			</tr>
-			<tr>
-				<td>Remark</td>
-				<td>
-					Existing REMARKS will be ignored
-				</td>
-				<td>
-					<input type="text" name="new_remark" id="new_remark">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3" align="center">
-					<input type="submit" value="Update Parts" class="savBtn">
-				</td>
-			</tr>
-	  	</table>
-	</form>
-	---->
 	</cfoutput>
 </cfif>
 
