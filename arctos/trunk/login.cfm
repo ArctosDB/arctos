@@ -125,6 +125,19 @@
 </cfif>
 <!------------------------------------------------------------>
 <cfif action is "nothing">
+<script>
+	function isInfo() {
+		var uname = document.signIn.username.value;
+		var pword = document.signIn.password.value;
+		if (uname.length == 0 || pword.length == 0) {
+			alert('Enter a username and a password in this form to create an account.');
+			return false;
+		} else {
+			document.signIn.action.value='newUser';
+			document.signIn.submit();
+		}
+	}	
+</script>
 <cfoutput>
 	<cfparam name="username" default="">
 	<cfset title="Log In or Create Account">
@@ -158,42 +171,20 @@
 		</cfif>
 		<br>
 		<input type="submit" value="Sign In" class="savBtn" onClick="signIn.action.value='signIn';submit();" tabindex="3">
-		&nbsp;or&nbsp;<input type="button" value="Create an Account" class="insBtn" onClick="isInfo();" tabindex="4">
-
-</cfoutput>
-		
-		  <script>
-		  		function isInfo() {
-					var uname = document.signIn.username.value;
-					var pword = document.signIn.password.value;
-					if (uname.length == 0 || pword.length == 0) {
-						alert('Enter a username and a password in this form to create an account.');
-						return false;
-						}
-						else {
-						document.signIn.action.value='newUser';
-						document.signIn.submit();
-						}
-					}
-					// get rid of password default
-					
-		  </script>
+		&nbsp;or&nbsp;<input type="button" value="Create an Account" class="insBtn" onClick="isInfo();" tabindex="4">	  
 	</form>
-	
-	<p>&nbsp;</p>
-	<a href="login.cfm?action=lostPass">Lost your password?</a>
-	
-	<P>You can explore Arctos using basic options without signing in.
-	
-		
-
+	<p>
+		<a href="/ChangePassword.cfm">Lost your password?</a> If you created a profile with an email address,
+		we can send it to you. You can also just create a new account.
+	</p>
+	<p>
+		You can explore Arctos using basic options without signing in.
+	</p>
+	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------->
-<cfif #action# is "lostPass">
+<cfif action is "lostPass">
 	<cflocation url="ChangePassword.cfm" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------------------------------->
-
-<!------------------------------------------------------------>
-
 <cfinclude template = "includes/_footer.cfm">
