@@ -18,13 +18,12 @@
 	---->
 </cfif>
 <!------------------------------------------------------------>
-<cfif  #action# is "newUser">
-	<!--- see if they selected a valid user name --->
+<cfif  action is "newUser">
 	<cfquery name="uUser" datasource="cf_dbuser">
 		select * from cf_users where username = '#username#'
 	</cfquery>
 	<cfset err="">
-	<cfif len(#password#) is 0>
+	<cfif len(password) is 0>
 		<cfset err="Your password must be at least one character long.">
 	</cfif>
 	<cfquery name="dbausr" datasource="uam_god">
@@ -33,10 +32,10 @@
 	<cfif len(dbausr.username) gt 0>
 		<cfset err="That username is not available.">
 	</cfif>
-	<cfif len(#username#) is 0>
+	<cfif len(username) is 0>
 		<cfset err="Your user name must be at least one character long.">
 	</cfif>	
-	<cfif #uUser.recordcount# gt 0>
+	<cfif uUser.recordcount gt 0>
 		<cfset err="That username is already in use.">
 	</cfif>
 	<!--- create their account --->
@@ -48,24 +47,22 @@
 	</cfquery>
 	<!--- handle collection-specific links to this page --->
 	<cfoutput>
-		<cfset sql = "INSERT INTO cf_users (user_id, username, password,PW_CHANGE_DATE,last_login) VALUES
-			(#nextUserID.nextid#, '#username#', '#hash(password)#',sysdate,sysdate)">
-	
-	
 		<cfquery name="newUser" datasource="cf_dbuser">
-			#preservesinglequotes(sql)#
+			INSERT INTO cf_users (
+				user_id, 
+				username, 
+				password,
+				PW_CHANGE_DATE,
+				last_login
+			) VALUES (
+				#nextUserID.nextid#, 
+				'#username#', 
+				'#hash(password)#',
+				sysdate,
+				sysdate
+			)
 		</cfquery>
-		
-		<!--- and send them back to this form as a logged-in user --->
-		<form name="siUser" id="siUser" method="post" action="login.cfm">
-			<input type="hidden" name="action" value="signIn" />
-			<input type="hidden" name="username" value="#username#" />
-			<input type="hidden" name="password" value="#password#" />
-		</form>
-		
-		<script>
-			document.getElementById('siUser').submit();
-		</script>
+		<cflocation url="login.cfm?action=signIn&username=#username#&password=#password#" addtoken="false">
 		</cfoutput>
 		<!---
 		<cflocation url="login.cfm">
