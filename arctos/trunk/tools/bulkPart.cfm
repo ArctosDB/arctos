@@ -30,13 +30,13 @@
 		<input type="hidden" name="action" value="newPart">
 		<input type="hidden" name="table_name" value="#table_name#">
 	    <input type="hidden" name="numParts" value="#numParts#">
-	    <table border>
+	    <table border width="90%">
 			<tr>
 				<td>
 					Add Part 1
 				</td>
-				<td>Add part 2</td>
-				<td>Add part 3</td>
+				<td>Add part 2 (optional)</td>
+				<td>Add part 3 (optional)</td>
 			</tr>
 			<tr>
 				 <cfloop from="1" to="#numParts#" index="i">
