@@ -175,11 +175,8 @@
 		</div>
 	<cfelseif #isInv.allow# is 2>
 		<div style="background-color:##00FF00; border:2px solid black; width:75%;">
-			You have successfully authenticated your Arctos username. We'll take care of the rest. Thank you!
-		</div>
-		<cfmail to="dustymc@gmail.com" from="oracleuser@#Application.fromEmail#" subject="account needed">
-			#session.username# has set up an Oracle account and awaits blessings.
-		</cfmail>			
+			You have successfully authenticated your Arctos username. We'll take care of the rest.
+		</div>		
 	</cfif>
 	<cfquery name="getUserData" datasource="cf_dbuser">
 		SELECT   
@@ -338,8 +335,6 @@
 </cfif>
 <!---------------------------------------------------------------------->
 <cfif isdefined("redir") AND #redir# is "true">
-
-	<!---<cflocation url="#startApp#">--->
 	<cfoutput>
 	<!---- 
 		replace cflocation with JavaScript below so I'll always break

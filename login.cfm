@@ -3,19 +3,9 @@
 	<cflocation url="myArctos.cfm" addtoken="false">
 </cfif>
 <!------------------------------------------------------------>
-<!--- sign them out and start over --->
-
-<!------------------------------------------------------------>
-<cfif #action# is "signOut">
-
-<!--- Clear anything they might have had hang around 	--->
+<cfif action is "signOut">
 	<cfset initSession()>
-	you are logged out.
-				<cflocation url="login.cfm" addtoken="false">
-				<!---
-
-<cfdump var="#session#">
-	---->
+	<cflocation url="login.cfm" addtoken="false">
 </cfif>
 <!------------------------------------------------------------>
 <cfif  action is "newUser">
@@ -45,7 +35,6 @@
 	<cfquery name="nextUserID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(user_id) + 1 as nextid from cf_users
 	</cfquery>
-	<!--- handle collection-specific links to this page --->
 	<cfoutput>
 		<cfquery name="newUser" datasource="cf_dbuser">
 			INSERT INTO cf_users (
