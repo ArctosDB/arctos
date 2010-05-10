@@ -21,60 +21,34 @@
 <cfquery name="ctpart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(part_name) from ctspecimen_part_name where collection_cde='#colcdes#'
 </cfquery>
-
-	<h3>Add Part(s) to all specimens listed below</h3>
+	<h3>Option 1: Add Part(s) to all specimens listed below</h3>
 	<form name="newPart" method="post" action="bulkPart.cfm">
 		<input type="hidden" name="action" value="newPart">
 		<input type="hidden" name="table_name" value="#table_name#">
 	    <input type="hidden" name="numParts" value="#numParts#">
 	    	
 	    <cfloop from="1" to="#numParts#" index="i">
-	   		<table>
-	   			<tr>
-	   				<td>Part #i#:</td>
-	   			</tr>
-	   			<tr>
-	   				<td>
-	   					<label for="part_name_#i#">Part Name</label>
-	   					<select name="part_name_#i#" id="part_name_#i#" size="1" class="reqdClr">
-				            <option selected="selected" value=""></option>
-				            <cfloop query="ctpart">
-				              <option value="#ctpart.Part_Name#">#ctpart.Part_Name#</option>
-				            </cfloop>
-				          </select>
-	   				</td>
-	   			</tr>
-	   			<tr>
-	   				<td>
-	   					<label for="lot_count_#i#">Part Count</label>
-	   					<input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
-	   				</td>
-	   			</tr>
-	   			<tr>
-	   				<td>
-	   					<label for="coll_obj_disposition_#i#">Disposition</label>
-	   					<select name="coll_obj_disposition_#i#" id="coll_obj_disposition_#i#" size="1"  class="reqdClr">
-				            <cfloop query="ctDisp">
-				              <option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
-				            </cfloop>
-				          </select>
-	   				</td>
-	   			</tr>
-	   			<tr>
-	   				<td>
-	   					<label for="condition_#i#">Condition</label>
-	   					<input type="text" name="condition_#i#" id="condition_#i#" class="reqdClr">
-	   				</td>
-	   				<td>
-	   					<label for="coll_object_remarks_#i#">Remarks</label>
-	   					<input type="text" name="coll_object_remarks_#i#" id="coll_object_remarks_#i#">
-	   				</td>
-	   			</tr>
-	   		</table>
-	   		<hr>
-	    </cfloop>
-	  	<input type="submit" value="Add Parts" class="savBtn"
-		   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">
+	   		<label for="part_name_#i#">Part Name</label>
+	   		<select name="part_name_#i#" id="part_name_#i#" size="1" class="reqdClr">
+				<option selected="selected" value=""></option>
+					<cfloop query="ctpart">
+				    	<option value="#ctpart.Part_Name#">#ctpart.Part_Name#</option>
+					</cfloop>
+			</select>
+	   		<label for="lot_count_#i#">Part Count</label>
+	   		<input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
+	   		<label for="coll_obj_disposition_#i#">Disposition</label>
+	   		<select name="coll_obj_disposition_#i#" id="coll_obj_disposition_#i#" size="1"  class="reqdClr">
+				<cfloop query="ctDisp">
+					<option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+				</cfloop>
+			</select>
+			<label for="condition_#i#">Condition</label>
+	   		<input type="text" name="condition_#i#" id="condition_#i#" class="reqdClr">
+	   		<label for="coll_object_remarks_#i#">Remarks</label>
+	   		<input type="text" name="coll_object_remarks_#i#" id="coll_object_remarks_#i#">
+		</cfloop>
+	  	<input type="submit" value="Add Parts" class="savBtn">
   </form>
 
 	<!------------------------------------------------------------------------->
