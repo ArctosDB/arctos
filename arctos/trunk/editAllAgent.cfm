@@ -484,8 +484,8 @@
 					<input type="text" name="related_agent" class="reqdClr" value="#agent_name#"
 						onchange="getAgent('newRelatedAgentId','related_agent','agentRelations#i#',this.value); return false;"
 						onKeyPress="return noenter(event);">
-					<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.ction.value='changeRelated';agentRelations#i#.submit();">
-					<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.ction.value='deleteRelated';confirmDelete('agentRelations#i#');">
+					<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.action.value='changeRelated';agentRelations#i#.submit();">
+					<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.action.value='deleteRelated';confirmDelete('agentRelations#i#');">
 				</form>
 				<cfset i=#i#+1>
 			</cfloop>
