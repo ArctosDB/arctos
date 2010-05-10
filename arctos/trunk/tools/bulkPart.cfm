@@ -225,6 +225,7 @@
 			from
 				cataloged_item,
 				collection,
+				coll_object,
 				specimen_part,
 				identification,
 				#table_name#
