@@ -90,7 +90,7 @@
 			</cfif>
 		</cfif>
 		<cfif len(session.username) is 0>
-			<cfset u="login.cfm?badPW=true">
+			<cfset u="login.cfm?badPW=true&username=#username#">
 			<cfif isdefined("gotopage")>
 				<cfset u=u & '&gotopage=#gotopage#'>
 			</cfif>
