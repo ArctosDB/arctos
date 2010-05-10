@@ -142,6 +142,7 @@
 				</td>
 				<td>
 					<select name="new_coll_obj_disposition" id="new_coll_obj_disposition" size="1"  class="reqdClr">
+						<option value="">no update</option>
 						<cfloop query="ctDisp">
 							<option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 						</cfloop>
@@ -211,6 +212,47 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
+<cfif action is "modPart2">
+	<cfoutput>
+	<cftransaction>
+		<cfloop list="#partID#" index="i">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update specimen_part set part_name='#new_part_name#' where part_id=#i#
+			</cfquery>			
+			<cfif len(new_lot_count) gt 0 or len(new_coll_obj_disposition) gt 0 or len(new_condition) gt 0>
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update coll_object set
+						flags=flags
+						<cfif len(new_lot_count) gt 0>
+							,lot_count=#new_lot_count#
+						</cfif>
+						<cfif len(new_coll_obj_disposition) gt 0>
+							,coll_obj_disposition='#new_coll_obj_disposition#'
+						</cfif>
+						<cfif len(new_condition) gt 0>
+							,condition='#new_condition#'
+						</cfif>
+					where collection_object_id=#i#
+				</cfquery>
+			</cfif>
+			<cfif len(new_remark) gt 0>
+				<cftry>
+					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						insert into coll_object_remark (collection_object_id,coll_object_remarks) values (#i#,'#new_remark#')
+					</cfquery>
+					<cfcatch>
+						<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							update coll_object_remark set coll_object_remarks='#new_remark#' where collection_object_id=#i#
+						</cfquery>						
+					</cfcatch>
+				</cftry>
+			</cfif>
+		</cfloop>
+		</cftransaction>
+		<cflocation url="bulkPart.cfm?table_name=#table_name#" addtoken="false">
+	</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------->
 <cfif action is "modPart">
 	<cfif len(exist_part_name) is 0 or len(new_part_name) is 0>
 		Not enough information.
@@ -219,6 +261,7 @@
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
+				specimen_part.collection_object_id partID,
 				collection.collection,
 				cataloged_item.cat_num,
 				identification.scientific_name,
@@ -253,6 +296,20 @@
 			order by
 				collection.collection,cataloged_item.cat_num		
 		</cfquery>
+		<form name="modPart" method="post" action="bulkPart.cfm">
+			<input type="hidden" name="action" value="modPart2">
+			<input type="hidden" name="table_name" value="#table_name#">
+			<input type="hidden" name="exist_part_name" value="#exist_part_name#">
+			<input type="hidden" name="new_part_name" value="#new_part_name#">
+			<input type="hidden" name="existing_lot_count" value="#existing_lot_count#">
+			<input type="hidden" name="new_lot_count" value="#new_lot_count#">
+			<input type="hidden" name="existing_coll_obj_disposition" value="#existing_coll_obj_disposition#">
+			<input type="hidden" name="new_coll_obj_disposition" value="#new_coll_obj_disposition#">
+			<input type="hidden" name="new_condition" value="#new_condition#">
+			<input type="hidden" name="new_remark" value="#new_remark#">
+			<input type="hidden" name="partID" value="#valuelist(d.partID)#">
+			<input type="submit" value="Looks good - do it" class="savBtn">
+		</form>
 		<table border>
 			<tr>
 				<th>Specimen</th>
