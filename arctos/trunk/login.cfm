@@ -152,6 +152,8 @@
 				#err#
 				<script>
 					$('##username').css('backgroundColor','red');
+					$('##password').val('').css('backgroundColor','red').select().focus();
+					
 					/*					var un  = document.getElementById('username');
 									var ps = document.getElementById('password');
 												ps.value='some big long string';
