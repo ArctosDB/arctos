@@ -346,7 +346,6 @@
 					<td>#collection# #cat_num#</td>
 					<td>#scientific_name#</td>
 					<td>#part_name#</td>
-					<td>#new_part_name#</td>
 					<td>#condition#</td>
 					<td>#lot_count#</td>
 					<td>#coll_obj_disposition#</td>
