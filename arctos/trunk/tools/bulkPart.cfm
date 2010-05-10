@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <!--------------------------------------------------------------------->
+<cfset title="Bulk Modify Parts">
 <cfif action is "nothing">
 <cfoutput>
 	<cfset numParts=3>
@@ -66,7 +67,7 @@
 	</form>
 	<hr>
 	<p>
-		<strong>Option 2: Modify a part</strong>
+		<strong>Option 2: Modify Existing Parts</strong>
 	</p>
 	<cfquery name="existParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
@@ -189,7 +190,7 @@
 	</form>
 	<hr>
 	<p>
-		<strong>Option 2: Delete a part</strong>
+		<strong>Option 3: Delete parts</strong>
 	</p>
 	<form name="delPart" method="post" action="bulkPart.cfm">
 		<input type="hidden" name="action" value="delPart">
@@ -217,6 +218,11 @@
 		</select>
 		<br><input type="submit" value="Delete Parts" class="delBtn">
 	</form>
+	<hr>
+	
+	<p>
+		<strong>Specimens being Updated</strong>
+	</p>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			cataloged_item.collection_object_id,
