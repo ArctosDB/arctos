@@ -338,9 +338,6 @@
 		<form name="modPart" method="post" action="bulkPart.cfm">
 			<input type="hidden" name="action" value="delPart2">
 			<input type="hidden" name="table_name" value="#table_name#">
-			<input type="hidden" name="exist_part_name" value="#exist_part_name#">
-			<input type="hidden" name="existing_lot_count" value="#existing_lot_count#">
-			<input type="hidden" name="existing_coll_obj_disposition" value="#existing_coll_obj_disposition#">
 			<input type="hidden" name="partID" value="#valuelist(d.partID)#">
 			<input type="submit" value="Looks good - do it" class="savBtn">
 		</form>
