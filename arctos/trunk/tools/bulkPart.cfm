@@ -213,7 +213,7 @@
 <!---------------------------------------------------------------------------->
 <cfif action is "modPart">
 	<cfoutput>
-		<cfquery name="dtCO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
 				collection.collection,
 				cataloged_item.cat_num,
