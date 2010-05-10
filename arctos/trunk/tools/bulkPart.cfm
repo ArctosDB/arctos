@@ -204,11 +204,82 @@
 		</select>
 		<br><input type="submit" value="Delete Parts" class="delBtn">
 	</form>
-	<!------------------------------------------------------------------------->
-	<script>
-		getSpecResultsData(1,999);
-	</script>
-	<div id="resultsGoHere"></div>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select
+			cataloged_item.collection_object_id,
+			collection.collection,
+			cataloged_item.cat_num,
+			identification.scientific_name,
+			specimen_part.part_name,
+			coll_object.condition,
+			coll_object.lot_count,
+			coll_object.coll_obj_disposition,
+			coll_object_remark.coll_object_remarks
+		from
+			cataloged_item,
+			collection,
+			coll_object,
+			specimen_part,
+			identification,
+			coll_object_remark,
+			#table_name#
+		where
+			cataloged_item.collection_id=collection.collection_id and
+			cataloged_item.collection_object_id=#table_name#.collection_object_id and
+			cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+			specimen_part.collection_object_id=coll_object.collection_object_id and
+			specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
+			cataloged_item.collection_object_id=identification.collection_object_id and
+			accepted_id_fg=1
+		order by
+			collection.collection,cataloged_item.cat_num		
+	</cfquery>
+	<cfquery name="s" dbtype="query">
+		select collection_object_id,collection,cat_num,scientific_name from d group by collection_object_id,collection,cat_num,scientific_name
+	</cfquery>
+	<table border>
+			<tr>
+				<th>Specimen</th>
+				<th>ID</th>
+				<th>Parts</th>
+			</tr>
+			<cfloop query="s">
+				<tr>
+					<td>#collection# #cat_num#</td>
+					<td>#scientific_name#</td>
+					<cfquery name="sp" dbtype="query">
+						select
+							part_name,
+							condition,
+							lot_count,
+							coll_obj_disposition,
+							coll_object_remarks
+						from
+							d
+						where
+							collection_object_id=#collection_object_id#
+					</cfquery>
+					<td>
+						<table border>
+							<th>Part</th>
+							<th>Condition</th>
+							<th>Count</th>
+							<th>Dispn</th>
+							<th>Remark</th>
+							<cfloop query="sp">
+								<tr>
+									<td>#part_name#</td>
+									<td>#condition#</td>
+									<td>#lot_count#</td>
+									<td>#lot_count#</td>
+									<td>#coll_object_remarks#</td>
+								</tr>
+							</cfloop>
+						</table>
+					</td>
+				</tr>
+			</cfloop>
+		</table>
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
