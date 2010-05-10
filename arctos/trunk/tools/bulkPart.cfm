@@ -212,6 +212,10 @@
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "modPart">
+	<cfif len(exist_part_name) is 0 or len(new_part_name) is 0>
+		Not enough information.
+		<cfabort>
+	</cfif>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
@@ -257,7 +261,9 @@
 				<tr>
 					<td>#collection# #cat_num#</td>
 					<td>#scientific_name#</td>
-					<td>#part_name#</td>
+					<td>
+						#part_name# (updates to #new_part_name#)
+					</td>
 					<td>#condition#</td>
 					<td>#lot_count#</td>
 					<td>#coll_obj_disposition#</td>
