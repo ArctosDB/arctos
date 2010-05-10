@@ -69,7 +69,7 @@
 				cf_users.username='#session.username#'
 			</cfquery>
 			<cfquery name="makeUser" datasource="uam_god">
-				update temp_allow_cf_user set allow=2 where user_id=#usrInfo.user_id#
+				delete from temp_allow_cf_user where user_id=#usrInfo.user_id#
 			</cfquery>
 			<cfmail to="#usrInfo.invited_by_email#" from="account_created@#Application.fromEmail#" subject="User Authenticated" cc="#Application.PageProblemEmail#" type="html">
 				Arctos user #session.username# has successfully created an Oracle account.
@@ -155,7 +155,7 @@
 		</li>
 		<li><a href="/saveSearch.cfm?action=manage">Manage your Saved Searches</a>  (click Save Search from SpecimenResults to save a search)</li>
 	</ul>
-	<cfif #isInv.allow# is 1>
+	<cfif isInv.allow is 1>
 		<div style="background-color:##FF0000; border:2px solid black; width:75%;">
 			You've been invited to become an Operator. Password restrictions apply.
 			This form does not change your password (you may do so <a href="ChangePassword.cfm">here</a>),
@@ -173,10 +173,6 @@
 				document.getElementById(pw).value='';
 			</script>
 		</div>
-	<cfelseif #isInv.allow# is 2>
-		<div style="background-color:##00FF00; border:2px solid black; width:75%;">
-			You have successfully authenticated your Arctos username. We'll take care of the rest.
-		</div>		
 	</cfif>
 	<cfquery name="getUserData" datasource="cf_dbuser">
 		SELECT   

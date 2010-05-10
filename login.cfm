@@ -66,7 +66,8 @@
 			        middle_name,
 			        last_name,
 			        affiliation,
-					email
+					email,
+					PW_CHANGE_DATE
 				FROM 
 					cf_user_data,
 					cf_users
@@ -85,6 +86,7 @@
 			</cfif>
 			<cflocation url="#u#" addtoken="false">
 		</cfif>
+		
 		<cfif not isdefined("gotopage") or len(gotopage) is 0>
 			<cfif isdefined("cgi.HTTP_REFERER") and left(cgi.HTTP_REFERER,(len(application.serverRootUrl))) is application.serverRootUrl>
 				<cfset gotopage=replace(cgi.HTTP_REFERER,application.serverRootUrl,'')>
@@ -109,7 +111,19 @@
 				<cfset gotopage = "/SpecimenSearch.cfm">
 			</cfif>
 		</cfif>
-	<cflocation url="#gotopage#" addtoken="no">
+		<cfset pwtime =  round(now() - getUserData.pw_change_date)>
+		<cfset pwage = Application.max_pw_age - pwtime>
+		<cfif pwage lte 100>
+			<div text-align="center">
+				<span style="color:red;font-weight:bold;">
+					Your password expires in #pwage# days.
+					You may blalb lbla
+				</span>
+			</div>
+			<a href="#gotopage#">Continue to #gotopage#</a>
+		<cfelse>
+			<cflocation url="#gotopage#" addtoken="no">
+		</cfif>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------>
