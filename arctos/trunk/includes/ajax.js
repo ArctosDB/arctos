@@ -26,6 +26,7 @@ var viewport = {
    };
 function findPart(partFld,part_name,collCde){
 	var url="/picks/findPart.cfm";
+	console.log('part name: ' + part_name);
 	var popurl=url+"?part_name="+part_name+"&collCde="+collCde+"&partFld="+partFld;
 	partpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
