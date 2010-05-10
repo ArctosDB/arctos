@@ -30,24 +30,76 @@
 		<input type="hidden" name="action" value="newPart">
 		<input type="hidden" name="table_name" value="#table_name#">
 	    <input type="hidden" name="numParts" value="#numParts#">
-	    	
+	    <table border>
+			<tr>
+				<td>
+					Add Part 1
+				</td>
+				<td>Add part 2</td>
+				<td>Add part 3</td>
+			</tr>
+			<tr>
+				<td>
+					<cfset i=1>
+					<label for="part_name_#i#">Add Part (#i#)</label>
+			   		<input type="text" name="part_name_#i#" id="part_name_#i#" class="reqdClr"
+						onchange="findPart(this.id,this.value,'#colcdes#');" 
+						onkeypress="return noenter(event);">
+			   		<label for="lot_count_#i#">Part Count (#i#)</label>
+			   		<input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
+			   		<label for="coll_obj_disposition_#i#">Disposition (#i#)</label>
+			   		<select name="coll_obj_disposition_#i#" id="coll_obj_disposition_#i#" size="1"  class="reqdClr">
+						<cfloop query="ctDisp">
+							<option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+						</cfloop>
+					</select>
+					<label for="condition_#i#">Condition (#i#)</label>
+			   		<input type="text" name="condition_#i#" id="condition_#i#" class="reqdClr">
+			   		<label for="coll_object_remarks_#i#">Remark (#i#)</label>
+			   		<input type="text" name="coll_object_remarks_#i#" id="coll_object_remarks_#i#">
+				</td>
+				<td>
+					<cfset i=2>
+					<label for="part_name_#i#">Add Part (#i#)</label>
+			   		<input type="text" name="part_name_#i#" id="part_name_#i#" class="reqdClr"
+						onchange="findPart(this.id,this.value,'#colcdes#');" 
+						onkeypress="return noenter(event);">
+			   		<label for="lot_count_#i#">Part Count (#i#)</label>
+			   		<input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
+			   		<label for="coll_obj_disposition_#i#">Disposition (#i#)</label>
+			   		<select name="coll_obj_disposition_#i#" id="coll_obj_disposition_#i#" size="1"  class="reqdClr">
+						<cfloop query="ctDisp">
+							<option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+						</cfloop>
+					</select>
+					<label for="condition_#i#">Condition (#i#)</label>
+			   		<input type="text" name="condition_#i#" id="condition_#i#" class="reqdClr">
+			   		<label for="coll_object_remarks_#i#">Remark (#i#)</label>
+			   		<input type="text" name="coll_object_remarks_#i#" id="coll_object_remarks_#i#">
+				</td>
+				<td>
+					<cfset i=3>
+					<label for="part_name_#i#">Add Part (#i#)</label>
+			   		<input type="text" name="part_name_#i#" id="part_name_#i#" class="reqdClr"
+						onchange="findPart(this.id,this.value,'#colcdes#');" 
+						onkeypress="return noenter(event);">
+			   		<label for="lot_count_#i#">Part Count (#i#)</label>
+			   		<input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
+			   		<label for="coll_obj_disposition_#i#">Disposition (#i#)</label>
+			   		<select name="coll_obj_disposition_#i#" id="coll_obj_disposition_#i#" size="1"  class="reqdClr">
+						<cfloop query="ctDisp">
+							<option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+						</cfloop>
+					</select>
+					<label for="condition_#i#">Condition (#i#)</label>
+			   		<input type="text" name="condition_#i#" id="condition_#i#" class="reqdClr">
+			   		<label for="coll_object_remarks_#i#">Remark (#i#)</label>
+			   		<input type="text" name="coll_object_remarks_#i#" id="coll_object_remarks_#i#">
+				</td>
+			</tr>
+		</table>
 	    <cfloop from="1" to="#numParts#" index="i">
-	   		<label for="part_name_#i#">Add Part (#i#)</label>
-	   		<input type="text" name="part_name_#i#" id="part_name_#i#" class="reqdClr"
-				onchange="findPart(this.id,this.value,'#colcdes#');" 
-				onkeypress="return noenter(event);">
-	   		<label for="lot_count_#i#">Part Count (#i#)</label>
-	   		<input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
-	   		<label for="coll_obj_disposition_#i#">Disposition (#i#)</label>
-	   		<select name="coll_obj_disposition_#i#" id="coll_obj_disposition_#i#" size="1"  class="reqdClr">
-				<cfloop query="ctDisp">
-					<option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
-				</cfloop>
-			</select>
-			<label for="condition_#i#">Condition (#i#)</label>
-	   		<input type="text" name="condition_#i#" id="condition_#i#" class="reqdClr">
-	   		<label for="coll_object_remarks_#i#">Remark (#i#)</label>
-	   		<input type="text" name="coll_object_remarks_#i#" id="coll_object_remarks_#i#">
+	   		
 		</cfloop>
 	  	<input type="submit" value="Add Parts" class="savBtn">
 	</form>
