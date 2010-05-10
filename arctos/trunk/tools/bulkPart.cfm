@@ -96,13 +96,37 @@
 	<form name="newPart" method="post" action="bulkPart.cfm">
 		<input type="hidden" name="action" value="modPart">
 		<input type="hidden" name="table_name" value="#table_name#">
-    	<label for="existing_part_name">Existing Part</label>
-   		<select name="part_name_#i#" id="part_name_#i#" size="1" class="reqdClr">
-			<option selected="selected" value=""></option>
-				<cfloop query="existParts">
-			    	<option value="#Part_Name#">#Part_Name#</option>
-				</cfloop>
-		</select>
+		<table border>
+			<tr>
+				<td>
+					Filter specimens for part...
+				</td>
+				<td>
+					Update to...
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Part Name</td>
+				<td>
+					<label for="existing_part_name">Existing Part</label>
+			   		<select name="part_name_#i#" id="part_name_#i#" size="1" class="reqdClr">
+						<option selected="selected" value=""></option>
+							<cfloop query="existParts">
+						    	<option value="#Part_Name#">#Part_Name#</option>
+							</cfloop>
+					</select>
+				</td>
+				<td>
+					<select name="new_part_name" id="new_part_name" size="1" class="reqdClr">
+						<option selected="selected" value=""></option>
+							<cfloop query="ctpart">
+						    	<option value="#ctpart.Part_Name#">#ctpart.Part_Name#</option>
+							</cfloop>
+					</select>
+				</td>
+			</tr>
+    	
    		<label for="existing_lot_count">Existing Part Count</label>
 		<select name="existing_lot_count" id="existing_lot_count" size="1" class="reqdClr">
 			<option selected="selected" value="">ignore</option>
@@ -110,7 +134,7 @@
 			    	<option value="#lot_count#">#lot_count#</option>
 				</cfloop>
 		</select>
-   		<label for="existing_coll_obj_disposition">Disposition</label>
+   		<label for="existing_coll_obj_disposition">Existing Disposition</label>
    		<select name="existing_coll_obj_disposition" id="existing_coll_obj_disposition" size="1" class="reqdClr">
 			<option selected="selected" value="">ignore</option>
 				<cfloop query="existDisp">
@@ -119,7 +143,10 @@
 		</select>
 		<br>Existing CONDITION will be ignored.
 		<br>Existing REMARKS will be ignored.
+	  	<br>
+	  	
 	  	<input type="submit" value="Add Parts" class="savBtn">
+	  	</table>
 	</form>
 	<!------------------------------------------------------------------------->
 	<script>
