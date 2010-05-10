@@ -62,8 +62,13 @@
 		<strong>Option 2: Modify a part for all specimens listed below</strong>
 	</p>
 	<cfquery name="existParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select part_name from specimen_part,#table_name# where
-		specimen_part.derived_from_cat_item=#table_name#.collection_object_id
+		select 
+			part_name
+		from 
+			specimen_part,
+			#table_name# 
+		where
+			specimen_part.derived_from_cat_item=#table_name#.collection_object_id
 		group by part_name
 		order by part_name
 	</cfquery>
@@ -94,8 +99,8 @@
     	<label for="existing_part_name">Existing Part</label>
    		<select name="part_name_#i#" id="part_name_#i#" size="1" class="reqdClr">
 			<option selected="selected" value=""></option>
-				<cfloop query="ctpart">
-			    	<option value="#ctpart.Part_Name#">#ctpart.Part_Name#</option>
+				<cfloop query="existParts">
+			    	<option value="#Part_Name#">#Part_Name#</option>
 				</cfloop>
 		</select>
    		<label for="existing_lot_count">Existing Part Count</label>
