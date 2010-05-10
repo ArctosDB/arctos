@@ -53,7 +53,7 @@
 	</form>
 	<hr>
 	<p>
-		<strong>Option 2: Modify a part for all specimens listed below</strong>
+		<strong>Option 2: Modify a part</strong>
 	</p>
 	<cfquery name="existParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
@@ -87,7 +87,7 @@
 	<cfquery name="existDisp" dbtype="query">
 		select coll_obj_disposition from existCO group by coll_obj_disposition order by coll_obj_disposition
 	</cfquery>
-	<form name="newPart" method="post" action="bulkPart.cfm">
+	<form name="modPart" method="post" action="bulkPart.cfm">
 		<input type="hidden" name="action" value="modPart">
 		<input type="hidden" name="table_name" value="#table_name#">
 		<table border>
@@ -103,8 +103,7 @@
 			<tr>
 				<td>Part Name</td>
 				<td>
-					<label for="existing_part_name">Existing Part</label>
-			   		<select name="part_name_#i#" id="part_name_#i#" size="1" class="reqdClr">
+			   		<select name="exist_part_name" id="exist_part_name" size="1" class="reqdClr">
 						<option selected="selected" value=""></option>
 							<cfloop query="existParts">
 						    	<option value="#Part_Name#">#Part_Name#</option>
@@ -128,7 +127,7 @@
 					</select>
 				</td>
 				<td>
-					<input type="text" name="new_lot_count" id="new_lot_count">
+					<input type="text" name="new_lot_count" id="new_lot_count" class="reqdClr">
 				</td>
 			</tr>
 			<tr>
@@ -142,7 +141,11 @@
 					</select>
 				</td>
 				<td>
-					<input type="text" name="new_coll_obj_disposition" id="new_coll_obj_disposition">
+					<select name="new_coll_obj_disposition" id="new_coll_obj_disposition" size="1"  class="reqdClr">
+						<cfloop query="ctDisp">
+							<option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+						</cfloop>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -151,7 +154,7 @@
 					Existing CONDITION will be ignored
 				</td>
 				<td>
-					<input type="text" name="new_condition" id="new_condition">
+					<input type="text" name="new_condition" id="new_condition" class="reqdClr">
 				</td>
 			</tr>
 			<tr>
@@ -163,12 +166,43 @@
 					<input type="text" name="new_remark" id="new_remark">
 				</td>
 			</tr>
-			<td>
-				<td colspan="3">
+			<tr>
+				<td colspan="3" align="center">
 					<input type="submit" value="Update Parts" class="savBtn">
 				</td>
-			</td>
+			</tr>
 	  	</table>
+	</form>
+	
+	<hr>
+	<p>
+		<strong>Option 2: Delete a part</strong>
+	</p>
+	<form name="delPart" method="post" action="bulkPart.cfm">
+		<input type="hidden" name="action" value="delPart">
+		<input type="hidden" name="table_name" value="#table_name#">
+		<label for="exist_part_name">Existing Part Name</label>
+		<select name="exist_part_name" id="exist_part_name" size="1" class="reqdClr">
+			<option selected="selected" value=""></option>
+				<cfloop query="existParts">
+			    	<option value="#Part_Name#">#Part_Name#</option>
+				</cfloop>
+		</select>
+		<label for="existing_lot_count">Existing Lot Count</label>
+		<select name="existing_lot_count" id="existing_lot_count" size="1" class="reqdClr">
+			<option selected="selected" value="">ignore</option>
+				<cfloop query="existLotCount">
+			    	<option value="#lot_count#">#lot_count#</option>
+				</cfloop>
+		</select>
+		<label for="existing_coll_obj_disposition">Existing Disposition</label>
+		<select name="existing_coll_obj_disposition" id="existing_coll_obj_disposition" size="1" class="reqdClr">
+			<option selected="selected" value="">ignore</option>
+				<cfloop query="existDisp">
+			    	<option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
+				</cfloop>
+		</select>
+		<br><input type="submit" value="Delete Parts" class="delBtn">
 	</form>
 	<!------------------------------------------------------------------------->
 	<script>
