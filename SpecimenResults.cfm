@@ -438,7 +438,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 						MSB<->DGR
 					</option>
 					<option value="/tools/bulkPart.cfm">
-						Add Parts
+						Modify Parts
 					</option>
 					
 					<option value="">::Print Stuff::</option>
