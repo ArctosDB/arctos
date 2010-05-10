@@ -298,7 +298,7 @@
 							NOT UPDATED
 						</cfif>
 					</td>
-					<td>#coll_object_remark#</td>
+					<td>#coll_object_remarks#</td>
 					<td>
 						<cfif len(new_remark) gt 0>
 							#new_remark#
