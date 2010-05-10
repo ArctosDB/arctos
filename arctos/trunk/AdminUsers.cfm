@@ -150,29 +150,26 @@
 <cfquery name="isDbUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select username from all_users where username='#ucase(username)#'
 </cfquery>
-<cfquery name="hasInvite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select user_id,allow from temp_allow_cf_user where user_id=#getUsers.user_id#
-</cfquery>
+
 		</td>
 		<td valign="top">
 		<table border>
 			<tr>
 				<td>Database User Status:</td>
 				<td>
-					<cfif len(#isDbUser.username#) gt 0 and hasInvite.recordcount is 0>
+					<cfif len(isDbUser.username) gt 0>
 						Is User
 						<a href="AdminUsers.cfm?username=#username#&action=lockUser">Lock Account</a>
-					</cfif>
-						<cfif #len(hasInvite.user_id)# is 0 and isDbUser.recordcount is 0>
-							<a href="AdminUsers.cfm?action=makeNewDbUser&username=#username#&user_id=#getUsers.user_id#">Invite</a>
+					<cfelse>
+						<cfquery name="hasInvite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							select user_id,allow from temp_allow_cf_user where user_id=#getUsers.user_id#
+						</cfquery>
+						<cfif hasInvite.allow is 1>
+							Awaiting User Action
 						<cfelse>
-							<cfif #hasInvite.allow# is 1>
-								Awaiting User Action (#hasInvite.allow#)
-							<cfelseif #hasInvite.allow# is 2>
-								Awaiting Admin Action (#hasInvite.allow#) <a href="AdminUsers.cfm?action=adminSet&username=#username#&user_id=#getUsers.user_id#">Finished</a>
-							</cfif>
+							<a href="AdminUsers.cfm?action=makeNewDbUser&username=#username#&user_id=#getUsers.user_id#">Invite</a>
 						</cfif>
-					
+					</cfif>					
 				</td>
 			</tr>
 			<tr>
@@ -394,7 +391,7 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
-<cfif #Action# is "dbRole">
+<cfif action is "dbRole">
 	<cfoutput>
 	<a href="AdminUsers.cfm?action=edit&username=#username#">back</a>
 	<br />
