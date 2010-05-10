@@ -246,7 +246,9 @@
 				</cfif>
 				<cfif len(existing_coll_obj_disposition) gt 0>
 					and coll_obj_disposition='#existing_coll_obj_disposition#'
-				</cfif>				
+				</cfif>
+			order by
+				collection.collection,cataloged_item.cat_num		
 		</cfquery>
 		<table border>
 			<tr>
