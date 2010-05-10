@@ -1,7 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
-
 <!--------------------------------------------------------------------->
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 <cfoutput>
 	<cfset numParts=3>
 	<cfif not isdefined("table_name")>
@@ -11,9 +10,16 @@
 	select distinct(collection_cde) from #table_name#
 </cfquery>
 <cfset colcdes = valuelist(colcde.collection_cde)>
-<cfset colcdes = "'#replace(colcdes,",","','","all")#'">
+<cfif listlen(colcdes) is not 1>
+	You can only use this form on one collection at a time. Please revise your search.
+	<cfabort>
+</cfif>
+
 <cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select coll_obj_disposition from ctcoll_obj_disp
+</cfquery>
+<cfquery name="ctpart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select distinct(part_name) from ctspecimen_part_name where collection_cde='#colcdes#'
 </cfquery>
 
 	<h3>Add Part(s) to all specimens listed below</h3>
@@ -32,8 +38,8 @@
 	   					<label for="part_name_#i#">Part Name</label>
 	   					<select name="part_name_#i#" id="part_name_#i#" size="1" class="reqdClr">
 				            <option selected="selected" value=""></option>
-				            <cfloop query="Part">
-				              <option value="#Part.Part_Name#">#Part.Part_Name#</option>
+				            <cfloop query="ctpart">
+				              <option value="#ctpart.Part_Name#">#ctpart.Part_Name#</option>
 				            </cfloop>
 				          </select>
 	   				</td>

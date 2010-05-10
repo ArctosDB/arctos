@@ -506,7 +506,7 @@
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
-		max: 20,
+		max: 50,
 		autofill: false,
 		multiple: false,
 		scroll: true,
