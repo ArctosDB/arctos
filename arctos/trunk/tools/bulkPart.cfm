@@ -225,19 +225,22 @@
 				specimen_part.part_name,
 				coll_object.condition,
 				coll_object.lot_count,
-				coll_object.coll_obj_disposition
+				coll_object.coll_obj_disposition,
+				coll_object_remark.coll_object_remarks
 			from
 				cataloged_item,
 				collection,
 				coll_object,
 				specimen_part,
 				identification,
+				coll_object_remark,
 				#table_name#
 			where
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id=#table_name#.collection_object_id and
 				cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 				specimen_part.collection_object_id=coll_object.collection_object_id and
+				specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
 				cataloged_item.collection_object_id=identification.collection_object_id and
 				accepted_id_fg=1 and
 				part_name='#exist_part_name#'
@@ -254,87 +257,61 @@
 			<tr>
 				<th>Specimen</th>
 				<th>ID</th>
-				<th>Part</th>
-				<th>Condition</th>
-				<th>Cnt</th>
-				<th>Dispn</th>
+				<th>OldPart</th>
+				<th>NewPart</th>
+				<th>OldCondition</th>
+				<th>NewCondition</th>
+				<th>OldCnt</th>
+				<th>NewdCnt</th>
+				<th>OldDispn</th>
+				<th>NewDispn</th>
+				<th>OldRemark</th>
+				<th>NewRemark</th>
 			</tr>
 			<cfloop query="d">
 				<tr>
 					<td>#collection# #cat_num#</td>
 					<td>#scientific_name#</td>
-					<td>
-						#part_name# (updates to #new_part_name#)
-					</td>
+					<td>#part_name#</td>
+					<td>#new_part_name#</td>
 					<td>#condition#</td>
+					<td>
+						<cfif len(new_condition) gt 0>
+							#new_condition#
+						<cfelse>
+							NOT UPDATED
+						</cfif>
+					</td>
 					<td>#lot_count#</td>
+					<td>
+						<cfif len(new_lot_count) gt 0>
+							#new_lot_count#
+						<cfelse>
+							NOT UPDATED
+						</cfif>
+					</td>
 					<td>#coll_obj_disposition#</td>
+					<td>
+						<cfif len(new_coll_obj_disposition) gt 0>
+							#new_coll_obj_disposition#
+						<cfelse>
+							NOT UPDATED
+						</cfif>
+					</td>
+					<td>#coll_object_remark#</td>
+					<td>
+						<cfif len(new_remark) gt 0>
+							#new_remark#
+						<cfelse>
+							NOT UPDATED
+						</cfif>
+					</td>
+					
 				</tr>
 			</cfloop>
 		</table>
 		<!----
-			<form name="modPart" method="post" action="bulkPart.cfm">
-		<input type="hidden" name="action" value="modPart">
-		<input type="hidden" name="table_name" value="#table_name#">
-		<table border>
-			<tr>
-				<td></td>
-				<td>
-					Filter specimens for part...
-				</td>
-				<td>
-					Update to...
-				</td>
-			</tr>
-			<tr>
-				<td>Part Name</td>
-				<td>
-			   		<select name="exist_part_name" id="exist_part_name" size="1" class="reqdClr">
-						<option selected="selected" value=""></option>
-							<cfloop query="existParts">
-						    	<option value="#Part_Name#">#Part_Name#</option>
-							</cfloop>
-					</select>
-				</td>
-				<td>
-					<input type="text" name="new_part_name" id="new_part_name" class="reqdClr"
-						onchange="findPart(this.id,this.value,'#colcdes#');" 
-						onkeypress="return noenter(event);">
-				</td>
-			</tr>
-    		<tr>
-				<td>Lot Count</td>
-				<td>
-					<select name="existing_lot_count" id="existing_lot_count" size="1" class="reqdClr">
-						<option selected="selected" value="">ignore</option>
-							<cfloop query="existLotCount">
-						    	<option value="#lot_count#">#lot_count#</option>
-							</cfloop>
-					</select>
-				</td>
-				<td>
-					<input type="text" name="new_lot_count" id="new_lot_count" class="reqdClr">
-				</td>
-			</tr>
-			<tr>
-				<td>Disposition</td>
-				<td>
-					<select name="existing_coll_obj_disposition" id="existing_coll_obj_disposition" size="1" class="reqdClr">
-						<option selected="selected" value="">ignore</option>
-							<cfloop query="existDisp">
-						    	<option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
-							</cfloop>
-					</select>
-				</td>
-				<td>
-					<select name="new_coll_obj_disposition" id="new_coll_obj_disposition" size="1"  class="reqdClr">
-						<cfloop query="ctDisp">
-							<option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
-						</cfloop>
-					</select>
-				</td>
-			</tr>
-			<tr>
+			
 				<td>Condition</td>
 				<td>
 					Existing CONDITION will be ignored
