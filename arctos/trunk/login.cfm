@@ -113,10 +113,10 @@
 		</cfif>
 		<cfset pwtime =  round(now() - getUserData.pw_change_date)>
 		<cfset pwage = Application.max_pw_age - pwtime>
-		<cfif pwage lte 100>
+		<cfif pwage lte 7>
 			<div style="text-align:center;color:red;font-weight:bold;">
-					Your password expires in #pwage# days.
-					<br>You may wish to <a href="/ChangePassword.cfm">change it now</a>.
+				Your password expires in #pwage# days
+				<br>You may <a href="/ChangePassword.cfm">change it now</a>
 			</div>
 			<a href="#gotopage#">Continue to #gotopage#</a>
 		<cfelse>
