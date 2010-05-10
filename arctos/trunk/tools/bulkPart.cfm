@@ -215,13 +215,13 @@
 	<cfoutput>
 		<cfquery name="dtCO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
-				collection,
-				cat_num,
-				scientific_name,
-				part_name,
-				condition,
-				lot_count,
-				coll_obj_disposition
+				collection.collection,
+				cataloged_item.cat_num,
+				identification.scientific_name,
+				specimen_part.part_name,
+				coll_object.condition,
+				coll_object.lot_count,
+				coll_object.coll_obj_disposition
 			from
 				cataloged_item,
 				collection,
