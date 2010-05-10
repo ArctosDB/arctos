@@ -26,7 +26,7 @@
 <cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select coll_obj_disposition from ctcoll_obj_disp
 </cfquery>
-	<p><strong>Option 1: Add Part(s) to all specimens listed below</strong></p>
+	<p><strong>Option 1: Add Part(s)</strong></p>
 	<form name="newPart" method="post" action="bulkPart.cfm">
 		<input type="hidden" name="action" value="newPart">
 		<input type="hidden" name="table_name" value="#table_name#">
@@ -264,7 +264,7 @@
 			</tr>
 			<cfloop query="s">
 				<tr>
-					<td>#collection# #cat_num#</td>
+					<td><a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a></td>
 					<td>#scientific_name#</td>
 					<cfquery name="sp" dbtype="query">
 						select
@@ -290,7 +290,7 @@
 									<td>#part_name#</td>
 									<td>#condition#</td>
 									<td>#lot_count#</td>
-									<td>#lot_count#</td>
+									<td>#coll_obj_disposition#</td>
 									<td>#coll_object_remarks#</td>
 								</tr>
 							</cfloop>
