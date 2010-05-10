@@ -63,155 +63,115 @@
 			)
 		</cfquery>
 		<cflocation url="login.cfm?action=signIn&username=#username#&password=#password#" addtoken="false">
-		</cfoutput>
-		<!---
-		<cflocation url="login.cfm">
-		--->
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------>
-
-<CFIF  #action# is "signIn">
+<CFIF  action is "signIn">
 	<cfoutput>
-	<cfset initSession('#username#','#password#')>
-	<cfif session.roles contains "coldfusion_user">
-		<!--- 
-			make sure they have a valid email address 
-			If not, let them in for now, but set variable for use in annoying
-			them in _header.cfm
-		--->
-		<cfquery name="getUserData" datasource="cf_dbuser">
-			SELECT   
-				cf_users.user_id,
-				first_name,
-		        middle_name,
-		        last_name,
-		        affiliation,
-				email
-			FROM 
-				cf_user_data,
-				cf_users
-			WHERE
-				cf_users.user_id = cf_user_data.user_id (+) AND
-				username = '#session.username#'
-		</cfquery>
-		<cfif len(getUserData.email) is 0>
-			<cfset session.needEmailAddr=1>
+		<cfset initSession('#username#','#password#')>
+		<cfif session.roles contains "coldfusion_user">
+			<cfquery name="getUserData" datasource="cf_dbuser">
+				SELECT   
+					cf_users.user_id,
+					first_name,
+			        middle_name,
+			        last_name,
+			        affiliation,
+					email
+				FROM 
+					cf_user_data,
+					cf_users
+				WHERE
+					cf_users.user_id = cf_user_data.user_id (+) AND
+					username = '#session.username#'
+			</cfquery>
+			<cfif len(getUserData.email) is 0>
+				<cfset session.needEmailAddr=1>
+			</cfif>
 		</cfif>
-	</cfif>
-	<!--- make sure they got logged in --->
-	<cfif len(session.username) is 0>
-		<cfset u="login.cfm?badPW=true">
-		<cfif isdefined("gotopage")>
-			<cfset u=u & '&gotopage=#gotopage#'>
+		<cfif len(session.username) is 0>
+			<cfset u="login.cfm?badPW=true">
+			<cfif isdefined("gotopage")>
+				<cfset u=u & '&gotopage=#gotopage#'>
+			</cfif>
+			<cflocation url="#u#" addtoken="false">
 		</cfif>
-		<cflocation url="#u#" addtoken="false">
-	</cfif>
-	<!--- redirect to personal home --->
-	<cfif not isdefined("gotopage") or len(#gotopage#) is 0>
-		<cfif isdefined("cgi.HTTP_REFERER") and left(cgi.HTTP_REFERER,(len(application.serverRootUrl))) is application.serverRootUrl>
-			<cfset gotopage=replace(cgi.HTTP_REFERER,application.serverRootUrl,'')>
-			<cfset junk="CFID,CFTOKEN">
-			<cfloop list="#gotopage#" index="e" delimiters="?&">
-				<cfloop list="#junk#" index="j">
-					<cfif left(e,len(j)) is j>
-						<cfset rurl=replace(gotopage,e,'','all')>
+		<cfif not isdefined("gotopage") or len(gotopage) is 0>
+			<cfif isdefined("cgi.HTTP_REFERER") and left(cgi.HTTP_REFERER,(len(application.serverRootUrl))) is application.serverRootUrl>
+				<cfset gotopage=replace(cgi.HTTP_REFERER,application.serverRootUrl,'')>
+				<cfset junk="CFID,CFTOKEN">
+				<cfloop list="#gotopage#" index="e" delimiters="?&">
+					<cfloop list="#junk#" index="j">
+						<cfif left(e,len(j)) is j>
+							<cfset rurl=replace(gotopage,e,'','all')>
+						</cfif>
+					</cfloop>
+				</cfloop>
+				<cfset t=1>
+				<cfset rurl=replace(gotopage,"?&","?","all")>
+				<cfset rurl=replace(gotopage,"&&","&","all")>
+				<cfset nogo="login.cfm,errors/">
+				<cfloop list="#nogo#" index="n">
+					<cfif gotopage contains n>
+						<cfset gotopage = "/SpecimenSearch.cfm">
 					</cfif>
 				</cfloop>
-			</cfloop>
-			<cfset t=1>
-			<cfset rurl=replace(gotopage,"?&","?","all")>
-			<cfset rurl=replace(gotopage,"&&","&","all")>
-			<cfset nogo="login.cfm,errors/">
-			<cfloop list="#nogo#" index="n">
-				<cfif gotopage contains n>
-					<cfset gotopage = "/SpecimenSearch.cfm">
-				</cfif>
-			</cfloop>
-		<cfelse>
-			<cfset gotopage = "/SpecimenSearch.cfm">
+			<cfelse>
+				<cfset gotopage = "/SpecimenSearch.cfm">
+			</cfif>
 		</cfif>
-	</cfif>
 	<cflocation url="#gotopage#" addtoken="no">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------>
-
-<cfif #action# is "nothing">
-<cfset title="Log In or Create Account">
-
-<!--- kick them over here anytime they come in from anywhere if username are not set --->
-
-	<table cellpadding="0" cellspacing="0" width="600">
-		<tr>
-			<td>
-			 <b><font size="+1">Customize Arctos</font></b>			    
-			
-		<p>
-			Logging in enables you to turn on, turn off, or otherwise customize many features of 
-			this database. To create an account and log in, simply supply a username and 
-			password here and click Create Account.
-		</p>	
+<cfif action is "nothing">
+<cfoutput>
+	<cfparam name="username" default="">
+	<cfset title="Log In or Create Account">
+	<p><strong>Log In or Create an Account</strong></p>
+	<p>
+		Logging in enables you to turn on, turn off, or otherwise customize many features of 
+		this database. To create an account and log in, simply supply a username and 
+		password here and click Create Account.
+	</p>	
 	<cfif not isdefined("gotopage")>
 		<cfset gotopage=''>
 	</cfif>
 	<form action="login.cfm" method="post" name="signIn">
-	<input name="action" value="signIn" type="hidden">
-
-<table>
-	<tr>
-		<td>
-		<cfoutput>
-					<input name="gotopage" value="#gotopage#" type="hidden">
-			<table>
-				<tr>
-					<td>Username:</td>
-					<cfparam name="username" default="">
-					<td><input name="username" type="text" tabindex="1" value="#username#" id="username"></td>
-					
-				</tr>
-				
-				<tr>
-					<td valign="top">Password:</td>
-					<td valign="top"><input name="password" type="password" tabindex="2" value="" id="password">
-					<cfif isdefined("badPW") and #badPW# is "true">
-						<cfif not isdefined("err") or len(err) is 0>
-							<cfset err="Your username or password was not recognized. Please try again.">
-						</cfif>
-						<div style="background-color:##FF0000; font-size:smaller; font-style:italic;">
-							#err#
-							<script>
-								var un  = document.getElementById('username');
-								var ps = document.getElementById('password');
-											ps.value='some big long string';
-											ps.value='';
-											ps.style.backgroundColor='##FF0000';
-											un.style.backgroundColor='##FF0000';
-											un.select();
-											un.focus();
-							</script>
-						</div>
-					</cfif>
-					</td>
-					
-				</tr>
-			</table>
-			</cfoutput>
-		</td>
-		<td>
-			<table style="border-left-style:solid; border-left-width:thin " cellpadding="0" cellspacing="0">
-				<tr>
-					<td nowrap>
-					&nbsp;&nbsp;<input type="submit" value="Sign In" class="savBtn"
-		   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'"
+		<input name="action" value="signIn" type="hidden">
+		<input name="gotopage" value="#gotopage#" type="hidden">
+		<label for="username">Username</label>
+		<input name="username" type="text" tabindex="1" value="#username#" id="username">
+		<label for="password">Password</label>
+		<input name="password" type="password" tabindex="2" value="" id="password">
+		<cfif isdefined("badPW") and badPW is true>
+			<cfif not isdefined("err") or len(err) is 0>
+				<cfset err="Your username or password was not recognized. Please try again.">
+			</cfif>
+			<div style="background-color:##FF0000; font-size:smaller; font-style:italic;">
+				#err#
+				<script>
+					$('##username').css('backgroundColor','red');
+					/*					var un  = document.getElementById('username');
+									var ps = document.getElementById('password');
+												ps.value='some big long string';
+												ps.value='';
+												ps.style.backgroundColor='##FF0000';
+												un.style.backgroundColor='##FF0000';
+												un.select();
+												un.focus();
+												*/
+				</script>
+			</div>
+		</cfif>
+		<br>
+		<input type="submit" value="Sign In" class="savBtn"
 		   onClick="signIn.action.value='signIn';submit();" tabindex="3">
-		            <font size="-1">to your previously set preferences</font>		  </td>
-		  </tr>
-		  
-		  <tr>
-		  <td>&nbsp;&nbsp;OR, enter a username and password and</td>
-		  </tr>
-		   <tr>
-		  <td nowrap>
+		or <input type="button" value="Create an Account" class="insBtn"
+		   	onClick="isInfo();" tabindex="4">
+
+</cfoutput>
+		
 		  <script>
 		  		function isInfo() {
 					var uname = document.signIn.username.value;
@@ -228,29 +188,14 @@
 					// get rid of password default
 					
 		  </script>
-		   &nbsp;&nbsp;<input type="button" value="Create an Account" class="insBtn"
-		   				onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
-		   				onClick="isInfo();" tabindex="4">
-		   <font size="-1">so you can set and save preferences.</font>					</td>
-				</tr>
-				
-			</table>
-		</td>
-	</tr>
-</table>
-
-	
 	</form>
 	
-	<hr>
+	<p>&nbsp;</p>
 	<a href="login.cfm?action=lostPass">Lost your password?</a>
 	
 	<P>You can explore Arctos using basic options without signing in.
 	
-		  </td>
-		</tr>
-	
-	</table>
+		
 
 </cfif>
 <!-------------------------------------------------------------------------------------->
