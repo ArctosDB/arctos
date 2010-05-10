@@ -285,6 +285,19 @@
 <!---------------------------------------------------------------------------->
 <cfif action is "delPart">
 	<cfoutput>
+		<cftransaction>
+			<cfloop list="#partID#" index="i">
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					delete from specimen_part where collection_object_id=#i#
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+	</cfoutput>
+	<cflocation url="bulkPart.cfm?table_name=#table_name#" addtoken="false">
+</cfif>
+<!---------------------------------------------------------------------------->
+<cfif action is "delPart">
+	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
 				specimen_part.collection_object_id partID,
