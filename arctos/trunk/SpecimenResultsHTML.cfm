@@ -361,6 +361,10 @@
 		</cfif>
 	</cfloop>
 	<cfoutput>
+	<div id="suggestOtherForm"></div>
+	<script>
+		document.getElementById('suggestOtherForm').innerHTML='We recommend SpecimenResults for JavaScript-capable browsers.';
+	</script>
 	<span style="float:right; clear:left;">
 		<span class="infoLink" onclick="document.location='/info/reportBadData.cfm?collection_object_id=#collectionObjectIdList#';">
 			Report Bad Data
