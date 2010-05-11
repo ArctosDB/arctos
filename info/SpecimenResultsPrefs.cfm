@@ -1,5 +1,4 @@
-<cfinclude template="/includes/_frameHeader.cfm">
-<cfif action is "nothing">
+<!---<cfinclude template="/includes/_frameHeader.cfm">--->
 <table width="100%" cellpadding="0" cellspacing="0">
 	<tr>
 		<td rowspan="2" valign="top"><span style="font-size:.85em;font-style:italic;">Check fields to show them in your results and downloads. Uncheck to remove. Adding too much here will adversely affect performance.</span></td>
@@ -121,5 +120,4 @@
 	</table>
 </form>
 </div>
-</cfoutput>			 
-</cfif>
+</cfoutput>
