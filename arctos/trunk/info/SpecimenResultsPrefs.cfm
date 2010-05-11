@@ -1,8 +1,8 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif action is "nothing">
 <script>
-	var r=$('#customID').val;
-	console.log('r is ' + r);
+	var rrr=$('#customID').val;
+	console.log('r is ' + rrr);
 </script>
 <table width="100%" cellpadding="0" cellspacing="0">
 	<tr>
