@@ -64,4 +64,3 @@ function enableAutosubmit(state){
 <br /> 
 <table id="bigset"></table> 
 <div id="pagerb"></div> 
-<script src="bigset.js" type="text/javascript"> </script> 
