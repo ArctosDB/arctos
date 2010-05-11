@@ -207,6 +207,9 @@ dateFormat.i18n = {
 Date.prototype.format = function (mask, utc) {
 	return dateFormat(this, mask, utc);
 };
+function success_crcloo(){
+	return false;
+}
 function crcloo (ColumnList,in_or_out) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
@@ -216,7 +219,7 @@ function crcloo (ColumnList,in_or_out) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		return false;
+		success_crcloo
 	);
 }
 function checkAllById(list) {
