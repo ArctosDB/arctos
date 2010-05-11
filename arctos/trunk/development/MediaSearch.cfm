@@ -411,12 +411,12 @@
 <table>
 	<!-- Results Table Header -->
 	<tr>
-		<td><strong>Media Preview</strong></td>
-		<td><strong>Mime Type</strong></td>
-		<td><strong>Details</strong></td>
-		<td><strong>Download</strong></td>
-		<td><strong>Map</strong></td>
-		<td><strong>Related Keywords</strong></td>		
+		<td><center><strong>Media Preview</strong></center></td>
+		<td><center><strong>Mime Type</strong></center></td>
+		<td><center><strong>Details</strong></center></td>
+		<td><center><strong>Download</strong></center></td>
+		<td><center><strong>Map</strong></center></td>
+		<td><center><strong>Related Keywords</strong></center></td>		
 	</tr>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -456,29 +456,27 @@
 			<cfset mp=getMediaPreview(preview_uri,media_type)>
 			<cfset mrel=getMediaRelations2(#media_id#)>
 			
-			<cfset media_details_url = "http://arctos.database.museum/media/" & "" & #media_id#>
+			
+			<cfset kw="">
 			<cfset agent_name="">
-			<cfset cat_item_url="">
-			<cfset cat_item_sum="">
-			<cfset coll_obj_id=0>
-			<cfset coll_event_id=0>
 			<cfset scientific_name="">
 			<cfset higherGeog="">
 			<cfset specLoc="">
-			<cfset kw="">
+			<cfset description="#desc.label_value#">
+			
+			<cfset media_details_url = "http://arctos.database.museum/media/" & "" & #media_id#>
+			<cfset cat_item_url="">
+			<cfset cat_item_sum="">
+			<cfset coll_obj_id=0>
+			<cfset coll_event_id=0>			
 			<cfset locality="">
 			<cfset dec_long=0>
 			<cfset dec_long=0>
+			
 			<cfif mrel.recordcount gt 0>				
 				<cfloop query="mrel">
 					<cfif #rel_type# is "agent">
 						<cfset agent_name=#created_agent_name#>
-						
-						<cfif len(kw) gt 0>
-							<cfset kw= kw &"; " & agent_name>
-						<cfelse>
-							<cfset kw="" & agent_name>
-						</cfif>
 					<cfelseif #rel_type# is "cataloged_item">
 						<cfset cat_item_url=#link#>
 						<cfset cat_item_sum=#summary#>
@@ -491,22 +489,11 @@
 							<cfset endPos = find(')', cat_item_sum)>
 							<cfset scientific_name=mid(cat_item_sum,begPos+1, endPos-begPos-1)>
 						</cfif>
-						
-						<cfif len(kw) gt 0>
-							<cfset kw= kw &"; " & scientific_name>
-						<cfelse>
-							<cfset kw=""&scientific_name>
-						</cfif>
+
 					<cfelseif #rel_type# is "collecting_event">		
 						<cfset coll_event_id=#related_primary_key#>			
 						<cfset locality = replace(#summary#,"[:\(]",";")>
 						<cfset locality = replace(#summary#, "\)", "")>
-						
-						<cfif len(kw) gt 0>
-							<cfset kw= kw &"; " & locality>
-						<cfelse>
-							<cfset kw=""&locality>
-						</cfif>
 
 					</cfif>
 				</cfloop>		
@@ -552,7 +539,21 @@
 					<cfset dec_lat=#d.dec_lat#>
 					<cfset dec_long=#d.dec_long#>
 				</cfif>
+				
+				<!-- Orders the keywords -->
+				<cfset kw_list = "#scientific_name#, #locality#, #agent_name#, #description#">
+				<cfloop list="#kw_list#" index="word" delimiters=",">
+					<cfif len(word) gt 0>
+						<cfif len(kw) gt 0>
+							<cfset kw = kw & "; " & word>
+						<cfelse>
+							<cfset kw = word>						
+						</cfif>
+					</cfif>
+				</cfloop>
 			</cfif>
+			
+		
 			
 			<!-- Grid Display -->
 			<!-- <table>
