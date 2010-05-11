@@ -62,8 +62,11 @@
 <cfquery name="mvz" dbtype="query">
 	select * from coll where collection like 'MVZ %' and lower(portal_name) != 'mvz_all' order by collection
 </cfquery>
-<cfdump var=#mvz#>
 <cfset gotem=listappend(gotem,valuelist(mvz.cf_collection_id))>
+<cfquery name="mvz_all" dbtype="query">
+	select * from coll where collection like 'MVZ %' and lower(portal_name) = 'mvz_all' order by collection
+</cfquery>
+<cfset gotem=listappend(gotem,valuelist(mvz_all.cf_collection_id))>
 <cfquery name="wnmu" dbtype="query">
 	select * from coll where collection like 'WNMU %' order by collection
 </cfquery>
@@ -168,6 +171,30 @@
 						<cfif isdefined("mvz") and mvz.recordcount gt 0>
 							<li>Museum of Vertebrate Zoology
 								<ul>
+									<cfif isdefined("mvz_all") and mvz_all.recordcount gt 0>
+										<cfloop query="mvz_all">
+											<cfset coll_dir_name = "#lcase(portal_name)#">
+											<li>
+												<a href="/#coll_dir_name#" target="_top">#collection#</a>
+												<cfif len(descr) gt 0>
+												<span id="plus_minus_#cf_collection_id#" 
+													class="infoLink"
+													onclick="showDet('#cf_collection_id#')" >
+													more...
+												</span>
+												<div id="det_div_#cf_collection_id#" class="noshow">
+													#descr#
+													<cfif len(#WEB_LINK#) gt 0>
+														<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
+													</cfif>
+													<cfif len(#loan_policy_url#) gt 0>
+														<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
+													</cfif>
+												</div>
+												</cfif>
+											</li>
+										</cfloop>
+									</cfif>
 									<cfloop query="mvz">
 										<cfset coll_dir_name = "#lcase(portal_name)#">
 										<li>
