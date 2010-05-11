@@ -3,16 +3,12 @@ var gpstart, gpend;
 window.onunload = function(){
 	fen1.onunload();
 }
-
-function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId)
-{
+function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId){
   var me = this;
   var ele = xGetElementById(eleId);
   var rBtn = xGetElementById(resBtnId);  
   var zBtn = xGetElementById(zoomBtnId);
-
-  this.onunload = function()
-  {
+  this.onunload = function(){
     if (xIE4Up) { // clear cir refs
       xDisableDrag(barId);
       xDisableDrag(rBtn);
