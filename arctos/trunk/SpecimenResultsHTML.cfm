@@ -166,7 +166,7 @@
 						and #key# is not "newsearch"
 						and #key# is not "STARTROW">
 					<cfif len(#returnURL#) is 0>
-						<cfset returnURL='SpecimenResults.cfm?#key#=#form[key]#'>
+						<cfset returnURL='SpecimenResultsHTML.cfm?#key#=#form[key]#'>
 					<cfelse>
 						<cfset returnURL='#returnURL#&#key#=#form[key]#'>
 					</cfif>			 
@@ -194,7 +194,7 @@
 					and #key# is not "STARTROW"
 					and #key# is not "detail_level">
 				 <cfif len(#returnURL#) is 0>
-					<cfset returnURL='SpecimenResults.cfm?#key#=#url[key]#'>
+					<cfset returnURL='SpecimenResultsHTML.cfm?#key#=#url[key]#'>
 				<cfelse>
 					<cfset returnURL='#returnURL#&#key#=#url[key]#'>
 				</cfif>
@@ -413,7 +413,7 @@ document.getElementById('saveme').submit();
 </script>
 		<cfif isdefined("returnURL")>
 		<form name="saveme" id="saveme" method="post" action="saveSearch.cfm" target="myWin">
-			<input type="hidden" name="returnURL" value="#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#&detail_level=#detail_level#" />
+			<input type="hidden" name="returnURL" value="#Application.ServerRootUrl#/SpecimenResultsHTML.cfm?#mapURL#&detail_level=#detail_level#" />
 			<input type="button" value="Save This Search" onclick="cForm();" class="savBtn"
    					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
 		</form>
@@ -422,7 +422,7 @@ document.getElementById('saveme').submit();
 	<br><a href="Loan.cfm?transaction_id=#transaction_id#&Action=editLoan">Back to Loan</a>
 </cfif>
 	
-<form name="browse" action="SpecimenResults.cfm" method="post">
+<form name="browse" action="SpecimenResultsHTML.cfm" method="post">
 				#searchparams#
 				
 				
@@ -493,7 +493,7 @@ document.getElementById('saveme').submit();
 	
 				
 				
-<form name="reorder" action="SpecimenResults.cfm" method="post">
+<form name="reorder" action="SpecimenResultsHTML.cfm" method="post">
 				#searchParams#
 				<input type="hidden" name="searchParams" value='#searchParams#'>
 				<input name="mapurl" type="hidden" value="#mapurl#">
@@ -535,7 +535,7 @@ document.getElementById('saveme').submit();
 
 <cfif #session.killrow# is 1>
 	<td nowrap>
-	<form name="UpSubRem" method="post" action="SpecimenResults.cfm">
+	<form name="UpSubRem" method="post" action="SpecimenResultsHTML.cfm">
 		<img src="/images/delete.gif" border="0" width="24" onClick="reloadThis.submit();">
 	</form>
 	</td>
@@ -948,7 +948,7 @@ document.getElementById('saveme').submit();
 <cfif #session.killrow# is 1>
 <td>
 
-<form name="remove#i#" action="SpecimenResults.cfm" method="post">
+<form name="remove#i#" action="SpecimenResultsHTML.cfm" method="post">
 	<input type="checkbox" name="exclCollObjId" value="#collection_object_id#" onchange="checkUncheck('remove#i#','#collection_object_id#');">
 </form>
 	
@@ -1245,7 +1245,7 @@ document.getElementById('saveme').submit();
   	
 	<td>
 	
-	<form name="DnSubRem" method="post" action="SpecimenResults.cfm">
+	<form name="DnSubRem" method="post" action="SpecimenResultsHTML.cfm">
 		<img src="/images/delete.gif" border="0" width="24" onClick="reloadThis.submit();">
 	</form>
 	
@@ -1359,7 +1359,7 @@ document.getElementById('saveme').submit();
 	</table>
 	<!---- end browse buttons ---------------------->
 	---->
-<form name="level" action="SpecimenResults.cfm" method="post">
+<form name="level" action="SpecimenResultsHTML.cfm" method="post">
 #searchParams#
 				<input name="mapurl" type="hidden" value="#mapurl#">
 				<input type="hidden" name="searchParams" value='#searchParams#'>
@@ -1450,7 +1450,7 @@ document.getElementById('saveme').submit();
 	<cfset ExclCollObjId = "">
 	<cfset searchParams = replace(searchParams,"ExclCollObjId","nothing","all")>
 </cfif>
-<form name="reloadThis" action="SpecimenResults.cfm" method="post" id="reloadThis">
+<form name="reloadThis" action="SpecimenResultsHTML.cfm" method="post" id="reloadThis">
 	<input type="hidden" name="exclCollObjId" value="#passExclCollObjId#">
 #searchParams#
 				<input name="mapurl" type="hidden" value="#mapurl#">
