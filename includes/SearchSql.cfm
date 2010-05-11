@@ -1306,7 +1306,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN project ON 
 		(project_trans.project_id = project.project_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(project_name) like '%#ucase(loan_project_name)#%'">
+	<cfset basQual = " #basQual# AND upper(regexp_replace(project.project_name,'<[^>]*>')) like '%#ucase(loan_project_name)#%'">
 	<cfset mapurl = "#mapurl#&loan_project_name=#loan_project_name#">
 </cfif>
 
@@ -1340,7 +1340,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN project ON 
 		(project_trans.project_id = project.project_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(project_name) like '%#ucase(project_name)#%'">
+	<cfset basQual = " #basQual# AND upper(regexp_replace(project.project_name,'<[^>]*>')) like '%#ucase(project_name)#%'">
 	<cfset mapurl = "#mapurl#&project_name=#project_name#">
 </cfif>
 
