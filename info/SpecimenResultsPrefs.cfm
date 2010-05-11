@@ -20,7 +20,7 @@
 <table>
 	<tr>
 		<td style="border:1px solid green;padding:.2em;">
-			<label for="displayRows">Rows Per Page</label>
+			<span style="font-size:smaller;font-weight:bold">Rows Per Page: </span>
 			<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
 				<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
 				<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
@@ -29,7 +29,7 @@
 			</select>
 		</td>
 		<td style="border:1px solid green;padding:.2em;">
-			<label for="killRows">Row-Removal Option</label>
+			<span style="font-size:smaller;font-weight:bold">Row-Removal Option: </span>
 			<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>
 		</td>
 	</tr>
