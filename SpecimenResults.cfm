@@ -384,7 +384,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<input type="hidden" name="killRowList" id="killRowList">
 			<span id="removeChecked"
 				style="display:none;"
-				class="controlButton" 
+				class="controlButtonRed" 
 				onmouseover="this.className='controlButton btnhov'" 
 				onmouseout="this.className='controlButton'"
 				onclick="removeItems();">Remove&nbsp;Checked</span>	
