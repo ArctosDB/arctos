@@ -1,5 +1,6 @@
 <script type='text/javascript' language="javascript" src='jquery.jqGrid-3.6.5/js/jquery-1.4.2.min.js'></script>
 <script src="jquery.jqGrid-3.6.5/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="jquery.jqGrid-3.6.5/css/ui.jqgrid.css" />
 
 <!-------
 <script>
