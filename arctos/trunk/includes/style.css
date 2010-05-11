@@ -812,17 +812,8 @@ div.group {
 	cursor:pointer;}
 	
 .redButton {
-	color:	#666666;
-	font-size:16pt;
-	font-weight:bold;
-	font-family: Arial, Helvetica, sans-serif;
-	background-color:#red;
-	border-color: #336666;
-	border:1px solid;
-	padding:2px;
-	text-align:center;
-	cursor:hand;
-	text-decoration: none;}
+	background-color:red;
+}
 .removeRed {
 	border:1px solid red;
 }
