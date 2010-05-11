@@ -5,8 +5,8 @@
 	
 		var resultList=$('#resultList').val();
 		var customID=$('#customID').val();
-		var result_sort=$('#result_sort').val();
-		var displayRows=$('#displayRows').val();
+		//var result_sort=$('#result_sort').val();
+		//var displayRows=$('#displayRows').val();
 		var temp='<label for="result_sort">Primary Sort</label>';
 		temp+='<select name="result_sort" id="result_sort" onchange=";changeresultSort(this.value);" size="1">';
 		if (customID.length > 0) {
@@ -45,7 +45,7 @@
 		<option  <cfif session.displayRows is "100"> selected </cfif> value="100">100</option>
 	</select>
 	
-	<label for="result_sort">Remove Rows</label>
+	<label for="killRows">Remove Rows</label>
 	<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>
 		
 </div>
