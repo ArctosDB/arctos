@@ -375,9 +375,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 						{var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
 					getSpecResultsData(1,numRec,obv,'DESC');">&darr;</span>
 		</td>
-		<td>
-			<span id="sPrefs" class="infoLink">Settings...</span>
-		</td>
 		<td><div style="width:100px;">&nbsp;</div></td>
 		<td>
 			<label for="">&nbsp;</label>
@@ -385,7 +382,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<span id="removeChecked"
 				style="display:none;"
 				class="controlButton redButton"
-				onclick="removeItems();">Remove&nbsp;Checked</span>	
+				onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>	
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
