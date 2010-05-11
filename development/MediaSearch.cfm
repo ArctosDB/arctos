@@ -541,8 +541,8 @@
 				</cfif>
 				
 				<!-- Orders the keywords -->
-				<cfset kw_list = "#scientific_name#, #locality#, #agent_name#, #description#">
-				<cfloop list="#kw_list#" index="word" delimiters=",">
+				<cfset kw_list = "#scientific_name# |  #locality# | #agent_name# | #description#">
+				<cfloop list="#kw_list#" index="word" delimiters="|">
 					<cfif len(word) gt 0>
 						<cfif len(kw) gt 0>
 							<cfset kw = kw & "; " & word>
@@ -575,7 +575,7 @@
 				</cfif>
 			</td>
 			<td align="middle">							
-				<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
+				<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 						<strong>Keywords:</strong> #kw#
 				</div>
 			
