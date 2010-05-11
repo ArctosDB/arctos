@@ -46,28 +46,32 @@
 	where cf_collection.collection_id=collection.collection_id (+) and
 	PUBLIC_PORTAL_FG = 1 order by cf_collection.collection
 </cfquery>
-<cfquery name="pub" dbtype="query">
-	select * from coll where cf_collection_id=0
-</cfquery>
 <!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 <cfquery name="pub" dbtype="query">
 	select * from coll where cf_collection_id=0
 </cfquery>
+<cfset gotem=valuelist(pub.cf_collection_id)>
 <cfdump var=#pub#>
 <cfquery name="uam" dbtype="query">
 	select * from coll where collection like 'UAM %'
 </cfquery>
+<cfset gotem=listappend(gotem,valuelist(uam.cf_collection_id))>
 <cfdump var=#uam#>
 <cfquery name="msb" dbtype="query">
 	select * from coll where collection like 'MSB %'
 </cfquery>
+<cfset gotem=listappend(gotem,valuelist(msb.cf_collection_id))>
 <cfdump var=#msb#>
 <cfquery name="mvz" dbtype="query">
 	select * from coll where collection like 'MVZ %'
 </cfquery>
+<cfset gotem=listappend(gotem,valuelist(mvz.cf_collection_id))>
 <cfdump var=#mvz#>
-<cfset gotem=valuelist(pub.cf_collection_id)>
-<cfset gotem=listappend(gotem,valuelist(uam.cf_collection_id))>
+<cfquery name="wnmu" dbtype="query">
+	select * from coll where collection like 'WNMU %'
+</cfquery>
+<cfset gotem=listappend(gotem,valuelist(wnmu.cf_collection_id))>
+<cfdump var=#mvz#>
 <cfdump var=#gotem#>
 <cfquery name="rem" dbtype="query">
 	select * from coll where cf_collection_id not in (#gotem#)
