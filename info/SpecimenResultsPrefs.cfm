@@ -8,7 +8,7 @@
 		var result_sort=$('#result_sort').val();
 		var displayRows=$('#displayRows').val();
 		var temp='<label for="result_sort">Primary Sort</label>';
-		var temp+='<select name="result_sort" id="result_sort" onchange=";changeresultSort(this.value);" size="1">';
+		temp+='<select name="result_sort" id="result_sort" onchange=";changeresultSort(this.value);" size="1">';
 		if (customID.length > 0) {
 			temp+='<option value="' + customID + '">' + customID + '</option>';			
 		}
