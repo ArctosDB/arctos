@@ -566,7 +566,7 @@ function success_getSpecResultsData(result){
 			
 			
 				if (killrow == 1){
-					theInnerHtml += '<td align="center"><input type="checkbox" onchange="toggleKillrow(' + "'";
+					theInnerHtml += '<td align="center"><input type="checkbox" class="removeRed" onchange="toggleKillrow(' + "'";
 					theInnerHtml +=data.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
 				}
 				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+data.COLLECTION_OBJECT_ID[i]+'">';
