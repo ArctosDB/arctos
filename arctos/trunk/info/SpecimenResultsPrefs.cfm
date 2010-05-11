@@ -7,7 +7,7 @@
 		</td>
 		<td align="right" nowrap="nowrap">
 			<span style="cursor:pointer;color:#2B547E;font-size:.85em;"
-				onclick="closeCustom()">Close and Refresh Data</span>
+				onclick="closeCustom()">Close and Refresh</span>
 		</td>
 	</tr>
 	<tr>
