@@ -384,7 +384,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<input type="hidden" name="killRowList" id="killRowList">
 			<span id="removeChecked"
 				style="display:none;"
-				class="controlButtonRed"
+				class="controlButton redButton"
 				onclick="removeItems();">Remove&nbsp;Checked</span>	
 		</td>
 		<td>
@@ -397,15 +397,11 @@ If your item needs to be sorted in a special way, then do that here. --->
 		<td>
 			<label for="">&nbsp;</label>
 			<span class="controlButton"
-				onmouseover="this.className='controlButton btnhov'" 
-				onmouseout="this.className='controlButton'"
 				onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
 			<span class="controlButton"
-				onmouseover="this.className='controlButton btnhov'" 
-				onmouseout="this.className='controlButton'"
 				onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
 		</td>
 		<td nowrap="nowrap">
