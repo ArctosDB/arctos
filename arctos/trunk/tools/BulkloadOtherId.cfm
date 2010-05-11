@@ -237,7 +237,7 @@ Include column headings, spelled exactly as below.
 
 
 <!------------------------------------------------------->
-<cfif #action# is "loadData">
+<cfif action is "loadData">
 
 <cfoutput>
 	
