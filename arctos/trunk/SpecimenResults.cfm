@@ -390,8 +390,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 		<td>
 			<label for="">&nbsp;</label>
 			<span class="controlButton" 
-				onmouseover="this.className='controlButton btnhov'" 
-				onmouseout="this.className='controlButton'"
 				id="customizeButton"
 				>Customize&nbsp;Form</span>
 			<!----onclick="openCustomize();"---->

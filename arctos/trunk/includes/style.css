@@ -803,6 +803,14 @@ div.group {
 	text-align:center;
 	cursor:hand;
 	text-decoration: none;}
+	
+.controlButton:hover {
+	border-top-color:#FF6633 ;
+	border-left-color:#FF6633 ;
+	border-right-color:#FF6666 ;
+	border-bottom-color:#FF6666 ;
+	cursor:pointer;}
+	
 .controlButtonRed {
 	color:	#666666;
 	font-size:10pt;
