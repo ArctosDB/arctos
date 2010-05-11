@@ -59,11 +59,11 @@
 </cfquery>
 <cfdump var=#uam#>
 <cfquery name="msb" dbtype="query">
-	select * from coll wheree collection like 'MSB %'
+	select * from coll where collection like 'MSB %'
 </cfquery>
 <cfdump var=#msb#>
 <cfquery name="mvz" dbtype="query">
-	select * from coll wheree collection like 'MVZ %'
+	select * from coll where collection like 'MVZ %'
 </cfquery>
 <cfdump var=#mvz#>
 
