@@ -1,8 +1,25 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif action is "nothing">
 <script>
-	var rrr=$('#customID').val();
-	console.log('r is ' + rrr);
+	
+	
+		var resultList=$('#resultList').val();
+		var customID=$('#customID').val();
+		var result_sort=$('#result_sort').val();
+		var displayRows=$('#displayRows').val();
+		var temp='<label for="result_sort">Primary Sort</label>';
+		var temp+='<select name="result_sort" id="result_sort" onchange=";changeresultSort(this.value);" size="1">';
+		if (customID.length > 0) {
+			temp+='<option value="' + customID + '">' + customID + '</option>';			
+		}
+		var rAry=resultList.split(',');
+		for (i = 0; i < rAry.length; i++) {
+			temp+='<option value="' + rAry[i] + '">' + rAry[i] + '</option>';
+		}	
+		temp+='</select>';
+		$('#customSettings').append(temp);
+		
+
 </script>
 <table width="100%" cellpadding="0" cellspacing="0">
 	<tr>
@@ -19,6 +36,19 @@
 		</td>
 	</tr>
 </table>
+<div id="customSettings">
+	<label for="displayRows">Rows Per Page</label>;
+	<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
+		<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
+		<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
+		<option  <cfif session.displayRows is "50"> selected </cfif> value="50">50</option>
+		<option  <cfif session.displayRows is "100"> selected </cfif> value="100">100</option>
+	</select>
+	
+	<label for="result_sort">Remove Rows</label>
+	<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>
+		
+</div>
 <cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_spec_res_cols order by column_name
 </cfquery>
