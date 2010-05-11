@@ -46,6 +46,27 @@
 	where cf_collection.collection_id=collection.collection_id (+) and
 	PUBLIC_PORTAL_FG = 1 order by cf_collection.collection
 </cfquery>
+<cfquery name="pub" dbtype="query">
+	select * from coll where cf_collection_id=0
+</cfquery>
+<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
+<cfquery name="pub" dbtype="query">
+	select * from coll where cf_collection_id=0
+</cfquery>
+<cfdump var=#pub#>
+<cfquery name="uam" dbtype="query">
+	select * from coll where left(collection,3) is 'UAM'
+</cfquery>
+<cfdump var=#uam#>
+<cfquery name="msb" dbtype="query">
+	select * from coll where left(collection,3) is 'MSB'
+</cfquery>
+<cfdump var=#msb#>
+<cfquery name="mvz" dbtype="query">
+	select * from coll where left(collection,3) is 'MVZ'
+</cfquery>
+<cfdump var=#mvz#>
+
 <cfdump var=#coll#>
 <table width="90%" border="0" cellpadding="10" cellspacing="10">
 	<tr>
