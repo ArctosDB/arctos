@@ -811,9 +811,9 @@ div.group {
 	border-bottom-color:#FF6666 ;
 	cursor:pointer;}
 	
-.controlButtonRed {
+.redButton {
 	color:	#666666;
-	font-size:10pt;
+	font-size:16pt;
 	font-weight:bold;
 	font-family: Arial, Helvetica, sans-serif;
 	background-color:#red;
