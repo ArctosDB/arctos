@@ -14,15 +14,12 @@
 	<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">	
 <cfelse>
 	<cfset nono="php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard">
-	<cfset asshole=false>
 	<cfloop list="#cgi.redirect_url#" delimiters="./" index="i">
-		<br>#i#
 		<cfif listfindnocase(nono,i)>
-			YOU GOT TEH BANS
+			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
 	</cfloop>
-	i like you
 	<cfheader statuscode="404" statustext="Not found">
 	<cfset title="404: not found">
 	<h2>
