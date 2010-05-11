@@ -37,6 +37,7 @@
 	</tr>
 </table>
 <div id="customSettings">
+	<span style="border:1px solid green">
 	<label for="displayRows">Rows Per Page</label>;
 	<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
 		<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
@@ -44,10 +45,11 @@
 		<option  <cfif session.displayRows is "50"> selected </cfif> value="50">50</option>
 		<option  <cfif session.displayRows is "100"> selected </cfif> value="100">100</option>
 	</select>
-	
+	</span>
+	<span style="border:1px solid green">
 	<label for="killRows">Remove Rows</label>
 	<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>
-		
+		</span>
 </div>
 <cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_spec_res_cols order by column_name
