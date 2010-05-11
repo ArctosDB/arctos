@@ -17,7 +17,7 @@
 	<cfset asshole=false>
 	<cfloop list="#cgi.redirect_url#" delimiters="./" index="i">
 		<br>#i#
-		<cfif listfind(nono,i,"./")>
+		<cfif listfindnocase(nono,i)>
 			YOU GOT TEH BANS
 			<cfabort>
 		</cfif>
