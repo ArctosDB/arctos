@@ -363,7 +363,7 @@
 	<cfoutput>
 	<div id="suggestOtherForm"></div>
 	<script>
-		document.getElementById('suggestOtherForm').innerHTML='We recommend <a href="/SpecimenResults.cfm?mapURP=#mapRUL#">SpecimenResults</a> for JavaScript-capable browsers.';
+		document.getElementById('suggestOtherForm').innerHTML='We recommend <a href="/SpecimenResults.cfm?mapurl=#mapurl#">SpecimenResults</a> for JavaScript-capable browsers.';
 	</script>
 	<span style="float:right; clear:left;">
 		<span class="infoLink" onclick="document.location='/info/reportBadData.cfm?collection_object_id=#collectionObjectIdList#';">
