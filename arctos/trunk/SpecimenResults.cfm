@@ -332,10 +332,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 		</td>
 		<td nowrap="nowrap">
 			<label for="orderBy1">Order by...</label>
-			<select name="orderBy1" id="orderBy1" size="1">
+			<select name="orderBy1" id="orderBy1" size="1" onchange="changeresultSort(this.value)">
 				<!--- prepend their CustomID and integer sort of their custom ID to the list --->
-				<cfif len(#session.CustomOtherIdentifier#) gt 0>
-					<option <cfif #session.result_sort# is "custom_id">selected="selected" </cfif>value="CustomID">#session.CustomOtherIdentifier#</option>
+				<cfif len(session.CustomOtherIdentifier) gt 0>
+					<option <cfif session.result_sort is "custom_id">selected="selected" </cfif>value="CustomID">#session.CustomOtherIdentifier#</option>
 					<option value="CustomIDInt">#session.CustomOtherIdentifier# (INT)</option>
 				</cfif>
 				<cfloop list="#resultList#" index="i">

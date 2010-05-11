@@ -1,20 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif action is "nothing">
-<script language="javascript" type="text/javascript">
-		var resultList=$('#resultList').val();
-		var customID=$('#customID').val();
-		var temp='<label for="result_sort">Default Primary Sort</label>';
-		temp+='<select name="result_sort" id="result_sort" onchange=";changeresultSort(this.value);" size="1">';
-		if (customID.length > 0) {
-			temp+='<option value="' + customID + '">' + customID + '</option>';			
-		}
-		var rAry=resultList.split(',');
-		for (i = 0; i < rAry.length; i++) {
-			temp+='<option value="' + rAry[i] + '">' + rAry[i] + '</option>';
-		}	
-		temp+='</select>';
-		$('#customSettings').append(temp);
-</script>
 <table width="100%" cellpadding="0" cellspacing="0">
 	<tr>
 		<td rowspan="2" valign="top"><span style="font-size:.85em;font-style:italic;">Check fields to show them in your results and downloads. Uncheck to remove. Adding too much here will adversely affect performance.</span></td>
@@ -45,7 +30,6 @@
 			<label for="killRows">Row-Removal Option</label>
 			<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>
 		</td>
-		<td id="customSettings"></td>
 	</tr>
 </table>
 <cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
