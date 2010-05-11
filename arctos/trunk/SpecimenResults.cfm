@@ -8,39 +8,6 @@
 <cfoutput>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-	$("##sPrefs").click(function(e){
-		var id=this.id;
-		var theDiv = document.createElement('div');
-		theDiv.id = 'helpDiv';
-		theDiv.className = 'helpBox';
-		theDiv.innerHTML='<span onclick="removeHelpDiv()" class="docControl">X</span>';
-		theDiv.innerHTML+='<label for="displayRows">Rows Per Page</label>';
-		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1"><option <cfif #session.displayRows# is "10"> selected </cfif> value="10">10</option><option  <cfif #session.displayRows# is "20"> selected </cfif> value="20" >20</option><option  <cfif #session.displayRows# is "50"> selected </cfif> value="50">50</option><option  <cfif #session.displayRows# is "100"> selected </cfif> value="100">100</option></select>';
-		var resultList=document.getElementById('resultList').value;
-		var customID=document.getElementById('customID').value;
-		var result_sort=document.getElementById('result_sort').value;
-		var displayRows=document.getElementById('displayRows').value;		
-		theDiv.innerHTML+='<label for="result_sort">Primary Sort</label>';
-		var temp='<select name="result_sort" id="result_sort" onchange=";changeresultSort(this.value);" size="1">';
-		if (customID.length > 0) {
-			temp+='<option value="' + customID + '">' + customID + '</option>';			
-		}
-		var rAry=resultList.split(',');
-		for (i = 0; i < rAry.length; i++) {
-			temp+='<option value="' + rAry[i] + '">' + rAry[i] + '</option>';
-		}	
-		temp+='</select>';
-		theDiv.innerHTML+=temp;
-		theDiv.innerHTML+='<label for="result_sort">Remove Rows</label>';
-		var temp='<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>';
-		theDiv.innerHTML+=temp;
-		theDiv.innerHTML+='<span style="font-size:small">(Requires Refresh)</span>';
-		document.body.appendChild(theDiv);
-		document.getElementById('result_sort').value=result_sort;
-		document.getElementById('displayRows').value=displayRows;
-		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-	});
-	
 	$("##customizeButton").live('click', function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
