@@ -113,7 +113,7 @@
 							</cfloop>
 						</cfif>
 						<cfif isdefined("uam") and uam.recordcount gt 0>
-							<li>University of Alaska Museum
+							<li><a href="http://www.uaf.edu/museum/collections/" class="external">University of Alaska Museum</a>
 								<ul>
 									<cfloop query="uam">
 										<cfset coll_dir_name = "#lcase(portal_name)#">
