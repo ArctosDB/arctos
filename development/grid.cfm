@@ -93,7 +93,7 @@ function enableAutosubmit(state){
 			sortorder: "desc", 
 			caption:"JSON Example" 
 		}); 
-		jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false}); 
+		jQuery("#list2").jqGrid('jqGrid','#pager2',{edit:false,add:false,del:false}); 
 		
 	});
 </script>
