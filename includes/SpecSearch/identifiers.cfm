@@ -1,8 +1,22 @@
 <table id="t_identifiers" class="ssrch">	
 	<cfoutput>
-		<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
-		</cfquery>
+		<cfif isdefined("session.portal_id") and session.portal_id gt 0>
+			<cftry>
+				<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select distinct(other_id_type) FROM CCTCOLL_OTHER_ID_TYPE#session.portal_id# ORDER BY other_Id_Type
+				</cfquery>
+			</cftry>
+			<cfcatch>
+				<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
+				</cfquery>
+			</cfcatch>
+		<cfelse>
+			<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
+			</cfquery>
+		</cfif>
+		
 	</cfoutput>
 	<tr>					
 		<td class="lbl">

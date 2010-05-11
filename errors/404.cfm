@@ -11,21 +11,22 @@
 	</CFIF>
 <cfif cgi.redirect_url contains "/DiGIRprov/www/DiGIR.php">
 	<cfheader statuscode="301" statustext="Moved permanently">
-	<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php"> 
-<cfelseif cgi.redirect_url contains ".php" or 
-	cgi.redirect_url contains ".dll" or
-	cgi.redirect_url contains ".asp" or
-	cgi.redirect_url contains ".cgi" or
-	cgi.redirect_url contains ".ini" or
-	cgi.redirect_url contains "/config/" or
-	cgi.redirect_url contains "/client/" or
-	cgi.redirect_url contains "/config/" or
-	cgi.redirect_url contains "/webmail/" or
-	cgi.redirect_url contains "/roundcubemail/" or
-	cgi.redirect_url contains "/roundcube/" or
-	cgi.redirect_url contains "/HovercardLauncher/">
-	<!--- auto blacklist them --->
+	<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">
+	<cfset nono="php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard">
+	<cfset asshole=false>
+	
+<cfelse>
+<cfloop list="#cgi.redirect_url#" delimiters="./" index="i">
+		<cfif listfind(nono,i,"./")>
+			YOU GOT TEH BANS
+			<cfabort>
+		</cfif>
+	</cfloop>
+	<!--- auto blacklist them 
 	<cfinclude template="/errors/autoblacklist.cfm">
+	
+	--->
+	
 <cfelse>
 	<cfheader statuscode="404" statustext="Not found">
 	<cfset title="404: not found">
