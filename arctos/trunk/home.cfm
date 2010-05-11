@@ -74,7 +74,7 @@
 <cfquery name="rem" dbtype="query">
 	select * from coll where cf_collection_id not in (#gotem#)
 </cfquery>
-<table width="90%" border="0" cellpadding="10" cellspacing="10">
+<table width="100%" border="0" cellpadding="10" cellspacing="10">
 	<tr>
 		<td valign="top" nowrap="nowrap">
 			<ul>
