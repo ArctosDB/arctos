@@ -220,6 +220,62 @@
 								</ul>
 							</li>
 						</cfif>
+						<cfif isdefined("wnmu") and wnmu.recordcount gt 0>
+							<li>Western New Mexico University
+								<ul>
+									<cfloop query="wnmu">
+										<cfset coll_dir_name = "#lcase(portal_name)#">
+										<li>
+											<a href="/#coll_dir_name#" target="_top">#collection#</a>
+											<cfif len(descr) gt 0>
+											<span id="plus_minus_#cf_collection_id#" 
+												class="infoLink"
+												onclick="showDet('#cf_collection_id#')" >
+												more...
+											</span>
+											<div id="det_div_#cf_collection_id#" class="noshow">
+												#descr#
+												<cfif len(#WEB_LINK#) gt 0>
+													<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
+												</cfif>
+												<cfif len(#loan_policy_url#) gt 0>
+													<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
+												</cfif>
+											</div>
+											</cfif>
+										</li>
+									</cfloop>
+								</ul>
+							</li>
+						</cfif>
+						<cfif isdefined("rem") and rem.recordcount gt 0>
+							<li>Other Collections
+								<ul>
+									<cfloop query="rem">
+										<cfset coll_dir_name = "#lcase(portal_name)#">
+										<li>
+											<a href="/#coll_dir_name#" target="_top">#collection#</a>
+											<cfif len(descr) gt 0>
+											<span id="plus_minus_#cf_collection_id#" 
+												class="infoLink"
+												onclick="showDet('#cf_collection_id#')" >
+												more...
+											</span>
+											<div id="det_div_#cf_collection_id#" class="noshow">
+												#descr#
+												<cfif len(#WEB_LINK#) gt 0>
+													<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
+												</cfif>
+												<cfif len(#loan_policy_url#) gt 0>
+													<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
+												</cfif>
+											</div>
+											</cfif>
+										</li>
+									</cfloop>
+								</ul>
+							</li>
+						</cfif>
 						<!----
 						<cfloop query="coll">
 							<cfset coll_dir_name = "#lcase(portal_name)#">
