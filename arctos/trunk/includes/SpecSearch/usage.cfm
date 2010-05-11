@@ -1,4 +1,18 @@
-
+<script type="text/javascript" language="javascript">
+	jQuery(document).ready(function() {
+		jQuery("#project_name").autocomplete("/ajax/project.cfm", {
+			width: 320,
+			max: 50,
+			autofill: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300,
+			matchContains: true,
+			minChars: 1,
+			selectFirst:false
+		});	
+	});
+</script>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 
