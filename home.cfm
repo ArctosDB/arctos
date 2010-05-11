@@ -55,15 +55,15 @@
 </cfquery>
 <cfdump var=#pub#>
 <cfquery name="uam" dbtype="query">
-	select * from coll where left(collection,3) is 'UAM'
+	select * from coll where collection like 'UAM %'
 </cfquery>
 <cfdump var=#uam#>
 <cfquery name="msb" dbtype="query">
-	select * from coll where left(collection,3) is 'MSB'
+	select * from coll wheree collection like 'MSB %'
 </cfquery>
 <cfdump var=#msb#>
 <cfquery name="mvz" dbtype="query">
-	select * from coll where left(collection,3) is 'MVZ'
+	select * from coll wheree collection like 'MVZ %'
 </cfquery>
 <cfdump var=#mvz#>
 
