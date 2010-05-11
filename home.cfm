@@ -65,11 +65,14 @@
 <cfquery name="mvz" dbtype="query">
 	select * from coll where collection like 'MVZ %'
 </cfquery>
+<cfdump var=#mvz#>
 <cfset gotem=valuelist(pub.cf_collection_id)>
 <cfset gotem=listappend(gotem,valuelist(uam.cf_collection_id))>
 <cfdump var=#gotem#>
-<cfdump var=#mvz#>
-
+<cfquery name="rem" dbtype="query">
+	select * from coll where cf_collection_id not in (#gotem#)
+</cfquery>
+<cfdump var=#rem#>
 <cfdump var=#coll#>
 <table width="90%" border="0" cellpadding="10" cellspacing="10">
 	<tr>
