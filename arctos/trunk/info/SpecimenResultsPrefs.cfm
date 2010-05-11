@@ -30,10 +30,10 @@
 		</td>
 	</tr>
 </table>
-<table>
+<table width="100%" cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-			<label for="displayRows">Rows Per Page</label>;
+			<label for="displayRows">Rows Per Page</label>
 			<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
 				<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
 				<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
