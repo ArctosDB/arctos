@@ -16,6 +16,7 @@
 	<cfset nono="php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard">
 	<cfset asshole=false>
 	<cfloop list="#cgi.redirect_url#" delimiters="./" index="i">
+		<br>#i#
 		<cfif listfind(nono,i,"./")>
 			YOU GOT TEH BANS
 			<cfabort>
