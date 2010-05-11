@@ -5,7 +5,7 @@
 <script>
 
 	jQuery("#bigset").jqGrid({        
-   	url:'bigset.php',
+   	url:'gData.cfm',
 	datatype: "json",
 	height: 255,
    	colNames:['Index','Name', 'Code'],
@@ -40,7 +40,7 @@ function doSearch(ev){
 function gridReload(){
 	var nm_mask = jQuery("#item_nm").val();
 	var cd_mask = jQuery("#search_cd").val();
-	jQuery("#bigset").jqGrid('setGridParam',{url:"bigset.php?nm_mask="+nm_mask+"&cd_mask="+cd_mask,page:1}).trigger("reloadGrid");
+	jQuery("#bigset").jqGrid('setGridParam',{url:"gData.cfm?nm_mask="+nm_mask+"&cd_mask="+cd_mask,page:1}).trigger("reloadGrid");
 }
 function enableAutosubmit(state){
 	flAuto = state;
