@@ -65,6 +65,9 @@
 <cfquery name="mvz" dbtype="query">
 	select * from coll where collection like 'MVZ %'
 </cfquery>
+<cfset gotem=valuelist(pub.cf_collection_id)>
+<cfset listappend(gotem,valuelist(uam.cf_collection_id))>
+<cfdump var=#gotem#>
 <cfdump var=#mvz#>
 
 <cfdump var=#coll#>
