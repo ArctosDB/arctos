@@ -113,7 +113,7 @@
 							</cfloop>
 						</cfif>
 						<cfif isdefined("uam") and uam.recordcount gt 0>
-							<li><a href="http://www.uaf.edu/museum/collections/" class="external">University of Alaska Museum</a>
+							<li><a href="http://www.uaf.edu/museum/" target="_blank" class="external">University of Alaska Museum</a>
 								<ul>
 									<cfloop query="uam">
 										<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -141,7 +141,7 @@
 							</li>
 						</cfif>
 						<cfif isdefined("msb") and msb.recordcount gt 0>
-							<li>Museum of Southwestern Biology
+							<li><a href="http://www.msb.unm.edu/" target="_blank" class="external">Museum of Southwestern Biology</a>
 								<ul>
 									<cfloop query="msb">
 										<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -169,7 +169,7 @@
 							</li>
 						</cfif>
 						<cfif isdefined("mvz") and mvz.recordcount gt 0>
-							<li>Museum of Vertebrate Zoology
+							<li><a href="http://mvz.berkeley.edu/" target="_blank" class="external">Museum of Vertebrate Zoology</a>
 								<ul>
 									<cfif isdefined("mvz_all") and mvz_all.recordcount gt 0>
 										<cfloop query="mvz_all">
@@ -221,7 +221,7 @@
 							</li>
 						</cfif>
 						<cfif isdefined("wnmu") and wnmu.recordcount gt 0>
-							<li>Western New Mexico University
+							<li><a href="http://www.wnmu.edu/univ/museum.htm" target="_blank" class="external">Western New Mexico University</a>
 								<ul>
 									<cfloop query="wnmu">
 										<cfset coll_dir_name = "#lcase(portal_name)#">
