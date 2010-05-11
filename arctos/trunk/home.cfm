@@ -62,6 +62,7 @@
 <cfquery name="mvz" dbtype="query">
 	select * from coll where collection like 'MVZ %' and portal_name != 'mvz_all' order by collection
 </cfquery>
+<cfdump var=#mvz#>
 <cfset gotem=listappend(gotem,valuelist(mvz.cf_collection_id))>
 <cfquery name="wnmu" dbtype="query">
 	select * from coll where collection like 'WNMU %' order by collection
