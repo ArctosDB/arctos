@@ -11,23 +11,17 @@
 	</CFIF>
 <cfif cgi.redirect_url contains "/DiGIRprov/www/DiGIR.php">
 	<cfheader statuscode="301" statustext="Moved permanently">
-	<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">
+	<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">	
+<cfelse>
 	<cfset nono="php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard">
 	<cfset asshole=false>
-	
-<cfelse>
-<cfloop list="#cgi.redirect_url#" delimiters="./" index="i">
+	<cfloop list="#cgi.redirect_url#" delimiters="./" index="i">
 		<cfif listfind(nono,i,"./")>
 			YOU GOT TEH BANS
 			<cfabort>
 		</cfif>
 	</cfloop>
-	<!--- auto blacklist them 
-	<cfinclude template="/errors/autoblacklist.cfm">
 	
-	--->
-	
-<cfelse>
 	<cfheader statuscode="404" statustext="Not found">
 	<cfset title="404: not found">
 	<h2>
