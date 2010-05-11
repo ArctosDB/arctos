@@ -1,6 +1,16 @@
 <script type='text/javascript' language="javascript" src='jquery.jqGrid-3.6.5/js/jquery-1.4.2.min.js'></script>
-<script src="jquery.jqGrid-3.6.5/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+
+
+<link rel="stylesheet" type="text/css" media="screen" href="jquery-ui-1.8.1.custom/css/smoothness/jquery-ui-1.8.1.custom.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="jquery.jqGrid-3.6.5/css/ui.jqgrid.css" />
+
+<script src="jquery.jqGrid-3.6.5/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+<script src="jquery.jqGrid-3.6.5/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+
+
+
+
+
 
 <!-------
 <script>
@@ -93,7 +103,7 @@ function enableAutosubmit(state){
 			sortorder: "desc", 
 			caption:"JSON Example" 
 		}); 
-		jQuery("#list2").jqGrid('navGrid', '#pager2',{view:true, del:false}); 
+		jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});  
 		
 	});
 </script>
