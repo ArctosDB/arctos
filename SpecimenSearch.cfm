@@ -514,27 +514,7 @@
 		matchContains: true,
 		minChars: 1,
 		selectFirst:false
-	});
-	jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
-		width: 320,
-		max: 20,
-		autofill: true,
-		highlight: false,
-		multiple: true,
-		multipleSeparator: "|",
-		scroll: true,
-		scrollHeight: 300
-	});
-	jQuery("#project_name").autocomplete("/ajax/project.cfm", {
-		width: 320,
-		max: 30,
-		autofill: true,
-		highlight: false,
-		multiple: false,
-		scroll: true,
-		scrollHeight: 300
-	});
-	
+	});	
 	function r_getSpecSrchPref (result){
 		var j=result.split(',');
 		for (var i = 0; i < j.length; i++) {
