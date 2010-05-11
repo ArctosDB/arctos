@@ -60,7 +60,7 @@
 </cfquery>
 <cfset gotem=listappend(gotem,valuelist(msb.cf_collection_id))>
 <cfquery name="mvz" dbtype="query">
-	select * from coll where collection like 'MVZ %' and portal_name != 'mvz_all' order by collection
+	select * from coll where collection like 'MVZ %' and lower(portal_name) != 'mvz_all' order by collection
 </cfquery>
 <cfdump var=#mvz#>
 <cfset gotem=listappend(gotem,valuelist(mvz.cf_collection_id))>
