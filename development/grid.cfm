@@ -11,6 +11,21 @@
 			<th width="20%">Specimen</th>
 			<th width="25%">Cat Num</th>
 			<th width="25%">Identification</th>
+			<th width="25%">1</th>
+			<th width="25%">2</th>
+			<th width="25%">3</th>
+			<th width="25%">4</th>
+			<th width="25%">5</th>
+			<th width="25%">6</th>
+			<th width="25%">7</th>
+			<th width="25%">8</th>
+			<th width="25%">9</th>
+			<th width="25%">10</th>
+			<th width="25%">11</th>
+			<th width="25%">12</th>
+			<th width="25%">13</th>
+			<th width="25%">14</th>
+			<th width="25%">15</th>
 
 		</tr>
 	</thead>
@@ -19,22 +34,8 @@
 			<td colspan="5" class="dataTables_empty">Loading data from server</td>
 		</tr>
 	</tbody>
-	<tfoot>
-
-		<tr>
-			<th>Specimen</th>
-			<th>Cat Num</th>
-			<th>Identification</th>
-
-		</tr>
-	</tfoot>
 </table>
-<cfset cj='['> 
-<cfset cj=cj & '{ "sName": "guid", "sTitle": "Specimen", "bSortable": "true" },'>
-<cfset cj=cj & '{ "sName": "cat_num", "sTitle": "Cat Num", "bSortable": "true" },'>
-<cfset cj=cj & '{ "sName": "scientific_name", "sTitle": "Identification", "bSortable": "true" }'>
-<cfset cj=cj & ']'>
-<cfset sql="select guid,cat_num,scientific_name">
+
 <script type="text/javascript" language="javascript">
 	$(document).ready(function() {
 	$('#example').dataTable( {
@@ -42,27 +43,9 @@
 		"bStateSave": true,
 		"bServerSide": true,
 		"sAjaxSource": "gData.cfc?method=test",
-		"aoColumns": <cfoutput>#cj#</cfoutput>,
 		"sPaginationType": "full_numbers",
-		"aaSorting": [[1,'asc']],
-		"oLanguage": {
-			"sLengthMenu": "Page length: _MENU_",
-			"sSearch": "Filter:",
-			"sZeroRecords": "No matching records found"
-		},
-		"fnServerData": function ( sSource, aoData, fnCallback ) {
-			aoData.push(
-				{ "name": "table", "value": "flat" },
-				{ "name": "sql", "value": "<cfoutput>#sql#</cfoutput>" }
-			);
-			$.ajax( {"dataType": 'json',
-				 "type": "POST",
-				 "url": sSource,
-				 "data": aoData,
-				 "success": fnCallback
-			} );
-		}
-	});
+		"aaSorting": [[1,'asc']]
+		});
 });
 
 
