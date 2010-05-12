@@ -13,6 +13,12 @@
 <cfif not isdefined("part1")>
 	<cfset part1="">
 </cfif>
+<cfif not isdefined("part2")>
+	<cfset part2="">
+</cfif>
+<cfset filterparts=part1>
+<cfset filterparts=listappend(filterparts,part2)>
+<cfset filterparts=listqualify(filterparts,"'")>
 
 <cfset sel="select 
 		cat_num,
@@ -35,9 +41,8 @@
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
 		specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
 		specimen_part.collection_object_id = coll_object.collection_object_id ">	
-<cfset filterparts=part1>
 <cfif len(filterparts) gt 0>
-	<cfset whr=whr&" and specimen_part.part_name in ('#filterparts#')">
+	<cfset whr=whr&" and specimen_part.part_name in (#filterpart#')">
 </cfif>
 <cfif len(transaction_id) gt 0>
 	<cfset frm="#frm# ,loan_item">
@@ -73,6 +78,13 @@
 		<option value="">no filter</option>
 		<cfloop query="ctpart">
 			<option value="#part_name#" <cfif part1 is part_name> selected="selected"</cfif>>#part_name#</option>
+		</cfloop>
+	</select>
+	OR
+	<select name="part2" id="part2">
+		<option value="">no filter</option>
+		<cfloop query="ctpart">
+			<option value="#part_name#" <cfif part2 is part_name> selected="selected"</cfif>>#part_name#</option>
 		</cfloop>
 	</select>
 	<br><input type="submit" value="filter" class="lnkBtn">
