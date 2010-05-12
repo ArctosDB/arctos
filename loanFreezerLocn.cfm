@@ -50,7 +50,7 @@
 <cfquery name="allCatItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
-<cfquery name="ctpart">
+<cfquery name="ctpart" dbtype="query">
 	select part_name from allCatItems group by part_name order by part_name
 </cfquery>
 <cfset a=1>
