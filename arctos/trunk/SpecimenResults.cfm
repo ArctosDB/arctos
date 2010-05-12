@@ -193,9 +193,11 @@ function removeHelpDiv() {
 				"is/was/cited/related" option.
 			</li>
 			<li>
-				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc. 
-				Don't assume we've accurately or predictably recorded data. Not all specimens have coordinates - 
-				the spatial query tool will not return all specimens.
+				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, or use a substring match. 
+				Don't assume we've accurately or predictably recorded data.
+			</li>
+			<li>
+				 Not all specimens have coordinates - the spatial query tool will not locate all specimens.
 			</li>
 			<li>
 				Use dropdowns or partial word matches instead of text strings, which may be entered in unexpected ways. 
@@ -204,6 +206,13 @@ function removeHelpDiv() {
 			<li>
 				Read the documentation for individual search fields (click the title of the field to see documentation). 
 				Arctos fields may not be what you expect them to be.
+			</li>
+			<li>
+				<a href="/googlesearch.cfm">Try our Google search</a>. Not everything in Arctos 
+				is indexed in Google, but it may provide a starting point to locate specific items.  		
+			</li>
+			<li>
+				<a href="/contact.cfm">Contact us</a> if you still can't find what you need. We'll help if we can.
 			</li>
 		</ul>
 	</div>
