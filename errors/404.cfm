@@ -35,8 +35,7 @@
 </CFLOOP>
 GetPageContext
 <cfdump var="#GetPageContext()#">
-ExpandPath
-<cfdump var="#ExpandPath()#">
+
 
 GetCurrentTemplatePath
 <cfdump var="#GetCurrentTemplatePath()#">
