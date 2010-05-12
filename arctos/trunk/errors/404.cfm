@@ -13,7 +13,9 @@
 		select new_path from redirect where upper(old_path)='#ucase(cgi.redirect_url)#'
 	</cfquery>
 	<cfdump var="#redir#">
-	<cfdump var="#cgi.redirect_ur#">
+	<cfdump var="#cgi.redirect_url#">
+		<cfdump var="#cgi#">
+
 <cfif cgi.redirect_url contains "/DiGIRprov/www/DiGIR.php">
 	
 	
