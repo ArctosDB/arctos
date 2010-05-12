@@ -14,7 +14,7 @@
 	from
 		flat
 	where
-		rownum=1
+		cat_num=1
 </cfquery>
 <cfreturn d>
 </cffunction>
