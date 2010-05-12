@@ -28,16 +28,14 @@
 	<cfargument name="bSortable_0" type="any" required="no">
 	<cfargument name="bSortable_1" type="any" required="no">
 	<cfargument name="bSortable_2" type="any" required="no">
+	
+	<cfset fieldlist="guid,cat_num,SCIENTIFIC_NAME">
+		
 	<cfquery name="qGetCount" datasource="uam_god">
-		
-		
-		
-		<cfset fieldlist="guid,cat_num,SCIENTIFIC_NAME">
-		
-		
 		SELECT 58 AS fullCount
 		FROM dual
 	</cfquery>
+	
 	<cfquery name="d" datasource="uam_god">
 		select
 			guid,
@@ -46,7 +44,7 @@
 		from
 			flat
 		where
-			cat_num<1000
+			cat_num=1
 	</cfquery>
 <!----
 http://arctos-test.arctos.database.museum/development/gData.cfc?method=test&returnformat=json&
