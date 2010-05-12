@@ -23,10 +23,22 @@
 	<cfdump var="#Server#">
 	url:<cfdump var="#URL#">
 
-
+<br>cgi
 <CFLOOP COLLECTION="#cgi#" ITEM="VarName">
   <br>#VarName#: #cgi[VarName]#
 </CFLOOP>
+
+
+<br>URL
+<CFLOOP COLLECTION="#URL#" ITEM="VarName">
+  <br>#VarName#: #URL[VarName]#
+</CFLOOP>
+
+
+
+
+
+
 
 <cfif cgi.redirect_url contains "/DiGIRprov/www/DiGIR.php">
 	
