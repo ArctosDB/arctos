@@ -38,7 +38,7 @@
 	
 	<cfquery name="d" datasource="uam_god">
 		select
-			guid,
+			'<a href="/name/' || guid || '>' || guid || '</a>' guid,
 			cat_num,
 			SCIENTIFIC_NAME,
 			'testtesttesttesttesttesttesttesttesttesttesttest' t1,
