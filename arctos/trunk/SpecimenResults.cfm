@@ -180,7 +180,10 @@ function removeHelpDiv() {
 		select distinct collection_object_id from #session.SpecSrchTab#
 	</cfquery>
 <cfif summary.recordcount is 0>
-	<div id="loading" class="error">
+	<script>
+		hidePageLoad();
+	</script>
+	<div>
 		Your query returned no results.
 		<ul>
 			<li>
