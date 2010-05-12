@@ -41,7 +41,7 @@
 			guid,
 			cat_num,
 			SCIENTIFIC_NAME,
-			'testtest' 1
+			'testtest' t1
 		from
 			flat
 		where
