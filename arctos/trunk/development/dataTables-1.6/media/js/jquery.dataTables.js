@@ -1926,9 +1926,9 @@
 				oSettings.fnServerData( oSettings.sAjaxSource, null, function(json) {
 					
 					/* Got the data - add it to the table */
-					for ( var i=0 ; i<json.DATA.length ; i++ )
+					for ( var i=0 ; i<json.aaData.length ; i++ )
 					{
-						_fnAddData( oSettings, json.DATA[i] );
+						_fnAddData( oSettings, json.aaData[i] );
 					}
 					
 					/* Reset the init display for cookie saving. We've already done a filter, and
@@ -2742,7 +2742,7 @@
 		 * Inputs:   object:oSettings - dataTables settings object
 		 *           object:json - json data return from the server.
 		 *             The following must be defined:
-		 *               iTotalRecords, iTotalDisplayRecords, DATA
+		 *               iTotalRecords, iTotalDisplayRecords, aaData
 		 *             The following may be defined:
 		 *               sColumns
 		 */
@@ -2775,7 +2775,7 @@
 				var aiIndex = _fnReOrderIndex( oSettings, json.sColumns );
 			}
 			
-			for ( var i=0, iLen=json.DATA.length ; i<iLen ; i++ )
+			for ( var i=0, iLen=json.aaData.length ; i<iLen ; i++ )
 			{
 				if ( bReOrder )
 				{
@@ -2783,14 +2783,14 @@
 					var aData = [];
 					for ( var j=0, jLen=oSettings.aoColumns.length ; j<jLen ; j++ )
 					{
-						aData.push( json.DATA[i][ aiIndex[j] ] );
+						aData.push( json.aaData[i][ aiIndex[j] ] );
 					}
 					_fnAddData( oSettings, aData );
 				}
 				else
 				{
 					/* No re-order required, sever got it "right" - just straight add */
-					_fnAddData( oSettings, json.DATA[i] );
+					_fnAddData( oSettings, json.aaData[i] );
 				}
 			}
 			oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
@@ -5020,7 +5020,7 @@
 					} );
 				}
 				
-				if ( typeof oInit.DATA != 'undefined' )
+				if ( typeof oInit.aaData != 'undefined' )
 				{
 					bUsePassedData = true;
 				}
@@ -5135,9 +5135,9 @@
 			/* Check if there is data passing into the constructor */
 			if ( bUsePassedData )
 			{
-				for ( i=0 ; i<oInit.DATA.length ; i++ )
+				for ( i=0 ; i<oInit.aaData.length ; i++ )
 				{
-					_fnAddData( oSettings, oInit.DATA[ i ] );
+					_fnAddData( oSettings, oInit.aaData[ i ] );
 				}
 			}
 			else
