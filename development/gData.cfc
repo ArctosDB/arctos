@@ -99,7 +99,7 @@ http://arctos-test.arctos.database.museum/development/gData.cfc?method=test&retu
 			</cfif>
 		</cfif>
 	</cfloop>
-	<cfset returnJSON=returnJSON & ']'>
+	<cfset returnJSON=returnJSON & ']}'>
 #returnJSON#</cfoutput>
 
 
