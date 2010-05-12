@@ -63,7 +63,7 @@
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfquery name="allCatItems" dbtype="query">
-	select * from allCatItems
+	select * from allCatItemsRaw
 	<cfif len(filterparts) gt 0>
 		where part_name in (#preservesinglequotes(filterparts)#)
 	</cfif>
