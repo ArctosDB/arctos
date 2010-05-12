@@ -9,41 +9,10 @@
 	<cfelse>
 		<cfset ipaddress='unknown'>
 	</CFIF>
-	<script>
-		console.log(document.location.href);
-	</script>
-	
-	-----------#ExpandPath( "./" )#------------
 	<cfquery name="redir" datasource="cf_dbuser">
 		select new_path from redirect where upper(old_path)='#ucase(cgi.redirect_url)#'
 	</cfquery>
-	<br>getPageContext().getRequest().getRequestURI(): #getPageContext().getRequest().getRequestURI()#--
-	<br>CGI.HTTP_X_Forwarded_For: #CGI.HTTP_X_Forwarded_For#
-	<br>cgi.redirect_query_string: #cgi.redirect_query_string#
-	<br>#path# versus #cgi.path#
 	<cfdump var="#redir#">
-	<cfdump var="#cgi.redirect_url#">
-	<cfdump var="#cgi#">
-	<cfdump var="#Request#">
-	<cfdump var="#Server#">
-	url:<cfdump var="#URL#">
-
-<br>cgi
-<CFLOOP COLLECTION="#cgi#" ITEM="VarName">
-  <br>#VarName#: #cgi[VarName]#
-</CFLOOP>
-
-
-<br>URL
-<CFLOOP COLLECTION="#URL#" ITEM="VarName">
-  <br>#VarName#: #URL[VarName]#
-</CFLOOP>
-GetPageContext
-<cfdump var="#GetPageContext()#">
-
-
-GetCurrentTemplatePath
-<cfdump var="#GetCurrentTemplatePath()#">
 
 
 <cfif cgi.redirect_url contains "/DiGIRprov/www/DiGIR.php">
