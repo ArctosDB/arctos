@@ -179,21 +179,28 @@ function removeHelpDiv() {
 	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct collection_object_id from #session.SpecSrchTab#
 	</cfquery>
-<cfif #summary.recordcount# is 0>
-	<div id="loading" class="status">
+<cfif summary.recordcount is 0>
+	<div id="loading" class="error">
 		Your query returned no results.
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" class="novisit">Arctos Taxonomy</a>.
+				If you searched by taxonomy, consult <a href="/TaxonomySearch.cfm" class="novisit">Arctos Taxonomy</a>.
+				Taxa are often synonymized and revised, and may not be consistent across collections. Previous Identifications, 
+				which are separate from the taxonomy used in Identifications, may be located using the scientific name 
+				"is/was/cited/related" option.
 			</li>
 			<li>
-				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc. Don't assume we've accurately or predictably recorded data!
+				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc. 
+				Don't assume we've accurately or predictably recorded data. Not all specimens have coordinates - 
+				the spatial query tool will not return all specimens.
 			</li>
 			<li>
-				Use dropdowns or partial word matches instead of text strings, which may be entered in unexpected ways. "Doe" is a good choice for a collector if "John P. Doe" didn't match anything, for example.
+				Use dropdowns or partial word matches instead of text strings, which may be entered in unexpected ways. 
+				"Doe" is a good choice for a collector if "John P. Doe" didn't match anything, for example.
 			</li>
 			<li>
-				Read the documentation for individual search fields (click the title of the field to see documentation). Arctos fields may not be what you expect them to be.
+				Read the documentation for individual search fields (click the title of the field to see documentation). 
+				Arctos fields may not be what you expect them to be.
 			</li>
 		</ul>
 	</div>
@@ -248,13 +255,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 <strong>#mappable.cnt#</strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with 
-			<span class="controlButton" 
-				onmouseover="this.className='controlButton btnhov'" 
-				onmouseout="this.className='controlButton'"
+			<span class="controlButton"
 				onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
-			<span class="controlButton" 
-				onmouseover="this.className='controlButton btnhov'" 
-				onmouseout="this.className='controlButton'"
+			<span class="controlButton"
 				onclick="window.open('/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#','_blank');">BerkeleyMapper+Rangemaps</span>
 			<span class="infoLink" onclick="getDocs('maps');">
 				What's this?
