@@ -46,7 +46,7 @@
 		from
 			flat
 		where
-			cat_num=1
+			cat_num<1000
 	</cfquery>
 <!----
 http://arctos-test.arctos.database.museum/development/gData.cfc?method=test&returnformat=json&
