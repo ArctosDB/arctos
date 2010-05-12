@@ -33,8 +33,7 @@
 <cfset cj=cj & '{ "sName": "guid", "sTitle": "Specimen", "bSortable": "true" },'>
 <cfset cj=cj & '{ "sName": "cat_num", "sTitle": "Cat Num", "bSortable": "true" },'>
 <cfset cj=cj & '{ "sName": "scientific_name", "sTitle": "Identification", "bSortable": "true" }'>
-
-					]
+<cfset cj=cj & ']'>
 
 <script type="text/javascript" language="javascript">
 	$(document).ready(function() {
