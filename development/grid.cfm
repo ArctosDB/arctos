@@ -34,7 +34,7 @@
 <cfset cj=cj & '{ "sName": "cat_num", "sTitle": "Cat Num", "bSortable": "true" },'>
 <cfset cj=cj & '{ "sName": "scientific_name", "sTitle": "Identification", "bSortable": "true" }'>
 <cfset cj=cj & ']'>
-
+<cfset sql="select guid,cat_num,scientific_name">
 <script type="text/javascript" language="javascript">
 	$(document).ready(function() {
 	$('#example').dataTable( {
@@ -52,8 +52,8 @@
 		},
 		"fnServerData": function ( sSource, aoData, fnCallback ) {
 			aoData.push(
-				{ "name": "table", "value": "a8002cms.dbo.ukLocationCodes" },
-				{ "name": "sql", "value": "SELECT [id], [varCode], [varLocation]" }
+				{ "name": "table", "value": "flat" },
+				{ "name": "sql", "value": "<cfoutput>#sql#</cfoutput>" }
 			);
 			$.ajax( {"dataType": 'json',
 				 "type": "POST",
