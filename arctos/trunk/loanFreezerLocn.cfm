@@ -42,7 +42,7 @@
 		specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
 		specimen_part.collection_object_id = coll_object.collection_object_id ">	
 <cfif len(filterparts) gt 0>
-	<cfset whr=whr&" and specimen_part.part_name in (#filterpart#')">
+	<cfset whr=whr&" and specimen_part.part_name in (#filterparts#')">
 </cfif>
 <cfif len(transaction_id) gt 0>
 	<cfset frm="#frm# ,loan_item">
