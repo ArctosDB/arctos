@@ -3,7 +3,6 @@
 <cfif len(session.displayrows) is 0>
 	<cfset session.displayrows=20>
 </cfif> 
-<cfset btime=now()>
 <cfhtmlhead text="<title>Specimen Results</title>">
 <cfoutput>
 <script type="text/javascript" language="javascript">
@@ -164,16 +163,6 @@ function removeHelpDiv() {
 	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
-<!---------------------------------------- debug widget --------------------------------------------------->
-<cfif isdefined("session.username") and 
-	(#session.username# is "dlm" or #session.username# is "dusty" or #session.username# is "ccicero")>
-	#preserveSingleQuotes(SqlString)#
-	<cfset etime=now()>
-	<cfset tt=DateDiff("s", btime, etime)>
-	<br>Runtime: #tt#
-</cfif>
-<!---------------------------------------- /debug widget --------------------------------------------------->
-
 <form name="defaults">
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
 	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
