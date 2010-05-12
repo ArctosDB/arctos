@@ -71,16 +71,16 @@ http://arctos-test.arctos.database.museum/development/gData.cfc?method=test&retu
 <cfsavecontent variable="sOutput"><cfoutput>{
 	"sEcho": #sEcho#,
 	"iTotalRecords": #qGetCount.fullCount#,
-	"iTotalDisplayRecords": #rResult.recordcount#,
+	"iTotalDisplayRecords": #d.recordcount#,
 	"aaData": [
 	<cfloop query="d" startrow="#iDisplayStart+1#" endrow="#iDisplayStart+iDisplayLength#">
 		<cfset count=count+1>
 		[<cfloop list="#fieldlist#" index="i">
-			"#rResult[i][rResult.currentRow]#"
+			"#d[i][d.currentRow]#"
 				<cfif i is not listLast(fieldlist)>, </cfif>
 		</cfloop>]
-		<cfif rResult.recordcount LT iDisplayStart+iDisplayLength>
-			<cfif count is not rResult.recordcount>,</cfif>
+		<cfif d.recordcount LT iDisplayStart+iDisplayLength>
+			<cfif count is not d.recordcount>,</cfif>
 		<cfelse>
 			<cfif count is not iDisplayStart+iDisplayLength>,</cfif>
 		</cfif>
