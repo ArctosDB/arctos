@@ -35,8 +35,10 @@
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
 		specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
 		specimen_part.collection_object_id = coll_object.collection_object_id ">	
-
-
+<cfset filterparts=part1>
+<cfif len(filterparts) gt 0>
+	<cfset whr=whr&" and specimen_part.part_name in ('#filterparts#')">
+</cfif>
 <cfif len(transaction_id) gt 0>
 	<cfset frm="#frm# ,loan_item">
 	<cfset whr="#whr# AND specimen_part.collection_object_id = loan_item.collection_object_id and
@@ -47,6 +49,10 @@
 	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#collection_object_id#)">
 </cfif>		
 <cfset sql="#sel# #frm# #whr#">
+
+#preservesinglequotes(sql)#
+
+
 <cfquery name="allCatItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
@@ -66,7 +72,7 @@
 	<select name="part1" id="part1">
 		<option value="">no filter</option>
 		<cfloop query="ctpart">
-			<option value="##" <cfif part1 is #part_name#> selected="selected"></cfif>#part_name#</option>
+			<option value="#part_name#" <cfif part1 is part_name> selected="selected"</cfif>>#part_name#</option>
 		</cfloop>
 	</select>
 	<br><input type="submit" value="filter" class="lnkBtn">
