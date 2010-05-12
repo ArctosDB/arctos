@@ -12,8 +12,8 @@
 	<cfquery name="redir" datasource="cf_dbuser">
 		select new_path from redirect where upper(old_path)='#ucase(cgi.redirect_url)#'
 	</cfquery>
-	--#getPageContext().getRequest().getRequestURI()#--
-	--#getWebPath()#--
+	<br>getPageContext().getRequest().getRequestURI(): #getPageContext().getRequest().getRequestURI()#--
+	<br>CGI.HTTP_X_Forwarded_For: #CGI.HTTP_X_Forwarded_For#
 	<cfdump var="#redir#">
 	<cfdump var="#cgi.redirect_url#">
 	<cfdump var="#cgi#">
