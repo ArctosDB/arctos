@@ -1,6 +1,18 @@
-<cfquery name="ctClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	SELECT DISTINCT(phylclass) FROM ctclass ORDER BY phylclass
-</cfquery>
+<script type="text/javascript" language="javascript">
+	jQuery(document).ready(function() {
+		jQuery("#phylclass").autocomplete("/ajax/phylclass.cfm", {
+			width: 320,
+			max: 50,
+			autofill: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300,
+			matchContains: true,
+			minChars: 1,
+			selectFirst:false
+		});
+	});
+</script>
 <cfquery name="ctNatureOfId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT DISTINCT(nature_of_id) FROM ctnature_of_id ORDER BY nature_of_id
 </cfquery>
@@ -26,13 +38,8 @@
 			<span class="helpLink" id="_phylclass">Class:</span>
 		</td>
 		<td class="srch">
-		 	<select name="phylclass" id="phylclass" size="1">
-				<option value=""></option>
-				<cfloop query="ctClass">
-					<option value="#ctClass.phylclass#">#ctClass.phylclass#</option>
-				</cfloop>
-			</select><span class="infoLink" 
-	  				onclick="getCtDoc('ctclass',SpecData.phylclass.value);">Define</span>
+		 	<input type="text" name="phylclass" id="phylclass" size="50">
+			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='='+e.value;">Add = for exact match</span>		
 		</td>
 	</tr>
 	<tr>
@@ -41,7 +48,6 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="genus" id="genus" size="50">
-			<span class="infoLink" onclick="var e=document.getElementById('genus');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
 	<tr>

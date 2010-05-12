@@ -186,6 +186,7 @@ function removeHelpDiv() {
 	<div>
 		Your query returned no results.
 		<ul>
+			<li>Check your form input, or use the Clear Form button to start over.</li>
 			<li>
 				If you searched by taxonomy, consult <a href="/TaxonomySearch.cfm" class="novisit">Arctos Taxonomy</a>.
 				Taxa are often synonymized and revised, and may not be consistent across collections. Previous Identifications, 

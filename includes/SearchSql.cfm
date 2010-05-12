@@ -451,21 +451,25 @@
 		<cfset basQual = " #basQual# AND upper(taxonomy.subspecies) like '%#ucase(subspecies)#%'">
 	</cfif>		
 </cfif>
-<cfif isdefined("Phylclass") AND len(#Phylclass#) gt 0>
+<cfif isdefined("Phylclass") AND len(Phylclass) gt 0>
 	<cfset mapurl = "#mapurl#&Phylclass=#Phylclass#">
-	<cfif #basJoin# does not contain " identification ">
+	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON 
 		(cataloged_item.collection_object_id = identification.collection_object_id)">
 	</cfif>
-	<cfif #basJoin# does not contain " identification_taxonomy ">
+	<cfif basJoin does not contain " identification_taxonomy ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON 
 		(identification.identification_id = identification_taxonomy.identification_id)">
 	</cfif>
-	<cfif #basJoin# does not contain " taxonomy ">
+	<cfif basJoin does not contain " taxonomy ">
 		<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON 
 		(identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND taxonomy.Phylclass = '#Phylclass#'">
+	<cfif left(phylclass,1) is '='>
+		<cfset basQual = " #basQual# AND upper(taxonomy.phylclass) = '#ucase(right(phylclass,len(phylclass)-1))#'">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(taxonomy.phylclass) like '%#ucase(phylclass)#%'">
+	</cfif>
 </cfif>
 <cfif isdefined("any_taxa_term") AND len(#any_taxa_term#) gt 0>
 	<cfset mapurl = "#mapurl#&any_taxa_term=#any_taxa_term#">
