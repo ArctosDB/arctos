@@ -36,7 +36,7 @@
 	$('#example').dataTable( {
 		"bProcessing": true,
 		"bServerSide": true,
-		"sAjaxSource": "gData.cfm"
+		"sAjaxSource": "gData.cfc?method=test&returnformat=json"
 	} );
 } );
 </script>
