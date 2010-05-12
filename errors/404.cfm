@@ -9,7 +9,14 @@
 	<cfelse>
 		<cfset ipaddress='unknown'>
 	</CFIF>
+	<cfquery name="redir" datasource="cf_dbuser">
+		select new_path from redir where upper(old_path)='#ucase(cgi.redirect_url)#'
+	</cfquery>
+	<cfdump var="#redir#">
+	<cfdump var="#cgi.redirect_ur#">
 <cfif cgi.redirect_url contains "/DiGIRprov/www/DiGIR.php">
+	
+	
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">	
 <cfelse>
