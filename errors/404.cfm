@@ -35,9 +35,11 @@
 </CFLOOP>
 GetPageContext
 <cfdump var="#GetPageContext()#">
+ExpandPath
+<cfdump var="#ExpandPath()#">
 
-
-
+GetCurrentTemplatePath
+<cfdump var="#GetCurrentTemplatePath()#">
 
 
 <cfif cgi.redirect_url contains "/DiGIRprov/www/DiGIR.php">
