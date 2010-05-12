@@ -29,6 +29,12 @@
 	<cfargument name="bSortable_1" type="any" required="no">
 	<cfargument name="bSortable_2" type="any" required="no">
 	<cfquery name="qGetCount" datasource="uam_god">
+		
+		
+		
+		<cfset fieldlist="guid,cat_num,SCIENTIFIC_NAME">
+		
+		
 		SELECT 58 AS fullCount
 		FROM dual
 	</cfquery>
