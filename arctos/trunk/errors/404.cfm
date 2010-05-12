@@ -9,6 +9,9 @@
 	<cfelse>
 		<cfset ipaddress='unknown'>
 	</CFIF>
+	<script>
+		console.log(document.location);
+	</script>
 	<cfquery name="redir" datasource="cf_dbuser">
 		select new_path from redirect where upper(old_path)='#ucase(cgi.redirect_url)#'
 	</cfquery>
