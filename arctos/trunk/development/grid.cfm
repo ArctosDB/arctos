@@ -29,16 +29,44 @@
 		</tr>
 	</tfoot>
 </table>
+<cfset cj='['> 
+<cfset cj=cj & '{ "sName": "guid", "sTitle": "Specimen", "bSortable": "true" },'>
+<cfset cj=cj & '{ "sName": "cat_num", "sTitle": "Cat Num", "bSortable": "true" },'>
+<cfset cj=cj & '{ "sName": "scientific_name", "sTitle": "Identification", "bSortable": "true" }'>
 
+					]
 
 <script type="text/javascript" language="javascript">
 	$(document).ready(function() {
 	$('#example').dataTable( {
 		"bProcessing": true,
+		"bStateSave": true,
 		"bServerSide": true,
-		"sAjaxSource": "gData.cfc?method=test"
-	} );
-} );
+		"sAjaxSource": "gData.cfc?method=test",
+		"aoColumns": <cfoutput>#cj#</cfoutput>,
+		"sPaginationType": "full_numbers",
+		"aaSorting": [[1,'asc']],
+		"oLanguage": {
+			"sLengthMenu": "Page length: _MENU_",
+			"sSearch": "Filter:",
+			"sZeroRecords": "No matching records found"
+		},
+		"fnServerData": function ( sSource, aoData, fnCallback ) {
+			aoData.push(
+				{ "name": "table", "value": "a8002cms.dbo.ukLocationCodes" },
+				{ "name": "sql", "value": "SELECT [id], [varCode], [varLocation]" }
+			);
+			$.ajax( {"dataType": 'json',
+				 "type": "POST",
+				 "url": sSource,
+				 "data": aoData,
+				 "success": fnCallback
+			});
+		});
+	});
+
+
+
 </script>
 
 <!-------
