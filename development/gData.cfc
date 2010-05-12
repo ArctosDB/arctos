@@ -38,7 +38,7 @@
 	
 	<cfquery name="d" datasource="uam_god">
 		select
-			'<a href="/name/' || guid || '>' || guid || '</a>' guid,
+			'<a href="/name/' || guid || '">' || guid || '</a>' guid,
 			cat_num,
 			SCIENTIFIC_NAME,
 			'testtesttesttesttesttesttesttesttesttesttesttest' t1,
@@ -113,7 +113,7 @@ http://arctos-test.arctos.database.museum/development/gData.cfc?method=test&retu
 		</cfif>
 	</cfloop>
 	<cfset returnJSON=returnJSON & ']}'>
-#trim(returnJSON)#</cfoutput>
+#serializeJSON(returnJSON)#</cfoutput>
 
 
 </cffunction>
