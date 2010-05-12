@@ -1,7 +1,7 @@
 <script type='text/javascript' language="javascript" src='jquery.jqGrid-3.6.5/js/jquery-1.4.2.min.js'></script>
 
 
-<link rel="stylesheet" type="text/css" media="screen" href="jquery-ui-1.8.1.custom/jquery-ui-1.8.1.custom.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="jquery-ui-1.8.1.custom/css/smoothness/jquery-ui-1.8.1.custom.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="ui.jqgrid.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="ui.multiselect.css" />
 
