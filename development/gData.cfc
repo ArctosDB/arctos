@@ -41,7 +41,21 @@
 			guid,
 			cat_num,
 			SCIENTIFIC_NAME,
-			'testtest' t1
+			'testtest' t1,
+			'testtest' t2,
+			'testtest' t3,
+			'testtest' t4,
+			'testtest' t5,
+			'testtest' t6,
+			'testtest' t7,
+			'testtest' t8,
+			'testtest' t9,
+			'testtest' t10,
+			'testtest' t11,
+			'testtest' t12,
+			'testtest' t13,
+			'testtest' t14,
+			'testtest' t15
 		from
 			flat
 		where
