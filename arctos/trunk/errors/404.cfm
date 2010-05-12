@@ -13,6 +13,7 @@
 		select new_path from redirect where upper(old_path)='#ucase(cgi.redirect_url)#'
 	</cfquery>
 	--#getPageContext().getRequest().getRequestURI()#--
+	--#getWebPath()#--
 	<cfdump var="#redir#">
 	<cfdump var="#cgi.redirect_url#">
 	<cfdump var="#cgi#">
