@@ -68,6 +68,7 @@ bSortable_1=true&
 bSortable_2=true
 http://arctos-test.arctos.database.museum/development/gData.cfc?method=test&returnformat=json&sEcho=4&iColumns=3&sColumns=&iDisplayStart=0&iDisplayLength=10&sSearch=&bEscapeRegex=true&sSearch_0=&bEscapeRegex_0=true&bSearchable_0=true&sSearch_1=&bEscapeRegex_1=true&bSearchable_1=true&sSearch_2=&bEscapeRegex_2=true&bSearchable_2=true&iSortingCols=1&iSortCol_0=2&sSortDir_0=desc&bSortable_0=true&bSortable_1=true&bSortable_2=true
 ---->
+<cfset count=0>
 <cfsavecontent variable="sOutput"><cfoutput>{
 	"sEcho": #sEcho#,
 	"iTotalRecords": #qGetCount.fullCount#,
