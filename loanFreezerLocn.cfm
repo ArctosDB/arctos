@@ -20,7 +20,7 @@
 <cfset filterparts=part1>
 <cfset filterparts=listappend(filterparts,part2,"\")>
 <cfset filterparts=listqualify(filterparts,"'","\")>
-<cfset filterparts=listchangedelims(filterparts,"\",",")>
+<cfset filterparts=replace(filterparts,"'\'","','","all")>
 
 
 <cfset sel="select 
