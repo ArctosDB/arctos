@@ -40,7 +40,8 @@
 		select
 			guid,
 			cat_num,
-			SCIENTIFIC_NAME
+			SCIENTIFIC_NAME,
+			'testtest' 1
 		from
 			flat
 		where
