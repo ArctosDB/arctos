@@ -14,7 +14,11 @@
 	</cfquery>
 	<cfdump var="#redir#">
 	<cfdump var="#cgi.redirect_url#">
-		<cfdump var="#cgi#">
+	<cfdump var="#cgi#">
+	<cfdump var="#Request#">
+	<cfdump var="#Server#">
+	<cfdump var="#URL#">
+	<cfdump var="#Caller#">
 
 <cfif cgi.redirect_url contains "/DiGIRprov/www/DiGIR.php">
 	
