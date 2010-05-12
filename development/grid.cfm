@@ -60,9 +60,10 @@
 				 "url": sSource,
 				 "data": aoData,
 				 "success": fnCallback
-			});
-		});
+			} );
+		}
 	});
+});
 
 
 
