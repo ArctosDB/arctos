@@ -280,14 +280,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 <table border="0">
 	<tr>
 		<td>
-		<span style="font-size:smaller;font-weight:bold">Rows Per Page: </span>
-			<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
-				<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
-				<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
-				<option  <cfif session.displayRows is "50"> selected </cfif> value="50">50</option>
-				<option  <cfif session.displayRows is "100"> selected </cfif> value="100">100</option>
-			</select>
-		
 		<cfset numPages= ceiling(summary.recordcount/session.displayrows)>
 		<cfset loopTo=numPages-2>
 		<label for="page_record">Records...</label>
