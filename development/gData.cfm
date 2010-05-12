@@ -1,4 +1,12 @@
-<cfquery name="d" datasource="uam_god">
+<cfcomponent>
+<!------------------------------------------->
+<cffunction name="test" access="remote">
+	<!---
+	<cfargument name="barcode" type="string" required="yes">
+	<cfargument name="parent_barcode" type="string" required="yes">
+	<cfargument name="timestamp" type="string" required="yes">	
+	--->
+	<cfquery name="d" datasource="uam_god">
 	select
 		guid,
 		cat_num,
@@ -8,5 +16,6 @@
 	where
 		rownum=1
 </cfquery>
-<cfset x=serializeJSON(d)>
-<cfdump var=#x#>
+<cfreturn d>
+</cffunction>
+</cfcomponent>
