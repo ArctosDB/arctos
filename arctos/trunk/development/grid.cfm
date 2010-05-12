@@ -8,11 +8,9 @@
 	<thead>
 
 		<tr>
-			<th width="20%">Rendering engine</th>
-			<th width="25%">Browser</th>
-			<th width="25%">Platform(s)</th>
-			<th width="15%">Engine version</th>
-			<th width="15%">CSS grade</th>
+			<th width="20%">Specimen</th>
+			<th width="25%">Cat Num</th>
+			<th width="25%">Identification</th>
 
 		</tr>
 	</thead>
@@ -24,11 +22,9 @@
 	<tfoot>
 
 		<tr>
-			<th>Rendering engine</th>
-			<th>Browser</th>
-			<th>Platform(s)</th>
-			<th>Engine version</th>
-			<th>CSS grade</th>
+			<th>Specimen</th>
+			<th>Cat Num</th>
+			<th>Identification</th>
 
 		</tr>
 	</tfoot>
