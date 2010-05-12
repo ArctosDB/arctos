@@ -406,7 +406,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 								</select>
 							</td>
 							<td>			
-								<input type="text" name="agent_name" 
+								<input type="text" name="agent_name" id="agent_name"
 									value="#AGENTS.agent_name#" 
 									class="reqdClr" 
 									onchange="findAgentName('new_name_id','agent_name',this.value); return false;"
@@ -430,9 +430,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 									value="Delete"
 									class="delBtn"
 									onclick="document.location='Project.cfm?Action=removeAgent&project_id=#project_id#&agent_name_id=#agent_name_id#';">
-								<input type="submit" 
-										value="Save" 
-										class="savBtn">
+								<input type="submit" value="Save" class="savBtn">
 							 </td>
 						     <cfset i = i+1>
 						</tr>
@@ -451,13 +449,13 @@ Projects are activities that have contributed specimens, used specimens, or both
 							##<select name="agent_position" size="1" class="reqdClr">
 								<cfloop from="1" to="#numberOfAgents#" index="i">
 									<option 
-										<cfif #numberOfAgents# is #i#> selected </cfif>	value="#i#">#i#</option>
+										<cfif numberOfAgents is i> selected </cfif>	value="#i#">#i#</option>
 								</cfloop>
 								<option value=""></option>
 							</select>
 						</td>
 						<td>
-							<input type="text" name="newAgent_name" 
+							<input type="text" name="newAgent_name" id="newAgent_name" 
 								class="reqdClr" 
 								onchange="findAgentName('newAgent_name_id','newAgent_name',this.value); return false;"
 								onKeyPress="return noenter(event);">
@@ -472,9 +470,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 							</select>
 						</td>
 						<td>
-							<input type="submit" 
-									value="Save" 
-									class="savBtn">
+							<input type="submit" value="Save" class="savBtn">
 						</td>
 					</form>
 				</tr>

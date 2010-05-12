@@ -1,6 +1,19 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfoutput>
+<cfif not isdefined("transaction_id")>
+	<cfset transaction_id="">
+</cfif>
+<cfif not isdefined("container_id")>
+	<cfset container_id="">
+</cfif>
+<cfif not isdefined("collection_object_id")>
+	<cfset collection_object_id="">
+</cfif>
+<cfif not isdefined("part1")>
+	<cfset part1="">
+</cfif>
+
 <cfset sel="select 
 		cat_num,
 		collection.collection,
@@ -23,26 +36,41 @@
 		specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
 		specimen_part.collection_object_id = coll_object.collection_object_id ">	
 
-		
-<cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
+
+<cfif len(transaction_id) gt 0>
 	<cfset frm="#frm# ,loan_item">
 	<cfset whr="#whr# AND specimen_part.collection_object_id = loan_item.collection_object_id and
 			loan_item.transaction_id = #transaction_id#">
-<cfelseif isdefined("container_id") and len(#container_id#) gt 0>
+<cfelseif len(container_id) gt 0>
 	<cfset whr="#whr# AND coll_obj_cont_hist.container_id in (#container_id#)">
-<cfelseif isdefined("collection_object_id") and len(#collection_object_id#) gt 0>
-	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#container_id#)">
+<cfelseif len(collection_object_id) gt 0>
+	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#collection_object_id#)">
 </cfif>		
 <cfset sql="#sel# #frm# #whr#">
 <cfquery name="allCatItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
-
+<cfquery name="ctpart">
+	select part_name from allCatItems group by part_name order by part_name
+</cfquery>
 <cfset a=1>
 <cfset fileName = "FreezerLocation_#cfid#_#cftoken#.csv">
 <a href="/download.cfm?file=#fileName#">Download</a>
 <cfset dlData="cataloged_item,#session.customOtherIdentifier#,part_name,location,disposition">
 <cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#dlData#">
+<form name="f" method="post" action="loanFreezerLocn.cfm">
+	<input type="hidden" name="container_id" value="#container_id#">
+	<input type="hidden" name="transaction_id" value="#transaction_id#">
+	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+	<label for="part1">Filter for part</label>
+	<select name="part1" id="part1">
+		<option value="">no filter</option>
+		<cfloop query="ctpart">
+			<option value="##" <cfif part1 is #part_name#> selected="selected"></cfif>#part_name#</option>
+		</cfloop>
+	</select>
+	<br><input type="submit" value="filter" class="lnkBtn">
+</form>
 <table border id="t" class="sortable">
 	<th>
 		Cataloged Item
