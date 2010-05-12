@@ -8,4 +8,5 @@
 	where
 		rownum=1
 </cfquery>
-<serializeJSON(d)>
+<cfset x=serializeJSON(d)>
+<cfdump var=#x#>
