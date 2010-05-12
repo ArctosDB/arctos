@@ -14,6 +14,7 @@
 	</cfquery>
 	<br>getPageContext().getRequest().getRequestURI(): #getPageContext().getRequest().getRequestURI()#--
 	<br>CGI.HTTP_X_Forwarded_For: #CGI.HTTP_X_Forwarded_For#
+	<br>cgi.redirect_query_string: #cgi.redirect_query_string#
 	<cfdump var="#redir#">
 	<cfdump var="#cgi.redirect_url#">
 	<cfdump var="#cgi#">
