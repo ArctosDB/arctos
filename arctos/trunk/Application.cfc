@@ -5,9 +5,12 @@
 <cfset This.ClientStorage="Cookie">
 <cffunction name="onMissingTemplate" returnType="boolean" output="false">
    <cfargument name="thePage" type="string" required="true">
+	<!---
 	<cfscript>
 		getPageContext().forward("/errors/404.cfm");
-	</cfscript>
+	</cfscript
+	--->
+	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cffunction>
 
