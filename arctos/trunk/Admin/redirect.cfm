@@ -20,9 +20,9 @@
 	Create Redirect
 	<form name="new" method="post" action="redirect.cfm">
 		<input type="hidden" name="action" id="action" value="new">
-		<label for="old">old</label>
+		<label for="old">old (enter everything after the domain name, including a leading slash)</label>
 		<input type="text" name="old" id="old">
-		<label for="new">new</label>
+		<label for="new">new (enter everything after the domain name, including a leading slash)</label>
 		<input type="text" name="new" id="new">
 		<br>
 		<input type="submit" 
