@@ -29,7 +29,7 @@
 	<cfargument name="bSortable_1" type="any" required="no">
 	<cfargument name="bSortable_2" type="any" required="no">
 	
-	<cfset fieldlist="guid,cat_num,SCIENTIFIC_NAME">
+	<cfset fieldlist="guid,cat_num,SCIENTIFIC_NAME,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15">
 		
 	<cfquery name="qGetCount" datasource="uam_god">
 		SELECT 58 AS fullCount
