@@ -96,7 +96,7 @@ http://arctos-test.arctos.database.museum/development/gData.cfc?method=test&retu
 		<cfset count=count+1>
 		<cfset returnJSON=returnJSON & '['>
 		<cfloop list="#fieldlist#" index="i">
-			<cfset returnJSON=returnJSON & '"#d[i][d.currentRow]#"'>
+			<cfset returnJSON=returnJSON & '"#ColdFusion.JSON.encode(d[i][d.currentRow])#"'>
 			<cfif i is not listLast(fieldlist)>
 				<cfset returnJSON=returnJSON & ','>
 			</cfif>
@@ -113,7 +113,7 @@ http://arctos-test.arctos.database.museum/development/gData.cfc?method=test&retu
 		</cfif>
 	</cfloop>
 	<cfset returnJSON=returnJSON & ']}'>
-#serializeJSON(returnJSON)#</cfoutput>
+#returnJSON#</cfoutput>
 
 
 </cffunction>
