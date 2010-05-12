@@ -18,8 +18,10 @@
 	<cfset part2="">
 </cfif>
 <cfset filterparts=part1>
-<cfset filterparts=listappend(filterparts,part2)>
-<cfset filterparts=listqualify(filterparts,"'")>
+<cfset filterparts=listappend(filterparts,part2,"\")>
+<cfset filterparts=listqualify(filterparts,"'","\")>
+<cfset filterparts=listchangedelims(filterparts,"\",",")>
+
 
 <cfset sel="select 
 		cat_num,
