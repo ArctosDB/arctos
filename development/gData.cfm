@@ -2,7 +2,7 @@
 	select
 		guid,
 		cat_num,
-		taxon_name
+		SCIENTIFIC_NAME
 	from
 		flat
 	where
