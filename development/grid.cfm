@@ -2,7 +2,7 @@
 
 
 <link rel="stylesheet" type="text/css" media="screen" href="jquery-ui-1.8.1.custom.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="jquery.jqGrid-3.6.5/css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="ui.jqgrid.css" />
 
 <script src="jquery.jqGrid-3.6.5/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="jquery.jqGrid-3.6.5/js/jquery.jqGrid.min.js" type="text/javascript"></script>
