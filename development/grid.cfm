@@ -1,72 +1,48 @@
-<script type='text/javascript' language="javascript" src='jquery.jqGrid-3.6.5/js/jquery-1.4.2.min.js'></script>
+<script type='text/javascript' language="javascript" src='dataTables-1.6/media/js/jquery.js'></script>
+<script src="dataTables-1.6/media/js/jquery.dataTables.js" type="text/javascript"></script>
 
+<link rel="stylesheet" type="text/css" href="dataTables-1.6/media/css/demo_page.css" >
+<link rel="stylesheet" type="text/css" href="dataTables-1.6/media/css/demo_table.css" >
 
-<link rel="stylesheet" type="text/css" media="screen" href="jquery-ui-1.8.1.custom/css/smoothness/jquery-ui-1.8.1.custom.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="ui.jqgrid.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="ui.multiselect.css" />
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+	<thead>
 
-<script src="jquery.jqGrid-3.6.5/js/i18n/grid.locale-en.js" type="text/javascript"></script>
-<script src="jquery.jqGrid-3.6.5/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+		<tr>
+			<th width="20%">Rendering engine</th>
+			<th width="25%">Browser</th>
+			<th width="25%">Platform(s)</th>
+			<th width="15%">Engine version</th>
+			<th width="15%">CSS grade</th>
 
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="5" class="dataTables_empty">Loading data from server</td>
+		</tr>
+	</tbody>
+	<tfoot>
 
-<div class="h">Search By:</div> <div>  
-	<input type="checkbox" id="autosearch" onclick="enableAutosubmit(this.checked)"> Enable Autosearch <br/>  Code<br />  
-	<input type="text" id="search_cd" onkeydown="doSearch(arguments[0]||event)" /> </div> <div>  Name<br>  
-	<input type="text" id="item" onkeydown="doSearch(arguments[0]||event)" />  
-	<button onclick="gridReload()" id="submitButton" style="margin-left:30px;">Search</button> </div> 
+		<tr>
+			<th>Rendering engine</th>
+			<th>Browser</th>
+			<th>Platform(s)</th>
+			<th>Engine version</th>
+			<th>CSS grade</th>
 
-<br /> <table id="bigset"></table> <div id="pagerb"></div> 
-
+		</tr>
+	</tfoot>
+</table>
 
 
 <script type="text/javascript" language="javascript">
-	jQuery(document).ready(function() {
-		jQuery("#bigset").jqGrid({ 
-			url:'gData.cfm', 
-			datatype: "json", 
-			height: 255, 
-			colNames:['Index','Name', 'Code'], 
-			colModel:[ 
-				{name:'item_id',index:'item_id', width:65}, 
-				{name:'item',index:'item', width:150}, 
-				{name:'item_cd',index:'item_cd', width:100} 
-			], 
-			rowNum:12,
-			// rowList:[10,20,30], 
-			mtype: "POST", 
-			pager: jQuery('#pagerb'), 
-			pgbuttons: false, 
-			pgtext: false, 
-			pginput:false, 
-			sortname: 'item_id', 
-			viewrecords: true, 
-			sortorder: "asc" 
-		}); 
-		
-		
-	});
-	
-	
-	var timeoutHnd; 
-		var flAuto = false; 
-		
-		function doSearch(ev){ 
-			if(!flAuto) 
-				return; 
-			// var elem = ev.target||ev.srcElement; 
-			if(timeoutHnd) 
-				clearTimeout(timeoutHnd) 
-			timeoutHnd = setTimeout(gridReload,500) 
-		} 
-		function gridReload(){ 
-			var nm_mask = jQuery("#item_nm").val(); 
-			var cd_mask = jQuery("#search_cd").val(); 
-			jQuery("#bigset").jqGrid('setGridParam',{url:"gData.cfm?nm_mask="+nm_mask+"&cd_mask="+cd_mask,page:1}).trigger("reloadGrid"); 
-		} 
-		function enableAutosubmit(state){ 
-				flAuto = state; 
-				jQuery("#submitButton").attr("disabled",state); 
-		} 
+	$(document).ready(function() {
+	$('#example').dataTable( {
+		"bProcessing": true,
+		"bServerSide": true,
+		"sAjaxSource": "gData.cfm"
+	} );
+} );
 </script>
 
 <!-------
