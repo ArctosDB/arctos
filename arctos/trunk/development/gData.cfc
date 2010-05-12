@@ -75,25 +75,32 @@ bSortable_2=true
 http://arctos-test.arctos.database.museum/development/gData.cfc?method=test&returnformat=json&sEcho=4&iColumns=3&sColumns=&iDisplayStart=0&iDisplayLength=10&sSearch=&bEscapeRegex=true&sSearch_0=&bEscapeRegex_0=true&bSearchable_0=true&sSearch_1=&bEscapeRegex_1=true&bSearchable_1=true&sSearch_2=&bEscapeRegex_2=true&bSearchable_2=true&iSortingCols=1&iSortCol_0=2&sSortDir_0=desc&bSortable_0=true&bSortable_1=true&bSortable_2=true
 ---->
 <cfset count=0>
-<cfsavecontent variable="sOutput"><cfoutput>{
-	"sEcho": #sEcho#,
-	"iTotalRecords": #qGetCount.fullCount#,
-	"iTotalDisplayRecords": #d.recordcount#,
-	"aaData": [
+
+<cfoutput>
+	<cfset returnJSON='{"sEcho": #sEcho#,"iTotalRecords": #qGetCount.fullCount#,"iTotalDisplayRecords": #d.recordcount#,'>
+	<cfset returnJSON=returnJSON & '"aaData": ['>
 	<cfloop query="d" startrow="#iDisplayStart+1#" endrow="#iDisplayStart+iDisplayLength#">
 		<cfset count=count+1>
-		[<cfloop list="#fieldlist#" index="i">
-			"#d[i][d.currentRow]#"
-				<cfif i is not listLast(fieldlist)>, </cfif>
-		</cfloop>]
+		<cfset returnJSON=returnJSON & '['>
+		<cfloop list="#fieldlist#" index="i">
+			<cfset returnJSON=returnJSON & '"#d[i][d.currentRow]#"'>
+			<cfif i is not listLast(fieldlist)>
+				<cfset returnJSON=returnJSON & ','>
+			</cfif>
+		</cfloop>
+		<cfset returnJSON=returnJSON & ']'>
 		<cfif d.recordcount LT iDisplayStart+iDisplayLength>
-			<cfif count is not d.recordcount>,</cfif>
+			<cfif count is not d.recordcount>
+				<cfset returnJSON=returnJSON & ','>
+			</cfif>
 		<cfelse>
-			<cfif count is not iDisplayStart+iDisplayLength>,</cfif>
+			<cfif count is not iDisplayStart+iDisplayLength>
+				<cfset returnJSON=returnJSON & ','>
+			</cfif>
 		</cfif>
-	</cfloop>]
-</cfoutput></cfsavecontent>
-<cfoutput>#sOutput#</cfoutput>
+	</cfloop>
+	<cfset returnJSON=returnJSON & ']'>
+#returnJSON#</cfoutput>
 
 
 </cffunction>
