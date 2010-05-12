@@ -17,8 +17,12 @@
 <cfif not isdefined("part2")>
 	<cfset part2="">
 </cfif>
+<cfif not isdefined("part3")>
+	<cfset part3="">
+</cfif>
 <cfset filterparts=part1>
 <cfset filterparts=listappend(filterparts,part2,"\")>
+<cfset filterparts=listappend(filterparts,part3,"\")>
 <cfset filterparts=listqualify(filterparts,"'","\")>
 <cfset filterparts=replace(filterparts,"'\'","','","all")>
 
@@ -94,7 +98,14 @@
 			<option value="#part_name#" <cfif part2 is part_name> selected="selected"</cfif>>#part_name#</option>
 		</cfloop>
 	</select>
-	<br><input type="submit" value="filter" class="lnkBtn">
+	OR
+	<select name="part3" id="part3">
+		<option value="">no filter</option>
+		<cfloop query="ctpart">
+			<option value="#part_name#" <cfif part3 is part_name> selected="selected"</cfif>>#part_name#</option>
+		</cfloop>
+	</select>
+	<input type="submit" value="filter" class="lnkBtn">
 </form>
 <table border id="t" class="sortable">
 	<th>
