@@ -65,7 +65,7 @@
 <cfquery name="allCatItems" dbtype="query">
 	select * from allCatItems
 	<cfif len(filterparts) gt 0>
-		<cfset where part_name in (#filterparts#)
+		where part_name in (#filterparts#)
 	</cfif>
 </cfquery>
 <cfquery name="ctpart" dbtype="query">
