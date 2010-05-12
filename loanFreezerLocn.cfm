@@ -44,9 +44,7 @@
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
 		specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
 		specimen_part.collection_object_id = coll_object.collection_object_id ">	
-<cfif len(filterparts) gt 0>
-	<cfset whr=whr&" and specimen_part.part_name in (#filterparts#)">
-</cfif>
+
 <cfif len(transaction_id) gt 0>
 	<cfset frm="#frm# ,loan_item">
 	<cfset whr="#whr# AND specimen_part.collection_object_id = loan_item.collection_object_id and
@@ -61,11 +59,17 @@
 #preservesinglequotes(sql)#
 
 
-<cfquery name="allCatItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="allCatItemsRaw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	#preservesinglequotes(sql)#
 </cfquery>
+<cfquery name="allCatItems" dbtype="query">
+	select * from allCatItems
+	<cfif len(filterparts) gt 0>
+		<cfset where part_name in (#filterparts#)
+	</cfif>
+</cfquery>
 <cfquery name="ctpart" dbtype="query">
-	select part_name from allCatItems group by part_name order by part_name
+	select part_name from allCatItemsRaw group by part_name order by part_name
 </cfquery>
 <cfset a=1>
 <cfset fileName = "FreezerLocation_#cfid#_#cftoken#.csv">
