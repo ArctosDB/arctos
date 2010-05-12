@@ -33,8 +33,8 @@
 <CFLOOP COLLECTION="#URL#" ITEM="VarName">
   <br>#VarName#: #URL[VarName]#
 </CFLOOP>
-
-
+GetPageContext
+<cfdump var="#GetPageContext()#">
 
 
 
