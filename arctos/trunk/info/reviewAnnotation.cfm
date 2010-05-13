@@ -168,7 +168,7 @@ Filter for:
 							</td>
 							<td>
 								<label for="reviewer_comment">Review Comments</label>
-								<input type="text" name="reviewer_comment" id="reviewer_comment" value="#reviewer_comment#">
+								<textarea rows="4" cols="30"  name="reviewer_comment" id="reviewer_comment">#reviewer_comment#</textarea>
 							</td>
 							<td>
 								<input type="submit" value="save review" class="savBtn">
