@@ -144,7 +144,7 @@ Filter for:
 				</tr>
 				<cfloop query="itemAnno">
 					<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-						<td>
+						<td style="padding-left:2em;">
 							Annotation by <strong>#CF_USERNAME#</strong> 
 							(#email#) on #dateformat(ANNOTATE_DATE,"dd Mmm yyyy")#
 						</td>
