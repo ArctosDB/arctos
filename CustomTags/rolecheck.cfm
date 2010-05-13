@@ -9,7 +9,7 @@
 	
 	<cfset strPath = GetDirectoryFromPath(GetCurrentTemplatePath()) />
 	=======#strPath#=======
-	<cfif not fileexists(escapeGoofyInstall)>
+	<cfif not fileexists(application.webDirectory & escapeGoofyInstall)>
 		file does not exist
 	<cfelse>
 		file exists
