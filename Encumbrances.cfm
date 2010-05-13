@@ -202,7 +202,14 @@
 		<cfif isdefined("remarks") and len(remarks) gt 0>
 			<cfset sql = "#sql# AND upper(remarks) like '%#ucase(remarks)#%'">	
 		</cfif>
-		<cfset sql=s & q & sql>
+		<cfset sql=s & q & sql & "group by encumbrance.encumbrance_id,
+				encumbrance.encumbrance,
+				encumbrance.encumbrance_action,
+				preferred_agent_name.agent_name,
+				encumbrance.made_date,
+				encumbrance.expiration_date,
+				encumbrance.expiration_event,
+				encumbrance.remarks">
 		<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
