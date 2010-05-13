@@ -6,10 +6,8 @@
 		<cflocation url="/ChangePassword.cfm">	
 	</cfif>	
 	<cfset strPath = GetDirectoryFromPath(GetCurrentTemplatePath()) />
-	<cfif not fileexists(application.webDirectory & escapeGoofyInstall)>
-		<cfinclude template="/errors/404.cfm">
-		<cfabort>
-	</cfif>
+	<cfif fileexists(application.webDirectory & escapeGoofyInstall)>
+
 	<cfquery name="isValid" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 		select ROLE_NAME from cf_form_permissions 
 		where form_path = '#escapeGoofyInstall#'
@@ -105,5 +103,7 @@
 		</table>
 		<cfheader statuscode="403" statustext="Forbidden">
 		<cfabort>
+		
+	</cfif>
 	</cfif>
 </cfoutput>
