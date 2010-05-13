@@ -6,6 +6,9 @@
 		<cflocation url="/ChangePassword.cfm">	
 	</cfif>
 	---#escapeGoofyInstall#---
+	
+	<cfset strPath = GetDirectoryFromPath(GetCurrentTemplatePath()) />
+	=======#strPath#=======
 	<cfif not fileexists(escapeGoofyInstall)>
 		file does not exist
 	<cfelse>
