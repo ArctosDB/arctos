@@ -206,6 +206,7 @@
 		<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
+		<cfdump var=#getEnc#>
 		<cfif getEnc.recordcount is 0>
 			<div class="error">Nothing Found</div>
 			<cfabort>
