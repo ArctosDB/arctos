@@ -5,6 +5,7 @@
 		escapeGoofyInstall is not "/ChangePassword.cfm")>
 		<cflocation url="/ChangePassword.cfm">	
 	</cfif>
+	---#escapeGoofyInstall#---
 	<cfif not fileexists(escapeGoofyInstall)>
 		file does not exist
 	<cfelse>
