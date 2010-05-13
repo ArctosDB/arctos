@@ -1,15 +1,21 @@
 <cfoutput>
 	<cfset escapeGoofyInstall=cgi.SCRIPT_NAME>
 	<cfif (isdefined("session.roles") and session.roles contains "coldfusion_user") and (isdefined("session.force_password_change") and 
-		#session.force_password_change# is "yes" and 
-		#escapeGoofyInstall# is not "/ChangePassword.cfm")>
+		session.force_password_change is "yes" and 
+		escapeGoofyInstall is not "/ChangePassword.cfm")>
 		<cflocation url="/ChangePassword.cfm">	
 	</cfif>
+	<cfif not fileexists(escapeGoofyInstall)>
+		file does not exist
+	<cfelse>
+		file exists
+	</cfif>
+	<cfabort>
 	<cfquery name="isValid" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 		select ROLE_NAME from cf_form_permissions 
 		where form_path = '#escapeGoofyInstall#'
 	</cfquery>
-	<cfif #isValid.recordcount# is 0>
+	<cfif isValid.recordcount is 0>
 		<div class="error">
 			You do not have permission to access this form.
 		</div>
