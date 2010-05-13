@@ -58,27 +58,7 @@
 <CFIF  action is "signIn">
 	<cfoutput>
 		<cfset initSession('#username#','#password#')>
-		<cfif session.roles contains "coldfusion_user">
-			<cfquery name="getUserData" datasource="cf_dbuser">
-				SELECT   
-					cf_users.user_id,
-					first_name,
-			        middle_name,
-			        last_name,
-			        affiliation,
-					email,
-					PW_CHANGE_DATE
-				FROM 
-					cf_user_data,
-					cf_users
-				WHERE
-					cf_users.user_id = cf_user_data.user_id (+) AND
-					username = '#session.username#'
-			</cfquery>
-			<cfif len(getUserData.email) is 0>
-				<cfset session.needEmailAddr=1>
-			</cfif>
-		</cfif>
+		
 		<cfif len(session.username) is 0>
 			<cfset u="login.cfm?badPW=true&username=#username#">
 			<cfif isdefined("gotopage")>
@@ -111,14 +91,37 @@
 				<cfset gotopage = "/SpecimenSearch.cfm">
 			</cfif>
 		</cfif>
-		<cfset pwtime =  round(now() - getUserData.pw_change_date)>
-		<cfset pwage = Application.max_pw_age - pwtime>
-		<cfif pwage lte 7>
-			<div style="text-align:center;color:red;font-weight:bold;">
-				Your password expires in #pwage# days
-				<br>You may <a href="/ChangePassword.cfm">change it now</a>
-			</div>
-			<a href="#gotopage#">Continue to #gotopage#</a>
+		<cfif session.roles contains "coldfusion_user">
+			<cfquery name="getUserData" datasource="cf_dbuser">
+				SELECT   
+					cf_users.user_id,
+					first_name,
+			        middle_name,
+			        last_name,
+			        affiliation,
+					email,
+					PW_CHANGE_DATE
+				FROM 
+					cf_user_data,
+					cf_users
+				WHERE
+					cf_users.user_id = cf_user_data.user_id (+) AND
+					username = '#session.username#'
+			</cfquery>
+			<cfset pwtime =  round(now() - getUserData.pw_change_date)>
+			<cfset pwage = Application.max_pw_age - pwtime>
+			<cfif pwage lte 7>
+				<div style="text-align:center;color:red;font-weight:bold;">
+					Your password expires in #pwage# days
+					<br>You may <a href="/ChangePassword.cfm">change it now</a>
+				</div>
+				<a href="#gotopage#">Continue to #gotopage#</a>
+			<cfelse>
+				<cflocation url="#gotopage#" addtoken="no">
+			</cfif>
+			<cfif len(getUserData.email) is 0>
+				<cfset session.needEmailAddr=1>
+			</cfif>
 		<cfelse>
 			<cflocation url="#gotopage#" addtoken="no">
 		</cfif>
