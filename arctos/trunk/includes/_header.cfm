@@ -280,6 +280,7 @@
 											<cfif listfind(formList,"/tools/sqlTaxonomy.cfm")>
 												<li><a target="_top" href="/tools/sqlTaxonomy.cfm">SQL Taxonomy</a></li>
 											</cfif>
+											<li><a target="_top" href="/Admin/redirect.cfm">Redirects</a></li>
 										</ul>
 									</li>
 								</cfif>		
