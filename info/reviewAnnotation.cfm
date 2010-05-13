@@ -138,8 +138,7 @@ Filter for:
 					<td colspan="5">
 						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a>
 						&nbsp;&nbsp;&nbsp;<em>#idAs#</em>
-						<br>#higher_geog#
-						&nbsp;&nbsp;: #spec_locality#
+						<br>#higher_geog#: #spec_locality#
 					</td>
 				</tr>
 				<cfloop query="itemAnno">
