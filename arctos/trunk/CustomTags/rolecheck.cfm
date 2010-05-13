@@ -4,15 +4,11 @@
 		session.force_password_change is "yes" and 
 		escapeGoofyInstall is not "/ChangePassword.cfm")>
 		<cflocation url="/ChangePassword.cfm">	
-	</cfif>
-	---#escapeGoofyInstall#---
-	
+	</cfif>	
 	<cfset strPath = GetDirectoryFromPath(GetCurrentTemplatePath()) />
-	=======#strPath#=======
 	<cfif not fileexists(application.webDirectory & escapeGoofyInstall)>
-		file does not exist
-	<cfelse>
-		file exists
+		<cfinclude template="/errors/404.cfm">
+		<cfabort>
 	</cfif>
 	<cfabort>
 	<cfquery name="isValid" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
