@@ -137,9 +137,9 @@ Filter for:
 				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<td colspan="5">
 						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a>
-						<br><em>#idAs#</em>
+						&nbsp;&nbsp;&nbsp;<em>#idAs#</em>
 						<br>#higher_geog#
-						<br>#spec_locality#
+						&nbsp;&nbsp;: #spec_locality#
 					</td>
 				</tr>
 				<cfloop query="itemAnno">
