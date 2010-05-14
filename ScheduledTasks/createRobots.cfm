@@ -8,6 +8,10 @@
 	variables.joFileWriter.writeLine('User-agent: *');
 </cfscript>	
 <cfset allowedDirectories="Collections">
+<cfquery name="portals" datasource="cf_dbuser">
+	select portal_name from cf_collection
+</cfquery>
+<cfset allowedDirectories=listappend(allowedDirectories,valuelist(portals.portal_name))>
 <cfloop query="q">
 	<cfif not listfindnocase(allowedDirectories,name)>
 		<cfscript>
@@ -19,7 +23,7 @@
 <cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
 <cfset allowedFileList="favicon.ico,robots.txt">
 <cfloop query="q">
-	<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="current" datasource="cf_dbuser">
 		select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
 	</cfquery>
 	<cfif current.c is 0 and right(name,7) is not ".xml.gz" and not listfindnocase(allowedFileList,name)>
