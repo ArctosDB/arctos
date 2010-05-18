@@ -4,9 +4,6 @@
 <cfset title = "Agent Activity">
 <cfoutput>
 <a href="/agents.cfm?agent_id=#agent_id#" target="_top">Edit Agent</a>
-<cfparam name="begindate" default="">
-<cfparam name="enddate" default="">
-
 <div class="red">Please note: your login may prevent you from seeing some data</div>
 <cfquery name="agent" datasource="uam_god">
 	select * FROM agent where agent_id=#agent_id#
