@@ -1,8 +1,8 @@
 <style>
-#mapTax{
-	width:40%;
-	float:right;
-}
+	#mapTax{
+		width:40%;
+		float:right;
+	}
 </style>
 <cfoutput>
 	<cfset internalPath="#Application.webDirectory#/cache/">
@@ -62,7 +62,7 @@
 					chr(9) & chr(9) & chr(9) & '<name>#c# #scientific_name#</name>' & chr(10) &
 	      			chr(9) & chr(9) & chr(9) & '<description>' & chr(10) &
 			        chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[' & chr(10) &
-			        chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<a href="http://#application.serverRootUrl#/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=#scientific_name#">Arctos Specimen Records</a>' & chr(10) & 
+			        chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<a href="#application.serverRootUrl#/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=#scientific_name#">Arctos Specimen Records</a>' & chr(10) & 
 			        chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<br><span style="font-size:smaller">Datum: #datum#; error: #COORDINATEUNCERTAINTYINMETERS# m</span>' & chr(10) &
 			       	chr(9) & chr(9) & chr(9) & chr(9) & ' ]]>' & chr(10) &
 			      	chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
