@@ -460,8 +460,6 @@
 			<cfset kw="">
 			<cfset agent_name="">
 			<cfset scientific_name="">
-			<cfset higherGeog="">
-			<cfset specLoc="">
 			<cfset description="#desc.label_value#">
 			
 			<cfset media_details_url = "http://arctos.database.museum/media/" & "" & #media_id#>
@@ -492,6 +490,7 @@
 
 					<cfelseif #rel_type# is "collecting_event">		
 						<cfset coll_event_id=#related_primary_key#>			
+						<cfset locality=#summary#>
 						<!-- <cfset locality = replace(#summary#,"[:\(]",";")>
 						<cfset locality = replace(#summary#, "\)", "")> -->
 
@@ -499,7 +498,7 @@
 				</cfloop>		
 				
 				<!-- If can't find a collecting event, try to find one through available cataloged item -->		
-				<cfif len(locality) eq 0 && coll_obj_id gt 0>
+				<cfif len(locality) eq 0 and coll_obj_id gt 0>
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
 							higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data , collecting_event.collecting_event_id id
@@ -543,7 +542,7 @@
 						<cfif len(kw) gt 0>
 							<cfset kw = kw & "; " & word>
 						<cfelse>
-							<cfset kw = word>						
+							<cfset kw = word & "">						
 						</cfif>
 					</cfif>
 				</cfloop>
