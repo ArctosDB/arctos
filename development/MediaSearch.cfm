@@ -95,63 +95,63 @@
 	<div id="relForm">
 	   <a name="relFrm"></a>
 		<a href="#" onclick="hide('relForm');show('keyForm');">Simple Search</a>
-			<form name="newMedia" method="post" action="">
-				<input type="hidden" name="action" value="search">
-				<input type="hidden" name="srchType" value="full">
-				<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
-				<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
-				<label for="media_uri">Media URI</label>
-				<input type="text" name="media_uri" id="media_uri" size="90">
-				<label for="mime_type">MIME Type</label>
-				<select name="mime_type" id="mime_type">
+		<form name="newMedia" method="post" action="">
+			<input type="hidden" name="action" value="search">
+			<input type="hidden" name="srchType" value="full">
+			<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
+			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
+			<label for="media_uri">Media URI</label>
+			<input type="text" name="media_uri" id="media_uri" size="90">
+			<label for="mime_type">MIME Type</label>
+			<select name="mime_type" id="mime_type">
+				<option value=""></option>
+					<cfloop query="ctmime_type">
+						<option value="#mime_type#">#mime_type#</option>
+					</cfloop>
+			</select>
+            <label for="media_type">Media Type</label>
+			<select name="media_type" id="media_type">
+				<option value=""></option>
+					<cfloop query="ctmedia_type">
+						<option value="#media_type#">#media_type#</option>
+					</cfloop>
+			</select>
+			<label for="tag">Require TAG?</label>
+			<input type="checkbox" id="tag" name="tag" value="1">
+			<label for="relationships">Media Relationships</label>
+			<div id="relationships" style="border:1px dashed red;">
+				<select name="relationship__1" id="relationship__1" size="1">
 					<option value=""></option>
-						<cfloop query="ctmime_type">
-							<option value="#mime_type#">#mime_type#</option>
-						</cfloop>
-				</select>
-	            <label for="media_type">Media Type</label>
-				<select name="media_type" id="media_type">
+					<cfloop query="ctmedia_relationship">
+						<option value="#media_relationship#">#media_relationship#</option>
+					</cfloop>
+				</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80">
+				<input type="hidden" name="related_id__1" id="related_id__1">
+				<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
+			</div>
+			<br>
+			<label for="labels">Media Labels</label>
+			<div id="labels" style="border:1px dashed red;">
+				<div id="labelsDiv__1">
+				<select name="label__1" id="label__1" size="1">
 					<option value=""></option>
-						<cfloop query="ctmedia_type">
-							<option value="#media_type#">#media_type#</option>
-						</cfloop>
-				</select>
-				<label for="tag">Require TAG?</label>
-				<input type="checkbox" id="tag" name="tag" value="1">
-				<label for="relationships">Media Relationships</label>
-				<div id="relationships" style="border:1px dashed red;">
-					<select name="relationship__1" id="relationship__1" size="1">
-						<option value=""></option>
-						<cfloop query="ctmedia_relationship">
-							<option value="#media_relationship#">#media_relationship#</option>
-						</cfloop>
-					</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80">
-					<input type="hidden" name="related_id__1" id="related_id__1">
-					<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
+					<cfloop query="ctmedia_label">
+						<option value="#media_label#">#media_label#</option>
+					</cfloop>
+				</select>:&nbsp;<input type="text" name="label_value__1" id="label_value__1" size="80">
 				</div>
-				<br>
-				<label for="labels">Media Labels</label>
-				<div id="labels" style="border:1px dashed red;">
-					<div id="labelsDiv__1">
-					<select name="label__1" id="label__1" size="1">
-						<option value=""></option>
-						<cfloop query="ctmedia_label">
-							<option value="#media_label#">#media_label#</option>
-						</cfloop>
-					</select>:&nbsp;<input type="text" name="label_value__1" id="label_value__1" size="80">
-					</div>
-					<span class="infoLink" id="addLabel" onclick="addLabel(2)">Add Label</span>
-				</div>
-				<br>
-				<input type="submit" 
-					value="Find Media" 
-					class="insBtn">
-				<input type="reset" 
-					value="reset form" 
-					class="clrBtn">
-			</form>
-		</div>
-		</cfoutput>
+				<span class="infoLink" id="addLabel" onclick="addLabel(2)">Add Label</span>
+			</div>
+			<br>
+			<input type="submit" 
+				value="Find Media" 
+				class="insBtn">
+			<input type="reset" 
+				value="reset form" 
+				class="clrBtn">
+		</form>
+	</div>
+	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif action is "search">
@@ -487,7 +487,7 @@
 						<cfset agent_name=#created_agent_name#>
 					<cfelseif #rel_type# is "cataloged_item">
 						<cfset cat_item_url=#link#>
-						<cfset cat_item_sum=#summary#>
+						<cfset cat_item_sum=trim(summary)>
 						<cfset coll_obj_id=#related_primary_key#>
 						
 						<!-- extract the scientific name -->
@@ -496,11 +496,12 @@
 						<cfif begPos gt 0>
 							<cfset endPos = find(')', cat_item_sum)>
 							<cfset scientific_name=mid(cat_item_sum,begPos+1, endPos-begPos-1)>
+							<cfset scientific_name=trim(scientific_name)>							
 						</cfif>
 
 					<cfelseif #rel_type# is "collecting_event">		
 						<cfset coll_event_id=#related_primary_key#>			
-						<cfset locality=#summary#>
+						<cfset locality=trim(summary)>
 						<!-- <cfset locality = replace(#summary#,"[:\(]",";")>
 						<cfset locality = replace(#summary#, "\)", "")> -->
 
@@ -508,7 +509,7 @@
 				</cfloop>		
 				
 				<!-- If can't find a collecting event, try to find one through available cataloged item -->		
-				<cfif len(locality) eq 0 and coll_obj_id gt 0>
+				<cfif len(locality) lte 0 and coll_obj_id gt 0>
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
 							higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data , collecting_event.collecting_event_id id
@@ -524,7 +525,7 @@
 							cataloged_item.collection_object_id=#coll_obj_id#
 					</cfquery>
 					
-					<cfset locality = #d.data#>
+					<cfset locality = trim(d.data)>
 					<cfset coll_event_id=#d.id#>
 					
 					<!--<cfset locality = replace(#locality#,"[:\(]",";")>
@@ -547,12 +548,12 @@
 				
 				<!-- Orders the keywords -->
 				<cfset kw_list = "#scientific_name#|#locality#|#agent_name#|#description#">
-				<cfloop list="#kw_list#" index="word" delimiters="|">
-					<cfif len(word) gt 0>
+				<cfloop list="#kw_list#" index="s" delimiters="|">
+					<cfif len(trim(s)) gt 0>
 						<cfif len(kw) gt 0>
-							<cfset kw = kw & "; " & word>
+							<cfset kw = kw & "; " & s>
 						<cfelse>
-							<cfset kw = word & "">						
+							<cfset kw = s & "">						
 						</cfif>
 					</cfif>
 				</cfloop>
