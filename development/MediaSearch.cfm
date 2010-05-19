@@ -492,8 +492,8 @@
 
 					<cfelseif #rel_type# is "collecting_event">		
 						<cfset coll_event_id=#related_primary_key#>			
-						<cfset locality = replace(#summary#,"[:\(]",";")>
-						<cfset locality = replace(#summary#, "\)", "")>
+						<!-- <cfset locality = replace(#summary#,"[:\(]",";")>
+						<cfset locality = replace(#summary#, "\)", "")> -->
 
 					</cfif>
 				</cfloop>		
@@ -517,14 +517,10 @@
 					
 					<cfset locality = #d.data#>
 					<cfset coll_event_id=#d.id#>
-					<cfset locality = replace(#locality#,"[:\(]",";")>
-					<cfset locality = replace(#locality#, "\)", "")>
 					
-					<cfif len(kw) gt 0>
-						<cfset kw= kw &"; " & locality>
-					<cfelse>
-						<cfset kw=""&locality>
-					</cfif>
+					<!--<cfset locality = replace(#locality#,"[:\(]",";")>
+					<cfset locality = replace(#locality#, "\)", "")>-->
+
 				</cfif>
 									
 				<!-- query lat/long for inputting to map -->
@@ -541,7 +537,7 @@
 				</cfif>
 				
 				<!-- Orders the keywords -->
-				<cfset kw_list = "#scientific_name# |  #locality# | #agent_name# | #description#">
+				<cfset kw_list = "#scientific_name#|#locality#|#agent_name#|#description#">
 				<cfloop list="#kw_list#" index="word" delimiters="|">
 					<cfif len(word) gt 0>
 						<cfif len(kw) gt 0>
