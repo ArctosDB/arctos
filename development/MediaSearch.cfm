@@ -10,12 +10,14 @@
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
 <script type="text/javascript">
-    function toggle_visibility(id) {
+    function hide(id) {
        var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
+       e.style.display = 'block';
+    }
+    
+    function show(id) {
+       var e = document.getElementById(id);
+       e.style.display = 'none';
     }
 </script>
 
@@ -45,7 +47,7 @@
 			This form may not find very recent changes. 
 		</div>
 		<br>
-		<a href="#" onclick="toggle_visibility('relForm');">Advanced Search</a>
+		<a href="#" onclick="hide('keyForm');show('relForm');">Advanced Search</a>
 	<div id="keyForm">
 		<style>
 			.rdoCtl {
@@ -92,10 +94,7 @@
 	
 	<div id="relForm">
 	   <a name="relFrm"></a>
-		<div style="font-size:small;font-weight:bold;">
-			You can use the also use the 
-			<a href="##kwFrm">keyword search form</a>.
-		</div>
+		<a href="#" onclick="hide('relForm');show('keyForm');">Simple Search</a>
 			<form name="newMedia" method="post" action="">
 				<input type="hidden" name="action" value="search">
 				<input type="hidden" name="srchType" value="full">
