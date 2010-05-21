@@ -30,7 +30,7 @@
     </cfif>
 	<br>
 	
-	<div id="keyForm">
+	<div id="keyForm" style="display:block">
 		Search for Media
 		<br>		
 		<a href="javascript:void(0);" onclick="toggle_visibility('relForm', 'keyForm');" style="font-size:x-small">Advanced search</a>
@@ -77,7 +77,7 @@
 		</form>
 	</div>
 	
-	<div id="relForm" style="visibility:hidden;">
+	<div id="relForm" style="display:none">
 		Advanced Search for Media
 		<br>
 		<a href="javascript:void(0);" onclick="toggle_visibility('keyForm', 'relForm');" style="font-size:x-small">Simple Keywords Search</a>
