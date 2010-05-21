@@ -323,7 +323,7 @@
 				Note: This form will return a maximum of 500 records.
 			</div>
 		</cfif>
-		<a href="/MediaSearch.cfm">[ Media Search ]</a>
+		<a href="/development/MediaSearch.cfm">[ Media Search ]</a>
 	</cfif>
 	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	    <cfset h="/media.cfm?action=newMedia">
