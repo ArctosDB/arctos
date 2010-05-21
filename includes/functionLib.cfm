@@ -489,7 +489,7 @@
 				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-			<cfif "media_relationship" is "created by agent">
+			<cfif #media_relationship# is "created by agent">
 				<cfset temp = QuerySetCell(result, "rel_type", "created by agent", i)>
 			<cfelse>
 				<cfset temp = QuerySetCell(result, "rel_type", "shows agent", i)>
