@@ -29,16 +29,11 @@
         <a href="/media.cfm?action=newMedia">[ Create media ]</a>
     </cfif>
 	<br>
-	Search for Media
 	
-		<a name="kwFrm"></a>
-		<div style="font-size:small;font-weight:bold;">
-			This form may not find very recent changes. 
-		</div>
-		<br>
-		
-	<div id="keyForm">		
-		<a href="javascript:void(0);" onclick="toggle_visibility('relForm', 'keyForm');">Advanced Search</a>
+	<div id="keyForm">
+		Search for Media
+		<br>		
+		<a href="javascript:void(0);" onclick="toggle_visibility('relForm', 'keyForm');" style="font-size:x-small">Advanced search</a>
 		<style>
 			.rdoCtl {
 				font-size:small;
@@ -82,9 +77,10 @@
 		</form>
 	</div>
 	
-	<div id="relForm">
-	   <a name="relFrm"></a>
-		<a href="javascript:void(0);" onclick="toggle_visibility('keyForm', 'relForm');">Simple Search</a>
+	<div id="relForm" style="visibility:block;">
+		Advanced Search for Media
+		<br>
+		<a href="javascript:void(0);" onclick="toggle_visibility('keyForm', 'relForm');" style="font-size:x-small">Simple Search</a>
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">
 			<input type="hidden" name="srchType" value="full">
