@@ -10,15 +10,13 @@
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
 <script type="text/javascript">
-    function hide(id) {
-       var e = document.getElementById(id);
+    function toggle_visibility(id1, id2) {
+       var e = document.getElementById(id1);
+       var k = document.getElementById(id2);
        e.style.display = 'block';
+       k.style.display = 'none';
     }
     
-    function show(id) {
-       var e = document.getElementById(id);
-       e.style.display = 'none';
-    }
 </script>
 
 <!----------------------------------------------------------------------------------------->
@@ -47,8 +45,9 @@
 			This form may not find very recent changes. 
 		</div>
 		<br>
-		<a href="#" onclick="hide('keyForm');show('relForm');">Advanced Search</a>
-	<div id="keyForm">
+		
+	<div id="keyForm">		
+		<a href="#" onclick="toggle_visibility('relForm', 'keyForm');">Advanced Search</a>
 		<style>
 			.rdoCtl {
 				font-size:small;
@@ -94,7 +93,7 @@
 	
 	<div id="relForm">
 	   <a name="relFrm"></a>
-		<a href="#" onclick="hide('relForm');show('keyForm');">Simple Search</a>
+		<a href="#" onclick="toggle_visibility('keyForm', 'relForm');">Simple Search</a>
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">
 			<input type="hidden" name="srchType" value="full">
