@@ -77,10 +77,10 @@
 		</form>
 	</div>
 	
-	<div id="relForm" style="visibility:block;">
+	<div id="relForm" style="visibility:hidden;">
 		Advanced Search for Media
 		<br>
-		<a href="javascript:void(0);" onclick="toggle_visibility('keyForm', 'relForm');" style="font-size:x-small">Simple Search</a>
+		<a href="javascript:void(0);" onclick="toggle_visibility('keyForm', 'relForm');" style="font-size:x-small">Simple Keywords Search</a>
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">
 			<input type="hidden" name="srchType" value="full">
@@ -464,13 +464,13 @@
 			<cfset coll_obj_id=0>
 			<cfset coll_event_id=0>			
 			<cfset locality="">
-			<cfset dec_long=0>
+			<cfset dec_lat=0>
 			<cfset dec_long=0>
 			
 			<cfif mrel.recordcount gt 0>				
 				<cfloop query="mrel">
 					<cfif #rel_type# is "agent">
-						<cfset agent_name=#created_agent_name#>
+						<cfset agent_name=#summary#>
 					<cfelseif #rel_type# is "cataloged_item">
 						<cfset cat_item_url=#link#>
 						<cfset cat_item_sum=trim(summary)>
