@@ -38,7 +38,7 @@
 		<br>
 		
 	<div id="keyForm">		
-		<a href="#" onclick="toggle_visibility('relForm', 'keyForm');">Advanced Search</a>
+		<a href="javascript:void(0);" onclick="toggle_visibility('relForm', 'keyForm');">Advanced Search</a>
 		<style>
 			.rdoCtl {
 				font-size:small;
@@ -84,7 +84,7 @@
 	
 	<div id="relForm">
 	   <a name="relFrm"></a>
-		<a href="#" onclick="toggle_visibility('keyForm', 'relForm');">Simple Search</a>
+		<a href="javascript:void(0);" onclick="toggle_visibility('keyForm', 'relForm');">Simple Search</a>
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">
 			<input type="hidden" name="srchType" value="full">
