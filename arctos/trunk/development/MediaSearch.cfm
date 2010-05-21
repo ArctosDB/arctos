@@ -9,15 +9,6 @@
     </cfoutput>
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
-<script type="text/javascript">
-    function toggle_visibility(id1, id2) {
-       var e = document.getElementById(id1);
-       var k = document.getElementById(id2);
-       e.style.display = 'block';
-       k.style.display = 'none';
-    }
-    
-</script>
 
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
