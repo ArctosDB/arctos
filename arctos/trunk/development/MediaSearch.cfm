@@ -469,7 +469,7 @@
 			
 			<cfif mrel.recordcount gt 0>				
 				<cfloop query="mrel">
-					<cfif #rel_type# is "agent">
+					<cfif #rel_type# is "created by agent">
 						<cfset agent_name=#summary#>
 					<cfelseif #rel_type# is "cataloged_item">
 						<cfset cat_item_url=#link#>
