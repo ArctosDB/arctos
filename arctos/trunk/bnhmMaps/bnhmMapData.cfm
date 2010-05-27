@@ -154,11 +154,6 @@
 			'<color key="default" red="255" green="0" blue="0" symbol="2" label="Unspecified Collection"/>' & chr(10) & 
 			chr(9) & '</colors>';
 		variables.joFileWriter.writeLine(a);
-		a=chr(9) & '<settings>' & chr(10) & 
-			chr(9) & chr(9) & '<setting name="landsat" show="0"></setting>' & chr(10) & 
-			chr(9) & chr(9) & '<setting name="maxerrorinmeters" show="1"></setting>' & chr(10) & 
-			chr(9) & '</settings>';
-		variables.joFileWriter.writeLine(a);
 		a=chr(9) & '<recordlinkback>' & chr(10) & 
 			chr(9) & chr(9) & '<linkback method="entireurl" linkurl="Related Information" fieldname="More Information (opens in new window)"/>' & chr(10) & 
 			chr(9) & '</recordlinkback>';
@@ -279,7 +274,7 @@
 	<cfset listColl=replace(listColl,",","dna ,","first")>
 	<cfset CollList=reverse(listColl)>
 	<cfset CollList="#CollList# data.">
-	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/run.php?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1">
+	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/run.php?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
