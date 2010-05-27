@@ -8,6 +8,7 @@
 		 Referrer: #url.ref#
 	</cfoutput>
 </cfsavecontent>
+<cfheader statuscode="403" statustext="Forbidden">
 <cfthrow 
    type = "Access_Violation"
    message = "Forbidden"
