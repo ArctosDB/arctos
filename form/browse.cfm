@@ -10,10 +10,11 @@
 			filtered_flat
 		ORDER BY dbms_random.value
 	)
-	WHERE rownum <= 10
+	WHERE rownum <= 5
 </cfquery>
 <div id="browseArctos">
 	<ul>
+		<li>Specimens</li>
 <cfloop query="rSpec">
 	<li><a href="/guid/#guid#">#collection# #cat_num# <i>#scientific_name#</i></a></li>
 </cfloop>
@@ -27,8 +28,9 @@
 			taxonomy
 		ORDER BY dbms_random.value
 	)
-	WHERE rownum <= 10
+	WHERE rownum <= 5
 </cfquery>
+<li>Names</li>
 <cfloop query="rTax">
 	<li><a href="/name/#scientific_name#">#display_name#</a></li>
 </cfloop>
@@ -44,7 +46,7 @@
 		formatted_publication not like '%Field Notes%'
 		ORDER BY dbms_random.value
 	)
-	WHERE rownum <= 10
+	WHERE rownum <= 5
 </cfquery>
 <cfloop query="rPub">
 	<li><a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">#formatted_publication#</a><br>
@@ -59,7 +61,7 @@
 			project
 		ORDER BY dbms_random.value
 	)
-	WHERE rownum <= 10
+	WHERE rownum <= 5
 </cfquery>
 <cfloop query="rProj">
 	<li><a href="/project/#nproject_name#">#project_name#</a></li>
@@ -77,7 +79,7 @@
 			preview_uri is not null
 		ORDER BY dbms_random.value
 	)
-	WHERE rownum <= 10
+	WHERE rownum <= 5
 </cfquery>
 <cfloop query="media">
 	<li><a href="/media/#media_id#"><img src="#preview_uri#"></a></li>
