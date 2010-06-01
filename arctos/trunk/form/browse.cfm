@@ -7,7 +7,7 @@
 	from
 		filtered_flat
 	where
-		round(LAST_EDIT_DATE-sysdate) >-7
+		round(LAST_EDIT_DATE-sysdate) >-45
 </cfquery>
 
 <cfloop query="newSpec">
