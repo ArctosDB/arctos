@@ -23,7 +23,7 @@
 	select * from (
 		select 
 			scientific_name,
-			display_value
+			display_name
 		from
 			taxonomy
 		ORDER BY dbms_random.value
@@ -32,6 +32,6 @@
 </cfquery>
 
 <cfloop query="rTax">
-	<a href="/name/#scientific_name#">#display_value#</a><br>
+	<a href="/name/#scientific_name#">#display_name#</a><br>
 </cfloop>
 </cfoutput>
