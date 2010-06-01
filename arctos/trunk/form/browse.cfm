@@ -12,6 +12,7 @@
 		filtered_flat
 	WHERE rownum in (#rList#)
 </cfquery>
+<cfdump var="#rSpec#">
 <div id="browseArctos">
 	<div id="title">Try something random</div>
 	<ul>
