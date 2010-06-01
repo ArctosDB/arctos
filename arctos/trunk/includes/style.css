@@ -1,36 +1,30 @@
 #browseArctos {
-		font-size:small;
+font-size:small;
 border:1px solid green;
 margin:1em;
 padding:1em;
 max-width:400px;
-position:absolute;
+position:fixed;
 top:20%;
 left:65em;
-max-height:400px;
-clear:left;
+max-height:65%;
 overflow:auto;
-	}
+}
 	
-	#browseArctos ul {
-	list-style-type:none;
-margin-left:-2em;
-	}
-	#browseArctos .title {
-	text-align:center;
-	font-weight:bold;
-	}
-	
-	#browseArctos ul li {
-		text-indent:-2em;
-		padding-left:2em;
-	}
-	
-	#browseArctos ul .blbl{
-margin-left:-1em;
+#browseArctos ul {
+list-style-type:none;
+margin-left:-3em;
+}
+
+#browseArctos .title {
+text-align:center;
 font-weight:bold;
-border-bottom:1px solid black;
-margin-top:1em;
+color:green;
+}
+	
+#browseArctos ul li {
+text-indent:-1em;
+padding-left:1em;
 }
 
 /* GMaps selector */
