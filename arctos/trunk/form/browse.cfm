@@ -27,7 +27,7 @@
 	)
 	WHERE rownum <= 5
 	union
-	select link,displays from (
+	select link,display from (
 		select 
 			'<img src="' || preview_uri || '">' display,
 			'/media/' || media_id link
