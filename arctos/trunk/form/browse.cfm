@@ -23,7 +23,7 @@
 	union
 	select link,display from (
 		select 
-			'<img src="' || preview_uri || '">' display,
+			'<img style="max-height:150px;" src="' || preview_uri || '">' display,
 			'/media/' || media_id link
 		from
 			media
