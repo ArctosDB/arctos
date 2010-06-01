@@ -5,12 +5,15 @@
 	<cfset rList=listappend(rList,randrange(1,40000000))>
 </cfloop>
 <cfquery name="rSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,10,0)#">
-	select 
-		'/guid/' || guid link,
-		collection || ' ' || cat_num || ' <i>' || scientific_name || '</i>' display
-	from
-		filtered_flat
-	WHERE collection_object_id in (#rList#)
+	select * from (
+		select 
+			'/guid/' || guid link,
+			collection || ' ' || cat_num || ' <i>' || scientific_name || '</i>' display
+		from
+			filtered_flat
+		ORDER BY dbms_random.value
+	)
+	WHERE rownum <= 5
 </cfquery>
 <cfdump var="#rSpec#">
 <div id="browseArctos">
