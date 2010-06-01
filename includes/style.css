@@ -5,7 +5,7 @@ margin:1em;
 padding:1em;
 max-width:400px;
 position:fixed;
-top:20%;
+top:6em;
 left:65em;
 max-height:65%;
 overflow:auto;
@@ -14,12 +14,19 @@ overflow:auto;
 #browseArctos ul {
 list-style-type:none;
 margin-left:-3em;
+vertical-align:middle;
+}
+
+#browseArctos ul li {
+margin:.5em;
+border-bottom:1px solid green;
 }
 
 #browseArctos .title {
 text-align:center;
 font-weight:bold;
-color:green;
+font-size:large;
+color:black;
 }
 	
 #browseArctos ul li {
