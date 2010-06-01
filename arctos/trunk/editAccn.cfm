@@ -373,11 +373,14 @@
 					media.media_id,
 					preview_uri,
 					media_uri,
-					media_type
+					media_type,
+					label_value
 				from 
 					media,
-					media_relations
+					media_relations,
+					(select * from media_label where media_label='description') media_labels
 				where
+					media.media_id=media_labels.media_id (+) and
 					media.media_id=media_relations.media_id and
 					media_relationship like '% accn' and
 					related_primary_key=#transaction_id#
@@ -394,6 +397,7 @@
 								</cfif>
 							</a>
 							<br><a class="infoLink" href="/MediaSearch.cfm?action=search&media_id=#media_id#">edit</a>
+							<br>#label_value#
 						</li>
 					</cfloop>
 				<cfelse>
