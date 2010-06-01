@@ -60,6 +60,24 @@
 		<cfset rslts=listappend(rslts,i)>
 	</cfloop>
 	<br>rslts: #rslts#
+			<cfloop from="1" to="#links.recordcount#" index="i">
+				<br>before: #rslts#
+				<br>listlen(rslts): #listlen(rslts)#
+				<cfset thisRecord=randrange(1,listlen(rslts))>
+				<br>thisRecord: #thisRecord#
+				<br><a href="#links.link[thisRecord]#">#links.display[thisRecord]#</a>
+				<cfset rslts=listdeleteat(rslts,listfind(rslts,thisRecord))>
+				<br>afterdelete: #rslts#
+				<hr>
+			</cfloop>
+		
+	
+	
+	
+	
+	<!----
+	
+	<br>rslts: #rslts#
 	<div id="browseArctos">
 		<div id="title">Try something random</div>
 		<ul>
@@ -72,4 +90,6 @@
 			</cfloop>
 		</ul>
 	</div>
+	
+	---->
 </cfoutput>	
