@@ -1,4 +1,4 @@
-<cfquery name="rSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,10,0)#">
+<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,10,0)#">
 	select link,display from (
 		select 
 			'/guid/' || guid link,
@@ -55,11 +55,20 @@
 	WHERE rownum <= 5
 </cfquery>
 <cfoutput>
+	<cfset rslts="">
+	<cfloop from="1" to="#links.recordcount#" index="i">
+		<cfset rslts=listappend(rslts,i)>
+	</cfloop>
+	<br>rslts: #rslts#
 	<div id="browseArctos">
 		<div id="title">Try something random</div>
 		<ul>
-			<cfloop query="rSpec">
-				<li><a href="#link#">#display#</a></li>
+			<cfloop from="1" to="#links.recordcount#">
+				<cfset thisRecord=randrange(1,listlen(rslts))>
+				<br>thisRecord: #thisRecord#
+				<li><a href="#links.link[thisRecord]#">#links.display[thisRecord]#</a></li>
+				<cfset rslts=listdeleteat(rslts,listfind(rslts,thisRecord))>
+				<br>afterdelete: #rslts#
 			</cfloop>
 		</ul>
 	</div>
