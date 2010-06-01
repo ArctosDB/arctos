@@ -5,7 +5,7 @@
 	<cfset rList=listappend(rList,randrange(1,40000000))>
 </cfloop>
 <cfquery name="rSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,10,0)#">
-	select * from (
+	select link,display from (
 		select 
 			'/guid/' || guid link,
 			collection || ' ' || cat_num || ' <i>' || scientific_name || '</i>' display
@@ -15,7 +15,7 @@
 	)
 	WHERE rownum <= 5
 	union
-	select * from (
+	select link,display from (
 		select 
 			formatted_publication display,
 			'/SpecimenUsage.cfm?action=search&publication_id=' || publication_id link
@@ -31,10 +31,9 @@
 <div id="browseArctos">
 	<div id="title">Try something random</div>
 	<ul>
-		<li class="blbl">Specimens</li>
-<cfloop query="rSpec">
-	<li><a href="#link#">#display#</a></li>
-</cfloop>
+		<cfloop query="rSpec">
+			<li><a href="#link#">#display#</a></li>
+		</cfloop>
 <!-----
 <cfquery name="rTax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,10,0)#">
 	select * from (
