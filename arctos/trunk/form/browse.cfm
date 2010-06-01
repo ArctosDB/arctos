@@ -48,7 +48,20 @@
 	WHERE rownum <= 10
 </cfquery>
 
-<cfloop query="rTax">
+<cfloop query="rPub">
 	<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">#formatted_publication#</a><br>
 </cfloop>
+
+
+
+ select * from (
+         	select a.*, rownum rnum from (
+            	select                
+                	niceURL(project_name) project_name
+				from 
+					project 
+				order by niceURL(project_name)
+			) a
+		where rownum <= #maxRN#)
+		where rnum >=#minRN#
 </cfoutput>
