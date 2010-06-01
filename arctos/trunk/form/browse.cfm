@@ -2,7 +2,7 @@
 <cfoutput>
 <cfset rList="">
 <cfloop from="1" to="10" index="i">
-	<cfset rList=listappend(rList,randrange(1,100000))>
+	<cfset rList=listappend(rList,randrange(1,40000000))>
 </cfloop>
 <cfquery name="rSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,10,0)#">
 	select 
@@ -10,7 +10,7 @@
 		collection || ' ' || cat_num || ' <i>' || scientific_name || '</i>' display
 	from
 		filtered_flat
-	WHERE rownum in (#rList#)
+	WHERE collection_object_id in (#rList#)
 </cfquery>
 <cfdump var="#rSpec#">
 <div id="browseArctos">
