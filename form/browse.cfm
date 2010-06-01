@@ -16,6 +16,6 @@
 
 
 <cfloop query="newSpec">
-	<a href="/guid/#guid#">#collection# #cat_num# <i>scientific_name</i></a><br>
+	<a href="/guid/#guid#">#collection# #cat_num# <i>#scientific_name#</i></a><br>
 </cfloop>
 </cfoutput>
