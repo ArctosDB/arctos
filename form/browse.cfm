@@ -1,4 +1,4 @@
-<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,10,0)#">
+<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select link,display from (
 		select 
 			'/guid/' || guid link,
@@ -70,27 +70,4 @@
 			</cfloop>
 		</ul>
 	</div>
-			
-		
-	
-	
-	
-	
-	<!----
-	
-	<br>rslts: #rslts#
-	
-		
-		
-			<cfloop from="1" to="#links.recordcount#" index="i">
-				<cfset thisRecord=randrange(1,listlen(rslts))>
-				<br>thisRecord: #thisRecord#
-				<li><a href="#links.link[thisRecord]#">#links.display[thisRecord]#</a></li>
-				<cfset rslts=listdeleteat(rslts,listfind(rslts,thisRecord))>
-				<br>afterdelete: #rslts#
-			</cfloop>
-		</ul>
-	</div>
-	
-	---->
 </cfoutput>	
