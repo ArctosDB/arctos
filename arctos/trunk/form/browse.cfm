@@ -13,6 +13,7 @@
 	WHERE rownum <= 5
 </cfquery>
 <div id="browseArctos">
+	<div id="title">Try something random</div>
 	<ul>
 		<li class="blbl">Specimens</li>
 <cfloop query="rSpec">
@@ -48,6 +49,7 @@
 	)
 	WHERE rownum <= 5
 </cfquery>
+<li class="blbl">Publications</li>
 <cfloop query="rPub">
 	<li><a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">#formatted_publication#</a><br>
 </cfloop>
@@ -63,6 +65,7 @@
 	)
 	WHERE rownum <= 5
 </cfquery>
+<li class="blbl">Projects</li>
 <cfloop query="rProj">
 	<li><a href="/project/#nproject_name#">#project_name#</a></li>
 </cfloop>
@@ -81,6 +84,7 @@
 	)
 	WHERE rownum <= 5
 </cfquery>
+<li class="blbl">Media</li>
 <cfloop query="media">
 	<li><a href="/media/#media_id#"><img src="#preview_uri#"></a></li>
 </cfloop>

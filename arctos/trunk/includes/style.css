@@ -16,6 +16,10 @@ overflow:auto;
 	list-style-type:none;
 margin-left:-2em;
 	}
+	#browseArctos .title {
+	text-align:center;
+	font-weight:bold;
+	}
 	
 	#browseArctos ul li {
 		text-indent:-2em;
