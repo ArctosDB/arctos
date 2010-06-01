@@ -63,7 +63,7 @@
 	<div id="browseArctos">
 		<div id="title">Try something random</div>
 		<ul>
-			<cfloop from="1" to="#links.recordcount#" index="1">
+			<cfloop from="1" to="#links.recordcount#" index="i">
 				<cfset thisRecord=randrange(1,listlen(rslts))>
 				<br>thisRecord: #thisRecord#
 				<li><a href="#links.link[thisRecord]#">#links.display[thisRecord]#</a></li>
