@@ -14,6 +14,18 @@
 		ORDER BY dbms_random.value
 	)
 	WHERE rownum <= 5
+	union
+	select * from (
+		select 
+			formatted_publication display,
+			'/SpecimenUsage.cfm?action=search&publication_id=' || publication_id link
+		from
+			formatted_publication
+		where format_style='long' and
+		formatted_publication not like '%Field Notes%'
+		ORDER BY dbms_random.value
+	)
+	WHERE rownum <= 5
 </cfquery>
 <cfdump var="#rSpec#">
 <div id="browseArctos">
