@@ -26,8 +26,20 @@
 		ORDER BY dbms_random.value
 	)
 	WHERE rownum <= 5
+	union
+	select link,displays from (
+		select 
+			'<img src="' || preview_uri || '">' display,
+			'/media/' || media_id link
+		from
+			media
+		where
+			mime_type not in ('image/dng') and
+			preview_uri is not null
+		ORDER BY dbms_random.value
+	)
+	WHERE rownum <= 5
 </cfquery>
-<cfdump var="#rSpec#">
 <div id="browseArctos">
 	<div id="title">Try something random</div>
 	<ul>
