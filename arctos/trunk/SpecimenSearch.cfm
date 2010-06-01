@@ -503,6 +503,11 @@
 					r_getSpecSrchPref(getResult);
 			}
 		);
+		
+			jQuery.get("/form/browse.cfm", function(data){
+				 jQuery('body').append(data);
+			})
+			
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,

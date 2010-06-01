@@ -1,3 +1,22 @@
+#browseArctos {
+		font-size:small;
+border:1px solid green;
+margin:1em;
+padding:1em;
+overflow:hidden;
+max-width:250px;
+	}
+	
+	#browseArctos ul {
+	list-style-type:none;
+margin-left:-2em;
+	}
+	
+	#browseArctos ul li {
+		text-indent:-2em;
+		padding-left:2em;
+	}
+
 /* GMaps selector */
 .divlayer {
  border: 2px solid #ff0000;
