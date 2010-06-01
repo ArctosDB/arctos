@@ -42,7 +42,8 @@
 			publication_id
 		from
 			formatted_publication
-		where format_style='long'
+		where format_style='long' and
+		formatted_publication not like '%Field Notes%'
 		ORDER BY dbms_random.value
 	)
 	WHERE rownum <= 10
@@ -52,16 +53,20 @@
 	<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">#formatted_publication#</a><br>
 </cfloop>
 
+<cfquery name="rProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,10,0)#">
+	select * from (
+		select 
+			niceURL(project_name) nproject_name,
+			project_name
+		from
+			project
+		ORDER BY dbms_random.value
+	)
+	WHERE rownum <= 10
+</cfquery>
 
+<cfloop query="rProj">
+	<a href="/project/#nproject_name#">#project_name#</a><br>
+</cfloop>
 
- select * from (
-         	select a.*, rownum rnum from (
-            	select                
-                	niceURL(project_name) project_name
-				from 
-					project 
-				order by niceURL(project_name)
-			) a
-		where rownum <= #maxRN#)
-		where rnum >=#minRN#
 </cfoutput>
