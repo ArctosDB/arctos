@@ -3,8 +3,13 @@
 border:1px solid green;
 margin:1em;
 padding:1em;
-overflow:hidden;
-max-width:250px;
+max-width:400px;
+position:absolute;
+top:20%;
+left:65em;
+max-height:400px;
+clear:left;
+overflow:auto;
 	}
 	
 	#browseArctos ul {
@@ -16,6 +21,13 @@ margin-left:-2em;
 		text-indent:-2em;
 		padding-left:2em;
 	}
+	
+	#browseArctos ul .blbl{
+margin-left:-1em;
+font-weight:bold;
+border-bottom:1px solid black;
+margin-top:1em;
+}
 
 /* GMaps selector */
 .divlayer {
