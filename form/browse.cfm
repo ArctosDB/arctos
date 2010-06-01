@@ -60,7 +60,7 @@
 		<cfset rslts=listappend(rslts,i)>
 	</cfloop>
 	<div id="browseArctos">
-		<div id="title">Try something random</div>
+		<div class="title">Try something random</div>
 		<ul>
 			<cfloop from="1" to="#links.recordcount#" index="i">
 				<cfset thisIndex=randrange(1,listlen(rslts))>
