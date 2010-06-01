@@ -1,3 +1,8 @@
+<style>
+	#browseArctos {
+		font-size:small;
+	}
+</style>
 <cfoutput>
 <cfquery name="rSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,10,0)#">
 	select * from (
@@ -12,11 +17,6 @@
 	)
 	WHERE rownum <= 10
 </cfquery>
-<style>
-	#browseArctos {
-		font-size:small;
-	}
-</style>
 <div id="browseArctos">
 <cfloop query="rSpec">
 	<a href="/guid/#guid#">#collection# #cat_num# <i>#scientific_name#</i></a><br>
