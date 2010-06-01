@@ -1,16 +1,21 @@
 <cfoutput>
 <cfquery name="newSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select 
-		guid,
-		collection,
-		cat_num
-	from
-		filtered_flat
-	where
-		round(LAST_EDIT_DATE-sysdate) >-45
+	select * from (
+		select 
+			guid,
+			collection,
+			cat_num,
+			scientific_name
+		from
+			filtered_flat
+		ORDER BY dbms_random.value
+	)
+	WHERE rownum <= 10
 </cfquery>
 
+
+
 <cfloop query="newSpec">
-	<a href="/guid/#guid#">#collection# #cat_num#</a>
+	<a href="/guid/#guid#">#collection# #cat_num# <i>scientific_name</i></a><br>
 </cfloop>
 </cfoutput>
