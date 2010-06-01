@@ -63,10 +63,12 @@
 			<cfloop from="1" to="#links.recordcount#" index="i">
 				<br>before: #rslts#
 				<br>listlen(rslts): #listlen(rslts)#
-				<cfset thisRecord=randrange(1,listlen(rslts))>
+				<cfset thisIndex=randrange(1,listlen(rslts))>
+				<br>thisIndex: #thisIndex#
+				<cfset thisRecord=listgetat(rslts,thisIndex)>
 				<br>thisRecord: #thisRecord#
 				<br><a href="#links.link[thisRecord]#">#links.display[thisRecord]#</a>
-				<cfset rslts=listdeleteat(rslts,listfind(rslts,thisRecord))>
+				<cfset rslts=listdeleteat(rslts,thisIndex)>
 				<br>afterdelete: #rslts#
 				<hr>
 			</cfloop>
