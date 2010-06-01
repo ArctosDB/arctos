@@ -34,6 +34,7 @@
 	</cfif>
 </cfloop>
 <cfscript>
+	variables.joFileWriter.writeLine('Disallow: /digir/');
 	variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
 	variables.joFileWriter.close();
 </cfscript>
