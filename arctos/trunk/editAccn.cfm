@@ -378,7 +378,7 @@
 				from 
 					media,
 					media_relations,
-					(select * from media_label where media_label='description') media_labels
+					(select * from media_labels where media_label='description') media_labels
 				where
 					media.media_id=media_labels.media_id (+) and
 					media.media_id=media_relations.media_id and
