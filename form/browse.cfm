@@ -14,7 +14,7 @@
 </cfquery>
 <div id="browseArctos">
 	<ul>
-		<li>Specimens</li>
+		<li class="blbl">Specimens</li>
 <cfloop query="rSpec">
 	<li><a href="/guid/#guid#">#collection# #cat_num# <i>#scientific_name#</i></a></li>
 </cfloop>
@@ -30,7 +30,7 @@
 	)
 	WHERE rownum <= 5
 </cfquery>
-<li>Names</li>
+<li class="blbl">Names</li>
 <cfloop query="rTax">
 	<li><a href="/name/#scientific_name#">#display_name#</a></li>
 </cfloop>
