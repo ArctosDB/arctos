@@ -12,9 +12,12 @@
 	)
 	WHERE rownum <= 10
 </cfquery>
-
-
-
+<style>
+	#browseArctos {
+		font-size:small;
+	}
+</style>
+<div id="browseArctos">
 <cfloop query="rSpec">
 	<a href="/guid/#guid#">#collection# #cat_num# <i>#scientific_name#</i></a><br>
 </cfloop>
@@ -30,7 +33,6 @@
 	)
 	WHERE rownum <= 10
 </cfquery>
-
 <cfloop query="rTax">
 	<a href="/name/#scientific_name#">#display_name#</a><br>
 </cfloop>
@@ -48,7 +50,6 @@
 	)
 	WHERE rownum <= 10
 </cfquery>
-
 <cfloop query="rPub">
 	<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">#formatted_publication#</a><br>
 </cfloop>
@@ -64,7 +65,6 @@
 	)
 	WHERE rownum <= 10
 </cfquery>
-
 <cfloop query="rProj">
 	<a href="/project/#nproject_name#">#project_name#</a><br>
 </cfloop>
@@ -83,8 +83,8 @@
 	)
 	WHERE rownum <= 10
 </cfquery>
-
 <cfloop query="media">
 	<a href="/media/#media_id#"><img src="#preview_uri#"></a><br>
 </cfloop>
+</div>
 </cfoutput>
