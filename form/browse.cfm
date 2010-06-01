@@ -1,23 +1,3 @@
-<style>
-	#browseArctos {
-		font-size:small;
-border:1px solid green;
-margin:1em;
-padding:1em;
-overflow:hidden;
-max-width:250px;
-	}
-	
-	#browseArctos ul {
-	
-	}
-	
-	#browseArctos ul li {
-		text-indent:-2em;
-		padding-left:2em;
-	}
-	
-</style>
 <cfoutput>
 <cfquery name="rSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,10,0)#">
 	select * from (
