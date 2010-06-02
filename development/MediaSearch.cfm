@@ -402,18 +402,23 @@
 		</cfif>
 	</cfsavecontent>
 	#pager#
+	<br>
+	<span class="controlButton"
+				onclick="window.open('/MediaSearchDownload.cfm?tableName=#session.MediaSrchTab#','_blank');">Bulk Download Media Results</span>
 	<cfset rownum=1>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 <table>
 	<!-- Results Table Header -->
 	<tr>
 		<td><center><strong>Media Preview</strong></center></td>
-		<td><center><strong>Mime Type</strong></center></td>
+		<td><center><strong>Type</strong></center></td>
 		<td><center><strong>Details</strong></center></td>
 		<td><center><strong>Download</strong></center></td>
 		<td><center><strong>Map</strong></center></td>
 		<td><center><strong>Related Keywords</strong></center></td>		
 	</tr>
+<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")>
+
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
@@ -545,13 +550,19 @@
 				</cfloop>
 			</cfif>
 			
-		
+			<!-- Set up/fill query table used for bulk downloading-->
+			<cfset tempResult = queryaddrow(downloadResults,1)>
+			<cfset tempResult = QuerySetCell(downloadResults, "scientific_name", "#scientific_name#", rownum)>
+			<cfset tempResult = QuerySetCell(downloadResults, "agent_name", "#agent_name#", rownum)>
+			<cfset tempResult = QuerySetCell(downloadResults, "locality", "#locality#", rownum)>
+			<cfset tempResult = QuerySetCell(downloadResults, "description", "#description#", rownum)>
+			
 			
 			<!-- Grid Display -->
 			<!-- <table>
 				<tr> -->
 			<td align="middle">
-				<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
+				<img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;">
 			</td>
 			<td align="middle">#media_type#</td> 
 			<td align="middle"><a href="#media_details_url#" target="_blank">Details</a></td>
@@ -657,6 +668,22 @@
 	<cfset rownum=rownum+1>
 </cfloop>
 </table>
+
+<!--- try to kill any old tables that they may have laying around --->
+<cftry>
+	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		drop table #session.MediaSrchTab#
+	</cfquery>
+	<cfcatch><!--- not there, so what? --->
+	</cfcatch>
+</cftry>
+<!---- build a temp table --->
+
+<cfset SqlString = "create table #session.MediaSrchTab# AS #downloadResults#">
+<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	#preserveSingleQuotes(SqlString)#
+</cfquery>
+
 #pager#
 
 </cfoutput>
