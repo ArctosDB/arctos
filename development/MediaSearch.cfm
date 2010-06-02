@@ -568,6 +568,9 @@
 			</td>
 			<td align="middle">							
 				<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
+						<cfloop list="#keyword#" index="k" delimiters=",;: ">
+							<cfset kw=highlight(kw,k)>
+						</cfloop>
 						<strong>Keywords:</strong> #kw#
 				</div>
 			
