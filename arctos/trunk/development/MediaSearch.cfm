@@ -404,7 +404,8 @@
 	#pager#
 	<br>
 	<span class="controlButton"
-				onclick="window.open('/MediaSearchDownload.cfm?tableName=#session.MediaSrchTab#','_blank');">Bulk Download Media Results</span>
+				onclick="window.open('/development/MediaSearchDownload.cfm?tableName=#session.MediaSrchTab#','_blank');">Bulk Download Media Results</span>
+	<br>				
 	<cfset rownum=1>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 <table>
