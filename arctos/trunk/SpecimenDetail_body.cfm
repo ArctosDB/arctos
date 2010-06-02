@@ -1184,12 +1184,13 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
-						<cfif #oneOfUs# is 1>
+						<cfif oneOfUs is 1>
 							<a href="/editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="_blank">#accession#</a>
 						<cfelse>
 							#accession#
 						</cfif>
 						<cfif accnMedia.recordcount gt 0>
+							<br>
 							<cfloop query="accnMedia">
 								<cfset puri=getMediaPreview(preview_uri,media_type)>
 								 <span class="detailData">			
