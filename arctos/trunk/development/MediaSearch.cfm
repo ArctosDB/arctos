@@ -27,11 +27,11 @@
 	</cfquery>
 	 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
         <a href="/media.cfm?action=newMedia">[ Create media ]</a>
-    </cfif>
+    </cfif> 
 	<br>
 	
 	<div id="keyForm" style="display:block">
-		Search for Media
+		Search for Media &nbsp;&nbsp;
 		<br>		
 		<a href="javascript:void(0);" onclick="toggle_visibility('relForm', 'keyForm');" style="font-size:x-small">Advanced search</a>
 		<style>
