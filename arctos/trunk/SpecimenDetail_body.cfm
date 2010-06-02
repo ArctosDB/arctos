@@ -1167,18 +1167,21 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 			        media.media_uri,
 			        media.mime_type,
 			        media.media_type,
-			        media.preview_uri
+			        media.preview_uri,
+			        label_value descr
 			     from
 			        media,
 					media_relations
+					(select * from media_labels where media_label='description') media_labels
 			     where
 			        media.media_id=media_relations.media_id and
+			        media.media_id=media_labels.media_id (+) and
 					media_relations.media_relationship like '% accn' and
 					media_relations.related_primary_key=#one.accn_id#
 			</cfquery>
-			s<div class="detailCell">
+			<div class="detailCell">
 				<div class="detailLabel">Accession
-					<cfif #oneOfUs# is 1>
+					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
 					</cfif>
 				</div>
@@ -1190,13 +1193,22 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 							#accession#
 						</cfif>
 						<cfif accnMedia.recordcount gt 0>
-							<br>
-							<cfloop query="accnMedia">
-								<cfset puri=getMediaPreview(preview_uri,media_type)>
-								 <span class="detailData">			
-									<a href="/media/#media_id#" target="_blank"><img src="#puri#"></a>
-						        </span>	
-							</cfloop>
+							<div class="thumbs">
+								<div class="thumb_spcr">&nbsp;</div>
+								<cfloop query="accnMedia">
+									<div class="one_thumb">
+						            	<a href="#media_uri#" target="_blank">
+							               <img src="#getMediaPreview(preview_uri,media_type)#" alt="#descr#" class="theThumb">
+										</a>
+					                   	<p>
+											#media_type# (#mime_type#)
+						                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+											<br>#descr#
+										</p>
+									</div>
+								</cfloop>
+								<div class="thumb_spcr">&nbsp;</div>
+							</div>
 						</cfif>
 					</span>
 				</div>
@@ -1278,7 +1290,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
          media_relations.media_relationship like '%cataloged_item' and
          media_relations.related_primary_key = #collection_object_id#
 </cfquery>
-<cfif #media.recordcount# gt 0>
+<cfif media.recordcount gt 0>
     <div class="detailCell">
 		<div class="detailLabel">Media
 			<cfif #oneOfUs# is 1>
