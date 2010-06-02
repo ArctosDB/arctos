@@ -220,6 +220,7 @@
 	<cfset session.meta_description=''>
 	<cfset temp=cfid & '_' & cftoken & '_' & RandRange(0, 9999)>
 	<cfset session.SpecSrchTab="SpecSrch" & temp>
+	<cfset session.MediaSrchTab="MediaSrch" & temp> <!-- Doris' edit -->
 	<cfset session.TaxSrchTab="TaxSrch" & temp>
 
 	<!---------------------------- login ------------------------------------------------>
