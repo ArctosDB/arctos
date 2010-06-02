@@ -1162,7 +1162,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 				</div>
 <!------------------------------------ accession ---------------------------------------------->
 			<cfquery name="accnMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			    select distinct 
+			    select 
 			        media.media_id,
 			        media.media_uri,
 			        media.mime_type,
@@ -1171,8 +1171,8 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 			        label_value descr
 			     from
 			        media,
-					media_relations
-					(select * from media_labels where media_label='description') media_labels
+					media_relations,
+					(select media_id,label_value from media_labels where media_label='description') media_labels
 			     where
 			        media.media_id=media_relations.media_id and
 			        media.media_id=media_labels.media_id (+) and
