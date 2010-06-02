@@ -1070,28 +1070,28 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 								<cfif len(#attribute_units#) gt 0>
 									#attribute_units#
 								</cfif>
-										<cfif len(#attributeDeterminer#) gt 0>
-											<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
-											<cfif len(#determined_date#) gt 0>
-												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
-											</cfif>
-											<cfif len(#determination_method#) gt 0>,
-												<cfset determination = '#determination#, #determination_method#'>
-											</cfif>
-											<div class="detailBlock">
-												<span class="detailCellSmall">
-													#determination#
-												</span>
-											</div>
-										</cfif>
-									<cfif len(#attribute_remark#) gt 0>
-										<div class="detailBlock">
-											<span class="detailCellSmall">
-												&nbsp;&nbsp;<span class="innerDetailLabel">Remark:</span>
-												#attribute_remark#
-											</span>
-										</div>
-									</cfif>	
+								<cfif len(#attributeDeterminer#) gt 0>
+									<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
+									<cfif len(#determined_date#) gt 0>
+										<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
+									</cfif>
+									<cfif len(#determination_method#) gt 0>,
+										<cfset determination = '#determination#, #determination_method#'>
+									</cfif>
+									<div class="detailBlock">
+										<span class="detailCellSmall">
+											#determination#
+										</span>
+									</div>
+								</cfif>
+								<cfif len(attribute_remark) gt 0>
+									<div class="detailBlock">
+										<span class="detailCellSmall">
+											&nbsp;&nbsp;<span class="innerDetailLabel">Remark:</span>
+											#attribute_remark#
+										</span>
+									</div>
+								</cfif>	
 							</div> 
 						</span>
 					</cfloop>		
@@ -1161,7 +1161,22 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 					</cfif>
 				</div>
 <!------------------------------------ accession ---------------------------------------------->
-			<div class="detailCell">
+			<cfquery name="accnMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			    select distinct 
+			        media.media_id,
+			        media.media_uri,
+			        media.mime_type,
+			        media.media_type,
+			        media.preview_uri
+			     from
+			        media,
+					media_relations
+			     where
+			        media.media_id=media_relations.media_id and
+					media_relations.media_relationship like '% accn' and
+					media_relations.related_primary_key=#one.accn_id#
+			</cfquery>
+			s<div class="detailCell">
 				<div class="detailLabel">Accession
 					<cfif #oneOfUs# is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
@@ -1174,7 +1189,14 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 						<cfelse>
 							#accession#
 						</cfif>
-
+						<cfif accnMedia.recordcount gt 0>
+							<cfloop query="accnMedia">
+								<cfset puri=getMediaPreview(preview_uri,media_type)>
+								 <span class="detailData">			
+									<a href="/media/#media_id#" target="_blank"><img src="#puri#"></a>
+						        </span>	
+							</cfloop>
+						</cfif>
 					</span>
 				</div>
 			</div>		
