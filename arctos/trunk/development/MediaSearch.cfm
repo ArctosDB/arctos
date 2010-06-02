@@ -680,7 +680,7 @@
 </cftry>
 <!---- build a temp table --->
 
-<cfset SqlString = "create table #session.MediaSrchTab# AS #downloadResults#">
+<cfset SqlString = "create table #session.MediaSrchTab# AS (Select * from #downloadResults#)">
 <cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
