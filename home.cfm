@@ -296,7 +296,7 @@ encumbered for proprietary reasons, data are open to the public.
 		proposed or limited funtionality exists.
 	</li>
 	<li>
-		<a href="MediaSearch.cfm">Media</a> links images, moves, sound files, and documents to 
+		<a href="MediaSearch.cfm">Media</a> links images, movies, sound files, and documents to 
 		specimens, taxonomy, publications, projects, events, or people.
 		<br>
 		Multi-page documents organize, paginate, and print PDFs of scanned media such as field notes.
