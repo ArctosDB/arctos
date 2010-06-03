@@ -111,6 +111,7 @@
 						<cfset t=listgetat(i,1,"=")>
 						<cfset v=listgetat(i,2,"=")>
 						<cfset "#T#" = "#v#">
+						<br>#T#: #v#
 					</cfloop>
 					<cfinclude template="/SpecimenResults.cfm">
 				<cfelse>
