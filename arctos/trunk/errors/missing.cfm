@@ -116,7 +116,7 @@
 				<cfelse>
 					If you are not redirected, please click this link: <a href="/#d.url#">#d.url#</a>
 					<script>
-						document.location='/#d.url#';
+						document.location='#d.url#';
 					</script>
 				</cfif>
 			<cfelse>
