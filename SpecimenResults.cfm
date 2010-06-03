@@ -446,8 +446,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<input type="button" 
 					value="Go" 
 					class="lnkBtn"
-		   			onmouseover="this.className='lnkBtn btnhov'" 
-					onmouseout="this.className='lnkBtn'"
 					onClick="reporter();">
 			</cfif>
 		</td>
