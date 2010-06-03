@@ -519,7 +519,6 @@ function makePart(){
 						msg += "( " + result.NEW_CONTAINER_TYPE[0] + ")";
 					}
 				}
-				logIt(msg);
 				var p = document.getElementById('ppDiv');
 				document.body.removeChild(p);
 				var b = document.getElementById('bgDiv');
