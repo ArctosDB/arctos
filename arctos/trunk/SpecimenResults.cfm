@@ -159,6 +159,7 @@ function removeHelpDiv() {
 </cftry>
 <!---- build a temp table --->
 <cfset checkSql(SqlString)>
+<cfset debug=true>
 <cfif isdefined("debug") and debug is true>
 	#preserveSingleQuotes(SqlString)#
 </cfif>
