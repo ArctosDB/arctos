@@ -923,7 +923,7 @@ input.lnkBtn {
 	background-color:#99CCFF;
 	border-color: #336666;
 	border:1px solid;}
-input.lnkBtn:hover {
+input.lnkBtn:hover, input.schBtn:hover {
 	border-color:#FF6633;
 	cursor:pointer;
 } 
@@ -935,13 +935,8 @@ input.schBtn {
 	background-color:#CCCC99;
 	border-color:#336666;
 	border:1px solid;}
-input.schBtn:hover {
-	border-top-color:#FF6633 ;
-	border-left-color:#FF6633 ;
-	border-right-color:#FF6666 ;
-	border-bottom-color:#FF6666 ;
-	cursor:pointer;
-}
+ {
+
 input.clrBtn {
 	color:	#666666;
 	font-size:10pt;
