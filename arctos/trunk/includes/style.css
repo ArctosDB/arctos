@@ -924,10 +924,7 @@ input.lnkBtn {
 	border-color: #336666;
 	border:1px solid;}
 input.lnkBtn:hover {
-	border-top-color:#FF6633 ;
-	border-left-color:#FF6633 ;
-	border-right-color:#FF6666 ;
-	border-bottom-color:#FF6666 ;
+	border-color:#FF6633;
 	cursor:pointer;
 } 
 input.schBtn {
