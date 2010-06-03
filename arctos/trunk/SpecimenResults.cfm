@@ -328,9 +328,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
-			<span class="controlButton" 
-				onmouseover="this.className='controlButton btnhov'" 
-				onmouseout="this.className='controlButton'"
+			<span class="controlButton"
 				onclick="var pr=document.getElementById('page_record');
 					var c=pr.value;
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
@@ -341,8 +339,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 		<td>
 			<label for="">&nbsp;</label>
 			<span class="controlButton"
-				onmouseover="this.className='controlButton btnhov'" 
-				onmouseout="this.className='controlButton'"
 				onclick="var pr=document.getElementById('page_record');
 					var c=pr.value;
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;

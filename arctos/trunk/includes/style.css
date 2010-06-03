@@ -838,15 +838,7 @@ div.group {
 	padding:2px;
 	text-align:center;
 	cursor:hand;
-	text-decoration: none;}
-	
-.controlButton:hover {
-	border-top-color:#FF6633 ;
-	border-left-color:#FF6633 ;
-	border-right-color:#FF6666 ;
-	border-bottom-color:#FF6666 ;
-	cursor:pointer;}
-	
+	text-decoration: none;}	
 .redButton {
 	background-color:red;
 }
@@ -908,13 +900,6 @@ input.savBtn {
 	background-color:#FBD29B;
 	border:1px solid;
 	border-color: #336666;}
-input.savBtn:hover {
-	border-top-color:#FF6633 ;
-	border-left-color:#FF6633 ;
-	border-right-color:#FF6666 ;
-	border-bottom-color:#FF6666 ;
-	cursor:pointer;
-} 
 input.lnkBtn {
 	color:	#666666;
 	font-size:10pt;
@@ -923,7 +908,7 @@ input.lnkBtn {
 	background-color:#99CCFF;
 	border-color: #336666;
 	border:1px solid;}
-input.lnkBtn:hover, input.schBtn:hover {
+.controlButton:hover, input.qutBtn:hover, input.delBtn:hover, input.picBtn:hover, input.clrBtn:hover, input.lnkBtn:hover, input.schBtn:hover, input.insBtn:hover,input.savBtn:hover {
 	border-color:#FF6633;
 	cursor:pointer;
 } 
@@ -949,13 +934,6 @@ input.insBtn {
 	font-weight:bold;
 	background-color:#99CCCC;
 	border:1px solid #336666;}
-input.insBtn:hover {
-	border-top-color:#FF6633 ;
-	border-left-color:#FF6633 ;
-	border-right-color:#FF6666 ;
-	border-bottom-color:#FF6666 ;
-	cursor:pointer;
-}
 input.picBtn {
 	color:	#666666;
 	font-size:10pt;
