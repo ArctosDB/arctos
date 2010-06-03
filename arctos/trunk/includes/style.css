@@ -923,6 +923,13 @@ input.lnkBtn {
 	background-color:#99CCFF;
 	border-color: #336666;
 	border:1px solid;}
+input.lnkBtn:hover {
+	border-top-color:#FF6633 ;
+	border-left-color:#FF6633 ;
+	border-right-color:#FF6666 ;
+	border-bottom-color:#FF6666 ;
+	cursor:pointer;
+} 
 input.schBtn {
 	color:#666666;
 	font-size:10pt;
