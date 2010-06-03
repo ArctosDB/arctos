@@ -62,7 +62,7 @@
 			<input type="submit" value="Search" class="schBtn">
 		</td>
 		<td valign="top">
-			<input type="reset" name="Reset" value="Clear Form" class="clrBtn"	onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">
+			<input type="reset" name="Reset" value="Clear Form" class="clrBtn">
 		</td>
 		<td valign="top">
 			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
@@ -391,12 +391,10 @@
 <table>
 	<tr>
 		<td valign="top">
-			<input type="submit" value="Search" class="schBtn"
-   				onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">
+			<input type="submit" value="Search" class="schBtn">
 		</td>
 		<td valign="top">
-			<input type="reset" name="Reset" value="Clear Form" class="clrBtn"
-   				onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">
+			<input type="reset" name="Reset" value="Clear Form" class="clrBtn">
 		</td>
 		<td valign="top">
 			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
