@@ -1110,10 +1110,12 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 					</cfif>
 					
 					<cfif len(one.habitat) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Microhabitat:</td>
-								<td id="SDCellRight">#one.habitat#</td>
-							</tr>
+						<div class="detailBlock">
+							<span class="detailData">
+								<span class="innerDetailLabel">Microhabitat:</span>
+								#one.habitat#
+							</span>
+						</div>
 					</cfif>
 					<cfif #oneOfUs# is 1>
 						<div class="detailBlock">
