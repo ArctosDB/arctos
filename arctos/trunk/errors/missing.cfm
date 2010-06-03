@@ -113,13 +113,13 @@
 						<cfset "#T#" = "#urldecode(v)#">
 					</cfloop>
 					<cfinclude template="/SpecimenResults.cfm">
-				<cfelseif d.url contains "#application.serverRootUrl#">
+				<cfelseif left(d.url,7) is "http://">
+					Click to continue: <a href="#d.url#">#d.url#</a>
+				<cfelse>
 					If you are not redirected, please click this link: <a href="/#d.url#">#d.url#</a>
 					<script>
 						document.location='/#d.url#';
 					</script>
-				<cfelse>
-					Click to continue: <a href="#d.url#">#d.url#</a>
 				</cfif>
 			<cfelse>
 				<cfinclude template="/errors/404.cfm">
