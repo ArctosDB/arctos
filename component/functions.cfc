@@ -1617,38 +1617,16 @@
 			<cfset msg="The name of your saved search is already in use.">
 		<cfelse>
 			<cfquery name="i" datasource="cf_dbuser">
-					insert into cf_canned_search (
-					user_id,
-					search_name,
-					url
-					) values (
-					 #me.user_id#,
-					 '#srchName#',
-					 '#returnURL#')
-				</cfquery>
-			
-			<!---<cfquery name="alreadyThere" datasource="cf_dbuser">
-				select search_name
-				from cf_canned_search
-				where user_id=#me.user_id# and
-				url='#returnURL#'
+				insert into cf_canned_search (
+				user_id,
+				search_name,
+				url
+				) values (
+				 #me.user_id#,
+				 '#srchName#',
+				 '#returnURL#')
 			</cfquery>
-			<cfif len(alreadyThere.search_name) gt 0>
-				<cfset msg="That search is already saved as '#alreadyThere.search_name#'.">
-			<cfelse>
-				<cfquery name="i" datasource="cf_dbuser">
-					insert into cf_canned_search (
-					user_id,
-					search_name,
-					url
-					) values (
-					 #me.user_id#,
-					 '#srchName#',
-					 '#returnURL#')
-				</cfquery>
-				--->
-				<cfset msg="success">
-			</cfif>
+			<cfset msg="success">
 		</cfif>
 	<cfcatch>
 		<cfset msg="An error occured while saving your search: #cfcatch.message# #cfcatch.detail#">
