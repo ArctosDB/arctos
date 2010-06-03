@@ -534,12 +534,6 @@
 								<td id="SDCellRight">#one.habitat_desc#</td>
 							</tr>
 					</cfif>
-					<cfif len(#one.habitat#) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Microhabitat:</td>
-								<td id="SDCellRight">#one.habitat#</td>
-							</tr>
-					</cfif>
 					<cfif len(#one.associated_species#) gt 0>
 						<div class="detailBlock">
 							<tr class="detailData">
@@ -1113,6 +1107,13 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 								#one.coll_object_remarks#
 							</span>
 						</div>
+					</cfif>
+					
+					<cfif len(one.habitat) gt 0>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Microhabitat:</td>
+								<td id="SDCellRight">#one.habitat#</td>
+							</tr>
 					</cfif>
 					<cfif #oneOfUs# is 1>
 						<div class="detailBlock">
