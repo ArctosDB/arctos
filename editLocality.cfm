@@ -1119,8 +1119,7 @@
 <cfinclude template="/includes/_footer.cfm">
 </cfif>
 <!------------------------------------------------------------------------------------------------------>
-
-<cfif #Action# is "editGeol">
+<cfif action is "editGeol">
 <cfoutput>
 	<cfloop from="1" to="#number_of_determinations#" index="n">
 		<cfset deleteThis="">
@@ -1172,7 +1171,7 @@
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------>
-<cfif #Action# is "AddGeol">
+<cfif action is "AddGeol">
 <cfoutput>
 		<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into geology_attributes (
@@ -1213,7 +1212,7 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "changeGeog">
+<cfif action is "changeGeog">
 	<cfoutput>
 		<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE locality SET geog_auth_rec_id=#geog_auth_rec_id# where locality_id=#locality_id#
@@ -1222,18 +1221,18 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "saveLocalityEdit">
+<cfif action is "saveLocalityEdit">
 	<cfoutput>
-	<cfif len(#MINIMUM_ELEVATION#) gt 0 OR 
-			len(#MAXIMUM_ELEVATION#) gt 0>
-		<cfif len(#ORIG_ELEV_UNITS#) is 0>
+	<cfif len(MINIMUM_ELEVATION) gt 0 OR 
+			len(MAXIMUM_ELEVATION) gt 0>
+		<cfif len(ORIG_ELEV_UNITS) is 0>
 			You must provide elevation units if you provide elevation data!
 			<cfabort>
 		</cfif>
 	</cfif>
-	<cfif len(#ORIG_ELEV_UNITS#) gt 0>
-		<cfif len(#MINIMUM_ELEVATION#) is 0 AND 
-			len(#MAXIMUM_ELEVATION#) is 0>
+	<cfif len(ORIG_ELEV_UNITS) gt 0>
+		<cfif len(MINIMUM_ELEVATION) is 0 AND 
+			len(MAXIMUM_ELEVATION) is 0>
 			You can't provide elevation units if you don't provide elevation data!
 			<cfabort>
 		</cfif>
@@ -1280,7 +1279,7 @@
 		<cfset sql = "#sql#,LOCALITY_REMARKS = null">
 	</cfif>
 	<cfif len(#NoGeorefBecause#) gt 0>
-		<cfset sql = "#sql#,NoGeorefBecause = '#NoGeorefBecause#'">
+		<cfset sql = "#sql#,NoGeorefBecause = '#escapeQuotes(NoGeorefBecause)#'">
 	<cfelse>
 		<cfset sql = "#sql#,NoGeorefBecause = null">
 	</cfif>
