@@ -255,11 +255,11 @@
 				<cffile action="delete" file="#directory#/#name#">
 			</cfif>
 		<cfelse>
-			<cfdirectory action="list" directory="#directory#" name="current">
-			<br> got a directory #directory# containing #current.recordcount# files
+			<cfdirectory action="list" directory="#directory#/#name#" name="current">
+			<br> got a directory #directory#/#name# containing #current.recordcount# files
 			<cfif current.recordcount is 0>
 				<br>deleting it
-				<cfdirectory action="delete" directory="#directory#">	
+				<cfdirectory action="delete" directory="#directory#/#name#">	
 			</cfif>
 
 
