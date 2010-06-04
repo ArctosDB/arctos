@@ -46,7 +46,8 @@
 	The following files were extracted:
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
-			<br>#name# #size#
+			<cfset s=size/1024>
+			<br>#name# (#s#k)
 		</cfif>
 	</cfloop>
 	</cfoutput>
