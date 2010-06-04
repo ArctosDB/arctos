@@ -13,6 +13,7 @@
 		nameConflict="overwrite"
 		fileField="Form.FiletoUpload"
 		accept="application/zip">
+	<cfdump var=#form#>
 	<cffile 
 	   action = "rename"
 	   source = "#application.webDirectory#/temp/#Form.FiletoUpload#"
