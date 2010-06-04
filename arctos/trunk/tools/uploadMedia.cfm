@@ -15,14 +15,19 @@
 		accept="application/zip">
 	<cfdump var=#form#>
 	<cfdump var=#cffile#>
+	<cftry>
+		<cfdirectory action="create" directory="#application.webDirectory#/temp/#session.username#">
+		<cfcatch><!--- exists ---></cfcatch>
+	</cftry>
 	<cffile 
 	   action = "rename"
 	   source = "#cffile.SERVERDIRECTORY#/#cffile.CLIENTFILE#"
-	   destination = "zip_#session.username#.zip">
+	   destination = "#session.username#/temp.zip">
 
 	File accepted. <a href="uploadMedia.cfm?action=unzip">Click to proceed.</a>
 </cfif>
 <cfif action is "unzip">
+	
 	unzip
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
