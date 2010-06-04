@@ -39,7 +39,7 @@
 	<cfset goodExtensions="jpg">
 	<cfloop query="dir">
 		<br>name: #name#
-		<cfif listfindnocase(goodExtensions,listlast(name,"."))>
+		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
 			<br>GOOD: #directory#/#name#
 		<cfelse>
 			<br>JUNK: #directory#/#name#
