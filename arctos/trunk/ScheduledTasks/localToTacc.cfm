@@ -236,7 +236,11 @@
     	directory="#Application.webDirectory#/SpecimenImages"
         name="root"
 		recurse="yes">
-	<cfdump var="#root#">
+	<cfloop query="root">
+		<cfif type is "file">
+			<br>found #directory#/#name#
+		</cfif>
+	</cfloop>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "report">
