@@ -9,6 +9,9 @@
     </cfoutput>
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
+<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+	<a href="/media.cfm?action=newMedia">[ Create media ]</a>
+</cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
@@ -24,9 +27,6 @@
 	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
-	 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-        <a href="/media.cfm?action=newMedia">[ Create media ]</a>
-    </cfif>
 	<br>
 	Search for Media
 	<a name="kwFrm"></a>
