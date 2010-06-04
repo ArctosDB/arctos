@@ -35,9 +35,11 @@
     	directory="#application.webDirectory#/temp/#session.username#"
         name="dir"
 		recurse="yes">
+	<cfoutput>
 	<cfloop query="dir">
 		#name#
 	</cfloop>
+	</cfoutput>
 	unzip
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
