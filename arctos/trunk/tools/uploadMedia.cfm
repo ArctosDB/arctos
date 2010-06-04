@@ -14,6 +14,9 @@
 		fileField="Form.FiletoUpload"
 		accept="application/zip">
 
-	
+	File accepted. <a href="uploadMedia.cfm?action=unzip">Click to proceed.</a>
+</cfif>
+<cfif action is "unzip">
+	unzip
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
