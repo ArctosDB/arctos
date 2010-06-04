@@ -17,7 +17,7 @@
 	<cfdump var=#cffile#>
 	<cffile 
 	   action = "rename"
-	   source = "#application.webDirectory#/temp/#Form.FiletoUpload#"
+	   source = "#cffile.SERVERDIRECTORY#/#cffile.CLIENTFILE#"
 	   destination = "zip_#session.username#.zip">
 
 	File accepted. <a href="uploadMedia.cfm?action=unzip">Click to proceed.</a>
