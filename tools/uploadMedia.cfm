@@ -6,6 +6,8 @@
 	<br>File extensions are not case sensitive, but must be in #goodExtensions#.
 	<br>File names may not start with _ (underbar) or . (dot).
 	<br>You may need to load smaller batches if you get timeout errors.
+	<br>You may include thumbnails, which should be JPG files prefixed with "tn_", or you may create them with this app.
+	Do not click the "create thumbnails" option when you get to it if you've uploaded thumbnails.
 	<br><a href="/contact.cfm">Contact us</a> if you need something else.
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
@@ -86,20 +88,33 @@
         name="dir"
 		recurse="yes">
 	<cfoutput>
+		<table border>
+			<tr>
+				<td>thumb</td>
+				<td>image</td>
+			</tr>
 	<cfloop query="dir">
+		
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not "." and left(name,3) is not "tn_">
+			
 			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
 			<cfquery name="thumb" dbtype="query">
 				select * from dir where name='tn_#name#'
 			</cfquery>
 			<cfif thumb.recordcount is 1>
 				<cfset tnwebpath=replace(thumb.directory,application.webDirectory,application.serverRootUrl) & "/" & thumb.name>
-				thumbnail: <img src="#tnwebpath#">
 			</cfif>
-			<cfdump var=#thumb#>
+			
+			<tr>
+			<td>
+			<img src="#tnwebpath#">
+			</td>
+			<td>
 			<img src="#webpath#">
+			</td></tr>
 		</cfif>		
 	</cfloop>
+	</table>
 	</cfoutput>
 </cfif>
 <cfif action is "webserver">
