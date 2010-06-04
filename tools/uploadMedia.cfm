@@ -93,6 +93,7 @@
 			<img src="#webpath#">
 		</cfif>		
 	</cfloop>
+	</cfoutput>
 </cfif>
 <cfif action is "webserver">
 webserver
