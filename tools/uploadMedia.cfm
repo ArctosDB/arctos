@@ -68,7 +68,7 @@
 			<cfset x=min(150/imagetemp.width, 113/imagetemp.height)>
 			<cfset newwidth = x*imagetemp.width>
 			<cfset newheight = x*imagetemp.height>
-			<cfimage action="resize" source="#directory#/#name# width="#newwidth#" height="#newheight#" 
+			<cfimage action="resize" source="#directory#/#name#" width="#newwidth#" height="#newheight#" 
 				destination="#directory#" name="tn_#name#">
 		</cfif>
 	</cfloop>
