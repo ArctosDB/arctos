@@ -52,7 +52,7 @@
 	
 	<br>
 	
-	You can now <a href="uploadMedia.cfm?action=webserver">move the files to the public webserver</a> or <a href="uploadMedia.cfm?action=thumb">create thumbnails</a>
+	You can now <a href="uploadMedia.cfm?action=preview">preview your files</a> or <a href="uploadMedia.cfm?action=thumb">create thumbnails</a>
 	</cfoutput>
 </cfif>
 <cfif action is "thumb">
@@ -61,10 +61,6 @@
         name="dir"
 		recurse="yes">
 	<cfoutput>
-		<cftry>
-		<cfdirectory action="create" directory="#application.webDirectory#/temp/#session.username#/tn">
-		<cfcatch><!--- exists ---></cfcatch>
-	</cftry>
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
 			
@@ -73,14 +69,30 @@
 			<cfset newwidth = x*imagetemp.width>
 			<cfset newheight = x*imagetemp.height>
 			<cfimage action="resize" source="#directory#/#name#" width="#newwidth#" height="#newheight#" 
-				destination="#application.webDirectory#/temp/#session.username#/tn/tn_#name#" overwrite="yes">
+				destination="#application.webDirectory#/temp/#session.username#/tn_#name#" overwrite="yes">
 		</cfif>
 	</cfloop>
-	
+	thumbnails created.
+	<a href="uploadMedia.cfm?action=preview">Preview your files</a>
+	<br>
 	</cfoutput>
 
 
 
+</cfif>
+<cfif action is "preview">
+	<cfdirectory action="LIST"
+    	directory="#application.webDirectory#/temp/#session.username#"
+        name="dir"
+		recurse="yes">
+	<cfoutput>
+	<cfloop query="dir">
+		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not "." and left(name,3) is not "tn_">
+			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+
+			<img src="#webpath#">
+		</cfif>		
+	</cfloop>
 </cfif>
 <cfif action is "webserver">
 webserver
