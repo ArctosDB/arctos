@@ -240,6 +240,8 @@
 	<cfloop query="root">
 		<cfif type is "file">
 			<br>found #directory#/#name#
+			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+			<br>webpath: #webpath#
 		</cfif>
 	</cfloop>
 </cfoutput>
