@@ -89,7 +89,10 @@
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not "." and left(name,3) is not "tn_">
 			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
-
+			<cfquery name="thumb" dbtype="query">
+				select * from dir where name='tn_#name#'
+			</cfquery>
+			<cfdump var=#thumb#>
 			<img src="#webpath#">
 		</cfif>		
 	</cfloop>
