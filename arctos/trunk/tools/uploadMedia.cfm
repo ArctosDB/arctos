@@ -13,6 +13,10 @@
 		nameConflict="overwrite"
 		fileField="Form.FiletoUpload"
 		accept="application/zip">
+	<cffile 
+	   action = "rename"
+	   source = "#application.webDirectory#/temp/#Form.FiletoUpload#"
+	   destination = "zip_#session.username#.zip">
 
 	File accepted. <a href="uploadMedia.cfm?action=unzip">Click to proceed.</a>
 </cfif>
