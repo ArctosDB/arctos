@@ -92,6 +92,10 @@
 			<cfquery name="thumb" dbtype="query">
 				select * from dir where name='tn_#name#'
 			</cfquery>
+			<cfif thumb.recordcount is 1>
+				<cfset tnwebpath=replace(thumb.directory,application.webDirectory,application.serverRootUrl) & "/" & thumb.name>
+				thumbnail: <img src="#tnwebpath#">
+			</cfif>
 			<cfdump var=#thumb#>
 			<img src="#webpath#">
 		</cfif>		
