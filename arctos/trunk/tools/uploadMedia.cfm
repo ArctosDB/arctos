@@ -37,7 +37,7 @@
 		recurse="yes">
 	<cfoutput>
 	<cfloop query="dir">
-		#name#
+		<br>#directory#/#name#
 	</cfloop>
 	</cfoutput>
 	unzip
