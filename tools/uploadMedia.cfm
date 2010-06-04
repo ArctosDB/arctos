@@ -11,7 +11,8 @@
 	<cffile action="upload"
 		destination="#application.webDirectory#/temp/"
 		nameConflict="overwrite"
-		fileField="Form.FiletoUpload">
+		fileField="Form.FiletoUpload"
+		accept="application/zip">
 
 	
 </cfif>
