@@ -265,6 +265,39 @@
 
 		</cfif>
 	</cfloop>
+	
+	<cfdirectory action="LIST"
+    	directory="#Application.webDirectory#/mediaUploads"
+        name="root"
+		recurse="yes">
+	<cfloop query="root">
+		<cfif type is "file">
+			<br>found #directory#/#name#
+			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+			<br>webpath: #webpath#
+			<cfquery name="isUsed" datasource="uam_god">
+				select media_id from media where
+					(
+						media_uri='#webpath#' or
+						preview_uri='#webpath#'
+					)
+			</cfquery>
+			<br>isUsed.recordcount: #isUsed.recordcount#
+			<cfif isUsed.recordcount is 0>
+				<br>going to delete
+				<cffile action="delete" file="#directory#/#name#">
+			</cfif>
+		<cfelse>
+			<cfdirectory action="list" directory="#directory#/#name#" name="current">
+			<br> got a directory #directory#/#name# containing #current.recordcount# files
+			<cfif current.recordcount is 0>
+				<br>deleting it
+				<cfdirectory action="delete" directory="#directory#/#name#">	
+			</cfif>
+
+
+		</cfif>
+	</cfloop>
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
