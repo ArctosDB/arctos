@@ -8,22 +8,20 @@
   </cfform>
 </cfif>
 <cfif action is "getFile">
+	<cftry>
+		<cfdirectory action="create" directory="#application.webDirectory#/temp/#session.username#">
+		<cfcatch><!--- exists ---></cfcatch>
+	</cftry>
 	<cffile action="upload"
-		destination="#application.webDirectory#/temp/"
+		destination="#application.webDirectory#/temp/#session.username"
 		nameConflict="overwrite"
 		fileField="Form.FiletoUpload"
 		accept="application/zip"
 			mode="777">
 	<cfdump var=#form#>
 	<cfdump var=#cffile#>
-	<cftry>
-		<cfdirectory action="create" directory="#application.webDirectory#/temp/#session.username#">
-		<cfcatch><!--- exists ---></cfcatch>
-	</cftry>
-	<cffile 
-	   action = "rename"
-	   source = "#cffile.SERVERDIRECTORY#/#cffile.CLIENTFILE#"
-	   destination = "#session.username#/temp.zip">
+	
+
 
 	File accepted. <a href="uploadMedia.cfm?action=unzip">Click to proceed.</a>
 </cfif>
