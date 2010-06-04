@@ -1,0 +1,18 @@
+<cfinclude template="/includes/_header.cfm">
+<cfif action is "nothing">
+	Step One: Upload a ZIP file containing images. Anything else will be rejected.
+	<cfform name="atts" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="Action" value="getFile">
+		<input type="file" name="FiletoUpload" size="45">
+		<input type="submit" value="Upload this file" class="savBtn">
+  </cfform>
+</cfif>
+<cfif action is "getFile">
+	<cffile action="upload"
+		destination="#application.webDirectory#/temp/"
+		nameConflict="overwrite"
+		fileField="Form.FiletoUpload">
+
+	
+</cfif>
+<cfinclude template="/includes/_footer.cfm">
