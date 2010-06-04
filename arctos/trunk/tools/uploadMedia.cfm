@@ -42,14 +42,43 @@
         name="dir"
 		recurse="yes">
 	<cfoutput>
-	<cfset goodExtensions="jpg">
 	The following files were extracted:
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
-			<cfset s=size/1024>
+			<cfset s=round(size/1024)>
 			<br>#name# (#s#k)
 		</cfif>
 	</cfloop>
+	
+	<br>
+	
+	You can now <a href="uploadMedia.cfm?action=webserver">move the files to the public webserver</a> or <a href="uploadMedia.cfm?action=thumb">create thumbnails</a>
 	</cfoutput>
+</cfif>
+<cfif action is "thumb">
+	<cfdirectory action="LIST"
+    	directory="#application.webDirectory#/temp/#session.username#"
+        name="dir"
+		recurse="yes">
+	<cfoutput>
+	<cfloop query="dir">
+		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
+			
+			<cfimage action="info" structname="imagetemp" source="#directory#/#name#">
+			<cfset x=min(150/imagetemp.width, 113/imagetemp.height)>
+			<cfset newwidth = x*imagetemp.width>
+			<cfset newheight = x*imagetemp.height>
+			<cfimage action="resize" source="#directory#/#name# width="#newwidth#" height="#newheight#" 
+				destination="#directory#" name="tn_#name#">
+		</cfif>
+	</cfloop>
+	
+	</cfoutput>
+
+
+
+</cfif>
+<cfif action is "webserver">
+webserver
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
