@@ -13,7 +13,7 @@
 		<cfcatch><!--- exists ---></cfcatch>
 	</cftry>
 	<cffile action="upload"
-		destination="#application.webDirectory#/temp/#session.username"
+		destination="#application.webDirectory#/temp/#session.username#"
 		nameConflict="overwrite"
 		fileField="Form.FiletoUpload"
 		accept="application/zip"
