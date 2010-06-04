@@ -28,7 +28,7 @@
 		select * from media where
 			media_uri like '#application.serverRootUrl#%' and
 			media_uri not in (
-				select media_uri from cf_tacc_transfer
+				select local_uri from cf_tacc_transfer
 			)
 	</cfquery>
 	<cfloop query="new">
@@ -229,6 +229,14 @@
 			</cfif>
 		</cftransaction>
 	</cfloop>
+</cfif>
+<cfif action is "recoverDisk">
+	<!--- local files are loaded to /SpecimenImages or mediaUploads. Find stuff there that's not in media and delete it --->
+	<cfdirectory action="LIST"
+    	directory="#Application.webDirectory#/SpecimenImages"
+        name="root"
+		recurse="yes">
+	<cfdump var="#root#">
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "report">
