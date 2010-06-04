@@ -43,13 +43,12 @@
 		recurse="yes">
 	<cfoutput>
 	<cfset goodExtensions="jpg">
+	The following files were extracted:
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
-			<br>#name#
+			<br>#name# #size#
 		</cfif>
-		
 	</cfloop>
 	</cfoutput>
-	unzip
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
