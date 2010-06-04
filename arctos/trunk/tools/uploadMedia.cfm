@@ -73,7 +73,7 @@
 			<cfset newwidth = x*imagetemp.width>
 			<cfset newheight = x*imagetemp.height>
 			<cfimage action="resize" source="#directory#/#name#" width="#newwidth#" height="#newheight#" 
-				destination="#application.webDirectory#/temp/#session.username#/tn" name="tn_#name#" overwrite="yes">
+				destination="#application.webDirectory#/temp/#session.username#/tn" name="tn_#name#.jpg" overwrite="yes">
 		</cfif>
 	</cfloop>
 	
