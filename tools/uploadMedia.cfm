@@ -61,6 +61,10 @@
         name="dir"
 		recurse="yes">
 	<cfoutput>
+		<cftry>
+		<cfdirectory action="create" directory="#application.webDirectory#/temp/#session.username#/tn">
+		<cfcatch><!--- exists ---></cfcatch>
+	</cftry>
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
 			
@@ -69,7 +73,7 @@
 			<cfset newwidth = x*imagetemp.width>
 			<cfset newheight = x*imagetemp.height>
 			<cfimage action="resize" source="#directory#/#name#" width="#newwidth#" height="#newheight#" 
-				destination="#directory#" name="tn_#name#">
+				destination="#application.webDirectory#/temp/#session.username#/tn" name="tn_#name#">
 		</cfif>
 	</cfloop>
 	
