@@ -31,8 +31,13 @@
 </cfif>
 <cfif action is "unzip">
 	<cfzip file="#application.webDirectory#/temp/#session.username#/temp.zip" action="unzip" destination="#application.webDirectory#/temp/#session.username#/"/>
-
-
+	<cfdirectory action="LIST"
+    	directory="#application.webDirectory#/temp/#session.username#"
+        name="dir"
+		recurse="yes">
+	<cfloop query="dir">
+		#name#
+	</cfloop>
 	unzip
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
