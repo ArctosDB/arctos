@@ -231,6 +231,7 @@
 	</cfloop>
 </cfif>
 <cfif action is "recoverDisk">
+<cfoutput>
 	<!--- local files are loaded to /SpecimenImages or mediaUploads. Find stuff there that's not in media and delete it --->
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory#/SpecimenImages"
@@ -241,6 +242,7 @@
 			<br>found #directory#/#name#
 		</cfif>
 	</cfloop>
+</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "report">
