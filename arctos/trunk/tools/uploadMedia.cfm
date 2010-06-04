@@ -36,8 +36,14 @@
         name="dir"
 		recurse="yes">
 	<cfoutput>
+	<cfset goodExtensions=".jpg">
 	<cfloop query="dir">
-		<br>#directory#/#name#
+		<cfif listfindnocase(goodExtensions,listlast(name,"."))>
+			<br>GOOD: #directory#/#name#
+		<cfelse>
+			<br>JUNK: #directory#/#name#
+		</cfif>
+		
 	</cfloop>
 	</cfoutput>
 	unzip
