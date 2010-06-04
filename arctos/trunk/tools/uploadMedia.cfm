@@ -30,7 +30,7 @@
 	File accepted. <a href="uploadMedia.cfm?action=unzip">Click to proceed.</a>
 </cfif>
 <cfif action is "unzip">
-	<cfzip file="#application.webDirectory#/temp/#session.username#" action="unzip" destination="c:\temp\tools\classes"/>
+	<cfzip file="#application.webDirectory#/temp/#session.username#/temp.zip" action="unzip" destination="#application.webDirectory#/temp/#session.username#/"/>
 
 
 	unzip
