@@ -252,7 +252,17 @@
 			<br>isUsed.recordcount: #isUsed.recordcount#
 			<cfif isUsed.recordcount is 0>
 				<br>going to delete
+				<cffile action="delete" file="#directory#/#name#">
 			</cfif>
+		<cfelse>
+			<cfdirectory action="list" directory="#directory#" name="current">
+			<br> got a directory #directory# containing #current.recordcount# files
+			<cfif current.recordcount is 0>
+				<br>deleting it
+				<cfdirectory action="delete" directory="#directory#">	
+			</cfif>
+
+
 		</cfif>
 	</cfloop>
 </cfoutput>
