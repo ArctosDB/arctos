@@ -21,12 +21,18 @@
 	<cfdump var=#form#>
 	<cfdump var=#cffile#>
 	
+<cffile 
+    action = "rename"
+    destination = "#application.webDirectory#/temp/#session.username#/temp.zip" 
+    source = "#application.webDirectory#/temp/#session.username#/#cffile.ClientFile#">
 
 
 	File accepted. <a href="uploadMedia.cfm?action=unzip">Click to proceed.</a>
 </cfif>
 <cfif action is "unzip">
-	
+	<cfzip file="#application.webDirectory#/temp/#session.username#" action="unzip" destination="c:\temp\tools\classes"/>
+
+
 	unzip
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
