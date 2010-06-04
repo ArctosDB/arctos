@@ -1,6 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset goodExtensions="jpg">
+
 <cfif action is "nothing">
-	Step One: Upload a ZIP file containing images. Anything else will be rejected.
+	Step One: Upload a ZIP file containing images. Anything else will be rejected. 
+	<br>File extensions are not case sensitive, but must be in #goodExtensions#.
+	<br>File names may not start with _ (underbar) or . (dot).
+	<br>You may need to load smaller batches if you get timeout errors.
+	<br><a href="/contact.cfm">Contact us</a> if you need something else.
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45">
@@ -38,11 +44,8 @@
 	<cfoutput>
 	<cfset goodExtensions="jpg">
 	<cfloop query="dir">
-		<br>name: #name#
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
-			<br>GOOD: #directory#/#name#
-		<cfelse>
-			<br>JUNK: #directory#/#name#
+			<br>#name#
 		</cfif>
 		
 	</cfloop>
