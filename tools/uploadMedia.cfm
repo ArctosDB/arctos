@@ -145,8 +145,7 @@
 	<cfloop query="dir">
 		<br>--#directory#/#name#
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
-			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
-			<cffile action="move" source="#webpath#" destination="#finalpath#/#name#">
+			<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
 		</cfif>		
 	</cfloop>
 	<cfdirectory action="LIST"
