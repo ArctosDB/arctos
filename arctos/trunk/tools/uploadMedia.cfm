@@ -151,7 +151,7 @@
 		
 		
 	<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#.csv">
-	<cfset variables.encoding="UTF-8">
+	<cfset variables.encoding="US-ASCII">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		a='media_uri,media_type,mime_type,preview_uri,media_relationships,media_labels';
@@ -181,13 +181,10 @@
 		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
-	<br>Your uploads are now on the webserver. A CSV template should automatically download (
-	<a href="/download/BulkMediaTemplate_#session.username#.csv">Click here if your file does not automatically download</a>).
+	<br>Your uploads are now on the webserver. You now need to 
+	<a href="/download.cfm?file=BulkMediaTemplate_#session.username#.csv">download the CSV template</a>),
+	fill in relationships and labels, and load it through Media Bulkloader.
 	
-	You may fill in relationships and labels, then load it through Media Bulkloader.
-	
-	
-	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
 	
 	
 	</cfoutput>
