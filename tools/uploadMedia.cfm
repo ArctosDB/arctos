@@ -143,6 +143,7 @@
 		recurse="yes">
 	<cfoutput>
 	<cfloop query="dir">
+		<br>--#directory#/#name#
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
 			<cfset webpath=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
 			<cffile action="move" source="#webpath#" destination="#finalpath#/#name#">
@@ -152,7 +153,7 @@
     	directory="#finalpath#"
         name="final">
 	<cfloop query="final">
-		#directory#/#name#
+		<br>#directory#/#name#
 	</cfloop>
 	</cfoutput>
 </cfif>
