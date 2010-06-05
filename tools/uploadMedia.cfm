@@ -147,9 +147,7 @@
 			<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
 		</cfif>		
 	</cfloop>
-	<cfdirectory action="LIST"
-    	directory="#finalpath#"
-        name="final">
+	<cfdirectory action="LIST" directory="#finalpath#" name="final">
 		
 		
 	<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#.csv">
@@ -183,12 +181,14 @@
 		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
-	
-	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
 	<br>Your uploads are now on the webserver. A CSV template should automatically download (
 	<a href="/download/BulkMediaTemplate_#session.username#.csv">Click here if your file does not automatically download</a>).
 	
 	You may fill in relationships and labels, then load it through Media Bulkloader.
+	
+	
+	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
+	
 	
 	</cfoutput>
 </cfif>
