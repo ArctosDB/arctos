@@ -143,7 +143,7 @@
 		recurse="yes">
 	<cfoutput>
 	<cfloop query="dir">
-		<br>--#directory#/#name#
+		<br>--#directory#/==#name#===
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
 			<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
 		</cfif>		
