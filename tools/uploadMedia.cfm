@@ -98,9 +98,8 @@
 		<form name="f" method="post" action="uploadMedia.cfm">
 		<table border>
 			<tr>
-				<td>thumb</td>
-				<td>image</td>
 				<td>Attributes</td>
+				<td>image</td>
 			</tr>
 		<cfset i=1>
 	<cfloop query="dir">
@@ -111,13 +110,19 @@
 			<cfquery name="thumb" dbtype="query">
 				select * from dir where name='tn_#name#'
 			</cfquery>
+			<cfset tnwebpath="">
 			<cfif thumb.recordcount is 1>
 				<cfset tnwebpath=replace(thumb.directory,application.webDirectory,application.serverRootUrl) & "/" & thumb.name>
 			</cfif>
 			
 			<tr>
 			<td>
-				<img src="#tnwebpath#">
+				<cfif len(tnwebpath) gt 0>
+					<img src="#tnwebpath#">
+				<cfelse>
+					NO THUMBNAIL
+				</cfif>
+				<!---
 				<br>TempImageId: #i#
 				<input type="text" value="#tnwebpath#" name="tnwebpath_#i#" id="nwebpath_#i#">
 				<input type="text" value="#webpath#" name="webpath_#i#" id="webpath_#i#">
@@ -142,7 +147,7 @@
 				</select>
 		
 			
-			
+				--->
 			</td>
 			<td>
 			<img src="#webpath#">
