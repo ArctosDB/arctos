@@ -143,12 +143,7 @@
 		recurse="yes">
 	<cfoutput>
 	<cfloop query="dir">
-		<br>--#directory#/==#name#===
-		<br>left(name,1): #left(name,1)#
-		<br>listfindnocase(goodExtensions,listlast(name,".")): #listfindnocase(goodExtensions,listlast(name,"."))#
-		<br>
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
-			<br>MOVING #directory#/#name# to #finalpath#/#name#
 			<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
 		</cfif>		
 	</cfloop>
@@ -157,7 +152,7 @@
         name="final">
 		
 		
-	<cfset variables.fileName="#Application.webDirectory#/temp/BulkMediaTemplate_#session.username#.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaTemplate_#session.username#.csv">
 	<cfset variables.encoding="UTF-8">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
@@ -180,7 +175,7 @@
 			<cfset mimetype="image/jpeg">
 			<cfset mediatype="image">
 			<cfscript>
-				a='"' & muri  & '","' & mediatype & '","' & mimetype & '","' & tnwebpath & '","",""' & chr(10);
+				a='"' & muri  & '","' & mediatype & '","' & mimetype & '","' & tnwebpath & '","",""';
 				variables.joFileWriter.writeLine(a);
 			</cfscript>	
 		</cfif>
@@ -189,8 +184,11 @@
 			variables.joFileWriter.close();
 		</cfscript>
 	
+	<cflocation url="/download.cfm?file=BulkMediaTemplate_#session.username#.csv" addtoken="false">
+	<br>Your uploads are now on the webserver. A CSV template should automatically download (
+	<a href="/download/BulkMediaTemplate_#session.username#.csv">Click here if your file does not automatically download</a>).
 	
-	/temp/BulkMediaTemplate_#session.username#.csv
+	You may fill in relationships and labels, then load it through Media Bulkloader.
 	
 	</cfoutput>
 </cfif>
