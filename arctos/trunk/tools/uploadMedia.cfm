@@ -148,6 +148,7 @@
 		<br>listfindnocase(goodExtensions,listlast(name,".")): #listfindnocase(goodExtensions,listlast(name,"."))#
 		<br>
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
+			<br>MOVING #directory#/#name# to #finalpath#/#name#
 			<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
 		</cfif>		
 	</cfloop>
