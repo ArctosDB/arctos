@@ -117,17 +117,10 @@
 			
 			<tr>
 			<td>
-			<img src="#tnwebpath#">
-			</td>
-			<td>
-			<img src="#webpath#">
-			</td>
-			
-
-			<td>
-				TempImageId" #i#
+				<img src="#tnwebpath#">
+				<br>TempImageId: #i#
 				<input type="text" value="#tnwebpath#" name="tnwebpath_#i#" id="nwebpath_#i#">
-				<input type="text" value="#webpath#" name="webpath_#i#">
+				<input type="text" value="#webpath#" name="webpath_#i#" id="webpath_#i#">
 				<label for="created_by_agent_#i#">Create By Agent</label>
 				<input type="text" name="created_by_agent_#i#" id="created_by_agent_#i#" value="#session.username#" >
 				<input type="text" name="created_by_agent_id_#i#" id="created_by_agent_id_#i#" value="#session.myagentid#" >
@@ -148,6 +141,16 @@
 					</cfloop>
 				</select>
 		
+			
+			
+			</td>
+			<td>
+			<img src="#webpath#">
+			</td>
+			
+
+			<td>
+				
 			</td>
 			</tr>
 			<cfset i=i+1>
