@@ -3,9 +3,11 @@
 
 <cfif action is "nothing">
 	Step One: Upload a ZIP file containing images. Anything else will be rejected. 
-	<br>File extensions are not case sensitive, but must be in #goodExtensions#.
+	<br>File extensions are not case sensitive, but must be in 
+	<cfoutput>#goodExtensions#</cfoutput>.
 	<br>File names may not start with _ (underbar) or . (dot).
-	<br>You may need to load smaller batches if you get timeout errors.
+	<br>You may need to load smaller batches if you get timeout errors. Around 2 files per upload should work. 
+	<a href="/contact.cfm">Contact us</a> or use other means to get your Media to the web if that's not practical.
 	<br>You may include thumbnails, which should be JPG files prefixed with "tn_", or you may create them with this app.
 	Do not click the "create thumbnails" option when you get to it if you've uploaded thumbnails.
 	<br><a href="/contact.cfm">Contact us</a> if you need something else.
@@ -26,8 +28,6 @@
 		fileField="Form.FiletoUpload"
 		accept="application/zip"
 			mode="777">
-	<cfdump var=#form#>
-	<cfdump var=#cffile#>
 	
 <cffile 
     action = "rename"
@@ -162,7 +162,7 @@
 	<cfloop query="final">
 		<cfif left(name,3) is not "tn_">
 			<cfquery name="thumb" dbtype="query">
-				select * from dir where name='tn_#name#'
+				select * from final where name='tn_#name#'
 			</cfquery>
 			<cfset tnwebpath="">
 			<cfif thumb.recordcount is 1>
@@ -182,7 +182,7 @@
 			variables.joFileWriter.close();
 		</cfscript>
 	<br>Your uploads are now on the webserver. You now need to 
-	<a href="/download.cfm?file=BulkMediaTemplate_#session.username#.csv">download the CSV template</a>),
+	<a href="/download.cfm?file=BulkMediaTemplate_#session.username#.csv">download the CSV template</a>,
 	fill in relationships and labels, and load it through Media Bulkloader.
 	
 	
