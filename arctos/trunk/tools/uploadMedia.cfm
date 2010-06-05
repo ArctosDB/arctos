@@ -155,9 +155,43 @@
 	<cfdirectory action="LIST"
     	directory="#finalpath#"
         name="final">
+		
+		
+	<cfset variables.fileName="#Application.webDirectory#/temp/BulkMediaTemplate_#session.username#.csv">
+	<cfset variables.encoding="UTF-8">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		a='media_uri,media_type,mime_type,preview_uri,media_relationships,media_labels';
+		variables.joFileWriter.writeLine(a);
+	</cfscript>	
+	
+	
 	<cfloop query="final">
-		<br>#directory#/#name#
+		<cfif left(name,3) is not "tn_">
+			<cfquery name="thumb" dbtype="query">
+				select * from dir where name='tn_#name#'
+			</cfquery>
+			<cfset tnwebpath="">
+			<cfif thumb.recordcount is 1>
+				<cfset tnwebpath=replace(thumb.directory,application.webDirectory,application.serverRootUrl) & "/" & thumb.name>
+			</cfif>
+			<cfset muri=replace(directory,application.webDirectory,application.serverRootUrl) & "/" & name>
+
+			<cfset mimetype="image/jpeg">
+			<cfset mediatype="image">
+			<cfscript>
+				a='"' & muri  & '","' & mediatype & '","' & mimetype & '","' & tnwebpath & '","",""' & chr(10);
+				variables.joFileWriter.writeLine(a);
+			</cfscript>	
+		</cfif>
 	</cfloop>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+	
+	
+	/temp/BulkMediaTemplate_#session.username#.csv
+	
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
