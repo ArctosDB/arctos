@@ -144,6 +144,9 @@
 	<cfoutput>
 	<cfloop query="dir">
 		<br>--#directory#/==#name#===
+		<br>left(name,1): #left(name,1)#
+		<br>listfindnocase(goodExtensions,listlast(name,".")): #listfindnocase(goodExtensions,listlast(name,"."))#
+		<br>
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
 			<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
 		</cfif>		
