@@ -83,16 +83,26 @@
 
 </cfif>
 <cfif action is "preview">
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select media_type from ctmedia_type order by media_type
+	</cfquery>
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select mime_type from ctmime_type order by mime_type
+	</cfquery>
+	
 	<cfdirectory action="LIST"
     	directory="#application.webDirectory#/temp/#session.username#"
         name="dir"
 		recurse="yes">
 	<cfoutput>
+		<form name="f" method="post" action="uploadMedia.cfm">
 		<table border>
 			<tr>
 				<td>thumb</td>
 				<td>image</td>
+				<td>Attributes</td>
 			</tr>
+		<cfset i=1>
 	<cfloop query="dir">
 		
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not "." and left(name,3) is not "tn_">
@@ -111,10 +121,40 @@
 			</td>
 			<td>
 			<img src="#webpath#">
-			</td></tr>
+			</td>
+			
+
+			<td>
+				TempImageId" #i#
+				<input type="text" value="#tnwebpath#" name="tnwebpath_#i#" id="nwebpath_#i#">
+				<input type="text" value="#webpath#" name="webpath_#i#">
+				<label for="created_by_agent_#i#">Create By Agent</label>
+				<input type="text" name="created_by_agent_#i#" id="created_by_agent_#i#" value="#session.username#" >
+				<input type="text" name="created_by_agent_id_#i#" id="created_by_agent_id_#i#" value="#session.myagentid#" >
+				<label for="description_#i#">Description</label>
+				<input type="text" name="description_#i#" id="description_#i#" value="">
+				<cfset thisMediaType="image">
+				<label for="media_type_#i#">Media Type</label>
+				<select name="media_type_#i#" id="media_type_#i#" >
+					<cfloop query="ctmedia_type">
+						<option <cfif thisMediaType is media_type> selected="selected"</cfif> value="#media_type#">#media_type#</option>
+					</cfloop>
+				</select>
+				<cfset thisMimeType="image/jpeg">
+				<label for="mime_type_#i#">MIME Type</label>
+				<select name="mime_type_#i#" id="mime_type_#i#" >
+					<cfloop query="ctmime_type">
+						<option <cfif thisMimeType is mime_type> selected="selected"</cfif> value="#mime_type#">#mime_type#</option>
+					</cfloop>
+				</select>
+		
+			</td>
+			</tr>
+			<cfset i=i+1>
 		</cfif>		
 	</cfloop>
 	</table>
+	</form>
 	</cfoutput>
 </cfif>
 <cfif action is "webserver">
