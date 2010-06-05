@@ -95,10 +95,9 @@
         name="dir"
 		recurse="yes">
 	<cfoutput>
-		<form name="f" method="post" action="uploadMedia.cfm">
 		<table border>
 			<tr>
-				<td>Attributes</td>
+				<td>thumb</td>
 				<td>image</td>
 			</tr>
 		<cfset i=1>
@@ -154,15 +153,11 @@
 			</td>
 			
 
-			<td>
-				
-			</td>
 			</tr>
 			<cfset i=i+1>
 		</cfif>		
 	</cfloop>
 	</table>
-	</form>
 	</cfoutput>
 </cfif>
 <cfif action is "webserver">
