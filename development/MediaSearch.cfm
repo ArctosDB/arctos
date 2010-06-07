@@ -408,17 +408,6 @@
 	<br>				
 	<cfset rownum=1>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
-<table>
-	<!-- Results Table Header -->
-	<tr>
-		<td><center><strong>Media Preview</strong></center></td>
-		<td><center><strong>Type</strong></center></td>
-		<td><center><strong>Details</strong></center></td>
-		<td><center><strong>Download</strong></center></td>
-		<td><center><strong>Map</strong></center></td>
-		<td><center><strong>Related Keywords</strong></center></td>		
-	</tr>
-<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")>
 
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -446,6 +435,7 @@
 	</cfif>
 	<cfset alt="#media_uri#">
 	<cfif desc.recordcount is 1>
+		<table>
 		<cfif findIDs.recordcount is 1>
 			<cfset title = desc.label_value>
 			<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
@@ -581,6 +571,16 @@
 		</tr>
 		
 	<cfelse>
+		<table>
+			<!-- Results Table Header -->
+			<tr>
+				<td><center><strong>Media Preview (Click to View)</strong></center></td>
+				<td><center><strong>Type</strong></center></td>
+				<td><center><strong>Details</strong></center></td>
+				<td><center><strong>Map</strong></center></td>
+				<td><center><strong>Related Keywords</strong></center></td>		
+			</tr>
+		<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")>
 
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<!--	<td> -->
@@ -692,14 +692,17 @@
 				<!-- <table>
 					<tr> -->
 				<td align="middle">
-					<img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;">
+					<cfheader name="content-disposition" value="attachment;filename=#trim(media__url)#">
+					<cfcontent type="#mime_type#" file="#trim(media_url)#" deletefile="No">
+					<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
+				
 				</td>
 				<td align="middle">#media_type#</td> 
 				<td align="middle"><a href="#media_details_url#" target="_blank">Details</a></td>
-				<td align="middle">
+				<!-- <td align="middle">
 					<cfheader name="content-disposition" value="attachment;filename=#trim(media_details_url)#">
 					<cfcontent type="#mime_type#" file="#trim(media_details_url)#" deletefile="No">
-					<a href="#media_uri#" target="_blank">Download</a></td>
+					<a href="#media_uri#" target="_blank">Download</a></td> -->
 				<td align="middle">					
 					<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
 						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
