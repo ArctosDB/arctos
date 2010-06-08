@@ -1,4 +1,6 @@
 <cfoutput >
+	
+	<cfif action is "nothing">
 <cfquery name="d" datasource="uam_god">
 	select
 		collection,
@@ -18,11 +20,12 @@
 		loan_number,
 		loan.transaction_id
 </cfquery>
-
 <cfloop query="d">
-	<hr>
-	#loan_number# #transaction_id#<br>
-	
+	<a href="a.cfm?action=l&transaction_id=#transaction_id#">#loan_number#</a><br>
+</cfloop>
+</cfif>
+<cfif action is "l">
+<cfloop query="d">	
 	<cfif loan_number is "1993.001.Mamm">
 		<cfset usepart="kidney">
 	<cfelseif loan_number is "1993.012.Mamm">
@@ -117,4 +120,7 @@
 		<br>#cat_num# ---- #sp.part_name#
 	</cfloop>
 </cfloop>
+</cfif>
+
+
 </cfoutput>
