@@ -1,6 +1,6 @@
 <cfoutput >
-	
-	<cfif action is "nothing">
+<cfif not isdefined("action") ><cfset action="nothing"></cfif>
+<cfif action is "nothing">
 <cfquery name="d" datasource="uam_god">
 	select
 		collection,
