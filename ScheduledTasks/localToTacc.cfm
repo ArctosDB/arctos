@@ -285,17 +285,19 @@
 			<br>isUsed.recordcount: #isUsed.recordcount#
 			<cfif isUsed.recordcount is 0>
 				<br>going to delete
-				<cffile action="delete" file="#directory#/#name#">
+				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq "."> 
+				 	<cffile action="delete" file="#directory#/#name#">
+				 </cfif> 				
 			</cfif>
 		<cfelse>
 			<cfdirectory action="list" directory="#directory#/#name#" name="current">
 			<br> got a directory #directory#/#name# containing #current.recordcount# files
 			<cfif current.recordcount is 0>
 				<br>deleting it
-				<cfdirectory action="delete" directory="#directory#/#name#">	
+				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq "."> 
+				 	<cffile action="delete" file="#directory#/#name#">
+				 </cfif> 
 			</cfif>
-
-
 		</cfif>
 	</cfloop>
 </cfoutput>
