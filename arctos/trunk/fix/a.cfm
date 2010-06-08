@@ -98,7 +98,7 @@
 			select part_name from specimen_part where part_name='#usepart#' and
 			derived_from_cat_item=#collection_object_id#
 		</cfquery>
-		<br>#cat_num# ---- #sp.part_name@
+		<br>#cat_num# ---- #sp.part_name#
 	</cfloop>
 </cfloop>
 </cfoutput>
