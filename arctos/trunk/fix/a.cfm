@@ -25,6 +25,7 @@
 </cfloop>
 </cfif>
 <cfif action is "l">
+	<a href="/Loan.cfm?transaction_id=#transaction_id#&Action=editLoan">#loan_number#</a>
 	<cfif loan_number is "1993.001.Mamm">
 		<cfset usepart="kidney">
 	<cfelseif loan_number is "1993.012.Mamm">
@@ -94,8 +95,20 @@
 		from cataloged_item,loan_item where cataloged_item.collection_object_id=loan_item.collection_object_id
 		and loan_item.transaction_id=#transaction_id#
 	</cfquery>
-
+	<cfquery name="pn" datasource="uam_god">
+		select part_name from ctspecimen_part_name where collection_cde='Mamm' order by part_name
+	</cfquery>
+	<form name="a" action="a.cfm" method="post">
+		<input type="hidden" name="action" value="addparts">
+		<input type="hidden" name="transaction_id" value="#transaction_id#">
+		<input type="hidden" name="loan_number" value="#loan_number#">
+		<select name="part">
+			<cfloop query="pn">
+				<option value='#part_name#'>#part_name#</option>
+			</cfloop>
+		</select>
 	<cfloop query="cat">
+		<input type="hidden" name="catid" value="#collection_object_id#">
 		<cfif len(usepart) gt 0>
 			<cfquery name="sp" datasource="uam_god">
 				select part_name from specimen_part where part_name='#usepart#' and
@@ -118,7 +131,12 @@
 		</cfif>
 		<br>#cat_num# ---- #sp.part_name#
 	</cfloop>
+	<input type="submit">
+	
+	</form>
 </cfif>
-
+<cfif action is "addparts">
+	<cfdump var="#form#">
+</cfif>
 
 </cfoutput>
