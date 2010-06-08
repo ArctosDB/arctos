@@ -101,7 +101,7 @@
 			</cfquery>
 			<cfif sp.recordcount is 0>
 				<cfquery name="sp" datasource="uam_god">
-					select part_name from specimen_part where part_name like '#%usepart%#' and
+					select part_name from specimen_part where part_name like '%#usepart#%' and
 					derived_from_cat_item=#collection_object_id#
 				</cfquery>
 				<cfif sp.recordcount is 0>
