@@ -25,7 +25,6 @@
 </cfloop>
 </cfif>
 <cfif action is "l">
-<cfloop query="d">	
 	<cfif loan_number is "1993.001.Mamm">
 		<cfset usepart="kidney">
 	<cfelseif loan_number is "1993.012.Mamm">
@@ -119,7 +118,6 @@
 		</cfif>
 		<br>#cat_num# ---- #sp.part_name#
 	</cfloop>
-</cfloop>
 </cfif>
 
 
