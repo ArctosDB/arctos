@@ -87,17 +87,35 @@
 	<cfelse>
 		<cfset usepart=''>
 	</cfif>
-	<br>going to use part #usepart#
-	<cfquery name="cat" datasource="uam_god">
-		select 
-			cat_num,
-			cataloged_item.collection_object_id
-		from cataloged_item,loan_item where cataloged_item.collection_object_id=loan_item.collection_object_id
-		and loan_item.transaction_id=#transaction_id#
-	</cfquery>
+	<cfif not isdefined("pickedpart")>
+		<cfset pickedpart="">
+	</cfif>
+	
 	<cfquery name="pn" datasource="uam_god">
 		select part_name from ctspecimen_part_name where collection_cde='Mamm' order by part_name
 	</cfquery>
+	<br>part is supposed to be #usepart#
+	<form name="b" action="a.cfm" method="post">
+		<input type="hidden" name="action" value="l">
+		<input type="hidden" name="transaction_id" value="#transaction_id#">
+		<input type="hidden" name="loan_number" value="#loan_number#">
+		<select name="pickedpart">
+			<cfloop query="pn">
+				<option <cfif pickedpart is part_name> selected="selected" </cfif>value='#part_name#'>#part_name#</option>
+			</cfloop>
+		</select>
+		<input type="submit">
+	</form>
+	
+	<cfquery name="cat" datasource="uam_god">
+		select 
+			cat_num,
+			cataloged_item.collection_object_id,
+			concatparts(cataloged_item.collection_object_id) parts
+		from cataloged_item,loan_item where cataloged_item.collection_object_id=loan_item.collection_object_id
+		and loan_item.transaction_id=#transaction_id#
+	</cfquery>
+	
 	<form name="a" action="a.cfm" method="post">
 		<input type="hidden" name="action" value="addparts">
 		<input type="hidden" name="transaction_id" value="#transaction_id#">
@@ -109,14 +127,16 @@
 		</select>
 	<cfloop query="cat">
 		<input type="hidden" name="catid" value="#collection_object_id#">
+		<!---
 		<cfif len(usepart) gt 0>
 			<cfquery name="sp" datasource="uam_god">
-				select part_name from specimen_part where part_name='#usepart#' and
+				select part_name from specimen_part where part_name='#pickedpart#' and
 				derived_from_cat_item=#collection_object_id#
+				group by part_name
 			</cfquery>
 			<cfif sp.recordcount is 0>
 				<cfquery name="sp" datasource="uam_god">
-					select part_name from specimen_part where part_name like '%#usepart#%' and
+					select part_name from specimen_part where part_name like '%#pickedpart#%' and
 					derived_from_cat_item=#collection_object_id#
 				</cfquery>
 				<cfif sp.recordcount is 0>
@@ -129,7 +149,8 @@
 				derived_from_cat_item=#collection_object_id#
 			</cfquery>
 		</cfif>
-		<br>#cat_num# ---- #sp.part_name#
+		--->
+		<br>#cat_num# ---- #parts#
 	</cfloop>
 	<input type="submit">
 	
@@ -137,6 +158,17 @@
 </cfif>
 <cfif action is "addparts">
 	<cfdump var="#form#">
+	<cfloop list="#collection_object_id#" index="i">
+		<cfquery name="sp" datasource="uam_god">
+			select part_name from specimen_part where part_name = '#part_name#' and
+			derived_from_cat_item=#i#
+		</cfquery>
+		<cfif sp.recordcount is 1>
+			<br>found a part
+		<cfelse>
+			<br>makin a part
+		</cfif>
+	</cfloop>
 </cfif>
 
 </cfoutput>
