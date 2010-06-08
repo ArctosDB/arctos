@@ -3,10 +3,10 @@
 <cfif action is "nothing">
 	This form allows you to upload a ZIP archive containing images, extract the images, create thumbnails, preview the
 	results, load the images to Arctos, and download a Media Bulkloader template containing the URIs of the images you loaded.
-	<br>
+	<p>
 	Step One: Upload a ZIP file containing images. Anything else will be rejected.
 	<br>File extensions are not case sensitive, but must be in 
-	<cfoutput>#goodExtensions#</cfoutput>.
+	( <cfoutput>#goodExtensions#</cfoutput> ).
 	<br>File names may not start with _ (underbar) or . (dot).
 	<br>You may need to load smaller batches if you get timeout errors. You can start over at any time without breaking anything. 
 	The number of files that will work is dependant on file format and file size. 25 medium-sized JPGs works easily.
@@ -32,7 +32,7 @@
 		nameConflict="overwrite"
 		fileField="Form.FiletoUpload"
 		accept="application/zip"
-			mode="777">
+		mode="777">
 	<cffile 
 	    action = "rename"
 	    destination = "#application.webDirectory#/temp/#session.username#/temp.zip" 
@@ -41,10 +41,7 @@
 </cfif>
 <cfif action is "unzip">
 	<cfzip file="#application.webDirectory#/temp/#session.username#/temp.zip" action="unzip" destination="#application.webDirectory#/temp/#session.username#/"/>
-	<cfdirectory action="LIST"
-    	directory="#application.webDirectory#/temp/#session.username#"
-        name="dir"
-		recurse="yes">
+	<cfdirectory action="LIST" directory="#application.webDirectory#/temp/#session.username#" name="dir" recurse="yes">
 	<cfoutput>
 	The following files were extracted:
 	<table border>
@@ -67,9 +64,7 @@
 	</cfoutput>
 </cfif>
 <cfif action is "thumb">
-	<cfdirectory action="LIST"
-    	directory="#application.webDirectory#/temp/#session.username#"
-        name="dir" recurse="yes">
+	<cfdirectory action="LIST" directory="#application.webDirectory#/temp/#session.username#" name="dir" recurse="yes">
 	<cfoutput>
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
@@ -82,15 +77,13 @@
 		</cfif>
 	</cfloop>
 	Thumbnails created.
-	<a href="uploadMedia.cfm?action=preview">Contiue to Preview</a>.
+	<a href="uploadMedia.cfm?action=preview">Continue to Preview</a>.
 	</cfoutput>
 </cfif>
 <cfif action is "preview">
 	<cfoutput>
 		If all the below looks OK, you may <a href="uploadMedia.cfm?action=webserver">load to the webserver.</a>
-		<cfdirectory action="LIST"
-	    	directory="#application.webDirectory#/temp/#session.username#"
-	        name="dir" recurse="yes">
+		<cfdirectory action="LIST" directory="#application.webDirectory#/temp/#session.username#" name="dir" recurse="yes">
 		<table border>
 			<tr>
 				<td>thumb</td>
@@ -133,10 +126,7 @@
 		<cfdirectory action="create" directory="#finalpath#">
 		<cfcatch><!--- exists ---></cfcatch>
 	</cftry>
-	<cfdirectory action="LIST"
-    	directory="#application.webDirectory#/temp/#session.username#"
-        name="dir"
-		recurse="yes">
+	<cfdirectory action="LIST" directory="#application.webDirectory#/temp/#session.username#" name="dir" recurse="yes">
 	<cfloop query="dir">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
 			<cffile action="move" source="#directory#/#name#" destination="#finalpath#/#name#">
