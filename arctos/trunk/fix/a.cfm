@@ -82,7 +82,7 @@
 	<cfelseif loan_number is "1994.052.Mamm">
 		<cfset usepart="skull, skeleton, skin">
 	<cfelse>
-		<cfset usepart='WHATEVER'>
+		<cfset usepart=''>
 	</cfif>
 	<br>going to use part #usepart#
 	<cfquery name="cat" datasource="uam_god">
@@ -94,10 +94,23 @@
 	</cfquery>
 
 	<cfloop query="cat">
-		<cfquery name="sp" datasource="uam_god">
-			select part_name from specimen_part where part_name='#usepart#' and
-			derived_from_cat_item=#collection_object_id#
-		</cfquery>
+		<cfif len(usepart) gt 0>
+			<cfquery name="sp" datasource="uam_god">
+				select part_name from specimen_part where part_name='#usepart#' and
+				derived_from_cat_item=#collection_object_id#
+			</cfquery>
+			<cfif sp.recordcount is 0>
+				<cfquery name="sp" datasource="uam_god">
+					select part_name from specimen_part where part_name like '#%usepart%#' and
+					derived_from_cat_item=#collection_object_id#
+				</cfquery>
+				<cfif sp.recordcount is 0>
+					<br>still not found
+				</cfif>
+			</cfif>
+		<cfelse>
+			<br>something else....
+		</cfif>
 		<br>#cat_num# ---- #sp.part_name#
 	</cfloop>
 </cfloop>
