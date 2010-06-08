@@ -22,10 +22,7 @@
 <cfloop query="d">
 	<hr>
 	#loan_number# #transaction_id#<br>
-	<cfquery name="sp" datasource="uam_god">
-		select cat_num from cataloged_item,loan_item where cataloged_item.collection_object_id=loan_item.collection_object_id
-		and loan_item.transaction_id=#transaction_id#
-	</cfquery>
+	
 	<cfif loan_number is "1993.001.Mamm">
 		<cfset usepart="kidney">
 	<cfelseif loan_number is "1993.012.Mamm">
@@ -88,10 +85,20 @@
 		<cfset usepart='WHATEVER'>
 	</cfif>
 	<br>going to use part #usepart#
+	<cfquery name="cat" datasource="uam_god">
+		select 
+			cat_num,
+			cataloged_item.collection_object_id
+		from cataloged_item,loan_item where cataloged_item.collection_object_id=loan_item.collection_object_id
+		and loan_item.transaction_id=#transaction_id#
+	</cfquery>
 
-
-	<cfloop query="sp">
-		<br>#cat_num#
+	<cfloop query="cat">
+		<cfquery name="sp" datasource="uam_god">
+			select part_name from specimen_part where part_name='#usepart#' and
+			derived_from_cat_item=#collection_object_id#
+		</cfquery>
+		<br>#cat_num# ---- #sp.part_name@
 	</cfloop>
 </cfloop>
 </cfoutput>
