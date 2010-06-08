@@ -109,7 +109,10 @@
 				</cfif>
 			</cfif>
 		<cfelse>
-			<br>something else....
+			<cfquery name="sp" datasource="uam_god">
+				select 'WWWWWWWWWWWW' part_name from specimen_part where part_name='#usepart#' and
+				derived_from_cat_item=#collection_object_id#
+			</cfquery>
 		</cfif>
 		<br>#cat_num# ---- #sp.part_name#
 	</cfloop>
