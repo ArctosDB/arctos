@@ -403,6 +403,7 @@
 	</cfsavecontent>
 	#pager#
 	<br>
+	<cfset mapurl="">
 	<span class="controlButton"
 		onclick="window.open('/development/MediaSearchDownload.cfm?tableName=#session.MediaSrchTab#','_blank');">Bulk Download Media Results</span>
 	<span class="controlButton"
