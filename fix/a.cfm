@@ -20,6 +20,7 @@
 </cfquery>
 
 <cfloop query="d">
+	<hr>
 	#loan_number# #transaction_id#<br>
 	<cfquery name="sp" datasource="uam_god">
 		select cat_num from cataloged_item,loan_item where cataloged_item.collection_object_id=loan_item.collection_object_id
