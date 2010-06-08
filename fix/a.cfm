@@ -21,7 +21,7 @@
 		loan.transaction_id
 </cfquery>
 <cfloop query="d">
-	<a href="a.cfm?action=l&transaction_id=#transaction_id#">#loan_number#</a><br>
+	<a href="a.cfm?action=l&transaction_id=#transaction_id#&loan_number=#loan_number#">#loan_number#</a><br>
 </cfloop>
 </cfif>
 <cfif action is "l">
