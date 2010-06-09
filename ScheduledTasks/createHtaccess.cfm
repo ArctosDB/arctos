@@ -11,10 +11,11 @@
 	<cfloop query="d">
 		<cfscript>
 			a='RewriteCond %{REMOTE_ADDR} #ip#';
-			if(i lt d.recordcount+1){
+			if(i lt d.recordcount-1){
 				a=a & ' [OR]';
 			}
 			variables.joFileWriter.writeLine(a);
+			i=i+1;
 		</cfscript>
 	</cfloop>
 	<cfscript>
