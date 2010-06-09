@@ -426,6 +426,9 @@
 		<td><center><strong>Related Keywords</strong></center></td>		
 	</tr>
 </cfif>
+
+<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")>
+
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
@@ -587,7 +590,6 @@
 				</tr>
 		</cfif>	
 	<cfelse>
-		<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")>
 
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<!--	<td> -->
@@ -699,7 +701,7 @@
 				<!-- <table>
 					<tr> -->
 				<td align="middle">
-					<cfheader name="content-disposition" value="attachment;filename=#trim(media__url)#">
+					<cfheader name="content-disposition" value="attachment;filename=#trim(media_url)#">
 					<cfcontent type="#mime_type#" file="#trim(media_url)#" deletefile="No">
 					<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
 				
