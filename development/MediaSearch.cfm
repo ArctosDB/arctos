@@ -716,8 +716,8 @@
 			<!-- Grid Display -->
 
 			<td align="middle">
-				<cfheader name="content-disposition" value="attachment;filename=#trim(media_url)#">
-				<cfcontent type="#mime_type#" file="#trim(media_url)#" deletefile="No">
+				<cfheader name="content-disposition" value="attachment;filename=#trim(media_uri)#">
+				<cfcontent type="#mime_type#" file="#trim(media_uri)#" deletefile="No">
 				<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
 			
 			</td>
