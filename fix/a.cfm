@@ -151,7 +151,7 @@
 	<cfdump var="#form#">
 	<cftransaction>
 	<cfloop list="#catid#" index="i">
-		<cfquery name="sp" datasource="uam_god">
+		<cfquery name="sp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select specimen_part.collection_object_id,
 			part_name from specimen_part where part_name = '#part#' and
 			derived_from_cat_item=#i#
