@@ -162,7 +162,7 @@
 					sends email and something somewhere is probably misspelled or something
 				 --->
 				<cfloop query="notificationAgents">
-					<cfmail to="#address#" bcc="dustymc@gmail.com" 
+					<cfmail to="#address#" bcc="arctos.database@gmail.com" 
 						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">
 						Dear #agent_name#,
 						<p>
@@ -176,7 +176,7 @@
 			</cfif>
 			<!--- and an email for each in-house contact --->
 			<cfloop query="inhouseAgents">
-				<cfmail to="#address#" bcc="dustymc@gmail.com" 
+				<cfmail to="#address#" bcc="arctos.database@gmail.com" 
 					subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">
 					Dear #agent_name#,
 					<p>
@@ -195,7 +195,7 @@
 			<cfif expires_in_days lte 0>
 				<!--- the loan expires on or BEFORE today; also email the collection's loan request agent, if there is one --->
 				<cfloop query="collectionAgents">
-					<cfmail to="#address#" bcc="dustymc@gmail.com" 
+					<cfmail to="#address#" bcc="arctos.database@gmail.com" 
 						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">Dear #agent_name#,
 						<p>
 							You are receiving this message because you are listed as a #loan.collection# loan request collection contact. 
@@ -305,7 +305,7 @@
 					accn_number,
 					received_date
 			</cfquery>
-			<cfmail to="#valuelist(contact.ADDRESS)#" bcc="dustymc@gmail.com" subject="Bare Accession" from="bare_accession@#Application.fromEmail#" type="html">
+			<cfmail to="#valuelist(contact.ADDRESS)#" bcc="arctos.database@gmail.com" subject="Bare Accession" from="bare_accession@#Application.fromEmail#" type="html">
 				You are receiving this message because you are the data quality contact for collection #collection#.
 				<p>
 					The following accessions are one or more years old and have no specimens attached.

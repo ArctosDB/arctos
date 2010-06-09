@@ -34,7 +34,7 @@
 		You may import data from any file format, type the data into the table, write your own data entry screen, 
 		or use any other method you choose. We appreciate documentation - you, the user, know what works and 
 		doesn't work better than anyone else. Please send documentation, in HTML format, to 
-		<a href="mailto: dustymc@gmail.com">Dusty</a> if you would like them linked from here.
+		<a href="mailto: arctos.database@gmail.com">Arctos</a> if you would like them linked from here.
 		<p>The bulkloader will load data from any collection. You may mix accessions, collections, or anything else
 			in a single load.
 		<p>The Bulkloader will not handle every eventuality that may ever occur while entering data. 

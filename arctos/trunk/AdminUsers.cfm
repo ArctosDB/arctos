@@ -312,11 +312,6 @@
 <cfif #Action# is "makeNewDbUser">
 	<cfoutput>
 		<!--- see if they have all the right stuff to be a user --->
-		<!---
-			alter table temp_allow_cf_user add invited_by_email varchar2(255);
-			update temp_allow_cf_user set invited_by_email='dustymc@gmail.com';
-			alter table temp_allow_cf_user modify invited_by_email varchar2(255) not null;
-		--->
 		<cfquery name="getTheirEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				EMAIL,

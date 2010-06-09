@@ -1,11 +1,16 @@
 <cfinclude template="includes/_header.cfm">
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 <cfset title="Edit Locality">
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("select[id^='geology_attribute_']").each(function(e){
 			populateGeology(this.id);			
-		});	
+		});
+		jQuery(function() {
+			jQuery("#determined_date").datepicker();
+		});
 	});
 	
 	function populateGeology(id) {
@@ -485,11 +490,11 @@
 		 			<input type="hidden" name="determined_by_agent_id" value="#determined_by_agent_id#">
 				</td>
 				<td>
-					<label for="DETERMINED_DATE#i#">
+					<label for="determined_date#i#">
 						<a href="javascript:void(0);" onClick="getDocs('lat_long','date')">Determined Date</a>
 					</label>
-					<input type="text" name="DETERMINED_DATE" id="DETERMINED_DATE#i#"
-						value="#dateformat(DETERMINED_DATE,'dd mmm yyyy')#" class="reqdClr"> 
+					<input type="text" name="determined_date" id="determined_date#i#"
+						value="#dateformat(determined_date,'dd mmm yyyy')#" class="reqdClr"> 
 				</td>
               </tr>
             <tr>
@@ -801,10 +806,10 @@
 		 			<input type="hidden" name="determined_by_agent_id">
 				</td>
 				<td>
-					<label for="DETERMINED_DATE">
+					<label for="determined_date">
 						<a href="javascript:void(0);" onClick="getDocs('lat_long','date')">Determined Date</a>
 					</label>
-					<input type="text" name="DETERMINED_DATE" id="DETERMINED_DATE" class="reqdClr"> 
+					<input type="text" name="determined_date" id="determined_date" class="reqdClr"> 
 				</td>
               </tr>
             <tr>
@@ -1740,7 +1745,8 @@
 <!--- update things that we're allowing changes to. Set non-original units to null and 
 	get them once we have an Oracle procedure in place to handle conversions --->
 <cftransaction>
-<cfif #ACCEPTED_LAT_LONG_FG# is 1>
+<cfif ACCEPTED_LAT_LONG_FG is 1>
+	-------ACCEPTED_LAT_LONG_FG: #ACCEPTED_LAT_LONG_FG#
  <cfquery name="makeAccepted" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  	update lat_long set ACCEPTED_LAT_LONG_FG=0 where 
 	locality_id = #locality_id#

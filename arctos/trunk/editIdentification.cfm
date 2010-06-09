@@ -427,7 +427,7 @@
 							<cfset thisIdAgntId=-1>
 						</cfcatch>
 					</cftry>
-					<cfif #thisIdAgntId# is -1 and (thisIdId is not "DELETE" and thisIdId gt 0)>
+					<cfif #thisIdAgntId# is -1 and (thisIdId is not "DELETE" and thisIdId gte 0)>
 						<!--- new identifier --->
 						<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							insert into identification_agent 
@@ -447,7 +447,7 @@
 								delete from identification_agent
 								where identification_agent_id=#thisIdAgntId#				
 							</cfquery>
-						<cfelseif thisIdId gt 0>
+						<cfelseif thisIdId gte 0>
 							<!--- update --->
 							<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								update identification_agent set 
