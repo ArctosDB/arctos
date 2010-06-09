@@ -160,7 +160,7 @@
 	<cfdump var="#form#">
 	<cfloop list="#catid#" index="i">
 		<cfquery name="sp" datasource="uam_god">
-			select part_name from specimen_part where part_name = '#part_name#' and
+			select part_name from specimen_part where part_name = '#part#' and
 			derived_from_cat_item=#i#
 		</cfquery>
 		<cfif sp.recordcount is 1>
