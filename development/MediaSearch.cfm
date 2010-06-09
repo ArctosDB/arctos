@@ -447,7 +447,7 @@
 	</tr>
 </cfif>
 
-<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")>
+<!--<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")> -->
 
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -610,7 +610,7 @@
 			</cfif>
 		</cfif>	
 	<cfelse>
-
+		blah blah
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfset mp=getMediaPreview(preview_uri,media_type)>
 			<cfset mrel=getMediaRelations2(#media_id#)>
