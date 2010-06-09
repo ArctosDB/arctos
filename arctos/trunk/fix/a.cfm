@@ -95,17 +95,7 @@
 		select part_name from ctspecimen_part_name where collection_cde='Mamm' order by part_name
 	</cfquery>
 	<br>part is supposed to be #usepart#
-	<form name="b" action="a.cfm" method="post">
-		<input type="hidden" name="action" value="l">
-		<input type="hidden" name="transaction_id" value="#transaction_id#">
-		<input type="hidden" name="loan_number" value="#loan_number#">
-		<select name="pickedpart">
-			<cfloop query="pn">
-				<option <cfif pickedpart is part_name> selected="selected" </cfif>value='#part_name#'>#part_name#</option>
-			</cfloop>
-		</select>
-		<input type="submit">
-	</form>
+	
 	
 	<cfquery name="cat" datasource="uam_god">
 		select 
@@ -125,6 +115,8 @@
 				<option value='#part_name#'>#part_name#</option>
 			</cfloop>
 		</select>
+		
+	<input type="submit">
 	<cfloop query="cat">
 		<input type="hidden" name="catid" value="#collection_object_id#">
 		<!---
@@ -152,23 +144,71 @@
 		--->
 		<br>#cat_num# ---- #parts#
 	</cfloop>
-	<input type="submit">
 	
 	</form>
 </cfif>
 <cfif action is "addparts">
 	<cfdump var="#form#">
+	<cftransaction>
 	<cfloop list="#catid#" index="i">
 		<cfquery name="sp" datasource="uam_god">
-			select part_name from specimen_part where part_name = '#part#' and
+			select specimen_part.collection_object_id,
+			part_name from specimen_part where part_name = '#part#' and
 			derived_from_cat_item=#i#
 		</cfquery>
-		<cfif sp.recordcount is 1>
-			<br>found a part
+		<cfif sp.recordcount gte 1>
+			<cfquery name="killCatItemLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update loan_item set collection_object_id=#sp.collection_object_id#
+				where
+				transaction_id=#transaction_id# and
+				collection_object_id='#i#'
+			</cfquery>
 		<cfelse>
-			<br>makin a part
+			<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				INSERT INTO coll_object (
+					COLLECTION_OBJECT_ID,
+					COLL_OBJECT_TYPE,
+					ENTERED_PERSON_ID,
+					COLL_OBJECT_ENTERED_DATE,
+					LAST_EDITED_PERSON_ID,
+					COLL_OBJ_DISPOSITION,
+					LOT_COUNT,
+					CONDITION,
+					FLAGS )
+				VALUES (
+					sq_collection_object_id.nextval,
+					'SP',
+					2072,
+					sysdate,
+					2072,
+					'unknown',
+					1,
+					'unknown',
+					0 )		
+			</cfquery>
+			<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				INSERT INTO specimen_part (
+					  COLLECTION_OBJECT_ID,
+					  PART_NAME
+						,DERIVED_FROM_cat_item)
+					VALUES (
+						sq_collection_object_id.currval,
+					  '#part#'
+						,#i#)
+			</cfquery>
+			<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
+				VALUES (sq_collection_object_id.currval, 'Part created for legacy loan #loan_number#')
+			</cfquery>
+			<cfquery name="killCatItemLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update loan_item set collection_object_id=sq_collection_object_id.currval
+				where
+				transaction_id=#transaction_id# and
+				collection_object_id='#i#'
+			</cfquery>
 		</cfif>
 	</cfloop>
+	</cftransaction>
 </cfif>
 
 </cfoutput>
