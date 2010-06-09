@@ -8,9 +8,11 @@
 		$("select[id^='geology_attribute_']").each(function(e){
 			populateGeology(this.id);			
 		});
-		jQuery(function() {
-			jQuery("#determined_date").datepicker();
-		});
+		$.each($("input[id^='determined_date']"), function() {
+		     $("#" + this.id).datepicker();
+	    });
+		
+		
 	});
 	
 	function populateGeology(id) {
@@ -1746,11 +1748,10 @@
 	get them once we have an Oracle procedure in place to handle conversions --->
 <cftransaction>
 <cfif ACCEPTED_LAT_LONG_FG is 1>
-	-------ACCEPTED_LAT_LONG_FG: #ACCEPTED_LAT_LONG_FG#
- <cfquery name="makeAccepted" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
- 	update lat_long set ACCEPTED_LAT_LONG_FG=0 where 
-	locality_id = #locality_id#
- </cfquery>
+	<cfquery name="flagAllZero" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update lat_long set ACCEPTED_LAT_LONG_FG=0 where 
+		locality_id = #locality_id#
+	</cfquery>
 </cfif>
 <cfset sql = "
 	UPDATE lat_long SET
