@@ -439,7 +439,7 @@
 <cfif findIDs.recordCount gt 1>
 	<!-- Results Table Header for grid view (for more than one result)-->
 	<tr>
-		<td><center><strong>Media Preview (Click to View)</strong></center></td>
+		<td><center><strong>Media Preview<br>(Click to View)</strong></center></td>
 		<td><center><strong>Type</strong></center></td>
 		<td><center><strong>Details</strong></center></td>
 		<td><center><strong>Map</strong></center></td>
