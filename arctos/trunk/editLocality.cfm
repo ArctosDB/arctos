@@ -9,12 +9,9 @@
 			populateGeology(this.id);			
 		});
 		$.each($("input[id^='determined_date']"), function() {
-		     $("#" + this.id).datepicker();
+			$("#" + this.id).datepicker();
 	    });
-		
-		
 	});
-	
 	function populateGeology(id) {
 		if (id=='geology_attribute') {
 			// new geol attribute
