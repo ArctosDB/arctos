@@ -414,6 +414,18 @@
 	<cfset rownum=1>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 
+<table>
+
+<cfif findIDs.recordCount gt 1>
+	<!-- Results Table Header for grid view (for more than one result)-->
+	<tr>
+		<td><center><strong>Media Preview (Click to View)</strong></center></td>
+		<td><center><strong>Type</strong></center></td>
+		<td><center><strong>Details</strong></center></td>
+		<td><center><strong>Map</strong></center></td>
+		<td><center><strong>Related Keywords</strong></center></td>		
+	</tr>
+</cfif>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
@@ -444,7 +456,6 @@
 		<cfset alt=desc.label_value>
 		<cfif findIDs.recordcount is 1>
 					
-			<table>
 			<cfset title = desc.label_value>
 			<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
 			<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
@@ -576,15 +587,6 @@
 				</tr>
 		</cfif>	
 	<cfelse>
-		<table>
-			<!-- Results Table Header -->
-			<tr>
-				<td><center><strong>Media Preview (Click to View)</strong></center></td>
-				<td><center><strong>Type</strong></center></td>
-				<td><center><strong>Details</strong></center></td>
-				<td><center><strong>Map</strong></center></td>
-				<td><center><strong>Related Keywords</strong></center></td>		
-			</tr>
 		<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")>
 
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
