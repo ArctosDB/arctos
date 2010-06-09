@@ -473,7 +473,9 @@
 			select keywords from findIDs where media_id=#media_id#
 		</cfquery>	
 	</cfif>
+	
 	<cfset alt="#media_uri#">
+	
 	<cfif findIDs.recordcount is 1>
 		
 		<cfset alt=desc.label_value>
@@ -482,6 +484,7 @@
 				<cfset title = desc.label_value>
 				<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
 			</cfif>
+			
 			<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<td>
 					<cfset mp=getMediaPreview(preview_uri,media_type)>
@@ -715,8 +718,7 @@
 			<!-- Grid Display -->
 
 			<td align="middle">
-				<!-- <cfheader name="content-disposition" value="attachment;filename=#trim(media_uri)#">
-				<cfcontent type="#mime_type#" file="#trim(media_uri)#" deletefile="No"> -->
+
 				<a href="#media_details_url#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
 			
 			</td>
