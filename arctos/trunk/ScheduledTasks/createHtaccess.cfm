@@ -6,6 +6,7 @@
 	<cfset variables.encoding="US-ASCII">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine('RewriteEngine On');
 	</cfscript>
 	<cfset i=1>
 	<cfloop query="d">
@@ -19,7 +20,7 @@
 		</cfscript>
 	</cfloop>
 	<cfscript>
-		a='RewriteRule .*$ /errors/gtfo.cfm';
+		a='RewriteRule .*$ errors/gtfo.cfm';
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
 	</cfscript>
