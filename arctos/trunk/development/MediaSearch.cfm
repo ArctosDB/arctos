@@ -161,6 +161,11 @@
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif action is "search">
+
+<cfif not isdefined("mapurl")>
+	<cfset mapurl = "null">
+</cfif>
+
 <cfoutput>
 <cfscript>
     function highlight(findIn,replaceThis) {
@@ -721,7 +726,7 @@
 
 			<td align="middle">
 
-				<a href="#media_details_url#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
+				<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
 			
 			</td>
 			
