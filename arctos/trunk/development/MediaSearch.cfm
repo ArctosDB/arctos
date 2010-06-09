@@ -421,7 +421,7 @@
 		</div>
 		</cfif>
 	</cfsavecontent>
-	#pager#
+	
 	<br>
 	<cfset mapurl="">
 	<span class="controlButton"
@@ -430,7 +430,9 @@
 		onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 	<span class="controlButton"
 		onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?#mapURL#');">Save&nbsp;Search</span>
-	<br>				
+	<br>
+	#pager#
+				
 	<cfset rownum=1>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 
