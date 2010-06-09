@@ -158,7 +158,7 @@
 </cfif>
 <cfif action is "addparts">
 	<cfdump var="#form#">
-	<cfloop list="#collection_object_id#" index="i">
+	<cfloop list="#catid#" index="i">
 		<cfquery name="sp" datasource="uam_god">
 			select part_name from specimen_part where part_name = '#part_name#' and
 			derived_from_cat_item=#i#
