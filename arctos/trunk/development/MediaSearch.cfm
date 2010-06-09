@@ -474,13 +474,14 @@
 		</cfquery>	
 	</cfif>
 	<cfset alt="#media_uri#">
-	<cfif desc.recordcount is 1>
+	<cfif findIDs.recordcount is 1>
 		
 		<cfset alt=desc.label_value>
-		<cfif findIDs.recordcount is 1>
-					
-			<cfset title = desc.label_value>
-			<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
+
+			<cfif desc.recordcount is 1>					
+				<cfset title = desc.label_value>
+				<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
+			</cfif>
 			<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<td>
 					<cfset mp=getMediaPreview(preview_uri,media_type)>
@@ -607,10 +608,8 @@
 						</div>
 					</td>
 				</tr>
-			</cfif>
 		</cfif>	
 	<cfelse>
-		blah blah
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfset mp=getMediaPreview(preview_uri,media_type)>
 			<cfset mrel=getMediaRelations2(#media_id#)>
