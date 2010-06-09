@@ -23,7 +23,7 @@
 		<cfheader name="Location" value="#application.serverRootURL##redir.new_path#">
 		<cfabort>
 	</cfif>
-	<cfset nono="php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
+	<cfset nono="announce,php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
 	<cfloop list="#cgi.redirect_url#" delimiters="./" index="i">
 		<cfif listfindnocase(nono,i)>
 			<cfinclude template="/errors/autoblacklist.cfm">
