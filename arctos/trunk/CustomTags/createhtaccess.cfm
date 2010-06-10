@@ -9,9 +9,6 @@
 	variables.joFileWriter.writeLine('RewriteBase /');
 	//let PNG through so CAPTCHA works
 	variables.joFileWriter.writeLine('RewriteRule ^(.*)png$ - [L]');
-	// let /errors/ through
-	variables.joFileWriter.writeLine('RewriteCond %{REQUEST_URI} "/errors/gtfo.cfm');
-	variables.joFileWriter.writeLine('RewriteRule (.*) $1 [L]');
 </cfscript>	
 <cfset i=1>
 <cfloop query="d">
