@@ -242,11 +242,11 @@
 			</cfscript>
 			<cfabort>
 	</cfif>
-	<cfif cgi.HTTP_HOST is "arctos--2.arctos.database.museum" and 
-			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
-			#GetTemplatePath()# does not contain "/login.cfm" and
-			#GetTemplatePath()# does not contain "/ChangePassword.cfm" and
-			#GetTemplatePath()# does not contain "/contact.cfm" and
+	<cfif cgi.HTTP_HOST is "arctos.arctos.database.museum" and 
+			GetTemplatePath() does not contain "/errors/dev_login.cfm" and
+			GetTemplatePath() does not contain "/login.cfm" and
+			GetTemplatePath() does not contain "/ChangePassword.cfm" and
+			GetTemplatePath() does not contain "/contact.cfm" and
 			len(session.username) is 0>
 		<cflocation url="/errors/dev_login.cfm">	
 	<cfelseif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
