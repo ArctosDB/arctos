@@ -1,4 +1,4 @@
-<cfoutput>
+
 	<cfquery name="d" datasource="uam_god">
 		select ip from uam.blacklist
 	</cfquery>
@@ -30,4 +30,3 @@
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
 	</cfscript>
-</cfoutput>
