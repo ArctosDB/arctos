@@ -185,6 +185,7 @@
 											<li><a target="_top" href="/tools/BulkloadIdentification.cfm">Identifications</a></li>
 											<li><a target="_top" href="/tools/BulkloadContEditParent.cfm">Bulk Edit Container</a></li>
 											<li><a target="_top" href="/tools/BulkloadMedia.cfm">Bulkload Media</a></li>
+											<li><a target="_top" href="/tools/uploadMedia.cfm">upload images</a></li>
 											<li><a target="_top" href="/tools/BulkloadRelations.cfm">Bulkload Relationships</a></li>
 											<li><a target="_top" href="/tools/BulkloadGeoref.cfm">Bulkload Georeference</a></li>
 											<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
