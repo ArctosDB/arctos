@@ -628,6 +628,7 @@
 			<cfset kw="">
 			<cfset agent_name="">
 			<cfset scientific_name="">
+			<cfset cat_num="">
 			<cfset description="#desc.label_value#">
 			
 			<cfset media_details_url = "http://arctos.database.museum/media/" & "" & #media_id#>
@@ -654,7 +655,11 @@
 						<cfif begPos gt 0>
 							<cfset endPos = find(')', cat_item_sum)>
 							<cfset scientific_name=mid(cat_item_sum,begPos+1, endPos-begPos-1)>
-							<cfset scientific_name=trim(scientific_name)>							
+							<cfset scientific_name=trim(scientific_name)>	
+							
+							<cfset cat_num = left(cat_item_sum, begPos-1)>
+						<cfelse>
+							<cfset cat_num = cat_item_sum>						
 						</cfif>
 
 					<cfelseif #rel_type# is "collecting_event">		
@@ -701,7 +706,7 @@
 				</cfif>
 				
 				<!-- Orders the keywords -->
-				<cfset kw_list = "#scientific_name#|#locality#|#agent_name#|#description#">
+				<cfset kw_list = "#scientific_name#|#locality#|#agent_name#|#cat_num#|#description#">
 				<cfloop list="#kw_list#" index="s" delimiters="|">
 					<cfif len(trim(s)) gt 0>
 						<cfif len(kw) gt 0>
