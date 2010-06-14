@@ -747,25 +747,26 @@
 			
 			<td align="middle">							
 				<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
-						<cfloop list="#keyword#" index="k" delimiters=",;: ">
-							<cfset kw=highlight(kw,k)>
-						</cfloop>
-						<strong>Keywords:</strong> #kw#
-						
-						<br>
-						<br>
-						
+												
 						<cfset labels_details="">
 						<cfloop query="labels">
 							<cfif (media_label is not "use policy") or (media_label is not "usage")>
 								<cfif len(labels_details) gt 0>
-									<cfset labels_details = labels_details & ";" & media_label & "=" & label_value>
+									<cfset labels_details = labels_details & "; " & media_label & " = " & label_value>
 								<cfelse>
-									<cfset labels_details = media_label & "=" & label_value>
+									<cfset labels_details = media_label & " = " & label_value>
 								</cfif>			
 							</cfif>				
 						</cfloop>
 						
+						<cfloop list="#keyword#" index="k" delimiters=",;: ">
+							<cfset kw=highlight(kw,k)>
+							<cfset labels_details=highlight(labels_details,k)>
+						</cfloop>
+						
+						<strong>Keywords:</strong> #kw#
+						<br>
+						<br>
 						<strong>Labels:</strong> #labels_details#
 				</div>			
 			
