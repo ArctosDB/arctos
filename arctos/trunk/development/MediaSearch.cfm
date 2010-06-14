@@ -450,7 +450,7 @@
 		<td><center><strong>Type</strong></center></td>
 		<td><center><strong>Details</strong></center></td>
 		<td><center><strong>Map</strong></center></td>
-		<td><center><strong>Related Keywords</strong></center></td>		
+		<td><center><strong>Details</strong></center></td>		
 	</tr>
 </cfif>
 
@@ -757,11 +757,13 @@
 						
 						<cfset labels_details="">
 						<cfloop query="labels">
-							<cfif len(labels_details) gt 0>
-								<cfset labels_details = labels_details & ";" & media_label & "=" & label_value>
-							<cfelse>
-								<cfset labels_details = media_label & "=" & label_value>
-							</cfif>							
+							<cfif (media_label is not "use policy") or (media_label is not "usage")>
+								<cfif len(labels_details) gt 0>
+									<cfset labels_details = labels_details & ";" & media_label & "=" & label_value>
+								<cfelse>
+									<cfset labels_details = media_label & "=" & label_value>
+								</cfif>			
+							</cfif>				
 						</cfloop>
 						
 						<strong>Labels:</strong> #labels_details#
