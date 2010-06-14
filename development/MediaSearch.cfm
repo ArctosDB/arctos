@@ -751,6 +751,20 @@
 							<cfset kw=highlight(kw,k)>
 						</cfloop>
 						<strong>Keywords:</strong> #kw#
+						
+						<br>
+						<br>
+						
+						<cfset labels_details="">
+						<cfloop query="labels">
+							<cfif len(labels_details) gt 0>
+								<cfset labels_details = labels_details & ";" & media_label & "=" & label_value>
+							<cfelse>
+								<cfset labels_details = media_label & "=" & label_value>
+							</cfif>							
+						</cfloop>
+						
+						<strong>Labels:</strong> #labels_details#
 				</div>			
 			
 			<!-- Related Media -->
