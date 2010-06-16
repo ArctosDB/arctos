@@ -30,7 +30,14 @@
 		</td>
 		<td style="border:1px solid green;padding:.2em;">
 			<span style="font-size:smaller;font-weight:bold">Row-Removal Option: </span>
+			<select name="killRow" id="killRow" onchange="changekillRows(this.value)">
+				<option value="0" <cfif session.killRow neq 1> selected="selected" </cfif>>No</option>
+				<option value="1" <cfif session.killRow is 1> selected="selected" </cfif>>Yes</option>
+			</select>
+			<!---
+			
 			<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>
+			--->
 		</td>
 	</tr>
 </table>

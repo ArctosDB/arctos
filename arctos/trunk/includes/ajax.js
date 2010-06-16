@@ -41,16 +41,11 @@ function blockSuggest (onoff) {
 			}
 		);
 }
-function changekillRows () {
-	if (document.getElementById('killRows').checked){
-		var tgt=1;
-	} else {
-		var tgt=0;
-	}
+function changekillRows (onoff) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "changekillRows",
-			tgt : tgt,
+			tgt : onoff,
 			returnformat : "json",
 			queryformat : 'column'
 		},
