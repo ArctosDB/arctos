@@ -378,7 +378,7 @@
 			</tr>
 			<tr>
 				<td class="lbl">
-					Barcode:
+					<span class="helpLink" id="barcode">Barcode:</span>
 				</td>
 				<td class="srch">
 					<input type="text" name="barcode" id="barcode" size="50">
@@ -473,7 +473,7 @@
 		</td>
 	</tr>
 </table> 
-<cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
+<cfif isdefined("transaction_id") and len(transaction_id) gt 0>
 	<input type="hidden" name="transaction_id" value="#transaction_id#">
 </cfif>
 <input type="hidden" name="newQuery" value="1">
