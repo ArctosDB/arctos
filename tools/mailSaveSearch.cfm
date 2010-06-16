@@ -54,7 +54,7 @@
 					<input type="hidden" name="action" value="mail">
 					<input type="hidden" name="canned_id" value="#canned_id#">
 					<input type="hidden" name="SEARCH_NAME" value="#SEARCH_NAME#">
-					<input type="hidden" name="msg" value="#msg#">
+					<input type="hidden" name="ss" value="#ss#">
 					<input type="hidden" name="address" value="#address#">
 			
 					<input type="submit" value="Send Message" class="savBtn"
