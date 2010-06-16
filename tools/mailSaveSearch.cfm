@@ -34,7 +34,6 @@
 			From: savedSearch@#Application.fromEmail#<br>
 			To: #address#<br>
 			Subject: Arctos saved search: #SEARCH_NAME#<br>
-		<cfsavecontent variable="ss">
 			<p>
 				#msg#<br>
 				To view specimens, click the following link:<br>				
@@ -47,14 +46,12 @@
 				problems to #Application.PageProblemEmail#
 				</span>
 			</p>
-		</cfsavecontent>
-		#ss#
 			<p>
 				<form name="m" method="post" action="mailSaveSearch.cfm">
 					<input type="hidden" name="action" value="mail">
 					<input type="hidden" name="canned_id" value="#canned_id#">
 					<input type="hidden" name="SEARCH_NAME" value="#SEARCH_NAME#">
-					<input type="hidden" name="ss" value="#ss#">
+					<input type="hidden" name="msg" value="#stripQuotes(msg)#">
 					<input type="hidden" name="address" value="#address#">
 			
 					<input type="submit" value="Send Message" class="savBtn"
@@ -69,7 +66,18 @@
 			to="#address#"
 			subject="Arctos saved search: #SEARCH_NAME#" 
 			type="html">
-				#ss#
+				<p>
+					#msg#<br>
+					To view specimens, click the following link:<br>				
+					<a href="#Application.ServerRootUrl#/saved/#search_name#">#SEARCH_NAME#</a><br>
+					or paste this address into your browser:<br>
+					#Application.ServerRootUrl#/saved/#search_name#<br>
+					-------------------------------------------------<br>
+					<span style="font-size:small">
+					This message was sent from #Application.ServerRootUrl# at the request of an Arctos user. Please report
+					problems to #Application.PageProblemEmail#
+					</span>
+				</p>
 		</cfmail>
 		<script>
 			self.close();
