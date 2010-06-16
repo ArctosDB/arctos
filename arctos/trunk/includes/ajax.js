@@ -34,7 +34,7 @@ function blockSuggest (onoff) {
 			},
 			function(r) {
 				if (r == 'success') {
-					$('#browseArctos').hide();
+					$('#browseArctos').html('Suggest Browser disabled. You may turn this feature back on under My Stuff.');
 				} else {
 					alert('An error occured! \n ' + r);
 				}	
