@@ -36,7 +36,7 @@
 				</cfif>
 				<td>
 					<h4>Project or Publication</h4>
-					<label for="p_title">Title</label>
+					<label for="p_title"><span class="helpLink" id="project_publication_title">Title</span></label>
 					<input name="p_title" id="p_title" type="text">
 					<label for="author">Participant</label>
 					<input name="author" id="author" type="text">
