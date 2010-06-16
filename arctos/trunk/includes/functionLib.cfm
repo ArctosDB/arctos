@@ -217,6 +217,7 @@
 	<cfset session.resultColumnList="">
 	<cfset session.schParam = "">
 	<cfset session.target=''>
+	<cfset session.block_suggest=''>
 	<cfset session.meta_description=''>
 	<cfset temp=cfid & '_' & cftoken & '_' & RandRange(0, 9999)>
 	<cfset session.SpecSrchTab="SpecSrch" & temp>
@@ -249,30 +250,35 @@
 		<cfset session.displayrows = "#getPrefs.displayRows#">
 		<cfset session.showObservations = "#getPrefs.showObservations#">
 		<cfset session.resultcolumnlist = "#getPrefs.resultcolumnlist#">
-		<cfif len(#getPrefs.fancyCOID#) gt 0>
-			<cfset session.fancyCOID = "#getPrefs.fancyCOID#">
+		<cfif len(getPrefs.fancyCOID) gt 0>
+			<cfset session.fancyCOID = getPrefs.fancyCOID>
 		<cfelse>
 			<cfset session.fancyCOID = "">
 		</cfif>
-		<cfif len(#getPrefs.result_sort#) gt 0>
-			<cfset session.result_sort = "#getPrefs.result_sort#">
+		<cfif len(getPrefs.block_suggest) gt 0>
+			<cfset session.block_suggest = getPrefs.block_suggest>
+		<cfelse>
+			<cfset session.block_suggest = "">
+		</cfif>
+		<cfif len(getPrefs.result_sort) gt 0>
+			<cfset session.result_sort = getPrefs.result_sort>
 		<cfelse>
 			<cfset session.result_sort = "">
-		</cfif>	
-		<cfif len(#getPrefs.CustomOtherIdentifier#) gt 0>
-			<cfset session.customOtherIdentifier = "#getPrefs.CustomOtherIdentifier#">
+		</cfif>
+		<cfif len(getPrefs.CustomOtherIdentifier) gt 0>
+			<cfset session.customOtherIdentifier = getPrefs.CustomOtherIdentifier>
 		<cfelse>
 			<cfset session.customOtherIdentifier = "">
 		</cfif>
-		<cfif #getPrefs.bigsearchbox# is 1>
+		<cfif getPrefs.bigsearchbox is 1>
 			<cfset session.searchBy="bigsearchbox">
 		<cfelse>
 			<cfset session.searchBy="">
 		</cfif>	
-		<cfif #getPrefs.killRow# is 1>
-			<cfset session.killRow="1">
+		<cfif getPrefs.killRow is 1>
+			<cfset session.killRow=1>
 		<cfelse>
-			<cfset session.killRow="0">
+			<cfset session.killRow=0>
 		</cfif>
 		<cfset session.locSrchPrefs=getPrefs.locSrchPrefs>
 		<cfquery name="logLog" datasource="cf_dbuser">
