@@ -256,8 +256,6 @@
 		</cfif>
 		<cfif len(getPrefs.block_suggest) gt 0>
 			<cfset session.block_suggest = getPrefs.block_suggest>
-		<cfelse>
-			<cfset session.block_suggest = "">
 		</cfif>
 		<cfif len(getPrefs.result_sort) gt 0>
 			<cfset session.result_sort = getPrefs.result_sort>
