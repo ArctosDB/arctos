@@ -1,8 +1,8 @@
 <cfinclude template = "includes/_header.cfm">
-<cfif len(#session.username#) is 0>
+<cfset title="My Arctos">
+<cfif len(session.username) is 0>
 	<cflocation url="/login.cfm" addtoken="false">
 </cfif>
-<script type='text/javascript' src='/includes/_myArctos.js'></script>
 <script>
 	function pwc(p,u){
 		var r=orapwCheck(p,u);
@@ -196,11 +196,11 @@
 			<tr>
 				<td colspan="2">
 					<strong>Personal Profile:</strong>
-					<img src="/images/info.gif" class="likeLink" onclick="alert('A profile is required to download data. \n You cannot recover a lost password unless you enter an email address. \n These data will never be shared with anyone.');" />
 					<span style="font-size:small;">
 						<br>
-						To download data, please tell us more about yourself. 
-						This information will not be shared with others.
+						A profile is required to download data. 
+						<br>You cannot recover a lost password unless you enter an email address.
+						<br>This information will never be shared with anyone, and we'll never send you spam.
 					</span>
 				</td>
 			</tr>
