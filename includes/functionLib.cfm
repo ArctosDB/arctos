@@ -223,7 +223,6 @@
 	<cfset session.SpecSrchTab="SpecSrch" & temp>
 	<cfset session.MediaSrchTab="MediaSrch" & temp> <!-- Doris' edit -->
 	<cfset session.TaxSrchTab="TaxSrch" & temp>
-
 	<!---------------------------- login ------------------------------------------------>
 	<cfif isdefined("username") and len(username) gt 0 and isdefined("pwd") and len(pwd) gt 0>
 		<cfquery name="getPrefs" datasource="cf_dbuser">
