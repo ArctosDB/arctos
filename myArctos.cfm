@@ -240,7 +240,7 @@
 			<tr>
 				<td align="right">Suggest Browse</td>
 				<td>
-					<select name="block_suggest" id="block_suggest">
+					<select name="block_suggest" id="block_suggest" onchange="blockSuggest(this.value)">
 						<option value="0" <cfif getUserPrefs.block_suggest neq 1> selected="selected" </cfif>>Allow</option>
 						<option value="1" <cfif getUserPrefs.block_suggest is 1> selected="selected" </cfif>>Block</option>
 					</select>
