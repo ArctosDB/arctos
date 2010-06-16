@@ -91,7 +91,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Print Flag:
+			<span class="helpLink" id="print_flag">Print Flag:</span>
 		</td>
 		<td class="srch">
 			<select name="print_fg" id="print_fg" size="1">
@@ -103,7 +103,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Entered Date:
+			<span class="helpLink" id="entered_date">Entered Date:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="beg_entered_date" id="beg_entered_date" size="10" />-
@@ -112,7 +112,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Last Edited Date:
+			<span class="helpLink" id="last_edit_date">Last Edited Date:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="beg_last_edit_date" id="beg_last_edit_date" size="10">-
@@ -121,7 +121,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Remarks:
+			<span class="helpLink" id="coll_object_remarks">Remarks:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="remark" id="remark" size="50" />
@@ -129,7 +129,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Missing (flags):
+			<span class="helpLink" id="flags">Missing (flags):</span>
 		</td>
 		<td class="srch">
 			<select name="coll_obj_flags" id="coll_obj_flags" size="1">
