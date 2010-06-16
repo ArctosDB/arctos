@@ -231,24 +231,27 @@
 			</tr>
 		</table>
 	</form>
+	<!---
 	<cfquery name="getUserPrefs" datasource="cf_dbuser">
 		select * from cf_users where username='#session.username#'
 	</cfquery>
+	---->
 	<form method="post" action="myArctos.cfm" name="dlForm">
 		<input type="hidden" name="action" value="saveSettings">
 		<table style="border:2px solid black; margin:10px;">
 			<tr>
-				<td align="right">Suggest Browse</td>
 				<td>
+					<label for="block_suggest">Suggest Browse</label>
 					<select name="block_suggest" id="block_suggest" onchange="blockSuggest(this.value)">
-						<option value="0" <cfif getUserPrefs.block_suggest neq 1> selected="selected" </cfif>>Allow</option>
-						<option value="1" <cfif getUserPrefs.block_suggest is 1> selected="selected" </cfif>>Block</option>
+						<option value="0" <cfif session.block_suggest neq 1> selected="selected" </cfif>>Allow</option>
+						<option value="1" <cfif session.block_suggest is 1> selected="selected" </cfif>>Block</option>
 					</select>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="Save" class="savBtn">
+					<label for="showObservations">Include Observations?</label>
+					<select name="showObservations" id="showObservations" onchange="changeshowObservations(this.value)">
+						<option value="0" <cfif session.showObservations neq 1> selected="selected" </cfif>>No</option>
+						<option value="1" <cfif session.showObservations is 1> selected="selected" </cfif>>Yes</option>
+					</select>
+					
 				</td>
 			</tr>
 		</table>
