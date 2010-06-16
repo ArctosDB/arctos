@@ -231,6 +231,25 @@
 			</tr>
 		</table>
 	</form>
+	<cfquery name="getUserPrefs" datasource="cf_dbuser">
+		select * from cf_users where username='#session.username#'
+	</cfquery>
+	<form method="post" action="myArctos.cfm" name="dlForm">
+		<input type="hidden" name="action" value="saveSettings">
+		<table style="border:2px solid black; margin:10px;">
+			<tr>
+				<td align="right">Suggest Browse</td>
+				<td>
+					<select name="block_suggest" id="block_suggest">
+						<option value="0" <cfif getUserPrefs.block_suggest neq 1> selected="selected" </cfif>>Allow</option>
+						<option value="1" <cfif getUserPrefs.block_suggest is 1> selected="selected" </cfif>>Block</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<!---
 	<cfquery name="loan" datasource="cf_dbuser">
 		select * from cf_user_loan
 		inner join cf_users on (cf_user_loan.user_id = cf_users.user_id)
@@ -261,11 +280,20 @@
 			</td>
 		</tr>
 	</table>
+	--->
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------------->
+<cfif action is "saveSettings">
+	<cfquery name="isUser" datasource="cf_dbuser">
+		update cf_users set
+			block_suggest=#block_suggest#
+		where username='#session.username#'
+	</cfquery>
+	<cflocation url="/myArctos.cfm" addtoken="false">
+</cfif>
 <!----------------------------------------------------------------------------------------------->
-<cfif #action# is "saveProfile">
+<cfif action is "saveProfile">
 	<!--- get the values they filled in --->
 	<cfif len(#first_name#) is 0 OR
 		len(#last_name#) is 0 OR

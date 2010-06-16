@@ -34,7 +34,7 @@ function blockSuggest (onoff) {
 			},
 			function(r) {
 				if (r == 'success') {
-					alert("blocked");
+					$('#browseArctos').hide();
 				} else {
 					alert('An error occured! \n ' + r);
 				}	
