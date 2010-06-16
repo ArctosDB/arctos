@@ -40,14 +40,6 @@
 		   message = "user_already_exists"
 		   detail = "Someone tried to create user #session.username#. That user already exists."
 		   errorCode = "-123">
-	<!---
-		<div class="error">
-			Error.
-		</div>
-		<cfmail subject="Error" to="#Application.PageProblemEmail#" from="bookoo_hinky@#Application.fromEmail#" type="html">
-			Someone tried to create user #session.username#. That user already exists.
-		</cfmail>
-	--->
 		<cfabort>
 	</cfif>
 	<cftry>
@@ -122,7 +114,7 @@
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------->
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 	<cfquery name="getPrefs" datasource="cf_dbuser">
 		select * from cf_users, user_loan_request
 		where  cf_users.user_id = user_loan_request.user_id (+) and
@@ -192,76 +184,55 @@
 	<form method="post" action="myArctos.cfm" name="dlForm">
 		<input type="hidden" name="user_id" value="#getUserData.user_id#">
 		<input type="hidden" name="action" value="saveProfile">
-		<table style="border:2px solid black; margin:10px;">
-			<tr>
-				<td colspan="2">
-					<strong>Personal Profile</strong>
-					<span style="font-size:small;">
-						<br>
-						A profile is required to download data. 
-						<br>You cannot recover a lost password unless you enter an email address.
-						<br>Personal information will never be shared with anyone, and we'll never send you spam.
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">First Name</td>
-				<td><input type="text" name="first_name" value="#getUserData.first_name#" class="reqdClr"></td>
-			</tr>
-			<tr>
-				<td align="right">Middle Name</td>
-				<td><input type="text" name="middle_name" value="#getUserData.middle_name#"></td>
-			</tr>
-			<tr>
-				<td align="right">Last Name</td>
-				<td><input type="text" name="last_name" value="#getUserData.last_name#" class="reqdClr"></td>
-			</tr>	
-			<tr>
-				<td align="right">Affiliation</td>
-				<td><input type="text" name="affiliation" value="#getUserData.affiliation#" class="reqdClr"></td>
-			</tr>
-			<tr>
-				<td align="right">Email</td>
-				<td><input type="text" name="email" value="#getUserData.email#"></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="Save" class="savBtn">
-				</td>
-			</tr>
-		</table>
+		<strong>Personal Profile</strong>
+		<span style="font-size:small;">
+			<br>A profile is required to download data. 
+			<br>You cannot recover a lost password unless you enter an email address.
+			<br>Personal information will never be shared with anyone, and we'll never send you spam.
+		</span>
+		<label for="first_name">First Name</label>
+		<input type="text" name="first_name" value="#getUserData.first_name#" class="reqdClr" size="50">
+		<label for="middle_name">Middle Name</label>
+		<input type="text" name="middle_name" value="#getUserData.middle_name#" size="50">
+		<label for="last_name">Last Name</label>
+		<input type="text" name="last_name" value="#getUserData.last_name#" class="reqdClr" size="50">
+		<label for="affiliation">Affiliation</label>
+		<input type="text" name="affiliation" value="#getUserData.affiliation#" class="reqdClr" size="50">
+		<label for="email">Email</label>
+		<input type="text" name="email" value="#getUserData.email#" size="30">
+		<input type="submit" value="Save Profile" class="savBtn">
 	</form>
 	<!---
 	<cfquery name="getUserPrefs" datasource="cf_dbuser">
 		select * from cf_users where username='#session.username#'
 	</cfquery>
 	---->
-	<div style="border:2px solid black; margin:10px;">
-		<form method="post" action="myArctos.cfm" name="dlForm">
-			<label for="block_suggest">Suggest Browse</label>
-			<select name="block_suggest" id="block_suggest" onchange="blockSuggest(this.value)">
-				<option value="0" <cfif session.block_suggest neq 1> selected="selected" </cfif>>Allow</option>
-				<option value="1" <cfif session.block_suggest is 1> selected="selected" </cfif>>Block</option>
-			</select>
-			<label for="showObservations">Include Observations?</label>
-			<select name="showObservations" id="showObservations" onchange="changeshowObservations(this.value)">
-				<option value="0" <cfif session.showObservations neq 1> selected="selected" </cfif>>No</option>
-				<option value="1" <cfif session.showObservations is 1> selected="selected" </cfif>>Yes</option>
-			</select>
-			<label for="showObservations">SpecimenResults Records Per Page</label>
-			<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
-				<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
-				<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
-				<option  <cfif session.displayRows is "50"> selected </cfif> value="50">50</option>
-				<option  <cfif session.displayRows is "100"> selected </cfif> value="100">100</option>
-			</select>
-			<label for="killRows">SpecimenResults Row-Removal Option</label>
-			<select name="killRow" id="killRow" onchange="changekillRows(this.value)">
-				<option value="0" <cfif session.killRow neq 1> selected="selected" </cfif>>No</option>
-				<option value="1" <cfif session.killRow is 1> selected="selected" </cfif>>Yes</option>
-			</select>
-		</form>
-	</div>
+	<hr>
+	<strong>Arctos Setings</strong>
+	<form method="post" action="myArctos.cfm" name="dlForm">
+		<label for="block_suggest">Suggest Browse</label>
+		<select name="block_suggest" id="block_suggest" onchange="blockSuggest(this.value)">
+			<option value="0" <cfif session.block_suggest neq 1> selected="selected" </cfif>>Allow</option>
+			<option value="1" <cfif session.block_suggest is 1> selected="selected" </cfif>>Block</option>
+		</select>
+		<label for="showObservations">Include Observations?</label>
+		<select name="showObservations" id="showObservations" onchange="changeshowObservations(this.value)">
+			<option value="0" <cfif session.showObservations neq 1> selected="selected" </cfif>>No</option>
+			<option value="1" <cfif session.showObservations is 1> selected="selected" </cfif>>Yes</option>
+		</select>
+		<label for="showObservations">SpecimenResults Records Per Page</label>
+		<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
+			<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
+			<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
+			<option  <cfif session.displayRows is "50"> selected </cfif> value="50">50</option>
+			<option  <cfif session.displayRows is "100"> selected </cfif> value="100">100</option>
+		</select>
+		<label for="killRows">SpecimenResults Row-Removal Option</label>
+		<select name="killRow" id="killRow" onchange="changekillRows(this.value)">
+			<option value="0" <cfif session.killRow neq 1> selected="selected" </cfif>>No</option>
+			<option value="1" <cfif session.killRow is 1> selected="selected" </cfif>>Yes</option>
+		</select>
+	</form>
 	<!---
 	<cfquery name="loan" datasource="cf_dbuser">
 		select * from cf_user_loan
