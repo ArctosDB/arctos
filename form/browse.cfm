@@ -62,6 +62,7 @@
 		</cfloop>
 		<div id="browseArctos">
 			<div class="title">Try something random</div>
+			<span class="infoLink" onclick="blockSuggest(1)">Hide This</span>
 			<ul>
 				<cfloop from="1" to="#links.recordcount#" index="i">
 					<cfset thisIndex=randrange(1,listlen(rslts))>

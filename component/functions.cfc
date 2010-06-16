@@ -1672,6 +1672,23 @@
 	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------->	
+<cffunction name="changeBlockSuggest" access="remote">
+	<cfargument name="onoff" type="string" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="cf_dbuser">
+				UPDATE cf_users SET
+					block_suggest = #onoff#
+				WHERE username = '#session.username#'
+			</cfquery>
+			<cfset session.block_suggest = onoff>
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------->	
 <cffunction name="changedisplayRows" access="remote">
 	<cfargument name="tgt" type="string" required="yes">
 	<cftry>
