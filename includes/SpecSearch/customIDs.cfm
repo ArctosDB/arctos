@@ -1,53 +1,15 @@
 <script language="javascript" type="text/javascript">
-function changecustomOtherIdentifier (tgt) {
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "changecustomOtherIdentifier",
-			tgt : tgt,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		success_changecustomOtherIdentifier
-	);
-}
-function success_changecustomOtherIdentifier (result) {
-	if (result == 'success') {
-		document.getElementById('customOtherIdentifier').className='';
-	} else {
-		alert('An error occured: ' + result);
-	}
-}
-
 function closeThis(){
 	document.location=location.href;
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 }
-function changefancyCOID (tgt) {
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "changefancyCOID",
-			tgt : tgt,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		success_changefancyCOID
-	);
-}
-function success_changefancyCOID (result) {
-	if (result == 'success') {
-		var e = document.getElementById('fancyCOID').className='';
-	} else {
-		alert('An error occured: ' + result);
-	}
-}
-
 </script>
 <cfoutput>
-<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
 </cfquery>
-<cfquery name="collid" datasource="uam_god">
+<cfquery name="collid" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select cf_collection_id,collection from cf_collection
 	order by collection
 </cfquery>
