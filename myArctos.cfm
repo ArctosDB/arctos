@@ -207,6 +207,17 @@
 		select * from cf_users where username='#session.username#'
 	</cfquery>
 	---->
+	
+		
+	<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
+	</cfquery>
+	<cfquery name="collid" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select cf_collection_id,collection from cf_collection
+		order by collection
+	</cfquery>
+
+
 	<hr>
 	<strong>Arctos Setings</strong>
 	<form method="post" action="myArctos.cfm" name="dlForm">
@@ -232,6 +243,37 @@
 			<option value="0" <cfif session.killRow neq 1> selected="selected" </cfif>>No</option>
 			<option value="1" <cfif session.killRow is 1> selected="selected" </cfif>>Yes</option>
 		</select>
+		<label for="customOtherIdentifier">My Other Identifier</label>
+		<select name="customOtherIdentifier" id="customOtherIdentifier"
+			size="1" onchange="this.className='red';changecustomOtherIdentifier(this.value);">
+			<option value="">None</option>
+			<cfloop query="OtherIdType">
+				<option 
+					<cfif session.CustomOtherIdentifier is other_id_type>selected="selected"</cfif>
+					value="#other_id_type#">#other_id_type#</option>
+			</cfloop> 
+		</select>
+		<label for="fancyCOID">Show 3-part ID on SpecimenSearch</label>
+		<select name="fancyCOID" id="fancyCOID"
+			size="1" onchange="this.className='red';changefancyCOID(this.value);">
+			<option <cfif #session.fancyCOID# is not 1>selected="selected"</cfif> value="">No</option>
+			<option <cfif #session.fancyCOID# is 1>selected="selected"</cfif> value="1">Yes</option>
+		</select>
+		<cfif len(session.roles) gt 0 and session.roles is "public">
+			<cfif isdefined("session.portal_id")>
+				<cfset pid=session.portal_id>
+			<cfelse>
+				<cfset pid="">
+			</cfif>
+			<label for="exclusive_collection_id">Filter Results By Collection</label>
+			<select name="exclusive_collection_id" id="exclusive_collection_id"
+				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
+			 	<option  <cfif pid is "" or pid is 0>selected="selected" </cfif> value="">All</option>
+			  	<cfloop query="collid"> 
+					<option <cfif pid is cf_collection_id>selected="selected" </cfif> value="#cf_collection_id#">#collection#</option>
+			  	</cfloop> 
+			</select>
+		</cfif>
 	</form>
 </cfoutput>
 </cfif>
