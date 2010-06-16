@@ -295,6 +295,7 @@
 			block_suggest=#block_suggest#
 		where username='#session.username#'
 	</cfquery>
+	<cfset session.block_suggest=block_suggest>
 	<cflocation url="/myArctos.cfm" addtoken="false">
 </cfif>
 <!----------------------------------------------------------------------------------------------->
