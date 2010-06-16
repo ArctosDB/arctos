@@ -835,20 +835,3 @@ function logIt(msg,status) {
 		document.getElementById('oidnum').select();
 	}
 }
-function changeresultSort (tgt) {
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "changeresultSort",
-			tgt : tgt,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (result) {
-			if (result == 'success') {
-				var e = document.getElementById('result_sort').className='';
-			} else {
-				alert('An error occured: ' + result);
-			}
-		}
-	);
-}
