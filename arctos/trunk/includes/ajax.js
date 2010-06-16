@@ -646,6 +646,40 @@ jQuery(document).ready(function() {
 		});
 	});
 });
+function changefancyCOID (tgt) {
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changefancyCOID",
+			tgt : tgt,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (result) {
+			if (result == 'success') {
+				var e = document.getElementById('fancyCOID').className='';
+			} else {
+				alert('An error occured: ' + result);
+			}
+		}
+	);
+}
+function changecustomOtherIdentifier (tgt) {
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changecustomOtherIdentifier",
+			tgt : tgt,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (r) {
+			if (r == 'success') {
+				document.getElementById('customOtherIdentifier').className='';
+			} else {
+				alert('An error occured: ' + r);
+			}
+		}
+	);
+}
 function removeHelpDiv() {
 	if(document.getElementById('bgDiv')){
 		jQuery('#bgDiv').remove();
