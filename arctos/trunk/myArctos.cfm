@@ -236,7 +236,7 @@
 		select * from cf_users where username='#session.username#'
 	</cfquery>
 	---->
-	<span style="border:2px solid black; margin:10px;">
+	<div style="border:2px solid black; margin:10px;">
 		<form method="post" action="myArctos.cfm" name="dlForm">
 			<label for="block_suggest">Suggest Browse</label>
 			<select name="block_suggest" id="block_suggest" onchange="blockSuggest(this.value)">
@@ -261,7 +261,7 @@
 				<option value="1" <cfif session.killRow is 1> selected="selected" </cfif>>Yes</option>
 			</select>
 		</form>
-	</span>
+	</div>
 	<!---
 	<cfquery name="loan" datasource="cf_dbuser">
 		select * from cf_user_loan
