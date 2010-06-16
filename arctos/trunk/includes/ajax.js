@@ -24,6 +24,23 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
+function blockSuggest (onoff) {
+	$.getJSON("/component/functions.cfc",
+			{
+				method : "changeBlockSuggest",
+				onoff : onoff,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				if (r == 'success') {
+					alert("blocked");
+				} else {
+					alert('An error occured! \n ' + r);
+				}	
+			}
+		);
+}
 function findPart(partFld,part_name,collCde){
 	var url="/picks/findPart.cfm";
 	var part_name=part_name.replace('%','_');

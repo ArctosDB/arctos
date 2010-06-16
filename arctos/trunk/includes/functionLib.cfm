@@ -304,7 +304,7 @@
 				</div>
 				<cfabort>
 			</cfif>
-			<cfset session.myAgentId=#ckUserName.agent_id#>		
+			<cfset session.myAgentId=ckUserName.agent_id>		
 		<cfset pwtime =  round(now() - getPrefs.pw_change_date)>
 		<cfset pwage = Application.max_pw_age - pwtime>
 		<cfif pwage lte 0>
