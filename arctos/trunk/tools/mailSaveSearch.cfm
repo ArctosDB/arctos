@@ -34,20 +34,21 @@
 			From: savedSearch@#Application.fromEmail#<br>
 			To: #address#<br>
 			Subject: Arctos saved search: #SEARCH_NAME#<br>
+		<cfsavecontent variable="ss">
 			<p>
 				#msg#<br>
-				To view specimens, click the following link:<br>
-				
-				
-				<a href="#Application.ServerRootUrl#/go.cfm?id=#canned_id#">#SEARCH_NAME#</a><br>
+				To view specimens, click the following link:<br>				
+				<a href="#Application.ServerRootUrl#/saved/#search_name#">#SEARCH_NAME#</a><br>
 				or paste this address into your browser:<br>
-				#Application.ServerRootUrl#/go.cfm?id=#canned_id#<br>
+				#Application.ServerRootUrl#/saved/#search_name#<br>
 				-------------------------------------------------<br>
 				<span style="font-size:small">
 				This message was sent from #Application.ServerRootUrl# at the request of an Arctos user. Please report
 				problems to #Application.PageProblemEmail#
 				</span>
 			</p>
+		</cfsavecontent>
+		#ss#
 			<p>
 				<form name="m" method="post" action="mailSaveSearch.cfm">
 					<input type="hidden" name="action" value="mail">
@@ -68,18 +69,7 @@
 			to="#address#"
 			subject="Arctos saved search: #SEARCH_NAME#" 
 			type="html">
-				#msg#<br>
-				To view specimens, click the following link:<br>
-				
-				
-				<a href="#Application.ServerRootUrl#/go.cfm?id=#canned_id#">#SEARCH_NAME#</a><br>
-				or paste this address into your browser:<br>
-				#Application.ServerRootUrl#/go.cfm?id=#canned_id#<br>
-				-------------------------------------------------<br>
-				<span style="font-size:small">
-				This message was sent from #Application.ServerRootUrl# at the request of an Arctos user. Please report
-				problems to #Application.PageProblemEmail#
-				</span>
+				#ss#
 		</cfmail>
 		<script>
 			self.close();
