@@ -6,10 +6,10 @@
 	<cfset ipaddress='unknown'>
 </CFIF>
 	<cftry>
-		<cfquery name="ins" datasource="uam_god">
+		<cfquery name="d" datasource="uam_god">
 			insert into uam.blacklist (ip) values ('#trim(ipaddress)#')
 		</cfquery>
-		<cf_createhtaccess>	
+		<cfset application.blacklist=listappend(application.blacklist,trim(ipaddress))>
 		<cfmail subject="Autoblacklist Success" to="#Application.PageProblemEmail#" from="blacklisted@#application.fromEmail#" type="html">
 			Arctos automatically blacklisted IP
 			<a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a>

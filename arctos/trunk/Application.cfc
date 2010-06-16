@@ -129,13 +129,17 @@
 	<cfset Application.fromEmail = "#HTTP_HOST#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.fromEmail = "#HTTP_HOST#">
+	<cfquery name="d" datasource="uam_god">
+		select ip from uam.blacklist
+	</cfquery>
+	<cfset Application.blacklist=valuelist(d.ip)>
 	<cfif #cgi.HTTP_HOST# is "arctos.database.museum">
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRmuGmxQ-gdo7TWENOfdvPP48uvgxS1Mi5095Z-7DsupXP1SWQjdYKK_w">	
 		<cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
 		<cfset Application.DownloadPath = Application.webDirectory & "/download/">
-		<cfset Application.bugReportEmail = "arctos.database@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
-		<cfset Application.technicalEmail = "arctos.database@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
+		<cfset Application.bugReportEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
+		<cfset Application.technicalEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
 		<cfset Application.genBankPrid = "3849">
@@ -145,15 +149,15 @@
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
 		<cfset Application.Google_uacct = "UA-315170-1">
 		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com,lkv@berkeley.edu">
-		<cfset Application.PageProblemEmail = "arctos.database@gmail.com,lkv@berkeley.edu">
+		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com,lkv@berkeley.edu">
+		<cfset Application.PageProblemEmail = "dustymc@gmail.com,lkv@berkeley.edu">
 	<cfelseif #cgi.HTTP_HOST# is "arctos-test.arctos.database.museum">
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "arctos.database@gmail.com">
-		<cfset Application.technicalEmail = "arctos.database@gmail.com,lkv@berkeley.edu">
+		<cfset Application.bugReportEmail = "dustymc@gmail.com">
+		<cfset Application.technicalEmail = "dustymc@gmail.com,lkv@berkeley.edu">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
 		<cfset Application.genBankPrid = "3849">
@@ -163,8 +167,8 @@
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
 		<cfset Application.Google_uacct = "UA-315170-1">
 		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
-		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
+		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
+		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
     <cfelseif #cgi.HTTP_HOST# contains "harvard.edu">
 		<cfset Application.svn = "/usr/bin/svn">
 		<cfset Application.webDirectory = "/var/www/html/arctosv.2.2.2">
@@ -202,6 +206,17 @@
 		<cfabort>
 	</cfif>
 	---->
+	<cfif not isdefined("application.blacklist")>
+		<cfset application.blacklist="">
+	</cfif>
+	<cfif listfindnocase(application.blacklist,cgi.REMOTE_ADDR)>
+		<cfif cgi.script_name is not "/errors/gtfo.cfm">
+			<cfscript>
+				getPageContext().forward("/errors/gtfo.cfm");
+			</cfscript>
+			<cfabort>
+		</cfif>
+	</cfif>
 	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
 		<cfscript>
@@ -243,10 +258,10 @@
 			<cfabort>
 	</cfif>
 	<cfif cgi.HTTP_HOST is "arctos-test.arctos.database.museum" and 
-			GetTemplatePath() does not contain "/errors/dev_login.cfm" and
-			GetTemplatePath() does not contain "/login.cfm" and
-			GetTemplatePath() does not contain "/ChangePassword.cfm" and
-			GetTemplatePath() does not contain "/contact.cfm" and
+			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
+			#GetTemplatePath()# does not contain "/login.cfm" and
+			#GetTemplatePath()# does not contain "/ChangePassword.cfm" and
+			#GetTemplatePath()# does not contain "/contact.cfm" and
 			len(session.username) is 0>
 		<cflocation url="/errors/dev_login.cfm">	
 	<cfelseif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
