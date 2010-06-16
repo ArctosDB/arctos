@@ -246,6 +246,11 @@
 					</select>
 				</td>
 			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" value="Save" class="savBtn">
+				</td>
+			</tr>
 		</table>
 	</form>
 
