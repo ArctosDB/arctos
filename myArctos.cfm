@@ -195,12 +195,12 @@
 		<table style="border:2px solid black; margin:10px;">
 			<tr>
 				<td colspan="2">
-					<strong>Personal Profile:</strong>
+					<strong>Personal Profile</strong>
 					<span style="font-size:small;">
 						<br>
 						A profile is required to download data. 
 						<br>You cannot recover a lost password unless you enter an email address.
-						<br>This information will never be shared with anyone, and we'll never send you spam.
+						<br>Personal information will never be shared with anyone, and we'll never send you spam.
 					</span>
 				</td>
 			</tr>
@@ -236,40 +236,32 @@
 		select * from cf_users where username='#session.username#'
 	</cfquery>
 	---->
-	<form method="post" action="myArctos.cfm" name="dlForm">
-		<input type="hidden" name="action" value="saveSettings">
-		<table style="border:2px solid black; margin:10px;">
-			<tr>
-				<td>
-					<label for="block_suggest">Suggest Browse</label>
-					<select name="block_suggest" id="block_suggest" onchange="blockSuggest(this.value)">
-						<option value="0" <cfif session.block_suggest neq 1> selected="selected" </cfif>>Allow</option>
-						<option value="1" <cfif session.block_suggest is 1> selected="selected" </cfif>>Block</option>
-					</select>
-					<label for="showObservations">Include Observations?</label>
-					<select name="showObservations" id="showObservations" onchange="changeshowObservations(this.value)">
-						<option value="0" <cfif session.showObservations neq 1> selected="selected" </cfif>>No</option>
-						<option value="1" <cfif session.showObservations is 1> selected="selected" </cfif>>Yes</option>
-					</select>
-					<label for="showObservations">SpecimenResults Records Per Page</label>
-					<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
-						<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
-						<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
-						<option  <cfif session.displayRows is "50"> selected </cfif> value="50">50</option>
-						<option  <cfif session.displayRows is "100"> selected </cfif> value="100">100</option>
-					</select>
-					<label for="killRows">SpecimenResults Row-Removal Option</label>
-					<select name="killRow" id="killRow" onchange="changekillRows(this.value)">
-						<option value="0" <cfif session.killRow neq 1> selected="selected" </cfif>>No</option>
-						<option value="1" <cfif session.killRow is 1> selected="selected" </cfif>>Yes</option>
-					</select>
-					
-
-				</td>
-			</tr>
-		</table>
-	</form>
-
+	<span style="border:2px solid black; margin:10px;">
+		<form method="post" action="myArctos.cfm" name="dlForm">
+			<label for="block_suggest">Suggest Browse</label>
+			<select name="block_suggest" id="block_suggest" onchange="blockSuggest(this.value)">
+				<option value="0" <cfif session.block_suggest neq 1> selected="selected" </cfif>>Allow</option>
+				<option value="1" <cfif session.block_suggest is 1> selected="selected" </cfif>>Block</option>
+			</select>
+			<label for="showObservations">Include Observations?</label>
+			<select name="showObservations" id="showObservations" onchange="changeshowObservations(this.value)">
+				<option value="0" <cfif session.showObservations neq 1> selected="selected" </cfif>>No</option>
+				<option value="1" <cfif session.showObservations is 1> selected="selected" </cfif>>Yes</option>
+			</select>
+			<label for="showObservations">SpecimenResults Records Per Page</label>
+			<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
+				<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
+				<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
+				<option  <cfif session.displayRows is "50"> selected </cfif> value="50">50</option>
+				<option  <cfif session.displayRows is "100"> selected </cfif> value="100">100</option>
+			</select>
+			<label for="killRows">SpecimenResults Row-Removal Option</label>
+			<select name="killRow" id="killRow" onchange="changekillRows(this.value)">
+				<option value="0" <cfif session.killRow neq 1> selected="selected" </cfif>>No</option>
+				<option value="1" <cfif session.killRow is 1> selected="selected" </cfif>>Yes</option>
+			</select>
+		</form>
+	</span>
 	<!---
 	<cfquery name="loan" datasource="cf_dbuser">
 		select * from cf_user_loan
