@@ -41,6 +41,26 @@ function blockSuggest (onoff) {
 			}
 		);
 }
+function changekillRows () {
+	if (document.getElementById('killRows').checked){
+		var tgt=1;
+	} else {
+		var tgt=0;
+	}
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changekillRows",
+			tgt : tgt,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (result){
+			if (result != 'success') {
+				alert('An error occured: ' + result);
+			}
+		}
+	);
+}
 function findPart(partFld,part_name,collCde){
 	var url="/picks/findPart.cfm";
 	var part_name=part_name.replace('%','_');

@@ -835,26 +835,6 @@ function logIt(msg,status) {
 		document.getElementById('oidnum').select();
 	}
 }
-function changekillRows () {
-	if (document.getElementById('killRows').checked){
-		var tgt=1;
-	} else {
-		var tgt=0;
-	}
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "changekillRows",
-			tgt : tgt,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (result){
-			if (result != 'success') {
-				alert('An error occured: ' + result);
-			}
-		}
-	);
-}
 function changeresultSort (tgt) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
