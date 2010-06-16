@@ -200,7 +200,7 @@
 		<input type="text" name="affiliation" value="#getUserData.affiliation#" class="reqdClr" size="50">
 		<label for="email">Email</label>
 		<input type="text" name="email" value="#getUserData.email#" size="30">
-		<input type="submit" value="Save Profile" class="savBtn">
+		<br><input type="submit" value="Save Profile" class="savBtn">
 	</form>
 	<!---
 	<cfquery name="getUserPrefs" datasource="cf_dbuser">
@@ -233,38 +233,6 @@
 			<option value="1" <cfif session.killRow is 1> selected="selected" </cfif>>Yes</option>
 		</select>
 	</form>
-	<!---
-	<cfquery name="loan" datasource="cf_dbuser">
-		select * from cf_user_loan
-		inner join cf_users on (cf_user_loan.user_id = cf_users.user_id)
-		where username='#session.username#'
-		order by IS_ACTIVE DESC
-	</cfquery>
-	<table style="border:2px solid black; margin:10px;">
-		<tr>
-			<td>
-				<a href="user_loan_request.cfm"><strong>Loans</strong></a>
-				<ul>
-					<cfif #loan.recordcount# gt 0>
-						<cfloop query="loan">
-							<li>
-								<cfif #IS_ACTIVE# is 1>
-									<span>
-								<cfelse>
-									<span style="color:##666666">
-								</cfif>
-									#PROJECT_TITLE#
-								</span>
-							</li>
-						</cfloop>
-					<cfelse>
-						<li>None</li>
-					</cfif>
-				</ul>
-			</td>
-		</tr>
-	</table>
-	--->
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------------->
@@ -280,66 +248,65 @@
 <!----------------------------------------------------------------------------------------------->
 <cfif action is "saveProfile">
 	<!--- get the values they filled in --->
-	<cfif len(#first_name#) is 0 OR
-		len(#last_name#) is 0 OR
-		len(#affiliation#) is 0>
+	<cfif len(first_name) is 0 OR
+		len(last_name) is 0 OR
+		len(affiliation) is 0>
 		You haven't filled in all required values! Please use your browser's back button to try again.
 		<cfabort>
 	</cfif>
-	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
-	
+	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cfquery name="isUser" datasource="cf_dbuser">
 		select * from cf_user_data where user_id=#user_id#
 	</cfquery>
 		<!---- already have a user_data entry --->
-		<cfif #isUser.recordcount# is 1>
-			<cfquery name="upUser" datasource="cf_dbuser">
-				UPDATE cf_user_data SET
-					first_name = '#first_name#',
-					last_name = '#last_name#',
-					affiliation = '#affiliation#'
-					<cfif len(#middle_name#) gt 0>
-						,middle_name = '#middle_name#'
-					<cfelse>
-						,middle_name = NULL
-					</cfif>
-					<cfif len(#email#) gt 0>
-						,email = '#email#'
-					<cfelse>
-						,email = NULL
-					</cfif>
-				WHERE
-					user_id = #user_id#
-			</cfquery>
-		</cfif>
-		<cfif #isUser.recordcount# is not 1>
-			<cfquery name="newUser" datasource="cf_dbuser">
-				INSERT INTO cf_user_data (
-					user_id,
-					first_name,
-					last_name,
-					affiliation
-					<cfif len(#middle_name#) gt 0>
-						,middle_name
-					</cfif>
-					<cfif len(#email#) gt 0>
-						,email
-					</cfif>
-					)
-				VALUES (
-					#user_id#,
-					'#first_name#',
-					'#last_name#',
-					'#affiliation#'
-					<cfif len(#middle_name#) gt 0>
-						,'#middle_name#'
-					</cfif>
-					<cfif len(#email#) gt 0>
-						,'#email#'
-					</cfif>
-					)
-			</cfquery>
-		</cfif>
+	<cfif isUser.recordcount is 1>
+		<cfquery name="upUser" datasource="cf_dbuser">
+			UPDATE cf_user_data SET
+				first_name = '#first_name#',
+				last_name = '#last_name#',
+				affiliation = '#affiliation#'
+				<cfif len(#middle_name#) gt 0>
+					,middle_name = '#middle_name#'
+				<cfelse>
+					,middle_name = NULL
+				</cfif>
+				<cfif len(#email#) gt 0>
+					,email = '#email#'
+				<cfelse>
+					,email = NULL
+				</cfif>
+			WHERE
+				user_id = #user_id#
+		</cfquery>
+	</cfif>
+	<cfif #isUser.recordcount# is not 1>
+		<cfquery name="newUser" datasource="cf_dbuser">
+			INSERT INTO cf_user_data (
+				user_id,
+				first_name,
+				last_name,
+				affiliation
+				<cfif len(#middle_name#) gt 0>
+					,middle_name
+				</cfif>
+				<cfif len(#email#) gt 0>
+					,email
+				</cfif>
+				)
+			VALUES (
+				#user_id#,
+				'#first_name#',
+				'#last_name#',
+				'#affiliation#'
+				<cfif len(#middle_name#) gt 0>
+					,'#middle_name#'
+				</cfif>
+				<cfif len(#email#) gt 0>
+					,'#email#'
+				</cfif>
+				)
+		</cfquery>
+	</cfif>
 	<cflocation url="/myArctos.cfm" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------->
