@@ -23,7 +23,7 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			Loan Number:
+			<span class="helpLink" id="loan_number">Loan Number:</span>
 		</td>
 		<td class="srch">
 			<input name="loan_number" id="loan_number" type="text" size="50">
@@ -32,7 +32,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Permit Issued By:
+			<span class="helpLink" id="permit_issued_by">Permit Issued By:</span>
 		</td>
 		<td class="srch">
 			<input name="permit_issued_by" id="permit_issued_by" type="text" size="50">
@@ -40,7 +40,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Permit Issued To:
+			<span class="helpLink" id="permit_issued_to">Permit Issued To:</span>
 		</td>
 		<td class="srch">
 			<input name="permit_issued_to" id="permit_issued_to" type="text" size="50">
@@ -48,7 +48,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Permit Type:
+			<span class="helpLink" id="permit_type">Permit Type:</span>
 		</td>
 		<td class="srch">
 			<select name="permit_type" id="permit_type" size="1">
@@ -61,7 +61,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Permit Number:
+			<span class="helpLink" id="permit_number">Permit Number:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="permit_num" id="permit_num" size="50">
@@ -70,7 +70,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Entered By:
+			<span class="helpLink" id="entered_by">Entered By:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="entered_by" id="entered_by" size="50">
@@ -78,7 +78,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Disposition:
+			<span class="helpLink" id="disposition">Disposition:</span>
 		</td>
 		<td class="srch">
 			<select name="coll_obj_disposition" id="coll_obj_disposition" size="1">
