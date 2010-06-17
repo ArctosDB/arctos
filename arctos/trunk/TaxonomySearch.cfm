@@ -103,17 +103,31 @@
 			</tr>
 			<tr>
 				<td align="right">
-					<span class="likeLink" onClick="getHelp('taxonomy_anything');">
-						<strong>Any&nbsp;Category:</strong>
-					</span>
+					<span class="helpLink" id="taxonomy_anything"><strong>Any&nbsp;Category:</strong></span>
 				</td>
 				<td nowrap="nowrap">
 					<input size="25" name="full_taxon_name" id="full_taxon_name" maxlength="50">
 				</td>
 			</tr>
 			<tr>
-				<td align="right"><b><nobr>Author Text:</nobr></b></td>
-				<td nowrap="nowrap"><input size="25" name="author_text" id="author_text" maxlength="40"></td>
+				<td align="right">
+					<span class="helpLink" id="author_text"><strong><nobr>Author Text:</nobr></strong></span>
+				</td>
+				<td nowrap="nowrap"><input size="25" name="author_text" id="author_text" maxlength="40">
+					<span class="infoLink" onclick="var e=document.getElementById('scientific_name');e.value='='+e.value;">
+						Add = for exact match
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<span class="helpLink" id="infraspecific_author"><strong><nobr>Infraspecific Author Text:</nobr></strong></span>
+				</td>
+				<td nowrap="nowrap"><input size="25" name="infraspecific_author" id="infraspecific_author" maxlength="40">
+					<span class="infoLink" onclick="var e=document.getElementById('scientific_name');e.value='='+e.value;">
+						Add = for exact match
+					</span>
+				</td>
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Genus:</nobr></b></td>
