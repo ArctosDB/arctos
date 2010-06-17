@@ -197,6 +197,14 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#author_text#')>
 		</cfif>
+		<cfif isdefined("infraspecific_author") AND len(infraspecific_author) gt 0>
+			<cfif left(infraspecific_author,1) is "=">
+				<CFSET SQL = "#SQL# AND upper(infraspecific_author) = '#ucase(right(infraspecific_author,len(infraspecific_author)-1))#'">
+			<cfelse>
+				<CFSET SQL = "#SQL# AND upper(infraspecific_author) LIKE '%#ucase(infraspecific_author)#%'">
+			</cfif>
+			<cfset titleTerms=listappend(titleTerms,'#infraspecific_author#')>
+		</cfif>
 		<cfif isdefined("scientific_name") AND len(#scientific_name#) gt 0>
 			<cfif left(scientific_name,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(scientific_name) = '#ucase(right(scientific_name,len(scientific_name)-1))#'">
