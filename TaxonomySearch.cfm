@@ -1,4 +1,5 @@
 <cfinclude template = "includes/_header.cfm">
+<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <cfset title = "Search for Taxonomy">
 <cfset metaDesc = "Search Arctos for taxonomy, including accepted, unaccepted, used, and unused names, higher taxonomy, and common names.">
 <!--- no security required to access this page --->
@@ -13,7 +14,22 @@
 </cfquery>
 <cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
-</cfquery>		
+</cfquery>
+<script type="text/javascript" language="javascript">
+	jQuery(document).ready(function() {
+		jQuery("#phylclass").autocomplete("/ajax/phylclass.cfm", {
+			width: 320,
+			max: 50,
+			autofill: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300,
+			matchContains: true,
+			minChars: 1,
+			selectFirst:false
+		});
+	});
+</script>	
 <cfoutput>
 <br>
 	<form ACTION="TaxonomyResults.cfm" METHOD="post" name="taxa">
@@ -114,7 +130,7 @@
 					<span class="helpLink" id="author_text"><strong><nobr>Author Text:</nobr></strong></span>
 				</td>
 				<td nowrap="nowrap"><input size="25" name="author_text" id="author_text" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('scientific_name');e.value='='+e.value;">
+					<span class="infoLink" onclick="var e=document.getElementById('author_text');e.value='='+e.value;">
 						Add = for exact match
 					</span>
 				</td>
@@ -124,7 +140,7 @@
 					<span class="helpLink" id="infraspecific_author"><strong><nobr>Infraspecific Author Text:</nobr></strong></span>
 				</td>
 				<td nowrap="nowrap"><input size="25" name="infraspecific_author" id="infraspecific_author" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('scientific_name');e.value='='+e.value;">
+					<span class="infoLink" onclick="var e=document.getElementById('infraspecific_author');e.value='='+e.value;">
 						Add = for exact match
 					</span>
 				</td>
@@ -191,13 +207,10 @@
 			<tr>
 				<td align="right"><b><nobr>Class:</nobr></b></td>
 				<td nowrap="nowrap">
-					<select name="phylclass" id="phylclass" size="1">
-						<option></option>
-						<cfloop query="ctClass">
-							<option value="#phylclass#">#phylclass#</option>
-						</cfloop>
-					</select>
-					<span class="infoLink" onclick="getCtDoc('ctclass',taxa.phylclass.value);">Define</span>								
+					<input size="25" name="phylclass" id="phylclass" maxlength="40">
+					<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='='+e.value;">
+						Add = for exact match
+					</span>							
 				</td>
 			</tr>
 			<tr>
