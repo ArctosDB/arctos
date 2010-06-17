@@ -255,7 +255,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right"><b><nobr>Authority:</nobr></b></td>
+				<td align="right">
+					<span class="helpLink" id="source_authority"><strong>Authority:</strong></span>
+				</td>
 				<td nowrap="nowrap">
 					<select name="source_authority" id="source_authority" size="1">
 						<option></option>
@@ -268,13 +270,9 @@
 			<tr>
 				<td nowrap="nowrap"><font size="-1">&nbsp;</font></td>
 				<td align="center">
-					<input type="submit" 
-						value="Search" 
-						class="schBtn">
+					<input type="submit" value="Search" class="schBtn">
 					&nbsp;&nbsp;
-					<input type="reset" 
-						value="Clear Form" 
-						class="clrBtn">
+					<input type="reset" value="Clear Form" class="clrBtn">
 					<input type="hidden" name="action" value="search">
 				</td>
 			</tr>
