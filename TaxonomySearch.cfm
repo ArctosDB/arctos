@@ -92,9 +92,7 @@
 			</tr>
 			<tr>
 				<td align="right">
-					<span class="likeLink" onClick="getHelp('taxonomy_scientific_name');">
-						<strong>Scientific&nbsp;Name:</strong>
-					</span>
+					<span class="helpLink" id="taxonomy_scientific_name"><strong>Scientific&nbsp;Name:</strong></span>
 				</td>
 				<td nowrap="nowrap">
 					<input size="25" name="scientific_name" id="scientific_name" maxlength="40">
