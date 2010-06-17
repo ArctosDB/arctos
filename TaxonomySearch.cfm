@@ -50,6 +50,28 @@
 			minChars: 1,
 			selectFirst:false
 		});
+		jQuery("#phylorder").autocomplete("/ajax/phylorder.cfm", {
+			width: 320,
+			max: 50,
+			autofill: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300,
+			matchContains: true,
+			minChars: 1,
+			selectFirst:false
+		});
+		jQuery("#family").autocomplete("/ajax/family.cfm", {
+			width: 320,
+			max: 50,
+			autofill: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300,
+			matchContains: true,
+			minChars: 1,
+			selectFirst:false
+		});
 	});
 </script>	
 <cfoutput>
