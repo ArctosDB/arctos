@@ -78,21 +78,15 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td align="center" nowrap>
-					<input type="submit" 
-						value="Search" 
-						class="schBtn">
+					<input type="submit" value="Search"	class="schBtn">
 					&nbsp;&nbsp;
-					<input type="reset" 
-						value="Clear Form" 
-						class="clrBtn">
+					<input type="reset" value="Clear Form" class="clrBtn">
 					<input type="hidden" name="action" value="search">
 				</td>
 			</tr>
 			<tr>
 				<td align="right" nowrap>
-					<span class="likeLink" onClick="getHelp('common_name');">
-						<strong>Common&nbsp;Name:</strong>
-					</span>
+					<span class="helpLink" id="common_name"><strong>Common&nbsp;Name:</strong></span>
 				</td>
 				<td nowrap="nowrap"><input size="25" name="common_name" id="common_name" maxlength="50"></td>
 			</tr>
