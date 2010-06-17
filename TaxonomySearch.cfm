@@ -19,7 +19,7 @@
 	<form ACTION="TaxonomyResults.cfm" METHOD="post" name="taxa">
 		<table width="90%" border="0" cellspacing="0" cellpadding="0">
 			<tr> 
-				<td rowspan="20" valign="top" align="left">
+				<td rowspan="21" valign="top" align="left">
 					<table border="0" cellpadding="10" cellspacing="10">
 						<tr>
 							<td>
