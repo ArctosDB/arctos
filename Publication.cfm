@@ -476,21 +476,20 @@
 	</cfquery>
 	<script>
 		function confirmpub() {
-			
-		
+			var r=true;		
 			if ($('#author_id_1').val().length){
 				alert('author is required.');
-				return false;
+				r=false;
 			)
 			if ($('#publication_title').val().length){
 				alert('publication_title is required.');
-				return false;
+				r=false;
 			)
 			if ($('#publication_type').val().length){
 				alert('publication_type is required.');
-				return false;
+				r=false;
 			)
-			return true;
+			return r;
 		}
 	</script>
 	<cfoutput>
