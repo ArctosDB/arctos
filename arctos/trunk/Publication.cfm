@@ -496,7 +496,7 @@
 		}
 		function toggleMedia() {
 			if($('#media').css('display')=='none') {
-				$('#mediaToggle').html('Remove Media');
+				$('#mediaToggle').html('[ Remove Media ]');
 				$('#media').show();
 				$('#media_uri').addClass('reqdClr');
 				$('#preview_uri').addClass('reqdClr');
@@ -504,13 +504,13 @@
 				$('#media_type').addClass('reqdClr');
 				$('#media_desc').addClass('reqdClr');
 			} else {
-				$('#mediaToggle').html('Add Media');
+				$('#mediaToggle').html('[ Add Media ]');
 				$('#media').hide();
 				$('#media_uri').val('').removeClass('reqdClr');
-				$('#preview_uri').removeClass('reqdClr');
-				$('#mime_type').removeClass('reqdClr');
-				$('#media_type').removeClass('reqdClr');
-				$('#media_desc').removeClass('reqdClr');
+				$('#preview_uri').val('').removeClass('reqdClr');
+				$('#mime_type').val('').removeClass('reqdClr');
+				$('#media_type').val('').removeClass('reqdClr');
+				$('#media_desc').val('').removeClass('reqdClr');
 			}
 		}
 	</script>
@@ -614,7 +614,7 @@
 				</tr>			
 			</table>
 			</div>
-			<span class="likeLink" id="mediaToggle" onclick="toggleMedia()">Add Media</span>
+			<span class="likeLink" id="mediaToggle" onclick="toggleMedia()">[ Add Media ]</span>
 			<div class="cellDiv" id="media" style="display:none">
 				Media (yellow cells are only required if you supply or create a URI):
 				<label for="media_uri">Media URI</label>
