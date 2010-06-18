@@ -476,19 +476,25 @@
 	</cfquery>
 	<script>
 		function confirmpub() {
-			alert('test');
-			alert($('#author_id_1').val().length);
-			return false;
-			/*
-			if len($('#author_name_1')==0){
+			
+		
+			if ($('#author_id_1').val().length){
 				alert('author is required.');
 				return false;
 			)
-			*/	
+			if ($('#publication_title').val().length){
+				alert('publication_title is required.');
+				return false;
+			)
+			if ($('#publication_type').val().length){
+				alert('publication_type is required.');
+				return false;
+			)
+			return true;
 		}
 	</script>
 	<cfoutput>
-		<form name="newpub" method="post" onsubmit="if (!confirmpub()) { alert('whoops!'); return false; }" action="Publication.cfm">
+		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<div class="cellDiv">
 			The Basics:
 			<input type="hidden" name="action" value="createPub">
