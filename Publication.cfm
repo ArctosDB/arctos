@@ -486,7 +486,7 @@
                 console.log('-----------------');
                 console.log(this.id);
                 if ($(thisel).val().length==0){
-                	msg+=this.id + ' is required' + \n;
+                	msg += this.id + ' is required\n';
                 	$(thisel).addClass('red');
                 }
                 
