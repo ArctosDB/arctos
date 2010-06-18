@@ -481,25 +481,23 @@
 	</style>
 	<script>
 		function confirmpub() {
-			
-			
 			var r=true;
 			var msg='';
 			$('.missing').removeClass('missing');
-			
 			$('.reqdClr').each(function() {
                 var thisel=$("#" + this.id)
-                console.log('-----------------');
-                console.log(this.id);
                 if ($(thisel).val().length==0){
                 	msg += this.id + ' is required\n';
                 	$(thisel).addClass('missing');
-                }
-                
-                
-        	}); 
-        alert(msg);
-        	return false;
+                }                
+        	});
+        	if (msg.length>0){
+        		msg+='You may remove unwanted attributes';
+        		alert(msg);
+        		return false;
+        	} else {
+        		return true;
+        	}
 			/*
 			if ($('#author_id_1').val().length==0){
 				msg+='; author is required.';
