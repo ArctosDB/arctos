@@ -482,13 +482,12 @@
 			var msg;
 			
 			$('[class=reqdClr]').each(function() {
-                var thisid=$("#" + this.id)
+                var thisel=$("#" + this.id)
                 console.log('-----------------');
                 console.log(this.id);
-                console.log(this.name);
-                console.log(thisid);
-                
-                console.log(thisid.id);
+                if ($(thisel).val().length==0){
+                	console.log('this element is empty');
+                }
                 
                 
         	}); 
