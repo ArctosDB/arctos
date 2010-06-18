@@ -475,7 +475,7 @@
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	<style>
-		.error {
+		.missing {
 			border:2px solid red;
 			}
 	</style>
@@ -492,7 +492,7 @@
                 console.log(this.id);
                 if ($(thisel).val().length==0){
                 	msg += this.id + ' is required\n';
-                	$(thisel).addClass('error');
+                	$(thisel).addClass('missing');
                 }
                 
                 
