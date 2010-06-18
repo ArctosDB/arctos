@@ -4,7 +4,7 @@
 <cfparam name="old_path" default="">
 <cfparam name="new_path" default="">
 <cfoutput>
-	
+	<span style="border:1px dashed green">
 	Find redirects
 	<form name="srch" method="post" action="redirect.cfm">
 		<input type="hidden" name="action" id="action" value="search">
@@ -17,6 +17,7 @@
 		 	value="Filter" 
 			class="lnkBtn">
 	</form>
+	</span>
 	Create Redirect
 	<form name="new" method="post" action="redirect.cfm">
 		<input type="hidden" name="action" id="action" value="new">
