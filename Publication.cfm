@@ -479,11 +479,12 @@
 			alert('test');
 			alert($('#author_name_1').length);
 			return false;
-			
+			/*
 			if len($('#author_name_1')==0){
 				alert('author is required.');
 				return false;
-			)	
+			)
+			*/	
 		}
 	</script>
 	<cfoutput>
