@@ -477,7 +477,7 @@
 	<script>
 		function confirmpub() {
 			alert('test');
-			alert($('#author_name_1').length);
+			alert(trim($('#author_name_1')).length);
 			return false;
 			/*
 			if len($('#author_name_1')==0){
