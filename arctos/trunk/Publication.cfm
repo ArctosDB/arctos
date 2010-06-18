@@ -488,7 +488,7 @@
 		}
 	</script>
 	<cfoutput>
-		<form name="newpub" method="post" onsubmit="confirmpub()" action="Publication.cfm">
+		<form name="newpub" method="post" onsubmit="if (!confirmpub()) { alert('whoops!'); return false; }" action="Publication.cfm">
 			<div class="cellDiv">
 			The Basics:
 			<input type="hidden" name="action" value="createPub">
