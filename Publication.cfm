@@ -606,7 +606,7 @@
 			</table>
 			</div>
 			<span class="likeLink" id="mediaToggle" onclick="toggleMedia()">Add Media</span>
-			<div class="cellDiv" id="media">
+			<div class="cellDiv" id="media" style="display:none">
 				Media (yellow cells are only required if you supply or create a URI):
 				<label for="media_uri">Media URI</label>
 				<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
