@@ -495,7 +495,7 @@
 			return r;
 		}
 		function toggleMedia() {
-			var isOn=$(#'media').css('display');
+			var isOn=$('#media').css('display');
 			alert('isOn is ' + isOn);
 			
 		}
