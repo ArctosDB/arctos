@@ -476,6 +476,9 @@
 	</cfquery>
 	<script>
 		function confirmpub() {
+			alert(len($('#author_name_1'));
+			return false;
+			
 			if len($('#author_name_1')==0){
 				alert('author is required.');
 				return false;
