@@ -499,9 +499,19 @@
 			if($('#media').css('display')=='none') {
 				$('#mediaToggle').html('Remove Media');
 				$('#media').show();
+				$('#media_uri').addClass('reqdClr');
+				$('#preview_uri').addClass('reqdClr');
+				$('#mime_type').addClass('reqdClr');
+				$('#media_type').addClass('reqdClr');
+				$('#media_desc').addClass('reqdClr');
 			} else {
 				$('#mediaToggle').html('Add Media');
 				$('#media').hide();
+				$('#media_uri').removeClass('reqdClr');
+				$('#preview_uri').removeClass('reqdClr');
+				$('#mime_type').removeClass('reqdClr');
+				$('#media_type').removeClass('reqdClr');
+				$('#media_desc').removeClass('reqdClr');
 			}
 			
 		}
@@ -514,24 +524,24 @@
 				Media (yellow cells are only required if you supply or create a URI):
 				<label for="media_uri">Media URI</label>
 				<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
-				<label for="preview_uri">Preview URI</label>
+				<label for="">Preview URI</label>
 				<input type="text" name="preview_uri" id="preview_uri" size="90">
 				<label for="mime_type">MIME Type</label>
-				<select name="mime_type" id="mime_type" class="reqdClr">
+				<select name="mime_type" id="" class="reqdClr">
 					<option value=""></option>
 					<cfloop query="ctmime_type">
 						<option value="#mime_type#">#mime_type#</option>
 					</cfloop>
 				</select>
             	<label for="media_type">Media Type</label>
-				<select name="media_type" id="media_type" class="reqdClr">
+				<select name="" id="media_type" class="reqdClr">
 					<option value=""></option>
 					<cfloop query="ctmedia_type">
 						<option value="#media_type#">#media_type#</option>
 					</cfloop>
 				</select>
 				<label for="media_desc">Media Description</label>
-				<input type="text" name="media_desc" id="media_desc" size="80" class="reqdClr">
+				<input type="text" name="" id="media_desc" size="80" class="reqdClr">
 			</div>
 			*/
 			
