@@ -476,26 +476,62 @@
 	</cfquery>
 	<script>
 		function confirmpub() {
-			var r=true;		
+			var r=true;
+			var msg;	
 			if ($('#author_id_1').val().length==0){
-				alert('author is required.');
+				msg+='; author is required.';
 				r=false;
 				alert('noauthor - r is now ' + r);
-			} else {
-				alert('author spiffy??');
 			}
 			if ($('#publication_title').val().length==0){
-				alert('publication_title is required.');
+				msg+='; publication_title is required.';
 				r=false;
 			}
 			if ($('#publication_type').val().length==0){
-				alert('publication_type is required.');
+				msg+='; publication_type is required.';
 				r=false;
 			}
-			alert(r);
+			alert(msg);
 			return r;
 		}
+		function toggleMedia() {
+			var isOn=$(#'media').css('display');
+			alert('isOn is ' + isOn);
+			
+		}
 	</script>
+	<!----
+	
+	/*
+			<span class="likeLink" id="mediaToggle" onclick="toggleMedia()">Add Media</span>
+			<div class="cellDiv" id="media">
+				Media (yellow cells are only required if you supply or create a URI):
+				<label for="media_uri">Media URI</label>
+				<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
+				<label for="preview_uri">Preview URI</label>
+				<input type="text" name="preview_uri" id="preview_uri" size="90">
+				<label for="mime_type">MIME Type</label>
+				<select name="mime_type" id="mime_type" class="reqdClr">
+					<option value=""></option>
+					<cfloop query="ctmime_type">
+						<option value="#mime_type#">#mime_type#</option>
+					</cfloop>
+				</select>
+            	<label for="media_type">Media Type</label>
+				<select name="media_type" id="media_type" class="reqdClr">
+					<option value=""></option>
+					<cfloop query="ctmedia_type">
+						<option value="#media_type#">#media_type#</option>
+					</cfloop>
+				</select>
+				<label for="media_desc">Media Description</label>
+				<input type="text" name="media_desc" id="media_desc" size="80" class="reqdClr">
+			</div>
+			*/
+			
+			
+			
+			---->
 	<cfoutput>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<div class="cellDiv">
@@ -564,7 +600,8 @@
 				</tr>			
 			</table>
 			</div>
-			<div class="cellDiv">
+			<span class="likeLink" id="mediaToggle" onclick="toggleMedia()">Add Media</span>
+			<div class="cellDiv" id="media">
 				Media (yellow cells are only required if you supply or create a URI):
 				<label for="media_uri">Media URI</label>
 				<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
