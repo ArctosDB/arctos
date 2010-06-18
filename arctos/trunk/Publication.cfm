@@ -497,11 +497,11 @@
 		function toggleMedia() {
 			alert($('#media').css('display'));
 			if($('#media').css('display')=='none') {
-				$('#mediaToggle').html('Add Media');
-				$('#cellDiv').css('display','none');
-			} else {
 				$('#mediaToggle').html('Remove Media');
 				$('#cellDiv').css('display','block');
+			} else {
+				$('#mediaToggle').html('Add Media');
+				$('#cellDiv').css('display','none');
 			}
 			
 		}
