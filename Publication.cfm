@@ -486,7 +486,7 @@
 			var r=true;
 			var msg='';
 			
-			$('[class=reqdClr]').each(function() {
+			$('.reqdClr').each(function() {
                 var thisel=$("#" + this.id)
                 console.log('-----------------');
                 console.log(this.id);
