@@ -478,6 +478,7 @@
 		function confirmpub() {
 			if len($('#author_name_1')==0){
 				alert('author is required.');
+				return false;
 			)	
 		}
 	</script>
