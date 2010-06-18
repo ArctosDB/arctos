@@ -498,10 +498,10 @@
 			alert($('#media').css('display'));
 			if($('#media').css('display')=='none') {
 				$('#mediaToggle').html('Remove Media');
-				$('#cellDiv').show();
+				$('#cellDiv').toggle();
 			} else {
 				$('#mediaToggle').html('Add Media');
-				$('#cellDiv').hide();
+				$('#cellDiv').toggle();
 			}
 			
 		}
