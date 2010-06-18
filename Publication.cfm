@@ -480,6 +480,7 @@
 			if ($('#author_id_1').val().length){
 				alert('author is required.');
 				r=false;
+				alert('noauthor - r is now ' + r);
 			}
 			if ($('#publication_title').val().length){
 				alert('publication_title is required.');
