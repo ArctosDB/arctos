@@ -486,12 +486,13 @@
                 console.log('-----------------');
                 console.log(this.id);
                 if ($(thisel).val().length==0){
-                	console.log('this element is empty');
+                	msg+=this.id + ' is required' + \n;
+                	$(thisel).addClass('red');
                 }
                 
                 
         	}); 
-        
+        alert(msg);
         	return false;
 			/*
 			if ($('#author_id_1').val().length==0){
@@ -531,38 +532,6 @@
 			}
 		}
 	</script>
-	<!----
-	
-	/*
-			<span class="likeLink" id="mediaToggle" onclick="toggleMedia()">Add Media</span>
-			<div class="cellDiv" id="media">
-				Media (yellow cells are only required if you supply or create a URI):
-				<label for="media_uri">Media URI</label>
-				<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
-				<label for="">Preview URI</label>
-				<input type="text" name="preview_uri" id="preview_uri" size="90">
-				<label for="mime_type">MIME Type</label>
-				<select name="mime_type" id="" class="reqdClr">
-					<option value=""></option>
-					<cfloop query="ctmime_type">
-						<option value="#mime_type#">#mime_type#</option>
-					</cfloop>
-				</select>
-            	<label for="media_type">Media Type</label>
-				<select name="" id="media_type" class="reqdClr">
-					<option value=""></option>
-					<cfloop query="ctmedia_type">
-						<option value="#media_type#">#media_type#</option>
-					</cfloop>
-				</select>
-				<label for="media_desc">Media Description</label>
-				<input type="text" name="" id="media_desc" size="80" class="reqdClr">
-			</div>
-			*/
-			
-			
-			
-			---->
 	<cfoutput>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<div class="cellDiv">
@@ -635,25 +604,25 @@
 			<div class="cellDiv" id="media" style="display:none">
 				Media (yellow cells are only required if you supply or create a URI):
 				<label for="media_uri">Media URI</label>
-				<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
+				<input type="text" name="media_uri" id="media_uri" size="90"><span class="infoLink" id="uploadMedia">Upload</span>
 				<label for="preview_uri">Preview URI</label>
 				<input type="text" name="preview_uri" id="preview_uri" size="90">
 				<label for="mime_type">MIME Type</label>
-				<select name="mime_type" id="mime_type" class="reqdClr">
+				<select name="mime_type" id="mime_type">
 					<option value=""></option>
 					<cfloop query="ctmime_type">
 						<option value="#mime_type#">#mime_type#</option>
 					</cfloop>
 				</select>
             	<label for="media_type">Media Type</label>
-				<select name="media_type" id="media_type" class="reqdClr">
+				<select name="media_type" id="media_type">
 					<option value=""></option>
 					<cfloop query="ctmedia_type">
 						<option value="#media_type#">#media_type#</option>
 					</cfloop>
 				</select>
 				<label for="media_desc">Media Description</label>
-				<input type="text" name="media_desc" id="media_desc" size="80" class="reqdClr">
+				<input type="text" name="media_desc" id="media_desc" size="80">
 			</div>
 			<br><input type="submit" value="create publication" class="insBtn">
 			
