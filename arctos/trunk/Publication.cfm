@@ -480,15 +480,15 @@
 			if ($('#author_id_1').val().length){
 				alert('author is required.');
 				r=false;
-			)
+			}
 			if ($('#publication_title').val().length){
 				alert('publication_title is required.');
 				r=false;
-			)
+			}
 			if ($('#publication_type').val().length){
 				alert('publication_type is required.');
 				r=false;
-			)
+			}
 			alert(r);
 			return r;
 		}
