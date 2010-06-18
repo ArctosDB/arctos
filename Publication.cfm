@@ -495,8 +495,11 @@
 			return r;
 		}
 		function toggleMedia() {
-			var isOn=$('#media').css('display');
-			alert('isOn is ' + isOn);
+			if($('#media').css('display')=='none') {
+				$('#mediaToggle').html('Add Media');
+			} else {
+				$('#mediaToggle').html('Remove Media');
+			}
 			
 		}
 	</script>
