@@ -20,9 +20,9 @@ border:1px dashed green;
 	<form name="srch" method="post" action="redirect.cfm">
 		<input type="hidden" name="action" id="action" value="search">
 		<label for="old_path">old_path</label>
-		<input type="text" name="old_path" id="old_path" value="#old_path#">
+		<input type="text" name="old_path" id="old_path" value="#old_path#" size="60">
 		<label for="new_path">new_path</label>
-		<input type="text" name="new_path" id="new_path" value="#new_path#">
+		<input type="text" name="new_path" id="new_path" value="#new_path#" size="60">
 		<br>
 		<input type="submit" 
 		 	value="Filter" 
@@ -36,9 +36,9 @@ border:1px dashed green;
 	<form name="new" method="post" action="redirect.cfm">
 		<input type="hidden" name="action" id="action" value="new">
 		<label for="old">old (enter everything after the domain name, including a leading slash)</label>
-		<input type="text" name="old" id="old">
+		<input type="text" name="old" id="old" size="60">
 		<label for="new">new (enter everything after the domain name, including a leading slash)</label>
-		<input type="text" name="new" id="new">
+		<input type="text" name="new" id="new" size="60">
 		<br>
 		<input type="submit" 
 		 	value="Create" 
