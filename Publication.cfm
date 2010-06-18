@@ -497,8 +497,10 @@
 		function toggleMedia() {
 			if($('#media').css('display')=='none') {
 				$('#mediaToggle').html('Add Media');
+				$('#cellDiv').css('display','none');
 			} else {
 				$('#mediaToggle').html('Remove Media');
+				$('#cellDiv').css('display','block');
 			}
 			
 		}
