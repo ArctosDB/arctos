@@ -482,7 +482,7 @@
 			var msg;
 			
 			$('[class=reqdClr]').each(function() {
-                console.log($("#" + this.id);
+                console.log($("#" + this.id));
                 
                 
         	}); 
