@@ -489,6 +489,7 @@
 				alert('publication_type is required.');
 				r=false;
 			)
+			alert(r);
 			return r;
 		}
 	</script>
