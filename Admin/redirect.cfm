@@ -24,9 +24,7 @@ border:1px dashed green;
 		<label for="new_path">new_path</label>
 		<input type="text" name="new_path" id="new_path" value="#new_path#" size="60">
 		<br>
-		<input type="submit" 
-		 	value="Filter" 
-			class="lnkBtn">
+		<input type="submit" value="Filter" class="lnkBtn">
 	</form>
 	</div>
 	</div>
@@ -40,9 +38,7 @@ border:1px dashed green;
 		<label for="new">new (enter everything after the domain name, including a leading slash)</label>
 		<input type="text" name="new" id="new" size="60">
 		<br>
-		<input type="submit" 
-		 	value="Create" 
-			class="lnkBtn">
+		<input type="submit" value="Create" class="lnkBtn">
 	</form>
 	</div>
 	</div>

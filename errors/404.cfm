@@ -20,7 +20,15 @@
 	</cfquery>
 	<cfif redir.recordcount is 1>
 		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfif redir.new_path contains application.serverRootURL>
+			<cfhttp method="head" url="#application.serverRootURL##redir.new_path#"/ >
+			------#left(cfhttp.statuscode,3)#-----------
+		<cfelse>
+			....else
+		</cfif>
+		<!----
 		<cfheader name="Location" value="#application.serverRootURL##redir.new_path#">
+		---->
 		<cfabort>
 	</cfif>
 	<cfset nono="announce,php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
