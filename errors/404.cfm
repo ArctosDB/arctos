@@ -19,12 +19,14 @@
 		select new_path from redirect where upper(old_path)='#ucase(cTemp)#'
 	</cfquery>
 	<cfif redir.recordcount is 1>
+		#redir.new_path#
 		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfif redir.new_path contains application.serverRootURL>
-			<cfhttp method="head" url="#application.serverRootURL##redir.new_path#"/ >
+		<cfif left(redir.new_path,4) is "http">
+			<cfhttp method="head" url="#redir.new_path#"/ >
 			------#left(cfhttp.statuscode,3)#-----------
 		<cfelse>
-			....else
+			<cfhttp method="head" url="#application.serverRootURL##redir.new_path#"/ >
+			------#left(cfhttp.statuscode,3)#-----------
 		</cfif>
 		<!----
 		<cfheader name="Location" value="#application.serverRootURL##redir.new_path#">
