@@ -476,8 +476,17 @@
 	</cfquery>
 	<script>
 		function confirmpub() {
+			
+			
 			var r=true;
-			var msg;	
+			var msg;
+			
+			$('[class=reqdClr]').each(function() {
+                console.log($(this).name);
+        	}); 
+        
+        	return false;
+			/*
 			if ($('#author_id_1').val().length==0){
 				msg+='; author is required.';
 				r=false;
@@ -493,6 +502,7 @@
 			}
 			alert(msg);
 			return r;
+			*/
 		}
 		function toggleMedia() {
 			if($('#media').css('display')=='none') {
