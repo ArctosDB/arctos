@@ -481,6 +481,8 @@
 				alert('author is required.');
 				r=false;
 				alert('noauthor - r is now ' + r);
+			} else {
+				alert('author spiffy??');
 			}
 			if ($('#publication_title').val().length){
 				alert('publication_title is required.');
