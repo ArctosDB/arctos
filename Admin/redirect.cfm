@@ -4,7 +4,7 @@
 .box{
 display:inline-block;
 margin: 1em 1em 1em 1em;
-padding: .5em 0em 1em 1em;
+padding: .5em 1em 1em 1em;
 border:1px dashed green;
 }
 
@@ -30,6 +30,8 @@ border:1px dashed green;
 	</form>
 	</div>
 	</div>
+	<div>
+	<div class="box newRec">
 	Create Redirect
 	<form name="new" method="post" action="redirect.cfm">
 		<input type="hidden" name="action" id="action" value="new">
@@ -42,6 +44,8 @@ border:1px dashed green;
 		 	value="Create" 
 			class="lnkBtn">
 	</form>
+	</div>
+	</div>
 </cfoutput>
 <cfif action is "new">
 	<cfoutput>
