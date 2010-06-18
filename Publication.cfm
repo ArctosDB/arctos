@@ -477,18 +477,18 @@
 	<script>
 		function confirmpub() {
 			var r=true;		
-			if ($('#author_id_1').val().length){
+			if ($('#author_id_1').val().length==0){
 				alert('author is required.');
 				r=false;
 				alert('noauthor - r is now ' + r);
 			} else {
 				alert('author spiffy??');
 			}
-			if ($('#publication_title').val().length){
+			if ($('#publication_title').val().length==0){
 				alert('publication_title is required.');
 				r=false;
 			}
-			if ($('#publication_type').val().length){
+			if ($('#publication_type').val().length==0){
 				alert('publication_type is required.');
 				r=false;
 			}
