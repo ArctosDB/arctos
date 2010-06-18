@@ -19,18 +19,12 @@
 		select new_path from redirect where upper(old_path)='#ucase(cTemp)#'
 	</cfquery>
 	<cfif redir.recordcount is 1>
-		#redir.new_path#
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfif left(redir.new_path,4) is "http">
-			<cfhttp method="head" url="#redir.new_path#"/ >
-			------#left(cfhttp.statuscode,3)#-----------
+			<cfheader name="Location" value="#redir.new_path#">
 		<cfelse>
-			<cfhttp method="head" url="#application.serverRootURL##redir.new_path#"/ >
-			------#left(cfhttp.statuscode,3)#-----------
+			<cfheader name="Location" value="#application.serverRootURL##redir.new_path#">
 		</cfif>
-		<!----
-		<cfheader name="Location" value="#application.serverRootURL##redir.new_path#">
-		---->
 		<cfabort>
 	</cfif>
 	<cfset nono="announce,php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
