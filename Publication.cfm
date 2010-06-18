@@ -474,12 +474,17 @@
 	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
+	<style>
+		.error {
+			border:2px solid red;
+			}
+	</style>
 	<script>
 		function confirmpub() {
 			
 			
 			var r=true;
-			var msg;
+			var msg='';
 			
 			$('[class=reqdClr]').each(function() {
                 var thisel=$("#" + this.id)
@@ -487,7 +492,7 @@
                 console.log(this.id);
                 if ($(thisel).val().length==0){
                 	msg += this.id + ' is required\n';
-                	$(thisel).addClass('red');
+                	$(thisel).addClass('error');
                 }
                 
                 
