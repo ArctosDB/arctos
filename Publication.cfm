@@ -485,6 +485,7 @@
 			
 			var r=true;
 			var msg='';
+			$('.missing').removeClass('missing');
 			
 			$('.reqdClr').each(function() {
                 var thisel=$("#" + this.id)
