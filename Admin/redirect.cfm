@@ -1,16 +1,20 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <style>
-	.box{
-min-width: 200px;
+.box{
+display:inline-block;
+margin: 1em 1em 1em 1em;
+padding: .5em 0em 1em 1em;
 border:1px dashed green;
 }
+
 
 
 </style>
 <cfparam name="old_path" default="">
 <cfparam name="new_path" default="">
 <cfoutput>
+	<div>
 	<div class="box">
 	Find redirects
 	<form name="srch" method="post" action="redirect.cfm">
@@ -24,6 +28,7 @@ border:1px dashed green;
 		 	value="Filter" 
 			class="lnkBtn">
 	</form>
+	</div>
 	</div>
 	Create Redirect
 	<form name="new" method="post" action="redirect.cfm">
