@@ -138,7 +138,7 @@
 <cfschedule action = "update"
     task = "attention_needed" 
     operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/alaImaging/attention_needed.cfm"
+    url = "127.0.0.1/ScheduledTasks/attention_needed.cfm"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "01:00 AM"
     interval = "daily"
@@ -298,6 +298,14 @@
     startTime = "01:00 AM"
     interval = "28800"
     requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "image_recoverDisk" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=recoverDisk"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "02:59 AM"
+    interval = "daily"
+    requestTimeOut = "3600">
 <cfschedule action = "update"
     task = "image_report" 
     operation = "HTTPRequest"

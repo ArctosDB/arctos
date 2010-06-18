@@ -474,8 +474,15 @@
 	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
+	<script>
+		function confirmpub() {
+			if len($('#author_name_1')==0){
+				alert('author is required.');
+			)	
+		}
+	</script>
 	<cfoutput>
-		<form name="newpub" method="post" action="Publication.cfm">
+		<form name="newpub" method="post" onsubmit="confirmpub()" action="Publication.cfm">
 			<div class="cellDiv">
 			The Basics:
 			<input type="hidden" name="action" value="createPub">
