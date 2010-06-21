@@ -498,23 +498,6 @@
         	} else {
         		return true;
         	}
-			/*
-			if ($('#author_id_1').val().length==0){
-				msg+='; author is required.';
-				r=false;
-				alert('noauthor - r is now ' + r);
-			}
-			if ($('#publication_title').val().length==0){
-				msg+='; publication_title is required.';
-				r=false;
-			}
-			if ($('#publication_type').val().length==0){
-				msg+='; publication_type is required.';
-				r=false;
-			}
-			alert(msg);
-			return r;
-			*/
 		}
 		function toggleMedia() {
 			if($('#media').css('display')=='none') {
@@ -606,7 +589,7 @@
 			</div>
 			<span class="likeLink" id="mediaToggle" onclick="toggleMedia()">[ Add Media ]</span>
 			<div class="cellDiv" id="media" style="display:none">
-				Media (yellow cells are only required if you supply or create a URI):
+				Media:
 				<label for="media_uri">Media URI</label>
 				<input type="text" name="media_uri" id="media_uri" size="90"><span class="infoLink" id="uploadMedia">Upload</span>
 				<label for="preview_uri">Preview URI</label>
@@ -629,7 +612,6 @@
 				<input type="text" name="media_desc" id="media_desc" size="80">
 			</div>
 			<br><input type="submit" value="create publication" class="insBtn">
-			
 		</form>
 	</cfoutput>
 </cfif>
