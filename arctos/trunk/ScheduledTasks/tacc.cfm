@@ -223,6 +223,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			</cfif>
 		</cfloop>
 		<cfloop index="i" from="1" to="#arrayLen(files)#">
+			<cftry>
 			<cfquery name="exist" datasource="uam_god">
 				insert into tacc (
 					fullpath,
@@ -234,6 +235,11 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					'dng'
 				)
 			</cfquery>
+			
+			<cfcatch>
+				<cfdump var="#cfcatch#">
+			</cfcatch>
+			</cftry>
 		</cfloop>
 		<cfquery name="udcd" datasource="uam_god">
 			update tacc set crawled_path_date=sysdate where fullpath='#path.fullpath#'
@@ -255,6 +261,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 				status is null
 		</cfquery>
 		<cfloop query="data">
+			<cftransaction >
 			<cfquery name="bc" datasource="uam_god">
 				select 
 					cataloged_item.collection_object_id,
@@ -293,6 +300,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					update tacc set status='plant_specimen_not_found' where filename='#filename#'
 				</cfquery>
 			</cfif>
+			</cftransaction>
 		</cfloop>
 	</cfoutput>
 </cfif>
@@ -393,6 +401,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					</cfquery>							
 				</cftransaction>
 			</cfif>
+		
 		</cfloop>
 	</cfoutput>
 </cfif>
