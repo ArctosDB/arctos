@@ -74,7 +74,7 @@
 					</td>
 				</tr>
 			</table>
-			<div style="float:right;position:absolute;top:5px;right:5px;clear:both;">
+			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
 		    	<cfif len(#session.username#) gt 0>
 					<a target="_top" href="##" onClick="getDocs('index')">Help</a> ~ 
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
