@@ -1,3 +1,8 @@
+#header_color {
+background:url("/images/DMNSHeaderBg.png") repeat-x scroll 0 0 #1C3664;
+height:150px;
+}
+
 .borderBox{
 	display:inline-block;
 	margin: 1em 1em 1em 1em;
