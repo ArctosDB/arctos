@@ -1,6 +1,5 @@
 #header_color {
-background:url("/images/DMNSHeaderBg2.png") repeat-x scroll 0 0 #1C3664;
-height:150px;
+	background:url("/images/DMNSHeaderBg2.png") repeat-x scroll 0 0 #1C3664;
 }
 .headerInstitutionText, .headerCollectionText{
 	color:white;
