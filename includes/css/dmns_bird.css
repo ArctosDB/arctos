@@ -2,6 +2,11 @@
 background:url("/images/DMNSHeaderBg2.png") repeat-x scroll 0 0 #1C3664;
 height:150px;
 }
-.headerInstitutionText, .headerCollectionText, #headerLinks, #headerLinks a{
+.headerInstitutionText, .headerCollectionText{
 	color:white;
+}
+
+#headerLinks, #headerLinks a {
+	color:white;
+	size:small;
 }
