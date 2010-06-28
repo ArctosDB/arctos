@@ -4,13 +4,13 @@
 .blTabDiv {
 	width: 100%;
 	overflow:scroll;
-	}
+}
 </style>
 <!-------------------------------------------------------------->
 <cfif action is "loadAll">
 	<cfoutput>
 		<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE enteredby IN (#enteredby#)">
-		<cfif len(#accn#) gt 0>
+		<cfif len(accn) gt 0>
 			<cfset sql = "#sql# AND accn IN (#accn#)">
 		</cfif>
 		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -106,7 +106,7 @@
 
 
 
-<cfif #action# IS "nothing">
+<cfif action IS "nothing">
 <cfoutput>
 <cf_setDataEntryGroups>
 <cfset delimitedAdminForGroups=ListQualify(adminForUsers, "'")>
@@ -120,6 +120,17 @@
 	group by 
 		accn 
 	order by accn
+</cfquery>
+<cfquery name="ctColln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select 
+		institution_acronym || ':' || collection_cde colln 
+	from 
+		bulkloader 
+	where 
+		enteredby in (#preservesinglequotes(delimitedAdminForGroups)#) 
+	group by 
+		institution_acronym || ':' || collection_cde 
+	order by institution_acronym || ':' || collection_cde
 </cfquery>
 <table>
 	<tr>
@@ -139,28 +150,28 @@
 					</td>
 					<td align="center">
 						<label for="accn">Accession</label>
-							<select name="accn" multiple="multiple" size="12" id="accn">
-								<option value="" selected>All</option>
-								<cfloop query="ctAccn">
-									<option value="'#accn#'">#accn#</option>
-								</cfloop>
-							</select>
+						<select name="accn" multiple="multiple" size="12" id="accn">
+							<option value="" selected>All</option>
+							<cfloop query="ctAccn">
+								<option value="'#accn#'">#accn#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td align="center">
+						<label for="colln">Collection</label>
+						<select name="colln" multiple="multiple" size="12" id="colln">
+							<option value="" selected>All</option>
+							<cfloop query="ctColln">
+								<option value="'#colln#'">#colln#</option>
+							</cfloop>
+						</select>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="button" 
-							value="JAVA grid"
-							class="lnkBtn"
-							onclick="f.action.value='viewTable';f.submit();">
-			 			<input type="button" 
-							value="SQL"
-							class="lnkBtn"
-							onclick="f.action.value='sqlTab';f.submit();">
-						<input type="button" 
-							value="AJAX grid"
-							class="lnkBtn"
-							onclick="f.action.value='ajaxGrid';f.submit();">
+						<input type="button" value="JAVA grid" class="lnkBtn" onclick="f.action.value='viewTable';f.submit();">
+			 			<input type="button" value="SQL" class="lnkBtn" onclick="f.action.value='sqlTab';f.submit();">
+						<input type="button" value="AJAX grid" class="lnkBtn" onclick="f.action.value='ajaxGrid';f.submit();">
 					</td>
 				</tr>
 			</table>
