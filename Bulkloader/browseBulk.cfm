@@ -13,10 +13,13 @@
 		<cfif len(accn) gt 0>
 			<cfset sql = "#sql# AND accn IN (#accn#)">
 		</cfif>
+		<cfif isdefined("colln") and len(colln) gt 0>
+			<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+		</cfif>
 		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-		<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#" addtoken="false">
+		<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#&colln=#colln#" addtoken="false">
 	</cfoutput>
 </cfif>
 <cfif action is "download">
@@ -28,6 +31,9 @@
 		<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
 		<cfif len(accn) gt 0>
 			<cfset sql = "#sql# AND accn IN (#accn#)">
+		</cfif>
+		<cfif isdefined("colln") and len(colln) gt 0>
+			<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
 		</cfif>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#	
@@ -76,11 +82,11 @@
 <cfset args.selectmode = "edit">
 <cfset args.format="html">
 <cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
-<cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})">
+<cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby},{colln})">
 <cfset args.name="blGrid">
 <cfset args.pageSize="20">
-<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&returnAction=ajaxGrid">Mark all to load</a>
-&nbsp;~&nbsp;<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#">Download CSV</a>
+<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&colln=#colln#&returnAction=ajaxGrid">Mark all to load</a>
+&nbsp;~&nbsp;<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#&colln=#colln#">Download CSV</a>
 
 <cfform method="post" action="browseBulk.cfm">
 	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
@@ -218,6 +224,9 @@
 	<cfif isdefined("accn") and len(#accn#) gt 0>
 		<cfset sql = "#sql# AND accn IN (#accn#)">
 	</cfif>
+	<cfif isdefined("colln") and len(colln) gt 0>
+		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+	</cfif>
 	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
 		<cfset sql = "#sql# AND #c1# #op1# ">
 		<cfif #op1# is "=">
@@ -267,10 +276,13 @@
 		#preservesinglequotes(sql)#	
 	</cfquery>
 	<cfset rUrl="browseBulk.cfm?action=sqlTab&enteredby=#enteredby#">
-	<cfif isdefined("accn") and len(#accn#) gt 0>
+	<cfif isdefined("accn") and len(accn) gt 0>
 		<cfset rUrl="#rUrl#&accn=#accn#">
 	</cfif>
-
+	
+	<cfif isdefined("colln") and len(colln) gt 0>
+		<cfset rUrl = "#rUrl#&colln=#colln#">
+	</cfif>
 	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
 		<cfset rUrl="#rUrl#&c1=#c1#&op1=#op1#&v1=#v1#"> 
 	</cfif>
@@ -284,13 +296,13 @@
 </cfoutput>	
 </cfif>
 <!----------------------------------------------------------->
-<cfif #action# is "sqlTab">
+<cfif action is "sqlTab">
 <cfoutput>
 	<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
 	<cfif isdefined("accn") and len(#accn#) gt 0>
 		<cfset sql = "#sql# AND accn IN (#accn#)">
 	</cfif>
-	<cfif len(colln) gt 0>
+	<cfif isdefined("colln") and len(colln) gt 0>
 		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
 	</cfif>
 	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
@@ -369,8 +381,11 @@
 	<form name="filter" method="post" action="browseBulk.cfm">
 		<input type="hidden" name="action" value="sqlTab">
 		<input type="hidden" name="enteredby" value="#enteredby#">
-		<cfif isdefined("accn") and len(#accn#) gt 0>
+		<cfif isdefined("accn") and len(accn) gt 0>
 			<input type="hidden" name="accn" value="#accn#">
+		</cfif>
+		<cfif isdefined("colln") and len(colln) gt 0>
+			<input type="hidden" name="colln" value="#colln#">
 		</cfif>
 		<h2>Create Filter:</h2>
 		<table border>
@@ -458,8 +473,11 @@
 	<form name="up" method="post" action="browseBulk.cfm">
 		<input type="hidden" name="action" value="runSQLUp">
 		<input type="hidden" name="enteredby" value="#enteredby#">
-		<cfif isdefined("accn") and len(#accn#) gt 0>
+		<cfif isdefined("accn") and len(accn) gt 0>
 			<input type="hidden" name="accn" value="#accn#">
+		</cfif>
+		<cfif isdefined("colln") and len(colln) gt 0>
+			<input type="hidden" name="colln" value="#colln#">
 		</cfif>
 		<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
 			<input type="hidden" name="c1" value="#c1#">
@@ -559,7 +577,7 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfloop>
-<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#">
+<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#&colln=#colln#">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------->
@@ -577,8 +595,11 @@
 			<cfset sql="#sql# WHERE #column_name#	=
 			'#trim(tValue)#' AND
 			enteredby IN (#enteredby#)">
-		<cfif len(#accn#) gt 0>
+		<cfif len(accn) gt 0>
 			<cfset sql = "#sql# AND accn IN (#accn#)">
+		</cfif>		
+		<cfif isdefined("colln") and len(colln) gt 0>
+			<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
 		</cfif>
 			#preservesinglequotes(sql)#
 		<!---
@@ -590,7 +611,7 @@
 		</cfquery>
 	</cfif>
 
-<cflocation url="browseBulk.cfm?action=viewTable&enteredby=#enteredby#&accn=#accn#">
+<cflocation url="browseBulk.cfm?action=viewTable&enteredby=#enteredby#&accn=#accn#&colln=#colln#">
 		
 </cfoutput>
 </cfif>
@@ -599,7 +620,7 @@
 <cfoutput>
 <cfset sql = "select * from bulkloader
 	where enteredby IN (#enteredby#)">
-<cfif len(#accn#) gt 0>
+<cfif len(accn) gt 0>
 	<!----
 	<cfset thisAccnList = "">
 	<cfloop list="#accn#" index="a" delimiters=",">
@@ -614,6 +635,10 @@
 	<cfset sql = "#sql# AND accn IN (#accn#)">
 	
 </cfif>
+
+	<cfif isdefined("colln") and len(colln) gt 0>
+		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+	</cfif>
 <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#	
 </cfquery>
@@ -664,6 +689,7 @@ Roll yer own:
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#enteredby#">
 	<cfinput type="hidden" name="accn" value="#accn#">
+	<cfinput type="hidden" name="colln" value="#colln#">
 	<cfinput type="hidden" name="returnAction" value="viewTable">
 	<cfgrid query="data"  name="blGrid" width="1200" height="400" selectmode="edit">
 		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" hrefkey="collection_object_id" target="_blank">
@@ -675,8 +701,8 @@ Roll yer own:
 			<cfgridcolumn name="#thisName#">
 		</cfloop>
 	<cfinput type="submit" name="save" value="Save Changes In Grid">
-	<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&returnAction=viewTable">Mark all to load</a>
-	&nbsp;~&nbsp;<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#">Download CSV</a>
+	<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&colln=#colln#&returnAction=viewTable">Mark all to load</a>
+	&nbsp;~&nbsp;<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#&colln=#colln#">Download CSV</a>
 	</cfgrid>
 </cfform>
 
