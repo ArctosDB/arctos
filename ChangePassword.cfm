@@ -28,7 +28,6 @@
 			Guests are not allowed to change passwords.<cfabort>
 		</cfif>
 	    You are logged in as #session.username#. 
-	    <br>Operators must change password every #Application.max_pw_age# days. 
 	    <br>Your password is #pwtime# days old.
 	    <cfquery name="isDb" datasource="uam_god">
 			select
@@ -41,6 +40,7 @@
 			from dual
 		</cfquery>
 		<cfif isDb.cnt gt 0>
+			<br>Operators must change password every #Application.max_pw_age# days. 
 			<br>Password rules:
 			<ul>
 				<li>At least six characters</li>

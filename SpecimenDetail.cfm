@@ -265,16 +265,13 @@
 							<a href="/login.cfm">Login or Create Account</a>
 						</cfif>
 						<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
-							<!---
-							<br><a onclick="document.location='/SpecimenResults.cfm?#session.mapURL#'">[Return to results]</a>
-							--->
-							<br><a href="/SpecimenResults.cfm?#session.mapURL#'">[Return to results]</a>
+							<br><a href="/SpecimenResults.cfm?#session.mapURL#'">[&nbsp;Return&nbsp;to&nbsp;results&nbsp;]</a>
 						</cfif>	
 	                </span>
 	            </td>
 	        </tr>
 	    </table>
-	<cfif #cgi.HTTP_USER_AGENT# contains "MSIE">
+	<cfif cgi.HTTP_USER_AGENT contains "MSIE">
 		<cfset isMS = "t">
 	<cfelse>
 		<cfset isMS = "f">
