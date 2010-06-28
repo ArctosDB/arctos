@@ -339,6 +339,7 @@
 		</cfif>		 
 	</cfif>
 	<cfset sql="#sql# and rownum<500">
+	#preservesinglequotes(sql)#	
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
