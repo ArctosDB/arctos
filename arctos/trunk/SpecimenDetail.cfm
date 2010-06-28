@@ -63,21 +63,12 @@
 		#session.flatTableName#.cat_num,
 		#session.flatTableName#.collection_object_id as collection_object_id,
 		#session.flatTableName#.scientific_name,
-		#session.flatTableName#.continent_ocean,
-		#session.flatTableName#.country,
 		#session.flatTableName#.collecting_event_id,
-		#session.flatTableName#.state_prov,
-		#session.flatTableName#.quad,
 		#session.flatTableName#.higher_geog,
-		#session.flatTableName#.county,
-		#session.flatTableName#.island,
-		#session.flatTableName#.island_group,
 		#session.flatTableName#.spec_locality,
 		#session.flatTableName#.verbatim_date,
 		#session.flatTableName#.BEGAN_DATE,
 		#session.flatTableName#.ended_date,
-		#session.flatTableName#.sea,
-		#session.flatTableName#.feature,
 		concatparts(#session.flatTableName#.collection_object_id) as partString,
 		concatEncumbrances(#session.flatTableName#.collection_object_id) as encumbrance_action,
 		#session.flatTableName#.dec_lat,
@@ -118,71 +109,7 @@
 	<cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 	<cf_customizeHeader collection_id=#detail.collection_id#>
 </cfoutput>
-	<cfoutput query="detail" group="cat_num">
-	    <cfset hg="">
-		<cfif len(#continent_ocean#) gt 0>
-			<cfif len(#hg#) gt 0>
-				<cfset hg="#hg#, #continent_ocean#">
-			<cfelse>
-				<cfset hg="#continent_ocean#">
-			</cfif>
-		</cfif>
-		<cfif len(#sea#) gt 0>
-			<cfif len(#hg#) gt 0>
-				<cfset hg="#hg#, #sea#">
-			<cfelse>
-				<cfset hg="#sea#">
-			</cfif>
-		</cfif>
-		<cfif len(#country#) gt 0>
-			<cfif len(#hg#) gt 0>
-				<cfset hg="#hg#, #country#">
-			<cfelse>
-				<cfset hg="#country#">
-			</cfif>
-		</cfif>
-		<cfif len(#state_prov#) gt 0>
-			<cfif len(#hg#) gt 0>
-				<cfset hg="#hg#, #state_prov#">
-			<cfelse>
-				<cfset hg="#state_prov#">
-			</cfif>
-		</cfif>
-		<cfif len(#feature#) gt 0>
-			<cfif len(#hg#) gt 0>
-				<cfset hg="#hg#, #feature#">
-			<cfelse>
-				<cfset hg="#feature#">
-			</cfif>
-		</cfif>
-		<cfif len(#county#) gt 0>
-			<cfif len(#hg#) gt 0>
-				<cfset hg="#hg#, #county#">
-			<cfelse>
-				<cfset hg="#county#">
-			</cfif>
-		</cfif>
-		<cfif len(#island_group#) gt 0>
-			<cfif len(#hg#) gt 0>
-				<cfset hg="#hg#, #island_group#">
-			<cfelse>
-				<cfset hg="#island_group#">
-			</cfif>
-		</cfif>
-		<cfif len(#island#) gt 0>
-			<cfif len(#hg#) gt 0>
-				<cfset hg="#hg#, #island#">
-			<cfelse>
-				<cfset hg="#island#">
-			</cfif>
-		</cfif>
-		<cfif len(#quad#) gt 0>
-			<cfif len(#hg#) gt 0>
-				<cfset hg="#hg#, #quad# Quad">
-			<cfelse>
-				<cfset hg="#quad# Quad">
-			</cfif>
-		</cfif>
+<cfoutput query="detail" group="cat_num">
 	    <table>
 	        <tr>
 			    <td nowrap valign="top">
@@ -208,7 +135,7 @@
 			    </td>
 			    <td valign="top">
 				    <strong><em>#spec_locality#</em></strong>
-					<br><strong>#hg#</strong>
+					<br><strong>#higher_geog#</strong>
 					<cfif encumbrance_action does not contain "year collected" OR
 						(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
 				        <cfif (verbatim_date is began_date) AND
@@ -483,8 +410,8 @@
 		</table>
 	<cfelse><!--- not coldfusion user --->
 		<cfinclude template="SpecimenDetail_body.cfm">
-	</cfif>	
-<cfinclude template="/includes/_footer.cfm">
+	</cfif>
+	<cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and showAnnotation is "true">
 		<script language="javascript" type="text/javascript">
 			openAnnotation('collection_object_id=#collection_object_id#');
