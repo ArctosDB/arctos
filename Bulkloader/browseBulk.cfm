@@ -127,7 +127,7 @@
 	from 
 		bulkloader 
 	where 
-		enteredby in (#preservesinglequotes(delimitedAdminForGroups)#) 
+		enteredby in (#preservesinglequotes(delimitedAdminForGroups)#)		
 	group by 
 		institution_acronym || ':' || collection_cde 
 	order by institution_acronym || ':' || collection_cde
@@ -289,6 +289,9 @@
 	<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
 	<cfif isdefined("accn") and len(#accn#) gt 0>
 		<cfset sql = "#sql# AND accn IN (#accn#)">
+	</cfif>
+	<cfif len(colln) gt 0>
+		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
 	</cfif>
 	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
 		<cfset sql = "#sql# AND #c1# #op1# ">
