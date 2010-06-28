@@ -392,7 +392,7 @@
 				</div>
 			</div>
 <!------------------------------------ citations ---------------------------------------------->
-			<cfif len(#citations.cited_name#) gt 0>  
+			<cfif len(citations.cited_name) gt 0>  
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
 					<cfloop query="citations">
@@ -401,7 +401,7 @@
 								<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#" 
 									target="_mainFrame">
 										#formatted_publication#</a>, 
-								<cfif len(#occurs_page_number#) gt 0>
+								<cfif len(occurs_page_number) gt 0>
 									Page #occurs_page_number#,
 								</cfif>
 								#type_status# of 
@@ -417,60 +417,60 @@
 <!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">
-					<cfif #oneOfUs# is 1>
+					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('specLocality');">Edit</span>
 					</cfif>
 				</div>
 				<table id="SD">
-					<cfif len(#one.continent_ocean#) gt 0>						
+					<cfif len(one.continent_ocean) gt 0>						
 						<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Continent/Ocean:</td>
 								<td id="SDCellRight">#one.continent_ocean#</td>
 						</tr>
 					</cfif>
-					<cfif len(#one.sea#) gt 0>			
+					<cfif len(one.sea) gt 0>	
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Sea:</td>
 							<td id="SDCellRight">#one.sea#</td>
 						</tr>
 					</cfif>
-					<cfif len(#one.country#) gt 0>
+					<cfif len(one.country) gt 0>
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Country:</td>
 							<td id="SDCellRight">#one.country#</td>
 						</tr>
 					</cfif>
-					<cfif len(#one.state_prov#) gt 0>	
+					<cfif len(one.state_prov) gt 0>	
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">State/Province:</td>
 							<td id="SDCellRight">#one.state_prov#</td>
 						</tr>
 					</cfif>
-					<cfif len(#one.feature#) gt 0>	
+					<cfif len(one.feature) gt 0>	
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Feature:</td>
 							<td id="SDCellRight">#one.feature#</td>
 						</tr>
 					</cfif>
-					<cfif len(#one.county#) gt 0>
+					<cfif len(one.county) gt 0>
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">County:</td>
 							<td id="SDCellRight">#one.county#</td>
 						</tr>
 					</cfif>
-					<cfif len(#one.island_group#) gt 0>	
+					<cfif len(one.island_group) gt 0>	
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Island Group:</td>
 							<td id="SDCellRight">#one.island_group#</td>
 						</tr>
 					</cfif>
-					<cfif len(#one.island#) gt 0>
+					<cfif len(one.island) gt 0>
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Island:</td>
 							<td id="SDCellRight">#one.island#</td>
 						</tr>
 					</cfif>
-					<cfif len(#one.quad#) gt 0>
+					<cfif len(one.quad) gt 0>
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">USGS Quad:</td>
 								<td id="SDCellRight">#one.quad#</td>
@@ -485,16 +485,14 @@
 							RELATED_PRIMARY_KEY=#one.locality_id# and
 							MEDIA_RELATIONSHIP like '% locality'
 					</cfquery>				
-					<cfif len(#one.spec_locality#) gt 0>
+					<cfif len(one.spec_locality) gt 0>
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
 								<td id="SDCellRight">
 									#one.spec_locality#
 									<cfif localityMedia.recordcount gt 0>
-										<a class="infoLink" 
-											target="_blank"
-											href="/MediaSearch.cfm?action=search&media_id=#valuelist(localityMedia.media_id)#">Media</a>
-										</cfif>
+										<a class="infoLink" target="_blank" href="/MediaSearch.cfm?action=search&media_id=#valuelist(localityMedia.media_id)#">Media</a>
+									</cfif>
 								</td>
 							</tr>
 					</cfif>
@@ -507,33 +505,31 @@
 							RELATED_PRIMARY_KEY=#one.collecting_event_id# and
 							MEDIA_RELATIONSHIP like '% collecting_event'
 					</cfquery>
-					<cfif #one.verbatim_locality# is not #one.spec_locality#>
-						<cfif len(#one.verbatim_locality#) gt 0>
-								<tr class="detailData">
-									<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
-									<td id="SDCellRight">#one.verbatim_locality#
-										<cfif collEventMedia.recordcount gt 0>
-											<a class="infoLink" 
-												target="_blank"
-												href="/MediaSearch.cfm?action=search&media_id=#valuelist(collEventMedia.media_id)#">Media</a>
-										</cfif>
-									</td>
-								</tr>
+					<cfif one.verbatim_locality is not one.spec_locality>
+						<cfif len(one.verbatim_locality) gt 0>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
+								<td id="SDCellRight">#one.verbatim_locality#
+									<cfif collEventMedia.recordcount gt 0>
+										<a class="infoLink" target="_blank"	href="/MediaSearch.cfm?action=search&media_id=#valuelist(collEventMedia.media_id)#">Media</a>
+									</cfif>
+								</td>
+							</tr>
 						</cfif>
 					</cfif>					
-					<cfif len(#one.locality_remarks#) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Locality Remarks:</td>
-								<td id="SDCellRight">#one.locality_remarks#</td>
-							</tr>
+					<cfif len(one.locality_remarks) gt 0>
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Locality Remarks:</td>
+							<td id="SDCellRight">#one.locality_remarks#</td>
+						</tr>
 					</cfif>
-					<cfif len(#one.habitat_desc#) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">General Habitat:</td>
-								<td id="SDCellRight">#one.habitat_desc#</td>
-							</tr>
+					<cfif len(one.habitat_desc) gt 0>
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">General Habitat:</td>
+							<td id="SDCellRight">#one.habitat_desc#</td>
+						</tr>
 					</cfif>
-					<cfif len(#one.associated_species#) gt 0>
+					<cfif len(one.associated_species) gt 0>
 						<div class="detailBlock">
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Associated Species:</td>
@@ -541,7 +537,7 @@
 							</tr>
 						</div>
 					</cfif>
-					<cfif len(#one.collecting_method#) gt 0>
+					<cfif len(one.collecting_method) gt 0>
 						<div class="detailBlock">
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Method:</td>
@@ -555,49 +551,45 @@
 							<td id="SDCellRight">#one.collecting_source#</td>
 						</tr>
 					</div>
-					<cfif len(#one.minimum_elevation#) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Elevation:</td>
-								<td id="SDCellRight">#one.minimum_elevation# to #one.maximum_elevation# #one.orig_elev_units#</td>
-							</tr>
+					<cfif len(one.minimum_elevation) gt 0>
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Elevation:</td>
+							<td id="SDCellRight">#one.minimum_elevation# to #one.maximum_elevation# #one.orig_elev_units#</td>
+						</tr>
 					</cfif>
-					
-					<cfif len(#one.depth_units#) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Depth:</td>
-								<td id="SDCellRight">#one.min_depth#
-									<cfif #one.min_depth# neq  #one.max_depth#>to #one.max_depth# </cfif> #one.depth_units#</td>
-							</tr>
+					<cfif len(one.depth_units) gt 0>
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Depth:</td>
+							<td id="SDCellRight">#one.min_depth#
+								<cfif one.min_depth neq one.max_depth>to #one.max_depth# </cfif> #one.depth_units#</td>
+						</tr>
 					</cfif>
-					<cfif (len(#verbatimLatitude#) gt 0 and len(#verbatimLongitude#) gt 0)>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Coordinates:</td>
-								<td id="SDCellRight">#one.VerbatimLatitude# #one.verbatimLongitude#
-								<cfif len(#one.datum#) gt 0>
+					<cfif (len(verbatimLatitude) gt 0 and len(verbatimLongitude) gt 0)>
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Coordinates:</td>
+							<td id="SDCellRight">#one.VerbatimLatitude# #one.verbatimLongitude#
+								<cfif len(one.datum) gt 0>
 									(#one.datum#)
 								</cfif>
-								<cfif len(#one.max_error_distance#) gt 0>
-									, Error:
-									#one.max_error_distance# #one.max_error_units#
-								</td>
-						</cfif>
-							</tr>
-						
-						<!--- determination --->
-						<cfif len(#one.latLongDeterminer#) gt 0>
-							<cfset determination = "#one.latLongDeterminer#">
-							<cfif len(#one.latLongDeterminedDate#) gt 0>
+								<cfif len(one.max_error_distance) gt 0>
+									, Error: #one.max_error_distance# #one.max_error_units#
+								</cfif>
+							</td>
+						</tr>
+						<cfif len(one.latLongDeterminer) gt 0>
+							<cfset determination = one.latLongDeterminer>
+							<cfif len(one.latLongDeterminedDate) gt 0>
 								<cfset determination = '#determination#; #dateformat(one.latLongDeterminedDate, "dd mmm yyyy")#'>
 							</cfif>
-							<cfif len(#one.lat_long_ref_source#) gt 0>
+							<cfif len(one.lat_long_ref_source) gt 0>
 								<cfset determination = '#determination#; #one.lat_long_ref_source#'>
 							</cfif>
-								<tr>
-									<td></td>
-									<td id="SDCellRight" class="detailCellSmall">
+							<tr>
+								<td></td>
+								<td id="SDCellRight" class="detailCellSmall">
 									#determination#
-									</td>
-								</tr>
+								</td>
+							</tr>
 						</cfif>
 						<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select * from 
@@ -630,11 +622,10 @@
 									<cfif len(GEO_ATT_REMARK) gt 0>
 										Remark: #GEO_ATT_REMARK#
 									</cfif>
-									
 								</td>
 							</tr>
 						</cfloop>
-						<cfif len(#one.lat_long_remarks#) gt 0>
+						<cfif len(one.lat_long_remarks) gt 0>
 							<tr class="detailCellSmall">
 								<td></td>
 								<td class="innerDetailLabel">Coordinate Remarks:
@@ -643,22 +634,22 @@
 							</tr>
 						</cfif>
 					</cfif>
-					<cfif (#one.verbatim_date# is #one.began_date#) AND (#one.verbatim_date# is #one.ended_date#)>
+					<cfif (one.verbatim_date is one.began_date) AND (one.verbatim_date is one.ended_date)>
 						<cfset thisDate = #dateformat(one.began_date,"dd mmm yyyy")#>
 					<cfelseif (
-						(#one.verbatim_date# is not #one.began_date#) OR
-			 			(#one.verbatim_date# is not #one.ended_date#)
-						) AND #one.began_date# is #one.ended_date#>
+						(one.verbatim_date is not one.began_date) OR
+			 			(one.verbatim_date is not one.ended_date)
+						) AND one.began_date is one.ended_date>
 						<cfset thisDate = "#one.verbatim_date# (#dateformat(one.began_date,"dd mmm yyyy")#)">
 					<cfelse>
 						<cfset thisDate = "#one.verbatim_date# (#dateformat(one.began_date,"dd mmm yyyy")# - #dateformat(one.ended_date,"dd mmm yyyy")#)">
 					</cfif>
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Collecting Date:</td>
-							<td id="SDCellRight">#thisDate#</td>
-						</tr>
-					</table>
-				</div>
+					<tr class="detailData">
+						<td id="SDCellLeft" class="innerDetailLabel">Collecting Date:</td>
+						<td id="SDCellRight">#thisDate#</td>
+					</tr>
+				</table>
+			</div>
 <!------------------------------------ parts ---------------------------------------------->
 <cfquery name="parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
@@ -690,9 +681,8 @@
 </cfquery>
 			<div class="detailCell">
 				<div class="detailLabel">&nbsp;<!---Parts--->
-					<cfif #oneOfUs# is 1>
+					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editParts');">Edit</span>
-						<!---	onclick="window.parent.switchIFrame('Container');"--->
 					<cfelse>
 						<span class="detailEditCell" onClick="getInfo('parts','#one.collection_object_id#');">Details</span>
 					</cfif>
@@ -725,8 +715,7 @@
 								<cfloop query="sPart">
 									<tr>
 										<td>
-											&nbsp;&nbsp;&nbsp;
-											#part_name#
+											&nbsp;&nbsp;&nbsp;#part_name#
 										</td>
 										<td>#part_condition#</td>
 										<td>#part_disposition#</td>
@@ -740,12 +729,11 @@
 					</span>
 				</div>
 			</div>
-	
 <!------------------------------------ preparators ---------------------------------------------->
-			<cfif #len(preps.preparators)# gt 0>
+			<cfif len(preps.preparators) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Preparators
-						<cfif #oneOfUs# is 1>
+						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editColls');">Edit</span>
 						</cfif>
 					</div>
@@ -773,10 +761,10 @@
 					cataloged_item.collection_id = collection.collection_id AND
 					RELATED_COLL_OBJECT_ID = #collection_object_id#
 			</cfquery>
-			<cfif #len(relns.biol_indiv_relationship)# gt 0 OR #len(invRel.biol_indiv_relationship)# gt 0>
+			<cfif len(relns.biol_indiv_relationship) gt 0 OR len(invRel.biol_indiv_relationship) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Relationships
-						<cfif #oneOfUs# is 1>
+						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editRelationship');">Edit</span>
 						</cfif>
 					</div>
@@ -790,12 +778,11 @@
 							</span>
 						</div>
 					</cfloop>
-					<cfif #len(relns.biol_indiv_relationship)# gt 0>
+					<cfif len(relns.biol_indiv_relationship) gt 0>
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
-									&nbsp;&nbsp;&nbsp;<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(relns.related_coll_object_id)#" 
-											 target="_top">"Related To" Specimens List</a>										
+									&nbsp;&nbsp;&nbsp;<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(relns.related_coll_object_id)#" target="_top">"Related To" Specimens List</a>										
 							</span>
 						</div>
 					</cfif>
@@ -814,12 +801,11 @@
 							</span>
 						</div>
 					</cfloop>
-					<cfif #len(invRel.biol_indiv_relationship)# gt 0>
+					<cfif len(invRel.biol_indiv_relationship) gt 0>
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
-								&nbsp;&nbsp;&nbsp;<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(invRel.collection_object_id)#" 
-											 target="_top">"Related IS" Specimens List</a>
+								&nbsp;&nbsp;&nbsp;<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(invRel.collection_object_id)#" target="_top">"Related IS" Specimens List</a>
 							</span>
 						</div>
 					</cfif>
@@ -858,7 +844,7 @@
 <!------------------------------------ collectors ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">Collectors
-					<cfif #oneOfUs# is 1>
+					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editColls');">Edit</span>
 					</cfif>
 				</div>
@@ -897,55 +883,31 @@
 					other_id_type,
 					display_value
 			</cfquery>
-			<cfif #len(oid.other_id_type)# gt 0>
+			<cfif len(oid.other_id_type) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Identifiers
-						<cfif #oneOfUs# is 1>
+						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentifiers');">Edit</span>
 						</cfif>						
 					</div>
-						<cfloop query="oid">
-							<div class="detailBlock">
-								<span class="innerDetailLabel">#other_id_type#:</span>
-									<cfif #other_id_type# is "collector number">		
-										<!---Adding in GReF code --->
-										<cfquery name="gref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-											select
-											  book_section.publication_id,page_id
-											from
-											  gref_roi_ng, gref_roi_value_ng, book_section
-											where
-											  book_section.book_id = gref_roi_ng.publication_id
-											  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
-											  and gref_roi_ng.section_number = book_section.book_section_order
-											  and gref_roi_value_ng.collection_object_id = #collection_object_id#
-										</cfquery>
-										<cfif gref.page_id is not "">
-											<!---<cfset isMedia = true>--->
-											#display_value# 
-													(<a class='external'
-href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publicationId=#gref.publication_id#&otherid=#collection_object_id#&otheridtype=collection_object" 
-															target="_blank">click here for reference on field notebook page</a>)
-										<cfelse>
-											#display_value#
-										</cfif>
-									<cfelse>
-										<cfif len(link) gt 0>
-											<a class="external" href="#link#" target="_blank">#display_value#</a>
-										<cfelse>
-											#display_value#
-										</cfif>
-									</cfif>
-								</span>
-							</div>
-						</cfloop>
+					<cfloop query="oid">
+						<div class="detailBlock">
+							<span class="innerDetailLabel">#other_id_type#:</span>
+								<cfif len(link) gt 0>
+									<a class="external" href="#link#" target="_blank">#display_value#</a>
+								<cfelse>
+									#display_value#
+								</cfif>
+							</span>
+						</div>
+					</cfloop>
 				</div>
 			</cfif>
 <!------------------------------------ attributes ---------------------------------------------->
 			<cfif len(attribute.attribute_type) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel"><!---Attributes--->
-						<cfif #oneOfUs# is 1>
+						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editBiolIndiv');">Edit</span>
 						<!---<cfelse>
 							<span class="detailEditCell" onclick="getInfo('attributes','#one.collection_object_id#');">Details</span>
@@ -1095,7 +1057,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 			<div class="detailCell">
 				<!---<div class="detailLabel">Cataloged Item</div>--->
 				<div class="detailLabel"><!---Attributes--->
-					<cfif #oneOfUs# is 1>
+					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editBiolIndiv');">Edit</span>
 					</cfif>
 					</div>	
@@ -1116,7 +1078,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 							</span>
 						</div>
 					</cfif>
-					<cfif #oneOfUs# is 1>
+					<cfif oneOfUs is 1>
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Disposition:</span>
@@ -1216,7 +1178,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 				</div>
 			</div>		
 <!------------------------------------ usage ---------------------------------------------->
-		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (#oneOfUs# is 1 and #isLoanedItem.collection_object_id# gt 0)>
+		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (oneOfUs is 1 and #isLoanedItem.collection_object_id# gt 0)>
 			<div class="detailCell">
 				<div class="detailLabel">Usage</div>
 					<cfloop query="isProj">
@@ -1235,7 +1197,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 							</span>
 						</div>
 					</cfloop>
-					<cfif #isLoanedItem.collection_object_id# gt 0 and #oneOfUs# is 1>
+					<cfif #isLoanedItem.collection_object_id# gt 0 and oneOfUs is 1>
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Loan History:</span>
@@ -1295,7 +1257,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 <cfif media.recordcount gt 0>
     <div class="detailCell">
 		<div class="detailLabel">Media
-			<cfif #oneOfUs# is 1>
+			<cfif oneOfUs is 1>
 				 <cfquery name="hasConfirmedImageAttr"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					SELECT count(*) c
 					FROM
