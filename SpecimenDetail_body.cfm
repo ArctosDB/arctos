@@ -363,7 +363,7 @@
 							</cfif>
 								<div class="taxDetDiv">
 									<cfloop query="getTaxa">
-										<div style="font-size:small;color:gray;">
+										<div style="font-size:.8em;color:gray;">
 											#full_taxon_name#
 										</div>
 										<cfset metaDesc=metaDesc & '; ' & full_taxon_name>
@@ -372,7 +372,7 @@
 											and common_name is not null
 											group by common_name order by common_name
 										</cfquery>
-										<div style="font-size:small;color:gray;padding-left:1em;">
+										<div style="font-size:.8em;color:gray;padding-left:1em;">
 											#valuelist(cName.common_name,"; ")#
 										</div>
 										<cfset metaDesc=metaDesc & '; ' & valuelist(cName.common_name,"; ")>
