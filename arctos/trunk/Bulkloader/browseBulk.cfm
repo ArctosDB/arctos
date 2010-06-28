@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+<cfset title="Browse/Edit Bulkloaded Data">
 <style>
 .blTabDiv {
 	width: 100%;
