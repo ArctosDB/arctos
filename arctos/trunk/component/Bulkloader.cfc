@@ -7,6 +7,7 @@
     <cfargument name="gridsortdirection" required="yes">
 	<cfargument name="accn" required="yes">
 	<cfargument name="enteredby" required="yes">
+	<cfargument name="colln" required="yes">
 	
 	<cfset startrow=page * pageSize>
 	<cfset stoprow=startrow + pageSize>
@@ -39,6 +40,9 @@
 		<cfset sql=sql & " and enteredby IN (#enteredby#)">
 	</cfif>
 	
+	<cfif len(colln) gt 0>
+		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+	</cfif>
 	<cfset sql=sql & " order by #gridsortcolumn# #gridsortdirection#">
 
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
