@@ -13,9 +13,9 @@
 		elem.className=clas;
 	}
 </script>
-<cfif #action# is "nothing">
-    <cfset title = "Change Password">
-    <cfif len(#session.username#) is 0>
+<cfset title = "Change Password">
+<cfif action is "nothing">
+    <cfif len(session.username) is 0>
         <cflocation url="ChangePassword.cfm?action=lostPass" addtoken="false">
     </cfif>
     <cfoutput>
@@ -24,7 +24,7 @@
 		</cfquery>
 		<cfset pwtime =  round(now() - pwExp.pw_change_date)>
 		<cfset pwage = Application.max_pw_age - pwtime>
-		<cfif #session.username# is "guest">
+		<cfif session.username is "guest">
 			Guests are not allowed to change passwords.<cfabort>
 		</cfif>
 	    You are logged in as #session.username#. 
@@ -40,7 +40,7 @@
 			cnt
 			from dual
 		</cfquery>
-		<cfif #isDb.cnt# gt 0>
+		<cfif isDb.cnt gt 0>
 			<br>Password rules:
 			<ul>
 				<li>At least six characters</li>
@@ -61,7 +61,7 @@
 	        <input name="oldpassword" id="oldpassword" type="password">
 			<label for="newpassword">New password</label>
 	        <input name="newpassword" id="newpassword" type="password"
-	        		<cfif #isDb.cnt# gt 0>
+	        		<cfif isDb.cnt gt 0>
 						onkeyup="pwc(this.value,'#session.username#')"
 					</cfif>	>
 	        <span id="pwstatus"></span>
@@ -79,16 +79,14 @@
 			If you can't remember your old password, we can 
 			<a href="ChangePassword?action=findPass&email=#isGoodEmail.email#&username=#isGoodEmail.username#">email a new temporary password</a>.
 		</cfif>
-		
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------->
-<cfif #action# is "lostPass">
+<cfif action is "lostPass">
 	Lost your password? Passwords are stored in an encrypted format and cannot be recovered. 
 <br>If you have saved your email address in your profile, enter it here to reset your password. 
 <br>If you have not saved your email address, please submit a bug report to that effect 
     and we will reset your password for you.
-
 	<form name="pw" method="post" action="ChangePassword.cfm">
         <input type="hidden" name="action" value="findPass">
         <label for="username">Username</label>
@@ -100,7 +98,7 @@
     </form>
 </cfif>
 <!-------------------------------------------------------------------->
-<cfif #action# is "update">
+<cfif action is "update">
 	<cfoutput>
 	<cfquery name="getPass" datasource="cf_dbuser">
 		select password from cf_users where username = '#session.username#'
@@ -115,7 +113,7 @@
 			You must pick a new password. <a href="ChangePassword.cfm">Go Back</a>
 		</span>		
 		<cfabort>
-	<cfelseif #newpassword# neq #newpassword2#>
+	<cfelseif newpassword neq newpassword2>
 		<span style="background-color:red;">
 			New passwords do not match. <a href="ChangePassword.cfm">Go Back</a>
 		</span>
@@ -126,7 +124,7 @@
 		select * from all_users where
 		username='#ucase(session.username)#'
 	</cfquery>
-	<cfif #isDb.recordcount# is 0>
+	<cfif isDb.recordcount is 0>
 		<cfquery name="setPass" datasource="cf_dbuser">
 			UPDATE cf_users SET password = '#hash(newpassword)#',
 			PW_CHANGE_DATE=sysdate			
@@ -194,14 +192,14 @@ You will be redirected soon, or you may use the menu above now.
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------->
-<cfif #action# is "findPass">
+<cfif action is "findPass">
 <cfoutput>
 	<cfquery name="isGoodEmail" datasource="cf_dbuser">
 		select cf_user_data.user_id, email,username from cf_user_data,cf_users
 		 where cf_user_data.user_id = cf_users.user_id and
 		 email = '#email#' and username= '#username#'
 	</cfquery>
-	<cfif #isGoodEmail.recordcount# neq 1>
+	<cfif isGoodEmail.recordcount neq 1>
 		Sorry, that email wasn't found with your username.
 		<cfabort>
 	  <cfelse>

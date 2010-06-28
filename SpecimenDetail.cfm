@@ -82,10 +82,10 @@
 		concatEncumbrances(#session.flatTableName#.collection_object_id) as encumbrance_action,
 		#session.flatTableName#.dec_lat,
 		#session.flatTableName#.dec_long">
-		<cfif len(#session.CustomOtherIdentifier#) gt 0>
-			<cfset detSelect = "#detSelect#
-			,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') as	CustomID">
-		</cfif>		
+<cfif len(#session.CustomOtherIdentifier#) gt 0>
+	<cfset detSelect = "#detSelect#
+	,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') as	CustomID">
+</cfif>		
 <cfset detSelect = "#detSelect#	
 	FROM 
 		#session.flatTableName#,
@@ -100,28 +100,24 @@
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfoutput>
-<cfif detail.recordcount lt 1>
-	<div class="error">
-		Oops! No specimen was found for that URL.
-		<ul>
-			<li>Did you mis-type the URL?</li>
-			<li>
-				Did you click a link? <a href="/info/bugs.cfm">Tell us about it</a>.
-			</li>
-			<li>
-				You may need to log out or change your preferences to access all public data.
-			</li>
-		</ul>
-	</div>
-</cfif>
-<cfset title="#detail.collection# #detail.cat_num#: #detail.scientific_name#">
-<cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
-<cf_customizeHeader collection_id=#detail.collection_id#>
-
-<!---
-<div style="background-color:blue;">
-	--->
-    </cfoutput>
+	<cfif detail.recordcount lt 1>
+		<div class="error">
+			Oops! No specimen was found for that URL.
+			<ul>
+				<li>Did you mis-type the URL?</li>
+				<li>
+					Did you click a link? <a href="/info/bugs.cfm">Tell us about it</a>.
+				</li>
+				<li>
+					You may need to log out or change your preferences to access all public data.
+				</li>
+			</ul>
+		</div>
+	</cfif>
+	<cfset title="#detail.collection# #detail.cat_num#: #detail.scientific_name#">
+	<cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
+	<cf_customizeHeader collection_id=#detail.collection_id#>
+</cfoutput>
 	<cfoutput query="detail" group="cat_num">
 	    <cfset hg="">
 		<cfif len(#continent_ocean#) gt 0>
@@ -187,35 +183,26 @@
 				<cfset hg="#quad# Quad">
 			</cfif>
 		</cfif>
-	    <table >
+	    <table>
 	        <tr>
 			    <td nowrap valign="top">
 					<font size="+1"><strong>#collection#&nbsp;#cat_num#</strong></font>
-					<cfif len(#web_link#) gt 0>
+					<cfif len(web_link) gt 0>
 						<a href="#web_link#" target="_blank"><img src="/images/linkOut.gif" border="0" alt="#web_link_text#"></a>
 					</cfif>
-					<cfif len(#session.CustomOtherIdentifier#) gt 0>
+					<cfif len(session.CustomOtherIdentifier) gt 0>
 						<br>&nbsp;&nbsp;&nbsp;#session.CustomOtherIdentifier#: #CustomID#
 					</cfif>						
 					<br>
-					<font size="+1">
-					    <cfset sciname = '#replace(Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
-					    <strong>
-						    <i>&nbsp;#sciname#</i>
-						</strong>
-					</font>
-					 <cfif 
-						(len(#dec_lat#) gt 0 and 
-						len(#dec_long#) gt 0) 
-					>
-					    <cfif #encumbrance_action# does not contain "coordinates" OR
+					<cfset sciname = '#replace(Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
+					<span style="font-size:larger;font-weight:bold;font-style:italic">
+						&nbsp;#sciname#
+					</span>
+					 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
+					    <cfif encumbrance_action does not contain "coordinates" OR
 							(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>						
-						    	<cfset bnhmUrl="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">
-						    	<br><input type="button" 
-									value="BerkeleyMapper" 
-									class="lnkBtn"
-									onClick="window.open('#bnhmUrl#', '_blank');">
-								<img src="/images/info.gif" border="0" onClick="getDocs('maps')" class="likeLink">
+						    <a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank" class="external">BerkeleyMapper</a>
+						    <img src="/images/info.gif" border="0" onClick="getDocs('maps')" class="likeLink">
 		                </cfif>
 					</cfif>
 			    </td>
