@@ -8,17 +8,17 @@
 		</div>
 		<cfabort>
 	</cfif>
-<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-	<cfset oneOfUs = 1>
-	<cfset isClicky = "likeLink">
-<cfelse>
-	<cfset oneOfUs = 0>
-	<cfset isClicky = "">
-</cfif>
-<cfif oneOfUs is 0 and cgi.CF_TEMPLATE_PATH contains "/SpecimenDetail_body.cfm">
-	<cfheader statuscode="301" statustext="Moved permanently">
-	<cfheader name="Location" value="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-</cfif>
+	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+		<cfset oneOfUs = 1>
+		<cfset isClicky = "likeLink">
+	<cfelse>
+		<cfset oneOfUs = 0>
+		<cfset isClicky = "">
+	</cfif>
+	<cfif oneOfUs is 0 and cgi.CF_TEMPLATE_PATH contains "/SpecimenDetail_body.cfm">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
+	</cfif>
 </cfoutput>
 <cfset detSelect = "
 	SELECT
@@ -163,8 +163,7 @@
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfif one.concatenatedEncumbrances contains "mask record" and oneOfUs neq 1>
-	Record masked.
-	<cfabort>
+	Record masked.<cfabort>
 </cfif>
 <cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
@@ -270,97 +269,96 @@
 </style>		
 <cfoutput query="one">
 	<cfif oneOfUs is 1>
-<form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
-	<input type="hidden" name="collection_object_id" value="#one.collection_object_id#">
-	<input type="hidden" name="suppressHeader" value="true">
-	<input type="hidden" name="action" value="nothing">
-	<input type="hidden" name="Srch" value="Part">
-	<input type="hidden" name="collecting_event_id" value="#one.collecting_event_id#">
+		<form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
+			<input type="hidden" name="collection_object_id" value="#one.collection_object_id#">
+			<input type="hidden" name="suppressHeader" value="true">
+			<input type="hidden" name="action" value="nothing">
+			<input type="hidden" name="Srch" value="Part">
+			<input type="hidden" name="collecting_event_id" value="#one.collecting_event_id#">
 	</cfif>
-<table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
-	<tr>
-		<td valign="top" width="50%">
+	<table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
+		<tr>
+			<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
-			<div class="detailCell">				
-				<div class="detailLabel">&nbsp;
-					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
-					</cfif>
-				</div>
-				<div class="detailBlock">
-					<span class="detailData">
-						<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							SELECT
-								identification.scientific_name,
-								concatidagent(identification.identification_id) agent_name,
-								made_date,
-								nature_of_id,
-								identification_remarks,
-								identification.identification_id,
-								accepted_id_fg,
-								taxa_formula
-							FROM
-								identification 
-							WHERE
-								identification.collection_object_id = #collection_object_id# 
-							ORDER BY accepted_id_fg DESC,made_date DESC
-						</cfquery>
-						<cfloop query="identification">
-							<cfquery name="getTaxa_r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-								select 
-									taxonomy.taxon_name_id,
-									display_name,
-									scientific_name,
-									author_text,
-									common_name,
-									full_taxon_name
+				<div class="detailCell">				
+					<div class="detailLabel">&nbsp;
+						<cfif oneOfUs is 1>
+							<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
+						</cfif>
+					</div>
+					<div class="detailBlock">
+						<span class="detailData">
+							<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+								SELECT
+									identification.scientific_name,
+									concatidagent(identification.identification_id) agent_name,
+									made_date,
+									nature_of_id,
+									identification_remarks,
+									identification.identification_id,
+									accepted_id_fg,
+									taxa_formula
 								FROM
-									identification_taxonomy,
-									taxonomy,
-									common_name
+									identification 
 								WHERE
-									identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id and
-									taxonomy.taxon_name_id=common_name.taxon_name_id (+) and
-									identification_id=#identification_id#
+									identification.collection_object_id = #collection_object_id# 
+								ORDER BY accepted_id_fg DESC,made_date DESC
 							</cfquery>
-							<cfquery name="getTaxa" dbtype="query">
-								select 
-									taxon_name_id,
-									display_name,
-									scientific_name,
-									author_text,
-									full_taxon_name
-								from
-									getTaxa_r
-								group by
-									taxon_name_id,
-									display_name,
-									scientific_name,
-									author_text,
-									full_taxon_name
-							</cfquery>
-							<cfif accepted_id_fg is 1>
-					        	<div class="acceptedIdDiv">
-						    <cfelse>
-					        	<div class="unAcceptedIdDiv">
-					        </cfif>
-					        <cfif getTaxa.recordcount is 1 and taxa_formula is 'a'>
-								<a href="/name/#getTaxa.scientific_name#" target="_blank">
-									#getTaxa.display_name#</a> 
-							<cfelse>
-								<cfset link="">
-								<cfset i=1>
-								<cfset thisSciName="#scientific_name#">
-								<cfloop query="getTaxa">
-									<cfset thisLink='<a href="/name/#scientific_name#" target="_blank">#display_name#</a>'>
-									<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
-									<cfset i=#i#+1>
-								</cfloop>
-								#thisSciName#
-							</cfif>
-							<cfif not isdefined("metaDesc")>
-								<cfset metaDesc="">
-							</cfif>
+							<cfloop query="identification">
+								<cfquery name="getTaxa_r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+									select 
+										taxonomy.taxon_name_id,
+										display_name,
+										scientific_name,
+										author_text,
+										common_name,
+										full_taxon_name
+									FROM
+										identification_taxonomy,
+										taxonomy,
+										common_name
+									WHERE
+										identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id and
+										taxonomy.taxon_name_id=common_name.taxon_name_id (+) and
+										identification_id=#identification_id#
+								</cfquery>
+								<cfquery name="getTaxa" dbtype="query">
+									select 
+										taxon_name_id,
+										display_name,
+										scientific_name,
+										author_text,
+										full_taxon_name
+									from
+										getTaxa_r
+									group by
+										taxon_name_id,
+										display_name,
+										scientific_name,
+										author_text,
+										full_taxon_name
+								</cfquery>
+								<cfif accepted_id_fg is 1>
+						        	<div class="acceptedIdDiv">
+							    <cfelse>
+						        	<div class="unAcceptedIdDiv">
+						        </cfif>
+						        <cfif getTaxa.recordcount is 1 and taxa_formula is 'a'>
+									<a href="/name/#getTaxa.scientific_name#" target="_blank">#getTaxa.display_name#</a> 
+								<cfelse>
+									<cfset link="">
+									<cfset i=1>
+									<cfset thisSciName="#scientific_name#">
+									<cfloop query="getTaxa">
+										<cfset thisLink='<a href="/name/#scientific_name#" target="_blank">#display_name#</a>'>
+										<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
+										<cfset i=#i#+1>
+									</cfloop>
+									#thisSciName#
+								</cfif>
+								<cfif not isdefined("metaDesc")>
+									<cfset metaDesc="">
+								</cfif>
 								<div class="taxDetDiv">
 									<cfloop query="getTaxa">
 										<div style="font-size:.8em;color:gray;">
@@ -385,8 +383,8 @@
 									<cfif len(identification_remarks) gt 0>
 										<br>Remarks: #identification_remarks#
 									</cfif>
-								</div>					            		
-					        </div>
+								</div>
+							</div>
 						</cfloop>
 					</span>				
 				</div>
@@ -909,9 +907,7 @@
 					<div class="detailLabel"><!---Attributes--->
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editBiolIndiv');">Edit</span>
-						<!---<cfelse>
-							<span class="detailEditCell" onclick="getInfo('attributes','#one.collection_object_id#');">Details</span>
-						---></cfif>
+						</cfif>
 					</div>
 					<cfquery name="sex" dbtype="query">
 						select * from attribute where attribute_type = 'sex'
@@ -922,35 +918,32 @@
 								<span class="detailData">
 									<span class="innerDetailLabel">sex:</span>
 									#attribute_value#
-									<!--- determination --->
-										<cfif len(#attributeDeterminer#) gt 0>
-											<cfset determination = "#attributeDeterminer#">
-											<cfif len(#determined_date#) gt 0>
-												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
-											</cfif>
-											<cfif len(#determination_method#) gt 0>
-												<cfset determination = '#determination#, #determination_method#'>
-											</cfif>
-											<div class="detailBlock">
-												<span class="detailCellSmall">
-													#determination#
-												</span>
-											</div>
+									<cfif len(attributeDeterminer) gt 0>
+										<cfset determination = "#attributeDeterminer#">
+										<cfif len(determined_date) gt 0>
+											<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
 										</cfif>
-										
-										<cfif len(#attribute_remark#) gt 0>
-											<div class="detailBlock">
-												<span class="detailCellSmall">
-													<span class="innerDetailLabel">Remark:</span>
-													#attribute_remark#
-												</span>
-											</div>
-										</cfif>	
+										<cfif len(determination_method) gt 0>
+											<cfset determination = '#determination#, #determination_method#'>
+										</cfif>
+										<div class="detailBlock">
+											<span class="detailCellSmall">
+												#determination#
+											</span>
+										</div>
+									</cfif>
+									<cfif len(attribute_remark) gt 0>
+										<div class="detailBlock">
+											<span class="detailCellSmall">
+												<span class="innerDetailLabel">Remark:</span>
+												#attribute_remark#
+											</span>
+										</div>
+									</cfif>	
 								</span>
 							</div>
 						</cfloop>
-
-					<cfif #one.collection_cde# is "Mamm">
+					<cfif one.collection_cde is "Mamm">
 						<cfquery name="total_length" dbtype="query">
 							select * from attribute where attribute_type = 'total length'
 						</cfquery>
@@ -969,13 +962,13 @@
 						<cfquery name="theRest" dbtype="query">
 							select * from attribute where attribute_type NOT IN (
 								'weight','sex','total length','tail length','hind foot with claw','ear from notch'
-								)
+							)
 						</cfquery>
-						<cfif len(#total_length.attribute_units#) gt 0 OR
-								len(#tail_length.attribute_units#) gt 0 OR
-								len(#hf.attribute_units#) gt 0  OR
-								len(#efn.attribute_units#) gt 0  OR
-								len(#weight.attribute_units#) gt 0><!---semi-standard measurements --->
+						<cfif len(total_length.attribute_units) gt 0 OR
+								len(tail_length.attribute_units) gt 0 OR
+								len(hf.attribute_units) gt 0  OR
+								len(efn.attribute_units) gt 0  OR
+								len(weight.attribute_units) gt 0><!---semi-standard measurements --->
 							<div class="detailBlock">
 								<span class="detailData">
 									<span class="innerDetailLabel">Std. Meas.</span>
@@ -996,19 +989,19 @@
 										</tr>
 									</table>
 									<cfif isdefined("attributeDeterminer") and len(#attributeDeterminer#) gt 0>
-											<cfset determination = "#attributeDeterminer#">
-											<cfif len(#determined_date#) gt 0>
-												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
-											</cfif>
-											<cfif len(#determination_method#) gt 0>
-												<cfset determination = '#determination#, #determination_method#'>
-											</cfif>
-											<div class="detailBlock">
-												<span class="detailCellSmall">
-													#determination#
-												</span>
-											</div>
+										<cfset determination = "#attributeDeterminer#">
+										<cfif len(determined_date) gt 0>
+											<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
 										</cfif>
+										<cfif len(determination_method) gt 0>
+											<cfset determination = '#determination#, #determination_method#'>
+										</cfif>
+										<div class="detailBlock">
+											<span class="detailCellSmall">
+												#determination#
+											</span>
+										</div>
+									</cfif>
 								</span>
 							</div>
 						</cfif>
@@ -1022,15 +1015,15 @@
 							<span class="detailData">
 								<span class="innerDetailLabel">#attribute_type#:</span>
 								#attribute_value# 
-								<cfif len(#attribute_units#) gt 0>
+								<cfif len(attribute_units) gt 0>
 									#attribute_units#
 								</cfif>
-								<cfif len(#attributeDeterminer#) gt 0>
+								<cfif len(attributeDeterminer) gt 0>
 									<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
-									<cfif len(#determined_date#) gt 0>
+									<cfif len(determined_date) gt 0>
 										<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
 									</cfif>
-									<cfif len(#determination_method#) gt 0>,
+									<cfif len(determination_method) gt 0>,
 										<cfset determination = '#determination#, #determination_method#'>
 									</cfif>
 									<div class="detailBlock">
@@ -1055,13 +1048,12 @@
 			</cfif>
 <!------------------------------------ cataloged item ---------------------------------------------->
 			<div class="detailCell">
-				<!---<div class="detailLabel">Cataloged Item</div>--->
-				<div class="detailLabel"><!---Attributes--->
+				<div class="detailLabel">
 					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editBiolIndiv');">Edit</span>
 					</cfif>
 					</div>	
-					<cfif #one.coll_object_remarks# is not "">
+					<cfif len(one.coll_object_remarks) gt 0>
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Remarks:</span>
@@ -1178,7 +1170,7 @@
 				</div>
 			</div>		
 <!------------------------------------ usage ---------------------------------------------->
-		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (oneOfUs is 1 and #isLoanedItem.collection_object_id# gt 0)>
+		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (oneOfUs is 1 and isLoanedItem.collection_object_id gt 0)>
 			<div class="detailCell">
 				<div class="detailLabel">Usage</div>
 					<cfloop query="isProj">
@@ -1197,7 +1189,7 @@
 							</span>
 						</div>
 					</cfloop>
-					<cfif #isLoanedItem.collection_object_id# gt 0 and oneOfUs is 1>
+					<cfif isLoanedItem.collection_object_id gt 0 and oneOfUs is 1>
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Loan History:</span>
