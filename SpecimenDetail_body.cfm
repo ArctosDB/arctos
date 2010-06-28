@@ -261,6 +261,7 @@
 	.unAcceptedIdDiv{
 		border:1px dotted gray;
 		background-color:#F8F8F8;
+		color:gray;
 		font-size:.8em;
 	}
 	.taxDetDiv {
