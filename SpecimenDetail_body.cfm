@@ -162,7 +162,7 @@
 <cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
-<cfif #one.concatenatedEncumbrances# contains "mask record" and #oneOfUs# neq 1>
+<cfif one.concatenatedEncumbrances contains "mask record" and oneOfUs neq 1>
 	Record masked.
 	<cfabort>
 </cfif>
@@ -260,7 +260,7 @@
 	}
 	.unAcceptedIdDiv{
 		border:1px dotted gray;
-		color:gray;
+		background-color:lightgray;
 		font-size:.8em;
 	}
 	.taxDetDiv {
