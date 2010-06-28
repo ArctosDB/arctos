@@ -144,7 +144,7 @@
 					cnt
 					from dual
 				</cfquery>
-				<cfif isDb.c gt 0>
+				<cfif isDb.cnt gt 0>
 					<cfset session.force_password_change = "yes">
 					<cflocation url="ChangePassword.cfm" addtoken="false">
 				</cfif>
