@@ -110,99 +110,94 @@
 	<cf_customizeHeader collection_id=#detail.collection_id#>
 </cfoutput>
 <cfoutput query="detail" group="cat_num">
-	    <table>
-	        <tr>
-			    <td nowrap valign="top">
-					<font size="+1"><strong>#collection#&nbsp;#cat_num#</strong></font>
-					<cfif len(web_link) gt 0>
-						<a href="#web_link#" target="_blank"><img src="/images/linkOut.gif" border="0" alt="#web_link_text#"></a>
-					</cfif>
-					<cfif len(session.CustomOtherIdentifier) gt 0>
-						<br>&nbsp;&nbsp;&nbsp;#session.CustomOtherIdentifier#: #CustomID#
-					</cfif>						
-					<br>
-					<cfset sciname = '#replace(Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
-					<span style="font-size:larger;font-weight:bold;font-style:italic">
-						&nbsp;#sciname#
-					</span>
-					 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
-					    <cfif encumbrance_action does not contain "coordinates" OR
-							(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>						
-						    <br><a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank" class="external">BerkeleyMapper</a>
-						    <img src="/images/info.gif" border="0" onClick="getDocs('maps')" class="likeLink">
-		                </cfif>
-					</cfif>
-			    </td>
-			    <td valign="top">
-				    <strong><em>#spec_locality#</em></strong>
-					<br><strong>#higher_geog#</strong>
-					<cfif encumbrance_action does not contain "year collected" OR
-						(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
-				        <cfif (verbatim_date is began_date) AND
-				 		    (verbatim_date is ended_date)>
-						    <cfset thisDate = dateformat(began_date,"dd mmm yyyy")>
-				        <cfelseif (
-							(verbatim_date is not began_date) OR
-				 			(verbatim_date is not ended_date)
-						    )
-					    	AND
-					    	began_date is ended_date>
-						    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")#)">
-				        <cfelse>
-						    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
-				        </cfif>
-	                <cfelse>
-				        <cfif began_date is ended_date>
-					        <cfset thisDate = dateformat(began_date,"dd mmm 8888")>
-				        <cfelse>
-					        <cfset thisDate = '#dateformat(began_date,"dd mmm 8888")#-&nbsp;#dateformat(ended_date,"dd mmm 8888")#'>
-				        </cfif>
-					</cfif>
-				    <br><strong>#thisDate#</strong>
-			    </td>
-			    <td valign="top">
-					<font size="-1">
-			    		<strong>#partString#</strong>
-					</font>
-				</td>
-				<td>
-					<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
-						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
-						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
-						<cfset iu=iu & "&maptype=roadmap">
-						<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#" target="_blank">
-							<img src="#iu#" alt="Google Map">
-						</a>
-					</cfif>
-				</td>
-			    <td valign="top">
-			        <span class="annotateSpace">
-						<cfif len(session.username) gt 0>
-							<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-								select count(*) cnt from annotations
-								where collection_object_id = #collection_object_id#
-							</cfquery>
-							<span class="likeLink" onclick="openAnnotation('collection_object_id=#collection_object_id#')">
-								[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]	
-							</span>
-							<cfif existingAnnotations.cnt gt 0>
-								<br>(#existingAnnotations.cnt# existing)
-							</cfif>
-						<cfelse>
-							<a href="/login.cfm">Login or Create Account</a>
+    <table>
+        <tr>
+		    <td nowrap valign="top">
+				<font size="+1"><strong>#collection#&nbsp;#cat_num#</strong></font>
+				<cfif len(web_link) gt 0>
+					<a href="#web_link#" target="_blank"><img src="/images/linkOut.gif" border="0" alt="#web_link_text#"></a>
+				</cfif>
+				<cfif len(session.CustomOtherIdentifier) gt 0>
+					<br>&nbsp;&nbsp;&nbsp;#session.CustomOtherIdentifier#: #CustomID#
+				</cfif>						
+				<br>
+				<cfset sciname = '#replace(Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
+				<span style="font-size:larger;font-weight:bold;font-style:italic">
+					&nbsp;#sciname#
+				</span>
+				 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
+				    <cfif encumbrance_action does not contain "coordinates" OR
+						(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>						
+					    <br><a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank" class="external">BerkeleyMapper</a>
+					    <img src="/images/info.gif" border="0" onClick="getDocs('maps')" class="likeLink">
+	                </cfif>
+				</cfif>
+		    </td>
+		    <td valign="top">
+			    <strong><em>#spec_locality#</em></strong>
+				<br><strong>#higher_geog#</strong>
+				<cfif encumbrance_action does not contain "year collected" OR
+					(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
+			        <cfif (verbatim_date is began_date) AND
+			 		    (verbatim_date is ended_date)>
+					    <cfset thisDate = dateformat(began_date,"dd mmm yyyy")>
+			        <cfelseif (
+						(verbatim_date is not began_date) OR
+			 			(verbatim_date is not ended_date)
+					    )
+				    	AND
+				    	began_date is ended_date>
+					    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")#)">
+			        <cfelse>
+					    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
+			        </cfif>
+                <cfelse>
+			        <cfif began_date is ended_date>
+				        <cfset thisDate = dateformat(began_date,"dd mmm 8888")>
+			        <cfelse>
+				        <cfset thisDate = '#dateformat(began_date,"dd mmm 8888")#-&nbsp;#dateformat(ended_date,"dd mmm 8888")#'>
+			        </cfif>
+				</cfif>
+			    <br><strong>#thisDate#</strong>
+		    </td>
+		    <td valign="top">
+				<font size="-1">
+		    		<strong>#partString#</strong>
+				</font>
+			</td>
+			<td>
+				<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
+					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
+					<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+					<cfset iu=iu & "&maptype=roadmap">
+					<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#" target="_blank">
+						<img src="#iu#" alt="Google Map">
+					</a>
+				</cfif>
+			</td>
+		    <td valign="top">
+		        <span class="annotateSpace">
+					<cfif len(session.username) gt 0>
+						<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							select count(*) cnt from annotations
+							where collection_object_id = #collection_object_id#
+						</cfquery>
+						<span class="likeLink" onclick="openAnnotation('collection_object_id=#collection_object_id#')">
+							[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]	
+						</span>
+						<cfif existingAnnotations.cnt gt 0>
+							<br>(#existingAnnotations.cnt# existing)
 						</cfif>
-						<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
-							<br><a href="/SpecimenResults.cfm?#session.mapURL#'">[&nbsp;Return&nbsp;to&nbsp;results&nbsp;]</a>
-						</cfif>	
-	                </span>
-	            </td>
-	        </tr>
-	    </table>
-	<cfif cgi.HTTP_USER_AGENT contains "MSIE">
-		<cfset isMS = "t">
-	<cfelse>
-		<cfset isMS = "f">
-	</cfif>
+					<cfelse>
+						<a href="/login.cfm">Login or Create Account</a>
+					</cfif>
+					<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
+						<br><a href="/SpecimenResults.cfm?#session.mapURL#'">[&nbsp;Return&nbsp;to&nbsp;results&nbsp;]</a>
+					</cfif>	
+                </span>
+            </td>
+        </tr>
+    </table>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<script type="text/javascript" language="javascript">
 			/***********************************************
@@ -308,10 +303,8 @@
 							<cfset nextID = collection_object_id>
 							<cfset prevID = collection_object_id>
 							<cfset lastID = collection_object_id>
-							<!--- see where we are currently --->
 							<cfset currPos = listfind(session.collObjIdList,collection_object_id)>
 							<cfset lenOfIdList = listlen(session.collObjIdList)>
-							<!--- get IDs to browse to --->
 							<cfset firstID = listGetAt(session.collObjIdList,1)>
 							<cfif currPos lt lenOfIdList>
 								<cfset nextID = listGetAt(session.collObjIdList,currPos + 1)>
