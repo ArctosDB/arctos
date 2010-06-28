@@ -261,19 +261,14 @@
 							<cfif existingAnnotations.cnt gt 0>
 								<br>(#existingAnnotations.cnt# existing)
 							</cfif>
-							<!---
-							<a href="javascript: openAnnotation('collection_object_id=#collection_object_id#')">
-								[Report&nbsp;Bad&nbsp;Data]							
-							<cfif #existingAnnotations.cnt# gt 0>
-								<br>(#existingAnnotations.cnt# existing)
-							</cfif>
-							</a>
-							--->
 						<cfelse>
 							<a href="/login.cfm">Login or Create Account</a>
 						</cfif>
 						<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
+							<!---
 							<br><a onclick="document.location='/SpecimenResults.cfm?#session.mapURL#'">[Return to results]</a>
+							--->
+							<br><a href="/SpecimenResults.cfm?#session.mapURL#'">[Return to results]</a>
 						</cfif>	
 	                </span>
 	            </td>
