@@ -69,243 +69,232 @@
 	</cfoutput>
 </cfif>
 <cfif action is "ajaxGrid">
-<cfoutput>
-<cfquery name="cNames" datasource="uam_god">
-	select column_name from user_tab_cols where table_name='BULKLOADER'
-	order by internal_column_id
-</cfquery>
-<cfset ColNameList = valuelist(cNames.column_name)>
-<cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
-<cfset args.width="1200">
-<cfset args.stripeRows = true>
-<cfset args.selectColor = "##D9E8FB">
-<cfset args.selectmode = "edit">
-<cfset args.format="html">
-<cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
-<cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby},{colln})">
-<cfset args.name="blGrid">
-<cfset args.pageSize="20">
-<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&colln=#colln#&returnAction=ajaxGrid">Mark all to load</a>
-&nbsp;~&nbsp;<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#&colln=#colln#">Download CSV</a>
-
-<cfform method="post" action="browseBulk.cfm">
-	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
-	<cfinput type="hidden" name="action" value="saveGridUpdate">
-	<cfinput type="hidden" name="enteredby" value="#enteredby#">
-	<cfinput type="hidden" name="accn" value="#accn#">
-	<cfgrid attributeCollection="#args#">
-		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" 
-			hrefkey="collection_object_id" target="_blank" header="Key">
-		<cfloop list="#ColNameList#" index="thisName">
-			<cfgridcolumn name="#thisName#">
-		</cfloop>
-	</cfgrid>
-</cfform>
-</cfoutput>
+	<cfoutput>
+		<cfquery name="cNames" datasource="uam_god">
+			select column_name from user_tab_cols where table_name='BULKLOADER'
+			order by internal_column_id
+		</cfquery>
+		<cfset ColNameList = valuelist(cNames.column_name)>
+		<cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
+		<cfset args.width="1200">
+		<cfset args.stripeRows = true>
+		<cfset args.selectColor = "##D9E8FB">
+		<cfset args.selectmode = "edit">
+		<cfset args.format="html">
+		<cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
+		<cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby},{colln})">
+		<cfset args.name="blGrid">
+		<cfset args.pageSize="20">
+		<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&colln=#colln#&returnAction=ajaxGrid">Mark all to load</a>
+		&nbsp;~&nbsp;<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#&colln=#colln#">Download CSV</a>
+		<cfform method="post" action="browseBulk.cfm">
+			<cfinput type="hidden" name="returnAction" value="ajaxGrid">
+			<cfinput type="hidden" name="action" value="saveGridUpdate">
+			<cfinput type="hidden" name="enteredby" value="#enteredby#">
+			<cfinput type="hidden" name="accn" value="#accn#">
+			<cfgrid attributeCollection="#args#">
+				<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" 
+					hrefkey="collection_object_id" target="_blank" header="Key">
+				<cfloop list="#ColNameList#" index="thisName">
+					<cfgridcolumn name="#thisName#">
+				</cfloop>
+			</cfgrid>
+		</cfform>
+	</cfoutput>
 </cfif>
 <!-------------------------------------------------------->
-
-
-
-
-
-
-
-
 <cfif action IS "nothing">
-<cfoutput>
-<cf_setDataEntryGroups>
-<cfset delimitedAdminForGroups=ListQualify(adminForUsers, "'")>
-<cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select 
-		accn 
-	from 
-		bulkloader 
-	where 
-		enteredby in (#preservesinglequotes(delimitedAdminForGroups)#) 
-	group by 
-		accn 
-	order by accn
-</cfquery>
-<cfquery name="ctColln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select 
-		institution_acronym || ':' || collection_cde colln 
-	from 
-		bulkloader 
-	where 
-		enteredby in (#preservesinglequotes(delimitedAdminForGroups)#)		
-	group by 
-		institution_acronym || ':' || collection_cde 
-	order by institution_acronym || ':' || collection_cde
-</cfquery>
-<table>
-	<tr>
-		<td width="50%">
-			<form name="f" method="post" action="browseBulk.cfm">
-			<table>
-				<tr>
-					<td align="center">
-						<input type="hidden" name="action" value="viewTable" />
-						<label for="enteredby">Entered By</label>
-						<select name="enteredby" multiple="multiple" size="12" id="enteredby">
-							<option value="#delimitedAdminForGroups#" selected="selected">All</option>
-							<cfloop list="#adminForUsers#" index='agent_name'>
-								<option value="'#agent_name#'">#agent_name#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td align="center">
-						<label for="accn">Accession</label>
-						<select name="accn" multiple="multiple" size="12" id="accn">
-							<option value="" selected>All</option>
-							<cfloop query="ctAccn">
-								<option value="'#accn#'">#accn#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td align="center">
-						<label for="colln">Collection</label>
-						<select name="colln" multiple="multiple" size="12" id="colln">
-							<option value="" selected>All</option>
-							<cfloop query="ctColln">
-								<option value="'#colln#'">#colln#</option>
-							</cfloop>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="button" value="JAVA grid" class="lnkBtn" onclick="f.action.value='viewTable';f.submit();">
-			 			<input type="button" value="SQL" class="lnkBtn" onclick="f.action.value='sqlTab';f.submit();">
-						<input type="button" value="AJAX grid" class="lnkBtn" onclick="f.action.value='ajaxGrid';f.submit();">
-					</td>
-				</tr>
-			</table>
-			</form>
-		</td>
-		<td>
-			<div style="border:1px solid green;margin-left:5em;">
-				Pick an enteredby agent and/or an accession to edit and approve entered or loaded data.
-				<br>
-				<ul>
-					<li>
-						<strong>Edit in JAVA grid</strong>
-						<br>Opens a JAVA applet. Click headers to sort. You must click the button to save.
-						Unhappy in some browsers.
-					</li>
-					<li>
-						<strong>Edit in SQL</strong>
-						<br>Allows mass updates based on existing values. Will only load 500 records at one time.
-					</li>
-					<li>
-						<strong>Edit in AJAX grid</strong>
-						<br>Opens an AJAX table. Click headers to sort. Drag columns. Doubleclick cells to edit.
-						Saves automatically on change. Slow to load.
-					</li>
-				</ul>
-			</div>
-		</td>		
-	</tr>
-</table>
-</cfoutput>
+	<cfoutput>
+		<cf_setDataEntryGroups>
+		<cfset delimitedAdminForGroups=ListQualify(adminForUsers, "'")>
+		<cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				accn 
+			from 
+				bulkloader 
+			where 
+				enteredby in (#preservesinglequotes(delimitedAdminForGroups)#) 
+			group by 
+				accn 
+			order by accn
+		</cfquery>
+		<cfquery name="ctColln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				institution_acronym || ':' || collection_cde colln 
+			from 
+				bulkloader 
+			where 
+				enteredby in (#preservesinglequotes(delimitedAdminForGroups)#)		
+			group by 
+				institution_acronym || ':' || collection_cde 
+			order by institution_acronym || ':' || collection_cde
+		</cfquery>
+		<table>
+			<tr>
+				<td width="50%">
+					<form name="f" method="post" action="browseBulk.cfm">
+					<table>
+						<tr>
+							<td align="center">
+								<input type="hidden" name="action" value="viewTable" />
+								<label for="enteredby">Entered By</label>
+								<select name="enteredby" multiple="multiple" size="12" id="enteredby">
+									<option value="#delimitedAdminForGroups#" selected="selected">All</option>
+									<cfloop list="#adminForUsers#" index='agent_name'>
+										<option value="'#agent_name#'">#agent_name#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td align="center">
+								<label for="accn">Accession</label>
+								<select name="accn" multiple="multiple" size="12" id="accn">
+									<option value="" selected>All</option>
+									<cfloop query="ctAccn">
+										<option value="'#accn#'">#accn#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td align="center">
+								<label for="colln">Collection</label>
+								<select name="colln" multiple="multiple" size="12" id="colln">
+									<option value="" selected>All</option>
+									<cfloop query="ctColln">
+										<option value="'#colln#'">#colln#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="button" value="JAVA grid" class="lnkBtn" onclick="f.action.value='viewTable';f.submit();">
+					 			<input type="button" value="SQL" class="lnkBtn" onclick="f.action.value='sqlTab';f.submit();">
+								<input type="button" value="AJAX grid" class="lnkBtn" onclick="f.action.value='ajaxGrid';f.submit();">
+							</td>
+						</tr>
+					</table>
+					</form>
+				</td>
+				<td>
+					<div style="border:1px solid green;margin-left:5em;">
+						Pick any or all of enteredby agent, accession, or collection to edit and approve entered or loaded data.
+						<br>
+						<ul>
+							<li>
+								<strong>Edit in JAVA grid</strong>
+								<br>Opens a JAVA applet. Click headers to sort. You must click the button to save.
+								Unhappy in some browsers.
+							</li>
+							<li>
+								<strong>Edit in SQL</strong>
+								<br>Allows mass updates based on existing values. Will only load 500 records at one time.
+							</li>
+							<li>
+								<strong>Edit in AJAX grid</strong>
+								<br>Opens an AJAX table. Click headers to sort. Drag columns. Doubleclick cells to edit.
+								Saves automatically on change. Slow to load.
+							</li>
+						</ul>
+					</div>
+				</td>		
+			</tr>
+		</table>
+	</cfoutput>
 </cfif>
 <!----------------------------------------------------------->
-<cfif #action# is "runSQLUp">
-<cfoutput>
-	<cfif not isdefined("uc1") or not isdefined("uv1") or len(#uc1#) is 0 or len(#uv1#) is 0>
-		Not enough information. <cfabort>
-	</cfif>
-	<cfif uv1 is "NULL">
-        <cfset sql = "update bulkloader set #uc1# = NULL where enteredby IN (#enteredby#)">
-    <cfelse>
-        <cfset sql = "update bulkloader set #uc1# = '#uv1#' where enteredby IN (#enteredby#)">
-    </cfif>
-
-	<cfif isdefined("accn") and len(#accn#) gt 0>
-		<cfset sql = "#sql# AND accn IN (#accn#)">
-	</cfif>
-	<cfif isdefined("colln") and len(colln) gt 0>
-		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
-	</cfif>
-	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
-		<cfset sql = "#sql# AND #c1# #op1# ">
-		<cfif #op1# is "=">
-			<cfset sql = "#sql# '#v1#'">
-		<cfelseif op1 is "like">
-			<cfset sql = "#sql# '%#v1#%'">
-		<cfelseif op1 is "in">
-			<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
-		<cfelseif op1 is "between">
-			<cfset dash = find("-",v1)>
-			<cfset f = left(v1,dash-1)>
-			<cfset t = mid(v1,dash+1,len(v1))>
-			<cfset sql = "#sql# #f# and #t# ">
-		</cfif>		 
-	</cfif>
-	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
-		<cfset sql = "#sql# AND #c2# #op2# ">
-		<cfif #op2# is "=">
-			<cfset sql = "#sql# '#v2#'">
-		<cfelseif op2 is "like">
-			<cfset sql = "#sql# '%#v2#%'">
-		<cfelseif op2 is "in">
-			<cfset sql = "#sql# ('#replace(v2,",","','","all")#')">
-		<cfelseif op2 is "between">
-			<cfset dash = find("-",v2)>
-			<cfset f = left(v2,dash-1)>
-			<cfset t = mid(v2,dash+1,len(v2))>
-			<cfset sql = "#sql# #f# and #t# ">
-		</cfif>		 
-	</cfif>
-	<cfif isdefined("c3") and len(#c3#) gt 0 and isdefined("op3") and len(#op3#) gt 0 and isdefined("v3") and len(#v3#) gt 0>
-		<cfset sql = "#sql# AND #c3# #op3# ">
-		<cfif #op3# is "=">
-			<cfset sql = "#sql# '#v3#'">
-		<cfelseif op3 is "like">
-			<cfset sql = "#sql# '%#v3#%'">
-		<cfelseif op3 is "in">
-			<cfset sql = "#sql# ('#replace(v3,",","','","all")#')">
-		<cfelseif op3 is "between">
-			<cfset dash = find("-",v3)>
-			<cfset f = left(v3,dash-1)>
-			<cfset t = mid(v3,dash+1,len(v3))>
-			<cfset sql = "#sql# #f# and #t# ">
-		</cfif>	 
-	</cfif>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preservesinglequotes(sql)#	
-	</cfquery>
-	<cfset rUrl="browseBulk.cfm?action=sqlTab&enteredby=#enteredby#">
-	<cfif isdefined("accn") and len(accn) gt 0>
-		<cfset rUrl="#rUrl#&accn=#accn#">
-	</cfif>
-	
-	<cfif isdefined("colln") and len(colln) gt 0>
-		<cfset rUrl = "#rUrl#&colln=#colln#">
-	</cfif>
-	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
-		<cfset rUrl="#rUrl#&c1=#c1#&op1=#op1#&v1=#v1#"> 
-	</cfif>
-	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
-		<cfset rUrl="#rUrl#&c2=#c2#&op2=#op2#&v2=#v2#"> 
-	</cfif>
-	<cfif isdefined("c3") and len(#c3#) gt 0 and isdefined("op3") and len(#op3#) gt 0 and isdefined("v3") and len(#v3#) gt 0>
-		<cfset rUrl="#rUrl#&c3=#c3#&op3=#op3#&v3=#v3#"> 
-	</cfif>
-	<cflocation url="#rUrl#" addtoken="false">
-</cfoutput>	
+<cfif action is "runSQLUp">
+	<cfoutput>
+		<cfif not isdefined("uc1") or not isdefined("uv1") or len(uc1) is 0 or len(uv1) is 0>
+			Not enough information. <cfabort>
+		</cfif>
+		<cfif uv1 is "NULL">
+	        <cfset sql = "update bulkloader set #uc1# = NULL where enteredby IN (#enteredby#)">
+	    <cfelse>
+	        <cfset sql = "update bulkloader set #uc1# = '#uv1#' where enteredby IN (#enteredby#)">
+	    </cfif>
+		<cfif isdefined("accn") and len(accn) gt 0>
+			<cfset sql = "#sql# AND accn IN (#accn#)">
+		</cfif>
+		<cfif isdefined("colln") and len(colln) gt 0>
+			<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
+		</cfif>
+		<cfif isdefined("c1") and len(c1) gt 0 and isdefined("op1") and len(op1) gt 0 and isdefined("v1") and len(v1) gt 0>
+			<cfset sql = "#sql# AND #c1# #op1# ">
+			<cfif op1 is "=">
+				<cfset sql = "#sql# '#v1#'">
+			<cfelseif op1 is "like">
+				<cfset sql = "#sql# '%#v1#%'">
+			<cfelseif op1 is "in">
+				<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
+			<cfelseif op1 is "between">
+				<cfset dash = find("-",v1)>
+				<cfset f = left(v1,dash-1)>
+				<cfset t = mid(v1,dash+1,len(v1))>
+				<cfset sql = "#sql# #f# and #t# ">
+			</cfif>		 
+		</cfif>
+		<cfif isdefined("c2") and len(c2) gt 0 and isdefined("op2") and len(op2) gt 0 and isdefined("v2") and len(v2) gt 0>
+			<cfset sql = "#sql# AND #c2# #op2# ">
+			<cfif op2 is "=">
+				<cfset sql = "#sql# '#v2#'">
+			<cfelseif op2 is "like">
+				<cfset sql = "#sql# '%#v2#%'">
+			<cfelseif op2 is "in">
+				<cfset sql = "#sql# ('#replace(v2,",","','","all")#')">
+			<cfelseif op2 is "between">
+				<cfset dash = find("-",v2)>
+				<cfset f = left(v2,dash-1)>
+				<cfset t = mid(v2,dash+1,len(v2))>
+				<cfset sql = "#sql# #f# and #t# ">
+			</cfif>		 
+		</cfif>
+		<cfif isdefined("c3") and len(c3) gt 0 and isdefined("op3") and len(op3) gt 0 and isdefined("v3") and len(v3) gt 0>
+			<cfset sql = "#sql# AND #c3# #op3# ">
+			<cfif #op3# is "=">
+				<cfset sql = "#sql# '#v3#'">
+			<cfelseif op3 is "like">
+				<cfset sql = "#sql# '%#v3#%'">
+			<cfelseif op3 is "in">
+				<cfset sql = "#sql# ('#replace(v3,",","','","all")#')">
+			<cfelseif op3 is "between">
+				<cfset dash = find("-",v3)>
+				<cfset f = left(v3,dash-1)>
+				<cfset t = mid(v3,dash+1,len(v3))>
+				<cfset sql = "#sql# #f# and #t# ">
+			</cfif>	 
+		</cfif>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#	
+		</cfquery>
+		<cfset rUrl="browseBulk.cfm?action=sqlTab&enteredby=#enteredby#">
+		<cfif isdefined("accn") and len(accn) gt 0>
+			<cfset rUrl="#rUrl#&accn=#accn#">
+		</cfif>		
+		<cfif isdefined("colln") and len(colln) gt 0>
+			<cfset rUrl = "#rUrl#&colln=#colln#">
+		</cfif>
+		<cfif isdefined("c1") and len(c1) gt 0 and isdefined("op1") and len(op1) gt 0 and isdefined("v1") and len(v1) gt 0>
+			<cfset rUrl="#rUrl#&c1=#c1#&op1=#op1#&v1=#v1#"> 
+		</cfif>
+		<cfif isdefined("c2") and len(c2) gt 0 and isdefined("op2") and len(op2) gt 0 and isdefined("v2") and len(v2) gt 0>
+			<cfset rUrl="#rUrl#&c2=#c2#&op2=#op2#&v2=#v2#"> 
+		</cfif>
+		<cfif isdefined("c3") and len(c3) gt 0 and isdefined("op3") and len(op3) gt 0 and isdefined("v3") and len(v3) gt 0>
+			<cfset rUrl="#rUrl#&c3=#c3#&op3=#op3#&v3=#v3#"> 
+		</cfif>
+		<cflocation url="#rUrl#" addtoken="false">
+	</cfoutput>	
 </cfif>
 <!----------------------------------------------------------->
 <cfif action is "sqlTab">
 <cfoutput>
 	<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
-	<cfif isdefined("accn") and len(#accn#) gt 0>
+	<cfif isdefined("accn") and len(accn) gt 0>
 		<cfset sql = "#sql# AND accn IN (#accn#)">
 	</cfif>
 	<cfif isdefined("colln") and len(colln) gt 0>
 		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
 	</cfif>
-	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
+	<cfif isdefined("c1") and len(c1) gt 0 and isdefined("op1") and len(op1) gt 0 and isdefined("v1") and len(v1) gt 0>
 		<cfset sql = "#sql# AND #c1# #op1# ">
 		<cfif #op1# is "=">
 			<cfset sql = "#sql# '#v1#'">
@@ -320,7 +309,7 @@
 			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>		 
 	</cfif>
-	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
+	<cfif isdefined("c2") and len(c2) gt 0 and isdefined("op2") and len(op2) gt 0 and isdefined("v2") and len(v2) gt 0>
 		<cfset sql = "#sql# AND #c2# #op2# ">
 		<cfif #op2# is "=">
 			<cfset sql = "#sql# '#v2#'">
@@ -335,9 +324,9 @@
 			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>		 
 	</cfif>
-	<cfif isdefined("c3") and len(#c3#) gt 0 and isdefined("op3") and len(#op3#) gt 0 and isdefined("v3") and len(#v3#) gt 0>
+	<cfif isdefined("c3") and len(c3) gt 0 and isdefined("op3") and len(op3) gt 0 and isdefined("v3") and len(v3) gt 0>
 		<cfset sql = "#sql# AND #c3# #op3# ">
-		<cfif #op3# is "=">
+		<cfif op3 is "=">
 			<cfset sql = "#sql# '#v3#'">
 		<cfelseif op3 is "like">
 			<cfset sql = "#sql# '%#v3#%'">
@@ -351,7 +340,6 @@
 		</cfif>		 
 	</cfif>
 	<cfset sql="#sql# and rownum<500">
-	#preservesinglequotes(sql)#	
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
@@ -402,7 +390,7 @@
 						<option value=""></option>
 						<cfloop query="cNames">
 							<option 
-								<cfif isdefined("c1") and #c1# is #column_name#> selected="selected" </cfif>value="#column_name#">#column_name#</option>
+								<cfif isdefined("c1") and c1 is column_name> selected="selected" </cfif>value="#column_name#">#column_name#</option>
 						</cfloop>
 					</select>
 				</td>
