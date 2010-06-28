@@ -134,8 +134,20 @@
 			<cfset pwtime =  round(now() - getPrefs.pw_change_date)>
 			<cfset pwage = Application.max_pw_age - pwtime>
 			<cfif pwage lte 0>
-				<cfset session.force_password_change = "yes">
-				<cflocation url="ChangePassword.cfm" addtoken="false">
+				 <cfquery name="isDb" datasource="uam_god">
+					select
+					(select count(*) c from all_users where
+					username='#ucase(session.username)#')
+					+
+					(select count(*) C from temp_allow_cf_user,
+					cf_users where temp_allow_cf_user.user_id = cf_users.user_id and cf_users.username='#session.username#')
+					cnt
+					from dual
+				</cfquery>
+				<cfif isDb.c gt 0>
+					<cfset session.force_password_change = "yes">
+					<cflocation url="ChangePassword.cfm" addtoken="false">
+				</cfif>
 			<cfelseif pwage lte 10>
 				<span style="color:red;font-weight:bold;">
 					Your password expires in #pwage# days.
