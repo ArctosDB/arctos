@@ -93,6 +93,7 @@
 			<cfinput type="hidden" name="action" value="saveGridUpdate">
 			<cfinput type="hidden" name="enteredby" value="#enteredby#">
 			<cfinput type="hidden" name="accn" value="#accn#">
+			<cfinput type="hidden" name="colln" value="#colln#">
 			<cfgrid attributeCollection="#args#">
 				<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" 
 					hrefkey="collection_object_id" target="_blank" header="Key">
