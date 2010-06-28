@@ -371,12 +371,10 @@
 											and common_name is not null
 											group by common_name order by common_name
 										</cfquery>
-										<cfloop query="cName">
-											<div style="font-size:small;color:gray;padding-left:1em;">
-												#common_name#
-											</div>
-											<cfset metaDesc=metaDesc & '; ' & common_name>
-										</cfloop>
+										<div style="font-size:small;color:gray;padding-left:1em;">
+											#valuelist(cName.common_name,"; ")#
+										</div>
+										<cfset metaDesc=metaDesc & '; ' & valuelist(cName.common_name,"; ")>
 									</cfloop>
 									Identified by #agent_name# 
 									<cfif len(made_date) gt 0>

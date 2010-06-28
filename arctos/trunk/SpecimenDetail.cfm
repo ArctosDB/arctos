@@ -328,7 +328,6 @@
 					var ac = document.getElementById("addAccnSpan");
 					var loc = document.getElementById("specLocalitySpan");
 					var cev = document.getElementById("changeCollEventSpan");
-					
 					var col = document.getElementById("editCollsSpan");
 					var rel = document.getElementById("editRelationshipSpan");
 					var par = document.getElementById("editPartsSpan");
@@ -378,28 +377,27 @@
 							<cfset isNext = "no">
 							<cfset currPos = 0>
 							<cfset lenOfIdList = 0>
-							<cfset firstID = #collection_object_id#>
-							<cfset nextID = #collection_object_id#>
-							<cfset prevID = #collection_object_id#>
-							<cfset lastID = #collection_object_id#>
+							<cfset firstID = collection_object_id>
+							<cfset nextID = collection_object_id>
+							<cfset prevID = collection_object_id>
+							<cfset lastID = collection_object_id>
 							<!--- see where we are currently --->
 							<cfset currPos = listfind(session.collObjIdList,collection_object_id)>
 							<cfset lenOfIdList = listlen(session.collObjIdList)>
 							<!--- get IDs to browse to --->
 							<cfset firstID = listGetAt(session.collObjIdList,1)>
-							<cfif #currPos# lt #lenOfIdList#>
+							<cfif currPos lt lenOfIdList>
 								<cfset nextID = listGetAt(session.collObjIdList,currPos + 1)>
 							</cfif>
-							<cfif #currPos# gt 1>
+							<cfif currPos gt 1>
 								<cfset prevID = listGetAt(session.collObjIdList,currPos - 1)>
 							</cfif>	
 							<cfset lastID = listGetAt(session.collObjIdList,lenOfIdList)>
-							<!--- should we have first? --->
-							<cfif #lenOfIdList# gt 1>
-								<cfif #currPos# gt 1>
+							<cfif lenOfIdList gt 1>
+								<cfif currPos gt 1>
 									<cfset isPrev = "yes">
 								</cfif>
-								<cfif #currPos# lt #lenOfIdList#>
+								<cfif currPos lt lenOfIdList>
 									<cfset isNext = "yes">
 								</cfif>
 							</cfif>
@@ -408,76 +406,61 @@
 							<cfset isPrev="">
 						</cfif>
 		                <ul id="navbar">
-							<cfif #isPrev# is "yes">
-								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" />
-								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" />
+							<cfif isPrev is "yes">
+								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
+								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
 							<cfelse>
-								<img src="/images/no_first.gif"  />
-								<img src="/images/no_previous.gif" />
+								<img src="/images/no_first.gif" alt="[ inactive button ]">
+								<img src="/images/no_previous.gif" alt="[ inactive button ]">
 							</cfif>
 			                <li>
-								<span onclick="switchIFrame('SpecimenDetail_body')"
-									class="likeLink active" id="SpecimenDetail_bodySpan">Main</span>
+								<span onclick="switchIFrame('SpecimenDetail_body')" class="likeLink active" id="SpecimenDetail_bodySpan">Main</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('editIdentification')"
-									class="likeLink" id="editIdentificationSpan">Taxa</span>
+								<span onclick="switchIFrame('editIdentification')" class="likeLink" id="editIdentificationSpan">Taxa</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('addAccn')"
-									class="likeLink" id="addAccnSpan">Accn</span>
+								<span onclick="switchIFrame('addAccn')"	class="likeLink" id="addAccnSpan">Accn</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('changeCollEvent')"
-									class="likeLink" id="changeCollEventSpan">Pick New Coll Event</span>
+								<span onclick="switchIFrame('changeCollEvent')" class="likeLink" id="changeCollEventSpan">Pick New Coll Event</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('specLocality')"
-									class="likeLink" id="specLocalitySpan">Locality</span>
+								<span onclick="switchIFrame('specLocality')" class="likeLink" id="specLocalitySpan">Locality</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('editColls')"
-									class="likeLink" id="editCollsSpan">Agents</span>
+								<span onclick="switchIFrame('editColls')" class="likeLink" id="editCollsSpan">Agents</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('editRelationship')"
-									class="likeLink" id="editRelationshipSpan">Relations</span>
+								<span onclick="switchIFrame('editRelationship')" class="likeLink" id="editRelationshipSpan">Relations</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('editParts')"
-									class="likeLink" id="editPartsSpan">Parts</span>
-							</li>
-							
-							<li>
-								<span onclick="switchIFrame('findContainer')"
-									class="likeLink" id="findContainerSpan">Part Locn.</span>
+								<span onclick="switchIFrame('editParts')" class="likeLink" id="editPartsSpan">Parts</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('editBiolIndiv')"
-									class="likeLink" id="editBiolIndivSpan">Attributes</span>
+								<span onclick="switchIFrame('findContainer')" class="likeLink" id="findContainerSpan">Part Locn.</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('editIdentifiers')"
-									class="likeLink" id="editIdentifiersSpan">Other IDs</span>
+								<span onclick="switchIFrame('editBiolIndiv')" class="likeLink" id="editBiolIndivSpan">Attributes</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('MediaSearch')"
-									class="likeLink" id="MediaSearchSpan">Media</span>
+								<span onclick="switchIFrame('editIdentifiers')"	class="likeLink" id="editIdentifiersSpan">Other IDs</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('Encumbrances')"
-									class="likeLink" id="EncumbrancesSpan">Encumbrances</span>
+								<span onclick="switchIFrame('MediaSearch')"	class="likeLink" id="MediaSearchSpan">Media</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('catalog')"
-									class="likeLink" id="catalogSpan">Catalog</span>
+								<span onclick="switchIFrame('Encumbrances')" class="likeLink" id="EncumbrancesSpan">Encumbrances</span>
 							</li>
-							<cfif #isNext# is "yes">
-								<img src="/images/next.gif" class="likeLink"   onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'"/>
-								<img src="/images/last.gif"  class="likeLink"   onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'"/>
+							<li>
+								<span onclick="switchIFrame('catalog')" class="likeLink" id="catalogSpan">Catalog</span>
+							</li>
+							<cfif isNext is "yes">
+								<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
+								<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
 							<cfelse>
-								<img src="/images/no_next.gif" />
-								<img src="/images/no_last.gif" />
+								<img src="/images/no_next.gif" alt="[ inactive button ]">
+								<img src="/images/no_last.gif" alt="[ inactive button ]">
 							</cfif>
 						</ul>
 	                </form>
@@ -502,7 +485,7 @@
 		<cfinclude template="SpecimenDetail_body.cfm">
 	</cfif>	
 <cfinclude template="/includes/_footer.cfm">
-	<cfif isdefined("showAnnotation") and #showAnnotation# is "true">
+	<cfif isdefined("showAnnotation") and showAnnotation is "true">
 		<script language="javascript" type="text/javascript">
 			openAnnotation('collection_object_id=#collection_object_id#');
 		</script>		
