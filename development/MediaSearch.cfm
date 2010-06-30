@@ -672,6 +672,8 @@
 					</cfif>
 				</cfloop>		
 				
+				<!-- Editing after extraction -->
+				
 				<cfif len(cat_num) gt 0>
 					<cfset cat_num= '<a href="#cat_item_url#">' & cat_num & '</a>'>
 				</cfif>
@@ -723,9 +725,7 @@
 						</cfif>
 					</cfif>
 				</cfloop>
-				
-				<!-- remove after Carla oks cat_num_link-->
-				<cfset kw = kw & "; " & cat_item_url>
+
 			</cfif>
 			
 			<!--- 
