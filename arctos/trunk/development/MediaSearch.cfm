@@ -721,7 +721,7 @@
 				</cfloop>
 				
 				<!-- remove after Carla oks cat_num_link-->
-				<cfset kw = kw & ";" & cat_item_url>
+				<cfset kw = kw & "; " & cat_item_url>
 			</cfif>
 			
 			<!--- 
