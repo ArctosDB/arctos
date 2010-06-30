@@ -672,6 +672,10 @@
 					</cfif>
 				</cfloop>		
 				
+				<cfif len(cat_num) gt 0>
+					<cfset cat_num= '<a href="#cat_item_url#">' & cat_num & '</a>'>
+				</cfif>
+				
 				<!-- If can't find a collecting event, try to find one through available cataloged item -->		
 				<cfif len(locality) lte 0 and coll_obj_id gt 0>
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
