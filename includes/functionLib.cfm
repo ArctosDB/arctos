@@ -536,7 +536,9 @@
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		---->
 			<cfquery name="d" datasource="uam_god">
-				select collection || ' ' || cat_num || ' (' || scientific_name || ')' data from 
+				select collection || ' ' || cat_num || ' (' || scientific_name || ')' data,
+				guid_prefix || ':' || cat_num guid_string
+				from 
 				cataloged_item,
                 collection,
                 identification
@@ -547,7 +549,7 @@
                 cataloged_item.collection_object_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?collection_object_id=#related_primary_key#", i)>
+            <cfset temp = QuerySetCell(result, "link", "/guid/#d.guid_string#", i)>
 			<cfset temp = QuerySetCell(result, "rel_type", "cataloged_item", i)>
 		<cfelseif table_name is "media">
 			<cfquery name="d" datasource="uam_god">
