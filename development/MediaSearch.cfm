@@ -639,6 +639,7 @@
 			<cfset locality="">
 			<cfset dec_lat=0>
 			<cfset dec_long=0>
+			<cfset project_name="">
 			
 			<cfif mrel.recordcount gt 0>				
 				<cfloop query="mrel">
@@ -665,7 +666,9 @@
 					<cfelseif #rel_type# is "collecting_event">		
 						<cfset coll_event_id=#related_primary_key#>			
 						<cfset locality=trim(summary)>
-
+						
+					<cfelseif #rel_type# is "project">
+						<cfset project_name=#summary#>
 					</cfif>
 				</cfloop>		
 				
@@ -706,7 +709,7 @@
 				</cfif>
 				
 				<!-- Orders the keywords -->
-				<cfset kw_list = "#scientific_name#|#locality#|#agent_name#|#cat_num#|#description#">
+				<cfset kw_list = "#scientific_name#|#locality#|#agent_name#|#cat_num#|#description#|#project_name#">
 				<cfloop list="#kw_list#" index="s" delimiters="|">
 					<cfif len(trim(s)) gt 0>
 						<cfif len(kw) gt 0>
@@ -716,6 +719,9 @@
 						</cfif>
 					</cfif>
 				</cfloop>
+				
+				<!-- remove after Carla oks cat_num_link-->
+				<cfset kw = kw & ";" & cat_item_url>
 			</cfif>
 			
 			<!--- 
