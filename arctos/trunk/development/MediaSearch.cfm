@@ -489,7 +489,7 @@
 				<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
 			</cfif>
 	</cfif>
-	<!--
+	<!---
 			<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<td>
 					<cfset mp=getMediaPreview(preview_uri,media_type)>
@@ -617,7 +617,8 @@
 					</td>
 				</tr>
 		</cfif>	
-	<cfelse> -->
+	<cfelse> 
+	--->
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<cfset mp=getMediaPreview(preview_uri,media_type)>
 		<cfset mrel=getMediaRelations2(#media_id#)>
