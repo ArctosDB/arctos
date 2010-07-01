@@ -624,29 +624,44 @@
 			
 			<!-- variable holders -->
 			<cfset kw="">
-			<cfset agent_name="">
-			<cfset scientific_name="">
-			<cfset cat_num="">
-			<cfset description="#desc.label_value#">
-			
-	<!--		<cfset media_details_url = "http://arctos.database.museum/media/" & "" & #media_id#> -->
+						
+<!--		<cfset media_details_url = "http://arctos.database.museum/media/" & "" & #media_id#> -->
 			<cfset media_details_url = "/media/" & "" & #media_id#>
+			
+			<cfset agent_name="">
+			
+			<cfset scientific_name="">
+			
+			<cfset description="#desc.label_value#">
 
-			<cfset cat_item_url="">
+			<!-- Cataloged item information -->
+			<cfset cat_num="">
 			<cfset cat_item_sum="">
+			<cfset cat_item="">
+			
 			<cfset coll_obj_id=0>
+			
+			<!-- Collecting event info -->
 			<cfset coll_event_id=0>			
-			<cfset locality="">
+			<cfset coll_event_locality="">
+			<cfset coll_event_uri="">
+			<cfset coll_event="">
+			
+			<!-- Lat/Long-->
 			<cfset dec_lat=0>
 			<cfset dec_long=0>
-			<cfset project_name="">
+			
+			<!-- Other relationships-->
+			<cfset project="">			
+			<cfset publication="">			
+			<cfset shows_locality="">				
+			<cfset descr_taxonomy="">
 			
 			<cfif mrel.recordcount gt 0>				
 				<cfloop query="mrel">
 					<cfif #rel_type# is "created by agent">
 						<cfset agent_name=#summary#>
 					<cfelseif #rel_type# is "cataloged_item">
-						<cfset cat_item_url=#link#>
 						<cfset cat_item_sum=trim(summary)>
 						<cfset coll_obj_id=#related_primary_key#>
 						
@@ -662,24 +677,56 @@
 						<cfelse>
 							<cfset cat_num = cat_item_sum>						
 						</cfif>
+						
+						<cfif len(#link#) gt 0>
+							<cfset cat_item = '<a href="#link#">#cat_num#</a>'>
+						<cfelse>
+							<cfset cat_item = cat_num>
+						</cfif>
 
 					<cfelseif #rel_type# is "collecting_event">		
-						<cfset coll_event_id=#related_primary_key#>			
-						<cfset locality=trim(summary)>
+						<cfset coll_event_id=#related_primary_key#>		
 						
-					<cfelseif #rel_type# is "project">
-						<cfset project_name=#summary#>
+						<cfif len(#link#) gt 0>
+							<cfset coll_event = '<a href="#link#">' & trim(summary) & '</a>'>
+						<cfelse>
+							<cfset coll_event =  trim(summary)>
+						</cfif>
+						
+					<cfelseif #rel_type# is "project">						
+						<cfif len(#link#) gt 0>
+							<cfset project = 'Project: <a href="#link#">' & trim(summary) & '</a>'>
+						<cfelse>
+							<cfset project =  trim(summary)>
+						</cfif>
+						
+					<cfelseif #rel_type# is "publication">
+						<cfif len(#link#) gt 0>
+							<cfset publication = 'Publication: <a href="#link#">' & trim(summary) & '</a>'>
+						<cfelse>
+							<cfset publication =  trim(summary)>
+						</cfif>
+
+					<cfelseif #rel_type# is "locality">
+						<cfif len(#link#) gt 0>
+							<cfset shows_locality = 'Shows locality: <a href="#link#">' & trim(summary) & '</a>'>
+						<cfelse>
+							<cfset shows_locality =  trim(summary)>
+						</cfif>
+					
+					<cfelseif #rel_type# is "taxonomy">
+						<cfif len(#link#) gt 0>
+							<cfset descr_taxonomy = 'Describes Taxonomy: <a href="#link#">' & trim(summary) & '</a>'>
+						<cfelse>
+							<cfset descr_taxonomy =  trim(summary)>
+						</cfif>
+			
 					</cfif>
 				</cfloop>		
-				
-				<!-- Editing after extraction -->
-				
-				<cfif len(cat_num) gt 0>
-					<cfset cat_num= '<a href="#cat_item_url#">' & cat_num & '</a>'>
-				</cfif>
+
 				
 				<!-- If can't find a collecting event, try to find one through available cataloged item -->		
-				<cfif len(locality) lte 0 and coll_obj_id gt 0>
+				<cfif len(coll_event_locality) lte 0 and coll_obj_id gt 0>
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
 							higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data , collecting_event.collecting_event_id id
@@ -695,8 +742,10 @@
 							cataloged_item.collection_object_id=#coll_obj_id#
 					</cfquery>
 					
-					<cfset locality = trim(d.data)>
+					<cfset coll_event_locality = trim(d.data)>
 					<cfset coll_event_id=#d.id#>
+					
+					<cfset coll_event_uri="/showLocality.cfm?action=srch&collecting_event_id=" & #d.id#>
 					
 
 				</cfif>
@@ -713,9 +762,10 @@
 					<cfset dec_lat=#d.dec_lat#>
 					<cfset dec_long=#d.dec_long#>
 				</cfif>
-				
+
+			
 				<!-- Orders the keywords -->
-				<cfset kw_list = "#scientific_name#|#locality#|#agent_name#|#cat_num#|#description#|#project_name#">
+				<cfset kw_list = "#scientific_name#|#coll_event#|#description#|#agent_name#|#cat_item#|#project#|#publication#|#shows_locality#|#descr_taxonomy#">
 				<cfloop list="#kw_list#" index="s" delimiters="|">
 					<cfif len(trim(s)) gt 0>
 						<cfif len(kw) gt 0>
@@ -727,7 +777,8 @@
 				</cfloop>
 
 			</cfif>
-			
+
+		
 			<!--- 
 			<!-- Set up/fill query table used for bulk downloading-->
 			<cfset tempResult = queryaddrow(downloadResults,1)>
