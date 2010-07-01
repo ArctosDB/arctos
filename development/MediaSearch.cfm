@@ -741,7 +741,7 @@
 			<td align="middle">
 
 				<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
-				<br>#media_type#/#mime_type#
+				<br>#media_type# (#mime_type#)
 			
 			</td>
 			
