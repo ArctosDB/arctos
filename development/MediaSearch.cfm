@@ -777,10 +777,10 @@
 							<cfset labels_details=highlight(labels_details,k)>
 						</cfloop>
 						
-						<strong>Keywords:</strong> #kw#
+						#kw#
 						<br>
 						<br>
-						<strong>Labels:</strong> #labels_details#
+						#labels_details#
 				</div>			
 			
 			<!-- Related Media -->
