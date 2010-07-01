@@ -630,9 +630,9 @@
 			<cfset description="#desc.label_value#">
 			
 	<!--		<cfset media_details_url = "http://arctos.database.museum/media/" & "" & #media_id#> -->
-			<cfset media_details_url = "media/" & "" & #media_id#>
+			<cfset media_details_url = "/media/" & "" & #media_id#>
 
-			<cfset cat_item_url=""
+			<cfset cat_item_url="">
 			<cfset cat_item_sum="">
 			<cfset coll_obj_id=0>
 			<cfset coll_event_id=0>			
