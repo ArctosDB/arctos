@@ -447,7 +447,6 @@
 	<!-- Results Table Header for grid view (for more than one result)-->
 	<tr>
 		<td><center><strong>Media Preview<br>(Click to View)</strong></center></td>
-		<td><center><strong>Details</strong></center></td>
 		<td><center><strong>Map</strong></center></td>
 		<td><center><strong>Details</strong></center></td>		
 	</tr>
@@ -745,8 +744,6 @@
 			
 			</td>
 			
-			<td align="middle"><a href="#media_details_url#" target="_blank">Details</a></td>
-
 			<td align="middle">					
 				<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
 					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
