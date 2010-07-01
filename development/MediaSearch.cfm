@@ -489,136 +489,7 @@
 				<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
 			</cfif>	
 	</cfif>
-	<!---
-			<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-				<td>
-					<cfset mp=getMediaPreview(preview_uri,media_type)>
-		            <table>
-						<tr>
-							<td align="middle">
-								<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
-								<br><span style='font-size:small'>#media_type#&nbsp;(#mime_type#)</span>
-							</td>
-							<td>
-								<cfif len(desc.label_value) gt 0>
-									<ul><li>#desc.label_value#</li></ul>
-								</cfif>
-								<cfif labels.recordcount gt 0>
-									<ul>
-										<cfloop query="labels">
-											<li>
-												#media_label#: #label_value#
-											</li>
-										</cfloop>
-									</ul>
-								</cfif>
-								<cfset mrel=getMediaRelations(#media_id#)>
-								<cfif mrel.recordcount gt 0>
-									<ul>
-									<cfloop query="mrel">
-										<li>#media_relationship#  
-						                    <cfif len(#link#) gt 0>
-						                        <a href="#link#" target="_blank">#summary#</a>
-						                    <cfelse>
-												#summary#
-											</cfif>
-						                </li>
-									</cfloop>
-									</ul>
-								</cfif>
-								<cfif isdefined("kw.keywords") and len(kw.keywords) gt 0>
-									<cfif isdefined("keyword") and len(keyword) gt 0>
-										<cfset kwds=kw.keywords>
-										<cfloop list="#keyword#" index="k" delimiters=",;: ">
-											<cfset kwds=highlight(kwds,k)>
-										</cfloop>
-									<cfelse>
-										<cfset kwds=kw.keywords>
-									</cfif>
-									<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;">
-										<strong>Keywords:</strong> #kwds#
-									</div>
-								</cfif>
-							</td>
-						</tr>
-					</table>
-					<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select count(*) n from tag where media_id=#media_id#
-					</cfquery>
-					<br>
-					<cfif media_type is "multi-page document">
-						<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
-					</cfif>
-					<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-				        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
-				        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
-				    </cfif>
-				    <cfif tag.n gt 0>
-						<a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
-					</cfif>
-					<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select 
-							media.media_id, 
-							media.media_type, 
-							media.mime_type, 
-							media.preview_uri, 
-							media.media_uri 
-						from 
-							media, 
-							media_relations 
-						where 
-							media.media_id=media_relations.related_primary_key and
-							media_relationship like '% media' 
-							and media_relations.media_id =#media_id#
-							and media.media_id != #media_id#
-						UNION
-						select media.media_id, media.media_type,
-							media.mime_type, media.preview_uri, media.media_uri 
-						from media, media_relations 
-						where 
-							media.media_id=media_relations.media_id and
-							media_relationship like '% media' and 
-							media_relations.related_primary_key=#media_id#
-							 and media.media_id != #media_id#
-					</cfquery>
-					<cfif relM.recordcount gt 0>
-						<br>Related Media
-						<div class="thumbs">
-							<div class="thumb_spcr">&nbsp;</div>
-							<cfloop query="relM">
-								<cfset puri=getMediaPreview(preview_uri,media_type)>
-				            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-									select
-										media_label,
-										label_value
-									from
-										media_labels
-									where
-										media_id=#media_id#
-								</cfquery>
-								<cfquery name="desc" dbtype="query">
-									select label_value from labels where media_label='description'
-								</cfquery>
-								<cfset alt="Media Preview Image">
-								<cfif desc.recordcount is 1>
-									<cfset alt=desc.label_value>
-								</cfif>
-				               <div class="one_thumb">
-					               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
-				                   	<p>
-										#media_type# (#mime_type#)
-					                   	<br><a href="/media/#media_id#">Media Details</a>
-										<br>#alt#
-									</p>
-								</div>
-							</cfloop>
-							<div class="thumb_spcr">&nbsp;</div>
-						</div>
-					</td>
-				</tr>
-		</cfif>	
-	<cfelse> 
-	--->
+	
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<cfset mp=getMediaPreview(preview_uri,media_type)>
 		<cfset mrel=getMediaRelations2(#media_id#)>
@@ -626,7 +497,6 @@
 		<!-- variable holders -->
 		<cfset kw="">
 					
-<!--		<cfset media_details_url = "http://arctos.database.museum/media/" & "" & #media_id#> -->
 		<cfset media_details_url = "/media/" & "" & #media_id#>
 		
 		<cfset agent_name="">
