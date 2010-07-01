@@ -5,7 +5,7 @@
 </div>
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
-    	<cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
+    	<cflocation url="/development/MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
     </cfoutput>
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
@@ -487,7 +487,7 @@
 			<cfif desc.recordcount is 1>					
 				<cfset title = desc.label_value>
 				<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
-			</cfif>
+			</cfif>	
 	</cfif>
 	<!---
 			<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
