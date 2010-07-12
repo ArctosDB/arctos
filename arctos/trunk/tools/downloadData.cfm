@@ -75,9 +75,9 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>		
 	<cfloop query="d">
-		<cfset t='"' & evaluate("d." & theColumn) & '"'>
+		<cfset t= evaluate("d." & theColumn)>
 		<cfif hasCollCde>
-			<cfset t=t & ',"' & d.collection_cde & '"'>
+			<cfset t=t & ',' & d.collection_cde>
 		</cfif>
 		<cfscript>
 			variables.joFileWriter.writeLine(t);
