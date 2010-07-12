@@ -54,6 +54,7 @@
 		select * from #tablename#
 	</cfquery>
 	<cfset f=d.columnlist>
+	<br>f:#f# 
 	<cfif listfindnocase(f,"description")>
 		<cfset f=listdeleteat(f,listfindnocase(f,"description"))>
 	</cfif>
