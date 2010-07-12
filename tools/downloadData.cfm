@@ -54,16 +54,13 @@
 		select * from #tablename#
 	</cfquery>
 	<cfset f=d.columnlist>
-	<br>f:#f# 
-	<cfif listfindnocase(f,"description")>
-		<cfset f=listdeleteat(f,listfindnocase(f,"description"))>
-	</cfif>
-	<cfif listfindnocase(f,"CTSPNID")>
-		<cfset f=listdeleteat(f,listfindnocase(f,"CTSPNID"))>
-	</cfif>
-	<cfif listfindnocase(f,"IS_TISSUE")>
-		<cfset f=listdeleteat(f,listfindnocase(f,"IS_TISSUE"))>
-	</cfif>
+	<br>f:#f#
+	<cfset stuffToDie="description,CTSPNID,IS_TISSUE,base_url">
+	<cfloop list="#stuffToDie#" index="i">
+		<cfif listfindnocase(f,i)>
+			<cfset f=listdeleteat(f,listfindnocase(f,i))>
+		</cfif>
+	</cfloop>
 	<cfset r=tablename>
 	<cfif listfindnocase(f,"collection_cde")>
 		<cfset hasCollCde=true>
