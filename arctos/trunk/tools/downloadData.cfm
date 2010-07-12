@@ -69,8 +69,8 @@
 		<cfset theColumn=f>
 	</cfif>
 	
-	<cfset variables.fileName="#Application.webDirectory#/download/#tablename#.csv">
-	<cfset variables.encoding="UTF-8">
+	<cfset variables.fileName="#Application.webDirectory#/download/#lower(tablename)#.csv">
+	<cfset variables.encoding="US-ASCII">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>		
@@ -86,7 +86,7 @@
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
-	<cflocation url="/download.cfm?file=#tablename#.csv">
+	<cflocation url="/download.cfm?file=#lower(tablename)#.csv">
 </cfoutput>
 
 </cfif>
