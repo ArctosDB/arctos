@@ -54,7 +54,6 @@
 		select * from #tablename#
 	</cfquery>
 	<cfset f=d.columnlist>
-	<br>f:#f#
 	<cfset stuffToDie="description,CTSPNID,IS_TISSUE,base_url">
 	<cfloop list="#stuffToDie#" index="i">
 		<cfif listfindnocase(f,i)>
@@ -69,28 +68,25 @@
 		<cfset hasCollCde=false>
 		<cfset theColumn=f>
 	</cfif>
-	<cfset r=tablename & "," & theColumn & "," & hasCollCde & "::">
-	<cfset i=1>
+	
+	<cfset variables.fileName="#Application.webDirectory#/download/#tablename#.csv">
+	<cfset variables.encoding="UTF-8">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+	</cfscript>		
 	<cfloop query="d">
-		<cfset t=evaluate("d." & theColumn)>
+		<cfset t='"' & evaluate("d." & theColumn) & '"'>
 		<cfif hasCollCde>
-			<cfset t=t & "|" & d.collection_cde>
+			<cfset t=t & ',"' & d.collection_cde & '"'>
 		</cfif>
-		<cfset r=listappend(r,t,",")>
+		<cfscript>
+			variables.joFileWriter.writeLine(t);
+		</cfscript>
 	</cfloop>
-	<cfset r=replace(r,"::,","::")>
-	#r#
-		<!----
-
-	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select phylclass from taxonomy where upper(phylclass) like '%#ucase(q)#%'
-		group by phylclass
-		order by phylclass
-	</cfquery>
-	<cfloop query="pn">
-		#phylclass# #chr(10)#
-	</cfloop>
-	---->
+	<cfscript>
+		variables.joFileWriter.close();
+	</cfscript>
+	<cflocation url="/download.cfm?file=#tablename#.csv">
 </cfoutput>
 
 </cfif>
