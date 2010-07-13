@@ -116,7 +116,12 @@
 			</cftry>
 		</cfloop>
 		<cfzip file="#Application.webDirectory#/download/ctzip.zip" source="#Application.webDirectory#/temp/ctzip">
-		<cflocation url="/download.cfm?file=ctzip.zip">		
+		<!---
+		<cflocation url="/download.cfm?file=ctzip.zip">
+		
+		--->
+		
+		<a href="/download.cfm?file=ctzip.zip">download</a>
 	</cfoutput>
 <cfelse>
 	<cfoutput>
