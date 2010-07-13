@@ -54,7 +54,8 @@
 			table_name not in (
 				'CTATTRIBUTE_CODE_TABLES',
 				'CTCOLLECTION_CDE',
-				'CTCONTAINER_TYPE_SIZE'
+				'CTCONTAINER_TYPE_SIZE',
+				'CTPUBLICATION_ATTRIBUTE'
 			) order by table_name
 		</cfquery>
 		<cfif not directoryexists("#Application.webDirectory#/temp/ctzip")>
