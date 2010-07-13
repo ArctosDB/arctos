@@ -61,6 +61,7 @@
 	
 		<cfloop query="ct">
 		<HR>
+			<br>table_name: #table_name#
 			<cfquery name="d" datasource="cf_dbuser">
 				select * from #table_name#
 			</cfquery>
