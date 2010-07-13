@@ -207,7 +207,7 @@
 		<cfquery name="CTATTRIBUTE_CODE_TABLES" datasource="cf_dbuser">
 			select * from CTATTRIBUTE_CODE_TABLES
 		</cfquery>
-		<cfset variables.fileName="#Application.webDirectory#/temp/ctattribute_code_tables.csv">
+		<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/ctattribute_code_tables.csv">
 		<cfset variables.encoding="US-ASCII">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
