@@ -302,7 +302,9 @@
 		
 		
 		
-	
+		<cfif fileexists(#Application.webDirectory#/download/ctzip.zip)>
+			<cffile action="delete" file="#Application.webDirectory#/download/ctzip.zip">
+		</cfif>
 	
 		<cfzip file="#Application.webDirectory#/download/ctzip.zip" source="#Application.webDirectory#/temp/ctzip">
 		<!---
