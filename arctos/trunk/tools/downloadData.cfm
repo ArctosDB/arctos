@@ -56,7 +56,8 @@
 				'CTCOLLECTION_CDE',
 				'CTCONTAINER_TYPE_SIZE',
 				'CTPUBLICATION_ATTRIBUTE',
-				'CTSPECIMEN_PART_LIST_ORDER'
+				'CTSPECIMEN_PART_LIST_ORDER',
+				'CTSPEC_PART_ATT_ATT'
 			) order by table_name
 		</cfquery>
 		<cfif not directoryexists("#Application.webDirectory#/temp/ctzip")>
