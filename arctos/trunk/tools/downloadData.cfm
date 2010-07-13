@@ -57,7 +57,8 @@
 				'CTCONTAINER_TYPE_SIZE',
 				'CTPUBLICATION_ATTRIBUTE',
 				'CTSPECIMEN_PART_LIST_ORDER',
-				'CTSPEC_PART_ATT_ATT'
+				'CTSPEC_PART_ATT_ATT',
+				'CTYES_NO'
 			) order by table_name
 		</cfquery>
 		<cfif not directoryexists("#Application.webDirectory#/temp/ctzip")>
@@ -67,6 +68,7 @@
 	
 	
 		<cfloop query="ct">
+		<cftry>
 		<HR>
 			<br>table_name: #table_name#
 			<cfquery name="d" datasource="cf_dbuser">
@@ -107,6 +109,11 @@
 			<cfscript>
 				variables.joFileWriter.close();
 			</cfscript>
+			
+			<cfcatch>
+				<br>FAIL on #table_name#
+			</cfcatch>
+			</cftry>
 		</cfloop>
 		<cfzip file="#Application.webDirectory#/download/ctzip.zip" source="#Application.webDirectory#/temp/ctzip">
 		<cflocation url="/download.cfm?file=ctzip.zip">		
