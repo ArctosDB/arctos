@@ -60,10 +60,12 @@
 	
 	
 		<cfloop query="ct">
+		<HR>
 			<cfquery name="d" datasource="cf_dbuser">
 				select * from #table_name#
 			</cfquery>
 			<cfset f=d.columnlist>
+			<br>f:#f#
 			<cfset stuffToDie="description,CTSPNID,IS_TISSUE,base_url">
 			<cfloop list="#stuffToDie#" index="i">
 				<cfif listfindnocase(f,i)>
@@ -78,13 +80,15 @@
 				<cfset hasCollCde=false>
 				<cfset theColumn=f>
 			</cfif>
+			<br>theColumn: #theColumn#
+			<br>hasCollCde: #hasCollCde#
 			<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/#lcase(table_name)#.csv">
 			<cfset variables.encoding="US-ASCII">
 			<cfscript>
 				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			</cfscript>		
 			<cfloop query="d">
-				<cfset t= evaluate("d." & theColumn)>
+				<cfset t=evaluate("d." & theColumn)>				
 				<cfif hasCollCde>
 					<cfset t=t & ',' & d.collection_cde>
 				</cfif>
