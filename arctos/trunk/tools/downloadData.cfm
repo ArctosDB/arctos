@@ -210,6 +210,7 @@
 		<cfset variables.encoding="US-ASCII">
 		<cfloop query="d">
 			<cfset a=attribute_type & "|" & value_code_table & "|" & units_code_table>
+			<br>#a#
 			<cfscript>
 				variables.joFileWriter.writeLine(a);
 			</cfscript>
