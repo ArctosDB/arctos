@@ -48,6 +48,7 @@
 	</cfoutput>
 	<a href="/temp/agentnames.txt">download agents</a>
 <cfelseif action is  "codeTableZip">
+	<cfsetting requesttimeout="600">
 	<cfoutput>
 		<cfquery name="ct" datasource="uam_god">
 			select table_name from user_tables where table_name like 'CT%' AND
