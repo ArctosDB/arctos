@@ -63,7 +63,7 @@
 				select * from #table_name#
 			</cfquery>
 			<cfset f=d.columnlist>
-			<cfset stuffToDie="description,CTSPNID,IS_TISSUE,base_url">
+			<cfset stuffToDie="description,CTSPNID,IS_TISSUE,base_url,ATTRIBUTE_TYPE">
 			<cfloop list="#stuffToDie#" index="i">
 				<cfif listfindnocase(f,i)>
 					<cfset f=listdeleteat(f,listfindnocase(f,i))>
