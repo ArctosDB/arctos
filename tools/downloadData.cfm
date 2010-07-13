@@ -212,6 +212,9 @@
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		</cfscript>
+		<cfscript>
+				variables.joFileWriter.writeLine('this is data');
+			</cfscript>
 		<cfloop query="CTATTRIBUTE_CODE_TABLES">
 			<cfset row="#attribute_type#|#value_code_table#|#units_code_table#">
 			<br>#row#
