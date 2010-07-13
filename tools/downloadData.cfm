@@ -60,10 +60,10 @@
 	
 		<cfloop query="ct">
 			<cfquery name="d" datasource="cf_dbuser">
-				select * from #table_name#
+				select * from #table_name# where table_name not in ('CTATTRIBUTE_CODE_TABLES')
 			</cfquery>
 			<cfset f=d.columnlist>
-			<cfset stuffToDie="description,CTSPNID,IS_TISSUE,base_url,ATTRIBUTE_TYPE">
+			<cfset stuffToDie="description,CTSPNID,IS_TISSUE,base_url">
 			<cfloop list="#stuffToDie#" index="i">
 				<cfif listfindnocase(f,i)>
 					<cfset f=listdeleteat(f,listfindnocase(f,i))>
