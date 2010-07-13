@@ -40,7 +40,6 @@
 			i = (i + 1)
 			){
 				variables.joFileWriter.writeLine(taxonomy ["scientific_name"][i]);
-			);
 			}
 		variables.joFileWriter.close();
 	</cfscript>
