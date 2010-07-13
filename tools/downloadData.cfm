@@ -207,14 +207,11 @@
 		<cfquery name="CTATTRIBUTE_CODE_TABLES" datasource="cf_dbuser">
 			select * from CTATTRIBUTE_CODE_TABLES
 		</cfquery>
-		<cfset variables.fileName="#Application.webDirectory#/download/ctattribute_code_tables.csv">
+		<cfset variables.fileName="#Application.webDirectory#/temp/ctattribute_code_tables.csv">
 		<cfset variables.encoding="US-ASCII">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		</cfscript>
-		<cfscript>
-				variables.joFileWriter.writeLine('this is data');
-			</cfscript>
 		<cfloop query="CTATTRIBUTE_CODE_TABLES">
 			<cfset row="#attribute_type#|#value_code_table#|#units_code_table#">
 			<br>#row#
