@@ -208,12 +208,13 @@
 		</cfquery>
 		<cfset variables.fileName="#Application.webDirectory#/download/ctattribute_code_tables.csv">
 		<cfset variables.encoding="US-ASCII">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			for (i=1;i LTE d.RecordCount;i=i+1){
-				a=d["attribute_type"][i] & "|" & d["value_code_table"][i] & "|" & d["units_code_table"][i];
+		<cfloop query="d">
+			<cfset a=attribute_type & "|" & value_code_table & "|" & units_code_table>
+			<cfscript>
 				variables.joFileWriter.writeLine(a);
-			}
+			</cfscript>
+		</cfloop>
+		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
 		<cfset ss="create table if not exists ctattribute_code_tables (attribute_type char,value_code_table char,units_code_table char);">
