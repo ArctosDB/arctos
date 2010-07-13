@@ -209,7 +209,7 @@
 		<cfset variables.fileName="#Application.webDirectory#/download/ctattribute_code_tables.csv">
 		<cfset variables.encoding="US-ASCII">
 		<cfloop query="CTATTRIBUTE_CODE_TABLES">
-			<cfset a=attribute_type & "|" & value_code_table & "|" & units_code_table>
+			<cfset a="#attribute_type#|#value_code_table#|#units_code_table#">
 			<br>#a#
 			<cfscript>
 				variables.joFileWriter.writeLine(a);
