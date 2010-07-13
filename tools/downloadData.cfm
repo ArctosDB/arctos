@@ -34,13 +34,14 @@
 	<cfset variables.encoding="US-ASCII">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-	</cfscript>		
-	<cfloop query="taxonomy">
-		<cfscript>
-			variables.joFileWriter.writeLine(scientific_name);
-		</cfscript>
-	</cfloop>
-	<cfscript>
+		for (
+			i = 1 ;
+			i LTE taxonomy.RecordCount ;
+			i = (i + 1)
+			){
+				variables.joFileWriter.writeLine(taxonomy ["scientific_name"][i]);
+			);
+			}
 		variables.joFileWriter.close();
 	</cfscript>
 	<cflocation url="/download.cfm?file=taxonomy.csv">			
