@@ -29,7 +29,7 @@
 	<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy order by scientific_name
 	</cfquery>
-	<cfset variables.fileName="#Application.webDirectory#/downloads/taxonomy.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/taxonomy.csv">
 	<cfset variables.encoding="US-ASCII">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
@@ -48,7 +48,7 @@
 	<cfquery name="agentnames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_name from agent_name
 	</cfquery>
-	<cfset variables.fileName="#Application.webDirectory#/downloads/agent_name.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/agent_name.csv">
 	<cfset variables.encoding="US-ASCII">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
@@ -66,7 +66,7 @@
 	<cfquery name="higher_geog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select higher_geog from geog_auth_rec order by higher_geog
 	</cfquery>
-	<cfset variables.fileName="#Application.webDirectory#/downloads/higher_geog.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/higher_geog.csv">
 	<cfset variables.encoding="US-ASCII">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
