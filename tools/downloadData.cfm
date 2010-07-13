@@ -30,7 +30,7 @@
 	<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy order by scientific_name
 	</cfquery>
-	<!---
+	
 	<cfset variables.fileName="#Application.webDirectory#/download/taxonomy.csv">
 	<cfset variables.encoding="US-ASCII">
 	<cfscript>
@@ -40,14 +40,13 @@
 		}
 		variables.joFileWriter.close();
 	</cfscript>
-	--->
+	<!---
 	<cffile action="write" file="#application.webDirectory#/download/taxonomy.csv" addnewline="yes" output="scientific_name">
-
 	<cfoutput query="taxonomy">
 		<cffile action="append" file="#application.webDirectory#/download/taxonomy.csv" addnewline="yes" output="#scientific_name#">
 	</cfoutput>
-	<cflocation url="/download.cfm?file=taxonomy.csv">			
-	
+	--->
+	<cflocation url="/download.cfm?file=taxonomy.csv">
 <cfelseif action is  "agentnames">
 	<cfquery name="agentnames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_name from agent_name
@@ -147,7 +146,7 @@
 				'CTFLUID_TYPE',
 				'CTGEOG_SOURCE_AUTHORITY',
 				'CTLAT_LONG_REF_SOURCE'
-			) order by table_name
+			)
 		</cfquery>
 		<cfif not directoryexists("#Application.webDirectory#/temp/ctzip")>
 			<cfdirectory action="create" directory="#Application.webDirectory#/temp/ctzip">
@@ -169,12 +168,12 @@
 			<cfset r=table_name>
 			<cfif listfindnocase(f,"collection_cde")>
 				<cfset hasCollCde=true>
-				<cfset theColumn=listdeleteat(f,listfindnocase(f,"collection_cde"))>
-				<cfset ss="create table if not exists #lcase(table_name)# (#lcase(theColumn)# char);">
+				<cfset theColumn=listdeleteat(f,listfindnocase(f,"collection_cde"))>			
+				<cfset ss="create table if not exists #lcase(table_name)# (#lcase(theColumn)# char,collection_cde char);">
 			<cfelse>
 				<cfset hasCollCde=false>
-				<cfset theColumn=f>				
-				<cfset ss="create table if not exists #lcase(table_name)# (#lcase(theColumn)# char,collection_cde char);">
+				<cfset theColumn=f>
+				<cfset ss="create table if not exists #lcase(table_name)# (#lcase(theColumn)# char);">
 			</cfif>
 			<cfset ss=ss & chr(10) & "delete from #lcase(table_name)#;">
 			<cfset ss=ss & chr(10) & ".import ctzip/#lcase(table_name)#.csv #lcase(table_name)#" & chr(10)>
