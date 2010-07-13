@@ -58,7 +58,7 @@
 	
 		<cfloop query="ct">
 			<cfquery name="d" datasource="cf_dbuser">
-				select * from #tablename#
+				select * from #table_name#
 			</cfquery>
 			<cfset f=d.columnlist>
 			<cfset stuffToDie="description,CTSPNID,IS_TISSUE,base_url">
@@ -67,7 +67,7 @@
 					<cfset f=listdeleteat(f,listfindnocase(f,i))>
 				</cfif>
 			</cfloop>
-			<cfset r=tablename>
+			<cfset r=table_name>
 			<cfif listfindnocase(f,"collection_cde")>
 				<cfset hasCollCde=true>
 				<cfset theColumn=listdeleteat(f,listfindnocase(f,"collection_cde"))>
@@ -75,7 +75,7 @@
 				<cfset hasCollCde=false>
 				<cfset theColumn=f>
 			</cfif>
-			<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/#lcase(tablename)#.csv">
+			<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/#lcase(table_name)#.csv">
 			<cfset variables.encoding="US-ASCII">
 			<cfscript>
 				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
