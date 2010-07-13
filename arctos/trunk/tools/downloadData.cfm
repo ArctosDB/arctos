@@ -51,7 +51,7 @@
 	<cfoutput>
 		<cfquery name="ct" datasource="uam_god">
 			select table_name from user_tables where table_name like 'CT%' AND
-			table_name not in ('CTATTRIBUTE_CODE_TABLES') order by table_name
+			table_name not in ('CTATTRIBUTE_CODE_TABLES','CTCOLLECTION_CDE') order by table_name
 		</cfquery>
 		<cfif not directoryexists("#Application.webDirectory#/temp/ctzip")>
 			<cfdirectory action="create" directory="#Application.webDirectory#/temp/ctzip">
