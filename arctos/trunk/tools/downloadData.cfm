@@ -30,19 +30,22 @@
 	<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy order by scientific_name
 	</cfquery>
+	<!---
 	<cfset variables.fileName="#Application.webDirectory#/download/taxonomy.csv">
 	<cfset variables.encoding="US-ASCII">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		for (
-			i = 1 ;
-			i LTE taxonomy.RecordCount ;
-			i = (i + 1)
-			){
-				variables.joFileWriter.writeLine(taxonomy ["scientific_name"][i]);
-			}
+		for (i=1;i LTE taxonomy.RecordCount;i=i+1){
+			variables.joFileWriter.writeLine(taxonomy ["scientific_name"][i]);
+		}
 		variables.joFileWriter.close();
 	</cfscript>
+	--->
+	<cffile action="write" file="#application.webDirectory#/download/taxonomy.csv" addnewline="yes" output="scientific_name">
+
+	<cfoutput query="taxonomy">
+		<cffile action="append" file="#application.webDirectory#/download/taxonomy.csv" addnewline="yes" output="#scientific_name#">
+	</cfoutput>
 	<cflocation url="/download.cfm?file=taxonomy.csv">			
 	
 <cfelseif action is  "agentnames">
