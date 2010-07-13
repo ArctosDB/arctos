@@ -115,7 +115,7 @@
 		<cfif not directoryexists("#Application.webDirectory#/temp/ctzip")>
 			<cfdirectory action="create" directory="#Application.webDirectory#/temp/ctzip">
 		</cfif>
-		<cffile action="write" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no">
+		<cffile action="write" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="">
 
 	
 		<cfloop query="ct">
