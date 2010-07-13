@@ -115,7 +115,7 @@
 		<cfif not directoryexists("#Application.webDirectory#/temp/ctzip")>
 			<cfdirectory action="create" directory="#Application.webDirectory#/temp/ctzip">
 		</cfif>
-		<cffile action="write" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="">
+		<cffile action="write" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="yes" output='.separator "|"'>
 
 	
 		<cfloop query="ct">
@@ -137,7 +137,7 @@
 			<cfif listfindnocase(f,"collection_cde")>
 				<cfset hasCollCde=true>
 				<cfset theColumn=listdeleteat(f,listfindnocase(f,"collection_cde"))>
-				<cfset ss="create table if not exists #lcase(table_name)# (#theColumn# char);">
+				<cfset ss="create table if not exists #lcase(table_name)# (#lcase(theColumn# char);">
 			<cfelse>
 				<cfset hasCollCde=false>
 				<cfset theColumn=f>				
@@ -158,7 +158,7 @@
 			<cfloop query="d">
 				<cfset t=evaluate("d." & theColumn)>				
 				<cfif hasCollCde>
-					<cfset t=t & ',' & d.collection_cde>
+					<cfset t=t & '|' & d.collection_cde>
 				</cfif>
 				<cfscript>
 					variables.joFileWriter.writeLine(t);
@@ -173,6 +173,77 @@
 			</cfcatch>
 			</cftry>
 		</cfloop>
+		
+		
+		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select scientific_name from taxonomy order by scientific_name
+		</cfquery>
+		<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/taxonomy.csv">
+		<cfset variables.encoding="US-ASCII">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		</cfscript>
+		<cfloop query="taxonomy">
+			<cfscript>
+				variables.joFileWriter.writeLine(scientific_name);
+			</cfscript>
+		</cfloop>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+		<cfset ss="create table if not exists taxonomy (scientific_name char);">
+		<cfset ss=ss & chr(10) & "delete from taxonomy;">
+		<cfset ss=ss & chr(10) & ".import ctzip/taxonomy.csv taxonomy" & chr(10)>
+		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
+		
+		
+		<cfquery name="agent_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select agent_name from agent_name order by agent_name
+		</cfquery>
+		<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/agent_name.csv">
+		<cfset variables.encoding="US-ASCII">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		</cfscript>
+		<cfloop query="agent_name">
+			<cfscript>
+				variables.joFileWriter.writeLine(agent_name);
+			</cfscript>
+		</cfloop>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+		<cfset ss="create table if not exists agent_name (agent_name char);">
+		<cfset ss=ss & chr(10) & "delete from agent_name;">
+		<cfset ss=ss & chr(10) & ".import ctzip/agent_name.csv agent_name" & chr(10)>
+		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
+		
+		
+		<cfquery name="higher_geog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select higher_geog from geog_auth_rec order by higher_geog
+		</cfquery>
+		<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/higher_geog.csv">
+		<cfset variables.encoding="US-ASCII">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		</cfscript>
+		<cfloop query="higher_geog">
+			<cfscript>
+				variables.joFileWriter.writeLine(higher_geog);
+			</cfscript>
+		</cfloop>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+		<cfset ss="create table if not exists higher_geog (higher_geog char);">
+		<cfset ss=ss & chr(10) & "delete from higher_geog;">
+		<cfset ss=ss & chr(10) & ".import ctzip/higher_geog.csv higher_geog" & chr(10)>
+		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
+		
+		
+		
+	
+	
 		<cfzip file="#Application.webDirectory#/download/ctzip.zip" source="#Application.webDirectory#/temp/ctzip">
 		<!---
 		<cflocation url="/download.cfm?file=ctzip.zip">
