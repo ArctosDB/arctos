@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfsetting requesttimeout="600">
 <cfif action is "nothing">
 
 <br /><a href="downloadData.cfm?action=codeTableZip">codeTableZip</a>
@@ -81,7 +82,6 @@
 	</cfscript>
 	<cflocation url="/download.cfm?file=higher_geog.csv">
 <cfelseif action is  "codeTableZip">
-	<cfsetting requesttimeout="600">
 	<cfoutput>
 		<cfquery name="ct" datasource="uam_god">
 			select table_name from user_tables where table_name like 'CT%' AND
