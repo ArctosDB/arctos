@@ -203,12 +203,12 @@
 			</cfcatch>
 			</cftry>
 		</cfloop>
-		<cfquery name="d" datasource="cf_dbuser">
+		<cfquery name="CTATTRIBUTE_CODE_TABLES" datasource="cf_dbuser">
 			select * from CTATTRIBUTE_CODE_TABLES
 		</cfquery>
 		<cfset variables.fileName="#Application.webDirectory#/download/ctattribute_code_tables.csv">
 		<cfset variables.encoding="US-ASCII">
-		<cfloop query="d">
+		<cfloop query="CTATTRIBUTE_CODE_TABLES">
 			<cfset a=attribute_type & "|" & value_code_table & "|" & units_code_table>
 			<br>#a#
 			<cfscript>
