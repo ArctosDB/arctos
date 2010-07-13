@@ -50,7 +50,8 @@
 <cfelseif action is  "codeTableZip">
 	<cfoutput>
 		<cfquery name="ct" datasource="uam_god">
-			select table_name from user_tables where table_name like 'CT%' order by table_name
+			select table_name from user_tables where table_name like 'CT%' AND
+			table_name not in ('CTATTRIBUTE_CODE_TABLES') order by table_name
 		</cfquery>
 		<cfif not directoryexists("#Application.webDirectory#/temp/ctzip")>
 			<cfdirectory action="create" directory="#Application.webDirectory#/temp/ctzip">
@@ -60,7 +61,7 @@
 	
 		<cfloop query="ct">
 			<cfquery name="d" datasource="cf_dbuser">
-				select * from #table_name# where table_name not in ('CTATTRIBUTE_CODE_TABLES')
+				select * from #table_name#
 			</cfquery>
 			<cfset f=d.columnlist>
 			<cfset stuffToDie="description,CTSPNID,IS_TISSUE,base_url">
