@@ -137,7 +137,7 @@
 			<cfif listfindnocase(f,"collection_cde")>
 				<cfset hasCollCde=true>
 				<cfset theColumn=listdeleteat(f,listfindnocase(f,"collection_cde"))>
-				<cfset ss="create table if not exists #lcase(table_name)# (#lcase(theColumn# char);">
+				<cfset ss="create table if not exists #lcase(table_name)# (#lcase(theColumn)# char);">
 			<cfelse>
 				<cfset hasCollCde=false>
 				<cfset theColumn=f>				
