@@ -211,7 +211,7 @@
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			for (i=1;i LTE d.RecordCount;i=i+1){
-				a=d["attribute_type"][i] & "|" & d["value_code_table"][i] & "|" & d["units_code_table"][i]
+				a=d["attribute_type"][i] & "|" & d["value_code_table"][i] & "|" & d["units_code_table"][i];
 				variables.joFileWriter.writeLine(a);
 			}
 			variables.joFileWriter.close();
