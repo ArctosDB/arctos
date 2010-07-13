@@ -203,6 +203,24 @@
 			</cfcatch>
 			</cftry>
 		</cfloop>
+		<cfquery name="d" datasource="cf_dbuser">
+			select * from CTATTRIBUTE_CODE_TABLES
+		</cfquery>
+		<cfset variables.fileName="#Application.webDirectory#/download/ctattribute_code_tables.csv">
+		<cfset variables.encoding="US-ASCII">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			for (i=1;i LTE d.RecordCount;i=i+1){
+				a=d["attribute_type"][i] & "|" & d["value_code_table"][i] & "|" & d["units_code_table"][i]
+				variables.joFileWriter.writeLine(a);
+			}
+			variables.joFileWriter.close();
+		</cfscript>
+		<cfset ss="create table if not exists ctattribute_code_tables (attribute_type char,value_code_table char,units_code_table char);">
+		<cfset ss=ss & chr(10) & "delete from ctattribute_code_tables;">
+		<cfset ss=ss & chr(10) & ".import ctzip/ctattribute_code_tables.csv ctattribute_code_tables" & chr(10)>
+		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
+		
 		
 		<!---
 		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
