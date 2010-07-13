@@ -137,16 +137,16 @@
 			<cfif listfindnocase(f,"collection_cde")>
 				<cfset hasCollCde=true>
 				<cfset theColumn=listdeleteat(f,listfindnocase(f,"collection_cde"))>
-				<cfset ss="create table if not exists #table_name# (#theColumn# char);">
+				<cfset ss="create table if not exists #lcase(table_name)# (#theColumn# char);">
 			<cfelse>
 				<cfset hasCollCde=false>
 				<cfset theColumn=f>				
-				<cfset ss="create table if not exists #table_name# (#theColumn# char,collection_cde char);">
+				<cfset ss="create table if not exists #lcase(table_name)# (#lcase(theColumn)# char,collection_cde char);">
 			</cfif>
 			<br>theColumn: #theColumn#
 			<br>hasCollCde: #hasCollCde#
-			<cfset ss=ss & chr(10) & "delete from #table_name#;">
-			<cfset ss=ss & chr(10) & ".import ctzip/#table_name#.csv #table_name#" & chr(10)>
+			<cfset ss=ss & chr(10) & "delete from #lcase(table_name)#;">
+			<cfset ss=ss & chr(10) & ".import ctzip/#lcase(table_name)#.csv #lcase(table_name)#" & chr(10)>
 
 			<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
 
