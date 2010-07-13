@@ -106,13 +106,15 @@
 				'CTTAXON_RELATION',
 				'CTTAXON_VARIABLE',
 				'CTTRANSACTION_TYPE',
-				'CTTRANS_AGENT_ROLE'
+				'CTTRANS_AGENT_ROLE',
+				'CTFLUID_TYPE',
+				'CTGEOG_SOURCE_AUTHORITY',
+				'CTLAT_LONG_REF_SOURCE'
 			) order by table_name
 		</cfquery>
 		<cfif not directoryexists("#Application.webDirectory#/temp/ctzip")>
 			<cfdirectory action="create" directory="#Application.webDirectory#/temp/ctzip">
 		</cfif>
-		
 	
 	
 		<cfloop query="ct">
@@ -134,12 +136,19 @@
 			<cfif listfindnocase(f,"collection_cde")>
 				<cfset hasCollCde=true>
 				<cfset theColumn=listdeleteat(f,listfindnocase(f,"collection_cde"))>
+				<cfset ss="create table if not exists #table_name# (#theColumn# char);">
 			<cfelse>
 				<cfset hasCollCde=false>
-				<cfset theColumn=f>
+				<cfset theColumn=f>				
+				<cfset ss="create table if not exists #table_name# (#theColumn# char,collection_cde char);">
 			</cfif>
 			<br>theColumn: #theColumn#
 			<br>hasCollCde: #hasCollCde#
+			<cfset ss=ss & chr(10) & "delete from #table_name#;">
+			<cfset ss=ss & chr(10) & ".import ctzip/#table_name#.csv #table_name#" & chr(10)>
+
+			<cffile action="write" file="#Application.webDirectory#/temp/imp.sql" addnewline="no" output="#ss#">
+
 			<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/#lcase(table_name)#.csv">
 			<cfset variables.encoding="US-ASCII">
 			<cfscript>
