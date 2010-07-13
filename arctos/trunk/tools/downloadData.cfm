@@ -52,7 +52,9 @@
 		<cfquery name="ct" datasource="uam_god">
 			select table_name from user_tables where table_name like 'CT%' order by table_name
 		</cfquery>
-		
+		<cfif not directoryexists("#Application.webDirectory#/temp/ctzip")>
+			<cfdirectory action="create" directory="#Application.webDirectory#/temp/ctzip">
+		</cfif>
 		
 	
 	
