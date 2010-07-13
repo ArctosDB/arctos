@@ -147,7 +147,7 @@
 			<cfset ss=ss & chr(10) & "delete from #table_name#;">
 			<cfset ss=ss & chr(10) & ".import ctzip/#table_name#.csv #table_name#" & chr(10)>
 
-			<cffile action="write" file="#Application.webDirectory#/temp/imp.sql" addnewline="no" output="#ss#">
+			<cffile action="write" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
 
 			<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/#lcase(table_name)#.csv">
 			<cfset variables.encoding="US-ASCII">
