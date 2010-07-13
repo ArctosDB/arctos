@@ -47,6 +47,55 @@
 		<cffile action="append" file="#application.webDirectory#/temp/agentnames.txt" addnewline="yes" output="#agent_name#">
 	</cfoutput>
 	<a href="/temp/agentnames.txt">download agents</a>
+<cfelseif action is  "codeTableZip">
+	<cfoutput>
+		<cfquery name="ct" datasource="uam_god">
+			select table_name from user_tables where table_name like 'CT%' order by table_name
+		</cfquery>
+		
+		
+	
+	
+		<cfloop query="ct">
+			<cfquery name="d" datasource="cf_dbuser">
+				select * from #tablename#
+			</cfquery>
+			<cfset f=d.columnlist>
+			<cfset stuffToDie="description,CTSPNID,IS_TISSUE,base_url">
+			<cfloop list="#stuffToDie#" index="i">
+				<cfif listfindnocase(f,i)>
+					<cfset f=listdeleteat(f,listfindnocase(f,i))>
+				</cfif>
+			</cfloop>
+			<cfset r=tablename>
+			<cfif listfindnocase(f,"collection_cde")>
+				<cfset hasCollCde=true>
+				<cfset theColumn=listdeleteat(f,listfindnocase(f,"collection_cde"))>
+			<cfelse>
+				<cfset hasCollCde=false>
+				<cfset theColumn=f>
+			</cfif>
+			<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/#lcase(tablename)#.csv">
+			<cfset variables.encoding="US-ASCII">
+			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			</cfscript>		
+			<cfloop query="d">
+				<cfset t= evaluate("d." & theColumn)>
+				<cfif hasCollCde>
+					<cfset t=t & ',' & d.collection_cde>
+				</cfif>
+				<cfscript>
+					variables.joFileWriter.writeLine(t);
+				</cfscript>
+			</cfloop>
+			<cfscript>
+				variables.joFileWriter.close();
+			</cfscript>
+		</cfloop>
+		<cfzip file="#Application.webDirectory#/download/ctzip.zip" source="#Application.webDirectory#/temp/ctzip">
+		<cflocation url="/download.cfm?file=ctzip.zip">		
+	</cfoutput>
 <cfelse>
 	<cfoutput>
 	<cfset tablename=action>
