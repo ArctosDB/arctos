@@ -597,7 +597,7 @@
 
 			
 			<!-- If can't find a collecting event, try to find one through available cataloged item -->		
-			<cfif len(coll_event_locality) lte 0 and coll_obj_id gt 0>
+			<cfif len(coll_event) lte 0 and coll_obj_id gt 0>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
 						higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data , collecting_event.collecting_event_id id
@@ -613,10 +613,19 @@
 						cataloged_item.collection_object_id=#coll_obj_id#
 				</cfquery>
 				
-				<cfset coll_event_locality = trim(d.data)>
+				
+				
 				<cfset coll_event_id=#d.id#>
 				
-				<cfset coll_event_uri="/showLocality.cfm?action=srch&collecting_event_id=" & #d.id#>
+				<cfif coll_event_id gt 0>
+					
+					<cfset coll_event_uri="/showLocality.cfm?action=srch&collecting_event_id=" & #d.id#>
+					<cfset coll_event = '<a href="coll_event_uri">' & trim(d.data) & '</a>'>
+					
+				<cfelse>
+					<cfset coll_event = trim(d.data)>
+				</cfif>					
+				
 				
 
 			</cfif>
