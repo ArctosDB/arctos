@@ -665,7 +665,7 @@
 
 			<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
 			<br>
-			<font size = "small">#media_type# (#mime_type#)</font size>
+			<span style = "font-size:small;">#media_type# (#mime_type#)</span>
 		
 		</td>
 		
