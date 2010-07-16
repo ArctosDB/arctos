@@ -643,7 +643,7 @@
 						<cfset kw = kw & "; " & s>
 					<cfelse>
 						<cfset kw = s & "">						
-					</cfif>
+					</cfif> 
 				</cfif>
 			</cfloop>
 
@@ -664,7 +664,8 @@
 		<td align="middle">
 
 			<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
-			<br>#media_type# (#mime_type#)
+			<br>
+			<font size = "small">#media_type# (#mime_type#)</font size>
 		
 		</td>
 		
@@ -709,7 +710,7 @@
 			select count(*) n from tag where media_id=#media_id#
 		</cfquery>
 		<br>
-		<cfif media_type is "multi-page document">
+		<cfif media_type is "multi-page document">	
 			<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
 		</cfif>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
