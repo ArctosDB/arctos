@@ -620,7 +620,7 @@
 				<cfif coll_event_id gt 0>
 					
 					<cfset coll_event_uri="/showLocality.cfm?action=srch&collecting_event_id=" & #d.id#>
-					<cfset coll_event = '<a href="coll_event_uri">' & trim(d.data) & '</a>'>
+					<cfset coll_event = '<a href="#coll_event_uri#">' & trim(d.data) & '</a>'>
 					
 				<cfelse>
 					<cfset coll_event = trim(d.data)>
