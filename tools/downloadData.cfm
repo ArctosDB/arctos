@@ -228,7 +228,7 @@
 		
 		
 		
-		<cfquery name="ctcollection" datasource="cf_dbuser">
+		<cfquery name="ctcollection" datasource="uam_god">
 			select * from collection
 		</cfquery>
 		<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/collection.csv">
