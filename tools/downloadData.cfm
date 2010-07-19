@@ -214,7 +214,6 @@
 		</cfscript>
 		<cfloop query="CTATTRIBUTE_CODE_TABLES">
 			<cfset row="#attribute_type#|#value_code_table#|#units_code_table#">
-			<br>#row#
 			<cfscript>
 				variables.joFileWriter.writeLine(row);
 			</cfscript>
@@ -225,6 +224,30 @@
 		<cfset ss="create table if not exists ctattribute_code_tables (attribute_type char,value_code_table char,units_code_table char);">
 		<cfset ss=ss & chr(10) & "delete from ctattribute_code_tables;">
 		<cfset ss=ss & chr(10) & ".import ctzip/ctattribute_code_tables.csv ctattribute_code_tables" & chr(10)>
+		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
+		
+		
+		
+		<cfquery name="ctcollection" datasource="cf_dbuser">
+			select * from collection
+		</cfquery>
+		<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/collection.csv">
+		<cfset variables.encoding="US-ASCII">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		</cfscript>
+		<cfloop query="ctcollection">
+			<cfset row="#collection#|#institution_acronym#|#collection_cde#">
+			<cfscript>
+				variables.joFileWriter.writeLine(row);
+			</cfscript>
+		</cfloop>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+		<cfset ss="create table if not exists collection (collection char,institution_acronym char,collection_cde char);">
+		<cfset ss=ss & chr(10) & "delete from collection;">
+		<cfset ss=ss & chr(10) & ".import ctzip/collection.csv collection" & chr(10)>
 		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
 		
 		

@@ -71,19 +71,19 @@
 	</p>
 	<cfquery name="existParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
-			part_name
+			specimen_part.part_name
 		from 
 			specimen_part,
 			#table_name# 
 		where
 			specimen_part.derived_from_cat_item=#table_name#.collection_object_id
-		group by part_name
-		order by part_name
+		group by specimen_part.part_name
+		order by specimen_part.part_name
 	</cfquery>
 	<cfquery name="existCO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
-			lot_count,
-			coll_obj_disposition
+			coll_object.lot_count,
+			coll_object.coll_obj_disposition
 		from 
 			specimen_part,
 			coll_object,
@@ -92,8 +92,8 @@
 			specimen_part.derived_from_cat_item=#table_name#.collection_object_id and
 			specimen_part.collection_object_id=coll_object.collection_object_id
 		group by 
-			lot_count,
-			coll_obj_disposition
+			coll_object.lot_count,
+			coll_object.coll_obj_disposition
 	</cfquery>
 	<cfquery name="existLotCount" dbtype="query">
 		select lot_count from existCO group by lot_count order by lot_count
