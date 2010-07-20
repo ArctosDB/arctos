@@ -28,7 +28,11 @@
 	<a href="/temp/afnum.txt">download afnum</a>
 <cfelseif action is "taxonomy">
 	<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select scientific_name from taxonomy order by scientific_name
+		select scientific_name from taxonomy 
+		<cfif isdefined("nomenclatural_code") and len(nomenclatural_code) gt 0>
+			<cfoutput>where nomenclatural_code='#nomenclatural_code#'</cfoutput>
+		</cfif>
+		order by scientific_name
 	</cfquery>
 	
 	<cfset variables.fileName="#Application.webDirectory#/download/taxonomy.csv">
