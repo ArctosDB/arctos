@@ -1,7 +1,7 @@
 <cfinclude template="includes/_header.cfm">
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <cfif not isdefined("project_id")><cfset project_id = -1></cfif>
 <cfquery name="ctLoanType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select loan_type from ctloan_type order by loan_type
