@@ -27,14 +27,15 @@
 	</cfoutput>
 	<a href="/temp/afnum.txt">download afnum</a>
 <cfelseif action is "taxonomy">
+	<cffile action="write" file="#application.webDirectory#/download/taxonomy.csv" addnewline="yes" output="">
+
 	<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select scientific_name from taxonomy 
-		<cfif isdefined("nomenclatural_code") and len(nomenclatural_code) gt 0>
-			<cfoutput>where nomenclatural_code='#nomenclatural_code#'</cfoutput>
-		</cfif>
-		order by scientific_name
+		select scientific_name,phylclass from taxonomy
 	</cfquery>
-	
+	<cfloop query="taxonomy">
+		<cffile action="append" file="#application.webDirectory#/download/taxonomy.csv" addnewline="yes" output="#scientific_name#|#phylclass#">
+	</cfloop>
+	<!---
 	<cfset variables.fileName="#Application.webDirectory#/download/taxonomy.csv">
 	<cfset variables.encoding="US-ASCII">
 	<cfscript>
@@ -44,6 +45,7 @@
 		}
 		variables.joFileWriter.close();
 	</cfscript>
+	--->
 	<!---
 	<cffile action="write" file="#application.webDirectory#/download/taxonomy.csv" addnewline="yes" output="scientific_name">
 	<cfoutput query="taxonomy">
@@ -53,7 +55,7 @@
 	<cflocation url="/download.cfm?file=taxonomy.csv">
 <cfelseif action is  "agentnames">
 	<cfquery name="agentnames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select agent_name from agent_name
+		select agent_name from agent_name<cfif isdefined("prefOnly")> where agent_name_type='preferred'</cfif>
 	</cfquery>
 	<cfset variables.fileName="#Application.webDirectory#/download/agent_name.csv">
 	<cfset variables.encoding="US-ASCII">
@@ -273,7 +275,7 @@
 			variables.joFileWriter.close();
 		</cfscript>
 		--->
-		<cfset ss="create table if not exists taxonomy (scientific_name char);">
+		<cfset ss="create table if not exists taxonomy (scientific_name char,phylclass char);">
 		<cfset ss=ss & chr(10) & "delete from taxonomy;">
 		<cfset ss=ss & chr(10) & ".import ctzip/taxonomy.csv taxonomy" & chr(10)>
 		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
@@ -325,6 +327,14 @@
 		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
 		
 		
+		
+		
+		<cfset ss="update taxonomy set phylclass='NULL' where phylclass is null;">
+		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
+		<cfset ss="create table phylclass as select distinct(phylclass) phylclass from taxonomy;">
+		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
+	
+
 		
 		<cfif fileexists("#Application.webDirectory#/download/ctzip.zip")>
 			<cffile action="delete" file="#Application.webDirectory#/download/ctzip.zip">
