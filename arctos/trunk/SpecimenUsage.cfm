@@ -297,7 +297,7 @@
 		<cfset author = #replace(author,"'","''","all")#>
 		<cfset basWhere = "#basWhere# AND UPPER(searchAuth.agent_name) LIKE '%#ucase(author)#%'">
 	</cfif>
-	<cfif isdefined("year") AND isnumeric(#year#)>
+	<cfif isdefined("year") AND isnumeric(year)>
 		<cfset go="yes">
 		<cfset basWhere = "#basWhere# AND publication.PUBLISHED_YEAR = #year#">
 	</cfif>
@@ -497,7 +497,7 @@
 						media_relationship like '% publication' and
 						related_primary_key=#publication_id#
 				</cfquery>
-				<cfif len(#pubmedia.media_id#) gt 0>
+				<cfif len(pubmedia.media_id) gt 0>
 					<div class="thumbs">
 						<div class="thumb_spcr">&nbsp;</div>
 							<cfloop query="pubmedia">
