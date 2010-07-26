@@ -305,6 +305,7 @@
 		<cfset go="yes">
 		<cfset basFrom = "#basFrom# ,publication_attributes jname">
 		<cfset basWhere = "#basWhere# AND publication.publication_id=jname.publication_id and
+			jname.publication_attribute='journal name' and
 			upper(jname.pub_att_value) like '%#ucase(escapeQuotes(journal))#%'">
 	</cfif>
 	<cfif isdefined("onlyCitePubs") AND len(onlyCitePubs) gt 0>
