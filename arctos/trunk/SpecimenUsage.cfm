@@ -361,6 +361,9 @@
 				formatted_publication.formatted_publication,
 				publication.publication_id">
 	<!---<cfset checkSql(basSQL)>--->	
+	
+	
+	#preservesinglequotes(basSQL)#
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
