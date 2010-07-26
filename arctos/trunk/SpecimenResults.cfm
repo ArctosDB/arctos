@@ -409,12 +409,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 					</option>					
 					<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
 						MSB Mammals Vial Labels
-					</option>					
-					<option value="/narrowLabels.cfm">
-						MVZ narrow Labels
-					</option>
-					<option value="/wideLabels.cfm">
-						MVZ wide Labels
 					</option>
 					<cfif isdefined('permit_num') and len(permit_num) gt 0>
 						<option value="/Reports/permit.cfm">
