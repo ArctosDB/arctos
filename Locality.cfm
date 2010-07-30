@@ -766,9 +766,9 @@
 				<table cellpadding="0" cellspacing="0">
 					<tr>
 						<td><div align="right">Began:&nbsp;</div></td>
-						<td><input type="text" name="BEGAN_DATE" value="#dateformat(BEGAN_DATE,'dd mmm yyyy')#" size="10"></td>
+						<td><input type="text" name="BEGAN_DATE" value="#BEGAN_DATE#" size="10"></td>
 						  <td><div align="right">Ended:&nbsp;</div></td>
-						   <td><input type="text" name="ENDED_DATE" value="#dateformat(ENDED_DATE,'dd mmm yyyy')#" size="10"></td>
+						   <td><input type="text" name="ENDED_DATE" value="#ENDED_DATE#" size="10"></td>
 					</tr>
 				</table>
 			</td>
@@ -845,8 +845,8 @@
 					<input type="hidden" name="Action" value="newCollEvent">
 					<input type="hidden" name="locality_id" value="#locality_id#">
 					<input type="hidden" name="verbatim_locality" value="#verbatim_locality#">
-					<input type="hidden" name="BEGAN_DATE" value="#dateformat(BEGAN_DATE,'dd-mmm-yyyy')#">
-					<input type="hidden" name="ENDED_DATE" value="#dateformat(ENDED_DATE,'dd-mmm-yyyy')#">
+					<input type="hidden" name="BEGAN_DATE" value="#BEGAN_DATE#">
+					<input type="hidden" name="ENDED_DATE" value="#ENDED_DATE#">
 					<input type="hidden" name="VERBATIM_DATE" value="#VERBATIM_DATE#">
 					<input type="hidden" name="COLL_EVENT_REMARKS" value="#COLL_EVENT_REMARKS#">
 					<input type="hidden" name="COLLECTING_SOURCE" value="#COLLECTING_SOURCE#">
@@ -1722,8 +1722,8 @@ INSERT INTO geog_auth_rec (
 					(<a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">#collecting_event_id#</a>)
 				</div>
 			</td>
-			<td>#dateformat(began_date,"dd mmm yyyy")#</td>
-			<td>#dateformat(ended_date,"dd mmm yyyy")#</td>
+			<td>#began_date#</td>
+			<td>#ended_date#</td>
 			<td>#verbatim_date#</td>
 			<td>#collecting_source#</td>
 			<td>#collecting_method#</td>
