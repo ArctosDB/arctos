@@ -738,10 +738,10 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + data.VERBATIM_DATE[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
-					theInnerHtml += '<td>' + dateFormat(data.BEGAN_DATE[i],"d mmm yyyy") + '</td>';
+					theInnerHtml += '<td>' + data.BEGAN_DATE[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
-					theInnerHtml += '<td>' + dateFormat(data.ENDED_DATE[i],"d mmm yyyy") + '</td>';
+					theInnerHtml += '<td>' + data.ENDED_DATE[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
