@@ -4,8 +4,6 @@
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery("#began_date").datepicker();
-		jQuery("#ended_date").datepicker();	
 		jQuery("#determined_date").datepicker();
 		
 		$(":input[id^='geo_att_determined_date']").each(function(e){
@@ -348,26 +346,22 @@
 					<td>
 							<label for="began_date"><a href="javascript:void(0);" onClick="getDocs('locality','began_date')">
 								Began Date</a></label>
-							<cfinput type="text"  
+							<input type="text"  
 								name="began_date"
 								id="began_date"
-								value="#dateformat(l.began_date,'dd mmm yyyy')#"
-								class="reqdClr"
-								required="true" 
-								message="Began Date is a required Date field.">										
+								value="#l.began_date#"
+								class="reqdClr">										
 						</td>
 						<td>
 							<label for="ended_date">
 								<a href="javascript:void(0);" onClick="getDocs('locality','ended_date')">
 									Ended Date</a>
 							</label>
-							<cfinput type="text" 
+							<input type="text" 
 								name="ended_date"
 								id="ended_date" 
-								value="#dateformat(l.ended_date,'dd mmm yyyy')#"
-								class="reqdClr"
-								required="true" 
-								message="Ended Date is a required Date field.">
+								value="#l.ended_date#"
+								class="reqdClr">
 						</td>
 					</tr>
 				</table>
@@ -1399,8 +1393,8 @@ inserted coordinates......
 			WHERE
 				locality_id = #nLocalityId# AND
 				NVL(VERBATIM_DATE,'NULL') = NVL('#VERBATIM_DATE#','NULL') AND
-				NVL(BEGAN_DATE,'1-JAN-1600') = NVL(to_date('#BEGAN_DATE#'),'1-JAN-1600') AND 
-				NVL(ENDED_DATE,'1-JAN-1600') = NVL(to_date('#ENDED_DATE#'),'1-JAN-1600') AND 
+				NVL(BEGAN_DATE,'1-JAN-1600') = NVL('#BEGAN_DATE#','1-JAN-1600') AND 
+				NVL(ENDED_DATE,'1-JAN-1600') = NVL('#ENDED_DATE#','1-JAN-1600') AND 
 				NVL(VERBATIM_LOCALITY,'NULL') = NVL('#escapeQuotes(VERBATIM_LOCALITY)#','NULL') AND
 				NVL(COLL_EVENT_REMARKS,'NULL') = NVL('#escapeQuotes(COLL_EVENT_REMARKS)#','NULL') AND
 				NVL(COLLECTING_SOURCE,'NULL') = NVL('#escapeQuotes(COLLECTING_SOURCE)#','NULL') AND
