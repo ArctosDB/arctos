@@ -1424,8 +1424,8 @@ making event....
 				) values (
 					#ncollecting_event_id#,
 					#nLocalityId#,
-					to_date('#dateformat(began_date,"dd-mmm-yyyy")#'),
-					to_date('#dateformat(ended_date,"dd-mmm-yyyy")#'),
+					'#began_date#',
+					'#ended_date#',
 					'#escapeQuotes(verbatim_date)#',
 					'#escapeQuotes(verbatim_locality)#',
 					'#escapeQuotes(coll_event_remarks)#',
