@@ -41,7 +41,7 @@
 		end began_date,
 		case when 
 			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask year collected%' then
-				replace(began_date,substr(ended_date,1,4),'8888')
+				replace(ended_date,substr(ended_date,1,4),'8888')
 		else 
 			collecting_event.ended_date  
 		end ended_date,
