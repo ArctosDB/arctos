@@ -766,9 +766,9 @@
 				<table cellpadding="0" cellspacing="0">
 					<tr>
 						<td><div align="right">Began:&nbsp;</div></td>
-						<td><input type="text" name="BEGAN_DATE" value="#BEGAN_DATE#" size="10"></td>
+						<td><input type="text" name="BEGAN_DATE" value="#BEGAN_DATE#" size="20"></td>
 						  <td><div align="right">Ended:&nbsp;</div></td>
-						   <td><input type="text" name="ENDED_DATE" value="#ENDED_DATE#" size="10"></td>
+						   <td><input type="text" name="ENDED_DATE" value="#ENDED_DATE#" size="20"></td>
 					</tr>
 				</table>
 			</td>
