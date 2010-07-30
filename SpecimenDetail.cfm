@@ -147,15 +147,15 @@
 					    )
 				    	AND
 				    	began_date is ended_date>
-					    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")#)">
+					    <cfset thisDate = "#verbatim_date# (#began_date#)">
 			        <cfelse>
-					    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
+					    <cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
 			        </cfif>
                 <cfelse>
 			        <cfif began_date is ended_date>
-				        <cfset thisDate = dateformat(began_date,"dd mmm 8888")>
+				        <cfset thisDate = replace(began_date,left(began_date,4),"8888")>
 			        <cfelse>
-				        <cfset thisDate = '#dateformat(began_date,"dd mmm 8888")#-&nbsp;#dateformat(ended_date,"dd mmm 8888")#'>
+				        <cfset thisDate = '#replace(began_date,left(began_date,4),"8888")#-&nbsp;#replace(ended_date,left(ended_date,4),"8888")#'>
 			        </cfif>
 				</cfif>
 			    <br><strong>#thisDate#</strong>

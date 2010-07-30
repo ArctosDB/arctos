@@ -35,13 +35,13 @@
 		collecting_event.collecting_event_id,
 		case when 
 			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask year collected%' then
-				to_date(to_char(collecting_event.began_date,'dd-Mon')||'-8888')
+				replace(began_date,substr(began_date,1,4),'8888')
 		else 
 			collecting_event.began_date  
 		end began_date,
 		case when 
 			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask year collected%' then
-				to_date(to_char(collecting_event.ended_date,'dd-Mon')||'-8888')
+				replace(began_date,substr(ended_date,1,4),'8888')
 		else 
 			collecting_event.ended_date  
 		end ended_date,
@@ -633,14 +633,14 @@
 						</cfif>
 					</cfif>
 					<cfif (one.verbatim_date is one.began_date) AND (one.verbatim_date is one.ended_date)>
-						<cfset thisDate = #dateformat(one.began_date,"dd mmm yyyy")#>
+						<cfset thisDate = #one.began_date#>
 					<cfelseif (
 						(one.verbatim_date is not one.began_date) OR
 			 			(one.verbatim_date is not one.ended_date)
 						) AND one.began_date is one.ended_date>
-						<cfset thisDate = "#one.verbatim_date# (#dateformat(one.began_date,"dd mmm yyyy")#)">
+						<cfset thisDate = "#one.verbatim_date# (#one.began_date#)">
 					<cfelse>
-						<cfset thisDate = "#one.verbatim_date# (#dateformat(one.began_date,"dd mmm yyyy")# - #dateformat(one.ended_date,"dd mmm yyyy")#)">
+						<cfset thisDate = "#one.verbatim_date# (#one.began_date# - #one.ended_date#)">
 					</cfif>
 					<tr class="detailData">
 						<td id="SDCellLeft" class="innerDetailLabel">Collecting Date:</td>
