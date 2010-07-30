@@ -1836,8 +1836,6 @@
 		</cfquery>
 		<cfset mailTo = valuelist(whoTo.address)>
 		<cfset mailTo=listappend(mailTo,Application.bugReportEmail,",")>
-		
-		<cfset mailTo='dustymc@gmail.com'>
 		<cfmail to="#mailTo#" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">
 			Arctos User #session.username# has submitted an annotation. 
 			
@@ -1845,7 +1843,6 @@
 				#annotation#
 			</blockquote>
 				
-					
 			View details at
 			<a href="#Application.ServerRootUrl#/info/reviewAnnotation.cfm?action=show&type=#idType#&id=#idvalue#">
 			#Application.ServerRootUrl#/info/annotate.cfm?action=show&type=#idType#&id=#idvalue#
@@ -1862,7 +1859,7 @@
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="changeshowObservations" access="remote">
 	<cfargument name="tgt" type="string" required="yes">
-	<cfif #tgt# is "true">
+	<cfif tgt is "true">
 		<cfset t = 1>
 	<cfelse>
 		<cfset t = 0>
