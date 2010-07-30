@@ -178,15 +178,15 @@
     	return findIn;
     }
 </cfscript>
+	<!-- Default mediaSearch sql query-->
+	<cfset sql = "SELECT * FROM media_flat ">	
+	
+	<cfset whr ="WHERE media_flat.media_id > 0">
+	<cfset srch=" ">
 	<cfif isdefined("srchType") and srchType is "key">
-		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
-		<cfset frm="from media">			
-		<cfset whr=" where media.media_id > 0">
-		<cfset srch=" ">
+
 		<cfif isdefined("keyword") and len(keyword) gt 0>
-			<cfset sel=sel & ",media_keywords.keywords">
-			<cfset frm="#frm#,media_keywords">
-			<cfset whr="#whr# and media.media_id=media_keywords.media_id">
+
 			<cfif not isdefined("kwType") ><cfset kwType="all"></cfif>
 			<cfif kwType is "any">
 				<cfset kwsql="">
@@ -206,30 +206,26 @@
 				<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 			</cfif>
 		</cfif>
+		
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
 			<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
 		</cfif>
 		<cfif isdefined("tag") and len(tag) gt 0>
-			<cfset whr="#whr# AND media.media_id in (select media_id from tag)">
+			<cfset whr="#whr# AND media_flat.media_id IN (select media_id from tag)">
 		</cfif>
 		<cfif isdefined("media_type") and len(media_type) gt 0>
-			<cfset srch="#srch# AND media_type in (#listQualify(media_type,"'")#)">
+			<cfset srch="#whr# AND media_type IN (#listQualify(media_type,"'")#)">
 		</cfif>
+		
 		<cfif isdefined("media_id") and len(#media_id#) gt 0>
-			<cfset whr="#whr# AND media.media_id in (#media_id#)">
+			<cfset whr="#whr# AND media_flat.media_id in (#media_id#)">
 		</cfif>
 		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
-			<cfset srch="#srch# AND mime_type in (#listQualify(mime_type,"'")#)">
+			<cfset srch="#whr# AND mime_type in (#listQualify(mime_type,"'")#)">
 		</cfif>
-		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <=500">
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			#preservesinglequotes(ssql)#
-		</cfquery>
+
 	<cfelse>
-		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
-		<cfset frm="from media">			
-		<cfset whr=" where media.media_id > 0">
-		<cfset srch=" ">
+
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
 			<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
 		</cfif>
@@ -245,6 +241,7 @@
 		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
 			<cfset srch="#srch# AND mime_type = '#mime_type#'">
 		</cfif>
+		
 		<cfif not isdefined("number_of_relations")>
 		    <cfif (isdefined("relationship") and len(relationship) gt 0) or (isdefined("related_to") and len(related_to) gt 0)>
 				<cfset number_of_relations=1>
@@ -258,6 +255,7 @@
 				<cfset number_of_relations=1>
 			</cfif>
 		</cfif>
+		
 		<cfif not isdefined("number_of_labels")>
 		    <cfif (isdefined("label") and len(label) gt 0) or (isdefined("label__1") and len(label__1) gt 0)>
 				<cfset number_of_labels=1>
@@ -328,11 +326,19 @@
 			<div class="error">You must enter search criteria.</div>
 			<cfabort>
 		</cfif>
-		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <= 500">
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			#preservesinglequotes(ssql)#
-		</cfquery>
+		
+
 	</cfif><!--- end srchType --->
+	
+	<!-- Limit results to 500 rows -->
+	<cfset srch = "#srch# AND rownum <= 500">
+	
+	<!-- Finalize query -->
+	<cfset ssql="#sql# #whr# #srch# order by media_id">		
+	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		#preservesinglequotes(ssql)#
+	</cfquery>
+	
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfabort>
