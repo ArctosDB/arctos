@@ -550,14 +550,14 @@
 	<cfset endMon=DatePart("m", endDate)>
 	<cfset begDay=DatePart("d", begDate)>
 	<cfset endDay=DatePart("d", endDate)>
-
+<cfoutput>
 	<br>begYear: #begYear#
 	<br>endYear: #endYear#
 	<br>begMon: #begMon#
 	<br>endMon: #endMon#
 	<br>endDay: #endDay#
 	<br>begDay: #begDay#
-
+</cfoutput>
 <cfabort>
 </cfif>
 
