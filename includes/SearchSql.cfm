@@ -546,10 +546,10 @@
 	</cfif>
 	<cfset begYear=DatePart("yyyy", begDate)>
 	<cfset endYear=DatePart("yyyy", endDate)>
-	<cfset begMon=DatePart("mm", begDate)>
-	<cfset endMon=DatePart("mm", endDate)>
-	<cfset begDay=DatePart("dd", begDate)>
-	<cfset endDay=DatePart("dd", endDate)>
+	<cfset begMon=DatePart("m", begDate)>
+	<cfset endMon=DatePart("m", endDate)>
+	<cfset begDay=DatePart("d", begDate)>
+	<cfset endDay=DatePart("d", endDate)>
 
 	<br>begYear: #begYear#
 	<br>endYear: #endYear#
