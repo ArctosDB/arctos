@@ -805,7 +805,8 @@ table.sortable span.sortarrow {
 label.h {
 	display:inline;
 	font-size:12px;
-	font-weight:800;}
+	font-weight:800;
+	padding-right:1em;}
 label {
 	display:block;
 	font-size:12px;
