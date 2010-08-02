@@ -305,12 +305,14 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="year_collected">Year Collected:</span>
+				<span class="helpLink infoLink" id="collector">Help</span>
+				<select name="coll_role" id="coll_role" size="1">
+					<option value="" selected="selected">Collector</option>
+					<option value="p">Preparator</option>
+				</select>
 			</td>
 			<td class="srch">
-				<input name="begYear" id="begYear" type="text" size="6">&nbsp;
-				<span class="infoLink" onclick="SpecData.endYear.value=SpecData.begYear.value">-->&nbsp;Copy&nbsp;--></span>
-				&nbsp;<input name="endYear" id="endYear" type="text" size="6">
+				<input type="text" name="coll" id="coll" size="50">
 			</td>
 		</tr>
 	</table>
