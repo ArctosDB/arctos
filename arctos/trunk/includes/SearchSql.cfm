@@ -532,8 +532,8 @@
 		<cfset mapurl = "#mapurl#&endYear=#endYear#">
 		<cfset basQual = " #basQual#
 				AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,4)) >= #begYear#
-			AND TO_NUMBER(substr(#session.flatTableName#.ended_date, 4)) <= #endYear#
+			TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) >= #begYear#
+			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) <= #endYear#
 			)
 			">			
 	<cfelse>
@@ -541,10 +541,12 @@
 		<cfset mapurl = "#mapurl#&endYear=#endYear#">
 		<cfset basQual = " #basQual#
 				AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,4)) BETWEEN '#begYear#' AND '#endYear#'
-			OR TO_NUMBER(substr(#session.flatTableName#.ended_date, 4)) BETWEEN   '#begYear#' AND '#endYear#'
-			OR ( '#begYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,4)) AND TO_NUMBER(substr(#session.flatTableName#.ended_date, 4))
-			AND '#endYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,4)) AND TO_NUMBER(substr(#session.flatTableName#.ended_date, 4))
+			TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) BETWEEN '#begYear#' AND '#endYear#'
+			OR TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) BETWEEN   '#begYear#' AND '#endYear#'
+			OR ( '#begYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) AND 
+				TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4))
+			AND '#endYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) AND 
+				TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4))
 			))
 			">			
 	</cfif>
