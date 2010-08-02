@@ -513,7 +513,11 @@
 	<cfif not isdefined("endDate") OR len (endDate) is 0>
 		<cfset endDate = begDate>
 	</cfif>
+	<cfif isdate(begDate)>
+		begdate is a date
+	</cfif>
 	<cfif not isdate(begDate) OR not isdate(endDate)>
+		begdate is NOT a date
 		<!--- see if we can use ddMonYYYY format ---->
 		<cfif not isdate(begDate)>
 			<cfif len(begDate) is 9>
