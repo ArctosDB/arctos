@@ -654,11 +654,11 @@
 	<cfset mapurl = "#mapurl#&verificationstatus=#verificationstatus#">
 	<cfset basQual = " #basQual# AND #session.flatTableName#.verificationstatus='#verificationstatus#'">
 </cfif>
-<cfif isdefined("inMon") AND len(#inMon#) gt 0>
+<cfif isdefined("inMon") AND len(inMon) gt 0>
 	<cfset mapurl = "#mapurl#&inMon=#inMon#">
-	<cfset basQual = " #basQual# AND TO_CHAR(#session.flatTableName#.began_date, 'mm') IN (#inMon#)">
+	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) IN (#inMon#)">
 </cfif>
-<cfif isdefined("verbatim_date") AND len(#verbatim_date#) gt 0>
+<cfif isdefined("verbatim_date") AND len(verbatim_date) gt 0>
 	<cfset mapurl = "#mapurl#&verbatim_date=#verbatim_date#">
 	<cfset basQual = " #basQual# AND upper(verbatim_date) LIKE '%#ucase(escapeQuotes(verbatim_date))#%'">
 </cfif>
@@ -978,14 +978,18 @@
 	</cfif>
 </cfif>
 
-<cfif isdefined("chronological_extent") AND len(#chronological_extent#) gt 0>
-	<cfif not isnumeric(#chronological_extent#)>
+<cfif isdefined("chronological_extent") AND len(chronological_extent) gt 0>
+	<cfif not isnumeric(chronological_extent)>
 		<font color="#FF0000" size="+1">chronological_extent must be numeric.</font>			  
 		<cfabort>
 	</cfif>
 	<cfset mapurl = "#mapurl#&chronological_extent=#chronological_extent#">
 	<cfset basQual = " #basQual# AND (
-					to_number(to_char(ended_date,'J')) - to_number(to_char(began_date,'J')))
+					length(#session.flatTableName#.ended_date)>=10 and
+					length(#session.flatTableName#.began_date)>=10 and					
+					to_number(to_char(to_date(substr(#session.flatTableName#.ended_date,1,10),'yyyy-mm-dd'),'J')) - 
+					to_number(to_char(to_date(substr(#session.flatTableName#.began_date,1,10),'yyyy-mm-dd'),'J'))
+				)
 					<= #chronological_extent#">
 </cfif>
 	
