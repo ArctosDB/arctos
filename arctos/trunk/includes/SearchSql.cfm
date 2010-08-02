@@ -526,18 +526,21 @@
 				<cfset d = left(begDate,2)>
 				<cfset m = mid(begDate,3,3)>
 				<cfset y = right(begDate,4)>
+				<br>creating new date.....
 				<cfset begDate = "#d#-#m#-#y#">
 				
 				<br>begDate is now #begDate#
-				<cfif not isdate(begDate)>
-					<br>still not a date
-					<div class="error">
-						The date format you entered was not recognized as a valid date format.
-						<br>Try formatting your date as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
-					</div>
-					<script>hidePageLoad();</script>
-					<cfabort>
-				</cfif>
+			
+			
+			</cfif>
+			<cfif not isdate(begDate)>
+				<br>still not a date
+				<div class="error">
+					The begin date you entered was not recognized as a valid date format.
+					<br>Try formatting as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
+				</div>
+				<script>hidePageLoad();</script>
+				<cfabort>
 			</cfif>
 		</cfif>
 		<cfif not isdate(endDate)>
@@ -546,13 +549,22 @@
 				<cfset m = mid(endDate,3,3)>
 				<cfset y = right(endDate,4)>
 				<cfset endDate = "#d#-#m#-#y#">
-				<cfif not isdate(endDate)>
+				<cfif not isdate()>
 					<div class="error">
 						The date format you entered was not recognized as a valid date format.
 						<br>Try formatting your date as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
 					</div>	
 					<cfabort>
 				</cfif>
+			</cfif>
+			<cfif not isdate(endDate)>
+				<br>still not a date
+				<div class="error">
+					The end date you entered was not recognized as a valid date format.
+					<br>Try formatting as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
+				</div>
+				<script>hidePageLoad();</script>
+				<cfabort>
 			</cfif>
 		</cfif>
 	</cfif>
