@@ -18,8 +18,8 @@
 			<span class="helpLink" id="year_collected">Collected After:</span>
 		</td>
 		<td class="srch">
-			<input name="begYear" id="begYear" type="text" size="4">
-			<select name="begMon" id="begMon" size="1">
+			Year:<input name="begYear" id="begYear" type="text" size="4">
+			&nbsp;Month:<select name="begMon" id="begMon" size="1">
 				<option value=""></option>
 				<option value="01">January</option>
 				<option value="02">February</option>
@@ -34,7 +34,7 @@
 				<option value="11">November</option>
 				<option value="12">December</option>						
 			</select>
-			<select name="begDay" id="begDay" size="1">
+			&nbsp;Day:<select name="begDay" id="begDay" size="1">
 				<option value=""></option>
 				<cfloop from="1" to="31" index="day">
 					<option value="#day#">#day#</option>
@@ -93,41 +93,6 @@
 			<input type="checkbox" name="inclDateSearch" id="inclDateSearch" value="yes">
 		</td>
 	</tr>
-
-	<!---
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="fulldate_collected">Full Date Collected:</span>
-		</td>
-		<td class="srch">
-			<input name="begDate" id="begDate" type="text" size="15">
-			&nbsp;<span class="infoLink" onclick="SpecData.endDate.value=SpecData.begDate.value;">-->&nbsp;Copy&nbsp;--></span>&nbsp;
-			<input name="endDate" id="endDate" type="text" size="15">
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="month_in">Month:</span>
-		</td>
-		<td class="srch">
-			<select name="inMon" id="inMon" size="4" multiple>
-				<option value=""></option>
-				<option value="'01'">January</option>
-				<option value="'02'">February</option>
-				<option value="'03'">March</option>
-				<option value="'04'">April</option>
-				<option value="'05'">May</option>
-				<option value="'06'">June</option>
-				<option value="'07'">July</option>
-				<option value="'08'">August</option>
-				<option value="'09'">September</option>
-				<option value="'10'">October</option>
-				<option value="'11'">November</option>
-				<option value="'12'">December</option>						
-			</select>
-		</td>
-	</tr>
-	--->
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_verbatim_date">Verbatim Date:</span>
