@@ -73,15 +73,23 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_collecting_source">Collecting Source:</span>
+			<span class="helpLink" id="month_in">Month:</span>
 		</td>
 		<td class="srch">
-			<select name="collecting_source" id="collecting_source" size="1">
+			<select name="inMon" id="inMon" size="4" multiple>
 				<option value=""></option>
-				<cfloop query="ctcollecting_source">
-					<option value="#ctcollecting_source.collecting_source#">
-						#ctcollecting_source.collecting_source#</option>
-				</cfloop>
+				<option value="'01'">January</option>
+				<option value="'02'">February</option>
+				<option value="'03'">March</option>
+				<option value="'04'">April</option>
+				<option value="'05'">May</option>
+				<option value="'06'">June</option>
+				<option value="'07'">July</option>
+				<option value="'08'">August</option>
+				<option value="'09'">September</option>
+				<option value="'10'">October</option>
+				<option value="'11'">November</option>
+				<option value="'12'">December</option>						
 			</select>
 		</td>
 	</tr>
@@ -103,20 +111,34 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_verbatim_locality">Verbatim Locality:</span>
-		</td>
-		<td class="srch">
-			<input type="text" name="verbatim_locality" id="verbatim_locality" size="50">
-			<span class="infoLink" onclick="var e=document.getElementById('verbatim_locality');e.value='='+e.value;">Add = for exact match</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
 			<span class="helpLink" id="_chronological_extent">Chronological Extent:</span>
 			</a>
 		</td>
 		<td class="srch">
 			<input type="text" name="chronological_extent" id="chronological_extent">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_collecting_source">Collecting Source:</span>
+		</td>
+		<td class="srch">
+			<select name="collecting_source" id="collecting_source" size="1">
+				<option value=""></option>
+				<cfloop query="ctcollecting_source">
+					<option value="#ctcollecting_source.collecting_source#">
+						#ctcollecting_source.collecting_source#</option>
+				</cfloop>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_verbatim_locality">Verbatim Locality:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="verbatim_locality" id="verbatim_locality" size="50">
+			<span class="infoLink" onclick="var e=document.getElementById('verbatim_locality');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
 </table>
