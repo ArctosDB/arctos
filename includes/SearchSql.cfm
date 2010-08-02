@@ -503,121 +503,16 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 AND identification.nature_of_id = '#nature_of_id#'">			
 </cfif>
-<cfif isdefined("identified_agent") AND len(#identified_agent#) gt 0>
+<cfif isdefined("identified_agent") AND len(identified_agent) gt 0>
 	<cfset mapurl = "#mapurl#&identified_agent=#identified_agent#">
 	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.IDENTIFIEDBY) LIKE '%#ucase(identified_agent)#%'">			
 </cfif>
-<cfif isdefined("begYear") AND len(begYear) gt 0>
-	<cfif not isdefined("inclDateSearch")>
-		<cfset inclDateSearch="yes">
-		<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#">
-	</cfif>
-	<cfif not isnumeric(begYear) OR len(begYear) neq 4>
-		<div class="error">
-			Year must be entered as a 4-digit integer.
-		</div>	  
-		<cfabort>
-	</cfif>
-	<cfif not isdefined("endYear") OR len (endYear) is 0>
-		<cfset endYear = begYear>
-	</cfif>
-	<cfif not isnumeric(endYear) OR len(endYear) neq 4>
-		<div class="error">
-			Year must be entered as a 4-digit integer.
-		</div>	 			  
-		<cfabort>
-	</cfif>
-	<cfif inclDateSearch is true>
-		<cfset mapurl = "#mapurl#&begYear=#begYear#">
-		<cfset mapurl = "#mapurl#&endYear=#endYear#">
-		<cfset basQual = " #basQual#
-				AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) >= #begYear#
-			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) <= #endYear#
-			)
-			">			
-	<cfelse>
-		<cfset mapurl = "#mapurl#&begYear=#begYear#">
-		<cfset mapurl = "#mapurl#&endYear=#endYear#">
-		<cfset basQual = " #basQual#
-				AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) BETWEEN '#begYear#' AND '#endYear#'
-			OR TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) BETWEEN   '#begYear#' AND '#endYear#'
-			OR ( '#begYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) AND 
-				TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4))
-			AND '#endYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) AND 
-				TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4))
-			))
-			">			
-	</cfif>
-</cfif>
-<cfif isdefined("begMon") AND len(begMon) gt 0>
-	<cfif not isdefined("inclDateSearch")>
-		<cfset inclDateSearch="yes">
-		<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#">
-	</cfif>
-	<cfif not isdefined("endMon") OR len (endMon) is 0>
-		<cfset endMon = begMon>
-	</cfif>
-	<cfset mapurl = "#mapurl#&endMon=#endMon#">
-	<cfset mapurl = "#mapurl#&begMon=#begMon#">
-	<cfif inclDateSearch is true>
-		<cfset basQual = " #basQual#
-				AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) >= #begMon#
-			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2)) <= #endMon#
-			)
-			">			
-	<cfelse>
-		<cfset basQual = " #basQual# 
-			AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) BETWEEN '#begMon#' AND '#endMon#'
-			OR TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2)) BETWEEN   '#begMon#' AND '#endMon#'
-			OR ( '#begMon#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) AND 
-				TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2))
-			AND '#endMon#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) AND 
-				TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2))
-			))">
-	</cfif>
-</cfif>
-<cfif isdefined("begDay") AND len(begDay) gt 0>
-	<cfif not isdefined("inclDateSearch")>
-		<cfset inclDateSearch="yes">
-		<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#">
-	</cfif>
-	<cfif not isdefined("endDay") OR len (endDay) is 0>
-		<cfset endDay = begDay>
-	</cfif>
-	<cfset mapurl = "#mapurl#&begDay=#begDay#">
-	<cfset mapurl = "#mapurl#&endDay=#endDay#">
-		<cfif inclDateSearch is true>
-		<cfset basQual = " #basQual#
-				AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) >= #begDay#
-			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) <= #endDay#
-			)
-			">			
-			<cfelse>
-				<cfset basQual = " #basQual# 
-				AND ( 
-					TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) BETWEEN '#begDay#' AND '#endDay#'
-					OR TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) BETWEEN   '#begDay#' AND '#endDay#'
-					OR ( '#begDay#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) AND 
-						TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2))
-					AND '#endDay#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) AND 
-						TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2))
-					))">
-		</cfif>
-</cfif>
+
+
 <cfif isdefined("begDate") AND len(begDate) gt 0>
-	<cfif not isdefined("inclDateSearch")>
-		<cfset inclDateSearch="yes">
-		<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#">
-	</cfif>
 	<cfif not isdefined("endDate") OR len (endDate) is 0>
 		<cfset endDate = begDate>
 	</cfif>
-	<cfset mapurl = "#mapurl#&endDate=#endDate#&begDate=#begDate#">
 	<cfif not isdate(begDate) OR not isdate(endDate)>
 		<!--- see if we can use ddMonYYYY format ---->
 		<cfif not isdate(begDate)>
@@ -649,23 +544,122 @@
 			</cfif>
 		</cfif>
 	</cfif>
-	<cfif #inclDateSearch# is "yes">
-		<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#">
+	<cfset begYear=DatePart("yyyy", begDate)>
+	<cfset endYear=DatePart("yyyy", endDate)>
+	<cfset begMon=DatePart("mm", begDate)>
+	<cfset endMon=DatePart("mm", endDate)>
+	<cfset begDay=DatePart("dd", begDate)>
+	<cfset endDay=DatePart("dd", endDate)>
+
+	<br>begYear: #begYear#
+	<br>endYear: #endYear#
+	<br>begMon: #begMon#
+	<br>endMon: #endMon#
+	<br>endDay: #endDay#
+	<br>begDay: #begDay#
+
+<cfabort>
+</cfif>
+
+
+
+
+
+
+
+<cfif isdefined("begYear") AND len(begYear) gt 0>
+	<cfif not isdefined("inclDateSearch")>
+		<cfset inclDateSearch="yes">
+	</cfif>
+	<cfif not isnumeric(begYear) OR len(begYear) neq 4>
+		<div class="error">
+			Year must be entered as a 4-digit integer.
+		</div>	  
+		<cfabort>
+	</cfif>
+	<cfif not isdefined("endYear") OR len (endYear) is 0>
+		<cfset endYear = begYear>
+	</cfif>
+	<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#&begYear=#begYear#&endYear=#endYear#">
+	<cfif not isnumeric(endYear) OR len(endYear) neq 4>
+		<div class="error">
+			Year must be entered as a 4-digit integer.
+		</div>	 			  
+		<cfabort>
+	</cfif>
+	<cfif inclDateSearch is true>
 		<cfset basQual = " #basQual#
 				AND ( 
-			TO_NUMBER(TO_CHAR(#session.flatTableName#.began_date, 'j')) >= #round(Request.GetJulianDay(begDate))#
-			AND TO_NUMBER(TO_CHAR(#session.flatTableName#.ended_date, 'j')) <= #round(Request.GetJulianDay(endDate))#
+			TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) >= #begYear#
+			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) <= #endYear#
+			)
+			">			
+	<cfelse>
+		<cfset basQual = " #basQual#
+				AND ( 
+			TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) BETWEEN '#begYear#' AND '#endYear#'
+			OR TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) BETWEEN   '#begYear#' AND '#endYear#'
+			OR ( '#begYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) AND 
+				TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4))
+			AND '#endYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) AND 
+				TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4))
+			))
+			">			
+	</cfif>
+</cfif>
+<cfif isdefined("begMon") AND len(begMon) gt 0>
+	<cfif not isdefined("inclDateSearch")>
+		<cfset inclDateSearch="yes">
+	</cfif>
+	<cfif not isdefined("endMon") OR len (endMon) is 0>
+		<cfset endMon = begMon>
+	</cfif>
+	<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#&endMon=#endMon#&begMon=#begMon#">
+	<cfif inclDateSearch is true>
+		<cfset basQual = " #basQual#
+				AND ( 
+			TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) >= #begMon#
+			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2)) <= #endMon#
 			)
 			">			
 	<cfelse>
 		<cfset basQual = " #basQual# 
 			AND ( 
-			#session.flatTableName#.began_date BETWEEN '#dateformat(begDate,"dd-mmm-yyyy")#' AND '#dateformat(endDate,"dd-mmm-yyyy")#'
-			OR #session.flatTableName#.ended_date BETWEEN  '#dateformat(begDate,"dd-mmm-yyyy")#' AND '#dateformat(endDate,"dd-mmm-yyyy")#'
-			OR ( '#dateformat(begDate,"dd-mmm-yyyy")#' BETWEEN #session.flatTableName#.began_date AND #session.flatTableName#.ended_date
-			AND '#dateformat(endDate,"dd-mmm-yyyy")#' BETWEEN #session.flatTableName#.began_date AND #session.flatTableName#.ended_date)
-			)">
+			TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) BETWEEN '#begMon#' AND '#endMon#'
+			OR TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2)) BETWEEN   '#begMon#' AND '#endMon#'
+			OR ( '#begMon#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) AND 
+				TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2))
+			AND '#endMon#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) AND 
+				TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2))
+			))">
 	</cfif>
+</cfif>
+<cfif isdefined("begDay") AND len(begDay) gt 0>
+	<cfif not isdefined("inclDateSearch")>
+		<cfset inclDateSearch="yes">
+	</cfif>
+	<cfif not isdefined("endDay") OR len (endDay) is 0>
+		<cfset endDay = begDay>
+	</cfif>
+	<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#&begDay=#begDay#&endDay=#endDay#">
+		<cfif inclDateSearch is true>
+		<cfset basQual = " #basQual#
+				AND ( 
+			TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) >= #begDay#
+			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) <= #endDay#
+			)
+			">			
+			<cfelse>
+				<cfset basQual = " #basQual# 
+				AND ( 
+					TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) BETWEEN '#begDay#' AND '#endDay#'
+					OR TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) BETWEEN   '#begDay#' AND '#endDay#'
+					OR ( '#begDay#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) AND 
+						TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2))
+					AND '#endDay#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) AND 
+						TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2))
+					))">
+		</cfif>
 </cfif>
 <cfif isdefined("verificationstatus") AND len(verificationstatus) gt 0>
 	<cfset mapurl = "#mapurl#&verificationstatus=#verificationstatus#">
