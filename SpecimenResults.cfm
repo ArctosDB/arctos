@@ -2,7 +2,23 @@
 <script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js'></script>
 <cfif len(session.displayrows) is 0>
 	<cfset session.displayrows=20>
-</cfif> 
+</cfif>
+
+
+
+
+
+
+
+<cfset debug=true>
+
+
+
+
+
+
+
+
 <cfhtmlhead text="<title>Specimen Results</title>">
 <cfoutput>
 <script type="text/javascript" language="javascript">
