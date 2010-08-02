@@ -69,6 +69,7 @@
 					<option value="#day#">#day#</option>
 				</cfloop>
 			</select>
+			<span style="font-size:x-small;">(Leave blank to use Collected After values)</span>
 		</td>
 	</tr>
 	<tr>
