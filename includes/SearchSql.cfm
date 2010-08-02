@@ -549,13 +549,6 @@
 				<cfset m = mid(endDate,3,3)>
 				<cfset y = right(endDate,4)>
 				<cfset endDate = "#d#-#m#-#y#">
-				<cfif not isdate()>
-					<div class="error">
-						The date format you entered was not recognized as a valid date format.
-						<br>Try formatting your date as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
-					</div>	
-					<cfabort>
-				</cfif>
 			</cfif>
 			<cfif not isdate(endDate)>
 				<br>still not a date
