@@ -507,29 +507,33 @@
 	<cfset mapurl = "#mapurl#&identified_agent=#identified_agent#">
 	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.IDENTIFIEDBY) LIKE '%#ucase(identified_agent)#%'">			
 </cfif>
-<cfif isdefined("begYear") AND len(#begYear#) gt 0>
+<cfif isdefined("begYear") AND len(begYear) gt 0>
 	<cfif not isdefined("inclDateSearch")>
 		<cfset inclDateSearch="yes">
 		<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#">
 	</cfif>
-	<cfif not isnumeric(#begYear#) OR len(#begYear#) neq 4>
-		<b><font color="#FF0000" size="+1">Year must be entered as a 4-digit integer.</font></b>			  
+	<cfif not isnumeric(begYear) OR len(begYear) neq 4>
+		<div class="error">
+			Year must be entered as a 4-digit integer.
+		</div>	  
 		<cfabort>
 	</cfif>
-	<cfif not isdefined("endYear") OR len (#endYear#) is 0>
-		<cfset endYear = #begYear#>
+	<cfif not isdefined("endYear") OR len (endYear) is 0>
+		<cfset endYear = begYear>
 	</cfif>
-	<cfif not isnumeric(#endYear#) OR len(#endYear#) neq 4>
-		<b><font color="#FF0000" size="+1">Year must be entered as a 4-digit integer.</font></b>			  
+	<cfif not isnumeric(endYear) OR len(endYear) neq 4>
+		<div class="error">
+			Year must be entered as a 4-digit integer.
+		</div>	 			  
 		<cfabort>
 	</cfif>
-	<cfif #inclDateSearch# is true>
+	<cfif inclDateSearch is true>
 		<cfset mapurl = "#mapurl#&begYear=#begYear#">
 		<cfset mapurl = "#mapurl#&endYear=#endYear#">
 		<cfset basQual = " #basQual#
 				AND ( 
-			TO_NUMBER(TO_CHAR(#session.flatTableName#.began_date, 'yyyy')) >= #begYear#
-			AND TO_NUMBER(TO_CHAR(#session.flatTableName#.ended_date, 'yyyy')) <= #endYear#
+			TO_NUMBER(substr(#session.flatTableName#.began_date,4)) >= #begYear#
+			AND TO_NUMBER(substr(#session.flatTableName#.ended_date, 4)) <= #endYear#
 			)
 			">			
 	<cfelse>
@@ -537,15 +541,15 @@
 		<cfset mapurl = "#mapurl#&endYear=#endYear#">
 		<cfset basQual = " #basQual#
 				AND ( 
-			TO_CHAR(#session.flatTableName#.began_date, 'yyyy') BETWEEN '#begYear#' AND '#endYear#'
-			OR TO_CHAR(#session.flatTableName#.ended_date, 'yyyy') BETWEEN   '#begYear#' AND '#endYear#'
-			OR ( '#begYear#' BETWEEN TO_CHAR(#session.flatTableName#.began_date, 'yyyy') AND TO_CHAR(ended_date, 'yyyy')
-			AND '#endYear#' BETWEEN TO_CHAR(#session.flatTableName#.began_date, 'yyyy') AND TO_CHAR(ended_date, 'yyyy')
+			TO_NUMBER(substr(#session.flatTableName#.began_date,4)) BETWEEN '#begYear#' AND '#endYear#'
+			OR TO_NUMBER(substr(#session.flatTableName#.ended_date, 4)) BETWEEN   '#begYear#' AND '#endYear#'
+			OR ( '#begYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,4)) AND TO_NUMBER(substr(#session.flatTableName#.ended_date, 4))
+			AND '#endYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,4)) AND TO_NUMBER(substr(#session.flatTableName#.ended_date, 4))
 			))
 			">			
 	</cfif>
 </cfif>
-<cfif isdefined("begMon") AND len(#begMon#) gt 0>
+<cfif isdefined("begMon") AND len(begMon) gt 0>
 	<cfif not isdefined("inclDateSearch")>
 		<cfset inclDateSearch="yes">
 		<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#">
