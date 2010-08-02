@@ -522,9 +522,11 @@
 				<cfset y = right(begDate,4)>
 				<cfset begDate = "#d#-#m#-#y#">
 				<cfif not isdate(begDate)>
-					<b><font color="#FF0000" size="+1">The date format you entered was not recognized as a valid date format.
-					<br>
-					<i>dd mm yyyy</i> is the preferred data format.</font></b>	
+					<div class="error">
+						The date format you entered was not recognized as a valid date format.
+						<br>Try formatting your date as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
+					</div>
+					<script>hidePageLoad();</script>
 					<cfabort>
 				</cfif>
 			</cfif>
@@ -536,9 +538,10 @@
 				<cfset y = right(endDate,4)>
 				<cfset endDate = "#d#-#m#-#y#">
 				<cfif not isdate(endDate)>
-					<b><font color="#FF0000" size="+1">The date format you entered was not recognized as a valid date format.
-					<br>
-					<i>dd mm yyyy</i> is the preferred data format.</font></b>	
+					<div class="error">
+						The date format you entered was not recognized as a valid date format.
+						<br>Try formatting your date as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
+					</div>	
 					<cfabort>
 				</cfif>
 			</cfif>
@@ -550,14 +553,6 @@
 	<cfset endMon=DatePart("m", endDate)>
 	<cfset begDay=DatePart("d", begDate)>
 	<cfset endDay=DatePart("d", endDate)>
-<cfoutput>
-	<br>begYear: #begYear#
-	<br>endYear: #endYear#
-	<br>begMon: #begMon#
-	<br>endMon: #endMon#
-	<br>endDay: #endDay#
-	<br>begDay: #begDay#
-</cfoutput>
 </cfif>
 
 
