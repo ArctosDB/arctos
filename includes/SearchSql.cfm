@@ -558,7 +558,6 @@
 	<br>endDay: #endDay#
 	<br>begDay: #begDay#
 </cfoutput>
-<cfabort>
 </cfif>
 
 
