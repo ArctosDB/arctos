@@ -510,6 +510,8 @@
 
 
 <cfif isdefined("begDate") AND len(begDate) gt 0>
+	<cfoutput>
+	
 	<cfif not isdefined("endDate") OR len (endDate) is 0>
 		<cfset endDate = begDate>
 	</cfif>
@@ -525,7 +527,10 @@
 				<cfset m = mid(begDate,3,3)>
 				<cfset y = right(begDate,4)>
 				<cfset begDate = "#d#-#m#-#y#">
+				
+				<br>begDate is now #begDate#
 				<cfif not isdate(begDate)>
+					<br>still not a date
 					<div class="error">
 						The date format you entered was not recognized as a valid date format.
 						<br>Try formatting your date as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
@@ -557,6 +562,10 @@
 	<cfset endMon=DatePart("m", endDate)>
 	<cfset begDay=DatePart("d", begDate)>
 	<cfset endDay=DatePart("d", endDate)>
+
+</cfoutput>
+
+
 </cfif>
 
 
