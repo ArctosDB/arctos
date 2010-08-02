@@ -509,32 +509,20 @@
 </cfif>
 
 
-<cfif isdefined("begDate") AND len(begDate) gt 0>
-	<cfoutput>
-	
+<cfif isdefined("begDate") AND len(begDate) gt 0>	
 	<cfif not isdefined("endDate") OR len (endDate) is 0>
 		<cfset endDate = begDate>
 	</cfif>
-	<cfif isdate(begDate)>
-		begdate is a date
-	</cfif>
 	<cfif not isdate(begDate) OR not isdate(endDate)>
-		begdate is NOT a date
 		<!--- see if we can use ddMonYYYY format ---->
 		<cfif not isdate(begDate)>
 			<cfif len(begDate) is 9>
 				<cfset d = left(begDate,2)>
 				<cfset m = mid(begDate,3,3)>
 				<cfset y = right(begDate,4)>
-				<br>creating new date.....
 				<cfset begDate = "#d#-#m#-#y#">
-				
-				<br>begDate is now #begDate#
-			
-			
 			</cfif>
 			<cfif not isdate(begDate)>
-				<br>still not a date
 				<div class="error">
 					The begin date you entered was not recognized as a valid date format.
 					<br>Try formatting as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
@@ -551,7 +539,6 @@
 				<cfset endDate = "#d#-#m#-#y#">
 			</cfif>
 			<cfif not isdate(endDate)>
-				<br>still not a date
 				<div class="error">
 					The end date you entered was not recognized as a valid date format.
 					<br>Try formatting as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
@@ -567,17 +554,7 @@
 	<cfset endMon=DatePart("m", endDate)>
 	<cfset begDay=DatePart("d", begDate)>
 	<cfset endDay=DatePart("d", endDate)>
-
-</cfoutput>
-
-
 </cfif>
-
-
-
-
-
-
 
 <cfif isdefined("begYear") AND len(begYear) gt 0>
 	<cfif not isdefined("inclDateSearch")>
