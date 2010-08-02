@@ -18,7 +18,7 @@
 			<span class="helpLink" id="year_collected">Collected After:</span>
 		</td>
 		<td class="srch">
-			Year:<input name="begYear" id="begYear" type="text" size="4">
+			<label for="begYear" class="h">Year:</label><input name="begYear" id="begYear" type="text" size="4">
 			&nbsp;Month:<select name="begMon" id="begMon" size="1">
 				<option value=""></option>
 				<option value="01">January</option>
