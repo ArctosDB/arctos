@@ -580,40 +580,42 @@
 			))">
 	</cfif>
 </cfif>
-<cfif isdefined("begDay") AND len(#begDay#) gt 0>
+<cfif isdefined("begDay") AND len(begDay) gt 0>
 	<cfif not isdefined("inclDateSearch")>
 		<cfset inclDateSearch="yes">
 		<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#">
 	</cfif>
-	<cfif not isdefined("endDay") OR len (#endDay#) is 0>
-		<cfset endDay = #begDay#>
+	<cfif not isdefined("endDay") OR len (endDay) is 0>
+		<cfset endDay = begDay>
 	</cfif>
 	<cfset mapurl = "#mapurl#&begDay=#begDay#">
 	<cfset mapurl = "#mapurl#&endDay=#endDay#">
-		<cfif #inclDateSearch# is "yes">
+		<cfif inclDateSearch is true>
 		<cfset basQual = " #basQual#
 				AND ( 
-			TO_NUMBER(TO_CHAR(#session.flatTableName#.began_date, 'dd')) >= #begDay#
-			AND TO_NUMBER(TO_CHAR(#session.flatTableName#.ended_date, 'dd')) <= #endDay#
+			TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) >= #begDay#
+			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) <= #endDay#
 			)
 			">			
 			<cfelse>
 				<cfset basQual = " #basQual# 
 				AND ( 
-					TO_CHAR(#session.flatTableName#.began_date, 'dd') BETWEEN '#begDay#' AND '#endDay#'
-					OR TO_CHAR(#session.flatTableName#.ended_date, 'dd') BETWEEN   '#begDay#' AND '#endDay#'
-					OR ( '#begDay#' BETWEEN TO_CHAR(#session.flatTableName#.began_date, 'dd') AND TO_CHAR(#session.flatTableName#.ended_date, 'dd')
-					AND '#endDay#' BETWEEN TO_CHAR(#session.flatTableName#.began_date, 'dd') AND TO_CHAR(#session.flatTableName#.ended_date, 'dd')
+					TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) BETWEEN '#begDay#' AND '#endDay#'
+					OR TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) BETWEEN   '#begDay#' AND '#endDay#'
+					OR ( '#begDay#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) AND 
+						TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2))
+					AND '#endDay#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) AND 
+						TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2))
 					))">
 		</cfif>
 </cfif>
-<cfif isdefined("begDate") AND len(#begDate#) gt 0>
+<cfif isdefined("begDate") AND len(begDate) gt 0>
 	<cfif not isdefined("inclDateSearch")>
 		<cfset inclDateSearch="yes">
 		<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#">
 	</cfif>
-	<cfif not isdefined("endDate") OR len (#endDate#) is 0>
-		<cfset endDate = #begDate#>
+	<cfif not isdefined("endDate") OR len (endDate) is 0>
+		<cfset endDate = begDate>
 	</cfif>
 	<cfset mapurl = "#mapurl#&endDate=#endDate#&begDate=#begDate#">
 	<cfif not isdate(begDate) OR not isdate(endDate)>
