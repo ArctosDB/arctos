@@ -984,12 +984,13 @@
 		<cfabort>
 	</cfif>
 	<cfset mapurl = "#mapurl#&chronological_extent=#chronological_extent#">
-	<cfset basQual = " #basQual# AND (
+	<cfset basQual = " #basQual# AND
 					length(#session.flatTableName#.ended_date)>=10 and
-					length(#session.flatTableName#.began_date)>=10 and					
-					to_number(to_char(to_date(substr(#session.flatTableName#.ended_date,1,10),'yyyy-mm-dd'),'J')) - 
-					to_number(to_char(to_date(substr(#session.flatTableName#.began_date,1,10),'yyyy-mm-dd'),'J'))
-				)
+					length(#session.flatTableName#.began_date)>=10 and
+					(				
+						to_number(to_char(to_date(substr(#session.flatTableName#.ended_date,1,10),'yyyy-mm-dd'),'J')) - 
+						to_number(to_char(to_date(substr(#session.flatTableName#.began_date,1,10),'yyyy-mm-dd'),'J'))
+					)
 					<= #chronological_extent#">
 </cfif>
 	
