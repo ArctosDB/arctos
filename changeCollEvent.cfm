@@ -146,18 +146,18 @@
 		<tr>
 			<td align="right" width="30%"><strong>Collecting Date</strong></td>
 			<td>
-				<cfif (#verbatim_date# is #began_date#) AND
-			 		(#verbatim_date# is #ended_date#)>
-					<cfset thisDate = #dateformat(began_date,"dd mmm yyyy")#>
+				<cfif (verbatim_date is began_date) AND
+			 		(verbatim_date is ended_date)>
+					<cfset thisDate = began_date>
 				<cfelseif (
-						(#verbatim_date# is not #began_date#) OR
-			 			(#verbatim_date# is not #ended_date#)
+						(verbatim_date is not began_date) OR
+			 			(verbatim_date is not ended_date)
 					)
 					AND
-					#began_date# is #ended_date#>
-					<cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")#)">
+					began_date is ended_date>
+					<cfset thisDate = "#verbatim_date# (#began_date#)">
 			<cfelse>
-					<cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
+					<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
 			</cfif>
 			#thisDate#
 		  </td>

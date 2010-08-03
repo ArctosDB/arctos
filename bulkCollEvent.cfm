@@ -54,8 +54,8 @@
 					<br><strong><em>Spec. Locality:</em></strong> #spec_locality#
 				</cfif>
 			</td>
-			<td>#dateformat(began_date,"dd mmm yyyy")#</td>
-			<td>#dateformat(ended_date,"dd mmm yyyy")#</td>
+			<td>#began_date#</td>
+			<td>#ended_date#</td>
 			<td>#verbatim_date#</td>
 			<td>#collecting_source#</td>
 			<td>#collecting_method#</td>

@@ -218,8 +218,8 @@
 		select 
 			#flatTableName#.collection_object_id,
 			#flatTableName#.cat_num,
-			to_char(#flatTableName#.began_date,'yyyy-mm-dd') began_date,
-			to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
+			#flatTableName#.began_date began_date,
+			#flatTableName#.ended_date ended_date,
 			lat_long.dec_lat,
 			lat_long.dec_long,
 			round(to_meters(lat_long.max_error_distance,lat_long.max_error_units)) errorInMeters,
@@ -392,8 +392,8 @@
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,
-				to_char(#flatTableName#.began_date,'yyyy-mm-dd') began_date,
-				to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
+				#flatTableName#.began_date began_date,
+				#flatTableName#.ended_date ended_date,
 				lat_long.dec_lat,
 				lat_long.dec_long,
 				decode(lat_long.accepted_lat_long_fg,
@@ -426,8 +426,8 @@
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,
-				to_char(#flatTableName#.began_date,'yyyy-mm-dd') began_date,
-				to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
+				#flatTableName#.began_date,
+				#flatTableName#.ended_date,
 				lat_long.dec_lat,
 				lat_long.dec_long,
 				decode(lat_long.accepted_lat_long_fg,
