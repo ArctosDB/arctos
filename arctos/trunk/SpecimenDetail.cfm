@@ -138,19 +138,18 @@
 				<br><strong>#higher_geog#</strong>
 				<cfif encumbrance_action does not contain "year collected" OR
 					(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
-			        <cfif (verbatim_date is began_date) AND
-			 		    (verbatim_date is ended_date)>
-					    <cfset thisDate = dateformat(began_date,"dd mmm yyyy")>
-			        <cfelseif (
-						(verbatim_date is not began_date) OR
-			 			(verbatim_date is not ended_date)
-					    )
-				    	AND
-				    	began_date is ended_date>
-					    <cfset thisDate = "#verbatim_date# (#began_date#)">
-			        <cfelse>
-					    <cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
-			        </cfif>
+			        <cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
+						<cfset thisDate = began_date>
+					<cfelseif (
+							(verbatim_date is not began_date) OR
+					 		(verbatim_date is not ended_date)
+						)
+						AND
+						began_date is ended_date>
+						<cfset thisDate = "#verbatim_date# (#began_date#)">
+					<cfelse>
+						<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
+					</cfif>
                 <cfelse>
 			        <cfif began_date is ended_date>
 				        <cfset thisDate = replace(began_date,left(began_date,4),"8888")>

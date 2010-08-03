@@ -99,8 +99,8 @@
 				<td><a href="/guid/#guid#">#collection# #cat_num#</a></td>
 				<td>#CustomID#</td>
 				<td nowrap="nowrap">#scientific_name#</td>
-				<td>#dateformat(began_date,"dd mmm yyyy")#</td>
-				<td>#dateformat(ended_date,"dd mmm yyyy")#</td>
+				<td>#began_date#</td>
+				<td>#ended_date#</td>
 				<td>#verbatim_date#</td>
 				<td>#dateformat(received_date,"dd mmm yyyy")#</td>
 				<td>
@@ -148,7 +148,7 @@
 		variables.joFileWriter.writeLine(header); 
 	</cfscript>
 	<cfloop query="d">
-		<cfset oneLine = '"#collection# #cat_num#","#CustomID#","#scientific_name#","#dateformat(began_date,"dd mmm yyyy")#","#dateformat(ended_date,"dd mmm yyyy")#","#verbatim_date#","#dateformat(received_date,"dd mmm yyyy")#",'>
+		<cfset oneLine = '"#collection# #cat_num#","#CustomID#","#scientific_name#","#began_date#","#ended_date#","#verbatim_date#","#dateformat(received_date,"dd mmm yyyy")#",'>
 		<cfif SAMPLED_FROM_OBJ_ID gt 0>
 			<cfset p=part_name & ' (subsample)'>
 		<cfelse>
