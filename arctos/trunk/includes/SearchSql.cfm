@@ -289,11 +289,11 @@
 	<cfset mapurl = "#mapurl#&coll=#coll#">  
 	<cfset mapurl = "#mapurl#&coll_role=#coll_role#">
 </cfif>
-<cfif isDefined ("notCollector") and len(#notCollector#) gt 0>
+<cfif isDefined ("notCollector") and len(notCollector) gt 0>
 	<cfset mapurl = "#mapurl#&notCollector=#notCollector#"> 
 	<cfSet basQual = " #basQual# AND UPPER(#session.flatTableName#.COLLECTORS) NOT LIKE '%#UCASE(notCollector)#%'">
 </cfif>
-<cfif isdefined("collector_agent_id") AND len(#collector_agent_id#) gt 0>
+<cfif isdefined("collector_agent_id") AND len(collector_agent_id) gt 0>
 	<cfset mapurl = "#mapurl#&collector_agent_id=#collector_agent_id#"> 
 	<cfif basJoin does not contain "srchColl">
 		<cfset basJoin = " #basJoin# INNER JOIN collector ON 
@@ -302,11 +302,11 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND collector.agent_id = #collector_agent_id#">
 </cfif>
-<cfif isdefined("sciNameOper") and #sciNameOper# is "was"><!--- duck out to any name --->
-	<cfset AnySciName=#scientific_name#>
+<cfif isdefined("sciNameOper") and sciNameOper is "was"><!--- duck out to any name --->
+	<cfset AnySciName=scientific_name>
 	<cfset scientific_name="">
 </cfif>
-<cfif isdefined("sciname") and len(#sciname#) gt 0>
+<cfif isdefined("sciname") and len(sciname) gt 0>
 	<cfset scientific_name=#sciname#>
 </cfif>
 <cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
@@ -315,7 +315,7 @@
 		<cfset scientific_name=right(scientific_name,len(scientific_name)-1)>
 		<cfset sciNameOper = "=">
 	</cfif>
-	<cfif not isdefined("sciNameOper") OR len(#sciNameOper#) is 0>
+	<cfif not isdefined("sciNameOper") OR len(sciNameOper) is 0>
 		<cfset sciNameOper = "LIKE">
 	</cfif>
 	<cfif #sciNameOper# is "LIKE">
@@ -349,7 +349,7 @@
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) NOT LIKE '%#ucase(scientific_name)#%'">
 	</cfif>
 </cfif>
-<cfif isdefined("HighTaxa") AND len(#HighTaxa#) gt 0>
+<cfif isdefined("HighTaxa") AND len(HighTaxa) gt 0>
 	<cfset mapurl = "#mapurl#&HighTaxa=#HighTaxa#">
 	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON 
@@ -880,7 +880,7 @@
 	<cfset basQual = " #basQual# #oidList#">
 </cfif>
 <cfif isdefined("continent_ocean") AND len(continent_ocean) gt 0>
-	<cfif #compare(continent_ocean,"NULL")# is 0>
+	<cfif compare(continent_ocean,"NULL") is 0>
 		<cfset basQual = " #basQual# AND continent_ocean is null">
 	<cfelse>
 		<cfset basQual = " #basQual# AND continent_ocean = '#continent_ocean#'">
@@ -896,7 +896,7 @@
 	<cfset mapurl = "#mapurl#&sea=#sea#">			
 </cfif>
 <cfif isdefined("Country") AND len(Country) gt 0>
-	<cfif #compare(country,"NULL")# is 0>
+	<cfif compare(country,"NULL") is 0>
 		<cfset basQual = " #basQual# AND country is null">
 	<cfelse>
 		<cfset basQual = " #basQual# AND country = '#Country#'">
@@ -923,12 +923,11 @@
 	<cfset mapurl = "#mapurl#&state_prov=#state_prov#">
 </cfif>
 <cfif isdefined("island_group") AND len(island_group) gt 0>
-	<cfif #compare(island_group,"NULL")# is 0>
+	<cfif compare(island_group,"NULL") is 0>
 		<cfset basQual = " #basQual# AND island_group is null">
 	<cfelse>
 		<cfset basQual = " #basQual# AND Island_Group LIKE '#island_group#'">
-	</cfif>		
-	
+	</cfif>
 	<cfset mapurl = "#mapurl#&island_group=#island_group#">
 </cfif>
 <cfif isdefined("Island") AND len(Island) gt 0>
@@ -939,8 +938,6 @@
 	</cfif>			
 	<cfset mapurl = "#mapurl#&island=#island#">
 </cfif>
-
-
 <cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
 	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
 		<cfset max_error_units='m'>
@@ -1023,7 +1020,7 @@
 </cfif>
 <cfif isdefined("spec_locality") and len(spec_locality) gt 0>
 	<cfset mapurl = "#mapurl#&spec_locality=#spec_locality#">
-	<cfif #compare(spec_locality,"NULL")# is 0>
+	<cfif compare(spec_locality,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.spec_locality is null">
 	<cfelse>
 		<cfif left(spec_locality,1) is '='>
@@ -1033,7 +1030,6 @@
 		</cfif>
 	</cfif>	
 </cfif>
-
 <cfif isdefined("verbatim_locality") and len(verbatim_locality) gt 0>
 	<cfset mapurl = "#mapurl#&verbatim_locality=#verbatim_locality#">
 	<cfif basJoin does not contain " collecting_event ">
@@ -1102,7 +1098,7 @@
 	<cfset mapurl = "#mapurl#&higher_geog=#higher_geog#">
 </cfif>
 <cfif isdefined("County") AND len(County) gt 0>
-	<cfif #compare(County,"NULL")# is 0>
+	<cfif compare(County,"NULL") is 0>
 		<cfset basQual = " #basQual# AND County is null">
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(County) LIKE '%#UCASE(County)#%'">
@@ -1129,12 +1125,6 @@
 	</cfif>
   <cfset mapurl = "#mapurl#&quad=#quad#">
 </cfif>
-
-<!--- 
-	do NOT hit flat if searching by more than part_name 
-	also go to the table if searching multiple part names, which should get
-	here as a comma-separated list
---->
 <cfif isdefined("partname") AND len(#partname#) gt 0>
 	<cfset part_name=partname>
 </cfif>		
@@ -1504,7 +1494,7 @@
 				<script>hidePageLoad();</script>
 				<cfabort>
 			</cfif>
-		<cfelseif #attOper_1# is "less" >
+		<cfelseif attOper_1 is "less" >
 			<cfif isnumeric(#attribute_value_1#)>
 				<cfset basQual = " #basQual# AND attributes_1.attribute_value < #attribute_value_1#">
 			<cfelse>
@@ -1520,26 +1510,26 @@
 	</cfif>
 </cfif>
 
-<cfif isdefined("attribute_type_2") AND len(#attribute_type_2#) gt 0>
+<cfif isdefined("attribute_type_2") AND len(attribute_type_2) gt 0>
 	<cfset mapurl = "#mapurl#&attribute_type_2=#attribute_type_2#">
 	<cfif basJoin does not contain " attributes_2 ">
 		<cfset basJoin = " #basJoin# INNER JOIN attributes attributes_2 ON 
 		(cataloged_item.collection_object_id = attributes_2.collection_object_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND attributes_2.attribute_type = '#attribute_type_2#'">
-	<cfif not isdefined("attOper_2") or len(#attOper_2#) is 0>
+	<cfif not isdefined("attOper_2") or len(attOper_2) is 0>
 		<cfset attOper_2 = "equals">
 	</cfif>
 	<cfset mapurl = "#mapurl#&attOper_2=#attOper_2#">
 	<cfif isdefined("attribute_value_2") and len(#attribute_value_2#) gt 0>
 		<cfset mapurl = "#mapurl#&attribute_value_2=#attribute_value_2#">
 		<cfset attribute_value_2 = #replace(attribute_value_2,"'","''","all")#>
-		<cfif #attOper_2# is "like">
+		<cfif attOper_2 is "like">
 			<cfset basQual = " #basQual# AND upper(attributes_2.attribute_value) LIKE '%#ucase(attribute_value_2)#%'">
-		<cfelseif #attOper_2# is "equals" >
+		<cfelseif attOper_2 is "equals" >
 			<cfset basQual = " #basQual# AND attributes_2.attribute_value = '#attribute_value_2#'">
-		<cfelseif #attOper_2# is "greater" >
-			<cfif isnumeric(#attribute_value_2#)>
+		<cfelseif attOper_2 is "greater" >
+			<cfif isnumeric(attribute_value_2)>
 				<cfset basQual = " #basQual# AND to_number(attributes_2.attribute_value) > #attribute_value_2#">
 			<cfelse>
 			  	<div class="error">
@@ -1548,8 +1538,8 @@
 				<script>hidePageLoad();</script>
 				<cfabort>
 			</cfif>
-		<cfelseif #attOper_2# is "less" >
-			<cfif isnumeric(#attribute_value_2#)>
+		<cfelseif attOper_2 is "less" >
+			<cfif isnumeric(attribute_value_2)>
 				<cfset basQual = " #basQual# AND attributes_2.attribute_value < #attribute_value_2#">
 			<cfelse>
 				<div class="error">
@@ -1560,30 +1550,29 @@
 			</cfif>
 		</cfif>
 	</cfif>
-	<cfif isdefined("attribute_units_2") AND len(#attribute_units_2#) gt 0>
+	<cfif isdefined("attribute_units_2") AND len(attribute_units_2) gt 0>
 		<cfset basQual = " #basQual# AND attributes_2.attribute_units = '#attribute_units_2#'">
 	</cfif>
 </cfif>
-
-<cfif isdefined("attribute_type_3") AND len(#attribute_type_3#) gt 0>
+<cfif isdefined("attribute_type_3") AND len(attribute_type_3) gt 0>
 	<cfset mapurl = "#mapurl#&attribute_type_3=#attribute_type_3#">
 	<cfif basJoin does not contain " attributes_3 ">
 		<cfset basJoin = " #basJoin# INNER JOIN attributes attributes_3 ON 
 		(cataloged_item.collection_object_id = attributes_3.collection_object_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND attributes_3.attribute_type = '#attribute_type_3#'">
-	<cfif not isdefined("attOper_3") or len(#attOper_3#) is 0>
+	<cfif not isdefined("attOper_3") or len(attOper_3) is 0>
 		<cfset attOper_3 = "equals">
 	</cfif>
 	<cfset mapurl = "#mapurl#&attOper_3=#attOper_3#">
-	<cfif isdefined("attribute_value_3") and len(#attribute_value_3#) gt 0>
+	<cfif isdefined("attribute_value_3") and len(attribute_value_3) gt 0>
 		<cfset mapurl = "#mapurl#&attribute_value_3=#attribute_value_3#">
 		<cfset attribute_value_3 = #replace(attribute_value_3,"'","''","all")#>
-		<cfif #attOper_3# is "like">
+		<cfif attOper_3 is "like">
 			<cfset basQual = " #basQual# AND upper(attributes_3.attribute_value) LIKE '%#ucase(attribute_value_3)#%'">
-		<cfelseif #attOper_3# is "equals" >
+		<cfelseif attOper_3 is "equals" >
 			<cfset basQual = " #basQual# AND attributes_3.attribute_value = '#attribute_value_3#'">
-		<cfelseif #attOper_3# is "greater" >
+		<cfelseif attOper_3 is "greater" >
 			<cfif isnumeric(#attribute_value_3#)>
 				<cfset basQual = " #basQual# AND to_number(attributes_3.attribute_value) > #attribute_value_3#">
 			<cfelse>
@@ -1593,7 +1582,7 @@
 				<script>hidePageLoad();</script>
 				<cfabort>
 			</cfif>
-		<cfelseif #attOper_3# is "less" >
+		<cfelseif attOper_3 is "less" >
 			<cfif isnumeric(#attribute_value_3#)>
 				<cfset basQual = " #basQual# AND attributes_3.attribute_value < #attribute_value_3#">
 			<cfelse>
@@ -1605,36 +1594,33 @@
 			</cfif>
 		</cfif>
 	</cfif>
-	<cfif isdefined("attribute_units_3") AND len(#attribute_units_3#) gt 0>
+	<cfif isdefined("attribute_units_3") AND len(attribute_units_3) gt 0>
 		<cfset basQual = " #basQual# AND attributes_3.attribute_units = '#attribute_units_3#'">
 	</cfif>
 </cfif>
-
-<cfif isdefined("exclCollObjId") and len(#exclCollObjId#) gt 0>
-		<cfset mapurl = "#mapurl#&exclCollObjId=#exclCollObjId#">
-<!---- need to strip out any extra commas before we do anything ---->
-<cfset exclCollObjId = trim(exclCollObjId)>
-<cfif left(exclCollObjId,1) is ",">
-	<cfset exclCollObjId = right(exclCollObjId,len(exclCollObjId)-1)>
+<cfif isdefined("exclCollObjId") and len(exclCollObjId) gt 0>
+	<cfset mapurl = "#mapurl#&exclCollObjId=#exclCollObjId#">
+	<!---- need to strip out any extra commas before we do anything ---->
+	<cfset exclCollObjId = trim(exclCollObjId)>
+	<cfif left(exclCollObjId,1) is ",">
+		<cfset exclCollObjId = right(exclCollObjId,len(exclCollObjId)-1)>
+	</cfif>
+	<cfif right(exclCollObjId,1) is ",">
+		<cfset exclCollObjId = left(exclCollObjId,len(exclCollObjId)-1)>
+	</cfif>
+	<cfset brkPnt=1>
+	<CFLOOP CONDITION="brkPnt LESS THAN OR EQUAL TO 5">
+		<cfset exclCollObjId = replace(exclCollObjId,",,",",","all")>
+		<cfif exclCollObjId does not contain ",,">
+			<cfset brkPnt=999999>
+		</cfif>			
+	</CFLOOP>
+	<cfset basQual = " #basQual# AND cataloged_item.collection_object_id NOT IN (#exclCollObjId#)">
 </cfif>
-<cfif right(exclCollObjId,1) is ",">
-	<cfset exclCollObjId = left(exclCollObjId,len(exclCollObjId)-1)>
-</cfif>
-<cfset brkPnt=1>
-<CFLOOP CONDITION="brkPnt LESS THAN OR EQUAL TO 5">
-	<cfset exclCollObjId = replace(exclCollObjId,",,",",","all")>
-	<cfif #exclCollObjId# does not contain ",,">
-		<cfset brkPnt=999999>
-	</cfif>			
-</CFLOOP>
-<cfset basQual = " #basQual# AND cataloged_item.collection_object_id NOT IN (#exclCollObjId#)">
-</cfif>
-  
-  <cfif isdefined("institution_appearance") AND len(#institution_appearance#) gt 0>
+<cfif isdefined("institution_appearance") AND len(institution_appearance) gt 0>
 	<cfquery name="whatInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_id from collection where institution_acronym='#institution_appearance#'
 	</cfquery>
 	<cfset goodCollIds = valuelist(whatInst.collection_id,",")>
 	<cfset basQual = " #basQual# AND cataloged_item.collection_id  IN (#goodCollIds#)">
 </cfif>	
-<!---- logging------------>
