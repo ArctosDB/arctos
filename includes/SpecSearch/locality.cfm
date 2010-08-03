@@ -80,6 +80,7 @@
 		<td class="srch">
 			<select name="continent_ocean" id="continent_ocean" size="1">
 				<option value=""></option>
+				<option value="NULL">NULL</option>
 				<cfloop query="ContOcean"> 
 					<option value="#ContOcean.continent_ocean#">#ContOcean.continent_ocean#</option>
 				</cfloop>
@@ -93,6 +94,7 @@
 		<td class="srch">
 			<select name="country" id="country" size="1">
 				<option value=""></option>
+				<option value="NULL">NULL</option>
 				<cfloop query="Country">
 					<option value="#Country.Country#">#Country.Country#</option>
 				</cfloop>
@@ -123,6 +125,7 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="county" id="county" size="50">
+			<span class="infoLink" onclick="document.getElementById('county').value='NULL';">[ NULL ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -132,6 +135,7 @@
 		<td class="srch">
 			<select name="island_group" id="island_group" size="1">
 				  <option value=""></option>
+				  <option value="NULL">NULL</option>
 				  <cfloop query="IslGrp"> 
 					<option value="#IslGrp.Island_Group#">#IslGrp.Island_Group#</option>
 				  </cfloop> 
@@ -144,6 +148,7 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="island" id="island" size="50">
+			<span class="infoLink" onclick="document.getElementById('island').value='NULL';">[ NULL ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -153,6 +158,7 @@
 		<td class="srch">
 			<select name="feature" id="feature" size="1">
 				<option value=""></option>
+				<option value="NULL">NULL</option>
 				<cfloop query="Feature">
 					<option value="#Feature.Feature#">#Feature.Feature#</option>
 				</cfloop>
@@ -166,6 +172,7 @@
 		<td class="srch">
 			<input type="text" name="spec_locality" id="spec_locality" size="50">
 			<span class="infoLink" onclick="var e=document.getElementById('spec_locality');e.value='='+e.value;">Add = for exact match</span>
+			<span class="infoLink" onclick="document.getElementById('spec_locality').value='NULL';">[ NULL ]</span>
 		</td>
 	</tr>
 	<tr>
