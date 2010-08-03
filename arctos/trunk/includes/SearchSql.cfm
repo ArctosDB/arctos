@@ -895,7 +895,7 @@
 	</cfif>					
 	<cfset mapurl = "#mapurl#&sea=#sea#">			
 </cfif>
-<cfif isdefined("Country") AND len(Country) is 0>
+<cfif isdefined("Country") AND len(Country) gt 0>
 	<cfif #compare(country,"NULL")# is 0>
 		<cfset basQual = " #basQual# AND country is null">
 	<cfelse>
