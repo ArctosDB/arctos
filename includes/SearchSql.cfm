@@ -758,7 +758,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num customIdentifier ON 
 		(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
 	</cfif>
-	<cfif #basQual# does not contain "customIdentifier.other_id_type">
+	<cfif basQual does not contain "customIdentifier.other_id_type">
 		<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#session.CustomOtherIdentifier#'">
 	</cfif>
 	<cfset basQual = " #basQual# AND upper(customIdentifier.other_id_suffix) LIKE '%#ucase(custom_id_suffixid_prefix)#%'">
@@ -769,35 +769,37 @@
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num customIdentifier ON 
 		(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
 	</cfif>
-	<cfif #basQual# does not contain "customIdentifier.other_id_type">
+	<cfif basQual does not contain "customIdentifier.other_id_type">
 		<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#session.CustomOtherIdentifier#'">
 	</cfif>
-	<cfif #custom_id_number# contains "-">
+	<cfif custom_id_number contains "-">
 		<!--- range --->
 		<cfset start=listgetat(custom_id_number,1,"-")>
 		<cfset stop=listgetat(custom_id_number,2,"-")>
 		<cfset basQual = " #basQual# AND customIdentifier.other_id_number between #start# and #stop# ">
-	<cfelseif #custom_id_number# contains ",">
+	<cfelseif custom_id_number contains ",">
 		<cfset CustOidList="">
 		<cfloop list="#custom_id_number#" delimiters="," index="v">
-			<cfif len(#CustOidList#) is 0>
-				<cfset CustOidList = "#v#">
+			<cfif len(CustOidList) is 0>
+				<cfset CustOidList = v>
 			<cfelse>
 				<cfset CustOidList = "#CustOidList#,#v#">
 			</cfif>
 		</cfloop>
 		<cfset basQual = " #basQual# AND customIdentifier.other_id_number IN ( #CustOidList#) ">
-	<cfelseif #isnumeric(custom_id_number)#>
-		<!--- equals --->
+	<cfelseif isnumeric(custom_id_number)>
 		<cfset basQual = " #basQual# AND customIdentifier.other_id_number = #custom_id_number# ">
 	<cfelse>
+		<div class="error">
 		Custom ID Number may be any of the following formats:
-		<ul>
-			<li>An integer (1)</li>
-			<li>A comma-separated list (1,3,5)</li>
-			<li>A hyphen-separated range (1-5)</li>
-		</ul>
-		Please use your back button to try again.
+			<ul>
+				<li>An integer (1)</li>
+				<li>A comma-separated list (1,3,5)</li>
+				<li>A hyphen-separated range (1-5)</li>
+			</ul>
+			Please use your back button to try again.
+		</div>
+		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>			
 </cfif>
@@ -811,10 +813,10 @@
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num customIdentifier ON 
 		(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
 	</cfif>
-	<cfif #basQual# does not contain "customIdentifier.other_id_type">
+	<cfif basQual does not contain "customIdentifier.other_id_type">
 		<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#session.CustomOtherIdentifier#'">
 	</cfif>
-	<cfif #CustomOidOper# is "IS">
+	<cfif CustomOidOper is "IS">
 		<cfset basQual = " #basQual# AND customIdentifier.DISPLAY_VALUE = '#CustomIdentifierValue#'">
 	<cfelseif #CustomOidOper# is "LIST">
 		<cfset CustOidList = "">
@@ -1007,10 +1009,7 @@
 		<cfelse>
 			<cfset basQual = " #basQual# AND dec_long BETWEEN #NWLong# AND #SELong#">
 		</cfif>
-		<cfset mapurl = "#mapurl#&NWLat=#NWLat#">
-		<cfset mapurl = "#mapurl#&NWLong=#NWLong#">
-		<cfset mapurl = "#mapurl#&SELat=#SELat#">
-		<cfset mapurl = "#mapurl#&SELong=#SELong#">
+		<cfset mapurl = "#mapurl#&NWLat=#NWLat#&NWLong=#NWLong#&SELat=#SELat#&SELong=#SELong#">
 	<cfelse>
 		You entered at least one bounding box point, but didn't enter sufficient
 		information to finish the query. To search by bounding box, you must specify 2 coordinate sets
@@ -1047,7 +1046,7 @@
 		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>
-	<cfif not isnumeric(#minimum_elevation#)>
+	<cfif not isnumeric(minimum_elevation)>
 		<div class="error">Minimum Elevation must be numeric.</div>
 		<script>hidePageLoad();</script>
 		<cfabort>
@@ -1069,12 +1068,11 @@
 	<cfset basQual = " #basQual# AND MAX_ELEV_IN_M <= #getMeters(maximum_elevation,orig_elev_units)#" >
 	<cfset mapurl = "#mapurl#&maximum_elevation=#maximum_elevation#">
 </cfif>
-
-<cfif isdefined("Feature") AND len(Feature) gt 0>
-	<cfif compare(Feature,"NULL") is 0>
-		<cfset basQual = " #basQual# AND Feature is null">
+<cfif isdefined("feature") AND len(feature) gt 0>
+	<cfif compare(feature,"NULL") is 0>
+		<cfset basQual = " #basQual# AND feature is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND Feature LIKE '#Feature#'">
+		<cfset basQual = " #basQual# AND feature LIKE '#feature#'">
 	</cfif>		
 	<cfset mapurl = "#mapurl#&feature=#feature#">
 </cfif>
@@ -1088,7 +1086,6 @@
 		upper(#session.flatTableName#.higher_geog) || ' ' || upper(#session.flatTableName#.spec_locality)
 			|| ' ' || upper(collecting_event.verbatim_locality)  LIKE '%#ucase(escapeQuotes(any_geog))#%'">
 </cfif>
-
 <cfif isdefined("geog_auth_rec_id") AND len(geog_auth_rec_id) gt 0>
 	<cfset basQual = " #basQual# AND #session.flatTableName#.geog_auth_rec_id=#geog_auth_rec_id#">
 	<cfset mapurl = "#mapurl#&geog_auth_rec_id=#geog_auth_rec_id#">
@@ -1097,7 +1094,7 @@
 	<cfset basQual = " #basQual# AND upper(higher_geog) LIKE '%#ucase(higher_geog)#%'">
 	<cfset mapurl = "#mapurl#&higher_geog=#higher_geog#">
 </cfif>
-<cfif isdefined("County") AND len(County) gt 0>
+<cfif isdefined("county") AND len(county) gt 0>
 	<cfif compare(County,"NULL") is 0>
 		<cfset basQual = " #basQual# AND County is null">
 	<cfelse>
@@ -1125,10 +1122,10 @@
 	</cfif>
   <cfset mapurl = "#mapurl#&quad=#quad#">
 </cfif>
-<cfif isdefined("partname") AND len(#partname#) gt 0>
+<cfif isdefined("partname") AND len(partname) gt 0>
 	<cfset part_name=partname>
 </cfif>		
-<cfif isdefined("part_name") AND len(#part_name#) gt 0>
+<cfif isdefined("part_name") AND len(part_name) gt 0>
 	<cfset mapurl = "#mapurl#&part_name=#part_name#">
 	<cfif part_name contains "|">
 		<cfset i=1>
