@@ -113,8 +113,8 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="quad" id="quad" size="50">
-			<span class="infoLink" onclick="getQuadHelp();">[ Pick Quad (for Alaska only) ]</span>
-			<span class="infoLink" onclick="$('#quad').val('NULL');">[ NULL ]</span>
+			<span class="infoLink" onclick="getQuadHelp();">[ Pick AK Quad ]</span>
+			<span class="infoLink" onclick="document.getElementById('quad').value='NULL';">[ NULL ]</span>
 		</td>
 	</tr>
 	<tr>
