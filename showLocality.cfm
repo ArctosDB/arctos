@@ -144,19 +144,18 @@
 				<th>Event</th>
 			</tr>
 			<cfloop query="localityResults">
-		        <cfif (verbatim_date is began_date) AND
-		 		    (verbatim_date is ended_date)>
-				    <cfset thisDate = dateformat(began_date,"dd mmm yyyy")>
-		        <cfelseif (
-					(verbatim_date is not began_date) OR
-		 			(verbatim_date is not ended_date)
-				    )
-			    	AND
-			    	began_date is ended_date>
-				    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")#)">
-		        <cfelse>
-				    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
-		        </cfif>
+		        <cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
+					<cfset thisDate = began_date>
+				<cfelseif (
+							(verbatim_date is not began_date) OR
+				 			(verbatim_date is not ended_date)
+						)
+						AND
+						began_date is ended_date>
+						<cfset thisDate = "#verbatim_date# (#began_date#)">
+				<cfelse>
+						<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
+				</cfif>
 		        <tr>
 					<td>
 						<span class="infoLink" onclick="expand('geog_auth_rec_id', #geog_auth_rec_id#)">[&nbsp;details&nbsp;]</span>

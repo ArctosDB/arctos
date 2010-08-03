@@ -1118,12 +1118,12 @@ document.getElementById('saveme').submit();
 		</td>
 
 <cfif #detail_level# gte 3>
-	<cfif #began_date# is #ended_date# AND len(#began_date#) gt 0>
-		<cfset collDate = "#dateformat(began_date,"dd mmm yyyy")#">
-	<cfelseif len(#ended_date#) is 0 AND len(#began_date#) is 0>
+	<cfif began_date is ended_date AND len(began_date) gt 0>
+		<cfset collDate = began_date>
+	<cfelseif len(ended_date) is 0 AND len(began_date) is 0>
 		<cfset collDate = "Not recorded.">
 	<cfelse>
-		<cfset collDate = "#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#">
+		<cfset collDate = "#began_date# - #ended_date#">
 	</cfif>
 	<td nowrap>
 		#collDate#&nbsp;
@@ -1663,12 +1663,12 @@ document.getElementById('saveme').submit();
 </cfif> 
 <cfset oneLine = "#oneLine##chr(9)##spec_locality##chr(9)##verbatim_date#">
 <cfif #detail_level# gte 3>
-	<cfif #began_date# is #ended_date# AND len(#began_date#) gt 0>
-		<cfset collDate = "#dateformat(began_date,"dd mmm yyyy")#">
+	<cfif began_date is ended_date AND len(began_date) gt 0>
+		<cfset collDate = "#began_date#">
 	<cfelseif len(#ended_date#) is 0 AND len(#began_date#) is 0>
 		<cfset collDate = "Not recorded.">
 	<cfelse>
-		<cfset collDate = "#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#">
+		<cfset collDate = "#began_date# - #ended_date#">
 	</cfif>
 	<cfset oneLine = "#oneLine##chr(9)##collDate#">
 </cfif>

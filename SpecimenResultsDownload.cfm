@@ -257,9 +257,7 @@ do not agree</font>.</a>
 					<cfset oneLine = "">
 					<cfloop list="#ac#" index="c">
 						<cfset thisData = evaluate(c)>
-						<cfif c is "BEGAN_DATE" or c is "ENDED_DATE">
-							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
-						<cfelseif c is "MEDIA">
+						<cfif c is "MEDIA">
 							<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
 						</cfif>
 						<cfif len(oneLine) is 0>
@@ -292,9 +290,7 @@ do not agree</font>.</a>
 					<cfset oneLine = "">
 					<cfloop list="#ac#" index="c">
 						<cfset thisData = #evaluate(c)#>
-						<cfif #c# is "BEGAN_DATE" or #c# is "ENDED_DATE">
-							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
-						<cfelseif c is "MEDIA">
+						<cfif c is "MEDIA">
 							<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
 						</cfif>
 						<cfif len(#oneLine#) is 0>
@@ -326,9 +322,7 @@ do not agree</font>.</a>
 					<cfset oneLine = "<record>">
 					<cfloop list="#ac#" index="c">
 						<cfset thisData = #evaluate(c)#>
-						<cfif #c# is "BEGAN_DATE" or #c# is "ENDED_DATE">
-							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
-						<cfelseif c is "MEDIA">
+						<cfif c is "MEDIA">
 							<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
 						</cfif>
 						<cfif len(#oneLine#) is 0>

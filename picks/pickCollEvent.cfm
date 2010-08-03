@@ -100,20 +100,18 @@
 			</form>
 			</td>
 			<td>#verbatim_locality#</td>
-			<cfif (#verbatim_date# is #began_date#) AND
-			 		(#verbatim_date# is #ended_date#)>
-					<cfset thisDate = #dateformat(began_date,"dd mmm yyyy")#>
+			<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
+					<cfset thisDate = began_date>
 			<cfelseif (
-						(#verbatim_date# is not #began_date#) OR
-			 			(#verbatim_date# is not #ended_date#)
+						(verbatim_date is not began_date) OR
+			 			(verbatim_date is not ended_date)
 					)
 					AND
-					#began_date# is #ended_date#>
-					<cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")#)">
+					began_date is ended_date>
+					<cfset thisDate = "#verbatim_date# (#began_date#)">
 			<cfelse>
-					<cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
+					<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
 			</cfif>
-			
 			<td>#thisDate#</td>
 			</tr>
 		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
@@ -217,10 +215,10 @@
 			</tr>
 			<tr>
 				<td><label for="began_date">Began Date</label>
-			<input type="text" name="began_date" id="began_date" value="#dateformat(details.began_date,'dd-mmm-yyyy')#" />
+			<input type="text" name="began_date" id="began_date" value="#details.began_date#" />
 			</td>
 				<td><label for="ended_date">Ended Date</label>
-			<input type="text" name="ended_date" id="ended_date" value="#dateformat(details.ended_date,'dd-mmm-yyyy')#" />
+			<input type="text" name="ended_date" id="ended_date" value="#details.ended_date#" />
 			</td>
 			</tr>
 			<tr>
