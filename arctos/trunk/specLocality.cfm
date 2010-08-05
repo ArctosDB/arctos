@@ -52,10 +52,7 @@
 			}
 		);
 	}	
-</script>
-	
-<cf_showMenuOnly>
-	
+</script>	
 <span class="pageHelp likeLink" onClick="getDocs('pageHelp/specLocality');">
 	Page Help
 </span>
