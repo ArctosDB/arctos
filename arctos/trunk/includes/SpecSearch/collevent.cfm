@@ -21,11 +21,11 @@
 			<table>
 				<tr>
 					<td>
-						<label for="begYear">Year:</label>
+						<label for="begYear">Year</label>
 						<input name="begYear" id="begYear" type="text" size="4">
 					</td>
 					<td>
-						<label for="begMon">Month:</label>
+						<label for="begMon">Month</label>
 						<select name="begMon" id="begMon" size="1">
 							<option value=""></option>
 							<option value="01">January</option>
@@ -43,7 +43,7 @@
 						</select>
 					</td>
 					<td>
-						<label for="begDay">Day:</label>
+						<label for="begDay">Day</label>
 						<select name="begDay" id="begDay" size="1">
 							<option value=""></option>
 							<cfloop from="1" to="31" index="day">
@@ -52,7 +52,7 @@
 						</select>
 					</td>
 					<td>
-						<label for="begDate">OR Full Date:</label>
+						<label for="begDate">Full Date</label>
 						<input name="begDate" id="begDate" size="10" type="text">
 					</td>
 				</tr>
@@ -64,14 +64,15 @@
 			<span class="helpLink" id="year_collected">Collected Before:</span>
 		</td>
 		<td class="srch">
-			<table cellspacing="0">
+			<table>
 				<tr>
 					<td>
-						<label for="endYear">Year:</label>
+						<label for="endYear">Year</label>
 						<input name="endYear" id="endYear" type="text" size="4">
 					</td>
 					<td>
-						<label for="endMon">Month:</label><select name="endMon" id="endMon" size="1">
+						<label for="endMon">Month</label>
+						<select name="endMon" id="endMon" size="1">
 							<option value=""></option>
 							<option value="01">January</option>
 							<option value="02">February</option>
@@ -88,7 +89,7 @@
 						</select>
 					</td>
 					<td>
-						<label for="endDay">Day:</label>
+						<label for="endDay">Day</label>
 						<select name="endDay" id="endDay" size="1">
 							<option value=""></option>
 							<cfloop from="1" to="31" index="day">
@@ -97,15 +98,11 @@
 						</select>
 					</td>
 					<td>
-						<label for="endDate">Full Date:</label>
+						<label for="endDate">Full Date</label>
 						<input name="endDate" id="endDate" size="10" type="text">
 					</td>
 				</tr>
 			</table>
-			
-			
-			
-			
 			<span style="font-size:x-small;">(Leave blank to use Collected After values)</span>
 		</td>
 	</tr>
