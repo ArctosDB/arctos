@@ -1,7 +1,6 @@
 <div id="theHead">
 	<cfinclude template="includes/_header.cfm">
 </div>
-
 <script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
@@ -12,21 +11,21 @@
 </script>
 <cfoutput>
 <!--- see if action is duplicated --->
-<cfif #action# contains ",">
+<cfif action contains ",">
 	<cfset i=1>
 	<cfloop list="#action#" delimiters="," index="a">
-		<cfif #i# is 1>
-			<cfset firstAction = #a#>
+		<cfif i is 1>
+			<cfset firstAction = a>
 		<cfelse>
-			<cfif #a# neq #firstAction#>
+			<cfif a neq firstAction>
 				An error has occured! Multiple Action in Locality. Please submit a bug report.
 				<cfabort>
 			</cfif>
 		</cfif>
 	</cfloop>
-	<cfset action = #firstAction#>
+	<cfset action = firstAction>
 </cfif>
-<cfif isdefined("collection_object_id") AND #collection_object_id# gt 0 AND #action# is "nothing">
+<cfif isdefined("collection_object_id") AND collection_object_id gt 0 AND action is "nothing">
 	<!--- probably got here from SpecimenDetail, make sure we're in a frame --->
 	<script>
 		var thePar = parent.location.href;
@@ -39,7 +38,7 @@
 		}
 	</script>
 </cfif>
-<cfif #action# is "findCollEventIdForSpecDetail">
+<cfif action is "findCollEventIdForSpecDetail">
 	<!--- get a collecting event ID and relocate to editCollEvnt --->
 	<cfquery name="ceid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collecting_event_id from cataloged_item where
@@ -47,9 +46,6 @@
 	</cfquery>
 	<cflocation url="Locality.cfm?action=editCollEvnt&collecting_event_id=#ceid.collecting_event_id#">
 </cfif>
-<!--- only put a header on if we aren't in a frame --->
-
-</div><!--- kill content div --->
 
 </cfoutput>
 <cfif not isdefined("collection_object_id")>
