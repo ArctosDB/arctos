@@ -775,9 +775,9 @@
 				<table cellpadding="0" cellspacing="0">
 					<tr>
 						<td><div align="right">Began:&nbsp;</div></td>
-						<td><input type="text" name="BEGAN_DATE" value="#BEGAN_DATE#" size="20"></td>
+						<td><input type="text" name="began_date" id="began_date" value="#began_date#" size="20"></td>
 						  <td><div align="right">Ended:&nbsp;</div></td>
-						   <td><input type="text" name="ENDED_DATE" value="#ENDED_DATE#" size="20"></td>
+						   <td><input type="text" name="ended_date" id="ended_date" value="#ended_date#" size="20"></td>
 					</tr>
 				</table>
 			</td>
@@ -912,9 +912,9 @@
         </tr>
 		<tr> 
           <td><div align="right">Verbatim Date:</div></td>
-          <td><input type="text" name="VERBATIM_DATE" class="reqdClr"
-		  		<cfif isdefined("VERBATIM_DATE")>
-				value="#VERBATIM_DATE#"
+          <td><input type="text" name="verbatim_date" id="verbatim_date" class="reqdClr"
+		  		<cfif isdefined("verbatim_date")>
+				value="#verbatim_date#"
 			</cfif>
 			 >
 			<input type="button" 
@@ -922,23 +922,23 @@
 				class="insBtn"
 				onmouseover="this.className='insBtn btnhov'" 
 				onmouseout="this.className='insBtn'"
-				onClick="newCollEvnt.BEGAN_DATE.value=newCollEvnt.VERBATIM_DATE.value;
-				newCollEvnt.ENDED_DATE.value=newCollEvnt.VERBATIM_DATE.value;">
+				onClick="newCollEvnt.began_date.value=newCollEvnt.verbatim_date.value;
+				newCollEvnt.ended_date.value=newCollEvnt.verbatim_date.value;">
 				</td>
         </tr>
         <tr> 
           <td><div align="right">Began Date:</div></td>
-          <td><input type="text" name="BEGAN_DATE" 
-		  		<cfif isdefined("BEGAN_DATE")>
-				value="#BEGAN_DATE#"
+          <td><input type="text" name="began_date" id="began_date" 
+		  		<cfif isdefined("began_date")>
+				value="#began_date#"
 			</cfif>
 			></td>
         </tr>
         <tr> 
           <td><div align="right">Ended Date:</div></td>
-          <td><input type="text" name="ENDED_DATE" 
-		  		<cfif isdefined("ENDED_DATE")>
-				value="#ENDED_DATE#"
+          <td><input type="text" name="ended_date" id="ended_date" 
+		  		<cfif isdefined("ended_date")>
+				value="#ended_date#"
 			</cfif>
 			></td>
         </tr>
