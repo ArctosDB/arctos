@@ -18,30 +18,45 @@
 			<span class="helpLink" id="year_collected">Collected After:</span>
 		</td>
 		<td class="srch">
-			<label for="begYear" class="h">Year:</label><input name="begYear" id="begYear" type="text" size="4">
-			<label for="begMon" class="h">Month:</label><select name="begMon" id="begMon" size="1">
-				<option value=""></option>
-				<option value="01">January</option>
-				<option value="02">February</option>
-				<option value="03">March</option>
-				<option value="04">April</option>
-				<option value="05">May</option>
-				<option value="06">June</option>
-				<option value="07">July</option>
-				<option value="08">August</option>
-				<option value="09">September</option>
-				<option value="10">October</option>
-				<option value="11">November</option>
-				<option value="12">December</option>						
-			</select>
-			<label for="begDay" class="h">Day:</label><select name="begDay" id="begDay" size="1">
-				<option value=""></option>
-				<cfloop from="1" to="31" index="day">
-					<option value="#day#">#day#</option>
-				</cfloop>
-			</select>
-			<br><label for="begDate" class="h">Full Date:</label>
-			<input name="begDate" id="begDate" size="10" type="text">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<td>
+						<label for="begYear">Year:</label>
+						<input name="begYear" id="begYear" type="text" size="4">
+					</td>
+					<td>
+						<label for="begMon">Month:</label>
+						<select name="begMon" id="begMon" size="1">
+							<option value=""></option>
+							<option value="01">January</option>
+							<option value="02">February</option>
+							<option value="03">March</option>
+							<option value="04">April</option>
+							<option value="05">May</option>
+							<option value="06">June</option>
+							<option value="07">July</option>
+							<option value="08">August</option>
+							<option value="09">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>						
+						</select>
+					</td>
+					<td>
+						<label for="begDay">Day:</label>
+						<select name="begDay" id="begDay" size="1">
+							<option value=""></option>
+							<cfloop from="1" to="31" index="day">
+								<option value="#day#">#day#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="begDate">OR Full Date:</label>
+						<input name="begDate" id="begDate" size="10" type="text">
+					</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 	<tr>
@@ -49,30 +64,48 @@
 			<span class="helpLink" id="year_collected">Collected Before:</span>
 		</td>
 		<td class="srch">
-			<label for="endYear">Year:</label><input name="endYear" id="endYear" type="text" size="4">
-			<label for="endMon">Month:</label><select name="endMon" id="endMon" size="1">
-				<option value=""></option>
-				<option value="01">January</option>
-				<option value="02">February</option>
-				<option value="03">March</option>
-				<option value="04">April</option>
-				<option value="05">May</option>
-				<option value="06">June</option>
-				<option value="07">July</option>
-				<option value="08">August</option>
-				<option value="09">September</option>
-				<option value="10">October</option>
-				<option value="11">November</option>
-				<option value="12">December</option>						
-			</select>
-			<label for="endDay">Day:</label><select name="endDay" id="endDay" size="1">
-				<option value=""></option>
-				<cfloop from="1" to="31" index="day">
-					<option value="#day#">#day#</option>
-				</cfloop>
-			</select>
-			<label for="endDate">Full Date:</label>
-			<input name="endDate" id="endDate" size="10" type="text">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<td>
+						<label for="endYear">Year:</label>
+						<input name="endYear" id="endYear" type="text" size="4">
+					</td>
+					<td>
+						<label for="endMon">Month:</label><select name="endMon" id="endMon" size="1">
+							<option value=""></option>
+							<option value="01">January</option>
+							<option value="02">February</option>
+							<option value="03">March</option>
+							<option value="04">April</option>
+							<option value="05">May</option>
+							<option value="06">June</option>
+							<option value="07">July</option>
+							<option value="08">August</option>
+							<option value="09">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>						
+						</select>
+					</td>
+					<td>
+						<label for="endDay">Day:</label>
+						<select name="endDay" id="endDay" size="1">
+							<option value=""></option>
+							<cfloop from="1" to="31" index="day">
+								<option value="#day#">#day#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="endDate">Full Date:</label>
+						<input name="endDate" id="endDate" size="10" type="text">
+					</td>
+				</tr>
+			</table>
+			
+			
+			
+			
 			<span style="font-size:x-small;">(Leave blank to use Collected After values)</span>
 		</td>
 	</tr>
