@@ -50,7 +50,7 @@
 		</td>
 		<td class="srch">
 			<label for="endYear" class="h">Year:</label><input name="endYear" id="endYear" type="text" size="4">
-			<label for="endMon" class="h">Month:</label><select name="endMon" id="endMon" size="1">
+			<br><label for="endMon" class="h">Month:</label><select name="endMon" id="endMon" size="1">
 				<option value=""></option>
 				<option value="01">January</option>
 				<option value="02">February</option>
@@ -65,7 +65,7 @@
 				<option value="11">November</option>
 				<option value="12">December</option>						
 			</select>
-			<label for="endDay" class="h">Day:</label><select name="endDay" id="endDay" size="1">
+			<br><label for="endDay" class="h">Day:</label><select name="endDay" id="endDay" size="1">
 				<option value=""></option>
 				<cfloop from="1" to="31" index="day">
 					<option value="#day#">#day#</option>
