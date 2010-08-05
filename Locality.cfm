@@ -46,40 +46,35 @@
 	</cfquery>
 	<cflocation url="Locality.cfm?action=editCollEvnt&collecting_event_id=#ceid.collecting_event_id#">
 </cfif>
-
 </cfoutput>
 <cfif not isdefined("collection_object_id")>
-		<cfset collection_object_id=-1>
-	</cfif>
- <cfif not isdefined("anchor")>
-		   		<cfset anchor="">
-		   </cfif>
+	<cfset collection_object_id=-1>
+</cfif>
+<cfif not isdefined("anchor")>
+	<cfset anchor="">
+</cfif>
 <!--------------------------- Code-table queries --------------------------------------------------> 
-
-<cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select island_group from ctisland_group order by island_group
 </cfquery>
-<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select orig_elev_units from ctorig_elev_units order by orig_elev_units
 </cfquery>
-<cfquery name="ctCollecting_Source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctCollecting_Source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select collecting_source from ctCollecting_Source order by collecting_source
 </cfquery>
-<cfquery name="ctFeature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctFeature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select distinct(feature) from ctfeature order by feature
 </cfquery>
-	<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
-<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select VerificationStatus from ctVerificationStatus order by VerificationStatus
 </cfquery>
 
-<!--------------------------- End Code-table queries -------------------------------------------------->
-
-<!--------------------------- Forms -------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "nothing">
+<cfif action is "nothing">
 <cfoutput>
 <cfset title="Manage Localities">
 <table border>
@@ -88,15 +83,13 @@
 		<td>
 			<form name="nothing" method="post" action="Locality.cfm">
 				<input type="hidden" name="Action" value="findHG">
-				  <input type="submit" value="Find" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
+				<input type="submit" value="Find" class="lnkBtn">	
 			</form>
 		</td>
 		<td>
 			<form name="nothing" method="post" action="Locality.cfm">
 				<input type="hidden" name="Action" value="newHG">
-				<input type="submit" value="New Higher Geog" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">
+				<input type="submit" value="New Higher Geog" class="insBtn">
 			</form>
 		</td>
 		<td>
@@ -109,20 +102,16 @@
 		<td>
 			<form name="nothing" method="post" action="Locality.cfm">
 				<input type="hidden" name="Action" value="findLO">
-				<input type="submit" value="Find" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-			
+				<input type="submit" value="Find" class="lnkBtn">			
 			</form>	
 		</td>
 		<td>
 			<form name="nothing" method="post" action="Locality.cfm">
 				<input type="hidden" name="Action" value="newLocality">
-				<input type="submit" value="New Locality" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">
+				<input type="submit" value="New Locality" class="insBtn">
 			</form>
 		</td>
 		<td>
-			<!---<a href="javascript:void(0);" onClick="getDocs('locality')"><img src="/images/what.gif" border="0"></a>--->
 			<span class="infoLink" onclick="getDocs('locality');">Define</span>
 		</td>
 	</tr>
@@ -131,13 +120,11 @@
 		<td>
 			<form name="nothing" method="post" action="Locality.cfm">
 				<input type="hidden" name="Action" value="findCO">
-				<input type="submit" value="Find" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
+				<input type="submit" value="Find" class="lnkBtn">
 			</form>		
 		</td>
 		<td>(Find and clone to create new)</td>
 		<td>
-			<!---<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/what.gif" border="0"></a>--->
 			<span class="infoLink" onclick="getDocs('collecting_event');">Define</span>
 		</td>
 	</tr>
@@ -145,166 +132,157 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "findHG">
-<cfoutput>
-<cfset title="Find Geography">
-<strong>Find Higher Geography:</strong>
-
-<form name="getCol" method="post" action="Locality.cfm">
-           <input type="hidden" name="Action" value="findGeog">	
+<cfif action is "findHG">
+	<cfoutput>
+		<cfset title="Find Geography">
+		<strong>Find Higher Geography:</strong>
+		<form name="getCol" method="post" action="Locality.cfm">
+		    <input type="hidden" name="Action" value="findGeog">	
 			<cfinclude template="/includes/frmFindLocation_guts.cfm">
-     </form>
-</cfoutput>
+		</form>
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "newHG">
+<cfif action is "newHG">
 <cfoutput>
-<cfset title="Create Higher Geography">
-<b>Create Higher Geography:</b>
-
-<cfform name="getHG" method="post" action="Locality.cfm">
-	<input type="hidden" name="Action" value="makeGeog">
-	
-	<table>
-		<tr>
-			<td align="right">Continent or Ocean:</td>
-			<td><input type="text" name="continent_ocean" 
-		<cfif isdefined("continent_ocean")> value = "#continent_ocean#"</cfif>></td>
-		</tr>
-		<tr>
-			<td align="right">Country:</td>
-			<td><input type="text" name="country"
-		<cfif isdefined("country")> value = "#country#"</cfif>></td>
-		</tr>
-		<tr>
-			<td align="right">State:</td>
-			<td><input type="text" name="state_prov"
-		<cfif isdefined("state_prov")> value = "#state_prov#"</cfif>></td>
-		</tr>
-		<tr>
-			<td align="right">County:</td>
-			<td><input type="text" name="county"
-		<cfif isdefined("county")> value = "#county#"</cfif>></td>
-		</tr>
-		<tr>
-			<td align="right">Quad:</td>
-			<td><input type="text" name="quad"
-		<cfif isdefined("quad")> value = "#quad#"</cfif>></td>
-		</tr>
-		<tr>
-			<td align="right">Feature:</td>
-			<td>
-			<cfif isdefined("feature")>
-				<cfset thisFeature = #feature#>
-			<cfelse>
-				<cfset thisFeature = "">
-			</cfif>
-			<select name="feature">
+	<cfset title="Create Higher Geography">
+	<b>Create Higher Geography:</b>
+	<cfform name="getHG" method="post" action="Locality.cfm">
+		<input type="hidden" name="Action" value="makeGeog">
+		<table>
+			<tr>
+				<td align="right">Continent or Ocean:</td>
+				<td>
+					<input type="text" name="continent_ocean" <cfif isdefined("continent_ocean")> value = "#continent_ocean#"</cfif>>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Country:</td>
+				<td>
+					<input type="text" name="country" <cfif isdefined("country")> value = "#country#"</cfif>>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">State:</td>
+				<td>
+					<input type="text" name="state_prov" <cfif isdefined("state_prov")> value = "#state_prov#"</cfif>>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">County:</td>
+				<td>
+					<input type="text" name="county" <cfif isdefined("county")> value = "#county#"</cfif>>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Quad:</td>
+				<td>
+					<input type="text" name="quad" <cfif isdefined("quad")> value = "#quad#"</cfif>>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Feature:</td>
+				<td>
+				<cfif isdefined("feature")>
+					<cfset thisFeature = feature>
+				<cfelse>
+					<cfset thisFeature = "">
+				</cfif>
+				<select name="feature">
+					<option value=""></option>
+						<cfloop query="ctFeature">
+							<option 
+								<cfif thisFeature is ctFeature.feature> selected="selected" </cfif>
+								value = "#ctFeature.feature#">#ctFeature.feature#</option>
+						</cfloop>
+				</select>
+			</td>
+			</tr>
+			<tr>
+				<td align="right">Island Group:</td>
+				<td><select name="island_group" size="1">
 				<option value=""></option>
-					<cfloop query="ctFeature">
-						<option 
-							<cfif #thisFeature# is "#ctFeature.feature#"> selected </cfif>
-							value = "#ctFeature.feature#">#ctFeature.feature#</option>
-					</cfloop>
-			</select>
-			
-		</td>
-		</tr>
-		<tr>
-			<td align="right">Island Group:</td>
-			<td><select name="island_group" size="1">
-			<option value=""></option>
-			<cfloop query="ctIslandGroup">
-				<option 
-					<cfif isdefined("islandgroup")>
-						<cfif #ctIslandGroup.island_group# is #islandgroup#> selected </cfif>
-					</cfif>value="#ctIslandGroup.island_group#">#ctIslandGroup.island_group#
-				</option>
-			</cfloop>
-		</select></td>
-		</tr>
-		<tr>
-			<td align="right">Island:</td>
-			<td><input type="text" name="island"
-		<cfif isdefined("island")> value = "#island#"</cfif> size="50"></td>
-		</tr>
-		<tr>
-			<td align="right">Sea:</td>
-			<td><input type="text" name="sea"
-		<cfif isdefined("sea")> value = "#sea#"</cfif>></td>
-		</tr>
-		<tr>
-			<td align="right">Valid?</td>
-			<td><select name="valid_catalog_term_fg" class="reqdClr">
-			<option value=""></option>
-			<option value="1">yes</option>
-			<option value="0">no</option>
-		</select></td>
-		</tr>
-		<tr>
-			<td align="right">Source Authority:</td>
-			<td>
-				<input name="source_authority" id="source_authority" class="reqdClr">
+				<cfloop query="ctIslandGroup">
+					<option 
+						<cfif isdefined("islandgroup")>
+							<cfif ctIslandGroup.island_group is islandgroup> selected="selected" </cfif>
+						</cfif>value="#ctIslandGroup.island_group#">#ctIslandGroup.island_group#
+					</option>
+				</cfloop>
+			</select></td>
+			</tr>
+			<tr>
+				<td align="right">Island:</td>
+				<td>
+					<input type="text" name="island" <cfif isdefined("island")> value = "#island#"</cfif> size="50">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Sea:</td>
+				<td>
+					<input type="text" name="sea" <cfif isdefined("sea")> value = "#sea#"</cfif>>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Valid?</td>
+				<td>
+					<select name="valid_catalog_term_fg" class="reqdClr">
+						<option value=""></option>
+						<option value="1">yes</option>
+						<option value="0">no</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Source Authority:</td>
+				<td>
+					<input name="source_authority" id="source_authority" class="reqdClr">
+				</td>
+			</tr>
+			<tr>
+			<td colspan="2">
+				<input type="submit" value="Create" class="insBtn">
+				<input type="button" value="Quit" class="qutBtn" onclick="document.location='Locality.cfm';">	
 			</td>
 		</tr>
-		<tr>
-			<td colspan="2">
-			
-   
-   	
-   <input type="submit" value="Create" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">
-   
-    <input type="button" value="Quit" class="qutBtn"
-   onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'"
-   onclick="document.location='Locality.cfm';" >	
-   
-	</td>
-		</tr>
 	</table>
-</cfform>
+	</cfform>
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "findLO">
-<cfoutput>
-	<cfset title="Find Locality">
-	<cfset showLocality=1>
-
-	<strong>Find Locality:</strong>
-    <form name="getCol" method="post" action="Locality.cfm">
-           <input type="hidden" name="Action" value="findLocality">	
+<cfif action is "findLO">
+	<cfoutput>
+		<cfset title="Find Locality">
+		<cfset showLocality=1>
+		<strong>Find Locality:</strong>
+	    <form name="getCol" method="post" action="Locality.cfm">
+			<input type="hidden" name="Action" value="findLocality">	
 			<cfinclude template="/includes/frmFindLocation_guts.cfm">
-     </form>
-
-</cfoutput>
+	     </form>
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "findCO">
+<cfif action is "findCO">
 <cfoutput> 
 	<cfset title="Find Collecting Events">
 	<cfset showLocality=1>
 	<cfset showEvent=1>
 	<strong>Find Collecting Events:</strong>
     <form name="getCol" method="post" action="Locality.cfm">
-           <input type="hidden" name="Action" value="findCollEvent">	
-			<cfinclude template="/includes/frmFindLocation_guts.cfm">
+		<input type="hidden" name="Action" value="findCollEvent">	
+		<cfinclude template="/includes/frmFindLocation_guts.cfm">
      </form>
 </cfoutput>
 </cfif> 
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "editGeog">
+<cfif action is "editGeog">
 <cfset title = "Edit Geography">
-  <cfoutput> 
-          <cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-         	 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id# 
-          </cfquery>
-		<font size="+1"><strong>Edit Higher Geography</strong></font>
-		  <a href="javascript:void(0);" onClick="getDocs('higher_geography')"><img src="/images/info.gif" border="0"></a>
-		 
+	<cfoutput> 
+		<cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id# 
+		</cfquery>
+		<h3>Edit Higher Geography</h3>
+		<span class="infoLink" onClick="getDocs('higher_geography')">help</span>
 		<cfquery name="localities" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select count(*) c from locality where geog_auth_rec_id=#geog_auth_rec_id#
 		</cfquery>
@@ -312,7 +290,7 @@
 			select count(*) c from locality,collecting_event
 			where
 			locality.locality_id = collecting_event.locality_id AND
-			 geog_auth_rec_id=#geog_auth_rec_id#
+			geog_auth_rec_id=#geog_auth_rec_id#
 		</cfquery>
 		<cfquery name="specimen" datasource="uam_god">
 			select 
@@ -349,18 +327,16 @@
 				</cfloop>
 			</ul>
 		</div>
-    </cfoutput> <cfoutput query="geogDetails"> 
-		   <br><em>#higher_geog#</em>
-          <cfform name="getHG" method="post" action="Locality.cfm">
-            <p> 
-              <input name="Action" type="hidden" value="saveGeogEdits">
-              <input type="hidden" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
-            </p>
-            <table cellpadding="0" cellspacing="0">
-              <tr valign="bottom"> 
+    </cfoutput>
+	<cfoutput query="geogDetails">
+		<br><em>#higher_geog#</em>
+        <cfform name="getHG" method="post" action="Locality.cfm">
+	        <input name="Action" type="hidden" value="saveGeogEdits">
+            <input type="hidden" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
+            <table>
+              <tr> 
                 <td><div align="left">
-				<a href="javascript:void(0);" class="novisit "onClick="getDocs('higher_geography','continent_ocean')">
-				Continent or Ocean</a>
+				
 				</div></td>
 				<td ><div align="left">
 				<a href="javascript:void(0);" class="novisit "onClick="getDocs('higher_geography','country')">
@@ -377,7 +353,11 @@
                 
               </tr>
               <tr> 
-                <td><input type="text" name="continent_ocean" value="#continent_ocean#"></td>
+                <td>
+					<label for="continent_ocean" class="likeLink" onClick="getDocs('higher_geography','continent_ocean')">
+						Continent or Ocean
+					</label>
+					<input type="text" name="continent_ocean" id="continent_ocean" value="#continent_ocean#"></td>
                 <td><input type="text" name="country" value="#country#"></td>
 				<td><input type="text" name="state_prov" value="#state_prov#"></td>
 				 <td><input type="text" name="sea" value="#sea#"></td>
@@ -509,7 +489,7 @@
         </cfoutput> </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "editCollEvnt">
+<cfif action is "editCollEvnt">
 <cfset title="Edit Collecting Event">
 <cfoutput> 
       <cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -874,7 +854,7 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "newCollEvent">
+<cfif action is "newCollEvent">
 <cfset title="Create Collecting Event">
   <cfoutput> 
   <!--- see if we're creating clone --->
@@ -1010,11 +990,11 @@
 <!---------------------------------------------------------------------------------------------------->
 
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "newLocalityWithLL">
+<cfif action is "newLocalityWithLL">
 	newLocalityWithLL
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "newLocality">
+<cfif action is "newLocality">
 <!--- see if this is a copy --->
 <cfif isdefined('geog_auth_rec_id')>
 	<cfquery name="getHG" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1131,7 +1111,7 @@
 
 
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "deleteGeog">
+<cfif action is "deleteGeog">
 <cfoutput>
 	<cfquery name="isLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select geog_auth_rec_id from locality where geog_auth_rec_id=#geog_auth_rec_id#
@@ -1150,7 +1130,7 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "deleteCollEvent">
+<cfif action is "deleteCollEvent">
 <cfoutput>
 	<cfquery name="isSpec" datasource="uam_god">
 		select collection_object_id from cataloged_item where collecting_event_id=#collecting_event_id#
@@ -1171,7 +1151,7 @@ You deleted a collecting event.
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "changeLocality">
+<cfif action is "changeLocality">
 <cfoutput>
 	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE collecting_event SET locality_id=#locality_id# where collecting_event_id=#collecting_event_id#
@@ -1183,7 +1163,7 @@ You deleted a collecting event.
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "saveCollEventEdit">
+<cfif action is "saveCollEventEdit">
 	<cfoutput>
 	<cfset sql = "UPDATE collecting_event SET 
 		BEGAN_DATE = '#BEGAN_DATE#'
@@ -1224,7 +1204,7 @@ You deleted a collecting event.
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "saveGeogEdits">
+<cfif action is "saveGeogEdits">
 	<cfoutput>
 	<cfset srcAuth = #replace(source_authority,"'","''")#>
 	<cfset sql = "UPDATE geog_auth_rec SET source_authority = '#srcAuth#'
@@ -1286,7 +1266,7 @@ You deleted a collecting event.
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "makeGeog">
+<cfif action is "makeGeog">
 <cfoutput>
 <cfquery name="nextGEO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select sq_geog_auth_rec_id.nextval nextid from dual
@@ -1420,7 +1400,7 @@ INSERT INTO geog_auth_rec (
 <!---------------------------------------------------------------------------------------------------->
 
 <!----------------------------------------------------------------------------------------------------> 
-<cfif #Action# is "makenewLocality">
+<cfif action is "makenewLocality">
 	<cfoutput>
 	<cftransaction>
 	<cfif not isdefined("cloneCoords") or #cloneCoords# is not "yes">
@@ -1651,7 +1631,7 @@ INSERT INTO geog_auth_rec (
 
 <!--------------------------- Results -------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "findCollEvent">
+<cfif action is "findCollEvent">
 	<cfoutput>
 		<form name="tools" method="post" action="Locality.cfm">
 			<input type="hidden" name="action" value="massMoveCollEvent" />
@@ -1746,7 +1726,7 @@ INSERT INTO geog_auth_rec (
 <!---------------------------------------------------------------------------------------------------->
 
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "massMoveCollEvent">
+<cfif action is "massMoveCollEvent">
 	<cfoutput>
 		<cfset numCollEvents = listlen(collecting_event_id)>
 		
@@ -1841,7 +1821,7 @@ INSERT INTO geog_auth_rec (
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "mmCollEvnt2">
+<cfif action is "mmCollEvnt2">
 	<cfoutput>
 		<cftransaction>
 		<cfloop list="#collecting_event_id#" index="ceid">
@@ -1857,7 +1837,7 @@ INSERT INTO geog_auth_rec (
 
 
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "findLocality">
+<cfif action is "findLocality">
 	<cfoutput>
 	<cf_findLocality>
 	<!--- need to filter out distinct --->
@@ -1946,7 +1926,7 @@ INSERT INTO geog_auth_rec (
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "findGeog">
+<cfif action is "findGeog">
 <cfoutput>
 		<cf_findLocality>
 		<!--- need to filter out distinct --->
