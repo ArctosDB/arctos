@@ -49,8 +49,8 @@
 			<span class="helpLink" id="year_collected">Collected Before:</span>
 		</td>
 		<td class="srch">
-			<label for="endYear" class="h">Year:</label><input name="endYear" id="endYear" type="text" size="4">
-			<br><label for="endMon" class="h">Month:</label><select name="endMon" id="endMon" size="1">
+			<label for="endYear">Year:</label><input name="endYear" id="endYear" type="text" size="4">
+			<label for="endMon">Month:</label><select name="endMon" id="endMon" size="1">
 				<option value=""></option>
 				<option value="01">January</option>
 				<option value="02">February</option>
@@ -65,13 +65,13 @@
 				<option value="11">November</option>
 				<option value="12">December</option>						
 			</select>
-			<br><label for="endDay" class="h">Day:</label><select name="endDay" id="endDay" size="1">
+			<label for="endDay">Day:</label><select name="endDay" id="endDay" size="1">
 				<option value=""></option>
 				<cfloop from="1" to="31" index="day">
 					<option value="#day#">#day#</option>
 				</cfloop>
 			</select>
-			<br><label for="endDate" class="h">Full Date:</label>
+			<label for="endDate">Full Date:</label>
 			<input name="endDate" id="endDate" size="10" type="text">
 			<span style="font-size:x-small;">(Leave blank to use Collected After values)</span>
 		</td>
