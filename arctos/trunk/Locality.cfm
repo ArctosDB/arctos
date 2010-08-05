@@ -1,6 +1,15 @@
 <div id="theHead">
 	<cfinclude template="includes/_header.cfm">
 </div>
+
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#began_date").datepicker();
+		jQuery("#ended_date").datepicker();
+	});
+</script>
 <cfoutput>
 <!--- see if action is duplicated --->
 <cfif #action# contains ",">
@@ -1359,7 +1368,7 @@ INSERT INTO geog_auth_rec (
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "newColl">
+<cfif Action is "newColl">
 <cfoutput>
 	<cfquery name="nextColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select sq_collecting_event_id.nextval nextColl from dual
