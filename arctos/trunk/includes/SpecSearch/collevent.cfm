@@ -40,7 +40,7 @@
 					<option value="#day#">#day#</option>
 				</cfloop>
 			</select>
-			<label for="begDate" class="h">Full Date:</label>
+			<br><label for="begDate" class="h">Full Date:</label>
 			<input name="begDate" id="begDate" size="10" type="text">
 		</td>
 	</tr>
@@ -71,7 +71,7 @@
 					<option value="#day#">#day#</option>
 				</cfloop>
 			</select>
-			<label for="endDate" class="h">Full Date:</label>
+			<br><label for="endDate" class="h">Full Date:</label>
 			<input name="endDate" id="endDate" size="10" type="text">
 			<span style="font-size:x-small;">(Leave blank to use Collected After values)</span>
 		</td>
