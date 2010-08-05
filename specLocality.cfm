@@ -5,6 +5,8 @@
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery("#determined_date").datepicker();
+		jQuery("#began_date").datepicker();
+		jQuery("#ended_date").datepicker();
 		
 		$(":input[id^='geo_att_determined_date']").each(function(e){
 			jQuery("#" + this.id).datepicker();
