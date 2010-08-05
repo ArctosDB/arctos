@@ -18,7 +18,7 @@
 			<span class="helpLink" id="year_collected">Collected After:</span>
 		</td>
 		<td class="srch">
-			<table cellspacing="0" cellpadding="0">
+			<table>
 				<tr>
 					<td>
 						<label for="begYear">Year:</label>
@@ -64,7 +64,7 @@
 			<span class="helpLink" id="year_collected">Collected Before:</span>
 		</td>
 		<td class="srch">
-			<table cellspacing="0" cellpadding="0">
+			<table cellspacing="0">
 				<tr>
 					<td>
 						<label for="endYear">Year:</label>
