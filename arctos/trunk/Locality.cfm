@@ -334,781 +334,442 @@
 	        <input name="Action" type="hidden" value="saveGeogEdits">
             <input type="hidden" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
             <table>
-              <tr> 
-                <td><div align="left">
-				
-				</div></td>
-				<td ><div align="left">
-				<a href="javascript:void(0);" class="novisit "onClick="getDocs('higher_geography','country')">
-				Country</a>
-				</div></td>
-				<td><div align="left">
-				<a href="javascript:void(0);" class="novisit "onClick="getDocs('higher_geography','state_province')">
-				State</a>
-				</div></td>
-				 <td><div align="left">
-				 <a href="javascript:void(0);" class="novisit "onClick="getDocs('higher_geography','sea')">
-				Sea</a>
-				</div></td>
-                
-              </tr>
-              <tr> 
-                <td>
-					<label for="continent_ocean" class="likeLink" onClick="getDocs('higher_geography','continent_ocean')">
-						Continent or Ocean
-					</label>
-					<input type="text" name="continent_ocean" id="continent_ocean" value="#continent_ocean#"></td>
-                <td><input type="text" name="country" value="#country#"></td>
-				<td><input type="text" name="state_prov" value="#state_prov#"></td>
-				 <td><input type="text" name="sea" value="#sea#"></td>
-              </tr>
-           
-              <tr valign="bottom"> 
-			  	
-                <td><div align="left">
-				<a href="javascript:void(0);" class="novisit "onClick="getDocs('higher_geography','count')">
-				County</a>
-				</div></td>
-				  <td><div align="left">
-				  <a href="javascript:void(0);" class="novisit "onClick="getDocs('higher_geography','map_name')">
-				Quad</a>
-				</div></td>
-				  <td colspan="2">
-				   <a href="javascript:void(0);" class="novisit "onClick="getDocs('higher_geography','feature')">
-				Feature</a>
-				</td>
-               
-              </tr>
-              <tr> 
-              	
-				  <td><input type="text" name="county" value="#county#"></td>
-                <td><input type="text" name="quad" value="#quad#"></td>
-				<td colspan="2">
-					<cfif isdefined("feature")>
-						<cfset thisFeature = #feature#>
-					<cfelse>
-						<cfset thisFeature = "">
-					</cfif>
-					<select name="feature">
-						<option value=""></option>
+				<tr> 
+	                <td>
+						<label for="continent_ocean" class="likeLink" onClick="getDocs('higher_geography','continent_ocean')">
+							Continent or Ocean
+						</label>
+						<input type="text" name="continent_ocean" id="continent_ocean" value="#continent_ocean#"></td>
+	                <td>
+						<label for="country" class="likeLink" onClick="getDocs('higher_geography','country')">
+							Country
+						</label>
+						<input type="text" name="country" id="country" value="#country#">
+					</td>
+					<td>
+						<label for="state_prov" class="likeLink" onClick="getDocs('higher_geography','state_province')">
+							State/Province
+						</label>
+						<input type="text" name="state_prov" id="state_prov" value="#state_prov#">
+					</td>
+					<td>
+						<label for="sea" class="likeLink" onClick="getDocs('higher_geography','sea')">
+							Sea
+						</label>
+						<input type="text" name="sea" id="sea" value="#sea#">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="county" class="likeLink" onClick="getDocs('higher_geography','county')">
+							County
+						</label>
+						<input type="text" name="county" id="county" value="#county#">
+					</td>
+                	<td>
+						<label for="quad" class="likeLink" onClick="getDocs('higher_geography','map_name')">
+							Quad
+						</label>
+						<input type="text" name="quad" id="quad" value="#quad#">
+					</td>
+					<td colspan="2">
+						<cfif isdefined("feature")>
+							<cfset thisFeature = feature>
+						<cfelse>
+							<cfset thisFeature = "">
+						</cfif>
+						<label for="feature" class="likeLink" onClick="getDocs('higher_geography','feature')">
+							Feature
+						</label>
+						<select name="feature" id="feature">
+							<option value=""></option>
 							<cfloop query="ctFeature">
-								<option 
-									<cfif #thisFeature# is "#ctFeature.feature#"> selected </cfif>
+								<option	<cfif thisFeature is ctFeature.feature> selected="selected" </cfif>
 									value = "#ctFeature.feature#">#ctFeature.feature#</option>
 							</cfloop>
-					</select>
-				</td>
-              </tr>
-              
-              <tr> 
-                <td colspan="2">
-				 <a href="javascript:void(0);" class="novisit "onClick="getDocs('higher_geography','island_group')">
-				Island Group</a>
-				</td>
-                <td colspan="2"> <a href="javascript:void(0);" class="novisit "onClick="getDocs('higher_geography','island')">
-				Island</a></td>
-              </tr>
-			  <tr>
-			  	<td colspan="2">
-					<select name="island_group" size="1">
-                    <option value=""></option>
-                    <cfloop query="ctIslandGroup">
-                      <option 
-					<cfif #geogdetails.island_group# is "#ctislandgroup.island_group#"> selected </cfif>value="#ctIslandGroup.island_group#">#ctIslandGroup.island_group#</option>
-                    </cfloop>
-                  </select>
-				</td>
-				<td colspan="2"><input type="text" name="island" value="#island#" size="50"></td>
-			  </tr>
-			 
-              <tr> 
-                <td colspan="2">Authority</td>
-                <td>
-					Valid?
-				</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr> 
-                <td colspan="2">
-					<input name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#">
-				</td>
-                <td>
-					<select name="valid_catalog_term_fg" class="reqdClr">
-                    <option value=""></option>
-                    <option <cfif #geogdetails.valid_catalog_term_fg# is "1"> selected </cfif>value="1">yes</option>
-                    <option <cfif #geogdetails.valid_catalog_term_fg# is "0"> selected </cfif>value="0">no</option>
-                  </select>
-				</td>
-				<td>&nbsp;</td>
-			</tr>
-			
-              <tr> 
-                <td colspan="4" nowrap align="center"> 
-				<input type="submit" 
-					value="Save Edits" 
-					class="savBtn"
-					onmouseover="this.className='savBtn btnhov'" 
-					onmouseout="this.className='savBtn'">	
-				<input type="button" 
-					value="Delete"
-					class="delBtn"
-					onmouseover="this.className='delBtn btnhov'"
-					onmouseout="this.className='delBtn'"
-					onClick="document.location='Locality.cfm?Action=deleteGeog&geog_auth_rec_id=#geog_auth_rec_id#';">
-				<input type="button" 
-					value="See Localities" 
-					class="lnkBtn"
-					onmouseover="this.className='lnkBtn btnhov'" 
-					onmouseout="this.className='lnkBtn'"
-					onClick="document.location='Locality.cfm?Action=findLocality&geog_auth_rec_id=#geog_auth_rec_id#';">	
-					      
-                  </cfform>
-                  <form name="newGeog" method="post" action="Locality.cfm">                   
-                      <input type="hidden" name="Action" value="newHG">
-                      <input type="hidden" name="continent_ocean" value="#continent_ocean#">
-                      <input type="hidden" name="country" value="#country#">
-                      <input type="hidden" name="state_prov" value="#state_prov#">
-                      <input type="hidden" name="county" value="#county#">
-                      <input type="hidden" name="quad" value="#quad#">
-                      <input type="hidden" name="feature" value="#feature#">
-                      <input type="hidden" name="islandgroup" value="#island_group#">
-					  <input type="hidden" name="island" value="#island#">
-                      <input type="hidden" name="sea" value="#sea#">
-                      <input type="submit" 
-							value="Create Clone" 
-							class="insBtn"
-							onmouseover="this.className='insBtn btnhov'" 
-							onmouseout="this.className='insBtn'">
-
-                  </form></td>
-              </tr>
-            </table>
-           
-        
-          
-        </cfoutput> </cfif>
-<!---------------------------------------------------------------------------------------------------->
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="island_group" class="likeLink" onClick="getDocs('higher_geography','island_group')">
+							Island Group
+						</label>
+						<select name="island_group" id="island_group" size="1">
+		                	<option value=""></option>
+		                    <cfloop query="ctIslandGroup">
+		                      <option 
+							<cfif geogdetails.island_group is ctislandgroup.island_group> selected="selected" </cfif>value="#ctIslandGroup.island_group#">#ctIslandGroup.island_group#</option>
+		                    </cfloop>
+		                  </select>
+					</td>
+					<td colspan="2">
+						<label for="island" class="likeLink" onClick="getDocs('higher_geography','island')">
+							Island
+						</label>
+						<input type="text" name="island" id="island" value="#island#" size="50">
+					</td>
+				</tr>
+				<tr> 
+	                <td colspan="2">
+						<label for="source_authority">
+							Authority
+						</label>
+						<input name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#">
+					</td>
+	                <td>
+						<label for="valid_catalog_term_fg">
+							Valid?
+						</label>
+						<select name="valid_catalog_term_fg" id="valid_catalog_term_fg" class="reqdClr">
+		                    <option value=""></option>
+		                    <option <cfif geogdetails.valid_catalog_term_fg is "1"> selected="selected" </cfif>value="1">yes</option>
+		                    <option <cfif geogdetails.valid_catalog_term_fg is "0"> selected="selected" </cfif>value="0">no</option>
+		                  </select>
+					</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr> 
+	                <td colspan="4" nowrap align="center"> 
+						<input type="submit" value="Save Edits"	class="savBtn">	
+						<input type="button" value="Delete" class="delBtn"
+							onClick="document.location='Locality.cfm?Action=deleteGeog&geog_auth_rec_id=#geog_auth_rec_id#';">
+						<input type="button" value="See Localities" class="lnkBtn"
+							onClick="document.location='Locality.cfm?Action=findLocality&geog_auth_rec_id=#geog_auth_rec_id#';">
+						<cfset dloc="Locality.cfm?action=newHG&continent_ocean=#continent_ocean#&country=#country#&state_prov=#state_prov#&county=#county#&quad=#quad#&feature=#feature#&islandgroup=#islandgroup#&island=#island#&sea=#sea#">
+						<input type="button" value="Create Clone" class="insBtn" onclick="document.location='#dloc#';">
+					</td>
+				</tr>
+			</table>
+		</cfform>
+	</cfoutput>
+</cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editCollEvnt">
 <cfset title="Edit Collecting Event">
 <cfoutput> 
       <cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-    select 
-		higher_geog,
-		spec_locality,
-		collecting_event.collecting_event_id,
-		locality.locality_id,
-		verbatim_locality,
-		BEGAN_DATE,
-		ENDED_DATE,
-		VERBATIM_DATE,
-		COLL_EVENT_REMARKS,
-		COLLECTING_SOURCE,
-		COLLECTING_METHOD,
-		HABITAT_DESC,
-		CASE orig_lat_long_units
-				WHEN 'decimal degrees' THEN dec_lat || 'd'
-				WHEN 'deg. min. sec.' THEN lat_deg || 'd ' || lat_min || 'm ' || lat_sec || 's ' || lat_dir
-				WHEN 'degrees dec. minutes' THEN lat_deg || 'd ' || dec_lat_min || 'm ' || lat_dir
-			END as VerbatimLatitude,
+    	select 
+			higher_geog,
+			spec_locality,
+			collecting_event.collecting_event_id,
+			locality.locality_id,
+			verbatim_locality,
+			BEGAN_DATE,
+			ENDED_DATE,
+			VERBATIM_DATE,
+			COLL_EVENT_REMARKS,
+			COLLECTING_SOURCE,
+			COLLECTING_METHOD,
+			HABITAT_DESC,
 			CASE orig_lat_long_units
-				WHEN 'decimal degrees' THEN dec_long || 'd'
-				WHEN'degrees dec. minutes' THEN long_deg || 'd ' || dec_long_min || 'm ' || long_dir
-				WHEN 'deg. min. sec.' THEN long_deg || 'd ' || long_min || 'm ' || long_sec || 's ' || long_dir
-			END as VerbatimLongitude,
-		max_error_distance,
-		max_error_units
-	from 
-		locality
-		inner join geog_auth_rec on (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
-		inner join collecting_event on ( locality.locality_id=collecting_event.locality_id )
-		left outer join accepted_lat_long on (locality.locality_id=accepted_lat_long.locality_id)
-		left outer join preferred_agent_name on (accepted_lat_long.determined_by_agent_id = preferred_agent_name.agent_id)
-	where collecting_event.collecting_event_id=#collecting_event_id# 
+					WHEN 'decimal degrees' THEN dec_lat || 'd'
+					WHEN 'deg. min. sec.' THEN lat_deg || 'd ' || lat_min || 'm ' || lat_sec || 's ' || lat_dir
+					WHEN 'degrees dec. minutes' THEN lat_deg || 'd ' || dec_lat_min || 'm ' || lat_dir
+				END as VerbatimLatitude,
+				CASE orig_lat_long_units
+					WHEN 'decimal degrees' THEN dec_long || 'd'
+					WHEN'degrees dec. minutes' THEN long_deg || 'd ' || dec_long_min || 'm ' || long_dir
+					WHEN 'deg. min. sec.' THEN long_deg || 'd ' || long_min || 'm ' || long_sec || 's ' || long_dir
+				END as VerbatimLongitude,
+			max_error_distance,
+			max_error_units
+		from 
+			locality
+			inner join geog_auth_rec on (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
+			inner join collecting_event on ( locality.locality_id=collecting_event.locality_id )
+			left outer join accepted_lat_long on (locality.locality_id=accepted_lat_long.locality_id)
+			left outer join preferred_agent_name on (accepted_lat_long.determined_by_agent_id = preferred_agent_name.agent_id)
+		where collecting_event.collecting_event_id=#collecting_event_id# 
     </cfquery>
- 
-  <cfquery name="whatSpecs" datasource="uam_god">
-  	SELECT count(cat_num) as numOfSpecs, collection
-	from cataloged_item,collection WHERE
-	cataloged_item.collection_id=collection.collection_id and
-	collecting_event_id=#collecting_event_id# 
-	GROUP BY collection
-  </cfquery>
-  <table>
-  <tr>
-  	<td>
-  <cfif #whatSpecs.recordcount# is 0>
-  		<font color="##FF0000"><strong>This Collecting Event</strong></font>	
-		<span style="font-size:small;">
-		(#collecting_event_id#) 
-		</span>
-		<font color="##FF0000"><strong>
-		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
-		contains no specimens. Please delete it if you don't have plans for it!</strong></font>	
-  	<cfelseif #whatSpecs.recordcount# is 1>
-		<font color="##FF0000"><strong>This Collecting Event </strong></font>	
-		<span style="font-size:small;">
-		(#collecting_event_id#) 
-		</span>
-		<font color="##FF0000"><strong>
-		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
-		contains #whatSpecs.numOfSpecs# #whatSpecs.collection#
-		<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>.</strong></font>	
-	<cfelse>
-		<font color="##FF0000"><strong>This Collecting Event 
-		 </strong></font>	
-		<span style="font-size:small;">
-		(#collecting_event_id#) 
-		</span>
-		<font color="##FF0000"><strong>
-		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
-		contains the following <a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>:</strong></font>	  
-		<ul>	
-			<cfloop query="whatSpecs">
-				<li><font color="##FF0000"><strong>#numOfSpecs# #collection#</strong></font></li>
-			</cfloop>			
-		</ul>
-  </cfif>
-  
-</td>
-  </tr>
-  <cfif #cgi.SCRIPT_NAME# contains "SpecimenDetail.cfm">
-  		<!--- provide a link to change coll event if we're in a specimen detail page ---->
-		<form name="goChange" method="post" action="SpecimenDetail.cfm">
-			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-			<tr>
-				<td>
-					<input type="submit" 
-						value="Change Collecting Event for this Specimen" 
-						class="lnkBtn"
-						onmouseover="this.className='lnkBtn btnhov'" 
-						onmouseout="this.className='lnkBtn'">
-				</td>
-			</tr>
-			
-			
-		</form>
-		<tr>
-			<td colspan="2" nowrap valign="middle">
-				<table width="100%" cellpadding="0" cellspacing="0">
-					<tr>
-						<td width="45%" align="left" valign="middle">
-							<img src="/images/black.gif" width="100%" height="1">
-						</td>
-						<td align="center" valign="middle">
-							<strong>OR</strong>
-						</td>
-						<td width="45%" align="right" valign="middle">
-							<img src="/images/black.gif" width="100%" height="1">
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-  </cfif>
-</cfoutput>
- <cfoutput query="locDet"> 	
-	 <form name="localitypick" action="Locality.cfm" method="post">
-	 	<input type="hidden" name="Action" value="changeLocality">
-      	<input type="hidden" name="locality_id">
-	 	 <input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
+	<cfquery name="whatSpecs" datasource="uam_god">
+	  	SELECT 
+	  		count(cat_num) as numOfSpecs, 
+	  		collection,
+	  		collection.collection_id
+		from 
+			cataloged_item,
+			collection 
+		WHERE
+			cataloged_item.collection_id=collection.collection_id and
+			collecting_event_id=#collecting_event_id# 
+		GROUP BY 
+			collection,
+	  		collection.collection_id
+	</cfquery>
+	<div style="border:2px solid red; font-weight:bold">
+		This Collecting Event (#collecting_event_id#) 
+		<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
+		<cfif whatSpecs.recordcount is 0>
+			no specimens. Please delete it if you don't have plans for it.
+		<cfelse>
+			<ul>	
+				<cfloop query="whatSpecs">
+					<li>
+						<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#&collection_id=#collection_id#">
+							#whatSpecs.numOfSpecs# #whatSpecs.collection# specimens
+						</a>
+					</li>
+				</cfloop>			
+			</ul>
+		</cfif>
+	</div>
+	<form name="localitypick" action="Locality.cfm" method="post">
+		<input type="hidden" name="Action" value="changeLocality">
+    		<input type="hidden" name="locality_id" value="#locDet.locality_id#">
+	 	<input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
 		 <cfif not isdefined("collection_object_id")>
 		 	<cfset collection_object_id=-1>
 		 </cfif>
-		 <input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		<tr>
-			<td>
-					<input type="button" 
-						value="Change Locality for this Collecting Event" 
-						class="picBtn"
-						onmouseover="this.className='picBtn btnhov'" 
-						onmouseout="this.className='picBtn'"
-						onclick="document.getElementById('locDesc').style.background='red';
-							document.getElementById('hiddenButton').style.visibility='visible';
-							LocalityPick('locality_id','spec_locality','localitypick'); return false;" >
-				</td>
-		</tr>
-		<tr>
-			<td>
-				<table width="100%">
-					<tr>
-						<td width="20%" align="right" valign="top">
-							Currently: 
-						</td>
-						<td>
-							<div id="locDesc">
-							#higher_geog#
-							<cfif len(#VerbatimLatitude#) gt 0>
-								<br>
-								#VerbatimLatitude# #VerbatimLongitude#
-								<cfif #max_error_distance# gt 0>
-									&##177; #max_error_distance# #max_error_units#
-								</cfif>
-							</cfif>
-							<br><em>#spec_locality#</em>
-							<br>
-							</div>
-							
-							<div id="hiddenButton" style="visibility:hidden ">
-							Picked:
-							<input type="text" name="spec_locality" size="50">
-							<input type="submit" 
-								value="Save Change" 
-								class="savBtn"
-								onmouseover="this.className='savBtn btnhov'" 
-								onmouseout="this.className='savBtn'">
-							</div>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" nowrap valign="middle">
-				<table width="100%" cellpadding="0" cellspacing="0">
-					<tr>
-						<td width="45%" align="left" valign="middle">
-							<img src="/images/black.gif" width="100%" height="1">
-						</td>
-						<td align="center" valign="middle">
-							<strong>OR</strong>
-						</td>
-						<td width="45%" align="right" valign="middle">
-							<img src="/images/black.gif" width="100%" height="1">
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="button" 
-					value="Edit the current Locality" 
-					class="lnkBtn"
-					onmouseover="this.className='lnkBtn btnhov'" 
-					onmouseout="this.className='lnkBtn'"
-					onClick="document.location='editLocality.cfm?locality_id=#locality_id#'">	
-			</td>
-		</tr>
-</form>
-<tr>
-			<td colspan="2" nowrap valign="middle">
-				<table width="100%" cellpadding="0" cellspacing="0">
-					<tr>
-						<td width="45%" align="left" valign="middle">
-							<img src="/images/black.gif" width="100%" height="1">
-						</td>
-						<td align="center" valign="middle">
-							<strong>OR</strong>
-						</td>
-						<td width="45%" align="right" valign="middle">
-							<img src="/images/black.gif" width="100%" height="1">
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<strong>Edit this Collecting Event:</strong>
-			</td>
-		</tr>
-</table>
-    <cfform name="locality" method="post" action="Locality.cfm">
-      <input type="hidden" name="Action" value="saveCollEventEdit">
-      <input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
-	  <input type="hidden" name="collection_object_id" value="#collection_object_id#">
-	
-      <table>
-        <tr> 
-          <td valign="top" nowrap><div align="right">
-		  
-		  <a href="javascript:void(0);" onClick="getDocs('collecting_event','verbatim_locality')">Verbatim Locality:</a>
-		  
-		 </div></td>
-          <td><input type="text" name="verbatim_locality" value='#stripQuotes(verbatim_locality)#' size="50">
-        </tr>
-		<tr> 
-          <td valign="top"><div align="right">
-		  	<a href="javascript:void(0);" onClick="getDocs('locality','specific_locality')">Specific Locality:</a>
-		  
-		 </div></td>
-		 <td>
-		 	#spec_locality#
-		 </td>
-          
-        </tr>
-		 <tr> 
-          <td><div align="right">
-		   <a href="javascript:void(0);" onClick="getDocs('collecting_event','verbatim_date')"> Verbatim Date:</a>
-		  </div></td>
-          <td><input type="text" name="VERBATIM_DATE" value="#VERBATIM_DATE#" class="reqdClr"></td>
-        </tr>
-        <tr> 
-         	<td><div align="right"> <a href="javascript:void(0);" onClick="getDocs('collecting_event','began_date')">Date:</a>
-			</div></td>
-			<td>
-				<table cellpadding="0" cellspacing="0">
-					<tr>
-						<td><div align="right">Began:&nbsp;</div></td>
-						<td><input type="text" name="began_date" id="began_date" value="#began_date#" size="20"></td>
-						  <td><div align="right">Ended:&nbsp;</div></td>
-						   <td><input type="text" name="ended_date" id="ended_date" value="#ended_date#" size="20"></td>
-					</tr>
-				</table>
-			</td>
-		 
-          
-        </tr>       
-        <tr> 
-          <td><div align="right">Remarks:</div></td>
-          <td><input type="text" name="COLL_EVENT_REMARKS" value="#COLL_EVENT_REMARKS#" size="50"></td>
-        </tr>
-        <tr> 
-          <td colspan="2">
-		  <table cellpadding="0" cellspacing="0">
-		  	<tr>
-				<td nowrap><div align="right">
-		 			 <a href="javascript:void(0);" onClick="getDocs('collecting_event','collecting_source')"> Collecting Source:</a>
-					 &nbsp;</div>
+	 	<input type="hidden" name="collection_object_id" value="#locDet.collection_object_id#">
+		<input type="button" value="Change Locality for this Collecting Event" class="picBtn"
+			onclick="document.getElementById('locDesc').style.background='red';
+				document.getElementById('hiddenButton').style.visibility='visible';
+				LocalityPick('locality_id','spec_locality','localitypick'); return false;" >
+		Current Locality: 
+		<div id="locDesc">
+			#locDet.higher_geog#
+			<cfif len(locDet.VerbatimLatitude) gt 0>
+				<br>#locDet.VerbatimLatitude# #locDet.VerbatimLongitude#
+				<cfif len(locDet.max_error_distance) gt 0>
+					&##177; #locDet.max_error_distance# #locDet.max_error_units#
+				</cfif>
+			</cfif>
+			<br><em>#locDet.spec_locality#</em>
+		</div>
+		<div id="hiddenButton" style="visibility:hidden ">
+			Picked Locality:
+			<input type="text" name="spec_locality" size="50">
+			<input type="submit" value="Save Change" class="savBtn">
+		</div>
+	</form>
+	<hr>
+	OR
+	<hr>
+	<input type="button" value="Edit the current Locality" class="lnkBtn"
+		onClick="document.location='editLocality.cfm?locality_id=#locDet.locality_id#'">	
+	<hr>
+	OR
+	<hr>
+	<strong>Edit this Collecting Event:</strong>
+	<cfform name="locality" method="post" action="Locality.cfm">
+    	<input type="hidden" name="Action" value="saveCollEventEdit">
+	    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
+		<input type="hidden" name="collection_object_id" value="#locDet.collection_object_id#">
+		<label for="verbatim_locality" class="likeLink" onclick="getDocs('collecting_event','verbatim_locality')">
+			Verbatim Locality
+		</label>
+		<input type="text" name="verbatim_locality" id="verbatim_locality" value='#stripQuotes(verbatim_locality)#' size="50">
+		<label for="specific_locality" class="likeLink" onclick="getDocs('locality','specific_locality')">
+			Specific Locality
+		</label>
+		<div id="specific_locality">
+			#locDet.spec_locality#
+		</div>
+		<label for="verbatim_date" class="likeLink" onclick="getDocs('collecting_event','verbatim_date')">
+			Verbatim Date
+		</label>
+		<input type="text" name="VERBATIM_DATE" id="verbatim_date" value="#locDet.VERBATIM_DATE#" class="reqdClr">
+		<table>
+			<tr>
+				<td>
+					<label for="began_date" class="likeLink" onclick="getDocs('collecting_event','began_date')">
+						Began Date/Time
+					</label>
+					<input type="text" name="began_date" id="began_date" value="#locDet.began_date#" size="20">
 				</td>
 				<td>
-					<select name="COLLECTING_SOURCE" size="1">
-						<cfloop query="ctCollecting_Source">
-							<option 
-								<cfif #ctCollecting_Source.Collecting_Source# is #locDet.collecting_source#> selected </cfif>
-								value="#ctCollecting_Source.Collecting_Source#">#ctCollecting_Source.Collecting_Source#</option>
-						</cfloop>
-					</select>
+					<label for="ended_date" class="likeLink" onclick="getDocs('collecting_event','ended_date')">
+						Ended Date/Time
+					</label>
+					<input type="text" name="ended_date" id="ended_date" value="#locDet.ended_date#" size="20">
 				</td>
-				
 			</tr>
-		  </table>
-		  
-		  	
-		 </td>
-        </tr>
-		 <tr> 
-          <td><div align="right">
-		  <a href="javascript:void(0);" onClick="getDocs('collecting_event','collecting_method')">Collecting Method:</a>
-		  </div></td>
-          <td><input type="text" name="COLLECTING_METHOD" value="#COLLECTING_METHOD#"></td>
-        </tr>
-        <tr> 
-          <td><div align="right">
-		  <a href="javascript:void(0);" onClick="getDocs('collecting_event','habitat')">Habitat:</a>
-		  </div></td>
-          <td><input type="text" name="HABITAT_DESC" value="#HABITAT_DESC#"></td>
-        </tr>
-        <tr> 
-          <td colspan="2"><div align="center"> 
-		  	<input type="submit" 
-				value="Save" 
-				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'" 
-				onmouseout="this.className='savBtn'">	
-			<input type="button"
-				value="Quit"
-				class="qutBtn"
-				onmouseover="this.className='qutBtn btnhov'"
-				onmouseout="this.className='qutBtn'"
-				onClick="document.location='Locality.cfm';">
-		<input type="button" 
-			value="Delete"
-			class="delBtn"
-			onmouseover="this.className='delBtn btnhov'"
-			onmouseout="this.className='delBtn'"
-			onClick="document.location='Locality.cfm?Action=deleteCollEvent&collecting_event_id=#collecting_event_id#';">
-	        </div></td>
-        </tr>
-        <tr> 
-         
-			<td colspan="2">
-			<div align="center">
-			 </cfform>
-				<form name="newCollEvnt" method="post" action="Locality.cfm">
-					<input type="hidden" name="Action" value="newCollEvent">
-					<input type="hidden" name="locality_id" value="#locality_id#">
-					<input type="hidden" name="verbatim_locality" value="#verbatim_locality#">
-					<input type="hidden" name="BEGAN_DATE" value="#BEGAN_DATE#">
-					<input type="hidden" name="ENDED_DATE" value="#ENDED_DATE#">
-					<input type="hidden" name="VERBATIM_DATE" value="#VERBATIM_DATE#">
-					<input type="hidden" name="COLL_EVENT_REMARKS" value="#COLL_EVENT_REMARKS#">
-					<input type="hidden" name="COLLECTING_SOURCE" value="#COLLECTING_SOURCE#">
-					<input type="hidden" name="COLLECTING_METHOD" value="#COLLECTING_METHOD#">
-					<input type="hidden" name="HABITAT_DESC" value="#HABITAT_DESC#">
-					<input type="submit" 
-						value="Create Clone" 
-						class="insBtn"
-						onmouseover="this.className='insBtn btnhov'" 
-						onmouseout="this.className='insBtn'">
-					
-				</form>
-				</div>
-			</td>
-        </tr>
-      </table>
-      
-   
+		</table>
+		<label for="coll_event_remarks">Remarks</label>
+		<input type="text" name="coll_event_remarks" id="coll_event_remarks" value="#locDet.COLL_EVENT_REMARKS#" size="50">
+		<label for="collecting_source" class="likeLink" onclick="getDocs('collecting_event','collecting_source')">
+			Collecting Source
+		</label>
+		<select name="collecting_source" id="collecting_source" size="1">
+			<cfloop query="ctCollecting_Source">
+				<option <cfif ctCollecting_Source.Collecting_Source is locDet.collecting_source> selected="selected" </cfif>
+					value="#ctCollecting_Source.Collecting_Source#">#ctCollecting_Source.Collecting_Source#</option>
+			</cfloop>
+		</select>
+		<label for="collecting_method" class="likeLink" onclick="getDocs('collecting_event','collecting_method')">
+			Collecting Method
+		</label>
+		<input type="text" name="collecting_method" id="collecting_method" value="#locDet.collecting_method#">
+		<label for="habitat_desc" class="likeLink" onclick="getDocs('collecting_event','habitat')">
+			Habitat
+		</label>
+		<input type="text" name="habitat_desc" id="habitat_desc" value="#locDet.habitat_desc#">
+        <br><input type="submit" value="Save" class="savBtn">	
+			<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
+		<input type="button" value="Delete" class="delBtn"
+			onClick="document.location='Locality.cfm?Action=deleteCollEvent&collecting_event_id=#locDet.collecting_event_id#';">
+		<cfset dLoc="Locality.cfm?action=newCollEvent&
+				locality_id=#locDet.locality_id#&
+				verbatim_locality=#locDet.verbatim_locality#&
+				began_date=#locDet.began_date#&	
+				ended_date=#locDet.began_date#&
+				verbatim_date=#locDet.verbatim_date#&
+				coll_event_remarks=#locDet.coll_event_remarks#&	
+				collecting_source=#locDet.collecting_source#&
+				collecting_method=#locDet.collecting_method#&
+				habitat_desc=#locDet.habitat_desc#">
+		<input type="button" value="Create Clone" class="insBtn" onClick="document.location='#dLoc#';">				
+	</cfform>
   </cfoutput> 
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
 <cfif action is "newCollEvent">
-<cfset title="Create Collecting Event">
-  <cfoutput> 
-  <!--- see if we're creating clone --->
-  
- 
-  	<cfquery name="getLoc"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select  spec_locality, geog_auth_rec_id from locality 
-		where locality_id=#locality_id#
-	</cfquery>
-	<cfquery name="getGeo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select higher_geog from geog_auth_rec where
-		geog_auth_rec_id=#getLoc.geog_auth_rec_id#
-	</cfquery>
-
-<b> Create Collecting Event:</b>
-   <br>Higher Geography:  #getGeo.higher_geog#
-    <br>Spec Locality: #getLoc.spec_locality#
-    <form name="newCollEvnt" action="Locality.cfm" method="post">
-      <input type="hidden" name="Action" value="newColl">
-     	<input type="hidden" name="locality_id" value="#locality_id#">
-     
-      <table>
-        <tr> 
-          <td><div align="right">Verbatim Locality:</div></td>
-          <td><input type="text" name="verbatim_locality" 
-		  	<cfif isdefined("verbatim_locality")>
-				value="#stripQuotes(verbatim_locality)#"
-			<cfelseif isdefined("getLoc.spec_locality")>
-				value="#stripQuotes(getLoc.spec_locality)#"
-			</cfif> size="60"></td>
-        </tr>
-		<tr> 
-          <td><div align="right">Verbatim Date:</div></td>
-          <td><input type="text" name="verbatim_date" id="verbatim_date" class="reqdClr"
-		  		<cfif isdefined("verbatim_date")>
-				value="#verbatim_date#"
-			</cfif>
-			 >
-			<input type="button" 
-				value="Copy" 
-				class="insBtn"
-				onmouseover="this.className='insBtn btnhov'" 
-				onmouseout="this.className='insBtn'"
-				onClick="newCollEvnt.began_date.value=newCollEvnt.verbatim_date.value;
-				newCollEvnt.ended_date.value=newCollEvnt.verbatim_date.value;">
-				</td>
-        </tr>
-        <tr> 
-          <td><div align="right">Began Date:</div></td>
-          <td><input type="text" name="began_date" id="began_date" 
-		  		<cfif isdefined("began_date")>
-				value="#began_date#"
-			</cfif>
-			></td>
-        </tr>
-        <tr> 
-          <td><div align="right">Ended Date:</div></td>
-          <td><input type="text" name="ended_date" id="ended_date" 
-		  		<cfif isdefined("ended_date")>
-				value="#ended_date#"
-			</cfif>
-			></td>
-        </tr>
-        <tr> 
-          <td><div align="right">Remarks:</div></td>
-          <td><input type="text" name="COLL_EVENT_REMARKS" 
-		  		<cfif isdefined("COLL_EVENT_REMARKS")>
-				value="#COLL_EVENT_REMARKS#"
-			</cfif>
-			 size="50"></td>
-        </tr>
-       
-        <tr> 
-          <td><div align="right">Collecting Source:</div></td>
-          <td>
-		  	<cfif isdefined("COLLECTING_SOURCE")>
-				<cfset collsrc = "#COLLECTING_SOURCE#">
+	<cfset title="Create Collecting Event">
+	<cfoutput> 
+	  	<cfquery name="getLoc"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select  spec_locality, geog_auth_rec_id from locality 
+			where locality_id=#locality_id#
+		</cfquery>
+		<cfquery name="getGeo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select higher_geog from geog_auth_rec where
+			geog_auth_rec_id=#getLoc.geog_auth_rec_id#
+		</cfquery>
+		<h3>Create Collecting Event</h3>
+	   	<br>Higher Geography:  #getGeo.higher_geog#
+	    <br>Spec Locality: #getLoc.spec_locality#
+	    <form name="newCollEvnt" action="Locality.cfm" method="post">
+	    	<input type="hidden" name="Action" value="newColl">
+	     	<input type="hidden" name="locality_id" value="#locality_id#">
+	     	<label for="verbatim_locality">Verbatim Locality</label>
+	     	<input type="text" name="verbatim_locality" id="verbatim_locality"
+			  	<cfif isdefined("verbatim_locality")>
+					value="#stripQuotes(verbatim_locality)#"
+				<cfelseif isdefined("getLoc.spec_locality")>
+					value="#stripQuotes(getLoc.spec_locality)#"
+				</cfif> size="60">
+			<label for="verbatim_date">Verbatim Date</label>
+			<input type="text" name="verbatim_date" id="verbatim_date" class="reqdClr"
+			  	<cfif isdefined("verbatim_date")>
+					value="#verbatim_date#"
+				</cfif>
+			>
+			<span class="infoLink"onClick="newCollEvnt.began_date.value=newCollEvnt.verbatim_date.value;
+				newCollEvnt.ended_date.value=newCollEvnt.verbatim_date.value;">[ copy ]</span>
+			<label for="began_date">Began Date</label>
+	      	<input type="text" name="began_date" id="began_date" 
+			  	<cfif isdefined("began_date")>
+					value="#began_date#"
+				</cfif>
+			>
+	        <label for="ended_date">Ended Date</label>
+	        <input type="text" name="ended_date" id="ended_date" 
+				<cfif isdefined("ended_date")>
+					value="#ended_date#"
+				</cfif>
+			>
+			<label for="coll_event_remarks">Remarks</label>
+			<input type="text" name="coll_event_remarks" id="coll_event_remarks" 
+			  	<cfif isdefined("coll_event_remarks")>
+					value="#coll_event_remarks#"
+				</cfif>
+			size="50">
+			<label for="coll_event_remarks">Collecting Source</label>
+			<cfif isdefined("collecting_source")>
+				<cfset collsrc = collecting_source>
 			<cfelse>
 				<cfset collsrc = "">
 			</cfif>
-		  	<select name="COLLECTING_SOURCE" size="1" class="reqdClr">
+			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
 				<cfloop query="ctCollecting_Source">
 					<option 
-						<cfif #ctCollecting_Source.Collecting_Source# is #collsrc#> selected </cfif>
+						<cfif ctCollecting_Source.Collecting_Source is collsrc> selected="selected" </cfif>
 						value="#ctCollecting_Source.Collecting_Source#">#ctCollecting_Source.Collecting_Source#</option>
 				</cfloop>
 			</select>
-		 </td>
-        </tr>
-        <tr> 
-          <td><div align="right">Collecting Method:</div></td>
-          <td><input type="text" name="COLLECTING_METHOD" 
-		  		<cfif isdefined("COLLECTING_METHOD")>
-				value="#COLLECTING_METHOD#"
-			</cfif>
-			></td>
-        </tr>
-        <tr> 
-          <td><div align="right">Habitat:</div></td>
-          <td><input type="text" name="HABITAT_DESC" 
-		  	
+			<label for="coll_event_remarks">Collecting Method</label>
+			<input type="text" name="collecting_method" id="collecting_method"
+			  	<cfif isdefined("collecting_method")>
+					value="#collecting_method#"
+				</cfif>
+			>
+			<label for="coll_event_remarks">Habitat</label>
+			<input type="text" name="habitat_desc" id="habitat_desc" 
 				<cfif isdefined("HABITAT_DESC")>
-				value="#HABITAT_DESC#"
-			</cfif>
-			></td>
-        </tr>
-        <tr> 
-          <td colspan="2"><div align="center"> 
-             <input type="submit" 
-				value="Save" 
-				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'" 
-				onmouseout="this.className='savBtn'">
-			<input type="button"
-				value="Quit"
-				class="qutBtn"
-				onmouseover="this.className='qutBtn btnhov'"
-				onmouseout="this.className='qutBtn'"
-				onClick="document.location='Locality.cfm';">
-
-           
-            </div></td>
-        </tr>
-        <tr> 
-          
-			
-        </tr>
-      </table>
-      
-    </form>
-  </cfoutput> 
+					value="#HABITAT_DESC#"
+				</cfif>
+			>
+			<br>
+			<input type="submit" value="Save" class="savBtn">
+			<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
+		</form>
+	</cfoutput> 
 </cfif>
-<!---------------------------------------------------------------------------------------------------->
-
-<!---------------------------------------------------------------------------------------------------->
-<cfif action is "newLocalityWithLL">
-	newLocalityWithLL
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------->
 <cfif action is "newLocality">
-<!--- see if this is a copy --->
-<cfif isdefined('geog_auth_rec_id')>
-	<cfquery name="getHG" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select higher_geog from geog_auth_rec where geog_auth_rec_id=#geog_auth_rec_id#
-	</cfquery>
-</cfif>
-        <cfoutput> 
-        
-          <b>Create locality</b>
-		  <br><b>Higher Geography: </b>
-          <form name="geog" action="Locality.cfm" method="post">
+	<cfif isdefined('geog_auth_rec_id')>
+		<cfquery name="getHG" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select higher_geog from geog_auth_rec where geog_auth_rec_id=#geog_auth_rec_id#
+		</cfquery>
+	</cfif>
+	<cfoutput>
+		<h3>Create locality</h3>
+		<br><b>Higher Geography:</b>
+		<form name="geog" action="Locality.cfm" method="post">
             <input type="hidden" name="Action" value="makenewLocality">
             <input type="hidden" name="geog_auth_rec_id"
 				<cfif isdefined("geog_auth_rec_id")>
 					value = "#geog_auth_rec_id#"
 				</cfif>>
-           
-            <input type="text" name="higher_geog" class="readClr"
+			<input type="text" name="higher_geog" class="readClr"
 				<cfif isdefined("getHG.higher_geog")>
 					value = "#getHG.higher_geog#"
 				</cfif>
-				 size="50"  readonly="yes" >
-           <input type="button" value="Pick" class="picBtn"
-   onmouseover="this.className='picBtn btnhov'" onmouseout="this.className='picBtn'"
-  onclick="GeogPick('geog_auth_rec_id','higher_geog','geog'); return false;">	
-   
-   
-            <cfif isdefined("geog_auth_rec_id")>
-			  <input type="button" value="Details" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-  onclick="document.location='Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#'">	
-  
+			size="50"  readonly="yes" >
+			<input type="button" value="Pick" class="picBtn"
+				onclick="GeogPick('geog_auth_rec_id','higher_geog','geog'); return false;">	
+   			<cfif isdefined("geog_auth_rec_id")>
+				<input type="button" value="Details" class="lnkBtn"
+					onclick="document.location='Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#'">	
          	</cfif>
-           
-            <table border="1">
-              <tr> 
-                <td><div align="right">Specific Locality:</div></td>
-                <td><input type="text" name="spec_locality" 
-						<cfif isdefined("spec_locality")>
-							value = "#spec_locality#"
-						</cfif>
-					>
-				</td>
-              </tr>
-              <tr> 
-                <td><div align="right">Minimum Elevation:</div></td>
-                <td><input type="text" name="MINIMUM_ELEVATION" 
-						<cfif isdefined("MINIMUM_ELEVATION")>
-							value = "#MINIMUM_ELEVATION#"
-						</cfif>
-				></td>
-              </tr>
-              <tr> 
-                <td><div align="right">Max Elevation:</div></td>
-                <td><input type="text" name="MAXIMUM_ELEVATION" 
-						<cfif isdefined("MAXIMUM_ELEVATION")>
-							value = "#MAXIMUM_ELEVATION#"
-						</cfif>
-					></td>
-              </tr>
-              <tr> 
-                <td><div align="right">Elevation Units:</div></td>
-                <td><select name="orig_elev_units" size="1">
-					<option value=""></option>
-                    <cfloop query="ctElevUnit">
-                      <option <cfif isdefined("origelevunits") AND #ctelevunit.orig_elev_units# is "#origelevunits#"> selected </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
-                    </cfloop>
-                  </select></td>
-              </tr>
-              <tr> 
-                <td><div align="right">Locality Remarks:</div></td>
-                <td><input type="text" name="LOCALITY_REMARKS"></td>
-              </tr>
-			   <cfif isdefined("locality_id") and len(#locality_id#) gt 0>
-			   <input type="hidden" name="locality_id" value="#locality_id#" />
-			    <tr> 
-                <td><div align="right">Include coordinates from <a href="/editLocality.cfm?locality_id=#locality_id#">#locality_id#</a>:</div></td>
-                <td>
-					Yes <input type="radio" name="cloneCoords" value="yes" />
-					<br />No <input type="radio" name="cloneCoords" value="no" checked="checked" />
-				
-				</td>
-              </tr>
-		 </cfif>
-              <tr> 
-                <td colspan="2"><div align="center"> 
-                     <input type="submit" value="Save" class="savBtn"
-   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
-  					 <input type="button" value="Quit" class="qutBtn"
-   onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'"
-    onClick="document.location='Locality.cfm';">	
-  
-  
-                    
-                  </div></td>
-              </tr>
-              <tr> 
-                <td colspan="2"></td>
-              </tr>
-              
-            </table>
-          
-          </form>
-       
-        </cfoutput> 
-		</cfif> 
-      <!---------------------------------------------------------------------------------------------------->
-	 
-<!--------------------------- End Forms -------------------------------------------------->
-
-
-
-<!--------------------------- Queries -------------------------------------------------->
-
+           <label for="spec_locality">Specific Locality</label>
+           <input type="text" name="spec_locality" id="spec_locality" 
+				<cfif isdefined("spec_locality")>
+					value= "#spec_locality#"
+				</cfif>
+			>
+			<label for="minimum_elevation">Minimum Elevation</label>
+            <input type="text" name="minimum_elevation" id="minimum_elevation"
+				<cfif isdefined("minimum_elevation")>
+					value = "#minimum_elevation#"
+				</cfif>
+			>
+			<label for="maximum_elevation">Maximum Elevation</label>
+			<input type="text" name="maximum_elevation" id="maximum_elevation"
+				<cfif isdefined("maximum_elevation")>
+					value = "#maximum_elevation#"
+				</cfif>
+			>
+			<label for="orig_elev_units">Elevation Units</label>
+			<select name="orig_elev_units" id="orig_elev_units" size="1">
+				<option value=""></option>
+                <cfloop query="ctElevUnit">
+            	    <option <cfif isdefined("origelevunits") AND ctelevunit.orig_elev_units is origelevunits> selected="selected" </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
+                </cfloop>
+			</select>
+			<label for="locality_remarks">Locality Remarks</label>
+			<input type="text" name="locality_remarks" id="locality_remarks">
+			<cfif isdefined("locality_id") and len(locality_id) gt 0>
+				<input type="hidden" name="locality_id" value="locality_id" />
+				<label for="">Include coordinates from <a href="/editLocality.cfm?locality_id=#locality_id#">#locality_id#</a>?</label>
+				Y<input type="radio" name="cloneCoords" value="yes" />
+				<br>N<input type="radio" name="cloneCoords" value="no" checked="checked" />
+		 	</cfif>
+            <br><input type="submit" value="Save" class="savBtn">	
+  			<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
+		</form>
+	</cfoutput>
+</cfif> 
 
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "deleteGeog">

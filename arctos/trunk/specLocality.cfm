@@ -344,7 +344,7 @@
 				<table>
 					<td>
 							<label for="began_date"><a href="javascript:void(0);" onClick="getDocs('locality','began_date')">
-								Began Date</a></label>
+								Began Date/Time</a></label>
 							<input type="text"  
 								name="began_date"
 								id="began_date"
@@ -354,7 +354,7 @@
 						<td>
 							<label for="ended_date">
 								<a href="javascript:void(0);" onClick="getDocs('locality','ended_date')">
-									Ended Date</a>
+									Ended Date/Time</a>
 							</label>
 							<input type="text" 
 								name="ended_date"
