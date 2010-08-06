@@ -521,7 +521,7 @@
 		 <cfif not isdefined("collection_object_id")>
 		 	<cfset collection_object_id=-1>
 		 </cfif>
-	 	<input type="hidden" name="collection_object_id" value="#locDet.collection_object_id#">
+	 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		<input type="button" value="Change Locality for this Collecting Event" class="picBtn"
 			onclick="document.getElementById('locDesc').style.background='red';
 				document.getElementById('hiddenButton').style.visibility='visible';
