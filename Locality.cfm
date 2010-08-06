@@ -436,7 +436,9 @@
 							onClick="document.location='Locality.cfm?Action=deleteGeog&geog_auth_rec_id=#geog_auth_rec_id#';">
 						<input type="button" value="See Localities" class="lnkBtn"
 							onClick="document.location='Locality.cfm?Action=findLocality&geog_auth_rec_id=#geog_auth_rec_id#';">
-						<cfset dloc="Locality.cfm?action=newHG&continent_ocean=#continent_ocean#&country=#country#&state_prov=#state_prov#&county=#county#&quad=#quad#&feature=#feature#&islandgroup=#islandgroup#&island=#island#&sea=#sea#">
+						<cfset dloc="Locality.cfm?action=newHG&continent_ocean=#continent_ocean#&
+							country=#country#&state_prov=#state_prov#&county=#county#&quad=#quad#&
+							feature=#feature#&island_group=#island_group#&island=#island#&sea=#sea#">
 						<input type="button" value="Create Clone" class="insBtn" onclick="document.location='#dloc#';">
 					</td>
 				</tr>
