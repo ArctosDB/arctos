@@ -559,7 +559,7 @@
 		<label for="verbatim_locality" class="likeLink" onclick="getDocs('collecting_event','verbatim_locality')">
 			Verbatim Locality
 		</label>
-		<input type="text" name="verbatim_locality" id="verbatim_locality" value='#stripQuotes(verbatim_locality)#' size="50">
+		<input type="text" name="verbatim_locality" id="verbatim_locality" value='#stripQuotes(locDet.verbatim_locality)#' size="50">
 		<label for="specific_locality" class="likeLink" onclick="getDocs('locality','specific_locality')">
 			Specific Locality
 		</label>
