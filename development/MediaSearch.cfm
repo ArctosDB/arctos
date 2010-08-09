@@ -682,14 +682,16 @@
 			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 											
 					<cfset labels_details="">
-					<cfloop from="1" to="#ArrayLen(mlabels)#" index="i">
-						<cfif (#mlabels[i]# is not "use policy") and (#mlabels[i]# is not "usage")>
+					<cfset i = 1>
+					<cfloop list="#media_labels#" delimiters=";" index="label">
+						<cfif (#label# is not "use policy") and (#label# is not "usage")>
 							<cfif len(labels_details) gt 0>
 								<cfset labels_details = labels_details & "; " & #mlabels[i]# & " = " & #lvalues[i]#>
 							<cfelse>
 								<cfset labels_details = #mlabels[i]# & " = " & #lvalues[i]#>
 							</cfif>			
-						</cfif>		
+						</cfif>
+					<cfset i = i +1>
 					</cfloop>
 										
 					<cfloop list="#keyword#" index="k" delimiters=",;: ">
