@@ -683,7 +683,7 @@
 			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 											
 					<cfset labels_details="">
-					<cfloop from="1" to "" index="i">
+					<cfloop from="1" to "#ArrayLen(mlabels)#" index="i">
 						<cfif (#mlabels[i]# is not "use policy") and (#mlabels[i]# is not "usage")>
 							<cfif len(labels_details) gt 0>
 								<cfset labels_details = labels_details & "; " & #mlabels[i]# & " = " & #lvalues[i]#>
