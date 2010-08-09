@@ -497,7 +497,7 @@
 	<cfset desc_i = 1>
 	<cfloop list="#media_labels#" delimiters=";" index="lab">
 		<cfif lab is 'description'>
-			<cfbreak />
+			<cfbreak>
 		</cfif>
 		<cfset desc_i= desc_i+1>
 	</cfloop>
