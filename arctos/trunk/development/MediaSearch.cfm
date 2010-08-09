@@ -454,7 +454,6 @@
 	<td><center><strong>Details</strong></center></td>		
 </tr>
 
-blah1
 <!--<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")> -->
 
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
@@ -521,8 +520,7 @@ blah1
 		<cfif length(coll_event) gt 0>
 			<cfset coll_event='<a href="/showLocality.cfm?action=srch&collecting_event_id=#coll_event_id#">#coll_event#</a>'>
 		</cfif>
-		
-		
+got here		
 		<cfif length(mrel) gt 0>		
 			<cfset i = 1>		
 			<cfloop list="mrel" delimiters="; " index="rel">
