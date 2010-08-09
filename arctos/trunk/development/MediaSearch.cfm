@@ -585,7 +585,7 @@
 			</cfloop>		
 
 			
-<!-- 			<!-- If can't find a collecting event, try to find one through available cataloged item -->		
+<!--- 			<!-- If can't find a collecting event, try to find one through available cataloged item -->		
 			<cfif len(coll_event) lte 0 and coll_obj_id gt 0>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
@@ -630,7 +630,8 @@
 				
 				<cfset dec_lat=#d.dec_lat#>
 				<cfset dec_long=#d.dec_long#>
-			</cfif> -->
+			</cfif> 
+			--->
 
 		</cfif>
 
@@ -782,16 +783,16 @@
 </cfloop>
 </table>
 
-<!--- 
-<!--- try to kill any old tables that they may have laying around --->
+<!---
+<!-- try to kill any old tables that they may have laying around -->
 <cftry>
 	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		drop table #session.MediaSrchTab#
 	</cfquery>
-	<cfcatch><!--- not there, so what? --->
+	<cfcatch><!-- not there, so what? -->
 	</cfcatch>
 </cftry>
-<!---- build a temp table --->
+<!-- build a temp table -->
 
 <cfset SqlString = "create table #session.MediaSrchTab# AS (Select * from #downloadResults#)">
 <cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
