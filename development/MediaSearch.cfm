@@ -461,7 +461,7 @@
 
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	
-	<cfset mrel = ListToArray(media_relationships, "; ">
+	<cfset mrel = ListToArray(media_relationships, '; '>
 	<cfset rpkeys = ListToArray(related_primary_keys, "; ">
 	
 	<cfset mlabels = ListToArray(media_labels, "; ">
