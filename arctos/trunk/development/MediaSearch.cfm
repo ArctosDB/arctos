@@ -445,6 +445,7 @@
 	<cfset rownum=1>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 
+<cfdump var="findIDs">
 <table>
 
 <!-- Results Table Header for grid view (for more than one result)-->
