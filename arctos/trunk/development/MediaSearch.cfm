@@ -187,7 +187,7 @@
 
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 
-			<cfif not isdefined("kwType") ><cfset kwType="all"></cfif>
+			<cfif not isdefined("kwType")><cfset kwType="all"></cfif>
 			<cfif kwType is "any">
 				<cfset kwsql="">
 				<cfloop list="#keyword#" index="i" delimiters=",;: ">
@@ -294,10 +294,10 @@
 				<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
 			</cfif>
 			<cfif len(#thisRelatedItem#) gt 0>
-				<cfset srch="#srch# AND upper(media_relation_summary(media_relations#n#.media_relations_id)) like '%#ucase(thisRelatedItem)#%'">
+				<cfset srch="#srch# AND upper(media_rel_values) like '%#ucase(thisRelatedItem)#%'">
 			</cfif>
 		    <cfif len(#thisRelatedKey#) gt 0>
-				<cfset srch="#srch# AND media_relations#n#.related_primary_key = #thisRelatedKey#">
+				<cfset srch="#srch# AND related_primary_keys like '%#thisRelatedKey#%'">
 			</cfif>
 		</cfloop>
 		<cfloop from="1" to="#number_of_labels#" index="n">
@@ -313,13 +313,11 @@
 		            <cfset thisLabelValue = "">
 			    </cfcatch>
 	        </cftry>		
-			<cfset frm="#frm#,media_labels media_labels#n#">
-		    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id (+)">
 	        <cfif len(#thisLabel#) gt 0>
-				<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
+				<cfset srch="#srch# AND upper(media_labels) like '#ucase(thisLabel)#'">
 			</cfif>
 			<cfif len(#thisLabelValue#) gt 0>
-				<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
+				<cfset srch="#srch# AND upper(label_values) like '%#ucase(thisLabelValue)#%'">
 			</cfif>
 		</cfloop>
 		<cfif len(srch) is 0>
@@ -460,86 +458,78 @@
 <!--<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")> -->
 
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
-	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select
-			media_label,
-			label_value,
-			agent_name
-		from
-			media_labels,
-			preferred_agent_name
-		where
-			media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
-			media_id=#media_id#
-	</cfquery>
-	<cfquery name="labels" dbtype="query">
-		select media_label,label_value from labels_raw where media_label != 'description'
-	</cfquery>
-	<cfquery name="desc" dbtype="query">
-		select label_value from labels_raw where media_label='description'
-	</cfquery>
-	<cfif isdefined("findIDs.keywords")>
-		<cfquery name="kw" dbtype="query">
-			select keywords from findIDs where media_id=#media_id#
-		</cfquery>	
-	</cfif>
+
+	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	
+	<cfset mrel = ListToArray("#media_relationships#")>
+	<cfset rpkeys = ListToArray("#related_primary_keys#")>
+	
+	<cfset mlabels = ListToArray("#media_labels#")>
+	<cfset lvalues = ListToArray("#label_values#")>
+	
+	<cfset media_details_url = "/media/" & "" & #media_id#>											
+	<cfset agent_name="#created_agent#">	
+	
+	<!-- Cataloged item information -->
+	<cfset sci_name="#scientific_name#">	
+	<cfset cat_item="#cat_num#">	
+	<cfset coll_obj_id="#collecting_object_id#">
+		
+	<!-- Collecting event info -->
+	<cfset coll_event_id="#collecting_event_id#">			
+	<cfset coll_event="#locality#">
+	<cfset coll_event_uri="/showLocality.cfm?action=srch&collecting_event_id=#coll_event_id#">
+	
+	<!-- Lat/Long-->
+	<cfset dec_latlong=ListToArray("#lat_long#")>
+	<cfset dec_lat=dec_latlong[1]>
+	<cfset dec_long=dec_latlong[2]>
+	
+	<!-- Other relationships-->
+	<cfset project="#project_name#">			
+	<cfset publication="#publication_name#">			
+	<cfset shows_locality="#shows_loc_name#">				
+	<cfset descr_taxonomy="#taxonomy_description#">
+	
+	
+	 <cfset desc_i = 1>
+	 <cfloop list="#mlabels#" delimiters="; " index="lab">
+		<cfif lab is 'description'>
+			<cfbreak />
+		</cfif>
+		<cfset desc_i= desc_i+1>
+	 </cfloop>
+	 
+	 <cfset description="#lvalues[desc_i]#">
+	 
+	 
 	<cfset alt="#media_uri#">
 	
-	<cfif findIDs.recordcount is 1>
+	<cfif findIDs.recordcount is 1>		
+		<cfset alt=description>
 		
-		<cfset alt=desc.label_value>
-
-			<cfif desc.recordcount is 1>					
-				<cfset title = desc.label_value>
-				<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
-			</cfif>	
+		<cfset title = description>
+		<cfset metaDesc = "#description# for #media_type# (#mime_type#)">
 	</cfif>
 	
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-		<cfset mp=getMediaPreview(preview_uri,media_type)>
-		<cfset mrel=getMediaRelations2(#media_id#)>
-		
-		<!-- variable holders -->
-		<cfset kw="">
-					
-		<cfset media_details_url = "/media/" & "" & #media_id#>
-		
-		<cfset agent_name="">
-		
-		<cfset scientific_name="">
-		
-		<cfset description="#desc.label_value#">
 
-		<!-- Cataloged item information -->
-		<cfset cat_num="">
-		<cfset cat_item_sum="">
-		<cfset cat_item="">
+		<cfif length(cat_item) gt 0>
+			<cfset cat_item = '<a href="/guid/#guid_string#">#cat_item#</a>'>
+		</cfif>
 		
-		<cfset coll_obj_id=0>
+		<cfif length(coll_event) gt 0>
+			<cfset coll_event='<a href="/showLocality.cfm?action=srch&collecting_event_id=#coll_event_id#">#coll_event#</a>'>
+		</cfif>
 		
-		<!-- Collecting event info -->
-		<cfset coll_event_id=0>			
-		<cfset coll_event_locality="">
-		<cfset coll_event_uri="">
-		<cfset coll_event="">
 		
-		<!-- Lat/Long-->
-		<cfset dec_lat=0>
-		<cfset dec_long=0>
-		
-		<!-- Other relationships-->
-		<cfset project="">			
-		<cfset publication="">			
-		<cfset shows_locality="">				
-		<cfset descr_taxonomy="">
-		
-		<cfif mrel.recordcount gt 0>				
-			<cfloop query="mrel">
-				<cfif #rel_type# is "created by agent">
-					<cfset agent_name=#summary#>
-				<cfelseif #rel_type# is "cataloged_item">
-					<cfset cat_item_sum=trim(summary)>
+		<cfif length(mrel) gt 0>		
+			<cfset i = 1>		
+			<cfloop list="mrel" delimiters="; " index="rel">
+				<!--- <cfif #rel# is "created by agent">
+					<cfset agent_name_id=#rpkeys[i]#>
+				<cfelseif #rel# is "cataloged_item">
+					<cfset cat_item_sum=#rpkeys[i]#>
 					<cfset coll_obj_id=#related_primary_key#>
 					
 					<!-- extract the scientific name -->
@@ -569,40 +559,35 @@
 					<cfelse>
 						<cfset coll_event =  trim(summary)>
 					</cfif>
-					
-				<cfelseif #rel_type# is "project">						
-					<cfif len(#link#) gt 0>
-						<cfset project = 'Project: <a href="#link#">' & trim(summary) & '</a>'>
-					<cfelse>
-						<cfset project =  trim(summary)>
+					 --->
+				<cfif #rel# is "project">						
+					<cfif len(#project_name#) gt 0>
+						<cfset project = 'Project: <a href="/ProjectDetail.cfm?project_id=#rpkeys[i]#">' & project_name & '</a>'>
 					</cfif>
 					
-				<cfelseif #rel_type# is "publication">
-					<cfif len(#link#) gt 0>
-						<cfset publication = 'Publication: <a href="#link#">' & trim(summary) & '</a>'>
-					<cfelse>
-						<cfset publication =  trim(summary)>
+				<cfelseif #rel# is "publication">
+					<cfif len(#publication_name#) gt 0>
+						<cfset publication = 'Publication: <a href="/SpecimenUsage.cfm?publication_id=#rpkeys[i]#">' & publication_name  & '</a>'>
 					</cfif>
+					
 
-				<cfelseif #rel_type# is "locality">
-					<cfif len(#link#) gt 0>
-						<cfset shows_locality = 'Shows locality: <a href="#link#">' & trim(summary) & '</a>'>
-					<cfelse>
-						<cfset shows_locality =  trim(summary)>
+				<cfelseif #rel# is "shows locality">
+					<cfif len(#shows_loc_name#) gt 0>
+						<cfset shows_locality = 'Shows locality: <a href="/showLocality.cfm?action=srch&locality_id=#rpkeys[i]#">' & shows_loc_name & '</a>'>
 					</cfif>
 				
 				<cfelseif #rel_type# is "taxonomy">
-					<cfif len(#link#) gt 0>
-						<cfset descr_taxonomy = 'Describes Taxonomy: <a href="#link#">' & trim(summary) & '</a>'>
-					<cfelse>
-						<cfset descr_taxonomy =  trim(summary)>
+					<cfif len(#taxonomy_description#) gt 0>
+						<cfset descr_taxonomy = 'Describes Taxonomy: <a href="/name/#taxonomy_description#">' & taxonomy_description & '</a>'>
 					</cfif>
 		
 				</cfif>
+				
+				<cfset i= i +1>				
 			</cfloop>		
 
 			
-			<!-- If can't find a collecting event, try to find one through available cataloged item -->		
+<!-- 			<!-- If can't find a collecting event, try to find one through available cataloged item -->		
 			<cfif len(coll_event) lte 0 and coll_obj_id gt 0>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
@@ -647,23 +632,22 @@
 				
 				<cfset dec_lat=#d.dec_lat#>
 				<cfset dec_long=#d.dec_long#>
-			</cfif>
-
-		
-			<!-- Orders the keywords -->
-			<cfset kw_list = "#scientific_name#|#coll_event#|#description#|#agent_name#|#cat_item#|#project#|#publication#|#shows_locality#|#descr_taxonomy#">
-			<cfloop list="#kw_list#" index="s" delimiters="|">
-				<cfif len(trim(s)) gt 0>
-					<cfif len(kw) gt 0>
-						<cfset kw = kw & "; " & s>
-					<cfelse>
-						<cfset kw = s & "">						
-					</cfif> 
-				</cfif>
-			</cfloop>
+			</cfif> -->
 
 		</cfif>
 
+
+		<!-- Orders the keywords -->
+		<cfset kw_list = "#scientific_name#|#coll_event#|#description#|#agent_name#|#cat_item#|#project#|#publication#|#shows_locality#|#descr_taxonomy#">
+		<cfloop list="#kw_list#" index="s" delimiters="|">
+			<cfif len(trim(s)) gt 0>
+				<cfif len(kw) gt 0>
+					<cfset kw = kw & "; " & s>
+				<cfelse>
+					<cfset kw = s & "">						
+				</cfif> 
+			</cfif>
+		</cfloop>
 	
 		<!--- 
 		<!-- Set up/fill query table used for bulk downloading-->
@@ -699,16 +683,16 @@
 			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 											
 					<cfset labels_details="">
-					<cfloop query="labels">
-						<cfif (#media_label# is not "use policy") and (#media_label# is not "usage")>
+					<cfloop from="1" to "" index="i">
+						<cfif (#mlabels[i]# is not "use policy") and (#mlabels[i]# is not "usage")>
 							<cfif len(labels_details) gt 0>
-								<cfset labels_details = labels_details & "; " & media_label & " = " & label_value>
+								<cfset labels_details = labels_details & "; " & #mlabels[i]# & " = " & #lvalues[i]#>
 							<cfelse>
-								<cfset labels_details = media_label & " = " & label_value>
+								<cfset labels_details = #mlabels[i]# & " = " & #lvalues[i]#>
 							</cfif>			
-						</cfif>				
+						</cfif>		
 					</cfloop>
-					
+										
 					<cfloop list="#keyword#" index="k" delimiters=",;: ">
 						<cfset kw=highlight(kw,k)>
 						<cfset labels_details=highlight(labels_details,k)>
