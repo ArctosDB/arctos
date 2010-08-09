@@ -490,15 +490,17 @@
 	<cfset shows_locality="#shows_loc_name#">				
 	<cfset descr_taxonomy="#taxonomy_description#">
 	
-	 <cfset desc_i = 1>
-	 <cfloop list="#media_labels#" delimiters="; " index="lab">
+	<cfset kw="">
+	
+	<cfset desc_i = 1>
+	<cfloop list="#media_labels#" delimiters="; " index="lab">
 		<cfif lab is 'description'>
 			<cfbreak />
 		</cfif>
 		<cfset desc_i= desc_i+1>
-	 </cfloop>
+	</cfloop>
 
-	 <cfset description="#lvalues[desc_i]#">
+	<cfset description="#lvalues[desc_i]#">
 	 
 	<cfset alt="#media_uri#">
 	
