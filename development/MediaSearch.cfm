@@ -208,7 +208,7 @@
 				<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 			</cfif>
 			
-			<cfset mapurl="kwType=#kwType#&keyword=#keyword#">
+			<cfset mapurl="&kwType=#kwType#&keyword=#keyword#">
 		</cfif>
 		
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
@@ -451,7 +451,7 @@
 	<span class="controlButton"
 		onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 	<span class="controlButton"
-		onclick="saveSearch('#Application.ServerRootUrl#/development/MediaSearch.cfm?#mapURL#');">Save&nbsp;Search</span>
+		onclick="saveSearch('#Application.ServerRootUrl#/development/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 	<br>
 	#pager#
 				
