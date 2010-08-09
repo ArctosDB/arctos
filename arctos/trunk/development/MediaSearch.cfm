@@ -494,16 +494,12 @@
 	
 	<cfset kw="">
 	
-	<cfset desc_i = 0>
-	<cfloop list="#media_labels#" delimiters=";" index="lab">		
-		<cfset desc_i= desc_i+1>
-		<cfif lab is 'description'>
-			<cfbreak>
-		</cfif>
-	</cfloop>
-	#desc_i#
-	<cfset description="#lvalues[desc_i]#">
-	 
+	<cfset description="">
+	<cfset desc_i = #listContains(media_labels, "description", ";")#>
+	<cfif gt 0>
+		<cfset description="#lvalues[desc_i]#">
+	</cfif>
+
 	<cfset alt="#media_uri#">
 	
 	<cfif findIDs.recordcount is 1>		
