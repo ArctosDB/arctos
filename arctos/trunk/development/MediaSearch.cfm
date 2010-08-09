@@ -454,7 +454,7 @@
 	<td><center><strong>Details</strong></center></td>		
 </tr>
 
-
+blah1
 <!--<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")> -->
 
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
@@ -659,7 +659,7 @@
 		--->
 		
 		<!-- Grid Display -->
-
+blah 1
 		<td align="middle">
 
 			<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;"></a>
@@ -667,7 +667,7 @@
 			<span style = "font-size:small;">#media_type# (#mime_type#)</span>
 		
 		</td>
-		
+		blah 3
 		<td align="middle">					
 			<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
 				<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
