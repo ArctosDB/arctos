@@ -292,8 +292,6 @@
 		            <cfset thisRelatedKey = "">
 			    </cfcatch>
 		    </cftry>
-		    <cfset frm="#frm#,media_relations media_relations#n#">
-			<cfset whr="#whr# and media.media_id=media_relations#n#.media_id (+)">
 			<cfif len(#thisRelationship#) gt 0>
 				<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
 			</cfif>
