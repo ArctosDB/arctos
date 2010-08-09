@@ -460,11 +460,11 @@
 
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 
-	<cfset mrel = ListToArray(media_relationships, "; ")>
-	<cfset rpkeys = ListToArray(related_primary_keys, "; ")>
+	<cfset mrel = ListToArray(media_relationships, ";")>
+	<cfset rpkeys = ListToArray(related_primary_keys, ";")>
 
-	<cfset mlabels = ListToArray(media_labels, "; ")>
-	<cfset lvalues = ListToArray(label_values, "; ")>
+	<cfset mlabels = ListToArray(media_labels, ";")>
+	<cfset lvalues = ListToArray(label_values, ";")>
 
 	<cfset media_details_url = "/media/" & "" & #media_id#>											
 	<cfset agent_name="#created_agent#">	
@@ -493,7 +493,7 @@
 	<cfset kw="">
 	
 	<cfset desc_i = 1>
-	<cfloop list="#media_labels#" delimiters="; " index="lab">
+	<cfloop list="#media_labels#" delimiters=";" index="lab">
 		<cfif lab is 'description'>
 			<cfbreak />
 		</cfif>
