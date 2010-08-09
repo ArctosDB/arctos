@@ -445,7 +445,8 @@
 	<cfset rownum=1>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 
-<cfdump var="#findIDs#">
+<!--- <cfdump var="#findIDs#">
+ --->
 <table>
 
 <!-- Results Table Header for grid view (for more than one result)-->
@@ -678,21 +679,21 @@
 				</a>
 			</cfif>
 		</td>
-		#media_id#
+		
 		<td align="middle">							
 			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 											
 					<cfset labels_details="">
-					<cfset i = 1>
+					<cfset j = 1>
 					<cfloop list="#media_labels#" delimiters=";" index="label">
 						<cfif (#label# is not "use policy") and (#label# is not "usage")>
 							<cfif len(labels_details) gt 0>
-								<cfset labels_details = labels_details & "; " & #mlabels[i]# & " = " & #lvalues[i]#>
+								<cfset labels_details = labels_details & "; " & #mlabels[j]# & " = " & #lvalues[j]#>
 							<cfelse>
-								<cfset labels_details = #mlabels[i]# & " = " & #lvalues[i]#>
+								<cfset labels_details = #mlabels[j]# & " = " & #lvalues[j]#>
 							</cfif>			
 						</cfif>
-					<cfset i = i +1>
+					<cfset j = j +1>
 					</cfloop>
 										
 					<cfloop list="#keyword#" index="k" delimiters=",;: ">
