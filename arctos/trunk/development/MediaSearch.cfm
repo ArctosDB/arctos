@@ -459,38 +459,38 @@
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
-	
+	mp
 	<cfset mrel = ListToArray(media_relationships, "; ")>
 	<cfset rpkeys = ListToArray(related_primary_keys, "; ")>
-	
+	relationships
 	<cfset mlabels = ListToArray(media_labels, "; ")>
 	<cfset lvalues = ListToArray(label_values, "; ")>
-	
+	labels
 	<cfset media_details_url = "/media/" & "" & #media_id#>											
 	<cfset agent_name="#created_agent#">	
-	
+	agentname
 	<!-- Cataloged item information -->
 	<cfset sci_name="#scientific_name#">	
 	<cfset cat_item="#cat_num#">	
 	<cfset coll_obj_id="#collecting_object_id#">
-		
+		catnum
 	<!-- Collecting event info -->
 	<cfset coll_event_id="#collecting_event_id#">			
 	<cfset coll_event="#locality#">
 	<cfset coll_event_uri="/showLocality.cfm?action=srch&collecting_event_id=#coll_event_id#">
-	
+	coll event
 	<!-- Lat/Long-->
 	<cfset dec_latlong=ListToArray(lat_long, "; ")>
 	<cfset dec_lat="#dec_latlong[1]#">
 	<cfset dec_long=dec_latlong[2]>
-	
+	lat long
 	<!-- Other relationships-->
 	<cfset project="#project_name#">			
 	<cfset publication="#publication_name#">			
 	<cfset shows_locality="#shows_loc_name#">				
 	<cfset descr_taxonomy="#taxonomy_description#">
 	
-	
+	others
 	 <cfset desc_i = 1>
 	 <cfloop list="#mlabels#" delimiters="; " index="lab">
 		<cfif lab is 'description'>
@@ -498,9 +498,9 @@
 		</cfif>
 		<cfset desc_i= desc_i+1>
 	 </cfloop>
-	 
+	 desc
 	 <cfset description="#lvalues[desc_i]#">
-	 
+	 description
 	 
 	<cfset alt="#media_uri#">
 	
@@ -510,7 +510,7 @@
 		<cfset title = description>
 		<cfset metaDesc = "#description# for #media_type# (#mime_type#)">
 	</cfif>
-	
+	just one
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 
 		<cfif length(cat_item) gt 0>
@@ -520,7 +520,7 @@
 		<cfif length(coll_event) gt 0>
 			<cfset coll_event='<a href="/showLocality.cfm?action=srch&collecting_event_id=#coll_event_id#">#coll_event#</a>'>
 		</cfif>
-got here		
+
 		<cfif length(mrel) gt 0>		
 			<cfset i = 1>		
 			<cfloop list="mrel" delimiters="; " index="rel">
