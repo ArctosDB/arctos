@@ -183,8 +183,10 @@
 	
 	<cfset whr ="WHERE media_flat.media_id > 0">
 	<cfset srch=" ">
+
+	<cfset mapurl="#mapurl#&srchType=#srchType#">
 	<cfif isdefined("srchType") and srchType is "key">
-		<cfset mapurl="#mapurl#&srchType=key">
+
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 
 			<cfif not isdefined("kwType")>
@@ -213,37 +215,47 @@
 		
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
 			<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
+			<cfset mapurl="#mapurl#&media_uri=#media_uri#">
 		</cfif>
 		<cfif isdefined("tag") and len(tag) gt 0>
 			<cfset whr="#whr# AND media_flat.media_id IN (select media_id from tag)">
+			<cfset mapurl="#mapurl#&tag=#tag#">
 		</cfif>
 		<cfif isdefined("media_type") and len(media_type) gt 0>
 			<cfset srch="#whr# AND media_type IN (#listQualify(media_type,"'")#)">
+			<cfset mapurl="#mapurl#&media_type=#media_type#">
 		</cfif>
 		
 		<cfif isdefined("media_id") and len(#media_id#) gt 0>
 			<cfset whr="#whr# AND media_flat.media_id in (#media_id#)">
+			<cfset mapurl="#mapurl#&media_id=#media_id#">
 		</cfif>
 		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
 			<cfset srch="#whr# AND mime_type in (#listQualify(mime_type,"'")#)">
+			<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 		</cfif>
 
 	<cfelse>
 
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
 			<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
+			<cfset mapurl="#mapurl#&media_uri=#media_uri#">
 		</cfif>
 		<cfif isdefined("media_type") and len(media_type) gt 0>
 			<cfset srch="#srch# AND upper(media_type) like '%#ucase(media_type)#%'">
+			<cfset mapurl="#mapurl#&media_type=#media_type#">
 		</cfif>
 		<cfif isdefined("tag") and len(tag) gt 0>
 			<cfset whr="#whr# AND media.media_id in (select media_id from tag)">
+			<cfset mapurl="#mapurl#&tag=#tag#">
 		</cfif>
 		<cfif isdefined("media_id") and len(#media_id#) gt 0>
 			<cfset whr="#whr# AND media.media_id in (#media_id#)">
+			<cfset mapurl="#mapurl#&media_id=#media_id#">
 		</cfif>
 		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
 			<cfset srch="#srch# AND mime_type = '#mime_type#'">
+			<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 		</cfif>
 		
 		<cfif not isdefined("number_of_relations")>
@@ -259,8 +271,10 @@
 				<cfset number_of_relations=1>
 			</cfif>
 		</cfif>
+		<cfset mapurl="#mapurl#&number_of_relations=#number_of_relations#">
 		
 		<cfif not isdefined("number_of_labels")>
+			<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 		    <cfif (isdefined("label") and len(label) gt 0) or (isdefined("label__1") and len(label__1) gt 0)>
 				<cfset number_of_labels=1>
 				<cfif isdefined("label") and len(label) gt 0>
@@ -273,6 +287,8 @@
 				<cfset number_of_labels=0>
 			</cfif>
 		</cfif>
+		<cfset mapurl="#mapurl#&number_of_labels=#number_of_labels#">
+		
 		<cfloop from="1" to="#number_of_relations#" index="n">
 			<cftry>
 		        <cfset thisRelationship = #evaluate("relationship__" & n)#>
@@ -294,14 +310,18 @@
 		    </cftry>
 			<cfif len(#thisRelationship#) gt 0>
 				<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
+				<cfset mapurl="#mapurl#&relationship__#n#=#thisRelationship#">
 			</cfif>
 			<cfif len(#thisRelatedItem#) gt 0>
 				<cfset srch="#srch# AND upper(media_rel_values) like '%#ucase(thisRelatedItem)#%'">
+				<cfset mapurl="#mapurl#&related_value__#n#=#thisRelatedItem#">
 			</cfif>
 		    <cfif len(#thisRelatedKey#) gt 0>
 				<cfset srch="#srch# AND related_primary_keys like '%#thisRelatedKey#%'">
+				<cfset mapurl="#mapurl#&related_primary_key__#n#=#thisRelatedKey#">
 			</cfif>
 		</cfloop>
+		
 		<cfloop from="1" to="#number_of_labels#" index="n">
 			<cftry>
 		        <cfset thisLabel = #evaluate("label__" & n)#>
@@ -317,14 +337,16 @@
 	        </cftry>		
 	        <cfif len(#thisLabel#) gt 0>
 				<cfset srch="#srch# AND upper(media_labels) like '#ucase(thisLabel)#'">
+				<cfset mapurl="#mapurl#&label__#n#=#thisLabel#">
 			</cfif>
 			<cfif len(#thisLabelValue#) gt 0>
 				<cfset srch="#srch# AND upper(label_values) like '%#ucase(thisLabelValue)#%'">
+				<cfset mapurl="#mapurl#&label_value__#n#=#thisLabelValue#">
 			</cfif>
 		</cfloop>
 		<cfif len(srch) is 0>
 			<div class="error">You must enter search criteria.</div>
-			<cfabort>
+			<cfabort> 
 		</cfif>
 		
 
