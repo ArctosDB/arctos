@@ -501,7 +501,7 @@
 		</cfif>
 		<cfset desc_i= desc_i+1>
 	</cfloop>
-
+	#desc_i#
 	<cfset description="#lvalues[desc_i]#">
 	 
 	<cfset alt="#media_uri#">
