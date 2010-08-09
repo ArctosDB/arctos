@@ -163,7 +163,7 @@
 <cfif action is "search">
 
 <cfif not isdefined("mapurl")>
-	<cfset mapurl = "null">
+	<cfset mapurl = "">
 </cfif>
 
 <cfoutput>
@@ -187,7 +187,9 @@
 
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 
-			<cfif not isdefined("kwType")><cfset kwType="all"></cfif>
+			<cfif not isdefined("kwType")>
+				<cfset kwType="all">
+			</cfif>
 			<cfif kwType is "any">
 				<cfset kwsql="">
 				<cfloop list="#keyword#" index="i" delimiters=",;: ">
@@ -205,6 +207,8 @@
 			<cfelse>
 				<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 			</cfif>
+			
+			<cfset mapurl="kwType=#kwType#&keywords=#keywords#">
 		</cfif>
 		
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
@@ -332,11 +336,20 @@
 	<cfset srch = "#srch# AND rownum <= 500">
 	
 	<!-- Finalize query -->
-	<cfset ssql="#sql# #whr# #srch# order by media_id">		
+	<cfset ssql="#sql# #whr# #srch# order by media_id">
+	
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
 	
+	<form name="defaults">	
+		<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
+		<cfset session.mapURL = mapURL>
+	</form>
+	
+	<form name="saveme" id="saveme" method="post" action="saveSearch.cfm" target="myWin">
+		<input type="hidden" name="returnURL" value="#Application.ServerRootUrl#/development/MediaSearch.cfm?#mapURL#" />
+	</form>
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfabort>
@@ -432,13 +445,13 @@
 	</cfsavecontent>
 	
 	<br>
-	<cfset mapurl="">
+
 	<span class="controlButton"
 		onclick="window.open('/development/MediaSearchDownload.cfm?tableName=#session.MediaSrchTab#','_blank');">Bulk Download Media Results</span>
 	<span class="controlButton"
 		onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 	<span class="controlButton"
-		onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?#mapURL#');">Save&nbsp;Search</span>
+		onclick="saveSearch('#Application.ServerRootUrl#/development/MediaSearch.cfm?#mapURL#');">Save&nbsp;Search</span>
 	<br>
 	#pager#
 				
