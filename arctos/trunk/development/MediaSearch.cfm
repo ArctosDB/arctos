@@ -461,11 +461,11 @@
 
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	
-	<cfset mrel = ListToArray("#media_relationships#")>
-	<cfset rpkeys = ListToArray("#related_primary_keys#")>
+	<cfset mrel = ListToArray("#media_relationships#", "; ">
+	<cfset rpkeys = ListToArray("#related_primary_keys#", "; ">
 	
-	<cfset mlabels = ListToArray("#media_labels#")>
-	<cfset lvalues = ListToArray("#label_values#")>
+	<cfset mlabels = ListToArray("#media_labels#", "; ">
+	<cfset lvalues = ListToArray("#label_values#", "; ">
 	
 	<cfset media_details_url = "/media/" & "" & #media_id#>											
 	<cfset agent_name="#created_agent#">	
@@ -481,8 +481,8 @@
 	<cfset coll_event_uri="/showLocality.cfm?action=srch&collecting_event_id=#coll_event_id#">
 	
 	<!-- Lat/Long-->
-	<cfset dec_latlong=ListToArray("#lat_long#")>
-	<cfset dec_lat=dec_latlong[1]>
+	<cfset dec_latlong=ListToArray("#lat_long#", "; ")>
+	<cfset dec_lat="#dec_latlong[1]#">
 	<cfset dec_long=dec_latlong[2]>
 	
 	<!-- Other relationships-->
