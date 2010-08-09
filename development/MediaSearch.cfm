@@ -184,7 +184,7 @@
 	<cfset whr ="WHERE media_flat.media_id > 0">
 	<cfset srch=" ">
 	<cfif isdefined("srchType") and srchType is "key">
-
+		<cfset mapurl="#mapurl#&srchType=key">
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 
 			<cfif not isdefined("kwType")>
@@ -208,7 +208,7 @@
 				<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 			</cfif>
 			
-			<cfset mapurl="&kwType=#kwType#&keyword=#keyword#">
+			<cfset mapurl="#mapurl#&kwType=#kwType#&keyword=#keyword#">		
 		</cfif>
 		
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
