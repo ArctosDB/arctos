@@ -457,7 +457,7 @@
 </tr>
 
 <!--<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")> -->
-
+ 
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
