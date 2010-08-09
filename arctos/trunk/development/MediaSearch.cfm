@@ -523,7 +523,7 @@
 
 		<cfif len(mrel) gt 0>		
 			<cfset i = 1>		
-			<cfloop list="mrel" delimiters="; " index="rel">
+			<cfloop list="media_relationships" delimiters="; " index="rel">
 				<!--- <cfif #rel# is "created by agent">
 					<cfset agent_name_id=#rpkeys[i]#>
 				<cfelseif #rel# is "cataloged_item">
