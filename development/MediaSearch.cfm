@@ -309,7 +309,7 @@
 			    </cfcatch>
 		    </cftry>
 			<cfif len(#thisRelationship#) gt 0>
-				<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
+				<cfset srch="#srch# AND upper(media_rel_values) like '%#ucase(thisRelationship)#%'">
 				<cfset mapurl="#mapurl#&relationship__#n#=#thisRelationship#">
 			</cfif>
 			<cfif len(#thisRelatedItem#) gt 0>
