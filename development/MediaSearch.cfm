@@ -513,15 +513,15 @@
 	just one
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 
-		<cfif length(cat_item) gt 0>
+		<cfif len(cat_item) gt 0>
 			<cfset cat_item = '<a href="/guid/#guid_string#">#cat_item#</a>'>
 		</cfif>
 		
-		<cfif length(coll_event) gt 0>
+		<cfif len(coll_event) gt 0>
 			<cfset coll_event='<a href="/showLocality.cfm?action=srch&collecting_event_id=#coll_event_id#">#coll_event#</a>'>
 		</cfif>
 
-		<cfif length(mrel) gt 0>		
+		<cfif len(mrel) gt 0>		
 			<cfset i = 1>		
 			<cfloop list="mrel" delimiters="; " index="rel">
 				<!--- <cfif #rel# is "created by agent">
