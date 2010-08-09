@@ -492,7 +492,7 @@
 	
 	others
 	 <cfset desc_i = 1>
-	 <cfloop list="#mlabels#" delimiters="; " index="lab">
+	 <cfloop list="#media_labels#" delimiters="; " index="lab">
 		<cfif lab is 'description'>
 			<cfbreak />
 		</cfif>
