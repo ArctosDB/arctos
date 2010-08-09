@@ -166,6 +166,7 @@
 	<cfset mapurl = "">
 </cfif>
 
+<cfset terms="">
 <cfoutput>
 <cfscript>
     function highlight(findIn,replaceThis) {
@@ -209,6 +210,7 @@
 			<cfelse>
 				<cfset srch="#srch# AND upper(keywords) like '%#ucase(keyword)#%'">
 			</cfif>
+			<cfset terms="#keyword#">
 			
 			<cfset mapurl="#mapurl#&kwType=#kwType#&keyword=#keyword#">		
 		</cfif>
@@ -301,6 +303,7 @@
 			    <cfcatch>
 		            <cfset thisRelatedItem = "">
 			    </cfcatch>
+		    
 		    </cftry>
 		    <cftry>
 		         <cfset thisRelatedKey = #evaluate("related_primary_key__" & n)#>
@@ -315,10 +318,20 @@
 			<cfif len(#thisRelatedItem#) gt 0>
 				<cfset srch="#srch# AND upper(media_rel_values) like '%#ucase(thisRelatedItem)#%'">
 				<cfset mapurl="#mapurl#&related_value__#n#=#thisRelatedItem#">
+				<cfif len(terms) gt 0>
+					<cfset terms=terms & ";" & thisRelatedItem>
+				<cfelse>
+					<cfset terms=thisRelatedItem>
+				</cfif>
 			</cfif>
 		    <cfif len(#thisRelatedKey#) gt 0>
 				<cfset srch="#srch# AND related_primary_keys like '%#thisRelatedKey#%'">
 				<cfset mapurl="#mapurl#&related_primary_key__#n#=#thisRelatedKey#">
+		    	<cfif len(terms) gt 0>
+					<cfset terms=terms & ";" & thisRelatedKey>
+				<cfelse>
+					<cfset terms=thisRelatedKey>
+				</cfif>
 			</cfif>
 		</cfloop>
 		
@@ -342,6 +355,11 @@
 			<cfif len(#thisLabelValue#) gt 0>
 				<cfset srch="#srch# AND upper(label_values) like '%#ucase(thisLabelValue)#%'">
 				<cfset mapurl="#mapurl#&label_value__#n#=#thisLabelValue#">
+				<cfif len(terms) gt 0>
+					<cfset terms=terms & ";" & thisLabelValue>
+				<cfelse>
+					<cfset terms=thisLabelValue>
+				</cfif>
 			</cfif>
 		</cfloop>
 		<cfif len(srch) is 0>
@@ -724,8 +742,8 @@
 						</cfif>
 					<cfset j = j +1>
 					</cfloop>
-										
-					<cfloop list="#keyword#" index="k" delimiters=",;: ">
+									
+					<cfloop list="#terms#" index="k" delimiters=",;: ">
 						<cfset kw=highlight(kw,k)>
 						<cfset labels_details=highlight(labels_details,k)>
 					</cfloop>
