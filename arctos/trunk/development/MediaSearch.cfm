@@ -572,7 +572,7 @@
 						<cfset shows_locality = 'Shows locality: <a href="/showLocality.cfm?action=srch&locality_id=#rpkeys[i]#">' & shows_loc_name & '</a>'>
 					</cfif>
 				
-				<cfelseif #rel_type# is "taxonomy">
+				<cfelseif #rel# is "taxonomy">
 					<cfif len(#taxonomy_description#) gt 0>
 						<cfset descr_taxonomy = 'Describes Taxonomy: <a href="/name/#taxonomy_description#">' & taxonomy_description & '</a>'>
 					</cfif>
