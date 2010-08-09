@@ -495,8 +495,8 @@
 	<cfset kw="">
 	
 	<cfset description="">
-	<cfset desc_i = #listContains(media_labels, "description", ";")#>
-	<cfif gt 0>
+	<cfset desc_i = listContains(media_labels, "description", ";")>
+	<cfif desc_i gt 0>
 		<cfset description="#lvalues[desc_i]#">
 	</cfif>
 
