@@ -494,12 +494,12 @@
 	
 	<cfset kw="">
 	
-	<cfset desc_i = 1>
-	<cfloop list="#media_labels#" delimiters=";" index="lab">
+	<cfset desc_i = 0>
+	<cfloop list="#media_labels#" delimiters=";" index="lab">		
+		<cfset desc_i= desc_i+1>
 		<cfif lab is 'description'>
 			<cfbreak>
 		</cfif>
-		<cfset desc_i= desc_i+1>
 	</cfloop>
 	#desc_i#
 	<cfset description="#lvalues[desc_i]#">
