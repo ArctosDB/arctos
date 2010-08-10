@@ -48,7 +48,7 @@
 	</cfquery>
 </cfoutput>
 
-<cfelse isdefined("search") and search IS "MediaSearch">
+<cfelseif isdefined("search") and search IS "MediaSearch">
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset ShowObservations = "true">
 	</cfif>
