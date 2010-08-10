@@ -28,7 +28,7 @@
 	 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
         <a href="/media.cfm?action=newMedia">[ Create media ]</a>
     </cfif> 
-	<br>
+
 	<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select SEARCH_NAME,URL
 		from cf_canned_search,cf_users
@@ -499,13 +499,15 @@
 	</cfsavecontent>
 	
 	<br>
-
+	<br>
+	
 	<span class="controlButton"
 		onclick="window.open('/development/MediaSearchDownload.cfm?tableName=#session.MediaSrchTab#','_blank');">Bulk Download Media Results</span>
 	<span class="controlButton"
 		onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 	<span class="controlButton"
 		onclick="saveSearch('#Application.ServerRootUrl#/development/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
+	
 	<br>
 	#pager#
 				
