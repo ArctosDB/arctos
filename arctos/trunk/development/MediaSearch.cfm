@@ -320,7 +320,7 @@
 	<cfif isdefined("session.ShowObservations") AND session.ShowObservations is true>
 		<cfset mapurl = "#mapurl#&ShowObservations=#session.ShowObservations#">
 	</cfif>
-	<strong>#mappable.cnt#</strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with 
+	<strong>#mappable.cnt#</strong> of these <strong>#findIDs.recordcount#</strong> records have coordinates and can be displayed with 
 	<span class="controlButton"
 		onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 		
