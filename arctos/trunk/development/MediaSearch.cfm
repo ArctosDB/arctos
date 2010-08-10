@@ -314,7 +314,7 @@
 	<br>
 	<br>
 	<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select count(distinct(collection_object_id)) cnt from #session.SpecSrchTab# where dec_lat is not null and dec_long is not null
+		select count(distinct(collecting_object_id)) cnt from #session.MediaSrchTab# where dec_lat is not null and dec_long is not null
 	</cfquery>
 
 	<cfif isdefined("session.ShowObservations") AND session.ShowObservations is true>
