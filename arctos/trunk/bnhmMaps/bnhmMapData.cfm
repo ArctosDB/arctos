@@ -71,10 +71,10 @@
 		#flatTableName#.dec_lat is not null AND
 		#flatTableName#.dec_long is not null AND
 		#flatTableName#.collecting_source = 'wild caught' ">		
-	<cfset basQual = "">
+	<cfset srch = "">
 
 	<cfinclude template="/development/MediaSearchSql.cfm">
-	<cfset SqlString = "#basSelect# #basFrom# #basWhere# #basQual#">	
+	<cfset SqlString = "#basSelect# #basFrom# #basWhere# #srch#">	
 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
