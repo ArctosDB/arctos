@@ -376,6 +376,22 @@
 	<!-- Finalize query -->
 	<cfset ssql="#sql# #whr# #srch# order by media_id">
 	
+
+	<!-- try to kill any old tables that they may have laying around -->
+	<cftry>
+		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			drop table #session.MediaSrchTab#
+		</cfquery>
+		<cfcatch><!-- not there, so what? -->
+		</cfcatch>
+	</cftry>
+	
+	<!-- build a temp table (for bulk download)-->
+	<cfset SqlString = "create table #session.MediaSrchTab# AS #ssql#">
+	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		#preserveSingleQuotes(SqlString)#
+	</cfquery>
+
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
@@ -834,22 +850,7 @@
 </cfloop>
 </table>
 
-<!---
-<!-- try to kill any old tables that they may have laying around -->
-<cftry>
-	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		drop table #session.MediaSrchTab#
-	</cfquery>
-	<cfcatch><!-- not there, so what? -->
-	</cfcatch>
-</cftry>
-<!-- build a temp table -->
 
-<cfset SqlString = "create table #session.MediaSrchTab# AS (Select * from #downloadResults#)">
-<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	#preserveSingleQuotes(SqlString)#
-</cfquery>
---->
 #pager#
 
 </cfoutput>

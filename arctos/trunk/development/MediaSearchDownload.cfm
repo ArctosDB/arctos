@@ -219,7 +219,7 @@ do not agree</font>.</a>
 	</cfquery>
 		<cfset ac = valuelist(cols.column_name)>
 		<!--- strip internal columns --->
-		<cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
+		<!--- <cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
 				<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_OBJECT_ID'))>
 		</cfif>
 		<cfif ListFindNoCase(ac,'CUSTOMIDINT')>
@@ -236,7 +236,7 @@ do not agree</font>.</a>
 		</cfif>
 		<cfif ListFindNoCase(ac,'INSTITUTION_ACRONYM')>
 			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'INSTITUTION_ACRONYM'))>
-		</cfif>
+		</cfif> --->
 		
 		
 		<cfset fileDir = "#Application.webDirectory#">
