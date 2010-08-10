@@ -67,7 +67,7 @@
 		#flatTableName#.collectors">
 	<cfset basFrom = "	FROM #flatTableName#, #mediaFlatTableName#">
 	<cfset basWhere = " WHERE 
-		#flatTableName#.collection_object_id IN (#mediaFlatTableName#.collection_object_id) AND
+		#flatTableName#.collection_object_id IN (#mediaFlatTableName#.collecting_object_id) AND
 		#flatTableName#.dec_lat is not null AND
 		#flatTableName#.dec_long is not null AND
 		#flatTableName#.collecting_source = 'wild caught' ">		
