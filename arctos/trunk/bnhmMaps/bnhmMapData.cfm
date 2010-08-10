@@ -49,9 +49,12 @@
 </cfoutput>
 
 <cfelseif isdefined("search") and search IS "MediaSearch">
-	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+<!-- 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset ShowObservations = "true">
-	</cfif>
+	</cfif> -->
+	
+	<cfset ShowObservations = "true">
+
 	<cfset basSelect = "SELECT DISTINCT 
 		#flatTableName#.collection,
 		#flatTableName#.collection_id,
@@ -70,7 +73,8 @@
 		#flatTableName#.collection_object_id IN (#mediaFlatTableName#.collecting_object_id) AND
 		#flatTableName#.dec_lat is not null AND
 		#flatTableName#.dec_long is not null AND
-		#flatTableName#.collecting_source = 'wild caught' ">		
+		#flatTableName#.collecting_source = 'wild caught' ">	
+			
 	<cfset srch = "">
 
 	<cfinclude template="/development/MediaSearchSql.cfm">
