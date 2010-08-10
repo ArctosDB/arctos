@@ -16,6 +16,7 @@
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
+<cfset mediaFlatTableName = "media_flat">
 <!----------------------------------------------------------------->
 <cfif isdefined("action") and action IS "mapPoint">
 <cfoutput>
@@ -46,6 +47,38 @@
 			lat_long_id=#lat_long_id#
 	</cfquery>
 </cfoutput>
+
+<cfelse isdefined("search") and search IS "MediaSearch">
+	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+		<cfset ShowObservations = "true">
+	</cfif>
+	<cfset basSelect = "SELECT DISTINCT 
+		#flatTableName#.collection,
+		#flatTableName#.collection_id,
+		#flatTableName#.cat_num,
+		#flatTableName#.scientific_name,
+		#flatTableName#.verbatim_date,
+		#flatTableName#.spec_locality,
+		#flatTableName#.dec_lat,
+		#flatTableName#.dec_long,
+		#flatTableName#.COORDINATEUNCERTAINTYINMETERS,
+		#flatTableName#.datum,
+		#flatTableName#.collection_object_id,
+		#flatTableName#.collectors">
+	<cfset basFrom = "	FROM #flatTableName#, #mediaFlatTableName#">
+	<cfset basWhere = " WHERE 
+		#flatTableName#.collection_object_id IN (#mediaFlatTableName#.collection_object_id) AND
+		#flatTableName#.dec_lat is not null AND
+		#flatTableName#.dec_long is not null AND
+		#flatTableName#.collecting_source = 'wild caught' ">		
+	<cfset basQual = "">
+
+	<cfinclude template="/development/MediaSearchSql.cfm">
+	<cfset SqlString = "#basSelect# #basFrom# #basWhere# #basQual#">	
+	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		#preserveSingleQuotes(SqlString)#
+	</cfquery>
+
 <cfelse><!--- regular mapping routine ---->
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset ShowObservations = "true">
