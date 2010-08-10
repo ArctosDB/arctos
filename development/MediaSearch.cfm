@@ -183,7 +183,7 @@
 	<cfset srch=" ">
 	<cfset mapurl = "">
 	<cfset terms="">
-	<cfinclude template="includes/MediaSearchSql.cfm">
+	<cfinclude template="MediaSearchSql.cfm">
 
 	
 	<!-- Finalize query -->
