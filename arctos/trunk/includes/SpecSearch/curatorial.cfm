@@ -78,10 +78,23 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="disposition">Disposition:</span>
+			<span class="helpLink" id="disposition">Specimen Disposition:</span>
 		</td>
 		<td class="srch">
 			<select name="coll_obj_disposition" id="coll_obj_disposition" size="1">
+				<option value=""></option>
+				<cfloop query="ctCollObjDisp">
+					<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>
+				</cfloop>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="disposition">Part Disposition:</span>
+		</td>
+		<td class="srch">
+			<select name="part_disposition" id="part_disposition" size="1">
 				<option value=""></option>
 				<cfloop query="ctCollObjDisp">
 					<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>

@@ -1138,7 +1138,14 @@
 		inner join ctspecimen_part_name on (spt.part_name=ctspecimen_part_name.part_name)">	
 	<cfset basQual = " #basQual# AND ctspecimen_part_name.is_tissue = 1">
 </cfif>
-<cfif isdefined("srchParts") AND len(#srchParts#) gt 0>
+<cfif isdefined("part_disposition") AND len(part_disposition) gt 0>
+	<cfset basJoin = " #basJoin# 
+			INNER JOIN specimen_part spdisp ON (#session.flatTableName#.collection_object_id = spdisp.derived_from_cat_item)
+			inner join coll_object partCollObj on (spdisp.collection_object_id=partCollObj.collection_object_id)">
+	<cfset basQual = " #basQual# AND partCollObj.coll_obj_disposition='#part_disposition#'">
+	<cfset mapurl = "#mapurl#&part_disposition=#part_disposition#">
+</cfif>
+<cfif isdefined("srchParts") AND len(srchParts) gt 0>
 	<cfif basJoin does not contain " specimen_part ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 
 		(cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
