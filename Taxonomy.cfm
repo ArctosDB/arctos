@@ -533,6 +533,7 @@
 		) VALUES (
 			#nextID.nextID#,
 			#valid_catalog_term_fg#,
+			'#source_authority#',
 			'#escapeQuotes(author_text)#',
 			'#tribe#',
 			'#infraspecific_rank#',
