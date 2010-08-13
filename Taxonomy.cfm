@@ -105,6 +105,7 @@
 			            	value="#cttaxon_status.taxon_status#">#cttaxon_status.taxon_status#</option>
 			        </cfloop>
 				</select>
+				<span class="infoLink" onclick="getCtDoc('cttaxon_status');">Define</span>
 			</td>
 		</tr>
 		<tr>
