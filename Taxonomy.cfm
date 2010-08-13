@@ -523,7 +523,7 @@
 			genus,
 			subgenus,
 			species,
-			subspecie,
+			subspecies,
 			taxon_remarks,
 			phylum,
 			infraspecific_author,
