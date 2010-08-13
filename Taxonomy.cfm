@@ -187,6 +187,61 @@
 		</tr>
       </form>
     </table>
+	<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select formatted_publication from
+			taxonomy_publication,
+			formatted_publication		
+		where
+			taxonomy_publication.publication_id=formatted_publication.publication_id and
+			taxonomy_publication.taxon_name_id=#taxon_name_id#
+	</cfquery>
+	<cfset i = 1>
+	<span class="likeLink" onClick="getDocs('taxonomy','taxonomy_publication');">Related Publications</span>
+	
+		<form name="newPub" method="post" action="Taxonomy.cfm">
+			<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
+			<input type="hidden" name="Action" value="newTaxonPub">
+			<input type="hidden" name="new_publication_id" id="new_publication_id">
+			<label for="new_pub">Add Publication</label>
+			<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newPub')">
+		</form>
+		<cfloop query="tax_pub">
+			<br>#formatted_publication#
+			<!----
+			<form name="tax_pub#i#" method="post" action="Taxonomy.cfm">
+				<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
+				<input type="hidden" name="Action">
+				<input type="hidden" name="related_taxon_name_id" value="#related_taxon_name_id#">
+				<input type="hidden" name="origTaxon_Relationship" value="#taxon_relationship#">
+				<tr>
+					<td>
+						<select name="taxon_relationship" size="1" class="reqdClr">
+							<cfloop query="ctRelation">
+								<option <cfif ctRelation.taxon_relationship is relations.taxon_relationship> 
+									selected="selected" </cfif>value="#ctRelation.taxon_relationship#">#ctRelation.taxon_relationship#
+								</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<input type="text" name="relatedName" class="reqdClr" size="50" value="#relations.scientific_name#"
+							onChange="taxaPick('newRelatedId','relatedName','relation#i#',this.value); return false;"
+							onKeyPress="return noenter(event);">
+						<input type="hidden" name="newRelatedId">
+					</td>
+					<td>
+						<input type="text" name="relation_authority" value="#relations.relation_authority#">
+					</td>
+					<td>
+						<input type="button" value="Save" class="savBtn" onclick="relation#i#.Action.value='saveRelnEdit';submit();">	
+						<input type="button" value="Delete" class="delBtn" onclick="relation#i#.Action.value='deleReln';confirmDelete('relation#i#');">
+					</td>
+				</tr>
+			</form>
+			<cfset i = #i#+1>
+			---->
+		</cfloop>
+	</table>
 	<cfquery name="relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			scientific_name, 
