@@ -190,7 +190,8 @@
 	<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			taxonomy_publication_id,
-			formatted_publication 
+			formatted_publication,
+			publication_id
 		from
 			taxonomy_publication,
 			formatted_publication		
@@ -217,6 +218,7 @@
 			<li>
 				#formatted_publication#
 				<a href="Taxonomy.cfm?action=removePub&taxonomy_publication_id=#taxonomy_publication_id#">[ remove ]</a>
+				<a href="SpecimenUsage.cfm?publication_id=#publication_id#">[ details ]</a>
 			</li>
 		</cfloop>
 		<cfif tax_pub.recordcount gt 0>
