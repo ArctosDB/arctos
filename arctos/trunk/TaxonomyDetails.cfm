@@ -192,6 +192,19 @@
 		imp_RELATION_AUTHORITY,
 		imp_related_display_name
 </cfquery>
+<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select 
+		taxonomy_publication_id,
+		formatted_publication,
+		taxonomy_publication.publication_id
+	from
+		taxonomy_publication,
+		formatted_publication		
+	where
+		format_style='short' and
+		taxonomy_publication.publication_id=formatted_publication.publication_id and
+		taxonomy_publication.taxon_name_id=#tnid#
+</cfquery>
 <cfoutput>
 	<script>
 		jQuery(document).ready(function(){
@@ -286,6 +299,22 @@
 			<cfset title = title & ' (#valuelist(common_name.common_name, "; ")#)'>
 		</cfif>
 	</ul>
+	<div>
+		Related Publications:
+		<ul>
+		 	<cfif tax_pub.recordcount is 0>
+				<li><b>No related publications recorded.</b></li>
+			<cfelse>
+				<cfloop query="tax_pub">
+					<li>
+						<a href="SpecimenUsage.cfm?publication_id=#publication_id#">
+							#formatted_publication#
+						</a>
+					</li>
+				</cfloop>
+			</cfif>
+		</ul>    
+    </div>
 	
 	<div>
 		Related Taxa:
