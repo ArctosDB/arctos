@@ -334,15 +334,11 @@
 		<th>Authority</th>
 	</tr>
 	<form name="newRelation" method="post" action="Taxonomy.cfm">
-		<tr class="newRec">
-			<td colspan="4">
-				Add Relationship:
-			</td>
-		</tr>
 		<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
 		<input type="hidden" name="Action" value="newTaxaRelation">
 		<tr class="newRec">
 			<td>
+				<label for="taxon_relationship">Add Relationship</label>
 				<select name="taxon_relationship" size="1" class="reqdClr">
 					<cfloop query="ctRelation">
 						<option value="#ctRelation.taxon_relationship#">#ctRelation.taxon_relationship#</option>
