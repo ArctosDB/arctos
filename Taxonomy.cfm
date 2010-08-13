@@ -203,7 +203,8 @@
 			<input type="hidden" name="Action" value="newTaxonPub">
 			<input type="hidden" name="new_publication_id" id="new_publication_id">
 			<label for="new_pub">Add Publication</label>
-			<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newPub')">
+			<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newPub')" size="80">
+			<input type="submit" value="Add Publication" class="insBtn">
 		</form>
 		<cfloop query="tax_pub">
 			<br>#formatted_publication#
@@ -353,6 +354,18 @@
 		</tr>
 	</table>
 </cfoutput>
+</cfif>
+
+
+
+			<!---------------------------------------------------------------------------------------------------->
+
+<cfif action is "newTaxonPub">
+	<cfquery name="newTaxonPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		INSERT INTO taxonomy_publication (taxon_name_id,publication_id)
+		VALUES (#taxon_name_id#,#new_publication_id#)
+	</cfquery>
+	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "newCommon">
