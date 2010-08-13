@@ -191,7 +191,7 @@
 		select 
 			taxonomy_publication_id,
 			formatted_publication,
-			publication_id
+			taxonomy_publication.publication_id
 		from
 			taxonomy_publication,
 			formatted_publication		
