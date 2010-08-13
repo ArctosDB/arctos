@@ -337,11 +337,14 @@
 	</table>
 </cfoutput>
 </cfif>
-
-
-
-			<!---------------------------------------------------------------------------------------------------->
-
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "removePub">
+	<cfquery name="removePub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from taxonomy_publication where taxonomy_publication_id=#taxonomy_publication_id#
+	</cfquery>
+	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
 <cfif action is "newTaxonPub">
 	<cfquery name="newTaxonPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO taxonomy_publication (taxon_name_id,publication_id)
