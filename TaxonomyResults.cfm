@@ -401,7 +401,7 @@ Found #summary.cnt# records.
 					margin:0;"><li>list</li></ul>	--->
 	</td>
     <td nowrap>
-	<cfif #cName.recordcount# is 0>
+	<cfif #cName.recordcount is 0>
 		<font size="-1" color="##FF0000">None recorded</font>
 	<cfelse>
 		<cfloop query="cName">

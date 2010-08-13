@@ -146,70 +146,67 @@
 <!---------------------------------------------------------------------------------------------------->
 --->
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "edit">
-<cfset title="Edit Taxonomy">
-<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from taxonomy where taxon_name_id=#taxon_name_id#
-</cfquery>
-<cfoutput query="getTaxa">
-<span style="font-size:large;font-weight:bold">Edit Taxonomy: <em>#scientific_name#</em></span>
-<span class="infoLink" onClick="getDocs('taxonomy');">What's this?</span>
-<a class="infoLink" href="/name/#scientific_name#">Detail Page</a>
-<table border="0">
-      	<form name="taxa" method="post" action="Taxonomy.cfm">
-        	<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
-        	<input type="hidden" name="Action">
-        <tr> 
-       		<td>
-				<label for="source_authority"><span class="likeLink" onClick="getDocs('taxonomy','source_authority');">Source</span></label>
+<cfif action is "edit">
+	<cfset title="Edit Taxonomy">
+	<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from taxonomy where taxon_name_id=#taxon_name_id#
+	</cfquery>
+<cfoutput>
+	<span style="font-size:large;font-weight:bold">Edit Taxonomy: <em>#getTaxa.scientific_name#</em></span>
+	<span class="infoLink" onClick="getDocs('taxonomy');">What's this?</span>
+	<a class="infoLink" href="/name/#getTaxa.scientific_name#">Detail Page</a>
+    <table border>
+	<form name="taxa" method="post" action="Taxonomy.cfm">
+    	<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
+        <input type="hidden" name="Action">
+		<tr>
+			<td>
+				<label for="source_authority">
+					<span class="likeLink" onClick="getDocs('taxonomy','source_authority');">Source</span>
+				</label>
 				<select name="source_authority" id="source_authority" size="1"  class="reqdClr">
-	              <cfloop query="ctSourceAuth">
-	                <option 
-							<cfif #gettaxa.source_authority# is "#ctsourceauth.source_authority#"> selected </cfif>value="#ctSourceAuth.source_authority#">#ctSourceAuth.source_authority#</option>
-	              </cfloop>
-	            </select>
+		             <cfloop query="ctSourceAuth">
+		               <option <cfif gettaxa.source_authority is ctsourceauth.source_authority> selected="selected" </cfif>
+							value="#ctSourceAuth.source_authority#">#ctSourceAuth.source_authority#</option>
+		             </cfloop>
+		        </select>
 			</td>
 			<td>
-				<label for="valid_catalog_term_fg"><span class="likeLink" onClick="getDocs('taxonomy','valid_term');">Valid?</span></label>
+				<label for="valid_catalog_term_fg"><span class="likeLink" onClick="getDocs('taxonomy','valid_term');">ValidForCatalog?</span></label>
 				<select name="valid_catalog_term_fg" id="valid_catalog_term_fg" size="1" class="reqdClr">
-	              <option <cfif #getTaxa.valid_catalog_term_fg# is "1"> selected </cfif> value="1">yes</option>
-	              <option 
-					<cfif #getTaxa.valid_catalog_term_fg# is "0"> selected </cfif>
-					value="0">no</option>
-	            </select>
+			    	<option <cfif getTaxa.valid_catalog_term_fg is "1"> selected="selected" </cfif> value="1">yes</option>
+			        <option <cfif getTaxa.valid_catalog_term_fg is "0"> selected="selected" </cfif> value="0">no</option>
+			    </select>
 			</td>
-        </tr>
-        <tr> 
+		</tr>
+      	<tr>
 			<td>
 				<label for="nomenclatural_code"><span class="likeLink" onClick="getDocs('taxonomy','nomenclatural_code');">Nomenclatural Code</span></label>
 				<select name="nomenclatural_code" id="nomenclatural_code" size="1" class="reqdClr">
-	               <cfloop query="ctnomenclatural_code">
-	                <option 
-							<cfif #gettaxa.nomenclatural_code# is "#ctnomenclatural_code.nomenclatural_code#"> selected </cfif>value="#ctnomenclatural_code.nomenclatural_code#">#ctnomenclatural_code.nomenclatural_code#</option>
-	              </cfloop>
-	            </select>
-			
+			    	<cfloop query="ctnomenclatural_code">
+			        	<option <cfif gettaxa.nomenclatural_code is ctnomenclatural_code.nomenclatural_code> selected="selected" </cfif>
+			            	value="#ctnomenclatural_code.nomenclatural_code#">#ctnomenclatural_code.nomenclatural_code#</option>
+			        </cfloop>
+				</select>
 			</td>
-        	
 			<td>
-				<label for="genus">Genus <span class="likeLink" 
-					onClick="taxa.genus.value='&##215;' + taxa.genus.value;">Add &##215;</span></label>
-				<input size="25" name="genus" id="genus" maxlength="40" value="#genus#">
+				<label for="genus">Genus <span class="likeLink" onClick="taxa.genus.value='&##215;' + taxa.genus.value;">Add &##215;</span></label>
+				<input size="25" name="genus" id="genus" maxlength="40" value="#gettaxa.genus#">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label for="species">Species <span class="likeLink" 
 					onClick="taxa.species.value='&##215;' + taxa.species.value;">Add &##215;</span></label>
-				<input size="25" name="species" id="species" maxlength="40" value="#species#">
+				<input size="25" name="species" id="species" maxlength="40" value="#gettaxa.species#">
 			</td>
 			<td>
 				<label for="author_text"><span class="likeLink" onClick="getDocs('taxonomy','author_text');">Species Author</span></label>
-				<input type="text" name="author_text" id="author_text" value="#author_text#" size="30">
+				<input type="text" name="author_text" id="author_text" value="#gettaxa.author_text#" size="30">
 				<span class="infoLink" 
 					onclick="window.open('/picks/KewAbbrPick.cfm?tgt=author_text','picWin','width=700,height=400, resizable,scrollbars')">
-						Find Kew Abbr
-					</span>
+					Find Kew Abbr
+				</span>
 			</td>
 		</tr>
 		<tr>
@@ -223,16 +220,26 @@
 	                </cfloop>
               	</select>
 			</td>
+			<td>
+				<label for="taxon_status"><span class="likeLink" onClick="getDocs('taxonomy','taxon_status');">Taxon Status</span></label>
+				<select name="taxon_status" id="taxon_status" size="1">
+			    	<option value=""></option>
+			    	<cfloop query="cttaxon_status">
+			        	<option <cfif gettaxa.taxon_status is cttaxon_status.taxon_status> selected="selected" </cfif>
+			            	value="#cttaxon_status.taxon_status#">#cttaxon_status.taxon_status#</option>
+			        </cfloop>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td>
 				<label for="subspecies">Subspecies</label>
-				<input size="25" name="subspecies" id="subspecies" maxlength="40" value="#subspecies#">
+				<input size="25" name="subspecies" id="subspecies" maxlength="40" value="#gettaxa.subspecies#">
 			</td>
 			<td>
 				<label for="author_text"><span class="likeLink" onClick="getDocs('taxonomy','infraspecific_author');">
 					Infraspecific Author</span></label>
-				<input type="text" name="infraspecific_author" id="infraspecific_author" value="#infraspecific_author#" size="30">
+				<input type="text" name="infraspecific_author" id="infraspecific_author" value="#gettaxa.infraspecific_author#" size="30">
 				<span class="infoLink" 
 					onclick="window.open('/picks/KewAbbrPick.cfm?tgt=infraspecific_author','picWin','width=700,height=400, resizable,scrollbars')">
 						Find Kew Abbr
@@ -242,69 +249,62 @@
 		<tr>
 			<td>
 				<label for="kingdom">Kingdom</label>
-				<input type="text" name="kingdom" id="kingdom" value="#kingdom#" size="30">
+				<input type="text" name="kingdom" id="kingdom" value="#gettaxa.kingdom#" size="30">
 			</td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>
 				<label for="phylum">Phylum</label>
-				<input type="text" name="phylum" id="phylum" value="#phylum#" size="30">
+				<input type="text" name="phylum" id="phylum" value="#gettaxa.phylum#" size="30">
 			</td>
 			<td>
 				<label for="phylclass">Class</label>
-				<input type="text" name="phylclass" id="phylclass" value="#phylclass#" size="30">
+				<input type="text" name="phylclass" id="phylclass" value="#gettaxa.phylclass#" size="30">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label for="phylorder">Order</label>
-				<input type="text" name="phylorder" id="phylorder" value="#phylorder#" size="30">
+				<input type="text" name="phylorder" id="phylorder" value="#gettaxa.phylorder#" size="30">
 			</td>
 			<td>
 				<label for="suborder">Suborder</label>
-				<input type="text" name="suborder" id="suborder" value="#suborder#" size="30">
+				<input type="text" name="suborder" id="suborder" value="#gettaxa.suborder#" size="30">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label for="family">Family</label>
-				<input type="text" name="family" id="family" value="#family#" size="30">
+				<input type="text" name="family" id="family" value="#gettaxa.family#" size="30">
 			</td>
 			<td>
 				<label for="subfamily">Subfamily</label>
-				<input type="text" name="subfamily" id="subfamily" value="#subfamily#" size="30">
+				<input type="text" name="subfamily" id="subfamily" value="#gettaxa.subfamily#" size="30">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label for="tribe">Tribe</label>
-				<input type="text" name="tribe" id="tribe" value="#tribe#" size="30">
+				<input type="text" name="tribe" id="tribe" value="#gettaxa.tribe#" size="30">
 			</td>
 			<td>
 				<label for="subfamily">Subgenus</label>
-				<input type="text" name="subgenus" id="subgenus" value="#subgenus#" size="30">
+				<input type="text" name="subgenus" id="subgenus" value="#gettaxa.subgenus#" size="30">
 			</td>
 		</tr>
         <tr>
 			<td colspan="2">
 				<label for="taxon_remarks">Remarks</label>
-				<textarea name="taxon_remarks" id="taxon_remarks" rows="3" cols="60">#taxon_remarks#</textarea>
+				<textarea name="taxon_remarks" id="taxon_remarks" rows="3" cols="60">#gettaxa.taxon_remarks#</textarea>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
 				<div align="center">
-					<input type="button" value="Save" class="savBtn"
-	 					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'"
-	   					onclick="taxa.Action.value='saveTaxaEdits';submit();">
-   
-              		<input type="button" value="Clone" class="insBtn"
-					   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
-					   onclick="taxa.Action.value='newTaxa';submit();">
-   					<input type="button" value="Delete" class="delBtn"
-						onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
-						onclick="taxa.Action.value='deleTaxa';confirmDelete('taxa');">
+					<input type="button" value="Save" class="savBtn" onclick="taxa.Action.value='saveTaxaEdits';submit();">
+              		<input type="button" value="Clone" class="insBtn" onclick="taxa.Action.value='newTaxa';submit();">
+   					<input type="button" value="Delete" class="delBtn"	onclick="taxa.Action.value='deleTaxa';confirmDelete('taxa');">
 				</div>
 			</td>
 		</tr>
@@ -326,102 +326,78 @@
 		AND taxon_relations.taxon_name_id = #taxon_name_id#
 </cfquery>
 <cfset i = 1>
-  <a href="javascript:void(0);" 
-		  	onClick="getDocs('taxonomy','taxon_relations'); return false;"
-			onMouseOver="self.status='Click for help.';return true;"
-			onmouseout="self.status='';return true;"><b>Related Taxa:</b>
-			</a>
-			
-<table>
-<cfloop query="relations">
-	<form name="relation#i#" method="post" action="Taxonomy.cfm">
-		<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
-		<input type="hidden" name="Action">
-		<input type="hidden" name="related_taxon_name_id" value="#related_taxon_name_id#">
-		<input type="hidden" name="origTaxon_Relationship" value="#taxon_relationship#">
-		<tr>
-			<td><font size="-2">Relationship</font></td>
-			<td><font size="-2">Related Taxa</font></td>
-			<td><font size="-2">
-			<a href="javascript:void(0);" 
-		  	onClick="getDocs('taxonomy','relationship_authority'); return false;"
-			onMouseOver="self.status='Click for help.';return true;"
-			onmouseout="self.status='';return true;">Authority
-			</a>
-			</font></td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<td><select name="taxon_relationship" size="1" class="reqdClr">
-			<cfset thisRelation = "#relations.taxon_relationship#">
-			<cfloop query="ctRelation">
-				<option 
-					<cfif #ctRelation.taxon_relationship# is "#thisRelation#"> 
-					selected </cfif>value="#ctRelation.taxon_relationship#">#ctRelation.taxon_relationship#
-				</option>
-			</cfloop>
-		</select></td>
-			<td>
-				<input type="text" name="relatedName" class="reqdClr" size="50" value="#relations.scientific_name#"
-				onChange="taxaPick('newRelatedId','relatedName','relation#i#',this.value); return false;"
-				onKeyPress="return noenter(event);">
-				
-		<input type="hidden" name="newRelatedId">
-		
-   </td>
-			<td><input type="text" name="relation_authority" value="#relations.relation_authority#"></td>
-			<td>
-				<input type="button" value="Save" class="savBtn"
-   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'"
-   onclick="relation#i#.Action.value='saveRelnEdit';submit();">	
-
- <input type="button" value="Delete" class="delBtn"
-   onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
-    onclick="relation#i#.Action.value='deleReln';confirmDelete('relation#i#');">
+<span class="likeLink" onClick="getDocs('taxonomy','taxon_relations');">Related Taxa:</span>
+<table border="1">
+	<tr>
+		<th>Relationship</th>
+		<th>Related Taxa</th>
+		<th>Authority</th>
+	</tr>
+	<form name="newRelation" method="post" action="Taxonomy.cfm">
+		<tr class="newRec">
+			<td colspan="4">
+				Add Relationship:
 			</td>
 		</tr>
-	</form>
-	
-	<cfset i = #i#+1>
-</cfloop>
-</table>
-<table class="newRec"><tr><td>
-<table>
-<form name="newRelation" method="post" action="Taxonomy.cfm">
-<br>Add Relationship:
 		<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
 		<input type="hidden" name="Action" value="newTaxaRelation">
 		<tr>
-			<td><font size="-2">Relationship</font></td>
-			<td><font size="-2">Related Taxa</font></td>
-			<td><font size="-2">Authority</font></td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<td><select name="taxon_relationship" size="1" class="reqdClr">
+			<td>
+				<select name="taxon_relationship" size="1" class="reqdClr">
 					<cfloop query="ctRelation">
 						<option value="#ctRelation.taxon_relationship#">#ctRelation.taxon_relationship#</option>
 					</cfloop>
-				</select></td>
+				</select>
+			</td>
 			<td>
-			<input type="text" name="relatedName" class="reqdClr" size="50" 
-				onChange="taxaPick('newRelatedId','relatedName','newRelation',this.value); return false;"
-				onKeyPress="return noenter(event);">
-				
+				<input type="text" name="relatedName" class="reqdClr" size="50" 
+					onChange="taxaPick('newRelatedId','relatedName','newRelation',this.value); return false;"
+					onKeyPress="return noenter(event);">
 				<input type="hidden" name="newRelatedId">
-		
-		
-		</td>
-			<td><input type="text" name="relation_authority"></td>
-			<td align="left">
-			<input type="submit" value="Save" class="savBtn"
-   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
+			</td>
+			<td>
+				<input type="text" name="relation_authority">
+			</td>
+			<td>
+				<input type="submit" value="Create" class="insBtn">	
    
-   </td>
+   			</td>
 		</tr>
 	</form>
-	</table>
-	</td></tr></table>
+	<cfloop query="relations">
+		<form name="relation#i#" method="post" action="Taxonomy.cfm">
+			<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
+			<input type="hidden" name="Action">
+			<input type="hidden" name="related_taxon_name_id" value="#related_taxon_name_id#">
+			<input type="hidden" name="origTaxon_Relationship" value="#taxon_relationship#">
+			<tr>
+				<td>
+					<select name="taxon_relationship" size="1" class="reqdClr">
+						<cfloop query="ctRelation">
+							<option <cfif ctRelation.taxon_relationship is relations.taxon_relationship> 
+								selected="selected" </cfif>value="#ctRelation.taxon_relationship#">#ctRelation.taxon_relationship#
+							</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<input type="text" name="relatedName" class="reqdClr" size="50" value="#relations.scientific_name#"
+						onChange="taxaPick('newRelatedId','relatedName','relation#i#',this.value); return false;"
+						onKeyPress="return noenter(event);">
+					<input type="hidden" name="newRelatedId">
+				</td>
+				<td>
+					<input type="text" name="relation_authority" value="#relations.relation_authority#">
+				</td>
+				<td>
+					<input type="button" value="Save" class="savBtn" onclick="relation#i#.Action.value='saveRelnEdit';submit();">	
+					<input type="button" value="Delete" class="delBtn" onclick="relation#i#.Action.value='deleReln';confirmDelete('relation#i#');">
+				</td>
+			</tr>
+		</form>
+		<cfset i = #i#+1>
+	</cfloop>
+</table>
 <cfquery name="common" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select common_name from common_name where taxon_name_id = #taxon_name_id#
 </cfquery>
