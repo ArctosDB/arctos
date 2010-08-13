@@ -217,7 +217,7 @@
 		<cfloop query="tax_pub">
 			<li>
 				#formatted_publication#
-				<a href="Taxonomy.cfm?action=removePub&taxonomy_publication_id=#taxonomy_publication_id#">[ remove ]</a>
+				<a href="Taxonomy.cfm?action=removePub&taxonomy_publication_id=#taxonomy_publication_id#&taxon_name_id=#taxon_name_id#">[ remove ]</a>
 				<a href="SpecimenUsage.cfm?publication_id=#publication_id#">[ details ]</a>
 			</li>
 		</cfloop>
