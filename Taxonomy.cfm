@@ -397,13 +397,7 @@
 <cfquery name="common" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select common_name from common_name where taxon_name_id = #taxon_name_id#
 </cfquery>
-<a href="javascript:void(0);" 
-		  	onClick="getDocs('taxonomy','common_names'); return false;"
-			onMouseOver="self.status='Click for help.';return true;"
-			onmouseout="self.status='';return true;">Common Names:
-			</a>
-			
-
+<span class="likeLink" onClick="getDocs('taxonomy','common_names');">Common Names</span>
 <cfset i=1>
 <cfloop query="common">
 	<form name="common#i#" method="post" action="Taxonomy.cfm">
@@ -411,32 +405,28 @@
 		<input type="hidden" name="origCommonName" value="#common_name#">
 		<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 		<input type="text" name="common_name" value="#common_name#" size="50">
-		<input type="button" value="Save" class="savBtn"
-   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'"
-   onClick="common#i#.Action.value='saveCommon';submit();">	
-   
-   <input type="button" value="Delete" class="delBtn"
-   onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
-   onClick="common#i#.Action.value='deleteCommon';confirmDelete('common#i#');">
+		<input type="button" value="Save" class="savBtn" onClick="common#i#.Action.value='saveCommon';submit();">	
+   		<input type="button" value="Delete" class="delBtn" onClick="common#i#.Action.value='deleteCommon';confirmDelete('common#i#');">
 	</form>
-	
-	<cfset i=#i#+1>
+	<cfset i=i+1>
 </cfloop>
-<table class="newRec"><tr><td>
-New Common Name:
-	<form name="newCommon" method="post" action="Taxonomy.cfm">
-		<input type="hidden" name="Action" value="newCommon">
-		<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
-		<input type="text" name="common_name" size="50">
-		 <input type="submit" value="Create" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">	
-
-	</form>
-	</td></tr></table>
+<table class="newRec">
+	<tr>
+		<td>
+			<form name="newCommon" method="post" action="Taxonomy.cfm">
+				<input type="hidden" name="Action" value="newCommon">
+				<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
+				<label for="common_name">New Common Name</label>
+				<input type="text" name="common_name" size="50">
+				<input type="submit" value="Create" class="insBtn">	
+			</form>
+		</td>
+	</tr>
+</table>
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "newCommon">
+<cfif action is "newCommon">
 <cfoutput>
 	<cfquery name="newCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO common_name (common_name, taxon_name_id)
@@ -447,7 +437,7 @@ New Common Name:
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 
-<cfif #Action# is "deleTaxa">
+<cfif Action is "deleTaxa">
 <cfoutput>
 	<cfquery name="deleTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM 
@@ -612,6 +602,16 @@ New Common Name:
 	                </cfloop>
               	</select>
 			</td>
+			<td>
+				<label for="taxon_status"><span class="likeLink" onClick="getDocs('taxonomy','taxon_status');">Taxon Status</span></label>
+				<select name="taxon_status" id="taxon_status" size="1">
+			    	<option value=""></option>
+			    	<cfloop query="cttaxon_status">
+			        	<option <cfif form.taxon_status is cttaxon_status.taxon_status> selected="selected" </cfif>
+			            	value="#cttaxon_status.taxon_status#">#cttaxon_status.taxon_status#</option>
+			        </cfloop>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td>
@@ -760,6 +760,9 @@ New Common Name:
 		</cfif>
 		<cfif len(#nomenclatural_code#) gt 0>
 			,nomenclatural_code		
+		</cfif>	
+		<cfif len(taxon_status) gt 0>
+			,taxon_status		
 		</cfif>		
 		)	
 	VALUES (
@@ -816,6 +819,9 @@ New Common Name:
 		</cfif>
 		<cfif len(#nomenclatural_code#) gt 0>
 			,'#nomenclatural_code#'		
+		</cfif>
+		<cfif len(taxon_status) gt 0>
+			,'#taxon_status#'		
 		</cfif>		
 			)
 		</cfquery>
@@ -996,7 +1002,8 @@ username='#session.username#'
 			,infraspecific_author = '#infraspecific_author#'
 		<cfelse>
 			,infraspecific_author = null			
-		</cfif>	
+		</cfif>
+		,taxon_status='#taxon_status#'	
 	WHERE taxon_name_id=#taxon_name_id#
 	</cfquery>
 	</cftransaction>
