@@ -70,21 +70,25 @@
 				SUBCLASS,
 				TAXON_REMARKS,
 				NOMENCLATURAL_CODE,
-				INFRASPECIFIC_AUTHOR
+				INFRASPECIFIC_AUTHOR,
+				taxon_status
 			 from taxonomy, common_name
 				WHERE taxonomy.taxon_name_id = common_name.taxon_name_id (+)">
-		<cfif isdefined("common_name") AND len(#common_name#) gt 0>
+		<cfif isdefined("common_name") AND len(common_name) gt 0>
 			<CFSET SQL = "#SQL# AND upper(common_name) LIKE '%#ucase(common_name)#%'">
 			<cfset stringOfStuffToClean = "#stringOfStuffToClean##common_name#">
 			<cfset titleTerms=listappend(titleTerms,'#common_name#')>
 		</cfif>
-		<cfif isdefined("source_authority") AND len(#source_authority#) gt 0>
+		<cfif isdefined("source_authority") AND len(source_authority) gt 0>
 			<CFSET SQL = "#SQL# AND source_authority = '#source_authority#'">
+		</cfif>		
+		<cfif isdefined("taxon_status") AND len(taxon_status) gt 0>
+			<CFSET SQL = "#SQL# AND taxon_status = '#taxon_status#'">
 		</cfif>
 		<cfif isdefined("nomenclatural_code") AND len(nomenclatural_code) gt 0>
 			<CFSET SQL = "#SQL# AND nomenclatural_code = '#nomenclatural_code#'">
 		</cfif>
-		<cfif isdefined("genus") AND len(#genus#) gt 0>
+		<cfif isdefined("genus") AND len(genus) gt 0>
 			<cfif left(genus,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(genus) = '#ucase(right(genus,len(genus)-1))#'">
 			<cfelse>
@@ -92,7 +96,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#genus#')>
 		</cfif>
-		<cfif isdefined("phylum") AND len(#phylum#) gt 0>
+		<cfif isdefined("phylum") AND len(phylum) gt 0>
 			<cfif left(phylum,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(phylum) = '#ucase(right(phylum,len(phylum)-1))#'">
 			<cfelse>
@@ -100,7 +104,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#phylum#')>
 		</cfif>
-		<cfif isdefined("species") AND len(#species#) gt 0>
+		<cfif isdefined("species") AND len(species) gt 0>
 			<cfif left(species,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(species) = '#ucase(right(species,len(species)-1))#'">
 			<cfelse>
@@ -108,7 +112,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#species#')>
 		</cfif>
-		<cfif isdefined("subspecies") AND len(#subspecies#) gt 0>
+		<cfif isdefined("subspecies") AND len(subspecies) gt 0>
 			<cfif left(subspecies,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(subspecies) = '#ucase(right(subspecies,len(subspecies)-1))#'">
 			<cfelse>
@@ -116,7 +120,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#subspecies#')>
 		</cfif>
-		<cfif isdefined("full_taxon_name") AND len(#full_taxon_name#) gt 0>
+		<cfif isdefined("full_taxon_name") AND len(full_taxon_name) gt 0>
 			<cfif left(full_taxon_name,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(full_taxon_name) = '#ucase(right(full_taxon_name,len(full_taxon_name)-1))#'">
 			<cfelse>
@@ -125,7 +129,7 @@
 			<cfset stringOfStuffToClean = "#stringOfStuffToClean##full_taxon_name#">
 			<cfset titleTerms=listappend(titleTerms,'#full_taxon_name#')>
 		</cfif>
-		<cfif isdefined("kingdom") AND len(#kingdom#) gt 0>
+		<cfif isdefined("kingdom") AND len(kingdom) gt 0>
 			<cfif left(kingdom,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(kingdom) = '#ucase(right(kingdom,len(kingdom)-1))#'">
 			<cfelse>
@@ -133,7 +137,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#kingdom#')>
 		</cfif>
-		<cfif isdefined("phylclass") AND len(#phylclass#) gt 0>
+		<cfif isdefined("phylclass") AND len(phylclass) gt 0>
 			<cfif left(phylclass,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(phylclass) = '#ucase(right(phylclass,len(phylclass)-1))#'">
 			<cfelse>
@@ -141,7 +145,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#phylclass#')>
 		</cfif>
-		<cfif isdefined("phylorder") AND len(#phylorder#) gt 0>
+		<cfif isdefined("phylorder") AND len(phylorder) gt 0>
 			<cfif left(phylorder,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(phylorder) = '#ucase(right(phylorder,len(phylorder)-1))#'">
 			<cfelse>
@@ -149,7 +153,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#phylorder#')>
 		</cfif>
-		<cfif isdefined("suborder") AND len(#suborder#) gt 0>
+		<cfif isdefined("suborder") AND len(suborder) gt 0>
 			<cfif left(suborder,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(suborder) = '#ucase(right(suborder,len(suborder)-1))#'">
 			<cfelse>
@@ -157,7 +161,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#suborder#')>
 		</cfif>
-		<cfif isdefined("family") AND len(#family#) gt 0>
+		<cfif isdefined("family") AND len(family) gt 0>
 			<cfif left(family,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(family) = '#ucase(right(family,len(family)-1))#'">
 			<cfelse>
@@ -165,7 +169,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#family#')>
 		</cfif>
-		<cfif isdefined("subfamily") AND len(#subfamily#) gt 0>
+		<cfif isdefined("subfamily") AND len(subfamily) gt 0>
 			<cfif left(subfamily,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(subfamily) = '#ucase(right(subfamily,len(subfamily)-1))#'">
 			<cfelse>
@@ -173,7 +177,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#subfamily#')>
 		</cfif>
-		<cfif isdefined("tribe") AND len(#tribe#) gt 0>
+		<cfif isdefined("tribe") AND len(tribe) gt 0>
 			<cfif left(tribe,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(tribe) = '#ucase(right(tribe,len(tribe)-1))#'">
 			<cfelse>
@@ -181,7 +185,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#tribe#')>
 		</cfif>
-		<cfif isdefined("subgenus") AND len(#subgenus#) gt 0>
+		<cfif isdefined("subgenus") AND len(subgenus) gt 0>
 			<cfif left(subgenus,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(subgenus) = '#ucase(right(subgenus,len(subgenus)-1))#'">
 			<cfelse>
@@ -189,7 +193,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#subgenus#')>
 		</cfif>
-		<cfif isdefined("author_text") AND len(#author_text#) gt 0>
+		<cfif isdefined("author_text") AND len(author_text) gt 0>
 			<cfif left(author_text,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(author_text) = '#ucase(right(author_text,len(author_text)-1))#'">
 			<cfelse>
@@ -205,7 +209,7 @@
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#infraspecific_author#')>
 		</cfif>
-		<cfif isdefined("scientific_name") AND len(#scientific_name#) gt 0>
+		<cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
 			<cfif left(scientific_name,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(scientific_name) = '#ucase(right(scientific_name,len(scientific_name)-1))#'">
 			<cfelse>
@@ -217,7 +221,7 @@
 		<cfif isdefined("VALID_CATALOG_TERM_FG") AND len(#VALID_CATALOG_TERM_FG#) gt 0>
 			<CFSET SQL = "#SQL# AND VALID_CATALOG_TERM_FG = #VALID_CATALOG_TERM_FG#">
 		</cfif>
-		<cfif isdefined("we_have_some") AND #we_have_some# is true>
+		<cfif isdefined("we_have_some") AND we_have_some is true>
 			<CFSET SQL = "#SQL# AND taxonomy.taxon_name_id IN ( select taxon_name_id FROM identification_taxonomy )">
 		</cfif>
 		<CFSET SQL = "#SQL# group by
@@ -245,9 +249,10 @@
 				SUBCLASS,
 				TAXON_REMARKS,
 				NOMENCLATURAL_CODE,
-				INFRASPECIFIC_AUTHOR
+				INFRASPECIFIC_AUTHOR,
+				taxon_status
 					) where rownum<1001">
-		<cfif #stringOfStuffToClean# contains "'">
+		<cfif stringOfStuffToClean contains "'">
 			You searched for an illegal character.
 			<cfabort>
 		</cfif>
@@ -274,7 +279,7 @@
 		<cfabort>
 	</div>
 </cfif>
-<cfif not isdefined("goTo") or len(#goTo#) is 0 or goTo lte startAt>
+<cfif not isdefined("goTo") or len(goTo) is 0 or goTo lte startAt>
 	<cfset goTo = StartAt + dr>
 </cfif>
 <cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -301,7 +306,7 @@ Found #summary.cnt# records.
 				<cfset bDispVal = (i * dr + 1)>
 				<cfset eDispval = (i + 1) * dr>
 				<option value="#bDispVal#,#dr#"
-					<cfif #bDispVal# is #startAt#> selected="selected" </cfif>
+					<cfif bDispVal is startAt> selected="selected" </cfif>
 							>#bDispVal# - #eDispval#</option>
 			</cfloop>
 			<!--- last set of records --->
@@ -341,6 +346,7 @@ Found #summary.cnt# records.
         <th>Subspecies</th>
         <th>Infraspecific&nbsp;Author</th>
         <th>Authority</th>
+        <th>Status</th>
         <th>Remark</th>
     </tr>
   <cfset i=1>
@@ -422,6 +428,7 @@ Found #summary.cnt# records.
     <td><span class="browseLink" type="Subspecies" dval="#Subspecies#">#Subspecies#</span></td>
     <td nowrap="nowrap"><span class="browseLink" type="infraspecific_author" dval="#infraspecific_author#">#infraspecific_author#</span></td>
     <td nowrap="nowrap">#source_authority#&nbsp;</td>
+	<td nowrap="nowrap">#taxon_status#&nbsp;</td>
     <td nowrap="nowrap">#taxon_remarks#&nbsp;</td>
   </tr>
   <cfset i=i+1>
