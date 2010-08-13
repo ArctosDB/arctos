@@ -73,12 +73,13 @@
 </cfif>
 <cfset checkSql(tnid)>
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
-<cfset taxaRanksList="Kingdom,Phylum,PHYLClass,Subclass,PHYLOrder,Suborder,Superfamily,Family,Subfamily,Genus,Subgenus,Species,Subspecies,Nomenclatural_Code">
+<cfset taxaRanksList="Kingdom,Phylum,PHYLClass,Subclass,PHYLOrder,Suborder,Superfamily,Family,Subfamily,Genus,Subgenus,Species,Subspecies,Nomenclatural_Code,Taxon_Status">
 <cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 		taxonomy.TAXON_NAME_ID,
 		taxonomy.VALID_CATALOG_TERM_FG,
 		taxonomy.SOURCE_AUTHORITY,
+		taxonomy.taxon_status,
 		taxonomy.FULL_TAXON_NAME,
 		<cfloop list="#taxaRanksList#" index="i">
 			taxonomy.#i#,
