@@ -11,57 +11,18 @@
 <cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
 </cfquery>
+<cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select taxon_status from cttaxon_status order by taxon_status
+</cfquery>
 <cfset title="Edit Taxonomy">
-
-
 <!------------------------------------------------>
-<cfif #Action# is "nothing">
-
-
-<cfset title="Taxonomy Search">
-<table>
-<form name="taxa" method="post" action="Taxonomy.cfm">
-	<input type="hidden" name="Action" value="search">
-	<tr><td align="right"><b>Common&nbsp;Name:</b></td>
-	<td><input size="25" name="common_name" maxlength="50"></td></tr>
-	<tr><td align="right"><b>Genus:</b>
-	</td><td><input size="25" name="genus" maxlength="40"></td></tr>
-	<tr><td width="50" align="right"><b><nobr>Species:</nobr></b>
-	</td><td><input size="25" name="species" maxlength="40"></td></tr>
-	<tr><td width="50" align="right"><b><nobr>Subspecies:</nobr></b>
-	</td><td><input size="25" name="subspecies" maxlength="40"></td></tr>
-	<tr><td width="50" align="right"><b>Any&nbsp;Category:</b></td>
-	<td><input size="25" name="full_taxon_name" maxlength="50"></td></tr>
-	<tr><td width="50" align="right"><b><nobr>Class:</nobr></b></td>
-<td> 
-<input size="25" name="phylclass" maxlength="50">
-
-
-</td></tr>
-<tr><td width="50" align="right"><b><nobr>Order:</nobr></b> </td><td><input size="25" name="phylorder" maxlength="40"></td></tr>
-<tr><td width="50" align="right"><b><nobr>Suborder:</nobr></b>
-</td><td><input size="25" name="suborder" maxlength="40"></td></tr>
-<tr> <td width="50" align="right"><b><nobr>Family:</nobr></b>
-</td><td><input size="25" name="family" maxlength="40"></td></tr>
-<tr><td width="50" align="right"><b><nobr>Subfamily:</nobr></b>
-</td><td><input size="25" name="subfamily" maxlength="40"></td></tr>
-<tr><td width="50" align="right"><b><nobr>Tribe:</nobr></b>
-</td><td><input size="25" name="tribe" maxlength="40"></td></tr>
-<tr><td width="50" align="right"><b><nobr>Subgenus:</nobr></b>
-</td><td><input size="25" name="subgenus" maxlength="40"></td></tr>
-<tr><td width="150"><font size="-1">&nbsp;</font></td>
-<td align="center">
-<input type="submit" value="Search" class="schBtn"
-   onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
-&nbsp;&nbsp;
-
-<input type="reset" value="Clear Form" class="clrBtn"
-   onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">	
-
-
-</form></table>
+<cfif action is "nothing">
+	<cfheader statuscode="301" statustext="Moved permanently">
+	<cfheader name="Location" value="TaxonomySearch.cfm">
+	<cfabort>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
+<!---
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "search">
 <cfset title="Taxonomy Search Results">
@@ -183,6 +144,7 @@
 
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
+--->
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "edit">
 <cfset title="Edit Taxonomy">

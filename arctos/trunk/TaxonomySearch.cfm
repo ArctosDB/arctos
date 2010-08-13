@@ -15,6 +15,9 @@
 <cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
 </cfquery>
+<cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select taxon_status from cttaxon_status order by taxon_status
+</cfquery>
 <script type="text/javascript" language="javascript">
 	jQuery(document).ready(function() {
 		jQuery("#phylclass").autocomplete("/ajax/phylclass.cfm", {
@@ -245,9 +248,11 @@
 					</span>
 				</td>
 			</tr>
+			<!---
 			<cfquery name="ctClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select distinct(phylclass) from taxonomy order by phylclass
 			</cfquery>
+			---->
 			<tr>
 				<td align="right"><b><nobr>Class:</nobr></b></td>
 				<td nowrap="nowrap">
@@ -313,13 +318,26 @@
 			</tr>
 			<tr>
 				<td align="right">
-					<span class="helpLink" id="source_authority"><strong>Authority:</strong></span>
+					<span class="helpLink" id="_source_authority"><strong>Authority:</strong></span>
 				</td>
 				<td nowrap="nowrap">
 					<select name="source_authority" id="source_authority" size="1">
 						<option></option>
 						<cfloop query="CTTAXONOMIC_AUTHORITY">
 							<option value="#source_authority#">#source_authority#</option>
+						</cfloop>
+					</select>							
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<span class="helpLink" id="_taxon_status"><strong>Taxon Status:</strong></span>
+				</td>
+				<td nowrap="nowrap">
+					<select name="taxon_status" id="taxon_status" size="1">
+						<option></option>
+						<cfloop query="cttaxon_status">
+							<option value="#taxon_status#">#taxon_status#</option>
 						</cfloop>
 					</select>							
 				</td>
