@@ -263,7 +263,7 @@
 	    </cfif>
 	</div>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-		<a href="/Taxonomy.cfm?action=edit&taxon_name_id=#one.taxon_name_id#">Edit Taxonomy</a>	
+		<a href="/Taxonomy.cfm?action=edit&taxon_name_id=#one.taxon_name_id#">[ Edit Taxonomy ]</a>	
 	</cfif>
 	<table border>
 		<tr>
