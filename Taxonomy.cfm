@@ -192,6 +192,7 @@
 			taxonomy_publication,
 			formatted_publication		
 		where
+			format_style='long' and
 			taxonomy_publication.publication_id=formatted_publication.publication_id and
 			taxonomy_publication.taxon_name_id=#taxon_name_id#
 	</cfquery>
@@ -206,8 +207,11 @@
 			<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newPub')" size="80">
 			<input type="submit" value="Add Publication" class="insBtn">
 		</form>
+		<cfif tax_pub.recordcount gt 0>
+			<ul>
+		</cfif>
 		<cfloop query="tax_pub">
-			<br>#formatted_publication#
+			<li>#formatted_publication#</li>
 			<!----
 			<form name="tax_pub#i#" method="post" action="Taxonomy.cfm">
 				<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
@@ -242,6 +246,9 @@
 			<cfset i = #i#+1>
 			---->
 		</cfloop>
+		<cfif tax_pub.recordcount gt 0>
+			</ul>
+		</cfif>
 	</table>
 	<cfquery name="relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
