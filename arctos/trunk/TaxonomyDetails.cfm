@@ -307,7 +307,7 @@
 			<cfelse>
 				<cfloop query="tax_pub">
 					<li>
-						<a href="SpecimenUsage.cfm?publication_id=#publication_id#">
+						<a href="/SpecimenUsage.cfm?publication_id=#publication_id#">
 							#formatted_publication#
 						</a>
 					</li>
