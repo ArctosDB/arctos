@@ -341,7 +341,7 @@
 		</tr>
 		<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
 		<input type="hidden" name="Action" value="newTaxaRelation">
-		<tr>
+		<tr class="newRec">
 			<td>
 				<select name="taxon_relationship" size="1" class="reqdClr">
 					<cfloop query="ctRelation">
