@@ -22,6 +22,12 @@
 			jQuery("#lenders_loan_date").datepicker();
 			jQuery("#due_date").datepicker();	
 			jQuery("#trans_date").datepicker();
+			jQuery("#received_date_after").datepicker();
+			jQuery("#received_date_before").datepicker();
+			jQuery("#due_date_after").datepicker();
+			jQuery("#due_date_before").datepicker();
+			jQuery("#lenders_loan_date_after").datepicker();
+			jQuery("#lenders_loan_date_before").datepicker();
 		});
 	});
 	function setBorrowNum(cid,v){
@@ -92,9 +98,9 @@
 		<label for="due_date_after">Due Date</label>
 		<input type="text" name="due_date_after" id="due_date_after">-
 		<input type="text" name="due_date_before" id="due_date_before">
-		<label for="received_date_after">Lender's Loan Date</label>
-		<input type="text" name="received_date_after" id="received_date_after">-
-		<input type="text" name="received_date_before" id="received_date_before">
+		<label for="lenders_loan_date">Lender's Loan Date</label>
+		<input type="text" name="lenders_loan_date_after" id="lenders_loan_date_after">-
+		<input type="text" name="lenders_loan_date_before" id="lenders_loan_date_before">
 		<label for="LENDERS_INSTRUCTIONS">Lender's Instructions</label>
 		<input type="text" name="LENDERS_INSTRUCTIONS" id="LENDERS_INSTRUCTIONS">
 		<label for="NATURE_OF_MATERIAL">Nature of Material</label>
@@ -154,18 +160,18 @@
 		<cfif isdefined("borrow_status") and len(borrow_status) gt 0>
 			<cfset w=w & " and borrow_status = '#borrow_status#'">
 		</cfif>
-		<cfif (isdefined("received_date_after") and len(received_date_after) gt 0) or (isdefined("received_date_before") and len(received_date_before) gt 0)>
-			<cfif len(received_date_after) is 0>
-				<cfset received_date_after=received_date_before>
-			</cfif>
-			<cfif len(received_date_before) is 0>
-				<cfset received_date_before=received_date_after>
-			</cfif>
-			<cfset w=w & " and received_date >= '#received_date_before#'  and received_date <= '#received_date_after#'">
+		<cfif isdefined("received_date_after") and len(received_date_after) gt 0>
+			<cfset w=w & " and to_char(received_date,'yyyy-mm-dd') <= '#received_date_after#'">
 		</cfif>
+		<cfif isdefined("received_date_before") and len(received_date_before) gt 0>
+			<cfset w=w & " and to_char(received_date,'yyyy-mm-dd') >= '#received_date_before#'">
+		</cfif>
+		
 		
 		<!---
 		
+		<input type="text" name="lenders_loan_date_after" id="lenders_loan_date_after">-
+		<input type="text" name="lenders_loan_date_before" id="lenders_loan_date_before">
 		<label for="received_date">Received Date</label>
 		<input type="text" name="received_date_after" id="received_date_after">-
 		<input type="text" name="received_date_before" id="">
