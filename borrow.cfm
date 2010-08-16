@@ -255,6 +255,7 @@
 				TRANS_REMARKS,
 				lender_loan_type
 		</cfquery>
+		<cfdump var=#b#>
 		<table border>
 			<tr>
 				<td>
