@@ -95,7 +95,7 @@
 		<label for="received_date">Received Date</label>
 		<input type="text" name="received_date_after" id="received_date_after">-
 		<input type="text" name="received_date_before" id="received_date_before">
-		<span class="infoLink" onclick="$('#received_date_before').val($('#received_date_after'.val()))">copy</span>
+		<span class="infoLink" onclick="$('input#received_date_before').val($('input#received_date_after').val());">copy</span>
 		<label for="due_date_after">Due Date</label>
 		<input type="text" name="due_date_after" id="due_date_after">-
 		<input type="text" name="due_date_before" id="due_date_before">
