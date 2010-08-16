@@ -389,12 +389,18 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
-<cfif #action# is "new">
+<cfif action is "new">
 <cfoutput>
-<table border>
+	<table border>
 		<form name="borrow" method="post" action="borrow.cfm">
 			<input type="hidden" name="action" value="makeNew">
 			<tr>
+				<td>
+					<label for="borrow_num">Local Borrow Number</label>
+					<input type="text" id="borrow_num" name="borrow_num" class="reqdClr">
+				</td>
+				
+				
 				<td align="right">
 					Lender's Transaction Number:
 				</td>
@@ -523,6 +529,76 @@
 			
 		</form>
 </table>
+
+
+<div class="nextnum">
+			Next Available Borrow Number:
+			<br>
+			<cfquery name="all_coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from collection order by collection
+			</cfquery>
+			<cfloop query="all_coll">
+				<cfif (institution_acronym is 'UAM' and collection_cde is 'Mamm')>
+					<!---- yyyy.nnn.CCDE format --->
+					<cfset stg="'#dateformat(now(),"yyyy")#.' || nvl(lpad(max(to_number(substr(loan_number,6,3))) + 1,3,0),'001') || '.#collection_cde#'">
+					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
+				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Herb') OR
+					(institution_acronym is 'MSB') OR
+					(institution_acronym is 'DGR')>
+					<!---- yyyy.n.CCDE format --->
+					<cfset stg="'#dateformat(now(),"yyyy")#.' || max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || '.#collection_cde#'">
+					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
+				<cfelseif (institution_acronym is 'MVZ' or institution_acronym is 'MVZObs')>
+					<cfset stg="'#dateformat(now(),"yyyy")#.' || (max(to_number(substr(loan_number,6,4))) + 1) || '.#collection_cde#'">
+					<cfset whr=" and collection.institution_acronym in ('MVZ','MVZObs')">
+				<cfelse>
+					<!--- n format --->
+					<cfset stg="'#dateformat(now(),"yyyy")#.' || max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || '.#collection_cde#'">
+					<cfset whr=" AND is_number(loan_number)=1 and substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
+				</cfif>
+				<hr>
+				<cftry>
+					<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select 
+							 #preservesinglequotes(stg)# nn 
+						from 
+							loan,
+							trans,
+							collection
+						where 
+							loan.transaction_id=trans.transaction_id and
+							trans.collection_id=collection.collection_id
+							<cfif institution_acronym is not "MVZ" and institution_acronym is not "MVZObs">
+								and	collection.collection_id=#collection_id#
+							</cfif>
+							#preservesinglequotes(whr)#
+					</cfquery>
+					<cfcatch>
+						<hr>
+						#cfcatch.detail#
+						<br>
+						#cfcatch.message#
+						<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							select 
+								 'check data' nn 
+							from 
+								dual
+						</cfquery>
+					</cfcatch>
+				</cftry>
+				<cfif len(thisQ.nn) gt 0>
+					<span class="likeLink" onclick="setAccnNum('#collection_id#','#thisQ.nn#')">#collection# #thisQ.nn#</span>
+				<cfelse>
+					<span style="font-size:x-small">
+						No data available for #collection#.
+					</span>
+				</cfif>
+				<br>
+			</cfloop>
+		</div>
+
+
+borrow_num
 	</cfoutput>
 </cfif>
 
