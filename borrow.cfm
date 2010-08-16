@@ -45,6 +45,7 @@
 </style>
 <cfset title="Borrow">
 <cfif #action# is "nothing">
+	<cfoutput>
 	Find Borrows:
 	<form name="borrow" method="post" action="borrow.cfm">
 		<input type="hidden" name="action" value="findEm">
@@ -110,9 +111,10 @@
 		<input type="text" name="NATURE_OF_MATERIAL" id="NATURE_OF_MATERIAL">
 		<label for="TRANS_REMARKS">Transaction Remarks</label>
 		<input type="text" name="TRANS_REMARKS" id="TRANS_REMARKS">
-		
 		<input type="submit" class="schBtn"	value="Find matches">
+		<input type="reset" class="clrBtn"	value="Clear Form">
 	</form>
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
 <cfif action is "findEm">
