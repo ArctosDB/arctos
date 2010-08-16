@@ -95,6 +95,7 @@
 		<label for="received_date">Received Date</label>
 		<input type="text" name="received_date_after" id="received_date_after">-
 		<input type="text" name="received_date_before" id="received_date_before">
+		<span class="infoLink" onclick="$('#received_date_before').val('$received_date_after'.val())">copy</span>
 		<label for="due_date_after">Due Date</label>
 		<input type="text" name="due_date_after" id="due_date_after">-
 		<input type="text" name="due_date_before" id="due_date_before">
@@ -175,7 +176,7 @@
 		<cfif isdefined("due_date_after") and len(due_date_after) gt 0>
 			<cfset w=w & " and to_char(due_date_after,'yyyy-mm-dd') >= '#due_date_after#'">
 		</cfif>
-		<cfif isdefined("due_date_before") and len(due_date_beforen_date_before) gt 0>
+		<cfif isdefined("due_date_before") and len(due_date_before) gt 0>
 			<cfset w=w & " and to_char(due_date_before,'yyyy-mm-dd') <= '#due_date_before#'">
 		</cfif>
 		<cfif isdefined("LENDERS_INSTRUCTIONS") and len(LENDERS_INSTRUCTIONS) gt 0>
