@@ -216,11 +216,10 @@
 			WHERE
 				#preservesinglequotes(w)#
 		</cfquery>
-		<cfdump var=#getBorrow#>
 		<cfif getBorrow.recordcount is 0>
 			<div class="error">Nothing matched. Use your back button to try again.</div>
+			<cfabort>
 		</cfif>
-		<cfabort>
 		<cfquery name="b" dbtype="query">
 			select 
 				TRANSACTION_ID,
@@ -255,7 +254,6 @@
 				TRANS_REMARKS,
 				lender_loan_type
 		</cfquery>
-		<cfdump var=#b#>
 		<table border>
 			<tr>
 				<td>
