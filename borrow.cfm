@@ -67,21 +67,60 @@
 				CORRESP_FG,
 				NATURE_OF_MATERIAL,
 				TRANS_REMARKS,
-				lender_loan_type
+				lender_loan_type,
+				agent_name,
+				trans_agent_role
 			FROM
 				trans,
-				borrow
+				borrow,
+				trans_agent,
+				preferred_agent_name
 			WHERE
-				trans.transaction_id = borrow.transaction_id
+				trans.transaction_id = borrow.transaction_id and
+				trans.transaction_id = trans_agent.transaction_id (+) and
+				trans_agent.agent_id=preferred_agent_name.agent_id (+)
 		</cfquery>
-		<cfdump var=#getBorrow#>
+		<cfquery name="b" dbtype="query">
+			select 
+				TRANSACTION_ID,
+				LENDERS_TRANS_NUM_CDE,
+				BORROW_NUMBER,
+				LENDERS_INVOICE_RETURNED_FG,
+				RECEIVED_DATE,
+				DUE_DATE,
+				LENDERS_LOAN_DATE,
+				BORROW_STATUS,
+				LENDERS_INSTRUCTIONS,
+				TRANS_DATE,
+				CORRESP_FG,
+				NATURE_OF_MATERIAL,
+				TRANS_REMARKS,
+				lender_loan_type
+			from
+				getBorrow
+			group by
+				TRANSACTION_ID,
+				LENDERS_TRANS_NUM_CDE,
+				BORROW_NUMBER,
+				LENDERS_INVOICE_RETURNED_FG,
+				RECEIVED_DATE,
+				DUE_DATE,
+				LENDERS_LOAN_DATE,
+				BORROW_STATUS,
+				LENDERS_INSTRUCTIONS,
+				TRANS_DATE,
+				CORRESP_FG,
+				NATURE_OF_MATERIAL,
+				TRANS_REMARKS,
+				lender_loan_type
+		</cfquery>
 		<table border>
 			<tr>
 				<td>
-					Number
+					Borrow Number
 				</td>
 				<td>
-					Loan Type
+					Borrow Type
 				</td>
 				<td>
 					RECEIVED_DATE
@@ -93,13 +132,13 @@
 					BORROW_STATUS
 				</td>
 				<td>
-					ReceivedBy
-				</td>
-				<td>
 					NATURE_OF_MATERIAL
 				</td>
+				<td>
+					Agents
+				</td>
 			</tr>
-		<cfloop query="getBorrow">
+		<cfloop query="b">
 			<tr>
 				<td>
 					<a href="borrow.cfm?action=edit&transaction_id=#transaction_id#">
@@ -119,10 +158,18 @@
 					#BORROW_STATUS#
 				</td>
 				<td>
-					#ReceivedBy#
-				</td>
-				<td>
 					#NATURE_OF_MATERIAL#
+				</td>
+				<cfquery name="a" dbtype="query">
+					select agent_name,agent_role from getBorrow
+					where transaction_id=#transaction_id#
+					order by agent_role,agent_name
+				</cfquery>
+				
+				<td>
+					<cfloop query="a">
+						#agent_role#: #agent_name#<br>
+					</cfloop>
 				</td>
 			</tr>
 		</cfloop>
