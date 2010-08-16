@@ -569,9 +569,6 @@
 				<br>
 			</cfloop>
 		</div>
-
-
-borrow_num
 	</cfoutput>
 </cfif>
 
@@ -595,103 +592,74 @@ borrow_num
 <cfif #action# is "makeNew">
 <cfoutput>
 	<cfquery name="nextTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select max(transaction_id) transaction_id from trans
+		select sq_transaction_id.nextval transaction_id from dual
 	</cfquery>
-	<cfquery name="nextBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select max(borrow_num) borrow_num from borrow
-	</cfquery>
-	<cfset nextTransId = #nextTrans.transaction_id# + 1>
-	<cfset nextBorrowNum = #nextBorrow.borrow_num# + 1>
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
+	
+	<cfset transaction_id = nextTrans.transaction_id>
 	<cftransaction>
 	<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			INSERT INTO trans (
-				 TRANSACTION_ID,
-				<cfif len(#TRANS_DATE#) gt 0>
-					TRANS_DATE,
-				</cfif>
-				<cfif len(#TRANS_REMARKS#) gt 0>
-					TRANS_REMARKS,
-				</cfif>
-				TRANSACTION_TYPE,
-				NATURE_OF_MATERIAL,
-				institution_acronym)
-			VALUES (
-				#nextTransId#,				
-				<cfif len(#TRANS_DATE#) gt 0>
-					'#TRANS_DATE#',
-				</cfif>
-				<cfif len(#TRANS_REMARKS#) gt 0>
-					'#TRANS_REMARKS#',
-				</cfif>
-				'borrow',
-				'#NATURE_OF_MATERIAL#',
-				'#institution_acronym#')
-		</cfquery>
-		<cfquery name="newBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			INSERT INTO borrow (
-				TRANSACTION_ID,
-				<cfif len(#LENDERS_TRANS_NUM_CDE#) gt 0>
-					LENDERS_TRANS_NUM_CDE,
-				</cfif>
-				BORROW_NUM,
-				LENDERS_INVOICE_RETURNED_FG,
-				<cfif len(#RECEIVED_DATE#) gt 0>
-					RECEIVED_DATE,
-				</cfif>
-				<cfif len(#DUE_DATE#) gt 0>
-					DUE_DATE,
-				</cfif>
-				<cfif len(#LENDERS_LOAN_DATE#) gt 0>
-					LENDERS_LOAN_DATE,
-				</cfif>
-				<cfif len(#LENDERS_INSTRUCTIONS#) gt 0>
-					LENDERS_INSTRUCTIONS,
-				</cfif>
-                 BORROW_STATUS)
-			VALUES (
-				#nextTransId#,
-				<cfif len(#LENDERS_TRANS_NUM_CDE#) gt 0>
-					'#LENDERS_TRANS_NUM_CDE#',
-				</cfif>
-				#nextBorrowNum#,
-				#LENDERS_INVOICE_RETURNED_FG#,
-				<cfif len(#RECEIVED_DATE#) gt 0>
-					'#RECEIVED_DATE#',
-				</cfif>
-				<cfif len(#DUE_DATE#) gt 0>
-					'#DUE_DATE#',
-				</cfif>
-				<cfif len(#LENDERS_LOAN_DATE#) gt 0>
-					'#LENDERS_LOAN_DATE#',
-				</cfif>
-				<cfif len(#LENDERS_INSTRUCTIONS#) gt 0>
-					'#LENDERS_INSTRUCTIONS#',
-				</cfif>
-                 '#BORROW_STATUS#')
+		INSERT INTO trans (
+			TRANSACTION_ID,
+			TRANS_DATE,
+			TRANS_REMARKS,
+			TRANSACTION_TYPE,
+			NATURE_OF_MATERIAL,
+			collection_id)
+		VALUES (
+			#transaction_id#,
+			to_date('#TRANS_DATE#'),
+			'#escapeQuotes(TRANS_REMARKS)#',
+			'borrow',
+			'#escapeQuotes(NATURE_OF_MATERIAL)#',
+			#collection_id#
+		)
+	</cfquery>
+	<cfquery name="newBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		INSERT INTO borrow (
+			TRANSACTION_ID,
+			LENDERS_TRANS_NUM_CDE,
+			BORROW_NUMBER,
+			LENDERS_INVOICE_RETURNED_FG,
+			RECEIVED_DATE,
+			DUE_DATE,
+			LENDERS_LOAN_DATE,
+			LENDERS_INSTRUCTIONS,
+			BORROW_STATUS
+		) VALUES (
+			#transaction_id#,
+			'#LENDERS_TRANS_NUM_CDE#',
+			'#Borrow_Number#',
+			#LENDERS_INVOICE_RETURNED_FG#,
+			to_date('#RECEIVED_DATE#'),
+			to_date'#DUE_DATE#'),
+			to_date'#LENDERS_LOAN_DATE#'),
+			'#escapeQuotes(LENDERS_INSTRUCTIONS)#',
+			'#BORROW_STATUS#'
+		)
 		</cfquery>
 		<cfquery name="authBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				INSERT INTO trans_agent (
-				    transaction_id,
-				    agent_id,
-				    trans_agent_role
-				) values (
-					#nextTransId#,
-					#AUTH_AGENT_ID#,
-					'authorized by')
-			</cfquery>
-			<cfquery name="newLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				INSERT INTO trans_agent (
-				    transaction_id,
-				    agent_id,
-				    trans_agent_role
-				) values (
-					#nextTransId#,
-					#RECEIVED_AGENT_ID#,
-					'received by')
-			</cfquery>				
-		</cftransaction>
-		<cflocation url="borrow.cfm?action=edit&transaction_id=#nextTransId#">
+			INSERT INTO trans_agent (
+			    transaction_id,
+			    agent_id,
+			    trans_agent_role
+			) values (
+				#transaction_id#,
+				#AUTH_AGENT_ID#,
+				'authorized by')
+		</cfquery>
+		<cfquery name="newLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			INSERT INTO trans_agent (
+			    transaction_id,
+			    agent_id,
+			    trans_agent_role
+			) values (
+				#transaction_id#,
+				#RECEIVED_AGENT_ID#,
+				'received by'
+			)
+		</cfquery>				
+	</cftransaction>
+	<cflocation url="borrow.cfm?action=edit&transaction_id=#transaction_id#">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
