@@ -562,7 +562,7 @@
 						select 
 							 #preservesinglequotes(stg)# nn 
 						from 
-							loan,
+							borrow,
 							trans,
 							collection
 						where 
