@@ -99,9 +99,11 @@
 		<label for="due_date_after">Due Date</label>
 		<input type="text" name="due_date_after" id="due_date_after">-
 		<input type="text" name="due_date_before" id="due_date_before">
+		<span class="infoLink" onclick="$('input#due_date_before').val($('input#due_date_after').val());">copy</span>
 		<label for="lenders_loan_date">Lender's Loan Date</label>
 		<input type="text" name="lenders_loan_date_after" id="lenders_loan_date_after">-
 		<input type="text" name="lenders_loan_date_before" id="lenders_loan_date_before">
+		<span class="infoLink" onclick="$('input#lenders_loan_date_before').val($('input#lenders_loan_date_after').val());">copy</span>
 		<label for="LENDERS_INSTRUCTIONS">Lender's Instructions</label>
 		<input type="text" name="LENDERS_INSTRUCTIONS" id="LENDERS_INSTRUCTIONS">
 		<label for="NATURE_OF_MATERIAL">Nature of Material</label>
