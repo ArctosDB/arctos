@@ -16,6 +16,7 @@
 		$("#borrow_number").val(v);
 		
 		$("#collection_id").val(cid);
+	}
 </script>
 <cfset title="Borrow">
 <cfif #action# is "nothing">
