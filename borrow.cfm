@@ -18,6 +18,14 @@
 		$("#collection_id").val(cid);
 	}
 </script>
+<style>
+	.nextnum{
+		border:2px solid green;
+		position:absolute;
+		top:10em;
+		right:1em;
+	}
+</style>
 <cfset title="Borrow">
 <cfif #action# is "nothing">
 	Find Borrows:
@@ -406,79 +414,51 @@
 			<input type="hidden" name="action" value="makeNew">
 			<tr>
 				<td>
-					
-					<label for="collection_id">Collection
-						</label>
-						<select name="collection_id" size="1" id="collection_id">
-							<cfloop query="ctcollection">
-								<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
-							</cfloop>
-						</select>
-					
+					<label for="collection_id">Collection</label>
+					<select name="collection_id" size="1" id="collection_id">
+						<option value=""></option>
+						<cfloop query="ctcollection">
+							<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+						</cfloop>
+					</select>
+				<td>
 					<label for="borrow_num">Local Borrow Number</label>
 					<input type="text" id="borrow_number" name="borrow_number" class="reqdClr">
 				</td>
-				
-				
-				<td align="right">
-					Lender's Transaction Number:
-				</td>
 				<td>
-					<input type="text" name="LENDERS_TRANS_NUM_CDE">
-				</td>
-				<td align="right">
-					Lender acknowledged returned?
-				</td>
-				<td>
-					<select name="LENDERS_INVOICE_RETURNED_FG" size="1">
-						<option value="1">yes</option>
-						<option value="0">no</option>
-					</select>
+					<label for="lenders_trans_num_cde">Lender's Transaction Number</label>
+					<input type="text" name="lenders_trans_num_cde" id="lenders_trans_num_cde">
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
-					Received Date:
+				<td>
+					<label for="LENDERS_INVOICE_RETURNED_FG">Lender acknowledged returned?</label>
+					<select name="LENDERS_INVOICE_RETURNED_FG" size="1">
+						<option value="0">no</option>
+						<option value="1">yes</option>
+					</select>
 				</td>
 				<td>
+					<label for="RECEIVED_DATE">Received Date</label>
 					<input type="text" name="RECEIVED_DATE">
 				</td>
-				<td align="right">
-					Due Date:
-				</td>
 				<td>
+					<label for="DUE_DATE">Due Date</label>
 					<input type="text" name="DUE_DATE">
 				</td>
 			</tr>
+			
 			<tr>
-				<td align="right">
-					Transaction Date:
-				</td>
 				<td>
+					<label for="trans_date">Transaction Date</label>
 					<input type="text" name="trans_date">
 				</td>
-				<td align="right">
-					Institution
-				</td>
 				<td>
-					<select name="institution_acronym" size="1" id="institution_acronym" class="reqdClr">
-							<cfloop query="ctInst">
-								<option value="#ctInst.institution_acronym#">#ctInst.institution_acronym#</option>
-							</cfloop>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">
-					Lender's Loan Date:
-				</td>
-				<td>
+					<label for="LENDERS_LOAN_DATE">Lender's Loan Date</label>
 					<input type="text" name="LENDERS_LOAN_DATE">
 				</td>
-				<td align="right">
-					Status:
-				</td>
 				<td>
+					<label for="borrow_status">Status</label>
 					<select name="borrow_status" size="1" class="reqdCld">
 						<cfloop query="ctStatus">
 							<option value="#ctStatus.borrow_status#">#ctStatus.borrow_status#</option>
@@ -487,18 +467,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
-					Lender's Instructions:
-				</td>
-				<td colspan="3">
-					<textarea name="LENDERS_INSTRUCTIONS" rows="3" cols="90"></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">
-					Authorized By:
-				</td>
 				<td>
+					<label for="AuthorizedBy">Authorized By</label>
 					<input type="text" 
 						name="AuthorizedBy" 
 						class="reqdClr"
@@ -507,10 +477,8 @@
 						size="50">
 					<input type="hidden" name="auth_agent_id">
 				</td>
-				<td align="right">
-					Received By:
-				</td>
 				<td>
+					<label for="ReceivedBy">Received By</label>
 					<input type="text" 
 						name="ReceivedBy" 
 						class="reqdClr"
@@ -519,25 +487,28 @@
 						size="50">
 					<input type="hidden" name="received_agent_id">
 				</td>
+				<td></td>
 			</tr>
 			<tr>
-				<td align="right">
-					Nature of Material:
-				</td>
 				<td colspan="3">
+					<label for="LENDERS_INSTRUCTIONS">Lender's Instructions</label>
+					<textarea name="LENDERS_INSTRUCTIONS" rows="3" cols="90"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<label for="NATURE_OF_MATERIAL">Nature of Material</label>
 					<textarea name="NATURE_OF_MATERIAL" rows="3" cols="90" class="reqdClr"></textarea>
 				</td>
 			</tr>
 			<tr>
-				<td align="right">
-					Remarks:
-				</td>
-				<td colspan="4">
+				<td colspan="3">
+					<label for="TRANS_REMARKS">Remarks</label>
 					<textarea name="TRANS_REMARKS" rows="3" cols="90"></textarea>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4">
+				<td colspan="3">
 					<input type="submit" 
 				class="schBtn"
 				onmouseover="this.className='schBtn btnhov'" 
