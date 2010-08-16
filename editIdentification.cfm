@@ -45,7 +45,7 @@
 		collection ,
 		identification_agent,
 		preferred_agent_name,
-		(select formatted_publication from formatted_publication where format_style='short') formatted_publication
+		(select publication_id,formatted_publication from formatted_publication where format_style='short') formatted_publication
 	WHERE 
 		identification.collection_object_id = cataloged_item.collection_object_id AND
 		identification.identification_id = identification_agent.identification_id (+) AND
