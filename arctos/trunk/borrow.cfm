@@ -620,7 +620,10 @@
 <cfoutput>
 	
 	<cftransaction>
-	<cfquery name="killBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="killAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from trans_agent where transaction_id=#transaction_id#
+		</cfquery>
+		<cfquery name="killBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from borrow where transaction_id=#transaction_id#
 		</cfquery>
 		<cfquery name="killTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
