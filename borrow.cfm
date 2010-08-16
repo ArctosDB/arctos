@@ -611,7 +611,7 @@
 			collection_id)
 		VALUES (
 			#transaction_id#,
-			to_date('#TRANS_DATE#'),
+			to_date('#TRANS_DATE#','yyyy-mm-dd'),
 			'#escapeQuotes(TRANS_REMARKS)#',
 			'borrow',
 			'#escapeQuotes(NATURE_OF_MATERIAL)#',
@@ -634,9 +634,9 @@
 			'#LENDERS_TRANS_NUM_CDE#',
 			'#Borrow_Number#',
 			#LENDERS_INVOICE_RETURNED_FG#,
-			to_date('#RECEIVED_DATE#'),
-			to_date('#DUE_DATE#'),
-			to_date('#LENDERS_LOAN_DATE#'),
+			to_date('#RECEIVED_DATE#','yyyy-mm-dd'),
+			to_date('#DUE_DATE#','yyyy-mm-dd'),
+			to_date('#LENDERS_LOAN_DATE#','yyyy-mm-dd'),
 			'#escapeQuotes(LENDERS_INSTRUCTIONS)#',
 			'#BORROW_STATUS#'
 		)
