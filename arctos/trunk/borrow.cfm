@@ -161,14 +161,14 @@
 					#NATURE_OF_MATERIAL#
 				</td>
 				<cfquery name="a" dbtype="query">
-					select agent_name,agent_role from getBorrow
+					select agent_name,trans_agent_role from getBorrow
 					where transaction_id=#transaction_id#
 					order by agent_role,agent_name
 				</cfquery>
 				
 				<td>
 					<cfloop query="a">
-						#agent_role#: #agent_name#<br>
+						#trans_agent_role#: #agent_name#<br>
 					</cfloop>
 				</td>
 			</tr>
