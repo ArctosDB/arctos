@@ -177,9 +177,8 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
-<cfif #action# is "edit">
+<cfif action is "edit">
 <cfoutput>
-	
 		<cfquery name="getBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
 				borrow.TRANSACTION_ID,
@@ -223,11 +222,6 @@
 				agent_name
 		</cfquery>
 <table border>
-<tr>
-	<td colspan="4"><strong>Borrow Number: #getBorrow.BORROW_NUMBER#</strong>
-	Entered By: #getBorrow.EnteredBy# on #getBorrow.TRANS_DATE#</td>
-</tr>
-
 		<form name="borrow" method="post" action="borrow.cfm">
 			<input type="hidden" name="action" value="update">
 			<input type="hidden" name="transaction_id" value="#getBorrow.transaction_id#">
