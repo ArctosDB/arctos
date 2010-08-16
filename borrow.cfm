@@ -42,16 +42,147 @@
 	Find Borrows:
 	<form name="borrow" method="post" action="borrow.cfm">
 		<input type="hidden" name="action" value="findEm">
-		<input type="submit" 
-				class="schBtn"
-				onmouseover="this.className='schBtn btnhov'" 
-   				onmouseout="this.className='schBtn'"
-				value="Find matches">
+		<label for="trans_agent_role_1">Agent 1</label>		
+		<select name="trans_agent_role_1">
+			<option value="">Please choose an agent role...</option>
+			<cfloop query="cttrans_agent_role">
+				<option value="#trans_agent_role#">-> #trans_agent_role#:</option>
+			</cfloop>
+		</select>
+		<label for="agent_1">Agent 1 Name</label>
+		<input type="text" name="agent_1"  size="50">
+		<label for="trans_agent_role_2">Agent 2</label>		
+		<select name="trans_agent_role_2">
+			<option value="">Please choose an agent role...</option>
+			<cfloop query="cttrans_agent_role">
+				<option value="#trans_agent_role#">-> #trans_agent_role#:</option>
+			</cfloop>
+		</select>
+		<label for="agent_2">Agent 2 Name</label>
+		<input type="text" name="agent_2"  size="50">
+		<label for="collection_id">Collection</label>
+		<select name="collection_id" size="1" id="collection_id">
+			<option value=""></option>
+			<cfloop query="ctcollection">
+				<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+			</cfloop>
+		</select>
+		<label for="borrow_number">Borrow Number</label>
+		<input type="text" name="borrow_number" id="borrow_number">
+		<label for="LENDERS_TRANS_NUM_CDE">Lender's Transaction Number</label>
+		<input type="text" name="LENDERS_TRANS_NUM_CDE" id="LENDERS_TRANS_NUM_CDE">
+		<label for="lender_loan_type">Lender's Loan Type</label>
+		<input type="text" name="lender_loan_type" id="lender_loan_type">		
+		<label for="LENDERS_INVOICE_RETURNED_FG">Lender acknowledged returned?</label>
+		<select name="LENDERS_INVOICE_RETURNED_FG" id="LENDERS_INVOICE_RETURNED_FG" size="1">
+			<option value=""></option>
+			<option value="1">yes</option>
+			<option value="0">no</option>
+		</select>			
+		<label for="borrow_status">Status</label>
+		<select name="borrow_status" id="borrow_status" size="1" class="reqdCld">
+			<option value=""></option>
+			<cfloop query="ctStatus">
+				<option value="#ctStatus.borrow_status#">#ctStatus.borrow_status#</option>
+			</cfloop>
+		</select>
+		<label for="received_date">Received Date</label>
+		<input type="text" name="received_date_after" id="received_date_after">-
+		<input type="text" name="received_date_before" id="received_date_before">
+		<label for="due_date_after">Due Date</label>
+		<input type="text" name="due_date_after" id="due_date_after">-
+		<input type="text" name="due_date_before" id="due_date_before">
+		<label for="received_date_after">Lender's Loan Date</label>
+		<input type="text" name="received_date_after" id="received_date_after">-
+		<input type="text" name="received_date_before" id="received_date_before">
+		<label for="LENDERS_INSTRUCTIONS">Lender's Instructions</label>
+		<input type="text" name="LENDERS_INSTRUCTIONS" id="LENDERS_INSTRUCTIONS">
+		<label for="NATURE_OF_MATERIAL">Nature of Material</label>
+		<input type="text" name="NATURE_OF_MATERIAL" id="NATURE_OF_MATERIAL">
+		<label for="TRANS_REMARKS">Transaction Remarks</label>
+		<input type="text" name="TRANS_REMARKS" id="TRANS_REMARKS">
+		
+		<input type="submit" class="schBtn"	value="Find matches">
 	</form>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
 <cfif action is "findEm">
 	<cfoutput>
+		<cfset f="trans,
+				borrow,
+				trans_agent,
+				preferred_agent_name">
+		<cfset w="trans.transaction_id = borrow.transaction_id and
+				trans.transaction_id = trans_agent.transaction_id (+) and
+				trans_agent.agent_id=preferred_agent_name.agent_id (+)">
+		
+		<cfif (isdefined("trans_agent_role_1") and len(trans_agent_role_1) gt 0) or (isdefined("agent_1") and len(agent_1) gt 0)>
+			<cfset f=f & "agent_name a1,trans_agent ta1">
+			<cfset w=w & " and trans.transaction_id=ta1.transaction_id and ta1.agent_id=a1.agent_id">
+			<cfif isdefined("trans_agent_role_1") and len(trans_agent_role_1) gt 0>
+				<cfset w=w & " and ta1.trans_agent_role='#trans_agent_role_1#'">
+			</cfif>
+			<cfif isdefined("agent_1") and len(agent_1) gt 0>
+				<cfset w=w & " and upper(a1.agent_name) like '%#ucase(agent_1)#%'">
+			</cfif>
+		</cfif>
+		<cfif (isdefined("trans_agent_role_2") and len(trans_agent_role_2) gt 0) or (isdefined("agent_2") and len(agent_2) gt 0)>
+			<cfset f=f & "agent_name a2,trans_agent ta2">
+			<cfset w=w & " and trans.transaction_id=ta2.transaction_id and ta2.agent_id=a2.agent_id">
+			<cfif isdefined("trans_agent_role_2") and len(trans_agent_role_2) gt 0>
+				<cfset w=w & " and ta2.trans_agent_role='#trans_agent_role_2#'">
+			</cfif>
+			<cfif isdefined("agent_2") and len(agent_2) gt 0>
+				<cfset w=w & " and upper(a2.agent_name) like '%#ucase(agent_2)#%'">
+			</cfif>
+		</cfif>
+		<cfif isdefined("collection_id") and len(collection_id) gt 0>
+			<cfset w=w & " and trans.collection_id=#collection_id#">
+		</cfif>
+		<cfif isdefined("borrow_number") and len(borrow_number) gt 0>
+			<cfset w=w & " and upper(borrow_number) like '%#ucase(borrow_number)#%'">
+		</cfif>
+		<cfif isdefined("LENDERS_TRANS_NUM_CDE") and len(LENDERS_TRANS_NUM_CDE) gt 0>
+			<cfset w=w & " and upper(LENDERS_TRANS_NUM_CDE) like '%#ucase(LENDERS_TRANS_NUM_CDE)#%'">
+		</cfif>
+		<cfif isdefined("lender_loan_type") and len(lender_loan_type) gt 0>
+			<cfset w=w & " and lender_loan_type = '#lender_loan_type#'">
+		</cfif>
+		<cfif isdefined("LENDERS_INVOICE_RETURNED_FG") and len(LENDERS_INVOICE_RETURNED_FG) gt 0>
+			<cfset w=w & " and LENDERS_INVOICE_RETURNED_FG = #lender_loan_type#">
+		</cfif>
+		<cfif isdefined("borrow_status") and len(borrow_status) gt 0>
+			<cfset w=w & " and borrow_status = '#borrow_status#'">
+		</cfif>
+		<cfif (isdefined("received_date_after") and len(received_date_after) gt 0) or (isdefined("received_date_before") and len(received_date_before) gt 0)>
+			<cfif len(received_date_after) is 0>
+				<cfset received_date_after=received_date_before>
+			</cfif>
+			<cfif len(received_date_before) is 0>
+				<cfset received_date_before=received_date_after>
+			</cfif>
+			<cfset w=w & " and received_date >= '#received_date_before#'  and received_date <= '#received_date_after#'">
+		</cfif>
+		
+		<!---
+		
+		<label for="received_date">Received Date</label>
+		<input type="text" name="received_date_after" id="received_date_after">-
+		<input type="text" name="received_date_before" id="">
+		<label for="due_date_after">Due Date</label>
+		<input type="text" name="due_date_after" id="due_date_after">-
+		<input type="text" name="due_date_before" id="due_date_before">
+		<label for="received_date_after">Lender's Loan Date</label>
+		<input type="text" name="received_date_after" id="received_date_after">-
+		<input type="text" name="received_date_before" id="received_date_before">
+		<label for="LENDERS_INSTRUCTIONS">Lender's Instructions</label>
+		<input type="text" name="LENDERS_INSTRUCTIONS" id="LENDERS_INSTRUCTIONS">
+		<label for="NATURE_OF_MATERIAL">Nature of Material</label>
+		<input type="text" name="NATURE_OF_MATERIAL" id="NATURE_OF_MATERIAL">
+		<label for="TRANS_REMARKS">Transaction Remarks</label>
+		<input type="text" name="TRANS_REMARKS" id="TRANS_REMARKS">
+		
+		---->
 		<cfquery name="getBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
 				borrow.TRANSACTION_ID,
@@ -71,15 +202,11 @@
 				agent_name,
 				trans_agent_role
 			FROM
-				trans,
-				borrow,
-				trans_agent,
-				preferred_agent_name
+				#preservesinglequotes(f)#
 			WHERE
-				trans.transaction_id = borrow.transaction_id and
-				trans.transaction_id = trans_agent.transaction_id (+) and
-				trans_agent.agent_id=preferred_agent_name.agent_id (+)
+				#preservesinglequotes(w)#
 		</cfquery>
+		<cfdump var=#getBorrow#>
 		<cfquery name="b" dbtype="query">
 			select 
 				TRANSACTION_ID,
@@ -223,7 +350,7 @@
 				trans_agent_role,
 				agent_name
 		</cfquery>
-<table border>
+<table>
 		<form name="borrow" method="post" action="borrow.cfm">
 			<input type="hidden" name="action" value="update">
 			<input type="hidden" name="transaction_id" value="#getBorrow.transaction_id#">
