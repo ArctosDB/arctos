@@ -205,8 +205,8 @@
 				NATURE_OF_MATERIAL,
 				TRANS_REMARKS,
 				lender_loan_type,
-				agent_name,
-				trans_agent_role
+				preferred_agent_name.agent_name,
+				trans_agent.trans_agent_role
 			FROM
 				#preservesinglequotes(f)#
 			WHERE
