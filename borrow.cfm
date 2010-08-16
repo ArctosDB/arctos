@@ -226,7 +226,7 @@
 			<input type="hidden" name="action" value="update">
 			<input type="hidden" name="transaction_id" value="#getBorrow.transaction_id#">
 			<tr>
-				<td colspan="2">
+				<td colspan="3">
 					<table border>
 						<tr>
 							<th>Agent Name</th>
@@ -326,16 +326,16 @@
 			</tr>
 			<tr>
 				<td>
-					<label for="RECEIVED_DATE">Received Date</label>
-					<input type="text" name="RECEIVED_DATE" id="RECEIVED_DATE" value="#dateformat(getBorrow.RECEIVED_DATE,"dd mmm yyyy")#">
+					<label for="received_date">Received Date</label>
+					<input type="text" name="received_date" id="received_date" value="#dateformat(getBorrow.RECEIVED_DATE,"dd mmm yyyy")#">
 				</td>
 				<td>
-					<label for="DUE_DATE">Due Date</label>
-					<input type="text" name="DUE_DATE" id="DUE_DATE" value="#dateformat(getBorrow.DUE_DATE,"dd mmm yyyy")#">
+					<label for="due_date">Due Date</label>
+					<input type="text" name="due_date" id="due_date" value="#dateformat(getBorrow.DUE_DATE,"dd mmm yyyy")#">
 				</td>
 				<td>
-					<label for="LENDERS_LOAN_DATE">Lender's Loan Date</label>
-					<input type="text" name="LENDERS_LOAN_DATE" id="LENDERS_LOAN_DATE" value="#dateformat(getBorrow.LENDERS_LOAN_DATE,"dd mmm yyyy")#">
+					<label for="lenders_loan_date">Lender's Loan Date</label>
+					<input type="text" name="lenders_loan_date" id="lenders_loan_date" value="#dateformat(getBorrow.LENDERS_LOAN_DATE,"dd mmm yyyy")#">
 				</td>
 			</tr>
 			<tr>
@@ -347,12 +347,12 @@
 			<tr>
 				<td colspan="3">
 					<label for="NATURE_OF_MATERIAL">Nature of Material</label>
-					<textarea name="NATURE_OF_MATERIAL" id="NATURE_OF_MATERIAL" rows="3" cols="90">#getBorrow.NATURE_OF_MATERIAL#</textarea>
+					<textarea name="NATURE_OF_MATERIAL" id="NATURE_OF_MATERIAL" rows="3" cols="90" class="reqdClr">#getBorrow.NATURE_OF_MATERIAL#</textarea>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="3">
-					<label for="TRANS_REMARKS">Remarks</label>
+					<label for="TRANS_REMARKS">Transaction Remarks</label>
 					<textarea name="TRANS_REMARKS" id="TRANS_REMARKS" rows="3" cols="90">#getBorrow.TRANS_REMARKS#</textarea>
 				</td>
 			</tr>
