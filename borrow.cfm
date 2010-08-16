@@ -196,12 +196,14 @@
 				NATURE_OF_MATERIAL,
 				TRANS_REMARKS,
 				lender_loan_type,
-				trans.collection_id
+				collection.collection
 			FROM
 				trans,
-				borrow
+				borrow,
+				collection
 			WHERE
-				trans.transaction_id = borrow.transaction_id and
+				trans.transaction_id = borrow.transaction_id and				
+				trans.collection_id = borrow.collection_id and
 				borrow.transaction_id=#transaction_id#
 		</cfquery>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
