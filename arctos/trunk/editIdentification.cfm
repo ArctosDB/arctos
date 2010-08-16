@@ -36,18 +36,22 @@
 		nature_of_id, 
 		accepted_id_fg, 
 		identification_remarks,
-		identification_agent_id
+		identification_agent_id,
+		formatted_publication,
+		identification.publication_id
 	FROM 
 		cataloged_item, 
 		identification,
 		collection ,
 		identification_agent,
-		preferred_agent_name
+		preferred_agent_name,
+		(select formatted_publication from formatted_publication where format_style='short') formatted_publication
 	WHERE 
 		identification.collection_object_id = cataloged_item.collection_object_id AND
 		identification.identification_id = identification_agent.identification_id (+) AND
 		identification_agent.agent_id = preferred_agent_name.agent_id (+) AND
 		cataloged_item.collection_id=collection.collection_id AND
+		identification.publication_id=formatted_publication.publication_id (+) and 
 		cataloged_item.collection_object_id = #collection_object_id#
 		ORDER BY accepted_id_fg
 	DESC
@@ -166,6 +170,15 @@
                 </cfloop>
             </select>
 			<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
+		</td>
+	</tr>
+    <tr> 
+    	<td>
+			<div class="helpLink" id="identification_publication">Sensu...</div>
+		</td>
+		<td>
+			<input type="hidden" name="new_publication_id" id="new_publication_id">
+			<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newID')" size="80">
 		</td>
 	</tr>
     <tr> 
@@ -525,8 +538,11 @@
 				,IDENTIFICATION_REMARKS
 			</cfif>
 			,taxa_formula
-			,scientific_name)
-		VALUES (
+			,scientific_name
+			 <cfif len(new_publication_id) gt 0>
+				,publication_id
+			</cfif>
+		) VALUES (
 			sq_identification_id.nextval,
 			#COLLECTION_OBJECT_ID#
 			<cfif len(#MADE_DATE#) gt 0>
@@ -538,7 +554,11 @@
 				,'#IDENTIFICATION_REMARKS#'
 			</cfif>
 			,'#taxa_formula#'
-			,'#scientific_name#')
+			,'#scientific_name#'
+			 <cfif len(new_publication_id) gt 0>
+				,#new_publication_id#
+			</cfif>
+		)
 	</cfquery>
 	<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		insert into identification_agent (
