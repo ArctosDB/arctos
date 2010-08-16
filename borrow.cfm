@@ -280,12 +280,7 @@
 			<tr>
 				<td>
 					<label for="collection_id">Collection</label>
-					<select name="collection_id" size="1" id="collection_id">
-						<option value=""></option>
-						<cfloop query="ctcollection">
-							<option <cfif getBorrow.collection_id is ctcollection.collection_id> selected="selected" </cfif> value="#ctcollection.collection_id#">#ctcollection.collection#</option>
-						</cfloop>
-					</select>
+					<span id="collection_id">#collection#</span>
 				</td>
 				<td>
 					<label for="borrow_number">Borrow Number</label>
@@ -327,15 +322,15 @@
 			<tr>
 				<td>
 					<label for="received_date">Received Date</label>
-					<input type="text" name="received_date" id="received_date" value="#dateformat(getBorrow.RECEIVED_DATE,"dd mmm yyyy")#">
+					<input type="text" name="received_date" id="received_date" value="#dateformat(getBorrow.RECEIVED_DATE,"yyyy-mm-dd")#">
 				</td>
 				<td>
 					<label for="due_date">Due Date</label>
-					<input type="text" name="due_date" id="due_date" value="#dateformat(getBorrow.DUE_DATE,"dd mmm yyyy")#">
+					<input type="text" name="due_date" id="due_date" value="#dateformat(getBorrow.DUE_DATE,"yyyy-mm-dd")#">
 				</td>
 				<td>
 					<label for="lenders_loan_date">Lender's Loan Date</label>
-					<input type="text" name="lenders_loan_date" id="lenders_loan_date" value="#dateformat(getBorrow.LENDERS_LOAN_DATE,"dd mmm yyyy")#">
+					<input type="text" name="lenders_loan_date" id="lenders_loan_date" value="#dateformat(getBorrow.LENDERS_LOAN_DATE,"yyyy-mm-dd")#">
 				</td>
 			</tr>
 			<tr>
@@ -373,86 +368,62 @@
 <cfoutput>
 <cftransaction>
 	<cfquery name="setBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			UPDATE borrow SET
-				LENDERS_INVOICE_RETURNED_FG = #LENDERS_INVOICE_RETURNED_FG#,
-				<cfif len(#LENDERS_TRANS_NUM_CDE#) gt 0>
-					LENDERS_TRANS_NUM_CDE = '#LENDERS_TRANS_NUM_CDE#',
-				<cfelse>
-					LENDERS_TRANS_NUM_CDE = NULL,
-				</cfif>
-				<cfif len(#RECEIVED_DATE#) gt 0>
-					RECEIVED_DATE = '#RECEIVED_DATE#',
-				<cfelse>
-					RECEIVED_DATE = NULL,
-				</cfif>
-				<cfif len(#DUE_DATE#) gt 0>
-					DUE_DATE = '#DUE_DATE#',
-				<cfelse>
-					DUE_DATE = NULL,
-				</cfif>
-				<cfif len(#LENDERS_LOAN_DATE#) gt 0>
-					LENDERS_LOAN_DATE = '#LENDERS_LOAN_DATE#',
-				<cfelse>
-					LENDERS_LOAN_DATE = NULL,
-				</cfif>
-				<cfif len(#LENDERS_INSTRUCTIONS#) gt 0>
-					LENDERS_INSTRUCTIONS = '#LENDERS_INSTRUCTIONS#',
-				<cfelse>
-					LENDERS_INSTRUCTIONS = NULL,
-				</cfif>
-				BORROW_STATUS = '#BORROW_STATUS#'
-			WHERE
-				TRANSACTION_ID=#TRANSACTION_ID#
-		</cfquery>
-		<cfquery name="setTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			UPDATE trans SET
-				NATURE_OF_MATERIAL = '#NATURE_OF_MATERIAL#',
-				<cfif len(#TRANS_REMARKS#) gt 0>
-					TRANS_REMARKS = '#TRANS_REMARKS#'
-				<cfelse>
-					TRANS_REMARKS = NULL
-				</cfif>
-			WHERE
-				TRANSACTION_ID=#TRANSACTION_ID#
-		</cfquery>
-		<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from trans_agent where transaction_id=#transaction_id#
-			and trans_agent_role !='entered by'
-		</cfquery>
-		<cfloop query="wutsThere">
-			<!--- first, see if the deleted - if so, nothing else matters --->
-			<cfif isdefined("del_agnt_#trans_agent_id#")>
-				<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					delete from trans_agent where trans_agent_id=#trans_agent_id#
-				</cfquery>
-			<cfelse>
-				<!--- update, just in case --->
-				<cfset thisAgentId = evaluate("trans_agent_id_" & trans_agent_id)>
-				<cfset thisRole = evaluate("trans_agent_role_" & trans_agent_id)>
-				<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					update trans_agent set
-						agent_id = #thisAgentId#,
-						trans_agent_role = '#thisRole#'
-					where
-						trans_agent_id=#trans_agent_id#
-				</cfquery>
-			</cfif>
-		</cfloop>
-		<cfif isdefined("new_trans_agent_id") and len(#new_trans_agent_id#) gt 0>
-			<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into trans_agent (
-					transaction_id,
-					agent_id,
-					trans_agent_role
-				) values (
-					#transaction_id#,
-					#new_trans_agent_id#,
-					'#new_trans_agent_role#'
-				)
+		UPDATE borrow SET
+		LENDERS_INVOICE_RETURNED_FG = #LENDERS_INVOICE_RETURNED_FG#,
+		LENDERS_TRANS_NUM_CDE = '#LENDERS_TRANS_NUM_CDE#',
+		RECEIVED_DATE = to_date('#RECEIVED_DATE#','yyyy-mm-dd'),
+		DUE_DATE = to_date('#DUE_DATE#','yyyy-mm-dd'),
+		LENDERS_LOAN_DATE = to_date('#LENDERS_LOAN_DATE#','yyyy-mm-dd'),
+		LENDERS_INSTRUCTIONS = '#LENDERS_INSTRUCTIONS#',
+		BORROW_STATUS = '#BORROW_STATUS#'
+	WHERE
+		TRANSACTION_ID=#TRANSACTION_ID#
+	</cfquery>
+	<cfquery name="setTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		UPDATE trans SET
+			NATURE_OF_MATERIAL = '#NATURE_OF_MATERIAL#',
+			TRANS_REMARKS = '#TRANS_REMARKS#'
+		WHERE
+			TRANSACTION_ID=#TRANSACTION_ID#
+	</cfquery>
+	<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from trans_agent where transaction_id=#transaction_id#
+		and trans_agent_role !='entered by'
+	</cfquery>
+	<cfloop query="wutsThere">
+		<!--- first, see if the deleted - if so, nothing else matters --->
+		<cfif isdefined("del_agnt_#trans_agent_id#")>
+			<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				delete from trans_agent where trans_agent_id=#trans_agent_id#
+			</cfquery>
+		<cfelse>
+			<!--- update, just in case --->
+			<cfset thisAgentId = evaluate("trans_agent_id_" & trans_agent_id)>
+			<cfset thisRole = evaluate("trans_agent_role_" & trans_agent_id)>
+			<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update trans_agent set
+					agent_id = #thisAgentId#,
+					trans_agent_role = '#thisRole#'
+				where
+					trans_agent_id=#trans_agent_id#
 			</cfquery>
 		</cfif>
-		</cftransaction>
-		<cflocation url="borrow.cfm?action=edit&transaction_id=#transaction_id#">
+	</cfloop>
+	<cfif isdefined("new_trans_agent_id") and len(#new_trans_agent_id#) gt 0>
+		<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			insert into trans_agent (
+				transaction_id,
+				agent_id,
+				trans_agent_role
+			) values (
+				#transaction_id#,
+				#new_trans_agent_id#,
+				'#new_trans_agent_role#'
+			)
+		</cfquery>
+	</cfif>
+</cftransaction>
+<cflocation url="borrow.cfm?action=edit&transaction_id=#transaction_id#">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
@@ -704,7 +675,7 @@
 			)
 		</cfquery>				
 	</cftransaction>
-	<cflocation url="borrow.cfm?action=edit&transaction_id=#transaction_id#">
+	<cflocation url="borrow.cfm?action=edit&transaction_id=#transaction_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
