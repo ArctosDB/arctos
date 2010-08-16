@@ -372,7 +372,7 @@
 					id="publication_#i#" 
 					value='#formatted_publication#'
 					onchange="getPublication(this.id,'publication_id_#i#',this.value,'editIdentification')" size="50">
-				<span class="likeLink" onclick="$('##publication_id_#i#').val('');$('##publication_#i#').val('');">Remove</span>
+				<span class="infoLink" onclick="$('##publication_id_#i#').val('');$('##publication_#i#').val('');">Remove</span>
 	
 			</td>
         </tr>
