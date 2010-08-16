@@ -178,7 +178,7 @@
 		</td>
 		<td>
 			<input type="hidden" name="new_publication_id" id="new_publication_id">
-			<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newID')" size="80">
+			<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newID')" size="50">
 		</td>
 	</tr>
     <tr> 
@@ -211,7 +211,9 @@
 		made_date,
 		nature_of_id, 
 		accepted_id_fg, 
-		identification_remarks
+		identification_remarks,
+		formatted_publication,
+		publication_id
 	FROM 
 		getID
 	GROUP BY
@@ -223,7 +225,9 @@
 		made_date,
 		nature_of_id, 
 		accepted_id_fg, 
-		identification_remarks
+		identification_remarks,
+		formatted_publication,
+		publication_id
 	ORDER BY 
 		accepted_id_fg DESC,
 		made_date
@@ -359,6 +363,19 @@
 			</td>
         </tr>
         <tr> 
+	        <td>
+				<div class="helpLink" id="identification_publication">Sensu:</div>
+			</td>
+	        <td>
+				<input type="hidden" name="publication_id_#i#" id="publication_id_#i#" value="#publication_id#">
+				<input type="text" 
+					id="newPub" 
+					value='#formatted_publication#'
+					onchange="getPublication(this.id,'publication_id_#i#',this.value,'editIdentification')" size="50">
+	
+			</td>
+        </tr>
+        <tr> 
           	<td><div align="right">Remarks:</div></td>
          	 <td>
 				<input type="text" name="identification_remarks_#i#" id="identification_remarks_#i#" 
@@ -389,9 +406,9 @@
 			<cfset thisMadeDate = #evaluate("MADE_DATE_" & n)#>
 			<cfset thisNature = #evaluate("NATURE_OF_ID_" & n)#>
 			<cfset thisNumIds = #evaluate("NUMBER_OF_IDENTIFIERS_" & n)#>
-			
+			<cfset thisPubId = #evaluate("publication_id_" & n)#>
 	
-			<cfif #thisAcceptedIdFg# is 1>
+			<cfif thisAcceptedIdFg is 1>
 				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 				</cfquery>
@@ -399,7 +416,7 @@
 					UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #thisIdentificationId#
 				</cfquery>
 			</cfif>
-			<cfif #thisAcceptedIdFg# is "DELETE">
+			<cfif thisAcceptedIdFg is "DELETE">
 					<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						DELETE FROM identification_agent WHERE identification_id = #thisIdentificationId#
 					</cfquery>
@@ -413,16 +430,13 @@
 			<cfelse>
 				<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						UPDATE identification SET
-						nature_of_id = '#thisNature#'
-						<cfif len(#thisMadeDate#) gt 0>
-							,made_date = '#dateformat(thisMadeDate,'dd-mmm-yyyy')#'
+						nature_of_id = '#thisNature#',
+						made_date = '#dateformat(thisMadeDate,'dd-mmm-yyyy')#',
+						identification_remarks = '#escapeQuotes(thisIdRemark)#'
+						<cfif len(thisPubId) gt 0>
+							,publication_id = #thisPubId#
 						<cfelse>
-							,made_date=NULL
-						</cfif>
-						<cfif len(#thisIdRemark#) gt 0>
-							,identification_remarks = '#thisIdRemark#'
-						<cfelse>
-							,identification_remarks = NULL
+							,publication_id = NULL
 						</cfif>
 					where identification_id=#thisIdentificationId#
 				</cfquery>
