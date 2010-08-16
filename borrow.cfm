@@ -123,7 +123,7 @@
 				trans_agent.agent_id=preferred_agent_name.agent_id (+)">
 		
 		<cfif (isdefined("trans_agent_role_1") and len(trans_agent_role_1) gt 0) or (isdefined("agent_1") and len(agent_1) gt 0)>
-			<cfset f=f & "agent_name a1,trans_agent ta1">
+			<cfset f=f & ", agent_name a1,trans_agent ta1">
 			<cfset w=w & " and trans.transaction_id=ta1.transaction_id and ta1.agent_id=a1.agent_id">
 			<cfif isdefined("trans_agent_role_1") and len(trans_agent_role_1) gt 0>
 				<cfset w=w & " and ta1.trans_agent_role='#trans_agent_role_1#'">
@@ -133,7 +133,7 @@
 			</cfif>
 		</cfif>
 		<cfif (isdefined("trans_agent_role_2") and len(trans_agent_role_2) gt 0) or (isdefined("agent_2") and len(agent_2) gt 0)>
-			<cfset f=f & "agent_name a2,trans_agent ta2">
+			<cfset f=f & ", agent_name a2,trans_agent ta2">
 			<cfset w=w & " and trans.transaction_id=ta2.transaction_id and ta2.agent_id=a2.agent_id">
 			<cfif isdefined("trans_agent_role_2") and len(trans_agent_role_2) gt 0>
 				<cfset w=w & " and ta2.trans_agent_role='#trans_agent_role_2#'">
