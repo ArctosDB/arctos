@@ -11,6 +11,12 @@
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from collection order by collection
 </cfquery>
+<script>
+	function setBorrowNum(cid,v){
+		$("#borrow_number").val(v);
+		
+		$("#collection_id").val(cid);
+</script>
 <cfset title="Borrow">
 <cfif #action# is "nothing">
 	Find Borrows:
@@ -541,12 +547,7 @@
 			
 		</form>
 </table>
-<script>
-	function setBorrowNum(cid,v){
-		$("#borrow_number").val(v);
-		
-		$("#collection_id").val(cid);
-</script>
+
 
 <div class="nextnum">
 			Next Available Borrow Number:
