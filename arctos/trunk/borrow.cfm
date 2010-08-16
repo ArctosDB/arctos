@@ -184,7 +184,7 @@
 			select
 				borrow.TRANSACTION_ID,
 				LENDERS_TRANS_NUM_CDE,
-				BORROW_NUM,
+				BORROW_NUMBER,
 				LENDERS_INVOICE_RETURNED_FG,
 				RECEIVED_DATE,
 				DUE_DATE,
@@ -223,7 +223,7 @@
 		</cfquery>
 <table border>
 <tr>
-	<td colspan="4"><strong>Borrow Number: #getBorrow.BORROW_NUM#</strong>
+	<td colspan="4"><strong>Borrow Number: #getBorrow.BORROW_NUMBER#</strong>
 	Entered By: #getBorrow.EnteredBy# on #getBorrow.TRANS_DATE#</td>
 </tr>
 
