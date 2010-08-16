@@ -550,11 +550,9 @@
 							trans,
 							collection
 						where 
-							loan.transaction_id=trans.transaction_id and
-							trans.collection_id=collection.collection_id
-							<cfif institution_acronym is not "MVZ" and institution_acronym is not "MVZObs">
-								and	collection.collection_id=#collection_id#
-							</cfif>
+							borrow.transaction_id=trans.transaction_id and
+							trans.collection_id=collection.collection_id and
+							collection.collection_id=#collection_id#
 							#preservesinglequotes(whr)#
 					</cfquery>
 					<cfcatch>
