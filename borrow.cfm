@@ -111,6 +111,7 @@
 		<input type="text" name="NATURE_OF_MATERIAL" id="NATURE_OF_MATERIAL">
 		<label for="TRANS_REMARKS">Transaction Remarks</label>
 		<input type="text" name="TRANS_REMARKS" id="TRANS_REMARKS">
+		<br>
 		<input type="submit" class="schBtn"	value="Find matches">
 		<input type="reset" class="clrBtn"	value="Clear Form">
 	</form>
@@ -215,6 +216,7 @@
 			WHERE
 				#preservesinglequotes(w)#
 		</cfquery>
+		<cfdump var=#getBorrow#>
 		<cfif getBorrow.recordcount is 0>
 			<div class="error">Nothing matched. Use your back button to try again.</div>
 		</cfif>
