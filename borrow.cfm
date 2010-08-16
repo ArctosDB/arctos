@@ -81,7 +81,7 @@
 				trans.transaction_id = borrow.transaction_id AND
 				trans.auth_agent_id = authAgent.agent_id (+) AND
 				trans.trans_entered_agent_id = enteredAgent.agent_id AND
-				trans.RECEIVED_AGENT_ID = recAgent.agent_id
+				trans.RECEIVED_AGENT_ID = recAgent.agent_id (+)
 		</cfquery>
 		<table border>
 			<tr>
