@@ -232,57 +232,57 @@
 			<input type="hidden" name="action" value="update">
 			<input type="hidden" name="transaction_id" value="#getBorrow.transaction_id#">
 			<tr>
-			<td colspan="2">
-			<table border>
-				<tr>
-					<th>Agent Name</th>
-					<th>Role</th>
-					<th>Delete?</th>
-				</tr>
-				<cfloop query="transAgents">
-					<tr>
-						<td>
-							<input type="text" name="trans_agent_#trans_agent_id#" class="reqdClr" size="50" value="#agent_name#"
-			  					onchange="getAgent('trans_agent_id_#trans_agent_id#','trans_agent_#trans_agent_id#','borrow',this.value); return false;"
-			  					onKeyPress="return noenter(event);">
-			  				<input type="hidden" name="trans_agent_id_#trans_agent_id#" value="#agent_id#">
-						</td>
-						<td>
-							<cfset thisRole = #trans_agent_role#>
-							<select name="trans_agent_role_#trans_agent_id#">
-								<cfloop query="cttrans_agent_role">
-									<option 
-										<cfif #trans_agent_role# is #thisRole#> selected="selected"</cfif>
-										value="#trans_agent_role#">#trans_agent_role#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="checkbox" name="del_agnt_#trans_agent_id#">
-						</td>
-					</tr>
-				</cfloop>
-					<tr class="newRec">
-						<td>
-							<label for="new_trans_agent">Add Agent:</label>
-							<input type="text" name="new_trans_agent" id="new_trans_agent" class="reqdClr" size="50"
-			  					onchange="getAgent('new_trans_agent_id','new_trans_agent','borrow',this.value); return false;"
-			  					onKeyPress="return noenter(event);">
-			  				<input type="hidden" name="new_trans_agent_id">
-						</td>
-						<td>
-							<label for="new_trans_agent_role">&nbsp;</label>
-							<select name="new_trans_agent_role" id="new_trans_agent_role">
-								<cfloop query="cttrans_agent_role">
-									<option value="#trans_agent_role#">#trans_agent_role#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>&nbsp;</td>
-					</tr>				
-			</table>
-					</td>
-				</tr>
+				<td colspan="2">
+					<table border>
+						<tr>
+							<th>Agent Name</th>
+							<th>Role</th>
+							<th>Delete?</th>
+						</tr>
+						<cfloop query="transAgents">
+							<tr>
+								<td>
+									<input type="text" name="trans_agent_#trans_agent_id#" class="reqdClr" size="50" value="#agent_name#"
+					  					onchange="getAgent('trans_agent_id_#trans_agent_id#','trans_agent_#trans_agent_id#','borrow',this.value); return false;"
+					  					onKeyPress="return noenter(event);">
+					  				<input type="hidden" name="trans_agent_id_#trans_agent_id#" value="#agent_id#">
+								</td>
+								<td>
+									<cfset thisRole = #trans_agent_role#>
+									<select name="trans_agent_role_#trans_agent_id#">
+										<cfloop query="cttrans_agent_role">
+											<option 
+												<cfif #trans_agent_role# is #thisRole#> selected="selected"</cfif>
+												value="#trans_agent_role#">#trans_agent_role#</option>
+										</cfloop>
+									</select>
+								</td>
+								<td>
+									<input type="checkbox" name="del_agnt_#trans_agent_id#">
+								</td>
+							</tr>
+						</cfloop>
+							<tr class="newRec">
+								<td>
+									<label for="new_trans_agent">Add Agent:</label>
+									<input type="text" name="new_trans_agent" id="new_trans_agent" class="reqdClr" size="50"
+					  					onchange="getAgent('new_trans_agent_id','new_trans_agent','borrow',this.value); return false;"
+					  					onKeyPress="return noenter(event);">
+					  				<input type="hidden" name="new_trans_agent_id">
+								</td>
+								<td>
+									<label for="new_trans_agent_role">&nbsp;</label>
+									<select name="new_trans_agent_role" id="new_trans_agent_role">
+										<cfloop query="cttrans_agent_role">
+											<option value="#trans_agent_role#">#trans_agent_role#</option>
+										</cfloop>
+									</select>
+								</td>
+								<td>&nbsp;</td>
+							</tr>				
+					</table>
+				</td>
+			</tr>
 			<tr>
 				<td>
 					<label for="collection_id">Collection</label>
@@ -319,6 +319,16 @@
 							value="0">no</option>
 					</select>
 				</td>
+				<td>
+					<label for="borrow_status">Status</label>
+					<select name="borrow_status" id="borrow_status" size="1" class="reqdCld">
+						<cfloop query="ctStatus">
+							<option 
+								<cfif #ctStatus.borrow_status# is "#getBorrow.BORROW_STATUS#"> selected </cfif>
+							value="#ctStatus.borrow_status#">#ctStatus.borrow_status#</option>
+						</cfloop>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td>
@@ -329,21 +339,9 @@
 					<label for="DUE_DATE">Due Date</label>
 					<input type="text" name="DUE_DATE" id="DUE_DATE" value="#dateformat(getBorrow.DUE_DATE,"dd mmm yyyy")#">
 				</td>
-			</tr>
-			<tr>
 				<td>
 					<label for="LENDERS_LOAN_DATE">Lender's Loan Date</label>
 					<input type="text" name="LENDERS_LOAN_DATE" id="LENDERS_LOAN_DATE" value="#dateformat(getBorrow.LENDERS_LOAN_DATE,"dd mmm yyyy")#">
-				</td>
-				<td>
-					<label for="borrow_status">Status</label>
-					<select name="borrow_status" id="borrow_status" size="1" class="reqdCld">
-						<cfloop query="ctStatus">
-							<option 
-								<cfif #ctStatus.borrow_status# is "#getBorrow.BORROW_STATUS#"> selected </cfif>
-							value="#ctStatus.borrow_status#">#ctStatus.borrow_status#</option>
-						</cfloop>
-					</select>
 				</td>
 			</tr>
 			<tr>
@@ -359,24 +357,16 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4">
+				<td colspan="3">
 					<label for="TRANS_REMARKS">Remarks</label>
 					<textarea name="TRANS_REMARKS" id="TRANS_REMARKS" rows="3" cols="90">#getBorrow.TRANS_REMARKS#</textarea>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
-					<input type="submit" 
-				class="schBtn"
-				onmouseover="this.className='schBtn btnhov'" 
-   				onmouseout="this.className='schBtn'"
-				value="Save Edits">
-				<input type="button" 
-				class="delBtn"
-				onmouseover="this.className='delBtn btnhov'" 
-   				onmouseout="this.className='delBtn'"
-				value="Delete"
-				onclick="borrow.action.value='delete';confirmDelete('borrow');">
+				<td colspan="3">
+					<input type="submit" class="schBtn" value="Save Edits">
+					<input type="button" class="delBtn" value="Delete"
+						onclick="borrow.action.value='delete';confirmDelete('borrow');">
 				</td>
 			</tr>
 			
