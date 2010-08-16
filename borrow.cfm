@@ -1,4 +1,8 @@
 <cfinclude template = "/includes/_header.cfm">
+
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+
 <cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select borrow_status from ctborrow_status
 	</cfquery>
@@ -12,9 +16,16 @@
 	select * from collection order by collection
 </cfquery>
 <script>
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("#received_date").datepicker();
+			jQuery("#lenders_loan_date").datepicker();
+			jQuery("#due_date").datepicker();	
+			jQuery("#trans_date").datepicker();
+		});
+	});
 	function setBorrowNum(cid,v){
 		$("#borrow_number").val(v);
-		
 		$("#collection_id").val(cid);
 	}
 </script>
@@ -439,23 +450,23 @@
 					</select>
 				</td>
 				<td>
-					<label for="RECEIVED_DATE">Received Date</label>
-					<input type="text" name="RECEIVED_DATE">
+					<label for="received_date">Received Date</label>
+					<input type="text" name="received_date" id="received_date">
 				</td>
 				<td>
-					<label for="DUE_DATE">Due Date</label>
-					<input type="text" name="DUE_DATE">
+					<label for="due_date">Due Date</label>
+					<input type="text" name="due_date" id="due_date">
 				</td>
 			</tr>
 			
 			<tr>
 				<td>
 					<label for="trans_date">Transaction Date</label>
-					<input type="text" name="trans_date">
+					<input type="text" name="trans_date" id="trans_date">
 				</td>
 				<td>
-					<label for="LENDERS_LOAN_DATE">Lender's Loan Date</label>
-					<input type="text" name="LENDERS_LOAN_DATE">
+					<label for="lenders_loan_date">Lender's Loan Date</label>
+					<input type="text" name="lenders_loan_date" id="lenders_loan_date">
 				</td>
 				<td>
 					<label for="borrow_status">Status</label>
@@ -510,18 +521,11 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<input type="submit" 
-				class="schBtn"
-				onmouseover="this.className='schBtn btnhov'" 
-   				onmouseout="this.className='schBtn'"
-				value="Create Borrow">
+					<input type="submit" class="schBtn" value="Create Borrow">
 				</td>
 			</tr>
-			
 		</form>
 </table>
-
-
 <div class="nextnum">
 			Next Available Borrow Number:
 			<br>
