@@ -369,7 +369,7 @@
 	        <td>
 				<input type="hidden" name="publication_id_#i#" id="publication_id_#i#" value="#publication_id#">
 				<input type="text" 
-					id="newPub" 
+					id="publication_#i#" 
 					value='#formatted_publication#'
 					onchange="getPublication(this.id,'publication_id_#i#',this.value,'editIdentification')" size="50">
 	
