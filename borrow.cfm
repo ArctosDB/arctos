@@ -635,8 +635,8 @@
 			'#Borrow_Number#',
 			#LENDERS_INVOICE_RETURNED_FG#,
 			to_date('#RECEIVED_DATE#'),
-			to_date'#DUE_DATE#'),
-			to_date'#LENDERS_LOAN_DATE#'),
+			to_date('#DUE_DATE#'),
+			to_date('#LENDERS_LOAN_DATE#'),
 			'#escapeQuotes(LENDERS_INSTRUCTIONS)#',
 			'#BORROW_STATUS#'
 		)
