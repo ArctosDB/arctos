@@ -163,7 +163,7 @@
 				<cfquery name="a" dbtype="query">
 					select agent_name,trans_agent_role from getBorrow
 					where transaction_id=#transaction_id#
-					order by agent_role,agent_name
+					order by trans_agent_role,agent_name
 				</cfquery>
 				
 				<td>
