@@ -166,29 +166,27 @@
 		<cfif isdefined("received_date_before") and len(received_date_before) gt 0>
 			<cfset w=w & " and to_char(received_date,'yyyy-mm-dd') <= '#received_date_before#'">
 		</cfif>
-		
-		
-		<!---
-		
-		<input type="text" name="lenders_loan_date_after" id="lenders_loan_date_after">-
-		<input type="text" name="lenders_loan_date_before" id="lenders_loan_date_before">
-		<label for="received_date">Received Date</label>
-		<input type="text" name="received_date_after" id="received_date_after">-
-		<input type="text" name="received_date_before" id="">
-		<label for="due_date_after">Due Date</label>
-		<input type="text" name="due_date_after" id="due_date_after">-
-		<input type="text" name="due_date_before" id="due_date_before">
-		<label for="received_date_after">Lender's Loan Date</label>
-		<input type="text" name="received_date_after" id="received_date_after">-
-		<input type="text" name="received_date_before" id="received_date_before">
-		<label for="LENDERS_INSTRUCTIONS">Lender's Instructions</label>
-		<input type="text" name="LENDERS_INSTRUCTIONS" id="LENDERS_INSTRUCTIONS">
-		<label for="NATURE_OF_MATERIAL">Nature of Material</label>
-		<input type="text" name="NATURE_OF_MATERIAL" id="NATURE_OF_MATERIAL">
-		<label for="TRANS_REMARKS">Transaction Remarks</label>
-		<input type="text" name="TRANS_REMARKS" id="TRANS_REMARKS">
-		
-		---->
+		<cfif isdefined("lenders_loan_date_after") and len(lenders_loan_date_after) gt 0>
+			<cfset w=w & " and to_char(lenders_loan_date_after,'yyyy-mm-dd') >= '#lenders_loan_date_after#'">
+		</cfif>
+		<cfif isdefined("lenders_loan_date_before") and len(lenders_loan_date_before) gt 0>
+			<cfset w=w & " and to_char(lenders_loan_date_before,'yyyy-mm-dd') <= '#lenders_loan_date_before#'">
+		</cfif>
+		<cfif isdefined("due_date_after") and len(due_date_after) gt 0>
+			<cfset w=w & " and to_char(due_date_after,'yyyy-mm-dd') >= '#due_date_after#'">
+		</cfif>
+		<cfif isdefined("due_date_before") and len(due_date_beforen_date_before) gt 0>
+			<cfset w=w & " and to_char(due_date_before,'yyyy-mm-dd') <= '#due_date_before#'">
+		</cfif>
+		<cfif isdefined("LENDERS_INSTRUCTIONS") and len(LENDERS_INSTRUCTIONS) gt 0>
+			<cfset w=w & " and upper(LENDERS_INSTRUCTIONS) like '%#ucase(LENDERS_INSTRUCTIONS)#%'">
+		</cfif>
+		<cfif isdefined("NATURE_OF_MATERIAL") and len(NATURE_OF_MATERIAL) gt 0>
+			<cfset w=w & " and upper(NATURE_OF_MATERIAL) like '%#ucase(NATURE_OF_MATERIAL)#%'">
+		</cfif>
+		<cfif isdefined("TRANS_REMARKS") and len(TRANS_REMARKS) gt 0>
+			<cfset w=w & " and upper(TRANS_REMARKS) like '%#ucase(TRANS_REMARKS)#%'">
+		</cfif>
 		<cfquery name="getBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
 				borrow.TRANSACTION_ID,
@@ -212,7 +210,6 @@
 			WHERE
 				#preservesinglequotes(w)#
 		</cfquery>
-		<cfdump var=#getBorrow#>
 		<cfquery name="b" dbtype="query">
 			select 
 				TRANSACTION_ID,
@@ -275,7 +272,7 @@
 			<tr>
 				<td>
 					<a href="borrow.cfm?action=edit&transaction_id=#transaction_id#">
-					#BORROW_NUMBER#
+						#BORROW_NUMBER#
 					</a>
 				</td>
 				<td>
@@ -294,9 +291,19 @@
 					#NATURE_OF_MATERIAL#
 				</td>
 				<cfquery name="a" dbtype="query">
-					select agent_name,trans_agent_role from getBorrow
-					where transaction_id=#transaction_id#
-					order by trans_agent_role,agent_name
+					select 
+						agent_name,
+						trans_agent_role 
+					from 
+						getBorrow
+					where 
+						transaction_id=#transaction_id#
+					group by
+						agent_name,
+						trans_agent_role
+					order by 
+						trans_agent_role,
+						agent_name
 				</cfquery>
 				
 				<td>
