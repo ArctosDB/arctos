@@ -161,10 +161,10 @@
 			<cfset w=w & " and borrow_status = '#borrow_status#'">
 		</cfif>
 		<cfif isdefined("received_date_after") and len(received_date_after) gt 0>
-			<cfset w=w & " and to_char(received_date,'yyyy-mm-dd') <= '#received_date_after#'">
+			<cfset w=w & " and to_char(received_date,'yyyy-mm-dd') >= '#received_date_after#'">
 		</cfif>
 		<cfif isdefined("received_date_before") and len(received_date_before) gt 0>
-			<cfset w=w & " and to_char(received_date,'yyyy-mm-dd') >= '#received_date_before#'">
+			<cfset w=w & " and to_char(received_date,'yyyy-mm-dd') <= '#received_date_before#'">
 		</cfif>
 		
 		
