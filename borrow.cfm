@@ -50,7 +50,7 @@
 	</form>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
-<cfif #action# is "findEm">
+<cfif action is "findEm">
 	<cfoutput>
 		<cfquery name="getBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
@@ -196,7 +196,8 @@
 				CORRESP_FG,
 				NATURE_OF_MATERIAL,
 				TRANS_REMARKS,
-				lender_loan_type
+				lender_loan_type,
+				trans.collection_id
 			FROM
 				trans,
 				borrow
@@ -284,9 +285,30 @@
 				</tr>
 			<tr>
 				<td>
+					<label for="collection_id">Collection</label>
+					<select name="collection_id" size="1" id="collection_id">
+						<option value=""></option>
+						<cfloop query="ctcollection">
+							<option <cfif getBorrow.collection_id is ctcollection.collection_id> selected="selected" </cfif> value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<label for="borrow_number">Borrow Number</label>
+					<input type="text" name="borrow_number" id="borrow_number"
+						value="#getBorrow.borrow_number#">
+				</td>
+				<td>
 					<label for="LENDERS_TRANS_NUM_CDE">Lender's Transaction Number</label>
 					<input type="text" name="LENDERS_TRANS_NUM_CDE" id="LENDERS_TRANS_NUM_CDE"
 						value="#getBorrow.LENDERS_TRANS_NUM_CDE#">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="lender_loan_type">Lender's Loan Type</label>
+					<input type="text" name="lender_loan_type" id="lender_loan_type"
+						value="#getBorrow.lender_loan_type#">
 				</td>
 				<td>
 					<label for="LENDERS_INVOICE_RETURNED_FG">Lender acknowledged returned?</label>
@@ -296,13 +318,6 @@
 						<option <cfif #getBorrow.LENDERS_INVOICE_RETURNED_FG# IS 0> selected </cfif>
 							value="0">no</option>
 					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="lender_loan_type">Lender's Loan Type</label>
-					<input type="text" name="lender_loan_type" id="lender_loan_type"
-						value="#getBorrow.lender_loan_type#">
 				</td>
 			</tr>
 			<tr>
@@ -630,7 +645,7 @@
 			delete from trans where transaction_id=#transaction_id#
 		</cfquery>
 		</cftransaction>
-		<cflocation url="transactions.cfm">
+		<cflocation url="borrow.cfm" addtoken="false">
 	</cfoutput>
 </cfif>
 
