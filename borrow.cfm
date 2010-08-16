@@ -56,7 +56,7 @@
 			select
 				borrow.TRANSACTION_ID,
 				LENDERS_TRANS_NUM_CDE,
-				BORROW_NUM,
+				BORROW_NUMBER,
 				LENDERS_INVOICE_RETURNED_FG,
 				RECEIVED_DATE,
 				DUE_DATE,
@@ -111,7 +111,7 @@
 			<tr>
 				<td>
 					<a href="borrow.cfm?action=edit&transaction_id=#transaction_id#">
-					#BORROW_NUM#
+					#BORROW_NUMBER#
 					</a>
 				</td>
 				<td>
