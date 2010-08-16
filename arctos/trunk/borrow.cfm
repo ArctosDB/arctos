@@ -172,16 +172,16 @@
 			<cfset w=w & " and to_char(received_date,'yyyy-mm-dd') <= '#received_date_before#'">
 		</cfif>
 		<cfif isdefined("lenders_loan_date_after") and len(lenders_loan_date_after) gt 0>
-			<cfset w=w & " and to_char(lenders_loan_date_after,'yyyy-mm-dd') >= '#lenders_loan_date_after#'">
+			<cfset w=w & " and to_char(lenders_loan_date,'yyyy-mm-dd') >= '#lenders_loan_date_after#'">
 		</cfif>
 		<cfif isdefined("lenders_loan_date_before") and len(lenders_loan_date_before) gt 0>
-			<cfset w=w & " and to_char(lenders_loan_date_before,'yyyy-mm-dd') <= '#lenders_loan_date_before#'">
+			<cfset w=w & " and to_char(lenders_loan_date,'yyyy-mm-dd') <= '#lenders_loan_date_before#'">
 		</cfif>
 		<cfif isdefined("due_date_after") and len(due_date_after) gt 0>
-			<cfset w=w & " and to_char(due_date_after,'yyyy-mm-dd') >= '#due_date_after#'">
+			<cfset w=w & " and to_char(due_date,'yyyy-mm-dd') >= '#due_date_after#'">
 		</cfif>
 		<cfif isdefined("due_date_before") and len(due_date_before) gt 0>
-			<cfset w=w & " and to_char(due_date_before,'yyyy-mm-dd') <= '#due_date_before#'">
+			<cfset w=w & " and to_char(due_date,'yyyy-mm-dd') <= '#due_date_before#'">
 		</cfif>
 		<cfif isdefined("LENDERS_INSTRUCTIONS") and len(LENDERS_INSTRUCTIONS) gt 0>
 			<cfset w=w & " and upper(LENDERS_INSTRUCTIONS) like '%#ucase(LENDERS_INSTRUCTIONS)#%'">
