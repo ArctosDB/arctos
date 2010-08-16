@@ -282,7 +282,7 @@
 			<tr>
 				<td>
 					<label for="collection_id">Collection</label>
-					<span id="collection_id">#collection#</span>
+					<span id="collection_id">#getBorrow.collection#</span>
 				</td>
 				<td>
 					<label for="borrow_number">Borrow Number</label>
