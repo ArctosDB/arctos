@@ -8,6 +8,9 @@
 <cfquery name="cttrans_agent_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(trans_agent_role)  from cttrans_agent_role order by trans_agent_role
 </cfquery>
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select * from collection order by collection
+</cfquery>
 <cfset title="Borrow">
 <cfif #action# is "nothing">
 	Find Borrows:
@@ -396,8 +399,17 @@
 			<input type="hidden" name="action" value="makeNew">
 			<tr>
 				<td>
+					
+					<label for="collection_id">Collection
+						</label>
+						<select name="collection_id" size="1" id="collection_id">
+							<cfloop query="ctcollection">
+								<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+							</cfloop>
+						</select>
+					
 					<label for="borrow_num">Local Borrow Number</label>
-					<input type="text" id="borrow_num" name="borrow_num" class="reqdClr">
+					<input type="text" id="borrow_number" name="borrow_number" class="reqdClr">
 				</td>
 				
 				
@@ -529,7 +541,12 @@
 			
 		</form>
 </table>
-
+<script>
+	function setBorrowNum(cid,v){
+		$("#borrow_number").val(v);
+		
+		$("#collection_id").val(cid);
+</script>
 
 <div class="nextnum">
 			Next Available Borrow Number:
@@ -569,7 +586,7 @@
 					</cfcatch>
 				</cftry>
 				<cfif len(thisQ.nn) gt 0>
-					<span class="likeLink" onclick="setAccnNum('#collection_id#','#thisQ.nn#')">#collection# #thisQ.nn#</span>
+					<span class="likeLink" onclick="setBorrowNum('#collection_id#','#thisQ.nn#')">#collection# #thisQ.nn#</span>
 				<cfelse>
 					<span style="font-size:x-small">
 						No data available for #collection#.
