@@ -44,7 +44,7 @@
 	}
 </style>
 <cfset title="Borrow">
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 	<cfoutput>
 	Find Borrows:
 	<form name="borrow" method="post" action="borrow.cfm">
@@ -516,7 +516,7 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
-<cfif #action# is "update">
+<cfif action is "update">
 <cfoutput>
 <cftransaction>
 	<cfquery name="setBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -660,6 +660,18 @@
 		 				onKeyPress="return noenter(event);"
 						size="50">
 					<input type="hidden" name="received_agent_id">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<label for="ReceivedFrom">Received From</label>
+					<input type="text" 
+						name="ReceivedFrom" 
+						class="reqdClr"
+						onchange="getAgent('received_from_agent_id','ReceivedFrom','borrow',this.value); return false;"
+		 				onKeyPress="return noenter(event);"
+						size="50">
+					<input type="hidden" name="received_from_agent_id">
 				</td>
 			</tr>
 			<tr>
@@ -825,7 +837,18 @@
 				#RECEIVED_AGENT_ID#,
 				'received by'
 			)
-		</cfquery>				
+		</cfquery>
+		<cfquery name="recfrom" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			INSERT INTO trans_agent (
+			    transaction_id,
+			    agent_id,
+			    trans_agent_role
+			) values (
+				#transaction_id#,
+				#received_from_agent_id#,
+				'received from'
+			)
+		</cfquery>
 	</cftransaction>
 	<cflocation url="borrow.cfm?action=edit&transaction_id=#transaction_id#" addtoken="false">
 	</cfoutput>
