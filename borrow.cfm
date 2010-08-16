@@ -215,6 +215,10 @@
 			WHERE
 				#preservesinglequotes(w)#
 		</cfquery>
+		<cfif getBorrow.recordcount is 0>
+			<div class="error">Nothing matched. Use your back button to try again.</div>
+		</cfif>
+		<cfabort>
 		<cfquery name="b" dbtype="query">
 			select 
 				TRANSACTION_ID,
