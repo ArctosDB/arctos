@@ -467,7 +467,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<td colspan="3">
 					<label for="AuthorizedBy">Authorized By</label>
 					<input type="text" 
 						name="AuthorizedBy" 
@@ -477,7 +477,9 @@
 						size="50">
 					<input type="hidden" name="auth_agent_id">
 				</td>
-				<td>
+			</tr>
+			<tr>
+				<td colspan="3">
 					<label for="ReceivedBy">Received By</label>
 					<input type="text" 
 						name="ReceivedBy" 
@@ -487,7 +489,6 @@
 						size="50">
 					<input type="hidden" name="received_agent_id">
 				</td>
-				<td></td>
 			</tr>
 			<tr>
 				<td colspan="3">
