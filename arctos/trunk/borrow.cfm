@@ -63,26 +63,18 @@
 				LENDERS_LOAN_DATE,
 				BORROW_STATUS,
 				LENDERS_INSTRUCTIONS,
-				authAgent.agent_name AuthorizedBy,
 				TRANS_DATE,
-				enteredAgent.agent_name EnteredBy,
-				recAgent.agent_name ReceivedBy,
 				CORRESP_FG,
 				NATURE_OF_MATERIAL,
 				TRANS_REMARKS,
 				lender_loan_type
 			FROM
 				trans,
-				borrow,
-				preferred_agent_name authAgent,
-				preferred_agent_name enteredAgent,
-				preferred_agent_name recAgent
+				borrow
 			WHERE
-				trans.transaction_id = borrow.transaction_id AND
-				trans.auth_agent_id = authAgent.agent_id (+) AND
-				trans.trans_entered_agent_id = enteredAgent.agent_id AND
-				trans.RECEIVED_AGENT_ID = recAgent.agent_id (+)
+				trans.transaction_id = borrow.transaction_id
 		</cfquery>
+		<cfdump var=#getBorrow#>
 		<table border>
 			<tr>
 				<td>
