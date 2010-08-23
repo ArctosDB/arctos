@@ -178,7 +178,7 @@
 									#attribute_units#&nbsp;
 								</td>
 								<td>
-									#dateformat(determined_date,"dd mmm yyyy")#&nbsp;
+									#dateformat(determined_date,"yyyy-mm-dd")#&nbsp;
 								</td>
 								<td>
 									#agent_name#&nbsp;

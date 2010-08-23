@@ -43,11 +43,11 @@ Agent:
 		</tr>
 		<tr>
 			<td align="right"><strong>Birth Date:</strong></td>
-			<td>#dateformat(person.BIRTH_DATE,"dd mmm yyyy")#</td>
+			<td>#dateformat(person.BIRTH_DATE,"yyyy-mm-dd")#</td>
 		</tr>
 		<tr>
 			<td align="right"><strong>Death Date:</strong></td>
-			<td>#dateformat(person.DEATH_DATE,"dd mmm yyyy")#</td>
+			<td>#dateformat(person.DEATH_DATE,"yyyy-mm-dd")#</td>
 		</tr>
 	</cfif>
 </table>

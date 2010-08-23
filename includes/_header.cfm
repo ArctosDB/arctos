@@ -79,7 +79,7 @@
 					<a target="_top" href="##" onClick="getDocs('index')">Help</a> ~ 
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 					<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
-						<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "mmm d yyyy")#)</span>&nbsp;
+						<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)</span>&nbsp;
 					</cfif>
 					<cfif isdefined("session.needEmailAddr") and session.needEmailAddr is 1>
 						<br>

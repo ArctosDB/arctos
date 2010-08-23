@@ -59,7 +59,7 @@
 			<td nowrap>#getLL.verbatimLongitude#</td>
 			<td>#getLL.datum#</td>
 			<td nowrap>		
-			#dateformat(getLL.determined_date,"dd mmm yyyy")#</td>
+			#dateformat(getLL.determined_date,"yyyy-mm-dd")#</td>
 			<td>#getLL.agent_name#</td>
 			<td>#getLL.lat_long_ref_source#</td>
 			<td nowrap>#getLL.max_error_distance# #getLL.max_error_units#</td>
@@ -136,7 +136,7 @@
 				
 				</td>
 				<td nowrap>#agent_name#</td>
-				<td nowrap>#dateformat(made_date,"dd mmm yyyy")#</td>
+				<td nowrap>#dateformat(made_date,"yyyy-mm-dd")#</td>
 				<td nowrap>#nature_of_id#</td>
 				<td>#identification_remarks#&nbsp;</td>
 			</tr>
@@ -191,9 +191,9 @@
 				<td>#coll_obj_disposition#&nbsp;</td>
 				<td>#lot_count#&nbsp;</td>
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-					<td>#enteredBy# on #dateformat(coll_object_entered_date,"dd mmm yyyy")#</td>
+					<td>#enteredBy# on #dateformat(coll_object_entered_date,"yyyy-mm-dd")#</td>
 					
-					<td>#editedBy# on #dateformat(last_edit_date,"dd mmm yyyy")#</td>
+					<td>#editedBy# on #dateformat(last_edit_date,"yyyy-mm-dd")#</td>
 				</cfif>
 			</tr>
 			<cfset i=#i#+1>
@@ -230,7 +230,7 @@
 				<td nowrap>#Attribute_type#</td>
 				<td>#attribute_Value#</td>
 				<td>#attribute_Units#&nbsp;</td>
-				<td nowrap>#dateformat(determined_date,"dd mmm yyyy")#</td>
+				<td nowrap>#dateformat(determined_date,"yyyy-mm-ddy")#</td>
 				<td nowrap>#agent_name#</td>
 				<td>#attribute_remark#&nbsp;</td>
 				<td>#determination_method#&nbsp;</td>

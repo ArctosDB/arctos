@@ -72,7 +72,7 @@
 				#agent_name#
 			</td>
 			<td>
-				<cfset thisDate = #dateformat(determined_date,"dd mmm yyyy")#>
+				<cfset thisDate = #dateformat(determined_date,"yyyy-mm-dd")#>
 				#thisDate#
 			</td>
 			<td>

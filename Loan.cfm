@@ -144,7 +144,7 @@
 				<tr>
 					<td>
 						<label for="initiating_date">Transaction Date</label>
-						<input type="text" name="initiating_date" id="initiating_date" value="#dateformat(now(),"dd-mmm-yyyy")#">
+						<input type="text" name="initiating_date" id="initiating_date" value="#dateformat(now(),"yyyy-mm-dd")#">
 					</td>
 					<td>
 						<label for="return_due_date">Return Due Date</label>
@@ -382,12 +382,12 @@
 				<td>
 					<label for="initiating_date">Transaction Date</label>
 					<input type="text" name="initiating_date" id="initiating_date" 
-						value="#dateformat(loanDetails.trans_date,"dd-mmm-yyyy")#" class="reqdClr">
+						value="#dateformat(loanDetails.trans_date,"yyyy-mm-dd")#" class="reqdClr">
 				</td>
 				<td>
 					<label for="initiating_date">Due Date</label>
 					<input type="text" id="return_due_date" name="return_due_date"
-						value="#dateformat(loanDetails.return_due_date,'dd mmm yyyy')#">
+						value="#dateformat(loanDetails.return_due_date,'yyyy-mm-dd')#">
 				</td>
 			</tr>
 		</table>
@@ -475,7 +475,7 @@
 		<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
 		<textarea name="project_name" cols="50" rows="2" class="reqdClr"></textarea>
 		<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Project Start Date</label>
-		<input type="text" name="start_date" value="#dateformat(loanDetails.trans_date,"dd-mmm-yyyy")#">
+		<input type="text" name="start_date" value="#dateformat(loanDetails.trans_date,"yyyy-mm-dd")#">
 		<label for="">Project End Date</label>
 		<input type="text" name="end_date">
 		<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Project Description</label>
@@ -573,7 +573,7 @@
 		<label for="carriers_tracking_number">Tracking Number</label>
 		<input type="text" value="#carriers_tracking_number#" name="carriers_tracking_number" id="carriers_tracking_number">
 		<label for="shipped_date">Ship Date</label>
-		<input type="text" value="#dateformat(shipped_date,'dd mmm yyyy')#" name="shipped_date" id="shipped_date">
+		<input type="text" value="#dateformat(shipped_date,'yyyy-mm-dd')#" name="shipped_date" id="shipped_date">
 		<label for="package_weight">Package Weight (TEXT, include units)</label>
 		<input type="text" value="#package_weight#" name="package_weight" id="package_weight">
 		<label for="hazmat_fg">Hazmat?</label>
@@ -623,11 +623,11 @@
 			<p>
 				<strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to
 			 	#IssuedToAgent# by #IssuedByAgent# on 
-				#dateformat(issued_Date,"dd mmm yyyy")#. 
+				#dateformat(issued_Date,"yyyy-mm-dd")#. 
 				<cfif len(renewed_Date) gt 0> 
 					(renewed #renewed_Date#)
 				</cfif>
-				Expires #dateformat(exp_Date,"dd mmm yyyy")#  
+				Expires #dateformat(exp_Date,"yyyy-mm-dd")#  
 				<cfif len(permit_remarks) gt 0>Remarks: #permit_remarks#</cfif> 
 				<br>
 				<input type="hidden" name="transaction_id" value="#transaction_id#">
@@ -1336,7 +1336,7 @@
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Transaction Date:</div></td>
-						<td><strong>#dateformat(trans_date,"dd mmm yyyy")#</strong></td>
+						<td><strong>#dateformat(trans_date,"yyyy-mm-dd")#</strong></td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>

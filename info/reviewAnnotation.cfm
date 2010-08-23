@@ -145,7 +145,7 @@ Filter for:
 					<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<td style="padding-left:2em;">
 							Annotation by <strong>#CF_USERNAME#</strong> 
-							(#email#) on #dateformat(ANNOTATE_DATE,"dd Mmm yyyy")#
+							(#email#) on #dateformat(ANNOTATE_DATE,"yyyy-mm-dd")#
 						</td>
 						<td>
 							#annotation#
@@ -231,7 +231,7 @@ Filter for:
 								<tr>
 									<td>
 										Annotation by <strong>#CF_USERNAME#</strong> 
-										(#email#) on #dateformat(ANNOTATE_DATE,"dd Mmm yyyy")#
+										(#email#) on #dateformat(ANNOTATE_DATE,"yyyy-mm-dd")#
 									</td>
 									<td>
 										#annotation#
@@ -321,7 +321,7 @@ Filter for:
 								<tr>
 									<td>
 										Annotation by <strong>#CF_USERNAME#</strong> 
-										(#email#) on #dateformat(ANNOTATE_DATE,"dd Mmm yyyy")#
+										(#email#) on #dateformat(ANNOTATE_DATE,"yyyy-mm-dd")#
 									</td>
 									<td>
 										#annotation#
@@ -410,7 +410,7 @@ Filter for:
 								<tr>
 									<td>
 										Annotation by <strong>#CF_USERNAME#</strong> 
-										(#email#) on #dateformat(ANNOTATE_DATE,"dd Mmm yyyy")#
+										(#email#) on #dateformat(ANNOTATE_DATE,"yyyy-mm-dd")#
 									</td>
 									<td>
 										#annotation#

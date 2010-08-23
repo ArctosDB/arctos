@@ -404,7 +404,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 							<label for="checked_date">Fluid Check Date</label>
 							<input name="checked_date" id="checked_date" 
 							type="text" 
-							value="#dateformat(getCont.checked_date,'dd mmmm yyyy')#" 
+							value="#dateformat(getCont.checked_date,'yyyy-mm-dd')#" 
 							size="6">
 						</td>
 						<td>

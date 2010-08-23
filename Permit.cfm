@@ -344,10 +344,10 @@ where
 		<td>#permit_Type#</td>
 		<td>#IssuedToAgent#</td>
 		<td>#IssuedByAgent#</td>
-		<td>#dateformat(issued_Date,"dd mmm yyyy")#</td>
-		<td>#dateformat(renewed_Date,"dd mmm yyyy")#</td>
+		<td>#dateformat(issued_Date,"yyyy-mm-dd")#</td>
+		<td>#dateformat(renewed_Date,"yyyy-mm-dd")#</td>
 		<td style="background-color:#tabCol#; ">
-			#dateformat(exp_Date,"dd mmm yyyy")#
+			#dateformat(exp_Date,"yyyy-mm-dd")#
 			<cfif len(#exp_Date#) is 0>
 				not given!
 			<cfelseif #ExpiresInDays# lt 0>
@@ -541,13 +541,13 @@ where
 		</tr>
 		<tr>
 			<td>Issued Date</td>
-			<td><input type="text" name="issued_Date" value="#dateformat(issued_Date,"dd-mmm-yyyy")#"></td>
+			<td><input type="text" name="issued_Date" value="#dateformat(issued_Date,"yyyy-mm-dd")#"></td>
 			<td>Renewed Date</td>
-			<td><input type="text" name="renewed_Date" value="#dateformat(renewed_Date,"dd-mmm-yyyy")#"></td>
+			<td><input type="text" name="renewed_Date" value="#dateformat(renewed_Date,"yyyy-mm-dd")#"></td>
 		</tr>
 		<tr>
 			<td>Expiration Date</td>
-			<td><input type="text" name="exp_Date" value="#dateformat(exp_Date,"dd-mmm-yyyy")#"></td>
+			<td><input type="text" name="exp_Date" value="#dateformat(exp_Date,"yyyy-mm-dd")#"></td>
 			<td>Permit Number</td>
 			<td><input type="text" name="permit_Num" value="#permit_Num#"></td>
 		</tr>

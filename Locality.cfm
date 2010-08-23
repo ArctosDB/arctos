@@ -1569,7 +1569,7 @@ INSERT INTO geog_auth_rec (
             <cfelse>
             <b>NoGeorefBecause: #NoGeorefBecause#</b> 
           </cfif>
-          Determined by #coordinateDeterminer# on #dateformat(determined_date,"dd mmm yyyy")# using #lat_long_ref_source#
+          Determined by #coordinateDeterminer# on #dateformat(determined_date,"yyyy-mm-dd")# using #lat_long_ref_source#
           </font> </td>
       </tr>
 	  <cfset i=#i#+1>
