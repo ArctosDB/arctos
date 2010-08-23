@@ -399,6 +399,9 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<th>Media</th>';
 			}
 			theInnerHtml += '<th>Identification</th>';
+			if (data.COLUMNLIST[0].indexOf('ID_SENSU')> -1) {
+				theInnerHtml += '<th>ID sensu</th>';
+			}
 			if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
 				theInnerHtml += '<th>Scientific&nbsp;Name</th>';
 			}
@@ -620,6 +623,11 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
 				theInnerHtml += '</span>'; 					
 				theInnerHtml += '</td>';
+				if (data.COLUMNLIST[0].indexOf('ID_SENSU')> -1) {
+					theInnerHtml += '<td>';
+						theInnerHtml += data.ID_SENSU[i];
+					theInnerHtml += '</td>';
+				}
 				if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
 					theInnerHtml += '<td>';
 						theInnerHtml += spaceStripper(data.SCI_NAME_WITH_AUTH[i]);

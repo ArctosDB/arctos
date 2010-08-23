@@ -98,7 +98,7 @@ function removeHelpDiv() {
 <cfif not isdefined("mapurl")>
 	<cfset mapurl = "null">
 </cfif>
-<cfif #action# contains ",">
+<cfif action contains ",">
 	<cfset action = #left(action,find(",",action)-1)#>
 </cfif>
 <cfif not isdefined("session.resultColumnList")>
@@ -116,7 +116,7 @@ function removeHelpDiv() {
 	</cfif>
 </cfloop>
 <cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
-<cfif len(#session.CustomOtherIdentifier#) gt 0>
+<cfif len(session.CustomOtherIdentifier) gt 0>
 	<cfset basSelect = "#basSelect# 
 		,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		'#session.CustomOtherIdentifier#' as myCustomIdType,
