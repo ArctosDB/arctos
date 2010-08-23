@@ -91,10 +91,10 @@
 	<cfset minElevOper="=">
 </cfif>
 <cfif isdefined("began_date") and len(#began_date#) gt 0>
-	<cfset sql = "#sql# AND began_date #begDateOper# to_date('#began_date#')">
+	<cfset sql = "#sql# AND began_date #begDateOper# '#began_date#'">
 </cfif>		
 <cfif isdefined("ended_date") and len(#ended_date#) gt 0>
-	<cfset sql = "#sql# AND ended_date #endDateOper# to_date('#ended_date#')">
+	<cfset sql = "#sql# AND ended_date #endDateOper# '#ended_date#'">
 </cfif>
 
 <cfif isdefined("verbatim_date") and len(#verbatim_date#) gt 0>
