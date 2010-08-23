@@ -8,20 +8,12 @@
 
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#made_date").datepicker();
+		$(function() {
+			$("#made_date").datepicker();
 		});
-		
-		
-		
-		 <script>
-					jQuery(document).ready(function() {
-						jQuery(function() {
-							jQuery("##made_date_#i#").datepicker();
-						});
-					});
-				</script>
-	});	
+		$("input[id^='made_date_']").each(function(){
+			$("#" + this.id).datepicker();
+		});
 </script>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">

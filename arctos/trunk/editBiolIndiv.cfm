@@ -4,11 +4,9 @@
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		//jQuery(function() {
-			jQuery("input[id^='determined_date_']").each(function(){
-				$("#" + this.id).datepicker();
-			});
-		//});
+		jQuery("input[id^='determined_date_']").each(function(){
+			$("#" + this.id).datepicker();
+		});
 		$("#determined_date").datepicker();
 		$("#mammgrid_determined_date").datepicker();
 	});
