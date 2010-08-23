@@ -380,7 +380,7 @@
 										<cfset metaDesc=metaDesc & '; ' & valuelist(cName.common_name,"; ")>
 									</cfloop>
 									<cfif len(formatted_publication) gt 0>
-										sensu <a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#" target="_mainFrame">
+										sensu <a href="/publication/#publication_id#" target="_mainFrame">
 												#formatted_publication#
 											</a><br>
 									</cfif>
