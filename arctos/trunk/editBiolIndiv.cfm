@@ -9,16 +9,13 @@
 				$("#" + this.id).datepicker();
 			});
 		});
+		$("#determined_date").datepicker();
 	});
 </script>
 
 <cfif action is "nothing" OR action is "newAttPicked">
 <strong>Edit Individual Attributes</strong>
-
-<a href="javascript:void(0);" 
-							onClick="windowOpener('/info/attributeHelpPick.cfm','','width=600,height=600, resizable,scrollbars'); return false;"
-							onMouseOver="self.status='Click for Attributes help.';return true;" 
-							onmouseout="self.status='';return true;"><img src="/images/info.gif" border="0"></a>
+<span class="infoLInk" onClick="windowOpener('/info/attributeHelpPick.cfm','','width=600,height=600, resizable,scrollbars');">Help</span>
 <cfoutput>
 <cfquery name="whatColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection.collection_cde from cataloged_item,collection where 
@@ -540,7 +537,7 @@ New attribute:
 			<td>Date:</td>
 			<td>
 				<cfset thisDate = "#dateformat(now(),"yyyy-mm-dd")#">
-				<input type="text" name="determined_date" value="#thisDate#" class="reqdClr">
+				<input type="text" name="determined_date" id="determined_date" value="#thisDate#" class="reqdClr">
 			</td>
 		</tr>
 		<tr>
