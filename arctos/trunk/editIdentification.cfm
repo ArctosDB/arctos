@@ -177,7 +177,7 @@
 	</tr>
     <tr> 
     	<td>
-			<div class="helpLink" id="identification_publication">Sensu...</div>
+			<div class="helpLink" id="identification_publication">Sensu:</div>
 		</td>
 		<td>
 			<input type="hidden" name="new_publication_id" id="new_publication_id">
