@@ -1,4 +1,4 @@
- <cfset title="Review Loan Items">
+<cfset title="Review Loan Items">
  <cfinclude template="includes/_header.cfm">
 	<script type='text/javascript' src='/includes/_loanReview.js'></script>
 	<script src="/includes/sorttable.js"></script>
@@ -240,11 +240,8 @@
 				<cfloop query="getPartLoanRequests">
 					<cfset oneLine = "">
 					<cfloop list="#ac#" index="c">
-						<cfset thisData = #evaluate(c)#>
-						<cfif #c# is "BEGAN_DATE" or #c# is "ENDED_DATE">
-							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
-						</cfif>
-						<cfif len(#oneLine#) is 0>
+						<cfset thisData = evaluate(c)>
+						<cfif len(oneLine) is 0>
 							<cfset oneLine = '"#thisData#"'>
 						<cfelse>
 							<cfset oneLine = '#oneLine#,"#thisData#"'>

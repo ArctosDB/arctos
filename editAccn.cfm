@@ -194,10 +194,9 @@
 							<label for="rec_date">Received Date</label>
 							<cfinput type="text" 
 								name="rec_date"
-								value="#DateFormat(accnData.received_date, 'dd mmm yyyy')#" 
+								value="#DateFormat(accnData.received_date, 'yyyy-mm-dd')#" 
 								size="10" 
-								id="rec_date"					
-								onclick="cal1.select(document.editAccn.rec_date,'anchor1','dd-MMM-yyyy');">
+								id="rec_date">
 						</td>
 						<td>
 							<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">
@@ -278,7 +277,7 @@
 					<tr>
 						<td colspan="3">
 							<em>Entered by</em> 
-							<strong>#accnData.enteredby#</strong> <em>on</em> <strong>#dateformat(accnData.trans_date,'dd mmm yyyy')#</strong>
+							<strong>#accnData.enteredby#</strong> <em>on</em> <strong>#dateformat(accnData.trans_date,'yyyy-mm-dd')#</strong>
 						</td>
 						<td colspan="3">
 							<label for="">Has Correspondence?</label>
@@ -434,7 +433,7 @@
 		<div style="float:left;width:55%;">
 			<br><strong>Permits:</strong>  
 			<cfloop query="getPermits">
-				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_date,"dd mmm yyyy")#. <cfif len(#renewed_date#) gt 0> (renewed #renewed_date#)</cfif>Expires #dateformat(exp_date,"dd mmm yyyy")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> 
+				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_date,"yyyy-mm-dd")#. <cfif len(#renewed_date#) gt 0> (renewed #renewed_date#)</cfif>Expires #dateformat(exp_date,"yyyy-mm-dd")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> 
 				<form name="killPerm#currentRow#" method="post" action="editAccn.cfm">
 					<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 					<input type="hidden" name="action" value="delePermit">
@@ -824,7 +823,7 @@
 			</cfif> 
 			<div style="padding-left:2em;">
 				Received from: <strong>#recFromAgent#</strong>
-				<br>Received date: <strong>#DateFormat(received_date, "dd mmm yyyy")#</strong>
+				<br>Received date: <strong>#DateFormat(received_date, "yyyy-mm-dd")#</strong>
 				<br>Nature of Material: <strong>#nature_of_material#</strong>
 				<cfif len(#trans_remarks#) gt 0>
 					<br>Remarks: <strong>#trans_remarks#</strong>

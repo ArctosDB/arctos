@@ -275,7 +275,7 @@
 		<tr>
 			<td><a href="EditContainer.cfm?container_id=#parent_container_id#">#parent_barcode#</a></td>
 			<td><a href="EditContainer.cfm?container_id=#CONTAINER_ID#">#child_barcode#</a></td>
-			<td>#dateformat(timestamp,"dd mmm yyyy")# #timeformat(timestamp,"hh:mm:ss")#</td>
+			<td>#dateformat(timestamp,"yyyy-mm-dd")# #timeformat(timestamp,"hh:mm:ss")#</td>
 		</tr>
 	</cfloop>
 	</table>

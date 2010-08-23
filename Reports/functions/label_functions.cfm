@@ -28,9 +28,9 @@
 	<cfset i=1>
 	<cfloop query="d">
 		<cfset geog = "">
-		<cfif #state_prov# is "Alaska">
+		<cfif state_prov is "Alaska">
 			<cfset geog = "USA: Alaska">
-			<cfif len(#island#) gt 0>
+			<cfif len(island) gt 0>
 				<cfset geog = "#geog#, #island#">
 			</cfif>
 			<cfif len(#sea#) gt 0>
@@ -610,6 +610,8 @@
 			 <cfset locality = "#locality#.">
 		</cfif>
 				<cfset locality = replace(locality,".:,",".: ","all")>
+				<cfset locality = replace(locality," & "," &amp; ","all")>
+		
         <cfset locAry[i] = "#locality#">
         
 	    <cfset collector="#collectors# #fieldnum#">

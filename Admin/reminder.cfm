@@ -17,11 +17,11 @@
 			<cfloop query="permitExp">
 				<!--- loop through all permits and see if they're about to expire --->
 				<cfset whine = "">
-				<cfif len(#exp_Date#) gt 0>
-					<cfset ExpiresInDays = #datediff("d",now(),exp_Date)#>
-					<cfif #ExpiresInDays# gt -30 and #ExpiresInDays# lt 181>
+				<cfif len(exp_Date) gt 0>
+					<cfset ExpiresInDays = datediff("d",now(),exp_Date)>
+					<cfif ExpiresInDays gt -30 and ExpiresInDays lt 181>
 						<cfset whine = "
-							<a href=""http://arctos.database.museum/Permit.cfm?Action=search&permit_id=#permit_id#"">Permit #PERMIT_NUM#</a> expires on #dateformat(exp_date,'dd mmm yyyy')# (#ExpiresInDays# days)">
+							<a href=""http://arctos.database.museum/Permit.cfm?Action=search&permit_id=#permit_id#"">Permit #PERMIT_NUM#</a> expires on #dateformat(exp_date,'yyyy-mm-dd')# (#ExpiresInDays# days)">
 						
 					</cfif>
 				<cfelse>

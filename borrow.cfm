@@ -289,10 +289,10 @@
 					#lender_loan_type#
 				</td>
 				<td>
-					#dateformat(RECEIVED_DATE,"dd mmm yyyy")#
+					#dateformat(RECEIVED_DATE,"yyyy-mm-dd")#
 				</td>
 				<td>
-					#dateformat(DUE_DATE,"dd mmm yyyy")#
+					#dateformat(DUE_DATE,"yyyy-mm-dd")#
 				</td>
 				<td>
 					#BORROW_STATUS#

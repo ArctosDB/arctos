@@ -43,7 +43,7 @@
 							#collection# #cat_num#</a>
 					</td>
 					<td>#scientific_name#</td>
-					<td>#encumbrance# (#encumbrance_action#) by #encumberer# made #dateformat(encumbered_date,"dd mmm yyyy")#, expires #dateformat(expiration_date,"dd mmm yyyy")# #expiration_event# #remarks#</td>
+					<td>#encumbrance# (#encumbrance_action#) by #encumberer# made #dateformat(encumbered_date,"yyyy-mm-dd")#, expires #dateformat(expiration_date,"yyyy-mm-dd")# #expiration_event# #remarks#</td>
 				</tr>
 			</cfloop>
 		</table>

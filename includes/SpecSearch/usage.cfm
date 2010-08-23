@@ -1,3 +1,6 @@
+<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select media_type from ctmedia_type order by media_type
+</cfquery>
 <script type="text/javascript" language="javascript">
 	jQuery(document).ready(function() {
 		jQuery("#project_name").autocomplete("/ajax/project.cfm", {
@@ -26,6 +29,20 @@
 </script>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
+	<tr>
+        <td class="lbl">
+            <span class="helpLink" id="_media_type">Media Type:</span>
+        </td>
+        <td class="srch">
+			<select name="media_type" id="media_type" size="1">
+				<option value=""></option>
+                <option value="any">Any</option>
+				<cfloop query="ctmedia_type">
+					<option value="#ctmedia_type.media_type#">#ctmedia_type.media_type#</option>
+				</cfloop>
+			</select>
+		</td>
+	</tr>
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="accessioned_by_project">Contributed by Project:</span>
