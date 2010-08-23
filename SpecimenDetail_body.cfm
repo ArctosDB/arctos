@@ -298,7 +298,8 @@
 									identification.identification_id,
 									accepted_id_fg,
 									taxa_formula,
-									formatted_publication
+									formatted_publication,
+									identification.publication_id
 								FROM
 									identification,
 									(select * from formatted_publication where format_style='short') formatted_publication
@@ -379,7 +380,9 @@
 										<cfset metaDesc=metaDesc & '; ' & valuelist(cName.common_name,"; ")>
 									</cfloop>
 									<cfif len(formatted_publication) gt 0>
-										sensu #formatted_publication#
+										sensu <a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#" target="_mainFrame">
+												#formatted_publication#
+											</a><br>
 									</cfif>
 									Identified by #agent_name# 
 									<cfif len(made_date) gt 0>
