@@ -122,11 +122,9 @@ function removeHelpDiv() {
 		'#session.CustomOtherIdentifier#' as myCustomIdType,
 		to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 </cfif>
-session.resultColumnList: #session.resultColumnList#
 <cfloop query="r_d">
 	<cfif left(column_name,1) is not "_" and (
 		ListContainsNoCase(session.resultColumnList,column_name) OR category is 'required')>
-		<br>adding #sql_element#
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
 	</cfif>
 </cfloop>
