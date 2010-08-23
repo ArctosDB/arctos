@@ -96,6 +96,18 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
+	<cfelseif listfindnocase(rdurl,'publication',"/")>
+		<cftry>
+			<cfset gPos=listfindnocase(rdurl,"publication","/")>
+			<cfif listlen(rdurl,"/") gt 1>
+				<cfset publication_id = listgetat(rdurl,gPos+1,"/")>
+				<cfset action="search">
+			</cfif>
+			<cfinclude template="/SpecimenUsage.cfm">
+			<cfcatch>
+				<cfinclude template="/errors/404.cfm">
+			</cfcatch>
+		</cftry>
 	<cfelseif listfindnocase(rdurl,'saved',"/")>
 		<Cfoutput>
 		<cftry>
