@@ -297,10 +297,13 @@
 									identification_remarks,
 									identification.identification_id,
 									accepted_id_fg,
-									taxa_formula
+									taxa_formula,
+									formatted_publication
 								FROM
-									identification 
+									identification,
+									(select * from formatted_publication where format_style='short') formatted_publication
 								WHERE
+									identification.publication_id=formatted_publication.publication_id (+) and
 									identification.collection_object_id = #collection_object_id# 
 								ORDER BY accepted_id_fg DESC,made_date DESC
 							</cfquery>
@@ -375,6 +378,9 @@
 										</div>
 										<cfset metaDesc=metaDesc & '; ' & valuelist(cName.common_name,"; ")>
 									</cfloop>
+									<cfif len(formatted_publication) gt 0>
+										sensu #formatted_publication#
+									</cfif>
 									Identified by #agent_name# 
 									<cfif len(made_date) gt 0>
 										on #dateformat(made_date,"yyyy-mm-dd")#
