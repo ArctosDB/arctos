@@ -11,6 +11,16 @@
 		jQuery(function() {
 			jQuery("#made_date").datepicker();
 		});
+		
+		
+		
+		 <script>
+					jQuery(document).ready(function() {
+						jQuery(function() {
+							jQuery("##made_date_#i#").datepicker();
+						});
+					});
+				</script>
 	});	
 </script>
 <!----------------------------------------------------------------------------------->
@@ -339,13 +349,7 @@
             <td>
 				<input type="text" value="#dateformat(made_date,'yyyy-mm-dd')#" name="made_date_#i#"
 				 id="made_date_#i#">
-				 <script>
-					jQuery(document).ready(function() {
-						jQuery(function() {
-							jQuery("##made_date_#i#").datepicker();
-						});
-					});
-				</script>
+				
            </td>
 		</tr>
         <tr> 
