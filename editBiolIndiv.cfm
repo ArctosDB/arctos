@@ -10,6 +10,7 @@
 			});
 		});
 		$("#determined_date").datepicker();
+		$("#mammgrid_determined_date").datepicker();
 	});
 </script>
 
@@ -682,7 +683,7 @@ New attribute:
 				Determined Date:
 			</td>
 			<td>
-				<input type="text" name="determined_date" size="10">
+				<input type="text" name="determined_date" id="mammgrid_determined_date" size="10">
 			</td>
 			<td>
 				Determiner:

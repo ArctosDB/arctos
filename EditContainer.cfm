@@ -1,5 +1,15 @@
 <cfinclude template="includes/_header.cfm">
 
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		$("#parent_install_date").datepicker();
+		$("#checked_date").datepicker();
+		$("#check_date").datepicker();
+		
+	});
+</script>
 <!--- 
 	add container check
 	2 Aug 2007 - DLM
@@ -368,7 +378,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 			</td>
 			<td>
 				<label for="parent_install_date">Install Date</label>
-				<input name="parent_install_date" id="parent_install_date" type="text" value="#Dateformat(getCont.parent_install_date, "DD-Mmm-YYYY")#">
+				<input name="parent_install_date" id="parent_install_date" type="text" value="#Dateformat(getCont.parent_install_date, "yyyy-mm-dd")#">
 			</td>
 		</tr>
   		<tr>
@@ -517,7 +527,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 			<td>
 				<label for="check_date">Checked Date</label>
 				<input type="text" 
-					name="check_date" id="check_date" class="reqdClr" value="#dateformat(now(),'dd mmm yyyy')#" >
+					name="check_date" id="check_date" class="reqdClr" value="#dateformat(now(),'yyyy-mm-dd')#" >
 			</td>
 			<td>
 				<label for="check_remark">Check Remark</label>
@@ -553,7 +563,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 		</tr>
 		<cfloop query="checked">
 			<tr>
-				<td>#dateformat(check_date,"dd mmm yyyy")#</td>
+				<td>#dateformat(check_date,"yyyy-mm-ddy")#</td>
 				<td>#agent_name#</td>
 				<td>#check_remark#</td>
 			</tr>
@@ -651,7 +661,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 				<cfelse><cfset description = "'#description#'">
 			</cfif>
 			<cfif isdate("#parent_install_date#")>
-				<cfset parent_install_date = "'#Dateformat(parent_install_date, "DD-Mmm-YYYY")#'">
+				<cfset parent_install_date = "'#Dateformat(parent_install_date, "yyyy-mm-dd")#'">
 				
 				<cfelse>
 				Need a date <cfabort>
@@ -923,7 +933,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 	<tr>
 		<td align="right"><b>Install Date:</b></td>
 		<td><cfparam name="parent_install_date" default="">
-		<input name="parent_install_date" type="text" value="#dateformat(now(),'dd-mmm-yyyy')#" class="reqdClr"></td>
+		<input name="parent_install_date" type="text" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr"></td>
 	</tr>
 	<tr>
 		<td align="right"><b>Remarks:</b></td>
