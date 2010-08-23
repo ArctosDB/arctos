@@ -1,5 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-<cfif #action# is "nothing" OR #action# is "newAttPicked">
+<cfif action is "nothing" OR action is "newAttPicked">
 <strong>Edit Individual Attributes</strong>
 
 <a href="javascript:void(0);" 
@@ -327,7 +327,7 @@
 		
 		</td>
 		<td>
-		<cfset detDate = #dateformat(indiv.determined_date,"dd mmm yyyy")#>
+		<cfset detDate = dateformat(indiv.determined_date,"yyyy-mm-dd")>
 		<input type="text" name="attribute_remark_#i#" value="#indiv.attribute_remark#"></td>
 		<td><input type="text" name="determined_date_#i#" value="#detDate#" class="reqdClr" size="12"></td>
 		<td><input type="text" name="determination_method_#i#" value="#indiv.determination_method#"></td>
@@ -526,7 +526,7 @@ New attribute:
 		<tr>
 			<td>Date:</td>
 			<td>
-				<cfset thisDate = "#dateformat(now(),"dd mmm yyyy")#">
+				<cfset thisDate = "#dateformat(now(),"yyyy-mm-dd")#">
 				<input type="text" name="determined_date" value="#thisDate#" class="reqdClr">
 			</td>
 		</tr>

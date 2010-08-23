@@ -67,7 +67,7 @@
 		<cfif len(#parent_install_date#) gt 0>
 		  <tr>
 			<td class="lbl">Install Date:</td>
-			<td>#dateformat(parent_install_date,"dd mmm yyyy")#
+			<td>#dateformat(parent_install_date,"yyyy-mm-dd")#
 			&nbsp;
 			#timeformat(parent_install_date,"hh:mm:ss")#</td>
 		  </tr>

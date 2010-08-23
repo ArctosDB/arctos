@@ -59,7 +59,7 @@
 	<cfset sql = "#sql# AND Prefix = '#Prefix#'">
 </cfif>
 <cfif isdefined("Birth_Date") AND len(#Birth_Date#) gt 0>
-	<cfset bdate = #dateformat(birth_date,'dd-mmm-yyyy')#>
+	<cfset bdate = dateformat(birth_date,'dd-mmm-yyyy')>
 	<cfset sql = "#sql# AND Birth_Date #birthOper# '#bdate#'">
 </cfif>
 <cfif isdefined("Death_Date") AND len(#Death_Date#) gt 0>

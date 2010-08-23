@@ -21,18 +21,21 @@
 	select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP
 </cfquery>
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
-<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-		var cal1 = new CalendarPopup("theCalendar");
-		cal1.showYearNavigation();
-		cal1.showYearNavigationInput();
-	</SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
+
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 
 <cfif not isdefined("agent_id")>
 	<cfset agent_id = -1>
 </cfif>
 <script language="javascript" type="text/javascript">
+	
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("#birth_date").datepicker();
+			jQuery("#death_date").datepicker();
+		});
+	});
 	function suggestName(ntype){
 		try {
 			var fName=document.getElementById('first_name').value;
@@ -161,13 +164,13 @@
 			<cfset nameStr= listappend(nameStr,middle_name,' ')>
 			<cfset nameStr= listappend(nameStr,last_name,' ')>
 			<cfset nameStr= listappend(nameStr,suffix,' ')>
-			<cfif len(#birth_date#) gt 0>
-				<cfset nameStr="#nameStr# (#dateformat(birth_date,"dd mmm yyyy")#">
+			<cfif len(birth_date) gt 0>
+				<cfset nameStr="#nameStr# (#dateformat(birth_date,"yyyy-mm-dd")#">
 			<cfelse>
 				<cfset nameStr="#nameStr# (unknown">
 			</cfif>
-			<cfif len(#death_date#) gt 0>
-				<cfset nameStr="#nameStr# - #dateformat(death_date,"dd mmm yyyy")#)">
+			<cfif len(death_date) gt 0>
+				<cfset nameStr="#nameStr# - #dateformat(death_date,"yyyy-mm-dd")#)">
 			<cfelse>
 				<cfset nameStr="#nameStr# - unknown)">
 			</cfif>
@@ -308,25 +311,11 @@
 						<tr>
 							<td colspan="2">
 								<label for="birth_date">Birth Date</label>
-								<input type="text" name="birth_date" id="birth_date" value="#dateformat(birth_date,'dd mmm yyyy')#" size="10">
-								<img src="images/pick.gif" 
-									class="likeLink" 
-									border="0" 
-									alt="[calendar]"
-									name="anchor1"
-									id="anchor1"
-									onClick="cal1.select(document.editPerson.birth_date,'anchor1','dd-MMM-yyyy'); return false;"/>	
+								<input type="text" name="birth_date" id="birth_date" value="#dateformat(birth_date,'yyyy-mm-dd')#" size="10">
 							</td>
 							<td colspan="3">
 								<label for="death_date">Death Date</label>
-								<input type="text" name="death_date" value="#dateformat(death_date,'dd mmm yyyy')#" size="10">
-								<img src="images/pick.gif" 
-									class="likeLink" 
-									border="0" 
-									alt="[calendar]"
-									name="anchor2"
-									id="anchor2"
-									onClick="cal1.select(document.editPerson.death_date,'anchor2','dd-MMM-yyyy'); return false;"/>	
+								<input type="text" name="death_date" id="death_date" value="#dateformat(death_date,'yyyy-mm-dd')#" size="10">
 							</td>
 						</tr>
 						<tr>
@@ -1270,4 +1259,3 @@
 </cfoutput>
 <!------------------------------------------------------------------------------------------------------------->
 <cfinclude template="includes/_pickFooter.cfm">
-<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
