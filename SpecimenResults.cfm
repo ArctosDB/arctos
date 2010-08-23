@@ -99,7 +99,7 @@ function removeHelpDiv() {
 	<cfset mapurl = "null">
 </cfif>
 <cfif action contains ",">
-	<cfset action = #left(action,find(",",action)-1)#>
+	<cfset action = left(action,find(",",action)-1)>
 </cfif>
 <cfif not isdefined("session.resultColumnList")>
 	<cfset session.resultColumnList=''>
@@ -125,6 +125,7 @@ function removeHelpDiv() {
 <cfloop query="r_d">
 	<cfif left(column_name,1) is not "_" and (
 		ListContainsNoCase(session.resultColumnList,column_name) OR category is 'required')>
+		<br>adding #sql_element#
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
 	</cfif>
 </cfloop>
