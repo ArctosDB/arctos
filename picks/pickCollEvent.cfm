@@ -1,4 +1,12 @@
 <cfinclude template="/includes/_frameHeader.cfm">
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		$(function() {
+			$("#began_date").datepicker();
+			$("#ended_date").datepicker();
+		});
+	});
+</script>
 <cfif #action# is "nothing">
 <cfoutput>
 <cfset showLocality=1>
