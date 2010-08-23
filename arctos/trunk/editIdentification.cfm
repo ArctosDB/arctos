@@ -14,6 +14,7 @@
 		$("input[id^='made_date_']").each(function(){
 			$("#" + this.id).datepicker();
 		});
+	});
 </script>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
