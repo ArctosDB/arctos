@@ -356,9 +356,9 @@ Projects are activities that have contributed specimens, used specimens, or both
 				<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project&nbsp;Title</label>
 				<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr">#proj.project_name#</textarea>
 				<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Start&nbsp;Date</label>
-				<input type="text" name="start_date" id="start_date" value="#dateformat(proj.start_date,"dd mmm yyyy")#">
+				<input type="text" name="start_date" id="start_date" value="#dateformat(proj.start_date,"yyyy-mm-dd")#">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
-				<input type="text" name="end_date" id="end_date" value="#dateformat(proj.end_date,"dd mmm yyyy")#">
+				<input type="text" name="end_date" id="end_date" value="#dateformat(proj.end_date,"yyyy-mm-dd")#">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">Description</label>
 				<textarea name="project_description" id="project_description" cols="80" rows="6">#proj.project_description#</textarea>
 				<label for="project_remarks">Remarks</label>

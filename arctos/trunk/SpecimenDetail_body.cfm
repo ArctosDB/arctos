@@ -377,7 +377,7 @@
 									</cfloop>
 									Identified by #agent_name# 
 									<cfif len(made_date) gt 0>
-										on #dateformat(made_date,"dd mmm yyyy")#
+										on #dateformat(made_date,"yyyy-mm-dd")#
 									</cfif>									
 									<br>Nature of ID: #nature_of_id#
 									<cfif len(identification_remarks) gt 0>
@@ -577,7 +577,7 @@
 						<cfif len(one.latLongDeterminer) gt 0>
 							<cfset determination = one.latLongDeterminer>
 							<cfif len(one.latLongDeterminedDate) gt 0>
-								<cfset determination = '#determination#; #dateformat(one.latLongDeterminedDate, "dd mmm yyyy")#'>
+								<cfset determination = '#determination#; #dateformat(one.latLongDeterminedDate, "yyyy-mm-dd")#'>
 							</cfif>
 							<cfif len(one.lat_long_ref_source) gt 0>
 								<cfset determination = '#determination#; #one.lat_long_ref_source#'>
@@ -612,7 +612,7 @@
 										unknown
 									</cfif>
 									<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
-										on #dateformat(GEO_ATT_DETERMINED_DATE,"dd mmm yyyy")#
+										on #dateformat(GEO_ATT_DETERMINED_DATE,"yyyy-mm-dd")#
 									</cfif>
 									<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
 										Method: #GEO_ATT_DETERMINED_METHOD#
@@ -921,7 +921,7 @@
 									<cfif len(attributeDeterminer) gt 0>
 										<cfset determination = "#attributeDeterminer#">
 										<cfif len(determined_date) gt 0>
-											<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
+											<cfset determination = '#determination#, #dateformat(determined_date,"yyyy-mm-dd")#'>
 										</cfif>
 										<cfif len(determination_method) gt 0>
 											<cfset determination = '#determination#, #determination_method#'>
@@ -991,7 +991,7 @@
 									<cfif isdefined("attributeDeterminer") and len(#attributeDeterminer#) gt 0>
 										<cfset determination = "#attributeDeterminer#">
 										<cfif len(determined_date) gt 0>
-											<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
+											<cfset determination = '#determination#, #dateformat(determined_date,"yyyy-mm-dd")#'>
 										</cfif>
 										<cfif len(determination_method) gt 0>
 											<cfset determination = '#determination#, #determination_method#'>
@@ -1021,7 +1021,7 @@
 								<cfif len(attributeDeterminer) gt 0>
 									<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
 									<cfif len(determined_date) gt 0>
-										<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
+										<cfset determination = '#determination#, #dateformat(determined_date,"yyyy-mm-dd")#'>
 									</cfif>
 									<cfif len(determination_method) gt 0>,
 										<cfset determination = '#determination#, #determination_method#'>
@@ -1087,14 +1087,14 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Entered By:</span>
-								#one.EnteredBy# on #dateformat(one.coll_object_entered_date,"dd mmm yyyy")#
+								#one.EnteredBy# on #dateformat(one.coll_object_entered_date,"yyyy-mm-dd")#
 							</span>
 						</div>
 						<cfif #one.EditedBy# is not "unknown" OR len(#one.last_edit_date#) is not 0>
 							<div class="detailBlock">
 								<span class="detailData">
 									<span class="innerDetailLabel">Last Edited By:</span>
-									#one.EditedBy# on #dateformat(one.last_edit_date,"dd mmm yyyy")#
+									#one.EditedBy# on #dateformat(one.last_edit_date,"yyyy-mm-dd")#
 								</span>
 							</div>
 						</cfif>

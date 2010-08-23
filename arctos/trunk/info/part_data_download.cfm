@@ -102,7 +102,7 @@
 				<td>#began_date#</td>
 				<td>#ended_date#</td>
 				<td>#verbatim_date#</td>
-				<td>#dateformat(received_date,"dd mmm yyyy")#</td>
+				<td>#dateformat(received_date,"yyyy-mm-dd")#</td>
 				<td>
 					#part_name#
 					<cfif SAMPLED_FROM_OBJ_ID gt 0>
@@ -148,7 +148,7 @@
 		variables.joFileWriter.writeLine(header); 
 	</cfscript>
 	<cfloop query="d">
-		<cfset oneLine = '"#collection# #cat_num#","#CustomID#","#scientific_name#","#began_date#","#ended_date#","#verbatim_date#","#dateformat(received_date,"dd mmm yyyy")#",'>
+		<cfset oneLine = '"#collection# #cat_num#","#CustomID#","#scientific_name#","#began_date#","#ended_date#","#verbatim_date#","#dateformat(received_date,"yyyy-mm-dd")#",'>
 		<cfif SAMPLED_FROM_OBJ_ID gt 0>
 			<cfset p=part_name & ' (subsample)'>
 		<cfelse>
@@ -173,7 +173,7 @@
 		</cfquery>
 		<cfset ll=''>
 		<cfloop query="l">
-			<cfset ll=listappend(ll,"#loan_number# (#dateformat(TRANS_DATE,'dd mmm yyyy')#)",";")>
+			<cfset ll=listappend(ll,"#loan_number# (#dateformat(TRANS_DATE,'yyyy-mm-dd')#)",";")>
 		</cfloop>
 		<cfset oneLine=oneLine & ',"#ll#"'>
 		<cfset oneLine = trim(oneLine)>

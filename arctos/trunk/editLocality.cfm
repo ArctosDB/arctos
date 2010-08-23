@@ -493,7 +493,7 @@
 						<a href="javascript:void(0);" onClick="getDocs('lat_long','date')">Determined Date</a>
 					</label>
 					<input type="text" name="determined_date" id="determined_date#i#"
-						value="#dateformat(determined_date,'dd mmm yyyy')#" class="reqdClr"> 
+						value="#dateformat(determined_date,'yyyy-mm-dd')#" class="reqdClr"> 
 				</td>
               </tr>
             <tr>
@@ -1060,7 +1060,7 @@
 						<input type="hidden" name="geo_att_determiner_id_#i#" id="geo_att_determiner_id" value="#geo_att_determiner_id#">
 						<label for="geo_att_determined_date_#i#">Date</label>
 						<input type="text" name="geo_att_determined_date_#i#" 
-							value="#dateformat(geo_att_determined_date,'dd mmm yyyy')#">
+							value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#">
 						<label for="geo_att_determined_method_#i#">Method</label>
 						<input type="text" name="geo_att_determined_method_#i#" 
 							size="60"  value="#geo_att_determined_method#">

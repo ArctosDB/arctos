@@ -149,7 +149,7 @@
 		</div>
 	</cfloop>
 	<div class="cdiv">
-		#dateformat(p.start_date,"dd mmmm yyyy")# - #dateformat(p.end_date,"dd mmmm yyyy")#
+		#dateformat(p.start_date,"yyyy-mm-dd")# - #dateformat(p.end_date,"yyyy-mm-dd")#
 	</div>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 		<p><a href="/Project.cfm?Action=editProject&project_id=#p.project_id#">Edit Project</a></p>

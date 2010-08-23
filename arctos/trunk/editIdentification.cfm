@@ -337,7 +337,7 @@
 				<div class="helpLink" id="identification.made_date">ID Date:</div>
 			</td>
             <td>
-				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#i#"
+				<input type="text" value="#dateformat(made_date,'yyyy-mm-dd')#" name="made_date_#i#"
 				 id="made_date_#i#">
 				 <script>
 					jQuery(document).ready(function() {

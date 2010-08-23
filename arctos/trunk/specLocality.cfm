@@ -566,7 +566,7 @@
 					Determined Date
 				</label>
 				<input type="text" name="determined_date" id="determined_date"
-					value="#dateformat(l.determined_date,'dd mmm yyyy')#" class="reqdClr">
+					value="#dateformat(l.determined_date,'yyyy-mm-dd')#" class="reqdClr">
 			</td>
 		</tr>
 		<tr>
@@ -840,7 +840,7 @@
 		<td>
 			<input type="text" id="geo_att_determined_date__#geology_attribute_id#"
 				name="geo_att_determined_date__#geology_attribute_id#" 
-				value="#dateformat(geo_att_determined_date,'dd mmm yyyy')#"
+				value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#"
 				size="10">
 		</td>	
 		<td>

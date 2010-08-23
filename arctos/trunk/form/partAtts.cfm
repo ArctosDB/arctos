@@ -114,7 +114,7 @@
 					#getPartAttrSelect('u',attribute_type,attribute_units,part_attribute_id)#
 				</td>
 				<td>
-					<input type="text" name="determined_date_#part_attribute_id#" value="#dateformat(determined_date,"dd mmm yyyy")#">
+					<input type="text" name="determined_date_#part_attribute_id#" value="#dateformat(determined_date,"yyyy-mm-dd")#">
 				</td>
 				<td>
 					<input type="hidden" name="determined_by_agent_id_#part_attribute_id#">

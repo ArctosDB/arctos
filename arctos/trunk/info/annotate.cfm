@@ -108,7 +108,7 @@
 			<cfloop query="prevAnn">
 				<tr>
 					<td>#annotation#</td>
-					<td>#dateformat(ANNOTATE_DATE,"dd mmm yyyy")#</td>
+					<td>#dateformat(ANNOTATE_DATE,"yyyy-mm-dd")#</td>
 					<td>
 						<cfif len(REVIEWER_COMMENT) gt 0>
 							#REVIEWER_COMMENT#

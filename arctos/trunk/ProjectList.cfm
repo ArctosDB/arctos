@@ -202,7 +202,7 @@
 		</cfloop>
 		#agnt#
 		
-			#dateformat(start_date,"dd Mmmm yyyy")# - #dateformat(end_date,"dd Mmmm yyyy")#<br>
+			#dateformat(start_date,"yyyy-mm-dd")# - #dateformat(end_date,"yyyy-mm-dd")#<br>
 		
 	</td>
   </tr>

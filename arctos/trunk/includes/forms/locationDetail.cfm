@@ -478,7 +478,7 @@ content: ": ";
 					</div>
 					<div class="pair">
 						<div class="data">Determined Date</div>
-						<div class="value">#dateformat(DETERMINED_DATE,"dd mmm yyyy")#</div>
+						<div class="value">#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#</div>
 					</div>
 					<div class="pair">
 						<div class="data">Method</div>

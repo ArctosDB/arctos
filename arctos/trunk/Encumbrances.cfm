@@ -224,7 +224,7 @@
 				<input type="hidden" name="Action">
 				<input type="hidden" name="encumbrance_id" value="#encumbrance_id#">
 				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-				#encumbrance# (#encumbrance_action#) by #agent_name# made #dateformat(made_date,"dd mmm yyyy")#, expires #dateformat(expiration_date,"dd mmm yyyy")# #expiration_event# #remarks#
+				#encumbrance# (#encumbrance_action#) by #agent_name# made #dateformat(made_date,"yyyy-mm-dd")#, expires #dateformat(expiration_date,"yyyy-mm-dd")# #expiration_event# #remarks#
 				<br>
 				<cfif len(collection_object_id) gt 0>
 					<span class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
@@ -324,7 +324,7 @@ Edit Encumbrance:
 			<td align="right">
 				Made Date:
 			</td>
-			<td><input type="text" name="made_date" id="made_date" value="#dateformat(made_date,'dd-mmm-yyyy')#"></td>
+			<td><input type="text" name="made_date" id="made_date" value="#dateformat(made_date,'yyyy-mm-dd')#"></td>
 		</tr>
 		<tr>
 			<td align="right">
@@ -332,7 +332,7 @@ Edit Encumbrance:
 				class="novisit" 
 				onClick="getDocs('encumbrance','expiration')">Expiration Date:</a>
 				</td>
-			<td><input type="text" name="expiration_date" id="expiration_date"  value="#dateformat(expiration_date,'dd-mmm-yyyy')#"></td>
+			<td><input type="text" name="expiration_date" id="expiration_date"  value="#dateformat(expiration_date,'yyyy-mm-dd')#"></td>
 			<td align="right">
 			<a href="javascript:void(0);" 
 				class="novisit" 
@@ -608,8 +608,8 @@ UPDATE encumbrance SET
 					<cfif len(#encumbrance#) gt 0>
 						#encumbrance# (#encumbrance_action#) 
 						by #encumbering_agent# made 
-						#dateformat(encumbered_date,"dd mmm yyyy")#, 
-						expires #dateformat(expiration_date,"dd mmm yyyy")# 
+						#dateformat(encumbered_date,"yyyy-mm-dd")#, 
+						expires #dateformat(expiration_date,"yyyy-mm-dd")# 
 						#expiration_event# #remarks#<br>
 						<form name="nothing#e#">
 							<input type="button" 

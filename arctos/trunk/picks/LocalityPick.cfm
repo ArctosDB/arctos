@@ -69,7 +69,7 @@
 					<span style="font-size:.7em">
 						<cfif len(#verbatimLatitude#) gt 0 and len(#verbatimLongitude#) gt 0>
 							#verbatimLatitude# #verbatimLongitude# 
-							(#coordinateDeterminer# on #dateformat(determined_date,"dd mmm yyyy")# ref. #lat_long_ref_source#)
+							(#coordinateDeterminer# on #dateformat(determined_date,"yyyy-mm-dd")# ref. #lat_long_ref_source#)
 						<cfelse>
 							#NoGeorefBecause#
 						</cfif>
