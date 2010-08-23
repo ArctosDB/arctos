@@ -1,4 +1,17 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("input[id^='determined_date_']").each(function(){
+				$("#" + this.id).datepicker();
+			});
+		});
+	});
+</script>
+
 <cfif action is "nothing" OR action is "newAttPicked">
 <strong>Edit Individual Attributes</strong>
 
@@ -329,7 +342,7 @@
 		<td>
 		<cfset detDate = dateformat(indiv.determined_date,"yyyy-mm-dd")>
 		<input type="text" name="attribute_remark_#i#" value="#indiv.attribute_remark#"></td>
-		<td><input type="text" name="determined_date_#i#" value="#detDate#" class="reqdClr" size="12"></td>
+		<td><input type="text" name="determined_date_#i#" id="determined_date_#i#" value="#detDate#" class="reqdClr" size="12"></td>
 		<td><input type="text" name="determination_method_#i#" value="#indiv.determination_method#"></td>
 		<td>
 		<input type="hidden" name="determined_by_agent_id_#i#" value="#indiv.determined_by_agent_id#">
