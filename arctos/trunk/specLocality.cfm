@@ -963,7 +963,7 @@
 					NVL(orig_lat_long_units,'NULL') = NVL('#orig_lat_long_units#','NULL') AND
 					NVL(datum,'NULL') = NVL('#datum#','NULL') AND
 					NVL(determined_by_agent_id,-1) = nvl('#determined_by_agent_id#',-1) AND
-					NVL(determined_date,'1-JAN-1600') = NVL(to_date('#determined_date#'),'1-JAN-1600') AND 
+					NVL(determined_date,'1600-01-01') = NVL(to_date('#determined_date#'),'1600-01-01') AND 
 					NVL(lat_long_ref_source,'NULL') = NVL('#escapeQuotes(lat_long_ref_source)#','NULL') AND 
 					NVL(lat_long_remarks,'NULL') = NVL('#escapeQuotes(lat_long_remarks)#','NULL')  AND 
 					NVL(max_error_distance,-1) = nvl('#max_error_distance#',-1) AND
@@ -1021,7 +1021,7 @@
 						GEOLOGY_ATTRIBUTE='#thisGeoAtt#' and
 						GEO_ATT_VALUE='#escapeQuotes(thisGeoAttValue)#' and
 						nvl(GEO_ATT_DETERMINER_ID,-1)=nvl('#thisGeoDeterminerId#',-1) and
-						NVL(GEO_ATT_DETERMINED_DATE,'1-JAN-1600') = NVL(to_date('#thisGeoAttDate#'),'1-JAN-1600') AND 
+						NVL(GEO_ATT_DETERMINED_DATE,'1600-01-01') = NVL(to_date('#thisGeoAttDate#'),'1600-01-01') AND 
 						NVL(GEO_ATT_DETERMINED_METHOD,'NULL') = NVL('#escapeQuotes(thisGeoAttMeth)#','NULL') AND
 						NVL(GEO_ATT_REMARK,'NULL') = NVL('#escapeQuotes(thisGeoAttRemark)#','NULL')
 				</cfquery>
@@ -1046,7 +1046,7 @@
 					GEOLOGY_ATTRIBUTE='#escapeQuotes(geology_attribute)#' and
 					GEO_ATT_VALUE='#escapeQuotes(geo_att_value)#' and
 					nvl(GEO_ATT_DETERMINER_ID,-1)=nvl('#geo_att_determiner_id#',-1) and
-					NVL(GEO_ATT_DETERMINED_DATE,'1-JAN-1600') = NVL(to_date('#geo_att_determined_date#'),'1-JAN-1600') AND 
+					NVL(GEO_ATT_DETERMINED_DATE,'1600-01-01') = NVL(to_date('#geo_att_determined_date#'),'1600-01-01') AND 
 					NVL(GEO_ATT_DETERMINED_METHOD,'NULL') = NVL('#escapeQuotes(geo_att_determined_method)#','NULL') AND
 					NVL(GEO_ATT_REMARK,'NULL') = NVL('#escapeQuotes(geo_att_remark)#','NULL')
 			</cfquery>
@@ -1392,8 +1392,8 @@ inserted coordinates......
 			WHERE
 				locality_id = #nLocalityId# AND
 				NVL(VERBATIM_DATE,'NULL') = NVL('#VERBATIM_DATE#','NULL') AND
-				NVL(BEGAN_DATE,'1-JAN-1600') = NVL('#BEGAN_DATE#','1-JAN-1600') AND 
-				NVL(ENDED_DATE,'1-JAN-1600') = NVL('#ENDED_DATE#','1-JAN-1600') AND 
+				NVL(BEGAN_DATE,'1600-01-01') = NVL('#BEGAN_DATE#','1600-01-01') AND 
+				NVL(ENDED_DATE,'1600-01-01') = NVL('#ENDED_DATE#','1600-01-01') AND 
 				NVL(VERBATIM_LOCALITY,'NULL') = NVL('#escapeQuotes(VERBATIM_LOCALITY)#','NULL') AND
 				NVL(COLL_EVENT_REMARKS,'NULL') = NVL('#escapeQuotes(COLL_EVENT_REMARKS)#','NULL') AND
 				NVL(COLLECTING_SOURCE,'NULL') = NVL('#escapeQuotes(COLLECTING_SOURCE)#','NULL') AND
