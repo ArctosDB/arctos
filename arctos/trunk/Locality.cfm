@@ -1224,7 +1224,7 @@ INSERT INTO geog_auth_rec (
 						</cfif>
 						,'#ORIG_LAT_LONG_UNITS#'
 						,#DETERMINED_BY_AGENT_ID#
-						,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#'
+						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#'
 						,'#LAT_LONG_REF_SOURCE#'
 						<cfif len(#LAT_LONG_REMARKS#) gt 0>
 							,'#LAT_LONG_REMARKS#'

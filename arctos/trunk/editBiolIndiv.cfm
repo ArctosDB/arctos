@@ -756,7 +756,7 @@ New attribute:
 		  <cfelse>
 		  	,ATTRIBUTE_REMARK=null
 		</cfif>
-		,DETERMINED_DATE='#dateformat(thisDeterminedDate,"dd-mmm-yyyy")#'
+		,DETERMINED_DATE='#dateformat(thisDeterminedDate,"yyyy-mm-dd")#'
 		<cfif len(#thisDeterminationMethod#) gt 0>
 			,DETERMINATION_METHOD='#thisDeterminationMethod#'
 			<cfelse>
@@ -807,7 +807,7 @@ New attribute:
 					,'total length'
 					,'#total_length#'
 					,'#total_length_units#'
-					,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#')
+					,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
 				</cfquery>
 			</cfif>
 			
@@ -829,7 +829,7 @@ New attribute:
 						,'tail length'
 						,'#tail_length#'
 						,'#tail_length_units#'
-						,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#')
+						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
 				</cfquery>
 			</cfif>
 			<cfif len(#hind_foot_with_claw#) gt 0>
@@ -850,7 +850,7 @@ New attribute:
 						,'hind foot with claw'
 						,'#hind_foot_with_claw#'
 						,'#hind_foot_with_claw_units#'
-						,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#')
+						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
 				</cfquery>
 			</cfif>
 			<cfif len(#ear_from_notch#) gt 0>
@@ -871,7 +871,7 @@ New attribute:
 						,'ear from notch'
 						,'#ear_from_notch#'
 						,'#ear_from_notch_units#'
-						,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#')
+						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
 				</cfquery>
 			</cfif>
 			<cfif len(#weight#) gt 0>
@@ -892,7 +892,7 @@ New attribute:
 						,'weight'
 						,'#weight#'
 						,'#weight_units#'
-						,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#')
+						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
 				</cfquery>
 			</cfif>
 			
@@ -948,7 +948,7 @@ New attribute:
 		<cfif len(#ATTRIBUTE_REMARK#) gt 0>
 			,'#ATTRIBUTE_REMARK#'
 		</cfif>
-		,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#'
+		,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#'
 		<cfif len(#DETERMINATION_METHOD#) gt 0>
 			,'#DETERMINATION_METHOD#'
 		</cfif> )
@@ -958,12 +958,11 @@ New attribute:
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "saveNoAttEdits">
 <cfoutput>
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cftransaction>
 		<cfquery name="upCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE coll_object SET
 				last_edited_person_id = #session.myAgentId#
-				,last_edit_date = '#thisDate#'
+				,last_edit_date = sysdate
 				,coll_obj_disposition = '#coll_obj_disposition#'
 				,condition = '#condition#'
 				,flags='#flags#'

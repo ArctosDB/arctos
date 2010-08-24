@@ -18,7 +18,7 @@
 	<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select accn_type from ctaccn_type order by accn_type
 	</cfquery>
-	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
+	<cfset thisDate = #dateformat(now(),"yyyy-mm-dd")#>
 	<cfform action="newAccn.cfm" method="post" name="newAccn">
 		<input type="hidden" name="Action" value="createAccession">
 		<table>
@@ -63,7 +63,7 @@
 									alt="[calendar]"
 									name="anchor1"
 									id="anchor1"
-									onClick="cal1.select(document.newAccn.rec_date,'anchor1','dd-MMM-yyyy'); return false;"/>			
+									onClick="cal1.select(document.newAccn.rec_date,'anchor1','yyyy-mm-dd'); return false;"/>			
 							</td>
 						</tr>
 						<tr>
@@ -235,7 +235,7 @@
 					</cfif>)
 				VALUES (
 					#n.n#,
-					'#dateformat(ent_Date,"dd-mmm-yyyy")#',
+					'#dateformat(ent_Date,"yyyy-mm-dd")#',
 					#correspFg#,
 					'#collection_id#',
 					'accn'
@@ -259,7 +259,7 @@
 						#n.n#,
 						'#accn_type#'
 						,'#accn_number#'
-						,'#dateformat(rec_date,"dd-mmm-yyyy")#',
+						,'#dateformat(rec_date,"yyyy-mm-dd")#',
 						'#accn_status#',
 						<cfif len(estimated_count) gt 0>
 							#estimated_count#

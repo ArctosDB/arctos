@@ -1020,12 +1020,12 @@
 						,suffix=null
 					</cfif>
 					<cfif len(#birth_date#) gt 0>
-						,birth_date='#dateformat(birth_date,"dd-mmm-yyyy")#'
+						,birth_date='#dateformat(birth_date,"yyyy-mm-dd")#'
 					  <cfelse>
 					  	,birth_date=null
 					</cfif>
 					<cfif len(#death_date#) gt 0>
-						,death_date='#dateformat(death_date,"dd-mmm-yyyy")#'
+						,death_date='#dateformat(death_date,"yyyy-mm-dd")#'
 					  <cfelse>
 					  	,death_date=null
 					</cfif>

@@ -294,7 +294,6 @@
 		<cfabort showerror = "Your login has has multiple matches.">
 	</cfif>
 	<cfset enteredbyid = getEntBy.agent_id>
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cfloop from="1" to="#numberOfParts#" index="n">
 		<cfset thisPartId = #evaluate("partID" & n)#>
 		<cfset thisPartName = #evaluate("Part_name" & n)#>
@@ -374,7 +373,7 @@
 					UPDATE 
 						container
 					SET
-						parent_install_date = '#thisDate#',
+						parent_install_date = sysdate,
 						parent_container_id = #isCont.container_id#
 					WHERE
 						container_id = #thisCollCont.container_id#
@@ -422,7 +421,6 @@
 					<cfabort showerror = "Your login has has multiple matches.">
 				</cfif>
 				<cfset enteredbyid = getEntBy.agent_id>
-				<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cftransaction>
 	<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO coll_object (
@@ -439,7 +437,7 @@
 			sq_collection_object_id.nextval,
 			'SP',
 			#enteredbyid#,
-			'#thisDate#',
+			sysdate,
 			#enteredbyid#,
 			'#COLL_OBJ_DISPOSITION#',
 			#lot_count#,

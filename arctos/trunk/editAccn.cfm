@@ -753,8 +753,8 @@
 		<cfif isdefined("remarks") and  len(#remarks#) gt 0>
 			<cfset sql = "#sql# AND upper(trans_remarks) like '%#ucase(remarks)#%'">
 		</cfif>
-		<cfif  isdefined("ent_date") and len(#ent_date#) gt 0>
-			<cfset sql = "#sql# AND TRANS_DATE #entDateOper# '#ucase(dateformat(ent_date,"dd-mmm-yyyy"))#'">
+		<cfif  isdefined("ent_date") and len(ent_date) gt 0>
+			<cfset sql = "#sql# AND TRANS_DATE #entDateOper# '#ucase(dateformat(ent_date,"yyyy-mm-dd"))#'">
 		</cfif>
 		<cfif isdefined("IssuedByAgent") and len(#IssuedByAgent#) gt 0>
 			<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
@@ -877,7 +877,7 @@
 				UPDATE accn SET
 					ACCN_TYPE = '#accn_type#',
 					ACCN_NUMber = '#ACCN_NUMber#',
-					RECEIVED_DATE=to_date('#dateformat(rec_date,"dd-mmm-yyyy")#'),
+					RECEIVED_DATE=to_date('#dateformat(rec_date,"yyyy-mm-dd")#'),
 					ACCN_STATUS = '#accn_status#'
 					<cfif len(estimated_count) gt 0>
 						,estimated_count=#estimated_count#

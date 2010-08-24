@@ -145,8 +145,8 @@
 	<cfif not isdefined("end_entered_date") or len(end_entered_date) is 0>
 		<cfset end_entered_date = beg_entered_date>
 	</cfif>
-	<cfset beEntDate = dateformat(beg_entered_date,"dd-mmm-yyyy")>
-	<cfset edEntDate = dateformat(end_entered_date,"dd-mmm-yyyy")>
+	<cfset beEntDate = dateformat(beg_entered_date,"yyyy-mm-dd")>
+	<cfset edEntDate = dateformat(end_entered_date,"yyyy-mm-dd")>
 	<cfif basJoin does not contain "CatItemCollObject">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON 
 			(cataloged_item.collection_object_id = CatItemCollObject.collection_object_id)">
@@ -161,8 +161,8 @@
 	</cfif>
 	<cfset basQual = "#basQual#  AND (
 					to_date(to_char(#session.flatTableName#.last_edited_date,'dd-mon-yyy')) between 
-						to_date('#dateformat(beg_last_edit_date,"dd-mmm-yyyy")#')
-						and to_date('#dateformat(end_last_edit_date,"dd-mmm-yyyy")#')
+						to_date('#dateformat(beg_last_edit_date,"yyyy-mm-dd")#')
+						and to_date('#dateformat(end_last_edit_date,"yyyy-mm-dd")#')
 				)" >
 </cfif>
 <cfif isdefined("print_fg") AND len(print_fg) gt 0>

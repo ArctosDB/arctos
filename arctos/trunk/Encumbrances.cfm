@@ -135,13 +135,13 @@
 				'#ENCUMBRANCE#',
 				'#ENCUMBRANCE_ACTION#'
 				<cfif len(#expiration_date#) gt 0>
-					,'#dateformat(EXPIRATION_DATE,"dd-mmm-yyyy")#'
+					,'#dateformat(EXPIRATION_DATE,"yyyy-mm-dd")#'
 				</cfif>
 				<cfif len(#EXPIRATION_EVENT#) gt 0>
 					,'#EXPIRATION_EVENT#'
 				</cfif>
 				<cfif len(#MADE_DATE#) gt 0>
-					,'#dateformat(MADE_DATE,"dd-mmm-yyyy")#'
+					,'#dateformat(MADE_DATE,"yyyy-mm-dd")#'
 				</cfif>
 				<cfif len(#REMARKS#) gt 0>
 					,'#REMARKS#'
@@ -399,13 +399,13 @@ UPDATE encumbrance SET
 	,ENCUMBRANCE = '#ENCUMBRANCE#'
 	,ENCUMBRANCE_ACTION = '#ENCUMBRANCE_ACTION#'
 	<cfif len(expiration_date) gt 0>
-		,EXPIRATION_DATE = '#dateformat(EXPIRATION_DATE,"dd-mmm-yyyy")#'	
+		,EXPIRATION_DATE = '#dateformat(EXPIRATION_DATE,"yyyy-mm-dd")#'	
 	<cfelse>
 		,expiration_date=null
 	</cfif>
 	,EXPIRATION_EVENT = '#EXPIRATION_EVENT#'	
 	<cfif len(#MADE_DATE#) gt 0>
-		,MADE_DATE = '#dateformat(MADE_DATE,'dd-mmm-yyyy')#'	
+		,MADE_DATE = '#dateformat(MADE_DATE,'yyyy-mm-dd')#'	
 	</cfif>
 	,REMARKS = '#REMARKS#'	
 	where encumbrance_id = #encumbrance_id#

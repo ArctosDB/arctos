@@ -273,7 +273,6 @@
 <cfif #action# is "moveScans">
 	<!--- generate a list of child/parent/timestamp and put it into the standard container upload table ---->
 	<cfoutput>
-		<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 		<cfset oops = "">
 		<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from cf_temp_container_location
@@ -323,7 +322,7 @@
 							VALUES (
 								#thisContainerId#,
 								#thisParentId#,
-								'#thisDate#')
+								sysdate)
 						</cfquery>
 					<cfelse>
 						<cfset oops = "#oops#; no container matched barcode #thisBarcode#!">
@@ -378,7 +377,6 @@
 		</cfif>
 		<!--- there is nothing in this box, make all positions ---->
 		<cftransaction>
-			<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 			<!--- make number_positions new containers, lock them, and put them in this box ---->
 			<cfloop from="1" to="#number_positions#" index="i">
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -399,7 +397,7 @@
 					#container_id#,
 					'#position_label#',
 					'#i#',
-					'#thisDate#',
+					sysdate,
 					#width#,
 					#height#,
 					#length#,

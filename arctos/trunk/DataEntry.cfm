@@ -8,8 +8,6 @@
 
 --->
 <script type='text/javascript' src='/includes/_DEhead.js'></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery(function() {
@@ -68,7 +66,7 @@
 <cfif not isdefined("pMode") or len(pMode) is 0>
 	<cfset pMode = "enter">
 </cfif>
-<cfset thisDate = #dateformat(now(),"dd mmm yyyy")#>
+<cfset thisDate = #dateformat(now(),"yyyy-mm-dd")#>
 <!--------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>

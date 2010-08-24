@@ -168,7 +168,7 @@ sho err
 </cfif>
 <cfif #parent_install_date# is not "">
 <cfif isdate("#parent_install_date#")>
-				<cfset parent_install_date = "'#Dateformat(parent_install_date, "DD-Mmm-YYYY")#'">
+				<cfset parent_install_date = "'#Dateformat(parent_install_date, "yyyy-mm-dd")#'">
 				<cfelse><cfset parent_install_date = "null">
 			</cfif>
 	<cfset #udQual# = "#udQual# , parent_install_date = #parent_install_date#">
@@ -189,7 +189,7 @@ First, make sure that this is a fluid container--->
 		<cfset chUp = "UPDATE Fluid_Container_History SET container_id = #container_id#">
 		<cfset chQual="">
 		<cfif #Checked_Date# is not "">
-			<cfset #chQual# = "#chQual# , Checked_Date = '#dateformat(Checked_Date,'dd-mmm-yyyy')#'">
+			<cfset #chQual# = "#chQual# , Checked_Date = '#dateformat(Checked_Date,'yyyy-mm-dd')#'">
 		</cfif>
 		<cfif #Fluid_Type# is not "">
 			<cfset #chQual# = "#chQual# , Fluid_Type = '#Fluid_Type#'">
@@ -218,7 +218,7 @@ First, make sure that this is a fluid container--->
 		</cfif>
 		<cfset #fch# = "#fch# ) VALUES (
 			#container_id#,
-			'#dateformat(checked_date,'dd-mmm-yyyy')#',
+			'#dateformat(checked_date,'yyyy-mm-dd')#',
 			'#fluid_type#',
 			#concentration#">
 		<cfif len(#Fluid_Remarks#) gt 0>
@@ -585,7 +585,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 				CHECK_REMARK
 			) values (
 				#container_id#,
-				to_date('#dateformat(check_date,"dd-mmm-yyyy")#'),
+				to_date('#dateformat(check_date,"yyyy-mm-dd")#'),
 				#checked_agent_id#,
 				'#check_remark#'
 			)
@@ -758,7 +758,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 				<cfelse><cfset description = "'#description#'">
 			</cfif>
 			<cfif isdate("#parent_install_date#")>
-				<cfset parent_install_date = "'#Dateformat(parent_install_date, "DD-Mmm-YYYY")#'">
+				<cfset parent_install_date = "'#Dateformat(parent_install_date, "yyyy-mm-dd")#'">
 				<cfelse><cfset parent_install_date = "null">
 			</cfif>
 			<cfif #container_remarks# is "">
