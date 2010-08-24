@@ -237,9 +237,22 @@ height:50px;
 				bgDiv.className = 'bgDiv';
 				bgDiv.setAttribute('onclick','closeEditApp()');
 				document.body.appendChild(bgDiv);
+				
+				var popDiv=document.createElement('div');
+				popDiv.id = 'popDiv';
+				popDiv.className = 'editAppBox';
+				document.body.appendChild(popDiv);
+
+				/*
+				var cDiv=document.createElement('div');
+				cDiv.className = 'closeControl';
+				
+				
+				var fDiv=document.createElement('div');
+				
 				var theDiv = document.createElement('iFrame');
 				theDiv.id = 'editAppDiv';
-				theDiv.className = 'editAppBox';
+				
 				theDiv.innerHTML='<br>Loading...';
 				document.body.appendChild(theDiv);
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
@@ -266,6 +279,12 @@ height:50px;
 			        viewport.init("##editAppDiv");
 			    });
 				
+				
+				*/
+		
+		
+		
+		
 		/*
 }
 			
