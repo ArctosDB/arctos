@@ -1,4 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+<!----
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
@@ -204,6 +205,9 @@
 	order by
 		substr(formatted_publication, - 4)
 </cfquery>
+
+---->
+
 <style>
 	.acceptedIdDiv {
 		border:1px dotted green;
@@ -217,21 +221,18 @@
 	.taxDetDiv {
 		padding-left:1em;	
 	}
-</style>		
-<cfoutput query="one">
+</style>	
+<cfoutput>
 		<form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
-			<input type="hidden" name="collection_object_id" value="#one.collection_object_id#">
-			<input type="hidden" name="suppressHeader" value="true">
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 			<input type="hidden" name="action" value="nothing">
-			<input type="hidden" name="Srch" value="Part">
-			<input type="hidden" name="collecting_event_id" value="#one.collecting_event_id#">
 	<table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
 		<tr>
 			<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
 				<div class="detailCell">				
 					<div class="detailLabel">&nbsp;
-							<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
+						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
 					</div>
 					<div class="detailBlock">
 						<span class="detailData">
@@ -256,39 +257,6 @@
 								ORDER BY accepted_id_fg DESC,made_date DESC
 							</cfquery>
 							<cfloop query="identification">
-								<cfquery name="getTaxa_r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-									select 
-										taxonomy.taxon_name_id,
-										display_name,
-										scientific_name,
-										author_text,
-										common_name,
-										full_taxon_name
-									FROM
-										identification_taxonomy,
-										taxonomy,
-										common_name
-									WHERE
-										identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id and
-										taxonomy.taxon_name_id=common_name.taxon_name_id (+) and
-										identification_id=#identification_id#
-								</cfquery>
-								<cfquery name="getTaxa" dbtype="query">
-									select 
-										taxon_name_id,
-										display_name,
-										scientific_name,
-										author_text,
-										full_taxon_name
-									from
-										getTaxa_r
-									group by
-										taxon_name_id,
-										display_name,
-										scientific_name,
-										author_text,
-										full_taxon_name
-								</cfquery>
 								<cfif accepted_id_fg is 1>
 						        	<div class="acceptedIdDiv">
 							    <cfelse>
@@ -345,6 +313,9 @@
 					</span>				
 				</div>
 			</div>
+			
+			
+			<!-----
 <!------------------------------------ citations ---------------------------------------------->
 			<cfif len(citations.cited_name) gt 0>  
 				<div class="detailCell">
@@ -1235,5 +1206,6 @@
 	</td><!--- end right half of table --->
 </table>
 </form>
+---->
 </cfoutput> 	
 <cf_customizeIFrame>
