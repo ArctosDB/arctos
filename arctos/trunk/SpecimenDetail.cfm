@@ -220,8 +220,8 @@
 cursor:pointer;
 height:300px;
 position:absolute;
-right:-15px;
-top:-15px;
+right:0;
+top:0;
 width:300px;
 				
 				z-index:9999;
@@ -265,10 +265,18 @@ z-index:1103;
 				cDiv.className = 'fancybox-close';
 				//cDiv.innerHTML = 'X';
 				$("##popDiv").append(cDiv);
+				cDiv.setAttribute('onclick','closeEditApp()');
+				
+				var fDiv=document.createElement('div');
+				("##popDiv").append(fDiv);
+				("##fDiv").append("/images/loading.png");
+				
+				var theFrame = document.createElement('iFrame');
+				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
+				theFrame.src=ptl;
+				
 				
 				/*
-				var cDiv=document.createElement('div');
-				cDiv.className = 'closeControl';
 				
 				
 				var fDiv=document.createElement('div');
