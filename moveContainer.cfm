@@ -86,7 +86,7 @@
 			var mi = thisdate.getMinutes();
 			var s = "00";
 			var theDateElement = document.getElementById('timestamp');
-			months=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+			months=new Array("01","02","03","04","05","06","07","08","09","10","11","12");
 			var Mon = months[m-1];
 			var td = d + '-' + Mon + '-' + y + ' ' + h+ ':' + mi + ':' + s;
 			theDateElement.value=td;
