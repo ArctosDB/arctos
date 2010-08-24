@@ -1,4 +1,4 @@
-<cfinclude template="../includes/_pickHeader.cfm">
+<cfinclude template="/includes/_pickHeader.cfm">
 <cfoutput>
 	<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select container_type from ctcontainer_type
