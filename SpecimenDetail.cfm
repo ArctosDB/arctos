@@ -265,7 +265,7 @@ z-index:9999;
 				bgDiv.className = 'bgDiv';
 				bgDiv.setAttribute('onclick','closeEditApp()');
 				document.body.appendChild(bgDiv);
-				
+				/*
 				var popDiv=document.createElement('div');
 				popDiv.id = 'popDiv';
 				popDiv.className = 'editAppBox';
@@ -283,14 +283,15 @@ z-index:9999;
 				fDiv.id='fDiv';
 				$("##popDiv").append(fDiv);
 				$("##fDiv").html('<img src="/images/loading.png">');
+				*/
 				
 				var theFrame = document.createElement('iFrame');
 				theFrame.id='theFrame';
 				theFrame.className = 'editFrame';
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 				theFrame.src=ptl;
-				$("##fDiv").append(theFrame);
-				
+				//$("##fDiv").append(theFrame);
+				document.body.appendChild(theFrame);
 				
 				/*
 				
