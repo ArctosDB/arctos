@@ -1,18 +1,14 @@
 <div id="theHead">
 	<cfinclude template="includes/_header.cfm">
 </div>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#made_date_after").datepicker();
-			jQuery("#made_date_before").datepicker();
-			jQuery("#expiration_date_after").datepicker();	
-			jQuery("#made_date").datepicker();
-			jQuery("#expiration_date_before").datepicker();
-			jQuery("#expiration_date").datepicker();
-		});
+		jQuery("#made_date_after").datepicker();
+		jQuery("#made_date_before").datepicker();
+		jQuery("#expiration_date_after").datepicker();	
+		jQuery("#made_date").datepicker();
+		jQuery("#expiration_date_before").datepicker();
+		jQuery("#expiration_date").datepicker();
 	});
 </script>
 <cfif not isdefined("collection_object_id")>

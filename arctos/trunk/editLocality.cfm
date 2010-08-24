@@ -1,8 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <cfif action is "nothing">
 <cfset title="Edit Locality">
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("select[id^='geology_attribute_']").each(function(e){

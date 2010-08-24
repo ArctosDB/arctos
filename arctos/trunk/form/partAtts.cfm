@@ -60,12 +60,9 @@
 	<cfreturn rv>
 </cffunction>
 <cfif action is "nothing">
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script>
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#determined_date_new").datepicker();
-		});
+		$("#determined_date_new").datepicker();
 	});
 </script>
 <cfoutput>

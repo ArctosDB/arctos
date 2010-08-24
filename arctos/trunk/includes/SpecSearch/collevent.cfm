@@ -1,11 +1,7 @@
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#begDate").datepicker();
-			jQuery("#endDate").datepicker();
-		});
+		$("#begDate").datepicker();
+		$("#endDate").datepicker();
 	});
 </script>
 <cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
