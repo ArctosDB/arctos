@@ -1122,6 +1122,7 @@
 										target="_mainFrame">Click for loan list</a>
 							</span>
 						</div>
+					</cfif>
 				</div>
 <!------------------------------------ Media ---------------------------------------------->
 <cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
