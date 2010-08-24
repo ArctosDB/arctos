@@ -303,6 +303,7 @@ label.badPickLbl {
 	left:20%;
 }
 .bgDiv {
+	/*
 	background:#024;
 	height:300%;
 	width:120%;
@@ -311,6 +312,17 @@ label.badPickLbl {
 	left:0;
 	opacity:0.2;
 	z-index:2000;
+	*/
+	
+	
+	height:100%;
+left:0;
+position:fixed;
+top:0;
+width:100%;
+z-index:2000;
+opacity:0.2;
+background:#024;
 }
 .mediaLink {
 	padding-left:5px;	
