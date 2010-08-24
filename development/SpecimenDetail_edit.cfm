@@ -262,38 +262,11 @@
 							    <cfelse>
 						        	<div class="unAcceptedIdDiv">
 						        </cfif>
-						        <cfif getTaxa.recordcount is 1 and taxa_formula is 'a'>
-									<a href="/name/#getTaxa.scientific_name#" target="_blank">#getTaxa.display_name#</a> 
-								<cfelse>
-									<cfset link="">
-									<cfset i=1>
-									<cfset thisSciName="#scientific_name#">
-									<cfloop query="getTaxa">
-										<cfset thisLink='<a href="/name/#scientific_name#" target="_blank">#display_name#</a>'>
-										<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
-										<cfset i=#i#+1>
-									</cfloop>
-									#thisSciName#
-								</cfif>
-								<cfif not isdefined("metaDesc")>
-									<cfset metaDesc="">
-								</cfif>
+						        
+						        #scientific_name#
+						        
 								<div class="taxDetDiv">
-									<cfloop query="getTaxa">
-										<div style="font-size:.8em;color:gray;">
-											#full_taxon_name#
-										</div>
-										<cfset metaDesc=metaDesc & '; ' & full_taxon_name>
-										<cfquery name="cName" dbtype="query">
-											select common_name from getTaxa_r where taxon_name_id=#taxon_name_id#
-											and common_name is not null
-											group by common_name order by common_name
-										</cfquery>
-										<div style="font-size:.8em;color:gray;padding-left:1em;">
-											#valuelist(cName.common_name,"; ")#
-										</div>
-										<cfset metaDesc=metaDesc & '; ' & valuelist(cName.common_name,"; ")>
-									</cfloop>
+									
 									<cfif len(formatted_publication) gt 0>
 										sensu <a href="/publication/#publication_id#" target="_mainFrame">
 												#formatted_publication#
