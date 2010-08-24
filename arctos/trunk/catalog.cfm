@@ -337,7 +337,7 @@
 
 <cfoutput query="detail"  group="cat_num">
 		<form name="catalog" method="post" action="catalog.cfm" onsubmit="return noEnter();" id="catalog">
-			<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id">
 			<input type="hidden" name="collection_cde" value="#collection_cde#"  id="collection_cde"/>
 			<input type="hidden" name="nothing" id="nothing" /> 
 <table border>

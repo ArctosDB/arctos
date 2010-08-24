@@ -794,6 +794,7 @@ function success_updateAf (result) {
 }
 
 function updateSciName (onoff) {
+	$("#scientific_name").addClass('red');
 	$.getJSON("/component/catalog.cfc",
 			{
 				method : "updateSciName",
