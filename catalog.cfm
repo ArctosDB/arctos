@@ -400,8 +400,8 @@
 				<input type="text" name="scientific_name" value="#scientific_name#" 
 					id="scientific_name" class="d11a"
 					size="40" 
-					onchange="this.className = 'saving';taxaPick('taxon_name_id','scientific_name','catalog',this.value); return false;">					
-					<img src="/images/save.gif" class="likeLink" onclick="updateSciName();" />
+					onchange="this.className='saving';taxaPick('taxon_name_id','scientific_name','catalog',this.value); return false;">					
+					<img src="/images/save.gif" class="likeLink" onclick="updateSciName();">
 			</td>
 		</tr>
 		<tr>
