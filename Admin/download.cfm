@@ -60,8 +60,8 @@
 		</cfif>
 		<cfif isdefined("bdate") and len(bdate) gt 0>
 			AND (
-				to_date(to_char(cf_download.DOWNLOAD_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
-				and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+				to_date(to_char(cf_download.DOWNLOAD_DATE,'yyyy-mm-dd')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
+				and to_date('#dateformat(edate,"yyyy-mm-dd")#')
 			)
 		</cfif>		
 	</cfquery>
