@@ -235,10 +235,10 @@ background:url("/images/fancybox.png") repeat scroll -40px 0 transparent;
 cursor:pointer;
 height:30px;
 position:absolute;
-right:-15px;
-top:-15px;
+right:0;
+top:0;
 width:30px;
-z-index:1103;
+z-index:9999;
 }
 
 		</style>
@@ -278,7 +278,7 @@ z-index:1103;
 				theFrame.id='theFrame';
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 				theFrame.src=ptl;
-				$("##fDiv").append(theFrame);
+				//$("##fDiv").append(theFrame);
 				
 				
 				/*
