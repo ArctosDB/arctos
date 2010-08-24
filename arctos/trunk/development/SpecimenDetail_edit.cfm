@@ -223,7 +223,7 @@
 	}
 </style>	
 <cfoutput>
-		<form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
+		<form name="edit" method="post" action="SpecimenDetail.cfm">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 			<input type="hidden" name="action" value="nothing">
 	<table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
@@ -256,16 +256,19 @@
 									identification.collection_object_id = #collection_object_id# 
 								ORDER BY accepted_id_fg DESC,made_date DESC
 							</cfquery>
+							<input type="hidden" name="number_of_ids" id="number_of_ids" value="#identification.recordcount#">
+							<cfset i=1>
 							<cfloop query="identification">
 								<cfif accepted_id_fg is 1>
 						        	<div class="acceptedIdDiv">
 							    <cfelse>
 						        	<div class="unAcceptedIdDiv">
 						        </cfif>
-						        
-						        #scientific_name#
-						        
-								<div class="taxDetDiv">
+						        <input type="text" name="scientific_name_#i#" id="scientific_name_#i#" value="#scientific_name#"
+						        	class="reqdClr" onChange="taxaPick('taxon_id_#i#','scientific_name_#i#','edit',this.value); return false;"
+									onKeyPress="return noenter(event);">
+						        <input type="hidden" name="taxon_id_#i#" id="taxon_id_#i#" class="reqdClr"> 
+						       <div class="taxDetDiv">
 									
 									<cfif len(formatted_publication) gt 0>
 										sensu <a href="/publication/#publication_id#" target="_mainFrame">
@@ -282,6 +285,7 @@
 									</cfif>
 								</div>
 							</div>
+							<cfset i=i+1>
 						</cfloop>
 					</span>				
 				</div>

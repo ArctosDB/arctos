@@ -197,6 +197,7 @@
             </td>
         </tr>
     </table>
+	<!---
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<script type="text/javascript" language="javascript">
 			/***********************************************
@@ -403,6 +404,7 @@
 	<cfelse><!--- not coldfusion user --->
 		<cfinclude template="SpecimenDetail_body.cfm">
 	</cfif>
+	--->
 	<cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and showAnnotation is "true">
 		<script language="javascript" type="text/javascript">
