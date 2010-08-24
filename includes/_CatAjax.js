@@ -815,7 +815,7 @@ function updateSciName (onoff) {
 */
 
 function updateSciName() {
-	var theElement = '';
+	var theElement = 'scientific_name';
 	var e = document.getElementById(theElement).value;
 	var collection_object_id = document.getElementById('collection_object_id').value;
 	//alert(e);
