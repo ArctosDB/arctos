@@ -1,17 +1,13 @@
 <cfinclude template="includes/_header.cfm">
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#ent_date").datepicker();
-			jQuery("#rec_date").datepicker();
-			jQuery("#rec_until_date").datepicker();	
-			jQuery("#issued_date").datepicker();
-			jQuery("#renewed_date").datepicker();
-			jQuery("#exp_date").datepicker();
-		});
+		$("#ent_date").datepicker();
+		$("#rec_date").datepicker();
+		$("#rec_until_date").datepicker();	
+		$("#issued_date").datepicker();
+		$("#renewed_date").datepicker();
+		$("#exp_date").datepicker();
 	});
 	function addAccnContainer(transaction_id,barcode){
 		$('#newbarcode').addClass('red');

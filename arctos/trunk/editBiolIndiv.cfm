@@ -1,7 +1,4 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery("input[id^='determined_date_']").each(function(){

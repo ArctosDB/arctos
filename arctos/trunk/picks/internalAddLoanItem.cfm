@@ -67,8 +67,6 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 			must be entered in the agent names table as type 'login'.
 			<cfabort>
 		</cfif>
-		<cfset RECONCILED_DATE = #dateformat(now(),"dd-mmm-yyyy")#>
-<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 
 	<cfif #isSubsample# is "y">
 		<!--- make a subsample --->
@@ -99,9 +97,9 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 				(sq_collection_object_id.nextval,
 				'SS',
 				#RECONCILED_BY_PERSON_ID.agent_id#,
-				'#RECONCILED_DATE#',
+				sysdate,
 				#RECONCILED_BY_PERSON_ID.agent_id#,
-				'#RECONCILED_DATE#',
+				sysdate,
 				'#parentData.coll_obj_disposition#',
 				1,
 				'#parentData.condition#')
@@ -144,7 +142,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 			#COLLECTION_OBJECT_ID#,
 		</cfif>		
 		#RECONCILED_BY_PERSON_ID.agent_id#,
-		'#RECONCILED_DATE#'
+		sysdate
 		,'#details.collection_cde# #details.cat_num# #item#'
 		<cfif isdefined("ITEM_INSTRUCTIONS") AND len(#ITEM_INSTRUCTIONS#) gt 0>
 			,'#ITEM_INSTRUCTIONS#'

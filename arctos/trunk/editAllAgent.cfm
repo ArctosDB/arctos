@@ -21,20 +21,14 @@
 	select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP
 </cfquery>
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
-
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
-
 <cfif not isdefined("agent_id")>
 	<cfset agent_id = -1>
 </cfif>
 <script language="javascript" type="text/javascript">
 	
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#birth_date").datepicker();
-			jQuery("#death_date").datepicker();
-		});
+		jQuery("#birth_date").datepicker();
+		jQuery("#death_date").datepicker();
 	});
 	function suggestName(ntype){
 		try {
