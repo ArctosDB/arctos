@@ -88,7 +88,7 @@
 			var theDateElement = document.getElementById('timestamp');
 			months=new Array("01","02","03","04","05","06","07","08","09","10","11","12");
 			var Mon = months[m-1];
-			var td = d + '-' + Mon + '-' + y + ' ' + h+ ':' + mi + ':' + s;
+			var td = y + '-' + Mon + '-' + d  + ' ' + h+ ':' + mi + ':' + s;
 			theDateElement.value=td;
 		}
 		function autosubmit() {
