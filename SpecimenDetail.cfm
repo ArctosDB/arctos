@@ -197,6 +197,32 @@
             </td>
         </tr>
     </table>
+	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+		<script language="javascript" type="text/javascript">
+		
+		function loadEditApp(q) {
+			var bgDiv = document.createElement('div');
+			bgDiv.id = 'bgDiv';
+			bgDiv.className = 'bgDiv';
+			bgDiv.setAttribute('onclick','closeAnnotation()');
+			document.body.appendChild(bgDiv);
+			
+			var theDiv = document.createElement('div');
+			theDiv.id = 'annotateDiv';
+			theDiv.className = 'annotateBox';
+			theDiv.innerHTML='';
+			theDiv.src = "";
+			document.body.appendChild(theDiv);
+			var guts = q + ".cfm?collection_object_id=" + #collection_object_id#;
+			jQuery('#annotateDiv').load(guts,{},function(){
+				viewport.init("#annotateDiv");
+				viewport.init("#bgDiv");
+			});
+		}
+		</script>
+		<span class="likeLink" onclick="loadEditApp('editIdentification');">editIdentification</span>
+	</cfif>
+
 	<!---
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<script type="text/javascript" language="javascript">
