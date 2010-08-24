@@ -201,6 +201,29 @@
 		<script language="javascript" type="text/javascript">
 		
 		function loadEditApp(q) {
+			
+			
+			
+			
+			
+			
+		addBGDiv('closeAnnotation()');
+		var theDiv = document.createElement('iFrame');
+		theDiv.id = 'partsAttDiv';
+		theDiv.className = 'annotateBox';
+		theDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(theDiv);
+		var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
+		theDiv.src=ptl;
+		viewport.init("#partsAttDiv");
+		/*
+}
+			
+			
+			
+			
+			
+			
 			var bgDiv = document.createElement('div');
 			bgDiv.id = 'bgDiv';
 			bgDiv.className = 'bgDiv';
@@ -218,6 +241,7 @@
 				viewport.init("##annotateDiv");
 				viewport.init("##bgDiv");
 			});
+			*/
 		}
 		</script>
 		<span class="likeLink" onclick="loadEditApp('editIdentification');">editIdentification</span>
