@@ -226,6 +226,22 @@ width:300px;
 				
 				z-index:9999;
 			}
+			
+			
+			
+			
+			#fancybox-close {
+background:url("/images/fancybox.png") repeat scroll -40px 0 transparent;
+cursor:pointer;
+display:none;
+height:30px;
+position:absolute;
+right:-15px;
+top:-15px;
+width:30px;
+z-index:1103;
+}
+
 		</style>
 		<script language="javascript" type="text/javascript">
 			function closeEditApp() {
@@ -247,8 +263,8 @@ width:300px;
 				document.body.appendChild(popDiv);
 
 				var cDiv=document.createElement('div');
-				cDiv.className = 'closeControl';
-				cDiv.innerHTML = 'X';
+				cDiv.className = 'fancybox-close';
+				//cDiv.innerHTML = 'X';
 				$("##popDiv").append(cDiv);
 				
 				/*
