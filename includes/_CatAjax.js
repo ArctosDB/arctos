@@ -820,7 +820,7 @@ function updateSciName() {
 	//alert(e);
 	DWREngine._execute(_catalog_func, null, 'updateSciName', collection_object_id,e, success_updateSciName);
 }
-*/
+
 function success_updateSciName (result) {
 	if (result == 'success') {
 		var e = document.getElementById('scientific_name');
@@ -829,7 +829,7 @@ function success_updateSciName (result) {
 		alert(result);
 	}
 }
-
+*/
 
 function updateimade_date(name) {
 	//alert(name);
