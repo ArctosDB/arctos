@@ -45,7 +45,8 @@
 					to_char(accepted_lat_long.long_sec) || '&acute;&acute; ' || accepted_lat_long.long_dir,
 				'degrees dec. minutes', to_char(accepted_lat_long.long_deg) || '&deg; ' || 
 					to_char(accepted_lat_long.dec_long_min) || '&acute; ' || accepted_lat_long.long_dir
-		VerbatimLongitude,
+		)
+			VerbatimLongitude,
 		accepted_lat_long.dec_lat,
 		accepted_lat_long.dec_long,
 		accepted_lat_long.max_error_distance,
