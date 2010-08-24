@@ -261,9 +261,9 @@ height:50px;
 			   // $(document.body).append('<IFRAME id="myId" ...>');
 			    //$('iframe#myId').attr('src', url);
 			
-			    $('iframe#theDiv').load(function() 
+			    $('iframe##theDiv').load(function() 
 			    {
-			        viewport.init("##partsAttDiv");
+			        viewport.init("##editAppDiv");
 			    });
 //}
 				
