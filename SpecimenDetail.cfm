@@ -254,7 +254,10 @@ height:50px;
 				popDiv.className = 'editAppBox';
 				document.body.appendChild(popDiv);
 
-				
+				var cDiv=document.createElement('div');
+				cDiv.className = 'closeControl';
+				cDiv.innerHTML = 'X';
+				$("##popDiv").append(cDiv);
 				
 				/*
 				var cDiv=document.createElement('div');
