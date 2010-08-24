@@ -1,12 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-<script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
-<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-	var cal1 = new CalendarPopup("theCalendar");
-	cal1.showYearNavigation();
-	cal1.showYearNavigationInput();
-</SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		$("#bdate").datepicker();
+		$("#edate").datepicker();
+	});
+</script>
 <cfset title="Download Statistics">
 <cfif action is "nothing">
 	<h2>Download Statistics</h2>
@@ -30,22 +29,8 @@
 		</select>
 		<label for="bdate">Begin Date</label>
 		<input type="text" name="bdate" id="bdate">
-		<img src="/images/pick.gif" 
-			class="likeLink" 
-			border="0" 
-			alt="[calendar]"
-			name="anchor1"
-			id="anchor1"
-			onClick="cal1.select(document.srch.bdate,'anchor1','dd-MMM-yyyy'); return false;"/>
 		<label for="edate">Ended Date</label>
 		<input type="text" name="edate" id="edate">
-		<img src="/images/pick.gif" 
-			class="likeLink" 
-			border="0" 
-			alt="[calendar]"
-			name="anchor1"
-			id="anchor1"
-			onClick="cal1.select(document.srch.edate,'anchor1','dd-MMM-yyyy'); return false;"/>	
 		<br>
 		<input type="button" value="show table" class="lnkBtn" onclick="srch.action.value='table';srch.submit();">
 		<input type="reset" class="clrBtn" value="reset form">
@@ -106,5 +91,4 @@
 	</table>
 	</cfoutput>
 </cfif>
-<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
 <cfinclude template="/includes/_footer.cfm">

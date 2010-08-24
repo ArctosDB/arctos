@@ -121,7 +121,7 @@
 </cfif>
 <cfif action is "webserver">
 <cfoutput>
-	<cfset finalpath="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'dd-mmm-yyyy')#">
+	<cfset finalpath="#application.webDirectory#/mediaUploads/#session.username#/#dateformat(now(),'yyyy-mm-dd')#">
 	<cftry>
 		<cfdirectory action="create" directory="#finalpath#">
 		<cfcatch><!--- exists ---></cfcatch>

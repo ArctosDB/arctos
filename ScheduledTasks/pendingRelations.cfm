@@ -24,7 +24,7 @@
 			<cfcatch>
 				<cfquery name="nope" datasource="uam_god">
 					update cf_temp_relations set 
-						lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
+						lasttrydate=sysdate,
 						fail_reason='Catalog Number does not exist or is not in UAM Mamm 1234 format'
 					WHERE
 						collection_object_id=#collection_object_id# and
@@ -44,7 +44,7 @@
 		<cfif #isOne.recordcount# is 0>
 			<cfquery name="nope" datasource="uam_god">
 				update cf_temp_relations set 
-					lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
+					lasttrydate=sysdate,
 					fail_reason='Related cataloged item does not exist.'
 				WHERE
 					collection_object_id=#collection_object_id# and
@@ -55,7 +55,7 @@
 		<cfelseif #isOne.recordcount# gt 1>
 			<cfquery name="toomany" datasource="uam_god">
 				update cf_temp_relations set 
-					lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
+					lasttrydate=sysdate,
 					fail_reason='More than one cataloged item matched.'
 				WHERE
 					collection_object_id=#collection_object_id# and
@@ -87,7 +87,7 @@
 			<cfcatch>
 				<cfquery name="toomany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update cf_temp_relations set 
-						lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
+						lasttrydate=sysdate,
 						fail_reason='DB Error. #cfcatch.detail#'
 					WHERE
 						collection_object_id=#collection_object_id# and
@@ -101,7 +101,7 @@
 		<cfelse>
 			<cfquery name="toomany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				update cf_temp_relations set 
-					lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
+					lasttrydate=sysdate,
 					fail_reason='unknown failure!'
 				WHERE
 					collection_object_id=#collection_object_id# and
