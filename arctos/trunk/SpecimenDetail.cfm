@@ -217,13 +217,12 @@
 			}
 			.closeControl {
 				
-background:url("fancybox.png") repeat scroll -40px 0 transparent;
 cursor:pointer;
-height:30px;
+height:300px;
 position:absolute;
 right:-15px;
 top:-15px;
-width:30px;
+width:300px;
 				
 				z-index:9999;
 			}
