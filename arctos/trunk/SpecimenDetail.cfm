@@ -246,7 +246,7 @@ height:50px;
 				controlWidget.id = 'closeWidget';
 				controlWidget.className = 'closeControl likeLink';
 				controlWidget.setAttribute('onclick','closeEditApp()');
-				$("##controlWidget").text('click to close');
+				controlWidget.innerHTML = 'click to close';
 				document.body.appendChild(controlWidget);
 				
 				
