@@ -198,49 +198,40 @@
         </tr>
     </table>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+		<style>
+			.editAppBox {
+				border:3px solid green;
+				z-index:9999;
+				position:absolute;
+				top:5%;
+				left:5%;
+				width:90%;
+				height:95%;
+				background-color:white;
+				overflow:auto;
+			}
+		</style>
 		<script language="javascript" type="text/javascript">
-		function closePopup() {
-	/*
-	 * 
-	 * var theDiv = document.getElementById('bgDiv');
-	document.body.removeChild(theDiv);
-	var theDiv = document.getElementById('partsAttDiv');
-	document.body.removeChild(theDiv);
-	
-		var theDiv = parent.document.getElementById('bgDiv');
-	parent.document.body.removeChild(theDiv);
-	var theDiv = parent.document.getElementById('partsAttDiv');
-	parent.document.body.removeChild(theDiv);
-	
-	
-	*/
-	$('##bgDiv').remove();
-	$('##partsAttDiv').remove();
-	$('##bgDiv', window.parent.document).remove();
-	$('##partsAttDiv', window.parent.document).remove();
-
-	
-}
-
-
-
-		function loadEditApp(q) {
-			
-			
-			
-			var bgDiv = document.createElement('div');
-			bgDiv.id = 'bgDiv';
-			bgDiv.className = 'bgDiv';
-			bgDiv.setAttribute('onclick','closePopup()');
-			document.body.appendChild(bgDiv);
-		var theDiv = document.createElement('iFrame');
-		theDiv.id = 'partsAttDiv';
-		theDiv.className = 'annotateBox';
-		theDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(theDiv);
-		var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
-		theDiv.src=ptl;
-		viewport.init("##partsAttDiv");
+			function closeEditApp() {
+				$('##bgDiv').remove();
+				$('##editAppDiv').remove();
+				$('##bgDiv', window.parent.document).remove();
+				$('##partsAttDiv', window.parent.document).remove();
+			}
+			function loadEditApp(q) {
+				var bgDiv = document.createElement('div');
+				bgDiv.id = 'bgDiv';
+				bgDiv.className = 'bgDiv';
+				bgDiv.setAttribute('onclick','closeEditApp()');
+				document.body.appendChild(bgDiv);
+				var theDiv = document.createElement('iFrame');
+				theDiv.id = 'editAppDiv';
+				theDiv.className = 'editAppBox';
+				theDiv.innerHTML='<br>Loading...';
+				document.body.appendChild(theDiv);
+				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
+				theDiv.src=ptl;
+				viewport.init("##partsAttDiv");
 		/*
 }
 			
