@@ -54,14 +54,16 @@
 	DESC
 </cfquery>
 
-<table class="newRec">
+
+<form name="newID" id="newID" method="post" action="editIdentification.cfm">
+	
+	<table class="newRec">
  <tr>
  	<td colspan="2">
 <strong><font size="+1">Add new Determination</font></strong>&nbsp;
 <a href="javascript:void(0);" onClick="getDocs('identification')"><img src="/images/info.gif" border="0"></a>
 	</td>
  </tr>
-<form name="newID" id="newID" method="post" action="editIdentification.cfm">
     <input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
     <tr>
@@ -193,8 +195,9 @@
              </div>
 		</td>
     </tr>
+	</table>
 </form>
-</table>
+
 <strong><font size="+1">Edit an Existing Determination</font></strong>
 <img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
 <cfset i = 1>
