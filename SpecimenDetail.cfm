@@ -268,8 +268,8 @@ z-index:1103;
 				cDiv.setAttribute('onclick','closeEditApp()');
 				
 				var fDiv=document.createElement('div');
-				("##popDiv").append(fDiv);
-				("##fDiv").append("/images/loading.png");
+				$("##popDiv").append(fDiv);
+				$("##fDiv").append("/images/loading.png");
 				
 				var theFrame = document.createElement('iFrame');
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
