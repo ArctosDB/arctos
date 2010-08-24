@@ -230,7 +230,7 @@ width:300px;
 			
 			
 			
-			#fancybox-close {
+			##fancybox-close {
 background:url("/images/fancybox.png") repeat scroll -40px 0 transparent;
 cursor:pointer;
 display:none;
