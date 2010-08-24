@@ -699,7 +699,7 @@
 				<cfif len(#collCode#) gt 0>
 					<cfquery name="valCodes" dbtype="query">
 						SELECT #getCols.column_name# as valCodes from valCT
-						WHERE collection_cde='#collection_cde#'
+						WHERE collection_cde='#detail.collection_cde#'
 					</cfquery>
 				  <cfelse>
 				 
