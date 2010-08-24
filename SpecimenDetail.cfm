@@ -203,12 +203,18 @@
 				border:3px solid green;
 				z-index:9999;
 				position:absolute;
-				top:5%;
-				left:5%;
-				width:90%;
+				top:1%;
+				left:2%;
+				width:95%;
 				height:95%;
 				background-color:white;
 				overflow:auto;
+			}
+			.closeControl {
+				position:absolute;
+				right:0;
+				top:0;
+				border:1px solid red;
 			}
 		</style>
 		<script language="javascript" type="text/javascript">
@@ -231,6 +237,19 @@
 				document.body.appendChild(theDiv);
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 				theDiv.src=ptl;
+				
+				
+				
+				var controlWidget = document.createElement('span');
+				controlWidget.id = 'closeWidget';
+				controlWidget.className = 'closeControl';
+				controlWidget.setAttribute('onclick','closeEditApp()');
+				$("##controlWidget".html('click to close');
+				theDiv.appendChild(controlWidget);
+				
+				
+				
+				
 				viewport.init("##partsAttDiv");
 		/*
 }
