@@ -201,7 +201,7 @@
 		<style>
 			.editAppBox {
 				border:3px solid green;
-				z-index:9999;
+				z-index:9998;
 				position:absolute;
 				top:1%;
 				left:2%;
@@ -211,9 +211,10 @@
 				overflow:auto;
 			}
 			.closeControl {
+				z-index:9999;
 				position:absolute;
-				right:0;
-				top:0;
+				right:5%;
+				top:5%;
 				border:1px solid red;width:50px;
 height:50px;
 			}
@@ -246,7 +247,7 @@ height:50px;
 				controlWidget.className = 'closeControl';
 				controlWidget.setAttribute('onclick','closeEditApp()');
 				$("##controlWidget").html('click to close');
-				theDiv.appendChild(controlWidget);
+				document.body.appendChild(controlWidget);
 				
 				
 				
