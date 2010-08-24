@@ -29,7 +29,7 @@
 		#session.myAgentId#,
 		'image confirmed',
 		'yes',
-		'#dateformat(now(),"dd-mmm-yyyy")#'
+		'#dateformat(now(),"yyyy-mm-dd")#'
 	)
 </cfquery>
 <script>
