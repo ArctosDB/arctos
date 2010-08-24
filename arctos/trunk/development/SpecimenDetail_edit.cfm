@@ -1,23 +1,10 @@
-<cfif not isdefined("toProperCase")>
-	<cfinclude template="/includes/_frameHeader.cfm">
-</cfif>
+<cfinclude template="/includes/alwaysInclude.cfm">
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
 			Improper call. Aborting.....
 		</div>
 		<cfabort>
-	</cfif>
-	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-		<cfset oneOfUs = 1>
-		<cfset isClicky = "likeLink">
-	<cfelse>
-		<cfset oneOfUs = 0>
-		<cfset isClicky = "">
-	</cfif>
-	<cfif oneOfUs is 0 and cgi.CF_TEMPLATE_PATH contains "/SpecimenDetail_body.cfm">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
 	</cfif>
 </cfoutput>
 <cfset detSelect = "
@@ -33,60 +20,32 @@
 		identification.made_date,
 		identification.nature_of_id,
 		collecting_event.collecting_event_id,
-		case when 
-			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask year collected%' then
-				replace(began_date,substr(began_date,1,4),'8888')
-		else 
-			collecting_event.began_date  
-		end began_date,
-		case when 
-			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask year collected%' then
-				replace(ended_date,substr(ended_date,1,4),'8888')
-		else 
-			collecting_event.ended_date  
-		end ended_date,
-		case when 
-			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask year collected%' then
-				'Masked'
-		else 
-			collecting_event.verbatim_date  
-		end verbatim_date,
+		collecting_event.began_date,
+		collecting_event.ended_date,
+		collecting_event.verbatim_date.
 		collecting_event.habitat_desc,
 		locality.locality_id,
 		locality.minimum_elevation,
 		locality.maximum_elevation,
 		locality.orig_elev_units,
 		locality.spec_locality,		
-		case when 
-			#oneOfUs# != 1 and 
-				concatencumbrances(cataloged_item.collection_object_id) like '%mask coordinates%' and
-					accepted_lat_long.orig_lat_long_units is not null
-				then 'Masked'
-		else
-			decode(accepted_lat_long.orig_lat_long_units,
-				'decimal degrees',to_char(accepted_lat_long.dec_lat) || '&deg; ',
-				'deg. min. sec.', to_char(accepted_lat_long.lat_deg) || '&deg; ' ||
-					to_char(accepted_lat_long.lat_min) || '&acute; ' || 
-					to_char(accepted_lat_long.lat_sec) || '&acute;&acute; ' || accepted_lat_long.lat_dir,
-				'degrees dec. minutes', to_char(accepted_lat_long.lat_deg) || '&deg; ' || 
-					to_char(accepted_lat_long.dec_lat_min) || '&acute; ' || accepted_lat_long.lat_dir
-			) 
-		end VerbatimLatitude,
-		case when 
-			#oneOfUs# != 1 and 
-				concatencumbrances(cataloged_item.collection_object_id) like '%mask coordinates%' and
-					accepted_lat_long.orig_lat_long_units is not null
-				then 'Masked'
-		else
-			decode(accepted_lat_long.orig_lat_long_units,
+		decode(accepted_lat_long.orig_lat_long_units,
+			'decimal degrees',to_char(accepted_lat_long.dec_lat) || '&deg; ',
+			'deg. min. sec.', to_char(accepted_lat_long.lat_deg) || '&deg; ' ||
+				to_char(accepted_lat_long.lat_min) || '&acute; ' || 
+				to_char(accepted_lat_long.lat_sec) || '&acute;&acute; ' || accepted_lat_long.lat_dir,
+			'degrees dec. minutes', to_char(accepted_lat_long.lat_deg) || '&deg; ' || 
+				to_char(accepted_lat_long.dec_lat_min) || '&acute; ' || accepted_lat_long.lat_dir
+		) 
+		VerbatimLatitude,
+		decode(accepted_lat_long.orig_lat_long_units,
 				'decimal degrees',to_char(accepted_lat_long.dec_long) || '&deg;',
 				'deg. min. sec.', to_char(accepted_lat_long.long_deg) || '&deg; ' || 
 					to_char(accepted_lat_long.long_min) || '&acute; ' || 
 					to_char(accepted_lat_long.long_sec) || '&acute;&acute; ' || accepted_lat_long.long_dir,
 				'degrees dec. minutes', to_char(accepted_lat_long.long_deg) || '&deg; ' || 
 					to_char(accepted_lat_long.dec_long_min) || '&acute; ' || accepted_lat_long.long_dir
-			)
-		end VerbatimLongitude,
+		VerbatimLongitude,
 		accepted_lat_long.dec_lat,
 		accepted_lat_long.dec_long,
 		accepted_lat_long.max_error_distance,
@@ -162,17 +121,11 @@
 <cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
-<cfif one.concatenatedEncumbrances contains "mask record" and oneOfUs neq 1>
-	Record masked.<cfabort>
-</cfif>
 <cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		collector.coll_order,
-		case when 
-			#oneOfUs# != 1 and concatencumbrances(collector.collection_object_id) like '%mask collector%' then 'Anonymous'
-		else 
-			preferred_agent_name.agent_name  
-		end collectors
+		preferred_agent_name.agent_name  
+		collectors
 	from
 		collector,
 		preferred_agent_name
@@ -186,11 +139,8 @@
 <cfquery name="preps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		collector.coll_order,
-		case when 
-			#oneOfUs# != 1 and concatencumbrances(collector.collection_object_id) like '%mask preparator%' then 'Anonymous'
-		else 
-			preferred_agent_name.agent_name  
-		end preparators
+		preferred_agent_name.agent_name  
+		 preparators
 	from
 		collector,
 		preferred_agent_name
@@ -268,23 +218,19 @@
 	}
 </style>		
 <cfoutput query="one">
-	<cfif oneOfUs is 1>
 		<form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
 			<input type="hidden" name="collection_object_id" value="#one.collection_object_id#">
 			<input type="hidden" name="suppressHeader" value="true">
 			<input type="hidden" name="action" value="nothing">
 			<input type="hidden" name="Srch" value="Part">
 			<input type="hidden" name="collecting_event_id" value="#one.collecting_event_id#">
-	</cfif>
 	<table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
 		<tr>
 			<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
 				<div class="detailCell">				
 					<div class="detailLabel">&nbsp;
-						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
-						</cfif>
 					</div>
 					<div class="detailBlock">
 						<span class="detailData">
@@ -424,9 +370,7 @@
 <!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">
-					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('specLocality');">Edit</span>
-					</cfif>
 				</div>
 				<table id="SD">
 					<cfif len(one.continent_ocean) gt 0>						
@@ -688,11 +632,8 @@
 </cfquery>
 			<div class="detailCell">
 				<div class="detailLabel">&nbsp;<!---Parts--->
-					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editParts');">Edit</span>
-					<cfelse>
-						<span class="detailEditCell" onClick="getInfo('parts','#one.collection_object_id#');">Details</span>
-					</cfif>
+					
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
@@ -740,9 +681,7 @@
 			<cfif len(preps.preparators) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Preparators
-						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editColls');">Edit</span>
-						</cfif>
 					</div>
 					<cfloop query="preps">
 						<div class="detailBlock">
@@ -771,9 +710,7 @@
 			<cfif len(relns.biol_indiv_relationship) gt 0 OR len(invRel.biol_indiv_relationship) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Relationships
-						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editRelationship');">Edit</span>
-						</cfif>
 					</div>
 					<cfloop query="relns">
 						<div class="detailBlock">
@@ -851,9 +788,7 @@
 <!------------------------------------ collectors ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">Collectors
-					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editColls');">Edit</span>
-					</cfif>
 				</div>
 				<cfloop query="colls">
 					<div class="detailBlock">
@@ -867,13 +802,8 @@
 <!------------------------------------ identifiers ---------------------------------------------->
 			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				SELECT 
-					case when #oneOfUs# != 1 and 
-						concatencumbrances(coll_obj_other_id_num.collection_object_id) like '%mask original field number%' and
-						coll_obj_other_id_num.other_id_type = 'original identifier'				
-						then 'Masked'
-					else
-						coll_obj_other_id_num.display_value  
-					end display_value,
+					coll_obj_other_id_num.display_value  
+					 display_value,
 					coll_obj_other_id_num.other_id_type,
 					case when base_url is not null then
 						ctcoll_other_id_type.base_url || coll_obj_other_id_num.display_value
@@ -893,9 +823,7 @@
 			<cfif len(oid.other_id_type) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Identifiers
-						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentifiers');">Edit</span>
-						</cfif>						
 					</div>
 					<cfloop query="oid">
 						<div class="detailBlock">
@@ -914,9 +842,7 @@
 			<cfif len(attribute.attribute_type) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel"><!---Attributes--->
-						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editBiolIndiv');">Edit</span>
-						</cfif>
 					</div>
 					<cfquery name="sex" dbtype="query">
 						select * from attribute where attribute_type = 'sex'
@@ -1058,9 +984,7 @@
 <!------------------------------------ cataloged item ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">
-					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editBiolIndiv');">Edit</span>
-					</cfif>
 					</div>	
 					<cfif len(one.coll_object_remarks) gt 0>
 						<div class="detailBlock">
@@ -1079,7 +1003,6 @@
 							</span>
 						</div>
 					</cfif>
-					<cfif oneOfUs is 1>
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Disposition:</span>
@@ -1123,7 +1046,6 @@
 								</span>
 							</div>
 						</cfif>
-					</cfif>
 				</div>
 <!------------------------------------ accession ---------------------------------------------->
 			<cfquery name="accnMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1146,17 +1068,12 @@
 			</cfquery>
 			<div class="detailCell">
 				<div class="detailLabel">Accession
-					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
-					</cfif>
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
-						<cfif oneOfUs is 1>
 							<a href="/editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="_blank">#accession#</a>
-						<cfelse>
-							#accession#
-						</cfif>
+						
 						<cfif accnMedia.recordcount gt 0>
 							<div class="thumbs">
 								<div class="thumb_spcr">&nbsp;</div>
@@ -1179,7 +1096,6 @@
 				</div>
 			</div>		
 <!------------------------------------ usage ---------------------------------------------->
-		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (oneOfUs is 1 and isLoanedItem.collection_object_id gt 0)>
 			<div class="detailCell">
 				<div class="detailLabel">Usage</div>
 					<cfloop query="isProj">
@@ -1198,7 +1114,7 @@
 							</span>
 						</div>
 					</cfloop>
-					<cfif isLoanedItem.collection_object_id gt 0 and oneOfUs is 1>
+					<cfif isLoanedItem.collection_object_id gt 0>
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Loan History:</span>
@@ -1206,9 +1122,7 @@
 										target="_mainFrame">Click for loan list</a>
 							</span>
 						</div>
-					</cfif>
 				</div>
-		</cfif>
 <!------------------------------------ Media ---------------------------------------------->
 <cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     select distinct 
@@ -1258,7 +1172,6 @@
 <cfif media.recordcount gt 0>
     <div class="detailCell">
 		<div class="detailLabel">Media
-			<cfif oneOfUs is 1>
 				 <cfquery name="hasConfirmedImageAttr"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					SELECT count(*) c
 					FROM
@@ -1279,7 +1192,6 @@
 						Confirm Image IDs
 					</span> 
 				</CFIF>
-			</cfif>
 		</div>
 		<div class="detailBlock">
             <span class="detailData">			
@@ -1320,8 +1232,6 @@
 </cfif>
 	</td><!--- end right half of table --->
 </table>
-<cfif oneOfUs is 1>
 </form>
-</cfif>
 </cfoutput> 	
 <cf_customizeIFrame>
