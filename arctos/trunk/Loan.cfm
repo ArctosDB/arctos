@@ -1,7 +1,5 @@
 <cfinclude template="includes/_header.cfm">
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <cfif not isdefined("project_id")><cfset project_id = -1></cfif>
 <cfquery name="ctLoanType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select loan_type from ctloan_type order by loan_type
@@ -28,15 +26,12 @@
 </style>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#trans_date").datepicker();
-			jQuery("#to_trans_date").datepicker();
-			jQuery("#return_due_date").datepicker();	
-			jQuery("#to_return_due_date").datepicker();
-			jQuery("#initiating_date").datepicker();
-			jQuery("#shipped_date").datepicker();
-			
-		});
+			$("#trans_date").datepicker();
+			$("#to_trans_date").datepicker();
+			$("#return_due_date").datepicker();	
+			$("#to_return_due_date").datepicker();
+			$("#initiating_date").datepicker();
+			$("#shipped_date").datepicker();
 	});
 	function setAccnNum(i,v) {
 		var e = document.getElementById('loan_number');

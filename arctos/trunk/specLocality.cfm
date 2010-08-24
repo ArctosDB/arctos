@@ -1,21 +1,16 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery("#determined_date").datepicker();
-		jQuery("#began_date").datepicker();
-		jQuery("#ended_date").datepicker();
-		
+		$("#determined_date").datepicker();
+		$("#began_date").datepicker();
+		$("#ended_date").datepicker();
 		$(":input[id^='geo_att_determined_date']").each(function(e){
-			jQuery("#" + this.id).datepicker();
+			$("#" + this.id).datepicker();
 		});
 		$("select[id^='geology_attribute_']").each(function(e){
 			populateGeology(this.id);			
 		});	
 	});
-	
 	function populateGeology(id) {
 		if (id.indexOf('__') > -1) {
 			var idNum=id.replace('geology_attribute__','');

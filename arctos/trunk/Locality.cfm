@@ -1,12 +1,10 @@
 <div id="theHead">
 	<cfinclude template="includes/_header.cfm">
 </div>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery("#began_date").datepicker();
-		jQuery("#ended_date").datepicker();
+		$("#began_date").datepicker();
+		$("#ended_date").datepicker();
 	});
 </script>
 <cfoutput>

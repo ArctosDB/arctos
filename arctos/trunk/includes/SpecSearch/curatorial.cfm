@@ -1,13 +1,9 @@
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#beg_entered_date").datepicker();
-			jQuery("#end_entered_date").datepicker();
-			jQuery("#beg_last_edit_date").datepicker();
-			jQuery("#end_last_edit_date").datepicker();
-		});
+		$("#beg_entered_date").datepicker();
+		$("#end_entered_date").datepicker();
+		$("#beg_last_edit_date").datepicker();
+		$("#end_last_edit_date").datepicker();
 	});
 </script>
 <cfoutput>
