@@ -276,9 +276,10 @@ z-index:9999;
 				
 				var theFrame = document.createElement('iFrame');
 				theFrame.id='theFrame';
+				theFrame.className = 'editAppBox';
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 				theFrame.src=ptl;
-				//$("##fDiv").append(theFrame);
+				$("##fDiv").append(theFrame);
 				
 				
 				/*
