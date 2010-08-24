@@ -11,7 +11,7 @@
 		<cfquery name="parentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select container_id,barcode,label,container_type from container where barcode = '#parent_barcode#'
 		</cfquery>
-		<cfset thisDate = "#dateformat(timestamp,'DD-MMM-YYYY')# #timeformat(timestamp,'HH:mm:ss')#">
+		<cfset thisDate = "#dateformat(timestamp,'yyyy-mm-dd')# #timeformat(timestamp,'HH:mm:ss')#">
 		<cfif #childID.recordcount# is not 1>
 			<cfset result = "fail|Child container not found.">
 			<cfreturn result>
