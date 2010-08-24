@@ -204,6 +204,52 @@
     </table>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<style>
+			.bgDiv {
+				height:100%;
+				left:0;
+				position:fixed;
+				top:0;
+				width:100%;
+				z-index:2000;
+				opacity:0.5;
+				background:##024;
+			}
+			.editAppBox {
+				border:1px solid gray;
+				z-index:9998;
+				position:fixed;
+				top:1%;
+				left:2%;
+				width:95%;
+				height:95%;
+				background-color:lightgray;
+				overflow:auto;
+			}
+			.editFrame {
+				border-top:1px solid gray;
+				z-index:1000;
+				position:fixed;
+				top:7%;
+				left:2%;
+				width:95%;
+				height:90%;
+				z-index:9998;
+			}
+			.fancybox-close {
+				background:url("/images/fancybox.png") repeat scroll -40px 0 transparent;
+				cursor:pointer;
+				height:30px;
+				position:absolute;
+				right:0;
+				top:0;
+				width:30px;
+				z-index:9999;
+			}
+
+
+
+			/*
+			
 			.editAppBox {
 				border:3px solid green;
 				z-index:9998;
@@ -225,7 +271,6 @@
 				height:70%;
 z-index:9998;
 			}
-			/*			
 			.editFrame {
 				border:1px solid red;
 				z-index:1000;
@@ -236,39 +281,22 @@ z-index:9998;
 				height:100%;
 			}
 			*/
-			.closeControl {
-				
-cursor:pointer;
-height:300px;
-position:absolute;
-right:0;
-top:0;
-width:300px;
-				
-				z-index:9999;
-			}
 			
-			
-			
-			
-			.fancybox-close {
-background:url("/images/fancybox.png") repeat scroll -40px 0 transparent;
-cursor:pointer;
-height:30px;
-position:absolute;
-right:0;
-top:0;
-width:30px;
-z-index:9999;
-}
-
 		</style>
 		<script language="javascript" type="text/javascript">
 			function closeEditApp() {
 				$('##bgDiv').remove();
-				$('##editAppDiv').remove();
 				$('##bgDiv', window.parent.document).remove();
-				$('##partsAttDiv', window.parent.document).remove();
+				$('##popDiv').remove();
+				$('##popDiv', window.parent.document).remove();
+				
+				$('##cDiv').remove();
+				$('##cDiv', window.parent.document).remove();
+				
+				$('##theFrame').remove();
+				$('##theFrame', window.parent.document).remove();
+				
+			
 			}
 			function loadEditApp(q) {
 				var bgDiv = document.createElement('div');
@@ -289,12 +317,12 @@ z-index:9999;
 				cDiv.setAttribute('onclick','closeEditApp()');
 				$("##popDiv").append(cDiv);
 				
-				
+				/*
 				var fDiv=document.createElement('div');
 				fDiv.id='fDiv';
 				$("##popDiv").append(fDiv);
 				$("##fDiv").html('<img src="/images/loading.png">');
-				
+				*/
 				
 				var theFrame = document.createElement('iFrame');
 				theFrame.id='theFrame';
