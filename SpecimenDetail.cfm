@@ -405,6 +405,7 @@
 		<cfinclude template="SpecimenDetail_body.cfm">
 	</cfif>
 	--->
+	<cfinclude template="SpecimenDetail_body.cfm">
 	<cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and showAnnotation is "true">
 		<script language="javascript" type="text/javascript">
