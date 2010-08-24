@@ -1,6 +1,6 @@
 <cfcomponent>
 <!------------------------------------------------------------->
-<cffunction name="updateSciName" returntype="string">
+<cffunction name="updateSciName" returntype="string" access="remote">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfargument name="sciname" type="string" required="yes">
 	<cfset result = "success">
