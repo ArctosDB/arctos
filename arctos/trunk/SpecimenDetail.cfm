@@ -293,7 +293,7 @@ height:50px;
 		<span class="likeLink" onclick="loadEditApp('editIdentification');">editIdentification</span>
 		
 		
-		<a href="/editIdentification.cfm?keepThis=true&TB_iframe=true&height=250&width=400" title="add a caption to title attribute / or leave blank" class="thickbox">Example 1</a>  
+		<a href="/editIdentification.cfm?collection_object_id=#collection_object_id#&keepThis=true&TB_iframe=true&height=95%&width=95%" title="add a caption to title attribute / or leave blank" class="thickbox">Example 1</a>  
 	</cfif>
 
 	<!---
