@@ -244,7 +244,7 @@
 				controlWidget.id = 'closeWidget';
 				controlWidget.className = 'closeControl';
 				controlWidget.setAttribute('onclick','closeEditApp()');
-				$("##controlWidget".html('click to close');
+				$("##controlWidget").html('click to close');
 				theDiv.appendChild(controlWidget);
 				
 				
