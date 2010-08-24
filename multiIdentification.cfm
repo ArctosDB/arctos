@@ -1,18 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
-	<script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-		var cal1 = new CalendarPopup("theCalendar");
-		cal1.showYearNavigation();
-		cal1.showYearNavigationInput();
-	</SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
+<script language="JavaScript" type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#made_date").datepicker();
+	script});
+</SCRIPT>
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
-
-
-<!----------------------------------------------------------------------------------->
-
 <!--------------------------------------------------------------------------------------------------->
-<cfif #Action# is "nothing">
+<cfif Action is "nothing">
 	<!--- edit IDs for a list of specimens passed in from specimenresults --->
 	<!--- no security --->
 <cfset title = "Edit Identification">
@@ -153,7 +147,7 @@
               <td><div align="right">
 			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
 			  </div></td>
-              <td><input type="text" name="made_date"></td>
+              <td><input type="text" name="made_date" id="made_date"></td>
             </tr>
             <tr> 
               <td><div align="right">
@@ -390,6 +384,4 @@
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-	<cfinclude template="includes/_footer.cfm">
-
-<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
+<cfinclude template="includes/_footer.cfm">

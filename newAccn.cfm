@@ -1,11 +1,10 @@
 <cfinclude template="includes/_header.cfm">
-	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-		var cal1 = new CalendarPopup("theCalendar");
-		cal1.showYearNavigation();
-		cal1.showYearNavigationInput();
-	</SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		$("#rec_date").datepicker();
+		$("#ent_Date").datepicker();
+	});
+</script>
 <cfset title = "Create Accession">
 <cfif #action# is "nothing">
 <cfoutput>
@@ -56,14 +55,7 @@
 							</td>
 							<td>
 								<label for="rec_date">Rec. Date:</label>
-								<input type="text" name="rec_date" class="reqdClr">
-								<img src="images/pick.gif" 
-									class="likeLink" 
-									border="0" 
-									alt="[calendar]"
-									name="anchor1"
-									id="anchor1"
-									onClick="cal1.select(document.newAccn.rec_date,'anchor1','yyyy-mm-dd'); return false;"/>			
+								<input type="text" name="rec_date" id="rec_date" class="reqdClr">		
 							</td>
 						</tr>
 						<tr>
@@ -110,7 +102,7 @@
 							<td>&nbsp;</td>
 							<td colspan="2">
 								<label for="ent_Date">Entry Date:</label>
-								<cfinput type="text" name="ent_Date"  value="#thisDate#">
+								<cfinput type="text" name="ent_Date" id="ent_Date" value="#thisDate#">
 							</td>
 							<td colspan="2">
 								<label for="">Has Correspondence?</label>
@@ -297,5 +289,4 @@
 		<cflocation url="editAccn.cfm?Action=edit&transaction_id=#n.n#" addtoken="false">		
   </cfoutput>
 </cfif>
-<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
 <cfinclude template="includes/_footer.cfm">
