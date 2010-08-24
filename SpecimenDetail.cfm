@@ -215,6 +215,16 @@
 				background-color:white;
 				overflow:auto;
 			}
+			
+			.editFrame {
+				border:1px solid red;
+				z-index:1000;
+				position:absolute;
+				top:0;
+				left:0;
+				width:100%;
+				height:100%;
+			}
 			.closeControl {
 				
 cursor:pointer;
@@ -276,7 +286,7 @@ z-index:9999;
 				
 				var theFrame = document.createElement('iFrame');
 				theFrame.id='theFrame';
-				theFrame.className = 'editAppBox';
+				theFrame.className = 'editFrame';
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 				theFrame.src=ptl;
 				$("##fDiv").append(theFrame);
