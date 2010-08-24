@@ -215,7 +215,7 @@
 		document.body.appendChild(theDiv);
 		var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 		theDiv.src=ptl;
-		viewport.init("#partsAttDiv");
+		viewport.init("##partsAttDiv");
 		/*
 }
 			
