@@ -204,10 +204,11 @@
 			
 			
 			
-			
-			
-			
-		addBGDiv('closeAnnotation()');
+			var bgDiv = document.createElement('div');
+			bgDiv.id = 'bgDiv';
+			bgDiv.className = 'bgDiv';
+			bgDiv.setAttribute('onclick','closeAnnotation()');
+			document.body.appendChild(bgDiv);
 		var theDiv = document.createElement('iFrame');
 		theDiv.id = 'partsAttDiv';
 		theDiv.className = 'annotateBox';
@@ -224,11 +225,7 @@
 			
 			
 			
-			var bgDiv = document.createElement('div');
-			bgDiv.id = 'bgDiv';
-			bgDiv.className = 'bgDiv';
-			bgDiv.setAttribute('onclick','closeAnnotation()');
-			document.body.appendChild(bgDiv);
+			
 			
 			var theDiv = document.createElement('div');
 			theDiv.id = 'annotateDiv';
