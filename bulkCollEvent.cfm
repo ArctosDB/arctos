@@ -141,9 +141,8 @@
 </cfoutput>
 </table>
 <!----------------------------------------------------------------------------------->
-<cfif #action# is "updateCollEvent">
+<cfif action is "updateCollEvent">
 <cfoutput>
-	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
 	<cftransaction>
 		<cfloop list="#collection_object_id#" index="i">
 			<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -153,7 +152,7 @@
 			<cfquery name="upEd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE coll_object SET
 					last_edited_person_id=#session.myagentid#,
-					last_edit_date='#thisDate#'
+					last_edit_date=sysdate
 				WHERE
 					collection_object_id = #i#
 			</cfquery>
