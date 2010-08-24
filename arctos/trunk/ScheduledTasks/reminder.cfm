@@ -249,7 +249,7 @@
 					You are receiving this message because you are the contact person for the permits listed below, which are expiring.
 					<p>
 						<cfloop query="permitExpOneYearIndiv">
-							<a href="#Application.ServerRootUrl#/Permit.cfm?Action=search&permit_id=#permit_id#">Permit##: #PERMIT_NUM#</a> expires on #dateformat(exp_date,'dd mmm yyyy')# (#expires_in_days# days)<br>
+							<a href="#Application.ServerRootUrl#/Permit.cfm?Action=search&permit_id=#permit_id#">Permit##: #PERMIT_NUM#</a> expires on #dateformat(exp_date,'yyyy-mm-dd')# (#expires_in_days# days)<br>
 						</cfloop>
 					</p>
 				</cfmail>

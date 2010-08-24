@@ -1178,7 +1178,7 @@ geology loop....
 							<cfelse>
 								NULL,
 							</cfif>
-							to_date('#dateformat(thisGeoAttDate,"dd-mmm-yyyy")#'),
+							to_date('#dateformat(thisGeoAttDate,"yyyy-mm-dd")#'),
 							'#escapeQuotes(thisGeoAttMeth)#',
 							'#escapeQuotes(thisGeoAttRemark)#'
 						)
@@ -1210,7 +1210,7 @@ geology loop....
 						<cfelse>
 							NULL,
 						</cfif>
-						to_date('#dateformat(geo_att_determined_date,"dd-mmm-yyyy")#'),
+						to_date('#dateformat(geo_att_determined_date,"yyyy-mm-dd")#'),
 						'#escapeQuotes(geo_att_determined_method)#',
 						'#escapeQuotes(geo_att_remark)#'
 					)

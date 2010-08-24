@@ -36,7 +36,7 @@ transaction_id number
 		</li>
 		<li>A loan has been created in Arctos.</li>
 		<li>Loan Item reconciled person is you (<i>#session.username#</i>)</li>
-		<li>Loan Item reconciled date is today (#dateformat(now(),"dd mmm yyyy")#)</li>
+		<li>Loan Item reconciled date is today (#dateformat(now(),"yyyy-mm-dd")#)</li>
 	</ul>
 Step 1: Upload a file comma-delimited text file (CSV) in the following format. (You may copy the template below and save as .CSV)
  Include column headers. 
@@ -310,7 +310,6 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 <!------------------------------------------------------->
 <cfif #action# is "loadData">
 <cfoutput>
-	<cfset RECONCILED_DATE = #dateformat(now(),"dd-mmm-yyyy")#>
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_loan_item
 	</cfquery>
@@ -425,7 +424,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					 #transaction_id#,
 					  #thisPartId#,
 					  #session.myAgentId#,
-					  '#reconciled_date#',
+					  sysdate,
 					  '#ITEM_DESCRIPTION#'
 					  <cfif len(#ITEM_REMARKS#) gt 0>
 						,'#ITEM_REMARKS#'

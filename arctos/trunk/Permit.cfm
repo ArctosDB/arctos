@@ -127,26 +127,26 @@ where
 </cfif>
 <cfif len(#issued_date#) gt 0>
 	<cfif len(#issued_until_date#) gt 0>
-		<cfset sql = "#sql# AND upper(issued_date) between to_date('#issued_date#', 'DD Mon YYYY')
-														and to_date('#issued_until_date#', 'DD Mon YYYY')">
+		<cfset sql = "#sql# AND upper(issued_date) between to_date('#issued_date#', 'yyyy-mm-dd')
+														and to_date('#issued_until_date#', 'yyyy-mm-dd')">
 	<cfelse>
-		<cfset sql = "#sql# AND upper(issued_date) like to_date('#issued_date#', 'DD Mon YYYY')">
+		<cfset sql = "#sql# AND upper(issued_date) like to_date('#issued_date#', 'yyyy-mm-dd')">
 	</cfif>
 </cfif>
 <cfif len(#renewed_date#) gt 0>
 	<cfif len(#renewed_until_date#) gt 0>
-		<cfset sql = "#sql# AND upper(renewed_date) between to_date('#renewed_date#', 'DD Mon YYYY')
-														and to_date('#renewed_until_date#', 'DD Mon YYYY')">
+		<cfset sql = "#sql# AND upper(renewed_date) between to_date('#renewed_date#', 'yyyy-mm-dd')
+														and to_date('#renewed_until_date#', 'yyyy-mm-dd')">
 	<cfelse>
-		<cfset sql = "#sql# AND upper(renewed_date) like to_date('#renewed_date#', 'DD Mon YYYY')">
+		<cfset sql = "#sql# AND upper(renewed_date) like to_date('#renewed_date#', 'yyyy-mm-dd')">
 	</cfif>
 </cfif>
 <cfif len(#exp_date#) gt 0>
 	<cfif len(#exp_until_date#) gt 0>
-		<cfset sql = "#sql# AND upper(exp_date) between to_date('#exp_date#', 'DD Mon YYYY')
-														and to_date('#exp_until_date#', 'DD Mon YYYY')">
+		<cfset sql = "#sql# AND upper(exp_date) between to_date('#exp_date#', 'yyyy-mm-dd')
+														and to_date('#exp_until_date#', 'yyyy-mm-dd')">
 	<cfelse>
-		<cfset sql = "#sql# AND upper(exp_date) like to_date('#exp_date#', 'DD Mon YYYY')">
+		<cfset sql = "#sql# AND upper(exp_date) like to_date('#exp_date#', 'yyyy-mm-dd')">
 	</cfif>
 </cfif>
 <cfif len(#permit_Num#) gt 0>

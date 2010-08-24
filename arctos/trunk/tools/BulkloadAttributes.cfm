@@ -359,7 +359,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			<cfif len(#remarks#) gt 0>
 				,'#remarks#'
 			</cfif>
-			,'#dateformat(attribute_date,"dd-mmm-yyyy")#'
+			,'#dateformat(attribute_date,"yyyy-mm-dd")#'
 			<cfif len(#attribute_meth#) gt 0>
 				,'#attribute_meth#'
 			</cfif>

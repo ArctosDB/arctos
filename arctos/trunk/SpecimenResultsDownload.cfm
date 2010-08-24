@@ -138,7 +138,6 @@ do not agree</font>.</a>
 		You haven't filled in all required values! Please use your browser's back button to try again.
 		<cfabort>
 	</cfif>
-	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
 	<cfquery name="isUser" datasource="cf_dbuser">
 		select * from cf_user_data where user_id=#user_id#
 	</cfquery>

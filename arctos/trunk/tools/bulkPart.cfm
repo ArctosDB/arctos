@@ -550,7 +550,6 @@
 	<cfquery name="ids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct collection_object_id from #table_name#
 	</cfquery>
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cftransaction>
 		<cfloop query="ids">
 			<cfloop from="1" to="#numParts#" index="n">
@@ -575,7 +574,7 @@
 							sq_collection_object_id.nextval,
 							'SP',
 							#session.myAgentId#,
-							'#thisDate#',
+							sysdate,
 							#session.myAgentId#,
 							'#thisDisposition#',
 							#thisLotCount#,

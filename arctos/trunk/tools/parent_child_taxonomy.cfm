@@ -147,7 +147,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 				 ) values (
 				 sq_identification_id.nextval,
 				 #i#,
-				 '#dateformat(now(),"dd-mmm-yyyy")#',
+				 sysdate,
 				 'ID of kin',
 				 1,
 				 '#pData.TAXA_FORMULA#',

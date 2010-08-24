@@ -255,7 +255,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				insert into person (PERSON_ID,PREFIX,LAST_NAME,FIRST_NAME,
 					MIDDLE_NAME,SUFFIX,BIRTH_DATE,DEATH_DATE)
 				values (sq_agent_id.currval,'#PREFIX#','#LAST_NAME#','#FIRST_NAME#',
-					'#MIDDLE_NAME#','#SUFFIX#','#dateformat(BIRTH_DATE,"dd-mmm-yyyy")#', '#dateformat(DEATH_DATE,"dd-mmm-yyyy")#')
+					'#MIDDLE_NAME#','#SUFFIX#','#dateformat(BIRTH_DATE,"yyyy-mm-dd")#', '#dateformat(DEATH_DATE,"yyyy-mm-dd")#')
 			</cfquery>
 		</cfif>
 		<cfif len(#OTHER_NAME#) gt 0>

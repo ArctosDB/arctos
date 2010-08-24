@@ -265,7 +265,6 @@ Columns that begin with r$ are required; others are optional:
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_part_sample
 	</cfquery>
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>	
 	<cftransaction>
 	<cfloop query="getTempData">
 		<cfquery name="pPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -299,7 +298,7 @@ Columns that begin with r$ are required; others are optional:
 					sq_collection_object_id.nextval,
 					'SP',
 					#session.myAgentId#,
-					'#thisDate#',
+					sysdate,
 					'#r$sample_disposition#',
 					1,
 					'#r$sample_condition#',

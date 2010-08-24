@@ -101,10 +101,10 @@ Pending Relationships
 					#related_to_num_type# #related_to_number# 
 				</td>
 				<td>
-					#dateformat(insert_date,"dd mmm yyyy")#
+					#dateformat(insert_date,"yyyy-mm-dd")#
 				</td>
 				<td>
-					#dateformat(lasttrydate,"dd mmm yyyy")#
+					#dateformat(lasttrydate,"yyyy-mm-dd")#
 				</td>
 				<td>
 					<cfif #len(fail_reason)# is 0 and len(#related_collection_object_id#) gt 0>

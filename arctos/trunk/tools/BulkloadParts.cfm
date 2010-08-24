@@ -391,7 +391,6 @@ validate
 		<cfabort showerror = "Your login has has multiple matches.">
 	</cfif>
 	<cfset enteredbyid = getEntBy.agent_id>
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	
 	
 	<cftransaction>
@@ -416,7 +415,7 @@ validate
 				sq_collection_object_id.nextval,
 				'SP',
 				#enteredbyid#,
-				'#thisDate#',
+				sysdate,
 				#enteredbyid#,
 				'#DISPOSITION#',
 				#lot_count#,
