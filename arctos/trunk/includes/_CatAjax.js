@@ -792,13 +792,35 @@ function success_updateAf (result) {
 		alert('AF Save was not successful!');
 	}
 }
+
+function updateSciName (onoff) {
+	$.getJSON("/component/catalog.cfc",
+			{
+				method : "updateSciName",
+				collection_object_id : $("#collection_object_id").val(),
+				sciname : $("#scientific_name").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				if (r == 'success') {
+					$("#scientific_name").removeClass().addClass('d11a');
+				} else {
+					alert('An error occured! \n ' + r);
+				}	
+			}
+		);
+}
+
+/*
 function updateSciName() {
-	var theElement = 'scientific_name';
+	var theElement = '';
 	var e = document.getElementById(theElement).value;
 	var collection_object_id = document.getElementById('collection_object_id').value;
 	//alert(e);
 	DWREngine._execute(_catalog_func, null, 'updateSciName', collection_object_id,e, success_updateSciName);
 }
+*/
 function success_updateSciName (result) {
 	if (result == 'success') {
 		var e = document.getElementById('scientific_name');

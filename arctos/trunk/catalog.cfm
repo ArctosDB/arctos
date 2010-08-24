@@ -199,7 +199,6 @@
 	ORDER BY 
 		collector_role,
 		coll_order
-	
 </cfquery>
 <cfquery name="attributes"  dbtype="query">
 	SELECT 
@@ -257,14 +256,10 @@
 <cfquery name="identifiers" dbtype="query">
 	select id_by_agent from detail group by id_by_agent
 </cfquery>
-
-		
-		
-<cfset collection_cde = #detail.collection_cde#>
 	<!---- get data for dropdowns; cache it to speed up the form; refresh every hour---->
 	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT institution_acronym || ' ' || collection_cde as instcoll, collection_id FROM collection
-			WHERE collection_cde='#collection_cde#'
+			WHERE collection_cde='#detail.collection_cde#'
 	</cfquery>
 	<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select nature_of_id from ctnature_of_id
@@ -273,39 +268,38 @@
 	<cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS 
 		order by ORIG_LAT_LONG_UNITS
-     </cfquery>
-	 <cfquery name="ctflags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-        select flags from ctflags order by flags
-     </cfquery>
-	 <cfquery name="CTCOLL_OBJ_DISP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-        select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by COLL_OBJ_DISPOSITION
-     </cfquery>
-	 <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-      		select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by LAT_LONG_ERROR_UNITS
-      </cfquery>
-	   <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-			select datum from ctdatum order by datum
-      </cfquery>
-		<cfquery name="ctgeorefmethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
+    </cfquery>
+	<cfquery name="ctflags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
+       select flags from ctflags order by flags
+    </cfquery>
+	<cfquery name="CTCOLL_OBJ_DISP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
+       select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by COLL_OBJ_DISPOSITION
+    </cfquery>
+	<cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
+    	select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by LAT_LONG_ERROR_UNITS
+    </cfquery>
+	<cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
+		Select datum from ctdatum order by datum
+    </cfquery>
+	<cfquery name="ctgeorefmethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
         select georefmethod from ctgeorefmethod order by georefmethod
-        </cfquery>
-		<cfquery name="ctverificationstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-        select verificationstatus from ctverificationstatus order by verificationstatus
-        </cfquery>
-		
-        <cfquery name="ctew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-        select e_or_w from ctew 
-        </cfquery>
-        <cfquery name="ctns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-        select n_or_s from ctns 
-        </cfquery>
+    </cfquery>
+	<cfquery name="ctverificationstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
+    	select verificationstatus from ctverificationstatus order by verificationstatus
+    </cfquery>
+	<cfquery name="ctew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
+       select e_or_w from ctew 
+    </cfquery>
+    <cfquery name="ctns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
+   		select n_or_s from ctns 
+    </cfquery>
 		<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(other_id_type) FROM ctColl_Other_id_type
 				order by other_id_type
         </cfquery>
 		<cfquery name="ctSex_Cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(sex_cde) as sex_cde FROM ctSex_Cde
-				WHERE collection_cde='#collection_cde#'
+				WHERE collection_cde='#detail.collection_cde#'
 				order by sex_cde
         </cfquery>
 		<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
@@ -317,7 +311,7 @@
         </cfquery>
 		<cfquery name="ctPartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(part_name) FROM ctSpecimen_part_name
-				WHERE collection_cde='#collection_cde#'
+				WHERE collection_cde='#detail.collection_cde#'
 				order by part_name
         </cfquery>
 		<cfquery name="ctLength_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
@@ -329,7 +323,7 @@
 		</cfquery>
 		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT attribute_type FROM ctattribute_type 
-			WHERE collection_cde='#collection_cde#'
+			WHERE collection_cde='#detail.collection_cde#'
 			order by attribute_type
 		</cfquery>
 		<cfquery name="ctCodes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
