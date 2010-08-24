@@ -263,19 +263,22 @@ z-index:1103;
 
 				var cDiv=document.createElement('div');
 				cDiv.className = 'fancybox-close';
+				cDiv.id='cDiv';
 				//cDiv.innerHTML = 'X';
-				$("##popDiv").append(cDiv);
 				cDiv.setAttribute('onclick','closeEditApp()');
+				$("##popDiv").append(cDiv);
+				
 				
 				var fDiv=document.createElement('div');
 				fDiv.id='fDiv';
 				$("##popDiv").append(fDiv);
-				$("##fDiv").html('<img src="/images/loading.png">);
+				$("##fDiv").html('<img src="/images/loading.png">');
 				
 				var theFrame = document.createElement('iFrame');
 				theFrame.id='theFrame';
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 				theFrame.src=ptl;
+				$("##fDiv").append(theFrame);
 				
 				
 				/*
