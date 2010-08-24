@@ -22,7 +22,7 @@
 		collecting_event.collecting_event_id,
 		collecting_event.began_date,
 		collecting_event.ended_date,
-		collecting_event.verbatim_date.
+		collecting_event.verbatim_date,
 		collecting_event.habitat_desc,
 		locality.locality_id,
 		locality.minimum_elevation,
