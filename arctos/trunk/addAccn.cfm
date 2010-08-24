@@ -5,7 +5,7 @@
 	select collection, collection_id from collection order by collection
 </cfquery>
 <!--------------------------------------------------------------------------------->
-<cfif #Action# is "nothing">
+<cfif action is "nothing">
 <cfoutput>
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
@@ -34,8 +34,10 @@
 		preferred_agent_name,
 		identification,
 		collection,
-		collection a_coll,
-		#session.SpecSrchTab#
+		collection a_coll
+		<cfif isdefined("collection_object_id") and listlen(collection_object_id) gt 1>
+			,#session.SpecSrchTab#
+		</cfif>
 	WHERE
 		cataloged_item.accn_id = accn.transaction_id AND
 		accn.transaction_id = trans.transaction_id AND
@@ -49,7 +51,12 @@
 		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
 		identification.accepted_id_fg = 1 AND
-		cataloged_item.collection_object_id = #session.SpecSrchTab#.collection_object_id
+		cataloged_item.collection_object_id = 
+		<cfif isdefined("collection_object_id") and listlen(collection_object_id) is 1>
+			#collection_object_id#
+		<cfelse>
+			#session.SpecSrchTab#.collection_object_id
+		</cfif>
 	ORDER BY cataloged_item.collection_object_id
 	</cfquery>
 	Add all the items listed below to accession:

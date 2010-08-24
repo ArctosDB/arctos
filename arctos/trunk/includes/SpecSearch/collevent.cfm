@@ -95,7 +95,7 @@
 					</td>
 					<td>
 						<label for="endDate">Full Date</label>
-						<input name="endDate" id="endDate" type="text">
+						<input name="endDate" id="endDate" size="10" type="text">
 					</td>
 				</tr>
 			</table>
