@@ -256,16 +256,10 @@ height:50px;
 				
 				
 				
-				
-				//function callIframe(url, callback) {
-			   // $(document.body).append('<IFRAME id="myId" ...>');
-			    //$('iframe#myId').attr('src', url);
-			
-			    $('iframe##theDiv').load(function() 
+			   $('iframe##theDiv').load(function() 
 			    {
 			        viewport.init("##editAppDiv");
 			    });
-//}
 				
 		/*
 }
