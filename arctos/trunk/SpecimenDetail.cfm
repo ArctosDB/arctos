@@ -276,7 +276,7 @@ z-index:9999;
 				bgDiv.className = 'bgDiv';
 				bgDiv.setAttribute('onclick','closeEditApp()');
 				document.body.appendChild(bgDiv);
-				/*
+				
 				var popDiv=document.createElement('div');
 				popDiv.id = 'popDiv';
 				popDiv.className = 'editAppBox';
@@ -294,7 +294,7 @@ z-index:9999;
 				fDiv.id='fDiv';
 				$("##popDiv").append(fDiv);
 				$("##fDiv").html('<img src="/images/loading.png">');
-				*/
+				
 				
 				var theFrame = document.createElement('iFrame');
 				theFrame.id='theFrame';
@@ -304,12 +304,6 @@ z-index:9999;
 				//$("##fDiv").append(theFrame);
 				document.body.appendChild(theFrame);
 				
-				var cDiv=document.createElement('div');
-				cDiv.className = 'fancybox-close';
-				cDiv.id='cDiv';
-				//cDiv.innerHTML = 'X';
-				cDiv.setAttribute('onclick','closeEditApp()');
-				$("##theFrame").append(cDiv);
 				
 				
 				/*
