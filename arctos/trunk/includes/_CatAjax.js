@@ -792,7 +792,7 @@ function success_updateAf (result) {
 		alert('AF Save was not successful!');
 	}
 }
-
+/*
 function updateSciName (onoff) {
 	$("#scientific_name").addClass('red');
 	$.getJSON("/component/catalog.cfc",
@@ -812,8 +812,8 @@ function updateSciName (onoff) {
 			}
 		);
 }
+*/
 
-/*
 function updateSciName() {
 	var theElement = '';
 	var e = document.getElementById(theElement).value;
@@ -830,7 +830,7 @@ function success_updateSciName (result) {
 		alert(result);
 	}
 }
-*/
+
 
 function updateimade_date(name) {
 	//alert(name);
