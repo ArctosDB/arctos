@@ -215,7 +215,17 @@
 				background-color:white;
 				overflow:auto;
 			}
-			
+.editFrame {
+				border:1px solid red;
+				z-index:1000;
+				position:fixed;
+				top:10%;
+				left:10%;
+				width:70%;
+				height:70%;
+z-index:9998;
+			}
+			/*			
 			.editFrame {
 				border:1px solid red;
 				z-index:1000;
@@ -225,6 +235,7 @@
 				width:100%;
 				height:100%;
 			}
+			*/
 			.closeControl {
 				
 cursor:pointer;
@@ -292,6 +303,14 @@ z-index:9999;
 				theFrame.src=ptl;
 				//$("##fDiv").append(theFrame);
 				document.body.appendChild(theFrame);
+				
+				var cDiv=document.createElement('div');
+				cDiv.className = 'fancybox-close';
+				cDiv.id='cDiv';
+				//cDiv.innerHTML = 'X';
+				cDiv.setAttribute('onclick','closeEditApp()');
+				$("##theFrame").append(cDiv);
+				
 				
 				/*
 				
