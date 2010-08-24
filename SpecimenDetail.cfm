@@ -214,7 +214,8 @@
 				position:absolute;
 				right:0;
 				top:0;
-				border:1px solid red;
+				border:1px solid red;width:50px;
+height:50px;
 			}
 		</style>
 		<script language="javascript" type="text/javascript">
@@ -245,7 +246,7 @@
 				controlWidget.className = 'closeControl';
 				controlWidget.setAttribute('onclick','closeEditApp()');
 				$("##controlWidget").html('click to close');
-				document.body.appendChild(controlWidget);
+				theDiv.appendChild(controlWidget);
 				
 				
 				
