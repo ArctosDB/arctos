@@ -1,7 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
-
 <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
 	function clearForm() {
 		document.getElementById('uname').value='';
@@ -11,10 +9,8 @@
 		document.getElementById('sql').value='';
 	}
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#bdate").datepicker();
-			jQuery("#edate").datepicker();
-		});
+		jQuery("#bdate").datepicker();
+		jQuery("#edate").datepicker();
 	});
 	
 </SCRIPT>

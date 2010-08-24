@@ -60,7 +60,7 @@ Add #collection_cde# #cat_num# #item# to loan #getLoan.project_title#
 	VALUES (
 		#session.loan_request_id#,
 		#collection_object_id#,
-		'#dateformat(now(),"dd-mmm-yyyy")#',
+		'#dateformat(now(),"yyyy-mm-dd")#',
 		'#volume#' 
 		<cfif len(#remarks#) gt 0>
 			,'#REMARKS#'

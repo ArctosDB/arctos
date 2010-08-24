@@ -1,13 +1,9 @@
 <cfinclude template="includes/_header.cfm">
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#start_date").datepicker();
-			jQuery("#end_date").datepicker();
-			jQuery("#ended_date").datepicker();	
-		});		
+		jQuery("#start_date").datepicker();
+		jQuery("#end_date").datepicker();
+		jQuery("#ended_date").datepicker();	
 	});
 	function addProjTaxon() {
 		if (document.getElementById('newTaxId').value.length == 0){
@@ -183,11 +179,11 @@ Projects are activities that have contributed specimens, used specimens, or both
 			#nextID.nextid#,
 			'#PROJECT_NAME#'
 			<cfif len(#START_DATE#) gt 0>
-				,'#dateformat(START_DATE,"dd-mmm-yyyy")#'
+				,'#dateformat(START_DATE,"yyyy-mm-dd")#'
 			</cfif>
 			
 			<cfif len(#END_DATE#) gt 0>
-				,'#dateformat(END_DATE,"dd-mmm-yyyy")#'
+				,'#dateformat(END_DATE,"yyyy-mm-dd")#'
 			</cfif>
 			<cfif len(#PROJECT_DESCRIPTION#) gt 0>
 				,'#PROJECT_DESCRIPTION#'
@@ -788,12 +784,12 @@ VALUES (
  UPDATE project SET project_id = #project_id#
  ,project_name = '#project_name#'
  <cfif len(#start_date#) gt 0>
- 	,start_date = '#dateformat(start_date,"dd-mmm-yyyy")#'
+ 	,start_date = '#dateformat(start_date,"yyyy-mm-dd")#'
 <cfelse>
 	,start_date = null
  </cfif>
  <cfif len(#end_date#) gt 0>
- 	,end_date = '#dateformat(end_date,"dd-mmm-yyyy")#'
+ 	,end_date = '#dateformat(end_date,"yyyy-mm-dd")#'
  <cfelse>
  	,end_date = null
  </cfif>

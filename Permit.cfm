@@ -660,14 +660,14 @@ VALUES (
 	#nextPermit.nextPermit#,
 	 #IssuedByAgentId#
 	 <cfif len(#ISSUED_DATE#) gt 0>
-	 	,'#dateformat(ISSUED_DATE,"dd-mmm-yyyy")#'
+	 	,'#dateformat(ISSUED_DATE,"yyyy-mm-dd")#'
 	 </cfif>
 	 ,#IssuedToAgentId#
 	  <cfif len(#RENEWED_DATE#) gt 0>
-	 	,'#dateformat(RENEWED_DATE,"dd-mmm-yyyy")#'
+	 	,'#dateformat(RENEWED_DATE,"yyyy-mm-dd")#'
 	 </cfif>
 	 <cfif len(#EXP_DATE#) gt 0>
-	 	,'#dateformat(EXP_DATE,"dd-mmm-yyyy")#'
+	 	,'#dateformat(EXP_DATE,"yyyy-mm-dd")#'
 	 </cfif>
 	 <cfif len(#PERMIT_NUM#) gt 0>
 	 	,'#PERMIT_NUM#'

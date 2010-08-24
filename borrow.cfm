@@ -1,8 +1,4 @@
 <cfinclude template = "/includes/_header.cfm">
-
-<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
-
 <cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select borrow_status from ctborrow_status
 	</cfquery>
@@ -17,18 +13,16 @@
 </cfquery>
 <script>
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#received_date").datepicker();
-			jQuery("#lenders_loan_date").datepicker();
-			jQuery("#due_date").datepicker();	
-			jQuery("#trans_date").datepicker();
-			jQuery("#received_date_after").datepicker();
-			jQuery("#received_date_before").datepicker();
-			jQuery("#due_date_after").datepicker();
-			jQuery("#due_date_before").datepicker();
-			jQuery("#lenders_loan_date_after").datepicker();
-			jQuery("#lenders_loan_date_before").datepicker();
-		});
+		jQuery("#received_date").datepicker();
+		jQuery("#lenders_loan_date").datepicker();
+		jQuery("#due_date").datepicker();	
+		jQuery("#trans_date").datepicker();
+		jQuery("#received_date_after").datepicker();
+		jQuery("#received_date_before").datepicker();
+		jQuery("#due_date_after").datepicker();
+		jQuery("#due_date_before").datepicker();
+		jQuery("#lenders_loan_date_after").datepicker();
+		jQuery("#lenders_loan_date_before").datepicker();
 	});
 	function setBorrowNum(cid,v){
 		$("#borrow_number").val(v);
