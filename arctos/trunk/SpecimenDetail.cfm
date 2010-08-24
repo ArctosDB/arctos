@@ -213,7 +213,7 @@
 			theDiv.innerHTML='';
 			theDiv.src = "";
 			document.body.appendChild(theDiv);
-			var guts = q + ".cfm?collection_object_id=" + #collection_object_id#;
+			var guts = "/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 			jQuery('##annotateDiv').load(guts,{},function(){
 				viewport.init("##annotateDiv");
 				viewport.init("##bgDiv");
