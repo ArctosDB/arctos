@@ -139,7 +139,6 @@
 	<cfquery name="bugID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(bug_id) + 1 as id from cf_bugs
 	</cfquery>
-	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
 	<!--- strip out the crap....--->
 	<cfset badStuff = "---a href,---script,[link,[url">
 	<cfset concatSub = "#reported_name# #suggested_solution# #user_remarks# #user_email#">
@@ -173,7 +172,7 @@
 			'#suggested_solution#',
 			'#user_remarks#',
 			'#user_email#',
-			'#thisDate#')				
+			sysdate)				
 	</cfquery>
 	
 	<!--- get the proper emails to report this to --->

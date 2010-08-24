@@ -192,7 +192,7 @@ There are #getDump.recordcount# items in the table
 				<td>#parent#</td>
 				<td>#child#</td>
 			<cfset thisError = "">
-			<cfset timeStamp = '#dateformat(sdate,"dd-mmm-yyyy")# #timeformat(stime,"hh:mm:ss")#'>
+			<cfset timeStamp = '#dateformat(sdate,"yyyy-mm-dd")# #timeformat(stime,"hh:mm:ss")#'>
 			<td>#timeStamp#</td>
 			<!---- get container IDs ---->
 			<!---
@@ -312,12 +312,12 @@ There are #getDump.recordcount# items in the table
 			<cfquery name="itsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) cnt from container where
 				parent_container_id = #parent_container_id# and
-				to_char(parent_install_date,'DD-Mon-YYYY')='#dateformat(timeStamp,"dd-mmm-yyyy")#' and
+				to_char(parent_install_date,'DD-Mon-YYYY')='#dateformat(timeStamp,"yyyy-mm-dd")#' and
 				container_id=#container_id#
 			</cfquery>
 			<cfif #itsThere.cnt# is 0>
 				<!--- format the timestamp ---->
-				<cfset ts = '#dateformat(timestamp,"dd-mmm-yyyy")# #timeformat(timestamp,"HH:mm:ss")#'>
+				<cfset ts = '#dateformat(timestamp,"yyyy-mm-dd")# #timeformat(timestamp,"HH:mm:ss")#'>
 				
 						<cftry>
 							<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

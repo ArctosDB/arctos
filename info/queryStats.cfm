@@ -64,7 +64,7 @@ test-uam> desc uam_query.query_stats_coll
 			alt="[calendar]"
 			name="anchor1"
 			id="anchor1"
-			onClick="cal1.select(document.f.bdate,'anchor1','dd-MMM-yyyy'); return false;"/>
+			onClick="cal1.select(document.f.bdate,'anchor1','yyyy-mm-dd'); return false;"/>
 		<label for="edate">Ended Date</label>
 		<input type="text" name="edate" id="edate">
 		<img src="/images/pick.gif" 
@@ -73,7 +73,7 @@ test-uam> desc uam_query.query_stats_coll
 			alt="[calendar]"
 			name="anchor1"
 			id="anchor1"
-			onClick="cal1.select(document.f.edate,'anchor1','dd-MMM-yyyy'); return false;"/>	
+			onClick="cal1.select(document.f.edate,'anchor1','yyyy-mm-dd'); return false;"/>	
 	<br><input type="button" class="lnkBtn" value="Table" onclick="f.action.value='showTable';f.submit();">
 	<br><input type="button" class="lnkBtn" value="Graph" onclick="f.action.value='showSummary';f.submit();">
 </form>
@@ -108,8 +108,8 @@ test-uam> desc uam_query.query_stats_coll
 			</cfif>
 			<cfif len(#bdate#) gt 0>
 				AND (
-					to_date(to_char(CREATE_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
-					and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+					to_date(to_char(CREATE_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
+					and to_date('#dateformat(edate,"yyyy-mm-dd")#')
 				)
 			</cfif>
 		</cfquery>
@@ -340,8 +340,8 @@ test-uam> desc uam_query.query_stats_coll
 			</cfif>
 			<cfif len(#bdate#) gt 0>
 				AND (
-					to_date(to_char(CREATE_DATE,'dd-Mon-yyyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
-					and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+					to_date(to_char(CREATE_DATE,'yyyy-mm-dd')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
+					and to_date('#dateformat(edate,"yyyy-mm-dd")#')
 				)
 			</cfif>
 		) where rownum <= 5000

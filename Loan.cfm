@@ -685,7 +685,7 @@
 					,#PACKED_BY_AGENT_ID#
 					,'#SHIPPED_CARRIER_METHOD#'
 					,'#CARRIERS_TRACKING_NUMBER#'
-					,'#dateformat(SHIPPED_DATE,"dd-mmm-yyyy")#'
+					,'#dateformat(SHIPPED_DATE,"yyyy-mm-dd")#'
 					,'#PACKAGE_WEIGHT#'
 					,#HAZMAT_FG#
 					<cfif len(INSURED_FOR_INSURED_VALUE) gt 0>
@@ -706,7 +706,7 @@
 					PACKED_BY_AGENT_ID = #PACKED_BY_AGENT_ID#
 					,SHIPPED_CARRIER_METHOD = '#SHIPPED_CARRIER_METHOD#'
 					,CARRIERS_TRACKING_NUMBER='#CARRIERS_TRACKING_NUMBER#'
-					,SHIPPED_DATE='#dateformat(SHIPPED_DATE,"dd-mmm-yyyy")#'
+					,SHIPPED_DATE='#dateformat(SHIPPED_DATE,"yyyy-mm-dd")#'
 					,PACKAGE_WEIGHT='#PACKAGE_WEIGHT#'
 					,HAZMAT_FG=#HAZMAT_FG#
 					<cfif len(#INSURED_FOR_INSURED_VALUE#) gt 0>
@@ -733,7 +733,7 @@
 			<cfquery name="upTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE  trans  SET 
 					collection_id=#collection_id#,
-					TRANS_DATE = '#dateformat(initiating_date,"dd-mmm-yyyy")#'
+					TRANS_DATE = '#dateformat(initiating_date,"yyyy-mm-dd")#'
 					,NATURE_OF_MATERIAL = '#NATURE_OF_MATERIAL#'
 					,trans_remarks = '#trans_remarks#'
 				where 
@@ -744,7 +744,7 @@
 					TRANSACTION_ID = #TRANSACTION_ID#,
 					LOAN_TYPE = '#LOAN_TYPE#',
 					LOAN_NUMber = '#loan_number#'
-					,return_due_date = '#dateformat(return_due_date,"dd-mmm-yyyy")#'
+					,return_due_date = '#dateformat(return_due_date,"yyyy-mm-dd")#'
 					,loan_status = '#loan_status#'						
 					,loan_description = '#loan_description#'						
 					,LOAN_INSTRUCTIONS = '#LOAN_INSTRUCTIONS#'						
@@ -780,11 +780,11 @@
 							sq_project_id.nextval,
 							'#PROJECT_NAME#'
 							<cfif len(#START_DATE#) gt 0>
-								,'#dateformat(START_DATE,"dd-mmm-yyyy")#'
+								,'#dateformat(START_DATE,"yyyy-mm-dd")#'
 							</cfif>
 							
 							<cfif len(#END_DATE#) gt 0>
-								,'#dateformat(END_DATE,"dd-mmm-yyyy")#'
+								,'#dateformat(END_DATE,"yyyy-mm-dd")#'
 							</cfif>
 							<cfif len(#PROJECT_DESCRIPTION#) gt 0>
 								,'#PROJECT_DESCRIPTION#'
@@ -924,7 +924,7 @@
 						,'#loan_status#'
 					</cfif>
 					<cfif len(#return_due_date#) gt 0>
-						,'#dateformat(return_due_date,"dd-mmm-yyyy")#'
+						,'#dateformat(return_due_date,"yyyy-mm-dd")#'
 					</cfif>
 					<cfif len(#LOAN_INSTRUCTIONS#) gt 0>
 						,'#LOAN_INSTRUCTIONS#'
@@ -1237,15 +1237,15 @@
 		<cfif not isdefined("to_return_due_date") or len(to_return_due_date) is 0>
 			<cfset to_return_due_date=return_due_date>
 		</cfif>
-		<cfset sql = "#sql# AND return_due_date between to_date('#dateformat(return_due_date, "dd-mmm-yyyy")#')
-			and to_date('#dateformat(to_return_due_date, "dd-mmm-yyyy")#')">
+		<cfset sql = "#sql# AND return_due_date between to_date('#dateformat(return_due_date, "yyyy-mm-dd")#')
+			and to_date('#dateformat(to_return_due_date, "yyyy-mm-dd")#')">
 	</cfif>	
 	<cfif isdefined("trans_date") and len(#trans_date#) gt 0>
 		<cfif not isdefined("to_trans_date") or len(to_trans_date) is 0>
 			<cfset to_trans_date=trans_date>
 		</cfif>
-		<cfset sql = "#sql# AND trans_date between to_date('#dateformat(trans_date, "dd-mmm-yyyy")#')
-			and to_date('#dateformat(to_trans_date, "dd-mmm-yyyy")#')">
+		<cfset sql = "#sql# AND trans_date between to_date('#dateformat(trans_date, "yyyy-mm-dd")#')
+			and to_date('#dateformat(to_trans_date, "yyyy-mm-dd")#')">
 	</cfif>
 	<cfif isdefined("trans_remarks") AND len(#trans_remarks#) gt 0>
 		<cfset sql = "#sql# AND upper(trans_remarks) LIKE '%#ucase(trans_remarks)#%'">

@@ -802,7 +802,6 @@
 	<cfargument name="position_id" type="numeric" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
 	<cfset thisContainerId = "">
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<CFTRY>
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select container_id,label from container where barcode='#barcode#'
@@ -828,7 +827,7 @@
 			<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				update container set
 				parent_container_id = #position_id#,
-				PARENT_INSTALL_DATE = '#thisDate#'
+				PARENT_INSTALL_DATE = sysdate
 				where container_id = #thisContainerId#
 			</cfquery>
 			<cfset result = "#box_position#|#thisID.label#">
@@ -1288,7 +1287,6 @@
 	<cfargument name="coll_object_remarks" type="string" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
 	<cfargument name="new_container_type" type="string" required="yes">
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cftry>
 		<cftransaction>
 			<cfquery name="ccid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1309,7 +1307,7 @@
 					#ccid.nv#,
 					'SP',
 					#session.myAgentId#,
-					'#thisDate#',
+					sysdate,
 					#session.myAgentId#,
 					'#COLL_OBJ_DISPOSITION#',
 					#lot_count#,
@@ -1418,7 +1416,6 @@
 	<cfargument name="remark" type="string" required="yes">
 	<cfargument name="instructions" type="string" required="yes">
 	<cfargument name="subsample" type="numeric" required="yes">
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cfoutput>
 	<cftransaction>
 		<cftry>
@@ -1466,9 +1463,9 @@
 					(#n.n#,
 					'SS',
 					#session.myAgentId#,
-					'#thisDate#',
+					sysdate,
 					#session.myAgentId#,
-					'#thisDate#',
+					sysdate,
 					'#parentData.coll_obj_disposition#',
 					1,
 					'#parentData.condition#')
@@ -1508,7 +1505,7 @@
 					#partID#,
 				</cfif>		
 				#session.myagentid#,
-				'#thisDate#'
+				sysdate
 				,'#meta.collection# #meta.cat_num# #meta.part_name#'
 				<cfif len(#instructions#) gt 0>
 					,'#instructions#'

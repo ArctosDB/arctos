@@ -340,9 +340,7 @@
 				<div class="helpLink" id="identification.made_date">ID Date:</div>
 			</td>
             <td>
-				<input type="text" value="#dateformat(made_date,'yyyy-mm-dd')#" name="made_date_#i#"
-				 id="made_date_#i#">
-				
+				<input type="text" value="#dateformat(made_date,'yyyy-mm-dd')#" name="made_date_#i#" id="made_date_#i#">
            </td>
 		</tr>
         <tr> 
@@ -429,7 +427,7 @@
 				<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						UPDATE identification SET
 						nature_of_id = '#thisNature#',
-						made_date = '#dateformat(thisMadeDate,'dd-mmm-yyyy')#',
+						made_date = '#dateformat(thisMadeDate,'yyyy-mm-dd')#',
 						identification_remarks = '#escapeQuotes(thisIdRemark)#'
 						<cfif len(thisPubId) gt 0>
 							,publication_id = #thisPubId#
@@ -558,7 +556,7 @@
 			sq_identification_id.nextval,
 			#COLLECTION_OBJECT_ID#
 			<cfif len(#MADE_DATE#) gt 0>
-				,'#dateformat(MADE_DATE,"dd-mmm-yyyy")#'
+				,'#dateformat(MADE_DATE,"yyyy-mm-dd")#'
 			</cfif>
 			,'#NATURE_OF_ID#'
 			 ,1

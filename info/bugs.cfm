@@ -62,7 +62,6 @@
 	<cfquery name="bugID" datasource="cf_dbuser">
 		select max(bug_id) + 1 as id from cf_bugs
 	</cfquery>
-	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
 	<!--- strip out the crap....--->
 	<cfset badStuff = "---a href,---script,[link,[url">
 	<cfset concatSub = "#reported_name# #complaint# #suggested_solution# #user_remarks# #user_email#">
@@ -100,7 +99,7 @@
 			#user_priority#,
 			'#user_remarks#',
 			'#user_email#',
-			'#thisDate#')			
+			sysdate)			
 	</cfquery>
 	
 	<cfmail to="#Application.bugReportEmail#" subject="ColdFusion bug report submitted" from="BugReport@#Application.fromEmail#" type="html">

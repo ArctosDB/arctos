@@ -1152,7 +1152,7 @@
 						,geo_att_determiner_id=NULL
 					</cfif>
 					<cfif len(#thisDate#) gt 0>
-						,geo_att_determined_date='#dateformat(thisDate,"dd-mmm-yyyy")#'
+						,geo_att_determined_date='#dateformat(thisDate,"yyyy-mm-dd")#'
 					<cfelse>
 						,geo_att_determined_date=NULL
 					</cfif>
@@ -1202,7 +1202,7 @@
 					,#geo_att_determiner_id#
 				</cfif>
 				<cfif len(#geo_att_determined_date#) gt 0>
-					,'#dateformat(geo_att_determined_date,"dd-mmm-yyyy")#'
+					,'#dateformat(geo_att_determined_date,"yyyy-mm-dd")#'
 				</cfif>
 				<cfif len(#geo_att_determined_method#) gt 0>
 					,'#stripQuotes(geo_att_determined_method)#'
@@ -1515,7 +1515,7 @@
 							</cfif>
 							,'#ORIG_LAT_LONG_UNITS#'
 							,#DETERMINED_BY_AGENT_ID#
-							,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#'
+							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#'
 							,'#LAT_LONG_REF_SOURCE#'
 							<cfif len(#LAT_LONG_REMARKS#) gt 0>
 								,'#LAT_LONG_REMARKS#'
@@ -1684,7 +1684,7 @@
 							</cfif>
 							,'#ORIG_LAT_LONG_UNITS#'
 							,#DETERMINED_BY_AGENT_ID#
-							,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#'
+							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#'
 							,'#LAT_LONG_REF_SOURCE#'
 							<cfif len(#LAT_LONG_REMARKS#) gt 0>
 								,'#LAT_LONG_REMARKS#'
@@ -1755,7 +1755,7 @@
 		DATUM = '#DATUM#'
 		,ACCEPTED_LAT_LONG_FG = #ACCEPTED_LAT_LONG_FG#	
 		,orig_lat_long_units = '#orig_lat_long_units#'
-		,determined_date = '#dateformat(determined_date,'dd-mmm-yyyy')#'
+		,determined_date = '#dateformat(determined_date,'yyyy-mm-dd')#'
 		,lat_long_ref_source = '#stripQuotes(lat_long_ref_source)#'
 		,determined_by_agent_id = #determined_by_agent_id#
 		,georefMethod='#georefMethod#'
@@ -1971,7 +1971,7 @@
 		,#ACCEPTED_LAT_LONG_FG#
 		,'#stripQuotes(lat_long_ref_source)#'
 		,#determined_by_agent_id#
-		,'#dateformat(determined_date,'dd-mmm-yyyy')#'
+		,'#dateformat(determined_date,'yyyy-mm-dd')#'
 		,'#ORIG_LAT_LONG_UNITS#'
 		,'#georefmethod#'
 		,'#verificationstatus#'

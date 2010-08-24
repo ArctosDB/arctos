@@ -59,7 +59,7 @@ ContainerType#chr(9)#Label#chr(9)#Description#chr(9)#Barcode#chr(9)#InstallDate#
 			<cfset p4id = "">
 			<cfset p5id = "">
 			<cfset p6id = "">
-			<cfset thisDate = #dateformat(PARENT_INSTALL_DATE,"dd-mmm-yyyy")#>
+			<cfset thisDate = #dateformat(PARENT_INSTALL_DATE,"yyyy-mm-dd")#>
 			<cfset oneLine = "#CONTAINER_TYPE##chr(9)##label##chr(9)##DESCRIPTION##chr(9)##barcode##chr(9)##thisDate##chr(9)#">
 			<!----
 			<tr>

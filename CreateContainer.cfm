@@ -45,7 +45,7 @@
 				<cfelse><cfset description = "'#description#'">
 			</cfif>
 			<cfif isdate("#parent_install_date#")>
-				<cfset parent_install_date = "'#Dateformat(parent_install_date, "DD-Mmm-YYYY")#'">
+				<cfset parent_install_date = "'#Dateformat(parent_install_date, "yyyy-mm-dd")#'">
 				
 				<cfelse>
 				Need a date <cfabort>
@@ -140,7 +140,7 @@
 				<cfelse><cfset description = "'#description#'">
 			</cfif>
 			<cfif isdate("#parent_install_date#")>
-				<cfset parent_install_date = "'#Dateformat(parent_install_date, "DD-Mmm-YYYY")#'">
+				<cfset parent_install_date = "'#Dateformat(parent_install_date, "yyyy-mm-dd")#'">
 				<cfelse><cfset parent_install_date = "null">
 			</cfif>
 			<cfif #container_remarks# is "">

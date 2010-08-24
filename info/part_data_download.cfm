@@ -129,7 +129,7 @@
 				<td>
 					<cfset ll=''>
 					<cfloop query="l">
-						<cfset ll=listappend(ll,"#loan_number# (#dateformat(TRANS_DATE,'dd mmm yyyy')#)",";")>
+						<cfset ll=listappend(ll,"#loan_number# (#dateformat(TRANS_DATE,'yyyy-mm-dd')#)",";")>
 					</cfloop>
 					#ll#
 				</td>
