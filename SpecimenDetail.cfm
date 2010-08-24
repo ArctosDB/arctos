@@ -1,4 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+<script type="text/javascript" src="/includes/thickbox-compressed.js"></script>
+<link rel="stylesheet" href="/includes/thickbox.css" type="text/css" media="screen" />
+
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -286,6 +291,9 @@ height:50px;
 		}
 		</script>
 		<span class="likeLink" onclick="loadEditApp('editIdentification');">editIdentification</span>
+		
+		
+		<a href="editIdentification.cfm?keepThis=true&TB_iframe=true&height=250&width=400" title="add a caption to title attribute / or leave blank" class="thickbox">Example 1</a>  
 	</cfif>
 
 	<!---
