@@ -246,13 +246,27 @@ height:50px;
 				controlWidget.id = 'closeWidget';
 				controlWidget.className = 'closeControl likeLink';
 				controlWidget.setAttribute('onclick','closeEditApp()');
-				controlWidget.innerHTML = 'click to close';
+				controlWidget.innerHTML = 'X';
 				document.body.appendChild(controlWidget);
 				
 				
 				
 				
-				viewport.init("##partsAttDiv");
+				
+				
+				
+				
+				
+				//function callIframe(url, callback) {
+			   // $(document.body).append('<IFRAME id="myId" ...>');
+			    //$('iframe#myId').attr('src', url);
+			
+			    $('iframe#theDiv').load(function() 
+			    {
+			        viewport.init("##partsAttDiv");
+			    });
+//}
+				
 		/*
 }
 			
