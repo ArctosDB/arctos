@@ -219,20 +219,13 @@
 				
 background:url("fancybox.png") repeat scroll -40px 0 transparent;
 cursor:pointer;
-display:none;
 height:30px;
 position:absolute;
 right:-15px;
 top:-15px;
 width:30px;
-z-index:1103;
 				
 				z-index:9999;
-				position:absolute;
-				right:5%;
-				top:5%;
-				border:1px solid red;width:50px;
-height:50px;
 			}
 		</style>
 		<script language="javascript" type="text/javascript">
