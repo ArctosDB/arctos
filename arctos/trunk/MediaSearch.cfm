@@ -315,7 +315,7 @@
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"coldfusion_user")>
-			<a href="MediaSearch.cfm?action=clearCache">Clear cache</a>
+			<a href="MediaSearch.cfm?action=clearCache&ssql=#ssql#">Clear cache</a>
 		</cfif>
 	
 		<cfabort>
@@ -563,7 +563,7 @@
 </cfif>
 <cfif action is "clearCache">
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,-1,0)#">
-		select 1 from dual
+		#preservesinglequotes(ssql)#
 	</cfquery>
 </cfif>
 use your back button
