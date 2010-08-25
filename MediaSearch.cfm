@@ -10,7 +10,9 @@
 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	<a href="/media.cfm?action=newMedia">[ Create media ]</a>
 	<cfif isdefined("specID") and len(specID) gt 0>
-		<a href="/media.cfm?action=newMedia&collection_object_id=#specID#">[ Create Specimen media ]</a>
+		<cfoutput>
+			<a href="/media.cfm?action=newMedia&collection_object_id=#specID#">[ Create Specimen media ]</a>
+		</cfoutput>
 	</cfif>
 </cfif>
 <!----------------------------------------------------------------------------------------->
