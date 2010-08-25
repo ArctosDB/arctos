@@ -963,6 +963,5 @@
 		</table>
 <script type="text/javascript" language="javascript">
 		changeStyle('#detail.institution_acronym#');
-		parent.dyniframesize();
 </script>
 </cfoutput>

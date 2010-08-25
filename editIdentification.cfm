@@ -632,9 +632,4 @@
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfinclude template="includes/_pickFooter.cfm">
-</div>
-<!----
-<script>
-	parent.dyniframesize();
-</script>
----->
+<cf_customizeIFrame>

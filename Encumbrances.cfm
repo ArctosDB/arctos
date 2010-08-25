@@ -1,6 +1,4 @@
-<div id="theHead">
-	<cfinclude template="includes/_header.cfm">
-</div>
+<cfinclude template="includes/_header.cfm">
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery("#made_date_after").datepicker();
@@ -627,14 +625,5 @@ UPDATE encumbrance SET
 	</table>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->	
-<div id="theFoot">
-	<cfinclude template = "includes/_footer.cfm">
-</div>
-<script type="text/javascript" language="javascript">
-	if (self != top) {
-		changeStyle('#getItems.institution_acronym#');
-		parent.dyniframesize();
-		document.getElementById("theHead").style.display='none';
-		document.getElementById("theFoot").style.display='none';
-	}
-</script>
+<cfinclude template = "includes/_footer.cfm">
+<cf_customizeIFrame>

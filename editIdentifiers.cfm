@@ -254,9 +254,4 @@
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------->
-<cfoutput>
-<script type="text/javascript" language="javascript">
-		changeStyle('#getIDs.institution_acronym#');
-		parent.dyniframesize();
-</script>
-</cfoutput>
+<cf_customizeIFrame>

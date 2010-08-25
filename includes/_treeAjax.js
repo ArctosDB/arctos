@@ -58,11 +58,11 @@ function loadTree () {
 }
 function showSpecTreeOnly (colobjid) {
 	post(1);
-	var theTreeDiv = document.getElementById('treePane');
-	theTreeDiv.className="";
-	document.getElementById('thisfooter').style.display='none';
-	document.getElementById('header_color').style.display='none';
-	document.getElementById('searchPane').style.display='none';
+	//var theTreeDiv = document.getElementById('treePane');
+	//theTreeDiv.className="";
+	//document.getElementById('thisfooter').style.display='none';
+	//document.getElementById('header_color').style.display='none';
+	//document.getElementById('searchPane').style.display='none';
 	var q="collection_object_id=" + colobjid;
 	jQuery.getJSON("/component/container.cfc",
 		{
