@@ -299,6 +299,7 @@ z-index:9998;
 			
 			}
 			function loadEditApp(q) {
+				closeEditApp();
 				var bgDiv = document.createElement('div');
 				bgDiv.id = 'bgDiv';
 				bgDiv.className = 'bgDiv';
