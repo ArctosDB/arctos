@@ -311,7 +311,7 @@ z-index:9998;
 				document.body.appendChild(popDiv);
 				var links='<span class="likeLink" onclick="loadEditApp('editIdentification');">editIdentification</span>';
 				links+='<span class="likeLink" onclick="loadEditApp('addAccn');">addAccn</span>';
-popDiv.innerHTML=links;
+				$("##popDiv").append(links);
 				var cDiv=document.createElement('div');
 				cDiv.className = 'fancybox-close';
 				cDiv.id='cDiv';
