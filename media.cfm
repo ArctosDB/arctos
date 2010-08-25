@@ -1,7 +1,5 @@
 <cfset title="Manage Media">
-<div id="_header">
-    <cfinclude template="/includes/_header.cfm">
-</div>
+<cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
 <script>
 	function manyCatItemToMedia(mid){
@@ -349,28 +347,4 @@
 <cflocation url="media.cfm?action=edit&media_id=#media_id#" addtoken="false">
 </cfoutput>
 </cfif>
-<div id="_footer">
 <cfinclude template="/includes/_footer.cfm">
-</div>
-<!--- deal with the possibility of being called in a frame from SpecimenDetail --->
-<cfoutput>
-<script language="javascript" type="text/javascript">
-if (top.location!=document.location) {
-    	document.getElementById('_header').style.display='none';
-		document.getElementById('_footer').style.display='none';
-		try {
-			//parent.dyniframesize();
-			name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-	  		var regexS = "[\\?&]"+'collection_object_id'+"=([^&##]*)";
-	  		var regex = new RegExp( regexS );
-	  		var results = regex.exec( location.href );
-			if ('#action#'=='newMedia' && results[1].length>0) {
-		    	document.getElementById('relationship__1').value="shows cataloged_item";
-		    	document.getElementById('related_value__1').value="[ Current Record ]";
-		    	document.getElementById('related_id__1').value=results[1];
-			}
-		} catch(e){}		
-	}
-</script>
-
-</cfoutput>
