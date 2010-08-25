@@ -225,6 +225,13 @@
 				background-color:lightgray;
 				overflow:auto;
 			}
+			
+			.centeredImage
+    {
+      margin: 0 auto;
+      display:block;
+      vertical-align:middle;
+    }
 			.editFrame {
 				border-top:1px solid gray;
 				z-index:1000;
@@ -335,7 +342,7 @@ z-index:9998;
 				//cDiv.innerHTML = 'X';
 				cDiv.setAttribute('onclick','closeEditApp()');
 				$("##popDiv").append(cDiv);
-				$("##popDiv").append('<img src="/images/loadingAnimation.gif">');
+				$("##popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
 				var theFrame = document.createElement('iFrame');
 				theFrame.id='theFrame';
 				theFrame.className = 'editFrame';
