@@ -325,7 +325,7 @@ z-index:9998;
 				links+='<li><span onclick="loadEditApp(\'editIdentifiers\')" class="likeLink" id="BTN_editIdentifiers">OtherID</span></li>';
 				links+='<li><span onclick="loadEditApp(\'MediaSearch\')" class="likeLink" id="BTN_MediaSearch">Media</span></li>';
 				links+='<li><span onclick="loadEditApp(\'Encumbrances\')" class="likeLink" id="BTN_Encumbrances">Encumbrance</span></li>';
-				links+='<li><span onclick="loadEditApp(\'catalogification\')" class="likeLink" id="BTN_catalog">Catalog</span></li>';
+				links+='<li><span onclick="loadEditApp(\'catalog\')" class="likeLink" id="BTN_catalog">Catalog</span></li>';
 				links+="</ul>";
 				
 				$("##popDiv").append(links);
