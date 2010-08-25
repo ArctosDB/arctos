@@ -336,12 +336,7 @@ z-index:9998;
 				cDiv.setAttribute('onclick','closeEditApp()');
 				$("##popDiv").append(cDiv);
 				
-				/*
-				var fDiv=document.createElement('div');
-				fDiv.id='fDiv';
-				$("##popDiv").append(fDiv);
-				$("##fDiv").html('<img src="/images/loading.png">');
-				*/
+			
 				
 				var theFrame = document.createElement('iFrame');
 				theFrame.id='theFrame';
@@ -351,70 +346,8 @@ z-index:9998;
 				//$("##fDiv").append(theFrame);
 				document.body.appendChild(theFrame);
 				
+				$("##BTN_" + q).addClass('red');
 				
-				
-				/*
-				
-				
-				var fDiv=document.createElement('div');
-				
-				var theDiv = document.createElement('iFrame');
-				theDiv.id = 'editAppDiv';
-				
-				theDiv.innerHTML='<br>Loading...';
-				document.body.appendChild(theDiv);
-				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
-				theDiv.src=ptl;
-				
-				
-				
-				var controlWidget = document.createElement('span');
-				controlWidget.id = 'closeWidget';
-				controlWidget.className = 'closeControl likeLink';
-				controlWidget.setAttribute('onclick','closeEditApp()');
-				controlWidget.innerHTML = 'X';
-				document.body.appendChild(controlWidget);
-				
-				
-				
-				
-				
-				
-				
-				
-			   $('iframe##theDiv').load(function() 
-			    {
-			        viewport.init("##editAppDiv");
-			    });
-				
-				
-				*/
-		
-		
-		
-		
-		/*
-}
-			
-			
-			
-			
-			
-			
-			
-			
-			var theDiv = document.createElement('div');
-			theDiv.id = 'annotateDiv';
-			theDiv.className = 'annotateBox';
-			theDiv.innerHTML='';
-			theDiv.src = "";
-			document.body.appendChild(theDiv);
-			var guts = "/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
-			jQuery('##annotateDiv').load(guts,{},function(){
-				viewport.init("##annotateDiv");
-				viewport.init("##bgDiv");
-			});
-			*/
 		}
 		</script>
 		<span class="likeLink" onclick="loadEditApp('editIdentification');">editIdentification</span>
@@ -424,43 +357,43 @@ z-index:9998;
 						
 			               
 							<li>
-								<span onclick="loadEditApp('editIdentification')" class="likeLink" id="editIdentificationSpan">Taxa</span>
+								<span onclick="loadEditApp('editIdentification')" class="likeLink" id="BTN_editIdentification">Taxa</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('addAccn')"	class="likeLink" id="addAccnSpan">Accn</span>
+								<span onclick="loadEditApp('addAccn')"	class="likeLink" id="BTN_addAccn">Accn</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('changeCollEvent')" class="likeLink" id="changeCollEventSpan">Pick New Coll Event</span>
+								<span onclick="loadEditApp('changeCollEvent')" class="likeLink" id="BTN_changeCollEvent">Pick New Coll Event</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('specLocality')" class="likeLink" id="specLocalitySpan">Locality</span>
+								<span onclick="loadEditApp('specLocality')" class="likeLink" id="BTN_specLocality">Locality</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('editColls')" class="likeLink" id="editCollsSpan">Agents</span>
+								<span onclick="loadEditApp('editColls')" class="likeLink" id="BTN_editColls">Agents</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('editRelationship')" class="likeLink" id="editRelationshipSpan">Relations</span>
+								<span onclick="loadEditApp('editRelationship')" class="likeLink" id="BTN_editRelationship">Relations</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('editParts')" class="likeLink" id="editPartsSpan">Parts</span>
+								<span onclick="loadEditApp('editParts')" class="likeLink" id="BTN_editParts">Parts</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('findContainer')" class="likeLink" id="findContainerSpan">Part Locn.</span>
+								<span onclick="loadEditApp('findContainer')" class="likeLink" id="BTN_findContainer">Part Locn.</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('editBiolIndiv')" class="likeLink" id="editBiolIndivSpan">Attributes</span>
+								<span onclick="loadEditApp('editBiolIndiv')" class="likeLink" id="BTN_editBiolIndiv">Attributes</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('editIdentifiers')"	class="likeLink" id="editIdentifiersSpan">Other IDs</span>
+								<span onclick="loadEditApp('editIdentifiers')"	class="likeLink" id="BTN_editIdentifiers">Other IDs</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('MediaSearch')"	class="likeLink" id="MediaSearchSpan">Media</span>
+								<span onclick="loadEditApp('MediaSearch')"	class="likeLink" id="BTN_MediaSearch">Media</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('Encumbrances')" class="likeLink" id="EncumbrancesSpan">Encumbrances</span>
+								<span onclick="loadEditApp('Encumbrances')" class="likeLink" id="BTN_Encumbrances">Encumbrances</span>
 							</li>
 							<li>
-								<span onclick="loadEditApp('catalog')" class="likeLink" id="catalogSpan">Catalog</span>
+								<span onclick="loadEditApp('catalog')" class="likeLink" id="BTN_catalog">Catalog</span>
 							</li>
 						</ul>
 	</cfif>
