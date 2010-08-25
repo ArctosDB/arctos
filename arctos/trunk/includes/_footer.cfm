@@ -1,5 +1,5 @@
 <cfif cgi.HTTP_HOST contains "database.museum">
-  <table>
+  <table id="_footerTable">
 	<tr>
 		<td align="left" valign="middle">
 		 <a href="/home.cfm">

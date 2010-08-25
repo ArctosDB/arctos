@@ -1,6 +1,4 @@
-<div id="_header">
 <cfinclude template = "/includes/_header.cfm">
-</div>
 <cfset title = "Agent Activity">
 <cfoutput>
 <a href="/agents.cfm?agent_id=#agent_id#" target="_top">Edit Agent</a>
@@ -577,12 +575,4 @@ Transactions
 		</cfloop>
 	</ul>
 </cfoutput>
-<div id="_footer">
 <cfinclude template = "/includes/_footer.cfm">
-</div>
-<script type="text/javascript" language="javascript">
-	if (top.location!=document.location) {
-    	document.getElementById('_header').style.display='none';
-		document.getElementById('_footer').style.display='none';
-	}
-</script>
