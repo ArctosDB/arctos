@@ -309,7 +309,9 @@ z-index:9998;
 				popDiv.id = 'popDiv';
 				popDiv.className = 'editAppBox';
 				document.body.appendChild(popDiv);
-
+				var links='<span class="likeLink" onclick="loadEditApp('editIdentification');">editIdentification</span>';
+				links+='<span class="likeLink" onclick="loadEditApp('addAccn');">addAccn</span>';
+popDiv.innerHTML=links;
 				var cDiv=document.createElement('div');
 				cDiv.className = 'fancybox-close';
 				cDiv.id='cDiv';
