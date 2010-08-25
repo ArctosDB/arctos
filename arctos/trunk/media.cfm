@@ -359,7 +359,7 @@ if (top.location!=document.location) {
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
 		try {
-			parent.dyniframesize();
+			//parent.dyniframesize();
 			name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
 	  		var regexS = "[\\?&]"+'collection_object_id'+"=([^&##]*)";
 	  		var regex = new RegExp( regexS );
