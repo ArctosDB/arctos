@@ -306,18 +306,15 @@
 				onmouseout="this.className='insBtn'">
 		</form>
 		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-			got a collection_object_id
 			<cfquery name="s"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select guid from flat where collection_object_id=#collection_object_id#
 			</cfquery>
-			<cfdump var=#s#>
 			<script language="javascript" type="text/javascript">
 				$("##relationship__1").val('shows cataloged_item');
 				$("##related_value__1").val('#s.guid#');
 				$("##related_id__1").val('#collection_object_id#');
 			</script>
 		</cfif>
-		
 	</cfoutput>    
 </cfif>
 <!------------------------------------------------------------------------------------------>
