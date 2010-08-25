@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' language="javascript" src='/includes/internalAjax.js'></script>
+<cf_customizeIFrame>
 <cfif action is "nothing">
 	<cfoutput>
 	<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -463,4 +464,3 @@
 	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
 </cfif>
 <!----------------------------------------------------------------------------------->
-<cf_customizeIFrame>
