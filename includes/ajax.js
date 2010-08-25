@@ -24,6 +24,15 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
+function hideHeadFoot(){
+	$("#_header").hide();
+	$("#_footer").hide();
+}
+jQuery(document).ready(function() {
+	if (top.location!=document.location) {
+		hideHeadFoot();
+	}
+});
 function blockSuggest (onoff) {
 	$.getJSON("/component/functions.cfc",
 			{
