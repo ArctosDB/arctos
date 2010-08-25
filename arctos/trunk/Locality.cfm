@@ -1,6 +1,5 @@
-<div id="theHead">
-	<cfinclude template="includes/_header.cfm">
-</div>
+<cfinclude template="includes/_header.cfm">
+<cf_customizeIFrame>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#began_date").datepicker();
@@ -1602,17 +1601,4 @@ INSERT INTO geog_auth_rec (
 </cfif>
 
 <!---------------------------------------------------------------------------------------------------->
-
-<!--------------------------- End Results -------------------------------------------------->
-<div id="theFoot">
-	<cfinclude template="includes/_footer.cfm">
-</div>
-<script>
-	var thePar = parent.location.href;
-	var isFrame = thePar.indexOf('Locality.cfm');
-	if (isFrame == -1) {
-		document.getElementById("theHead").style.display='none';
-		document.getElementById("theFoot").style.display='none';
-		parent.dyniframesize();
-	}
-</script>
+<cfinclude template="includes/_footer.cfm">

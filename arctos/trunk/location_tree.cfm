@@ -271,14 +271,4 @@ parent_container_id,
 	 </form>
  </cfif>
 <cfinclude template="/includes/_pickFooter.cfm">
-<script>
-	var thePar = parent.location.href;
-		var isFrame = thePar.indexOf('SpecimenDetail.cfm');
-		if (isFrame != -1) {
-			// we are a frame in SpecimenDetail
-			// change style, resize holder
-			changeStyle('#getItems.institution_acronym#');
-			parent.dyniframesize();
-			//alert('in specdetail');
-		}
-</script>
+<cf_customizeIFrame>
