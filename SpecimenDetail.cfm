@@ -312,21 +312,19 @@ z-index:9998;
 				var links='<ul id="navbar">';
 				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="BTN_editIdentification">Taxa</span></li>';
 				links+='<li><span onclick="loadEditApp(\'addAccn\')" class="likeLink" id="BTN_addAccn">Accn</span></li>';
-				links+='<li><span onclick="loadEditApp(\'changeCollEvent\')" class="likeLink" id="BTN_changeCollEvent">Pick New Coll Event</span></li>';
+				links+='<li><span onclick="loadEditApp(\'changeCollEvent\')" class="likeLink" id="BTN_changeCollEvent">PickEvent</span></li>';
 				links+='<li><span onclick="loadEditApp(\'specLocality\')" class="likeLink" id="BTN_specLocality">Locality</span></li>';
 				links+='<li><span onclick="loadEditApp(\'editColls\')" class="likeLink" id="BTN_editColls">Agents</span></li>';
 				links+='<li><span onclick="loadEditApp(\'editRelationship\')" class="likeLink" id="BTN_editRelationship">Relations</span></li>';
 				links+='<li><span onclick="loadEditApp(\'editParts\')" class="likeLink" id="BTN_editParts">Parts</span></li>';
-				links+='<li><span onclick="loadEditApp(\'findContainer\')" class="likeLink" id="BTN_findContainer">Part Location</span></li>';
+				links+='<li><span onclick="loadEditApp(\'findContainer\')" class="likeLink" id="BTN_findContainer">PartLocn</span></li>';
 				links+='<li><span onclick="loadEditApp(\'editBiolIndiv\')" class="likeLink" id="BTN_editBiolIndiv">Attributes</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editIdentifiers\')" class="likeLink" id="BTN_editIdentifiers">Other IDs</span></li>';
+				links+='<li><span onclick="loadEditApp(\'editIdentifiers\')" class="likeLink" id="BTN_editIdentifiers">OtherID</span></li>';
 				links+='<li><span onclick="loadEditApp(\'MediaSearch\')" class="likeLink" id="BTN_MediaSearch">Media</span></li>';
-				links+='<li><span onclick="loadEditApp(\'Encumbrances\')" class="likeLink" id="BTN_Encumbrances">Encumbrances</span></li>';
+				links+='<li><span onclick="loadEditApp(\'Encumbrances\')" class="likeLink" id="BTN_Encumbrances">Encumbrance</span></li>';
 				links+='<li><span onclick="loadEditApp(\'catalogification\')" class="likeLink" id="BTN_catalog">Catalog</span></li>';
 				links+="</ul>";
 				
-				
-	
 				$("##popDiv").append(links);
 				var cDiv=document.createElement('div');
 				cDiv.className = 'fancybox-close';
@@ -334,8 +332,6 @@ z-index:9998;
 				//cDiv.innerHTML = 'X';
 				cDiv.setAttribute('onclick','closeEditApp()');
 				$("##popDiv").append(cDiv);
-				
-			
 				
 				var theFrame = document.createElement('iFrame');
 				theFrame.id='theFrame';
@@ -354,11 +350,55 @@ z-index:9998;
 				
 		}
 		</script>
-		<span class="likeLink" onclick="loadEditApp('editIdentification');">editIdentification</span>
-		<span class="likeLink" onclick="loadEditApp('addAccn');">addAccn</span>
-
-		<ul id="navbar">
+		 <table>
+		    <tr>
+			    <td align="center">
+					<form name="incPg" method="post" action="SpecimenDetail.cfm">
+				        <input type="hidden" name="collection_object_id" value="#collection_object_id#">
+						<input type="hidden" name="suppressHeader" value="true">
+						<input type="hidden" name="action" value="nothing">
+						<input type="hidden" name="Srch" value="Part">
+						<input type="hidden" name="collecting_event_id" value="#detail.collecting_event_id#">
+						<cfif isdefined("session.collObjIdList") and len(session.collObjIdList) gt 0>
+						    <cfset isPrev = "no">
+							<cfset isNext = "no">
+							<cfset currPos = 0>
+							<cfset lenOfIdList = 0>
+							<cfset firstID = collection_object_id>
+							<cfset nextID = collection_object_id>
+							<cfset prevID = collection_object_id>
+							<cfset lastID = collection_object_id>
+							<cfset currPos = listfind(session.collObjIdList,collection_object_id)>
+							<cfset lenOfIdList = listlen(session.collObjIdList)>
+							<cfset firstID = listGetAt(session.collObjIdList,1)>
+							<cfif currPos lt lenOfIdList>
+								<cfset nextID = listGetAt(session.collObjIdList,currPos + 1)>
+							</cfif>
+							<cfif currPos gt 1>
+								<cfset prevID = listGetAt(session.collObjIdList,currPos - 1)>
+							</cfif>	
+							<cfset lastID = listGetAt(session.collObjIdList,lenOfIdList)>
+							<cfif lenOfIdList gt 1>
+								<cfif currPos gt 1>
+									<cfset isPrev = "yes">
+								</cfif>
+								<cfif currPos lt lenOfIdList>
+									<cfset isNext = "yes">
+								</cfif>
+							</cfif>
+						<cfelse>
+							<cfset isNext="">
+							<cfset isPrev="">
+						</cfif>
 						
+						<ul id="navbar">
+				<cfif isPrev is "yes">
+								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
+								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
+							<cfelse>
+								<img src="/images/no_first.gif" alt="[ inactive button ]">
+								<img src="/images/no_previous.gif" alt="[ inactive button ]">
+							</cfif>		
 			               
 							<li>
 								<span onclick="loadEditApp('editIdentification')" class="likeLink" id="BTN_editIdentification">Taxa</span>
@@ -399,7 +439,29 @@ z-index:9998;
 							<li>
 								<span onclick="loadEditApp('catalog')" class="likeLink" id="BTN_catalog">Catalog</span>
 							</li>
+							
+							<cfif isNext is "yes">
+								<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
+								<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
+							<cfelse>
+								<img src="/images/no_next.gif" alt="[ inactive button ]">
+								<img src="/images/no_last.gif" alt="[ inactive button ]">
+							</cfif>
 						</ul>
+	                </form>
+		        </td>
+		    </tr>
+		</table>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</cfif>
 
 	<!---
