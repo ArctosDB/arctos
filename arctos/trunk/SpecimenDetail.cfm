@@ -228,10 +228,11 @@
 			
 			.centeredImage
     {
-     text-align:center;
-		display:block;
-		vertical-align:middle;
-                horizontal-align:middle;
+    position:absolute;
+   top:50%;
+   left:50%;
+   margin-top:-25px;
+   margin-left:-25px;
     }
 			.editFrame {
 				border-top:1px solid gray;
@@ -349,8 +350,7 @@ z-index:9998;
 				theFrame.className = 'editFrame';
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 				theFrame.src=ptl;
-				//$("##fDiv").append(theFrame);
-				document.body.appendChild(theFrame);
+				//document.body.appendChild(theFrame);
 				$("span[id^='BTN_']").each(function(){
 					$("##" + this.id).removeClass('activeButton');
 					$('##' + this.id, window.parent.document).removeClass('activeButton');
