@@ -404,7 +404,16 @@ z-index:9998;
 		<span class="likeLink" onclick="loadEditApp('editIdentification');">editIdentification</span>
 		<span class="likeLink" onclick="loadEditApp('addAccn');">addAccn</span>
 
-		
+		<ul id="navbar">
+						
+			               
+							<li>
+								<span onclick="loadEditApp('editIdentification')" class="likeLink" id="editIdentificationSpan">Taxa</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('addAccn')"	class="likeLink" id="addAccnSpan">Accn</span>
+							</li>
+						</ul>
 	</cfif>
 
 	<!---
