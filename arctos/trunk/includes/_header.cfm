@@ -15,6 +15,11 @@
 	            animation:   {opacity:'show',height:'show'},
 	            speed:       0,
 	        });
+	        
+	        if (top.location!=document.location) {
+				 $("#header_color").hide();
+				//$("#_footer").hide();
+			}
 	    });
 	</script>
 	<cfoutput>
