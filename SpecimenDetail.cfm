@@ -294,7 +294,10 @@ z-index:9998;
 				
 				$('##theFrame').remove();
 				$('##theFrame', window.parent.document).remove();
-				
+				$("span[id^='BTN_']").each(function(){
+					$("##" + this.id).removeClass('activeButton');
+					$('##' + this.id, window.parent.document).removeClass('activeButton');
+				});
 			
 			}
 			function loadEditApp(q) {
