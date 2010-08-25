@@ -349,9 +349,11 @@ z-index:9998;
 				document.body.appendChild(theFrame);
 				$("span[id^='BTN_']").each(function(){
 					$("##" + this.id).removeClass('activeButton');
+					$('##' + this.id, window.parent.document).removeClass('activeButton');
 				});
 				
 				$("##BTN_" + q).addClass('activeButton');
+				$('##BTN_' + q, window.parent.document).addClass('activeButton');
 				
 		}
 		</script>
