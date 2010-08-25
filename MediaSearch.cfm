@@ -563,7 +563,7 @@
 </cfif>
 <cfif action is "clearCache">
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,-1,0)#">
-		#preservesinglequotes(ssql)#
+		#preservesinglequotes(urldecode(ssql))#
 	</cfquery>
 </cfif>
 use your back button
