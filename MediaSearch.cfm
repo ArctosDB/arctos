@@ -201,10 +201,7 @@
 			<cfset srch="#srch# AND mime_type in (#listQualify(mime_type,"'")#)">
 		</cfif>
 		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <=500">
-		<!---- cachedwithin="#createtimespan(0,0,60,0)#" --->
-		
-		#preservesinglequotes(ssql)#
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	<cfelse>
@@ -311,19 +308,14 @@
 			<cfabort>
 		</cfif>
 		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <= 500">
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	</cfif><!--- end srchType --->
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"coldfusion_user")>
-			<form method="post" action="MediaSearch.cfm">
-				<input type="hidden" name="ssql" value="#ssql#">
-				<input type="hidden" name="action" value="clearCache">
-				<input type="submit" value="clear cache">
-			</form>
-			<a href="MediaSearch.cfm?action=clearCache&ssql=#ssql#">Clear cache</a>
+			Not seeing something you just loaded? Come back in an hour when the cache has refreshed.
 		</cfif>
 	
 		<cfabort>
@@ -566,43 +558,6 @@
 </cfloop>
 </table>
 #pager#
-
 </cfoutput>
 </cfif>
-<cfif action is "clearCache">
-	
-	<cfoutput>
-		
-		<cfdump var=#url#>
-	
-	ssql: #ssql#
-	
-	
-	
-	<hr>
-	
-	URLDecode(ssql) #URLDecode(ssql)#
-	
-	
-	<hr>limit
-	
-	
-	</cfoutput>
-	
-	
-	##
-	
-	
-		preservesinglequotes(URLDecode(ssql)): #preservesinglequotes(URLDecode(ssql))#
-
-	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,-1,0)#">
-		#preservesinglequotes(ssql)#
-	</cfquery>
-	
-	
-	use your back button and reload
-<cfabort>
-</cfif>
-
 <cfinclude template="/includes/_footer.cfm">
-<!--- deal with the possibility of being called in a frame from SpecimenDetail --->
