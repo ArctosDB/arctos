@@ -1033,15 +1033,4 @@ New attribute:
 <cflocation url="editBiolIndiv.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
-<cfoutput>
-<script type="text/javascript" language="javascript">
-	changeStyle('#indiv.institution_acronym#');
-//	var pDivH = document.getElementById('fHolder').height;
-//	var fContentH = document.getElementById('theFrame').scrollHeight;
-//	alert(pDivH);
-//	alert(fContentH);
-	parent.dyniframesize();
-//parent.document.getElementById('fHolder').height = document.getElementById('theFrame').scrollHeight;
-</script>
-</script>
-</cfoutput>
+<cf_customizeIFrame>

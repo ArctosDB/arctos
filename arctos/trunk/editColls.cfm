@@ -153,11 +153,4 @@
 </cfoutput>	
 </cfif>
 <!------------------------------------------------------------------------------------->
-
-<cfoutput>
-<script type="text/javascript" language="javascript">
-		changeStyle('#getColls.institution_acronym#');
-		parent.dyniframesize();
-</script>
-</cfoutput>
-
+<cf_customizeIFrame>

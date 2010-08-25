@@ -467,11 +467,4 @@
 	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
 </cfif>
 <!----------------------------------------------------------------------------------->
-
-
-<cfoutput>
-<script type="text/javascript" language="javascript">
-		changeStyle('#getParts.institution_acronym#');
-		parent.dyniframesize();
-</script>
-</cfoutput>
+<cf_customizeIFrame>

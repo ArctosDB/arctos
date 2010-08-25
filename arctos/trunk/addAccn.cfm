@@ -1,6 +1,4 @@
-<div id="theHead">
-	<cfinclude template="includes/_header.cfm">
-</div>
+<cfinclude template="includes/_header.cfm">
 <cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection, collection_id from collection order by collection
 </cfquery>
@@ -162,16 +160,11 @@
 	</cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------->
-<div id="theFoot">
-	<cfinclude template="includes/_footer.cfm">
-</div>
+<cfinclude template="includes/_footer.cfm">
 <cfoutput>
 <script type="text/javascript" language="javascript">
 	if (self != top) {
 		changeStyle('#getItems.institution_acronym#');
-		parent.dyniframesize();
-		document.getElementById("theHead").style.display='none';
-		document.getElementById("theFoot").style.display='none';
 	}
 </script>
 </cfoutput>

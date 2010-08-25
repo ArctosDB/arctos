@@ -286,9 +286,5 @@
 	<cflocation url="changeCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="no">
 </cfoutput>
 </cfif>
-<cfoutput>
-<script type="text/javascript" language="javascript">
-	parent.dyniframesize();
-</script>
-</cfoutput>
+<cf_customizeIFrame>
 <!--------------------------------------------------------------------------------------->
