@@ -201,7 +201,7 @@
 			<cfset srch="#srch# AND mime_type in (#listQualify(mime_type,"'")#)">
 		</cfif>
 		<cfset ssql="select * from (#sel# #frm# #whr# #srch# order by media_id) where rownum <=500">
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	<cfelse>
