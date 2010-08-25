@@ -563,7 +563,9 @@
 </cfif>
 <cfif action is "clearCache">
 	
-	<cfoutput>limit
+	<cfoutput>
+		
+		<cfdump var=#url#>
 	
 	ssql: #ssql#
 	
