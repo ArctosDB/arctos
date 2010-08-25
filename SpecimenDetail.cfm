@@ -311,18 +311,23 @@ z-index:9998;
 				popDiv.className = 'editAppBox';
 				document.body.appendChild(popDiv);
 				var links='<ul id="navbar">';
-				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="editIdentificationSpan">Taxa</span></li>';
-				links+='<li><span onclick="loadEditApp(\'addAccn\')" class="likeLink" id="addAccn">Accn</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="editIdentificationSpan">Taxa</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="editIdentificationSpan">Taxa</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="editIdentificationSpan">Taxa</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="editIdentificationSpan">Taxa</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="editIdentificationSpan">Taxa</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="editIdentificationSpan">Taxa</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="editIdentificationSpan">Taxa</span></li>';
-				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="editIdentificationSpan">Taxa</span></li>';
+				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="BTN_editIdentification">Taxa</span></li>';
+				links+='<li><span onclick="loadEditApp(\'addAccn\')" class="likeLink" id="BTN_addAccn">Accn</span></li>';
+				links+='<li><span onclick="loadEditApp(\'changeCollEvent\')" class="likeLink" id="BTN_changeCollEvent">Pick New Coll Event</span></li>';
+				links+='<li><span onclick="loadEditApp(\'specLocality\')" class="likeLink" id="BTN_specLocality">Locality</span></li>';
+				links+='<li><span onclick="loadEditApp(\'editColls\')" class="likeLink" id="BTN_editColls">Agents</span></li>';
+				links+='<li><span onclick="loadEditApp(\'editRelationship\')" class="likeLink" id="BTN_editRelationship">Relations</span></li>';
+				links+='<li><span onclick="loadEditApp(\'editParts\')" class="likeLink" id="BTN_editParts">Parts</span></li>';
+				links+='<li><span onclick="loadEditApp(\'findContainer\')" class="likeLink" id="BTN_findContainer">Part Location</span></li>';
+				links+='<li><span onclick="loadEditApp(\'editBiolIndiv\')" class="likeLink" id="BTN_editBiolIndiv">Attributes</span></li>';
+				links+='<li><span onclick="loadEditApp(\'editIdentifiers\')" class="likeLink" id="BTN_editIdentifiers">Other IDs</span></li>';
+				links+='<li><span onclick="loadEditApp(\'MediaSearch\')" class="likeLink" id="BTN_MediaSearch">Media</span></li>';
+				links+='<li><span onclick="loadEditApp(\'Encumbrances\')" class="likeLink" id="BTN_Encumbrances">Encumbrances</span></li>';
+				links+='<li><span onclick="loadEditApp(\'catalogification\')" class="likeLink" id="BTN_catalog">Catalog</span></li>';
 				links+="</ul>";
 				
+				
+	
 				$("##popDiv").append(links);
 				var cDiv=document.createElement('div');
 				cDiv.className = 'fancybox-close';
