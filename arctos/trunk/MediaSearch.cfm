@@ -596,8 +596,11 @@
 		#preservesinglequotes(URLDecode(ssql))#
 	</cfquery>
 	--->
+	
+	
+	use your back button
+<cfabort>
 </cfif>
-use your back button
 
 <cfinclude template="/includes/_footer.cfm">
 <!--- deal with the possibility of being called in a frame from SpecimenDetail --->
