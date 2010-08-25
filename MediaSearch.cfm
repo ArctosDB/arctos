@@ -314,6 +314,10 @@
 	</cfif><!--- end srchType --->
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
+		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"coldfusion_user")>
+			<a href="MediaSearch.cfm?action=clearCache">Clear cache</a>
+		</cfif>
+	
 		<cfabort>
 	<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
 		<cfheader statuscode="301" statustext="Moved permanently">
@@ -557,5 +561,12 @@
 
 </cfoutput>
 </cfif>
+<cfif action is "clearCache">
+	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,-1,0)#">
+		select 1 from dual
+	</cfquery>
+</cfif>
+use your back button
+
 <cfinclude template="/includes/_footer.cfm">
 <!--- deal with the possibility of being called in a frame from SpecimenDetail --->
