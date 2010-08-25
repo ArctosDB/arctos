@@ -228,9 +228,10 @@
 			
 			.centeredImage
     {
-      margin: 0 auto;
-      display:block;
-      vertical-align:middle;
+     text-align:center;
+		display:block;
+		vertical-align:middle;
+                horizontal-align:middle;
     }
 			.editFrame {
 				border-top:1px solid gray;
