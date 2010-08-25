@@ -105,7 +105,7 @@
 	<tr>
 		<td>#collection# #cat_num#</td>
 		<td>#scientific_name#</td>
-		<td><a href="SpecimenResults.cfm?Accn_trans_id=#transaction_id#">#accnColln# #Accn_number#</a></td>
+		<td><a href="/SpecimenResults.cfm?Accn_trans_id=#transaction_id#" target="_top">#accnColln# #Accn_number#</a></td>
 		<td>
 			<cfquery name="getAgent" dbtype="query">
 				select agent_name, coll_order from getItems where collection_object_id = #getItems.collection_object_id#
