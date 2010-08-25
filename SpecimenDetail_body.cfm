@@ -283,7 +283,7 @@
 				<div class="detailCell">				
 					<div class="detailLabel">&nbsp;
 						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentification');">Edit</span>
 						</cfif>
 					</div>
 					<div class="detailBlock">
@@ -425,7 +425,7 @@
 			<div class="detailCell">
 				<div class="detailLabel">
 					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('specLocality');">Edit</span>
+						<span class="detailEditCell" onclick="window.parent.loadEditApp('specLocality');">Edit</span>
 					</cfif>
 				</div>
 				<table id="SD">
@@ -689,7 +689,7 @@
 			<div class="detailCell">
 				<div class="detailLabel">&nbsp;<!---Parts--->
 					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('editParts');">Edit</span>
+						<span class="detailEditCell" onclick="window.parent.loadEditApp('editParts');">Edit</span>
 					<cfelse>
 						<span class="detailEditCell" onClick="getInfo('parts','#one.collection_object_id#');">Details</span>
 					</cfif>
@@ -741,7 +741,7 @@
 				<div class="detailCell">
 					<div class="detailLabel">Preparators
 						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.switchIFrame('editColls');">Edit</span>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
 						</cfif>
 					</div>
 					<cfloop query="preps">
@@ -772,7 +772,7 @@
 				<div class="detailCell">
 					<div class="detailLabel">Relationships
 						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.switchIFrame('editRelationship');">Edit</span>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editRelationship');">Edit</span>
 						</cfif>
 					</div>
 					<cfloop query="relns">
@@ -852,7 +852,7 @@
 			<div class="detailCell">
 				<div class="detailLabel">Collectors
 					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('editColls');">Edit</span>
+						<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
 					</cfif>
 				</div>
 				<cfloop query="colls">
@@ -894,7 +894,7 @@
 				<div class="detailCell">
 					<div class="detailLabel">Identifiers
 						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentifiers');">Edit</span>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 						</cfif>						
 					</div>
 					<cfloop query="oid">
@@ -915,7 +915,7 @@
 				<div class="detailCell">
 					<div class="detailLabel"><!---Attributes--->
 						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.switchIFrame('editBiolIndiv');">Edit</span>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editBiolIndiv');">Edit</span>
 						</cfif>
 					</div>
 					<cfquery name="sex" dbtype="query">
@@ -1059,7 +1059,7 @@
 			<div class="detailCell">
 				<div class="detailLabel">
 					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('editBiolIndiv');">Edit</span>
+						<span class="detailEditCell" onclick="window.parent.loadEditApp('editBiolIndiv');">Edit</span>
 					</cfif>
 					</div>	
 					<cfif len(one.coll_object_remarks) gt 0>
@@ -1147,7 +1147,7 @@
 			<div class="detailCell">
 				<div class="detailLabel">Accession
 					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
+						<span class="detailEditCell" onclick="window.parent.loadEditApp('addAccn');">Edit</span>
 					</cfif>
 				</div>
 				<div class="detailBlock">
@@ -1266,7 +1266,7 @@
 					where attribute_type='image confirmed' and
 					collection_cde='#one.collection_cde#'
 				</cfquery>
-				<span class="detailEditCell" onclick="window.parent.switchIFrame('MediaSearch');">Edit</span>
+				<span class="detailEditCell" onclick="window.parent.loadEditApp('MediaSearch');">Edit</span>
 				<cfquery name="isConf"  dbtype="query">
 					SELECT count(*) c
 					FROM
