@@ -315,6 +315,10 @@
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"coldfusion_user")>
+			<form method="post" action="MediaSearch.cfm">
+				<input type="hidden" name="ssql" value="#ssql#">
+				<input type="submit" value="clear cache">
+			</form>
 			<a href="MediaSearch.cfm?action=clearCache&ssql=#ssql#">Clear cache</a>
 		</cfif>
 	
