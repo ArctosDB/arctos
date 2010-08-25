@@ -1,9 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-
-
-<script type="text/javascript" src="/includes/thickbox-compressed.js"></script>
-<link rel="stylesheet" href="/includes/thickbox.css" type="text/css" media="screen" />
-
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -322,7 +317,7 @@
 				
 			}
 		</script>
-		 <table>
+		 <table width="100%">
 		    <tr>
 			    <td align="center">
 					<form name="incPg" method="post" action="SpecimenDetail.cfm">
@@ -362,19 +357,15 @@
 							<cfset isNext="">
 							<cfset isPrev="">
 						</cfif>
-						
 						<ul id="navbar">
-				<cfif isPrev is "yes">
+							<cfif isPrev is "yes">
 								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
 								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
 							<cfelse>
 								<img src="/images/no_first.gif" alt="[ inactive button ]">
 								<img src="/images/no_previous.gif" alt="[ inactive button ]">
 							</cfif>		
-			               
-							<li>
-								<span onclick="loadEditApp('editIdentification')" class="likeLink" id="BTN_editIdentification">Taxa</span>
-							</li>
+							<li><span onclick="loadEditApp('editIdentification')" class="likeLink" id="BTN_editIdentification">Taxa</span></li>
 							<li>
 								<span onclick="loadEditApp('addAccn')"	class="likeLink" id="BTN_addAccn">Accn</span>
 							</li>
@@ -411,7 +402,6 @@
 							<li>
 								<span onclick="loadEditApp('catalog')" class="likeLink" id="BTN_catalog">Catalog</span>
 							</li>
-							
 							<cfif isNext is "yes">
 								<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
 								<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
@@ -424,226 +414,7 @@
 		        </td>
 		    </tr>
 		</table>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	</cfif>
-
-	<!---
-	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-		<script type="text/javascript" language="javascript">
-			/***********************************************
-			* IFrame SSI script- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
-			* Visit DynamicDrive.com for hundreds of original DHTML scripts
-			* This notice must stay intact for legal use
-			***********************************************/
-			var iframeids=["theFrame"]
-			var iframehide="yes"
-			var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1]
-			var FFextraHeight=parseFloat(getFFVersion)>=0.1? 18 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
-			FFextraHeight = 60; // DLM - sometimes it doesn't fit
-			function dyniframesize() {
-			var dyniframe=new Array()
-			for (i=0; i<iframeids.length; i++){
-			    if (document.getElementById){ //begin resizing iframe procedure
-			        dyniframe[dyniframe.length] = document.getElementById(iframeids[i]);
-			        if (dyniframe[i] && !window.opera){
-			            dyniframe[i].style.display="block"
-			            if (dyniframe[i].contentDocument && dyniframe[i].contentDocument.body.offsetHeight) //ns6 syntax
-			                dyniframe[i].height = dyniframe[i].contentDocument.body.offsetHeight+FFextraHeight;
-			            else if (dyniframe[i].Document && dyniframe[i].Document.body.scrollHeight) //ie5+ syntax
-			                dyniframe[i].height = dyniframe[i].Document.body.scrollHeight;
-			            }
-			        }
-			        if ((document.all || document.getElementById) && iframehide=="no"){
-			            var tempobj=document.all? document.all[iframeids[i]] : document.getElementById(iframeids[i])
-			            tempobj.style.display="block"
-			        }
-			    }
-			}
-			if (window.addEventListener)
-			    window.addEventListener("load", dyniframesize, false)
-			else if (window.attachEvent)
-			    window.attachEvent("onload", dyniframesize)
-			else
-		        window.onload=dyniframesize
-				function switchIFrame(page,id, addlParamName, addlParamVal) {
-				    var theFrame = document.getElementById("theFrame");
-				    var theID = #collection_object_id#
-				    var theExt = ".cfm";
-					if (id) {
-						} else {
-						id = "collection_object_id";
-					}
-					var theURL = '/' + page + theExt + "?" + id + "=" + theID;
-					theFrame.src=theURL;
-					var ms = document.getElementById("SpecimenDetail_bodySpan");
-					var ids = document.getElementById("editIdentificationSpan");
-					var ac = document.getElementById("addAccnSpan");
-					var loc = document.getElementById("specLocalitySpan");
-					var cev = document.getElementById("changeCollEventSpan");
-					var col = document.getElementById("editCollsSpan");
-					var rel = document.getElementById("editRelationshipSpan");
-					var par = document.getElementById("editPartsSpan");
-					var ctron = document.getElementById("findContainerSpan");
-					var bi = document.getElementById("editBiolIndivSpan");
-					var oid = document.getElementById("editIdentifiersSpan");
-					var img = document.getElementById("MediaSearchSpan");
-					var enc = document.getElementById("EncumbrancesSpan");
-					var cce = document.getElementById("changeCollEventSpan");
-					var cspan = document.getElementById("catalogSpan");
-					var slspan = document.getElementById("specLocalitySpan");		
-					ms.className = 'likeLink';
-					ids.className = 'likeLink';
-					cev.className = 'likeLink';
-					ac.className = 'likeLink';
-					loc.className = 'likeLink';
-					col.className = 'likeLink';
-					rel.className = 'likeLink';
-					par.className = 'likeLink';
-					ctron.className = 'likeLink';
-					bi.className = 'likeLink';
-					oid.className = 'likeLink';
-					img.className = 'likeLink';
-					enc.className = 'likeLink';
-					cce.className = 'likeLink';
-					cspan.className = 'likeLink';
-					slspan.className = 'likeLink';
-					var thisID = page + 'Span';
-					var thisSpan = "document.getElementById('" + thisID + "');";
-					//alert(thisSpan);
-					var theSpanEl = eval(thisSpan);
-					theSpanEl.className = 'likeLink active';
-					dyniframesize();
-			}
-		</script>				
-	    <table>
-		    <tr>
-			    <td align="center">
-					<form name="incPg" method="post" action="SpecimenDetail.cfm">
-				        <input type="hidden" name="collection_object_id" value="#collection_object_id#">
-						<input type="hidden" name="suppressHeader" value="true">
-						<input type="hidden" name="action" value="nothing">
-						<input type="hidden" name="Srch" value="Part">
-						<input type="hidden" name="collecting_event_id" value="#detail.collecting_event_id#">
-						<cfif isdefined("session.collObjIdList") and len(session.collObjIdList) gt 0>
-						    <cfset isPrev = "no">
-							<cfset isNext = "no">
-							<cfset currPos = 0>
-							<cfset lenOfIdList = 0>
-							<cfset firstID = collection_object_id>
-							<cfset nextID = collection_object_id>
-							<cfset prevID = collection_object_id>
-							<cfset lastID = collection_object_id>
-							<cfset currPos = listfind(session.collObjIdList,collection_object_id)>
-							<cfset lenOfIdList = listlen(session.collObjIdList)>
-							<cfset firstID = listGetAt(session.collObjIdList,1)>
-							<cfif currPos lt lenOfIdList>
-								<cfset nextID = listGetAt(session.collObjIdList,currPos + 1)>
-							</cfif>
-							<cfif currPos gt 1>
-								<cfset prevID = listGetAt(session.collObjIdList,currPos - 1)>
-							</cfif>	
-							<cfset lastID = listGetAt(session.collObjIdList,lenOfIdList)>
-							<cfif lenOfIdList gt 1>
-								<cfif currPos gt 1>
-									<cfset isPrev = "yes">
-								</cfif>
-								<cfif currPos lt lenOfIdList>
-									<cfset isNext = "yes">
-								</cfif>
-							</cfif>
-						<cfelse>
-							<cfset isNext="">
-							<cfset isPrev="">
-						</cfif>
-		                <ul id="navbar">
-							<cfif isPrev is "yes">
-								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
-								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
-							<cfelse>
-								<img src="/images/no_first.gif" alt="[ inactive button ]">
-								<img src="/images/no_previous.gif" alt="[ inactive button ]">
-							</cfif>
-			                <li>
-								<span onclick="switchIFrame('SpecimenDetail_body')" class="likeLink active" id="SpecimenDetail_bodySpan">Main</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('editIdentification')" class="likeLink" id="editIdentificationSpan">Taxa</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('addAccn')"	class="likeLink" id="addAccnSpan">Accn</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('changeCollEvent')" class="likeLink" id="changeCollEventSpan">Pick New Coll Event</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('specLocality')" class="likeLink" id="specLocalitySpan">Locality</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('editColls')" class="likeLink" id="editCollsSpan">Agents</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('editRelationship')" class="likeLink" id="editRelationshipSpan">Relations</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('editParts')" class="likeLink" id="editPartsSpan">Parts</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('findContainer')" class="likeLink" id="findContainerSpan">Part Locn.</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('editBiolIndiv')" class="likeLink" id="editBiolIndivSpan">Attributes</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('editIdentifiers')"	class="likeLink" id="editIdentifiersSpan">Other IDs</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('MediaSearch')"	class="likeLink" id="MediaSearchSpan">Media</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('Encumbrances')" class="likeLink" id="EncumbrancesSpan">Encumbrances</span>
-							</li>
-							<li>
-								<span onclick="switchIFrame('catalog')" class="likeLink" id="catalogSpan">Catalog</span>
-							</li>
-							<cfif isNext is "yes">
-								<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
-								<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
-							<cfelse>
-								<img src="/images/no_next.gif" alt="[ inactive button ]">
-								<img src="/images/no_last.gif" alt="[ inactive button ]">
-							</cfif>
-						</ul>
-	                </form>
-		        </td>
-		    </tr>
-		</table>
-		<table width="100%">
-			<tr>
-				<td>
-					<div id="fHolder">
-						<iframe class="thisFrame" 
-							style="border:none;width:100%;"
-	                        id="theFrame" 
-							name="theFrame" 
-							src="/SpecimenDetail_body.cfm?collection_object_id=#collection_object_id#">
-						</iframe>
-					</div>
-				</td>
-			</tr>
-		</table>
-	<cfelse><!--- not coldfusion user --->
-		<cfinclude template="SpecimenDetail_body.cfm">
-	</cfif>
-	--->
 	<cfinclude template="SpecimenDetail_body.cfm">
 	<cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and showAnnotation is "true">
