@@ -3,14 +3,14 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
-    	<cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#&collection_object_id=#url.collection_object_id#" addtoken="false">
+    	<cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#&specID=#url.collection_object_id#" addtoken="false">
     </cfoutput>
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	<a href="/media.cfm?action=newMedia">[ Create media ]</a>
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-		<a href="/media.cfm?action=newMedia&collection_object_id=#collection_object_id#">[ Create Specimen media ]</a>
+		<a href="/media.cfm?action=newMedia&collection_object_id=#specID#">[ Create Specimen media ]</a>
 	</cfif>
 </cfif>
 <!----------------------------------------------------------------------------------------->
