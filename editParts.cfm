@@ -1,7 +1,5 @@
-<cfinclude template="/includes/alwaysInclude.cfm">
+<cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' language="javascript" src='/includes/internalAjax.js'></script>
-
-
 <cfif action is "nothing">
 	<cfoutput>
 	<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -462,8 +460,6 @@
 			</cfquery>
 	</cfif>
 	</cftransaction>
-	
-
 	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
 </cfif>
 <!----------------------------------------------------------------------------------->
