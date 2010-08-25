@@ -86,7 +86,6 @@
 				alert('I have no idea what to do with ' + orig_units);
 			}		
 		}		
-		parent.dyniframesize();
 	}
 </script>
 <cfif action is "nothing">
