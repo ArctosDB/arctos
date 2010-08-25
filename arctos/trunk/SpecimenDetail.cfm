@@ -335,7 +335,7 @@ z-index:9998;
 				//cDiv.innerHTML = 'X';
 				cDiv.setAttribute('onclick','closeEditApp()');
 				$("##popDiv").append(cDiv);
-				$("##popDiv").html.append('<img src="/images/loadingAnimation.gif">');
+				$("##popDiv").append('<img src="/images/loadingAnimation.gif">');
 				var theFrame = document.createElement('iFrame');
 				theFrame.id='theFrame';
 				theFrame.className = 'editFrame';
