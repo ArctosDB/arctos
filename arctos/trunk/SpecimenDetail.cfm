@@ -348,7 +348,7 @@ z-index:9998;
 				//$("##fDiv").append(theFrame);
 				document.body.appendChild(theFrame);
 				$("span[id^='BTN_']").each(function(){
-					$("#" + this.id).removeClass('activeButton');
+					$("##" + this.id).removeClass('activeButton');
 				});
 				
 				$("##BTN_" + q).addClass('activeButton');
