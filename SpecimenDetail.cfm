@@ -225,15 +225,14 @@
 				background-color:lightgray;
 				overflow:auto;
 			}
-			
-			.centeredImage
-    {
-    position:absolute;
-   top:50%;
-   left:50%;
-   margin-top:-25px;
-   margin-left:-25px;
-    }
+			.centeredImage {
+			   position:absolute;
+			   top:50%;
+			   left:50%;
+			   margin-top:-25px;
+			   margin-left:-100px;
+				border:1px solid white;
+   			 }
 			.editFrame {
 				border-top:1px solid gray;
 				z-index:1000;
@@ -254,42 +253,6 @@
 				width:30px;
 				z-index:9999;
 			}
-
-
-			/*
-			
-			.editAppBox {
-				border:3px solid green;
-				z-index:9998;
-				position:absolute;
-				top:1%;
-				left:2%;
-				width:95%;
-				height:95%;
-				background-color:white;
-				overflow:auto;
-			}
-.editFrame {
-				border:1px solid red;
-				z-index:1000;
-				position:fixed;
-				top:10%;
-				left:10%;
-				width:70%;
-				height:70%;
-z-index:9998;
-			}
-			.editFrame {
-				border:1px solid red;
-				z-index:1000;
-				position:absolute;
-				top:0;
-				left:0;
-				width:100%;
-				height:100%;
-			}
-			*/
-			
 		</style>
 		<script language="javascript" type="text/javascript">
 			function closeEditApp() {
@@ -307,7 +270,6 @@ z-index:9998;
 					$("##" + this.id).removeClass('activeButton');
 					$('##' + this.id, window.parent.document).removeClass('activeButton');
 				});
-			
 			}
 			function loadEditApp(q) {
 				closeEditApp();
@@ -341,7 +303,6 @@ z-index:9998;
 				var cDiv=document.createElement('div');
 				cDiv.className = 'fancybox-close';
 				cDiv.id='cDiv';
-				//cDiv.innerHTML = 'X';
 				cDiv.setAttribute('onclick','closeEditApp()');
 				$("##popDiv").append(cDiv);
 				$("##popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
@@ -350,7 +311,7 @@ z-index:9998;
 				theFrame.className = 'editFrame';
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 				theFrame.src=ptl;
-				//document.body.appendChild(theFrame);
+				document.body.appendChild(theFrame);
 				$("span[id^='BTN_']").each(function(){
 					$("##" + this.id).removeClass('activeButton');
 					$('##' + this.id, window.parent.document).removeClass('activeButton');
@@ -359,7 +320,7 @@ z-index:9998;
 				$("##BTN_" + q).addClass('activeButton');
 				$('##BTN_' + q, window.parent.document).addClass('activeButton');
 				
-		}
+			}
 		</script>
 		 <table>
 		    <tr>
