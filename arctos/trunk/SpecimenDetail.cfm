@@ -229,7 +229,7 @@
 				border-top:1px solid gray;
 				z-index:1000;
 				position:fixed;
-				top:7%;
+				top:35px;
 				left:2%;
 				width:95%;
 				height:90%;
@@ -399,9 +399,9 @@ z-index:9998;
 		}
 		</script>
 		<span class="likeLink" onclick="loadEditApp('editIdentification');">editIdentification</span>
+		<span class="likeLink" onclick="loadEditApp('addAccn');">addAccn</span>
+
 		
-		
-		<a href="/editIdentification.cfm?collection_object_id=#collection_object_id#&keepThis=true&TB_iframe=true&height=95%&width=95%" title="add a caption to title attribute / or leave blank" class="thickbox">Example 1</a>  
 	</cfif>
 
 	<!---
