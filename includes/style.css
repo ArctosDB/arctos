@@ -1,3 +1,7 @@
+.activeButton {
+border:2px solid red;
+}
+
 .borderBox{
 	display:inline-block;
 	margin: 1em 1em 1em 1em;
