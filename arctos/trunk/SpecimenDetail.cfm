@@ -245,9 +245,6 @@
 				width:30px;
 				z-index:9999;
 			}
-.activeButton {
-border:2px solid red;
-}
 
 
 			/*
