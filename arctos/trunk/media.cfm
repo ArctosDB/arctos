@@ -307,9 +307,12 @@
 		</form>
 		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 			got a collection_object_id
+			<cfquery name="s"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select guid from flat where collection_object_id=#collection_object_id#
+			</cfquery>
+			<cfdump var=#s#>
 		</cfif>
 		
-		</cfif>
 	</cfoutput>    
 </cfif>
 <!------------------------------------------------------------------------------------------>
