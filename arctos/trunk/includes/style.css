@@ -1,6 +1,10 @@
-#navbar .activeButton {
-border:2px solid red;
+#navbar .activeButton , #navbar .activeButton:hover{
+	border:1px solid gray;
+	color:gray;
+	background-color:lightgray;
+	cursor:default;
 }
+
 
 .borderBox{
 	display:inline-block;
