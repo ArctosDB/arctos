@@ -413,6 +413,39 @@ z-index:9998;
 							<li>
 								<span onclick="loadEditApp('addAccn')"	class="likeLink" id="addAccnSpan">Accn</span>
 							</li>
+							<li>
+								<span onclick="loadEditApp('changeCollEvent')" class="likeLink" id="changeCollEventSpan">Pick New Coll Event</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('specLocality')" class="likeLink" id="specLocalitySpan">Locality</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('editColls')" class="likeLink" id="editCollsSpan">Agents</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('editRelationship')" class="likeLink" id="editRelationshipSpan">Relations</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('editParts')" class="likeLink" id="editPartsSpan">Parts</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('findContainer')" class="likeLink" id="findContainerSpan">Part Locn.</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('editBiolIndiv')" class="likeLink" id="editBiolIndivSpan">Attributes</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('editIdentifiers')"	class="likeLink" id="editIdentifiersSpan">Other IDs</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('MediaSearch')"	class="likeLink" id="MediaSearchSpan">Media</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('Encumbrances')" class="likeLink" id="EncumbrancesSpan">Encumbrances</span>
+							</li>
+							<li>
+								<span onclick="loadEditApp('catalog')" class="likeLink" id="catalogSpan">Catalog</span>
+							</li>
 						</ul>
 	</cfif>
 
