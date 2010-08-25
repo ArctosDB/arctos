@@ -305,6 +305,11 @@
 				onmouseover="this.className='insBtn btnhov'" 
 				onmouseout="this.className='insBtn'">
 		</form>
+		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+			got a collection_object_id
+		</cfif>
+		
+		</cfif>
 	</cfoutput>    
 </cfif>
 <!------------------------------------------------------------------------------------------>
