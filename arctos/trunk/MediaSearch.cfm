@@ -559,6 +559,8 @@
 </div>
 <!--- deal with the possibility of being called in a frame from SpecimenDetail --->
 <script language="javascript" type="text/javascript">
+    console.log('wtf?');
+    alert('wtf?');
     if (top.location!=document.location) {
     	alert('ina frame');
     	document.getElementById('_header').style.display='none';
