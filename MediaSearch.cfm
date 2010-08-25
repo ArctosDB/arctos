@@ -577,12 +577,15 @@
 	<hr>limit
 	
 	
-	preservesinglequotes(URLDecode(ssql)): #preservesinglequotes(URLDecode(ssql))#
 	</cfoutput>
 	
 	
 	##
 	<!---
+	
+	
+		preservesinglequotes(URLDecode(ssql)): #preservesinglequotes(URLDecode(ssql))#
+
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,-1,0)#">
 		#preservesinglequotes(URLDecode(ssql))#
 	</cfquery>
