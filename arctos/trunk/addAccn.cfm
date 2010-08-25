@@ -161,10 +161,4 @@
 </cfif>
 <!--------------------------------------------------------------------------------->
 <cfinclude template="includes/_footer.cfm">
-<cfoutput>
-<script type="text/javascript" language="javascript">
-	if (self != top) {
-		changeStyle('#getItems.institution_acronym#');
-	}
-</script>
-</cfoutput>
+cf_customizeIFrame
