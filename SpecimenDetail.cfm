@@ -232,7 +232,7 @@
 				border-top:1px solid gray;
 				z-index:1000;
 				position:fixed;
-				top:35px;
+				top:40px;
 				left:2%;
 				width:95%;
 				height:90%;
