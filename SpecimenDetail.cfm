@@ -245,7 +245,9 @@
 				width:30px;
 				z-index:9999;
 			}
-
+.activeButton {
+border:2px solid red;
+}
 
 
 			/*
@@ -345,8 +347,11 @@ z-index:9998;
 				theFrame.src=ptl;
 				//$("##fDiv").append(theFrame);
 				document.body.appendChild(theFrame);
+				$("span[id^='BTN_']").each(function(){
+					$("#" + this.id).removeClass('activeButton');
+				});
 				
-				$("##BTN_" + q).addClass('red');
+				$("##BTN_" + q).addClass('activeButton');
 				
 		}
 		</script>
