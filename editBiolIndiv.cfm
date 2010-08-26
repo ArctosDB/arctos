@@ -49,8 +49,8 @@
 				d+='<option value="' + result.V[i] + '">' + result.V[i] + '</option>';
 			}
 			d+='</select>';
-			$("#_attribute_value_" + aid).append(d);
-			$("#attribute_value_" + aid).val($("#val" + aid).val());
+			$("#_attribute_value" + aid).append(d);
+			$("#attribute_value" + aid).val($("#val" + aid).val());
 		} else if (resType == 'units') {
 			var d = '<select name="attribute_units' + aid + '" id="attribute_units' + aid + '">';
 			d+='<option value=""></option>';
@@ -66,7 +66,7 @@
 		} else {
 			var t='<input type="text" name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
 			$("#_attribute_value" + aid).append(t);
-			$("#attribute_value" + aid).val($("#va_" + aid).val());
+			$("#attribute_value" + aid).val($("#val" + aid).val());
 		}
 	}
 </script>
