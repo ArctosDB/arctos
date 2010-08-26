@@ -176,7 +176,7 @@
 			select collection_cde from ctcollection_cde
 		</cfquery>
 		<form name="details" method="post" action="editBiolIndiv.cfm">
-			<input type="hidden" value="saveNoAttEdits" name="Action">
+			<input type="hidden" value="save" name="action">
 			<input type="hidden" value="#collection_object_id#" name="collection_object_id">
 			<input type="hidden" value="#indiv.collection_cde#" name="collection_cde" id="collection_cde">
     		<table>
@@ -375,7 +375,9 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------>
-
+<cfif action is "save">
+	<cfdump var=#form#>
+</cfif>
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "saveChanges">
 <cfoutput>
