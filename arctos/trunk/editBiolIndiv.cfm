@@ -11,7 +11,21 @@
 		});
 	});
 	function deleteAttribute(id){
-		$("#attribute_" + id).val('pending delete');	
+		var d='<input type="hidden" id="deleted_attribute_type_' + id + '" name="deleted_attribute_type_' + id + '">';
+		$("#atttype_" + id).append(d);
+		$("#deleted_attribute_type_" + id).val($("#attribute_type_" + id).val());
+		$("#attribute_type_" + id).val('pending delete');
+		var d='<input type="button" id="rec_' + id + '"	value="undelete" class="savBtn" onclick="undeleteAttribute(\'' + id + '\');">';
+		$("#attdel_" + id).append(d);
+		$("#del_" + id).remove();
+	}
+	
+	function undeleteAttribute(id){
+		$("#attribute_type_" + id).val($("#deleted_attribute_type_" + id).val());
+		$("#deleted_attribute_type_" + id).remove();
+		var d='<input type="button" id="del_' + id + '"	value="Delete" class="delBtn" onclick="deleteAttribute(\'' + id + '\');">';
+		$("#attdel_" + id).append(d);
+		$("#rec_" + id).remove();
 	}
 	function populateAttribute(aid) {		
 		jQuery.getJSON("/component/DataEntry.cfc",
@@ -221,7 +235,7 @@
 				<cfloop query="atts">
 					<input type="hidden" name="attribute_id_#i#" id="attribute_id_#i#" value="#attribute_id#">
 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-						<td>
+						<td id="atttype_#attribute_id#">
 							<input type="text" name="attribute_type_#attribute_id#" id="attribute_type_#attribute_id#" value="#attribute_type#" readonly="yes" class="readClr">
 						</td>
 						<td id="_attribute_value_#attribute_id#">
@@ -249,7 +263,8 @@
 						</td>
 						<td>
 							<input type="button" 
-								value="Delete" 
+								id="del_#attribute_id#"
+									value="Delete" 
 								class="delBtn"
 								onclick="deleteAttribute('#attribute_id#');">
 						</td>
