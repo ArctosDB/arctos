@@ -38,6 +38,9 @@
 		parent.console.log(aid);
 		parent.console.log(r);
 		aid='_' + aid;
+		$("#attribute_value" + aid).remove();
+		$("#attribute_units" + aid).remove();
+		
 		
 		if (resType == 'value') {
 			var d = '<select name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
