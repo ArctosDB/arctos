@@ -7,17 +7,10 @@
 		$("#determined_date").datepicker();
 		$("#mammgrid_determined_date").datepicker();
 		$("input[id^='attribute_id_']").each(function(){
-			//var attid=$("#" + this.id).val();
 			populateAttribute($("#" + this.id).val());
-			//parent.console.log('got att ID ' + attid);
-			//parent.console.log(this.id);
 		});
-		
-		
 	});
-	function populateAttribute(aid) {	
-		parent.console.log('getting data for ' + aid + '::' + $("#attribute_type_" + aid).val());
-		
+	function populateAttribute(aid) {		
 		jQuery.getJSON("/component/DataEntry.cfc",
 			{
 				method : "getAttCodeTbl",
@@ -31,17 +24,12 @@
 		);	
 	}
 	function success_populateAttribute (r) {
-		
 		var result=r.DATA;
 		var resType=result.V[0];
 		var aid=result.V[1];
-		parent.console.log(aid);
-		parent.console.log(r);
 		aid='_' + aid;
 		$("#attribute_value" + aid).remove();
-		$("#attribute_units" + aid).remove();
-		
-		
+		$("#attribute_units" + aid).remove();	
 		if (resType == 'value') {
 			var d = '<select name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
 			d+='<option value=""></option>';
