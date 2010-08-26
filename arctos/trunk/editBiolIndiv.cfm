@@ -314,27 +314,28 @@ function success_getAttributeStuff (r) {
 					<input type="text" name="attribute_id_#i#" id="attribute_id_#i#" value="#attribute_id#">
 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<td>
-							<input type="text" name="attribute_type_#i#" id="attribute_type_#i#" value="#attribute_type#" readonly="yes" class="readClr">
+							<input type="text" name="attribute_type_#attribute_id#" id="attribute_type_#attribute_id#" value="#attribute_type#" readonly="yes" class="readClr">
 						</td>
-						<td id="value_#attribute_id#">
+						<td id="_value_#attribute_id#">
 							<input type="hidden" name="val_#attribute_id#" id="val_#attribute_id#" value="#attribute_value#">
 						</td>
-						<td id="units_#attribute_id#">
+						<td id="_units_#attribute_id#">
 							<input type="hidden" name="unit_#attribute_id#" id="unit_#attribute_id#" value="#attribute_units#">
 						</td>
-						<td id="remarks_#attribute_id#">
-							<input type="text" name="attribute_remark_#i#" id="attribute_remark_#i#" value="#attribute_remark#">
+						<td id="_remarks_#attribute_id#">
+							<input type="text" name="attribute_remark_#attribute_id#" id="attribute_remark_#attribute_id#" value="#attribute_remark#">
 						</td>
-						<td id="determined_date_#attribute_id#">
-							<input type="text" name="determined_date_#i#" id="determined_date_#i#" value="dateformat(determined_date,'yyyy-mm-dd')" class="reqdClr" size="12">
+						<td id="_determined_date_#attribute_id#">
+							<input type="text" name="determined_date_#attribute_id#" id="determined_date_#attribute_id#" value="dateformat(determined_date,'yyyy-mm-dd')" class="reqdClr" size="12">
 						</td>
-						<td id="determination_method_#attribute_id#">
-							<input type="text" name="determination_method_#i#" id="determination_method_#i#" value="#determination_method#">
+						<td id="_determination_method_#attribute_id#">
+							<input type="text" name="determination_method_#attribute_id#" id="determination_method_#attribute_id#" value="#determination_method#">
 						</td>
-						<td id="agent_name_#attribute_id#">
-							<input type="hidden" name="determined_by_agent_id_#i#" id="determined_by_agent_id_#i#" value="#determined_by_agent_id#">
-							<input type="text" name="agent_name_#i#" class="reqdClr" value="#agent_name#"
-		 						onchange="getAgent('determined_by_agent_id_#i#',this.id,'details',this.value); return false;"
+						<td id="_agent_name_#attribute_id#">
+							<input type="hidden" name="determined_by_agent_id_#attribute_id#" id="determined_by_agent_id_#attribute_id#" 
+								value="#determined_by_agent_id#">
+							<input type="text" name="agent_name_#attribute_id#" class="reqdClr" value="#agent_name#"
+		 						onchange="getAgent('determined_by_agent_id_#attribute_id#',this.id,'details',this.value); return false;"
 		  						onKeyPress="return noenter(event);">
 						</td>
 						<td>
