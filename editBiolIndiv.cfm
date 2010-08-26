@@ -81,7 +81,7 @@
 			}
 			d+='</select>';
 			$("#_attribute_units" + aid).append(d);
-			$("#attribute_units" + aid).val($("#unit_" + aid).val());
+			$("#attribute_units" + aid).val($("#unit" + aid).val());
 			var t='<input type="text" name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
 			$("#_attribute_value" + aid).append(t);
 			$("#attribute_value" + aid).val($("#val" + aid).val());
