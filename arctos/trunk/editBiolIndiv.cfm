@@ -396,6 +396,7 @@
 </cfif>
 <!------------------------------------------------------------------------------>
 <cfif action is "save">
+	<cfdump var=#form#>
 	<cfoutput>
 		<cftransaction>
 			<cfloop from="1" to="#number_Of_Attributes#" index="n">
