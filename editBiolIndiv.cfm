@@ -31,10 +31,13 @@
 		);	
 	}
 	function success_populateAttribute (r) {
-		parent.console.log(r);
+		
 		var result=r.DATA;
 		var resType=result.V[0];
 		var aid=result.V[1];
+		parent.console.log(aid);
+		parent.console.log(r);
+		
 		if (resType == 'value') {
 			var d = '<select name="attribute_value_' + aid + '" id="attribute_value_' + aid + '">';
 			d+='<option value=""></option>';
