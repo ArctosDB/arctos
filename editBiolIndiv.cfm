@@ -368,13 +368,13 @@
 	<cfoutput>
 		<cfloop from="1" to="#number_Of_Attributes#" index="n">
 			<cfset thisAttributeId = evaluate("attribute_id_" & n)>
-			<cfset thisAttributeType = evaluate("attribute_type_" & n)>
-			<cfset thisAttributeUnits = evaluate("attribute_units_" & n)>
-			<cfset thisAttributeValue = evaluate("attribute_value_" & n)>
-			<cfset thisAttributeRemark = evaluate("attribute_remark_" & n)>
-			<cfset thisDeterminedDate = evaluate("determined_date_" & n)>
-			<cfset thisDeterminationMethod = evaluate("determination_method_" & n)>
-			<cfset thisDeterminedByAgentId = evaluate("determined_by_agent_id_" & n)>
+			<cfset thisAttributeType = evaluate("attribute_type_" & thisAttributeId)>
+			<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>
+			<cfset thisAttributeValue = evaluate("attribute_value_" & thisAttributeId)>
+			<cfset thisAttributeRemark = evaluate("attribute_remark_" & thisAttributeId)>
+			<cfset thisDeterminedDate = evaluate("determined_date_" & thisAttributeId)>
+			<cfset thisDeterminationMethod = evaluate("determination_method_" & thisAttributeId)>
+			<cfset thisDeterminedByAgentId = evaluate("determined_by_agent_id_" & thisAttributeId)>
 			
 			
 			<hr>
