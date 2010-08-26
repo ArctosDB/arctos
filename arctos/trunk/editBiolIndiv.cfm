@@ -300,7 +300,7 @@
 						<input type="text" name="attribute_remark" id="attribute_remark">
 					</td>
 					<td id="determined_date_new">
-						<input type="text" name="determined_date" id="determined_date" size="12">
+						<input type="text" name="determined_date" id="determined_date" class="reqdClr" size="12">
 					</td>
 					<td id="determination_method_new">
 						<input type="text" name="determination_method" id="determination_method">
@@ -389,8 +389,9 @@
 					</tr>
 				</table>
 			</cfif>
-			<br>
-			<input type="submit" value="save">
+			<div align="center">
+				<input type="submit" value="save" class="savBtn">
+			</div>
 		</form>
 	</cfoutput>
 </cfif>
