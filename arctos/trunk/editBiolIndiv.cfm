@@ -37,11 +37,8 @@
 		var aid=result.V[1];
 		parent.console.log(aid);
 		parent.console.log(r);
-		if (aid != 'new'){
-			aid='_' + aid;
-		} else {
-			aid='';
-		}
+		aid='_' + aid;
+		
 		if (resType == 'value') {
 			var d = '<select name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
 			d+='<option value=""></option>';
