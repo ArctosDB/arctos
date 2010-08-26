@@ -404,12 +404,14 @@
 				<cftry>
 					<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>
 					<cfcatch>
+						<cfdump var=#cfcatch#>
 						<cfset thisAttributeUnits = ''>
 					</cfcatch>
 				</cftry>
 				<cftry>
 					<cfset thisAttributeValue = evaluate("attribute_value_" & thisAttributeId)>
 					<cfcatch>
+						<cfdump var=#cfcatch#>
 						<cfset thisAttributeValue = ''>
 					</cfcatch>
 				</cftry>
