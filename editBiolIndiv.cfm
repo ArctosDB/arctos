@@ -214,8 +214,8 @@
 					<td>Determiner</td>
 					<td>&nbsp;</td>
 				</tr>
+				<input type="hidden" name="number_of_attributes" id="number_of_attributes" value="#atts.recordcount#">
 				<cfloop query="atts">
-					<input type="hidden" name="number_of_attributes" id="number_of_attributes" value="#atts.recordcount#">
 					<input type="hidden" name="attribute_id_#i#" id="attribute_id_#i#" value="#attribute_id#">
 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<td>
@@ -365,6 +365,31 @@
 <!------------------------------------------------------------------------------>
 <cfif action is "save">
 	<cfdump var=#form#>
+	<cfoutput>
+		<cfloop from="1" to="#number_Of_Attributes#" index="n">
+			<cfset thisAttributeId = evaluate("attribute_id_" & n)>
+			<cfset thisAttributeType = evaluate("attribute_type_" & n)>
+			<cfset thisAttributeUnits = evaluate("attribute_units_" & n)>
+			<cfset thisAttributeValue = evaluate("attribute_value_" & n)>
+			<cfset thisAttributeRemark = evaluate("attribute_remark_" & n)>
+			<cfset thisDeterminedDate = evaluate("determined_date_" & n)>
+			<cfset thisDeterminationMethod = evaluate("determination_method_" & n)>
+			<cfset thisDeterminedByAgentId = evaluate("determined_by_agent_id_" & n)>
+			
+			
+			<hr>
+			UPDATE attributes SET
+				attribute_type='#thisAttributeType#',
+				DETERMINED_BY_AGENT_ID = #thisDeterminedByAgentId#
+				ATTRIBUTE_VALUE='#thisAttributeValue#',
+				ATTRIBUTE_UNITS='#thisAttributeUnits#',
+				ATTRIBUTE_REMARK='#thisAttributeRemark#',
+				DETERMINED_DATE='#dateformat(thisDeterminedDate,"yyyy-mm-dd")#',
+				DETERMINATION_METHOD='#thisDeterminationMethod#'
+			WHERE 
+				attribute_id=#thisAttributeId#
+		</cfloop>			
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "saveChanges">
