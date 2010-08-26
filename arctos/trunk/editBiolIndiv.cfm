@@ -277,15 +277,15 @@
 				</cfloop>
 				<tr class="newRec">
 					<td>
-						<select name="attribute_type" id="attribute_type" size="1" onChange="populateAttribute('new');">
+						<select name="attribute_type_new" id="attribute_type_new" size="1" onChange="populateAttribute('new');">
 							<option value="">Create New Attribute</option>
 							<cfloop query="ctattribute_type">
 								<option value="#ctattribute_type.attribute_type#">#ctattribute_type.attribute_type#</option>
 							</cfloop>
 						</select>
 					</td>
-					<td id="value_new"></td>
-					<td id="units_new"></td>
+					<td id="_attribute_value_new">
+					<td id="_attribute_units_new">
 					<td id="remarks_new">
 						<input type="text" name="attribute_remark" id="attribute_remark">
 					</td>
