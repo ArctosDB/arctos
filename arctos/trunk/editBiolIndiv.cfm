@@ -307,7 +307,7 @@
 					</td>
 					<td id="agent_name_new">
 						<input type="hidden" name="determined_by_agent_id" id="determined_by_agent_id">
-						<input type="text" name="agent_name" class="reqdClr"
+						<input type="text" name="agent_name" id="agent_name" class="reqdClr"
 	 						onchange="getAgent('determined_by_agent_id',this.id,'details',this.value); return false;"
 	  						onKeyPress="return noenter(event);">
 					</td>
