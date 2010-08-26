@@ -223,13 +223,6 @@
 	      	select BIOL_INDIV_RELATIONSHIP from ctbiol_relations
 			order by BIOL_INDIV_RELATIONSHIP
 	    </cfquery>
-		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select distinct(attribute_type) from ctattribute_type
-			<cfif len(#collection_cde#) gt 0>
-				WHERE collection_cde='#collection_cde#'
-			</cfif>
-			order by attribute_type
-		</cfquery>
 		<cfquery name="ctLength_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select length_units from ctLength_Units order by length_units
 		</cfquery>
