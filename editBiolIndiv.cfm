@@ -206,7 +206,7 @@
 		<input type="hidden" name="attribute_id">
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 <cfloop query="indiv">
-	<cfif len(#indiv.attribute_type#) gt 0>
+	<cfif len(indiv.attribute_type) gt 0>
 	
 		<input type="hidden" name="attribute_id_#i#" value="#indiv.attribute_id#">
 	 <tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
