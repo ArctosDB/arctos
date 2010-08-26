@@ -185,7 +185,7 @@ function success_getAttributeStuff (r) {
 			group by
 				COLL_OBJ_DISPOSITION,
 				CONDITION,
-				CAT_NUM
+				CAT_NUM,
 				collection_cde,
 				DISPOSITION_REMARKS,
 				COLL_OBJECT_REMARKS,
