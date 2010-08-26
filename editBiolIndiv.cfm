@@ -396,28 +396,20 @@
 </cfif>
 <!------------------------------------------------------------------------------>
 <cfif action is "save">
-	<cfdump var=#form#>
 	<cfoutput>
 		<cftransaction>
 			<cfloop from="1" to="#number_Of_Attributes#" index="n">
 				<cfset thisAttributeId = evaluate("attribute_id_" & n)>
-				<br>thisAttributeId: #thisAttributeId#
 				<cfset thisAttributeType = evaluate("attribute_type_" & thisAttributeId)>
-				<br>thisAttributeType: #thisAttributeType#
 				<cftry>
-					<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>
-					<br>pas:thisAttributeUnits: #thisAttributeUnits#
-				
+					<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>				
 					<cfcatch>
-						<cfset thisAttributeUnits = ''>
-						<br>fail:thisAttributeUnits: #thisAttributeUnits#
-				
+						<cfset thisAttributeUnits = ''>				
 					</cfcatch>
 				</cftry>
 				<cftry>
 					<cfset thisAttributeValue = evaluate("attribute_value_" & thisAttributeId)>
 					<cfcatch>
-						<cfdump var=#cfcatch#>
 						<cfset thisAttributeValue = ''>
 					</cfcatch>
 				</cftry>
