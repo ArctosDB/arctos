@@ -9,6 +9,7 @@
 		$("input[id^='attribute_id_']").each(function(){
 			var attid=$("#" + this.id).val();
 			parent.console.log('got att ID ' + attid);
+			parent.console.log(this.id);
 		});
 		
 		
