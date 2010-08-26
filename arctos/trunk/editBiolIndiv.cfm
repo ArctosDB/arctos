@@ -11,7 +11,7 @@
 		});
 	});
 	function deleteAttribute(id){
-		$("#attribute_" + aid).val('pending delete');	
+		$("#attribute_" + id).val('pending delete');	
 	}
 	function populateAttribute(aid) {		
 		jQuery.getJSON("/component/DataEntry.cfc",
