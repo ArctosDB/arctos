@@ -389,8 +389,9 @@
 					</tr>
 				</table>
 			</cfif>
+			<br>
 			<div align="center">
-				<input type="submit" value="save" class="savBtn">
+				<input type="submit" value="save all edits" class="savBtn">
 			</div>
 		</form>
 	</cfoutput>
