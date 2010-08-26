@@ -6,6 +6,12 @@
 		});
 		$("#determined_date").datepicker();
 		$("#mammgrid_determined_date").datepicker();
+		$("input[id^='attribute_id_']").each(function(){
+			var attid=$("#" + this.id).val();
+			console.log('got att ID ' + attid);
+		});
+		
+		
 	});
 	
 	
@@ -277,7 +283,7 @@ function success_getAttributeStuff (r) {
 				</tr>
 				<cfloop query="atts">
 					<input type="hidden" name="number_of_attributes" id="number_of_attributes" value="#atts.recordcount#">
-					<input type="hidden" name="attribute_id_#i#" id="attribute_id_#i#" value="#attribute_id#">
+					<input type="text" name="attribute_id_#i#" id="attribute_id_#i#" value="#attribute_id#">
 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<td>
 							<input type="text" name="attribute_type_#i#" id="attribute_type_#i#" value="#attribute_type#" readonly="yes" class="readClr">
@@ -403,6 +409,7 @@ function success_getAttributeStuff (r) {
 							<input type="text" name="determined_date" id="mammgrid_determined_date" size="10">
 						</td>
 						<td>
+							<label for="mammgrid_detagentid">Determiner</label>
 							<input type="hidden" name="mammgrid_detagentid">
 							<input type="text" name="mammgrid_determiner" class="reqdClr"
 								onchange="getAgent('mammgrid_detagentid',this.name,'details',this.value); return false;">
