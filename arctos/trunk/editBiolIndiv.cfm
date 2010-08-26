@@ -58,7 +58,7 @@
 			$("#attribute_value_" + aid).val($("#val_" + aid).val());
 		} else {
 			var t='<input type="text" name="attribute_value_' + aid + '" id="attribute_value_' + aid + '">';
-			$("#_attribute_units_" + aid).append(t);
+			$("#_attribute_value_" + aid).append(t);
 			$("#attribute_value_" + aid).val($("#val_" + aid).val());
 		}
 	}
