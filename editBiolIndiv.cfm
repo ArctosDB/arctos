@@ -313,6 +313,7 @@ function success_getAttributeStuff (r) {
 								onclick="deleteAttribute('#attribute_id#');">
 						</td>
 					</tr>
+					<cfset i=i+1>
 				</cfloop>
 				<tr class="newRec">
 					<td>
