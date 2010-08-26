@@ -37,32 +37,36 @@
 		var aid=result.V[1];
 		parent.console.log(aid);
 		parent.console.log(r);
-		
+		if (aid != 'new'){
+			aid='_' + aid;
+		} else {
+			aid='';
+		}
 		if (resType == 'value') {
-			var d = '<select name="attribute_value_' + aid + '" id="attribute_value_' + aid + '">';
+			var d = '<select name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
 			d+='<option value=""></option>';
 			for (i=2;i<result.V.length;i++) {
 				d+='<option value="' + result.V[i] + '">' + result.V[i] + '</option>';
 			}
 			d+='</select>';
 			$("#_attribute_value_" + aid).append(d);
-			$("#attribute_value_" + aid).val($("#val_" + aid).val());
+			$("#attribute_value_" + aid).val($("#val" + aid).val());
 		} else if (resType == 'units') {
-			var d = '<select name="attribute_units_' + aid + '" id="attribute_units_' + aid + '">';
+			var d = '<select name="attribute_units' + aid + '" id="attribute_units' + aid + '">';
 			d+='<option value=""></option>';
 			for (i=2;i<result.V.length;i++) {
 				d+='<option value="' + result.V[i] + '">' + result.V[i] + '</option>';
 			}
 			d+='</select>';
-			$("#_attribute_units_" + aid).append(d);
-			$("#attribute_units_" + aid).val($("#unit_" + aid).val());
-			var t='<input type="text" name="attribute_value_' + aid + '" id="attribute_value_' + aid + '">';
-			$("#_attribute_value_" + aid).append(t);
-			$("#attribute_value_" + aid).val($("#val_" + aid).val());
+			$("#_attribute_units" + aid).append(d);
+			$("#attribute_units" + aid).val($("#unit_" + aid).val());
+			var t='<input type="text" name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
+			$("#_attribute_value" + aid).append(t);
+			$("#attribute_value" + aid).val($("#val" + aid).val());
 		} else {
-			var t='<input type="text" name="attribute_value_' + aid + '" id="attribute_value_' + aid + '">';
-			$("#_attribute_value_" + aid).append(t);
-			$("#attribute_value_" + aid).val($("#val_" + aid).val());
+			var t='<input type="text" name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
+			$("#_attribute_value" + aid).append(t);
+			$("#attribute_value" + aid).val($("#va_" + aid).val());
 		}
 	}
 </script>
@@ -273,7 +277,7 @@
 				</cfloop>
 				<tr class="newRec">
 					<td>
-						<select name="attribute_type" id="attribute_type" size="1" onChange="pickedNewAtt();">
+						<select name="attribute_type" id="attribute_type" size="1" onChange="populateAttribute('new');">
 							<option value="">Create New Attribute</option>
 							<cfloop query="ctattribute_type">
 								<option value="#ctattribute_type.attribute_type#">#ctattribute_type.attribute_type#</option>
