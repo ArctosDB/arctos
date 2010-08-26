@@ -262,7 +262,7 @@
 		 						onchange="getAgent('determined_by_agent_id_#attribute_id#',this.id,'details',this.value); return false;"
 		  						onKeyPress="return noenter(event);">
 						</td>
-						<td>
+						<td id="attdel_#attribute_id#">
 							<input type="button" 
 								id="del_#attribute_id#"
 									value="Delete" 
