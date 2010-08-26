@@ -242,7 +242,7 @@ function success_getAttributeStuff (r) {
         			<td>
 						<label for="condition">Specimen Condition</label>
 						<input type="text" name="condition" id="condition" value="#indiv.condition#" class="reqdClr">
-						<span class="infoLink" onClick="chgCondition('#indiv.collection_object_id#')">history</span>
+						<span class="infoLink" onClick="chgCondition('#collection_object_id#')">history</span>
 					</td>
 					<td>
 						<label for="flags">Missing</label>
