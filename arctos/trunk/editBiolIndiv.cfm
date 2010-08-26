@@ -249,7 +249,8 @@
 							<input type="text" name="attribute_remark_#attribute_id#" id="attribute_remark_#attribute_id#" value="#attribute_remark#">
 						</td>
 						<td id="_determined_date_#attribute_id#">
-							<input type="text" name="determined_date_#attribute_id#" id="determined_date_#attribute_id#" value="dateformat(determined_date,'yyyy-mm-dd')" class="reqdClr" size="12">
+							<input type="text" name="determined_date_#attribute_id#" id="determined_date_#attribute_id#" 
+								value="#dateformat(determined_date,'yyyy-mm-dd')#" class="reqdClr" size="12">
 						</td>
 						<td id="_determination_method_#attribute_id#">
 							<input type="text" name="determination_method_#attribute_id#" id="determination_method_#attribute_id#" value="#determination_method#">
