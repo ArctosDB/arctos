@@ -173,8 +173,8 @@ function success_getAttributeStuff (r) {
 			select 
 				COLL_OBJ_DISPOSITION,
 				CONDITION,
-				CAT_NUM
-				COLLECTION_cde,
+				CAT_NUM,
+				collection_cde,
 				DISPOSITION_REMARKS,
 				COLL_OBJECT_REMARKS,
 				habitat,
@@ -186,7 +186,7 @@ function success_getAttributeStuff (r) {
 				COLL_OBJ_DISPOSITION,
 				CONDITION,
 				CAT_NUM
-				COLLECTION_cde,
+				collection_cde,
 				DISPOSITION_REMARKS,
 				COLL_OBJECT_REMARKS,
 				habitat,
