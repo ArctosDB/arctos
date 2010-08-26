@@ -35,189 +35,33 @@
 		var result=r.DATA;
 		var resType=result.V[0];
 		var aid=result.V[1];
-		//var optn = document.getElementById(theEl);
-		//optn.style.backgroundColor='';
-		var n=result.V.length;
-		//var theNumber = theEl.replace("attribute_","");
 		if (resType == 'value') {
-			var theDivName = "_attribute_value_" + aid;
-			theTextDivName = "_attribute_units_" + aid;
-			theSelectName = "attribute_value_" + aid;
-			theTextName = "attribute_units_" + aid;
-		} else if (resType == 'units') {
-			var theDivName = "_attribute_units_" + aid;
-			theSelectName = "attribute_units_" + aid;
-			theTextDivName = "_attribute_value_" + aid;
-			theTextName = "attribute_value_" + aid;
-		} else {
-			var theDivName = "_attribute_value_" + aid;
-			var theTextDivName = "_attribute_units_" + aid;
-			theSelectName = "attribute_value_" + aid;
-			theTextName = "attribute_units_" + aid;
-		}
-		var theDiv = document.getElementById(theDivName);
-		var theText = document.getElementById(theTextDivName);
-		if (resType == 'value' || resType == 'units') {
-			theDiv.innerHTML = ''; // clear it out
-			theText.innerHTML = '';
-			if (n > 2) {
-				var theNewSelect = document.createElement('SELECT');
-				theNewSelect.name = theSelectName;
-				theNewSelect.id = theSelectName;
-				if (resType == 'units') {
-					var sWid = '60px;';
-				} else {
-					var sWid = '90px;';
-				}
-				theNewSelect.style.width=sWid;
-				theNewSelect.className = "";
-				var a = document.createElement("option");
-				a.text = '';
-	    		a.value = '';
-				theNewSelect.appendChild(a);// add blank
-				for (i=2;i<result.V.length;i++) {
-					var theStr = result.V[i];
-					var a = document.createElement("option");
-					a.text = theStr;
-					a.value = theStr;
-					theNewSelect.appendChild(a);
-				}
-				theDiv.appendChild(theNewSelect);
-				if (resType == 'units') {
-					var theNewText = document.createElement('INPUT');
-					theNewText.name = theTextName;
-					theNewText.id = theTextName;	
-					theNewText.type="text";
-					theNewText.style.width='95px';
-					theNewText.className = "";
-					theText.appendChild(theNewText);
-				}
-			}
-		} else if (resType == 'NONE') {
-			theDiv.innerHTML = '';
-			theText.innerHTML = '';
-			var theNewText = document.createElement('INPUT');
-			theNewText.name = theSelectName;
-			theNewText.id = theSelectName;	
-			theNewText.type="text";
-			theNewText.style.width='95px';
-			theNewText.className = "";
-			theDiv.appendChild(theNewText);
-		} else {
-			alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
-		}
-		
-		
-		
-	}
-	
-	
-	
-	/*
-		<td id="value_#attribute_id#">
-							<input type="hidden" name="val_#attribute_id#" id="val_#attribute_id#" value="#attribute_value#">
-						</td>
-						<td id="units_#attribute_id#">
-							<input type="hidden" name="unit_#attribute_id#" id="unit_#attribute_id#" value="#attribute_units#">
-						</td>
-			*/			
-					
-	
-	function getAttributeStuff (attribute,element) {
-	var isSomething = attribute.length;
-	if (isSomething > 0) {
-		var optn = document.getElementById(element);
-		optn.style.backgroundColor='red';
-		var thisCC = document.getElementById('collection_cde').value;
-		jQuery.getJSON("/component/DataEntry.cfc",
-			{
-				method : "getAttCodeTbl",
-				attribute : attribute,
-				collection_cde : thisCC,
-				element : element,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			success_getAttributeStuff
-		);
-	}
-}
-function success_getAttributeStuff (r) {
-	var result=r.DATA;
-	var resType=result.V[0];
-	var theEl=result.V[1];
-	var optn = document.getElementById(theEl);
-	optn.style.backgroundColor='';
-	var n=result.V.length;
-	var theNumber = theEl.replace("attribute_","");
-	if (resType == 'value') {
-		var theDivName = "attribute_value_cell_" + theNumber;
-		theTextDivName = "attribute_units_cell_" + theNumber;
-		theSelectName = "attribute_value_" + theNumber;
-		theTextName = "attribute_units_" + theNumber;
-	} else if (resType == 'units') {
-		var theDivName = "attribute_units_cell_" + theNumber;
-		theSelectName = "attribute_units_" + theNumber;
-		theTextDivName = "attribute_value_cell_" + theNumber;
-		theTextName = "attribute_value_" + theNumber;
-	} else {
-		var theDivName = "attribute_value_cell_" + theNumber;
-		var theTextDivName = "attribute_units_cell_" + theNumber;
-		theSelectName = "attribute_value_" + theNumber;
-		theTextName = "attribute_units_" + theNumber;
-	}
-	var theDiv = document.getElementById(theDivName);
-	var theText = document.getElementById(theTextDivName);
-	if (resType == 'value' || resType == 'units') {
-		theDiv.innerHTML = ''; // clear it out
-		theText.innerHTML = '';
-		if (n > 2) {
-			var theNewSelect = document.createElement('SELECT');
-			theNewSelect.name = theSelectName;
-			theNewSelect.id = theSelectName;
-			if (resType == 'units') {
-				var sWid = '60px;';
-			} else {
-				var sWid = '90px;';
-			}
-			theNewSelect.style.width=sWid;
-			theNewSelect.className = "";
-			var a = document.createElement("option");
-			a.text = '';
-    		a.value = '';
-			theNewSelect.appendChild(a);// add blank
+			var d = '<select name="attribute_value_' + aid + '" id="attribute_value_' + aid + '">';
+			d+='<option value=""></option>';
 			for (i=2;i<result.V.length;i++) {
-				var theStr = result.V[i];
-				var a = document.createElement("option");
-				a.text = theStr;
-				a.value = theStr;
-				theNewSelect.appendChild(a);
+				d+='<option value="' + result.V[i] + '">' + result.V[i] + '</option>';
 			}
-			theDiv.appendChild(theNewSelect);
-			if (resType == 'units') {
-				var theNewText = document.createElement('INPUT');
-				theNewText.name = theTextName;
-				theNewText.id = theTextName;	
-				theNewText.type="text";
-				theNewText.style.width='95px';
-				theNewText.className = "";
-				theText.appendChild(theNewText);
+			d+='</select>';
+			$("#_attribute_value_" + aid).append(d);
+			$("#attribute_value_" + aid).val($("#val_" + aid).val());
+		} else if (resType == 'units') {
+			var d = '<select name="attribute_units_' + aid + '" id="attribute_units_' + aid + '">';
+			d+='<option value=""></option>';
+			for (i=2;i<result.V.length;i++) {
+				d+='<option value="' + result.V[i] + '">' + result.V[i] + '</option>';
 			}
+			d+='</select>';
+			$("#_attribute_units_" + aid).append(d);
+			$("#attribute_units_" + aid).val($("#unit_" + aid).val());
+			var t='<input type="text" name="attribute_value_' + aid + '" id="attribute_value_' + aid + '">';
+			$("#_attribute_units_" + aid).append(t);
+			$("#attribute_value_" + aid).val($("#val_" + aid).val());
+		} else {
+			var t='<input type="text" name="attribute_value_' + aid + '" id="attribute_value_' + aid + '">';
+			$("#_attribute_units_" + aid).append(t);
+			$("#attribute_value_" + aid).val($("#val_" + aid).val());
 		}
-	} else if (resType == 'NONE') {
-		theDiv.innerHTML = '';
-		theText.innerHTML = '';
-		var theNewText = document.createElement('INPUT');
-		theNewText.name = theSelectName;
-		theNewText.id = theSelectName;	
-		theNewText.type="text";
-		theNewText.style.width='95px';
-		theNewText.className = "";
-		theDiv.appendChild(theNewText);
-	} else {
-		alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
 	}
-}
 </script>
 <cfif action is "nothing">
 	<strong>Edit Individual Attributes</strong>
