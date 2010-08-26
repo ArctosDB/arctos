@@ -452,7 +452,7 @@
 						VALUES (
 							sq_attribute_id.nextval
 							,#collection_object_id#
-							,#determined_by_agent_id#
+							,#mammgrid_detagentid#
 							,'total length'
 							,'#total_length#'
 							,'#total_length_units#'
@@ -473,7 +473,7 @@
 						VALUES (
 							sq_attribute_id.nextval
 							,#collection_object_id#
-							,#determined_by_agent_id#
+							,#mammgrid_detagentid#
 							,'tail length'
 							,'#tail_length#'
 							,'#tail_length_units#'
@@ -494,7 +494,7 @@
 						VALUES (
 							sq_attribute_id.nextval,
 							#collection_object_id#
-							,#determined_by_agent_id#
+							,#mammgrid_detagentid#
 							,'hind foot with claw'
 							,'#hind_foot_with_claw#'
 							,'#hind_foot_with_claw_units#'
@@ -515,7 +515,7 @@
 						VALUES (
 							sq_attribute_id.nextval,
 							#collection_object_id#
-							,#determined_by_agent_id#
+							,#mammgrid_detagentid#
 							,'ear from notch'
 							,'#ear_from_notch#'
 							,'#ear_from_notch_units#'
@@ -536,7 +536,7 @@
 						VALUES (
 							sq_attribute_id.nextval
 							,#collection_object_id#
-							,#determined_by_agent_id#
+							,#mammgrid_detagentid#
 							,'weight'
 							,'#weight#'
 							,'#weight_units#'
