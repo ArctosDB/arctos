@@ -19,14 +19,31 @@
 		alert(d);
 		$("#attdel_" + id).append(d);
 		$("#del_" + id).remove();
+		
+		$("#attribute_value_" + id).toggle();
+		$("#attribute_units_" + id).toggle();
+		$("#attribute_remark_" + id).toggle();
+		$("#determined_date_" + id).toggle();
+		$("#determination_method_" + id).toggle();
+		$("#agent_name_" + id).toggle();
 	}
 	
+	
+						
+						
 	function undeleteAttribute(id){
 		$("#attribute_type_" + id).val($("#deleted_attribute_type_" + id).val());
 		$("#deleted_attribute_type_" + id).remove();
 		var d='<input type="button" id="del_' + id + '"	value="Delete" class="delBtn" onclick="deleteAttribute(\'' + id + '\');">';
 		$("#attdel_" + id).append(d);
 		$("#rec_" + id).remove();
+		
+		$("#attribute_value_" + id).toggle();
+		$("#attribute_units_" + id).toggle();
+		$("#attribute_remark_" + id).toggle();
+		$("#determined_date_" + id).toggle();
+		$("#determination_method_" + id).toggle();
+		$("#agent_name_" + id).toggle();
 	}
 	function populateAttribute(aid) {		
 		jQuery.getJSON("/component/DataEntry.cfc",
@@ -258,7 +275,7 @@
 						<td id="_agent_name_#attribute_id#">
 							<input type="hidden" name="determined_by_agent_id_#attribute_id#" id="determined_by_agent_id_#attribute_id#" 
 								value="#determined_by_agent_id#">
-							<input type="text" name="agent_name_#attribute_id#" class="reqdClr" value="#agent_name#"
+							<input type="text" name="agent_name_#attribute_id#" id="agent_name_#attribute_id#" class="reqdClr" value="#agent_name#"
 		 						onchange="getAgent('determined_by_agent_id_#attribute_id#',this.id,'details',this.value); return false;"
 		  						onKeyPress="return noenter(event);">
 						</td>
