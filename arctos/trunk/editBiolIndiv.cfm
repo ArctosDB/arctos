@@ -16,6 +16,8 @@
 		
 	});
 	function populateAttribute(aid) {	
+		parent.console.log('getting data for ' + $("#attribute_type_" + aid).val());
+		
 		jQuery.getJSON("/component/DataEntry.cfc",
 			{
 				method : "getAttCodeTbl",
