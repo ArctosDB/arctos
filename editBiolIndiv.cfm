@@ -107,10 +107,7 @@
 				cataloged_item.collection_object_id = coll_object_remark.collection_object_id (+) AND
 				cataloged_item.collection_object_id = #collection_object_id#
 		</cfquery>
-		<cfquery name="ctattribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT attribute_type FROM ctattribute_type where 
-			collection_cde='#indiv.collection_cde#'
-		</cfquery>
+		
 		<cfquery name="ctflags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT flags from ctflags
 		</cfquery>
@@ -147,6 +144,10 @@
 				habitat,
 				associated_species,
 				flags
+		</cfquery>
+		<cfquery name="ctattribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT attribute_type FROM ctattribute_type where 
+			collection_cde='#indiv.collection_cde#'
 		</cfquery>
 		<cfquery name="atts" dbtype="query">
 			select
