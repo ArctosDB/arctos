@@ -115,16 +115,6 @@
 		<cfquery name="ctflags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT flags from ctflags
 		</cfquery>
-		<!---
-			<cfquery name="ctCodes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select 
-					attribute_type,
-					value_code_table,
-					units_code_table
-				 from ctattribute_code_tables
-			</cfquery>
-		
-		--->
 		<cfquery name="indiv" dbtype="query">
 			select 
 				COLL_OBJ_DISPOSITION,
@@ -238,7 +228,7 @@
 				</tr>
 				<cfloop query="atts">
 					<input type="hidden" name="number_of_attributes" id="number_of_attributes" value="#atts.recordcount#">
-					<input type="text" name="attribute_id_#i#" id="attribute_id_#i#" value="#attribute_id#">
+					<input type="hidden" name="attribute_id_#i#" id="attribute_id_#i#" value="#attribute_id#">
 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<td>
 							<input type="text" name="attribute_type_#attribute_id#" id="attribute_type_#attribute_id#" value="#attribute_type#" readonly="yes" class="readClr">
@@ -379,6 +369,8 @@
 					</tr>
 				</table>
 			</cfif>
+			<br>
+			<input type="submit" value="save">
 		</form>
 	</cfoutput>
 </cfif>
