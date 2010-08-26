@@ -70,11 +70,6 @@
 	<strong>Edit Individual Attributes</strong>
 	<span class="infoLInk" onClick="windowOpener('/info/attributeHelpPick.cfm','','width=600,height=600, resizable,scrollbars');">Help</span>
 	<cfoutput>
-		<cfquery name="whatColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select collection.collection_cde from cataloged_item,collection where 
-			cataloged_item.collection_id=collection.collection_id and
-			collection_object_id = #collection_object_id#
-		</cfquery>
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT
 				COLL_OBJ_DISPOSITION,
@@ -114,7 +109,7 @@
 		</cfquery>
 		<cfquery name="ctattribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT attribute_type FROM ctattribute_type where 
-			collection_cde='#whatColl.collection_cde#'
+			collection_cde='#indiv.collection_cde#'
 		</cfquery>
 		<cfquery name="ctflags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT flags from ctflags
@@ -188,7 +183,7 @@
 		<form name="details" method="post" action="editBiolIndiv.cfm">
 			<input type="hidden" value="saveNoAttEdits" name="Action">
 			<input type="hidden" value="#collection_object_id#" name="collection_object_id">
-			<input type="hidden" value="#indiv.collection_cde#" name="collection_cde">
+			<input type="hidden" value="#indiv.collection_cde#" name="collection_cde" id="collection_cde">
     		<table>
       			<tr> 
 			        <td>
