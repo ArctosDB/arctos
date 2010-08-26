@@ -229,7 +229,9 @@
 		<cfquery name="ctWeight_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select Weight_Units from ctWeight_Units order by weight_units
 		</cfquery>
-		<cfquery name="ctattribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		
+		
+		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT attribute_type FROM ctattribute_type 
 			<cfif len(#collection_cde#) gt 0>
 				WHERE collection_cde='#collection_cde#'
