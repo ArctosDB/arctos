@@ -16,7 +16,6 @@
 		$("#deleted_attribute_type_" + id).val($("#attribute_type_" + id).val());
 		$("#attribute_type_" + id).val('pending delete');
 		var d='<input type="button" id="rec_' + id + '"	value="undelete" class="savBtn" onclick="undeleteAttribute(' + id + ');">';
-		alert(d);
 		$("#attdel_" + id).append(d);
 		$("#del_" + id).remove();
 		
@@ -397,365 +396,229 @@
 </cfif>
 <!------------------------------------------------------------------------------>
 <cfif action is "save">
-	<cfdump var=#form#>
 	<cfoutput>
-		<cfloop from="1" to="#number_Of_Attributes#" index="n">
-			<cfset thisAttributeId = evaluate("attribute_id_" & n)>
-			<cfset thisAttributeType = evaluate("attribute_type_" & thisAttributeId)>
-			<cftry>
-				<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>
-				<cfcatch>
-					<cfset thisAttributeUnits = ''>
-				</cfcatch>
-			</cftry>
-			<cftry>
-				<cfset thisAttributeValue = evaluate("attribute_value_" & thisAttributeId)>
-				<cfcatch>
-					<cfset thisAttributeValue = ''>
-				</cfcatch>
-			</cftry>
-			<cfset thisAttributeRemark = evaluate("attribute_remark_" & thisAttributeId)>
-			<cfset thisDeterminedDate = evaluate("determined_date_" & thisAttributeId)>
-			<cfset thisDeterminationMethod = evaluate("determination_method_" & thisAttributeId)>
-			<cfset thisDeterminedByAgentId = evaluate("determined_by_agent_id_" & thisAttributeId)>
-			<cfif thisAttributeType is "pending delete">
-				delete from attributes where attribute_id=#thisAttributeId#
+		<cftransaction>
+			<cfloop from="1" to="#number_Of_Attributes#" index="n">
+				<cfset thisAttributeId = evaluate("attribute_id_" & n)>
+				<cfset thisAttributeType = evaluate("attribute_type_" & thisAttributeId)>
+				<cftry>
+					<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>
+					<cfcatch>
+						<cfset thisAttributeUnits = ''>
+					</cfcatch>
+				</cftry>
+				<cftry>
+					<cfset thisAttributeValue = evaluate("attribute_value_" & thisAttributeId)>
+					<cfcatch>
+						<cfset thisAttributeValue = ''>
+					</cfcatch>
+				</cftry>
+				<cfset thisAttributeRemark = evaluate("attribute_remark_" & thisAttributeId)>
+				<cfset thisDeterminedDate = evaluate("determined_date_" & thisAttributeId)>
+				<cfset thisDeterminationMethod = evaluate("determination_method_" & thisAttributeId)>
+				<cfset thisDeterminedByAgentId = evaluate("determined_by_agent_id_" & thisAttributeId)>
+				<cfif thisAttributeType is "pending delete">
+					<cfquery name="killAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						delete from attributes where attribute_id=#thisAttributeId#
+					</cfquery>
+				<cfelse>
+					<cfquery name="upAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						UPDATE attributes SET
+							attribute_type='#thisAttributeType#',
+							DETERMINED_BY_AGENT_ID = #thisDeterminedByAgentId#,
+							ATTRIBUTE_VALUE='#thisAttributeValue#',
+							ATTRIBUTE_UNITS='#thisAttributeUnits#',
+							ATTRIBUTE_REMARK='#thisAttributeRemark#',
+							DETERMINED_DATE='#dateformat(thisDeterminedDate,"yyyy-mm-dd")#',
+							DETERMINATION_METHOD='#thisDeterminationMethod#'
+						WHERE 
+							attribute_id=#thisAttributeId#
+					</cfquery>
+				</cfif>			
+			</cfloop>
+			<!---- mammal grid ----->
+			<cfif isdefined("total_length")>
+				<cfif len(total_length) gt 0>
+					<cfquery name="total_length" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO attributes (
+							ATTRIBUTE_ID
+							,COLLECTION_OBJECT_ID
+							,DETERMINED_BY_AGENT_ID
+							,ATTRIBUTE_TYPE
+							,ATTRIBUTE_VALUE
+							,ATTRIBUTE_UNITS
+							,DETERMINED_DATE
+							 )
+						VALUES (
+							sq_attribute_id.nextval
+							,#collection_object_id#
+							,#determined_by_agent_id#
+							,'total length'
+							,'#total_length#'
+							,'#total_length_units#'
+							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
+					</cfquery>
+				</cfif>
+				<cfif len(tail_length) gt 0>
+					<cfquery name="tail_length" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO attributes (
+							ATTRIBUTE_ID
+							,COLLECTION_OBJECT_ID
+							,DETERMINED_BY_AGENT_ID
+							,ATTRIBUTE_TYPE
+							,ATTRIBUTE_VALUE
+							,ATTRIBUTE_UNITS
+							,DETERMINED_DATE
+							 )
+						VALUES (
+							sq_attribute_id.nextval
+							,#collection_object_id#
+							,#determined_by_agent_id#
+							,'tail length'
+							,'#tail_length#'
+							,'#tail_length_units#'
+							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
+					</cfquery>
+				</cfif>
+				<cfif len(hind_foot_with_claw) gt 0>
+					<cfquery name="hind_foot_with_claw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO attributes (
+							ATTRIBUTE_ID
+							,COLLECTION_OBJECT_ID
+							,DETERMINED_BY_AGENT_ID
+							,ATTRIBUTE_TYPE
+							,ATTRIBUTE_VALUE
+							,ATTRIBUTE_UNITS
+							,DETERMINED_DATE
+							 )
+						VALUES (
+							sq_attribute_id.nextval,
+							#collection_object_id#
+							,#determined_by_agent_id#
+							,'hind foot with claw'
+							,'#hind_foot_with_claw#'
+							,'#hind_foot_with_claw_units#'
+							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
+					</cfquery>
+				</cfif>
+				<cfif len(ear_from_notch) gt 0>
+					<cfquery name="ear_from_notch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO attributes (
+							ATTRIBUTE_ID
+							,COLLECTION_OBJECT_ID
+							,DETERMINED_BY_AGENT_ID
+							,ATTRIBUTE_TYPE
+							,ATTRIBUTE_VALUE
+							,ATTRIBUTE_UNITS
+							,DETERMINED_DATE
+							 )
+						VALUES (
+							sq_attribute_id.nextval,
+							#collection_object_id#
+							,#determined_by_agent_id#
+							,'ear from notch'
+							,'#ear_from_notch#'
+							,'#ear_from_notch_units#'
+							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
+					</cfquery>
+				</cfif>
+				<cfif len(weight) gt 0>
+					<cfquery name="weight" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO attributes (
+							ATTRIBUTE_ID
+							,COLLECTION_OBJECT_ID
+							,DETERMINED_BY_AGENT_ID
+							,ATTRIBUTE_TYPE
+							,ATTRIBUTE_VALUE
+							,ATTRIBUTE_UNITS
+							,DETERMINED_DATE
+							 )
+						VALUES (
+							sq_attribute_id.nextval
+							,#collection_object_id#
+							,#determined_by_agent_id#
+							,'weight'
+							,'#weight#'
+							,'#weight_units#'
+							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
+					</cfquery>
+				</cfif>
 			</cfif>
-			<hr>
-			UPDATE attributes SET
-				attribute_type='#thisAttributeType#',
-				DETERMINED_BY_AGENT_ID = #thisDeterminedByAgentId#,
-				ATTRIBUTE_VALUE='#thisAttributeValue#',
-				ATTRIBUTE_UNITS='#thisAttributeUnits#',
-				ATTRIBUTE_REMARK='#thisAttributeRemark#',
-				DETERMINED_DATE='#dateformat(thisDeterminedDate,"yyyy-mm-dd")#',
-				DETERMINATION_METHOD='#thisDeterminationMethod#'
-			WHERE 
-				attribute_id=#thisAttributeId#
-		</cfloop>			
+			<!--- new attribute --->
+			<cfif len(attribute_type_new) gt 0>
+				<cfif not isdefined("ATTRIBUTE_UNITS")>
+					<cfset ATTRIBUTE_UNITS=''>
+				</cfif>
+				<cfquery name="newAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					INSERT INTO attributes (
+						ATTRIBUTE_ID
+						,COLLECTION_OBJECT_ID
+						,DETERMINED_BY_AGENT_ID
+						,ATTRIBUTE_TYPE
+						,ATTRIBUTE_VALUE
+						,ATTRIBUTE_UNITS
+						,ATTRIBUTE_REMARK
+						,DETERMINED_DATE
+						,DETERMINATION_METHOD
+					) VALUES (
+						sq_attribute_id.nextval
+						,#collection_object_id#
+						,#determined_by_agent_id#
+						,'#attribute_type_new#'
+						,'#ATTRIBUTE_VALUE#'
+						,'#ATTRIBUTE_UNITS#'
+						,'#ATTRIBUTE_REMARK#'
+						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#'
+						,'#DETERMINATION_METHOD#'
+					)
+				</cfquery>
+			</cfif>
+			<cfquery name="upCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				UPDATE coll_object SET
+					last_edited_person_id = #session.myAgentId#
+					,last_edit_date = sysdate
+					,coll_obj_disposition = '#coll_obj_disposition#'
+					,condition = '#condition#'
+					,flags='#flags#'
+				WHERE collection_object_id = #collection_object_id#
+			</cfquery>
+			<cfquery name="isCORem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select collection_object_id from coll_object_remark where 
+				collection_object_id = #collection_object_id#
+			</cfquery>
+			<cfif len(isCORem.collection_object_id) gt 0>
+				<cfquery name="upCoRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					UPDATE coll_object_remark SET
+						collection_object_id = #collection_object_id#
+						,disposition_remarks = '#disposition_remarks#'
+						,coll_object_remarks = '#coll_object_remarks#'
+						,habitat = '#habitat#'
+						,associated_species = '#associated_species#'
+					WHERE 
+						collection_object_id = #collection_object_id#
+				</cfquery>
+			<cfelse>
+				<cfif len(disposition_remarks) gt 0 OR len(coll_object_remarks) gt 0 OR len(habitat) gt 0 or len(associated_species) gt 0>
+					<cfquery name="newBIRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO coll_object_remark (
+							collection_object_id
+							,disposition_remarks
+							,coll_object_remarks
+							,habitat
+							,associated_species
+						 ) VALUES (
+							#collection_object_id#
+							,'#escapeQuotes(disposition_remarks)#'
+							,'#escapeQuotes(coll_object_remarks)#'
+							,'#escapeQuotes(habitat)#'
+							,'#escapeQuotes(associated_species)#'
+						)
+					</cfquery>
+				</cfif>
+			</cfif>
+		</cftransaction>
+		<cflocation url="editBiolIndiv.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------>
-<cfif #Action# is "saveChanges">
-<cfoutput>
-
-<cfloop from="1" to="#numberOfAttributes#" index="n">
-	<cfset thisAttributeId = #evaluate("attribute_id_" & n)#>
-	<cfset thisAttributeType = #evaluate("attribute_type_" & n)#>
-	<cfset thisAttributeUnits = #evaluate("attribute_units_" & n)#>
-	<cfset thisAttributeValue = #evaluate("attribute_value_" & n)#>
-	<cfset thisAttributeRemark = #evaluate("attribute_remark_" & n)#>
-	<cfset thisDeterminedDate = #evaluate("determined_date_" & n)#>
-	<cfset thisDeterminationMethod = #evaluate("determination_method_" & n)#>
-	<cfset thisDeterminedByAgentId = #evaluate("determined_by_agent_id_" & n)#>
-	
-	<cfquery name="isStoopid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select units_code_table from ctattribute_code_tables where
-		attribute_type = '#thisAttributeType#'
-	</cfquery>
-	<cfif len(#isStoopid.units_code_table#) gt 0>
-		<cfif len(#thisAttributeUnits#) is 0>
-			<font color="##FF0000" size="+2">#thisAttributeType# requires units!</font>		  
-			<cfabort>
-		</cfif>
-	</cfif>
-	<cfif len(#thisAttributeValue#) is 0>
-			<font color="##FF0000" size="+2">You must supply an attribute value!</font>		  
-			<cfabort>
-	</cfif>
-	<cfquery name="upAt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	UPDATE attributes SET
-		attribute_type='#thisAttributeType#'
-		,DETERMINED_BY_AGENT_ID = #thisDeterminedByAgentId#
-		,ATTRIBUTE_VALUE='#thisAttributeValue#'
-		<cfif len(#thisAttributeUnits#) gt 0>
-			,ATTRIBUTE_UNITS='#thisAttributeUnits#'
-			<cfelse>
-				,ATTRIBUTE_UNITS=null
-		</cfif>
-		<cfif len(#thisAttributeRemark#) gt 0>
-			,ATTRIBUTE_REMARK='#thisAttributeRemark#'
-		  <cfelse>
-		  	,ATTRIBUTE_REMARK=null
-		</cfif>
-		,DETERMINED_DATE='#dateformat(thisDeterminedDate,"yyyy-mm-dd")#'
-		<cfif len(#thisDeterminationMethod#) gt 0>
-			,DETERMINATION_METHOD='#thisDeterminationMethod#'
-			<cfelse>
-				,DETERMINATION_METHOD=null
-		</cfif> 
-	WHERE attribute_id=#thisAttributeId#
-	</cfquery>
-</cfloop>
-	 <cflocation url="editBiolIndiv.cfm?collection_object_id=#collection_object_id#">   
-	
-</cfoutput>
-</cfif>
-<!------------------------------------------------------------------------------>
-<cfif #Action# is "deleteAttribute">
-<cfoutput>
-	<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		DELETE FROM attributes WHERE attribute_id=#attribute_id#
-	</cfquery>
-<cflocation url="editBiolIndiv.cfm?collection_object_id=#collection_object_id#"> </cfoutput>
-</cfif>
-<!------------------------------------------------------------------------------>
-<cfif #Action# is "saveMammalAtts">
-	<cfoutput>
-		<cfif len(#determined_by_agent_id#) is 0>
-			You need a determiner!
-			<cfabort>
-		</cfif>
-		<cfif len(#determined_date#) is 0>
-			determined_date is required!
-			<cfabort>
-		</cfif>
-		
-		<cfif len(#total_length#) gt 0>
-			<cfquery name="total_length" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				INSERT INTO attributes (
-					ATTRIBUTE_ID
-					,COLLECTION_OBJECT_ID
-					,DETERMINED_BY_AGENT_ID
-					,ATTRIBUTE_TYPE
-					,ATTRIBUTE_VALUE
-					,ATTRIBUTE_UNITS
-					,DETERMINED_DATE
-					 )
-				VALUES (
-					sq_attribute_id.nextval
-					,#collection_object_id#
-					,#determined_by_agent_id#
-					,'total length'
-					,'#total_length#'
-					,'#total_length_units#'
-					,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
-				</cfquery>
-			</cfif>
-			
-			<cfif len(#tail_length#) gt 0>
-				<cfquery name="tail_length" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					INSERT INTO attributes (
-						ATTRIBUTE_ID
-						,COLLECTION_OBJECT_ID
-						,DETERMINED_BY_AGENT_ID
-						,ATTRIBUTE_TYPE
-						,ATTRIBUTE_VALUE
-						,ATTRIBUTE_UNITS
-						,DETERMINED_DATE
-						 )
-					VALUES (
-						sq_attribute_id.nextval
-						,#collection_object_id#
-						,#determined_by_agent_id#
-						,'tail length'
-						,'#tail_length#'
-						,'#tail_length_units#'
-						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
-				</cfquery>
-			</cfif>
-			<cfif len(#hind_foot_with_claw#) gt 0>
-				<cfquery name="hind_foot_with_claw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					INSERT INTO attributes (
-						ATTRIBUTE_ID
-						,COLLECTION_OBJECT_ID
-						,DETERMINED_BY_AGENT_ID
-						,ATTRIBUTE_TYPE
-						,ATTRIBUTE_VALUE
-						,ATTRIBUTE_UNITS
-						,DETERMINED_DATE
-						 )
-					VALUES (
-						sq_attribute_id.nextval,
-						#collection_object_id#
-						,#determined_by_agent_id#
-						,'hind foot with claw'
-						,'#hind_foot_with_claw#'
-						,'#hind_foot_with_claw_units#'
-						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
-				</cfquery>
-			</cfif>
-			<cfif len(#ear_from_notch#) gt 0>
-				<cfquery name="ear_from_notch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					INSERT INTO attributes (
-						ATTRIBUTE_ID
-						,COLLECTION_OBJECT_ID
-						,DETERMINED_BY_AGENT_ID
-						,ATTRIBUTE_TYPE
-						,ATTRIBUTE_VALUE
-						,ATTRIBUTE_UNITS
-						,DETERMINED_DATE
-						 )
-					VALUES (
-						sq_attribute_id.nextval,
-						#collection_object_id#
-						,#determined_by_agent_id#
-						,'ear from notch'
-						,'#ear_from_notch#'
-						,'#ear_from_notch_units#'
-						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
-				</cfquery>
-			</cfif>
-			<cfif len(#weight#) gt 0>
-				<cfquery name="weight" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					INSERT INTO attributes (
-						ATTRIBUTE_ID
-						,COLLECTION_OBJECT_ID
-						,DETERMINED_BY_AGENT_ID
-						,ATTRIBUTE_TYPE
-						,ATTRIBUTE_VALUE
-						,ATTRIBUTE_UNITS
-						,DETERMINED_DATE
-						 )
-					VALUES (
-						sq_attribute_id.nextval
-						,#collection_object_id#
-						,#determined_by_agent_id#
-						,'weight'
-						,'#weight#'
-						,'#weight_units#'
-						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
-				</cfquery>
-			</cfif>
-			
-<cflocation url="editBiolIndiv.cfm?collection_object_id=#collection_object_id#"> 	</cfoutput>
-</cfif>
-
-<!------------------------------------------------------------------------------>
-<cfif #Action# is "newAttribute">
-<cfoutput>
-	<cfquery name="isStoopid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select units_code_table from ctattribute_code_tables where
-		attribute_type = '#attribute_type#'
-	</cfquery>
-	
-	<cfif len(#isStoopid.units_code_table#) gt 0>
-		<cfif len(#ATTRIBUTE_UNITS#) is 0>
-			<font color="##FF0000" size="+2">#attribute_type# requires units!</font>		  
-			<cfabort>
-		</cfif>
-	
-	</cfif>
-	<cfif len(#attribute_value#) is 0>
-			<font color="##FF0000" size="+2">You must supply an attribute value!</font>		  
-			<cfabort>
-	</cfif>	
-	<cfquery name="newAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	INSERT INTO attributes (
-		ATTRIBUTE_ID
-		,COLLECTION_OBJECT_ID
-		,DETERMINED_BY_AGENT_ID
-		,ATTRIBUTE_TYPE
-		,ATTRIBUTE_VALUE
-		<cfif len(#ATTRIBUTE_UNITS#) gt 0>
-			,ATTRIBUTE_UNITS
-		</cfif>
-		<cfif len(#ATTRIBUTE_REMARK#) gt 0>
-			,ATTRIBUTE_REMARK
-		</cfif>
-		,DETERMINED_DATE
-		<cfif len(#DETERMINATION_METHOD#) gt 0>
-			,DETERMINATION_METHOD
-		</cfif>
-		 )
-	VALUES (
-		sq_attribute_id.nextval
-		,#collection_object_id#
-		,#DETERMINED_BY_AGENT_ID#
-		,'#ATTRIBUTE_TYPE#'
-		,'#ATTRIBUTE_VALUE#'
-		<cfif len(#ATTRIBUTE_UNITS#) gt 0>
-			,'#ATTRIBUTE_UNITS#'
-		</cfif>
-		<cfif len(#ATTRIBUTE_REMARK#) gt 0>
-			,'#ATTRIBUTE_REMARK#'
-		</cfif>
-		,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#'
-		<cfif len(#DETERMINATION_METHOD#) gt 0>
-			,'#DETERMINATION_METHOD#'
-		</cfif> )
-	</cfquery>
-<cflocation url="editBiolIndiv.cfm?collection_object_id=#collection_object_id#"> </cfoutput>
-</cfif>
-<!------------------------------------------------------------------------------>
-<cfif #Action# is "saveNoAttEdits">
-<cfoutput>
-	<cftransaction>
-		<cfquery name="upCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			UPDATE coll_object SET
-				last_edited_person_id = #session.myAgentId#
-				,last_edit_date = sysdate
-				,coll_obj_disposition = '#coll_obj_disposition#'
-				,condition = '#condition#'
-				,flags='#flags#'
-			WHERE collection_object_id = #collection_object_id#
-		</cfquery>
-		<cfquery name="isCORem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select collection_object_id from coll_object_remark where 
-			collection_object_id = #collection_object_id#
-		</cfquery>
-		<cfif len(#isCORem.collection_object_id#) gt 0>
-			<cfquery name="upCoRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				UPDATE coll_object_remark SET
-					collection_object_id = #collection_object_id#
-					<cfif len(#disposition_remarks#) gt 0>
-						,disposition_remarks = '#disposition_remarks#'
-					<cfelse>
-						,disposition_remarks = null
-					</cfif>
-					<cfif len(#coll_object_remarks#) gt 0>
-						,coll_object_remarks = '#coll_object_remarks#'
-					<cfelse>
-						,coll_object_remarks = null
-					</cfif>
-					<cfif len(#habitat#) gt 0>
-						,habitat = '#habitat#'
-					<cfelse>
-						,habitat = null
-					</cfif>
-					<cfif len(#associated_species#) gt 0>
-						,associated_species = '#associated_species#'
-					<cfelse>
-						,associated_species = null
-					</cfif>
-					WHERE collection_object_id = #collection_object_id#
-			</cfquery>
-		<cfelse><!--- see if we need to add an entry --->
-			<cfif len(#disposition_remarks#) gt 0 OR len(#coll_object_remarks#) gt 0 OR len(#habitat#) gt 0>
-				<cfquery name="newBIRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					INSERT INTO coll_object_remark (
-						collection_object_id
-						<cfif len(#disposition_remarks#) gt 0>
-							,disposition_remarks
-						</cfif>
-						<cfif len(#coll_object_remarks#) gt 0>
-							,coll_object_remarks
-						</cfif>
-						<cfif len(#habitat#) gt 0>
-							,habitat
-						</cfif>
-						<cfif len(#associated_species#) gt 0>
-							,associated_species
-						</cfif>
-						 ) VALUES (
-						#collection_object_id#
-						<cfif len(#disposition_remarks#) gt 0>
-							,'#disposition_remarks#'
-						</cfif>
-						<cfif len(#coll_object_remarks#) gt 0>
-							,'#coll_object_remarks#'
-						</cfif>
-						<cfif len(#habitat#) gt 0>
-							,'#habitat#'
-						</cfif>
-						<cfif len(#associated_species#) gt 0>
-							,'#associated_species#'
-						</cfif> )
-				</cfquery>
-			</cfif>
-		</cfif>				
-	</cftransaction>
-<cflocation url="editBiolIndiv.cfm?collection_object_id=#collection_object_id#">
-</cfoutput>
-</cfif>
 <cf_customizeIFrame>
