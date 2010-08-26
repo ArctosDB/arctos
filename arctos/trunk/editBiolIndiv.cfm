@@ -401,12 +401,17 @@
 		<cftransaction>
 			<cfloop from="1" to="#number_Of_Attributes#" index="n">
 				<cfset thisAttributeId = evaluate("attribute_id_" & n)>
+				<br>thisAttributeId: #thisAttributeId#
 				<cfset thisAttributeType = evaluate("attribute_type_" & thisAttributeId)>
+				<br>thisAttributeType: #thisAttributeType#
 				<cftry>
 					<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>
+					<br>pas:thisAttributeUnits: #thisAttributeUnits#
+				
 					<cfcatch>
-						<cfdump var=#cfcatch#>
 						<cfset thisAttributeUnits = ''>
+						<br>fail:thisAttributeUnits: #thisAttributeUnits#
+				
 					</cfcatch>
 				</cftry>
 				<cftry>
