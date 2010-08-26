@@ -10,6 +10,9 @@
 			populateAttribute($("#" + this.id).val());
 		});
 	});
+	function deleteAttribute(id){
+		$("#attribute_" + aid).val('pending delete');	
+	}
 	function populateAttribute(aid) {		
 		jQuery.getJSON("/component/DataEntry.cfc",
 			{
@@ -381,17 +384,17 @@
 					<cfset thisAttributeValue = ''>
 				</cfcatch>
 			</cftry>
-			
 			<cfset thisAttributeRemark = evaluate("attribute_remark_" & thisAttributeId)>
 			<cfset thisDeterminedDate = evaluate("determined_date_" & thisAttributeId)>
 			<cfset thisDeterminationMethod = evaluate("determination_method_" & thisAttributeId)>
 			<cfset thisDeterminedByAgentId = evaluate("determined_by_agent_id_" & thisAttributeId)>
-			
-			
+			<cfif thisAttributeType is "delete">
+				delete from attributes where attribute_id=#thisAttributeId#
+			</cfif>
 			<hr>
 			UPDATE attributes SET
 				attribute_type='#thisAttributeType#',
-				DETERMINED_BY_AGENT_ID = #thisDeterminedByAgentId#
+				DETERMINED_BY_AGENT_ID = #thisDeterminedByAgentId#,
 				ATTRIBUTE_VALUE='#thisAttributeValue#',
 				ATTRIBUTE_UNITS='#thisAttributeUnits#',
 				ATTRIBUTE_REMARK='#thisAttributeRemark#',
