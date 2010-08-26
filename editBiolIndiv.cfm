@@ -16,6 +16,7 @@
 		$("#deleted_attribute_type_" + id).val($("#attribute_type_" + id).val());
 		$("#attribute_type_" + id).val('pending delete');
 		var d='<input type="button" id="rec_' + id + '"	value="undelete" class="savBtn" onclick="undeleteAttribute(' + id + ');">';
+		alert(d);
 		$("#attdel_" + id).append(d);
 		$("#del_" + id).remove();
 	}
