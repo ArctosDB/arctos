@@ -396,10 +396,10 @@ function success_getAttributeStuff (r) {
 						<td>
 							<input type="text" name="attribute_type_#attribute_id#" id="attribute_type_#attribute_id#" value="#attribute_type#" readonly="yes" class="readClr">
 						</td>
-						<td id="_value_#attribute_id#">
+						<td id="_attribute_value_#attribute_id#">
 							<input type="hidden" name="val_#attribute_id#" id="val_#attribute_id#" value="#attribute_value#">
 						</td>
-						<td id="_units_#attribute_id#">
+						<td id="_attribute_units_#attribute_id#">
 							<input type="hidden" name="unit_#attribute_id#" id="unit_#attribute_id#" value="#attribute_units#">
 						</td>
 						<td id="_remarks_#attribute_id#">
