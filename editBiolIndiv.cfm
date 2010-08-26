@@ -7,15 +7,39 @@
 		$("#determined_date").datepicker();
 		$("#mammgrid_determined_date").datepicker();
 		$("input[id^='attribute_id_']").each(function(){
-			var attid=$("#" + this.id).val();
-			parent.console.log('got att ID ' + attid);
-			parent.console.log(this.id);
+			//var attid=$("#" + this.id).val();
+			populateAttribute($("#" + this.id).val());
+			//parent.console.log('got att ID ' + attid);
+			//parent.console.log(this.id);
 		});
 		
 		
 	});
-	
-	
+	function populateAttribute(aid) {	
+		jQuery.getJSON("/component/DataEntry.cfc",
+			{
+				method : "getAttCodeTbl",
+				attribute : $("#attribute_type_" + aid).val(),
+				collection_cde : $("#collection_cde").val(),
+				element : aid,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_populateAttribute
+		);	
+	}
+	function success_populateAttribute (r) {
+		parent.console.log(r);
+	}
+	/*
+		<td id="value_#attribute_id#">
+							<input type="hidden" name="val_#attribute_id#" id="val_#attribute_id#" value="#attribute_value#">
+						</td>
+						<td id="units_#attribute_id#">
+							<input type="hidden" name="unit_#attribute_id#" id="unit_#attribute_id#" value="#attribute_units#">
+						</td>
+			*/			
+					
 	
 	function getAttributeStuff (attribute,element) {
 	var isSomething = attribute.length;
@@ -235,6 +259,7 @@ function success_getAttributeStuff (r) {
 		<form name="details" method="post" action="editBiolIndiv.cfm">
 			<input type="hidden" value="saveNoAttEdits" name="Action">
 			<input type="hidden" value="#collection_object_id#" name="collection_object_id">
+			<input type="hidden" value="#collection_cde#" name="collection_cde">
     		<table>
       			<tr> 
 			        <td>
@@ -289,8 +314,12 @@ function success_getAttributeStuff (r) {
 						<td>
 							<input type="text" name="attribute_type_#i#" id="attribute_type_#i#" value="#attribute_type#" readonly="yes" class="readClr">
 						</td>
-						<td id="value_#attribute_id#"></td>
-						<td id="units_#attribute_id#"></td>
+						<td id="value_#attribute_id#">
+							<input type="hidden" name="val_#attribute_id#" id="val_#attribute_id#" value="#attribute_value#">
+						</td>
+						<td id="units_#attribute_id#">
+							<input type="hidden" name="unit_#attribute_id#" id="unit_#attribute_id#" value="#attribute_units#">
+						</td>
 						<td id="remarks_#attribute_id#">
 							<input type="text" name="attribute_remark_#i#" id="attribute_remark_#i#" value="#attribute_remark#">
 						</td>
