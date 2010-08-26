@@ -280,10 +280,7 @@
 		  						onKeyPress="return noenter(event);">
 						</td>
 						<td id="attdel_#attribute_id#">
-							<input type="button" 
-								id="del_#attribute_id#"
-									value="Delete" 
-								class="delBtn"
+							<input type="button" id="del_#attribute_id#" value="Delete" class="delBtn"
 								onclick="deleteAttribute('#attribute_id#');">
 						</td>
 					</tr>
@@ -421,7 +418,7 @@
 			<cfset thisDeterminedDate = evaluate("determined_date_" & thisAttributeId)>
 			<cfset thisDeterminationMethod = evaluate("determination_method_" & thisAttributeId)>
 			<cfset thisDeterminedByAgentId = evaluate("determined_by_agent_id_" & thisAttributeId)>
-			<cfif thisAttributeType is "delete">
+			<cfif thisAttributeType is "pending delete">
 				delete from attributes where attribute_id=#thisAttributeId#
 			</cfif>
 			<hr>
