@@ -8,7 +8,7 @@
 		$("#mammgrid_determined_date").datepicker();
 		$("input[id^='attribute_id_']").each(function(){
 			var attid=$("#" + this.id).val();
-			alert('got att ID ' + attid);
+			parent.console.log('got att ID ' + attid);
 		});
 		
 		
