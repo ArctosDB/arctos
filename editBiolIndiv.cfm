@@ -369,8 +369,19 @@
 		<cfloop from="1" to="#number_Of_Attributes#" index="n">
 			<cfset thisAttributeId = evaluate("attribute_id_" & n)>
 			<cfset thisAttributeType = evaluate("attribute_type_" & thisAttributeId)>
-			<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>
-			<cfset thisAttributeValue = evaluate("attribute_value_" & thisAttributeId)>
+			<cftry>
+				<cfset thisAttributeUnits = evaluate("attribute_units_" & thisAttributeId)>
+				<cfcatch>
+					<cfset thisAttributeUnits = ''>
+				</cfcatch>
+			</cftry>
+			<cftry>
+				<cfset thisAttributeValue = evaluate("attribute_value_" & thisAttributeId)>
+				<cfcatch>
+					<cfset thisAttributeValue = ''>
+				</cfcatch>
+			</cftry>
+			
 			<cfset thisAttributeRemark = evaluate("attribute_remark_" & thisAttributeId)>
 			<cfset thisDeterminedDate = evaluate("determined_date_" & thisAttributeId)>
 			<cfset thisDeterminationMethod = evaluate("determination_method_" & thisAttributeId)>
