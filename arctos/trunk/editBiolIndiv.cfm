@@ -546,8 +546,8 @@
 			</cfif>
 			<!--- new attribute --->
 			<cfif len(attribute_type_new) gt 0>
-				<cfif not isdefined("ATTRIBUTE_UNITS")>
-					<cfset ATTRIBUTE_UNITS=''>
+				<cfif not isdefined("attribute_units_new")>
+					<cfset attribute_units_new=''>
 				</cfif>
 				<cfquery name="newAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO attributes (
@@ -565,8 +565,8 @@
 						,#collection_object_id#
 						,#determined_by_agent_id#
 						,'#attribute_type_new#'
-						,'#ATTRIBUTE_VALUE#'
-						,'#ATTRIBUTE_UNITS#'
+						,'#attribute_value_new#'
+						,'#attribute_units_new#'
 						,'#ATTRIBUTE_REMARK#'
 						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#'
 						,'#DETERMINATION_METHOD#'
