@@ -246,7 +246,7 @@
 				right:0;
 				top:0;
 				width:30px;
-				z-index:9999;
+				z-index:10999;
 			}
 		</style>
 		<script language="javascript" type="text/javascript">
