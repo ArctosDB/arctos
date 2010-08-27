@@ -361,7 +361,7 @@
 						</ul>
 					</li>
 					<li>
-						<a target="_top" href="http://g-arctos.appspot.com/arctosdoc/date.html">NEW: Date Format Info</a>
+						<a target="_blank" style="border:1px solid red;" href="http://g-arctos.appspot.com/arctosdoc/date.html">NEW: About Dates</a>
 					</li>	
 				</ul>
 			</div>
