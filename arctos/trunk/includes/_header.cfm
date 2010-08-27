@@ -36,7 +36,6 @@
 			<div class="browserCheck">
 				JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos, or 
 				try our <a target="_top" href="/SpecimenSearchHTML.cfm">HTML SpecimenSearch</a> option.
-
 			</div>
 		</noscript>
 		<cfif cgi.HTTP_USER_AGENT does not contain "Firefox">
@@ -97,9 +96,6 @@
 					<cfelse>
 						<cfset gtp=cgi.SCRIPT_NAME>
 					</cfif>
-					
-					
-
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">
 						<input type="hidden" name="gotopage" value="#gtp#">
@@ -363,7 +359,10 @@
 							<li><a target="_top" href="/saveSearch.cfm?action=manage">Saved Searches</a></li>
 							<li><a target="_top" href="/info/api.cfm">API</a></li>
 						</ul>
-					</li>		
+					</li>
+					<li>
+						<a target="_top" href="http://g-arctos.appspot.com/arctosdoc/date.html">NEW: Date Format Info</a>
+					</li>	
 				</ul>
 			</div>
 		</div><!--- end header div --->
