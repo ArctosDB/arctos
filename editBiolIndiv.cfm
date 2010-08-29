@@ -378,7 +378,7 @@
 						</td>
 						<td>
 							<label for="determined_date">Date</label>
-							<input type="text" name="determined_date" id="mammgrid_determined_date" size="10">
+							<input type="text" name="determined_date" id="mammgrid_determined_date" class="reqdClr" size="10">
 						</td>
 						<td>
 							<label for="mammgrid_detagentid">Determiner</label>
