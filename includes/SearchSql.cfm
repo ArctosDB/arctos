@@ -30,9 +30,8 @@
 <cfif isdefined("catnum") and len(catnum) gt 0>
 	<cfset catnum=replace(catnum," ","","all")>
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
-	<!---
-	<cfif catnum contains "-">
-		<cfset hyphenPosition=find("-",catnum)>
+	<cfif catnum contains "->">
+		<cfset hyphenPosition=find("->",catnum)>
 		<cfif hyphenPosition lt 2>
 			<div class="error">
 				You've entered an invalid catalog number. Acceptable entries are:
