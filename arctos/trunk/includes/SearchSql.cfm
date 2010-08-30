@@ -30,6 +30,7 @@
 <cfif isdefined("catnum") and len(catnum) gt 0>
 	<cfset catnum=replace(catnum," ","","all")>
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
+	<!---
 	<cfif catnum contains "-">
 		<cfset hyphenPosition=find("-",catnum)>
 		<cfif hyphenPosition lt 2>
@@ -61,6 +62,7 @@
 		</cfif>
 		--->
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num >= #minCatNum# AND #session.flatTableName#.cat_num <= #maxCatNum#  " >
+	--->
 	<cfelse>
 		<cfloop list="#catnum#" index="i">
 			<cfif not isnumeric(i)>
