@@ -170,7 +170,7 @@
 	<cftransaction>
 	<cfquery name="upCat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE cataloged_item SET 
-		cat_num = #cat_num#,
+		cat_num = '#cat_num#',
 		collection_id=#collection_id#		
 	WHERE collection_object_id=#collection_object_id#
 	</cfquery>
