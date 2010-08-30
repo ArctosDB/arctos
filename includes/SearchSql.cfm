@@ -46,6 +46,7 @@
 		</cfif>
 		<cfset minCatNum=left(catnum,hyphenPosition-1)>
 		<cfset maxCatNum=right(catnum,len(catnum)-hyphenPosition)>
+		<!---
 		<cfif not isnumeric(minCatNum) OR not isnumeric(maxCatNum)>
 			<div class="error">
 				You've entered an invalid catalog number. Acceptable entries are:
@@ -58,6 +59,7 @@
 			<script>hidePageLoad();</script>
 			<cfabort>
 		</cfif>
+		--->
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num >= #minCatNum# AND #session.flatTableName#.cat_num <= #maxCatNum#  " >
 	<cfelse>
 		<cfloop list="#catnum#" index="i">
@@ -69,7 +71,9 @@
 				<cfabort>
 			</cfif>
 		</cfloop>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListChangeDelims(catnum,',')# ) " >
+		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(ListChangeDelims(catnum,','),'''')# ) " >
+		
+
 	</cfif>
 </cfif>	
 <cfif isdefined("geology_attribute") AND len(geology_attribute) gt 0>
