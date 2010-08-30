@@ -60,7 +60,7 @@
 			<cfabort>
 		</cfif>
 		--->
-		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num >= #minCatNum# AND #session.flatTableName#.cat_num <= #maxCatNum#  " >
+		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num >= '#minCatNum#' AND #session.flatTableName#.cat_num <= '#maxCatNum#'  " >
 	
 	<cfelse>
 	<!---
