@@ -63,7 +63,7 @@
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num >= #minCatNum# AND #session.flatTableName#.cat_num <= #maxCatNum#  " >
 	
 	<cfelse>
-	
+	<!---
 		<cfloop list="#catnum#" index="i">
 			<cfif not isnumeric(i)>
 				<div class="error">
@@ -75,9 +75,9 @@
 		</cfloop>
 		--->
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(ListChangeDelims(catnum,','),'''')# ) " >
-		
+		</cfif>
 <!---
-	</cfif>
+	
 --->
 </cfif>	
 <cfif isdefined("geology_attribute") AND len(geology_attribute) gt 0>
