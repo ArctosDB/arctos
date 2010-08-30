@@ -1,159 +1,25 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Manage Collections">
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 <cfoutput>
 	Find Collection:
 	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from collection order by collection
 	</cfquery>
 	<form name="coll" method="post" action="Collection.cfm">
-		<input type="hidden" name="action">
+		<input type="hidden" name="action" value="findColl">
 		<select name="collection_id" size="1">
 			<option value=""></option>
 			<cfloop query="ctcoll">
 				<option value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
-		<input type="button" value="Submit" class="lnkBtn"
-   						onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-						onclick="coll.action.value='findColl';submit();">	
-		<input type="button" value="New Collection" class="insBtn"
-   						onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
-						onclick="coll.action.value='newColl';submit();">	
+		<input type="button" value="Submit" class="lnkBtn" onclick="coll.action.value='findColl';submit();">	
 	</form>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
-<cfif #action# is "newColl">
-<cfoutput>
-	Contact the Arctos team.
-</cfoutput>
-	<!----
-<form name="addCollection" method="post" action="Collection.cfm">
-<input type="hidden" name="action" value="makeNewCollection">
-	<cfquery name="ctCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select collection_cde from ctcollection_cde
-	</cfquery>
-	<table>
-		<tr>
-			<td align="right">
-			Collection Code:&nbsp;
-			</td>
-			<td nowrap="nowrap">
-			<select name="collection_cde" size="1">
-		<cfloop query="ctCollCde">
-			<option value="#collection_cde#">#collection_cde#</option>
-		</cfloop>
-	</select>
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			Institution Acronym:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="institution_acronym">
-			</td>
-		</tr>
-		
-		<tr>
-			<td align="right">
-			Collection:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="collection">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			Description:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="descr">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			Web Link:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="web_link">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			Link Text:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="web_link_text" >
-			</td>
-		</tr><tr>
-			<td align="right">
-			Link Text:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="web_link_text" >
-			</td>
-		</tr>
-		
-		<tr>
-			<td colspan="2">
-			<input type="submit" value="Create Collection" class="insBtn"
-   						onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">	
-			<input type="button" value="Quit" class="qutBtn"
-   						onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'" 
-						onClick="document.location='/Admin/Collection.cfm';">	
-			</td>
-		</tr>
-		
-		
-	</table>
-	
-</form>
-</cfoutput>
---->
-</cfif>
-<!------------------------------------------------------------------------------------->
-<!---
-<cfif #action# is "makeNewCollection">
-<cfoutput>
-	<cftransaction>
-	<cfquery name="nextCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select sq_collection_id.nextval as newID from dual
-	</cfquery>
-	<cfquery name="newColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		INSERT INTO collection (
-			 COLLECTION_CDE,
-			 INSTITUTION_ACRONYM,
-			 DESCR,
-			 COLLECTION,
-			 COLLECTION_ID
-			 <cfif len(#web_link#) gt 0>
-			 	,web_link
-			 </cfif>
-			  <cfif len(#web_link_text#) gt 0>
-			 	,web_link_text
-			 </cfif>)
-		VALUES (
-			'#collection_cde#',
-			'#institution_acronym#',
-			'#descr#',
-			'#collection#',
-			#nextCollCde.newID#
-			 <cfif len(#web_link#) gt 0>
-			 	,'#web_link#'
-			 </cfif>
-			 <cfif len(#web_link_text#) gt 0>
-			 	,'#web_link_text#'
-			 </cfif>)			
-	</cfquery>
-	</cftransaction>
-	<cflocation url="Collection.cfm?action=findColl&collection_id=#nextCollCde.newID#">
-</cfoutput>
-</cfif>
----->
-<!------------------------------------------------------------------------------------->
-<cfif #action# is "findColl">
+<cfif action is "findColl">
 <cfoutput>
 	<cfquery name="app" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_collection where collection_id=#collection_id#
@@ -171,7 +37,9 @@
 			genbank_username,
 			genbank_pwd,
 			loan_policy_url,
-			guid_prefix
+			guid_prefix,
+			catnum_prefix_fg,
+			catnum_suffix_fg
  		from collection
   		where
    		collection_id = #collection_id#
@@ -189,8 +57,8 @@
 					<select name="collection_cde" id="collection_cde" size="1">
 						<cfloop query="ctCollCde">
 							<option 
-								<cfif #collection_cde# is "#colls.collection_cde#"> selected </cfif>
-							value="#collection_cde#">#collection_cde#</option>
+								<cfif ctCollCde.collection_cde is colls.collection_cde> selected </cfif>
+							value="#ctCollCde.collection_cde#">#ctCollCde.collection_cde#</option>
 						</cfloop>
 					</select>
 					<label for="institution_acronym">Institution Acronym</label>
@@ -214,6 +82,24 @@
 					<input type="text" name="genbank_pwd" id="genbank_pwd" value='#colls.genbank_pwd#' size="50">
 					<label for="descr">Loan Policy URL</label>
 					<input type="text" name="loan_policy_url" id="loan_policy_url" value='#colls.loan_policy_url#' size="50">
+					<table>
+						<tr>
+							<td>
+								<label for="catnum_prefix_fg">Allow catnum prefix?</label>
+								<select name="catnum_prefix_fg" id="catnum_prefix_fg">
+									<option <cfif colls.catnum_prefix_fg is 0>selected="selected" </cfif>value="0">no</option>
+									<option <cfif colls.catnum_prefix_fg is 1>selected="selected" </cfif>value="1">yes</option>
+								</select>
+							</td>
+							<td>
+								<label for="catnum_suffix_fg">Allow catnum suffix?</label>
+								<select name="catnum_suffix_fg" id="catnum_suffix_fg">
+									<option <cfif colls.catnum_suffix_fg is 0>selected="selected" </cfif>value="0">no</option>
+									<option <cfif colls.catnum_suffix_fg is 1>selected="selected" </cfif>value="1">yes</option>
+								</select>
+							</td>
+						</tr>
+					</table>
 					<br><input type="submit" value="Save Changes" class="savBtn">	
 					<input type="button" value="Quit" class="qutBtn" onClick="document.location='/Admin/Collection.cfm';">	
 				</form>
@@ -478,45 +364,19 @@
 	
 	<cfquery name="modColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE collection SET 
-		COLLECTION_CDE = '#collection_cde#',
-		guid_prefix = '#guid_prefix#'
-		,COLLECTION = '#collection#'
-		<cfif len(#institution_acronym#) gt 0>
-			,INSTITUTION_ACRONYM='#institution_acronym#'
-		</cfif>
-		<cfif len(#descr#) gt 0>
-			,DESCR='#descr#'
-		</cfif>
-		<cfif len(#web_link#) gt 0>
-			,web_link='#web_link#'
-		<cfelse>
-			,web_link=NULL
-		</cfif>
-		<cfif len(#web_link_text#) gt 0>
-			,web_link_text='#web_link_text#'
-		<cfelse>
-			,web_link_text=NULL
-		</cfif>
-		<cfif len(#genbank_prid#) gt 0>
-			,genbank_prid=#genbank_prid#
-		<cfelse>
-			,genbank_prid=NULL
-		</cfif>
-		<cfif len(#genbank_username#) gt 0>
-			,genbank_username='#genbank_username#'
-		<cfelse>
-			,genbank_username=NULL
-		</cfif>
-		<cfif len(#genbank_pwd#) gt 0>
-			,genbank_pwd='#genbank_pwd#'
-		<cfelse>
-			,genbank_pwd=NULL
-		</cfif>
-		<cfif len(#loan_policy_url#) gt 0>
-			,loan_policy_url='#loan_policy_url#'
-		<cfelse>
-			,loan_policy_url=NULL
-		</cfif>
+			COLLECTION_CDE = '#collection_cde#',
+			guid_prefix = '#guid_prefix#',
+			COLLECTION = '#collection#',
+			INSTITUTION_ACRONYM='#institution_acronym#',
+			DESCR='#descr#',
+			web_link='#web_link#',
+			web_link_text='#web_link_text#',
+			genbank_prid=#genbank_prid#,
+			genbank_username='#genbank_username#',
+			genbank_pwd='#genbank_pwd#',
+			loan_policy_url='#loan_policy_url#',
+			catnum_prefix_fg=#catnum_prefix_fg#,
+			catnum_suffix_fg=#catnum_suffix_fg#		
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>
