@@ -213,7 +213,7 @@ do not agree</font>.</a>
 			<cfset lab_values = ListToArray(label_values, "; ")>
 			
 			<cfset label_string = "">
-			<cfloop from="1" to="#labs.arraylen()#" index="index">
+			<cfloop from="1" to="#arraylen(labs)#" index="index">
 				"in labels"
 				<cfif len(label_string) gt 0>
 					<cfset label_string = label_string & "; " & labs[index] & "=" & lab_values[index]>
