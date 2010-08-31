@@ -38,8 +38,7 @@
 			genbank_pwd,
 			loan_policy_url,
 			guid_prefix,
-			catnum_prefix_fg,
-			catnum_suffix_fg
+			allow_prefix_suffix
  		from collection
   		where
    		collection_id = #collection_id#
@@ -82,24 +81,11 @@
 					<input type="text" name="genbank_pwd" id="genbank_pwd" value='#colls.genbank_pwd#' size="50">
 					<label for="descr">Loan Policy URL</label>
 					<input type="text" name="loan_policy_url" id="loan_policy_url" value='#colls.loan_policy_url#' size="50">
-					<table>
-						<tr>
-							<td>
-								<label for="catnum_prefix_fg">Allow catnum prefix?</label>
-								<select name="catnum_prefix_fg" id="catnum_prefix_fg">
-									<option <cfif colls.catnum_prefix_fg is 0>selected="selected" </cfif>value="0">no</option>
-									<option <cfif colls.catnum_prefix_fg is 1>selected="selected" </cfif>value="1">yes</option>
-								</select>
-							</td>
-							<td>
-								<label for="catnum_suffix_fg">Allow catnum suffix?</label>
-								<select name="catnum_suffix_fg" id="catnum_suffix_fg">
-									<option <cfif colls.catnum_suffix_fg is 0>selected="selected" </cfif>value="0">no</option>
-									<option <cfif colls.catnum_suffix_fg is 1>selected="selected" </cfif>value="1">yes</option>
-								</select>
-							</td>
-						</tr>
-					</table>
+					<label for="allow_prefix_suffix">Allow catnum prefix/suffix?</label>
+					<select name="allow_prefix_suffix" id="allow_prefix_suffix">
+						<option <cfif colls.allow_prefix_suffix is 0>selected="selected" </cfif>value="0">no</option>
+						<option <cfif colls.allow_prefix_suffix is 1>selected="selected" </cfif>value="1">yes</option>
+					</select>
 					<br><input type="submit" value="Save Changes" class="savBtn">	
 					<input type="button" value="Quit" class="qutBtn" onClick="document.location='/Admin/Collection.cfm';">	
 				</form>
@@ -375,8 +361,7 @@
 			genbank_username='#genbank_username#',
 			genbank_pwd='#genbank_pwd#',
 			loan_policy_url='#loan_policy_url#',
-			catnum_prefix_fg=#catnum_prefix_fg#,
-			catnum_suffix_fg=#catnum_suffix_fg#		
+			allow_prefix_suffix=#allow_prefix_suffix#		
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>
