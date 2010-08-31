@@ -33,7 +33,7 @@
 	<cfif catnum contains "-">
 		<cfset hyphenPosition=find("-",catnum)>
 		<cfif hyphenPosition lt 2>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#%ucase(catnum)%#'" >
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '%#ucase(catnum)#%'" >
 		<cfelse>
 			<cfset minCatNum=left(catnum,hyphenPosition-1)>
 			<cfset maxCatNum=right(catnum,len(catnum)-hyphenPosition)>
@@ -49,7 +49,7 @@
 				</cfif>
 				<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in #ListQualify(clist,'''')# ) " >
 			<cfelse>
-				<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#%ucase(catnum)%#'" >
+				<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '%#ucase(catnum)#%'" >
 			</cfif>
 		</cfif>
 	<cfelse>
