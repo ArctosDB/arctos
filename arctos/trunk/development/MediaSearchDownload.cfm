@@ -189,17 +189,7 @@ do not agree</font>.</a>
 		</cfif>
 	<!--- if they agree to the terms, send them to their download --->
 	<cfif #agree# is "yes">
-		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select 
-				user_tab_cols.column_name 
-			from 
-				user_tab_cols
-				left outer join 
-					cf_spec_res_cols on 
-					(upper(user_tab_cols.column_name) = upper(cf_spec_res_cols.column_name)) 
-			where 
-				upper(table_name)=upper('#tableName#') order by DISP_ORDER
-		</cfquery>
+
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #tableName#
 		</cfquery>
@@ -239,6 +229,19 @@ do not agree</font>.</a>
 		</cfquery>
 <!-- 				"end getData"
  -->
+
+		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				user_tab_cols.column_name 
+			from 
+				user_tab_cols
+				left outer join 
+					cf_spec_res_cols on 
+					(upper(user_tab_cols.column_name) = upper(cf_spec_res_cols.column_name)) 
+			where 
+				upper(table_name)=upper('#tableName#') order by DISP_ORDER
+		</cfquery>
+		
 		<cfquery name="dl" datasource="cf_dbuser">
 		INSERT INTO cf_download (
 			user_id,
@@ -253,7 +256,9 @@ do not agree</font>.</a>
 			nvl(#getData.recordcount#,0),
 			'#agree#')
 	</cfquery>
-		<cfset ac = valuelist(cols.column_name)>
+<!-- 		<cfset ac = valuelist(cols.column_name)>
+ -->
+		<cfset ac = #getData.ColumnList#>
 		<!--- strip internal columns --->
 		<!--- <cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
 				<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_OBJECT_ID'))>
