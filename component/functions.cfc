@@ -1,5 +1,29 @@
 <cfcomponent>
 <!------------------------------------------------------------------->
+<cffunction name="flagDupAgent" access="remote">
+	<cfargument name="bad" type="numeric" required="yes">
+	<cfargument name="good" type="numeric" required="yes">
+	<cftry>
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			insert into agent_relations (agent_id,related_agent_id,agent_relationship) values (#bad#,#good#,'bad duplicate of')
+		</cfquery>
+		<cfset result = querynew("STATUS,GOOD,BAD,MSG")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "status", "success", 1)>
+		<cfset temp = QuerySetCell(result, "GOOD", "#good#", 1)>
+		<cfset temp = QuerySetCell(result, "BAD", "#bad#", 1)>
+		<cfcatch>
+			<cfset result = querynew("STATUS,GOOD,BAD,MSG")>
+			<cfset temp = queryaddrow(result,1)>
+			<cfset temp = QuerySetCell(result, "status", "fail", 1)>
+			<cfset temp = QuerySetCell(result, "GOOD", "#good#", 1)>
+			<cfset temp = QuerySetCell(result, "BAD", "#bad#", 1)>
+			<cfset temp = QuerySetCell(result, "MSG", "cfcatch.message & '; ' & cfcatch.detail", 1)>
+		</cfcatch>		
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------->
 <cffunction name="getAttCodeTbl"  access="remote">
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="collection_cde" type="string" required="yes">
