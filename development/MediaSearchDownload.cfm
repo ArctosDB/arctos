@@ -287,7 +287,6 @@ do not agree</font>.</a>
 		<cfoutput>
 			<cfset variables.encoding="UTF-8">
 			<cfif #fileFormat# is "csv">
-				"csv\n/n"
 				<cfset fname = "ArctosData_#cfid#_#cftoken#.csv">
 				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 				<cfset header=trim(ac)>
@@ -295,9 +294,7 @@ do not agree</font>.</a>
 					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 					variables.joFileWriter.writeLine(header); 
 				</cfscript>
-				"about to loop getData
 				<cfloop query="getData">
-				"looping getData"
 					<cfset oneLine = "">
 					<cfloop list="#ac#" index="c">
 						"looping ac"
