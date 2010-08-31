@@ -5,6 +5,7 @@
 <!--------------------------------------------------------------------------------->
 <cfif action is "nothing">
 <cfoutput>
+	#collection_object_id#
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		cataloged_item.collection_object_id,
