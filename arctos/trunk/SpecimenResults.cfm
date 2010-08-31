@@ -3,6 +3,15 @@
 <cfif len(session.displayrows) is 0>
 	<cfset session.displayrows=20>
 </cfif>
+<cfset debug=true>
+
+
+
+
+
+
+
+
 <cfhtmlhead text="<title>Specimen Results</title>">
 <cfoutput>
 <script type="text/javascript" language="javascript">
