@@ -39,7 +39,7 @@
 			<cfset maxCatNum=right(catnum,len(catnum)-hyphenPosition)>
 			<cfif isnumeric(minCatNum) and isnumeric(maxCatNum)>
 				<cfset clist="">
-				<cfloop from="minCatNum" to="maxCatNum" index="i">
+				<cfloop from="#minCatNum#" to="#maxCatNum#" index="i">
 					<cfset clist=listappend(clist,i)>
 				</cfloop>
 				<cfif lislen(clist) gte 1000>
