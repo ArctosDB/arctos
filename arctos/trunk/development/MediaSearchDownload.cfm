@@ -214,14 +214,14 @@ do not agree</font>.</a>
 			
 			<cfset label_string = "">
 			<cfloop from="1" to="#arraylen(labs)#" index="index">
-				"in labels"
+				
 				<cfif len(label_string) gt 0>
 					<cfset label_string = label_string & "; " & labs[index] & "=" & lab_values[index]>
 				<cfelse>
 					<cfset label_string = labs[index] & "=" & lab_values[index]>
 				</cfif>
 			</cfloop>
-			
+			"#label_string#"
 			<cfset temp = QuerySetCell(getTempData, "label_strings", "#label_string#", i)>
 			<cfset i=i+1>
 		</cfloop>
