@@ -42,7 +42,7 @@
 				<cfloop from="#minCatNum#" to="#maxCatNum#" index="i">
 					<cfset clist=listappend(clist,i)>
 				</cfloop>
-				<cfif lislen(clist) gte 1000>
+				<cfif listlen(clist) gte 1000>
 					<div class="error">1000 limit</div>
 					<script>hidePageLoad();</script>
 					<cfabort>
