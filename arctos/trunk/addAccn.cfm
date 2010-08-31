@@ -62,6 +62,9 @@
 	Add all the items listed below to accession:
 	<form name="addItems" method="post" action="addAccn.cfm">
 		<input type="hidden" name="Action" value="addItems">
+		<cfif isdefined("collection_object_id") and listlen(collection_object_id) is 1>
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+		</cfif>
 		<table border="1">
 			<tr>
 				<td>
@@ -157,7 +160,13 @@
       <cfabort>
 		</cfif>
 		
-		<cflocation url="addAccn.cfm" addtoken="false">
+		<cfif isdefined("collection_object_id") and listlen(collection_object_id) is 1>
+			<cflocation url="addAccn.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+		<cfelse>
+			<cflocation url="addAccn.cfm" addtoken="false">
+		</cfif>
+		
+		
 		
 	</cfoutput>
 </cfif>
