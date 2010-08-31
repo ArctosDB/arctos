@@ -200,9 +200,56 @@ do not agree</font>.</a>
 			where 
 				upper(table_name)=upper('#tableName#') order by DISP_ORDER
 		</cfquery>
-		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from #tableName#
+		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select media_id,
+					media_type,
+					mime_type,
+					cat_num,
+					guid_string,	
+					scientific_name,
+					lat_long,
+					<!--- media_relationships --->
+					<!--- media_labels --->
+					preview_uri,				
+					media_uri					
+			from #tableName#
 		</cfquery>
+
+		<cfset getTempData = queryAddColumn(getTempData,"labels_string", "VarChar")>		
+				
+		<cfset i=1>	
+		<cfloop query ="getTempData">
+			<cfset labs = listToArray(media_labels, "; ")>
+			<cfset lab_values = listToArray(label_values, "; ")>
+			
+			<cfset label_string = "">
+			<cfloop from="1" to="#len(labs)#" index="index">
+				<cfif len(label_string) gt 0>
+					<cfset label_string = label_string & "; " & labs[index] & "=" & lab_values[index]>
+				<cfelse>
+					<cfset label_string = labs[index] & "=" & lab_values[index]>
+				</cfif>
+			</cfloop>
+			
+			<cfset temp = QuerySetCell(getTempData, "label_strings", "#label_string#", i)>
+			<cfset i=i+1>
+		</cfloop>
+		
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select media_id,
+					media_type,
+					mime_type,
+					cat_num,
+					guid_string,	
+					scientific_name,
+					lat_long,
+					<!--- media_relationships --->
+					labels_string,
+					preview_uri,				
+					media_uri					
+			from #getTempData#
+		</cfquery>
+		
 		<cfquery name="dl" datasource="cf_dbuser">
 		INSERT INTO cf_download (
 			user_id,
