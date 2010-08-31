@@ -201,26 +201,15 @@ do not agree</font>.</a>
 				upper(table_name)=upper('#tableName#') order by DISP_ORDER
 		</cfquery>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select media_id,
-					media_type,
-					mime_type,
-					cat_num,
-					guid_string,	
-					scientific_name,
-					lat_long,
-					<!--- media_relationships --->
-					<!--- media_labels --->
-					preview_uri,				
-					media_uri					
-			from #tableName#
+			select * from #tableName#
 		</cfquery>
 
 		<cfset temp = queryAddColumn(getTempData,"label_strings", "VarChar", ArrayNew(1))>		
 				
 		<cfset i=1>	
 		<cfloop query ="getTempData">
-			<cfset labs = listToArray(media_labels, "; ")>
-			<cfset lab_values = listToArray(label_values, "; ")>
+			<cfset labs = ListToArray(media_labels, "; ")>
+			<cfset lab_values = ListToArray(label_values, "; ")>
 			
 			<cfset label_string = "">
 			<cfloop from="1" to="#len(labs)#" index="index">
