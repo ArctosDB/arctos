@@ -1,6 +1,33 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-
+<script>
+	function flagDupAgent(bad,good){
+		$.getJSON("/component/functions.cfc",
+			{
+				method : "flagDupAgent",
+				bad : bad,
+				good : good,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				var status=r.DATA.STATUS[0];
+				var good=r.DATA.GOOD[0];
+				var bad=r.DATA.BAD[0];
+				var msg=r.DATA.MSG[0];
+				
+				if (status == 'success') {
+					$('#fg_" + good).html('saved');
+					$('#fg_" + bad).html('saved');
+				} else {
+					$('#fg_" + good).addClass('red');
+					$('#fg_" + bad).addClass('red');
+					alert(msg);
+				}	
+			}
+		);
+	}
+</script>
 <cfoutput>
 <cfset title="Agent Duplicates">
 <cfif action is "nothing">
@@ -55,12 +82,14 @@
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=person&sql=#l1#">Whodunit</a>]
 				[<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/agentActivity.cfm?agent_id=#id1#">Activity</a>]
+				[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">BadDupOf--></span>]
 			</td>
 			<td>
 				#f2# #l2# (#t2#)
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=person&sql=#l2#">Whodunit</a>]	
-				[<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]			
+				[<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
+				[<span  id="fg_#id2#" class="infoLink" onclick="flagDupAgent(#id2#,#id1#)"><--BadDupOf</span>]			
 			</td>
 			<td>#pn1#</td>
 			<td>#pn2#</td>
