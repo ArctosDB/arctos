@@ -223,7 +223,7 @@ do not agree</font>.</a>
 			<cfset temp = QuerySetCell(getTempData, "label_strings", label_string, i)>
 			<cfset i=i+1>
 		</cfloop>
-		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getData" dbtype="query">
 			select media_id,
 					media_type,
 					mime_type,
