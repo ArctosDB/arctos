@@ -209,8 +209,8 @@ do not agree</font>.</a>
 		<cfset i=1>	
 		<cfloop query ="getTempData">
 			"in tempData"
-			<cfset labs = ListToArray(media_labels, "; ")>
-			<cfset lab_values = ListToArray(label_values, "; ")>
+			<cfset labs = ListToArray(media_labels, ";")>
+			<cfset lab_values = ListToArray(label_values, ";")>
 			
 			<cfset label_string = "">
 			<cfloop from="1" to="#arraylen(labs)#" index="index">
