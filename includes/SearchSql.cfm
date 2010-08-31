@@ -47,7 +47,7 @@
 					<script>hidePageLoad();</script>
 					<cfabort>
 				</cfif>
-				<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in #ListQualify(clist,'''')# ) " >
+				<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in ( #ListQualify(clist,'''')# ) " >
 			<cfelse>
 				<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(catnum)#'" >
 			</cfif>
