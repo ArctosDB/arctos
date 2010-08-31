@@ -330,8 +330,6 @@ do not agree</font>.</a>
 						<cfset thisData = #evaluate(c)#>
 						<cfif #c# is "BEGAN_DATE" or #c# is "ENDED_DATE">
 							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
-						<cfelseif c is "MEDIA">
-							<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
 						</cfif>
 						<cfif len(#oneLine#) is 0>
 							<cfset oneLine = '#thisData#'>
