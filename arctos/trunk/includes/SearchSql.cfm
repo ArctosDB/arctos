@@ -30,52 +30,31 @@
 <cfif isdefined("catnum") and len(catnum) gt 0>
 	<cfset catnum=replace(catnum," ","","all")>
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
-	<cfif catnum contains "->">
-		<cfset hyphenPosition=find("->",catnum)>
+	<cfif catnum contains "-">
+		<cfset hyphenPosition=find("-",catnum)>
 		<cfif hyphenPosition lt 2>
-			<div class="error">
-				You've entered an invalid catalog number. Acceptable entries are:
-				<ul>
-					<li>An integer (9234)</li>
-					<li>A comma-delimited list of integers (1,456,7689)</li>
-					<li>A hyphen-separated range of integers (1-6)</li>
-				</ul>
-			</div>
-			<script>hidePageLoad();</script>
-			<cfabort>
-		</cfif>
-		<cfset minCatNum=left(catnum,hyphenPosition-1)>
-		<cfset maxCatNum=right(catnum,len(catnum)-hyphenPosition)>
-		<!---
-		<cfif not isnumeric(minCatNum) OR not isnumeric(maxCatNum)>
-			<div class="error">
-				You've entered an invalid catalog number. Acceptable entries are:
-				<ul>
-					<li>An integer (9234)</li>
-					<li>A comma-delimited list of integers (1,456,7689)</li>
-					<li>A hyphen-separated range of integers (1-6)</li>
-				</ul>
-			</div>
-			<script>hidePageLoad();</script>
-			<cfabort>
-		</cfif>
-		--->
-		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num >= '#minCatNum#' AND #session.flatTableName#.cat_num <= '#maxCatNum#'  " >
-	
-	<cfelse>
-	<!---
-		<cfloop list="#catnum#" index="i">
-			<cfif not isnumeric(i)>
-				<div class="error">
-					Catalog Numbers must be numeric!
-				</div>
-				<script>hidePageLoad();</script>	  
-				<cfabort>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#%ucase(catnum)%#'" >
+		<cfelse>
+			<cfset minCatNum=left(catnum,hyphenPosition-1)>
+			<cfset maxCatNum=right(catnum,len(catnum)-hyphenPosition)>
+			<cfif isnumeric(minCatNum) and isnumeric(maxCatNum)>
+				<cfset clist="">
+				<cfloop from="minCatNum" to="maxCatNum" index="i">
+					<cfset clist=listappend(clist,i)>
+				</cfloop>
+				<cfif lislen(catnum) clist 1000>
+					<div class="error">1000 limit</div>
+					<script>hidePageLoad();</script>
+					<cfabort>
+				</cfif>
+				<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in #ListQualify(clist,'''')# ) " >
+			<cfelse>
+				<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#%ucase(catnum)%#'" >
 			</cfif>
-		</cfloop>
-		--->
-		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(ListChangeDelims(catnum,','),'''')# ) " >
 		</cfif>
+	<cfelse>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(ListChangeDelims(catnum,','),'''')# ) " >
+	</cfif>
 <!---
 	
 --->
