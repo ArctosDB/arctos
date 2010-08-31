@@ -215,7 +215,7 @@ do not agree</font>.</a>
 			from #tableName#
 		</cfquery>
 
-		<cfset temp = queryAddColumn(getTempData,"label_strings", "VarChar", ArrayNew(getTempData.recordcount))>		
+		<cfset temp = queryAddColumn(getTempData,"label_strings", "VarChar", ArrayNew(1))>		
 				
 		<cfset i=1>	
 		<cfloop query ="getTempData">
