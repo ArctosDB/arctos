@@ -33,7 +33,7 @@
 		identification,
 		collection,
 		collection a_coll
-		<cfif isdefined("collection_object_id") and listlen(collection_object_id) gt 1>
+		<cfif isdefined("collection_object_id") OR listlen(collection_object_id) gt 1>
 			,#session.SpecSrchTab#
 		</cfif>
 	WHERE
