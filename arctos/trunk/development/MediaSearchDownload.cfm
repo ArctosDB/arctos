@@ -221,8 +221,8 @@ do not agree</font>.</a>
 					<cfset label_string = labs[index] & "=" & lab_values[index]>
 				</cfif>
 			</cfloop>
-			"#label_string#"
-			<cfset temp = QuerySetCell(getTempData, "label_strings", "#label_string#", i)>
+			<cfdump var="label_string">
+			<cfset temp = QuerySetCell(getTempData, "label_strings", label_string, i)>
 			<cfset i=i+1>
 		</cfloop>
 		
