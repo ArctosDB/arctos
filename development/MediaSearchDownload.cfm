@@ -208,11 +208,13 @@ do not agree</font>.</a>
 				
 		<cfset i=1>	
 		<cfloop query ="getTempData">
+			"in tempData"
 			<cfset labs = ListToArray(media_labels, "; ")>
 			<cfset lab_values = ListToArray(label_values, "; ")>
 			
 			<cfset label_string = "">
-			<cfloop from="1" to="#len(labs)#" index="index">
+			<cfloop from="1" to="#labs.arraylen()#" index="index">
+				"in labels"
 				<cfif len(label_string) gt 0>
 					<cfset label_string = label_string & "; " & labs[index] & "=" & lab_values[index]>
 				<cfelse>
