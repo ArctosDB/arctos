@@ -208,7 +208,6 @@ do not agree</font>.</a>
 				
 		<cfset i=1>	
 		<cfloop query ="getTempData">
-			"in tempData"
 			<cfset labs = ListToArray(media_labels, ";")>
 			<cfset lab_values = ListToArray(label_values, ";")>
 			
@@ -221,12 +220,9 @@ do not agree</font>.</a>
 					<cfset label_string = labs[index] & "=" & lab_values[index]>
 				</cfif>
 			</cfloop>
-			<cfdump var="#label_string#">
 			<cfset temp = QuerySetCell(getTempData, "label_strings", label_string, i)>
 			<cfset i=i+1>
-			"end"
 		</cfloop>
-		"end loop"
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select media_id,
 					media_type,
@@ -239,9 +235,10 @@ do not agree</font>.</a>
 					labels_string,
 					preview_uri,				
 					media_uri					
-			from #getTempData#
+			from getTempData
 		</cfquery>
-		
+<!-- 				"end getData"
+ -->
 		<cfquery name="dl" datasource="cf_dbuser">
 		INSERT INTO cf_download (
 			user_id,
