@@ -226,7 +226,7 @@ do not agree</font>.</a>
 			<cfset i=i+1>
 			"end"
 		</cfloop>
-		
+		"end loop"
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select media_id,
 					media_type,
