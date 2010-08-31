@@ -194,7 +194,7 @@ do not agree</font>.</a>
 			select * from #tableName#
 		</cfquery>
 
-		<cfset temp = queryAddColumn(getTempData,"labels_string", "VarChar", ArrayNew(1))>		
+		<cfset temp = queryAddColumn(getTempData,"labels", "VarChar", ArrayNew(1))>		
 				
 		<cfset i=1>	
 		<cfloop query ="getTempData">
@@ -210,7 +210,7 @@ do not agree</font>.</a>
 					<cfset label_string = labs[index] & "=" & lab_values[index]>
 				</cfif>
 			</cfloop>
-			<cfset temp = QuerySetCell(getTempData, "labels_string", label_string, i)>
+			<cfset temp = QuerySetCell(getTempData, "labels", label_string, i)>
 			<cfset i=i+1>
 		</cfloop>
 		<cfquery name="getData" dbtype="query">
@@ -222,7 +222,7 @@ do not agree</font>.</a>
 					scientific_name,
 					lat_long,
 					<!--- media_relationships --->
-					labels_string,
+					labels,
 					preview_uri,				
 					media_uri					
 			from getTempData
