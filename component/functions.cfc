@@ -18,7 +18,7 @@
 			<cfset temp = QuerySetCell(result, "status", "fail", 1)>
 			<cfset temp = QuerySetCell(result, "GOOD", "#good#", 1)>
 			<cfset temp = QuerySetCell(result, "BAD", "#bad#", 1)>
-			<cfset temp = QuerySetCell(result, "MSG", "cfcatch.message & '; ' & cfcatch.detail", 1)>
+			<cfset temp = QuerySetCell(result, "MSG", "#cfcatch.message#: #cfcatch.detail#", 1)>
 		</cfcatch>		
 	</cftry>
 	<cfreturn result>
