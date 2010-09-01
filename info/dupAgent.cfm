@@ -136,12 +136,14 @@
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
 				[<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/agentActivity.cfm?agent_id=#id1#">Activity</a>]
+					[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">BadDupOf--></span>]
 			</td>
 			<td>
 				#name2# (#t2#)
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
-				[<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]			
+				[<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
+					[<span id="fg_#id2#" class="infoLink" onclick="flagDupAgent(#id2#,#id1#)"><---BadDupOf</span>]		
 			</td>
 			<td>#pn1#</td>
 			<td>#pn2#</td>
