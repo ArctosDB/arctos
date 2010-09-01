@@ -221,7 +221,12 @@ do not agree</font>.</a>
 					guid_string,	
 					scientific_name,
 					lat_long,
-					<!--- media_relationships --->
+					locality as created_from_collecting_event,
+					created_agent as created_by_agent,
+					project_name as associated_with_project,
+					publication_name as shows_publication,
+					taxonomy_description as describes_taxonomy,
+					shows_loc_name as shows_locality,					
 					labels,
 					preview_uri,				
 					media_uri					
@@ -259,7 +264,8 @@ do not agree</font>.</a>
 <!-- 		<cfset ac = valuelist(cols.column_name)>
  -->
 		<cfset ac = #getData.ColumnList#>
-		<!--- strip internal columns --->
+		
+				<!--- strip internal columns --->
 		<!--- <cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
 				<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_OBJECT_ID'))>
 		</cfif>
