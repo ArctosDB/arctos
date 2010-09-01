@@ -17,11 +17,11 @@
 				var msg=r.DATA.MSG[0];
 				
 				if (status == 'success') {
-					$('#fg_" + good).html('saved');
-					$('#fg_" + bad).html('saved');
+					$("#fg_" + good).html('saved');
+					$("#fg_" + bad).html('saved');
 				} else {
-					$('#fg_" + good).addClass('red');
-					$('#fg_" + bad).addClass('red');
+					$("#fg_" + good).addClass('red');
+					$("#fg_" + bad).addClass('red');
 					alert(msg);
 				}	
 			}
