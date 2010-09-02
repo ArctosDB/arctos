@@ -4,6 +4,8 @@
 <!------------------------------------------------------------------->
 <cffunction name="strToIso8601" access="remote">
 	<cfargument name="str" type="string" required="yes">
+	<cfset began=''>
+	<cfset end="">
 	<cfif isdate(str)>
 		<cfset began=dateformat(str,"yyyy-mm-dd")>
 		<cfset end=dateformat(str,"yyyy-mm-dd")>
