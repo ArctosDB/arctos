@@ -9,6 +9,12 @@
 --->
 <script type='text/javascript' src='/includes/_DEhead.js'></script>
 <script language="javascript" type="text/javascript">
+	function copyVerbatim(str){
+		console.log(str);
+	}
+	
+	
+	
 	jQuery(document).ready(function() {
 		jQuery(function() {
 			jQuery("#made_date").datepicker();
@@ -28,9 +34,7 @@
 			populateGeology(gid);			
 		});		
 	});
-	function copyVerbatim(str){
-		console.log(str);
-	}
+
 	function populateGeology(id) {
 		var idNum=id.replace('geology_attribute_','');
 		var thisValue=$("#geology_attribute_" + idNum).val();;
