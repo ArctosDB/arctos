@@ -11,6 +11,18 @@
 <script language="javascript" type="text/javascript">
 	function copyVerbatim(str){
 		alert(str);
+		$.getJSON("/component/functions.cfc",
+			{
+				method : "strToIso8601",
+				str : str,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				$("#began_date").val(r.DATA.B[0]);
+				$("#ended_date").val(r.DATA.E[0]);
+			}
+		);
 	}
 	
 	
