@@ -523,72 +523,30 @@
 </cfif>
 
 <cfif isdefined("begYear") AND len(begYear) gt 0>
-	<cfif not isnumeric(begYear) OR len(begYear) neq 4>
-		<div class="error">
-			Year must be entered as a 4-digit integer.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
 	<cfset mapurl = "#mapurl#&begYear=#begYear#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) >= #begYear#">
 </cfif>
 
 <cfif isdefined("begMon") AND len(begMon) gt 0>
-	<cfif not isnumeric(begMon) OR len(begMon) neq 2>
-		<div class="error">
-			Month must be entered as a 2-digit integer.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
 	<cfset mapurl = "#mapurl#&begMon=#begMon#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) >= #begMon#">
 </cfif>
 <cfif isdefined("begDay") AND len(begDay) gt 0>
-	<cfif not isnumeric(begDay) OR len(begDay) neq 2>
-		<div class="error">
-			Day must be entered as a 2-digit integer.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
 	<cfset mapurl = "#mapurl#&begDay=#begDay#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) >= #begDay#">
 </cfif>
 
 
 <cfif isdefined("endYear") AND len(endYear) gt 0>
-	<cfif not isnumeric(endYear) OR len(endYear) neq 4>
-		<div class="error">
-			Year must be entered as a 4-digit integer.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
 	<cfset mapurl = "#mapurl#&endYear=#endYear#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) <= #endYear#">
 </cfif>
 
 <cfif isdefined("endMon") AND len(endMon) gt 0>
-	<cfif not isnumeric(endMon) OR len(endMon) neq 2>
-		<div class="error">
-			Month must be entered as a 2-digit integer.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
 	<cfset mapurl = "#mapurl#&endMon=#endMon#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) <= #endMon#">
 </cfif>
 <cfif isdefined("endDay") AND len(endDay) gt 0>
-	<cfif not isnumeric(endDay) OR len(endDay) neq 2>
-		<div class="error">
-			Day must be entered as a 2-digit integer.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
 	<cfset mapurl = "#mapurl#&endDay=#endDay#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) <= #endDay#">
 </cfif>
