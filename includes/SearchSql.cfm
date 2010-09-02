@@ -496,8 +496,7 @@
 	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select is_iso8601('#begDate#') isdate from dual
 	</cfquery>
-	<cfdump var=#isdate#>
-	<cfif isdate.isdate is 0>
+	<cfif isdate.isdate is not "valid">
 		<div class="error">
 			The begin date you entered is not a valid ISO8601 date. 
 			See <a target="_blank" href="http://g-arctos.appspot.com/arctosdoc/date.html">About Arctos Dates</a>
@@ -512,7 +511,7 @@
 	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select is_iso8601('#endDate#') isdate from dual
 	</cfquery>
-	<cfif isdate.isdate is 0>
+	<cfif isdate.isdate is not "valid">
 		<div class="error">
 			The ended date you entered is not a valid ISO8601 date. 
 			See <a target="_blank" href="http://g-arctos.appspot.com/arctosdoc/date.html">About Arctos Dates</a>
