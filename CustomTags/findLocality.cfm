@@ -50,6 +50,23 @@
 		collecting_event.collecting_event_id = cataloged_item.collecting_event_id (+) and
 		locality.locality_id = geology_attributes.locality_id (+) ">
 
+<cfif isdefined("collection_id") and len(collection_id) gt 0>
+	<cfif not isdefined("collnOper") or len(collnOper) is 0>
+		<cfset collnOper="usedOnlyBy">
+	</cfif>
+	<cfif collnOper is "
+</cfif>
+<select name="collnOper" id="collnOper" size="1">
+		            	<option value=""></option>
+		                <option value="usedOnlyBy">used only by</option>
+		                <option value="usedBy">used by</option>
+		                <option value="notUsedBy">not used by</option>
+		             </select>
+		             <select name="collection_id" id="collection_id" size="1">
+		             
+		             
+		             
+
 <cfif isdefined("locality_id") and len(#locality_id#) gt 0>
 	<cfset sql = "#sql# AND locality.locality_id = #locality_id#">
 </cfif>
