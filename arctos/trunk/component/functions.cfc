@@ -1,4 +1,16 @@
 <cfcomponent>
+	
+
+<!------------------------------------------------------------------->
+<cffunction name="strToIso8601" access="remote">
+	<cfargument name="str" type="string" required="yes">
+	<cfset result = querynew("I,B,E")>
+	<cfset temp = queryaddrow(result,1)>
+	<cfset temp = QuerySetCell(result, "I", str, 1)>
+	<cfset temp = QuerySetCell(result, "B", 'began', 1)>
+	<cfset temp = QuerySetCell(result, "E", 'end', 1)>
+	<cfreturn str>
+</cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="flagDupAgent" access="remote">
 	<cfargument name="bad" type="numeric" required="yes">
