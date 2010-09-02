@@ -48,7 +48,7 @@
 						</select>
 					</td>
 					<td>
-						<label for="begDate">Full Date</label>
+						<label for="begDate">ISO8601 Date/Time</label>
 						<input name="begDate" id="begDate" size="10" type="text">
 					</td>
 				</tr>
@@ -94,7 +94,7 @@
 						</select>
 					</td>
 					<td>
-						<label for="endDate">Full Date</label>
+						<label for="endDate">ISO8601 Date/Time</label>
 						<input name="endDate" id="endDate" size="10" type="text">
 					</td>
 				</tr>
@@ -124,6 +124,7 @@
 			</select>
 		</td>
 	</tr>
+	<!---
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="incl_date">Strict Date Search?</span>
@@ -132,6 +133,7 @@
 			<input type="checkbox" name="inclDateSearch" id="inclDateSearch" value="yes">
 		</td>
 	</tr>
+	----->
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_verbatim_date">Verbatim Date:</span>

@@ -489,56 +489,40 @@
 	<cfset mapurl = "#mapurl#&identified_agent=#identified_agent#">
 	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.IDENTIFIEDBY) LIKE '%#ucase(identified_agent)#%'">			
 </cfif>
-<cfif isdefined("begDate") AND len(begDate) gt 0>	
-	<cfif not isdefined("endDate") OR len (endDate) is 0>
-		<cfset endDate = begDate>
+
+
+<cfif isdefined("begDate") AND len(begDate) gt 0>		
+	<cfset mapurl = "#mapurl#&begDate=#begDate#">
+	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select is_iso8601('#begDate#') isdate from dual
+	</cfquery>
+	<cfif isdate.isdate is 0>
+		<div class="error">
+			The begin date you entered is not a valid ISO8601 date. 
+			See <a target="_blank" href="http://g-arctos.appspot.com/arctosdoc/date.html">About Arctos Dates</a>
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
 	</cfif>
-	<cfif not isdate(begDate) OR not isdate(endDate)>
-		<!--- see if we can use ddMonYYYY format ---->
-		<cfif not isdate(begDate)>
-			<cfif len(begDate) is 9>
-				<cfset d = left(begDate,2)>
-				<cfset m = mid(begDate,3,3)>
-				<cfset y = right(begDate,4)>
-				<cfset begDate = "#d#-#m#-#y#">
-			</cfif>
-			<cfif not isdate(begDate)>
-				<div class="error">
-					The begin date you entered was not recognized as a valid date format.
-					<br>Try formatting as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
-				</div>
-				<script>hidePageLoad();</script>
-				<cfabort>
-			</cfif>
-		</cfif>
-		<cfif not isdate(endDate)>
-			<cfif len(endDate) is 9>
-				<cfset d = left(endDate,2)>
-				<cfset m = mid(endDate,3,3)>
-				<cfset y = right(endDate,4)>
-				<cfset endDate = "#d#-#m#-#y#">
-			</cfif>
-			<cfif not isdate(endDate)>
-				<div class="error">
-					The end date you entered was not recognized as a valid date format.
-					<br>Try formatting as DD-Mon-YYYY (<em>e.g.</em>, 02-Jan-1999)
-				</div>
-				<script>hidePageLoad();</script>
-				<cfabort>
-			</cfif>
-		</cfif>
-	</cfif>
-	<cfset begYear=DatePart("yyyy", begDate)>
-	<cfset endYear=DatePart("yyyy", endDate)>
-	<cfset begMon=DatePart("m", begDate)>
-	<cfset endMon=DatePart("m", endDate)>
-	<cfset begDay=DatePart("d", begDate)>
-	<cfset endDay=DatePart("d", endDate)>
+	<cfset basQual = " #basQual# AND #session.flatTableName#.began_date >= '#begDate#'">		
 </cfif>
-<cfif isdefined("begYear") AND len(begYear) gt 0>
-	<cfif not isdefined("inclDateSearch")>
-		<cfset inclDateSearch="yes">
+<cfif isdefined("endDate") AND len(endDate) gt 0>	
+	<cfset mapurl = "#mapurl#&endDate=#endDate#">
+	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select is_iso8601('#endDate#') isdate from dual
+	</cfquery>
+	<cfif isdate.isdate is 0>
+		<div class="error">
+			The ended date you entered is not a valid ISO8601 date. 
+			See <a target="_blank" href="http://g-arctos.appspot.com/arctosdoc/date.html">About Arctos Dates</a>
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
 	</cfif>
+	<cfset basQual = " #basQual# AND #session.flatTableName#.endDate <= '#endDate#'">		
+</cfif>
+
+<cfif isdefined("begYear") AND len(begYear) gt 0>
 	<cfif not isnumeric(begYear) OR len(begYear) neq 4>
 		<div class="error">
 			Year must be entered as a 4-digit integer.
@@ -546,86 +530,70 @@
 		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>
-	<cfif not isdefined("endYear") OR len (endYear) is 0>
-		<cfset endYear = begYear>
+	<cfset mapurl = "#mapurl#&begYear=#begYear#">
+	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) >= #begYear#">
+</cfif>
+
+<cfif isdefined("begMon") AND len(begMon) gt 0>
+	<cfif not isnumeric(begMon) OR len(begMon) neq 2>
+		<div class="error">
+			Month must be entered as a 2-digit integer.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
 	</cfif>
-	<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#&begYear=#begYear#&endYear=#endYear#">
+	<cfset mapurl = "#mapurl#&begMon=#begMon#">
+	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) >= #begMon#">
+</cfif>
+<cfif isdefined("begDay") AND len(begDay) gt 0>
+	<cfif not isnumeric(begDay) OR len(begDay) neq 2>
+		<div class="error">
+			Day must be entered as a 2-digit integer.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset mapurl = "#mapurl#&begDay=#begDay#">
+	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) >= #begDay#">
+</cfif>
+
+
+<cfif isdefined("endYear") AND len(endYear) gt 0>
 	<cfif not isnumeric(endYear) OR len(endYear) neq 4>
 		<div class="error">
 			Year must be entered as a 4-digit integer.
 		</div>
-		<script>hidePageLoad();</script>			  
+		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>
-	<cfif inclDateSearch is true>
-		<cfset basQual = " #basQual#
-				AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) >= #begYear#
-			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) <= #endYear#
-			)">			
-	<cfelse>
-		<cfset basQual = " #basQual#
-				AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) BETWEEN '#begYear#' AND '#endYear#'
-			OR TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) BETWEEN   '#begYear#' AND '#endYear#'
-			OR ( '#begYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) AND 
-				TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4))
-			AND '#endYear#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) AND 
-				TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4))
-			))">		
-	</cfif>
+	<cfset mapurl = "#mapurl#&endYear=#endYear#">
+	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) <= #endYear#">
 </cfif>
-<cfif isdefined("begMon") AND len(begMon) gt 0>
-	<cfif not isdefined("inclDateSearch")>
-		<cfset inclDateSearch="yes">
+
+<cfif isdefined("endMon") AND len(endMon) gt 0>
+	<cfif not isnumeric(endMon) OR len(endMon) neq 2>
+		<div class="error">
+			Month must be entered as a 2-digit integer.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
 	</cfif>
-	<cfif not isdefined("endMon") OR len (endMon) is 0>
-		<cfset endMon = begMon>
-	</cfif>
-	<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#&endMon=#endMon#&begMon=#begMon#">
-	<cfif inclDateSearch is true>
-		<cfset basQual = " #basQual#
-				AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) >= #begMon#
-			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2)) <= #endMon#
-			)">
-	<cfelse>
-		<cfset basQual = " #basQual# 
-			AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) BETWEEN '#begMon#' AND '#endMon#'
-			OR TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2)) BETWEEN   '#begMon#' AND '#endMon#'
-			OR ( '#begMon#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) AND 
-				TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2))
-			AND '#endMon#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) AND 
-				TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2))))">
-	</cfif>
+	<cfset mapurl = "#mapurl#&endMon=#endMon#">
+	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) <= #endMon#">
 </cfif>
-<cfif isdefined("begDay") AND len(begDay) gt 0>
-	<cfif not isdefined("inclDateSearch")>
-		<cfset inclDateSearch="yes">
+<cfif isdefined("endDay") AND len(endDay) gt 0>
+	<cfif not isnumeric(endDay) OR len(endDay) neq 2>
+		<div class="error">
+			Day must be entered as a 2-digit integer.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
 	</cfif>
-	<cfif not isdefined("endDay") OR len (endDay) is 0>
-		<cfset endDay = begDay>
-	</cfif>
-	<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#&begDay=#begDay#&endDay=#endDay#">
-		<cfif inclDateSearch is true>
-		<cfset basQual = " #basQual#
-				AND ( 
-			TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) >= #begDay#
-			AND TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) <= #endDay#
-			)">
-			<cfelse>
-				<cfset basQual = " #basQual# 
-				AND ( 
-					TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) BETWEEN '#begDay#' AND '#endDay#'
-					OR TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) BETWEEN   '#begDay#' AND '#endDay#'
-					OR ( '#begDay#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) AND 
-						TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2))
-					AND '#endDay#' BETWEEN TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) AND 
-						TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2))
-					))">
-		</cfif>
+	<cfset mapurl = "#mapurl#&endDay=#endDay#">
+	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) <= #endDay#">
 </cfif>
+
+
 <cfif isdefined("verificationstatus") AND len(verificationstatus) gt 0>
 	<cfset mapurl = "#mapurl#&verificationstatus=#verificationstatus#">
 	<cfset basQual = " #basQual# AND #session.flatTableName#.verificationstatus='#verificationstatus#'">
