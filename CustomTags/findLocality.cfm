@@ -54,19 +54,15 @@
 	<cfif not isdefined("collnOper") or len(collnOper) is 0>
 		<cfset collnOper="usedOnlyBy">
 	</cfif>
-	<cfif collnOper is "
+	<cfif collnOper is "usedOnlyBy">
+		<cfset sql = "#sql# AND cataloged_item.collection_id in ( #collection_id# ) and
+			cataloged_item.collection_id not in ( select collection_id from collection minus select #collection_id# from dual)">
+	<cfelseif collnOper is "usedBy">
+		<cfset sql = "#sql# AND cataloged_item.collection_id in ( #collection_id# )">
+	<cfelseif collnOper is "notUsedBy">
+		<cfset sql = "#sql# AND cataloged_item.collection_id not in ( #collection_id# )">
+	</cfif>
 </cfif>
-<select name="collnOper" id="collnOper" size="1">
-		            	<option value=""></option>
-		                <option value="usedOnlyBy">used only by</option>
-		                <option value="usedBy">used by</option>
-		                <option value="notUsedBy">not used by</option>
-		             </select>
-		             <select name="collection_id" id="collection_id" size="1">
-		             
-		             
-		             
-
 <cfif isdefined("locality_id") and len(#locality_id#) gt 0>
 	<cfset sql = "#sql# AND locality.locality_id = #locality_id#">
 </cfif>
@@ -221,6 +217,8 @@
 	spec_locality,
 	verbatim_locality,
 	verbatimLatitude">
+		#preservesinglequotes(sql)#
+
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
