@@ -25,7 +25,6 @@
 	}
 	
 	
-	
 	jQuery(document).ready(function() {
 		jQuery(function() {
 			jQuery("#made_date").datepicker();
