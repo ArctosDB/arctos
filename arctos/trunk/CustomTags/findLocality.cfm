@@ -40,12 +40,14 @@
 		accepted_lat_long,
         preferred_agent_name coordDet,
 		collecting_event,
-		geology_attributes
+		geology_attributes,
+		cataloged_item
 	where
 		geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and
 		locality.locality_id = accepted_lat_long.locality_id (+) and
         accepted_lat_long.determined_by_agent_id = coordDet.agent_id (+) and
 		locality.locality_id=collecting_event.locality_id (+) and
+		collecting_event.collecting_event_id = cataloged_item.collecting_event_id (+) and
 		locality.locality_id = geology_attributes.locality_id (+) ">
 
 <cfif isdefined("locality_id") and len(#locality_id#) gt 0>
