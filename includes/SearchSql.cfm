@@ -519,7 +519,7 @@
 		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>
-	<cfset basQual = " #basQual# AND #session.flatTableName#.endDate <= '#endDate#'">		
+	<cfset basQual = " #basQual# AND #session.flatTableName#.ended_date <= '#endDate#'">		
 </cfif>
 
 <cfif isdefined("begYear") AND len(begYear) gt 0>
@@ -539,16 +539,16 @@
 
 <cfif isdefined("endYear") AND len(endYear) gt 0>
 	<cfset mapurl = "#mapurl#&endYear=#endYear#">
-	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) <= #endYear#">
+	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) <= #endYear#">
 </cfif>
 
 <cfif isdefined("endMon") AND len(endMon) gt 0>
 	<cfset mapurl = "#mapurl#&endMon=#endMon#">
-	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) <= #endMon#">
+	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.ended_date,6,2)) <= #endMon#">
 </cfif>
 <cfif isdefined("endDay") AND len(endDay) gt 0>
 	<cfset mapurl = "#mapurl#&endDay=#endDay#">
-	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) <= #endDay#">
+	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) <= #endDay#">
 </cfif>
 
 

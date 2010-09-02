@@ -132,6 +132,9 @@
 <cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select geology_attribute from ctgeology_attribute order by geology_attribute
 </cfquery>
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+	select collection,collection_id from collection order by collection
+</cfquery>
 <table  cellpadding="0" cellspacign="0"><tr><td>
 	<div class="locGroup">
 		<span id="geogDetailCtl" class="infoLink" onclick="toggleGeogDetail(1)";>Show More Options</span>
@@ -233,6 +236,25 @@
 		</table>
 		<div id="locDetail" class="noShow">
 		<table cellpadding="0" cellspacign="0">
+			<tr>
+				<td>
+					<label for="collnOper">Collection</label>
+					<select name="collnOper" id="collnOper" size="1">
+		            	<option value=""></option>
+		                <option value="usedOnlyBy">used only by</option>
+		                <option value="usedBy">used by</option>
+		                <option value="notUsedBy">not used by</option>
+		             </select>
+		             <select name="collection_id" id="orig_elev_units" size="1">
+		            	<option value=""></option>
+		                <cfloop query="ctElevUnit">
+		                	<option value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
+		                </cfloop>
+		           	</select>
+				</td>
+				
+			ctcollection
+			</tr>
 			<tr>
 				<td>
 					<label for="MinElevOper">Minimum Elevation</label>
