@@ -18,7 +18,7 @@
 				queryformat : 'column'
 			},
 			function(r) {
-				if(r.DATA.B[0].length==0 or r.DATA.E[0].length==0){
+				if(r.DATA.B[0].length==0 || r.DATA.E[0].length==0){
 					$("#dateConvertStatus").text('Date could not be converted.');
 				} else {
 					$("#began_date").val(r.DATA.B[0]);
