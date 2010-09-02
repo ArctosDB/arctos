@@ -19,7 +19,7 @@
 			},
 			function(r) {
 				if(r.DATA.B[0].length==0 || r.DATA.E[0].length==0){
-					$("#dateConvertStatus").addClass(err).text(r.DATA.I[0] + ' could not be converted.');
+					$("#dateConvertStatus").addClass('err').text(r.DATA.I[0] + ' could not be converted.');
 				} else {
 					$("#dateConvertStatus").removeClass().text('');
 					$("#began_date").val(r.DATA.B[0]);
