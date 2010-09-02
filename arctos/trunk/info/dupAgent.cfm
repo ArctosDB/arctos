@@ -82,14 +82,14 @@
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=person&sql=#l1#">Whodunit</a>]
 				[<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/agentActivity.cfm?agent_id=#id1#">Activity</a>]
-				[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">BadDupOf--></span>]
+				[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
 			</td>
 			<td>
 				#f2# #l2# (#t2#)
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=person&sql=#l2#">Whodunit</a>]	
 				[<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
-				[<span  id="fg_#id2#" class="infoLink" onclick="flagDupAgent(#id2#,#id1#)"><--BadDupOf</span>]			
+				[<span  id="fg_#id2#" class="infoLink" onclick="flagDupAgent(#id2#,#id1#)"><--IsBadDupOf</span>]			
 			</td>
 			<td>#pn1#</td>
 			<td>#pn2#</td>
@@ -136,14 +136,14 @@
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
 				[<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/agentActivity.cfm?agent_id=#id1#">Activity</a>]
-					[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">BadDupOf--></span>]
+					[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
 			</td>
 			<td>
 				#name2# (#t2#)
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
 				[<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
-					[<span id="fg_#id2#" class="infoLink" onclick="flagDupAgent(#id2#,#id1#)"><---BadDupOf</span>]		
+					[<span id="fg_#id2#" class="infoLink" onclick="flagDupAgent(#id2#,#id1#)"><---IsBadDupOf</span>]		
 			</td>
 			<td>#pn1#</td>
 			<td>#pn2#</td>

@@ -103,7 +103,7 @@
 	</cfquery>
 	
 	<cfmail to="#Application.bugReportEmail#" subject="ColdFusion bug report submitted" from="BugReport@#Application.fromEmail#" type="html">
-		<p>Reported Name: #reported_name# (AKA #session.username#) submitted a bug report on #thisDate#.</p>
+		<p>Reported Name: #reported_name# (AKA #session.username#) submitted a bug report.</p>
 		
 		<P>Form: #form_name#</P>
 		
