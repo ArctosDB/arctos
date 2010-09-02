@@ -10,7 +10,7 @@
 <script type='text/javascript' src='/includes/_DEhead.js'></script>
 <script language="javascript" type="text/javascript">
 	function copyVerbatim(str){
-		console.log(str);
+		alert(str);
 	}
 	
 	
