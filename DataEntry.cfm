@@ -488,7 +488,7 @@
 							<td>
 								<input type="text" name="verbatim_date" class="reqdClr" value="#verbatim_date#" id="verbatim_date" size="20">
 								<span class="infoLink"
-									onClick="copyVerbatim($('##verbatim_date').val();)">--></span>
+									onClick="copyVerbatim($('##verbatim_date').val());">--></span>
 								<span class="f11a">Begin</span>
 								<input type="text" name="began_date" class="reqdClr" value="#began_date#" id="began_date" size="10">
 								<span class="infoLink" onclick="copyAllDates('began_date');">Copy2All</span>
