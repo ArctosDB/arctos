@@ -19,8 +19,9 @@
 			},
 			function(r) {
 				if(r.DATA.B[0].length==0 || r.DATA.E[0].length==0){
-					$("#dateConvertStatus").text('Date could not be converted.');
+					$("#dateConvertStatus").text(r.DATA.B[0] + ' could not be converted.');
 				} else {
+					$("#dateConvertStatus").text('');
 					$("#began_date").val(r.DATA.B[0]);
 					$("#ended_date").val(r.DATA.E[0]);
 				}
@@ -516,7 +517,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td id="dateConvertStatus"></td>
+							<td colspan="2" id="dateConvertStatus"></td>
 						</tr>
 						<tr>
 							<td align="right"><span class="f11a">Coll. Meth.:</span></td>
