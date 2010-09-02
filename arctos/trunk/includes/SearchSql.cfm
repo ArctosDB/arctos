@@ -496,6 +496,7 @@
 	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select is_iso8601('#begDate#') isdate from dual
 	</cfquery>
+	<cfdump var=#isdate#>
 	<cfif isdate.isdate is 0>
 		<div class="error">
 			The begin date you entered is not a valid ISO8601 date. 
