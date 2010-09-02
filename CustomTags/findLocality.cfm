@@ -217,8 +217,6 @@
 	spec_locality,
 	verbatim_locality,
 	verbatimLatitude">
-		#preservesinglequotes(sql)#
-
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>

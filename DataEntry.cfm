@@ -28,7 +28,9 @@
 			populateGeology(gid);			
 		});		
 	});
-	
+	function copyVerbatim(str){
+		console.log(str);
+	}
 	function populateGeology(id) {
 		var idNum=id.replace('geology_attribute_','');
 		var thisValue=$("#geology_attribute_" + idNum).val();;
@@ -486,8 +488,7 @@
 							<td>
 								<input type="text" name="verbatim_date" class="reqdClr" value="#verbatim_date#" id="verbatim_date" size="20">
 								<span class="infoLink"
-									onClick="dataEntry.began_date.value=dataEntry.verbatim_date.value;
-									dataEntry.ended_date.value=dataEntry.verbatim_date.value;">--></span>
+									onClick="copyVerbatim($('##verbatim_date').val();)">--></span>
 								<span class="f11a">Begin</span>
 								<input type="text" name="began_date" class="reqdClr" value="#began_date#" id="began_date" size="10">
 								<span class="infoLink" onclick="copyAllDates('began_date');">Copy2All</span>
