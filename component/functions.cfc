@@ -4,11 +4,15 @@
 <!------------------------------------------------------------------->
 <cffunction name="strToIso8601" access="remote">
 	<cfargument name="str" type="string" required="yes">
+	<cfif isdate(str)>
+		<cfset began=dateformat(str,"yyyy-mm-dd")>
+		<cfset end=dateformat(str,"yyyy-mm-dd")>
+	</cfif>
 	<cfset result = querynew("I,B,E")>
 	<cfset temp = queryaddrow(result,1)>
 	<cfset temp = QuerySetCell(result, "I", str, 1)>
-	<cfset temp = QuerySetCell(result, "B", 'began', 1)>
-	<cfset temp = QuerySetCell(result, "E", 'end', 1)>
+	<cfset temp = QuerySetCell(result, "B", began, 1)>
+	<cfset temp = QuerySetCell(result, "E", end, 1)>
 	
 	<cfreturn result>
 </cffunction>
