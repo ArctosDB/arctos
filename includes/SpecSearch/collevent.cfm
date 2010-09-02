@@ -11,7 +11,7 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="year_collected">Collected After:</span>
+			<span class="helpLink" id="year_collected">Collected On or After:</span>
 		</td>
 		<td class="srch">
 			<table>
@@ -47,6 +47,7 @@
 							</cfloop>
 						</select>
 					</td>
+					<td>OR</td>
 					<td>
 						<label for="begDate">ISO8601 Date/Time</label>
 						<input name="begDate" id="begDate" size="10" type="text">
@@ -57,7 +58,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="year_collected">Collected Before:</span>
+			<span class="helpLink" id="year_collected">Collected On or Before:</span>
 		</td>
 		<td class="srch">
 			<table>
@@ -93,6 +94,7 @@
 							</cfloop>
 						</select>
 					</td>
+					<td>OR</td>
 					<td>
 						<label for="endDate">ISO8601 Date/Time</label>
 						<input name="endDate" id="endDate" size="10" type="text">

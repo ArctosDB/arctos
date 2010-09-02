@@ -245,15 +245,15 @@
 		                <option value="usedBy">used by</option>
 		                <option value="notUsedBy">not used by</option>
 		             </select>
-		             <select name="collection_id" id="orig_elev_units" size="1">
+		             <select name="collection_id" id="collection_id" size="1">
 		            	<option value=""></option>
-		                <cfloop query="ctElevUnit">
-		                	<option value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
+		                <cfloop query="ctcollection">
+		                	<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
 		                </cfloop>
 		           	</select>
 				</td>
 				
-			ctcollection
+			
 			</tr>
 			<tr>
 				<td>
