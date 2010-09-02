@@ -10,7 +10,6 @@
 <script type='text/javascript' src='/includes/_DEhead.js'></script>
 <script language="javascript" type="text/javascript">
 	function copyVerbatim(str){
-		alert(str);
 		$.getJSON("/component/functions.cfc",
 			{
 				method : "strToIso8601",

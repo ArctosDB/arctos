@@ -9,7 +9,7 @@
 	<cfset temp = QuerySetCell(result, "I", str, 1)>
 	<cfset temp = QuerySetCell(result, "B", 'began', 1)>
 	<cfset temp = QuerySetCell(result, "E", 'end', 1)>
-	<cfreturn str>
+	<cfreturn result>
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="flagDupAgent" access="remote">
