@@ -18,8 +18,12 @@
 				queryformat : 'column'
 			},
 			function(r) {
-				$("#began_date").val(r.DATA.B[0]);
-				$("#ended_date").val(r.DATA.E[0]);
+				if(r.DATA.B[0].length==0 or r.DATA.E[0].length==0){
+					$("#dateConvertStatus").text('Date could not be converted.');
+				} else {
+					$("#began_date").val(r.DATA.B[0]);
+					$("#ended_date").val(r.DATA.E[0]);
+				}
 			}
 		);
 	}
@@ -510,6 +514,9 @@
 								<input type="text" name="ended_date" class="reqdClr" value="#ended_date#" id="ended_date" size="10">
 								<span class="infoLink" onclick="copyAllDates('ended_date');">Copy2All</span>
 							</td>
+						</tr>
+						<tr>
+							<td id="dateConvertStatus"></td>
 						</tr>
 						<tr>
 							<td align="right"><span class="f11a">Coll. Meth.:</span></td>
