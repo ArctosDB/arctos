@@ -19,9 +19,9 @@
 			},
 			function(r) {
 				if(r.DATA.B[0].length==0 || r.DATA.E[0].length==0){
-					$("#dateConvertStatus").text(r.DATA.B[0] + ' could not be converted.');
+					$("#dateConvertStatus").addClass(err).text(r.DATA.I[0] + ' could not be converted.');
 				} else {
-					$("#dateConvertStatus").text('');
+					$("#dateConvertStatus").removeClass().text('');
 					$("#began_date").val(r.DATA.B[0]);
 					$("#ended_date").val(r.DATA.E[0]);
 				}

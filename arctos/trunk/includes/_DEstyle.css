@@ -28,3 +28,10 @@ input:focus, textarea:focus, select:focus {
 	padding:1px;
 	margin:1px;
 }
+
+.err {
+	width:100%;
+	text-align:center;
+	border:1px solid red;
+	font-size:small;
+}
