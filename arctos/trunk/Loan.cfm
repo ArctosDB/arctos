@@ -979,6 +979,7 @@
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "addItems">
 <cfset title="Search for Loans">
+<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script>
 	jQuery("#part_name").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
@@ -1127,7 +1128,14 @@
 		</tr>
 		<tr>
 			<td>
-				<label for="part_name">Contains Part Name</label>
+				<label for="part_name_oper">Part Name...</label>
+				<select id="part_name_oper" name="part_name_oper">
+					<option value="is">is</option>
+					<option value="contains">contains</option>
+				</select>
+			</td>
+			<td>
+				<label for="part_name">Part Name</label>
 				<input type="text" id="part_name" name"part_name">
 			</td>
 			<td>
@@ -1308,7 +1316,18 @@
 		</cfif>		
 		<cfset frm="#frm#,specimen_part,coll_object">
 		<cfif isdefined("part_name") AND len(part_name) gt 0>
-			<cfset sql=sql & " and specimen_part.part_name = '#part_name#'">
+			<label for="part_name_oper">Part Name...</label>
+				<select id="part_name_oper" name="part_name_oper">
+					<option value="is">is</option>
+					<option value="contains">contains</option>
+			<cfif not isdefined("part_name_oper")>
+				<cfset part_name_oper='is'>
+			</cfif>
+			<cfif part_name_oper is "is">
+				<cfset sql=sql & " and specimen_part.part_name = '#part_name#'">
+			<cfelse>
+				<cfset sql=sql & " and upper(specimen_part.part_name) like  '%#ucase(part_name)#%'">		
+			</cfif>
 		</cfif>
 		<cfif isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0>
 			<cfset sql=sql & " and coll_object.coll_obj_disposition = '#coll_obj_disposition#'">
