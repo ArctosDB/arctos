@@ -1132,22 +1132,34 @@
 			<td><textarea name="trans_remarks" rows="3" cols="50"></textarea></td>
 		</tr>
 		<tr>
-			<td>
-				<label for="part_name">Part Name</label>
-				<select id="part_name_oper" name="part_name_oper">
-					<option value="is">is</option>
-					<option value="contains">contains</option>
-				</select>
-				<input type="text" id="part_name" name="part_name">
+			<td align="right">
+				Parts:
 			</td>
 			<td>
-				<label for="coll_obj_disposition">Part Disposition</label>
-				<select name="coll_obj_disposition" id="coll_obj_disposition" size="1">
-					<option value=""></option>
-					<cfloop query="ctCollObjDisp">
-						<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>
-					</cfloop>
-				</select>
+				<table>
+					<tr>
+						<td>
+							<label for="part_name_oper">Search Type</label>
+							<select id="part_name_oper" name="part_name_oper">
+								<option value="is">is</option>
+								<option value="contains">contains</option>
+							</select>
+						</td>
+						<td>
+							<label for="part_name">Part Name</label>
+							<input type="text" id="part_name" name="part_name">
+						</td>
+						<td>
+							<label for="coll_obj_disposition">Part Disposition</label>
+							<select name="coll_obj_disposition" id="coll_obj_disposition" size="1">
+								<option value=""></option>
+								<cfloop query="ctCollObjDisp">
+									<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>
+								</cfloop>
+							</select>
+						</td>
+					</tr>
+				</table>
 			</td>
 		</tr>
 		<tr>
