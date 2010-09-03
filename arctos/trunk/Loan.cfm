@@ -1318,10 +1318,6 @@
 		</cfif>		
 		<cfset frm="#frm#,specimen_part,coll_object">
 		<cfif isdefined("part_name") AND len(part_name) gt 0>
-			<label for="part_name_oper">Part Name...</label>
-				<select id="part_name_oper" name="part_name_oper">
-					<option value="is">is</option>
-					<option value="contains">contains</option>
 			<cfif not isdefined("part_name_oper")>
 				<cfset part_name_oper='is'>
 			</cfif>
@@ -1354,6 +1350,9 @@
 		 	project.project_id, 
 		 	collection
 		ORDER BY loan_number">
+		
+		
+		#preservesinglequotes(sql)#
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
