@@ -1315,8 +1315,16 @@
 		<cfif frm does not contain "loan_item">
 			<cfset frm="#frm#, loan_item">
 			<cfset sql = "#sql# AND loan.transaction_id=loan_item.transaction_id ">
-		</cfif>		
-		<cfset frm="#frm#,specimen_part,coll_object">
+		</cfif>
+		<cfif frm does not contain "coll_object">
+			<cfset frm="#frm#,coll_object">
+			<cfset sql=sql & " and loan_item.collection_object_id=coll_object.collection_object_id ">
+		</cfif>
+		<cfif frm does not contain "specimen_part">
+			<cfset frm="#frm#,specimen_part">
+			<cfset sql=sql & " and coll_object.collection_object_id = specimen_part.collection_object_id ">
+		</cfif>
+		
 		<cfif isdefined("part_name") AND len(part_name) gt 0>
 			<cfif not isdefined("part_name_oper")>
 				<cfset part_name_oper='is'>
@@ -1348,7 +1356,7 @@
 		  	trans_date,
 		   	project_name, 
 		 	project.project_id, 
-		 	collection
+		 	collection.collection
 		ORDER BY loan_number">
 		
 		
