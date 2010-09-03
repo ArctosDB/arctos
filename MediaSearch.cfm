@@ -71,10 +71,8 @@
 			</cfloop>
 		</select>
 		<br>
-		<input type="submit" 
-			value="Find Media" class="insBtn">
-		<input type="reset" 
-			value="reset form" class="clrBtn">
+		<input type="submit" value="Find Media" class="insBtn">
+		<input type="reset" value="reset form" class="clrBtn">
 	</form>
 	<p>&nbsp;</p>
 	<p>
@@ -218,7 +216,7 @@
 		<cfif isdefined("tag") and len(tag) gt 0>
 			<cfset whr="#whr# AND media.media_id in (select media_id from tag)">
 		</cfif>
-		<cfif isdefined("media_id") and len(#media_id#) gt 0>
+		<cfif isdefined("media_id") and len(media_id) gt 0>
 			<cfset whr="#whr# AND media.media_id in (#media_id#)">
 		</cfif>
 		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
