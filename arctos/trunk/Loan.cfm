@@ -979,6 +979,19 @@
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "addItems">
 <cfset title="Search for Loans">
+<script>
+	jQuery("#part_name").autocomplete("/ajax/part_name.cfm", {
+		width: 320,
+		max: 50,
+		autofill: false,
+		multiple: false,
+		scroll: true,
+		scrollHeight: 300,
+		matchContains: true,
+		minChars: 1,
+		selectFirst:false
+	});	
+</script>
 	<cfoutput>
 	<div style="float:right; clear:left; border:1px solid black; padding:5px;">
 		<form action="Loan.cfm" method="post" name="stuff">
@@ -993,6 +1006,9 @@
 	</cfquery>
 	<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select loan_status from ctloan_status order by loan_status
+	</cfquery>
+	<cfquery name="ctCollObjDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select coll_obj_disposition from ctcoll_obj_disp
 	</cfquery>
 	<br><form name="SpecData" action="Loan.cfm" method="post">
 			<input type="hidden" name="Action" value="listLoans">
@@ -1110,6 +1126,21 @@
 			<td><textarea name="trans_remarks" rows="3" cols="50"></textarea></td>
 		</tr>
 		<tr>
+			<td>
+				<label for="part_name">Contains Part Name</label>
+				<input type="text" id="part_name" name"part_name">
+			</td>
+			<td>
+				<label for="coll_obj_disposition">Part Disposition</label>
+				<select name="coll_obj_disposition" id="coll_obj_disposition" size="1">
+					<option value=""></option>
+					<cfloop query="ctCollObjDisp">
+						<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>
+					</cfloop>
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<td colspan="2" align="center">
 				<input type="submit" value="Find Loans" class="schBtn">	
 				&nbsp;
@@ -1161,6 +1192,21 @@
 		<cfset sql="#sql# and trans.transaction_id = trans_agent_1.transaction_id">
 		<cfset sql = "#sql# AND trans_agent_1.trans_agent_role = '#trans_agent_role_1#'">
 	</cfif>
+	
+	<cfif (isdefined("part_name") AND len(part_name) gt 0) or (isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0)>
+		<cfif frm does not contain "loan_item">
+			<cfset frm="#frm#, loan_item">
+			<cfset sql = "#sql# AND loan.transaction_id=loan_item.transaction_id ">
+		</cfif>		
+		<cfset frm="#frm#,specimen_part,coll_object">
+		<cfif isdefined("part_name") AND len(part_name) gt 0>
+			<cfset sql=sql & " and specimen_part.part_name = '#part_name#'">
+		</cfif>
+		<cfif isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0>
+			<cfset sql=sql & " and coll_object.coll_obj_disposition = '#coll_obj_disposition#'">
+		</cfif>
+	</cfif>
+	
 	<cfif isdefined("agent_1") AND len(agent_1) gt 0>
 		<cfif #sql# does not contain "trans_agent_1">
 			<cfset frm="#frm#,trans_agent trans_agent_1">
@@ -1254,6 +1300,19 @@
 	</cfif>
 	<cfif isdefined("notClosed") AND len(#notClosed#) gt 0>
 		<cfset sql = "#sql# AND loan_status <> 'closed'">
+	</cfif>
+	<cfif (isdefined("part_name") AND len(part_name) gt 0) or (isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0)>
+		<cfif frm does not contain "loan_item">
+			<cfset frm="#frm#, loan_item">
+			<cfset sql = "#sql# AND loan.transaction_id=loan_item.transaction_id ">
+		</cfif>		
+		<cfset frm="#frm#,specimen_part,coll_object">
+		<cfif isdefined("part_name") AND len(part_name) gt 0>
+			<cfset sql=sql & " and specimen_part.part_name = '#part_name#'">
+		</cfif>
+		<cfif isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0>
+			<cfset sql=sql & " and coll_object.coll_obj_disposition = '#coll_obj_disposition#'">
+		</cfif>
 	</cfif>
 	<cfset sql ="#sel# #frm# #sql# 				
 		group by
