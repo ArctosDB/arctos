@@ -179,6 +179,8 @@
 				DETERMINATION_METHOD
 			from
 				raw
+			where
+				ATTRIBUTE_TYPE is not null
 			group by
 				collection_object_id, 
 				ATTRIBUTE_ID,
