@@ -981,17 +981,22 @@
 <cfset title="Search for Loans">
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script>
-	jQuery("#part_name").autocomplete("/ajax/part_name.cfm", {
-		width: 320,
-		max: 50,
-		autofill: false,
-		multiple: false,
-		scroll: true,
-		scrollHeight: 300,
-		matchContains: true,
-		minChars: 1,
-		selectFirst:false
-	});	
+		jQuery(document).ready(function() {
+	  		jQuery("#part_name").autocomplete("/ajax/part_name.cfm", {
+				width: 320,
+				max: 50,
+				autofill: false,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:false
+			});	
+		});
+	
+	
+	
 </script>
 	<cfoutput>
 	<div style="float:right; clear:left; border:1px solid black; padding:5px;">
