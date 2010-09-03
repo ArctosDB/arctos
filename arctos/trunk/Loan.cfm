@@ -1128,15 +1128,12 @@
 		</tr>
 		<tr>
 			<td>
-				<label for="part_name_oper">Part Name...</label>
+				<label for="part_name">Part Name</label>
 				<select id="part_name_oper" name="part_name_oper">
 					<option value="is">is</option>
 					<option value="contains">contains</option>
 				</select>
-			</td>
-			<td>
-				<label for="part_name">Part Name</label>
-				<input type="text" id="part_name" name"part_name">
+				<input type="text" id="part_name" name="part_name">
 			</td>
 			<td>
 				<label for="coll_obj_disposition">Part Disposition</label>
@@ -1179,7 +1176,7 @@
 		trans_date,
 		project_name,
 		project.project_id pid,
-		collection">
+		collection.collection">
 	<cfset frm = " from 
 		loan, 
 		trans,
