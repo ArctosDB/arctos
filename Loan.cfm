@@ -1203,19 +1203,6 @@
 		<cfset sql = "#sql# AND trans_agent_1.trans_agent_role = '#trans_agent_role_1#'">
 	</cfif>
 	
-	<cfif (isdefined("part_name") AND len(part_name) gt 0) or (isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0)>
-		<cfif frm does not contain "loan_item">
-			<cfset frm="#frm#, loan_item">
-			<cfset sql = "#sql# AND loan.transaction_id=loan_item.transaction_id ">
-		</cfif>		
-		<cfset frm="#frm#,specimen_part,coll_object">
-		<cfif isdefined("part_name") AND len(part_name) gt 0>
-			<cfset sql=sql & " and specimen_part.part_name = '#part_name#'">
-		</cfif>
-		<cfif isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0>
-			<cfset sql=sql & " and coll_object.coll_obj_disposition = '#coll_obj_disposition#'">
-		</cfif>
-	</cfif>
 	
 	<cfif isdefined("agent_1") AND len(agent_1) gt 0>
 		<cfif #sql# does not contain "trans_agent_1">
@@ -1311,6 +1298,7 @@
 	<cfif isdefined("notClosed") AND len(#notClosed#) gt 0>
 		<cfset sql = "#sql# AND loan_status <> 'closed'">
 	</cfif>
+
 	<cfif (isdefined("part_name") AND len(part_name) gt 0) or (isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0)>
 		<cfif frm does not contain "loan_item">
 			<cfset frm="#frm#, loan_item">
