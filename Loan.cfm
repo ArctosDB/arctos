@@ -1139,7 +1139,7 @@
 				<table>
 					<tr>
 						<td>
-							<label for="part_name_oper">Search Type</label>
+							<label for="part_name_oper">Part Match</label>
 							<select id="part_name_oper" name="part_name_oper">
 								<option value="is">is</option>
 								<option value="contains">contains</option>
@@ -1150,8 +1150,15 @@
 							<input type="text" id="part_name" name="part_name">
 						</td>
 						<td>
+							<label for="part_disp_oper">Disposition Match</label>
+							<select id="part_disp_oper" name="part_disp_oper">
+								<option value="is">is</option>
+								<option value="isnot">is not</option>
+							</select>
+						</td>
+						<td>
 							<label for="coll_obj_disposition">Part Disposition</label>
-							<select name="coll_obj_disposition" id="coll_obj_disposition" size="1">
+							<select name="coll_obj_disposition" id="coll_obj_disposition" size="5" multiple="multiple">
 								<option value=""></option>
 								<cfloop query="ctCollObjDisp">
 									<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>
@@ -1336,7 +1343,14 @@
 			</cfif>
 		</cfif>
 		<cfif isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0>
-			<cfset sql=sql & " and coll_object.coll_obj_disposition = '#coll_obj_disposition#'">
+			<cfif not isdefined("part_disp_oper")>
+				<cfset part_disp_oper='is'>
+			</cfif>
+			<cfif part_disp_oper is "is">
+				<cfset sql=sql & " and coll_object.coll_obj_disposition IN ( #listqualify(coll_obj_disposition,'''')# )">
+			<cfelse>
+				<cfset sql=sql & " and coll_object.coll_obj_disposition NOT IN ( #listqualify(coll_obj_disposition,'''')# )">
+			</cfif>
 		</cfif>
 	</cfif>
 	<cfset sql ="#sel# #frm# #sql# 				
