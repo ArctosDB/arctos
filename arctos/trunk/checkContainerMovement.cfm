@@ -92,11 +92,11 @@
 		delete from cf_temp_container_location where (
 			container_id,
 			parent_container_id,
-			to_char(timestamp,'DD-MON-YYYY HH24:MI:SS'))
+			to_char(timestamp,'yyyy-mm-ddTHH24:MI:SS'))
 		IN (
 			select container_id,
 			parent_container_id,
-			to_char(parent_install_date,'DD-MON-YYYY HH24:MI:SS')
+			to_char(parent_install_date,'yyyy-mm-ddTHH24:MI:SS')
 			FROM container
 			)			
 	</cfquery>
@@ -293,7 +293,7 @@
 	select 
 		cf_temp_container_location.container_id,
 		cf_temp_container_location.parent_container_id,
-		to_char(cf_temp_container_location.timestamp,'DD-MON-YYYY HH24:MI:SS') timestamp,
+		to_char(cf_temp_container_location.timestamp,'yyyy-mm-ddTHH24:MI:SS') timestamp,
 		get_container_barcode(cf_temp_container_location.container_id) child_barcode,
 		get_container_barcode(cf_temp_container_location.parent_container_id) parent_barcode
 	FROM
@@ -302,11 +302,11 @@
 	WHERE
 		cf_temp_container_location.container_id = container.container_id AND
 		cf_temp_container_location.parent_container_id = container.parent_container_id AND
-		to_char(cf_temp_container_location.timestamp,'DD-MON-YYYY HH24:MI:SS') = to_char(container.parent_install_date,'DD-MON-YYYY HH24:MI:SS')
+		to_char(cf_temp_container_location.timestamp,'yyyy-mm-ddTHH24:MI:SS') = to_char(container.parent_install_date,'DD-MON-YYYY HH24:MI:SS')
 	GROUP BY
 		cf_temp_container_location.container_id,
 		cf_temp_container_location.parent_container_id,
-		to_char(cf_temp_container_location.timestamp,'DD-MON-YYYY HH24:MI:SS'),
+		to_char(cf_temp_container_location.timestamp,'yyyy-mm-ddTHH24:MI:SS'),
 		get_container_barcode(cf_temp_container_location.container_id)	,
 		get_container_barcode(cf_temp_container_location.parent_container_id)
 </cfquery>
@@ -367,7 +367,7 @@
 	<cfset globalError = "">
 <cfquery name="scans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT container_id, parent_container_id, 
-	to_char(timestamp,'DD-MON-YYYY HH24:MI:SS') timestamp	
+	to_char(timestamp,'yyyy-mm-ddTHH24:MI:SS') timestamp	
 	 FROM cf_temp_container_location
 	group by
 	container_id, parent_container_id, timestamp

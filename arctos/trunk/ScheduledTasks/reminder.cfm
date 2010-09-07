@@ -262,7 +262,7 @@
 				collection.collection,
 				collection.collection_id,
 				accn_number,
-				to_char(RECEIVED_DATE,'DD Mon YYYY') received_date
+				to_char(RECEIVED_DATE,'yyyy-mm-dd') received_date
 			from 
 				accn,
 				trans,
