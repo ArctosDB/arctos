@@ -47,7 +47,7 @@
 							</cfloop>
 						</select>
 					</td>
-					<td><span style="font-size:small;font-style:italic;vertical-align:bottom;font-weight:bold;">OR</span></td>
+					<td valign="bottom"><span style="font-size:small;font-style:italic;font-weight:bold;">OR</span></td>
 					<td>
 						<label for="begDate">ISO8601 Date/Time</label>
 						<input name="begDate" id="begDate" size="10" type="text">
@@ -94,7 +94,7 @@
 							</cfloop>
 						</select>
 					</td>
-					<td><span style="font-size:small;font-style:italic;vertical-align:bottom;font-weight:bold;">OR</span></td>
+					<td valign="bottom"><span style="font-size:small;font-style:italic;font-weight:bold;">OR</span></td>
 					<td>
 						<label for="endDate">ISO8601 Date/Time</label>
 						<input name="endDate" id="endDate" size="10" type="text">
