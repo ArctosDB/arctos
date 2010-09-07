@@ -576,7 +576,7 @@
 					ATTRIBUTE_UNITS,
 					ATTRIBUTE_REMARK,
 					agent_name,
-					to_char(DETERMINED_DATE,'dd-Mon-yyyy') DETERMINED_DATE,
+					to_char(DETERMINED_DATE,'yyyy-mm-dd') DETERMINED_DATE,
 					DETERMINATION_METHOD
 				from
 					attributes,

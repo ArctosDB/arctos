@@ -208,7 +208,7 @@
 			accepted_lat_long.DATUM,
 			accepted_lat_long.ORIG_LAT_LONG_UNITS,
 			llAgnt.agent_name DETERMINED_BY,
-			to_char(accepted_lat_long.DETERMINED_DATE,'dd-Mon-yyyy') DETERMINED_DATE,
+			to_char(accepted_lat_long.DETERMINED_DATE,'yyyy-mm-dd') DETERMINED_DATE,
 			accepted_lat_long.LAT_LONG_REF_SOURCE,
 			accepted_lat_long.LAT_LONG_REMARKS,
 			accepted_lat_long.MAX_ERROR_DISTANCE,
@@ -220,7 +220,7 @@
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
 			geoAgnt.agent_name GEO_ATT_DETERMINER,
-			to_char(GEO_ATT_DETERMINED_DATE,'dd-Mon-yyyy') GEO_ATT_DETERMINED_DATE,
+			to_char(GEO_ATT_DETERMINED_DATE,'yyyy-mm-dd') GEO_ATT_DETERMINED_DATE,
 			GEO_ATT_DETERMINED_METHOD,
 			GEO_ATT_REMARK 
 		FROM
@@ -277,7 +277,7 @@
 				accepted_lat_long.DATUM,
 				accepted_lat_long.ORIG_LAT_LONG_UNITS,
 				llAgnt.agent_name DETERMINED_BY,
-				to_char(accepted_lat_long.DETERMINED_DATE,'dd-Mon-yyyy') DETERMINED_DATE,
+				to_char(accepted_lat_long.DETERMINED_DATE,'yyyy-mm-dd') DETERMINED_DATE,
 				accepted_lat_long.LAT_LONG_REF_SOURCE,
 				accepted_lat_long.LAT_LONG_REMARKS,
 				accepted_lat_long.MAX_ERROR_DISTANCE,
@@ -289,7 +289,7 @@
 				GEOLOGY_ATTRIBUTE,
 				GEO_ATT_VALUE,
 				geoAgnt.agent_name GEO_ATT_DETERMINER,
-				to_char(GEO_ATT_DETERMINED_DATE,'dd-Mon-yyyy') GEO_ATT_DETERMINED_DATE,
+				to_char(GEO_ATT_DETERMINED_DATE,'yyyy-mm-dd') GEO_ATT_DETERMINED_DATE,
 				GEO_ATT_DETERMINED_METHOD,
 				GEO_ATT_REMARK 
 			FROM

@@ -49,7 +49,7 @@
 			last_name,
 			affiliation,
 			download_purpose,
-			to_char(download_date,'dd Mon yyyy') download_date,
+			to_char(download_date,'yyyy-mm-dd') download_date,
 			num_records,
 			agree_to_terms
 		from cf_users, cf_user_data, cf_download

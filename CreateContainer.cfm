@@ -76,7 +76,7 @@
 				<cfelse><cfset number_positions = "#number_positions#">
 			</cfif>
       <cfquery name="setDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					alter session set nls_date_format = 'DD-Mon-YYYY HH24:MI:SS'	
+					alter session set nls_date_format = 'yyyy-mm-ddTHH24:MI:SS'	
 		</cfquery>
 	  <cfset newContainerSQL="INSERT INTO 
 					container 

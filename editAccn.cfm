@@ -726,10 +726,10 @@
 		</cfif>
 		<cfif  isdefined("rec_date") and len(#rec_date#) gt 0>
 			<cfif isdefined("rec_until_date") and len(#rec_until_date#) gt 0>
-				<cfset sql = "#sql# AND upper(received_date) between to_date('#rec_date#', 'DD Mon YYYY') 
-					and to_date('#rec_until_date#', 'DD Mon YYYY')">
+				<cfset sql = "#sql# AND upper(received_date) between to_date('#rec_date#', 'yyyy-mm-dd') 
+					and to_date('#rec_until_date#', 'yyyy-mm-dd')">
 			<cfelse>
-				<cfset sql = "#sql# AND upper(received_date) like to_date('#rec_date#', 'DD Mon YYYY')">
+				<cfset sql = "#sql# AND upper(received_date) like to_date('#rec_date#', 'yyyy-mm-dd')">
 			</cfif>
 		</cfif>
 		<cfif  isdefined("NATURE_OF_MATERIAL") and len(#NATURE_OF_MATERIAL#) gt 0>

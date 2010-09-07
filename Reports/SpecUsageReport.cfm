@@ -40,8 +40,8 @@
 				select
 					project.project_id,
 					project.project_name,
-					to_char(project.start_date,'DD Mon YYYY') start_date,
-					to_char(project.end_date,'DD Mon YYYY') end_date
+					to_char(project.start_date,'yyyy-mm-dd') start_date,
+					to_char(project.end_date,'yyyy-mm-dd') end_date
 				from
 					project
 				where
