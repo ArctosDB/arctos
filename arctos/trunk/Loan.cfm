@@ -1372,9 +1372,6 @@
 		 	project.project_id, 
 		 	collection.collection
 		ORDER BY loan_number">
-		
-		
-		#preservesinglequotes(sql)#
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
