@@ -24,6 +24,7 @@
 </cfquery>
 <!------------------------------------------------------------------------------------------->
 <cfif Action is "makeNew">
+	<cfset title="create project">
 <strong>Create New Project:</strong>
 <cfoutput>
 	<form name="project" action="Project.cfm" method="post">
@@ -52,66 +53,13 @@
 				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3"></textarea>
 				<br>
 				<input type="submit" value="Create Project" class="insBtn">
+				<br>
+				You can add Agents, Publications, Media, Transactions, and Taxonomy after you create the basic project.
 			</form>
-	<!----
-	
-<cfform name="project" action="Project.cfm" method="post">
-	
-	
-	
-	<table>
-		<tr>
-			<td align="right">
-				<a href="javascript:void(0);" onClick="getDocs('project','title')">Project&nbsp;Title</a>
-			</td>
-			<td colspan="3">
-				<textarea name="project_name" cols="50" rows="2" class="reqdClr"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td align="right"><a href="javascript:void(0);" onClick="getDocs('project','date')">Start&nbsp;Date</a> </td>
-			<td><input type="text" name="start_date"></td>
-			<td align="right">End Date</td>
-			<td><input type="text" name="end_date"></td>
-		</tr>
-		<tr>
-			<td align="right">
-				<a href="javascript:void(0);" onClick="getDocs('project','description')">Description</a>
-			</td>
-			<td colspan="3"><textarea name="project_description" cols="50" rows="6"></textarea></td>
-		</tr>
-		<tr>
-			<td align="right">Remarks</td>
-			<td colspan="3"><textarea name="project_remarks" cols="50" rows="3"></textarea></td>
-		</tr>
-		<tr>
-			<td colspan="4" align="center">
-				<input type="submit" 
-					value="Create Project" 
-					class="savBtn"
-					onmouseover="this.className='savBtn btnhov'" 
-					onmouseout="this.className='savBtn'">
-				<input type="reset" 
-					value="Clear Form" 
-					class="clrBtn"
-					onmouseover="this.className='clrBtn btnhov'" 
-					onmouseout="this.className='clrBtn'">
-				<input type="button"
-					value="Quit"
-					class="qutBtn"
-					onmouseover="this.className='qutBtn btnhov'"
-					onmouseout="this.className='qutBtn'"
-					onClick="document.location='Project.cfm';">
-			</td>
-		</tr>
-	</table>
-</cfform>
----->
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
-<!------------------------------------------------------------------------------------------->
-<cfif #Action# is "createNew">
+<cfif Action is "createNew">
 	<cfoutput>
 		<cfquery name="nextID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select sq_project_id.nextval nextid from dual
@@ -155,7 +103,6 @@
 	<cflocation url="Project.cfm?Action=editProject&project_id=#nextID.nextid#">
 	</cfoutput>
 </cfif>
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif action is "editProject">
 	<cfset title="Edit Project">
@@ -674,8 +621,6 @@
 	<a href="Project.cfm">continue</a>
  </cfoutput>
 </cfif>
-
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "addSponsor">
 	 <cfoutput>
@@ -702,8 +647,6 @@
 	 <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###agent" addtoken="false">
  </cfoutput>
 </cfif>
-
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveAgentChange">
  <cfoutput>
@@ -724,8 +667,6 @@
 	 <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###agent" addtoken="false">
  </cfoutput>
 </cfif>
-
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "newAgent">
  <cfoutput>
@@ -745,8 +686,6 @@ VALUES (
  <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###agent" addtoken="false">
  </cfoutput>
 </cfif>
-
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
  <cfoutput>
@@ -779,8 +718,6 @@ VALUES (
   <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
  </cfoutput>
 </cfif>
-
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "addTrans">
  <cfoutput>
@@ -792,8 +729,6 @@ VALUES (
    <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###trans" addtoken="false">
  </cfoutput>
 </cfif>
-
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "addPub">
  <cfoutput>
@@ -805,8 +740,6 @@ VALUES (
    <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###pub" addtoken="false">
  </cfoutput>
 </cfif>
-
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "delePub">
  <cfoutput>
@@ -818,12 +751,9 @@ VALUES (
    <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###pub" addtoken="false">
  </cfoutput>
 </cfif>
-
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "delTrans">
  <cfoutput>
- 
 <cfquery name="delTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  DELETE FROM  project_trans where project_id = #project_id# and transaction_id = #transaction_id#
 
@@ -831,6 +761,5 @@ VALUES (
    <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###trans" addtoken="false">
  </cfoutput>
 </cfif>
-
 <!------------------------------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm">
