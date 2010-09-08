@@ -15,93 +15,50 @@
 		}
 	}
 </script>
+<cfif action is "nothing">
+	<cfheader statuscode="301" statustext="Moved permanently">
+	<cfheader name="Location" value="/SpecimenUsage.cfm">
+</cfif>
 <cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select project_agent_role from ctproject_agent_role
 </cfquery>
-
-<cfif action is "nothing">
-<cfset title = "Search for Projects">
-<table width="75%"><tr valign="top"><td>
-<h2>Project Search</h2>
-<table width="90%" border><tr><td>
-Projects are activities that have contributed specimens, used specimens, or both.  For example, theses and expeditions.  From here you can find:
-<ul>
-	<li>Which specimens came from, and contributed to, different projects.</li>
-	<li>Precisely how different projects have contributed to each other.</li>
-	<li>Publications resulting from projects.</li>
-</ul>
-</td></tr></table>
-</td>
-<td>
-<form action="ProjectList.cfm?src=proj" method="post">
+<!------------------------------------------------------------------------------------------->
+<cfif Action is "makeNew">
+<strong>Create New Project:</strong>
 <cfoutput>
-<input name="Action" value="#Action#" type="hidden">
-</cfoutput>
-<table>
-  <tr>
-    <td>
-		<label for="projTitle">Project Title</label>
-		<input id="projTitle" name="projTitle" type="text"></td>
-  </tr>
-  <tr>
-    <td>
-		<label for="projParticipant">Participant Name</label>
-		<input name="projParticipant" id="projParticipant" type="text"></td>
-  </tr>
- <tr>
-    <td>
-		<label for="sponsor">Sponsor</label>
-		<input name="sponsor" id="sponsor" type="text">
-	</td>
-  </tr>
-  <tr>
-    <td>
+	<form name="project" action="Project.cfm" method="post">
+		<input type="hidden" name="Action" value="createNew">
 		<table>
 			<tr>
 				<td>
-					<label for="begYear">Begin&nbsp;Year</label>
-					<input name="begYear" id="begYear" type="text" size="5" maxlength="4">
+					<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
+					<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr"></textarea>
 				</td>
 				<td>
-					to
-				</td>
-				<td>
-					<label for="endYear">Ended&nbsp;Year</label>
-					<input name="endYear" id="endYear" type="text" size="5" maxlength="4">
+					<span class="infoLink" onclick="italicize('project_name')">italicize selected text</span>
+					<br><span class="infoLink" onclick="bold('project_name')">bold selected text</span>
+					<br><span class="infoLink" onclick="superscript('project_name')">superscript selected text</span>
+					<br><span class="infoLink" onclick="subscript('project_name')">subscript selected text</span>
 				</td>
 			</tr>
 		</table>
-	</td>
-  </tr>
-</table>
-<cfoutput>
-<input type="submit" 
-	value="Search" 
-	class="schBtn">	
-
-<input type="reset" 
-	value="Clear Form" 
-	class="clrBtn">
-
-			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-		<input type="button" 
-	value="Create New Project" 
-	class="insBtn"
-    onmouseover="this.className='insBtn btnhov'" 
-    onmouseout="this.className='insBtn'"
-	onClick="window.open('Project.cfm?action=makeNew', '_self');">
-	</cfif>
-</cfoutput>
-</form>
-</td>
-</tr></table>
-</cfif>
-<!------------------------------------------------------------------------------------------->
-<cfif #Action# is "makeNew">
-<strong>Create New Project:</strong>
-<cfoutput>
+			<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Start&nbsp;Date</label>
+				<input type="text" name="start_date" id="start_date">
+				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
+				<input type="text" name="end_date" id="end_date">
+				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">Description</label>
+				<textarea name="project_description" id="project_description" cols="80" rows="6"></textarea>
+				<label for="project_remarks">Remarks</label>
+				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3"></textarea>
+				<br>
+				<input type="submit" value="Create Project" class="insBtn">
+			</form>
+	<!----
+	
 <cfform name="project" action="Project.cfm" method="post">
-	<input type="hidden" name="Action" value="createNew">
+	
+	
+	
 	<table>
 		<tr>
 			<td align="right">
@@ -149,6 +106,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 		</tr>
 	</table>
 </cfform>
+---->
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
