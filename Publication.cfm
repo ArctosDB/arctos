@@ -46,8 +46,10 @@
 				var start = textarea.selectionStart;
 				var end = textarea.selectionEnd;
 				var sel = textarea.value.substring(start, end);
-				var replace = '<i>' + sel + '</i>';
-				textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len); 
+				if (sel.length>0)
+					var replace = '<i>' + sel + '</i>';
+					textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
+				} 
 			}
 		</script>
 		<div class="cellDiv">
