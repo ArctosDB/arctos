@@ -62,16 +62,36 @@
 					textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
 				} 
 			}
+			function superscript(e){
+				var textarea = document.getElementById(e);
+				var len = textarea.value.length;
+				var start = textarea.selectionStart;
+				var end = textarea.selectionEnd;
+				var sel = textarea.value.substring(start, end);
+				if (sel.length>0){
+					var replace = '<sup>' + sel + '</sup>';
+					textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
+				} 
+			}
+			
 		</script>
 		<div class="cellDiv">
 		The Basics:
 		<input type="hidden" name="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
-		<label for="publication_title" onclick="getDocs('publication','title')" class="likeLink">Publication Title</label>
-		<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80">#pub.publication_title#</textarea>
-		<span class="infoLink" onclick="italicize('publication_title')">italicize selected text</span>
-		<span class="infoLink" onclick="bold('publication_title')">bold selected text</span>
-		<br><span class="infoLink" onclick="bold('publication_title')">bold selected text</span>
+		<table>
+			<tr>
+				<td>
+					<label for="publication_title" onclick="getDocs('publication','title')" class="likeLink">Publication Title</label>
+					<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80">#pub.publication_title#</textarea>
+				</td>
+				<td>
+					<span class="infoLink" onclick="italicize('publication_title')">italicize selected text</span>
+					<br><span class="infoLink" onclick="bold('publication_title')">bold selected text</span>
+					<br><span class="infoLink" onclick="superscript('publication_title')">superscript selected text</span>
+				</td>
+			</tr>
+		</table>	
 		<label for="publication_type" onclick="getDocs('publication','type')" class="likeLink">Publication Type</label>
 		<select name="publication_type" id="publication_type" class="reqdClr">
 			<option value=""></option>
