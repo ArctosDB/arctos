@@ -1,4 +1,5 @@
 <cfinclude template="includes/_header.cfm">
+<script type='text/javascript' src='/includes/internalAjax.js'></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery("#start_date").datepicker();
@@ -349,8 +350,20 @@ Projects are activities that have contributed specimens, used specimens, or both
 			<form name="project" action="Project.cfm" method="post">
 				<input type="hidden" name="action">
 				<input type="hidden" name="project_id" id="project_id" value="#proj.project_id#">
-				<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project&nbsp;Title</label>
-				<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr">#proj.project_name#</textarea>
+				<table>
+				<tr>
+					<td>
+						<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
+						<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr">#proj.project_name#</textarea>
+					</td>
+					<td>
+						<span class="infoLink" onclick="italicize('project_name')">italicize selected text</span>
+						<br><span class="infoLink" onclick="bold('project_name')">bold selected text</span>
+						<br><span class="infoLink" onclick="superscript('project_name')">superscript selected text</span>
+						<br><span class="infoLink" onclick="subscript('project_name')">subscript selected text</span>
+					</td>
+				</tr>
+			</table>
 				<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Start&nbsp;Date</label>
 				<input type="text" name="start_date" id="start_date" value="#dateformat(proj.start_date,"yyyy-mm-dd")#">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>

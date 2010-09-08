@@ -1,3 +1,47 @@
+function italicize(e){
+	var textarea = document.getElementById(e);
+	var len = textarea.value.length;
+	var start = textarea.selectionStart;
+	var end = textarea.selectionEnd;
+	var sel = textarea.value.substring(start, end);
+	if (sel.length>0){
+		var replace = '<i>' + sel + '</i>';
+		textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
+	} 
+}
+function bold(e){
+	var textarea = document.getElementById(e);
+	var len = textarea.value.length;
+	var start = textarea.selectionStart;
+	var end = textarea.selectionEnd;
+	var sel = textarea.value.substring(start, end);
+	if (sel.length>0){
+		var replace = '<b>' + sel + '</b>';
+		textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
+	} 
+}
+function superscript(e){
+	var textarea = document.getElementById(e);
+	var len = textarea.value.length;
+	var start = textarea.selectionStart;
+	var end = textarea.selectionEnd;
+	var sel = textarea.value.substring(start, end);
+	if (sel.length>0){
+		var replace = '<sup>' + sel + '</sup>';
+		textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
+	} 
+}
+function subscript(e){
+	var textarea = document.getElementById(e);
+	var len = textarea.value.length;
+	var start = textarea.selectionStart;
+	var end = textarea.selectionEnd;
+	var sel = textarea.value.substring(start, end);
+	if (sel.length>0){
+		var replace = '<sub>' + sel + '</sub>';
+		textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
+	} 
+}
 function saveNewPartAtt () {
 	jQuery.getJSON("/component/functions.cfc",
 	{
