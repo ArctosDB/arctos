@@ -34,12 +34,24 @@
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	<form name="editPub" method="post" action="Publication.cfm">
+		<script>
+			function getSelection() {
+				return (!!document.getSelection) ? document.getSelection() :
+				(!!window.getSelection) ? window.getSelection() :
+				document.selection.createRange().text;
+			}
+			function italicize(e){
+				var t=getSelection();
+				console.log(t);
+			}
+		</script>
 		<div class="cellDiv">
 		The Basics:
 		<input type="hidden" name="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
 		<label for="publication_title" onclick="getDocs('publication','title')" class="likeLink">Publication Title</label>
 		<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80">#pub.publication_title#</textarea>
+		select text and <span class="likeLink" onclick="italicize('publication_title')">click here</span> to italicize
 		<label for="publication_type" onclick="getDocs('publication','type')" class="likeLink">Publication Type</label>
 		<select name="publication_type" id="publication_type" class="reqdClr">
 			<option value=""></option>
