@@ -41,8 +41,13 @@
 				document.selection.createRange().text;
 			}
 			function italicize(e){
-				var t=getSelection();
-				console.log(t);
+				var textarea = document.getElementById(e);
+				var len = textarea.value.length;
+				var start = textarea.selectionStart;
+				var end = textarea.selectionEnd;
+				var sel = textarea.value.substring(start, end);
+				var replace = '<i>' + sel + '</i>';
+				textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len); 
 			}
 		</script>
 		<div class="cellDiv">
