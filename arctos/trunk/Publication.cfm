@@ -536,8 +536,21 @@
 			<div class="cellDiv">
 			The Basics:
 			<input type="hidden" name="action" value="createPub">
-			<label for="publication_title">Publication Title</label>
-			<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80"></textarea>
+			<table>
+				<tr>
+					<td>
+						<label for="publication_title" onclick="getDocs('publication','title')" class="likeLink">Publication Title</label>
+						<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80"></textarea>
+					</td>
+					<td>
+						<span class="infoLink" onclick="italicize('publication_title')">italicize selected text</span>
+						<br><span class="infoLink" onclick="bold('publication_title')">bold selected text</span>
+						<br><span class="infoLink" onclick="superscript('publication_title')">superscript selected text</span>
+						<br><span class="infoLink" onclick="subscript('publication_title')">subscript selected text</span>
+					</td>
+				</tr>
+			</table>
+			
 			<label for="publication_type">Publication Type</label>
 			<select name="publication_type" id="publication_type" class="reqdClr" onchange="setDefaultPub(this.value)">
 				<option value=""></option>
