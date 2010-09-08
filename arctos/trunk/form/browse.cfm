@@ -13,7 +13,7 @@
 		select link,display from (
 			select 
 				formatted_publication display,
-				'/SpecimenUsage.cfm?action=search&publication_id=' || publication_id link
+				'/publication/' || publication_id link
 			from
 				formatted_publication
 			where format_style='long' and

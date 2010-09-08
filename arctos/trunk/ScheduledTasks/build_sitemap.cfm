@@ -318,7 +318,7 @@
 	<cfloop query="d">
 		<cfscript>
 			a=chr(9) & "<url>" & chr(10) & 
-			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/SpecimenUsage.cfm?action=search&amp;publication_id=#publication_id#</loc>" & chr(10) &
+			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/publication/#publication_id#</loc>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
