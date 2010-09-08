@@ -56,7 +56,7 @@
 		<input type="hidden" name="action" value="saveEdit">
 		<label for="publication_title" onclick="getDocs('publication','title')" class="likeLink">Publication Title</label>
 		<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80">#pub.publication_title#</textarea>
-		select text and <span class="likeLink" onclick="italicize('publication_title')">click here</span> to italicize
+		<span class="infoLink" onclick="italicize('publication_title')">italicize selected text</span>
 		<label for="publication_type" onclick="getDocs('publication','type')" class="likeLink">Publication Type</label>
 		<select name="publication_type" id="publication_type" class="reqdClr">
 			<option value=""></option>
