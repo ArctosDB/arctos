@@ -1,2 +1,2 @@
 <cfheader statuscode="301" statustext="Moved permanently">
-<cfheader name="Location" value="/Project.cfm">
+<cfheader name="Location" value="/SpecimenUsage.cfm">
