@@ -73,6 +73,17 @@
 					textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
 				} 
 			}
+			function subscript(e){
+				var textarea = document.getElementById(e);
+				var len = textarea.value.length;
+				var start = textarea.selectionStart;
+				var end = textarea.selectionEnd;
+				var sel = textarea.value.substring(start, end);
+				if (sel.length>0){
+					var replace = '<sub>' + sel + '</sub>';
+					textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
+				} 
+			}
 			
 		</script>
 		<div class="cellDiv">
@@ -89,6 +100,7 @@
 					<span class="infoLink" onclick="italicize('publication_title')">italicize selected text</span>
 					<br><span class="infoLink" onclick="bold('publication_title')">bold selected text</span>
 					<br><span class="infoLink" onclick="superscript('publication_title')">superscript selected text</span>
+					<br><span class="infoLink" onclick="subscript('publication_title')">subscript selected text</span>
 				</td>
 			</tr>
 		</table>	
