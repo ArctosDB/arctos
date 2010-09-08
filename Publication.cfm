@@ -46,7 +46,7 @@
 				var start = textarea.selectionStart;
 				var end = textarea.selectionEnd;
 				var sel = textarea.value.substring(start, end);
-				if (sel.length>0)
+				if (sel.length>0){
 					var replace = '<i>' + sel + '</i>';
 					textarea.value =  textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
 				} 
