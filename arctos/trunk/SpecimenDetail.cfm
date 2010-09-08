@@ -191,7 +191,7 @@
 						<a href="/login.cfm">Login or Create Account</a>
 					</cfif>
 					<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
-						<br><a href="/SpecimenResults.cfm?#session.mapURL#'">[&nbsp;Return&nbsp;to&nbsp;results&nbsp;]</a>
+						<br><a href="/SpecimenResults.cfm?#session.mapURL#">[&nbsp;Return&nbsp;to&nbsp;results&nbsp;]</a>
 					</cfif>	
                 </span>
             </td>
