@@ -1,6 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-    <script type='text/javascript' src='/includes/jquery/animadrag.min.js'></script>
-
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -273,16 +271,6 @@
 				
 				$("##BTN_" + q).addClass('activeButton');
 				$('##BTN_' + q, window.parent.document).addClass('activeButton');
-				
-				
-				  $('##popDiv').animaDrag({ 
-			        speed: 200, 
-			        interval: 250, 
-			        easing: 'easeInCubic', 
-			        after: function() { 
-			            $(this).css({z-index:'2000'}); 
-			        } 
-			    }); 
 			}
 		</script>
 		 <table width="100%">
