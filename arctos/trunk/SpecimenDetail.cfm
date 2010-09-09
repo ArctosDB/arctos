@@ -274,7 +274,15 @@
 				$("##BTN_" + q).addClass('activeButton');
 				$('##BTN_' + q, window.parent.document).addClass('activeButton');
 				
-				$('##popDiv').animaDrag(); 
+				
+				  $('##popDiv').animaDrag({ 
+			        speed: 200, 
+			        interval: 250, 
+			        easing: 'easeInCubic', 
+			        after: function() { 
+			            $(this).css({z-index:'2000'}); 
+			        } 
+			    }); 
 			}
 		</script>
 		 <table width="100%">
