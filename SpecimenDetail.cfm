@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
+    <script type='text/javascript' src='/includes/jquery/animadrag.min.js'></script>
+
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -199,7 +201,11 @@
     </table>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<script language="javascript" type="text/javascript">
-			
+			$(document).ready(function() { 
+			    document.body.onselectstart = function() {return false;} 
+			    $('##popDiv').animaDrag(); 
+			    
+			}); 
 			
 			
 			function closeEditApp() {
