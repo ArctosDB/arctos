@@ -199,6 +199,43 @@
     </table>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<script language="javascript" type="text/javascript">
+			$(document).ready(function() { 
+			    document.body.onselectstart = function() {return false;} 
+			    $('#anima-drag').animaDrag(); 
+			    $('#anima-drag2').animaDrag({ 
+			        boundary: '#page', 
+			        speed: 1500 
+			    }); 
+			    $('#anima-drag3').animaDrag({ 
+			        boundary: '#page', 
+			        easing: 'easeOutBounce', 
+			        before: function() { 
+			            $(this).find('span').hide(); 
+			        }, 
+			        after: function() { 
+			            $(this).find('span').show(); 
+			        } 
+			    }); 
+			    $('#anima-drag4').animaDrag({ 
+			        speed: 200, 
+			        interval: 250, 
+			        easing: 'easeInCubic', 
+			        after: function() { 
+			            $(this).css({position:'static'}).appendTo('#drag-group'); 
+			        } 
+			    }); 
+			    $('#anima-drag5').animaDrag({ 
+			        speed: 150, 
+			        interval: 120, 
+			        grip: '.grip' 
+			    }); 
+			    $('#anima-drag6').animaDrag({ 
+			        speed: 0, 
+			        interval: 400 
+			    }); 
+			}); 
+			
+			
 			function closeEditApp() {
 				$('##bgDiv').remove();
 				$('##bgDiv', window.parent.document).remove();
@@ -255,7 +292,8 @@
 				theFrame.className = 'editFrame';
 				var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 				theFrame.src=ptl;
-				document.body.appendChild(theFrame);
+				//document.body.appendChild(theFrame);
+				$("##popDiv").append(theFrame);
 				$("span[id^='BTN_']").each(function(){
 					$("##" + this.id).removeClass('activeButton');
 					$('##' + this.id, window.parent.document).removeClass('activeButton');
