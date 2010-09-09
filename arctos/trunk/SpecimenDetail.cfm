@@ -213,7 +213,7 @@
 				border:1px solid gray;
 				z-index:9998;
 				position:fixed;
-				top:1%;
+				top:10%;
 				left:2%;
 				width:95%;
 				height:95%;
