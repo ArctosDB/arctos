@@ -293,7 +293,6 @@
        	</tr>
         <tr>
 			<td colspan="2">
-			
 				<table id="identifierTable_#i#">
 					<tbody id="identifierTableBody_#i#">
 						<cfset idnum=1>
