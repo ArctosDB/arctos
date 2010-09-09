@@ -274,6 +274,7 @@
 				$("##BTN_" + q).addClass('activeButton');
 				$('##BTN_' + q, window.parent.document).addClass('activeButton');
 				
+				$('##popDiv').animaDrag(); 
 			}
 		</script>
 		 <table width="100%">
