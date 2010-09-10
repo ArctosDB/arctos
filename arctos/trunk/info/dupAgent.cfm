@@ -178,7 +178,7 @@
 					select 
 						count(*) c
 					from 
-						project
+						project_sponsor
 					where
 						 project_sponsor.agent_name_id IN (#valuelist(n1.agent_name_id)#)
 				</cfquery>
