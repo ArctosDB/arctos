@@ -111,7 +111,8 @@
 			agent_name b
 		where 
 			a.agent_name=b.agent_name and
-			a.agent_id != b.agent_id
+			a.agent_id != b.agent_id and
+			rownum<100
 	</cfquery>
 	Agents that fully share a namestring.
 	<table border id="t" class="sortable">
@@ -134,7 +135,7 @@
 						agent.agent_id=agent_name.agent_id and
 						agent.agent_id=#id1#
 				</cfquery>
-				<cfquery name="p1" dbtype="query">
+				<cfquery name="n1" dbtype="query">
 					select agent_name,agent_name_type from one order by agent_name
 				</cfquery>
 				Agent ID: #id1#<br>
