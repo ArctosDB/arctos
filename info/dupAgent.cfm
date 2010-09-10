@@ -132,7 +132,8 @@
 					select
 						agent_name,
 						agent_name_type,
-						agent_type
+						agent_type,
+						agent_name_id
 					from
 						agent,
 						agent_name
@@ -142,7 +143,8 @@
 					group by
 						agent_name,
 						agent_name_type,
-						agent_type
+						agent_type,
+						agent_name_id
 				</cfquery>
 				<cfquery name="n1" dbtype="query">
 					select agent_name,agent_name_type,agent_name_id from one order by agent_name
