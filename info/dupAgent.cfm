@@ -161,8 +161,16 @@
 						project_agent.agent_name_id IN (#valuelist(n1.agent_name_id)#)
 				</cfquery>
 				project_agent: #project_agent.c#<br>
+				<cfquery name="publication_author_name" datasource="uam_god">
+					select 
+						count(*) c
+					from
+						publication_author_name
+					where
+						publication_author_name.agent_name_id IN (#valuelist(n1.agent_name_id)#)
+				</cfquery>
 				
-				
+				publication_author_name: #publication_author_name.c#<br>
 				<cfloop query="n1">
 					<cfset thisStyle="">
 					<cfif n1.agent_name is d.name1>
