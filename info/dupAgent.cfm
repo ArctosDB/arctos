@@ -147,10 +147,10 @@
 				<cfloop query="n1">
 					<cfset thisStyle="">
 					<cfif n1.agent_name is d.name1>
-						<cfset thisStyle=listappend(thisStyle,"color:red;"," ">
+						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
 					</cfif>
 					<cfif n1.agent_name_type='preferred'>
-						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ">
+						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
 					</cfif>
 					<span style="#thisStyle#">
 						#agent_name# (#agent_name_type#)
