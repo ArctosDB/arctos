@@ -149,7 +149,7 @@
 					<cfif n1.agent_name is d.name1>
 						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
 					</cfif>
-					<cfif n1.agent_name_type='preferred'>
+					<cfif n1.agent_name_type is 'preferred'>
 						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
 					</cfif>
 					<span style="#thisStyle#">
