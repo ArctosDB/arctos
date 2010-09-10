@@ -1,3 +1,5 @@
+<cftry>
+	<!---- ---->
 <cfif session.block_suggest neq 1>
 <cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select link,display from (
@@ -74,3 +76,7 @@
 		</div>
 	</cfoutput>
 </cfif>
+<cfcatch>
+<!--- not fatal - ignore --->
+</cfcatch>
+</cftry>
