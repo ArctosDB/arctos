@@ -152,6 +152,19 @@
 				
 				Agent ID: #id1# (#name1#)<br>
 				
+				<cfloop query="n1">
+					<cfset thisStyle="">
+					<cfif n1.agent_name is d.name1>
+						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
+					</cfif>
+					<cfif n1.agent_name_type is 'preferred'>
+						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
+					</cfif>
+					<span style="#thisStyle#">
+						#agent_name# (#agent_name_type#)
+					</span>
+					<br>
+				</cfloop>
 				<cfquery name="project_agent" datasource="uam_god">
 					select 
 						count(*) c
@@ -233,20 +246,7 @@
 				</cfquery>
 				<cfif ship_from.c gt 0>
 					<span style="color:red;">ship_from</span><br>
-				</cfif>
-				<cfloop query="n1">
-					<cfset thisStyle="">
-					<cfif n1.agent_name is d.name1>
-						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
-					</cfif>
-					<cfif n1.agent_name_type is 'preferred'>
-						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
-					</cfif>
-					<span style="#thisStyle#">
-						#agent_name# (#agent_name_type#)
-					</span>
-					<br>
-				</cfloop>				
+				</cfif>				
 				<cfquery name="agent_relations" datasource="uam_god">
 					select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
 					from agent_relations,preferred_agent_name
@@ -278,6 +278,7 @@
 				[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
 			</td>
 			<td>
+				Agent ID: #id2#<br>
 				<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						agent_name,
@@ -312,7 +313,6 @@
 					</span>
 					<br>
 				</cfloop>
-				Agent ID: #id2#<br>
 				
 				<cfquery name="project_agent" datasource="uam_god">
 					select 
