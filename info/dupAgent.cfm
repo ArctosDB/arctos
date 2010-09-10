@@ -132,18 +132,14 @@
 					select
 						agent_name,
 						agent_name_type,
-						agent_type,
-						count(packed.PACKED_BY_AGENT_ID) packedCount,
-						count(shipto.SHIPPED_TO_ADDR_ID) shipCount
+						agent_type
 					from
 						agent,
 						agent_name,
 						shipment packed,
 						shipment shipto
 					where
-						agent.agent_id=agent_name.agent_id and
-						packed.PACKED_BY_AGENT_ID=agent.agent_id (+) and
-						shipto.SHIPPED_TO_ADDR_ID=agent.agent_id (+) and						
+						agent.agent_id=agent_name.agent_id and				
 						agent.agent_id=#id1#
 					group by
 						agent_name,
@@ -151,12 +147,21 @@
 						agent_type
 				</cfquery>
 				<cfquery name="n1" dbtype="query">
-					select agent_name,agent_name_type from one order by agent_name
+					select agent_name,agent_name_type,agent_name_id from one order by agent_name
 				</cfquery>
 				
 				Agent ID: #id1# (#name1#)<br>
-				packedCount: #one.packedCount#<br>
-				shipCount: #one.shipCount#<br>
+				
+				<cfquery name="project_agent" datasource="uam_god">
+					select 
+						count(*) c
+					from 
+						project_agent
+					where
+						project_agent.agent_name_id IN (#valuelist(n1.agent_name_id)#)
+				</cfquery>
+				project_agent: #project_agent.c#<br>
+				
 				
 				<cfloop query="n1">
 					<cfset thisStyle="">
