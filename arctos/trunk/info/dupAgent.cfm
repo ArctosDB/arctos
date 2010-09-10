@@ -185,6 +185,55 @@
 				<cfif project_sponsor.c gt 0>
 					<span style="color:red;">proj sponsor agent</span><br>
 				</cfif>
+				<cfquery name="electronic_address" datasource="uam_god">
+					select count(*) c from electronic_address where agent_id=#id1#
+				</cfquery>
+				<cfif electronic_address.c gt 0>
+					<span style="color:red;">electronic_address</span><br>
+				</cfif>
+				<cfquery name="addr" datasource="uam_god">
+					select count(*) c from addr where agent_id=#id1#
+				</cfquery>
+				<cfif addr.c gt 0>
+					<span style="color:red;">addr</span><br>
+				</cfif>
+				<cfquery name="shipment" datasource="uam_god">
+					select 
+						count(*) c 
+					from
+						shipment
+					where
+						PACKED_BY_AGENT_ID=#id1#		
+				</cfquery>
+				<cfif shipment.c gt 0>
+					<span style="color:red;">shipment</span><br>
+				</cfif>
+				<cfquery name="ship_to" datasource="uam_god">
+					select 
+						count(*) c 
+					from
+						shipment,
+						addr
+					where
+						shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
+						addr.agent_id=#id1#
+				</cfquery>
+				<cfif ship_to.c gt 0>
+					<span style="color:red;">ship_to</span><br>
+				</cfif>
+				<cfquery name="ship_from" datasource="uam_god">
+					select 
+						count(*) c 
+					from
+						shipment,
+						addr
+					where
+						shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
+						addr.agent_id=#id1#
+				</cfquery>
+				<cfif ship_from.c gt 0>
+					<span style="color:red;">ship_from</span><br>
+				</cfif>
 
 				
 				
@@ -227,6 +276,7 @@
 						<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
 					</cfloop>
 				</ul>
+				
 				<!---
 				#name1# (#t1#)
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
