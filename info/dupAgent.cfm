@@ -160,7 +160,9 @@
 					where
 						project_agent.agent_name_id IN (#valuelist(n1.agent_name_id)#)
 				</cfquery>
-				project_agent: #project_agent.c#<br>
+				<cfif project_agent.c gt 0>
+					<span style="color:red;">project agent</span><br>
+				</cfif>
 				<cfquery name="publication_author_name" datasource="uam_god">
 					select 
 						count(*) c
@@ -169,8 +171,23 @@
 					where
 						publication_author_name.agent_name_id IN (#valuelist(n1.agent_name_id)#)
 				</cfquery>
+				<cfif publication_author_name.c gt 0>
+					<span style="color:red;">publication agent</span><br>
+				</cfif>
+				<cfquery name="project_sponsor" datasource="uam_god">
+					select 
+						count(*) c
+					from 
+						project
+					where
+						 project_sponsor.agent_name_id IN (#valuelist(n1.agent_name_id)#)
+				</cfquery>
+				<cfif project_sponsor.c gt 0>
+					<span style="color:red;">proj sponsor agent</span><br>
+				</cfif>
+
 				
-				publication_author_name: #publication_author_name.c#<br>
+				
 				<cfloop query="n1">
 					<cfset thisStyle="">
 					<cfif n1.agent_name is d.name1>
@@ -184,6 +201,32 @@
 					</span>
 					<br>
 				</cfloop>
+				
+				
+				<cfquery name="agent_relations" datasource="uam_god">
+					select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
+					from agent_relations,preferred_agent_name
+					where 	
+					agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
+					agent_relations.agent_id=#id1#
+				</cfquery>
+				<ul>
+					<cfloop query="agent_relations">
+						<li>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
+					</cfloop>
+				</ul>
+				<cfquery name="agent_relations" datasource="uam_god">
+					select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
+					from agent_relations,preferred_agent_name
+					where 
+					agent_relations.agent_id=preferred_agent_name.agent_id and
+					RELATED_AGENT_ID=#id1#
+				</cfquery>
+				<ul>
+					<cfloop query="agent_relations">
+						<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
+					</cfloop>
+				</ul>
 				<!---
 				#name1# (#t1#)
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
