@@ -271,14 +271,11 @@
 						<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
 					</cfloop>
 				</ul>
-				
-				<!---
-				#name1# (#t1#)
+				<br>
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
 				[<a class="infoLink" href="/info/agentActivity.cfm?agent_id=#id1#">Activity</a>]
-					[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
-					--->
+				[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
 			</td>
 			<td>
 				<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -424,12 +421,11 @@
 						<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
 					</cfloop>
 				</ul>
-				<!---#name2# (#t2#)
+				<br>
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
 				[<a class="infoLink" href="/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
-					[<span id="fg_#id2#" class="infoLink" onclick="flagDupAgent(#id2#,#id1#)"><---IsBadDupOf</span>]	
-					--->	
+				[<span id="fg_#id2#" class="infoLink" onclick="flagDupAgent(#id2#,#id1#)"><---IsBadDupOf</span>]	
 			</td>
 		</tr>
 	</cfloop>
