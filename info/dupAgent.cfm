@@ -297,9 +297,21 @@
 						agent_name_id
 				</cfquery>
 				<cfquery name="n2" dbtype="query">
-					select agent_name,agent_name_type,agent_name_id from one order by agent_name
+					select agent_name,agent_name_type,agent_name_id from two order by agent_name
 				</cfquery>
-				
+				<cfloop query="n2">
+					<cfset thisStyle="">
+					<cfif n2.agent_name is d.name2>
+						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
+					</cfif>
+					<cfif n2.agent_name_type is 'preferred'>
+						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
+					</cfif>
+					<span style="#thisStyle#">
+						#agent_name# (#agent_name_type#)
+					</span>
+					<br>
+				</cfloop>
 				Agent ID: #id2#<br>
 				
 				<cfquery name="project_agent" datasource="uam_god">
@@ -384,19 +396,7 @@
 				<cfif ship_from.c gt 0>
 					<span style="color:red;">ship_from</span><br>
 				</cfif>
-				<cfloop query="n2">
-					<cfset thisStyle="">
-					<cfif n2.agent_name is d.name2>
-						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
-					</cfif>
-					<cfif n2.agent_name_type is 'preferred'>
-						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
-					</cfif>
-					<span style="#thisStyle#">
-						#agent_name# (#agent_name_type#)
-					</span>
-					<br>
-				</cfloop>				
+								
 				<cfquery name="agent_relations" datasource="uam_god">
 					select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
 					from agent_relations,preferred_agent_name
