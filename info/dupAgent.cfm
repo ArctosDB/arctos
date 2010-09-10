@@ -128,6 +128,7 @@
 	<cfloop query="d">
 		<tr>
 			<td>
+				Agent ID: #id1# (#name1#)<br>
 				<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						agent_name,
@@ -145,19 +146,14 @@
 						agent_name_type,
 						agent_type,
 						agent_name_id
+					order by agent_name
 				</cfquery>
-				<cfquery name="n1" dbtype="query">
-					select agent_name,agent_name_type,agent_name_id from one order by agent_name
-				</cfquery>
-				
-				Agent ID: #id1# (#name1#)<br>
-				
-				<cfloop query="n1">
+				<cfloop query="one">
 					<cfset thisStyle="">
-					<cfif n1.agent_name is d.name1>
+					<cfif one.agent_name is d.name1>
 						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
 					</cfif>
-					<cfif n1.agent_name_type is 'preferred'>
+					<cfif one.agent_name_type is 'preferred'>
 						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
 					</cfif>
 					<span style="#thisStyle#">
@@ -171,7 +167,7 @@
 					from 
 						project_agent
 					where
-						project_agent.agent_name_id IN (#valuelist(n1.agent_name_id)#)
+						project_agent.agent_name_id IN (#valuelist(one.agent_name_id)#)
 				</cfquery>
 				<cfif project_agent.c gt 0>
 					<span style="color:red;">project agent</span><br>
@@ -182,7 +178,7 @@
 					from
 						publication_author_name
 					where
-						publication_author_name.agent_name_id IN (#valuelist(n1.agent_name_id)#)
+						publication_author_name.agent_name_id IN (#valuelist(one.agent_name_id)#)
 				</cfquery>
 				<cfif publication_author_name.c gt 0>
 					<span style="color:red;">publication agent</span><br>
@@ -193,7 +189,7 @@
 					from 
 						project_sponsor
 					where
-						 project_sponsor.agent_name_id IN (#valuelist(n1.agent_name_id)#)
+						 project_sponsor.agent_name_id IN (#valuelist(one.agent_name_id)#)
 				</cfquery>
 				<cfif project_sponsor.c gt 0>
 					<span style="color:red;">proj sponsor agent</span><br>
@@ -254,11 +250,9 @@
 					agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
 					agent_relations.agent_id=#id1#
 				</cfquery>
-				<ul>
-					<cfloop query="agent_relations">
-						<li>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
-					</cfloop>
-				</ul>
+				<cfloop query="agent_relations">
+					>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a><br>
+				</cfloop>
 				<cfquery name="agent_relations" datasource="uam_god">
 					select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
 					from agent_relations,preferred_agent_name
@@ -266,11 +260,9 @@
 					agent_relations.agent_id=preferred_agent_name.agent_id and
 					RELATED_AGENT_ID=#id1#
 				</cfquery>
-				<ul>
-					<cfloop query="agent_relations">
-						<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
-					</cfloop>
-				</ul>
+				<cfloop query="agent_relations">
+					<a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#<br>
+				</cfloop>
 				<br>
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
@@ -297,15 +289,12 @@
 						agent_type,
 						agent_name_id
 				</cfquery>
-				<cfquery name="n2" dbtype="query">
-					select agent_name,agent_name_type,agent_name_id from two order by agent_name
-				</cfquery>
-				<cfloop query="n2">
+				<cfloop query="two">
 					<cfset thisStyle="">
-					<cfif n2.agent_name is d.name2>
+					<cfif two.agent_name is d.name2>
 						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
 					</cfif>
-					<cfif n2.agent_name_type is 'preferred'>
+					<cfif two.agent_name_type is 'preferred'>
 						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
 					</cfif>
 					<span style="#thisStyle#">
@@ -313,14 +302,13 @@
 					</span>
 					<br>
 				</cfloop>
-				
 				<cfquery name="project_agent" datasource="uam_god">
 					select 
 						count(*) c
 					from 
 						project_agent
 					where
-						project_agent.agent_name_id IN (#valuelist(n2.agent_name_id)#)
+						project_agent.agent_name_id IN (#valuelist(two.agent_name_id)#)
 				</cfquery>
 				<cfif project_agent.c gt 0>
 					<span style="color:red;">project agent</span><br>
@@ -331,7 +319,7 @@
 					from
 						publication_author_name
 					where
-						publication_author_name.agent_name_id IN (#valuelist(n2.agent_name_id)#)
+						publication_author_name.agent_name_id IN (#valuelist(two.agent_name_id)#)
 				</cfquery>
 				<cfif publication_author_name.c gt 0>
 					<span style="color:red;">publication agent</span><br>
@@ -342,7 +330,7 @@
 					from 
 						project_sponsor
 					where
-						 project_sponsor.agent_name_id IN (#valuelist(n2.agent_name_id)#)
+						 project_sponsor.agent_name_id IN (#valuelist(two.agent_name_id)#)
 				</cfquery>
 				<cfif project_sponsor.c gt 0>
 					<span style="color:red;">proj sponsor agent</span><br>
@@ -404,11 +392,9 @@
 					agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
 					agent_relations.agent_id=#id2#
 				</cfquery>
-				<ul>
-					<cfloop query="agent_relations">
-						<li>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
-					</cfloop>
-				</ul>
+				<cfloop query="agent_relations">
+					#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a><br>
+				</cfloop>
 				<cfquery name="agent_relations" datasource="uam_god">
 					select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
 					from agent_relations,preferred_agent_name
@@ -416,11 +402,9 @@
 					agent_relations.agent_id=preferred_agent_name.agent_id and
 					RELATED_AGENT_ID=#id2#
 				</cfquery>
-				<ul>
-					<cfloop query="agent_relations">
-						<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
-					</cfloop>
-				</ul>
+				<cfloop query="agent_relations">
+					<a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#<br>
+				</cfloop>
 				<br>
 				[<a class="infoLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
 				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
