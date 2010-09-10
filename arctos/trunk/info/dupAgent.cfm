@@ -156,10 +156,10 @@
 					<cfif one.agent_name_type is 'preferred'>
 						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
 					</cfif>
-					<span style="#thisStyle#">
+					<div style="#thisStyle#">
 						#agent_name# (#agent_name_type#)
-					</span>
-					<br>
+					</div>
+					
 				</cfloop>
 				<cfquery name="project_agent" datasource="uam_god">
 					select 
@@ -170,7 +170,7 @@
 						project_agent.agent_name_id IN (#valuelist(one.agent_name_id)#)
 				</cfquery>
 				<cfif project_agent.c gt 0>
-					<span style="color:red;">project agent</span><br>
+					<div style="color:red;">project agent</div>
 				</cfif>
 				<cfquery name="publication_author_name" datasource="uam_god">
 					select 
@@ -181,7 +181,7 @@
 						publication_author_name.agent_name_id IN (#valuelist(one.agent_name_id)#)
 				</cfquery>
 				<cfif publication_author_name.c gt 0>
-					<span style="color:red;">publication agent</span><br>
+					<div style="color:red;">publication agent</div>
 				</cfif>
 				<cfquery name="project_sponsor" datasource="uam_god">
 					select 
@@ -192,19 +192,19 @@
 						 project_sponsor.agent_name_id IN (#valuelist(one.agent_name_id)#)
 				</cfquery>
 				<cfif project_sponsor.c gt 0>
-					<span style="color:red;">proj sponsor agent</span><br>
+					<div style="color:red;">proj sponsor agent</div>
 				</cfif>
 				<cfquery name="electronic_address" datasource="uam_god">
 					select count(*) c from electronic_address where agent_id=#id1#
 				</cfquery>
 				<cfif electronic_address.c gt 0>
-					<span style="color:red;">electronic_address</span><br>
+					<div style="color:red;">electronic_address</div>
 				</cfif>
 				<cfquery name="addr" datasource="uam_god">
 					select count(*) c from addr where agent_id=#id1#
 				</cfquery>
 				<cfif addr.c gt 0>
-					<span style="color:red;">addr</span><br>
+					<div style="color:red;">addr</div>
 				</cfif>
 				<cfquery name="shipment" datasource="uam_god">
 					select 
@@ -215,7 +215,7 @@
 						PACKED_BY_AGENT_ID=#id1#		
 				</cfquery>
 				<cfif shipment.c gt 0>
-					<span style="color:red;">shipment</span><br>
+					<div style="color:red;">shipment</div>
 				</cfif>
 				<cfquery name="ship_to" datasource="uam_god">
 					select 
@@ -228,7 +228,7 @@
 						addr.agent_id=#id1#
 				</cfquery>
 				<cfif ship_to.c gt 0>
-					<span style="color:red;">ship_to</span><br>
+					<div style="color:red;">ship_to</div>
 				</cfif>
 				<cfquery name="ship_from" datasource="uam_god">
 					select 
@@ -241,7 +241,7 @@
 						addr.agent_id=#id1#
 				</cfquery>
 				<cfif ship_from.c gt 0>
-					<span style="color:red;">ship_from</span><br>
+					<div style="color:red;">ship_from</div>
 				</cfif>				
 				<cfquery name="agent_relations" datasource="uam_god">
 					select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
@@ -251,7 +251,7 @@
 					agent_relations.agent_id=#id1#
 				</cfquery>
 				<cfloop query="agent_relations">
-					>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a><br>
+					>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a>
 				</cfloop>
 				<cfquery name="agent_relations" datasource="uam_god">
 					select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
@@ -261,16 +261,17 @@
 					RELATED_AGENT_ID=#id1#
 				</cfquery>
 				<cfloop query="agent_relations">
-					<a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#<br>
+					<a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#
 				</cfloop>
-				<br>
-				[<a class="infoLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
-				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
-				[<a class="infoLink" href="/info/agentActivity.cfm?agent_id=#id1#">Activity</a>]
-				[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
+				<div>
+					[<a class="likeLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
+					[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
+					[<a class="likeLink" href="/info/agentActivity.cfm?agent_id=#id1#">Activity</a>]
+					[<span id="fg_#id1#" class="likeLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
+				</div>
 			</td>
 			<td>
-				Agent ID: #id2#<br>
+				Agent ID: #id2#
 				<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						agent_name,
@@ -298,10 +299,10 @@
 					<cfif two.agent_name_type is 'preferred'>
 						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
 					</cfif>
-					<span style="#thisStyle#">
+					<div style="#thisStyle#">
 						#agent_name# (#agent_name_type#)
-					</span>
-					<br>
+					</div>
+					
 				</cfloop>
 				<cfquery name="project_agent" datasource="uam_god">
 					select 
@@ -312,7 +313,7 @@
 						project_agent.agent_name_id IN (#valuelist(two.agent_name_id)#)
 				</cfquery>
 				<cfif project_agent.c gt 0>
-					<span style="color:red;">project agent</span><br>
+					<div style="color:red;">project agent</div>
 				</cfif>
 				<cfquery name="publication_author_name" datasource="uam_god">
 					select 
@@ -323,7 +324,7 @@
 						publication_author_name.agent_name_id IN (#valuelist(two.agent_name_id)#)
 				</cfquery>
 				<cfif publication_author_name.c gt 0>
-					<span style="color:red;">publication agent</span><br>
+					<div style="color:red;">publication agent</div>
 				</cfif>
 				<cfquery name="project_sponsor" datasource="uam_god">
 					select 
@@ -334,19 +335,19 @@
 						 project_sponsor.agent_name_id IN (#valuelist(two.agent_name_id)#)
 				</cfquery>
 				<cfif project_sponsor.c gt 0>
-					<span style="color:red;">proj sponsor agent</span><br>
+					<div style="color:red;">proj sponsor agent</div>
 				</cfif>
 				<cfquery name="electronic_address" datasource="uam_god">
 					select count(*) c from electronic_address where agent_id=#id2#
 				</cfquery>
 				<cfif electronic_address.c gt 0>
-					<span style="color:red;">electronic_address</span><br>
+					<div style="color:red;">electronic_address</div>
 				</cfif>
 				<cfquery name="addr" datasource="uam_god">
 					select count(*) c from addr where agent_id=#id2#
 				</cfquery>
 				<cfif addr.c gt 0>
-					<span style="color:red;">addr</span><br>
+					<div style="color:red;">addr</div>
 				</cfif>
 				<cfquery name="shipment" datasource="uam_god">
 					select 
@@ -357,7 +358,7 @@
 						PACKED_BY_AGENT_ID=#id2#		
 				</cfquery>
 				<cfif shipment.c gt 0>
-					<span style="color:red;">shipment</span><br>
+					<div style="color:red;">shipment</div>
 				</cfif>
 				<cfquery name="ship_to" datasource="uam_god">
 					select 
@@ -370,7 +371,7 @@
 						addr.agent_id=#id2#
 				</cfquery>
 				<cfif ship_to.c gt 0>
-					<span style="color:red;">ship_to</span><br>
+					<div style="color:red;">ship_to</div>
 				</cfif>
 				<cfquery name="ship_from" datasource="uam_god">
 					select 
@@ -383,7 +384,7 @@
 						addr.agent_id=#id2#
 				</cfquery>
 				<cfif ship_from.c gt 0>
-					<span style="color:red;">ship_from</span><br>
+					<div style="color:red;">ship_from</div>
 				</cfif>
 								
 				<cfquery name="agent_relations" datasource="uam_god">
@@ -394,7 +395,7 @@
 					agent_relations.agent_id=#id2#
 				</cfquery>
 				<cfloop query="agent_relations">
-					#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a><br>
+					#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a>
 				</cfloop>
 				<cfquery name="agent_relations" datasource="uam_god">
 					select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
@@ -404,13 +405,14 @@
 					RELATED_AGENT_ID=#id2#
 				</cfquery>
 				<cfloop query="agent_relations">
-					<a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#<br>
+					<a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#
 				</cfloop>
-				<br>
-				[<a class="infoLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
-				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
-				[<a class="infoLink" href="/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
-				[<span id="fg_#id2#" class="infoLink" onclick="flagDupAgent(#id2#,#id1#)"><---IsBadDupOf</span>]	
+				<div>
+					[<a class="likeLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
+					[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
+					[<a class="likeLink" href="/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
+					[<span id="fg_#id2#" class="likeLink" onclick="flagDupAgent(#id2#,#id1#)"><---IsBadDupOf</span>]	
+				</div>
 			</td>
 		</tr>
 	</cfloop>
