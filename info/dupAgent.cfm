@@ -133,14 +133,17 @@
 						agent_name,
 						agent_name_type,
 						agent_type,
-						count(packed.PACKED_BY_AGENT_ID) packedCount
+						count(packed.PACKED_BY_AGENT_ID) packedCount,
+						count(shipto.SHIPPED_TO_ADDR_ID) shipCount
 					from
 						agent,
 						agent_name,
-						shipment packed
+						shipment packed,
+						shipment shipto
 					where
 						agent.agent_id=agent_name.agent_id and
 						packed.PACKED_BY_AGENT_ID=agent.agent_id (+) and
+						shipto.SHIPPED_TO_ADDR_ID=agent.agent_id (+) and						
 						agent.agent_id=#id1#
 					group by
 						agent_name,
@@ -153,6 +156,8 @@
 				
 				Agent ID: #id1# (#name1#)<br>
 				packedCount: #one.packedCount#<br>
+				shipCount: #one.shipCount#<br>
+				
 				<cfloop query="n1">
 					<cfset thisStyle="">
 					<cfif n1.agent_name is d.name1>
