@@ -288,6 +288,7 @@
 						agent_name_type,
 						agent_type,
 						agent_name_id
+					order by agent_name
 				</cfquery>
 				<cfloop query="two">
 					<cfset thisStyle="">
