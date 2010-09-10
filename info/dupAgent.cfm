@@ -113,6 +113,11 @@
 			a.agent_name=b.agent_name and
 			a.agent_id != b.agent_id and
 			rownum<100
+		group by
+			a.agent_id id1,
+			b.agent_id id2,
+			a.agent_name name1,
+			b.agent_name name2
 	</cfquery>
 	Agents that fully share a namestring.
 	<table border id="t" class="sortable">
@@ -138,7 +143,7 @@
 				<cfquery name="n1" dbtype="query">
 					select agent_name,agent_name_type from one order by agent_name
 				</cfquery>
-				Agent ID: #id1#<br>
+				Agent ID: #id1# (#name1#)<br>
 				<cfloop query="n1">
 					<cfif n1.agent_name is d.name1>
 						<span style="font-color:red;">
