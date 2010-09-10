@@ -114,10 +114,10 @@
 			a.agent_id != b.agent_id and
 			rownum<100
 		group by
-			a.agent_id id1,
-			b.agent_id id2,
-			a.agent_name name1,
-			b.agent_name name2
+			a.agent_id,
+			b.agent_id,
+			a.agent_name,
+			b.agent_name
 	</cfquery>
 	Agents that fully share a namestring.
 	<table border id="t" class="sortable">
