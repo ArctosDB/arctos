@@ -140,7 +140,7 @@
 				</cfquery>
 				Agent ID: #id1#<br>
 				<cfloop query="n1">
-					<cfif n1.agent_name is name1>
+					<cfif n1.agent_name is d.name1>
 						<span style="font-color:red;">
 							#agent_name# (#agent_name_type#)
 						</span>
