@@ -228,22 +228,8 @@
 		variables.joFileWriter.close();
 	</cfscript>		
 
-<!-- 	<cfquery name="distColl" dbtype="query">
-		select collection from getMapData group by collection
-		order by collection
-	</cfquery> -->
 	<cfset collList='Media Results'>
-<!-- 	<cfloop query="distColl">
-		<cfif len(collList) is 0>
-			<cfset collList="#collection#">
-		<cfelse>
-			<cfset CollList="#collList#, #collection#">
-		</cfif>
-	</cfloop>
-	<cfset listColl=reverse(CollList)>
-	<cfset listColl=replace(listColl,",","dna ,","first")>
-	<cfset CollList=reverse(listColl)>
-	<cfset CollList="#CollList# data."> -->
+
 	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/run.php?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
 	
 	url: #bnhmUrl#
