@@ -19,125 +19,125 @@
 <cfset mediaFlatTableName = "media_flat">
 <!----------------------------------------------------------------->
 <cfif isdefined("action") and action IS "mapPoint">
-<cfoutput>
-	<!---- map a lat_long_id ---->
-	<cfif not isdefined("lat_long_id") or len(lat_long_id) is 0>
-		<div class="error">
-			You can't map a point without a lat_long_id.
-		</div>
-		<cfabort>
-	</cfif>	
-	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		SELECT
-			'All collections' Collection,
-			0 collection_id,
-			'000000' cat_num,
-			'Lat Long ID: ' || lat_long_id scientific_name,
-			'none' verbatim_date,
-			'none' spec_locality,
-			dec_lat,
-			dec_long,
-			to_meters(max_error_distance,max_error_units) max_error_meters,
-			datum,
-			'000000' collection_object_id,
-			' ' collectors
-		FROM 
-			lat_long 
-		WHERE
-			lat_long_id=#lat_long_id#
+	<cfoutput>
+		<!---- map a lat_long_id ---->
+		<cfif not isdefined("lat_long_id") or len(lat_long_id) is 0>
+			<div class="error">
+				You can't map a point without a lat_long_id.
+			</div>
+			<cfabort>
+		</cfif>	
+		<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT
+				'All collections' Collection,
+				0 collection_id,
+				'000000' cat_num,
+				'Lat Long ID: ' || lat_long_id scientific_name,
+				'none' verbatim_date,
+				'none' spec_locality,
+				dec_lat,
+				dec_long,
+				to_meters(max_error_distance,max_error_units) max_error_meters,
+				datum,
+				'000000' collection_object_id,
+				' ' collectors
+			FROM 
+				lat_long 
+			WHERE
+				lat_long_id=#lat_long_id#
+		</cfquery>
+	</cfoutput>
+
+<cfelse>
+	<cfset ShowObservations = "true">
+	
+	<cfset srch = "">
+	<cfinclude template="/development/MediaSearchSql.cfm">
+	<cfset sqlS = "SELECT * FROM #mediaFlatTableName# WHERE 1=1 #srch#">
+	<cfquery name = "tempMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		#preserveSingleQuotes(sqlS)#
 	</cfquery>
-</cfoutput>
-
-
-<cfset ShowObservations = "true">
-
-<cfset srch = "">
-<cfinclude template="/development/MediaSearchSql.cfm">
-<cfset sqlS = "SELECT * FROM #mediaFlatTableName# WHERE 1=1 #srch#">
-<cfquery name = "tempMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	#preserveSingleQuotes(sqlS)#
-</cfquery>
-
-<cfset temp = queryAddColumn(tempMapData,"labels", "VarChar", ArrayNew(1))>		
-<cfset temp = queryAddcolumn(tempMapData,"lat", "VarChar", ArrayNew(1))>
-<cfset temp = queryAddcolumn(tempMapData,"long", "VarChar", ArrayNew(1))>
-<cfset temp = queryAddcolumn(tempMapData,"datum", "VarChar", ArrayNew(1))>
-
-		
-<cfset i=1>	
-<cfloop query ="tempMapData">
-	<cfset labs = ListToArray(media_labels, ";")>
-	<cfset lab_values = ListToArray(label_values, ";")>
 	
-	<cfset label_string = "">
-	<cfloop from="1" to="#arraylen(labs)#" index="index">
-		
-		<cfif len(label_string) gt 0>
-			<cfset label_string = label_string & "; " & labs[index] & "=" & lab_values[index]>
-		<cfelse>
-			<cfset label_string = labs[index] & "=" & lab_values[index]>
-		</cfif>
-	</cfloop>
-	<cfset temp = QuerySetCell(tempMapData, "labels", label_string, i)>
+	<cfset temp = queryAddColumn(tempMapData,"labels", "VarChar", ArrayNew(1))>		
+	<cfset temp = queryAddcolumn(tempMapData,"lat", "VarChar", ArrayNew(1))>
+	<cfset temp = queryAddcolumn(tempMapData,"long", "VarChar", ArrayNew(1))>
+	<cfset temp = queryAddcolumn(tempMapData,"datum", "VarChar", ArrayNew(1))>
 	
-	<cfset scPos = find(';', lat_long)>
-	<cfif scPos gt 0>
-		<cfset lat = left(lat_long, scPos-1)>
-		<cfset long = right(lat_long, len(lat_long) - scPos)>
-		
-		<cfset temp = QuerySetCell(tempMapData, "lat", lat, i)>
-		<cfset temp = QuerySetCell(tempMapData, "long", long, i)>
-	</cfif>
-	
-	<cfset i=i+1>
-</cfloop>
-<!-- 	<cfset basSelect = "SELECT DISTINCT 
-		#mediaFlatTableName#.collection,
-		#mediaFlatTableName#.collection_id,
-		#mediaFlatTableName#.cat_num,
-		#mediaFlatTableName#.scientific_name,
-		#mediaFlatTableName#.verbatim_date,
-		#mediaFlatTableName#.spec_locality,
-		#mediaFlatTableName#.dec_lat,
-		#mediaFlatTableName#.dec_long,
-		#mediaFlatTableName#.COORDINATEUNCERTAINTYINMETERS,
-		#mediaFlatTableName#.datum,
-		#mediaFlatTableName#.collection_object_id,
-		#mediaFlatTableName#.collectors">
-	<cfset basFrom = "	FROM #mediaFlatTableName#">
-	<cfset basWhere = " WHERE 
-		#mediaFlatTableName#.collection_object_id IN (#mediaFlatTableName#.collecting_object_id) AND
-		#mediaFlatTableName#.dec_lat is not null AND
-		#mediaFlatTableName#.dec_long is not null AND
-		#mediaFlatTableName#.collecting_source = 'wild caught' ">	
 			
-	<cfset SqlString = "#basSelect# #basFrom# #basWhere# #srch#">	 -->
-<!-- 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preserveSingleQuotes(SqlString)#
-	</cfquery> -->
-<cfquery name="getMapData" dbtype="query">
-	select media_id,
-			media_type,
-			mime_type,
-			cat_num,
-			guid_string,	
-			scientific_name,
-			created_agent as created_by_agent,
-			locality as created_from_collecting_event,
-			lat as latitude,		
-			long as longitude,
-			labels,
-			project_name as associated_with_project,
-			shows_loc_name as shows_locality,	
-			publication_name as shows_publication,
-			taxonomy_description as describes_taxonomy,					
-			media_uri,		
-			preview_uri				
-	from tempMapData
-	where latitude is not null AND
-		longitude is not null
-</cfquery>
-
+	<cfset i=1>	
+	<cfloop query ="tempMapData">
+		<cfset labs = ListToArray(media_labels, ";")>
+		<cfset lab_values = ListToArray(label_values, ";")>
+		
+		<cfset label_string = "">
+		<cfloop from="1" to="#arraylen(labs)#" index="index">
+			
+			<cfif len(label_string) gt 0>
+				<cfset label_string = label_string & "; " & labs[index] & "=" & lab_values[index]>
+			<cfelse>
+				<cfset label_string = labs[index] & "=" & lab_values[index]>
+			</cfif>
+		</cfloop>
+		<cfset temp = QuerySetCell(tempMapData, "labels", label_string, i)>
+		
+		<cfset scPos = find(';', lat_long)>
+		<cfif scPos gt 0>
+			<cfset lat = left(lat_long, scPos-1)>
+			<cfset long = right(lat_long, len(lat_long) - scPos)>
+			
+			<cfset temp = QuerySetCell(tempMapData, "lat", lat, i)>
+			<cfset temp = QuerySetCell(tempMapData, "long", long, i)>
+		</cfif>
+		
+		<cfset i=i+1>
+	</cfloop>
+	<!-- 	<cfset basSelect = "SELECT DISTINCT 
+			#mediaFlatTableName#.collection,
+			#mediaFlatTableName#.collection_id,
+			#mediaFlatTableName#.cat_num,
+			#mediaFlatTableName#.scientific_name,
+			#mediaFlatTableName#.verbatim_date,
+			#mediaFlatTableName#.spec_locality,
+			#mediaFlatTableName#.dec_lat,
+			#mediaFlatTableName#.dec_long,
+			#mediaFlatTableName#.COORDINATEUNCERTAINTYINMETERS,
+			#mediaFlatTableName#.datum,
+			#mediaFlatTableName#.collection_object_id,
+			#mediaFlatTableName#.collectors">
+		<cfset basFrom = "	FROM #mediaFlatTableName#">
+		<cfset basWhere = " WHERE 
+			#mediaFlatTableName#.collection_object_id IN (#mediaFlatTableName#.collecting_object_id) AND
+			#mediaFlatTableName#.dec_lat is not null AND
+			#mediaFlatTableName#.dec_long is not null AND
+			#mediaFlatTableName#.collecting_source = 'wild caught' ">	
+				
+		<cfset SqlString = "#basSelect# #basFrom# #basWhere# #srch#">	 -->
+	<!-- 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preserveSingleQuotes(SqlString)#
+		</cfquery> -->
+	<cfquery name="getMapData" dbtype="query">
+		select media_id,
+				media_type,
+				mime_type,
+				cat_num,
+				guid_string,	
+				scientific_name,
+				created_agent as created_by_agent,
+				locality as created_from_collecting_event,
+				lat as latitude,		
+				long as longitude,
+				labels,
+				project_name as associated_with_project,
+				shows_loc_name as shows_locality,	
+				publication_name as shows_publication,
+				taxonomy_description as describes_taxonomy,					
+				media_uri,		
+				preview_uri				
+		from tempMapData
+		where latitude is not null AND
+			longitude is not null
+	</cfquery>
+</cfif>
 <cfif getMapData.recordcount is 0>
 	<div class="error">
 		Oops! We didn't find anything mappable. Only wild caught specimens with coordintes will map.
