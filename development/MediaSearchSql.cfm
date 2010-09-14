@@ -5,9 +5,9 @@
 	<cfset basQual = "">
 </cfif>
 
-<cfset mapurl="#mapurl#&srchType=#srchType#">
 
 <cfif isdefined("srchType") and srchType is "key">
+	<cfset mapurl="#mapurl#&srchType=#srchType#">
 
 	<cfif isdefined("keyword") and len(keyword) gt 0>
 
