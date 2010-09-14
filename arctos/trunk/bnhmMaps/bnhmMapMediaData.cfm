@@ -129,7 +129,7 @@
 <!---- write an XML config file specific to the critters they're mapping --->
 <cfoutput>
 	<cfquery name="collID" dbtype="query">
-		select collecting_object_id from getMapData group by collecting_object_id
+		select collecting_object_id from getMapData where collecting_object_id is not null group by collecting_object_id
 	</cfquery>
 		"@@ done with collId\n"
 
