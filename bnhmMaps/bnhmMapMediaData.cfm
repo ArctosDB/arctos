@@ -196,7 +196,6 @@
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
 
-	"@@ done with headers\n"
 
 	<cfscript>
 		a='</bnhmmaps>';
@@ -227,9 +226,7 @@
 	</cfloop>
 	<cfscript>		
 		variables.joFileWriter.close();
-	</cfscript>	
-	
-	"@@ done with data input\n"
+	</cfscript>		
 
 <!-- 	<cfquery name="distColl" dbtype="query">
 		select collection from getMapData group by collection
@@ -251,4 +248,5 @@
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
+	url: #bnhmUrl#
 </cfoutput>
