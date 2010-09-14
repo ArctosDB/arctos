@@ -263,7 +263,7 @@ do not agree</font>.</a>
 	</cfquery>
 <!-- 		<cfset ac = valuelist(cols.column_name)>
  -->
-		<cfset ac = #getData.ColumnList#>
+		<cfset ac = ArrayToList( getData.getColumnNames() )>
 		
 				<!--- strip internal columns --->
 		<!--- <cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
@@ -303,7 +303,6 @@ do not agree</font>.</a>
 				<cfloop query="getData">
 					<cfset oneLine = "">
 					<cfloop list="#ac#" index="c">
-						"looping ac"
 						<cfset thisData = evaluate(c)>
 						<cfif c is "BEGAN_DATE" or c is "ENDED_DATE">
 							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
