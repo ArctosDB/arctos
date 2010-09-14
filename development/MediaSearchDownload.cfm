@@ -220,16 +220,16 @@ do not agree</font>.</a>
 					cat_num,
 					guid_string,	
 					scientific_name,
-					lat_long,
-					locality as created_from_collecting_event,
 					created_agent as created_by_agent,
-					project_name as associated_with_project,
-					publication_name as shows_publication,
-					taxonomy_description as describes_taxonomy,
-					shows_loc_name as shows_locality,					
+					locality as created_from_collecting_event,
+					lat_long,		
 					labels,
-					preview_uri,				
-					media_uri					
+					project_name as associated_with_project,
+					shows_loc_name as shows_locality,	
+					publication_name as shows_publication,
+					taxonomy_description as describes_taxonomy,					
+					media_uri,		
+					preview_uri				
 			from getTempData
 		</cfquery>
 <!-- 				"end getData"
