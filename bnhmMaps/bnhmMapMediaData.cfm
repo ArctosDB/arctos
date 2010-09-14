@@ -111,8 +111,8 @@
 				media_uri,		
 				preview_uri				
 		from tempMapData
-		where latitude is not null AND
-			longitude is not null
+		where lat is not null AND
+			long is not null
 	</cfquery>
 </cfif>
 <cfif getMapData.recordcount is 0>
