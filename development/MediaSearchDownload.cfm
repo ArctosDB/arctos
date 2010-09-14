@@ -195,6 +195,10 @@ do not agree</font>.</a>
 		</cfquery>
 
 		<cfset temp = queryAddColumn(getTempData,"labels", "VarChar", ArrayNew(1))>		
+		<cfset temp = queryAddcolumn(getTempData,"lat", "VarChar", ArrayNew(1))>
+		<cfset temp = queryAddcolumn(getTempData,"long", "VarChar", ArrayNew(1))>
+		<cfset temp = queryAddcolumn(getTempData,"datum", "VarChar", ArrayNew(1))>
+
 				
 		<cfset i=1>	
 		<cfloop query ="getTempData">
@@ -211,6 +215,16 @@ do not agree</font>.</a>
 				</cfif>
 			</cfloop>
 			<cfset temp = QuerySetCell(getTempData, "labels", label_string, i)>
+			
+			<cfset scPos = find(';', lat_long)>
+			<cfif scPos gt 0>
+				<cfset lat = left(lat_long, scPos-1)>
+				<cfset long = right(lat_long, len(lat_long) - scPos)>
+				
+				<cfset temp = QuerySetCell(getTempData, "lat", lat, i)>
+				<cfset temp = QuerySetCell(getTempData, "long", long, i)>
+			</cfif>
+			
 			<cfset i=i+1>
 		</cfloop>
 		<cfquery name="getData" dbtype="query">
@@ -222,7 +236,8 @@ do not agree</font>.</a>
 					scientific_name,
 					created_agent as created_by_agent,
 					locality as created_from_collecting_event,
-					lat_long,		
+					lat as latitude,		
+					long as longitude,
 					labels,
 					project_name as associated_with_project,
 					shows_loc_name as shows_locality,	
