@@ -76,7 +76,6 @@
 		<cfset whr="#whr# AND media.media_id in (#media_id#)">
 		<cfset mapurl="#mapurl#&media_id=#media_id#">
 	</cfif>
-	why mime_type?
 	<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
 		<cfset srch="#srch# AND #mediaFlatTableName#.mime_type = '#mime_type#'">
 		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
@@ -98,7 +97,6 @@
 	<cfset mapurl="#mapurl#&number_of_relations=#number_of_relations#">
 	
 	<cfif not isdefined("number_of_labels")>
-		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 	    <cfif (isdefined("label") and len(label) gt 0) or (isdefined("label__1") and len(label__1) gt 0)>
 			<cfset number_of_labels=1>
 			<cfif isdefined("label") and len(label) gt 0>
