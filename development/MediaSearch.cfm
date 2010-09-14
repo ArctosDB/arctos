@@ -322,7 +322,7 @@
 	</cfif>
 	<strong>#mappable.cnt#</strong> of these <strong>#findIDs.recordcount#</strong> records have coordinates and can be displayed with 
 	<span class="controlButton"
-		onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
+		onclick="window.open('/bnhmMaps/bnhmMapMediaData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 		
 	<span class="controlButton"
 		onclick="window.open('/development/MediaSearchDownload.cfm?tableName=#session.MediaSrchTab#','_blank');">Bulk Download Media Results</span>
