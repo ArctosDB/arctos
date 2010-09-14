@@ -124,6 +124,8 @@
 	<cfabort>
 </cfif>
 
+"@@ done with getMapData\n"
+
 <!---- write an XML config file specific to the critters they're mapping --->
 <cfoutput>
 	<cfquery name="collID" dbtype="query">
@@ -146,6 +148,9 @@
 			<cfset thisAddress = listappend(thisAddress,address)>
 		</cfloop>
 	</cfif>	
+	
+	"@@ done with emails\n"
+
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
 		a='<bnhmmaps>' & chr(10) & 
@@ -161,29 +166,10 @@
 			chr(9) &'</metadata>';
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
-<!-- 	<cfquery name="whatMediaTypes" dbtype="query">
-		select Collection from getMapData group by media_type
-	</cfquery>
-	<cfset theseColls = valuelist(whatMediaTypes.media_type)>
+
+	"@@ done with metadata\n"
+
 	<cfscript>
-		a=chr(9) & '<colors method="field" fieldname="darwin:collectioncode" label="Collection">' & chr(10) &
-			chr(9) & chr(9) & '<dominantcolor webcolor="9999cc"/>' & chr(10) & 
-			chr(9) & chr(9) & '<subdominantcolor webcolor="9999cc"/>';
-		variables.joFileWriter.writeLine(a);
-	</cfscript>
-	<cfset i=1>
-	<cfloop query="whatMediaTypes">
-		<cfscript>
-			a=chr(9) & chr(9) & 
-				'<color key="#whatMediaTypes.collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="7" label="#whatMediaTypes.collection#"/>';
-			variables.joFileWriter.writeLine(a);
-		</cfscript>
-	</cfloop> -->
-	<cfscript>
-/* 		a=chr(9) & chr(9) &
-			'<color key="default" red="255" green="0" blue="0" symbol="2" label="Unspecified Collection"/>' & chr(10) & 
-			chr(9) & '</colors>';
-		variables.joFileWriter.writeLine(a); */
 		a=chr(9) & '<recordlinkback>' & chr(10) & 
 			chr(9) & chr(9) & '<linkback method="entireurl" linkurl="Related Information" fieldname="More Information (opens in new window)"/>' & chr(10) & 
 			chr(9) & '</recordlinkback>';
@@ -210,60 +196,9 @@
 			chr(9) & '</concepts>';		
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
-	
-<!-- 	<cfif isdefined("showRangeMaps") and showRangeMaps is true>
-		<cfquery name="species" dbtype="query">
-			select distinct(scientific_name) from getMapData
-		</cfquery>
-		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select phylclass,genus || ' ' || species scientific_name from taxonomy where scientific_name in
-			 (#ListQualify(valuelist(species.scientific_name), "'")#)
-			 group by 
-			 phylclass,genus || ' ' || species
-		</cfquery>
-		<cfif getClass.recordcount is not 1 or (
-				getClass.phylclass is not 'Amphibia' and getClass.phylclass is not 'Mammalia' and getClass.phylclass is not 'Aves'
-			)>
-			<div class="error">
-				Rangemaps are only available for queries which return one species in Classes
-				Amphibia, Aves or Mammalia.
-				<br>Subspecies are ignored for rangemapping.
-				<br>You may use the BerkeleyMapper or Google Maps options for any query.
-				<br>Please use your browser's back button or close this window.
-			</div>
-			<script>
-				document.getElementById('status').style.display='none';
-			</script>
-			<cfabort>
-		</cfif>
-		<cfscript>
-			a=chr(9) & '<gisdata>';
-			variables.joFileWriter.writeLine(a);
-		</cfscript>
-		<cfset i=1>
-		<cfloop query="getClass">			
-			<cfif phylclass is 'Amphibia'>
-				<cfset name='gaa'>
-			<cfelseif phylclass is 'Mammalia'>
-				<cfset name='mamm'>
-			<cfelseif phylclass is 'Aves'>
-				<cfset name='birds'>
-			<cfelse>
-				<cfset name="">
-			</cfif>
-			<cfif len(name) gt 0>
-				<cfscript>
-					a = chr(9) & chr(9) &	'<layer title="#getClass.scientific_name#" name="#name#" location="#getClass.scientific_name#" legend="#i#" active="1" url=""/>';
-					variables.joFileWriter.writeLine(a);
-				</cfscript>
-			</cfif>
-			<cfset i=i+1>	
-		</cfloop>
-		<cfscript>
-			a = chr(9) & '</gisdata>';
-			variables.joFileWriter.writeLine(a);
-		</cfscript>
-	</cfif> -->
+
+	"@@ done with headers\n"
+
 	<cfscript>
 		a='</bnhmmaps>';
 		variables.joFileWriter.writeLine(a);
@@ -294,6 +229,9 @@
 	<cfscript>		
 		variables.joFileWriter.close();
 	</cfscript>	
+	
+	"@@ done with data input\n"
+
 <!-- 	<cfquery name="distColl" dbtype="query">
 		select collection from getMapData group by collection
 		order by collection
