@@ -15,6 +15,7 @@
 	from cf_canned_search,cf_users
 	where cf_users.user_id=cf_canned_search.user_id
 	and username='#session.username#'
+	and URL like '%SpecimenResults.cfm%'
 	order by search_name
 </cfquery>
 <table cellpadding="0" cellspacing="0">
