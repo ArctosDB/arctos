@@ -189,6 +189,8 @@
 			chr(9) & chr(9) & '<concept order="10" viewlist="0" colorlist="0" datatype="char255:5" alias="Shows Publication"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="11" viewlist="0" colorlist="0" datatype="char255:6" alias="Describes Taxonomy"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="12" viewlist="0" colorlist="0" datatype="char255:7" alias="Media uri"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="13" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="14" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
 			chr(9) & '</concepts>';		
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
@@ -209,13 +211,15 @@
 				chr(9) & cat_num & 
 				chr(9) & scientific_name &
 				chr(9) & created_by_agent & 
-				chr(9) & created_from_collecting_event & 
+				chr(9) & created_from_collecting_event &
 				chr(9) & labels & 
 				chr(9) & associated_with_project &
 				chr(9) & shows_locality &
 				chr(9) & shows_publication &
 				chr(9) & describes_taxonomy &
-				chr(9) & media_uri;
+				chr(9) & media_uri & 
+				chr(9) & latitude &
+				chr(9) & longitude;
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
