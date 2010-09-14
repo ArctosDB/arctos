@@ -129,14 +129,14 @@
 		select collecting_object_id from getMapData group by collecting_object_id
 	</cfquery>
 	<cfset thisAddress = #Application.DataProblemReportEmail#>
-	<cfif len(valuelist(collID.collection_object_id)) gt 0>
+	<cfif len(valuelist(collID.collecting_object_id)) gt 0>
 		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select address from
 				electronic_address,
 				collection_contacts
 			WHERE
 				electronic_address.agent_id = collection_contacts.contact_agent_id AND
-				collection_contacts.collection_id IN (#valuelist(collID.collection_object_id)#) AND
+				collection_contacts.collection_id IN (#valuelist(collID.collecting_object_id)#) AND
 				address_type='e-mail' AND
 				contact_role='data quality'
 			GROUP BY address
