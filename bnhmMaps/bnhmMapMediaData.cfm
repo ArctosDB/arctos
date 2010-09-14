@@ -94,6 +94,7 @@
 
 	<cfquery name="getMapData" dbtype="query">
 		select media_id,
+				collecting_object_id,
 				media_type,
 				mime_type,
 				cat_num,
