@@ -69,11 +69,11 @@
 		<cfset mapurl="#mapurl#&media_type=#media_type#">
 	</cfif>
 	<cfif isdefined("tag") and len(tag) gt 0>
-		<cfset whr="#whr# AND media.media_id in (select media_id from tag)">
+		<cfset whr="#whr# AND media.id in (select media_id from tag)">
 		<cfset mapurl="#mapurl#&tag=#tag#">
 	</cfif>
 	<cfif isdefined("media_id") and len(#media_id#) gt 0>
-		<cfset whr="#whr# AND media.media_id in (#media_id#)">
+		<cfset whr="#whr# AND media.id in (#media_id#)">
 		<cfset mapurl="#mapurl#&media_id=#media_id#">
 	</cfif>
 	<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
