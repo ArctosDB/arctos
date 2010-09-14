@@ -81,12 +81,12 @@
 		<cfset temp = QuerySetCell(tempMapData, "labels", label_string, i)>
 		
 		<cfset scPos = find(';', lat_long)>
+		scPos: #scPos#
 		<cfif scPos gt 0>
-			<cfset lat = left(lat_long, scPos-1)>
-			<cfset long = right(lat_long, len(lat_long) - scPos)>
-			
-			<cfset temp = QuerySetCell(tempMapData, "lat", lat, i)>
-			<cfset temp = QuerySetCell(tempMapData, "long", long, i)>
+			<cfset latS = left(lat_long, scPos-1)>
+			<cfset longS = right(lat_long, len(lat_long) - scPos)>
+			<cfset temp = QuerySetCell(tempMapData, "lat", latS, i)>
+			<cfset temp = QuerySetCell(tempMapData, "long", longS, i)>
 		</cfif>
 		
 		<cfset i=i+1>
