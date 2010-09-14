@@ -91,30 +91,7 @@
 		
 		<cfset i=i+1>
 	</cfloop>
-	<!-- 	<cfset basSelect = "SELECT DISTINCT 
-			#mediaFlatTableName#.collection,
-			#mediaFlatTableName#.collection_id,
-			#mediaFlatTableName#.cat_num,
-			#mediaFlatTableName#.scientific_name,
-			#mediaFlatTableName#.verbatim_date,
-			#mediaFlatTableName#.spec_locality,
-			#mediaFlatTableName#.dec_lat,
-			#mediaFlatTableName#.dec_long,
-			#mediaFlatTableName#.COORDINATEUNCERTAINTYINMETERS,
-			#mediaFlatTableName#.datum,
-			#mediaFlatTableName#.collection_object_id,
-			#mediaFlatTableName#.collectors">
-		<cfset basFrom = "	FROM #mediaFlatTableName#">
-		<cfset basWhere = " WHERE 
-			#mediaFlatTableName#.collection_object_id IN (#mediaFlatTableName#.collecting_object_id) AND
-			#mediaFlatTableName#.dec_lat is not null AND
-			#mediaFlatTableName#.dec_long is not null AND
-			#mediaFlatTableName#.collecting_source = 'wild caught' ">	
-				
-		<cfset SqlString = "#basSelect# #basFrom# #basWhere# #srch#">	 -->
-	<!-- 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			#preserveSingleQuotes(SqlString)#
-		</cfquery> -->
+
 	<cfquery name="getMapData" dbtype="query">
 		select media_id,
 				media_type,
