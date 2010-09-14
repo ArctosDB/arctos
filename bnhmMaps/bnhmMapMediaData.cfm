@@ -81,7 +81,6 @@
 		<cfset temp = QuerySetCell(tempMapData, "labels", label_string, i)>
 		
 		<cfset scPos = find(';', lat_long)>
-		scPos: #scPos#
 		<cfif scPos gt 0>
 			<cfset latS = left(lat_long, scPos-1)>
 			<cfset longS = right(lat_long, len(lat_long) - scPos)>
@@ -231,8 +230,6 @@
 	<cfset collList='Media Results'>
 
 	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/run.php?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
-	
-	url: #bnhmUrl#
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
