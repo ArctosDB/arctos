@@ -185,12 +185,12 @@
 			chr(9) & chr(9) & '<concept order="6" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Created from Collecting Event"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="7" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="8" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="longtext:1" alias="Media Labels"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="10" viewlist="0" colorlist="0" datatype="char255:2" alias="Project Name"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="11" viewlist="0" colorlist="0" datatype="char255:3" alias="Shows Locality"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="12" viewlist="0" colorlist="0" datatype="char255:4" alias="Shows Publication"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="13" viewlist="0" colorlist="0" datatype="char255:5" alias="Describes Taxonomy"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="14" viewlist="0" colorlist="0" datatype="char255:6" alias="Media uri"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="char255:2" alias="Media Labels"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="10" viewlist="0" colorlist="0" datatype="char255:3" alias="Project Name"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="11" viewlist="0" colorlist="0" datatype="char255:4" alias="Shows Locality"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="12" viewlist="0" colorlist="0" datatype="char255:5" alias="Shows Publication"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="13" viewlist="0" colorlist="0" datatype="char255:6" alias="Describes Taxonomy"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="14" viewlist="0" colorlist="0" datatype="char255:7" alias="Media uri"/>' & chr(10) & 
 			chr(9) & '</concepts>';		
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
