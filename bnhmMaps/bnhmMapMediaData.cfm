@@ -126,7 +126,7 @@
 <!---- write an XML config file specific to the critters they're mapping --->
 <cfoutput>
 	<cfquery name="collID" dbtype="query">
-		select collection_object_id from getMapData group by collection_object_id
+		select collecting_object_id from getMapData group by collecting_object_id
 	</cfquery>
 	<cfset thisAddress = #Application.DataProblemReportEmail#>
 	<cfif len(valuelist(collID.collection_object_id)) gt 0>
