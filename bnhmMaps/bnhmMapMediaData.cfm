@@ -131,7 +131,11 @@
 	<cfquery name="collID" dbtype="query">
 		select collecting_object_id from getMapData group by collecting_object_id
 	</cfquery>
+		"@@ done with collId\n"
+
 	<cfset thisAddress = #Application.DataProblemReportEmail#>
+	
+	valuelist: #valuelist(collID.collecting_object_id)#
 	<cfif len(valuelist(collID.collecting_object_id)) gt 0>
 		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select address from
