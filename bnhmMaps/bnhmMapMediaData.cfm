@@ -124,18 +124,15 @@
 	<cfabort>
 </cfif>
 
-"@@ done with getMapData\n"
 
 <!---- write an XML config file specific to the critters they're mapping --->
 <cfoutput>
 	<cfquery name="collID" dbtype="query">
 		select collecting_object_id from getMapData where collecting_object_id is not null group by collecting_object_id
 	</cfquery>
-		"@@ done with collId\n"
 
 	<cfset thisAddress = #Application.DataProblemReportEmail#>
 	
-	valuelist: #valuelist(collID.collecting_object_id)#
 	<cfif len(valuelist(collID.collecting_object_id)) gt 0>
 		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select address from
@@ -153,7 +150,6 @@
 		</cfloop>
 	</cfif>	
 	
-	"@@ done with emails\n"
 
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
@@ -171,7 +167,6 @@
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
 
-	"@@ done with metadata\n"
 
 	<cfscript>
 		a=chr(9) & '<recordlinkback>' & chr(10) & 
@@ -218,9 +213,9 @@
 				chr(9) & cat_num & 
 				chr(9) & scientific_name &
 				chr(9) & created_by_agent & 
-				chr(9) & locality & 
-				chr(9) & lat &
-				chr(9) & long &
+				chr(9) & created_from_collecting_event & 
+				chr(9) & latitude &
+				chr(9) & longitude &
 				chr(9) & labels & 
 				chr(9) & associated_with_project &
 				chr(9) & shows_locality &
