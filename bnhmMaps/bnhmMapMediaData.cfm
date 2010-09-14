@@ -181,9 +181,9 @@
 			chr(9) & chr(9) & '<concept order="2" viewlist="1" colorlist="0" datatype="char255_1" alias="Media Type"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="3" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="4" viewlist="1" colorlist="0" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:collector" alias="Collector"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="6" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Created from Collecting Event"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="7" viewlist="0" colorlist="0" datatype="char255_2" alias="Project Name"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:collector" alias="Collector"/>' & chr(10) &   
+			chr(9) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="char255_2" alias="Project Name"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept order="7" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Created from Collecting Event"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="8" viewlist="0" colorlist="0" datatype="char255_3" alias="Shows Locality"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="char255_4" alias="Shows Publication"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="10" viewlist="0" colorlist="0" datatype="char255_5" alias="Describes Taxonomy"/>' & chr(10) & 
@@ -209,9 +209,9 @@
 				chr(9) & media_type &
 				chr(9) & cat_num & 
 				chr(9) & scientific_name &
-				chr(9) & created_by_agent & 
-				chr(9) & created_from_collecting_event & 
+				chr(9) & created_by_agent &  
 				chr(9) & associated_with_project &
+				chr(9) & created_from_collecting_event &
 				chr(9) & shows_locality &
 				chr(9) & shows_publication &
 				chr(9) & describes_taxonomy &
