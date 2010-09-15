@@ -174,8 +174,9 @@
 		</tr>
 		<cfset usedAgentIdList="">
 	<cfloop query="d">
-		<cfif not listcontains(usedAgentIdList,id1)>
+		<cfif not listcontains(usedAgentIdList,id1) and not listcontains(usedAgentIdList,id2)>
 			<cfset usedAgentIdList=listappend(usedAgentIdList,id1)>
+			<cfset usedAgentIdList=listappend(usedAgentIdList,id2)>
 			<tr>
 				<td valign="top">
 					<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
