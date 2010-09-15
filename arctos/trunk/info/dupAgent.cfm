@@ -57,9 +57,8 @@
 		where 
 			per1.first_name=per2.first_name and
 			per1.last_name=per2.last_name and
-			per1.person_id != per1.person_id 
+			per1.person_id != per2.person_id 
 	</cfquery>
-	<cfdump var=#d#>
 	Persons that share first and last name.
 	<!----
 	<table border id="t" class="sortable">
