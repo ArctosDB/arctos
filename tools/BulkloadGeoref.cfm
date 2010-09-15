@@ -354,7 +354,7 @@ Data:
 					'#DATUM#',
 					'#ORIG_LAT_LONG_UNITS#',
 					#DETERMINED_BY_AGENT_ID#,
-					'#dateformat(DETERMINED_DATE,'dd-mmm-yyyy')#',
+					'#dateformat(DETERMINED_DATE,'yyyy-mm-dd')#',
 					'#LAT_LONG_REF_SOURCE#',
 					'#LAT_LONG_REMARKS#',
 					<cfif len(MAX_ERROR_DISTANCE) gt 0>
