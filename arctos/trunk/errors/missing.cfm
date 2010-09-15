@@ -123,9 +123,6 @@
 					</cfquery>
 				</cfif>
 				<cfif d.recordcount is 0>
-					<div class="error">
-						Your saved search was not found.
-					</div>
 					<cfinclude template="/errors/404.cfm">
 					<cfabort>
 				</cfif>
