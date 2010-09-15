@@ -81,8 +81,8 @@
 		) where rnum >= #start#
 	</cfquery>
 	#start# to #stop# Persons that share first and last name.
-	<br><a href="dupAgent.cfm?action=#action#&int=next">[ next 100 ]</a>
-	<br><a href="dupAgent.cfm?action=#action#&int=prev">[ previous 100 ]</a>
+	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next">[ next 100 ]</a>
+	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
 	<!----
 	<table border id="t" class="sortable">
 		<tr>
@@ -117,29 +117,36 @@
 	</cfif>
 
 <cfif action is "fullDup">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select
-			a.agent_id id1,
-			b.agent_id id2,
-			a.agent_name name1,
-			b.agent_name name2
-		from
-			agent_name a,
-			agent_name b
-		where 
-			a.agent_name=b.agent_name and
-			a.agent_id != b.agent_id and
-			rownum<100
-		group by
-			a.agent_id,
-			b.agent_id,
-			a.agent_name,
-			b.agent_name
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">		
+		Select * from (
+			Select a.*, rownum rnum From (
+				select
+					a.agent_id id1,
+					b.agent_id id2,
+					a.agent_name name1,
+					b.agent_name name2
+				from
+					agent_name a,
+					agent_name b
+				where 
+					a.agent_name=b.agent_name and
+					a.agent_id != b.agent_id
+				group by
+					a.agent_id,
+					b.agent_id,
+					a.agent_name,
+					b.agent_name
+				order by
+					a.agent_name
+			) a where rownum <= #stop#
+		) where rnum >= #start#
 	</cfquery>
-	First 100 Agents that fully share a namestring.
-	
+	#start# to #stop# Agents that fully share a namestring.
+	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next">[ next 100 ]</a>
+	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
 </cfif>
 <cfif isdefined("D")>
+	<p>Format is:</p>
 	<blockquote>
 		<div>
 			preferred_name
@@ -155,7 +162,10 @@
 			[ activities which might preclude automated merger ]
 		</div>
 	</blockquote>
-	(agent_relations flag excludes relationships of "bad duplicate of")
+	<p>
+		(agent_relations flag excludes relationships of "bad duplicate of")
+	</p>
+	<p><a href="dupAgent.cfm">[ start over ]</a></p>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Agent1</th>
