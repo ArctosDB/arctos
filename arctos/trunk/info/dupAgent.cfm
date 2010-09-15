@@ -119,7 +119,21 @@
 			a.agent_name,
 			b.agent_name
 	</cfquery>
-	Agents that fully share a namestring.
+	Agents that fully share a namestring. Format is:
+	
+	<div>
+		preferred_name
+		<span style="font-size:small"> (agent_id)</span>
+	</div>
+	<div style="color:red;">
+		shared_name
+	</div>
+	<div>
+		[ other names ]
+	</div>
+	<div style="color:red;">
+		[ activities which might preclude automated merger ]
+	</div>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Agent1</th>
@@ -154,24 +168,17 @@
 					agent_name != '#name1#'
 					order by agent_name
 				</cfquery>
-				<cfloop query="np1">
-					PrefName: #p1.agent_name#
+				<div>
+					#p1.agent_name#
 					<span style="font-size:small"> (#d.id1#)</span>
-					<br>SharedName: #d.name1#
-					<cfset thisStyle="">
-					<!---
-					<cfif one.agent_name is d.name1>
-						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
-					</cfif>
-					<cfif one.agent_name_type is 'preferred'>
-						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
-					</cfif>
-					 style="#thisStyle#">
-					--->
+				</div>
+				<div style="color:red;">
+					#d.name1#
+				</div>
+				<cfloop query="np1">
 					<div>
 						#agent_name# (#agent_name_type#)
 					</div>
-					
 				</cfloop>
 				<cfquery name="project_agent" datasource="uam_god">
 					select 
@@ -256,25 +263,16 @@
 					<div style="color:red;">ship_from</div>
 				</cfif>				
 				<cfquery name="agent_relations" datasource="uam_god">
-					select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
-					from agent_relations,preferred_agent_name
+					select count(*) c 
+					from agent_relations
 					where 	
-					agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
-					agent_relations.agent_id=#id1#
+					( 
+						agent_relations.agent_id=#id1# or 
+						RELATED_AGENT_ID=#id1#
+					) and
+					agent_relationship != 'bad duplicate of'
 				</cfquery>
-				<cfloop query="agent_relations">
-					>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a>
-				</cfloop>
-				<cfquery name="agent_relations" datasource="uam_god">
-					select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
-					from agent_relations,preferred_agent_name
-					where 
-					agent_relations.agent_id=preferred_agent_name.agent_id and
-					RELATED_AGENT_ID=#id1#
-				</cfquery>
-				<cfloop query="agent_relations">
-					<a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#
-				</cfloop>
+				<div style="color:red;">agent_relations</div>
 				<div>
 					[<a class="likeLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
 					[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
@@ -310,10 +308,14 @@
 					agent_name != '#name2#'
 					order by agent_name
 				</cfquery>
-				<cfloop query="np2">
-					PrefName: #p2.agent_name#
+				<div>
+					#p2.agent_name#
 					<span style="font-size:small"> (#d.id2#)</span>
-					<br>SharedName: #d.name2#
+				</div>
+				<div style="color:red;">
+					#d.name2#
+				</div>
+				<cfloop query="np2">
 					<div>
 						#agent_name# (#agent_name_type#)
 					</div>
@@ -400,23 +402,15 @@
 				<cfif ship_from.c gt 0>
 					<div style="color:red;">ship_from</div>
 				</cfif>
-								
 				<cfquery name="agent_relations" datasource="uam_god">
-					select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
-					from agent_relations,preferred_agent_name
+					select count(*) c 
+					from agent_relations
 					where 	
-					agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
-					agent_relations.agent_id=#id2#
-				</cfquery>
-				<cfloop query="agent_relations">
-					#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a>
-				</cfloop>
-				<cfquery name="agent_relations" datasource="uam_god">
-					select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
-					from agent_relations,preferred_agent_name
-					where 
-					agent_relations.agent_id=preferred_agent_name.agent_id and
-					RELATED_AGENT_ID=#id2#
+					( 
+						agent_relations.agent_id=#id2# or 
+						RELATED_AGENT_ID=#id2#
+					) and
+					agent_relationship != 'bad duplicate of'
 				</cfquery>
 				<cfloop query="agent_relations">
 					<a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#
