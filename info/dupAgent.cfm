@@ -168,7 +168,32 @@
 	<p>
 		agent_relations flag excludes relationships of "bad duplicate of"
 	</p>
-	
+	<p>
+		Some guidelines, which are only guidelines and may be mutually exclusive or self-defeating:
+		<ul>
+			<li>Flag "badDupOf" for the agent with the least activity. Agents who have addresses, produce publications,
+				have relationships, etc. are difficult to deal with. Keep them if you can.
+			</li>
+			<li>
+				Don't even try to use this form if both duplicates have publications and such. Clean those up manually. Agent Actiity
+				is a good place to start.
+			</li>
+			<li>
+				Don't keep superflous junk. Given two agents with equal or no activity:
+				<ul>
+					<li>Bob Jones (preferred)</li>
+				</ul>
+				and
+				<ul>
+					<li>Bob Jones (preferred)</li>
+					<li>Bob Jones (full)</li>
+					<li>Jones, B. (initials plus last)</li>
+					<li>Jones, B. (AKA)</li>
+				</ul>
+				keep the simple one, and ditch the more complex.
+			</li>
+		</ul>
+	</p>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Agent1</th>
