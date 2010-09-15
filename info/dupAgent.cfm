@@ -50,7 +50,7 @@
 			per1.first_name || ' ' || per1.last_name name1,
 			per2.first_name || ' ' || per2.last_name name2,
 			per1.person_id id1,
-			per2.person_id id2,
+			per2.person_id id2
 		from
 			person per1,
 			person per2
