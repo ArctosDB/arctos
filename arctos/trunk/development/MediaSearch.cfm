@@ -220,10 +220,10 @@
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfabort>
-	<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
+<!--- 	<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/media/#findIDs.media_id#">
-		<cfabort>
+		<cfabort> --->
 	<cfelse>
 		<cfset title="Media Results: #findIDs.recordcount# records found">
 		<cfset metaDesc="Results of Media search: #findIDs.recordcount# records found.">
