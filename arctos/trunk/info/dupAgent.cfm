@@ -65,6 +65,7 @@
 		) where r between #start# and #stop#
 			
 	</cfquery>
+	<cfdump var=#d#>
 	First 100 Persons that share first and last name.
 	<!----
 	<table border id="t" class="sortable">
