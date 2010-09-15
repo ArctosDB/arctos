@@ -147,19 +147,30 @@
 						agent_name_type,
 						agent_type,
 						agent_name_id
+				</cfquery>
+				<cfquery name="p1" dbtype="query">
+					select * from one where agent_name_type='preferred'
+				</cfquery>
+				<cfquery name="np1" dbtype="query">
+					select * from one where agent_name_type!='preferred' and
+					agent_name != '#name1#'
 					order by agent_name
 				</cfquery>
-				<cfloop query="one">
+				<cfloop query="np1">
+					PrefName: #p1.agent_name#
+					<span style="font-size:small"> (#id1#)</span>
+					<br>SharedName: #name1#
 					<cfset thisStyle="">
 					<!---
 					<cfif one.agent_name is d.name1>
 						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
 					</cfif>
-					--->
 					<cfif one.agent_name_type is 'preferred'>
 						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
 					</cfif>
-					<div style="#thisStyle#">
+					 style="#thisStyle#">
+					--->
+					<div>
 						#agent_name# (#agent_name_type#)
 					</div>
 					
