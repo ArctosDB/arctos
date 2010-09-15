@@ -20,8 +20,7 @@
 			<label for="address">Email Address (separate with commas)</label>
 			<input type="text" name="address" id="address" size="50">
 			<br>
-			<input type="submit" value="Preview Message" class="savBtn"
-   					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
+			<input type="submit" value="Preview Message" class="savBtn">	
 		</form>
 		</cfoutput>
 	</cfif>
