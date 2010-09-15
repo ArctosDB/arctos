@@ -158,8 +158,8 @@
 				</cfquery>
 				<cfloop query="np1">
 					PrefName: #p1.agent_name#
-					<span style="font-size:small"> (#id1#)</span>
-					<br>SharedName: #name1#
+					<span style="font-size:small"> (#d.id1#)</span>
+					<br>SharedName: #d.name1#
 					<cfset thisStyle="">
 					<!---
 					<cfif one.agent_name is d.name1>
