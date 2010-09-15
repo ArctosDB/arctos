@@ -43,7 +43,21 @@
 	<a href="dupAgent.cfm?action=fullDup">Agents that share a name</a>
 	<br><a href="dupAgent.cfm?action=shareFL">Person agents that share first and last name</a>
 </cfif>
-
+<cfif not isdefined("start")>
+	<cfset start=1>
+</cfif>
+<cfif not isdefined("stop")>
+	<cfset stop=100>
+</cfif>
+<cfif isdefined("int")>
+	<cfif int=next>
+		<cfset start=start+100>
+		<cfset stop=stop+100>
+	<cfelseif int="prev">
+		<cfset start=start-100>
+		<cfset stop=stop-100>
+	</cfif>
+</cfif>
 <cfif action is "shareFL">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		Select * from (
@@ -67,7 +81,9 @@
 		) where rnum >= #start#
 	</cfquery>
 	<cfdump var=#d#>
-	First 100 Persons that share first and last name.
+	#start# to #stop# Persons that share first and last name.
+	<br><a href="dupAgent.cfm?action=#action#&int=next">[ next 100 ]</a>
+	<br><a href="dupAgent.cfm?action=#action#&int=prev">[ previous 100 ]</a>
 	<!----
 	<table border id="t" class="sortable">
 		<tr>
