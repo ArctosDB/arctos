@@ -218,11 +218,11 @@ do not agree</font>.</a>
 			
 			<cfset scPos = find(';', lat_long)>
 			<cfif scPos gt 0>
-				<cfset lat = left(lat_long, scPos-1)>
-				<cfset long = right(lat_long, len(lat_long) - scPos)>
+				<cfset latS = left(lat_long, scPos-1)>
+				<cfset longS = right(lat_long, len(lat_long) - scPos)>
 				
-				<cfset temp = QuerySetCell(getTempData, "lat", lat, i)>
-				<cfset temp = QuerySetCell(getTempData, "long", long, i)>
+				<cfset temp = QuerySetCell(getTempData, "lat", latS, i)>
+				<cfset temp = QuerySetCell(getTempData, "long", longS, i)>
 			</cfif>
 			
 			<cfset i=i+1>
