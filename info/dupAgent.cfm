@@ -199,10 +199,11 @@
 	#start# to #stop# Agents that fully share a namestring.
 </cfif>
 <cfif isdefined("d")>
+	<cfif start gt 1>
+		<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
+	</cfif>
 	<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next">[ next 100 ]</a>
-	<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
 	<a href="dupAgent.cfm">[ start over ]</a>
-	
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Agent1</th>
