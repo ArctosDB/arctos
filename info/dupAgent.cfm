@@ -81,40 +81,7 @@
 		) where rnum >= #start#
 	</cfquery>
 	#start# to #stop# Persons that share first and last name.
-	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next">[ next 100 ]</a>
-	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
-	<!----
-	<table border id="t" class="sortable">
-		<tr>
-			<th>F/L 1</th>
-			<th>F/L 2</th>
-			<th>Preferred1</th>
-			<th>Preferred2</th>
-		</tr>
-		
-	<cfloop query="d">
-		<tr>
-			<td>
-				#f1# #l1# (#t1#)
-				[<a class="infoLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
-				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=person&sql=#l1#">Whodunit</a>]
-				[<a class="infoLink" href="/info/agentActivity.cfm?agent_id=#id1#">Activity</a>]
-				[<span id="fg_#id1#" class="infoLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
-			</td>
-			<td>
-				#f2# #l2# (#t2#)
-				[<a class="infoLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
-				[<a class="infoLink" href="/Admin/ActivityLog.cfm?action=search&object=person&sql=#l2#">Whodunit</a>]	
-				[<a class="infoLink" href="/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
-				[<span  id="fg_#id2#" class="infoLink" onclick="flagDupAgent(#id2#,#id1#)"><--IsBadDupOf</span>]			
-			</td>
-			<td>#pn1#</td>
-			<td>#pn2#</td>
-		</tr>
-	</cfloop>
-	</table>
-	---->
-	</cfif>
+</cfif>
 
 <cfif action is "fullDup">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">		
@@ -142,10 +109,10 @@
 		) where rnum >= #start#
 	</cfquery>
 	#start# to #stop# Agents that fully share a namestring.
+</cfif>
+<cfif isdefined("d")>
 	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next">[ next 100 ]</a>
 	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
-</cfif>
-<cfif isdefined("D")>
 	<br><a href="dupAgent.cfm">[ start over ]</a>
 	<p>Each agent will appear only one time, so given agents:
 		<ul>
@@ -211,9 +178,6 @@
 			<cfset usedAgentIdList=listappend(usedAgentIdList,id1)>
 			<tr>
 				<td valign="top">
-					
-						
-					</cfif>
 					<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select
 							agent_name,
@@ -500,10 +464,6 @@
 		</cfif>
 	</cfloop>
 	</table>
-	
-	</cfif>
-
-
+</cfif>
 </cfoutput>
-
 <cfinclude template="/includes/_footer.cfm">
