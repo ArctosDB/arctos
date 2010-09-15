@@ -117,10 +117,18 @@
 				<cfquery name="d" datasource="cf_dbuser">
 					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 				</cfquery>
-				<br>ucase(sName: #ucase(sName)#
-				<br>ucase(urldecode(sName)): #ucase(urldecode(sName))#
-				<cfdump var=#d#>
-				<cfabort>
+				<cfif d.recordcount is 0>
+					<cfquery name="d" datasource="cf_dbuser">
+						select url from cf_canned_search where upper(search_name)='#ucase(urldecode(sName))#'
+					</cfquery>
+				</cfif>
+				<cfif d.recordcount is 0>
+					<div class="error">
+						Your saved search was not found.
+					</div>
+					<cfinclude template="/errors/404.cfm">
+					<cfabort>
+				</cfif>
 				<cfif d.url contains "#application.serverRootUrl#/SpecimenResults.cfm?">
 					<cfset mapurl=replace(d.url,"#application.serverRootUrl#/SpecimenResults.cfm?","","all")>
 					<cfloop list="#mapURL#" delimiters="&" index="i">
