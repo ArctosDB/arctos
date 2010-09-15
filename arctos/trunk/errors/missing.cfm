@@ -117,6 +117,8 @@
 				<cfquery name="d" datasource="cf_dbuser">
 					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 				</cfquery>
+				<cfdump var=#d#>
+				<cfabort>
 				<cfif d.url contains "#application.serverRootUrl#/SpecimenResults.cfm?">
 					<cfset mapurl=replace(d.url,"#application.serverRootUrl#/SpecimenResults.cfm?","","all")>
 					<cfloop list="#mapURL#" delimiters="&" index="i">
