@@ -46,24 +46,25 @@
 
 <cfif action is "shareFL">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from (
-		select
-			per1.first_name || ' ' || per1.last_name name1,
-			per2.first_name || ' ' || per2.last_name name2,
-			per1.person_id id1,
-			per2.person_id id2,
-			rownum r
-		from
-			person per1,
-			person per2
-		where 
-			per1.first_name=per2.first_name and
-			per1.last_name=per2.last_name and
-			per1.person_id != per2.person_id  
-		order by
-			per1.first_name,per1.last_name
-		) where r between #start# and #stop#
-			
+		Select * from (
+			Select a.*, rownum rnum From (
+				select
+					per1.first_name || ' ' || per1.last_name name1,
+					per2.first_name || ' ' || per2.last_name name2,
+					per1.person_id id1,
+					per2.person_id id2,
+					rownum r
+				from
+					person per1,
+					person per2
+				where 
+					per1.first_name=per2.first_name and
+					per1.last_name=per2.last_name and
+					per1.person_id != per2.person_id  
+				order by
+					per1.first_name,per1.last_name
+			) a where rownum <= #stop#
+		) where rnum >= #start#
 	</cfquery>
 	<cfdump var=#d#>
 	First 100 Persons that share first and last name.
