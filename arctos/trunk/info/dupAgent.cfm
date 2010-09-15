@@ -128,7 +128,8 @@
 	<cfloop query="d">
 		<tr>
 			<td>
-				Agent ID: #id1# (#name1#)<br>
+				Agent ID: #id1#
+				<br>SharedName: #name1#
 				<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						agent_name,
@@ -150,9 +151,11 @@
 				</cfquery>
 				<cfloop query="one">
 					<cfset thisStyle="">
+					<!---
 					<cfif one.agent_name is d.name1>
 						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
 					</cfif>
+					--->
 					<cfif one.agent_name_type is 'preferred'>
 						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
 					</cfif>
@@ -271,7 +274,8 @@
 				</div>
 			</td>
 			<td>
-				Agent ID: #id2#
+				Agent ID: #id1#
+				<br>SharedName: #name2#
 				<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						agent_name,
@@ -293,9 +297,11 @@
 				</cfquery>
 				<cfloop query="two">
 					<cfset thisStyle="">
+					<!---
 					<cfif two.agent_name is d.name2>
 						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
 					</cfif>
+					--->
 					<cfif two.agent_name_type is 'preferred'>
 						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
 					</cfif>

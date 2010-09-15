@@ -65,7 +65,7 @@
    <br>&nbsp;
    <hr>
    <span style="font-size:smaller">
-   Robert&nbsp;W.&nbsp;Dickerman,&nbsp;Acting&nbsp;Curator
+	Dr.&nbsp;Christopher&nbsp;Witt,&nbsp;Curator
    </span>
    </td></tr>
   </table>
