@@ -120,20 +120,22 @@
 			b.agent_name
 	</cfquery>
 	Agents that fully share a namestring. Format is:
-	
-	<div>
-		preferred_name
-		<span style="font-size:small"> (agent_id)</span>
-	</div>
-	<div style="color:red;">
-		shared_name
-	</div>
-	<div>
-		[ other names ]
-	</div>
-	<div style="color:red;">
-		[ activities which might preclude automated merger ]
-	</div>
+	<blockquote>
+		<div>
+			preferred_name
+			<span style="font-size:small"> (agent_id)</span>
+		</div>
+		<div style="color:red;">
+			shared_name
+		</div>
+		<div>
+			[ other names ]
+		</div>
+		<div style="color:red;">
+			[ activities which might preclude automated merger ]
+		</div>
+	</blockquote>
+	(agent_relations flag excludes relationships of "bad duplicate of")
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Agent1</th>
@@ -272,7 +274,9 @@
 					) and
 					agent_relationship != 'bad duplicate of'
 				</cfquery>
-				<div style="color:red;">agent_relations</div>
+				<cfif agent_relations.c gt 0>
+					<div style="color:red;">agent_relations</div>
+				</cfif>
 				<div>
 					[<a class="likeLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
 					[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
@@ -412,7 +416,9 @@
 					) and
 					agent_relationship != 'bad duplicate of'
 				</cfquery>
-				<div style="color:red;">agent_relations</div>
+				<cfif agent_relations.c gt 0>
+					<div style="color:red;">agent_relations</div>
+				</cfif>
 				<div>
 					[<a class="likeLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
 					[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
