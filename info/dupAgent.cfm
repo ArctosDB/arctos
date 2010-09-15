@@ -412,9 +412,7 @@
 					) and
 					agent_relationship != 'bad duplicate of'
 				</cfquery>
-				<cfloop query="agent_relations">
-					<a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#
-				</cfloop>
+				<div style="color:red;">agent_relations</div>
 				<div>
 					[<a class="likeLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
 					[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
