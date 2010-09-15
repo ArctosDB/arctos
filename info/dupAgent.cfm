@@ -114,38 +114,40 @@
 	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next">[ next 100 ]</a>
 	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
 	<br><a href="dupAgent.cfm">[ start over ]</a>
-	<p>Each agent will appear only one time, so given agents:
-		<ul>
-			<li>Bob Jones (1)</li>
-			<li>Bob Jones (2)</li>
-			<li>Bob Jones (3)</li>
-		</ul>
-		you will see only
-		<table border>
-			<tr>
-				<td>Bob Jones (1)</td>
-				<td>Bob Jones (2)</td>
-			</tr>
-		</table>
-		rather than all possibilities, e.g.,
-		<table border>
-			<tr>
-				<td>Bob Jones (1)</td>
-				<td>Bob Jones (2)</td>
-			</tr>
-			<tr>
-				<td>Bob Jones (2)</td>
-				<td>Bob Jones (1)</td>
-			</tr>
-			
-			<tr>
-				<td>Bob Jones (1)</td>
-				<td>Bob Jones (3)</td>
-			</tr>
-			<tr>
-				<td rowspan="2" align="center">.....</td>
-			</tr>
-		</table>
+	<p>Each agent will appear only one time, so given agents:</p>
+	<ul>
+		<li>Bob Jones (1)</li>
+		<li>Bob Jones (2)</li>
+		<li>Bob Jones (3)</li>
+	</ul>
+	you will see only
+	<table border>
+		<tr>
+			<td>Bob Jones (1)</td>
+			<td>Bob Jones (2)</td>
+		</tr>
+	</table>
+	<p>rather than all possibilities, e.g.,</p>
+	<table border>
+		<tr>
+			<td>Bob Jones (1)</td>
+			<td>Bob Jones (2)</td>
+		</tr>
+		<tr>
+			<td>Bob Jones (2)</td>
+			<td>Bob Jones (1)</td>
+		</tr>
+		
+		<tr>
+			<td>Bob Jones (1)</td>
+			<td>Bob Jones (3)</td>
+		</tr>
+		<tr>
+			<td rowspan="2" align="center">.....</td>
+		</tr>
+	</table>
+	<p>
+		Merge agents and return to this form to see agents excluded by the "appears only once" rule.
 	</p>
 	<p>Format is:</p>
 	<blockquote>
