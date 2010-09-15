@@ -171,9 +171,16 @@
 			<th>Agent1</th>
 			<th>Agent2</th>
 		</tr>
+		<cfset usedAgentIdList="">
 	<cfloop query="d">
 		<tr>
 			<td valign="top">
+				<cfif not listcontains(usedAgentIdList,id1)>
+					<cfset usedAgentIdList=listappend(usedAgentIdList,id1)>
+					<br>continue on, don't have this ID
+				<cfelse>
+					<br>already got one, thanks@
+				</cfif>
 				<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						agent_name,
