@@ -80,7 +80,6 @@
 			) a where rownum <= #stop#
 		) where rnum >= #start#
 	</cfquery>
-	<cfdump var=#d#>
 	#start# to #stop# Persons that share first and last name.
 	<br><a href="dupAgent.cfm?action=#action#&int=next">[ next 100 ]</a>
 	<br><a href="dupAgent.cfm?action=#action#&int=prev">[ previous 100 ]</a>
