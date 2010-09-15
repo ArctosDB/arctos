@@ -33,15 +33,103 @@
 <cfif action is "nothing">
 	<p>
 		The following links perform queries that attempt to locate duplicate agents. Not all results will be duplicates
-		(in the sense of one individual with multiple agent_ids). Please note this in agent remarks or elsewhere should you
+		(in the sense of one individual with multiple agent_ids). There really are two people named Robert Rausch, for example. 
+		Please note this in agent remarks or elsewhere should you
 		discover it. 
-		<br>"Whodunit" links, when provided, simply search the SQL logs 
+	</p>
+	<p>
+		"Whodunit" links, when provided, simply search the SQL logs 
 		(Reports/Audit SQL) for the relevant term. Log data is incomplete, and the suggested search
 		may not make sense.
-		<br>It may also be possible to determine who created duplicates by examining Agent Activity. Please do so.
+	</p>	
+	<p>
+		It may also be possible to determine who created duplicates by examining Agent Activity. Please do so; they need remedial training.
 	</p>
-	<a href="dupAgent.cfm?action=fullDup">Agents that share a name</a>
-	<br><a href="dupAgent.cfm?action=shareFL">Person agents that share first and last name</a>
+	<p>Each agent will appear only one time in the resulting table, so given agents:</p>
+	<ul>
+		<li>Bob Jones (1)</li>
+		<li>Bob Jones (2)</li>
+		<li>Bob Jones (3)</li>
+	</ul>
+	you will see only
+	<table border>
+		<tr>
+			<td>Bob Jones (1)</td>
+			<td>Bob Jones (2)</td>
+		</tr>
+	</table>
+	<p>rather than all possibilities, e.g.,</p>
+	<table border>
+		<tr>
+			<td>Bob Jones (1)</td>
+			<td>Bob Jones (2)</td>
+		</tr>
+		<tr>
+			<td>Bob Jones (2)</td>
+			<td>Bob Jones (1)</td>
+		</tr>
+		
+		<tr>
+			<td>Bob Jones (1)</td>
+			<td>Bob Jones (3)</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">.....</td>
+		</tr>
+	</table>
+	<p>
+		Merge agents and return to this form to see agents excluded by the "appears only once" rule.
+	</p>
+	<p>Format is:</p>
+	<blockquote>
+		<div>
+			preferred_name
+			<span style="font-size:small"> (agent_id)</span>
+		</div>
+		<div style="color:red;">
+			shared_name (shared_name may be the same as preferred_name for zero, one, or both agents)
+		</div>
+		<div>
+			[ other names ]
+		</div>
+		<div style="color:red;">
+			[ activities which might preclude automated merger ]
+		</div>
+	</blockquote>
+	<p>
+		agent_relations flag excludes relationships of "bad duplicate of"
+	</p>
+	<p>
+		Some guidelines, which are only guidelines and may be mutually exclusive or self-defeating:
+		<ul>
+			<li>Flag "badDupOf" for the agent with the least activity. Agents who have addresses, produce publications,
+				have relationships, etc. are difficult to deal with. Keep them if you can.
+			</li>
+			<li>
+				Don't even try to use this form if both duplicates have activity. Clean those up manually. Agent Actiity
+				is a good place to start.
+			</li>
+			<li>
+				Don't keep superflous junk. Given two agents representing the same person, both with no activity:
+				<ul>
+					<li>Bob Jones (preferred)</li>
+				</ul>
+				and
+				<ul>
+					<li>Bob Jones (preferred)</li>
+					<li>Bob Jones (full)</li>
+					<li>Jones, B. (last plus initials)</li>
+					<li>Jones, B. (AKA)</li>
+				</ul>
+				keep the simple one and ditch the more complex variant.
+			</li>
+		</ul>
+	</p>
+	
+	
+	
+	<a href="dupAgent.cfm?action=fullDup">Find Agents that share a name</a>
+	<br><a href="dupAgent.cfm?action=shareFL">Find Person agents that share first and last name</a>
 </cfif>
 <cfif not isdefined("start")>
 	<cfset start=1>
@@ -111,89 +199,10 @@
 	#start# to #stop# Agents that fully share a namestring.
 </cfif>
 <cfif isdefined("d")>
-	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next">[ next 100 ]</a>
-	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
-	<br><a href="dupAgent.cfm">[ start over ]</a>
-	<p>Each agent will appear only one time, so given agents:</p>
-	<ul>
-		<li>Bob Jones (1)</li>
-		<li>Bob Jones (2)</li>
-		<li>Bob Jones (3)</li>
-	</ul>
-	you will see only
-	<table border>
-		<tr>
-			<td>Bob Jones (1)</td>
-			<td>Bob Jones (2)</td>
-		</tr>
-	</table>
-	<p>rather than all possibilities, e.g.,</p>
-	<table border>
-		<tr>
-			<td>Bob Jones (1)</td>
-			<td>Bob Jones (2)</td>
-		</tr>
-		<tr>
-			<td>Bob Jones (2)</td>
-			<td>Bob Jones (1)</td>
-		</tr>
-		
-		<tr>
-			<td>Bob Jones (1)</td>
-			<td>Bob Jones (3)</td>
-		</tr>
-		<tr>
-			<td rowspan="2" align="center">.....</td>
-		</tr>
-	</table>
-	<p>
-		Merge agents and return to this form to see agents excluded by the "appears only once" rule.
-	</p>
-	<p>Format is:</p>
-	<blockquote>
-		<div>
-			preferred_name
-			<span style="font-size:small"> (agent_id)</span>
-		</div>
-		<div style="color:red;">
-			shared_name (shared_name may be the same as preferred_name for zero, one, or both agents)
-		</div>
-		<div>
-			[ other names ]
-		</div>
-		<div style="color:red;">
-			[ activities which might preclude automated merger ]
-		</div>
-	</blockquote>
-	<p>
-		agent_relations flag excludes relationships of "bad duplicate of"
-	</p>
-	<p>
-		Some guidelines, which are only guidelines and may be mutually exclusive or self-defeating:
-		<ul>
-			<li>Flag "badDupOf" for the agent with the least activity. Agents who have addresses, produce publications,
-				have relationships, etc. are difficult to deal with. Keep them if you can.
-			</li>
-			<li>
-				Don't even try to use this form if both duplicates have publications and such. Clean those up manually. Agent Actiity
-				is a good place to start.
-			</li>
-			<li>
-				Don't keep superflous junk. Given two agents with equal or no activity:
-				<ul>
-					<li>Bob Jones (preferred)</li>
-				</ul>
-				and
-				<ul>
-					<li>Bob Jones (preferred)</li>
-					<li>Bob Jones (full)</li>
-					<li>Jones, B. (initials plus last)</li>
-					<li>Jones, B. (AKA)</li>
-				</ul>
-				keep the simple one, and ditch the more complex.
-			</li>
-		</ul>
-	</p>
+	<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next">[ next 100 ]</a>
+	<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
+	<a href="dupAgent.cfm">[ start over ]</a>
+	
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Agent1</th>
