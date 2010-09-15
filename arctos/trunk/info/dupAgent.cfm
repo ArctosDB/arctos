@@ -48,25 +48,18 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			per1.first_name || ' ' || per1.last_name name1,
-			per1.last_name l1,
 			per2.first_name || ' ' || per2.last_name name2,
-			per2.last_name l2,
 			per1.person_id id1,
 			per2.person_id id2,
-			p1.agent_name pn1,
-			p2.agent_name pn2
 		from
 			person per1,
-			person per2,
-			preferred_agent_name p1,
-			preferred_agent_name p2
+			person per2
 		where 
 			per1.first_name=per2.first_name and
 			per1.last_name=per2.last_name and
-			per1.person_id != per1.person_id and
-			per1.person_id=p1.agent_id and
-			per2.person_id=p2.agent_id
+			per1.person_id != per1.person_id 
 	</cfquery>
+	<cfdump var=#d#>
 	Persons that share first and last name.
 	<!----
 	<table border id="t" class="sortable">
