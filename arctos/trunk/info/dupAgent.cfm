@@ -57,9 +57,10 @@
 		where 
 			per1.first_name=per2.first_name and
 			per1.last_name=per2.last_name and
-			per1.person_id != per2.person_id 
+			per1.person_id != per2.person_id  and
+			rownum<100
 	</cfquery>
-	Persons that share first and last name.
+	First 100 Persons that share first and last name.
 	<!----
 	<table border id="t" class="sortable">
 		<tr>
@@ -113,7 +114,10 @@
 			a.agent_name,
 			b.agent_name
 	</cfquery>
-	First 100 Agents that fully share a namestring. Format is:
+	First 100 Agents that fully share a namestring.
+	
+</cfif>
+<cfif isdefined("D")>
 	<blockquote>
 		<div>
 			preferred_name
@@ -135,8 +139,6 @@
 			<th>Agent1</th>
 			<th>Agent2</th>
 		</tr>
-</cfif>
-<cfif isdefined("D")>
 	<cfloop query="d">
 		<tr>
 			<td valign="top">
