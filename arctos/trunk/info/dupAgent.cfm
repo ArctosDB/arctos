@@ -47,9 +47,9 @@
 <cfif action is "shareFL">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
-			per1.first_name f1,
+			per1.first_name || ' ' || per1.last_name name1,
 			per1.last_name l1,
-			per2.first_name f2,
+			per2.first_name || ' ' || per2.last_name name2,
 			per2.last_name l2,
 			per1.person_id id1,
 			per2.person_id id2,
@@ -68,6 +68,7 @@
 			per2.person_id=p2.agent_id
 	</cfquery>
 	Persons that share first and last name.
+	<!----
 	<table border id="t" class="sortable">
 		<tr>
 			<th>F/L 1</th>
@@ -75,6 +76,7 @@
 			<th>Preferred1</th>
 			<th>Preferred2</th>
 		</tr>
+		
 	<cfloop query="d">
 		<tr>
 			<td>
@@ -96,7 +98,7 @@
 		</tr>
 	</cfloop>
 	</table>
-	
+	---->
 	</cfif>
 
 <cfif action is "fullDup">
@@ -119,14 +121,14 @@
 			a.agent_name,
 			b.agent_name
 	</cfquery>
-	Agents that fully share a namestring. Format is:
+	First 100 Agents that fully share a namestring. Format is:
 	<blockquote>
 		<div>
 			preferred_name
 			<span style="font-size:small"> (agent_id)</span>
 		</div>
 		<div style="color:red;">
-			shared_name
+			shared_name (shared_name may be the same as preferred_name for zero, one, or both agents)
 		</div>
 		<div>
 			[ other names ]
@@ -141,6 +143,8 @@
 			<th>Agent1</th>
 			<th>Agent2</th>
 		</tr>
+</cfif>
+<cfif isdefined("D")>
 	<cfloop query="d">
 		<tr>
 			<td valign="top">
