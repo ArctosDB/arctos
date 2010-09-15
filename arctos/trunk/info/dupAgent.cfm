@@ -127,9 +127,7 @@
 		</tr>
 	<cfloop query="d">
 		<tr>
-			<td>
-				Agent ID: #id1#
-				<br>SharedName: #name1#
+			<td valign="top">
 				<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						agent_name,
@@ -284,9 +282,7 @@
 					[<span id="fg_#id1#" class="likeLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
 				</div>
 			</td>
-			<td>
-				Agent ID: #id1#
-				<br>SharedName: #name2#
+			<td valign="top">
 				<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						agent_name,
@@ -306,20 +302,21 @@
 						agent_name_id
 					order by agent_name
 				</cfquery>
-				<cfloop query="two">
-					<cfset thisStyle="">
-					<!---
-					<cfif two.agent_name is d.name2>
-						<cfset thisStyle=listappend(thisStyle,"color:red;"," ")>
-					</cfif>
-					--->
-					<cfif two.agent_name_type is 'preferred'>
-						<cfset thisStyle=listappend(thisStyle,"font-weight:bold;"," ")>
-					</cfif>
-					<div style="#thisStyle#">
+				<cfquery name="p2" dbtype="query">
+					select * from two where agent_name_type='preferred'
+				</cfquery>
+				<cfquery name="np2" dbtype="query">
+					select * from two where agent_name_type!='preferred' and
+					agent_name != '#name2#'
+					order by agent_name
+				</cfquery>
+				<cfloop query="np2">
+					PrefName: #p2.agent_name#
+					<span style="font-size:small"> (#d.id2#)</span>
+					<br>SharedName: #d.name2#
+					<div>
 						#agent_name# (#agent_name_type#)
 					</div>
-					
 				</cfloop>
 				<cfquery name="project_agent" datasource="uam_god">
 					select 
