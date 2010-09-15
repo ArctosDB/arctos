@@ -50,10 +50,10 @@
 	<cfset stop=100>
 </cfif>
 <cfif isdefined("int")>
-	<cfif int=next>
+	<cfif int is next>
 		<cfset start=start+100>
 		<cfset stop=stop+100>
-	<cfelseif int="prev">
+	<cfelseif int is "prev">
 		<cfset start=start-100>
 		<cfset stop=stop-100>
 	</cfif>
