@@ -146,6 +146,40 @@
 	<br><a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
 </cfif>
 <cfif isdefined("D")>
+	<br><a href="dupAgent.cfm">[ start over ]</a>
+	<p>Each agent will appear only one time, so given agents:
+		<ul>
+			<li>Bob Jones (1)</li>
+			<li>Bob Jones (2)</li>
+			<li>Bob Jones (3)</li>
+		</ul>
+		you will see only
+		<table border>
+			<tr>
+				<td>Bob Jones (1)</td>
+				<td>Bob Jones (2)</td>
+			</tr>
+		</table>
+		rather than all possibilities, e.g.,
+		<table border>
+			<tr>
+				<td>Bob Jones (1)</td>
+				<td>Bob Jones (2)</td>
+			</tr>
+			<tr>
+				<td>Bob Jones (2)</td>
+				<td>Bob Jones (1)</td>
+			</tr>
+			
+			<tr>
+				<td>Bob Jones (1)</td>
+				<td>Bob Jones (3)</td>
+			</tr>
+			<tr>
+				<td rowspan="2" align="center">.....</td>
+			</tr>
+		</table>
+	</p>
 	<p>Format is:</p>
 	<blockquote>
 		<div>
@@ -163,9 +197,9 @@
 		</div>
 	</blockquote>
 	<p>
-		(agent_relations flag excludes relationships of "bad duplicate of")
+		agent_relations flag excludes relationships of "bad duplicate of"
 	</p>
-	<p><a href="dupAgent.cfm">[ start over ]</a></p>
+	
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Agent1</th>
@@ -173,297 +207,297 @@
 		</tr>
 		<cfset usedAgentIdList="">
 	<cfloop query="d">
-		<tr>
-			<td valign="top">
-				<cfif not listcontains(usedAgentIdList,id1)>
-					<cfset usedAgentIdList=listappend(usedAgentIdList,id1)>
-					<br>continue on, don't have this ID
-				<cfelse>
-					<br>already got one, thanks@
-				</cfif>
-				<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select
-						agent_name,
-						agent_name_type,
-						agent_type,
-						agent_name_id
-					from
-						agent,
-						agent_name
-					where
-						agent.agent_id=agent_name.agent_id and				
-						agent.agent_id=#id1#
-					group by
-						agent_name,
-						agent_name_type,
-						agent_type,
-						agent_name_id
-				</cfquery>
-				<cfquery name="p1" dbtype="query">
-					select * from one where agent_name_type='preferred'
-				</cfquery>
-				<cfquery name="np1" dbtype="query">
-					select * from one where agent_name_type!='preferred' and
-					agent_name != '#name1#'
-					order by agent_name
-				</cfquery>
-				<div>
-					#p1.agent_name#
-					<span style="font-size:small"> (#d.id1#)</span>
-				</div>
-				<div style="color:red;">
-					#d.name1#
-				</div>
-				<cfloop query="np1">
+		<cfif not listcontains(usedAgentIdList,id1)>
+			<cfset usedAgentIdList=listappend(usedAgentIdList,id1)>
+			<tr>
+				<td valign="top">
+					
+						
+					</cfif>
+					<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select
+							agent_name,
+							agent_name_type,
+							agent_type,
+							agent_name_id
+						from
+							agent,
+							agent_name
+						where
+							agent.agent_id=agent_name.agent_id and				
+							agent.agent_id=#id1#
+						group by
+							agent_name,
+							agent_name_type,
+							agent_type,
+							agent_name_id
+					</cfquery>
+					<cfquery name="p1" dbtype="query">
+						select * from one where agent_name_type='preferred'
+					</cfquery>
+					<cfquery name="np1" dbtype="query">
+						select * from one where agent_name_type!='preferred' and
+						agent_name != '#name1#'
+						order by agent_name
+					</cfquery>
 					<div>
-						#agent_name# (#agent_name_type#)
+						#p1.agent_name#
+						<span style="font-size:small"> (#d.id1#)</span>
 					</div>
-				</cfloop>
-				<cfquery name="project_agent" datasource="uam_god">
-					select 
-						count(*) c
-					from 
-						project_agent
-					where
-						project_agent.agent_name_id IN (#valuelist(one.agent_name_id)#)
-				</cfquery>
-				<cfif project_agent.c gt 0>
-					<div style="color:red;">project agent</div>
-				</cfif>
-				<cfquery name="publication_author_name" datasource="uam_god">
-					select 
-						count(*) c
-					from
-						publication_author_name
-					where
-						publication_author_name.agent_name_id IN (#valuelist(one.agent_name_id)#)
-				</cfquery>
-				<cfif publication_author_name.c gt 0>
-					<div style="color:red;">publication agent</div>
-				</cfif>
-				<cfquery name="project_sponsor" datasource="uam_god">
-					select 
-						count(*) c
-					from 
-						project_sponsor
-					where
-						 project_sponsor.agent_name_id IN (#valuelist(one.agent_name_id)#)
-				</cfquery>
-				<cfif project_sponsor.c gt 0>
-					<div style="color:red;">proj sponsor agent</div>
-				</cfif>
-				<cfquery name="electronic_address" datasource="uam_god">
-					select count(*) c from electronic_address where agent_id=#id1#
-				</cfquery>
-				<cfif electronic_address.c gt 0>
-					<div style="color:red;">electronic_address</div>
-				</cfif>
-				<cfquery name="addr" datasource="uam_god">
-					select count(*) c from addr where agent_id=#id1#
-				</cfquery>
-				<cfif addr.c gt 0>
-					<div style="color:red;">addr</div>
-				</cfif>
-				<cfquery name="shipment" datasource="uam_god">
-					select 
-						count(*) c 
-					from
-						shipment
-					where
-						PACKED_BY_AGENT_ID=#id1#		
-				</cfquery>
-				<cfif shipment.c gt 0>
-					<div style="color:red;">shipment</div>
-				</cfif>
-				<cfquery name="ship_to" datasource="uam_god">
-					select 
-						count(*) c 
-					from
-						shipment,
-						addr
-					where
-						shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
-						addr.agent_id=#id1#
-				</cfquery>
-				<cfif ship_to.c gt 0>
-					<div style="color:red;">ship_to</div>
-				</cfif>
-				<cfquery name="ship_from" datasource="uam_god">
-					select 
-						count(*) c 
-					from
-						shipment,
-						addr
-					where
-						shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
-						addr.agent_id=#id1#
-				</cfquery>
-				<cfif ship_from.c gt 0>
-					<div style="color:red;">ship_from</div>
-				</cfif>				
-				<cfquery name="agent_relations" datasource="uam_god">
-					select count(*) c 
-					from agent_relations
-					where 	
-					( 
-						agent_relations.agent_id=#id1# or 
-						RELATED_AGENT_ID=#id1#
-					) and
-					agent_relationship != 'bad duplicate of'
-				</cfquery>
-				<cfif agent_relations.c gt 0>
-					<div style="color:red;">agent_relations</div>
-				</cfif>
-				<div>
-					[<a class="likeLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
-					[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
-					[<a class="likeLink" href="/info/agentActivity.cfm?agent_id=#id1#">Activity</a>]
-					[<span id="fg_#id1#" class="likeLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
-				</div>
-			</td>
-			<td valign="top">
-				<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select
-						agent_name,
-						agent_name_type,
-						agent_type,
-						agent_name_id
-					from
-						agent,
-						agent_name
-					where
-						agent.agent_id=agent_name.agent_id and				
-						agent.agent_id=#id2#
-					group by
-						agent_name,
-						agent_name_type,
-						agent_type,
-						agent_name_id
-					order by agent_name
-				</cfquery>
-				<cfquery name="p2" dbtype="query">
-					select * from two where agent_name_type='preferred'
-				</cfquery>
-				<cfquery name="np2" dbtype="query">
-					select * from two where agent_name_type!='preferred' and
-					agent_name != '#name2#'
-					order by agent_name
-				</cfquery>
-				<div>
-					#p2.agent_name#
-					<span style="font-size:small"> (#d.id2#)</span>
-				</div>
-				<div style="color:red;">
-					#d.name2#
-				</div>
-				<cfloop query="np2">
+					<div style="color:red;">
+						#d.name1#
+					</div>
+					<cfloop query="np1">
+						<div>
+							#agent_name# (#agent_name_type#)
+						</div>
+					</cfloop>
+					<cfquery name="project_agent" datasource="uam_god">
+						select 
+							count(*) c
+						from 
+							project_agent
+						where
+							project_agent.agent_name_id IN (#valuelist(one.agent_name_id)#)
+					</cfquery>
+					<cfif project_agent.c gt 0>
+						<div style="color:red;">project agent</div>
+					</cfif>
+					<cfquery name="publication_author_name" datasource="uam_god">
+						select 
+							count(*) c
+						from
+							publication_author_name
+						where
+							publication_author_name.agent_name_id IN (#valuelist(one.agent_name_id)#)
+					</cfquery>
+					<cfif publication_author_name.c gt 0>
+						<div style="color:red;">publication agent</div>
+					</cfif>
+					<cfquery name="project_sponsor" datasource="uam_god">
+						select 
+							count(*) c
+						from 
+							project_sponsor
+						where
+							 project_sponsor.agent_name_id IN (#valuelist(one.agent_name_id)#)
+					</cfquery>
+					<cfif project_sponsor.c gt 0>
+						<div style="color:red;">proj sponsor agent</div>
+					</cfif>
+					<cfquery name="electronic_address" datasource="uam_god">
+						select count(*) c from electronic_address where agent_id=#id1#
+					</cfquery>
+					<cfif electronic_address.c gt 0>
+						<div style="color:red;">electronic_address</div>
+					</cfif>
+					<cfquery name="addr" datasource="uam_god">
+						select count(*) c from addr where agent_id=#id1#
+					</cfquery>
+					<cfif addr.c gt 0>
+						<div style="color:red;">addr</div>
+					</cfif>
+					<cfquery name="shipment" datasource="uam_god">
+						select 
+							count(*) c 
+						from
+							shipment
+						where
+							PACKED_BY_AGENT_ID=#id1#		
+					</cfquery>
+					<cfif shipment.c gt 0>
+						<div style="color:red;">shipment</div>
+					</cfif>
+					<cfquery name="ship_to" datasource="uam_god">
+						select 
+							count(*) c 
+						from
+							shipment,
+							addr
+						where
+							shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
+							addr.agent_id=#id1#
+					</cfquery>
+					<cfif ship_to.c gt 0>
+						<div style="color:red;">ship_to</div>
+					</cfif>
+					<cfquery name="ship_from" datasource="uam_god">
+						select 
+							count(*) c 
+						from
+							shipment,
+							addr
+						where
+							shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
+							addr.agent_id=#id1#
+					</cfquery>
+					<cfif ship_from.c gt 0>
+						<div style="color:red;">ship_from</div>
+					</cfif>				
+					<cfquery name="agent_relations" datasource="uam_god">
+						select count(*) c 
+						from agent_relations
+						where 	
+						( 
+							agent_relations.agent_id=#id1# or 
+							RELATED_AGENT_ID=#id1#
+						) and
+						agent_relationship != 'bad duplicate of'
+					</cfquery>
+					<cfif agent_relations.c gt 0>
+						<div style="color:red;">agent_relations</div>
+					</cfif>
 					<div>
-						#agent_name# (#agent_name_type#)
+						[<a class="likeLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
+						[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
+						[<a class="likeLink" href="/info/agentActivity.cfm?agent_id=#id1#">Activity</a>]
+						[<span id="fg_#id1#" class="likeLink" onclick="flagDupAgent(#id1#,#id2#)">IsBadDupOf--></span>]
 					</div>
-				</cfloop>
-				<cfquery name="project_agent" datasource="uam_god">
-					select 
-						count(*) c
-					from 
-						project_agent
-					where
-						project_agent.agent_name_id IN (#valuelist(two.agent_name_id)#)
-				</cfquery>
-				<cfif project_agent.c gt 0>
-					<div style="color:red;">project agent</div>
-				</cfif>
-				<cfquery name="publication_author_name" datasource="uam_god">
-					select 
-						count(*) c
-					from
-						publication_author_name
-					where
-						publication_author_name.agent_name_id IN (#valuelist(two.agent_name_id)#)
-				</cfquery>
-				<cfif publication_author_name.c gt 0>
-					<div style="color:red;">publication agent</div>
-				</cfif>
-				<cfquery name="project_sponsor" datasource="uam_god">
-					select 
-						count(*) c
-					from 
-						project_sponsor
-					where
-						 project_sponsor.agent_name_id IN (#valuelist(two.agent_name_id)#)
-				</cfquery>
-				<cfif project_sponsor.c gt 0>
-					<div style="color:red;">proj sponsor agent</div>
-				</cfif>
-				<cfquery name="electronic_address" datasource="uam_god">
-					select count(*) c from electronic_address where agent_id=#id2#
-				</cfquery>
-				<cfif electronic_address.c gt 0>
-					<div style="color:red;">electronic_address</div>
-				</cfif>
-				<cfquery name="addr" datasource="uam_god">
-					select count(*) c from addr where agent_id=#id2#
-				</cfquery>
-				<cfif addr.c gt 0>
-					<div style="color:red;">addr</div>
-				</cfif>
-				<cfquery name="shipment" datasource="uam_god">
-					select 
-						count(*) c 
-					from
-						shipment
-					where
-						PACKED_BY_AGENT_ID=#id2#		
-				</cfquery>
-				<cfif shipment.c gt 0>
-					<div style="color:red;">shipment</div>
-				</cfif>
-				<cfquery name="ship_to" datasource="uam_god">
-					select 
-						count(*) c 
-					from
-						shipment,
-						addr
-					where
-						shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
-						addr.agent_id=#id2#
-				</cfquery>
-				<cfif ship_to.c gt 0>
-					<div style="color:red;">ship_to</div>
-				</cfif>
-				<cfquery name="ship_from" datasource="uam_god">
-					select 
-						count(*) c 
-					from
-						shipment,
-						addr
-					where
-						shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
-						addr.agent_id=#id2#
-				</cfquery>
-				<cfif ship_from.c gt 0>
-					<div style="color:red;">ship_from</div>
-				</cfif>
-				<cfquery name="agent_relations" datasource="uam_god">
-					select count(*) c 
-					from agent_relations
-					where 	
-					( 
-						agent_relations.agent_id=#id2# or 
-						RELATED_AGENT_ID=#id2#
-					) and
-					agent_relationship != 'bad duplicate of'
-				</cfquery>
-				<cfif agent_relations.c gt 0>
-					<div style="color:red;">agent_relations</div>
-				</cfif>
-				<div>
-					[<a class="likeLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
-					[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
-					[<a class="likeLink" href="/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
-					[<span id="fg_#id2#" class="likeLink" onclick="flagDupAgent(#id2#,#id1#)"><---IsBadDupOf</span>]	
-				</div>
-			</td>
-		</tr>
+				</td>
+				<td valign="top">
+					<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select
+							agent_name,
+							agent_name_type,
+							agent_type,
+							agent_name_id
+						from
+							agent,
+							agent_name
+						where
+							agent.agent_id=agent_name.agent_id and				
+							agent.agent_id=#id2#
+						group by
+							agent_name,
+							agent_name_type,
+							agent_type,
+							agent_name_id
+						order by agent_name
+					</cfquery>
+					<cfquery name="p2" dbtype="query">
+						select * from two where agent_name_type='preferred'
+					</cfquery>
+					<cfquery name="np2" dbtype="query">
+						select * from two where agent_name_type!='preferred' and
+						agent_name != '#name2#'
+						order by agent_name
+					</cfquery>
+					<div>
+						#p2.agent_name#
+						<span style="font-size:small"> (#d.id2#)</span>
+					</div>
+					<div style="color:red;">
+						#d.name2#
+					</div>
+					<cfloop query="np2">
+						<div>
+							#agent_name# (#agent_name_type#)
+						</div>
+					</cfloop>
+					<cfquery name="project_agent" datasource="uam_god">
+						select 
+							count(*) c
+						from 
+							project_agent
+						where
+							project_agent.agent_name_id IN (#valuelist(two.agent_name_id)#)
+					</cfquery>
+					<cfif project_agent.c gt 0>
+						<div style="color:red;">project agent</div>
+					</cfif>
+					<cfquery name="publication_author_name" datasource="uam_god">
+						select 
+							count(*) c
+						from
+							publication_author_name
+						where
+							publication_author_name.agent_name_id IN (#valuelist(two.agent_name_id)#)
+					</cfquery>
+					<cfif publication_author_name.c gt 0>
+						<div style="color:red;">publication agent</div>
+					</cfif>
+					<cfquery name="project_sponsor" datasource="uam_god">
+						select 
+							count(*) c
+						from 
+							project_sponsor
+						where
+							 project_sponsor.agent_name_id IN (#valuelist(two.agent_name_id)#)
+					</cfquery>
+					<cfif project_sponsor.c gt 0>
+						<div style="color:red;">proj sponsor agent</div>
+					</cfif>
+					<cfquery name="electronic_address" datasource="uam_god">
+						select count(*) c from electronic_address where agent_id=#id2#
+					</cfquery>
+					<cfif electronic_address.c gt 0>
+						<div style="color:red;">electronic_address</div>
+					</cfif>
+					<cfquery name="addr" datasource="uam_god">
+						select count(*) c from addr where agent_id=#id2#
+					</cfquery>
+					<cfif addr.c gt 0>
+						<div style="color:red;">addr</div>
+					</cfif>
+					<cfquery name="shipment" datasource="uam_god">
+						select 
+							count(*) c 
+						from
+							shipment
+						where
+							PACKED_BY_AGENT_ID=#id2#		
+					</cfquery>
+					<cfif shipment.c gt 0>
+						<div style="color:red;">shipment</div>
+					</cfif>
+					<cfquery name="ship_to" datasource="uam_god">
+						select 
+							count(*) c 
+						from
+							shipment,
+							addr
+						where
+							shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
+							addr.agent_id=#id2#
+					</cfquery>
+					<cfif ship_to.c gt 0>
+						<div style="color:red;">ship_to</div>
+					</cfif>
+					<cfquery name="ship_from" datasource="uam_god">
+						select 
+							count(*) c 
+						from
+							shipment,
+							addr
+						where
+							shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
+							addr.agent_id=#id2#
+					</cfquery>
+					<cfif ship_from.c gt 0>
+						<div style="color:red;">ship_from</div>
+					</cfif>
+					<cfquery name="agent_relations" datasource="uam_god">
+						select count(*) c 
+						from agent_relations
+						where 	
+						( 
+							agent_relations.agent_id=#id2# or 
+							RELATED_AGENT_ID=#id2#
+						) and
+						agent_relationship != 'bad duplicate of'
+					</cfquery>
+					<cfif agent_relations.c gt 0>
+						<div style="color:red;">agent_relations</div>
+					</cfif>
+					<div>
+						[<a class="likeLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
+						[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
+						[<a class="likeLink" href="/info/agentActivity.cfm?agent_id=#id2#">Activity</a>]
+						[<span id="fg_#id2#" class="likeLink" onclick="flagDupAgent(#id2#,#id1#)"><---IsBadDupOf</span>]	
+					</div>
+				</td>
+			</tr>
+		</cfif>
 	</cfloop>
 	</table>
 	
