@@ -506,7 +506,7 @@ function addLink (n) {
 function addAgent (n) {
 	var lid = jQuery('#authTab tr:last').attr("id");
 	var lastID=lid.replace('authortr','');
-	if(lastID==NaN){
+	if(lastID==''){
 		alert('nan');
 	}
 	alert(lastID);
