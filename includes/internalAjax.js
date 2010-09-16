@@ -506,6 +506,10 @@ function addLink (n) {
 function addAgent (n) {
 	var lid = jQuery('#authTab tr:last').attr("id");
 	var lastID=lid.replace('authortr','');
+	if(lastID==NaN){
+		alert('nan');
+	}
+	alert(lastID);
 	var thisID=parseInt(lastID) + 1;
 	var newRow='<tr id="authortr' + thisID + '">';
 	newRow+='<td>';
