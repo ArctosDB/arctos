@@ -507,7 +507,7 @@ function addAgent (n) {
 	var lid = jQuery('#authTab tr:last').attr("id");
 	var lastID=lid.replace('authortr','');
 	if(lastID==''){
-		alert('nan');
+		lastID=0;
 	}
 	alert(lastID);
 	var thisID=parseInt(lastID) + 1;
