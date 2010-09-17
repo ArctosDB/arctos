@@ -374,52 +374,63 @@ Include column headings, spelled exactly as below.
 <!------------------------------------------------------->
 <cfif action is "saveDupChange">
 	<cfoutput>
-	<cfloop from ="1" to="#numberOfRecords#" index="i">
-		<cfset key = evaluate("key_" & i)>
-		<cfset valid_catalog_term_fg = evaluate("valid_catalog_term_fg_" & key)>
-		<cfset source_authority = evaluate("source_authority_" & key)>
-		<cfset author_text = evaluate("author_text_" & key)>
-		<cfset tribe = evaluate("tribe_" & key)>
-		<cfset infraspecific_rank = evaluate("infraspecific_rank_" & key)>
-		<cfset phylclass = evaluate("phylclass_" & key)>
-		<cfset phylorder = evaluate("phylorder_" & key)>
-		<cfset suborder = evaluate("suborder_" & key)>
-		<cfset family = evaluate("family_" & key)>
-		<cfset subfamily = evaluate("subfamily_" & key)>
-		<cfset genus = evaluate("genus_" & key)>
-		<cfset subgenus = evaluate("subgenus_" & key)>
-		<cfset species = evaluate("species_" & key)>
-		<cfset subspecies = evaluate("subspecies_" & key)>
-		<cfset phylum = evaluate("phylum_" & key)>
-		<cfset taxon_remarks = evaluate("taxon_remarks_" & key)>
-		<cfset kingdom = evaluate("kingdom_" & key)>
-		<cfset nomenclatural_code = evaluate("nomenclatural_code_" & key)>
-		<cfset scientific_name = evaluate("scientific_name_" & key)>
-		<cfset infraspecific_author = evaluate("infraspecific_author_" & key)>
-		
-		<cfset sql="UPDATE taxonomy SET 
-			valid_catalog_term_fg=#valid_catalog_term_fg#,
-			source_authority = '#escapeQuotes(source_authority)#',
-			author_text='#escapeQuotes(author_text)#',
-			tribe = '#tribe#',
-			infraspecific_rank = '#infraspecific_rank#',
-			phylclass = '#phylclass#',
-			phylorder = '#phylorder#',
-			suborder = '#suborder#',
-			family = '#family#',
-			subfamily = '#subfamily#',
-			genus = '#genus#',
-			subgenus = '#subgenus#',
-			species = '#species#',
-			subspecies = '#subspecies#',
-			phylum = '#phylum#',
-			taxon_remarks = '#escapeQuotes(taxon_remarks)#',
-			kingdom = '#kingdom#',
-			nomenclatural_code = '#nomenclatural_code#',
-			infraspecific_author = '#escapeQuotes(infraspecific_author)#'
-		WHERE scientific_name='#scientific_name#'">
-		<br>#sql#
-	</cfloop>
+		<cftransaction>
+			<cfloop from ="1" to="#numberOfRecords#" index="i">
+				<cfset key = evaluate("key_" & i)>
+				<cfset valid_catalog_term_fg = evaluate("valid_catalog_term_fg_" & key)>
+				<cfset source_authority = evaluate("source_authority_" & key)>
+				<cfset author_text = evaluate("author_text_" & key)>
+				<cfset tribe = evaluate("tribe_" & key)>
+				<cfset infraspecific_rank = evaluate("infraspecific_rank_" & key)>
+				<cfset phylclass = evaluate("phylclass_" & key)>
+				<cfset phylorder = evaluate("phylorder_" & key)>
+				<cfset suborder = evaluate("suborder_" & key)>
+				<cfset family = evaluate("family_" & key)>
+				<cfset subfamily = evaluate("subfamily_" & key)>
+				<cfset genus = evaluate("genus_" & key)>
+				<cfset subgenus = evaluate("subgenus_" & key)>
+				<cfset species = evaluate("species_" & key)>
+				<cfset subspecies = evaluate("subspecies_" & key)>
+				<cfset phylum = evaluate("phylum_" & key)>
+				<cfset taxon_remarks = evaluate("taxon_remarks_" & key)>
+				<cfset kingdom = evaluate("kingdom_" & key)>
+				<cfset nomenclatural_code = evaluate("nomenclatural_code_" & key)>
+				<cfset scientific_name = evaluate("scientific_name_" & key)>
+				<cfset infraspecific_author = evaluate("infraspecific_author_" & key)>
+				
+				<cfset sql="UPDATE taxonomy SET 
+					valid_catalog_term_fg=#valid_catalog_term_fg#,
+					source_authority = '#escapeQuotes(source_authority)#',
+					author_text='#escapeQuotes(author_text)#',
+					tribe = '#tribe#',
+					infraspecific_rank = '#infraspecific_rank#',
+					phylclass = '#phylclass#',
+					phylorder = '#phylorder#',
+					suborder = '#suborder#',
+					family = '#family#',
+					subfamily = '#subfamily#',
+					genus = '#genus#',
+					subgenus = '#subgenus#',
+					species = '#species#',
+					subspecies = '#subspecies#',
+					phylum = '#phylum#',
+					taxon_remarks = '#escapeQuotes(taxon_remarks)#',
+					kingdom = '#kingdom#',
+					nomenclatural_code = '#nomenclatural_code#',
+					infraspecific_author = '#escapeQuotes(infraspecific_author)#'
+				WHERE scientific_name='#scientific_name#'">
+				<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
+					#preserveSingleQuotes(sql)#
+				</cfquery>
+				<br>#sql#
+				<br><a href="/name/#scientific_name#">updated....</a>
+				<hr>
+				
+				
+			</cfloop>
+		</cftransaction>
+		If there are no errors above, you've updated #numberOfRecords# taxa records.
+		<a href="BulkloadTaxonomy.cfm?action=fixDups">Fix More Dups</a>
 	</cfoutput>
 	<!----
 	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
