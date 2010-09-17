@@ -509,7 +509,6 @@ function addAgent (n) {
 	if(lastID==''){
 		lastID=0;
 	}
-	alert(lastID);
 	var thisID=parseInt(lastID) + 1;
 	var newRow='<tr id="authortr' + thisID + '">';
 	newRow+='<td>';

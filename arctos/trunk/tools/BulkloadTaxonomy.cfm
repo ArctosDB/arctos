@@ -337,8 +337,10 @@ Include column headings, spelled exactly as below.
 						<cfif #newTerm# is not #existTerm#>
 						
 							<select name="#i#" size="1">
-								<option selected="selected" value="#newTerm#">#newTerm# (new)</option>
-								<option value="#existTerm#">#existTerm# (old)</option>
+								<option 
+									<cfif len(newTerm) gt 0>selected="selected" </cfif>	
+											value="#newTerm#">#newTerm# (new)</option>
+								<option <cfif len(existTerm) gt 0>selected="selected" </cfif> value="#existTerm#">#existTerm# (old)</option>
 							</select>
 						<cfelse>
 							#existTerm#
