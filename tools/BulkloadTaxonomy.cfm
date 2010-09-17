@@ -318,7 +318,7 @@ Include column headings, spelled exactly as below.
 		<li>Cells where new term=old term contain text</li>
 		<li>Cells where new term and old term are NULL are empty</li>
 		<li>Cells where either new term or old term are not null contain a dropdown</li>
-		<li>Cells where both new term and old term are not null have a <span style="border:2px solid red;">red border</span>. Pay special attention to them. Really. We mean it.</li>
+		<li>Cells where new term conflicts with old term have a <span style="border:2px solid red;">red border</span>. Pay special attention to them. Really. We mean it.</li>
 	</ul>
 		
 	
