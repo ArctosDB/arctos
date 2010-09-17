@@ -291,6 +291,9 @@ Include column headings, spelled exactly as below.
 		select * from cf_temp_taxonomy where status='already exists'
 	</cfquery>
 	Found #data.recordcount# duplicates.
+	<cfif data.recordcount gt 100>
+		This form will only deal with 100 records at a time. Update these and return here for the next 100.
+	</cfif>
 	<br>
 	The table below contains records which have existing matching scientific names.
 	<br>You must choose to overwrite the existing data with the data you just loaded
@@ -307,10 +310,10 @@ Include column headings, spelled exactly as below.
 	<br>
 	<br>Clicking "save" will:
 	<ul>
-		<li>Update Arctos taxonomy</li>
-		<li>Delete the temp record</li>
+		<li>Update Arctos taxonomy for all rows in the table below</li>
+		<li>Delete the temp records from the table below</li>
 	</ul>
-	
+	Table format is:
 	<ul>
 		<li>Cells where new term=old term contain text</li>
 		<li>Cells where new term and old term are NULL are empty</li>
@@ -334,34 +337,36 @@ Include column headings, spelled exactly as below.
 			<input type="hidden" name="action" value="saveDupChange">
 			<cfset n=1>
 		<cfloop query="data">
-			<input type='hidden' name="scientific_name_#key#" value="#scientific_name#">
-			<input type="hidden" name="key_#n#" value="#key#">
-			<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select * from taxonomy where scientific_name='#scientific_name#'
-			</cfquery>
-				<tr>
-				<cfloop list="#colList#" index="i">
-					<cfset newTerm = evaluate("data." & i)>
-					<cfset existTerm = evaluate("current." & i)>
-					
-					<td <cfif len(newTerm) gt 0 and len(existTerm) gt 0 and newTerm is not existTerm> style="border:2px solid red;"</cfif>>
-						<cfif #newTerm# is not #existTerm#>
+			<cfif n lt 100>
+				<input type='hidden' name="scientific_name_#key#" value="#scientific_name#">
+				<input type="hidden" name="key_#n#" value="#key#">
+				<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select * from taxonomy where scientific_name='#scientific_name#'
+				</cfquery>
+					<tr>
+					<cfloop list="#colList#" index="i">
+						<cfset newTerm = evaluate("data." & i)>
+						<cfset existTerm = evaluate("current." & i)>
 						
-							<select name="#i#_#key#" size="1">
-								<option <cfif len(existTerm) gt 0>selected="selected" </cfif> value="#existTerm#">#existTerm# (old)</option>
-								<option <cfif len(newTerm) gt 0>selected="selected" </cfif>	value="#newTerm#">#newTerm# (new)</option>
-							</select>
-						<cfelse>
-							#existTerm#
-							<input type="hidden" name="#i#_#key#" value="#existTerm#">
-						</cfif>
+						<td <cfif len(newTerm) gt 0 and len(existTerm) gt 0 and newTerm is not existTerm> style="border:2px solid red;"</cfif>>
+							<cfif #newTerm# is not #existTerm#>
+							
+								<select name="#i#_#key#" size="1">
+									<option <cfif len(existTerm) gt 0>selected="selected" </cfif> value="#existTerm#">#existTerm# (old)</option>
+									<option <cfif len(newTerm) gt 0>selected="selected" </cfif>	value="#newTerm#">#newTerm# (new)</option>
+								</select>
+							<cfelse>
+								#existTerm#
+								<input type="hidden" name="#i#_#key#" value="#existTerm#">
+							</cfif>
+						</td>
+					</cfloop>
+					<td>
+						
 					</td>
-				</cfloop>
-				<td>
-					
-				</td>
-			</tr>
-			<cfset n=n+1>
+				</tr>
+				<cfset n=n+1>
+			</cfif>
 		</cfloop>
 		</table>
 		<cfset nr=n-1>
@@ -422,6 +427,11 @@ Include column headings, spelled exactly as below.
 				<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
 					#preserveSingleQuotes(sql)#
 				</cfquery>
+				<!---
+				<cfquery name="killTemp" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
+					delete from cf_temp_taxonomy WHERE scientific_name='#scientific_name#'
+				</cfquery>
+				--->
 				<br>#sql#
 				<br><a href="/name/#scientific_name#">#scientific_name#</a> updated
 				<hr>
