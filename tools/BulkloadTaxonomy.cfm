@@ -332,7 +332,7 @@ Include column headings, spelled exactly as below.
 		</tr>
 		<form name="d" method="post" action="BulkloadTaxonomy.cfm">
 			<input type="hidden" name="action" value="saveDupChange">
-			<cfset i=1>
+			<cfset n=1>
 		<cfloop query="data">
 			<input type='hidden' name="scientific_name_#key#" value="#scientific_name#">
 			<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -360,10 +360,10 @@ Include column headings, spelled exactly as below.
 					
 				</td>
 			</tr>
-			<cfset i=i+1>
+			<cfset n=n+1>
 		</cfloop>
 		</table>
-		<input type="hidden" name="numberOfRecords" value="#i#">
+		<input type="hidden" name="numberOfRecords" value="#n#">
 		<input type="submit" value="Update Taxonomy" class="savBtn">	
 		</form>
 	</form>
