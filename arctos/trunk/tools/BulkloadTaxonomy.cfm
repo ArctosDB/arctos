@@ -335,7 +335,7 @@ Include column headings, spelled exactly as below.
 			<cfset n=1>
 		<cfloop query="data">
 			<input type='hidden' name="scientific_name_#key#" value="#scientific_name#">
-			<input type="hidden" name="key_#key#" value="#key#">
+			<input type="hidden" name="key_#n#" value="#key#">
 			<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from taxonomy where scientific_name='#scientific_name#'
 			</cfquery>
