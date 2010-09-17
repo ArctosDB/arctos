@@ -302,7 +302,7 @@ Include column headings, spelled exactly as below.
 	<br>NULLS ("(new)" or "(old)" in the dropdown) will 
 	<blockquote>
 		update taxonomy set {term} = NULL
-	</blockquote>
+	</blockquote>http://arctos-test.arctos.database.museum/tools/BulkloadTaxonomy.cfm?action=validate
 	That's probably not ever a good idea.
 	<br>
 	Many taxonomy tools exist. Not all of them are available to all users.
@@ -337,7 +337,7 @@ Include column headings, spelled exactly as below.
 			<input type="hidden" name="action" value="saveDupChange">
 			<cfset n=1>
 		<cfloop query="data">
-			<cfif n lt 100>
+			<cfif n lte 100>
 				<input type='hidden' name="scientific_name_#key#" value="#scientific_name#">
 				<input type="hidden" name="key_#n#" value="#key#">
 				<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
