@@ -427,11 +427,9 @@ Include column headings, spelled exactly as below.
 				<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
 					#preserveSingleQuotes(sql)#
 				</cfquery>
-				<!---
 				<cfquery name="killTemp" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
 					delete from cf_temp_taxonomy WHERE scientific_name='#scientific_name#'
 				</cfquery>
-				--->
 				<br>#sql#
 				<br><a href="/name/#scientific_name#">#scientific_name#</a> updated
 				<hr>
