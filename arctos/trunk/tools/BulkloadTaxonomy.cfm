@@ -393,6 +393,7 @@ Include column headings, spelled exactly as below.
 		<cfset kingdom = evaluate("kingdom_" & key)>
 		<cfset nomenclatural_code = evaluate("nomenclatural_code_" & key)>
 		<cfset scientific_name = evaluate("scientific_name_" & key)>
+		<cfset infraspecific_author = evaluate("infraspecific_author_" & key)>
 		
 		<cfset sql="UPDATE taxonomy SET 
 			valid_catalog_term_fg=#valid_catalog_term_fg#,
