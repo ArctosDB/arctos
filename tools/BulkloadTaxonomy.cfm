@@ -423,7 +423,7 @@ Include column headings, spelled exactly as below.
 					#preserveSingleQuotes(sql)#
 				</cfquery>
 				<br>#sql#
-				<br><a href="/name/#scientific_name#">updated....</a>
+				<br><a href="/name/#scientific_name#">#scientific_name#</a> updated
 				<hr>
 				
 				
