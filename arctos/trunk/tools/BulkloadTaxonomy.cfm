@@ -310,6 +310,16 @@ Include column headings, spelled exactly as below.
 		<li>Update Arctos taxonomy</li>
 		<li>Delete the temp record</li>
 	</ul>
+	
+	<ul>
+		<li>Cells where new term=old term contain text</li>
+		<li>Cells where new term and old term are NULL are empty</li>
+		<li>Cells where either new term or old term are not null contain a dropdown</li>
+		<li>Cells where both new term and old term are not null have a red border</li>
+	</ul>
+		
+	
+	</p>
 	Re-uploading your file without cleaning up things you fix here will re-load those records and lead you back to this form.
 	<p>
 	<cfset colList = "PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TRIBE,INFRASPECIFIC_RANK,TAXON_REMARKS,PHYLUM,KINGDOM,NOMENCLATURAL_CODE,INFRASPECIFIC_AUTHOR">
@@ -337,10 +347,10 @@ Include column headings, spelled exactly as below.
 						<cfif #newTerm# is not #existTerm#>
 						
 							<select name="#i#" size="1">
-								<option 
-									<cfif len(newTerm) gt 0>selected="selected" </cfif>	
-											value="#newTerm#">#newTerm# (new)</option>
 								<option <cfif len(existTerm) gt 0>selected="selected" </cfif> value="#existTerm#">#existTerm# (old)</option>
+								<option 
+								<cfif len(newTerm) gt 0>selected="selected" </cfif>	
+											value="#newTerm#">#newTerm# (new)</option>
 							</select>
 						<cfelse>
 							#existTerm#
