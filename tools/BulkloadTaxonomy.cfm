@@ -364,7 +364,8 @@ Include column headings, spelled exactly as below.
 			<cfset n=n+1>
 		</cfloop>
 		</table>
-		<input type="hidden" name="numberOfRecords" value="#n#">
+		<cfset nr=n-1>
+		<input type="hidden" name="numberOfRecords" value="#nr#">
 		<input type="submit" value="Update Taxonomy" class="savBtn">	
 		</form>
 	</form>
@@ -372,6 +373,7 @@ Include column headings, spelled exactly as below.
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "saveDupChange">
+	<cfoutput>
 	<cfloop from ="1" to="#numberOfRecords#" index="i">
 		<cfset key = evaluate("key_" & i)>
 		<cfset valid_catalog_term_fg = evaluate("valid_catalog_term_fg_" & key)>
@@ -418,6 +420,7 @@ Include column headings, spelled exactly as below.
 		WHERE scientific_name='#scientific_name#'">
 		<br>#sql#
 	</cfloop>
+	</cfoutput>
 	<!----
 	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
 	UPDATE taxonomy SET 
