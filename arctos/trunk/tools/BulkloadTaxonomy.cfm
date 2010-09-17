@@ -373,25 +373,26 @@ Include column headings, spelled exactly as below.
 <cfif #action# is "saveDupChange">
 	<cfdump var=#form#>
 	<cfloop from ="1" to="#numberOfRecords#" index="i">
-		<cfset valid_catalog_term_fg = evaluate("valid_catalog_term_fg" & i)>
-		<cfset source_authority = evaluate("source_authority" & i)>
-		<cfset author_text = evaluate("author_text" & i)>
-		<cfset tribe = evaluate("tribe" & i)>
-		<cfset infraspecific_rank = evaluate("infraspecific_rank" & i)>
-		<cfset phylclass = evaluate("phylclass" & i)>
-		<cfset phylorder = evaluate("phylorder" & i)>
-		<cfset suborder = evaluate("suborder" & i)>
-		<cfset family = evaluate("family" & i)>
-		<cfset subfamily = evaluate("subfamily" & i)>
-		<cfset genus = evaluate("genus" & i)>
-		<cfset subgenus = evaluate("subgenus" & i)>
-		<cfset species = evaluate("species" & i)>
-		<cfset subspecies = evaluate("subspecies" & i)>
-		<cfset phylum = evaluate("phylum" & i)>
-		<cfset taxon_remarks = evaluate("taxon_remarks" & i)>
-		<cfset kingdom = evaluate("kingdom" & i)>
-		<cfset nomenclatural_code = evaluate("nomenclatural_code" & i)>
-		<cfset scientific_name = evaluate("scientific_name" & i)>
+		<cfset key = evaluate("key_" & i)>
+		<cfset valid_catalog_term_fg = evaluate("valid_catalog_term_fg_" & key)>
+		<cfset source_authority = evaluate("source_authority_" & key)>
+		<cfset author_text = evaluate("author_text_" & key)>
+		<cfset tribe = evaluate("tribe_" & key)>
+		<cfset infraspecific_rank = evaluate("infraspecific_rank_" & key)>
+		<cfset phylclass = evaluate("phylclass_" & key)>
+		<cfset phylorder = evaluate("phylorder_" & key)>
+		<cfset suborder = evaluate("suborder_" & key)>
+		<cfset family = evaluate("family_" & key)>
+		<cfset subfamily = evaluate("subfamily_" & key)>
+		<cfset genus = evaluate("genus_" & key)>
+		<cfset subgenus = evaluate("subgenus_" & key)>
+		<cfset species = evaluate("species_" & key)>
+		<cfset subspecies = evaluate("subspecies_" & key)>
+		<cfset phylum = evaluate("phylum_" & key)>
+		<cfset taxon_remarks = evaluate("taxon_remarks_" & key)>
+		<cfset kingdom = evaluate("kingdom_" & key)>
+		<cfset nomenclatural_code = evaluate("nomenclatural_code_" & key)>
+		<cfset scientific_name = evaluate("scientific_name_" & key)>
 		
 		<cfset sql="UPDATE taxonomy SET 
 			valid_catalog_term_fg=#valid_catalog_term_fg#,
