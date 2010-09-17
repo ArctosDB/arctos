@@ -642,7 +642,7 @@
 						</cfif>
 					</cfif>
 					<cfif (one.verbatim_date is one.began_date) AND (one.verbatim_date is one.ended_date)>
-						<cfset thisDate = #one.began_date#>
+						<cfset thisDate = #one.verbatim_date#>
 					<cfelseif (
 						(one.verbatim_date is not one.began_date) OR
 			 			(one.verbatim_date is not one.ended_date)
