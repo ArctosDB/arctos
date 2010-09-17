@@ -330,11 +330,10 @@ Include column headings, spelled exactly as below.
 				<td>#i#</td>
 			</cfloop>
 		</tr>
+		<form name="d" method="post" action="BulkloadTaxonomy.cfm">
+			<input type="hidden" name="action" value="saveDupChange">
 		<cfloop query="data">
-				<form name="d)#key#" method="post" action="BulkloadTaxonomy.cfm">
-					<input type="hidden" name="action" value="saveDupChange">
-					<input type='hidden' name="scientific_name"
-							 value="#scientific_name#">
+			<input type='hidden' name="scientific_name_#key#" value="#scientific_name#">
 			<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from taxonomy where scientific_name='#scientific_name#'
 			</cfquery>
@@ -346,31 +345,31 @@ Include column headings, spelled exactly as below.
 					<td <cfif len(newTerm) gt 0 and len(existTerm) gt 0 and newTerm is not existTerm> style="border:2px solid red;"</cfif>>
 						<cfif #newTerm# is not #existTerm#>
 						
-							<select name="#i#" size="1">
+							<select name="#i#_#key#" size="1">
 								<option <cfif len(existTerm) gt 0>selected="selected" </cfif> value="#existTerm#">#existTerm# (old)</option>
 								<option <cfif len(newTerm) gt 0>selected="selected" </cfif>	value="#newTerm#">#newTerm# (new)</option>
 							</select>
 						<cfelse>
 							#existTerm#
-							<input type="hidden" name="#i#" value="#existTerm#">
+							<input type="hidden" name="#i#_#key#" value="#existTerm#">
 						</cfif>
 					</td>
 				</cfloop>
 				<td>
-					<input type="submit" value="Update Taxonomy" class="savBtn"
-   					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
-		</form>
+					
 				</td>
 			</tr>
 		</cfloop>
 		</table>
-		
+		<input type="submit" value="Update Taxonomy" class="savBtn">	
+		</form>
 	</form>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif #action# is "saveDupChange">
 	<cfdump var=#form#>
+	<!----
 	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
 	UPDATE taxonomy SET 
 		valid_catalog_term_fg=#valid_catalog_term_fg#
@@ -466,6 +465,7 @@ Include column headings, spelled exactly as below.
 		delete from cf_temp_taxonomy WHERE scientific_name='#scientific_name#'
 	</cfquery>
 	<cflocation url="BulkloadTaxonomy.cfm?action=fixDups" addtoken="false">
+	---->
 </cfif>
 
 <!------------------------------------------------------->
