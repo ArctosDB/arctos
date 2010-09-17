@@ -333,7 +333,7 @@ Include column headings, spelled exactly as below.
 					<cfset newTerm = evaluate("data." & i)>
 					<cfset existTerm = evaluate("current." & i)>
 					
-					<td <cfif len(newTerm) gt 0 and len(existTerm) gt 0> style="border:2px solid red;"</cfif>>
+					<td <cfif len(newTerm) gt 0 and len(existTerm) gt 0 and newTerm is not existTerm> style="border:2px solid red;"</cfif>>
 						<cfif #newTerm# is not #existTerm#>
 						
 							<select name="#i#" size="1">
