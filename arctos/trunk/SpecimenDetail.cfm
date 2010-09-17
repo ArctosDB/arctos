@@ -139,7 +139,7 @@
 				<cfif encumbrance_action does not contain "year collected" OR
 					(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
 			        <cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
-						<cfset thisDate = began_date>
+						<cfset thisDate = verbatim_date>
 					<cfelseif (
 							(verbatim_date is not began_date) OR
 					 		(verbatim_date is not ended_date)
