@@ -332,6 +332,7 @@ Include column headings, spelled exactly as below.
 		</tr>
 		<form name="d" method="post" action="BulkloadTaxonomy.cfm">
 			<input type="hidden" name="action" value="saveDupChange">
+			<cfset i=1>
 		<cfloop query="data">
 			<input type='hidden' name="scientific_name_#key#" value="#scientific_name#">
 			<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -359,8 +360,10 @@ Include column headings, spelled exactly as below.
 					
 				</td>
 			</tr>
+			<cfset i=i+1>
 		</cfloop>
 		</table>
+		<input type="hidden" name="numberOfRecords" value="#i#">
 		<input type="submit" value="Update Taxonomy" class="savBtn">	
 		</form>
 	</form>
@@ -369,6 +372,50 @@ Include column headings, spelled exactly as below.
 <!------------------------------------------------------->
 <cfif #action# is "saveDupChange">
 	<cfdump var=#form#>
+	<cfloop from ="1" to="#numberOfRecords#" index="i">
+		<cfset valid_catalog_term_fg = evaluate("valid_catalog_term_fg" & i)>
+		<cfset source_authority = evaluate("source_authority" & i)>
+		<cfset author_text = evaluate("author_text" & i)>
+		<cfset tribe = evaluate("tribe" & i)>
+		<cfset infraspecific_rank = evaluate("infraspecific_rank" & i)>
+		<cfset phylclass = evaluate("phylclass" & i)>
+		<cfset phylorder = evaluate("phylorder" & i)>
+		<cfset suborder = evaluate("suborder" & i)>
+		<cfset family = evaluate("family" & i)>
+		<cfset subfamily = evaluate("subfamily" & i)>
+		<cfset genus = evaluate("genus" & i)>
+		<cfset subgenus = evaluate("subgenus" & i)>
+		<cfset species = evaluate("species" & i)>
+		<cfset subspecies = evaluate("subspecies" & i)>
+		<cfset phylum = evaluate("phylum" & i)>
+		<cfset taxon_remarks = evaluate("taxon_remarks" & i)>
+		<cfset kingdom = evaluate("kingdom" & i)>
+		<cfset nomenclatural_code = evaluate("nomenclatural_code" & i)>
+		<cfset scientific_name = evaluate("scientific_name" & i)>
+		
+		<cfset sql="UPDATE taxonomy SET 
+			valid_catalog_term_fg=#valid_catalog_term_fg#,
+			source_authority = '#escapeQuotes(source_authority)#',
+			author_text='#escapeQuotes(author_text)#',
+			tribe = '#tribe#',
+			infraspecific_rank = '#infraspecific_rank#',
+			phylclass = '#phylclass#',
+			phylorder = '#phylorder#',
+			suborder = '#suborder#',
+			family = '#family#',
+			subfamily = '#subfamily#',
+			genus = '#genus#',
+			subgenus = '#subgenus#',
+			species = '#species#',
+			subspecies = '#subspecies#',
+			phylum = '#phylum#',
+			taxon_remarks = '#escapeQuotes(taxon_remarks)#',
+			kingdom = '#kingdom#',
+			nomenclatural_code = '#nomenclatural_code#',
+			infraspecific_author = '#escapeQuotes(infraspecific_author)#'
+		WHERE scientific_name='#scientific_name#'">
+		<br>#sql#
+	</cfloop>
 	<!----
 	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
 	UPDATE taxonomy SET 
