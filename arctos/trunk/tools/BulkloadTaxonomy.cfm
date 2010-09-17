@@ -310,9 +310,14 @@ Include column headings, spelled exactly as below.
 	<br>
 	<br>Clicking "save" will:
 	<ul>
-		<li>Update Arctos taxonomy for all rows in the table below</li>
+		<li>Update Arctos taxonomy <strong><em>for all rows</em></strong> in the table below</li>
 		<li>Delete the temp records from the table below</li>
 	</ul>
+	
+	<p>
+		Here it is again: Once you push the save button, everything in the table below is pushed to taxonomy and 
+		deleted from here. Don't push the button unless you're really sure all the data below are correct.
+	</p>
 	Table format is:
 	<ul>
 		<li>Cells where new term=old term contain text</li>
