@@ -305,6 +305,12 @@
 			</cfloop>
 		</select>
 		<input type="text" name="loan_number" id="loan_number" value="#loanDetails.loan_number#" class="reqdClr">
+		<cfquery name="inhouse" dbtype="query">
+			select count(distinct(agent_id)) from loanAgents where agent_type='in-house contact'
+		</cfquery>
+		<cfquery name="outside" dbtype="query">
+			select count(distinct(agent_id)) from loanAgents where agent_type='outside contact'
+		</cfquery>
 		<table id="loanAgents" border>
 			<tr>
 				<th>Agent Name <span class="likeLink" onclick="addTransAgent()">Add Row</span></th>
@@ -312,7 +318,15 @@
 				<th>Delete?</th>
 				<th>CloneAs</th>
 				<th></th>
-				<td colspan="99">stuff about printing woot</td>
+				<td rowspan="99">
+					<cfif inhouse.c is 1 and outside.c is 1>
+						<span style="color:green;font-size:small">OK to print</span>
+					<cfelse>
+						<span style="color:red;font-size:small">
+							One "in-house contact" and one "outside contact" are required to print loan forms.
+						</span>
+					</cfif>
+				</td>
 			</tr>
 			<cfset i=1>
 			<cfloop query="loanAgents">
