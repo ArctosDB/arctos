@@ -320,12 +320,12 @@
 								</select>
 							</td>
 							<td>			
-								<input type="text" name="agent_name" id="agent_name"
+								<input type="text" name="agent_name" id="agent_name_#i#"
 									value="#AGENTS.agent_name#" 
 									class="reqdClr" 
-									onchange="findAgentName('new_name_id','agent_name',this.value); return false;"
+									onchange="findAgentName('new_name_id_#i#',this.id,this.value); return false;"
 									onKeyPress="return noenter(event);">
-								<input type="hidden" name="new_name_id" id="new_name_id">
+								<input type="hidden" name="new_name_id" id="new_name_id_#i#">
 							</td>
 							<td>
 								<cfset thisRole = agents.project_agent_role>
