@@ -306,10 +306,10 @@
 		</select>
 		<input type="text" name="loan_number" id="loan_number" value="#loanDetails.loan_number#" class="reqdClr">
 		<cfquery name="inhouse" dbtype="query">
-			select count(distinct(agent_id)) from loanAgents where trans_agent_role='in-house contact'
+			select count(distinct(agent_id)) c from loanAgents where trans_agent_role='in-house contact'
 		</cfquery>
 		<cfquery name="outside" dbtype="query">
-			select count(distinct(agent_id)) from loanAgents where trans_agent_role='outside contact'
+			select count(distinct(agent_id)) c from loanAgents where trans_agent_role='outside contact'
 		</cfquery>
 		<table id="loanAgents" border>
 			<tr>
