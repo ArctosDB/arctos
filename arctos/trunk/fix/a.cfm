@@ -65,6 +65,7 @@ group by accn_number
 		<cfif len(p) gt 0>
 			#one.accn_number# errors: #p#
 		<cfelse>
+			trying #one.accn_number#
 			<cftransaction>
 				<cftry>
 					<cfquery name="upCI" datasource="uam_god">
@@ -79,8 +80,9 @@ group by accn_number
 					<cfquery name="delT" datasource="uam_god">
 						delete from trans where transaction_id=#one.transaction_id#
 					</cfquery>
-					#one.accn_number#: fixed
+					.... seems to be fixed
 				<cfcatch>
+					.... failed: rollback + dump
 					<cftransaction action="rollback" />
 					<cfdump var=#cfcatch#>
 				</cfcatch>
