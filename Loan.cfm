@@ -312,6 +312,7 @@
 				<th>Delete?</th>
 				<th>CloneAs</th>
 				<th></th>
+				<td colspan="99">stuff about printing woot</td>
 			</tr>
 			<cfset i=1>
 			<cfloop query="loanAgents">
