@@ -349,6 +349,38 @@
 					<cfif agent_relations.c gt 0>
 						<div style="color:red;">agent_relations</div>
 					</cfif>
+					<cfquery name="coll" datasource="uam_god">
+						select 
+							collection 
+						from
+							collection,
+							cataloged_item,
+							collector
+						where
+							collection.collection_id=cataloged_item.collection_id and
+							cataloged_item.collection_object_id=collector.collection_object_id and
+							collector.agent_id=#id1#
+						group by collection
+					</cfquery>
+					<cfif coll.recordcount gt 0>
+						<cfquery name="dates" datasource="uam_god">
+							select
+								min(substr(began_date,1,4)) edate,
+								max(substr(ended_date,1,4)) ldate
+							from
+								collecting_event,
+								cataloged_item,
+								collector
+							where	
+								collecting_event.collecting_event_id=cataloged_item.collecting_event_id and
+								cataloged_item.collection_object_id=collector.collection_object_id and
+								collector.agent_id=#id1#
+						</cfquery>
+						<div style="font-size:smaller;">
+							#valuelist(coll.collection)#
+							<br>#dates.edate#<cfif dates.edate is not dates.ldate>-#dates.ldate#</cfif> 
+						<div>
+					</cfif>
 					<div>
 						[<a class="likeLink" href="/agents.cfm?agent_id=#id1#">Edit</a>]
 						[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
@@ -491,6 +523,39 @@
 					<cfif agent_relations.c gt 0>
 						<div style="color:red;">agent_relations</div>
 					</cfif>
+					<cfquery name="coll" datasource="uam_god">
+						select 
+							collection 
+						from
+							collection,
+							cataloged_item,
+							collector
+						where
+							collection.collection_id=cataloged_item.collection_id and
+							cataloged_item.collection_object_id=collector.collection_object_id and
+							collector.agent_id=#id2#
+						group by collection
+					</cfquery>
+					<cfif coll.recordcount gt 0>
+						<cfquery name="dates" datasource="uam_god">
+							select
+								min(substr(began_date,1,4)) edate,
+								max(substr(ended_date,1,4)) ldate
+							from
+								collecting_event,
+								cataloged_item,
+								collector
+							where	
+								collecting_event.collecting_event_id=cataloged_item.collecting_event_id and
+								cataloged_item.collection_object_id=collector.collection_object_id and
+								collector.agent_id=#id2#
+						</cfquery>
+						<div style="font-size:smaller;">
+							#valuelist(coll.collection)#
+							<br>#dates.edate#<cfif dates.edate is not dates.ldate>-#dates.ldate#</cfif> 
+						<div>
+					</cfif>
+					
 					<div>
 						[<a class="likeLink" href="/agents.cfm?agent_id=#id2#">Edit</a>]
 						[<a class="likeLink" href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]	
