@@ -163,7 +163,18 @@
 			</select>
 			<input class="lnkBtn" type="submit" value="Enter Data"/>
 		</form>
+		<hr>
+		<h2>Customize your data entry form</h2>
+		<form name="custDE" method="post" action="DataEntry.cfm">
+			<input type="hidden" name="action" value="saveCust">
+			<label for="inc_custoid">Increment Custom ID?</label>
+			<input type="checkbox" id="inc_custoid" name="inc_custoid">
+			<br><input type="submit">
+		</form>
 	</cfoutput>	
+</cfif>
+<cfif action is "saveCust">
+	<cfdump var=#form#>
 </cfif>
 <!------------ editEnterData --------------------------------------------------------------------------------------------->
 <cfif action is "editEnterData">
