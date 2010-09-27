@@ -34,8 +34,9 @@ grant all on cf_dataentry_settings to data_entry;
 			order by internal_column_id
 		</cfquery>
 		Use this form to customize what you see on data entry and how it carries over when you save a new record.
-		Note that it is possible to turn off values such that you cannot save a new record, and it is possible to 
-		save a record with (potentially problematic) values in hidden fields. Use with caution.
+		Note that it may be possible to turn off values such that you cannot save a new record, and it may be possible to 
+		save a record with (potentially problematic) values in hidden fields. We'll try to not turn off required fields, so
+		some settings (such as hiding taxon name) may do nothing. Use with caution.
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
 			<br><input type="submit" value="save preferences">
 			<input type="hidden" name="action" value="saveChanges">

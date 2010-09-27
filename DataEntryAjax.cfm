@@ -313,14 +313,16 @@
 								<input type="text" name="cat_num" value="#cat_num#"  size="6" id="cat_num">
 								<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
 									<span class="f11a">#session.CustomOtherIdentifier#</span>
-									<input type="hidden" name="other_id_num_type_5" value="#session.CustomOtherIdentifier#" id="other_id_num_type_5" />
-									<input type="text" name="other_id_num_5" value="#other_id_num_5#" size="8" id="other_id_num_5">
-									<span id="rememberLastId">
-										<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1>
-											<span class="infoLink" onclick="rememberLastOtherId(0)">Nevermind</span>
-										<cfelse>
-											<span class="infoLink" onclick="rememberLastOtherId(1)">Increment this</span>
-										</cfif>
+									<span id="d_other_id_num_type_5">
+										<input type="hidden" name="other_id_num_type_5" value="#session.CustomOtherIdentifier#" id="other_id_num_type_5" />
+										<input type="text" name="other_id_num_5" value="#other_id_num_5#" size="8" id="other_id_num_5">
+										<span id="rememberLastId">
+											<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1>
+												<span class="infoLink" onclick="rememberLastOtherId(0)">Nevermind</span>
+											<cfelse>
+												<span class="infoLink" onclick="rememberLastOtherId(1)">Increment this</span>
+											</cfif>
+										</span>
 									</span>
 								</cfif>
 								<span class="f11a">Accn</span>

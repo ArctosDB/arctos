@@ -19,14 +19,14 @@ function setPagePrefs(){
 				if (cVal==0){
 					// clear and hide
 					$("#" + eName).val('');
-					$("#" + eName).hide();
+					$("#d_" + eName).hide();
 				} else if (cVal==1) {
 					// visible and clear
 					$("#" + eName).val('');
-					$("#" + eName).show();
+					$("#d_" + eName).show();
 				} else {
-					// visible and leave value along
-					$("#" + eName).show();
+					// visible and leave value alone
+					$("#d_" + eName).show();
 				}
 			}
 			//msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
