@@ -35,7 +35,9 @@
 		<cfset flds = "collection_object_id,#flds#">
 		<cfset data = "bulkloader_PKEY.nextval,#data#">
 		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">	
-		<hr>#sql#
+		<hr>
+		#sql#
+		<hr>
 		<!----
 	<cfset ignoreList="colln,collection_object_id,action,nothing,browseRecs,ImAGod">
 	
