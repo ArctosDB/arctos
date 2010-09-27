@@ -1,14 +1,17 @@
 <cfcomponent>
 <cffunction name="saveNewRecord" access="remote">
 	<cfargument name="q" required="yes">
-	<cfset ignoreList="action,nothing">
+	<cfset ignoreList="action,nothing,browseRecs">
 	<cfoutput>
 		<cfloop list="#q#" index="kv" delimiters="&">
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
 			<br>#urldecode(kv)#
-			<br>K: #k#
-			<br>V: #v#
+			<cfif not listfindnocase(ignoreList,k)>
+				
+				<br>K: #k#
+				<br>V: #v#
+			</cfif>
 		</cfloop>
 	</cfoutput>
 	<cfreturn q>
