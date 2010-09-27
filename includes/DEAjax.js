@@ -1,6 +1,30 @@
 function msg(m,s){
 	$("#msg").removeClass().addClass(s).html(m);
 }
+function saveEditedRecord () {
+	if (cleanup()) {
+		msg('saving....','bad');
+
+		$.getJSON("/component/Bulkloader.cfc",
+				{
+					method : "saveEdits",
+					q : $("#dataEntry").serialize(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function(r) {
+					var rA=r.split("::");
+					var status=rA[0];
+					if (status=='spiffy'){
+						$("#collection_object_id").val(rA[1]);
+						msg('updated ' + rA[1],'good');
+					} else {
+						msg(r,'bad');
+					}
+				}
+			);
+	}
+}
 function editThis(){
 	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
 	if (yesChange == true) {
@@ -402,14 +426,7 @@ function switchActive(OrigUnits) {
 	}
 }
 
-function saveEditedRecord () {
-	if (cleanup()) {
-		var de = document.getElementById('dataEntry');
-		var tehAction = document.getElementById('action');
-		tehAction.value='saveEditRecord';
-		de.submit();
-	}
-}
+
 function deleteThisRec () {
 	yesDelete = window.confirm('Are you sure you want to delete this record?');
 	if (yesDelete == true) {

@@ -9,6 +9,49 @@
 	</cfquery>
 	<cfreturn d>
 </cffunction>
+
+
+<!----------------------------------------------------------------------------------------->
+
+<cffunction name="saveEdits" access="remote">
+	<cfargument name="q" required="yes">
+	<cfoutput>
+		<cfquery name="getCols" datasource="uam_god">
+			select column_name from sys.user_tab_cols
+			where table_name='BULKLOADER'
+			order by internal_column_id
+		</cfquery>
+		<cfloop list="#q#" index="kv" delimiters="&">
+			<cfset k=listfirst(kv,"=")>
+			<cfset v=replace(kv,k & "=",'')>
+			<cfset "variables.#k#"=urldecode(v)>
+		</cfloop>
+		<cfset sql = "UPDATE bulkloader SET ">
+		<cfloop query="getCols">
+			<cfif isDefined("variables.#column_name#")>
+				<cfif column_name is not "collection_object_id">
+					<cfset flds = "#flds#,#column_name#">
+					<cfset thisData = evaluate("variables." & column_name)>
+					<cfset thisData = replace(thisData,"'","''","all")>
+					<cfset sql = "#SQL#,#COLUMN_NAME# = '#thisData#'">
+				</cfif>
+			</cfif>
+		</cfloop>
+		<cfset sql = "#SQL# where collection_object_id = #collection_object_id#">
+		<cfset sql = replace(sql,"UPDATE bulkloader SET ,","UPDATE bulkloader SET ")>			
+		<cftry>
+			<cftransaction>
+				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					#preservesinglequotes(sql)#
+				</cfquery>
+				<cfreturn "spiffy::#collection_object_id#">
+			</cftransaction>
+		<cfcatch>
+			<cfreturn cfcatch.detail>
+		</cfcatch>
+		</cftry>
+	</cfoutput>
+</cffunction>
 <!----------------------------------------------------------------------------------------->
 
 <cffunction name="saveNewRecord" access="remote">
