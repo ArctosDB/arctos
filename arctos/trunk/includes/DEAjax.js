@@ -36,6 +36,12 @@ function loadRecord (collection_object_id) {
 		function(r) {
 			alert(r);
 			alert(r.COLUMNS);
+			var cAry=r.COLUMNS.split(',');
+			for (i=0;i<cAry.length;i++) {
+				console.log('column=' + cAry[i]);
+			}
+			
+			//if (toString(r.DATA.COLLECTION_OBJECT_ID[0]).indexOf('Error:')>-1) {
 		}
 	);
 }
