@@ -299,6 +299,7 @@
 					<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
 						<tr>
 							<td valign="top">
+								<!---
 								<span class="f11a">Coll:</span>
 								<select name="colln" id="colln" class="reqdClr" onchange="changeCollection(this.value)">
 									<cfloop query="ctcollection">
@@ -306,6 +307,7 @@
 											value="#institution_acronym#:#collection_cde#">#collection#</option>
 									</cfloop>
 								</select>
+								--->
 								<span class="f11a">Cat##</span>
 								<input type="text" name="cat_num" value="#cat_num#"  size="6" id="cat_num">
 								<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
