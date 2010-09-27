@@ -12,7 +12,7 @@
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
 			<br>#k# == #kv#
-			<cfset variables.#k#=urldecode(kv)>
+			<cfset "variables.#k#"=urldecode(kv)>
 		</cfloop>
 		<cfdump var=#variables#
 		<cfset sql = "INSERT INTO bulkloader (">
