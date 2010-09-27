@@ -2,7 +2,7 @@
 <cffunction name="saveNewRecord" access="remote">
 	<cfargument name="q" required="yes">
 	<cfreturn q>
-<cfoutput>
+</cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="getPage" access="remote">
 	<cfargument name="page" required="yes">
