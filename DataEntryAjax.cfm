@@ -1,4 +1,38 @@
-<cfset btime=now()>
+<!------
+
+
+		<hr>
+		<h2>Customize your data entry form</h2>
+		<form name="custDE" method="post" action="DataEntry.cfm">
+			<input type="hidden" name="action" value="saveCust">
+			<label for="inc_custoid">Increment Custom ID?</label>
+			<input type="checkbox" id="inc_custoid" name="inc_custoid" value="1">
+			
+			<label for="num_collector">Number of Collectors</label>
+			<select name="num_collector" id="num_collector">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option selected="selected" value="5">5</option>
+			</select>
+			
+			<label for="c_colls">Carryover collectors?</label>
+			<input type="checkbox" id="c_colls" name="c_colls" value="1">
+			<label for="num_id">Number of Identifiers</label>
+			<select name="num_id" id="num_id">
+				<option value="0">0</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+			
+			<br><input type="submit">
+		</form>ctOrigElevUnits
+		
+		
+		------->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Data Entry">
 <link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
@@ -7,74 +41,7 @@
 <script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 
 --->
-<script type='text/javascript' src='/includes/_DEhead.js'></script>
-<script language="javascript" type="text/javascript">
-	function copyVerbatim(str){
-		$.getJSON("/component/functions.cfc",
-			{
-				method : "strToIso8601",
-				str : str,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function(r) {
-				if(r.DATA.B[0].length==0 || r.DATA.E[0].length==0){
-					$("#dateConvertStatus").addClass('err').text(r.DATA.I[0] + ' could not be converted.');
-				} else {
-					$("#dateConvertStatus").removeClass().text('');
-					$("#began_date").val(r.DATA.B[0]);
-					$("#ended_date").val(r.DATA.E[0]);
-				}
-			}
-		);
-	}
-	
-	
-	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#made_date").datepicker();
-			jQuery("#began_date").datepicker();
-			jQuery("#ended_date").datepicker();	
-			jQuery("#determined_date").datepicker();
-			for (i=1;i<=12;i++){
-				jQuery("#geo_att_determined_date_" + i).datepicker();
-				jQuery("#attribute_date_" + i).datepicker();
-			}
-		});
-		jQuery("input[type=text]").focus(function(){
-		    //this.select();
-		});
-		$("select[id^='geology_attribute_']").each(function(e){
-			var gid='geology_attribute_' + String(e+1);
-			populateGeology(gid);			
-		});		
-	});
-
-	function populateGeology(id) {
-		var idNum=id.replace('geology_attribute_','');
-		var thisValue=$("#geology_attribute_" + idNum).val();;
-		var dataValue=$("#geo_att_value_" + idNum).val();
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "getGeologyValues",
-				attribute : thisValue,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				var s='';
-				for (i=0; i<r.ROWCOUNT; ++i) {
-					s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
-					if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
-						s+=' selected="selected"';
-					}
-					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
-				}
-				$("select#geo_att_value_" + idNum).html(s);				
-			}
-		);
-	}
-</script>
+<script type='text/javascript' src='/includes/DEAjax.js'></script>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
 <cfif not isdefined("ImAGod") or len(#ImAGod#) is 0>
