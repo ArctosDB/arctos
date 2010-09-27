@@ -312,8 +312,8 @@
 								<span class="f11a">Cat##</span>
 								<input type="text" name="cat_num" value="#cat_num#"  size="6" id="cat_num">
 								<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
-									<span class="f11a">#session.CustomOtherIdentifier#</span>
 									<span id="d_other_id_num_type_5">
+										<span class="f11a">#session.CustomOtherIdentifier#</span>
 										<input type="hidden" name="other_id_num_type_5" value="#session.CustomOtherIdentifier#" id="other_id_num_type_5" />
 										<input type="text" name="other_id_num_5" value="#other_id_num_5#" size="8" id="other_id_num_5">
 										<span id="rememberLastId">
@@ -341,6 +341,7 @@
 							</td>
 							<cfloop from="1" to="5" index="i">
 								<cfif i is 1 or i is 3 or i is 5><tr></cfif>
+								<span id="d_collector_agent_#i#">
 								<td align="right">
 									<select name="collector_role_#i#" size="1" <cfif i is 1>class="reqdClr"</cfif> id="collector_role_#i#">
 										<option <cfif evaluate("data.collector_role_" & i) is "c">selected="selected"</cfif> value="c">Collector</option>
@@ -357,6 +358,7 @@
 										onkeypress="return noenter(event);">
 									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
 								</td>
+								</span>
 								<cfif i is 2 or i is 4 or i is 5></tr></cfif>
 							</cfloop>
 					</table><!---- / agents------------->	
