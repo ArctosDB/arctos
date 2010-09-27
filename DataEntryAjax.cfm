@@ -42,9 +42,7 @@
 
 --->
 <script type='text/javascript' src='/includes/DEAjax.js'></script>
-<div id="msg">I am msg</div>
-<span onclick="msg('happy','good')">happy</span>
-<span onclick="msg('bad','bad')">err</span>
+<div id="msg">Status messages will appear here.</div>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
 <cfif not isdefined("ImAGod") or len(#ImAGod#) is 0>

@@ -4,6 +4,9 @@
 	z-index:10000;
 	text-align:center;
 	font-size:small;
+	width:100%;
+	border:1px solid black;
+	background-color:white;
 }
 .bad{color:red;}
 .good{color:green;}
