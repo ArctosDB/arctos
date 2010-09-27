@@ -42,8 +42,9 @@ function loadRecord (collection_object_id) {
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
 				var cVal=eval("r.DATA." + columns[i]);
-				
+				var eName=cName.toLowerCase();
 				console.log('column=' + cName + ' == ' + cVal);
+				$("#" + eName).val(cVal);
 			}
 			
 			//if (toString(r.DATA.COLLECTION_OBJECT_ID[0]).indexOf('Error:')>-1) {
