@@ -1,6 +1,9 @@
 function msg(m,s){
 	$("#msg").removeClass().addClass(s).html(m);
 }
+function customize(t){
+	alert(t);
+}
 function deleteThisRec () {
 	yesDelete = window.confirm('Are you sure you want to delete this record?');
 	if (yesDelete == true) {
@@ -13,7 +16,6 @@ function deleteThisRec () {
 				queryformat : 'column'
 			},
 			function(r) {
-				alert(r);
 				if (r.length==0){
 					alert('No other records found. Please use the tabs above to return to Data Entry');
 				} else {
