@@ -1,4 +1,16 @@
 <cfcomponent>
+	
+	
+
+<cffunction name="loadRecord" access="remote">
+	<cfargument name="collection_object_id" required="yes">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from bulkloader where collection_object_id=#collection_object_id#
+	</cfquery>
+	<cfreturn d>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
+
 <cffunction name="saveNewRecord" access="remote">
 	<cfargument name="q" required="yes">
 	<cfoutput>

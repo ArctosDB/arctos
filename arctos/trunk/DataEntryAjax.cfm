@@ -45,6 +45,7 @@
 <div id="msg">Status messages will appear here.</div>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
+
 <cfif not isdefined("ImAGod") or len(#ImAGod#) is 0>
 	<cfset ImAGod = "no">
 </cfif>
@@ -139,6 +140,19 @@
 <!------------ editEnterData --------------------------------------------------------------------------------------------->
 <cfif action is "editEnterData">
 	<cfoutput>
+		
+		
+		<div>
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select collection_object_id from bulkloader
+	</cfquery>
+<cfloop query="c">
+	<br><span onclick="loadRecord(#collection_object_id#)">#collection_object_id#</span>
+</cfloop>
+
+</div>
+
+
 		<cfif not isdefined("collection_object_id") or len(#collection_object_id#) is 0>
 			you don't have an ID. <cfabort>
 		</cfif>
