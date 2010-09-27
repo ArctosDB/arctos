@@ -15,6 +15,7 @@ function saveNewRecord () {
 				var rA=r.split("::");
 				var status=rA[0];
 				if (status=='spiffy'){
+					$("#collection_object_id").val(rA[1]);
 					msg('inserted ' + rA[1],'good');
 				} else {
 					msg(r,'bad');
