@@ -52,7 +52,7 @@ function loadRecord (collection_object_id) {
 				var eName=cName.toLowerCase();
 				$("#" + eName).val(cVal);
 			}
-			msg('record ' || r.DATA.COLLECTION_OBJECT_ID[0] || ' loaded','bad');
+			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] || ' loaded','bad');
 			
 		}
 	);
