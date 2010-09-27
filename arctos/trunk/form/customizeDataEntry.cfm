@@ -41,11 +41,11 @@ grant all on cf_dataentry_settings to data_entry;
 						<td>
 							<select name="#column_name#" id="#column_name#">
 								<option value="0"
-									<cfif d.#column_name# is 0> selected="selected" </cfif>>hide</option>
+									<cfif "d.#column_name#" is 0> selected="selected" </cfif>>hide</option>
 								<option value="1"
-									<cfif d.#column_name# is 1> selected="selected" </cfif>>show</option>
+									<cfif "d.#column_name#" is 1> selected="selected" </cfif>>show</option>
 								<option value="2"
-									<cfif d.#column_name# is 2> selected="selected" </cfif>>carry</option>
+									<cfif "d.#column_name#" is 2> selected="selected" </cfif>>carry</option>
 							</select>
 						</td>
 					</tr>
