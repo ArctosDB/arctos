@@ -5,7 +5,7 @@
 	<cfoutput>
 		<cfloop list="#q#" index="kv" delimiters="&">
 			<cfset k=listfirst(kv,"=")>
-			<cfset v=replace(kv,k,'')>
+			<cfset v=replace(kv,k & "=",'')>
 			<br>#urldecode(kv)#
 			<br>K: #k#
 			<br>V: #v#
