@@ -1,3 +1,6 @@
+function msg(m,s){
+	$("#msg").className(s).html(m);
+}
 function saveNewRecord () {
 	if (cleanup()) {
 		$.getJSON("/component/Bulkloader.cfc",
