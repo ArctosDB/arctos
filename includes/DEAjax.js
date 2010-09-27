@@ -8,7 +8,13 @@ function saveNewRecord () {
 				queryformat : 'column'
 			},
 			function(r) {
-				alert(r);
+				var rA=r.split("::");
+				var status=rA[0];
+				if (status=='spiffy'){
+					alert('spiffy: inserted ' + rA[1]);
+				} else {
+					alert(r);
+				}
 			}
 		);
 	}
