@@ -140,7 +140,7 @@
 <!------------ editEnterData --------------------------------------------------------------------------------------------->
 <cfif action is "editEnterData">
 	<cfoutput>
-		
+		<!---
 		
 		<div>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -151,7 +151,7 @@
 </cfloop>
 
 </div>
-
+---->
 
 		<cfif not isdefined("collection_object_id") or len(#collection_object_id#) is 0>
 			you don't have an ID. <cfabort>
