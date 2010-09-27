@@ -18,10 +18,12 @@ function setPagePrefs(){
 				//$("#" + eName).val(cVal);
 				if (cVal==0){
 					// clear and hide
-					$("#" + eName).val('').hide();
+					$("#" + eName).val('');
+					$("#" + eName).hide();
 				} else if (cVal==1) {
 					// visible and clear
-					$("#" + eName).val('').show();
+					$("#" + eName).val('');
+					$("#" + eName).show();
 				} else {
 					// visible and leave value along
 					$("#" + eName).show();
