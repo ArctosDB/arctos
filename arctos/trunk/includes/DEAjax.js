@@ -3,6 +3,7 @@ function msg(m,s){
 }
 function saveNewRecord () {
 	if (cleanup()) {
+		msg('saving....','bad');
 		$.getJSON("/component/Bulkloader.cfc",
 			{
 				method : "saveNewRecord",
@@ -14,9 +15,9 @@ function saveNewRecord () {
 				var rA=r.split("::");
 				var status=rA[0];
 				if (status=='spiffy'){
-					alert('spiffy: inserted ' + rA[1]);
+					msg('inserted ' + rA[1],'good');
 				} else {
-					alert(r);
+					msg(r,'bad');
 				}
 			}
 		);
