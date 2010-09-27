@@ -33,7 +33,11 @@ grant all on cf_dataentry_settings to data_entry;
 			and column_name != 'USERNAME'
 			order by internal_column_id
 		</cfquery>
+		Use this form to customize what you see on data entry and how it carries over when you save a new record.
+		Note that it is possible to turn off values such that you cannot save a new record, and it is possible to 
+		save a record with (potentially problematic) values in hidden fields. Use with caution.
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
+			<br><input type="submit" value="save preferences">
 			<input type="hidden" name="action" value="saveChanges">
 			<input type="hidden" name="oldaction" value="#action#">
 			<table border>
@@ -42,7 +46,6 @@ grant all on cf_dataentry_settings to data_entry;
 						<td>#column_name#</td>
 						<td>
 							<cfset uservalue=evaluate("d." & column_name)>
-							uservalue: #uservalue#
 							<select name="#column_name#" id="#column_name#">
 								<option value="0"
 									<cfif uservalue is 0> selected="selected" </cfif>>hide</option>
@@ -55,7 +58,7 @@ grant all on cf_dataentry_settings to data_entry;
 					</tr>
 				</cfloop>
 			</table>
-			<br><input type="submit">
+			<br><br><input type="submit" value="save preferences">
 		</form>
 	</cfif>
 	<cfif action is "saveChanges">
