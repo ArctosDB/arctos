@@ -1,8 +1,43 @@
 <cfcomponent>
 <cffunction name="saveNewRecord" access="remote">
 	<cfargument name="q" required="yes">
-	<cfset ignoreList="action,nothing,browseRecs">
 	<cfoutput>
+		<cfquery name="getCols" datasource="uam_god">
+			select column_name from sys.user_tab_cols
+			where table_name='BULKLOADER'
+			order by internal_column_id
+		</cfquery>
+		<cfloop list="#q#" index="kv" delimiters="&">
+			
+			<cfset k=listfirst(kv,"=")>
+			<cfset v=replace(kv,k & "=",'')>
+			<cfset variables.#k#=urldecode(kv)>
+		</cfloop>
+		<cfdump var=#variables#
+		<cfset sql = "INSERT INTO bulkloader (">
+		<cfset flds = "">
+		<cfset data = "">
+		<cfloop query="getCols">
+			<cfif isDefined("variables.#column_name#")>
+				<cfif column_name is not "collection_object_id">
+					<cfset flds = "#flds#,#column_name#">
+					<cfset thisData = evaluate("variables." & column_name)>
+					<cfset thisData = replace(thisData,"'","''","all")>
+					<cfset data = "#data#,'#thisData#'">
+				</cfif>
+			</cfif>
+		</cfloop>
+		<cfset flds = trim(flds)>
+		<cfset flds=right(flds,len(flds)-1)>
+		<cfset data = trim(data)>
+		<cfset data=right(data,len(data)-1)>
+		<cfset flds = "collection_object_id,#flds#">
+		<cfset data = "bulkloader_PKEY.nextval,#data#">
+		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">	
+		<hr>#sql#
+		<!----
+	<cfset ignoreList="colln,collection_object_id,action,nothing,browseRecs,ImAGod">
+	
 		<cfloop list="#q#" index="kv" delimiters="&">
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
@@ -13,6 +48,7 @@
 				<br>V: #v#
 			</cfif>
 		</cfloop>
+		---->
 	</cfoutput>
 	<cfreturn q>
 </cffunction>
