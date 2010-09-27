@@ -1,5 +1,5 @@
 function msg(m,s){
-	$("#msg").className(s).html(m);
+	$("#msg").removeClass().addClass(s).html(m);
 }
 function saveNewRecord () {
 	if (cleanup()) {
