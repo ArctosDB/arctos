@@ -29,6 +29,7 @@ grant all on cf_dataentry_settings to data_entry;
 		<cfquery name="getCols" datasource="uam_god">
 			select column_name from sys.user_tab_cols
 			where lower(table_name)='cf_dataentry_settings'
+			and column_name != 'USERNAME'
 			order by internal_column_id
 		</cfquery>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
@@ -57,13 +58,34 @@ grant all on cf_dataentry_settings to data_entry;
 		</form>
 	</cfif>
 	<cfif action is "saveChanges">
+		<cfquery name="getCols" datasource="uam_god">
+			select column_name from sys.user_tab_cols
+			where lower(table_name)='cf_dataentry_settings'
+			and column_name != 'USERNAME'
+			order by internal_column_id
+		</cfquery>
+		
+		<cfset sql = "UPDATE cf_dataentry_settings SET ">
+		<cfloop query="getCols">
+			<cfif isDefined("form.#column_name#")>
+				<cfset thisData = evaluate("variables." & column_name)>
+				<cfset thisData = replace(thisData,"'","''","all")>
+				<cfset sql = "#SQL#,#COLUMN_NAME# = '#thisData#'">
+			</cfif>
+		</cfloop>
+		<cfset sql = "#SQL# where username = '#session.username#'">
+		<cfset sql = replace(sql,"UPDATE cf_dataentry_settings SET ,","UPDATE cf_dataentry_settings SET ")>			
+		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+		<cflocation url="customizeDataEntry.cfm" addtoken="false">
+		
 		<!---<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update cf_dataentry_settings set
 				numberAgents=#numberAgents#
 			where username='#session.username#'
 		</cfquery>
-		<cflocation url="customizeDataEntry.cfm?action=#oldaction#" addtoken="false">
+		
 		--->
-		<cfdump var=#form#>
 	</cfif>
 </cfoutput>
