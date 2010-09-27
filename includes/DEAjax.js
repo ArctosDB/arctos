@@ -11,7 +11,7 @@ function closeCust() {
 	$('##theFrame', window.parent.document).remove();
 }
 function customize(t) {
-	closeEditApp();
+	closeCust();
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
