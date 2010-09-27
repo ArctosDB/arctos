@@ -14,7 +14,7 @@
 			<br>#k# == #kv#
 			<cfset "variables.#k#"=urldecode(kv)>
 		</cfloop>
-		<cfdump var=#variables#
+		<cfdump var=#variables#>
 		<cfset sql = "INSERT INTO bulkloader (">
 		<cfset flds = "">
 		<cfset data = "">
