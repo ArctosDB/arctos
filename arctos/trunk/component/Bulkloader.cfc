@@ -27,6 +27,13 @@
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 
+<cffunction name="getPrefs" access="remote">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from cf_dataentry_settings where username='#session.username#'
+	</cfquery>
+	<cfreturn d>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
 <cffunction name="saveEdits" access="remote">
 	<cfargument name="q" required="yes">
 	<cfoutput>
