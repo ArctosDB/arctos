@@ -8,13 +8,10 @@
 			order by internal_column_id
 		</cfquery>
 		<cfloop list="#q#" index="kv" delimiters="&">
-			
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
-			<br>#k# == #kv#
 			<cfset "variables.#k#"=urldecode(v)>
 		</cfloop>
-		<cfdump var=#variables#>
 		<cfset sql = "INSERT INTO bulkloader (">
 		<cfset flds = "">
 		<cfset data = "">
@@ -35,9 +32,6 @@
 		<cfset flds = "collection_object_id,#flds#">
 		<cfset data = "bulkloader_PKEY.nextval,#data#">
 		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">	
-		<hr>
-		#sql#
-		<hr>
 		<cftry>
 			<cftransaction>
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -52,33 +46,7 @@
 			<cfreturn cfcatch.detail>
 		</cfcatch>
 		</cftry>
-		
-		<!---
-		
-		<cfif imAGod is "yes">
-			<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&collection_object_id=#tVal.currval#&imagod=yes">
-		<cfelse>
-			<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&collection_object_id=#tVal.currval#">
-		</cfif>
-		<cflocation url="#theLink#">
-		<cflocation url="">
-		--->
-		<!----
-	<cfset ignoreList="colln,collection_object_id,action,nothing,browseRecs,ImAGod">
-	
-		<cfloop list="#q#" index="kv" delimiters="&">
-			<cfset k=listfirst(kv,"=")>
-			<cfset v=replace(kv,k & "=",'')>
-			<br>#urldecode(kv)#
-			<cfif not listfindnocase(ignoreList,k)>
-				
-				<br>K: #k#
-				<br>V: #v#
-			</cfif>
-		</cfloop>
-		---->
 	</cfoutput>
-	<cfreturn q>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="getPage" access="remote">
