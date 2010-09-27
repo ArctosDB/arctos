@@ -8,7 +8,7 @@ function deleteThisRec () {
 		$.getJSON("/component/Bulkloader.cfc",
 			{
 				method : "deleteRecord",
-				collection_object_id : collection_object_id,
+				collection_object_id : $("#collection_object_id").val(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
