@@ -1,6 +1,16 @@
 function saveNewRecord () {
 	if (cleanup()) {
-		alert($("#dataEntry").serialize());
+		$.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "saveNewRecord",
+				q : $("#dataEntry").serialize(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				alert(r);
+			}
+		);
 	}
 }
 
