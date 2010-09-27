@@ -10,7 +10,21 @@
 	<cfreturn d>
 </cffunction>
 
+<!----------------------------------------------------------------------------------------->
 
+<cffunction name="deleteRecord" access="remote">
+	<cfargument name="collection_object_id" required="yes">
+	<cftransaction>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from bulkloader where collection_object_id=#collection_object_id#
+		</cfquery>
+	</cftransaction>
+	<cfquery name="next" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select max(collection_object_id) as collection_object_id from bulkloader 
+		where enteredby = '#session.username#'
+	</cfquery>
+	<cfreturn next.collection_object_id>
+</cffunction>
 <!----------------------------------------------------------------------------------------->
 
 <cffunction name="saveEdits" access="remote">
