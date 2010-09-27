@@ -50,11 +50,10 @@ function loadRecord (collection_object_id) {
 				var cName=columns[i];
 				var cVal=eval("r.DATA." + columns[i]);
 				var eName=cName.toLowerCase();
-				console.log('column=' + cName + ' == ' + cVal);
 				$("#" + eName).val(cVal);
 			}
+			msg('record ' || r.DATA.COLLECTION_OBJECT_ID[0] || ' loaded','bad');
 			
-			//if (toString(r.DATA.COLLECTION_OBJECT_ID[0]).indexOf('Error:')>-1) {
 		}
 	);
 }

@@ -423,7 +423,7 @@
 						<tr>
 							<td align="right"><span class="f11a">ID Remk</span></td>
 							<td><input type="text" name="IDENTIFICATION_REMARKS" value="#IDENTIFICATION_REMARKS#"
-								id="IDENTIFICATION_REMARKS" size="80">
+								id="identification_remarks" size="80">
 							</td>
 						</tr>
 					</table><!------ /identification -------->
