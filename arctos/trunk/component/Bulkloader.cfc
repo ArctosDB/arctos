@@ -38,6 +38,31 @@
 		<hr>
 		#sql#
 		<hr>
+		<cftry>
+			<cftransaction>
+				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					#preservesinglequotes(sql)#
+				</cfquery>
+				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select bulkloader_PKEY.currval as currval from dual
+				</cfquery>
+				<cfreturn "spiffy: #tVal.currval#">
+			</cftransaction>
+		<cfcatch>
+			<cfreturn cfcatch.detail>
+		</cfcatch>
+		</cftry>
+		
+		<!---
+		
+		<cfif imAGod is "yes">
+			<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&collection_object_id=#tVal.currval#&imagod=yes">
+		<cfelse>
+			<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&collection_object_id=#tVal.currval#">
+		</cfif>
+		<cflocation url="#theLink#">
+		<cflocation url="">
+		--->
 		<!----
 	<cfset ignoreList="colln,collection_object_id,action,nothing,browseRecs,ImAGod">
 	
