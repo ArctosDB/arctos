@@ -40,7 +40,7 @@
 				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select bulkloader_PKEY.currval as currval from dual
 				</cfquery>
-				<cfreturn "spiffy: #tVal.currval#">
+				<cfreturn "spiffy::#tVal.currval#">
 			</cftransaction>
 		<cfcatch>
 			<cfreturn cfcatch.detail>
