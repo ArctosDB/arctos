@@ -16,6 +16,16 @@ function setPagePrefs(){
 				var eName=cName.toLowerCase();
 				console.log('column: ' + eName + '; val: ' + cVal);
 				//$("#" + eName).val(cVal);
+				if (cVal==0){
+					// clear and hide
+					$("#" + eName).val('').hide();
+				} else if (cVal==1) {
+					// visible and clear
+					$("#" + eName).val('').show();
+				} else {
+					// visible and leave value along
+					$("#" + eName).show();
+				}
 			}
 			//msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
 			
