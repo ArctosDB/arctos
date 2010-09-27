@@ -28,7 +28,7 @@ function loadRecord (collection_object_id) {
 	msg('fetching data....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
-			method : "getRecord",
+			method : "loadRecord",
 			collection_object_id : collection_object_id,
 			returnformat : "json",
 			queryformat : 'column'
