@@ -22,6 +22,10 @@ grant all on cf_dataentry_settings to data_entry;
 				) values (
 					'#session.username#',
 					5
+				)
+			</cfquery>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from cf_dataentry_settings where username='#session.username#'
 			</cfquery>
 		</cfif>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
