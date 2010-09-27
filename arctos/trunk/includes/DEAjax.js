@@ -41,7 +41,7 @@ function loadRecord (collection_object_id) {
 			//var cAry=columns.split(',');
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
-				var cVal=eval("r.DATA." + columns[i] + [0]);
+				var cVal=eval("r.DATA." + columns[i]);
 				
 				console.log('column=' + cName + ' == ' + cVal);
 			}
