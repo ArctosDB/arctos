@@ -10,7 +10,7 @@ grant all on cf_dataentry_settings to data_entry;
 
 ---->
 <cfoutput>
-	<cfif action is not "">
+	<cfif action is "nothing">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from cf_dataentry_settings where username='#session.username#'
 		</cfquery>
@@ -68,7 +68,7 @@ grant all on cf_dataentry_settings to data_entry;
 		<cfset sql = "UPDATE cf_dataentry_settings SET ">
 		<cfloop query="getCols">
 			<cfif isDefined("form.#column_name#")>
-				<cfset thisData = evaluate("variables." & column_name)>
+				<cfset thisData = evaluate("form." & column_name)>
 				<cfset thisData = replace(thisData,"'","''","all")>
 				<cfset sql = "#SQL#,#COLUMN_NAME# = '#thisData#'">
 			</cfif>
@@ -78,8 +78,9 @@ grant all on cf_dataentry_settings to data_entry;
 		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-		<cflocation url="customizeDataEntry.cfm" addtoken="false">
+		#preservesinglequotes(sql)#
 		
+		<cflocation url="customizeDataEntry.cfm" addtoken="false">
 		<!---<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update cf_dataentry_settings set
 				numberAgents=#numberAgents#
