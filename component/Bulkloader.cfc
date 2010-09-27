@@ -30,7 +30,6 @@
 		<cfloop query="getCols">
 			<cfif isDefined("variables.#column_name#")>
 				<cfif column_name is not "collection_object_id">
-					<cfset flds = "#flds#,#column_name#">
 					<cfset thisData = evaluate("variables." & column_name)>
 					<cfset thisData = replace(thisData,"'","''","all")>
 					<cfset sql = "#SQL#,#COLUMN_NAME# = '#thisData#'">
