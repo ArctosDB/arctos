@@ -3,7 +3,7 @@
 	<cfargument name="q" required="yes">
 	<cfoutput>
 		<cfloop list="#q#" index="kv" delimiters="&">
-			<br>#kv#
+			<br>#urldecode(kv)#
 		</cfloop>
 	</cfoutput>
 	<cfreturn q>
