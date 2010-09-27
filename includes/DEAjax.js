@@ -10,6 +10,9 @@ function closeCust() {
 	$('#theFrame').remove();
 	$('#theFrame', window.parent.document).remove();
 }
+function setPagePrefs(){
+	
+}
 function customize(t) {
 	closeCust();
 	var bgDiv = document.createElement('div');
