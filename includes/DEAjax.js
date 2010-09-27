@@ -34,9 +34,10 @@ function loadRecord (collection_object_id) {
 			queryformat : 'column'
 		},
 		function(r) {
-			alert(r);
-			alert(r.COLUMNS);
-			var cAry=r.COLUMNS.split(',');
+			//alert(r);
+			//alert(r.COLUMNS);
+			var columns=r.COLUMNS;
+			var cAry=columns.split(',');
 			for (i=0;i<cAry.length;i++) {
 				console.log('column=' + cAry[i]);
 			}
