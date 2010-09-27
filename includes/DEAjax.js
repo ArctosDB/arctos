@@ -39,7 +39,7 @@ function loadRecord (collection_object_id) {
 			var columns=r.COLUMNS;
 			console.log(columns);
 			//var cAry=columns.split(',');
-			for (i=0;i<cAry.length;i++) {
+			for (i=0;i<columns.length;i++) {
 				console.log('column=' + columns[i]);
 			}
 			
