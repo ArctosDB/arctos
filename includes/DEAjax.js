@@ -38,9 +38,9 @@ function loadRecord (collection_object_id) {
 			//alert(r.COLUMNS);
 			var columns=r.COLUMNS;
 			console.log(columns);
-			var cAry=columns.split(',');
+			//var cAry=columns.split(',');
 			for (i=0;i<cAry.length;i++) {
-				console.log('column=' + cAry[i]);
+				console.log('column=' + columns[i]);
 			}
 			
 			//if (toString(r.DATA.COLLECTION_OBJECT_ID[0]).indexOf('Error:')>-1) {
