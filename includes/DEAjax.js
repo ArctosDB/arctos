@@ -35,6 +35,7 @@ function loadRecord (collection_object_id) {
 		},
 		function(r) {
 			alert(r);
+			alert(r.COLUMNS);
 		}
 	);
 }
