@@ -1,14 +1,14 @@
 function closeCust() {
-	$('##bgDiv').remove();
-	$('##bgDiv', window.parent.document).remove();
-	$('##popDiv').remove();
-	$('##popDiv', window.parent.document).remove();
+	$('#bgDiv').remove();
+	$('#bgDiv', window.parent.document).remove();
+	$('#popDiv').remove();
+	$('#popDiv', window.parent.document).remove();
 	
-	$('##cDiv').remove();
-	$('##cDiv', window.parent.document).remove();
+	$('#cDiv').remove();
+	$('#cDiv', window.parent.document).remove();
 	
-	$('##theFrame').remove();
-	$('##theFrame', window.parent.document).remove();
+	$('#theFrame').remove();
+	$('#theFrame', window.parent.document).remove();
 }
 function customize(t) {
 	closeCust();
@@ -27,15 +27,15 @@ function customize(t) {
 	cDiv.className = 'fancybox-close';
 	cDiv.id='cDiv';
 	cDiv.setAttribute('onclick','closeCust()');
-	$("##popDiv").append(cDiv);
-	$("##popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+	$("#popDiv").append(cDiv);
+	$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
 	var theFrame = document.createElement('iFrame');
 	theFrame.id='theFrame';
 	theFrame.className = 'editFrame';
 	var ptl="/form/customizeDataEntry.cfm?action=" + t;
 	theFrame.src=ptl;
 	//document.body.appendChild(theFrame);
-	$("##popDiv").append(theFrame);
+	$("#popDiv").append(theFrame);
 }
 
 
