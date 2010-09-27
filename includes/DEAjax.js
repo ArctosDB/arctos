@@ -1,6 +1,13 @@
 function msg(m,s){
 	$("#msg").removeClass().addClass(s).html(m);
 }
+function editThis(){
+	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
+	if (yesChange == true) {
+		loadRecord($("#collection_object_id").val());
+		changeMode('edit');
+	}
+}
 function saveNewRecord () {
 	if (cleanup()) {
 		msg('saving....','bad');

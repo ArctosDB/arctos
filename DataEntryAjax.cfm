@@ -299,6 +299,7 @@
 					<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
 						<tr>
 							<td valign="top">
+								#institution_acronym#:#collection_cde#
 								<!---
 								<span class="f11a">Coll:</span>
 								<select name="colln" id="colln" class="reqdClr" onchange="changeCollection(this.value)">
@@ -1376,7 +1377,7 @@
 							<input type="button" 
 								value="Enter Edit Mode" 
 								class="lnkBtn"
-								onclick="click_changeMode('edit','#collection_object_id#')">			
+								onclick="editThis()">			
 						</span>
 						<span id="editMode" style="display:none">
 							<cfif len(#loadedMsg#) is 0>
