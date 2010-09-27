@@ -1,6 +1,29 @@
 function msg(m,s){
 	$("#msg").removeClass().addClass(s).html(m);
 }
+function deleteThisRec () {
+	yesDelete = window.confirm('Are you sure you want to delete this record?');
+	if (yesDelete == true) {
+		msg('deleting record....','bad');
+		$.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "deleteRecord",
+				collection_object_id : collection_object_id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				alert(r);
+				if (r.length==0){
+					alert('No other records found. Please use the tabs above to return to Data Entry');
+				} else {
+					msg('loading previous record....','bad');
+					loadRecord(r);
+				}
+			}
+		);
+	}
+}
 function saveEditedRecord () {
 	if (cleanup()) {
 		msg('saving....','bad');
@@ -427,15 +450,7 @@ function switchActive(OrigUnits) {
 }
 
 
-function deleteThisRec () {
-	yesDelete = window.confirm('Are you sure you want to delete this record?');
-	if (yesDelete == true) {
-		var de = document.getElementById('dataEntry');
-		var tehAction = document.getElementById('action');
-		tehAction.value='deleteThisRec';
-		de.submit();
-	}
-}
+
 function setPartLabel (thisID) {
 	var thePartNum = thisID.replace('part_barcode_','');
 	var theOIDType = document.getElementById('other_id_num_type_5').value;
