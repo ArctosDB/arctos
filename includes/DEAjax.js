@@ -35,7 +35,7 @@ function customize(t) {
 	var theFrame = document.createElement('iFrame');
 	theFrame.id='theFrame';
 	theFrame.className = 'editFrame';
-	var ptl="/form/customizeDataEntry.cfm?action=" + t;
+	var ptl="/form/customizeDataEntry.cfm";
 	theFrame.src=ptl;
 	//document.body.appendChild(theFrame);
 	$("#popDiv").append(theFrame);
