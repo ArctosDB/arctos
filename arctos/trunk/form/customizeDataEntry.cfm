@@ -39,6 +39,8 @@ grant all on cf_dataentry_settings to data_entry;
 					<tr>
 						<td>#column_name#</td>
 						<td>
+							<cfset uservalue=evaluate("d." & column_name)>
+							uservalue: #uservalue#
 							<select name="#column_name#" id="#column_name#">
 								<option value="0"
 									<cfif "d.#column_name#" is 0> selected="selected" </cfif>>hide</option>
