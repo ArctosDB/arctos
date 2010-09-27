@@ -1,3 +1,27 @@
+function setPagePrefs(){
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "getPrefs",
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			//alert(r.COLUMNS);
+			var columns=r.COLUMNS;
+			console.log(columns);
+			//var cAry=columns.split(',');
+			for (i=0;i<columns.length;i++) {
+				var cName=columns[i];
+				var cVal=eval("r.DATA." + columns[i]);
+				var eName=cName.toLowerCase();
+				console.log('column: ' + eName + '; val: ' + cVal);
+				//$("#" + eName).val(cVal);
+			}
+			//msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
+			
+		}
+	);
+}
 function closeCust() {
 	$('#bgDiv').remove();
 	$('#bgDiv', window.parent.document).remove();
@@ -10,9 +34,7 @@ function closeCust() {
 	$('#theFrame').remove();
 	$('#theFrame', window.parent.document).remove();
 }
-function setPagePrefs(){
-	
-}
+
 function customize(t) {
 	closeCust();
 	var bgDiv = document.createElement('div');
