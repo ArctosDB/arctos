@@ -30,6 +30,7 @@ grant all on cf_dataentry_settings to data_entry;
 		</cfif>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
 			<input type="hidden" name="action" value="saveChanges">
+			<input type="hidden" name="oldaction" value="#action#">
 			<cfif action is "agent">
 				<label for="numberAgents">Show ## Agents</label>
 				<select name="numberAgents" id="numberAgents">
@@ -43,6 +44,15 @@ grant all on cf_dataentry_settings to data_entry;
 		
 		
 			</cfif>
+			<br><input type="submit">
 		</form>
+	</cfif>
+	<cfif action is "saveChanges">
+		<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update cf_dataentry_settings set
+				numberAgents=#numberAgents#
+			where username='#session.username#'
+		</cfquery>
+		<cflocation url="customizeDataEntry.cfm?action=#oldaction#" addtoken="false">
 	</cfif>
 </cfoutput>
