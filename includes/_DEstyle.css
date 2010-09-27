@@ -4,10 +4,9 @@
 	z-index:10000;
 	text-align:center;
 	font-size:small;
-	color:green;
 }
-.bad{color:red};
-
+.bad{color:red;}
+.good{color:green;}
 input, select {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:11px;

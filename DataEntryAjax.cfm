@@ -43,7 +43,7 @@
 --->
 <script type='text/javascript' src='/includes/DEAjax.js'></script>
 <div id="msg">I am msg</div>
-<span onclick="msg('happy')">happy</span>
+<span onclick="msg('happy','good')">happy</span>
 <span onclick="msg('bad','bad')">err</span>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
