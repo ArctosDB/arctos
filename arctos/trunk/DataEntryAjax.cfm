@@ -113,7 +113,7 @@
 				institution_acronym
 		</cfquery>
 		Begin at....<br>	
-		<form name="begin" method="post" action="DataEntry.cfm">
+		<form name="begin" method="post" action="DataEntryAjax.cfm">
 			<input type="hidden" name="action" value="editEnterData" />
 			<select name="collection_object_id" size="1">
 				<cfif #theirLast.recordcount# gt 0>
@@ -266,7 +266,7 @@
 				Page Loading....
 			</span>
 		</div>
-		<form name="dataEntry" method="post" action="DataEntry.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
+		<form name="dataEntry" method="post" action="DataEntryAjax.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
 			<input type="hidden" name="action" value="" id="action">
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
 			<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
@@ -1399,9 +1399,9 @@
 							<cfif currentPos gt 1>
 								<cfset prevCollObjId = listgetat(idList,currentPos - 1)>
 								<cfif imAGod is "yes">
-									<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#prevCollObjId#&imagod=yes">
+									<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#prevCollObjId#&imagod=yes">
 								<cfelse>
-									<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#prevCollObjId#">
+									<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#prevCollObjId#">
 								</cfif>
 								<a href="#theLink#"><img src="/images/previous.gif" class="likeLink" border="0" alt="[ back ]"/></a>
 							<cfelse>
@@ -1410,9 +1410,9 @@
 							<cfset recposn = 1>
 							Record 
 							<cfif imAGod is "yes">
-								<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&imagod=yes&collection_object_id=">
+								<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&imagod=yes&collection_object_id=">
 							<cfelse>
-								<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=">
+								<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=">
 							</cfif>
 							<select name="browseRecs" size="1" id="selectbrowse" onchange="document.location='#theLink#' + this.value;">
 								<cfloop query="whatIds">
@@ -1429,9 +1429,9 @@
 							<cfelse>
 								<cfset nextCollObjId = listgetat(idList,currentPos + 1)>
 								<cfif imAGod is "yes">
-									<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#&imagod=yes">
+									<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#&imagod=yes">
 								<cfelse>
-									<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#">
+									<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#">
 								</cfif>
 								<a href="#theLink#"><img src="/images/next.gif" class="likeLink" border="0"/ alt="[ next ]"></a>
 							</cfif>		
@@ -1483,12 +1483,12 @@
 			where enteredby = '#session.username#'
 		</cfquery>
 		<cfif len(next.collection_object_id) is 0>
-			<cflocation url="DataEntry.cfm">
+			<cflocation url="DataEntryAjax.cfm">
 		</cfif>
 		<cfif imAGod is "yes">
-			<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#next.collection_object_id#&imagod=yes">
+			<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#next.collection_object_id#&imagod=yes">
 		<cfelse>
-			<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#next.collection_object_id#">
+			<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#next.collection_object_id#">
 		</cfif>
 		<cflocation url="#theLink#">
 	</cfoutput>
@@ -1515,9 +1515,9 @@
 			#preservesinglequotes(sql)#
 		</cfquery>
 		<cfif imAGod is "yes">
-			<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#collection_object_id#&imagod=yes">
+			<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#collection_object_id#&imagod=yes">
 		<cfelse>
-			<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#collection_object_id#">
+			<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#collection_object_id#">
 		</cfif>
 		<cflocation url="#theLink#">
 	</cfoutput>
@@ -1557,9 +1557,9 @@
 			select bulkloader_PKEY.currval as currval from dual
 		</cfquery>
 		<cfif imAGod is "yes">
-			<cfset theLink = "DataEntry.cfm?action=editEnterData&collection_object_id=#tVal.currval#&imagod=yes">
+			<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&collection_object_id=#tVal.currval#&imagod=yes">
 		<cfelse>
-			<cfset theLink = "DataEntry.cfm?action=editEnterData&collection_object_id=#tVal.currval#">
+			<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&collection_object_id=#tVal.currval#">
 		</cfif>
 		<cflocation url="#theLink#">
 		<cflocation url="">
