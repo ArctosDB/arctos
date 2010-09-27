@@ -9,6 +9,7 @@ create or replace public synonym cf_dataentry_settings for cf_dataentry_settings
 grant all on cf_dataentry_settings to data_entry;
 
 ---->
+<cfinclude template="/includes/alwaysInclude.cfm">
 <cfoutput>
 	<cfif action is "nothing">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
