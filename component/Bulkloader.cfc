@@ -1,6 +1,9 @@
 <cfcomponent>
 <cffunction name="saveNewRecord" access="remote">
 	<cfargument name="q" required="yes">
+	<cfloop list="#q#" index="kv" delimiters="&">
+		<br>#kv#
+	</cfloop>
 	<cfreturn q>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
