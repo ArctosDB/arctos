@@ -14,7 +14,7 @@ function setPagePrefs(){
 				var cName=columns[i];
 				var cVal=eval("r.DATA." + columns[i]);
 				var eName=cName.toLowerCase();
-				console.log('column: ' + eName + '; val: ' + cVal);
+				//console.log('column: ' + eName + '; val: ' + cVal);
 				//$("#" + eName).val(cVal);
 				if (cVal==0){
 					// clear and hide
