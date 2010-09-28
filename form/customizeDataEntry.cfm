@@ -146,7 +146,7 @@ grant all on cf_dataentry_settings to data_entry;
 									<td>
 										<cfset uservalue=evaluate("d." & i)>
 										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,column_name)>
+											<cfif not listfindnocase(noHide,i)>
 												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
 											</cfif>
 											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
@@ -166,7 +166,7 @@ grant all on cf_dataentry_settings to data_entry;
 									<td>
 										<cfset uservalue=evaluate("d." & i)>
 										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,column_name)>
+											<cfif not listfindnocase(noHide,i_name)>
 												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
 											</cfif>
 											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
@@ -188,7 +188,7 @@ grant all on cf_dataentry_settings to data_entry;
 									<td>
 										<cfset uservalue=evaluate("d." & i)>
 										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,column_name)>
+											<cfif not listfindnocase(noHide,i)>
 												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
 											</cfif>
 											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
@@ -208,7 +208,7 @@ grant all on cf_dataentry_settings to data_entry;
 									<td>
 										<cfset uservalue=evaluate("d." & i)>
 										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,column_name)>
+											<cfif not listfindnocase(noHide,i)>
 												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
 											</cfif>
 											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
@@ -230,7 +230,7 @@ grant all on cf_dataentry_settings to data_entry;
 									<td>
 										<cfset uservalue=evaluate("d." & i)>
 										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,column_name)>
+											<cfif not listfindnocase(noHide,i)>
 												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
 											</cfif>
 											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
