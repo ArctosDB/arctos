@@ -17,7 +17,7 @@ grant all on cf_dataentry_settings to data_entry;
 		$("#" + e + " :input").val(v);	
 	}
 	function toggleAll(v){
-		$(" :input").val(v);
+		$("select").val(v);
 	}
 </script>
 <style>
