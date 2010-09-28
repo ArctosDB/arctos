@@ -16,6 +16,9 @@ grant all on cf_dataentry_settings to data_entry;
 	function toggleTo(e,v){
 		$("#" + e + " :input").val(v);	
 	}
+	function toggleAll(v){
+		$(" :input").val(v);
+	}
 </script>
 <style>
 	.fs{
@@ -73,6 +76,9 @@ grant all on cf_dataentry_settings to data_entry;
 			Customize with caution.
 		</p>
 		
+		<span class="likeLink" onclick="toggleAll('hide')">[ hide everything ]</span>
+		<span class="likeLink" onclick="toggleAll('show')">[ show everything ]</span>
+		<span class="likeLink" onclick="toggleAll('carry')">[ carry everything ]</span>
 		
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
 			<br><input type="submit" value="save preferences">
