@@ -39,214 +39,218 @@ grant all on cf_dataentry_settings to data_entry;
 		<cfset parts="PART_NAME_1,PART_CONDITION_1,PART_BARCODE_1,PART_CONTAINER_LABEL_1,PART_LOT_COUNT_1,PART_DISPOSITION_1,PART_REMARK_1,PART_NAME_2,PART_CONDITION_2,PART_BARCODE_2,PART_CONTAINER_LABEL_2,PART_LOT_COUNT_2,PART_DISPOSITION_2,PART_REMARK_2,PART_NAME_3,PART_CONDITION_3,PART_BARCODE_3,PART_CONTAINER_LABEL_3,PART_LOT_COUNT_3,PART_DISPOSITION_3,PART_REMARK_3,PART_NAME_4,PART_CONDITION_4,PART_BARCODE_4,PART_CONTAINER_LABEL_4,PART_LOT_COUNT_4,PART_DISPOSITION_4,PART_REMARK_4,PART_NAME_5,PART_CONDITION_5,PART_BARCODE_5,PART_CONTAINER_LABEL_5,PART_LOT_COUNT_5,PART_DISPOSITION_5,PART_REMARK_5,PART_NAME_6,PART_CONDITION_6,PART_BARCODE_6,PART_CONTAINER_LABEL_6,PART_LOT_COUNT_6,PART_DISPOSITION_6,PART_REMARK_6,PART_NAME_7,PART_CONDITION_7,PART_BARCODE_7,PART_CONTAINER_LABEL_7,PART_LOT_COUNT_7,PART_DISPOSITION_7,PART_REMARK_7,PART_NAME_8,PART_CONDITION_8,PART_BARCODE_8,PART_CONTAINER_LABEL_8,PART_LOT_COUNT_8,PART_DISPOSITION_8,PART_REMARK_8,PART_NAME_9,PART_CONDITION_9,PART_BARCODE_9,PART_CONTAINER_LABEL_9,PART_LOT_COUNT_9,PART_DISPOSITION_9,PART_REMARK_9,PART_NAME_10,PART_CONDITION_10,PART_BARCODE_10,PART_CONTAINER_LABEL_10,PART_LOT_COUNT_10,PART_DISPOSITION_10,PART_REMARK_10,PART_NAME_11,PART_CONDITION_11,PART_BARCODE_11,PART_CONTAINER_LABEL_11,PART_LOT_COUNT_11,PART_DISPOSITION_11,PART_REMARK_11,PART_NAME_12,PART_CONDITION_12,PART_BARCODE_12,PART_CONTAINER_LABEL_12,PART_LOT_COUNT_12,PART_DISPOSITION_12,PART_REMARK_12">
 		<cfset geol="GEOLOGY_ATTRIBUTE_1,GEO_ATT_VALUE_1,GEO_ATT_DETERMINER_1,GEO_ATT_DETERMINED_DATE_1,GEO_ATT_DETERMINED_METHOD_1,GEO_ATT_REMARK_1,GEOLOGY_ATTRIBUTE_2,GEO_ATT_VALUE_2,GEO_ATT_DETERMINER_2,GEO_ATT_DETERMINED_DATE_2,GEO_ATT_DETERMINED_METHOD_2,GEO_ATT_REMARK_2,GEOLOGY_ATTRIBUTE_3,GEO_ATT_VALUE_3,GEO_ATT_DETERMINER_3,GEO_ATT_DETERMINED_DATE_3,GEO_ATT_DETERMINED_METHOD_3,GEO_ATT_REMARK_3,GEOLOGY_ATTRIBUTE_4,GEO_ATT_VALUE_4,GEO_ATT_DETERMINER_4,GEO_ATT_DETERMINED_DATE_4,GEO_ATT_DETERMINED_METHOD_4,GEO_ATT_REMARK_4,GEOLOGY_ATTRIBUTE_5,GEO_ATT_VALUE_5,GEO_ATT_DETERMINER_5,GEO_ATT_DETERMINED_DATE_5,GEO_ATT_DETERMINED_METHOD_5,GEO_ATT_REMARK_5,GEOLOGY_ATTRIBUTE_6,GEO_ATT_VALUE_6,GEO_ATT_DETERMINER_6,GEO_ATT_DETERMINED_DATE_6,GEO_ATT_DETERMINED_METHOD_6,GEO_ATT_REMARK_6">
 		
-		Use this form to customize what you see on data entry and how it carries over when you save a new record.
+		Use this form to customize what you see on data entry and how data carries over when you save a new record. There are (generally)
+		three choices in the drowdown for each field:
+		<ul>
+			<li>hide - remove the field from the data entry screen. 
+				It may be possible to have data in hidden fields - use this option with great caution.</li>
+			<li>show - show the field, reset to blank each time a record is saved</li>
+			<li>carry - show the field, carry last value over after save</li>
+		</ul>
 		Note that it may be possible to turn off values such that you cannot save a new record, and it may be possible to 
-		save a record with (potentially problematic) values in hidden fields. We'll try to not turn off required fields, so
-		some settings (such as hiding taxon name) may do nothing. Linked fields may be somewhat cryptic. Turn off elevation units to get
-		rid of all elevation fields, or orig_lat_long_units to get rid of all coordinate data, for example.
-		Attributes 1-6 do different things depending on collection type, and turning them off may do nothing for your account.
-		Use with caution.
+		save a record with (potentially problematic) values in hidden fields.
+		
+		<p>
+			"Linked" fields may be somewhat cryptic. Turn off elevation units to get
+			rid of all elevation fields, or orig_lat_long_units to get rid of all coordinate data, for example.
+		</p>
+		<p>
+			Attributes 1-6 do different things depending on collection type, and turning them off may do nothing for your account.
+			Customize with caution.
+		</p>
+		<script>
+			function test(){
+				$('#cat').children('select).css('background-color', 'red');	
+			}
+		</script>
+		
+		<span class="likeLink" onclick="test()">test</span>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
 			<br><input type="submit" value="save preferences">
 			<input type="hidden" name="action" value="saveChanges">
 			<input type="hidden" name="oldaction" value="#action#">
 			<!-- along with required stuff, use this to deal with linked stuff,like elevation --->
-			<table>
-				<tr>
-					<td>
-						<!--- cat --->
-						<table border>
-							<cfloop list="#cat#" index="i">
-								<tr>
-									<td>#i#</td>
-									<td>
-										<cfset uservalue=evaluate("d." & i)>
-										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,i)>
-												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
-											</cfif>
-											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
-											<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
-										</select>
-									</td>
-								</tr>
-							</cfloop>
-						</table>
-					</td>
-					<td>
-						<!--- coordinates --->
-						<table border>
-							<cfloop list="#coordinates#" index="i">
-								<tr>
-									<td>#i#</td>
-									<td>
-										<cfset uservalue=evaluate("d." & i)>
-										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,i)>
-												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
-											</cfif>
-											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
-											<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
-										</select>
-									</td>
-								</tr>
-							</cfloop>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<!--- colls ---->
-						<table border>
-							<cfloop list="#colls#" index="i">
-								<tr>
-									<td>#i#</td>
-									<td>
-										<cfset uservalue=evaluate("d." & i)>
-										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,i)>
-												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
-											</cfif>
-											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
-											<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
-										</select>
-									</td>
-								</tr>
-							</cfloop>
-						</table>
-					</td>
-					<td>
-						<!--- geol ---->
-						<table border>
-							<cfloop list="#geol#" index="i">
-								<tr>
-									<td>#i#</td>
-									<td>
-										<cfset uservalue=evaluate("d." & i)>
-										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,i)>
-												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
-											</cfif>
-											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
-											<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
-										</select>
-									</td>
-								</tr>
-							</cfloop>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<!--- ids ---->
-						<table border>
-							<cfloop list="#ids#" index="i">
-								<tr>
-									<td>#i#</td>
-									<td>
-										<cfset uservalue=evaluate("d." & i)>
-										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,i)>
-												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
-											</cfif>
-											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
-											<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
-										</select>
-									</td>
-								</tr>
-							</cfloop>
-						</table>
-					</td>
-					<td>
-						<!--- attributes ---->
-						<table border>
-							<cfloop list="#attributes#" index="i">
-								<tr>
-									<td>#i#</td>
-									<td>
-										<cfset uservalue=evaluate("d." & i)>
-										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,i)>
-												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
-											</cfif>
-											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
-											<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
-										</select>
-									</td>
-								</tr>
-							</cfloop>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<!--- locality ---->
-						<table border>
-							<cfloop list="#locality#" index="i">
-								<tr>
-									<td>#i#</td>
-									<td>
-										<cfset uservalue=evaluate("d." & i)>
-										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,i)>
-												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
-											</cfif>
-											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
-											<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
-										</select>
-									</td>
-								</tr>
-							</cfloop>
-						</table>
-					</td>
-					<td>
-						<!--- specimen ---->
-						<table border>
-							<cfloop list="#specimen#" index="i">
-								<tr>
-									<td>#i#</td>
-									<td>
-										<cfset uservalue=evaluate("d." & i)>
-										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,i)>
-												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
-											</cfif>
-											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
-											<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
-										</select>
-									</td>
-								</tr>
-							</cfloop>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<!--- parts ---->
-						<table border>
-							<cfloop list="#parts#" index="i">
-								<tr>
-									<td>#i#</td>
-									<td>
-										<cfset uservalue=evaluate("d." & i)>
-										<select name="#i#" id="#i#">
-											<cfif not listfindnocase(noHide,i)>
-												<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
-											</cfif>
-											<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
-											<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
-										</select>
-									</td>
-								</tr>
-							</cfloop>
-						</table>
-					</td>
-					<td>
-						<!--- notused ---->
-					</td>
-				</tr>
-			</table>
-			
+			<div style="fs">
+				<!--- cat --->
+				Cataloged Item Identifiers
+				<table border id="cat">
+					<cfloop list="#cat#" index="i">
+						<tr>
+							<td>#i#</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="#i#" id="#i#">
+									<cfif not listfindnocase(noHide,i)>
+										<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+									</cfif>
+									<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+									<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
+			<div style="fs">
+				<!--- coordinates --->
+				<table border>
+					<cfloop list="#coordinates#" index="i">
+						<tr>
+							<td>#i#</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="#i#" id="#i#">
+									<cfif not listfindnocase(noHide,i)>
+										<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+									</cfif>
+									<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+									<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
+			<div style="fs">
+				<!--- colls ---->
+				<table border>
+					<cfloop list="#colls#" index="i">
+						<tr>
+							<td>#i#</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="#i#" id="#i#">
+									<cfif not listfindnocase(noHide,i)>
+										<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+									</cfif>
+									<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+									<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
+			<div style="fs">
+				<!--- geol ---->
+				<table border>
+					<cfloop list="#geol#" index="i">
+						<tr>
+							<td>#i#</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="#i#" id="#i#">
+									<cfif not listfindnocase(noHide,i)>
+										<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+									</cfif>
+									<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+									<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
+			<div style="fs">
+				<!--- ids ---->
+				<table border>
+					<cfloop list="#ids#" index="i">
+						<tr>
+							<td>#i#</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="#i#" id="#i#">
+									<cfif not listfindnocase(noHide,i)>
+										<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+									</cfif>
+									<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+									<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
+			<div style="fs">
+				<!--- attributes ---->
+				<table border>
+					<cfloop list="#attributes#" index="i">
+						<tr>
+							<td>#i#</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="#i#" id="#i#">
+									<cfif not listfindnocase(noHide,i)>
+										<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+									</cfif>
+									<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+									<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
+			<div style="fs">
+				<!--- locality ---->
+				<table border>
+					<cfloop list="#locality#" index="i">
+						<tr>
+							<td>#i#</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="#i#" id="#i#">
+									<cfif not listfindnocase(noHide,i)>
+										<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+									</cfif>
+									<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+									<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
+			<div style="fs">
+				<!--- specimen ---->
+				<table border>
+					<cfloop list="#specimen#" index="i">
+						<tr>
+							<td>#i#</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="#i#" id="#i#">
+									<cfif not listfindnocase(noHide,i)>
+										<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+									</cfif>
+									<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+									<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
+			<div style="fs">
+				<!--- parts ---->
+				<table border>
+					<cfloop list="#parts#" index="i">
+						<tr>
+							<td>#i#</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="#i#" id="#i#">
+									<cfif not listfindnocase(noHide,i)>
+										<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+									</cfif>
+									<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+									<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
 			
 			<br><input type="submit" value="save preferences">
 		</form>
