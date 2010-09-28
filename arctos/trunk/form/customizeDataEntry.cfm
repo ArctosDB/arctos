@@ -14,7 +14,7 @@ grant all on cf_dataentry_settings to data_entry;
 
 <script>
 	function test(){
-		$('#cat').children(':input').css('background-color', 'red');	
+		$('#cat').children(':input').css('color', 'red');	
 	}
 </script>
 <cfoutput>
