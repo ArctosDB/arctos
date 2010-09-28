@@ -76,16 +76,25 @@ grant all on cf_dataentry_settings to data_entry;
 			Attributes 1-6 do different things depending on collection type, and turning them off may do nothing for your account.
 			Customize with caution.
 		</p>
-		
-		<span class="likeLink" onclick="toggleAll('hide')">[ hide everything ]</span>
-		<span class="likeLink" onclick="toggleAll('show')">[ show everything ]</span>
-		<span class="likeLink" onclick="toggleAll('carry')">[ carry everything ]</span>
-		
+		<div class="fs">
+			Set everything on this page with one click: 
+			<span class="likeLink" onclick="toggleAll('hide')">[ hide everything ]</span>
+			<span class="likeLink" onclick="toggleAll('show')">[ show everything ]</span>
+			<span class="likeLink" onclick="toggleAll('carry')">[ carry everything ]</span>
+		</div>
+		<div class="fs">
+			Jump To
+			<ul>
+				<li><a href="#cat">Cataloged Item Identifiers</a></li>
+				<li><a href="#coordinates">Coordinates</a></li>
+			</ul>
+		</div>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
 			<br><input type="submit" value="save preferences">
 			<input type="hidden" name="action" value="saveChanges">
 			<input type="hidden" name="oldaction" value="#action#">
 			<!-- along with required stuff, use this to deal with linked stuff,like elevation --->
+			<a name="cat"></a>
 			<div class="fs" id="cat">
 				<!--- cat --->
 				Cataloged Item Identifiers
@@ -110,6 +119,7 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
+			<a name="coordinates"></a>
 			<div class="fs" id="coordinates">
 				<!--- coordinates --->
 				Coordinates
