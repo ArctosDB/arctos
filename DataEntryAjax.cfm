@@ -366,7 +366,7 @@
 						</tr>
 						<cfloop from="1" to="4" index="i">
 							<tr>
-								<td id="d_other_id_num_type_#i#">
+								<td id="d_other_id_num_#i#">
 									<span class="f11a">OtherID #i#</span>
 									<select name="other_id_num_type_#i#" style="width:250px"
 										id="other_id_num_type_#i#" 
