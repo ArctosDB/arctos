@@ -59,8 +59,12 @@ grant all on cf_dataentry_settings to data_entry;
 		<cfset specimen="FLAGS,COLL_OBJ_DISPOSITION,CONDITION,COLL_OBJECT_REMARKS,DISPOSITION_REMARKS,RELATIONSHIP,RELATED_TO_NUMBER,RELATED_TO_NUM_TYPE">
 		<cfset parts="PART_NAME_1,PART_CONDITION_1,PART_BARCODE_1,PART_CONTAINER_LABEL_1,PART_LOT_COUNT_1,PART_DISPOSITION_1,PART_REMARK_1,PART_NAME_2,PART_CONDITION_2,PART_BARCODE_2,PART_CONTAINER_LABEL_2,PART_LOT_COUNT_2,PART_DISPOSITION_2,PART_REMARK_2,PART_NAME_3,PART_CONDITION_3,PART_BARCODE_3,PART_CONTAINER_LABEL_3,PART_LOT_COUNT_3,PART_DISPOSITION_3,PART_REMARK_3,PART_NAME_4,PART_CONDITION_4,PART_BARCODE_4,PART_CONTAINER_LABEL_4,PART_LOT_COUNT_4,PART_DISPOSITION_4,PART_REMARK_4,PART_NAME_5,PART_CONDITION_5,PART_BARCODE_5,PART_CONTAINER_LABEL_5,PART_LOT_COUNT_5,PART_DISPOSITION_5,PART_REMARK_5,PART_NAME_6,PART_CONDITION_6,PART_BARCODE_6,PART_CONTAINER_LABEL_6,PART_LOT_COUNT_6,PART_DISPOSITION_6,PART_REMARK_6,PART_NAME_7,PART_CONDITION_7,PART_BARCODE_7,PART_CONTAINER_LABEL_7,PART_LOT_COUNT_7,PART_DISPOSITION_7,PART_REMARK_7,PART_NAME_8,PART_CONDITION_8,PART_BARCODE_8,PART_CONTAINER_LABEL_8,PART_LOT_COUNT_8,PART_DISPOSITION_8,PART_REMARK_8,PART_NAME_9,PART_CONDITION_9,PART_BARCODE_9,PART_CONTAINER_LABEL_9,PART_LOT_COUNT_9,PART_DISPOSITION_9,PART_REMARK_9,PART_NAME_10,PART_CONDITION_10,PART_BARCODE_10,PART_CONTAINER_LABEL_10,PART_LOT_COUNT_10,PART_DISPOSITION_10,PART_REMARK_10,PART_NAME_11,PART_CONDITION_11,PART_BARCODE_11,PART_CONTAINER_LABEL_11,PART_LOT_COUNT_11,PART_DISPOSITION_11,PART_REMARK_11,PART_NAME_12,PART_CONDITION_12,PART_BARCODE_12,PART_CONTAINER_LABEL_12,PART_LOT_COUNT_12,PART_DISPOSITION_12,PART_REMARK_12">
 		<cfset geol="GEOLOGY_ATTRIBUTE_1,GEO_ATT_VALUE_1,GEO_ATT_DETERMINER_1,GEO_ATT_DETERMINED_DATE_1,GEO_ATT_DETERMINED_METHOD_1,GEO_ATT_REMARK_1,GEOLOGY_ATTRIBUTE_2,GEO_ATT_VALUE_2,GEO_ATT_DETERMINER_2,GEO_ATT_DETERMINED_DATE_2,GEO_ATT_DETERMINED_METHOD_2,GEO_ATT_REMARK_2,GEOLOGY_ATTRIBUTE_3,GEO_ATT_VALUE_3,GEO_ATT_DETERMINER_3,GEO_ATT_DETERMINED_DATE_3,GEO_ATT_DETERMINED_METHOD_3,GEO_ATT_REMARK_3,GEOLOGY_ATTRIBUTE_4,GEO_ATT_VALUE_4,GEO_ATT_DETERMINER_4,GEO_ATT_DETERMINED_DATE_4,GEO_ATT_DETERMINED_METHOD_4,GEO_ATT_REMARK_4,GEOLOGY_ATTRIBUTE_5,GEO_ATT_VALUE_5,GEO_ATT_DETERMINER_5,GEO_ATT_DETERMINED_DATE_5,GEO_ATT_DETERMINED_METHOD_5,GEO_ATT_REMARK_5,GEOLOGY_ATTRIBUTE_6,GEO_ATT_VALUE_6,GEO_ATT_DETERMINER_6,GEO_ATT_DETERMINED_DATE_6,GEO_ATT_DETERMINED_METHOD_6,GEO_ATT_REMARK_6">
-		<cfset child="OTHER_ID_NUM_TYPE_5">
+		<cfset child="DEC_LAT,DEC_LONG,LATDEG,DEC_LAT_MIN,LATMIN,LATSEC,LATDIR,LONGDEG,DEC_LONG_MIN,LONGMIN,LONGSEC,LONGDIR,DATUM,LAT_LONG_REF_SOURCE,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,GEOREFMETHOD,DETERMINED_BY_AGENT,DETERMINED_DATE,LAT_LONG_REMARKS,VERIFICATIONSTATUS,UTM_ZONE,UTM_EW,UTM_NS,EXTENT,GPSACCURACY,GEO_ATT_VALUE_1,GEO_ATT_DETERMINER_1,GEO_ATT_DETERMINED_DATE_1,GEO_ATT_DETERMINED_METHOD_1,GEO_ATT_REMARK_1,GEO_ATT_VALUE_2,GEO_ATT_DETERMINER_2,GEO_ATT_DETERMINED_DATE_2,GEO_ATT_DETERMINED_METHOD_2,GEO_ATT_REMARK_2,GEO_ATT_VALUE_3,GEO_ATT_DETERMINER_3,GEO_ATT_DETERMINED_DATE_3,GEO_ATT_DETERMINED_METHOD_3,GEO_ATT_REMARK_3,GEO_ATT_VALUE_4,GEO_ATT_DETERMINER_4,GEO_ATT_DETERMINED_DATE_4,GEO_ATT_DETERMINED_METHOD_4,GEO_ATT_REMARK_4,GEO_ATT_VALUE_5,GEO_ATT_DETERMINER_5,GEO_ATT_DETERMINED_DATE_5,GEO_ATT_DETERMINED_METHOD_5,GEO_ATT_REMARK_5,GEO_ATT_VALUE_6,GEO_ATT_DETERMINER_6,GEO_ATT_DETERMINED_DATE_6,GEO_ATT_DETERMINED_METHOD_6,GEO_ATT_REMARK_6,COLLECTOR_ROLE_1,COLLECTOR_ROLE_2,COLLECTOR_ROLE_3,COLLECTOR_ROLE_4,COLLECTOR_ROLE_5,OTHER_ID_NUM_TYPE_5">
 				
+				
+
+
+
 		Use this form to customize what you see on data entry and how data carries over when you save a new record. There are (generally)
 		three choices in the drowdown for each field:
 		<ul>
@@ -149,7 +153,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<table border id="taxa">
 					<cfloop list="#taxa#" index="i">
 						<tr>
-							<td>#i#</td>
+							<td>
+								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
+							</td>
 							<td>
 								<cfset uservalue=evaluate("d." & i)>
 								<select name="#i#" id="#i#">
@@ -175,7 +181,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<table border>
 					<cfloop list="#coordinates#" index="i">
 						<tr>
-							<td>#i#</td>
+							<td>
+								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
+							</td>
 							<td>
 								<cfset uservalue=evaluate("d." & i)>
 								<select name="#i#" id="#i#">
@@ -201,7 +209,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<table border>
 					<cfloop list="#colls#" index="i">
 						<tr>
-							<td>#i#</td>
+							<td>
+								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
+							</td>
 							<td>
 								<cfset uservalue=evaluate("d." & i)>
 								<select name="#i#" id="#i#">
@@ -227,7 +237,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<table border>
 					<cfloop list="#geol#" index="i">
 						<tr>
-							<td>#i#</td>
+							<td>
+								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
+							</td>
 							<td>
 								<cfset uservalue=evaluate("d." & i)>
 								<select name="#i#" id="#i#">
@@ -253,7 +265,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<table border>
 					<cfloop list="#ids#" index="i">
 						<tr>
-							<td>#i#</td>
+							<td>
+								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
+							</td>
 							<td>
 								<cfset uservalue=evaluate("d." & i)>
 								<select name="#i#" id="#i#">
@@ -279,7 +293,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<table border>
 					<cfloop list="#attributes#" index="i">
 						<tr>
-							<td>#i#</td>
+							<td>
+								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
+							</td>
 							<td>
 								<cfset uservalue=evaluate("d." & i)>
 								<select name="#i#" id="#i#">
@@ -306,7 +322,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<table border>
 					<cfloop list="#locality#" index="i">
 						<tr>
-							<td>#i#</td>
+							<td>
+								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
+							</td>
 							<td>
 								<cfset uservalue=evaluate("d." & i)>
 								<select name="#i#" id="#i#">
@@ -333,7 +351,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<table border>
 					<cfloop list="#specimen#" index="i">
 						<tr>
-							<td>#i#</td>
+							<td>
+								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
+							</td>
 							<td>
 								<cfset uservalue=evaluate("d." & i)>
 								<select name="#i#" id="#i#">
@@ -360,7 +380,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<table border>
 					<cfloop list="#parts#" index="i">
 						<tr>
-							<td>#i#</td>
+							<td>
+								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
+							</td>
 							<td>
 								<cfset uservalue=evaluate("d." & i)>
 								<select name="#i#" id="#i#">
