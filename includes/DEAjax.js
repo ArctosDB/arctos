@@ -1,4 +1,5 @@
 function setPagePrefs(){
+	msg('setting customizations.....');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "getPrefs",
@@ -29,7 +30,7 @@ function setPagePrefs(){
 					$("#d_" + eName).show();
 				}
 			}
-			//msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
+			msg('page ready','good');
 			
 		}
 	);
@@ -45,6 +46,8 @@ function closeCust() {
 	
 	$('#theFrame').remove();
 	$('#theFrame', window.parent.document).remove();
+	
+	setPagePrefs();
 }
 
 function customize(t) {
@@ -154,6 +157,7 @@ function saveNewRecord () {
 				if (status=='spiffy'){
 					$("#collection_object_id").val(rA[1]);
 					msg('inserted ' + rA[1],'good');
+					setPagePrefs();
 				} else {
 					msg(r,'bad');
 				}
