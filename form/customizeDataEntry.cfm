@@ -98,7 +98,9 @@ grant all on cf_dataentry_settings to data_entry;
 			</ul>
 		</div>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
-			<br><input type="submit" value="save preferences">
+			<br>
+			<span class="likeLink" onclick="submit();">[ save and close ]</span>
+			<input type="submit" value="save preferences">
 			<input type="hidden" name="action" value="saveChanges">
 			<input type="hidden" name="oldaction" value="#action#">
 			<!-- along with required stuff, use this to deal with linked stuff,like elevation --->
