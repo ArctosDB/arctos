@@ -13,10 +13,10 @@ grant all on cf_dataentry_settings to data_entry;
 
 
 <script>
-			function test(){
-				$('#cat').children('select').css('background-color', 'red');	
-			}
-		</script>
+	function test(){
+		$('#cat').children().css('background-color', 'red');	
+	}
+</script>
 <cfoutput>
 	<cfif action is "nothing">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
