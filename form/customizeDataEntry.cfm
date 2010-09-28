@@ -26,6 +26,9 @@ grant all on cf_dataentry_settings to data_entry;
 		margin:1em;
 		padding:1em;
 	}
+	.child{
+		padding-left:1em;
+	}
 </style>
 <cfoutput>
 	<cfif action is "nothing">
@@ -69,8 +72,9 @@ grant all on cf_dataentry_settings to data_entry;
 		save a record with (potentially problematic) values in hidden fields.
 		
 		<p>
-			"Linked" fields require only turning off the "controlling" element to hide. Turn off elevation units to get
-			rid of all elevation fields, or orig_lat_long_units to get rid of all coordinate data, for example.
+			"Linked" fields require only turning off the "parent" element to hide. Turn off elevation units to get
+			rid of all elevation fields, or orig_lat_long_units to get rid of all coordinate data, for example. The "child" elements
+			will individually remain as "show" but will not appear on the entry form.
 		</p>
 		<p>
 			Attributes 1-6 do different things depending on collection type, and turning them off may do nothing for your account.
@@ -107,14 +111,19 @@ grant all on cf_dataentry_settings to data_entry;
 			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="cat">
 				<!--- cat --->
-				Cataloged Item Identifiers
+				<cfset child="OTHER_ID_NUM_TYPE_5">
+				<strong>Cataloged Item Identifiers</strong>
+				<br><span style="font-size:small;">ID 5 is your Custom ID</span>
+				<br>
 				<span class="likeLink" onclick="toggleTo('cat','hide')">[ hide all ]</span>
 				<span class="likeLink" onclick="toggleTo('cat','show')">[ show all ]</span>
 				<span class="likeLink" onclick="toggleTo('cat','carry')">[ carry all ]</span>				
 				<table border id="cat">
 					<cfloop list="#cat#" index="i">
 						<tr>
-							<td>#i#</td>
+							<td>
+								<div <cfif listfindnocase(child,i)>style="child"</cfif>>#i#</div>
+							</td>
 							<td>
 								<cfset uservalue=evaluate("d." & i)>
 								<select name="#i#" id="#i#">
