@@ -213,25 +213,24 @@ function copyVerbatim(str){
 }
 	
 	
-	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#made_date").datepicker();
-			jQuery("#began_date").datepicker();
-			jQuery("#ended_date").datepicker();	
-			jQuery("#determined_date").datepicker();
-			for (i=1;i<=12;i++){
-				jQuery("#geo_att_determined_date_" + i).datepicker();
-				jQuery("#attribute_date_" + i).datepicker();
-			}
-		});
-		jQuery("input[type=text]").focus(function(){
-		    //this.select();
-		});
-		$("select[id^='geology_attribute_']").each(function(e){
-			var gid='geology_attribute_' + String(e+1);
-			populateGeology(gid);			
-		});		
+jQuery(document).ready(function() {
+	setPagePrefs();
+	jQuery("#made_date").datepicker();
+	jQuery("#began_date").datepicker();
+	jQuery("#ended_date").datepicker();	
+	jQuery("#determined_date").datepicker();
+	for (i=1;i<=12;i++){
+		jQuery("#geo_att_determined_date_" + i).datepicker();
+		jQuery("#attribute_date_" + i).datepicker();
+	}
+	jQuery("input[type=text]").focus(function(){
+	    //this.select();
 	});
+	$("select[id^='geology_attribute_']").each(function(e){
+		var gid='geology_attribute_' + String(e+1);
+		populateGeology(gid);			
+	});
+});
 
 	function populateGeology(id) {
 		var idNum=id.replace('geology_attribute_','');
