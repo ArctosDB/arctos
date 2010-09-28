@@ -51,7 +51,6 @@ function closeCust() {
 }
 
 function customize(t) {
-	closeCust();
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
