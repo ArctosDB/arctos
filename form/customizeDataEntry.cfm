@@ -41,6 +41,7 @@ grant all on cf_dataentry_settings to data_entry;
 			<br><input type="submit" value="save preferences">
 			<input type="hidden" name="action" value="saveChanges">
 			<input type="hidden" name="oldaction" value="#action#">
+			<cfset reqd="collector_agent_1,collector_role_1,ACCN,TAXON_NAME,NATURE_OF_ID,ID_MADE_BY_AGENT,VERBATIM_DATE,BEGAN_DATE,ENDED_DATE,HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY,COLL_OBJ_DISPOSITION,CONDITION,COLLECTING_METHOD,COLLECTING_SOURCE">
 			<table border>
 				<cfloop query="getCols">
 					<tr>
@@ -48,12 +49,11 @@ grant all on cf_dataentry_settings to data_entry;
 						<td>
 							<cfset uservalue=evaluate("d." & column_name)>
 							<select name="#column_name#" id="#column_name#">
-								<option value="0"
-									<cfif uservalue is 0> selected="selected" </cfif>>hide</option>
-								<option value="1"
-									<cfif uservalue is 1> selected="selected" </cfif>>show</option>
-								<option value="2"
-									<cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								<cfif not listfindnocase(reqd,column_name)>
+									<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+								</cfif>
+								<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+								<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
 							</select>
 						</td>
 					</tr>

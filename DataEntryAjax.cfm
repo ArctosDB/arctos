@@ -368,7 +368,7 @@
 						</tr>
 						<cfloop from="1" to="4" index="i">
 							<tr>
-								<td>
+								<td id="d_other_id_num_type_#i#">
 									<span class="f11a">OtherID #i#</span>
 									<select name="other_id_num_type_#i#" style="width:250px"
 										id="other_id_num_type_#i#" 
@@ -426,9 +426,9 @@
 								<span class="infoLink" onclick="copyAllDates('made_date');">Copy2All</span>
 							</td>
 						</tr>
-						<tr>
+						<tr id="d_identification_remarks">
 							<td align="right"><span class="f11a">ID Remk</span></td>
-							<td><input type="text" name="IDENTIFICATION_REMARKS" value="#IDENTIFICATION_REMARKS#"
+							<td><input type="text" name="identification_remarks" value="#identification_remarks#"
 								id="identification_remarks" size="80">
 							</td>
 						</tr>
@@ -455,8 +455,9 @@
 							<td colspan="2">
 								<table>
 									<tr>
-										<td align="right"><span class="f11a">Existing&nbsp;LocalityID:&nbsp;</span></td>
+										<td align="right"><span class="f11a">:&nbsp;</span></td>
 										<td>
+											<label for="" class="h">Existing&nbsp;LocalityIDLBL</label>
 											<input type="hidden" id="fetched_locid">
 											<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr" size="8">
 											<span class="infoLink" id="localityPicker"
