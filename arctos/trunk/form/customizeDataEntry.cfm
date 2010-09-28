@@ -330,15 +330,15 @@ grant all on cf_dataentry_settings to data_entry;
 		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-		#preservesinglequotes(sql)#
-		
-		<cflocation url="customizeDataEntry.cfm" addtoken="false">
+		<script>
+			parent.closeCust();
+		</script>
 		<!---<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update cf_dataentry_settings set
 				numberAgents=#numberAgents#
 			where username='#session.username#'
 		</cfquery>
-		
+		cflocation url="customizeDataEntry.cfm" addtoken="false">
 		--->
 	</cfif>
 </cfoutput>
