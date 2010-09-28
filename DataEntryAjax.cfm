@@ -562,7 +562,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td colspan="2" id="d_orig_elev_units">
 								<label for="minimum_elevation">Elevation (min-max)</label>
 								<span class="f11a">&nbsp;between</span>
 								<input type="text" name="minimum_elevation" size="4" value="#minimum_elevation#" id="minimum_elevation">
@@ -579,13 +579,13 @@
 								</select>
 							</td>
 						</tr>
-						<tr>
+						<tr id="d_coll_event_remarks">
 							<td align="right"><span class="f11a">CollEvntRemk</span></td>
 							<td>
 								<input type="text" name="coll_event_remarks" size="80" value="#coll_event_remarks#" id="coll_event_remarks">
 							</td>
 						</tr>
-						<tr>
+						<tr id="d_locality_remarks">
 							<td align="right"><span class="f11a">LocalityRemk</span></td>
 							<td>
 								<input type="text" name="locality_remarks" size="80" value="#locality_remarks#" id="locality_remarks">
@@ -594,7 +594,7 @@
 					</table><!----- /locality ---------->
 				</td> <!---- end top left --->		
 				<td valign="top"><!----- right column ---->	
-				<table cellpadding="0" cellspacing="0" class="fs"><!------- coordinates ------->
+				<table cellpadding="0" cellspacing="0" class="fs" id="d_orig_lat_long_units"><!------- coordinates ------->
 					<tr>
 						<td rowspan="99" valign="top">
 							<img src="/images/info.gif" border="0" onClick="getDocs('lat_long')" class="likeLink" alt="[ help ]">
@@ -701,10 +701,10 @@
 											</select>
 										</td>
 									</tr>
-									<tr>
+									<tr id="d_lat_long_remarks">
 										<td align="right"><span class="f11a">LatLongRemk</span></td>
 										<td colspan="3">
-											<input type="text" name="LAT_LONG_REMARKS" size="80" value="#LAT_LONG_REMARKS#" id="lat_long_remarks">
+											<input type="text" name="lat_long_remarks" size="80" value="#lat_long_remarks#" id="lat_long_remarks">
 										</td>
 									</tr>
 								</table>
@@ -894,7 +894,7 @@
 						</td>
 					</tr>
 				</table><!---- /coordinates ---->
-				<cfif #collection_cde# is "ES"><!--- geology ---->
+				<cfif collection_cde is "ES"><!--- geology ---->
 					<div id="geolCell">
 						<table cellpadding="0" cellspacing="0" class="fs">
 							<tr>
@@ -917,13 +917,13 @@
 											<cfset thisMeth= evaluate("data.geo_att_determined_method_" & i)>
 											<cfset thisRemark= evaluate("data.geo_att_remark_" & i)>
 											<div id="#i#">
-											<tr>
+											<tr id="d_geology_attribute_#i#">
 												<td>
 													<select name="geology_attribute_#i#" id="geology_attribute_#i#" size="1" onchange="populateGeology(this.id);">
 														<option value=""></option>
 														<cfloop query="ctgeology_attribute">
 															<option 
-																<cfif #thisAttribute# is #geology_attribute#> selected="selected" </cfif>
+																<cfif thisAttribute is geology_attribute> selected="selected" </cfif>
 																	value="#geology_attribute#">#geology_attribute#</option>
 														</cfloop>
 													</select>								
@@ -974,9 +974,9 @@
 				<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
 					<tr>
 						<td>
-							<cfif #collection_cde# is not "Crus" and #collection_cde# is not "Herb"
-								and #collection_cde# is not "ES" and #collection_cde# is not "Fish"
-								and #collection_cde# is not "Para" and #collection_cde# is not "Art">
+							<cfif collection_cde is not "Crus" and collection_cde is not "Herb"
+								and collection_cde is not "ES" and collection_cde is not "Fish"
+								and collection_cde is not "Para" and collection_cde is not "Art">
 								<table cellpadding="0" cellspacing="0">
 									<tr>
 										<td rowspan="99" valign="top">
@@ -1171,7 +1171,7 @@
 									<th><span class="f11a">Remarks</span></th>
 								</tr>
 								<cfloop from="7" to="10" index="i">
-									<tr>
+									<tr id="d_attribute_#i#">
 										<td>
 											<select name="attribute_#i#" onChange="getAttributeStuff(this.value,this.id);"
 												style="width:100px;" id="attribute_#i#">
@@ -1249,15 +1249,10 @@
 					<tr>
 						<td align="right"><span class="f11a">Condition</span></td>
 						<td>
-							<input type="text" 
-								class="reqdClr"
-								name="condition" 
-								value="#condition#" 
-								id="condition"
-								size="50">
+							<input type="text" class="reqdClr" name="condition" value="#condition#" id="condition" size="50">
 						</td>
 					</tr>
-					<tr>
+					<tr id="d_relationship">
 						<td align="right"><span class="f11a">Relations</span></td>
 						<td>
 							<cfset thisRELATIONSHIP = #RELATIONSHIP#>
@@ -1265,17 +1260,17 @@
 								<option value=""></option>
 								<cfloop query="ctbiol_relations">
 									<option
-										<cfif #thisRELATIONSHIP# is #BIOL_INDIV_RELATIONSHIP#> selected </cfif>
+										<cfif thisRELATIONSHIP is BIOL_INDIV_RELATIONSHIP> selected="selected" </cfif>
 									 value="#BIOL_INDIV_RELATIONSHIP#">#BIOL_INDIV_RELATIONSHIP#</option>
 								</cfloop>							
 							</select>
-							<cfset thisRELATED_TO_NUM_TYPE = #RELATED_TO_NUM_TYPE#>
+							<cfset thisRELATED_TO_NUM_TYPE = RELATED_TO_NUM_TYPE>
 							<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:80px">
 								<option value=""></option>
-								<option <cfif #thisRELATED_TO_NUM_TYPE# is "catalog number">selected="selected"</cfif> value="catalog number">catalog number (UAM Mamm 123 format)</option>
+								<option <cfif thisRELATED_TO_NUM_TYPE is "catalog number">selected="selected"</cfif> value="catalog number">catalog number (UAM Mamm 123 format)</option>
 								<cfloop query="ctOtherIdType">
 									<option
-										<cfif #thisRELATED_TO_NUM_TYPE# is #other_id_type#> selected </cfif>
+										<cfif thisRELATED_TO_NUM_TYPE is other_id_type> selected="selected" </cfif>
 									 value="#other_id_type#">#other_id_type#</option>
 								</cfloop>							
 							</select>
@@ -1284,20 +1279,20 @@
 					</tr>
 				</table><!------ random admin stuff ---------->
 				<table cellpadding="0" cellspacing="0" class="fs"><!------- remarkey stuff --->
-					<tr>
+					<tr id="d_coll_object_remarks">
 						<td colspan="2">
 							<span class="f11a">Spec Remark</span>
 								<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="80">#coll_object_remarks#</textarea>
 						</td>
 					</tr>
 					<tr>
-						<td>
+						<td id="d_flags">
 							<span class="f11a">Missing....</span>
-							<cfset thisflags = #flags#>
+							<cfset thisflags = flags>
 							<select name="flags" size="1" style="width:120px" id="flags">
 								<option  value=""></option>
 								<cfloop query="ctflags">
-									<option <cfif #flags# is #thisflags#> selected </cfif>
+									<option <cfif flags is thisflags> selected </cfif>
 										value="#flags#">#flags#</option>
 								</cfloop>
 							</select>
@@ -1326,7 +1321,7 @@
 						<th><span class="f11a">Remark</span></th>
 					</tr>
 					<cfloop from="1" to="12" index="i">
-						<tr>
+						<tr id="d_part_name_#i#">
 							<td>
 								<cfset tpn=evaluate("data.part_name_" & i)>
 								<input type="text" name="part_name_#i#" id="part_name_#i#" <cfif i is 1>class="reqdClr"</cfif>
