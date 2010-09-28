@@ -1,5 +1,5 @@
 function setPagePrefs(){
-	msg('setting customizations.....');
+	msg('setting customizations.....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "getPrefs",
