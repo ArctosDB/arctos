@@ -457,7 +457,7 @@
 									<tr>
 										<td align="right"><span class="f11a">:&nbsp;</span></td>
 										<td>
-											<label for="fetched_locid">Existing&nbsp;LocalityIDLBL</label>
+											<label class="delbl" for="fetched_locid">Existing&nbsp;LocalityIDLBL</label>
 											<input type="hidden" id="fetched_locid">
 											<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr" size="8">
 											<span class="infoLink" id="localityPicker"
