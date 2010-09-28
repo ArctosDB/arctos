@@ -85,8 +85,8 @@ grant all on cf_dataentry_settings to data_entry;
 		<div class="fs">
 			Jump To
 			<ul>
-				<li><a href="#cat">Cataloged Item Identifiers</a></li>
-				<li><a href="#coordinates">Coordinates</a></li>
+				<li><a href="##cat">Cataloged Item Identifiers</a></li>
+				<li><a href="##coordinates">Coordinates</a></li>
 			</ul>
 		</div>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
