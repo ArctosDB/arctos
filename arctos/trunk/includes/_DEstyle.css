@@ -1,3 +1,8 @@
+label {
+	display:inline;
+	font-size:smaller;
+	padding-right:.5em;}
+	
 #msg {
 	position:fixed;
 	top:0;
