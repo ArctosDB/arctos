@@ -10,6 +10,13 @@ grant all on cf_dataentry_settings to data_entry;
 
 ---->
 <cfinclude template="/includes/alwaysInclude.cfm">
+
+
+<script>
+			function test(){
+				$('#cat').children('select).css('background-color', 'red');	
+			}
+		</script>
 <cfoutput>
 	<cfif action is "nothing">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -58,11 +65,7 @@ grant all on cf_dataentry_settings to data_entry;
 			Attributes 1-6 do different things depending on collection type, and turning them off may do nothing for your account.
 			Customize with caution.
 		</p>
-		<script>
-			function test(){
-				$('#cat').children('select).css('background-color', 'red');	
-			}
-		</script>
+		
 		
 		<span class="likeLink" onclick="test()">test</span>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
