@@ -327,6 +327,8 @@
 								</cfif>
 								<span class="f11a">Accn</span>
 								<input type="text" name="accn" value="#accn#" size="13" class="reqdClr" id="accn" onchange="isGoodAccn();">
+								<span class="likeLink" onclick="customize()">[ customize form ]</span>
+
 							</td>
 						</tr>
 					</table><!---------------------------------- / cat item IDs ---------------------------------------------->
@@ -334,10 +336,6 @@
 						<tr>
 							<td rowspan="99" valign="top">
 								<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
-								<span class="infoLink" onclick="customize('agent')">customize</span>
-								<span class="infoLink" onclick="setPagePrefs()">setPagePrefs</span>
-								
-								
 							</td>
 							<cfloop from="1" to="5" index="i">
 								<cfif i is 1 or i is 3 or i is 5><tr></cfif>
