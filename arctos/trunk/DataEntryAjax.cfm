@@ -455,9 +455,8 @@
 							<td colspan="2">
 								<table>
 									<tr>
-										<td align="right"><span class="f11a">:&nbsp;</span></td>
-										<td>
-											<label for="fetched_locid">Existing&nbsp;LocalityIDLBL</label>
+										<td id="d_locality_id">
+											<label for="fetched_locid">Existing&nbsp;LocalityID</label>
 											<input type="hidden" id="fetched_locid">
 											<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr" size="8">
 											<span class="infoLink" id="localityPicker"
@@ -471,8 +470,8 @@
 												Depick&nbsp;Locality
 											</span>
 										</td>
-										<td align="right"><span class="f11a">Existing&nbsp;EventID:&nbsp;</span></td>
-										<td>
+										<td id="d_collecting_event_id">
+											<label for="collecting_event_id">Existing&nbsp;EventID</label>
 											<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
 											<input type="hidden" id="fetched_eventid">
 											<span class="infoLink" id="eventPicker" onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
@@ -535,7 +534,7 @@
 												class="reqdClr">										
 												<cfloop query="ctcollecting_source">
 													<option 
-														<cfif #collecting_source# is #thisCollSrc#> selected </cfif>
+														<cfif collecting_source is thisCollSrc> selected </cfif>
 														value="#collecting_source#">#collecting_source#</option>
 												</cfloop>
 											</select>
@@ -544,27 +543,27 @@
 								</table>
 							</td>
 						</tr>
-						<tr>
+						<tr id="d_habitat_desc">
 							<td align="right"><span class="f11a">Habitat</span></td>
 							<td>
 								<input type="text" name="habitat_desc" size="50" id="habitat_desc" value="#habitat_desc#">
 							</td>
 						</tr>
-						<tr>
+						<tr id="d_associated_species">
 							<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
 							<td>
 								<input type="text" name="associated_species" size="80" id="associated_species" value="#associated_species#">
 							</td>
 						</tr>
-						<tr>
+						<tr id="d_coll_object_habitat">
 							<td align="right"><span class="f11a">Microhabitat</span></td>
 							<td>
 								<input type="text" name="coll_object_habitat" size="80" id="coll_object_habitat" value="#coll_object_habitat#">
 							</td>
 						</tr>
 						<tr>
-							<td align="right"><span class="f11a">Elevation (min-max)</span></td>
 							<td>
+								<label for="minimum_elevation">Elevation (min-max)</label>
 								<span class="f11a">&nbsp;between</span>
 								<input type="text" name="minimum_elevation" size="4" value="#minimum_elevation#" id="minimum_elevation">
 								<span class="infoLink" 
