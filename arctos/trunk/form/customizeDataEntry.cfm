@@ -99,7 +99,7 @@ grant all on cf_dataentry_settings to data_entry;
 		</div>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
 			<br>
-			<span class="likeLink" onclick="submit();">[ save and close ]</span>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<input type="submit" value="save preferences">
 			<input type="hidden" name="action" value="saveChanges">
 			<input type="hidden" name="oldaction" value="#action#">
