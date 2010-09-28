@@ -18,7 +18,10 @@ grant all on cf_dataentry_settings to data_entry;
 	}
 </script>
 <style>
-	.fs{border:1px solid green;margin:1em;}
+	.fs{
+		border:1px solid green;
+		margin:1em;
+	}
 </style>
 <cfoutput>
 	<cfif action is "nothing">
@@ -70,13 +73,12 @@ grant all on cf_dataentry_settings to data_entry;
 		</p>
 		
 		
-		<span class="likeLink" onclick="test()">test</span>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
 			<br><input type="submit" value="save preferences">
 			<input type="hidden" name="action" value="saveChanges">
 			<input type="hidden" name="oldaction" value="#action#">
 			<!-- along with required stuff, use this to deal with linked stuff,like elevation --->
-			<div style="fs">
+			<div class="fs" id="cat">
 				<!--- cat --->
 				Cataloged Item Identifiers
 				<span class="likeLink" onclick="toggleTo('cat','hide')">[ hide all ]</span>
@@ -100,7 +102,7 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<div style="fs" id="coordinates">
+			<div class="fs" id="coordinates">
 				<!--- coordinates --->
 				Coordinates
 				<span class="likeLink" onclick="toggleTo('coordinates','hide')">[ hide all ]</span>
@@ -124,8 +126,12 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<div style="fs">
+			<div class="fs" id="colls">
 				<!--- colls ---->
+				Collectors
+				<span class="likeLink" onclick="toggleTo('colls','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('colls','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('colls','carry')">[ carry all ]</span>
 				<table border>
 					<cfloop list="#colls#" index="i">
 						<tr>
@@ -144,8 +150,12 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<div style="fs">
+			<div class="fs" id="geol">
 				<!--- geol ---->
+				Geology
+				<span class="likeLink" onclick="toggleTo('geol','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('geol','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('geol','carry')">[ carry all ]</span>
 				<table border>
 					<cfloop list="#geol#" index="i">
 						<tr>
@@ -164,8 +174,12 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<div style="fs">
+			<div class="fs" id="ids">
 				<!--- ids ---->
+				Other IDs
+				<span class="likeLink" onclick="toggleTo('ids','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('ids','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('ids','carry')">[ carry all ]</span>
 				<table border>
 					<cfloop list="#ids#" index="i">
 						<tr>
@@ -184,8 +198,12 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<div style="fs">
+			<div class="fs" id="attributes">
 				<!--- attributes ---->
+				Attributes
+				<span class="likeLink" onclick="toggleTo('attributes','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('attributes','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('attributes','carry')">[ carry all ]</span>
 				<table border>
 					<cfloop list="#attributes#" index="i">
 						<tr>
@@ -204,8 +222,13 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<div style="fs">
+			<div class="fs" id="locality">
 				<!--- locality ---->
+				Locality
+				
+				<span class="likeLink" onclick="toggleTo('locality','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('locality','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('locality','carry')">[ carry all ]</span>
 				<table border>
 					<cfloop list="#locality#" index="i">
 						<tr>
@@ -224,8 +247,13 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<div style="fs">
+			<div class="fs" id="specimen">
 				<!--- specimen ---->
+				Cataloged Item
+				<br>
+				<span class="likeLink" onclick="toggleTo('specimen','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('specimen','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('specimen','carry')">[ carry all ]</span>
 				<table border>
 					<cfloop list="#specimen#" index="i">
 						<tr>
@@ -244,8 +272,13 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<div style="fs">
+			<div class="fs" id="parts">
 				<!--- parts ---->
+				Parts (hiding part name will hide the entire part row)
+				<br>
+				<span class="likeLink" onclick="toggleTo('parts','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('parts','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('parts','carry')">[ carry all ]</span>
 				<table border>
 					<cfloop list="#parts#" index="i">
 						<tr>
