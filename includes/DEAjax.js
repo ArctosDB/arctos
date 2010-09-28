@@ -8,7 +8,7 @@ function setPagePrefs(){
 		function(r) {
 			//alert(r.COLUMNS);
 			var columns=r.COLUMNS;
-			console.log(columns);
+			//console.log(columns);
 			//var cAry=columns.split(',');
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
