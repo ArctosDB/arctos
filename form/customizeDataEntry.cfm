@@ -76,6 +76,7 @@ grant all on cf_dataentry_settings to data_entry;
 			Attributes 1-6 do different things depending on collection type, and turning them off may do nothing for your account.
 			Customize with caution.
 		</p>
+		<a name="top"></a>
 		<div class="fs">
 			Set everything on this page with one click: 
 			<span class="likeLink" onclick="toggleAll('hide')">[ hide everything ]</span>
@@ -87,6 +88,13 @@ grant all on cf_dataentry_settings to data_entry;
 			<ul>
 				<li><a href="##cat">Cataloged Item Identifiers</a></li>
 				<li><a href="##coordinates">Coordinates</a></li>
+				
+				
+				colls
+				geol
+				ids
+				attributes
+				
 			</ul>
 		</div>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
@@ -144,6 +152,7 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
+			<a name="colls"></a>
 			<div class="fs" id="colls">
 				<!--- colls ---->
 				Collectors
@@ -168,6 +177,7 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
+			<a name="geol"></a>
 			<div class="fs" id="geol">
 				<!--- geol ---->
 				Geology
@@ -192,6 +202,7 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
+			<a name="ids"></a>
 			<div class="fs" id="ids">
 				<!--- ids ---->
 				Other IDs
@@ -216,6 +227,7 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
+			<a name="attributes" href="##top">[ top ]</a>
 			<div class="fs" id="attributes">
 				<!--- attributes ---->
 				Attributes
