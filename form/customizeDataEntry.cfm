@@ -17,6 +17,9 @@ grant all on cf_dataentry_settings to data_entry;
 		$("#" + e + " :input").val(v);	
 	}
 </script>
+<style>
+	.fs{border:1px solid green;margin:1em;}
+</style>
 <cfoutput>
 	<cfif action is "nothing">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -76,14 +79,9 @@ grant all on cf_dataentry_settings to data_entry;
 			<div style="fs">
 				<!--- cat --->
 				Cataloged Item Identifiers
-				<span class="likeLink" onclick="toggleTo('cat','hide')">hide</span>
-				<span class="likeLink" onclick="toggleTo('cat','show')">show</span>
-				<span class="likeLink" onclick="toggleTo('cat','carry')">carry</span>
-				<span class="likeLink" onclick="toggleTo('cat','0')">0</span>
-				<span class="likeLink" onclick="toggleTo('cat','1')">1</span>
-				<span class="likeLink" onclick="toggleTo('cat','2')">2</span>
-		
-				
+				<span class="likeLink" onclick="toggleTo('cat','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('cat','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('cat','carry')">[ carry all ]</span>				
 				<table border id="cat">
 					<cfloop list="#cat#" index="i">
 						<tr>
@@ -102,8 +100,12 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<div style="fs">
+			<div style="fs" id="coordinates">
 				<!--- coordinates --->
+				Coordinates
+				<span class="likeLink" onclick="toggleTo('coordinates','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('coordinates','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('coordinates','carry')">[ carry all ]</span>
 				<table border>
 					<cfloop list="#coordinates#" index="i">
 						<tr>
