@@ -13,8 +13,8 @@ grant all on cf_dataentry_settings to data_entry;
 
 
 <script>
-	function test(){
-		$("#cat :input").css('color', 'red');	
+	function toggleTo(e,v){
+		$("#" + e + " :input").val(v);	
 	}
 </script>
 <cfoutput>
@@ -76,6 +76,14 @@ grant all on cf_dataentry_settings to data_entry;
 			<div style="fs">
 				<!--- cat --->
 				Cataloged Item Identifiers
+				<span class="likeLink" onclick="toggleTo('cat','hide')">hide</span>
+				<span class="likeLink" onclick="toggleTo('cat','show')">show</span>
+				<span class="likeLink" onclick="toggleTo('cat','carry')">carry</span>
+				<span class="likeLink" onclick="toggleTo('cat','0')">0</span>
+				<span class="likeLink" onclick="toggleTo('cat','1')">1</span>
+				<span class="likeLink" onclick="toggleTo('cat','2')">2</span>
+		
+				
 				<table border id="cat">
 					<cfloop list="#cat#" index="i">
 						<tr>
