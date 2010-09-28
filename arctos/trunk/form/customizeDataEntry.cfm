@@ -100,11 +100,11 @@ grant all on cf_dataentry_settings to data_entry;
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
 			<br>
 			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
-			<input type="submit" value="save preferences">
 			<input type="hidden" name="action" value="saveChanges">
 			<input type="hidden" name="oldaction" value="#action#">
 			<!-- along with required stuff, use this to deal with linked stuff,like elevation --->
-			<a name="cat"></a>
+			<a name="cat" href="##top">[ top ]</a>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="cat">
 				<!--- cat --->
 				Cataloged Item Identifiers
