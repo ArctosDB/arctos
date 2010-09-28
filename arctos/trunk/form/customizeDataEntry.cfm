@@ -82,24 +82,24 @@ grant all on cf_dataentry_settings to data_entry;
 			<span class="likeLink" onclick="toggleAll('hide')">[ hide everything ]</span>
 			<span class="likeLink" onclick="toggleAll('show')">[ show everything ]</span>
 			<span class="likeLink" onclick="toggleAll('carry')">[ carry everything ]</span>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 		</div>
 		<div class="fs">
 			Jump To
 			<ul>
 				<li><a href="##cat">Cataloged Item Identifiers</a></li>
+				<li><a href="##taxa">Identification</a></li>
 				<li><a href="##coordinates">Coordinates</a></li>
-				
-				
-				colls
-				geol
-				ids
-				attributes
-				
+				<li><a href="##colls">Collectors</a></li>
+				<li><a href="##geol">Geology</a></li>
+				<li><a href="##ids">Identifiers</a></li>
+				<li><a href="##attributes">Attributes</a></li>
+				<li><a href="##locality">Locality</a></li>				
+				<li><a href="##specimen">Cataloged Item</a></li>
+				<li><a href="##parts">Parts</a></li>
 			</ul>
 		</div>
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
-			<br>
-			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<input type="hidden" name="action" value="saveChanges">
 			<input type="hidden" name="oldaction" value="#action#">
 			<!-- along with required stuff, use this to deal with linked stuff,like elevation --->
@@ -129,7 +129,34 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<a name="coordinates"></a>
+			<a name="taxa" href="##top">[ top ]</a>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
+			<div class="fs" id="taxa">
+				<!--- cat --->
+				Identification
+				<span class="likeLink" onclick="toggleTo('taxa','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('taxa','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('taxa','carry')">[ carry all ]</span>				
+				<table border id="taxa">
+					<cfloop list="#taxa#" index="i">
+						<tr>
+							<td>#i#</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="#i#" id="#i#">
+									<cfif not listfindnocase(noHide,i)>
+										<option value="0" <cfif uservalue is 0> selected="selected" </cfif>>hide</option>
+									</cfif>
+									<option value="1" <cfif uservalue is 1> selected="selected" </cfif>>show</option>
+									<option value="2" <cfif uservalue is 2> selected="selected" </cfif>>carry</option>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+			</div>
+			<a name="coordinates" href="##top">[ top ]</a>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="coordinates">
 				<!--- coordinates --->
 				Coordinates
@@ -154,7 +181,8 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<a name="colls"></a>
+			<a name="colls" href="##top">[ top ]</a>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="colls">
 				<!--- colls ---->
 				Collectors
@@ -179,7 +207,8 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<a name="geol"></a>
+			<a name="geol" href="##top">[ top ]</a>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="geol">
 				<!--- geol ---->
 				Geology
@@ -204,7 +233,8 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			<a name="ids"></a>
+			<a name="ids" href="##top">[ top ]</a>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="ids">
 				<!--- ids ---->
 				Other IDs
@@ -230,6 +260,7 @@ grant all on cf_dataentry_settings to data_entry;
 				</table>
 			</div>
 			<a name="attributes" href="##top">[ top ]</a>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="attributes">
 				<!--- attributes ---->
 				Attributes
@@ -254,6 +285,8 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
+			<a name="locality" href="##top">[ top ]</a>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="locality">
 				<!--- locality ---->
 				Locality
@@ -279,6 +312,8 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
+			<a name="specimen" href="##top">[ top ]</a>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="specimen">
 				<!--- specimen ---->
 				Cataloged Item
@@ -304,6 +339,8 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
+			<a name="parts" href="##top">[ top ]</a>
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="parts">
 				<!--- parts ---->
 				Parts
@@ -329,8 +366,7 @@ grant all on cf_dataentry_settings to data_entry;
 					</cfloop>
 				</table>
 			</div>
-			
-			<br><input type="submit" value="save preferences">
+			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 		</form>
 	</cfif>
 	<cfif action is "saveChanges">
