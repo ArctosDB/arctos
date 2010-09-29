@@ -20,10 +20,10 @@
 		</cfquery>
 	</cftransaction>
 	<cfquery name="next" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select max(collection_object_id) as collection_object_id from bulkloader 
+		select #collection_object_id# oldValue, max(collection_object_id) nextValue from bulkloader 
 		where enteredby = '#session.username#'
 	</cfquery>
-	<cfreturn next.collection_object_id>
+	<cfreturn next>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 

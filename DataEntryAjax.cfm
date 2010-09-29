@@ -1379,14 +1379,14 @@
 				<tr>
 					<td width="16%">
 						<span id="theNewButton" style="display:none;">
-							<input type="button" value="Save This Entry As A New Record" class="insBtn"
+							<input type="button" value="Save This As A New Record" class="insBtn"
 								onclick="saveNewRecord();"/>
 						 </span>
 					</td>
 					<td width="16%">
 						<span id="enterMode" style="display:none">
 							<input type="button" 
-								value="Enter Edit Mode" 
+								value="Edit Last Record" 
 								class="lnkBtn"
 								onclick="editThis()">			
 						</span>
@@ -1449,19 +1449,18 @@
 							</cfif>
 							--->
 							
-							Record 
+							Jump to Record 
 							<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecord(this.value);">
 								<cfset recposn=1>
 								<cfloop query="whatIds">
 									<option 
 										<cfif data.collection_object_id is whatIds.collection_object_id> selected="selected" </cfif>
-										value="#collection_object_id#">#recposn#</option>
+										value="#collection_object_id#">#collection_object_id#</option>
 									<cfset idList = "#idList#,">
 									<cfset recposn=recposn+1>
 								</cfloop>
 							</select>
-							of 
-							<span id="recCount">#whatIds.recordcount#</span>
+							(<span id="recCount">#whatIds.recordcount#</span> total records)
 							<span id="nBrowse" class="infoLink" onclick="browseTo('next')">next</span>
 							<!---
 							<cfif currentPos is listlen(idList)>
