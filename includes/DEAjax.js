@@ -100,13 +100,15 @@ function deleteThisRec () {
 			},
 			function(r) {
 				console.log(r);
-				/*
 				var o=r.DATA.OLDVALUE[0];
 				var n=r.DATA.NEXTVALUE[0];
+				console.log(n + '::' + n.length);
+				/*
+				
 				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
 				$("#selectbrowse option[value=" + o + "]").remove();
 				console.log(o);
-				console.log(n + '::' + n.length + '-' + r.DATA.NEXTVALUE[0].length);
+				
 				
 				if (n.length>0){
 					msg('loading previous record....','bad');
