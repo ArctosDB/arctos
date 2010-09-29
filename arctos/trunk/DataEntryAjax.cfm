@@ -229,7 +229,7 @@
 	    </cfquery>
 		<cfquery name="ctSex_Cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(sex_cde) as sex_cde FROM ctSex_Cde
-			<cfif len(#collection_cde#) gt 0>
+			<cfif len(collection_cde) gt 0>
 				WHERE collection_cde='#collection_cde#'
 			</cfif>
 			order by sex_cde
@@ -299,7 +299,7 @@
 			<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
 			<input type="hidden" name="collection_cde" value="#collection_cde#" id="collection_cde">
 			<input type="hidden" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
-			<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>  
+			<input type="text" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>  
 			<input type="hidden" name="loaded" value="waiting approval"  id="loaded"/>
 			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style="display:none;"> <!--- whole page table --->
 				<tr>
