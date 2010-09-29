@@ -220,6 +220,7 @@ function loadRecord (collection_object_id) {
 				$("#" + eName).val(cVal);
 			}
 			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
+			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
 			$("#pBrowse").show();
 			$("#nBrowse").show();
 			if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
