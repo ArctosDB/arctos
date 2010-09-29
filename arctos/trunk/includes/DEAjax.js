@@ -102,7 +102,8 @@ function deleteThisRec () {
 				console.log(r);
 				var o=r.DATA.OLDVALUE[0];
 				var n=r.DATA.NEXTVALUE[0];
-				console.log(n + '::' + n.length);
+				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
+				$("#selectbrowse option[value=" + o + "]").remove();
 				if(n){
 					msg('loading previous record....','bad');
 					loadRecord(n);
@@ -111,8 +112,7 @@ function deleteThisRec () {
 				}
 				/*
 				
-				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
-				$("#selectbrowse option[value=" + o + "]").remove();
+				
 				console.log(o);
 				
 				
