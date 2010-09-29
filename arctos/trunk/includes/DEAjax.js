@@ -612,7 +612,7 @@ function changeMode (mode,collobjid) {
 	var tNew = document.getElementById('theNewButton');
 	var eBtn = document.getElementById('enterMode');
 	var sBtn = document.getElementById('editMode');
-	var tBS = document.getElementById('selectbrowse');
+	//var tBS = document.getElementById('selectbrowse');
 	var Bty = document.getElementById('browseThingy');
 	var pgClr = document.getElementById('theTable');
 	var lmdc = document.getElementById('loadedMsgDiv').innerHTML;
@@ -628,7 +628,7 @@ function changeMode (mode,collobjid) {
 		tSav.style.display='';
 		eBtn.style.display='none';
 		sBtn.style.display='';
-		tBS.value=collobjid;
+		//tBS.value=collobjid;
 		Bty.style.display='';
 		//clrDefBtn.style.display='none';// allow clearing of data in entry mode ONLY (not here!)
 		if (isGoodSave > 0) {
@@ -643,10 +643,10 @@ function changeMode (mode,collobjid) {
 		tSav.style.display='none';
 		eBtn.style.display='';
 		sBtn.style.display='none';
-		var theNumOptions=tBS.length;
-		var tNewOptNum = theNumOptions;
-		tBS.options[tNewOptNum] = new Option('NEW','');
-		tBS.value='';
+		//var theNumOptions=tBS.length;
+		//var tNewOptNum = theNumOptions;
+		//tBS.options[tNewOptNum] = new Option('NEW','');
+		//tBS.value='';
 		Bty.style.display='none';
 //		clrDefBtn.style.display=''; // allow clearing of data in entry mode 
 		if (isGoodSave > 0) {
