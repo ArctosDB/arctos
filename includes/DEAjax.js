@@ -213,6 +213,7 @@ function browseTo(dir){
 		ix=parseInt(parseInt(ix)-1);
 	}
 	var c = $("#selectbrowse").find("option:eq(" + ix +")" ).val();
+	loadRecord(c);
 	console.log('we want to load record ' + c);
 	/*
 	console.log('the current record is ' + c);
