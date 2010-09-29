@@ -205,6 +205,12 @@ function loadRecord (collection_object_id) {
 				$("#" + eName).val(cVal);
 			}
 			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
+			if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
+				console.log('we loaded the last record; there is no next button');
+			}
+			if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
+				console.log('we loaded the first record; there is no previous button');
+			}
 			
 		}
 	);
