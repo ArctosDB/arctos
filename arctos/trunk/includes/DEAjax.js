@@ -107,6 +107,28 @@ function deleteThisRec () {
 				queryformat : 'column'
 			},
 			function(r) {
+				var oldValue=r.DATA.OLDVALUE[0];
+				var nextValue=r.DATA.NEXTVALUE[0];
+				
+				if (status=='spiffy'){
+					$("#collection_object_id").val(rA[1]);
+					msg('inserted ' + rA[1],'good');
+					var l=$("#selectbrowse option:last").text();
+					l=parseInt(parseInt(l)+1);
+					//console.log('last val is ' + b);
+					var o='<option value="' + rA[1] + '">' + l + '</option>';
+					$("#selectbrowse").append(o);
+					$("#recCount").text(l);
+					setPagePrefs();
+				} else {
+				
+				
+				
+				
+				
+				
+				
+				
 				if (r.length==0){
 					alert('No other records found. Please use the tabs above to return to Data Entry');
 				} else {
@@ -165,12 +187,10 @@ function saveNewRecord () {
 				if (status=='spiffy'){
 					$("#collection_object_id").val(rA[1]);
 					msg('inserted ' + rA[1],'good');
-					var l=$("#selectbrowse option:last").text();
-					l=parseInt(parseInt(l)+1);
 					//console.log('last val is ' + b);
-					var o='<option value="' + rA[1] + '">' + l + '</option>';
+					var o='<option value="' + rA[1] + '">' + rA[1] + '</option>';
 					$("#selectbrowse").append(o);
-					$("#recCount").text(l);
+					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
 					setPagePrefs();
 				} else {
 					msg(r,'bad');
@@ -181,6 +201,11 @@ function saveNewRecord () {
 }
 function browseTo(dir){
 	var c=$("#selectbrowse option:selected").text();
+	
+	var ix = $("#selectbrowse").attr( "selectedIndex" );
+	console.log('the inded is ' + ix);
+	/*
+	
 	console.log('the current record is ' + c);
 	if (dir=='next'){
 		c=parseInt(parseInt(c)+1);
@@ -192,6 +217,7 @@ function browseTo(dir){
 	var coid=$("#selectbrowse option[text=" + c + "]").val();
 	console.log('the COID is ' + coid);
 	loadRecord(coid);
+	*/
 	
 }
 function loadRecord (collection_object_id) {
