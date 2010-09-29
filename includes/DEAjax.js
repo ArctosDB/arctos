@@ -167,9 +167,10 @@ function saveNewRecord () {
 				if (status=='spiffy'){
 					$("#collection_object_id").val(rA[1]);
 					msg('inserted ' + rA[1],'good');
-					//var b=$("#selectbrowse option:last").text();
+					var l=$("#selectbrowse option:last").text();
+					l=parseInt(parseInt(l)+1);
 					//console.log('last val is ' + b);
-					var o='<option value="' + rA[1] + '">' + parseInt($("#selectbrowse option:last").text() + 1) + '</option>';
+					var o='<option value="' + rA[1] + '">' + l + '</option>';
 					$("#selectbrowse").append(o);
 					setPagePrefs();
 				} else {
