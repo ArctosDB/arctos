@@ -76,13 +76,14 @@ function customize(t) {
 
 function msg(m,s){
 	if (s=='bad'){
-		if (!$("#bgDiv")){
+		if ($("#bgDiv").length==0){
+			console.log('adding...');
 			// add overlay
 			var bgDiv = document.createElement('div');
 			bgDiv.id = 'bgDiv';
 			bgDiv.className = 'bgDiv';
 			document.body.appendChild(bgDiv);
-		}
+		} else {console.log('isthere');}
 	} else {
 		$("#bgDiv").remove();
 	}
