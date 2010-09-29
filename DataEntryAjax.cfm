@@ -1460,7 +1460,8 @@
 									<cfset recposn=recposn+1>
 								</cfloop>
 							</select>
-							of #whatIds.recordcount#
+							of 
+							<span id="recCount">#whatIds.recordcount#</span>
 							<span id="nBrowse"></span>
 							<!---
 							<cfif currentPos is listlen(idList)>
