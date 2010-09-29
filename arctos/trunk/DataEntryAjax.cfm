@@ -1427,7 +1427,7 @@
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
 						<span id="browseThingy">
-							<span class="infoLink" id="pBrowse" onclick="browseTo('previous')">previous</span>
+							
 							<!---
 							<cfif currentPos gt 1>
 								<cfset prevCollObjId = listgetat(idList,currentPos - 1)>
@@ -1450,6 +1450,7 @@
 							--->
 							
 							<span id="recCount">#whatIds.recordcount#</span> total records - Jump to 
+							<span class="infoLink" id="pBrowse" onclick="browseTo('previous')">[ previous ]</span>
 							<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecord(this.value);">
 								<cfset recposn=1>
 								<cfloop query="whatIds">
@@ -1460,7 +1461,7 @@
 									<cfset recposn=recposn+1>
 								</cfloop>
 							</select>
-							<span id="nBrowse" class="infoLink" onclick="browseTo('next')">next</span>
+							<span id="nBrowse" class="infoLink" onclick="browseTo('next')">[ next ]</span>
 							<!---
 							<cfif currentPos is listlen(idList)>
 								<img src="/images/no_next.gif" border="0" alt="[ null ]" />
