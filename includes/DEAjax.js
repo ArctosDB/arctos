@@ -109,7 +109,7 @@ function deleteThisRec () {
 			function(r) {
 				var oldValue=r.DATA.OLDVALUE[0];
 				var nextValue=r.DATA.NEXTVALUE[0];
-				
+				/*
 				if (status=='spiffy'){
 					$("#collection_object_id").val(rA[1]);
 					msg('inserted ' + rA[1],'good');
@@ -135,6 +135,7 @@ function deleteThisRec () {
 					msg('loading previous record....','bad');
 					loadRecord(r);
 				}
+				*/
 			}
 		);
 	}
