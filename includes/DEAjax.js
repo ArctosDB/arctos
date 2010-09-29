@@ -1,4 +1,4 @@
-// MSB Bird: catNumSeq();
+// MSB Bird: 
 function jumpRec(id){
 		
 }
@@ -284,6 +284,9 @@ jQuery(document).ready(function() {
 		var gid='geology_attribute_' + String(e+1);
 		populateGeology(gid);			
 	});
+	if ($("#collection_cde").val()=='Bird' && $("#institution_acronym").val()=='MSB'){
+		console.log('msb bird');
+		catNumSeq();
 });
 
 	function populateGeology(id) {
