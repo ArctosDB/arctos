@@ -167,6 +167,8 @@ function saveNewRecord () {
 				if (status=='spiffy'){
 					$("#collection_object_id").val(rA[1]);
 					msg('inserted ' + rA[1],'good');
+					var b=$("#browseRecs option:last").val();
+					console.log('last val is ' + b);
 					setPagePrefs();
 				} else {
 					msg(r,'bad');
@@ -188,7 +190,7 @@ function loadRecord (collection_object_id) {
 			//alert(r);
 			//alert(r.COLUMNS);
 			var columns=r.COLUMNS;
-			console.log(columns);
+			//console.log(columns);
 			//var cAry=columns.split(',');
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
