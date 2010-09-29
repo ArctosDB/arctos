@@ -226,7 +226,7 @@ function copyVerbatim(str){
 		},
 		function(r) {
 			if(r.DATA.B[0].length==0 || r.DATA.E[0].length==0){
-				msg(r.DATA.I[0] + ' could not be converted to ISO8601.','bad');
+				msg(r.DATA.I[0] + ' could not be converted to ISO8601.','err');
 				//$("#dateConvertStatus").addClass('err').text(r.DATA.I[0] + ' could not be converted.');
 			} else {
 				//$("#dateConvertStatus").removeClass().text('');
