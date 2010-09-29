@@ -1,38 +1,5 @@
-<!------
-
-
-		<hr>
-		<h2>Customize your data entry form</h2>
-		<form name="custDE" method="post" action="DataEntry.cfm">
-			<input type="hidden" name="action" value="saveCust">
-			<label for="inc_custoid">Increment Custom ID?</label>
-			<input type="checkbox" id="inc_custoid" name="inc_custoid" value="1">
-			
-			<label for="num_collector">Number of Collectors</label>
-			<select name="num_collector" id="num_collector">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option selected="selected" value="5">5</option>
-			</select>
-			
-			<label for="c_colls">Carryover collectors?</label>
-			<input type="checkbox" id="c_colls" name="c_colls" value="1">
-			<label for="num_id">Number of Identifiers</label>
-			<select name="num_id" id="num_id">
-				<option value="0">0</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-			</select>
-			
-			<br><input type="submit">
-		</form>ctOrigElevUnits
-		
-		
-		------->
+<div id="msg">Status messages will appear here.</div>
+<div><!--- spacer ---></div>
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Data Entry">
 <link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
@@ -42,7 +9,6 @@
 
 --->
 <script type='text/javascript' src='/includes/DEAjax.js'></script>
-<div id="msg">Status messages will appear here.</div>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
 
@@ -1422,33 +1388,11 @@
 						--->
 					</td>
 					<td width="16%">	
-						<input type="button" value="JAVA table" class="lnkBtn" onclick="window.open('userBrowseBulkedGrid.cfm','_browseDE');" />
-						<input type="button" value="AJAX table" class="lnkBtn" onclick="window.open('userBrowseBulkedGrid.cfm?action=ajaxGrid','_browseDE');" />
+						<a href="userBrowseBulkedGrid.cfm">[ JAVA table ]</a>
+						<a href="userBrowseBulkedGrid.cfm?action=ajaxGrid">[ AJAX table ]</a>
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
 						<span id="browseThingy">
-							
-							<!---
-							<cfif currentPos gt 1>
-								<cfset prevCollObjId = listgetat(idList,currentPos - 1)>
-								<cfif imAGod is "yes">
-									<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#prevCollObjId#&imagod=yes">
-								<cfelse>
-									<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#prevCollObjId#">
-								</cfif>
-								<a href="#theLink#"><img src="/images/previous.gif" class="likeLink" border="0" alt="[ back ]"/></a>
-							<cfelse>
-								<img src="/images/no_previous.gif" border="0" alt="[ null ]" />
-							</cfif>
-							<cfset recposn = 1>
-							
-							<cfif imAGod is "yes">
-								<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&imagod=yes&collection_object_id=">
-							<cfelse>
-								<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=">
-							</cfif>
-							--->
-							
 							<span id="recCount">#whatIds.recordcount#</span> total records - Jump to 
 							<span class="infoLink" id="pBrowse" onclick="browseTo('previous')">[ previous ]</span>
 							<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecord(this.value);">
@@ -1462,19 +1406,6 @@
 								</cfloop>
 							</select>
 							<span id="nBrowse" class="infoLink" onclick="browseTo('next')">[ next ]</span>
-							<!---
-							<cfif currentPos is listlen(idList)>
-								<img src="/images/no_next.gif" border="0" alt="[ null ]" />
-							<cfelse>
-								<cfset nextCollObjId = listgetat(idList,currentPos + 1)>
-								<cfif imAGod is "yes">
-									<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#&imagod=yes">
-								<cfelse>
-									<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#">
-								</cfif>
-								<a href="#theLink#"><img src="/images/next.gif" class="likeLink" border="0"/ alt="[ next ]"></a>
-							</cfif>	
-							--->	
 						</span>									
 					</td>
 				</tr>
