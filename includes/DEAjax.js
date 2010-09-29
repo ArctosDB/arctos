@@ -169,7 +169,7 @@ function saveNewRecord () {
 					msg('inserted ' + rA[1],'good');
 					//var b=$("#selectbrowse option:last").text();
 					//console.log('last val is ' + b);
-					var o='<option value="' + rA[1] + '">' + $("#selectbrowse option:last").text() + 1 + '</option>';
+					var o='<option value="' + rA[1] + '">' + parseInt($("#selectbrowse option:last").text()) + 1 + '</option>';
 					$("#selectbrowse").append(o);
 					setPagePrefs();
 				} else {
