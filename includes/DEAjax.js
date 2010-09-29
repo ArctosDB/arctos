@@ -183,6 +183,20 @@ function saveNewRecord () {
 		);
 	}
 }
+function browseTo(dir){
+	var c=$("#selectbrowse").text();
+	console.log('the current record is ' + c);
+	if (dir=='next'){
+		c=parseInt(parseInt(c)+1);
+	} else {
+		c=parseInt(parseInt(c)-1);
+	}
+	console.log('we want to load record ' + c);
+	
+	var coid=$("#selectbrowse option[value='" + c + "']").val();
+	console.log('the COID is ' + coid);
+	loadRecord(coid);
+}
 function loadRecord (collection_object_id) {
 	msg('fetching data....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
@@ -205,11 +219,13 @@ function loadRecord (collection_object_id) {
 				$("#" + eName).val(cVal);
 			}
 			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
+			$(#"pBrowse").show();
+			$(#"nBrowse").show();
 			if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
-				console.log('we loaded the last record; there is no next button');
+				$(#"nBrowse").hide();
 			}
 			if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
-				console.log('we loaded the first record; there is no previous button');
+				$(#"pBrowse").hide();
 			}
 			
 		}
