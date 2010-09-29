@@ -111,7 +111,8 @@ function deleteThisRec () {
 					msg('loading previous record....','bad');
 					loadRecord(n);
 				} else {
-					alert('No other records found. Please use the tabs above to return to Data Entry');	
+					alert('No other records found. Click OK to return to the start page.');
+					document.location=document.location;
 				}
 				/*
 				
