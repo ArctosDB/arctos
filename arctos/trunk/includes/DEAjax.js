@@ -219,13 +219,13 @@ function loadRecord (collection_object_id) {
 				$("#" + eName).val(cVal);
 			}
 			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
-			$(#"pBrowse").show();
-			$(#"nBrowse").show();
+			$("#pBrowse").show();
+			$("#nBrowse").show();
 			if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
-				$(#"nBrowse").hide();
+				$("#nBrowse").hide();
 			}
 			if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
-				$(#"pBrowse").hide();
+				$("#pBrowse").hide();
 			}
 			
 		}
