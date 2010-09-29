@@ -104,9 +104,10 @@ function deleteThisRec () {
 				var n=r.DATA.NEXTVALUE[0];
 				console.log(n + '::' + n.length);
 				if(n){
-					alert('got n');
+					msg('loading previous record....','bad');
+					loadRecord(n);
 				} else {
-					alert('no n');
+					alert('No other records found. Please use the tabs above to return to Data Entry');	
 				}
 				/*
 				
@@ -116,10 +117,9 @@ function deleteThisRec () {
 				
 				
 				if (n.length>0){
-					msg('loading previous record....','bad');
-					loadRecord(n);
+					
 				} else {
-					alert('No other records found. Please use the tabs above to return to Data Entry');	
+					
 				}
 				*/
 			}
