@@ -96,6 +96,21 @@ function customize(t) {
 
 
 function msg(m,s){
+	if (s=='bad'){
+		// add overlay
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		document.body.appendChild(bgDiv);
+	} else {
+		$("#bgDiv").remove();
+	}
+	$("#msg").removeClass().addClass(s).html(m);
+}
+
+
+
+	
 	$("#msg").removeClass().addClass(s).html(m);
 }
 
