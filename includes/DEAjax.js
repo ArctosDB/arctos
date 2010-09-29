@@ -193,20 +193,10 @@ function browseTo(dir){
 	}
 	console.log('we want to load record ' + c);
 	
-	var coid=$("#selectbrowse option[value='8']").val();
+	var coid=$("#selectbrowse option[text=8]").val();
 	console.log('the COID is ' + coid);
 	//loadRecord(coid);
 	
-	var coid=$("#selectbrowse option[value=8]").val();
-	console.log('the COID is ' + coid);
-	
-	var coid=$("#selectbrowse option[8]").val();
-	console.log('the COID is ' + coid);
-	
-	
-	var coid=$("#selectbrowse option[value=8]").text();
-	console.log('the COID is ' + coid);
-	//loadRecord(coid);
 }
 function loadRecord (collection_object_id) {
 	msg('fetching data....','bad');
