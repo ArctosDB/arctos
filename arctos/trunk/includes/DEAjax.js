@@ -76,6 +76,11 @@ function customize(t) {
 
 function msg(m,s){
 	if (s=='bad'){
+		if ($("#bgDiv")){
+			console.log('already got bg');
+		} else {
+			console.log('need bg');
+		}
 		// add overlay
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
@@ -212,7 +217,6 @@ function loadRecord (collection_object_id) {
 				var eName=cName.toLowerCase();
 				$("#" + eName).val(cVal);
 			}
-			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
 			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
 			$("#pBrowse").show();
 			$("#nBrowse").show();
@@ -222,6 +226,7 @@ function loadRecord (collection_object_id) {
 			if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
 				$("#pBrowse").hide();
 			}
+			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
 		}
 	);
 }
