@@ -184,7 +184,7 @@ function saveNewRecord () {
 	}
 }
 function browseTo(dir){
-	var c=$("#selectbrowse").text();
+	var c=$("#selectbrowse option:selected").text();
 	console.log('the current record is ' + c);
 	if (dir=='next'){
 		c=parseInt(parseInt(c)+1);
