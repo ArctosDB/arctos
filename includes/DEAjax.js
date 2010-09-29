@@ -615,7 +615,7 @@ function changeMode (mode,collobjid) {
 	var lmdc = document.getElementById('loadedMsgDiv').innerHTML;
 	var tlmdc = lmdc.replace(/^\s+/g, '').replace(/\s+$/g, '');
 	var isGoodSave = tlmdc.length;
-	var clrDefBtn = document.getElementById('clearDefault');	
+	//var clrDefBtn = document.getElementById('clearDefault');	
 	if (mode == 'edit') {
 		if (collobjid < 20) {
 			alert('You cannot enter edit mode until you\'ve entered a record! Select \'start where you left off\' from the initial menu if you have entered records previously and wish to edit them.');
@@ -627,7 +627,7 @@ function changeMode (mode,collobjid) {
 		sBtn.style.display='';
 		tBS.value=collobjid;
 		Bty.style.display='';
-		clrDefBtn.style.display='none';// allow clearing of data in entry mode ONLY (not here!)
+		//clrDefBtn.style.display='none';// allow clearing of data in entry mode ONLY (not here!)
 		if (isGoodSave > 0) {
 			pgClr.style.backgroundColor = '#FF6EC7';
 		} else {
@@ -645,7 +645,7 @@ function changeMode (mode,collobjid) {
 		tBS.options[tNewOptNum] = new Option('NEW','');
 		tBS.value='';
 		Bty.style.display='none';
-		clrDefBtn.style.display=''; // allow clearing of data in entry mode 
+//		clrDefBtn.style.display=''; // allow clearing of data in entry mode 
 		if (isGoodSave > 0) {
 			pgClr.style.backgroundColor = '#669999';
 		} else {
