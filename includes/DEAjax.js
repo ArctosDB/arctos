@@ -287,6 +287,7 @@ jQuery(document).ready(function() {
 	if ($("#collection_cde").val()=='Bird' && $("#institution_acronym").val()=='MSB'){
 		console.log('msb bird');
 		catNumSeq();
+	}
 });
 
 	function populateGeology(id) {
