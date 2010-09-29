@@ -77,13 +77,12 @@ function customize(t) {
 function msg(m,s){
 	if (s=='bad'){
 		if ($("#bgDiv").length==0){
-			console.log('adding...');
 			// add overlay
 			var bgDiv = document.createElement('div');
 			bgDiv.id = 'bgDiv';
 			bgDiv.className = 'bgDiv';
 			document.body.appendChild(bgDiv);
-		} else {console.log('isthere');}
+		}
 	} else {
 		$("#bgDiv").remove();
 	}
@@ -114,18 +113,6 @@ function deleteThisRec () {
 					alert('No other records found. Click OK to return to the start page.');
 					document.location=document.location;
 				}
-				/*
-				
-				
-				console.log(o);
-				
-				
-				if (n.length>0){
-					
-				} else {
-					
-				}
-				*/
 			}
 		);
 	}
@@ -158,7 +145,6 @@ function editThis(){
 	if (yesChange == true) {
 		loadRecord($("#collection_object_id").val());
 		$("#selectbrowse").val($("#collection_object_id").val());
-		
 		changeMode('edit');
 	}
 }
@@ -240,9 +226,11 @@ function copyVerbatim(str){
 		},
 		function(r) {
 			if(r.DATA.B[0].length==0 || r.DATA.E[0].length==0){
-				$("#dateConvertStatus").addClass('err').text(r.DATA.I[0] + ' could not be converted.');
+				msg(r.DATA.I[0] + ' could not be converted to ISO8601.','bad');
+				//$("#dateConvertStatus").addClass('err').text(r.DATA.I[0] + ' could not be converted.');
 			} else {
-				$("#dateConvertStatus").removeClass().text('');
+				//$("#dateConvertStatus").removeClass().text('');
+				msg('ISO8601 convert success','good');
 				$("#began_date").val(r.DATA.B[0]);
 				$("#ended_date").val(r.DATA.E[0]);
 			}
