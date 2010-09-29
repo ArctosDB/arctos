@@ -1,9 +1,3 @@
-// MSB Bird: 
-function jumpRec(id){
-		
-}
-
-
 function createClone() {
 	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
 	if (yesChange == true) {
@@ -43,7 +37,6 @@ function setPagePrefs(){
 				}
 			}
 			msg('page ready','good');
-			
 		}
 	);
 }
@@ -52,13 +45,10 @@ function closeCust() {
 	$('#bgDiv', window.parent.document).remove();
 	$('#popDiv').remove();
 	$('#popDiv', window.parent.document).remove();
-	
 	$('#cDiv').remove();
 	$('#cDiv', window.parent.document).remove();
-	
 	$('#theFrame').remove();
 	$('#theFrame', window.parent.document).remove();
-	
 	setPagePrefs();
 }
 
@@ -88,11 +78,6 @@ function customize(t) {
 	//document.body.appendChild(theFrame);
 	$("#popDiv").append(theFrame);
 }
-
-
-
-
-
 
 
 function msg(m,s){
@@ -240,11 +225,9 @@ function loadRecord (collection_object_id) {
 			if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
 				$("#pBrowse").hide();
 			}
-			
 		}
 	);
 }
-
 
 function copyVerbatim(str){
 	$.getJSON("/component/functions.cfc",
@@ -265,8 +248,7 @@ function copyVerbatim(str){
 		}
 	);
 }
-	
-	
+
 jQuery(document).ready(function() {
 	setPagePrefs();
 	jQuery("#made_date").datepicker();
@@ -290,30 +272,30 @@ jQuery(document).ready(function() {
 	}
 });
 
-	function populateGeology(id) {
-		var idNum=id.replace('geology_attribute_','');
-		var thisValue=$("#geology_attribute_" + idNum).val();;
-		var dataValue=$("#geo_att_value_" + idNum).val();
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "getGeologyValues",
-				attribute : thisValue,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				var s='';
-				for (i=0; i<r.ROWCOUNT; ++i) {
-					s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
-					if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
-						s+=' selected="selected"';
-					}
-					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
+function populateGeology(id) {
+	var idNum=id.replace('geology_attribute_','');
+	var thisValue=$("#geology_attribute_" + idNum).val();;
+	var dataValue=$("#geo_att_value_" + idNum).val();
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "getGeologyValues",
+			attribute : thisValue,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (r) {
+			var s='';
+			for (i=0; i<r.ROWCOUNT; ++i) {
+				s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
+				if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
+					s+=' selected="selected"';
 				}
-				$("select#geo_att_value_" + idNum).html(s);				
+				s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 			}
-		);
-	}
+			$("select#geo_att_value_" + idNum).html(s);				
+		}
+	);
+}
 	
 var MONTH_NAMES=new Array('January','February','March','April','May','June','July','August','September','October','November','December','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
 var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
@@ -706,92 +688,6 @@ function changeMode (mode,collobjid) {
 	pgClr.style.display='';	
 }
 function setNewRecDefaults () {
-	try{
-	var defBlank = new Array();
-	defBlank.push('attribute_value_1');
-	defBlank.push('attribute_value_2');
-	defBlank.push('attribute_value_3');
-	defBlank.push('attribute_value_4');
-	defBlank.push('attribute_value_5');
-	defBlank.push('attribute_value_6');
-	defBlank.push('attribute_value_7');
-	defBlank.push('attribute_value_8');
-	defBlank.push('attribute_value_9');
-	defBlank.push('attribute_value_10');
-	defBlank.push('other_id_num_type_1');
-	defBlank.push('other_id_num_1');
-	defBlank.push('other_id_num_type_2');
-	defBlank.push('other_id_num_2');
-	defBlank.push('other_id_num_type_3');
-	defBlank.push('other_id_num_type_4');
-	defBlank.push('other_id_num_3');
-	defBlank.push('other_id_num_4');
-	defBlank.push('other_id_num_5'); //AF
-	defBlank.push('part_barcode_1');
-	defBlank.push('part_barcode_2');
-	defBlank.push('part_barcode_3');
-	defBlank.push('part_barcode_4');
-	defBlank.push('part_barcode_5');
-	defBlank.push('part_barcode_6');
-	defBlank.push('part_barcode_7');
-	defBlank.push('part_barcode_8');
-	defBlank.push('part_barcode_9');
-	defBlank.push('part_barcode_10');
-	defBlank.push('part_barcode_11');
-	defBlank.push('part_barcode_12');
-	defBlank.push('part_container_label_1');
-	defBlank.push('part_container_label_2');
-	defBlank.push('part_container_label_3');
-	defBlank.push('part_container_label_4');
-	defBlank.push('part_container_label_5');
-	defBlank.push('part_container_label_6');
-	defBlank.push('part_container_label_7');
-	defBlank.push('part_container_label_8');
-	defBlank.push('part_container_label_9');
-	defBlank.push('part_container_label_10');
-	defBlank.push('part_container_label_11');
-	defBlank.push('part_container_label_12');
-	defBlank.push('relationship');
-	defBlank.push('related_to_num_type');
-	defBlank.push('related_to_number');
-	defBlank.push('cat_num');
-	for (i=0;i<defBlank.length;i++) {
-		try {
-			var thisFld = document.getElementById(defBlank[i]);
-			thisFld.value='';
-		} 
-		catch ( err ){// nothing, just ignore 
-		}		
-	}	
-	var thisFld = document.getElementById('condition');
-	thisFld.value='unchecked';
-	var attribute_7 = document.getElementById('attribute_7').value;
-	var attribute_8 = document.getElementById('attribute_8').value;
-	var attribute_9 = document.getElementById('attribute_9').value;
-	var attribute_10 = document.getElementById('attribute_10').value;
-	getAttributeStuff(attribute_7,'attribute_7');
-	getAttributeStuff(attribute_8,'attribute_8');
-	getAttributeStuff(attribute_9,'attribute_9');
-	getAttributeStuff(attribute_10,'attribute_10');
-	var partLotCount = new Array();
-	partLotCount.push('part_lot_count_1');
-	partLotCount.push('part_lot_count_2');
-	partLotCount.push('part_lot_count_3');
-	partLotCount.push('part_lot_count_4');
-	partLotCount.push('part_lot_count_5');
-	partLotCount.push('part_lot_count_6');
-	partLotCount.push('part_lot_count_7');
-	partLotCount.push('part_lot_count_8');
-	partLotCount.push('part_lot_count_9');
-	partLotCount.push('part_lot_count_10');
-	partLotCount.push('part_lot_count_11');
-	partLotCount.push('part_lot_count_12');
-	for (i=0;i<partLotCount.length;i++) {
-		var thStr = partLotCount[i];
-		var thisFld = document.getElementById(thStr);
-		var thisVal = thisFld.value;
-		thisFld.value='1';
-	}	
 	var cc = document.getElementById('collection_cde').value;
 	var ia = document.getElementById('institution_acronym').value;
 	if(cc == 'Mamm' && ia == 'UAM') {
@@ -804,10 +700,6 @@ function setNewRecDefaults () {
 		UAMArtDefaults();
 	} else if(ia == 'MVZ') {
 		MVZDefaults();
-	}
-	} 
-	catch(err){
-		//null
 	}
 }
 function UAMArtDefaults() {

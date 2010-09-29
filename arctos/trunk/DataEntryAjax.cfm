@@ -339,7 +339,7 @@
 								</cfif>
 								<span class="f11a">Accn</span>
 								<input type="text" name="accn" value="#accn#" size="13" class="reqdClr" id="accn" onchange="isGoodAccn();">
-								<span class="likeLink" onclick="customize()">[ customize form ]</span>
+								<span class="infoLink" onclick="customize()">[ customize form ]</span>
 
 							</td>
 						</tr>
