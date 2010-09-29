@@ -167,7 +167,7 @@ function saveNewRecord () {
 				if (status=='spiffy'){
 					$("#collection_object_id").val(rA[1]);
 					msg('inserted ' + rA[1],'good');
-					var b=$("#browseRecs option:last").val();
+					var b=$("#browseRecs option:last").text();
 					console.log('last val is ' + b);
 					setPagePrefs();
 				} else {
