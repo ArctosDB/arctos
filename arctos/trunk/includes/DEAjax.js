@@ -195,7 +195,7 @@ function browseTo(dir){
 	
 	var coid=$("#selectbrowse[value='8']").val();
 	console.log('the COID is ' + coid);
-	loadRecord(coid);
+	//loadRecord(coid);
 }
 function loadRecord (collection_object_id) {
 	msg('fetching data....','bad');
