@@ -103,6 +103,11 @@ function deleteThisRec () {
 				var o=r.DATA.OLDVALUE[0];
 				var n=r.DATA.NEXTVALUE[0];
 				console.log(n + '::' + n.length);
+				if(n){
+					alert('got n');
+				} else {
+					alert('no n');
+				}
 				/*
 				
 				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
