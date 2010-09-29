@@ -1449,7 +1449,7 @@
 							</cfif>
 							--->
 							
-							Jump to Record 
+							<span id="recCount">#whatIds.recordcount#</span> total records - Jump to 
 							<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecord(this.value);">
 								<cfset recposn=1>
 								<cfloop query="whatIds">
@@ -1460,7 +1460,6 @@
 									<cfset recposn=recposn+1>
 								</cfloop>
 							</select>
-							(<span id="recCount">#whatIds.recordcount#</span> total records)
 							<span id="nBrowse" class="infoLink" onclick="browseTo('next')">next</span>
 							<!---
 							<cfif currentPos is listlen(idList)>
