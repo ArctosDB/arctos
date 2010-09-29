@@ -60,6 +60,18 @@
 <!--------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from cf_dataentry_settings where username='#session.username#'
+		</cfquery>
+		<cfif d.recordcount is not 1>
+			<cfquery name="seed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into cf_dataentry_settings (
+					username
+				) values (
+					'#session.username#'
+				)
+			</cfquery>
+		</cfif>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from collection ORDER BY COLLECTION
 		</cfquery>
@@ -153,7 +165,7 @@
 </div>
 ---->
 
-		<cfif not isdefined("collection_object_id") or len(#collection_object_id#) is 0>
+		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
 			you don't have an ID. <cfabort>
 		</cfif>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1253,7 +1265,7 @@
 					<tr id="d_relationship">
 						<td align="right"><span class="f11a">Relations</span></td>
 						<td>
-							<cfset thisRELATIONSHIP = #RELATIONSHIP#>
+							<cfset thisRELATIONSHIP = RELATIONSHIP>
 							<select name="relationship" size="1" id="relationship">
 								<option value=""></option>
 								<cfloop query="ctbiol_relations">
@@ -1379,11 +1391,11 @@
 								onclick="editThis()">			
 						</span>
 						<span id="editMode" style="display:none">
-							<cfif len(#loadedMsg#) is 0>
+							<cfif len(loadedMsg) is 0>
 								<input type="button" 
 									value="Clone This Record" 
 									class="lnkBtn"
-									onclick="click_changeMode('enter')">	
+									onclick="createClone()">	
 							</cfif>
 						</span>
 					</td>
@@ -1393,6 +1405,7 @@
 							<input type="button" value="Delete Record" class="delBtn" onclick="deleteThisRec();" />
 						</span>
 					</td>
+					<!---
 					<td width="16%">	
 						<cfif institution_acronym is "MSB" and collection_cde is "Bird" and pMode is "enter">
 							<span id="clearDefault">
@@ -1406,6 +1419,7 @@
 								<input type="button" value="Clear Defaults" class="delBtn" onclick="setNewRecDefaults();" />
 							</span>
 						</cfif>
+						--->
 					</td>
 					<td width="16%">	
 						<input type="button" value="JAVA table" class="lnkBtn" onclick="window.open('userBrowseBulkedGrid.cfm','_browseDE');" />
@@ -1413,6 +1427,8 @@
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
 						<span id="browseThingy">
+							<span id="pBrowse"></span>
+							<!---
 							<cfif currentPos gt 1>
 								<cfset prevCollObjId = listgetat(idList,currentPos - 1)>
 								<cfif imAGod is "yes">
@@ -1425,22 +1441,28 @@
 								<img src="/images/no_previous.gif" border="0" alt="[ null ]" />
 							</cfif>
 							<cfset recposn = 1>
-							Record 
+							
 							<cfif imAGod is "yes">
 								<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&imagod=yes&collection_object_id=">
 							<cfelse>
 								<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=">
 							</cfif>
-							<select name="browseRecs" size="1" id="selectbrowse" onchange="document.location='#theLink#' + this.value;">
+							--->
+							
+							Record 
+							<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecord(this.value);">
+								<cfset recposn=1>
 								<cfloop query="whatIds">
 									<option 
-										<cfif recposn is currentPos> selected </cfif>
+										<cfif data.collection_object_id is whatIds.collection_object_id> selected="selected" </cfif>
 										value="#collection_object_id#">#recposn#</option>
 									<cfset idList = "#idList#,">
-									<cfset recposn = #recposn# + 1>
+									<cfset recposn=recposn+1>
 								</cfloop>
 							</select>
 							of #whatIds.recordcount#
+							<span id="nBrowse"></span>
+							<!---
 							<cfif currentPos is listlen(idList)>
 								<img src="/images/no_next.gif" border="0" alt="[ null ]" />
 							<cfelse>
@@ -1451,7 +1473,8 @@
 									<cfset theLink = "DataEntryAjax.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#">
 								</cfif>
 								<a href="#theLink#"><img src="/images/next.gif" class="likeLink" border="0"/ alt="[ next ]"></a>
-							</cfif>		
+							</cfif>	
+							--->	
 						</span>									
 					</td>
 				</tr>

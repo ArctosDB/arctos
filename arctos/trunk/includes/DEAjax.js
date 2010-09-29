@@ -1,3 +1,15 @@
+// MSB Bird: catNumSeq();
+function jumpRec(id){
+		
+}
+
+
+function createClone() {
+	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
+	if (yesChange == true) {
+		changeMode('enter');
+	}	
+}
 function setPagePrefs(){
 	msg('setting customizations.....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
@@ -112,25 +124,24 @@ function deleteThisRec () {
 function saveEditedRecord () {
 	if (cleanup()) {
 		msg('saving....','bad');
-
 		$.getJSON("/component/Bulkloader.cfc",
-				{
-					method : "saveEdits",
-					q : $("#dataEntry").serialize(),
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function(r) {
-					var rA=r.split("::");
-					var status=rA[0];
-					if (status=='spiffy'){
-						$("#collection_object_id").val(rA[1]);
-						msg('updated ' + rA[1],'good');
-					} else {
-						msg(r,'bad');
-					}
+			{
+				method : "saveEdits",
+				q : $("#dataEntry").serialize(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				var rA=r.split("::");
+				var status=rA[0];
+				if (status=='spiffy'){
+					$("#collection_object_id").val(rA[1]);
+					msg('updated ' + rA[1],'good');
+				} else {
+					msg(r,'bad');
 				}
-			);
+			}
+		);
 	}
 }
 function editThis(){
