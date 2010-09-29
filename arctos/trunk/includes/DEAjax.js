@@ -202,6 +202,10 @@ function browseTo(dir){
 	
 	var coid=$("#selectbrowse option[8]").val();
 	console.log('the COID is ' + coid);
+	
+	
+	var coid=$("#selectbrowse option[value=8]").text();
+	console.log('the COID is ' + coid);
 	//loadRecord(coid);
 }
 function loadRecord (collection_object_id) {
