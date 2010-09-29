@@ -99,15 +99,16 @@ function deleteThisRec () {
 				queryformat : 'column'
 			},
 			function(r) {
-				var oldValue=r.DATA.OLDVALUE[0];
-				var nextValue=r.DATA.NEXTVALUE[0];
+				var o=r.DATA.OLDVALUE[0];
+				var n=r.DATA.NEXTVALUE[0];
 				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
-				$("#selectbrowse option[value=" + r.DATA.OLDVALUE[0] + "]").remove();
-				console.log(oldValue);
-				console.log(nextValue + '::' + nextValue.length + '-' + r.DATA.NEXTVALUE[0].length);
-				if (nextValue.length>0){
+				$("#selectbrowse option[value=" + o + "]").remove();
+				console.log(o);
+				console.log(n + '::' + n.length + '-' + r.DATA.NEXTVALUE[0].length);
+				
+				if (n.length>0){
 					msg('loading previous record....','bad');
-					loadRecord(nextValue);
+					loadRecord(n);
 				} else {
 					alert('No other records found. Please use the tabs above to return to Data Entry');	
 				}
