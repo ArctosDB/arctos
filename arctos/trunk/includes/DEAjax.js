@@ -99,6 +99,8 @@ function deleteThisRec () {
 				queryformat : 'column'
 			},
 			function(r) {
+				console.log(r);
+				/*
 				var o=r.DATA.OLDVALUE[0];
 				var n=r.DATA.NEXTVALUE[0];
 				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
@@ -112,6 +114,7 @@ function deleteThisRec () {
 				} else {
 					alert('No other records found. Please use the tabs above to return to Data Entry');	
 				}
+				*/
 			}
 		);
 	}
