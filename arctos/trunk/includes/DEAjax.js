@@ -103,6 +103,8 @@ function deleteThisRec () {
 				var nextValue=r.DATA.NEXTVALUE[0];
 				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
 				$("#selectbrowse option[value=" + r.DATA.OLDVALUE[0] + "]").remove();
+				console.log(oldValue);
+				console.log(nextValue);
 				if (nextValue.length>0){
 					msg('loading previous record....','bad');
 					loadRecord(nextValue);
