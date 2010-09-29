@@ -13,16 +13,11 @@ function setPagePrefs(){
 			queryformat : 'column'
 		},
 		function(r) {
-			//alert(r.COLUMNS);
 			var columns=r.COLUMNS;
-			//console.log(columns);
-			//var cAry=columns.split(',');
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
 				var cVal=eval("r.DATA." + columns[i]);
 				var eName=cName.toLowerCase();
-				//console.log('column: ' + eName + '; val: ' + cVal);
-				//$("#" + eName).val(cVal);
 				if (cVal==0){
 					// clear and hide
 					$("#" + eName).val('');
@@ -75,7 +70,6 @@ function customize(t) {
 	theFrame.className = 'editFrame';
 	var ptl="/form/customizeDataEntry.cfm";
 	theFrame.src=ptl;
-	//document.body.appendChild(theFrame);
 	$("#popDiv").append(theFrame);
 }
 
@@ -93,8 +87,6 @@ function msg(m,s){
 	$("#msg").removeClass().addClass(s).html(m);
 }
 
-
-
 function deleteThisRec () {
 	yesDelete = window.confirm('Are you sure you want to delete this record?');
 	if (yesDelete == true) {
@@ -109,33 +101,14 @@ function deleteThisRec () {
 			function(r) {
 				var oldValue=r.DATA.OLDVALUE[0];
 				var nextValue=r.DATA.NEXTVALUE[0];
-				/*
-				if (status=='spiffy'){
-					$("#collection_object_id").val(rA[1]);
-					msg('inserted ' + rA[1],'good');
-					var l=$("#selectbrowse option:last").text();
-					l=parseInt(parseInt(l)+1);
-					//console.log('last val is ' + b);
-					var o='<option value="' + rA[1] + '">' + l + '</option>';
-					$("#selectbrowse").append(o);
-					$("#recCount").text(l);
-					setPagePrefs();
-				} else {
-				
-				
-				
-				
-				
-				
-				
-				
-				if (r.length==0){
-					alert('No other records found. Please use the tabs above to return to Data Entry');
-				} else {
+				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
+				$("#selectbrowse option[value=" + r.DATA.OLDVALUE[0] + "]").remove();
+				if (nextValue.length>0){
 					msg('loading previous record....','bad');
-					loadRecord(r);
+					loadRecord(nextValue);
+				} else {
+					alert('No other records found. Please use the tabs above to return to Data Entry');	
 				}
-				*/
 			}
 		);
 	}
@@ -188,7 +161,6 @@ function saveNewRecord () {
 				if (status=='spiffy'){
 					$("#collection_object_id").val(rA[1]);
 					msg('inserted ' + rA[1],'good');
-					//console.log('last val is ' + b);
 					var o='<option value="' + rA[1] + '">' + rA[1] + '</option>';
 					$("#selectbrowse").append(o);
 					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
@@ -201,30 +173,14 @@ function saveNewRecord () {
 	}
 }
 function browseTo(dir){
-	//var c=$("#selectbrowse option:selected").text();
-	
-	var ix = $("#selectbrowse").attr( "selectedIndex" );
-	console.log('the index is ' + ix);
-	
-	
+	var ix = $("#selectbrowse").attr( "selectedIndex" );	
 	if (dir=='next'){
 		ix=parseInt(parseInt(ix)+1);
 	} else {
 		ix=parseInt(parseInt(ix)-1);
 	}
 	var c = $("#selectbrowse").find("option:eq(" + ix +")" ).val();
-	loadRecord(c);
-	console.log('we want to load record ' + c);
-	/*
-	console.log('the current record is ' + c);
-	
-	console.log('we want to load record ' + c);
-	
-	var coid=$("#selectbrowse option[text=" + c + "]").val();
-	console.log('the COID is ' + coid);
-	loadRecord(coid);
-	*/
-	
+	loadRecord(c);	
 }
 function loadRecord (collection_object_id) {
 	msg('fetching data....','bad');
@@ -236,11 +192,7 @@ function loadRecord (collection_object_id) {
 			queryformat : 'column'
 		},
 		function(r) {
-			//alert(r);
-			//alert(r.COLUMNS);
 			var columns=r.COLUMNS;
-			//console.log(columns);
-			//var cAry=columns.split(',');
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
 				var cVal=eval("r.DATA." + columns[i]);
@@ -299,7 +251,6 @@ jQuery(document).ready(function() {
 		populateGeology(gid);			
 	});
 	if ($("#collection_cde").val()=='Bird' && $("#institution_acronym").val()=='MSB'){
-		console.log('msb bird');
 		catNumSeq();
 	}
 });
