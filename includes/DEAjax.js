@@ -193,7 +193,7 @@ function browseTo(dir){
 	}
 	console.log('we want to load record ' + c);
 	
-	var coid=$("#selectbrowse option[value='" + c + "']").val();
+	var coid=$("#selectbrowse option[value=" + c + "]").val();
 	console.log('the COID is ' + coid);
 	loadRecord(coid);
 }
