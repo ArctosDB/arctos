@@ -174,6 +174,7 @@ function saveNewRecord () {
 					//console.log('last val is ' + b);
 					var o='<option value="' + rA[1] + '">' + l + '</option>';
 					$("#selectbrowse").append(o);
+					$("#recCount").text(l);
 					setPagePrefs();
 				} else {
 					msg(r,'bad');
