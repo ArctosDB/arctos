@@ -201,18 +201,22 @@ function saveNewRecord () {
 	}
 }
 function browseTo(dir){
-	var c=$("#selectbrowse option:selected").text();
+	//var c=$("#selectbrowse option:selected").text();
 	
 	var ix = $("#selectbrowse").attr( "selectedIndex" );
-	console.log('the inded is ' + ix);
-	/*
+	console.log('the index is ' + ix);
 	
-	console.log('the current record is ' + c);
+	
 	if (dir=='next'){
-		c=parseInt(parseInt(c)+1);
+		ix=parseInt(parseInt(ix)+1);
 	} else {
-		c=parseInt(parseInt(c)-1);
+		ix=parseInt(parseInt(ix)-1);
 	}
+	var c = $("#selectbrowse").find("option:eq(" + ix +")" ).val();
+	console.log('we want to load record ' + c);
+	/*
+	console.log('the current record is ' + c);
+	
 	console.log('we want to load record ' + c);
 	
 	var coid=$("#selectbrowse option[text=" + c + "]").val();
