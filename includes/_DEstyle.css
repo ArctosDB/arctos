@@ -3,6 +3,7 @@
 	top:50%;
 	left:40%;
 	padding:5px;
+	z-index:2001;
 }
 label {
 	display:inline;
