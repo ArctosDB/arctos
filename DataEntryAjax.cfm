@@ -259,9 +259,7 @@
 				Page Loading....
 			</span>
 		</div>
-		<div id="loadedMsgDiv">
-			#loadedMsg#
-		</div>
+		
 		<form name="dataEntry" method="post" action="DataEntryAjax.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
 			<input type="hidden" name="action" value="" id="action">
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
@@ -273,7 +271,9 @@
 			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style="display:none;"> <!--- whole page table --->
 				<tr>
 					<td colspan="2" style="border-bottom: 1px solid black; " align="center">
-						<div id="pageTitle"><strong>#pageTitle#</strong></div>	
+						<div id="loadedMsgDiv">
+							#loadedMsg#
+						</div>
 					</td>
 				</tr>
 				<tr><td width="50%" valign="top"><!--- left top of page --->		
