@@ -1,6 +1,6 @@
 
 function changeMode (mode) {
-	var status=$trim($("#loadedMsgDiv").text());
+	var status=$.trim($("#loadedMsgDiv").text());
 	/*
 	 * 
 	 * if status is not null then we've got an error
