@@ -141,6 +141,7 @@
 			<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select bulk_check_one(#collection_object_id#) rslt from dual
 			</cfquery>
+			<cfdump var=#chk#>
 			<cfset loadedMsg=chk.rslt>
 		<cfelse>
 			<cfset loadedMsg = "">
