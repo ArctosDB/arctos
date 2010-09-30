@@ -141,7 +141,7 @@ function saveEditedRecord () {
 					msg(status,'err');
 				} else {
 					console.log('else');
-					$("#loadedMsgDiv").text('');
+					$("#loadedMsgDiv").text('').hide();
 					changeMode('edit');
 					$("#collection_object_id").val(coid);
 					msg('updated ' + coid,'good');
@@ -634,10 +634,10 @@ function changeMode (mode,collobjid) {
 	var tTab = document.getElementById('theTable');
 	var tSav = document.getElementById('theSaveButton');
 	var tNew = document.getElementById('theNewButton');
-	var eBtn = document.getElementById('enterMode');
-	var sBtn = document.getElementById('editMode');
+	var eBtn = document.getElementById('');
+	var sBtn = document.getElementById('');
 	//var tBS = document.getElementById('selectbrowse');
-	var Bty = document.getElementById('browseThingy');
+	var Bty = document.getElementById('');
 	var pgClr = document.getElementById('theTable');
 	var lmdc = document.getElementById('loadedMsgDiv').innerHTML;
 	var tlmdc = lmdc.replace(/^\s+/g, '').replace(/\s+$/g, '');
@@ -648,31 +648,26 @@ function changeMode (mode,collobjid) {
 			alert('You cannot enter edit mode until you\'ve entered a record! Select \'start where you left off\' from the initial menu if you have entered records previously and wish to edit them.');
 			return false;
 		}
-		tNew.style.display='none';
-		tSav.style.display='';
-		eBtn.style.display='none';
-		sBtn.style.display='';
-		//tBS.value=collobjid;
-		Bty.style.display='';
-		//clrDefBtn.style.display='none';// allow clearing of data in entry mode ONLY (not here!)
+		$("#theNewButton").hide();
+		$("#theSaveButton").show();
+		$("#enterMode").hide();
+		$("#editMode").show();
+		$("#browseThingy").show();
+		
 		if (isGoodSave > 0) {
-			pgClr.style.backgroundColor = '#FF6EC7';
+			$("#theTable").removeClass().addClass('isGoodEdit');
 		} else {
-			pgClr.style.backgroundColor = '#00CCCC';
-			tDiv.style.display='none';
+			$("#theTable").removeClass().addClass('isBadEdit');
+			$("#pageTitle").hide();			
 		}
 	} else { // entry mode
-		tTab.style.border='';
-		tNew.style.display='';
-		tSav.style.display='none';
-		eBtn.style.display='';
-		sBtn.style.display='none';
-		//var theNumOptions=tBS.length;
-		//var tNewOptNum = theNumOptions;
-		//tBS.options[tNewOptNum] = new Option('NEW','');
-		//tBS.value='';
-		Bty.style.display='none';
-//		clrDefBtn.style.display=''; // allow clearing of data in entry mode 
+		$("#theTable").removeClass().addClass('isEnter');
+		$("#theNewButton").show();
+		$("#theSaveButton").hide();
+		$("#enterMode").show();
+		$("#editMode").hide();
+		$("#browseThingy").hide();
+		/*
 		if (isGoodSave > 0) {
 			pgClr.style.backgroundColor = '#669999';
 		} else {
@@ -680,10 +675,11 @@ function changeMode (mode,collobjid) {
 			tDiv.style.display='none';
 			setNewRecDefaults();
 		}
+		*/
 	}
-	var splashPg = document.getElementById('splash');
-	splashPg.style.display='none';
-	pgClr.style.display='';	
+	//var splashPg = document.getElementById('splash');
+	//splashPg.style.display='none';
+	//pgClr.style.display='';	
 }
 function setNewRecDefaults () {
 	var cc = document.getElementById('collection_cde').value;

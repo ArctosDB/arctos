@@ -5,7 +5,17 @@ label {
 	font-weight:400;
 	padding-right:.01em;
 }
-	
+#loadedMsgDiv{display:none;}
+.isGoodEdit {
+	background-color:#FF6EC7;
+}
+.isBadEdit {
+	background-color:#00CCCC;
+}
+.isEnter {
+	border:none;
+}
+
 #msg {
 	position:fixed;
 	bottom:0;
