@@ -24,7 +24,7 @@ function changeMode (mode) {
 	
 	if(status){
 		mode='edit';
-		console.log('forcing mode to edit. Status: ' + status);
+		//console.log('forcing mode to edit. Status: ' + status);
 	}
 	
 	//var clrDefBtn = document.getElementById('clearDefault');	
@@ -174,7 +174,7 @@ function deleteThisRec () {
 				queryformat : 'column'
 			},
 			function(r) {
-				console.log(r);
+				//console.log(r);
 				var o=r.DATA.OLDVALUE[0];
 				var n=r.DATA.NEXTVALUE[0];
 				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
@@ -201,11 +201,11 @@ function saveNewRecord () {
 				queryformat : 'column'
 			},
 			function(r) {
-				console.log(r);
+				//console.log(r);
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
-				console.log(coid);
+				//console.log(coid);
 				var status=r.DATA.RSLT[0];
-				console.log(status);
+				//console.log(status);
 				
 				
 				if (status){
@@ -236,19 +236,19 @@ function saveEditedRecord () {
 				queryformat : 'column'
 			},
 			function(r) {
-				console.log(r);
+				////console.log(r);
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
-				console.log(coid);
+				//console.log(coid);
 				var status=r.DATA.RSLT[0];
-				console.log(status);
+				//console.log(status);
 				if (status) {
-					console.log('status');
+					//console.log('status');
 					$("#loadedMsgDiv").text(status).show();
 					changeMode('edit');
 					//highlightErrors(status);
 					msg(status,'err');
 				} else {
-					console.log('else');
+					//console.log('else');
 					$("#loadedMsgDiv").text('').hide();
 					$("#collection_object_id").val(coid);
 					msg('updated ' + coid,'good');
