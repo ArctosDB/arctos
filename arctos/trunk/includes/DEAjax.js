@@ -163,7 +163,7 @@ function msg(m,s){
 			var d='<div id="bgDiv" class="bgDiv"></div>';
 			$('body').append(d);
 			var im='<img class="loadingAnimation" src="/images/loadingAnimation.gif">';
-			$("#bgDiv").append(im);
+			$('body').append(im);
 		}
 	} else {
 		$("#bgDiv").remove();
