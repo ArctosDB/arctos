@@ -836,18 +836,23 @@ function copyAllAgents(theID) {
 	}
 }
 function highlightErrors (loadedMsg) {
-	var prob_array = loadedMsg.split(" ");
-	for (var loop=0; loop < prob_array.length; loop++) {
-		var thisSlice = prob_array[loop];
-		var hasSpace = thisSlice.indexOf(" ");
-		if (hasSpace == -1) {
-			try {
-				var theField = document.getElementById(thisSlice.toLowerCase());
-				theField.className = 'hasProbs';
-			}
-			catch ( err ){// nothing, just ignore 
+	if(loadedMsg){
+		$("#loadedMsgDiv").show();
+		var prob_array = loadedMsg.split(" ");
+		for (var loop=0; loop < prob_array.length; loop++) {
+			var thisSlice = prob_array[loop];
+			var hasSpace = thisSlice.indexOf(" ");
+			if (hasSpace == -1) {
+				try {
+					var theField = document.getElementById(thisSlice.toLowerCase());
+					theField.className = 'hasProbs';
+				}
+				catch ( err ){// nothing, just ignore 
+				}
 			}
 		}
+	} else {
+		$("#loadedMsgDiv").hide();
 	}
 }
 
