@@ -677,6 +677,7 @@ function changeMode (mode,collobjid) {
 		}
 		*/
 	}
+	$("#splash").hide();
 	//var splashPg = document.getElementById('splash');
 	//splashPg.style.display='none';
 	//pgClr.style.display='';	
