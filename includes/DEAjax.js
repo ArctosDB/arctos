@@ -1,6 +1,6 @@
 
 function changeMode (mode) {
-	var status=$("#loadedMsgDiv").text();
+	var status=$trim($("#loadedMsgDiv").text());
 	/*
 	 * 
 	 * if status is not null then we've got an error
@@ -24,7 +24,7 @@ function changeMode (mode) {
 	
 	if(status){
 		mode='edit';
-		console.log('forcing mode to edit');
+		console.log('forcing mode to edit. Status: ' + status);
 	}
 	
 	//var clrDefBtn = document.getElementById('clearDefault');	
