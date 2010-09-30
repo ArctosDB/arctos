@@ -128,13 +128,13 @@ function saveEditedRecord () {
 				queryformat : 'column'
 			},
 			function(r) {
-				var rA=r.split("::");
-				var status=rA[0];
-				if (status=='spiffy'){
-					$("#collection_object_id").val(rA[1]);
-					msg('updated ' + rA[1],'good');
-				} else {
+				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
+				var status=r.DATA.RSLT[0];
+				if (status) {
 					msg(r,'bad');
+				} else {
+					$("#collection_object_id").val(coid);
+					msg('updated ' + coid,'good');
 				}
 			}
 		);
