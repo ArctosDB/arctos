@@ -162,11 +162,12 @@ function msg(m,s){
 			*/
 			var d='<div id="bgDiv" class="bgDiv"></div>';
 			$('body').append(d);
-			var im='<img class="loadingAnimation" src="/images/loadingAnimation.gif">';
+			var im='<img id="loadingAnimation" src="/images/loadingAnimation.gif">';
 			$('body').append(im);
 		}
 	} else {
 		$("#bgDiv").remove();
+		$("#loadingAnimation").remove();
 	}
 	$("#msg").removeClass().addClass(s).html(m);
 }
