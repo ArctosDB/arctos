@@ -156,6 +156,8 @@ function msg(m,s){
 			bgDiv.id = 'bgDiv';
 			bgDiv.className = 'bgDiv';
 			document.body.appendChild(bgDiv);
+			var i='<img src="/images/indicator.gif">';
+			$("#bgDiv").append(i);
 		}
 	} else {
 		$("#bgDiv").remove();
