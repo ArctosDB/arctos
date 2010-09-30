@@ -28,6 +28,7 @@ function changeMode (mode) {
 	}
 	
 	//var clrDefBtn = document.getElementById('clearDefault');	
+	$(".hasProbs").removeClass();
 	if (mode == 'edit') {
 		$("#theNewButton").hide(); //Save This As A New Record
 		$("#theSaveButton").show(); // Save Edits/Delete Record
