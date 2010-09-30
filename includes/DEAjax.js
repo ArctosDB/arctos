@@ -135,6 +135,7 @@ function saveEditedRecord () {
 				console.log(status);
 				if (status) {
 					console.log('status');
+					$("#loadedMsgDiv").text(status);
 					changeMode('edit');
 					highlightErrors(status);
 					msg(status,'err');
