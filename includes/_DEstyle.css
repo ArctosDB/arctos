@@ -1,4 +1,11 @@
-
+.loadingAnimation{
+	position:fixed;
+	z-index:2002;
+	top:50%;
+	left:40%;
+	padding:20px;
+	background-color:white;
+}
 label {
 	display:inline;
 	font-size:11px;
