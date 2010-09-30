@@ -214,9 +214,9 @@ function saveNewRecord () {
 					changeMode('edit');
 
 				} else {
-					$("#collection_object_id").val(rA[1]);
-					msg('inserted ' + rA[1],'good');
-					var o='<option value="' + rA[1] + '">' + rA[1] + '</option>';
+					$("#collection_object_id").val(coid);
+					msg('inserted ' + coid,'good');
+					var o='<option value="' + coid + '">' + coid + '</option>';
 					$("#selectbrowse").append(o);
 					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
 					setPagePrefs();
