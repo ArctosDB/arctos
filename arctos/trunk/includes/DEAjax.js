@@ -156,7 +156,7 @@ function msg(m,s){
 			bgDiv.id = 'bgDiv';
 			bgDiv.className = 'bgDiv';
 			document.body.appendChild(bgDiv);
-			var i='<img src="/images/loadingAnimation.gif">';
+			var i='<img style="position:fixed;z-index:2001;top:50%;left:50%;" src="/images/loadingAnimation.gif">';
 			$("#bgDiv").append(i);
 		}
 	} else {
