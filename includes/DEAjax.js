@@ -629,7 +629,7 @@ function click_changeMode (mode,collobjid) {
 		}
 	}	
 }
-function changeMode (mode,status) {
+function changeMode (mode) {
 	/*
 	var tDiv = document.getElementById('pageTitle');
 	var tTab = document.getElementById('theTable');
@@ -644,6 +644,7 @@ function changeMode (mode,status) {
 	var tlmdc = lmdc.replace(/^\s+/g, '').replace(/\s+$/g, '');
 	var isGoodSave = tlmdc.length;
 	*/
+	var status=$("#loadedMsgDiv").text();
 	//var clrDefBtn = document.getElementById('clearDefault');	
 	if (mode == 'edit') {
 		$("#theNewButton").hide();
