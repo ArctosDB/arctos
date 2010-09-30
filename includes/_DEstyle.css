@@ -1,10 +1,8 @@
 .loadingAnimation{
 	position:fixed;
-	z-index:2002;
 	top:50%;
 	left:40%;
-	padding:10px;
-	background-color:white;
+	padding:5px;
 }
 label {
 	display:inline;
