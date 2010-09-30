@@ -1,3 +1,76 @@
+
+function changeMode (mode) {
+	var status=$("#loadedMsgDiv").text();
+	/*
+	 * 
+	 * if status is not null then we've got an error
+	 * so we should not allow entry mode - only edit
+	 * until the problem is fixed
+	 * 
+	 * 
+	var tDiv = document.getElementById('pageTitle');
+	var tTab = document.getElementById('theTable');
+	var tSav = document.getElementById('theSaveButton');
+	var tNew = document.getElementById('theNewButton');
+	var eBtn = document.getElementById('');
+	var sBtn = document.getElementById('');
+	//var tBS = document.getElementById('selectbrowse');
+	var Bty = document.getElementById('');
+	var pgClr = document.getElementById('theTable');
+	var lmdc = document.getElementById('loadedMsgDiv').innerHTML;
+	var tlmdc = lmdc.replace(/^\s+/g, '').replace(/\s+$/g, '');
+	var isGoodSave = tlmdc.length;
+	*/
+	
+	if(status){
+		mode='edit';
+		console.log('forcing mode to edit');
+	}
+	
+	//var clrDefBtn = document.getElementById('clearDefault');	
+	if (mode == 'edit') {
+		$("#theNewButton").hide(); //Save This As A New Record
+		$("#theSaveButton").show(); // Save Edits/Delete Record
+		$("#enterMode").hide(); // Edit Last Record
+		if(status){
+			// don't let them leave until this is fixed
+			$("#browseThingy").hide();
+			$("#editMode").hide(); // Clone This Record
+			$("#theTable").removeClass().addClass('isBadEdit');
+			$("#pageTitle").show();	
+			highlightErrors(status);
+		} else {
+			$("#browseThingy").show();
+			$("#editMode").show(); // Clone This Record
+			$("#theTable").removeClass().addClass('isGoodEdit');
+			$("#pageTitle").hide();	
+		}
+	} else { // entry mode
+		$("#theTable").removeClass().addClass('isEnter');
+		$("#theNewButton").show(); //Save This As A New Record
+		$("#theSaveButton").hide(); // Save Edits/Delete Record
+		$("#enterMode").show(); // Edit Last Record
+		$("#editMode").hide(); // Clone This Record
+		$("#browseThingy").hide();
+		/*
+		if (isGoodSave > 0) {
+			pgClr.style.backgroundColor = '#669999';
+		} else {
+			pgClr.style.backgroundColor = '#bed88f';
+			tDiv.style.display='none';
+			setNewRecDefaults();
+		}
+		*/
+	}
+	$("#splash").hide();
+
+	$("#theTable").show();
+	
+	//var splashPg = document.getElementById('splash');
+	//splashPg.style.display='none';
+	//pgClr.style.display='';	
+}
+
 function createClone() {
 	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
 	if (yesChange == true) {
@@ -137,7 +210,7 @@ function saveEditedRecord () {
 					console.log('status');
 					$("#loadedMsgDiv").text(status).show();
 					changeMode('edit');
-					highlightErrors(status);
+					//highlightErrors(status);
 					msg(status,'err');
 				} else {
 					console.log('else');
@@ -628,61 +701,6 @@ function click_changeMode (mode,collobjid) {
 			changeMode(mode,collobjid);
 		}
 	}	
-}
-function changeMode (mode) {
-	/*
-	var tDiv = document.getElementById('pageTitle');
-	var tTab = document.getElementById('theTable');
-	var tSav = document.getElementById('theSaveButton');
-	var tNew = document.getElementById('theNewButton');
-	var eBtn = document.getElementById('');
-	var sBtn = document.getElementById('');
-	//var tBS = document.getElementById('selectbrowse');
-	var Bty = document.getElementById('');
-	var pgClr = document.getElementById('theTable');
-	var lmdc = document.getElementById('loadedMsgDiv').innerHTML;
-	var tlmdc = lmdc.replace(/^\s+/g, '').replace(/\s+$/g, '');
-	var isGoodSave = tlmdc.length;
-	*/
-	var status=$("#loadedMsgDiv").text();
-	//var clrDefBtn = document.getElementById('clearDefault');	
-	if (mode == 'edit') {
-		$("#theNewButton").hide();
-		$("#theSaveButton").show();
-		$("#enterMode").hide();
-		$("#editMode").show();
-		$("#browseThingy").show();
-		
-		if (status) {
-			$("#theTable").removeClass().addClass('isGoodEdit');
-		} else {
-			$("#theTable").removeClass().addClass('isBadEdit');
-			$("#pageTitle").hide();			
-		}
-	} else { // entry mode
-		$("#theTable").removeClass().addClass('isEnter');
-		$("#theNewButton").show();
-		$("#theSaveButton").hide();
-		$("#enterMode").show();
-		$("#editMode").hide();
-		$("#browseThingy").hide();
-		/*
-		if (isGoodSave > 0) {
-			pgClr.style.backgroundColor = '#669999';
-		} else {
-			pgClr.style.backgroundColor = '#bed88f';
-			tDiv.style.display='none';
-			setNewRecDefaults();
-		}
-		*/
-	}
-	$("#splash").hide();
-
-	$("#theTable").show();
-	
-	//var splashPg = document.getElementById('splash');
-	//splashPg.style.display='none';
-	//pgClr.style.display='';	
 }
 function setNewRecDefaults () {
 	var cc = document.getElementById('collection_cde').value;
