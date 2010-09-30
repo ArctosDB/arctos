@@ -121,12 +121,18 @@
 				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select bulkloader_PKEY.currval as currval from dual
 				</cfquery>
-				<cfreturn "spiffy::#tVal.currval#">
+				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
+				</cfquery>
 			</cftransaction>
 		<cfcatch>
-			<cfreturn cfcatch.detail>
+			<cfset result = querynew("collection_object_id,rslt")>
+			<cfset temp = queryaddrow(result,1)>
+			<cfset temp = QuerySetCell(result, "collection_object_id", collection_object_id, 1)>
+			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail, 1)>
 		</cfcatch>
 		</cftry>
+		<cfreturn result>
 	</cfoutput>
 </cffunction>
 <!----------------------------------------------------------------------------------------->

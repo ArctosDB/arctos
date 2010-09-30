@@ -190,6 +190,41 @@ function deleteThisRec () {
 		);
 	}
 }
+function saveNewRecord () {
+	if (cleanup()) {
+		msg('saving....','bad');
+		$.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "saveNewRecord",
+				q : $("#dataEntry").serialize(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				console.log(r);
+				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
+				console.log(coid);
+				var status=r.DATA.RSLT[0];
+				console.log(status);
+				
+				
+				if (status){
+					msg(status,'bad');
+					$("#loadedMsgDiv").text(status).show();
+					changeMode('edit');
+
+				} else {
+					$("#collection_object_id").val(rA[1]);
+					msg('inserted ' + rA[1],'good');
+					var o='<option value="' + rA[1] + '">' + rA[1] + '</option>';
+					$("#selectbrowse").append(o);
+					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
+					setPagePrefs();
+				}
+			}
+		);
+	}
+}
 function saveEditedRecord () {
 	if (cleanup()) {
 		msg('saving....','bad');
@@ -231,33 +266,7 @@ function editThis(){
 		changeMode('edit');
 	}
 }
-function saveNewRecord () {
-	if (cleanup()) {
-		msg('saving....','bad');
-		$.getJSON("/component/Bulkloader.cfc",
-			{
-				method : "saveNewRecord",
-				q : $("#dataEntry").serialize(),
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function(r) {
-				var rA=r.split("::");
-				var status=rA[0];
-				if (status=='spiffy'){
-					$("#collection_object_id").val(rA[1]);
-					msg('inserted ' + rA[1],'good');
-					var o='<option value="' + rA[1] + '">' + rA[1] + '</option>';
-					$("#selectbrowse").append(o);
-					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
-					setPagePrefs();
-				} else {
-					msg(r,'bad');
-				}
-			}
-		);
-	}
-}
+
 function browseTo(dir){
 	var ix = $("#selectbrowse").attr( "selectedIndex" );	
 	if (dir=='next'){
