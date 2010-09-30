@@ -130,10 +130,14 @@ function saveEditedRecord () {
 			function(r) {
 				console.log(r);
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
+				console.log(coid);
 				var status=r.DATA.RSLT[0];
+				console.log(status);
 				if (status) {
+					console.log('status');
 					msg(r,'bad');
 				} else {
+					console.log('else');
 					$("#collection_object_id").val(coid);
 					msg('updated ' + coid,'good');
 				}
