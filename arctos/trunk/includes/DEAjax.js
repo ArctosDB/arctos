@@ -630,6 +630,7 @@ function click_changeMode (mode,collobjid) {
 	}	
 }
 function changeMode (mode,collobjid) {
+	/*
 	var tDiv = document.getElementById('pageTitle');
 	var tTab = document.getElementById('theTable');
 	var tSav = document.getElementById('theSaveButton');
@@ -642,6 +643,7 @@ function changeMode (mode,collobjid) {
 	var lmdc = document.getElementById('loadedMsgDiv').innerHTML;
 	var tlmdc = lmdc.replace(/^\s+/g, '').replace(/\s+$/g, '');
 	var isGoodSave = tlmdc.length;
+	*/
 	//var clrDefBtn = document.getElementById('clearDefault');	
 	if (mode == 'edit') {
 		if (collobjid < 20) {
@@ -678,6 +680,9 @@ function changeMode (mode,collobjid) {
 		*/
 	}
 	$("#splash").hide();
+
+	$("#theTable").show();
+	
 	//var splashPg = document.getElementById('splash');
 	//splashPg.style.display='none';
 	//pgClr.style.display='';	
