@@ -160,7 +160,7 @@ function msg(m,s){
 			var i='<img class="loadingAnimation" src="/images/loadingAnimation.gif">';
 			$("#bgDiv").append(i);
 			*/
-			var d='<div id="bgDiv" class="bgDiv"><div style="background:white;padding:30px;"><img class="loadingAnimation" src="/images/loadingAnimation.gif"></div></div>';
+			var d='<div id="bgDiv" class="bgDiv"><div style="background:white;padding:30px;z-index:5000;"><img class="loadingAnimation" src="/images/loadingAnimation.gif"></div></div>';
 			$('body').append(d);
 		}
 	} else {
