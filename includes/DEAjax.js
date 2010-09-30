@@ -629,7 +629,7 @@ function click_changeMode (mode,collobjid) {
 		}
 	}	
 }
-function changeMode (mode,collobjid) {
+function changeMode (mode,status) {
 	/*
 	var tDiv = document.getElementById('pageTitle');
 	var tTab = document.getElementById('theTable');
@@ -646,17 +646,13 @@ function changeMode (mode,collobjid) {
 	*/
 	//var clrDefBtn = document.getElementById('clearDefault');	
 	if (mode == 'edit') {
-		if (collobjid < 20) {
-			alert('You cannot enter edit mode until you\'ve entered a record! Select \'start where you left off\' from the initial menu if you have entered records previously and wish to edit them.');
-			return false;
-		}
 		$("#theNewButton").hide();
 		$("#theSaveButton").show();
 		$("#enterMode").hide();
 		$("#editMode").show();
 		$("#browseThingy").show();
 		
-		if (isGoodSave > 0) {
+		if (status) {
 			$("#theTable").removeClass().addClass('isGoodEdit');
 		} else {
 			$("#theTable").removeClass().addClass('isBadEdit');
