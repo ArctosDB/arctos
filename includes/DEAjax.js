@@ -208,16 +208,16 @@ function saveEditedRecord () {
 				console.log(status);
 				if (status) {
 					console.log('status');
-					$("#loadedMsgDiv").text(status).show();
+					//$("#loadedMsgDiv").text(status).show();
 					changeMode('edit');
 					//highlightErrors(status);
 					msg(status,'err');
 				} else {
 					console.log('else');
 					$("#loadedMsgDiv").text('').hide();
-					changeMode('edit');
 					$("#collection_object_id").val(coid);
 					msg('updated ' + coid,'good');
+					changeMode('edit');
 				}
 			}
 		);
