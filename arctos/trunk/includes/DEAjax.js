@@ -209,7 +209,7 @@ function saveNewRecord () {
 				
 				
 				if (status){
-					msg(status,'bad');
+					msg(status,'err');
 					$("#loadedMsgDiv").text(status).show();
 					changeMode('edit');
 
