@@ -7,10 +7,10 @@ label {
 }
 #loadedMsgDiv{display:none;}
 .isGoodEdit {
-	background-color:#FF6EC7;
+	background-color:#00CCCC;
 }
 .isBadEdit {
-	background-color:#00CCCC;
+	background-color:#FF6EC7;
 }
 .isEnter {
 	border:none;
