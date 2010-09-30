@@ -135,7 +135,7 @@ function saveEditedRecord () {
 				console.log(status);
 				if (status) {
 					console.log('status');
-					msg(r,'bad');
+					msg(status,'bad');
 				} else {
 					console.log('else');
 					$("#collection_object_id").val(coid);
