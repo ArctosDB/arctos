@@ -1360,12 +1360,10 @@
 								onclick="editThis()">			
 						</span>
 						<span id="editMode" style="display:none">
-							<cfif len(loadedMsg) is 0>
 								<input type="button" 
 									value="Clone This Record" 
 									class="lnkBtn"
 									onclick="createClone()">	
-							</cfif>
 						</span>
 					</td>
 					<td width="16%" nowrap="nowrap">
