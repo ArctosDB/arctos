@@ -64,12 +64,18 @@
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					#preservesinglequotes(sql)#
 				</cfquery>
-				<cfreturn "spiffy::#collection_object_id#">
+				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select #collection_object_id# collection_object_id, bulk_check_one(#collection_object_id#) rslt from dual
+				</cfquery>
 			</cftransaction>
 		<cfcatch>
-			<cfreturn cfcatch.detail>
+			<cfset result = querynew("collection_object_id,rslt")>
+			<cfset temp = queryaddrow(result,1)>
+			<cfset temp = QuerySetCell(result, "collection_object_id", collection_object_id, 1)>
+			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail, 1)>
 		</cfcatch>
 		</cftry>
+		<cfreturn result>
 	</cfoutput>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
