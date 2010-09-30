@@ -259,6 +259,9 @@
 				Page Loading....
 			</span>
 		</div>
+		<div id="loadedMsgDiv">
+			#loadedMsg#
+		</div>
 		<form name="dataEntry" method="post" action="DataEntryAjax.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
 			<input type="hidden" name="action" value="" id="action">
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
@@ -1414,9 +1417,6 @@
 	</tr>
 </table>
 </form>
-	<div id="loadedMsgDiv">
-		#loadedMsg#
-	</div>
 <cfif len(loadedMsg) gt 0>
 	<cfset pMode = 'edit'>
 </cfif>
