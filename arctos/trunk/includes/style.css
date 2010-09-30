@@ -8,6 +8,7 @@
 	opacity:0.5;
 	background:##024;
 }
+
 .editAppBox {
 	border:1px solid gray;
 	z-index:9998;
@@ -361,6 +362,7 @@ label.badPickLbl {
 	padding: 12px;
 	left:20%;
 }
+
 .mediaLink {
 	padding-left:5px;	
 	color:#2B547E;
