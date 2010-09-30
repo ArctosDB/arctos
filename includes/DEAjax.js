@@ -151,15 +151,6 @@ function customize(t) {
 function msg(m,s){
 	if (s=='bad'){
 		if ($("#bgDiv").length==0){
-			// add overlay
-			
-			/*var bgDiv = document.createElement('div');
-			bgDiv.id = 'bgDiv';
-			bgDiv.className = 'bgDiv';
-			document.body.appendChild(bgDiv);
-			var i='<img class="loadingAnimation" src="/images/loadingAnimation.gif">';
-			$("#bgDiv").append(i);
-			*/
 			var d='<div id="bgDiv" class="bgDiv"></div>';
 			$('body').append(d);
 			var im='<img id="loadingAnimation" src="/images/loadingAnimation.gif">';
