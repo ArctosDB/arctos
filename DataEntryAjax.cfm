@@ -1414,7 +1414,7 @@
 	</tr>
 </table>
 </form>
-	<div style="display:none;" id="loadedMsgDiv">
+	<div id="loadedMsgDiv">
 		#loadedMsg#
 	</div>
 <cfif len(loadedMsg) gt 0>
