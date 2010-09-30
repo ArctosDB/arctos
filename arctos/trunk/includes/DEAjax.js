@@ -141,7 +141,7 @@ function saveEditedRecord () {
 					msg(status,'err');
 				} else {
 					console.log('else');
-					$("#loadedMsgDiv").text();
+					$("#loadedMsgDiv").text('');
 					changeMode('edit');
 					$("#collection_object_id").val(coid);
 					msg('updated ' + coid,'good');
