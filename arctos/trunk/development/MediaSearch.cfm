@@ -518,7 +518,9 @@
 											
 					<cfset labels_details="">
 					<cfset j = 1>
+					media_labels: 
 					<cfloop list="#media_labels#" delimiters=";" index="label">
+						#label#;
 						<cfif (#label# is not "use policy") and (#label# is not "usage") and (#label# is not "description")>
 							<cfif len(labels_details) gt 0>
 								<cfset labels_details = labels_details & "<br>" & #mlabels[j]# & " = " & #lvalues[j]#>
