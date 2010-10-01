@@ -363,6 +363,9 @@
 
 	<!-- Cataloged item information -->
 	<cfset sci_name="#scientific_name#">	
+	<cfif len(scientific_name) gt 0>
+		<cfset sci_name = 'Scientific Name = ' & sci_name>
+	</cfif>
 	<cfset cat_item="#cat_num#">	
 	<cfset coll_obj_id="#collecting_object_id#">
 
