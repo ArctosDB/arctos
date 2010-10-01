@@ -429,29 +429,24 @@
 
 		<cfset i = 1>		
 		<cfloop list="#media_relationships#" delimiters=";" index="rel">
-			#rel#: #i#<br>
 			<cfif findNoCase("project", #rel#) gt 0>						
 				<cfif len(#project_name#) gt 0>
-								ha:#i#
 					<cfset project = 'Associated with project = <a href="/ProjectDetail.cfm?project_id=#rpkeys[i]#">' & project_name & '</a>'>
 				</cfif>
 				
 			<cfelseif findNoCase("publications", #rel#) gt 0>
 				<cfif len(#publication_name#) gt 0>
-								a:#i#
 					<cfset publication = 'Shows publication = <a href="/SpecimenUsage.cfm?publication_id=#rpkeys[i]#">' & publication_name  & '</a>'>
 				</cfif>
 				
 
 			<cfelseif findNoCase("locality", #rel#) gt 0>
 				<cfif len(#shows_loc_name#) gt 0>
-					b:#i#
 					<cfset shows_locality = 'Shows locality = <a href="/showLocality.cfm?action=srch&locality_id=#rpkeys[i]#">' & shows_loc_name & '</a>'>
 				</cfif>
 			
 			<cfelseif findNoCase("taxonomy", #rel#) gt 0>
 				<cfif len(#taxonomy_description#) gt 0>
-								c:#i#
 					<cfset descr_taxonomy = 'Describes Taxonomy = <a href="/name/#taxonomy_description#">' & taxonomy_description & '</a>'>
 				</cfif>
 					
@@ -461,7 +456,6 @@
 					select agent_name from preferred_agent_name where agent_id=#rpkeys[i]#
 				</cfquery>
 				<cfif len(#d.agent_name#) gt 0>
-								d:#i#
 					<cfset shows_agent = 'Shows agent = ' & d.agent_name>
 				</cfif>		
 			</cfif>
