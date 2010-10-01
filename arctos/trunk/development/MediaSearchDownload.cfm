@@ -227,7 +227,11 @@ do not agree</font>.</a>
 			
 			<cfif len(collecting_event_id) gt 0>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select datum from lat_long where locality_id=#collecting_event_id#
+					select l.datum 
+					from lat_long l, collecting_event c 
+					where c.collecting_event_id=#collecting_event_id# 
+						and c.locality_id=l.locality_id
+						and l.accepted_lat_long_fg=1
 				</cfquery>
 				<cfset temp = QuerySetCell(getTempData, "datum", d.datum, i)>
 
