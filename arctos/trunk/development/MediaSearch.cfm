@@ -165,18 +165,12 @@
 <cfoutput>
 <cfscript>
     function highlight(findIn,replaceThis) {
-    	
-    	foundAt=1;
-    	while(foundAt gt 0) {
-	    	foundAt=FindNoCase(replaceThis,findIn, foundAt);
-   	    	endAt=FindNoCase(replaceThis,findIn, foundAt)+len(replaceThis);
-   	    	
-    		if(foundAt gt 0) {
-    			findIn=Insert('</span>', findIn, endAt-1);
-	    		findIn=Insert('<span style="background-color:yellow">', findIn, foundAt-1);
-    		}
+    	foundAt=FindNoCase(replaceThis,findIn);
+    	endAt=FindNoCase(replaceThis,findIn)+len(replaceThis);
+    	if(foundAt gt 0) {
+    		findIn=Insert('</span>', findIn, endAt-1);
+    		findIn=Insert('<span style="background-color:yellow">', findIn, foundAt-1);
     	}
-
     	return findIn;
     }
 </cfscript>
