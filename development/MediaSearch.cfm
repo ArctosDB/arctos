@@ -377,10 +377,10 @@
 	<cfset dec_long=dec_latlong[2]>
 
 	<!-- Other relationships-->
-	<cfset project="#project_name#">			
-	<cfset publication="#publication_name#">			
-	<cfset shows_locality="#shows_loc_name#">				
-	<cfset descr_taxonomy="#taxonomy_description#">
+	<cfset project="">			
+	<cfset publication="">			
+	<cfset shows_locality="">				
+	<cfset descr_taxonomy="">
 	<cfset shows_agent="">
 	
 	<cfset kw="">
