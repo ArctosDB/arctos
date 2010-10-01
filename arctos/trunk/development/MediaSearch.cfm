@@ -353,7 +353,6 @@
 
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 
-	<cfset mrel = ListToArray(media_relationships, ";")>
 	<cfset rpkeys = ListToArray(related_primary_keys, ";")>
 
 	<cfset mlabels = ListToArray(media_labels, ";")>
@@ -428,45 +427,43 @@
 
 
 
-		<cfif ArrayLen(mrel) gt 0>		
-			<cfset i = 1>		
-			<cfloop list="media_relationships" delimiters="; " index="rel">
-				
-				<cfif findNoCase("project", #rel#) gt 0>						
-					<cfif len(#project_name#) gt 0>
-						<cfset project = 'Associated with project: <a href="/ProjectDetail.cfm?project_id=#rpkeys[i]#">' & project_name & '</a>'>
-					</cfif>
-					
-				<cfelseif findNoCase("publications", #rel#) gt 0>
-					<cfif len(#publication_name#) gt 0>
-						<cfset publication = 'Shows publication: <a href="/SpecimenUsage.cfm?publication_id=#rpkeys[i]#">' & publication_name  & '</a>'>
-					</cfif>
-					
-
-				<cfelseif findNoCase("shows locality", #rel#) gt 0>
-					<cfif len(#shows_loc_name#) gt 0>
-						<cfset shows_locality = 'Shows locality: <a href="/showLocality.cfm?action=srch&locality_id=#rpkeys[i]#">' & shows_loc_name & '</a>'>
-					</cfif>
-				
-				<cfelseif findNoCase("taxonomy", #rel#) gt 0>
-					<cfif len(#taxonomy_description#) gt 0>
-						<cfset descr_taxonomy = 'Describes Taxonomy: <a href="/name/#taxonomy_description#">' & taxonomy_description & '</a>'>
-					</cfif>
-						
-				<cfelseif findNoCase("shows agent", #rel#) gt 0>
-				
-					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select agent_name from preferred_agent_name where agent_id=#rpkeys[i]#
-					</cfquery>
-					<cfif len(#d.agent_name#) gt 0>
-						<cfset shows_agent = 'Shows agent: ' & d.agent_name>
-					</cfif>		
+		<cfset i = 1>		
+		<cfloop list="#media_relationships#" delimiters="; " index="rel">
+			
+			<cfif findNoCase("project", #rel#) gt 0>						
+				<cfif len(#project_name#) gt 0>
+					<cfset project = 'Associated with project: <a href="/ProjectDetail.cfm?project_id=#rpkeys[i]#">' & project_name & '</a>'>
 				</cfif>
 				
-				<cfset i= i +1>				
-			</cfloop>		
+			<cfelseif findNoCase("publications", #rel#) gt 0>
+				<cfif len(#publication_name#) gt 0>
+					<cfset publication = 'Shows publication: <a href="/SpecimenUsage.cfm?publication_id=#rpkeys[i]#">' & publication_name  & '</a>'>
+				</cfif>
+				
 
-		</cfif>
+			<cfelseif findNoCase("shows locality", #rel#) gt 0>
+				<cfif len(#shows_loc_name#) gt 0>
+					<cfset shows_locality = 'Shows locality: <a href="/showLocality.cfm?action=srch&locality_id=#rpkeys[i]#">' & shows_loc_name & '</a>'>
+				</cfif>
+			
+			<cfelseif findNoCase("taxonomy", #rel#) gt 0>
+				<cfif len(#taxonomy_description#) gt 0>
+					<cfset descr_taxonomy = 'Describes Taxonomy: <a href="/name/#taxonomy_description#">' & taxonomy_description & '</a>'>
+				</cfif>
+					
+			<cfelseif findNoCase("shows agent", #rel#) gt 0>
+			
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select agent_name from preferred_agent_name where agent_id=#rpkeys[i]#
+				</cfquery>
+				<cfif len(#d.agent_name#) gt 0>
+					<cfset shows_agent = 'Shows agent: ' & d.agent_name>
+				</cfif>		
+			</cfif>
+			
+			<cfset i= i +1>				
+		</cfloop>		
+
 
 <!--- 
 		<!-- Orders the keywords -->
@@ -520,7 +517,7 @@
 					<cfset labels_details="">
 					<cfset j = 1>
 					<cfloop list="#media_labels#" delimiters=";" index="label">
-						<cfif (#label# is not "use policy") and (#label# is not "usage")>
+						<cfif (#label# is not "use policy") and (#label# is not "usage") and (#label# is not "description")>
 							<cfif len(labels_details) gt 0>
 								<cfset labels_details = labels_details & "<br>" & #mlabels[j]# & " = " & #lvalues[j]#>
 							<cfelse>
@@ -541,7 +538,11 @@
 						<br>
 						<br>	
 					</cfif>
-					#bottom_text#
+					
+					<cfif len(#bottom_text#) gt 0>
+						#bottom_text#						
+						<br>
+					</cfif>
 					#labels_details#
 			</div>			
 		
