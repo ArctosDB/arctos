@@ -441,7 +441,7 @@
 				</cfif>
 				
 
-			<cfelseif findNoCase("shows locality", #rel#) gt 0>
+			<cfelseif findNoCase("locality", #rel#) gt 0>
 				<cfif len(#shows_loc_name#) gt 0>
 					<cfset shows_locality = 'Shows locality = <a href="/showLocality.cfm?action=srch&locality_id=#rpkeys[i]#">' & shows_loc_name & '</a>'>
 				</cfif>
