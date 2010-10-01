@@ -246,6 +246,7 @@ do not agree</font>.</a>
 					locality as created_from_collecting_event,
 					lat as latitude,		
 					long as longitude,
+					datum,
 					labels,
 					project_name as associated_with_project,
 					shows_loc_name as shows_locality,	
