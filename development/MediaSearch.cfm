@@ -428,7 +428,7 @@
 
 
 		<cfset i = 1>		
-		<cfloop list="#media_relationships#" delimiters="; " index="rel">
+		<cfloop list="#media_relationships#" delimiters=";" index="rel">
 			#rel#: #i#<br>
 			<cfif findNoCase("project", #rel#) gt 0>						
 				<cfif len(#project_name#) gt 0>
