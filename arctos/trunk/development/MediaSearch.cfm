@@ -481,7 +481,7 @@
 		</cfloop>
 		 --->
 	 	<cfset bottom_text="">
-		<cfset bottom_text_list = "#scientific_name#|#description#|#project#|#publication#|#shows_locality#|#descr_taxonomy#|#shows_agent#">
+		<cfset bottom_text_list = "#sci_name#|#description#|#project#|#publication#|#shows_locality#|#descr_taxonomy#|#shows_agent#">
  		<cfloop list="#bottom_text_list#" index="s" delimiters="|">
 			<cfif len(trim(s)) gt 0>
 				<cfif len(bottom_text) gt 0>
