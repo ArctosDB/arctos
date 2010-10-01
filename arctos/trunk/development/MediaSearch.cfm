@@ -536,9 +536,12 @@
 						<cfset labels_details=highlight(labels_details,k)>
 					</cfloop>
 					
-					#kw#
-					<br>
-					<br>
+					<cfif len(#top_text#) gt 0>
+						#top_text#						
+						<br>
+						<br>	
+					</cfif>
+					#bottom_text#
 					#labels_details#
 			</div>			
 		
