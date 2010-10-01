@@ -225,6 +225,14 @@ do not agree</font>.</a>
 				<cfset temp = QuerySetCell(getTempData, "long", longS, i)>
 			</cfif>
 			
+			<cfif len(collecting_event_id) gt 0>
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select datum from lat_long where locality_id=#collecting_event_id#
+				</cfquery>
+				<cfset temp = QuerySetCell(getTempData, "datum", d.datum, i)>
+
+			</cfif>
+			
 			<cfset i=i+1>
 		</cfloop>
 		<cfquery name="getData" dbtype="query">
@@ -321,6 +329,7 @@ do not agree</font>.</a>
 						<cfset thisData = evaluate(c)>
 						<cfif c is "BEGAN_DATE" or c is "ENDED_DATE">
 							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
+						<cfelseif c is >
 						</cfif>
 						<cfif len(oneLine) is 0>
 							<cfset oneLine = '"#thisData#"'>
