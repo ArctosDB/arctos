@@ -432,6 +432,7 @@
 
 		<cfset i = 1>		
 		<cfloop list="#media_relationships#" delimiters=";" index="rel">
+			<cfset rel = trim(#rel#)>
 			<cfif findNoCase("project", #rel#) gt 0>						
 				<cfif len(#project_name#) gt 0>
 					<cfset project = 'Associated with project = <a href="/ProjectDetail.cfm?project_id=#rpkeys[i]#">' & project_name & '</a>'>
@@ -521,6 +522,7 @@
 					media_labels: 
 					<cfloop list="#media_labels#" delimiters=";" index="label">
 						#label#;
+						<cfset label = trim(#label#)>
 						<cfif (#label# is not "use policy") and (#label# is not "usage") and (#label# is not "description")>
 							<cfif len(labels_details) gt 0>
 								<cfset labels_details = labels_details & "<br>" & #mlabels[j]# & " = " & #lvalues[j]#>
