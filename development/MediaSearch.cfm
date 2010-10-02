@@ -364,7 +364,7 @@
 	<!-- Cataloged item information -->
 	<cfset sci_name="#scientific_name#">	
 	<cfif len(sci_name) gt 0>
-		<cfset sci_name = 'Scientific Name = ' & sci_name>
+		<cfset sci_name = 'scientific name = ' & sci_name>
 	</cfif>
 	<cfset cat_item="#cat_num#">	
 	<cfset coll_obj_id="#collecting_object_id#">
@@ -391,7 +391,7 @@
 	<cfset description="">
 	<cfset desc_i = listContains(media_labels, "description", ";")>
 	<cfif desc_i gt 0>
-		<cfset description="Description = #lvalues[desc_i]#">
+		<cfset description="description = #lvalues[desc_i]#">
 	</cfif>
 
 	<cfset alt="#media_uri#">
@@ -435,23 +435,23 @@
 			<cfset rel = trim(#rel#)>
 			<cfif findNoCase("project", #rel#) gt 0>						
 				<cfif len(#project_name#) gt 0>
-					<cfset project = 'Associated with project = <a href="/ProjectDetail.cfm?project_id=#rpkeys[i]#">' & project_name & '</a>'>
+					<cfset project = 'associated with project = <a href="/ProjectDetail.cfm?project_id=#rpkeys[i]#">' & project_name & '</a>'>
 				</cfif>
 				
 			<cfelseif findNoCase("publications", #rel#) gt 0>
 				<cfif len(#publication_name#) gt 0>
-					<cfset publication = 'Shows publication = <a href="/SpecimenUsage.cfm?publication_id=#rpkeys[i]#">' & publication_name  & '</a>'>
+					<cfset publication = 'shows publication = <a href="/SpecimenUsage.cfm?publication_id=#rpkeys[i]#">' & publication_name  & '</a>'>
 				</cfif>
 				
 
 			<cfelseif findNoCase("locality", #rel#) gt 0>
 				<cfif len(#shows_loc_name#) gt 0>
-					<cfset shows_locality = 'Shows locality = <a href="/showLocality.cfm?action=srch&locality_id=#rpkeys[i]#">' & shows_loc_name & '</a>'>
+					<cfset shows_locality = 'shows locality = <a href="/showLocality.cfm?action=srch&locality_id=#rpkeys[i]#">' & shows_loc_name & '</a>'>
 				</cfif>
 			
 			<cfelseif findNoCase("taxonomy", #rel#) gt 0>
 				<cfif len(#taxonomy_description#) gt 0>
-					<cfset descr_taxonomy = 'Describes Taxonomy = <a href="/name/#taxonomy_description#">' & taxonomy_description & '</a>'>
+					<cfset descr_taxonomy = 'describes taxonomy = <a href="/name/#taxonomy_description#">' & taxonomy_description & '</a>'>
 				</cfif>
 					
 			<cfelseif findNoCase("shows agent", #rel#) gt 0>
@@ -460,7 +460,7 @@
 					select agent_name from preferred_agent_name where agent_id=#rpkeys[i]#
 				</cfquery>
 				<cfif len(#d.agent_name#) gt 0>
-					<cfset shows_agent = 'Shows agent = ' & d.agent_name>
+					<cfset shows_agent = 'shows agent = ' & d.agent_name>
 				</cfif>		
 			</cfif>
 			
