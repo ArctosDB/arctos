@@ -19,11 +19,8 @@
 	.warning{border:5px solid red;}
 </style>
 <script>
-	
 	window.setInterval(chkTax, 1000);
-	
 	function chkTax(){
-		
 		if ($("#nomenclatural_code").val()=='unknown'){
 			$("#nomenclatural_code").addClass('warning');
 		} else {
