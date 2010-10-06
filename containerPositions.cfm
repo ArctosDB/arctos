@@ -129,11 +129,7 @@
 				<input type="hidden" name="container_type" value="#aBox.container_type#">
 				<input type="hidden" name="container_id" value="#aBox.container_id#">
 				<input type="hidden" name="number_positions" value="#aBox.number_positions#">
-				<input type="submit" 
-					value="Create all new positions" 
-					class="insBtn"
-					onmouseover="this.className='insBtn btnhov'"
-					onmouseout="this.className='insBtn'">
+				<input type="submit" value="Create all new positions" class="insBtn">
 			</form>
 		<cfelse>
 			<!--- there's something in the box - what? ---->
@@ -373,6 +369,15 @@
 			<cfset height = 4.9>		
 		<cfelse>
 			<hr><font color="##FF0000">I can't deal with #number_positions# positions in a #container_type#!</font>			
+			<cfabort>
+		</cfif>
+		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select count(*) from container where parent_container_id=#container_id#
+		</cfquery>
+		<cfif isThere.recordcount gt 0>
+			<div class="error">
+				There are already #isThere.recordcount# containers in this container. Aborting....
+			</div>
 			<cfabort>
 		</cfif>
 		<!--- there is nothing in this box, make all positions ---->

@@ -975,7 +975,7 @@
 												</cfloop>
 											 </select>
 											<span class="f11a">Date</span>
-											<input type="text" name="attribute_date_1" value="#attribute_date_1#" id="attribute_date_1" size="10">
+											<input type="text" name="attribute_date_1" value="#attribute_date_1#" id="attribute_date_1" size="10" class="reqdClr">
 											<span class="infoLink" onclick="copyAttributeDates('attribute_date_1');">Sync Att.</span>
 											<span class="f11a">Detr</span>
 											<input type="text" 
@@ -1039,8 +1039,7 @@
 											<input type="text" name="attribute_value_5" value="#attribute_value_5#" size="3" id="attribute_value_5">
 										</td>
 										<td>
-											<select name="attribute_units_2" size="1"
-												id="attribute_units_2">
+											<select name="attribute_units_2" size="1" id="attribute_units_2">
 												<cfloop query="ctLength_Units">
 													<option <cfif #data.attribute_units_2# is #Length_Units#> selected </cfif> 
 													value="#Length_Units#">#Length_Units#</option>
