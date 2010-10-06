@@ -16,20 +16,23 @@
 </cfquery>
 <cfset title="Edit Taxonomy">
 <style>
-	.warning{border:2px solid red;}
+	.warning{border:5px solid red;}
 </style>
 <script>
 	
-	window.setInterval(chkTaxSubmit, 1000);
+	window.setInterval(chkTax, 1000);
 	
-	function chkTaxSubmit(){
+	function chkTax(){
 		
 		if ($("#nomenclatural_code").val()=='unknown'){
 			$("#nomenclatural_code").addClass('warning');
-			console.log('unknown');
 		} else {
-			console.log('somethinelse');
 			$("#nomenclatural_code").removeClass('warning');
+		}
+		if ($("#kingdom").val()==''){
+			$("#kingdom").addClass('warning');
+		} else {
+			$("#kingdom").removeClass('warning');
 		}
 	}
 </script>
@@ -50,7 +53,7 @@
 	<span class="infoLink" onClick="getDocs('taxonomy');">What's this?</span>
 	<a class="infoLink" href="/name/#getTaxa.scientific_name#">Detail Page</a>
     <table border>
-	<form name="taxa" method="post" action="Taxonomy.cfm" onsubmit="return chkTaxSubmit()">
+	<form name="taxa" method="post" action="Taxonomy.cfm">
     	<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
         <input type="hidden" name="Action">
 		<tr>
