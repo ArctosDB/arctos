@@ -19,13 +19,16 @@
 	.warning{border:2px solid red;}
 </style>
 <script>
+	
 	window.setInterval(chkTaxSubmit, 1000);
 	
 	function chkTaxSubmit(){
 		
 		if $("#nomenclatural_code").val()=='unknown'){
 			$("#nomenclatural_code").addClass('warning');
+			console.log('unknown');
 		} else {
+			console.log('somethinelse');
 			$("#nomenclatural_code").removeClass('warning');
 		}
 	}
