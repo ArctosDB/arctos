@@ -15,6 +15,21 @@
 	select taxon_status from cttaxon_status order by taxon_status
 </cfquery>
 <cfset title="Edit Taxonomy">
+<style>
+	.warning{border:2px solid red;}
+</style>
+<script>
+	window.setInterval(chkTaxSubmit, 1000);
+	
+	function chkTaxSubmit(){
+		
+		if $("#nomenclatural_code").val()=='unknown'){
+			$("#nomenclatural_code").addClass('warning');
+		} else {
+			$("#nomenclatural_code").removeClass('warning');
+		}
+	}
+</script>
 <!------------------------------------------------>
 <cfif action is "nothing">
 	<cfheader statuscode="301" statustext="Moved permanently">
@@ -32,7 +47,7 @@
 	<span class="infoLink" onClick="getDocs('taxonomy');">What's this?</span>
 	<a class="infoLink" href="/name/#getTaxa.scientific_name#">Detail Page</a>
     <table border>
-	<form name="taxa" method="post" action="Taxonomy.cfm">
+	<form name="taxa" method="post" action="Taxonomy.cfm" onsubmit="return chkTaxSubmit()">
     	<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
         <input type="hidden" name="Action">
 		<tr>
