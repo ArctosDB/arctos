@@ -24,7 +24,7 @@
 	
 	function chkTaxSubmit(){
 		
-		if $("#nomenclatural_code").val()=='unknown'){
+		if ($("#nomenclatural_code").val()=='unknown'){
 			$("#nomenclatural_code").addClass('warning');
 			console.log('unknown');
 		} else {
