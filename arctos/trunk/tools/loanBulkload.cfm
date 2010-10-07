@@ -354,7 +354,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 							collection.institution_acronym = '#institution_acronym#' and
 							collection.collection_cde = '#collection_cde#' and
 							part_name = '#part_name#' and
-							cat_num = #other_id_number# and
+							cat_num = '#other_id_number#' and
 							coll_obj_disposition != 'on loan' and
 							sampled_from_obj_id is null
 					</cfquery>
