@@ -20,7 +20,7 @@ function setNewRecDefaults () {
 	var cc = $('#collection_cde').val();
 	var ia =  $('#institution_acronym').val();
 	if(cc == 'Mamm' && ia == 'UAM') {
-		//catNumGap();
+		UAMMammDefault();
 	} else if(cc == 'Bird' && ia == 'MSB') {
 		MSBBirdDefault();
 	} else if(cc == 'Fish' && ia == 'UAM') {
@@ -29,6 +29,99 @@ function setNewRecDefaults () {
 		UAMArtDefaults();
 	} else if(ia == 'MVZ') {
 		MVZDefaults();
+	}
+}
+
+function MVZDefaults() {
+	document.getElementById('coll_obj_disposition').value='in collection';
+	document.getElementById('part_disposition_1').value='in collection';
+	document.getElementById('part_disposition_2').value='in collection';
+	document.getElementById('part_disposition_3').value='in collection';
+	document.getElementById('part_disposition_4').value='in collection';
+	document.getElementById('part_disposition_5').value='in collection';
+	document.getElementById('part_disposition_6').value='in collection';
+	document.getElementById('part_disposition_7').value='in collection';
+	document.getElementById('part_disposition_8').value='in collection';
+	document.getElementById('part_disposition_9').value='in collection';
+	document.getElementById('part_disposition_10').value='in collection';
+	document.getElementById('part_disposition_11').value='in collection';
+	document.getElementById('part_disposition_12').value='in collection';
+	if(document.getElementById('attribute_units_2')){
+		document.getElementById('attribute_units_2').value='mm';
+	}
+	
+	
+	if ($("#nature_of_id").val()==''){
+   	 	$("#nature_of_id").val('field');
+    }
+	if ($("#coll_obj_disposition").val()==''){
+   	 	$("#coll_obj_disposition").val('in collection');
+    }
+	$.each($("input[id^='part_disposition_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('in collection');
+	     }
+	});
+	if ($("#condition").val()==''){
+   	 	$("#condition").val('unchecked');
+    }
+	$.each($("input[id^='part_condition_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('unchecked');
+	     }
+	});
+	$.each($("input[id^='part_lot_count_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('1');
+	     }
+	});
+	if ($("#attribute_units_2").val()==''){
+   	 	$("#attribute_units_2").val('mm');
+    }
+	if ($("#collecting_source").val()==''){
+   	 	$("#collecting_source").val('wild caught');
+    }
+	if ($("#other_id_num_type_1").val()==''){
+		$("#other_id_num_type_1").val('collector number');
+	}
+}
+
+function UAMMammDefault() {
+	if ($("#nature_of_id").val()==''){
+   	 	$("#nature_of_id").val('field');
+    }
+	if ($("#coll_obj_disposition").val()==''){
+   	 	$("#coll_obj_disposition").val('being processed');
+    }
+	$.each($("input[id^='part_disposition_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('being processed');
+	     }
+	});
+	if ($("#condition").val()==''){
+   	 	$("#condition").val('unchecked');
+    }
+	$.each($("input[id^='part_condition_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('unchecked');
+	     }
+	});
+	$.each($("input[id^='part_lot_count_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('1');
+	     }
+	});
+	if ($("#attribute_units_2").val()==''){
+   	 	$("#attribute_units_2").val('mm');
+    }
+	if ($("#attribute_units_6").val()==''){
+   	 	$("#attribute_units_6").val('g');
+    }
+	if ($("#collecting_source").val()==''){
+   	 	$("#collecting_source").val('wild caught');
+    }
+	if ($("#other_id_num_type_1").val()==''){
+		$("#other_id_num_type_1").val('original identifier');
 	}
 }
 function MSBBirdDefault () {
@@ -46,19 +139,6 @@ function UAMFishDefault() {
 	    	 $("#" + this.id).val('unchecked');
 	     }
 	});
-	/*
-	var i=1;
-	for (i=1;i<=12;i++){
-		var thisPartConditionString='part_condition_' + i;
-		if (document.getElementById(thisPartConditionString)) {
-			var thisPartCondition=document.getElementById(thisPartConditionString);
-			var thisPartConditionValue=thisPartCondition.value;
-			if (thisPartConditionValue==''){
-				thisPartCondition.value='unchecked';
-			}
-		}
-	}
-	*/
 }	
 function changeMode (mode) {
 	var status=$.trim($("#loadedMsgDiv").text());
@@ -563,25 +643,6 @@ function isValidDate(val) {
 			} 	
 		}
 	return false;
-	}
-}
-
-function MVZDefaults() {
-	document.getElementById('coll_obj_disposition').value='in collection';
-	document.getElementById('part_disposition_1').value='in collection';
-	document.getElementById('part_disposition_2').value='in collection';
-	document.getElementById('part_disposition_3').value='in collection';
-	document.getElementById('part_disposition_4').value='in collection';
-	document.getElementById('part_disposition_5').value='in collection';
-	document.getElementById('part_disposition_6').value='in collection';
-	document.getElementById('part_disposition_7').value='in collection';
-	document.getElementById('part_disposition_8').value='in collection';
-	document.getElementById('part_disposition_9').value='in collection';
-	document.getElementById('part_disposition_10').value='in collection';
-	document.getElementById('part_disposition_11').value='in collection';
-	document.getElementById('part_disposition_12').value='in collection';
-	if(document.getElementById('attribute_units_2')){
-		document.getElementById('attribute_units_2').value='mm';
 	}
 }
 
