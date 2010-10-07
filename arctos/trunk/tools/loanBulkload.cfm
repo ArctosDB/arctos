@@ -175,7 +175,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 						sampled_from_obj_id  is null
 				</cfquery>
 			</cfif>
-			<cfif #collObj.recordcount# is 1>
+			<cfif collObj.recordcount is 1>
 				collObj.recordcount is 1....
 				<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update
@@ -202,7 +202,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					)
 					where ITEM_DESCRIPTION is null and key=#key#
 				</cfquery>
-				<cfif #subsample# is "no" and (len(partID) is 0)>
+				<cfif len(partID) is 0>
 					<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						update
 							cf_temp_loan_item
@@ -213,7 +213,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 							key=#key#
 					</cfquery>
 				</cfif>
-			<cfelseif #collObj.recordcount# is 0><!--- no part --->
+			<cfelseif collObj.recordcount is 0><!--- no part --->
 				no part
 				<cfquery name="BooCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update
@@ -337,7 +337,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 	</cfquery>
 	<cftransaction>
 		<cfloop query="getTempData">
-			<cfif subsample is "yes" and len(partID) is 0>
+			<cfif subsample is "yes">
 				<cfif other_id_type is "catalog number">
 					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
