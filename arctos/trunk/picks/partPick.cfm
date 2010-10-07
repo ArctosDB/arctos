@@ -103,7 +103,7 @@
 	</cfif>
 	<cfif isdefined("id_value") and len(#id_value#) gt 0>
 		<cfif isdefined("id_type") and id_type is "catalog_number">
-			<cfset s=s & " and cataloged_item.cat_num=#id_value# ">
+			<cfset s=s & " and cataloged_item.cat_num='#id_value#' ">
 		<cfelse>
 			<cfset s=s & " and upper(coll_obj_other_id_num.display_value) like '%#ucase(id_value)#%' ">
 		</cfif>
