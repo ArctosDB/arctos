@@ -103,7 +103,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 	If the above table is accurate, <a href="loanBulkload.cfm?action=verify">click here to proceed</a>.
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "verify">
+<cfif action is "verify">
 <cfoutput>
 <cftransaction>
 	<cfquery name="loanID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -175,6 +175,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 						sampled_from_obj_id  is null
 				</cfquery>
 			</cfif>
+			<cfdump var=#collObj#>
 			<cfif #collObj.recordcount# is 1>
 				collObj.recordcount is 1....
 				<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
