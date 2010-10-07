@@ -786,7 +786,52 @@
 		</cfquery>
 		</td>
 		<td valign="top" width="50%">
-		
+	<!------------------------------------ identifiers ---------------------------------------------->
+			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				SELECT 
+					case when #oneOfUs# != 1 and 
+						concatencumbrances(coll_obj_other_id_num.collection_object_id) like '%mask original field number%' and
+						coll_obj_other_id_num.other_id_type = 'original identifier'				
+						then 'Masked'
+					else
+						coll_obj_other_id_num.display_value  
+					end display_value,
+					coll_obj_other_id_num.other_id_type,
+					case when base_url is not null then
+						ctcoll_other_id_type.base_url || coll_obj_other_id_num.display_value
+					else
+						null
+					end link
+				FROM
+					coll_obj_other_id_num,
+					ctcoll_other_id_type
+				where
+					collection_object_id=#one.collection_object_id# and
+					coll_obj_other_id_num.other_id_type=ctcoll_other_id_type.other_id_type (+)
+				ORDER BY
+					other_id_type,
+					display_value
+			</cfquery>
+			<cfif len(oid.other_id_type) gt 0>
+				<div class="detailCell">
+					<div class="detailLabel">Identifiers
+						<cfif oneOfUs is 1>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
+						</cfif>						
+					</div>
+					<cfloop query="oid">
+						<div class="detailBlock">
+							<span class="innerDetailLabel">#other_id_type#:</span>
+								<cfif len(link) gt 0>
+									<a class="external" href="#link#" target="_blank">#display_value#</a>
+								<cfelse>
+									#display_value#
+								</cfif>
+							</span>
+						</div>
+					</cfloop>
+				</div>
+			</cfif>
 <!------------------------------------ parts ---------------------------------------------->
 <cfquery name="parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
@@ -866,52 +911,7 @@
 					</span>
 				</div>
 			</div>
-<!------------------------------------ identifiers ---------------------------------------------->
-			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT 
-					case when #oneOfUs# != 1 and 
-						concatencumbrances(coll_obj_other_id_num.collection_object_id) like '%mask original field number%' and
-						coll_obj_other_id_num.other_id_type = 'original identifier'				
-						then 'Masked'
-					else
-						coll_obj_other_id_num.display_value  
-					end display_value,
-					coll_obj_other_id_num.other_id_type,
-					case when base_url is not null then
-						ctcoll_other_id_type.base_url || coll_obj_other_id_num.display_value
-					else
-						null
-					end link
-				FROM
-					coll_obj_other_id_num,
-					ctcoll_other_id_type
-				where
-					collection_object_id=#one.collection_object_id# and
-					coll_obj_other_id_num.other_id_type=ctcoll_other_id_type.other_id_type (+)
-				ORDER BY
-					other_id_type,
-					display_value
-			</cfquery>
-			<cfif len(oid.other_id_type) gt 0>
-				<div class="detailCell">
-					<div class="detailLabel">Identifiers
-						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
-						</cfif>						
-					</div>
-					<cfloop query="oid">
-						<div class="detailBlock">
-							<span class="innerDetailLabel">#other_id_type#:</span>
-								<cfif len(link) gt 0>
-									<a class="external" href="#link#" target="_blank">#display_value#</a>
-								<cfelse>
-									#display_value#
-								</cfif>
-							</span>
-						</div>
-					</cfloop>
-				</div>
-			</cfif>
+
 <!------------------------------------ attributes ---------------------------------------------->
 			<cfif len(attribute.attribute_type) gt 0>
 				<div class="detailCell">
