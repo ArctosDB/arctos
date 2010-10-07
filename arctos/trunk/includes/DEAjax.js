@@ -83,11 +83,11 @@ function UAMMammDefault() {
 	});
 	console.log('datit');
 	if ($("#condition").val()==''){
-   	 	$("#condition").val('unchecked');
+   	 	$("#condition").val('test');
     }
 	$.each($("input[id^='part_condition_']"), function() {
 	     if ($("#" + this.id).val()==''){
-	    	 $("#" + this.id).val('unchecked');
+	    	 $("#" + this.id).val('test');
 	     }
 	});
 	$.each($("input[id^='part_lot_count_']"), function() {
