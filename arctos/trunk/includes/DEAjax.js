@@ -17,8 +17,8 @@ jQuery(document).ready(function() {
 	});
 });
 function setNewRecDefaults () {
-	var cc = document.getElementById('collection_cde').value;
-	var ia = document.getElementById('institution_acronym').value;
+	var cc = $('#collection_cde').val();
+	var ia =  $('#institution_acronym').val();
 	if(cc == 'Mamm' && ia == 'UAM') {
 		//catNumGap();
 	} else if(cc == 'Bird' && ia == 'MSB') {
