@@ -32,17 +32,34 @@ function setNewRecDefaults () {
 	}
 }
 function MSBBirdDefault () {
-	console.log($("#other_id_num_type_1").val());	
 	if ($("#other_id_num_type_1").val()==''){
-		console.log('oid1 empty');
 		$("#other_id_num_type_1").val('collector number');
 	}
 	if ($("#other_id_num_type_2").val()==''){
-		console.log('oid2 empty');
 		$("#other_id_num_type_2").val('preparator number');
 	}
 	catNumSeq();
 }
+function UAMFishDefault() {
+	$.each($("input[id^='part_condition_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('unchecked');
+	     }
+	});
+	/*
+	var i=1;
+	for (i=1;i<=12;i++){
+		var thisPartConditionString='part_condition_' + i;
+		if (document.getElementById(thisPartConditionString)) {
+			var thisPartCondition=document.getElementById(thisPartConditionString);
+			var thisPartConditionValue=thisPartCondition.value;
+			if (thisPartConditionValue==''){
+				thisPartCondition.value='unchecked';
+			}
+		}
+	}
+	*/
+}	
 function changeMode (mode) {
 	var status=$.trim($("#loadedMsgDiv").text());
 	if(status){
@@ -697,19 +714,7 @@ function UAMArtDefaults() {
 		}
 	}
 }
-function UAMFishDefault() {
-	var i=1;
-	for (i=1;i<=12;i++){
-		var thisPartConditionString='part_condition_' + i;
-		if (document.getElementById(thisPartConditionString)) {
-			var thisPartCondition=document.getElementById(thisPartConditionString);
-			var thisPartConditionValue=thisPartCondition.value;
-			if (thisPartConditionValue==''){
-				thisPartCondition.value='unchecked';
-			}
-		}
-	}
-}		
+	
 function copyAllDates(theID) {
 	var theDate = document.getElementById(theID).value;
 	if (theDate.length > 0) {
