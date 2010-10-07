@@ -520,6 +520,7 @@ make sure carry/save/whatever runs any time you enter DE mode
 												size="1" 
 												id="collecting_source"
 												class="reqdClr">										
+												<option value=""></option>
 												<cfloop query="ctcollecting_source">
 													<option 
 														<cfif collecting_source is thisCollSrc> selected </cfif>
@@ -1049,6 +1050,7 @@ make sure carry/save/whatever runs any time you enter DE mode
 										</td>
 										<td>
 											<select name="attribute_units_2" size="1" id="attribute_units_2">
+												<option value=""></option>
 												<cfloop query="ctLength_Units">
 													<option <cfif #data.attribute_units_2# is #Length_Units#> selected </cfif> 
 													value="#Length_Units#">#Length_Units#</option>
@@ -1062,8 +1064,8 @@ make sure carry/save/whatever runs any time you enter DE mode
 											<input type="text" name="attribute_value_6" value="#attribute_value_6#" size="3" id="attribute_value_6">
 										</td>
 										<td>
-											<select name="attribute_units_6" size="1"
-													id="attribute_units_6">
+											<select name="attribute_units_6" size="1" id="attribute_units_6">
+												<option value=""></option>
 												<cfloop query="ctWeight_Units">
 													<option <cfif #data.attribute_units_6# is #Weight_Units#> selected </cfif>value="#Weight_Units#">#Weight_Units#</option>
 												</cfloop>
@@ -1225,6 +1227,7 @@ make sure carry/save/whatever runs any time you enter DE mode
 						<td>
 							<cfset thisDisp = COLL_OBJ_DISPOSITION>
 							<select name="coll_obj_disposition" size="1" class="reqdClr" id="coll_obj_disposition">
+								<option value=""></option>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif thisDisp is COLL_OBJ_DISPOSITION> selected </cfif>
@@ -1322,6 +1325,7 @@ make sure carry/save/whatever runs any time you enter DE mode
 							</td>
 							<td>
 								<select name="part_disposition_#i#" <cfif i is 1>class="reqdClr" </cfif> id="part_disposition_#i#">
+									<option value=""></option>
 									<cfloop query="CTCOLL_OBJ_DISP">
 										<option
 											<cfif evaluate("data.part_disposition_" & i) is CTCOLL_OBJ_DISP.COLL_OBJ_DISPOSITION> selected="selected" </cfif>
