@@ -94,11 +94,12 @@ function UAMMammDefault() {
    	 	$("#coll_obj_disposition").val('being processed');
     }
 	$.each($("input[id^='part_disposition_']"), function() {
-	    console.log( $("#" + this.id).val() );
+	    console.log( '----' + $("#" + this.id).val() );
 		if ($("#" + this.id).val()==''){
 	    	 $("#" + this.id).val('being processed');
 	     }
 	});
+	console.log('datit');
 	if ($("#condition").val()==''){
    	 	$("#condition").val('unchecked');
     }
