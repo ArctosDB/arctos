@@ -305,7 +305,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 			<cfquery name="mPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				update cf_temp_loan_item set status='spiffy', partID=#thisPartId# where key=#thisKey#
 			</cfquery>
-			<cfif lData.ITEM_DESCRIPTION is null>
+			<cfif len(lData.ITEM_DESCRIPTION) is 0>
 				<cfquery name="defDescr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update 
 						cf_temp_loan_item 
