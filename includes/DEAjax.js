@@ -78,7 +78,7 @@ function UAMMammDefault() {
 	$.each($("[id^='part_disposition_']"), function() {
 	    console.log( '----');
 		//if ($("#" + this.id).val()==''){
-	    //	 $("#" + this.id).val('being processed');
+	    	 $("#" + this.id).val('being processed');
 	    // }
 	});
 	console.log('datit');
