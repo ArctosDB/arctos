@@ -657,84 +657,22 @@
 					</tr>
 				</table>
 			</div>
-<!------------------------------------ parts ---------------------------------------------->
-<cfquery name="parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select
-		specimen_part.collection_object_id part_id,
-		pc.label,
-		part_name,
-		sampled_from_obj_id,
-		coll_object.COLL_OBJ_DISPOSITION part_disposition,
-		coll_object.CONDITION part_condition,
-		lot_count,
-		coll_object_remarks part_remarks
-	from
-		specimen_part,
-		coll_object,
-		coll_object_remark,
-		coll_obj_cont_hist,
-		container oc,
-		container pc
-	where
-		specimen_part.collection_object_id=coll_object.collection_object_id and
-		coll_object.collection_object_id=coll_obj_cont_hist.collection_object_id and
-		coll_object.collection_object_id=coll_object_remark.collection_object_id (+) and
-		coll_obj_cont_hist.container_id=oc.container_id and
-		oc.parent_container_id=pc.container_id (+) and
-		specimen_part.derived_from_cat_item=#one.collection_object_id#
-</cfquery>
-<cfquery name="mPart" dbtype="query">
-	select * from parts where sampled_from_obj_id is null order by part_name
-</cfquery>
+			
+<!------------------------------------ collectors ---------------------------------------------->
 			<div class="detailCell">
-				<div class="detailLabel">&nbsp;<!---Parts--->
+				<div class="detailLabel">Collectors
 					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.loadEditApp('editParts');">Edit</span>
-					<cfelse>
-						<span class="detailEditCell" onClick="getInfo('parts','#one.collection_object_id#');">Details</span>
+						<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
 					</cfif>
 				</div>
-				<div class="detailBlock">
-					<span class="detailData">
-						<table border>
-							<tr>
-								<th><span class="innerDetailLabel">Part Name</span></th>
-								<th><span class="innerDetailLabel">Condition</span></th>
-								<th><span class="innerDetailLabel">Disposition</span></th>
-								<th><span class="innerDetailLabel">##</span></th>
-								<th><span class="innerDetailLabel">Label</span></th>
-								<th><span class="innerDetailLabel">Remarks</span></th>
-							</tr>
-							<cfloop query="mPart">
-								<tr>
-									<td>
-										#part_name#
-									</td>
-									<td>#part_condition#</td>
-									<td>#part_disposition#</td>
-									<td>#lot_count#</td>
-									<td>#label#</td>
-									<td>#part_remarks#</td>
-								</tr>
-								<cfquery name="sPart" dbtype="query">
-									select * from parts where sampled_from_obj_id=#part_id#
-								</cfquery>
-								<cfloop query="sPart">
-									<tr>
-										<td>
-											&nbsp;&nbsp;&nbsp;#part_name#
-										</td>
-										<td>#part_condition#</td>
-										<td>#part_disposition#</td>
-										<td>#lot_count#</td>
-										<td>#label#</td>
-										<td>#part_remarks#</td>
-									</tr>
-								</cfloop>
-							</cfloop>
-						</table>
-					</span>
-				</div>
+				<cfloop query="colls">
+					<div class="detailBlock">
+						<span class="detailData">
+							<span class="innerDetailLabel"></span>
+							#collectors#
+						</span>
+					</div>
+				</cfloop>
 			</div>
 <!------------------------------------ preparators ---------------------------------------------->
 			<cfif len(preps.preparators) gt 0>
@@ -848,21 +786,85 @@
 		</cfquery>
 		</td>
 		<td valign="top" width="50%">
-<!------------------------------------ collectors ---------------------------------------------->
+		
+<!------------------------------------ parts ---------------------------------------------->
+<cfquery name="parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select
+		specimen_part.collection_object_id part_id,
+		pc.label,
+		part_name,
+		sampled_from_obj_id,
+		coll_object.COLL_OBJ_DISPOSITION part_disposition,
+		coll_object.CONDITION part_condition,
+		lot_count,
+		coll_object_remarks part_remarks
+	from
+		specimen_part,
+		coll_object,
+		coll_object_remark,
+		coll_obj_cont_hist,
+		container oc,
+		container pc
+	where
+		specimen_part.collection_object_id=coll_object.collection_object_id and
+		coll_object.collection_object_id=coll_obj_cont_hist.collection_object_id and
+		coll_object.collection_object_id=coll_object_remark.collection_object_id (+) and
+		coll_obj_cont_hist.container_id=oc.container_id and
+		oc.parent_container_id=pc.container_id (+) and
+		specimen_part.derived_from_cat_item=#one.collection_object_id#
+</cfquery>
+<cfquery name="mPart" dbtype="query">
+	select * from parts where sampled_from_obj_id is null order by part_name
+</cfquery>
 			<div class="detailCell">
-				<div class="detailLabel">Collectors
+				<div class="detailLabel">&nbsp;<!---Parts--->
 					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
+						<span class="detailEditCell" onclick="window.parent.loadEditApp('editParts');">Edit</span>
+					<cfelse>
+						<span class="detailEditCell" onClick="getInfo('parts','#one.collection_object_id#');">Details</span>
 					</cfif>
 				</div>
-				<cfloop query="colls">
-					<div class="detailBlock">
-						<span class="detailData">
-							<span class="innerDetailLabel"></span>
-							#collectors#
-						</span>
-					</div>
-				</cfloop>
+				<div class="detailBlock">
+					<span class="detailData">
+						<table border>
+							<tr>
+								<th><span class="innerDetailLabel">Part Name</span></th>
+								<th><span class="innerDetailLabel">Condition</span></th>
+								<th><span class="innerDetailLabel">Disposition</span></th>
+								<th><span class="innerDetailLabel">##</span></th>
+								<th><span class="innerDetailLabel">Label</span></th>
+								<th><span class="innerDetailLabel">Remarks</span></th>
+							</tr>
+							<cfloop query="mPart">
+								<tr>
+									<td>
+										#part_name#
+									</td>
+									<td>#part_condition#</td>
+									<td>#part_disposition#</td>
+									<td>#lot_count#</td>
+									<td>#label#</td>
+									<td>#part_remarks#</td>
+								</tr>
+								<cfquery name="sPart" dbtype="query">
+									select * from parts where sampled_from_obj_id=#part_id#
+								</cfquery>
+								<cfloop query="sPart">
+									<tr>
+										<td>
+											&nbsp;&nbsp;&nbsp;#part_name#
+										</td>
+										<td>#part_condition#</td>
+										<td>#part_disposition#</td>
+										<td>#lot_count#</td>
+										<td>#label#</td>
+										<td>#part_remarks#</td>
+									</tr>
+								</cfloop>
+							</cfloop>
+						</table>
+					</span>
+				</div>
 			</div>
 <!------------------------------------ identifiers ---------------------------------------------->
 			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
