@@ -77,18 +77,39 @@
 </cfif>
 <cfif action is "srch">
 <cfoutput>
-	<cfset s="select cat_num,collection.collection,cataloged_item.collection_object_id,
-		specimen_part.collection_object_id partID,
-		COLL_OBJECT_REMARKS,COLL_OBJ_DISPOSITION,CONDITION,DISPOSITION_REMARKS,
-		LOT_COUNT,PART_NAME,SAMPLED_FROM_OBJ_ID,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID 
-		from collection,cataloged_item,specimen_part,coll_object,coll_object_remark,coll_obj_other_id_num">
+	<cfset s="select 
+			cat_num,
+			collection.collection,
+			cataloged_item.collection_object_id,
+			specimen_part.collection_object_id partID,
+			COLL_OBJECT_REMARKS,
+			COLL_OBJ_DISPOSITION,
+			CONDITION,
+			DISPOSITION_REMARKS,
+			LOT_COUNT,
+			PART_NAME,
+			SAMPLED_FROM_OBJ_ID,
+			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+			nvl(p1.barcode,'NOBARCODE') barcode 
+		from 
+			collection,
+			cataloged_item,
+			specimen_part,
+			coll_object,
+			coll_object_remark,
+			coll_obj_other_id_num,
+			coll_obj_cont_hist,
+			container p0,
+			container p1">
 			
 	<cfset s=s & " where collection.collection_id=cataloged_item.collection_id and ">
 	<cfset s=s & " cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and ">
 	<cfset s=s & " specimen_part.collection_object_id=coll_object.collection_object_id and ">
 	<cfset s=s & " coll_object.collection_object_id=coll_object_remark.collection_object_id (+) and ">
-	<cfset s=s & " cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and ">
+	<cfset s=s & " cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and 
+			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
+			coll_obj_cont_hist.container_id=p0.container_id (+) and
+			p0.parent_container_id=p1.container_id (+)">
 	<cfset s=s & " rownum < 100 ">
 	<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
 		<cfset s=s & " and collection.collection_id=#collection_id# ">
@@ -126,7 +147,7 @@
 			<cfloop query="data">
 				<tr>
 					<td>
-						#collection# #cat_num# #PART_NAME#					
+						#collection# #cat_num# #PART_NAME# [#barcode#]				
 					</td>
 					<cfif len(#session.CustomOtherIdentifier#) gt 0 >
 						<td>#CustomID#</td>
