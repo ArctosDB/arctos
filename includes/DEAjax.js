@@ -127,8 +127,10 @@ function changeMode (mode) {
 		// got an error - force them to fix it
 		mode='edit';
 	}
+	
 	$(".hasProbs").removeClass();
 	if (mode == 'edit') {
+		$("#customizeForm").hide(); //Save This As A New Record
 		$("#theNewButton").hide(); //Save This As A New Record
 		$("#theSaveButton").show(); // Save Edits/Delete Record
 		$("#enterMode").hide(); // Edit Last Record
@@ -146,6 +148,7 @@ function changeMode (mode) {
 			$("#pageTitle").hide();	
 		}
 	} else { // entry mode
+		$("#customizeForm").show(); //Save This As A New Record
 		$("#theTable").removeClass().addClass('isEnter');
 		$("#theNewButton").show(); //Save This As A New Record
 		$("#theSaveButton").hide(); // Save Edits/Delete Record
@@ -262,7 +265,6 @@ function deleteThisRec () {
 				queryformat : 'column'
 			},
 			function(r) {
-				//console.log(r);
 				var o=r.DATA.OLDVALUE[0];
 				var n=r.DATA.NEXTVALUE[0];
 				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
@@ -289,13 +291,8 @@ function saveNewRecord () {
 				queryformat : 'column'
 			},
 			function(r) {
-				//console.log(r);
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
-				//console.log(coid);
 				var status=r.DATA.RSLT[0];
-				//console.log(status);
-				
-				
 				if (status){
 					msg(status,'err');
 					$("#loadedMsgDiv").text(status).show();
@@ -324,19 +321,13 @@ function saveEditedRecord () {
 				queryformat : 'column'
 			},
 			function(r) {
-				////console.log(r);
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
-				//console.log(coid);
 				var status=r.DATA.RSLT[0];
-				//console.log(status);
 				if (status) {
-					//console.log('status');
 					$("#loadedMsgDiv").text(status).show();
 					changeMode('edit');
-					//highlightErrors(status);
 					msg(status,'err');
 				} else {
-					//console.log('else');
 					$("#loadedMsgDiv").text('').hide();
 					$("#collection_object_id").val(coid);
 					msg('updated ' + coid,'good');
