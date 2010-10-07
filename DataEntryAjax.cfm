@@ -1,3 +1,12 @@
+
+<!--- save
+clone
+customizations don't work
+make sure carry/save/whatever runs any time you enter DE mode
+
+---->
+
+
 <div id="msg">Status messages will appear here.</div>
 <div><!--- spacer ---></div>
 <cfinclude template="/includes/_header.cfm">
