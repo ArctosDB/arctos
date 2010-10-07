@@ -38,7 +38,7 @@ function MVZDefaults() {
 	if ($("#coll_obj_disposition").val()==''){
    	 	$("#coll_obj_disposition").val('in collection');
     }
-	$.each($("input[id^='part_disposition_']"), function() {
+	$.each($("[id^='part_disposition_']"), function() {
 	     if ($("#" + this.id).val()==''){
 	    	 $("#" + this.id).val('in collection');
 	     }
