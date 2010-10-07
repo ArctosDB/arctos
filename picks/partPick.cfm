@@ -128,8 +128,21 @@
 		<cfelse>
 			<cfset s=s & " and upper(coll_obj_other_id_num.display_value) like '%#ucase(id_value)#%' ">
 		</cfif>
-		
 	</cfif>
+	<cfset s=s & " group by
+			cat_num,
+			collection.collection,
+			cataloged_item.collection_object_id,
+			specimen_part.collection_object_id,
+			COLL_OBJECT_REMARKS,
+			COLL_OBJ_DISPOSITION,
+			CONDITION,
+			DISPOSITION_REMARKS,
+			LOT_COUNT,
+			PART_NAME,
+			SAMPLED_FROM_OBJ_ID,
+			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#'),
+			p1.barcode">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(s)#
 	</cfquery>
