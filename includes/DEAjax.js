@@ -76,7 +76,7 @@ function UAMMammDefault() {
    	 	$("#coll_obj_disposition").val('being processed');
     }
 	$.each($("[id^='part_disposition_']"), function() {
-	    console.log( '----' + $("#" + this.id).val() );
+	    console.log( '----');
 		//if ($("#" + this.id).val()==''){
 	    //	 $("#" + this.id).val('being processed');
 	    // }
