@@ -128,11 +128,10 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 		transaction_id is null
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from cf_temp_loan_item where status is null
+		select * from cf_temp_loan_item where (status is null or status='picked_part'
 	</cfquery>  
 		<cfloop query="data">
 			<cfif other_id_type is "catalog number">
-				helloooooo
 				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
 						specimen_part.collection_object_id 
@@ -176,7 +175,6 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 						sampled_from_obj_id  is null
 				</cfquery>
 			</cfif>
-			<cfdump var=#collObj#>
 			<cfif #collObj.recordcount# is 1>
 				collObj.recordcount is 1....
 				<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -202,7 +200,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 							specimen_part.derived_from_cat_item = cataloged_item.collection_object_id and
 							cataloged_item.collection_id = collection.collection_id
 					)
-					where key=#key#
+					where ITEM_DESCRIPTION is null and key=#key#
 				</cfquery>
 				<cfif #subsample# is "no" and len(partID) is 0>
 					<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -302,7 +300,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 			<cfset thisKey = replace(f,"PARTID","","all")>
 			<cfset thisPartId=evaluate(f)>
 			<cfquery name="mPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				update cf_temp_loan_item set status='spiffy', partID=#thisPartId# where key=#thisKey#
+				update cf_temp_loan_item set status='picked_part', partID=#thisPartId# where key=#thisKey#
 			</cfquery>
 		</cfif>
 	</cfloop>
