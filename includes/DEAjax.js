@@ -1,33 +1,53 @@
-
+jQuery(document).ready(function() {
+	setPagePrefs();
+	$("#made_date").datepicker();
+	$("#began_date").datepicker();
+	$("#ended_date").datepicker();	
+	$("#determined_date").datepicker();
+	for (i=1;i<=12;i++){
+		$("#geo_att_determined_date_" + i).datepicker();
+		$("#attribute_date_" + i).datepicker();
+	}
+	$("input[type=text]").focus(function(){
+	    //this.select();
+	});
+	$("select[id^='geology_attribute_']").each(function(e){
+		var gid='geology_attribute_' + String(e+1);
+		populateGeology(gid);			
+	});
+});
+function setNewRecDefaults () {
+	var cc = document.getElementById('collection_cde').value;
+	var ia = document.getElementById('institution_acronym').value;
+	if(cc == 'Mamm' && ia == 'UAM') {
+		//catNumGap();
+	} else if(cc == 'Bird' && ia == 'MSB') {
+		MSBBirdDefault();
+	} else if(cc == 'Fish' && ia == 'UAM') {
+		UAMFishDefault();	
+	} else if(ia == 'UAM' && cc=='Art') {
+		UAMArtDefaults();
+	} else if(ia == 'MVZ') {
+		MVZDefaults();
+	}
+}
+function MSBBirdDefault () {
+	if ($("#other_id_num_type_1").val()==''){
+		console.log('oid1 empty');
+		$("#other_id_num_type_1").val('collector number');
+	}
+	if ($("#other_id_num_type_2").val()==''){
+		console.log('oid2 empty');
+		$("#other_id_num_type_2").val('preparator number');
+	}
+	catNumSeq();
+}
 function changeMode (mode) {
 	var status=$.trim($("#loadedMsgDiv").text());
-	/*
-	 * 
-	 * if status is not null then we've got an error
-	 * so we should not allow entry mode - only edit
-	 * until the problem is fixed
-	 * 
-	 * 
-	var tDiv = document.getElementById('pageTitle');
-	var tTab = document.getElementById('theTable');
-	var tSav = document.getElementById('theSaveButton');
-	var tNew = document.getElementById('theNewButton');
-	var eBtn = document.getElementById('');
-	var sBtn = document.getElementById('');
-	//var tBS = document.getElementById('selectbrowse');
-	var Bty = document.getElementById('');
-	var pgClr = document.getElementById('theTable');
-	var lmdc = document.getElementById('loadedMsgDiv').innerHTML;
-	var tlmdc = lmdc.replace(/^\s+/g, '').replace(/\s+$/g, '');
-	var isGoodSave = tlmdc.length;
-	*/
-	
 	if(status){
+		// got an error - force them to fix it
 		mode='edit';
-		//console.log('forcing mode to edit. Status: ' + status);
 	}
-	
-	//var clrDefBtn = document.getElementById('clearDefault');	
 	$(".hasProbs").removeClass();
 	if (mode == 'edit') {
 		$("#theNewButton").hide(); //Save This As A New Record
@@ -53,23 +73,10 @@ function changeMode (mode) {
 		$("#enterMode").show(); // Edit Last Record
 		$("#editMode").hide(); // Clone This Record
 		$("#browseThingy").hide();
-		/*
-		if (isGoodSave > 0) {
-			pgClr.style.backgroundColor = '#669999';
-		} else {
-			pgClr.style.backgroundColor = '#bed88f';
-			tDiv.style.display='none';
-			setNewRecDefaults();
-		}
-		*/
+		setPagePrefs();
 	}
 	$("#splash").hide();
-
-	$("#theTable").show();
-	
-	//var splashPg = document.getElementById('splash');
-	//splashPg.style.display='none';
-	//pgClr.style.display='';	
+	$("#theTable").show();	
 }
 
 function createClone() {
@@ -105,6 +112,7 @@ function setPagePrefs(){
 					$("#d_" + eName).show();
 				}
 			}
+			setNewRecDefaults();
 			msg('page ready','good');
 		}
 	);
@@ -331,27 +339,6 @@ function copyVerbatim(str){
 	);
 }
 
-jQuery(document).ready(function() {
-	setPagePrefs();
-	jQuery("#made_date").datepicker();
-	jQuery("#began_date").datepicker();
-	jQuery("#ended_date").datepicker();	
-	jQuery("#determined_date").datepicker();
-	for (i=1;i<=12;i++){
-		jQuery("#geo_att_determined_date_" + i).datepicker();
-		jQuery("#attribute_date_" + i).datepicker();
-	}
-	jQuery("input[type=text]").focus(function(){
-	    //this.select();
-	});
-	$("select[id^='geology_attribute_']").each(function(e){
-		var gid='geology_attribute_' + String(e+1);
-		populateGeology(gid);			
-	});
-	if ($("#collection_cde").val()=='Bird' && $("#institution_acronym").val()=='MSB'){
-		catNumSeq();
-	}
-});
 
 function populateGeology(id) {
 	var idNum=id.replace('geology_attribute_','');
@@ -580,24 +567,7 @@ function MVZDefaults() {
 	}
 }
 
-function MSBBirdDefault () {
-	var cn = document.getElementById('other_id_num_type_1');
-	var pn = document.getElementById('other_id_num_type_2');
-	cnum = 'collector number';
-	pnum = 'preparator number';
-	 for(i=0; i<cn.length; i++){
-		  if(cn[ i].value == cnum){
-			 cn.selectedIndex = i;
-			 break;
-		  }
-	 }
-	 for(i=0; i<pn.length; i++){
-		  if(pn[ i].value == pnum){
-			 pn.selectedIndex = i;
-			 break;
-		  }
-	 }
-}
+
 function clearAll () {
 	var theForm = document.getElementById('dataEntry');
 	for(i=0; i<theForm.elements.length; i++) {
@@ -712,21 +682,7 @@ function click_changeMode (mode,collobjid) {
 		}
 	}	
 }
-function setNewRecDefaults () {
-	var cc = document.getElementById('collection_cde').value;
-	var ia = document.getElementById('institution_acronym').value;
-	if(cc == 'Mamm' && ia == 'UAM') {
-		//catNumGap();
-	} else if(cc == 'Bird' && ia == 'MSB') {
-		MSBBirdDefault();
-	} else if(cc == 'Fish' && ia == 'UAM') {
-		UAMFishDefault();	
-	} else if(ia == 'UAM' && cc=='Art') {
-		UAMArtDefaults();
-	} else if(ia == 'MVZ') {
-		MVZDefaults();
-	}
-}
+
 function UAMArtDefaults() {
 	var i=1;
 	for (i=1;i<=12;i++){
