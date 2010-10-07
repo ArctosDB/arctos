@@ -137,7 +137,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 </cfif>
 <!------------------------------------------------------->
 <!------------------------------------------------------->
-<cfif #action# is "validate">
+<cfif action is "validate">
 <cfoutput>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_temp_georef
@@ -290,7 +290,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfset cdata='<![CDATA[Datum: #datum#<br/>Error: #max_error_distance# #max_error_units#<br/><p><a href="#Application.ServerRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>]]>'>
 	<cfscript>
 		kml='<Placemark>'  & chr(10) & 
-			chr(9) & '<name>#HigherGeography#: #SpecLocality#</name>' & chr(10) & 
+			chr(9) & '<name>#HigherGeography#: #replace(SpecLocality,"&","&amp;","all")#</name>' & chr(10) & 
 			chr(9) & '<visibility>1</visibility>' & chr(10) & 
 			chr(9) & '<description>' & chr(10) & 
 			chr(9) & chr(9) & '#cdata#' & chr(10) & 
