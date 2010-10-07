@@ -32,9 +32,7 @@ function setNewRecDefaults () {
 	}
 }
 function MSBBirdDefault () {
-	console.log($("#other_id_num_type_1").val());
-	console.log($("#other_id_num_type_1").selectedIndex());
-	
+	console.log($("#other_id_num_type_1").val());	
 	if ($("#other_id_num_type_1").val()==''){
 		console.log('oid1 empty');
 		$("#other_id_num_type_1").val('collector number');
