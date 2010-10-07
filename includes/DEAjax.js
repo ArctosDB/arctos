@@ -32,25 +32,7 @@ function setNewRecDefaults () {
 	}
 }
 
-function MVZDefaults() {
-	document.getElementById('coll_obj_disposition').value='in collection';
-	document.getElementById('part_disposition_1').value='in collection';
-	document.getElementById('part_disposition_2').value='in collection';
-	document.getElementById('part_disposition_3').value='in collection';
-	document.getElementById('part_disposition_4').value='in collection';
-	document.getElementById('part_disposition_5').value='in collection';
-	document.getElementById('part_disposition_6').value='in collection';
-	document.getElementById('part_disposition_7').value='in collection';
-	document.getElementById('part_disposition_8').value='in collection';
-	document.getElementById('part_disposition_9').value='in collection';
-	document.getElementById('part_disposition_10').value='in collection';
-	document.getElementById('part_disposition_11').value='in collection';
-	document.getElementById('part_disposition_12').value='in collection';
-	if(document.getElementById('attribute_units_2')){
-		document.getElementById('attribute_units_2').value='mm';
-	}
-	
-	
+function MVZDefaults() {	
 	if ($("#nature_of_id").val()==''){
    	 	$("#nature_of_id").val('field');
     }

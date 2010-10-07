@@ -1324,7 +1324,7 @@ make sure carry/save/whatever runs any time you enter DE mode
 									<cfif i is 1>class="reqdClr" </cfif>value="#evaluate("data.part_condition_" & i)#">
 							</td>
 							<td>
-								<select name="part_disposition_#i#" <cfif i is 1>class="reqdClr" </cfif> id="part_disposition_#i#">
+								<select id="part_disposition_#i#" name="part_disposition_#i#" <cfif i is 1>class="reqdClr"</cfif>>
 									<option value=""></option>
 									<cfloop query="CTCOLL_OBJ_DISP">
 										<option
