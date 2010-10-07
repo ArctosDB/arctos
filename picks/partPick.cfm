@@ -110,7 +110,7 @@
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
 			coll_obj_cont_hist.container_id=p0.container_id (+) and
 			p0.parent_container_id=p1.container_id (+)">
-	<cfset s=s & " rownum < 100 ">
+	<cfset s=s & " and rownum < 100 ">
 	<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
 		<cfset s=s & " and collection.collection_id=#collection_id# ">
 	</cfif>
