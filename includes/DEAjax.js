@@ -80,11 +80,11 @@ function UAMMammDefault() {
 	    }
 	});
 	if ($("#condition").val()==''){
-   	 	$("#condition").val('test');
+   	 	$("#condition").val('unchecked');
     }
 	$.each($("input[id^='part_condition_']"), function() {
 	     if ($("#" + this.id).val()==''){
-	    	 $("#" + this.id).val('test');
+	    	 $("#" + this.id).val('unchecked');
 	     }
 	});
 	$.each($("input[id^='part_lot_count_']"), function() {
