@@ -131,7 +131,8 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 		select * from cf_temp_loan_item where status is null
 	</cfquery>  
 		<cfloop query="data">
-			<cfif #other_id_type# is "catalog number">
+			<cfif other_id_type is "catalog number">
+				helloooooo
 				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
 						specimen_part.collection_object_id 
