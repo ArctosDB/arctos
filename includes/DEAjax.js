@@ -1,5 +1,4 @@
 jQuery(document).ready(function() {
-	setPagePrefs();
 	$("#made_date").datepicker();
 	$("#began_date").datepicker();
 	$("#ended_date").datepicker();	
@@ -76,13 +75,10 @@ function UAMMammDefault() {
    	 	$("#coll_obj_disposition").val('being processed');
     }
 	$.each($("[id^='part_disposition_']"), function() {
-	    console.log( '----');
 		if ($("#" + this.id).val()==''){
 	    	 $("#" + this.id).val('being processed');
-	    	 console.log('nuthin');
 	    }
 	});
-	console.log('datit');
 	if ($("#condition").val()==''){
    	 	$("#condition").val('test');
     }
