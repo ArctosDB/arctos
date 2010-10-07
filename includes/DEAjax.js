@@ -33,6 +33,7 @@ function setNewRecDefaults () {
 }
 function MSBBirdDefault () {
 	console.log($("#other_id_num_type_1").val());
+	console.log($("#other_id_num_type_1").selectedIndex());
 	
 	if ($("#other_id_num_type_1").val()==''){
 		console.log('oid1 empty');
