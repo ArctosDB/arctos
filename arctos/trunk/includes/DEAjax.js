@@ -30,7 +30,6 @@ function setNewRecDefaults () {
 		MVZDefaults();
 	}
 }
-
 function MVZDefaults() {	
 	if ($("#nature_of_id").val()==''){
    	 	$("#nature_of_id").val('field');
@@ -66,7 +65,6 @@ function MVZDefaults() {
 		$("#other_id_num_type_1").val('collector number');
 	}
 }
-
 function UAMMammDefault() {
 	if ($("#nature_of_id").val()==''){
    	 	$("#nature_of_id").val('field');
@@ -127,7 +125,6 @@ function changeMode (mode) {
 		// got an error - force them to fix it
 		mode='edit';
 	}
-	
 	$(".hasProbs").removeClass();
 	if (mode == 'edit') {
 		$("#customizeForm").hide(); //Save This As A New Record
@@ -160,7 +157,6 @@ function changeMode (mode) {
 	$("#splash").hide();
 	$("#theTable").show();	
 }
-
 function createClone() {
 	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
 	if (yesChange == true) {
@@ -210,19 +206,16 @@ function closeCust() {
 	$('#theFrame', window.parent.document).remove();
 	setPagePrefs();
 }
-
 function customize(t) {
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
 	bgDiv.setAttribute('onclick','closeCust()');
 	document.body.appendChild(bgDiv);
-	
 	var popDiv=document.createElement('div');
 	popDiv.id = 'popDiv';
 	popDiv.className = 'editAppBox';
-	document.body.appendChild(popDiv);
-	
+	document.body.appendChild(popDiv);	
 	var cDiv=document.createElement('div');
 	cDiv.className = 'fancybox-close';
 	cDiv.id='cDiv';
@@ -236,8 +229,6 @@ function customize(t) {
 	theFrame.src=ptl;
 	$("#popDiv").append(theFrame);
 }
-
-
 function msg(m,s){
 	if (s=='bad'){
 		if ($("#bgDiv").length==0){
@@ -252,7 +243,6 @@ function msg(m,s){
 	}
 	$("#msg").removeClass().addClass(s).html(m);
 }
-
 function deleteThisRec () {
 	yesDelete = window.confirm('Are you sure you want to delete this record?');
 	if (yesDelete == true) {
@@ -297,7 +287,6 @@ function saveNewRecord () {
 					msg(status,'err');
 					$("#loadedMsgDiv").text(status).show();
 					changeMode('edit');
-
 				} else {
 					$("#collection_object_id").val(coid);
 					msg('inserted ' + coid,'good');
@@ -345,7 +334,6 @@ function editThis(){
 		changeMode('edit');
 	}
 }
-
 function browseTo(dir){
 	var ix = $("#selectbrowse").attr( "selectedIndex" );	
 	if (dir=='next'){
@@ -386,7 +374,6 @@ function loadRecord (collection_object_id) {
 		}
 	);
 }
-
 function copyVerbatim(str){
 	$.getJSON("/component/functions.cfc",
 		{
@@ -408,8 +395,6 @@ function copyVerbatim(str){
 		}
 	);
 }
-
-
 function populateGeology(id) {
 	var idNum=id.replace('geology_attribute_','');
 	var thisValue=$("#geology_attribute_" + idNum).val();;
@@ -434,7 +419,6 @@ function populateGeology(id) {
 		}
 	);
 }
-	
 var MONTH_NAMES=new Array('January','February','March','April','May','June','July','August','September','October','November','December','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
 var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
 function LZ(x) {return(x<0||x>9?"":"0")+x}
