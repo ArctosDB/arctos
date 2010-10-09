@@ -1,13 +1,4 @@
-
-<!--- save
-clone
-customizations don't work
-make sure carry/save/whatever runs any time you enter DE mode
-
----->
-
-
-<div id="msg">Status messages will appear here.</div>
+<div id="msg"></div>
 <div><!--- spacer ---></div>
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Data Entry">
@@ -15,7 +6,6 @@ make sure carry/save/whatever runs any time you enter DE mode
 <!---
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
-
 --->
 <script type='text/javascript' src='/includes/DEAjax.js'></script>
 <cf_showMenuOnly>
@@ -102,7 +92,7 @@ make sure carry/save/whatever runs any time you enter DE mode
 				institution_acronym
 		</cfquery>
 		Begin at....<br>	
-		<form name="begin" method="post" action="DataEntryAjax.cfm">
+		<form name="begin" method="post" action="DataEntry.cfm">
 			<input type="hidden" name="action" value="editEnterData" />
 			<select name="collection_object_id" size="1">
 				<cfif #theirLast.recordcount# gt 0>
@@ -269,7 +259,7 @@ make sure carry/save/whatever runs any time you enter DE mode
 			</span>
 		</div>
 		
-		<form name="dataEntry" method="post" action="DataEntryAjax.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
+		<form name="dataEntry" method="post" action="DataEntry.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
 			<input type="hidden" name="action" value="" id="action">
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
 			<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
