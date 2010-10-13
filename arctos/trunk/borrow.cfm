@@ -603,7 +603,7 @@
 		<hr>
 		<h3>Edit Shipment</h3>
 			<form name="shipment#i#" method="post" action="borrow.cfm">
-				<input type="hidden" name="Action" value="saveShip">
+				<input type="hidden" name="action" value="saveShip">
 				<input type="hidden" name="transaction_id" value="#transaction_id#">
 				<input type="hidden" name="shipment_id" value="#shipment_id#">
 				<label for="packed_by_agent">Packed By Agent</label>
