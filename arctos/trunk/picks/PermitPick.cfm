@@ -77,8 +77,8 @@ Search for permits. Any part of dates and names accepted, case isn't important.<
 	permit_remarks 
 from 
 	permit,
-	agent_name issuedToPref,
-	agent_name issuedByPref,
+	preferred_agent_name issuedToPref,
+	preferred_agent_name issuedByPref,
 	agent_name issuedTo,
 	agent_name issuedBy 
 where 
