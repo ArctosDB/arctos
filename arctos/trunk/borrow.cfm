@@ -323,6 +323,9 @@
 <!------------------------------------------------------------------------------------------------------->
 <cfif action is "edit">
 <cfoutput>
+		<cfquery name="ctShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select shipped_carrier_method from ctshipped_carrier_method order by shipped_carrier_method
+		</cfquery>
 		<cfquery name="getBorrow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
 				borrow.TRANSACTION_ID,
