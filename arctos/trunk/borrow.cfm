@@ -530,7 +530,7 @@
 				SHIPPED_TO_ADDR_ID,
 				ship_to.formatted_addr shipped_to_addr,
 				SHIPPED_FROM_ADDR_ID,
-				ship_from.formatted_addr ship_from_addr
+				ship_from.formatted_addr shipped_from_addr
 			from
 				shipment,
 				preferred_agent_name pba,
