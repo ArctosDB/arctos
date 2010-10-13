@@ -632,7 +632,7 @@
 					<option <cfif hazmat_fg is 1> selected="selected" </cfif>value="1">yes</option>
 				</select>
 				<label for="insured_for_insured_value">Insured Value (NUMBER, US$)</label>
-				<cfinput type="text" validate="float" label="Numeric value required."
+				<input type="text"
 					 value="#INSURED_FOR_INSURED_VALUE#" name="insured_for_insured_value" id="insured_for_insured_value">
 				<label for="shipment_remarks">Remarks</label>
 				<input type="text" value="#shipment_remarks#" name="shipment_remarks" id="shipment_remarks">
@@ -644,7 +644,7 @@
 					<option <cfif foreign_shipment_fg is 1> selected="selected" </cfif>value="1">yes</option>
 				</select>
 				<br><input type="submit" value="Save Shipment" class="savBtn">			
-			</cfform>
+			</form>
 		</cfloop>
 	</cfoutput>
 </cfif>
