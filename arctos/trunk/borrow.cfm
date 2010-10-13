@@ -608,7 +608,7 @@
 					<option value=""></option>
 					<cfloop query="ctShip">
 						<option 
-							<cfif ctShip.shipped_carrier_method is thisCarrier> selected="selected" </cfif>
+							<cfif ctShip.shipped_carrier_method is shipment.shipped_carrier_method> selected="selected" </cfif>
 								value="#ctShip.shipped_carrier_method#">#ctShip.shipped_carrier_method#</option>
 					</cfloop>
 				</select>
