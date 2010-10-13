@@ -367,7 +367,7 @@
 				trans_agent_role,
 				agent_name
 		</cfquery>
-<table>
+	<table>
 		<form name="borrow" method="post" action="borrow.cfm">
 			<input type="hidden" name="action" value="update">
 			<input type="hidden" name="transaction_id" value="#getBorrow.transaction_id#">
@@ -507,6 +507,145 @@
 			
 		</form>
 </table>
+
+
+		<cfquery name="shipment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select
+				shipment_id,
+				PACKED_BY_AGENT_ID,
+				pba.agent_name packed_by,
+				SHIPPED_CARRIER_METHOD,
+				CARRIERS_TRACKING_NUMBER,
+				SHIPPED_DATE,
+				PACKAGE_WEIGHT,
+				HAZMAT_FG,
+				INSURED_FOR_INSURED_VALUE,
+				SHIPMENT_REMARKS,
+				CONTENTS,
+				FOREIGN_SHIPMENT_FG,
+				SHIPPED_TO_ADDR_ID,
+				st.formatted_address ship_to,
+				SHIPPED_FROM_ADDR_ID,
+				sf.formatted_address ship_from
+			from
+				shipment,
+				preferred_agent_name pba,
+				addr ship_to,
+				addr ship_from
+			where
+				shipment.PACKED_BY_AGENT_ID=pba.agent_id and
+				shipment.SHIPPED_TO_ADDR_ID=ship_to.addr_id and
+				shipment.SHIPPED_FROM_ADDR_ID=ship_from.addr_id and
+				shipment.transaction_id=#transaction_id#
+		</cfquery>
+		<form name="newshipment" method="post" action="borrow.cfm">
+			<input type="hidden" name="Action" value="newShip">
+			<input type="hidden" name="transaction_id" value="#transaction_id#">
+			<label for="packed_by_agent">Packed By Agent</label>
+			<input type="text" name="packed_by_agent" class="reqdClr" size="50"
+				  onchange="getAgent('packed_by_agent_id','packed_by_agent','newshipment',this.value); return false;"
+				  onKeyPress="return noenter(event);"> 
+			<input type="hidden" name="packed_by_agent_id">
+			<label for="shipped_carrier_method">Shipped Method</label>
+			<select name="shipped_carrier_method" id="shipped_carrier_method" size="1" class="reqdClr">
+				<option value=""></option>
+				<cfloop query="ctShip">
+					<option value="#ctShip.shipped_carrier_method#">#ctShip.shipped_carrier_method#</option>
+				</cfloop>
+			</select>
+			<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
+			<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5" 
+				readonly="yes" class="reqdClr"></textarea>
+			<input type="hidden" name="shipped_to_addr_id" value="#shipped_to_addr_id#">
+			<input type="button" value="Pick Address" class="picBtn"
+				onClick="addrPick('shipped_to_addr_id','shipped_to_addr','newshipment'); return false;">
+			<label for="packed_by_agent">Shipped From Address</label>
+			<textarea name="shipped_from_addr" id="shipped_from_addr" cols="60" rows="5" 
+				readonly="yes" class="reqdClr"></textarea>
+			<input type="hidden" name="shipped_from_addr_id">
+			<input type="button" value="Pick Address" class="picBtn"
+				onClick="addrPick('shipped_from_addr_id','shipped_from_addr','newshipment'); return false;">
+			<label for="carriers_tracking_number">Tracking Number</label>
+			<input type="text" name="carriers_tracking_number" id="carriers_tracking_number">
+			<label for="shipped_date">Ship Date</label>
+			<input type="text" name="shipped_date" id="shipped_date">
+			<label for="package_weight">Package Weight (TEXT, include units)</label>
+			<input type="text" name="package_weight" id="package_weight">
+			<label for="hazmat_fg">Hazmat?</label>
+			<select name="hazmat_fg" id="hazmat_fg" size="1">
+				<option value="0">no</option>
+				<option value="1">yes</option>
+			</select>
+			<label for="insured_for_insured_value">Insured Value (NUMBER, US$)</label>
+			<input type="text" name="insured_for_insured_value" id="insured_for_insured_value">
+			<label for="shipment_remarks">Remarks</label>
+			<input type="text" name="shipment_remarks" id="shipment_remarks">
+			<label for="contents">Contents</label>
+			<input type="text" name="contents" id="contents" size="60">
+			<label for="foreign_shipment_fg">Foreign shipment?</label>
+			<select name="foreign_shipment_fg" id="foreign_shipment_fg" size="1">
+				<option value="0">no</option>
+				<option value="1">yes</option>
+			</select>
+			<br><input type="submit" value="Create Shipment" class="insBtn">			
+		</form>
+		<cfset i=1>
+		<cfloop query="shipment">
+			<form name="shipment#i#" method="post" action="borrow.cfm">
+				<input type="hidden" name="Action" value="saveShip">
+				<input type="hidden" name="transaction_id" value="#transaction_id#">
+				<label for="packed_by_agent">Packed By Agent</label>
+				<input type="text" name="packed_by_agent" class="reqdClr" size="50" value="#packed_by_agent#"
+					  onchange="getAgent('packed_by_agent_id','packed_by_agent','shipment',this.value); return false;"
+					  onKeyPress="return noenter(event);"> 
+				<input type="hidden" name="packed_by_agent_id" value="#packed_by_agent_id#">
+				<label for="shipped_carrier_method">Shipped Method</label>
+				<select name="shipped_carrier_method" id="shipped_carrier_method" size="1" class="reqdClr">
+					<option value=""></option>
+					<cfloop query="ctShip">
+						<option 
+							<cfif ctShip.shipped_carrier_method is thisCarrier> selected="selected" </cfif>
+								value="#ctShip.shipped_carrier_method#">#ctShip.shipped_carrier_method#</option>
+					</cfloop>
+				</select>
+				<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
+				<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5" 
+					readonly="yes" class="reqdClr">#shipped_to_addr#</textarea>
+				<input type="hidden" name="shipped_to_addr_id" value="#shipped_to_addr_id#">
+				<input type="button" value="Pick Address" class="picBtn"
+					onClick="addrPick('shipped_to_addr_id','shipped_to_addr','shipment'); return false;">
+				<label for="packed_by_agent">Shipped From Address</label>
+				<textarea name="shipped_from_addr" id="shipped_from_addr" cols="60" rows="5" 
+					readonly="yes" class="reqdClr">#shipped_from_addr#</textarea>
+				<input type="hidden" name="shipped_from_addr_id" value="#shipped_from_addr_id#">
+				<input type="button" value="Pick Address" class="picBtn"
+					onClick="addrPick('shipped_from_addr_id','shipped_from_addr','shipment'); return false;">
+				<label for="carriers_tracking_number">Tracking Number</label>
+				<input type="text" value="#carriers_tracking_number#" name="carriers_tracking_number" id="carriers_tracking_number">
+				<label for="shipped_date">Ship Date</label>
+				<input type="text" value="#dateformat(shipped_date,'yyyy-mm-dd')#" name="shipped_date" id="shipped_date">
+				<label for="package_weight">Package Weight (TEXT, include units)</label>
+				<input type="text" value="#package_weight#" name="package_weight" id="package_weight">
+				<label for="hazmat_fg">Hazmat?</label>
+				<select name="hazmat_fg" id="hazmat_fg" size="1">
+					<option <cfif hazmat_fg is 0> selected="selected" </cfif>value="0">no</option>
+					<option <cfif hazmat_fg is 1> selected="selected" </cfif>value="1">yes</option>
+				</select>
+				<label for="insured_for_insured_value">Insured Value (NUMBER, US$)</label>
+				<cfinput type="text" validate="float" label="Numeric value required."
+					 value="#INSURED_FOR_INSURED_VALUE#" name="insured_for_insured_value" id="insured_for_insured_value">
+				<label for="shipment_remarks">Remarks</label>
+				<input type="text" value="#shipment_remarks#" name="shipment_remarks" id="shipment_remarks">
+				<label for="contents">Contents</label>
+				<input type="text" value="#contents#" name="contents" id="contents" size="60">
+				<label for="foreign_shipment_fg">Foreign shipment?</label>
+				<select name="foreign_shipment_fg" id="foreign_shipment_fg" size="1">
+					<option <cfif foreign_shipment_fg is 0> selected="selected" </cfif>value="0">no</option>
+					<option <cfif foreign_shipment_fg is 1> selected="selected" </cfif>value="1">yes</option>
+				</select>
+				<br><input type="submit" value="Save Shipment" class="savBtn">			
+			</cfform>
+		</cfloop>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
@@ -570,6 +709,47 @@
 	</cfif>
 </cftransaction>
 <cflocation url="borrow.cfm?action=edit&transaction_id=#transaction_id#">
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------------->
+<cfif action is "newShip">
+	<cfoutput>
+		<cfquery name="newShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			INSERT INTO shipment (
+					TRANSACTION_ID
+					,PACKED_BY_AGENT_ID
+					,SHIPPED_CARRIER_METHOD
+					,CARRIERS_TRACKING_NUMBER
+					,SHIPPED_DATE
+					,PACKAGE_WEIGHT
+					,HAZMAT_FG
+					,INSURED_FOR_INSURED_VALUE
+					,SHIPMENT_REMARKS
+					,CONTENTS
+					,FOREIGN_SHIPMENT_FG
+					,SHIPPED_TO_ADDR_ID
+					,SHIPPED_FROM_ADDR_ID
+				) VALUES (
+					#TRANSACTION_ID#
+					,#PACKED_BY_AGENT_ID#
+					,'#SHIPPED_CARRIER_METHOD#'
+					,'#CARRIERS_TRACKING_NUMBER#'
+					,'#dateformat(SHIPPED_DATE,"yyyy-mm-dd")#'
+					,'#PACKAGE_WEIGHT#'
+					,#HAZMAT_FG#
+					<cfif len(INSURED_FOR_INSURED_VALUE) gt 0>
+						,#INSURED_FOR_INSURED_VALUE#
+					<cfelse>
+					 	,NULL
+					</cfif>
+					,'#SHIPMENT_REMARKS#'
+					,'#CONTENTS#'
+					,#FOREIGN_SHIPMENT_FG#
+					,#SHIPPED_TO_ADDR_ID#
+					,#SHIPPED_FROM_ADDR_ID#
+				)	
+		</cfquery>
+		<cflocation url="borrow.cfm?transaction_id=#transaction_id#&action=edit" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
