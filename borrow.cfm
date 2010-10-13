@@ -524,9 +524,9 @@
 				CONTENTS,
 				FOREIGN_SHIPMENT_FG,
 				SHIPPED_TO_ADDR_ID,
-				st.formatted_addr shipped_to_addr,
+				ship_to.formatted_addr shipped_to_addr,
 				SHIPPED_FROM_ADDR_ID,
-				sf.formatted_addr ship_from_addr
+				ship_from.formatted_addr ship_from_addr
 			from
 				shipment,
 				preferred_agent_name pba,
