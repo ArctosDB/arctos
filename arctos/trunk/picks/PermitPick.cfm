@@ -126,8 +126,9 @@ where
 </cfquery>
 
 </cfoutput>
-
+<cfset i=1>
 <cfoutput query="matchPermit" group="permit_id">
+<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 	<form action="PermitPick.cfm" method="post" name="save">
 	<input type="hidden" value="#transaction_id#" name="transaction_id">
 	<input type="hidden" name="permit_id" value="#permit_id#">
@@ -135,7 +136,8 @@ where
 	Permit Number #permit_Num# (#permit_Type#) issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_Date,"yyyy-mm-dd")# <cfif len(#renewed_Date#) gt 0> (renewed #dateformat(renewed_Date,"yyyy-mm-dd")#)</cfif>. Expires #dateformat(exp_Date,"yyyy-mm-dd")#.  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> (ID## #permit_id#)
 <br><input type="submit" value="Add this permit">
 	</form>
-
+</div>
+<cfset i=i+1>
 </cfoutput>
 
 
