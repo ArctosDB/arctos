@@ -374,6 +374,7 @@
 				trans_agent_role,
 				agent_name
 		</cfquery>
+	<table><tr><td valign="top">
 	<table>
 		<form name="borrow" method="post" action="borrow.cfm">
 			<input type="hidden" name="action" value="update">
@@ -514,6 +515,62 @@
 			
 		</form>
 </table>
+</td>
+<td valign="top">
+	Permits
+	<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT 
+			permit.permit_id,
+			issuedBy.agent_name as IssuedByAgent,
+			issuedTo.agent_name as IssuedToAgent,
+			issued_Date,
+			renewed_Date,
+			exp_Date,
+			permit_Num,
+			permit_Type,
+			permit_remarks	
+		FROM
+			permit, 
+			permit_trans, 
+			preferred_agent_name issuedTo, 
+			preferred_agent_name issuedBy
+		WHERE
+			permit.permit_id = permit_trans.permit_id AND
+			permit.issued_by_agent_id = issuedBy.agent_id AND
+			permit.issued_to_agent_id = issuedTo.agent_id AND
+			permit_trans.transaction_id = #transaction_id#
+	</cfquery>
+	<br><strong>Permits:</strong>  
+	<cfloop query="getPermits">
+		<form name="killPerm#currentRow#" method="post" action="borrow.cfm">
+			<p>
+				<strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to
+			 	#IssuedToAgent# by #IssuedByAgent# on 
+				#dateformat(issued_Date,"yyyy-mm-dd")#. 
+				<cfif len(renewed_Date) gt 0> 
+					(renewed #renewed_Date#)
+				</cfif>
+				Expires #dateformat(exp_Date,"yyyy-mm-dd")#  
+				<cfif len(permit_remarks) gt 0>Remarks: #permit_remarks#</cfif> 
+				<br>
+				<input type="hidden" name="transaction_id" value="#transaction_id#">
+				<input type="hidden" name="action" value="delePermit">
+				<input type="hidden" name="permit_id" value="#permit_id#">
+				<input type="submit" value="Remove this Permit" class="delBtn">
+			</p>	
+		</form>
+	</cfloop>
+	<form name="addPermit" action="borrow.cfm" method="post">
+		<input type="hidden" name="transaction_id" value="#transaction_id#">
+		<input type="hidden" name="permit_id">
+		<label for="">Click to add Permit. Reload to see added permits.</label>
+		<input type="button" value="Add a permit" class="picBtn"
+		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
+				'resizable,scrollbars=yes,width=600,height=600')">	
+	</form>
+</cfoutput>
+</td>	
+	</tr></table>
 <hr>
 		<cfquery name="shipment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
@@ -663,6 +720,14 @@
 			<cfset i=i+1>
 		</cfloop>
 	</cfoutput>
+</cfif>
+<!-------------------------------------------------------------------------------------------------->
+<cfif Action is "delePermit">
+	<cfquery name="killPerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
+		permit_id=#permit_id#
+	</cfquery>
+	<cflocation url="borrow.cfm?Action=edit&transaction_id=#transaction_id#">
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
 <cfif action is "update">
