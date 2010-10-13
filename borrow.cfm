@@ -559,7 +559,7 @@
 			<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
 			<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5" 
 				readonly="yes" class="reqdClr"></textarea>
-			<input type="hidden" name="shipped_to_addr_id" value="#shipped_to_addr_id#">
+			<input type="hidden" name="shipped_to_addr_id">
 			<input type="button" value="Pick Address" class="picBtn"
 				onClick="addrPick('shipped_to_addr_id','shipped_to_addr','newshipment'); return false;">
 			<label for="packed_by_agent">Shipped From Address</label>
