@@ -24,6 +24,9 @@
 		jQuery("#lenders_loan_date_after").datepicker();
 		jQuery("#lenders_loan_date_before").datepicker();
 		//shipped_date
+		$.each($("input[id^='shipped_date']"), function() {
+	      $("#" + this.id).datepicker();
+   		});
 	});
 	function setBorrowNum(cid,v){
 		$("#borrow_number").val(v);
@@ -604,7 +607,7 @@
 				<input type="hidden" name="transaction_id" value="#transaction_id#">
 				<label for="packed_by_agent">Packed By Agent</label>
 				<input type="text" name="packed_by_agent" class="reqdClr" size="50" value="#packed_by_agent#"
-					  onchange="getAgent('packed_by_agent_id','packed_by_agent','shipment',this.value); return false;"
+					  onchange="getAgent('packed_by_agent_id','packed_by_agent','shipment#i#',this.value); return false;"
 					  onKeyPress="return noenter(event);"> 
 				<input type="hidden" name="packed_by_agent_id" value="#packed_by_agent_id#">
 				<label for="shipped_carrier_method">Shipped Method</label>
@@ -621,17 +624,17 @@
 					readonly="yes" class="reqdClr">#shipped_to_addr#</textarea>
 				<input type="hidden" name="shipped_to_addr_id" value="#shipped_to_addr_id#">
 				<input type="button" value="Pick Address" class="picBtn"
-					onClick="addrPick('shipped_to_addr_id','shipped_to_addr','shipment'); return false;">
+					onClick="addrPick('shipped_to_addr_id','shipped_to_addr','shipment#i#'); return false;">
 				<label for="packed_by_agent">Shipped From Address</label>
 				<textarea name="shipped_from_addr" id="shipped_from_addr" cols="60" rows="5" 
 					readonly="yes" class="reqdClr">#shipped_from_addr#</textarea>
 				<input type="hidden" name="shipped_from_addr_id" value="#shipped_from_addr_id#">
 				<input type="button" value="Pick Address" class="picBtn"
-					onClick="addrPick('shipped_from_addr_id','shipped_from_addr','shipment'); return false;">
+					onClick="addrPick('shipped_from_addr_id','shipped_from_addr','shipment#i#'); return false;">
 				<label for="carriers_tracking_number">Tracking Number</label>
 				<input type="text" value="#carriers_tracking_number#" name="carriers_tracking_number" id="carriers_tracking_number">
-				<label for="shipped_date">Ship Date</label>
-				<input type="text" value="#dateformat(shipped_date,'yyyy-mm-dd')#" name="shipped_date" id="shipped_date">
+				<label for="shipped_date#i#">Ship Date</label>
+				<input type="text" value="#dateformat(shipped_date,'yyyy-mm-dd')#" name="shipped_date" id="shipped_date#i#">
 				<label for="package_weight">Package Weight (TEXT, include units)</label>
 				<input type="text" value="#package_weight#" name="package_weight" id="package_weight">
 				<label for="hazmat_fg">Hazmat?</label>
@@ -651,7 +654,7 @@
 					<option <cfif foreign_shipment_fg is 0> selected="selected" </cfif>value="0">no</option>
 					<option <cfif foreign_shipment_fg is 1> selected="selected" </cfif>value="1">yes</option>
 				</select>
-				<br><input type="submit" value="Save Shipment" class="savBtn">			
+				<br><input type="submit" value="Save Shipment Edits" class="savBtn">			
 			</form>
 		</cfloop>
 	</cfoutput>
