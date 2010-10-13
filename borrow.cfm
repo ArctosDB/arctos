@@ -23,6 +23,7 @@
 		jQuery("#due_date_before").datepicker();
 		jQuery("#lenders_loan_date_after").datepicker();
 		jQuery("#lenders_loan_date_before").datepicker();
+		//shipped_date
 	});
 	function setBorrowNum(cid,v){
 		$("#borrow_number").val(v);
@@ -516,7 +517,7 @@
 			select
 				shipment_id,
 				PACKED_BY_AGENT_ID,
-				pba.agent_name packed_by,
+				pba.agent_name packed_by_agent,
 				SHIPPED_CARRIER_METHOD,
 				CARRIERS_TRACKING_NUMBER,
 				SHIPPED_DATE,
