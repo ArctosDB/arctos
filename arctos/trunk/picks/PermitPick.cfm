@@ -1,14 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfset title = "Permit Pick">
-<body bgcolor="#FFFBF0" text="midnightblue" link="blue" vlink="midnightblue">
- 
- <cfif not isdefined("Action")>
-	<cfset Action = "nothing">
-</cfif>
-
-
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from ctpermit_type
+	select * from ctpermit_type order by permit_type
 </cfquery>
 <cfoutput>
 
@@ -55,16 +48,12 @@ Search for permits. Any part of dates and names accepted, case isn't important.<
 			<td colspan="4" align="center">
 			<input type="submit" 
 				value="Search" 
-				class="schBtn"
-   				onmouseover="this.className='schBtn btnhov'" 
-				onmouseout="this.className='schBtn'">	
+				class="schBtn">	
    
    <img src="../images/nada.gif" width="30">
    			<input type="reset" 
 				value="Clear" 
-				class="clrBtn"
-   				onmouseover="this.className='clrBtn btnhov'" 
-				onmouseout="this.className='clrBtn'">
+				class="clrBtn">
 				</td>
 		</tr>
 	</table>
@@ -73,23 +62,30 @@ Search for permits. Any part of dates and names accepted, case isn't important.<
 	
 </cfform>
 </cfoutput>
-<cfif #Action# is "search">
+<cfif Action is "search">
 
 <!--- set dateformat --->
 
 <cfset sql = "select permit.permit_id,
-	issuedBy.agent_name as IssuedByAgent,
-	issuedTo.agent_name as IssuedToAgent,
+	issuedByPref.agent_name IssuedByAgent,
+	issuedToPref.agent_name IssuedToAgent,
 	issued_Date,
 	renewed_Date,
 	exp_Date,
 	permit_Num,
 	permit_Type,
-	permit_remarks from permit,  agent_name issuedTo, agent_name issuedBy where 
-		permit.issued_by_agent_id = issuedBy.agent_id and
+	permit_remarks 
+from 
+	permit,
+	agent_name issuedToPref,
+	agent_name issuedByPref,
+	agent_name issuedTo,
+	agent_name issuedBy 
+where 
+	permit.issued_by_agent_id = issuedBy.agent_id and
 	permit.issued_to_agent_id = issuedTo.agent_id ">
 
-<cfif len(#IssuedByAgent#) gt 0>
+<cfif len(IssuedByAgent) gt 0>
 	<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
 </cfif>
 <cfif len(#IssuedToAgent#) gt 0>

@@ -517,7 +517,6 @@
 </table>
 </td>
 <td valign="top">
-	Permits
 	<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			permit.permit_id,
