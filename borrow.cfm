@@ -658,7 +658,7 @@
 				<br><input type="button" value="Save Shipment Edits" class="savBtn"
 						onClick="shipment#i#.action.value='saveShip';shipment#i#.submit();">
 					<input type="button" value="Delete Shipment" class="delBtn"
-						onClick="shipment#i#.action.value='deleteShip';confirmDelete('shipment#i#')'">		
+						onClick="shipment#i#.action.value='deleteShip';confirmDelete('shipment#i#');">		
 			</form>
 			<cfset i=i+1>
 		</cfloop>
