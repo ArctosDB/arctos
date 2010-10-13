@@ -83,7 +83,9 @@ from
 	agent_name issuedBy 
 where 
 	permit.issued_by_agent_id = issuedBy.agent_id and
-	permit.issued_to_agent_id = issuedTo.agent_id ">
+	permit.issued_to_agent_id = issuedTo.agent_id and
+		permit.issued_by_agent_id = issuedByPref.agent_id and
+	permit.issued_to_agent_id = issuedToPref.agent_id ">
 
 <cfif len(IssuedByAgent) gt 0>
 	<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
