@@ -511,8 +511,7 @@
 			
 		</form>
 </table>
-
-
+<hr>
 		<cfquery name="shipment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
 				shipment_id,
@@ -542,6 +541,8 @@
 				shipment.SHIPPED_FROM_ADDR_ID=ship_from.addr_id and
 				shipment.transaction_id=#transaction_id#
 		</cfquery>
+		<h3>Create Shipment:</h3>
+		<div class="newRec">
 		<form name="newshipment" method="post" action="borrow.cfm">
 			<input type="hidden" name="Action" value="newShip">
 			<input type="hidden" name="transaction_id" value="#transaction_id#">
@@ -593,8 +594,11 @@
 			</select>
 			<br><input type="submit" value="Create Shipment" class="insBtn">			
 		</form>
+		</div>
 		<cfset i=1>
 		<cfloop query="shipment">
+		<hr>
+		<h3>Edit Shipment</h3>
 			<form name="shipment#i#" method="post" action="borrow.cfm">
 				<input type="hidden" name="Action" value="saveShip">
 				<input type="hidden" name="transaction_id" value="#transaction_id#">
