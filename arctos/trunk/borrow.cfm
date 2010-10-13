@@ -660,6 +660,7 @@
 					<input type="button" value="Delete Shipment" class="delBtn"
 						onClick="shipment#i#.action.value='deleteShip';confirmDelete('shipment#i#')'">		
 			</form>
+			<cfset i=i+1>
 		</cfloop>
 	</cfoutput>
 </cfif>
