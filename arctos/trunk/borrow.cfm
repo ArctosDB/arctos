@@ -605,6 +605,7 @@
 			<form name="shipment#i#" method="post" action="borrow.cfm">
 				<input type="hidden" name="Action" value="saveShip">
 				<input type="hidden" name="transaction_id" value="#transaction_id#">
+				<input type="hidden" name="shipment_id" value="#shipment_id#">
 				<label for="packed_by_agent">Packed By Agent</label>
 				<input type="text" name="packed_by_agent" class="reqdClr" size="50" value="#packed_by_agent#"
 					  onchange="getAgent('packed_by_agent_id','packed_by_agent','shipment#i#',this.value); return false;"
@@ -654,7 +655,10 @@
 					<option <cfif foreign_shipment_fg is 0> selected="selected" </cfif>value="0">no</option>
 					<option <cfif foreign_shipment_fg is 1> selected="selected" </cfif>value="1">yes</option>
 				</select>
-				<br><input type="submit" value="Save Shipment Edits" class="savBtn">			
+				<br><input type="button" value="Save Shipment Edits" class="savBtn"
+						onClick="shipment#i#.action.value='saveShip';shipment#i#.submit();">
+					<input type="button" value="Delete Shipment" class="delBtn"
+						onClick="shipment#i#.action.value='deleteShip';confirmDelete('shipment#i#')'">		
 			</form>
 		</cfloop>
 	</cfoutput>
@@ -720,6 +724,44 @@
 	</cfif>
 </cftransaction>
 <cflocation url="borrow.cfm?action=edit&transaction_id=#transaction_id#">
+	</cfoutput>
+</cfif>
+
+<!------------------------------------------------------------------------------------------------------->
+<cfif action is "deleteShip">
+	<cfoutput>
+		<cfquery name="upShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			 delete from shipment WHERE
+				shipment_id = #shipment_id#
+		</cfquery>
+		<cflocation url="borrow.cfm?transaction_id=#transaction_id#&action=edit" addtoken="false">
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------------->
+<cfif action is "saveShip">
+	<cfoutput>
+		<cfquery name="upShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			 UPDATE shipment SET
+				PACKED_BY_AGENT_ID = #PACKED_BY_AGENT_ID#
+				,SHIPPED_CARRIER_METHOD = '#SHIPPED_CARRIER_METHOD#'
+				,CARRIERS_TRACKING_NUMBER='#CARRIERS_TRACKING_NUMBER#'
+				,SHIPPED_DATE='#dateformat(SHIPPED_DATE,"yyyy-mm-dd")#'
+				,PACKAGE_WEIGHT='#PACKAGE_WEIGHT#'
+				,HAZMAT_FG=#HAZMAT_FG#
+				<cfif len(#INSURED_FOR_INSURED_VALUE#) gt 0>
+					,INSURED_FOR_INSURED_VALUE=#INSURED_FOR_INSURED_VALUE#
+				<cfelse>
+				 	,INSURED_FOR_INSURED_VALUE=null
+				</cfif>
+				,SHIPMENT_REMARKS='#SHIPMENT_REMARKS#'
+				,CONTENTS='#CONTENTS#'
+				,FOREIGN_SHIPMENT_FG=#FOREIGN_SHIPMENT_FG#
+				,SHIPPED_TO_ADDR_ID=#SHIPPED_TO_ADDR_ID#
+				,SHIPPED_FROM_ADDR_ID=#SHIPPED_FROM_ADDR_ID#
+			WHERE
+				shipment_id = #shipment_id#
+		</cfquery>
+		<cflocation url="borrow.cfm?transaction_id=#transaction_id#&action=edit" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->
