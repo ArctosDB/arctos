@@ -364,7 +364,7 @@
 	<!-- Cataloged item information -->
 	<cfset sci_name="#scientific_name#">	
 	<cfif len(sci_name) gt 0>
-		<cfset sci_name = 'scientific name = ' & sci_name>
+		<cfset sci_name = '<a href="http://arctos-test.arctos.database.museum/name/#sci_name#">' & sci_name &'</a>'>
 	</cfif>
 	<cfset cat_item="#cat_num#">	
 	<cfset coll_obj_id="#collecting_object_id#">
