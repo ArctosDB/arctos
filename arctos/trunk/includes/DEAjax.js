@@ -114,7 +114,7 @@ function MSBBirdDefault () {
 		$("#other_id_num_type_2").val('preparator number');
 	}
 	var d='<span onclick="incCatNum()" class="likeLink">++</span>';
-	$("#catNumLbl").html.append(d);
+	$("#catNumLbl").append(d);
 	
 	
 	//catNumSeq();
