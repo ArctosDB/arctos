@@ -372,9 +372,9 @@
 			<cfabort>
 		</cfif>
 		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select count(*) from container where parent_container_id=#container_id#
+			select count(*) c from container where parent_container_id=#container_id#
 		</cfquery>
-		<cfif isThere.recordcount gt 0>
+		<cfif isThere.c gt 0>
 			<div class="error">
 				There are already #isThere.recordcount# containers in this container. Aborting....
 			</div>

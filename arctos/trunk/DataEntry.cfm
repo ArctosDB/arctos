@@ -289,7 +289,7 @@
 									</cfloop>
 								</select>
 								--->
-								<span class="f11a">Cat##</span>
+								<span id="catNumLbl" class="f11a">Cat##</span>
 								<input type="text" name="cat_num" value="#cat_num#"  size="6" id="cat_num">
 								<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
 									<span id="d_other_id_num_type_5">
