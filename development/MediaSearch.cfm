@@ -484,7 +484,7 @@
 	 	<cfset bottom_text="">
 	 	
 	 	<cfif len(sci_name) gt 0>
-		 	<cfset top_text = "#sci_name#;#top_text#">
+		 	<cfset top_text = "#sci_name#; #top_text#">
 		<cfelse>		
 			<cfset bottom_text_list = "#sci_name#|#description#|#project#|#publication#|#shows_locality#|#descr_taxonomy#|#shows_agent#">
 		</cfif>
@@ -544,7 +544,7 @@
 					</cfloop>
 					
 					<cfif len(#top_text#) gt 0>
-						<cfset top_text = replace(top_text, '@@', '<a href="http://arctos-test.arctos.database.museum/name/#sci_name#">', "all")>
+						<cfset top_text = replace(top_text, '@@', '<a href="http://arctos-test.arctos.database.museum/name/#scientific_name#">', "all")>
 						<cfset top_text = replace(top_text, '**', '</a>', "all")>
 						#top_text#						
 						<br>
