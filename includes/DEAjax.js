@@ -105,6 +105,25 @@ function UAMMammDefault() {
 }
 function incCatNum() {
 	alert('plus one');
+	if ($("#cat_num").val()==''){
+		alert('There is already a cat number. Aborting....');
+	} else {
+		var inst = $("#institution_acronym").val();
+		var coll = $("#collection_cde").val();		
+		var coll_id = inst + " " + coll;
+		jQuery.getJSON("/component/DataEntry.cfc",
+			{
+				method : "getcatNumSeq",
+				coll : coll_id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(result){
+				var catnum = document.getElementById('cat_num');
+				catnum.value=result;
+			}
+		);
+	}
 }
 function MSBBirdDefault () {
 	if ($("#other_id_num_type_1").val()==''){
@@ -115,6 +134,7 @@ function MSBBirdDefault () {
 	}
 	var d='<span onclick="incCatNum()" class="likeLink">++</span>';
 	$("#catNumLbl").append(d);
+	
 	
 	
 	//catNumSeq();
