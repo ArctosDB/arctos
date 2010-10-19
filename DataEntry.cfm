@@ -1395,8 +1395,11 @@
 						<a href="userBrowseBulkedGrid.cfm?action=ajaxGrid">[ AJAX table ]</a>
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
+						<span style="border:1px solid green;">
+							<span id="recCount">#whatIds.recordcount#</span> total records
+						</span>
 						<span id="browseThingy">
-							<span id="recCount">#whatIds.recordcount#</span> total records - Jump to 
+							 - Jump to 
 							<span class="infoLink" id="pBrowse" onclick="browseTo('previous')">[ previous ]</span>
 							<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecord(this.value);">
 								<cfset recposn=1>
