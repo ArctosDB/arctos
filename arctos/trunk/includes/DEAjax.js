@@ -104,7 +104,6 @@ function UAMMammDefault() {
 	}
 }
 function incCatNum() {
-	alert('plus one');
 	if ($("#cat_num").val()==''){
 		alert('There is already a cat number. Aborting....');
 	} else {
