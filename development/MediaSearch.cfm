@@ -364,7 +364,7 @@
 	<!-- Cataloged item information -->
 	<cfset sci_name="#scientific_name#">	
 	<cfif len(sci_name) gt 0>
-		<cfset sci_name = '<a href="http://arctos-test.arctos.database.museum/name/@@">#sci_name#</a>'>
+		<cfset sci_name = '@@#sci_name#**'>
 	</cfif>
 	<cfset cat_item="#cat_num#">	
 	<cfset coll_obj_id="#collecting_object_id#">
@@ -544,7 +544,8 @@
 					</cfloop>
 					
 					<cfif len(#top_text#) gt 0>
-						<cfset top_text = rereplace(top_text, '@@', sci_name, "all")>
+						<cfset top_text = rereplace(top_text, '@@', '<a href="http://arctos-test.arctos.database.museum/name/#sci_name#">', "all")>
+						<cfset top_text = rereplace(top_text, '**', '</a>', "all")>
 						#top_text#						
 						<br>
 						<br>	
