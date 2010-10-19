@@ -544,8 +544,8 @@
 					</cfloop>
 					
 					<cfif len(#top_text#) gt 0>
-						<cfset top_text = rereplace(top_text, '@@', '<a href="http://arctos-test.arctos.database.museum/name/#sci_name#">', "all")>
-						<cfset top_text = rereplace(top_text, '**', '</a>', "all")>
+						<cfset top_text = replace(top_text, '@@', '<a href="http://arctos-test.arctos.database.museum/name/#sci_name#">', "all")>
+						<cfset top_text = replace(top_text, '**', '</a>', "all")>
 						#top_text#						
 						<br>
 						<br>	
