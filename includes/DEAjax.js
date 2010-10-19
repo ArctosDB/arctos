@@ -103,6 +103,9 @@ function UAMMammDefault() {
 		$("#other_id_num_type_1").val('original identifier');
 	}
 }
+function incCatNum() {
+	alert('plus one');
+}
 function MSBBirdDefault () {
 	if ($("#other_id_num_type_1").val()==''){
 		$("#other_id_num_type_1").val('collector number');
@@ -110,7 +113,11 @@ function MSBBirdDefault () {
 	if ($("#other_id_num_type_2").val()==''){
 		$("#other_id_num_type_2").val('preparator number');
 	}
-	catNumSeq();
+	var d='<span onclick="incCatNum()" class="likeLink">++</span>';
+	$("#catNumLbl").html.append(d);
+	
+	
+	//catNumSeq();
 }
 function UAMFishDefault() {
 	$.each($("input[id^='part_condition_']"), function() {
