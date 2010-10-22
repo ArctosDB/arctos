@@ -59,7 +59,7 @@
 				agent_name,
 				identification,
 				collection,
-				coll_obj_container_hist,
+				coll_obj_cont_hist,
 				container p,
 				container p1
 			WHERE
@@ -73,8 +73,8 @@
 				cataloged_item.collection_object_id = identification.collection_object_id AND
 				identification.accepted_id_fg = 1 AND
 				cataloged_item.collection_id=collection.collection_id AND
-				specimen_part.collection_object_id = coll_obj_container_hist.collection_object_id (+) AND
-				coll_obj_container_hist.container_id=p.container_id (+) and
+				specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id (+) AND
+				coll_obj_cont_hist.container_id=p.container_id (+) and
 				p.parent_container_id=p1.container_id (+) and
 			  	loan_item.transaction_id = #transaction_id#
 			ORDER BY cat_num
