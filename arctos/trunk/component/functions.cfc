@@ -40,10 +40,10 @@
 			p.parent_container_id=p1.container_id and
 		  	p1.barcode='#barcode#'
 	</cfquery>
-	<cfif d.recorcdount is not 1>
+	<cfif d.recordcount is not 1>
 		<cfset d = querynew("recCount,i")>
 		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "recCount", d.recorcdount, 1)>
+		<cfset temp = QuerySetCell(d, "recCount", d.recordcount, 1)>
 		<cfset temp = QuerySetCell(result, "i", i, 1)>
 	</cfif>
 	<cfreturn d>
