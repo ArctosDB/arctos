@@ -116,16 +116,22 @@
 		</cfif>
 		<br>Add Parts by Barcode
 		<script>
-			function getPartByContainer(barcode){
+			function getPartByContainer(i){
 				$.getJSON("/component/functions.cfc",
 					{
 						method : "getPartByContainer",
-						barcode : barcode,
+						barcode : $("#barcode_" + i).val(),
+						i : i,
 						returnformat : "json",
 						queryformat : 'column'
 					},
 					function(r) {
 						console.log(r);
+						if (r.DATA.RECCOUNT[0] == 1){
+							alert('woot: ' + r.DATA.RECCOUNT[0]);	
+						} else {
+							alert('fail: ' + r.DATA.RECCOUNT[0]);
+						}
 					}
 				);
 			}
@@ -144,7 +150,7 @@
 					<th>ItemDescr</th>
 				</tr>
 				<cfloop from="1" to="100" index="i">
-					<tr>
+					<tr id="tr_#i#">
 						<td>
 							<input type="text" id="barcode_#i#" onchange="getPartByContainer(this.value)">
 						</td>
