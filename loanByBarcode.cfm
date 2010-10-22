@@ -47,7 +47,6 @@
 				queryformat : 'column'
 			},
 			function(r) {
-				console.log(r);
 				if (r.DATA.C[0] == 1){
 					alert('woot: ' + r.DATA.C[0]);
 					var d='<td id="sp_' + r.DATA.I + '"><a href="/SpecimenDetail.cfm?collection_object_id=' + r.DATA.COLLECTION_OBJECT_ID[0] + '">';
@@ -195,7 +194,8 @@
 			</table>
 		</cfif>
 		<br>Add Parts by Barcode
-		<br><span class="likeLink" onclick="allss('yes')">[ SubSample All ]</span> <span class="likeLink" onclick="allss('no')">[ SubSample None ]</span>
+		<br><span class="likeLink" onclick="allss('1')">[ SubSample All ]</span>
+		 <span class="likeLink" onclick="allss('0')">[ SubSample None ]</span>
 		<form name="f" method="post" action="loanByBarcode.cfm">
 			<input type="hidden" name="action" value="saveParts">
 			<input type="hidden" name="transaction_id" id="transaction_id" value='#transaction_id#'>
@@ -218,8 +218,8 @@
 							<input type="hidden" name="partID_#i#" id="partID_#i#">
 						</td>
 						<td><select name="ss_#i#" id="ss_#i#">
-								<option value="no">no</option>
-								<option value="yes">yes</option>
+								<option value="0">no</option>
+								<option value="1">yes</option>
 							</select>
 						</td>
 					</tr>
