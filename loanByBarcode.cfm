@@ -50,6 +50,14 @@
 			},
 			function(r) {
 				if (r.DATA.C[0] == 1){
+					$("#sp_" + i).remove();
+					$("#sn_" + i).remove();
+					$("#ci_" + i).remove();
+					$("#pn_" + i).remove();
+					$("#co_" + i).remove();
+					$("#pd_" + i).remove();
+					$("#en_" + i).remove();
+					$("#ctl_" + i).remove();
 					var d='<td id="sp_' + r.DATA.I + '"><a href="/SpecimenDetail.cfm?collection_object_id=' + r.DATA.COLLECTION_OBJECT_ID[0] + '">';
 					d+=r.DATA.COLLECTION + ' ' + r.DATA.CAT_NUM + '</a></td>';
 					d+='<td id="sn_' + r.DATA.I + '">' + r.DATA.SCIENTIFIC_NAME + '</td>';
