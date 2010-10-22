@@ -16,7 +16,7 @@
 					console.log(r);
 					rA=r.split("|");
 					if (rA[0]==0){
-						alert('fail');
+						alert('fail: ' + rA[1]);
 					} else {
 						$("#ctl_" + i).html('ADDED TO LOAN');
 						$("#barcode_" + i).attr('readonly', true).addClass("readClr");
