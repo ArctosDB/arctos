@@ -24,10 +24,7 @@
 			);
 		
 		
-		
-		
-		});
-		
+		}
 	function remPart(i){
 		$("#partID_" + i).val('');
 		$("#sp_" + i).remove();
