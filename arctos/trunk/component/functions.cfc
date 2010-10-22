@@ -44,7 +44,7 @@
 		<cfset d = querynew("recCount,i")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "recCount", d.recordcount, 1)>
-		<cfset temp = QuerySetCell(result, "i", i, 1)>
+		<cfset temp = QuerySetCell(d, "i", i, 1)>
 	</cfif>
 	<cfreturn d>
 </cffunction>
