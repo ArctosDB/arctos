@@ -19,6 +19,8 @@
 						alert('fail');
 					} else {
 						$("#ctl_" + i).html('ADDED TO LOAN');
+						$("#barcode_" + i).addAttr("readonly").addClass("readClr");
+						$("#ss_" + i).addAttr("readonly").addClass("readClr");
 					}
 				}
 			);
