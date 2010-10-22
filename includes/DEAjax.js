@@ -26,9 +26,46 @@ function setNewRecDefaults () {
 		UAMFishDefault();	
 	} else if(ia == 'UAM' && cc=='Art') {
 		UAMArtDefaults();
+	} else if(ia == 'MSB' && cc=='Mamm') {
+		MSBMammDefaults();
 	} else if(ia == 'MVZ') {
 		MVZDefaults();
 	}
+}
+function MSBMammDefaults() {	
+	if ($("#nature_of_id").val()==''){
+   	 	$("#nature_of_id").val('field');
+    }
+	if ($("#coll_obj_disposition").val()==''){
+   	 	$("#coll_obj_disposition").val('being processed');
+    }
+	$.each($("[id^='part_disposition_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('being processed');
+	     }
+	});
+	if ($("#condition").val()==''){
+   	 	$("#condition").val('unchecked');
+    }
+	$.each($("input[id^='part_condition_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('unchecked');
+	     }
+	});
+	$.each($("input[id^='part_lot_count_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('1');
+	     }
+	});
+	if ($("#attribute_units_2").val()==''){
+   	 	$("#attribute_units_2").val('mm');
+    }
+	if ($("#collecting_source").val()==''){
+   	 	$("#collecting_source").val('wild caught');
+    }
+	if ($("#attribute_units_6").val()==''){
+   	 	$("#attribute_units_6").val('g');
+    }
 }
 function MVZDefaults() {	
 	if ($("#nature_of_id").val()==''){
@@ -1114,13 +1151,12 @@ function rememberLastOtherId (yesno) {
 	);
 }
 function isGoodAccn () {
-	var accn = document.getElementById('accn').value;
-	var institution_acronym = document.getElementById('institution_acronym').value;
 	jQuery.getJSON("/component/DataEntry.cfc",
 		{
 			method : "is_good_accn",
-			accn : accn,
-			institution_acronym : institution_acronym,
+			accn : $("#accn").val(),
+			institution_acronym : $("#institution_acronym").val(),
+			collection_cde: $("#collection_cde").val(),
 			returnformat : "json",
 			queryformat : 'column'
 		},

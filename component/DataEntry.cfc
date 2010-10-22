@@ -135,15 +135,19 @@
 <!---------------------------------------------------------------------------------------->
 <cffunction name="is_good_accn" access="remote">
 	<cfargument name="accn" type="string" required="yes">
+	<cfargument name="collection_cde" type="string" required="yes">
 	<cfargument name="institution_acronym" type="string" required="yes">
 	<cftry>
-	<cfif #accn# contains "[" and #accn# contains "]">
+	<cfif accn contains "[" and accn contains "]">
 		<cfset p = find(']',accn)>
-		<cfset ia = mid(accn,2,p-2)>
+		<cfset ic = mid(accn,2,p-2)>
+		<cfset ia=listgetat(ic,1,":")>
+		<cfset cc=listgetat(ic,2,":")>
 		<cfset ac = mid(accn,p+1,len(accn))>
 	<cfelse>
-		<cfset ac=#accn#>
-		<cfset ia=#institution_acronym#>
+		<cfset ac=accn>
+		<cfset ia=institution_acronym>
+		<cfset cc=collection_cde>
 	</cfif>
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
@@ -156,7 +160,8 @@
 			accn.transaction_id = trans.transaction_id AND
 			trans.collection_id=collection.collection_id and
 			accn.accn_number = '#ac#' and
-			collection.institution_acronym = '#ia#'
+			collection.institution_acronym = '#ia#' and
+			collection.collection_cde = '#cc#'
 	</cfquery>
 		<cfset result = "#q.cnt#">
 	<cfcatch>

@@ -1,6 +1,60 @@
 <cfcomponent>
 	
-
+<!------------------------------------------------------------------->
+<cffunction name="getPartByContainer" access="remote">
+	<cfargument name="barcode" type="string" required="yes">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				cat_num, 
+				cataloged_item.collection_object_id,
+				collection,
+				part_name,
+				condition,
+				 sampled_from_obj_id,
+				 item_descr,
+				 item_instructions,
+				 loan_item_remarks,
+				 coll_obj_disposition,
+				 scientific_name,
+				 Encumbrance,
+				 agent_name,
+				 loan_number,
+				 specimen_part.collection_object_id as partID,
+				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+				p1.barcode	 			 
+			 from 
+				loan_item, 
+				loan,
+				specimen_part, 
+				coll_object,
+				cataloged_item,
+				coll_object_encumbrance,
+				encumbrance,
+				agent_name,
+				identification,
+				collection,
+				coll_obj_container_hist,
+				container p,
+				container p1
+			WHERE
+				loan_item.collection_object_id = specimen_part.collection_object_id AND
+				loan.transaction_id = loan_item.transaction_id AND
+				specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+				specimen_part.collection_object_id = coll_object.collection_object_id AND
+				coll_object.collection_object_id = coll_object_encumbrance.collection_object_id (+) and
+				coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
+				encumbrance.encumbering_agent_id = agent_name.agent_id (+) AND
+				cataloged_item.collection_object_id = identification.collection_object_id AND
+				identification.accepted_id_fg = 1 AND
+				cataloged_item.collection_id=collection.collection_id AND
+				specimen_part.collection_object_id = coll_obj_container_hist.collection_object_id (+) AND
+				coll_obj_container_hist.container_id=p.container_id and
+				p.parent_container_id=p1.container_id and
+			  	p1.barcode='#barcode#'
+			ORDER BY cat_num
+		</cfquery>
+		<cfreturn d>
+</cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="strToIso8601" access="remote">
 	<cfargument name="str" type="string" required="yes">

@@ -144,30 +144,12 @@
 	<cfargument name="accn" required="yes">
 	<cfargument name="enteredby" required="yes">
 	<cfargument name="colln" required="yes">
-	
 	<cfset startrow=page * pageSize>
 	<cfset stoprow=startrow + pageSize>
 	<cfif len(gridsortcolumn) is 0>
 		<cfset gridsortcolumn="collection_object_id">
 	</cfif>
 <cfoutput>
-	<!----
-	<cfset sql="Select * from ( Select a.*, rownum rnum From (">
-	<cfset sql=sql & "select * from bulkloader where 1=1">
-	<cfif len(accn) gt 0>
-		<cfset sql=sql & " and accn IN (#accn#)">
-	</cfif>
-	<cfif len(enteredby) gt 0>
-		<cfset sql=sql & " and enteredby IN (#enteredby#)">
-	</cfif>
-	
-	<cfset sql=sql & " order by #gridsortcolumn# #gridsortdirection#">
-	<cfset sql=sql & " ) a where rownum <= #stoprow#) where rnum >= #startrow#">
-
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preservesinglequotes(sql)#
-	</cfquery>
-	---->
 	<cfset sql="select * from bulkloader where 1=1">
 	<cfif len(accn) gt 0>
 		<cfset sql=sql & " and accn IN (#accn#)">
@@ -175,7 +157,6 @@
 	<cfif len(enteredby) gt 0>
 		<cfset sql=sql & " and enteredby IN (#enteredby#)">
 	</cfif>
-	
 	<cfif len(colln) gt 0>
 		<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
 	</cfif>
