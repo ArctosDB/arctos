@@ -153,7 +153,7 @@
 				<cfloop from="1" to="100" index="i">
 					<tr id="tr_#i#">
 						<td>
-							<input type="text" id="barcode_#i#" onchange="getPartByContainer(this.value)">
+							<input type="text" id="barcode_#i#" onchange="getPartByContainer(#i#)">
 						</td>
 					</tr>
 				</cfloop>
