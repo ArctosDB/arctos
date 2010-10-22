@@ -1,5 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 <script>
+	function remPart(i){
+		alert(i);	
+	}
 	function getPartByContainer(i){
 		$.getJSON("/component/functions.cfc",
 			{
@@ -13,22 +16,23 @@
 				console.log(r);
 				if (r.DATA.C[0] == 1){
 					alert('woot: ' + r.DATA.C[0]);
-					var d='<td><a href="/SpecimenDetail.cfm?collection_object_id=' + r.DATA.COLLECTION_OBJECT_ID[0] + '">';
+					var d='<td id="sp_' + r.DATA.I + '"><a href="/SpecimenDetail.cfm?collection_object_id=' + r.DATA.COLLECTION_OBJECT_ID[0] + '">';
 					d+=r.DATA.COLLECTION + ' ' + r.DATA.CAT_NUM + '</a></td>';
-					d+='<td>' + r.DATA.SCIENTIFIC_NAME + '</td>';
-					d+='<td>' + r.DATA.CUSTOMID + '</td>';
-					d+='<td>' + r.DATA.PART_NAME;
-					if(r.DATA.SAMPLED_FROM_OBJ_ID==''){
-						console.log('r.DATA.SAMPLED_FROM_OBJ_ID=:' + r.DATA.SAMPLED_FROM_OBJ_ID + ':');
-						console.log(trim(r.DATA.SAMPLED_FROM_OBJ_ID).length);
+					d+='<td id="sn_' + r.DATA.I + '">' + r.DATA.SCIENTIFIC_NAME + '</td>';
+					d+='<td id="ci_' + r.DATA.I + '">' + r.DATA.CUSTOMID + '</td>';
+					d+='<td id="pn_' + r.DATA.I + '">' + r.DATA.PART_NAME;
+					if(r.DATA.SAMPLED_FROM_OBJ_ID!=''){
 						d+=' (subsample)';
 					}
 					d+='</td>';
-					d+='<td>' + r.DATA.CONDITION + '</td>';
-					d+='<td>' + r.DATA.COLL_OBJ_DISPOSITION + '</td>';
-					d+='<td>' + r.DATA.ENCUMBRANCES + '</td>';
+					d+='<td id="co_' + r.DATA.I + '">' + r.DATA.CONDITION + '</td>';
+					d+='<td id="pd_' + r.DATA.I + '">' + r.DATA.COLL_OBJ_DISPOSITION + '</td>';
+					d+='<td id="en_' + r.DATA.I + '">' + r.DATA.ENCUMBRANCES + '</td>';
+					
+					d+='<td id="ctl_' + r.DATA.I + '"><span class="infoLink" onclick="remPart(' + r.DATA.I + ')">Remove</span></td>';
 					
 					$("#tr_" + r.DATA.I).append(d);
+					$("#partID_" + r.DATA.I).val(r.DATA.PARTID);
 					
 				} else {
 					alert('fail: ' + r.DATA.C[0]);
