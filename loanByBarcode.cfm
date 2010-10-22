@@ -1,4 +1,25 @@
 <cfinclude template="/includes/_header.cfm">
+<script>
+	function getPartByContainer(i){
+		$.getJSON("/component/functions.cfc",
+			{
+				method : "getPartByContainer",
+				barcode : $("#barcode_" + i).val(),
+				i : i,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				console.log(r);
+				if (r.DATA.RECCOUNT[0] == 1){
+					alert('woot: ' + r.DATA.RECCOUNT[0]);	
+				} else {
+					alert('fail: ' + r.DATA.RECCOUNT[0]);
+				}
+			}
+		);
+	}
+</script>
 <cfif action is "nothing">
 	<cfoutput>
 		<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -115,27 +136,7 @@
 			</table>
 		</cfif>
 		<br>Add Parts by Barcode
-		<script>
-			function getPartByContainer(i){
-				$.getJSON("/component/functions.cfc",
-					{
-						method : "getPartByContainer",
-						barcode : $("#barcode_" + i).val(),
-						i : i,
-						returnformat : "json",
-						queryformat : 'column'
-					},
-					function(r) {
-						console.log(r);
-						if (r.DATA.RECCOUNT[0] == 1){
-							alert('woot: ' + r.DATA.RECCOUNT[0]);	
-						} else {
-							alert('fail: ' + r.DATA.RECCOUNT[0]);
-						}
-					}
-				);
-			}
-		</script>
+		
 		<form name="f" method="post" action="loanByBarcode.cfm">
 			<input type="hidden" name="action" value="saveParts">
 			<table border>
