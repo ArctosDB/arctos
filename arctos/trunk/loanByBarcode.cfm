@@ -18,7 +18,7 @@
 					d+='<td>' + r.DATA.SCIENTIFIC_NAME + '</td>';
 					d+='<td>' + r.DATA.CUSTOMID + '</td>';
 					d+='<td>' + r.DATA.PART_NAME;
-					if(r.DATA.SAMPLED_FROM_OBJ_ID.length>0){
+					if(r.DATA.SAMPLED_FROM_OBJ_ID[0].length>0){
 						d+=' (subsample)';
 					}
 					d+='</td>';
