@@ -6,8 +6,8 @@
 	<cfargument name="i" type="string" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
-			1 recCount,
-			#i# i,
+			1 C,
+			#i# I,
 			cat_num, 
 			cataloged_item.collection_object_id,
 			collection,
@@ -41,10 +41,10 @@
 		  	p1.barcode='#barcode#'
 	</cfquery>
 	<cfif d.recordcount is not 1>
-		<cfset d = querynew("recCount,i")>
+		<cfset d = querynew("C,I")>
 		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "recCount", d.recordcount, 1)>
-		<cfset temp = QuerySetCell(d, "i", i, 1)>
+		<cfset temp = QuerySetCell(d, "C", d.recordcount, 1)>
+		<cfset temp = QuerySetCell(d, "I", i, 1)>
 	</cfif>
 	<cfreturn d>
 </cffunction>
