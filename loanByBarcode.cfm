@@ -11,10 +11,10 @@
 			},
 			function(r) {
 				console.log(r);
-				if (r.DATA.RECCOUNT[0] == 1){
-					alert('woot: ' + r.DATA.RECCOUNT[0]);	
+				if (r.DATA.C[0] == 1){
+					alert('woot: ' + r.DATA.C[0]);	
 				} else {
-					alert('fail: ' + r.DATA.RECCOUNT[0]);
+					alert('fail: ' + r.DATA.C[0]);
 				}
 			}
 		);
