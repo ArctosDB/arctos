@@ -14,7 +14,7 @@
 				if (r.DATA.C[0] == 1){
 					alert('woot: ' + r.DATA.C[0]);
 					var d='<td><a href="/SpecimenDetail.cfm?collection_object_id=' + r.DATA.COLLECTION_OBJECT_ID[0] + '">';
-					d+='r.DATA.COLLECTION + ' ' + r.DATA.CAT_NUM + '</a></td>';
+					d+=r.DATA.COLLECTION + ' ' + r.DATA.CAT_NUM + '</a></td>';
 					d+='<td>' + r.DATA.SCIENTIFIC_NAME + '</td>';
 					d+='<td>' + r.DATA.CUSTOMID + '</td>';
 					d+='<td>' + r.DATA.PART_NAME;
