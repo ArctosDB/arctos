@@ -1,7 +1,16 @@
 <cfinclude template="/includes/_header.cfm">
 <script>
 	function remPart(i){
-		alert(i);	
+		$("#partID_" + i).val('');
+		$("#sp_" + i).remove();
+		$("#sn_" + i).remove();
+		$("#ci_" + i).remove();
+		$("#pn_" + i).remove();
+		$("#co_" + i).remove();
+		$("#pd_" + i).remove();
+		$("#en_" + i).remove();
+		$("#ctl_" + i).remove();
+		$("#barcode_" + i).val('');
 	}
 	function getPartByContainer(i){
 		$.getJSON("/component/functions.cfc",
