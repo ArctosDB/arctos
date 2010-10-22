@@ -1624,7 +1624,6 @@
 			<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select sq_collection_object_id.nextval n from dual
 			</cfquery>
-			
 			<cfquery name="meta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select cataloged_item.collection_object_id,
 				cat_num,collection,part_name

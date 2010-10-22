@@ -43,7 +43,7 @@
 					<cfset clist=listappend(clist,i)>
 				</cfloop>
 				<cfif listlen(clist) gte 1000>
-					<div class="error">1000 limit</div>
+					<div class="error">Catalog number span searches have a 1000 record limit</div>
 					<script>hidePageLoad();</script>
 					<cfabort>
 				</cfif>
