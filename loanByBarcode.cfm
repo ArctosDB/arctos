@@ -13,7 +13,6 @@
 					queryformat : 'column'
 				},
 				function(r) {
-					console.log(r);
 					rA=r.split("|");
 					if (rA[0]==0){
 						alert('fail: ' + rA[1]);
@@ -24,8 +23,6 @@
 					}
 				}
 			);
-		
-		
 		}
 	function remPart(i){
 		$("#partID_" + i).val('');
