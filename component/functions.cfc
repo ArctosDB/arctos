@@ -41,8 +41,10 @@
 		  	p1.barcode='#barcode#'
 	</cfquery>
 	<cfif d.recordcount is not 1>
+		<cfoutput >
 		<cfdump var=#d#>
 		---------#d.recordcount#--------
+		</cfoutput>
 		<cfset d = querynew("C,I")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "C", d.recordcount, 1)>
