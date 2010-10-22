@@ -25,9 +25,9 @@
 		</cfquery> 
 		Adding parts to loan #l.collection# #l.loan_number#.
 		
-		<br>loan_status: #loan_status#
-		<br>loan_instructions: #loan_instructions#
-		<br>nature_of_material: #nature_of_material#
+		<br>loan_status: #l.loan_status#
+		<br>loan_instructions: #l.loan_instructions#
+		<br>nature_of_material: #l.nature_of_material#
 		
 		<cfquery name="getPartLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
