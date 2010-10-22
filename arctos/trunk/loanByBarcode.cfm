@@ -1,5 +1,33 @@
 <cfinclude template="/includes/_header.cfm">
 <script>
+	function addThis(i){
+			 $.getJSON("/component/functions.cfc",
+				{
+					method : "addPartToLoan",
+					transaction_id: $("#transaction_id").val(),
+					partID : $("#partID" + i).val(),
+					remark : '',
+					instructions: '',
+					subsample: '',
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function(r) {
+					console.log(r);
+					rA=r.split("|");
+					if (rA[0]==0){
+						alert('fail');
+					} else {
+						$("#ctl_" + i).html('ADDED TO LOAN');
+					}
+				}
+			);
+		
+		
+		
+		
+		});
+		
 	function remPart(i){
 		$("#partID_" + i).val('');
 		$("#sp_" + i).remove();
@@ -38,7 +66,8 @@
 					d+='<td id="pd_' + r.DATA.I + '">' + r.DATA.COLL_OBJ_DISPOSITION + '</td>';
 					d+='<td id="en_' + r.DATA.I + '">' + r.DATA.ENCUMBRANCES + '</td>';
 					
-					d+='<td id="ctl_' + r.DATA.I + '"><span class="infoLink" onclick="remPart(' + r.DATA.I + ')">Remove</span></td>';
+					d+='<td id="ctl_' + r.DATA.I + '"><span class="infoLink" onclick="remPart(' + r.DATA.I + ')">[ Remove ]</span>';
+					d+='<span class="infoLink" onclick="addThis(' + r.DATA.I + ')">[ Add To Loan ]</span></td>';
 					
 					$("#tr_" + r.DATA.I).append(d);
 					$("#partID_" + r.DATA.I).val(r.DATA.PARTID);
@@ -148,7 +177,6 @@
 					<th>Part</th>
 					<th>SS?</th>
 					<th>PartCondition</th>
-					<th>ItemDescr</th>
 				</tr>
 				<cfloop query="getPartLoanRequests">
 					<tr>
@@ -165,7 +193,6 @@
 						<td>
 							<cfif len(sampled_from_obj_id) gt 0>yes<cfelse>no</cfif>
 						</td>
-						<td>item_descr</td>
 					</tr>
 				</cfloop>
 			</table>
