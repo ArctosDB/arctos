@@ -21,7 +21,7 @@
 	}
 	function allss(yn) {
 		$("select[id^='ss_']").each(function(e){
-			$.this.val(yn);
+			 $("#" + this.id).val(yn);
 		});
 	}
 </script>
@@ -141,7 +141,7 @@
 			</table>
 		</cfif>
 		<br>Add Parts by Barcode
-		<br><span onclick="allss('yes')">[ SubSample All ]</span> <span onclick="allss('no')">[ SubSample None ]</span>
+		<br><span class="likeLink" onclick="allss('yes')">[ SubSample All ]</span> <span class="likeLink" onclick="allss('no')">[ SubSample None ]</span>
 		<form name="f" method="post" action="loanByBarcode.cfm">
 			<input type="hidden" name="action" value="saveParts">
 			<table border>
