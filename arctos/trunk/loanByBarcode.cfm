@@ -5,7 +5,7 @@
 				{
 					method : "addPartToLoan",
 					transaction_id: $("#transaction_id").val(),
-					partID : $("#partID" + i).val(),
+					partID : $("#partID_" + i).val(),
 					remark : '',
 					instructions: '',
 					subsample: '',
@@ -198,6 +198,7 @@
 		<br><span class="likeLink" onclick="allss('yes')">[ SubSample All ]</span> <span class="likeLink" onclick="allss('no')">[ SubSample None ]</span>
 		<form name="f" method="post" action="loanByBarcode.cfm">
 			<input type="hidden" name="action" value="saveParts">
+			<input type="hidden" name="transaction_id" id="transaction_id" value='#transaction_id#'>
 			<table border>
 				<tr>
 					<th>Barcode</th>
