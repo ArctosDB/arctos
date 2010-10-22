@@ -416,6 +416,9 @@
    		<input type="button" value="Quit" class="qutBtn" onClick="document.location = 'Loan.cfm?Action=addItems'">	
 		<input type="button" value="Add Items" class="lnkBtn"
 			onClick="window.open('SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#');">
+		<input type="button" value="Add Items BY Barcode" class="lnkBtn"
+			onClick="window.open('loanByBarcode.cfm?transaction_id=#transaction_id#');">
+
 		<input type="button" value="Review Items" class="lnkBtn"
 			onClick="window.open('a_loanItemReview.cfm?transaction_id=#transaction_id#');">
    		<br />
@@ -1504,6 +1507,7 @@
 								<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 									<td>
 										<a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">Add Items</a>
+										<a href="loanByBarcode.cfm?transaction_id=#transaction_id#">Add Items By Barcode</a>
 									</td>
 									<td>
 										<a href="Loan.cfm?transaction_id=#transaction_id#&Action=editLoan">Edit Loan</a>
