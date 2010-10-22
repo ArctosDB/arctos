@@ -19,6 +19,11 @@
 			}
 		);
 	}
+	function allss(yn) {
+		$("select[id^='ss_']").each(function(e){
+			$.this.val(yn);
+		});
+	}
 </script>
 <cfif action is "nothing">
 	<cfoutput>
@@ -136,17 +141,17 @@
 			</table>
 		</cfif>
 		<br>Add Parts by Barcode
-		
+		<br><span onclick="allss('yes')">[ SubSample All ]</span> <span onclick="allss('no')">[ SubSample None ]</span>
 		<form name="f" method="post" action="loanByBarcode.cfm">
 			<input type="hidden" name="action" value="saveParts">
 			<table border>
 				<tr>
 					<th>Barcode</th>
+					<th>SS?</th>
 					<th>Specimen</th>
 					<th>ID</th>
 					<th>#session.CustomOtherIdentifier#</th>
 					<th>Part</th>
-					<th>SS?</th>
 					<th>PartCondition</th>
 					<th>ItemDescr</th>
 				</tr>
@@ -154,6 +159,12 @@
 					<tr id="tr_#i#">
 						<td>
 							<input type="text" id="barcode_#i#" onchange="getPartByContainer(#i#)">
+							<input type="hidden" name="partID_#i#" id="partID_#i#">
+						</td>
+						<td><select name="ss_#i#" id="ss_#i#">
+								<option value="no">no</option>
+								<option value="yes">yes</option>
+							</select>
 						</td>
 					</tr>
 				</cfloop>
