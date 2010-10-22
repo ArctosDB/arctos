@@ -41,7 +41,7 @@
 		  	p1.barcode='#barcode#'
 	</cfquery>
 	<cfif d.recordcount is not 1>
-		<cfset rc=r.recordcount>
+		<cfset rc=d.recordcount>
 		<cfset d = querynew("C,I")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "C", rc, 1)>
