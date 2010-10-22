@@ -20,7 +20,7 @@
 					d+='<td>' + r.DATA.PART_NAME;
 					if(r.DATA.SAMPLED_FROM_OBJ_ID==''){
 						console.log('r.DATA.SAMPLED_FROM_OBJ_ID=:' + r.DATA.SAMPLED_FROM_OBJ_ID + ':');
-						console.log(r.DATA.SAMPLED_FROM_OBJ_ID.length);
+						console.log(trim(r.DATA.SAMPLED_FROM_OBJ_ID).length);
 						d+=' (subsample)';
 					}
 					d+='</td>';
