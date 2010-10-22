@@ -42,6 +42,7 @@
 	</cfquery>
 	<cfif d.recordcount is not 1>
 		<cfdump var=#d#>
+		---------#d.recordcount#--------
 		<cfset d = querynew("C,I")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "C", d.recordcount, 1)>
