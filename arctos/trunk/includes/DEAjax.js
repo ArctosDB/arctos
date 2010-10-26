@@ -1490,12 +1490,12 @@ function success_pickedLocality (r) {
 		//try {
 		for (i=0;i<6;i++) {
 				var eNum=parseInt(i+1);
-				$("#geology_attribute_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
-				$("#geo_att_value_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
-				$("#geo_att_determiner_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
-				$("#geo_att_determined_date_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
-				$("#geo_att_determined_method_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
-				$("#geo_att_remark_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
+				$("#geology_attribute_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+				$("#geo_att_value_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+				$("#geo_att_determiner_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+				$("#geo_att_determined_date_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+				$("#geo_att_determined_method_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
+				$("#geo_att_remark_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
 			}
 			console.log('len='+r.ROWCOUNT);
 			for (i=0;i<r.ROWCOUNT;i++) {
