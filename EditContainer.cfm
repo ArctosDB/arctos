@@ -203,7 +203,8 @@ First, make sure that this is a fluid container--->
 			length,
 			height,
 			number_positions,
-			locked_position
+			locked_position,
+			institution_acronym
 		FROM
 			container,
 			fluid_container_history
