@@ -1488,7 +1488,8 @@ function success_pickedLocality (r) {
 			alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
 		}
 		//try {
-			for (i=0;i<6;i++) {
+		console.log('hai!');	
+		for (i=0;i<6;i++) {
 				var eNum=parseInt(i+1);
 				$("#geology_attribute_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
 				$("#geo_att_value_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
