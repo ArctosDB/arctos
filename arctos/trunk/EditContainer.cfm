@@ -282,7 +282,6 @@ First, make sure that this is a fluid container--->
 					 <select name="institution_acronym" id="institution_acronym" size="1" class="reqdClr">
 				          <cfloop query="ctInst"> 
 	            				<option <cfif getCont.institution_acronym is ctInst.institution_acronym> selected="selected" </cfif>value="#institution_acronym#">#institution_acronym#</option>
-							</cfif>
 	         			 </cfloop> 
 					</select>
 				</td>
