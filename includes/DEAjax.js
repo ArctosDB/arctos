@@ -1484,7 +1484,7 @@ function success_pickedLocality (r) {
 		$("#localityPicker").hide();
 		$("#localityUnPicker").show();
 		
-		if (result.ROWCOUNT > 6) {
+		if (r.ROWCOUNT > 6) {
 			alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
 		}
 		//try {
@@ -1497,8 +1497,8 @@ function success_pickedLocality (r) {
 				$("#geo_att_determined_method_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
 				$("#geo_att_remark_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
 			}
-			console.log('len='+result.ROWCOUNT);
-			for (i=0;i<result.ROWCOUNT;i++) {
+			console.log('len='+r.ROWCOUNT);
+			for (i=0;i<r.ROWCOUNT;i++) {
 				if (i<5) {
 					var eNum=parseInt(i+1);
 					console.log(eNum);
