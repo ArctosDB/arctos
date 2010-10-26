@@ -1503,7 +1503,7 @@ function success_pickedLocality (r) {
 					var eNum=parseInt(i+1);
 					console.log(eNum);
 					$("#geology_attribute_" + eNum).val(result.GEOLOGY_ATTRIBUTE[i]);
-					$("#geo_att_value_" + eNum).val(result.GEO_ATT_VALUE[i]);
+					$("#geo_att_value_" + eNum).append('<option value="' + result.GEO_ATT_VALUE[i] + '">' + result.GEO_ATT_VALUE[i] + '</option>');
 					$("#geo_att_determiner_" + eNum).val(result.GEO_ATT_DETERMINER[i]);
 					$("#geo_att_determined_date_" + eNum).val(result.GEO_ATT_DETERMINED_DATE[i]);
 					$("#geo_att_determined_method_" + eNum).val(result.GEO_ATT_DETERMINED_DATE[i]);
