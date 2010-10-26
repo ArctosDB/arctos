@@ -101,6 +101,9 @@ function MVZDefaults() {
 	if ($("#other_id_num_type_1").val()==''){
 		$("#other_id_num_type_1").val('collector number');
 	}
+	if ($("#attribute_units_6").val()==''){
+   	 	$("#attribute_units_6").val('g');
+    }
 }
 function UAMMammDefault() {
 	if ($("#nature_of_id").val()==''){
@@ -1527,6 +1530,12 @@ function success_pickedLocality (r) {
 		document.getElementById('lat_long_remarks').value = LAT_LONG_REMARKS;
 		document.getElementById('lat_long_remarks').className='readClr';
 		document.getElementById('lat_long_remarks').setAttribute('readonly','readonly');
+		
+		 $("#utm_zone").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_ZONE[0]);
+		 $("#utm_ew").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_EW[0]);
+		 $("#utm_ns").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_NS[0]);
+		
+		
 		switchActive(ORIG_LAT_LONG_UNITS);
 		document.getElementById('orig_lat_long_units').value = ORIG_LAT_LONG_UNITS;
 		document.getElementById('orig_lat_long_units').className='readClr';
