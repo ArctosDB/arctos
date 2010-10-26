@@ -1487,7 +1487,7 @@ function success_pickedLocality (r) {
 		if (result.length > 6) {
 			alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
 		}
-		try {
+		//try {
 			for (i=0;i<6;i++) {
 				var eNum=parseInt(i+1);
 				$("#geology_attribute_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
@@ -1509,9 +1509,9 @@ function success_pickedLocality (r) {
 					$("#geo_att_remark_" + eNum).val(result.GEO_ATT_DETERMINED_DATE[i]);
 				}
 			}
-		} catch(err) {
+		//} catch(err) {
 			// whatever
-		}		
+		//}		
 	}
 }
 function catNumSeq () {
