@@ -103,6 +103,7 @@
   <cfelse>
   	<cfset #udQual# = "#udQual# , number_positions = null">
 </cfif>
+<cfset #udQual# = "#udQual# , institution_acronym = '#institution_acronym#'">
 <cfset #udQual# = "#udQual# , locked_position = #locked_position#">
 <cfif #label# is not "">
 	<cfset #udQual# = "#udQual# , label = '#label#'">
