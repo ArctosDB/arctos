@@ -1242,24 +1242,18 @@ function unpickLocality () {
 	$("#fetched_eventid").val('');
 	$("#localityUnPicker").hide();
 	$("#localityPicker").show('');
-
-	//try {
-		for (i=0;i<6;i++) {
-			var eNum=parseInt(i+1);
-			var thisVal=$("#geo_att_value_" + eNum).val();
-			$("#geology_attribute_" + eNum).attr("readOnly", false).removeClass().addClass('reqdClr');
-			//var gid='geology_attribute_' + String(e+1);
-			populateGeology('geology_attribute_' + eNum);
-			$("#geo_att_value_" + eNum).attr("readOnly", false).removeClass().addClass('reqdClr').val(thisVal);
-			$("#geo_att_determiner_" + eNum).attr("readOnly", false).removeClass();
-			$("#geo_att_determiner_" + eNum).attr("readOnly", false).removeClass();
-			$("#geo_att_determined_date_" + eNum).attr("readOnly", false).removeClass();
-			$("#geo_att_determined_method_" + eNum).attr("readOnly", false).removeClass();
-			$("#geo_att_remark_" + eNum).attr("readOnly", false).removeClass();
-		}
-	//} catch(err) {
-		// whatever
-	//}
+	for (i=0;i<6;i++) {
+		var eNum=parseInt(i+1);
+		var thisVal=$("#geo_att_value_" + eNum).val();
+		$("#geology_attribute_" + eNum).attr("readOnly", false).removeClass().addClass('reqdClr');
+		populateGeology('geology_attribute_' + eNum);
+		$("#geo_att_value_" + eNum).attr("readOnly", false).removeClass().addClass('reqdClr').val(thisVal);
+		$("#geo_att_determiner_" + eNum).attr("readOnly", false).removeClass();
+		$("#geo_att_determiner_" + eNum).attr("readOnly", false).removeClass();
+		$("#geo_att_determined_date_" + eNum).attr("readOnly", false).removeClass();
+		$("#geo_att_determined_method_" + eNum).attr("readOnly", false).removeClass();
+		$("#geo_att_remark_" + eNum).attr("readOnly", false).removeClass();
+	}
 }
 function pickedEvent () {
 	var collecting_event_id = document.getElementById('collecting_event_id').value;
@@ -1287,7 +1281,6 @@ function success_pickedEvent(r){
 	} else {
 		$("#locality_id").val('');
 		$("#fetched_eventid").val(result.COLLECTING_EVENT_ID[0]);
-		
 		$("#began_date").val(result.BEGAN_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
 		$("#ended_date").val(result.ENDED_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
 		$("#verbatim_date").val(result.VERBATIM_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
@@ -1295,12 +1288,9 @@ function success_pickedEvent(r){
 		$("#coll_event_remarks").val(result.COLL_EVENT_REMARKS[0]).removeClass().addClass('readClr').attr('readonly',true);
 		$("#collecting_source").val(result.COLLECTING_SOURCE[0]).removeClass().addClass('readClr').attr('readonly',true);
 		$("#collecting_method").val(result.COLLECTING_METHOD[0]).removeClass().addClass('readClr').attr('readonly',true);
-		$("#habitat_desc").val(result.HABITAT_DESC[0]).removeClass().addClass('readClr').attr('readonly',true);
-		
-		
+		$("#habitat_desc").val(result.HABITAT_DESC[0]).removeClass().addClass('readClr').attr('readonly',true);		
 		$("#eventPicker").hide();
 		$("#eventUnPicker").show();
-		
 		success_pickedLocality(r);
 	}
 }
