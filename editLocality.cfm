@@ -1052,7 +1052,7 @@
 						</select>
 						<label for="geo_att_determiner_#i#">Determiner</label>
 						<input type="text" name="geo_att_determiner_#i#"  size="40"
-							onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
+							onchange="getAgent('geo_att_determiner_id_#i#','geo_att_determiner_#i#','editGeolAtt',this.value); return false;"
 		 					onKeyPress="return noenter(event);"
 		 					value="#agent_name#">
 						<input type="hidden" name="geo_att_determiner_id_#i#" id="geo_att_determiner_id" value="#geo_att_determiner_id#">
