@@ -1248,7 +1248,7 @@ function unpickLocality () {
 			var eNum=parseInt(i+1);
 			var thisVal=$("#geo_att_value_" + eNum).val();
 			$("#geology_attribute_" + eNum).attr("readOnly", false).removeClass().addClass('reqdClr');
-			var gid='geology_attribute_' + String(e+1);
+			//var gid='geology_attribute_' + String(e+1);
 			populateGeology('geology_attribute_' + eNum);
 			$("#geo_att_value_" + eNum).attr("readOnly", false).removeClass().addClass('reqdClr').val(thisVal);
 			$("#geo_att_determiner_" + eNum).attr("readOnly", false).removeClass();
