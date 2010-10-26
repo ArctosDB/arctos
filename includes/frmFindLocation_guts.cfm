@@ -11,16 +11,12 @@
 <script language="javascript" type="text/javascript">
 	function nada(){}
 	function toggleGeogDetail(onOff) {
-		var e = document.getElementById('geogDetail');
-		var c = document.getElementById('geogDetailCtl');
 		if (onOff==0) {
-			e.className='noShow'
-			c.setAttribute('onCLick','toggleGeogDetail(1)');
-			c.innerHTML='Show More Options';	
+			$("#geogDetail").removeClass().addClass('noShow');
+			$("#geogDetailCtl").attr('onCLick','toggleGeogDetail(1)').html('Show More Options');	
 		} else {
-			e.className='';
-			c.setAttribute('onCLick','toggleGeogDetail(0)');
-			c.innerHTML='Show Fewer Options';
+			$("#geogDetail").removeClass();
+			$("#geogDetailCtl").attr('onCLick','toggleGeogDetail(0)').html('Show Fewer Options');
 		}
 		jQuery.getJSON("/component/functions.cfc",
 			{
