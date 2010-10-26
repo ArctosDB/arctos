@@ -565,7 +565,7 @@
 							</td>
 						</tr>
 						<tr id="d_locality_remarks">
-							<td align="right"><span class="f11a">LocalityRemk</span></td>
+							<td align="right"><span class="f11a" onclick="checkPicked()">LocalityRemk - checkPicked</span></td>
 							<td>
 								<input type="text" name="locality_remarks" size="80" value="#locality_remarks#" id="locality_remarks">
 							</td>
