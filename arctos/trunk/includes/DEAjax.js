@@ -1488,7 +1488,6 @@ function success_pickedLocality (r) {
 			alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
 		}
 		//try {
-		console.log('hai!');	
 		for (i=0;i<6;i++) {
 				var eNum=parseInt(i+1);
 				$("#geology_attribute_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
@@ -1498,7 +1497,7 @@ function success_pickedLocality (r) {
 				$("#geo_att_determined_method_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
 				$("#geo_att_remark_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
 			}
-			console.log('len='+result.length);
+			console.log('len='+result.ROWCOUNT);
 			for (i=0;i<result.ROWCOUNT;i++) {
 				if (i<5) {
 					var eNum=parseInt(i+1);
