@@ -1183,136 +1183,83 @@ function turnSaveOn () {
 	document.getElementById('localityUnPicker').style.display='none';
 }
 function unpickEvent() {
-	document.getElementById('collecting_event_id').value='';
-	document.getElementById('locality_id').value='';
-	document.getElementById('began_date').className='reqdClr';
-	document.getElementById('began_date').removeAttribute('readonly');	
-	document.getElementById('ended_date').className='reqdClr';
-	document.getElementById('ended_date').removeAttribute('readonly');	
-	document.getElementById('verbatim_date').className='reqdClr';
-	document.getElementById('verbatim_date').removeAttribute('readonly');
-	document.getElementById('verbatim_locality').className='reqdClr';
-	document.getElementById('verbatim_locality').removeAttribute('readonly');
-	document.getElementById('coll_event_remarks').className='';
-	document.getElementById('coll_event_remarks').removeAttribute('readonly');
-	document.getElementById('collecting_source').className='reqdClr';
-	document.getElementById('collecting_source').removeAttribute('readonly');
-	document.getElementById('collecting_method').className='';
-	document.getElementById('collecting_method').removeAttribute('readonly');
-	document.getElementById('habitat_desc').className='';
-	document.getElementById('habitat_desc').removeAttribute('readonly');
-	document.getElementById('eventUnPicker').style.display='none';
-	document.getElementById('eventPicker').style.display='';
+	$("#collecting_event_id").val('');
+	$("#locality_id").val('');
+	$("#began_date").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#ended_date").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#verbatim_date").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#collecting_source").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#verbatim_locality").attr("readOnly", false).removeClass();
+	$("#coll_event_remarks").attr("readOnly", false).removeClass();
+	$("#collecting_method").attr("readOnly", false).removeClass();
+	$("#habitat_desc").attr("readOnly", false).removeClass();
+	$("#eventUnPicker").hide();
+	$("#eventPicker").show();
 	unpickLocality();
 }						
 function unpickLocality () {
-	var u = document.getElementById('orig_lat_long_units').value;
-	switchActive(u);
-	document.getElementById('higher_geog').className='reqdClr';
-	document.getElementById('higher_geog').removeAttribute('readonly');
-	document.getElementById('maximum_elevation').className='';
-	document.getElementById('maximum_elevation').removeAttribute('readonly');
-	document.getElementById('minimum_elevation').className='';
-	document.getElementById('minimum_elevation').removeAttribute('readonly');
-	document.getElementById('orig_elev_units').className='';
-	document.getElementById('orig_elev_units').removeAttribute('readonly');
-	document.getElementById('spec_locality').className='reqdClr';
-	document.getElementById('spec_locality').removeAttribute('readonly');
-	document.getElementById('locality_remarks').className='';
-	document.getElementById('locality_remarks').removeAttribute('readonly');
-	document.getElementById('latdeg').className='reqdClr';
-	document.getElementById('latdeg').removeAttribute('readonly');
-	document.getElementById('decLAT_DEG').className='reqdClr';
-	document.getElementById('decLAT_DEG').removeAttribute('readonly');
-	document.getElementById('latmin').className='reqdClr';
-	document.getElementById('latmin').removeAttribute('readonly');
-	document.getElementById('latsec').className='reqdClr';
-	document.getElementById('latsec').removeAttribute('readonly');
-	document.getElementById('latdir').className='reqdClr';
-	document.getElementById('latdir').removeAttribute('readonly');
-	document.getElementById('longdeg').className='reqdClr';
-	document.getElementById('longdeg').removeAttribute('readonly');
-	document.getElementById('longmin').className='reqdClr';
-	document.getElementById('longmin').removeAttribute('readonly');
-	document.getElementById('longsec').className='reqdClr';
-	document.getElementById('longsec').removeAttribute('readonly');
-	document.getElementById('longdir').className='reqdClr';
-	document.getElementById('longdir').removeAttribute('readonly');
-	document.getElementById('dec_lat_min').className='reqdClr';
-	document.getElementById('dec_lat_min').removeAttribute('readonly');
-	document.getElementById('decLAT_DIR').className='reqdClr';
-	document.getElementById('decLAT_DIR').removeAttribute('readonly');
-	document.getElementById('decLONGDEG').className='reqdClr';
-	document.getElementById('decLONGDEG').removeAttribute('readonly');
-	document.getElementById('dec_long_min').className='reqdClr';
-	document.getElementById('dec_long_min').removeAttribute('readonly');
-	document.getElementById('decLONGDIR').className='reqdClr';
-	document.getElementById('decLONGDIR').removeAttribute('readonly');
-	document.getElementById('dec_lat').className='reqdClr';
-	document.getElementById('dec_lat').removeAttribute('readonly');
-	document.getElementById('dec_long').className='reqdClr';
-	document.getElementById('dec_long').removeAttribute('readonly');
-	document.getElementById('max_error_distance').className='';
-	document.getElementById('max_error_distance').removeAttribute('readonly');
-	document.getElementById('max_error_units').className='';
-	document.getElementById('max_error_units').removeAttribute('readonly');
-	document.getElementById('extent').className='';
-	document.getElementById('extent').removeAttribute('readonly');
-	document.getElementById('gpsaccuracy').className='';
-	document.getElementById('gpsaccuracy').removeAttribute('readonly');
-	document.getElementById('datum').className='reqdClr';
-	document.getElementById('datum').removeAttribute('readonly');
-	document.getElementById('determined_by_agent').className='reqdClr';
-	document.getElementById('determined_by_agent').removeAttribute('readonly');
-	document.getElementById('determined_date').className='reqdClr';
-	document.getElementById('determined_date').removeAttribute('readonly');
-	document.getElementById('lat_long_ref_source').className='reqdClr';
-	document.getElementById('lat_long_ref_source').removeAttribute('readonly');
-	document.getElementById('georefmethod').className='reqdClr';
-	document.getElementById('georefmethod').removeAttribute('readonly');
-	document.getElementById('verificationstatus').className='reqdClr';
-	document.getElementById('verificationstatus').removeAttribute('readonly');
-	document.getElementById('lat_long_remarks').className='';
-	document.getElementById('lat_long_remarks').removeAttribute('readonly');
-	document.getElementById('orig_lat_long_units').className='';
-	document.getElementById('orig_lat_long_units').removeAttribute('readonly');
+	switchActive($("#orig_lat_long_units").val());
 	
-	
+	$("#higher_geog").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#spec_locality").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#latdeg").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#decLAT_DEG").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#latmin").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#latsec").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#latdir").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#longdeg").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#longmin").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#longsec").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#longdir").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#dec_lat_min").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#decLAT_DIR").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#decLONGDEG").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#dec_long_min").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#decLONGDIR").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#dec_lat").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#dec_long").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#datum").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#determined_by_agent").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#determined_date").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#lat_long_ref_source").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#georefmethod").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#verificationstatus").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#maximum_elevation").attr("readOnly", false).removeClass();
+	$("#minimum_elevation").attr("readOnly", false).removeClass();
+	$("#orig_elev_units").attr("readOnly", false).removeClass();
+	$("#locality_remarks").attr("readOnly", false).removeClass();
+	$("#max_error_distance").attr("readOnly", false).removeClass();
+	$("#max_error_units").attr("readOnly", false).removeClass();
+	$("#extent").attr("readOnly", false).removeClass();
+	$("#gpsaccuracy").attr("readOnly", false).removeClass();
+	$("#lat_long_remarks").attr("readOnly", false).removeClass();
+	$("#orig_lat_long_units").attr("readOnly", false).removeClass();	
+	$("#utm_zone").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#utm_ew").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#utm_ns").attr("readOnly", false).removeClass().addClass('reqdClr');
+	$("#locality_id").val('');
+	$("#fetched_locid").val('');
+	$("#fetched_eventid").val('');
+	$("#localityUnPicker").hide();
+	$("#localityPicker").show('');
 
-	$("#utm_zone").attr("readOnly", false).removeClass();
-	$("#utm_ew").attr("readOnly", false).removeClass();
-	$("#utm_ns").attr("readOnly", false).removeClass();
-
-	document.getElementById('locality_id').value='';
-	document.getElementById('fetched_locid').value='';
-	document.getElementById('fetched_eventid').value='';
-	document.getElementById('localityUnPicker').style.display='none';
-	document.getElementById('localityPicker').style.display='';
-	try {
+	//try {
 		for (i=0;i<6;i++) {
 			var eNum=parseInt(i+1);
-			var aID='geology_attribute_' + eNum;
-			var vID='geo_att_value_' + eNum;
-			var dID='geo_att_determiner_' + eNum;
-			var ddID='geo_att_determined_date_' + eNum;
-			var mID='geo_att_determined_method_' + eNum;
-			var rID='geo_att_remark_' + eNum;
-			document.getElementById(aID).className='reqdClr';
-			document.getElementById(aID).removeAttribute('readonly');
-			document.getElementById(vID).className='reqdClr';
-			document.getElementById(vID).removeAttribute('readonly');
-			document.getElementById(dID).className='';
-			document.getElementById(dID).removeAttribute('readonly');
-			document.getElementById(ddID).className='';
-			document.getElementById(ddID).removeAttribute('readonly');
-			document.getElementById(mID).className='';
-			document.getElementById(mID).removeAttribute('readonly');
-			document.getElementById(rID).className='';
-			document.getElementById(rID).removeAttribute('readonly');
+			var thisVal=$("#geo_att_value_" + eNum).val();
+			$("#geology_attribute_" + eNum).attr("readOnly", false).removeClass().addClass('reqdClr');
+			var gid='geology_attribute_' + String(e+1);
+			populateGeology('geology_attribute_' + eNum);
+			$("#geo_att_value_" + eNum).attr("readOnly", false).removeClass().addClass('reqdClr').val(thisVal);
+			$("#geo_att_determiner_" + eNum).attr("readOnly", false).removeClass();
+			$("#geo_att_determiner_" + eNum).attr("readOnly", false).removeClass();
+			$("#geo_att_determined_date_" + eNum).attr("readOnly", false).removeClass();
+			$("#geo_att_determined_method_" + eNum).attr("readOnly", false).removeClass();
+			$("#geo_att_remark_" + eNum).attr("readOnly", false).removeClass();
 		}
-	} catch(err) {
+	//} catch(err) {
 		// whatever
-	}
+	//}
 }
 function pickedEvent () {
 	var collecting_event_id = document.getElementById('collecting_event_id').value;
@@ -1335,46 +1282,25 @@ function pickedEvent () {
 }
 function success_pickedEvent(r){
 	var result=r.DATA;
-	var collecting_event_id=result.COLLECTING_EVENT_ID;
-	if (collecting_event_id < 0) {
+	if (result.COLLECTING_EVENT_ID[0] < 0) {
 		alert('Oops! Something bad happend with the collecting_event pick. ' + result.MSG);
 	} else {
-		document.getElementById('locality_id').value='';
-		document.getElementById('fetched_eventid').value=collecting_event_id;
-		var BEGAN_DATE = result.BEGAN_DATE;
-		var ENDED_DATE = result.ENDED_DATE;
-		var VERBATIM_DATE = result.VERBATIM_DATE;
-		var VERBATIM_LOCALITY = result.VERBATIM_LOCALITY;
-		var COLL_EVENT_REMARKS = result.COLL_EVENT_REMARKS;
-		var COLLECTING_SOURCE = result.COLLECTING_SOURCE;
-		var COLLECTING_METHOD = result.COLLECTING_METHOD;
-		var HABITAT_DESC = result.HABITAT_DESC;
-		document.getElementById('began_date').value = BEGAN_DATE;
-		document.getElementById('began_date').className='readClr';
-		document.getElementById('began_date').setAttribute('readonly','readonly');
-		document.getElementById('ended_date').value = ENDED_DATE;
-		document.getElementById('ended_date').className='readClr';
-		document.getElementById('ended_date').setAttribute('readonly','readonly');
-		document.getElementById('verbatim_locality').value = VERBATIM_LOCALITY;
-		document.getElementById('verbatim_locality').className='readClr';
-		document.getElementById('verbatim_locality').setAttribute('readonly','readonly');
-		document.getElementById('verbatim_date').value = VERBATIM_DATE;
-		document.getElementById('verbatim_date').className='readClr';
-		document.getElementById('verbatim_date').setAttribute('readonly','readonly');
-		document.getElementById('coll_event_remarks').value = COLL_EVENT_REMARKS;
-		document.getElementById('coll_event_remarks').className='readClr';
-		document.getElementById('coll_event_remarks').setAttribute('readonly','readonly');
-		document.getElementById('collecting_source').value = COLLECTING_SOURCE;
-		document.getElementById('collecting_source').className='readClr';
-		document.getElementById('collecting_source').setAttribute('readonly','readonly');
-		document.getElementById('collecting_method').value = COLLECTING_METHOD;
-		document.getElementById('collecting_method').className='readClr';
-		document.getElementById('collecting_method').setAttribute('readonly','readonly');
-		document.getElementById('habitat_desc').value = HABITAT_DESC;
-		document.getElementById('habitat_desc').className='readClr';
-		document.getElementById('habitat_desc').setAttribute('readonly','readonly');
-		document.getElementById('eventPicker').style.display='none';
-		document.getElementById('eventUnPicker').style.display='';
+		$("#locality_id").val('');
+		$("#fetched_eventid").val(result.COLLECTING_EVENT_ID[0]);
+		
+		$("#began_date").val(result.BEGAN_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
+		$("#ended_date").val(result.ENDED_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
+		$("#verbatim_date").val(result.VERBATIM_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
+		$("#verbatim_locality").val(result.VERBATIM_LOCALITY[0]).removeClass().addClass('readClr').attr('readonly',true);
+		$("#coll_event_remarks").val(result.COLL_EVENT_REMARKS[0]).removeClass().addClass('readClr').attr('readonly',true);
+		$("#collecting_source").val(result.COLLECTING_SOURCE[0]).removeClass().addClass('readClr').attr('readonly',true);
+		$("#collecting_method").val(result.COLLECTING_METHOD[0]).removeClass().addClass('readClr').attr('readonly',true);
+		$("#habitat_desc").val(result.HABITAT_DESC[0]).removeClass().addClass('readClr').attr('readonly',true);
+		
+		
+		$("#eventPicker").hide();
+		$("#eventUnPicker").show();
+		
 		success_pickedLocality(r);
 	}
 }
@@ -1403,41 +1329,10 @@ function pickedLocality () {
 }
 function success_pickedLocality (r) {
 	result=r.DATA;
-	var locality_id=result.LOCALITY_ID[0];
-	if (locality_id < 0) {
+	if (result.LOCALITY_ID[0] < 0) {
 		alert('Oops! Something bad happend with the locality pick. ' + result.MSG[0]);
 	} else {
-		var HIGHER_GEOG = result.HIGHER_GEOG[0];
-		var MAXIMUM_ELEVATION = result.MAXIMUM_ELEVATION[0];
-		var MINIMUM_ELEVATION = result.MINIMUM_ELEVATION[0];
-		var ORIG_ELEV_UNITS = result.ORIG_ELEV_UNITS[0];
-		var SPEC_LOCALITY = result.SPEC_LOCALITY[0];
-		var LOCALITY_REMARKS = result.LOCALITY_REMARKS[0];
-		var LAT_DEG = result.LAT_DEG[0];
-		var DEC_LAT_MIN = result.DEC_LAT_MIN[0];
-		var LAT_MIN = result.LAT_MIN[0];
-		var LAT_SEC = result.LAT_SEC[0];
-		var LAT_DIR = result.LAT_DIR[0];
-		var LONG_DEG = result.LONG_DEG[0];
-		var DEC_LONG_MIN = result.DEC_LONG_MIN[0];
-		var LONG_MIN = result.LONG_MIN[0];
-		var LONG_SEC = result.LONG_SEC[0];
-		var LONG_DIR = result.LONG_DIR[0];
-		var DEC_LAT = result.DEC_LAT[0];
-		var DEC_LONG = result.DEC_LONG[0];		
-		var DATUM = result.DATUM[0];
-		var ORIG_LAT_LONG_UNITS = result.ORIG_LAT_LONG_UNITS[0];
-		var DETERMINED_BY = result.DETERMINED_BY[0];
-		var DETERMINED_DATE = result.DETERMINED_DATE[0];
-		var LAT_LONG_REF_SOURCE = result.LAT_LONG_REF_SOURCE[0];
-		var LAT_LONG_REMARKS = result.LAT_LONG_REMARKS[0];
-		var MAX_ERROR_DISTANCE = result.MAX_ERROR_DISTANCE[0];
-		var MAX_ERROR_UNITS = result.MAX_ERROR_UNITS[0];
-		var EXTENT = result.EXTENT[0];
-		var GPSACCURACY = result.GPSACCURACY[0];
-		var GEOREFMETHOD = result.GEOREFMETHOD[0];
-		var VERIFICATIONSTATUS = result.VERIFICATIONSTATUS[0];
-		document.getElementById('fetched_locid').value=locality_id;
+		$("#fetched_locid").val(result.LOCALITY_ID[0]);
 
 		$("#higher_geog").attr("readOnly", true).removeClass().addClass('readClr').val(result.HIGHER_GEOG[0]);
 		$("#maximum_elevation").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAXIMUM_ELEVATION[0]);
@@ -1497,11 +1392,9 @@ function success_pickedLocality (r) {
 				$("#geo_att_determined_method_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
 				$("#geo_att_remark_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
 			}
-			console.log('len='+r.ROWCOUNT);
 			for (i=0;i<r.ROWCOUNT;i++) {
 				if (i<5) {
 					var eNum=parseInt(i+1);
-					console.log(eNum);
 					$("#geology_attribute_" + eNum).val(result.GEOLOGY_ATTRIBUTE[i]);
 					$("#geo_att_value_" + eNum).append('<option value="' + result.GEO_ATT_VALUE[i] + '">' + result.GEO_ATT_VALUE[i] + '</option>').val(result.GEO_ATT_VALUE[i]);
 					$("#geo_att_determiner_" + eNum).val(result.GEO_ATT_DETERMINER[i]);
