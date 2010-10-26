@@ -12,10 +12,10 @@
 	function nada(){}
 	function toggleGeogDetail(onOff) {
 		if (onOff==0) {
-			$("#geogDetail").removeClass().addClass('noShow');
+			$("#geogDetail").hide();
 			$("#geogDetailCtl").attr('onCLick','toggleGeogDetail(1)').html('Show More Options');	
 		} else {
-			$("#geogDetail").removeClass();
+			$("#geogDetail").show();
 			$("#geogDetailCtl").attr('onCLick','toggleGeogDetail(0)').html('Show Fewer Options');
 		}
 		jQuery.getJSON("/component/functions.cfc",
@@ -30,16 +30,12 @@
 		);
 	}
 	function toggleLocDetail(onOff) {
-		var e = document.getElementById('locDetail');
-		var c = document.getElementById('locDetailCtl');
 		if (onOff==0) {
-			e.className='noShow'
-			c.setAttribute('onCLick','toggleLocDetail(1)');
-			c.innerHTML='Show More Options';
+			$("#locDetail").hide();
+			$("#locDetailCtl").attr('onCLick','toggleLocDetail(1)').html('Show More Options');
 		} else {
-			e.className='';
-			c.setAttribute('onCLick','toggleLocDetail(0)');
-			c.innerHTML='Show Fewer Options';
+			$("#locDetail").show();
+			$("#locDetailCtl").attr('onCLick','toggleLocDetail(0)').html('Show Fewer Options');
 		}
 		jQuery.getJSON("/component/functions.cfc",
 			{
@@ -53,16 +49,12 @@
 		);
 	}
 	function toggleGeorefDetail(onOff) {
-		var e = document.getElementById('georefDetail');
-		var c = document.getElementById('georefDetailCtl');
 		if (onOff==0) {
-			e.className='noShow'
-			c.setAttribute('onCLick','toggleGeorefDetail(1)');
-			c.innerHTML='Show Georeference Options';
+			$("#georefDetail").hide();
+			$("#georefDetailCtl").attr('onCLick','toggleGeorefDetail(1)').html('Show More Options');
 		} else {
-			e.className='';
-			c.setAttribute('onCLick','toggleGeorefDetail(0)');
-			c.innerHTML='Hide Georeference Options';
+			$("#georefDetail").show();
+			$("#georefDetailCtl").attr('onCLick','toggleGeorefDetail(0)').html('Show Fewer Options');
 		}
 		jQuery.getJSON("/component/functions.cfc",
 			{
@@ -76,16 +68,12 @@
 		);
 	}
 	function toggleEventDetail(onOff) {
-		var e = document.getElementById('eventDetail');
-		var c = document.getElementById('eventDetailCtl');
 		if (onOff==0) {
-			e.className='noShow'
-			c.setAttribute('onCLick','toggleEventDetail(1)');
-			c.innerHTML='Show More Options';
+			$("#eventDetail").hide();
+			$("#eventDetailCtl").attr('onCLick','toggleEventDetail(1)').html('Show More Options');
 		} else {
-			e.className='';
-			c.setAttribute('onCLick','toggleEventDetail(0)');
-			c.innerHTML='Show Fewer Options';
+			$("#eventDetail").show();
+			$("#eventDetailCtl").attr('onCLick','toggleEventDetail(0)').html('Show Fewer Options');
 		}
 		jQuery.getJSON("/component/functions.cfc",
 			{
