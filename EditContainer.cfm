@@ -875,7 +875,6 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 					 <select name="institution_acronym" id="institution_acronym" size="1" class="reqdClr">
 				          <cfloop query="ctInst"> 
 	            				<option value="#institution_acronym#">#institution_acronym#</option>
-							</cfif>
 	         			 </cfloop> 
 					</select>
 				</td>
