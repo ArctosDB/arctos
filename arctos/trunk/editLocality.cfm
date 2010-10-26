@@ -9,6 +9,10 @@
 		$.each($("input[id^='determined_date']"), function() {
 			$("#" + this.id).datepicker();
 	    });
+	    $.each($("input[id^='geo_att_determined_date_']"), function() {
+			$("#" + this.id).datepicker();
+	    });
+	    
 	});
 	function populateGeology(id) {
 		if (id=='geology_attribute') {
