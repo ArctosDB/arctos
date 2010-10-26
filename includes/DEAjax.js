@@ -1500,6 +1500,7 @@ function success_pickedLocality (r) {
 			for (i=0;i<result.length;i++) {
 				if (i<5) {
 					var eNum=parseInt(i+1);
+					console.log(eNum);
 					$("#geology_attribute_" + eNum).val(result.GEOLOGY_ATTRIBUTE[i]);
 					$("#geo_att_value_" + eNum).val(result.GEO_ATT_VALUE[i]);
 					$("#geo_att_determiner_" + eNum).val(result.GEO_ATT_DETERMINER[i]);
