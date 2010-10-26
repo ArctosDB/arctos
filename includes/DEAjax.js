@@ -1276,6 +1276,13 @@ function unpickLocality () {
 	document.getElementById('lat_long_remarks').removeAttribute('readonly');
 	document.getElementById('orig_lat_long_units').className='';
 	document.getElementById('orig_lat_long_units').removeAttribute('readonly');
+	
+	
+
+	$("#utm_zone").attr("readOnly", false).removeClass();
+	$("#utm_ew").attr("readOnly", false).removeClass();
+	$("#utm_ns").attr("readOnly", false).removeClass();
+
 	document.getElementById('locality_id').value='';
 	document.getElementById('fetched_locid').value='';
 	document.getElementById('fetched_eventid').value='';
@@ -1531,9 +1538,9 @@ function success_pickedLocality (r) {
 		document.getElementById('lat_long_remarks').className='readClr';
 		document.getElementById('lat_long_remarks').setAttribute('readonly','readonly');
 		
-		 $("#utm_zone").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_ZONE[0]);
-		 $("#utm_ew").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_EW[0]);
-		 $("#utm_ns").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_NS[0]);
+		$("#utm_zone").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_ZONE[0]);
+		$("#utm_ew").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_EW[0]);
+		$("#utm_ns").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_NS[0]);
 		
 		
 		switchActive(ORIG_LAT_LONG_UNITS);
