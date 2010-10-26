@@ -1498,6 +1498,7 @@ function success_pickedLocality (r) {
 				$("#geo_att_determined_method_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
 				$("#geo_att_remark_" + eNum).attr("readOnly", true).removeClass().addClass('readClr');
 			}
+			console.log('len='+result.length);
 			for (i=0;i<result.length;i++) {
 				if (i<5) {
 					var eNum=parseInt(i+1);
