@@ -1806,10 +1806,13 @@
 			from cf_users
 			where username='#session.username#'
 		</cfquery>
+		<cfset urlRoot=left(returnURL,find(".cfm", returnURL))>
 		<cfquery name="alreadyGotOne" datasource="cf_dbuser">
 			select search_name
 			from cf_canned_search
-			where search_name='#srchName#'
+			where search_name='#srchName#' 
+				and user_id='#me.user_id#'
+				and returnURL like '#returnURL#%'
 		</cfquery>
 		<cfif len(alreadyGotOne.search_name) gt 0>
 			<cfset msg="The name of your saved search is already in use.">
