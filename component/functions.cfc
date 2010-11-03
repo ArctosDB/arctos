@@ -1812,7 +1812,7 @@
 			from cf_canned_search
 			where search_name='#srchName#' 
 				and user_id='#me.user_id#'
-				and returnURL like '#returnURL#%'
+				and url like '#urlRoot#%'
 		</cfquery>
 		<cfif len(alreadyGotOne.search_name) gt 0>
 			<cfset msg="The name of your saved search is already in use.">
