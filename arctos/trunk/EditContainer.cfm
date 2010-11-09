@@ -65,69 +65,45 @@
 		</cfif>
 	</cfif>
 	<cfoutput>
-	<cfset uds="UPDATE container SET container_id = #container_id#">
-	<cfset udQual="">
-	<cfif len(#newParentBarcode#) gt 0>
-		<cfset udQual="#udqual#, parent_container_id = #newParentId#">
+	<cfset sql="UPDATE container SET 
+		container_type = '#container_type#',
+		description = '#escapeQuotes(description)#',
+		barcode = '#barcode#',
+		institution_acronym = '#institution_acronym#'
+		label = '#label#',
+		parent_install_date = '#parent_install_date#',
+		container_remarks = '#escapeQuotes(container_remarks)#',
+		locked_position = #locked_position#">
+	<cfif len(newParentBarcode) gt 0>
+		<cfset sql=sql & ",parent_container_id = #newParentId#">
 	</cfif>
-<cfif #container_type# is not "">
-	<cfset udQual="#udqual#, container_type = '#container_type#'">
+	<cfif len(width) gt 0>
+		<cfset sql=sql & ",width = #width#">
+	<cfelse>
+		<cfset sql=sql & ",width = NULL">
 	</cfif>
-<cfif #description# is not "">
-	<cfset #udQual# = "#udqual#, description = '#escapeQuotes(description)#'">
-<cfelse>
-	<cfset #udQual# = "#udqual#, description = NULL">
-</cfif>
-<cfif #barcode# is not "">
-	<cfset #udQual# = "#udQual# , barcode = '#barcode#'">
-  <cfelse>
-  	<cfset #udQual# = "#udQual# , barcode = null">
-</cfif>
-<cfif #width# is not "">
-	<cfset #udQual# = "#udQual# , width = #width#">
-  <cfelse>
-  	<cfset #udQual# = "#udQual# , width = null">
-</cfif>
-<cfif #height# is not "">
-	<cfset #udQual# = "#udQual# , height = #height#">
-  <cfelse>
-  	<cfset #udQual# = "#udQual# , height = null">
-</cfif>
-<cfif #length# is not "">
-	<cfset #udQual# = "#udQual# , length = #length#">
-  <cfelse>
-  	<cfset #udQual# = "#udQual# , length = null">
-</cfif>
-<cfif #number_positions# is not "">
-	<cfset #udQual# = "#udQual# , number_positions = #number_positions#">
-  <cfelse>
-  	<cfset #udQual# = "#udQual# , number_positions = null">
-</cfif>
-<cfset #udQual# = "#udQual# , institution_acronym = '#institution_acronym#'">
-<cfset #udQual# = "#udQual# , locked_position = #locked_position#">
-<cfif #label# is not "">
-	<cfset #udQual# = "#udQual# , label = '#label#'">
-</cfif>
-<cfif #parent_install_date# is not "">
-<cfif isdate("#parent_install_date#")>
-				<cfset parent_install_date = "'#Dateformat(parent_install_date, "yyyy-mm-dd")#'">
-				<cfelse><cfset parent_install_date = "null">
-			</cfif>
-	<cfset #udQual# = "#udQual# , parent_install_date = #parent_install_date#">
-</cfif>
-<cfif #container_remarks# is not "">
-	<cfset #udQual# = "#udQual# , container_remarks = '#escapeQuotes(container_remarks)#'">
-<cfelse>
-	<cfset #udQual# = "#udQual# , container_remarks = null">
-</cfif>
-<cfset udWhere = "WHERE container_id = #container_id#">
-<cfset contSqlStr="#uds# #udQual# #udWhere#">
-<!--- Now build SQL to update Fluid_Container_History
-First, make sure that this is a fluid container--->
-<cfquery name="isFluid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	SELECT * FROM fluid_container_history WHERE container_id = #container_id#
-</cfquery>
-<cfif #isFluid.recordcount# gt 0 AND len(#isFluid.container_id#) gt 0>
+	<cfif len(height) gt 0>
+		<cfset sql=sql & ",height = #height#">
+	<cfelse>
+		<cfset sql=sql & ",height = NULL">
+	</cfif>
+	<cfif len(length) gt 0>
+		<cfset sql=sql & ",length = #length#">
+	<cfelse>
+		<cfset sql=sql & ",length = NULL">
+	</cfif>
+	<cfif len(number_positions) gt 0>
+		<cfset sql=sql & ",number_positions = #number_positions#">
+	<cfelse>
+		<cfset sql=sql & ",number_positions = NULL">
+	</cfif>
+	<cfset sql=sql & " WHERE container_id = #container_id#">
+
+	<cfquery name="isFluid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT * FROM fluid_container_history WHERE container_id = #container_id#
+	</cfquery>
+	
+	<cfif isFluid.recordcount gt 0 AND len(isFluid.container_id) gt 0>
 		<cfset chUp = "UPDATE Fluid_Container_History SET container_id = #container_id#">
 		<cfset chQual="">
 		<cfif #Checked_Date# is not "">
@@ -279,8 +255,8 @@ First, make sure that this is a fluid container--->
 				</td>
 			</tr>
 			<tr>
-				<td>Institution</td>
 				<td>
+					 <label for="institution_acronym">Institution</label>
 					 <select name="institution_acronym" id="institution_acronym" size="1" class="reqdClr">
 				          <cfloop query="ctInst"> 
 	            				<option <cfif getCont.institution_acronym is ctInst.institution_acronym> selected="selected" </cfif>value="#institution_acronym#">#institution_acronym#</option>
