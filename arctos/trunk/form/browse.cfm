@@ -41,6 +41,7 @@
 			where
 				mime_type not in ('image/dng') and
 				preview_uri is not null and
+				media_relations.media_relationship='shows cataloged_item' and
 				media.media_id=media_relations.media_id and
 				media_relations.related_primary_key=filtered_flat.collection_object_id
 		)
