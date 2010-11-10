@@ -559,7 +559,7 @@
 					<cfif len(new_parent_barcode) gt 0>
 						,#gpid.container_id#
 					<cfelse>
-						,NULL
+						,0
 					</cfif>
 					,'#container_type#',
 					'#label#',
