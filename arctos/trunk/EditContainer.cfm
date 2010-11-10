@@ -8,10 +8,10 @@
 	function toggleFluid(oo){
 		if (oo==1){
 			$("#fluidDiv").show();
-			$("#fluidCtl").attr('click','toggleFluid(1)').text('Is Not Fluid');
+			$("#fluidCtl").attr('click','toggleFluid(0)').text('Is Not Fluid');
 		} else {
 			$("#fluidDiv").hide();
-			$("#fluidCtl").attr('click','toggleFluid(0)').text('Is Fluid');
+			$("#fluidCtl").attr('click','toggleFluid(1)').text('Is Fluid');
 		}
 	}
 			
