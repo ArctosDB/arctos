@@ -713,7 +713,6 @@
 						<option value="#ctConc.concentration#">#ctConc.concentration#</option>
 					</cfloop>
 				</select>
-				<input name="concentration" id="concentration" type="text" value="#concentration#" class="reqdClr">
 				<label for="fluid_remarks">Fluid Remarks</label>
 				<input name="fluid_remarks" id="fluid_remarks" type="text" value="#fluid_remarks#">
 			</div>
