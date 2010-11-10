@@ -566,7 +566,7 @@
 					'#description#',
 					to_date('#parent_install_date#'),
 					'#escapeQuotes(container_remarks)#',
-					'#barcode#',
+					'#barcode#'
 					<cfif len(width) gt 0>
 						,#width#
 					<cfelse>
