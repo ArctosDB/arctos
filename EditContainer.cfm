@@ -84,7 +84,7 @@
 				container_type = '#container_type#',
 				description = '#escapeQuotes(description)#',
 				barcode = '#barcode#',
-				institution_acronym = '#institution_acronym#'
+				institution_acronym = '#institution_acronym#',
 				label = '#label#',
 				parent_install_date = '#parent_install_date#',
 				container_remarks = '#escapeQuotes(container_remarks)#',
