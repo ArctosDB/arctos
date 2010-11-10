@@ -44,7 +44,7 @@
 	function isThisAPosition(){
 		var parBcEl = document.getElementById('new_parent_barcode');
 		var nPosEl = document.getElementById('number_positions');
-		var contTypeEl = document.getElementById('Container_Type');
+		var contTypeEl = document.getElementById('container_type');
 		var ct = contTypeEl.value;
 		if (ct == 'position') {
 			parBcEl.className = 'reqdClr';
