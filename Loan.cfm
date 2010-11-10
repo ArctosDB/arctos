@@ -1502,20 +1502,20 @@
 						<table width="100%">
 							<tr>
 								<td align="left">
-									<a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">Review Items</a>
+									<a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">[ Review Items ]</a>
 								</td>
 								<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 									<td>
-										<a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">Add Items</a>
-										<a href="loanByBarcode.cfm?transaction_id=#transaction_id#">Add Items By Barcode</a>
+										<a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">[ Add Items ]</a>
+										<a href="loanByBarcode.cfm?transaction_id=#transaction_id#">[ Add Items By Barcode ]</a>
 									</td>
 									<td>
-										<a href="Loan.cfm?transaction_id=#transaction_id#&Action=editLoan">Edit Loan</a>
+										<a href="Loan.cfm?transaction_id=#transaction_id#&Action=editLoan">[ Edit Loan ]</a>
 									</td>
 									<cfif #project_id# gt 0>
 										<td>
 										<a href="Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#">
-											Add To Project</a>
+											[ Add To Project ]</a>
 										</td>
 									</cfif>
 								</cfif>
