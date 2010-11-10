@@ -555,7 +555,7 @@
 					institution_acronym,
 					locked_position
 				) VALUES (
-					#nextContainer.nextContainer# 
+					#nextContainer.newid# 
 					<cfif len(new_parent_barcode) gt 0>
 						,#gpid.container_id#
 					<cfelse>
@@ -603,7 +603,7 @@
 						concentration,
 						fluid_remarks
 					) VALUES (
-						#nextContainer.nextContainer#,
+						#nextContainer.newid#,
 						'#checked_date#',
 						'#fluid_type#',
 						#concentration#,
@@ -612,7 +612,7 @@
 				</cfquery>
 			</cfif>
 		</cftransaction>
-		<cflocation url="EditContainer.cfm?action=nothing&container_id=#nextContainer.nextContainer#">
+		<cflocation url="EditContainer.cfm?action=nothing&container_id=#nextContainer.newid#">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------->
