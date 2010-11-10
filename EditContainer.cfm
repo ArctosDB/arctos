@@ -783,7 +783,7 @@
 			<select name="Container_Type" size="1" id="container_type" class="reqdClr" onchange="isThisAPosition();">
 				<option value=""></option>
 				<cfloop query="ContType"> 
-					 <cfif ContType.ctContType is not "collection object">
+					 <cfif ContType.container_type is not "collection object">
 			            <option <cfif variables.container_type is ContType.container_type> selected="selected" </cfif>value="#ContType.ctContType#">#ContType.ctContType#</option>
 					</cfif>
           		</cfloop> 
