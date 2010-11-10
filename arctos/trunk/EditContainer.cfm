@@ -5,6 +5,16 @@
 		$("#checked_date").datepicker();
 		$("#check_date").datepicker();
 	});
+	function toggleFluid(oo){
+		if (oo==1){
+			$("#fluidDiv").show();
+			$("#fluidCtl").attr('onclick','toggleFluid(1)').text('Is Not Fluid');
+		} else {
+			$("#fluidDiv").hide();
+			$("#fluidCtl").attr('onclick','toggleFluid(0)').text('Is Fluid');
+		}
+	}
+			
 	function magicNumbers (type) {
 		var type;
 		var h=document.getElementById('height');
@@ -65,99 +75,81 @@
 		</cfif>
 	</cfif>
 	<cfoutput>
-	<cfset sql="UPDATE container SET 
-		container_type = '#container_type#',
-		description = '#escapeQuotes(description)#',
-		barcode = '#barcode#',
-		institution_acronym = '#institution_acronym#'
-		label = '#label#',
-		parent_install_date = '#parent_install_date#',
-		container_remarks = '#escapeQuotes(container_remarks)#',
-		locked_position = #locked_position#">
-	<cfif len(newParentBarcode) gt 0>
-		<cfset sql=sql & ",parent_container_id = #newParentId#">
-	</cfif>
-	<cfif len(width) gt 0>
-		<cfset sql=sql & ",width = #width#">
-	<cfelse>
-		<cfset sql=sql & ",width = NULL">
-	</cfif>
-	<cfif len(height) gt 0>
-		<cfset sql=sql & ",height = #height#">
-	<cfelse>
-		<cfset sql=sql & ",height = NULL">
-	</cfif>
-	<cfif len(length) gt 0>
-		<cfset sql=sql & ",length = #length#">
-	<cfelse>
-		<cfset sql=sql & ",length = NULL">
-	</cfif>
-	<cfif len(number_positions) gt 0>
-		<cfset sql=sql & ",number_positions = #number_positions#">
-	<cfelse>
-		<cfset sql=sql & ",number_positions = NULL">
-	</cfif>
-	<cfset sql=sql & " WHERE container_id = #container_id#">
-
-	<cfquery name="isFluid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		SELECT * FROM fluid_container_history WHERE container_id = #container_id#
-	</cfquery>
-	
-	<cfif isFluid.recordcount gt 0 AND len(isFluid.container_id) gt 0>
-		<cfset chUp = "UPDATE Fluid_Container_History SET container_id = #container_id#">
-		<cfset chQual="">
-		<cfif #Checked_Date# is not "">
-			<cfset #chQual# = "#chQual# , Checked_Date = '#dateformat(Checked_Date,'yyyy-mm-dd')#'">
-		</cfif>
-		<cfif #Fluid_Type# is not "">
-			<cfset #chQual# = "#chQual# , Fluid_Type = '#Fluid_Type#'">
-		</cfif>
-		<cfif #Concentration# is not "">
-			<cfset #chQual# = "#chQual# , Concentration = #Concentration#">
-		</cfif>
-		<cfif #Fluid_Remarks# is not "">
-			<cfset #chQual# = "#chQual# , Fluid_Remarks = '#Fluid_Remarks#'">
-		</cfif>
-		<cfset chWhere = "WHERE container_id = #container_id#">
-		<cfset chSqlStr = "#chUp# #chQual# #chWhere#">
-		<cfquery name="updateFluidContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				#preservesinglequotes(chSqlStr)#
-		</cfquery>
-	<cfelse>
-		<cfif len(#checked_date#) GT 0 OR len(#fluid_type#) GT 0 OR len(#concentration#) GT 0>
-			<!--- make a new fluid container --->
-      <cfset fch = "INSERT INTO Fluid_Container_History (
-	  		container_id,
-			checked_date,
-			fluid_type,
-			concentration">
-		<cfif len(#Fluid_Remarks#) gt 0>
-			<cfset #fch# = "#fch# , Fluid_Remarks">
-		</cfif>
-		<cfset #fch# = "#fch# ) VALUES (
-			#container_id#,
-			'#dateformat(checked_date,'yyyy-mm-dd')#',
-			'#fluid_type#',
-			#concentration#">
-		<cfif len(#Fluid_Remarks#) gt 0>
-			<cfset #fch# = "#fch# , '#Fluid_Remarks#'">
-		</cfif>
-		<cfset #fch# = "#fch# )">
-		<cfquery name="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			#preservesinglequotes(fch)#
-		</cfquery>
-		</cfif>
-    </cfif>
-
-
-
-
-	<cfquery name="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preservesinglequotes(contsqlStr)#
-	</cfquery>
-	<cflocation url="EditContainer.cfm?container_id=#container_id#">
+		<cftransaction>
+			<cfset sql="UPDATE container SET 
+				container_type = '#container_type#',
+				description = '#escapeQuotes(description)#',
+				barcode = '#barcode#',
+				institution_acronym = '#institution_acronym#'
+				label = '#label#',
+				parent_install_date = '#parent_install_date#',
+				container_remarks = '#escapeQuotes(container_remarks)#',
+				locked_position = #locked_position#">
+			<cfif len(newParentBarcode) gt 0>
+				<cfset sql=sql & ",parent_container_id = #newParentId#">
+			</cfif>
+			<cfif len(width) gt 0>
+				<cfset sql=sql & ",width = #width#">
+			<cfelse>
+				<cfset sql=sql & ",width = NULL">
+			</cfif>
+			<cfif len(height) gt 0>
+				<cfset sql=sql & ",height = #height#">
+			<cfelse>
+				<cfset sql=sql & ",height = NULL">
+			</cfif>
+			<cfif len(length) gt 0>
+				<cfset sql=sql & ",length = #length#">
+			<cfelse>
+				<cfset sql=sql & ",length = NULL">
+			</cfif>
+			<cfif len(number_positions) gt 0>
+				<cfset sql=sql & ",number_positions = #number_positions#">
+			<cfelse>
+				<cfset sql=sql & ",number_positions = NULL">
+			</cfif>
+			<cfset sql=sql & " WHERE container_id = #container_id#">
+			<cfquery name="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				#preservesinglequotes(sql)#
+			</cfquery>
+			<cfquery name="isFluid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				SELECT * FROM fluid_container_history WHERE container_id = #container_id#
+			</cfquery>	
+			<cfif isFluid.recordcount gt 0 AND len(isFluid.container_id) gt 0>
+				<cfquery name="updateFluidContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					UPDATE 
+						Fluid_Container_History 
+					SET 
+						Checked_Date = '#dateformat(Checked_Date,'yyyy-mm-dd')#',
+						Fluid_Type = '#Fluid_Type#',
+						Concentration = #Concentration#,
+						Fluid_Remarks = '#Fluid_Remarks#
+					WHERE 
+						container_id = #container_id#
+				</cfquery>
+			<cfelse>
+				<cfif len(checked_date) GT 0 OR len(fluid_type) GT 0 OR len(concentration) GT 0>
+					<!--- make a new fluid container --->
+					<cfquery name="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO Fluid_Container_History (
+			  				container_id,
+							checked_date,
+							fluid_type,
+							concentration,
+							Fluid_Remarks
+						) VALUES (
+							#container_id#,
+							'#dateformat(checked_date,'yyyy-mm-dd')#',
+							'#fluid_type#',
+							#concentration#,
+							'#Fluid_Remarks#'
+						)
+					</cfquery>
+				</cfif>
+		    </cfif>
+		</cftransaction>
+	<cflocation url="EditContainer.cfm?container_id=#container_id#" addtoken="false">
 </cfoutput>
-	
 </cfif>
 <!---------------------------------------------------------------->
 <cfif action is "nothing">
@@ -368,7 +360,6 @@
 					<input name="fluid_remarks" id="fluid_remarks" type="text" value="#getCont.fluid_remarks#" size="80">
 				</td>
 			</tr>
-			
 			<tr>
 				<td colspan="2">
 					<table cellpadding="0" cellspacing="0" width="100%">
@@ -383,33 +374,25 @@
 								<input type="button"
 									value="Update" 
 									class="savBtn"
-									onmouseover="this.className='savBtn btnhov'"
-									onmouseout="this.className='savBtn'"
 									onclick="form1.action.value='update';submit();">
 							</td>
 							<td>
 								<input type="button" 
 									value="Delete" 
 									class="delBtn"
-									onmouseover="this.className='delBtn btnhov';"
-									onmouseout="this.className='delBtn';"
 									onclick="form1.action.value='delete';confirmDelete('form1');" >
 							</td>
 							<td>
 								<input type="button"
 									value="Clone" 
 									class="insBtn"
-									onmouseover="this.className='insBtn btnhov'"
-									onmouseout="this.className='insBtn'"
 									onclick="form1.action.value='newContainer';submit();">
 							</td>
 							<td>
-								<cfif #getCont.parent_container_id# gt 0>
+								<cfif getCont.parent_container_id gt 0>
 									<input type="button"
 										value="Edit Parent"
 										class="lnkBtn"
-										onmouseover="this.className='lnkBtn btnhov'"
-										onmouseout="this.className='lnkBtn'"
 										onclick="document.location='EditContainer.cfm?container_id=#getCont.parent_container_id#';">
 								</cfif>
 							</td>
@@ -419,22 +402,11 @@
 							</td>
 						</tr>
 					</table>
-					
-	  				
-				 	
-					
 					<input type="hidden" name="action" value="update">
 				</td>
 			</tr>
 	</table>
 </form>
-<cfquery name="me" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select preferred_agent_name.agent_name,preferred_agent_name.agent_id from preferred_agent_name,
-	agent_name
-	where preferred_agent_name.agent_id = agent_name.agent_id and
-	agent_name.agent_name_type='login' and
-	agent_name.agent_name='#session.username#'
-</cfquery>
 <form name="checked" method="post" action="EditContainer.cfm">
 	<input type="hidden" name="action" value="saveChecked">
 	<input type="hidden" name="container_id" value="#getCont.container_id#">
@@ -443,10 +415,10 @@
 			<td>
 				<label for="checkedBy">Checked By</label>
 				<input type="text" 
-					name="checked_by" id="checked_by" class="reqdClr" value="#me.agent_name#"
+					name="checked_by" id="checked_by" class="reqdClr" value="#session.username#"
 					 onchange="getAgent('checked_agent_id','checked_by','checked',this.value); return false;"
 					 onKeyPress="return noenter(event);">
-					<input type="hidden" name="checked_agent_id" value="#me.agent_id#">
+					<input type="hidden" name="checked_agent_id" value="#session.MyAgentId#">
 			</td>
 			<td>
 				<label for="check_date">Checked Date</label>
@@ -455,15 +427,10 @@
 			</td>
 			<td>
 				<label for="check_remark">Check Remark</label>
-				<input type="text" 
-					name="check_remark" id="check_remark">
+				<input type="text" name="check_remark" id="check_remark">
 			</td>
 			<td>
-				<input type="submit"
-									value="Save Check"
-									class="savBtn"
-									onmouseover="this.className='savBtn btnhov'"
-									onmouseout="this.className='savBtn'">
+				<input type="submit" value="Save Check" class="savBtn">
 			</td>
 			
 		</tr>
@@ -476,7 +443,7 @@
 	 checked_agent_id = agent_id and
 	 container_id=#container_id# order by check_date
 </cfquery>
-<cfif #checked.recordcount# is 0>
+<cfif checked.recordcount is 0>
 	No checked history.
 <cfelse>
 	<table border="1">
@@ -514,12 +481,12 @@
 				'#check_remark#'
 			)
 		</cfquery>
-		<cflocation url="EditContainer.cfm?container_id=#container_id#">
+		<cflocation url="EditContainer.cfm?container_id=#container_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 
 <!-------------------------------------------------------------->
-<cfif #Action# is "delete">
+<cfif Action is "delete">
 	<cfquery name="isUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from container where parent_container_id=#container_id#
 	</cfquery>
@@ -530,25 +497,30 @@
       doing!</font> </div>
     <cfabort>
 	<cfelseif isUsed.recordcount is 0>
-	<cfquery name="deleContHist" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		DELETE FROM container_history WHERE container_id = #container_id#
-	</cfquery>
-	<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		DELETE FROM container WHERE container_id = #container_id#
-	</cfquery>
+	<cftransaction>
+		<cfquery name="deleContHist" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			DELETE FROM container_history WHERE container_id = #container_id#
+		</cfquery>
+		<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			DELETE FROM container WHERE container_id = #container_id#
+		</cfquery>
+		<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			DELETE FROM container_check WHERE container_id = #container_id#
+		</cfquery>
+	</cftransaction>
 	<div align="center"><font color="#0066FF" size="+6">You've deleted this container!</font> </div>
 	</cfif>
 </cfif>
 <!----------------------------->
 
 <cfif #action# is "CreateNew">
-<cfset title="Create Container">
-<!--- Make sure we have required values--->
-<cfif #container_type# is not ""><!--- always required-got that, so we can make the container--->
-<cfset mkCont = "valid">
-<cfelse><cfset mkCont = "invalid">
-</cfif>
-<cfif #checked_date# is not ""
+	<cfif len(container_type) IS 0>
+		<div class="error">
+			Container type is required.
+		</div>
+		<cfabort>
+	</cfif>
+	<cfif len(checked_date) gt 0 is not ""
 		OR #fluid_type# is not ""
 		OR #concentration# is not ""
 		OR #fluid_remarks# is not ""><!--- They are trying to make a fluid container, make sure they have all required values--->
@@ -779,152 +751,98 @@
 <cflocation url="EditContainer.cfm?action=nothing&container_id=#container_id#">
 </cfif><!---end of <cfif URL.action is "CreateNew">--->
 <!---------------------------------------------->
-<cfif #action# is "newContainer">
-
-<cfoutput>
-	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select distinct(institution_acronym) institution_acronym from collection order by institution_acronym
-	</cfquery>
-<cfquery name="ContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-select container_type as ctContType from ctcontainer_type
-</cfquery>
-<cfquery name="FluidType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-select fluid_type from ctFluid_Type ORDER BY fluid_type
-</cfquery>
-
- <form name="form1" method="post" action="EditContainer.cfm">
- 	<input type="hidden" name="action" value="CreateNew" />
-<table border="0">
-  <tr>
-    <td colspan="2" align="center">
-		<b>Create Container</b>
-
-	</td>
-	</tr>
-	<tr>
-		<td align="right"><b>Container Type:</b></td>
-		<td>
-		<cfparam name="container_type" default="">
-			  <select name="Container_Type" size="1" id="Container_Type" class="reqdClr" onchange="isThisAPosition();">
+<cfif action is "newContainer">
+	<cfparam name="container_type" default="">
+	<cfparam name="width" default="">
+	<cfparam name="height" default="">
+	<cfparam name="length" default="">
+	<cfparam name="number_positions" default="">
+	<cfparam name="description" default="">
+	<cfparam name="barcode" default="">
+	<cfparam name="label" default="">
+	<cfparam name="checked_date" default="">
+	<cfparam name="parent_install_date" default="">
+	<cfparam name="container_remarks" default="">
+	<cfparam name="Fluid_Type" default="">
+	<cfparam name="concentration" default="">
+	<cfparam name="fluid_remarks" default="">
+	<cfoutput>
+		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select distinct(institution_acronym) institution_acronym from collection order by institution_acronym
+		</cfquery>
+		<cfquery name="ContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select container_type from ctcontainer_type order by container_type
+		</cfquery>
+		<cfquery name="FluidType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select fluid_type from ctFluid_Type ORDER BY fluid_type
+		</cfquery>
+		<h2>Create Container</h2>
+		<form name="form1" method="post" action="EditContainer.cfm">
+			<input type="hidden" name="action" value="CreateNew" />
+			<label for="container_type">Container Type</label>
+			<select name="Container_Type" size="1" id="container_type" class="reqdClr" onchange="isThisAPosition();">
 				<option value=""></option>
-					<cfloop query="ContType"> 
-						 <cfif #ContType.ctContType# is not "collection object">
-			            <option 
-							<cfif #container_type# is #ctContType#> selected </cfif>value="#ContType.ctContType#">#ContType.ctContType#</option>
-						</cfif>
-          			</cfloop> 
+				<cfloop query="ContType"> 
+					 <cfif ContType.ctContType is not "collection object">
+			            <option <cfif variables.container_type is ContType.container_type> selected="selected" </cfif>value="#ContType.ctContType#">#ContType.ctContType#</option>
+					</cfif>
+          		</cfloop> 
 			</select>
-		</td>
-	</tr>
-	<tr>
-		<td align="right">Parent Barcode:</td>
-		<td><input type="text" name="new_parent_barcode" id="new_parent_barcode" value="" /></td>
-	</tr>
-	<tr>
-		<td align="right"><b>Dimensions:</b></td>
-		<td>
-			<cfparam name="width" default="">
-			<cfparam name="height" default="">
-			<cfparam name="length" default="">
-			W: <input name="width" type="text" value="#width#" size="6">
-			H: <input name="height" type="text" value="#height#" size="6">
-			L: <input name="length" type="text" value="#length#" size="6">
-		</td>
-	</tr>
-	<tr>
-		<td align="right"><b>Number of Positions:</b></td>
-		<td>
-			<cfparam name="number_positions" default="">
+			<label for="new_parent_barcode">Parent Barcode</label>
+			<input type="text" name="new_parent_barcode" id="new_parent_barcode" value="" />
+			<label for="dTab">Dimensions</label>
+			<table border>
+				<tr>
+					<th>W</th>
+					<th>H</th>
+					<th>L</th>
+				</tr>
+				<tr>
+					<td><input name="width" type="text" value="#width#" size="6"></td>
+					<td><input name="height" type="text" value="#height#" size="6"></td>
+					<td><input name="length" type="text" value="#length#" size="6"></td>
+				</tr>
+			</table>
+			<label for="number_positions">Number of Positions</label>
 			<input name="number_positions" id="number_positions" type="text" value="#number_positions#">
-			
-		</td>
-	</tr>
-	<tr>
-		<td align="right"><b>Description:</b></td>
-		<td>
-			<cfparam name="description" default="">
+			<label for="description">Description</label>
 			<input name="description" type="text" value="#description#">
-		</td>
-	</tr>
-	
-			<tr>
-				<td>Institution</td>
-				<td>
-					 <select name="institution_acronym" id="institution_acronym" size="1" class="reqdClr">
-				          <cfloop query="ctInst"> 
-	            				<option value="#institution_acronym#">#institution_acronym#</option>
-	         			 </cfloop> 
-					</select>
-				</td>
-			</tr>
-	<tr>
-		<td align="right"><b>Barcode:</b></td>
-		<td><cfparam name="barcode" default="">
-		<input name="barcode" type="text" value="#barcode#"></td>
-	</tr>
-	<tr>
-		<td align="right"><b>Label:</b></td>
-		<td><cfparam name="label" default="">
-		<input name="label" type="text" value="#label#" class="reqdClr"></td>
-	</tr>
-	<tr>
-		<td align="right"><b>Install Date:</b></td>
-		<td><cfparam name="parent_install_date" default="">
-		<input name="parent_install_date" type="text" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr"></td>
-	</tr>
-	<tr>
-		<td align="right"><b>Remarks:</b></td>
-		<td><cfparam name="container_remarks" default="">
-		<input name="container_remarks" type="text" value="#container_remarks#"></td>
-	</tr>
-	<tr>
-		<td align="right"><b>Fluid Checked Date:</b></td>
-		<td><cfparam name="checked_date" default="">
-		<input name="checked_date" type="text" value="#checked_date#"></td>
-	</tr>
-	<tr>
-		<td align="right"><b>Fluid Type:</b></td>
-		<td> 
-			<cfparam name="Fluid_Type" default="">
-			<cfset thisFluidType = #Fluid_Type#>
-			<select name="Fluid_Type" size="1">
-				<option value=""></option>
-		          <cfloop query="FluidType"> 
-        		    <option <cfif #thisFluidType# is #Fluid_Type#> <selected> </cfif>value="#FluidType.Fluid_Type#">#FluidType.Fluid_Type#</option>
-		          </cfloop>
-				 </select>
-		</td>
-	</tr>
-	<tr>
-		<td align="right"><b>Fluid Concentration:</b></td>
-		<td>
-		<cfparam name="concentration" default="">
-		<input name="concentration" type="text" value="#concentration#"></td>
-	</tr>
-	<tr>
-		<td align="right"><b>Fluid Remarks: </b></td>
-		<td>
-			<cfparam name="fluid_remarks" default="">
-			<input name="fluid_remarks" type="text" value="#fluid_remarks#">
-		</td>
-	</tr>
-	<tr>
-		
-		<td colspan="2" align="center"> 
-			
-			  <input type="submit" value="Create Container" class="insBtn"
-				onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">	
-			
-	  </td>
-	</tr>
-</table>
-
-      
- </form>
-<script>
-	isThisAPosition();
-</script>
-</cfoutput>
+			<label for="institution_acronym">Institution</label>
+			<select name="institution_acronym" id="institution_acronym" size="1" class="reqdClr">
+				<cfloop query="ctInst"> 
+	            	<option value="#institution_acronym#">#institution_acronym#</option>
+	         	</cfloop> 
+			</select>
+			<label for="barcode">Barcode</label>
+			<input name="barcode" type="text" value="#barcode#">
+			<label for="label">Label</label>
+			<input name="label" type="text" value="#label#" class="reqdClr">
+			<label for="parent_install_date">Install Date</label>
+			<input name="parent_install_date" type="text" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
+			<label for="container_remarks">Remarks</label>
+			<input name="container_remarks" type="text" value="#container_remarks#">
+			<span id="fluidCtl" class="likeLink" onclick="toggleFluid(1)">Is Fluid</span>
+			<div id="fluidDiv">
+				<label for="checked_date">Fluid Type</label>
+				<select name="Fluid_Type" size="1" class="reqdClr">
+					<option value=""></option>
+		          	<cfloop query="FluidType"> 
+        		    	<option <cfif variables.fluid_type is FluidType.Fluid_Type> <selected="selected"> </cfif>value="#FluidType.Fluid_Type#">#FluidType.Fluid_Type#</option>
+		          	</cfloop>
+				</select>
+				<label for="checked_date">Fluid Checked Date</label>
+				<input name="checked_date" type="text" value="#checked_date#" class="reqdClr">
+				<label for="concentration">Fluid Concentration (0 to 1)</label>
+				<input name="concentration" type="text" value="#concentration#">
+				<label for="fluid_remarks">Fluid Remarks</label>
+				<input name="fluid_remarks" type="text" value="#fluid_remarks#">
+			</div>
+			<br><input type="submit" value="Create Container" class="insBtn">
+		</form>
+		<script>
+			isThisAPosition();
+		</script>
+	</cfoutput>
 </cfif>
 <!---------------------------------------------->
 <!---------------------------------------------------->
