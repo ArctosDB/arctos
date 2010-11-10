@@ -8,10 +8,10 @@
 	function toggleFluid(oo){
 		if (oo==1){
 			$("#fluidDiv").show();
-			$("#fluidCtl").attr('onclick','toggleFluid(1)').text('Is Not Fluid');
+			$("#fluidCtl").attr('click','toggleFluid(1)').text('Is Not Fluid');
 		} else {
 			$("#fluidDiv").hide();
-			$("#fluidCtl").attr('onclick','toggleFluid(0)').text('Is Fluid');
+			$("#fluidCtl").attr('click','toggleFluid(0)').text('Is Fluid');
 		}
 	}
 			
@@ -822,7 +822,7 @@
 			<label for="container_remarks">Remarks</label>
 			<input name="container_remarks" type="text" value="#container_remarks#">
 			<span id="fluidCtl" class="likeLink" onclick="toggleFluid(1)">Is Fluid</span>
-			<div id="fluidDiv">
+			<div id="fluidDiv" style="display:none">
 				<label for="checked_date">Fluid Type</label>
 				<select name="Fluid_Type" size="1" class="reqdClr">
 					<option value=""></option>
