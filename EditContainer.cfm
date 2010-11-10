@@ -643,6 +643,10 @@
 		<cfquery name="FluidType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select fluid_type from ctFluid_Type ORDER BY fluid_type
 		</cfquery>
+		
+		<cfquery name="ctConc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select concentration from ctfluid_concentration order by concentration
+		</cfquery>
 		<h2>Create Container</h2>
 		<form name="form1" method="post" action="EditContainer.cfm">
 			<input type="hidden" name="action" value="CreateNew" />
@@ -702,7 +706,13 @@
 				</select>
 				<label for="checked_date">Fluid Checked Date</label>
 				<input name="checked_date" id="checked_date" type="text" value="#checked_date#" class="reqdClr">
-				<label for="concentration">Fluid Concentration (0 to 1)</label>
+				<label for="concentration">Fluid Concentration</label>
+				<select name="concentration" id="concentration" size="1">
+					<option value=""></option>
+					<cfloop query="ctConc">
+						<option value="#ctConc.concentration#">#ctConc.concentration#</option>
+					</cfloop>
+				</select>
 				<input name="concentration" id="concentration" type="text" value="#concentration#" class="reqdClr">
 				<label for="fluid_remarks">Fluid Remarks</label>
 				<input name="fluid_remarks" id="fluid_remarks" type="text" value="#fluid_remarks#">
