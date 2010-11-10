@@ -8,10 +8,10 @@
 	function toggleFluid(oo){
 		if (oo==1){
 			$("#fluidDiv").show();
-			$("#fluidCtl").bind('click','toggleFluid(0)').text('Is Not Fluid');
+			$("#fluidCtl").html('<span class="likeLink" onclick="toggleFluid(0)">Is Not Fluid</span>');
 		} else {
 			$("#fluidDiv").hide();
-			$("#fluidCtl").bind('click','toggleFluid(1)').text('Is Fluid');
+			$("#fluidCtl").html('<span class="likeLink" onclick="toggleFluid(1)">Is Fluid</span>');
 		}
 	}
 			
@@ -821,7 +821,9 @@
 			<input name="parent_install_date" type="text" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
 			<label for="container_remarks">Remarks</label>
 			<input name="container_remarks" type="text" value="#container_remarks#">
-			<span id="fluidCtl" class="likeLink" onclick="toggleFluid(1)">Is Fluid</span>
+			<span id="fluidCtl">
+				<span class="likeLink" onclick="toggleFluid(1)">Is Fluid</span>
+			</span> 
 			<div id="fluidDiv" style="display:none">
 				<label for="checked_date">Fluid Type</label>
 				<select name="Fluid_Type" size="1" class="reqdClr">
