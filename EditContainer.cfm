@@ -209,7 +209,7 @@
 					 <cfif getCont.container_type is not "collection object">
 					 <select name="container_type" id="container_type" size="1" class="reqdClr" onChange="magicNumbers(this.value);">
 				          <cfloop query="ContType"> 
-			  				<cfif #ContType.container_type# is not "collection object">
+			  				<cfif ContType.container_type is not "collection object">
 	            				<option
 								<cfif #thisType# is #ContType.container_type#> selected </cfif>
 								value="#ContType.container_type#">#ContType.container_type#</option>
@@ -784,7 +784,7 @@
 				<option value=""></option>
 				<cfloop query="ContType"> 
 					 <cfif ContType.container_type is not "collection object">
-			            <option <cfif variables.container_type is ContType.container_type> selected="selected" </cfif>value="#ContType.ctContType#">#ContType.ctContType#</option>
+			            <option <cfif variables.container_type is ContType.container_type> selected="selected" </cfif>value="#ContType.container_type#">#ContType.container_type#</option>
 					</cfif>
           		</cfloop> 
 			</select>
