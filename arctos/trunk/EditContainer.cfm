@@ -587,13 +587,14 @@
 					<cfelse>
 						,NULL
 					</cfif>
-					,'#institution_acronym#'">
+					,'#institution_acronym#'
 					<cfif container_type is "position">
 						,1
 					<cfelse>
 						,0
 					</cfif>
-				</cfquery>
+				)
+			</cfquery>
 			<cfif len(fluid_type) gt 0>
 				<cfquery name="fluid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO fluid_container_history (
