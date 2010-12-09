@@ -1,7 +1,5 @@
-		.soft404 {
-			color:yellow;
-		}
-		.fourohfour {opacity:.5}
+.soft404 {opacity:.8;}
+.fourohfour {opacity:.2;}
 .bgDiv {
 	height:100%;
 	position:fixed;

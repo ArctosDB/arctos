@@ -465,7 +465,7 @@
 			<cfhttp url="http://species.wikimedia.org/wiki/#srchName#" method="head"></cfhttp>
 			<cfset status=left(cfhttp.statuscode,3)>
 			<li id="wikispecies">
-				<a class="external <cfif status is "404">404</cfif> " target="_blank" href="http://species.wikimedia.org/wiki/#srchName#">
+				<a class="external <cfif status is "404">fourohfour</cfif>" target="_blank" href="http://species.wikimedia.org/wiki/#srchName#">
 					WikiSpecies
 				</a>
 				<cfif status is "404">
