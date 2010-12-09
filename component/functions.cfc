@@ -1,5 +1,9 @@
 <cfcomponent>
-	
+<cffunction name="getExternalStatus" access="remote">
+	<cfargument name="uri" type="string" required="yes">
+	<cfhttp url="#uri#" method="head"></cfhttp>
+	<cfdump var="cfhttp">
+</cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getPartByContainer" access="remote">
 	<cfargument name="barcode" type="string" required="yes">
