@@ -399,65 +399,90 @@
 					<span class="infoLink" onclick="alert('This link is dead, but you may be able to locate useful information on the page anyway.')";>[status 404]</span>
 				</cfif>
 			</li>
+			
 			<li>
-				<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
+				<a class="external soft404" target="_blank" href="http://animaldiversity.ummz.umich.edu/site/search?SearchableText=#srchName#">
+					Animal Diversity Web
+				</a>
+				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>
+			</li>
+			rattus
+			<li>
+				<a class="external soft404" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
 					NCBI
 				</a>
+				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>
 			</li>
 			<li>
-				<a class="external" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
+				<a class="external soft404" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
 					Google Images
 				</a>
+				<span class="infoLink" onclick="alert('This site does not allow pre-fetching. The link may or may not work.')";>[status unknown]</span>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.eol.org/search/?q=#srchName#">
+				<a class="external soft404" target="_blank" href="http://www.eol.org/search/?q=#srchName#">
 					Encyclopedia of Life
 				</a>
+				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.ubio.org/browser/search.php?search_all=#srchName#">
+				<a class="external soft404" target="_blank" href="http://www.ubio.org/browser/search.php?search_all=#srchName#">
 					uBio
 				</a>
+				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>				
 			</li>
 			<cfif one.kingdom is "Plantae">
 				<li>
-					<a class="external" target="_blank" href="http://www.efloras.org/browse.aspx?name_str=#srchName#">Flora of North America</a>
+					<a class="external soft404" target="_blank" href="http://www.efloras.org/browse.aspx?name_str=#srchName#">Flora of North America</a>
 				</li>
+				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>								
 				<li>
-					<a class="external" target="_blank" href="http://www.ipni.org/ipni/simplePlantNameSearch.do?find_wholeName=#srchName#">
+					<a class="external soft404" target="_blank" href="http://www.ipni.org/ipni/simplePlantNameSearch.do?find_wholeName=#srchName#">
 						The International Plant Names Index
 					</a>
+					<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>													
 				</li>
 				<li>
-					<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
+					<a class="external soft404" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
 						electronic plant information centre
 					</a>
+					<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>													
 				</li>
 			</cfif>
 			<li>
-				<a class="external" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
+				<a class="external soft404" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
 					ITIS
 				</a>
+				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>				
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.catalogueoflife.org/search_results.php?search_string=#srchName#&match_whole_words=on">
+				<a class="external soft404" target="_blank" href="http://www.catalogueoflife.org/col/search/all/key/#srchName#/match/1">
 					Catalogue of Life
 				</a>
+				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>				
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#one.genus#%25&source=animals&Species=#one.species#">
+				<a class="external" target="_blank" href="
+					http://www.google.com/custom?q=#srchName#&sa=Go!&cof=S:http://www.unep-wcmc.org;AH:left;LH:56;L:http://www.unep-wcmc.org/wdpa/I/unepwcmcsml.gif;LW:100;AWFID:681b57e6eabf5be6;&domains=unep-wcmc.org&sitesearch=unep-wcmc.org">
 					UNEP (CITES)
 				</a>
+				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>				
 			</li>
-			<li>
-				<a class="external" target="_blank" href="http://species.wikimedia.org/wiki/#srchName#">
+			<cfhttp url="http://species.wikimedia.org/wiki/#srchName#" method="head"></cfhttp>
+			<cfset status=left(cfhttp.statuscode,3)>
+			<li id="wikispecies">
+				<a class="external <cfif status is "404">404</cfif> " target="_blank" href="http://species.wikimedia.org/wiki/#srchName#">
 					WikiSpecies
 				</a>
+				<cfif status is "404">
+					<span class="infoLink" onclick="alert('This link is dead, but you may be able to locate useful information on the page anyway.')";>[status 404]</span>
+				</cfif>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.biodiversitylibrary.org/name/#srchName#">
+				<a class="external soft404" target="_blank" href="http://www.biodiversitylibrary.org/name/#srchName#">
 					Biodiversity Heritage Library
 				</a>
+				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>				
 			</li>
 		</ul>			
 	</p>
