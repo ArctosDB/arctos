@@ -171,8 +171,8 @@ function MSBBirdDefault () {
 	if ($("#other_id_num_type_2").val()==''){
 		$("#other_id_num_type_2").val('preparator number');
 	}
-	var d='<span onclick="incCatNum()" class="likeLink">++</span>';
-	$("#catNumLbl").append(d);
+	var d='Cat## <span onclick="incCatNum()" class="likeLink">++</span>';
+	$("#catNumLbl").html(d);
 	
 	
 	
