@@ -386,7 +386,7 @@
 			<cfhttp url="http://wikipedia.org/wiki/#srchName#" method="head"></cfhttp>
 			<cfset status=left(cfhttp.statuscode,3)>
 			<li id="wikipedia">
-				<a class="external <cfif status is "404">404</cfif> " target="_blank" href="http://wikipedia.org/wiki/#srchName#">
+				<a class="external <cfif status is "404">fourohfour</cfif>" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
 					Wikipedia
 				</a>
 				<cfif status is "404">
