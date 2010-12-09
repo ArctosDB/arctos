@@ -376,16 +376,28 @@
 		</ul>
 	</p>
 	External Links:
+	<style>
+		.soft404 {
+			color:yellow;
+		}
+		.404 {color:lightgray;}
+	</style>
 	<p>
 			<cfset srchName = URLEncodedFormat(one.scientific_name)>
 		<ul>
 			<li id="ispecies">
-				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
+				<a class="external soft404" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
+				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>
 			</li>
+			<cfhttp url="http://wikipedia.org/wiki/#srchName#" method="head"></cfhttp>
+			<cfset status=left(cfhttp.statuscode,3)>
 			<li id="wikipedia">
-				<a class="external" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
+				<a class="external <cfif status is "404">404</cfif> " target="_blank" href="http://wikipedia.org/wiki/#srchName#">
 					Wikipedia
 				</a>
+				<cfif status is "404">
+					<span class="infoLink" onclick="alert('This link is dead, but you may be able to locate useful information on the page anyway.')";>[status 404]</span>
+				</cfif>
 			</li>
 			<li>
 				<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
@@ -449,17 +461,6 @@
 			</li>
 		</ul>			
 	</p>
-	<script>
-		<ul>
-			<li id="ispecies">
-				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
-			</li>
-			<li id="wikipedia">
-				<a class="external" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
-					Wikipedia
-				</a>
-			</li>
-	</script>
 	<p id="taxRelatedNames"></p>
 	<!-------
 	<cfif len(one.genus) gt 0>
