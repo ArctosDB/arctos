@@ -379,10 +379,10 @@
 	<p>
 			<cfset srchName = URLEncodedFormat(one.scientific_name)>
 		<ul>
-			<li>
+			<li id="ispecies">
 				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
 			</li>
-			<li>
+			<li id="wikipedia">
 				<a class="external" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
 					Wikipedia
 				</a>
@@ -449,6 +449,17 @@
 			</li>
 		</ul>			
 	</p>
+	<script>
+		<ul>
+			<li id="ispecies">
+				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
+			</li>
+			<li id="wikipedia">
+				<a class="external" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
+					Wikipedia
+				</a>
+			</li>
+	</script>
 	<p id="taxRelatedNames"></p>
 	<!-------
 	<cfif len(one.genus) gt 0>
