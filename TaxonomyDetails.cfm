@@ -376,7 +376,7 @@
 			</cfif>
 			<li>
 				 <cfquery name="citas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select count(*) c from citation where taxon_name_id=#one.taxon_name_id#
+					select count(*) c from citation where cited_taxon_name_id=#one.taxon_name_id#
 				</cfquery>
 				<cfif citas.c gt 0>
 					<a href="/SpecimenResults.cfm?cited_taxon_name_id=#one.taxon_name_id#">
