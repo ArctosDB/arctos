@@ -346,31 +346,45 @@
 	<p>
 		Arctos Links:
 		<ul>
+			<cfquery name="sidas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select count(*) c from identification_taxonomy where taxon_name_id=#one.taxon_name_id#
+			</cfquery>
+			<cfif sidas.c gt 0>
+				<li>
+					<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">
+						Specimens identified as #one.display_name#
+					</a>
+					<a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
+						[ exact matches only ]
+					</a>
+					<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&media_type=any">
+						[ with Media ]
+					</a>
+				</li>
+				<li>
+					<a href="/bnhmMaps/kml.cfm?method=gmap&amp;ampaction=newReq&next=colorBySpecies&scientific_name=#one.scientific_name#" class="external" target="_blank">
+						Google Map of Arctos specimens
+					</a>
+				</li>
+				<li>
+					<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&scientific_name=#one.scientific_name#" class="external" target="_blank">
+						BerkeleyMapper + RangeMaps
+					</a>
+				</li>
+			<cfelse>
+				<li>No specimens use this name in Identifications.</li>
+			</cfif>
 			<li>
-				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">
-					Specimens identified as #one.display_name#
-				</a>
-				<a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
-					[ exact matches only ]
-				</a>
-				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&media_type=any">
-					[ with Media ]
-				</a>
-			</li>
-			<li>
-				 <a href="/SpecimenResults.cfm?cited_taxon_name_id=#one.taxon_name_id#">
-					Specimens cited as #one.display_name#
-				</a>
-			</li>
-			<li>
-				<a href="/bnhmMaps/kml.cfm?method=gmap&amp;ampaction=newReq&next=colorBySpecies&scientific_name=#one.scientific_name#" class="external" target="_blank">
-					Google Map of Arctos specimens
-				</a>
-			</li>
-			<li>
-				<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&scientific_name=#one.scientific_name#" class="external" target="_blank">
-					BerkeleyMapper + RangeMaps
-				</a>
+				 <cfquery name="citas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select count(*) c from citation where taxon_name_id=#one.taxon_name_id#
+				</cfquery>
+				<cfif citas.c gt 0>
+					<a href="/SpecimenResults.cfm?cited_taxon_name_id=#one.taxon_name_id#">
+						Specimens cited as #one.display_name#
+					</a>
+				<cfelse>
+					No specimens are cited as this name.
+				</cfif>
 			</li>
 		</ul>
 	</p>
