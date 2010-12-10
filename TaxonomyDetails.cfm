@@ -393,14 +393,14 @@
 					<span class="infoLink" onclick="alert('This link is dead, but you may be able to locate useful information on the page anyway.')";>[status 404]</span>
 				</cfif>
 			</li>
-			
+			<cfif one.kingdom is not "Plantae">
 			<li>
 				<a class="external soft404" target="_blank" href="http://animaldiversity.ummz.umich.edu/site/search?SearchableText=#srchName#">
 					Animal Diversity Web
 				</a>
 				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>
 			</li>
-			rattus
+			</cfif>
 			<li>
 				<a class="external soft404" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
 					NCBI
