@@ -15,6 +15,7 @@
 	}
 </script>
 <span onclick="getImg('taxon','70','t','','')">q=70</span>
+<span onclick="getImg('taxon','89','t','','')">q=89</span>
 
 <div id="t">
 
