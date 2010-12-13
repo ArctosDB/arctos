@@ -84,49 +84,24 @@
 	<br>start: #start#
 	<br>stop: #stop#
 	<br>pg: #pg#
-		<!---
-		<cfsavecontent variable="pager">
-			<cfif d.recordcount gt 1>
-				<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
-				Showing Media results #start# - 
-				<cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt# 
-				<cfif cnt GT rpp> 
-					<br> 
-					<cfif (pg*rpp) GT rpp> 
-						<cfset prev_link=pg-rpp-1>
-						
-						<cfset pp=pg-1>
-<!---
-						<span class="likeLink" onclick="mediaPage('#prev_link#','#rpp#','#q#','#type#');">&lt;&lt;PREVIOUS&nbsp;&nbsp;&nbsp;</span>
-						---->
-						<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pp#')">--prev--</span>
-
-					</cfif> 
-					<cfset Total_Pages=ceiling(cnt/rpp)> 
-					<cfloop index="i" from="1" to="#Total_Pages#"> 
-						<cfset j=i-1> 
-						<cfset pg=j*rpp> 
-					</cfloop> 
-					<cfif stop LT cnt> 
-						<cfset next_link=pg+rpp-1> 
-					<!---	<span class="likeLink" onclick="npPage('#next_link#','#rpp#','#q#');">&nbsp;&nbsp;&nbsp;NEXT&gt;&gt;</span>
---->
-<cfset np=pg+1>
-<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#np#')">--next--</span>
-
-
-
-					</cfif> 
-				</cfif>
-			</div>
+		
+	<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
+		Showing Media results #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt# 
+		<cfif cnt GT rpp> 
+			<br> 
+			<cfif (pg*rpp) GT rpp> 
+				<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pp#')">--prev--</span>
+			<cfelse>
+				noprev
 			</cfif>
-		</cfsavecontent>
-		<cfset rownum=1>
-		<cfif pg is 1>
-			<cfset pg=1>
+			<cfset np=pg+1>
+			<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#np#')">--next--</span>
 		</cfif>
+	</div>
+	<cfset rownum=1>
+		
 		<div class="thumbs">
-			#pager#
+			
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="d" startrow="#start#" endrow="#stop#">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
