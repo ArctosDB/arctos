@@ -101,7 +101,7 @@
 						<cfset pg=j*rpp> 
 					</cfloop> 
 					<cfif stop LT cnt> 
-						<cfset next_link=o+rpp-1> 
+						<cfset next_link=pg+rpp-1> 
 						<span class="likeLink" onclick="npPage('#next_link#','#rpp#','#q#');">&nbsp;&nbsp;&nbsp;NEXT&gt;&gt;</span>
 
 <span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pg#')">--next--</span>
