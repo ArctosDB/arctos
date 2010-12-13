@@ -82,6 +82,7 @@
 		<br>start: #start#
 		<br>stop: #stop#
 		<br>pg: #pg#
+		<!---
 		<cfsavecontent variable="pager">
 			<cfif d.recordcount gt 1>
 				<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
@@ -158,5 +159,6 @@
 			</cfloop>
 			<div class="thumb_spcr">&nbsp;</div>
 		</div>
+		---->
 	</cfif>
 </cfoutput>
