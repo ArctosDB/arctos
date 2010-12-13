@@ -11,8 +11,8 @@
 <cfif not isdefined("rpp") or len(rpp) eq 0>
 	<cfset rpp=10>
 </cfif>
-<cfif not isdefined("o") or len(o) eq 0>
-	<cfset o=0>
+<cfif not isdefined("pg") or len(pg) eq 0>
+	<cfset pg=1>
 </cfif>
 
 <cfoutput>
@@ -75,35 +75,38 @@
 	   	#preservesinglequotes(sql)#
 	</cfquery>
 	<cfif d.recordcount gt 0>
+		<cfset cnt=d.recordcount> 
+		<cfparam name="stop" default="1">
+		<cfset stop=pg+rpp-1> 
+		<cfset start=(pg*rpp)>
+		<cfset pg=pg+1>
+		<br>cnt: #cnt#
+		<br>stop: #stop#
+		<br>start: #start#
+		<br>pg: #pg#
 		<cfsavecontent variable="pager">
-			<cfset Total_Records=d.recordcount> 
-			<cfparam name="o" default="0"> 
-			<cfparam name="limit" default="1">
-			<cfset limit=o+rpp> 
-			<cfset start_result=o+1> 
 			<cfif d.recordcount gt 1>
 				<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
-				Showing Media results #start_result# - 
-				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
-				<cfset o=o+1> 
-				<cfif Total_Records GT rpp> 
+				Showing Media results #start# - 
+				<cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt# 
+				<cfif cnt GT rpp> 
 					<br> 
-					<cfif o GT rpp> 
+					<cfif (pg*rpp) GT rpp> 
 						<cfset prev_link=o-rpp-1> 
 						<span class="likeLink" onclick="mediaPage('#prev_link#','#rpp#','#q#','#type#');">&lt;&lt;PREVIOUS&nbsp;&nbsp;&nbsp;</span>
-						<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#o#')">--prev--</span>
+						<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pg#')">--prev--</span>
 
 					</cfif> 
-					<cfset Total_Pages=ceiling(Total_Records/rpp)> 
+					<cfset Total_Pages=ceiling(cnt/rpp)> 
 					<cfloop index="i" from="1" to="#Total_Pages#"> 
 						<cfset j=i-1> 
-						<cfset offset_value=j*rpp> 
+						<cfset pg=j*rpp> 
 					</cfloop> 
-					<cfif limit LT Total_Records> 
+					<cfif limit LT cnt> 
 						<cfset next_link=o+rpp-1> 
 						<span class="likeLink" onclick="npPage('#next_link#','#rpp#','#q#');">&nbsp;&nbsp;&nbsp;NEXT&gt;&gt;</span>
 
-<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#o#')">--next--</span>
+<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pg#')">--next--</span>
 
 
 
