@@ -125,7 +125,7 @@
 		<div class="thumbs">
 			#pager#
 			<div class="thumb_spcr">&nbsp;</div>
-			<cfloop query="d" startrow="#o#" endrow="#stop#">
+			<cfloop query="d" startrow="#start#" endrow="#stop#">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						media_label,
