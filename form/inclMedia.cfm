@@ -90,9 +90,9 @@
 				<cfif cnt GT rpp> 
 					<br> 
 					<cfif (pg*rpp) GT rpp> 
-						<cfset prev_link=o-rpp-1>
+						<cfset prev_link=pg-rpp-1>
 						
-						<cfset pp=pg11>
+						<cfset pp=pg-1>
 <!---
 						<span class="likeLink" onclick="mediaPage('#prev_link#','#rpp#','#q#','#type#');">&lt;&lt;PREVIOUS&nbsp;&nbsp;&nbsp;</span>
 						---->
