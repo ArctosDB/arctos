@@ -3,7 +3,7 @@
 <script>
 	function getImg(typ,q,tgt,rpp,o){
 		
-		var ptl="/includes/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&o="+o;
+		var ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&o="+o;
 		
 		jQuery.get(ptl, function(data){
 			 jQuery('##' + tgt).html(data);
