@@ -77,7 +77,7 @@
 	<cfif d.recordcount gt 0>
 		<cfset cnt=d.recordcount>
 		<cfset start=(pg*rpp)-(rpp-1)> 
-		<cfset stop=pg*rpp-1>
+		<cfset stop=start+rpp>
 		<br>cnt: #cnt#
 		<br>start: #start#
 		<br>stop: #stop#
