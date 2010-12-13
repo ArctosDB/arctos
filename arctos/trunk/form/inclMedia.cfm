@@ -76,31 +76,36 @@
 	</cfquery>
 	<cfif d.recordcount gt 0>
 		<cfsavecontent variable="pager">
-			<cfset Result_Per_Page=10>
 			<cfset Total_Records=d.recordcount> 
-			<cfparam name="offset" default="0"> 
+			<cfparam name="o" default="0"> 
 			<cfparam name="limit" default="1">
-			<cfset limit=offset+Result_Per_Page> 
-			<cfset start_result=offset+1> 
+			<cfset limit=o+rpp> 
+			<cfset start_result=o+1> 
 			<cfif d.recordcount gt 1>
 				<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
 				Showing Media results #start_result# - 
 				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
-				<cfset offset=offset+1> 
-				<cfif Total_Records GT Result_Per_Page> 
+				<cfset o=o+1> 
+				<cfif Total_Records GT rpp> 
 					<br> 
-					<cfif offset GT Result_Per_Page> 
-						<cfset prev_link=offset-Result_Per_Page-1> 
-						<span class="likeLink" onclick="mediaPage('#prev_link#','#Result_Per_Page#','#q#','#type#');">&lt;&lt;PREVIOUS&nbsp;&nbsp;&nbsp;</span>
+					<cfif o GT rpp> 
+						<cfset prev_link=o-rpp-1> 
+						<span class="likeLink" onclick="mediaPage('#prev_link#','#rpp#','#q#','#type#');">&lt;&lt;PREVIOUS&nbsp;&nbsp;&nbsp;</span>
+						<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#o#')">--prev--</span>
+
 					</cfif> 
-					<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
+					<cfset Total_Pages=ceiling(Total_Records/rpp)> 
 					<cfloop index="i" from="1" to="#Total_Pages#"> 
 						<cfset j=i-1> 
-						<cfset offset_value=j*Result_Per_Page> 
+						<cfset offset_value=j*rpp> 
 					</cfloop> 
 					<cfif limit LT Total_Records> 
-						<cfset next_link=offset+Result_Per_Page-1> 
-						<span class="likeLink" onclick="npPage('#next_link#','#Result_Per_Page#','#q#');">&nbsp;&nbsp;&nbsp;NEXT&gt;&gt;</span>
+						<cfset next_link=o+rpp-1> 
+						<span class="likeLink" onclick="npPage('#next_link#','#rpp#','#q#');">&nbsp;&nbsp;&nbsp;NEXT&gt;&gt;</span>
+
+<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#o#')">--next--</span>
+
+
 
 					</cfif> 
 				</cfif>
@@ -108,11 +113,11 @@
 			</cfif>
 		</cfsavecontent>
 		<cfset rownum=1>
-		<cfif offset is 0><cfset offset=1></cfif>
+		<cfif o is 0><cfset o=1></cfif>
 		<div class="thumbs">
 			#pager#
 			<div class="thumb_spcr">&nbsp;</div>
-			<cfloop query="d" startrow="#offset#" endrow="#limit#">
+			<cfloop query="d" startrow="#o#" endrow="#limit#">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						media_label,
