@@ -90,9 +90,13 @@
 				<cfif cnt GT rpp> 
 					<br> 
 					<cfif (pg*rpp) GT rpp> 
-						<cfset prev_link=o-rpp-1> 
+						<cfset prev_link=o-rpp-1>
+						
+						<cfset pp=pg11>
+<!---
 						<span class="likeLink" onclick="mediaPage('#prev_link#','#rpp#','#q#','#type#');">&lt;&lt;PREVIOUS&nbsp;&nbsp;&nbsp;</span>
-						<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pg#')">--prev--</span>
+						---->
+						<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pp#')">--prev--</span>
 
 					</cfif> 
 					<cfset Total_Pages=ceiling(cnt/rpp)> 
@@ -102,9 +106,10 @@
 					</cfloop> 
 					<cfif stop LT cnt> 
 						<cfset next_link=pg+rpp-1> 
-						<span class="likeLink" onclick="npPage('#next_link#','#rpp#','#q#');">&nbsp;&nbsp;&nbsp;NEXT&gt;&gt;</span>
-
-<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pg#')">--next--</span>
+					<!---	<span class="likeLink" onclick="npPage('#next_link#','#rpp#','#q#');">&nbsp;&nbsp;&nbsp;NEXT&gt;&gt;</span>
+--->
+<cfset np=pg+1>
+<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#np#')">--next--</span>
 
 
 
