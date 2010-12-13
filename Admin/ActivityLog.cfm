@@ -51,7 +51,7 @@
 		<p><strong>Data after 7 August 2009</strong></p>
 		<cfquery name="activity" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				to_char(TIMESTAMP,'dd-Mon-yyyy HH24:MI:SS') date_stamp, 
+				to_char(TIMESTAMP,'yyyy-mm-dd HH24:MI:SS') date_stamp, 
 				SQL_TEXT sql_statement, 
 				DB_USER username,
 				OBJECT_NAME object,
@@ -65,7 +65,7 @@
 				</cfif>
 				<cfif len(#bdate#) gt 0>
 					AND (
-						to_date(to_char(TIMESTAMP,'dd-mmm-yyyy')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
+						to_date(to_char(TIMESTAMP,'yyyy-mm-dd')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
 						and to_date('#dateformat(edate,"yyyy-mm-dd")#')
 					)
 				</cfif>
