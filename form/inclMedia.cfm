@@ -1,7 +1,22 @@
 <cfinclude template = "/includes/functionLib.cfm">
+<cfif not isdefined("typ")>
+	<cfabort>
+</cfif>
+<cfif not isdefined("q") or len(q) eq 0>
+	<cfabort>
+</cfif>
+<cfif not isdefined("tgt") or len(tgt) eq 0>
+	<cfabort>
+</cfif>
+<cfif not isdefined("rpp") or len(rpp) eq 0>
+	<cfset rpp=10>
+</cfif>
+<cfif not isdefined("o") or len(o) eq 0>
+	<cfset o=0>
+</cfif>
 
 <cfoutput>
-	<cfif type is "taxon" and isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
+	<cfif typ is "taxon">
 		<cfset sql="select * from (
 			   	select
 			   		 media_id,
@@ -30,7 +45,7 @@
 				        media_relations.related_primary_key = identification.collection_object_id and
 				        identification.identification_id=identification_taxonomy.identification_id and
 				        --media.preview_uri is not null and
-				        identification_taxonomy.taxon_name_id=#taxon_name_id#
+				        identification_taxonomy.taxon_name_id=#q#
 				    UNION
 				    select 
 				        media.media_id,
@@ -45,7 +60,7 @@
 				     where
 				         media.media_id=media_relations.media_id and
 				         media_relations.media_relationship like '%taxonomy' and
-				         media_relations.related_primary_key = #taxon_name_id#
+				         media_relations.related_primary_key = #q#
 				 ) group by
 				 	media_id,
 				    media_uri,
@@ -59,7 +74,6 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	#preservesinglequotes(sql)#
 	</cfquery>
-	<cfset q="#taxon_name_id#">
 	<cfif d.recordcount gt 0>
 		<cfsavecontent variable="pager">
 			<cfset Result_Per_Page=10>
@@ -77,7 +91,7 @@
 					<br> 
 					<cfif offset GT Result_Per_Page> 
 						<cfset prev_link=offset-Result_Per_Page-1> 
-						<span class="likeLink" onclick="npPage('#prev_link#','#Result_Per_Page#','#q#');">&lt;&lt;PREVIOUS&nbsp;&nbsp;&nbsp;</span>
+						<span class="likeLink" onclick="mediaPage('#prev_link#','#Result_Per_Page#','#q#','#type#');">&lt;&lt;PREVIOUS&nbsp;&nbsp;&nbsp;</span>
 					</cfif> 
 					<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
 					<cfloop index="i" from="1" to="#Total_Pages#"> 
