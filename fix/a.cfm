@@ -10,7 +10,7 @@
 		var ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&o="+o;
 		
 		jQuery.get(ptl, function(data){
-			 jQuery('##' + tgt).html(data);
+			 jQuery('#' + tgt).html(data);
 		})
 	}
 </script>
