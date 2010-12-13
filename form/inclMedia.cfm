@@ -75,14 +75,12 @@
 	   	#preservesinglequotes(sql)#
 	</cfquery>
 	<cfif d.recordcount gt 0>
-		<cfset cnt=d.recordcount> 
-		<cfparam name="stop" default="1">
-		<cfset stop=pg+rpp-1> 
-		<cfset start=(pg*rpp)>
-		<cfset pg=pg+1>
+		<cfset cnt=d.recordcount>
+		<cfset start=(pg*rpp)-rpp> 
+		<cfset stop=pg+rpp-1>
 		<br>cnt: #cnt#
-		<br>stop: #stop#
 		<br>start: #start#
+		<br>stop: #stop#
 		<br>pg: #pg#
 		<cfsavecontent variable="pager">
 			<cfif d.recordcount gt 1>
