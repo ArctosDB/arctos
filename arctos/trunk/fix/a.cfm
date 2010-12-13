@@ -1,4 +1,4 @@
-<cfinclude template = "includes/_header.cfm">
+<cfinclude template = "/includes/_header.cfm">
 
 <script>
 	function getImg(typ,q,tgt,rpp,o){
