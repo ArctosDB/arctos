@@ -2,11 +2,11 @@
 
 <script>
 	function getImg(typ,q,tgt,rpp,o){
-		var typ='';
-		var q='';
-		var tgt='';
-		var rpp='';
-		var o='';
+		var typ;
+		var q;
+		var tgt;
+		var rpp;
+		var o;
 		var ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&o="+o;
 		
 		jQuery.get(ptl, function(data){
