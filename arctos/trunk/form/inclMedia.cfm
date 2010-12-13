@@ -76,7 +76,7 @@
 	</cfquery>
 	<cfif d.recordcount gt 0>
 		<cfset cnt=d.recordcount>
-		<cfset start=(pg*rpp)-rpp> 
+		<cfset start=(pg*rpp)-(rpp-1)> 
 		<cfset stop=pg+rpp-1>
 		<br>cnt: #cnt#
 		<br>start: #start#
@@ -100,7 +100,7 @@
 						<cfset j=i-1> 
 						<cfset pg=j*rpp> 
 					</cfloop> 
-					<cfif limit LT cnt> 
+					<cfif stop LT cnt> 
 						<cfset next_link=o+rpp-1> 
 						<span class="likeLink" onclick="npPage('#next_link#','#rpp#','#q#');">&nbsp;&nbsp;&nbsp;NEXT&gt;&gt;</span>
 
@@ -118,7 +118,7 @@
 		<div class="thumbs">
 			#pager#
 			<div class="thumb_spcr">&nbsp;</div>
-			<cfloop query="d" startrow="#o#" endrow="#limit#">
+			<cfloop query="d" startrow="#o#" endrow="#stop#">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						media_label,
