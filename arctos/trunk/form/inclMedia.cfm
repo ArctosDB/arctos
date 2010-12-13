@@ -114,7 +114,9 @@
 			</cfif>
 		</cfsavecontent>
 		<cfset rownum=1>
-		<cfif o is 0><cfset o=1></cfif>
+		<cfif pg is 1>
+			<cfset pg=1>
+		</cfif>
 		<div class="thumbs">
 			#pager#
 			<div class="thumb_spcr">&nbsp;</div>
