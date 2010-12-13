@@ -1,7 +1,7 @@
 <cfinclude template = "/includes/functionLib.cfm">
 
 <cfoutput>
-	<cfif type="taxon" and isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
+	<cfif type is "taxon" and isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 		<cfset sql="select * from (
 			   	select
 			   		 media_id,
