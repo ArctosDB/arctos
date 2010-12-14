@@ -84,7 +84,7 @@
 	<br>start: #start#
 	<br>stop: #stop#
 	<br>pg: #pg#
-	
+	<cfflush>
 	<cfset np=pg+1>
 	<cfset pp=pg-1>
 	
