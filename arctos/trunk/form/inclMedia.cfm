@@ -71,9 +71,11 @@
 			) 
 			--where rownum <= 500">
 	</cfif>
+	start<cfflush>
 	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	#preservesinglequotes(sql)#
 	</cfquery>
+	gotquery<cfflush>
 	<cfif mediaResultsQuery.recordcount is 0>
 		fail@norecs<cfabort>
 	</cfif>
