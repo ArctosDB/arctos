@@ -85,8 +85,16 @@ hai<cfflush>
 		fail@norecs<cfabort>
 	</cfif>
 	<cfset cnt=mediaResultsQuery.recordcount>
-	<cfset start=(pg*rpp)-(rpp-1)> 
+	<cfset start=(pg*rpp)-(rpp-1)>
+	
+	<cfif start lt 1>
+		<cfset start=1>
+	</cfif>
+	
 	<cfset stop=start+(rpp-1)>
+	<cfif stop gt cnt>
+		<cfset stop=cnt>
+	</cfif>
 	<br>cnt: #cnt#
 	<br>start: #start#
 	<br>stop: #stop#
