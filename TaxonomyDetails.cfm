@@ -210,7 +210,7 @@
 			//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
 			var elemsToLoad='taxRelatedNames,mapTax';
 			
-			getImg('taxon','#one.taxon_name_id#','specTaxMedia','10','1');
+			getImg('taxon','#one.taxon_name_id#','specTaxMedia','14','1');
 			
 			
 			//var elemsToLoad='taxRelatedNames';
