@@ -114,8 +114,10 @@ hai<cfflush>
 			<cfelse>
 				noprev
 			</cfif>
-			<cfset np=pg+1>
-			<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#np#')">--next--</span>
+			<cfif stop lt cnt>
+						<span onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#np#')">--next--</span>
+			<cfelse>nonext
+			</cfif>
 		</cfif>
 	</div>
 	<cfset rownum=1>
