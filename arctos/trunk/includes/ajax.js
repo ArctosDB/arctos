@@ -24,6 +24,19 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
+function getImg(typ,q,tgt,rpp,pg){
+	$('#imgBrowserCtlDiv').append('<img src="/images/indicator.gif">');
+	var typ;
+	var q;
+	var tgt;
+	var rpp;
+	var pg;
+	var ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&pg="+pg;
+	
+	jQuery.get(ptl, function(data){
+		 jQuery('#' + tgt).html(data);
+	})
+}
 function blockSuggest (onoff) {
 	$.getJSON("/component/functions.cfc",
 			{

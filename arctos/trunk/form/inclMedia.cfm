@@ -99,16 +99,11 @@
 	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	#preservesinglequotes(sql)#
 	</cfquery>
-	
-	
-	
-	
 	<cfif mediaResultsQuery.recordcount is 0>
-		fail@norecs<cfabort>
+		<cfabort>
 	</cfif>
 	<cfset cnt=mediaResultsQuery.recordcount>
 	<cfset start=(pg*rpp)-(rpp-1)>
-	
 	<cfif start lt 1>
 		<cfset start=1>
 	</cfif>
@@ -121,7 +116,6 @@
 	</cfif>
 	<cfset np=pg+1>
 	<cfset pp=pg-1>
-
 	<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
 		Showing Media results #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt# 
 		<cfif cnt GT rpp> 
@@ -135,9 +129,7 @@
 		</cfif>
 	</div>
 	<cfset rownum=1>
-		
 		<div class="thumbs">
-			
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="mediaResultsQuery" startrow="#start#" endrow="#stop#">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
