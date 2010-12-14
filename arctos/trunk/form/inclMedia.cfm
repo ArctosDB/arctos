@@ -110,10 +110,10 @@ hai<cfflush>
 		<cfif cnt GT rpp> 
 			<br> 
 			<cfif (pg*rpp) GT rpp> 
-				<span class="likeLink" onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pp#')"><<Previous</span>
+				<span class="likeLink" onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pp#');"> <<Previous </span>
 			</cfif>
 			<cfif stop lt cnt>
-				<span class="likeLink" onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#np#')">Next>></span>
+				<span class="likeLink" onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#np#');"> Next>> </span>
 			</cfif>
 		</cfif>
 	</div>
