@@ -2,6 +2,7 @@
 
 <script>
 	function getImg(typ,q,tgt,rpp,pg){
+		$('#imgBrowserCtlDiv').append('<img src="/images/indicator.gif">');
 		var typ;
 		var q;
 		var tgt;
