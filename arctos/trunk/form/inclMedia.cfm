@@ -77,6 +77,11 @@ hai<cfflush>
 	   	#preservesinglequotes(sql)#
 	</cfquery>
 	gotquery<cfflush>
+	
+	<cfabort>
+	
+	
+	
 	<cfif mediaResultsQuery.recordcount is 0>
 		fail@norecs<cfabort>
 	</cfif>
