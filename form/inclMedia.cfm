@@ -71,7 +71,7 @@
 			) 
 			--where rownum <= 500">
 	</cfif>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	#preservesinglequotes(sql)#
 	</cfquery>
 	<cfif d.recordcount is 0>
@@ -106,7 +106,7 @@
 		<div class="thumbs">
 			
 			<div class="thumb_spcr">&nbsp;</div>
-			<cfloop query="d" startrow="#start#" endrow="#stop#">
+			<cfloop query="mediaResultsQuery" startrow="#start#" endrow="#stop#">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						media_label,
