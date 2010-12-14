@@ -71,7 +71,7 @@
 			--where rownum <= 500">
 	</cfif>
 	<cfif typ is "accn">
-		<cfset sql="select * from (
+		<cfset sql="
 			   	select
 			   		 media_id,
 				     media_uri,
