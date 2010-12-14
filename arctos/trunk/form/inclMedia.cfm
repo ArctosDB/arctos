@@ -94,7 +94,7 @@
 			        media_relations.related_primary_key
 			">
 	<cfelse>
-		<cfset sql="select '' from dual">
+		<cfabort>
 	</cfif>
 	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	#preservesinglequotes(sql)#
