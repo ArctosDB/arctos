@@ -90,7 +90,9 @@ hai<cfflush>
 	<cfif start lt 1>
 		<cfset start=1>
 	</cfif>
-	
+	<cfif start gte cnt>
+		<cfset start=cnt>
+	</cfif>
 	<cfset stop=start+(rpp-1)>
 	<cfif stop gt cnt>
 		<cfset stop=cnt>
