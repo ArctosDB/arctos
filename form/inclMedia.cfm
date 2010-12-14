@@ -1,5 +1,4 @@
 <cfinclude template = "/includes/functionLib.cfm">
-hai<cfflush>
 <cfif not isdefined("typ")>
 	<cfabort>
 </cfif>
@@ -15,7 +14,6 @@ hai<cfflush>
 <cfif not isdefined("pg") or len(pg) eq 0>
 	<cfset pg=1>
 </cfif>
-
 <cfoutput>
 	<cfif typ is "taxon">
 		<cfset sql="select * from (
@@ -72,11 +70,34 @@ hai<cfflush>
 			) 
 			--where rownum <= 500">
 	</cfif>
-	start<cfflush>
+	<cfif typ is "accn">
+		<cfset sql="select * from (
+			   	select
+			   		 media_id,
+				     media_uri,
+				     mime_type,
+				     media_type,
+				     preview_uri,
+				     related_primary_key
+				from 
+					media,
+					media_relations
+				where
+					 media.media_id=media_relations.media_id and
+				     media_relations.media_relationship like '% accn' and
+				     media_relations.related_primary_key=#q#
+				group by
+				 	media_id,
+				    media_uri,
+				    mime_type,
+				    media_type,
+				    preview_uri,
+				    related_primary_key
+			">
+	</cfif>
 	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	#preservesinglequotes(sql)#
 	</cfquery>
-	gotquery<cfflush>
 	
 	
 	
@@ -97,11 +118,6 @@ hai<cfflush>
 	<cfif stop gt cnt>
 		<cfset stop=cnt>
 	</cfif>
-	<br>cnt: #cnt#
-	<br>start: #start#
-	<br>stop: #stop#
-	<br>pg: #pg#
-	<cfflush>
 	<cfset np=pg+1>
 	<cfset pp=pg-1>
 

@@ -15,8 +15,10 @@
 		})
 	}
 </script>
-<span onclick="getImg('taxon','70','t','','')">q=70</span>
-<span onclick="getImg('taxon','89','t','','')">q=89</span>
+<span onclick="getImg('taxon','70','t','','')">tax=70</span>
+<span onclick="getImg('taxon','89','t','','')">tax=89</span>
+<span onclick="getImg('accn','70','t','','')">accn=10000293</span>
+
 
 <div id="t">
 
