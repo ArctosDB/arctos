@@ -78,7 +78,6 @@ hai<cfflush>
 	</cfquery>
 	gotquery<cfflush>
 	
-	<cfabort>
 	
 	
 	
@@ -95,7 +94,8 @@ hai<cfflush>
 	<cfflush>
 	<cfset np=pg+1>
 	<cfset pp=pg-1>
-	
+		<cfabort>
+
 	<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
 		Showing Media results #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt# 
 		<cfif cnt GT rpp> 
