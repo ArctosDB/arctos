@@ -73,12 +73,12 @@
 	<cfif typ is "accn">
 		<cfset sql="
 			   	select
-			   		 media_id,
-				     media_uri,
-				     mime_type,
-				     media_type,
-				     preview_uri,
-				     related_primary_key
+			   		media.media_id,
+			        media.media_uri,
+			        media.mime_type,
+			        media.media_type,
+			        media.preview_uri,
+			        media_relations.related_primary_key
 				from 
 					media,
 					media_relations
