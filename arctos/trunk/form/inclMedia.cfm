@@ -1,4 +1,5 @@
 <cfinclude template = "/includes/functionLib.cfm">
+hai<cfflush>
 <cfif not isdefined("typ")>
 	<cfabort>
 </cfif>
