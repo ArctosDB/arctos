@@ -7,7 +7,7 @@
 		$("#rec_until_date").datepicker();	
 		$("#issued_date").datepicker();
 		$("#renewed_date").datepicker();
-		$("#exp_date").datepicker();
+		$("#exp_date").datepicker();		
 	});
 	function addAccnContainer(transaction_id,barcode){
 		$('#newbarcode').addClass('red');
@@ -104,6 +104,11 @@
 <!-------------------------------------------------------------------->
 <cfif action is "edit">
 	<cfoutput>
+		jQuery(document).ready(function() {
+			getMedia('accn','#transaction_id#','accnMediaDiv','14','1');
+		});
+				
+
 		<cfset title="Edit Accession">
 		<cfquery name="accnData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT
@@ -128,7 +133,7 @@
 			WHERE
 				trans.transaction_id = accn.transaction_id AND
 				trans.collection_id=collection.collection_id and
-				trans.transaction_id = #transaction_id#
+				trans.transaction_id = ##
 		</cfquery>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
@@ -363,6 +368,7 @@
 						</cfform>
 
 			<strong>Media associated with this Accn:</strong>
+			<!---
 			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					media.media_id,
@@ -399,10 +405,12 @@
 					<li>None</li>
 				</cfif>
 			</ul>
+			--->
 			<br><span class="likeLink"
 					onclick="addMediaHere('#accnData.collection# #accnData.accn_number#','#transaction_id#');">
 						Create Media
 				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
+				<div id="accnMediaDiv"></div>
 		</div>
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
