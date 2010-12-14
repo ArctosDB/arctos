@@ -87,12 +87,12 @@
 				     media_relations.media_relationship like '% accn' and
 				     media_relations.related_primary_key=#q#
 				group by
-				 	media_id,
-				    media_uri,
-				    mime_type,
-				    media_type,
-				    preview_uri,
-				    related_primary_key
+				 	media.media_id,
+			        media.media_uri,
+			        media.mime_type,
+			        media.media_type,
+			        media.preview_uri,
+			        media_relations.related_primary_key
 			">
 	</cfif>
 	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
