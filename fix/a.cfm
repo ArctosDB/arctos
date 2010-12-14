@@ -1,13 +1,13 @@
 <cfinclude template = "/includes/_header.cfm">
 
 <script>
-	function getImg(typ,q,tgt,rpp,o){
+	function getImg(typ,q,tgt,rpp,pg){
 		var typ;
 		var q;
 		var tgt;
 		var rpp;
-		var o;
-		var ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&o="+o;
+		var pg;
+		var ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&pg="+pg;
 		
 		jQuery.get(ptl, function(data){
 			 jQuery('#' + tgt).html(data);
