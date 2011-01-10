@@ -367,8 +367,10 @@ function saveNewRecord () {
 								cidVal: $("#other_id_num_5").val(),
 								returnformat : "json",
 								queryformat : 'column'
+								console.log('sent for increment...');
 							},
 							function(r) {
+								console.log('returned ' + r);
 								if (r.length>0) {
 									$("#other_id_num_5").val(r)
 								}
