@@ -106,7 +106,7 @@
 	<cfoutput>
 		<script>
 			jQuery(document).ready(function() {
-				getMedia('accn','#transaction_id#','accnMediaDiv','14','1');
+				getMedia('accn','#transaction_id#','accnMediaDiv','6','1');
 			});
 		</script>	
 

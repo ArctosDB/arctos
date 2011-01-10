@@ -177,8 +177,8 @@
 					<th>ID</th>
 					<th>#session.CustomOtherIdentifier#</th>
 					<th>Part</th>
-					<th>SS?</th>
 					<th>PartCondition</th>
+					<th>SS?</th>
 				</tr>
 				<cfloop query="getPartLoanRequests">
 					<tr>
