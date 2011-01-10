@@ -374,7 +374,7 @@ function saveNewRecord () {
 								if (r!='') {
 									console.log('using r');
 									$("#other_id_num_5").val(r);
-								//}//
+								}
 							}
 						);
 					setPagePrefs();
