@@ -371,11 +371,10 @@ function saveNewRecord () {
 							},
 							function(r) {
 								console.log('returned ' + r);
-								console.log('r.length=' + r.length);
-								if (r.length>0) {
+								//if (r.length>0) {
 									console.log('using r');
 									$("#other_id_num_5").val(r);
-								}
+								//}//
 							}
 						);
 					setPagePrefs();
