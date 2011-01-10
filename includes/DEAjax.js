@@ -371,7 +371,7 @@ function saveNewRecord () {
 							},
 							function(r) {
 								console.log('returned ' + r);
-								//if (r.length>0) {
+								if (r!='') {
 									console.log('using r');
 									$("#other_id_num_5").val(r);
 								//}//
