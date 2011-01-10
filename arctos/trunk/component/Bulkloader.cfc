@@ -1,6 +1,31 @@
 <cfcomponent>
 	
 	
+<cffunction name="incrementCustomId" access="remote">
+	<cfargument name="cidType" required="yes">
+	<cfargument name="cidVal" required="yes">
+	<cfset cVal="">
+	<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1>
+		<cftry>
+			<cfif isnumeric(cidVal)>
+				<cfset cVal = other_id_num_5 + 1>
+			<cfelseif isnumeric(right(cidVal,len(cidVal)-1))>
+				<cfset temp = (right(cidVal,len(cidVal)-1)) + 1>
+				<cfset cVal = left(cidVal,1) & temp>
+			</cfif>
+		<cfcatch>
+			<cfmail to="arctos.database@gmail.com" subject="data entry catch" from="wtf@#Application.fromEmail#" type="html">
+				from incrementCustomId-----
+				other_id_num_5: #other_id_num_5#
+				<br>
+				<cfdump var=#cfcatch#>
+			</cfmail>
+		</cfcatch>
+		</cftry>
+	</cfif>
+	<cfreturn cVal>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
 
 <cffunction name="loadRecord" access="remote">
 	<cfargument name="collection_object_id" required="yes">

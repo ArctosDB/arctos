@@ -359,6 +359,21 @@ function saveNewRecord () {
 					var o='<option value="' + coid + '">' + coid + '</option>';
 					$("#selectbrowse").append(o);
 					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
+					// test/increment customID after successful save
+					$.getJSON("/component/Bulkloader.cfc",
+							{
+								method : "incrementCustomId",
+								cidType: $("#other_id_num_type_5").val(),
+								cidVal: $("#other_id_num_5").val(),
+								returnformat : "json",
+								queryformat : 'column'
+							},
+							function(r) {
+								if (r.length>0) {
+									$("#other_id_num_5").val(r)
+								}
+							}
+						);
 					setPagePrefs();
 				}
 			}
