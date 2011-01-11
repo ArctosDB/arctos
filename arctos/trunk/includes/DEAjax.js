@@ -360,23 +360,20 @@ function saveNewRecord () {
 					$("#selectbrowse").append(o);
 					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
 					// test/increment customID after successful save
-					console.log('sent for increment...');
 					$.getJSON("/component/Bulkloader.cfc",
-							{
-								method : "incrementCustomId",
-								cidType: $("#other_id_num_type_5").val(),
-								cidVal: $("#other_id_num_5").val(),
-								returnformat : "json",
-								queryformat : 'column'								
-							},
-							function(r) {
-								console.log('returned ' + r);
-								if (r!='') {
-									console.log('using r');
-									$("#other_id_num_5").val(r);
-								}
+						{
+							method : "incrementCustomId",
+							cidType: $("#other_id_num_type_5").val(),
+							cidVal: $("#other_id_num_5").val(),
+							returnformat : "json",
+							queryformat : 'column'								
+						},
+						function(r) {
+							if (r!='') {
+								$("#other_id_num_5").val(r);
 							}
-						);
+						}
+					);
 					setPagePrefs();
 				}
 			}
