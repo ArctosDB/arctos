@@ -51,6 +51,7 @@
 <b>The following catalog number are not used in the #what.collection# collection:</b>
 <br>
 </cfoutput>
+<!---
 <cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select max(cat_num) mc from cataloged_item where collection_id IN (#collection_id#)
 </cfquery>
@@ -72,9 +73,25 @@
 				)
 			order by num
 </cfquery>
-<cfoutput query="b">
-	#num#<br>
-</cfoutput>
+---->
+
+<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	WITH aquery AS
+ (SELECT cat_num_integer after_gap,
+ LAG(cat_num_integer ,1,0) OVER (ORDER BY cat_num_integer) before_gap
+ FROM cataloged_item where collection_id=#collection_id#)
+ SELECT
+ before_gap, after_gap
+ FROM
+ aquery
+ WHERE
+ before_gap != 0
+ AND
+ after_gap - before_gap > 1
+ ORDER BY
+ before_gap;
+</cfquery>
+<cfdump var=#b#>
 </cfif>
 <!------------------------------------------------------->
 <cfif #action# is not "nothing" and #action# is not "cat_num">
