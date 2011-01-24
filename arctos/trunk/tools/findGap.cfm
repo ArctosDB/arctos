@@ -91,7 +91,21 @@
  ORDER BY
  before_gap
 </cfquery>
-<cfdump var=#b#>
+<cfoutput>
+	<table border>
+		<tr>
+			<th>BeforeGap</th>
+			<th>AfterGap</th>
+		</tr>
+		<cfloop query="b">
+			<tr>
+				<td>#before_gap#</td>
+				<td>#after_gap#</td>
+			</tr>
+		</cfloop>
+	</table>
+	
+</cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif #action# is not "nothing" and #action# is not "cat_num">
