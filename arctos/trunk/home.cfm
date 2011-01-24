@@ -483,6 +483,12 @@ The data providers are not responsible for loss or damages due to use of these d
 <p><a name="faq"><strong>FAQ</strong></a><br/>
 
 <div class="q">
+	Q: Where can I find more information about Arctos?
+</div>
+<div class="a">
+	A: <a href="https://sites.google.com/site/arctosdb/" class="external" target="_blank">https://sites.google.com/site/arctosdb/</a>
+</div>
+<div class="q">
 	Q: Are these live data?
 </div>
 <div class="a">
