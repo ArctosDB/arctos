@@ -60,7 +60,7 @@
 	onclick="colls#i#.Action.value='saveEdits';submit();">	
 
                  <input type="button" value="Delete" class="delBtn"
-   onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'" onClick="colls#i#.Action.value='deleteColl';confirmDelete('colls#i#');">	
+					onClick="colls#i#.Action.value='deleteColl';confirmDelete('colls#i#');">	
    
 		</td></tr>
 	</form>
