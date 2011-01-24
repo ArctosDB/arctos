@@ -202,9 +202,7 @@
 			$(document).ready(function() { 
 			    document.body.onselectstart = function() {return false;} 
 			    $('##popDiv').animaDrag(); 
-			    
 			}); 
-			
 			
 			function closeEditApp() {
 				$('##bgDiv').remove();

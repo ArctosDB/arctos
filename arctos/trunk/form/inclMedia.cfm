@@ -121,10 +121,10 @@
 		<cfif cnt GT rpp> 
 			<br> 
 			<cfif (pg*rpp) GT rpp> 
-				<span class="likeLink" onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#pp#');"> &lt;&lt;Previous </span>
+				<span class="likeLink" onclick="getMedia('#typ#','#q#','#tgt#','#rpp#','#pp#');"> &lt;&lt;Previous </span>
 			</cfif>
 			<cfif stop lt cnt>
-				<span class="likeLink" onclick="getImg('#typ#','#q#','#tgt#','#rpp#','#np#');"> Next&gt;&gt; </span>
+				<span class="likeLink" onclick="getMedia('#typ#','#q#','#tgt#','#rpp#','#np#');"> Next&gt;&gt; </span>
 			</cfif>
 		</cfif>
 	</div>
