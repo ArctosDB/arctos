@@ -688,7 +688,7 @@
 		<p>You cannot delete an active loan. This loan probably has specimens or
 		other transactions attached. Use your back button.</p>
 		<p>
-			<cfdump var=cfcatch>
+			<cfdump var=#cfcatch#>
 		</p>
 	</cfcatch>
 	</cftry>
