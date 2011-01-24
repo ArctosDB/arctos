@@ -469,7 +469,7 @@ but we have made some exceptions:
 
 <p><a name="data_usage"><strong>Data Usage</strong></a><br/>
 The collections data available through Arctos are separately 
-copyrighted &#169; 2001 - 2010но by the University of Alaska Museum of the North 
+copyrighted &#169; 2001 - 2011 by the University of Alaska Museum of the North 
 (University of Alaska, Fairbanks, AK),
 and by the Museum of Southwestern Biology (University of New Mexico, Albuquerque, NM),
 and the Museum of Vertebrate Zoology (University of California, Berkeley, CA).
