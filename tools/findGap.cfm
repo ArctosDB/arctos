@@ -89,7 +89,7 @@
  AND
  after_gap - before_gap > 1
  ORDER BY
- before_gap;
+ before_gap
 </cfquery>
 <cfdump var=#b#>
 </cfif>
