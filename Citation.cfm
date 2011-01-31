@@ -51,9 +51,6 @@
 				}
 			}
 		}
-		
-		
-
 	</script>
 	
 <cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -62,7 +59,7 @@
 <!--- get all cited specimens --->
 
 <!------------------------------------------------------------------------------->
-<cfif #Action# is "nothing">
+<cfif action is "nothing">
 <cfset title="Manage Citations">
 <cfoutput>
 
@@ -199,7 +196,7 @@
 		</select>
 	</td>	
 	<td>
-		<label for="cat_num">Catalog Number</label>
+		<label for="cat_num">Catalog Number [ <span class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');">force refresh</span> ]</label>
 		<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')" class="reqdClr">
 	</td>
 	<cfif len(session.CustomOtherIdentifier) gt 0>
