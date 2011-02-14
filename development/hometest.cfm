@@ -102,7 +102,6 @@ proprietary reasons, data are open to the public.
 		<strong>Specimens</strong>
 	</th>
 </tr>
-<!----------------
 <cfoutput>
 	<cfif isdefined("pub") and pub.recordcount gt 0>
 		<cfloop query="pub">
@@ -111,32 +110,30 @@ proprietary reasons, data are open to the public.
 				<td>
 					<a href="/#coll_dir_name#" target="_top">#collection#</a>
 				</td>
-			</tr>
-			<li>
-				
-				<cfif len(descr) gt 0>
-				<span id="plus_minus_#cf_collection_id#" 
-					class="infoLink"
-					onclick="showDet('#cf_collection_id#')" >
-					more...
-				</span>
-				<div id="det_div_#cf_collection_id#" class="noshow">
-					#descr#
+				<td>
+					<cfif len(descr) gt 0>
+						#descr#
+						</cfif>
 					<cfif len(WEB_LINK) gt 0>
 						<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
 					</cfif>
 					<cfif len(loan_policy_url) gt 0>
 						<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
 					</cfif>
-				</div>
-				</cfif>
-			</li>
+					 <cfquery name="c" datasource="user_login" username="#DBUSERNAME#" password="#DBPWD#">
+						select count(*) c from cataloged_item
+					</cfquery>
+					<cfdump var=#c#>
+				</td>
+			</tr>
 		</cfloop>
 	</cfif>
 	
-	
+
 	
 </p>
+</cfoutput>
+<!----------------
 
 <table width="100%" border="0" cellpadding="10" cellspacing="10">
 	<tr>
