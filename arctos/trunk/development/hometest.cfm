@@ -48,7 +48,12 @@
 	where cf_collection.collection_id=collection.collection_id (+) and
 	PUBLIC_PORTAL_FG = 1 order by cf_collection.collection
 </cfquery>
+<!---
+
 <cfdump var=#coll#>
+
+
+--->
 <!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 <cfquery name="pub" dbtype="query">
 	select * from coll where cf_collection_id=0
@@ -85,56 +90,37 @@ Arctos is an ongoing effort to integrate access to specimen data, collection-man
 proprietary reasons, data are open to the public.
 </p>
 <p>
-	<table border id="t" class="sortable">
-<tr>
-	<th>
-		<strong>Portal</strong>
-	</th>
-	<th>
-		<strong>Description</strong>
-	</th>
-	<th>
-		<strong>Website</strong>
-	</th>
-	<th>
-		<strong>Loan Policy</strong>
-	</th>
-	<th>
-		<strong>Specimens</strong>
-	</th>
-</tr>
 <cfoutput>
+	<ul>
 	<cfif isdefined("pub") and pub.recordcount gt 0>
 		<cfloop query="pub">
 			<cfset coll_dir_name = "#lcase(portal_name)#">
-			 <cfquery name="c" datasource="user_login" username="#DBUSERNAME#" password="#DBPWD#">
+			 <cfquery name="c" datasource="user_login" username="#DBUSERNAME#" password="#DBPWD#"  cachedwithin="#createtimespan(0,0,60,0)#">
 				select count(*) c from cataloged_item
 			</cfquery>
-			<tr>
-				<td>
-					#collection#
-					<cfif len(descr) gt 0>
-						<div class="collDescr">
-							#descr#
-						</div>
-					</cfif>
-					<br><a href="/#coll_dir_name#" target="_top">Search #c.c# specimens</a>
-					
+			<li>
+				#collection#
+				<cfif len(descr) gt 0>
+					<div class="collDescr">
+						#descr#
+					</div>
+				</cfif>
+				<ul>
+					<li><a href="/#coll_dir_name#" target="_top">[ Search #c.c# specimens ]</a></li>
 					<cfif len(WEB_LINK) gt 0>
-						<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
+						<li></li><a href="#WEB_LINK#" class="external" target="_blank">Collection Home Page</a></li>
 					</cfif>
 					<cfif len(loan_policy_url) gt 0>
-						<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
+						<li><a href="#loan_policy_url#" class="external" target="_blank">Collection Loan Policy</a></li>
 					</cfif>
-					
-				</td>
-			</tr>
+				</ul>
+			</li>
 		</cfloop>
 	</cfif>
 	
 
 	
-</p>
+	</ul>
 </cfoutput>
 <!----------------
 
