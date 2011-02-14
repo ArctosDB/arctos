@@ -46,7 +46,6 @@
 	where cf_collection.collection_id=collection.collection_id (+) and
 	PUBLIC_PORTAL_FG = 1 order by cf_collection.collection
 </cfquery>
-<cfdump var=#coll#>
 <!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 <cfquery name="pub" dbtype="query">
 	select * from coll where cf_collection_id=0
