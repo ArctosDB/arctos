@@ -77,7 +77,7 @@
 	select * from coll where cf_collection_id not in (#gotem#)
 </cfquery>
 
-<cfabort>
+
 <p>
 Arctos is an ongoing effort to integrate access to specimen data, collection-management tools, and external resources on the Web.
  Nearly all that is known about a specimen can be included in Arctos, and, except for some data encumbered for 
@@ -102,6 +102,7 @@ proprietary reasons, data are open to the public.
 		<strong>Specimens</strong>
 	</th>
 </tr>
+<!----------------
 <cfoutput>
 	<cfif isdefined("pub") and pub.recordcount gt 0>
 		<cfloop query="pub">
@@ -628,4 +629,7 @@ Please <a href="/contact.cfm">contact us</a> if you have any questions, comments
 	<td valign="top"><img src="images/arctos_schema.png"/></td>
 	</tr>
 </table>
+
+
+----------->
 <cfinclude template="/includes/_footer.cfm">
