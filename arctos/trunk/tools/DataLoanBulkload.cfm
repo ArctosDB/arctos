@@ -12,10 +12,23 @@ transaction_id number,
 ITEM_DESCRIPTION VARCHAR2(60)
 );
 
+alter table cf_temp_data_loan_item add status varchar2(255);
+
+
+
 create or replace public synonym cf_temp_data_loan_item for cf_temp_data_loan_item;
-grant all on cf_temp_data_loan_item to mange_transactions;
+grant all on cf_temp_data_loan_item to manage_transactions;
 
-
+ CREATE OR REPLACE TRIGGER cf_temp_data_loan_item_key                                         
+ before insert  ON cf_temp_data_loan_item  
+ for each row 
+    begin     
+    	if :NEW.key is null then                                                                                      
+    		select somerandomsequence.nextval into :new.key from dual;
+    	end if;                                
+    end;                                                                                            
+/
+sho err
 --->
 <cfset title="Load Cataloged Item Loans">
 
@@ -31,7 +44,7 @@ grant all on cf_temp_data_loan_item to mange_transactions;
 		<li>
 			Encumbrances have been checked
 		</li>
-		<li>A loan has been created in Arctos.</li>
+		<li>A loan of loan type 'data' has been created in Arctos.</li>
 		<li>Loan Item reconciled person is you (<i>#session.username#</i>)</li>
 		<li>Loan Item reconciled date is today (#dateformat(now(),"yyyy-mm-dd")#)</li>
 	</ul>
@@ -110,6 +123,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 				trans,loan,collection
 			where 
 				trans.transaction_id = loan.transaction_id and
+				loan.loan_type='data' and
 				trans.collection_id = collection.collection_id and
 				collection.institution_acronym=cf_temp_data_loan_item.institution_acronym and
 				collection.collection_cde=cf_temp_data_loan_item.collection_cde and
@@ -181,7 +195,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					cf_temp_data_loan_item 
 					set (ITEM_DESCRIPTION)
 					= (
-						select collection.collection || ' ' || cat_num || ' ' || ' cataloged item'
+						select collection.collection || ' ' || cat_num || ' cataloged item'
 						from
 						cataloged_item,
 						collection
