@@ -1442,7 +1442,6 @@
 		</script>
 	<cfcatch>
 		<cfmail to="arctos.database@gmail.com" subject="data entry catch" from="wtf@#Application.fromEmail#" type="html">
-			
 			other_id_num_5: #other_id_num_5#
 			<cfdump var=#cfcatch#>
 		</cfmail>
