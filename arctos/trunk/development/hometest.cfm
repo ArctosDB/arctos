@@ -108,7 +108,7 @@ proprietary reasons, data are open to the public.
 				<ul>
 					<li><a href="/#coll_dir_name#" target="_top">[ Search #c.c# specimens ]</a></li>
 					<cfif len(WEB_LINK) gt 0>
-						<li></li><a href="#WEB_LINK#" class="external" target="_blank">Collection Home Page</a></li>
+						<li><a href="#WEB_LINK#" class="external" target="_blank">Collection Home Page</a></li>
 					</cfif>
 					<cfif len(loan_policy_url) gt 0>
 						<li><a href="#loan_policy_url#" class="external" target="_blank">Collection Loan Policy</a></li>
@@ -117,7 +117,35 @@ proprietary reasons, data are open to the public.
 			</li>
 		</cfloop>
 	</cfif>
-	
+	<cfif isdefined("uam") and uam.recordcount gt 0>
+			<li><a href="http://www.uaf.edu/museum/" target="_blank" class="external">University of Alaska Museum</a>
+				<ul>
+					<cfloop query="uam">
+						<cfset coll_dir_name = "#lcase(portal_name)#">
+						 <cfquery name="c" datasource="user_login" username="#DBUSERNAME#" password="#DBPWD#"  cachedwithin="#createtimespan(0,0,60,0)#">
+							select count(*) c from cataloged_item
+						</cfquery>
+						<li>
+							#collection#
+							<cfif len(descr) gt 0>
+								<div class="collDescr">
+									#descr#
+								</div>
+							</cfif>
+							<ul>
+								<li><a href="/#coll_dir_name#" target="_top">[ Search #c.c# specimens ]</a></li>
+								<cfif len(WEB_LINK) gt 0>
+									<li><a href="#WEB_LINK#" class="external" target="_blank">Collection Home Page</a></li>
+								</cfif>
+								<cfif len(loan_policy_url) gt 0>
+									<li><a href="#loan_policy_url#" class="external" target="_blank">Collection Loan Policy</a></li>
+								</cfif>
+							</ul>
+						</li>
+					</cfloop>
+				</ul>
+			</li>
+		</cfif>
 
 	
 	</ul>
