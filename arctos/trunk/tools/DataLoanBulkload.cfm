@@ -179,6 +179,21 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					where
 						key=#key#
 				</cfquery>
+				<cfquery name="defDescr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update 
+						cf_temp_data_loan_item 
+						set (ITEM_DESCRIPTION)
+						= (
+							select collection.collection || ' ' || cat_num || ' cataloged item'
+							from
+							cataloged_item,
+							collection
+						where
+							cataloged_item.collection_id = collection.collection_id and
+							cataloged_item.collection_object_id=#collObj.collection_object_id#
+					)
+					where ITEM_DESCRIPTION is null and key=#key#
+				</cfquery>
 			<cfelse>
 				no CI
 				<cfquery name="BooCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -190,21 +205,6 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 						key=#key#
 				</cfquery>
 			</cfif>
-			<cfquery name="defDescr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				update 
-					cf_temp_data_loan_item 
-					set (ITEM_DESCRIPTION)
-					= (
-						select collection.collection || ' ' || cat_num || ' cataloged item'
-						from
-						cataloged_item,
-						collection
-					where
-						cataloged_item.collection_id = collection.collection_id and
-						cataloged_item.collection_object_id=#collObj.collection_object_id#
-				)
-				where ITEM_DESCRIPTION is null and key=#key#
-			</cfquery>
 		</cfloop>
 	</cftransaction>
 	<cfquery name="done" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
