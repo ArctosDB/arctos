@@ -241,7 +241,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					)
 				VALUES (
 					 #transaction_id#,
-					  #thisPartId#,
+					  #collection_object_id#,
 					  #session.myAgentId#,
 					  sysdate,
 					  '#ITEM_DESCRIPTION#'
