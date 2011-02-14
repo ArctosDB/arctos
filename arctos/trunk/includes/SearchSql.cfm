@@ -294,7 +294,8 @@
 	<cfif not isdefined("sciNameOper") OR len(sciNameOper) is 0>
 		<cfset sciNameOper = "LIKE">
 	</cfif>
-	<cfif #sciNameOper# is "LIKE">
+	<cfset mapurl = "#mapurl#&sciNameOper=#sciNameOper#">
+	<cfif sciNameOper is "LIKE">
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">
 	<cfelseif sciNameOper is "OR">
 		<cftry>
