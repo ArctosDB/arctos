@@ -9,11 +9,9 @@ COLLECTION_CDE                                                 VARCHAR2(4),
  LOAN_number                                                           VARCHAR2(30),
 collection_object_id number,
 transaction_id number,
-ITEM_DESCRIPTION VARCHAR2(60)
+ITEM_DESCRIPTION VARCHAR2(60),
+status varchar2(255)
 );
-
-alter table cf_temp_data_loan_item add status varchar2(255);
-
 
 
 create or replace public synonym cf_temp_data_loan_item for cf_temp_data_loan_item;

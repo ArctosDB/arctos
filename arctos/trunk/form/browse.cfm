@@ -1,3 +1,8 @@
+<!--- exclude UAM Mammals users --->
+<cfif session.fancycoid is 1 or session.portal_id is 1 or session.username is "pub_usr_uam_mamm">
+	nothing to see here
+	<cfabort>
+</cfif>
 <cftry>
 	<!---- ---->
 <cfif session.block_suggest neq 1>
