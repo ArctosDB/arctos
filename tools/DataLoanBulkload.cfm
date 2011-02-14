@@ -238,9 +238,6 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					RECONCILED_BY_PERSON_ID,
 					reconciled_date,
 					item_descr
-					<cfif len(#ITEM_REMARKS#) gt 0>
-						,LOAN_ITEM_REMARKS
-					</cfif>
 					)
 				VALUES (
 					 #transaction_id#,
