@@ -14,6 +14,7 @@
 		font-size:smaller;
 		margin-bottom:1em;
 	}
+	.collDescr {color:red;}
 </style>
 <script src="/includes/sorttable.js"></script>
 <script>
@@ -106,24 +107,26 @@ proprietary reasons, data are open to the public.
 	<cfif isdefined("pub") and pub.recordcount gt 0>
 		<cfloop query="pub">
 			<cfset coll_dir_name = "#lcase(portal_name)#">
+			 <cfquery name="c" datasource="user_login" username="#DBUSERNAME#" password="#DBPWD#">
+				select count(*) c from cataloged_item
+			</cfquery>
 			<tr>
 				<td>
-					<a href="/#coll_dir_name#" target="_top">#collection#</a>
-				</td>
-				<td>
+					#collection#
 					<cfif len(descr) gt 0>
-						#descr#
-						</cfif>
+						<div class="collDescr">
+							#descr#
+						</div>
+					</cfif>
+					<br><a href="/#coll_dir_name#" target="_top">Search #c.c# specimens</a>
+					
 					<cfif len(WEB_LINK) gt 0>
 						<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
 					</cfif>
 					<cfif len(loan_policy_url) gt 0>
 						<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
 					</cfif>
-					 <cfquery name="c" datasource="user_login" username="#DBUSERNAME#" password="#DBPWD#">
-						select count(*) c from cataloged_item
-					</cfquery>
-					<cfdump var=#c#>
+					
 				</td>
 			</tr>
 		</cfloop>
