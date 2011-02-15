@@ -22,6 +22,9 @@
 		font-size: large;
 		font-weight: bold;
 	}
+	.portalborder{
+		border:1px solid black;
+	}
 </style>
 <script src="/includes/sorttable.js"></script>
 <script>
@@ -115,9 +118,10 @@ Arctos is an ongoing effort to integrate access to specimen data, collection-man
 proprietary reasons, data are open to the public.
 </p>
 <p>
-	The following portals are available for querying specimen data. By querying Arctos, you accept the <a href="##data_usage">data usage policy.</a>
+	The following portals are available for querying specimen data. By querying Arctos, you accept the <a href="#data_usage">data usage policy.</a>
 </p>
 <cfoutput>
+	<div class="portalborder">
 	<ul>
 	<cfif isdefined("pub") and pub.recordcount gt 0>
 		<cfloop query="pub">
@@ -345,6 +349,7 @@ proprietary reasons, data are open to the public.
 			</li>
 		</cfif>
 	</ul>
+	</div>
 </cfoutput>
 <a name="features"></a>
 
