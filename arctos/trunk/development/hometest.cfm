@@ -628,7 +628,7 @@ The data providers are not responsible for loss or damages due to use of these d
 Please <a href="/contact.cfm">contact us</a> if you have any questions, comments, or suggestions. 
 </p>
 	</td>
-	<td valign="top"><img src="images/arctos_schema.png"/></td>
+	<td valign="top"><img src="/images/arctos_schema.png"/></td>
 	</tr>
 </table>
 
