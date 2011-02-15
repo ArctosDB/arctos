@@ -94,17 +94,21 @@
 	select * from coll where cf_collection_id not in (#gotem#)
 </cfquery>
 
-
+<table width="100%" border="0" cellpadding="10" cellspacing="10">
+	<tr>
+		<td valign="top" nowrap="nowrap">
 <ul>
-			<li><a href="#participation">Participation</a></li>
-			<li><a href="#nodes">Components</a></li>
-			<li><a href="#requirements">System Requirements</a></li>
-			<li><a href="#browser_compatiblity">Browser Compatability</a></li>
-			<li><a href="#data_usage">Data Usage</a></li>
-			<li><a href="#faq">FAQ</a></li>
-			<li><a href="#suggest">Suggestions?</a></li>
-			</ul>
-
+	<li><a href="#features">Features</a></li>
+	<li><a href="#participation">Participation</a></li>
+	<li><a href="#nodes">Components</a></li>
+	<li><a href="#requirements">System Requirements</a></li>
+	<li><a href="#browser_compatiblity">Browser Compatability</a></li>
+	<li><a href="#data_usage">Data Usage</a></li>
+	<li><a href="#faq">FAQ</a></li>
+	<li><a href="#suggest">Suggestions?</a></li>
+</ul>
+</td>
+		<td valign="top">
 <p>
 Arctos is an ongoing effort to integrate access to specimen data, collection-management tools, and external resources on the Web.
  Nearly all that is known about a specimen can be included in Arctos, and, except for some data encumbered for 
@@ -340,222 +344,10 @@ proprietary reasons, data are open to the public.
 				</ul>
 			</li>
 		</cfif>
-						
-						
-						
-	
 	</ul>
 </cfoutput>
-<!----------------
+<a name="features"></a>
 
-<table width="100%" border="0" cellpadding="10" cellspacing="10">
-	<tr>
-		<td valign="top" nowrap="nowrap">
-			<ul>
-			<li><a href="#participation">Participation</a></li>
-			<li><a href="#nodes">Components</a></li>
-			<li><a href="#requirements">System Requirements</a></li>
-			<li><a href="#browser_compatiblity">Browser Compatability</a></li>
-			<li><a href="#data_usage">Data Usage</a></li>
-			<li><a href="#faq">FAQ</a></li>
-			<li><a href="#suggest">Suggestions?</a></li>
-			<li>Search:
-				<ul>
-					<cfoutput>
-						<cfif isdefined("pub") and pub.recordcount gt 0>
-							<cfloop query="pub">
-								<cfset coll_dir_name = "#lcase(portal_name)#">
-								<li>
-									<a href="/#coll_dir_name#" target="_top">#collection#</a>
-									<cfif len(descr) gt 0>
-									<span id="plus_minus_#cf_collection_id#" 
-										class="infoLink"
-										onclick="showDet('#cf_collection_id#')" >
-										more...
-									</span>
-									<div id="det_div_#cf_collection_id#" class="noshow">
-										#descr#
-										<cfif len(WEB_LINK) gt 0>
-											<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
-										</cfif>
-										<cfif len(loan_policy_url) gt 0>
-											<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
-										</cfif>
-									</div>
-									</cfif>
-								</li>
-							</cfloop>
-						</cfif>
-						<cfif isdefined("uam") and uam.recordcount gt 0>
-							<li><a href="http://www.uaf.edu/museum/" target="_blank" class="external">University of Alaska Museum</a>
-								<ul>
-									<cfloop query="uam">
-										<cfset coll_dir_name = "#lcase(portal_name)#">
-										<li>
-											<a href="/#coll_dir_name#" target="_top">#collection#</a>
-											<cfif len(descr) gt 0>
-											<span id="plus_minus_#cf_collection_id#" 
-												class="infoLink"
-												onclick="showDet('#cf_collection_id#')" >
-												more...
-											</span>
-											<div id="det_div_#cf_collection_id#" class="noshow">
-												#descr#
-												<cfif len(#WEB_LINK#) gt 0>
-													<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
-												</cfif>
-												<cfif len(#loan_policy_url#) gt 0>
-													<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
-												</cfif>
-											</div>
-											</cfif>
-										</li>
-									</cfloop>
-								</ul>
-							</li>
-						</cfif>
-						<cfif isdefined("msb") and msb.recordcount gt 0>
-							<li><a href="http://www.msb.unm.edu/" target="_blank" class="external">Museum of Southwestern Biology</a>
-								<ul>
-									<cfloop query="msb">
-										<cfset coll_dir_name = "#lcase(portal_name)#">
-										<li>
-											<a href="/#coll_dir_name#" target="_top">#collection#</a>
-											<cfif len(descr) gt 0>
-											<span id="plus_minus_#cf_collection_id#" 
-												class="infoLink"
-												onclick="showDet('#cf_collection_id#')" >
-												more...
-											</span>
-											<div id="det_div_#cf_collection_id#" class="noshow">
-												#descr#
-												<cfif len(#WEB_LINK#) gt 0>
-													<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
-												</cfif>
-												<cfif len(#loan_policy_url#) gt 0>
-													<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
-												</cfif>
-											</div>
-											</cfif>
-										</li>
-									</cfloop>
-								</ul>
-							</li>
-						</cfif>
-						<cfif isdefined("mvz") and mvz.recordcount gt 0>
-							<li><a href="http://mvz.berkeley.edu/" target="_blank" class="external">Museum of Vertebrate Zoology</a>
-								<ul>
-									<cfif isdefined("mvz_all") and mvz_all.recordcount gt 0>
-										<cfloop query="mvz_all">
-											<cfset coll_dir_name = "#lcase(portal_name)#">
-											<li>
-												<a href="/#coll_dir_name#" target="_top">#collection#</a>
-												<cfif len(descr) gt 0>
-												<span id="plus_minus_#cf_collection_id#" 
-													class="infoLink"
-													onclick="showDet('#cf_collection_id#')" >
-													more...
-												</span>
-												<div id="det_div_#cf_collection_id#" class="noshow">
-													#descr#
-													<cfif len(#WEB_LINK#) gt 0>
-														<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
-													</cfif>
-													<cfif len(#loan_policy_url#) gt 0>
-														<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
-													</cfif>
-												</div>
-												</cfif>
-											</li>
-										</cfloop>
-									</cfif>
-									<cfloop query="mvz">
-										<cfset coll_dir_name = "#lcase(portal_name)#">
-										<li>
-											<a href="/#coll_dir_name#" target="_top">#collection#</a>
-											<cfif len(descr) gt 0>
-											<span id="plus_minus_#cf_collection_id#" 
-												class="infoLink"
-												onclick="showDet('#cf_collection_id#')" >
-												more...
-											</span>
-											<div id="det_div_#cf_collection_id#" class="noshow">
-												#descr#
-												<cfif len(#WEB_LINK#) gt 0>
-													<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
-												</cfif>
-												<cfif len(#loan_policy_url#) gt 0>
-													<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
-												</cfif>
-											</div>
-											</cfif>
-										</li>
-									</cfloop>
-								</ul>
-							</li>
-						</cfif>
-						<cfif isdefined("wnmu") and wnmu.recordcount gt 0>
-							<li><a href="http://www.wnmu.edu/univ/museum.htm" target="_blank" class="external">Western New Mexico University</a>
-								<ul>
-									<cfloop query="wnmu">
-										<cfset coll_dir_name = "#lcase(portal_name)#">
-										<li>
-											<a href="/#coll_dir_name#" target="_top">#collection#</a>
-											<cfif len(descr) gt 0>
-											<span id="plus_minus_#cf_collection_id#" 
-												class="infoLink"
-												onclick="showDet('#cf_collection_id#')" >
-												more...
-											</span>
-											<div id="det_div_#cf_collection_id#" class="noshow">
-												#descr#
-												<cfif len(#WEB_LINK#) gt 0>
-													<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
-												</cfif>
-												<cfif len(#loan_policy_url#) gt 0>
-													<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
-												</cfif>
-											</div>
-											</cfif>
-										</li>
-									</cfloop>
-								</ul>
-							</li>
-						</cfif>
-						<cfif isdefined("rem") and rem.recordcount gt 0>
-							<li>Other Collections
-								<ul>
-									<cfloop query="rem">
-										<cfset coll_dir_name = "#lcase(portal_name)#">
-										<li>
-											<a href="/#coll_dir_name#" target="_top">#collection#</a>
-											<cfif len(descr) gt 0>
-											<span id="plus_minus_#cf_collection_id#" 
-												class="infoLink"
-												onclick="showDet('#cf_collection_id#')" >
-												more...
-											</span>
-											<div id="det_div_#cf_collection_id#" class="noshow">
-												#descr#
-												<cfif len(#WEB_LINK#) gt 0>
-													<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
-												</cfif>
-												<cfif len(#loan_policy_url#) gt 0>
-													<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
-												</cfif>
-											</div>
-											</cfif>
-										</li>
-									</cfloop>
-								</ul>
-							</li>
-						</cfif>
-					</cfoutput>
-				</ul>
-			</li>
-			</ul>	
-		</td>
-		<td valign="top">
 <p>
 Arctos is an ongoing effort to integrate access 
 to specimen data, collection-management tools, and 
@@ -840,6 +632,4 @@ Please <a href="/contact.cfm">contact us</a> if you have any questions, comments
 	</tr>
 </table>
 
-
------------>
 <cfinclude template="/includes/_footer.cfm">
