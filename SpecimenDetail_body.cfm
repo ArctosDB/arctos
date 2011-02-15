@@ -1332,11 +1332,16 @@
 			c.parent_container_id=p.container_id and
 			cataloged_item.collection_object_id=#collection_object_id#			
 		</cfquery>
+		<cfloop query="barcode">
+			<cfquery name="ocr" datasource="taccocr">
+				select label from output where barcode = '#barcode#'
+			</cfquery>
+			<cfdump var=#ocr#>
+		</cfloop>
+
 		<cfdump var=#barcode#>
 		<!---
-		<cfquery name="ocr" datasource="taccocr">
 		
-		</cfquery>
 		--->
 		
 		<div class="detailLabel">OCR
@@ -1345,6 +1350,9 @@
 		<div class="detailBlock">
             <span class="detailData">			
 				bla bla bla
+	        </span>
+	        <span class="detailData">			
+				fff ffff  fff
 	        </span>		
 		</div>
 		
