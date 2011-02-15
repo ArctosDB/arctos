@@ -1336,27 +1336,17 @@
 			<cfquery name="ocr" datasource="taccocr">
 				select label from output where barcode = '#barcode#'
 			</cfquery>
-			<cfdump var=#ocr#>
+			<cfif ocr.recordcount is 1>
+				<div class="detailLabel">
+					OCR for #barcode#			
+				</div>
+				<div class="detailBlock">
+		            <span class="detailData">			
+						#ocr.label#
+			        </span>
+				</div>
+			</cfif>
 		</cfloop>
-
-		<cfdump var=#barcode#>
-		<!---
-		
-		--->
-		
-		<div class="detailLabel">OCR
-			
-		</div>
-		<div class="detailBlock">
-            <span class="detailData">			
-				bla bla bla
-	        </span>
-	        <span class="detailData">			
-				fff ffff  fff
-	        </span>		
-		</div>
-		
-		
 	</div>		
 </cfif>
 	</td><!--- end right half of table --->
