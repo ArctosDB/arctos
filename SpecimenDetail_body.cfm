@@ -1318,6 +1318,19 @@
 				</div>
 	        </span>		
 		</div>
+		
+		
+		
+		<div class="detailLabel">OCR
+			
+		</div>
+		<div class="detailBlock">
+            <span class="detailData">			
+				bla bla bla
+	        </span>		
+		</div>
+		
+		
 	</div>		
 </cfif>
 	</td><!--- end right half of table --->
