@@ -353,15 +353,7 @@ proprietary reasons, data are open to the public.
 </cfoutput>
 <a name="features"></a>
 
-<p>
-Arctos is an ongoing effort to integrate access 
-to specimen data, collection-management tools, and 
-external resources on the Web.  
-Nearly all that is known about a specimen can be 
-included in Arctos, and, except for some data 
-encumbered for proprietary reasons, data are open to the public.
-</p>
-<p><strong >Features:</strong>
+<p><strong>Features:</strong>
 <ul>
 	<li>Vaporware-free since 2001. All this stuff, and much more, really exists in a usable state, and we'll never claim
 		proposed or limited funtionality exists.
