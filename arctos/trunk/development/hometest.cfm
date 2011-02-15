@@ -18,6 +18,10 @@
 		font-size:smaller;
 		padding-left:1em;
 	}
+	.inst {
+		font-size: larger;
+		font-face: bold;
+	}
 </style>
 <script src="/includes/sorttable.js"></script>
 <script>
@@ -102,7 +106,7 @@ proprietary reasons, data are open to the public.
 				select count(*) c from cataloged_item
 			</cfquery>
 			<li>
-				#collection#
+				<span class="inst">#collection#</span>
 				<cfif len(descr) gt 0>
 					<div class="collDescr">
 						#descr#
@@ -121,7 +125,7 @@ proprietary reasons, data are open to the public.
 		</cfloop>
 	</cfif>
 	<cfif isdefined("uam") and uam.recordcount gt 0>
-			<li><a href="http://www.uaf.edu/museum/" target="_blank" class="external">University of Alaska Museum</a>
+			<li><a href="http://www.uaf.edu/museum/" target="_blank" class="external inst">University of Alaska Museum</a>
 				<ul>
 					<cfloop query="uam">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
