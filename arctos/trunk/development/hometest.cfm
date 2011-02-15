@@ -19,8 +19,8 @@
 		padding-left:1em;
 	}
 	.inst {
-		font-size: larger;
-		font-face: bold;
+		font-size: large;
+		font-weight: bold;
 	}
 </style>
 <script src="/includes/sorttable.js"></script>
@@ -86,6 +86,10 @@
 	select * from coll where collection like 'WNMU %' order by collection
 </cfquery>
 <cfset gotem=listappend(gotem,valuelist(wnmu.cf_collection_id))>
+<cfquery name="dmns" dbtype="query">
+	select * from coll where collection like 'DMNS %' order by collection
+</cfquery>
+<cfset gotem=listappend(gotem,valuelist(dmns.cf_collection_id))>
 <cfquery name="rem" dbtype="query">
 	select * from coll where cf_collection_id not in (#gotem#)
 </cfquery>
@@ -154,7 +158,7 @@ proprietary reasons, data are open to the public.
 			</li>
 		</cfif>
 		<cfif isdefined("msb") and msb.recordcount gt 0>
-			<li><a href="http://www.msb.unm.edu/" target="_blank" class="external">Museum of Southwestern Biology</a>
+			<li><a href="http://www.msb.unm.edu/" target="_blank" class="external inst">Museum of Southwestern Biology</a>
 				<ul>
 					<cfloop query="msb">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -183,7 +187,7 @@ proprietary reasons, data are open to the public.
 			</li>
 		</cfif>
 		<cfif isdefined("mvz") and mvz.recordcount gt 0>
-			<li><a href="http://mvz.berkeley.edu/" target="_blank" class="external">Museum of Vertebrate Zoology</a>
+			<li><a href="http://mvz.berkeley.edu/" target="_blank" class="external inst">Museum of Vertebrate Zoology</a>
 				<ul>
 					<cfif isdefined("mvz_all") and mvz_all.recordcount gt 0>
 						<cfloop query="mvz_all">
@@ -236,8 +240,38 @@ proprietary reasons, data are open to the public.
 				</ul>
 			</li>
 		</cfif>
+		
+		<cfif isdefined("dmns") and dmns.recordcount gt 0>
+			<li><a href="http://www.dmns.org/" target="_blank" class="external inst">Denver Museum of Nature and Science</a>
+				<ul>
+					<cfloop query="dmns">
+						<cfset coll_dir_name = "#lcase(portal_name)#">
+						 <cfquery name="c" datasource="user_login" username="#DBUSERNAME#" password="#DBPWD#"  cachedwithin="#createtimespan(0,0,60,0)#">
+							select count(*) c from cataloged_item
+						</cfquery>
+						<li>
+							#collection#
+							<cfif len(descr) gt 0>
+								<div class="collDescr">
+									#descr#
+								</div>
+							</cfif>
+							<ul>
+								<li><a href="/#coll_dir_name#" target="_top">Search #c.c# specimens</a></li>
+								<cfif len(WEB_LINK) gt 0>
+									<li><a href="#WEB_LINK#" class="external" target="_blank">Collection Home Page</a></li>
+								</cfif>
+								<cfif len(loan_policy_url) gt 0>
+									<li><a href="#loan_policy_url#" class="external" target="_blank">Collection Loan Policy</a></li>
+								</cfif>
+							</ul>
+						</li>
+					</cfloop>
+				</ul>
+			</li>
+		</cfif>
 		<cfif isdefined("wnmu") and wnmu.recordcount gt 0>
-			<li><a href="http://www.wnmu.edu/univ/museum.htm" target="_blank" class="external">Western New Mexico University</a>
+			<li><a href="http://www.wnmu.edu/univ/museum.htm" target="_blank" class="external inst">Western New Mexico University</a>
 				<ul>
 					<cfloop query="wnmu">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -266,7 +300,7 @@ proprietary reasons, data are open to the public.
 			</li>
 		</cfif>
 		<cfif isdefined("rem") and rem.recordcount gt 0>
-			<li>Other Collections
+			<li><span class="inst">Other Collections</span>
 				<ul>
 					<cfloop query="rem">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
