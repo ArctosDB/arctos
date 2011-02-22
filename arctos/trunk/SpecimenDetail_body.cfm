@@ -1342,7 +1342,7 @@
 				</div>
 				<div class="detailBlock">
 		            <span class="detailData">			
-						#ocr.label#
+						#replace(ocr.label,chr(10),'<br>','all')#
 			        </span>
 				</div>
 			</cfif>
