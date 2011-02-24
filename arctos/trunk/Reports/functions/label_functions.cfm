@@ -754,7 +754,7 @@
 			<cfif len("#firstId#") gt 0>
 				<cfset collector = "#firstCollector# (#firstId#)">
 			<cfelse>
-				<cfset collector = "#collectors#">
+				<cfset collector = "This is a fat test.">
 			</cfif>
 		
 		<cfset format_collectors = listappend(format_collectors, collector)>
