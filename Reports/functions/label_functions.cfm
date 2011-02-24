@@ -751,6 +751,7 @@
 				<cfset collector = "#firstCollector#, #secondCollector#, #thisPreparator# (#preparatorId#)">
 			<cfelse>
 				<cfset collector = "#firstCollector#, #secondCollector# (#secondId#)">
+			</cfif>
 		<cfelse>
 			<cfset collector = "#firstCollector# (#firstId)#">
 		</cfif>
