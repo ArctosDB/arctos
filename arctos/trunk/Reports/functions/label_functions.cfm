@@ -677,14 +677,18 @@
 		
 		<cfset firstId = "">
 		<cfset secondId = "">
+		<cfset preparatorId "">
 		<cfset restIds = "">	
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			
 			<cfset firstIdPos = find("collector number=", ids)>
 			<cfset secondIdPos = find("second collector number=", ids)>
+			<cfset preparatorIdPos = find("preparator number=", ids)>
 			<cfset genbankPos = find("GenBank=", ids)>
-			<cfif secondIdPos gt 0>
-				<cfset secondId = right(ids, len(ids)-secondIdPos-len("collector number"))>
+			<cfif preparatorIdPos gt 0>
+				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos-len("preparator number"))>
+			<cfelseif secondIdPos gt 0>
+				<cfset secondId = right(ids, len(ids)-secondIdPos-len("second collector number"))>
 			<cfelseif firstIdPos gt 0>
 				<cfset firstId = right(ids, len(ids)-firstIdPos-len("collector number"))>
 			<cfelse>
@@ -713,7 +717,7 @@
 			</cfif>
 			
 			<cfif secondId is not "">
-				<cfset collector = "#collector#, #secondCollector# (#secondId#)">
+				<cfset collector = "#firstCollector#, #secondCollector# (#secondId#)">
 			<cfelse>
 				<cfset collector = "#collector#, #secondCollector#">
 			</cfif>
@@ -858,7 +862,7 @@
 		<cfelse>
        		<cfif #collectors# contains ",">
                 <cfset spacePos = find(",",collectors)>
-                <cfset thisColl = left(collectors,#SpacePos# - 1)>
+                <cfset thisColl = left(collectors,#spacePos# - 1)>
                 <cfset thisColl = "#thisColl# et al.">
         	<cfelse>
                 <cfset thisColl = #collectors#>
