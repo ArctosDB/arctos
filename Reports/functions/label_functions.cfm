@@ -681,7 +681,7 @@
 		<cfset restIds = "">	
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			
-			<cfset firstIdPos = find("collector number=", ids)>
+			<cfset firstIdPos = find("this should break", ids)>
 			<cfset secondIdPos = find("second collector number=", ids)>
 			<cfset preparatorIdPos = find("preparator number=", ids)>
 			<cfset genbankPos = find("GenBank=", ids)>
@@ -761,7 +761,6 @@
 		</cfif>
 
 		<cfset colAr[i] = "#format_collectors#">
-
 
 
 		<!--- Latitude/Longitude (datum) --->
