@@ -686,12 +686,13 @@
 			<cfset preparatorIdPos = find("preparator number=", ids)>
 			<cfset genbankPos = find("GenBank=", ids)>
 			<cfif preparatorIdPos gt 0>
-				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos-len("preparator number"))>
+				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos)>
 			<cfelseif secondIdPos gt 0>
-				<cfset secondId = right(ids, len(ids)-secondIdPos-len("second collector number"))>
+				<cfset secondId = right(ids, len(ids)-secondIdPos)>
 			<cfelseif firstIdPos gt 0>
-				<cfset firstId = right(ids, len(ids)-firstIdPos-len("collector number"))>
+				<cfset firstId = right(ids, len(ids)-firstIdPos)>
 			<cfelse>
+			
 				<cfif genbankPos is 0>
 					<cfif restIds gt 0>			
 						<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
@@ -704,34 +705,57 @@
 		<cfset rAr[i] = "#restIds#">
 		
 		<cfset format_collectors = "">
+		<cfset firstCommaPos = 0>
+		<cfset secondCommaPos = 0>
 		
-		<cfset collCommaPos = find(",", "#collectors#")>
-		<cfif collCommaPos gt 0>
-			<cfset firstCollector = left ("#collectors#", collCommaPos-1)>
-			<cfset secondCollector = right("#collectors#", len("#collectors#") - collCommaPos)>
-
-			<cfif firstId is not "">
-				<cfset collector = "#firstCollector# (#firstId#)">
+		<cfset firstCommaPos = find(",", "#collectors#")>
+		<cfset secondCommaPos = find(",", "#collectors#", firstCommaPos+1)>
+		
+		<cfset firstCollector = "">
+		<cfset secondCollector = "">
+		<cfset thisPreparator = "">
+		
+		<!--- 
+		There are four cases here:
+			1.) collector1 (id)
+				When: firstCommaPos EQ eq AND secondCommaPos eq 0
+			2.) collector1, collector2 (id)
+				When: firstCommaPos gt 0 AND secondCommaPos eq 0 AND secondId gt 0
+			3.) collector1, preparator (id)
+				When: firstCommaPos gt 0 AND secondCommaPos eq 0 AND preparatorId gt 0
+			4.) collector1, collector2, preparator (id)  
+				When: firstCommaPos gt 0 AND secondCommaPos gt 0 
+		--->
+		
+		<cfif secondCommaPos gt 0>		
+			<cfset firstCollector = left("#collectors#", firstCommaPos-1)>
+			<cfset secondCollector = mid("#collectors#", firstCommaPos, secondCommaPos - firstCommaPos)>
+			<cfset thisPreparator = right("#collectors#", len("#collectors#") - secondCommaPos)>
+			
+		<cfelseif firstCommaPos gt 0>
+			<cfset firstCollector = left("#collectors#", firstCommaPos-1)>
+			<cfif secondId gt 0>
+				<cfset secondCollector = right("#collectors#", len(#collectors#) - firstCommaPos)>
 			<cfelse>
-				<cfset collector = "#firstCollector#">
+				<cfset thisPreparator = right("#collectors#", len(#collectors#) - firstCommaPos)>
 			</cfif>
 			
-			<cfif secondId is not "">
-				<cfset collector = "#firstCollector#, #secondCollector# (#secondId#)">
-			<cfelse>
-				<cfset collector = "#collector#, #secondCollector#">
-			</cfif>
-			
-			<cfset format_collectors = listappend(format_collectors, collector)>
 		<cfelse>
-			<cfif firstId is not "">
-				<cfset coll = "#collectors# (#firstId#)">
-			<cfelse>
-				<cfset coll = "#collectors#">
-			</cfif>
-			<cfset format_collectors = listappend(format_collectors, coll)>
+			<cfset firstCollector = #collectors#>
 		</cfif>
 		
+		<cfset collector = "">
+		
+		<cfif secondCollectorId is not "">
+			<cfif preparatorId is not "">
+				<cfset collector = "#firstCollector#, #secondCollector#, #thisPreparator# (#preparatorId#)">
+			<cfelse>
+				<cfset collector = "#firstCollector#, #secondCollector# (#secondId#)">
+		<cfelse>
+			<cfset collector = "#firstCollector# (#firstId)#">
+		</cfif>
+			
+		<cfset format_collectors = listappend(format_collectors, collector)>
 		<cfset colAr[i] = "#format_collectors#">
 
 
