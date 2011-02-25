@@ -684,7 +684,7 @@
 			
 			<cfset firstIdPos = find("collector number=", ids)>
 			<cfset secondIdPos = find("second collector number=", ids)>
-			<cfset preparatorIdPos = find("preparator number=", ids)>
+			<cfset preparatorIdPos = find("preparator number=", ids-len("preparator number"))>
 			<cfset genbankPos = find("GenBank=", ids)>
 			<cfif preparatorIdPos gt 0>
 				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos)>
@@ -745,24 +745,7 @@
 			<cfset firstCollector = #collectors#>
 		</cfif>
 		
-<!---	<cfif secondId is not "">
-			<cfif preparatorId is not "">
-				<cfset collector = "#firstCollector#, #secondCollector#, #thisPreparator# (#preparatorId#)">
-			<cfelse>
-				<cfset collector = "#firstCollector#, #secondCollector# (#secondId#)">
-			</cfif>
-		<cfelseif preparatorId is not "">
-			<cfset collector = "#firstCollector#, #thisPreparator# (#preparatorId#)">
-		<cfelse>
-			<cfif len("#firstId#") gt 0>
-				<cfset collector = "#firstCollector# (#firstId#)">
-			<cfelse>
-				<cfset collector = "#firstCollector#">
-			</cfif>
-		
-		<cfset format_collectors = listappend(format_collectors, collector)>
-		</cfif> --->
-		
+		<!-- Now we find the correct return for collecter. -->
 		<cfset collector = "">
 		
 		<cfif secondId is not "">
