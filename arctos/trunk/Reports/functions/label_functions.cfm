@@ -678,7 +678,8 @@
 		<cfset firstId = "">
 		<cfset secondId = "">
 		<cfset preparatorId = "">
-		<cfset restIds = "">	
+		<cfset restIds = "">
+			
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			
 			<cfset firstIdPos = find("collector number=", ids)>
@@ -744,7 +745,7 @@
 			<cfset firstCollector = #collectors#>
 		</cfif>
 		
-		<cfif secondCollectorId is not "">
+		<cfif secondId is not "">
 			<cfif preparatorId is not "">
 				<cfset collector = "#firstCollector#, #secondCollector#, #thisPreparator# (#preparatorId#)">
 			<cfelse>
