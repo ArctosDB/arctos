@@ -682,8 +682,8 @@
 			
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			
-			<cfset firstIdPos = find("collector number=", ids-len("collector number"))>
-			<cfset secondIdPos = find("second collector number=", ids-len("second collector number"))>
+			<cfset firstIdPos = find("collector number=", ids-16)>
+			<cfset secondIdPos = find("second collector number=", ids-23)>
 			<cfset preparatorIdPos = find("preparator number=", ids-17)>
 			<cfset genbankPos = find("GenBank=", ids)>
 			<cfif preparatorIdPos gt 0>
