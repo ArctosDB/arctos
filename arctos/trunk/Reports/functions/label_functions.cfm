@@ -684,14 +684,14 @@
 			
 			<cfset firstIdPos = find("collector number=", ids)>
 			<cfset secondIdPos = find("second collector number=", ids)>
-			<cfset preparatorIdPos = find("preparator number=", ids-1)>
+			<cfset preparatorIdPos = find("preparator number=", ids)>
 			<cfset genbankPos = find("GenBank=", ids)>
 			<cfif preparatorIdPos gt 0>
-				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos)>
+				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos-len("preparator number"))>
 			<cfelseif secondIdPos gt 0>
-				<cfset secondId = right(ids, len(ids)-secondIdPos)>
+				<cfset secondId = right(ids, len(ids)-secondIdPos-len("second collector number"))>
 			<cfelseif firstIdPos gt 0>
-				<cfset firstId = right(ids, len(ids)-firstIdPos)>
+				<cfset firstId = right(ids, len(ids)-firstIdPos-len("collector number"))>
 			<cfelse>
 			
 				<cfif genbankPos is 0>
