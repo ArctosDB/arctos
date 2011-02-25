@@ -684,7 +684,7 @@
 			
 			<cfset firstIdPos = find("collector number=", ids)>
 			<cfset secondIdPos = find("second collector number=", ids)>
-			<cfset preparatorIdPos = find("preparator number=", ids)>
+			<cfset preparatorIdPos = find("preparator number=", ids-1)>
 			<cfset genbankPos = find("GenBank=", ids)>
 			<cfif preparatorIdPos gt 0>
 				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos)>
