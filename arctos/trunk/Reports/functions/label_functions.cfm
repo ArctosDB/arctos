@@ -691,7 +691,7 @@
 			<cfelseif secondIdPos gt 0>
 				<cfset secondId = right(ids, len(ids)-secondIdPos-len("second collector number="))>
 			<cfelseif firstIdPos gt 0>
-				<cfset firstId = right(ids, len(ids)-firstIdPos-len("collector number="))>
+				<cfset firstId = right(ids, len(ids)-firstIdPos-len("x"))>
 			<cfelse>
 			
 				<cfif genbankPos is 0>
