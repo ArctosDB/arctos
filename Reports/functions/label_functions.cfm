@@ -687,11 +687,11 @@
 			<cfset preparatorIdPos = find("preparator number=", ids)>
 			<cfset genbankPos = find("GenBank=", ids)>
 			<cfif preparatorIdPos gt 0>
-				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos-len("preparator number="))>
+				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos)>
 			<cfelseif secondIdPos gt 0>
-				<cfset secondId = right(ids, len(ids)-secondIdPos-len("second collector number="))>
+				<cfset secondId = right(ids, len(ids)-secondIdPos)>
 			<cfelseif firstIdPos gt 0>
-				<cfset firstId = right(ids, len(ids)-firstIdPos-len("x"))>
+				<cfset firstId = right(ids, len(ids)-firstIdPos)>
 			<cfelse>
 			
 				<cfif genbankPos is 0>
@@ -759,7 +759,7 @@
 			<cfelse>
 				<cfset collector = "#firstCollector#">
 			</cfif>
-		<!--- ><cfset format_collectors = listappend(format_collectors, collector)> --->
+		
 		<cfset format_collectors = listappend(format_collectors, collector)>
 		</cfif>
 
