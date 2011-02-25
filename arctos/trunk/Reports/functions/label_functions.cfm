@@ -760,8 +760,7 @@
 				<cfset collector = "#firstCollector#">
 			</cfif>
 		<!--- ><cfset format_collectors = listappend(format_collectors, collector)> --->
-		<cfset format_collectors = listappend(format_collectors, 
-				"#firstCollector#, #secondCollector#, #thisPreparator#")>
+		<cfset format_collectors = #collectors#>
 		</cfif>
 
 		<cfset colAr[i] = "#format_collectors#">
