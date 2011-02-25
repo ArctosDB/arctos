@@ -677,11 +677,11 @@
 		
 		<cfset firstId = "">
 		<cfset secondId = "">
-		<cfset preparatorId "">
+		<cfset preparatorId = "">
 		<cfset restIds = "">	
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			
-			<cfset firstIdPos = find("this should break", ids)>
+			<cfset firstIdPos = find("collector number=", ids)>
 			<cfset secondIdPos = find("second collector number=", ids)>
 			<cfset preparatorIdPos = find("preparator number=", ids)>
 			<cfset genbankPos = find("GenBank=", ids)>
@@ -754,7 +754,7 @@
 			<cfif len("#firstId#") gt 0>
 				<cfset collector = "#firstCollector# (#firstId#)">
 			<cfelse>
-				<cfset collector = "This is a fat test.">
+				<cfset collector = "#firstCollector#">
 			</cfif>
 		
 		<cfset format_collectors = listappend(format_collectors, collector)>
