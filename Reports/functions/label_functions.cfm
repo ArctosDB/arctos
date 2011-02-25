@@ -745,7 +745,7 @@
 			<cfset firstCollector = #collectors#>
 		</cfif>
 		
-		<cfif secondId is not "">
+<!---	<cfif secondId is not "">
 			<cfif preparatorId is not "">
 				<cfset collector = "#firstCollector#, #secondCollector#, #thisPreparator# (#preparatorId#)">
 			<cfelse>
@@ -761,8 +761,34 @@
 			</cfif>
 		
 		<cfset format_collectors = listappend(format_collectors, collector)>
+		</cfif> --->
+		
+		<cfset collector = "">
+		
+		<cfif secondId is not "">
+			<cfif preparatorId is not "">
+				<cfset collector = "#firstCollector#, #secondCollector#, #thisPreparator# (#preparatorId#)">
+			</cfif>
+		</cfif>
+		
+		<cfif secondId is not "">
+			<cfset collector = "#firstCollector#, #secondCollector# (#secondId#)">
+		</cfif>
+		
+		<cfif preparatorId is not "">
+			<cfset collector = "#firstCollector#, #thisPreparator# (#preparatorId#)">
 		</cfif>
 
+		<cfif collector is "">
+			<cfif firstId is not "">
+				<cfset collector = "#firstCollector# (#firstId#)">
+			<cfelse>
+				<cfset collector = "#firstCollector#">
+			</cfif>
+		</cfif>
+		
+		<cfset format_collectors = listappend(format_collectors, collector)>
+		
 		<cfset colAr[i] = "#format_collectors#">
 
 
