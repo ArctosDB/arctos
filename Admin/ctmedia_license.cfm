@@ -43,7 +43,7 @@
 				<th>URI</th>
 			</tr>
 			<cfloop query="q">
-				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# id="r#ctspnid#">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<form name="m#media_license_id#" id="m#media_license_id#">
 						<input name="action" type="hidden">
 						<input name="media_license_id" type="hidden" value="#media_license_id#">
