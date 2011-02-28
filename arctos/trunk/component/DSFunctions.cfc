@@ -1,4 +1,84 @@
 <cfcomponent>
+<cffunction name="getSpecimenByPartBarcode" access="remote">
+	<cfargument name="barcode" type="any" required="yes">
+	<cfquery name="d" datasource="uam_god">
+		select 
+			c.barcode,
+			CAT_NUM,
+			VERBATIM_DATE,
+			LAST_EDIT_DATE,
+			INDIVIDUALCOUNT,
+			COLL_OBJ_DISPOSITION,
+			COLLECTORS,
+			OTHERCATALOGNUMBERS,
+			RELATEDCATALOGEDITEMS,
+			TYPESTATUS,
+			ACCESSION,
+			HIGHER_GEOG,
+			CONTINENT_OCEAN,
+			COUNTRY,
+			STATE_PROV,
+			COUNTY,
+			FEATURE,
+			ISLAND,
+			ISLAND_GROUP,
+			QUAD,
+			SEA,
+			SPEC_LOCALITY,
+			MINIMUM_ELEVATION,
+			MAXIMUM_ELEVATION,
+			ORIG_ELEV_UNITS,
+			DEC_LAT,
+			DEC_LONG,
+			DATUM,
+			ORIG_LAT_LONG_UNITS,
+			VERBATIMLATITUDE,
+			VERBATIMLONGITUDE,
+			LAT_LONG_REF_SOURCE,
+			COORDINATEUNCERTAINTYINMETERS,
+			GEOREFMETHOD,
+			LAT_LONG_REMARKS,
+			LAT_LONG_DETERMINER,
+			SCIENTIFIC_NAME,
+			IDENTIFIEDBY,
+			MADE_DATE,
+			REMARKS,
+			HABITAT,
+			ASSOCIATED_SPECIES,
+			FULL_TAXON_NAME,
+			FAMILY,
+			GENUS,
+			SPECIES,
+			SUBSPECIES,
+			AUTHOR_TEXT,
+			NOMENCLATURAL_CODE,
+			INFRASPECIFIC_RANK,
+			GUID,
+			COLLECTING_METHOD,
+			COLLECTING_SOURCE,
+			AGE_CLASS,
+			ATTRIBUTES,
+			VERIFICATIONSTATUS,
+			VERBATIMELEVATION,
+			BEGAN_DATE,
+			ENDED_DATE,
+			ID_SENSU
+		from 
+			flat,
+			specimen_part,
+			coll_obj_cont_hist,
+			container p,
+			container c 
+		where 
+			flat.collection_object_id=specimen_part.derived_from_cat_item and
+			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+			coll_obj_cont_hist.container_id=p.container_id and
+			p.parent_container_id=c.container_id and
+			c.barcode in (#ListQualify(barcode, "'")#)
+	</cfquery>
+	<cfreturn d>
+</cffunction>
+
 <cffunction name="getGuidByPartBarcode" access="remote">
 	<cfargument name="barcode" type="any" required="yes">
 	<cfquery name="d" datasource="uam_god">
