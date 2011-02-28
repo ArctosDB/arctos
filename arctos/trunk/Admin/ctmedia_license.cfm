@@ -68,7 +68,7 @@
 	</cfquery>
 	<cflocation url="ctmedia_license.cfm" addtoken="false">
 </cfif>	
-<cfif action is "update">
+<cfif action is "save">
 	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update ctmedia_license set
 			display='#display#',
