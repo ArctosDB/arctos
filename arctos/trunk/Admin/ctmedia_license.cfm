@@ -51,8 +51,8 @@
 						<td><textarea name="description"  class="reqdClr" id="description" rows="4" cols="40">#description#</textarea></td>
 						<td><input type="text" name="uri" value="#uri#" class="reqdClr"></td>				
 						<td nowrap="nowrap">
-							<span class="likeLink" onclick="m#media_license_id#.action.value='delete';submit();">[ Delete ]</span>
-							<br><span class="likeLink" onclick="m#media_license_id#.action.value='save';submit();">[ Update ]</span>	
+							<span class="likeLink" onclick="m#media_license_id#.action.value='delete';m#media_license_id#.submit();">[ Delete ]</span>
+							<br><span class="likeLink" onclick="m#media_license_id#.action.value='save';m#media_license_id#.submit();">[ Update ]</span>	
 						</td>
 					</form>
 				</tr>
