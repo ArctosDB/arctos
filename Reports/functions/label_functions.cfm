@@ -188,7 +188,7 @@
 		<cfset stripParts = "">
 		<cfset tiss = "">
 		<cfloop list="#parts#" delimiters=";" index="p">
-			<cfif #p# contains "(">
+			<cfif #p# contains "frozen">
 				<cfset tiss="tissues (frozen)">
 			<cfelse>
 				<cfif len(#stripParts#) is 0>
@@ -208,7 +208,11 @@
 		<cfset pAr[i] = #stripParts#>
 		<cfset thisDate = "">
 		<cftry>
-			<cfset thisDate = #dateformat(verbatim_date,"dd mmm yyyy")#>
+			<cfif isdate(verbatim_date)>
+				<cfset thisDate = #dateformat(verbatim_date,"dd mmm yyyy")#>
+			<cfelse>
+				<cfset thisDate = verbatim_date>
+			</cfif>	
 			<cfcatch>
 				<cfset thisDate = #verbatim_date#>
 			</cfcatch>
@@ -217,6 +221,7 @@
 
 			<cfset i=i+1>
 		</cfloop>
+		
 		<cfset temp=queryAddColumn(d,"locality","VarChar",lAr)>
 		<cfset temp=queryAddColumn(d,"sexcode","VarChar",sAr)>
 		<cfset temp=queryAddColumn(d,"idNum","VarChar",idAr)>
@@ -404,7 +409,7 @@
 		<cfset stripParts = "">
 		<cfset tiss = "">
 		<cfloop list="#parts#" delimiters=";" index="p">
-			<cfif #p# contains "(">
+			<cfif #p# contains "frozen">
 				<cfset tiss="tissues (frozen)">
 			<cfelse>
 				<cfif len(#stripParts#) is 0>
@@ -424,7 +429,11 @@
 		<cfset pAr[i] = #stripParts#>
 		<cfset thisDate = "">
 		<cftry>
-			<cfset thisDate = #dateformat(verbatim_date,"dd mmm yyyy")#>
+			<cfif isdate(verbatim_date)>
+				<cfset thisDate = #dateformat(verbatim_date,"dd mmm yyyy")#>
+			<cfelse>
+				<cfset thisDate = verbatim_date>
+			</cfif>	
 			<cfcatch>
 				<cfset thisDate = #verbatim_date#>
 			</cfcatch>
