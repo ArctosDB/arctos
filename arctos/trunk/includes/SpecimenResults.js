@@ -429,6 +429,9 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
 				theInnerHtml += '<th>Collectors</th>';
 			}
+			if (data.COLUMNLIST[0].indexOf('PREPARATORS')> -1) {
+				theInnerHtml += '<th>Preparators</th>';
+			}
 			if (data.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
 				theInnerHtml += '<th>Latitude</th>';
 			}
@@ -670,6 +673,9 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
 					theInnerHtml += '<td>' + splitByComma(data.COLLECTORS[i]) + '</td>';
 				}
+				if (data.COLUMNLIST[0].indexOf('PREPARATORS')> -1) {
+					theInnerHtml += '<td>' + splitByComma(data.PREPARATORS[i]) + '</td>';
+				}
 				if (data.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
 					theInnerHtml += '<td>' + cordFormat(data.VERBATIMLATITUDE[i]) + '</td>';
 				}
@@ -760,7 +766,6 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
 					theInnerHtml += '<td>' + data.ENDED_DATE[i] + '</td>';
 				}
-
 				if (data.COLUMNLIST[0].indexOf('YEARCOLL')> -1) {
 					theInnerHtml += '<td>' + data.YEARCOLL[i] + '</td>';
 				}
@@ -770,7 +775,6 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('DAYCOLL')> -1) {
 					theInnerHtml += '<td>' + data.DAYCOLL[i] + '</td>';
 				}
-				
 				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
 				}
