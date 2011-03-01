@@ -462,6 +462,7 @@
 						<br><span style='font-size:small'>#media_type#&nbsp;(#mime_type#)</span>
 						<cfif len(display) gt 0>
 							<br><a href="uri">#display#</a>
+						<cfelse>nope
 						</cfif>
 					</td>
 					<td>
