@@ -116,12 +116,10 @@ function removeHelpDiv() {
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
 <cfif ListContainsNoCase(session.resultColumnList,"_day_of_ymd")>
-	<cfset basSelect = "#basSelect#,getYearCollected(flat.began_date,flat.ended_date) YearColl,
-		getMonthCollected(flat.began_date,flat.ended_date) MonColl,
-		getDayCollected(flat.began_date,flat.ended_date) DayColl">
+	<cfset basSelect = "#basSelect#,getYearCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) YearColl,
+		getMonthCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) MonColl,
+		getDayCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) DayColl">
 </cfif>
-
-
 <cfif ListContainsNoCase(session.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif> 
