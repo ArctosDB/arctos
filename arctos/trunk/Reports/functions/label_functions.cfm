@@ -715,11 +715,6 @@
 		<cfset rAr[i] = "#restIds#">
 		
 		<cfset format_collectors = "">
-		<cfset firstCommaPos = 0>
-		<cfset secondCommaPos = 0>
-		
-		<cfset firstCommaPos = find(",", "#collectors#")>
-		<cfset secondCommaPos = find(",", "#collectors#", firstCommaPos+1)>
 		
 		<cfset firstCollector = "">
 		<cfset secondCollector = "">
@@ -737,21 +732,16 @@
 				When: firstCommaPos gt 0 AND secondCommaPos gt 0 
 		--->
 		
-		<cfif secondCommaPos gt 0>		
-			<cfset firstCollector = left("#collectors#", firstCommaPos-1)>
-			<cfset secondCollector = mid("#collectors#", firstCommaPos, secondCommaPos - firstCommaPos)>
-			<cfset thisPreparator = right("#collectors#", len("#collectors#") - secondCommaPos)>
-			
-		<cfelseif firstCommaPos gt 0>
-			<cfset firstCollector = left("#collectors#", firstCommaPos-1)>
-			<cfif secondId gt 0>
-				<cfset secondCollector = right("#collectors#", len(#collectors#) - firstCommaPos)>
-			<cfelse>
-				<cfset thisPreparator = right("#collectors#", len(#collectors#) - firstCommaPos)>
-			</cfif>
-			
+		<cfset collCommaPos = find(",", "#collectors#")>
+        <cfif collCommaPos gt 0>
+        	<cfset firstCollector = left ("#collectors#", collCommaPos-1)>
+            <cfset secondCollector = right("#collectors#", len("#collectors#") - collCommaPos)>
 		<cfelse>
 			<cfset firstCollector = #collectors#>
+		</cfif>
+
+		<cfif len("#preparators#") gt 0>
+			<cfset thisPreparator = #preparators#>
 		</cfif>
 		
 		<!-- Now we find the correct return for collecter. -->
@@ -920,6 +910,12 @@
                 <cfset thisColl = #collectors#>
         	</cfif>
 		</cfif>
+		
+		<!--- If there's a preparator, use that name on the label instead. --->
+		<cfif isdefined('preparators') and len(preparators) gt 0>
+			<cfset thisColl = preparators>
+		</cfif>
+		
 		<cfset collAr[i] = "#thisColl#">
 		
 		<!--- Orig#collector id# or PLC nums--->
@@ -927,6 +923,7 @@
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			<cfset CNpos = find("collector number=", ids)>
 			<cfset PLCpos = find("Prep Lab Catalog", ids)>
+			<cfset PNpos = find("preparator number=", ids)>
 			<cfif CNpos eq 1> <!-- Distinguish between collector number and second collector number -->
 				<cfset colIdLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#">
 			<cfelseif PLCpos gt 0 and len(colIdLabel) lte 0>
