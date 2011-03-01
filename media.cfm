@@ -32,7 +32,7 @@
 	select mime_type from ctmime_type order by mime_type
 </cfquery>
 <cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select display from ctmedia_license order by display
+	select display media_license from ctmedia_license order by display
 </cfquery>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "saveEdit">
