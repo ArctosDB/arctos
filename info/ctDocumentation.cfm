@@ -18,7 +18,7 @@
 	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from #table#
 	</cfquery>
-	<cfif tableName is "ctmedia_license">
+	<cfif table is "ctmedia_license">
 		<table border="1">
 			<tr>
 				<td>
