@@ -156,9 +156,9 @@
     }
 </cfscript>
 	<cfif isdefined("srchType") and srchType is "key">
-		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
-		<cfset frm="from media">			
-		<cfset whr=" where media.media_id > 0">
+		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,media.media_license,license_uri "> 
+		<cfset frm="from media,ctmedia_license">			
+		<cfset whr=" where media.media_licensemedia.media_id > 0">
 		<cfset srch=" ">
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 			<cfset sel=sel & ",media_keywords.keywords">

@@ -32,7 +32,7 @@
 	select mime_type from ctmime_type order by mime_type
 </cfquery>
 <cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select display media_license from ctmedia_license order by display
+	select media_license_id,display media_license from ctmedia_license order by display
 </cfquery>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "saveEdit">
@@ -43,8 +43,10 @@
 		media_uri='#escapeQuotes(media_uri)#',
 		mime_type='#mime_type#',
         media_type='#media_type#',
-        preview_uri='#preview_uri#',
-		media_license='#media_license#'
+        preview_uri='#preview_uri#'
+		<cfif len(media_license_id) gt 0>
+			,media_license_id=#media_license_id#
+		</cfif>
 		where media_id=#media_id#
 	</cfquery>
 	<!--- relations --->
@@ -179,7 +181,7 @@
 			<select name="media_license" id="media_license">
 				<option value="">NONE</option>
 				<cfloop query="ctmedia_license">
-					<option <cfif #media.media_license# is #ctmedia_license.media_license#> selected="selected"</cfif> value="#ctmedia_license.media_license#">#ctmedia_license.media_license#</option>
+					<option <cfif media.media_license_id is ctmedia_license.media_license_id> selected="selected"</cfif> value="#ctmedia_license.media_license_id#">#ctmedia_license.media_license#</option>
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
@@ -291,7 +293,7 @@
 			<select name="media_license" id="media_license">
 				<option value="">NONE</option>
 				<cfloop query="ctmedia_license">
-					<option value="#media_license#">#media_license#</option>
+					<option value="#media_license_id#">#media_license#</option>
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
@@ -347,8 +349,8 @@
 		</cfquery>
 		<cfset media_id=mid.nv>
 		<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			insert into media (media_id,media_uri,mime_type,media_type,preview_uri,media_license)
-            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#','#media_license#')
+			insert into media (media_id,media_uri,mime_type,media_type,preview_uri<cfif len(media_license_id) gt 0>,media_license_id</cfif>)
+            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#'<cfif len(media_license_id) gt 0,#media_license_id#</cfif>)
 		</cfquery>
 		<cfloop from="1" to="#number_of_relations#" index="n">
 			<cfset thisRelationship = #evaluate("relationship__" & n)#>
