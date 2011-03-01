@@ -321,8 +321,12 @@
 		</cfif>
 	
 		<cfabort>
-	<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
+		
 		<!---
+		
+		
+	<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
+		
 		
 		
 		
