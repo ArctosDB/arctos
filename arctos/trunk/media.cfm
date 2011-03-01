@@ -177,8 +177,8 @@
 				</cfloop>
 			</select>
 			
-			<label for="media_license">License</label>
-			<select name="media_license" id="media_license">
+			<label for="media_license_id">License</label>
+			<select name="media_license_id" id="media_license_id">
 				<option value="">NONE</option>
 				<cfloop query="ctmedia_license">
 					<option <cfif media.media_license_id is ctmedia_license.media_license_id> selected="selected"</cfif> value="#ctmedia_license.media_license_id#">#ctmedia_license.media_license#</option>
@@ -289,8 +289,8 @@
 					<option value="#media_type#">#media_type#</option>
 				</cfloop>
 			</select>
-			<label for="media_license">License</label>
-			<select name="media_license" id="media_license">
+			<label for="media_license_id">License</label>
+			<select name="media_license_id" id="media_license_id">
 				<option value="">NONE</option>
 				<cfloop query="ctmedia_license">
 					<option value="#media_license_id#">#media_license#</option>
