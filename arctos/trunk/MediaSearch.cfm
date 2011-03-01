@@ -160,7 +160,7 @@
     }
 </cfscript>
 	<cfif isdefined("srchType") and srchType is "key">
-		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,media_license.uri,media_license.display"> 
+		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,ctmedia_license.uri,ctmedia_license.display"> 
 		<cfset frm="from media,ctmedia_license">			
 		<cfset whr=" where media.media_license_id=ctmedia_license.media_license_id(+) and media.media_id > 0">
 		<cfset srch=" ">
@@ -207,7 +207,7 @@
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	<cfelse>
-		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,media_license.uri,media_license.display "> 
+		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,ctmedia_license.uri,ctmedia_license.display "> 
 		<cfset frm="from media,ctmedia_license">			
 		<cfset whr=" where media.media_license_id=ctmedia_license.media_license_id(+) and media.media_id > 0">
 		<cfset srch=" ">
