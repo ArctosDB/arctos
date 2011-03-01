@@ -160,7 +160,7 @@
     }
 </cfscript>
 	<cfif isdefined("srchType") and srchType is "key">
-		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,media.media_license,license_uri "> 
+		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,media_license.uri,media_license.display"> 
 		<cfset frm="from media,ctmedia_license">			
 		<cfset whr=" where media.media_license_id=ctmedia_license.media_license_id(+) and media.media_id > 0">
 		<cfset srch=" ">
@@ -207,7 +207,7 @@
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	<cfelse>
-		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,media.media_license,license_uri "> 
+		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,media_license.uri,media_license.display "> 
 		<cfset frm="from media,ctmedia_license">			
 		<cfset whr=" where media.media_license_id=ctmedia_license.media_license_id(+) and media.media_id > 0">
 		<cfset srch=" ">
@@ -437,7 +437,7 @@
 					<td align="middle">
 						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
 						<br><span style='font-size:small'>#media_type#&nbsp;(#mime_type#)</span>
-						<cfif len(media_license_id) gt 0>
+						<cfif len(media_license) gt 0>
 							<br><a href="uri">#media_license#</a>
 						</cfif>
 					</td>
