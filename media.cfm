@@ -179,10 +179,10 @@
 			<select name="media_license" id="media_license">
 				<option value="">NONE</option>
 				<cfloop query="ctmedia_license">
-					<option <cfif #media.media_license# is #ctmedia_type.media_license#> selected="selected"</cfif> value="#media_license#">#media_license#</option>
+					<option <cfif #media.media_license# is #ctmedia_license.media_license#> selected="selected"</cfif> value="#media_license#">#media_license#</option>
 				</cfloop>
 			</select>
-			<span class="infoLink" onclick="getCtDoc('ctmedia_license';">Define</span>
+			<span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
 			<label for="relationships">Media Relationships | <span class="likeLink" onclick="manyCatItemToMedia('#media_id#')">Add multiple "shows cataloged_item" records</span></label>
 			<div id="relationships" style="border:1px dashed red;">
 				<cfset i=1>
@@ -294,7 +294,7 @@
 					<option value="#media_license#">#media_license#</option>
 				</cfloop>
 			</select>
-			<span class="infoLink" onclick="getCtDoc('ctmedia_license';">Define</span>
+			<span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<select name="relationship__1" id="relationship__1" size="1" onchange="pickedRelationship(this.id)">
