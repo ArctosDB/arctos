@@ -461,8 +461,9 @@
 						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
 						<br><span style='font-size:small'>#media_type#&nbsp;(#mime_type#)</span>
 						<cfif len(display) gt 0>
-							<br><a href="uri">#display#</a>
-						<cfelse>nope
+							<br>License: <a href="#uri#" target="_blank" class="external">#display#</a>
+						<cfelse>
+							<br>unlicensed
 						</cfif>
 					</td>
 					<td>
