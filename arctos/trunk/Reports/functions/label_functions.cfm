@@ -739,8 +739,6 @@
 		<cfelse>
 			<cfset firstCollector = #collectors#>
 		</cfif>
-
-		<cfset thisPreparator = #preparators#>
 		
 		<!-- Now we find the correct return for collecter. -->
 		<cfset collector = "">
