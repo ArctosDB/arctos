@@ -31,6 +31,9 @@
 <cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select mime_type from ctmime_type order by mime_type
 </cfquery>
+<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select display from ctmedia_license order by display
+</cfquery>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "saveEdit">
 	<cfoutput>
@@ -40,7 +43,8 @@
 		media_uri='#escapeQuotes(media_uri)#',
 		mime_type='#mime_type#',
         media_type='#media_type#',
-        preview_uri='#preview_uri#'
+        preview_uri='#preview_uri#',
+		media_license='#media_license#'
 		where media_id=#media_id#
 	</cfquery>
 	<!--- relations --->
@@ -170,6 +174,15 @@
 					<option <cfif #media.media_type# is #ctmedia_type.media_type#> selected="selected"</cfif> value="#media_type#">#media_type#</option>
 				</cfloop>
 			</select>
+			
+			<label for="media_license">License</label>
+			<select name="media_license" id="media_license">
+				<option value="">NONE</option>
+				<cfloop query="ctmedia_license">
+					<option <cfif #media.media_license# is #ctmedia_type.media_license#> selected="selected"</cfif> value="#media_license#">#media_license#</option>
+				</cfloop>
+			</select>
+			<span class="infoLink" onclick="getCtDoc('ctmedia_license';">Define</span>
 			<label for="relationships">Media Relationships | <span class="likeLink" onclick="manyCatItemToMedia('#media_id#')">Add multiple "shows cataloged_item" records</span></label>
 			<div id="relationships" style="border:1px dashed red;">
 				<cfset i=1>
@@ -274,6 +287,14 @@
 					<option value="#media_type#">#media_type#</option>
 				</cfloop>
 			</select>
+			<label for="media_license">License</label>
+			<select name="media_license" id="media_license">
+				<option value="">NONE</option>
+				<cfloop query="ctmedia_license">
+					<option value="#media_license#">#media_license#</option>
+				</cfloop>
+			</select>
+			<span class="infoLink" onclick="getCtDoc('ctmedia_license';">Define</span>
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<select name="relationship__1" id="relationship__1" size="1" onchange="pickedRelationship(this.id)">
@@ -326,8 +347,8 @@
 		</cfquery>
 		<cfset media_id=mid.nv>
 		<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			insert into media (media_id,media_uri,mime_type,media_type,preview_uri)
-            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#')
+			insert into media (media_id,media_uri,mime_type,media_type,preview_uri,media_license)
+            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#','#media_license#')
 		</cfquery>
 		<cfloop from="1" to="#number_of_relations#" index="n">
 			<cfset thisRelationship = #evaluate("relationship__" & n)#>
