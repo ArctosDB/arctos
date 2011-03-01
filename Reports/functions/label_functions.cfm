@@ -909,11 +909,6 @@
         	</cfif>
 		</cfif>
 		
-		<!--- If there's a preparator, use that name on the label instead. --->
-		<cfif isdefined('preparators') and len(preparators) gt 0>
-			<cfset thisColl = preparators>
-		</cfif>
-		
 		<cfset collAr[i] = "#thisColl#">
 		
 		<!--- Orig#collector id# or PLC nums--->
