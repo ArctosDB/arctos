@@ -759,19 +759,23 @@
 		
 		<cfif secondId is not "">
 			<cfif preparatorId is not "">
+				<!-- This is the case where we have the most information possible. -->
 				<cfset collector = "#firstCollector#, #secondCollector#, #thisPreparator# (#preparatorId#)">
 			</cfif>
 		</cfif>
 		
-		<cfif secondId is not "">
+		<cfif secondId is not "" and collector is "">
+			<!-- We have a secondId but no preparatorId, and collector is still empty. -->
 			<cfset collector = "#firstCollector#, #secondCollector# (#secondId#)">
 		</cfif>
 		
-		<cfif preparatorId is not "">
+		<cfif preparatorId is not "" and collector is "">
+			<!-- We have a preparatorId but no secondId, and collector is still empty. -->
 			<cfset collector = "#firstCollector#, #thisPreparator# (#preparatorId#)">
 		</cfif>
 
 		<cfif collector is "">
+			<!-- Last check, to make sure collector returns at least the firstCollector. -->
 			<cfif firstId is not "">
 				<cfset collector = "#firstCollector# (#firstId#)">
 			<cfelse>
