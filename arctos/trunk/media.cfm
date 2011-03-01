@@ -350,7 +350,7 @@
 		<cfset media_id=mid.nv>
 		<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into media (media_id,media_uri,mime_type,media_type,preview_uri<cfif len(media_license_id) gt 0>,media_license_id</cfif>)
-            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#'<cfif len(media_license_id) gt 0,#media_license_id#</cfif>)
+            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#'<cfif len(media_license_id) gt 0>,#media_license_id#</cfif>)
 		</cfquery>
 		<cfloop from="1" to="#number_of_relations#" index="n">
 			<cfset thisRelationship = #evaluate("relationship__" & n)#>
