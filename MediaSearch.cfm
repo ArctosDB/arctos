@@ -460,8 +460,8 @@
 					<td align="middle">
 						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
 						<br><span style='font-size:small'>#media_type#&nbsp;(#mime_type#)</span>
-						<cfif len(media_license) gt 0>
-							<br><a href="uri">#media_license#</a>
+						<cfif len(display) gt 0>
+							<br><a href="uri">#display#</a>
 						</cfif>
 					</td>
 					<td>
