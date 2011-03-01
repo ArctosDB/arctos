@@ -46,6 +46,8 @@
         preview_uri='#preview_uri#'
 		<cfif len(media_license_id) gt 0>
 			,media_license_id=#media_license_id#
+		<cfelse>
+			,media_license_id=NULL
 		</cfif>
 		where media_id=#media_id#
 	</cfquery>
