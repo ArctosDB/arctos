@@ -1,6 +1,8 @@
 <cfset title="Media">
 <cfset metaDesc="Locate Media, including audio (sound recordings), video (movies), and images (pictures) of specimens, collecting sites, habitat, collectors, and more.">
 <cfinclude template="/includes/_header.cfm">
+
+<!----
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
     	<cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#&specID=#url.collection_object_id#" addtoken="false">
@@ -15,6 +17,8 @@
 		</cfoutput>
 	</cfif>
 </cfif>
+
+---->
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
