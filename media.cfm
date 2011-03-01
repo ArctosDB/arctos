@@ -179,7 +179,7 @@
 			<select name="media_license" id="media_license">
 				<option value="">NONE</option>
 				<cfloop query="ctmedia_license">
-					<option <cfif #media.media_license# is #ctmedia_license.media_license#> selected="selected"</cfif> value="#media_license#">#media_license#</option>
+					<option <cfif #media.media_license# is #ctmedia_license.media_license#> selected="selected"</cfif> value="#ctmedia_license.media_license#">#ctmedia_license.media_license#</option>
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
