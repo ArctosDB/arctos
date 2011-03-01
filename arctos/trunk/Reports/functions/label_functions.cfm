@@ -740,9 +740,7 @@
 			<cfset firstCollector = #collectors#>
 		</cfif>
 
-		<cfif len("#preparators#") gt 0>
-			<cfset thisPreparator = #preparators#>
-		</cfif>
+		<cfset thisPreparator = #preparators#>
 		
 		<!-- Now we find the correct return for collecter. -->
 		<cfset collector = "">
