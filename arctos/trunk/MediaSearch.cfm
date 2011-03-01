@@ -158,7 +158,7 @@
 	<cfif isdefined("srchType") and srchType is "key">
 		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,media.media_license,license_uri "> 
 		<cfset frm="from media,ctmedia_license">			
-		<cfset whr=" where media.media_licensemedia.media_id > 0">
+		<cfset whr=" where media.media_license_id=ctmedia_license.media_license_id(+) and media.media_id > 0">
 		<cfset srch=" ">
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 			<cfset sel=sel & ",media_keywords.keywords">
@@ -203,9 +203,9 @@
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	<cfelse>
-		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
-		<cfset frm="from media">			
-		<cfset whr=" where media.media_id > 0">
+		<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri,media.media_license,license_uri "> 
+		<cfset frm="from media,ctmedia_license">			
+		<cfset whr=" where media.media_license_id=ctmedia_license.media_license_id(+) and media.media_id > 0">
 		<cfset srch=" ">
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
 			<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
@@ -433,6 +433,9 @@
 					<td align="middle">
 						<a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
 						<br><span style='font-size:small'>#media_type#&nbsp;(#mime_type#)</span>
+						<cfif len(media_license_id) gt 0>
+							<br><a href="uri">#media_license#</a>
+						</cfif>
 					</td>
 					<td>
 						<cfif len(desc.label_value) gt 0>
