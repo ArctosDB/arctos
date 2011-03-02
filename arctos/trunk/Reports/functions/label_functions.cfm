@@ -916,15 +916,13 @@
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			<cfset CNpos = find("collector number=", ids)>
 			<cfset PLCpos = find("Prep Lab Catalog", ids)>
-			<cfif CNpos eq 1>
-				<!-- Distinguish between collector number and second collector number -->
+			<cfif CNpos eq 1> <!-- Distinguish between collector number and second collector number -->
 				<cfset colIdLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#">
 			<cfelseif PLCpos gt 0 and len(colIdLabel) lte 0>
 				<cfset colIdLabel = "#right(ids, len(ids)-PLCpos-len("Prep Lab Catalog"))#">
 			</cfif>
 		</cfloop>
 		<cfset colIdAr[i] = "#colIdLabel#">
-
 		
 		<!--- Parts Formatting --->
 		<cfset formatted_parts = "">
