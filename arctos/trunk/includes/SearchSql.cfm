@@ -563,7 +563,7 @@
 </cfif>
 <cfif isdefined("verbatim_date") AND len(verbatim_date) gt 0>
 	<cfset mapurl = "#mapurl#&verbatim_date=#verbatim_date#">
-	<cfset basQual = " #basQual# AND upper(verbatim_date) LIKE '%#ucase(escapeQuotes(session.flatTableName.verbatim_date))#%'">
+	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.verbatim_date) LIKE '%#ucase(escapeQuotes(verbatim_date))#%'">
 </cfif>
 <cfif isdefined("accn_trans_id") AND len(accn_trans_id) gt 0>
 	<cfset mapurl = "#mapurl#&accn_trans_id=#accn_trans_id#">
