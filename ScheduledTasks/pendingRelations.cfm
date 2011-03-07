@@ -5,6 +5,7 @@
 <cfoutput>
 	<cfloop query="getRels">
 		<cfif #related_to_num_type# is "catalog number">
+			---trying....
 			<cftry>
 			<cfquery name="isOne" datasource="uam_god">
 				select 
