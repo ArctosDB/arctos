@@ -1327,13 +1327,13 @@
 		<cfset sql = "#sql# AND upper(loan_instructions) LIKE '%#ucase(loan_instructions)#%'">
 	</cfif>
 	<cfif isdefined("rec_agent") AND len(#rec_agent#) gt 0>
-		<cfset sql = "#sql# AND upper(recAgnt.agent_name) LIKE '%#ucase(rec_agent)#%'">
+		<cfset sql = "#sql# AND upper(recAgnt.agent_name) LIKE '%#ucase(escapeQuotes(rec_agent))#%'">
 	</cfif>
 	<cfif isdefined("auth_agent") AND len(#auth_agent#) gt 0>
-		<cfset sql = "#sql# AND upper(authAgnt.agent_name) LIKE '%#ucase(auth_agent)#%'">
+		<cfset sql = "#sql# AND upper(authAgnt.agent_name) LIKE '%#ucase(escapeQuotes(auth_agent))#%'">
 	</cfif>
 	<cfif isdefined("ent_agent") AND len(#ent_agent#) gt 0>
-		<cfset sql = "#sql# AND upper(entAgnt.agent_name) LIKE '%#ucase(ent_agent)#%'">
+		<cfset sql = "#sql# AND upper(entAgnt.agent_name) LIKE '%#ucase(escapeQuotes(ent_agent))#%'">
 	</cfif>
 	<cfif isdefined("nature_of_material") AND len(#nature_of_material#) gt 0>
 		<cfset sql = "#sql# AND upper(nature_of_material) LIKE '%#ucase(nature_of_material)#%'">
