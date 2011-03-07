@@ -12,7 +12,7 @@
 				FROM 
 					flat
 				where 
-					guid = #cnum#
+					guid = '#cnum#'
 			</cfquery>
 			<cfdump var=#isOne#>
 			<cfcatch>
