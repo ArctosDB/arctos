@@ -635,7 +635,7 @@
 		<cfset project="#project_name#">	
 		<cfif len(#npsa#) gt 0 or len(#npsc#) gt 0>
 			<cfif len(#project#) gt 0>
-				<cfset project="#project#<br/>">
+				<cfset project="#project#, ">
 			</cfif>
 			<cfset project="#project#NPS: #npsa# #npsc#">
 		</cfif>    
