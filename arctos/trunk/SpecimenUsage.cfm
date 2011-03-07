@@ -158,7 +158,7 @@
 				( select project_id FROM project_agent
 					WHERE agent_name_id IN 
 						( select agent_name_id FROM agent_name WHERE 
-						upper(agent_name) like '%#ucase(author)#%' ))">
+						upper(agent_name) like '%#escapeQuotes(ucase(author))#%' ))">
 				
 		</cfif>
 		<cfif isdefined("project_type") AND len(project_type) gt 0>
