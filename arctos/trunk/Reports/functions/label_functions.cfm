@@ -720,21 +720,9 @@
 		<cfset secondCollector = "">
 		<cfset thisPreparator = "">
 		
-		<!--- 
-		There are four cases here:
-			1.) collector1 (id)
-				When: firstCommaPos EQ eq AND secondCommaPos eq 0
-			2.) collector1, collector2 (id)
-				When: firstCommaPos gt 0 AND secondCommaPos eq 0 AND secondId gt 0
-			3.) collector1, preparator (id)
-				When: firstCommaPos gt 0 AND secondCommaPos eq 0 AND preparatorId gt 0
-			4.) collector1, collector2, preparator (id)  
-				When: firstCommaPos gt 0 AND secondCommaPos gt 0 
-		--->
-		
 		<cfset collCommaPos = find(",", "#collectors#")>
         <cfif collCommaPos gt 0>
-        	<cfset firstCollector = left ("#collectors#", collCommaPos-1)>
+        	<cfset firstCollector = left("#collectors#", collCommaPos-1)>
             <cfset secondCollector = right("#collectors#", len("#collectors#") - collCommaPos)>
 		<cfelse>
 			<cfset firstCollector = #collectors#>
