@@ -894,7 +894,7 @@
 		<cfif len(#preparators#) GT 0>
 			<cfif #preparators# contains ",">
                 <cfset spacePos = find(",", preparators)>
-                <cfset thisColl = left(preparators),#spacePos# - 1)>
+                <cfset thisColl = left(preparators,#spacePos# - 1)>
                 <cfset thisColl = "#thisColl# et al.">
         	<cfelse>
                 <cfset thisColl = #preparators#>
