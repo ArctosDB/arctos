@@ -240,8 +240,8 @@ Project names may be either of:
 		</cfif>
 	</cfif>
 	<cfloop from="1" to="#numLabels#" index="i">
-		<cfset thisLabel=evaluate("media_label_" & i)>
-		<cfif len(thisLabel) gt 0>
+		<cfset ln=evaluate("media_label_" & i)>
+		<cfif len(ln) gt 0>
 			<cfset ln=evaluate("media_label_" & i)>
 			<cfset lv=evaluate("media_label_value_" & i)>
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -275,95 +275,97 @@ Project names may be either of:
 	<cfloop from="1" to="#numRelns#" index="i">
 		<cfset pf="">
 		<cfset r=evaluate("media_relationship_" & i)>
-		<cfset rk=evaluate("media_related_key_" & i)>
-		<cfset rt=evaluate("media_related_term_" & i)>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select MEDIA_RELATIONSHIP from CTMEDIA_RELATIONSHIP where MEDIA_RELATIONSHIP='#r#'
-		</cfquery>
-		<cfif len(c.MEDIA_RELATIONSHIP) is 0>
-			<cfset rec_stat=listappend(rec_stat,'Media relationship #r# is invalid',";")>
-			<cfset pf="f">
-		</cfif>
-		<cfif len(rk) gt 0 and len(rt) gt 0>
-			<cfset rec_stat=listappend(rec_stat,'You cannot specify a relationship key and term',";")>
-			<cfset pf="f">
-		</cfif>
-		<cfif len(pf) is 0>
-			<cfset table_name = listlast(r," ")>
-			<cfif len(rt) gt 0><!--- blindly accept related key assertions --->
-				<cfif table_name is "agent">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-						select distinct(agent_id) agent_id from agent_name where agent_name ='#rt#'
-					</cfquery>
-					<cfif c.recordcount is 1 and len(c.agent_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							insert into cf_temp_media_relations (
- 								key,
-								MEDIA_RELATIONSHIP,
-								CREATED_BY_AGENT_ID,
-								RELATED_PRIMARY_KEY
-							) values (
-								#key#,
-								'#r#',
-								#session.myAgentId#,
-								#c.agent_id#
-							)
-						</cfquery>
-					<cfelse>
-						<cfset rec_stat=listappend(rec_stat,'Agent #rt# matched #c.recordcount# records.',";")>
-					</cfif>
-				<cfelseif table_name is "project">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-						select distinct(project_id) project_id from project where PROJECT_NAME ='#rt#'
-					</cfquery>
-					<cfif c.recordcount is 0>
+			<cfif len(r) gt 0>
+			<cfset rk=evaluate("media_related_key_" & i)>
+			<cfset rt=evaluate("media_related_term_" & i)>
+			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select MEDIA_RELATIONSHIP from CTMEDIA_RELATIONSHIP where MEDIA_RELATIONSHIP='#r#'
+			</cfquery>
+			<cfif len(c.MEDIA_RELATIONSHIP) is 0>
+				<cfset rec_stat=listappend(rec_stat,'Media relationship #r# is invalid',";")>
+				<cfset pf="f">
+			</cfif>
+			<cfif len(rk) gt 0 and len(rt) gt 0>
+				<cfset rec_stat=listappend(rec_stat,'You cannot specify a relationship key and term',";")>
+				<cfset pf="f">
+			</cfif>
+			<cfif len(pf) is 0>
+				<cfset table_name = listlast(r," ")>
+				<cfif len(rt) gt 0><!--- blindly accept related key assertions --->
+					<cfif table_name is "agent">
 						<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-							select distinct(project_id) project_id from project where niceurl(PROJECT_NAME) ='#rt#'
+							select distinct(agent_id) agent_id from agent_name where agent_name ='#rt#'
 						</cfquery>
-					</cfif>
-					<cfif c.recordcount is 1 and len(c.project_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							insert into cf_temp_media_relations (
- 								key,
-								MEDIA_RELATIONSHIP,
-								CREATED_BY_AGENT_ID,
-								RELATED_PRIMARY_KEY
-							) values (
-								#key#,
-								'#r#',
-								#session.myAgentId#,
-								#c.project_id#
-							)
+						<cfif c.recordcount is 1 and len(c.agent_id) gt 0>
+							<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+								insert into cf_temp_media_relations (
+	 								key,
+									MEDIA_RELATIONSHIP,
+									CREATED_BY_AGENT_ID,
+									RELATED_PRIMARY_KEY
+								) values (
+									#key#,
+									'#r#',
+									#session.myAgentId#,
+									#c.agent_id#
+								)
+							</cfquery>
+						<cfelse>
+							<cfset rec_stat=listappend(rec_stat,'Agent #rt# matched #c.recordcount# records.',";")>
+						</cfif>
+					<cfelseif table_name is "project">
+						<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+							select distinct(project_id) project_id from project where PROJECT_NAME ='#rt#'
 						</cfquery>
+						<cfif c.recordcount is 0>
+							<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+								select distinct(project_id) project_id from project where niceurl(PROJECT_NAME) ='#rt#'
+							</cfquery>
+						</cfif>
+						<cfif c.recordcount is 1 and len(c.project_id) gt 0>
+							<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+								insert into cf_temp_media_relations (
+	 								key,
+									MEDIA_RELATIONSHIP,
+									CREATED_BY_AGENT_ID,
+									RELATED_PRIMARY_KEY
+								) values (
+									#key#,
+									'#r#',
+									#session.myAgentId#,
+									#c.project_id#
+								)
+							</cfquery>
+						<cfelse>
+							<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
+						</cfif>
+					<cfelseif table_name is "cataloged_item">
+						<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+							select collection_object_id from 
+								flat
+							WHERE
+								guid='#rt#'
+						</cfquery>
+						<cfif c.recordcount is 1 and len(c.collection_object_id) gt 0>
+							<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+								insert into cf_temp_media_relations (
+	 								key,
+									MEDIA_RELATIONSHIP,
+									CREATED_BY_AGENT_ID,
+									RELATED_PRIMARY_KEY
+								) values (
+									#key#,
+									'#r#',
+									#session.myAgentId#,
+									#c.collection_object_id#
+								)
+							</cfquery>
+						<cfelse>
+							<cfset rec_stat=listappend(rec_stat,'Cataloged Item #lv# matched #c.recordcount# records.',";")>
+						</cfif>
 					<cfelse>
-						<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
+						<cfset rec_stat=listappend(rec_stat,'Media relationship #ln# is not handled',";")>
 					</cfif>
-				<cfelseif table_name is "cataloged_item">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-						select collection_object_id from 
-							flat
-						WHERE
-							guid='#rt#'
-					</cfquery>
-					<cfif c.recordcount is 1 and len(c.collection_object_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							insert into cf_temp_media_relations (
- 								key,
-								MEDIA_RELATIONSHIP,
-								CREATED_BY_AGENT_ID,
-								RELATED_PRIMARY_KEY
-							) values (
-								#key#,
-								'#r#',
-								#session.myAgentId#,
-								#c.collection_object_id#
-							)
-						</cfquery>
-					<cfelse>
-						<cfset rec_stat=listappend(rec_stat,'Cataloged Item #lv# matched #c.recordcount# records.',";")>
-					</cfif>
-				<cfelse>
-					<cfset rec_stat=listappend(rec_stat,'Media relationship #ln# is not handled',";")>
 				</cfif>
 			</cfif>
 		</cfif>
