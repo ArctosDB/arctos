@@ -928,6 +928,8 @@
 				<cfset idLabel = "#right(ids, len(ids)-PNpos-len("preparator number"))#"/>
 			<cfelseif PLCpos gt 0>
 				<cfset idLabel = "#right(ids, len(ids)-PLCpos-len("Prep Lab Catalog"))#"/>
+				<!-- If we find this number, we must use it. -->
+				<cfbreak>
 			</cfif>
 		</cfloop>
 		
