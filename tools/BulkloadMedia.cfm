@@ -84,8 +84,6 @@ sho err
     output = "#header#"
     addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkMedia.csv" addtoken="false">
-
-
 </cfif>
 <cfif action is "nothing">
 	<cfoutput>
@@ -117,7 +115,7 @@ sho err
 			</UL>
 		</li>
 	</ul>
-
+<hr>
 	Download CSV template:
 	<form name="temp" method="post" action="BulkloadMedia.cfm">
 		<input type="hidden" name="action" value="makeTemplate">
@@ -142,7 +140,8 @@ sho err
 		<input type="submit" value="get template">
 	</form>
 	</cfoutput>
-Step 2: Upload a comma-delimited text file (csv). 
+<hr>
+Upload a comma-delimited text file (csv). 
 
 
 
