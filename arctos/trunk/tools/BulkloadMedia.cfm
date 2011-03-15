@@ -14,13 +14,38 @@ create table cf_temp_media (
  media_relationship_1 varchar2(60),
  media_related_key_1 number,
  media_related_term_1 varchar2(255),
- media_label_1 varchar2(60),
- media_label_value_1 varchar2(60),
  media_relationship_2 varchar2(60),
  media_related_key_2 number,
  media_related_term_2 varchar2(255),
+ media_relationship_3 varchar2(60),
+ media_related_key_3 number,
+ media_related_term_3 varchar2(255),
+ media_relationship_4 varchar2(60),
+ media_related_key_4 number,
+ media_related_term_4 varchar2(255),
+ media_relationship_5 varchar2(60),
+ media_related_key_5 number,
+ media_related_term_5 varchar2(255),
+ media_label_1 varchar2(60),
+ media_label_value_1 varchar2(60),
  media_label_2 varchar2(60),
- media_label_value_2 varchar2(60)
+ media_label_value_2 varchar2(60),
+ media_label_3 varchar2(60),
+ media_label_value_3 varchar2(60),
+ media_label_4 varchar2(60),
+ media_label_value_4 varchar2(60),
+ media_label_5 varchar2(60),
+ media_label_value_5 varchar2(60),
+ media_label_6 varchar2(60),
+ media_label_value_6 varchar2(60),
+ media_label_7 varchar2(60),
+ media_label_value_7 varchar2(60),
+ media_label_8 varchar2(60),
+ media_label_value_8 varchar2(60),
+ media_label_9 varchar2(60),
+ media_label_value_9 varchar2(60),
+ media_label_10 varchar2(60),
+ media_label_value_10 varchar2(60)
 );
 
 
@@ -64,8 +89,8 @@ sho err
 
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Media">
-<cfset numLabels=2>
-<cfset numRelns=2>
+<cfset numLabels=10>
+<cfset numRelns=5>
 <cfif action is "makeTemplate">
 	<cfset header="MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license">
 	<cfloop from="1" to="#nL#" index="i">
