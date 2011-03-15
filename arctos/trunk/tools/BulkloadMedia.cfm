@@ -133,9 +133,9 @@ Project names may be either of:
 	</li>
 </ul>
 
-<cfinclude template="/info/ctDocumentation.cfm?table=ctmedia_relationship">
+<a href="/info/ctDocumentation.cfm?table=ctmedia_relationship">relationships</a>
 
-<cfinclude template="/info/ctDocumentation.cfm?table=ctmedia_label">
+<a href="/info/ctDocumentation.cfm?table=ctmedia_label">labels</a>
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
