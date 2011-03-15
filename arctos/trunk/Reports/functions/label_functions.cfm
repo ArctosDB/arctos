@@ -887,11 +887,12 @@
 		<!--- If there's a preparator, use preparator's name and ID/PLC#.
 		      Else, use the collector's name and ID. --->
 		
-		<cfset preparator_name = "">
-		<cfset collector_name = "">
+		<cfset use_preparator = false>
+		<cfset use_collector = false>
 		
 		<!--- If there is a 'label' type agent_name, use that; else, use collector's preferred name'--->
 		<cfif len(#preparators#) GT 0>
+			<cfset use_preparator = true>
 			<cfif #preparators# contains ",">
                 <cfset spacePos = find(",", preparators)>
                 <cfset thisColl = left(preparators,#spacePos# - 1)>
@@ -900,8 +901,10 @@
                 <cfset thisColl = #preparators#>
         	</cfif>
 		<cfelseif isdefined('labels_agent_name') and len(labels_agent_name) gt 0>
+			<cfset use_collector = true>
 			<cfset thisColl = labels_agent_name>
 		<cfelse>
+			<cfset use_collector = true>
        		<cfif #collectors# contains ",">
                 <cfset spacePos = find(",",collectors)>
                 <cfset thisColl = left(collectors,#spacePos# - 1)>
@@ -919,11 +922,11 @@
 			<cfset CNpos = find("collector number=", ids)/>
 			<cfset PNpos = find("preparator number=", ids)/>
 			<cfset PLCpos = find("Prep Lab Catalog", ids)/>
-			<cfif CNpos gt 0 and len(preparator_name) gt 0>
+			<cfif CNpos gt 0 and #use_collector#>
 				<cfset idLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#"/>
-			<cfelseif PNpos gt 0 and len(preparator_name) gt 0>
+			<cfelseif PNpos gt 0 and #use_preparator#>
 				<cfset idLabel = "#right(ids, len(ids)-PNpos-len("preparator number"))#"/>
-			<cfelseif PLCpos gt 0 and len(preparator_name) gt 0>
+			<cfelseif PLCpos gt 0>
 				<cfset idLabel = "#right(ids, len(ids)-PLCpos-len("Prep Lab Catalog"))#"/>
 			</cfif>
 		</cfloop>
