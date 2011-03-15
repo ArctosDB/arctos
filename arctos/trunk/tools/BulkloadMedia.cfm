@@ -92,7 +92,31 @@ sho err
 	<cfparam name="nL" default="#numLabels#">
 	<cfparam name="nR" default="#numRelns#">
 	<cfparam name="hK" default="1">
-	Step 1: Ensure that binary objects exist in a web-accessible location and objects media will relate to exist.
+	<ul>
+		<li>Binary objects to be created as Media must exist in a web-accessible location</li>
+		<li>Objects to which Media will be related - such as collecting events and cataloged items - must exist</li>
+		<li>You may specify either a media_related_key_n OR media_related_term_n, but neither both</li>
+		<li>There is no checking for media_related_key; just provide a primary key for the table name specified in media_relationship</li>
+		<li><a href="/info/ctDocumentation.cfm?table=ctmedia_relationship">valid relationships</a></li>
+		<li><a href="/info/ctDocumentation.cfm?table=ctmedia_label">valid labels</a></li>
+		<li>
+			There is limited handling for media_related_term, and required values are very specific. Valid data are:
+			<UL>
+				<li>
+					project
+					<ul>
+						<li>Exact string match ("Willow Identification")</li>
+						<li>
+							"niceURL" (both a CF and Oracle function), of the form "willow-identification" (from project 
+							"http://arctos.database.museum/project/willow-identification")
+						</li>
+					</ul>
+				</li>
+				<li>Cataloged Item - DWC GUID format ("UAM:Mamm:12")</li>
+				<li>Agent: Distinct string match with agent_name</li>
+			</UL>
+		</li>
+	</ul>
 
 	Download CSV template:
 	<form name="temp" method="post" action="BulkloadMedia.cfm">
@@ -120,22 +144,7 @@ sho err
 	</cfoutput>
 Step 2: Upload a comma-delimited text file (csv). 
 
-This form will blindly accept related key assertions.
 
-Project names may be either of:
-<ul>
-	<li>
-		Exact string match
-	</li>
-	<li>
-		"niceURL" (both a CF and Oracle function), of the form "willow-identification" (from project 
-		"http://arctos.database.museum/project/willow-identification")
-	</li>
-</ul>
-
-<a href="/info/ctDocumentation.cfm?table=ctmedia_relationship">relationships</a>
-
-<a href="/info/ctDocumentation.cfm?table=ctmedia_label">labels</a>
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
