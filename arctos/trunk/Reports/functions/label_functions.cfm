@@ -919,7 +919,7 @@
 			<cfset CNpos = find("collector number=", ids)/>
 			<cfset PNpos = find("preparator number=", ids)/>
 			<cfset PLCpos = find("Prep Lab Catalog", ids)/>
-			<cfif CNpos gt 0 and len(collector_name) gt 0>
+			<cfif CNpos gt 0>
 				<cfset idLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#"/>
 			<cfelseif PNpos gt 0 and len(preparator_name) gt 0>
 				<cfset idLabel = "#right(ids, len(ids)-PNpos-len("preparator number"))#"/>
