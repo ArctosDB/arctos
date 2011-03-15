@@ -36,7 +36,7 @@
 				ADDRESS
 		</cfquery>
 		<cfloop query="contacts">
-			<cfmail to="#ADDRESS#" subject="Pending Relationships" from="reminder@#Application.fromEmail#" type="html">
+			<cfmail to="#ADDRESS#" subject="Pending Relationships" cc="arctos.database@gmail.com" from="reminder@#Application.fromEmail#" type="html">
 				You are receiving this message because you are listed as a contact for Arctos collection #collection#.
 				<br>
 				There are #c# #collection# items in the Pending Relationships table that have been processing for more than
