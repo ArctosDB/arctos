@@ -914,12 +914,12 @@
 		<cfset collAr[i] = "#thisColl#">
 		
 		<!--- Orig#collector id# or PLC nums--->
-		<cfset idLabel = "">
+		<cfset idLabel = "#len(preparator_name)# #len(collector_name)#">
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			<cfset CNpos = find("collector number=", ids)/>
 			<cfset PNpos = find("preparator number=", ids)/>
 			<cfset PLCpos = find("Prep Lab Catalog", ids)/>
-			<cfif CNpos gt 0>
+			<cfif CNpos gt 0 and len(preparator_name) gt 0>
 				<cfset idLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#"/>
 			<cfelseif PNpos gt 0 and len(preparator_name) gt 0>
 				<cfset idLabel = "#right(ids, len(ids)-PNpos-len("preparator number"))#"/>
