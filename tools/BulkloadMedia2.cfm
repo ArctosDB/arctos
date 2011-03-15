@@ -5,24 +5,15 @@ drop table cf_temp_media_labels;
 
 create table cf_temp_media (
  key NUMBER,
- status varchar2(255),
  MEDIA_URI VARCHAR2(255),
  MIME_TYPE VARCHAR2(255),
  MEDIA_TYPE VARCHAR2(255),
  PREVIEW_URI VARCHAR2(255),
- media_license varchar2(60),
- media_relationship_1 varchar2(60),
- media_related_key_1 number,
- media_related_term_1 varchar2(255),
- media_label_1 varchar2(60),
- media_label_value_1 varchar2(60),
- media_relationship_2 varchar2(60),
- media_related_key_2 number,
- media_related_term_2 varchar2(255),
- media_label_2 varchar2(60),
- media_label_value_2 varchar2(60)
+MEDIA_RELATIONSHIPS VARCHAR2(244),
+ MEDIA_LABELS VARCHAR2(255)
 );
 
+alter table cf_temp_media add status varchar2(255);
 
 create table cf_temp_media_relations (
  key NUMBER,
@@ -34,7 +25,7 @@ create table cf_temp_media_relations (
 create table cf_temp_media_labels (
 key NUMBER,
  MEDIA_LABEL VARCHAR2(255),
- LABEL_VALUE VARCHAR2(255),
+LABEL_VALUE VARCHAR2(255),
  ASSIGNED_BY_AGENT_ID NUMBER
 );
 
@@ -63,73 +54,17 @@ sho err
 --->
 
 <cfinclude template="/includes/_header.cfm">
-<cfset title="Bulkload Media">
-<cfset numLabels=2>
-<cfset numRelns=2>
-<cfif action is "makeTemplate">
-	<cfset header="MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license">
-	<cfloop from="1" to="#nL#" index="i">
-		<cfset header=listappend(header,"media_label_#i#")>
-		<cfset header=listappend(header,"media_label_value_#i#")>
-	</cfloop>
-	<cfloop from="1" to="#nR#" index="i">
-		<cfset header=listappend(header,"media_relationship_#i#")>
-		<cfif hK is 1>
-			<cfset header=listappend(header,"media_related_key_#i#")>
-		</cfif>
-		<cfset header=listappend(header,"media_related_term_#i#")>
-	</cfloop>
-	<cffile action = "write" 
-    file = "#Application.webDirectory#/download/BulkMedia.csv"
-    output = "#header#"
-    addNewLine = "no">
-	<cflocation url="/download.cfm?file=#ulkMedia.csv" addtoken="false">
-
-
-</cfif>
-<cfif action is "nothing">
-	<cfparam name="nL" default="#numLabels#">
-	<cfparam name="nR" default="#numRelns#">
-	<cfparam name="hK" default="1">
-	<form name="temp" method="post" action="BulkloadMedia.cfm">
-		<input type="hidden" name="action" value="makeTemplate">
-		<label for="nL">Number of Labels</label>
-		<select name="nL" id="nL">
-			<cfloop from="1" to="#numLabels#" index="i">
-				<option <cfif i is nL> selected="selected" </cfif>value="#i#">#i#</option>
-			</cfloop>
-		</select>
-		<label for="nR">Number of Relationships</label>
-		<select name="nR" id="nR">
-			<cfloop from="1" to="#numRelns#" index="i">
-				<option <cfif i is nR> selected="selected" </cfif>value="#i#">#i#</option>
-			</cfloop>
-		</select>
-		<label for="hK">include keys?</label>
-		<select name="hK" id="hK">
-			<option <cfif hK is 1> selected="selected" </cfif>value="1">yes</option>
-			<option <cfif hK is 0> selected="selected" </cfif>value="0">no</option>
-		</select>
-		<br>
-		<input type="submit">
-	</form>
-Step 1: Ensure that binary objects exist in a web-accessible location and objects media will relate to exist.
+<cfif #action# is "nothing">
+Step 1: Ensure that Media and objects media will relate to exist.
 Step 2: Upload a comma-delimited text file (csv). 
-Save CSV template....
 Include column headings, spelled exactly as below. 
 <br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
 	<div id="template" style="display:none;">
 		<label for="t">Copy and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t"></textarea>
+		<textarea rows="2" cols="80" id="t">MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,MEDIA_RELATIONSHIPS,MEDIA_LABELS</textarea>
 	</div> 
 <p></p>
 
-
-blindly accept related key assertions
-
-
-
-http://arctos-test.arctos.database.museum/project/willow-identification or string match
 
 
 
@@ -143,6 +78,46 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<li>MEDIA_LABELS</li>			 
 </ul>
 
+<p>
+	The format for MEDIA_RELATIONSHIPS is {media_relationship}={value}[;{media_relationship}={value}]
+	<br>Examples:
+	<ul>
+		<li>
+			created by agent=Carla Cicero
+		</li>
+		<li>
+			created by agent=Carla Cicero;assigned to project=Vocal variation in Pipilo maculatus
+		</li>
+		<li>
+			created by agent=Carla Cicero;assigned to project=Vocal variation in Pipilo maculatus;shows cataloged_item=MVZObs:Bird:12345
+		</li>
+	</ul>
+	Acceptable values are:
+	<ul>
+		<li>Agent Name (must resolve to one agent_id)</li>
+		<li>Project Title (exact string match)</li>
+		<li>Cataloged Item (DWC triplet)</li>
+		<li>Collecting Event (collecting_event_id)</li>
+	</ul>
+	
+</p>
+
+<p>
+	The format for MEDIA_LABELS is {media_label}={value}[;{media_label}={value}]
+	<br>Examples:
+	<ul>
+		<li>
+			audio bit resolution=whatever
+		</li>
+		<li>
+			audio bit resolution=2;audio cut id=5
+		</li>
+		<li>
+			audio bit resolution=2;audio cut id=5;made date=7 January 1964
+		</li>
+	</ul>
+		
+</p>
 <cfform name="atts" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
 			  <input type="file"
@@ -159,7 +134,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <!------------------------------------------------------->
 
 <!------------------------------------------------------->
-<cfif action is "getFile">
+<cfif #action# is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -171,11 +146,17 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from cf_temp_media_labels
 	</cfquery>
+	
+	
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfdump var=#arrResult#>
+	
+
 	<cfset numberOfColumns = ArrayLen(arrResult[1])>
+
+	
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -216,40 +197,18 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 </cfif>
 <!------------------------------------------------------->
 <!------------------------------------------------------->
-<cfif action is "validate">
+<cfif #action# is "validate">
 <cfoutput>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_temp_media
 </cfquery>
 <cfloop query="d">
 	<cfset rec_stat="">
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select MIME_TYPE from CTMIME_TYPE where MIME_TYPE='#MIME_TYPE#'
-	</cfquery>
-	<cfif len(c.MIME_TYPE) is 0>
-		<cfset rec_stat=listappend(rec_stat,'MIME_TYPE #MIME_TYPE# is invalid',";")>
-	</cfif>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select MEDIA_TYPE from CTMEDIA_TYPE where MEDIA_TYPE='#MEDIA_TYPE#'
-	</cfquery>
-	<cfif len(c.MEDIA_TYPE) is 0>
-		<cfset rec_stat=listappend(rec_stat,'MEDIA_TYPE #MEDIA_TYPE# is invalid',";")>
-	</cfif>
-	<cfhttp url="#media_uri#" charset="utf-8" method="get" />
-	<cfif left(cfhttp.statuscode,3) is not "200">
-		<cfset rec_stat=listappend(rec_stat,'#media_uri# is invalid',";")>
-	</cfif>
-	<cfif len(preview_uri) gt 0>
-		<cfhttp url="#preview_uri#" charset="utf-8" method="get" />
-		<cfif left(cfhttp.statuscode,3) is not "200">
-			<cfset rec_stat=listappend(rec_stat,'#preview_uri# is invalid',";")>
-		</cfif>
-	</cfif>
-	<cfloop from="1" to="#numLabels#" index="i">
-		<cfif len(media_label_#i#) gt 0>
-			<cfset ln=evaluate("media_label_" & i)>
-			<cfset lv=evaluate("media_label_value_" & i)>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfif len(MEDIA_LABELS) gt 0>
+		<cfloop list="#media_labels#" index="l" delimiters=";">
+			<cfset ln=listgetat(l,1,"=")>
+			<cfset lv=listgetat(l,2,"=")>
+			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select MEDIA_LABEL from CTMEDIA_LABEL where MEDIA_LABEL='#ln#'
 			</cfquery>
 			<cfif len(c.MEDIA_LABEL) is 0>
@@ -269,36 +228,22 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					)
 				</cfquery>
 			</cfif>
-		</cfif>
-	</cfloop>
-	
-	
-	
-	
-	
-	
-	<cfloop from="1" to="#numRelns#" index="i">
-		<cfset pf="">
-		<cfset r=evaluate("media_relationship_" & i)>
-		<cfset rk=evaluate("media_related_key_" & i)>
-		<cfset rt=evaluate("media_related_term_1" & i)>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select MEDIA_RELATIONSHIP from CTMEDIA_RELATIONSHIP where MEDIA_RELATIONSHIP='#r#'
-		</cfquery>
-		<cfif len(c.MEDIA_RELATIONSHIP) is 0>
-			<cfset rec_stat=listappend(rec_stat,'Media relationship #r# is invalid',";")>
-			<cfset pf="f">
-		</cfif>
-		<cfif len(rk) gt 0 and len(rt) gt 0>
-			<cfset rec_stat=listappend(rec_stat,'You cannot specify a relationship key and term',";")>
-			<cfset pf="f">
-		</cfif>
-		<cfif len(pf) is 0>
-			<cfset table_name = listlast(r," ")>
-			<cfif len(rt) gt 0><!--- blindly accept related key assertions --->
+		</cfloop>
+	</cfif>
+	<cfif len(MEDIA_RELATIONSHIPS) gt 0>
+		<cfloop list="#MEDIA_RELATIONSHIPS#" index="l" delimiters=";">
+			<cfset ln=listgetat(l,1,"=")>
+			<cfset lv=listgetat(l,2,"=")>
+			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select MEDIA_RELATIONSHIP from CTMEDIA_RELATIONSHIP where MEDIA_RELATIONSHIP='#ln#'
+			</cfquery>
+			<cfif len(c.MEDIA_RELATIONSHIP) is 0>
+				<cfset rec_stat=listappend(rec_stat,'Media relationship #ln# is invalid',";")>
+			<cfelse>
+				<cfset table_name = listlast(ln," ")>
 				<cfif table_name is "agent">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-						select distinct(agent_id) agent_id from agent_name where agent_name ='#rt#'
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select distinct(agent_id) agent_id from agent_name where agent_name ='#lv#'
 					</cfquery>
 					<cfif c.recordcount is 1 and len(c.agent_id) gt 0>
 						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -309,23 +254,60 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 								RELATED_PRIMARY_KEY
 							) values (
 								#key#,
-								'#r#',
+								'#ln#',
 								#session.myAgentId#,
 								#c.agent_id#
 							)
 						</cfquery>
 					<cfelse>
-						<cfset rec_stat=listappend(rec_stat,'Agent #rt# matched #c.recordcount# records.',";")>
+						<cfset rec_stat=listappend(rec_stat,'Agent #lv# matched #c.recordcount# records.',";")>
+					</cfif>
+				<cfelseif table_name is "locality">
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select locality_id from locality where locality_id ='#lv#'
+					</cfquery>
+					<cfif c.recordcount is 1 and len(c.locality_id) gt 0>
+						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							insert into cf_temp_media_relations (
+ 								key,
+								MEDIA_RELATIONSHIP,
+								CREATED_BY_AGENT_ID,
+								RELATED_PRIMARY_KEY
+							) values (
+								#key#,
+								'#ln#',
+								#session.myAgentId#,
+								#c.locality_id#
+							)
+						</cfquery>
+					<cfelse>
+						<cfset rec_stat=listappend(rec_stat,'locality_id #lv# matched #c.recordcount# records.',";")>
+					</cfif>
+				<cfelseif table_name is "collecting_event">
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select collecting_event_id from collecting_event where collecting_event_id ='#lv#'
+					</cfquery>
+					<cfif c.recordcount is 1 and len(c.collecting_event_id) gt 0>
+						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							insert into cf_temp_media_relations (
+ 								key,
+								MEDIA_RELATIONSHIP,
+								CREATED_BY_AGENT_ID,
+								RELATED_PRIMARY_KEY
+							) values (
+								#key#,
+								'#ln#',
+								#session.myAgentId#,
+								#c.collecting_event_id#
+							)
+						</cfquery>
+					<cfelse>
+						<cfset rec_stat=listappend(rec_stat,'collecting_event #lv# matched #c.recordcount# records.',";")>
 					</cfif>
 				<cfelseif table_name is "project">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-						select distinct(project_id) project_id from project where PROJECT_NAME ='#rt#'
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select distinct(project_id) project_id from project where PROJECT_NAME ='#lv#'
 					</cfquery>
-					<cfif c.recordcount is 0>
-						<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-							select distinct(project_id) project_id from project where niceurl(PROJECT_NAME) ='#rt#'
-						</cfquery>
-					</cfif>
 					<cfif c.recordcount is 1 and len(c.project_id) gt 0>
 						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							insert into cf_temp_media_relations (
@@ -335,7 +317,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 								RELATED_PRIMARY_KEY
 							) values (
 								#key#,
-								'#r#',
+								'#ln#',
 								#session.myAgentId#,
 								#c.project_id#
 							)
@@ -344,11 +326,19 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
 					</cfif>
 				<cfelseif table_name is "cataloged_item">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+					<cftry>
+					<cfset institution_acronym = listgetat(lv,1,":")>
+					<cfset collection_cde = listgetat(lv,2,":")>
+					<cfset cat_num = listgetat(lv,3,":")>
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select collection_object_id from 
-							flat
+							cataloged_item,
+							collection
 						WHERE
-							guid='#rt#'
+							cataloged_item.collection_id = collection.collection_id AND
+							cat_num = #cat_num# AND
+							lower(collection.collection_cde)='#lcase(collection_cde)#' AND
+							lower(collection.institution_acronym)='#lcase(institution_acronym)#'
 					</cfquery>
 					<cfif c.recordcount is 1 and len(c.collection_object_id) gt 0>
 						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -359,7 +349,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 								RELATED_PRIMARY_KEY
 							) values (
 								#key#,
-								'#r#',
+								'#ln#',
 								#session.myAgentId#,
 								#c.collection_object_id#
 							)
@@ -367,12 +357,38 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfelse>
 						<cfset rec_stat=listappend(rec_stat,'Cataloged Item #lv# matched #c.recordcount# records.',";")>
 					</cfif>
+					<cfcatch>
+						<cfset rec_stat=listappend(rec_stat,'#lv# is not a proper DWC Triplet.',";")>
+					</cfcatch>
+					</cftry>
 				<cfelse>
 					<cfset rec_stat=listappend(rec_stat,'Media relationship #ln# is not handled',";")>
 				</cfif>
 			</cfif>
+		</cfloop>
+	</cfif>
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select MIME_TYPE from CTMIME_TYPE where MIME_TYPE='#MIME_TYPE#'
+	</cfquery>
+	<cfif len(c.MIME_TYPE) is 0>
+		<cfset rec_stat=listappend(rec_stat,'MIME_TYPE #MIME_TYPE# is invalid',";")>
+	</cfif>
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select MEDIA_TYPE from CTMEDIA_TYPE where MEDIA_TYPE='#MEDIA_TYPE#'
+	</cfquery>
+	<cfif len(c.MEDIA_TYPE) is 0>
+		<cfset rec_stat=listappend(rec_stat,'MEDIA_TYPE #MEDIA_TYPE# is invalid',";")>
+	</cfif>
+	<cfhttp url="#media_uri#" charset="utf-8" method="get" />
+	<cfif left(cfhttp.statuscode,3) is not "200">
+		<cfset rec_stat=listappend(rec_stat,'#media_uri# is invalid',";")>
+	</cfif>
+	<cfif len(preview_uri) gt 0>
+		<cfhttp url="#preview_uri#" charset="utf-8" method="get" />
+		<cfif left(cfhttp.statuscode,3) is not "200">
+			<cfset rec_stat=listappend(rec_stat,'#preview_uri# is invalid',";")>
 		</cfif>
-	</cfloop>
+	</cfif>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_media set status='#rec_stat#' where key=#key#
 	</cfquery>
