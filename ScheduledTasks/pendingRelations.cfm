@@ -4,9 +4,7 @@
 </cfquery>
 <cfoutput>
 	<cfloop query="getRels">
-		<cfif #related_to_num_type# is "catalog number">
-			---trying....
-			
+		<cfif #related_to_num_type# is "catalog number">			
 			<cftry>
 			<cfquery name="isOne" datasource="uam_god">
 				select 
@@ -16,8 +14,6 @@
 				where 
 					guid = '#related_to_number#'
 			</cfquery>
-									<cfdump var=#isOne#>
-
 			<cfcatch>
 				<cfquery name="nope" datasource="uam_god">
 					update cf_temp_relations set 
