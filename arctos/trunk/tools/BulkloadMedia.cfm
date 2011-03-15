@@ -275,7 +275,7 @@ Project names may be either of:
 		<cfset pf="">
 		<cfset r=evaluate("media_relationship_" & i)>
 		<cfset rk=evaluate("media_related_key_" & i)>
-		<cfset rt=evaluate("media_related_term_1" & i)>
+		<cfset rt=evaluate("media_related_term_" & i)>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select MEDIA_RELATIONSHIP from CTMEDIA_RELATIONSHIP where MEDIA_RELATIONSHIP='#r#'
 		</cfquery>
