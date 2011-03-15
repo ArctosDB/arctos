@@ -199,7 +199,6 @@ Upload a comma-delimited text file (csv).
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-	<cfdump var=#arrResult#>
 	<cfset numberOfColumns = ArrayLen(arrResult[1])>
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
