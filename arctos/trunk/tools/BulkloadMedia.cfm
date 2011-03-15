@@ -246,7 +246,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfif>
 	</cfif>
 	<cfloop from="1" to="#numLabels#" index="i">
-		<cfif len(media_label_#i#) gt 0>
+		<cfif len("media_label_#i#") gt 0>
 			<cfset ln=evaluate("media_label_" & i)>
 			<cfset lv=evaluate("media_label_value_" & i)>
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
