@@ -917,7 +917,7 @@
 		<cfset collAr[i] = "#thisColl#">
 		
 		<!--- Orig#collector id# or PLC nums--->
-		<cfset idLabel = "#len(preparator_name)# #len(collector_name)#">
+		<cfset idLabel = "">
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			<cfset CNpos = find("collector number=", ids)/>
 			<cfset PNpos = find("preparator number=", ids)/>
