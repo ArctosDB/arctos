@@ -721,9 +721,9 @@
 		<cfset thisPreparator = "">
 		
 		<cfset collCommaPos = find(",", "#collectors#")>
-        <cfif collCommaPos gt 0>
-        	<cfset firstCollector = left("#collectors#", collCommaPos-1)>
-            <cfset secondCollector = right("#collectors#", len("#collectors#") - collCommaPos)>
+		<cfif collCommaPos gt 0>
+			<cfset firstCollector = left("#collectors#", collCommaPos-1)>
+			<cfset secondCollector = right("#collectors#", len("#collectors#") - collCommaPos)>
 		<cfelse>
 			<cfset firstCollector = #collectors#>
 		</cfif>
@@ -884,8 +884,22 @@
 		<cfset geog=replacenocase(geog, "California", "Calif.", "all")>
 		<cfset geogAr[i] = "#geog#">
 		
+		<!--- If there's a preparator, use preparator's name and ID/PLC#.
+		      Else, use the collector's name and ID. --->
+		
+		<cfset preparator_name = "">
+		<cfset collector_name = "">
+		
 		<!--- If there is a 'label' type agent_name, use that; else, use collector's preferred name'--->
-		<cfif isdefined('labels_agent_name') and len(labels_agent_name) gt 0>
+		<cfif len(#preparators#) GT 0>
+			<cfif #preparators# contains ",">
+                <cfset spacePos = find(",", preparators)>
+                <cfset thisColl = left(preparators),#spacePos# - 1)>
+                <cfset thisColl = "#thisColl# et al.">
+        	<cfelse>
+                <cfset thisColl = #preparators#>
+        	</cfif>
+		<cfelseif isdefined('labels_agent_name') and len(labels_agent_name) gt 0>
 			<cfset thisColl = labels_agent_name>
 		<cfelse>
        		<cfif #collectors# contains ",">
