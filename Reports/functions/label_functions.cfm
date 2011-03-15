@@ -749,7 +749,12 @@
 			<!-- We have a preparatorId but no secondId, and collector is still empty. -->
 			<cfset collector = "#firstCollector#, #thisPreparator# (#preparatorId#)">
 		</cfif>
-
+		
+		<cfif thisPreparator is not "" and collector is "">
+			<!-- We have a preparator (no id) and collector is still empty. -->
+			<cfset collector = "#firstCollector#, #thisPreparator#">
+		</cfif>
+		
 		<cfif collector is "">
 			<!-- Last check, to make sure collector returns at least the firstCollector. -->
 			<cfif firstId is not "">
