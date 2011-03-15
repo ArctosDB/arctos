@@ -914,17 +914,21 @@
 		<cfset collAr[i] = "#thisColl#">
 		
 		<!--- Orig#collector id# or PLC nums--->
-		<cfset colIdLabel = "">
+		<cfset idLabel = "">
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			<cfset CNpos = find("collector number=", ids)/>
+			<cfset PNpos = find("preparator number=", ids)/>
 			<cfset PLCpos = find("Prep Lab Catalog", ids)/>
-			<cfif CNpos eq 1> <!-- Distinguish between collector number and second collector number -->
-				<cfset colIdLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#"/>
-			<cfelseif PLCpos gt 0 and len(colIdLabel) lte 0>
-				<cfset colIdLabel = "#right(ids, len(ids)-PLCpos-len("Prep Lab Catalog"))#"/>
+			<cfif CNpos gt 0 and len(collector_name) gt 0>
+				<cfset idLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#"/>
+			<cfelseif PNpos gt 0 and len(preparator_name) gt 0>
+				<cfset idLabel = "#right(ids, len(ids)-PNpos-len("preparator number"))#"/>
+			<cfelseif PLCpos gt 0 and len(preparator_name) gt 0>
+				<cfset idLabel = "#right(ids, len(ids)-PLCpos-len("Prep Lab Catalog"))#"/>
 			</cfif>
 		</cfloop>
-		<cfset colIdAr[i] = "#colIdLabel#"/>
+		
+		<cfset colIdAr[i] = "#idLabel#"/>
 		
 		<!--- Parts Formatting --->
 		<cfset formatted_parts = "">
