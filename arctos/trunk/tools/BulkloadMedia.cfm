@@ -88,6 +88,7 @@ sho err
 
 </cfif>
 <cfif action is "nothing">
+	<cfoutput>
 	<cfparam name="nL" default="#numLabels#">
 	<cfparam name="nR" default="#numRelns#">
 	<cfparam name="hK" default="1">
@@ -113,6 +114,7 @@ sho err
 		<br>
 		<input type="submit">
 	</form>
+	</cfoutput>
 Step 1: Ensure that binary objects exist in a web-accessible location and objects media will relate to exist.
 Step 2: Upload a comma-delimited text file (csv). 
 Save CSV template....
