@@ -247,7 +247,7 @@ Project names may be either of:
 				select MEDIA_LABEL from CTMEDIA_LABEL where MEDIA_LABEL='#ln#'
 			</cfquery>
 			<cfif len(c.MEDIA_LABEL) is 0>
-				<cfset rec_stat=listappend(rec_stat,'Media label #ln# is invalid',";")>
+				<cfset rec_stat=listappend(rec_stat,'media_label_#i# (#ln#) is invalid',";")>
 			<cfelse>
 				<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into cf_temp_media_labels (
