@@ -92,6 +92,9 @@ sho err
 	<cfparam name="nL" default="#numLabels#">
 	<cfparam name="nR" default="#numRelns#">
 	<cfparam name="hK" default="1">
+	Step 1: Ensure that binary objects exist in a web-accessible location and objects media will relate to exist.
+
+	Download CSV template:
 	<form name="temp" method="post" action="BulkloadMedia.cfm">
 		<input type="hidden" name="action" value="makeTemplate">
 		<label for="nL">Number of Labels</label>
@@ -112,38 +115,27 @@ sho err
 			<option <cfif hK is 0> selected="selected" </cfif>value="0">no</option>
 		</select>
 		<br>
-		<input type="submit">
+		<input type="submit" value="get template">
 	</form>
 	</cfoutput>
-Step 1: Ensure that binary objects exist in a web-accessible location and objects media will relate to exist.
 Step 2: Upload a comma-delimited text file (csv). 
-Save CSV template....
-Include column headings, spelled exactly as below. 
-<br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
-	<div id="template" style="display:none;">
-		<label for="t">Copy and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t"></textarea>
-	</div> 
-<p></p>
 
+This form will blindly accept related key assertions.
 
-blindly accept related key assertions
-
-
-
-http://arctos-test.arctos.database.museum/project/willow-identification or string match
-
-
-
-Columns in <span style="color:red">red</span> are required; others are optional:
+Project names may be either of:
 <ul>
-	<li style="color:red">MEDIA_URI</li>
-	<li style="color:red">MIME_TYPE</li>
-	<li style="color:red">MEDIA_TYPE</li>
-	<li>PREVIEW_URI</li>
-	<li>MEDIA_RELATIONSHIPS</li>
-	<li>MEDIA_LABELS</li>			 
+	<li>
+		Exact string match
+	</li>
+	<li>
+		"niceURL" (both a CF and Oracle function), of the form "willow-identification" (from project 
+		"http://arctos.database.museum/project/willow-identification")
+	</li>
 </ul>
+
+<cfinclude template="/info/ctDocumentation.cfm?table=ctmedia_relationship">
+
+<cfinclude template="/info/ctDocumentation.cfm?table=ctmedia_label">
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
