@@ -83,7 +83,7 @@ sho err
     file = "#Application.webDirectory#/download/BulkMedia.csv"
     output = "#header#"
     addNewLine = "no">
-	<cflocation url="/download.cfm?file=#ulkMedia.csv" addtoken="false">
+	<cflocation url="/download.cfm?file=BulkMedia.csv" addtoken="false">
 
 
 </cfif>
