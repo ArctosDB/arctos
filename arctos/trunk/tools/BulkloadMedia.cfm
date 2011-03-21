@@ -111,9 +111,11 @@ sho err
 				</cfloop>
 			</tr>
 		<cfloop query="mine">
-			<cfloop list="#mine.columnList#" index="i">
-				<th>#evaluate("mine." & i)#</th>
-			</cfloop>
+			<tr>
+				<cfloop list="#mine.columnList#" index="i">
+					<td>#evaluate("mine." & i)#</td>
+				</cfloop>
+			</tr>
 		</cfloop>
 		</table>
 	</cfoutput>
