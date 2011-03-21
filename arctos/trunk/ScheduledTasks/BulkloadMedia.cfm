@@ -46,6 +46,7 @@
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
+<cfset stime=now()>
 <cfquery name="d" datasource="uam_god">
 	select * from cf_temp_media where status is null and rownum<50
 </cfquery>
@@ -225,6 +226,8 @@
 		update cf_temp_media set status='#rec_stat#' where key=#key#
 	</cfquery>
 </cfloop>
+<cfset qtime=now()>
+#stime#----------#qtime#
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
