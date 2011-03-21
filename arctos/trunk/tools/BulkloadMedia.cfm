@@ -104,7 +104,7 @@ sho err
 	</cfquery>
 	<cfloop query="who">
 		<cfquery name="s" datasource="uam_god">
-			select status, count(*) c from cf_temp_media where username='#username#'
+			select status, count(*) c from cf_temp_media where username='#username#' group by status
 		</cfquery>
 		<cfdump var=#s#>
 	</cfloop>
@@ -184,7 +184,6 @@ sho err
 		<br>
 		<input type="submit" value="get template">
 	</form>
-	</cfoutput>
 <hr>
 <cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(*) c from cf_temp_media where username='#session.username#'
@@ -200,6 +199,7 @@ sho err
 	You have nothing in the queue.
 </cfif>
 <hr>
+</cfoutput>
 Upload a comma-delimited text file (csv). 
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
