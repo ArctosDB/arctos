@@ -49,6 +49,7 @@
 <cfquery name="d" datasource="uam_god">
 	select * from cf_temp_media where status is null and rownum<50
 </cfquery>
+<cfdump var=#d#>
 <cfloop query="d">
 	<cfset rec_stat="">
 	<cfif len(media_license) gt 0>
