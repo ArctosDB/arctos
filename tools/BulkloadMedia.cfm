@@ -100,13 +100,29 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "report">
 	<cfquery name="who" datasource="uam_god">
-		select username from cf_temp_media group by username
+		select username,user_agent_id from cf_temp_media group by username,user_agent_id
 	</cfquery>
 	<cfloop query="who">
+		<cfquery name="e" datasource="uam_god">
+			select address from electronic_address where address_type='e-mail' and agent_id=#user_agent_id#
+		</cfquery>
 		<cfquery name="s" datasource="uam_god">
 			select status, count(*) c from cf_temp_media where username='#username#' group by status
 		</cfquery>
-		<cfdump var=#s#>
+		Dear #username#,
+		
+		<p>
+			The following records are in the Media Bulkloader:
+		</p>
+		<p>
+		<cfloop query="s">
+			<br>#status#: #c#
+		</cfloop>
+		</p>
+		<p>
+		After logging in to Arctos, you may follow the links from the Media Bulkloader to review detailed status
+		messages or delete your records.
+		</p>
 	</cfloop>
 </cfif>
 <!------------------------------------------------------->
