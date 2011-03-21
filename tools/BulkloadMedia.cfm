@@ -122,11 +122,12 @@ sho err
 			<cfset d=''>
 			<cfloop list="#mine.columnList#" index="i">
 				<cfif i is "loaded_media_id">
-					<cfset d=listappend(d,'<a href="http://arctos.database.musuem/media/#evaluate("mine." & i)#">#evaluate("mine." & i)#</a>')>
+					<cfset d=listappend(d,'http://arctos.database.musuem/media/#evaluate("mine." & i)#')>
 				<cfelse>
 					<cfset d=listappend(d,evaluate("mine." & i))>
 				</cfif>
 			</cfloop>
+			<cfset d=replace(d,'"','""','all')>
 			<cfset d=ListQualify(d,'"')>
 			<cfscript>
 				variables.joFileWriter.writeLine(d); 
