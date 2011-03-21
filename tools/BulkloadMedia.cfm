@@ -3,10 +3,11 @@ drop table cf_temp_media;
 drop table cf_temp_media_relations;
 drop table cf_temp_media_labels;
 
+alter table cf_temp_media add username varchar2(255);
 create table cf_temp_media (
  key NUMBER,
  status varchar2(255),
-username varcahr2(255),
+username varchar2(255),
  MEDIA_URI VARCHAR2(255),
  MIME_TYPE VARCHAR2(255),
  MEDIA_TYPE VARCHAR2(255),
@@ -229,7 +230,7 @@ Upload a comma-delimited text file (csv).
 				</cfloop>
 			</cfif>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into cf_temp_media (#colNames#,username) values (#preservesinglequotes(colVals)#,#session.username#)
+				insert into cf_temp_media (#colNames#,username) values (#preservesinglequotes(colVals)#,'#session.username#')
 			</cfquery>
 			<cfdump var=#ins#>
 			<cfabort>
