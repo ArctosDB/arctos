@@ -306,12 +306,15 @@ Upload a comma-delimited text file (csv).
 	<cfif len(c.MEDIA_TYPE) is 0>
 		<cfset rec_stat=listappend(rec_stat,'MEDIA_TYPE #MEDIA_TYPE# is invalid',";")>
 	</cfif>
-	<cfhttp url="#media_uri#" charset="utf-8" method="get" />
+	<cfhttp url="#media_uri#" charset="utf-8" method="head" />
+	<cfdump var=#cfhttp#>
 	<cfif left(cfhttp.statuscode,3) is not "200">
 		<cfset rec_stat=listappend(rec_stat,'#media_uri# is invalid',";")>
 	</cfif>
 	<cfif len(preview_uri) gt 0>
-		<cfhttp url="#preview_uri#" charset="utf-8" method="get" />
+		<cfhttp url="#preview_uri#" charset="utf-8" method="head" />
+		
+	<cfdump var=#cfhttp#>
 		<cfif left(cfhttp.statuscode,3) is not "200">
 			<cfset rec_stat=listappend(rec_stat,'#preview_uri# is invalid',";")>
 		</cfif>
