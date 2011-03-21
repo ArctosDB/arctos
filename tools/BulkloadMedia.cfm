@@ -124,7 +124,7 @@ sho err
 				<cfif i is "loaded_media_id">
 					<cfset d=listappend(d,'<a href="http://arctos.database.musuem/media/#evaluate("mine." & i)#">#evaluate("mine." & i)#</a>')>
 				<cfelse>
-					<cfset d=listappend(d,#evaluate("mine." & i)#>
+					<cfset d=listappend(d,evaluate("mine." & i))>
 				</cfif>
 			</cfloop>
 			<cfset d=ListQualify(d,'"')>
