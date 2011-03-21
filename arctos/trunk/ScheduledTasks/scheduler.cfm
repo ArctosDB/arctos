@@ -5,6 +5,41 @@
 <cfloop index="i" from="1" to="#numberOtasks#">
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
+<!-----------------------------------   media bulkloader    ------------------------------------------>
+<cfschedule action = "update"
+    task = "MBL_cleanup" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/BulkloadMedia.cfm?action=cleanup"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:31 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "MBL_report" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/BulkloadMedia.cfm?action=report"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "04:31 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "MBL_validate" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/BulkloadMedia.cfm?action=validate"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:01 AM"
+    interval = "600"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "MBL_load" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/BulkloadMedia.cfm?action=load"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:01 AM"
+    interval = "600"
+    requestTimeOut = "600">	
+	
+	
 <!-----------------------------------   sitemaps    ------------------------------------------>
 
 
