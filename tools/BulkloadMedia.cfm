@@ -107,6 +107,39 @@ sho err
 	<a href="BulkloadMedia.cfm?action=myStuff">return to my records</a>
 </cfif>
 <!------------------------------------------------------->
+<cfif action is "csv">
+	<cfoutput>
+		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from cf_temp_media where username='#session.username#' order by key
+		</cfquery>
+		<cfset variables.encoding="UTF-8">
+		<cfset variables.fileName="#Application.webDirectory#/download/BulkMediaBack.csv">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(mine.columnList); 
+		</cfscript>
+		<cfloop query="mine">
+			<cfset d=''>
+			<cfloop list="#mine.columnList#" index="i">
+				<cfif i is "loaded_media_id">
+					<cfset d=listappend(d,'<a href="http://arctos.database.musuem/media/#evaluate("mine." & i)#">#evaluate("mine." & i)#</a>')>
+				<cfelse>
+					<cfset d=listappend(d,#evaluate("mine." & i)#>
+				</cfif>
+			</cfloop>
+			<cfset d=ListQualify(d,'"')>
+			<cfscript>
+				variables.joFileWriter.writeLine(d); 
+			</cfscript>
+		</cfloop>
+		<cfscript>	
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=BulkMediaBack.csv" addtoken="false">
+		<a href="/download/BulkMediaBack.csv">Click here if your file does not automatically download.</a>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------->
 <cfif action is "myStuff">
 	<cfoutput>
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -116,7 +149,7 @@ sho err
 			select status from mine group by status order by status
 		</cfquery>
 		
-		The following data are in the Media Bulkloader under your username. You must re-load anything with errors.
+		<hr>
 		<form name="d" method="post" action="BulkloadMedia.cfm">
 			<input type="hidden" name="action" value="killMine">
 			DELETE from temp media where status =
@@ -129,6 +162,10 @@ sho err
 			<br>
 			<input type="submit" value="go">
 		</form>
+		<hr>
+		The following data are in the Media Bulkloader under your username. You must re-load anything with errors.
+		<hr>
+		<a href="BulkloadMedia.cfm?action=csv">download</a>
 		<table border>
 			<tr>
 				<cfloop list="#mine.columnList#" index="i">
