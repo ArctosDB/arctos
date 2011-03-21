@@ -534,7 +534,7 @@ Upload a comma-delimited text file (csv).
 						media_relations (
 						media_id,media_relationship,related_primary_key,CREATED_BY_AGENT_ID
 						)values (
-						#media_id#,'#MEDIA_RELATIONSHIP#',#RELATED_PRIMARY_KEY#,#user_agent_id#)
+						#media_id#,'#MEDIA_RELATIONSHIP#',#RELATED_PRIMARY_KEY#,#media.user_agent_id#)
 				</cfquery>
 			</cfloop>
 			<cfquery name="medialabels" datasource="uam_god">
@@ -548,7 +548,7 @@ Upload a comma-delimited text file (csv).
 			<cfloop query="medialabels">
 				<cfquery name="makeRelation" datasource="uam_god">
 					insert into media_labels (media_id,media_label,label_value,ASSIGNED_BY_AGENT_ID)
-					values (#media_id#,'#MEDIA_LABEL#','#LABEL_VALUE#',#user_agent_id#)
+					values (#media_id#,'#MEDIA_LABEL#','#LABEL_VALUE#',#media.user_agent_id#)
 				</cfquery>
 			</cfloop>
 			<cfquery name="tm" datasource="uam_god">
