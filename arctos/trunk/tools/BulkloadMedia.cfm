@@ -576,7 +576,7 @@ Upload a comma-delimited text file (csv).
 			<cfset media_id=mid.nv>
 			<cfquery name="makeMedia" datasource="uam_god">
 				insert into media (media_id,media_uri,mime_type,media_type,preview_uri,media_license_id)
-	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#'
+	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#',
 	            <cfif len(media_license_id) gt 0>
 					#media_license_id#
 				<cfelse>
