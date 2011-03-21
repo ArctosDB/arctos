@@ -281,7 +281,7 @@ Upload a comma-delimited text file (csv).
 <!------------------------------------------------------->
 <cfif action is "gotUpload">
 	Data loaded. We'll send email.
-	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="c" datasource="uam_god">
 		update cf_temp_media set user_agent_id=(select agent_id from agent_name where agent_name=cf_temp_media.username)
 		where user_agent_id is null
 	</cfquery>
