@@ -955,7 +955,8 @@
 						<td>
 							<cfif collection_cde is not "Crus" and collection_cde is not "Herb"
 								and collection_cde is not "ES" and collection_cde is not "Fish"
-								and collection_cde is not "Para" and collection_cde is not "Art">
+								and collection_cde is not "Para" and collection_cde is not "Art" and
+								(collection_cde is not "Herp" and institution_acronmy is not "UAM")>
 								<table cellpadding="0" cellspacing="0">
 									<tr>
 										<td rowspan="99" valign="top">

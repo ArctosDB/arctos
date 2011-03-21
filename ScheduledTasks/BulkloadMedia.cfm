@@ -237,7 +237,7 @@
 		select 
 			*
 		from 
-			cf_temp_media where status='pass' and rownum<50
+			cf_temp_media where status='pass' and rownum<500
 	</cfquery>
 	<cftransaction>
 		<cfloop query="media">
