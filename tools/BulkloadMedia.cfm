@@ -364,7 +364,7 @@ Upload a comma-delimited text file (csv).
 	<cfif left(cfhttp.statuscode,3) is not "200">
 		<cfset rec_stat=listappend(rec_stat,'#media_uri# is invalid',";")>
 	</cfif>
-	<cfquery name="ago" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ago" datasource="uam_god">
 		select count(*) c from media where media_uri='#media_uri#'
 	</cfquery>
 	<cfdump var=#ago#>
