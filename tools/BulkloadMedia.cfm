@@ -6,6 +6,7 @@ drop table cf_temp_media_labels;
 create table cf_temp_media (
  key NUMBER,
  status varchar2(255),
+username varcahr2(255),
  MEDIA_URI VARCHAR2(255),
  MIME_TYPE VARCHAR2(255),
  MEDIA_TYPE VARCHAR2(255),
@@ -166,6 +167,7 @@ sho err
 	</form>
 	</cfoutput>
 <hr>
+
 Upload a comma-delimited text file (csv). 
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
@@ -227,7 +229,7 @@ Upload a comma-delimited text file (csv).
 				</cfloop>
 			</cfif>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into cf_temp_media (#colNames#) values (#preservesinglequotes(colVals)#)
+				insert into cf_temp_media (#colNames#,username) values (#preservesinglequotes(colVals)#,#session.username#)
 			</cfquery>
 
 		</cfif>
