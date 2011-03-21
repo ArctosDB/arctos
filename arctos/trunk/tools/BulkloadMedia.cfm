@@ -4,6 +4,9 @@ drop table cf_temp_media_relations;
 drop table cf_temp_media_labels;
 
 alter table cf_temp_media add username varchar2(255);
+alter table cf_temp_media add user_agent_id number;
+
+
 create table cf_temp_media (
  key NUMBER,
  status varchar2(255),
@@ -93,6 +96,20 @@ sho err
 <cfset title="Bulkload Media">
 <cfset numLabels=10>
 <cfset numRelns=5>
+
+<!------------------------------------------------------->
+<cfif action is "report">
+	<cfquery name="who" datasource="uam_god">
+		select username from cf_temp_media group by username
+	</cfquery>
+	<cfloop query="who">
+		<cfquery name="s" datasource="uam_god">
+			select status, count(*) c from cf_temp_media where username='#username#'
+		</cfquery>
+		<cfdump var=#s#>
+	</cfloop>
+</cfif>
+<!------------------------------------------------------->
 <cfif action is "makeTemplate">
 	<cfset header="MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license">
 	<cfloop from="1" to="#nL#" index="i">
@@ -112,6 +129,7 @@ sho err
     addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkMedia.csv" addtoken="false">
 </cfif>
+<!------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
 	<cfparam name="nL" default="#numLabels#">
@@ -169,52 +187,51 @@ sho err
 	</cfoutput>
 <hr>
 <cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select count(*) c from cf_temp_media
+	select count(*) c from cf_temp_media where username='#session.username#'
 </cfquery>
 <cfif isThere.c gt 0>
-	You have #isThere.c# items in the queue.
-	<br>You can upload more stuff
-	<br>You can <a href="BulkloadMedia.cfm?action=myStuff">see what's there</a>
-	<br>You can <a href="BulkloadMedia.cfm?action=killMine">delete you processing records</a>
+	You have #isThere.c# items in the queue. You can
+	<ul>
+		<li><a href="BulkloadMedia.cfm?action=myStuff">see what's there</a></li>
+		<li><a href="BulkloadMedia.cfm?action=killMine">delete your processing records</a></li>
+		<li>Upload more stuff, using the form below</li>
+	</ul>
 <cfelse>
 	You have nothing in the queue.
 </cfif>
+<hr>
 Upload a comma-delimited text file (csv). 
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
-			  <input type="file"
-		   name="FiletoUpload"
-		   size="45">
-			 <input type="submit" value="Upload this file"
-		class="savBtn"
-		onmouseover="this.className='savBtn btnhov'" 
-		onmouseout="this.className='savBtn'">
+			  <input type="file" name="FiletoUpload" size="45">
+			 <input type="submit" value="Upload this file" class="savBtn">
   </cfform>
 
 </cfif>
+<!------------------------------------------------------->
+<cfif action is "cleanup">
+	<cfquery name="killOld" datasource="uam_god">
+		delete from cf_temp_media_relations where key not in (select key from cf_temp_media)
+	</cfquery>
+	<cfquery name="killOld" datasource="uam_god">
+		delete from cf_temp_media_labels where key not in (select key from cf_temp_media)
+	</cfquery>
+</cfif>
+<!------------------------------------------------------->
 <cfif action is "killMine">
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from cf_temp_media where username='#session.username#'
 	</cfquery>
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from cf_temp_media_relations where key not in (select key from cf_temp_media)
-	</cfquery>
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from cf_temp_media_labels where key not in (select key from cf_temp_media)
-	</cfquery>
 	done
 </cfif>
 <!------------------------------------------------------->
-
 <cfif action is "myStuff">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_media where username='#session.username#'
 	</cfquery>
 	<cfdump var=#mine#>
 </cfif>
-<!------------------------------------------------------->
-
 <!------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
@@ -256,27 +273,34 @@ Upload a comma-delimited text file (csv).
 		</cfif>
 	</cfloop>
 </cfoutput>
-	<cflocation url="BulkloadMedia.cfm?action=validate">
+	<cflocation url="BulkloadMedia.cfm?action=gotUpload">
  <!---
 
 ---->
 </cfif>
 <!------------------------------------------------------->
+<cfif action is "gotUpload">
+	Data loaded. We'll send email.
+	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		update cf_temp_media set user_agent_id=(select agent_id from agent_name where agent_name='#username#')
+		where user_agent_id is null
+	</cfquery>
+</cfif>
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from cf_temp_media
+<cfquery name="d" datasource="uam_god">
+	select * from cf_temp_media where status is null and rownum<50
 </cfquery>
 <cfloop query="d">
 	<cfset rec_stat="">
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select MIME_TYPE from CTMIME_TYPE where MIME_TYPE='#MIME_TYPE#'
 	</cfquery>
 	<cfif len(c.MIME_TYPE) is 0>
 		<cfset rec_stat=listappend(rec_stat,'MIME_TYPE #MIME_TYPE# is invalid',";")>
 	</cfif>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select MEDIA_TYPE from CTMEDIA_TYPE where MEDIA_TYPE='#MEDIA_TYPE#'
 	</cfquery>
 	<cfif len(c.MEDIA_TYPE) is 0>
@@ -297,13 +321,13 @@ Upload a comma-delimited text file (csv).
 		<cfif len(ln) gt 0>
 			<cfset ln=evaluate("media_label_" & i)>
 			<cfset lv=evaluate("media_label_value_" & i)>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select MEDIA_LABEL from CTMEDIA_LABEL where MEDIA_LABEL='#ln#'
 			</cfquery>
 			<cfif len(c.MEDIA_LABEL) is 0>
 				<cfset rec_stat=listappend(rec_stat,'media_label_#i# (#ln#) is invalid',";")>
 			<cfelse>
-				<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="i" datasource="uam_god">
 					insert into cf_temp_media_labels (
 						key,
 						MEDIA_LABEL,
@@ -326,7 +350,7 @@ Upload a comma-delimited text file (csv).
 			<cfif len(r) gt 0>
 			<cfset rk=evaluate("media_related_key_" & i)>
 			<cfset rt=evaluate("media_related_term_" & i)>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select MEDIA_RELATIONSHIP from CTMEDIA_RELATIONSHIP where MEDIA_RELATIONSHIP='#r#'
 			</cfquery>
 			<cfif len(c.MEDIA_RELATIONSHIP) is 0>
@@ -341,11 +365,11 @@ Upload a comma-delimited text file (csv).
 				<cfset table_name = listlast(r," ")>
 				<cfif len(rt) gt 0><!--- blindly accept related key assertions --->
 					<cfif table_name is "agent">
-						<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+						<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 							select distinct(agent_id) agent_id from agent_name where agent_name ='#rt#'
 						</cfquery>
 						<cfif c.recordcount is 1 and len(c.agent_id) gt 0>
-							<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							<cfquery name="i" datasource="uam_god">
 								insert into cf_temp_media_relations (
 	 								key,
 									MEDIA_RELATIONSHIP,
@@ -362,16 +386,16 @@ Upload a comma-delimited text file (csv).
 							<cfset rec_stat=listappend(rec_stat,'Agent #rt# matched #c.recordcount# records.',";")>
 						</cfif>
 					<cfelseif table_name is "project">
-						<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+						<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 							select distinct(project_id) project_id from project where PROJECT_NAME ='#rt#'
 						</cfquery>
 						<cfif c.recordcount is 0>
-							<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+							<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 								select distinct(project_id) project_id from project where niceurl(PROJECT_NAME) ='#rt#'
 							</cfquery>
 						</cfif>
 						<cfif c.recordcount is 1 and len(c.project_id) gt 0>
-							<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							<cfquery name="i" datasource="uam_god">
 								insert into cf_temp_media_relations (
 	 								key,
 									MEDIA_RELATIONSHIP,
@@ -388,14 +412,14 @@ Upload a comma-delimited text file (csv).
 							<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
 						</cfif>
 					<cfelseif table_name is "cataloged_item">
-						<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+						<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 							select collection_object_id from 
 								flat
 							WHERE
 								guid='#rt#'
 						</cfquery>
 						<cfif c.recordcount is 1 and len(c.collection_object_id) gt 0>
-							<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							<cfquery name="i" datasource="uam_god">
 								insert into cf_temp_media_relations (
 	 								key,
 									MEDIA_RELATIONSHIP,
@@ -418,11 +442,16 @@ Upload a comma-delimited text file (csv).
 			</cfif>
 		</cfif>
 	</cfloop>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfif len(rec_stat) is 0>
+		<cfset rec_stat='pass'>
+	</cfif>
+	<cfquery name="c" datasource="uam_god">
 		update cf_temp_media set status='#rec_stat#' where key=#key#
 	</cfquery>
 </cfloop>
-<cfquery name="bad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+
+<!------
+<cfquery name="bad" datasource="uam_god">
 	select * from cf_temp_media where status is not null
 </cfquery>
 <cfif len(bad.key) gt 0>
@@ -433,7 +462,7 @@ Upload a comma-delimited text file (csv).
 	<a href="BulkloadMedia.cfm?action=load"><strong>click here</strong></a> to proceed.
 	<br>^^^ that thing. You must click it.
 	(Note that the table below is "flattened." Media entries are repeated for every Label and Relationship.)
-	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="media" datasource="uam_god">
 		select 
 			cf_temp_media.key, 
 			status,
@@ -466,28 +495,29 @@ Upload a comma-delimited text file (csv).
 	</cfquery>
 	<cfdump var=#media#>	
 </cfif>
+------------>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "load">
+<cfif action is "load">
 <cfoutput>
-	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="media" datasource="uam_god">
 		select 
 			*
 		from 
-			cf_temp_media
+			cf_temp_media where status='pass' and rownum<50
 	</cfquery>
 	<cftransaction>
 		<cfloop query="media">
-			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="mid" datasource="uam_god">
 				select sq_media_id.nextval nv from dual
 			</cfquery>
 			<cfset media_id=mid.nv>
-			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="makeMedia" datasource="uam_god">
 				insert into media (media_id,media_uri,mime_type,media_type,preview_uri)
 	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#')
 			</cfquery>
-			<cfquery name="media_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="media_relations" datasource="uam_god">
 				select 
 					*
 				from 
@@ -496,15 +526,15 @@ Upload a comma-delimited text file (csv).
 					key=#key#
 			</cfquery>
 			<cfloop query="media_relations">
-				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="makeRelation" datasource="uam_god">
 					insert into 
 						media_relations (
-						media_id,media_relationship,related_primary_key
+						media_id,media_relationship,related_primary_key,CREATED_BY_AGENT_ID
 						)values (
-						#media_id#,'#MEDIA_RELATIONSHIP#',#RELATED_PRIMARY_KEY#)
+						#media_id#,'#MEDIA_RELATIONSHIP#',#RELATED_PRIMARY_KEY#,#user_agent_id#)
 				</cfquery>
 			</cfloop>
-			<cfquery name="medialabels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="medialabels" datasource="uam_god">
 				select 
 					*
 				from 
@@ -513,14 +543,16 @@ Upload a comma-delimited text file (csv).
 					key=#key#
 			</cfquery>
 			<cfloop query="medialabels">
-				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					insert into media_labels (media_id,media_label,label_value)
-					values (#media_id#,'#MEDIA_LABEL#','#LABEL_VALUE#')
+				<cfquery name="makeRelation" datasource="uam_god">
+					insert into media_labels (media_id,media_label,label_value,ASSIGNED_BY_AGENT_ID)
+					values (#media_id#,'#MEDIA_LABEL#','#LABEL_VALUE#',#user_agent_id#)
 				</cfquery>
 			</cfloop>
+			<cfquery name="tm" datasource="uam_god">
+				update cf_temp_media set status='loaded' where key=#key#
+			</cfquery>
 		</cfloop>
 	</cftransaction>
-	Spiffy, all done.
 </cfoutput>
 </cfif>
 
