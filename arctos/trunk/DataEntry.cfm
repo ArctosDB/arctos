@@ -1151,7 +1151,7 @@
 									<th><span class="f11a">Remarks</span></th>
 								</tr>
 								<cfloop from="7" to="10" index="i">
-									<tr id="ggd_attribute_#i#">
+									<tr id="de_attribute_#i#">
 										<td>
 											<select name="attribute_#i#" onChange="getAttributeStuff(this.value,this.id);"
 												style="width:100px;" id="attribute_#i#">
