@@ -231,7 +231,8 @@ Upload a comma-delimited text file (csv).
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into cf_temp_media (#colNames#,username) values (#preservesinglequotes(colVals)#,#session.username#)
 			</cfquery>
-
+			<cfdump var=#ins#>
+			<cfabort>
 		</cfif>
 	</cfloop>
 </cfoutput>
