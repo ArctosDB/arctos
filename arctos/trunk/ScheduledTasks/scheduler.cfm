@@ -28,8 +28,8 @@
     url = "127.0.0.1/ScheduledTasks/BulkloadMedia.cfm?action=validate"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:01 AM"
-    interval = "600"
-    requestTimeOut = "600">
+    interval = "300"
+    requestTimeOut = "300">
 <cfschedule action = "update"
     task = "MBL_load" 
     operation = "HTTPRequest"

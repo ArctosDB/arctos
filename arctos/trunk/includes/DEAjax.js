@@ -1104,8 +1104,8 @@ function cleanup () {
 	var dateFields = new Array();
 	var badDates = "";
 	dateFields.push('made_date');
-	dateFields.push('began_date');
-	dateFields.push('ended_date');
+	//dateFields.push('began_date');
+	//dateFields.push('ended_date');
 	dateFields.push('determined_date');
 	dateFields.push('attribute_date_1');
 	dateFields.push('attribute_date_2');
