@@ -168,7 +168,17 @@ sho err
 	</form>
 	</cfoutput>
 <hr>
-
+<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select count(*) c from cf_temp_media
+</cfquery>
+<cfif isThere.c gt 0>
+	You have #isThere.c# items in the queue.
+	<br>You can upload more stuff
+	<br>You can <a href="BulkloadMedia.cfm?action=myStuff">see what's there</a>
+	<br>You can <a href="BulkloadMedia.cfm?action=killMine">delete you processing records</a>
+<cfelse>
+	You have nothing in the queue.
+</cfif>
 Upload a comma-delimited text file (csv). 
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
@@ -183,22 +193,33 @@ Upload a comma-delimited text file (csv).
   </cfform>
 
 </cfif>
+<cfif action is "killMine">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from cf_temp_media where username='#session.username#'
+	</cfquery>
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from cf_temp_media_relations where key not in (select key from cf_temp_media)
+	</cfquery>
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from cf_temp_media_labels where key not in (select key from cf_temp_media)
+	</cfquery>
+	done
+</cfif>
 <!------------------------------------------------------->
+
+<cfif action is "myStuff">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from cf_temp_media where username='#session.username#'
+	</cfquery>
+	<cfdump var=#mine#>
+</cfif>
 <!------------------------------------------------------->
 
 <!------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from cf_temp_media
-	</cfquery>
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from cf_temp_media_relations
-	</cfquery>
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from cf_temp_media_labels
-	</cfquery>
+	
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
@@ -232,8 +253,6 @@ Upload a comma-delimited text file (csv).
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into cf_temp_media (#colNames#,username) values (#preservesinglequotes(colVals)#,'#session.username#')
 			</cfquery>
-			<cfdump var=#ins#>
-			<cfabort>
 		</cfif>
 	</cfloop>
 </cfoutput>
