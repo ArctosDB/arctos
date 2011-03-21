@@ -6,6 +6,7 @@ drop table cf_temp_media_labels;
 alter table cf_temp_media add username varchar2(255);
 alter table cf_temp_media add user_agent_id number;
 alter table cf_temp_media add loaded_media_id number;
+alter table cf_temp_media add media_license_id number;
 
 
 create table cf_temp_media (
@@ -334,6 +335,19 @@ Upload a comma-delimited text file (csv).
 </cfquery>
 <cfloop query="d">
 	<cfset rec_stat="">
+	<cfif len(media_license) gt 0>
+		<cfquery name="ml" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select MEDIA_LICENSE_ID from ctmedia_license where display='#media_license#'
+		</cfquery>
+		<cfif len(ml.MEDIA_LICENSE_ID) is 0>
+			<cfset rec_stat=listappend(rec_stat,'media license is invalid',";")>
+		<cfelse>
+			<cfquery name="mlk" datasource="uam_god">
+				update cf_temp_media set media_license_id=#ml.media_license_id# where key=#key#
+			</cfquery>
+		</cfif>
+	</cfif>
+	
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select MIME_TYPE from CTMIME_TYPE where MIME_TYPE='#MIME_TYPE#'
 	</cfquery>
@@ -353,6 +367,7 @@ Upload a comma-delimited text file (csv).
 	<cfquery name="ago" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select count(*) c from media where media_uri='#media_uri#'
 	</cfquery>
+	<cfdump var=#ago#>
 	<cfif ago.c is not 0>
 		<cfset rec_stat=listappend(rec_stat,'#media_uri# already exists',";")>
 	</cfif>
