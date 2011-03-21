@@ -14,21 +14,23 @@
 		<cfquery name="s" datasource="uam_god">
 			select status, count(*) c from cf_temp_media where username='#username#' group by status
 		</cfquery>
-		Dear #username#,
-		
-		<p>
-			The following records are in the Media Bulkloader:
-		</p>
-		<p>
-		<cfloop query="s">
-			<br>#status#: #c#
-		</cfloop>
-		</p>
-		<p>
-		After logging in to Arctos, you may follow the links from the Media Bulkloader to review detailed status
-		messages or delete your records. You will receive daily reminders until you have deleted all records in
-		your temporary table.
-		</p>
+		<cfmail to="#e.address#" bcc="arctos.database@gmail.com" subject="media bulkloader" cc="arctos.database@gmail.com" from="bulkmedia@#Application.fromEmail#" type="html">
+			Dear #username#,
+			<p>
+				The following records are in the Media Bulkloader:
+			</p>
+			<p>
+			<cfloop query="s">
+				<br>#status#: #c#
+			</cfloop>
+			</p>
+			<p>
+			After logging in to Arctos, you may follow the links from the Media Bulkloader 
+			(http://arctos.database.museum/tools/BulkloadMedia.cfm?action=myStuff) to review detailed status
+			messages or delete your records. You will receive daily reminders until you have deleted all records in
+			your temporary table.
+			</p>
+		</cfmail>
 	</cfloop>
 	</cfoutput>
 </cfif>
@@ -61,7 +63,6 @@
 			</cfquery>
 		</cfif>
 	</cfif>
-	
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select MIME_TYPE from CTMIME_TYPE where MIME_TYPE='#MIME_TYPE#'
 	</cfquery>
