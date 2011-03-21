@@ -112,7 +112,7 @@ sho err
 			</tr>
 		<cfloop query="mine">
 			<cfloop list="#mine.columnList#" index="i">
-				<th>#evaluate("mine." & i)</th>
+				<th>#evaluate("mine." & i)#</th>
 			</cfloop>
 		</cfloop>
 		</table>
