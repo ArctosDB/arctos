@@ -113,7 +113,13 @@ sho err
 		<cfloop query="mine">
 			<tr>
 				<cfloop list="#mine.columnList#" index="i">
-					<td>#evaluate("mine." & i)#</td>
+					<td>
+						<cfif i is "loaded_media_id">
+							<a href="/media/#evaluate("mine." & i)#">#evaluate("mine." & i)#</a>
+						<cfelse>
+							#evaluate("mine." & i)#
+						</cfif>
+					</td>
 				</cfloop>
 			</tr>
 		</cfloop>
