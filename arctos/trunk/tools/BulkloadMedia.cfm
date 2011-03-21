@@ -99,6 +99,7 @@ sho err
 
 <!------------------------------------------------------->
 <cfif action is "report">
+	<cfoutput>
 	<cfquery name="who" datasource="uam_god">
 		select username,user_agent_id from cf_temp_media group by username,user_agent_id
 	</cfquery>
@@ -124,6 +125,7 @@ sho err
 		messages or delete your records.
 		</p>
 	</cfloop>
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "makeTemplate">
