@@ -49,7 +49,7 @@
 <cfquery name="d" datasource="uam_god">
 	select * from cf_temp_media where status is null and rownum<50
 </cfquery>
-<cfdump var=#d#>
+#d.recordcount#....
 <cfloop query="d">
 	<cfset rec_stat="">
 	<cfif len(media_license) gt 0>
@@ -83,7 +83,6 @@
 	<cfquery name="ago" datasource="uam_god">
 		select count(*) c from media where media_uri='#media_uri#'
 	</cfquery>
-	<cfdump var=#ago#>
 	<cfif ago.c is not 0>
 		<cfset rec_stat=listappend(rec_stat,'#media_uri# already exists',";")>
 	</cfif>
