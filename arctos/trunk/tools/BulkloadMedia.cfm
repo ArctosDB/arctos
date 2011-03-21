@@ -5,6 +5,7 @@ drop table cf_temp_media_labels;
 
 alter table cf_temp_media add username varchar2(255);
 alter table cf_temp_media add user_agent_id number;
+alter table cf_temp_media add loaded_media_id number;
 
 
 create table cf_temp_media (
@@ -97,6 +98,26 @@ sho err
 <cfset numLabels=10>
 <cfset numRelns=5>
 
+<!------------------------------------------------------->
+<cfif action is "myStuff">
+	<cfoutput>
+		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from cf_temp_media where username='#session.username#' order by key
+		</cfquery>
+		<table border>
+			<tr>
+				<cfloop list="#mine.columnList#" index="i">
+					<th>#i#</th>
+				</cfloop>
+			</tr>
+		<cfloop query="mine">
+			<cfloop list="#mine.columnList#" index="i">
+				<th>#evaluate("mine." & i)</th>
+			</cfloop>
+		</cfloop>
+		</table>
+	</cfoutput>
+</cfif>
 <!------------------------------------------------------->
 <cfif action is "report">
 	<cfoutput>
@@ -242,13 +263,6 @@ Upload a comma-delimited text file (csv).
 		delete from cf_temp_media where username='#session.username#'
 	</cfquery>
 	done
-</cfif>
-<!------------------------------------------------------->
-<cfif action is "myStuff">
-	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from cf_temp_media where username='#session.username#'
-	</cfquery>
-	<cfdump var=#mine#>
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "getFile">
@@ -573,7 +587,7 @@ Upload a comma-delimited text file (csv).
 				</cfquery>
 			</cfloop>
 			<cfquery name="tm" datasource="uam_god">
-				update cf_temp_media set status='loaded' where key=#key#
+				update cf_temp_media set status='loaded',loaded_media_id=#media_id# where key=#key#
 			</cfquery>
 		</cfloop>
 	</cftransaction>
