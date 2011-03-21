@@ -100,11 +100,35 @@ sho err
 <cfset numRelns=5>
 
 <!------------------------------------------------------->
+<cfif action is "killMine">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from cf_temp_media where username='#session.username#' and status in (#ListQualify(status,"'")#)
+	</cfquery>
+	<a href="BulkloadMedia.cfm?action=myStuff">return to my records</a>
+</cfif>
+<!------------------------------------------------------->
 <cfif action is "myStuff">
 	<cfoutput>
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from cf_temp_media where username='#session.username#' order by key
 		</cfquery>
+		<cfquery name="ss" dbtype="query">
+			select status from mine group by status order by status
+		</cfquery>
+		
+		The following data are in the Media Bulkloader under your username. You must re-load anything with errors.
+		<form name="d" method="post" action="BulkloadMedia.cfm">
+			<input type="hidden" name="action" value="killMine">
+			DELETE from temp media where status =
+			<select name="status">
+				<option value="#valuelist(ss.status)#">anything</option>
+				<cfloop query="ss">
+					<option value="#status#">#status#</option>
+				</cfloop>
+			</select>
+			<br>
+			<input type="submit" value="go">
+		</form>
 		<table border>
 			<tr>
 				<cfloop list="#mine.columnList#" index="i">
@@ -237,12 +261,7 @@ sho err
 	select count(*) c from cf_temp_media where username='#session.username#'
 </cfquery>
 <cfif isThere.c gt 0>
-	You have #isThere.c# items in the queue. You can
-	<ul>
-		<li><a href="BulkloadMedia.cfm?action=myStuff">see what's there</a></li>
-		<li><a href="BulkloadMedia.cfm?action=killMine">delete your processing records</a></li>
-		<li>Upload more stuff, using the form below</li>
-	</ul>
+	You have #isThere.c# items in the queue. <a href="BulkloadMedia.cfm?action=myStuff">See what's there</a>
 <cfelse>
 	You have nothing in the queue.
 </cfif>
@@ -265,13 +284,6 @@ Upload a comma-delimited text file (csv).
 	<cfquery name="killOld" datasource="uam_god">
 		delete from cf_temp_media_labels where key not in (select key from cf_temp_media)
 	</cfquery>
-</cfif>
-<!------------------------------------------------------->
-<cfif action is "killMine">
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from cf_temp_media where username='#session.username#'
-	</cfquery>
-	done
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "getFile">
