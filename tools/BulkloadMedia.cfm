@@ -335,6 +335,7 @@ Upload a comma-delimited text file (csv).
 		where user_agent_id is null
 	</cfquery>
 	Your data have been loaded to the temporary tablespace, and will be processed as soon as possible.
+	Processing is by small random chunks, and not all of your data may load.
 	<br>
 	You may check the status of your data at any time by visiting <a href="BulkloadMedia.cfm?action=mystuff">My Stuff</a>.
 	<br>An email reminder will be sent daily. You must delete everything from your temporary table to stop 
