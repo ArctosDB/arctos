@@ -36,8 +36,8 @@
     url = "127.0.0.1/ScheduledTasks/BulkloadMedia.cfm?action=load"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:01 AM"
-    interval = "600"
-    requestTimeOut = "600">	
+    interval = "300"
+    requestTimeOut = "300">	
 	
 	
 <!-----------------------------------   sitemaps    ------------------------------------------>
