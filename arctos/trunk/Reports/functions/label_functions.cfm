@@ -710,19 +710,6 @@
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 		
 			<!-- The only "valuable" ids are first/second collectors, and first preparator. -->
-		
-			<!-- Here is the "genbank" code that doesn't seem to have a use anymore: 
-					<cfset genbankPos = find("GenBank=", ids)>
-					...
-					<cfif genbankPos is 0>
-						<cfif restIds gt 0>			
-							<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
-						<cfelse>
-							<cfset restIds = "#replace(ids, '=', '(', 'one')#)">
-						</cfif>
-					</cfif>
-					...
-			-->
 			
 			<cfset firstCollectorIdPos = find("collector number=", ids)>
 			<cfset secondCollectorIdPos = find("second collector number=", ids)>
