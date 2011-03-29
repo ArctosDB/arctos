@@ -772,12 +772,12 @@
 		
 		<!-- Check fringes for whitespace and the terminal comma. -->
 		<cfset format_agents = Trim(#format_agents#)>
+		<cfset format_agents = left(#format_agents#, len(#format_agents#)-1)>
 
 		<!-- Finally, set the results to the correct query columns. -->
 		<cfset colAr[i] = "#format_agents#">
 		<cfset rAr[i] = "#restIds#">
 		
-
 		<!--- Latitude/Longitude (datum) --->
 		<!-- Setting Latitude/Longitidue -->
         <cfset coordinates = "">
