@@ -757,7 +757,7 @@
 		<!-- This loop correctly formats all the collectors. -->
 		<cfloop list="#collectors#" delimiters="," index="cols">
 			<cfif usedFirst is false >
-				<cfset format_agents = "#format_agents# (#firstColId#),">
+				<cfset format_agents = "#format_agents# #cols# (#firstColId#),">
 				<cfset usedFirst = true>
 			<cfelseif usedSecond is false>
 				<cfset format_agents = "#format_agents# #cols# (#secondColId#),">
