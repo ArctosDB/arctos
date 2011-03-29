@@ -747,19 +747,19 @@
 		<!-- Auxiliary variables for collector loop -->
 		<cfset usedFirst = false>
 		<cfset usedSecond = false>
-		<cfif firstColId = "">
+		<cfif firstColId is "">
 			<cfset usedFirst = true>
 		</cfif>
-		<cfif secondColId = "">
+		<cfif secondColId is "">
 			<cfset usedSecond = true>
 		</cfif>
 		
 		<!-- This loop correctly formats all the collectors. -->
 		<cfloop list="#collectors#" delimiters="," index="cols">
-			<cfif usedFirst = false >
+			<cfif usedFirst is false >
 				<cfset format_agents = "#format_agents# (#firstColId#),">
 				<cfset usedFirst = true>
-			<cfelseif usedSecond = false>
+			<cfelseif usedSecond is false>
 				<cfset format_agents = "#format_agents# #cols# (#secondColId#),">
 				<cfset usedSecond = true>
 			<cfelse>
@@ -769,13 +769,13 @@
 		
 		<!-- Auxiliary variables for preparator loop. -->
 		<cfset usedPrepId = false>
-		<cfif preparatorId = "">
+		<cfif preparatorId is "">
 			<cfset usedPrepId = true>
 		</cfif>
 		
 		<!-- This loop correctly formats all preparators. -->
 		<cfloop list="#preparators#" delimiters="," index="preps">
-			<cfif usedPrepId = false>
+			<cfif usedPrepId is false>
 				<cfset format_agents = "#format_agents# #preps# (#preparatorId#),">
 				<cfset usedPrepId = true>
 			<cfelse>
