@@ -682,55 +682,120 @@
 	<cfset i = 1>
 	<cfloop query="q">
 		
-		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
+		<!--- Agents and Id Numbers:
+		Collector1 (Col1Id), Collector2 (Col2Id), Collector3, Collector4, ... , CollectorN,
+		Preparator1 (Prep1Id), Preparator2, Preparator3, Preparator4, ... , PreparatorN --->
 		
-		<cfset firstId = "">
-		<cfset secondId = "">
-		<cfset preparatorId = "">
+		<!-- Step 1: Find Col1Id, Col2Id, and Prep1Id. -->
+		<!-- Step 2: Find an Agent for each of these Ids. -->
+		<!-- Step 3: Append each Agent (Id) to format_agents -->
+		<!-- Step 4: Append remaining collectors after last collector,
+					 append remaining preparators after last preparator. -->
+		
+		<!-- These will be added to the query columns at the end. -->
+		<cfset format_agents = "">
 		<cfset restIds = "">
-			
+		
+		<!-- The next loop assigns values to these variables. -->
+		<cfset firstColId = "">
+		<cfset secondColId = "">
+		<cfset preparatorId = "">
+		
+		<!-- The code after the loop assigns values to these variables. -->
+		<cfset firstCollector = "">
+		<cfset secondCollector = "">
+		<cfset preparator = "">
+		
+		<!-- Obtains relevant ids, and dumps the rest into restIds. -->
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
+		
+			<!-- The only "valuable" ids are first/second collectors, and first preparator. -->
+		
+			<!-- Here is the "genbank" code that doesn't seem to have a use anymore: 
+					<cfset genbankPos = find("GenBank=", ids)>
+					...
+					<cfif genbankPos is 0>
+						<cfif restIds gt 0>			
+							<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
+						<cfelse>
+							<cfset restIds = "#replace(ids, '=', '(', 'one')#)">
+						</cfif>
+					</cfif>
+					...
+			-->
 			
-			<cfset firstIdPos = find("collector number=", ids)>
-			<cfset secondIdPos = find("second collector number=", ids)>
+			<cfset firstCollectorIdPos = find("collector number=", ids)>
+			<cfset secondCollectorIdPos = find("second collector number=", ids)>
 			<cfset preparatorIdPos = find("preparator number=", ids)>
-			<cfset genbankPos = find("GenBank=", ids)>
+		
 			<cfif preparatorIdPos gt 0>
 				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos-len("preparator number"))>
 			<cfelseif secondIdPos gt 0>
-				<cfset secondId = right(ids, len(ids)-secondIdPos-len("second collector number"))>
+				<cfset secondColId = right(ids, len(ids)-secondIdPos-len("second collector number"))>
 			<cfelseif firstIdPos gt 0>
-				<cfset firstId = right(ids, len(ids)-firstIdPos-len("collector number"))>
+				<cfset firstColId = right(ids, len(ids)-firstIdPos-len("collector number"))>
 			<cfelse>
-			
-				<cfif genbankPos is 0>
-					<cfif restIds gt 0>			
-						<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
-					<cfelse>
-						<cfset restIds = "#replace(ids, '=', '(', 'one')#)">
-					</cfif>
+				<cfif restIds gt 0>			
+					<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
+				<cfelse>
+					<cfset restIds = "#replace(ids, '=', '(', 'one')#)">
 				</cfif>
-			</cfif>				
+			</cfif>
+		
 		</cfloop>
-		<cfset rAr[i] = "#restIds#">
 		
-		<cfset format_collectors = "">
+		<!-- Auxiliary variables for collector loop -->
+		<cfset usedFirst = false>
+		<cfset usedSecond = false>
+		<cfif firstColId = "">
+			<cfset usedFirst = true>
+		</cfif>
+		<cfif secondColId = "">
+			<cfset usedSecond = true>
+		</cfif>
 		
-		<cfset firstCollector = "">
-		<cfset secondCollector = "">
-		<cfset thisPreparator = "">
+		<!-- This loop correctly formats all the collectors. -->
+		<cfloop list="#collectors#" delimiters="," index="cols">
+			<cfif usedFirst = false >
+				<cfset format_agents = "#format_agents# (#firstColId#),">
+				<cfset usedFirst = true>
+			<cfelseif usedSecond = false>
+				<cfset format_agents = "#format_agents# #cols# (#secondColId#),">
+				<cfset usedSecond = true>
+			<cfelse>
+				<cfset format_agents = "#format_agents# #cols#,">
+			</cfif>
+		</cfloop>
 		
-		<cfset collCommaPos = find(",", "#collectors#")>
-		<cfif collCommaPos gt 0>
-			<cfset firstCollector = left("#collectors#", collCommaPos-1)>
-			<cfset secondCollector = right("#collectors#", len("#collectors#") - collCommaPos)>
-		<cfelse>
-			<cfset firstCollector = #collectors#>
+		<!-- Auxiliary variables for preparator loop. -->
+		<cfset usedPrepId = false>
+		<cfif preparatorId = "">
+			<cfset usedPrepId = true>
+		</cfif>
+		
+		<!-- This loop correctly formats all preparators. -->
+		<cfloop list="#preparators#" delimiters="," index="preps">
+			<cfif usedPrepId = false>
+				<cfset format_agents = "#format_agents# #preps# (#preparatorId#),">
+				<cfset usedPrepId = true>
+			<cfelse>
+				<cfset format_agents = "#format_agents# #preps#,">
+			</cfif>
+		</cfloop>
+		
+<!--	<cfif collectors is not "">
+			<cfset collCommaPos = find(",", "#collectors#")>
+			<cfif collCommaPos gt 0>
+				<cfset firstCollector = left("#collectors#", collCommaPos-1)>
+				<cfset secondCollector = right("#collectors#", len("#collectors#") - collCommaPos)>
+			<cfelse>
+				<cfset firstCollector = #collectors#>
+			</cfif>
 		</cfif>
 		
 		<cfset thisPreparator = #preparators#>
 		
-		<!-- Now we find the correct return for collecter. -->
+		<!-- Now we find the correct return for collector. -->
 		<cfset collector = "">
 		
 		<cfif secondId is not "">
@@ -763,11 +828,15 @@
 				<cfset collector = "#firstCollector#">
 			</cfif>
 		</cfif>
-		
-		<cfset format_collectors = listappend(format_collectors, collector)>
-		
-		<cfset colAr[i] = "#format_collectors#">
+-->
 
+		<!-- Check fringes for whitespace and the terminal comma. -->
+		<cfset format_agents = Trim(#format_agents#)>
+
+		<!-- Finally, set the results to the correct query columns. -->
+		<cfset colAr[i] = "#format_agents#">
+		<cfset rAr[i] = "#restIds#">
+		
 
 		<!--- Latitude/Longitude (datum) --->
 		<!-- Setting Latitude/Longitidue -->
