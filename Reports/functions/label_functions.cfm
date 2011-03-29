@@ -731,9 +731,9 @@
 			<cfif preparatorIdPos gt 0>
 				<cfset preparatorId = right(ids, len(ids)-preparatorIdPos-len("preparator number"))>
 			<cfelseif secondIdPos gt 0>
-				<cfset secondColId = right(ids, len(ids)-secondIdPos-len("second collector number"))>
+				<cfset secondColId = right(ids, len(ids)-secondCollectorIdPos-len("second collector number"))>
 			<cfelseif firstIdPos gt 0>
-				<cfset firstColId = right(ids, len(ids)-firstIdPos-len("collector number"))>
+				<cfset firstColId = right(ids, len(ids)-firstCollectorIdPos-len("collector number"))>
 			<cfelse>
 				<cfif restIds gt 0>			
 					<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
