@@ -783,53 +783,6 @@
 			</cfif>
 		</cfloop>
 		
-<!--	<cfif collectors is not "">
-			<cfset collCommaPos = find(",", "#collectors#")>
-			<cfif collCommaPos gt 0>
-				<cfset firstCollector = left("#collectors#", collCommaPos-1)>
-				<cfset secondCollector = right("#collectors#", len("#collectors#") - collCommaPos)>
-			<cfelse>
-				<cfset firstCollector = #collectors#>
-			</cfif>
-		</cfif>
-		
-		<cfset thisPreparator = #preparators#>
-		
-		<!-- Now we find the correct return for collector. -->
-		<cfset collector = "">
-		
-		<cfif secondId is not "">
-			<cfif preparatorId is not "">
-				<!-- This is the case where we have the most information possible. -->
-				<cfset collector = "#firstCollector#, #secondCollector#, #thisPreparator# (#preparatorId#)">
-			</cfif>
-		</cfif>
-		
-		<cfif secondId is not "" and collector is "">
-			<!-- We have a secondId but no preparatorId, and collector is still empty. -->
-			<cfset collector = "#firstCollector#, #secondCollector# (#secondId#)">
-		</cfif>
-		
-		<cfif preparatorId is not "" and collector is "">
-			<!-- We have a preparatorId but no secondId, and collector is still empty. -->
-			<cfset collector = "#firstCollector#, #thisPreparator# (#preparatorId#)">
-		</cfif>
-		
-		<cfif thisPreparator is not "" and collector is "">
-			<!-- We have a preparator (no id) and collector is still empty. -->
-			<cfset collector = "#firstCollector#, #thisPreparator#">
-		</cfif>
-		
-		<cfif collector is "">
-			<!-- Last check, to make sure collector returns at least the firstCollector. -->
-			<cfif firstId is not "">
-				<cfset collector = "#firstCollector# (#firstId#)">
-			<cfelse>
-				<cfset collector = "#firstCollector#">
-			</cfif>
-		</cfif>
--->
-
 		<!-- Check fringes for whitespace and the terminal comma. -->
 		<cfset format_agents = Trim(#format_agents#)>
 
