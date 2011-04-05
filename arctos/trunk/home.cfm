@@ -285,7 +285,7 @@
 <p>
 Arctos is an ongoing effort to integrate access 
 to specimen data, collection-management tools, and 
-external resources on the Web.  
+external resources on the internet.  
 Nearly all that is known about a specimen can be 
 included in Arctos, and, except for some data 
 encumbered for proprietary reasons, data are open to the public.
@@ -300,7 +300,6 @@ encumbered for proprietary reasons, data are open to the public.
 		specimens, taxonomy, publications, projects, events, or people.
 		<br>
 		Multi-page documents organize, paginate, and print PDFs of scanned media such as field notes.
-		<br>
 		TAGs comment on specific areas of images, or relate them to nodes such as specimens, places, and people.
 	</li>
 	<li>
@@ -320,7 +319,7 @@ encumbered for proprietary reasons, data are open to the public.
 	<li>Specimen-search screen is user-customizable 
 		to about 100 search terms.  
 		Find specimens by project, publication, usage, taxonomy, spatial attributes, and much more.  
-		Save and e-mail  searches.</li>
+		Searches can be saved and emailed.</li>
 	<li>Customizable table for result sets,	summarize 
 		and graph result sets, download (as text, CSV, or XML), map in 
 		<a href="http://berkeleymapper.berkeley.edu"  target="_blank" class="external">BerkeleyMapper</a>, 
@@ -370,7 +369,7 @@ encumbered for proprietary reasons, data are open to the public.
 	<ul>
 		<li>
 			<strong>Specimens</strong> are the core of Arctos. Traditional museum
-			"label data" lives here. Attributes allow collection-specific determinations
+			"label data" live here. Attributes allow collection-specific determinations
 			of most anything that can be recorded from a specimen, such as sex, weight, age, and various 
 			measurements. Specimen Parts are the physical objects, and are grouped as Cataloged Items, which represent
 			one or more biological individuals. Cataloged items may be encumbered in order to restrict access to objects or data.
@@ -390,7 +389,7 @@ encumbered for proprietary reasons, data are open to the public.
 		</li>
 		<li>
 			<strong>Agents</strong> are people, groups, or organizations that collect specimens, determine identifications, 
-			attributes, and coordinates, create, authorize, and participate in tranactions, author publications, 
+			attributes, and coordinates, create, authorize, and participate in transactions, author publications, 
 			and act in various other roles.
 		</li>
 		<li>
@@ -401,7 +400,7 @@ encumbered for proprietary reasons, data are open to the public.
 			in the absence of formal citations.
 		</li>
 		<li>
-			<strong>Taxonomy</strong> forms the basis for identifications and citations. Taxa may be related to each other,
+			<strong>Taxonomy</strong> forms the basis for identifications and citations. Taxa may be related to each other
 			and to any number of common names in any language.
 		</li>
 		<li>
@@ -447,10 +446,10 @@ but we have made some exceptions:
 	 We use cookies only to set and preserve user preferences and user rights. 
 	 In order to benefit from all but the most basic public features, 
 	 you must enable cookies.</li>
-	 <li><strong>Popups:</strong>
-		Users may wish to enable popups. Some informational windows use popups. We promise to only pop up things you ask for.
+	 <li><strong>Pop-ups:</strong>
+		Users may wish to enable pop-ups. Some informational windows use pop-ups. We promise to only "pop up" things you ask for.
 		<br>
-		Operators must enable popups. Many browsers block this, sometimes cryptically, by default.
+		Operators must enable pop-ups. Many browsers block this, sometimes cryptically, by default.
 	</li>
 </ul></p>
 
@@ -481,6 +480,18 @@ Citation of Arctos is no substitute for examination of specimens.
 The data providers are not responsible for loss or damages due to use of these data.</p>
 
 <p><a name="faq"><strong>FAQ</strong></a><br/>
+
+<div class="q">
+	Q: I hear Arctos is really complicated. What's up with that?
+</div>
+<div class="a">
+	A: Arctos is complicated, as are the data it strives to accurately represent. There is a steep learning curve to understanding 
+	all functionality. Basic functionality - such as that available from other collections management systems - is pretty simple, 
+	and we think we do a pretty good job of making it intuitive. Perhaps more noticeable is the level of precision required 
+	to use Arctos. Rather than (mis!)typing a string, you may have to pick a value from a list, or you may have to supply metadata
+	qualifying your assertions. We strongly believe that this is a necessary part of managing the specimens and data with which 
+	we have been entrusted. 
+</div>
 
 <div class="q">
 	Q: Where can I find more information about Arctos?

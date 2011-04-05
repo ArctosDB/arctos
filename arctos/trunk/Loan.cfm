@@ -1336,7 +1336,7 @@
 		<cfset sql = "#sql# AND upper(entAgnt.agent_name) LIKE '%#ucase(escapeQuotes(ent_agent))#%'">
 	</cfif>
 	<cfif isdefined("nature_of_material") AND len(#nature_of_material#) gt 0>
-		<cfset sql = "#sql# AND upper(nature_of_material) LIKE '%#ucase(nature_of_material)#%'">
+		<cfset sql = "#sql# AND upper(nature_of_material) LIKE '%#ucase(escapeQuotes(nature_of_material))#%'">
 	</cfif>
 	<cfif isdefined("return_due_date") and len(return_due_date) gt 0>
 		<cfif not isdefined("to_return_due_date") or len(to_return_due_date) is 0>

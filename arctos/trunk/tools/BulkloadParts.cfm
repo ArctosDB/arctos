@@ -400,6 +400,10 @@ validate
 
 
 	<cfif len(#use_part_id#) is 0 AND len(#parent_container_id#) gt 0>
+		<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select sq_collection_object_id.nextval NEXTID from dual
+		</cfquery>
+
 		<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO coll_object (
 				COLLECTION_OBJECT_ID,
@@ -442,7 +446,7 @@ validate
 		</cfif>
 		<cfif len(#container_barcode#) gt 0>
 			<cfquery name="part_container_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select container_id from coll_obj_cont_hist where collection_object_id = #nextID.nextID#
+				select container_id from coll_obj_cont_hist where collection_object_id = #NEXTID.NEXTID#
 			</cfquery>
 				<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update container set parent_container_id=#parent_container_id# 

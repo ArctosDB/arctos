@@ -48,7 +48,6 @@
 				UPPER(a.scientific_name) LIKE '#ucase(scientific_name)#%'
 			ORDER BY scientific_name
 		</cfquery>
-		<cfdump var=#getTaxa#>
 	</cfoutput>
 	<cfif #getTaxa.recordcount# is 1>
 	<cfoutput>

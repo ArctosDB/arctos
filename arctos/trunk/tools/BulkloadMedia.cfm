@@ -4,16 +4,14 @@ drop table cf_temp_media;
 drop table cf_temp_media_relations;
 drop table cf_temp_media_labels;
 
-alter table cf_temp_media add username varchar2(255);
-alter table cf_temp_media add user_agent_id number;
-alter table cf_temp_media add loaded_media_id number;
-alter table cf_temp_media add media_license_id number;
-
 
 create table cf_temp_media (
  key NUMBER,
  status varchar2(255),
-username varchar2(255),
+ username varchar2(255),
+user_agent_id number,
+loaded_media_id number,
+media_license_id number,
  MEDIA_URI VARCHAR2(255),
  MIME_TYPE VARCHAR2(255),
  MEDIA_TYPE VARCHAR2(255),
