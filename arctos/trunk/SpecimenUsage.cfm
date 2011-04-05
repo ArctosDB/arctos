@@ -266,7 +266,7 @@
 		publication.publication_id = citation.publication_id (+) 
 		AND publication.publication_id = publication_author_name.publication_id (+) 
 		AND publication_author_name.agent_name_id = pubAuth.agent_name_id (+)
-		AND pubAuth.agent_id = searchAuth.agent_id
+		AND pubAuth.agent_id = searchAuth.agent_id (+)
 		AND formatted_publication.publication_id = publication.publication_id 
 		AND formatted_publication.format_style = 'long'">
 		

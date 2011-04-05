@@ -19,6 +19,24 @@
 		group by
 			collection.collection,
 			collection.collection_id
+		UNION -- data loans
+		SELECT 
+			collection.collection,
+			collection.collection_id,
+			count(distinct(cataloged_item.collection_object_id)) c
+		FROM 
+			cataloged_item,
+			collection,
+			loan_item,
+			project_trans
+		WHERE
+			cataloged_item.collection_id=collection.collection_id and
+			cataloged_item.collection_object_id = loan_item.collection_object_id AND
+			loan_item.transaction_id = project_trans.transaction_id AND
+			project_trans.project_id = #project_id#
+		group by
+			collection.collection,
+			collection.collection_id
 	</cfquery>
 	<cfquery name="ts" dbtype="query">
 		select sum(c) totspec from getUsed
