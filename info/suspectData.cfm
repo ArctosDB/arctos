@@ -164,6 +164,6 @@ encoded as database rules, rather than after-the-fact reports.
 <p>
 	This form provides access to user annotations. Users may annotate specimens, taxonomy, projects, and publications.
 	Annotations are also emailed to "data quality" curatorial contacts, which may be configured in the Manage Collection 
-	interface. 
+	interface. There are currently many unreviewed annotations.
 </p>
 <cfinclude template="/includes/_footer.cfm">
