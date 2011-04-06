@@ -12,12 +12,25 @@ encoded as database rules, rather than after-the-fact reports.
 <h3>Maps and popups</h3>
 <p>
 	Arctos features many maps, popups, and links that attempt to show more than the obvious or direct data which has been 
-	queried for. For example, the taxon pages dynamically query for localities of specimens which use the taxon name being
-	displayed and, if avaiable, a map is shown. As of 6 April, 2011, the map for 
-	<a href="/name/Peromyscus maniculatus"><i>Peromyscus maniculatus</i></a> looks like this:
-	<p>
-		<img src="/images/peroManicTaxonMap20110406.png">
-	</p>
+	queried for. 
+	<ul>
+		<li>
+			Taxon pages dynamically query for localities of specimens which use the taxon name being
+			displayed and, if avaiable, a map is shown. As of 6 April, 2011, the map for 
+			<a href="/name/Peromyscus maniculatus"><i>Peromyscus maniculatus</i></a> looks like this:
+			<p>
+				<img src="/images/peroManicTaxonMap20110406.png">
+			</p>
+		</li>
+		<li>
+			Specimen pages display a thumbnail point map next to the text locality description. Here's an example:
+			<p>
+				<img src="/images/lostBird.png">
+			</p>
+			
+		</li>
+	</ul>
+	For example, the 
 </p>
 
 <h3>Agents</h3>
