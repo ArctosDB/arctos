@@ -23,14 +23,12 @@ encoded as database rules, rather than after-the-fact reports.
 			</p>
 		</li>
 		<li>
-			Specimen pages display a thumbnail point map next to the text locality description. Here's an example:
+			Specimen pages display a thumbnail point map next to the text locality description. Example:
 			<p>
-				<img src="/images/lostBird.png">
+				<img src="/images/lostBird.png" border="1">
 			</p>
-			
 		</li>
 	</ul>
-	For example, the 
 </p>
 
 <h3>Agents</h3>
