@@ -113,7 +113,7 @@
 					) values (
 						#key#,
 						'#ln#',
-						#session.myAgentId#,
+						#user_agent_id#,
 						'#lv#'
 					)
 				</cfquery>
@@ -155,7 +155,7 @@
 								) values (
 									#key#,
 									'#r#',
-									#session.myAgentId#,
+									#user_agent_id#,
 									#c.agent_id#
 								)
 							</cfquery>
@@ -181,7 +181,7 @@
 								) values (
 									#key#,
 									'#r#',
-									#session.myAgentId#,
+									#user_agent_id#,
 									#c.project_id#
 								)
 							</cfquery>
@@ -205,7 +205,7 @@
 								) values (
 									#key#,
 									'#r#',
-									#session.myAgentId#,
+									#user_agent_id#,
 									#c.collection_object_id#
 								)
 							</cfquery>
@@ -239,58 +239,64 @@
 		from 
 			cf_temp_media where status='pass' and rownum<500
 	</cfquery>
-	<cftransaction>
-		<cfloop query="media">
-			<cfquery name="mid" datasource="uam_god">
-				select sq_media_id.nextval nv from dual
-			</cfquery>
-			<cfset media_id=mid.nv>
-			<cfquery name="makeMedia" datasource="uam_god">
-				insert into media (media_id,media_uri,mime_type,media_type,preview_uri,media_license_id)
-	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#',
-	            <cfif len(media_license_id) gt 0>
-					#media_license_id#
-				<cfelse>
-					NULL
-				</cfif>)
-			</cfquery>
-			<cfquery name="media_relations" datasource="uam_god">
-				select 
-					*
-				from 
-					cf_temp_media_relations
-				where
-					key=#key#
-			</cfquery>
-			<cfloop query="media_relations">
-				<cfquery name="makeRelation" datasource="uam_god">
-					insert into 
-						media_relations (
-						media_id,media_relationship,related_primary_key,CREATED_BY_AGENT_ID
-						)values (
-						#media_id#,'#MEDIA_RELATIONSHIP#',#RELATED_PRIMARY_KEY#,#media.user_agent_id#)
+	<cfloop query="media">
+		<cftransaction>
+			<cftry>
+				<cfquery name="mid" datasource="uam_god">
+					select sq_media_id.nextval nv from dual
 				</cfquery>
-			</cfloop>
-			<cfquery name="medialabels" datasource="uam_god">
-				select 
-					*
-				from 
-					cf_temp_media_labels
-				where
-					key=#key#
-			</cfquery>
-			<cfloop query="medialabels">
-				<cfquery name="makeRelation" datasource="uam_god">
-					insert into media_labels (media_id,media_label,label_value,ASSIGNED_BY_AGENT_ID)
-					values (#media_id#,'#MEDIA_LABEL#','#LABEL_VALUE#',#media.user_agent_id#)
+				<cfset media_id=mid.nv>
+				<cfquery name="makeMedia" datasource="uam_god">
+					insert into media (media_id,media_uri,mime_type,media_type,preview_uri,media_license_id)
+		            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#',
+		            <cfif len(media_license_id) gt 0>
+						#media_license_id#
+					<cfelse>
+						NULL
+					</cfif>)
 				</cfquery>
-			</cfloop>
-			<cfquery name="tm" datasource="uam_god">
-				update cf_temp_media set status='loaded',loaded_media_id=#media_id# where key=#key#
-			</cfquery>
-		</cfloop>
-	</cftransaction>
+				<cfquery name="media_relations" datasource="uam_god">
+					select 
+						*
+					from 
+						cf_temp_media_relations
+					where
+						key=#key#
+				</cfquery>
+				<cfloop query="media_relations">
+					<cfquery name="makeRelation" datasource="uam_god">
+						insert into 
+							media_relations (
+							media_id,media_relationship,related_primary_key,CREATED_BY_AGENT_ID
+							)values (
+							#media_id#,'#MEDIA_RELATIONSHIP#',#RELATED_PRIMARY_KEY#,#media.user_agent_id#)
+					</cfquery>
+				</cfloop>
+				<cfquery name="medialabels" datasource="uam_god">
+					select 
+						*
+					from 
+						cf_temp_media_labels
+					where
+						key=#key#
+				</cfquery>
+				<cfloop query="medialabels">
+					<cfquery name="makeRelation" datasource="uam_god">
+						insert into media_labels (media_id,media_label,label_value,ASSIGNED_BY_AGENT_ID)
+						values (#media_id#,'#MEDIA_LABEL#','#LABEL_VALUE#',#media.user_agent_id#)
+					</cfquery>
+				</cfloop>
+				<cfquery name="tm" datasource="uam_god">
+					update cf_temp_media set status='loaded',loaded_media_id=#media_id# where key=#key#
+				</cfquery>
+				<cfcatch>
+					<cfquery name="tm" datasource="uam_god">
+						update cf_temp_media set status='#cfcatch.message#: #cfcatch.detail#' where key=#key#
+					</cfquery>
+				</cfcatch>
+			</cftry>
+		</cftransaction>
+	</cfloop>
 </cfoutput>
 </cfif>
-
 <cfinclude template="/includes/_footer.cfm">
