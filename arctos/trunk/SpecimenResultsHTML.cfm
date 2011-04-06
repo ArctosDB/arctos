@@ -241,29 +241,9 @@
 	<!-------------------------- / dlm debug -------------------------------------->
 	
 	
-<cftry>	
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
-	<cfcatch>
-		<cfif isdefined("cfcatch.sql")>
-			<cfset sql=cfcatch.sql>
-		<cfelse>
-			<cfset sql="NOT DEFINED">
-		</cfif>
-		<cfif isdefined("cfcatch.message")>
-			<cfset message=cfcatch.message>
-		<cfelse>
-			<cfset message="NOT DEFINED">
-		</cfif>
-		<cfif isdefined("cfcatch.queryError")>
-			<cfset queryError=cfcatch.queryError>
-		<cfelse>
-			<cfset queryError="NOT DEFINED">
-		</cfif>
-		<cf_queryError>
-	</cfcatch>
-</cftry>
 	<cfset userSql = #preserveSingleQuotes(SqlString)#>
 	
 	<cfif getData.recordcount is 0>
