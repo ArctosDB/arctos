@@ -1,4 +1,5 @@
 <cfinclude template = "/includes/_header.cfm">
+<cfset title="user SQL">
     <cfif not isdefined("sql")>
         <cfset sql = "SELECT 'test' FROM dual">
     </cfif>

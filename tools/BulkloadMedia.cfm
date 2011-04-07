@@ -140,6 +140,7 @@ sho err
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "myStuff">
+	<cfset title=title&": My Stuff">
 	<cfoutput>
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from cf_temp_media where username='#session.username#' order by key
