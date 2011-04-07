@@ -52,6 +52,7 @@
 					<a href="/SpecimenResults.cfm?loan_project_id=#project_id#&collection_id=#collection_id#">
 						#c# #collection# Specimens
 					</a>
+					<a href="/bnhmMaps/bnhmMapData.cfm?loan_project_id=10000356&collection_id=#collection_id#"> [ berkeleymapper ]</a>
 				</li>
 			</cfloop>
 			<cfif nc.recordcount gt 1>
