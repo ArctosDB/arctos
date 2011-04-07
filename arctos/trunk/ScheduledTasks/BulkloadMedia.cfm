@@ -49,7 +49,7 @@
 <cfoutput>
 <cfset stime=now()>
 <cfquery name="d" datasource="uam_god">
-	select * from cf_temp_media where status is null and rownum<2
+	select * from cf_temp_media where status is null and rownum<51
 </cfquery>
 #d.recordcount#....
 <cfif debug is true>
@@ -115,22 +115,6 @@
 				</cfquery>
 				<cfif len(c.MEDIA_LABEL) is 0>
 					<cfset rec_stat=listappend(rec_stat,'media_label_#i# (#ln#) is invalid',";")>
-				<!---
-				<cfelse>
-					<cfquery name="i" datasource="uam_god">
-						insert into cf_temp_media_labels (
-							key,
-							MEDIA_LABEL,
-							ASSIGNED_BY_AGENT_ID,
-							LABEL_VALUE
-						) values (
-							#key#,
-							'#ln#',
-							#user_agent_id#,
-							'#lv#'
-						)
-					</cfquery>
-				--->
 				</cfif>
 			</cfif>
 		</cfloop>
@@ -169,19 +153,6 @@
 							<cfif c.recordcount is 1 and len(c.agent_id) gt 0>
 								<cfquery name="i" datasource="uam_god">
 									update cf_temp_media set media_related_key_#i#=#c.agent_id# where key=#key#
-									<!---
-									insert into cf_temp_media_relations (
-		 								key,
-										MEDIA_RELATIONSHIP,
-										CREATED_BY_AGENT_ID,
-										RELATED_PRIMARY_KEY
-									) values (
-										#key#,
-										'#r#',
-										#user_agent_id#,
-										#c.agent_id#
-									)
-									--->
 								</cfquery>
 							<cfelse>
 								<cfset rec_stat=listappend(rec_stat,'Agent #rt# matched #c.recordcount# records.',";")>
@@ -198,19 +169,6 @@
 							<cfif c.recordcount is 1 and len(c.project_id) gt 0>
 								<cfquery name="i" datasource="uam_god">
 									update cf_temp_media set media_related_key_#i#=#c.project_id# where key=#key#
-									<!---
-									insert into cf_temp_media_relations (
-		 								key,
-										MEDIA_RELATIONSHIP,
-										CREATED_BY_AGENT_ID,
-										RELATED_PRIMARY_KEY
-									) values (
-										#key#,
-										'#r#',
-										#user_agent_id#,
-										#c.project_id#
-									)
-									--->
 								</cfquery>
 							<cfelse>
 								<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
@@ -237,19 +195,6 @@
 							<cfif c.recordcount is 1 and len(c.collection_object_id) gt 0>
 								<cfquery name="i" datasource="uam_god">
 									update cf_temp_media set media_related_key_#i#=#c.collection_object_id# where key=#key#
-									<!---
-									insert into cf_temp_media_relations (
-		 								key,
-										MEDIA_RELATIONSHIP,
-										CREATED_BY_AGENT_ID,
-										RELATED_PRIMARY_KEY
-									) values (
-										#key#,
-										'#r#',
-										#user_agent_id#,
-										#c.collection_object_id#
-									)
-									--->
 								</cfquery>
 							<cfelse>
 								<cfset rec_stat=listappend(rec_stat,'Cataloged Item #lv# matched #c.recordcount# records.',";")>
