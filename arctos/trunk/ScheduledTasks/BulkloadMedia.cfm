@@ -49,7 +49,7 @@
 <cfoutput>
 <cfset stime=now()>
 <cfquery name="d" datasource="uam_god">
-	select * from cf_temp_media where status is null and rownum<51
+	select * from cf_temp_media where status is null and rownum<2
 </cfquery>
 #d.recordcount#....
 <cfif debug is true>
