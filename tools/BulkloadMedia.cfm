@@ -163,15 +163,22 @@ sho err
 		The following data are in the Media Bulkloader under your username. You must re-load anything with errors.
 		<hr>
 		<a href="BulkloadMedia.cfm?action=csv">download</a>
+		<hr>
+		#mine.columnList#
+		<hr>
+		<cfset cl=mine.columnList>
+		<cfset cl=listdeleteat(cl,listfind(cl,'STATUS'))>
+		<cfset cl=listprepend(cl,'STATUS')>
+		#cl#
 		<table border>
 			<tr>
-				<cfloop list="#mine.columnList#" index="i">
+				<cfloop list="#cl#" index="i">
 					<th>#i#</th>
 				</cfloop>
 			</tr>
 		<cfloop query="mine">
 			<tr>
-				<cfloop list="#mine.columnList#" index="i">
+				<cfloop list="#cl#" index="i">
 					<td>
 						<cfif i is "loaded_media_id">
 							<a href="/media/#evaluate("mine." & i)#">#evaluate("mine." & i)#</a>
