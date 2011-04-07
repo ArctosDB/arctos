@@ -52,11 +52,14 @@
 					<a href="/SpecimenResults.cfm?loan_project_id=#project_id#&collection_id=#collection_id#">
 						#c# #collection# Specimens
 					</a>
-					<a href="/bnhmMaps/bnhmMapData.cfm?loan_project_id=10000356&collection_id=#collection_id#"> [ berkeleymapper ]</a>
+					<a href="/bnhmMaps/bnhmMapData.cfm?loan_project_id=#project_id#&collection_id=#collection_id#"> [ BerkeleyMapper ]</a>
 				</li>
 			</cfloop>
 			<cfif nc.recordcount gt 1>
-				<li><a href="/SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# total specimens</a></li>
+				<li>
+					<a href="/SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# total specimens</a>
+					<a href="/bnhmMaps/bnhmMapData.cfm?project_id=#project_id#"> [ BerkeleyMapper ]</a>				
+				</li>
 			</cfif>
 		</ul>
 	</cfif>

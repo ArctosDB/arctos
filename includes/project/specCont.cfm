@@ -30,10 +30,17 @@
 		</cfquery>
 		<ul>
 			<cfloop query="getContSpecs">
-				<li>#c# #collection# <a href="/SpecimenResults.cfm?project_id=#project_id#&collection_id=#collection_id#">Specimens</a></li>
+				<li>
+					#c# #collection# <a href="/SpecimenResults.cfm?project_id=#project_id#&collection_id=#collection_id#">Specimens</a>
+					<a href="/bnhmMaps/bnhmMapData.cfm?project_id=#project_id#&collection_id=#collection_id#"> [ BerkeleyMapper ]</a>
+				</li>
 			</cfloop>
 			<cfif nc.recordcount gt 1>
-				<li><a href="/SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# total specimens</a></li>
+				<li>
+					<a href="/SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# total specimens</a>
+					<a href="/bnhmMaps/bnhmMapData.cfm?project_id=#project_id#"> [ BerkeleyMapper ]</a>
+
+				</li>
 			</cfif>
 		</ul>
 	</cfif>
