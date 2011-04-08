@@ -296,7 +296,8 @@ encumbered for proprietary reasons, data are open to the public.
 		proposed or limited funtionality exists.
 	</li>
 	<li>
-		<a href="MediaSearch.cfm">Media</a> links images, movies, sound files, and documents to 
+		<a href="http://g-arctos.appspot.com/arctosdoc/media.html" target="_blank" class="external">Media</a>
+		link images, movies, sound files, and documents to 
 		specimens, taxonomy, publications, projects, events, or people.
 		<br>
 		Multi-page documents organize, paginate, and print PDFs of scanned media such as field notes.
@@ -338,14 +339,17 @@ encumbered for proprietary reasons, data are open to the public.
 		<a href="http://www.ncbi.nlm.nih.gov/Genbank/"  target="_blank" class="external">GenBank</a>, 
 		<a href="http://www.tacc.utexas.edu"  target="_blank" class="external">TACC</a>, 
 		and <a href="http://www.morphbank.net/"  target="_blank" class="external">MorphBank</a>).</li>
-	<li>Identifications can be formulaic combinations 
+	<li><a href="http://g-arctos.appspot.com/arctosdoc/identification.html" target="_blank" calss="external">Identifications</a> 
+		can be formulaic combinations 
 		of terms drawn from a separate taxonomic authority.</li>
 	<li>Maintains history of determinations for taxonomic 
 		identifications, georeferencing, and biological attributes.</li>
 	<li>Specimen records, specimen parts, attributes, 
 		citations, and much more can be entered or edited individually 
 		or in batches.</li>
-	<li>Object-tracking using nested-containers model, 
+	<li>
+		<a href="http://g-arctos.appspot.com/arctosdoc/container.html" target="_blank" calss="external">Object-tracking</a> 
+		using nested-containers model, 
 		bar codes, and container-condition history.</li>
 	<li>
 		E-mail <a href="http://arctosblog.blogspot.com/2009/08/suspect-data.html">reminders</a> for loans due, 
@@ -353,7 +357,9 @@ encumbered for proprietary reasons, data are open to the public.
 		missing citations, unlikely publications, and various other potentially faulty or missing data.
 		<a href="/info/suspectData.cfm">more information</a> 
 	</li>
-	<li>Encumbrances can mask localities, collector names, 
+	<li>
+		<a href="http://g-arctos.appspot.com/arctosdoc/encumbrance.html" target="_blank" calss="external">Encumbrances</a> 
+		 can mask localities, collector names, 
 		or entire records from unprivileged users.</li>
 	<li>Design and print labels, reports, transaction documents, etc. with a 
 		<a href="http://www.adobe.com/support/coldfusion/downloads.html" target="_blank" class="external">GUI interface</a>.</li>
@@ -369,7 +375,9 @@ encumbered for proprietary reasons, data are open to the public.
 	<ul>
 		<li>
 			<strong>Specimens</strong> are the core of Arctos. Traditional museum
-			"label data" live here. Attributes allow collection-specific determinations
+			"label data" live here. 
+			<a href="http://g-arctos.appspot.com/arctosdoc/attributes.html" target="_blank" calss="external">Attributes</a> 
+			 allow collection-specific determinations
 			of most anything that can be recorded from a specimen, such as sex, weight, age, and various 
 			measurements. Specimen Parts are the physical objects, and are grouped as Cataloged Items, which represent
 			one or more biological individuals. Cataloged items may be encumbered in order to restrict access to objects or data.
