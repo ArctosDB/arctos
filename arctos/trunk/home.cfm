@@ -339,7 +339,7 @@ encumbered for proprietary reasons, data are open to the public.
 		<a href="http://www.ncbi.nlm.nih.gov/Genbank/"  target="_blank" class="external">GenBank</a>, 
 		<a href="http://www.tacc.utexas.edu"  target="_blank" class="external">TACC</a>, 
 		and <a href="http://www.morphbank.net/"  target="_blank" class="external">MorphBank</a>).</li>
-	<li><a href="http://g-arctos.appspot.com/arctosdoc/identification.html" target="_blank" calss="external">Identifications</a> 
+	<li><a href="http://g-arctos.appspot.com/arctosdoc/identification.html" target="_blank" class="external">Identifications</a> 
 		can be formulaic combinations 
 		of terms drawn from a separate taxonomic authority.</li>
 	<li>Maintains history of determinations for taxonomic 
@@ -348,7 +348,7 @@ encumbered for proprietary reasons, data are open to the public.
 		citations, and much more can be entered or edited individually 
 		or in batches.</li>
 	<li>
-		<a href="http://g-arctos.appspot.com/arctosdoc/container.html" target="_blank" calss="external">Object-tracking</a> 
+		<a href="http://g-arctos.appspot.com/arctosdoc/container.html" target="_blank" class="external">Object-tracking</a> 
 		using nested-containers model, 
 		bar codes, and container-condition history.</li>
 	<li>
@@ -358,7 +358,7 @@ encumbered for proprietary reasons, data are open to the public.
 		<a href="/info/suspectData.cfm">more information</a> 
 	</li>
 	<li>
-		<a href="http://g-arctos.appspot.com/arctosdoc/encumbrance.html" target="_blank" calss="external">Encumbrances</a> 
+		<a href="http://g-arctos.appspot.com/arctosdoc/encumbrance.html" target="_blank" class="external">Encumbrances</a> 
 		 can mask localities, collector names, 
 		or entire records from unprivileged users.</li>
 	<li>Design and print labels, reports, transaction documents, etc. with a 
@@ -376,7 +376,7 @@ encumbered for proprietary reasons, data are open to the public.
 		<li>
 			<strong>Specimens</strong> are the core of Arctos. Traditional museum
 			"label data" live here. 
-			<a href="http://g-arctos.appspot.com/arctosdoc/attributes.html" target="_blank" calss="external">Attributes</a> 
+			<a href="http://g-arctos.appspot.com/arctosdoc/attributes.html" target="_blank" class="external">Attributes</a> 
 			 allow collection-specific determinations
 			of most anything that can be recorded from a specimen, such as sex, weight, age, and various 
 			measurements. Specimen Parts are the physical objects, and are grouped as Cataloged Items, which represent
