@@ -275,6 +275,7 @@
 					update cf_temp_media set status='loaded',loaded_media_id=#media_id# where key=#key#
 				</cfquery>
 				<cfcatch>
+					<cftransaction action="rollback">
 					<cfquery name="tm" datasource="uam_god">
 						update cf_temp_media set status='#cfcatch.message#: #cfcatch.detail#' where key=#key#
 					</cfquery>

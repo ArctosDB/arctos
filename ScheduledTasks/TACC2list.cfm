@@ -22,3 +22,23 @@ create table tacc_check (
 	</cfloop>
 	<cffile action="write" file="#application.webDirectory#/temp/tacc.txt" output="#t#">
 </cfoutput>
+
+
+uam> update tacc set FULLPATH=replace(FULLPATH,'goodnight','web') where FULLPATH like '%goodnight%';
+OLLECTION_OBJECT_ID						NUMBER
+ BARCODE							VARCHAR2(255)
+ FOLDER 							VARCHAR2(255)
+ CHKDATE							DATE
+ STATUS 							VARCHAR2(255)
+ JPG_STATUS							VARCHAR2(255)
+
+uam> desc tacc
+ Name						       Null?	Type
+ ----------------------------------------------------- -------- ------------------------------------
+ FULLPATH							VARCHAR2(4000)
+ FILENAME							VARCHAR2(255)
+ FILETYPE							VARCHAR2(255)
+ LASTDATE							DATE
+ CRAWLED_PATH_DATE						DATE
+ COLLECTION_OBJECT_ID						NUMBER
+ STATUS 							VARCHAR2(255)

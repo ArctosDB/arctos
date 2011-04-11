@@ -108,7 +108,7 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 				<cfquery name="nid" datasource="uam_god">
 					select sq_media_id.nextval media_id from dual
 				</cfquery>
-				<cfset muri='http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/#barcode#.dng'>
+				<cfset muri='http://web.corral.tacc.utexas.edu/UAF/#folder#/#barcode#.dng'>
 				<cfquery name="media" datasource="uam_god">
 					insert into media (
 						media_id,

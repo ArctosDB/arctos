@@ -51,14 +51,14 @@ alter table tacc_check add jpg_status varchar2(20);
 select jpg_status,count(*) from tacc_check where jpg_status is not null group by jpg_status;
 
 -- move to new JPG server
-update media set media_uri=replace(media_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://goodnight.corral.tacc.utexas.edu/UAF/') where
+update media set media_uri=replace(media_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://web.corral.tacc.utexas.edu/UAF/') where
 media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 
-update media set preview_uri=replace(preview_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://goodnight.corral.tacc.utexas.edu/UAF/') where
+update media set preview_uri=replace(preview_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://web.corral.tacc.utexas.edu/UAF/') where
 preview_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 
 
-select media_uri,replace(media_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://goodnight.corral.tacc.utexas.edu/UAF/') from media where
+select media_uri,replace(media_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://web.corral.tacc.utexas.edu/UAF/') from media where
 media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 --->
 
@@ -93,55 +93,53 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 					media.media_id = media_relations.media_id and
 					media_relationship='shows cataloged_item' and
 					related_primary_key=#collection_object_id# and
-					media_uri='http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/#barcode#.dng'
+					media_uri='http://web.corral.tacc.utexas.edu/UAF/#folder#/#barcode#.dng'
 			</cfquery>
 			<cfif len(dng_id.media_id) is 0 or dng_id.recordcount is not 1>
 				<cfquery name="spiffy" datasource="uam_god">
 					update tacc_check set jpg_status='bad_dng_id' where collection_object_id=#collection_object_id#
 				</cfquery>
-				<br>bad DNG
+				<br>bad DNG:::::
+				select 
+					media.media_id 
+				from 
+					media,
+					media_relations 
+				where
+					media.media_id = media_relations.media_id and
+					media_relationship='shows cataloged_item' and
+					related_primary_key=#collection_object_id# and
+					media_uri='http://web.corral.tacc.utexas.edu/UAF/#folder#/#barcode#.dng'
 			<cfelse>
-				<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg" charset="utf-8" method="head">
+				<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg" charset="utf-8" method="head">
 				</cfhttp>
 				<cfif left(cfhttp.statusCode,3) is "200">
-					<br>200: file exists (http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg)
+					<br>200: file exists (http://web.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg)
 					<cftransaction>
 							<cfquery name="ala" datasource="uam_god">
-								 select
-									decode(ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC'),
-										null,'UAM:Herb:' || cat_num || ' (ALA)',
-										'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
-									)  || ': ' ||
-									get_taxonomy(coll_obj_other_id_num.collection_object_id,'display_name') descr
-								from 
-									coll_obj_other_id_num
-								where 
-									other_id_type='ALAAC' and 
-									coll_obj_other_id_num.collection_object_id=#collection_object_id#
+								 select 
+									decode(
+										ConcatSingleOtherId(cataloged_item.collection_object_id,'ALAAC'),
+											null, 
+												decode(
+													ConcatSingleOtherId(cataloged_item.collection_object_id,'ISC: Ada Hayden Herbarium, Iowa State University'),
+													null,
+														'UAM:Herb:' || cat_num,
+													'ISC ' || ConcatSingleOtherId(cataloged_item.collection_object_id,'ISC: Ada Hayden Herbarium, Iowa State University')
+												),
+											'ALA ' || ConcatSingleOtherId(cataloged_item.collection_object_id,'ALAAC')
+									)
+									 || ': ' || get_taxonomy(cataloged_item.collection_object_id,'display_name') descr
+									from cataloged_item where collection_object_id = #collection_object_id#
 							</cfquery>
-							<cfif ala.recordcount is not 1>
-								<cfquery name="ala" datasource="uam_god">
-									select
-										decode(ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC'),
-											null,'UAM:Herb:' || cat_num || ' (ALA)',
-											'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
-										)  || ': ' ||
-										get_taxonomy(coll_obj_other_id_num.collection_object_id,'display_name') descr
-									from 
-										coll_obj_other_id_num
-									where 
-										other_id_type='ISC: Ada Hayden Herbarium, Iowa State University' and 
-										coll_obj_other_id_num.collection_object_id=#collection_object_id#
-								</cfquery>
-							</cfif>
 							<cfquery name="nid" datasource="uam_god">
 								select sq_media_id.nextval media_id from dual
 							</cfquery>
-							<cfset muri='http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg'>
-							<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/tn_#barcode#.jpg" charset="utf-8" method="head">
+							<cfset muri='http://web.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg'>
+							<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#folder#/jpegs/tn_#barcode#.jpg" charset="utf-8" method="head">
 							</cfhttp>
 							<cfif left(cfhttp.statusCode,3) is "200">
-								<cfset preview_uri="http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/tn_#barcode#.jpg">
+								<cfset preview_uri="http://web.corral.tacc.utexas.edu/UAF/#folder#/jpegs/tn_#barcode#.jpg">
 							<cfelse>
 								<cfset preview_uri=''>
 							</cfif>
@@ -231,7 +229,7 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 							</cftry>	
 						</cftransaction>
 				<cfelse><!--- status=200 --->
-					<br>no file (http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg)
+					<br>no file (http://web.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg)
 					<cfquery name="spiffy" datasource="uam_god">
 						update tacc_check set jpg_status='not_there' where collection_object_id=#collection_object_id#
 					</cfquery>		
