@@ -10,6 +10,14 @@
 <cfif isdefined("cat_num")>
 	<cfset catnum = cat_num>
 </cfif>
+<cfif isdefined("ocr_text") AND len(ocr_text) gt 0>
+	<cfset mapurl = "#mapurl#&ocr_text=#ocr_text#">
+	<cfif basJoin does not contain "ocr_text">
+		<cfset basJoin = " #basJoin# INNER JOIN ocr_text ON 
+			(cataloged_item.collection_object_id = ocr_text.collection_object_id)">
+	</cfif>
+	<cfset basQual = "#basQual# AND upper(ocr_text.ocr_text) like '%#ucase(ocr_text)#%'" >
+</cfif>
 <cfif isdefined("mime_type") AND len(mime_type) gt 0>
 	<cfset mapurl = "#mapurl#&mime_type=#mime_type#">
 	<cfif basJoin does not contain "media_relations">
