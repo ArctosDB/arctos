@@ -17,7 +17,7 @@ create table tacc_dup as select
 <cfoutput>
 	<cfloop query="d">
 		<cftransaction >
-			<cfset uri='http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/#barcode#.dng'>
+			<cfset uri='http://web.corral.tacc.utexas.edu/UAF/#folder#/#barcode#.dng'>
 			<cfinvoke component="/component/functions" method="genMD5" returnVariable="mHash">
 				<cfinvokeargument name="returnFormat" value="plain">
 				<cfinvokeargument name="uri" value="#uri#">

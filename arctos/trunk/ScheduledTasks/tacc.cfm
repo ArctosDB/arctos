@@ -34,13 +34,13 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 	<cfargument name="inpStr" type="string" required="yes">
 	<cfset filename=listfirst(listlast(inpStr,"/"),".")>
 	<cfset tnPath=replace(inpStr,"#filename#.dng","jpegs/tn_#filename#.jpg")>
-	<cfreturn "http://goodnight.corral.tacc.utexas.edu/UAF/" & tnPath>
+	<cfreturn "http://web.corral.tacc.utexas.edu/UAF/" & tnPath>
 </cffunction>
 <cffunction name="getJpgPath">
 	<cfargument name="inpStr" type="string" required="yes">
 	<cfset filename=listfirst(listlast(inpStr,"/"),".")>
 	<cfset jpgPath=replace(inpStr,"#filename#.dng","jpegs/#filename#.jpg")>
-	<cfreturn "http://goodnight.corral.tacc.utexas.edu/UAF/" & jpgPath>
+	<cfreturn "http://web.corral.tacc.utexas.edu/UAF/" & jpgPath>
 </cffunction>
 <cffunction name="getFiletype">
 	<cfargument name="inpStr" type="string" required="yes">
@@ -123,7 +123,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 <cfif action is "findAllDirectories">
 	<cfoutput>
 	<cfset dirs=arraynew(1)>
-	<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF" charset="utf-8" method="get"></cfhttp>
+	<cfhttp url="http://web.corral.tacc.utexas.edu/UAF" charset="utf-8" method="get"></cfhttp>
 	<cfif left(cfhttp.statuscode,3) is "200" and isXML(cfhttp.FileContent)>
 		<cfset xdir=xmlparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
 		<cfset dir = xmlsearch(xdir, "//td[@class='n']")>
@@ -132,7 +132,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			<cfset f = dir[i].XmlChildren[1].xmlText>
 			<cfif getFiletype(f) is "d">
 				<cfset arrayappend(dirs,"#cPath##f#")>
-				<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#cPath##f#" charset="utf-8" method="get"></cfhttp>
+				<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#cPath##f#" charset="utf-8" method="get"></cfhttp>
 				<cfif left(cfhttp.statuscode,3) is "200" and isXML(cfhttp.FileContent)>
 					<cfset xdir2=XMLparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
 					<cfset dir2 = xmlsearch(xdir2, "//td[@class='n']")>
@@ -141,7 +141,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 						<cfset f2 = dir2[i].XmlChildren[1].xmlText>
 						<cfif getFiletype(f2) is "d">
 							<cfset arrayAppend(dirs,"#cPath2##f2#")>
-							<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#cPath2##f2#" charset="utf-8" method="get"></cfhttp>
+							<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#cPath2##f2#" charset="utf-8" method="get"></cfhttp>
 							<cfset xdir3=XMLparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
 							<cfset dir3=xmlsearch(xdir3, "//td[@class='n']")>
 							<cfset cPath3=replace(xdir3.html.head.title.xmlText,"Index of /UAF/","")>
@@ -149,7 +149,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 								<cfset f3 = dir3[i].XmlChildren[1].xmlText>
 								<cfif getFiletype(f3) is "d">
 									<cfset arrayAppend(dirs,"#cPath3##f3#")>
-									<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#cPath3##f3#" charset="utf-8" method="get"></cfhttp>
+									<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#cPath3##f3#" charset="utf-8" method="get"></cfhttp>
 									<cfset xdir4= xmlparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
 									<cfset dir4=xmlsearch(xdir4, "//td[@class='n']")>
 									<cfset cPath4=replace(xdir4.html.head.title.xmlText,"Index of /UAF/","")>
@@ -201,7 +201,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			rownum=1
 		</cfquery>
 		<cfset files=arraynew(1)>
-		<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#path.fullpath#" charset="utf-8" method="get"></cfhttp>
+		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#path.fullpath#" charset="utf-8" method="get"></cfhttp>
 		<cfif left(cfhttp.statuscode,3) is "200" and isXML(cfhttp.FileContent)>
 			<cfset xdir=xmlparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
 			<cfset dir = xmlsearch(xdir, "//td[@class='n']")>
@@ -340,7 +340,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					<cfquery name="nid" datasource="uam_god">
 						select sq_media_id.nextval media_id from dual
 					</cfquery>
-					<cfset muri='http://goodnight.corral.tacc.utexas.edu/UAF/#fullpath#'>
+					<cfset muri='http://web.corral.tacc.utexas.edu/UAF/#fullpath#'>
 					<cfquery name="media" datasource="uam_god">
 						insert into media (
 							media_id,
@@ -430,7 +430,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					media.media_id = media_relations.media_id and
 					media_relationship='shows cataloged_item' and
 					related_primary_key=#collection_object_id# and
-					media_uri='http://goodnight.corral.tacc.utexas.edu/UAF/#fullpath#'
+					media_uri='http://web.corral.tacc.utexas.edu/UAF/#fullpath#'
 			</cfquery>
 			<cfif len(dng_id.media_id) is 0 or dng_id.recordcount is not 1>
 				<cfquery name="fail" datasource="uam_god">
@@ -446,7 +446,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					update tacc set status='#descr#' where collection_object_id=#collection_object_id#
 				</cfquery>
 			</cfif>
-			<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#fullpath#" charset="utf-8" method="head"></cfhttp>
+			<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#fullpath#" charset="utf-8" method="head"></cfhttp>
 			<cfif left(cfhttp.statusCode,3) is not "200">
 				<cfset go=false>
 				<cfquery name="fail" datasource="uam_god">

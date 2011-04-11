@@ -116,7 +116,7 @@
 		select * from cf_tacc_transfer where
 		status = 'transferred'
 	</cfquery>
-	<cfset bURL="http://goodnight.corral.tacc.utexas.edu/UAF/arctos">
+	<cfset bURL="http://web.corral.tacc.utexas.edu/UAF/arctos">
 	<cfoutput>
 	<cfloop query="f">
 		<cftransaction>

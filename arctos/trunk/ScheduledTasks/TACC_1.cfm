@@ -18,7 +18,7 @@ create table tacc_check (
 --->
 
 <cfoutput>
-<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF" charset="utf-8" method="get">
+<cfhttp url="http://web.corral.tacc.utexas.edu/UAF" charset="utf-8" method="get">
 </cfhttp>
 <cfif isXML(cfhttp.FileContent)>
 	<cfset xStr=cfhttp.FileContent>
@@ -45,7 +45,7 @@ create table tacc_check (
 						delete from tacc_check where folder='#folder#'
 					</cfquery>
 				</cfif>
-				<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#folder#" charset="utf-8" method="get">
+				<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#folder#" charset="utf-8" method="get">
 				</cfhttp>
 				<cfset ximgStr=cfhttp.FileContent>
 				<!--- goddamned xmlns bug in CF --->
@@ -86,7 +86,7 @@ create table tacc_check (
 
 <!----------------------- and do it all over again for the ala/subfolders    ---------------->
 
-<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/ala" charset="utf-8" method="get">
+<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/ala" charset="utf-8" method="get">
 </cfhttp>
 <cfif isXML(cfhttp.FileContent)>
 	<cfset xStr=cfhttp.FileContent>
@@ -113,7 +113,7 @@ create table tacc_check (
 						delete from tacc_check where folder='ala/#folder#'
 					</cfquery>
 				</cfif>
-				<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/ala/#folder#" charset="utf-8" method="get">
+				<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/ala/#folder#" charset="utf-8" method="get">
 				</cfhttp>
 				<cfset ximgStr=cfhttp.FileContent>
 				<!--- goddamned xmlns bug in CF --->
