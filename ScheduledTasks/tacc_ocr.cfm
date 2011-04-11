@@ -14,25 +14,28 @@
 --->	
 <cfif action is "nothing">
 	<a href="tacc_ocr.cfm?action=getSpecs">getSpecs</a>
+	<a href="tacc_ocr.cfm?action=crawl">crawl</a>
 </cfif>
 <cfif action is "getSpecs">
 	<cfquery name="specs" datasource="uam_god">
 		insert into ocr_text (
-			collection_object_id
-		) values (
+			collection_object_id,
+			try_date
+		) (
 			select 
-				cataloged_item.collection_object_id 
+				cataloged_item.collection_object_id,
+				sysdate
 			from
 				cataloged_item,
 				media_relations,
 				ocr_text
 			where
 				cataloged_item.collection_id=6 and
-				cataloged_item.collection_object_id = media_relations.related_pkey and
-				media_relations.media_relationship='show cataloged_item' and
+				cataloged_item.collection_object_id = media_relations.related_primary_key and
+				media_relations.media_relationship='shows cataloged_item' and
 				cataloged_item.collection_object_id=ocr_text.collection_object_id (+) and
 				ocr_text.collection_object_id is null and
-				rownum < 500
+				rownum < 50
 		)
 	</cfquery>
 </cfif>
