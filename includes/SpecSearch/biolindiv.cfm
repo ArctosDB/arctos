@@ -74,7 +74,7 @@
 			<span class="helpLink" id="ocr_text">OCR Text:</span>
 		</td>
 		<td class="srch">
-			<input name="ocr_text" id="ocr_text" size="1">
+			<input name="ocr_text" id="ocr_text" size="80">
 		</td>
 	</tr>
 </table>
