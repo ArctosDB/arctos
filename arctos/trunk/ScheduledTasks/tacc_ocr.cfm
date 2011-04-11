@@ -1,7 +1,7 @@
 <!---
 	create table ocr_text (
 		collection_object_id number not null,
-		try_date date not null,
+		try_date date,
 		ocr_date date,
 		ocr_text varchar2(4000)
 	);
@@ -11,7 +11,10 @@
 	grant select on ocr_text to public;
 	
 	create unique index iu_ocr_text_coid on ocr_text (collection_object_id) tablespace uam_idx_1;
---->	
+	
+	alter table ocr_text modify try_date null;
+--->
+<cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
 	<a href="tacc_ocr.cfm?action=getSpecs">getSpecs</a>
 	<a href="tacc_ocr.cfm?action=crawl">crawl</a>
@@ -60,15 +63,17 @@
 			rownum<100
 	</cfquery>
 	<cfloop query="bc">
+		<br>#barcode#
 		<cfquery name="ocr" datasource="taccocr">
 			select label from output where barcode = '#barcode#'
 		</cfquery>
+		<hr>#label#
 		<cfif len(ocr.label) gt 0>
 			<cfquery name="add" datasource="uam_god">
 				update ocr_text set 
 					try_date=sysdate,
 					ocr_date=sysdate,
-					ocr_text='#escapeQuotes(label)#'
+					ocr_text='#escapeQuotes(ocr.label)#'
 				where
 					collection_object_id=#collection_object_id#
 			</cfquery>
