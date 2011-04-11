@@ -56,7 +56,7 @@
 			part.parent_container_id=sheet.container_id and
 			rownum<100
 	</cfquery>
-	<cfloop query="bc"
+	<cfloop query="bc">
 		<cfquery name="ocr" datasource="taccocr">
 			select label from output where barcode = '#barcode#'
 		</cfquery>
@@ -77,4 +77,5 @@
 					collection_object_id=#collection_object_id#
 			</cfquery>
 		</cfif>
+	</cfloop>
 </cfif>
