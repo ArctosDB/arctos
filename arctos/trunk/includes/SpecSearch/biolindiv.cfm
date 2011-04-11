@@ -68,6 +68,14 @@
 			</span>
 			<input type="text" name="attribute_units_1" size="6">(units)
 		</td>
-	</tr>		
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="ocr_text">OCR Text:</span>
+		</td>
+		<td class="srch">
+			<input name="ocr_text" id="ocr_text" size="1">
+		</td>
+	</tr>
 </table>
 </cfoutput>
