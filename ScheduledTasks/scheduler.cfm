@@ -5,6 +5,23 @@
 <cfloop index="i" from="1" to="#numberOtasks#">
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
+
+<cfschedule action = "update"
+    task = "ocr_specimens" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/tacc_ocr.cfm?action=getSpecs"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:31 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "ocr_crawl" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/tacc_ocr.cfm?action=crawl"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:01 AM"
+    interval = "600"
+    requestTimeOut = "300">
 <!-----------------------------------   media bulkloader    ------------------------------------------>
 <cfschedule action = "update"
     task = "MBL_cleanup" 
