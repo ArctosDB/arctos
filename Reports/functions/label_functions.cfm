@@ -1199,14 +1199,14 @@
 					<cfset result = REFind(regex, part, 1, True)>
 					<cfif result.len[1] is not 0>
 						<cfset part = mid(part, result.pos[1], result.len[1]-1)>
-						<cfset part = trim(part)>
-						<cfif len(partString) gt 1>
-							<!--- Add the part to the current string. --->
-							<cfset partString = "#partString#, +#part#">
-						<cfelse>
-							<!--- Only the part represents the current string. --->
-							<cfset partString = "+#part#">
-						</cfif>
+					</cfif>
+					<cfset part = trim(part)>	
+					<cfif len(partString) gt 1>
+						<!--- Add the part to the current string. --->
+						<cfset partString = "#partString#, +#part#">
+					<cfelse>
+						<!--- Only the part represents the current string. --->
+						<cfset partString = "+#part#">
 					</cfif>
 				</cfloop>
 			</cfif>
