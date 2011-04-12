@@ -165,6 +165,10 @@ function incCatNum() {
 	}
 }
 function MSBBirdDefault () {
+	if ($("#coll_obj_disposition").val()==''){
+		$("#coll_obj_disposition").val('in collection');
+	}
+	
 	if ($("#other_id_num_type_1").val()==''){
 		$("#other_id_num_type_1").val('collector number');
 	}
@@ -1001,6 +1005,7 @@ function cleanup () {
 			var oid1 = document.getElementById('other_id_num_type_1');
 			var oid2 = document.getElementById('other_id_num_type_2');
 			var theMsg = "";
+			/*
 			if (oid1.value == 'collector number') {
 				var oidv1 = document.getElementById('other_id_num_1').value;
 				if (oidv1.length == 0) {
@@ -1013,6 +1018,7 @@ function cleanup () {
 					theMsg += "\nYou did not enter a preparator number";
 				}			
 			}
+			*/
 			if (theMsg.length > 0) {
 				theMsg +="\nContinue?";
 				whatever = window.confirm(theMsg);

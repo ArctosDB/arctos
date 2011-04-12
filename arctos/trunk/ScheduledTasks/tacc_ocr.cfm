@@ -11,6 +11,8 @@
 	grant select on ocr_text to public;
 	
 	create unique index iu_ocr_text_coid on ocr_text (collection_object_id) tablespace uam_idx_1;
+	create index ix_ocr_text_text_upr on ocr_text (upper(ocr_text)) tablespace uam_idx_1;
+
 	
 	alter table ocr_text modify try_date null;
 --->
@@ -22,12 +24,10 @@
 <cfif action is "getSpecs">
 	<cfquery name="specs" datasource="uam_god">
 		insert into ocr_text (
-			collection_object_id,
-			try_date
+			collection_object_id
 		) (
 			select 
-				cataloged_item.collection_object_id,
-				sysdate
+				distinct(cataloged_item.collection_object_id)
 			from
 				cataloged_item,
 				media_relations,
@@ -37,8 +37,7 @@
 				cataloged_item.collection_object_id = media_relations.related_primary_key and
 				media_relations.media_relationship='shows cataloged_item' and
 				cataloged_item.collection_object_id=ocr_text.collection_object_id (+) and
-				ocr_text.collection_object_id is null and
-				rownum < 50
+				ocr_text.collection_object_id is null
 		)
 	</cfquery>
 </cfif>
@@ -60,14 +59,12 @@
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 			coll_obj_cont_hist.container_id=part.container_id and
 			part.parent_container_id=sheet.container_id and
-			rownum<100
+			rownum<1000
 	</cfquery>
 	<cfloop query="bc">
-		<br>#barcode#
 		<cfquery name="ocr" datasource="taccocr">
 			select label from output where barcode = '#barcode#'
 		</cfquery>
-		<hr>#label#
 		<cfif len(ocr.label) gt 0>
 			<cfquery name="add" datasource="uam_god">
 				update ocr_text set 
