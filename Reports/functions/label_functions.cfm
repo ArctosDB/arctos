@@ -1154,10 +1154,11 @@
 			
 			<cfif len(newParts) is not 0 and foundSkin is 1 and foundSkull is 1>
 				<!-- If there are preservation methods attached, we need to parse them out. -->
-				<cfset regex = "(?i)[\s]*[a-z]+[\s]*">
+				<cfset regex = "(?i)[\s]*[a-z]+(?=\()">
 				<cfset result = REFind(regex, newParts, 1, True)>
 				<cfif result.len[1] is not 0>
 					<cfset newParts = mid(newParts, result.pos[1], result.len[1])>
+					<cfset newParts = trim(newParts)>
 				</cfif>	
 				<!--  "skin, skull, other parts" ==> "+other parts" -->
 				<cfset newParts = "+#newParts#">
