@@ -1192,7 +1192,7 @@
 			
 			<!-- Now we parse newParts to add anything else on. -->
 			
-			<cfif len(newParts) is not 0>
+			<cfif len(newParts) is gt 0>
 				<!-- The regex captures spaces/words up to and including the first open paren. -->
 				<cfset regex = "(?i)[\s]*([a-z]+[\s]+)+\({1}">
 				<cfloop list="#newParts#" delimiters=";" index="part">
@@ -1200,10 +1200,12 @@
 					<cfif result.len[1] is not 0>
 						<cfset part = mid(part, result.pos[1], result.len[1]-1)>
 						<cfset part = trim(part)>
-						<cfif len(partString) is not 0>
-							<!--- Add a plus sign and the part. --->		
+						<cfif len(partString) is gt 1>
+							<!--- Add the part to the current string. --->
+							<cfset partString = "#partString#, +#part#">
 						<cfelse>
-							<!--- Only add the part. --->
+							<!--- Only the part represents the current string. --->
+							<cfset partString = "+#part#">
 						</cfif>
 					</cfif>
 				</cfloop>
