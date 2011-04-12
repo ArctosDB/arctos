@@ -1171,7 +1171,7 @@
 				newParts (all other parts for parsing)	
 			--->
 			
-			<cfset partString = "">
+			<cfset partString = "x">
 			
 			<cfif foundSkull is 1 and foundSkin is 1 and foundSkel is 0 and foundOrg is 0>
 				<cfset partString = "">  <!-- Print nothing -->
@@ -1201,10 +1201,9 @@
 						<cfset part = mid(part, result.pos[1], result.len[1]-1)>
 						<cfset part = trim(part)>
 						<cfif len(partString) is not 0>
-							<cfset partString = "#partString#" + ", +">		
-							<cfset partString = "#partString#" + "#part#">			
+							<!--- Add a plus sign and the part. --->		
 						<cfelse>
-							<cfset partString = "#part#">
+							<!--- Only add the part. --->
 						</cfif>
 					</cfif>
 				</cfloop>
