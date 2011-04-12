@@ -1192,20 +1192,22 @@
 			
 			<!-- Now we parse newParts to add anything else on. -->
 			
-<!--- 			<cfif len(newParts) is not 0>
+			<cfif len(newParts) is not 0>
 				<!-- The regex captures spaces/words up to and including the first open paren. -->
 				<cfset regex = "(?i)[\s]*([a-z]+[\s]+)+\({1}">
 				<cfloop list="#newParts#" delimiters=";" index="part" >
 					<cfset result = REFind(regex, part, 1, True)>
 					<cfif result.len[1] is not 0>
-						<cfif len(partString) is not 0>
-							<cfset partString = partString + ", +">					
-						</cfif>
 						<cfset part = trim(mid(part, result.pos[1], result.len[1]-1))>
-						<cfset partString = partString + part>
+						<cfif len(partString) is not 0>
+							<cfset partString = partString + ", +">		
+							<cfset partString = partString + part>			
+						<cfelse>
+							<cfset partString = "+" + part>
+						</cfif>
 					</cfif>
 				</cfloop>
-			</cfif> --->
+			</cfif>
 		</cfif>
 		
 		<cfset pAr[i] = "#partString#">
