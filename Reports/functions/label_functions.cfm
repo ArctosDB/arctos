@@ -1054,7 +1054,7 @@
 		</cfif>
 		<cfset geog=replace(geog,": , ",": ","all")>
 		<cfset geog=replacenocase(geog, "County", "Co.", "all")>
-		<cfset geog=replacenocase(geog, "California", "Calif.", "all")>
+<!---	<cfset geog=replacenocase(geog, "California", "Calif.", "all")> --->
 		<cfset geogAr[i] = "#geog#">
 		
 		<!--- If there is a 'label' type agent_name, use that; else, use collector's preferred name'--->
@@ -1164,6 +1164,7 @@
 			6.) [First 5 Choices] + Parts => [First 5], +part1, +part2, ... ,+partn
 			
 			Variables:
+				foundTissue (0, 1)
 				foundSkull (0, 1)
 				foundSkin (0, 1)
 				foundSkel (0, 1)
