@@ -1171,10 +1171,10 @@
 				newParts (all other parts for parsing)	
 			--->
 			
-			<cfset partString = "">
+			<cfset partString = "none">
 			
 			<cfif foundSkull is 1 and foundSkin is 1 and foundSkel is 0 and foundOrg is 0>
-				<cfset partString = "">  <!-- Print nothing -->
+				<cfset partString = "none">  <!-- Print nothing -->
 			
 			<cfelseif foundSkull is 1 and foundSkin is 1 and foundSkel is 1>
 				<cfset partString = "+skeleton">
@@ -1196,16 +1196,16 @@
 				<!-- The regex captures spaces/words up to and including the first open paren. -->
 				<cfset regex = "(?i)[\s]*([a-z]+[\s]+)+\({1}">
 				<cfloop list="#newParts#" delimiters=";" index="part">
-					<cfset partString = partString + part>
-					<cfbreak>
+					<cfif len(part) lt 2>
+						<cfcontinue></cfcontinue>
+					</cfif>
 					<cfset result = REFind(regex, part, 1, True)>
 					<cfif result.len[1] is not 0>
 						<cfset part = mid(part, result.pos[1], result.len[1]-1)>
 						<cfset part = trim(part)>
-						<cfset part = "+" + part>
-						<cfif len(partString) is not 0>
-							<cfset partString = "" + partString + ", ">		
-							<cfset partString = "" + partString + part>			
+						<cfif partString is not "none">
+							<cfset partString = partString + ", \+">		
+							<cfset partString = partString + part>			
 						<cfelse>
 							<cfset partString = part>
 						</cfif>
