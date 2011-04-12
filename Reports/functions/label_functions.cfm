@@ -1192,7 +1192,7 @@
 			
 			<!-- Now we parse newParts to add anything else on. -->
 			
-			<cfif len(newParts) is gt 0>
+			<cfif len(newParts) is not 0>
 				<!-- The regex captures spaces/words up to and including the first open paren. -->
 				<cfset regex = "(?i)[\s]*([a-z]+[\s]+)+\({1}">
 				<cfloop list="#newParts#" delimiters=";" index="part">
