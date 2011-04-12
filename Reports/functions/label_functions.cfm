@@ -1098,6 +1098,7 @@
 			<cfset foundSkull = 0>
 			<cfset foundTissue = 0>
 			<cfset foundOrg = 0>
+			<cfset foundSkel = 0>
 			<cfset index = 0>
 			
 			<!-- Get all part names for this collection_object_id -->
