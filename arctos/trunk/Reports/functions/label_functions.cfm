@@ -1122,7 +1122,7 @@
 			
 			<!-- Loop through parts_list -->
 			<cfloop list="#parts#" delimiters=";" index="p">
-<!--- 			<cfset tissueP = find("tissue", p)> --->
+	 			<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>
 				<cfset wholeOrgP = find("whole organism", p)>
@@ -1133,8 +1133,8 @@
 					<cfset foundSkull = 1>
 				<cfelseif  skinP gt 0>	<!-- Found Skin -->
 					<cfset foundSkin = 1>
-<!--- 			<cfelseif tissueP gt 0>	<!-- Found Tissue -->
-					<cfset foundTissue = 1> --->
+	 			<cfelseif tissueP gt 0>	<!-- Found Tissue -->
+					<cfset foundTissue = 1>
  				<cfelseif wholeOrgP gt 0>	<!-- Found whole organism -->
 					<cfset foundOrg = 1>
 				<cfelseif skeletonP gt 0> <!-- Found Skeleton -->
