@@ -1196,9 +1196,6 @@
 				<!-- The regex captures spaces/words up to and including the first open paren. -->
 				<cfset regex = "(?i)[\s]*([a-z]+[\s]+)+\({1}">
 				<cfloop list="#newParts#" delimiters=";" index="part">
-					<cfif len(part) lt 2>
-						<cfcontinue></cfcontinue>
-					</cfif>
 					<cfset result = REFind(regex, part, 1, True)>
 					<cfif result.len[1] is not 0>
 						<cfset part = mid(part, result.pos[1], result.len[1]-1)>
