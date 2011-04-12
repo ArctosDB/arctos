@@ -1034,7 +1034,6 @@
 	<!--- Data Manipulation --->
 	<cfset i = 1>
 	<cfloop query="q">
-
 		
 		<!--- Geography = Spec_Locality + State + county + country + other geography attributes--->
 		<cfset geog = "#spec_locality#">
@@ -1122,20 +1121,23 @@
 			
 			<!-- Loop through parts_list -->
 			<cfloop list="#parts#" delimiters=";" index="p">
-				<cfset tissueP = find("tissue", p)>
+<!--- 			<cfset tissueP = find("tissue", p)> --->
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>
-<!---   				<cfset wholeOrgP = find ("whole organism", p)>		 --->
+				<cfset wholeOrgP = find("whole organism", p)>
+				<cfset skeletonP = find("skeleton"), p>
  				
 				<!-- Don't show skin/skull/tissue/whole organism -->
 				<cfif skullP gt 0>    <!-- Found Skull -->
 					<cfset foundSkull = 1>
 				<cfelseif  skinP gt 0>	<!-- Found Skin -->
 					<cfset foundSkin = 1>
-				<cfelseif tissueP gt 0>	<!-- Found Tissue -->
-					<cfset foundTissue = 1>
-<!---  				<cfelseif wholeOrgP gt 0>	<!-- Found whole organism -->
-					<cfset foundOrg = 1> --->
+<!--- 			<cfelseif tissueP gt 0>	<!-- Found Tissue -->
+					<cfset foundTissue = 1> --->
+ 				<cfelseif wholeOrgP gt 0>	<!-- Found whole organism -->
+					<cfset foundOrg = 1>
+				<cfelseif skeletonP gt 0> <!-- Found Skeleton -->
+					<cfset foundSkel = 1>
 					
 				<cfelse> <!-- Safely add part to tentative part lists (for later filtering)-->
 					<cfif len(newParts) gt 0>
@@ -1152,7 +1154,62 @@
 
 			</cfloop>
 			
-			<cfif len(newParts) is not 0 and foundSkin is 1 and foundSkull is 1>
+			<!--- 
+			1.) Skin + Skull + NOT Skeleton + NOT Whole organism => Nothing
+			2.) Skin + Skull + Skeleton + NOT Whole organism => +skeleton
+			3.) Whole organism + skull => +fluid
+			4.) Skull + Skeleton + NOT Skin => skull; skeleton
+			5.) Skull + NOT Skeleton + NOT Skin => skull only
+			6.) [First 5 Choices] + Parts => [First 5], +part1, +part2, ... ,+partn
+			
+			Variables:
+				foundSkull (0, 1)
+				foundSkin (0, 1)
+				foundSkel (0, 1)
+				foundOrg (0, 1)	
+				newParts (all other parts for parsing)	
+			--->
+			
+			<cfset partString = "">
+			
+			<cfif foundSkull is 1 and foundSkin is 1 and foundSkel is 0 and foundOrg is 0>
+				<cfset partString = "">  <!-- Print nothing -->
+			
+			<cfelseif foundSkull is 1 and foundSkin is 1 and foundSkel is 1>
+				<cfset partString = "+skeleton">
+			
+			<cfelseif foundSkull is 1 and foundSkin is 0 and foundSkel is 1>
+				<cfset partString = "skull, skeleton">
+			
+			<cfelseif foundSkull is 1 and foundSkin is 0 and foundSkel is 0 and foundOrg is 0>
+				<cfset partString = "skull only">
+			
+			<cfelseif foundSkull is 1 and foundOrg is 1>
+				<cfset partString = "+fluid">
+			
+			</cfif>
+			
+			<!-- Now we parse newParts to add anything else on. -->
+			
+			<cfif len(newParts) is not 0>
+				<!-- The regex captures spaces/words up to and including the first open paren. -->
+				<cfset regex = "(?i)[\s]*([a-z]+[\s]+)+\({1}">
+				<cfloop list="#newParts#" delimiters=";" index="part" >
+					<cfset result = REFind(regex, part, 1, True)>
+					<cfif result.len[1] is not 0>
+						<cfif partString is not 0>
+							<cfset partString = partString + ", +">					
+						</cfif>
+						<cfset part = trim(mid(part, result.pos[1], result.len[1]-1))>
+						<cfset partString = partString + part>
+					</cfif>
+				</cfloop>
+			</cfif>
+		</cfif>
+		
+		<cfset pAr[i] = "#partString#">
+			
+<!--- 		<cfif len(newParts) is not 0 and foundSkin is 1 and foundSkull is 1>
 				<!-- If there are preservation methods attached, we need to parse them out. -->
 				<cfset regex = "(?i)[\s]*([a-z]+[\s]+)+\({1}">
 				<cfset result = REFind(regex, newParts, 1, True)>
@@ -1200,10 +1257,11 @@
 			<cfelse>
 				<cfset excludeList = "#excludeList#, #cat_num#">
 			</cfif>
-		</cfif>
+		</cfif> 
 		
 		<cfset newParts = "#replace(newParts,"$@%", "", "one")#">		
 		<cfset pAr[i] = "#newParts#">
+		--->
 		
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
