@@ -1198,12 +1198,14 @@
 				<cfloop list="#newParts#" delimiters=";" index="part" >
 					<cfset result = REFind(regex, part, 1, True)>
 					<cfif result.len[1] is not 0>
-						<cfset part = trim(mid(part, result.pos[1], result.len[1]-1))>
+						<cfset part = mid(part, result.pos[1], result.len[1]-1)>
+						<cfset part = trim(part)>
+						<cfset part = "+" + part>
 						<cfif len(partString) is not 0>
-							<cfset partString = partString + ", +">		
-							<cfset partString = partString + part>			
+							<cfset partString = "" + partString + ", ">		
+							<cfset partString = "" + partString + part>			
 						<cfelse>
-							<cfset partString = "+" + part>
+							<cfset partString = part>
 						</cfif>
 					</cfif>
 				</cfloop>
