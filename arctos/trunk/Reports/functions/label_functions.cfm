@@ -1171,10 +1171,10 @@
 				newParts (all other parts for parsing)	
 			--->
 			
-			<cfset partString = "none">
+			<cfset partString = "">
 			
 			<cfif foundSkull is 1 and foundSkin is 1 and foundSkel is 0 and foundOrg is 0>
-				<cfset partString = "none">  <!-- Print nothing -->
+				<cfset partString = "">  <!-- Print nothing -->
 			
 			<cfelseif foundSkull is 1 and foundSkin is 1 and foundSkel is 1>
 				<cfset partString = "+skeleton">
@@ -1200,11 +1200,11 @@
 					<cfif result.len[1] is not 0>
 						<cfset part = mid(part, result.pos[1], result.len[1]-1)>
 						<cfset part = trim(part)>
-						<cfif partString is not "none">
-							<cfset partString = partString + ", \+">		
-							<cfset partString = partString + part>			
+						<cfif len(partString) is not 0>
+							<cfset partString = "#partString#" + ", +">		
+							<cfset partString = "#partString#" + "#part#">			
 						<cfelse>
-							<cfset partString = part>
+							<cfset partString = "#part#">
 						</cfif>
 					</cfif>
 				</cfloop>
