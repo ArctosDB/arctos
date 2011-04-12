@@ -1125,7 +1125,7 @@
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>
 				<cfset wholeOrgP = find("whole organism", p)>
-				<cfset skeletonP = find("skeleton"), p>
+				<cfset skeletonP = find("skeleton", p)>
  				
 				<!-- Don't show skin/skull/tissue/whole organism -->
 				<cfif skullP gt 0>    <!-- Found Skull -->
