@@ -201,10 +201,11 @@
 	
 	<!-- build a temp table (for bulk download)-->
 	<cfset SqlString = "create table #session.MediaSrchTab# AS #ssql#">
+	<hr>#SqlString#<hr>
 	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
-
+	<hr>#ssql#<hr>
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
