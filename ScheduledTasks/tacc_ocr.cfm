@@ -66,14 +66,26 @@
 			select label from output where barcode = '#barcode#'
 		</cfquery>
 		<cfif len(ocr.label) gt 0>
-			<cfquery name="add" datasource="uam_god">
-				update ocr_text set 
-					try_date=sysdate,
-					ocr_date=sysdate,
-					ocr_text='#escapeQuotes(ocr.label)#'
-				where
-					collection_object_id=#collection_object_id#
-			</cfquery>
+			<cftry>
+				<cfquery name="add" datasource="uam_god">
+					update ocr_text set 
+						try_date=sysdate,
+						ocr_date=sysdate,
+						ocr_text='#escapeQuotes(ocr.label)#'
+					where
+						collection_object_id=#collection_object_id#
+				</cfquery>
+			<cfcatch>
+				<cfquery name="add" datasource="uam_god">
+					update ocr_text set 
+						try_date=sysdate,
+						ocr_date=sysdate,
+						ocr_text='ERROR: #cfcatch.message#'
+					where
+						collection_object_id=#collection_object_id#
+				</cfquery>
+			</cfcatch>
+			</cftry>
 		<cfelse>
 			<cfquery name="fail" datasource="uam_god">
 				update ocr_text set 
