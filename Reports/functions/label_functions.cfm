@@ -1101,6 +1101,19 @@
 			<cfset foundSkel = 0>
 			<cfset index = 0>
 			
+			<!-- This function is used to verify that a particular mammal part should be printed. -->
+			<cffunction name="is_valid_part" access="public" returnType="boolean">
+				<cfargument name="part" required="true" type="string">
+				<!-- All parts that -should- be printed out. -->
+				<cfset include_list = "baculum;glans penis;phallus;carcass">
+				<cfloop list="#include_list#" delimiters=";" index="p">
+					<cfif "#p#" is "#part#">
+						<cfreturn true>
+					</cfif>
+				</cfloop>
+				<cfreturn false>
+			</cffunction>
+
 			<!-- Get all part names for this collection_object_id -->
 			<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select p.part_name 
@@ -1141,10 +1154,12 @@
 					<cfset foundSkel = 1>
 					
 				<cfelse> <!-- Safely add part to tentative part lists (for later filtering)-->
-					<cfif len(newParts) gt 0>
-						<cfset newParts = "#newParts#; #p#">
-					<cfelse>
-						<cfset newParts = "#p#">
+					<cfif is_valid_part(newPart)>
+						<cfif len(newParts) gt 0>
+							<cfset newParts = "#newParts#; #p#">
+						<cfelse>
+							<cfset newParts = "#p#">
+						</cfif>
 					</cfif>
 					
 					<!-- Save skull position/index for later re-insert-->
@@ -1178,6 +1193,7 @@
 				<cfset partString = "">  <!-- Print nothing -->
 			
 			<cfelseif foundSkull is 1 and foundSkin is 1 and foundSkel is 1>
+			<!-- Add the current x issue here. -->
 				<cfset partString = "+skeleton">
 			
 			<cfelseif foundSkull is 1 and foundSkin is 0 and foundSkel is 1>
