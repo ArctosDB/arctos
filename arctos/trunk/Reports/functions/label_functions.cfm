@@ -1100,7 +1100,7 @@
 			<cfset foundOrg = 0>
 			<cfset foundSkel = 0>
 			<cfset index = 0>
-			<cfset include_list = "baculum;glans penis;phallus;carcass">
+			<cfset include_list = "baculum,glans penis,phallus,carcass">
 
 			<!-- Get all part names for this collection_object_id -->
 			<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1209,11 +1209,9 @@
 					
 					<!-- Check to make sure that the part should be printed at all. -->
 					<cfset valid_part = false>
-					<cfloop list="#include_list#" delimiters=";" index="part">
-						<cfif "#p#" is "#part#">
-							<cfset valid_part = true>
-						</cfif>
-					</cfloop>
+					<cfif listContains(include_list, "#part#")>
+						<cfset valid_part = true>
+					</cfif>
 					
 					<cfif len(partString) gt 1 and valid_part is true>
 						<!--- Add the part to the current string. --->
