@@ -1215,16 +1215,14 @@
 						</cfif>
 					</cfloop>
 					
-					<cfif valid_part is false>
-						<cfcontinue></cfcontinue>
-					</cfif>
-					
-					<cfif len(partString) gt 1>
+					<cfif len(partString) gt 1 and valid_part is true>
 						<!--- Add the part to the current string. --->
 						<cfset partString = "#partString#, +#part#">
-					<cfelse>
+					<cfelseif valid_part is true>
 						<!--- Only the part represents the current string. --->
 						<cfset partString = "+#part#">
+					<cfelse>
+						<!--- Don't add the part, as it isn't valid. --->
 					</cfif>
 				</cfloop>
 			</cfif>
