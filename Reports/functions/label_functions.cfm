@@ -1179,8 +1179,8 @@
 			<cfif foundSkull is 1 and foundSkin is 1 and foundSkel is 0 and foundOrg is 0>
 				<cfset partString = "">  <!-- Print nothing -->
 			
-			<cfelseif foundSkull is 1 and foundSkin is 1 and foundSkel is 1>
-			<!-- Add the current x issue here. -->
+			<cfelseif foundSkin is 1 and foundSkel is 1>
+				<!-- Print +skeleton whether or not we found a skull. -->
 				<cfset partString = "+skeleton">
 			
 			<cfelseif foundSkull is 1 and foundSkin is 0 and foundSkel is 1>
