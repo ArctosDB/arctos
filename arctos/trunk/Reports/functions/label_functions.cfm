@@ -1143,7 +1143,7 @@
 					
 				<cfelse> <!-- Safely add part to tentative part lists (for later filtering)-->
 					<cfset valid_part = false>
-					<cfloop list="#include_list#" delimiters=";" index="p">
+					<cfloop list="#include_list#" delimiters=";" index="part">
 						<cfif "#p#" is "#part#">
 							<cfset valid_part = true>
 						</cfif>
