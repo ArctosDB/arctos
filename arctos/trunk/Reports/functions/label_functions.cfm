@@ -1142,18 +1142,11 @@
 					<cfset foundSkel = 1>
 					
 				<cfelse> <!-- Safely add part to tentative part lists (for later filtering)-->
-					<cfset valid_part = false>
-					<cfloop list="#include_list#" delimiters=";" index="part">
-						<cfif "#p#" is "#part#">
-							<cfset valid_part = true>
-						</cfif>
-					</cfloop>
-					<cfif valid_part>
-						<cfif len(newParts) gt 0>
-							<cfset newParts = "#newParts#; #p#">
-						<cfelse>
-							<cfset newParts = "#p#">
-						</cfif>
+
+					<cfif len(newParts) gt 0>
+						<cfset newParts = "#newParts#; #p#">
+					<cfelse>
+						<cfset newParts = "#p#">
 					</cfif>
 					
 					<!-- Save skull position/index for later re-insert-->
@@ -1207,11 +1200,25 @@
 				<!-- The regex captures spaces/words up to and including the first open paren. -->
 				<cfset regex = "(?i)[\s]*([a-z]+[\s]+)+\({1}">
 				<cfloop list="#newParts#" delimiters=";" index="part">
+					
 					<cfset result = REFind(regex, part, 1, True)>
 					<cfif result.len[1] is not 0>
 						<cfset part = mid(part, result.pos[1], result.len[1]-1)>
 					</cfif>
 					<cfset part = trim(part)>	
+					
+					<!-- Check to make sure that the part should be printed at all. -->
+					<cfset valid_part = false>
+					<cfloop list="#include_list#" delimiters=";" index="part">
+						<cfif "#p#" is "#part#">
+							<cfset valid_part = true>
+						</cfif>
+					</cfloop>
+					
+					<cfif valid_part is false>
+						<cfcontinue></cfcontinue>
+					</cfif>
+					
 					<cfif len(partString) gt 1>
 						<!--- Add the part to the current string. --->
 						<cfset partString = "#partString#, +#part#">
