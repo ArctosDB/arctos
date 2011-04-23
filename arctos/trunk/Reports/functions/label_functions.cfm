@@ -1164,14 +1164,6 @@
 			4.) Skull + Skeleton + NOT Skin => skull; skeleton
 			5.) Skull + NOT Skeleton + NOT Skin => skull only
 			6.) [First 5 Choices] + Parts => [First 5], +part1, +part2, ... ,+partn
-			
-			Variables:
-				foundTissue (0, 1)
-				foundSkull (0, 1)
-				foundSkin (0, 1)
-				foundSkel (0, 1)
-				foundOrg (0, 1)	
-				newParts (all other parts for parsing)	
 			--->
 			
 			<cfset partString = "x">
