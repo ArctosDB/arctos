@@ -396,11 +396,13 @@
 				</cfloop>
 				<cfloop list="#rel#" index="i" delimiters="|">
 					<hr>
-					i: #i#
+					<cfdump var=#i#>
 					<hr>
-					1: #listgetat(i,1,chr(7))#
+					<cfset v=listgetat(i,1,chr(7))>
+					<cfdump var=#v#>
 					<hr>
-					2: #listgetat(i,2,chr(7))#
+					<cfset e=listgetat(i,2,chr(7))>
+					<cfdump var=#e#>
 					<hr>
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
