@@ -314,6 +314,7 @@
 	
 	<br>
 	<br>
+	<!---
 	<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(distinct(media_id)) cnt from #session.MediaSrchTab# where lat_long is not null
 	</cfquery>
@@ -330,7 +331,7 @@
 
 	<span class="controlButton"
 		onclick="saveSearch('#Application.ServerRootUrl#/development/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
-	
+	---->
 	<br>
 	#pager#
 				
