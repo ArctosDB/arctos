@@ -359,18 +359,6 @@
 
 
 
-<hr>
-shows cataloged_item==<a href="/guid/MVZ:Bird:17782">MVZ:Bird:17782</a>|associated with project==<a href="/project/public-exhibit-rollo-beck-permanent-exhibit-at-the-pacific-grove-museum-of-natural-history">Public Exhibit: Rollo Beck permanent exhibit at the Pacific Grove Museum of Natural History</a> 
-<cfset t='shows cataloged_item==<a href="/guid/MVZ:Bird:17782">MVZ:Bird:17782</a>|associated with project==<a href="/project/public-exhibit-rollo-beck-permanent-exhibit-at-the-pacific-grove-museum-of-natural-history">Public Exhibit: Rollo Beck permanent exhibit at the Pacific Grove Museum of Natural History</a>'>
-<hr>t: #t#
-<cfset tt=replace(t,"==",chr(7),"all")>
-<hr>tt:#tt#
-
-<cfloop list="#t#" index="i" delimiters="|">
-	<br>-----------------#i#------------
-	
-</cfloop>
-<hr>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
@@ -417,6 +405,7 @@ shows cataloged_item==<a href="/guid/MVZ:Bird:17782">MVZ:Bird:17782</a>|associat
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
 				<cfloop list="#rel#" index="i" delimiters="|">
+					<!---
 					<hr>
 					<cfdump var=#i#>
 					<hr>
@@ -426,6 +415,7 @@ shows cataloged_item==<a href="/guid/MVZ:Bird:17782">MVZ:Bird:17782</a>|associat
 					<cfset e=listgetat(i,2,chr(7))>
 					<cfdump var=#e#>
 					<hr>
+					---->
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
 				
