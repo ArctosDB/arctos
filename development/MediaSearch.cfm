@@ -355,8 +355,8 @@
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
 	<cfloop list="#labels#" index="i" delimiters="|">
-		<cfif listgetat(i,1,":") is "description">
-			<cfset alt=listgetat(i,2,":")>
+		<cfif listgetat(i,1,"==") is "description">
+			<cfset alt=listgetat(i,2,"==")>
 		</cfif>
 	</cfloop>
 	<cfif len(alt) is 0>
