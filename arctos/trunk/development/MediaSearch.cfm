@@ -353,10 +353,9 @@
  <cfdump var=#findIDs#>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
-<<<<<<< .mine
 	<cfset alt=''>
 	<cfloop list="#labels#" index="i" delimiters="|">
-		<cfif listgetat(i,1) is "description">
+		<cfif listgetat(i,1,":") is "description">
 			<cfset alt=listgetat(i,2)>
 		</cfif>
 	</cfloop>
