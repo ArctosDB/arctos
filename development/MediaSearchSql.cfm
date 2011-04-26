@@ -186,7 +186,7 @@
 		<div class="error">You must enter search criteria.</div>
 		<cfabort> 
 	</cfif>
-	
+
 
 </cfif><!--- end srchType --->
 
