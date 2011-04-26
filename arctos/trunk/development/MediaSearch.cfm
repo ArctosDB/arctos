@@ -356,7 +356,7 @@
 	<cfset alt=''>
 	<cfloop list="#labels#" index="i" delimiters="|">
 		<cfif listgetat(i,1,":") is "description">
-			<cfset alt=listgetat(i,2)>
+			<cfset alt=listgetat(i,2,":")>
 		</cfif>
 	</cfloop>
 	<cfif len(alt) is 0>
@@ -388,10 +388,10 @@
 		<td align="middle">							
 			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 				<cfloop list="#labels#" index="i" delimiters="|">
-					#listgetat(i,1)#: #listgetat(i,2)#<br>
+					#listgetat(i,1,":")#: #listgetat(i,2,":")#<br>
 				</cfloop>
 				<cfloop list="#relationships#" index="i" delimiters="|">
-					#listgetat(i,1)#: #listgetat(i,2)#<br>
+					#listgetat(i,1,":")#: #listgetat(i,2,":")#<br>
 				</cfloop>
 				
 					<!---
