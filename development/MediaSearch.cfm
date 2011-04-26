@@ -355,9 +355,12 @@
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
+	<cfset lbl=ListChangeDelims(labels,chr(7),"==")>
+	<cfset rel=ListChangeDelims(relationships,chr(7),"==")>
+			
 	<cfloop list="#labels#" index="i" delimiters="|">
-		<cfif listgetat(i,1,"==") is "description">
-			<cfset alt=listgetat(i,2,"==")>
+		<cfif listgetat(i,1,chr(7)) is "description">
+			<cfset alt=listgetat(i,2,chr(7))>
 		</cfif>
 	</cfloop>
 	<cfif len(alt) is 0>
