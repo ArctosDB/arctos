@@ -174,6 +174,7 @@
     }
 </cfscript>
 	<cfset mediaFlatTableName="t_media_flat">
+	
 	<!-- Default mediaSearch sql query-->
 	<cfset sql = "SELECT * FROM #mediaFlatTableName# ">	
 	
