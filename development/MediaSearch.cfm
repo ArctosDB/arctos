@@ -351,8 +351,8 @@
 </tr>
 
 <!--<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")> -->
- <cfdump var=#findIDs#>
-
+ <!---<cfdump var=#findIDs#>
+--->
 
 
 
