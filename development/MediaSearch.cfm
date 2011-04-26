@@ -161,7 +161,6 @@
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif action is "search">
-
 <cfoutput>
 <cfscript>
     function highlight(findIn,replaceThis) {
