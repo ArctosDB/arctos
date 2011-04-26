@@ -517,6 +517,8 @@
 		---->
 		</td>
 	</tr>
+	
+	<!---
 	<cfset rownum=rownum+1>
 =======
 	
@@ -678,7 +680,7 @@
 	<cfset rownum=rownum+1>
 >>>>>>> .r17930
 
-	
+	---->
 	<!---
 	<cfset rpkeys = ListToArray(related_primary_keys, ";")>
 
