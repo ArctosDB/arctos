@@ -5,7 +5,7 @@
 </div>
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
-    	<cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
+    	<cflocation url="/development/MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
     </cfoutput>
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
@@ -37,7 +37,7 @@
 		and URL like '%MediaSearch.cfm%'
 		order by search_name
 	</cfquery>
-	<cfif hasCanned.recordcount gt 0>
+	<cfif #hasCanned.recordcount# gt 0>
 		<div style="padding-left:2em;padding-right:2em;">
 			Saved Searches: 
 			<select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">

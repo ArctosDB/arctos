@@ -27,7 +27,7 @@
 		</cfif>
 		<cfabort>
 	</cfif>
-	<cfset nono="w00tw00t,crossdomain,announce,php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
+	<cfset nono="w00tw00t,announce,php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
 	<cfloop list="#cgi.redirect_url#" delimiters="./" index="i">
 		<cfif listfindnocase(nono,i)>
 			<cfinclude template="/errors/autoblacklist.cfm">
@@ -60,18 +60,22 @@
 			);
 		}
 	</script>
-	<cfif len(cgi.REDIRECT_URL) gt 0 and cgi.redirect_url contains "guid" and session.dbuser is not "pub_usr_all_all">
-		<cfquery name="yourcollid" datasource="cf_dbuser">
-			select collection from cf_collection where DBUSERNAME='#session.dbuser#'
-		</cfquery>
-		<p>
-			<cfif len(session.roles) gt 0 and session.roles is not "public">
-				If you are an operator, you may have to log out or ask your supervisor for more access.
-			</cfif>
-			You are accessing Arctos through the #yourcollid.collection# portal, and cannot access specimen data in
-			other collections. You may 
-			<span class="likeLink" onclick="changeCollection()">try again in the public portal</span>.
-		</p>
+	<cfset isGuid=false>
+	<cfif len(cgi.REDIRECT_URL) gt 0 and cgi.redirect_url contains "guid">
+		<cfset isGuid=true>
+		<cfif session.dbuser is not "pub_usr_all_all">
+			<cfquery name="yourcollid" datasource="cf_dbuser">
+				select collection from cf_collection where DBUSERNAME='#session.dbuser#'
+			</cfquery>
+			<p>
+				<cfif len(session.roles) gt 0 and session.roles is not "public">
+					If you are an operator, you may have to log out or ask your supervisor for more access.
+				</cfif>
+				You are accessing Arctos through the #yourcollid.collection# portal, and cannot access specimen data in
+				other collections. You may 
+				<span class="likeLink" onclick="changeCollection()">try again in the public portal</span>.
+			</p>
+		</cfif>
 	</cfif>	
 	<p>
 		If you followed a link from within Arctos, please <a href="/info/bugs.cfm">submit a bug report</a>
@@ -103,7 +107,14 @@
 			Occasionally, a specimen is recataloged. You may be able to find them by using Other Identifiers in Specimen Search.
 		</p>	
 	</p>
-	<cfmail subject="Dead Link" to="#Application.PageProblemEmail#" from="dead.link@#application.fromEmail#" type="html">
+	<cfif isGuid is false>
+		<cfset sub="Dead Link">
+		<cfset frm="dead.link">
+	<cfelse>
+		<cfset sub="Missing GUID">
+		<cfset frm="dead.guid">
+	</cfif>
+	<cfmail subject="#sub#" to="#Application.PageProblemEmail#" from="#frm#@#application.fromEmail#" type="html">
 		A user found a dead link! The referring site was #cgi.HTTP_REFERER#.
 		<cfif isdefined("CGI.script_name")>
 			<br>The missing page is #Replace(CGI.script_name, "/", "")#
