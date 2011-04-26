@@ -352,6 +352,24 @@
 
 <!--<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")> -->
  <cfdump var=#findIDs#>
+
+
+
+
+
+
+
+<hr>
+shows cataloged_item==<a href="/guid/MVZ:Bird:17782">MVZ:Bird:17782</a>|associated with project==<a href="/project/public-exhibit-rollo-beck-permanent-exhibit-at-the-pacific-grove-museum-of-natural-history">Public Exhibit: Rollo Beck permanent exhibit at the Pacific Grove Museum of Natural History</a> 
+<cfset t='shows cataloged_item==<a href="/guid/MVZ:Bird:17782">MVZ:Bird:17782</a>|associated with project==<a href="/project/public-exhibit-rollo-beck-permanent-exhibit-at-the-pacific-grove-museum-of-natural-history">Public Exhibit: Rollo Beck permanent exhibit at the Pacific Grove Museum of Natural History</a>'>
+<hr>t: #t#
+<cfset tt=ListChangeDelims(t,chr(7),"==")>
+<hr>tt:tt
+
+<cfloop list="#t#" index="i">
+	<br>-----------------#i#------------
+</cfloop>
+<hr>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
