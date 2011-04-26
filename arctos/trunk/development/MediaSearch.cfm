@@ -362,7 +362,6 @@
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
-	<cfset tt=replace(t,"==",chr(7),"all")>
 
 	<cfset lbl=replace(labels,"==",chr(7),"all")>
 	<cfset rel=replace(relationships,"==",chr(7),"all")>
