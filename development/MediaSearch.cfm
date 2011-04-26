@@ -366,15 +366,19 @@ shows cataloged_item==<a href="/guid/MVZ:Bird:17782">MVZ:Bird:17782</a>|associat
 <cfset tt=replace(t,"==",chr(7),"all")>
 <hr>tt:#tt#
 
-<cfloop list="#t#" index="i">
+<cfloop list="#t#" index="i" delimiters="|">
 	<br>-----------------#i#------------
+	
 </cfloop>
 <hr>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
-	<cfset lbl=ListChangeDelims(labels,chr(7),"==")>
-	<cfset rel=ListChangeDelims(relationships,chr(7),"==")>
+	<cfset tt=replace(t,"==",chr(7),"all")>
+
+	<cfset lbl=replace(labels,"==",chr(7),"all")>
+	<cfset rel=replace(relationships,"==",chr(7),"all")>
+
 			
 	<cfloop list="#lbl#" index="i" delimiters="|">
 		<cfif listgetat(i,1,chr(7)) is "description">
