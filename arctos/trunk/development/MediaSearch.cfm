@@ -9,6 +9,7 @@
     </cfoutput>
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
+
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
@@ -351,8 +352,174 @@
 <!--<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")> -->
  <cfdump var=#findIDs#>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
-
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
+<<<<<<< .mine
+	<cfset alt=''>
+	<cfloop list="#labels#" index="i" delimiters="|">
+		<cfif listgetat(i,1) is "description">
+			<cfset alt=listgetat(i,2)>
+		</cfif>
+	</cfloop>
+	<cfif len(alt) is 0>
+		<cfset alt=media_uri>
+	</cfif>
+	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+		<td align="middle">
+			<a href="#media_uri#" target="_blank">
+				<img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;">
+			</a>
+			<br>
+			<span style = "font-size:small;">#media_type# (#mime_type#)</span>
+		</td>
+		<td align="middle">					
+			<div id="mapID_#media_uri#">mappy</div>
+			<!---
+			<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
+				<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
+				<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+				<cfset iu=iu & "&maptype=roadmap">
+				<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#" target="_blank">
+					<img src="#iu#" alt="Google Map">
+				</a>
+			</cfif>
+			--->
+			
+		</td>
+		
+		<td align="middle">							
+			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
+				<cfloop list="#labels#" index="i" delimiters="|">
+					#listgetat(i,1)#: #listgetat(i,2)#<br>
+				</cfloop>
+				<cfloop list="#relationships#" index="i" delimiters="|">
+					#listgetat(i,1)#: #listgetat(i,2)#<br>
+				</cfloop>
+				
+					<!---
+					<cfset labels_details="">
+					<cfset j = 1>
+					<cfloop list="#media_labels#" delimiters=";" index="label">
+						<cfset label = trim(#label#)>
+						<cfif (#label# is not "use policy") and (#label# is not "usage") and (#label# is not "description")>
+							<cfif len(labels_details) gt 0>
+								<cfset labels_details = labels_details & "<br>" & #mlabels[j]# & " = " & #lvalues[j]#>
+							<cfelse>
+								<cfset labels_details = #mlabels[j]# & " = " & #lvalues[j]#>
+							</cfif>			
+						</cfif>
+					<cfset j = j +1>
+					</cfloop>
+									
+					<cfloop list="#terms#" index="k" delimiters=",;: ">
+						<cfset top_text=highlight(top_text,k)>
+						<cfset bottom_text=highlight(bottom_text,k)>
+						<cfset labels_details=highlight(labels_details,k)>
+					</cfloop>
+					
+					<cfif len(#top_text#) gt 0>
+						<cfset top_text = replace(top_text, '@@', '<a href="http://arctos-test.arctos.database.museum/name/#scientific_name#">', "all")>
+						<cfset top_text = replace(top_text, '**', '</a>', "all")>
+						#top_text#						
+						<br>
+						<br>	
+					</cfif>
+					
+					<cfif len(#bottom_text#) gt 0>
+						#bottom_text#						
+						<br>
+					</cfif>
+					#labels_details#
+					
+					--->
+					
+					bla bla bla labels & etc
+			</div>			
+		
+		<!-- Related Media -->
+		
+		<br>
+		<cfif media_type is "multi-page document">	
+			<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
+		</cfif>
+		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+	        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
+	        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
+	    </cfif>
+	    <!---
+	    hasTag
+	    
+	    <cfif tag.n gt 0>
+			<a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
+		</cfif>
+		
+		--->
+		<!--- wtff?
+		<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				media.media_id, 
+				media.media_type, 
+				media.mime_type, 
+				media.preview_uri, 
+				media.media_uri 
+			from 
+				media, 
+				media_relations 
+			where 
+				media.media_id=media_relations.related_primary_key and
+				media_relationship like '% media' 
+				and media_relations.media_id =#media_id#
+				and media.media_id != #media_id#
+			UNION
+			select media.media_id, media.media_type,
+				media.mime_type, media.preview_uri, media.media_uri 
+			from media, media_relations 
+			where 
+				media.media_id=media_relations.media_id and
+				media_relationship like '% media' and 
+				media_relations.related_primary_key=#media_id#
+				 and media.media_id != #media_id#
+		</cfquery>
+		<cfif relM.recordcount gt 0>
+		--->
+			<br>Related Media
+			<!---
+			<div class="thumbs">
+				<div class="thumb_spcr">&nbsp;</div>
+				<cfloop query="relM">
+					<cfset puri=getMediaPreview(preview_uri,media_type)>
+	            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select
+							media_label,
+							label_value
+						from
+							media_labels
+						where
+							media_id=#media_id#
+					</cfquery>
+					<cfquery name="desc" dbtype="query">
+						select label_value from labels where media_label='description'
+					</cfquery>
+					<cfset alt="Media Preview Image">
+					<cfif desc.recordcount is 1>
+						<cfset alt=desc.label_value>
+					</cfif>
+	               <div class="one_thumb">
+		               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+	                   	<p>
+							#media_type# (#mime_type#)
+		                   	<br><a href="/media/#media_id#">Media Details</a>
+							<br>#alt#
+						</p>
+					</div>
+				</cfloop>
+				<div class="thumb_spcr">&nbsp;</div>
+			</div>
+		</cfif>
+		---->
+		</td>
+	</tr>
+	<cfset rownum=rownum+1>
+=======
 	
 	
 	
@@ -510,6 +677,7 @@
 		</td>
 	</tr>
 	<cfset rownum=rownum+1>
+>>>>>>> .r17930
 
 	
 	<!---
