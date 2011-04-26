@@ -9,7 +9,6 @@
     </cfoutput>
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
-
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
