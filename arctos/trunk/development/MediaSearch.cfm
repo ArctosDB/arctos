@@ -382,9 +382,11 @@
 			</a>
 			<br>
 			<span style = "font-size:small;">#media_type# (#mime_type#)</span>
+			<br>
+			<span style = "font-size:small;">#license#</span>
 		</td>
 		<td align="middle">					
-			<div id="mapID_#media_uri#">mappy</div>
+			<div id="mapID_#media_uri#">mappy: #coordinates#</div>
 			<!---
 			<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
 				<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
@@ -418,44 +420,7 @@
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
 				
-					<!---
-					<cfset labels_details="">
-					<cfset j = 1>
-					<cfloop list="#media_labels#" delimiters=";" index="label">
-						<cfset label = trim(#label#)>
-						<cfif (#label# is not "use policy") and (#label# is not "usage") and (#label# is not "description")>
-							<cfif len(labels_details) gt 0>
-								<cfset labels_details = labels_details & "<br>" & #mlabels[j]# & " = " & #lvalues[j]#>
-							<cfelse>
-								<cfset labels_details = #mlabels[j]# & " = " & #lvalues[j]#>
-							</cfif>			
-						</cfif>
-					<cfset j = j +1>
-					</cfloop>
-									
-					<cfloop list="#terms#" index="k" delimiters=",;: ">
-						<cfset top_text=highlight(top_text,k)>
-						<cfset bottom_text=highlight(bottom_text,k)>
-						<cfset labels_details=highlight(labels_details,k)>
-					</cfloop>
-					
-					<cfif len(#top_text#) gt 0>
-						<cfset top_text = replace(top_text, '@@', '<a href="http://arctos-test.arctos.database.museum/name/#scientific_name#">', "all")>
-						<cfset top_text = replace(top_text, '**', '</a>', "all")>
-						#top_text#						
-						<br>
-						<br>	
-					</cfif>
-					
-					<cfif len(#bottom_text#) gt 0>
-						#bottom_text#						
-						<br>
-					</cfif>
-					#labels_details#
-					
-					--->
-					
-					bla bla bla labels & etc
+		
 			</div>			
 		
 		<!-- Related Media -->
@@ -468,14 +433,10 @@
 	        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
 	        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
 	    </cfif>
-	    <!---
-	    hasTag
-	    
-	    <cfif tag.n gt 0>
-			<a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
+	   <cfif hastags gt 0>
+			<a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
 		</cfif>
 		
-		--->
 		<!--- wtff?
 		<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
