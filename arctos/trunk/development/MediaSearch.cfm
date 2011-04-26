@@ -406,6 +406,7 @@
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
 				<cfloop list="#rel#" index="i" delimiters="|">
+					[{[[#i#]]]]
 					<!---
 					<hr>
 					<cfdump var=#i#>
