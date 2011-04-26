@@ -358,7 +358,7 @@
 	<cfset lbl=ListChangeDelims(labels,chr(7),"==")>
 	<cfset rel=ListChangeDelims(relationships,chr(7),"==")>
 			
-	<cfloop list="#labels#" index="i" delimiters="|">
+	<cfloop list="#lbl#" index="i" delimiters="|">
 		<cfif listgetat(i,1,chr(7)) is "description">
 			<cfset alt=listgetat(i,2,chr(7))>
 		</cfif>
