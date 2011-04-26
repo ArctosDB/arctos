@@ -395,6 +395,13 @@
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
 				<cfloop list="#rel#" index="i" delimiters="|">
+					<hr>
+					i: #i#
+					<hr>
+					1: #listgetat(i,1,chr(7))#
+					<hr>
+					2: #listgetat(i,2,chr(7))#
+					<hr>
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
 				
