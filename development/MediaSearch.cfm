@@ -391,11 +391,11 @@
 		
 		<td align="middle">							
 			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
-				<cfloop list="#labels#" index="i" delimiters="|">
-					#listgetat(i,1,"==")#: #listgetat(i,2,"==")#<br>
+				<cfloop list="#lbl#" index="i" delimiters="|">
+					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
-				<cfloop list="#relationships#" index="i" delimiters="|">
-					#listgetat(i,1,"==")#: #listgetat(i,2,"==")#<br>
+				<cfloop list="#rel#" index="i" delimiters="|">
+					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
 				
 					<!---
