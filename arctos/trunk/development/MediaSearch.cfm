@@ -177,9 +177,9 @@
 	
 	<!-- Default mediaSearch sql query-->
 	<cfset sql = "SELECT * FROM #mediaFlatTableName# ">	
-	
+	-------#sql#------
 	<cfset whr ="WHERE #mediaFlatTableName#.media_id > 0">
-	
+	-------#whr#------
 	<cfset srch=" ">
 	<cfset mapurl = "">
 	<cfset terms="">
@@ -189,7 +189,7 @@
 	<!-- Finalize query -->
 	<cfset ssql="#sql# #whr# #srch# order by media_id">
 	
-
+-------#ssql#------
 	<!-- try to kill any old tables that they may have laying around -->
 	<cftry>
 		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
