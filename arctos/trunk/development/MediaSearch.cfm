@@ -953,8 +953,9 @@
 		</cfif>
 		</td>
 	</tr>
-	<cfset rownum=rownum+1>
+	
 	---->
+	<cfset rownum=rownum+1>
 </cfloop>
 </table>
 
