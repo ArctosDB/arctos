@@ -426,7 +426,9 @@
 				
 		
 			</div>			
-		
+			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
+				#keywords#
+			</div>
 		<!-- Related Media -->
 		
 		<br>
