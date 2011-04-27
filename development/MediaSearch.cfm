@@ -184,12 +184,12 @@
 	<cfset mapurl = "">
 	<cfset terms="">
 	<cfinclude template="MediaSearchSql.cfm">
-
+-------==#whr#==------
 	
 	<!-- Finalize query -->
 	<cfset ssql="#sql# #whr# #srch# order by media_id">
 	
--------#ssql#------
+------>>>>>>>>-#ssql#-<<<<<<<<-----
 	<!-- try to kill any old tables that they may have laying around -->
 	<cftry>
 		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
