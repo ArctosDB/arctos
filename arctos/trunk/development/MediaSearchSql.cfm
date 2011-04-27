@@ -45,7 +45,7 @@
 		<cfset mapurl="#mapurl#&tag=#tag#">
 	</cfif>
 	<cfif isdefined("media_type") and len(media_type) gt 0>
-		<cfset srch="#whr# AND #mediaFlatTableName#.media_type IN (#listQualify(media_type,"'")#)">
+		<cfset srch="#srch# AND #mediaFlatTableName#.media_type IN (#listQualify(media_type,"'")#)">
 		<cfset mapurl="#mapurl#&media_type=#media_type#">
 	</cfif>
 	
@@ -54,7 +54,7 @@
 		<cfset mapurl="#mapurl#&media_id=#media_id#">
 	</cfif>
 	<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
-		<cfset srch="#whr# AND #mediaFlatTableName#.mime_type in (#listQualify(mime_type,"'")#)">
+		<cfset srch="#srch# AND #mediaFlatTableName#.mime_type in (#listQualify(mime_type,"'")#)">
 		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 	</cfif>
 
