@@ -188,7 +188,11 @@
 	
 	<!-- Finalize query -->
 	<cfset ssql="#sql# #whr# #srch# order by media_id">
-	
+	00000000000000000
+	-------------#sql#-----------------
+	----------------#whr#---------------------
+	------------------#srch#-------------------
+	000000000000000000000
 ------>>>>>>>>-#ssql#-<<<<<<<<-----
 	<!-- try to kill any old tables that they may have laying around -->
 	<cftry>
