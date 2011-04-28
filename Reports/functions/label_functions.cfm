@@ -111,7 +111,6 @@
 			<cfset idnum=lo>
 		</cfif>
 		<cfset idAr[i] = #idNum#>
-				
 		
 		<cfif #collectors# contains ",">
 			<Cfset spacePos = find(",",collectors)>
@@ -875,11 +874,10 @@
 	<cfset i = 1>
 	<cfloop query="q">
 
-		
 		<!--- Geography = Spec_Locality + State + county + country + other geography attributes--->
 		<cfset geog = "#spec_locality#">
 		<cfif #country# is "United States">
-			<cfif len(#county#) gt 0>
+			<cfif len(#county#) gt 0>string
 				<cfset geog = "#geog#, #county#">
 			</cfif>
 			<cfif len(#state_prov#) gt 0>
@@ -951,50 +949,137 @@
 		
 		<!--- Parts Formatting --->
 		<cfset formatted_parts = "">
-		<!-- Mammals -->
-		<cfset colonPos = find(";", parts)>
-		<cfset tissueP = find("tissue", parts)>
-		<cfset skinP = find("skin", parts)>
-		<cfset wholeOrgP = find("whole organism", parts)>
-		<cfset preserveP = find("alcohol", parts)>
-		<cfset skelP = find ("skeleton", parts)>
 		
-		<!-- Mamm -->
-		<cfif collection_cde is "Mamm">
-			<cfset formatted_parts = "#parts#">
-		<!-- Bird -->
-		<cfelseif collection_cde is "Bird">
-			<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
-				<cfset formatted_parts = "#parts#">
-			</cfif>
+		<!-- Get all part names for this collection_object_id -->
+		<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select p.part_name 
+			from specimen_part p 
+				LEFT JOIN ctspecimen_part_list_order c ON (p.part_name = c.partname)
+			where p.derived_from_cat_item = #collection_object_id#
+			order by c.list_order					
+		</cfquery>
 			
-		<!-- Herp -->
-		<cfelseif collection_cde is "Herp" >
- 			<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
-				<cfset formatted_parts = "#parts#">
-			</cfif>
-		<!-- Egg -->
-		<cfelseif collection_cde is "Egg">
-			<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
-				<cfset formatted_parts = "#parts#">
-			</cfif>
-		</cfif>
-		
-		<cfset newParts = "">
-		<cfloop list="#formatted_parts#" delimiters=";" index="p">
-			<cfset tissueP = find("tissue", p)>
-			<cfset wholeOrgP = find("whole organism", p)>
-			<cfif tissueP lte 0 and wholeOrgP lte 0>
-				<cfif len(newParts) gt 0>
-					<cfset newParts = "#newParts#; #p#">
-				<cfelse>
-					<cfset newParts = "#p#">
-				</cfif>
+		<!-- put query from above into a list-->
+		<cfset parts = "">
+		<cfloop query="part_name_all">
+			<cfif len(parts) is 0>
+				<cfset parts = part_name>
+			<cfelse>
+				<cfset parts = "#parts#; #part_name#">
 			</cfif>
 		</cfloop>
 		
-		<cfset formatted_parts = "#newParts#">
-		<cfset formatted_parts = "#ReplaceNoCase(formatted_parts, 'alcohol', 'ETOH', 'all')#">
+		<cfif collection_cde is "Bird">
+			<cfset include_list = "">
+			<cfset foundSkeleton = 0>
+			<cfset foundSkull = 0>
+			<cfset foundSkin = 0>
+			<cfset foundWing = 0>
+			<cfset otherParts = "">
+			
+			<cfloop list="#parts#" delimiters=";" index="p">
+				<cfif find("skeleton", p) gt 0>
+					<cfset foundSkeleton = 1>
+				<cfelseif find("skull", p) gt 0>
+					<cfset foundSkull = 1>
+				<cfelseif find("skin", p) gt 0>
+					<cfset foundSkin = 1>
+				<cfelseif find("wing", p) gt 0>
+					<cfset foundWing = 1>
+				<cfelseif find("tissue", p) gt 0>
+					<!-- Just don't do anything with the tissue. -->
+				<cfelse>
+					<!-- Put off any other parts for later parsing. -->
+					<cfif otherParts is "">
+						<cfset otherParts = "#p#">
+					<cfelse>
+						<cfset otherParts = "#otherParts#; #p#">
+					</cfif>
+				</cfif>
+			</cfloop>
+			
+			<cfif foundSkeleton gt 0 and foundSkin gt 0 and foundSkull gt 0>
+				<cfset formatted_parts = "+skeleton, skull">
+			<cfelseif foundSkeleton gt 0 and foundSkin gt 0 and foundSkull lt 1>
+				<cfset formatted_parts = "+skeleton">
+			<cfelseif foundSkeleton gt 0 and foundSkin lt 1 and foundSkull gt 0>
+				<cfset formatted_parts = "skeleton, skull">
+			<cfelseif foundSkeleton lt 1 and foundSkin gt 0 and foundSkull gt 0>
+				<cfset formatted_parts = "+skull">
+			<cfelseif foundSkeleton lt 1 and foundSkin lt 1 and foundSkull gt 0>
+				<cfset formatted_parts = "skull">
+			<cfelse>
+				<cfset formatted_parts = "">
+			</cfif>
+			
+			<!-- Now we deal with the rest of the parts. -->
+			<!-- cfset otherParts = mvz_clean_parts(otherParts) -->
+			
+			<cfloop list="#otherParts#" delimiters=";" index="part">
+				<!-- Regex catches everything up to and including the first open paren. -->
+				<cfset regex = "(?i)[\s]*([a-z]+[\s]+)+\({1}">
+				<cfset result = REFind(regex, part, 1, True)>
+				<cfif result.len[1] is not 0>
+					<cfset part = mid(part, result.pos[1], result.len[1]-1)>
+				</cfif>
+				<cfset part = trim(part)>
+				
+				<!-- Check to see that the part should be printed at all -->
+				<!--- FOR NOW: always have it as true, because include_list is empty. --->
+				<cfset is_valid_part = true>
+				<cfif listContains(include_list, part)>
+					<cfset is_valid_part = true>
+				</cfif>
+				
+				<!-- Add the part to formatted_parts appropriately. -->
+				<cfif is_valid_part>
+					<cfif len(formatted_parts) GT 0>
+						<cfset formatted_parts = "#formatted_parts#, +#part#">
+					<cfelse>
+						<cfset formatted_parts = "+#part#">
+					</cfif>
+				</cfif>
+			</cfloop>
+	
+		<cfelse>
+			<!-- Deal with anything but birds. -->
+			<cfset colonPos = find(";", parts)>
+			<cfset tissueP = find("tissue", parts)>
+			<cfset skinP = find("skin", parts)>
+			<cfset wholeOrgP = find("whole organism", parts)>
+			<cfset preserveP = find("alcohol", parts)>
+			<cfset skelP = find ("skeleton", parts)>
+		
+			<!-- Mamm -->
+			<cfif collection_cde is "Mamm">
+				<cfset formatted_parts = "#parts#">
+				<!-- Herp -->
+			<cfelseif collection_cde is "Herp" >
+				<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
+					<cfset formatted_parts = "#parts#">
+				</cfif>
+				<!-- Egg -->
+			<cfelseif collection_cde is "Egg">
+				<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
+					<cfset formatted_parts = "#parts#">
+				</cfif>
+			</cfif>
+			<cfset newParts = "">
+			<cfloop list="#formatted_parts#" delimiters=";" index="p">
+				<cfset tissueP = find("tissue", p)>
+				<cfset wholeOrgP = find("whole organism", p)>
+				<cfif tissueP lte 0 and wholeOrgP lte 0>
+					<cfif len(newParts) gt 0>
+						<cfset newParts = "#newParts#; #p#">
+					<cfelse>
+						<cfset newParts = "#p#">
+					</cfif>
+				</cfif>
+			</cfloop>
+			<cfset formatted_parts = "#newParts#">
+			<cfset formatted_parts = "#ReplaceNoCase(formatted_parts, 'alcohol', 'ETOH', 'all')#">
+		</cfif>
+		
 		<cfset pAr[i] = "#formatted_parts#">
 		
 		<!--- Sex --->
