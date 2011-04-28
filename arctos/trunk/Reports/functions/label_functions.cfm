@@ -1002,6 +1002,8 @@
 				<cfset formatted_parts = "+skeleton, skull">
 			<cfelseif foundSkeleton gt 0 and foundSkin gt 0 and foundSkull lt 1>
 				<cfset formatted_parts = "+skeleton">
+			<cfelseif foundSkeleton gt 0 and foundSkin lt 1 and foundSkull lt 1>
+				<cfset formatted_parts = "skeleton">
 			<cfelseif foundSkeleton gt 0 and foundSkin lt 1 and foundSkull gt 0>
 				<cfset formatted_parts = "skeleton, skull">
 			<cfelseif foundSkeleton lt 1 and foundSkin gt 0 and foundSkull gt 0>
@@ -1034,9 +1036,9 @@
 				<!-- Add the part to formatted_parts appropriately. -->
 				<cfif is_valid_part>
 					<cfif len(formatted_parts) GT 0>
-						<cfset formatted_parts = "#formatted_parts#, +#part#">
+						<cfset formatted_parts = "#formatted_parts#, #part#">
 					<cfelse>
-						<cfset formatted_parts = "+#part#">
+						<cfset formatted_parts = "#part#">
 					</cfif>
 				</cfif>
 			</cfloop>
