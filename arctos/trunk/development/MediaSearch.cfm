@@ -31,7 +31,7 @@
 					chr(9) & chr(9) & chr(9) & '<Point>'  & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#i#,0</coordinates>'  & chr(10) &
 					chr(9) & chr(9) & chr(9) & '</Point>'  & chr(10) &
-					chr(9) & chr(9) & '<Placemark>';
+					chr(9) & chr(9) & '</Placemark>';
 				variables.joFileWriter.writeLine(k);
 			</cfscript>
 		</cfloop>
