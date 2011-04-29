@@ -9,7 +9,42 @@
     </cfoutput>
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
+<!----------------------------------------------------------------------------------------->
+<cfif action is "mediaKML">
+	<cfoutput>
+		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select coordinates from t_media_flat where media_id=#media_id#
+		</cfquery>
+		<cfset variables.fileName="/downloads/m#media_id#.kml">
+		<cfset variables.encoding="UTF-8">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+			 	'<kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) & 
+			 	chr(9) & '<Document>' & chr(10);
+			variables.joFileWriter.writeLine(kml);
+		</cfscript>
+		<cfloop list="#k.coordinates#" index="i" delimiters="|">
+			<cfscript>
+				k= chr(9) & chr(9) & '<Placemark>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & '<Point>'  & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#i#,0</coordinates>'  & chr(10) &
+					chr(9) & chr(9) & chr(9) & '</Point>'  & chr(10) &
+					chr(9) & chr(9) & '<Placemark>';
+				variables.joFileWriter.writeLine(k);
+			</cfscript>
+		</cfloop>
+		
+		<cfscript>
+			kml=chr(9) & '</Document>' & chr(10) & 
+			'</kml>';
+			variables.joFileWriter.writeLine(kml);		
+			variables.joFileWriter.close();
+		</cfscript>
+		<a href="/downloads/m#media_id#.kml">/downloads/m#media_id#.kml</a>
 
+	</cfoutput>
+</cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
@@ -344,7 +379,6 @@
 	<td><center><strong>Details</strong></center></td>		
 </tr>
 
-<!--<cfset downloadResults = querynew("scientific_name,agent_name,locality,description")> -->
  <!---
 
 <cfdump var=#findIDs#>
@@ -392,17 +426,13 @@
 					<a href="http://maps.google.com/maps?q=#coordinates#" target="_blank">
 						<img src="#iu#" alt="Google Map">
 					</a>
-				<cfelse>
+				<cfelseif listlen(coordinates,"|") gt 1>
 					<div style="width:150px;overflow:scroll">
 						#coordinates#
 					</div>
-				
+					<a href="MediaSearch.cfm?action=mediaKML&media_id=#media_id#" target="_blank">KML</a>
 				</cfif>
-			</div>
-			<!---
-			
-			--->
-			
+			</div>			
 		</td>
 		
 		<td align="middle">							
