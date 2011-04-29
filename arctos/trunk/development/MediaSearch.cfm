@@ -15,7 +15,7 @@
 		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select coordinates from t_media_flat where media_id=#media_id#
 		</cfquery>
-		<cfset variables.fileName="/downloads/m#media_id#.kml">
+		<cfset variables.fileName="/download/m#media_id#.kml">
 		<cfset variables.encoding="UTF-8">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
@@ -41,7 +41,7 @@
 			variables.joFileWriter.writeLine(kml);		
 			variables.joFileWriter.close();
 		</cfscript>
-		<a href="/downloads/m#media_id#.kml">/downloads/m#media_id#.kml</a>
+		<a href="/download/m#media_id#.kml">/download/m#media_id#.kml</a>
 
 	</cfoutput>
 </cfif>
