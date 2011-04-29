@@ -407,27 +407,14 @@
 		
 		<td align="middle">							
 			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
+				<cfloop list="#rel#" index="i" delimiters="|">
+					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
+				</cfloop>
 				<cfloop list="#lbl#" index="i" delimiters="|">
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
-				<cfloop list="#rel#" index="i" delimiters="|">
-										<!---
-					<hr>
-					<cfdump var=#i#>
-					<hr>
-					<cfset v=listgetat(i,1,chr(7))>
-					<cfdump var=#v#>
-					<hr>
-					<cfset e=listgetat(i,2,chr(7))>
-					<cfdump var=#e#>
-					<hr>
-					---->
-					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
-				</cfloop>
-				
-		
 			</div>			
-			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
+			<div style="color:green;font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 				#keywords#
 			</div>
 		<!-- Related Media -->
