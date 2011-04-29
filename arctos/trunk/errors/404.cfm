@@ -27,10 +27,16 @@
 		</cfif>
 		<cfabort>
 	</cfif>
-	<cfset nono="w00tw00t,announce,php,dll,asp,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
+	<cfset nono="w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
+	<cfset fourohthree="dll,asp">
 	<cfloop list="#cgi.redirect_url#" delimiters="./" index="i">
 		<cfif listfindnocase(nono,i)>
 			<cfinclude template="/errors/autoblacklist.cfm">
+			<cfabort>
+		</cfif>
+		<cfif listfindnocase(fourohthree,i)>
+			<cfset errm=i>
+			<cfinclude template="/errors/403.cfm">
 			<cfabort>
 		</cfif>
 	</cfloop>
