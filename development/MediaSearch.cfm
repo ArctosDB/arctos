@@ -12,10 +12,11 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "mediaKML">
 	<cfoutput>
+	
 		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select coordinates from t_media_flat where media_id=#media_id#
 		</cfquery>
-		<cfset variables.fileName="/download/m#media_id#.kml">
+		<cfset variables.fileName="#Application.webDirectory#/download/m#media_id#.kml">
 		<cfset variables.encoding="UTF-8">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
