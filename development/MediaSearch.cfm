@@ -385,15 +385,20 @@
 		</td>
 		<td align="middle">					
 			<div id="mapID_#media_uri#">
-				<cfif len(coordinates) gt 0>
-				<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#coordinates#">
-				<cfset iu=iu & "&markers=color:red|size:tiny|#coordinates#&sensor=false&size=100x100&zoom=2">
-				<cfset iu=iu & "&maptype=roadmap">
-				<a href="http://maps.google.com/maps?q=#coordinates#" target="_blank">
-					<img src="#iu#" alt="Google Map">
-				</a>
-			</cfif>
-				#coordinates#</div>
+				<cfif listlen(coordinates,"|") is 1>
+					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#coordinates#">
+					<cfset iu=iu & "&markers=color:red|size:tiny|#coordinates#&sensor=false&size=100x100&zoom=2">
+					<cfset iu=iu & "&maptype=roadmap">
+					<a href="http://maps.google.com/maps?q=#coordinates#" target="_blank">
+						<img src="#iu#" alt="Google Map">
+					</a>
+				<cfelse>
+					<div style="width:150px;overflow:scroll">
+						#coordinates#
+					</div>
+				
+				</cfif>
+			</div>
 			<!---
 			
 			--->
