@@ -22,14 +22,37 @@
 	
 	<cfset srch = "">
 	<cfinclude template="/development/MediaSearchSql.cfm">
-	<cfset sqlS = "SELECT * FROM #mediaFlatTableName# WHERE 1=1 #srch#">
+	<cfset sqlS = "SELECT * FROM #mediaFlatTableName# WHERE 1=1 #srch# and coordinates is not null">
 	
 	#sqlS#
 	<cfquery name = "tempMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(sqlS)#
 	</cfquery>
 	<cfdump var=#tempMapData#>
+	<cfset md=queryNew("media_id,lat,long,desc,media_type,media_id,media_uri")>
+	<cfset i=1>
+	<cfloop query="tempMapData">
+		<cfif listlen(coordinates,",") is 2>
+			<cfset desc=''>
+			<cfset t=queryAddRow(md,1)>
+			<cfset temp = QuerySetCell(md, "media_id", media_id, i)>
+			<cfset la=listgetat(coordinates,1)>
+			<cfset lo=listgetat(coordinates,2)>
+			<cfset temp = QuerySetCell(md, "lat", la, i)>
+			<cfset temp = QuerySetCell(md, "long", lo, i)>
+			<cfloop list="#labels#" index="i" delimiters="|">
+				<cfif left(i,13) is 'description=='>
+					<cfset desc=replace(i,'description==','')>
+				</cfif>
+			</cfloop>
+			<cfset temp = QuerySetCell(md, "desc", desc, i)>
+			<cfset temp = QuerySetCell(md, "media_type", media_type, i)>
+			<cfset temp = QuerySetCell(md, "media_uri", media_uri, i)>
+		</cfif>
+		<cfset i=i+1>
+	</cfloop>
 	
+	<!---
 	<cfset temp = queryAddColumn(tempMapData,"labels", "VarChar", ArrayNew(1))>		
 	<cfset temp = queryAddcolumn(tempMapData,"lat", "VarChar", ArrayNew(1))>
 	<cfset temp = queryAddcolumn(tempMapData,"long", "VarChar", ArrayNew(1))>
@@ -86,6 +109,9 @@
 		where lat is not null AND
 			long is not null
 	</cfquery>
+	
+	---->
+
 <cfif getMapData.recordcount is 0>
 	<div class="error">
 		Oops! We didn't find anything mappable. Only wild caught specimens with coordintes will map.
@@ -93,15 +119,14 @@
 	</div>
 	<cfabort>
 </cfif>
-
-
+<!---
 <!---- write an XML config file specific to the critters they're mapping --->
 	<cfquery name="collID" dbtype="query">
 		select collecting_object_id from getMapData where collecting_object_id is not null group by collecting_object_id
 	</cfquery>
-
+--->
 	<cfset thisAddress = #Application.DataProblemReportEmail#>
-	
+<!---	
 	<cfif len(valuelist(collID.collecting_object_id)) gt 0>
 		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select address from
@@ -119,7 +144,7 @@
 		</cfloop>
 	</cfif>	
 	
-
+--->
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
 		a='<bnhmmaps>' & chr(10) & 
@@ -127,7 +152,7 @@
 			chr(9) & chr(9) & '<name>BerkeleyMapper Configuration File</name>' & chr(10) & 
 			chr(9) & chr(9) & '<relatedinformation>#Application.serverRootUrl#</relatedinformation>' & chr(10) & 
 			chr(9) & chr(9) & '<abstract>GIS configuration file for media query interface</abstract>' & chr(10) & 
-			chr(9) & chr(9) & '<mapkeyword keyword="medias"/>' & chr(10) & 
+			chr(9) & chr(9) & '<mapkeyword keyword="media"/>' & chr(10) & 
 			chr(9) & chr(9) & '<header location="#Application.mapHeaderUrl#"/>' & chr(10) & 
 			chr(9) & chr(9) & '<linkbackheader location="#Application.serverRootUrl#"/>' & chr(10) & 
 			chr(9) & chr(9) & '<footer location="#Application.mapFooterUrl#"/>' & chr(10) & 
@@ -149,14 +174,14 @@
 		a=chr(9) & '<concepts>' & chr(10) & 
 			chr(9) & '<concept order="1" viewlist="0" colorlist="0" datatype="darwin:relatedinformation"  alias="Related Information" />' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="2" viewlist="1" colorlist="0" datatype="char120_1" alias="Media Type"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="3" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="4" viewlist="1" colorlist="0" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:collector" alias="Collector"/>' & chr(10) &   
-			chr(9) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="char120_2" alias="Project Name"/>' & chr(10) &
-			chr(9) & chr(9) & '<concept order="7" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Created from Collecting Event"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="8" viewlist="0" colorlist="0" datatype="char120_3" alias="Shows Locality"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="char120_4" alias="Shows Publication"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="10" viewlist="0" colorlist="0" datatype="char120_5" alias="Describes Taxonomy"/>' & chr(10) & 
+			//chr(9) & chr(9) & '<concept order="3" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>' & chr(10) & 
+			//chr(9) & chr(9) & '<concept order="4" viewlist="1" colorlist="0" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
+			//chr(9) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:collector" alias="Collector"/>' & chr(10) &   
+			//chr(9) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="char120_2" alias="Project Name"/>' & chr(10) &
+			//chr(9) & chr(9) & '<concept order="7" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Created from Collecting Event"/>' & chr(10) & 
+			//chr(9) & chr(9) & '<concept order="8" viewlist="0" colorlist="0" datatype="char120_3" alias="Shows Locality"/>' & chr(10) & 
+			//chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="char120_4" alias="Shows Publication"/>' & chr(10) & 
+			//chr(9) & chr(9) & '<concept order="10" viewlist="0" colorlist="0" datatype="char120_5" alias="Describes Taxonomy"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="11" viewlist="0" colorlist="0" datatype="char120_6" alias="Media uri"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="12" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="13" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
@@ -171,20 +196,20 @@
 		variables.joFileWriter.close();	
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
 	</cfscript>
-	<cfloop query="getMapData">
+	<cfloop query="md">
 		<cfscript>
 			a='<a href="#Application.serverRootUrl#/development/MediaSearch.cfm?action=search&media_id=' & 
 				media_id & '"' &
 				'target="_blank">' & 'Media' & '&nbsp;' & media_id & '</a>' & 
 				chr(9) & media_type &
-				chr(9) & cat_num & 
-				chr(9) & scientific_name &
-				chr(9) & created_by_agent &  
-				chr(9) & associated_with_project &
-				chr(9) & created_from_collecting_event &
-				chr(9) & shows_locality &
-				chr(9) & shows_publication &
-				chr(9) & describes_taxonomy &
+				//chr(9) & cat_num & 
+				//chr(9) & scientific_name &
+				//chr(9) & created_by_agent &  
+				//chr(9) & associated_with_project &
+				//chr(9) & created_from_collecting_event &
+				//chr(9) & shows_locality &
+				//chr(9) & shows_publication &
+				//chr(9) & describes_taxonomy &
 				chr(9) & media_uri & 
 				chr(9) & latitude &
 				chr(9) & longitude;
