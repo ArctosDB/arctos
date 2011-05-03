@@ -438,8 +438,14 @@
 		
 		<td align="middle">							
 			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
+				<cfset relMedia=''>
 				<cfloop list="#rel#" index="i" delimiters="|">
-					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
+					<cfset r=listgetat(i,1,chr(7))>
+					<cfset t=listgetat(i,2,chr(7))>
+					<cfif right(r),6) is ' media'>
+						<cfset relMedia=listAppend(relMedia,t)>
+					</cfif>
+					#r#: #t#<br>
 				</cfloop>
 				<cfloop list="#lbl#" index="i" delimiters="|">
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
@@ -491,6 +497,12 @@
 		<cfif relM.recordcount gt 0>
 		--->
 			<br>Related Media
+			<cfif len(relMedia) gt 0>
+				#relMedia#
+			<cfelse>nope
+			</cfif>
+			
+			
 			<!---
 			<div class="thumbs">
 				<div class="thumb_spcr">&nbsp;</div>
