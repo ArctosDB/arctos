@@ -12,7 +12,6 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "mediaKML">
 	<cfoutput>
-	
 		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select coordinates from t_media_flat where media_id=#media_id#
 		</cfquery>
@@ -345,6 +344,9 @@
 	
 	<br>
 	<br>
+	
+	<span class="controlButton"
+		onclick="window.open('/bnhmMaps/bnhmMapMediaData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 	<!---
 	<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(distinct(media_id)) cnt from #session.MediaSrchTab# where lat_long is not null
@@ -455,7 +457,6 @@
 			<div style="color:green;font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 				#keywords#
 			</div>
-		<!-- Related Media -->
 		
 		<br>
 		<cfif media_type is "multi-page document">	
@@ -468,110 +469,35 @@
 	   <cfif hastags gt 0>
 			<a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
 		</cfif>
-		
-		<!--- wtff?
-		<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select 
-				media.media_id, 
-				media.media_type, 
-				media.mime_type, 
-				media.preview_uri, 
-				media.media_uri 
-			from 
-				media, 
-				media_relations 
-			where 
-				media.media_id=media_relations.related_primary_key and
-				media_relationship like '% media' 
-				and media_relations.media_id =#media_id#
-				and media.media_id != #media_id#
-			UNION
-			select media.media_id, media.media_type,
-				media.mime_type, media.preview_uri, media.media_uri 
-			from media, media_relations 
-			where 
-				media.media_id=media_relations.media_id and
-				media_relationship like '% media' and 
-				media_relations.related_primary_key=#media_id#
-				 and media.media_id != #media_id#
-		</cfquery>
-		<cfif relM.recordcount gt 0>
-		--->
-			<br>Related Media
-			<cfif len(relMedia) gt 0>
-				<cfquery name="rel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select
-						media_id,
-						media_uri,
-						media_type,
-						preview_uri,
-						mime_type
-					from
-						media
-					where
-						media_id in (#relMedia#)
-				</cfquery>
 
-
-
-				<div class="thumbs">
-					<div class="thumb_spcr">&nbsp;</div>
-					<cfloop query="rel">
-						<div class="one_thumb">
-			               <a href="#media_uri#" target="_blank"><img style="max-width:75px;max-height:75px;" src="#getMediaPreview(preview_uri,media_type)#" alt="[ related media ]" class="theThumb"></a>
-			               	<p>
-								#media_type# (#mime_type#)
-			                   	<br><a href="/media/#media_id#">Media Details</a>
-							</p>
-						</div>
-					</cfloop>
-					<div class="thumb_spcr">&nbsp;</div>
-				</div>
-
-
-
-
-
-
-
-			<cfelse>nope
-			</cfif>
-			
-			
-			<!---
+		<br>Related Media
+		<cfif len(relMedia) gt 0>
+			<cfquery name="rel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select
+					media_id,
+					media_uri,
+					media_type,
+					preview_uri,
+					mime_type
+				from
+					media
+				where
+					media_id in (#relMedia#)
+			</cfquery>
 			<div class="thumbs">
 				<div class="thumb_spcr">&nbsp;</div>
-				<cfloop query="relM">
-					<cfset puri=getMediaPreview(preview_uri,media_type)>
-	            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select
-							media_label,
-							label_value
-						from
-							media_labels
-						where
-							media_id=#media_id#
-					</cfquery>
-					<cfquery name="desc" dbtype="query">
-						select label_value from labels where media_label='description'
-					</cfquery>
-					<cfset alt="Media Preview Image">
-					<cfif desc.recordcount is 1>
-						<cfset alt=desc.label_value>
-					</cfif>
-	               <div class="one_thumb">
-		               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
-	                   	<p>
+				<cfloop query="rel">
+					<div class="one_thumb">
+		               <a href="#media_uri#" target="_blank"><img style="max-width:75px;max-height:75px;" src="#getMediaPreview(preview_uri,media_type)#" alt="[ related media ]" class="theThumb"></a>
+		               	<p>
 							#media_type# (#mime_type#)
 		                   	<br><a href="/media/#media_id#">Media Details</a>
-							<br>#alt#
 						</p>
 					</div>
 				</cfloop>
 				<div class="thumb_spcr">&nbsp;</div>
 			</div>
 		</cfif>
-		---->
 		</td>
 	</tr>
 	
