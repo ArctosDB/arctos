@@ -199,9 +199,7 @@
 	</cfscript>
 	<cfloop query="md">
 		<cfscript>
-			a='<a href="#Application.serverRootUrl#/development/MediaSearch.cfm?action=search&media_id=' & 
-				media_id & '"' &
-				'target="_blank">' & 'Media' & '&nbsp;' & media_id & '</a>' & 
+			a='<a href="#Application.serverRootUrl#/media/' & media_id & '" target="_blank">Media</a>' & 
 				chr(9) & media_type &
 				chr(9) & desc &
 				//chr(9) & cat_num & 
