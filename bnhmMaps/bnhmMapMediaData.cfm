@@ -16,47 +16,15 @@
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
-<cfset mediaFlatTableName = "media_flat">
+<cfset mediaFlatTableName = "t_media_flat">
 <!----------------------------------------------------------------->
-<cfif isdefined("action") and action IS "mapPoint">
-	<cfoutput>
-		<!---- map a lat_long_id ---->
-		<cfif not isdefined("lat_long_id") or len(lat_long_id) is 0>
-			<div class="error">
-				You can't map a point without a lat_long_id.
-			</div>
-			<cfabort>
-		</cfif>	
-		<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT
-				'All collections' Collection,
-				0 collection_id,
-				'000000' cat_num,
-				'Lat Long ID: ' || lat_long_id scientific_name,
-				'none' verbatim_date,
-				'none' spec_locality,
-				dec_lat,
-				dec_long,
-				to_meters(max_error_distance,max_error_units) max_error_meters,
-				datum,
-				'000000' collection_object_id,
-				' ' collectors
-			FROM 
-				lat_long 
-			WHERE
-				lat_long_id=#lat_long_id#
-		</cfquery>
-	</cfoutput>
-
-<cfelse>
-	<cfset ShowObservations = "true">
-	
 	<cfset srch = "">
 	<cfinclude template="/development/MediaSearchSql.cfm">
 	<cfset sqlS = "SELECT * FROM #mediaFlatTableName# WHERE 1=1 #srch#">
 	<cfquery name = "tempMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(sqlS)#
 	</cfquery>
+	<fdump var=#tempMapData#>
 	
 	<cfset temp = queryAddColumn(tempMapData,"labels", "VarChar", ArrayNew(1))>		
 	<cfset temp = queryAddcolumn(tempMapData,"lat", "VarChar", ArrayNew(1))>
@@ -114,7 +82,6 @@
 		where lat is not null AND
 			long is not null
 	</cfquery>
-</cfif>
 <cfif getMapData.recordcount is 0>
 	<div class="error">
 		Oops! We didn't find anything mappable. Only wild caught specimens with coordintes will map.
