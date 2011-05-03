@@ -440,6 +440,7 @@
 			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 				<cfset relMedia=''>
 				<cfloop list="#rel#" index="i" delimiters="|">
+					---#i#---
 					<cfset r=listgetat(i,1,chr(7))>
 					<cfset t=listgetat(i,2,chr(7))>
 					<cfif right(r,6) is ' media'>
