@@ -442,7 +442,7 @@
 				<cfloop list="#rel#" index="i" delimiters="|">
 					<cfset r=listgetat(i,1,chr(7))>
 					<cfset t=listgetat(i,2,chr(7))>
-					<cfif right(r),6) is ' media'>
+					<cfif right(r,6) is ' media'>
 						<cfset relMedia=listAppend(relMedia,t)>
 					</cfif>
 					#r#: #t#<br>
