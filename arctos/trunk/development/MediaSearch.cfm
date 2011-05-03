@@ -499,7 +499,6 @@
 		--->
 			<br>Related Media
 			<cfif len(relMedia) gt 0>
-				#relMedia#
 				<cfquery name="rel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
 						media_id,
@@ -512,7 +511,6 @@
 					where
 						media_id in (#relMedia#)
 				</cfquery>
-				<cfdump var=#rel#>
 
 
 
@@ -520,11 +518,10 @@
 					<div class="thumb_spcr">&nbsp;</div>
 					<cfloop query="rel">
 						<div class="one_thumb">
-			               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="[ related media ]" class="theThumb"></a>
-		                   	<p>
+			               <a href="#media_uri#" target="_blank"><img style="max-width:75px;max-height:75px;" src="#getMediaPreview(preview_uri,media_type)#" alt="[ related media ]" class="theThumb"></a>
+			               	<p>
 								#media_type# (#mime_type#)
 			                   	<br><a href="/media/#media_id#">Media Details</a>
-								<br>#alt#
 							</p>
 						</div>
 					</cfloop>
