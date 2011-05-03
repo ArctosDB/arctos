@@ -440,13 +440,13 @@
 			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 				<cfset relMedia=''>
 				<cfloop list="#rel#" index="i" delimiters="|">
-					---#i#---
 					<cfset r=listgetat(i,1,chr(7))>
 					<cfset t=listgetat(i,2,chr(7))>
 					<cfif right(r,6) is ' media'>
 						<cfset relMedia=listAppend(relMedia,t)>
+					<cfelse>
+						#r#: #t#<br>
 					</cfif>
-					#r#: #t#<br>
 				</cfloop>
 				<cfloop list="#lbl#" index="i" delimiters="|">
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
@@ -500,6 +500,19 @@
 			<br>Related Media
 			<cfif len(relMedia) gt 0>
 				#relMedia#
+				<cfquery name="rel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select
+						media_id,
+						media_uri,
+						preview_uri,
+						mime_type
+					from
+						media
+					where
+						media_id in (#relMedia#)
+				</cfquery>
+				<cfdump var=#rel#>
+
 			<cfelse>nope
 			</cfif>
 			
