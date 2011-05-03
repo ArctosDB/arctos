@@ -28,7 +28,7 @@
 	<cfquery name = "tempMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(sqlS)#
 	</cfquery>
-	<fdump var=#tempMapData#>
+	<cfdump var=#tempMapData#>
 	
 	<cfset temp = queryAddColumn(tempMapData,"labels", "VarChar", ArrayNew(1))>		
 	<cfset temp = queryAddcolumn(tempMapData,"lat", "VarChar", ArrayNew(1))>
