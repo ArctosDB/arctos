@@ -18,6 +18,8 @@
 </cfif>
 <cfset mediaFlatTableName = "t_media_flat">
 <!----------------------------------------------------------------->
+<cfoutput>
+	
 	<cfset srch = "">
 	<cfinclude template="/development/MediaSearchSql.cfm">
 	<cfset sqlS = "SELECT * FROM #mediaFlatTableName# WHERE 1=1 #srch#">
@@ -94,7 +96,6 @@
 
 
 <!---- write an XML config file specific to the critters they're mapping --->
-<cfoutput>
 	<cfquery name="collID" dbtype="query">
 		select collecting_object_id from getMapData where collecting_object_id is not null group by collecting_object_id
 	</cfquery>
