@@ -21,6 +21,8 @@
 	<cfset srch = "">
 	<cfinclude template="/development/MediaSearchSql.cfm">
 	<cfset sqlS = "SELECT * FROM #mediaFlatTableName# WHERE 1=1 #srch#">
+	
+	#sqlS#
 	<cfquery name = "tempMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(sqlS)#
 	</cfquery>
