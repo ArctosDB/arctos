@@ -504,6 +504,7 @@
 					select
 						media_id,
 						media_uri,
+						media_type,
 						preview_uri,
 						mime_type
 					from
@@ -512,6 +513,29 @@
 						media_id in (#relMedia#)
 				</cfquery>
 				<cfdump var=#rel#>
+
+
+
+				<div class="thumbs">
+					<div class="thumb_spcr">&nbsp;</div>
+					<cfloop query="rel">
+						<div class="one_thumb">
+			               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="[ related media ]" class="theThumb"></a>
+		                   	<p>
+								#media_type# (#mime_type#)
+			                   	<br><a href="/media/#media_id#">Media Details</a>
+								<br>#alt#
+							</p>
+						</div>
+					</cfloop>
+					<div class="thumb_spcr">&nbsp;</div>
+				</div>
+
+
+
+
+
+
 
 			<cfelse>nope
 			</cfif>
