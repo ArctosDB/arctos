@@ -211,8 +211,8 @@
 				//chr(9) & shows_publication &
 				//chr(9) & describes_taxonomy &
 				chr(9) & media_uri & 
-				chr(9) & latitude &
-				chr(9) & longitude;
+				chr(9) & lat &
+				chr(9) & long;
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
