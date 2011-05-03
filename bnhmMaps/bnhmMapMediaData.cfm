@@ -40,9 +40,9 @@
 			<cfset lo=listgetat(coordinates,2)>
 			<cfset temp = QuerySetCell(md, "lat", la, i)>
 			<cfset temp = QuerySetCell(md, "long", lo, i)>
-			<cfloop list="#labels#" index="i" delimiters="|">
-				<cfif left(i,13) is 'description=='>
-					<cfset desc=replace(i,'description==','')>
+			<cfloop list="#labels#" index="l" delimiters="|">
+				<cfif left(l,13) is 'description=='>
+					<cfset desc=replace(l,'description==','')>
 				</cfif>
 			</cfloop>
 			<cfset temp = QuerySetCell(md, "desc", desc, i)>
