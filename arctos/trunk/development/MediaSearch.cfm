@@ -347,6 +347,11 @@
 	
 	<span class="controlButton"
 		onclick="window.open('/bnhmMaps/bnhmMapMediaData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
+	
+	<span class="controlButton"
+		onclick="window.open('/development/MediaSearchDownload.cfm?tableName=#session.MediaSrchTab#','_blank');">Bulk Download Media Results</span>
+
+
 	<!---
 	<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(distinct(media_id)) cnt from #session.MediaSrchTab# where lat_long is not null
@@ -359,9 +364,7 @@
 	<span class="controlButton"
 		onclick="window.open('/bnhmMaps/bnhmMapMediaData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 		
-	<span class="controlButton"
-		onclick="window.open('/development/MediaSearchDownload.cfm?tableName=#session.MediaSrchTab#','_blank');">Bulk Download Media Results</span>
-
+	
 	<span class="controlButton"
 		onclick="saveSearch('#Application.ServerRootUrl#/development/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 	---->

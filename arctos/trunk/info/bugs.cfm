@@ -7,8 +7,7 @@
 	<h2>Report Bugs</h2>
 	Include your email address if you would like us to contact you when the issue you submit has been addressed. 
 	Your email address will <b>not</b> be released or publicly displayed on our site.
-	<br>Please user the bad data links rather than this form to report data problems if possible, and tell us about it if
-	you couldn't find one.
+	<br>When available, please use the "report bad data" links rather than this form to report data problems.
 	<br>You might also wish to <a href="bugs.cfm?action=read">look for similar reports</a> before filing an issue.
 	<br>&nbsp;<br>
 	<form name="bug" method="post" action="bugs.cfm">
