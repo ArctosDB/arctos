@@ -3,10 +3,10 @@
 	<cfset oidNum=''>
 </cfif>
 <cfset title = "Cat Item Pick">
-<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select distinct(collection) from collection order by collection
 </cfquery>
-<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 </cfquery>
 <cfoutput>
@@ -30,20 +30,35 @@
 		</select>
 		<label for="oidNum">Other ID Num</label>
         <input type="text" name="oidNum" id="oidNum" value="#oidNum#">
+		<table>
+			<tr>
+				<td>
+					<label for="collector_role">Coll/Prep</label>
+					<select name="collector_role" id="collector_role">
+						<option value="c">collector</option>
+						<option value="p">preparator</option>
+					</select>
+				</td>
+				<td>
+					<label for="agent_name">Agent</label>
+					<input type="text" id="agent_name" name="agent_name">
+				</td>
+			</tr>
+		</table>
         <br>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
-<cfif len(oidNum) is 0>
-	<cfabort>
-</cfif>
- <Cfset oidNumList = "">
- <cfloop list="#oidNum#" index="v" delimiters=",">
-	<cfif len(#oidNumList#) is 0>
-		<cfset oidNumList = "'#v#'">
-	<cfelse>
-		<cfset oidNumList = "#oidNumList#,'#v#'">
-	</cfif>	
-</cfloop>
+	<cfif len(oidNum) is 0>
+		<cfabort>
+	</cfif>
+	<Cfset oidNumList = "">
+	<cfloop list="#oidNum#" index="v" delimiters=",">
+		<cfif len(#oidNumList#) is 0>
+			<cfset oidNumList = "'#v#'">
+		<cfelse>
+			<cfset oidNumList = "#oidNumList#,'#v#'">
+		</cfif>	
+	</cfloop>
 	<cfset sql = "SELECT
 						cat_num, 
 						collection,
@@ -53,16 +68,26 @@
 						cataloged_item,
 						identification,
                         collection">
-	
-	<cfif #oidType# is not "catalog_number">
+						
+	<cfif len(agent_name) gt 0>
+		<cfset sql=sql & ",collector,
+			agent_name">
+	</cfif>
+	<cfif oidType is not "catalog_number">
 		<cfset sql = "#sql#	,coll_obj_other_id_num">
 	</cfif>
 	<cfset sql = "#sql#  WHERE 
 					  cataloged_item.collection_object_id = identification.collection_object_id AND
                       cataloged_item.collection_id=collection.collection_id and
 					  identification.accepted_id_fg = 1">
-	<cfif #oidType# is "catalog_number">
-		<cfset sql = "#sql#	AND cat_num IN ( #replace(oidNumList,"'","","all")# )">
+	<cfif len(agent_name) gt 0>
+		<cfset sql=sql & " and cataloged_item.collection_object_id=collector.collection_object_id and
+				collector.agent_id=agent_name.agent_id and
+				upper(agent_name) like '%#ucase(escapequotes(agent_name))#%'">
+	</cfif>
+	<cfset oidNumList=ListQualify(oidNumList, "'")>
+	<cfif oidType is "catalog_number">
+		<cfset sql = "#sql#	AND cat_num IN ( #oidNumList# )">
 	<cfelse>
 		<cfset sql = "#sql#
 			AND cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id
@@ -72,6 +97,10 @@
 	<cfif len(#collID#) gt 0>
         <cfset sql = "#sql# AND collection='#collID#'">
     </cfif>
+	<cfset sql=sql & "group by cat_num, 
+						collection,
+						cataloged_item.collection_object_id,
+						scientific_name">
 					
 	
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -109,4 +138,4 @@
 		</cfif>
 </cfoutput>
 
-<cfinclude template="../includes/_pickFooter.cfm">
+<cfinclude template="/includes/_pickFooter.cfm">

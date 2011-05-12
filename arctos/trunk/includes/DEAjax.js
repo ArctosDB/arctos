@@ -1055,11 +1055,9 @@ function cleanup () {
 	var thisIA = document.getElementById('institution_acronym').value;
 
 	if (!(thisIA=='UAM' && thisCC=='Herp') && thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
-		console.log('requirey');
 		reqdFlds.push('attribute_value_1');
 		reqdFlds.push('attribute_determiner_1');
-	} else {console.log('dontcare');}
-	
+	}
 	reqdFlds.push('part_condition_1');
 	var llUnit=document.getElementById('orig_lat_long_units').value;
 	if (llUnit.length > 0) {

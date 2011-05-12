@@ -35,6 +35,15 @@ create table cf_temp_taxonomy (
 	grant select,insert,update,delete on cf_temp_taxonomy to coldfusion_user;
 	grant select on cf_temp_taxonomy to public;
 	
+	
+	alter table cf_temp_taxonomy add SUBCLASS VARCHAR2(255);
+	alter table cf_temp_taxonomy add SUPERFAMILY VARCHAR2(255);
+	alter table cf_temp_taxonomy add TAXON_STATUS VARCHAR2(255);
+	
+	
+	
+	
+	
 	 CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key                                         
  before insert  ON cf_temp_taxonomy
  for each row 
@@ -55,7 +64,7 @@ DECLARE
 		END IF;
 		IF :NEW.genus IS NOT null THEN
 			nsn := :NEW.genus || ' ' || nsn;
-		END IF;
+		END IF;	
 		IF :NEW.tribe IS NOT null THEN
 			IF nsn IS null THEN
 			    nsn := :NEW.tribe;
@@ -71,6 +80,11 @@ DECLARE
 				nsn := :NEW.family;
 			END IF;
 		END IF;
+		IF :NEW.SUPERFAMILY IS NOT null THEN
+			IF nsn IS null THEN
+			    nsn := :NEW.SUPERFAMILY;
+			END IF;
+		END IF;
 		IF :NEW.suborder IS NOT null THEN
 			IF nsn IS null THEN
 				nsn := :NEW.suborder;
@@ -79,6 +93,11 @@ DECLARE
 		IF :NEW.phylorder IS NOT null THEN
 			IF nsn IS null THEN
 				nsn := :NEW.phylorder;
+			END IF;
+		END IF;
+		IF :NEW.SUBCLASS IS NOT null THEN
+			IF nsn IS null THEN
+			    nsn := :NEW.SUBCLASS;
 			END IF;
 		END IF;
 		IF :NEW.phylclass IS NOT null THEN
@@ -96,40 +115,26 @@ DECLARE
 /
 sho err
 ------>
-<cfif #action# is "nothing">
-<cfoutput>
-Step 1: Upload a comma-delimited text file (csv). 
-
-Include column headings, spelled exactly as below.
-<cfset colList = "PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TRIBE,INFRASPECIFIC_RANK,TAXON_REMARKS,PHYLUM,KINGDOM,NOMENCLATURAL_CODE,INFRASPECIFIC_AUTHOR">
-<br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
-	<div id="template" style="display:none;">
-		<label for="t">Copy the following code and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">#colList#</textarea>
-	</div> 
-<p></p>
-
-<ul>
-	<cfloop list="#colList#" index="i">
-		<li>#i#</li>
-	</cfloop>
-</ul>
-
-
-<cfform name="oids" method="post" enctype="multipart/form-data">
+<cfif action is "makeTemplate">
+	<cfset header="PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TRIBE,INFRASPECIFIC_RANK,TAXON_REMARKS,PHYLUM,KINGDOM,NOMENCLATURAL_CODE,INFRASPECIFIC_AUTHOR,TAXON_STATUS">
+	<cffile action = "write" file = "#Application.webDirectory#/download/BulkTaxonomy.csv"
+    	output = "#header#" addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkTaxonomy.csv" addtoken="false">
+</cfif>
+<!------------------------------------------------------->
+<cfif action is "nothing">
+	<cfoutput>
+		Step 1: Upload a comma-delimited text file (csv). <a href="BulkloadTaxonomy.cfm?action=makeTemplate">[ Get the Template ]</a>
+		<cfform name="oids" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
-			  <input type="file"
-		   name="FiletoUpload"
-		   size="45">
-			  <input type="submit" value="Upload this file">
+			<input type="file" name="FiletoUpload" size="45">
+			<input type="submit" value="Upload this file">
   </cfform>
 </cfoutput>
 </cfif>
-<!------------------------------------------------------->
-<!------------------------------------------------------->
 
 <!------------------------------------------------------->
-<cfif #action# is "getFile">
+<cfif action is "getFile">
 <cfoutput>
 
 
@@ -177,12 +182,20 @@ Include column headings, spelled exactly as below.
 		update cf_temp_taxonomy set status = null
 	</cfquery>
 
+	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update cf_temp_taxonomy set status = 'Invalid taxon_status'
+		where taxon_status is not null and taxon_status NOT IN (
+			select taxon_status from CTtaxon_status
+			)
+	</cfquery>
+	
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = 'Invalid source_authority'
 		where source_authority NOT IN (
 			select SOURCE_AUTHORITY from CTTAXONOMIC_AUTHORITY
 			)
 	</cfquery>
+	
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = 'Invalid VALID_CATALOG_TERM_FG'
 		where VALID_CATALOG_TERM_FG NOT IN (0,1)
@@ -247,6 +260,9 @@ Include column headings, spelled exactly as below.
 				<th>INFRASPECIFIC_AUTHOR</th>
 				<th>TAXON_REMARKS</th>
 				<th>TAXON_NAME_ID</th>
+				<th>taxon_status</th>
+				<th>SUBCLASS</th>
+				<th>SUPERFAMILY</th>
 			</tr>
 			<cfloop query="valData">
 				<tr>
@@ -274,6 +290,9 @@ Include column headings, spelled exactly as below.
 					<td>#INFRASPECIFIC_AUTHOR#</td>
 					<td>#TAXON_REMARKS#</td>
 					<td>#TAXON_NAME_ID#</td>
+					<td>#taxon_status#</td>
+					<td>#SUBCLASS#</td>
+					<td>#SUPERFAMILY#</td>
 				</tr>
 			</cfloop>
 		</table>
@@ -330,8 +349,8 @@ Include column headings, spelled exactly as below.
 	</p>
 	Re-uploading your file without cleaning up things you fix here will re-load those records and lead you back to this form.
 	<p>
-	<cfset colList = "PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TRIBE,INFRASPECIFIC_RANK,TAXON_REMARKS,PHYLUM,KINGDOM,NOMENCLATURAL_CODE,INFRASPECIFIC_AUTHOR">
-	
+	<cfset colList = "PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TRIBE,INFRASPECIFIC_RANK,TAXON_REMARKS,PHYLUM,KINGDOM,NOMENCLATURAL_CODE,INFRASPECIFIC_AUTHOR">
+
 		<table border>
 		<tr>
 			<cfloop list="#colList#" index="i">
@@ -407,6 +426,9 @@ Include column headings, spelled exactly as below.
 				<cfset nomenclatural_code = evaluate("nomenclatural_code_" & key)>
 				<cfset scientific_name = evaluate("scientific_name_" & key)>
 				<cfset infraspecific_author = evaluate("infraspecific_author_" & key)>
+				<cfset SUBCLASS = evaluate("SUBCLASS" & key)>
+				<cfset SUPERFAMILY = evaluate("SUPERFAMILY" & key)>
+				<cfset TAXON_STATUS = evaluate("TAXON_STATUS" & key)>
 				
 				<cfset sql="UPDATE taxonomy SET 
 					valid_catalog_term_fg=#valid_catalog_term_fg#,
@@ -427,6 +449,9 @@ Include column headings, spelled exactly as below.
 					taxon_remarks = '#escapeQuotes(taxon_remarks)#',
 					kingdom = '#kingdom#',
 					nomenclatural_code = '#nomenclatural_code#',
+					SUBCLASS = '#SUBCLASS#',
+					SUPERFAMILY = '#SUPERFAMILY#',
+					TAXON_STATUS = '#TAXON_STATUS#',
 					infraspecific_author = '#escapeQuotes(infraspecific_author)#'
 				WHERE scientific_name='#scientific_name#'">
 				<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
@@ -611,8 +636,17 @@ Include column headings, spelled exactly as below.
 				</cfif>
 				<cfif len(#nomenclatural_code#) gt 0>
 					,nomenclatural_code		
-				</cfif>		
-				)	
+				</cfif>
+				<cfif len(#SUBCLASS#) gt 0>
+					,SUBCLASS		
+				</cfif>
+				<cfif len(#SUPERFAMILY#) gt 0>
+					,SUPERFAMILY		
+				</cfif>
+				<cfif len(#TAXON_STATUS#) gt 0>
+					,TAXON_STATUS		
+				</cfif>	
+				)		
 			VALUES (
 				#nid.nid#
 				,#valid_catalog_term_fg#
@@ -667,6 +701,15 @@ Include column headings, spelled exactly as below.
 				</cfif>
 				<cfif len(#nomenclatural_code#) gt 0>
 					,'#nomenclatural_code#'		
+				</cfif>
+				<cfif len(#SUBCLASS#) gt 0>
+					,'#SUBCLASS#'
+				</cfif>
+				<cfif len(#SUPERFAMILY#) gt 0>
+					,'#SUPERFAMILY#'
+				</cfif>
+				<cfif len(#TAXON_STATUS#) gt 0>
+					,'#TAXON_STATUS#'
 				</cfif>		
 					)
 		</cfquery>
