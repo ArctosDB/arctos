@@ -51,44 +51,31 @@
 	<cfif len(oidNum) is 0>
 		<cfabort>
 	</cfif>
-	<Cfset oidNumList = "">
-	<cfloop list="#oidNum#" index="v" delimiters=",">
-		<cfif len(#oidNumList#) is 0>
-			<cfset oidNumList = "'#v#'">
-		<cfelse>
-			<cfset oidNumList = "#oidNumList#,'#v#'">
-		</cfif>	
-	</cfloop>
 	<cfset sql = "SELECT
-						cat_num, 
-						collection,
-						cataloged_item.collection_object_id,
-						scientific_name
-					 FROM 
-						cataloged_item,
-						identification,
-                        collection">
-						
+			cat_num, 
+			collection,
+			cataloged_item.collection_object_id,
+			scientific_name
+		 FROM 
+			cataloged_item,
+			identification,
+	        collection">
 	<cfif len(agent_name) gt 0>
-		<cfset sql=sql & ",collector,
-			agent_name">
+		<cfset sql=sql & ",collector,agent_name">
 	</cfif>
 	<cfif oidType is not "catalog_number">
 		<cfset sql = "#sql#	,coll_obj_other_id_num">
 	</cfif>
 	<cfset sql = "#sql#  WHERE 
-					  cataloged_item.collection_object_id = identification.collection_object_id AND
-                      cataloged_item.collection_id=collection.collection_id and
-					  identification.accepted_id_fg = 1">
+		cataloged_item.collection_object_id = identification.collection_object_id AND
+		cataloged_item.collection_id=collection.collection_id and
+		identification.accepted_id_fg = 1">
 	<cfif len(agent_name) gt 0>
 		<cfset sql=sql & " and cataloged_item.collection_object_id=collector.collection_object_id and
-				collector.agent_id=agent_name.agent_id and
-				upper(agent_name) like '%#ucase(escapequotes(agent_name))#%'">
+			collector.agent_id=agent_name.agent_id and
+			upper(agent_name) like '%#ucase(escapequotes(agent_name))#%'">
 	</cfif>
-	<br>oidNumList: #oidNumList#
 	<cfset oidNumList=ListQualify(oidNum, "'")>
-	
-	<br>oidNumList: #oidNumList#
 	<cfif oidType is "catalog_number">
 		<cfset sql = "#sql#	AND cat_num IN ( #oidNumList# )">
 	<cfelse>
@@ -97,39 +84,37 @@
 			AND other_id_type = '#oidType#'
 			AND display_value IN ( #oidNumList# )">
 	</cfif>
-	<cfif len(#collID#) gt 0>
+	<cfif len(collID) gt 0>
         <cfset sql = "#sql# AND collection='#collID#'">
     </cfif>
 	<cfset sql=sql & " group by cat_num, 
-						collection,
-						cataloged_item.collection_object_id,
-						scientific_name">
-				
-				#sql#	
-	
+		collection,
+		cataloged_item.collection_object_id,
+		scientific_name">
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-        <cfif #getItems.recordcount# is 0>
+        <cfif getItems.recordcount is 0>
 			-foundNothing-
-		<cfelseif #getItems.recordcount# is 1>
+		<cfelseif getItems.recordcount is 1>
 			<script>
 				opener.document.#formName#.#collIdFld#.value='#getItems.collection_object_id#';
 				opener.document.#formName#.#CatNumStrFld#.value='#getItems.collection# #getItems.cat_num# (#getItems.scientific_name#)'
 				;self.close();
 			</script>
 		<cfelse>
+			<!---
 			<cfset thisCollObjId = "">
 			<cfloop query="getItems">
-				<cfif len(#thisCollObjId#) is 0>
-					<cfset thisCollObjId = #collection_object_id#>
+				<cfif len(thisCollObjId) is 0>
+					<cfset thisCollObjId = collection_object_id>
 				<cfelse>
 					<cfset thisCollObjId = "#thisCollObjId#,#collection_object_id#">
 				</cfif>
-				
 			</cfloop>
+			--->
 			<p>
-				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#thisCollObjId#';
+				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#valuelist(getItems.collection_object_id)#';
 				opener.document.#formName#.#CatNumStrFld#.value='MULTIPLE';self.close();">Select All</a>
 			
 			</p>
@@ -137,9 +122,6 @@
 				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';
 				opener.document.#formName#.#CatNumStrFld#.value='#collection# #cat_num# (#scientific_name#)';self.close();">#collection# #cat_num# #scientific_name#</a>
 			</cfloop>
-			
-			
 		</cfif>
 </cfoutput>
-
 <cfinclude template="/includes/_pickFooter.cfm">
