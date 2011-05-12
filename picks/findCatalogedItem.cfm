@@ -85,7 +85,10 @@
 				collector.agent_id=agent_name.agent_id and
 				upper(agent_name) like '%#ucase(escapequotes(agent_name))#%'">
 	</cfif>
+	<br>oidNumList: #oidNumList#
 	<cfset oidNumList=ListQualify(oidNumList, "'")>
+	
+	<br>oidNumList: #oidNumList#
 	<cfif oidType is "catalog_number">
 		<cfset sql = "#sql#	AND cat_num IN ( #oidNumList# )">
 	<cfelse>
@@ -101,7 +104,8 @@
 						collection,
 						cataloged_item.collection_object_id,
 						scientific_name">
-					
+				
+				#sql#	
 	
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
