@@ -86,7 +86,7 @@
 				upper(agent_name) like '%#ucase(escapequotes(agent_name))#%'">
 	</cfif>
 	<br>oidNumList: #oidNumList#
-	<cfset oidNumList=ListQualify(oidNumList, "'")>
+	<cfset oidNumList=ListQualify(oidNum, "'")>
 	
 	<br>oidNumList: #oidNumList#
 	<cfif oidType is "catalog_number">
