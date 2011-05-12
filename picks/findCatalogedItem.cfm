@@ -97,7 +97,7 @@
 	<cfif len(#collID#) gt 0>
         <cfset sql = "#sql# AND collection='#collID#'">
     </cfif>
-	<cfset sql=sql & "group by cat_num, 
+	<cfset sql=sql & " group by cat_num, 
 						collection,
 						cataloged_item.collection_object_id,
 						scientific_name">
