@@ -78,18 +78,25 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 			<cfif ixrel.c is 0>
 				<cftransaction>
 				<cfquery name="ala" datasource="uam_god">
-					 select
-						decode(ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC'),
-							null,'UAM:Herb:' || cat_num || ' (ALA)',
+					  select
+						decode(
+							ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC'),
+							null,	decode(
+								ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ISC: Ada Hayden Herbarium, Iowa State University'),
+								null,'UAM:Herb:' || cat_num || ' (ALA)',
+								'ISC ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ISC: Ada Hayden Herbarium, Iowa State University')
+							),
 							'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
 						)  || ': ' ||
-						get_taxonomy(coll_obj_other_id_num.collection_object_id,'display_name') descr
+						get_taxonomy(cataloged_item.collection_object_id,'display_name') descr
 					from 
-						coll_obj_other_id_num
+						coll_obj_other_id_num,
+						cataloged_item
 					where 
-						other_id_type='ALAAC' and 
-						coll_obj_other_id_num.collection_object_id=#collection_object_id#
+						cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) and
+						cataloged_item.collection_object_id = #collection_object_id#
 				</cfquery>
+				<!---
 				<cfif ala.recordcount is not 1>
 					<cfquery name="ala" datasource="uam_god">
 						select
@@ -105,6 +112,7 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 							coll_obj_other_id_num.collection_object_id=#collection_object_id#
 					</cfquery>
 				</cfif>
+				--->
 				<cfquery name="nid" datasource="uam_god">
 					select sq_media_id.nextval media_id from dual
 				</cfquery>
@@ -161,7 +169,7 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 						2072
 					)
 				</cfquery>
-				<br>made #ala.ala#
+				<br>made #ala.descr#
 				<cfquery name="spiffy" datasource="uam_god">
 					update tacc_check set status='all_done' where collection_object_id=#collection_object_id#
 				</cfquery>							
