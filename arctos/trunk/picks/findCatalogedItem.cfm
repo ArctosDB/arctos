@@ -1,4 +1,25 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+<script language="javascript" type="text/javascript">
+	function setFormVals (onoff) {
+		
+		$.getJSON("/component/functions.cfc",
+				{
+					method : "setSessionVar",
+					onoff : onoff,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function(r) {
+					if (r == 'success') {
+						$('#browseArctos').html('Suggest Browser disabled. You may turn this feature back on under My Stuff.');
+					} else {
+						alert('An error occured! \n ' + r);
+					}	
+				}
+			);
+	}
+</script>
+
 <cfif oidNum is "undefined">
 	<cfset oidNum=''>
 </cfif>
@@ -18,7 +39,7 @@
         <select name="collID" id="collID" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option <cfif #collID# is #collection#> selected="selected" </cfif>value="#collection#">#collection#</option>
+				<option <cfif collID is collection> selected="selected" </cfif>value="#collection#">#collection#</option>
 			</cfloop>
 		</select>
 		<label for="oidType">Other ID Type</label>
@@ -46,6 +67,8 @@
 			</tr>
 		</table>
         <br>
+		<br><span onclick="setFormVals(1)">[remember current form values]</span>
+		<span onclick="setFormVals(0)">[forget default values]</span>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
 	<cfif len(oidNum) is 0>
@@ -103,20 +126,9 @@
 				;self.close();
 			</script>
 		<cfelse>
-			<!---
-			<cfset thisCollObjId = "">
-			<cfloop query="getItems">
-				<cfif len(thisCollObjId) is 0>
-					<cfset thisCollObjId = collection_object_id>
-				<cfelse>
-					<cfset thisCollObjId = "#thisCollObjId#,#collection_object_id#">
-				</cfif>
-			</cfloop>
-			--->
 			<p>
 				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#valuelist(getItems.collection_object_id)#';
 				opener.document.#formName#.#CatNumStrFld#.value='MULTIPLE';self.close();">Select All</a>
-			
 			</p>
 			<cfloop query="getItems">
 				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';

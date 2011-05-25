@@ -363,7 +363,7 @@
 						</ul>
 					</li>
 					<li>
-						<a target="_blank" style="border:1px solid red;" href="http://g-arctos.appspot.com/arctosdoc/date.html">About Arctos Dates</a>
+						<a target="_blank" href="http://arctosdb.wordpress.com">About Arctos</a>
 					</li>	
 				</ul>
 			</div>
