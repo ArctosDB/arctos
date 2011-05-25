@@ -67,8 +67,10 @@
 			</tr>
 		</table>
         <br>
+		<!---
 		<br><span onclick="setFormVals(1)">[remember current form values]</span>
 		<span onclick="setFormVals(0)">[forget default values]</span>
+		--->
 		<input type="submit" value="Search" class="schBtn">
 	</form>
 	<cfif len(oidNum) is 0>
