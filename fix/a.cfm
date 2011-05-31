@@ -1,4 +1,4 @@
-create table taxonomy (
+create table ttaxonomy (
 id int,
 AUTHOR_TEXT varchar(255),
 family  varchar(255),
@@ -54,7 +54,7 @@ TRIBE varchar(255)
 		taxon_name_element.taxon_id=taxon.id and
 		taxon.taxonomic_rank_id=taxonomic_rank.id and
 		rank='subspecies' and
-		taxon_name_element.taxon_id not in (select id from taxonomy)
+		taxon_name_element.taxon_id not in (select id from ttaxonomy)
 		and rownum < 100
 </cfquery>
 <cfdump var=#d#>
@@ -152,7 +152,7 @@ TRIBE varchar(255)
 	</cfif><!--- end parent_id check--->
 	<cfset t_phylclass=t_class>
 	<cfset t_phylorder=t_order>
-	insert into taxonomy (
+	insert into ttaxonomy (
 		id,
 		KINGDOM,
 		PHYLUM,
