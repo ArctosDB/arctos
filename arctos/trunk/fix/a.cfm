@@ -1,3 +1,4 @@
+<!----
 create table ttaxonomy (
 id int,
 AUTHOR_TEXT varchar(255),
@@ -20,6 +21,25 @@ SUBSPECIES varchar(255),
 SUPERFAMILY varchar(255),
 TRIBE varchar(255)
 );
+
+
+create table one_col (
+	id number,
+	parent_id number,
+	rank varchar2(255),
+	name_element varchar2(255),
+	author_string varchar2(255)
+);
+
+---->
+<cfif not isdefined("action") ><cfset action="nothing"></cfif>
+<cfif action is "lamtest">
+<cfquery name="lamtest" datasource="uam_god">
+	select * from common_name_element where id=264183
+</cfquery>
+<cfdump var=#lamtest#>
+</cfif>
+<cfif action is "nothing">
 
 
 <cfoutput>
@@ -196,3 +216,5 @@ TRIBE varchar(255)
 
 
 </cfoutput>
+
+</cfif>
