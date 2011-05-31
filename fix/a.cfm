@@ -55,7 +55,7 @@ TRIBE varchar(255)
 		taxon.taxonomic_rank_id=taxonomic_rank.id and
 		rank='subspecies' and
 		taxon_name_element.taxon_id not in (select id from taxonomy)
-		limit 100
+		and rownum < 100
 </cfquery>
 <cfdump var=#d#>
 <cfloop query="d">
