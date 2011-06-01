@@ -124,7 +124,12 @@
 </cffunction>
 <!-------------------------->
 <cffunction name="onApplicationStart" returnType="boolean" output="false">
+	<cfscript>
+		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
+	</cfscript>
 	<cfmail subject="appstart" to="dustymc@gmail.com" from="appstart@arctos-test.arctos.database.museum" type="html">
+		serverName: #serverName#
+		-----------
 		cgi.HTTP_HOST: #cgi.HTTP_HOST#
 		
 		<cfdump var=#cgi#>
