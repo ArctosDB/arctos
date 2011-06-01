@@ -106,19 +106,7 @@ update one_col set rank='phylorder' where rank='order';
 </cfquery>
 <cfdump var=#d#>
 <!-- ignore all the bullshit made-up infranks for now - wtf, COL, W.T.F.? -->
-<cfset gafr="KINGDOM,PHYLUM,PHYLCLASS,
-		SUBCLASS,
-		PHYLORDER,
-		SUBORDER,
-		SUPERFAMILY,
-		family,
-		SUBFAMILY,
-		TRIBE,
-		genus,
-		SUBGENUS,
-		SPECIES,
-		SUBSPECIES
-">
+<cfset gafr="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,family,SUBFAMILY,TRIBE,genus,SUBGENUS,SPECIES,SUBSPECIES">
 <cfloop query="d">
 	<hr>
 	<!--- clear everything out --->
