@@ -80,9 +80,9 @@
 	</div>
 	n: #d.recordcount#
 	<table border id="t" class="sortable">
-		<tr style="max-width:6em">
+		<tr>
 			<cfloop list="#d.columnList#" index="i">
-				<th>#i#</th>
+				<th  style="max-width:6em">#i#</th>
 			</cfloop>
 		</tr>
 		
