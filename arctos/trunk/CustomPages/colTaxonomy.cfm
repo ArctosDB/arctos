@@ -21,9 +21,11 @@
 		
 	
 		<cfloop query="d">
-			<cfloop list="#d.columnList#" index="i">
-				<td>#evaluate("d." & i)#</td>
-			</cfloop>
+			<tr>
+				<cfloop list="#d.columnList#" index="i">
+					<td>#evaluate("d." & i)#</td>
+				</cfloop>
+			</tr>
 		</cfloop>
 	</table>
 </cfoutput>
