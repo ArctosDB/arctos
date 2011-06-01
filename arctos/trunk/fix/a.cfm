@@ -122,7 +122,7 @@ update one_col set rank='phylorder' where rank='order';
 <cfloop query="d">
 	<hr>
 	<!--- clear everything out --->
-	<cfset t_id=taxon_id>
+	<cfset t_id=''>
 	<cfset t_AUTHOR_TEXT=''>
 	<cfset t_family=''>
 	<cfset t_genus=''>
