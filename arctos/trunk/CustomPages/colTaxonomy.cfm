@@ -10,7 +10,7 @@
 		<textarea rows="4" columns="50" id="sql" name="sql">#sql#</textarea>
 	</form>
 	<cfquery name="d" datasource="uam_god">
-		select * from ttaxonomy where
+		select * from ttaxonomy where #sql#
 	</cfquery>
 	<table border id="t" class="sortable">
 		<tr>
