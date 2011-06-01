@@ -6,6 +6,9 @@
 </cfif>
 <script>
 	function a(t){
+		if(t=='badgenus'){
+			t="select genus not regexp_like(genus,'[A-Z][a-z]*$') group by genus";
+		}
 		$('#sql').val(t)
 	}
 </script>
@@ -20,14 +23,15 @@
 				</form>
 			</td>
 			<td val="top">
-				<div class="likeLink" onclick="a('fu is not null');">won't load</div>
-				<div class="likeLink" onclick="a('kingdom is null');">no kingdom</div>
+				<div class="likeLink" onclick="a('select * from ttaxonomy where fu is not null');">won't load</div>
+				<div class="likeLink" onclick="a('select * from ttaxonomy where kingdom is null');">no kingdom</div>
+				<div class="likeLink" onclick="a('badgenus');">funky genus</div>
 			</td>
 		</tr>
 	</table>
 	
 	<cfquery name="d" datasource="uam_god">
-		select * from ttaxonomy where #preservesinglequotes(sql)#
+		#preservesinglequotes(sql)#
 	</cfquery>
 	<div style="border:1px solid green">
 		select * from ttaxonomy where #sql#
