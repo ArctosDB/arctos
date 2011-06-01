@@ -159,8 +159,10 @@ variety
 		rownum<100
 </cfquery>
 <!---
-<cfdump var=#d#>
 --->
+
+<cfdump var=#d#>
+
 <!-- ignore all the bullshit made-up infranks for now - wtf, COL, W.T.F.? -->
 <cfset gafr="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,family,SUBFAMILY,TRIBE,genus,SUBGENUS,SPECIES,SUBSPECIES">
 <cfloop query="d">
