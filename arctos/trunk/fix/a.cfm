@@ -156,6 +156,8 @@ update one_col set rank='phylorder' where rank='order';
 	</cfloop>
 	
 	<cfdump var=#variables#>
+	
+	<cfquery name="ins" datasource="uam_god">
 	insert into ttaxonomy (
 		KINGDOM,
 		PHYLUM,
@@ -193,6 +195,7 @@ update one_col set rank='phylorder' where rank='order';
 		'#t_INFRASPECIFIC_AUTHOR#',
 		'#t_INFRASPECIFIC_RANK#'
 	)
+	</cfquery>
 	<!----
 	|monophylla^mutant|verna^species|potentilla^genus|rosaceae^family|rosales^order|magnoliopsida^class|magnoliophyta^phylum|plantae^kingdom
 
