@@ -18,7 +18,7 @@
 			<td valign="top">
 				<form name="f" method="get" action="colTaxonomy.cfm">
 					<label for="sql">SQL</label>
-					<textarea rows="4" columns="150" id="sql" name="sql">#sql#</textarea>
+					<textarea rows="4" cols="100" id="sql" name="sql">#sql#</textarea>
 					<br><input type="submit">
 					
 					<br><input type="button" value="reset" onclick="document.location='colTaxonomy.cfm'">
