@@ -2,13 +2,20 @@
 <cfset title="COL taxonomy">
 <script src="/includes/sorttable.js"></script>
 <cfif not isdefined('sql')>
-	<cfset sql="rownum<10">
+	<cfset sql="select * from ttaxonomy where rownum<10">
 </cfif>
 <script>
 	function a(t){
 		if(t=='badgenus'){
-			t="select genus from taxonomy where not regexp_like(genus,'[A-Z][a-z]*$') group by genus";
+			t="select genus from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN') and not regexp_like(genus,'^[A-Z][a-z]*$') group by genus";
 		}
+		if(t=='badsp'){
+			t="select species from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN') and not regexp_like(species,'^[a-z]*$') group by species";
+		}
+		if(t=='badssp'){
+			t="select subspecies from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN') and not regexp_like(subspecies,'^[a-z]*$') group by subspecies";
+		}
+		
 		$('#sql').val(t)
 	}
 </script>
@@ -24,14 +31,18 @@
 					<br><input type="button" value="reset" onclick="document.location='colTaxonomy.cfm'">
 				</form>
 			</td>
-			<td val="top">
+			<td valign="top">
 				<div class="likeLink" onclick="a('select * from ttaxonomy where fu is not null');">won't load</div>
 				<div class="likeLink" onclick="a('select * from ttaxonomy where kingdom is null');">no kingdom</div>
-				<div class="likeLink" onclick="a('badgenus');">funky genus</div>
+				<div class="likeLink" onclick="a('badgenus');">funky genus (not ICBN/ICZN)</div>
+				<div class="likeLink" onclick="a('badsp');">funky species (not ICBN/ICZN)</div>
+				<div class="likeLink" onclick="a('badssp');">funky subspecies (not ICBN/ICZN)</div>
 			</td>
 		</tr>
 	</table>
-	
+	<cfif sql does not contain " from ttaxonomy where ">
+		badSQL<cfabort>
+	</cfif>
 	<cfquery name="d" datasource="uam_god">
 		#preservesinglequotes(sql)#
 	</cfquery>
