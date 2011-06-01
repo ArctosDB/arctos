@@ -1,4 +1,12 @@
 <cfcomponent>
+	<cfset Application.session_timeout=90>
+	<cfset Application.serverRootUrl = "http://#HTTP_HOST#">
+	<cfset Application.user_login="user_login">
+	<cfset Application.max_pw_age = 90>
+	<cfset Application.fromEmail = "#HTTP_HOST#">
+	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
+	<cfset Application.fromEmail = "#HTTP_HOST#">
+	
 	
 	<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
 	<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg">
@@ -18,13 +26,7 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
-	<cfset Application.session_timeout=90>
-	<cfset Application.serverRootUrl = "http://#HTTP_HOST#">
-	<cfset Application.user_login="user_login">
-	<cfset Application.max_pw_age = 90>
-	<cfset Application.fromEmail = "#HTTP_HOST#">
-	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
-	<cfset Application.fromEmail = "#HTTP_HOST#">
+	
 	<cfquery name="d" datasource="uam_god">
 		select ip from uam.blacklist
 	</cfquery>
