@@ -82,7 +82,7 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<cfloop list="#d.columnList#" index="i">
-				<th  style="max-width:6em">#i#</th>
+				<th  style="max-width:6em;overflow:none">#i#</th>
 			</cfloop>
 		</tr>
 		
