@@ -74,6 +74,7 @@ update one_col set rank='phylorder' where rank='order';
 <cfif not isdefined("action") ><cfset action="nothing"></cfif>
 
 
+<cfinclude template="/includes/functionLib.cfm">
 
 <cfif action is "lamtest">
 <cfquery name="lamtest" datasource="uam_god">
@@ -174,13 +175,13 @@ update one_col set rank='phylorder' where rank='order';
 		INFRASPECIFIC_AUTHOR,
 		INFRASPECIFIC_RANK
 	) values (
-		'#t_KINGDOM#',
+		'#toProperCase(t_KINGDOM)#',
 		'#t_PHYLUM#',
 		'#t_PHYLCLASS#',
 		'#t_SUBCLASS#',
 		'#t_PHYLORDER#',
 		'#t_SUBORDER#',
-		'#t_SUPERFAMILY#',
+		'#toProperCase(t_SUPERFAMILY)#',
 		'#t_family#',
 		'#t_SUBFAMILY#',
 		'#t_TRIBE#',
