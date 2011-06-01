@@ -155,6 +155,43 @@ update one_col set rank='phylorder' where rank='order';
 	</cfloop>
 	
 	<cfdump var=#variables#>
+	insert into ttaxonomy (
+		KINGDOM,
+		PHYLUM,
+		PHYLCLASS,
+		SUBCLASS,
+		PHYLORDER,
+		SUBORDER,
+		SUPERFAMILY,
+		family,
+		SUBFAMILY,
+		TRIBE,
+		genus,
+		SUBGENUS,
+		SPECIES,
+		SUBSPECIES,		
+		AUTHOR_TEXT,
+		INFRASPECIFIC_AUTHOR,
+		INFRASPECIFIC_RANK
+	) values (
+		'#t_KINGDOM#',
+		'#t_PHYLUM#',
+		'#t_PHYLCLASS#',
+		'#t_SUBCLASS#',
+		'#t_PHYLORDER#',
+		'#t_SUBORDER#',
+		'#t_SUPERFAMILY#',
+		'#t_family#',
+		'#t_SUBFAMILY#',
+		'#t_TRIBE#',
+		'#t_genus#',
+		'#t_SUBGENUS#',
+		'#t_SPECIES#',
+		'#t_SUBSPECIES#',		
+		'#t_AUTHOR_TEXT#',
+		'#t_INFRASPECIFIC_AUTHOR#',
+		'#t_INFRASPECIFIC_RANK#'
+	)
 	<!----
 	|monophylla^mutant|verna^species|potentilla^genus|rosaceae^family|rosales^order|magnoliopsida^class|magnoliophyta^phylum|plantae^kingdom
 
