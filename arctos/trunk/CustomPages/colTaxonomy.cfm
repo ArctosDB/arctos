@@ -17,9 +17,11 @@
 		<tr>
 			<td valign="top">
 				<form name="f" method="get" action="colTaxonomy.cfm">
-					<label for="sql">select * from ttaxonomy where...</label>
+					<label for="sql">SQL</label>
 					<textarea rows="4" columns="150" id="sql" name="sql">#sql#</textarea>
 					<br><input type="submit">
+					
+					<br><input type="button" value="reset" onclick="document.location='colTaxonomy.cfm'">
 				</form>
 			</td>
 			<td val="top">
@@ -34,7 +36,7 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<div style="border:1px solid green">
-		select * from ttaxonomy where #sql#
+		#sql#
 	</div>
 	n: #d.recordcount#
 	<table border id="t" class="sortable">
