@@ -195,6 +195,13 @@
 	</cfquery>
 	<cfset Application.blacklist=valuelist(d.ip)>
 	
+	
+	<cfmail subject="appstart2" to="dustymc@gmail.com" from="appstart@arctos-test.arctos.database.museum" type="html">
+		its up now....
+		cgi.HTTP_HOST: #cgi.HTTP_HOST#
+		
+		<cfdump var=#cgi#>
+	</cfmail>
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
