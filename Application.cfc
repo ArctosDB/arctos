@@ -13,7 +13,6 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cffunction>
-    <!----
 
 <cffunction name="onError">
 	<cfargument name="exception" required="true">
@@ -121,7 +120,6 @@
 	</cfif>
 	<cfreturn/>
 </cffunction>
----->
 <!-------------------------->
 <cffunction name="onApplicationStart" returnType="boolean" output="false">
 	<cfscript>
@@ -137,14 +135,6 @@
 		select ip from uam.blacklist
 	</cfquery>
 	<cfset Application.blacklist=valuelist(d.ip)>
-	
-	
-	
-		<cfmail subject="start" to="dustymc@gmail.com" from="fffff@arctos-test.arctos.database.museum" type="html">
-			#serverName# starting
-			
-			<cfdump var=#application#>
-		</cfmail>	
 	<cfif serverName is "arctos.database.museum">
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRmuGmxQ-gdo7TWENOfdvPP48uvgxS1Mi5095Z-7DsupXP1SWQjdYKK_w">	
 		<cfset Application.svn = "/usr/local/bin/svn">
@@ -164,7 +154,6 @@
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
 	<cfelseif serverName is "arctos-test.arctos.database.museum">
-		
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
@@ -182,10 +171,6 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
-		
-		<cfmail subject="appset" to="dustymc@gmail.com" from="fffff@arctos-test.arctos.database.museum" type="html">
-			<cfdump var=#application#>
-		</cfmail>
     <cfelseif serverName contains "harvard.edu">
 		<cfset Application.svn = "/usr/bin/svn">
 		<cfset Application.webDirectory = "/var/www/html/arctosv.2.2.2">
@@ -204,7 +189,6 @@
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
 	</cfif>	
-	
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
