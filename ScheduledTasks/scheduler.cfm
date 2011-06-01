@@ -7,15 +7,6 @@
 </cfloop>
 
 <cfschedule action = "update"
-    task = "fff" 
-    operation = "HTTPRequest"
-    url = "127.0.0.1/fix/a.cfm"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "12:31 AM"
-    interval = "15"
-    requestTimeOut = "15">
-<!----
-<cfschedule action = "update"
     task = "ocr_specimens" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/tacc_ocr.cfm?action=getSpecs"
@@ -384,5 +375,3 @@
     startTime = "12:34 AM"
     interval = "600"
     requestTimeOut = "600">
-	
-	---->
