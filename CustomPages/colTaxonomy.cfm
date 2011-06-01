@@ -27,7 +27,7 @@
 	</table>
 	
 	<cfquery name="d" datasource="uam_god">
-		select * from ttaxonomy where #sql#
+		select * from ttaxonomy where #preservesinglequotes(sql)#
 	</cfquery>
 	<div style="border:1px solid green">
 		select * from ttaxonomy where #sql#
