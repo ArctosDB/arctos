@@ -7,6 +7,16 @@
 <cfif not isdefined('bsql')>
 	<cfset bsql="">
 </cfif>
+<style>
+	table.sortable a.sortheader {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+	-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);
+    }
+</style>
 <script>
 	function a(t){
 		if(t=='badsp'){
