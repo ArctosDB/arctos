@@ -1,7 +1,23 @@
 <cfcomponent>
 	
 	<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
-	
+	<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg">
+        <cfset Application.svn = "/usr/local/bin/svn">
+		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
+		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
+		<cfset Application.bugReportEmail = "arctos.database@gmail.com">
+		<cfset Application.technicalEmail = "arctos.database@gmail.com">
+		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
+		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
+		<cfset Application.genBankPrid = "3849">
+		<cfset Application.genBankUsername="uam">
+		<cfset Application.convertPath = "/usr/local/bin/convert">
+		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
+		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
+		<cfset Application.Google_uacct = "UA-315170-1">
+		<cfset Application.InstitutionBlurb = "">
+		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
+		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
 	
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement="True">
