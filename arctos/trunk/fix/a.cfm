@@ -194,7 +194,7 @@ variety
 	
 	
 	<cfloop list="#term#" index="i" delimiters="|">
-		<cfset t_rank=listgetat(i,1,chr(7)>
+		<cfset t_rank=listgetat(i,1,chr(7))>
 		<cfset t_name=listgetat(i,2,chr(7))>
 		<!---
 		<br>t_rank=#t_rank#
