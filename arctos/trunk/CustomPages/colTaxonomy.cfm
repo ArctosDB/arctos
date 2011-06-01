@@ -7,7 +7,7 @@
 <script>
 	function a(t){
 		if(t=='badgenus'){
-			t="select genus not regexp_like(genus,'[A-Z][a-z]*$') group by genus";
+			t="select genus from taxonomy where not regexp_like(genus,'[A-Z][a-z]*$') group by genus";
 		}
 		$('#sql').val(t)
 	}
