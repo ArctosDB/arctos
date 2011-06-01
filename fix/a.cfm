@@ -112,7 +112,7 @@ update one_col set rank='phylorder' where rank='order';
 	<!-----------
 	
 	
-	agsp.
+--agsp.
 agvar.
 convar
 cultivar
@@ -135,7 +135,7 @@ phylorder
 phylum
 prole
 race
-species
+
 status
 staxon
 sub-variety
@@ -156,7 +156,7 @@ variety
 	where 
 		CONNECT_BY_ISLEAF=1
 	start with 
-		rank='agsp.'
+		rank='species'
 	CONNECT BY PRIOR 
 		parent_id = id
 </cfquery>
