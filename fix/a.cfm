@@ -31,54 +31,90 @@ create table one_col (
 	author_string varchar2(255)
 );
 
+
+
+
+create index temp_onecol_id on one_col(id) tablespace uam_idx_1;
+create index temp_onecol_pid on one_col(parent_id) tablespace uam_idx_1;
+
+insert into one_col (
+	id,
+	parent_id,
+	rank,
+	name_element,
+	author_string
+) (
+select 
+		taxon_name_element.taxon_id,
+		taxon_name_element.parent_id,
+		taxonomic_rank.rank,
+		scientific_name_element.name_element,
+		author_string.string		
+from 
+		taxon_name_element,
+		scientific_name_element,
+		taxon,
+		taxon_detail,
+		taxonomic_rank,
+		author_string
+	where 
+		taxon_name_element.scientific_name_element_id=scientific_name_element.id and 
+		taxon_name_element.taxon_id=taxon.id and
+		taxonomic_rank_id=taxonomic_rank.id and	
+		taxon.id=taxon_detail.taxon_id (+) and
+		taxon_detail.author_string_id=author_string.id (+)
+);
+
+
+
 ---->
 <cfif not isdefined("action") ><cfset action="nothing"></cfif>
+
+
+
 <cfif action is "lamtest">
 <cfquery name="lamtest" datasource="uam_god">
 	select * from common_name_element where id=264183
 </cfquery>
 <cfdump var=#lamtest#>
 </cfif>
+
+
+
+
+
+
+
+
 <cfif action is "nothing">
-
-
 <cfoutput>
-	select 
-		scientific_name_element.name_element,
-		taxonomic_rank.rank,
-		taxon_name_element.parent_id
-	from 
-		taxon,
-		taxonomic_rank,
-		scientific_name_element,
-		taxon_name_element		
-	where
-		taxon.taxonomic_rank_id=taxonomic_rank.id and
-		taxon.id=scientific_name_element.id and
-		taxon.id=taxon_name_element.taxon_id and
-		rank='subspecies'
-		limit 100
+	
 <cfquery name="d" datasource="uam_god">
-	select 
-		taxon_name_element.taxon_id,
-		taxon_name_element.parent_id,
-		scientific_name_element.name_element ,
-		taxonomic_rank.rank
-	from 
-		taxon_name_element,
-		scientific_name_element,
-		taxon,
-		taxonomic_rank
+	SELECT 
+ 		SYS_CONNECT_BY_PATH(rank || '=' ||  name_element , '|') p
+	FROM 
+		one_col
 	where 
-		taxon_name_element.scientific_name_element_id=scientific_name_element.id and 
-		taxon_name_element.taxon_id=taxon.id and
-		taxon.taxonomic_rank_id=taxonomic_rank.id and
-		rank='subspecies' and
-		taxon_name_element.taxon_id not in (select id from ttaxonomy)
-		and rownum < 100
+		CONNECT_BY_ISLEAF=1
+	start with 
+		rank='mutant'
+	CONNECT BY PRIOR 
+		parent_id = id
 </cfquery>
 <cfdump var=#d#>
 <cfloop query="d">
+	<hr>
+	<cfloop list="#p#" index="i" delimiters="|">
+		<cfset t_rank=listgetat(i,1,"=")>
+		<cfset t_name=listgetat(i,2,"=")>
+		<br>t_rank=#t_rank#
+		<br>t_name=#t_name#
+	</cfloop>
+	<!----
+	|monophylla^mutant|verna^species|potentilla^genus|rosaceae^family|rosales^order|magnoliopsida^class|magnoliophyta^phylum|plantae^kingdom
+
+
+	
 	<cfset t_id=taxon_id>
 	<cfset t_AUTHOR_TEXT=''>
 	<cfset t_family=''>
@@ -211,6 +247,7 @@ create table one_col (
 		'#t_INFRASPECIFIC_AUTHOR#',
 		'#t_INFRASPECIFIC_RANK#'
 	)
+	---->
 </cfloop>
 
 
