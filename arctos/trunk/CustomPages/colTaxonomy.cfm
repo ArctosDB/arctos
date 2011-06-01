@@ -54,7 +54,18 @@
 			(
 				not regexp_like(genus,'^[A-Z][a-z]*$') or
 				not regexp_like(species,'^[a-z]*$') or
-				not regexp_like(subspecies,'^[a-z]*$')
+				not regexp_like(subspecies,'^[a-z]*$') or
+				not regexp_like(kingdom,'^[A-Z][a-z]*$') or
+				not regexp_like(PHYLUM,'^[A-Z][a-z]*$') or
+				not regexp_like(PHYLCLASS,'^[A-Z][a-z]*$') or
+				not regexp_like(SUBCLASS,'^[A-Z][a-z]*$') or
+				not regexp_like(PHYLORDER,'^[A-Z][a-z]*$') or
+				not regexp_like(SUBORDER,'^[A-Z][a-z]*$') or
+				not regexp_like(SUPERFAMILY,'^[A-Z][a-z]*$') or
+				not regexp_like(family,'^[A-Z][a-z]*$') or
+				not regexp_like(SUBFAMILY,'^[A-Z][a-z]*$') or
+				not regexp_like(TRIBE,'^[A-Z][a-z]*$') or
+				not regexp_like(SUBGENUS,'^[A-Z][a-z]*$')
 			)">
 	<cfelse>
 		<cfset bsql=sql>
