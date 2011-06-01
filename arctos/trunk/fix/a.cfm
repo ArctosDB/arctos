@@ -211,7 +211,7 @@ update one_col set rank='phylorder' where rank='order';
 		)
 	</cfquery>
 	<cfcatch>
-		<cfdump var=#cfcatch#>
+		<br>FAIL::#cfcatch.detail#
 	</cfcatch>
 	</cftry>
 	<!----
