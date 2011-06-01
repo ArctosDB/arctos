@@ -1,9 +1,4 @@
 <cfcomponent>
-<cffunction name="setSessionVar" access="remote">
-	<cfargument name="var" type="string" required="yes">
-	<cfargument name="val" type="string" required="yes">
-	<cfset session.#var#="#val#">
-</cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getExternalStatus" access="remote">
 	<cfargument name="uri" type="string" required="yes">
