@@ -18,6 +18,19 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
+	<cfset Application.session_timeout=90>
+	<cfset Application.serverRootUrl = "http://#HTTP_HOST#">
+	<cfset Application.user_login="user_login">
+	<cfset Application.max_pw_age = 90>
+	<cfset Application.fromEmail = "#HTTP_HOST#">
+	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
+	<cfset Application.fromEmail = "#HTTP_HOST#">
+	<cfquery name="d" datasource="uam_god">
+		select ip from uam.blacklist
+	</cfquery>
+	<cfset Application.blacklist=valuelist(d.ip)>
+	
+	
 	
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement="True">
