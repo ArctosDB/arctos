@@ -15,7 +15,7 @@
 				</form>
 			</td>
 			<td>
-				<span class="likeLink" onclick="$('sql').val('fu is not null');">won't load</span>
+				<span class="likeLink" onclick="$('##sql').val('fu is not null');">won't load</span>
 			</td>
 		</tr>
 	</table>
