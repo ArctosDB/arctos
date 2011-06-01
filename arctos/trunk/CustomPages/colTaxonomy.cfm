@@ -5,11 +5,21 @@
 	<cfset sql="rownum<10">
 </cfif>
 <cfoutput>
-	<form name="f" method="get" action="colTaxonomy.cfm">
-		<label for="sql">select * from ttaxonomy where...</label>
-		<textarea rows="4" columns="50" id="sql" name="sql">#sql#</textarea>
-		<br><input type="submit">
-	</form>
+	<table>
+		<tr>
+			<td>
+				<form name="f" method="get" action="colTaxonomy.cfm">
+					<label for="sql">select * from ttaxonomy where...</label>
+					<textarea rows="4" columns="150" id="sql" name="sql">#sql#</textarea>
+					<br><input type="submit">
+				</form>
+			</td>
+			<td>
+				<span class="likeLink" onclick="$('sql').val('fu is not null');">won't load</span>
+			</td>
+		</tr>
+	</table>
+	
 	<cfquery name="d" datasource="uam_god">
 		select * from ttaxonomy where #sql#
 	</cfquery>
