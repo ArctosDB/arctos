@@ -45,8 +45,13 @@
 		</tr>
 	</table>
 	<cfif sql is "[badgenus]">
-		<cfset bsql="select genus from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN') and 
+		<cfset bsql="select genus from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN','ICTV') and 
 			not regexp_like(genus,'^[A-Z][a-z]*$') group by genus">
+	<cfif sql is "[badany]">
+		<cfset bsql="select * from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN','ICTV') and
+			not regexp_like(genus,'^[A-Z][a-z]*$') and
+			not regexp_like(species,'^[a-z]*$') and
+			not regexp_like(subspecies,'^[a-z]*$')">
 	<cfelse>
 		<cfset bsql=sql>
 	</cfif>
