@@ -194,8 +194,8 @@ variety
 	
 	
 	<cfloop list="#term#" index="i" delimiters="|">
-		<cfset t_rank=listgetat(i,1,"=")>
-		<cfset t_name=listgetat(i,2,"=")>
+		<cfset t_rank=listgetat(i,1,chr(7)>
+		<cfset t_name=listgetat(i,2,chr(7))>
 		<!---
 		<br>t_rank=#t_rank#
 		<br>t_name=#t_name#
@@ -207,11 +207,11 @@ variety
 			<br>docare
 			--->
 			<cfset "t_#t_rank#"=t_name>
-			<cfif listlen(i,"=") is 3>
+			<cfif listlen(i,chr(7)) is 3>
 				<cfif t_rank is "species">
-					<cfset t_AUTHOR_TEXT=listgetat(i,3,"=")>
+					<cfset t_AUTHOR_TEXT=listgetat(i,3,chr(7))>
 				<cfelseif t_rank is "subspecies">
-					<cfset t_INFRASPECIFIC_AUTHOR=listgetat(i,3,"=")>
+					<cfset t_INFRASPECIFIC_AUTHOR=listgetat(i,3,chr(7))>
 				</cfif>
 			</cfif>
 		</cfif>
