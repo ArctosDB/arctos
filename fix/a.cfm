@@ -144,9 +144,9 @@ update one_col set rank='phylorder' where rank='order';
 			<br>docare
 			<cfset "t_#t_rank#"=t_name>
 			<cfif listlen(i,"=") is 3>
-				<cfif t_rank is species>
+				<cfif t_rank is "species">
 					<cfset t_AUTHOR_TEXT=listgetat(i,3,"=")>
-				<cfelseif t_rank is subspecies>
+				<cfelseif t_rank is "subspecies">
 					<cfset t_INFRASPECIFIC_AUTHOR=listgetat(i,3,"=")>
 				</cfif>
 			</cfif>
