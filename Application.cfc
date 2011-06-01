@@ -13,6 +13,7 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cffunction>
+    <!----
 
 <cffunction name="onError">
 	<cfargument name="exception" required="true">
@@ -120,6 +121,7 @@
 	</cfif>
 	<cfreturn/>
 </cffunction>
+---->
 <!-------------------------->
 <cffunction name="onApplicationStart" returnType="boolean" output="false">
 	<cfscript>
