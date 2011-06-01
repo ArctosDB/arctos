@@ -31,8 +31,8 @@
 				</form>
 			</td>
 			<td valign="top">
-				shortcuts
-				<div style="height:3em;border:1px dotted green;overflow:scroll;">
+				<label>Shortcuts</label>
+				<div style="height:8em;border:1px dotted green;overflow:auto;">
 					<div class="likeLink" onclick="a('[fail]');">won't load</div>
 					<div class="likeLink" onclick="a('select * from ttaxonomy where kingdom is null');">no kingdom</div>
 					<div class="likeLink" onclick="a('[badgenus]');">funky genus (not ICBN/ICZN)</div>
