@@ -41,6 +41,7 @@
 				<div class="likeLink" onclick="a('[badgenus]');">funky genus (not ICBN/ICZN)</div>
 				<div class="likeLink" onclick="a('badsp');">funky species (not ICBN/ICZN)</div>
 				<div class="likeLink" onclick="a('badssp');">funky subspecies (not ICBN/ICZN)</div>
+				<div class="likeLink" onclick="a('badany');">anything bad, uncontrolled</div>
 			</td>
 		</tr>
 	</table>
