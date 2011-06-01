@@ -155,11 +155,14 @@ update one_col set rank='phylorder' where rank='order';
 		<!--- see if we care ---->
 		<cfif listfindnocase(gafr,t_rank)>
 			<!--- we care --->
+			<br>docare
 			<cfset "t_#t_rank#"=t_name>
 			
 		</cfif>
-		<cfdump var=#variables#>
+		
 	</cfloop>
+	
+	<cfdump var=#variables#>
 	<!----
 	|monophylla^mutant|verna^species|potentilla^genus|rosaceae^family|rosales^order|magnoliopsida^class|magnoliophyta^phylum|plantae^kingdom
 
