@@ -150,15 +150,13 @@ variety
 -------->
 <cfquery name="d" datasource="uam_god">
 	SELECT 
-		SYS_CONNECT_BY_PATH(rank || '=' ||  name_element  || '=' ||  author_string, '|') p
+		id,
+		term
 	FROM 
-		one_col
-	where 
-		CONNECT_BY_ISLEAF=1
-	start with 
-		rank='species'
-	CONNECT BY PRIOR 
-		parent_id = id
+		col_cat
+	where
+		gotit is null and
+		rownum<100
 </cfquery>
 <!---
 <cfdump var=#d#>
@@ -193,7 +191,7 @@ variety
 	
 	
 	
-	<cfloop list="#p#" index="i" delimiters="|">
+	<cfloop list="#term#" index="i" delimiters="|">
 		<cfset t_rank=listgetat(i,1,"=")>
 		<cfset t_name=listgetat(i,2,"=")>
 		<!---
@@ -401,7 +399,9 @@ variety
 	)
 	---->
 </cfloop>
-
+<cfquery name="ff"  datasource="uam_god">
+	update col_cat set gotit=1 where id in (#valuelist(d.id)#)
+</cfquery>
 
 
 </cfoutput>
