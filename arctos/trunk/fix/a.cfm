@@ -94,7 +94,7 @@ update one_col set rank='phylorder' where rank='order';
 	
 <cfquery name="d" datasource="uam_god">
 	SELECT 
- 		SYS_CONNECT_BY_PATH(rank || '=' ||  name_element , '|') p
+		SYS_CONNECT_BY_PATH(rank || '=' ||  name_element  || '=' ||  author_string, '|') p
 	FROM 
 		one_col
 	where 
@@ -130,8 +130,6 @@ update one_col set rank='phylorder' where rank='order';
 	<cfset t_SUBSPECIES=''>
 	<cfset t_SUPERFAMILY=''>
 	<cfset t_TRIBE=''>
-	<cfset t_class=''>
-	<cfset t_order=''>
 	
 	
 	
@@ -145,7 +143,13 @@ update one_col set rank='phylorder' where rank='order';
 			<!--- we care --->
 			<br>docare
 			<cfset "t_#t_rank#"=t_name>
-			
+			<cfif listlen(i,"=") is 3>
+				<cfif t_rank is species>
+					<cfset t_AUTHOR_TEXT=listgetat(i,3,"=")>
+				<cfelseif t_rank is subspecies>
+					<cfset t_INFRASPECIFIC_AUTHOR=listgetat(i,3,"=")>
+				</cfif>
+			</cfif>
 		</cfif>
 		
 	</cfloop>
