@@ -7,16 +7,6 @@
 <cfif not isdefined('bsql')>
 	<cfset bsql="">
 </cfif>
-<style>
-	table.sortable a.sortheader {
-    background-color:#eee;
-    color:#666666;
-    font-weight: bold;
-    text-decoration: none;
-    display: block;
-	-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);
-    }
-</style>
 <script>
 	function a(t){
 		if(t=='badsp'){
@@ -79,7 +69,7 @@
 	<cfelse>
 		<cfset bsql=sql>
 	</cfif>
-	<cfif bsql does not contain " from ttaxonomy where ">
+	<cfif bsql does not contain " from ttaxonomy ">
 		badSQL<cfabort>
 	</cfif>
 	<cfquery name="d" datasource="uam_god">
@@ -93,11 +83,11 @@
 		<tr>
 			<cfloop list="#d.columnList#" index="i">
 				<th>
-					<!---<cfif len(i) gt 7>
+					<cfif len(i) gt 7>
 						#left(i,6)#...
 					<cfelse>
 						#i#
-					</cfif--->#i#
+					</cfif>
 				</th>
 			</cfloop>
 		</tr>
