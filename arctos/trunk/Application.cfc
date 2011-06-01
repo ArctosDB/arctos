@@ -127,14 +127,16 @@
 	<cfscript>
 		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
 	</cfscript>
+	<!---
 	<cfmail subject="appstart" to="dustymc@gmail.com" from="appstart@arctos-test.arctos.database.museum" type="html">
 		serverName: #serverName#
 		-----------
 		cgi.HTTP_HOST: #cgi.HTTP_HOST#
 		
 		<cfdump var=#cgi#>
-	</cfmail>	
-	<cfif cgi.HTTP_HOST is "arctos.database.museum">
+	</cfmail>
+	--->
+	<cfif serverName is "arctos.database.museum">
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRmuGmxQ-gdo7TWENOfdvPP48uvgxS1Mi5095Z-7DsupXP1SWQjdYKK_w">	
 		<cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
@@ -152,7 +154,7 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
-	<cfelseif cgi.HTTP_HOST is "arctos-test.arctos.database.museum">
+	<cfelseif serverName is "arctos-test.arctos.database.museum">
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
@@ -170,7 +172,7 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
-    <cfelseif cgi.HTTP_HOST contains "harvard.edu">
+    <cfelseif serverName contains "harvard.edu">
 		<cfset Application.svn = "/usr/bin/svn">
 		<cfset Application.webDirectory = "/var/www/html/arctosv.2.2.2">
 		<cfset Application.SpecimenDownloadPath = "/var/www/html/arctosv.2.2.2/download/">
@@ -199,14 +201,6 @@
 		select ip from uam.blacklist
 	</cfquery>
 	<cfset Application.blacklist=valuelist(d.ip)>
-	
-	
-	<cfmail subject="appstart2" to="dustymc@gmail.com" from="appstart@arctos-test.arctos.database.museum" type="html">
-		its up now....
-		cgi.HTTP_HOST: #cgi.HTTP_HOST#
-		
-		<cfdump var=#cgi#>
-	</cfmail>
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
