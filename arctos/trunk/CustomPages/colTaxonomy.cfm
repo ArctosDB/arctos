@@ -92,7 +92,7 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<cfloop list="#d.columnList#" index="i">
-				<th style="-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);">
+				<th>
 					<!---<cfif len(i) gt 7>
 						#left(i,6)#...
 					<cfelse>
