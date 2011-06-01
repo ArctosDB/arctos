@@ -4,16 +4,20 @@
 <cfif not isdefined('sql')>
 	<cfset sql="select * from ttaxonomy where rownum<10">
 </cfif>
+<cfif not isdefined('bsql')>
+	<cfset bsql="">
+</cfif>
 <script>
 	function a(t){
-		if(t=='badgenus'){
-			t="select genus from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN') and not regexp_like(genus,'^[A-Z][a-z]*$') group by genus";
-		}
 		if(t=='badsp'){
 			t="select species from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN') and not regexp_like(species,'^[a-z]*$') group by species";
 		}
 		if(t=='badssp'){
 			t="select subspecies from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN') and not regexp_like(subspecies,'^[a-z]*$') group by subspecies";
+		}
+		if(t=='badany'){
+			t="select * from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN','ICTV')";
+			t+=" and not regexp_like(subspecies,'^[a-z]*$')";
 		}
 		
 		$('#sql').val(t)
@@ -34,20 +38,26 @@
 			<td valign="top">
 				<div class="likeLink" onclick="a('select * from ttaxonomy where fu is not null');">won't load</div>
 				<div class="likeLink" onclick="a('select * from ttaxonomy where kingdom is null');">no kingdom</div>
-				<div class="likeLink" onclick="a('badgenus');">funky genus (not ICBN/ICZN)</div>
+				<div class="likeLink" onclick="a('[badgenus]');">funky genus (not ICBN/ICZN)</div>
 				<div class="likeLink" onclick="a('badsp');">funky species (not ICBN/ICZN)</div>
 				<div class="likeLink" onclick="a('badssp');">funky subspecies (not ICBN/ICZN)</div>
 			</td>
 		</tr>
 	</table>
-	<cfif sql does not contain " from ttaxonomy where ">
+	<cfif sql is "[badgenus]">
+		<cfset bsql="select genus from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN') and 
+			not regexp_like(genus,'^[A-Z][a-z]*$') group by genus">
+	<cfelse>
+		<cfset bsql=sql>
+	</cfif>
+	<cfif bsql does not contain " from ttaxonomy where ">
 		badSQL<cfabort>
 	</cfif>
 	<cfquery name="d" datasource="uam_god">
-		#preservesinglequotes(sql)#
+		#preservesinglequotes(bsql)#
 	</cfquery>
 	<div style="border:1px solid green">
-		#sql#
+		#bsql#
 	</div>
 	n: #d.recordcount#
 	<table border id="t" class="sortable">
