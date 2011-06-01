@@ -153,7 +153,7 @@ update one_col set rank='phylorder' where rank='order';
 		<br>t_rank=#t_rank#
 		<br>t_name=#t_name#
 		<!--- see if we care ---->
-		<cfif listfindnocase(garf,t_rank)>
+		<cfif listfindnocase(gafr,t_rank)>
 			<!--- we care --->
 			<cfset "t_#t_rank#"=t_name>
 			
