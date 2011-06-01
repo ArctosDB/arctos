@@ -15,10 +15,6 @@
 		if(t=='badssp'){
 			t="select subspecies from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN') and not regexp_like(subspecies,'^[a-z]*$') group by subspecies";
 		}
-		if(t=='badany'){
-			t="select * from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN','ICTV')";
-			t+=" and not regexp_like(subspecies,'^[a-z]*$')";
-		}
 		
 		$('#sql').val(t)
 	}
@@ -41,7 +37,7 @@
 				<div class="likeLink" onclick="a('[badgenus]');">funky genus (not ICBN/ICZN)</div>
 				<div class="likeLink" onclick="a('badsp');">funky species (not ICBN/ICZN)</div>
 				<div class="likeLink" onclick="a('badssp');">funky subspecies (not ICBN/ICZN)</div>
-				<div class="likeLink" onclick="a('badany');">anything bad, uncontrolled</div>
+				<div class="likeLink" onclick="a('[badany]');">anything bad, uncontrolled</div>
 			</td>
 		</tr>
 	</table>
