@@ -29,6 +29,10 @@
 	<cfquery name="d" datasource="uam_god">
 		select * from ttaxonomy where #sql#
 	</cfquery>
+	<div style="border:1px solid green">
+		select * from ttaxonomy where #sql#
+	</div>
+	n: #d.recordcount#
 	<table border id="t" class="sortable">
 		<tr>
 			<cfloop list="#d.columnList#" index="i">
