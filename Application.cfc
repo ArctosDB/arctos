@@ -128,7 +128,7 @@
 		<cfmail subject="start" to="dustymc@gmail.com" from="fffff@arctos-test.arctos.database.museum" type="html">
 			#serverName# starting
 			
-			<cfdump var=#application#
+			<cfdump var=#application#>
 		</cfmail>	
 	<cfif serverName is "arctos.database.museum">
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRmuGmxQ-gdo7TWENOfdvPP48uvgxS1Mi5095Z-7DsupXP1SWQjdYKK_w">	
@@ -169,7 +169,7 @@
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
 		
 		<cfmail subject="appset" to="dustymc@gmail.com" from="fffff@arctos-test.arctos.database.museum" type="html">
-			<cfdump var=#application#
+			<cfdump var=#application#>
 		</cfmail>
     <cfelseif serverName contains "harvard.edu">
 		<cfset Application.svn = "/usr/bin/svn">
