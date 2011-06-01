@@ -66,6 +66,9 @@ from
 );
 
 
+update one_col set rank='phylclass' where rank='class';
+
+update one_col set rank='phylorder' where rank='order';
 
 ---->
 <cfif not isdefined("action") ><cfset action="nothing"></cfif>
@@ -102,13 +105,60 @@ from
 		parent_id = id
 </cfquery>
 <cfdump var=#d#>
+<!-- ignore all the bullshit made-up infranks for now - wtf, COL, W.T.F.? -->
+<cfset gafr="KINGDOM,PHYLUM,PHYLCLASS,
+		SUBCLASS,
+		PHYLORDER,
+		SUBORDER,
+		SUPERFAMILY,
+		family,
+		SUBFAMILY,
+		TRIBE,
+		genus,
+		SUBGENUS,
+		SPECIES,
+		SUBSPECIES
+">
 <cfloop query="d">
 	<hr>
+	<!--- clear everything out --->
+	<cfset t_id=taxon_id>
+	<cfset t_AUTHOR_TEXT=''>
+	<cfset t_family=''>
+	<cfset t_genus=''>
+	<cfset t_INFRASPECIFIC_AUTHOR=''>
+	<cfset t_INFRASPECIFIC_RANK=''>
+	<cfset t_KINGDOM=''>
+	<cfset t_NOMENCLATURAL_CODE=''>
+	<cfset t_PHYLCLASS=''>
+	<cfset t_PHYLORDER=''>
+	<cfset t_PHYLUM=''>
+	<cfset t_SCIENTIFIC_NAME=''>
+	<cfset t_SPECIES=''>
+	<cfset t_SUBCLASS=''>
+	<cfset t_SUBFAMILY=''>
+	<cfset t_SUBGENUS=''>
+	<cfset t_SUBORDER=''>
+	<cfset t_SUBSPECIES=''>
+	<cfset t_SUPERFAMILY=''>
+	<cfset t_TRIBE=''>
+	<cfset t_class=''>
+	<cfset t_order=''>
+	
+	
+	
 	<cfloop list="#p#" index="i" delimiters="|">
 		<cfset t_rank=listgetat(i,1,"=")>
 		<cfset t_name=listgetat(i,2,"=")>
 		<br>t_rank=#t_rank#
 		<br>t_name=#t_name#
+		<!--- see if we care ---->
+		<cfif listfindnocase(garf,t_rank)>
+			<!--- we care --->
+			<cfset "t_#t_rank#"=t_name>
+			
+		</cfif>
+		<cfdump var=#variables#>
 	</cfloop>
 	<!----
 	|monophylla^mutant|verna^species|potentilla^genus|rosaceae^family|rosales^order|magnoliopsida^class|magnoliophyta^phylum|plantae^kingdom
