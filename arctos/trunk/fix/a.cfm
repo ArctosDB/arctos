@@ -160,11 +160,15 @@ variety
 	CONNECT BY PRIOR 
 		parent_id = id
 </cfquery>
+<!---
 <cfdump var=#d#>
+--->
 <!-- ignore all the bullshit made-up infranks for now - wtf, COL, W.T.F.? -->
 <cfset gafr="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,family,SUBFAMILY,TRIBE,genus,SUBGENUS,SPECIES,SUBSPECIES">
 <cfloop query="d">
+	<!---
 	<hr>
+	--->
 	<!--- clear everything out --->
 	<cfset t_id=''>
 	<cfset t_AUTHOR_TEXT=''>
@@ -192,12 +196,16 @@ variety
 	<cfloop list="#p#" index="i" delimiters="|">
 		<cfset t_rank=listgetat(i,1,"=")>
 		<cfset t_name=listgetat(i,2,"=")>
+		<!---
 		<br>t_rank=#t_rank#
 		<br>t_name=#t_name#
+		--->
 		<!--- see if we care ---->
 		<cfif listfindnocase(gafr,t_rank)>
 			<!--- we care --->
+			<!---
 			<br>docare
+			--->
 			<cfset "t_#t_rank#"=t_name>
 			<cfif listlen(i,"=") is 3>
 				<cfif t_rank is "species">
@@ -251,7 +259,7 @@ variety
 		)
 	</cfquery>
 	<cfcatch>
-		<br>FAIL::#cfcatch.detail#
+		<!---<br>FAIL::#cfcatch.detail#--->
 	</cfcatch>
 	</cftry>
 	<!----
