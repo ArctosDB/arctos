@@ -26,12 +26,12 @@
 				<form name="f" method="get" action="colTaxonomy.cfm">
 					<label for="sql">SQL</label>
 					<textarea rows="4" cols="100" id="sql" name="sql">#sql#</textarea>
-					<br><input type="submit">
+					<br><input type="submit" value="click this to run ^ that SQL">
 					&nbsp;&nbsp;&nbsp;<input type="button" value="reset" onclick="document.location='colTaxonomy.cfm'">
 				</form>
 			</td>
 			<td valign="top">
-				<label>Shortcuts</label>
+				<label>Shortcuts (or type your own SQL <-- there)</label>
 				<div style="height:8em;border:1px dotted green;overflow:auto;">
 					<div class="likeLink" onclick="a('[fail]');">won't load</div>
 					<div class="likeLink" onclick="a('select * from ttaxonomy where kingdom is null');">no kingdom</div>
@@ -39,6 +39,7 @@
 					<div class="likeLink" onclick="a('badsp');">funky species (not ICBN/ICZN)</div>
 					<div class="likeLink" onclick="a('badssp');">funky subspecies (not ICBN/ICZN)</div>
 					<div class="likeLink" onclick="a('[badany]');">anything bad, uncontrolled</div>
+					<div class="likeLink" onclick="a('[random]');">.5% random sample</div>
 				</div>
 			</td>
 		</tr>
@@ -48,6 +49,8 @@
 			not regexp_like(genus,'^[A-Z][a-z]*$') group by genus">
 	<cfelseif sql is "[fail]">
 		<cfset bsql="select * from ttaxonomy where fu is not null">
+	<cfelseif sql is "[random]">
+		<cfset bsql="select * from ttaxonomy sample(.05) order by dbms_random.value">
 	<cfelseif sql is "[badany]">
 		<cfset bsql="select * from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN','ICTV') and
 			(
