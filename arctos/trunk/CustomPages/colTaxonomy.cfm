@@ -27,17 +27,19 @@
 					<label for="sql">SQL</label>
 					<textarea rows="4" cols="100" id="sql" name="sql">#sql#</textarea>
 					<br><input type="submit">
-					
-					<br><input type="button" value="reset" onclick="document.location='colTaxonomy.cfm'">
+					&nbsp;&nbsp;&nbsp;<input type="button" value="reset" onclick="document.location='colTaxonomy.cfm'">
 				</form>
 			</td>
 			<td valign="top">
-				<div class="likeLink" onclick="a('[fail]');">won't load</div>
-				<div class="likeLink" onclick="a('select * from ttaxonomy where kingdom is null');">no kingdom</div>
-				<div class="likeLink" onclick="a('[badgenus]');">funky genus (not ICBN/ICZN)</div>
-				<div class="likeLink" onclick="a('badsp');">funky species (not ICBN/ICZN)</div>
-				<div class="likeLink" onclick="a('badssp');">funky subspecies (not ICBN/ICZN)</div>
-				<div class="likeLink" onclick="a('[badany]');">anything bad, uncontrolled</div>
+				shortcuts
+				<div style="height:3em;border:1px dotted green;overflow:scroll;">
+					<div class="likeLink" onclick="a('[fail]');">won't load</div>
+					<div class="likeLink" onclick="a('select * from ttaxonomy where kingdom is null');">no kingdom</div>
+					<div class="likeLink" onclick="a('[badgenus]');">funky genus (not ICBN/ICZN)</div>
+					<div class="likeLink" onclick="a('badsp');">funky species (not ICBN/ICZN)</div>
+					<div class="likeLink" onclick="a('badssp');">funky subspecies (not ICBN/ICZN)</div>
+					<div class="likeLink" onclick="a('[badany]');">anything bad, uncontrolled</div>
+				</div>
 			</td>
 		</tr>
 	</table>
