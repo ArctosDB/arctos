@@ -8,6 +8,7 @@
 	<form name="f" method="get" action="colTaxonomy.cfm">
 		<label for="sql">select * from ttaxonomy where...</label>
 		<textarea rows="4" columns="50" id="sql" name="sql">#sql#</textarea>
+		<br><input type="submit">
 	</form>
 	<cfquery name="d" datasource="uam_god">
 		select * from ttaxonomy where #sql#
