@@ -192,8 +192,6 @@ variety
 	<cfset t_SUPERFAMILY=''>
 	<cfset t_TRIBE=''>
 	
-	<br>#term#
-	
 	<cfloop list="#term#" index="i" delimiters="|">
 		
 		<cfset t_rank=listgetat(i,1,chr(7))>
