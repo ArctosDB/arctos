@@ -156,7 +156,7 @@ variety
 		col_cat
 	where
 		gotit is null and
-		rownum<1000
+		rownum<500
 </cfquery>
 <!---
 <cfdump var=#d#>
