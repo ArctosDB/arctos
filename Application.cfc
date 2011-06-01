@@ -1,4 +1,8 @@
 <cfcomponent>
+	
+	<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
+	
+	
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement="True">
 <cfset This.ClientManagement="true">
