@@ -4,18 +4,24 @@
 <cfif not isdefined('sql')>
 	<cfset sql="rownum<10">
 </cfif>
+<script>
+	function a(t){
+		$('#sql').val(t)
+	}
+</script>
 <cfoutput>
 	<table>
 		<tr>
-			<td>
+			<td valign="top">
 				<form name="f" method="get" action="colTaxonomy.cfm">
 					<label for="sql">select * from ttaxonomy where...</label>
 					<textarea rows="4" columns="150" id="sql" name="sql">#sql#</textarea>
 					<br><input type="submit">
 				</form>
 			</td>
-			<td>
-				<span class="likeLink" onclick="$('##sql').val('fu is not null');">won't load</span>
+			<td val="top">
+				<div class="likeLink" onclick="a('fu is not null');">won't load</div>
+				<div class="likeLink" onclick="a('kingdom is null');">no kingdom</div>
 			</td>
 		</tr>
 	</table>
