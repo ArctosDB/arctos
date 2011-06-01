@@ -36,7 +36,7 @@
 				</form>
 			</td>
 			<td valign="top">
-				<div class="likeLink" onclick="a('select * from ttaxonomy where fu is not null');">won't load</div>
+				<div class="likeLink" onclick="a('[fail]');">won't load</div>
 				<div class="likeLink" onclick="a('select * from ttaxonomy where kingdom is null');">no kingdom</div>
 				<div class="likeLink" onclick="a('[badgenus]');">funky genus (not ICBN/ICZN)</div>
 				<div class="likeLink" onclick="a('badsp');">funky species (not ICBN/ICZN)</div>
@@ -47,6 +47,8 @@
 	<cfif sql is "[badgenus]">
 		<cfset bsql="select genus from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN','ICTV') and 
 			not regexp_like(genus,'^[A-Z][a-z]*$') group by genus">
+	<cfelseif sql is "[fail]">
+		<cfset bsql="select * from ttaxonomy where fu is not null">
 	<cfelseif sql is "[badany]">
 		<cfset bsql="select * from ttaxonomy where nomenclatural_code not in ('ICBN','ICZN','ICTV') and
 			(
