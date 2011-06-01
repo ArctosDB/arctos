@@ -108,6 +108,46 @@ update one_col set rank='phylorder' where rank='order';
 <cfif action is "nothing">
 <cfoutput>
 	
+	
+	<!-----------
+	
+	
+	agsp.
+agvar.
+convar
+cultivar
+family
+form
+genus
+kingdom
+lusus
+microgene
+monster
+--mutant
+nm.
+not assigned
+nothof.
+nothosp.
+nothosubsp.
+nothovar.
+phylclass
+phylorder
+phylum
+prole
+race
+species
+status
+staxon
+sub-variety
+subform
+subspecies
+subtaxon
+superfamily
+variety
+
+
+
+-------->
 <cfquery name="d" datasource="uam_god">
 	SELECT 
 		SYS_CONNECT_BY_PATH(rank || '=' ||  name_element  || '=' ||  author_string, '|') p
@@ -116,7 +156,7 @@ update one_col set rank='phylorder' where rank='order';
 	where 
 		CONNECT_BY_ISLEAF=1
 	start with 
-		rank='mutant'
+		rank='agsp.'
 	CONNECT BY PRIOR 
 		parent_id = id
 </cfquery>
