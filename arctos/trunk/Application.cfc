@@ -127,6 +127,19 @@
 	<cfscript>
 		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
 	</cfscript>
+	<cfset Application.session_timeout=90>
+	<cfset Application.serverRootUrl = "http://#serverName#">
+	<cfset Application.user_login="user_login">
+	<cfset Application.max_pw_age = 90>
+	<cfset Application.fromEmail = "#serverName#">
+	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
+	<cfquery name="d" datasource="uam_god">
+		select ip from uam.blacklist
+	</cfquery>
+	<cfset Application.blacklist=valuelist(d.ip)>
+	
+	
+	
 		<cfmail subject="start" to="dustymc@gmail.com" from="fffff@arctos-test.arctos.database.museum" type="html">
 			#serverName# starting
 			
@@ -191,17 +204,7 @@
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
 	</cfif>	
-	<cfset Application.session_timeout=90>
-	<cfset Application.serverRootUrl = "http://#HTTP_HOST#">
-	<cfset Application.user_login="user_login">
-	<cfset Application.max_pw_age = 90>
-	<cfset Application.fromEmail = "#HTTP_HOST#">
-	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
-	<cfset Application.fromEmail = "#HTTP_HOST#">
-	<cfquery name="d" datasource="uam_god">
-		select ip from uam.blacklist
-	</cfquery>
-	<cfset Application.blacklist=valuelist(d.ip)>
+	
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
