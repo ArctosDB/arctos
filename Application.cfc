@@ -1,6 +1,4 @@
-<cfcomponent>
-	
-	
+<cfcomponent>	
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement="True">
 <cfset This.ClientManagement="true">
@@ -127,15 +125,6 @@
 	<cfscript>
 		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
 	</cfscript>
-	<!---
-	<cfmail subject="appstart" to="dustymc@gmail.com" from="appstart@arctos-test.arctos.database.museum" type="html">
-		serverName: #serverName#
-		-----------
-		cgi.HTTP_HOST: #cgi.HTTP_HOST#
-		
-		<cfdump var=#cgi#>
-	</cfmail>
-	--->
 	<cfif serverName is "arctos.database.museum">
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRmuGmxQ-gdo7TWENOfdvPP48uvgxS1Mi5095Z-7DsupXP1SWQjdYKK_w">	
 		<cfset Application.svn = "/usr/local/bin/svn">
