@@ -32,8 +32,23 @@ create table one_col (
 );
 
 
-
-
+create unique index ffffuuuu on ttaxonomy (
+KINGDOM,
+			PHYLUM,
+			PHYLCLASS,
+			SUBCLASS,
+			PHYLORDER,
+			SUBORDER,
+			SUPERFAMILY,
+			family,
+			SUBFAMILY,
+			TRIBE,
+			genus,
+			SUBGENUS,
+			SPECIES,
+			SUBSPECIES) tablespace uam_idx_1;
+			
+			
 create index temp_onecol_id on one_col(id) tablespace uam_idx_1;
 create index temp_onecol_pid on one_col(parent_id) tablespace uam_idx_1;
 
@@ -155,47 +170,50 @@ update one_col set rank='phylorder' where rank='order';
 		
 	</cfloop>
 	
-	<cfdump var=#variables#>
-	
+	<cftry>
 	<cfquery name="ins" datasource="uam_god">
-	insert into ttaxonomy (
-		KINGDOM,
-		PHYLUM,
-		PHYLCLASS,
-		SUBCLASS,
-		PHYLORDER,
-		SUBORDER,
-		SUPERFAMILY,
-		family,
-		SUBFAMILY,
-		TRIBE,
-		genus,
-		SUBGENUS,
-		SPECIES,
-		SUBSPECIES,		
-		AUTHOR_TEXT,
-		INFRASPECIFIC_AUTHOR,
-		INFRASPECIFIC_RANK
-	) values (
-		'#toProperCase(t_KINGDOM)#',
-		'#toProperCase(t_PHYLUM)#',
-		'#toProperCase(t_PHYLCLASS)#',
-		'#toProperCase(t_SUBCLASS)#',
-		'#toProperCase(t_PHYLORDER)#',
-		'#toProperCase(t_SUBORDER)#',
-		'#toProperCase(t_SUPERFAMILY)#',
-		'#toProperCase(t_family)#',
-		'#toProperCase(t_SUBFAMILY)#',
-		'#toProperCase(t_TRIBE)#',
-		'#toProperCase(t_genus)#',
-		'#toProperCase(t_SUBGENUS)#',
-		'#t_SPECIES#',
-		'#t_SUBSPECIES#',		
-		'#t_AUTHOR_TEXT#',
-		'#t_INFRASPECIFIC_AUTHOR#',
-		'#t_INFRASPECIFIC_RANK#'
-	)
+		insert into ttaxonomy (
+			KINGDOM,
+			PHYLUM,
+			PHYLCLASS,
+			SUBCLASS,
+			PHYLORDER,
+			SUBORDER,
+			SUPERFAMILY,
+			family,
+			SUBFAMILY,
+			TRIBE,
+			genus,
+			SUBGENUS,
+			SPECIES,
+			SUBSPECIES,		
+			AUTHOR_TEXT,
+			INFRASPECIFIC_AUTHOR,
+			INFRASPECIFIC_RANK
+		) values (
+			'#toProperCase(t_KINGDOM)#',
+			'#toProperCase(t_PHYLUM)#',
+			'#toProperCase(t_PHYLCLASS)#',
+			'#toProperCase(t_SUBCLASS)#',
+			'#toProperCase(t_PHYLORDER)#',
+			'#toProperCase(t_SUBORDER)#',
+			'#toProperCase(t_SUPERFAMILY)#',
+			'#toProperCase(t_family)#',
+			'#toProperCase(t_SUBFAMILY)#',
+			'#toProperCase(t_TRIBE)#',
+			'#toProperCase(t_genus)#',
+			'#toProperCase(t_SUBGENUS)#',
+			'#t_SPECIES#',
+			'#t_SUBSPECIES#',		
+			'#t_AUTHOR_TEXT#',
+			'#t_INFRASPECIFIC_AUTHOR#',
+			'#t_INFRASPECIFIC_RANK#'
+		)
 	</cfquery>
+	<cfcatch>
+		<cfdump var=#cfcatch#>
+	</cfcatch>
+	</cftry>
 	<!----
 	|monophylla^mutant|verna^species|potentilla^genus|rosaceae^family|rosales^order|magnoliopsida^class|magnoliophyta^phylum|plantae^kingdom
 
