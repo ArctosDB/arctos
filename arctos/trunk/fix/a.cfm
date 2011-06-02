@@ -49,6 +49,13 @@
 
 <!----
 
+
+update ttaxonomy set ccnametry=null;
+delete from ssynonyms;
+delete from ttccommonname;
+
+
+
 create table ssynonyms (
 	id number,
 	relname varchar2(255),
