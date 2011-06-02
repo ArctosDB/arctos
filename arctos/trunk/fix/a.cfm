@@ -18,21 +18,26 @@
 			<cfthread action="run" name="t#id#" id="#d.id#" scientific_name="#d.scientific_name#">
 				<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 				<cfset x=xmlparse(cfhttp.filecontent)>
-				<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.xmlChildren)#" step="1">
+				<cftransaction>
+					<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.xmlChildren)#" step="1">
+						<cfquery name="s" datasource="uam_god">
+							insert into ttccommonname (id, name) values (
+							#id#,'#x.results.result[1].common_names.common_name[i].name.xmltext#')
+						</cfquery>
+					</cfloop>
+					<cfloop index="s" from="1" to="#ArrayLen(x.results.result[1].synonyms.xmlChildren)#" step="1">
+						<cfquery name="sy" datasource="uam_god">
+							insert into ssynonyms (id, relname,reltype) values (
+								#id#,
+								'#x.results.result[1].synonyms.synonym[s].name.xmltext#',
+								'#x.results.result[1].synonyms.synonym[s].name_status.xmltext#'
+							)
+						</cfquery>
+					</cfloop>
 					<cfquery name="s" datasource="uam_god">
-						insert into ttccommonname (id, name) values (
-						#id#,'#x.results.result[1].common_names.common_name[i].name.xmltext#')
+						update ttaxonomy set ccnametry=1 where id=#id#
 					</cfquery>
-				</cfloop>
-				<cfloop index="s" from="1" to="#ArrayLen(x.results.result[1].synonyms.xmlChildren)#" step="1">
-					<cfquery name="sy" datasource="uam_god">
-						insert into ssynonyms (id, relname,reltype) values (
-							#id#,
-							'#x.results.result[1].synonyms.synonym[s].name.xmltext#',
-							'#x.results.result[1].synonyms.synonym[s].name_status.xmltext#'
-						)
-					</cfquery>
-				</cfloop>
+				</cftransaction>
 			</cfthread>
 			
 			
@@ -90,9 +95,11 @@
 			--->
 	</cfloop>
 	outOfLoop@#(getTickCount()-startTime)#ms
+	<!---
 	<cfquery name="s" datasource="uam_god">
 		update ttaxonomy set ccnametry=1 where id in (#valuelist(d.id)#)
 	</cfquery>
+	--->
 	updatedQuery@#(getTickCount()-startTime)#ms
 	
 	
