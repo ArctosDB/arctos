@@ -11,6 +11,8 @@
 		rownum<101
 	</cfquery>
 	<cfloop query="d">
+			<hr>
+			#scientific_name#
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 			<cfset x=xmlparse(cfhttp.filecontent)>
 			<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
