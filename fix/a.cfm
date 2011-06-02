@@ -14,7 +14,7 @@
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 			<cfset x=xmlparse(cfhttp.filecontent)>
 			<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
-				<cfif x.results.result[1].common_names.common_name>
+				<cfif isdefined(x.results.result[1].common_names.common_name)>
 					gotsome
 				<cfelse>
 					nope
