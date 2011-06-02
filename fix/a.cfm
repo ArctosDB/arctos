@@ -24,11 +24,14 @@
 						#id#,'#x.results.result[r].common_names.common_name[i].name.xmltext#')
 					</cfquery>
 				</cfloop>
+				<br>numSyn:#ArrayLen(x.results.result[r].synonyms.xmlChildren)#
+				<cfloop index="s" from="1" to="#ArrayLen(x.results.result[r].synonyms.xmlChildren)#" step="1">
+					#s#
+				</cfloop>
+			
+			
 			</cfloop>
-			<br>numSyn:#ArrayLen(x.results.result[r].synonyms.xmlChildren)#
-			<cfloop index="s" from="1" to="#ArrayLen(x.results.result[r].synonyms.xmlChildren)#" step="1">
-				#s#
-			</cfloop>
+			
 	</cfloop>
 	<cfquery name="s" datasource="uam_god">
 		update ttaxonomy set ccnametry=1 where id in (#valuelist(d.id)#)
