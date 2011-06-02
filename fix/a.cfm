@@ -1,3 +1,14 @@
+<cfif not isdefined("action") ><cfset action="nothing"></cfif>
+
+
+<cfinclude template="/includes/functionLib.cfm">
+
+
+<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?name=pusa hispida&response=full">
+
+</cfhttp>
+
+<cfdump var=#cfhttp#>
 <!----
 create table ttaxonomy (
 id int,
@@ -86,11 +97,8 @@ update one_col set rank='phylclass' where rank='class';
 update one_col set rank='phylorder' where rank='order';
 
 ---->
-<cfif not isdefined("action") ><cfset action="nothing"></cfif>
 
-
-<cfinclude template="/includes/functionLib.cfm">
-
+<!----
 <cfif action is "lamtest">
 <cfquery name="lamtest" datasource="uam_god">
 	select * from common_name_element where id=264183
@@ -271,3 +279,4 @@ variety
 </cfoutput>
 
 </cfif>
+---->
