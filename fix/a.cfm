@@ -8,13 +8,18 @@
 		select id,scientific_name from ttaxonomy where
 		ccnametry is null and
 		scientific_name is not null and
-		rownum<101
+		rownum<2
 	</cfquery>
 	<cfloop query="d">
 		<cftry>
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 			<cfset x=xmlparse(cfhttp.filecontent)>
 			<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
+				<cfif x.results.result[1].common_names.common_name>
+					gotsome
+				<cfelse>
+					nope
+				</cfif>
 				<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.common_name)#" step="1">
 				  <br>==<cfdump var=#i#>
 					<br>TheName:::#x.results.result[r].common_names.common_name[i].name.xmltext#
@@ -43,6 +48,13 @@
 
 
 <!----
+
+create table ssynonyms (
+	n1 varchar2(255),
+	n2 varchar2(255)
+	s varchar2(255)
+);
+
 
 alter table ttaxonomy add column ccnametry(number);
 
