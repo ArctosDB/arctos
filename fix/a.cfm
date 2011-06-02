@@ -2,7 +2,7 @@
 
 
 <cfinclude template="/includes/functionLib.cfm">
-
+<cfset stime=now()>
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select id,scientific_name from ttaxonomy where
@@ -32,6 +32,12 @@
 	<cfquery name="s" datasource="uam_god">
 		update ttaxonomy set ccnametry=1 where id in (#valuelist(d.id)#)
 	</cfquery>
+	
+	<cfset etime=now()>
+	<br>#stime#
+	<br>#etime#
+	<cfset elap=stime-etime>
+	<br>#elap#
 </cfoutput>
 
 
