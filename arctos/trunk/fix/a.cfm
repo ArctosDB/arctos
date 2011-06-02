@@ -27,7 +27,7 @@
 			</cfloop>
 			<br>numSyn:#ArrayLen(x.results.result[r].synonyms.xmlChildren)#
 			<cfloop index="s" from="1" to="#ArrayLen(x.results.result[r].synonyms.xmlChildren)#" step="1">
-				#s@
+				#s#
 			</cfloop>
 	</cfloop>
 	<cfquery name="s" datasource="uam_god">
