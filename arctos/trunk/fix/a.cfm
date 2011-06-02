@@ -3,7 +3,7 @@
 
 <cfinclude template="/includes/functionLib.cfm">
 
-
+<cfoutput>
 <cfhttp method="get" url="http://www.catalogueoflife.org/webservice?name=alces%20alces&response=full">
 
 </cfhttp>
@@ -15,10 +15,12 @@
 
 <cfdump var=#c#>
 <hr><hr>
-<cfloop index="result" from="1" to="#ArrayLen( x.results.XmlChildren )#">
+ArrayLen( x.results.result ): #ArrayLen( x.results.result )#
+<cfloop index="result" from="1" to="#ArrayLen( x.results.result )#">
   <cfdump var=#result#>
 </cfloop>
 
+</cfoutput>
 
 
 
