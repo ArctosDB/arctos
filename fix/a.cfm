@@ -4,7 +4,7 @@
 		select id,scientific_name from ttaxonomy where
 		ccnametry is null and
 		scientific_name is not null and
-		rownum<101
+		rownum<11
 	</cfquery>
 	<br>query D took #(getTickCount()-startTime)#ms
 	<cfloop query="d">
@@ -12,6 +12,36 @@
 			<hr>
 			#scientific_name#
 			--->
+			
+			
+			<cfthread action="run" name="t#id#" id="#d.id#" scientific_name="#d.scientific_name#">
+				<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
+				<cfset x=xmlparse(cfhttp.filecontent)>
+				<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.xmlChildren)#" step="1">
+					<cfquery name="s" datasource="uam_god">
+						insert into ttccommonname (id, name) values (
+						#id#,'#x.results.result[1].common_names.common_name[i].name.xmltext#')
+					</cfquery>
+				</cfloop>
+				<cfloop index="s" from="1" to="#ArrayLen(x.results.result[1].synonyms.xmlChildren)#" step="1">
+					<cfquery name="sy" datasource="uam_god">
+						insert into ssynonyms (id, relname,reltype) values (
+							#id#,
+							'#x.results.result[1].synonyms.synonym[s].name.xmltext#',
+							'#x.results.result[1].synonyms.synonym[s].name_status.xmltext#'
+						)
+					</cfquery>
+				</cfloop>
+			</cfthread>
+			
+			
+			
+			
+			
+			
+			
+			<!---
+			
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 			<br>got httpFetch@#(getTickCount()-startTime)#ms
 			<cfset x=xmlparse(cfhttp.filecontent)>
@@ -33,7 +63,7 @@
 				</cfquery>
 				<br>InsertedSynonym@#(getTickCount()-startTime)#ms
 			</cfloop>
-			
+			--->
 			<!---
 			WTF?? just get first result - rest are retarded
 			<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
