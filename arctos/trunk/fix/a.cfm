@@ -8,17 +8,12 @@
 
 </cfhttp>
 
-<cfdump var=#cfhttp#>
 <cfset x=xmlparse(cfhttp.filecontent)>
-<cfdump var=#x#>
-<cfset c=x.results.result[1].common_names.common_name[1].name.xmltext>
-
-<cfdump var=#c#>
-<hr><hr>
-ArrayLen(x.results.result[1].common_names.common_name ): -#ArrayLen(x.results.result[1].common_names.common_name )#-
-<cfloop index="r" from="1" to="#ArrayLen(x.results.result[1].common_names.common_name)#" step="1">
-  <br>==<cfdump var=#r#>
-	<br>TheName:::#x.results.result[1].common_names.common_name[r].name.xmltext#
+<cfloop index="r" from="1" to="#ArrayLen(x.results.result#" step="1">
+	<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.common_name)#" step="1">
+	  <br>==<cfdump var=#i#>
+		<br>TheName:::#x.results.result[r].common_names.common_name[i].name.xmltext#
+	</cfloop>
 </cfloop>
 
 </cfoutput>
