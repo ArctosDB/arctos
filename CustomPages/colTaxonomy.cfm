@@ -76,7 +76,7 @@
 		badSQL<cfabort>
 	</cfif>
 	<cfquery name="d" datasource="uam_god">
-		#preservesinglequotes(bsql)#
+		select * from ( #preservesinglequotes(bsql)# ) where rownum<5000
 	</cfquery>
 	<div style="border:1px solid green">
 		#bsql#
