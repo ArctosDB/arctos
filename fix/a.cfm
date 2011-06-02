@@ -1,6 +1,6 @@
 <cfset startTime = getTickCount() />
 <cfoutput>
-	<cfset numr=101>
+	<cfset numr=1001>
 	<cfquery name="d" datasource="uam_god">
 		select id,scientific_name from ttaxonomy where
 		ccnametry is null and
