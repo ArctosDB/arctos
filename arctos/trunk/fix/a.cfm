@@ -15,6 +15,27 @@
 			#scientific_name#
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 			<cfset x=xmlparse(cfhttp.filecontent)>
+			<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.xmlChildren)#" step="1">
+				<br>TheName:::#x.results.result[1].common_names.common_name[i].name.xmltext#
+				<cfquery name="s" datasource="uam_god">
+					insert into ttccommonname (id, name) values (
+					#id#,'#x.results.result[1].common_names.common_name[i].name.xmltext#')
+				</cfquery>
+			</cfloop>
+			<cfloop index="s" from="1" to="#ArrayLen(x.results.result[1].synonyms.xmlChildren)#" step="1">
+				<cfquery name="sy" datasource="uam_god">
+					insert into ssynonyms (id, relname,reltype) values (
+						#id#,
+						'#x.results.result[1].synonyms.synonym[s].name.xmltext#',
+						'#x.results.result[1].synonyms.synonym[s].name_status.xmltext#'
+					)
+				</cfquery>
+				<br>TheSynonym:::#x.results.result[1].synonyms.synonym[s].name.xmltext#
+				<br>TheStatus:::#x.results.result[1].synonyms.synonym[s].name_status.xmltext#
+			</cfloop>
+			
+			<!---
+			WTF?? just get first result - rest are retarded
 			<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
 				<cfloop index="i" from="1" to="#ArrayLen(x.results.result[r].common_names.xmlChildren)#" step="1">
 					<br>TheName:::#x.results.result[r].common_names.common_name[i].name.xmltext#
@@ -35,6 +56,7 @@
 					<br>TheStatus:::#x.results.result[r].synonyms.synonym[s].name_status.xmltext#
 				</cfloop>
 			</cfloop>
+			--->
 	</cfloop>
 	<cfquery name="s" datasource="uam_god">
 		update ttaxonomy set ccnametry=1 where id in (#valuelist(d.id)#)
