@@ -11,7 +11,7 @@
 <cfdump var=#cfhttp#>
 <cfset x=xmlparse(cfhttp.filecontent)>
 <cfdump var=#x#>
-<cfset c=x.results.result[1]>
+<cfset c=x.results.result[1].common_names.common_name[1].name>
 
 <cfdump var=#c#>
 <!----
