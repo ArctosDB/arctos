@@ -11,7 +11,6 @@
 		rownum<2
 	</cfquery>
 	<cfloop query="d">
-		<cftry>
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 			<cfset x=xmlparse(cfhttp.filecontent)>
 			<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
@@ -29,10 +28,7 @@
 					</cfquery>
 				</cfloop>
 			</cfloop>
-		<cfcatch>
-			<br>fail@id=#id#
-		</cfcatch>
-		</cftry>
+		
 	</cfloop>
 	<cfquery name="s" datasource="uam_god">
 		update ttaxonomy set ccnametry=1 where id in (#valuelist(d.id)#)
