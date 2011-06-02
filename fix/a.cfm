@@ -4,7 +4,7 @@
 <cfinclude template="/includes/functionLib.cfm">
 
 
-<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?name=pusa hispida&response=full">
+<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?name=alces%20alces&response=full">
 
 </cfhttp>
 
