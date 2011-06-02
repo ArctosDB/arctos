@@ -9,6 +9,8 @@
 </cfhttp>
 
 <cfdump var=#cfhttp#>
+<cfset x=xmlparse(cfhttp.filecontent)>
+<cfdump var=#x#>
 <!----
 create table ttaxonomy (
 id int,
