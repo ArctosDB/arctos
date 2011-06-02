@@ -23,7 +23,10 @@
 				</cfloop>
 			</cfloop>
 		<cfcatch>
-			<br>fail@id=#id#
+				<cfquery name="d" datasource="uam_god">
+					update ttaxonomy set ccnametry=2 where id=#id#
+				</cfquery>
+					<br>fail@id=#id#
 		</cfcatch>
 		</cftry>
 	</cfloop>
