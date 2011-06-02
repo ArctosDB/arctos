@@ -15,9 +15,9 @@
 
 <cfdump var=#c#>
 <hr><hr>
-ArrayLen( x.results.result ): #ArrayLen( x.results.result )#
-<cfloop index="result" from="1" to="#ArrayLen( x.results.result )#">
-  <cfdump var=#result#>
+ArrayLen( x.results.result ): -#ArrayLen( x.results.result )#-
+<cfloop index="result" from="1" to="#ArrayLen( x.results.result )#" step="1">
+  <br>==<cfdump var=#result#>
 </cfloop>
 
 </cfoutput>
