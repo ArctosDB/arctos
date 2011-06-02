@@ -4,23 +4,41 @@
 <cfinclude template="/includes/functionLib.cfm">
 
 <cfoutput>
-<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?name=alces%20alces&response=full">
-
-</cfhttp>
-
-<cfset x=xmlparse(cfhttp.filecontent)>
-<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
-	<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.common_name)#" step="1">
-	  <br>==<cfdump var=#i#>
-		<br>TheName:::#x.results.result[r].common_names.common_name[i].name.xmltext#
+	<cfquery name="d" datasource="uam_god">
+		select scientific_name from ttaxonomy where
+		ccnametry is null and
+		scientific_name is not null and
+		rownum<2
+	</cfquery>
+	<cfdump var=#d#>
+	<cfloop query="d">
+		<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?name=alces%20alces&response=full"></cfhttp>
+		<cfset x=xmlparse(cfhttp.filecontent)>
+		<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
+			<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.common_name)#" step="1">
+			  <br>==<cfdump var=#i#>
+				<br>TheName:::#x.results.result[r].common_names.common_name[i].name.xmltext#
+			</cfloop>
+		</cfloop>
 	</cfloop>
-</cfloop>
+
+
+
 
 </cfoutput>
 
 
 
 <!----
+
+alter table ttaxonomy add column ccnametry(number);
+
+
+create table ttccommonname (
+	id number,
+	name varchar2(4000)
+)
+
 create table ttaxonomy (
 id int,
 AUTHOR_TEXT varchar(255),
