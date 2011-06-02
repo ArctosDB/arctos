@@ -14,10 +14,10 @@
 	<cfloop query="d">
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 			<cfset x=xmlparse(cfhttp.filecontent)>
+			<cfdump var=#x#>
 			<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
 				-------------<cfdump var=#arrayLen(x.results.result[1].common_names.xmlChildren)#>----------------
-				<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.common_name)#" step="1">
-				  <br>==<cfdump var=#i#>
+				<cfloop index="i" from="1" to="#ArrayLen(x.results.result[r].common_names.xmlChildren)#" step="1">
 					<br>TheName:::#x.results.result[r].common_names.common_name[i].name.xmltext#
 					<cfquery name="s" datasource="uam_god">
 						insert into ttccommonname (id, name) values (
@@ -25,7 +25,6 @@
 					</cfquery>
 				</cfloop>
 			</cfloop>
-		
 	</cfloop>
 	<cfquery name="s" datasource="uam_god">
 		update ttaxonomy set ccnametry=1 where id in (#valuelist(d.id)#)
