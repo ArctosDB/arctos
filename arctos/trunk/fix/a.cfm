@@ -6,17 +6,14 @@
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select id,scientific_name from ttaxonomy where
-		--ccnametry is null and
-		--scientific_name is not null and
-		--rownum<2
-		scientific_name='#n#'
+		ccnametry is null and
+		scientific_name is not null and
+		rownum<101
 	</cfquery>
 	<cfloop query="d">
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 			<cfset x=xmlparse(cfhttp.filecontent)>
-			<cfdump var=#x#>
 			<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
-				-------------<cfdump var=#arrayLen(x.results.result[1].common_names.xmlChildren)#>----------------
 				<cfloop index="i" from="1" to="#ArrayLen(x.results.result[r].common_names.xmlChildren)#" step="1">
 					<br>TheName:::#x.results.result[r].common_names.common_name[i].name.xmltext#
 					<cfquery name="s" datasource="uam_god">
@@ -24,16 +21,18 @@
 						#id#,'#x.results.result[r].common_names.common_name[i].name.xmltext#')
 					</cfquery>
 				</cfloop>
-				<br>numSyn:#ArrayLen(x.results.result[r].synonyms.xmlChildren)#
 				<cfloop index="s" from="1" to="#ArrayLen(x.results.result[r].synonyms.xmlChildren)#" step="1">
-					#s#
-					<br>TheSynonym:::#x.results.result[r].synonyms.synonym[s].name.xmltext#----
-					<br>TheStatus:::#x.results.result[r].synonyms.synonym[s].name_status.xmltext#----
+					<cfquery name="sy" datasource="uam_god">
+						insert into ssynonyms (id, relname,reltype) values (
+							#id#,
+							'#x.results.result[r].synonyms.synonym[s].name.xmltext#',
+							'#x.results.result[r].synonyms.synonym[s].name_status.xmltext#'
+						)
+					</cfquery>
+					<br>TheSynonym:::#x.results.result[r].synonyms.synonym[s].name.xmltext#
+					<br>TheStatus:::#x.results.result[r].synonyms.synonym[s].name_status.xmltext#
 				</cfloop>
-			
-			
 			</cfloop>
-			
 	</cfloop>
 	<cfquery name="s" datasource="uam_god">
 		update ttaxonomy set ccnametry=1 where id in (#valuelist(d.id)#)
@@ -42,7 +41,7 @@
 	<cfset etime=now()>
 	<br>#stime#
 	<br>#etime#
-	<cfset elap=stime-etime>
+	<cfset elap=etime-stime>
 	<br>#elap#
 </cfoutput>
 
@@ -51,9 +50,9 @@
 <!----
 
 create table ssynonyms (
-	n1 varchar2(255),
-	n2 varchar2(255)
-	s varchar2(255)
+	id number,
+	relname varchar2(255),
+	reltype varchar2(255)
 );
 
 
