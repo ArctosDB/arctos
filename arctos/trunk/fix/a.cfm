@@ -14,6 +14,14 @@
 <cfset c=x.results.result[1].common_names.common_name[1].name.xmltext>
 
 <cfdump var=#c#>
+<hr><hr>
+<cfloop index="result" from="1" to="#ArrayLen( x.results.XmlChildren )#">
+  <cfdump var=#result#>
+</cfloop>
+
+
+
+
 <!----
 create table ttaxonomy (
 id int,
