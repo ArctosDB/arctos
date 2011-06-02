@@ -10,30 +10,28 @@
 		scientific_name is not null and
 		rownum<11
 	</cfquery>
-	<cfdump var=#d#>
 	<cfloop query="d">
 		<cftry>
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 			<cfset x=xmlparse(cfhttp.filecontent)>
-			<cfdump var=#x#>
 			<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
 				<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.common_name)#" step="1">
 				  <br>==<cfdump var=#i#>
 					<br>TheName:::#x.results.result[r].common_names.common_name[i].name.xmltext#
+					<cfquery name="s" datasource="uam_god">
+						insert into ttccommonname (id, name) values (
+						#id#,'#x.results.result[r].common_names.common_name[i].name.xmltext#')
+					</cfquery>
 				</cfloop>
 			</cfloop>
 		<cfcatch>
-				<cfquery name="d" datasource="uam_god">
-					update ttaxonomy set ccnametry=2 where id=#id#
-				</cfquery>
-					<br>fail@id=#id#
+			<br>fail@id=#id#
 		</cfcatch>
 		</cftry>
 	</cfloop>
-
-
-
-
+	<cfquery name="s" datasource="uam_god">
+		update ttaxonomy set ccnametry=1 where id in (#valuelist(d.id)#)
+	</cfquery>
 </cfoutput>
 
 
