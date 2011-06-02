@@ -1,8 +1,4 @@
-<cfif not isdefined("action") ><cfset action="nothing"></cfif>
-
-
-<cfinclude template="/includes/functionLib.cfm">
-<cfset stime=now()>
+<cfset startTime = getTickCount() />
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select id,scientific_name from ttaxonomy where
@@ -10,17 +6,22 @@
 		scientific_name is not null and
 		rownum<101
 	</cfquery>
+	<br>query D took #(getTickCount()-startTime)#ms
 	<cfloop query="d">
+			<!---
 			<hr>
 			#scientific_name#
+			--->
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
+			<br>got httpFetch@#(getTickCount()-startTime)#ms
 			<cfset x=xmlparse(cfhttp.filecontent)>
+			<br>parsed@#(getTickCount()-startTime)#ms
 			<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.xmlChildren)#" step="1">
-				<br>TheName:::#x.results.result[1].common_names.common_name[i].name.xmltext#
 				<cfquery name="s" datasource="uam_god">
 					insert into ttccommonname (id, name) values (
 					#id#,'#x.results.result[1].common_names.common_name[i].name.xmltext#')
 				</cfquery>
+				<br>insertedCommonName@#(getTickCount()-startTime)#ms
 			</cfloop>
 			<cfloop index="s" from="1" to="#ArrayLen(x.results.result[1].synonyms.xmlChildren)#" step="1">
 				<cfquery name="sy" datasource="uam_god">
@@ -30,8 +31,7 @@
 						'#x.results.result[1].synonyms.synonym[s].name_status.xmltext#'
 					)
 				</cfquery>
-				<br>TheSynonym:::#x.results.result[1].synonyms.synonym[s].name.xmltext#
-				<br>TheStatus:::#x.results.result[1].synonyms.synonym[s].name_status.xmltext#
+				<br>InsertedSynonym@#(getTickCount()-startTime)#ms
 			</cfloop>
 			
 			<!---
@@ -58,17 +58,13 @@
 			</cfloop>
 			--->
 	</cfloop>
+	outOfLoop@#(getTickCount()-startTime)#ms
 	<cfquery name="s" datasource="uam_god">
 		update ttaxonomy set ccnametry=1 where id in (#valuelist(d.id)#)
 	</cfquery>
+	updatedQuery@#(getTickCount()-startTime)#ms
 	
-	<cfset etime=now()>
-	<br>#stime#
-	<br>#etime#
-	<cfset elap=etime-stime>
-	<br>#elap#
 </cfoutput>
-
 
 
 <!----
