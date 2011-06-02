@@ -5,7 +5,15 @@
 <cfloop index="i" from="1" to="#numberOtasks#">
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
-
+<cfschedule action = "update"
+    task = "crawlCOL" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/fix/a.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:01 AM"
+    interval = "60"
+    requestTimeOut = "300">
+<!---
 <cfschedule action = "update"
     task = "ocr_specimens" 
     operation = "HTTPRequest"
@@ -375,3 +383,4 @@
     startTime = "12:34 AM"
     interval = "600"
     requestTimeOut = "600">
+--->
