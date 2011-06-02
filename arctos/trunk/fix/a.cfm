@@ -8,7 +8,7 @@
 		select id,scientific_name from ttaxonomy where
 		ccnametry is null and
 		scientific_name is not null and
-		rownum<2
+		rownum<11
 	</cfquery>
 	<cfdump var=#d#>
 	<cfloop query="d">
@@ -41,6 +41,8 @@
 <!----
 
 alter table ttaxonomy add column ccnametry(number);
+
+create unique index iu_ttid on ttaxonomy(id) tablespace uam_idx_1;
 
 
 create table ttccommonname (
