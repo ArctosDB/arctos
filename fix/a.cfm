@@ -6,10 +6,10 @@
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select id,scientific_name from ttaxonomy where
-		ccnametry is null and
-		scientific_name is not null and
-		rownum<2
-		and scientific_name=#n#
+		--ccnametry is null and
+		--scientific_name is not null and
+		--rownum<2
+		scientific_name='#n#'
 	</cfquery>
 	<cfloop query="d">
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
