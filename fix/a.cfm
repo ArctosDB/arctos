@@ -27,8 +27,8 @@
 				<br>numSyn:#ArrayLen(x.results.result[r].synonyms.xmlChildren)#
 				<cfloop index="s" from="1" to="#ArrayLen(x.results.result[r].synonyms.xmlChildren)#" step="1">
 					#s#
-					<br>TheSynonym:::#x.results.result[r].synonyms.synonym[i].name.xmltext#----
-					<br>TheStatus:::#x.results.result[r].synonyms.synonym[i].name_status.xmltext#----
+					<br>TheSynonym:::#x.results.result[r].synonyms.synonym[s].name.xmltext#----
+					<br>TheStatus:::#x.results.result[r].synonyms.synonym[s].name_status.xmltext#----
 				</cfloop>
 			
 			
