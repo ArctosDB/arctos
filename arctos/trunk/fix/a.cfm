@@ -8,7 +8,7 @@
 		select id,scientific_name from ttaxonomy where
 		ccnametry is null and
 		scientific_name is not null and
-		rownum<11
+		rownum<101
 	</cfquery>
 	<cfloop query="d">
 		<cftry>
