@@ -1,10 +1,11 @@
 <cfset startTime = getTickCount() />
 <cfoutput>
+	<cfset numr=11>
 	<cfquery name="d" datasource="uam_god">
 		select id,scientific_name from ttaxonomy where
 		ccnametry is null and
 		scientific_name is not null and
-		rownum<11
+		rownum<#numr#
 	</cfquery>
 	<br>query D took #(getTickCount()-startTime)#ms
 	<cfloop query="d">
@@ -94,6 +95,17 @@
 	</cfquery>
 	updatedQuery@#(getTickCount()-startTime)#ms
 	
+	
+	
+	
+	<cfloop from="1" to ="#numr#" index="x">
+		<br>loop #x#
+		<cfset sleep(1000)>
+		<cfloop from="1" to="#numr#" index="i">
+			<br>Thread#i#: #evaluate("t" & i & ".status")#
+		</cfloop>
+		<cfflush>
+	</cfloop>
 </cfoutput>
 
 
