@@ -99,6 +99,7 @@
 	
 	
 	<cfloop from="1" to ="30" index="x">
+		<hr>
 		<br>loop #x#
 		<cfset sleep(1000)>
 		<cfloop query="d">
