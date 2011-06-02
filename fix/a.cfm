@@ -13,6 +13,7 @@
 	<cfdump var=#d#>
 	<cfloop query="d">
 		<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
+		<cfdump var=#cfhttp#>
 		<cfset x=xmlparse(cfhttp.filecontent)>
 		<cfloop index="r" from="1" to="#ArrayLen(x.results.result)#" step="1">
 			<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.common_name)#" step="1">
