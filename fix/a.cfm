@@ -94,6 +94,9 @@
 			</cfloop>
 			--->
 	</cfloop>
+	
+	
+	<!---
 	outOfLoop@#(getTickCount()-startTime)#ms
 	<!---
 	<cfquery name="s" datasource="uam_god">
@@ -114,6 +117,9 @@
 		</cfloop>
 		<cfflush>
 	</cfloop>
+	
+	
+	---->
 </cfoutput>
 
 
