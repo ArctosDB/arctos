@@ -15,8 +15,8 @@
 
 <cfdump var=#c#>
 <hr><hr>
-ArrayLen( x.results.result ): -#ArrayLen( x.results.result )#-
-<cfloop index="result" from="1" to="#ArrayLen( x.results.result )#" step="1">
+ArrayLen(x.results.result[1].common_names.common_name ): -#x.results.result[1].common_names.common_name )#-
+<cfloop index="result" from="1" to="#x.results.result[1].common_names.common_name#" step="1">
   <br>==<cfdump var=#result#>
 </cfloop>
 
