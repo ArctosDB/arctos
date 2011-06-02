@@ -98,11 +98,11 @@
 	
 	
 	
-	<cfloop from="1" to ="#numr#" index="x">
+	<cfloop from="1" to ="30" index="x">
 		<br>loop #x#
 		<cfset sleep(1000)>
-		<cfloop from="1" to="#numr#" index="i">
-			<br>Thread#i#: #evaluate("t" & i & ".status")#
+		<cfloop query="d">
+			<br>Thread#id#: #evaluate("t" & id & ".status")#
 		</cfloop>
 		<cfflush>
 	</cfloop>
