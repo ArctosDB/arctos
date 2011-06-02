@@ -11,6 +11,9 @@
 <cfdump var=#cfhttp#>
 <cfset x=xmlparse(cfhttp.filecontent)>
 <cfdump var=#x#>
+<cfset c=x.results.result[1]>
+
+<cfdump var=#c#>
 <!----
 create table ttaxonomy (
 id int,
