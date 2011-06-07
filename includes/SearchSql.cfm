@@ -334,6 +334,20 @@
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) NOT LIKE '%#ucase(scientific_name)#%'">
 	</cfif>
 </cfif>
+
+<cfif isdefined("anyTaxId") AND len(anyTaxId) gt 0>
+	<cfset mapurl = "#mapurl#&anyTaxId=#anyTaxId#">
+	<cfif basJoin does not contain " identification ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification ON 
+		(cataloged_item.collection_object_id = identification.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " identification_taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON 
+		(identification.identification_id = identification_taxonomy.identification_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND identification_taxonomy.taxon_name_id=#anyTaxId#">
+</cfif>	
+
 <cfif isdefined("HighTaxa") AND len(HighTaxa) gt 0>
 	<cfset mapurl = "#mapurl#&HighTaxa=#HighTaxa#">
 	<cfif basJoin does not contain " identification ">

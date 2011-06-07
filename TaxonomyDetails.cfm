@@ -357,7 +357,11 @@
 			<cfif sidas.c gt 0>
 				<li>
 					<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">
-						Specimens identified as #one.display_name#
+						Specimens currently identified as #one.display_name#
+					</a>
+					
+					<a href="/SpecimenResults.cfm?anyTaxId=#one.taxon_name_id#">
+						[ include unaccepted IDs ]
 					</a>
 					<a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
 						[ exact matches only ]
