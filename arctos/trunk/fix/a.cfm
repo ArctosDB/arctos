@@ -8,6 +8,7 @@
 		rownum<#numr#
 	</cfquery>
 	<br>query D took #(getTickCount()-startTime)#ms
+	<cfdump var=#d#>
 	<cfloop query="d">
 			
 			<!---
