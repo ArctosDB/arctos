@@ -359,7 +359,6 @@
 					<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">
 						Specimens currently identified as #one.display_name#
 					</a>
-					
 					<a href="/SpecimenResults.cfm?anyTaxId=#one.taxon_name_id#">
 						[ include unaccepted IDs ]
 					</a>
