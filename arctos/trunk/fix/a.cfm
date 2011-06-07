@@ -1,6 +1,6 @@
 <cfset startTime = getTickCount() />
 <cfoutput>
-	<cfset numr=1001>
+	<cfset numr=2>
 	<cfquery name="d" datasource="uam_god">
 		select id,scientific_name from ttaxonomy where
 		ccnametry is null and
@@ -9,14 +9,19 @@
 	</cfquery>
 	<br>query D took #(getTickCount()-startTime)#ms
 	<cfloop query="d">
-			<!---
-			<hr>
-			#scientific_name#
-			--->
 			
+			<!---
 			
 			<cfthread action="run" name="t#id#" id="#d.id#" scientific_name="#d.scientific_name#">
-				<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
+				
+			</cfthread>
+			
+			---->
+			
+			
+			
+			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
+			<cfdump var=#cfhttp#>
 				<cfset x=xmlparse(cfhttp.filecontent)>
 				<cftransaction>
 					<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.xmlChildren)#" step="1">
@@ -38,9 +43,6 @@
 						update ttaxonomy set ccnametry=1 where id=#id#
 					</cfquery>
 				</cftransaction>
-			</cfthread>
-			
-			
 			
 			
 			
