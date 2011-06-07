@@ -1,6 +1,6 @@
 <cfset startTime = getTickCount() />
 <cfoutput>
-	<cfset numr=2>
+	<cfset numr=1001>
 	<cfquery name="d" datasource="uam_god">
 		select id,scientific_name from ttaxonomy where
 		ccnametry is null and
@@ -8,7 +8,6 @@
 		rownum<#numr#
 	</cfquery>
 	<br>query D took #(getTickCount()-startTime)#ms
-	<cfdump var=#d#>
 	<cfloop query="d">
 			
 			<!---
@@ -21,7 +20,6 @@
 			<cftry>
 			
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
-			<cfdump var=#cfhttp#>
 				<cfset x=xmlparse(cfhttp.filecontent)>
 				<cftransaction>
 					<cfloop index="i" from="1" to="#ArrayLen(x.results.result[1].common_names.xmlChildren)#" step="1">
