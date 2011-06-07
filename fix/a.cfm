@@ -8,7 +8,6 @@
 		rownum<#numr#
 	</cfquery>
 	<br>query D took #(getTickCount()-startTime)#ms
-	<cfdump var=#d#>
 	<cfloop query="d">
 			
 			<!---
@@ -19,7 +18,7 @@
 			
 			---->
 			
-			
+			<cftry>
 			
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
 			<cfdump var=#cfhttp#>
@@ -44,8 +43,12 @@
 						update ttaxonomy set ccnametry=1 where id=#id#
 					</cfquery>
 				</cftransaction>
-			
-			
+				<cfcatch>
+					<cfquery name="s" datasource="uam_god">
+						update ttaxonomy set ccnametry=99,fu='#cfcatch.detail#; ' || fu where id=#id#
+					</cfquery>
+				</cfcatch>
+			</cftry>
 			
 			
 			
