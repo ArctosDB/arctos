@@ -43,7 +43,7 @@
 				</cftransaction>
 				<cfcatch>
 					<cfquery name="s" datasource="uam_god">
-						update ttaxonomy set ccnametry=99,fu='#cfcatch.detail#; ' || fu where id=#id#
+						update ttaxonomy set ccnametry=99,fu2='#cfcatch.detail#' where id=#id#
 					</cfquery>
 				</cfcatch>
 			</cftry>
