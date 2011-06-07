@@ -8,16 +8,16 @@
 		rownum<#numr#
 	</cfquery>
 	<br>query D took #(getTickCount()-startTime)#ms
+	<cfdump var=#d#>
 	<cfloop query="d">
 			
 			<!---
 			
-			<cfthread action="run" name="t#id#" id="#d.id#" scientific_name="#d.scientific_name#">
 				
-			</cfthread>
 			
 			---->
-			
+						<cfthread action="run" name="t#id#" id="#d.id#" scientific_name="#d.scientific_name#">
+
 			<cftry>
 			
 			<cfhttp method="get" url="http://www.catalogueoflife.org/webservice?response=full&name=#scientific_name#"></cfhttp>
@@ -49,7 +49,8 @@
 					</cfquery>
 				</cfcatch>
 			</cftry>
-			
+						</cfthread>
+
 			
 			
 			<!---
