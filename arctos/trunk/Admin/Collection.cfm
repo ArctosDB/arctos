@@ -33,9 +33,9 @@
 			COLLECTION_ID,
 			WEB_LINK,
 			WEB_LINK_TEXT,
-			genbank_prid,
-			genbank_username,
-			genbank_pwd,
+			--genbank_prid,
+			--genbank_username,
+			--genbank_pwd,
 			loan_policy_url,
 			guid_prefix,
 			allow_prefix_suffix
@@ -73,12 +73,14 @@
 					<input type="text" name="web_link" id="web_link" value="#colls.web_link#" size="50">
 					<label for="web_link_text">Link Text</label>
 					<input type="text" name="web_link_text" id="web_link_text" value='#colls.web_link_text#' size="50">
+					<!---
 					<label for="genbank_prid">GenBank PRID</label>
 					<input type="text" name="genbank_prid" id="genbank_prid" value='#colls.genbank_prid#' size="50">
 					<label for="genbank_username">GenBank Username</label>
 					<input type="text" name="genbank_username" id="genbank_username" value='#colls.genbank_username#' size="50">
 					<label for="genbank_pwd">GenBank Password</label>
 					<input type="text" name="genbank_pwd" id="genbank_pwd" value='#colls.genbank_pwd#' size="50">
+					--->
 					<label for="descr">Loan Policy URL</label>
 					<input type="text" name="loan_policy_url" id="loan_policy_url" value='#colls.loan_policy_url#' size="50">
 					<label for="allow_prefix_suffix">Allow catnum prefix/suffix?</label>
@@ -357,9 +359,9 @@
 			DESCR='#descr#',
 			web_link='#web_link#',
 			web_link_text='#web_link_text#',
-			genbank_prid=#genbank_prid#,
-			genbank_username='#genbank_username#',
-			genbank_pwd='#genbank_pwd#',
+			--genbank_prid=#genbank_prid#,
+			--genbank_username='#genbank_username#',
+			--genbank_pwd='#genbank_pwd#',
 			loan_policy_url='#loan_policy_url#',
 			allow_prefix_suffix=#allow_prefix_suffix#		
 		WHERE COLLECTION_ID = #collection_id#
