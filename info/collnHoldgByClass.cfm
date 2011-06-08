@@ -4,7 +4,7 @@
 <script src="/includes/sorttable.js"></script>
 <cfquery name="d" datasource="uam_god">
 	select 
-		phylclass,
+		nvl(phylclass,'NULL') phylclass,
 		collection.collection_id,
 		collection,
 		count(*) c
