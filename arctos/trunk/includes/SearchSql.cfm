@@ -472,10 +472,12 @@
 	</cfif>
 	<cfif left(phylclass,1) is '='>
 		<cfset basQual = " #basQual# AND upper(taxonomy.phylclass) = '#ucase(right(phylclass,len(phylclass)-1))#'">
+	<cfelseif compare(phylclass,"NULL") is 0>
+		<cfset basQual = " #basQual# AND taxonomy.phylclass is NULL">
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(taxonomy.phylclass) like '%#ucase(phylclass)#%'">
 	</cfif>
-</cfif>
+</cfif>	
 <cfif isdefined("any_taxa_term") AND len(any_taxa_term) gt 0>
 	<cfset mapurl = "#mapurl#&any_taxa_term=#any_taxa_term#">
 	<cfset basJoin = " #basJoin# inner join taxa_terms on (#session.flatTableName#.collection_object_id = taxa_terms.collection_object_id)">
