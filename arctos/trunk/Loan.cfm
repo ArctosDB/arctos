@@ -1433,11 +1433,22 @@
 				<option value="/Reports/report_printer.cfm?transaction_id=#valuelist(allLoans.transaction_id)#">Reporter</option>
 			</select>
 	</cfif>
-	
-	<cfdump var=#form#>
-</cfoutput>
+	<cfset rURL="Loan.cfm?csv=true">
+	<cfloop list="#StructKeyList(form)#" index="key">
+		<cfif len(form[key]) gt 0>
+			<cfset rURL='#rURL#&#key#=#form[key]#'>
+		 </cfif>
+	</cfloop>
+	#rurl#
+	</cfoutput>
 	<table>
 	<cfset i=1>
+	<cfif not isdefined("csv")>
+		<cfset csv=false>
+	</cfif>
+	<cfif csv is true>
+		CSV!!
+	</cfif>
 	<cfoutput query="allLoans" group="transaction_id">
 		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 			<td>
