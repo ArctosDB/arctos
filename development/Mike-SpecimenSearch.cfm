@@ -1,3 +1,9 @@
+<!--- There are no changes to be made to this .cfm, except
+	that we need to redirect it temporarily to use
+	Mike-SpecimenResults.cfm instead of SpecimenResults.cfm. 
+	  Go to Line 560 to see the comment marking how this
+	change is going to be made (and where). --->
+
 <cfinclude template="/includes/_header.cfm">
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
@@ -10,6 +16,10 @@
 <cfquery name="ctmedia_type" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 	select media_type from ctmedia_type order by media_type
 </cfquery>
+
+<!--- Note that SpecimenResults.cfm is mentioned in this query, but
+	it doesn't seem to make a difference if the name is a little different. --->
+
 <cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select SEARCH_NAME,URL
 	from cf_canned_search,cf_users
@@ -68,7 +78,7 @@
 		<td valign="top">
 			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
 		</td>
-		<td align="right" valign="top">
+		<td align="right" valign="top"> 
 			&nbsp;&nbsp;&nbsp;See&nbsp;results&nbsp;as:
 		</td>
 		<td valign="top">
@@ -556,9 +566,15 @@
 			}
 		}
 	}
+	
+	// This is where all the data gets sent over to SpecimenResults.cfm.
+	// tvalue gets determined by which display option you have set
+	// when to finally hit the search button, and SpecimenResults is the
+	// default. tvalue needs to be set to SpecimenResults.cfm.
+	
 	function changeTarget(id,tvalue) {
 		if(tvalue.length == 0) {
-			tvalue='development/Mike-SpecimenResults.cfm';
+			tvalue='SpecimenResults.cfm';
 		}
 		if (id =='tgtForm1') {
 			var otherForm = document.getElementById('tgtForm');

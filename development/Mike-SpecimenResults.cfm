@@ -447,6 +447,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 </div>
 </form>
 
+<!--- The JS function "getSpecResultsData"--->
+
 <div id="resultsGoHere"></div>
 <script language="javascript" type="text/javascript">
 	getSpecResultsData(1,#session.displayrows#);
