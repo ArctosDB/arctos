@@ -1579,18 +1579,23 @@
 		
 		<cfif csv is true>
 			<cfset d='"#escapeDoubleQuotes(collection)# #escapeDoubleQuotes(loan_number)#"'>
-			<cfset d=d&',"#c.c#","#escapeDoubleQuotes(rec_agent)#"'>
-			<cfset d=d&',"#escapeDoubleQuotes(nature_of_material)#","#escapeDoubleQuotes(loan_type)#"'>
-			<cfset d=d&',"#escapeDoubleQuotes(loan_type)#"'>
-			<cfset d=d&',"#escapeDoubleQuotes(loan_status)#"'>
-			<cfset d=d&',"#escapeDoubleQuotes(return_due_date)#"'>
-			<cfset d=d&',"#dateformat(trans_date,"yyyy-mm-dd")#"'>
-			<cfset d=d&',"#escapeDoubleQuotes(loan_instructions)#"'>
-			<cfset d=d&',"#escapeDoubleQuotes(auth_agent)#"'>
-			<cfset d=d&',"#escapeDoubleQuotes(ent_agent)#"'>
-			<cfset d=d&',"#escapeDoubleQuotes(trans_remarks)#"'>
-			<cfset d=d&',"#escapeDoubleQuotes(loan_description)#"'>
-			<cfset d=d&',"#escapeDoubleQuotes(valuelist(p.project_name))#"'>
+			
+			
+			<cfset d=d &',"#c.c#","#escapeDoubleQuotes(rec_agent)#"'>
+			
+			
+			
+			<cfset d=d &',"#escapeDoubleQuotes(nature_of_material)#","#escapeDoubleQuotes(loan_type)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(loan_type)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(loan_status)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(return_due_date)#"'>
+			<cfset d=d &',"#dateformat(trans_date,"yyyy-mm-dd")#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(loan_instructions)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(auth_agent)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(ent_agent)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(trans_remarks)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(loan_description)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(valuelist(p.project_name))#"'>
 			<cfscript>
 				variables.joFileWriter.writeLine(d);
 			</cfscript>
