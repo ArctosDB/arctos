@@ -1433,6 +1433,8 @@
 				<option value="/Reports/report_printer.cfm?transaction_id=#valuelist(allLoans.transaction_id)#">Reporter</option>
 			</select>
 	</cfif>
+	
+	<cfdump var=#variables#>
 </cfoutput>
 	<table>
 	<cfset i=1>
