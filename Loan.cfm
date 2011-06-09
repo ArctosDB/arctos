@@ -1578,8 +1578,9 @@
 		</tr>
 		
 		<cfif csv is true>
-			<cfset d='"#escapeDoubleQuotes(collection)# #escapeDoubleQuotes(loan_number)#","#c.c#","#escapeDoubleQuotes(rec_agent)#"'>
-			<cfset d=d&',"escapeDoubleQuotes(#nature_of_material)#","#escapeDoubleQuotes(loan_type)#"'>
+			<cfset d='"#escapeDoubleQuotes(collection)# #escapeDoubleQuotes(loan_number)#"'>
+			<cfset d=d&',"#c.c#","#escapeDoubleQuotes(rec_agent)#"'>
+			<cfset d=d&',"#escapeDoubleQuotes(nature_of_material)#","#escapeDoubleQuotes(loan_type)#"'>
 			<cfset d=d&',"#escapeDoubleQuotes(loan_type)#"'>
 			<cfset d=d&',"#escapeDoubleQuotes(loan_status)#"'>
 			<cfset d=d&',"#escapeDoubleQuotes(return_due_date)#"'>
