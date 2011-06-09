@@ -1434,7 +1434,7 @@
 			</select>
 	</cfif>
 	
-	<cfdump var=#variables#>
+	<cfdump var=#form#>
 </cfoutput>
 	<table>
 	<cfset i=1>
