@@ -1082,6 +1082,11 @@ function ProperMod(y,x) {
 	<cfset inStr = trim(inStr)>
 	<cfreturn inStr>
 </cffunction>
+<cffunction name="escapeDoubleQuotes" returntype="string" output="false">
+	<cfargument name="inStr" type="string">
+	<cfset inStr = replace(inStr,'"','""',"all")>
+	<cfreturn inStr>
+</cffunction>
 <cffunction name="escapeQuotes" returntype="string" output="false">
 	<cfargument name="inStr" type="string">
 	<cfset inStr = replace(inStr,"'","''","all")>
