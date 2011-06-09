@@ -1585,7 +1585,7 @@
 			
 			
 			
-			<cfset d=d &',"#escapeDoubleQuotes(nature_of_material)#","#escapeDoubleQuotes(loan_type)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(nature_of_material)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(loan_type)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(loan_status)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(return_due_date)#"'>
