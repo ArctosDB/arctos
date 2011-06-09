@@ -1439,7 +1439,7 @@
 			<cfset rURL='#rURL#&#key#=#form[key]#'>
 		 </cfif>
 	</cfloop>
-	#rurl#
+	<br><a href="#rURL#">[ download CSV ]</a>
 	</cfoutput>
 	<table>
 	<cfset i=1>
@@ -1576,15 +1576,9 @@
 				</table>
 			</td>
 		</tr>
-		
 		<cfif csv is true>
 			<cfset d='"#escapeDoubleQuotes(collection)# #escapeDoubleQuotes(loan_number)#"'>
-			
-			
 			<cfset d=d &',"#c.c#","#escapeDoubleQuotes(rec_agent)#"'>
-			
-			
-			
 			<cfset d=d &',"#escapeDoubleQuotes(nature_of_material)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(loan_type)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(loan_status)#"'>
@@ -1599,22 +1593,7 @@
 			<cfscript>
 				variables.joFileWriter.writeLine(d);
 			</cfscript>
-		</cfif>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		</cfif>		
 		<cfset i=#i#+1>
 	</cfoutput>
 	<cfif csv is true>
