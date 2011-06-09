@@ -1447,7 +1447,14 @@
 		<cfset csv=false>
 	</cfif>
 	<cfif csv is true>
-		CSV!!
+		<cfset dlFile = "ArctosLoanData.csv">
+		<cfset variables.fileName="#Application.webDirectory#/download/#dlFile#">
+	<cfset variables.encoding="UTF-8">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			d='loan_number,item_count,Recipient,nature_of_material,loan_type,loan_status,return_due_date,Transaction_Date,loan_instructions,auth_agent,ent_agent,trans_remarks,loan_description,Project';
+		 	variables.joFileWriter.writeLine(d);
+	</cfscript>		
 	</cfif>
 	<cfoutput query="allLoans" group="transaction_id">
 		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
@@ -1569,8 +1576,47 @@
 				</table>
 			</td>
 		</tr>
+		
+		<cfif csv is true>
+			<cfset d='"#escapeDoubleQuotes(collection)# #escapeDoubleQuotes(loan_number)#","#c.c#","#escapeDoubleQuotes(rec_agent)#"'>
+			<cfset d=d&',"escapeDoubleQuotes(#nature_of_material)#","#escapeDoubleQuotes(loan_type)#"'>
+			<cfset d=d&',"#escapeDoubleQuotes(loan_type)#"'>
+			<cfset d=d&',"#escapeDoubleQuotes(loan_status)#"'>
+			<cfset d=d&',"#escapeDoubleQuotes(return_due_date)#"'>
+			<cfset d=d&',"#dateformat(trans_date,"yyyy-mm-dd")#"'>
+			<cfset d=d&',"#escapeDoubleQuotes(loan_instructions)#"'>
+			<cfset d=d&',"#escapeDoubleQuotes(auth_agent)#"'>
+			<cfset d=d&',"#escapeDoubleQuotes(ent_agent)#"'>
+			<cfset d=d&',"#escapeDoubleQuotes(trans_remarks)#"'>
+			<cfset d=d&',"#escapeDoubleQuotes(loan_description)#"'>
+			<cfset d=d&',"#escapeDoubleQuotes(valuelist(p.project_name))#"'>
+			<cfscript>
+				variables.joFileWriter.writeLine(d);
+			</cfscript>
+		</cfif>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<cfset i=#i#+1>
 	</cfoutput>
+	<cfif csv is true>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=#dlFile#" addtoken="false">
+	</cfif>
 </table>
 </cfif>
 <cfinclude template="includes/_footer.cfm">
