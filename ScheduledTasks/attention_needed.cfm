@@ -29,6 +29,7 @@
 				collection,
 				ADDRESS
 		</cfquery>
+		<cfdump var=#contacts#>
 		<cfloop query="contacts">
 			<!---
 			<cfmail to="#ADDRESS#" subject="Pending Relationships" cc="arctos.database@gmail.com" from="reminder@#Application.fromEmail#" type="html">
