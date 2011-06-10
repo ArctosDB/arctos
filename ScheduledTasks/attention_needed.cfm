@@ -9,9 +9,6 @@
 			select 
 				count(*) c,
 				collection,
-				insert_date,
-				LASTTRYDATE,
-				(sysdate - insert_date) gap,
 				ADDRESS
 			from
 				cf_temp_relations,
@@ -30,9 +27,6 @@
 				ADDRESS_TYPE='e-mail'
 			group by insert_date,
 				collection,
-				insert_date,
-				LASTTRYDATE,
-				(sysdate - insert_date),
 				ADDRESS
 		</cfquery>
 		<cfloop query="contacts">
