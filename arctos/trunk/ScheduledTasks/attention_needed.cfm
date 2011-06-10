@@ -25,7 +25,7 @@
 				sysdate - insert_date  >30 and
 				related_collection_object_id is null and
 				ADDRESS_TYPE='e-mail'
-			group by insert_date,
+			group by
 				collection,
 				ADDRESS
 		</cfquery>
