@@ -129,7 +129,7 @@ function removeHelpDiv() {
 
 	<cfset basQual = "">
 	<cfset mapurl="">
-	<cfinclude template="includes/SearchSql.cfm">
+	<cfinclude template="trunk/includes/SearchSql.cfm">
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 	
