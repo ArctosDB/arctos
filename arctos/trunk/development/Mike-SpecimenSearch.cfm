@@ -574,7 +574,7 @@
 	
 	function changeTarget(id,tvalue) {
 		if(tvalue.length == 0) {
-			tvalue='SpecimenResults.cfm';
+			tvalue='development/Mike-SpecimenResults.cfm';
 		}
 		if (id =='tgtForm1') {
 			var otherForm = document.getElementById('tgtForm');
