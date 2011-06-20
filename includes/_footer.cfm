@@ -12,10 +12,7 @@
 					<a href="/Collections/index.cfm"><font size="-1">Data Providers</font></a>
 				</li>
 				<li>
-					<a href="/info/bugs.cfm"><font size="-1">Report Errors</font></a>
-				</li>
-				<li>
-					<a HREF="/contact.cfm"><font size="-1">Contact Us</font></a>
+					<a HREF="/contact.cfm"><font size="-1">Contact</font></a>
 				</li>
 			</ul>
 		</td>
