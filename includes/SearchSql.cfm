@@ -548,8 +548,7 @@
 <cfif isdefined("begYear") AND len(begYear) gt 0>
 	<cfif not isnumeric(begYear) or len(begYear) is not 4>
 		<div class="error">
-			Begin year must be a 4-digit number. 
-			See <a target="_blank" href="http://g-arctos.appspot.com/arctosdoc/date.html">About Arctos Dates</a>
+			Begin year must be a 4-digit number.
 		</div>
 		<script>hidePageLoad();</script>
 		<cfabort>
