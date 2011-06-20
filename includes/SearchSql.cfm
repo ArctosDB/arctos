@@ -565,9 +565,14 @@
 	<cfset mapurl = "#mapurl#&begDay=#begDay#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,9,2)) >= #begDay#">
 </cfif>
-
-
 <cfif isdefined("endYear") AND len(endYear) gt 0>
+	<cfif not isYear(begYear)>
+		<div class="error">
+			End year must be a 4-digit number.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
 	<cfset mapurl = "#mapurl#&endYear=#endYear#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.ended_date,1,4)) <= #endYear#">
 </cfif>
