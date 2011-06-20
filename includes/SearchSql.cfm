@@ -546,7 +546,7 @@
 </cfif>
 
 <cfif isdefined("begYear") AND len(begYear) gt 0>
-	<cfif not isnumeric(begYear) or len(begYear) is not 4>
+	<cfif not isYear(begYear)>
 		<div class="error">
 			Begin year must be a 4-digit number.
 		</div>
