@@ -4,6 +4,6 @@ hi
 <cfset list = "1999,1.234,1.23,bob">
 <cfoutput>
 <cfloop list="#list#" index="s" delimiters=",">
-#yesNoFormat(isYear(s))# - #s#<br>
+#isYear(s)# - #s#<br>
 </cfloop>
 </cfoutput>
