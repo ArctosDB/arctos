@@ -1,3 +1,4 @@
+<cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
 	
 	<cfquery name="d" datasource="uam_god">
