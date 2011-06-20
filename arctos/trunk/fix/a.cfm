@@ -1,11 +1,9 @@
-<cfinclude template="/includes/functionLib.cfm">
-hi
-
-<cfset list = "1999,1.234,1.23,bob">
 <cfoutput>
-<cfloop list="#list#" index="s" delimiters=",">
-	- #s# -<cfif isYear(s)>
-		yep
-	</cfif><br>
-</cfloop>
+	
+	<cfquery name="d" datasource="uam_god">
+		select name from ttccommonname where name like '%,%'
+	</cfquery>
+	<cfloop query="d">
+		#name#<br>
+	</cfloop>
 </cfoutput>
