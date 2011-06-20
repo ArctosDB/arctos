@@ -1,7 +1,7 @@
 <cfinclude template="/includes/functionLib.cfm">
-<cfset list = "www.foo.com,http://www.foo.com,http://intranet/foo/foo.htm,http:/noslash.com">
+<cfset list = "1999,1.234,1.23,bob">
 <cfoutput>
 <cfloop list="#list#" index="s">
-#yesNoFormat(isURL(s))# - #s#<br>
+#yesNoFormat(isYear(s))# - #s#<br>
 </cfloop>
 </cfoutput>

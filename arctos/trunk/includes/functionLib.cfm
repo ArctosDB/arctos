@@ -12,7 +12,10 @@ function isURL(stringToCheck){
        var URLRegEx = "(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?ÇÈ]))";
        return isValid("regex", stringToCheck, URLRegex);
 }
-
+function isYear(x){
+       var d = "^[1-9][0-9]{3}$";
+       return isValid("regex", x, d);
+}
 </cfscript>
 
 <!---
