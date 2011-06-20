@@ -125,6 +125,9 @@
 	<cfscript>
 		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
 	</cfscript>
+	<cfif serverName is "web.arctos.database.museum">
+		<cfset serverName="arctos.database.museum">
+	</cfif>
 	<cfset Application.session_timeout=90>
 	<cfset Application.serverRootUrl = "http://#serverName#">
 	<cfset Application.user_login="user_login">

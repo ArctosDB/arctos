@@ -20,11 +20,12 @@
 	<cfset captcha = makeRandomString()>
 	<cfset captchaHash = hash(captcha)>
 	<h2>Contact the Arctos folks</h2>
+	<p>Data problems? Use a "report bad data" link if there's one available.</p>
 	<cfform action="contact.cfm" method="post" name="contact">
 		<input type="hidden" name="action" value="sendMail">
 		<label for="name">Your Name or Arctos username (required)</label>
 		<cfinput type="text" id="name" name="name" size="60" value="#session.username#" required="true" class="reqdClr">
-		<label for="email">Your Email Address (required)</label>
+		<label for="email">Your Email Address (required - we'll never share it)</label>
 		<cfinput type="text" id="email" name="email" size="60" validate="email" required="true" class="reqdClr">
 		<label for="msg">Your Message for us (20 characters minimum)</label>
 		<cftextarea name="msg" id="msg" rows="10" cols="50" required="true" class="reqdClr"></cftextarea>

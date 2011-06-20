@@ -514,8 +514,6 @@
 	<cfset mapurl = "#mapurl#&identified_agent=#identified_agent#">
 	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.IDENTIFIEDBY) LIKE '%#ucase(identified_agent)#%'">			
 </cfif>
-
-
 <cfif isdefined("begDate") AND len(begDate) gt 0>		
 	<cfset mapurl = "#mapurl#&begDate=#begDate#">
 	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -548,6 +546,14 @@
 </cfif>
 
 <cfif isdefined("begYear") AND len(begYear) gt 0>
+	<cfif not isnumeric(begYear) or len(begYear) is not 4>
+		<div class="error">
+			Begin year must be a 4-digit number. 
+			See <a target="_blank" href="http://g-arctos.appspot.com/arctosdoc/date.html">About Arctos Dates</a>
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
 	<cfset mapurl = "#mapurl#&begYear=#begYear#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) >= #begYear#">
 </cfif>

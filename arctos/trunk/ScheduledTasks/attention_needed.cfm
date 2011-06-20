@@ -1,10 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfif dateformat(now(),"dd") is not 1>
 		This only runs on the first day of the month.
+		<cfabort>
 	</cfif>
 	<cfoutput>
-		<!--- 		<cfabort>
- pending relationships that have been in the table for >30d ---->
+		<!--- pending relationships that have been in the table for >30d ---->
 		<cfquery name="contacts" datasource="uam_god">
 			select 
 				count(*) c,
@@ -29,24 +29,15 @@
 				collection,
 				ADDRESS
 		</cfquery>
-		<cfdump var=#contacts#>
 		<cfloop query="contacts">
-			<!---
 			<cfmail to="#ADDRESS#" subject="Pending Relationships" cc="arctos.database@gmail.com" from="reminder@#Application.fromEmail#" type="html">
-			</cfmail>
-			--->
-			<hr>
-			 to="#ADDRESS#" subject="Pending Relationships" <br>
 				You are receiving this message because you are listed as a contact for Arctos collection #collection#.
 				<br>
 				There are #c# #collection# items in the Pending Relationships table that have been processing for more than
 				30 days. These probably require your attention.
 				<br>
 				See #application.serverRootUrl#/tools/pendingRelations.cfm?action=showStatus for more detail.
-			
+			</cfmail>
 		</cfloop>
-		
 	</cfoutput>
-	
-	
 <cfinclude template="/includes/_footer.cfm">
