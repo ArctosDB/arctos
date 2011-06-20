@@ -4,6 +4,10 @@
 		select name from ttccommonname where name like '%,%'
 	</cfquery>
 	<cfloop query="d">
-		#name#<br>
+		<hr>#name#
+		<br>
+		<cfloop list="#name#" index="I">
+			<br>#i#<br>
+		</cfloop>
 	</cfloop>
 </cfoutput>
