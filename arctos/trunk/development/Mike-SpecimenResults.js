@@ -621,9 +621,9 @@ function success_getSpecResultsData(result){
 								fileName = wavDownloadUrl.split('/')[len - 1].replace('.wav', ''),
 								mp3DownloadUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
 								oggDownloadUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg',
-								wavPlaybackUrl = wavDownloadUrl.replace('web', 'goodnight'),
-								mp3PlaybackUrl = mp3DownloadUrl.replace('web', 'goodnight'),
-								oggPlaybackUrl = oggDownloadUrl.replace('web', 'goodnight'),
+								wavPlaybackUrl = wavDownloadUrl,
+								mp3PlaybackUrl = mp3DownloadUrl,
+								oggPlaybackUrl = oggDownloadUrl,
 			// Need to get browser to use this: ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>',
 								html5 = '<audio controls preload="auto" autobuffer>' + 
 									'    <source src="' + mp3PlaybackUrl + '" />' +
