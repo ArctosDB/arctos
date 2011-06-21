@@ -26,14 +26,23 @@
 		<label for="name">Your Name or Arctos username (required)</label>
 		<cfinput type="text" id="name" name="name" size="60" value="#session.username#" required="true" class="reqdClr">
 		<label for="email">Your Email Address (required - we'll never share it)</label>
-		<cfinput type="text" id="email" name="email" size="60" validate="email" required="true" class="reqdClr">
+		<cfset eml=''>
+		<cfif len(session.username) gt 0>
+			<cfquery name='temail' datasource="cf_dbuser">
+				select email from cf_users,cf_user_data where
+				cf_users.user_id=cf_user_data.user_id and
+				username='#session.username#'
+			</cfquery>
+			<cfset eml=temail.email>
+		</cfif>
+		<cfinput type="text" id="email" name="email" size="60" value='#eml#' validate="email" required="true" class="reqdClr">
 		<label for="msg">Your Message for us (20 characters minimum)</label>
 		<cftextarea name="msg" id="msg" rows="10" cols="50" required="true" class="reqdClr"></cftextarea>
 		<label for="captcha">Can't read the text? Just reload to get a new CAPTCHA.</label>
 	    <cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low">
 	   	<br>
 		<label for="captcha">Enter the text above. Case doesn't matter. (required)</label>
-	    <cfinput type="text" name="captcha" id="captcha" class="reqdClr" size="60">
+	    <cfinput type="text" name="captcha" id="captcha" <cfif len(session.username) gt 0> value='#captcha#'</cfif>class="reqdClr" size="60">
 	    <cfinput type="hidden" name="captchaHash" value="#captchaHash#">
 	    <br><cfinput name="s" type="submit" value="Send Message" class="savBtn">
 	</cfform>
