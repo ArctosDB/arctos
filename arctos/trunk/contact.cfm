@@ -42,7 +42,7 @@
 	    <cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low">
 	   	<br>
 		<label for="captcha">Enter the text above. Case doesn't matter. (required)</label>
-	    <cfinput type="text" name="captcha" id="captcha" <cfif len(session.username) gt 0> value="#captcha#"</cfif>class="reqdClr" size="60">
+	    <cfinput type="text" name="captcha" id="captcha" class="reqdClr" size="60" <cfif len(session.username) gt 0> value="#captcha#"</cfif>>
 	    <cfinput type="hidden" name="captchaHash" value="#captchaHash#">
 	    <br><cfinput name="s" type="submit" value="Send Message" class="savBtn">
 	</cfform>
