@@ -578,9 +578,6 @@ function success_getSpecResultsData(result){
 			} else {
 				theInnerHtml += '<tr class="evenRow">';
 			}
-
-			
-			
 				if (killrow == 1){
 					theInnerHtml += '<td align="center"><input type="checkbox" onchange="toggleKillrow(' + "'";
 					theInnerHtml +=data.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
@@ -624,7 +621,8 @@ function success_getSpecResultsData(result){
 								}
 							}
 
-							theInnerHtml += '<div class="one_thumb" style=width:300>';
+							theInnerHtml += '<div class="one_thumb">';
+							theInnerHtml += '<td style=width:300>';
 		// Set up media player container and calculate links.
 		theInnerHtml += '<div id="sm2-container">';
 		var wavDownloadUrl = '/media/'+thisMedia.DATA.media_uri[m],
@@ -649,6 +647,7 @@ function success_getSpecResultsData(result){
 
 		theInnerHtml += html5;
 		theInnerHtml += links;
+		theInnerHtml += '</td>';
 		theInnerHtml += '</div>';}
 
 					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
