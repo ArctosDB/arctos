@@ -27,6 +27,7 @@
 		<cfinput type="text" id="name" name="name" size="60" value="#session.username#" required="true" class="reqdClr">
 		<label for="email">Your Email Address (required - we'll never share it)</label>
 		<cfset eml=''>
+		<cfset v="">
 		<cfif len(session.username) gt 0>
 			<cfquery name='temail' datasource="cf_dbuser">
 				select email from cf_users,cf_user_data where
@@ -34,6 +35,7 @@
 				username='#session.username#'
 			</cfquery>
 			<cfset eml=temail.email>
+			<cfset v=captcha>
 		</cfif>
 		<cfinput type="text" id="email" name="email" size="60" value='#eml#' validate="email" required="true" class="reqdClr">
 		<label for="msg">Your Message for us (20 characters minimum)</label>
@@ -42,7 +44,7 @@
 	    <cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low">
 	   	<br>
 		<label for="captcha">Enter the text above. Case doesn't matter. (required)</label>
-	    <cfinput type="text" name="captcha" id="captcha" class="reqdClr" size="60" <cfif len(session.username) gt 0> value="#captcha#"</cfif>>
+	    <cfinput type="text" name="captcha" id="captcha" value="#v#" class="reqdClr" size="60">
 	    <cfinput type="hidden" name="captchaHash" value="#captchaHash#">
 	    <br><cfinput name="s" type="submit" value="Send Message" class="savBtn">
 	</cfform>
