@@ -610,12 +610,10 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>';
 					theInnerHtml += '<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 						var thisMedia=JSON.parse(data.MEDIA[i]);
-						theInnerHtml += '<div class="one_thumb">';
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							if(thisMedia.DATA.mimecat[m]=='audio'){
+								theInnerHtml += '<div class="one_thumb_audio" 		  							  			style=float:left;width:300px;padding:1px;height:100px;text-align=center;>';
 								// Set up media player container.
-								var mimeCatVar = thisMedia.DATA.mimecat[m];
-								theInnerHtml += mimeCatVar;
 								theInnerHtml += '<div id="sm2-container">';
 								// Calculate the links and append to theInnerHtml.
 								var wavDownloadUrl = '/media/'+thisMedia.DATA.media_uri[m],
@@ -643,6 +641,7 @@ function success_getSpecResultsData(result){
 								theInnerHtml += '</div>';
 								// End audio media code.
 							} else {
+								theInnerHtml += '<div class="one_thumb">';
 								if(thisMedia.DATA.preview_uri[m].length > 0) {
 									pURI=thisMedia.DATA.preview_uri[m];
 								} else {
