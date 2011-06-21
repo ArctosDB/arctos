@@ -620,11 +620,12 @@ function success_getSpecResultsData(result){
 									pURI='/images/noThumb.jpg';
 								}
 							}
-
-							theInnerHtml += '<div class="one_thumb">';
-							theInnerHtml += '<td style=width:300>';
-		// Set up media player container and calculate links.
+		theInnerHtml += '<div class="one_thumb">';
+		// Need to modify the CSS to better fit the media player.
+		this.style.width = 300;
+		// Set up media player container.
 		theInnerHtml += '<div id="sm2-container">';
+		// Calculate the links and append to theInnerHtml.
 		var wavDownloadUrl = '/media/'+thisMedia.DATA.media_uri[m],
                 len = wavDownloadUrl.split('/').length,
                 fileName = wavDownloadUrl.split('/')[len - 1].replace('.wav', ''),
@@ -647,7 +648,6 @@ function success_getSpecResultsData(result){
 
 		theInnerHtml += html5;
 		theInnerHtml += links;
-		theInnerHtml += '</td>';
 		theInnerHtml += '</div>';}
 
 					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
