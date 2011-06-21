@@ -543,6 +543,8 @@
 						<cfif desc.recordcount is 1>
 							<cfset alt=desc.label_value>
 						</cfif>
+						
+						<!--- Here's one thumb; insert Aaron's code here later, when we have access to this .cfm. --->
 		               <div class="one_thumb">
 			               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
 		                   	<p>
