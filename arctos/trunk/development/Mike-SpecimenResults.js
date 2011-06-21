@@ -631,7 +631,7 @@ function success_getSpecResultsData(result){
 									'    <source src="' + wavPlaybackUrl + '" />' +
 									'</audio>',
 								links = '<div>' +                     
-									'    <div class="item"><a id="download" href="' + wavDownloadUrl + '">Download wav</a></div>' 
+									'    <div class="item"><a id="download" href="' + wavDownloadUrl + '">Download wav</a></div>' +
 									'    <div class="item"><a id="download" href="' + mp3DownloadUrl + '">Download mp3</a></div>' +
 									'    <div class="item"><a id="download" href="' + oggDownloadUrl + '">Download ogg</a></div>' +
 									'</div>';
