@@ -81,7 +81,7 @@ function insertMedia(idList) {
 					}
 					if (sel.length>0){
 						var el=document.getElementById(sel);
-						var ns='<a href="/Mike-MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
+						var ns='<a href="Mike-MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
 						ns+='Media';
 						ns+='</a>';
 						el.innerHTML+=ns;
