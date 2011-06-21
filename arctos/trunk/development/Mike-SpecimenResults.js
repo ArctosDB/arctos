@@ -614,6 +614,8 @@ function success_getSpecResultsData(result){
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							if(thisMedia.DATA.mimecat[m]=='audio'){
 								// Set up media player container.
+								var mimeCatVar = thisMedia.DATA.mimecat[m];
+								theInnerHtml += mimeCatVar;
 								theInnerHtml += '<div id="sm2-container">';
 								// Calculate the links and append to theInnerHtml.
 								var wavDownloadUrl = '/media/'+thisMedia.DATA.media_uri[m],
