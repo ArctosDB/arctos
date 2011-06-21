@@ -64,7 +64,10 @@
 			A name is required to proceed. Please use your back button.
 			<cfabort>
 		</cfif>
-		<cfmail subject="Arctos Contact" to="#Application.technicalEmail#" from="contact@#application.fromEmail#" type="html">
+		<cfmail subject="Arctos Contact"
+			replyto="#email#" 
+			to="#Application.technicalEmail#" 
+			from="contact@#application.fromEmail#" type="html">
 			Name: #name#
 			<br>Email: #email#
 			<br>Message: #msg#
