@@ -652,8 +652,7 @@ function success_getSpecResultsData(result){
 								theInnerHtml += '<p>' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
 								theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';						}	
 						}
-					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
-					theInnerHtml += '</td>';
+					theInnerHtml += '</div></td>';
 					}			
 				theInnerHtml += '<td>';
 				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
