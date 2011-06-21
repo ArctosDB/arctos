@@ -621,10 +621,8 @@ function success_getSpecResultsData(result){
 								}
 							}
 		theInnerHtml += '<div class="one_thumb">';
-		// Need to modify the CSS to better fit the media player.
-		this.style.width = 300;
 		// Set up media player container.
-		theInnerHtml += '<div id="sm2-container">';
+		theInnerHtml += '<div id="sm2-container" style=width:300;height:200>';
 		// Calculate the links and append to theInnerHtml.
 		var wavDownloadUrl = '/media/'+thisMedia.DATA.media_uri[m],
                 len = wavDownloadUrl.split('/').length,
