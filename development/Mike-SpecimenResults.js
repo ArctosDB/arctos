@@ -608,7 +608,7 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
-					theInnerHtml += '<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
+					theInnerHtml += '<div class="shortThumb">';
 					var thisMedia=JSON.parse(data.MEDIA[i]);
 					for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 						if(thisMedia.DATA.mimecat[m]=='audio'){
