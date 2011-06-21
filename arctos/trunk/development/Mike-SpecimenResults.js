@@ -81,7 +81,7 @@ function insertMedia(idList) {
 					}
 					if (sel.length>0){
 						var el=document.getElementById(sel);
-						var ns='<a href="/MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
+						var ns='<a href="/Mike-MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
 						ns+='Media';
 						ns+='</a>';
 						el.innerHTML+=ns;
@@ -622,13 +622,34 @@ function success_getSpecResultsData(result){
 									pURI='/images/noThumb.jpg';
 								}
 							}
+
 							theInnerHtml += '<div class="one_thumb">';
-							theInnerHtml += 'This is a test.'
-							//theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">';
-							//theInnerHtml += '<img src="' + pURI + '" class="theThumb"></a>';
-							//theInnerHtml += '<p>' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
-							//theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';							
-						}
+		// Set up media player container and calculate links.
+		theInnerHtml += '<div id="sm2-container">';
+		var wavDownloadUrl = '/media/'+thisMedia.DATA.media_uri[m],
+                len = wavDownloadUrl.split('/').length,
+                fileName = wavDownloadUrl.split('/')[len - 1].replace('.wav', ''),
+                mp3DownloadUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
+                oggDownloadUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg',
+                wavPlaybackUrl = wavDownloadUrl.replace('web', 'goodnight'),
+                mp3PlaybackUrl = mp3DownloadUrl.replace('web', 'goodnight'),
+                oggPlaybackUrl = oggDownloadUrl.replace('web', 'goodnight'),
+                // ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>',
+                html5 = '<audio controls preload="auto" autobuffer>' + 
+                        '    <source src="' + mp3PlaybackUrl + '" />' +
+                        '    <source src="' + oggPlaybackUrl + '" />' +
+                        '    <source src="' + wavPlaybackUrl + '" />' +
+                        '</audio>',
+                links = '<div>' +                     
+                        '    <div class="item"><a id="download" href="' + wavDownloadUrl + '">Download wav</a></div>' +
+                        '    <div class="item"><a id="download" href="' + mp3DownloadUrl + '">Download mp3</a></div>' +
+                        '    <div class="item"><a id="download" href="' + oggDownloadUrl + '">Download ogg</a></div>' +
+                        '</div>';
+
+		theInnerHtml += html5;
+		theInnerHtml += links;
+		theInnerHtml += '</div>';}
+
 					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
 					theInnerHtml += '</td>';
 				}		
