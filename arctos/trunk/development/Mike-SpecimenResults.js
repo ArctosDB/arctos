@@ -82,7 +82,7 @@ function insertMedia(idList) {
 					if (sel.length>0){
 						var el=document.getElementById(sel);
 						// Redirects to Mike-MediaSearch.cfm.
-						var ns='<a href="development/Mike-MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
+						var ns='<a href="/Mike-MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
 						ns+='Media';
 						ns+='</a>';
 						el.innerHTML+=ns;
