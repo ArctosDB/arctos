@@ -81,7 +81,8 @@ function insertMedia(idList) {
 					}
 					if (sel.length>0){
 						var el=document.getElementById(sel);
-						var ns='<a href="Mike-MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
+						// Redirects to Mike-MediaSearch.cfm.
+						var ns='<a href="development/Mike-MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
 						ns+='Media';
 						ns+='</a>';
 						el.innerHTML+=ns;
@@ -623,7 +624,7 @@ function success_getSpecResultsData(result){
 								}
 							}
 
-							theInnerHtml += '<div class="one_thumb">';
+							theInnerHtml += '<div class="one_thumb" style=width:300>';
 		// Set up media player container and calculate links.
 		theInnerHtml += '<div id="sm2-container">';
 		var wavDownloadUrl = '/media/'+thisMedia.DATA.media_uri[m],
