@@ -608,7 +608,7 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
-					theInnerHtml += '<div class="shortThumb">';
+					// theInnerHtml += '<div class="shortThumb">';
 					var thisMedia=JSON.parse(data.MEDIA[i]);
 					for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 						if(thisMedia.DATA.mimecat[m]=='audio'){
@@ -652,7 +652,8 @@ function success_getSpecResultsData(result){
 								theInnerHtml += '<p>' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
 								theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';						}	
 						}
-					theInnerHtml += '</div></td>';
+					// theInnerHtml += '</div>';
+					theInnerHtml += '</td>';
 					}			
 				theInnerHtml += '<td>';
 				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
