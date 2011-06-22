@@ -78,7 +78,7 @@
 	<form ACTION="TaxonomyResults.cfm" METHOD="post" name="taxa">
 		<table width="90%" border="1" cellspacing="0" cellpadding="0">
 			<tr> 
-				<td rowspan="22" valign="top" align="left">
+				<td valign="top" align="left">
 					<table border="0" cellpadding="10" cellspacing="10">
 						<tr>
 							<td>
@@ -133,216 +133,220 @@
 						</tr>
 					</table>
 				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center" nowrap>
-					<input type="submit" value="Search"	class="schBtn">
-					&nbsp;&nbsp;
-					<input type="reset" value="Clear Form" class="clrBtn">
-					<input type="hidden" name="action" value="search">
-				</td>
-			</tr>
-			<tr>
-				<td align="right" nowrap>
-					<span class="helpLink" id="common_name"><strong>Common&nbsp;Name:</strong></span>
-				</td>
-				<td nowrap="nowrap"><input size="25" name="common_name" id="common_name" maxlength="50"></td>
-			</tr>
-			<tr>
-				<td align="right">
-					<span class="helpLink" id="taxonomy_scientific_name"><strong>Scientific&nbsp;Name:</strong></span>
-				</td>
-				<td nowrap="nowrap">
-					<input size="25" name="scientific_name" id="scientific_name" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('scientific_name');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">
-					<span class="helpLink" id="taxonomy_anything"><strong>Any&nbsp;Category:</strong></span>
-				</td>
-				<td nowrap="nowrap">
-					<input size="25" name="full_taxon_name" id="full_taxon_name" maxlength="50">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">
-					<span class="helpLink" id="author_text"><strong><nobr>Author Text:</nobr></strong></span>
-				</td>
-				<td nowrap="nowrap"><input size="25" name="author_text" id="author_text" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('author_text');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">
-					<span class="helpLink" id="infraspecific_author"><strong><nobr>Infraspecific Author Text:</nobr></strong></span>
-				</td>
-				<td nowrap="nowrap"><input size="25" name="infraspecific_author" id="infraspecific_author" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('infraspecific_author');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Genus:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="genus" id="genus" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('genus');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Species:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="species" id="species" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('species');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Subspecies:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="subspecies" id="subspecies" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Nomenclatural&nbsp;Code:</nobr></b></td>
-				<td nowrap="nowrap">
-					<select name="nomenclatural_code" id="nomenclatural_code" size="1">
-						<option></option>
-						<cfloop query="ctnomenclatural_code">
-							<option value="#nomenclatural_code#">#nomenclatural_code#</option>
-						</cfloop>
-					</select>							
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Kingdom:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="kingdom" id="kingdom" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('kingdom');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Phylum:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="phylum" id="phylum" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<!---
-			<cfquery name="ctClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select distinct(phylclass) from taxonomy order by phylclass
-			</cfquery>
-			---->
-			<tr>
-				<td align="right"><b><nobr>Class:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="phylclass" id="phylclass" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='='+e.value;">
-						Add = for exact match
-					</span>							
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Order:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="phylorder" id="phylorder" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Suborder:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="suborder" id="suborder" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('suborder');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Family:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="family" id="family" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('family');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td  align="right"><b><nobr>Subfamily:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="subfamily" id="subfamily" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Tribe:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="tribe" id="tribe" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><b><nobr>Subgenus:</nobr></b></td>
-				<td nowrap="nowrap">
-					<input size="25" name="subgenus" id="subgenus" maxlength="40">
-					<span class="infoLink" onclick="var e=document.getElementById('subgenus');e.value='='+e.value;">
-						Add = for exact match
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">
-					<span class="helpLink" id="_source_authority"><strong>Authority:</strong></span>
-				</td>
-				<td nowrap="nowrap">
-					<select name="source_authority" id="source_authority" size="1">
-						<option></option>
-						<cfloop query="CTTAXONOMIC_AUTHORITY">
-							<option value="#source_authority#">#source_authority#</option>
-						</cfloop>
-					</select>							
-				</td>
-			</tr>
-			<tr>
-				<td align="right">
-					<span class="helpLink" id="_taxon_status"><strong>Taxon Status:</strong></span>
-				</td>
-				<td nowrap="nowrap">
-					<select name="taxon_status" id="taxon_status" size="1">
-						<option></option>
-						<cfloop query="cttaxon_status">
-							<option value="#taxon_status#">#taxon_status#</option>
-						</cfloop>
-					</select>							
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="Search" class="schBtn">
-					&nbsp;&nbsp;
-					<input type="reset" value="Clear Form" class="clrBtn">
-					<input type="hidden" name="action" value="search">
+				<td>
+					<table border>
+						<tr>
+							<td colspan="2" align="center" nowrap>
+								<input type="submit" value="Search"	class="schBtn">
+								&nbsp;&nbsp;
+								<input type="reset" value="Clear Form" class="clrBtn">
+								<input type="hidden" name="action" value="search">
+							</td>
+						</tr>
+						<tr>
+							<td align="right" nowrap>
+								<span class="helpLink" id="common_name"><strong>Common&nbsp;Name:</strong></span>
+							</td>
+							<td nowrap="nowrap"><input size="25" name="common_name" id="common_name" maxlength="50"></td>
+						</tr>
+						<tr>
+							<td align="right">
+								<span class="helpLink" id="taxonomy_scientific_name"><strong>Scientific&nbsp;Name:</strong></span>
+							</td>
+							<td nowrap="nowrap">
+								<input size="25" name="scientific_name" id="scientific_name" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('scientific_name');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<span class="helpLink" id="taxonomy_anything"><strong>Any&nbsp;Category:</strong></span>
+							</td>
+							<td nowrap="nowrap">
+								<input size="25" name="full_taxon_name" id="full_taxon_name" maxlength="50">
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<span class="helpLink" id="author_text"><strong><nobr>Author Text:</nobr></strong></span>
+							</td>
+							<td nowrap="nowrap"><input size="25" name="author_text" id="author_text" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('author_text');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<span class="helpLink" id="infraspecific_author"><strong><nobr>Infraspecific Author Text:</nobr></strong></span>
+							</td>
+							<td nowrap="nowrap"><input size="25" name="infraspecific_author" id="infraspecific_author" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('infraspecific_author');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Genus:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="genus" id="genus" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('genus');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Species:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="species" id="species" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('species');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Subspecies:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="subspecies" id="subspecies" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Nomenclatural&nbsp;Code:</nobr></b></td>
+							<td nowrap="nowrap">
+								<select name="nomenclatural_code" id="nomenclatural_code" size="1">
+									<option></option>
+									<cfloop query="ctnomenclatural_code">
+										<option value="#nomenclatural_code#">#nomenclatural_code#</option>
+									</cfloop>
+								</select>							
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Kingdom:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="kingdom" id="kingdom" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('kingdom');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Phylum:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="phylum" id="phylum" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<!---
+						<cfquery name="ctClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+							select distinct(phylclass) from taxonomy order by phylclass
+						</cfquery>
+						---->
+						<tr>
+							<td align="right"><b><nobr>Class:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="phylclass" id="phylclass" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='='+e.value;">
+									Add = for exact match
+								</span>							
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Order:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="phylorder" id="phylorder" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Suborder:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="suborder" id="suborder" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('suborder');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Family:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="family" id="family" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('family');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td  align="right"><b><nobr>Subfamily:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="subfamily" id="subfamily" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Tribe:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="tribe" id="tribe" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Subgenus:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="subgenus" id="subgenus" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('subgenus');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<span class="helpLink" id="_source_authority"><strong>Authority:</strong></span>
+							</td>
+							<td nowrap="nowrap">
+								<select name="source_authority" id="source_authority" size="1">
+									<option></option>
+									<cfloop query="CTTAXONOMIC_AUTHORITY">
+										<option value="#source_authority#">#source_authority#</option>
+									</cfloop>
+								</select>							
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<span class="helpLink" id="_taxon_status"><strong>Taxon Status:</strong></span>
+							</td>
+							<td nowrap="nowrap">
+								<select name="taxon_status" id="taxon_status" size="1">
+									<option></option>
+									<cfloop query="cttaxon_status">
+										<option value="#taxon_status#">#taxon_status#</option>
+									</cfloop>
+								</select>							
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center">
+								<input type="submit" value="Search" class="schBtn">
+								&nbsp;&nbsp;
+								<input type="reset" value="Clear Form" class="clrBtn">
+								<input type="hidden" name="action" value="search">
+							</td>
+						</tr>
+					</table>
 				</td>
 			</tr>
 		</table>
