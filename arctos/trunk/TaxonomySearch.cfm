@@ -135,8 +135,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>&nbsp;</td>
-				<td align="center" nowrap>
+				<td colspan="2" align="center" nowrap>
 					<input type="submit" value="Search"	class="schBtn">
 					&nbsp;&nbsp;
 					<input type="reset" value="Clear Form" class="clrBtn">
@@ -339,8 +338,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap"><font size="-1">&nbsp;</font></td>
-				<td align="center">
+				<td colspan="2" align="center">
 					<input type="submit" value="Search" class="schBtn">
 					&nbsp;&nbsp;
 					<input type="reset" value="Clear Form" class="clrBtn">
