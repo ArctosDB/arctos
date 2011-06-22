@@ -232,7 +232,27 @@ Upload a file:
 		Fix this and reload - nothing's been saved.
 		<cfdump var=#d#>
 	<cfelse>
-		loading.......
+		<cftransaction>
+			<cfloop query="d">
+				<cfquery name="flagIT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update 
+						container 
+					set 
+						print_fg=#print_fg#,
+						container_type='#NEW_CONTAINER_TYPE#'
+					where 
+						container_id = #parent_container_id#						
+				</cfquery>
+				<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					UPDATE 
+						container 
+					SET 
+						parent_container_id = #parent_container_id#
+					 WHERE
+					container_id=#part_container_id#
+				</cfquery>
+			</cfloop>
+		</cftransaction>	
 	</cfif>
 </cfif>
 
@@ -242,72 +262,6 @@ Upload a file:
 
 
 
-
-			<!----
-				<cfif #cont.recordcount# is 1>
-					<!-----
-					disable for testing
-					
-						---->
-						<cfquery name="flagIT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							update container set print_fg=#print_fg#,container_type='#NEW_CONTAINER_TYPE#'
-							where container_id = #isGoodParent.container_id#						
-						</cfquery>
-						<cftransaction action="commit">
-						
-						<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							UPDATE container SET parent_container_id = #isGoodParent.container_id#
-							 WHERE
-							container_id=#cont.container_id#
-						</cfquery>
-					
-						
-						<cfquery name="catcollobj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							select distinct(derived_from_cat_item) FROM
-								specimen_part
-							WHERE
-								collection_object_id=#coll_obj.collection_object_id#
-				 		 </cfquery>
-						 <br />
-					You just put 
-					<a href="/SpecimenDetail.cfm?collection_object_id=#catcollobj.derived_from_cat_item#">
-					#other_id_type# #oidnum#</a>'s #part_name# 
-					into container 
-					<a href="/Container.cfm?barcode=#parent_barcode#&srch=container">#parent_barcode#</a>
-					<br>
-					
-				<cfelse>
-					<font color="##FF0000" size="+1">The part 
-					(#institution_acronym# #collection_cde# #other_id_type# #oidnum# #part_name#)
-					you tried to move doesn't exist as a container. That probably isn't your fault!
-					<a href="#Application.technicalEmail#">Email us</a>. Now!</font>				  <br>
-					<cftransaction action="rollback">
-				</cfif>
-				
-			<cfelse>
-				<font color="##FF0000" size="+1">The parent barcode you entered doesn't resolve to a valid barcode, or it's a collection object.
-				Barcoded containers must exist before you put things in them, and you can't put collection
-				 				objects into other collection objects.
-								<br>
-					(#institution_acronym# #collection_cde# #other_id_type# #oidnum# #part_name#)</font>	
-				<cftransaction action="rollback">		
-		  </cfif>
-			
-		<cfelseif #coll_obj.recordcount# is 0>			
-			<font color="##FF0000" size="+1">The part you entered doesn't exist!
-			<br>
-					(#institution_acronym# #collection_cde# #other_id_type# #oidnum# #part_name#)<br></font>		
-				<cftransaction action="rollback">
-			<cfelse>#coll_obj.recordcount#
-				<font color="##FF0000" size="+1">The part you entered exists #coll_obj.recordcount# times. That may be good data, but this form can't
-				handle it!
-				<br>
-					(#institution_acronym# #collection_cde# #other_id_type# #oidnum# #part_name#)<br></font>		
-				<cftransaction action="rollback">
-		</cfif>
-		
-		
-		---->
 		
 		
 		
