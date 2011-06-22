@@ -2,10 +2,6 @@
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <cfset title = "Search for Taxonomy">
 <cfset metaDesc = "Search Arctos for taxonomy, including accepted, unaccepted, used, and unused names, higher taxonomy, and common names.">
-<!--- no security required to access this page --->
-<cfquery name="class" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select phylclass from ctclass order by phylclass
-</cfquery>
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(*) as cnt from taxonomy
 </cfquery>
