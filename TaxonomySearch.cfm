@@ -344,9 +344,10 @@
 								&nbsp;&nbsp;
 								<input type="reset" value="Clear Form" class="clrBtn">
 								<input type="hidden" name="action" value="search">
-								<br>
+								<div style="border:1px dotted green;font-size:small;font-weight:bold;text-align:left;">
 								Note: This form will not return >1000 records; 
-								you may need to narrow your search to return all relevant matches. 
+								you may need to narrow your search to return all relevant matches.
+								</div>
 							</td>
 						</tr>
 					</table>
