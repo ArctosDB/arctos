@@ -1,9 +1,4 @@
-<cfinclude template="/includes/_header.cfm">
-
 <!------------------------------
-
-
-
 CREATE OR REPLACE TRIGGER cf_temp_barcode_parts_key                                         
  before insert  ON cf_temp_barcode_parts  
  for each row 
@@ -14,61 +9,6 @@ CREATE OR REPLACE TRIGGER cf_temp_barcode_parts_key
     end;                                                                                            
 /
 sho err
-
-
-------------------------------------->
-<cfif action is not "validateFromFile">
-<cfparam name="part_name" default="">
-<cfparam name="collection_id" default="">
-<cfparam name="other_id_type" default="">
-<cfparam name="oidnum" default="">
-<cfparam name="parent_barcode" default="">
-<cfparam name="lastNewType" default="">
-
-
-<cfquery name="ctContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select container_type from ctcontainer_type
-	order by container_type
-</cfquery>
-
-<hr>
-<strong>File Method:</strong>
-<p>&nbsp;</p>
-File format is:
-<br>
-{institution_acronym},{collection_cde},{other_id_type},{other_id_number},{part_name},{barcode},{print_fg},{new_container_type}
-<br>Example:
- UAM,Mamm,AF,2345,skull,123456,1
- <br>"catalog number" is a valid other_id_type.
- <br>Example: UAM,Mamm,catalog number,2345,skull,123456,0,box
- <p>
- Print Flag Values:
- <br>
- 0 - nothing, remove all print flags
- <br>1 - container
-<br> 2 - vial
-
-<br />Valid Container Types:
-<cfoutput query="ctContType">
-	<br />#container_type#
-</cfoutput>
-<p>&nbsp;</p>
-Upload a file:
-<cfform name="getFile" method="post" action="BulkloadPartContainer.cfm" enctype="multipart/form-data">
-	<input type="hidden" name="action" value="getFileData">
-	 <input type="file"
-		   name="FiletoUpload"
-		   size="45">
-	<input type="submit" value="Upload this file"
-		class="savBtn"
-		onmouseover="this.className='savBtn btnhov'" 
-		onmouseout="this.className='savBtn'">
-</cfform>
-</cfif>
-<!---------------------------------------------------------------------->
-  <cfif #action# is "getFileData">
-<cfoutput>
-	<!--- put this in a temp table 
 		create table cf_temp_barcode_parts (
 			 KEY number not null,
 			 OTHER_ID_TYPE varchar2(255),
@@ -86,20 +26,66 @@ Upload a file:
 		alter table cf_temp_barcode_parts add status varchar2(255);
 		alter table cf_temp_barcode_parts add parent_container_id number;
 		alter table cf_temp_barcode_parts add part_container_id number;
-
-	---->
-
+------------------------------------->
+<cfinclude template="/includes/_header.cfm">
+<cfif action is "makeTemplate">
+	<cfset header="OTHER_ID_TYPE,OTHER_ID_NUMBER,COLLECTION_CDE,INSTITUTION_ACRONYM,PART_NAME,PRINT_FG,NEW_CONTAINER_TYPE,BARCODE">
+	<cffile action = "write" 
+    file = "#Application.webDirectory#/download/BulkPartContainer.csv"
+    output = "#header#"
+    addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkPartContainer.csv" addtoken="false">
+</cfif>
+<cfif action is  "nothing">
+	Use this form to put collection objects (that is, parts) in containers.
+	<ul>
+		<li><a href="BulkloadPartContainer.cfm?action=makeTemplate">download a CSV template</a></li>
+		<li>
+			<a href="/info/ctDocumentation.cfm?table=ctcoll_other_id_type" target="_blank">[ OTHER_ID_TYPE values ]</a>
+			<br>"catalog number" is also a valid other_id_type.
+		<cfset header=",,
+				
+					PRINT_FG,,">
+		</li>
+		<li>Collection_Cde is case-sensitive, e.g., "Mamm"</li>
+		<li>Institution_Acronym is case-sensitive, e.g., "UAM"</li>
+		
+		<li>
+			Part_Name is case-sensitive and collection-specific	
+			<br><a href="/info/ctDocumentation.cfm?table=ctspecimen_part_name" target="_blank">part_name values</a>
+		</li>
+		<li>BARCODE is the barcode of the container (usually a NUNC tube) into which you want to place the part</li>
+		<li>
+			PRINT_FG - a UAM Mammals thing? What is this? 
+			<br>0 - nothing, remove all print flags
+	 		<br>1 - container
+			<br> 2 - vial
+		</li>
+		<li>
+			NEW_CONTAINER_TYPE - the container into which you wish to place the part may be a label of some sort.
+			Use this to change it to a 
+			<a href="/info/ctDocumentation.cfm?table=ctcontainer_type" target="_blank">valid container type</a>
+		</li>
+	</ul>
+	
+	Upload a file:
+	<cfform name="getFile" method="post" action="BulkloadPartContainer.cfm" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="getFileData">
+		 <input type="file"
+			   name="FiletoUpload"
+			   size="45">
+		<input type="submit" value="Upload this file" class="savBtn">
+	</cfform>
+</cfif>
+<!---------------------------------------------------------------------->
+  <cfif action is "getFileData">
+<cfoutput>
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from cf_temp_barcode_parts
 	</cfquery>
-	
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	
 	<cfset fileContent=replace(fileContent,"'","''","all")>
-
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-
-
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -119,13 +105,9 @@ Upload a file:
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into cf_temp_barcode_parts (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
-			insert into cf_temp_barcode_parts (#colNames#) values (#preservesinglequotes(colVals)#)
 		</cfif>
 	</cfloop>
-	
-	
 	<cflocation url="BulkloadPartContainer.cfm?action=validateFromFile">
-
 </cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------->
@@ -183,7 +165,6 @@ Upload a file:
 						part_name='#part_name#'
 				</cfquery>
 			</cfif>
-			<cfdump var=#coll_obj#>
 			<cfif coll_obj.recordcount is not 1>
 				<cfset sts='item_not_found'>
 			</cfif>
@@ -220,9 +201,7 @@ Upload a file:
 			</cfif>
 		</cfloop>
 	</cfoutput>
-	<!---
 	<cflocation url="BulkloadPartContainer.cfm?action=load">
-	--->
 </cfif>
 <cfif action is "load">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -255,15 +234,5 @@ Upload a file:
 		</cftransaction>	
 	</cfif>
 </cfif>
-
-
-
-
-
-
-
-		
-		
-		
 <!------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm"/>
