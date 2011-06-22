@@ -188,6 +188,7 @@ Upload a file:
 						part_name='#part_name#'
 				</cfquery>
 			</cfif>
+			<cfdump var=#coll_obj#>
 			<cfif coll_obj.recordcount is not 1>
 				<cfset sts='item_not_found'>
 			</cfif>
