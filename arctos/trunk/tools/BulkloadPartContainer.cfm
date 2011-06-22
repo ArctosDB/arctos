@@ -37,7 +37,7 @@ sho err
 	<cflocation url="/download.cfm?file=BulkPartContainer.csv" addtoken="false">
 </cfif>
 <cfif action is  "nothing">
-	Use this form to put collection objects (that is, parts) in containers.
+	Use this form to put collection objects (that is, parts) in containers. Parts and containers must already exist.
 	<ul>
 		<li><a href="BulkloadPartContainer.cfm?action=makeTemplate">download a CSV template</a></li>
 		<li>
