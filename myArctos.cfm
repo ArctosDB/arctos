@@ -243,7 +243,7 @@
 			<option value="0" <cfif session.showObservations neq 1> selected="selected" </cfif>>No</option>
 			<option value="1" <cfif session.showObservations is 1> selected="selected" </cfif>>Yes</option>
 		</select>
-		<label for="showObservations">SpecimenResults Records Per Page</label>
+		<label for="showObservations">Specimen & Taxonomy Records Per Page</label>
 		<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
 			<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
 			<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
