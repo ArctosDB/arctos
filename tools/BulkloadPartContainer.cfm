@@ -1,6 +1,22 @@
 <cfinclude template="/includes/_header.cfm">
 
-<!------------------------------------------------------------------->
+<!------------------------------
+
+
+
+CREATE OR REPLACE TRIGGER cf_temp_barcode_parts_key                                         
+ before insert  ON cf_temp_barcode_parts  
+ for each row 
+    begin     
+    	if :NEW.key is null then                                                                                      
+    		select somerandomsequence.nextval into :new.key from dual;
+    	end if;                                
+    end;                                                                                            
+/
+sho err
+
+
+------------------------------------->
 <cfif #action# is not "validateFromFile">
 <cfparam name="part_name" default="">
 <cfparam name="collection_id" default="">
@@ -20,7 +36,7 @@
 <p>&nbsp;</p>
 File format is:
 <br>
-{institution_acronym},{collection_code},{other_id_type},{other_id_number},{part_name},{barcode},{print_fg},{new_container_type}
+{institution_acronym},{collection_cde},{other_id_type},{other_id_number},{part_name},{barcode},{print_fg},{new_container_type}
 <br>Example:
  UAM,Mamm,AF,2345,skull,123456,1
  <br>"catalog number" is a valid other_id_type.
@@ -73,6 +89,43 @@ Upload a file:
 	</cfquery>
 	
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	
+	<cfset fileContent=replace(fileContent,"'","''","all")>
+
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
+
+
+	<cfset colNames="">
+	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
+		<cfset colVals="">
+			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
+				<cfset thisBit=arrResult[o][i]>
+				<cfif #o# is 1>
+					<cfset colNames="#colNames#,#thisBit#">
+				<cfelse>
+					<cfset colVals="#colVals#,'#thisBit#'">
+				</cfif>
+			</cfloop>
+		<cfif #o# is 1>
+			<cfset colNames=replace(colNames,",","","first")>
+		</cfif>	
+		<cfif len(#colVals#) gt 1>
+			<cfset colVals=replace(colVals,",","","first")>
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into cf_temp_barcode_parts (#colNames#) values (#preservesinglequotes(colVals)#)
+			</cfquery>
+			insert into cf_temp_barcode_parts (#colNames#) values (#preservesinglequotes(colVals)#)
+		</cfif>
+	</cfloop>
+	
+	
+	
+	
+	
+	
+	
+	<!----
+	
 	<cfset i=1>
 	<cfloop index="line" list="#fileContent#" delimiters="#chr(10)#">
 		<cfset sql = "">
@@ -122,8 +175,9 @@ Upload a file:
 	<!----
 		
 	---->
-	
-	<cflocation url="BulkloadPartContainer.cfm?action=validateFromFile">
+		<cflocation url="BulkloadPartContainer.cfm?action=validateFromFile">
+
+	---->
 
 </cfoutput>
 </cfif>
