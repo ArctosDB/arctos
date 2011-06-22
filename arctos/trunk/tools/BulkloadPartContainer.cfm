@@ -81,7 +81,7 @@ Upload a file:
 			 container_id number
 			 );
 		CREATE PUBLIC SYNONYM cf_temp_barcode_parts FOR cf_temp_barcode_parts;
-		GRANT select,insert,update,delete ON cf_temp_barcode_parts to uam_update;
+		GRANT select,insert,update,delete ON cf_temp_barcode_parts to manage_container;
 		
 		alter table cf_temp_barcode_parts add status varchar2(255);
 		alter table cf_temp_barcode_parts add parent_container_id number;
@@ -156,7 +156,6 @@ Upload a file:
 	<cfoutput>
 		<cfloop query="data">
 			<cfset sts=''>
-			<!--- find the collection object ---->
 			<cfif other_id_type is "catalog number">
 				<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select specimen_part.collection_object_id FROM
@@ -190,7 +189,7 @@ Upload a file:
 				</cfquery>
 			</cfif>
 			<cfif coll_obj.recordcount is not 1>
-				<cfset sts='item_not_found'
+				<cfset sts='item_not_found'>
 			</cfif>
 			<!--- see if they gave a valid parent container ---->
 			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -224,8 +223,8 @@ Upload a file:
 				</cfquery>
 			</cfif>
 		</cfloop>
-		<cflocation url="BulkloadPartContainer.cfm?action=load">
 	</cfoutput>
+	<cflocation url="BulkloadPartContainer.cfm?action=load">
 </cfif>
 <cfif action is "load">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
