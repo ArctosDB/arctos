@@ -124,12 +124,7 @@ Upload a file:
 	</cfloop>
 	
 	
-	
-	<!----
-		
-		<cflocation url="BulkloadPartContainer.cfm?action=validateFromFile">
-
-	---->
+	<cflocation url="BulkloadPartContainer.cfm?action=validateFromFile">
 
 </cfoutput>
 </cfif>
