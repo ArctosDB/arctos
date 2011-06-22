@@ -101,7 +101,7 @@
 							</td>
 						</tr>
 					</table>
-					<table>
+					<table border>
 						<tr>
 							<td>
 								<input type="radio" name="VALID_CATALOG_TERM_FG" checked="checked" value="">
