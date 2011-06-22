@@ -17,7 +17,7 @@ sho err
 
 
 ------------------------------------->
-<cfif #action# is not "validateFromFile">
+<cfif action is not "validateFromFile">
 <cfparam name="part_name" default="">
 <cfparam name="collection_id" default="">
 <cfparam name="other_id_type" default="">
@@ -82,6 +82,11 @@ Upload a file:
 			 );
 		CREATE PUBLIC SYNONYM cf_temp_barcode_parts FOR cf_temp_barcode_parts;
 		GRANT select,insert,update,delete ON cf_temp_barcode_parts to uam_update;
+		
+		alter table cf_temp_barcode_parts add status varchar2(255);
+		alter table cf_temp_barcode_parts add parent_container_id number;
+		alter table cf_temp_barcode_parts add part_container_id number;
+
 	---->
 
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -120,61 +125,8 @@ Upload a file:
 	
 	
 	
-	
-	
-	
-	
-	<!----
-	
-	<cfset i=1>
-	<cfloop index="line" list="#fileContent#" delimiters="#chr(10)#">
-		<cfset sql = "">
-		<cfset line = #replace(line,'#chr(9)##chr(9)#','#chr(9)#null#chr(9)#','all')#>
-		<br>line:#line#
-		<cfloop index="field" list="#line#" delimiters=",">
-			<br>field:#field#
-			<cfset field = #replace(field,"'","''","all")#>
-			<cfset sql = #replace(sql,'{comma}',',','all')#>
-			<cfset sql = "#sql#'#trim(replace(field,'"','','all'))#',">
-		</cfloop>
-	 	<cfset sql = #reverse(replace(reverse(sql),",","","first"))#>
-		<cfset sql = "#i#,#sql#">
-		<cfset i=#i#+1>
-		<br>INSERT INTO cf_temp_barcode_parts (
-				 KEY,
-				 INSTITutION_ACRONYM,
-				 COLLECTION_CDE,
-				 OTHER_ID_TYPE,
-				OTHER_ID_NUMBER,
-				 part_name,
-				 barcode,
-				 print_fg,
-				 new_container_type
-				 ) 
-			VALUES (
-				#preservesinglequotes(sql)#
-				)	
-		<cfquery name="newRec"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			INSERT INTO cf_temp_barcode_parts (
-				 KEY,
-				 INSTITutION_ACRONYM,
-				 COLLECTION_CDE,
-				 OTHER_ID_TYPE,
-				OTHER_ID_NUMBER,
-				 part_name,
-				 barcode,
-				 print_fg,
-				 new_container_type
-				 ) 
-			VALUES (
-				#preservesinglequotes(sql)#
-				)	 			
-	  </cfquery>
-	
-    </cfloop>
 	<!----
 		
-	---->
 		<cflocation url="BulkloadPartContainer.cfm?action=validateFromFile">
 
 	---->
@@ -182,11 +134,9 @@ Upload a file:
 </cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------->
-<cfif #action# is "validateFromFile">
-You should get a list of messages below. Anything in <font color="#FF0000" size="+1">red</font>
-failed loading and you must deal with it.
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select  KEY,
+<cfif action is "validateFromFile">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select KEY,
 			INSTITutION_ACRONYM,
 			COLLECTION_CDE,
 			OTHER_ID_TYPE,
@@ -195,66 +145,108 @@ failed loading and you must deal with it.
 			barcode parent_barcode,
 			print_fg,
 			new_container_type
-			 from cf_temp_barcode_parts
-			 
-</cfquery>
-<cfquery name="goodContainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select new_container_type from cf_temp_barcode_parts
-	where new_container_type NOT IN (
-		select container_type from ctcontainer_type)
-</cfquery>
-<cfif #goodContainers.recordcount# gt 0>
-	Bad container type (#goodContainers.new_container_type#)! Aborting...
-	<cfabort>
-</cfif>
-	<cftransaction>
-		<cfoutput>
+		from 
+			cf_temp_barcode_parts
+	</cfquery>
+	<cfquery name="goodContainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update cf_temp_barcode_parts set status='bad_container_type'
+		where new_container_type NOT IN (
+			select container_type from ctcontainer_type)
+	</cfquery>
+	<cfoutput>
 		<cfloop query="data">
+			<cfset sts=''>
 			<!--- find the collection object ---->
-		<cfif #other_id_type# is "catalog number">
-			<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select specimen_part.collection_object_id FROM
-					cataloged_item,
-					specimen_part,
-					collection
-				WHERE
-					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
-					cataloged_item.collection_id = collection.collection_id AND
-					collection.COLLECTION_CDE='#COLLECTION_CDE#' AND
-					collection.INSTITutION_ACRONYM = '#INSTITutION_ACRONYM#' AND
-					cat_num=#oidnum# AND
-					part_name='#part_name#'
-			</cfquery>
-		<cfelse>
-			<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select specimen_part.collection_object_id FROM
-					cataloged_item,
-					specimen_part,
-					coll_obj_other_id_num,
-					collection
-				WHERE
-					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
-					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
-					cataloged_item.collection_id = collection.collection_id AND
-					collection.COLLECTION_CDE='#COLLECTION_CDE#' AND
-					collection.INSTITutION_ACRONYM = '#INSTITutION_ACRONYM#' AND
-					other_id_type='#other_id_type#' AND
-					other_id_num= '#oidnum#' AND
-					part_name='#part_name#'
-			</cfquery>
-		</cfif>
-		<cfif #coll_obj.recordcount# is 1>
+			<cfif other_id_type is "catalog number">
+				<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select specimen_part.collection_object_id FROM
+						cataloged_item,
+						specimen_part,
+						collection
+					WHERE
+						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
+						cataloged_item.collection_id = collection.collection_id AND
+						collection.COLLECTION_CDE='#COLLECTION_CDE#' AND
+						collection.INSTITutION_ACRONYM = '#INSTITutION_ACRONYM#' AND
+						cat_num='#oidnum#' AND
+						part_name='#part_name#'
+				</cfquery>
+			<cfelse>
+				<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select specimen_part.collection_object_id FROM
+						cataloged_item,
+						specimen_part,
+						coll_obj_other_id_num,
+						collection
+					WHERE
+						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
+						cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
+						cataloged_item.collection_id = collection.collection_id AND
+						collection.COLLECTION_CDE='#COLLECTION_CDE#' AND
+						collection.INSTITutION_ACRONYM = '#INSTITutION_ACRONYM#' AND
+						other_id_type='#other_id_type#' AND
+						display_value= '#oidnum#' AND
+						part_name='#part_name#'
+				</cfquery>
+			</cfif>
+			<cfif coll_obj.recordcount is not 1>
+				<cfset sts='item_not_found'
+			</cfif>
 			<!--- see if they gave a valid parent container ---->
 			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select container_id from container where container_type <> 'collection object'
 				and barcode='#parent_barcode#'
 			</cfquery>
-			<cfif #isGoodParent.recordcount# is 1>
-				<!---- Find coll obj container ---->
+			<cfif isGoodParent.recordcount is not 1>
+				<cfset sts='parent_barcode_not_found'>
+			</cfif>
+			<cfif sts is ''>
 				<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select container_id FROM coll_obj_cont_hist where
 					collection_object_id=#coll_obj.collection_object_id#
 				</cfquery>
+				<cfif len(cont.container_id) is 0>
+					<cfset sts='part_container_not_found'>
+				</cfif>
+			</cfif>
+			<cfif sts is ''>
+				<cfquery name="setter" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update cf_temp_barcode_parts set
+						parent_container_id=#isGoodParent.container_id#,
+						part_container_id=#cont.container_id#
+					where key=#key#
+				</cfquery>
+			<cfelse>
+				<cfquery name="ssetter" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update cf_temp_barcode_parts set
+						status='#sts#'
+					where key=#key#
+				</cfquery>
+			</cfif>
+		</cfloop>
+		<cflocation url="BulkloadPartContainer.cfm?action=load">
+	</cfoutput>
+</cfif>
+<cfif action is "load">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from cf_temp_barcode_parts
+	</cfquery>
+	<cfif len(valuelist(d.status)) gt 0>
+		Fix this and reload - nothing's been saved.
+		<cfdump var=#d#>
+	<cfelse>
+		loading.......
+	</cfif>
+</cfif>
+
+
+
+
+
+
+
+
+			<!----
 				<cfif #cont.recordcount# is 1>
 					<!-----
 					disable for testing
@@ -316,9 +308,11 @@ failed loading and you must deal with it.
 					(#institution_acronym# #collection_cde# #other_id_type# #oidnum# #part_name#)<br></font>		
 				<cftransaction action="rollback">
 		</cfif>
-	</cfloop>
-	</cfoutput>
-	</cftransaction>
-</cfif>
+		
+		
+		---->
+		
+		
+		
 <!------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm"/>
