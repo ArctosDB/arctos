@@ -220,7 +220,9 @@ Upload a file:
 			</cfif>
 		</cfloop>
 	</cfoutput>
+	<!---
 	<cflocation url="BulkloadPartContainer.cfm?action=load">
+	--->
 </cfif>
 <cfif action is "load">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
