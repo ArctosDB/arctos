@@ -76,7 +76,7 @@
 <cfoutput>
 <br>
 	<form ACTION="TaxonomyResults.cfm" METHOD="post" name="taxa">
-		<table width="90%" border="1" cellspacing="0" cellpadding="0">
+		<table width="90%" border="0" cellspacing="0" cellpadding="0">
 			<tr> 
 				<td valign="top" align="left">
 					<table border="0" cellpadding="10" cellspacing="10">
@@ -101,7 +101,7 @@
 							</td>
 						</tr>
 					</table>
-					<table border>
+					<table>
 						<tr>
 							<td>
 								<input type="radio" name="VALID_CATALOG_TERM_FG" checked="checked" value="">
@@ -134,7 +134,7 @@
 					</table>
 				</td>
 				<td>
-					<table border>
+					<table>
 						<tr>
 							<td colspan="2" align="center" nowrap>
 								<input type="submit" value="Search"	class="schBtn">
@@ -344,6 +344,9 @@
 								&nbsp;&nbsp;
 								<input type="reset" value="Clear Form" class="clrBtn">
 								<input type="hidden" name="action" value="search">
+								<br>
+								Note: This form will not return >1000 records; 
+								you may need to narrow your search to return all relevant matches. 
 							</td>
 						</tr>
 					</table>
@@ -352,6 +355,4 @@
 		</table>
 	</form>
 </cfoutput>
-<br>
-Note: This form will not return >1000 records; you may need to narrow your search to return all matches. 
 <cfinclude template = "includes/_footer.cfm">
