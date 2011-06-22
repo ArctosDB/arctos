@@ -319,7 +319,8 @@ Found #summary.cnt# records.
 					<cfif #startAt# is 1 and #goTo# is #summary.cnt#> selected="selected"</cfif>
 						value="1,#summary.cnt#">1 - #summary.cnt#</option>
 		</select>
-		<a href="SpecimenResultsDownload.cfm?tableName=#session.TaxSrchTab#">Download</a>
+		<a href="SpecimenResultsDownload.cfm?tableName=#session.TaxSrchTab#">[ Download ]</a>
+		<a href="TaxonomySearch.cfm">[ Search Again ]</a>
 </H4>
 </CFOUTPUT>
 
