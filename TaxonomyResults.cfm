@@ -403,13 +403,15 @@ Found #summary.cnt# records.
 					margin:0;"><li>list</li></ul>	--->
 	</td>
     <td nowrap>
-	<cfif cName.recordcount is 0>
-		<font size="-1" color="##FF0000">None recorded</font>
-	<cfelse>
-		<cfloop query="cName">
-			#common_name#<br>
-		</cfloop>
-	</cfif>
+		<div style="max-height:5em;">
+			<cfif cName.recordcount is 0>
+				<font size="-1" color="##FF0000">None recorded</font>
+			<cfelse>
+				<cfloop query="cName">
+					#common_name#<br>
+				</cfloop>
+			</cfif>
+		</div>
 	</td>
 	<td>#nomenclatural_code#&nbsp;</td>
 	<td>#kingdom#&nbsp;</td>
