@@ -403,7 +403,7 @@ Found #summary.cnt# records.
 					margin:0;"><li>list</li></ul>	--->
 	</td>
     <td nowrap>
-		<div style="max-height:5em;">
+		<div style="max-height:5em;overflow:auto;">
 			<cfif cName.recordcount is 0>
 				<font size="-1" color="##FF0000">None recorded</font>
 			<cfelse>
