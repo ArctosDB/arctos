@@ -293,7 +293,7 @@
 <CFOUTPUT>
 <H4>
 Found #summary.cnt# records.
-<a href="/myArctos.cfm" target="_blank" style="font-size:small">set ##/pg</a>
+<a href="/myArctos.cfm" target="_blank" style="font-size:small">[ set ##/pg ]</a>
 <cfif summary.cnt is 1000>
 	<div style="color:red;">
 		Note: This form will not return >1000 records; you may need to narrow your search to return all matches.
