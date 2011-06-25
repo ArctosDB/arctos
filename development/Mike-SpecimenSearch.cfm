@@ -66,7 +66,7 @@
 		</td>
 	</tr>
 </table>	
-<form method="post" action="/Mike-SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
+<form method="post" action="development/Mike-SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
 <table>
 	<tr>
 		<td valign="top">
@@ -574,7 +574,7 @@
 	
 	function changeTarget(id,tvalue) {
 		if(tvalue.length == 0) {
-			tvalue='/Mike-SpecimenResults.cfm';
+			tvalue='Mike-SpecimenResults.cfm';
 		}
 		if (id =='tgtForm1') {
 			var otherForm = document.getElementById('tgtForm');
