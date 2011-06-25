@@ -66,7 +66,7 @@
 		</td>
 	</tr>
 </table>	
-<form method="post" action="/development/Mike-SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
+<form method="post" action="/Mike-SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
 <table>
 	<tr>
 		<td valign="top">
