@@ -1306,12 +1306,7 @@
 							<cfset alt=desc.label_value>
 						</cfif>
 		               <div class="one_thumb">
-			               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
-		                   	<p>
-								#media_type# (#mime_type#)
-			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-								<br>#alt#
-							</p>
+							Stuff.
 						</div>
 					</cfloop>
 					<div class="thumb_spcr">&nbsp;</div>
