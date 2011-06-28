@@ -103,7 +103,6 @@
 				)
 			</cfquery>
 			<br>success!
-		</cfif>
 	</cftransaction>
 </cfif>
 </cfoutput>
