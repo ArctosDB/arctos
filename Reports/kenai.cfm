@@ -12,7 +12,7 @@
 		flat,
 		accepted_lat_long
 	where
-		flat.lat_long_id=accepted_lat_long.lat_long_id (+) and
+		flat.locality_id=accepted_lat_long.locality_id (+) and
 		flat.collection_object_id IN (#collection_object_id#)
 		
 </cfquery>
