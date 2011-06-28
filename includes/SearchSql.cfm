@@ -764,7 +764,7 @@
 
 		--->
 		
-
+boogity
 		
 		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(ListQualify(ListChangeDelims(CustomIdentifierValue,','),''''))#)">
 	<cfelseif CustomOidOper is "BETWEEN">
