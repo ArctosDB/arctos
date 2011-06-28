@@ -772,7 +772,8 @@
 <br>CustomIdentifierValue: #CustomIdentifierValue#
 <br>CustomIdentifierValue: #CustomIdentifierValue#
 		</cfoutput>	
-		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(ListQualify(ListChangeDelims(CustomIdentifierValue,','),''''))#)">
+		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ListQualify(ListChangeDelims(CustomIdentifierValue,','),'''')#)">
+		
 	<cfelseif CustomOidOper is "BETWEEN">
 		<cfif CustomIdentifierValue does not contain "-">
 			<div class="error">
