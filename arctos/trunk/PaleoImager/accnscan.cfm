@@ -50,7 +50,7 @@
 				<th>Accn</th>
 				<th>Comment</th>
 			</tr>
-			<cfloop from="1" to="#numAccnRow#" index="#i#"> 
+			<cfloop from="1" to="#numAccnRow#" index="i"> 
 				<tr>
 					<td>#i#</td>
 					<td>
@@ -69,7 +69,6 @@
 	</form>
 </cfif>
 <cfif action is "saveNew">
-	<!---------
 	<cftransaction>
 	<cfloop from="1" to="#numAccnRow#" index="i">
 		<cfset tBarcode = evaluate("barcode_" & i)>
@@ -124,7 +123,6 @@
 		</cfif>
 	</cfloop>
 	</cftransaction>
-	---------------->
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_header.cfm">
