@@ -27,7 +27,7 @@
 		nocapaddress]{envlab}
 		
 		%% Label size.
-		%% Using label size of 17 mm by 6 mm as prescribed by the Biological Survey of Canada\'s Label data standards for terrestrial arthropods at http://www.biology.ualberta.ca/bsc/briefs/brlabelstandards.htm.
+		%% Using label size of 17 mm by 6 mm as prescribed by the Biological Survey of Canada''s Label data standards for terrestrial arthropods at http://www.biology.ualberta.ca/bsc/briefs/brlabelstandards.htm.
 		\SetLabel{25mm}{6mm}{3mm}{6mm}{0mm}{7}{40}
 		
 		%% Font.
