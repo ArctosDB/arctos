@@ -63,21 +63,26 @@
 
 	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	variables.joFileWriter.writeLine(header);
-		variables.joFileWriter.close();
 </cfscript>
+<cfloop query="d">
+	<cfset h='\mlabel{}{\supertiny USA: Alaska. #VERBATIM_LOCALITY# #DEC_LAT#¡N #DEC_LONG#¡W ± #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS# #VERBATIM_DATE# #collectors# KNWR~#CAT_NUM#}'>
+	<cfscript>
+		variables.joFileWriter.writeLine(d);
+	</cfscript>
+	
+</cfloop>
+
+<cfscript>
+	variables.joFileWriter.writeLine('\end{document}');
+	variables.joFileWriter.close();
+</cfscript>d
+	
 <cfdump var=#d#>
 <!----
 
 
 
-'\mlabel{}{\supertiny USA: Alaska. ' || 
-		collecting_event.VERBATIM_LOCALITY || ' ' ||
-		round(accepted_lat_long.DEC_LAT,4) || '¡N' || ' ' || 
-		round(accepted_lat_long.DEC_LONG,4) || '¡W' || ' ± ' ||
-		accepted_lat_long.MAX_ERROR_DISTANCE || ' ' || accepted_lat_long.MAX_ERROR_UNITS || ' ' ||
-		flat.VERBATIM_DATE || ' ' ||
-		collectors || ' KNWR~' || flat.CAT_NUM
-		
+
 		
 		
 		
