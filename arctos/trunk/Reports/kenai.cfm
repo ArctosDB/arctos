@@ -5,6 +5,7 @@
 		round(accepted_lat_long.DEC_LAT,4) DEC_LAT,
 		round(accepted_lat_long.DEC_LONG,4) DEC_LONG,
 		accepted_lat_long.MAX_ERROR_DISTANCE,
+		accepted_lat_long.MAX_ERROR_UNITS,
 		flat.VERBATIM_DATE,
 		collectors,
 		flat.CAT_NUM
