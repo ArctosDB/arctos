@@ -15,7 +15,6 @@
 	create unique index u_pi_accn_barcode on accn_scan(barcode) tablespace uam_idx_1;
 	create unique index u_pi_accn_accn on accn_scan(accn_number) tablespace uam_idx_1;
 	
-	
 	create sequence sq_accn_scan_id;
 	
 	CREATE OR REPLACE TRIGGER tg_accn_scan_key                                         
