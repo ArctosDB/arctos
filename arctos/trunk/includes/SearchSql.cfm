@@ -765,6 +765,7 @@
 		--->
 	<cfoutput >
 <br>CustomIdentifierValue: #CustomIdentifierValue#
+<br>ListChangeDelims(CustomIdentifierValue,'|'): #ListChangeDelims(CustomIdentifierValue,'|')#
 <br>ListChangeDelims(CustomIdentifierValue,','): #ListChangeDelims(CustomIdentifierValue,',')#
 <br>ListQualify(ListChangeDelims(CustomIdentifierValue,','),''''): #ListQualify(ListChangeDelims(CustomIdentifierValue,','),'''')#
 <br>CustomIdentifierValue: #CustomIdentifierValue#
