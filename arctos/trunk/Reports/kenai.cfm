@@ -3,9 +3,9 @@
 	select
 		'\mlabel{}{\supertiny USA: Alaska. ' || 
 		VERBATIM_LOCALITY || ' ' ||
-		round(DEC_LAT,4) || '¡N' || ' ' || 
-		round(-DEC_LONG,4) || '¡W' || ' ± ' ||
-		MAX_ERROR_DISTANCE || ' ' || MAX_ERROR_UNITS || ' ' ||
+		round(accepted_lat_long.DEC_LAT,4) || '¡N' || ' ' || 
+		round(accepted_lat_long.DEC_LONG,4) || '¡W' || ' ± ' ||
+		accepted_lat_long.MAX_ERROR_DISTANCE || ' ' || accepted_lat_long.MAX_ERROR_UNITS || ' ' ||
 		VERBATIM_DATE || ' ' ||
 		collectors || ' KNWR~' || CAT_NUM
 	from
