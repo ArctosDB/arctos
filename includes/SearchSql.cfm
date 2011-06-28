@@ -764,7 +764,12 @@
 
 		--->
 		
-boogity
+<br>CustomIdentifierValue: #CustomIdentifierValue#
+<br>ListChangeDelims(CustomIdentifierValue,','): #ListChangeDelims(CustomIdentifierValue,',')#
+<br>ListQualify(ListChangeDelims(CustomIdentifierValue,','),''''): #ListQualify(ListChangeDelims(CustomIdentifierValue,','),'''')#
+<br>CustomIdentifierValue: #CustomIdentifierValue#
+<br>CustomIdentifierValue: #CustomIdentifierValue#
+<br>CustomIdentifierValue: #CustomIdentifierValue#
 		
 		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(ListQualify(ListChangeDelims(CustomIdentifierValue,','),''''))#)">
 	<cfelseif CustomOidOper is "BETWEEN">
