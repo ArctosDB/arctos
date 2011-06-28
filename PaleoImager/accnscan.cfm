@@ -42,10 +42,9 @@
 <cfoutput>
 <cfset numAccnRow=1>
 <cfif action is "nothing">
-	<a href="accnscan.cfm?action=enter">enter data</a>
-</cfif>
-<cfif action is "enter">
+	<cfset title="ES Imaging: Accn Cards">
 	Use this form to attach barcodes to UAM Paleo Accesson Cards.
+	<br>Barcode and Accession are exact case-sensitive match.
 	<form name="f" action="accnscan.cfm" method="post">
 		<input type="hidden" name="action" value="saveNew">
 		<label for="barcode">Barcode</label>
@@ -58,6 +57,7 @@
 	</form>
 </cfif>
 <cfif action is "saveNew">
+	<cfset title="ES Imaging: Accn Cards: Dammit">
 	<cftransaction>
 		<br>barcode: #barcode#
 			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
