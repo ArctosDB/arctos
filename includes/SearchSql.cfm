@@ -751,30 +751,8 @@
 	<cfif CustomOidOper is "IS">
 		<cfset basQual = " #basQual# AND customIdentifier.DISPLAY_VALUE = '#CustomIdentifierValue#'">
 	<cfelseif CustomOidOper is "LIST">
-		<!---
-		<cfset CustOidList = "">
-		<cfloop list="#CustomIdentifierValue#" delimiters="," index="v">
-			<cfif len(#CustOidList#) is 0>
-				<cfset CustOidList = "'#v#'">
-			<cfelse>
-				<cfset CustOidList = "#CustOidList#,'#v#'">
-			</cfif>
-		</cfloop>
-			<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(ListChangeDelims(catnum,','),'''')# ) " >
-
-		--->
-	<cfoutput >
-<br>CustomIdentifierValue: #CustomIdentifierValue#
-<br>ListChangeDelims(CustomIdentifierValue,'|'): #ListChangeDelims(CustomIdentifierValue,'|')#
-<br>ListChangeDelims(CustomIdentifierValue,','): #ListChangeDelims(CustomIdentifierValue,',')#
-<br>ListQualify(ListChangeDelims(CustomIdentifierValue,','),''''): #ListQualify(ListChangeDelims(CustomIdentifierValue,','),'''')#
-<br>CustomIdentifierValue: #CustomIdentifierValue#
-<br>CustomIdentifierValue: #CustomIdentifierValue#
-<br>CustomIdentifierValue: #CustomIdentifierValue#
-		</cfoutput>
 		<cfset noSpace=replace(CustomIdentifierValue,' ','','all')>
 		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(ListQualify(ListChangeDelims(noSpace,','),''''))#)">
-		
 	<cfelseif CustomOidOper is "BETWEEN">
 		<cfif CustomIdentifierValue does not contain "-">
 			<div class="error">
