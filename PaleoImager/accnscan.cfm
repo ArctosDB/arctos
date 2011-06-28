@@ -46,7 +46,7 @@
 <cfif action is "nothing">
 	<script>
 		jQuery(document).ready(function() {
-	  		$("#barcode").focus();
+	  		$("##barcode").focus();
 		});
 	</script>
 	<cfset title="ES Imaging: Accn Cards">
