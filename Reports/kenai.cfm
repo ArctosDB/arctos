@@ -66,7 +66,7 @@
 	variables.joFileWriter.writeLine(header);
 </cfscript>
 <cfloop query="d">
-	<cfset l=escapequotes('\mlabel{}{\supertiny USA: Alaska. #VERBATIM_LOCALITY# #DEC_LAT#¡N #DEC_LONG#¡W ± #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS# #VERBATIM_DATE# #collectors# KNWR~#CAT_NUM#}')>
+	<cfset l=escapequotes('\mlabel{}{\supertiny USA: Alaska. #VERBATIM_LOCALITY# #DEC_LAT##chr(176)#N #DEC_LONG#¡W ± #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS# #VERBATIM_DATE# #collectors# KNWR~#CAT_NUM#}')>
 	<cfscript>
 		variables.joFileWriter.writeLine(l);
 	</cfscript>
