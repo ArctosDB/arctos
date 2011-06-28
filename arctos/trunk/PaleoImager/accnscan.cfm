@@ -89,7 +89,7 @@
 			
 			<br>accn: #tAccn#
 			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select transaction_id from 
+				select accn.transaction_id from 
 					trans,accn where 
 					trans.transaction_id=accn.transaction_id and
 					trans.collection_id=21 and
