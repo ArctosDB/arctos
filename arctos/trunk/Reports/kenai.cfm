@@ -37,7 +37,7 @@
 		
 		%% Command for typesetting labels
 		\newcommand{\ilabel}[1]{%
-		\mlabel{}{\supertiny #1}}
+		\mlabel{}{\supertiny ##1}}
 		
 		\makelabels
 		
