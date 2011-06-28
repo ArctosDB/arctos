@@ -763,14 +763,14 @@
 			<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(ListChangeDelims(catnum,','),'''')# ) " >
 
 		--->
-		
+	<cfoutput >
 <br>CustomIdentifierValue: #CustomIdentifierValue#
 <br>ListChangeDelims(CustomIdentifierValue,','): #ListChangeDelims(CustomIdentifierValue,',')#
 <br>ListQualify(ListChangeDelims(CustomIdentifierValue,','),''''): #ListQualify(ListChangeDelims(CustomIdentifierValue,','),'''')#
 <br>CustomIdentifierValue: #CustomIdentifierValue#
 <br>CustomIdentifierValue: #CustomIdentifierValue#
 <br>CustomIdentifierValue: #CustomIdentifierValue#
-		
+		</cfoutput>	
 		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(ListQualify(ListChangeDelims(CustomIdentifierValue,','),''''))#)">
 	<cfelseif CustomOidOper is "BETWEEN">
 		<cfif CustomIdentifierValue does not contain "-">
