@@ -53,6 +53,7 @@
 	Use this form to attach barcodes to UAM Paleo Accesson Cards.
 	<br>Barcode and Accession are exact case-sensitive match.
 	<br>Sucessful save will silently redirect to an empty form. Errors will be listed; use your back button to fix them.
+	"UI_bla bla bla" errors are Unique Index problems: we've already got one.
 	<br>See existing data <a href="accnscan.cfm?action=list">[ here ]</a>
 	<form name="f" action="accnscan.cfm" method="post">
 		<input type="hidden" name="action" value="saveNew">
@@ -116,7 +117,24 @@
 	<cflocation url="accnscan.cfm" addtoken="false">
 </cfif>
 <cfif action is "list">
-	listy
+	<script src="/includes/sorttable.js"></script>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from accn_scan
+	</cfquery>
+	<table border id="t" class="sortable">
+		<tr>
+			<th>Barcode</th>
+			<th>Accn</th>
+			<th>Remark</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#barcode#</td>
+				<td>#accn_number#</td>
+				<td>#remark#</td>
+			</tr>
+		</cfloop>
+	</table>
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
