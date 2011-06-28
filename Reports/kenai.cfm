@@ -10,9 +10,11 @@
 		collectors || ' KNWR~' || CAT_NUM
 	from
 		flat,
-		accepted_lat_long
+		accepted_lat_long,
+		collecting_event
 	where
 		flat.locality_id=accepted_lat_long.locality_id (+) and
+		flat.collecting_event_id=collecting_event.collecting_event_id and
 		flat.collection_object_id IN (#collection_object_id#)
 		
 </cfquery>
