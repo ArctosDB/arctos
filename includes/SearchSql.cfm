@@ -771,8 +771,9 @@
 <br>CustomIdentifierValue: #CustomIdentifierValue#
 <br>CustomIdentifierValue: #CustomIdentifierValue#
 <br>CustomIdentifierValue: #CustomIdentifierValue#
-		</cfoutput>	
-		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#trim(ucase(ListQualify(ListChangeDelims(CustomIdentifierValue,','),'''')))#)">
+		</cfoutput>
+		<cfset noSpace=replace(CustomIdentifierValue,' ','','all')>
+		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(ListQualify(ListChangeDelims(noSpace,','),''''))#)">
 		
 	<cfelseif CustomOidOper is "BETWEEN">
 		<cfif CustomIdentifierValue does not contain "-">
