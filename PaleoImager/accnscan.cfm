@@ -3,12 +3,14 @@
 		id number not null,
 		accn_number varchar2(30) not null,
 		accn_id number,
-		remark varchar2(255) not null,
+		remark varchar2(255),
 		barcode varchar2(255) not null,
 		container_id number,
 		who varchar2(255),
 		when date
 	);
+	
+	alter table accn_scan modify remark null;
 	
 	create unique index u_pi_accn_barcode on accn_scan(barcode) tablespace uam_idx_1;
 	create unique index u_pi_accn_accn on accn_scan(accn_number) tablespace uam_idx_1;
@@ -26,8 +28,8 @@
 		    		sysdate 
 		    	into 
 		    		:new.id,
-		    		:new.when,
-		    		:new.who
+		    		:new.who,
+		    		:new.when
 		    	from dual;
 		    end;                                                                                            
 		/
@@ -104,6 +106,7 @@
 			</cfquery>
 			<br>success!
 	</cftransaction>
+	<cflocation url="accnscan.cfm">
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
