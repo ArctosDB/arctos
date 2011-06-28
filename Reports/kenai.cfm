@@ -1,13 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
-		'\mlabel{}{\supertiny USA: Alaska. ' || 
-		collecting_event.VERBATIM_LOCALITY || ' ' ||
-		round(accepted_lat_long.DEC_LAT,4) || '¡N' || ' ' || 
-		round(accepted_lat_long.DEC_LONG,4) || '¡W' || ' ± ' ||
-		accepted_lat_long.MAX_ERROR_DISTANCE || ' ' || accepted_lat_long.MAX_ERROR_UNITS || ' ' ||
-		flat.VERBATIM_DATE || ' ' ||
-		collectors || ' KNWR~' || flat.CAT_NUM
+		collecting_event.VERBATIM_LOCALITY,
+		round(accepted_lat_long.DEC_LAT,4) DEC_LAT,
+		round(accepted_lat_long.DEC_LONG,4) DEC_LONG,
+		accepted_lat_long.MAX_ERROR_DISTANCE,
+		flat.VERBATIM_DATE,
+		collectors,
+		flat.CAT_NUM
 	from
 		flat,
 		accepted_lat_long,
@@ -15,12 +15,25 @@
 	where
 		flat.locality_id=accepted_lat_long.locality_id (+) and
 		flat.collecting_event_id=collecting_event.collecting_event_id and
-		flat.collection_object_id IN (#collection_object_id#)
-		
+		flat.collection_object_id IN (#collection_object_id#)		
 </cfquery>
 
 <cfdump var=#d#>
 <!----
+
+
+
+'\mlabel{}{\supertiny USA: Alaska. ' || 
+		collecting_event.VERBATIM_LOCALITY || ' ' ||
+		round(accepted_lat_long.DEC_LAT,4) || '¡N' || ' ' || 
+		round(accepted_lat_long.DEC_LONG,4) || '¡W' || ' ± ' ||
+		accepted_lat_long.MAX_ERROR_DISTANCE || ' ' || accepted_lat_long.MAX_ERROR_UNITS || ' ' ||
+		flat.VERBATIM_DATE || ' ' ||
+		collectors || ' KNWR~' || flat.CAT_NUM
+		
+		
+		
+		
 \documentclass[10pt]{letter}
 \usepackage{xltxtra}
 \usepackage[noprintbarcodes,%
