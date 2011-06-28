@@ -104,7 +104,6 @@
 			</cfquery>
 			<br>success!
 		</cfif>
-	</cfloop>
 	</cftransaction>
 </cfif>
 </cfoutput>
