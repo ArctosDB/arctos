@@ -751,6 +751,7 @@
 	<cfif CustomOidOper is "IS">
 		<cfset basQual = " #basQual# AND customIdentifier.DISPLAY_VALUE = '#CustomIdentifierValue#'">
 	<cfelseif CustomOidOper is "LIST">
+		<!---
 		<cfset CustOidList = "">
 		<cfloop list="#CustomIdentifierValue#" delimiters="," index="v">
 			<cfif len(#CustOidList#) is 0>
@@ -759,7 +760,13 @@
 				<cfset CustOidList = "#CustOidList#,'#v#'">
 			</cfif>
 		</cfloop>
-		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(CustOidList)#)">
+			<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(ListChangeDelims(catnum,','),'''')# ) " >
+
+		--->
+		
+
+		
+		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(ListQualify(ListChangeDelims(CustomIdentifierValue,','),''''))#)">
 	<cfelseif CustomOidOper is "BETWEEN">
 		<cfif CustomIdentifierValue does not contain "-">
 			<div class="error">
