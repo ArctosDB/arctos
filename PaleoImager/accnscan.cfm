@@ -3,20 +3,28 @@
 		id number not null,
 		accn_number varchar2(30) not null,
 		accn_id number,
-		comment varchar2(255) not null,
+		remark varchar2(255) not null,
 		barcode varchar2(255) not null,
-		container_id number
+		container_id number,
+		who varchar2(255),
+		when date
 	);
 	
 	create sequence sq_accn_scan_id;
 	
 	CREATE OR REPLACE TRIGGER tg_accn_scan_key                                         
- 		before insert  ON accn_scan  
-		 for each row 
-		    begin     
-		    	if :NEW.id is null then                                                                                      
-		    		select sq_accn_scan_id.nextval into :new.id from dual;
-		    	end if;                                
+ 		before insert ON accn_scan
+		 for each row
+		    begin
+		    	select
+		    		sq_accn_scan_id.nextval,
+		    		sys_context('USERENV', 'SESSION_USER'),
+		    		sysdate 
+		    	into 
+		    		:new.id,
+		    		:new.when,
+		    		:new.who
+		    	from dual;
 		    end;                                                                                            
 		/
 		
@@ -52,7 +60,7 @@
 						<input type="text" name="accn_#i#" id="accn_#i#">
 					</td>
 					<td>
-						<input type="text" name="comment_#i#" id="comment_#i#">
+						<input type="text" name="remark_#i#" id="remark_#i#">
 					</td>
 				</tr>
 			</cfloop>
@@ -66,7 +74,7 @@
 		<cfset tBarcode = #evaluate("barcode_" & i)#>
 		<cfif len(tBarcode) gt 0>
 			<cfset tAccn = #evaluate("accn_" & i)#>
-			<cfset tComment = #evaluate("comment_" & i)#>
+			<cfset tRemark = #evaluate("remark_" & i)#>
 			<hr>row #i#
 			<br>barcode: #tBarcode#
 			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -94,19 +102,19 @@
 				<cfabort>
 			</cfif>
 			
-			<br>comment: #tComment#
+			<br>comment: #tRemark#
 			<br>inserting....
 			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into accn_scan (
 					accn_number,
 					accn_id,
-					comment,
+					remark,
 					barcode,
 					container_id
 				) values (
 					'#tAccn#',
 					#vA.transaction_id#,
-					'#escapeQuotes(tComment)#',
+					'#escapeQuotes(tRemark)#',
 					'#tBarcode#',
 					#vB.container_id#
 				)
