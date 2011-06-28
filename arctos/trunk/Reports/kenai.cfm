@@ -74,7 +74,8 @@
 </cfloop>
 
 <cfscript>
-	variables.joFileWriter.writeLine('\end{document}');
+	l='\end{document}';
+	variables.joFileWriter.writeLine(l);
 	variables.joFileWriter.close();
 </cfscript>d
 	
