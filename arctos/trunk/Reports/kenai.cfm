@@ -26,42 +26,26 @@
 \usepackage{xltxtra}
 \usepackage[noprintbarcodes,%
 nocapaddress]{envlab}
-
 %% Label size.
 %% Using label size of 17 mm by 6 mm as prescribed by the Biological Survey of Canada''s Label data standards for terrestrial arthropods at http://www.biology.ualberta.ca/bsc/briefs/brlabelstandards.htm.
 \SetLabel{25mm}{6mm}{3mm}{6mm}{0mm}{7}{40}
-
 %% Font.
 \setmainfont[Mapping=tex-text]{Linux Libertine O}
 \newcommand{\supertiny}{\fontsize{2.9pt}{2.9pt}\selectfont}
-
-
 %% Command for typesetting labels
 \newcommand{\ilabel}[1]{%
 \mlabel{}{\supertiny ##1}}
-
 \makelabels
-
 \begin{document}
 \startlabels
-
-
 %\documentclass[10pt]{letter}
 %\usepackage[avery5160label,noprintbarcodes,%
 %nocapaddress]{envlab}
-
 %% Font.
 %\font\supertiny=cmss10 at 3pt
 %\renewcommand{\rmdefault}{cmss}
-
-
-
-
 %\linespread{0.2}
-
-
 ';
-
 	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	variables.joFileWriter.writeLine(header);
 </cfscript>
@@ -70,13 +54,10 @@ nocapaddress]{envlab}
 	<cfscript>
 		variables.joFileWriter.writeLine(l);
 	</cfscript>
-	
 </cfloop>
-
 <cfscript>
 	l='\end{document}';
 	variables.joFileWriter.writeLine(l);
 	variables.joFileWriter.close();
 </cfscript>d
-
 <cflocation url="/download.cfm?file=#fname#" addtoken="false">
