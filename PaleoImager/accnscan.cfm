@@ -10,6 +10,10 @@
 		when date
 	);
 	
+	create unique index u_pi_accn_barcode on accn_scan(barcode) tablespace uam_idx_1;
+	create unique index u_pi_accn_accn on accn_scan(accn_number) tablespace uam_idx_1;
+	
+	
 	create sequence sq_accn_scan_id;
 	
 	CREATE OR REPLACE TRIGGER tg_accn_scan_key                                         
@@ -36,49 +40,28 @@
 
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-<cfset numAccnRow=10>
+<cfset numAccnRow=1>
 <cfif action is "nothing">
 	<a href="accnscan.cfm?action=enter">enter data</a>
 </cfif>
 <cfif action is "enter">
+	Use this form to attach barcodes to UAM Paleo Accesson Cards.
 	<form name="f" action="accnscan.cfm" method="post">
 		<input type="hidden" name="action" value="saveNew">
-		<table border>
-			<tr>
-				<th>Row</th>
-				<th>Barcode</th>
-				<th>Accn</th>
-				<th>Comment</th>
-			</tr>
-			<cfloop from="1" to="#numAccnRow#" index="i"> 
-				<tr>
-					<td>#i#</td>
-					<td>
-						<input type="text" name="barcode_#i#" id="barcode_#i#">
-					</td>
-					<td>
-						<input type="text" name="accn_#i#" id="accn_#i#">
-					</td>
-					<td>
-						<input type="text" name="remark_#i#" id="remark_#i#">
-					</td>
-				</tr>
-			</cfloop>
-			<input type="submit">
-		</table>
+		<label for="barcode">Barcode</label>
+		<input type="text" name="barcode" id="barcode">
+		<label for="accn">Accn</label>
+		<input type="text" name="accn" id="accn">
+		<label for="remark">Remark</label>
+		<input type="text" name="remark" id="remark">
+		<br><input type="submit" class="savBtn" value="Save Accn/Barcode">
 	</form>
 </cfif>
 <cfif action is "saveNew">
 	<cftransaction>
-	<cfloop from="1" to="#numAccnRow#" index="i">
-		<cfset tBarcode = evaluate("barcode_" & i)>
-		<cfif len(tBarcode) gt 0>
-			<cfset tAccn = evaluate("accn_" & i)>
-			<cfset tRemark = evaluate("remark_" & i)>
-			<hr>row #i#
-			<br>barcode: #tBarcode#
+		<br>barcode: #barcode#
 			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select container_id from container where barcode='#tBarcode#'
+				select container_id from container where barcode='#barcode#'
 			</cfquery>
 			<cfif vB.recordcount is 1>
 				is valid (#vB.container_id#)
@@ -87,13 +70,13 @@
 				<cfabort>
 			</cfif>
 			
-			<br>accn: #tAccn#
+			<br>accn: #accn#
 			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select accn.transaction_id from 
 					trans,accn where 
 					trans.transaction_id=accn.transaction_id and
 					trans.collection_id=21 and
-					accn.accn_number='#tAccn#'
+					accn.accn_number='#accn#'
 			</cfquery>
 			<cfif vA.recordcount is 1>
 				is valid (#vA.transaction_id#)
@@ -102,7 +85,7 @@
 				<cfabort>
 			</cfif>
 			
-			<br>comment: #tRemark#
+			<br>comment: #remark#
 			<br>inserting....
 			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into accn_scan (
@@ -112,10 +95,10 @@
 					barcode,
 					container_id
 				) values (
-					'#tAccn#',
+					'#accn#',
 					#vA.transaction_id#,
-					'#escapeQuotes(tRemark)#',
-					'#tBarcode#',
+					'#escapeQuotes(remark)#',
+					'#barcode#',
 					#vB.container_id#
 				)
 			</cfquery>
