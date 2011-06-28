@@ -55,6 +55,7 @@
 	<br>Sucessful save will silently redirect to an empty form. Errors will be listed; use your back button to fix them.
 	"UI_bla bla bla" errors are Unique Index problems: we've already got one.
 	<br>See existing data <a href="accnscan.cfm?action=list">[ here ]</a>
+	<hr>
 	<form name="f" action="accnscan.cfm" method="post">
 		<input type="hidden" name="action" value="saveNew">
 		<label for="barcode">Barcode</label>
