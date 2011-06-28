@@ -44,9 +44,16 @@
 <cfoutput>
 <cfset numAccnRow=1>
 <cfif action is "nothing">
+	<script>
+		jQuery(document).ready(function() {
+	  		$("#barcode").focus();
+		});
+	</script>
 	<cfset title="ES Imaging: Accn Cards">
 	Use this form to attach barcodes to UAM Paleo Accesson Cards.
 	<br>Barcode and Accession are exact case-sensitive match.
+	<br>Sucessful save will silently redirect to an empty form. Errors will be listed; use your back button to fix them.
+	<br>See existing data <a href="accnscan.cfm?action=list">[ here ]</a>
 	<form name="f" action="accnscan.cfm" method="post">
 		<input type="hidden" name="action" value="saveNew">
 		<label for="barcode">Barcode</label>
@@ -106,7 +113,10 @@
 			</cfquery>
 			<br>success!
 	</cftransaction>
-	<cflocation url="accnscan.cfm">
+	<cflocation url="accnscan.cfm" addtoken="false">
+</cfif>
+<cfif action is "list">
+	listy
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
