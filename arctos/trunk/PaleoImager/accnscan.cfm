@@ -71,10 +71,10 @@
 <cfif action is "saveNew">
 	<cftransaction>
 	<cfloop from="1" to="#numAccnRow#" index="i">
-		<cfset tBarcode = #evaluate("barcode_" & i)#>
+		<cfset tBarcode = evaluate("barcode_" & i)>
 		<cfif len(tBarcode) gt 0>
-			<cfset tAccn = #evaluate("accn_" & i)#>
-			<cfset tRemark = #evaluate("remark_" & i)#>
+			<cfset tAccn = evaluate("accn_" & i)>
+			<cfset tRemark = evaluate("remark_" & i)>
 			<hr>row #i#
 			<br>barcode: #tBarcode#
 			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
