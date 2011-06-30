@@ -206,9 +206,9 @@
 					barcode,
 					container_id,
 					locid,
-					<cfif len(dec_lat) gt 0>
-						dec_lat,
-						dec_long,
+					<cfif len(declat) gt 0>
+						declat,
+						declong,
 						error_m,
 					</cfif>
 					age,
@@ -220,9 +220,9 @@
 					'#barcode#',
 					#vB.container_id#
 					'#locid#',
-					<cfif len(dec_lat) gt 0>
-						#dec_lat#,
-						#dec_long#,
+					<cfif len(declat) gt 0>
+						#declat#,
+						#declong#,
 						#error_m#,
 					</cfif>
 					'#age#',
