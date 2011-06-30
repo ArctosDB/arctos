@@ -169,7 +169,7 @@
 				locid must be of the format ......
 				<cfabort>
 			</cfif>
-			<cfif cc is not "V" ad cc is not "P" and cc is not "I" and cc is not "G" and cc is not "M" >
+			<cfif cc is not "V" and cc is not "P" and cc is not "I" and cc is not "G" and cc is not "M" >
 				locid must be of the format ......
 				<cfabort>
 			</cfif>
