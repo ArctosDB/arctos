@@ -218,7 +218,7 @@
 					'#accn#',
 					#vA.transaction_id#,
 					'#barcode#',
-					#vB.container_id#
+					#vB.container_id#,
 					'#locid#',
 					<cfif len(declat) gt 0>
 						#declat#,
