@@ -95,8 +95,8 @@
 		<input type="text" name="accn" id="accn" class="reqdClr">
 		<label for="locid">Locality ID (AK##)</label>
 		<input type="text" name="locid" id="locid" class="reqdClr">
-		<label for="cBox">Coordionates: enter all or none</label>
-		<div id="cBox" style="border:1px solid green;padding-left:1em";>
+		<label for="cBox">Coordinates: enter all or none</label>
+		<div id="cBox" style="width:40%;border:1px solid green;padding-left:1em";>
 		<label for="declat">Decimal Latitude</label>
 		<input type="text" name="declat" id="declat" >
 		<label for="declong">Decimal Longitude</label>
