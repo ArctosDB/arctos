@@ -207,8 +207,8 @@
 					container_id,
 					locid,
 					<cfif len(declat) gt 0>
-						declat,
-						declong,
+						dec_lat,
+						dec_long,
 						error_m,
 					</cfif>
 					age,
