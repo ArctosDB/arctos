@@ -95,12 +95,15 @@
 		<input type="text" name="accn" id="accn" class="reqdClr">
 		<label for="locid">Locality ID (AK##)</label>
 		<input type="text" name="locid" id="locid" class="reqdClr">
+		<label for="cBox">Coordionates: enter all or none</label>
+		<div id="cBox" style="border:1px solid green;padding-left:1em";>
 		<label for="declat">Decimal Latitude</label>
 		<input type="text" name="declat" id="declat" >
 		<label for="declong">Decimal Longitude</label>
 		<input type="text" name="declong" id="declong" >
 		<label for="error_m">error (meters)</label>
 		<input type="text" name="error_m" id="error_m" >
+		</div>
 		<label for="age">Age</label>
 		<select name="age">
 			<option value=""></option>
