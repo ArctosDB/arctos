@@ -57,16 +57,7 @@
 	<script>
 		jQuery(document).ready(function() {
 	  		$("##barcode").focus();
-	  		jQuery("##taxon_name").autocomplete("/PaleoImager/data/sciname.cfm", {
-				max: 50,
-				autofill: true,
-				multiple: false,
-				scroll: true,
-				scrollHeight: 300,
-				matchContains: true,
-				minChars: 1,
-				selectFirst:true
-			});
+	  		
 		});
 		function checkLoc(v){
 			if ($("##id_type").val()=='AK') {
@@ -101,7 +92,9 @@
 		<label for="idnum">ID Num (AK## or ES ##)</label>
 		<input type="text" name="idnum" id="idnum" class="reqdClr" onblur="checkLoc(this.value)">
 		<label for="taxon_name">Taxon Name</label>
-		<input type="text" name="taxon_name" id="taxon_name" class="reqdClr">
+		<input type="text" name="taxon_name" id="taxon_name" class="reqdClr"
+			onchange="taxaPick('nothing',this.id,'f',this.value)">
+		<input id="nothing" name="nothing" type="hidden">
 		<label for="part_name">Part</label>
 		<input type="text" name="part_name" id="part_name">
 		<label for="remark">Remark</label>
