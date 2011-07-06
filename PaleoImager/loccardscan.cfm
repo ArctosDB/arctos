@@ -78,7 +78,7 @@
 	<script>
 		jQuery(document).ready(function() {
 	  		$("##barcode").focus();
-	  		jQuery("#accn").autocomplete("/PaleoImager/data/accn.cfm", {
+	  		jQuery("##accn").autocomplete("/PaleoImager/data/accn.cfm", {
 				width: 320,
 				max: 50,
 				autofill: false,
