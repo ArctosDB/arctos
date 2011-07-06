@@ -3,10 +3,11 @@
 		select
 			accn_number
 		from
-			accn,tran
+			accn,trans
 		where
-			accn.transaction_id=tran.transaction_id and
-			collection_id=21
+			accn.transaction_id=trans.transaction_id and
+			collection_id=21 and
+			upper(accn_number) like '%#ucase(q)#%'
 		order by 
 			accn_number
 	</cfquery>
