@@ -56,17 +56,29 @@
 	<script>
 		jQuery(document).ready(function() {
 	  		$("##barcode").focus();
+	  		jQuery("##taxon_name").autocomplete("/PaleoImager/data/sciname.cfm", {
+				max: 50,
+				autofill: true,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:true
+			});
 		});
 		function checkLoc(v){
-			if (! v.match(/^AK-[1-9][0-9]{0,2}-[VPIGM]-?[1-9]?[0-9]{0,3}-?[1-9]?[0-9]{0,3}$/)){
-				var err='AK number must be formatted as AK-{1-999}-(V,P,I,G, or M)[-{1-9999}-{1-9999}]';
-				err+='\nExamples:';
-				err+='\n\tAK-1-V\n\tEx: AK-999-P\n\tEX: AK-1-V-1-1674';
-				
-				alert(err);
-				// AK-1-V
-				// AK-999-P
-				// AK-1-V-1-9999
+			if ($("##id_type").val()=='AK') {
+				if (! v.match(/^AK-[1-9][0-9]{0,2}-[VPIGM]-?[1-9]?[0-9]{0,3}-?[1-9]?[0-9]{0,3}$/)){
+					var err='AK number must be formatted as AK-{1-999}-(V,P,I,G, or M)[-{1-9999}-{1-9999}]';
+					err+='\nExamples:';
+					err+='\n\tAK-1-V\n\tEx: AK-999-P\n\tEX: AK-1-V-1-1674';
+					
+					alert(err);
+					// AK-1-V
+					// AK-999-P
+					// AK-1-V-1-9999
+				}
 			}
 		}
 	</script>
@@ -80,8 +92,14 @@
 		<input type="hidden" name="action" value="saveNew">
 		<label for="barcode">Barcode</label>
 		<input type="text" name="barcode" id="barcode">
-		<label for="locid">Locality ID (AK##)</label>
-		<input type="text" name="locid" id="locid" class="reqdClr" onblur="checkLoc(this.value)">
+		<label for="id_type">ID Type</label>
+		<select name="id_type" id="id_type">
+			<option value="AK">AK</option>
+			<option value="ES">ES</option>
+		</select>
+		<input type="text" name="idnum" id="idnum" class="reqdClr" onblur="checkLoc(this.value)">
+		<label for="idnum">ID Num (AK## or ES ##)</label>
+		<input type="text" name="idnum" id="idnum" class="reqdClr" onblur="checkLoc(this.value)">
 		<label for="taxon_name">Taxon Name</label>
 		<input type="text" name="taxon_name" id="taxon_name" class="reqdClr">
 		<label for="part_name">Part</label>
@@ -132,22 +150,39 @@ loc_card_scan
 					substr(locid, instr(locid,'-',1,2)+1,instr(locid, '-', 1,3) - instr(locid, '-', 1,2)-1)='#typ#'
 			</cfquery>
 			<cfif vLID.recordcount is not 1>
-				locid not found - <cfdump var=#vLID#>
+				locid has #vLID.recordcount# matches - <cfdump var=#vLID#>
+				<cfabort>
 			<cfelse>
 				is spiffy
+			</cfif>
+			taxon_name: #taxon_name#
+			<cfquery name="vTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					taxon_name_id 
+				from 
+					taxonomy 
+				where
+					scientific_name='#taxon_name#'
+			</cfquery>
+			<cfif vTID.recordcount is not 1>
+				taxon name (case sensitive string match) has #vTID.recordcount# matches - <cfdump var=#vTID#>
 				<cfabort>
+			<cfelse>
+				is spiffy
 			</cfif>
 			
 			<br>comment: #remark#
-			<cfabort>
 			<br>inserting....
 			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into accn_scan (
-					accn_number,
-					accn_id,
+				insert into spec_scan (
+					id_type,
+					id_number,
 					remark,
 					barcode,
-					container_id
+					container_id,
+					taxon_name,
+					taxon_name_id,
+					part_name
 				) values (
 					'#accn#',
 					#vA.transaction_id#,
@@ -155,6 +190,20 @@ loc_card_scan
 					'#barcode#',
 					#vB.container_id#
 				)
+				
+					create table  (
+		id number not null,
+		 varchar2(30) not null,
+		 varchar2(30) not null,
+		remark varchar2(255),
+		barcode varchar2(255) not null,
+		container_id number,
+		 varchar2(255) not null,
+		 number,
+		 varchar2(255),
+		who varchar2(255),
+		when date
+	);
 			</cfquery>
 			<br>success!
 	</cftransaction>
