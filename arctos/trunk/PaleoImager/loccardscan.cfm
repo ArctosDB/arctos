@@ -90,7 +90,7 @@
 			});
 		});
 		function checkLoc(v){
-			if (! v.match(/^'AK-'\d+$/)){
+			if (! v.match(/^AK-\d+$/)){
 				alert('bad formatting');
 			}
 		}
