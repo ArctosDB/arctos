@@ -90,8 +90,8 @@
 			});
 		});
 		function checkLoc(v){
-			if ! (v.match(/^\d+$/)){
-				alert('that is not a number');
+			if (v.match(/^\d+$/)){
+				alert('that is a number');
 			}
 		}
 	</script>
