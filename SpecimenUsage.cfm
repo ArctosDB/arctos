@@ -51,6 +51,7 @@
 					<select name="project_type" id="project_type">
 						<option value=""></option>
 						<option value="loan">Uses Specimens</option>
+						<option value="loan_no_pub">Uses Specimens, no publication</option>
 						<option value="accn">Contributes Specimens</option>
 						<option value="both">Uses and Contributes</option>
 						<option value="neither">Neither Uses nor Contributes</option>
@@ -189,6 +190,14 @@
 					and project.project_id not in (
 						select project_id from project_trans,cataloged_item 
 						where project_trans.transaction_id=cataloged_item.accn_id)">
+			<cfelseif project_type is "loan_no_pub">
+				<cfset whr = "#whr# AND
+					project.project_id in (
+						select project_id from project_trans,loan_item 
+						where project_trans.transaction_id=loan_item.transaction_id) and
+					project.project_id not in (
+						select project_id from project_publication
+						)">
 			</cfif>
 		</cfif>
 		<cfif isdefined("sponsor") AND len(#sponsor#) gt 0>
