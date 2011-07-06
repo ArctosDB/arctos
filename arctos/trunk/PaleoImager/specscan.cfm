@@ -1,16 +1,18 @@
 <!---
-	create table accn_scan (
+	create table spec_scan (
 		id number not null,
-		accn_number varchar2(30) not null,
-		accn_id number,
+		id_type varchar2(30) not null,
+		id_number varchar2(30) not null,
 		remark varchar2(255),
 		barcode varchar2(255) not null,
 		container_id number,
+		taxon_name varchar2(255) not null,
+		taxon_name_id number,
+		part_name varchar2(255),
 		who varchar2(255),
 		when date
 	);
 	
-	alter table accn_scan modify remark null;
 	
 	create unique index u_pi_accn_barcode on accn_scan(barcode) tablespace uam_idx_1;
 	create unique index u_pi_accn_accn on accn_scan(accn_number) tablespace uam_idx_1;
@@ -49,35 +51,48 @@
 		<br>Barcode (scan it)
 		<br>Part Name (controlled pick, optional)
 	</p>
-	<cfabort>
 	
-<cfset numAccnRow=1>
 <cfif action is "nothing">
 	<script>
 		jQuery(document).ready(function() {
 	  		$("##barcode").focus();
 		});
+		function checkLoc(v){
+			if (! v.match(/^AK-[1-9][0-9]{0,2}-[VPIGM]-?[1-9]?[0-9]{0,3}-?[1-9]?[0-9]{0,3}$/)){
+				var err='AK number must be formatted as AK-{1-999}-(V,P,I,G, or M)[-{1-9999}-{1-9999}]';
+				err+='\nExamples:';
+				err+='\n\tAK-1-V\n\tEx: AK-999-P\n\tEX: AK-1-V-1-1674';
+				
+				alert(err);
+				// AK-1-V
+				// AK-999-P
+				// AK-1-V-1-9999
+			}
+		}
 	</script>
-	<cfset title="ES Imaging: Accn Cards">
-	Use this form to attach barcodes to UAM Paleo Accesson Cards.
-	<br>Barcode and Accession are exact case-sensitive match.
+	<cfset title="ES Imaging: Specimens">
+	Use this form to enter specimen data.
 	<br>Sucessful save will silently redirect to an empty form. Errors will be listed; use your back button to fix them.
 	"UI_bla bla bla" errors are Unique Index problems: we've already got one.
-	<br>See existing data <a href="accnscan.cfm?action=list">[ here ]</a>
+	<br>See existing data <a href="specscan.cfm?action=list">[ here ]</a>
 	<hr>
-	<form name="f" action="accnscan.cfm" method="post">
+	<form name="f" action="specscan.cfm" method="post">
 		<input type="hidden" name="action" value="saveNew">
 		<label for="barcode">Barcode</label>
 		<input type="text" name="barcode" id="barcode">
-		<label for="accn">Accn</label>
-		<input type="text" name="accn" id="accn">
+		<label for="locid">Locality ID (AK##)</label>
+		<input type="text" name="locid" id="locid" class="reqdClr" onblur="checkLoc(this.value)">
+		<label for="taxon_name">Taxon Name</label>
+		<input type="text" name="taxon_name" id="taxon_name" class="reqdClr">
+		<label for="part_name">Part</label>
+		<input type="text" name="part_name" id="part_name">
 		<label for="remark">Remark</label>
 		<input type="text" name="remark" id="remark">
-		<br><input type="submit" class="savBtn" value="Save Accn/Barcode">
+		<br><input type="submit" class="savBtn" value="Save">
 	</form>
 </cfif>
 <cfif action is "saveNew">
-	<cfset title="ES Imaging: Accn Cards: Dammit">
+	<cfset title=title&": Dammit">
 	<cftransaction>
 		<br>barcode: #barcode#
 			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -90,22 +105,41 @@
 				<cfabort>
 			</cfif>
 			
-			<br>accn: #accn#
-			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select accn.transaction_id from 
-					trans,accn where 
-					trans.transaction_id=accn.transaction_id and
-					trans.collection_id=21 and
-					accn.accn_number='#accn#'
+			<br>locid: #locid#
+			<cfset lid=listgetat(locid,2,"-")>
+			<cfset typ=listgetat(locid,3,"-")>
+			<!---
+			select locid,
+substr(locid, 1, instr(locid,'-',1,1)-1) first, -- first col
+substr(locid, instr(locid,'-',1,1)+1,
+instr(locid, '-', 1,2)
+- instr(locid, '-', 1,1)-1) secnd, -- second col
+substr(locid, instr(locid,'-',1,2)+1,
+instr(locid, '-', 1,3)
+- instr(locid, '-', 1,2)-1)	thrd
+from
+loc_card_scan
+;
+
+--->
+			<cfquery name="vLID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					locid 
+				from 
+					loc_card_scan 
+				where
+					substr(locid, instr(locid,'-',1,1)+1,instr(locid, '-', 1,2) - instr(locid, '-', 1,1)-1)='#lid#' and
+					substr(locid, instr(locid,'-',1,2)+1,instr(locid, '-', 1,3) - instr(locid, '-', 1,2)-1)='#typ#'
 			</cfquery>
-			<cfif vA.recordcount is 1>
-				is valid (#vA.transaction_id#)
+			<cfif vA.recordcount is not 1>
+				locid not found - <cfdump var=#vLID#>
 			<cfelse>
-				is invalid Use your back button.
+				is spiffy
 				<cfabort>
 			</cfif>
 			
 			<br>comment: #remark#
+			<cfabort>
 			<br>inserting....
 			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into accn_scan (
@@ -124,7 +158,7 @@
 			</cfquery>
 			<br>success!
 	</cftransaction>
-	<cflocation url="accnscan.cfm" addtoken="false">
+	<cflocation url="specscan.cfm" addtoken="false">
 </cfif>
 <cfif action is "list">
 	<script src="/includes/sorttable.js"></script>
