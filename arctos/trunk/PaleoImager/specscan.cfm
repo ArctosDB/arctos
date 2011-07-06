@@ -57,7 +57,16 @@
 	<script>
 		jQuery(document).ready(function() {
 	  		$("##barcode").focus();
-	  		
+	  		jQuery("#part_sname").autocomplete("/ajax/part_name.cfm", {
+				width: 320,
+				autofill: true,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:true
+			});	
 		});
 		function checkLoc(v){
 			if ($("##id_type").val()=='AK') {
