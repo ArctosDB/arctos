@@ -47,6 +47,7 @@
 <cfoutput>
 <cfset numAccnRow=1>
 <cfif action is "nothing">
+	<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 	<cfquery name="ctAge" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			ATTRIBUTE_VALUE 
@@ -77,6 +78,17 @@
 	<script>
 		jQuery(document).ready(function() {
 	  		$("##barcode").focus();
+	  		jQuery("#accn").autocomplete("/PaleoImager/data/accn.cfm", {
+				width: 320,
+				max: 50,
+				autofill: false,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:false
+			});
 		});
 	</script>
 	<cfset title="ES Imaging: Locality Cards">
