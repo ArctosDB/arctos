@@ -79,15 +79,14 @@
 		jQuery(document).ready(function() {
 	  		$("##barcode").focus();
 	  		jQuery("##accn").autocomplete("/PaleoImager/data/accn.cfm", {
-				width: 320,
 				max: 50,
-				autofill: false,
+				autofill: true,
 				multiple: false,
 				scroll: true,
 				scrollHeight: 300,
 				matchContains: true,
 				minChars: 1,
-				selectFirst:false
+				selectFirst:true
 			});
 		});
 	</script>
