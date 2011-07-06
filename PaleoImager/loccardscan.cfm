@@ -90,8 +90,8 @@
 			});
 		});
 		function checkLoc(v){
-			if (! v.match(/^\d+$/)){
-				alert('that not is a number');
+			if (! v.match(/^'AK-'\d+$/)){
+				alert('bad formatting');
 			}
 		}
 	</script>
