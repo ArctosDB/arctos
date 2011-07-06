@@ -53,6 +53,7 @@
 	</p>
 	
 <cfif action is "nothing">
+	<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 	  		$("##barcode").focus();
