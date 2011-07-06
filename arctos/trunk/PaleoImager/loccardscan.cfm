@@ -88,7 +88,15 @@
 				minChars: 1,
 				selectFirst:true
 			});
+			$("##).change
+			
+			
 		});
+		function checkLoc(v){
+			if ! (v.match(/^\d+$/)){
+				alert('that is not a number');
+			}
+		}
 	</script>
 	<cfset title="ES Imaging: Locality Cards">
 	Use this form to attach barcodes to UAM Paleo Locality Cards.
@@ -105,7 +113,7 @@
 		<label for="accn">Accn</label>
 		<input type="text" name="accn" id="accn" class="reqdClr">
 		<label for="locid">Locality ID (AK##)</label>
-		<input type="text" name="locid" id="locid" class="reqdClr">
+		<input type="text" name="locid" id="locid" class="reqdClr" onblur="checkLoc(this.value)">
 		<label for="cBox">Coordinates: enter all or none</label>
 		<div id="cBox" style="width:40%;border:1px solid green;padding-left:1em";>
 		<label for="declat">Decimal Latitude</label>
