@@ -92,7 +92,7 @@
 	</form>
 </cfif>
 <cfif action is "saveNew">
-	<cfset title=title&": Dammit">
+	<cfset title="ES Imaging: Specimens: Dammit">
 	<cftransaction>
 		<br>barcode: #barcode#
 			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
