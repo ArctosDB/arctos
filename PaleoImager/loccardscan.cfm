@@ -88,9 +88,6 @@
 				minChars: 1,
 				selectFirst:true
 			});
-			$("##).change
-			
-			
 		});
 		function checkLoc(v){
 			if ! (v.match(/^\d+$/)){
