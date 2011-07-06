@@ -93,7 +93,7 @@
 			if (! v.match(/^AK-[1-9][0-9]{0,2}-[VPIGM]-?[1-9]?[0-9]{0,3}-?[1-9]?[0-9]{0,3}$/)){
 				var err='AK number must be formatted as AK-{1-999}-(V,P,I,G, or M)[-{1-9999}-{1-9999}]';
 				err+='\nExamples:';
-				err+='\tAK-1-V\n\tEx: AK-999-P\n\tEX: AK-1-V-1-1674';
+				err+='\n\tAK-1-V\n\tEx: AK-999-P\n\tEX: AK-1-V-1-1674';
 				
 				alert(err);
 				// AK-1-V
