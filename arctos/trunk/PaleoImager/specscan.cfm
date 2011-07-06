@@ -57,7 +57,7 @@
 	<script>
 		jQuery(document).ready(function() {
 	  		$("##barcode").focus();
-	  		jQuery("##part_sname").autocomplete("/ajax/part_name.cfm", {
+	  		jQuery("##part_name").autocomplete("/ajax/part_name.cfm", {
 				width: 320,
 				autofill: true,
 				multiple: false,
