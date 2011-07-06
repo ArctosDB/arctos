@@ -97,7 +97,6 @@
 			<option value="AK">AK</option>
 			<option value="ES">ES</option>
 		</select>
-		<input type="text" name="idnum" id="idnum" class="reqdClr" onblur="checkLoc(this.value)">
 		<label for="idnum">ID Num (AK## or ES ##)</label>
 		<input type="text" name="idnum" id="idnum" class="reqdClr" onblur="checkLoc(this.value)">
 		<label for="taxon_name">Taxon Name</label>
