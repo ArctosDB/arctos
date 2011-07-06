@@ -90,8 +90,11 @@
 			});
 		});
 		function checkLoc(v){
-			if (! v.match(/^AK-\d+$/)){
+			if (! v.match(/^AK-[1-9][0-9]{0,2}-[VPIGM]-?[1-9]?[0-9]{0,3}-?[1-9]?[0-9]{0,3}/)){
 				alert('bad formatting');
+				// AK-1-V
+				// AK-999-P
+				// AK-1-V-1-9999
 			}
 		}
 	</script>
