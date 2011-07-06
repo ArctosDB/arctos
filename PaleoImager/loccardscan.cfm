@@ -91,7 +91,7 @@
 		});
 		function checkLoc(v){
 			if (! v.match(/^AK-[1-9][0-9]{0,2}-[VPIGM]-?[1-9]?[0-9]{0,3}-?[1-9]?[0-9]{0,3}$/)){
-				alert('AK number must be formatted as AK-{1-999}-(V,P,I,G, or M)[optional:-{1-9999}-{1-9999}]');
+				alert('AK number must be formatted as AK-{1-999}-(V,P,I,G, or M)[-{1-9999}-{1-9999}]\nEx: AK-1-V\nEx: AK-999-P\nEX: AK-1-V-1-1674');
 				// AK-1-V
 				// AK-999-P
 				// AK-1-V-1-9999
