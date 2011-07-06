@@ -131,7 +131,7 @@ loc_card_scan
 					substr(locid, instr(locid,'-',1,1)+1,instr(locid, '-', 1,2) - instr(locid, '-', 1,1)-1)='#lid#' and
 					substr(locid, instr(locid,'-',1,2)+1,instr(locid, '-', 1,3) - instr(locid, '-', 1,2)-1)='#typ#'
 			</cfquery>
-			<cfif vA.recordcount is not 1>
+			<cfif vLID.recordcount is not 1>
 				locid not found - <cfdump var=#vLID#>
 			<cfelse>
 				is spiffy
