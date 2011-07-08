@@ -7,7 +7,7 @@
 	        char = mid(chars, randRange(1, len(chars)),1);
 	        result&=char;
 	    }
-	    return resultl
+	    return result;
     </cfscript>
 </cffunction>
 <cfif not isdefined("action") or action is not "p">
