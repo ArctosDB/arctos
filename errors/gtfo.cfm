@@ -1,16 +1,14 @@
 <cffunction name="makeRandomString" returnType="string" output="false">
-    <cfset var chars = "23456789ABCDEFGHJKMNPQRS">
-    <cfset var length = randRange(4,7)>
-    <cfset var result = "">
-    <cfset var i = "">
-    <cfset var char = "">
     <cfscript>
-    for(i=1; i <= length; i++) {
-        char = mid(chars, randRange(1, len(chars)),1);
-        result&=char;
-    }
+		var chars = "23456789ABCDEFGHJKMNPQRS";
+		var length = randRange(4,7);
+		var result = "";
+	    for(i=1; i <= length; i++) {
+	        char = mid(chars, randRange(1, len(chars)),1);
+	        result&=char;
+	    }
+	    return resultl
     </cfscript>
-    <cfreturn result>
 </cffunction>
 <cfif not isdefined("action") or action is not "p">
 	Oops. It looks like you are on our blacklist. That's probably because someone from your IP 
