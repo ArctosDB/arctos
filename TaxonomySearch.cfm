@@ -259,6 +259,15 @@
 							</td>
 						</tr>
 						<tr>
+							<td align="right"><b><nobr>Subclass:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="subclass" id="subclass" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('subclass');e.value='='+e.value;">
+									Add = for exact match
+								</span>							
+							</td>
+						</tr>
+						<tr>
 							<td align="right"><b><nobr>Order:</nobr></b></td>
 							<td nowrap="nowrap">
 								<input size="25" name="phylorder" id="phylorder" maxlength="40">
@@ -272,6 +281,15 @@
 							<td nowrap="nowrap">
 								<input size="25" name="suborder" id="suborder" maxlength="40">
 								<span class="infoLink" onclick="var e=document.getElementById('suborder');e.value='='+e.value;">
+									Add = for exact match
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><b><nobr>Superfamily:</nobr></b></td>
+							<td nowrap="nowrap">
+								<input size="25" name="superfamily" id="superfamily" maxlength="40">
+								<span class="infoLink" onclick="var e=document.getElementById('superfamily');e.value='='+e.value;">
 									Add = for exact match
 								</span>
 							</td>

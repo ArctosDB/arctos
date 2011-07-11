@@ -88,6 +88,22 @@
 		<cfif isdefined("nomenclatural_code") AND len(nomenclatural_code) gt 0>
 			<CFSET SQL = "#SQL# AND nomenclatural_code = '#nomenclatural_code#'">
 		</cfif>
+		<cfif isdefined("subclass") AND len(subclass) gt 0>
+			<cfif left(subclass,1) is "=">
+				<CFSET SQL = "#SQL# AND upper(subclass) = '#ucase(right(subclass,len(subclass)-1))#'">
+			<cfelse>
+				<CFSET SQL = "#SQL# AND upper(subclass) LIKE '%#ucase(subclass)#%'">
+			</cfif>
+			<cfset titleTerms=listappend(titleTerms,'#subclass#')>
+		</cfif>
+		<cfif isdefined("superfamily") AND len(superfamily) gt 0>
+			<cfif left(superfamily,1) is "=">
+				<CFSET SQL = "#SQL# AND upper(superfamily) = '#ucase(right(superfamily,len(superfamily)-1))#'">
+			<cfelse>
+				<CFSET SQL = "#SQL# AND upper(superfamily) LIKE '%#ucase(superfamily)#%'">
+			</cfif>
+			<cfset titleTerms=listappend(titleTerms,'#superfamily#')>
+		</cfif>
 		<cfif isdefined("genus") AND len(genus) gt 0>
 			<cfif left(genus,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(genus) = '#ucase(right(genus,len(genus)-1))#'">

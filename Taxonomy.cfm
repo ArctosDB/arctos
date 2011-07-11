@@ -146,16 +146,19 @@
 				<label for="kingdom">Kingdom</label>
 				<input type="text" name="kingdom" id="kingdom" value="#gettaxa.kingdom#" size="30">
 			</td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
 			<td>
 				<label for="phylum">Phylum</label>
 				<input type="text" name="phylum" id="phylum" value="#gettaxa.phylum#" size="30">
 			</td>
+		</tr>
+		<tr>
 			<td>
 				<label for="phylclass">Class</label>
 				<input type="text" name="phylclass" id="phylclass" value="#gettaxa.phylclass#" size="30">
+			</td>
+			<td>
+				<label for="subclass">SubClass</label>
+				<input type="text" name="subclass" id="subclass" value="#gettaxa.subclass#" size="30">
 			</td>
 		</tr>
 		<tr>
@@ -166,6 +169,15 @@
 			<td>
 				<label for="suborder">Suborder</label>
 				<input type="text" name="suborder" id="suborder" value="#gettaxa.suborder#" size="30">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="superfamily">Superfamily</label>
+				<input type="text" name="superfamily" id="superfamily" value="#gettaxa.superfamily#" size="30">
+			</td>
+			<td>
+				&nbsp;
 			</td>
 		</tr>
 		<tr>
@@ -450,14 +462,23 @@
 		            </select>
 				</td>
 	        </tr>
-	        <tr> 
-	        	<td colspan="2">
+	        <tr>
+				<td>
+					<label for="nomenclatural_code"><span class="likeLink" onClick="getDocs('taxonomy','nomenclatural_code');">Nomenclatural Code</span></label>
+					<select name="nomenclatural_code" id="nomenclatural_code" size="1" class="reqdClr">
+		               <cfloop query="ctnomenclatural_code">
+		                <option 
+								<cfif #form.nomenclatural_code# is "#ctnomenclatural_code.nomenclatural_code#"> selected </cfif>value="#ctnomenclatural_code.nomenclatural_code#">#ctnomenclatural_code.nomenclatural_code#</option>
+		              </cfloop>
+		            </select>
+				</td>
+				<td>
 					<label for="genus">Genus <span class="likeLink" 
 						onClick="taxa.genus.value='&##215;' + taxa.genus.value;">Add &##215;</span></label>
 					<input size="25" name="genus" id="genus" maxlength="40" value="#genus#">
 				</td>
 			</tr>
-			<tr>
+	        <tr>
 				<td>
 					<label for="species">Species <span class="likeLink" 
 						onClick="taxa.species.value='&##215;' + taxa.species.value;">Add &##215;</span></label>
@@ -515,23 +536,18 @@
 					<input type="text" name="kingdom" id="kingdom" value="#kingdom#" size="30">
 				</td>
 				<td>
-					<label for="nomenclatural_code"><span class="likeLink" onClick="getDocs('taxonomy','nomenclatural_code');">Nomenclatural Code</span></label>
-					<select name="nomenclatural_code" id="nomenclatural_code" size="1" class="reqdClr">
-		               <cfloop query="ctnomenclatural_code">
-		                <option 
-								<cfif #form.nomenclatural_code# is "#ctnomenclatural_code.nomenclatural_code#"> selected </cfif>value="#ctnomenclatural_code.nomenclatural_code#">#ctnomenclatural_code.nomenclatural_code#</option>
-		              </cfloop>
-		            </select>
+					<label for="phylum">Phylum</label>
+					<input type="text" name="phylum" id="phylum" value="#phylum#" size="30">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="phylum">Phylum</label>
-					<input type="text" name="phylum" id="phylum" value="#phylum#" size="30">
-				</td>
-				<td>
 					<label for="phylclass">Class</label>
 					<input type="text" name="phylclass" id="phylclass" value="#phylclass#" size="30">
+				</td>
+				<td>
+					<label for="subclass">Sublass</label>
+					<input type="text" name="subclass" id="subclass" value="#subclass#" size="30">
 				</td>
 			</tr>
 			<tr>
@@ -542,6 +558,12 @@
 				<td>
 					<label for="suborder">Suborder</label>
 					<input type="text" name="suborder" id="suborder" value="#suborder#" size="30">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="superfamily">Superamily</label>
+					<input type="text" name="superfamily" id="superfamily" value="#superfamily#" size="30">
 				</td>
 			</tr>
 			<tr>
@@ -607,7 +629,9 @@
 			infraspecific_author,
 			kingdom,
 			nomenclatural_code,
-			taxon_status
+			taxon_status,
+			subclass,
+			superfamily
 		) VALUES (
 			#nextID.nextID#,
 			#valid_catalog_term_fg#,
@@ -629,7 +653,9 @@
 			'#escapeQuotes(infraspecific_author)#',
 			'#kingdom#',
 			'#nomenclatural_code#',
-			'#taxon_status#'
+			'#taxon_status#',
+			'#subclass#',
+			'#superfamily#'
 		)
 	</cfquery>
 	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#nextID.nextID#" addtoken="false">	
@@ -717,7 +743,9 @@
 		kingdom = '#kingdom#',
 		nomenclatural_code = '#nomenclatural_code#',
 		infraspecific_author = '#escapeQuotes(infraspecific_author)#',
-		taxon_status='#taxon_status#'	
+		taxon_status='#taxon_status#',
+		subclass='#subclass#',
+		superfamily='#superfamily#'
 	WHERE taxon_name_id=#taxon_name_id#
 	</cfquery>
 	</cftransaction>
