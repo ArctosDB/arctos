@@ -211,8 +211,8 @@
 					<cfabort>
 				</cfif>
 			</cfif>
-			<cfif isdefined("declat") or isdefined("declong") or isdefined("error_m")>
-				<cfif not isdefined("declat") or not isdefined("declong") or not isdefined("error_m")>
+			<cfif len(declat) + len(declong)  + len(error_m) gt 0>
+				<cfif len(declat) is 0 or  len(declong) is 0 or  len(error_m) is 0>
 					You must provide all or none of the three coordinate options
 					<cfabort>
 				</cfif>
@@ -307,7 +307,7 @@
 		delete from loc_card_scan where id=#id#
 	</cfquery>
 	deleted #id#
-	<a href="loccardscan.cfm?action=list">back to list</a> or <a href="loccardscan.cfm?action=nothing">enter locality card data</a>
+	<br><a href="loccardscan.cfm?action=list">back to list</a> or <a href="loccardscan.cfm?action=nothing">enter locality card data</a>
 </cfif>
 
 
