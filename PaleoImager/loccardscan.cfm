@@ -265,6 +265,8 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from loc_card_scan
 	</cfquery>
+	No edit here - delete and re-enter.
+	
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Barcode</th>
@@ -288,9 +290,26 @@
 				<td>#age#</td>
 				<td>#formation#</td>
 				<td>#remark#</td>
+				<td>
+					<form name="die" method="post" action="loccardscan.cfm">
+						<input type="hidden" name="action" value="delete">
+						<input type="hidden" name="id" value="#id#">
+						<input type="submit" value="delete">
+					</form>
+				</td>
 			</tr>
 		</cfloop>
 	</table>
 </cfif>
+<cfif action is "delete">
+	<cfset title="Ha-Ha: deleting">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from loc_card_scan where id=#id#
+	</cfquery>
+	deleted #id#
+	<a href="loccardscan.cfm?action=list">back to list</a> or <a href="loccardscan.cfm?action=nothing">enter locality card data</a>
+</cfif>
+
+
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
