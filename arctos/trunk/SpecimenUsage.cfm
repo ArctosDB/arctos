@@ -56,7 +56,7 @@
 						<option value="both">Uses and Contributes</option>
 						<option value="neither">Neither Uses nor Contributes</option>
 					</select>
-					<label for="descr_len">Project Description Min Length</label>
+					<label for="descr_len">Project Description Minimum Length</label>
 					<input name="descr_len" id="descr_len" type="text" value="100">
 				</td>
 				<td>
@@ -157,7 +157,7 @@
 		</cfif>
 		<cfif isdefined("descr_len") AND len(descr_len) gt 0>
 			<cfset go="yes">
-			<cfset whr = "#whr# AND length(project.project_description) >= #descr_len#">
+			<cfset whr = "#whr# AND project.project_description is not null and length(project.project_description) >= #descr_len#">
 		</cfif>
 		
 		<cfif isdefined("author") AND len(author) gt 0>
@@ -397,6 +397,8 @@
 			<div class="notFound">
 				No projects matched your criteria.
 			</div>
+		<cfelse>
+			(#projNames.recordcount# results)
 		</cfif>
 		<cfset i=1>
 		<cfloop query="projNames">
@@ -458,6 +460,8 @@
 		</div>
 	<cfelseif publication.recordcount is 1>
 		<cfset title = "#publication.publication_title#">	
+	<cfelse>
+		(#publication.recordcount# results)
 	</cfif>
 	<cfquery name="pubs" dbtype="query">
 		SELECT
