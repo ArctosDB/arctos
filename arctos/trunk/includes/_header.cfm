@@ -337,6 +337,7 @@
 										<ul>
 											<li><a target="_top" href="/info/collnHoldgByClass.cfm">Collection Holdings by Class</a></li>
 											<li><a target="_top" href="/Admin/bad_taxonomy.cfm">Invalid Taxonomy</a></li>
+											<li><a target="_top" href="/tools/TaxonomyScriptGap.cfm">Unscripable Taxonomy Gaps</a></li>
 											<li><a target="_top" href="/info/slacker.cfm">Suspect Data</a></li>
 											<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
 											<li><a target="_top" href="/tools/TaxonomyGaps.cfm">Messy Taxonomy</a></li>

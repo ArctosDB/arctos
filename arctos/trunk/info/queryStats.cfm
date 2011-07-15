@@ -27,14 +27,12 @@ test-uam> desc uam_query.query_stats_coll
 
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-<script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
-<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-	var cal1 = new CalendarPopup("theCalendar");
-	cal1.showYearNavigation();
-	cal1.showYearNavigationInput();
-</SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
-
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		$("#bdate").datepicker();
+		$("#edate").datepicker();
+	});
+</script>
 <cfif action is "nothing">
 <cfoutput>
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -58,22 +56,9 @@ test-uam> desc uam_query.query_stats_coll
 	</select>
 	<label for="bdate">Begin Date</label>
 		<input type="text" name="bdate" id="bdate">
-		<img src="/images/pick.gif" 
-			class="likeLink" 
-			border="0" 
-			alt="[calendar]"
-			name="anchor1"
-			id="anchor1"
-			onClick="cal1.select(document.f.bdate,'anchor1','yyyy-mm-dd'); return false;"/>
+		
 		<label for="edate">Ended Date</label>
 		<input type="text" name="edate" id="edate">
-		<img src="/images/pick.gif" 
-			class="likeLink" 
-			border="0" 
-			alt="[calendar]"
-			name="anchor1"
-			id="anchor1"
-			onClick="cal1.select(document.f.edate,'anchor1','yyyy-mm-dd'); return false;"/>	
 	<br><input type="button" class="lnkBtn" value="Table" onclick="f.action.value='showTable';f.submit();">
 	<br><input type="button" class="lnkBtn" value="Graph" onclick="f.action.value='showSummary';f.submit();">
 </form>
@@ -370,5 +355,4 @@ test-uam> desc uam_query.query_stats_coll
 	</table>
 </cfoutput>
 </cfif>
-<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
 <cfinclude template="/includes/_footer.cfm">
