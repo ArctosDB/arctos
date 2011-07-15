@@ -78,7 +78,7 @@
 					relationship = '#relationship#'
 			</cfquery>
 			<cfcatch>
-				<cfquery name="toomany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="fail" datasource="uam_god">
 					update cf_temp_relations set 
 						lasttrydate=sysdate,
 						fail_reason='DB Error. #cfcatch.detail#'
@@ -92,7 +92,7 @@
 			</cftry>
 			<!---- insert into relationships ---->
 		<cfelse>
-			<cfquery name="toomany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="faill" datasource="uam_god">
 				update cf_temp_relations set 
 					lasttrydate=sysdate,
 					fail_reason='unknown failure!'

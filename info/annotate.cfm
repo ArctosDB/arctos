@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 <cfoutput>
 	<cfset t=listgetat(q,1,"=")>
 	<cfset v=listgetat(q,2,"=")>
@@ -11,7 +11,7 @@
 		where cf_user_data.user_id = cf_users.user_id and
 		cf_users.username='#session.username#'
 	</cfquery>
-	<cfif #hasEmail.recordcount# is 0 OR #len(hasEmail.email)# is 0>
+	<cfif hasEmail.recordcount is 0 OR len(hasEmail.email) is 0>
 		<div class="error">
 			You must provide an email address to annotate specimens.
 			<br>

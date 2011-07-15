@@ -23,8 +23,7 @@
 			cataloged_item.collection_object_id id,
 			scientific_name, 
 			cat_num, 
-			collection.collection_cde, 
-			institution_acronym,
+			collection.collection, 
 			higher_geog,
 			spec_locality
 		FROM
@@ -71,13 +70,7 @@
 		<tr>
 			
 			<td align="center">
-				<input type="submit" 
-					value="Submit Report" class="insBtn"
-   					onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">	
-				<input type="button" 
-					value="Read bug reports" class="lnkBtn"
-   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-					onclick="document.location='reportBadData.cfm?action=read';">	
+				<input type="submit" value="Submit Report" class="insBtn">	
 			</td>
 		</tr>
 		<tr>
@@ -112,7 +105,7 @@
 						</td>
 						<td>
 							<a href="#Application.ServerRootUrl#/SpecimenDetail.cfm?collection_object_id=#id#">
-							#institution_acronym# #collection_cde# #cat_num#</a>
+							#collection# #cat_num#</a>
 							</td>
 						<td>#scientific_name#</td>
 						<td>#higher_geog#</td>
@@ -127,14 +120,14 @@
 </table>
 </cfif>
 <!------------------------------------------------------------>
-<cfif #action# is "save">
+<cfif action is "save">
 <cfoutput>
 <cfset user_id=0>
-<cfif isdefined("session.username") and len(#session.username#) gt 0>
+<cfif isdefined("session.username") and len(session.username) gt 0>
 	<cfquery name="isUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT user_id FROM cf_users WHERE username = '#session.username#'
 	</cfquery>
-	<cfset user_id = #isUser.user_id#>
+	<cfset user_id = isUser.user_id>
 </cfif>
 	<cfquery name="bugID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(bug_id) + 1 as id from cf_bugs
@@ -195,7 +188,7 @@
 		<cfset thisAddress = "#thisAddress#,#address#">
 	</cfloop>
 	
-	<cfmail to="#thisAddress#" subject="ColdFusion Bad Data Report" from="BadData@#Application.fromEmail#" type="html">
+	<cfmail to="#thisAddress#" subject="Arctos Bad Data Report" from="BadData@#Application.fromEmail#" type="html">
 		<p>Reported Name: #reported_name# (AKA #session.username#) submitted a data report.</p>
 		
 		<p><a href="#Application.ServerRootUrl#/SpecimenResults.cfm?collection_object_id=#newCollObjId#">Specimens</a></p>
@@ -205,28 +198,15 @@
 		<P>Remarks: #user_remarks#</P>
 		
 		<P>Email: #user_email#</P>
-		
-		<p>Link: 
-		<a href="#Application.ServerRootUrl#/info/bugs.cfm?action=read&bug_id=#bugID.id#">#Application.ServerRootUrl#/info/bugs.cfm?action=read&bug_id=#bugID.id#</a></p>
 	</cfmail>
-	
-	
-	
-	<div align="center">Your report has been successfully submitted.
-	  
-	</div>
-	<P align="center">Thank you for helping to improve this site!
-	<p>
-		<div align="center">Click <a href="/SpecimenResults.cfm?collection_object_id=#newCollObjId#">here</a> to return to your search results.
-</div>
+	<div align="center">Your report has been successfully submitted.</div>
+	<P align="center">Thank you for helping to improve this site!</p>
+	<p align="center">
+		Click <a href="/SpecimenResults.cfm?collection_object_id=#newCollObjId#">here</a> to return to your search results.
 	</p>
-<p>	
-<div align="center">Click <a href="/home.cfm">here</a> to return to Arctos home.
-</div>
-<p>	
-<div align="center">Click <a href="bugs.cfm?action=read">here</a> to read bug reports.
-</div>
-
+	<p align="center">
+		Click <a href="/home.cfm">here</a> to return to Arctos home.
+	</p>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
