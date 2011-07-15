@@ -1,8 +1,55 @@
+<!-------------
+CREATE table taxupfail (
+  genus varchar2(255),
+    fail varchar2(255)
+);
+
+create index temp_taxup_g on taxupfail(genus) tablespace uam_idx_1;
+
+exec DBMS_SCHEDULER.DROP_JOB (JOB_NAME => 'j_fix_tax_by_genus', FORCE => TRUE);
+
+
+
+BEGIN
+DBMS_SCHEDULER.CREATE_JOB (
+    job_name           =>  'j_fix_tax_by_genus',
+    job_type           =>  'STORED_PROCEDURE',
+    job_action         =>  'fix_tax_by_genus',
+    start_date         =>  SYSTIMESTAMP,
+    repeat_interval    =>  'freq=minutely; interval=2',
+    enabled            =>  TRUE,
+    end_date           =>  NULL,
+    comments           =>  'taxonomy gap filler-inner');
+END;
+/
+
+
+create or replace procedure fix_tax_by_genus is
+    c number;
+begin
+    for r in (select genus from taxonomy where genus is not null and family is null and rownum < 101 and genus not in (select genus from taxupfail) group by genus) loop
+        dbms_output.put_line('------------------------------------------------');
+        dbms_output.put_line(r.genus);
+        select count(distinct(family)) into c from taxonomy where family is not null and genus=r.genus;
+        --dbms_output.put_line(c);
+        if c=1 then
+            update taxonomy set family= (select distinct(family) from taxonomy where family is not null and genus=r.genus) where genus= r.genus and family is null;
+        else
+            insert into taxupfail (genus,fail) values (r.genus,'found ' || c || ' families');
+            dbms_output.put_line('found ' || c || ' families for  ' || r.genus);
+
+        end if;
+    end loop;
+end;
+/
+
+------------>
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Taxonomy is still a mess">
 <cfset action='duGenus'>
 <cfif action is 'duGenus'>
 	Taxonomy gaps that cannot be scripted in.
+	This form/data does not auto-update - pick on an admin if you want a refresh - code in the header
 	<br>Letter-links are first letter of genus
 	<cfoutput>
 		<cfif not isdefined("l")>

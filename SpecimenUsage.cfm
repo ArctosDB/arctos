@@ -392,14 +392,16 @@
 	<cfset i=1>
 	<table border width="90%"><tr><td width="50%" valign="top">
 		
-		<h3>Projects</h3>
-		<cfif projNames.recordcount is 0>
-			<div class="notFound">
-				No projects matched your criteria.
-			</div>
-		<cfelse>
-			(#projNames.recordcount# results)
-		</cfif>
+		<h3>
+			Projects
+			<cfif projNames.recordcount is 0>
+				<div class="notFound">
+					No projects matched your criteria.
+				</div>
+			<cfelse>
+				(#projNames.recordcount# results)
+			</cfif>
+		</h3>
 		<cfset i=1>
 		<cfloop query="projNames">
 			<cfquery name="thisAuth" dbtype="query">
@@ -453,16 +455,17 @@
 		</cfloop>
 	</td><td width="50%" valign="top">
 	
-	<h3>Publications
-	<cfif publication.recordcount is 0>
-		<div class="notFound">
-			No publications matched your criteria.
-		</div>
-	<cfelseif publication.recordcount is 1>
-		<cfset title = "#publication.publication_title#">	
-	<cfelse>
-		(#publication.recordcount# results)
-	</cfif>
+	<h3>
+		Publications
+		<cfif publication.recordcount is 0>
+			<div class="notFound">
+				No publications matched your criteria.
+			</div>
+		<cfelseif publication.recordcount is 1>
+			<cfset title = "#publication.publication_title#">	
+		<cfelse>
+			(#publication.recordcount# results)
+		</cfif>
 	</h3>
 	<cfquery name="pubs" dbtype="query">
 		SELECT
