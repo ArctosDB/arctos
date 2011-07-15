@@ -108,7 +108,7 @@ test-uam> desc uam_query.query_stats_coll
 			</cfif>
 			<cfif len(#bdate#) gt 0>
 				AND (
-					to_date(to_char(CREATE_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
+					to_date(to_char(CREATE_DATE,'yyyy-mm-dd')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
 					and to_date('#dateformat(edate,"yyyy-mm-dd")#')
 				)
 			</cfif>

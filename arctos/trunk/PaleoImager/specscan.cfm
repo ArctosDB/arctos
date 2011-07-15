@@ -43,15 +43,6 @@
 
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	form will be:
-	
-	<p>
-		AK ## (controlled, must match value entered for locality card)
-		<br>Taxon Name (controlled pick)
-		<br>Barcode (scan it)
-		<br>Part Name (controlled pick, optional)
-	</p>
-	
 <cfif action is "nothing">
 	<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 	<script>
@@ -190,22 +181,11 @@ loc_card_scan
 					#vA.transaction_id#,
 					'#escapeQuotes(remark)#',
 					'#barcode#',
-					#vB.container_id#
+					#vB.container_id#,
+					'#taxon_name#',
+					#vTID.taxon_name_id#,
+					'#part_name#'
 				)
-				
-					create table  (
-		id number not null,
-		 varchar2(30) not null,
-		 varchar2(30) not null,
-		remark varchar2(255),
-		barcode varchar2(255) not null,
-		container_id number,
-		 varchar2(255) not null,
-		 number,
-		 varchar2(255),
-		who varchar2(255),
-		when date
-	);
 			</cfquery>
 			<br>success!
 	</cftransaction>

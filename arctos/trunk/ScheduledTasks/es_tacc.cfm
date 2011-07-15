@@ -41,7 +41,9 @@
 			select * from es_img where status is null and rownum<1000
 		</cfquery>
 		<cfloop query="d">
+			<br>#imgname#
 			<cfset barcode=listgetat(imgname,1,"_")>
+			<br>#barcode#
 			<cfquery name="acn" datasource="uam_god">
 				select * from accn_scan where barcode='#barcode#'
 			</cfquery>

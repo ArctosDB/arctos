@@ -56,6 +56,8 @@
 						<option value="both">Uses and Contributes</option>
 						<option value="neither">Neither Uses nor Contributes</option>
 					</select>
+					<label for="descr_len">Project Description Min Length</label>
+					<input name="descr_len" id="descr_len" type="text" value="100">
 				</td>
 				<td>
 					<h4>Publication</h4>
@@ -153,6 +155,11 @@
 			<cfset go="yes">
 			<cfset whr = "#whr# AND upper(regexp_replace(project.project_name,'<[^>]*>')) like '%#ucase(escapeQuotes(p_title))#%'">
 		</cfif>
+		<cfif isdefined("descr_len") AND len(descr_len) gt 0>
+			<cfset go="yes">
+			<cfset whr = "#whr# AND length(project.project_description) >= #descr_len#">
+		</cfif>
+		
 		<cfif isdefined("author") AND len(author) gt 0>
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_id IN 
