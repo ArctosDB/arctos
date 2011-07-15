@@ -453,7 +453,7 @@
 		</cfloop>
 	</td><td width="50%" valign="top">
 	
-	<h3>Publications</h3>
+	<h3>Publications
 	<cfif publication.recordcount is 0>
 		<div class="notFound">
 			No publications matched your criteria.
@@ -463,6 +463,7 @@
 	<cfelse>
 		(#publication.recordcount# results)
 	</cfif>
+	</h3>
 	<cfquery name="pubs" dbtype="query">
 		SELECT
 			publication_id,
