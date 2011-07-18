@@ -603,7 +603,7 @@ content: ": ";
 			        <cfelseif ((verbatim_date is not began_date) OR (verbatim_date is not ended_date)) AND began_date is ended_date>
 					    <cfset thisDate = "#verbatim_date# (#began_date#)">
 			        <cfelse>
-					    <cfset thisDate = "#verbatim_date# (#began_date)# - #ended_date#)">
+					    <cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
 			        </cfif>
 					<div class="title">
 						Collecting Event
