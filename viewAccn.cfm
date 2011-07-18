@@ -50,7 +50,7 @@
 		<p>
 			<strong>Accession #d.collection# #d.accn_number#</strong>
 		</p>
-		<cfset title="Accession #d.collection# #d.accn_number">
+		<cfset title="Accession #d.collection# #d.accn_number#">
 		<br><strong>Obtained by:</strong> #d.accn_type#
 		<br><strong>Status:</strong> #d.accn_status#
 		<br><strong>Received:</strong> 
