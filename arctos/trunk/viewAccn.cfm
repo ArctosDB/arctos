@@ -140,7 +140,7 @@
 				permit.permit_id = permit_trans.permit_id AND
 				permit.issued_by_agent_id = issuedBy.agent_id AND
 				permit.issued_to_agent_id = issuedTo.agent_id AND
-				permit_trans.transaction_id = #accnData.transaction_id#
+				permit_trans.transaction_id = #d.transaction_id#
 		</cfquery>
 		<div style="float:left;width:55%;">
 			<br><strong>Permits:</strong>  
