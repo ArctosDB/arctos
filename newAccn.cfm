@@ -104,11 +104,18 @@
 								<label for="ent_Date">Entry Date:</label>
 								<cfinput type="text" name="ent_Date" id="ent_Date" value="#thisDate#">
 							</td>
-							<td colspan="2">
+							<td>
 								<label for="">Has Correspondence?</label>
 								<select name="correspFg">
 									<option value="1">Yes</option>
 									<option value="0">No</option>
+								</select>
+							</td>
+							<td>
+								<label for="is_public_fg">Public?</label>
+								<select name="is_public_fg">
+									<option value="1">public</option>
+									<option selected="selected" value="0">private</option>
 								</select>
 							</td>
 							<td>&nbsp;</td>
