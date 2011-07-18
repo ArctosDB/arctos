@@ -188,7 +188,7 @@
 						[number not issued]
 					</cfif>
 					<div style="padding-left:2em;">					
-						<br><strong>Permit Type:</strong> #permit_Type#
+						<strong>Permit Type:</strong> #permit_Type#
 						<br><strong>Issued To:</strong> #IssuedToAgent#
 						<br><strong>Issued By:</strong> #IssuedByAgent#
 						<br><strong>Issued Date:</strong>
