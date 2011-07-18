@@ -223,6 +223,8 @@
 			where
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.accn_id=#transaction_id#
+			group by
+				collection
 		</cfquery>
 		<cfif spec.recordcount gt 0>
 			<cfquery name="sspec" dbtype="query">
