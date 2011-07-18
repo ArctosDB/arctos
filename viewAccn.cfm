@@ -55,7 +55,7 @@
 		<br><strong>Status:</strong> #d.accn_status#
 		<br><strong>Received:</strong> 
 		<cfif len(d.received_date) gt 0>
-			#d.received_date#
+			#dateformat(d.received_date,"yyyy-mm-dd")#
 		<cfelse>
 			not recorded
 		</cfif>
@@ -212,6 +212,28 @@
 			</cfloop>
 		<cfelse>
 			<br>There are no permits associated with this accession.
-		</cfif>			
+		</cfif>
+		<cfquery name="spec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				collection,
+				count(*) c
+			from 
+				cataloged_item,
+				collection
+			where
+				cataloged_item.collection_id=collection.collection_id and
+				cataloged_item.accn_id=#transaction_id#
+		</cfquery>
+		<cfif spec.recordcount gt 0>
+			<cfquery name="sspec" dbtype="query">
+				select sum(c) tc from spec
+			</cfquery>
+			<br>There are #sspec.tc# specimens in this accession.
+			<ul>
+				<cfloop query="spec">
+					<li>#collection# #c#</li>
+				</cfloop>
+			</ul>			
+		</cfif>
 	</cfoutput>
 <cfinclude template="includes/_footer.cfm">
