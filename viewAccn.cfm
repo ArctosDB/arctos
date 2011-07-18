@@ -178,7 +178,9 @@
 		</cfquery>
 		<cfif getPermits.recordcount gt 0>
 			Permits associated with this accession:
+			<cfset i=0>
 			<cfloop query="getPermits">
+				<cfset i=i+1>
 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 
 				<br>Permit
