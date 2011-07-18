@@ -65,7 +65,6 @@
 		<cfif len(d.estimated_count) gt 0>
 			<br><strong>Estimated Count:</strong> #d.estimated_count#
 		</cfif>
-		
 		<br><strong>Nature of Material:</strong> #d.nature_of_material#
 		<cfloop query="transAgents">
 			<br><strong>#trans_agent_role#:</strong> #agent_name#
@@ -79,7 +78,7 @@
 			transaction_id=#transaction_id#
 		</cfquery>
 		<cfif accncontainers.recordcount gt 0>
-			<br><strong>In Containers:</strong> #valuelist(accncontainers.barcode)#
+			<p><strong>In Containers:</strong> #valuelist(accncontainers.barcode)#</p>
 		</cfif>
 		<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select project_name,niceURL(project_name) pn from project,
@@ -87,18 +86,20 @@
 			project_trans.project_id =  project.project_id
 			and transaction_id=#transaction_id#
 		</cfquery>
-		<cfif projs.recordcount gt 0>
-			<br>Projects associated with this Accn:
-			<ul>
-				<cfloop query="projs">
-					<li>
-						<a href="/project/#pn#">#project_name#</a>
-					</li>
-				</cfloop>
-			</ul>
-		<cfelse>
-			<br>No projects are associated with this accession.
-		</cfif>
+		<p>
+			<cfif projs.recordcount gt 0>
+				Projects associated with this Accn:
+				<ul>
+					<cfloop query="projs">
+						<li>
+							<a href="/project/#pn#">#project_name#</a>
+						</li>
+					</cfloop>
+				</ul>
+			<cfelse>
+				No projects are associated with this accession.
+			</cfif>
+		</p>
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				media.media_id,
@@ -117,6 +118,7 @@
 				media_relationship like '% accn' and
 				related_primary_key=#transaction_id#
 		</cfquery>
+		<p>
 		<cfif media.recordcount gt 0>
 			Media associated with this Accn:
 			<div class="detailBlock">
@@ -155,8 +157,9 @@
 		        </span>		
 			</div>
 		<cfelse>
-			<br>There are no Media associated with this accession.
+			There are no Media associated with this accession.
 		</cfif>
+		</p>
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				permit.permit_id,
@@ -179,6 +182,7 @@
 				permit.issued_to_agent_id = issuedTo.agent_id AND
 				permit_trans.transaction_id = #d.transaction_id#
 		</cfquery>
+		<p>
 		<cfif getPermits.recordcount gt 0>
 			Permits associated with this accession:
 			<cfset i=0>
@@ -216,8 +220,9 @@
 				</div>
 			</cfloop>
 		<cfelse>
-			<br>There are no permits associated with this accession.
+			There are no permits associated with this accession.
 		</cfif>
+		</p>
 		<cfquery name="spec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				collection,
@@ -235,6 +240,7 @@
 			order by
 				collection
 		</cfquery>
+		<p>
 		<cfif spec.recordcount gt 0>
 			<cfquery name="sspec" dbtype="query">
 				select sum(c) tc from spec
@@ -250,6 +256,9 @@
 					</li>
 				</cfloop>
 			</ul>		
+		<cfelse>
+			There are no speciment associated with this accession.
 		</cfif>
+		</p>
 	</cfoutput>
 <cfinclude template="includes/_footer.cfm">
