@@ -182,37 +182,34 @@
 			<cfloop query="getPermits">
 				<cfset i=i+1>
 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-
-				<br>Permit
 					<cfif len(permit_num) gt 0>
-					 #permit_num#
+						Permit #permit_num#
 					<cfelse>
 						[number not issued]
-					</cfif>:
-				<blockquote>
-					
-					<br><strong>Permit Type:</strong> #permit_Type#
-					<br><strong>Issued To:</strong> #IssuedToAgent#
-					<br><strong>Issued By:</strong> #IssuedByAgent#
-					<br><strong>Issued Date:</strong>
-					<cfif len(issued_date) gt 0>
-					 	#dateformat(issued_date,"yyyy-mm-dd")#
-					<cfelse>
-						not recorded
 					</cfif>
-					<cfif len(renewed_date) gt 0>
-					 	<br><strong>Renewed on:</strong> #dateformat(renewed_date,"yyyy-mm-dd")#
-					</cfif>
-					<br><strong>Expiration Date:</strong>
-					<cfif len(exp_date) gt 0>
-					 	#dateformat(exp_date,"yyyy-mm-dd")#
-					<cfelse>
-						not recorded
-					</cfif>
-					<cfif len(permit_remarks) gt 0>
-					 	<br><strong>Remark:</strong> #permit_remarks#
-					</cfif>
-				</blockquote>
+					<div style="padding-left:2em;">					
+						<br><strong>Permit Type:</strong> #permit_Type#
+						<br><strong>Issued To:</strong> #IssuedToAgent#
+						<br><strong>Issued By:</strong> #IssuedByAgent#
+						<br><strong>Issued Date:</strong>
+						<cfif len(issued_date) gt 0>
+						 	#dateformat(issued_date,"yyyy-mm-dd")#
+						<cfelse>
+							not recorded
+						</cfif>
+						<cfif len(renewed_date) gt 0>
+						 	<br><strong>Renewed on:</strong> #dateformat(renewed_date,"yyyy-mm-dd")#
+						</cfif>
+						<br><strong>Expiration Date:</strong>
+						<cfif len(exp_date) gt 0>
+						 	#dateformat(exp_date,"yyyy-mm-dd")#
+						<cfelse>
+							not recorded
+						</cfif>
+						<cfif len(permit_remarks) gt 0>
+						 	<br><strong>Remark:</strong> #permit_remarks#
+						</cfif>
+					</div>
 				</div>
 			</cfloop>
 		<cfelse>
