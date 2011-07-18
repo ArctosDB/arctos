@@ -30,6 +30,9 @@
 			<div class="error">Data restricted by collection.</div>
 			<cfabort>
 		</cfif>
+		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_transactions")>
+	        <a href="/editAccn.cfm?action=edit&transaction_id=#transaction_id#">[ edit accn ]</a>
+	    </cfif>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				trans_agent_id,
@@ -183,9 +186,9 @@
 				<cfset i=i+1>
 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<cfif len(permit_num) gt 0>
-						Permit #permit_num#
+						<strong>Permit #permit_num#</strong>
 					<cfelse>
-						[number not issued]
+						<strong>(permit number not issued)</strong>
 					</cfif>
 					<div style="padding-left:2em;">					
 						<strong>Permit Type:</strong> #permit_Type#
