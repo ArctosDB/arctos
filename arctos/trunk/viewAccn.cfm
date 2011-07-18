@@ -216,6 +216,7 @@
 		<cfquery name="spec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				collection,
+				collection.collection_id,
 				count(*) c
 			from 
 				cataloged_item,
@@ -224,18 +225,21 @@
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.accn_id=#transaction_id#
 			group by
-				collection
+				collection,
+				collection.collection_id
 		</cfquery>
 		<cfif spec.recordcount gt 0>
 			<cfquery name="sspec" dbtype="query">
 				select sum(c) tc from spec
 			</cfquery>
-			<br>There are #sspec.tc# specimens in this accession.
+			<br>There are <a href="/SpecimenResults.cfm?accn_trans_id=#transaction_id#">#sspec.tc# specimens</a> in this accession.
 			<ul>
 				<cfloop query="spec">
-					<li>#collection# #c#</li>
+					<li>
+						<a href="/SpecimenResults.cfm?accn_trans_id=#transaction_id#&collection_id=#collection_id#">#c# #collection#</a>
+					</li>
 				</cfloop>
-			</ul>			
+			</ul>		
 		</cfif>
 	</cfoutput>
 <cfinclude template="includes/_footer.cfm">
