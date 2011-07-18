@@ -31,7 +31,7 @@
 			<cfabort>
 		</cfif>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_transactions")>
-	        <a href="/editAccn.cfm?action=edit&transaction_id=#transaction_id#">[ edit accn ]</a>
+	        <a href="/editAccn.cfm?action=edit&transaction_id=#transaction_id#">[ edit accession ]</a>
 	    </cfif>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
@@ -88,7 +88,7 @@
 		</cfquery>
 		<p>
 			<cfif projs.recordcount gt 0>
-				Projects associated with this Accn:
+				Projects associated with this accession:
 				<ul>
 					<cfloop query="projs">
 						<li>
@@ -120,7 +120,7 @@
 		</cfquery>
 		<p>
 		<cfif media.recordcount gt 0>
-			Media associated with this Accn:
+			Media associated with this accession:
 			<div class="detailBlock">
 	            <span class="detailData">			
 					<div class="thumbs">
