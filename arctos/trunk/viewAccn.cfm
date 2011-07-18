@@ -146,20 +146,8 @@
 			<br><strong>Permits:</strong>  
 			<cfloop query="getPermits">
 				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_date,"yyyy-mm-dd")#. <cfif len(#renewed_date#) gt 0> (renewed #renewed_date#)</cfif>Expires #dateformat(exp_date,"yyyy-mm-dd")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> 
-				<form name="killPerm#currentRow#" method="post" action="editAccn.cfm">
-					<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
-					<input type="hidden" name="action" value="delePermit">
-					<input type="hidden" name="permit_id" value="#permit_id#">
-					 <input type="submit" value="Remove this Permit" class="delBtn">	
-				</form>
+				
 			</cfloop>
-			<form name="addPermit" action="editAccn.cfm" method="post">
-				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
-				<input type="hidden" name="permit_id">
-				  <input type="button" value="Add a permit" class="picBtn"
-			   		onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
-						'resizable,scrollbars=yes,width=600,height=600')">
-			</form>
-		</td></tr></table>
+			
 	</cfoutput>
 <cfinclude template="includes/_footer.cfm">
