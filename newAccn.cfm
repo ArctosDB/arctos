@@ -231,8 +231,9 @@
 					</cfif>
 					<cfif len(#REMARKS#) gt 0>
 						,TRANS_REMARKS
-					</cfif>)
-				VALUES (
+					</cfif>,
+					is_public_fg
+				) VALUES (
 					#n.n#,
 					'#dateformat(ent_Date,"yyyy-mm-dd")#',
 					#correspFg#,
@@ -243,7 +244,9 @@
 					</cfif>
 					<cfif len(#REMARKS#) gt 0>
 						,'#REMARKS#'
-					</cfif>)
+					</cfif>,
+					#is_public_fg#
+				)
 				</cfquery>
 				<cfquery name="newAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO accn (
