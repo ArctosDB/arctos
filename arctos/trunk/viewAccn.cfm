@@ -227,6 +227,8 @@
 			group by
 				collection,
 				collection.collection_id
+			order by
+				collection
 		</cfquery>
 		<cfif spec.recordcount gt 0>
 			<cfquery name="sspec" dbtype="query">
