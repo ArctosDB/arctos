@@ -179,6 +179,8 @@
 		<cfif getPermits.recordcount gt 0>
 			Permits associated with this accession:
 			<cfloop query="getPermits">
+				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+
 				<br>Permit
 					<cfif len(permit_num) gt 0>
 					 #permit_num#
@@ -209,6 +211,7 @@
 					 	<br><strong>Remark:</strong> #permit_remarks#
 					</cfif>
 				</blockquote>
+				</div>
 			</cfloop>
 		<cfelse>
 			<br>There are no permits associated with this accession.
