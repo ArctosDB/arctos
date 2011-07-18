@@ -180,13 +180,13 @@
 			Permits associated with this accession:
 			<cfloop query="getPermits">
 				<br>Permit
-				<blockquote>
-					<strong>Number:</strong> 
 					<cfif len(permit_num) gt 0>
 					 #permit_num#
 					<cfelse>
 						[number not issued]
-					</cfif>
+					</cfif>:
+				<blockquote>
+					
 					<br><strong>Permit Type:</strong> #permit_Type#
 					<br><strong>Issued To:</strong> #IssuedToAgent#
 					<br><strong>Issued By:</strong> #IssuedByAgent#
