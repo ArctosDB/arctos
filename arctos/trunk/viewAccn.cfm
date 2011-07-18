@@ -88,7 +88,8 @@
 					preview_uri,
 					media_uri,
 					media_type,
-					label_value
+					label_value,
+					mime_type
 				from 
 					media,
 					media_relations,
