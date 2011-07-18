@@ -235,10 +235,13 @@
 				select sum(c) tc from spec
 			</cfquery>
 			<br>There are <a href="/SpecimenResults.cfm?accn_trans_id=#transaction_id#">#sspec.tc# specimens</a> in this accession.
+					[ <a href="/bnhmMaps/bnhmMapData.cfm?accn_trans_id=#transaction_id#">BerkeleyMapper</a> ]
+
 			<ul>
 				<cfloop query="spec">
 					<li>
 						<a href="/SpecimenResults.cfm?accn_trans_id=#transaction_id#&collection_id=#collection_id#">#c# #collection#</a>
+						[ <a href="/bnhmMaps/bnhmMapData.cfm?accn_trans_id=#transaction_id#&collection_id=#collection_id#">BerkeleyMapper</a> ]
 					</li>
 				</cfloop>
 			</ul>		
