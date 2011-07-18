@@ -15,7 +15,8 @@
 				trans.collection_id,
 				CORRESP_FG,
 				concattransagent(trans.transaction_id,'entered by') enteredby,
-				estimated_count
+				estimated_count,
+				trans.is_public_fg
 			FROM
 				trans, 
 				accn,
@@ -25,6 +26,10 @@
 				trans.collection_id=collection.collection_id and
 				trans.transaction_id = #transaction_id#
 		</cfquery>
+		<cfif d.is_public_fg is not 1>
+			<div class="error">Data restricted by collection.</div>
+			<cfabort>
+		</cfif>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				trans_agent_id,
@@ -42,138 +47,113 @@
 				trans_agent_role,
 				agent_name
 		</cfquery>
-		Accession #d.collection# #d.accn_number#
-		<br>Obtained by #d.accn_type#
-		<br>Status: #d.accn_status#
-		<br>Received #d.received_date#
-		<br>Estimated Count: #d.estimated_count#
-		<br>Nature of Material: #d.nature_of_material#
+		<p>
+			<strong>Accession #d.collection# #d.accn_number#</strong>
+		</p>
+		<cfset title="Accession #d.collection# #d.accn_number">
+		<br><strong>Obtained by:</strong> #d.accn_type#
+		<br><strong>Status:</strong> #d.accn_status#
+		<br><strong>Received:</strong> 
+		<cfif len(d.received_date) gt 0>
+			#d.received_date#
+		<cfelse>
+			not recorded
+		</cfif>
+		<cfif len(d.estimated_count) gt 0>
+			<br><strong>Estimated Count:</strong> #d.estimated_count#
+		</cfif>
+		
+		<br><strong>Nature of Material:</strong> #d.nature_of_material#
 		<cfloop query="transAgents">
-			<br>#trans_agent_role#: #agent_name#
+			<br><strong>#trans_agent_role#:</strong> #agent_name#
 		</cfloop>
-		<br>Remarks: #d.trans_remarks#
-		
-		
-			<cfquery name="accncontainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select barcode from container, trans_container where
-				container.container_id=trans_container.container_id and
-				transaction_id=#transaction_id#
-			</cfquery>
-			<br>In Containers #valuelist(accncontainers.barcode)#
-			
-			<strong>Projects associated with this Accn:</strong>
+		<cfif len(d.trans_remarks) gt 0>
+			<br><strong>Remarks:</strong> #d.trans_remarks#
+		</cfif>
+		<cfquery name="accncontainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select barcode from container, trans_container where
+			container.container_id=trans_container.container_id and
+			transaction_id=#transaction_id#
+		</cfquery>
+		<cfif accncontainers.recordcount gt 0>
+			<br><strong>In Containers:</strong> #valuelist(accncontainers.barcode)#
+		</cfif>
+		<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select project_name,niceURL(project_name) pn from project,
+			project_trans where 
+			project_trans.project_id =  project.project_id
+			and transaction_id=#transaction_id#
+		</cfquery>
+		<cfif projs.recordcount gt 0>
+			<br>Projects associated with this Accn:
 			<ul>
-				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select project_name, project.project_id from project,
-					project_trans where 
-					project_trans.project_id =  project.project_id
-					and transaction_id=#transaction_id#
-				</cfquery>
-				<cfif #projs.recordcount# gt 0>
-					<cfloop query="projs">
-						<li>
-							<a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a><br>
-						</li>
-					</cfloop>
-				<cfelse>
-					<li>None</li>
-				</cfif>
+				<cfloop query="projs">
+					<li>
+						<a href="/project/#pn#">#project_name#</a>
+					</li>
+				</cfloop>
 			</ul>
-			
-
-			<strong>Media associated with this Accn:</strong>
-			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select 
-					media.media_id,
-					preview_uri,
-					media_uri,
-					media_type,
-					label_value,
-					mime_type
-				from 
-					media,
-					media_relations,
-					(select * from media_labels where media_label='description') media_labels
-				where
-					media.media_id=media_labels.media_id (+) and
-					media.media_id=media_relations.media_id and
-					media_relationship like '% accn' and
-					related_primary_key=#transaction_id#
-			</cfquery>
-			<ul>
-				<cfif media.recordcount gt 0>
-					<div class="detailBlock">
-			            <span class="detailData">			
-							<div class="thumbs">
-								<div class="thumb_spcr">&nbsp;</div>
-								<cfloop query="media">
-									<cfset puri=getMediaPreview(preview_uri,media_type)>
-					            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-										select
-											media_label,
-											label_value
-										from
-											media_labels
-										where
-											media_id=#media_id#
-									</cfquery>
-									<cfquery name="desc" dbtype="query">
-										select label_value from labels where media_label='description'
-									</cfquery>
-									<cfset alt="Media Preview Image">
-									<cfif desc.recordcount is 1>
-										<cfset alt=desc.label_value>
-									</cfif>
-					               <div class="one_thumb">
-						               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
-					                   	<p>
-											#media_type# (#mime_type#)
-						                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-											<br>#alt#
-										</p>
-									</div>
-								</cfloop>
-								<div class="thumb_spcr">&nbsp;</div>
+		<cfelse>
+			<br>No projects are associated with this accession.
+		</cfif>
+		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				media.media_id,
+				preview_uri,
+				media_uri,
+				media_type,
+				label_value,
+				mime_type
+			from 
+				media,
+				media_relations,
+				(select * from media_labels where media_label='description') media_labels
+			where
+				media.media_id=media_labels.media_id (+) and
+				media.media_id=media_relations.media_id and
+				media_relationship like '% accn' and
+				related_primary_key=#transaction_id#
+		</cfquery>
+		<cfif media.recordcount gt 0>
+			Media associated with this Accn:
+			<div class="detailBlock">
+	            <span class="detailData">			
+					<div class="thumbs">
+						<div class="thumb_spcr">&nbsp;</div>
+						<cfloop query="media">
+							<cfset puri=getMediaPreview(preview_uri,media_type)>
+			            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+								select
+									media_label,
+									label_value
+								from
+									media_labels
+								where
+									media_id=#media_id#
+							</cfquery>
+							<cfquery name="desc" dbtype="query">
+								select label_value from labels where media_label='description'
+							</cfquery>
+							<cfset alt="Media Preview Image">
+							<cfif desc.recordcount is 1>
+								<cfset alt=desc.label_value>
+							</cfif>
+			               <div class="one_thumb">
+				               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+			                   	<p>
+									#media_type# (#mime_type#)
+				                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+									<br>#alt#
+								</p>
 							</div>
-				        </span>		
+						</cfloop>
+						<div class="thumb_spcr">&nbsp;</div>
 					</div>
-								
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					<!---
-					
-					
-					<cfloop query="media">
-						<li>
-							<a href="#media_uri#">
-								<cfif len(preview_uri) gt 0>
-									<img src="#preview_uri#">
-								<cfelse>
-									<img src="/images/noThumb.jpg">
-								</cfif>
-							</a>
-							<br><a class="infoLink" href="/MediaSearch.cfm?action=search&media_id=#media_id#">edit</a>
-							<br>#label_value#
-						</li>
-					</cfloop>
-					
-					--->
-				<cfelse>
-					<li>None</li>
-				</cfif>
-			</ul>
-
-		</div>
+		        </span>		
+			</div>
+		<cfelse>
+			<br>There are no Media associated with this accession.
+		</cfif>
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				permit.permit_id,
@@ -196,12 +176,42 @@
 				permit.issued_to_agent_id = issuedTo.agent_id AND
 				permit_trans.transaction_id = #d.transaction_id#
 		</cfquery>
-		<div style="float:left;width:55%;">
-			<br><strong>Permits:</strong>  
+		<cfif getPermits.recordcount gt 0>
+			Permits associated with this accession:
 			<cfloop query="getPermits">
-				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_date,"yyyy-mm-dd")#. <cfif len(#renewed_date#) gt 0> (renewed #renewed_date#)</cfif>Expires #dateformat(exp_date,"yyyy-mm-dd")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> 
-				
+				<br>Permit
+				<blockquote>
+					<strong>Number:</strong> 
+					<cfif len(permit_num) gt 0>
+					 #permit_num#
+					<cfelse>
+						[number not issued]
+					</cfif>
+					<br><strong>Permit Type:</strong> #permit_Type#
+					<br><strong>Issued To:</strong> #IssuedToAgent#
+					<br><strong>Issued By:</strong> #IssuedByAgent#
+					<br><strong>Issued Date:</strong>
+					<cfif len(issued_date) gt 0>
+					 	#dateformat(issued_date,"yyyy-mm-dd")#
+					<cfelse>
+						not recorded
+					</cfif>
+					<cfif len(renewed_date) gt 0>
+					 	<br><strong>Renewed on:</strong> #dateformat(renewed_date,"yyyy-mm-dd")#
+					</cfif>
+					<br><strong>Expiration Date:</strong>
+					<cfif len(exp_date) gt 0>
+					 	#dateformat(exp_date,"yyyy-mm-dd")#
+					<cfelse>
+						not recorded
+					</cfif>
+					<cfif len(permit_remarks) gt 0>
+					 	<br><strong>Remark:</strong> #permit_remarks#
+					</cfif>
+				</blockquote>
 			</cfloop>
-			
+		<cfelse>
+			<br>There are no permits associated with this accession.
+		</cfif>			
 	</cfoutput>
 <cfinclude template="includes/_footer.cfm">
