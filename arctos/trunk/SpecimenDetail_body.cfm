@@ -162,6 +162,7 @@
 <cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
+<cfdump var=#one#>
 <cfif one.concatenatedEncumbrances contains "mask record" and oneOfUs neq 1>
 	Record masked.<cfabort>
 </cfif>

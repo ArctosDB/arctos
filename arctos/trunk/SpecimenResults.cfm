@@ -419,7 +419,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 						<option value="/Reports/permit.cfm">
 							MVZ Permit Report
 						</option>
-					</cfif>					
+					</cfif>
+					<option value="/Reports/kenai.cfm">
+						download bug .tex
+					</option>
 					<option value="/Reports/print_nk.cfm">
 						Print NK pages
 					</option>
