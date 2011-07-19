@@ -615,16 +615,19 @@ function success_getSpecResultsData(result){
 								pURI=thisMedia.DATA.preview_uri[m];
 							} else {
 								if (thisMedia.DATA.mimecat[m]=='audio'){
-									pURI='images/audioNoThumb.png';
+							pURI='images/audioNoThumb.png';
+							theInnerHtml += '<div class="one_thumb">';
+							makeAudioItems();
 								} else {
-									pURI='/images/noThumb.jpg';
-								}
-							}
+							pURI='/images/noThumb.jpg';
 							theInnerHtml += '<div class="one_thumb">';
 							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">';
 							theInnerHtml += '<img src="' + pURI + '" class="theThumb"></a>';
 							theInnerHtml += '<p>' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
-							theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';							
+							theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';
+								}
+							}
+					
 						}
 					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
 					theInnerHtml += '</td>';
@@ -867,7 +870,7 @@ function logIt(msg,status) {
 }
 
 function makeAudioItems() {
-	var wavDownloadUrl = $('.one_thumb').find('a').attr('href'),
+	var wavDownloadUrl = '/media/'+thisMedia.DATA.media_uri[m],
         length = wavDownloadUrl.split('/').length,
                 fileName = wavDownloadUrl.split('/')[length - 1].replace('.wav', ''),
                 mp3DownloadUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
