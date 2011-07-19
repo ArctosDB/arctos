@@ -1,4 +1,8 @@
 <cfinclude template="includes/_header.cfm">	
+	<cfif not isdefined("transaction_id")>
+		bad call
+		<cfabort>
+	</cfif>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT
@@ -257,7 +261,7 @@
 				</cfloop>
 			</ul>		
 		<cfelse>
-			There are no speciment associated with this accession.
+			There are no specimens associated with this accession.
 		</cfif>
 		</p>
 	</cfoutput>
