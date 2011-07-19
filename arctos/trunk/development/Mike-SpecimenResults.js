@@ -612,8 +612,8 @@ function success_getSpecResultsData(result){
 					var thisMedia=JSON.parse(data.MEDIA[i]);
 					for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 						if(thisMedia.DATA.mimecat[m]=='audio'){
-							theInnerHtml += '<div class="one_thumb_audio" 		  							  			style=width:300;height:100;text-align:center;>';
-								theInnterHtml += '<br><br><br>';
+							theInnerHtml += '<div class="one_thumb_audio">';		  							  		//	style=width:300;height:100;text-align:center;>';
+								// theInnterHtml += '<br><br><br>';
 								// Set up media player container.
 								theInnerHtml += '<div id="sm2-container">';
 								// Calculate the links and append to theInnerHtml.
