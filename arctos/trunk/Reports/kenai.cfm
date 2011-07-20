@@ -1,62 +1,75 @@
 <cfinclude template="/includes/_header.cfm">
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
-		collecting_event.VERBATIM_LOCALITY,
+		flat.spec_locality,
 		round(accepted_lat_long.DEC_LAT,4) DEC_LAT,
 		round(accepted_lat_long.DEC_LONG,4) DEC_LONG,
 		accepted_lat_long.MAX_ERROR_DISTANCE,
 		accepted_lat_long.MAX_ERROR_UNITS,
-		flat.VERBATIM_DATE,
+		flat.began_date,
 		collectors,
 		flat.CAT_NUM
 	from
 		flat,
-		accepted_lat_long,
-		collecting_event
+		accepted_lat_long
 	where
 		flat.locality_id=accepted_lat_long.locality_id (+) and
-		flat.collecting_event_id=collecting_event.collecting_event_id and
-		flat.collection_object_id IN (#collection_object_id#)		
+		flat.collection_object_id IN (#collection_object_id#)
+	order by to_number(flat.cat_num)	
 </cfquery>
 <cfset fname = "bugs.tex">
 <cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 <cfset variables.encoding="UTF-8">
 <cfscript>
-	header='\documentclass[10pt]{letter}
+	header='\documentclass[10pt]{article}
 \usepackage{xltxtra}
-\usepackage[noprintbarcodes,%
-nocapaddress]{envlab}
-%% Label size.
-%% Using label size of 17 mm by 6 mm as prescribed by the Biological Survey of Canada''s Label data standards for terrestrial arthropods at http://www.biology.ualberta.ca/bsc/briefs/brlabelstandards.htm.
-\SetLabel{25mm}{6mm}{3mm}{6mm}{0mm}{7}{40}
+\usepackage{multicol}
+\usepackage[margin=1cm]{geometry}
+
 %% Font.
-\setmainfont[Mapping=tex-text]{Linux Libertine O}
-\newcommand{\supertiny}{\fontsize{2.9pt}{2.9pt}\selectfont}
-%% Command for typesetting labels
-\newcommand{\ilabel}[1]{%
-\mlabel{}{\supertiny ##1}}
-\makelabels
+\setmainfont[Scale=0.3, PunctuationSpace=3, WordSpace = 0.3]{TeX Gyre Heros}
+%% Inter-line spacing.
+\linespread{0.25}
+
+%% Commands for typesetting labels.
+\renewcommand{\fboxsep}{0.2mm}
+\newcommand{\insectlabel}[1]{\fbox{\parbox{16mm}{\raggedright ##1}}\\}
+\newcommand{\idlabel}[1]{\fbox{\parbox{4mm}{\centering\bfseries ##1}}\\}
+\setlength{\columnsep}{1mm}
+\setlength{\parindent}{0mm}
+
 \begin{document}
-\startlabels
-%\documentclass[10pt]{letter}
-%\usepackage[avery5160label,noprintbarcodes,%
-%nocapaddress]{envlab}
-%% Font.
-%\font\supertiny=cmss10 at 3pt
-%\renewcommand{\rmdefault}{cmss}
-%\linespread{0.2}
+\begin{multicols}{10}
 ';
 	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	variables.joFileWriter.writeLine(header);
 </cfscript>
 <cfloop query="d">
-	<cfset l=escapequotes('\mlabel{}{\supertiny USA: Alaska. #VERBATIM_LOCALITY# #DEC_LAT##chr(176)#N #DEC_LONG##chr(176)#W #chr(177)# #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS# #VERBATIM_DATE# #collectors# KNWR~#CAT_NUM#}')>
+	<cfset colr=replace(collectors," ","~","all")>
+	<cfif len(DEC_LAT) gt 0>
+		<cfset dlat=abs(dec_lat)>
+	<cfelse>
+		<cfset dlat=''>
+	</cfif>
+	<cfif len(DEC_LONG) gt 0>
+		<cfset dlon=abs(DEC_LONG)>
+	<cfelse>
+		<cfset dlon=''>
+	</cfif>
+	<cfif len(MAX_ERROR_DISTANCE) gt 0>
+		<cfset errstr="#chr(177)##MAX_ERROR_DISTANCE##MAX_ERROR_UNITS#. ">
+	<cfelse>
+		<cfset errstr="">
+	</cfif>
+	<cfset l=escapequotes('\insectlabel{USA: Alaska. #SPEC_LOCALITY# #dlat##chr(176)#N #dlon##chr(176)#W #errstr##dateformat(began_date,"dd-MMM-yyyy")#. #colr#}\idlabel{KNWR #CAT_NUM#}')>
+	
 	<cfscript>
 		variables.joFileWriter.writeLine(l);
 	</cfscript>
 </cfloop>
 <cfscript>
-	l='\end{document}';
+	l='\end{multicols}
+\end{document}';
 	variables.joFileWriter.writeLine(l);
 	variables.joFileWriter.close();
 </cfscript>d
