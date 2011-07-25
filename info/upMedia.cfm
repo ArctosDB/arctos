@@ -129,6 +129,8 @@
 					</td>
 				</tr>
 			</table>			
+		<cfelse>
+			...already got one....
 		</cfif>
 	<cfelse>
 		...isNotIsImageFile...
