@@ -131,6 +131,8 @@
 			</table>			
 		<cfelse>
 			...already got one....
+			<script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
+		<span onclick="parent.closeUpload('#media_uri#','#preview_uri#');">Click here</span>
 		</cfif>
 	<cfelse>
 		...isNotIsImageFile...
