@@ -559,8 +559,6 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<th>Gref&nbsp;Link</th>';
 			}
 		theInnerHtml += '</tr>';
-		// get an ordered list of collection_object_ids to pass on to 
-		// SpecimenDetail for browsing
 		var orderedCollObjIdArray = new Array();		
 		for (i=0; i<result.ROWCOUNT; ++i) {
 			orderedCollObjIdArray.push(data.COLLECTION_OBJECT_ID[i]);
@@ -616,17 +614,46 @@ function success_getSpecResultsData(result){
 							if(thisMedia.DATA.preview_uri[m].length > 0) {
 								pURI=thisMedia.DATA.preview_uri[m];
 							} else {
-								if (thisMedia.DATA.mimecat[m]=='audio'){
+								if (thisMedia.DATA.mimecat[m]=='audio') {
 									pURI='images/audioNoThumb.png';
+	theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">';
+		theInnerHtml += '<img src="' + pURI + '" class="theThumb"></a>';		
+		theInnerHtml += '<div class="one_thumb">';
+		sm2 = '<div id="sm2-container">';
+		var wavDownloadUrl = '/media/'+thisMedia.DATA.media_uri[m],
+        	length = wavDownloadUrl.split('/').length,
+                fileName = wavDownloadUrl.split('/')[length - 1].replace('.wav', ''),
+                mp3DownloadUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
+                oggDownloadUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg',
+                // wavPlaybackUrl = wavDownloadUrl.replace('web', 'goodnight'),
+                // mp3PlaybackUrl = mp3DownloadUrl.replace('web', 'goodnight'),
+                // oggPlaybackUrl = oggDownloadUrl.replace('web', 'goodnight'),
+                ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>',
+                html5 = '<audio controls preload="auto" autobuffer>' + 
+                        '    <source src="' + mp3PlaybackUrl + '" />' +
+                        '    <source src="' + oggPlaybackUrl + '" />' +
+                        '    <source src="' + wavPlaybackUrl + '" />' +
+                        '</audio>',
+                links = '<div>' +                     
+                        '    <div class="item"><a id="download" href="' + wavDownloadUrl + '">Download wav</a></div>' +
+                        '    <div class="item"><a id="download" href="' + mp3DownloadUrl + '">Download mp3</a></div>' +
+                        '    <div class="item"><a id="download" href="' + oggDownloadUrl + '">Download ogg</a></div>' +
+                        '</div>',
+                theInnerHtml += '</div>';
+ 
+            	document.append(sm2);
+           	document.append(html5);
+            	document.append(links);
 								} else {
-									pURI='/images/noThumb.jpg';
-								}
-							}
+							pURI='/images/noThumb.jpg';
 							theInnerHtml += '<div class="one_thumb">';
 							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">';
 							theInnerHtml += '<img src="' + pURI + '" class="theThumb"></a>';
 							theInnerHtml += '<p>' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
-							theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';							
+							theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';
+								}
+							}
+					
 						}
 					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
 					theInnerHtml += '</td>';
