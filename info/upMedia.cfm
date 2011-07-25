@@ -61,6 +61,7 @@
     	destination="#loadPath#"
       	nameConflict="error">
     <cfif len(#PreviewToUpload#) gt 0>
+	 uploading preview....
         <cffile action="upload"
 	    	destination="#Application.webDirectory#/temp/"
 	      	nameConflict="overwrite"
