@@ -1,8 +1,4 @@
 <cfinclude template="includes/_header.cfm">	
-	<cfif not isdefined("transaction_id")>
-		bad call
-		<cfabort>
-	</cfif>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT
@@ -264,5 +260,42 @@
 			There are no specimens associated with this accession.
 		</cfif>
 		</p>
+		
+		<cfquery name="specMed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				media.media_id,
+				media.preview_uri,
+				media.media_uri,
+				media.media_type,
+				media.mime_type
+			from 
+				cataloged_item,
+				collection,
+				media_relations,
+				media
+			where
+				cataloged_item.collection_id=collection.collection_id and
+				cataloged_item.collection_object_id=media_relations.related_primary_key and
+				media_relations.media_relationship='shows cataloged_item' and
+				media_relations.media_id=media.media_id and
+				cataloged_item.accn_id=#transaction_id#
+		</cfquery>
+		<div class="detailBlock">
+	            <span class="detailData">			
+					<div class="thumbs">
+						<div class="thumb_spcr">&nbsp;</div>
+						<cfloop query="specMed">
+							<div class="one_thumb">
+				               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+			                   	<p>
+									#media_type# (#mime_type#)
+				                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+								</p>
+							</div>
+						</cfloop>
+						<div class="thumb_spcr">&nbsp;</div>
+					</div>
+		        </span>		
+			</div>
 	</cfoutput>
 <cfinclude template="includes/_footer.cfm">
