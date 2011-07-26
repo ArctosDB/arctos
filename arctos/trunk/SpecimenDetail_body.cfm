@@ -598,40 +598,6 @@
 								</td>
 							</tr>
 						</cfif>
-						<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							select * from 
-							geology_attributes,
-							preferred_agent_name
-							where
-							geology_attributes.GEO_ATT_DETERMINER_ID=preferred_agent_name.agent_id (+) and
-							 locality_id=#one.locality_id#
-						</cfquery>
-						<cfloop query="geology">
-							 <td id="SDCellLeft" class="innerDetailLabel">#GEOLOGY_ATTRIBUTE#:</td>
-							 <td id="SDCellRight">
-								 #GEO_ATT_VALUE#								 
-							</td>
-							<tr>
-								<td></td>
-								<td id="SDCellRight" class="detailCellSmall">
-									Determined by 
-									<cfif len(agent_name) gt 0>
-										#agent_name#
-									<cfelse>
-										unknown
-									</cfif>
-									<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
-										on #dateformat(GEO_ATT_DETERMINED_DATE,"yyyy-mm-dd")#
-									</cfif>
-									<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
-										Method: #GEO_ATT_DETERMINED_METHOD#
-									</cfif>
-									<cfif len(GEO_ATT_REMARK) gt 0>
-										Remark: #GEO_ATT_REMARK#
-									</cfif>
-								</td>
-							</tr>
-						</cfloop>
 						<cfif len(one.lat_long_remarks) gt 0>
 							<tr class="detailCellSmall">
 								<td></td>
@@ -641,6 +607,40 @@
 							</tr>
 						</cfif>
 					</cfif>
+					<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select * from 
+						geology_attributes,
+						preferred_agent_name
+						where
+						geology_attributes.GEO_ATT_DETERMINER_ID=preferred_agent_name.agent_id (+) and
+						 locality_id=#one.locality_id#
+					</cfquery>
+					<cfloop query="geology">
+						 <td id="SDCellLeft" class="innerDetailLabel">#GEOLOGY_ATTRIBUTE#:</td>
+						 <td id="SDCellRight">
+							 #GEO_ATT_VALUE#								 
+						</td>
+						<tr>
+							<td></td>
+							<td id="SDCellRight" class="detailCellSmall">
+								Determined by 
+								<cfif len(agent_name) gt 0>
+									#agent_name#
+								<cfelse>
+									unknown
+								</cfif>
+								<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
+									on #dateformat(GEO_ATT_DETERMINED_DATE,"yyyy-mm-dd")#
+								</cfif>
+								<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
+									Method: #GEO_ATT_DETERMINED_METHOD#
+								</cfif>
+								<cfif len(GEO_ATT_REMARK) gt 0>
+									Remark: #GEO_ATT_REMARK#
+								</cfif>
+							</td>
+						</tr>
+					</cfloop>
 					<cfif (one.verbatim_date is one.began_date) AND (one.verbatim_date is one.ended_date)>
 						<cfset thisDate = #one.verbatim_date#>
 					<cfelseif (
@@ -1157,7 +1157,7 @@
 						<cfif oneOfUs is 1>
 							<a href="/editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="_blank">#accession#</a>
 						<cfelse>
-							#accession#
+							<a href="/viewAccn.cfm?transaction_id=#one.accn_id#" target="_blank">#accession#</a>
 						</cfif>
 						<cfif accnMedia.recordcount gt 0>
 							<div class="thumbs">

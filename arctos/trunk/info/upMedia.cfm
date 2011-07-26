@@ -95,8 +95,6 @@
     <cfelse>
          <cfset preview_uri = "">
     </cfif>
-	
-	uploaded.....
 	<cfcatch>
 		<font color="##FF0000" size="+2">Error: #cfcatch.message#</font>
 			<a href="javascript:back()">Go Back</a>
@@ -104,7 +102,6 @@
 	</cfcatch>
 	</cftry>
 	<cfif IsImageFile("#loadPath#/#fileName#")>
-		....IsImageFile....
 		<cfif len(preview_uri) is 0>
 			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
 			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName> 
@@ -130,12 +127,10 @@
 				</tr>
 			</table>			
 		<cfelse>
-			...already got one....
 			<script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
-		<span onclick="parent.closeUpload('#media_uri#','#preview_uri#');">Click here</span>
+			<span onclick="parent.closeUpload('#media_uri#','#preview_uri#');">Click here</span>
 		</cfif>
 	<cfelse>
-		...isNotIsImageFile...
 		<script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
 		<span onclick="parent.closeUpload('#media_uri#','#preview_uri#');">Click here</span>
 	</cfif>
