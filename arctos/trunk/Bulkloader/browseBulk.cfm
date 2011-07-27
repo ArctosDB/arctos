@@ -153,7 +153,7 @@
 								<label for="enteredby">Entered By</label>
 								<select name="enteredby" multiple="multiple" size="12" id="enteredby">
 									<option value="" selected="selected">All</option>
-									<cfloop query="#ctEnteredby#">
+									<cfloop query="ctEnteredby">
 										<option value="'#enteredby#'">#enteredby#</option>
 									</cfloop>
 								</select>
