@@ -1398,10 +1398,10 @@
 						--->
 					</td>
 					<td width="16%">	
-						<a href="/Bulkloader/browseBulk.cfm?action=ajaxGrid">[ AJAX ]</a>
-						<a href="/Bulkloader/browseBulk.cfm?action=sqlTab">[ SQL ]</a>
-						<a href="/Bulkloader/browseBulk.cfm?action=viewTable">[ Java ]</a>
-						<a href="/Bulkloader/browseBulk.cfm?action=download">[ download ]</a>
+						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=ajaxGrid">[ AJAX ]</a>
+						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=sqlTab">[ SQL ]</a>
+						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=viewTable">[ Java ]</a>
+						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=download">[ download ]</a>
 						
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
