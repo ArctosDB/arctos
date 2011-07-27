@@ -8,6 +8,10 @@
 }
 </style>
 <!-------------------------------------------------------------->
+<cfparam name="enteredby" default="" type="any">
+<cfparam name="accn" default="" type="any">
+<cfparam name="colln" default="" type="any">
+
 <cfif action is "loadAll">
 	<cfoutput>
 		<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE 1=1">
