@@ -1211,12 +1211,14 @@
 						<td align="right"><span class="f11a">Entered&nbsp;By</span></td>
 						<td width="100%">
 							<cfif ImAGod is not "yes">
-								<input type="hidden" name="enteredby" value="#session.username#" id="enteredby" class="readClr"/>
+								<cfset eby=session.username>
 							<cfelseif ImAGod is "yes">
-								<input type="text" name="enteredby" value="#enteredby#" id="enteredby"/>
+								<cfset eby=enteredby>
 							<cfelse>
 								ERROR!!!
-							</cfif> 
+							</cfif>
+							<input type="hidden" name="enteredby" value="#eby#" id="enteredby">
+
 						</td>
 					</tr>
 					<tr>
