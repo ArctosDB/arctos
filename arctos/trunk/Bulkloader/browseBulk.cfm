@@ -10,7 +10,10 @@
 <!-------------------------------------------------------------->
 <cfif action is "loadAll">
 	<cfoutput>
-		<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE enteredby IN (#enteredby#)">
+		<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE 1=1">
+		<cfif len(enteredby) gt 0>
+			<cfset sql = "#sql# AND enteredby IN (#enteredby#)">
+		</cfif>
 		<cfif len(accn) gt 0>
 			<cfset sql = "#sql# AND accn IN (#accn#)">
 		</cfif>
@@ -29,7 +32,10 @@
 			select column_name from user_tab_cols where table_name='BULKLOADER'
 			order by internal_column_id
 		</cfquery>
-		<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
+		<cfset sql = "select * from bulkloader where 1=1">
+		<cfif len(enteredby) gt 0>
+			<cfset sql = "#sql# AND enteredby IN (#enteredby#)">
+		</cfif>
 		<cfif len(accn) gt 0>
 			<cfset sql = "#sql# AND accn IN (#accn#)">
 		</cfif>
@@ -107,29 +113,34 @@
 <!-------------------------------------------------------->
 <cfif action IS "nothing">
 	<cfoutput>
-		<cf_setDataEntryGroups>
-		<cfset delimitedAdminForGroups=ListQualify(adminForUsers, "'")>
 		<cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				accn 
 			from 
 				bulkloader 
-			where 
-				enteredby in (#preservesinglequotes(delimitedAdminForGroups)#) 
 			group by 
 				accn 
-			order by accn
+			order by 
+				accn
 		</cfquery>
 		<cfquery name="ctColln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				institution_acronym || ':' || collection_cde colln 
 			from 
 				bulkloader 
-			where 
-				enteredby in (#preservesinglequotes(delimitedAdminForGroups)#)		
 			group by 
 				institution_acronym || ':' || collection_cde 
 			order by institution_acronym || ':' || collection_cde
+		</cfquery>
+		<cfquery name="ctEnteredby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				enteredby 
+			from 
+				bulkloader 
+			group by 
+				enteredby
+			order by
+				enteredby
 		</cfquery>
 		<table>
 			<tr>
@@ -141,9 +152,9 @@
 								<input type="hidden" name="action" value="viewTable" />
 								<label for="enteredby">Entered By</label>
 								<select name="enteredby" multiple="multiple" size="12" id="enteredby">
-									<option value="#delimitedAdminForGroups#" selected="selected">All</option>
-									<cfloop list="#adminForUsers#" index='agent_name'>
-										<option value="'#agent_name#'">#agent_name#</option>
+									<option value="" selected="selected">All</option>
+									<cfloop query="#ctEnteredby#">
+										<option value="'#enteredby#'">#enteredby#</option>
 									</cfloop>
 								</select>
 							</td>
@@ -209,10 +220,13 @@
 			Not enough information. <cfabort>
 		</cfif>
 		<cfif uv1 is "NULL">
-	        <cfset sql = "update bulkloader set #uc1# = NULL where enteredby IN (#enteredby#)">
+	        <cfset sql = "update bulkloader set #uc1# = NULL where 1=1">
 	    <cfelse>
-	        <cfset sql = "update bulkloader set #uc1# = '#uv1#' where enteredby IN (#enteredby#)">
+	        <cfset sql = "update bulkloader set #uc1# = '#uv1#' where 1=1">
 	    </cfif>
+		<cfif isdefined("enteredby") and len(enteredby) gt 0>
+			<cfset sql = "#sql# AND enteredby IN (#enteredby#)">
+		</cfif>
 		<cfif isdefined("accn") and len(accn) gt 0>
 			<cfset sql = "#sql# AND accn IN (#accn#)">
 		</cfif>
@@ -289,7 +303,10 @@
 <!----------------------------------------------------------->
 <cfif action is "sqlTab">
 <cfoutput>
-	<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
+	<cfset sql = "select * from bulkloader where 1=1">
+	<cfif isdefined("enteredby") and len(enteredby) gt 0>
+		<cfset sql = "#sql# AND enteredby IN (#enteredby#)">
+	</cfif>
 	<cfif isdefined("accn") and len(accn) gt 0>
 		<cfset sql = "#sql# AND accn IN (#accn#)">
 	</cfif>
@@ -583,11 +600,13 @@
 			<cfset sql="#sql# '#loaded#'">
 		</cfif>
 			<cfset sql="#sql# WHERE #column_name#	=
-			'#trim(tValue)#' AND
-			enteredby IN (#enteredby#)">
+			'#trim(tValue)#'">
+		<cfif len(enteredby) gt 0>
+			<cfset sql = "#sql# AND enteredby IN (#enteredby#)">
+		</cfif>
 		<cfif len(accn) gt 0>
 			<cfset sql = "#sql# AND accn IN (#accn#)">
-		</cfif>		
+		</cfif>	
 		<cfif isdefined("colln") and len(colln) gt 0>
 			<cfset sql = "#sql# AND institution_acronym || ':' || collection_cde IN (#colln#)">
 		</cfif>
@@ -609,21 +628,12 @@
 <cfif #action# is "viewTable">
 <cfoutput>
 <cfset sql = "select * from bulkloader
-	where enteredby IN (#enteredby#)">
+	where 1=1">
+<cfif len(enteredby) gt 0>
+	<cfset sql = "#sql# AND enteredby IN (#enteredby#)">
+</cfif>
 <cfif len(accn) gt 0>
-	<!----
-	<cfset thisAccnList = "">
-	<cfloop list="#accn#" index="a" delimiters=",">
-		<cfif len(#thisAccnList#) is 0>
-			<cfset thisAccnList = "'#a#'">
-		<cfelse>
-			<cfset thisAccnList = "#thisAccnList#,'#a#'">
-		</cfif>
-	</cfloop>
-	<cfset sql = "#sql# AND accn IN (#preservesinglequotes(thisAccnList)#)">
-	---->
 	<cfset sql = "#sql# AND accn IN (#accn#)">
-	
 </cfif>
 
 	<cfif isdefined("colln") and len(colln) gt 0>
