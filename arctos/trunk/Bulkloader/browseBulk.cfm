@@ -11,7 +11,11 @@
 <cfparam name="enteredby" default="" type="any">
 <cfparam name="accn" default="" type="any">
 <cfparam name="colln" default="" type="any">
-
+<cfif len(enteredby) gt 0>
+	<cfif left(enteredby,1) neq "'">
+		<cfset enteredby=listqualify(enteredby,"'")>
+	</cfif>
+</cfif>
 <cfif action is "loadAll">
 	<cfoutput>
 		<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE 1=1">
