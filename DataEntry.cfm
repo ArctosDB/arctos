@@ -50,11 +50,17 @@
 						collection_object_id, 
 						institution_acronym,
 						collection_cde,
-						loaded) VALUES (
+						loaded,
+						collection_id,
+						entered_agent_id
+					) VALUES (
 						#collection_id#,
 						'#institution_acronym#',
 						'#collection_cde#',
-						'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE')
+						'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE',
+						#collection_id#,
+						0
+						)
 				</cfquery>
 			<cfelseif isBL.loaded is not "#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE">
 				<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
