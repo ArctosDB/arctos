@@ -1218,7 +1218,7 @@
 								ERROR!!!
 							</cfif>
 							<input type="hidden" name="enteredby" value="#eby#" id="enteredby">
-
+							#eby#
 						</td>
 					</tr>
 					<tr>
