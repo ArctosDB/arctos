@@ -1,3 +1,6 @@
+Go away or I shall taunt you a second time.
+<cfabort>
+
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Taxonomy">
 <!---- make the table 

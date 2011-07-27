@@ -1,3 +1,5 @@
+Go away or I shall taunt you a second time.
+<cfabort>
 <script>
 function bldSql() {
 	var upFld = document.getElementById('upFld').value;
