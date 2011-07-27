@@ -1398,8 +1398,7 @@
 						--->
 					</td>
 					<td width="16%">	
-						<a href="userBrowseBulkedGrid.cfm">[ JAVA table ]</a>
-						<a href="userBrowseBulkedGrid.cfm?action=ajaxGrid">[ AJAX table ]</a>
+						<a href="/Bulkloader/browseBulk.cfm">[ table ]</a>
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
 						<span id="recCount">#whatIds.recordcount#</span> records
