@@ -417,9 +417,13 @@
 </cffunction>
 
 <cffunction name="cloneCatalogedItem" access="remote">
-	<cfargument name="collection_object_id" type="numeric" required="yes">	
+	<cfargument name="collection_object_id" type="numeric" required="yes">
+	<cfargument name="numRecs" type="numeric" required="yes">
+	<cfset status="spiffy">
+			<cftransaction>
+
+	<cfloop from="1" to="#numRecs#" index="lpNum">
 	<cftry>
-		<cftransaction>
 			<cfset problem="">
 			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select somerandomsequence.nextval c from dual
@@ -678,12 +682,17 @@
 					RELATED_TO_NUM_TYPE='catalog number'
 				where collection_object_id=#key#
 			</cfquery>
-		</cftransaction>
-			<cfreturn "spiffy:#key#">
 		<cfcatch>
-			<cfreturn "fail: #cfcatch.message#">
+			<cfset status="fail">
 		</cfcatch>
 	</cftry>
+	</cfloop>
+	<cfif status is "fail">
+		<cftransaction action="rollback"></cftransaction>
+	</cfif>
+	</cftransaction>
+
+	<cfreturn status>
 </cffunction>
 <!------------------------------------------------------->
 <cffunction name="getGeologyValues" access="remote">
