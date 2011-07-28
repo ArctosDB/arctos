@@ -688,7 +688,7 @@
 	</cftry>
 	</cfloop>
 	<cfif status is "fail">
-		<cftransaction action="rollback"></cftransaction>
+		<cftransaction action="rollback">
 	</cfif>
 	</cftransaction>
 
