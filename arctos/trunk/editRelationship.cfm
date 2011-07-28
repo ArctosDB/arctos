@@ -42,19 +42,18 @@
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "cloneCatalogedItem",
+				numRecs: $("##numRecs").val(),
 				collection_object_id : collection_object_id,
 				returnformat : "json",
 				queryformat : 'column'
 			},
 			function (r) {
-				if (r.substring(0,6) == 'spiffy') {
-					var v=r.substring(7,r.length);
-					var q='Clone created: <a target="_blank" href="/DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=' + v + '">View Clone</a>';
-					jQuery('##cloned').css("display", "inline").html(q);
+				if (r == 'spiffy') {
+					var q='created ' + numRecs + ' clones in bulkloader.';
 				} else {
-					jQuery('##cloned').css("display", "inline").text(r);
+					var q='cloning failed.';
 				}
-					
+				jQuery('##cloned').css("display", "inline").html(q);	
 			}
 		);
 	}
@@ -71,7 +70,11 @@ To split a lot or create a parasite, you can
 	<br>
 	A link to your new record in the bulkloader will appear below if the procedure is successful. It might take a minute.
 	Don't get all clicky or you'll make lots of clones.
-	<br><span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">Click here to create a clone</span>.
+	<br>Create <select name="numRecs" id="numRecs">
+		<cfloop from="1" to="1000" index="i">
+			<option value="#i#">#i#</option>
+		</cfloop>
+	</select> clones - <span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">do it</span>.
 </div>
 <br>
 <div id="cloned" style="display:none" class="redBorder"></div>
