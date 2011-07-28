@@ -49,7 +49,7 @@
 			},
 			function (r) {
 				if (r == 'spiffy') {
-					var q='created ' + numRecs + ' clones in bulkloader.';
+					var q='created ' + $("##numRecs").val() + ' clones in bulkloader.';
 				} else {
 					var q='cloning failed.';
 				}
