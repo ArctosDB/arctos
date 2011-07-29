@@ -196,8 +196,13 @@
 					</form>
 				</td>
 				<td>
-					<div style="border:1px solid green;margin-left:5em;">
-						Pick any or all of enteredby agent, accession, or collection to edit and approve entered or loaded data.
+					<div style="border:1px solid green;margin-left:5em;padding:1em;">
+						This form provides access to data in table bulkloader. Data may enter bulkloader from the various 
+						bulkloader applications or from the data entry screens.
+						<br>Collections managers may set loaded=NULL to mark records to load.
+						<br>Data Entry personnell may not NULL loaded, but may alter any other data in their own records.
+						<br>
+						Pick any, all, or none of enteredby agent, accession, or collection to view or edit data.
 						<br>
 						<ul>
 							<li>
@@ -207,12 +212,12 @@
 							</li>
 							<li>
 								<strong>Edit in SQL</strong>
-								<br>Allows mass updates based on existing values. Will only load 500 records at one time.
+								<br>Allows mass updates based on existing values. Will only load 500 records at one time. Not for the timid.
 							</li>
 							<li>
 								<strong>Edit in AJAX grid</strong>
 								<br>Opens an AJAX table. Click headers to sort. Drag columns. Doubleclick cells to edit.
-								Saves automatically on change. Slow to load.
+								Saves automatically on change. Slow to load. May not actually save changes; force-reload to confirm.
 							</li>
 						</ul>
 					</div>
