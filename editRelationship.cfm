@@ -38,7 +38,7 @@
 </cfquery>
 <script>
 	function cloneCatalogedItem(collection_object_id){
-		jQuery('##cloned').css("display", "inline").html('<img src="/images/indicator.gif">Creating clone - hold tight.....');
+		jQuery('##cloned').css("display", "inline").html('<img src="/images/indicator.gif">Creating clone(s) - hold tight.....');
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "cloneCatalogedItem",
@@ -69,7 +69,7 @@ To split a lot or create a parasite, you can
 	application has limited handling of agents, identifiers, attributes, and parts.
 	<br>
 	A link to your new record in the bulkloader will appear below if the procedure is successful. It might take a minute.
-	Don't get all clicky or you'll make lots of clones.
+	Don't get all clicky or you'll make a mess.
 	<br>Create <select name="numRecs" id="numRecs">
 		<cfloop from="1" to="1000" index="i">
 			<option value="#i#">#i#</option>
