@@ -208,16 +208,18 @@
 							<li>
 								<strong>Edit in JAVA grid</strong>
 								<br>Opens a JAVA applet. Click headers to sort. You must click the button to save.
-								Unhappy in some browsers.
+								Unhappy in some browsers. Copy/Paste from non-Java apps disallowed by Java.
 							</li>
 							<li>
 								<strong>Edit in SQL</strong>
-								<br>Allows mass updates based on existing values. Will only load 500 records at one time. Not for the timid.
+								<br>Allows mass updates based on existing values. Will only load 500 records at one time. 
+								Not for the timid.
 							</li>
 							<li>
 								<strong>Edit in AJAX grid</strong>
 								<br>Opens an AJAX table. Click headers to sort. Drag columns. Doubleclick cells to edit.
-								Saves automatically on change. Slow to load. May not actually save changes; force-reload to confirm.
+								Saves automatically on change. Slow to load. May occasionally not actually save changes; 
+								force-reload to confirm.
 							</li>
 						</ul>
 					</div>
