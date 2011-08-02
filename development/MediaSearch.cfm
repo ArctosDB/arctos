@@ -241,8 +241,8 @@
 	<hr>#ssql#<hr>
 	
 	---->
-	<!---cachedwithin="#createtimespan(0,0,60,0)#"--->
-	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" >
+	<!------>
+	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
 	
