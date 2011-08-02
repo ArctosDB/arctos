@@ -316,7 +316,7 @@
 				--->
 				<cfif URL.offset GT Result_Per_Page> 
 					<cfset prev_link=URL.offset-Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="#cgi.script_name#?offset=#prev_link#&#q#"><<PREV</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</cfif> 
 				
 				<cfset start_page=((int(URL.offset/100)*100)/Result_Per_Page)+1>
@@ -334,7 +334,7 @@
 								
 				<cfif limit LT Total_Records> 
 					<cfset next_link=URL.offset+Result_Per_Page-1> 
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT>></a>
 				</cfif>
 				<!---
 				<cfif end_page lt Total_Pages>
@@ -427,6 +427,8 @@
 			<span style = "font-size:small;">#media_type# (#mime_type#)</span>
 			<br>
 			<span style = "font-size:small;">#license#</span>
+			<br>
+			<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
 		</td>
 		<td align="middle">					
 			<div id="mapID_#media_uri#">
