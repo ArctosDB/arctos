@@ -207,7 +207,7 @@ sho err
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_barcode_parts
 	</cfquery>
-	<cfif len(valuelist(d.status)) gt 0>
+	<cfif listlen(valuelist(d.status)) gt 0>
 		Fix this and reload - nothing's been saved.
 		<cfdump var=#d#>
 	<cfelse>
