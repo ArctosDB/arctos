@@ -57,7 +57,7 @@
 		<cfset srch="#srch# AND #mediaFlatTableName#.mime_type in (#listQualify(mime_type,"'")#)">
 		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 	</cfif>
-here is is: #mapurl#
+here is is: <cfoutput>#mapurl#</cfoutput>
 <cfelse>
 
 	<cfif isdefined("media_uri") and len(media_uri) gt 0>
