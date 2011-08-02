@@ -308,12 +308,12 @@
 			<cfif Total_Records GT Result_Per_Page> 
 				<br> 
 				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
-
+<!---
 				<cfif URL.offset gt 10*Result_Per_Page>
 					<cfset prev_link=URL.offset-1-(10*Result_Per_Page)> 
 					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV 10</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</cfif>
-				
+				--->
 				<cfif URL.offset GT Result_Per_Page> 
 					<cfset prev_link=URL.offset-Result_Per_Page-1> 
 					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -336,12 +336,12 @@
 					<cfset next_link=URL.offset+Result_Per_Page-1> 
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a>
 				</cfif>
-				
+				<!---
 				<cfif end_page lt Total_Pages>
 					<cfset next_link=(end_page*Result_Per_Page)> 
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT 10</a>
 				</cfif>
-				
+				--->
 			</cfif>
 		</div>
 		</cfif>
