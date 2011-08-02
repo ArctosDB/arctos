@@ -27,8 +27,12 @@
 		username = '#session.username#'
 </cfquery>
 <cfoutput>
+	
 <table>
 
+<cfdump var=#url#>
+<cfdump var=#form#>
+<cfdump var=#variables#>
 <form method="post" action="MediaSearchDownload.cfm" name="dlForm">
 	<input type="hidden" name="user_id" value="#getUserData.user_id#">
 	<input type="hidden" name="ssql" value="#ssql#">
