@@ -172,7 +172,6 @@
 		a=chr(9) & '<concepts>' & chr(10) & 
 			chr(9) & '<concept order="1" viewlist="0" colorlist="0" datatype="darwin:relatedinformation"  alias="Related Information" />' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="2" viewlist="1" colorlist="0" datatype="char120_1" alias="Media Type"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="3" viewlist="1" colorlist="0" datatype="char120_1" alias="Description"/>' & chr(10) & 
 			//chr(9) & chr(9) & '<concept order="3" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>' & chr(10) & 
 			//chr(9) & chr(9) & '<concept order="4" viewlist="1" colorlist="0" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
 			//chr(9) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:collector" alias="Collector"/>' & chr(10) &   
@@ -181,9 +180,9 @@
 			//chr(9) & chr(9) & '<concept order="8" viewlist="0" colorlist="0" datatype="char120_3" alias="Shows Locality"/>' & chr(10) & 
 			//chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="char120_4" alias="Shows Publication"/>' & chr(10) & 
 			//chr(9) & chr(9) & '<concept order="10" viewlist="0" colorlist="0" datatype="char120_5" alias="Describes Taxonomy"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="4" viewlist="0" colorlist="0" datatype="char120_6" alias="Media uri"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="3" viewlist="0" colorlist="0" datatype="char120_6" alias="Media uri"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="4" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
 			chr(9) & '</concepts>';		
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
@@ -199,7 +198,6 @@
 		<cfscript>
 			a='<a href="#Application.serverRootUrl#/media/' & media_id & '" target="_blank">Media</a>' & 
 				chr(9) & media_type &
-				chr(9) & desc &
 				//chr(9) & cat_num & 
 				//chr(9) & scientific_name &
 				//chr(9) & created_by_agent &  
