@@ -211,49 +211,19 @@
 </cfscript>
 	<cfset mediaFlatTableName="t_media_flat">
 	
-	<!-- Default mediaSearch sql query-->
 	<cfset sql = "SELECT * FROM #mediaFlatTableName# ">
 	<cfset whr ="WHERE #mediaFlatTableName#.mime_type != 'image/dng' ">
 	<cfset srch=" ">
 	<cfset mapurl = "">
 	<cfset terms="">
 	<cfinclude template="MediaSearchSql.cfm">
-	<!-- Finalize query -->
 	<cfset ssql="#sql# #whr# #srch# order by media_id">
-	<!-- try to kill any old tables that they may have laying around -->
-	
-	
-	<!---
-	<cftry>
-		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			drop table #session.MediaSrchTab#
-		</cfquery>
-		<cfcatch><!-- not there, so what? -->
-		</cfcatch>
-	</cftry>
-	
-	<!-- build a temp table (for bulk download)-->
-	<cfset SqlString = "create table #session.MediaSrchTab# AS #ssql#">
-	<hr>#SqlString#<hr>
-	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preserveSingleQuotes(SqlString)#
-	</cfquery>
-	<hr>#ssql#<hr>
-	
-	---->
-	<!------>
+
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
 	
-	<form name="defaults">	
-		<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
-		<cfset session.mapURL = mapURL>
-	</form>
-	
-	<form name="saveme" id="saveme" method="post" action="saveSearch.cfm" target="myWin">
-		<input type="hidden" name="returnURL" value="#Application.ServerRootUrl#/development/MediaSearch.cfm?#mapURL#" />
-	</form>
+
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfabort>
@@ -357,8 +327,13 @@
 	<input type="hidden" name="ssql" value="#ssql#">
 	<input type="submit" value="down">
 </form>
+<hr>
 
+#mapURL#
 
+<hr>
+<span class="controlButton"
+				onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
 	<!---
 	<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(distinct(media_id)) cnt from #session.MediaSrchTab# where lat_long is not null
