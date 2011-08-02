@@ -30,9 +30,6 @@
 	
 <table>
 
-<cfdump var=#url#>
-<cfdump var=#form#>
-<cfdump var=#variables#>
 <form method="post" action="MediaSearchDownload.cfm" name="dlForm">
 	<input type="hidden" name="user_id" value="#getUserData.user_id#">
 	<input type="hidden" name="ssql" value="#ssql#">
@@ -195,10 +192,10 @@ do not agree</font>.</a>
 	<cfif #agree# is "yes">
 
 		we be downloadin
-	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" >
+	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
-	
+	<cfdump var=#findIDs#>
 	
 		<cfabort>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
