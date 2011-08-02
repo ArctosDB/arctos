@@ -11,7 +11,7 @@
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
 
-<cfif not isdefined("ImAGod") or len(#ImAGod#) is 0>
+<cfif not isdefined("ImAGod") or len(ImAGod) is 0>
 	<cfset ImAGod = "no">
 </cfif>
 <cfif isdefined("CFGRIDKEY") and not isdefined("collection_object_id")>
@@ -21,7 +21,7 @@
 <cfif not isdefined("pMode") or len(pMode) is 0>
 	<cfset pMode = "enter">
 </cfif>
-<cfset thisDate = #dateformat(now(),"yyyy-mm-dd")#>
+<cfset thisDate = dateformat(now(),"yyyy-mm-dd")>
 <!--------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
@@ -123,20 +123,7 @@
 <!------------ editEnterData --------------------------------------------------------------------------------------------->
 <cfif action is "editEnterData">
 	<cfoutput>
-		<!---
-		
-		<div>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select collection_object_id from bulkloader
-	</cfquery>
-<cfloop query="c">
-	<br><span onclick="loadRecord(#collection_object_id#)">#collection_object_id#</span>
-</cfloop>
-
-</div>
----->
-
-		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
+			<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
 			you don't have an ID. <cfabort>
 		</cfif>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -218,8 +205,6 @@
 		<cfquery name="ctWeight_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select Weight_Units from ctWeight_Units order by weight_units
 		</cfquery>
-		
-		
 		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT attribute_type FROM ctattribute_type 
 			<cfif len(#collection_cde#) gt 0>
@@ -237,11 +222,9 @@
 				units_code_table
 		 	from ctattribute_code_tables
 		</cfquery>
-		<cfset sql = "select collection_object_id from bulkloader where collection_object_id > 10">
+		<cfset sql = "select collection_object_id from bulkloader where collection_object_id > 100">
 		<cfif ImAGod is "no">
 			 <cfset sql = "#sql# AND enteredby = '#session.username#'">
-		<cfelse>
-			<cfset sql = "#sql# AND enteredby IN (#listqualify(adminForUsers,'''')#)">
 		</cfif>
 		<cfset sql = "#sql# order by collection_object_id">
 		<cfquery name="whatIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -255,16 +238,11 @@
 		<cfelse>
 			<cfset pageTitle = "This record has passed all bulkloader checks!">
 		</cfif>
-		<cfif not isdefined("inEntryGroups") OR len(inEntryGroups) eq 0>
-			You have group issues! You must be in a Data Entry group to use this form.
-			<cfabort>
-		</cfif>
 		<div id="splash"align="center">
 			<span style="background-color:##FF0000; font-size:large;">
 				Page Loading....
 			</span>
 		</div>
-		
 		<form name="dataEntry" method="post" action="DataEntry.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
 			<input type="hidden" name="action" value="" id="action">
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
@@ -286,15 +264,6 @@
 						<tr>
 							<td valign="top">
 								#institution_acronym#:#collection_cde#
-								<!---
-								<span class="f11a">Coll:</span>
-								<select name="colln" id="colln" class="reqdClr" onchange="changeCollection(this.value)">
-									<cfloop query="ctcollection">
-										<option <cfif data.collection_cde is ctcollection.collection_cde and data.institution_acronym is ctcollection.institution_acronym> selected="selected"</cfif>
-											value="#institution_acronym#:#collection_cde#">#collection#</option>
-									</cfloop>
-								</select>
-								--->
 								<span id="catNumLbl" class="f11a">Cat##</span>
 								<input type="text" name="cat_num" value="#cat_num#"  size="6" id="cat_num">
 								<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>

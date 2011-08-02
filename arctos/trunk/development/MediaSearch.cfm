@@ -220,6 +220,9 @@
 	<!-- Finalize query -->
 	<cfset ssql="#sql# #whr# #srch# order by media_id">
 	<!-- try to kill any old tables that they may have laying around -->
+	
+	
+	<!---
 	<cftry>
 		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			drop table #session.MediaSrchTab#
@@ -235,6 +238,8 @@
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 	<hr>#ssql#<hr>
+	
+	---->
 	<!---cachedwithin="#createtimespan(0,0,60,0)#"--->
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" >
 		#preservesinglequotes(ssql)#

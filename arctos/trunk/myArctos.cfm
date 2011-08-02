@@ -231,7 +231,7 @@
 
 
 	<hr>
-	<strong>Arctos Setings</strong>
+	<strong>Arctos Settings</strong>
 	<form method="post" action="myArctos.cfm" name="dlForm">
 		<label for="block_suggest">Suggest Browse</label>
 		<select name="block_suggest" id="block_suggest" onchange="blockSuggest(this.value)">
