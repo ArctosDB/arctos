@@ -190,8 +190,8 @@ here is is: <cfoutput>#mapurl#</cfoutput>
 
 </cfif><!--- end srchType --->
 
-<!-- Limit results to 500 rows -->
+<!---
+
 <cfset srch = "#srch# AND rownum <= 500">
 
-<!-- Allows bnhmMapData.cfm to see that this search is different from SpecimenSearch-->
-<cfset mapurl="#mapurl#&search=MediaSearch">
+ Limit results to 500 rows --->
