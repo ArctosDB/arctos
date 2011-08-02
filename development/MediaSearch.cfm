@@ -353,9 +353,10 @@
 	
 	<span class="controlButton"
 		onclick="window.open('/bnhmMaps/bnhmMapMediaData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
-	
-	<span class="controlButton"
-		onclick="window.open('/development/MediaSearchDownload.cfm?ssql=#ssql#','_blank');">Bulk Download Media Results</span>
+	<a href="/development/MediaSearchDownload.cfm?ssql=#ssql#">
+	 down
+	</a>
+
 
 
 	<!---
