@@ -31,7 +31,7 @@
 
 <form method="post" action="MediaSearchDownload.cfm" name="dlForm">
 	<input type="hidden" name="user_id" value="#getUserData.user_id#">
-	<input type="hidden" name="tableName" value="#tableName#">
+	<input type="hidden" name="ssql" value="#ssql#">
 	
 	<input type="hidden" name="action" value="continue">
 	<input type="hidden" name="cnt" value="#cnt#">
@@ -190,6 +190,13 @@ do not agree</font>.</a>
 	<!--- if they agree to the terms, send them to their download --->
 	<cfif #agree# is "yes">
 
+		we be downloadin
+	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" >
+		#preservesinglequotes(ssql)#
+	</cfquery>
+	
+	
+		<cfabort>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #tableName#
 		</cfquery>
