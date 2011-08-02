@@ -212,7 +212,7 @@
 	
 	<!-- Default mediaSearch sql query-->
 	<cfset sql = "SELECT * FROM #mediaFlatTableName# ">
-	<cfset whr ="WHERE #mediaFlatTableName#.media_id > 0">
+	<cfset whr ="WHERE #mediaFlatTableName#.mime_type != 'image/dng' ">
 	<cfset srch=" ">
 	<cfset mapurl = "">
 	<cfset terms="">
@@ -477,7 +477,7 @@
 	   <cfif hastags gt 0>
 			<a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
 		</cfif>
-
+<!---
 		<br>Related Media
 		<cfif len(relMedia) gt 0>
 			<cfquery name="rel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -506,6 +506,8 @@
 				<div class="thumb_spcr">&nbsp;</div>
 			</div>
 		</cfif>
+		
+		--->
 		</td>
 	</tr>
 	
