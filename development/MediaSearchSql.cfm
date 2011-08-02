@@ -189,9 +189,9 @@ here is is: <cfoutput>#mapurl#</cfoutput>
 
 
 </cfif><!--- end srchType --->
+<cfset srch = "#srch# AND rownum <= 500">
 
 <!---
 
-<cfset srch = "#srch# AND rownum <= 500">
 
  Limit results to 500 rows --->
