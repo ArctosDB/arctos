@@ -348,18 +348,14 @@
 		</cfif>
 	</cfsavecontent>
 	
-	<br>
-	<br>
 	
-	<span class="controlButton"
-		onclick="window.open('/bnhmMaps/bnhmMapMediaData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
-	<a href="/development/MediaSearchDownload.cfm?ssql=#ssql#">
-	 down
-	</a>
-
+<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
+	<input type="hidden" name="ssql" value="#ssql#">
+	<input type="submit" value="map">
+</form>
 <form name="dlm" method="post" action="MediaSearchDownload.cfm">
 	<input type="hidden" name="ssql" value="#ssql#">
-	<input type="submit">
+	<input type="submit" value="down">
 </form>
 
 
