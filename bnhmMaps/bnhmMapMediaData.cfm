@@ -19,16 +19,14 @@
 <cfset mediaFlatTableName = "t_media_flat">
 <!----------------------------------------------------------------->
 <cfoutput>
-	
-	<cfset srch = "">
-	<cfinclude template="/development/MediaSearchSql.cfm">
-	<cfset sqlS = "SELECT * FROM #mediaFlatTableName# WHERE 1=1 #srch# and coordinates is not null">
-	
-	#sqlS#
-	<cfquery name = "tempMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preserveSingleQuotes(sqlS)#
+	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		#preservesinglequotes(ssql)#
 	</cfquery>
-	<cfdump var=#tempMapData#>
+	
+	<cfquery name="md" dbtype="query">
+		select * from findIDs where coordinates is not null
+	</cfquery>
+	<!---
 	<cfset md=queryNew("media_id,lat,long,desc,media_type,media_id,media_uri")>
 	<cfset i=1>
 	<cfloop query="tempMapData">
@@ -51,7 +49,7 @@
 		</cfif>
 		<cfset i=i+1>
 	</cfloop>
-	
+	--->
 	<!---
 	<cfset temp = queryAddColumn(tempMapData,"labels", "VarChar", ArrayNew(1))>		
 	<cfset temp = queryAddcolumn(tempMapData,"lat", "VarChar", ArrayNew(1))>
@@ -211,8 +209,8 @@
 				//chr(9) & shows_publication &
 				//chr(9) & describes_taxonomy &
 				chr(9) & media_uri & 
-				chr(9) & lat &
-				chr(9) & long;
+				chr(9) & #listgetat(coordinates,1)# &
+				chr(9) & #listgetat(coordinates,2)#;
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
