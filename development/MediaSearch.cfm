@@ -216,7 +216,9 @@
 	<cfset srch=" ">
 	<cfset mapurl = "">
 	<cfset terms="">
+	<hr>before: #mapurl#
 	<cfinclude template="MediaSearchSql.cfm">
+	<hr>after: #mapurl#
 	<cfset ssql="#sql# #whr# #srch# order by media_id">
 
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
