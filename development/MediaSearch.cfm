@@ -357,6 +357,10 @@
 	 down
 	</a>
 
+<form name="dlm" method="post" action="MediaSearchDownload,cfm">
+	<input type="hidden" name="ssql" value="#ssql#">
+	<input type="submit">
+</form>
 
 
 	<!---
