@@ -1,4 +1,5 @@
 <cfset title="Media">
+<script type='text/javascript' language="javascript" src='/includes/media.js'></script>
 <cfset metaDesc="Locate Media, including audio (sound recordings), video (movies), and images (pictures) of specimens, collecting sites, habitat, collectors, and more.">
 <div id="_header">
     <cfinclude template="/includes/_header.cfm">
@@ -47,7 +48,7 @@
 	<div id="keyForm" style="display:block">
 		Search for Media &nbsp;&nbsp;
 		<br>		
-		<a href="javascript:void(0);" onclick="toggle_visibility('relForm', 'keyForm');" style="font-size:x-small">Advanced search</a>
+		<span style="likeLink" onclick="toggle_visibility('relForm', 'keyForm');" style="font-size:x-small">[ use advanced search ]</a>
 		<style>
 			.rdoCtl {
 				font-size:small;
@@ -93,7 +94,7 @@
 	<div id="relForm" style="display:none">
 		Advanced Search for Media
 		<br>
-		<a href="javascript:void(0);" onclick="toggle_visibility('keyForm', 'relForm');" style="font-size:x-small">Simple Keywords Search</a>
+		<span style="likeLink" onclick="toggle_visibility('keyForm', 'relForm');" style="font-size:x-small">[ use keywords search ]</a>
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">
 			<input type="hidden" name="srchType" value="full">
