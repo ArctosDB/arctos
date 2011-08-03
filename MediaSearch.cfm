@@ -167,6 +167,7 @@
 		<cfif isdefined (  "related_primary_key#n#")>
 			got it
 			<cfset thisKey=evaluate ( "related_primary_key" & n )>
+			<cfset srch="#srch# AND media_relations#n#.related_primary_key = #thisKey#">
 			thisKey==#thisKey#
 		<cfelse>
 			nope
@@ -176,7 +177,7 @@
 		
 		<!---
 		<cfif isdefined("related_primary_key#n#") and len(related_primary_key#n#) gt 0>
-			<cfset srch="#srch# AND media_relations#n#.related_primary_key = #related_primary_key#n#">
+			
 		</cfif>
 		---->
 		<cfset n=n+1>
