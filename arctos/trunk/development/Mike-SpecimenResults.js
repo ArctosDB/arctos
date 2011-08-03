@@ -644,13 +644,13 @@ function success_getSpecResultsData(result){
                                         '</audio>';
 
                                     // Use when browser is IE.
-                                    ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>';
+                                    ieShim = '<ul class="graphic"><li><a href="' + mp3PlaybackUrl + '">' + fileName + '.mp3</a></li></ul>';
 
                                     // Set up the generic audio image.
-//                                    theInnerHtml +=
-//                                        '<div class="audio_thumb">' +
-//                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
-//                                        '<img src="images/audioNoThumb.png" class="theThumb"></a></div>';
+                                    theInnerHtml +=
+                                        '<div class="audio_thumb">' +
+                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
+                                        '<img src="images/audioNoThumb.png" class="theThumb"></a></div>';
 
                                     theInnerHtml += '<div class="stuff">Hello.</div>';
 
