@@ -200,13 +200,14 @@
 		<td><a href="#h#">[ Create media ]</a></td>
 	</cfif>
 	
-	
-	<td valign="middle">
 	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
 	<input type="hidden" name="ssql" value="#ssql#">
+	<td valign="middle">
+	
 	<input type="submit" class="lnkBtn" value="BerkeleyMapper">
-</form>
+
 	</td>
+	</form>
 	<td valign="middle">
 	<form name="dlm" method="post" action="MediaSearchDownload.cfm">
 	<input type="hidden" name="ssql" value="#ssql#">
