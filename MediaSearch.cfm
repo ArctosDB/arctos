@@ -161,65 +161,34 @@
 
 	<cfset n=1>
 	<cfloop list="#relationships#" delimiters="," index="thisRelationship">
-		<br>::::#n#::::
 		<cfset sql = "#sql#,media_relations media_relations#n#">
 		<cfset whr ="#whr# AND media_flat.media_id = media_relations#n#.media_id ">
 		<cfset srch="#srch# AND media_relations#n#.media_relationship = '#thisRelationship#'">
+		<cfif isdefined ( evaluate ( "related_primary_key" & n ))>
+			got it
+			<cfset thisKey=evaluate ( "related_primary_key" & n )>
+			thisKey==#thisKey#
+		<cfelse>
+			nope
+		</cfif>
+		
+		
+		
+		
+		<cfif isdefined("related_primary_key#n#") and len(related_primary_key#n#) gt 0>
+			<cfset srch="#srch# AND media_relations#n#.related_primary_key = #related_primary_key#n#">
+		</cfif>
 		<cfset n=n+1>
 	</cfloop>
 	<cfset mapurl="#mapurl#&relationships=#relationships#">
 
 
 	<cfset ssql="#sql# #whr# #srch# order by media_id">
+	<hr>#ssql#
 
-<hr>#ssql#
 
-<cfloop from="1" to="#number_of_relations#" index="n">
-		<cftry>
-	        <cfset thisRelationship = #evaluate("relationship__" & n)#>
-		    <cfcatch>
-		        <cfset thisRelationship = "">
-		    </cfcatch>
-	    </cftry>
-	    <cftry>
-	        <cfset thisRelatedItem = #evaluate("related_value__" & n)#>
-		    <cfcatch>
-	            <cfset thisRelatedItem = "">
-		    </cfcatch>
-	    
-	    </cftry>
-	    <cftry>
-	         <cfset thisRelatedKey = #evaluate("related_primary_key__" & n)#>
-		    <cfcatch>
-	            <cfset thisRelatedKey = "">
-		    </cfcatch>
-	    </cftry>
-		<cfif len(thisRelationship) gt 0>
-			<cfset sql = "sql,media_relations media_relations#n#">
-			<cfset whr =" AND media_flat.media_id = media_relations#n#.media_id ">
 
-			<cfset srch="#srch# AND upper(media_relations#n#.media_relationship) like '%#ucase(thisRelationship)#%'">
-			<cfset mapurl="#mapurl#&relationship__#n#=#thisRelationship#">
-		</cfif>
-		<cfif len(#thisRelatedItem#) gt 0>
-			<cfset srch="#srch# AND upper(media_flat.media_rel_values) like '%#ucase(thisRelatedItem)#%'">
-			<cfset mapurl="#mapurl#&related_value__#n#=#thisRelatedItem#">
-			<cfif len(terms) gt 0>
-				<cfset terms=terms & ";" & thisRelatedItem>
-			<cfelse>
-				<cfset terms=thisRelatedItem>
-			</cfif>
-		</cfif>
-	    <cfif len(#thisRelatedKey#) gt 0>
-			<cfset srch="#srch# AND media_relations#n#.related_primary_key = '#thisRelatedKey#'">
-			<cfset mapurl="#mapurl#&related_primary_key__#n#=#thisRelatedKey#">
-	    	<cfif len(terms) gt 0>
-				<cfset terms=terms & ";" & thisRelatedKey>
-			<cfelse>
-				<cfset terms=thisRelatedKey>
-			</cfif>
-		</cfif>
-	</cfloop>
+
 	
 	
 	
