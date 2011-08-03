@@ -224,7 +224,6 @@
 	</cfif>
 	<cfset srch = "#srch# AND rownum <= 500">
 	<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
-	<hr>#ssql#
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
@@ -326,7 +325,6 @@
 			</div>
 		</cfif>
 	</cfsavecontent>
-	<br>
 	#pager#
 	<cfset rownum=1>
 <table>
