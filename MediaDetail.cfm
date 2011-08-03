@@ -91,7 +91,7 @@
 			<cfif coord.recordcount is 1>
 				<td>
 					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#coord.coordinates#">
-					<cfset iu=iu & "&markers=color:red|size:tiny|#coordinates#&sensor=false&size=100x100&zoom=2">
+					<cfset iu=iu & "&markers=color:red|size:tiny|#coord.coordinates#&sensor=false&size=100x100&zoom=2">
 					<cfset iu=iu & "&maptype=roadmap">
 					<a href="http://maps.google.com/maps?q=#coord.coordinates#" target="_blank">
 						<img src="#iu#" alt="Google Map">
