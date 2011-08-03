@@ -631,10 +631,11 @@ function success_getSpecResultsData(result){
 
                                 if (thisMedia.DATA.mimecat[m] == 'audio') {
                                     // Create an audio thumb.
-                                    fileName = thisMedia.DATA.media_uri[m];
-                                    mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
-                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg',
-                                        wavPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/wav/' + fileName + '.mp3';
+                                    wavPlaybackUrl = thisMedia.DATA.media_uri[m],
+                                        length = wavPlaybackUrl.split('/').length,
+                                        fileName = wavPlaybackUrl.split('/')[length - 1].replace('.wav', ''),
+                                        mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
+                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
                                     theInnerHtml +=
                                         '<div class="' + fileName + '">What is my filename?</div>';
                                     // Use when browser isn't IE.
