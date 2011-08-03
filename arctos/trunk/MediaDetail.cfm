@@ -1,29 +1,5 @@
-<cfset title="Media">
-<cfset metaDesc="Locate Media, including audio (sound recordings), video (movies), and images (pictures) of specimens, collecting sites, habitat, collectors, and more.">
 <cfinclude template="/includes/_header.cfm">
-
-
-
-
-
-
-
-
-
-<script type='text/javascript' src='/includes/media.js'></script>
-
-
-
-
-
-
-
-
-
 <cfoutput>
-	
-
-
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select 
 				media.media_id,
@@ -41,7 +17,6 @@
 				media.media_id = #media_id#
 		</cfquery>
 		
-		<!---
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"coldfusion_user")>
@@ -60,7 +35,6 @@
 	</cfif>
 	
 	
-	--->
 	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	    <cfset h="/media.cfm?action=newMedia">
 		<cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
@@ -73,7 +47,7 @@
 		<a href="#h#">[ Create media ]</a>
 	</cfif>
 	
-<table>
+
 	<cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			media_label,
@@ -98,50 +72,61 @@
 			<cfset metaDesc = "#desc.label_value# for #findIDs.media_type# (#findIDs.mime_type#)">
 			<cfset alt=desc.label_value>
 	</cfif>
-	<tr>
-		<td>
-			<cfset mp=getMediaPreview(findIDs.preview_uri,findIDs.media_type)>
-            <table>
-				<tr>
-					<td align="middle">
-						<a href="#findIDs.media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
-						<br><span style='font-size:small'>#findIDs.media_type#&nbsp;(#findIDs.mime_type#)</span>
-						<cfif len(findIDs.display) gt 0>
-							<br><span style='font-size:small'>License: <a href="#findIDs.uri#" target="_blank" class="external">#findIDs.display#</a></span>
-						<cfelse>
-							<br><span style='font-size:small'>unlicensed</span>
-						</cfif>
-					</td>
-					<td>
-						<cfif len(desc.label_value) gt 0>
-							<ul><li>#desc.label_value#</li></ul>
-						</cfif>
-						<cfif labels.recordcount gt 0>
-							<ul>
-								<cfloop query="labels">
-									<li>
-										#media_label#: #label_value#
-									</li>
-								</cfloop>
-							</ul>
-						</cfif>
-						<cfset mrel=getMediaRelations(#findIDs.media_id#)>
-						<cfif mrel.recordcount gt 0>
-							<ul>
-							<cfloop query="mrel">
-								<li>#media_relationship#  
-				                    <cfif len(#link#) gt 0>
-				                        <a href="#link#" target="_blank">#summary#</a>
-				                    <cfelse>
-										#summary#
-									</cfif>
-				                </li>
-							</cfloop>
-							</ul>
-						</cfif>
-					</td>
-				</tr>
-			</table>
+				<cfset mp=getMediaPreview(findIDs.preview_uri,findIDs.media_type)>
+
+	<table>
+		<tr>
+			<td align="middle">
+				<a href="#findIDs.media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
+				<br><span style='font-size:small'>#findIDs.media_type#&nbsp;(#findIDs.mime_type#)</span>
+				<cfif len(findIDs.display) gt 0>
+					<br><span style='font-size:small'>License: <a href="#findIDs.uri#" target="_blank" class="external">#findIDs.display#</a></span>
+				<cfelse>
+					<br><span style='font-size:small'>unlicensed</span>
+				</cfif>
+			</td>
+			<cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select coordinates from media_flat where media_id=#media_id#
+			</cfquery>
+			<cfif coord.recordcount is 1>
+				<td>
+					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#coordinates#">
+					<cfset iu=iu & "&markers=color:red|size:tiny|#coordinates#&sensor=false&size=100x100&zoom=2">
+					<cfset iu=iu & "&maptype=roadmap">
+					<a href="http://maps.google.com/maps?q=#coordinates#" target="_blank">
+						<img src="#iu#" alt="Google Map">
+					</a>
+				</td>
+			</cfif>
+			<td>
+				<cfif len(desc.label_value) gt 0>
+					<ul><li>#desc.label_value#</li></ul>
+				</cfif>
+				<cfif labels.recordcount gt 0>
+					<ul>
+						<cfloop query="labels">
+							<li>
+								#media_label#: #label_value#
+							</li>
+						</cfloop>
+					</ul>
+				</cfif>
+				<cfset mrel=getMediaRelations(#findIDs.media_id#)>
+				<cfif mrel.recordcount gt 0>
+					<ul>
+					<cfloop query="mrel">
+						<li>#media_relationship#  
+		                    <cfif len(#link#) gt 0>
+		                        <a href="#link#" target="_blank">#summary#</a>
+		                    <cfelse>
+								#summary#
+							</cfif>
+		                </li>
+					</cfloop>
+					</ul>
+				</cfif>
+			</td>
+		</tr>
 			<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) n from tag where media_id=#media_id#
 			</cfquery>
