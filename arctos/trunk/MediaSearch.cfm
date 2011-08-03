@@ -387,9 +387,7 @@
 		</cfif>
 		<td><a href="#h#">[ create media ]</a></td>
 	</cfif>
-	 here we are
-
-<cfabort>
+	
 	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
 	<input type="hidden" name="ssql" value="#ssql#">
 	<td valign="middle">
@@ -542,6 +540,10 @@
 </table>
 #pager#
 </cfoutput>
+
+ here we are
+
+<cfabort>
 </cfif>
 <div id="_footer">
 <cfinclude template="/includes/_footer.cfm">
