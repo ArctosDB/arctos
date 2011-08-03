@@ -305,7 +305,6 @@
 <table>
 
 
-<cfset erow=url.start+perpage>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
