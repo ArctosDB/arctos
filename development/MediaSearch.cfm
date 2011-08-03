@@ -9,7 +9,7 @@
     </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 	<cfoutput>
     <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select media_relationship from ctmedia_relationship order by media_relationship
@@ -26,7 +26,6 @@
 	 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
         <a href="/media.cfm?action=newMedia">[ Create media ]</a>
     </cfif> 
-
 	<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select SEARCH_NAME,URL
 		from cf_canned_search,cf_users
@@ -47,7 +46,6 @@
 			</select>
 		</div>
 	</cfif>	
-	
 	<div id="keyForm" style="display:block">
 		Search for Media &nbsp;&nbsp;
 		<br>		
@@ -94,7 +92,6 @@
 				class="clrBtn">
 		</form>
 	</div>
-	
 	<div id="relForm" style="display:none">
 		Advanced Search for Media
 		<br>
@@ -160,17 +157,6 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "search">
 <cfoutput>
-<cfscript>
-    function highlight(findIn,replaceThis) {
-    	foundAt=FindNoCase(replaceThis,findIn);
-    	endAt=FindNoCase(replaceThis,findIn)+len(replaceThis);
-    	if(foundAt gt 0) {
-    		findIn=Insert('</span>', findIn, endAt-1);
-    		findIn=Insert('<span style="background-color:yellow">', findIn, foundAt-1);
-    	}
-    	return findIn;
-    }
-</cfscript>
 	<cfset mediaFlatTableName="t_media_flat">
 	
 	<cfset sql = "SELECT * FROM #mediaFlatTableName# ">
@@ -178,16 +164,11 @@
 	<cfset srch=" ">
 	<cfset mapurl = "">
 	<cfset terms="">
-	<hr>before: #mapurl#
 	<cfinclude template="MediaSearchSql.cfm">
-	<hr>after: #mapurl#
 	<cfset ssql="#sql# #whr# #srch# order by media_id">
-
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
-	
-
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfabort>
@@ -216,6 +197,8 @@
 		</cfif>
 		<a href="#h#">[ Create media ]</a>
 	</cfif>
+	
+	<!----
 	<cfset q="">
 	<cfloop list="#StructKeyList(form)#" index="key">
 		<cfif len(form[key]) gt 0 and key is not "FIELDNAMES" and key is not "offset">
@@ -227,6 +210,7 @@
 			<cfset q=listappend(q,"#key#=#url[key]#","&")>
 		 </cfif>
 	</cfloop>
+	---->
 	<cfsavecontent variable="pager">
 		<cfset Result_Per_Page=10>
 		<cfset Total_Records=findIDs.recordcount> 
@@ -291,11 +275,6 @@
 	<input type="hidden" name="ssql" value="#ssql#">
 	<input type="submit" value="down">
 </form>
-<hr>
-
-#mapURL#
-
-<hr>
 <span class="controlButton"
 				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search&#mapURL#');">Save&nbsp;Search</span>
 	<!---
