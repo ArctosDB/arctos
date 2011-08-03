@@ -632,16 +632,16 @@ function success_getSpecResultsData(result){
                                 if (thisMedia.DATA.mimecat[m] == 'audio') {
                                     // Create an audio thumb.
 
-                                    fileName = thisMedia.DATA.media_uri[m];
-                                    mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
-                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg',
-                                        wavPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/wav/' + fileName + '.mp3';
+//                                    fileName = thisMedia.DATA.media_uri[m];
+//                                    mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
+//                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg',
+//                                        wavPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/wav/' + fileName + '.mp3';
                                     // Use when browser isn't IE.
-                                    html5 = '<audio controls preload="auto" autobuffer>' +
-                                        '    <source src="' + mp3PlaybackUrl + '" />' +
-                                        '    <source src="' + oggPlaybackUrl + '" />' +
-                                        '    <source src="' + wavPlaybackUrl + '" />' +
-                                        '</audio>';
+//                                    html5 = '<audio controls preload="auto" autobuffer>' +
+//                                        '    <source src="' + mp3PlaybackUrl + '" />' +
+//                                        '    <source src="' + oggPlaybackUrl + '" />' +
+//                                        '    <source src="' + wavPlaybackUrl + '" />' +
+//                                        '</audio>';
                                     // Use when browser is IE.
                                     ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>';
                                     pURI = 'images/audioNoThumb.png';
