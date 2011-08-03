@@ -297,26 +297,7 @@
 	<cfset rownum=1>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 
-<!--- <cfdump var="#findIDs#">
- --->
 <table>
-
-<!-- Results Table Header for grid view (for more than one result)-->
-<tr>
-	<td><center><strong>Media Preview<br>(Click to View)</strong></center></td>
-	<td><center><strong>Map</strong></center></td>
-	<td><center><strong>Details</strong></center></td>		
-</tr>
-
- <!---
-
-<cfdump var=#findIDs#>
-
-
-
---->
-
-
 
 
 
@@ -350,18 +331,13 @@
 		</td>
 		<td align="middle">					
 			<div id="mapID_#media_uri#">
-				<cfif listlen(coordinates,"|") is 1>
+				<cfif len(coordinates) gt 0>
 					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#coordinates#">
 					<cfset iu=iu & "&markers=color:red|size:tiny|#coordinates#&sensor=false&size=100x100&zoom=2">
 					<cfset iu=iu & "&maptype=roadmap">
 					<a href="http://maps.google.com/maps?q=#coordinates#" target="_blank">
 						<img src="#iu#" alt="Google Map">
 					</a>
-				<cfelseif listlen(coordinates,"|") gt 1>
-					<div style="width:150px;overflow:scroll">
-						#coordinates#
-					</div>
-					<a href="MediaSearch.cfm?action=mediaKML&media_id=#media_id#" target="_blank">KML</a>
 				</cfif>
 			</div>			
 		</td>
@@ -381,11 +357,12 @@
 				<cfloop list="#lbl#" index="i" delimiters="|">
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
-			</div>			
+			</div>
+			<!---		
 			<div style="color:green;font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 				#keywords#
 			</div>
-		
+			---->
 		<br>
 		<cfif media_type is "multi-page document">	
 			<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
