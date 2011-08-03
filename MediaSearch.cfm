@@ -221,7 +221,9 @@
 		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 	</cfif>
 <cfelse>
+ here we are
 
+<cfabort>
 	<cfif isdefined("media_uri") and len(media_uri) gt 0>
 		<cfset srch="#srch# AND upper(media_flat.media_uri) like '%#ucase(media_uri)#%'">
 		<cfset mapurl="#mapurl#&media_uri=#media_uri#">
