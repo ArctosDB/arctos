@@ -274,7 +274,7 @@
 </form>
 
 <span class="controlButton"
-				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search&#mapURL#');">Save&nbsp;Search</span>
+				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 	<!---
 	<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(distinct(media_id)) cnt from #session.MediaSrchTab# where lat_long is not null
@@ -320,7 +320,7 @@
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td align="middle">
 			<a href="#media_uri#" target="_blank">
-				<img src="#mp#" alt="#alt#" style="max-width:100px;max-height:100px;">
+				<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
 			</a>
 			<br>
 			<span style = "font-size:small;">#media_type# (#mime_type#)</span>
