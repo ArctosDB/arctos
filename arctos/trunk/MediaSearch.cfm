@@ -119,10 +119,7 @@
 	<cfset whr ="WHERE 1=1 ">
 	<cfset srch=" ">
 	<cfset mapurl = "">
-	<cfset terms="">
-	<cfif not isdefined("mapurl")>
-		<cfset mapurl = "">
-	</cfif>
+	<cfset mapurl = "">
 	<cfparam name="relationships" default="">
 	<cfset n=1>
 	<cfloop list="#relationships#" delimiters="," index="thisRelationship">
@@ -157,11 +154,8 @@
 		<cfelse>
 			<cfset srch="#srch# AND upper(media_flat.keywords) like '%#ucase(keyword)#%'">
 		</cfif>
-		<cfset terms="#keyword#">
-		
 		<cfset mapurl="#mapurl#&kwType=#kwType#&keyword=#keyword#">		
 	</cfif>
-	
 	<cfif isdefined("noDNG") and noDNG is 1>
 		<cfset srch="#srch# AND media_flat.mime_type != 'image/dng'">
 		<cfset mapurl="#mapurl#&noDNG=#noDNG#">
@@ -174,7 +168,6 @@
 		<cfset whr="#whr# AND media_flat.media_id IN (select media_id from tag)">
 		<cfset mapurl="#mapurl#&tag=#tag#">
 	</cfif>
-	
 	<cfif isdefined("media_type") and len(media_type) gt 0>
 		<cfset srch="#srch# AND media_flat.media_type IN (#listQualify(media_type,"'")#)">
 		<cfset mapurl="#mapurl#&media_type=#media_type#">
@@ -187,7 +180,6 @@
 		<cfset srch="#srch# AND media_flat.mime_type in (#listQualify(mime_type,"'")#)">
 		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 	</cfif>
-
 	<cfif not isdefined("number_of_labels")>
 	    <cfif (isdefined("label") and len(label) gt 0) or (isdefined("label__1") and len(label__1) gt 0)>
 			<cfset number_of_labels=1>
@@ -230,12 +222,8 @@
 		<div class="error">You must enter search criteria.</div>
 		<cfabort> 
 	</cfif>
-
-
-
-
-<cfset srch = "#srch# AND rownum <= 500">
-<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
+	<cfset srch = "#srch# AND rownum <= 500">
+	<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
 	<hr>#ssql#
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
@@ -269,34 +257,23 @@
 		</cfif>
 		<td><a href="#h#">[ create media ]</a></td>
 	</cfif>
-	
 	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
-	<input type="hidden" name="ssql" value="#ssql#">
-	<td valign="middle">
-	
-	<input type="submit" class="lnkBtn" value="BerkeleyMapper">
-
-	</td>
+		<input type="hidden" name="ssql" value="#ssql#">
+		<td valign="middle">
+			<input type="submit" class="lnkBtn" value="BerkeleyMapper">
+		</td>
 	</form>
 	<form name="dlm" method="post" action="MediaSearchDownload.cfm">
-	<input type="hidden" name="ssql" value="#ssql#">
-	<td valign="middle">
-	
-	<input type="submit"  class="lnkBtn" value="Download">
-	</td>
+		<input type="hidden" name="ssql" value="#ssql#">
+		<td valign="middle">
+			<input type="submit"  class="lnkBtn" value="Download">
+		</td>
 	</form>
-
 	<td>
-	<span class="controlButton"
-		onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
-				
+		<span class="controlButton"
+			onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 	</td>
-
-
-
-
-		</tr></table>		
-				
+	</tr></table>		
 	<cfset q="">
 	<cfloop list="#StructKeyList(form)#" index="key">
 		<cfif len(form[key]) gt 0 and key is not "FIELDNAMES" and key is not "offset">
@@ -309,44 +286,44 @@
 		 </cfif>
 	</cfloop>
 	<cfsavecontent variable="pager">
-		<cfset Result_Per_Page=session.displayrows>
-		<cfset Total_Records=findIDs.recordcount> 
-		<cfparam name="URL.offset" default="0"> 
-		<cfparam name="limit" default="1">
-		<cfset limit=URL.offset+Result_Per_Page> 
-		<cfset start_result=URL.offset+1> 
 		<cfif findIDs.recordcount gt 1>
+			<cfset Result_Per_Page=session.displayrows>
+			<cfset Total_Records=findIDs.recordcount> 
+			<cfparam name="URL.offset" default="0"> 
+			<cfparam name="limit" default="1">
+			<cfset limit=URL.offset+Result_Per_Page> 
+			<cfset start_result=URL.offset+1> 
+			<cfset URL.offset=URL.offset+1>
 			<div style="margin-left:20%;">
-			Showing results #start_result# - 
-			<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
-			<cfset URL.offset=URL.offset+1> 
-			<cfif Total_Records GT Result_Per_Page> 
-				<br> 
-				<cfif URL.offset GT Result_Per_Page> 
-					<cfset prev_link=URL.offset-Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=0&#q#">[ First ]</a>
-					<a href="#cgi.script_name#?offset=#prev_link#&#q#">[ Previous ]</a>
-				</cfif> 
-				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)>
-				<cfset currentPage=(url.offset + session.displayrows) / session.displayrows>
-				<cfset minI=currentPage-5>
-				<cfset maxI=currentPage+5>
-				<cfloop index="i" from="1" to="#Total_Pages#"> 
-					<cfset j=i-1> 
-					<cfset offset_value=j*Result_Per_Page> 
-					<cfif offset_value EQ URL.offset-1 > 
-						#i# 
-					<cfelseif i gt minI and i lt maxI>
-						<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
+				Showing results #start_result# - 
+				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
+				<cfif Total_Records GT Result_Per_Page> 
+					<br> 
+					<cfif URL.offset GT Result_Per_Page> 
+						<cfset prev_link=URL.offset-Result_Per_Page-1> 
+						<a href="#cgi.script_name#?offset=0&#q#">[ First ]</a>
+						<a href="#cgi.script_name#?offset=#prev_link#&#q#">[ Previous ]</a>
 					</cfif> 
-				</cfloop> 
-				<cfif limit LT Total_Records> 
-					<cfset next_link=URL.offset+Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=#next_link#&#q#">[ Next ]</a>
-					<a href="#cgi.script_name#?offset=#offset_value#&#q#">[ Last ]</a>
-				</cfif> 
-			</cfif>
-		</div>
+					<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)>
+					<cfset currentPage=(url.offset + session.displayrows) / session.displayrows>
+					<cfset minI=currentPage-5>
+					<cfset maxI=currentPage+5>
+					<cfloop index="i" from="1" to="#Total_Pages#"> 
+						<cfset j=i-1> 
+						<cfset offset_value=j*Result_Per_Page> 
+						<cfif offset_value EQ URL.offset-1 > 
+							#i# 
+						<cfelseif i gt minI and i lt maxI>
+							<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
+						</cfif> 
+					</cfloop> 
+					<cfif limit LT Total_Records> 
+						<cfset next_link=URL.offset+Result_Per_Page-1> 
+						<a href="#cgi.script_name#?offset=#next_link#&#q#">[ Next ]</a>
+						<a href="#cgi.script_name#?offset=#offset_value#&#q#">[ Last ]</a>
+					</cfif> 
+				</cfif>
+			</div>
 		</cfif>
 	</cfsavecontent>
 	<br>
