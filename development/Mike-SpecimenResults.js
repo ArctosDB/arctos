@@ -618,67 +618,20 @@ function success_getSpecResultsData(result){
                                 // This is where my media edits begin.
 
                                 /*
-                                Step #1: Obtain the correct item ID number:
-                                    thisMedia.DATA.media_uri[m]
-                                Step #2: Obtain the boolean: using IE (T) or not (F).
-                                Step #3: Calculate all correct links.
-                                Step #4: Create the <div> tag, insert links, and format correctly.
-                                Step #4a: Add IE fix if using IE is True.
+                                 Step #1: Obtain the correct item ID number:
+                                 thisMedia.DATA.media_uri[m]
+                                 Step #2: Obtain the boolean: using IE (T) or not (F).
+                                 Step #3: Calculate all correct links.
+                                 Step #4: Create the <div> tag, insert links, and format correctly.
+                                 Step #4a: Add IE fix if using IE is True.
 
-                                Image for audio: pURI='images/audioNoThumb.png';
-                                Image for generic: pURI='/images/noThumb.jpg';
+                                 Image for audio: pURI='images/audioNoThumb.png';
+                                 Image for generic: pURI='/images/noThumb.jpg';
                                  */
 
-                                if (thisMedia.DATA.mimecat[m] == 'audio') {
+                                if (thisMedia.DATA.mimecat[m] != 'audio') {
 
-                                    // Create an audio thumb.
-                                    wavPlaybackUrl = thisMedia.DATA.media_uri[m],
-                                        length = wavPlaybackUrl.split('/').length,
-                                        fileName = wavPlaybackUrl.split('/')[length - 1].replace('.wav', ''),
-                                        mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
-                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
-
-                                    // Use when browser isn't IE.
-                                    html5 = '<audio controls preload="auto" autobuffer>' +
-                                        '    <source src="' + mp3PlaybackUrl + '" />' +
-                                        '    <source src="' + oggPlaybackUrl + '" />' +
-                                        '    <source src="' + wavPlaybackUrl + '" />' +
-                                        '</audio>';
-
-                                    // Use when browser is IE.
-                                    ieShim = '<ul class="graphic"><li><a href="' + mp3PlaybackUrl + '">' + fileName + '.mp3</a></li></ul>';
-
-                                    // Figure out what the browser is.
-                                    isUsingInternetExplorer = false;
-                                    var ua = navigator.userAgent;
-                                    var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-                                    if (re.exec(ua) != null)
-                                        isUsingInternetExplorer = true;
-
-                                    // Set up the generic audio image.
-                                    theInnerHtml +=
-                                        '<div class="audio_thumb" align="center" style="vertical-align:middle;">' +
-                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
-                                        '<img src="/images/audioNoThumb.png" class="theThumb"></a>';
-
-                                    // Set up the audio player.
-                                    theInnerHtml +=
-                                        '<div id="sm2-container"></div>';
-
-                                    if (isUsingInternetExplorer) {
-                                        theInnerHtml += ieShim;
-                                    } else {
-                                        theInnerHtml += html5;
-                                    }
-
-                                    // Set up the link for more information and downloads.
-                                    theInnerHtml +=
-                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
-
-                                } else {
-                                    // Create a generic media thumb.
-                                    
-                                    if(thisMedia.DATA.preview_uri[m].length > 0) {
+                                    if (thisMedia.DATA.preview_uri[m].length > 0) {
                                         pURI = thisMedia.DATA.preview_uri[m];
                                     } else {
                                         pURI = '/images/noThumb.jpg';
@@ -691,8 +644,57 @@ function success_getSpecResultsData(result){
                                             '<br><br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a>' +
                                             '</div>';
 
+                                } else {
 
-                                // This is where my media edits end.
+//                                    // Create an audio thumb.
+//                                    wavPlaybackUrl = thisMedia.DATA.media_uri[m],
+//                                        length = wavPlaybackUrl.split('/').length,
+//                                        fileName = wavPlaybackUrl.split('/')[length - 1].replace('.wav', ''),
+//                                        mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
+//                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
+//
+//                                    // Use when browser isn't IE.
+//                                    html5 = '<audio controls preload="auto" autobuffer>' +
+//                                        '    <source src="' + mp3PlaybackUrl + '" />' +
+//                                        '    <source src="' + oggPlaybackUrl + '" />' +
+//                                        '    <source src="' + wavPlaybackUrl + '" />' +
+//                                        '</audio>';
+//
+//                                    // Use when browser is IE.
+//                                    ieShim = '<ul class="graphic"><li><a href="' + mp3PlaybackUrl + '">' + fileName + '.mp3</a></li></ul>';
+//
+                                    // Figure out what the browser is.
+                                    isUsingInternetExplorer = false;
+                                    var ua = navigator.userAgent;
+                                    var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+                                    if (re.exec(ua) != null) {
+                                        isUsingInternetExplorer = true;
+                                    }
+                                    if (isUsingInternetExplorer) {
+                                        theInnerHtml += '<div class="yepwegotIE"></div>';
+                                    } else {
+                                        theInnerHtml += '<div class="nopenotIE"></div>';
+                                    }
+//                                    // Set up the generic audio image.
+//                                    theInnerHtml +=
+//                                        '<div class="audio_thumb" align="center" style="vertical-align:middle;">' +
+//                                            '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
+//                                            '<img src="/images/audioNoThumb.png" class="theThumb"></a>';
+//
+//                                    // Set up the audio player.
+//                                    theInnerHtml +=
+//                                        '<div id="sm2-container"></div>';
+//
+//                                    if (isUsingInternetExplorer) {
+//                                        theInnerHtml += ieShim;
+//                                    } else {
+//                                        theInnerHtml += html5;
+//                                    }
+//
+//                                    // Set up the link for more information and downloads.
+//                                    theInnerHtml +=
+//                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
+
                                 }
 
                             }
