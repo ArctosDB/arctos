@@ -270,13 +270,8 @@
 					<cfset offset_value=j*Result_Per_Page> 
 					<cfif offset_value EQ URL.offset-1 > 
 						#i# 
-					<cfelse>
-					
-						<cfif i gt minI and i lt maxI>
+					<cfelseif i gt minI and i lt maxI>
 						<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
-						<cfelse>
-						 {#i#}
-						</cfif>
 					</cfif> 
 				</cfloop> 
 				<cfif limit LT Total_Records> 
