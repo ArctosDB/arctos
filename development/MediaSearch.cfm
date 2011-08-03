@@ -1,9 +1,9 @@
 <cfset title="Media">
-<script type='text/javascript' language="javascript" src='/includes/media.js'></script>
 <cfset metaDesc="Locate Media, including audio (sound recordings), video (movies), and images (pictures) of specimens, collecting sites, habitat, collectors, and more.">
 <div id="_header">
     <cfinclude template="/includes/_header.cfm">
 </div>
+<script type='text/javascript' language="javascript" src='/includes/media.js'></script>
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
     	<cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
