@@ -218,7 +218,7 @@
 
 	<td>
 	<span class="controlButton"
-				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
+		onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 				
 	</td>
 
@@ -269,7 +269,8 @@
 				
 				<cfset start_page=((int(URL.offset/100)*100)/Result_Per_Page)+1>
 				<cfset end_page=min(start_page+9,Total_Pages)>
-				
+				<br>start_page:#start_page#
+				<br>end_page:#end_page#
 				<cfloop index="i" from="#start_page#" to="#end_page#"> 
 						<cfset j=i-1> 
 						<cfset offset_value=j*Result_Per_Page> 
