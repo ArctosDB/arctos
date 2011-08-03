@@ -342,7 +342,7 @@
 			</div>			
 		</td>
 		
-		<td align="middle">							
+		<td>							
 				<cfset relMedia=''>
 				<cfloop list="#rel#" index="i" delimiters="|">
 					<cfset r=listgetat(i,1,chr(7))>
