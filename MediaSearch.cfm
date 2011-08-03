@@ -80,6 +80,8 @@
 			<input type="text" name="media_uri" id="media_uri" size="90">
 			<label for="tag">Require TAG?</label>
 			<input type="checkbox" id="tag" name="tag" value="1">
+			<label for="noDNG">Ignore DNG?</label>
+			<input type="checkbox" id="noDNG" name="noDNG" value="1" checked="checked">
 			<label for="mime_type">MIME Type</label>
 			<select name="mime_type" id="mime_type" multiple="multiple" size="3">
 				<option value="" selected="selected">Anything</option>
@@ -147,7 +149,7 @@
 <cfif action is "search">
 <cfoutput>	
 	<cfset sql = "SELECT * FROM media_flat ">
-	<cfset whr ="WHERE media_flat.mime_type != 'image/dng' ">
+	<cfset whr ="WHERE 1=1 ">
 	<cfset srch=" ">
 	<cfset mapurl = "">
 	<cfset terms="">
@@ -193,6 +195,10 @@
 		<cfset mapurl="#mapurl#&kwType=#kwType#&keyword=#keyword#">		
 	</cfif>
 	
+	<cfif isdefined("noDNG") and noDNG is 1>
+		<cfset srch="#srch# AND media_flat.mime_type != 'image/dng'">
+		<cfset mapurl="#mapurl#&noDNG=#noDNG#">
+	</cfif>
 	<cfif isdefined("media_uri") and len(media_uri) gt 0>
 		<cfset srch="#srch# AND upper(media_flat.media_uri) like '%#ucase(media_uri)#%'">
 		<cfset mapurl="#mapurl#&media_uri=#media_uri#">
