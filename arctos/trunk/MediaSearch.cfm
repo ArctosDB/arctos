@@ -221,9 +221,7 @@
 		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 	</cfif>
 <cfelse>
- here we are
 
-<cfabort>
 	<cfif isdefined("media_uri") and len(media_uri) gt 0>
 		<cfset srch="#srch# AND upper(media_flat.media_uri) like '%#ucase(media_uri)#%'">
 		<cfset mapurl="#mapurl#&media_uri=#media_uri#">
@@ -359,7 +357,9 @@
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
-	
+	 here we are
+
+<cfabort>
 	<table cellpadding="10"><tr>
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
