@@ -357,9 +357,7 @@
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
-	 here we are
-
-<cfabort>
+	<cfdump var=#findIDs#>
 	<table cellpadding="10"><tr>
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
@@ -389,7 +387,9 @@
 		</cfif>
 		<td><a href="#h#">[ create media ]</a></td>
 	</cfif>
-	
+	 here we are
+
+<cfabort>
 	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
 	<input type="hidden" name="ssql" value="#ssql#">
 	<td valign="middle">
