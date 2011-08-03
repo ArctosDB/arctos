@@ -48,7 +48,7 @@
 	<div id="keyForm" style="display:block">
 		Search for Media &nbsp;&nbsp;
 		<br>		
-		<span class="likeLink" onclick="toggle_visibility('relForm', 'keyForm');">[ use advanced search ]</a>
+		<span class="likeLink" onclick="toggle_visibility('relForm', 'keyForm');">[ use advanced search ]</span>
 		<style>
 			.rdoCtl {
 				font-size:small;
@@ -94,7 +94,7 @@
 	<div id="relForm" style="display:none">
 		Advanced Search for Media
 		<br>
-		<span class="likeLink" onclick="toggle_visibility('keyForm', 'relForm');">[ use keywords search ]</a>
+		<span class="likeLink" onclick="toggle_visibility('keyForm', 'relForm');">[ use keywords search ]</span>
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">
 			<input type="hidden" name="srchType" value="full">
