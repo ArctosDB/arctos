@@ -1306,7 +1306,7 @@
 							<cfset alt=desc.label_value>
 						</cfif>
 						
-						<cfif #media_type# != "audio">
+						<cfif media_type is not "audio">
 							<div class="one_thumb">
 				               	<a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
 			                   	<p>
