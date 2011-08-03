@@ -629,40 +629,40 @@ function success_getSpecResultsData(result){
                                 Image for generic: pURI='/images/noThumb.jpg';
                                  */
 
-                                if (thisMedia.DATA.mimecat[m] == 'audio') {
-                                    // Create an audio thumb.
+//                                if (thisMedia.DATA.mimecat[m] == 'audio') {
+//                                    // Create an audio thumb.
+//
+//                                    fileName = thisMedia.DATA.media_uri[m];
+//                                    mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
+//                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg',
+//                                        wavPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/wav/' + fileName + '.mp3';
+//                                    // Use when browser isn't IE.
+//                                    html5 = '<audio controls preload="auto" autobuffer>' +
+//                                        '    <source src="' + mp3PlaybackUrl + '" />' +
+//                                        '    <source src="' + oggPlaybackUrl + '" />' +
+//                                        '    <source src="' + wavPlaybackUrl + '" />' +
+//                                        '</audio>';
+//                                    // Use when browser is IE.
+//                                    ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>';
+//                                    pURI = 'images/audioNoThumb.png';
+//
+//                                    // Set up the generic audio image.
+//                                    theInnerHtml +=
+//                                        '<div class="audio_thumb">' +
+//                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
+//                                        '<img src="' + pURI + '" class="theThumb"></a>';
+//
+//                                    // Set up the audio player.
+//                                    theInnerHtml +=
+//                                        '<div id="sm2-container"></div>' +
+//                                            html5;
+//                                    // Or, when browser is IE, use ieShim.
+//
+//                                    // Set up the link for more information and downloads.
+//                                    theInnerHtml +=
+//                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
 
-                                    fileName = thisMedia.DATA.media_uri[m];
-                                    mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
-                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg',
-                                        wavPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/wav/' + fileName + '.mp3';
-                                    // Use when browser isn't IE.
-                                    html5 = '<audio controls preload="auto" autobuffer>' +
-                                        '    <source src="' + mp3PlaybackUrl + '" />' +
-                                        '    <source src="' + oggPlaybackUrl + '" />' +
-                                        '    <source src="' + wavPlaybackUrl + '" />' +
-                                        '</audio>';
-                                    // Use when browser is IE.
-                                    ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>';
-                                    pURI = 'images/audioNoThumb.png';
-
-                                    // Set up the generic audio image.
-                                    theInnerHtml +=
-                                        '<div class="audio_thumb">' +
-                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
-                                        '<img src="' + pURI + '" class="theThumb"></a>';
-
-                                    // Set up the audio player.
-                                    theInnerHtml +=
-                                        '<div id="sm2-container"></div>' +
-                                            html5;
-                                    // Or, when browser is IE, use ieShim.
-
-                                    // Set up the link for more information and downloads.
-                                    theInnerHtml +=
-                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
-
-                                } else {
+//                                } else {
                                     // Create a generic media thumb.
                                     
                                     if(thisMedia.DATA.preview_uri[m].length > 0) {
@@ -677,7 +677,7 @@ function success_getSpecResultsData(result){
                                             '<img src="' + pURI + '" class="theThumb"></a>' +
                                             '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a>' +
                                             '</div>';
-                                }
+
 
                                 // This is where my media edits end.
 
