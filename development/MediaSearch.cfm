@@ -255,7 +255,9 @@
 			<cfset URL.offset=URL.offset+1> 
 			<cfif Total_Records GT Result_Per_Page> 
 				<br> 
-				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
+				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)>
+				<br>Total_Pages: #Total_Pages#
+				<br>Total_Pages: #Total_Pages#
 				<!---
 				<cfif URL.offset gt 10*Result_Per_Page>
 					<cfset prev_link=URL.offset-1-(10*Result_Per_Page)> 
