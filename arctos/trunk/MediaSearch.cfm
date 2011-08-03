@@ -160,7 +160,7 @@
 	</cfif>
 
 
-<cfloop list="relationships" delimiter="," index="n">
+<cfloop list="#relationships#" delimiters="," index="n">
 	<br>::::#n#::::
 </cfloop>
 
