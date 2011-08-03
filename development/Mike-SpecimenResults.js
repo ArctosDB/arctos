@@ -646,54 +646,45 @@ function success_getSpecResultsData(result){
 
                                 } else {
 
-//                                    // Create an audio thumb.
-//                                    wavPlaybackUrl = thisMedia.DATA.media_uri[m],
-//                                        length = wavPlaybackUrl.split('/').length,
-//                                        fileName = wavPlaybackUrl.split('/')[length - 1].replace('.wav', ''),
-//                                        mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
-//                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
-//
-//                                    // Use when browser isn't IE.
-//                                    html5 = '<audio controls preload="auto" autobuffer>' +
-//                                        '    <source src="' + mp3PlaybackUrl + '" />' +
-//                                        '    <source src="' + oggPlaybackUrl + '" />' +
-//                                        '    <source src="' + wavPlaybackUrl + '" />' +
-//                                        '</audio>';
-//
-//                                    // Use when browser is IE.
-//                                    ieShim = '<ul class="graphic"><li><a href="' + mp3PlaybackUrl + '">' + fileName + '.mp3</a></li></ul>';
-//
-                                    // Figure out what the browser is.
+                                    // Create an audio thumb.
+                                    wavPlaybackUrl = thisMedia.DATA.media_uri[m],
+                                        length = wavPlaybackUrl.split('/').length,
+                                        fileName = wavPlaybackUrl.split('/')[length - 1].replace('.wav', ''),
+                                        mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
+                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
+
+                                    // Use when browser isn't IE.
+                                    html5 = '<audio controls preload="auto" autobuffer>' +
+                                        '    <source src="' + mp3PlaybackUrl + '" />' +
+                                        '    <source src="' + oggPlaybackUrl + '" />' +
+                                        '    <source src="' + wavPlaybackUrl + '" />' +
+                                        '</audio>';
+
+                                    // Use when browser is IE.
+                                    ieShim = '<ul class="graphic"><li><a href="' + mp3PlaybackUrl + '">' + fileName + '.mp3</a></li></ul>';
+
+                                    // Figure out what the browser is...? Maybe one day.
                                     isUsingInternetExplorer = false;
-                                    var ua = navigator.userAgent;
-                                    var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-                                    if (re.exec(ua) != null) {
-                                        isUsingInternetExplorer = true;
-                                    }
+
+                                    // Set up the generic audio image.
+                                    theInnerHtml +=
+                                        '<div class="audio_thumb" align="center" style="vertical-align:middle;">' +
+                                            '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
+                                            '<img src="/images/audioNoThumb.png" class="theThumb"></a>';
+
+                                    // Set up the audio player.
+                                    theInnerHtml +=
+                                        '<div id="sm2-container"></div>';
+
                                     if (isUsingInternetExplorer) {
-                                        theInnerHtml += '<div class="yepwegotIE"></div>';
+                                        theInnerHtml += ieShim;
                                     } else {
-                                        theInnerHtml += '<div class="nopenotIE"></div>';
+                                        theInnerHtml += html5;
                                     }
-//                                    // Set up the generic audio image.
-//                                    theInnerHtml +=
-//                                        '<div class="audio_thumb" align="center" style="vertical-align:middle;">' +
-//                                            '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
-//                                            '<img src="/images/audioNoThumb.png" class="theThumb"></a>';
-//
-//                                    // Set up the audio player.
-//                                    theInnerHtml +=
-//                                        '<div id="sm2-container"></div>';
-//
-//                                    if (isUsingInternetExplorer) {
-//                                        theInnerHtml += ieShim;
-//                                    } else {
-//                                        theInnerHtml += html5;
-//                                    }
-//
-//                                    // Set up the link for more information and downloads.
-//                                    theInnerHtml +=
-//                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
+
+                                    // Set up the link for more information and downloads.
+                                    theInnerHtml +=
+                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
 
                                 }
 
