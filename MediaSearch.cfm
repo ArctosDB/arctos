@@ -45,7 +45,6 @@
 			</cfloop>
 		</select>
 	</cfif>	
-	<div id="keyForm" style="display:block">
 		Search for Media &nbsp;&nbsp;
 		<br>		
 		<span class="likeLink" onclick="toggle_visibility('relForm', 'keyForm');">[ use advanced search ]</span>
@@ -57,8 +56,21 @@
 			}
 		</style>
 		<form name="newMedia" method="post" action="">
+			
+			
+			
+			
+			
+			
+			
+				<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
+			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
+			
+			
+			
+			
+			
 			<input type="hidden" name="action" value="search">
-			<input type="hidden" name="srchType" value="key">
 			<label for="keyword">Keyword</label>
 			<input type="text" name="keyword" id="keyword" size="40">
 			<span class="rdoCtl">Match Any<input type="radio" name="kwType" value="any"></span>
@@ -82,42 +94,18 @@
 					<option value="#media_type#">#media_type#</option>
 				</cfloop>
 			</select>
-			<br>
-			<input type="submit" 
-				value="Find Media" 
-				class="insBtn">
-			<input type="reset" 
-				value="reset form" 
-				class="clrBtn">
-		</form>
-	</div>
-	<div id="relForm" style="display:none">
-		Advanced Search for Media
-		<br>
-		<span class="likeLink" onclick="toggle_visibility('keyForm', 'relForm');">[ use keywords search ]</span>
-		<form name="newMedia" method="post" action="">
-			<input type="hidden" name="action" value="search">
-			<input type="hidden" name="srchType" value="full">
-			<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
-			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
-			<label for="media_uri">Media URI</label>
-			<input type="text" name="media_uri" id="media_uri" size="90">
-			<label for="mime_type">MIME Type</label>
-			<select name="mime_type" id="mime_type">
-				<option value=""></option>
-					<cfloop query="ctmime_type">
-						<option value="#mime_type#">#mime_type#</option>
+			<label for="relationships">Media Relationships</label>
+			<div id="relationships" style="border:1px dashed red;">
+				<select name="relationships" id="relationships" size="5" multiple="multiple">
+					<option value=""></option>
+					<cfloop query="ctmedia_relationship">
+						<option value="#media_relationship#">#media_relationship#</option>
 					</cfloop>
-			</select>
-            <label for="media_type">Media Type</label>
-			<select name="media_type" id="media_type">
-				<option value=""></option>
-					<cfloop query="ctmedia_type">
-						<option value="#media_type#">#media_type#</option>
-					</cfloop>
-			</select>
-			<label for="tag">Require TAG?</label>
-			<input type="checkbox" id="tag" name="tag" value="1">
+				</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80">
+				<input type="hidden" name="related_id__1" id="related_id__1">
+				<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
+			</div>
+			<!------
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<select name="relationship__1" id="relationship__1" size="1">
@@ -143,6 +131,9 @@
 				<span class="infoLink" id="addLabel" onclick="addLabel(2)">Add Label</span>
 			</div>
 			<br>
+			
+			-------->
+			<br>
 			<input type="submit" 
 				value="Find Media" 
 				class="insBtn">
@@ -150,6 +141,9 @@
 				value="reset form" 
 				class="clrBtn">
 		</form>
+	
+	
+
 	</div>
 	</cfoutput>
 </cfif>
@@ -293,8 +287,11 @@
 	            <cfset thisRelatedKey = "">
 		    </cfcatch>
 	    </cftry>
-		<cfif len(#thisRelationship#) gt 0>
-			<cfset srch="#srch# AND upper(media_flat.media_relationships) like '%#ucase(thisRelationship)#%'">
+		<cfif len(thisRelationship) gt 0>
+			<cfset sql = "sql,media_relations media_relations#n#">
+			<cfset whr =" AND media_flat.media_id = media_relations#n#.media_id ">
+
+			<cfset srch="#srch# AND upper(media_relations#n#.media_relationship) like '%#ucase(thisRelationship)#%'">
 			<cfset mapurl="#mapurl#&relationship__#n#=#thisRelationship#">
 		</cfif>
 		<cfif len(#thisRelatedItem#) gt 0>
@@ -307,7 +304,7 @@
 			</cfif>
 		</cfif>
 	    <cfif len(#thisRelatedKey#) gt 0>
-			<cfset srch="#srch# AND media_flat.related_primary_keys like '%#thisRelatedKey#%'">
+			<cfset srch="#srch# AND media_relations#n#.related_primary_key = '#thisRelatedKey#'">
 			<cfset mapurl="#mapurl#&related_primary_key__#n#=#thisRelatedKey#">
 	    	<cfif len(terms) gt 0>
 				<cfset terms=terms & ";" & thisRelatedKey>
