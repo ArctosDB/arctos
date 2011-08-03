@@ -78,10 +78,17 @@
 			<span class="rdoCtl">Match Phrase<input type="radio" name="kwType" value="phrase"></span>
 			<label for="media_uri">Media URI</label>
 			<input type="text" name="media_uri" id="media_uri" size="90">
-			<label for="tag">Require TAG?</label>
-			<input type="checkbox" id="tag" name="tag" value="1">
-			<label for="noDNG">Ignore DNG?</label>
-			<input type="checkbox" id="noDNG" name="noDNG" value="1" checked="checked">
+			<table>
+				<tr>
+					<td><label for="tag">Require TAG?</label></td>
+					<td><input type="checkbox" id="tag" name="tag" value="1"></td>
+				</tr>
+				<tr>
+					<td><label for="noDNG">Ignore DNG?</label></td>
+					<td><input type="checkbox" id="noDNG" name="noDNG" value="1" checked="checked"></td>
+				</tr>
+			</table>
+			
 			<label for="mime_type">MIME Type</label>
 			<select name="mime_type" id="mime_type" multiple="multiple" size="3">
 				<option value="" selected="selected">Anything</option>
