@@ -174,10 +174,11 @@
 		
 		
 		
-		
+		<!---
 		<cfif isdefined("related_primary_key#n#") and len(related_primary_key#n#) gt 0>
 			<cfset srch="#srch# AND media_relations#n#.related_primary_key = #related_primary_key#n#">
 		</cfif>
+		---->
 		<cfset n=n+1>
 	</cfloop>
 	<cfset mapurl="#mapurl#&relationships=#relationships#">
