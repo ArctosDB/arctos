@@ -630,12 +630,14 @@ function success_getSpecResultsData(result){
                                  */
 
                                 if (thisMedia.DATA.mimecat[m] == 'audio') {
+
                                     // Create an audio thumb.
                                     wavPlaybackUrl = thisMedia.DATA.media_uri[m],
                                         length = wavPlaybackUrl.split('/').length,
                                         fileName = wavPlaybackUrl.split('/')[length - 1].replace('.wav', ''),
                                         mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
+
                                     // Use when browser isn't IE.
                                     html5 = '<audio controls preload="auto" autobuffer>' +
                                         '    <source src="' + mp3PlaybackUrl + '" />' +
@@ -646,6 +648,13 @@ function success_getSpecResultsData(result){
                                     // Use when browser is IE.
                                     ieShim = '<ul class="graphic"><li><a href="' + mp3PlaybackUrl + '">' + fileName + '.mp3</a></li></ul>';
 
+                                    // Figure out what the browser is.
+                                    isUsingInternetExplorer = false;
+                                    var ua = navigator.userAgent;
+                                    var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+                                    if (re.exec(ua) != null)
+                                        isUsingInternetExplorer = true;
+
                                     // Set up the generic audio image.
                                     theInnerHtml +=
                                         '<div class="audio_thumb" align="center" style="vertical-align:middle;">' +
@@ -654,9 +663,13 @@ function success_getSpecResultsData(result){
 
                                     // Set up the audio player.
                                     theInnerHtml +=
-                                        '<div id="sm2-container"></div>' +
-                                            html5;
-                                    // Or, when browser is IE, use ieShim.
+                                        '<div id="sm2-container"></div>';
+
+                                    if (isUsingInternetExplorer) {
+                                        theInnerHtml += ieShim;
+                                    } else {
+                                        theInnerHtml += html5;
+                                    }
 
                                     // Set up the link for more information and downloads.
                                     theInnerHtml +=
