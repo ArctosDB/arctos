@@ -96,7 +96,7 @@
 			</select>
 			<label for="relationships">Media Relationships</label>
 			<select name="relationships" id="relationships" size="5" multiple="multiple">
-				<option value=""></option>
+				<option value="">Anything</option>
 				<cfloop query="ctmedia_relationship">
 					<option value="#media_relationship#">#media_relationship#</option>
 				</cfloop>
@@ -116,20 +116,18 @@
 			</div>
 			<br>
 			<!------
-			<label for="relationships">Media Relationships</label>
-			<div id="relationships" style="border:1px dashed red;">
-				<select name="relationship__1" id="relationship__1" size="1">
-					<option value=""></option>
-					<cfloop query="ctmedia_relationship">
-						<option value="#media_relationship#">#media_relationship#</option>
-					</cfloop>
-				</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80">
-				<input type="hidden" name="related_id__1" id="related_id__1">
-				<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
-			</div>
-			<br>
-			
-			
+				<label for="relationships">Media Relationships</label>
+				<div id="relationships" style="border:1px dashed red;">
+					<select name="relationship__1" id="relationship__1" size="1">
+						<option value=""></option>
+						<cfloop query="ctmedia_relationship">
+							<option value="#media_relationship#">#media_relationship#</option>
+						</cfloop>
+					</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80">
+					<input type="hidden" name="related_id__1" id="related_id__1">
+					<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
+				</div>
+				<br>			
 			-------->
 			<br>
 			<input type="submit" 
@@ -169,27 +167,7 @@
 		<cfset n=n+1>
 	</cfloop>
 	<cfset mapurl="#mapurl#&relationships=#relationships#">
-
-
-	
-
-
-
-
-	
-	
-	
-
-
-
-
-
-
-
-
-
 	<cfif isdefined("keyword") and len(keyword) gt 0>
-
 		<cfif not isdefined("kwType")>
 			<cfset kwType="all">
 		</cfif>
@@ -228,12 +206,6 @@
 		<cfset srch="#srch# AND media_flat.media_type IN (#listQualify(media_type,"'")#)">
 		<cfset mapurl="#mapurl#&media_type=#media_type#">
 	</cfif>
-	
-	
-	
-	
-	
-	
 	<cfif isdefined("media_id") and len(#media_id#) gt 0>
 		<cfset whr="#whr# AND media_flat.media_id in (#media_id#)">
 		<cfset mapurl="#mapurl#&media_id=#media_id#">
@@ -243,50 +215,6 @@
 		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 	</cfif>
 
-
-
-
-
-
-
-
-
-	<cfif isdefined("media_uri") and len(media_uri) gt 0>
-		<cfset srch="#srch# AND upper(media_flat.media_uri) like '%#ucase(media_uri)#%'">
-		<cfset mapurl="#mapurl#&media_uri=#media_uri#">
-	</cfif>
-	<cfif isdefined("media_type") and len(media_type) gt 0>
-		<cfset srch="#srch# AND upper(media_flat.media_type) like '%#ucase(media_type)#%'">
-		<cfset mapurl="#mapurl#&media_type=#media_type#">
-	</cfif>
-	<cfif isdefined("tag") and len(tag) gt 0>
-		<cfset whr="#whr# AND media_flat.media_id in (select media_id from tag)">
-		<cfset mapurl="#mapurl#&tag=#tag#">
-	</cfif>
-	<cfif isdefined("media_id") and len(#media_id#) gt 0>
-		<cfset whr="#whr# AND media_flat.media_id in (#media_id#)">
-		<cfset mapurl="#mapurl#&media_id=#media_id#">
-	</cfif>
-	<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
-		<cfset srch="#srch# AND media_flat.mime_type = '#mime_type#'">
-		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
-	</cfif>
-	
-	<cfif not isdefined("number_of_relations")>
-	    <cfif (isdefined("relationship") and len(relationship) gt 0) or (isdefined("related_to") and len(related_to) gt 0)>
-			<cfset number_of_relations=1>
-			<cfif isdefined("relationship") and len(relationship) gt 0>
-				<cfset relationship__1=relationship>
-			</cfif>
-			 <cfif isdefined("related_to") and len(related_to) gt 0>
-				<cfset related_value__1=related_to>
-			</cfif>
-		<cfelse>
-			<cfset number_of_relations=1>
-		</cfif>
-	</cfif>
-	<cfset mapurl="#mapurl#&number_of_relations=#number_of_relations#">
-	
 	<cfif not isdefined("number_of_labels")>
 	    <cfif (isdefined("label") and len(label) gt 0) or (isdefined("label__1") and len(label__1) gt 0)>
 			<cfset number_of_labels=1>
@@ -300,10 +228,7 @@
 			<cfset number_of_labels=0>
 		</cfif>
 	</cfif>
-	<cfset mapurl="#mapurl#&number_of_labels=#number_of_labels#">
-	
-	
-	
+	<cfset mapurl="#mapurl#&number_of_labels=#number_of_labels#">	
 	<cfloop from="1" to="#number_of_labels#" index="n">
 		<cftry>
 	        <cfset thisLabel = #evaluate("label__" & n)#>
@@ -317,20 +242,22 @@
 	            <cfset thisLabelValue = "">
 		    </cfcatch>
         </cftry>		
-        <cfif len(#thisLabel#) gt 0>
-			<cfset srch="#srch# AND upper(media_flat.media_labels) like '#ucase(thisLabel)#'">
-			<cfset mapurl="#mapurl#&label__#n#=#thisLabel#">
-		</cfif>
-		<cfif len(#thisLabelValue#) gt 0>
-			<cfset srch="#srch# AND upper(media_flat.label_values) like '%#ucase(thisLabelValue)#%'">
-			<cfset mapurl="#mapurl#&label_value__#n#=#thisLabelValue#">
-			<cfif len(terms) gt 0>
-				<cfset terms=terms & ";" & thisLabelValue>
-			<cfelse>
-				<cfset terms=thisLabelValue>
+        <cfif len(thisLabel) gt 0 OR len(thisLabelValue) gt 0>
+			<cfset sql = "#sql#,media_labels media_labels#n#">
+			<cfset whr ="#whr# AND media_flat.media_id = media_labels#n#.media_id ">
+			<cfif len(thisLabel) gt 0>
+				<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
+			</cfif>
+			<cfif len(thisLabelValue) gt 0>
+				<cfset srch="#srch# AND upper(media_labels#n#.label_value) = '%#ucase(thisLabelValue)#%'">
 			</cfif>
 		</cfif>
 	</cfloop>
+	
+	
+	
+	
+	
 	
 	<cfif len(srch) is 0>
 		<div class="error">You must enter search criteria.</div>
