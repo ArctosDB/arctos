@@ -92,7 +92,7 @@
 	<cfquery name="desc" dbtype="query">
 		select label_value from labels_raw where media_label='description'
 	</cfquery>
-	<cfset alt="#media_uri#">
+	<cfset alt="#findIDs.media_uri#">
 	<cfif desc.recordcount is 1 and findIDs.recordcount is 1>
 			<cfset title = desc.label_value>
 			<cfset metaDesc = "#desc.label_value# for #findIDs.media_type# (#findIDs.mime_type#)">
