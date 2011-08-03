@@ -326,7 +326,7 @@
 <table>
 
 
-
+<br>startrow="#firstRecord#" endrow="#limit#"
 <cfloop query="findIDs" startrow="#firstRecord#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
