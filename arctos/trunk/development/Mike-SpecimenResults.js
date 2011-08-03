@@ -650,19 +650,19 @@ function success_getSpecResultsData(result){
                                     theInnerHtml +=
                                         '<div class="audio_thumb">' +
                                         '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
-                                        '<img src="images/audioNoThumb.png" class="theThumb"></a></div>';
+                                        '<img src="images/audioNoThumb.png" class="theThumb"></a>';
 
-                                    theInnerHtml += '<div class="stuff">Hello.</div>';
+//                                    theInnerHtml += '<div class="stuff">Hello.</div>';
 
                                     // Set up the audio player.
-//                                    theInnerHtml +=
-//                                        '<div id="sm2-container"></div>' +
-//                                            html5;
+                                    theInnerHtml +=
+                                        '<div id="sm2-container"></div>' +
+                                            html5;
                                     // Or, when browser is IE, use ieShim.
 
                                     // Set up the link for more information and downloads.
-//                                    theInnerHtml +=
-//                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
+                                    theInnerHtml +=
+                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
 
                                 } else {
                                     // Create a generic media thumb.
