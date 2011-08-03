@@ -187,7 +187,7 @@
 			<cfset srch="#srch# AND media_labels.media_label = '#media_label#'">
 			<cfset mapurl="#mapurl#&media_label=#media_label#">
 		</cfif>
-		<cfif isdefined("label_value") and len(label_value) gt >
+		<cfif isdefined("label_value") and len(label_value) gt 0>
 			<cfset srch="#srch# AND upper(media_labels.label_value) like '%#ucase(label_value)#%'">
 			<cfset mapurl="#mapurl#&label_value=#label_value#">
 		</cfif>
