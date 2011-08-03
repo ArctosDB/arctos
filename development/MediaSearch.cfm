@@ -209,7 +209,7 @@
 		 </cfif>
 	</cfloop>
 	<cfsavecontent variable="pager">
-		<cfset Result_Per_Page=session.display_rows>
+		<cfset Result_Per_Page=session.displayrows>
 		<cfset Total_Records=findIDs.recordcount> 
 		<cfparam name="URL.offset" default="0"> 
 		<cfparam name="limit" default="1">
