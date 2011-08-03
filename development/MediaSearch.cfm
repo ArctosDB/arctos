@@ -196,7 +196,7 @@
 				<br>
 			</cfif>
 		</cfif>
-		<td><a href="#h#">[ Create media ]</a></td>
+		<td><a href="#h#">[ -create media ]</a></td>
 	</cfif>
 	
 	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
