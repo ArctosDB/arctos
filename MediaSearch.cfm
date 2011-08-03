@@ -46,8 +46,6 @@
 		</select>
 	</cfif>	
 		Search for Media &nbsp;&nbsp;
-		<br>		
-		<span class="likeLink" onclick="toggle_visibility('relForm', 'keyForm');">[ use advanced search ]</span>
 		<style>
 			.rdoCtl {
 				font-size:small;
@@ -286,6 +284,8 @@
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
+	
+	findIDs.recordcount: #findIDs.recordcount#
 	<table cellpadding="10"><tr>
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
