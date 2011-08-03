@@ -343,7 +343,6 @@
 		</td>
 		
 		<td align="middle">							
-			<div style="font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 				<cfset relMedia=''>
 				<cfloop list="#rel#" index="i" delimiters="|">
 					<cfset r=listgetat(i,1,chr(7))>
@@ -357,8 +356,13 @@
 				<cfloop list="#lbl#" index="i" delimiters="|">
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
+			<!---	
+			
+						<div style="font-size:smaller;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
+
 			</div>
-			<!---		
+
+	
 			<div style="color:green;font-size:small;max-width:60em;margin-left:3em;border:1px solid black;padding:2px;text-align:justify;">
 				#keywords#
 			</div>
