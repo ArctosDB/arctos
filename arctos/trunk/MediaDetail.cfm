@@ -88,16 +88,15 @@
 			<cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select coordinates from media_flat where media_id=#media_id#
 			</cfquery>
-			<cfif coord.recordcount is 1>
-				<td>
-					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#coord.coordinates#">
+			<td>
+				<cfif coord.recordcount is 1><cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#coord.coordinates#">
 					<cfset iu=iu & "&markers=color:red|size:tiny|#coord.coordinates#&sensor=false&size=100x100&zoom=2">
 					<cfset iu=iu & "&maptype=roadmap">
 					<a href="http://maps.google.com/maps?q=#coord.coordinates#" target="_blank">
 						<img src="#iu#" alt="Google Map">
 					</a>
-				</td>
-			</cfif>
+				</cfif>
+			</td>
 			<td>
 				<cfif len(desc.label_value) gt 0>
 					<ul><li>#desc.label_value#</li></ul>
@@ -127,20 +126,23 @@
 				</cfif>
 			</td>
 		</tr>
-			<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select count(*) n from tag where media_id=#media_id#
-			</cfquery>
-			<br>
-			<cfif findIDs.media_type is "multi-page document">
-				<a href="/document.cfm?media_id=#findIDs.media_id#">[ view as document ]</a>
-			</cfif>
-			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-		        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
-		        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
-		    </cfif>
-		    <cfif tag.n gt 0>
-				<a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
-			</cfif>
+		<tr>
+			<td colspan="3">
+				<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select count(*) n from tag where media_id=#media_id#
+				</cfquery>
+				<cfif findIDs.media_type is "multi-page document">
+					<a href="/document.cfm?media_id=#findIDs.media_id#">[ view as document ]</a>
+				</cfif>
+				<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+			        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
+			        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
+			    </cfif>
+			    <cfif tag.n gt 0>
+					<a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
+				</cfif>
+			</td>
+		</tr>
 			<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					media.media_id, 
@@ -166,42 +168,44 @@
 					media_relations.related_primary_key=#media_id#
 					 and media.media_id != #media_id#
 			</cfquery>
-			<cfif relM.recordcount gt 0>
-				<br>Related Media
-				<div class="thumbs">
-					<div class="thumb_spcr">&nbsp;</div>
-					<cfloop query="relM">
-						<cfset puri=getMediaPreview(preview_uri,media_type)>
-		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							select
-								media_label,
-								label_value
-							from
-								media_labels
-							where
-								media_id=#media_id#
-						</cfquery>
-						<cfquery name="desc" dbtype="query">
-							select label_value from labels where media_label='description'
-						</cfquery>
-						<cfset alt="Media Preview Image">
-						<cfif desc.recordcount is 1>
-							<cfset alt=desc.label_value>
-						</cfif>
-		               <div class="one_thumb">
-			               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
-		                   	<p>
-								#media_type# (#mime_type#)
-			                   	<br><a href="/media/#media_id#">Media Details</a>
-								<br>#alt#
-							</p>
-						</div>
-					</cfloop>
-					<div class="thumb_spcr">&nbsp;</div>
-				</div>
-			</cfif>
-		</td>
-	</tr>
-</table>
+		<tr>
+			<td colspan="3">
+				<cfif relM.recordcount gt 0>
+					<br>Related Media
+					<div class="thumbs">
+						<div class="thumb_spcr">&nbsp;</div>
+						<cfloop query="relM">
+							<cfset puri=getMediaPreview(preview_uri,media_type)>
+			            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+								select
+									media_label,
+									label_value
+								from
+									media_labels
+								where
+									media_id=#media_id#
+							</cfquery>
+							<cfquery name="desc" dbtype="query">
+								select label_value from labels where media_label='description'
+							</cfquery>
+							<cfset alt="Media Preview Image">
+							<cfif desc.recordcount is 1>
+								<cfset alt=desc.label_value>
+							</cfif>
+			               <div class="one_thumb">
+				               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+			                   	<p>
+									#media_type# (#mime_type#)
+				                   	<br><a href="/media/#media_id#">Media Details</a>
+									<br>#alt#
+								</p>
+							</div>
+						</cfloop>
+						<div class="thumb_spcr">&nbsp;</div>
+					</div>
+				</cfif>
+			</td>
+		</tr>
+	</table>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
