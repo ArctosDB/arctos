@@ -260,7 +260,7 @@
 				<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
 			</cfif>
 			<cfif len(thisLabelValue) gt 0>
-				<cfset srch="#srch# AND upper(media_labels#n#.label_value) = '%#ucase(thisLabelValue)#%'">
+				<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
 			</cfif>
 		</cfif>
 	</cfloop>
