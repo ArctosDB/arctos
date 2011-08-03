@@ -239,7 +239,7 @@
 		 </cfif>
 	</cfloop>
 	
-	
+	<cfparam name="url.start" default=0>
 	<cfsavecontent variable="pager">
 		    <p align=ÓcenterÓ>
     speed-dating video
