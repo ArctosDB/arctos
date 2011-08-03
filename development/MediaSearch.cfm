@@ -197,8 +197,6 @@
 		</cfif>
 		<a href="#h#">[ Create media ]</a>
 	</cfif>
-	
-	<!----
 	<cfset q="">
 	<cfloop list="#StructKeyList(form)#" index="key">
 		<cfif len(form[key]) gt 0 and key is not "FIELDNAMES" and key is not "offset">
@@ -210,7 +208,6 @@
 			<cfset q=listappend(q,"#key#=#url[key]#","&")>
 		 </cfif>
 	</cfloop>
-	---->
 	<cfsavecontent variable="pager">
 		<cfset Result_Per_Page=10>
 		<cfset Total_Records=findIDs.recordcount> 
@@ -275,6 +272,7 @@
 	<input type="hidden" name="ssql" value="#ssql#">
 	<input type="submit" value="down">
 </form>
+
 <span class="controlButton"
 				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search&#mapURL#');">Save&nbsp;Search</span>
 	<!---
