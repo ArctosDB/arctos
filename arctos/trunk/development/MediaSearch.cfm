@@ -170,7 +170,7 @@
 		#preservesinglequotes(ssql)#
 	</cfquery>
 	
-	<table border><tr>
+	<table cellpadding="10"><tr>
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfabort>
@@ -208,12 +208,14 @@
 
 	</td>
 	</form>
-	<td valign="middle">
 	<form name="dlm" method="post" action="MediaSearchDownload.cfm">
 	<input type="hidden" name="ssql" value="#ssql#">
+	<td valign="middle">
+	
 	<input type="submit"  class="lnkBtn" value="Download">
-</form>
 	</td>
+	</form>
+
 	<td>
 	<span class="controlButton"
 				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
