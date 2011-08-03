@@ -399,7 +399,7 @@
 	#pager#
 	<cfset rownum=1>
 <table>
-	
+<cfif url.offset is 0><cfset url.offset=1></cfif>
 	----------#URL.offset#---------
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
