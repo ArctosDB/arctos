@@ -1,7 +1,3 @@
-<cfdump var=#form#>
-<cfdump var=#url#>
-<cfdump var=#variables#>
-
 <cfset title="Media">
 <cfset metaDesc="Locate Media, including audio (sound recordings), video (movies), and images (pictures) of specimens, collecting sites, habitat, collectors, and more.">
 <div id="_header">
@@ -184,44 +180,18 @@
 		<cfset srch="#srch# AND media_flat.mime_type in (#listQualify(mime_type,"'")#)">
 		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 	</cfif>
-	<cfif not isdefined("number_of_labels")>
-	    <cfif (isdefined("label") and len(label) gt 0) or (isdefined("label__1") and len(label__1) gt 0)>
-			<cfset number_of_labels=1>
-			<cfif isdefined("label") and len(label) gt 0>
-				<cfset label__1=label>
-			</cfif>
-			<cfif isdefined("label_value") and len(label_value) gt 0>
-				<cfset label_value__1=label_value>
-			</cfif>
-		<cfelse>
-			<cfset number_of_labels=0>
+	<cfif (isdefined("media_label") and len(media_label) gt 0) or (isdefined("label_value") and len(label_value) gt 0)>
+		<cfset sql = "#sql#,media_labels">
+		<cfset whr ="#whr# AND media_flat.media_id = media_labels.media_id ">
+		<cfif isdefined("media_label") and len(media_label) gt 0>
+			<cfset srch="#srch# AND media_labels.media_label = '#media_label#'">
+			<cfset mapurl="#mapurl#&media_label=#media_label#">
+		</cfif>
+		<cfif isdefined("label_value") and len(label_value) gt >
+			<cfset srch="#srch# AND upper(media_labels.label_value) like '%#ucase(label_value)#%'">
+			<cfset mapurl="#mapurl#&label_value=#label_value#">
 		</cfif>
 	</cfif>
-	<cfset mapurl="#mapurl#&number_of_labels=#number_of_labels#">	
-	<cfloop from="1" to="#number_of_labels#" index="n">
-		<cftry>
-	        <cfset thisLabel = #evaluate("label__" & n)#>
-		    <cfcatch>
-	            <cfset thisLabel = "">
-		    </cfcatch>
-        </cftry>
-        <cftry>
-	        <cfset thisLabelValue = #evaluate("label_value__" & n)#>
-		    <cfcatch>
-	            <cfset thisLabelValue = "">
-		    </cfcatch>
-        </cftry>		
-        <cfif len(thisLabel) gt 0 OR len(thisLabelValue) gt 0>
-			<cfset sql = "#sql#,media_labels media_labels#n#">
-			<cfset whr ="#whr# AND media_flat.media_id = media_labels#n#.media_id ">
-			<cfif len(thisLabel) gt 0>
-				<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
-			</cfif>
-			<cfif len(thisLabelValue) gt 0>
-				<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
-			</cfif>
-		</cfif>
-	</cfloop>
 	<cfif len(srch) is 0>
 		<div class="error">You must enter search criteria.</div>
 		<cfabort> 
