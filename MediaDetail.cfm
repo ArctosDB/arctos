@@ -217,7 +217,6 @@
 			</cfif>
 		</td>
 	</tr>
-	<cfset rownum=rownum+1>
 </table>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
