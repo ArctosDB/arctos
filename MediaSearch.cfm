@@ -6,7 +6,7 @@
 <script type='text/javascript' language="javascript" src='/includes/media.js'></script>
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
-    	<cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
+    	<cflocation url="MediaSearch.cfm?action=search&relations=shows cataloged_item&related_primary_key1=#url.collection_object_id#" addtoken="false">
     </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
