@@ -155,15 +155,77 @@
 	<cfset srch=" ">
 	<cfset mapurl = "">
 	<cfset terms="">
-<cfif not isdefined("mapurl")>
-	<cfset mapurl = "">
-</cfif>
-<cfif not isdefined("basQual")>
-	<cfset basQual = "">
-</cfif>
+	<cfif not isdefined("mapurl")>
+		<cfset mapurl = "">
+	</cfif>
 
 
-<cfif isdefined("srchType") and srchType is "key">
+<cfloop list="relationships" delimiter="," index="n">
+	<br>::::#n#::::
+</cfloop>
+
+
+
+
+
+<cfloop from="1" to="#number_of_relations#" index="n">
+		<cftry>
+	        <cfset thisRelationship = #evaluate("relationship__" & n)#>
+		    <cfcatch>
+		        <cfset thisRelationship = "">
+		    </cfcatch>
+	    </cftry>
+	    <cftry>
+	        <cfset thisRelatedItem = #evaluate("related_value__" & n)#>
+		    <cfcatch>
+	            <cfset thisRelatedItem = "">
+		    </cfcatch>
+	    
+	    </cftry>
+	    <cftry>
+	         <cfset thisRelatedKey = #evaluate("related_primary_key__" & n)#>
+		    <cfcatch>
+	            <cfset thisRelatedKey = "">
+		    </cfcatch>
+	    </cftry>
+		<cfif len(thisRelationship) gt 0>
+			<cfset sql = "sql,media_relations media_relations#n#">
+			<cfset whr =" AND media_flat.media_id = media_relations#n#.media_id ">
+
+			<cfset srch="#srch# AND upper(media_relations#n#.media_relationship) like '%#ucase(thisRelationship)#%'">
+			<cfset mapurl="#mapurl#&relationship__#n#=#thisRelationship#">
+		</cfif>
+		<cfif len(#thisRelatedItem#) gt 0>
+			<cfset srch="#srch# AND upper(media_flat.media_rel_values) like '%#ucase(thisRelatedItem)#%'">
+			<cfset mapurl="#mapurl#&related_value__#n#=#thisRelatedItem#">
+			<cfif len(terms) gt 0>
+				<cfset terms=terms & ";" & thisRelatedItem>
+			<cfelse>
+				<cfset terms=thisRelatedItem>
+			</cfif>
+		</cfif>
+	    <cfif len(#thisRelatedKey#) gt 0>
+			<cfset srch="#srch# AND media_relations#n#.related_primary_key = '#thisRelatedKey#'">
+			<cfset mapurl="#mapurl#&related_primary_key__#n#=#thisRelatedKey#">
+	    	<cfif len(terms) gt 0>
+				<cfset terms=terms & ";" & thisRelatedKey>
+			<cfelse>
+				<cfset terms=thisRelatedKey>
+			</cfif>
+		</cfif>
+	</cfloop>
+	
+	
+	
+
+
+
+
+
+
+
+
+
 	<cfset mapurl="#mapurl#&srchType=#srchType#">
 
 	<cfif isdefined("keyword") and len(keyword) gt 0>
@@ -214,7 +276,14 @@
 		<cfset srch="#srch# AND media_flat.mime_type in (#listQualify(mime_type,"'")#)">
 		<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 	</cfif>
-<cfelse>
+
+
+
+
+
+
+
+
 
 	<cfif isdefined("media_uri") and len(media_uri) gt 0>
 		<cfset srch="#srch# AND upper(media_flat.media_uri) like '%#ucase(media_uri)#%'">
@@ -267,52 +336,7 @@
 	</cfif>
 	<cfset mapurl="#mapurl#&number_of_labels=#number_of_labels#">
 	
-	<cfloop from="1" to="#number_of_relations#" index="n">
-		<cftry>
-	        <cfset thisRelationship = #evaluate("relationship__" & n)#>
-		    <cfcatch>
-		        <cfset thisRelationship = "">
-		    </cfcatch>
-	    </cftry>
-	    <cftry>
-	        <cfset thisRelatedItem = #evaluate("related_value__" & n)#>
-		    <cfcatch>
-	            <cfset thisRelatedItem = "">
-		    </cfcatch>
-	    
-	    </cftry>
-	    <cftry>
-	         <cfset thisRelatedKey = #evaluate("related_primary_key__" & n)#>
-		    <cfcatch>
-	            <cfset thisRelatedKey = "">
-		    </cfcatch>
-	    </cftry>
-		<cfif len(thisRelationship) gt 0>
-			<cfset sql = "sql,media_relations media_relations#n#">
-			<cfset whr =" AND media_flat.media_id = media_relations#n#.media_id ">
-
-			<cfset srch="#srch# AND upper(media_relations#n#.media_relationship) like '%#ucase(thisRelationship)#%'">
-			<cfset mapurl="#mapurl#&relationship__#n#=#thisRelationship#">
-		</cfif>
-		<cfif len(#thisRelatedItem#) gt 0>
-			<cfset srch="#srch# AND upper(media_flat.media_rel_values) like '%#ucase(thisRelatedItem)#%'">
-			<cfset mapurl="#mapurl#&related_value__#n#=#thisRelatedItem#">
-			<cfif len(terms) gt 0>
-				<cfset terms=terms & ";" & thisRelatedItem>
-			<cfelse>
-				<cfset terms=thisRelatedItem>
-			</cfif>
-		</cfif>
-	    <cfif len(#thisRelatedKey#) gt 0>
-			<cfset srch="#srch# AND media_relations#n#.related_primary_key = '#thisRelatedKey#'">
-			<cfset mapurl="#mapurl#&related_primary_key__#n#=#thisRelatedKey#">
-	    	<cfif len(terms) gt 0>
-				<cfset terms=terms & ";" & thisRelatedKey>
-			<cfelse>
-				<cfset terms=thisRelatedKey>
-			</cfif>
-		</cfif>
-	</cfloop>
+	
 	
 	<cfloop from="1" to="#number_of_labels#" index="n">
 		<cftry>
@@ -347,7 +371,8 @@
 	</cfif>
 
 
-</cfif><!--- end srchType --->
+
+
 <cfset srch = "#srch# AND rownum <= 500">
 
 	<cfset ssql="#sql# #whr# #srch# order by media_id">
