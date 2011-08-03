@@ -648,9 +648,9 @@ function success_getSpecResultsData(result){
 
                                     // Set up the generic audio image.
                                     theInnerHtml +=
-                                        '<div class="audio_thumb">'; // +
-//                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
-//                                        '<img src="images/audioNoThumb.png" class="theThumb"></a>';
+                                        '<div class="audio_thumb">'; +
+                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
+                                        '<img src="images/audioNoThumb.png" class="theThumb"></a>';
 
                                     // Set up the audio player.
                                     theInnerHtml +=
