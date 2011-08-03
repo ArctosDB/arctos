@@ -16,7 +16,6 @@
 				media.media_license_id=ctmedia_license.media_license_id (+) and 
 				media.media_id = #media_id#
 		</cfquery>
-		<!---
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"coldfusion_user")>
@@ -33,7 +32,6 @@
 		<cfset metaDesc="Results of Media search: #findIDs.recordcount# records found.">
 		<a href="/MediaSearch.cfm">[ Media Search ]</a>
 	</cfif>
-	--->
 	
 	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	    <cfset h="/media.cfm?action=newMedia">
@@ -127,7 +125,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="3">
+			<td colspan="3" align="center">
 				<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select count(*) n from tag where media_id=#media_id#
 				</cfquery>
