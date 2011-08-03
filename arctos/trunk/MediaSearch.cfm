@@ -399,6 +399,8 @@
 	#pager#
 	<cfset rownum=1>
 <table>
+	
+	----------#URL.offset#---------
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
