@@ -292,12 +292,12 @@
 			<cfparam name="URL.offset" default="0"> 
 			<cfparam name="limit" default="1">
 			<cfset limit=URL.offset+Result_Per_Page> 
-			<cfset start_result=URL.offset+1> 
-			<cfset URL.offset=URL.offset+1>
+			<cfset start_result=URL.offset+1>
 			<div style="margin-left:20%;">
 				Showing results #start_result# - 
 				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
 				<cfif Total_Records GT Result_Per_Page> 
+					<cfset URL.offset=URL.offset+1>
 					<br> 
 					<cfif URL.offset GT Result_Per_Page> 
 						<cfset prev_link=URL.offset-Result_Per_Page-1> 
