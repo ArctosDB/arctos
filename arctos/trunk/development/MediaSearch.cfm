@@ -232,7 +232,7 @@
 				--->
 				<cfif URL.offset GT Result_Per_Page> 
 					<cfset prev_link=URL.offset-Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=#prev_link#&#q#"><<PREV</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="#cgi.script_name#?offset=#prev_link#&#q#">&lt;&lt;PREV</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</cfif> 
 				
 				<cfset start_page=((int(URL.offset/100)*100)/Result_Per_Page)+1>
