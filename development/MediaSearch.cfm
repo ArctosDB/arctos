@@ -255,7 +255,8 @@
 				<br> 
 				<cfif URL.offset GT Result_Per_Page> 
 					<cfset prev_link=URL.offset-Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=#prev_link#&#q#">Previous</a>
+					<a href="#cgi.script_name#?offset=0&#q#">[ First ]</a>
+					<a href="#cgi.script_name#?offset=#prev_link#&#q#">[ Previous ]</a>
 				</cfif> 
 				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)>
 				<cfset currentPage=(url.offset + session.displayrows) / session.displayrows>
@@ -276,7 +277,9 @@
 				</cfloop> 
 				<cfif limit LT Total_Records> 
 					<cfset next_link=URL.offset+Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=#next_link#&#q#">Next</a>
+					<a href="#cgi.script_name#?offset=#next_link#&#q#">[ Next ]</a>
+					<a href="#cgi.script_name#?offset=#offset_value#&#q#">[ Last ]</a>
+					
 				</cfif> 
 			</cfif>
 		</div>
