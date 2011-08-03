@@ -159,12 +159,13 @@
 		<cfset mapurl = "">
 	</cfif>
 
-
-	<cfloop list="#relationships#" delimiters="," index="n">
+	<cfset n=1>
+	<cfloop list="#relationships#" delimiters="," index="thisRelationship">
 		<br>::::#n#::::
 		<cfset sql = "sql,media_relations media_relations#n#">
 		<cfset whr =" AND media_flat.media_id = media_relations#n#.media_id ">
 		<cfset srch="#srch# AND media_relations#n#.media_relationship = '#thisRelationship#'">
+		<cfset n=n+1>
 	</cfloop>
 	<cfset mapurl="#mapurl#&relationships=#relationships#">
 
