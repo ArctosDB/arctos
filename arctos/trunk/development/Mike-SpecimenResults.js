@@ -267,7 +267,7 @@ function removeItems() {
 }
 function toggleKillrow(id,status) {
 	//alert(id + ' ' + status);
-	
+
 	var theEl = document.getElementById('killRowList');
 	if (status==true) {
 		var theArray = [];
@@ -510,7 +510,7 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
 				theInnerHtml += '<th>Geology&nbsp;Attributes</th>';
 			}
-			
+
 			if (data.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
 				theInnerHtml += '<th>Verbatim&nbsp;Date</th>';
 			}
@@ -569,247 +569,301 @@ function success_getSpecResultsData(result){
 		if (orderedCollObjIdArray.length < 200) {
 			var orderedCollObjIdList = orderedCollObjIdArray.join(",");
 		}
-		for (i=0; i<result.ROWCOUNT; ++i) {
-			orderedCollObjIdArray.push(data.COLLECTION_OBJECT_ID[i]);
+            for (i=0; i<result.ROWCOUNT; ++i) {
+                orderedCollObjIdArray.push(data.COLLECTION_OBJECT_ID[i]);
 
-			if (i%2) {
-				theInnerHtml += '<tr class="oddRow">';
-			} else {
-				theInnerHtml += '<tr class="evenRow">';
-			}
+                if (i%2) {
+                    theInnerHtml += '<tr class="oddRow">';
+                } else {
+                    theInnerHtml += '<tr class="evenRow">';
+                }
 
-			
-			
-				if (killrow == 1){
-					theInnerHtml += '<td align="center"><input type="checkbox" onchange="toggleKillrow(' + "'";
-					theInnerHtml +=data.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
-				}
-				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+data.COLLECTION_OBJECT_ID[i]+'">';
-					theInnerHtml += '<a href="/SpecimenDetail.cfm?collection_object_id=';
-					theInnerHtml += data.COLLECTION_OBJECT_ID[i];
-					theInnerHtml += '">';
-					theInnerHtml += data.COLLECTION[i];
-					theInnerHtml += '&nbsp;';
-					theInnerHtml += data.CAT_NUM[i];
-					theInnerHtml += '</a>';
-				theInnerHtml += '</td>';
-				if (loan_request_coll_id.length > 0) {
-					if (loan_request_coll_id == data.COLLECTION_ID[i]){
-						theInnerHtml +='<td><span class="likeLink" onclick="addLoanItem(' + "'";
-						theInnerHtml += data.COLLECTION_OBJECT_ID;
-						theInnerHtml += "');" + '">Request</span></td>';
-					} else {
-						theInnerHtml +='<td>N/A</td>';
-					}
-				}
-				if (action == 'dispCollObj'){
-					theInnerHtml +='<td id="partCell_' + data.COLLECTION_OBJECT_ID[i] + '"></td>';
-				}				
-				if (data.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
-					theInnerHtml += '<td>' + data.CUSTOMID[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
-					theInnerHtml += '<td>';
-					theInnerHtml += '<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
-						var thisMedia=JSON.parse(data.MEDIA[i]);
-						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
-							if(thisMedia.DATA.preview_uri[m].length > 0) {
-								pURI=thisMedia.DATA.preview_uri[m];
-							} else {
-								if (thisMedia.DATA.mimecat[m]=='audio'){
-									pURI='images/audioNoThumb.png';
-								} else {
-									pURI='/images/noThumb.jpg';
-								}
-							}
-							theInnerHtml += '<div class="test_div_name">';
-							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">';
-							theInnerHtml += '<img src="' + pURI + '" class="theThumb"></a>';
-							theInnerHtml += '<p>' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
-							theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';							
-						}
-					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
-					theInnerHtml += '</td>';
-				}		
-				theInnerHtml += '<td>';
-				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
-				theInnerHtml += '</span>'; 					
-				theInnerHtml += '</td>';
-				if (data.COLUMNLIST[0].indexOf('ID_SENSU')> -1) {
-					theInnerHtml += '<td>';
-						theInnerHtml += data.ID_SENSU[i];
-					theInnerHtml += '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
-					theInnerHtml += '<td>';
-						theInnerHtml += spaceStripper(data.SCI_NAME_WITH_AUTH[i]);
-					theInnerHtml += '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('ID_HISTORY')> -1) {
-					theInnerHtml += '<td>';
-						theInnerHtml += data.ID_HISTORY[i];
-					theInnerHtml += '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('CITATIONS')> -1) {
-					theInnerHtml += '<td>';
-						theInnerHtml += data.CITATIONS[i];
-					theInnerHtml += '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(data.IDENTIFIED_BY[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
-					theInnerHtml += '<td>' + data.PHYLORDER[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('FAMILY')> -1) {
-					theInnerHtml += '<td>' + data.FAMILY[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(data.OTHERCATALOGNUMBERS[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(data.ACCESSION[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
-					theInnerHtml += '<td>' + splitByComma(data.COLLECTORS[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('PREPARATORS')> -1) {
-					theInnerHtml += '<td>' + splitByComma(data.PREPARATORS[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
-					theInnerHtml += '<td>' + cordFormat(data.VERBATIMLATITUDE[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('VERBATIMLONGITUDE')> -1) {
-					theInnerHtml += '<td>' + cordFormat(data.VERBATIMLONGITUDE[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
-					theInnerHtml += '<td>' + data.COORDINATEUNCERTAINTYINMETERS[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('DATUM')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(data.DATUM[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
-					theInnerHtml += '<td>' + data.ORIG_LAT_LONG_UNITS[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('LAT_LONG_DETERMINER')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(data.LAT_LONG_DETERMINER[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('LAT_LONG_REF_SOURCE')> -1) {
-					theInnerHtml += '<td>' + data.LAT_LONG_REF_SOURCE[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('LAT_LONG_REMARKS')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + data.LAT_LONG_REMARKS[i] + '</div></td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(data.CONTINENT_OCEAN[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('COUNTRY')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(data.COUNTRY[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('STATE_PROV')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(data.STATE_PROV[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('SEA')> -1) {
-					theInnerHtml += '<td>' + data.SEA[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('QUAD')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(data.QUAD[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('FEATURE')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(data.FEATURE[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('COUNTY')> -1) {
-					theInnerHtml += '<td>' + data.COUNTY[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('ISLAND_GROUP')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(data.ISLAND_GROUP[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('ISLAND')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(data.ISLAND[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('ASSOCIATED_SPECIES')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + data.ASSOCIATED_SPECIES[i] + '</div></td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('HABITAT')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + data.HABITAT[i] + '</div></td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
-					theInnerHtml += '<td>' + data.MIN_ELEV_IN_M[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('MAX_ELEV_IN_M')> -1) {
-					theInnerHtml += '<td>' + data.MAX_ELEV_IN_M[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('MINIMUM_ELEVATION')> -1) {
-					theInnerHtml += '<td>' + data.MINIMUM_ELEVATION[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('MAXIMUM_ELEVATION')> -1) {
-					theInnerHtml += '<td>' + data.MAXIMUM_ELEVATION[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('ORIG_ELEV_UNITS')> -1) {
-					theInnerHtml += '<td>' + data.ORIG_ELEV_UNITS[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
-					theInnerHtml += '<td id="SpecLocality_'+data.COLLECTION_OBJECT_ID[i] + '">';
-					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(data.SPEC_LOCALITY[i]) + '"><div class="wrapLong">' + data.SPEC_LOCALITY[i] + '</div>';
-					theInnerHtml += '</span>';
-					theInnerHtml += '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
-					theInnerHtml += '<td>' + data.GEOLOGY_ATTRIBUTES[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
-					theInnerHtml += '<td>' + data.VERBATIM_DATE[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
-					theInnerHtml += '<td>' + data.BEGAN_DATE[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
-					theInnerHtml += '<td>' + data.ENDED_DATE[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('YEARCOLL')> -1) {
-					theInnerHtml += '<td>' + data.YEARCOLL[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('MONCOLL')> -1) {
-					theInnerHtml += '<td>' + data.MONCOLL[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('DAYCOLL')> -1) {
-					theInnerHtml += '<td>' + data.DAYCOLL[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('PARTDETAIL')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + splitByLF(data.PARTDETAIL[i]) + '</div></td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('SEX')> -1) {
-					theInnerHtml += '<td>' + data.SEX[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('REMARKS')> -1) {
-					theInnerHtml += '<td>' + data.REMARKS[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
-					theInnerHtml += '<td>' + data.COLL_OBJ_DISPOSITION[i] + '</td>';
-				}
-				for (a=0; a<nAtt; a++) {
-					if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
-					var attStr='data.' + attAry[a].toUpperCase() + '[' + i + ']';
-						theInnerHtml += '<td>' + eval(attStr) + '</td>';
-					}
-				}
-				if (data.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
-					theInnerHtml += '<td style="font-size:small">' + data.DEC_LAT[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
-					theInnerHtml += '<td style="font-size:small">' + data.DEC_LONG[i] + '</td>';
-				}
-			theInnerHtml += '</tr>';
-		}
+
+
+                    if (killrow == 1){
+                        theInnerHtml += '<td align="center"><input type="checkbox" onchange="toggleKillrow(' + "'";
+                        theInnerHtml +=data.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
+                    }
+                    theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+data.COLLECTION_OBJECT_ID[i]+'">';
+                        theInnerHtml += '<a href="/SpecimenDetail.cfm?collection_object_id=';
+                        theInnerHtml += data.COLLECTION_OBJECT_ID[i];
+                        theInnerHtml += '">';
+                        theInnerHtml += data.COLLECTION[i];
+                        theInnerHtml += '&nbsp;';
+                        theInnerHtml += data.CAT_NUM[i];
+                        theInnerHtml += '</a>';
+                    theInnerHtml += '</td>';
+                    if (loan_request_coll_id.length > 0) {
+                        if (loan_request_coll_id == data.COLLECTION_ID[i]){
+                            theInnerHtml +='<td><span class="likeLink" onclick="addLoanItem(' + "'";
+                            theInnerHtml += data.COLLECTION_OBJECT_ID;
+                            theInnerHtml += "');" + '">Request</span></td>';
+                        } else {
+                            theInnerHtml +='<td>N/A</td>';
+                        }
+                    }
+                    if (action == 'dispCollObj'){
+                        theInnerHtml +='<td id="partCell_' + data.COLLECTION_OBJECT_ID[i] + '"></td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
+                        theInnerHtml += '<td>' + data.CUSTOMID[i] + '</td>';
+                    }
+
+                    if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
+                        theInnerHtml += '<td>';
+                        theInnerHtml += '<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
+                            var thisMedia=JSON.parse(data.MEDIA[i]);
+                            for (m=0; m<thisMedia.ROWCOUNT; ++m) {
+
+                                // This is where my media edits begin.
+
+                                /*
+                                Step #1: Obtain the correct item ID number:
+                                    thisMedia.DATA.media_uri[m]
+                                Step #2: Obtain the boolean: using IE (T) or not (F).
+                                Step #3: Calculate all correct links.
+                                Step #4: Create the <div> tag, insert links, and format correctly.
+                                Step #4a: Add IE fix if using IE is True.
+
+                                Image for audio: pURI='images/audioNoThumb.png';
+                                Image for generic: pURI='/images/noThumb.jpg';
+                                 */
+
+                                if (thisMedia.DATA.mimecat[m] == 'audio') {
+                                    // Create an audio thumb.
+
+                                    fileName = thisMedia.DATA.media_uri[m];
+                                    mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
+                                        oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg',
+                                        wavPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/wav/' + fileName + '.mp3';
+                                    // Use when browser isn't IE.
+                                    html5 = '<audio controls preload="auto" autobuffer>' +
+                                        '    <source src="' + mp3PlaybackUrl + '" />' +
+                                        '    <source src="' + oggPlaybackUrl + '" />' +
+                                        '    <source src="' + wavPlaybackUrl + '" />' +
+                                        '</audio>';
+                                    // Use when browser is IE.
+                                    ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>';
+                                    pURI = 'images/audioNoThumb.png';
+
+                                    // Set up the generic audio image.
+                                    theInnerHtml +=
+                                        '<div class="audio_thumb">' +
+                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
+                                        '<img src="' + pURI + '" class="theThumb"></a>';
+
+                                    // Set up the audio player.
+                                    theInnerHtml +=
+                                        '<div id="sm2-container"></div>' +
+                                            html5;
+                                    // Or, when browser is IE, use ieShim.
+
+                                    // Set up the link for more information and downloads.
+                                    theInnerHtml +=
+                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a>';
+
+                                } else {
+                                    // Create a generic media thumb.
+                                    
+                                    if(thisMedia.DATA.preview_uri[m].length > 0) {
+                                        pURI = thisMedia.DATA.preview_uri[m];
+                                    } else {
+                                        pURI = '/images/noThumb.jpg';
+                                    }
+
+                                    theInnerHtml +=
+                                        '<div class="one_thumb">' +
+                                            '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
+                                            '<img src="' + pURI + '" class="theThumb"></a>' +
+                                            '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a>' +
+                                            '</div>';
+                                }
+
+                                // This is where my media edits end.
+
+                            }
+                        theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
+                        theInnerHtml += '</td>';
+                    }
+                    theInnerHtml += '<td>';
+                    theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
+                    theInnerHtml += '</span>';
+                    theInnerHtml += '</td>';
+                    if (data.COLUMNLIST[0].indexOf('ID_SENSU')> -1) {
+                        theInnerHtml += '<td>';
+                            theInnerHtml += data.ID_SENSU[i];
+                        theInnerHtml += '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
+                        theInnerHtml += '<td>';
+                            theInnerHtml += spaceStripper(data.SCI_NAME_WITH_AUTH[i]);
+                        theInnerHtml += '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('ID_HISTORY')> -1) {
+                        theInnerHtml += '<td>';
+                            theInnerHtml += data.ID_HISTORY[i];
+                        theInnerHtml += '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('CITATIONS')> -1) {
+                        theInnerHtml += '<td>';
+                            theInnerHtml += data.CITATIONS[i];
+                        theInnerHtml += '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
+                        theInnerHtml += '<td>' + splitBySemicolon(data.IDENTIFIED_BY[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
+                        theInnerHtml += '<td>' + data.PHYLORDER[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('FAMILY')> -1) {
+                        theInnerHtml += '<td>' + data.FAMILY[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
+                        theInnerHtml += '<td>' + splitBySemicolon(data.OTHERCATALOGNUMBERS[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
+                        theInnerHtml += '<td>' + spaceStripper(data.ACCESSION[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
+                        theInnerHtml += '<td>' + splitByComma(data.COLLECTORS[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('PREPARATORS')> -1) {
+                        theInnerHtml += '<td>' + splitByComma(data.PREPARATORS[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
+                        theInnerHtml += '<td>' + cordFormat(data.VERBATIMLATITUDE[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('VERBATIMLONGITUDE')> -1) {
+                        theInnerHtml += '<td>' + cordFormat(data.VERBATIMLONGITUDE[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
+                        theInnerHtml += '<td>' + data.COORDINATEUNCERTAINTYINMETERS[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('DATUM')> -1) {
+                        theInnerHtml += '<td>' + spaceStripper(data.DATUM[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
+                        theInnerHtml += '<td>' + data.ORIG_LAT_LONG_UNITS[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('LAT_LONG_DETERMINER')> -1) {
+                        theInnerHtml += '<td>' + splitBySemicolon(data.LAT_LONG_DETERMINER[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('LAT_LONG_REF_SOURCE')> -1) {
+                        theInnerHtml += '<td>' + data.LAT_LONG_REF_SOURCE[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('LAT_LONG_REMARKS')> -1) {
+                        theInnerHtml += '<td><div class="wrapLong">' + data.LAT_LONG_REMARKS[i] + '</div></td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
+                        theInnerHtml += '<td>' + spaceStripper(data.CONTINENT_OCEAN[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('COUNTRY')> -1) {
+                        theInnerHtml += '<td>' + spaceStripper(data.COUNTRY[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('STATE_PROV')> -1) {
+                        theInnerHtml += '<td>' + spaceStripper(data.STATE_PROV[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('SEA')> -1) {
+                        theInnerHtml += '<td>' + data.SEA[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('QUAD')> -1) {
+                        theInnerHtml += '<td>' + spaceStripper(data.QUAD[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('FEATURE')> -1) {
+                        theInnerHtml += '<td>' + spaceStripper(data.FEATURE[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('COUNTY')> -1) {
+                        theInnerHtml += '<td>' + data.COUNTY[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('ISLAND_GROUP')> -1) {
+                        theInnerHtml += '<td>' + spaceStripper(data.ISLAND_GROUP[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('ISLAND')> -1) {
+                        theInnerHtml += '<td>' + spaceStripper(data.ISLAND[i]) + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('ASSOCIATED_SPECIES')> -1) {
+                        theInnerHtml += '<td><div class="wrapLong">' + data.ASSOCIATED_SPECIES[i] + '</div></td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('HABITAT')> -1) {
+                        theInnerHtml += '<td><div class="wrapLong">' + data.HABITAT[i] + '</div></td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
+                        theInnerHtml += '<td>' + data.MIN_ELEV_IN_M[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('MAX_ELEV_IN_M')> -1) {
+                        theInnerHtml += '<td>' + data.MAX_ELEV_IN_M[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('MINIMUM_ELEVATION')> -1) {
+                        theInnerHtml += '<td>' + data.MINIMUM_ELEVATION[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('MAXIMUM_ELEVATION')> -1) {
+                        theInnerHtml += '<td>' + data.MAXIMUM_ELEVATION[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('ORIG_ELEV_UNITS')> -1) {
+                        theInnerHtml += '<td>' + data.ORIG_ELEV_UNITS[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
+                        theInnerHtml += '<td id="SpecLocality_'+data.COLLECTION_OBJECT_ID[i] + '">';
+                        theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(data.SPEC_LOCALITY[i]) + '"><div class="wrapLong">' + data.SPEC_LOCALITY[i] + '</div>';
+                        theInnerHtml += '</span>';
+                        theInnerHtml += '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
+                        theInnerHtml += '<td>' + data.GEOLOGY_ATTRIBUTES[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
+                        theInnerHtml += '<td>' + data.VERBATIM_DATE[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
+                        theInnerHtml += '<td>' + data.BEGAN_DATE[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
+                        theInnerHtml += '<td>' + data.ENDED_DATE[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('YEARCOLL')> -1) {
+                        theInnerHtml += '<td>' + data.YEARCOLL[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('MONCOLL')> -1) {
+                        theInnerHtml += '<td>' + data.MONCOLL[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('DAYCOLL')> -1) {
+                        theInnerHtml += '<td>' + data.DAYCOLL[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
+                        theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('PARTDETAIL')> -1) {
+                        theInnerHtml += '<td><div class="wrapLong">' + splitByLF(data.PARTDETAIL[i]) + '</div></td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('SEX')> -1) {
+                        theInnerHtml += '<td>' + data.SEX[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('REMARKS')> -1) {
+                        theInnerHtml += '<td>' + data.REMARKS[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
+                        theInnerHtml += '<td>' + data.COLL_OBJ_DISPOSITION[i] + '</td>';
+                    }
+                    for (a=0; a<nAtt; a++) {
+                        if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
+                        var attStr='data.' + attAry[a].toUpperCase() + '[' + i + ']';
+                            theInnerHtml += '<td>' + eval(attStr) + '</td>';
+                        }
+                    }
+                    if (data.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
+                        theInnerHtml += '<td style="font-size:small">' + data.DEC_LAT[i] + '</td>';
+                    }
+                    if (data.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
+                        theInnerHtml += '<td style="font-size:small">' + data.DEC_LONG[i] + '</td>';
+                    }
+                theInnerHtml += '</tr>';
+            }
 		theInnerHtml += '</table>';		
-	    theInnerHtml = theInnerHtml.replace(/<td>null<\/td>/g,"<td>&nbsp;</td>"); 
+	    theInnerHtml = theInnerHtml.replace(/<td>null<\/td>/g,"<td>&nbsp;</td>");
 	    theInnerHtml = theInnerHtml.replace(/<div class="wrapLong">null<\/div>/g,"&nbsp;");
 	    theInnerHtml = theInnerHtml.replace(/<td style="font-size:small">null<\/td>/g,"<td>&nbsp;</td>");
-	    
-	    
+
+
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
 			makePartThingy();
