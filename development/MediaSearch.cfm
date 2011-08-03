@@ -238,9 +238,9 @@
 			<cfset q=listappend(q,"#key#=#url[key]#","&")>
 		 </cfif>
 	</cfloop>
-	
+	<br>session.displayrows: #session.displayrows#
 	<cfsavecontent variable="pager">
-		<cfset Result_Per_Page=10>
+		<cfset Result_Per_Page=session.displayrows>
 		<cfset Total_Records=findIDs.recordcount> 
 		<cfparam name="URL.offset" default="0"> 
 		<cfparam name="limit" default="1">
@@ -255,7 +255,7 @@
 				<br> 
 				<cfif URL.offset GT Result_Per_Page> 
 					<cfset prev_link=URL.offset-Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV</a>
+					<a href="#cgi.script_name#?offset=#prev_link#&#q#">Previous</a>
 				</cfif> 
 				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
 				<cfloop index="i" from="1" to="#Total_Pages#"> 
@@ -269,7 +269,7 @@
 				</cfloop> 
 				<cfif limit LT Total_Records> 
 					<cfset next_link=URL.offset+Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT</a>
+					<a href="#cgi.script_name#?offset=#next_link#&#q#">Next</a>
 				</cfif> 
 			</cfif>
 		</div>
@@ -297,12 +297,10 @@
 	#pager#
 				
 	<cfset rownum=1>
-	<cfif firstRecord is 0><cfset firstRecord=1></cfif>
 
 <table>
 
 
-<br>startrow="#firstRecord#" endrow="#limit#"
 <cfset erow=url.start+perpage>
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
