@@ -241,63 +241,67 @@
 	
 	
 	<cfsavecontent variable="pager">
-		<cfset Result_Per_Page=session.displayrows>
-		<cfset Total_Records=findIDs.recordcount> 
-		<cfparam name="firstRecord" default="0"> 
-		<cfparam name="limit" default="1">
-		<cfset limit=firstRecord+Result_Per_Page> 
-		<cfset start_result=firstRecord+1>
-		 <br>start_result: #start_result#
-		<cfif findIDs.recordcount gt 1>
-			<div style="margin-left:20%;">
-			Showing results #start_result# - 
-			<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
-			<cfset firstRecord=firstRecord+1> 
-			<cfif Total_Records GT Result_Per_Page> 
-				<br> 
-				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)>
-				<br>Total_Pages: #Total_Pages#
-				<br>Total_Pages: #Total_Pages#
-				<cfif firstRecord gt 10*Result_Per_Page>
-					<cfset prev_link=firstRecord-1-(10*Result_Per_Page)> 
-					<a href="#cgi.script_name#?offset=#prev_link#&#q#">PREV 10 pages</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</cfif>
-				<cfif firstRecord GT Result_Per_Page> 
-					<cfset prev_link=firstRecord-Result_Per_Page-1> 
-					<a href="#cgi.script_name#?offset=#prev_link#&#q#">&lt;&lt;PREV</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</cfif> 
-				
-				<cfset start_page=((int(firstRecord/100)*100)/Result_Per_Page)+1>
-				<cfset end_page=min(start_page+9,Total_Pages)>
-				<br>start_page:#start_page#
-				<br>end_page:#end_page#
-				
-				
-				<cfloop index="i" from="#start_page#" to="#end_page#"> 
-						<cfset j=i-1> 
-						<cfset offset_value=j*Result_Per_Page> 
-						<cfif offset_value EQ firstRecord-1 > 
-							#i# 
-						<cfelse> 
-							<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
-						</cfif> 
-				</cfloop> 
-								
-				<cfif limit LT Total_Records> 
-					<cfset next_link=firstRecord+Result_Per_Page-1> 
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT>></a>
-				</cfif>
-				<cfif end_page lt Total_Pages>
-					<cfset next_link=(end_page*Result_Per_Page)> 
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#cgi.script_name#?offset=#next_link#&#q#">NEXT 10 pages</a>
-				</cfif>
-				
-				<!---
-				
-				--->
-			</cfif>
-		</div>
-		</cfif>
+		    <p align=ÓcenterÓ>
+    speed-dating video
+
+    [
+
+    <cfif url.start gt 1>
+
+    <cfset link = cgi.script_name & "?start=" & (url.start - perpage)>
+
+    <cfoutput><a href="#link#">Previous Page</a></cfoutput>
+
+    <cfelse>
+
+    Previous Page
+
+    </cfif>
+
+    /
+
+    <!--- Start Page Number --->
+
+    <cfset pageCount = 1>
+    <cfset pageLink = 1>
+    watch the tron: legacy
+
+    <cfset totalPages = Ceiling(rs_getReports.recordCount / perpage)>
+
+    <cfloop index="c" from="1" to="#totalPages#">
+
+    <cfoutput>
+
+    <a href="?start=#pageLink#">#pageCount#</a>
+
+    </cfoutput>
+
+    <cfset pageCount = pageCount + 1>
+
+    <cfset pageLink = pageLink + perpage>
+
+    </cfloop>
+
+    <!--- End Page Number --->
+
+    /
+
+    <cfif (url.start + perpage - 1) lt rs_getReports.recordCount>
+
+    <cfset link = cgi.script_name & "?start=" & (url.start + perpage)>
+
+    <cfoutput><a href="#link#">Next Page</a></cfoutput>
+
+    <cfelse>
+
+    Next Page
+
+    </cfif>
+
+    ]
+
+    </p>
+
 	</cfsavecontent>
 	
 	
@@ -327,7 +331,8 @@
 
 
 <br>startrow="#firstRecord#" endrow="#limit#"
-<cfloop query="findIDs" startrow="#firstRecord#" endrow="#limit#">
+<cfset erow=url.start+perpage>
+<cfloop query="findIDs" startrow="#url.start#" endrow="#erow#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
 
