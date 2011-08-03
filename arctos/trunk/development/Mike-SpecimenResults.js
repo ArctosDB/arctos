@@ -648,11 +648,9 @@ function success_getSpecResultsData(result){
 
                                     // Set up the generic audio image.
                                     theInnerHtml +=
-                                        '<div class="audio_thumb" align="center">' +
-                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
-                                        '<img src="images/audioNoThumb.png" class="theThumb"></a>';
-
-//                                    theInnerHtml += '<div class="stuff">Hello.</div>';
+                                        '<div class="audio_thumb">'; // +
+//                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
+//                                        '<img src="images/audioNoThumb.png" class="theThumb"></a>';
 
                                     // Set up the audio player.
                                     theInnerHtml +=
@@ -677,7 +675,7 @@ function success_getSpecResultsData(result){
                                         '<div class="one_thumb">' +
                                             '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
                                             '<img src="' + pURI + '" class="theThumb"></a>' +
-                                            '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a>' +
+                                            '<br><br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a>' +
                                             '</div>';
 
 
