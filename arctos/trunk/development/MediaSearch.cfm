@@ -204,7 +204,7 @@
 	<td>
 	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
 	<input type="hidden" name="ssql" value="#ssql#">
-	<input type="submit" value="map">
+	<input type="submit" class="lknBtn" value="map">
 </form>
 	</td>
 	<td>
