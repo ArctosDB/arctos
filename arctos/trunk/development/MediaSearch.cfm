@@ -247,7 +247,7 @@
 		<cfparam name="limit" default="1">
 		<cfset limit=URL.offset+Result_Per_Page> 
 		<cfset start_result=URL.offset+1>
-		 
+		 <br>start_result: #start_result#
 		<cfif findIDs.recordcount gt 1>
 			<div style="margin-left:20%;">
 			Showing results #start_result# - 
@@ -271,6 +271,8 @@
 				<cfset end_page=min(start_page+9,Total_Pages)>
 				<br>start_page:#start_page#
 				<br>end_page:#end_page#
+				
+				
 				<cfloop index="i" from="#start_page#" to="#end_page#"> 
 						<cfset j=i-1> 
 						<cfset offset_value=j*Result_Per_Page> 
