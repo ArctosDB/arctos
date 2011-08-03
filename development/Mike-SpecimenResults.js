@@ -660,7 +660,7 @@ function success_getSpecResultsData(result){
 
                                     // Set up the link for more information and downloads.
                                     theInnerHtml +=
-                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a>';
+                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
 
                                 } else {
                                     // Create a generic media thumb.
