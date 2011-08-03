@@ -636,14 +636,14 @@ function success_getSpecResultsData(result){
                                         fileName = wavPlaybackUrl.split('/')[length - 1].replace('.wav', ''),
                                         mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
-                                    theInnerHtml +=
-                                        '<div class="' + fileName + '">What is my filename?</div>';
                                     // Use when browser isn't IE.
-//                                    html5 = '<audio controls preload="auto" autobuffer>' +
-//                                        '    <source src="' + mp3PlaybackUrl + '" />' +
-//                                        '    <source src="' + oggPlaybackUrl + '" />' +
-//                                        '    <source src="' + wavPlaybackUrl + '" />' +
-//                                        '</audio>';
+                                    html5 = '<audio controls preload="auto" autobuffer>' +
+                                        '    <source src="' + mp3PlaybackUrl + '" />' +
+                                        '    <source src="' + oggPlaybackUrl + '" />' +
+                                        '    <source src="' + wavPlaybackUrl + '" />' +
+                                        '</audio>';
+                                                                        theInnerHtml +=
+                                        '<div class="' + fileName + '">What is my filename?</div>';
                                     // Use when browser is IE.
 //                                    ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>';
 //                                    pURI = 'images/audioNoThumb.png';
