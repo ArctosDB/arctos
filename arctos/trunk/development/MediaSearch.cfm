@@ -25,7 +25,7 @@
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-        <a href="/media.cfm?action=newMedia">[ Create media ]</a>
+        <a href="/media.cfm?action=newMedia">[ create media ]</a>
     </cfif> 
 	<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select SEARCH_NAME,URL
