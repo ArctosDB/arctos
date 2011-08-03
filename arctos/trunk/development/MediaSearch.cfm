@@ -266,7 +266,7 @@
 					<cfif offset_value EQ URL.offset-1 > 
 						#i# 
 					<cfelse>
-						<cfif i gt (currentPage-5) OR i lt currentpage+5>
+						<cfif (i gt currentPage-5) OR (i lt currentpage+5)>
 						<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
 						<cfelse>
 						 {#i#}
