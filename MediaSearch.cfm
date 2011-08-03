@@ -158,7 +158,7 @@
 	<cfif not isdefined("mapurl")>
 		<cfset mapurl = "">
 	</cfif>
-
+	<cfparam name="relationships" default="">
 	<cfset n=1>
 	<cfloop list="#relationships#" delimiters="," index="thisRelationship">
 		<cfset sql = "#sql#,media_relations media_relations#n#">
