@@ -169,6 +169,8 @@
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
+	
+	<table border><tr>
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfabort>
@@ -184,7 +186,7 @@
 				Note: This form will return a maximum of 500 records.
 			</div>
 		</cfif>
-		<a href="/development/MediaSearch.cfm">[ Media Search ]</a>
+		<td><a href="/development/MediaSearch.cfm">[ Media Search ]</a></td>
 	</cfif>
 	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	    <cfset h="/media.cfm?action=newMedia">
@@ -195,8 +197,33 @@
 				<br>
 			</cfif>
 		</cfif>
-		<a href="#h#">[ Create media ]</a>
+		<td><a href="#h#">[ Create media ]</a></td>
 	</cfif>
+	
+	
+	<td>
+	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
+	<input type="hidden" name="ssql" value="#ssql#">
+	<input type="submit" value="map">
+</form>
+	</td>
+	<td>
+	<form name="dlm" method="post" action="MediaSearchDownload.cfm">
+	<input type="hidden" name="ssql" value="#ssql#">
+	<input type="submit" value="down">
+</form>
+	</td>
+	<td>
+	<span class="controlButton"
+				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
+				
+	</td>
+
+
+
+
+		</tr></table>		
+				
 	<cfset q="">
 	<cfloop list="#StructKeyList(form)#" index="key">
 		<cfif len(form[key]) gt 0 and key is not "FIELDNAMES" and key is not "offset">
@@ -208,6 +235,8 @@
 			<cfset q=listappend(q,"#key#=#url[key]#","&")>
 		 </cfif>
 	</cfloop>
+	
+	
 	<cfsavecontent variable="pager">
 		<cfset Result_Per_Page=session.displayrows>
 		<cfset Total_Records=findIDs.recordcount> 
@@ -264,17 +293,6 @@
 	</cfsavecontent>
 	
 	
-<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
-	<input type="hidden" name="ssql" value="#ssql#">
-	<input type="submit" value="map">
-</form>
-<form name="dlm" method="post" action="MediaSearchDownload.cfm">
-	<input type="hidden" name="ssql" value="#ssql#">
-	<input type="submit" value="down">
-</form>
-
-<span class="controlButton"
-				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 	<!---
 	<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(distinct(media_id)) cnt from #session.MediaSrchTab# where lat_long is not null
