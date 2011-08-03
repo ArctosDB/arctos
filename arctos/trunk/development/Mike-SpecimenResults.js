@@ -642,17 +642,16 @@ function success_getSpecResultsData(result){
                                         '    <source src="' + oggPlaybackUrl + '" />' +
                                         '    <source src="' + wavPlaybackUrl + '" />' +
                                         '</audio>';
-                                                                        theInnerHtml +=
-                                        '<div class="' + fileName + '">What is my filename?</div>';
+
                                     // Use when browser is IE.
-//                                    ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>';
-//                                    pURI = 'images/audioNoThumb.png';
+                                    ieShim = '<ul class="graphic"><li><a href="' + mp3DownloadUrl + '">' + fileName + '.mp3</a></li></ul>';
+                                    pURI = 'images/audioNoThumb.png';
 
                                     // Set up the generic audio image.
-//                                    theInnerHtml +=
-//                                        '<div class="audio_thumb">' +
-//                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
-//                                        '<img src="' + pURI + '" class="theThumb"></a>';
+                                    theInnerHtml +=
+                                        '<div class="audio_thumb">' +
+                                        '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
+                                        '<img src="' + pURI + '" class="theThumb"></a>';
 
                                     // Set up the audio player.
 //                                    theInnerHtml +=
