@@ -238,7 +238,6 @@
 			<cfset q=listappend(q,"#key#=#url[key]#","&")>
 		 </cfif>
 	</cfloop>
-	<br>session.displayrows: #session.displayrows#
 	<cfsavecontent variable="pager">
 		<cfset Result_Per_Page=session.displayrows>
 		<cfset Total_Records=findIDs.recordcount> 
@@ -260,12 +259,8 @@
 				</cfif> 
 				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)>
 				<cfset currentPage=(url.offset + session.displayrows) / session.displayrows>
-				<br>currentPage: #currentPage#
 				<cfset minI=currentPage-5>
 				<cfset maxI=currentPage+5>
-								<br>minI: #minI#
-				<br>maxI: #maxI#
-
 				<cfloop index="i" from="1" to="#Total_Pages#"> 
 					<cfset j=i-1> 
 					<cfset offset_value=j*Result_Per_Page> 
@@ -279,7 +274,6 @@
 					<cfset next_link=URL.offset+Result_Per_Page-1> 
 					<a href="#cgi.script_name#?offset=#next_link#&#q#">[ Next ]</a>
 					<a href="#cgi.script_name#?offset=#offset_value#&#q#">[ Last ]</a>
-					
 				</cfif> 
 			</cfif>
 		</div>
