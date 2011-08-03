@@ -35,16 +35,14 @@
 		order by search_name
 	</cfquery>
 	<cfif hasCanned.recordcount gt 0>
-		<div style="padding-left:2em;padding-right:2em;">
-			Saved Searches: 
-			<select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
-				<option value=""></option>
-				<option value="saveSearch.cfm?action=manage">[ Manage ]</option>
-				<cfloop query="hasCanned">
-					<option value="#url#">#SEARCH_NAME#</option><br />
-				</cfloop>
-			</select>
-		</div>
+		<label for="goCanned">Saved Searches</label>
+		<select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
+			<option value=""></option>
+			<option value="saveSearch.cfm?action=manage">[ Manage ]</option>
+			<cfloop query="hasCanned">
+				<option value="#url#">#SEARCH_NAME#</option><br />
+			</cfloop>
+		</select>
 	</cfif>	
 	<div id="keyForm" style="display:block">
 		Search for Media &nbsp;&nbsp;
