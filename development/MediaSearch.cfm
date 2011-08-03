@@ -257,7 +257,9 @@
 					<cfset prev_link=URL.offset-Result_Per_Page-1> 
 					<a href="#cgi.script_name#?offset=#prev_link#&#q#">Previous</a>
 				</cfif> 
-				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)> 
+				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)>
+				<cfset currentPage=(url.offset + session.displayrows) / session.displayrows>
+				<br>currentPage: #currentPage#
 				<cfloop index="i" from="1" to="#Total_Pages#"> 
 					<cfset j=i-1> 
 					<cfset offset_value=j*Result_Per_Page> 
