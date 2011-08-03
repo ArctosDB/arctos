@@ -260,13 +260,19 @@
 				<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)>
 				<cfset currentPage=(url.offset + session.displayrows) / session.displayrows>
 				<br>currentPage: #currentPage#
+				<cfset minI=currentPage-5>
+				<cfset maxI=currentPage+5>
+								<br>minI: #minI#
+				<br>maxI: #maxI#
+
 				<cfloop index="i" from="1" to="#Total_Pages#"> 
 					<cfset j=i-1> 
 					<cfset offset_value=j*Result_Per_Page> 
 					<cfif offset_value EQ URL.offset-1 > 
 						#i# 
 					<cfelse>
-						<cfif (i gt currentPage-5) OR (i lt currentpage+5)>
+					
+						<cfif i gt minI and i lt maxI>
 						<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
 						<cfelse>
 						 {#i#}
