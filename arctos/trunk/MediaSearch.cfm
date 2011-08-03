@@ -95,29 +95,13 @@
 				</cfloop>
 			</select>
 			<label for="relationships">Media Relationships</label>
-			<div id="relationships" style="border:1px dashed red;">
-				<select name="relationships" id="relationships" size="5" multiple="multiple">
-					<option value=""></option>
-					<cfloop query="ctmedia_relationship">
-						<option value="#media_relationship#">#media_relationship#</option>
-					</cfloop>
-				</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80">
-				<input type="hidden" name="related_id__1" id="related_id__1">
-				<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
-			</div>
-			<!------
-			<label for="relationships">Media Relationships</label>
-			<div id="relationships" style="border:1px dashed red;">
-				<select name="relationship__1" id="relationship__1" size="1">
-					<option value=""></option>
-					<cfloop query="ctmedia_relationship">
-						<option value="#media_relationship#">#media_relationship#</option>
-					</cfloop>
-				</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80">
-				<input type="hidden" name="related_id__1" id="related_id__1">
-				<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
-			</div>
-			<br>
+			<select name="relationships" id="relationships" size="5" multiple="multiple">
+				<option value=""></option>
+				<cfloop query="ctmedia_relationship">
+					<option value="#media_relationship#">#media_relationship#</option>
+				</cfloop>
+			</select>
+			
 			<label for="labels">Media Labels</label>
 			<div id="labels" style="border:1px dashed red;">
 				<div id="labelsDiv__1">
@@ -131,6 +115,20 @@
 				<span class="infoLink" id="addLabel" onclick="addLabel(2)">Add Label</span>
 			</div>
 			<br>
+			<!------
+			<label for="relationships">Media Relationships</label>
+			<div id="relationships" style="border:1px dashed red;">
+				<select name="relationship__1" id="relationship__1" size="1">
+					<option value=""></option>
+					<cfloop query="ctmedia_relationship">
+						<option value="#media_relationship#">#media_relationship#</option>
+					</cfloop>
+				</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80">
+				<input type="hidden" name="related_id__1" id="related_id__1">
+				<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
+			</div>
+			<br>
+			
 			
 			-------->
 			<br>
@@ -164,29 +162,16 @@
 		<cfset sql = "#sql#,media_relations media_relations#n#">
 		<cfset whr ="#whr# AND media_flat.media_id = media_relations#n#.media_id ">
 		<cfset srch="#srch# AND media_relations#n#.media_relationship = '#thisRelationship#'">
-		<cfif isdefined (  "related_primary_key#n#")>
-			got it
-			<cfset thisKey=evaluate ( "related_primary_key" & n )>
+		<cfif isdefined ("related_primary_key#n#")>
+			<cfset thisKey=evaluate("related_primary_key" & n)>
 			<cfset srch="#srch# AND media_relations#n#.related_primary_key = #thisKey#">
-			thisKey==#thisKey#
-		<cfelse>
-			nope
 		</cfif>
-		
-		
-		
-		<!---
-		<cfif isdefined("related_primary_key#n#") and len(related_primary_key#n#) gt 0>
-			
-		</cfif>
-		---->
 		<cfset n=n+1>
 	</cfloop>
 	<cfset mapurl="#mapurl#&relationships=#relationships#">
 
 
-	<cfset ssql="#sql# #whr# #srch# order by media_id">
-	<hr>#ssql#
+	
 
 
 
@@ -202,8 +187,6 @@
 
 
 
-
-	<cfset mapurl="#mapurl#&srchType=#srchType#">
 
 	<cfif isdefined("keyword") and len(keyword) gt 0>
 
@@ -240,10 +223,16 @@
 		<cfset whr="#whr# AND media_flat.media_id IN (select media_id from tag)">
 		<cfset mapurl="#mapurl#&tag=#tag#">
 	</cfif>
+	
 	<cfif isdefined("media_type") and len(media_type) gt 0>
 		<cfset srch="#srch# AND media_flat.media_type IN (#listQualify(media_type,"'")#)">
 		<cfset mapurl="#mapurl#&media_type=#media_type#">
 	</cfif>
+	
+	
+	
+	
+	
 	
 	<cfif isdefined("media_id") and len(#media_id#) gt 0>
 		<cfset whr="#whr# AND media_flat.media_id in (#media_id#)">
@@ -342,6 +331,7 @@
 			</cfif>
 		</cfif>
 	</cfloop>
+	
 	<cfif len(srch) is 0>
 		<div class="error">You must enter search criteria.</div>
 		<cfabort> 
@@ -351,7 +341,8 @@
 
 
 <cfset srch = "#srch# AND rownum <= 500">
-
+<cfset ssql="#sql# #whr# #srch# order by media_id">
+	<hr>#ssql#
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
