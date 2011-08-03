@@ -201,13 +201,13 @@
 	</cfif>
 	
 	
-	<td valign="center">
+	<td valign="middle">
 	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
 	<input type="hidden" name="ssql" value="#ssql#">
 	<input type="submit" class="lnkBtn" value="BerkeleyMapper">
 </form>
 	</td>
-	<td>
+	<td valign="middle">
 	<form name="dlm" method="post" action="MediaSearchDownload.cfm">
 	<input type="hidden" name="ssql" value="#ssql#">
 	<input type="submit"  class="lnkBtn" value="Download">
