@@ -1312,7 +1312,7 @@
 			                   	<p>
 									#media_type# (#mime_type#)
 				                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-								</p>#alt#
+								</p>
 							</div>
 						<cfelse>
 						
@@ -1326,7 +1326,6 @@
 								Do other stuff because it's an audio media entry.<br>
 								<cfoutput>#fileName#</cfoutput>
 								<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-								#alt#
 							</div>
 						</cfif>
 						
