@@ -340,20 +340,21 @@
 			</div>			
 		</td>
 		<td>							
-			<cfset relMedia=''>
-			<cfloop list="#rel#" index="i" delimiters="|">
-				<cfset r=listgetat(i,1,chr(7))>
-				<cfset t=listgetat(i,2,chr(7))>
-				<cfif right(r,6) is ' media'>
-					<cfset relMedia=listAppend(relMedia,t)>
-				<cfelse>
-					#r#: #t#<br>
-				</cfif>
-			</cfloop>
-			<cfloop list="#lbl#" index="i" delimiters="|">
-				#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
-			</cfloop>
-		<br>
+			<div style="max-height:10em;overflow:auto;">
+				<cfset relMedia=''>
+				<cfloop list="#rel#" index="i" delimiters="|">
+					<cfset r=listgetat(i,1,chr(7))>
+					<cfset t=listgetat(i,2,chr(7))>
+					<cfif right(r,6) is ' media'>
+						<cfset relMedia=listAppend(relMedia,t)>
+					<cfelse>
+						#r#: #t#<br>
+					</cfif>
+				</cfloop>
+				<cfloop list="#lbl#" index="i" delimiters="|">
+					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
+				</cfloop>
+			</div>
 		<cfif media_type is "multi-page document">	
 			<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
 		</cfif>
