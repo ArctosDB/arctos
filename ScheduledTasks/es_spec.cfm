@@ -18,6 +18,7 @@
 				status in ('in_bulk')
 			)
 	</cfquery>
+	<cfdump var=#d#>
 	<cfoutput>
 		<cfloop query="d">
 			
@@ -37,6 +38,7 @@
 					p.parent_container_id=c.container_id and
 					c.barcode = '#barcode#'
 			</cfquery>
+			<cfdump var=#cid#>
 			<cfif cid.recordcount is 1>
 				<cfquery name="gguid" datasource="uam_god">
 					update spec_scan set collection_object_id=#cid.collection_object_id# where id=#id#
@@ -61,6 +63,7 @@
 				select agent_name from agent_name where agent_name_type='login' and 
 				upper(agent_name)='#ucase(who)#'
 			</cfquery>
+			<cfdump var=#an#>
 			<cfquery name="udn" datasource="uam_god">
 				update spec_scan set who='#an.agent_name#' where who='#who#'
 			</cfquery>
@@ -97,6 +100,7 @@
 			spec_scan.collection_object_id is null and
 			spec_scan.idnum like 'AK%'
 	</cfquery>
+	<cfdump var=#d#>
 	<cfloop query="d">
 		<cftry>
 		<cftransaction>
@@ -242,6 +246,7 @@
 		</cftransaction>
 		<cfcatch>
 			<br>dammit
+			<cfdump var=#cfcatch#>
 			<cfquery name="uss" datasource="uam_god">
 				update spec_scan set status='#cfcatch.message#' where id=#id#
 			</cfquery>

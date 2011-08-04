@@ -1305,8 +1305,6 @@
 						<cfif desc.recordcount is 1>
 							<cfset alt=desc.label_value>
 						</cfif>
-						
-					
 		               <div class="one_thumb">
 			               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
 		                   	<p>
@@ -1315,7 +1313,6 @@
 								<br>#alt#
 							</p>
 						</div>
-						
 					</cfloop>
 					<div class="thumb_spcr">&nbsp;</div>
 				</div>
