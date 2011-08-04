@@ -199,6 +199,7 @@
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
+	<cfdump var=#findIDs#>
 	<table cellpadding="10"><tr>
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
