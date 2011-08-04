@@ -215,7 +215,7 @@ do not agree</font>.</a>
 				<cfif license contains " href=">
 					<cfset bla=replace(license,'<a target="_blank" class="external" href="','')>
 					<cfset qpos=find('"',bla)>
-					<cfset bla=left(bla,qpos)>					
+					<cfset bla=left(bla,qpos-1)>					
 				<cfelse>
 					<cfset bla='no href in #license#'>
 				</cfif>
