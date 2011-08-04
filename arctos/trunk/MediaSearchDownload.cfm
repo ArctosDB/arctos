@@ -1,4 +1,3 @@
-asdffffff
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Download Agreement">
 <!--- make sure they have an account --->
@@ -204,15 +203,12 @@ do not agree</font>.</a>
 				variables.joFileWriter.writeLine(header); 
 			</cfscript>
 			<cfloop query="findIDs">
-				<cfset oneLine = "">
 				
 				
 				
 				
 				
-				<cfset thisData="http://arctos.database.museum/media/#media_id#">
-				<cfset thisData=replace(thisData,'"','""','all')>
-				<cfset oneLine = '#oneLine#,"#thisData#"'>
+				<cfset oneLine='"http://arctos.database.museum/media/#media_id#"'>
 
 				<cfset thisData=license>
 				<cfset thisData=replace(thisData,'"','""','all')>
