@@ -233,7 +233,7 @@
 			<input type="submit" class="lnkBtn" value="BerkeleyMapper">
 		</td>
 	</form>
-	<form name="dlm" method="post" action="MediaSearchDownload.cfm">
+	<form name="dlm" method="post" action="MediaSearchDownload.cfm" target="_blank">
 		<input type="hidden" name="ssql" value="#ssql#">
 		<td valign="middle">
 			<input type="submit"  class="lnkBtn" value="Download">
