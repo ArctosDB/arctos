@@ -1325,7 +1325,7 @@
 						<cfset mp3Link = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/#fileName#.mp3'>
 						<cfset oggLink = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/#fileName#.ogg'>
 	
-							<div class="audio_thumb">
+							<div class="audio_thumb" align="center">
 <!-- 								<audio controls preload="auto" autobuffer> -->
 <!-- 			                        <source src="#mp3Link#"> -->
 <!-- 			                        <source src="#oggLink#"> -->
