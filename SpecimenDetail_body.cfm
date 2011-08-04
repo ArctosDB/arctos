@@ -1321,7 +1321,7 @@
 						<cfset length = len(fileName)>
 						<cfset fileName = left(fileName, length-4)>
 						
-						<cfset wavLink = 'http://web.corral.tacc.utexas.edu/MVZ/audio/wav/#fileName#.wav'>
+						<cfset wavLink = "#media_uri#">
 						<cfset mp3Link = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/#fileName#.mp3'>
 						<cfset oggLink = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/#fileName#.ogg'>
 	
