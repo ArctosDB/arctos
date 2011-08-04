@@ -210,7 +210,18 @@ do not agree</font>.</a>
 				
 				<cfset oneLine='"http://arctos.database.museum/media/#media_id#"'>
 
-				<cfset thisData=license>
+				
+				
+				<cfif license contains " href=">
+					<cfset bla=replace(license,'<a target="_blank" class="external" href="','')>
+					<cfset qpos=find('"',bla)>
+					<cfset bla=left(bla,qpos)>					
+				<cfelse>
+					<cfset bla=license>
+				</cfif>
+				
+				
+				<cfset thisData=bla>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
 				
