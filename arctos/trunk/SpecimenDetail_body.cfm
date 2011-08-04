@@ -1326,12 +1326,12 @@
 						<cfset oggLink = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/#fileName#.ogg'>
 	
 							<div class="audio_thumb" align="center">
-<!-- 								<audio controls preload="auto" autobuffer> -->
-<!-- 			                        <source src="#mp3Link#"> -->
-<!-- 			                        <source src="#oggLink#"> -->
-<!-- 			                        <source src="#wavLink#"> -->
-<!-- 		                        </audio> -->
-<!-- 		                        <div id="sm2-container"></div> -->
+								<audio controls preload="auto" autobuffer>
+			                        <source src="#mp3Link#">
+			                        <source src="#oggLink#">
+			                        <source src="#wavLink#">
+		                        </audio>
+		                        <div id="sm2-container"></div>
 								<a href="/media/#media_id#" target="_blank">Media Details</a>
 								<div class="item"><a id="download" href="#wavLink#">Download wav</a></div>
 								<div class="item"><a id="download" href="#mp3Link#">Download mp3</a></div>
