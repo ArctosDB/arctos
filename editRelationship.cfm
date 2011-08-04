@@ -36,6 +36,9 @@
 		relatedSpecimenId.accepted_id_fg=1 AND
 		biol_indiv_relations.collection_object_id=#collection_object_id#
 </cfquery>
+<cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select biol_indiv_relationship from ctbiol_relations order by biol_indiv_relationship
+</cfquery>
 <script>
 	function cloneCatalogedItem(collection_object_id){
 		jQuery('##cloned').css("display", "inline").html('<img src="/images/indicator.gif">Creating clone(s) - hold tight.....');
@@ -44,6 +47,7 @@
 				method : "cloneCatalogedItem",
 				numRecs: $("##numRecs").val(),
 				collection_object_id : collection_object_id,
+				relationship: $("##cloneReln").val(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
@@ -70,11 +74,18 @@ To split a lot or create a parasite, you can
 	<br>
 	A link to your new record in the bulkloader will appear below if the procedure is successful. It might take a minute.
 	Don't get all clicky or you'll make a mess.
-	<br>Create <select name="numRecs" id="numRecs">
+	<br>Create 
+	<select name="numRecs" id="numRecs">
 		<cfloop from="1" to="1000" index="i">
 			<option value="#i#">#i#</option>
 		</cfloop>
-	</select> clones - <span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">do it</span>.
+	</select> clones with relationships 
+	<select name="cloneReln" id="cloneReln" size="1">
+		<cfloop query="ctReln">
+			<option value="#ctReln.biol_indiv_relationship#">#ctReln.biol_indiv_relationship#</option>
+		</cfloop>
+	</select>
+	to this record - <span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">[ do it ]</span>.
 </div>
 <br>
 <div id="cloned" style="display:none" class="redBorder"></div>
@@ -84,9 +95,7 @@ To split a lot or create a parasite, you can
 <br>
 Current Relationships:
 <cfif #getRelns.recordcount# gt 0>
-<cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select biol_indiv_relationship from ctbiol_relations
-</cfquery>
+
 <cfset i=1>
 <table>
 	<cfloop query="getRelns">
@@ -124,9 +133,7 @@ Current Relationships:
 <cfelse>
 	None
 </cfif>
-<cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select biol_indiv_relationship from ctbiol_relations
-</cfquery>
+
 <cfquery name="thisCollId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
     collection_object_id=#collection_object_id#

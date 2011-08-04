@@ -418,6 +418,7 @@
 
 <cffunction name="cloneCatalogedItem" access="remote">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
+	<cfargument name="relationship" type="string" required="yes">
 	<cfargument name="numRecs" type="numeric" required="yes">
 	<cfset status="spiffy">
 			<cftransaction>
@@ -670,7 +671,7 @@
 			<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				update bulkloader set 
 					COLL_OBJECT_REMARKS='#problem#',
-					RELATIONSHIP='child record of',
+					RELATIONSHIP='#relationship#',
 					RELATED_TO_NUMBER= (
 										select 
 											collection.institution_acronym || ' ' || collection.collection_cde || ' ' || cat_num 
