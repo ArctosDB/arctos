@@ -217,7 +217,7 @@ do not agree</font>.</a>
 					<cfset qpos=find('"',bla)>
 					<cfset bla=left(bla,qpos)>					
 				<cfelse>
-					<cfset bla=license>
+					<cfset bla='no href in #license#'>
 				</cfif>
 				
 				
