@@ -81,8 +81,6 @@
 		<td>
 			<select name="fileFormat" size="1">
 				<option value="csv">CSV</option>
-				<option value="text">tab-delimited text</option>
-				<option value="xml">XML</option>
 			</select>
 		</td>
 	</tr>
@@ -189,247 +187,75 @@ do not agree</font>.</a>
 			</cfquery>
 		</cfif>
 	<!--- if they agree to the terms, send them to their download --->
-	<cfif #agree# is "yes">
-
-		we be downloadin
-	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		#preservesinglequotes(ssql)#
-	</cfquery>
-	<cfdump var=#findIDs#>
-	
-		<cfabort>
-		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from #tableName#
+	<cfif agree is "yes">
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			#preservesinglequotes(ssql)#
 		</cfquery>
-
-		<cfset temp = queryAddColumn(getTempData,"labels", "VarChar", ArrayNew(1))>		
-		<cfset temp = queryAddcolumn(getTempData,"lat", "VarChar", ArrayNew(1))>
-		<cfset temp = queryAddcolumn(getTempData,"long", "VarChar", ArrayNew(1))>
-		<cfset temp = queryAddcolumn(getTempData,"datum", "VarChar", ArrayNew(1))>
-
-				
-		<cfset i=1>	
-		<cfloop query ="getTempData">
-			<cfset labs = ListToArray(media_labels, ";")>
-			<cfset lab_values = ListToArray(label_values, ";")>
-			
-			<cfset label_string = "">
-			<cfloop from="1" to="#arraylen(labs)#" index="index">
-				
-				<cfif len(label_string) gt 0>
-					<cfset label_string = label_string & "; " & labs[index] & "=" & lab_values[index]>
-				<cfelse>
-					<cfset label_string = labs[index] & "=" & lab_values[index]>
-				</cfif>
-			</cfloop>
-			<cfset temp = QuerySetCell(getTempData, "labels", label_string, i)>
-			
-			<cfset scPos = find(';', lat_long)>
-			<cfif scPos gt 0>
-				<cfset latS = left(lat_long, scPos-1)>
-				<cfset longS = right(lat_long, len(lat_long) - scPos)>
-				
-				<cfset temp = QuerySetCell(getTempData, "lat", latS, i)>
-				<cfset temp = QuerySetCell(getTempData, "long", longS, i)>
-			</cfif>
-			
-			<cfif len(collecting_event_id) gt 0>
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select l.datum 
-					from lat_long l, collecting_event c 
-					where c.collecting_event_id=#collecting_event_id# 
-						and c.locality_id=l.locality_id
-						and l.accepted_lat_long_fg=1
-				</cfquery>
-				<cfset temp = QuerySetCell(getTempData, "datum", d.datum, i)>
-
-			</cfif>
-			
-			<cfset i=i+1>
-		</cfloop>
-		<cfquery name="getData" dbtype="query">
-			select media_id,
-					media_type,
-					mime_type,
-					cat_num,
-					guid_string,	
-					scientific_name,
-					created_agent as created_by_agent,
-					locality as created_from_collecting_event,
-					lat as latitude,		
-					long as longitude,
-					datum,
-					labels,
-					project_name as associated_with_project,
-					shows_loc_name as shows_locality,	
-					publication_name as shows_publication,
-					taxonomy_description as describes_taxonomy,					
-					media_uri,		
-					preview_uri				
-			from getTempData
-		</cfquery>
-<!-- 				"end getData"
- -->
-
-		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select 
-				user_tab_cols.column_name 
-			from 
-				user_tab_cols
-				left outer join 
-					cf_spec_res_cols on 
-					(upper(user_tab_cols.column_name) = upper(cf_spec_res_cols.column_name)) 
-			where 
-				upper(table_name)=upper('#tableName#') order by DISP_ORDER
-		</cfquery>
-		
-		<cfquery name="dl" datasource="cf_dbuser">
-		INSERT INTO cf_download (
-			user_id,
-			download_purpose,
-			download_date,
-			num_records,
-			agree_to_terms)
-		VALUES (
-			#user_id#,
-			'#download_purpose#',
-			sysdate,
-			nvl(#getData.recordcount#,0),
-			'#agree#')
-	</cfquery>
-<!-- 		<cfset ac = valuelist(cols.column_name)>
- -->
-		<cfset ac = ArrayToList( getData.getColumnNames() )>
-		
-				<!--- strip internal columns --->
-		<!--- <cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
-				<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_OBJECT_ID'))>
-		</cfif>
-		<cfif ListFindNoCase(ac,'CUSTOMIDINT')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'CUSTOMIDINT'))>
-		</cfif>
-		<cfif ListFindNoCase(ac,'COLLECTION_ID')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_ID'))>
-		</cfif>
-		<cfif ListFindNoCase(ac,'TAXON_NAME_ID')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'TAXON_NAME_ID'))>
-		</cfif>
-		<cfif ListFindNoCase(ac,'COLLECTION_CDE')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_CDE'))>
-		</cfif>
-		<cfif ListFindNoCase(ac,'INSTITUTION_ACRONYM')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'INSTITUTION_ACRONYM'))>
-		</cfif> --->
-		
-		
-		<cfset fileDir = "#Application.webDirectory#">
-		
-		<!--- add one and only one line break back onto the end --->
-		
+		<cfdump var=#findIDs#>
+		<cfset header = "media_page,media_license,mime_type,media_type,preview_uri,media_uri,relationships,labels,number_tags,coordinates">
+		<cfset fileDir = Application.webDirectory>
 		<cfoutput>
 			<cfset variables.encoding="UTF-8">
-			<cfif #fileFormat# is "csv">
-				<cfset fname = "ArctosData_#cfid#_#cftoken#.csv">
-				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-				<cfset header=trim(ac)>
+			<cfset fname = "ArctosMedia_#cfid#_#cftoken#.csv">
+			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				variables.joFileWriter.writeLine(header); 
+			</cfscript>
+			<cfloop query="findIDs">
+				<cfset oneLine = "">
+				
+				<cfset thisData="http://arctos.database.museum/media/#media_id#">
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+
+				<cfset thisData=media_license>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+				
+				<cfset thisData=mime_type>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+				
+				
+				<cfset thisData=media_type>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+				
+				<cfset thisData=preview_uri>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+				
+				<cfset thisData=media_uri>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+				
+				<cfset thisData=relationships>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+				
+				<cfset thisData=labels>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+				
+				<cfset thisData=hastags>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+				
+				<cfset thisData=coordinates>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+				
+				<cfset oneLine = trim(oneLine)>
 				<cfscript>
-					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-					variables.joFileWriter.writeLine(header); 
-				</cfscript>
-				<cfloop query="getData">
-					<cfset oneLine = "">
-					<cfloop list="#ac#" index="c">
-						<cfset thisData = evaluate(c)>
-						<cfif c is "BEGAN_DATE" or c is "ENDED_DATE">
-							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
-						</cfif>
-						<cfif len(oneLine) is 0>
-							<cfset oneLine = '"#thisData#"'>
-						<cfelse>
-							<cfset thisData=replace(thisData,'"','""','all')>
-							<cfset oneLine = '#oneLine#,"#thisData#"'>
-						</cfif>
-					</cfloop>
-					<cfset oneLine = trim(oneLine)>
-					<cfscript>
-						variables.joFileWriter.writeLine(oneLine);
-					</cfscript>
-				</cfloop>
-				<cfscript>	
-					variables.joFileWriter.close();
-				</cfscript>
-				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-			<cfelseif #fileFormat# is "text">
-				<cfset fname = "ArctosData_#cfid#_#cftoken#.txt">
-				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-				<cfset header = replace(ac,",","#chr(9)#","all")>
-				<cfset header=#trim(header)#>
-				<cfscript>
-					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-					variables.joFileWriter.writeLine(header); 
-				</cfscript>
-				<cfloop query="getData">
-					<cfset oneLine = "">
-					<cfloop list="#ac#" index="c">
-						<cfset thisData = #evaluate(c)#>
-						<cfif #c# is "BEGAN_DATE" or #c# is "ENDED_DATE">
-							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
-						</cfif>
-						<cfif len(#oneLine#) is 0>
-							<cfset oneLine = '#thisData#'>
-						<cfelse>
-							<cfset oneLine = '#oneLine##chr(9)##thisData#'>
-						</cfif>
-					</cfloop>
-					<cfset oneLine = trim(oneLine)>
-					<cfscript>
-						variables.joFileWriter.writeLine(oneLine);
-					</cfscript>
-				</cfloop>
-				<cfscript>	
-					variables.joFileWriter.close();
-				</cfscript>
-				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-			
-			<cfelseif #fileFormat# is "xml">
-				<cfset fname = "ArctosData_#cfid#_#cftoken#.xml">
-				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-				<cfset header = "<result>">
-				<cfscript>
-					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-					variables.joFileWriter.writeLine(header); 
-				</cfscript>
-				<cfloop query="getData">
-					<cfset oneLine = "<record>">
-					<cfloop list="#ac#" index="c">
-						<cfset thisData = #evaluate(c)#>
-						<cfif #c# is "BEGAN_DATE" or #c# is "ENDED_DATE">
-							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
-						</cfif>
-						<cfif len(#oneLine#) is 0>
-							<cfset oneLine = '<#c#>#xmlformat(thisData)#</#c#>'>
-						<cfelse>
-							<cfset oneLine = '#oneLine#<#c#>#xmlformat(thisData)#</#c#>'>
-						</cfif>
-					</cfloop>
-					<cfset oneLine = "#oneLine#</record>">
-					<cfset oneLine = trim(oneLine)>
-					<cfscript>
-						variables.joFileWriter.writeLine(oneLine);
-					</cfscript>
-				</cfloop>
-				<cfset oneLine = "</result>">				
-				<cfscript>	
 					variables.joFileWriter.writeLine(oneLine);
-					variables.joFileWriter.close();
 				</cfscript>
-				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-			<cfelse>
-				That file format doesn't seem to be supported yet!
-			</cfif>
+			</cfloop>
+			<cfscript>	
+				variables.joFileWriter.close();
+			</cfscript>
+			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 		</cfoutput>
 	</cfif>
 	<cfif #agree# is "no">

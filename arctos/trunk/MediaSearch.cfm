@@ -88,7 +88,7 @@
 		</select>
 		<label for="relationships">Media Relationships</label>
 		<select name="relationships" id="relationships" size="5" multiple="multiple">
-			<option value="">Anything</option>
+			<option selected="selected" value="">Anything</option>
 			<cfloop query="ctmedia_relationship">
 				<option value="#media_relationship#">#media_relationship#</option>
 			</cfloop>
@@ -227,7 +227,7 @@
 		</cfif>
 		<td><a href="#h#">[ create media ]</a></td>
 	</cfif>
-	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm">
+	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm" target="_blank">
 		<input type="hidden" name="ssql" value="#ssql#">
 		<td valign="middle">
 			<input type="submit" class="lnkBtn" value="BerkeleyMapper">
