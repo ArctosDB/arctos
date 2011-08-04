@@ -62,24 +62,21 @@
 		);
 	}
 </script>
-To split a lot or create a parasite, you can
 <span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">Clone This Record</span>.
 <div id="cThis" style="display:none">
 	Data from this cataloged item will be inserted into the Bulkloader, where you
 	may further edit the record or flag it to load, as with any other new record. 
-	A new relationship of "child record of" will be created from the new cataloged item to this one, and a
-	derived relationship of "child record IS" will appear on this record.
-	Check specimen remarks in the bulkloader for things that might have been missed - this 
+	<br>Check specimen remarks in the bulkloader for things that might have been missed - this 
 	application has limited handling of agents, identifiers, attributes, and parts.
 	<br>
-	A link to your new record in the bulkloader will appear below if the procedure is successful. It might take a minute.
+	This might take a minute.
 	Don't get all clicky or you'll make a mess.
 	<br>Create 
 	<select name="numRecs" id="numRecs">
 		<cfloop from="1" to="1000" index="i">
 			<option value="#i#">#i#</option>
 		</cfloop>
-	</select> clones with relationships 
+	</select> clones with relationship 
 	<select name="cloneReln" id="cloneReln" size="1">
 		<cfloop query="ctReln">
 			<option value="#ctReln.biol_indiv_relationship#">#ctReln.biol_indiv_relationship#</option>
