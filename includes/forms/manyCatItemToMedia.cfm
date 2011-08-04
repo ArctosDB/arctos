@@ -48,7 +48,7 @@
                       cataloged_item.collection_id=collection.collection_id and
 					  identification.accepted_id_fg = 1">
 		<cfif oidType is "catalog_number">
-			<cfset sql = "#sql#	AND to_number(cat_num) IN ( #oidNum# )">
+			<cfset sql = "#sql#	AND cat_num_integer IN ( #oidNum# )">
 		<cfelse>
 			<cfset oidNumList=listqualify(oidNum,"'")>
 			<cfset sql = "#sql#
