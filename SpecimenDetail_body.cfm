@@ -1321,21 +1321,21 @@
 						<cfset length = len(fileName)>
 						<cfset fileName = left(fileName, length-4)>
 						
-						<cfset wavLink = media_uri>
+						<cfset wavLink = 'http://web.corral.tacc.utexas.edu/MVZ/audio/wav/#fileName#.wav'>
 						<cfset mp3Link = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/#fileName#.mp3'>
 						<cfset oggLink = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/#fileName#.ogg'>
 	
 							<div class="audio_thumb">
 <!-- 								<audio controls preload="auto" autobuffer> -->
-<!-- 			                        <source src="' + mp3PlaybackUrl + '" /> -->
-<!-- 			                        <source src="' + oggPlaybackUrl + '" /> -->
-<!-- 			                        <source src="' + wavPlaybackUrl + '" /> -->
+<!-- 			                        <source src="#mp3Link#"> -->
+<!-- 			                        <source src="#oggLink#"> -->
+<!-- 			                        <source src="#wavLink#"> -->
 <!-- 		                        </audio> -->
 <!-- 		                        <div id="sm2-container"></div> -->
-								<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-								<br><div class="item"><a id="download" href="#wavLink#">Download wav</a></div>
-								<br><div class="item"><a id="download" href="#mp3Link#">Download mp3</a></div>
-								<br><div class="item"><a id="download" href="#oggLink#">Download ogg</a></div>
+								<a href="/media/#media_id#" target="_blank">Media Details</a>
+								<div class="item"><a id="download" href="#wavLink#">Download wav</a></div>
+								<div class="item"><a id="download" href="#mp3Link#">Download mp3</a></div>
+								<div class="item"><a id="download" href="#oggLink#">Download ogg</a></div>
 							</div>
 						</cfif>
 						
