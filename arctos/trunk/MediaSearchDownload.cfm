@@ -205,6 +205,10 @@ do not agree</font>.</a>
 			<cfloop query="findIDs">
 				<cfset oneLine = "">
 				
+				
+				
+				
+				
 				<cfset thisData="http://arctos.database.museum/media/#media_id#">
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
