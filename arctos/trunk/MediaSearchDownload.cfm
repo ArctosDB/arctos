@@ -484,7 +484,7 @@ do not agree</font>.</a>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
 
-				<cfset thisData=media_license>
+				<cfset thisData=license>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
 				
