@@ -93,19 +93,15 @@
 				<option value="#media_relationship#">#media_relationship#</option>
 			</cfloop>
 		</select>
-		<label for="labels">Media Labels</label>
-		<div id="labels" style="border:1px dashed red;">
-			<div id="labelsDiv__1">
-			<select name="label__1" id="label__1" size="1">
-				<option value=""></option>
-				<cfloop query="ctmedia_label">
-					<option value="#media_label#">#media_label#</option>
-				</cfloop>
-			</select>:&nbsp;<input type="text" name="label_value__1" id="label_value__1" size="80">
-			</div>
-			<span class="infoLink" id="addLabel" onclick="addLabel(2)">Add Label</span>
-		</div>
-		<br>
+		<label for="labels">Media Label</label>
+		<select name="media_label" id="media_label" size="1">
+			<option value=""></option>
+			<cfloop query="ctmedia_label">
+				<option value="#media_label#">#media_label#</option>
+			</cfloop>
+		</select>
+		<label for="label_value">Media Label Value</label>
+		<input type="text" name="label_value" id="label_value" size="80">
 		<br>
 		<input type="submit" value="Find Media" class="schBtn">
 		<input type="reset" value="reset form" class="clrBtn">
