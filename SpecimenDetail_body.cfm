@@ -1333,9 +1333,9 @@
 <!-- 		                        </audio> -->
 <!-- 		                        <div id="sm2-container"></div> -->
 								<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-								<br><div class="item"><a id="download" href="' + wavLink + '">Download wav</a></div>
-								<br><div class="item"><a id="download" href="' + mp3Link + '">Download mp3</a></div>
-								<br><div class="item"><a id="download" href="' + oggLink + '">Download ogg</a></div>
+<!-- 								<br><div class="item"><a id="download" href="' + wavLink + '">Download wav</a></div> -->
+<!-- 								<br><div class="item"><a id="download" href="' + mp3Link + '">Download mp3</a></div> -->
+<!-- 								<br><div class="item"><a id="download" href="' + oggLink + '">Download ogg</a></div> -->
 							</div>
 						</cfif>
 						
