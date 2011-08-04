@@ -18,7 +18,7 @@
 		</select>
 		<label for="oidType">Other ID Type</label>
         <select name="oidType" id="oidType" size="1">
-			<option value="catalog_number">Catalog Number</option>
+			<option value="catalog_number">Catalog Number (integer only)</option>
 			<cfloop query="ctOtherIdType">
 				<option value="#other_id_type#">#other_id_type#</option>
 			</cfloop>
