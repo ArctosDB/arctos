@@ -674,11 +674,10 @@
 					RELATIONSHIP='#relationship#',
 					RELATED_TO_NUMBER= (
 										select 
-											collection.institution_acronym || ' ' || collection.collection_cde || ' ' || cat_num 
+											guid 
 										from 
-											cataloged_item,collection
-										where cataloged_item.collection_id=collection.collection_id and 
-										cataloged_item.collection_object_id=#collection_object_id#
+											flat
+										where collection_object_id=#collection_object_id#
 										),
 					RELATED_TO_NUM_TYPE='catalog number'
 				where collection_object_id=#key#
