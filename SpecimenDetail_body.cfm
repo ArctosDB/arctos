@@ -1306,44 +1306,14 @@
 							<cfset alt=desc.label_value>
 						</cfif>
 						
-						<!-- New code here. -->
-						
-						<cfif media_type is not "audio">
-							<div class="one_thumb">
-				               	<a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
-			                   	<p>
-									#media_type# (#mime_type#)
-				                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-								</p><br>#alt#
-							</div>
-						<cfelse>
-						
-						<!--- Looks like this: http://web.corral.tacc.utexas.edu/MVZ/audio/cut/321_860.wav --->
-						<cfset length = len(media_uri)>
-						<cfset fileName = right(media_uri, length-48)>
-						<cfset length = len(fileName)>
-						<cfset fileName = left(fileName, length-4)>
-						<cfset wavPlaybackUrl = media_uri>
-						<cfset mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3'>
-						<cfset oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg'>
-							
-							<div class="audio_thumb">
-								Do other stuff because it's an audio media entry.<br>
-								The fileName variable is in the following div:
-								<div class="#fileName#"></div>
-								<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+		               <div class="one_thumb">
+			               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+		                   	<p>
+								#media_type# (#mime_type#)
+			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
 								<br>#alt#
-							</div>
-						</cfif>
-						
-<!-- 		               <div class="one_thumb"> -->
-<!-- 			               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a> -->
-<!-- 		                   	<p> -->
-<!-- 								#media_type# (#mime_type#) -->
-<!-- 			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a> -->
-<!-- 								<br>#alt# -->
-<!-- 							</p> -->
-<!-- 						</div> -->
+							</p>
+						</div>
 						
 					</cfloop>
 					<div class="thumb_spcr">&nbsp;</div>
