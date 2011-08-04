@@ -203,24 +203,14 @@ do not agree</font>.</a>
 				variables.joFileWriter.writeLine(header); 
 			</cfscript>
 			<cfloop query="findIDs">
-				
-				
-				
-				
-				
 				<cfset oneLine='"http://arctos.database.museum/media/#media_id#"'>
-
-				
-				
 				<cfif license contains " href=">
 					<cfset bla=replace(license,'<a target="_blank" class="external" href="','')>
 					<cfset qpos=find('"',bla)>
 					<cfset bla=left(bla,qpos-1)>					
 				<cfelse>
-					<cfset bla='no href in #license#'>
+					<cfset bla=license>
 				</cfif>
-				
-				
 				<cfset thisData=bla>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				<cfset oneLine = '#oneLine#,"#thisData#"'>
