@@ -149,6 +149,9 @@
 			</cfcatch>
 		</cftry>
 		</Cfoutput>		
+	<cfelseif listfindnocase(rdurl,'coldfusion.applets.CFGridApplet.class',"/")>
+		here we are now<cfabort>
+	
 	<cfelse><!--- all the rest --->
 		<!--- see if we can handle the peristent 404s elegantly --->
 		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
