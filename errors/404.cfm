@@ -82,7 +82,14 @@
 				<span class="likeLink" onclick="changeCollection()">try again in the public portal</span>.
 			</p>
 		</cfif>
-	</cfif>	
+	</cfif>
+	
+	<cfif cgi.REDIRECT_URL contains 'coldfusion.applets.CFGridApplet.class'>
+		<cfset sub="stoopid safari">
+		<cfset frm="stoopid.safari">
+	</cfif>
+	
+	
 	<p>
 		If you followed a link from within Arctos, please <a href="/info/bugs.cfm">submit a bug report</a>
 	 	containing any information that might help us resolve this issue.
