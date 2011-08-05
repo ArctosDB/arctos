@@ -150,6 +150,9 @@
 		</cftry>
 		</Cfoutput>		
 	<cfelseif listfindnocase(rdurl,'coldfusion.applets.CFGridApplet.class',"/")>
+		<cfmail subject="foundit" to="dustymc@gmail.com#" from="ffffuuu@#application.fromEmail#" type="html">
+			got it
+		</cfmail>
 		here we are now<cfabort>
 	
 	<cfelse><!--- all the rest --->
