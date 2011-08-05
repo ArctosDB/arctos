@@ -149,12 +149,8 @@
 			</cfcatch>
 		</cftry>
 		</Cfoutput>		
-	<cfelseif listfindnocase(rdurl,'coldfusion.applets.CFGridApplet.class',"/")>
-		<cfmail subject="foundit" to="dustymc@gmail.com#" from="ffffuuu@#application.fromEmail#" type="html">
-			got it
-		</cfmail>
-		here we are now<cfabort>
-	
+	<cfelseif listfindnocase(rdurl,'coldfusion.applets.CFGridApplet.class',"/.")>
+		stoopid safari<cfabort>	
 	<cfelse><!--- all the rest --->
 		<!--- see if we can handle the peristent 404s elegantly --->
 		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
