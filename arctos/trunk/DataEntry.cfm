@@ -63,7 +63,7 @@
 					)
 				</cfquery>
 			<cfelseif isBL.loaded is not "#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE">
-				<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="move" datasource="uam_god">
 					update bulkloader set collection_object_id = bulkloader_PKEY.nextval
 					where collection_object_id = #collection_id#
 				</cfquery>
