@@ -3,7 +3,6 @@
 	<cfif rdurl contains chr(195) & chr(151)>
 		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
-	here I am now
 	<cfif listfindnocase(rdurl,'specimen',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"specimen","/")>
@@ -149,9 +148,7 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-		</Cfoutput>		
-	<cfelseif listfindnocase(rdurl,'coldfusion.applets.CFGridApplet.class',"/.")>
-		stoopid safari<cfabort>	
+		</Cfoutput>
 	<cfelse><!--- all the rest --->
 		<!--- see if we can handle the peristent 404s elegantly --->
 		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
