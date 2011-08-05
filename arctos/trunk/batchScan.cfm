@@ -88,7 +88,7 @@
 		</cftransaction>
 		<cfif listcontains(pf,'f')>
 			<div class="error">
-				Something hinky happened. Scans were not saved. See log above.
+				Something hinky happened. Scans were not saved. See log above, then use your back button.
 			</div>
 		<cfelse>
 			Success. <a href="batchScan.cfm">Scan more</a>

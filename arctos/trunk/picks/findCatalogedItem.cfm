@@ -85,7 +85,7 @@
 			cataloged_item,
 			identification,
 	        collection">
-	<cfif len(agent_name) gt 0>
+	<cfif isdefined("agent_name") and len(agent_name) gt 0>
 		<cfset sql=sql & ",collector,agent_name">
 	</cfif>
 	<cfif oidType is not "catalog_number">
