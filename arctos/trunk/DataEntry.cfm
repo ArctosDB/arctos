@@ -45,7 +45,7 @@
 				select * from bulkloader where collection_object_id = #collection_id#
 			</cfquery>
 			<cfif isBl.recordcount is 0>
-				<cfquery name="prime" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="prime" datasource="uam_god">
 					insert into bulkloader (
 						collection_object_id, 
 						institution_acronym,
@@ -60,23 +60,29 @@
 						'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE',
 						#collection_id#,
 						0
-						)
+					)
 				</cfquery>
 			<cfelseif isBL.loaded is not "#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE">
 				<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update bulkloader set collection_object_id = bulkloader_PKEY.nextval
 					where collection_object_id = #collection_id#
 				</cfquery>
-				<cfquery name="prime" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="prime" datasource="uam_god">
 					insert into bulkloader (
 						collection_object_id, 
 						institution_acronym,
 						collection_cde,
-						loaded) VALUES (
+						loaded,
+						collection_id,
+						entered_agent_id
+					) VALUES (
 						#collection_id#,
 						'#institution_acronym#',
 						'#collection_cde#',
-						'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE')
+						'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE',
+						#collection_id#,
+						0
+					)
 				</cfquery>			
 			</cfif>
 		</cfloop>
