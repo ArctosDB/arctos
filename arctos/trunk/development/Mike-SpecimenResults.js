@@ -662,7 +662,7 @@ function success_getSpecResultsData(result){
                                         '</audio>';
 
                                     // Define a smaller audio player.
-                                    player = '<div id="player" style="display: none">' +
+                                    player = '<div id="player">' +
                                         '<button onClick="document.getElementById(\'audio\').play()">Play</button>' +
                                         '<button onClick="document.getElementById(\'audio\').pause()">Pause</button>' +
                                         '</div>';
