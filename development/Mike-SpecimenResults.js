@@ -655,7 +655,7 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Use when browser isn't IE.
-                                    html5 = '<audio preload="auto" autobuffer>' +
+                                    html5 = '<audio controls preload="auto" autobuffer>' +
                                         '    <source src="' + mp3PlaybackUrl + '" />' +
                                         '    <source src="' + oggPlaybackUrl + '" />' +
                                         '    <source src="' + wavPlaybackUrl + '" />' +
