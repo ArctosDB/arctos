@@ -685,7 +685,7 @@ function success_getSpecResultsData(result){
 
 									// Set up the audio files.
 									
-									theInnerHtml += '<audio preload="auto" autobuffer>' +
+									theInnerHtml += '<audio id="audio" preload="auto" autobuffer>' +
                                         '    <source src="' + mp3PlaybackUrl + '" />' +
                                         '    <source src="' + oggPlaybackUrl + '" />' +
                                         '    <source src="' + wavPlaybackUrl + '" />' +
