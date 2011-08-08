@@ -655,7 +655,7 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Use when browser isn't IE.
-                                    html5 = '<audio controls preload="auto" autobuffer>' +
+                                    html5 = '<audio preload="auto" autobuffer>' +
                                         '    <source src="' + mp3PlaybackUrl + '" />' +
                                         '    <source src="' + oggPlaybackUrl + '" />' +
                                         '    <source src="' + wavPlaybackUrl + '" />' +
@@ -678,9 +678,19 @@ function success_getSpecResultsData(result){
                                     // Create an audio thumb.
                                     theInnerHtml += '<div class="audio_thumb" style="width:150px; vertical-align:middle; font-size:small;">';
 
+						
+
                                     // Display the type of media explicitly.
                                     theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
 
+									// Set up the audio files.
+									
+									theInnerHtml += '<audio preload="auto" autobuffer>' +
+                                        '    <source src="' + mp3PlaybackUrl + '" />' +
+                                        '    <source src="' + oggPlaybackUrl + '" />' +
+                                        '    <source src="' + wavPlaybackUrl + '" />' +
+                                        '</audio>';
+                                        
                                     // Place the player here now.
                                     theInnerHtml += '<br>' + player;
 
