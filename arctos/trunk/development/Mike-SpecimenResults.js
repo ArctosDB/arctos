@@ -665,8 +665,6 @@ function success_getSpecResultsData(result){
                                     player = '<div id="player">' +
                                         '<button onClick="document.getElementById(\'audio\').play()">Play</button>' +
                                         '<button onClick="document.getElementById(\'audio\').pause()">Pause</button>' +
-                                        '<button onclick="document.getElementById('player').volume += 0.1">Vol+ </button>' +
-										'<button onclick="document.getElementById('player').volume -= 0.1">Vol- </button>' +
                                         '</div>';
 
                                     // Use when browser is IE.
