@@ -676,7 +676,7 @@ function success_getSpecResultsData(result){
                                     /* */
 
                                     // Create an audio thumb.
-                                    theInnerHtml += '<div class="audio_thumb" style="vertical-align:middle; font-size:small;">';
+                                    theInnerHtml += '<div class="audio_thumb" style="width:150px; vertical-align:middle; font-size:small;">';
 
                                     // Display the type of media explicitly.
                                     theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
