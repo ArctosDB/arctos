@@ -676,7 +676,7 @@ function success_getSpecResultsData(result){
                                     /* */
 
                                     // Create an audio thumb.
-                                    theInnerHtml += '<div class="audio_thumb" width="300px" style="vertical-align:middle;">';
+                                    theInnerHtml += '<div class="audio_thumb" style="vertical-align:middle;">';
 
                                     // Display the type of media explicitly.
                                     theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
@@ -685,7 +685,7 @@ function success_getSpecResultsData(result){
                                     theInnerHtml += '<br>' + html5 + '<br>';
 
                                     // Display all downloads on one line.
-                                    theInnerHtml += '<span class="item">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
+                                    theInnerHtml += '<span class="item" style="vertical-align:middle;">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
                                         ' ' + '<a id="download" href="' + oggPlaybackUrl + '">ogg</a>' +
                                         ' ' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a>' + '.';
 
