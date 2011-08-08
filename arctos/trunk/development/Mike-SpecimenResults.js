@@ -678,15 +678,15 @@ function success_getSpecResultsData(result){
                                             '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
                                             '<img src="/images/audioNoThumb.png" class="theThumb"></a>';
 
-                                    // Set up the audio player.
-                                    theInnerHtml +=
-                                        player;
-
                                     if (isUsingInternetExplorer) {
                                         theInnerHtml += ieShim;
                                     } else {
                                         theInnerHtml += html5;
                                     }
+
+                                    // Set up the audio player.
+                                    theInnerHtml +=
+                                        player;
 
                                     // Set up the link for more information and downloads.
                                     theInnerHtml +=
