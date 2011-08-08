@@ -654,11 +654,17 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Use when browser isn't IE.
-                                    html5 = '<audio controls preload="auto" autobuffer>' +
+                                    html5 = '<audio preload="auto" autobuffer>' +
                                         '    <source src="' + mp3PlaybackUrl + '" />' +
                                         '    <source src="' + oggPlaybackUrl + '" />' +
                                         '    <source src="' + wavPlaybackUrl + '" />' +
                                         '</audio>';
+
+                                    // Define a smaller audio player.
+                                    player = '<div id="player" style="display: none">' +
+                                        '<button onClick="document.getElementById(\'audio\').play()">Play</button>' +
+                                        '<button onClick="document.getElementById(\'audio\').pause()">Pause</button>' +
+                                        '</div>'
 
                                     // Use when browser is IE.
                                     ieShim = '<ul class="graphic"><li><a href="' + mp3PlaybackUrl + '">' + fileName + '.mp3</a></li></ul>';
