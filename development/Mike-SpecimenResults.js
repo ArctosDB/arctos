@@ -689,19 +689,7 @@ function success_getSpecResultsData(result){
                                         
                                     // Place the player here now.
                                     
-                                    theInnerHtml += '<br>' +
-                                    '<div id="jquery_jplayer_1" class="jp-jplayer"></div>' +
-                                    '<div class="jp-audio">' +
-                                    	'<div class="jp-type-single">' +
-      										'<div id="jp_interface_1" class="jp-interface">' +
-       											'<ul class="jp-controls">' +
-       											 '<li><a href="#" class="jp-previous" tabindex="1">prev</a></li>' +
-       											 '<li><a href="#" class="jp-play" tabindex="1">play</a></li>' +
-       											 '<li><a href="#" class="jp-next" tabindex="1">next</a></li>' +
-       											'</ul>' +
-       										'</div>' +
-       									'</div>' +
-       								'</div>';
+                                    theInnerHtml += '<br>Player goes here.<br>';
 
                                     // Display all downloads on one line.
                                     theInnerHtml += '<span class="item" style="vertical-align:middle;">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
