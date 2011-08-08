@@ -662,7 +662,7 @@ function success_getSpecResultsData(result){
                                         '</audio>';
 
                                     // Define a smaller audio player.
-                                    player = '<div id="player" style="display: ">' +
+                                    player = '<div id="player" style="display: none">' +
                                         '<button onClick="document.getElementById(\'audio\').play()">Play</button>' +
                                         '<button onClick="document.getElementById(\'audio\').pause()">Pause</button>' +
                                         '</div>';
@@ -682,12 +682,12 @@ function success_getSpecResultsData(result){
                                     theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
 
                                     // Place the player here now.
-                                    theInnerHtml += '<br>' + player + '<br>';
+                                    theInnerHtml += '<br>' + player;
 
                                     // Display all downloads on one line.
                                     theInnerHtml += '<span class="item" style="vertical-align:middle;">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
-                                        ' / ' + '<a id="download" href="' + oggPlaybackUrl + '">ogg</a>' +
-                                        ' / ' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a>' + '.';
+                                        '/' + '<a id="download" href="' + oggPlaybackUrl + '">ogg</a>' +
+                                        '/' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a>' + '.';
 
                                     // Set up the link to the media detail page.
                                     theInnerHtml +=
