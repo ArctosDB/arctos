@@ -680,7 +680,7 @@ function success_getSpecResultsData(result){
 
                                     // Set up the audio player.
                                     theInnerHtml +=
-                                        '<div id="sm2-container"></div>';
+                                        player;
 
                                     if (isUsingInternetExplorer) {
                                         theInnerHtml += ieShim;
