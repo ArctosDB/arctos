@@ -682,7 +682,7 @@ function success_getSpecResultsData(result){
                                     theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
 
                                     // Place the player here now.
-                                    theInnerHtml += '<br>' + html5 + '<br>';
+                                    theInnerHtml += '<br>Smaller player here.<br>';
 
                                     // Display all downloads on one line.
                                     theInnerHtml += '<span class="item" style="vertical-align:middle;">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
