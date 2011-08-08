@@ -668,13 +668,13 @@ function success_getSpecResultsData(result){
 
                                     // Set up the generic audio image.
                                     theInnerHtml +=
-                                        '<div class="audio_thumb" align="center" style="vertical-align:middle;">' +
+                                        '<div class="audio_thumb" style="vertical-align:middle;">' +
                                             '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
                                             '<img src="/images/audioNoThumb.png" class="theThumb"></a>';
 
                                     // Set up the audio player.
                                     theInnerHtml +=
-                                        '<div id="sm2-container"></div>';
+                                        '<div id="sm2-container" style="height:8px;width:2px;"></div>';
 
                                     if (isUsingInternetExplorer) {
                                         theInnerHtml += ieShim;
