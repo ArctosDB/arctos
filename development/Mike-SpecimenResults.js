@@ -585,7 +585,7 @@ function success_getSpecResultsData(result){
                         theInnerHtml +=data.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
                     }
                     theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+data.COLLECTION_OBJECT_ID[i]+'">';
-                        theInnerHtml += '<a href="Mike-SpecimenDetail.cfm?collection_object_id=';
+                        theInnerHtml += '<a href="development/Mike-SpecimenDetail.cfm?collection_object_id=';
                         theInnerHtml += data.COLLECTION_OBJECT_ID[i];
                         theInnerHtml += '">';
                         theInnerHtml += data.COLLECTION[i];
@@ -646,7 +646,8 @@ function success_getSpecResultsData(result){
 
                                 } else {
 
-                                    // Create an audio thumb.
+                                    // Do arithmetic.
+                                    
                                     wavPlaybackUrl = thisMedia.DATA.media_uri[m],
                                         length = wavPlaybackUrl.split('/').length,
                                         fileName = wavPlaybackUrl.split('/')[length - 1].replace('.wav', ''),
@@ -654,14 +655,14 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Use when browser isn't IE.
-                                    html5 = '<audio id="audio" preload="auto" autobuffer>' +
+                                    html5 = '<audio preload="auto" autobuffer>' +
                                         '    <source src="' + mp3PlaybackUrl + '" />' +
                                         '    <source src="' + oggPlaybackUrl + '" />' +
                                         '    <source src="' + wavPlaybackUrl + '" />' +
                                         '</audio>';
 
                                     // Define a smaller audio player.
-                                    player = '<div id="player" style="display: none">' +
+                                    player = '<div id="player" style="display: ">' +
                                         '<button onClick="document.getElementById(\'audio\').play()">Play</button>' +
                                         '<button onClick="document.getElementById(\'audio\').pause()">Pause</button>' +
                                         '</div>';
@@ -672,26 +673,29 @@ function success_getSpecResultsData(result){
                                     // Figure out what the browser is...? Maybe one day.
                                     isUsingInternetExplorer = false;
 
-                                    // Set up the generic audio image.
-                                    theInnerHtml +=
-                                        '<div class="audio_thumb" style="vertical-align:middle;">' +
-                                            '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
-                                            '<img src="/images/audioNoThumb.png" class="theThumb"></a>';
+                                    /* */
 
-                                    if (isUsingInternetExplorer) {
-                                        theInnerHtml += ieShim;
-                                    } else {
-                                        theInnerHtml += html5;
-                                    }
+                                    // Create an audio thumb.
+                                    theInnerHtml += '<div class="audio_thumb" style="vertical-align:middle;">';
 
-                                    // Set up the audio player.
-                                    theInnerHtml +=
-                                        player;
+                                    // Display the type of media explicitly.
+                                    theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
 
-                                    // Set up the link for more information and downloads.
+                                    // Place the player here now.
+                                    theInnerHtml += '<br>' + 'The player goes here.' + '<br>';
+
+                                    // Display all downloads on one line.
+                                    theInnerHtml += '<span class="item">Download: <a id="download" href="mp3PlaybackUrl">mp3</a>' +
+                                        ' ' + '<a id="download" href="oggPlaybackUrl">ogg</a>' +
+                                        ' ' + '<a id="download" href="wavPlaybackUrl">wav</a>' + '.';
+
+                                    // Set up the link to the media detail page.
                                     theInnerHtml +=
                                         '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
 
+                                    // Image - for now, we don't need it.
+//                                    theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
+//                                        '<img src="/images/audioNoThumb.png" class="theThumb"></a>';
                                 }
 
                             }
