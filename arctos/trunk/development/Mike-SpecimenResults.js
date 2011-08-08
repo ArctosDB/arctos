@@ -664,7 +664,7 @@ function success_getSpecResultsData(result){
                                     player = '<div id="player" style="display: none">' +
                                         '<button onClick="document.getElementById(\'audio\').play()">Play</button>' +
                                         '<button onClick="document.getElementById(\'audio\').pause()">Pause</button>' +
-                                        '</div>'
+                                        '</div>';
 
                                     // Use when browser is IE.
                                     ieShim = '<ul class="graphic"><li><a href="' + mp3PlaybackUrl + '">' + fileName + '.mp3</a></li></ul>';
