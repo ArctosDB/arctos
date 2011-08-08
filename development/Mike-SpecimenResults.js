@@ -685,9 +685,9 @@ function success_getSpecResultsData(result){
                                     theInnerHtml += '<br>' + 'The player goes here.' + '<br>';
 
                                     // Display all downloads on one line.
-                                    theInnerHtml += '<span class="item">Download: <a id="download" href=mp3PlaybackUrl>mp3</a>' +
-                                        ' ' + '<a id="download" href=oggPlaybackUrl>ogg</a>' +
-                                        ' ' + '<a id="download" href=wavPlaybackUrl>wav</a>' + '.';
+                                    theInnerHtml += '<span class="item">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
+                                        ' ' + '<a id="download" href="' + oggPlaybackUrl + '">ogg</a>' +
+                                        ' ' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a>' + '.';
 
                                     // Set up the link to the media detail page.
                                     theInnerHtml +=
