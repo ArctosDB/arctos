@@ -642,7 +642,7 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Create an audio thumb.
-                                    theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle" onLoad="setupAudioPlayer("' + mp3PlaybackLink + '", "' + oggPlaybackLink + '", "' + wavPlayBackLink + '")">';	
+                                    theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle" onLoad="setupAudioPlayer(mp3PlaybackLink, oggPlaybackLink, wavPlayBackLink)">';	
                                         
                                     // Place the player here now.
 								  
