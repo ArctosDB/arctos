@@ -15,7 +15,7 @@
 	select orig_elev_units from CTORIG_ELEV_UNITS
 </cfquery>
 <cfquery name="ContOcean" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select continent_ocean from ctContinent ORDER BY continent_ocean
+	select continent_ocean from geog_auth_rec group by continent_ocean ORDER BY continent_ocean
 </cfquery>
 <cfquery name="Country" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(country) from geog_auth_rec order by country
