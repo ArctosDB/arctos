@@ -1,6 +1,6 @@
 <!-----------
 create table browse (
-	insdate timestamp default sytimestamp,
+	insdate timestamp default systimestamp,
 	link varchar2(255),
 	display varchar2(255)
 );
