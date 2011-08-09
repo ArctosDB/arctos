@@ -693,8 +693,8 @@ function success_getSpecResultsData(result){
 										'<div class="jp-type-single">' +
 										'<div id="jp_interface_1" class="jp-interface">' +
 										'<u1 class="jp-controls">' +
-										'<li><a href="#" class="jp-play" tabindex="1" style="top:10px;left:10px;">play</a></li>' +
-										'<li><a href="#" class="jp-pause" tabindex="1" style="top:10px;left:10px;">pause</a></li>' +
+										'<li><a href="#" class="jp-play" tabindex="1">play</a></li>' +
+										'<li><a href="#" class="jp-pause" tabindex="1">pause</a></li>' +
 										'<li><a href="#" class="jp-mute" tabindex="1">mute</a></li>' +
           								'<li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>' +
 										'</u1>' +
