@@ -127,7 +127,7 @@ BEGIN
 	);
 	
 	-- only keep stuff around for 2 hours
-	delete from browse where ((cast(systimestamp as date)-cast(insdate as date)*24*60)>120;
+	delete from browse where ((cast(systimestamp as date)-cast(insdate as date))*24*60)>120;
 end;
 /
 
