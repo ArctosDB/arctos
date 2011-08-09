@@ -659,11 +659,11 @@ theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div><div class=
                                     // Display all downloads on one line.
                                     theInnerHtml += '<span class="item">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
                                         '/' + '<a id="download" href="' + oggPlaybackUrl + '">ogg</a>' +
-                                        '/' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a>' + '.';
+                                        '/' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a>' + '.' + '</span>';
 
                                     // Set up the link to the media detail page.
                                     theInnerHtml +=
-                                        '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
+                                        '<div class="linktodetails" align="center" style="font-size:small;vertical-align:middle"><br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
 
                                     // Image - for now, we don't need it.
 //                                    theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
