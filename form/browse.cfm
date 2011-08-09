@@ -168,21 +168,13 @@ END;
 			)
 		WHERE rownum <= 25
 	</cfquery>
-	<cfdump var=#links#>
 	<cfoutput>
-		<cfset rslts="">
-		<cfloop from="1" to="#links.recordcount#" index="i">
-			<cfset rslts=listappend(rslts,i)>
-		</cfloop>
 		<div id="browseArctos">
 			<div class="title">Try something random
 			<span class="infoLink" onclick="blockSuggest(1)">Hide This</span></div>
 			<ul>
-				<cfloop from="1" to="#links.recordcount#" index="i">
-					<cfset thisIndex=randrange(1,listlen(rslts))>
-					<cfset thisRecord=listgetat(rslts,thisIndex)>
-					<li><a href="#links.link[thisRecord]#">#links.display[thisRecord]#</a></li>
-					<cfset rslts=listdeleteat(rslts,thisIndex)>
+				<cfloop query="links">
+					<li><a href="#link#">#display#</a></li>
 				</cfloop>
 			</ul>
 		</div>
