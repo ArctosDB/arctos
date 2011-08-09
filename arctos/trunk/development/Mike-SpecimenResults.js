@@ -695,7 +695,6 @@ function success_getSpecResultsData(result){
 										'<u1 class="jp-controls">' +
 										'<a href="#" class="jp-play" tabindex="1">play</a>' +
 										'<a href="#" class="jp-pause" tabindex="1">pause</a>' +
-										'<a href="#" class="jp-stop" tabindex="1">stop</a>' +
       								    '<a href="#" class="jp-mute" tabindex="1">mute</a>' +
           								'<a href="#" class="jp-unmute" tabindex="1">unmute</a>' +
 										'</u1>' +
