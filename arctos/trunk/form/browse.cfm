@@ -99,7 +99,7 @@ BEGIN
 					project,
 					project_trans,
 					filtered_flat
-					sample(5)
+					sample(50)
 				where
 					project.project_id=project_trans.project_id and
 					project_trans.transaction_id=filtered_flat.accn_id and
