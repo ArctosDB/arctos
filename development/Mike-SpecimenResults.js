@@ -649,9 +649,9 @@ function success_getSpecResultsData(result){
 								    $("#jquery_jplayer_1").jPlayer({
 						            ready: function () {
 						              $(this).jPlayer("setMedia", {
-						                mp3: mp3,
-						                oga: ogg,
-						                wav: wav
+						                mp3: "mp3PlaybackLink",
+						                oga: "oggPlaybackLink",
+						                wav: "wavPlaybackLink"
 						              });
 						            },
 						            swfPath: "/jplayer",
