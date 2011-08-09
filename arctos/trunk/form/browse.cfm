@@ -13,7 +13,8 @@ session.block_suggest: #session.block_suggest#
 	<!---- ---->
 <cfif session.block_suggest neq 1>
 	here we go
-	<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,15,0)#">
+	cachedwithin="#createtimespan(0,0,15,0)#"
+	<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" >
 		select link,display from (
 			select 
 				'/guid/' || guid link,
