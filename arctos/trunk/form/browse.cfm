@@ -13,6 +13,7 @@
 			from
 				filtered_flat
 			 	sample(1)
+			 where scientific_name != 'unidentifiable'
 			 order by
 			 	dbms_random.value
 			)
@@ -68,6 +69,7 @@
 				filtered_flat
 				sample(1)
 			where
+				taxonomy.taxon_name_id > 0 and
 				taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id and
 				identification_taxonomy.identification_id=identification.identification_id and
 				identification.collection_object_id=filtered_flat.collection_object_id
@@ -88,7 +90,8 @@
 					sample(5)
 				where
 					project.project_id=project_trans.project_id and
-					project_trans.transaction_id=filtered_flat.accn_id
+					project_trans.transaction_id=filtered_flat.accn_id and
+					length(project.project_detail) > 100
 				union
 				select 
 					'/project/' || niceURL(project_name) link,
