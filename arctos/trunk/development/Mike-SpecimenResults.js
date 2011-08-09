@@ -657,7 +657,7 @@ theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div><div class=
                                     theInnerHtml += '<div class="mimeinfo" align="center" style="font-size:small;">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
 
                                     // Display all downloads on one line.
-                                    theInnerHtml += '<div class='downloadlinks' align="center" style="font-size:small">' + 
+                                    theInnerHtml += '<div class='downloadlinks' align="center" style="font-size:small;">' + 
                                     	'<span class="item">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
                                         '/' + '<a id="download" href="' + oggPlaybackUrl + '">ogg</a>' +
                                         '/' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a>' + '.' + '</div>';
