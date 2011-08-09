@@ -695,9 +695,6 @@ function success_getSpecResultsData(result){
 										'<ul class="jp-controls">' +
 										'<a href="#" class="jp-play" tabindex="1">play</a>' +
 										'<a href="#" class="jp-pause" tabindex="1">pause</a>
-										'<div class="jp-volume-bar">' +
-          									'<div class="jp-volume-bar-value"></div>' +
-        								'</div>' +
 										'</u1>' +
 										'</div></div></div>';
 													                                    
