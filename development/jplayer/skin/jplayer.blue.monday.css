@@ -79,8 +79,8 @@ a.jp-pause {
 }
 div.jp-audio div.jp-type-single a.jp-play,
 div.jp-audio div.jp-type-single a.jp-pause {
-	top:5px;
-	left:5px;
+	top:20px;
+	left:40px;
 }
 div.jp-audio div.jp-type-playlist a.jp-play,
 div.jp-audio div.jp-type-playlist a.jp-pause {
@@ -121,8 +121,8 @@ a.jp-pause:hover {
 	background: url("jplayer.blue.monday.jpg") -41px -42px no-repeat;
 }
 div.jp-audio div.jp-type-single a.jp-stop {
-	top:5px;
-	left:50px;
+	top:26px;
+	left:90px;
 }
 div.jp-audio div.jp-type-playlist a.jp-stop {
 	top:26px;
@@ -200,9 +200,9 @@ div.jp-progress {
 	background-color: #ddd;
 }
 div.jp-audio div.jp-type-single div.jp-progress {
-	top:50px;
-	left:5px;
-	width:150px;
+	top:32px;
+	left:130px;
+	width:122px;
 	height:15px;
 }
 div.jp-audio div.jp-type-playlist div.jp-progress {
