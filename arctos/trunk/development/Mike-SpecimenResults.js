@@ -653,7 +653,7 @@ function success_getSpecResultsData(result){
 									        '<div class="jp-volume-bar"><div class="jp-volume-bar-value"></div></div><div class="jp-current-time"></div><div class="jp-duration"></div></div></div></div>';
 									
 									$("#jquery_jplayer_1").jPlayer({
-								        ready: function () {
+								       	function () {
 								          $(this).jPlayer("setMedia", {
 								            m4a: "http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a",
 								            oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
