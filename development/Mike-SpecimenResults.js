@@ -642,7 +642,7 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Create an audio thumb.
-                                    theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle" onLoad="setupAudioPlayer(mp3PlaybackLink, oggPlaybackLink, wavPlayBackLink)">';	
+                                    theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle" onLoad="setupAudioPlayer()">';	
                                         
                                     // Place the player here now.
 								  
@@ -910,16 +910,17 @@ function logIt(msg,status) {
 	}
 }
 
-function setupAudioPlayer (mp3, ogg, wav) {
-    $("#jquery_jplayer_1").jPlayer({
+function setupAudioPlayer ( ) {
+    $(document).ready(function(){
+      $("#jquery_jplayer_1").jPlayer({
         ready: function () {
           $(this).jPlayer("setMedia", {
-            mp3: mp3,
-            oga: ogg,
-            wav: wav
+            m4a: "http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a",
+            oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
           });
         },
-        swfPath: "/jplayer",
-        supplied: "mp3, oga, wav"
+        swfPath: "/js",
+        supplied: "m4a, oga"
       });
+    });
 }
