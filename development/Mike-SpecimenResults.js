@@ -676,9 +676,6 @@ function success_getSpecResultsData(result){
                                     // Create an audio thumb.
                                     theInnerHtml += '<div class="audio_thumb" align="center" style="width:150px; vertical-align:middle; font-size:small;">';
 
-                                    // Display the type of media explicitly.
-                                    theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
-
 									// Set up the audio files.
 									
 									theInnerHtml += '<audio id="audio" preload="auto" autobuffer>' +
@@ -690,6 +687,9 @@ function success_getSpecResultsData(result){
                                     // Place the player here now.
                                     
                                     theInnerHtml += '<br>Player goes here.<br>';
+                                    
+                                    // Display the type of media explicitly.
+                                    theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
 
                                     // Display all downloads on one line.
                                     theInnerHtml += '<span class="item" style="vertical-align:middle;">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
