@@ -652,7 +652,6 @@ function success_getSpecResultsData(result){
 									        '</ul><div class="jp-progress"><div class="jp-seek-bar"><div class="jp-play-bar"></div></div></div>' +
 									        '<div class="jp-volume-bar"><div class="jp-volume-bar-value"></div></div><div class="jp-current-time"></div><div class="jp-duration"></div></div></div></div></div>';
 									
-
 								    $(document).ready(function(){
 								      $("#jquery_jplayer_1").jPlayer({
 								        ready: function () {
@@ -661,7 +660,7 @@ function success_getSpecResultsData(result){
 								            oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
 								          });
 								        },
-								        swfPath: "/js",
+								        swfPath: "jplayer",
 								        supplied: "m4a, oga"
 								      });
 								    });			   
