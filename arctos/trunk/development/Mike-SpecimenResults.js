@@ -645,7 +645,7 @@ function success_getSpecResultsData(result){
                                     theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle">';	
                                         
                                     // Place the player here now.
-								  
+								  $(document).ready(function(){
 								    $("#jquery_jplayer_1").jPlayer({
 						            ready: function () {
 						              $(this).jPlayer("setMedia", {
@@ -656,6 +656,7 @@ function success_getSpecResultsData(result){
 						            },
 						            swfPath: "/jplayer",
 						            supplied: "mp3, oga, wav"
+						            });
 						          });
 								  
 									theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div><div class="jp-audio"><div class="jp-type-single"><div id="jp_interface_1" class="jp-interface"><ul class="jp-controls">' +
