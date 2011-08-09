@@ -1,11 +1,12 @@
 <!-----------
 create table browse (
-	insdate date default syusdate,
+	insdate timestamp default sytimestamp,
 	link varchar2(255),
 	display varchar2(255)
 );
 create or replace public synonym browse for browse;
 
+grant select on browse to public;
 
 CREATE OR REPLACE PROCEDURE set_browse
 is
@@ -24,21 +25,8 @@ BEGIN
 			)
 		WHERE rownum <= 500
 	);
-end;
-/
-
-
-
-
-
-
-
-
-
-
-
-
-		union
+	
+	insert into browse (link,display) (
 		select link,display from (
 			select 
 				formatted_publication display,
@@ -57,7 +45,9 @@ end;
 				dbms_random.value
 		)
 		WHERE rownum <= 500
-		union
+	);
+	
+	insert into browse (link,display) (
 		select link,display from (
 			select 
 				'<img style="max-height:150px;" src="' || preview_uri || '">' display,
@@ -75,7 +65,10 @@ end;
 				dbms_random.value
 		)
 		WHERE rownum <= 500
-union
+	);
+	
+	
+	insert into browse (link,display) (
 		select link,display from (
 			select 
 				'/name/' || taxonomy.scientific_name link,
@@ -94,7 +87,9 @@ union
 			order by 
 				dbms_random.value
 		) WHERE rownum <= 500
-		union
+	);
+	
+	insert into browse (link,display) (
 		select link,display from (
 			select link,display from (
 				select 
@@ -129,6 +124,30 @@ union
 		group by link,display
 		order by dbms_random.value)
 		WHERE rownum <= 500
+	);
+	
+end;
+/
+
+
+
+
+
+
+
+
+
+
+
+
+		union
+		
+		union
+		
+union
+		
+		union
+		
 		
 		
 		
