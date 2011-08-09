@@ -646,13 +646,26 @@ function success_getSpecResultsData(result){
                                         
                                     // Place the player here now.
 
-theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div><div class="jp-audio"><div class="jp-type-single"><div id="jp_interface_1" class="jp-interface"><ul class="jp-controls">' +
-          '<li><a href="#" class="jp-play" tabindex="1">play</a></li><li><a href="#" class="jp-pause" tabindex="1">pause</a></li>' +
-          '<li><a href="#" class="jp-mute" tabindex="1">mute</a></li><li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>' +
-        '</ul><div class="jp-progress"><div class="jp-seek-bar"><div class="jp-play-bar"></div></div></div>' +
-        '<div class="jp-volume-bar"><div class="jp-volume-bar-value"></div></div><div class="jp-current-time"></div><div class="jp-duration"></div></div></div></div></div>';
+									theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div><div class="jp-audio"><div class="jp-type-single"><div id="jp_interface_1" class="jp-interface"><ul class="jp-controls">' +
+									          '<li><a href="#" class="jp-play" tabindex="1">play</a></li><li><a href="#" class="jp-pause" tabindex="1">pause</a></li>' +
+									          '<li><a href="#" class="jp-mute" tabindex="1">mute</a></li><li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>' +
+									        '</ul><div class="jp-progress"><div class="jp-seek-bar"><div class="jp-play-bar"></div></div></div>' +
+									        '<div class="jp-volume-bar"><div class="jp-volume-bar-value"></div></div><div class="jp-current-time"></div><div class="jp-duration"></div></div></div></div></div>';
 									
-													                                    
+
+								    $(document).ready(function(){
+								      $("#jquery_jplayer_1").jPlayer({
+								        ready: function () {
+								          $(this).jPlayer("setMedia", {
+								            m4a: "http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a",
+								            oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
+								          });
+								        },
+								        swfPath: "/js",
+								        supplied: "m4a, oga"
+								      });
+								    });			   
+								                                     
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo" align="center" style="font-size:small;">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
 
