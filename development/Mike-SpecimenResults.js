@@ -642,7 +642,7 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Create an audio thumb.
-                                    theInnerHtml += '<div class="audio_thumb">';	
+                                    theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle">';	
                                         
                                     // Place the player here now.
 
@@ -650,21 +650,34 @@ function success_getSpecResultsData(result){
 									          '<li><a href="#" class="jp-play" tabindex="1">play</a></li><li><a href="#" class="jp-pause" tabindex="1">pause</a></li>' +
 									          '<li><a href="#" class="jp-mute" tabindex="1">mute</a></li><li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>' +
 									        '</ul><div class="jp-progress"><div class="jp-seek-bar"><div class="jp-play-bar"></div></div></div>' +
-									        '<div class="jp-volume-bar"><div class="jp-volume-bar-value"></div></div><div class="jp-current-time"></div><div class="jp-duration"></div></div></div></div></div>';
+									        '<div class="jp-volume-bar"><div class="jp-volume-bar-value"></div></div><div class="jp-current-time"></div><div class="jp-duration"></div></div></div></div>';
 									
-		   
+		     theInnerHtml += '<script type="text/javascript">' +
+    '$(document).ready(function(){' +
+      '$("#jquery_jplayer_1").jPlayer({' +
+        'ready: function () {' +
+          '$(this).jPlayer("setMedia", {' +
+            'm4a: "http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a",' +
+            'oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"' +
+          '});' +
+        '},' +
+        'swfPath: "/js",' +
+        'supplied: "m4a, oga"' +
+      '});' +
+    '});' +
+  '</script>';
 								                                     
                                     // Display the type of media explicitly.
-                                    theInnerHtml += '<div class="mimeinfo" align="center" style="font-size:small;">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
+                                    theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
 
                                     // Display all downloads on one line.
-                                    theInnerHtml += '<span class="item" align="center" style="font-size:small;vertical-align:middle">Downloads: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
+                                    theInnerHtml += '<span class="item" align="center">Downloads: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
                                         '/' + '<a id="download" href="' + oggPlaybackUrl + '">ogg</a>' +
                                         '/' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a>' + '.' + '</span>';
 
                                     // Set up the link to the media detail page.
                                     theInnerHtml +=
-                                        '<div class="linktodetails" align="center" style="font-size:small;vertical-align:middle"><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
+                                        '<div class="linktodetails" align="center"><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
 
                                     // Image - for now, we don't need it.
 //                                    theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
