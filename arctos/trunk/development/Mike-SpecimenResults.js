@@ -652,7 +652,7 @@ function success_getSpecResultsData(result){
 									        '</ul><div class="jp-progress"><div class="jp-seek-bar"><div class="jp-play-bar"></div></div></div>' +
 									        '<div class="jp-volume-bar"><div class="jp-volume-bar-value"></div></div><div class="jp-current-time"></div><div class="jp-duration"></div></div></div></div>';
 									
-//									document.setupAudioPlayer(mp3PlaybackUrl, oggPlaybackUrl, wavPlaybackUrl;
+									setupAudioPlayer(mp3PlaybackUrl, oggPlaybackUrl, wavPlaybackUrl;
 								                                     
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
