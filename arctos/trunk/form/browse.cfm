@@ -27,6 +27,7 @@ session.block_suggest: #session.block_suggest#
 			 	dbms_random.value
 			)
 		WHERE rownum <= 5
+		<!----
 		union
 		select link,display from (
 			select 
@@ -121,6 +122,7 @@ session.block_suggest: #session.block_suggest#
 		group by link,display
 		order by dbms_random.value)
 		WHERE rownum <= 5
+		--->
 	</cfquery>
 	<cfdump var=#links#>
 	<cfoutput>
