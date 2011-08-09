@@ -12,6 +12,7 @@ session.block_suggest: #session.block_suggest#
 <cftry>
 	<!---- ---->
 <cfif session.block_suggest neq 1>
+	here we go
 	<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,15,0)#">
 		select link,display from (
 			select 
@@ -120,6 +121,7 @@ session.block_suggest: #session.block_suggest#
 		order by dbms_random.value)
 		WHERE rownum <= 5
 	</cfquery>
+	<cfdump var=#links#>
 	<cfoutput>
 		<cfset rslts="">
 		<cfloop from="1" to="#links.recordcount#" index="i">
