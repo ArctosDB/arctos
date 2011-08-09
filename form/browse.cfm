@@ -153,8 +153,8 @@ END;
 <cfif session.portal_id is 1 or session.username is "pub_usr_uam_mamm">
 	<cfabort>
 </cfif>
-<cftry>
-	<!---- ---->
+	<!---- <cftry>
+---->
 <cfif session.block_suggest neq 1>
 	<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" >
 		select link,display from (
@@ -180,7 +180,11 @@ END;
 		</div>
 	</cfoutput>
 </cfif>
+<!---
+
 <cfcatch>
 <!--- not fatal - ignore --->
 </cfcatch>
 </cftry>
+
+--->
