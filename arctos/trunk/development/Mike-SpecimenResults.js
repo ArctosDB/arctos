@@ -642,7 +642,7 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Create an audio thumb.
-                                    theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle">';	
+                                    theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle" onLoad="setupAudioPlayer("' + mp3PlaybackLink + '", "' + oggPlaybackLink + '", "' + wavPlayBackLink + '")">';	
                                         
                                     // Place the player here now.
 								  
@@ -652,8 +652,6 @@ function success_getSpecResultsData(result){
 									        '</ul><div class="jp-progress"><div class="jp-seek-bar"><div class="jp-play-bar"></div></div></div>' +
 									        '<div class="jp-volume-bar"><div class="jp-volume-bar-value"></div></div><div class="jp-current-time"></div><div class="jp-duration"></div></div></div></div>';
 									
-									setupAudioPlayer(mp3PlaybackUrl, oggPlaybackUrl, wavPlaybackUrl);
-								                                     
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
 
@@ -913,5 +911,15 @@ function logIt(msg,status) {
 }
 
 function setupAudioPlayer (mp3, ogg, wav) {
-	// do nada
+    $("#jquery_jplayer_1").jPlayer({
+        ready: function () {
+          $(this).jPlayer("setMedia", {
+            mp3: mp3,
+            oga: ogg,
+            wav: wav
+          });
+        },
+        swfPath: "/jplayer",
+        supplied: "mp3, oga, wav"
+      });
 }

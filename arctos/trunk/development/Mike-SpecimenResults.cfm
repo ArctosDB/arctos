@@ -2,21 +2,6 @@
 <link type="text/css" href="jplayer/skin/jplayer.blue.monday.css" rel="stylesheet" />
 <script type='text/javascript' language="javascript" src='Mike-SpecimenResults.js'></script>
 <script type="text/javascript" language="javascript" src="jPlayer/jquery.jplayer.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-   	  $("#jquery_jplayer_1").jPlayer({
-        ready: function () {
-          $(this).jPlayer("setMedia", {
-            mp3: mp3,
-            oga: ogg,
-            wav: wav
-          });
-        },
-        swfPath: "/jplayer",
-        supplied: "mp3, oga, wav"
-      });
-    });
-   </script>
 <cfif len(session.displayrows) is 0>
 	<cfset session.displayrows=20>
 </cfif>
