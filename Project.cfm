@@ -32,7 +32,9 @@
 		<table>
 			<tr>
 				<td>
-					<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
+					<label for="project_name" class="likeLink" onClick="getDocs('project','title')">
+						Project Title (say something useful, not just "My favorite species {buzzword of the week}.")
+					</label>
 					<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr"></textarea>
 				</td>
 				<td>
@@ -47,7 +49,9 @@
 				<input type="text" name="start_date" id="start_date">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
 				<input type="text" name="end_date" id="end_date">
-				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">Description</label>
+				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">
+					Description (Include what, why, how, who cares. Be <i>descriptive</i>.)
+				</label>
 				<textarea name="project_description" id="project_description" cols="80" rows="6"></textarea>
 				<label for="project_remarks">Remarks</label>
 				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3"></textarea>
