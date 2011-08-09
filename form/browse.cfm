@@ -1,7 +1,12 @@
 <!--- exclude UAM Mammals users --->
 <cfif session.portal_id is 1 or session.username is "pub_usr_uam_mamm">
+	
+	session.portal_id=#session.portal_id#
+	<br>
+	session.username=#session.username#
 	<cfabort>
 </cfif>
+session.block_suggest: #session.block_suggest#
 <cftry>
 	<!---- ---->
 <cfif session.block_suggest neq 1>
