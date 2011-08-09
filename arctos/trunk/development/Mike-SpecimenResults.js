@@ -642,7 +642,7 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Create an audio thumb.
-                                    theInnerHtml += '<div class="audio_thumb" align="center" style="width:150px; vertical-align:middle; font-size:small;">';	
+                                    theInnerHtml += '<div class="audio_thumb">';	
                                         
                                     // Place the player here now.
 
@@ -654,7 +654,7 @@ theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div><div class=
 									
 													                                    
                                     // Display the type of media explicitly.
-                                    theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '<br>';
+                                    theInnerHtml += '<div class="mimeinfo" align="center" stlye="font-size:small;">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div><br>';
 
                                     // Display all downloads on one line.
                                     theInnerHtml += '<span class="item" align="center" style="vertical-align:middle;font-size:small">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
