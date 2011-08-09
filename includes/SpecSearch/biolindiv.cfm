@@ -30,7 +30,8 @@
 					<option value="#ctbiol_relations.biol_indiv_relationship#">
 						#ctbiol_relations.biol_indiv_relationship#</option>
 				</cfloop>
-			</select>
+			</select><span class="infoLink" onclick="getCtDoc('ctbiol_relations',SpecData.relationship.value);">Define</span>
+			
 		</td>
 	</tr>
 	<tr>
