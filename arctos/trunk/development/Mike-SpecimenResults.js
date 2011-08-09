@@ -686,10 +686,10 @@ function success_getSpecResultsData(result){
                                         
                                     // Place the player here now.
                                     
-                                    theInnerHtml += '<br>Player goes here.<br>';
+                                    theInnerHtml += 'Player goes here.<br>';
                                     
                                     // Display the type of media explicitly.
-                                    theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
+                                    theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '<br>';
 
                                     // Display all downloads on one line.
                                     theInnerHtml += '<span class="item" style="vertical-align:middle;">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
