@@ -909,5 +909,3 @@ function logIt(msg,status) {
 		document.getElementById('oidnum').select();
 	}
 }
-
-function setupAudioPlayer
