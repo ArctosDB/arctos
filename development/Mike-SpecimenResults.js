@@ -693,11 +693,14 @@ function success_getSpecResultsData(result){
 										'<div class="jp-type-single">' +
 										'<div id="jp_interface_1" class="jp-interface">' +
 										'<u1 class="jp-controls">' +
-										'<a href="#" class="jp-play" tabindex="1">play</a>' +
-										'<a href="#" class="jp-pause" tabindex="1">pause</a>' +
-      								    '<a href="#" class="jp-mute" tabindex="1">mute</a>' +
-          								'<a href="#" class="jp-unmute" tabindex="1">unmute</a>' +
+											'<a href="#" class="jp-play" tabindex="1">play</a>' +
+											'<a href="#" class="jp-pause" tabindex="1">pause</a>' +
+      								    	'<a href="#" class="jp-mute" tabindex="1">mute</a>' +
+          									'<a href="#" class="jp-unmute" tabindex="1">unmute</a>' +
 										'</u1>' +
+										'<div class="jp-volume-bar">' +
+          								'<div class="jp-volume-bar-value"></div>' +
+      									'</div>' +
 										'</div></div></div>';
 													                                    
                                     // Display the type of media explicitly.
