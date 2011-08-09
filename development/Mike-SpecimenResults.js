@@ -652,16 +652,7 @@ function success_getSpecResultsData(result){
 									        '</ul><div class="jp-progress"><div class="jp-seek-bar"><div class="jp-play-bar"></div></div></div>' +
 									        '<div class="jp-volume-bar"><div class="jp-volume-bar-value"></div></div><div class="jp-current-time"></div><div class="jp-duration"></div></div></div></div>';
 									
-									$("#jquery_jplayer_1").jPlayer({
-								       	function () {
-								          $(this).jPlayer("setMedia", {
-								            m4a: "http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a",
-								            oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
-								          });
-								        },
-								        swfPath: "/jplayer",
-								        supplied: "m4a, oga"
-								      });
+									document.setupAudioPlayer(mp3PlaybackUrl, oggPlaybackUrl, wavPlaybackUrl;
 								                                     
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
@@ -919,4 +910,18 @@ function logIt(msg,status) {
 		document.getElementById('oidnum').focus();
 		document.getElementById('oidnum').select();
 	}
+}
+
+function setupAudioPlayer (mp3, ogg, wav) {
+    $("#jquery_jplayer_1").jPlayer({
+        ready: function () {
+          $(this).jPlayer("setMedia", {
+            mp3: mp3,
+            oga: ogg,
+            wav: wav
+          });
+        },
+        swfPath: "/jplayer",
+        supplied: "mp3, oga, wav"
+      });
 }
