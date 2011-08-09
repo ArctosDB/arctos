@@ -79,8 +79,8 @@ a.jp-pause {
 }
 div.jp-audio div.jp-type-single a.jp-play,
 div.jp-audio div.jp-type-single a.jp-pause {
-	top:20px;
-	left:40px;
+	top:5px;
+	left:5px;
 }
 div.jp-audio div.jp-type-playlist a.jp-play,
 div.jp-audio div.jp-type-playlist a.jp-pause {
