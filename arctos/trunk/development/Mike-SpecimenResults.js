@@ -689,7 +689,7 @@ function success_getSpecResultsData(result){
 //                                    theInnerHtml += 'Player goes here.<br>';
 
 									theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div>' +
-										'<div class="jp-audio" style="width:150px;">' +
+										'<div class="jp-audio">' +
 										'<div class="jp-type-single">' +
 										'<div id="jp_interface_1" class="jp-interface">' +
 										'<u1 class="jp-controls">' +
