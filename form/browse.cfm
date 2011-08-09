@@ -1,5 +1,5 @@
 <!--- exclude UAM Mammals users --->
-<cfif session.fancycoid is 1 or session.portal_id is 1 or session.username is "pub_usr_uam_mamm">
+<cfif session.portal_id is 1 or session.username is "pub_usr_uam_mamm">
 	<cfabort>
 </cfif>
 <cftry>
