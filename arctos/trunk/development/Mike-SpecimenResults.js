@@ -694,7 +694,7 @@ function success_getSpecResultsData(result){
 										'<div id="jp_interface_1" class="jp-interface">' +
 										'<ul class="jp-controls">' +
 										'<a href="#" class="jp-play" tabindex="1">play</a>' +
-										'<a href="#" class="jp-pause" tabindex="1">pause</a>
+										'<a href="#" class="jp-pause" tabindex="1">pause</a>' +
 										'</u1>' +
 										'</div></div></div>';
 													                                    
