@@ -21,7 +21,7 @@ div.jp-video {
 	 * Eg. 1.25em = 1 / 0.8em
 	 */
 
-	font-size:1.25em;
+	font-size:small;
 
 	font-family:Verdana, Arial, sans-serif;
 	line-height:1.6;
