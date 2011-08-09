@@ -1,8 +1,8 @@
 <!-----------
 create table browse (
 	insdate timestamp default systimestamp,
-	link varchar2(255),
-	display varchar2(255)
+	link varchar2(4000),
+	display varchar2(4000)
 );
 create or replace public synonym browse for browse;
 
