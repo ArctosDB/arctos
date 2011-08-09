@@ -617,18 +617,6 @@ function success_getSpecResultsData(result){
 
                                 // This is where my media edits begin.
 
-                                /*
-                                 Step #1: Obtain the correct item ID number:
-                                 thisMedia.DATA.media_uri[m]
-                                 Step #2: Obtain the boolean: using IE (T) or not (F).
-                                 Step #3: Calculate all correct links.
-                                 Step #4: Create the <div> tag, insert links, and format correctly.
-                                 Step #4a: Add IE fix if using IE is True.
-
-                                 Image for audio: pURI='images/audioNoThumb.png';
-                                 Image for generic: pURI='/images/noThumb.jpg';
-                                 */
-
                                 if (thisMedia.DATA.mimecat[m] != 'audio') {
 
                                     if (thisMedia.DATA.preview_uri[m].length > 0) {
@@ -647,47 +635,16 @@ function success_getSpecResultsData(result){
                                 } else {
 
                                     // Do arithmetic.
-                                    
                                     wavPlaybackUrl = thisMedia.DATA.media_uri[m],
                                         length = wavPlaybackUrl.split('/').length,
                                         fileName = wavPlaybackUrl.split('/')[length - 1].replace('.wav', ''),
                                         mp3PlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/' + fileName + '.mp3',
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
-                                    // Use when browser isn't IE.
-                                    html5 = '<audio preload="auto" autobuffer>' +
-                                        '    <source src="' + mp3PlaybackUrl + '" />' +
-                                        '    <source src="' + oggPlaybackUrl + '" />' +
-                                        '    <source src="' + wavPlaybackUrl + '" />' +
-                                        '</audio>';
-
-                                    // Define a smaller audio player.
-                                    player = '<div id="player">' +
-                                        '<button onClick="document.getElementById(\'audio\').play()">Play</button>' +
-                                        '<button onClick="document.getElementById(\'audio\').pause()">Pause</button>' +
-                                        '</div>';
-
-                                    // Use when browser is IE.
-                                    ieShim = '<ul class="graphic"><li><a href="' + mp3PlaybackUrl + '">' + fileName + '.mp3</a></li></ul>';
-
-                                    // Figure out what the browser is...? Maybe one day.
-                                    isUsingInternetExplorer = false;
-
                                     // Create an audio thumb.
-                                    theInnerHtml += '<div class="audio_thumb" align="center" style="width:150px; vertical-align:middle; font-size:small;">';
-
-									// Set up the audio files.
-									
-//									theInnerHtml += '<audio id="audio" preload="auto" autobuffer>' +
-//                                       '    <source src="' + mp3PlaybackUrl + '" />' +
-//                                        '    <source src="' + oggPlaybackUrl + '" />' +
-//                                        '    <source src="' + wavPlaybackUrl + '" />' +
-//                                        '</audio>';
+                                    theInnerHtml += '<div class="audio_thumb" align="center" style="width:150px; vertical-align:middle; font-size:small;">';	
                                         
                                     // Place the player here now.
-                                    
-//                                    theInnerHtml += 'Player goes here.<br>';
-
 
 theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div><div class="jp-audio"><div class="jp-type-single"><div id="jp_interface_1" class="jp-interface"><ul class="jp-controls">' +
           '<li><a href="#" class="jp-play" tabindex="1">play</a></li><li><a href="#" class="jp-pause" tabindex="1">pause</a></li>' +
@@ -700,7 +657,7 @@ theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div><div class=
                                     theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '<br>';
 
                                     // Display all downloads on one line.
-                                    theInnerHtml += '<span class="item" style="vertical-align:middle;">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
+                                    theInnerHtml += '<span class="item" align="center" style="vertical-align:middle;font-size:small">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
                                         '/' + '<a id="download" href="' + oggPlaybackUrl + '">ogg</a>' +
                                         '/' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a>' + '.';
 
