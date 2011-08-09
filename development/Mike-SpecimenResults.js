@@ -646,7 +646,7 @@ function success_getSpecResultsData(result){
                                         
                                     // Place the player here now.
 								  
-									theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none; "><audio id="jp_audio_0" preload="metadata" src="http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a"></audio></div><div class="jp-audio"><div class="jp-type-single"><div id="jp_interface_1" class="jp-interface"><ul class="jp-controls">' +
+									theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div><div class="jp-audio"><div class="jp-type-single"><div id="jp_interface_1" class="jp-interface"><ul class="jp-controls">' +
 									          '<li><a href="#" class="jp-play" tabindex="1">play</a></li><li><a href="#" class="jp-pause" tabindex="1">pause</a></li>' +
 									          '<li><a href="#" class="jp-mute" tabindex="1">mute</a></li><li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>' +
 									        '</ul><div class="jp-progress"><div class="jp-seek-bar"><div class="jp-play-bar"></div></div></div>' +
