@@ -28,7 +28,7 @@ div.jp-video {
 	color: #666;
 }
 div.jp-audio {
-	width:420px;
+	width:150px;
 }
 div.jp-video-270p {
 	width:480px;
@@ -38,10 +38,8 @@ div.jp-video-360p {
 }
 div.jp-interface {
 	position: relative;
-	background-color:#eee;
-	/* width:418px; */
+	/* width:150px; */
 	width:100%;
-	border:1px solid #009be3;
 }
 div.jp-audio div.jp-type-single div.jp-interface {
 	height:80px;
