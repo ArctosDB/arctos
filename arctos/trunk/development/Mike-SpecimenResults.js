@@ -913,17 +913,5 @@ function logIt(msg,status) {
 }
 
 function setupAudioPlayer (mp3, ogg, wav) {
-    $(document).ready(function(){
-   	  $("#jquery_jplayer_1").jPlayer({
-        ready: function () {
-          $(this).jPlayer("setMedia", {
-            mp3: mp3,
-            oga: ogg,
-            wav: wav
-          });
-        },
-        swfPath: "/jplayer",
-        supplied: "mp3, oga, wav"
-      });
-    });
+	// do nada
 }
