@@ -82,7 +82,7 @@
 				<cfloop query="ctCollObjDisp">
 					<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>
 				</cfloop>
-			</select>
+			</select><span class="infoLink" onclick="getCtDoc('ctcoll_obj_disp',SpecData.coll_obj_disposition.value);">Define</span>
 		</td>
 	</tr>
 	<tr>
@@ -95,7 +95,7 @@
 				<cfloop query="ctCollObjDisp">
 					<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>
 				</cfloop>
-			</select>
+			</select><span class="infoLink" onclick="getCtDoc('ctcoll_obj_disp',SpecData.part_disposition.value);">Define</span>
 		</td>
 	</tr>
 	<tr>

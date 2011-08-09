@@ -40,7 +40,8 @@
 				<cfloop query="ctmedia_type">
 					<option value="#ctmedia_type.media_type#">#ctmedia_type.media_type#</option>
 				</cfloop>
-			</select>
+			</select><span class="infoLink" onclick="getCtDoc('ctmedia_type',SpecData.media_type.value);">Define</span>
+
 		</td>
 	</tr>
 	<tr>
