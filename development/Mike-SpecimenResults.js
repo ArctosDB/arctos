@@ -678,16 +678,24 @@ function success_getSpecResultsData(result){
 
 									// Set up the audio files.
 									
-									theInnerHtml += '<audio id="audio" preload="auto" autobuffer>' +
-                                        '    <source src="' + mp3PlaybackUrl + '" />' +
-                                        '    <source src="' + oggPlaybackUrl + '" />' +
-                                        '    <source src="' + wavPlaybackUrl + '" />' +
-                                        '</audio>';
+//									theInnerHtml += '<audio id="audio" preload="auto" autobuffer>' +
+//                                       '    <source src="' + mp3PlaybackUrl + '" />' +
+//                                        '    <source src="' + oggPlaybackUrl + '" />' +
+//                                        '    <source src="' + wavPlaybackUrl + '" />' +
+//                                        '</audio>';
                                         
                                     // Place the player here now.
                                     
-                                    theInnerHtml += 'Player goes here.<br>';
-                                    
+//                                    theInnerHtml += 'Player goes here.<br>';
+
+									theInnerHtml += '<div id="jquery_jplayer_1" class="jp-jplayer"></div>' +
+										'<div class="jp-audio">' +
+										'<div class="jp-type-single">' +
+										'<div id="jp_interface_1" class="jp-interface">' +
+										'<ul class="jp-controls">' +
+										'<a href="#" class="jp-play" tabindex="1">play</a>' +
+										'</div></div></div>';
+													                                    
                                     // Display the type of media explicitly.
                                     theInnerHtml += thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '<br>';
 
