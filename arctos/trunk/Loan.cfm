@@ -513,7 +513,7 @@
 	<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from shipment where transaction_id = #transaction_id#
 	</cfquery>
-	<div class="newRec">
+	<table><tr><td class="newRec">
 	Create a shipment....
 	<cfform name="newshipment" method="post" action="Loan.cfm">
 		<input type="hidden" name="Action" value="createShip">
@@ -574,9 +574,11 @@
 		</select>
 		<br><input type="submit" value="Create Shipment" class="insBtn">			
 	</cfform>
-	</div>
-	<cfset s=0>
+</td></tr>	
+<cfset s=0>
 	<cfloop query="ship">
+    	<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#><td>
+
 		<cfset s=s+1>
 		<cfquery name="shipped_to_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select formatted_addr from addr where 
@@ -652,14 +654,17 @@
 				<option <cfif foreign_shipment_fg is 0> selected="selected" </cfif>value="0">no</option>
 				<option <cfif foreign_shipment_fg is 1> selected="selected" </cfif>value="1">yes</option>
 			</select>
-			<br><input type="submit" value="Save Shipment" class="savBtn">			
+			<br><input type="submit" value="Save Shipment" class="savBtn">
 		</cfform>
 		
 		
 		
 		
-		
+					</td></tr>		
+
 	</cfloop>
+	
+	</table>
 	<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			permit.permit_id,
