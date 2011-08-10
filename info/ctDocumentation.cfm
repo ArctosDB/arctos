@@ -5,7 +5,7 @@
 </cfif>
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfset tableName = right(table,len(table)-2)>
-<cfif not isdefined("field")>
+<cfif not isdefined("field") or field is "undefined">
 	<cfset field="">
 </cfif>
 
