@@ -138,8 +138,7 @@
 							<cfloop query="ctLoanType">
 								<option value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
 							</cfloop>
-						</select>
-						<span class="infoLink" onclick="getCtDoc('ctloan_type');">Define</span>
+						</select><span class="infoLink" onclick="getCtDoc('ctloan_type');">Define</span>
 					</td>
 					<td>
 						<label for="loan_status">Loan Status</label>
@@ -149,7 +148,7 @@
 										<cfif #ctLoanStatus.loan_status# is "open">selected='selected'</cfif>
 										>#ctLoanStatus.loan_status#</option>
 							</cfloop>
-						</select>
+						</select><span class="infoLink" onclick="getCtDoc('ctloan_status');">Define</span>
 					</td>
 				</tr>
 				<tr>
@@ -330,7 +329,10 @@
 		<table id="loanAgents" border>
 			<tr>
 				<th>Agent Name <span class="likeLink" onclick="addTransAgent()">Add Row</span></th>
-				<th>Role</th>
+				<th>
+					Role
+					<span class="infoLink" onclick="getCtDoc('cttrans_agent_role');">Define</span>
+				</th>
 				<th>Delete?</th>
 				<th>CloneAs</th>
 				<th></th>
@@ -392,7 +394,7 @@
 							<option <cfif ctLoanType.loan_type is loanDetails.loan_type> selected="selected" </cfif>
 								value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
 						</cfloop>
-					</select>
+					</select><span class="infoLink" onclick="getCtDoc('ctloan_type');">Define</span>
 				</td>
 				<td>
 					<label for="loan_status">Loan Status</label>
@@ -401,7 +403,7 @@
 							<option <cfif ctLoanStatus.loan_status is loanDetails.loan_status> selected="selected" </cfif>
 								value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
 						</cfloop>
-					</select>
+					</select><span class="infoLink" onclick="getCtDoc('ctloan_status');">Define</span>
 				</td>
 			</tr>
 			<tr>
@@ -546,7 +548,7 @@
 			<cfloop query="ctshipment_type">
 				<option value="#ctshipment_type.shipment_type#">#ctshipment_type.shipment_type#</option>
 			</cfloop>
-		</select>
+		</select><span class="infoLink" onclick="getCtDoc('ctshipment_type');">Define</span>
 		<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
 		<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5" 
 			readonly="yes" class="reqdClr"></textarea>
@@ -627,7 +629,7 @@
 						<cfif ctshipment_type.shipment_type is ship.shipment_type> selected="selected" </cfif>
 							value="#ctshipment_type.shipment_type#">#ctshipment_type.shipment_type#</option>
 				</cfloop>
-			</select>
+			</select><span class="infoLink" onclick="getCtDoc('ctshipment_type');">Define</span>
 			<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
 			<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5" 
 				readonly="yes" class="reqdClr">#shipped_to_addr_id.formatted_addr#</textarea>
