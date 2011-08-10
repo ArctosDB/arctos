@@ -603,17 +603,17 @@
 				<option value=""></option>
 				<cfloop query="ctShip">
 					<option 
-						<cfif ctShip.shipped_carrier_method is thisCarrier> selected="selected" </cfif>
+						<cfif ctShip.shipped_carrier_method is ship.shipped_carrier_method> selected="selected" </cfif>
 							value="#ctShip.shipped_carrier_method#">#ctShip.shipped_carrier_method#</option>
 				</cfloop>
 			</select>
 			<label for="shipment_type">Shipment Type</label>
 			<select name="shipment_type" id="shipment_type" size="1" class="reqdClr">
 				<option value=""></option>
-				<cfloop query="ctShip">
+				<cfloop query="ctshipment_type">
 					<option 
-						<cfif ctShip.shipped_carrier_method is thisCarrier> selected="selected" </cfif>
-							value="#ctShip.shipped_carrier_method#">#ctShip.shipped_carrier_method#</option>
+						<cfif ctshipment_type.shipment_type is ship.shipment_type> selected="selected" </cfif>
+							value="#ctshipment_type.shipment_type#">#ctshipment_type.shipment_type#</option>
 				</cfloop>
 			</select>
 			<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
