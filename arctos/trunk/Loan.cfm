@@ -22,6 +22,15 @@
 <cfquery name="ctShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select shipped_carrier_method from ctshipped_carrier_method order by shipped_carrier_method
 </cfquery>
+<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select loan_type from ctloan_type order by loan_type
+</cfquery>
+<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select loan_status from ctloan_status order by loan_status
+</cfquery>
+<cfquery name="ctCollObjDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
+</cfquery>
 <style>
 	.nextnum{
 		border:2px solid green;
@@ -130,6 +139,7 @@
 								<option value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
 							</cfloop>
 						</select>
+						<span class="infoLink" onclick="getCtDoc('ctloan_type');">Define</span>
 					</td>
 					<td>
 						<label for="loan_status">Loan Status</label>
@@ -579,8 +589,6 @@
 	<cfloop query="ship">
     	<cfset s=s+1>
 		<tr	#iif(s MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#><td>
-
-		
 		<cfquery name="shipped_to_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select formatted_addr from addr where 
 			addr_id = #ship.shipped_to_addr_id#
@@ -657,14 +665,8 @@
 			</select>
 			<br><input type="submit" value="Save Shipment" class="savBtn">
 		</cfform>
-		
-		
-		
-		
-					</td></tr>		
-
+		</td></tr>
 	</cfloop>
-	
 	</table>
 	<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
@@ -1110,15 +1112,6 @@
 			 	value="Find all loans that are not 'closed'" class="schBtn">	
 		</form>
 	</div>
-	<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select loan_type from ctloan_type order by loan_type
-	</cfquery>
-	<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select loan_status from ctloan_status order by loan_status
-	</cfquery>
-	<cfquery name="ctCollObjDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select coll_obj_disposition from ctcoll_obj_disp
-	</cfquery>
 	<br><form name="SpecData" action="Loan.cfm" method="post">
 			<input type="hidden" name="Action" value="listLoans">
 			<input type="hidden" name="project_id" <cfif project_id gt 0> value="#project_id#" </cfif>>
