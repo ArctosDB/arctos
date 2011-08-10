@@ -513,7 +513,8 @@
 	<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from shipment where transaction_id = #transaction_id#
 	</cfquery>
-	
+	<div class="newRec">
+	Create a shipment....
 	<cfform name="newshipment" method="post" action="Loan.cfm">
 		<input type="hidden" name="Action" value="createShip">
 		<input type="hidden" name="transaction_id" value="#transaction_id#">
@@ -573,7 +574,7 @@
 		</select>
 		<br><input type="submit" value="Create Shipment" class="insBtn">			
 	</cfform>
-	
+	</div>
 	<cfset s=0>
 	<cfloop query="ship">
 		<cfset s=s+1>
@@ -585,7 +586,10 @@
 			select formatted_addr from addr where 
 			addr_id = #ship.shipped_from_addr_id#
 		</cfquery>
-			
+		<cfquery name="packed_by_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select agent_name from preferred_agent_name where 
+			agent_id = #packed_by_agent_id#
+		</cfquery>	
 		<cfform name="shipment#s#" method="post" action="Loan.cfm">
 			<input type="hidden" name="Action" value="saveShipEdit">
 			<input type="hidden" name="transaction_id" value="#transaction_id#">
