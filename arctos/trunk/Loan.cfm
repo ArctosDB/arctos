@@ -592,7 +592,7 @@
 		</cfquery>	
 		<cfform name="shipment#s#" method="post" action="Loan.cfm">
 			<input type="hidden" name="Action" value="saveShipEdit">
-			<input type="hidden" name="transaction_id" value="#transaction_id#">
+			<input type="hidden" name="shipment_id" value="#shipment_id#">
 			<label for="packed_by_agent">Packed By Agent</label>
 			<input type="text" name="packed_by_agent" class="reqdClr" size="50" value="#packed_by_agent.agent_name#"
 				  onchange="getAgent('packed_by_agent_id','packed_by_agent','shipment#s#',this.value); return false;"
@@ -748,73 +748,74 @@
 	</cfquery>
 	<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
 </cfif>
+
 <!-------------------------------------------------------------------------------------------------->
-<cfif action is "saveShip">
-	<cfoutput>
-		<cfquery name="isShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from shipment where transaction_id = #transaction_id#
-		</cfquery>
-		<cfif isShip.recordcount is 0>
-			<cfquery name="newShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				INSERT INTO shipment (
-					TRANSACTION_ID
-					,PACKED_BY_AGENT_ID
-					,SHIPPED_CARRIER_METHOD
-					,CARRIERS_TRACKING_NUMBER
-					,SHIPPED_DATE
-					,PACKAGE_WEIGHT
-					,HAZMAT_FG
-					,INSURED_FOR_INSURED_VALUE
-					,SHIPMENT_REMARKS
-					,CONTENTS
-					,FOREIGN_SHIPMENT_FG
-					,SHIPPED_TO_ADDR_ID
-					,SHIPPED_FROM_ADDR_ID
-				) VALUES (
-					#TRANSACTION_ID#
-					,#PACKED_BY_AGENT_ID#
-					,'#SHIPPED_CARRIER_METHOD#'
-					,'#CARRIERS_TRACKING_NUMBER#'
-					,'#dateformat(SHIPPED_DATE,"yyyy-mm-dd")#'
-					,'#PACKAGE_WEIGHT#'
-					,#HAZMAT_FG#
-					<cfif len(INSURED_FOR_INSURED_VALUE) gt 0>
-						,#INSURED_FOR_INSURED_VALUE#
-					<cfelse>
-					 	,NULL
-					</cfif>
-					,'#SHIPMENT_REMARKS#'
-					,'#CONTENTS#'
-					,#FOREIGN_SHIPMENT_FG#
-					,#SHIPPED_TO_ADDR_ID#
-					,#SHIPPED_FROM_ADDR_ID#
-				)
-			</cfquery>
-		  <cfelse>
-			<cfquery name="upShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				 UPDATE shipment SET
-					PACKED_BY_AGENT_ID = #PACKED_BY_AGENT_ID#
-					,SHIPPED_CARRIER_METHOD = '#SHIPPED_CARRIER_METHOD#'
-					,CARRIERS_TRACKING_NUMBER='#CARRIERS_TRACKING_NUMBER#'
-					,SHIPPED_DATE='#dateformat(SHIPPED_DATE,"yyyy-mm-dd")#'
-					,PACKAGE_WEIGHT='#PACKAGE_WEIGHT#'
-					,HAZMAT_FG=#HAZMAT_FG#
-					<cfif len(#INSURED_FOR_INSURED_VALUE#) gt 0>
-						,INSURED_FOR_INSURED_VALUE=#INSURED_FOR_INSURED_VALUE#
-					<cfelse>
-					 	,INSURED_FOR_INSURED_VALUE=null
-					</cfif>
-					,SHIPMENT_REMARKS='#SHIPMENT_REMARKS#'
-					,CONTENTS='#CONTENTS#'
-					,FOREIGN_SHIPMENT_FG=#FOREIGN_SHIPMENT_FG#
-					,SHIPPED_TO_ADDR_ID=#SHIPPED_TO_ADDR_ID#
-					,SHIPPED_FROM_ADDR_ID=#SHIPPED_FROM_ADDR_ID#
-				WHERE
-					transaction_id = #TRANSACTION_ID#
-			</cfquery>
-		</cfif>
-		<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#" addtoken="false">
-	</cfoutput>
+<cfif action is "createShip">
+	<cfquery name="newShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		INSERT INTO shipment (
+			TRANSACTION_ID
+			,PACKED_BY_AGENT_ID
+			,SHIPPED_CARRIER_METHOD
+			,CARRIERS_TRACKING_NUMBER
+			,SHIPPED_DATE
+			,PACKAGE_WEIGHT
+			,HAZMAT_FG
+			,INSURED_FOR_INSURED_VALUE
+			,SHIPMENT_REMARKS
+			,CONTENTS
+			,FOREIGN_SHIPMENT_FG
+			,SHIPPED_TO_ADDR_ID
+			,SHIPPED_FROM_ADDR_ID
+			,shipment_type
+		) VALUES (
+			#TRANSACTION_ID#
+			,#PACKED_BY_AGENT_ID#
+			,'#SHIPPED_CARRIER_METHOD#'
+			,'#CARRIERS_TRACKING_NUMBER#'
+			,'#dateformat(SHIPPED_DATE,"yyyy-mm-dd")#'
+			,'#PACKAGE_WEIGHT#'
+			,#HAZMAT_FG#
+			<cfif len(INSURED_FOR_INSURED_VALUE) gt 0>
+				,#INSURED_FOR_INSURED_VALUE#
+			<cfelse>
+			 	,NULL
+			</cfif>
+			,'#SHIPMENT_REMARKS#'
+			,'#CONTENTS#'
+			,#FOREIGN_SHIPMENT_FG#
+			,#SHIPPED_TO_ADDR_ID#
+			,#SHIPPED_FROM_ADDR_ID#
+			,'#shipment_type#'
+		)
+	</cfquery>
+	<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#" addtoken="false">
+</cfif>
+
+<!-------------------------------------------------------------------------------------------------->
+<cfif action is "saveShipEdit">
+	<cfquery name="upShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		 UPDATE shipment SET
+			PACKED_BY_AGENT_ID = #PACKED_BY_AGENT_ID#
+			,SHIPPED_CARRIER_METHOD = '#SHIPPED_CARRIER_METHOD#'
+			,CARRIERS_TRACKING_NUMBER='#CARRIERS_TRACKING_NUMBER#'
+			,SHIPPED_DATE='#dateformat(SHIPPED_DATE,"yyyy-mm-dd")#'
+			,PACKAGE_WEIGHT='#PACKAGE_WEIGHT#'
+			,shipment_type='#shipment_type#'
+			,HAZMAT_FG=#HAZMAT_FG#
+			<cfif len(#INSURED_FOR_INSURED_VALUE#) gt 0>
+				,INSURED_FOR_INSURED_VALUE=#INSURED_FOR_INSURED_VALUE#
+			<cfelse>
+			 	,INSURED_FOR_INSURED_VALUE=null
+			</cfif>
+			,SHIPMENT_REMARKS='#SHIPMENT_REMARKS#'
+			,CONTENTS='#CONTENTS#'
+			,FOREIGN_SHIPMENT_FG=#FOREIGN_SHIPMENT_FG#
+			,SHIPPED_TO_ADDR_ID=#SHIPPED_TO_ADDR_ID#
+			,SHIPPED_FROM_ADDR_ID=#SHIPPED_FROM_ADDR_ID#
+		WHERE
+			shipment_id = #shipment_id#
+	</cfquery>
+	<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#transaction_id#" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "saveEdits">
