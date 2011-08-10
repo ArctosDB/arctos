@@ -4,6 +4,7 @@
 	<cfabort>
 </cfif>
 <cfinclude template="/includes/_frameHeader.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfset tableName = right(table,len(table)-2)>
 <cfif not isdefined("field") or field is "undefined">
 	<cfset field="">
@@ -19,15 +20,15 @@
 		select * from #table#
 	</cfquery>
 	<cfif table is "ctmedia_license">
-		<table border="1">
+		<table border id="t" class="sortable">
 			<tr>
-				<td>
+				<th>
 					<strong>License</strong>
-				</td>
-				<td><strong>Description</strong></td>
-				<td>
+				</th>
+				<th><strong>Description</strong></th>
+				<th>
 					<strong>URI</strong>
-				</td>
+				</th>
 			</tr>
 			<cfloop query="docs">
 				<tr>
@@ -55,18 +56,18 @@
 			</cfif>
 		</cfquery>
 		
-		<table border="1">
+		<table border id="t" class="sortable">
 			<tr>
-				<td>
+				<th>
 					<strong>Data Value</strong>
-				</td>
-				<td><strong>Collection</strong></td>
-				<td>
+				</th>
+				<th><strong>Collection</strong></th>
+				<th>
 					<strong>Documentation</strong>
-				</td>
+				</th>
 			</tr>
-			<cfif len(#field#) gt 0>
-				<cfif #docs.columnList# contains "collection_cde">
+			<cfif len(field) gt 0>
+				<cfif docs.columnList contains "collection_cde">
 					<cfloop query="chosenOne">
 						<tr style="background-color:##339999 ">
 							<td nowrap>#field#</td>
