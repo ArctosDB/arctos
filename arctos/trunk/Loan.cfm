@@ -577,9 +577,10 @@
 </td></tr>	
 <cfset s=0>
 	<cfloop query="ship">
-    	<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#><td>
+    	<cfset s=s+1>
+		<tr	#iif(s MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#><td>
 
-		<cfset s=s+1>
+		
 		<cfquery name="shipped_to_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select formatted_addr from addr where 
 			addr_id = #ship.shipped_to_addr_id#
