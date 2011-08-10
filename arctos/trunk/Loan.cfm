@@ -5,7 +5,7 @@
 	select loan_type from ctloan_type order by loan_type
 </cfquery>
 <cfquery name="ctshipment_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select shipment_type from ctshipment_type order by shipment_type
+	select shipment_type from ctshipment_type where shipment_type like 'loan%' order by shipment_type
 </cfquery>
 <cfquery name="ctLoanStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select loan_status from ctloan_status order by loan_status
