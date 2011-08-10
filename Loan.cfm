@@ -593,6 +593,7 @@
 		<cfform name="shipment#s#" method="post" action="Loan.cfm">
 			<input type="hidden" name="Action" value="saveShipEdit">
 			<input type="hidden" name="shipment_id" value="#shipment_id#">
+			<input type="hidden" name="transaction_id" value="#transaction_id#">
 			<label for="packed_by_agent">Packed By Agent</label>
 			<input type="text" name="packed_by_agent" class="reqdClr" size="50" value="#packed_by_agent.agent_name#"
 				  onchange="getAgent('packed_by_agent_id','packed_by_agent','shipment#s#',this.value); return false;"
