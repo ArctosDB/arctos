@@ -1,14 +1,17 @@
 <cfinclude template = "/includes/_header.cfm">
-<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctshipment_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select shipment_type from ctshipment_type order by shipment_type
+	</cfquery>
+	<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select borrow_status from ctborrow_status
 	</cfquery>
 	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(institution_acronym)  from collection
 	</cfquery>
-<cfquery name="cttrans_agent_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="cttrans_agent_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select distinct(trans_agent_role)  from cttrans_agent_role order by trans_agent_role
 </cfquery>
-<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from collection order by collection
 </cfquery>
 <script>
@@ -91,6 +94,13 @@
 				<option value="#ctStatus.borrow_status#">#ctStatus.borrow_status#</option>
 			</cfloop>
 		</select>
+		<label for="shipment_type">Shipment Type</label>
+		<select name="shipment_type" id="shipment_type" size="1" class="reqdCld">
+			<option value=""></option>
+			<cfloop query="ctshipment_type">
+				<option value="#ctshipment_type.shipment_type#">#ctshipment_type.shipment_type#</option>
+			</cfloop>
+		</select>
 		<label for="received_date">Received Date</label>
 		<input type="text" name="received_date_after" id="received_date_after">-
 		<input type="text" name="received_date_before" id="received_date_before">
@@ -121,10 +131,15 @@
 		<cfset f="trans,
 				borrow,
 				trans_agent,
-				preferred_agent_name">
+				preferred_agent_name,
+				shipment">
 		<cfset w="trans.transaction_id = borrow.transaction_id and
+				trans.transaction_id = shipment.transaction_id  (+) and
 				trans.transaction_id = trans_agent.transaction_id (+) and
 				trans_agent.agent_id=preferred_agent_name.agent_id (+)">
+		<cfif isdefined("shipment_type") and len(shipment_type) gt 0>
+			<cfset w=w & " and shipment.shipment_type='#shipment_type#'">
+		</cfif>
 		
 		<cfif (isdefined("trans_agent_role_1") and len(trans_agent_role_1) gt 0) or (isdefined("agent_1") and len(agent_1) gt 0)>
 			<cfset f=f & ", agent_name a1,trans_agent ta1">
@@ -578,6 +593,7 @@
 				SHIPPED_CARRIER_METHOD,
 				CARRIERS_TRACKING_NUMBER,
 				SHIPPED_DATE,
+				shipment_type,
 				PACKAGE_WEIGHT,
 				HAZMAT_FG,
 				INSURED_FOR_INSURED_VALUE,
@@ -614,6 +630,13 @@
 				<option value=""></option>
 				<cfloop query="ctShip">
 					<option value="#ctShip.shipped_carrier_method#">#ctShip.shipped_carrier_method#</option>
+				</cfloop>
+			</select>
+			<label for="shipment_type">Shipment Type</label>
+			<select name="shipment_type" id="shipment_type" size="1" class="reqdClr">
+				<option value=""></option>
+				<cfloop query="ctshipment_type">
+					<option value="#ctshipment_type.shipment_type#">#ctshipment_type.shipment_type#</option>
 				</cfloop>
 			</select>
 			<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
@@ -673,6 +696,15 @@
 						<option 
 							<cfif ctShip.shipped_carrier_method is shipment.shipped_carrier_method> selected="selected" </cfif>
 								value="#ctShip.shipped_carrier_method#">#ctShip.shipped_carrier_method#</option>
+					</cfloop>
+				</select>
+				<label for="shipment_type">Shipment Type</label>
+				<select name="shipment_type" id="shipment_type" size="1" class="reqdClr">
+					<option value=""></option>
+					<cfloop query="ctshipment_type">
+						<option <cfif ctshipment_type.shipment_type is shipment.shipment_type>
+							selected="selected"
+						</cfif> value="#ctshipment_type.shipment_type#">#ctshipment_type.shipment_type#</option>
 					</cfloop>
 				</select>
 				<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
@@ -812,6 +844,7 @@
 				,SHIPPED_DATE='#dateformat(SHIPPED_DATE,"yyyy-mm-dd")#'
 				,PACKAGE_WEIGHT='#PACKAGE_WEIGHT#'
 				,HAZMAT_FG=#HAZMAT_FG#
+				,shipment_type='#shipment_type#'
 				<cfif len(#INSURED_FOR_INSURED_VALUE#) gt 0>
 					,INSURED_FOR_INSURED_VALUE=#INSURED_FOR_INSURED_VALUE#
 				<cfelse>
@@ -845,7 +878,8 @@
 					,CONTENTS
 					,FOREIGN_SHIPMENT_FG
 					,SHIPPED_TO_ADDR_ID
-					,SHIPPED_FROM_ADDR_ID
+					,SHIPPED_FROM_ADDR_ID,
+					shipment_type
 				) VALUES (
 					#TRANSACTION_ID#
 					,#PACKED_BY_AGENT_ID#
@@ -863,7 +897,8 @@
 					,'#CONTENTS#'
 					,#FOREIGN_SHIPMENT_FG#
 					,#SHIPPED_TO_ADDR_ID#
-					,#SHIPPED_FROM_ADDR_ID#
+					,#SHIPPED_FROM_ADDR_ID#,
+					'#shipment_type#'
 				)	
 		</cfquery>
 		<cflocation url="borrow.cfm?transaction_id=#transaction_id#&action=edit" addtoken="false">
@@ -878,7 +913,7 @@
 			<tr>
 				<td>
 					<label for="collection_id">Collection</label>
-					<select name="collection_id" size="1" id="collection_id">
+					<select name="collection_id" size="1" id="collection_id"  class="reqdClr">
 						<option value=""></option>
 						<cfloop query="ctcollection">
 							<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
@@ -914,7 +949,7 @@
 			<tr>
 				<td>
 					<label for="trans_date">Transaction Date</label>
-					<input type="text" name="trans_date" id="trans_date">
+					<input type="text" name="trans_date" id="trans_date" value="#dateformat(now(),'yyyy-mm-dd')#">
 				</td>
 				<td>
 					<label for="lenders_loan_date">Lender's Loan Date</label>
@@ -924,7 +959,11 @@
 					<label for="borrow_status">Status</label>
 					<select name="borrow_status" size="1" class="reqdCld">
 						<cfloop query="ctStatus">
-							<option value="#ctStatus.borrow_status#">#ctStatus.borrow_status#</option>
+							<option 
+								<cfif ctStatus.borrow_status is "open">
+									selected="selected"
+								</cfif>
+							value="#ctStatus.borrow_status#">#ctStatus.borrow_status#</option>
 						</cfloop>
 					</select>
 				</td>
