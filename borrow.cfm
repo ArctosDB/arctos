@@ -399,7 +399,10 @@
 					<table border>
 						<tr>
 							<th>Agent Name</th>
-							<th>Role</th>
+							<th>
+								Role
+								<span class="infoLink" onclick="getCtDoc('cttrans_agent_role');">Define</span>
+							</th>
 							<th>Delete?</th>
 						</tr>
 						<cfloop query="transAgents">
@@ -485,7 +488,7 @@
 								<cfif #ctStatus.borrow_status# is "#getBorrow.BORROW_STATUS#"> selected </cfif>
 							value="#ctStatus.borrow_status#">#ctStatus.borrow_status#</option>
 						</cfloop>
-					</select>
+					</select><span class="infoLink" onclick="getCtDoc('ctborrow_status');">Define</span>
 				</td>
 			</tr>
 			<tr>
@@ -638,7 +641,7 @@
 				<cfloop query="ctshipment_type">
 					<option value="#ctshipment_type.shipment_type#">#ctshipment_type.shipment_type#</option>
 				</cfloop>
-			</select>
+			</select><span class="infoLink" onclick="getCtDoc('ctshipment_type');">Define</span>
 			<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
 			<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5" 
 				readonly="yes" class="reqdClr"></textarea>
@@ -706,7 +709,7 @@
 							selected="selected"
 						</cfif> value="#ctshipment_type.shipment_type#">#ctshipment_type.shipment_type#</option>
 					</cfloop>
-				</select>
+				</select><span class="infoLink" onclick="getCtDoc('ctshipment_type');">Define</span>
 				<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
 				<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5" 
 					readonly="yes" class="reqdClr">#shipped_to_addr#</textarea>
