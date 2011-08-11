@@ -80,8 +80,8 @@
 		<tr>
 			<td>#cat_num#</td>
 			<td>#catitemdisp#</td>
-			<td>#spdisp</td>
-			<td>#cirem##</td>
+			<td>#spdisp#</td>
+			<td>#cirem#</td>
 			<td>#sprem#</td>
 		</tr>
 	</cfloop>	
