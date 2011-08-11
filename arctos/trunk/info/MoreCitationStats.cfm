@@ -299,7 +299,11 @@
 		<tr>
 			<td>#collection#</td>
 			<td>#c.totSpec#</td>
-			<cfset percentLoaned=c.totSpec/loanedSpec.tot>
+			<cfif c.totSpec gt 0>
+				<cfset percentLoaned=loanedSpec.tot/c.totSpec>
+			<cfelse>
+				<cfset percentLoaned='NULL'>
+			</cfif>
 			<td>#percentLoaned#</td>
 			<td>#loanedSpec.tot#</td>
 			<td>#numLoaned#</td>
