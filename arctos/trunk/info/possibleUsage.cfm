@@ -15,9 +15,6 @@
 				catcollobj.condition like '%loan%' or
 				catcollobj.coll_obj_disposition like '%loan%'
 			)
-		group by
-			catcollobj.condition,
-			catcollobj.coll_obj_disposition
 	</cfquery>
 	<table>
 		<tr>
