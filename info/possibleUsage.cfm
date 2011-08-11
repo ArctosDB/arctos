@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfif actoun is "nothing">
+<cfif action is "nothing">
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection,collection_id from collection order by collection	
 	</cfquery>
@@ -7,7 +7,6 @@
 		select coll_obj_disposition from CTCOLL_OBJ_DISP order by coll_obj_disposition	
 	</cfquery>
 
-</cfif>
 <form name="f" method="post" action="DispositionClash.cfm">
 	<input type="hidden" name="action" value="go">
 	<label for="collection_id">select collections</label>
@@ -27,6 +26,7 @@
 	<br><input type="submit">
 </form>
 
+</cfif>
 <cfif action is "go">
 	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
