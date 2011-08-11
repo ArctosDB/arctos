@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset title='disposition vs remarks'>
+<cfset title='disposition'>
 <cfoutput>
 <cfif action is "nothing">
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -64,6 +64,10 @@
 	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
+	<hr>
+		"##Items" is the intersection of cataloged items and parts. Cataloged items will be in multiple 
+		categories, and the number given will almost always be less than the number of specimens.
+	<hr>
 	<table border id="t" class="sortable">
 		<tr>
 			<td>##Items</td>
