@@ -9,7 +9,7 @@
 		select coll_obj_disposition from CTCOLL_OBJ_DISP order by coll_obj_disposition	
 	</cfquery>
 
-<form name="f" method="post" action="possibleUsage.cfm">
+<form name="f" method="post" action="dispVRemark.cfm">
 	<input type="hidden" name="action" value="go">
 	<label for="collection_id">select collections</label>
 	<select name="collection_id" multiple="multiple" size="10">
