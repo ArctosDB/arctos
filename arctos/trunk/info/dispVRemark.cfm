@@ -23,8 +23,8 @@
 			<option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
 		</cfloop>
 	</select>
-	<label for="remark">remarks like (comma-list, substring match)</label>
-	<textarea name="remark">donat,transfer,loan,exchange</textarea>
+	<label for="remark">remarks like (comma-list, substring match, no case)</label>
+	<textarea name="remark" rows="10" cols="50">donat,transfer,loan,exchange</textarea>
 	<br><input type="submit">
 </form>
 
@@ -67,10 +67,10 @@
 		    (">
 		    
 		        <cfloop list="#remark#" index="i">
-					<cfset sql=sql & " cir.coll_object_remarks like '%#i#%' or ">
+					<cfset sql=sql & " upper(cir.coll_object_remarks) like '%#ucase(i)#%' or ">
 				</cfloop>
 		        <cfloop list="#remark#" index="i">
-					<cfset sql=sql & " spr.coll_object_remarks like '%#i#%' or ">
+					<cfset sql=sql & " upper(spr.coll_object_remarks) like '%#ucase(i)#%' or ">
 				</cfloop>
 				<cfset sql=sql &  " 1=2
 		    )
