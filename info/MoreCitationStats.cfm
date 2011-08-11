@@ -214,7 +214,7 @@
 		</cfquery>
 		
 		
-		<cfset percentLoaned=(loanedSpec.tot/totHldf.grandtotal) * 100>
+		<cfset percentLoaned=decimalFormat((loanedSpec.tot/totHldf.grandtotal) * 100)>
 			
 			
 		<tr>
@@ -308,7 +308,7 @@
 			<td>#collection#</td>
 			<td>#c.totSpec#</td>
 			<cfif c.totSpec gt 0>
-				<cfset percentLoaned=(loanedSpec.tot/c.totSpec) * 100>
+				<cfset percentLoaned=decimalFormat((loanedSpec.tot/c.totSpec) * 100)>
 			<cfelse>
 				<cfset percentLoaned='NULL'>
 			</cfif>
