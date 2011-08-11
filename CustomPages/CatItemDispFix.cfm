@@ -66,8 +66,7 @@
 	</cfquery>
 	<table border id="t" class="sortable">
 		<tr>
-			<td>##</td>
-			<td>coln</td>
+			<td>##Items</td>
 			<td>catItemDispn</td>
 			<td>PartDispn</td>
 		</tr>
