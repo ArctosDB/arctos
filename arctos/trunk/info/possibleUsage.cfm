@@ -1,9 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
-			count(cataloged_item.collection_object_id) c,
-			catcollobj.condition,
-			catcollobj.coll_obj_disposition
+			guid_prefix || cat_num cnum,
+			catcollobj.condition specCondition,
+			catcollobj.coll_obj_disposition specDisposition
 		from
 			cataloged_item,
 			coll_object catcollobj
@@ -17,6 +17,18 @@
 			catcollobj.condition,
 			catcollobj.coll_obj_disposition
 	</cfquery>
-	<cfdump var=#d#>
-
+	<table>
+		<tr>
+			<td>cnum</td>
+			<td>specCondition</td>
+			<td>specDisposition</td>
+		</tr>
+	<cfloop query="d">
+		<tr>
+			<td>#cnum#</td>
+			<td>#specCondition#</td>
+			<td>#specDisposition#</td>
+		</tr>
+	</cfloop>	
+	</table>
 <cfinclude template="/includes/_footer.cfm">
