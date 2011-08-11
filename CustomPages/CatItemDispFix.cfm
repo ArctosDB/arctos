@@ -65,8 +65,8 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<hr>
-		"##Items" is the intersection of cataloged items and parts. Cataloged items will be in multiple 
-		categories, and the number given will almost always be less than the number of specimens.
+		"##Items" is the intersection of cataloged items and parts. Cataloged items will often be in multiple intersections.
+		This is not the number of involved specimens.
 	<hr>
 	<table border id="t" class="sortable">
 		<tr>
