@@ -19,7 +19,7 @@
 	<label for="disposition">catitem disposition</label>
 	<select name="disposition" multiple="multiple" size="10">
 		<cfloop query="disp">
-			<option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
+			<option selected="selected" value="#coll_obj_disposition#">#coll_obj_disposition#</option>
 		</cfloop>
 	</select>
 	<br><input type="submit">
