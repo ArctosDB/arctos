@@ -3,7 +3,7 @@
 		select 
 			count(cataloged_item.collection_object_id) c,
 			catcollobj.condition,
-			catcollobj.coll_object_disposition
+			catcollobj.coll_obj_disposition
 		from
 			cataloged_item,
 			coll_object catcollobj
@@ -11,11 +11,11 @@
 			cataloged_item.collection_object_id=catcollobj.collection_object_id and
 			(
 				catcollobj.condition like '%loan%' or
-				catcollobj.coll_object_disposition like '%loan%'
+				catcollobj.coll_obj_disposition like '%loan%'
 			)
 		group by
 			catcollobj.condition,
-			catcollobj.coll_object_disposition
+			catcollobj.coll_obj_disposition
 	</cfquery>
 	<cfdump var=#d#>
 
