@@ -49,7 +49,7 @@
 		        cco.coll_obj_disposition in (">
 	<cfset sql=sql & listqualify(disposition,"'")>
 	<cfset sql=sql & "
-		       ) 
+		       )) 
 			group by
 		    cco.coll_obj_disposition,
 		    spo.coll_obj_disposition">
