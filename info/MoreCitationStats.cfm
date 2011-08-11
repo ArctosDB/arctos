@@ -209,10 +209,18 @@
 			from 
 				citation
 		</cfquery>
+		<cfquery name="totHldf" dbtype="query">
+			select sum(c.totSpec) grandtotal from c
+		</cfquery>
+		
+		
+		<cfset percentLoaned=(loanedSpec.tot/totHldf.grandtotal) * 100>
+			
+			
 		<tr>
 			<td><strong>All Collections</strong></td>
-			<td>n</td>
-			<td>%</td>
+			<td>#totHldf.grandtotal#</td>
+			<td>#percentLoaned#</td>
 			<td><strong>#loanedSpec.tot#</strong></td>
 			<td><strong>#numLoaned#</strong></td>
 			<td><strong>#cited.tot#</strong></td>
@@ -300,7 +308,7 @@
 			<td>#collection#</td>
 			<td>#c.totSpec#</td>
 			<cfif c.totSpec gt 0>
-				<cfset percentLoaned=loanedSpec.tot/c.totSpec>
+				<cfset percentLoaned=(loanedSpec.tot/c.totSpec) * 100>
 			<cfelse>
 				<cfset percentLoaned='NULL'>
 			</cfif>
