@@ -88,15 +88,15 @@
 	</cfquery>
 	<table border>
 		<tr>
-			<td>cat_num</td>
-			<td>catitemdisp</td>
-			<td>spdisp</td>
-			<td>cirem</td>
-			<td>sprem</td>
+			<td>specimen</td>
+			<td>catItemDispn</td>
+			<td>PartDispn</td>
+			<td>CatItemRemark</td>
+			<td>Partremark</td>
 		</tr>
 	<cfloop query="d">
 		<tr>
-			<td>#cat_num#</td>
+			<td><a href="/guid/#cat_num#">#cat_num#></a></td>
 			<td>#catitemdisp#</td>
 			<td>#spdisp#</td>
 			<td>#cirem#</td>
