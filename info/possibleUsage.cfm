@@ -16,6 +16,7 @@
 				catcollobj.coll_obj_disposition like '%loan%'
 			)
 	</cfquery>
+	<cfoutput>
 	<table>
 		<tr>
 			<td>cnum</td>
@@ -30,4 +31,5 @@
 		</tr>
 	</cfloop>	
 	</table>
+	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
