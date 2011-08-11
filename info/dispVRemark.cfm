@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+	<cfset title='disposition vs remarks'>
 	<cfoutput>
 
 <cfif action is "nothing">
@@ -30,7 +31,8 @@
 
 </cfif>
 <cfif action is "go">
-	<cfset sql="
+		<script src="/includes/sorttable.js"></script>
+<cfset sql="
 			select
 		    guid_prefix || ':' || cat_num cat_num,
 		    cco.coll_obj_disposition catitemdisp,
@@ -79,16 +81,16 @@
 		    cco.coll_obj_disposition,
 		    spo.coll_obj_disposition,
 		    cir.coll_object_remarks,
-		    spr.coll_object_remarks	">
+		    spr.coll_object_remarks	
+		   order by cat_num ">
 	
-<div style="border:1px solid green;padding:1em;font-size:smaller">
-	#sql#
-</div>
-	
+	<div style="border:1px solid green;padding:1em;font-size:smaller">
+		#sql#
+	</div>
 	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	<table border>
+	<table border id="t" class="sortable">
 		<tr>
 			<td>specimen</td>
 			<td>catItemDispn</td>
