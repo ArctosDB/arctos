@@ -81,7 +81,9 @@
 		    cir.coll_object_remarks,
 		    spr.coll_object_remarks	">
 	
+<div style="border:1px solid green;padding:1em;font-size:smaller">
 	#sql#
+</div>
 	
 	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(sql)#
