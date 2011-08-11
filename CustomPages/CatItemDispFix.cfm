@@ -31,6 +31,8 @@
 <cfset sql="
 			select
 		    count(*) c,
+		    collection_id,
+		   	collection,
 		    cco.coll_obj_disposition catitemdisp,
 		    spo.coll_obj_disposition spdisp
 		from
@@ -51,6 +53,8 @@
 	<cfset sql=sql & "
 		       )) 
 			group by
+		    collection_id,
+		   	collection,
 		    cco.coll_obj_disposition,
 		    spo.coll_obj_disposition">
 	
@@ -63,12 +67,13 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<td>##</td>
+			<td>coln</td>
 			<td>catItemDispn</td>
 			<td>PartDispn</td>
 		</tr>
 	<cfloop query="d">
 		<tr>
-			<td><a href="/">#c#</a></td>
+			<td><a href="/SpecimenResults.cfm?collection_id=#collection_id#&coll_obj_disposition=#catitemdisp#&part_disposition=#spdisp#&debug=true">#c# #collection#</a></td>
 			<td>#catitemdisp#</td>
 			<td>#spdisp#</td>
 		</tr>
