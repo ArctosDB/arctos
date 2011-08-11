@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
+	<cfoutput>
+
 <cfif action is "nothing">
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection,collection_id from collection order by collection	
@@ -67,7 +69,6 @@
 				1=2
 		    )
 	</cfquery>
-	<cfoutput>
 	<table border>
 		<tr>
 			<td>cat_num</td>
@@ -86,6 +87,7 @@
 		</tr>
 	</cfloop>	
 	</table>
-	</cfoutput>
 </cfif>
+	</cfoutput>
+
 <cfinclude template="/includes/_footer.cfm">
