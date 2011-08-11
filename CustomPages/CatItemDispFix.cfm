@@ -31,7 +31,7 @@
 <cfset sql="
 			select
 		    count(*) c,
-		    collection_id,
+		    collection.collection_id,
 		   	collection,
 		    cco.coll_obj_disposition catitemdisp,
 		    spo.coll_obj_disposition spdisp
@@ -54,7 +54,7 @@
 		       )) 
 			group by
 		    collection_id,
-		   	collection,
+		   	collection.collection,
 		    cco.coll_obj_disposition,
 		    spo.coll_obj_disposition">
 	
