@@ -6,8 +6,10 @@
 			catcollobj.coll_obj_disposition specDisposition
 		from
 			cataloged_item,
+			collection,
 			coll_object catcollobj
 		where
+			cataloged_item.collection_id=collection.collection_id and
 			cataloged_item.collection_object_id=catcollobj.collection_object_id and
 			(
 				catcollobj.condition like '%loan%' or
