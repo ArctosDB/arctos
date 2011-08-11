@@ -32,13 +32,14 @@
 <cfif action is "go">
 	<cfset sql="
 			select
-		    cat_num,
+		    guid_prefix || ':' || cat_num cat_num,
 		    cco.coll_obj_disposition catitemdisp,
 		    spo.coll_obj_disposition spdisp,
 		    cir.coll_object_remarks cirem,
 		    spr.coll_object_remarks sprem
 		from
 		    cataloged_item,
+		    collection,
 		    coll_object cco,
 		    specimen_part,
 		    coll_object spo,
@@ -46,6 +47,7 @@
 		    coll_object_remark spr
 		where
 		    cataloged_item.collection_id in (#collection_id#) and
+		    cataloged_item.collection_id=collection.collection_id and
 		    cataloged_item.collection_object_id=cco.collection_object_id and
 		    cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 		    specimen_part.collection_object_id=spo.collection_object_id and
@@ -72,7 +74,12 @@
 				</cfloop>
 				<cfset sql=sql &  " 1=2
 		    )
-				">
+			group by
+				 guid_prefix || ':' || cat_num,
+		    cco.coll_obj_disposition,
+		    spo.coll_obj_disposition,
+		    cir.coll_object_remarks,
+		    spr.coll_object_remarks	">
 	
 	#sql#
 	
