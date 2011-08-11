@@ -148,12 +148,27 @@
 	</table>
 	<p>&nbsp;</p>
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select collection,collection_id from collection order by collection
+		select 
+			collection,
+			collection.collection_id,
+			count(*) totSpec
+		from 
+			collection,
+			cataloged_item
+		where
+			collection.collection_id=cataloged_item.collection_id
+		group by
+			collection,
+			collection.collection_id
+		order by 
+			collection
 	</cfquery>
 	<strong>Usage and results by collection:</strong>
 	<table border="1" id="d" class="sortable">
 		<tr>
-			<th>Collection</th>		
+			<th>Collection</th>
+			<th>Holdings</th>
+			<th>%Loaned</th>
 			<th>Specimens Loaned</th>
 			<th>Items Loaned</th>
 			<th>Specimens Cited</th>
@@ -196,6 +211,8 @@
 		</cfquery>
 		<tr>
 			<td><strong>All Collections</strong></td>
+			<td>n</td>
+			<td>%</td>
 			<td><strong>#loanedSpec.tot#</strong></td>
 			<td><strong>#numLoaned#</strong></td>
 			<td><strong>#cited.tot#</strong></td>
@@ -281,6 +298,9 @@
 		</cfquery>
 		<tr>
 			<td>#collection#</td>
+			<td>#c.totSpec#</td>
+			<cfset percentLoaned=c.totSpec/loanedSpec.tot>
+			<td>#percentLoaned#</td>
 			<td>#loanedSpec.tot#</td>
 			<td>#numLoaned#</td>
 			<td>#cited.tot#</td>
