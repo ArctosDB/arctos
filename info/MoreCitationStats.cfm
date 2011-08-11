@@ -230,7 +230,7 @@
 			<cfelseif numLoaned gte cited.tot and numLoaned gt 0>
 				<cfset cr=cited.tot/numLoaned>
 			</cfif>
-			<td><strong>#cr#</strong></td>
+			<td><strong>#decimalFormat(cr)#</strong></td>
 		</tr>
 	<cfloop query="c">
 		<cfquery name="loaned" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -322,7 +322,7 @@
 			<cfelseif numLoaned gte cited.tot and numLoaned gt 0>
 				<cfset cr=cited.tot/numLoaned>
 			</cfif>
-			<td>#cr#</td>
+			<td>#decimalFormat(cr)#</td>
 		</tr>
 	</cfloop>
 	</table>
