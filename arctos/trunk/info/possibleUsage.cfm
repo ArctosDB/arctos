@@ -9,7 +9,7 @@
 		select coll_obj_disposition from CTCOLL_OBJ_DISP order by coll_obj_disposition	
 	</cfquery>
 
-<form name="f" method="post" action="DispositionClash.cfm">
+<form name="f" method="post" action="possibleUsage.cfm">
 	<input type="hidden" name="action" value="go">
 	<label for="collection_id">select collections</label>
 	<select name="collection_id" multiple="multiple" size="10">
@@ -30,8 +30,8 @@
 
 </cfif>
 <cfif action is "go">
-	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
+	<cfset sql="
+			select
 		    cat_num,
 		    cco.coll_obj_disposition catitemdisp,
 		    spo.coll_obj_disposition spdisp,
@@ -52,22 +52,32 @@
 		    specimen_part.collection_object_id=spr.collection_object_id (+) and
 		    cataloged_item.collection_object_id=cir.collection_object_id (+) and
 		    (
-		        cco.coll_obj_disposition in (
-		            #listqualify(disposition,"'")#
+		        cco.coll_obj_disposition in (">
+	<cfset sql=sql & listqualify(disposition,"'")>
+	<cfset sql=sql & "
 		        ) or
-		        spo.coll_obj_disposition not in (
-		            #listqualify(disposition,"'")#
-		        )
+		        spo.coll_obj_disposition not in (">
+		        
+	<cfset sql=sql & listqualify(disposition,"'")>
+	<cfset sql=sql & "
+				        )
 		    ) and
-		    (
+		    (">
+		    
 		        <cfloop list="#remark#" index="i">
-					cir.coll_object_remarks like '%#i#%' or
+					<cfset sql=sql & " cir.coll_object_remarks like '%#i#%' or ">
 				</cfloop>
 		        <cfloop list="#remark#" index="i">
-					spr.coll_object_remarks like '%#i#%' or
+					<cfset sql=sql & " spr.coll_object_remarks like '%#i#%' or ">
 				</cfloop>
-				1=2
+				<cfset sql=sql &  " 1=2
 		    )
+				">
+	
+	#sql#
+	
+	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		#preservesinglequotes(sql)#
 	</cfquery>
 	<table border>
 		<tr>
