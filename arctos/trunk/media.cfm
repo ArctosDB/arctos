@@ -258,11 +258,18 @@
 				<span class="infoLink" id="addLabel" onclick="addLabel(#i#)">Add Label</span>
 			</div>
 			<br>
-			<input type="submit" 
+			<input type="button" 
 				value="Save Edits" 
-				class="insBtn"
-				onmouseover="this.className='insBtn btnhov'" 
-				onmouseout="this.className='insBtn'">
+				class="savBtn"
+				onclick="newMedia.action.value='saveEdit';newMedia.submit();">>
+			<cfif relns.recordcount is 0 and labels.recordcount is 0>
+				<input type="button" 
+					value="delete media"
+					class="delBtn" 
+					onclick="newMedia.action.value='delMedia';confirmDelete('newMedia');">
+			<cfelse>
+				[ delete labels and relationships to delete media ]
+			</cfif>
 		</form>
 	</cfoutput>
 </cfif>
