@@ -261,7 +261,7 @@
 			<input type="button" 
 				value="Save Edits" 
 				class="savBtn"
-				onclick="newMedia.action.value='saveEdit';newMedia.submit();">>
+				onclick="newMedia.action.value='saveEdit';newMedia.submit();">
 			<cfif relns.recordcount is 0 and labels.recordcount is 0>
 				<input type="button" 
 					value="delete media"
@@ -273,6 +273,24 @@
 		</form>
 	</cfoutput>
 </cfif>
+
+<!----------------------------------------------------------------------------------------->
+<cfif action is "delMedia">
+	<cfquery name="deleteMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from media where media_id=#media_id#
+	</cfquery>
+	<cfoutput>
+		<br>-you deleted media #media_id#-
+		<br>The files
+		<br> #media_uri#
+		<cfif len(preview_uri) gt 0>
+			and #preview_uri#
+		</cfif>
+		are unaffected. You should delete them if you don't need them around anymore.
+	</cfoutput>
+	
+</cfif>
+
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "newMedia">
 	<cfoutput>
