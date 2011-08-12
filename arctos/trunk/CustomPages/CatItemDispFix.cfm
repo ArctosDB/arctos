@@ -143,7 +143,7 @@
 		   	collection.collection,
 		    cco.coll_obj_disposition,
 		    spo.coll_obj_disposition
-		    	order by count(*) DESC"">
+		    	order by count(*) DESC">
 	
 	<div style="border:1px solid green;padding:1em;font-size:smaller">
 		#sql#
