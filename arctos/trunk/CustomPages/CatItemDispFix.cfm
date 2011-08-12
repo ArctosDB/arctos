@@ -2,8 +2,8 @@
 <cfset title='disposition'>
 <cfoutput>
 <cfif action is "nothing">
-	<a href="CatItemDispFix.cfm?actoin=disp">disposition</a>
-	<a href="CatItemDispFix.cfm?actoin=condn">condition</a>
+	<a href="CatItemDispFix.cfm?action=disp">disposition</a>
+	<a href="CatItemDispFix.cfm?action=condn">condition</a>
 
 </cfif>
 
