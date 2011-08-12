@@ -1100,7 +1100,7 @@
 	<cfset basJoin = " #basJoin# 
 			INNER JOIN specimen_part spdisp ON (#session.flatTableName#.collection_object_id = spdisp.derived_from_cat_item)
 			inner join coll_object partCollObj on (spdisp.collection_object_id=partCollObj.collection_object_id)">
-	<cfset basQual = " #basQual# AND upper(partCollObj.coll_obj_disposition) like '%#part_condition#%'">
+	<cfset basQual = " #basQual# AND upper(partCollObj.coll_obj_disposition) like '%#ucase(part_condition)#%'">
 	<cfset mapurl = "#mapurl#&part_condition=#part_condition#">
 </cfif>
 
