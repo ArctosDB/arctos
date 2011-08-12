@@ -6,6 +6,8 @@
 	<a href="CatItemDispFix.cfm?action=condn">condition</a>
 
 </cfif>
+<!------------------------------------------------------------------->
+
 
 <cfif action is "condn">
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
