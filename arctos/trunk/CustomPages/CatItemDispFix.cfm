@@ -53,7 +53,11 @@
 				<cfset sql=sql & " and upper(cco.condition) like '%#ucase(condn)#%'">
 			</cfif>
 		    	
-		    		
+		    	<cfset sql=sql & " group by	
+		    			 collection.collection_id,
+		   	collection.collection,
+		    cco.condition,
+		    spo.condition">
 	
 	<div style="border:1px solid green;padding:1em;font-size:smaller">
 		#sql#
