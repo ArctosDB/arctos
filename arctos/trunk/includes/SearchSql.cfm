@@ -217,7 +217,16 @@
 	</cfif>
 	<cfset basQual = "#basQual#  AND CatItemCollObject.coll_obj_disposition = '#coll_obj_disposition#'" >
 	<cfset mapurl = "#mapurl#&coll_obj_disposition=#coll_obj_disposition#">
-</cfif>	
+</cfif>
+
+<cfif isdefined("coll_obj_condition") AND len(coll_obj_condition) gt 0>
+	<cfif basJoin does not contain "CatItemCollObject">
+		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON 
+		(cataloged_item.collection_object_id = CatItemCollObject.collection_object_id)">
+	</cfif>
+	<cfset basQual = "#basQual#  AND upper(CatItemCollObject.condition) like '%#ucase(coll_obj_condition)#%'" >
+	<cfset mapurl = "#mapurl#&coll_obj_condition=#coll_obj_condition#">
+</cfif>
 <cfif isdefined("encumbrance_id") AND isnumeric(encumbrance_id)>
 	<cfif basJoin does not contain "coll_object_encumbrance">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_object_encumbrance ON 
@@ -1086,6 +1095,15 @@
 	<cfset basQual = " #basQual# AND partCollObj.coll_obj_disposition='#part_disposition#'">
 	<cfset mapurl = "#mapurl#&part_disposition=#part_disposition#">
 </cfif>
+
+<cfif isdefined("part_condition") AND len(part_condition) gt 0>
+	<cfset basJoin = " #basJoin# 
+			INNER JOIN specimen_part spdisp ON (#session.flatTableName#.collection_object_id = spdisp.derived_from_cat_item)
+			inner join coll_object partCollObj on (spdisp.collection_object_id=partCollObj.collection_object_id)">
+	<cfset basQual = " #basQual# AND upper(partCollObj.coll_obj_disposition) like '%#part_condition#%'">
+	<cfset mapurl = "#mapurl#&part_condition=#part_condition#">
+</cfif>
+
 <cfif isdefined("srchParts") AND len(srchParts) gt 0>
 	<cfif basJoin does not contain " specimen_part ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 

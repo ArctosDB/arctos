@@ -72,12 +72,12 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<td>##Items</td>
-			<td>catItemDispn</td>
-			<td>PartDispn</td>
+			<td>catItemCondn</td>
+			<td>PartCondn</td>
 		</tr>
 	<cfloop query="d">
 		<tr>
-			<td><a href="/SpecimenResults.cfm?collection_id=#collection_id#&coll_obj_disposition=#catitemdisp#&part_disposition=#spdisp#&debug=true">#c# #collection#</a></td>
+			<td><a href="/SpecimenResults.cfm?collection_id=#collection_id#&coll_obj_condition=#catitemdisp#&part_condition=#spdisp#&debug=true">#c# #collection#</a></td>
 			<td>#catitemdisp#</td>
 			<td>#spdisp#</td>
 		</tr>
