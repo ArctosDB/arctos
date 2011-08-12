@@ -1,15 +1,18 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset title='disposition'>
 <cfoutput>
 <cfif action is "nothing">
-	<a href="CatItemDispFix.cfm?action=disp">disposition</a>
-	<a href="CatItemDispFix.cfm?action=condn">condition</a>
+		<cfset title='sanitizer'>
+
+	<a href="CatItemDispFix.cfm?action=disp">[ disposition ]</a>
+	<br><a href="CatItemDispFix.cfm?action=condn">[ condition ]</a>
 
 </cfif>
 <!------------------------------------------------------------------->
 
 
 <cfif action is "condn">
+	<cfset title='condition'>
+
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection,collection_id from collection order by collection	
 	</cfquery>
@@ -30,6 +33,8 @@
 <!------------------------------------------------------------------->
 
 <cfif action is "goCondn">
+<cfset title='condition'>
+
 		<script src="/includes/sorttable.js"></script>
 <cfset sql="
 			select
@@ -90,6 +95,8 @@
 <!------------------------------------------------------------------->
 
 <cfif action is "disp">
+	<cfset title='disposition'>
+
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection,collection_id from collection order by collection	
 	</cfquery>
@@ -114,7 +121,11 @@
 </form>
 
 </cfif>
+<!------------------------------------------------------------------->
+
 <cfif action is "goDisp">
+	<cfset title='disposition'>
+
 		<script src="/includes/sorttable.js"></script>
 <cfset sql="
 			select
