@@ -1,7 +1,6 @@
 <cfinclude template = "/includes/_header.cfm">
 <cfset title = "Agent Activity">
 <cfoutput>
-<a href="/agents.cfm?agent_id=#agent_id#" target="_top">Edit Agent</a>
 <div class="red">Please note: your login may prevent you from seeing some data</div>
 
 
@@ -10,6 +9,11 @@
 	select agent_id from agent where agent_type='temp MSB agent'
 </cfquery>
 <cfloop query="dd">
+
+<a href="/agents.cfm?agent_id=#agent_id#" target="_top">Edit Agent</a>
+
+
+
 <cfquery name="agent" datasource="uam_god">
 	select * FROM agent where agent_id=#agent_id#
 </cfquery>
