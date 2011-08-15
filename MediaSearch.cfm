@@ -110,6 +110,9 @@
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif action is "search">
+<cfif not isdefined("session.displayrows")>
+	<cfset session.displayrows=20>
+</cfif>
 <cfoutput>	
 	<cfset sql = "SELECT * FROM media_flat ">
 	<cfset whr ="WHERE 1=1 ">
