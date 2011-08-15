@@ -10,18 +10,18 @@
 </cfquery>
 <cfloop query="dd">
 
-<a href="/agents.cfm?agent_id=#TheAgentId#" target="_top">Edit Agent</a>
+<a href="/agents.cfm?agent_id=#dd.TheAgentId#" target="_top">Edit Agent</a>
 
 
 
 <cfquery name="agent" datasource="uam_god">
-	select * FROM agent where agent_id=#TheAgentId#
+	select * FROM agent where agent_id=#dd.TheAgentId#
 </cfquery>
 <cfquery name="person" datasource="uam_god">
-	select * FROM person where person_id=#TheAgentId#
+	select * FROM person where person_id=#dd.TheAgentId#
 </cfquery>
 <cfquery name="name" datasource="uam_god">
-	select agent_name_id, agent_name, agent_name_type FROM agent_name where agent_id=#TheAgentId#
+	select agent_name_id, agent_name, agent_name_type FROM agent_name where agent_id=#dd.TheAgentId#
 </cfquery>
 Agent:
 <table border>
@@ -147,7 +147,7 @@ Agent Relationships:
 		from agent_relations,preferred_agent_name
 		where 	
 		agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
-		agent_relations.agent_id=#TheAgentId#
+		agent_relations.agent_id=#dd.TheAgentId#
 	</cfquery>
 	<ul>
 		<cfloop query="agent_relations">
@@ -159,11 +159,11 @@ Agent Relationships:
 		from agent_relations,preferred_agent_name
 		where 
 		agent_relations.agent_id=preferred_agent_name.agent_id and
-		RELATED_AGENT_ID=#TheAgentId#
+		RELATED_AGENT_ID=#dd.TheAgentId#
 	</cfquery>
 	<ul>
 		<cfloop query="agent_relations">
-			<li><a href="agentActivity.cfm?agent_id=#TheAgentId#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
+			<li><a href="agentActivity.cfm?agent_id=#dd.TheAgentId#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
 		</cfloop>
 	</ul>
 Groups:	
@@ -175,7 +175,7 @@ Groups:
 			group_member, preferred_agent_name
 		where
 			group_member.GROUP_AGENT_ID=preferred_agent_name.agent_id and
-			MEMBER_AGENT_ID=#TheAgentId#
+			MEMBER_AGENT_ID=#dd.TheAgentId#
 		order by agent_name
 	</cfquery>
 	<ul>
@@ -185,7 +185,7 @@ Groups:
 	</ul>							 
 Electronic Address:
 	<cfquery name="electronic_address" datasource="uam_god">
-		select * from electronic_address where agent_id=#TheAgentId#
+		select * from electronic_address where agent_id=#dd.TheAgentId#
 	</cfquery>
 	<ul>
 		<cfloop query="electronic_address">
@@ -194,7 +194,7 @@ Electronic Address:
 	</ul>
 Address:	
 	<cfquery name="addr" datasource="uam_god">
-		select replace(formatted_addr,chr(10),'<br>') formatted_addr from addr where agent_id=#TheAgentId#
+		select replace(formatted_addr,chr(10),'<br>') formatted_addr from addr where agent_id=#dd.TheAgentId#
 	</cfquery>
 	<ul>
 		<cfloop query="addr">
@@ -214,7 +214,7 @@ Collected or Prepared:
 		where 
 			collector.collection_object_id = cataloged_item.collection_object_id AND
 			cataloged_item.collection_id = collection.collection_id AND
-			agent_id=#TheAgentId#
+			agent_id=#dd.TheAgentId#
 		group by
 			collection.collection,
 	        collection.collection_id
@@ -222,7 +222,7 @@ Collected or Prepared:
 	<ul>
 		<CFLOOP query="collector">
 			<li>
-				<a href="/SpecimenResults.cfm?collector_agent_id=#TheAgentId#&collection_id=#collector.collection_id#">#collector.cnt# #collector.collection#</a> specimens
+				<a href="/SpecimenResults.cfm?collector_agent_id=#dd.TheAgentId#&collection_id=#collector.collection_id#">#collector.cnt# #collector.collection#</a> specimens
 			</li>
 	  	</CFLOOP>
 	</ul>
@@ -239,7 +239,7 @@ Entered:
 		where 
 			coll_object.collection_object_id = cataloged_item.collection_object_id and
 			cataloged_item.collection_id=collection.collection_id and
-			ENTERED_PERSON_ID =#TheAgentId#
+			ENTERED_PERSON_ID =#dd.TheAgentId#
 		group by
 			collection,
 			collection.collection_id
@@ -247,7 +247,7 @@ Entered:
 	<ul>
 		<cfloop query="entered">
 			<li>
-				<a href="/SpecimenResults.cfm?entered_by_id=#TheAgentId#&collection_id=#collection_id#">#cnt# #collection#</a> specimens
+				<a href="/SpecimenResults.cfm?entered_by_id=#dd.TheAgentId#&collection_id=#collection_id#">#cnt# #collection#</a> specimens
 			</li>
 		</cfloop>
 	</ul>
@@ -264,7 +264,7 @@ Edited:
 		where 
 			coll_object.collection_object_id = cataloged_item.collection_object_id and
 			cataloged_item.collection_id=collection.collection_id and
-			LAST_EDITED_PERSON_ID=#TheAgentId#
+			LAST_EDITED_PERSON_ID=#dd.TheAgentId#
 		group by
 			collection,
 			collection.collection_id
@@ -272,7 +272,7 @@ Edited:
 	<ul>
 		<cfloop query="last_edit">
 			<li>
-				<a href="/SpecimenResults.cfm?edited_by_id=#TheAgentId#&collection_id=#collection_id#">#cnt# #collection#</a> specimens
+				<a href="/SpecimenResults.cfm?edited_by_id=#dd.TheAgentId#&collection_id=#collection_id#">#cnt# #collection#</a> specimens
 			</li>
 		</cfloop>
 	</ul>
@@ -290,7 +290,7 @@ Attribute Determiner:
 		where
 			cataloged_item.collection_object_id=attributes.collection_object_id and
 			cataloged_item.collection_id=collection.collection_id and
-			determined_by_agent_id=#TheAgentId#
+			determined_by_agent_id=#dd.TheAgentId#
 		group by
 			collection.collection_id,
 			collection 
@@ -299,7 +299,7 @@ Attribute Determiner:
 		<cfloop query="attributes">
 			<li>
 				#c# attributes for #s#
-				<a href="/SpecimenResults.cfm?attributed_determiner_agent_id=#TheAgentId#&collection_id=#attributes.collection_id#">
+				<a href="/SpecimenResults.cfm?attributed_determiner_agent_id=#dd.TheAgentId#&collection_id=#attributes.collection_id#">
 					#attributes.collection#</a> specimens
 			</li>
 		</cfloop>
@@ -307,17 +307,17 @@ Attribute Determiner:
 Media:
 	<cfquery name="media" datasource="uam_god">
 		select media_id from media_relations where media_relationship like '% agent' and
-		related_primary_key=#TheAgentId#
+		related_primary_key=#dd.TheAgentId#
 	</cfquery>
 	<cfquery name="media_assd_relations" datasource="uam_god">
-		select media_id from media_relations where CREATED_BY_AGENT_ID=#TheAgentId#
+		select media_id from media_relations where CREATED_BY_AGENT_ID=#dd.TheAgentId#
 	</cfquery>
 	<cfquery name="media_labels" datasource="uam_god">
-		select media_id from media_labels where ASSIGNED_BY_AGENT_ID=#TheAgentId#
+		select media_id from media_labels where ASSIGNED_BY_AGENT_ID=#dd.TheAgentId#
 	</cfquery>
 	<ul>
 		<li>
-			Subject of #media.recordcount# <a href="/MediaSearch.cfm?action=search&related_primary_key__1=#TheAgentId#"> Media entries.</a>
+			Subject of #media.recordcount# <a href="/MediaSearch.cfm?action=search&related_primary_key__1=#dd.TheAgentId#"> Media entries.</a>
 		</li>
 		<li>
 			Assigned #media_assd_relations.recordcount# Media Relationships.
@@ -329,7 +329,7 @@ Media:
 Encumbrances:
 	<ul>
 		<cfquery name="encumbrance" datasource="uam_god">
-			select count(*) cnt from encumbrance where encumbering_agent_id=#TheAgentId#
+			select count(*) cnt from encumbrance where encumbering_agent_id=#dd.TheAgentId#
 		</cfquery>
 		<cfquery name="coll_object_encumbrance" datasource="uam_god">
 			select 
@@ -345,14 +345,14 @@ Encumbrances:
 			 	encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id and
 			 	coll_object_encumbrance.collection_object_id=cataloged_item.collection_object_id and
 			 	cataloged_item.collection_id=collection.collection_id and
-			 	encumbering_agent_id=#TheAgentId#
+			 	encumbering_agent_id=#dd.TheAgentId#
 			 group by
 			 	collection,
 				collection.collection_id
 		</cfquery>
 		<li>Owns #encumbrance.cnt# encumbrances</li>
 		<cfloop query="coll_object_encumbrance">
-			<li>Encumbered <a href="/SpecimenResults.cfm?encumbering_agent_id=#TheAgentId#&collection_id=#collection_id#">
+			<li>Encumbered <a href="/SpecimenResults.cfm?encumbering_agent_id=#dd.TheAgentId#&collection_id=#collection_id#">
 				#specs# #collection#</a> records</li>
 		</cfloop>
 	</ul>
@@ -372,7 +372,7 @@ Identification:
         	cataloged_item.collection_id=collection.collection_id and
 			cataloged_item.collection_object_id=identification.collection_object_id and
 			identification.identification_id=identification_agent.identification_id and
-        	identification_agent.agent_id=#TheAgentId#
+        	identification_agent.agent_id=#dd.TheAgentId#
 		group by
 			collection.collection_id,
 			collection.collection
@@ -380,7 +380,7 @@ Identification:
 	<ul>
 		<cfloop query="identification">
 			<li>
-				#cnt# identifications for <a href="/SpecimenResults.cfm?identified_agent_id=#TheAgentId#&collection_id=#collection_id#">
+				#cnt# identifications for <a href="/SpecimenResults.cfm?identified_agent_id=#dd.TheAgentId#&collection_id=#collection_id#">
 					#specs# #collection#</a> specimens
 			</li>
 		</cfloop>
@@ -389,7 +389,7 @@ Coordinates:
 	<cfquery name="lat_long" datasource="uam_god">
 		select 
 			count(*) cnt,
-			count(distinct(locality_id)) locs from lat_long where determined_by_agent_id=#TheAgentId#
+			count(distinct(locality_id)) locs from lat_long where determined_by_agent_id=#dd.TheAgentId#
 	</cfquery>
 	<ul>
 		<li>Determined #lat_long.cnt# coordinates for #lat_long.locs# localities</li>
@@ -402,12 +402,12 @@ Permits:
 		from 
 			permit 
 		where 
-			ISSUED_TO_AGENT_ID=#TheAgentId#
+			ISSUED_TO_AGENT_ID=#dd.TheAgentId#
 	</cfquery>
 	<ul>
 		<cfloop query="permit_to">
 			<li>
-				Permit <a href="/Permit.cfm?action=search&ISSUED_TO_AGENT_ID=#TheAgentId#">#PERMIT_NUM#: #PERMIT_TYPE#</a> was issued to
+				Permit <a href="/Permit.cfm?action=search&ISSUED_TO_AGENT_ID=#dd.TheAgentId#">#PERMIT_NUM#: #PERMIT_TYPE#</a> was issued to
 			</li>
 		</cfloop>
 		<cfquery name="permit_by" datasource="uam_god">
@@ -416,11 +416,11 @@ Permits:
 				PERMIT_TYPE 
 			from 
 				permit 
-			where ISSUED_by_AGENT_ID=#TheAgentId#
+			where ISSUED_by_AGENT_ID=#dd.TheAgentId#
 		</cfquery>
 		<cfloop query="permit_by">
 			<li>
-				Issued Permit <a href="/Permit.cfm?action=search&ISSUED_by_AGENT_ID=#TheAgentId#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
+				Issued Permit <a href="/Permit.cfm?action=search&ISSUED_by_AGENT_ID=#dd.TheAgentId#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
 			</li>
 		</cfloop>
 		<cfquery name="permit_contact" datasource="uam_god">
@@ -429,11 +429,11 @@ Permits:
 				PERMIT_TYPE 
 			from 
 				permit 
-			where CONTACT_AGENT_ID=#TheAgentId#
+			where CONTACT_AGENT_ID=#dd.TheAgentId#
 		</cfquery>
 		<cfloop query="permit_by">
 			<li>
-				Contact for Permit <a href="/Permit.cfm?action=search&CONTACT_AGENT_ID=#TheAgentId#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
+				Contact for Permit <a href="/Permit.cfm?action=search&CONTACT_AGENT_ID=#dd.TheAgentId#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
 			</li>
 		</cfloop>
 	</ul>
@@ -453,7 +453,7 @@ Transactions
 				shipment.transaction_id=loan.transaction_id and
 				loan.transaction_id =trans.transaction_id and
 				trans.collection_id=collection.collection_id and
-				PACKED_BY_AGENT_ID=#TheAgentId#		
+				PACKED_BY_AGENT_ID=#dd.TheAgentId#		
 		</cfquery>
 		<cfloop query="shipment">
 			<li>Packed Shipment for <a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
@@ -474,7 +474,7 @@ Transactions
 				loan.transaction_id =trans.transaction_id and
 				trans.collection_id=collection.collection_id and
 				shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
-				addr.agent_id=#TheAgentId#
+				addr.agent_id=#dd.TheAgentId#
 		</cfquery>
 		<cfloop query="ship_to">
 			<li><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a> shipped to addr</li>
@@ -495,7 +495,7 @@ Transactions
 				loan.transaction_id =trans.transaction_id and
 				trans.collection_id=collection.collection_id and
 				shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
-				addr.agent_id=#TheAgentId#
+				addr.agent_id=#dd.TheAgentId#
 		</cfquery>
 		<cfloop query="ship_from">
 			<li><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a> shipped from</li>
@@ -515,7 +515,7 @@ Transactions
 				trans_agent.transaction_id=loan.transaction_id and
 				loan.transaction_id=trans.transaction_id and
 				trans.collection_id=collection.collection_id and
-				AGENT_ID=#TheAgentId#
+				AGENT_ID=#dd.TheAgentId#
 			group by
 				loan.transaction_id,
 				TRANS_AGENT_ROLE,
@@ -544,7 +544,7 @@ Transactions
 				trans_agent.transaction_id=accn.transaction_id and
 				accn.transaction_id=trans.transaction_id and
 				trans.collection_id=collection.collection_id and
-				AGENT_ID=#TheAgentId#
+				AGENT_ID=#dd.TheAgentId#
 			group by
 				accn.transaction_id,
 				TRANS_AGENT_ROLE,
@@ -573,7 +573,7 @@ Transactions
 				trans.transaction_id=loan.transaction_id and
 				loan.transaction_id=loan_item.transaction_id and
 				trans.collection_id=collection.collection_id and
-				RECONCILED_BY_PERSON_ID =#TheAgentId#
+				RECONCILED_BY_PERSON_ID =#dd.TheAgentId#
 			group by
 				trans.transaction_id,
 				loan_number,
