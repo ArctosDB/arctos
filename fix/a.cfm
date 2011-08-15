@@ -581,7 +581,8 @@ Transactions
 			</li>		
 		</cfloop>
 	</ul>
-</cfoutput>
 <hr>
 </cfloop>
+</cfoutput>
+
 <cfinclude template = "/includes/_footer.cfm">
