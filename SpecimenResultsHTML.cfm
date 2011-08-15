@@ -968,11 +968,6 @@ document.getElementById('saveme').submit();
 			onmouseover="this.className='linkButton btnhov'" 
 			onmouseout="this.className='linkButton'"
 			>
-			<cfif #cgi.HTTP_HOST# contains "harvard.edu">
-				<img src="images/#institution_acronym#_icon.gif" border="0" alt="" width="18" height="18">	
-			<cfelse>
-				<img src="images/#institution_acronym#_icon.gif" border="0" alt="#institution_acronym#" width="18" height="18">		
-			</cfif>	 
 			#institution_acronym#&nbsp;#collection_cde#&nbsp;#cat_num#
 								</div></a>
   	   
