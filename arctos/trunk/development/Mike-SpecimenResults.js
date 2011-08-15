@@ -668,6 +668,8 @@ function success_getSpecResultsData(result){
                                         '</div>' +
                                     '</div>';
                                     
+                                    theInnerHtml += 'This should definitely be a change.';
+                                    
                                           $("#jquery_jplayer_1").jPlayer({
 									        ready: function () {
 									          $(this).jPlayer("setMedia", {
