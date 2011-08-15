@@ -646,7 +646,7 @@ function success_getSpecResultsData(result){
                                         
                                     // Place the player here now.
 								  	theInnerHtml +=
-                                    '<div id="jquery_jplayer_1" class="jp-jplayer"></div>' +
+                                    '<div id="jplayer_1" class="jp-jplayer"></div>' +
                                         '<div class="jp-audio"><div class="jp-type-single">' +
                                             '<div id="jp_interface_1" class="jp-interface">' +
                                                 '<ul class="jp-controls">' +
@@ -668,7 +668,7 @@ function success_getSpecResultsData(result){
                                         '</div>' +
                                     '</div>';
                                    
-                                         $("#jquery_jplayer_1").jPlayer({
+                                         $("#jplayer_1").jPlayer({
 									        ready: function () {
 									          $(this).jPlayer("setMedia", {
 									            m4a: "http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a",
