@@ -1,6 +1,6 @@
 <cfoutput>
 <cfquery name="ctbiol_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select biol_indiv_relationship  from ctbiol_relations
+	select biol_indiv_relationship  from ctbiol_relations order by biol_indiv_relationship
 </cfquery>
 <cfif isdefined("session.portal_id") and session.portal_id gt 0>
 	<cftry>

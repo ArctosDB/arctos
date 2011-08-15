@@ -4,8 +4,8 @@
 		$("#endDate").datepicker();
 	});
 </script>
-<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select collecting_source from ctcollecting_source
+<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select collecting_source from ctcollecting_source order by collecting_source
 </cfquery>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
