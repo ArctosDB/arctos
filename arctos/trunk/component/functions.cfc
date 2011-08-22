@@ -8,6 +8,9 @@
 	<cfif left(cfhttp.statuscode,3) is "200">
 		<cfreturn fullURI>
 	<cfelse>
+		<cfmail subject="doc_not_found" to="#Application.PageProblemEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
+			#fullURI# is missing
+		</cfmail>	
 		<cfreturn 404>
 	</cfif>
 </cffunction>
