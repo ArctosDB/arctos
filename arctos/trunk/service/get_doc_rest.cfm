@@ -8,8 +8,9 @@
 <cfif len(d.more_info) gt 0><br><a href="#d.more_info#" target="_blank">[ More Information ]</a></cfif>
 <cfelse>
 	no data found for #fld#
-	<cfthrow 
-	    detail = "doc not found for #fld#">
+	<cfmail subject="doc not found" to="#Application.PageProblemEmail#" from="docMIA@#Application.fromEmail#" type="html">
+		short doc for #fld# MIA.
+	</cfmail>	
 	</cfif>
 </cfoutput>
 <!----
