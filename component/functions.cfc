@@ -1,4 +1,16 @@
 <cfcomponent>
+	<!------------------------------------------------------------------->
+<cffunction name="get_docs" access="remote">
+	<cfargument name="uri" type="string" required="yes">
+	<cfargument name="anchor" type="string" required="no">
+	<cfset fullURI="http://arctosdb.wordpress.com/documentation/#uri#/###anchor#">
+	<cfhttp url="#fullURI#" method="head"></cfhttp>
+	<cfif left(cfhttp.statuscode,3) is "200">
+		<cfreturn fullURI>
+	<cfelse>
+		<cfreturn 404>
+	</cfif>
+</cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getExternalStatus" access="remote">
 	<cfargument name="uri" type="string" required="yes">
