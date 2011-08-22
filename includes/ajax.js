@@ -937,7 +937,7 @@ function getDocs(url,anc) {
 			if (r == '404') {
 				alert('help not found.');
 			} else {
-				siteHelpWin=windowOpener(r,"HelpWin","width=700,height=400, resizable,scrollbars,location,toolbar");
+				siteHelpWin=windowOpener(r,"HelpWin","width=800,height=600, resizable,scrollbars,location,toolbar");
 			}
 		}
 	);
