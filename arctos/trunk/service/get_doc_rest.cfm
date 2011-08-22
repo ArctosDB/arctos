@@ -14,7 +14,7 @@
 <cfelse>
 	no data found for #fld#
 	<cfmail subject="doc not found" to="#Application.PageProblemEmail#" from="docMIA@#Application.fromEmail#" type="html">
-		short doc for #fld# MIA.
+		short doc not found for #fld#
 	</cfmail>	
 	</cfif>
 </cfoutput>
