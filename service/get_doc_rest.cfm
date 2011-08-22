@@ -2,7 +2,11 @@
 	select * from short_doc where  lower(colname) = ( '#lcase(fld)#' )
 </cfquery>
 <cfoutput>
------#d.display_name##chr(10)##d.definition#<cfif len(d.more_info) gt 0>#chr(10)##d.more_info#</cfif>
+	<cfif d.recordcount is 1>
+#d.display_name##chr(10)##d.definition#<cfif len(d.more_info) gt 0>#chr(10)##d.more_info#</cfif>
+<cfelse>
+	no data found for #fld#
+	</cfif>
 </cfoutput>
 <!----
 <cfparam name="action" default="nothing">
