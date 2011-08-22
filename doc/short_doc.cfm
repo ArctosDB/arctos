@@ -114,7 +114,7 @@
 			display_name='#display_name#',
 			definition='#escapeQuotes(definition)#',
 			search_hint='#escapeQuotes(search_hint)#',
-			more_info='#more_info#',
+			more_info='#more_info#'
 			where short_doc_id=#short_doc_id#
 		</cfquery>
 		<cflocation addtoken="false" url="short_doc.cfm?action=edit&short_doc_id=#short_doc_id#">
