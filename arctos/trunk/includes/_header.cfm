@@ -156,6 +156,7 @@
 							where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
 						</cfquery>
 						<cfset formList = valuelist(roles.form_path)>
+						#formList#
 						<li><a href="##">Enter Data</a>
 							<ul>
 								<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
