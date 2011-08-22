@@ -1,4 +1,4 @@
-<cfinclude template="includes/_header.cfm">
+<cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
 	<a href="short_doc.cfm?action=insert">[ new record ]</a>
 	<form name="d" method="post" action="short_doc.cfm">
@@ -118,4 +118,4 @@
 		<cflocation addtoken="false" url="short_doc.cfm?action=edit&short_doc_id=#short_doc_id#">
 	</cfoutput>
 </cfif>
-<cfinclude template="includes/_footer.cfm">
+<cfinclude template="/includes/_footer.cfm">
