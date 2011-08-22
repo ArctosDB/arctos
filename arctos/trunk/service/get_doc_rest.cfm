@@ -4,7 +4,7 @@
 	<cfset fld=right(fld,len(fld)-1)>
 </cfif>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from short_doc where  lower(colname) = ( '#lcase(fld)#' )
+	select * from short_doc where  lower(colname) = '#lcase(fld)#'
 </cfquery>
 <cfoutput>
 <cfif d.recordcount is 1>
