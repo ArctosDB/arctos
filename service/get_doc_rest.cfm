@@ -3,7 +3,9 @@
 </cfquery>
 <cfoutput>
 	<cfif d.recordcount is 1>
-#d.display_name##chr(10)##d.definition#<cfif len(d.more_info) gt 0>#chr(10)##d.more_info#</cfif>
+<strong>#d.display_name#</strong>
+<br>#d.definition#
+<cfif len(d.more_info) gt 0><br><a href="#d.more_info#" target="_blank">[ More Information ]</a></cfif>
 <cfelse>
 	no data found for #fld#
 	<cfthrow 
