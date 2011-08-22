@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
-	<a href="short_doc.cfm?action=insert">[ new record ]</a>
+	<a href="short_doc.cfm?action=new">[ new record ]</a>
 	<form name="d" method="post" action="short_doc.cfm">
 		<input type="hidden" name="action" value="srch">
 		<input type="submit" value="find everything">
@@ -38,8 +38,8 @@
 <cfif action is "new">
 	<form name="d" method="post" action="short_doc.cfm">
 		<input type="hidden" name="action" value="insert">
-		<label for="colname">ColName</label>
-		<input type="text" name="colname" id="colname" size="60">
+		<label for="col_name">ColName</label>
+		<input type="text" name="col_name" id="col_name" size="60">
 		
 		<label for="display_name">display_name</label>
 		<input type="text" name="display_name" id="display_name" size="60">
@@ -64,14 +64,14 @@
 			insert into short_doc
 				(
 					short_doc_id,
-					ColName,
+					col_name,
 					display_name,
 					definition,
 					search_hint,
 					more_info
 				) values (
 					#id.id#,
-					'#ColName#',
+					'#col_name#',
 					'#display_name#',
 					'#escapeQuotes(definition)#',
 					'#escapeQuotes(search_hint)#',
