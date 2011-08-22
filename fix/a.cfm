@@ -13,13 +13,12 @@
 		<br>
 		new URL: #newurl#
 		<cfhttp url="#newurl#" method="head"></cfhttp>
-		<cfif cfhttp.Statuscode is '200 OK '>
+		<cfif cfhttp.Statuscode is '200 OK'>
 			<br>spiffy
 		<cfelse>
 			<br><a href="/doc/short_doc.cfm?action=edit&short_doc_id=#short_doc_id#">
 				======================================= fixit ========================
 			</a>
 		</cfif>
-		<cfdump var=#cfhttp#>
 	</cfloop>
 </cfoutput>
