@@ -285,7 +285,10 @@
 											<li><a target="_top" href="/Admin/redirect.cfm">Redirects</a></li>
 										</ul>
 									</li>
-								</cfif>		
+								</cfif>
+								<cfif listfind(formList,"/docs/short_doc.cfm")>
+									<li><a target="_top" href="/docs/short_doc.cfm">Popup Documentation</a></li>
+								</cfif>	
 							</ul>
 						<li><a target="_top" href="##">Manage Arctos</a>
 							<ul>
