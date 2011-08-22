@@ -88,6 +88,7 @@
 	<cfoutput>
 	<form name="d" method="post" action="short_doc.cfm">
 		<input type="hidden" name="action" value="saveEdit">
+		<input type="hidden" name="short_doc_id" value="#d.short_doc_id#">
 		<label for="colname">ColName</label>
 		<input type="text" name="colname" id="colname" value="#d.colname#" size="60">
 		
