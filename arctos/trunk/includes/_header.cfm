@@ -290,6 +290,8 @@
 								</cfif>
 								<cfif listfind(formList,"/docs/short_doc.cfm")>
 									<li><a target="_top" href="/docs/short_doc.cfm">Popup Documentation</a></li>
+								<cfelse>
+									<li><a target="_top" href="/docs/short_doc.cfm">wtf</a></li>
 								</cfif>	
 							</ul>
 						<li><a target="_top" href="##">Manage Arctos</a>
