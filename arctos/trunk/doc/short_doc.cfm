@@ -60,7 +60,6 @@
 		<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select sq_short_doc_id.nextval id from dual
 		</cfquery>
-
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into short_doc
 				(
@@ -86,6 +85,7 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from short_doc where short_doc_id=#short_doc_id#
 	</cfquery>
+	<cfoutput>
 	<form name="d" method="post" action="short_doc.cfm">
 		<input type="hidden" name="action" value="saveEdit">
 		<label for="colname">ColName</label>
@@ -103,6 +103,7 @@
 		<input type="text" name="MoreInfo" id="MoreInfo" value="#d.MoreInfo#"   size="60">
 		<input type="submit">
 	</form>
+	</cfoutput>
 </cfif>
 <cfif action is "saveEdit">
 	<cfoutput>
