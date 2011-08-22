@@ -11,10 +11,10 @@
 	<cfif anchor is "undefined">
 		<cfset anchor="">
 	</cfif>
-	<cfset fullURI="http://arctosdb.wordpress.com/documentation/#uri#/">
-	<cfif len(anchor) gt 0>
-		<cfset fullURI=fullURI & "###anchor#">
+	<cfif len(anchor) is 0>
+		<cfset anchor="top">
 	</cfif>
+	<cfset fullURI="http://arctosdb.wordpress.com/documentation/#uri#/###anchor#">
 	<cfhttp url="#fullURI#" method="head"></cfhttp>
 	<cfif left(cfhttp.statuscode,3) is "200">
 		<cfreturn fullURI>
