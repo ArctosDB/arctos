@@ -78,7 +78,7 @@
 				</tr>
 			</table>
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
-		    	<cfif len(#session.username#) gt 0>
+		    	<cfif len(session.username) gt 0>
 					<a target="_top" href="##" onClick="getDocs('index')">Help</a> ~ 
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 					<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
@@ -148,15 +148,14 @@
 					<cfif len(session.roles) gt 0 and session.roles is not "public">
 						<cfset r = replace(session.roles,",","','","all")>
 						<cfset r = "'#r#'">
-						<!--- cachedwithin="#createtimespan(0,0,60,0)#"--->
-						<cfquery name="roles" datasource="cf_dbuser">
+						<!--- "--->
+						<cfquery name="roles" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 							select form_path from cf_form_permissions 
 							where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
 							minus select form_path from cf_form_permissions 
 							where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
 						</cfquery>
 						<cfset formList = valuelist(roles.form_path)>
-						#formList#
 						<li><a href="##">Enter Data</a>
 							<ul>
 								<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
@@ -288,10 +287,8 @@
 										</ul>
 									</li>
 								</cfif>
-								<cfif listfind(formList,"/docs/short_doc.cfm")>
-									<li><a target="_top" href="/docs/short_doc.cfm">Popup Documentation</a></li>
-								<cfelse>
-									<li><a target="_top" href="/docs/short_doc.cfm">wtf</a></li>
+								<cfif listfind(formList,"/doc/short_doc.cfm")>
+									<li><a target="_top" href="/doc/short_doc.cfm">Popup Documentation</a></li>
 								</cfif>	
 							</ul>
 						<li><a target="_top" href="##">Manage Arctos</a>
