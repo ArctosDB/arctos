@@ -11,7 +11,7 @@
 <strong>#d.display_name#</strong>
 <br>#d.definition#
 <cfif len(d.more_info) gt 0>
-	<cfhttp url="#d.more_info#" method="head"></cfhttp>
+	<cfhttp url="#d.more_info#" method="head" timeout="2"></cfhttp>
 	<cfif cfhttp.Statuscode is '200 OK'>
 		<br><a href="#d.more_info#" target="_blank">[ More Information ]</a>
 	<cfelse>
