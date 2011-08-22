@@ -1,3 +1,8 @@
+<cfif not isdefined("fld")>bad call<cfabort></cfif>
+<cfset fld=trim(fld)>
+<cfif left(fld,1) is "_">
+	<cfset fld=right(fld,len(fld)-1)>
+</cfif>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from short_doc where  lower(colname) = ( '#lcase(fld)#' )
 </cfquery>
