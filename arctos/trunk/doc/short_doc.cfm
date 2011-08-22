@@ -3,13 +3,13 @@
 	<a href="short_doc.cfm?action=insert">[ new record ]</a>
 	<form name="d" method="post" action="short_doc.cfm">
 		<input type="hidden" name="action" value="srch">
-		<input type="submit">
+		<input type="submit" value="find everything">
 	</form>
 </cfif>
 <cfif action is "srch">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from short_doc
+			select * from short_doc order by colname
 		</cfquery>
 		<table border>
 			<tr>
