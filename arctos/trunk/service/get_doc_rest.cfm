@@ -7,7 +7,7 @@
 <cfelse>
 	no data found for #fld#
 	<cfthrow 
-	    detail = "doc not found for #fld">
+	    detail = "doc not found for #fld#">
 	</cfif>
 </cfoutput>
 <!----
