@@ -51,7 +51,7 @@
 		<input type="text" name="search_hint" id="search_hint" size="60">
 		<label for="more_info">MoreInfo</label>
 		<input type="text" name="more_info" id="more_info" size="60">
-		<input type="submit">
+		<br><input type="submit" value="create record">
 	</form>
 </cfif>
 
@@ -102,8 +102,18 @@
 		<input type="text" name="search_hint" id="search_hint" value="#d.search_hint#"  size="60">
 		<label for="more_info">MoreInfo</label>
 		<input type="text" name="more_info" id="more_info" value="#d.more_info#"   size="60">
-		<input type="submit">
+		<br><input type="submit" value="save edits">
+		<a href="short_doc.cfm?action=delete&short_doc_id=#short_doc_id#">[ delete this record ]</a>
 	</form>
+	</cfoutput>
+</cfif>
+
+<cfif action is "delete">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from short_doc where short_doc_id=#short_doc_id#
+		</cfquery>
+		deleted
 	</cfoutput>
 </cfif>
 <cfif action is "saveEdit">
