@@ -7,15 +7,24 @@
 	select * from short_doc where  lower(colname) = ( '#lcase(fld)#' )
 </cfquery>
 <cfoutput>
-	<cfif d.recordcount is 1>
+<cfif d.recordcount is 1>
 <strong>#d.display_name#</strong>
 <br>#d.definition#
-<cfif len(d.more_info) gt 0><br><a href="#d.more_info#" target="_blank">[ More Information ]</a></cfif>
+<cfif len(d.more_info) gt 0>
+	<cfhttp url="#d.more_info#" method="head"></cfhttp>
+	<cfif cfhttp.Statuscode is '200 OK'>
+		<br><a href="#d.more_info#" target="_blank">[ More Information ]</a>
+	<cfelse>
+		<cfmail subject="docs: bad moreinfo" to="#Application.PageProblemEmail#" from="badlink@#Application.fromEmail#" type="html">
+			#fld#: #d.more_info# not found
+		</cfmail>
+	</cfif>
 <cfelse>
 	no data found for #fld#
 	<cfmail subject="doc not found" to="#Application.PageProblemEmail#" from="docMIA@#Application.fromEmail#" type="html">
 		short doc not found for #fld#
 	</cfmail>	
+	</cfif>	
 	</cfif>
 </cfoutput>
 <!----

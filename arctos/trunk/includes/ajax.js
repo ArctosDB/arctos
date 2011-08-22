@@ -918,13 +918,28 @@ function windowOpener(url, name, args) {
 function getDocs(url,anc) {
 	var url;
 	var anc;
-	var baseUrl = "http://g-arctos.appspot.com/arctosdoc/";
-	var extension = ".html";
-	var fullURL = baseUrl + url + extension;
-		if (anc != null) {
-			fullURL += "#" + anc;
+	//var baseUrl = "http://g-arctos.appspot.com/arctosdoc/";
+	//var extension = ".html";
+	//var fullURL = baseUrl + url + extension;
+	//	if (anc != null) {
+	//		fullURL += "#" + anc;
+	//	}
+		
+		
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "get_docs",
+			uri : url,
+			anchor : anc
+		},
+		function (r) {
+			if (r == '404') {
+				alert('help not found.');
+			} else {
+				siteHelpWin=windowOpener(r,"HelpWin","width=700,height=400, resizable,scrollbars,location,toolbar");
+			}
 		}
-	siteHelpWin=windowOpener(fullURL,"HelpWin","width=700,height=400, resizable,scrollbars,location,toolbar");
+	);
 }		
 function noenter(e) {
 	var key;
