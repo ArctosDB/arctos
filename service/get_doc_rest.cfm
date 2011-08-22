@@ -1,7 +1,9 @@
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from short_doc where  lower(colname) = ( '#lcase(fld)#' )
 </cfquery>
+<cfoutput>
 -----#d.display_name##chr(10)##d.definition#<cfif len(d.more_info) gt 0>#chr(10)##d.more_info#</cfif>
+</cfoutput>
 <!----
 <cfparam name="action" default="nothing">
 <cfparam name="addCtl" default="0">
