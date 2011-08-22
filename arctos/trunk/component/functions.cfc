@@ -7,6 +7,8 @@
 		<cfset uri="places/coordinates">
 	<cfelseif uri is "cataloged_item">
 		<cfset uri="catalog">
+	<cfelseif uri is "index">
+		<cfset uri="">
 	</cfif>
 	<cfif anchor is "undefined">
 		<cfset anchor="">
