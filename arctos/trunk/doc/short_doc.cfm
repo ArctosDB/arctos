@@ -38,8 +38,8 @@
 <cfif action is "new">
 	<form name="d" method="post" action="short_doc.cfm">
 		<input type="hidden" name="action" value="insert">
-		<label for="col_name">ColName</label>
-		<input type="text" name="col_name" id="col_name" size="60">
+		<label for="colname">ColName</label>
+		<input type="text" name="colname" id="colname" size="60">
 		
 		<label for="display_name">display_name</label>
 		<input type="text" name="display_name" id="display_name" size="60">
@@ -64,14 +64,14 @@
 			insert into short_doc
 				(
 					short_doc_id,
-					col_name,
+					colname,
 					display_name,
 					definition,
 					search_hint,
 					more_info
 				) values (
 					#id.id#,
-					'#col_name#',
+					'#colname#',
 					'#display_name#',
 					'#escapeQuotes(definition)#',
 					'#escapeQuotes(search_hint)#',
