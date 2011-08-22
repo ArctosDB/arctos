@@ -930,7 +930,8 @@ function getDocs(url,anc) {
 		{
 			method : "get_docs",
 			uri : url,
-			anchor : anc
+			anchor : anc,
+			returnformat : "json"
 		},
 		function (r) {
 			if (r == '404') {
