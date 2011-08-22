@@ -99,8 +99,8 @@
 
 		<label for="search_hint">search_hint</label>
 		<input type="text" name="search_hint" id="search_hint" value="#d.search_hint#"  size="60">
-		<label for="MoreInfo">MoreInfo</label>
-		<input type="text" name="MoreInfo" id="MoreInfo" value="#d.MoreInfo#"   size="60">
+		<label for="more_info">MoreInfo</label>
+		<input type="text" name="more_info" id="more_info" value="#d.more_info#"   size="60">
 		<input type="submit">
 	</form>
 	</cfoutput>
