@@ -18,7 +18,7 @@
 	<!---
 		This part runs ONLY on arctos.database.museum, the one and only source of this information.
 	--->
-	<cfquery name="d" datasource="user_login" username="cf_dbuser">
+	<cfquery name="d" datasource="cf_dbuser">
 		select * from short_doc where  lower(colname) = '#lcase(fld)#'
 	</cfquery>
 	<cfset r='<div position="relative">'>
