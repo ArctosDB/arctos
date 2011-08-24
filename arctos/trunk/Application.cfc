@@ -267,6 +267,7 @@
 			#GetTemplatePath()# does not contain "/login.cfm" and
 			#GetTemplatePath()# does not contain "/ChangePassword.cfm" and
 			#GetTemplatePath()# does not contain "/contact.cfm" and
+			#GetTemplatePath()# does not contain "/doc_rest.cfm" and
 			len(session.username) is 0>
 		<cflocation url="/errors/dev_login.cfm">	
 	<cfelseif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
