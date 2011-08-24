@@ -21,6 +21,7 @@
 	<cfquery name="d" datasource="cf_dbuser">
 		select * from short_doc where  lower(colname) = '#lcase(fld)#'
 	</cfquery>
+	<cfdump var=#d#>
 	<cfset r='<div position="relative">'>
 	<cfif addCtl is 1>
 		<cfset r=r & '<span class="docControl" onclick="removeHelpDiv()">X</span>'>
