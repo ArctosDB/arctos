@@ -21,7 +21,6 @@
 	<cfquery name="d" datasource="cf_dbuser">
 		select * from short_doc where  lower(colname) = '#lcase(fld)#'
 	</cfquery>
-	<cfdump var=#d#>
 	<cfset r='<div position="relative">'>
 	<cfif addCtl is 1>
 		<cfset r=r & '<span class="docControl" onclick="removeHelpDiv()">X</span>'>
@@ -42,18 +41,18 @@
 				</cfmail>
 			</cfif>
 		</cfif>
-		<cfset r=r & '</div>'>
-		<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
-		<cfscript>
-	        getPageContext().getOut().clearBuffer();
-	        writeOutput(response);
-		</cfscript>
 	<cfelse>
 		<cfset r=r & '<div class="docTitle">No documentation is available for #fld#.</div>'>
 		<cfmail subject="doc not found" to="#Application.PageProblemEmail#" from="docMIA@#Application.fromEmail#" type="html">
 			short doc not found for #fld#
 		</cfmail>
 	</cfif>
+	<cfset r=r & '</div>'>
+	<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
+	<cfscript>
+        getPageContext().getOut().clearBuffer();
+        writeOutput(response);
+	</cfscript>
 </cfif>
 <!----
 <cfparam name="addCtl" default="0">
