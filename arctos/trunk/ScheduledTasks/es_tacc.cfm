@@ -43,14 +43,16 @@
 	<cfif action is "spec_media">
 		<!--- grab everything --->
 		<cfquery name="d" datasource="uam_god">
-			select * from es_img where status is null and rownum<2
+			select * from es_img where status is null and rownum<1000
 		</cfquery>
 		<cfloop query="d">
 			<br>imgname: #imgname#
 			<cfset barcode=listgetat(imgname,1,"_")>
 			<br>barcode: #barcode#
 			<cfquery name="acn" datasource="uam_god">
-				select * from spec_scan where barcode='#barcode#'
+				select * from spec_scan where barcode='#barcode#' and 
+					collection_object_id is not null and
+					status is null
 			</cfquery>
 			<cfif acn.recordcount gt 0>
 				<cftransaction>
@@ -87,6 +89,7 @@
 							7
 						)
 					</cfquery>
+					<br>made media
 					<cfquery name="nid" datasource="uam_god">
 						select sq_media_id.nextval media_id from dual
 					</cfquery>
@@ -108,6 +111,7 @@
 							7
 						)
 					</cfquery>
+					<br>go relations dng
 					<cfquery name="mr_mder" datasource="uam_god">
 						insert into media_relations (
 							MEDIA_ID,
@@ -121,6 +125,7 @@
 							#dng_id#
 						)
 					</cfquery>
+					<br>go relations cat item
 					<cfquery name="mr_macn" datasource="uam_god">
 						insert into media_relations (
 							MEDIA_ID,
@@ -134,6 +139,7 @@
 							#acn.collection_object_id#
 						)
 					</cfquery>
+					<br>go relations createdby
 					<cfquery name="mr_dcr" datasource="uam_god">
 						insert into media_relations (
 							MEDIA_ID,
@@ -147,6 +153,7 @@
 							21253238
 						)
 					</cfquery>
+					<br>go labels ....
 					<cfquery name="lbl_b" datasource="uam_god">
 						insert into  media_labels (
 							MEDIA_ID,

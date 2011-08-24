@@ -622,7 +622,7 @@ jQuery(document).ready(function() {
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
 		jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
+		jQuery(theDiv).load("/doc/get_short_doc.cfm",{fld: id, addCtl: 1});
 	});
 	jQuery("#c_collection_cust").click(function(e){
 		var bgDiv = document.createElement('div');
