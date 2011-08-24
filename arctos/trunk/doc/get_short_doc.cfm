@@ -49,7 +49,7 @@
 			</cfmail>	
 		</cfif>
 		<cfset r=r & '</div>'>
-		<cfsavecontent variable="response">#r#</cfsavecontent>
+		<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
 		<cfscript>
 	        getPageContext().getOut().clearBuffer();
 	        writeOutput(response);
