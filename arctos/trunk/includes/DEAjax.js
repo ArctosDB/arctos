@@ -351,10 +351,8 @@ function saveNewRecord () {
 				queryformat : 'column'
 			},
 			function(r) {
-				alert('hi');
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
 				var status=r.DATA.RSLT[0];
-				alert(status);
 				if (status){
 					msg(status,'err');
 					$("#loadedMsgDiv").text(status).show();
