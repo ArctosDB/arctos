@@ -94,7 +94,7 @@
 				</cfquery>
 			</cftransaction>
 		<cfcatch>
-			<cfset result = querynew("COLLECTION_OBJECT_ID,rslt")>
+			<cfset result = querynew("COLLECTION_OBJECT_ID,RSLT")>
 			<cfset temp = queryaddrow(result,1)>
 			<cfset temp = QuerySetCell(result, "collection_object_id", collection_object_id, 1)>
 			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail, 1)>
@@ -151,7 +151,7 @@
 				</cfquery>
 			</cftransaction>
 		<cfcatch>
-			<cfset result = querynew("COLLECTION_OBJECT_ID,rslt")>
+			<cfset result = querynew("COLLECTION_OBJECT_ID,RSLT")>
 			<cfset temp = queryaddrow(result,1)>
 			<cfset temp = QuerySetCell(result, "COLLECTION_OBJECT_ID", collection_object_id, 1)>
 			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail, 1)>
