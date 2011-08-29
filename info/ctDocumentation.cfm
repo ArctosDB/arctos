@@ -4,13 +4,14 @@
 <cfif not isdefined("table")>
 	<cfquery name="getCTName" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
-			distinct(table_name) table_name 
+			table_name 
 		from 
 			sys.user_tables 
 		where 
 			table_name like 'CT%'
 		UNION 
 			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
+		 group by table_name
 		 order by table_name
 	</cfquery>
 	<cfloop query="getCTName">
@@ -24,7 +25,7 @@
 	<cfset field="">
 </cfif>
 Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumentation.cfm">[ table list ]</a>
-	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from #table#
 	</cfquery>
 	<cfif table is "ctmedia_license">
