@@ -1,22 +1,30 @@
 <cfoutput>
-<cfif not isdefined("table")>
-	<!---- probably a bot ---->
-	<cfabort>
-</cfif>
 <cfinclude template="/includes/_frameHeader.cfm">
 <script src="/includes/sorttable.js"></script>
+<cfif not isdefined("table")>
+	<cfquery name="getCTName" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			distinct(table_name) table_name 
+		from 
+			sys.user_tables 
+		where 
+			table_name like 'CT%'
+		UNION 
+			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
+		 order by table_name
+	</cfquery>
+	<cfloop query="getCTName">
+		<br><a href="ctDocumentation.cfm?table=#table_name#">#table_name#</a>
+	</cfloop>
+	<cfabort>
+</cfif>
+
 <cfset tableName = right(table,len(table)-2)>
 <cfif not isdefined("field") or field is "undefined">
 	<cfset field="">
 </cfif>
-
-	<table>
-		<tr>
-			<td>
-				<font size="+1">Documentation for code table <strong>#tableName#</strong>:</font>			</td>
-		</tr>
-	</table>
-	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumentation.cfm">[ table list ]</a>
+	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from #table#
 	</cfquery>
 	<cfif table is "ctmedia_license">
@@ -128,7 +136,4 @@
 				</cfif>
 		</table>
 	</cfif>
-	
-	
-	
 </cfoutput>
