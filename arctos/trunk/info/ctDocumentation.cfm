@@ -4,14 +4,13 @@
 <cfif not isdefined("table")>
 	<cfquery name="getCTName" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
-			table_name 
+			distinct(table_name) table_name 
 		from 
 			sys.user_tables 
 		where 
 			table_name like 'CT%'
 		UNION 
 			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
-		 group by table_name
 		 order by table_name
 	</cfquery>
 	<cfloop query="getCTName">
