@@ -1,31 +1,33 @@
+<!---
 <cfinclude template="/includes/_frameHeader.cfm">
-<cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+
+--->
+<cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
 </cfquery>
-<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_type from ctagent_type order by agent_type
 </cfquery>
-<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select addr_type from ctaddr_type
+<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select addr_type from ctaddr_type order by addr_type
 </cfquery>
-<cfquery name="ctElecAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select address_type from ctelectronic_addr_type
+<cfquery name="ctElecAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select address_type from ctelectronic_addr_type order by address_type
 </cfquery>
-<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select prefix from ctprefix order by prefix
+<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select prefix from ctprefix order by prefix order by prefix
 </cfquery>
-<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select suffix from ctsuffix order by suffix
 </cfquery>
-<cfquery name="ctRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP
+<cfquery name="ctRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP order by AGENT_RELATIONSHIP
 </cfquery>
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
 <cfif not isdefined("agent_id")>
 	<cfset agent_id = -1>
 </cfif>
 <script language="javascript" type="text/javascript">
-	
 	jQuery(document).ready(function() {
 		jQuery("#birth_date").datepicker();
 		jQuery("#death_date").datepicker();
@@ -98,7 +100,7 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
-<cfif #Action# is "newPerson">
+<cfif action is "newPerson">
 	<form name="newPerson" action="editAllAgent.cfm" method="post" target="_person">
 		<input type="hidden" name="Action" value="insertPerson">
 		<label for="prefix">Prefix</label>
@@ -150,7 +152,7 @@
 			where agent_id=#agent_id#
 	</cfquery>
 	<cfoutput query="person">
-		<cfif #agent_type# is "person">	
+		<cfif agent_type is "person">	
 			<cfset nameStr="">
 			<cfset nameStr= listappend(nameStr,prefix,' ')>
 			
@@ -260,7 +262,7 @@
 		</cfloop>
 	</cfoutput>
 	<br />
-	<cfif #person.agent_type# is "person">
+	<cfif person.agent_type is "person">
 		<cfoutput query="person">
 			<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
 				<input type="hidden" name="agent_id" value="#agent_id#">
@@ -326,7 +328,7 @@
 		</cfoutput>
 	</cfif>
 	<cfoutput>
-		<cfif #person.agent_type# is "group">
+		<cfif person.agent_type is "group">
 			<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					MEMBER_AGENT_ID,
