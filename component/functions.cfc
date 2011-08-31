@@ -5,7 +5,7 @@
 	<cfargument name="anchor" type="string" required="no">
 	<cfif uri is "lat_long">
 		<cfset uri="places/coordinates">
-	<cfif uri is "collecting_event">
+	<cfelseif uri is "collecting_event">
 		<cfset uri="places/collecting-event">
 	<cfelseif uri is "cataloged_item">
 		<cfset uri="catalog">
