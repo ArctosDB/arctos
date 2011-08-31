@@ -88,11 +88,13 @@
 <cfif getAgents.recordcount is 0>
     <span class="error">Nothing Matched.</span>
 </cfif>
+<div style="height:25%; overflow:auto;border:2px solid purple;">
 <cfloop query="getAgents">
 	 <a href="editAllAgent.cfm?agent_id=#agent_id#" 
 	 	target="_person">#agent_name#</a> <font size="-1">(#agent_type#: #agent_id#)</font> 
    <br>
 </cfloop>
+</div>
 </cfoutput>
 
 
