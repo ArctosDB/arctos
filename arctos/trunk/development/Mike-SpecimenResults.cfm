@@ -1,7 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <link type="text/css" href="js/skin/jplayer.blue.monday.css" rel="stylesheet" />
 <script type='text/javascript' language="javascript" src='Mike-SpecimenResults.js'></script>
-<script type="text/javascript" language="javascript" src="js/jquery.jplayer.min.js"></script>
 <cfif len(session.displayrows) is 0>
 	<cfset session.displayrows=20>
 </cfif>
