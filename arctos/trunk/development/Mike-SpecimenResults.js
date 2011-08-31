@@ -668,7 +668,7 @@ function success_getSpecResultsData(result){
                                         '</div>' +
                                     '</div>';
                                    
-                                    // Here's the magical JavaScript function.                                    
+                                    // Here's the magical JavaScript function.                      
 									
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
