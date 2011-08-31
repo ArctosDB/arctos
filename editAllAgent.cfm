@@ -154,7 +154,6 @@
 		<cfif agent_type is "person">	
 			<cfset nameStr="">
 			<cfset nameStr= listappend(nameStr,prefix,' ')>
-			
 			<cfset nameStr= listappend(nameStr,first_name,' ')>
 			<cfset nameStr= listappend(nameStr,middle_name,' ')>
 			<cfset nameStr= listappend(nameStr,last_name,' ')>
@@ -323,6 +322,17 @@
 						</tr>
 					</table>
 				</div>
+			</form>
+		</cfoutput>
+	<cfelse>
+		<cfoutput query="person">
+			<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
+				<input type="hidden" name="agent_id" value="#agent_id#">
+				<input type="hidden" name="action" value="editNonPerson">
+				<label for="agent_remarks">Agent Remark</label>
+				<input type="text" value="#agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
+				<br>
+				<input type="submit" class="savBtn" value="Update Agent">
 			</form>
 		</cfoutput>
 	</cfif>
