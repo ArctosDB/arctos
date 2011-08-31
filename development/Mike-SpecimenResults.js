@@ -656,7 +656,7 @@ function success_getSpecResultsData(result){
                                                   '<li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>' +
                                                 '</ul>' +
                                                 '<div class="jp-progress">' +
-                                                '   <div class="jp-seek-bar">' +
+                                                '   <div class="jp-seek-bar" style="width: 100%; ">' +
                                                 '       <div class="jp-play-bar">' +
                                                 '</div></div></div>' +
                                                 '<div class="jp-volume-bar">' +
@@ -670,7 +670,7 @@ function success_getSpecResultsData(result){
                                    
                                          $("#jplayer_1").jPlayer({
 									        ready: function () {
-									          $(this.jplayer_1).jPlayer("setMedia", {
+									          $(this).jPlayer("setMedia", {
 									            m4a: "http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a",
 									            oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
 									          });
