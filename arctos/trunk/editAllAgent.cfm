@@ -15,7 +15,7 @@
 	select address_type from ctelectronic_addr_type order by address_type
 </cfquery>
 <cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select prefix from ctprefix order by prefix order by prefix
+	select prefix from ctprefix order by prefix
 </cfquery>
 <cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select suffix from ctsuffix order by suffix
