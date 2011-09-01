@@ -18,7 +18,7 @@ There are 2 online methods by which you may bulkload specimens.
 		This method can be used for ca. 10,000 records on a good connection. It's also very picky,
 		potentially hard to debug, requires tab-delimited text files, 
 		and can have issues with non-ASCII characters when called from 
-		Web application.
+		Web applications.
 	</li>
 	<li>
 		Large datasets may be impossible to load without DBA assistance due to network speeds and timeout
@@ -33,6 +33,6 @@ There are 2 online methods by which you may bulkload specimens.
 <p>Use <a href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a> to see what's made it to the
 bulkloader but not yet to Arctos</p>
 
-<p>Documentation, including field definitions, is at <a href="http://g-arctos.appspot.com/arctosdoc/Bulkloader/index.html">Bulkloader Docs</a>
+<p>Documentation, including field definitions, is at <a href="https://arctosdb.wordpress.com/how-to/create/bulkloader/">Bulkloader Docs</a>
 </p>
 <cfinclude template="/includes/_footer.cfm">
