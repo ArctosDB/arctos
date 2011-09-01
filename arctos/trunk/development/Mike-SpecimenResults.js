@@ -646,7 +646,7 @@ function success_getSpecResultsData(result){
                                         
                                     // Place the player here now, with the ID of the fileName.
 								  	theInnerHtml +=
-                                    '<div id=fileName class="jp-jplayer"></div>' +
+                                    '<div id="' + fileName + '" class="jp-jplayer"></div>' +
                                         '<div class="jp-audio"><div class="jp-type-single">' +
                                             '<div id="jp_interface_1" class="jp-interface">' +
                                                 '<ul class="jp-controls">' +
