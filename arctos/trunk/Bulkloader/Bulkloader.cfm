@@ -22,7 +22,7 @@
 				<a href="/DataEntry.cfm">Online Entry Form</a>
 			</li>
 			<li>
-				<a href="javascript:void(0);" onclick="getDocs('Bulkloader/index')">Documentation</a>
+				<a href="javascript:void(0);" onclick="getDocs('Bulkloader')">Documentation</a>
 			</li>
 		</ul>
 		</td>
