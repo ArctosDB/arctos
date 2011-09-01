@@ -147,7 +147,7 @@
 	<cfoutput query="data">
 		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT institution_acronym || ' ' || collection_cde as instcoll, collection_id FROM collection
-				<cfif len(#collection_cde#) gt 0>
+				<cfif len(collection_cde) gt 0>
 					WHERE collection_cde='#collection_cde#'
 				</cfif>
 		</cfquery>
