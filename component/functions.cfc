@@ -1,16 +1,23 @@
 <cfcomponent>
 	<!------------------------------------------------------------------->
 <cffunction name="get_docs" access="remote">
+	<!---
+		deal with whatever structure we have on the doc site here
+	--->
 	<cfargument name="uri" type="string" required="yes">
 	<cfargument name="anchor" type="string" required="no">
 	<cfif uri is "lat_long">
-		<cfset uri="places/coordinates">
+		<cfset uri="documentation/places/coordinates">
 	<cfelseif uri is "collecting_event">
 		<cfset uri="places/collecting-event">
-	<cfelseif uri is "cataloged_item">
+	<cfelseif uri contains "Bulkloader">
+		<cfset uri="how-to/create/bulkloader">
+	<cfelseif uri is "documentation/cataloged_item">
 		<cfset uri="catalog">
-	<cfelseif uri is "index">
-		<cfset uri="">
+	<cfelseif uri is "documentation/index">
+		<cfset uri="documentation">
+	<cfelse>
+		<cfset uri="documentation">
 	</cfif>
 	<cfif anchor is "undefined">
 		<cfset anchor="">
@@ -18,13 +25,14 @@
 	<cfif len(anchor) is 0>
 		<cfset anchor="top">
 	</cfif>
-	<cfset fullURI="http://arctosdb.wordpress.com/documentation/#uri#/###anchor#">
+	<cfset fullURI="http://arctosdb.wordpress.com/#uri#/###anchor#">
 	<cfhttp url="#fullURI#" method="head"></cfhttp>
 	<cfif left(cfhttp.statuscode,3) is "200">
 		<cfreturn fullURI>
 	<cfelse>
 		<cfmail subject="doc_not_found" to="#Application.PageProblemEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
 			#fullURI# is missing
+			<cfdump var=#cgi#>
 		</cfmail>	
 		<cfreturn 404>
 	</cfif>
