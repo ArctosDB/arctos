@@ -14,7 +14,7 @@
 		<cfset uri="how-to/create/bulkloader">
 	<cfelseif uri is "documentation/cataloged_item">
 		<cfset uri="catalog">
-	<cfelseif uri is "documentation/index">
+	<cfelseif uri is "index">
 		<cfset uri="documentation">
 	<cfelse>
 		<cfset uri="documentation/#uri#">
