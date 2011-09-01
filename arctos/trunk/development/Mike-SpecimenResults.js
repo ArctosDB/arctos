@@ -644,9 +644,9 @@ function success_getSpecResultsData(result){
                                     // Create an audio thumb.
                                     theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle">';	
                                         
-                                    // Place the player here now.
+                                    // Place the player here now, with the ID of the fileName.
 								  	theInnerHtml +=
-                                    '<div id="jplayer_1" class="jp-jplayer"></div>' +
+                                    '<div id=fileName class="jp-jplayer"></div>' +
                                         '<div class="jp-audio"><div class="jp-type-single">' +
                                             '<div id="jp_interface_1" class="jp-interface">' +
                                                 '<ul class="jp-controls">' +
@@ -668,7 +668,25 @@ function success_getSpecResultsData(result){
                                         '</div>' +
                                     '</div>';
                                    
-                                    // Here's the magical JavaScript function.                      
+                                    // Here's the magical JavaScript function.
+                                    audioPrepFunction =
+                                    	'<script type="text/javascript">' +
+                                    		'$(document).ready(function() {' +
+                                    			'$("#' + fileName + '").jPlayer({' +
+                                    				'ready: function () {' +
+                                    					'$(this).jPlayer("setMedia", {' +
+                                    						'mp3: "' + mp3PlaybackUrl + '", ' +
+                                    						'oga: "' + oggPlaybackUrl + '", ' +
+                                    						'wav: "' + wavPlaybackUrl + '"' +
+                                    					'});' +
+                                    				'},' +
+                                    				'swfPath: "/js",' +
+                                    				'supplied: "mp3, oga, wav"' +
+                                    			'});' +
+                                    		'});' +
+                                    	'</script>';
+                                    					
+                                    document.head.innerHTML = document.head.innerHTML + audioPrepFunction;
 									
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
