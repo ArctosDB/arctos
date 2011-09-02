@@ -672,7 +672,7 @@ function success_getSpecResultsData(result){
                                     audioPrepFunction =
                                     	'<script type="text/javascript">' +
                                     		'$(document).ready(function() {' +
-                                    			'$("' + fileName + '").jPlayer({' +
+                                    			'$("#' + fileName + '").jPlayer({' +
                                     				'ready: function () {' +
                                     					'$(this).jPlayer("setMedia", {' +
                                     						'mp3: "' + mp3PlaybackUrl + '", ' +
