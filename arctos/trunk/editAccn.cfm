@@ -162,7 +162,7 @@
 		<div style="clear:both"><strong>Edit Accession</strong></div>
 		<table><tr><td valign="top">
 			<cfform action="editAccn.cfm" method="post" name="editAccn">
-				<input type="hidden" name="Action" value="saveChanges">
+				<input type="hidden" name="action" value="saveChanges">
 				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 				<cfset tIA=accnData.collection_id>
 				<table border>
@@ -362,7 +362,7 @@
 				<cfif #projs.recordcount# gt 0>
 					<cfloop query="projs">
 						<li>
-							<a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a><br>
+							<a href="/Project.cfm?action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a><br>
 						</li>
 					</cfloop>
 				<cfelse>
@@ -482,7 +482,7 @@
 			<cfif #project_id# gt 0>to add to project ## #project_id#</cfif>
 		</strong>
 		<form action="editAccn.cfm" method="post" name="SpecData" preservedata="yes">
-			<input type="hidden" name="Action" value="findAccessions">
+			<input type="hidden" name="action" value="findAccessions">
 			<input type="hidden" <cfif project_id gt 0> value = "#project_id#" </cfif> name="project_id">
 			<table border>
 				<tr>
@@ -652,7 +652,7 @@
 							onClick="document.location = 'newAccn.cfm';">	
 						<input type="button" value="Clear Form" class="clrBtn" onClick="document.location='editAccn.cfm';">	
 						<input type="button" value="Add Specimens to an Accn" class="lnkBtn"
-						   onclick = "window.open('SpecimenSearch.cfm?Action=addAccn');">	
+						   onclick = "window.open('SpecimenSearch.cfm?action=addAccn');">	
 					</td>
 				</tr>
 			</table>
@@ -660,7 +660,7 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
-<cfif #Action# is "findAccessions">
+<cfif #action# is "findAccessions">
 <cfset title = "Accession Search Results">
 	<cfoutput>
 		<cfset sel = "SELECT 
@@ -836,12 +836,12 @@
 	<cfoutput query="getAccns" group="transaction_id">
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif #project_id# gt 0>
-				<a href="Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#">
+				<a href="Project.cfm?action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#">
 					Add Accn #accn_number#
 				</a>
 				 to Project <strong>#sfproj.project_name#</strong>
 			<cfelse>
-				<a href="editAccn.cfm?Action=edit&transaction_id=#transaction_id#"><strong>#collection# #accn_number#</strong></a>
+				<a href="editAccn.cfm?action=edit&transaction_id=#transaction_id#"><strong>#collection# #accn_number#</strong></a>
 				<span style="font-size:smaller">(#accn_status#)</span>
 			</cfif> 
 			<div style="padding-left:2em;">
@@ -864,7 +864,7 @@
 					<br>Project(s):
 					<div style="padding-left:2em">
 						<cfloop query="p">
-							<a href="/Project.cfm?Action=editProject&project_id=#p.pid#"><strong>#P.project_name#</strong></a><BR>
+							<a href="/Project.cfm?action=editProject&project_id=#p.pid#"><strong>#P.project_name#</strong></a><BR>
 						</cfloop>
 					</div>
 				</CFIF>	
@@ -874,17 +874,17 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
-<cfif #Action# is "delePermit">
+<cfif #action# is "delePermit">
 	<cfoutput>
 		<cfquery name="killPerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
 			permit_id=#permit_id#
 		</cfquery>
-		<cflocation url="editAccn.cfm?Action=edit&transaction_id=#transaction_id#">
+		<cflocation url="editAccn.cfm?action=edit&transaction_id=#transaction_id#">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
-<cfif #Action# is "saveChanges">
+<cfif #action# is "saveChanges">
 	<cfoutput>
 		<cftransaction>
 			<!--- see if they're adding project --->
@@ -961,7 +961,7 @@
 				</cfquery>
 			</cfif>
 		</cftransaction>
-	<cflocation url="editAccn.cfm?Action=edit&transaction_id=#transaction_id#" addtoken="false">
+	<cflocation url="editAccn.cfm?action=edit&transaction_id=#transaction_id#" addtoken="false">
   </cfoutput>
 </cfif>
 <cfinclude template="includes/_footer.cfm">
