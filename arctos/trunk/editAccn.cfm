@@ -109,11 +109,11 @@
 		<cfquery name="delAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from trans_agent where transaction_id=#transaction_id#
 		</cfquery>
-		<cfquery name="delTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			delete from trans where transaction_id=#transaction_id#
-		</cfquery>
 		<cfquery name="delAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from accn where transaction_id=#transaction_id#
+		</cfquery>
+		<cfquery name="delTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from trans where transaction_id=#transaction_id#
 		</cfquery>
 	</cftransaction>
 	you deleted it
