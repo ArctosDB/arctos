@@ -91,6 +91,7 @@ CREATE OR REPLACE TRIGGER cf_temp_media_key
     end;                                                                                            
 /
 sho err
+
 --->
 
 <cfinclude template="/includes/_header.cfm">
@@ -191,7 +192,7 @@ sho err
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "makeTemplate">
-	<cfset header="MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license">
+	<cfset header="MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license,barcode">
 	<cfloop from="1" to="#nL#" index="i">
 		<cfset header=listappend(header,"media_label_#i#")>
 		<cfset header=listappend(header,"media_label_value_#i#")>
