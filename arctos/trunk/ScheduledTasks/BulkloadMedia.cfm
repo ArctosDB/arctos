@@ -195,7 +195,7 @@
 							<cfelse>
 								<!--- barcode or stoopids --->
 								<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-									select collection_object_id from 
+									select flat.collection_object_id from 
 										flat,
 										container child,
 										container parent,
