@@ -183,12 +183,32 @@
 										guid='#rt#'
 										---------
 							</cfif>
-							<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-								select collection_object_id from 
-									flat
-								WHERE
-									guid='#rt#'
-							</cfquery>
+							<!--- accepts GUID or barcode. We're screwed if anyone ever orders barcodes with a guid-like format, but until then....---->
+							<cfif listlen(rt,':') is 3>
+								<!--- guid --->
+								<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+									select collection_object_id from 
+										flat
+									WHERE
+										guid='#rt#'
+								</cfquery>
+							<cfelse>
+								<!--- barcode or stoopids --->
+								<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+									select collection_object_id from 
+										flat,
+										container child,
+										container parent,
+										specimen_part
+										coll_obj_cont_hist
+									WHERE
+										flat.collection_object_id=specimen_part.derived_from_cat_item and
+										specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+										coll_obj_cont_hist.container_id=child.container_id and
+										child.parent_container_id=parent.container_id and
+										parent.barcode='#rt#'
+								</cfquery>
+							</cfif>
 							<cfif debug is true>
 								<cfdump var=#c#>
 							</cfif>
