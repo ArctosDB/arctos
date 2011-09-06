@@ -101,6 +101,12 @@
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from ctpermit_type order by permit_type
 </cfquery>
+
+
+<!-------------------------------------------------------------------->
+<cfif action is "deleteAccn">
+	delete....
+</cfif>
 <!-------------------------------------------------------------------->
 <cfif action is "edit">
 	<cfoutput>
@@ -109,7 +115,6 @@
 				getMedia('accn','#transaction_id#','accnMediaDiv','6','1');
 			});
 		</script>	
-
 		<cfset title="Edit Accession">
 		<cfquery name="accnData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT
@@ -302,7 +307,11 @@
 						<td colspan="6" align="center">
 						<input type="submit" value="Save Changes" class="savBtn">	
 				 		<input type="button" value="Quit without saving" class="qutBtn"
-							onclick = "document.location = 'editAccn.cfm'">	
+							onclick = "document.location = 'editAccn.cfm'">
+						<input type="button" value="Delete" class="delBtn" onClick="editAccn.action.value='deleteAccn';confirmDelete('editAccn');">
+					
+					
+					
 						<input type="button" value="Specimen List" class="lnkBtn"
 						 	onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#');">	
 				       	<input type="button" value="BerkeleyMapper" class="lnkBtn"
