@@ -199,7 +199,7 @@
 										flat,
 										container child,
 										container parent,
-										specimen_part
+										specimen_part,
 										coll_obj_cont_hist
 									WHERE
 										flat.collection_object_id=specimen_part.derived_from_cat_item and
