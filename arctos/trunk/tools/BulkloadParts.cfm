@@ -284,6 +284,9 @@ validate
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "checkValidate">
+<style>
+ .int {font-size:xx-small;color:green;}
+</style>
 	<cfoutput>
 	<cfquery name="inT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_parts
@@ -291,10 +294,9 @@ validate
 	<table border>
 		<tr>
 			<td>Problem</td>
-			<td>institution_acronym</td>
-			<td>collection_cde</td>
-			<td>OTHER_ID_TYPE</td>
-			<td>OTHER_ID_NUMBER</td>
+			<td>IA:CC</td>
+			<td>ID_TYPE</td>
+			<td>ID_NUMBER</td>
 			<td>part_name</td>
 			<td>disposition</td>
 			<td>lot_count</td>
@@ -307,6 +309,7 @@ validate
 		<cfloop query="inT">
 			<tr>
 				<td>
+					<span class="int">#key#</span>
 					<cfif len(collection_object_id) gt 0 and validated_status is 'VALID'>
 						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">Specimen</a>
 					<cfelseif left(validated_status,5) is 'NOTE:'>
@@ -315,16 +318,21 @@ validate
 						#validated_status#					
 					</cfif>
 				</td>
-				<td>#institution_acronym#</td>
-				<td>#collection_cde#</td>
+				<td>#institution_acronym#:#collection_cde#</td>
 				<td>#OTHER_ID_TYPE#</td>
 				<td>#OTHER_ID_NUMBER#</td>
-				<td>#part_name#</td>
+				<td>
+					<span class="int">#use_part_id#</span>
+					#part_name#
+				</td>
 				<td>#disposition#</td>
 				<td>#lot_count#</td>
 				<td>#remarks#</td>
 				<td>#condition#</td>
-				<td>#Container_Barcode#</td>
+				<td>
+					<span class="int">#parent_container_id#</span>
+					#Container_Barcode#
+				</td>
 				<td>#use_existing#</td>
 				<td>#change_container_type#</td>				
 			</tr>
