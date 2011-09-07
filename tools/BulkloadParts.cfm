@@ -412,7 +412,7 @@ validate
 				CONDITION,
 				FLAGS )
 			VALUES (
-				sq_collection_object_id.nextval,
+				#NEXTID.NEXTID#,
 				'SP',
 				#session.myagentid#,
 				sysdate,
@@ -428,7 +428,7 @@ validate
 				PART_NAME,
 				DERIVED_FROM_cat_item 
 			) VALUES (
-				sq_collection_object_id.currval,
+				#NEXTID.NEXTID#,
 				'#PART_NAME#',
 				#collection_object_id#
 			)
@@ -437,7 +437,7 @@ validate
 			<!---- new remark --->
 			<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-				VALUES (sq_collection_object_id.currval, '#remarks#')
+				VALUES (#NEXTID.NEXTID#, '#remarks#')
 			</cfquery>
 		</cfif>
 		<cfif len(container_barcode) gt 0>
@@ -447,7 +447,7 @@ validate
 				from 
 					coll_obj_cont_hist
 				where
-					collection_object_id = (select sq_collection_object_id.currval from dual)
+					collection_object_id = #NEXTID.NEXTID#
 			</cfquery>
 				<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update container set parent_container_id=#parent_container_id# 
