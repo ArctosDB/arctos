@@ -266,10 +266,9 @@ validate
 			set 
 				(validated_status) = (
 				select 
-					CASE when container.parent_container_id = 0 then 'zero'
-			            when container.parent_container_id > 0 then 'something'
-			            else 'null'
-			       END ff	
+					decode(parent_container_id,
+					0,'NOTE: PART EXISTS',
+					'NOTE: PART EXISTS IN PARENT CONTAINER')	
 					from 
 						specimen_part,
 						coll_obj_cont_hist,
@@ -285,6 +284,15 @@ validate
 			where validated_status='VALID' 
 		</cfquery>
 		<br>after bads....
+		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select validated_status,count(*) c from cf_temp_parts group by validated_status
+		</cfquery>
+		<cfdump var=#tt#>
+		
+		<cfquery name="gonenowback" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update cf_temp_parts set validated_status='VALID' where validated_status is null
+		</cfquery>
+		<br>after reuip....
 		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select validated_status,count(*) c from cf_temp_parts group by validated_status
 		</cfquery>
