@@ -424,31 +424,36 @@ validate
 		</cfquery>
 		<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO specimen_part (
-				  COLLECTION_OBJECT_ID,
-				  PART_NAME
-					,DERIVED_FROM_cat_item )
-				VALUES (
-					sq_collection_object_id.currval,
-				  '#PART_NAME#'
-					,#collection_object_id# )
+				COLLECTION_OBJECT_ID,
+				PART_NAME,
+				DERIVED_FROM_cat_item 
+			) VALUES (
+				sq_collection_object_id.currval,
+				'#PART_NAME#',
+				#collection_object_id#
+			)
 		</cfquery>
-		
-		<cfif len(#remarks#) gt 0>
-				<!---- new remark --->
-				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-					VALUES (sq_collection_object_id.currval, '#remarks#')
-				</cfquery>
+		<cfif len(remarks) gt 0>
+			<!---- new remark --->
+			<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
+				VALUES (sq_collection_object_id.currval, '#remarks#')
+			</cfquery>
 		</cfif>
-		<cfif len(#container_barcode#) gt 0>
+		<cfif len(container_barcode) gt 0>
 			<cfquery name="part_container_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select container_id from coll_obj_cont_hist where collection_object_id = #NEXTID.NEXTID#
+				select 
+					container_id
+				from 
+					coll_obj_cont_hist
+				where
+					collection_object_id = (select sq_collection_object_id.currval from dual)
 			</cfquery>
 				<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update container set parent_container_id=#parent_container_id# 
 					where container_id = #part_container_id.container_id#
 				</cfquery>
-			<cfif #len(change_container_type)# gt 0>
+			<cfif len(change_container_type) gt 0>
 				<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update container set 
 					container_type='#change_container_type#'
