@@ -220,10 +220,13 @@ validate
 			</cfif>
 			<cfif collObj.recordcount is 1>					
 				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					UPDATE cf_temp_parts SET collection_object_id = #collObj.collection_object_id# ,
-					validated_status='VALID'
+					UPDATE 
+						cf_temp_parts 
+					SET 
+						collection_object_id = #collObj.collection_object_id#,
+						validated_status='VALID'
 					where
-					key = #key#
+						key = #key#
 				</cfquery>
 				<br>updating #key# to #collObj.collection_object_id#
 			<cfelse>				
@@ -253,19 +256,29 @@ validate
 							Solution: same: warning and new part		
 		---->
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			update cf_temp_parts set (validated_status) = (
-			select 
-			decode(parent_container_id,
-			0,'NOTE: PART EXISTS',
-			'NOTE: PART EXISTS IN PARENT CONTAINER')			
-			from specimen_part,coll_obj_cont_hist,container where
-			specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
-			coll_obj_cont_hist.container_id = container.container_id AND
-			derived_from_cat_item = cf_temp_parts.collection_object_id AND
-			cf_temp_parts.part_name=specimen_part.part_name
-			group by parent_container_id)
+			update 
+				cf_temp_parts 
+			set 
+				(validated_status) = (
+				select 
+					decode(parent_container_id,
+						0,'NOTE: PART EXISTS',
+						'NOTE: PART EXISTS IN PARENT CONTAINER')			
+					from 
+						specimen_part,
+						coll_obj_cont_hist,
+						container 
+					where
+						specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
+						coll_obj_cont_hist.container_id = container.container_id AND
+						derived_from_cat_item = cf_temp_parts.collection_object_id AND
+						cf_temp_parts.part_name=specimen_part.part_name
+					group by 
+						parent_container_id
+				)
 			where validated_status='VALID' 
 		</cfquery>
+		<cfdump var=#bads#>
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update cf_temp_parts set (parent_container_id) = (
 			select container_id
@@ -281,6 +294,7 @@ validate
 			where validated_status = 'NOTE: PART EXISTS' AND
 			use_existing = 1
 		</cfquery>
+		<cfabort>
 		<cflocation url="BulkloadParts.cfm?action=checkValidate">
 </cfoutput>
 </cfif>
