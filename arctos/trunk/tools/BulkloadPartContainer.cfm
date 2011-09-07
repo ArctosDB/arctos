@@ -1,3 +1,7 @@
+<cfheader statuscode="301" statustext="Moved permanently">
+<cfheader name="Location" value="BulkloadParts.cfm">
+<cfabort>
+
 <!------------------------------
 CREATE OR REPLACE TRIGGER cf_temp_barcode_parts_key                                         
  before insert  ON cf_temp_barcode_parts  
@@ -164,6 +168,9 @@ sho err
 						display_value= '#oidnum#' AND
 						part_name='#part_name#'
 				</cfquery>
+			</cfif>
+			<cfif debug is true>
+				<cfdump var=#coll_obj#>
 			</cfif>
 			<cfif coll_obj.recordcount is not 1>
 				<cfset sts='item_not_found'>

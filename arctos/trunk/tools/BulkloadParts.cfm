@@ -5,11 +5,11 @@
 drop table cf_temp_parts;
 
 CREATE TABLE cf_temp_parts (
-	 KEY  NUMBER NOT NULL,
-	 collection_object_id NUMBER,
-	 institution_acronym VARCHAR2(60),
-	 collection_cde VARCHAR2(60),
-	 OTHER_ID_TYPE VARCHAR2(60),
+	KEY  NUMBER NOT NULL,
+	collection_object_id NUMBER,
+	institution_acronym VARCHAR2(60),
+	collection_cde VARCHAR2(60),
+	OTHER_ID_TYPE VARCHAR2(60),
  	OTHER_ID_NUMBER VARCHAR2(60),
  	part_name VARCHAR2(60),
 	part_modifier VARCHAR2(60),
@@ -23,137 +23,113 @@ CREATE TABLE cf_temp_parts (
 	validated_status varchar2(255),
 	parent_container_id number,
 	use_part_id number,
-	 change_container_type varchar2(255)
+	change_container_type varchar2(255)
 );
+
+alter table cf_temp_parts modify part_name varchar2(255);
+alter table cf_temp_parts drop column part_modifier;
+alter table cf_temp_parts drop column preserve_method;
+
 
 create or replace public synonym cf_temp_parts for cf_temp_parts;
 grant all on cf_temp_parts to uam_query,uam_update;
 
 ---->
 <cfinclude template="/includes/_header.cfm">
-<cfif #action# is "nothing">
-Step 1: Upload a comma-delimited text file (csv). 
-Include column headings, spelled exactly as below. 
-<br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
-	<div id="template" style="display:none;">
-		<label for="t">Copy the existing code and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">institution_acronym,collection_cde,other_id_type,other_id_number,part_name,part_modifier,preserve_method,disposition,lot_count,remarks,use_existing,container_barcode,condition</textarea>
-	</div> 
-<p></p>
-Columns in <span style="color:red">red</span> are required; others are optional:
-<ul>
-	<li style="color:red">institution_acronym</li>
-	<li style="color:red">collection_cde</li>
-	<li style="color:red">other_id_type ("catalog number" is OK)</li>
-	<li style="color:red">other_id_number</li>
-	<li style="color:red">part_name</li>
-	<li style="color:red">disposition</li>
-	<li style="color:red">lot_count</li>
-	<li>remarks</li>		
-	<li style="color:red">use_existing
-		<span style="font-size:smaller;font-style:italic;padding-left:20px;">
-			<ul>
-				<li>0: create a new part regardless of current parts</li>
-				<li>1: use existing parts when:
-					<ul>
-						<li>
-							A part of the same type exists
-						</li>
-						<li>That part is not already in a container</li>
-					</ul>
-				</li>
-			</ul>
-		</span>	
-	</li>
-	<li>container_barcode
-		<span style="font-size:smaller;font-style:italic;padding-left:20px;">
-			<ul>
-				<li>Container barcode in which to place this part</li>
-			</ul>
-		</span>	
-	</li>	
-	<li>change_container_type</li>
-	<li style="color:red">condition</li>		 
-</ul>
-
-
-
-<cfform name="atts" method="post" enctype="multipart/form-data" action="BulkloadParts.cfm">
-			<input type="hidden" name="Action" value="getFile">
-			  <input type="file"
-		   name="FiletoUpload"
-		   size="45">
-			 <input type="submit" value="Upload this file"
-		class="savBtn"
-		onmouseover="this.className='savBtn btnhov'" 
-		onmouseout="this.className='savBtn'">
-  </cfform>
-
+<!------------------------------------------------------->
+<cfif action is "csv">
+	<cfoutput>
+		<cfset d="institution_acronym,collection_cde,other_id_type,other_id_number,part_name,disposition,lot_count,remarks,use_existing,container_barcode,condition">
+		<cfset variables.encoding="UTF-8">
+		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadParts.csv">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(d);
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=BulkloadParts.csv" addtoken="false">
+		<a href="/download/BulkloadParts.csv">Click here if your file does not automatically download.</a>
+	</cfoutput>
+</cfif>
+<!----------------------------------------->
+<cfif action is "nothing">
+	Step 1: Upload a comma-delimited text file including column headings. (<a href="BulkloadParts.cfm?action=csv">download BulkloadParts.csv template</a>)
+	Columns in <span style="color:red">red</span> are required; others are optional:
+	<ul>
+		<li style="color:red">institution_acronym</li>
+		<li style="color:red">collection_cde</li>
+		<li style="color:red">other_id_type ("catalog number" is OK)</li>
+		<li style="color:red">other_id_number</li>
+		<li style="color:red">part_name</li>
+		<li style="color:red">disposition</li>
+		<li style="color:red">lot_count</li>
+		<li>remarks</li>		
+		<li style="color:red">use_existing
+			<span style="font-size:smaller;font-style:italic;padding-left:20px;">
+				<ul>
+					<li>0: create a new part regardless of current parts</li>
+					<li>1: use existing parts when:
+						<ul>
+							<li>
+								A part of the same type exists
+							</li>
+							<li>That part is not already in a container</li>
+						</ul>
+					</li>
+				</ul>
+			</span>	
+		</li>
+		<li>container_barcode
+			<span style="font-size:smaller;font-style:italic;padding-left:20px;">
+				<ul>
+					<li>Container barcode in which to place this part</li>
+				</ul>
+			</span>	
+		</li>	
+		<li>change_container_type</li>
+		<li style="color:red">condition</li>		 
+	</ul>
+	<cfform name="atts" method="post" enctype="multipart/form-data" action="BulkloadParts.cfm">
+		<input type="hidden" name="action" value="getFile">
+		<input type="file" name="FiletoUpload" size="45">
+		<input type="submit" value="Upload this file" class="savBtn">
+	</cfform>
 </cfif>
 <!------------------------------------------------------->
-<!------------------------------------------------------->
-
-<!------------------------------------------------------->
-<cfif #action# is "getFile">
+<cfif action is "getFile">
 <cfoutput>
-
-	<!---
-	<cfset fileContent='institution_acronym,collection_code,other_id_type,other_id_number,part_name,part_modifier,preserve_method,disposition,lot_count,remarks,condition#chr(10)#'>
-	<cfset fileContent='#fileContent#"UAM",Mamm,AF,41272,tissues,,"eth,nol",in collection,1," loan s, ubsample (never used).",unchecked#chr(10)#'>
-		<cfset fileContent='#fileContent#UAM,Mamm,AF,27727,tissues,,ethanol,in collection,1,"Returned ""load"", comma loan subsample (never used).",unchecked#chr(10)#'>
-			<cfset fileContent='#fileContent#UAM,Mamm,AF,36833,tissues,,ethanol,in collection,1,Returned loan subsample (never used).,unchecked#chr(10)#'>
-				<cfset fileContent='#fileContent#UAM,Mamm,AF,31499,tissues,,ethanol,in collection,1,,#chr(10)#'>
-	-----------got file--------------<br>
-	--->
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-
 	<cfset fileContent=replace(fileContent,"'","''","all")>
-	<!---
-	--#fileContent#--
-	<hr>
-	<cfset fileContent=replace(fileContent,chr(13),'chr 13 goes here',"all")>
-	--#fileContent#--
-	<hr>
-	
-	<cfset fileContent=replace(fileContent,chr(10),'chr 10 goes here',"all")>
-	--#fileContent#--
-	<hr>
-	--->
-	 <cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-
- <cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	delete from cf_temp_parts
-</cfquery>
-
-<cfset colNames="">
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
+	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from cf_temp_parts
+	</cfquery>
+	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
 			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
 				<cfset thisBit=arrResult[o][i]>
-				<cfif #o# is 1>
+				<cfif o is 1>
 					<cfset colNames="#colNames#,#thisBit#">
 				<cfelse>
 					<cfset colVals="#colVals#,'#thisBit#'">
 				</cfif>
 			</cfloop>
-		<cfif #o# is 1>
+		<cfif o is 1>
 			<cfset colNames=replace(colNames,",","","first")>
 		</cfif>	
-		<cfif len(#colVals#) gt 1>
+		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into cf_temp_parts (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
-			insert into cf_temp_parts (#colNames#) values (#preservesinglequotes(colVals)#)
 		</cfif>
 	</cfloop>
-
 	<cflocation url="BulkloadParts.cfm?action=validate">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<!------------------------------------------------------->
-<cfif #action# is "validate">
+<cfif action is "validate">
 validate
 <cfoutput>
 	<cfquery name="getParentContainerId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -208,12 +184,11 @@ validate
 			is_number(lot_count) = 0
 			)
 	</cfquery>
-	
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_parts where validated_status is null
 	</cfquery>
 	<cfloop query="data">
-		<cfif #other_id_type# is "catalog number">
+		<cfif other_id_type is "catalog number">
 			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					SELECT 
 						collection_object_id
@@ -243,7 +218,7 @@ validate
 						other_id_num = '#other_id_number#'
 				</cfquery>
 			</cfif>
-			<cfif #collObj.recordcount# is 1>					
+			<cfif collObj.recordcount is 1>					
 				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE cf_temp_parts SET collection_object_id = #collObj.collection_object_id# ,
 					validated_status='VALID'
@@ -308,10 +283,8 @@ validate
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "checkValidate">
-
+<cfif action is "checkValidate">
 	<cfoutput>
-	
 	<cfquery name="inT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_parts
 	</cfquery>
@@ -330,18 +303,14 @@ validate
 			<td>Container_Barcode</td>
 			<td>use_existing</td>
 			<td>change_container_type</td>
-			
 		</tr>
 		<cfloop query="inT">
 			<tr>
 				<td>
-					<cfif len(#collection_object_id#) gt 0 and 
-							(#validated_status# is 'VALID')>
-						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" 
-							target="_blank">Specimen</a>
+					<cfif len(collection_object_id) gt 0 and validated_status is 'VALID'>
+						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">Specimen</a>
 					<cfelseif left(validated_status,5) is 'NOTE:'>
-						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" 
-							target="_blank">Specimen</a> (#validated_status#)
+						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">Specimen</a> (#validated_status#)
 					<cfelse>
 						#validated_status#					
 					</cfif>
@@ -366,14 +335,12 @@ validate
 		select count(*) as cnt from cf_temp_parts where substr(validated_status,1,5) NOT IN
 			('VALID','NOTE:')
 	</cfquery>
-	<cfif #allValid.cnt# is 0>
+	<cfif allValid.cnt is 0>
 		<a href="BulkloadParts.cfm?action=loadToDb">Load these parts....</a>
 	<cfelse>
 		You must fix everything above to proceed.
 	</cfif>
-	
 </cfif>
-
 <!-------------------------------------------------------------------------------------------->
 
 <cfif #action# is "loadToDb">
