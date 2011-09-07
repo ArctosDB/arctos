@@ -313,6 +313,7 @@ validate
 				<td>
 					<span class="int">#key#</span>
 					<span class="int"> #collection_object_id# </span>
+					<span class="int"> \#validated_status#\ </span>
 					<cfif len(collection_object_id) gt 0 and validated_status is 'VALID'>
 						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">Specimen</a>
 					<cfelseif left(validated_status,5) is 'NOTE:'>
