@@ -393,28 +393,13 @@ validate
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_parts
 	</cfquery>
-	<cfquery name= "getEntBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		SELECT agent_id FROM agent_name WHERE agent_name = '#session.username#' 
-	</cfquery>
-	<cfif getEntBy.recordcount is 0>
-		<cfabort showerror = "You aren't a recognized agent!">
-	<cfelseif getEntBy.recordcount gt 1>
-		<cfabort showerror = "Your login has has multiple matches.">
-	</cfif>
-	<cfset enteredbyid = getEntBy.agent_id>
-	
-	
 	<cftransaction>
 	<cfloop query="getTempData">
-
-		
-
-
-	<cfif len(#use_part_id#) is 0 AND len(#parent_container_id#) gt 0>
+	<cfif len(use_part_id) is 0 AND len(parent_container_id) gt 0>
+		<br>use_part_id and parent_container_id are nULL
 		<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select sq_collection_object_id.nextval NEXTID from dual
 		</cfquery>
-
 		<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO coll_object (
 				COLLECTION_OBJECT_ID,
@@ -429,9 +414,9 @@ validate
 			VALUES (
 				sq_collection_object_id.nextval,
 				'SP',
-				#enteredbyid#,
+				#session.myagentid#,
 				sysdate,
-				#enteredbyid#,
+				#session.myagentid#,
 				'#DISPOSITION#',
 				#lot_count#,
 				'#condition#',
