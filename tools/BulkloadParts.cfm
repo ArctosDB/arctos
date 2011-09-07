@@ -255,6 +255,11 @@ validate
 						2) part is not in a container
 							Solution: same: warning and new part		
 		---->
+		<br>before bads....
+		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select validated_status,count(*) c from cf_temp_parts group by validated_status
+		</cfquery>
+		<cfdump var=#tt#>
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update 
 				cf_temp_parts 
@@ -278,7 +283,11 @@ validate
 				)
 			where validated_status='VALID' 
 		</cfquery>
-		<cfdump var=#bads#>
+		<br>after bads....
+		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select validated_status,count(*) c from cf_temp_parts group by validated_status
+		</cfquery>
+		<cfdump var=#tt#>
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update cf_temp_parts set (parent_container_id) = (
 			select container_id
