@@ -266,9 +266,10 @@ validate
 			set 
 				(validated_status) = (
 				select 
-					decode(parent_container_id,
-						0,'NOTE: PART EXISTS',
-						'NOTE: PART EXISTS IN PARENT CONTAINER')			
+					CASE when container.parent_container_id = 0 then 'zero'
+			            when container.parent_container_id > 0 then 'something'
+			            else 'null'
+			       END ff	
 					from 
 						specimen_part,
 						coll_obj_cont_hist,
