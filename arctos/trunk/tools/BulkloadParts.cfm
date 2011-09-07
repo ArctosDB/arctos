@@ -218,7 +218,6 @@ validate
 						other_id_num = '#other_id_number#'
 				</cfquery>
 			</cfif>
-			<cfdump var=#collObj#>
 			<cfif collObj.recordcount is 1>					
 				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE cf_temp_parts SET collection_object_id = #collObj.collection_object_id# ,
@@ -226,12 +225,14 @@ validate
 					where
 					key = #key#
 				</cfquery>
+				<br>updating #key# to #collObj.collection_object_id#
 			<cfelse>				
 				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE cf_temp_parts SET validated_status = 
 					validated_status || ';#data.institution_acronym# #data.collection_cde# #data.other_id_type# #data.other_id_number# could not be found.' 
 					where key = #key#
 				</cfquery>
+				<br>fail...
 			</cfif>
 		</cfloop>
 		<!---
@@ -281,7 +282,6 @@ validate
 			use_existing = 1
 		</cfquery>
 		
-		<cfabort>
 		<cflocation url="BulkloadParts.cfm?action=checkValidate">
 </cfoutput>
 </cfif>
