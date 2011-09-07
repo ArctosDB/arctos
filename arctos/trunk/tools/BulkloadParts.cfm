@@ -281,7 +281,6 @@ validate
 			where validated_status = 'NOTE: PART EXISTS' AND
 			use_existing = 1
 		</cfquery>
-		<cfabort>
 		<cflocation url="BulkloadParts.cfm?action=checkValidate">
 </cfoutput>
 </cfif>
@@ -313,6 +312,7 @@ validate
 			<tr>
 				<td>
 					<span class="int">#key#</span>
+					<span class="int"> #collection_object_id# </span>
 					<cfif len(collection_object_id) gt 0 and validated_status is 'VALID'>
 						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">Specimen</a>
 					<cfelseif left(validated_status,5) is 'NOTE:'>
