@@ -281,7 +281,7 @@ validate
 			where validated_status = 'NOTE: PART EXISTS' AND
 			use_existing = 1
 		</cfquery>
-		
+		<cfabort>
 		<cflocation url="BulkloadParts.cfm?action=checkValidate">
 </cfoutput>
 </cfif>
