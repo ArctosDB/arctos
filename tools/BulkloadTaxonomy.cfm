@@ -10,7 +10,7 @@ create table cf_temp_taxonomy (
 	status varchar2(4000),
 	taxon_name_id number,
  	PHYLCLASS                                                      VARCHAR2(20),
-SUBCLASS VARCHAR2(255).
+SUBCLASS VARCHAR2(255),
 	 PHYLORDER                                                      VARCHAR2(30),
 	 SUBORDER                                                       VARCHAR2(30),
 	 SUPERFAMILY VARCHAR2(255),
@@ -31,9 +31,8 @@ SUBCLASS VARCHAR2(255).
 	 KINGDOM                                                        VARCHAR2(255),
 	 NOMENCLATURAL_CODE                                             VARCHAR2(255),
 	 INFRASPECIFIC_AUTHOR                                           VARCHAR2(255),
-	 TAXON_STATUS VARCHAR2(255),
-	 scientific_name varchar2(255)
-	);
+	 TAXON_STATUS VARCHAR2(255)
+	 	);
 
 	create or replace public synonym cf_temp_taxonomy for cf_temp_taxonomy;
 	grant select,insert,update,delete on cf_temp_taxonomy to coldfusion_user;
