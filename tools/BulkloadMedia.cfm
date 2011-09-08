@@ -192,7 +192,7 @@ sho err
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "makeTemplate">
-	<cfset header="MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license,barcode">
+	<cfset header="MEDIA_URI,MIME_TYPE,MEDIA_TYPE,PREVIEW_URI,media_license">
 	<cfloop from="1" to="#nL#" index="i">
 		<cfset header=listappend(header,"media_label_#i#")>
 		<cfset header=listappend(header,"media_label_value_#i#")>
@@ -236,7 +236,7 @@ sho err
 						</li>
 					</ul>
 				</li>
-				<li>Cataloged Item - DWC GUID format ("UAM:Mamm:12")</li>
+				<li>Cataloged Item - DWC GUID format ("UAM:Mamm:12") or part's container's barcode</li>
 				<li>Agent: Distinct string match with agent_name</li>
 			</UL>
 		</li>
