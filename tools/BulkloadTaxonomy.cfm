@@ -276,23 +276,23 @@ sho err
 		update cf_temp_taxonomy set status = null
 	</cfquery>
 	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update cf_temp_taxonomy set status = 'Invalid taxon_status'
+		update cf_temp_taxonomy set status = status || '; Invalid taxon_status'
 		where taxon_status is not null and taxon_status NOT IN (
 			select taxon_status from CTtaxon_status
 			)
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update cf_temp_taxonomy set status = 'Invalid source_authority'
+		update cf_temp_taxonomy set status = status || '; Invalid source_authority'
 		where source_authority NOT IN (
 			select SOURCE_AUTHORITY from CTTAXONOMIC_AUTHORITY
 			)
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update cf_temp_taxonomy set status = 'Invalid VALID_CATALOG_TERM_FG'
+		update cf_temp_taxonomy set status = status || '; Invalid VALID_CATALOG_TERM_FG'
 		where VALID_CATALOG_TERM_FG NOT IN (0,1)
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update cf_temp_taxonomy set status = 'already exists'
+		update cf_temp_taxonomy set status = status || '; already exists'
 		where scientific_name IN (select scientific_name from taxonomy)
 	</cfquery>
 	<!---
