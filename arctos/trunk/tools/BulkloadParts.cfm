@@ -53,6 +53,26 @@ grant all on cf_temp_parts to uam_query,uam_update;
 </cfif>
 <!----------------------------------------->
 <cfif action is "nothing">
+	This form will probably do something strange and mess up all your data. Try it out with a very small 
+	representative sample first.
+	<p>
+		You can use this form to:
+		<ul>
+			<li>Bulk-add parts to specimens</li>
+			<li>Bulk-add parts to specimens, and put those new parts into containers</li>
+			<li>
+				Bulk-add parts only when they don't exist NOTE: You can only use existing parts when that part is not in a container. Use
+				<a href="BulkloadPartContainer.cfm">BulkloadPartContainer</a> to move stuff around between containers.
+			</li>
+		</ul>
+	</p>
+	<p>
+		You cannot use this form to:
+		<ul>
+			<li>Create subsamples</li>
+			<li>Move existing parts between containers - use <a href="BulkloadPartContainer.cfm">BulkloadPartContainer</a> instead</li>
+		</ul>
+	</p>
 	Step 1: Upload a comma-delimited text file including column headings. (<a href="BulkloadParts.cfm?action=csv">download BulkloadParts.csv template</a>)
 	Columns in <span style="color:red">red</span> are required; others are optional:
 	<ul>
@@ -386,9 +406,7 @@ validate
 	</cfif>
 </cfif>
 <!-------------------------------------------------------------------------------------------->
-
-<cfif #action# is "loadToDb">
-
+<cfif action is "loadToDb">
 <cfoutput>
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_parts
@@ -396,7 +414,6 @@ validate
 	<cftransaction>
 	<cfloop query="getTempData">
 	<cfif len(use_part_id) is 0 AND len(parent_container_id) gt 0>
-		<br>use_part_id and parent_container_id are nULL
 		<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select sq_collection_object_id.nextval NEXTID from dual
 		</cfquery>
@@ -471,11 +488,6 @@ validate
 	</cfif>
 	</cfloop>
 	</cftransaction>
-	
-
-	
-	
-	
 	Spiffy, all done.
 	<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(getTempData.collection_object_id)#">
 		See in Specimen Results
