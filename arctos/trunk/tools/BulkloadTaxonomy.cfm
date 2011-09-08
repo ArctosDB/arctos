@@ -130,6 +130,7 @@ if :NEW.key is null then
         END IF;
        
          IF :new.genus IS NOT NULL THEN
+		
                 if :NEW.family is null and :NEW.valid_catalog_term_fg = 1 then
                         status:=status || '; ' || 'Records with Genus must have Family or to be Accepted.';
                 end if;
@@ -278,9 +279,6 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>	
-	<cfquery name="reset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update cf_temp_taxonomy set status = null
-	</cfquery>
 	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = status || '; Invalid taxon_status'
 		where taxon_status is not null and taxon_status NOT IN (
@@ -289,13 +287,13 @@ sho err
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = status || '; Invalid source_authority'
-		where source_authority NOT IN (
+		where source_authority is null or source_authority NOT IN (
 			select SOURCE_AUTHORITY from CTTAXONOMIC_AUTHORITY
 			)
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = status || '; Invalid VALID_CATALOG_TERM_FG'
-		where VALID_CATALOG_TERM_FG NOT IN (0,1)
+		where VALID_CATALOG_TERM_FG is null or  VALID_CATALOG_TERM_FG NOT IN (0,1)
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = status || '; invalid nomenclatural_code'
