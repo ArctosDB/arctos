@@ -1,7 +1,3 @@
-<cfheader statuscode="301" statustext="Moved permanently">
-<cfheader name="Location" value="BulkloadParts.cfm">
-<cfabort>
-
 <!------------------------------
 CREATE OR REPLACE TRIGGER cf_temp_barcode_parts_key                                         
  before insert  ON cf_temp_barcode_parts  
@@ -42,6 +38,7 @@ sho err
 </cfif>
 <cfif action is  "nothing">
 	Use this form to put collection objects (that is, parts) in containers. Parts and containers must already exist.
+	This form will not create parts - use <a href="BulkloadParts.cfm">BulkloadParts</a> for that.
 	<ul>
 		<li><a href="BulkloadPartContainer.cfm?action=makeTemplate">download a CSV template</a></li>
 		<li>

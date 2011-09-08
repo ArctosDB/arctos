@@ -1,3 +1,6 @@
+Go away or I shall taunt you a second time.
+<cfabort>
+
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Taxonomy">
 <!---- make the table 
@@ -7,13 +10,11 @@ drop table cf_temp_taxonomy;
 create table cf_temp_taxonomy (
 	key number,
 	force_load number,
-	status varchar2(4000),
+	status varchar2(255),
 	taxon_name_id number,
  	PHYLCLASS                                                      VARCHAR2(20),
-SUBCLASS VARCHAR2(255).
 	 PHYLORDER                                                      VARCHAR2(30),
 	 SUBORDER                                                       VARCHAR2(30),
-	 SUPERFAMILY VARCHAR2(255),
 	 FAMILY                                                         VARCHAR2(30),
 	 SUBFAMILY                                                      VARCHAR2(30),
 	 GENUS                                                          VARCHAR2(30),
@@ -30,9 +31,7 @@ SUBCLASS VARCHAR2(255).
 	 PHYLUM                                                         VARCHAR2(30),
 	 KINGDOM                                                        VARCHAR2(255),
 	 NOMENCLATURAL_CODE                                             VARCHAR2(255),
-	 INFRASPECIFIC_AUTHOR                                           VARCHAR2(255),
-	 TAXON_STATUS VARCHAR2(255),
-	 scientific_name varchar2(255)
+	 INFRASPECIFIC_AUTHOR                                           VARCHAR2(255)
 	);
 
 	create or replace public synonym cf_temp_taxonomy for cf_temp_taxonomy;
@@ -40,182 +39,84 @@ SUBCLASS VARCHAR2(255).
 	grant select on cf_temp_taxonomy to public;
 	
 	
+	alter table cf_temp_taxonomy add SUBCLASS VARCHAR2(255);
+	alter table cf_temp_taxonomy add SUPERFAMILY VARCHAR2(255);
+	alter table cf_temp_taxonomy add TAXON_STATUS VARCHAR2(255);
 	
-CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key                                         
+	
+	
+	
+	
+	 CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key                                         
  before insert  ON cf_temp_taxonomy
-FOR EACH ROW
+ for each row 
 DECLARE
-	nScientificName varchar2(4000);
-	status varchar2(4000);
-	nFullTaxonomy varchar2(4000);
-	nDisplayName varchar2(4000);
-	c NUMBER;
-	stoopidX VARCHAR2(10):=CHR (215 USING NCHAR_CS);
-BEGIN
-if :NEW.key is null then                                                                                      
+	nsn varchar2(4000);  
+    begin     
+    	if :NEW.key is null then                                                                                      
     		select somerandomsequence.nextval into :new.key from dual;
     	end if;    
- if :NEW.nomenclatural_code != 'noncompliant' THEN 
-		IF :new.SUBORDER IS NOT NULL THEN
-           IF NOT (regexp_like(:new.SUBORDER,'^[A-Z][a-z]*$')) THEN
-                 status:=status || '; ' || 'SUBORDER (' || :new.SUBORDER || ') must be Proper Case.';
-            END IF;
-        END IF;
-        IF :new.FAMILY IS NOT NULL THEN
-        	if :NEW.phylorder is null and :NEW.valid_catalog_term_fg is 1 then
-				status:=status || '; ' || 'Records with Family must have Order to be Accepted.';
-			end if;
-			IF NOT (regexp_like(:new.FAMILY,'^[A-Z][a-z]*$')) THEN
-                 status:=status || '; ' || 'FAMILY (' || :new.FAMILY || ') must be Proper Case.';
-            END IF;
-        END IF;
-        IF :new.SUBFAMILY IS NOT NULL THEN
-           IF NOT (regexp_like(:new.SUBFAMILY,'^[A-Z][a-z]*$')) THEN
-                 status:=status || '; ' || 'SUBFAMILY (' || :new.SUBFAMILY || ') must be Proper Case.';
-            END IF;
-        END IF;
-        IF :new.SUBGENUS IS NOT NULL THEN
-           IF NOT (regexp_like(:new.SUBGENUS,'^[A-Z][a-z]*$')) THEN
-                 status:=status || '; ' || 'SUBGENUS (' || :new.SUBGENUS || ') must be Proper Case.';
-            END IF;
-        END IF;
-        IF :new.TRIBE IS NOT NULL THEN
-           IF NOT (regexp_like(:new.TRIBE,'^[A-Z][a-z]*$')) THEN
-                status:=status || '; ' || 'TRIBE (' || :new.TRIBE || ') must be Proper Case.';
-            END IF;
-        END IF;    
-        IF :new.PHYLUM IS NOT NULL THEN
-           if :NEW.kingdom is null and :NEW.valid_catalog_term_fg is 1 then
-				status:=status || '; ' || 'Records with Phylum must have Kingdom to be Accepted.';
-			end if;
-			IF NOT (regexp_like(:new.PHYLUM,'^[A-Z][a-z]*$')) THEN
-                 status:=status || '; ' || 'PHYLUM (' || :new.PHYLUM || ') must be Proper Case.';
-            END IF;
-        END IF;
-        IF :new.KINGDOM IS NOT NULL THEN
-           IF NOT (regexp_like(:new.KINGDOM,'^[A-Z][a-z]*$')) THEN
-                status:=status || '; ' || 'KINGDOM (' || :new.KINGDOM || ') must be Proper Case.';
-            END IF;
-        END IF;
-        IF :new.SUBCLASS IS NOT NULL THEN
-           IF NOT (regexp_like(:new.SUBCLASS,'^[A-Z][a-z]*$')) THEN
-                 status:=status || '; ' || 'SUBCLASS (' || :new.SUBCLASS || ') must be Proper Case.';
-            END IF;
-        END IF;
-        IF :new.SUPERFAMILY IS NOT NULL THEN
-           IF NOT (regexp_like(:new.SUPERFAMILY,'^[A-Z][a-z]*$')) THEN
-                status:=status || '; ' || 'SUPERFAMILY (' || :new.SUPERFAMILY || ') must be Proper Case.';
-            END IF;
-        END IF;
-        IF :new.PHYLORDER IS NOT NULL THEN
-           if :NEW.phylclass is null and :NEW.valid_catalog_term_fg is 1 then
-				status:=status || '; ' || 'Records with Order must have Class to be Accepted.';
-			end if;
-			IF NOT (regexp_like(:new.PHYLORDER,'^[A-Z][a-z]*$')) THEN
-                 raise_application_error(
-        		 status:=status || '; ' || 'PHYLORDER (' || :new.PHYLORDER || ') must be Proper Case.';
-            END IF;
-        END IF;
-        IF :new.phylclass IS NOT NULL THEN
-        	if :NEW.phylum is null and :NEW.valid_catalog_term_fg is 1 then
-				status:=status || '; ' || 'Records with Class must have Phylum to be Accepted.';
-			end if;   
-			IF NOT (regexp_like(:new.phylclass,'^[A-Z][a-z]*$')) THEN
-                 status:=status || '; ' || 'phylclass (' || :new.phylclass || ') must be Proper Case.';
-            END IF;
-        END IF;
-        
-   	 IF :new.genus IS NOT NULL THEN
-		if :NEW.family is null and :NEW.valid_catalog_term_fg is 1 then
-			status:=status || '; ' || 'Records with Genus must have Family or to be Accepted.';
-		end if;
-		
-		if :NEW.nomenclatural_code='ICBN' then
-            if NOT (
-                regexp_like(:new.genus,'^[A-Z][a-z-]*[a-z]+$') or 
-                (substr(:new.genus,1,1) = stoopidX and regexp_like(:new.genus,'^.[A-Z][a-z-]*[a-z]+$'))) then 
-              status:=status || '; ' || 'genus (' || :new.genus || '-' || :NEW.taxon_name_id || ') must be Proper Case, but may start with a multiplication sign and contain a dash.';
-            end if;                
-        ELSIF :NEW.nomenclatural_code='ICZN' THEN
-            if NOT regexp_like(:new.genus,'^[A-Z][a-z]*$') then 
-                status:=status || '; ' || 'genus (' || :new.genus || ') must be Proper Case.';
-            END IF;
-        END IF;
-    END IF;
-    IF :new.species IS NOT NULL THEN
-        if :NEW.nomenclatural_code='ICBN' then
-            if NOT (
-                regexp_like(:new.species,'^[a-z][a-z-]*[a-z]+$') or 
-                (substr(:new.species,1,1) = stoopidX and regexp_like(:new.species,'^.[a-z][a-z-]*[a-z]+$'))) then 
-               status:=status || '; ' || 'species (' || :new.species || ') must be lowercase letters, but may start with a multiplication sign and contain a dash.';
-            end if;                
-        ELSIF :NEW.nomenclatural_code='ICZN' THEN
-            if NOT regexp_like(:new.species,'^[a-z]-{0,1}[a-z]*$') then
-                status:=status || '; ' || 'species (' || :new.species || ')  must be lowercase letters, except the second character may be a hyphen.';
-            END IF;
-        END IF; 
-    END IF;
-    IF :new.subspecies IS NOT NULL THEN
-        if :NEW.nomenclatural_code='ICBN' then
-            if NOT (
-                regexp_like(:new.subspecies,'^[a-z][a-z-]*[a-z]+$') or 
-                (substr(:new.subspecies,1,1) = stoopidX and regexp_like(:new.subspecies,'^.[a-z][a-z-]*[a-z]+$'))) then 
-               status:=status || '; ' || 'subspecies (' || :new.subspecies || ') must be lowercase letters, but may start with a multiplication sign and contain a dash.';
-            end if;                
-        ELSIF :NEW.nomenclatural_code='ICZN' THEN
-            if NOT regexp_like(:new.subspecies,'^[a-z]-{0,1}[a-z]*$') then
-                status:=status || '; ' || 'subspecies (' || :new.subspecies || ')  must be lowercase letters, except the second character may be a hyphen.';
-            END IF;
-        END IF; 
-    END IF;
-
-
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.subspecies);
-
-    if :NEW.nomenclatural_code='ICBN' then
-    	nScientificName:=prependTaxonomy(nScientificName, :NEW.infraspecific_rank);
-    end if;
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.species);
-    
-    if :new.subgenus is not null then
-    	nScientificName:=prependTaxonomy(nScientificName, '(' || :NEW.subgenus || ')');
-    end if;
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.genus);
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.tribe,0,1);
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.subfamily,0,1);
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.family,0,1);
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.superfamily,0,1);
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.suborder,0,1);
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.phylorder,0,1);
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.subclass,0,1);
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.phylclass,0,1);
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.phylum,0,1);
-    
-    nScientificName:=prependTaxonomy(nScientificName, :NEW.kingdom,0,1);
-    
-    :new.scientific_name:=trim(nScientificName);
-	
-	if :NEW.nomenclatural_code in ('unknown','noncompliant') AND :NEW.valid_catalog_term_fg = 1 then
-		status:=status || '; ' || 'Nomenclatural Code "unknown" or "noncompliant" records may not be Accepted.';
-	end if;
-	
-END;
+		IF :NEW.subspecies IS NOT null THEN
+			nsn := :NEW.subspecies;
+		END IF;
+		IF :NEW.infraspecific_rank IS NOT null THEN
+			nsn := :NEW.infraspecIFic_rank || ' ' || nsn;
+		END IF;
+		IF :NEW.species IS NOT null THEN
+			nsn := :NEW.species || ' ' || nsn;
+		END IF;
+		IF :NEW.genus IS NOT null THEN
+			nsn := :NEW.genus || ' ' || nsn;
+		END IF;	
+		IF :NEW.tribe IS NOT null THEN
+			IF nsn IS null THEN
+			    nsn := :NEW.tribe;
+			END IF;
+		END IF;
+		IF :NEW.subfamily IS NOT null THEN
+			IF nsn IS null THEN
+				nsn := :NEW.subfamily;
+			END IF;
+		END IF;
+		IF :NEW.family IS NOT null THEN
+			IF nsn IS null THEN
+				nsn := :NEW.family;
+			END IF;
+		END IF;
+		IF :NEW.SUPERFAMILY IS NOT null THEN
+			IF nsn IS null THEN
+			    nsn := :NEW.SUPERFAMILY;
+			END IF;
+		END IF;
+		IF :NEW.suborder IS NOT null THEN
+			IF nsn IS null THEN
+				nsn := :NEW.suborder;
+			END IF;
+		END IF;
+		IF :NEW.phylorder IS NOT null THEN
+			IF nsn IS null THEN
+				nsn := :NEW.phylorder;
+			END IF;
+		END IF;
+		IF :NEW.SUBCLASS IS NOT null THEN
+			IF nsn IS null THEN
+			    nsn := :NEW.SUBCLASS;
+			END IF;
+		END IF;
+		IF :NEW.phylclass IS NOT null THEN
+			IF nsn IS null THEN
+				nsn := :NEW.phylclass;
+			END IF;
+		END IF;
+		IF :NEW.phylum IS NOT null THEN
+			IF nsn IS null THEN
+				nsn := :NEW.phylum;
+			END IF;
+		END IF;
+		:NEW.scientific_name := trim(nsn);                    
+    end;                                                                                            
 /
 sho err
-
-
-	
-
 ------>
 <cfif action is "makeTemplate">
 	<cfset header="PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TRIBE,INFRASPECIFIC_RANK,TAXON_REMARKS,PHYLUM,KINGDOM,NOMENCLATURAL_CODE,INFRASPECIFIC_AUTHOR,TAXON_STATUS">
@@ -238,13 +139,20 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
+
+
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from cf_temp_taxonomy
 	</cfquery>
+
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+
+
+
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
+
 	<cfset numberOfColumns = arraylen(arrResult[1])>	
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
@@ -271,23 +179,26 @@ sho err
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif action is "validate">
+<cfif #action# is "validate">
 <cfoutput>	
 	<cfquery name="reset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = null
 	</cfquery>
+
 	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = 'Invalid taxon_status'
 		where taxon_status is not null and taxon_status NOT IN (
 			select taxon_status from CTtaxon_status
 			)
 	</cfquery>
+	
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = 'Invalid source_authority'
 		where source_authority NOT IN (
 			select SOURCE_AUTHORITY from CTTAXONOMIC_AUTHORITY
 			)
 	</cfquery>
+	
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = 'Invalid VALID_CATALOG_TERM_FG'
 		where VALID_CATALOG_TERM_FG NOT IN (0,1)
