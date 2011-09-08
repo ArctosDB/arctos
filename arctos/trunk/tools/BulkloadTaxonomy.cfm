@@ -40,34 +40,38 @@ SUBCLASS VARCHAR2(255),
 	
 	
 	
-CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key                                         
+CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key                                        
  before insert  ON cf_temp_taxonomy
 FOR EACH ROW
 DECLARE
-	nScientificName varchar2(4000);
-	status varchar2(4000);
-	nFullTaxonomy varchar2(4000);
-	nDisplayName varchar2(4000);
-	c NUMBER;
-	stoopidX VARCHAR2(10):=CHR (215 USING NCHAR_CS);
+        nScientificName varchar2(4000);
+        status varchar2(4000);
+        nFullTaxonomy varchar2(4000);
+        nDisplayName varchar2(4000);
+        c NUMBER;
+        stoopidX VARCHAR2(10):=CHR (215 USING NCHAR_CS);
 BEGIN
-if :NEW.key is null then                                                                                      
-    		select somerandomsequence.nextval into :new.key from dual;
-    	end if;    
- if :NEW.nomenclatural_code != 'noncompliant' THEN 
-		IF :new.SUBORDER IS NOT NULL THEN
+status:='';
+if :NEW.key is null then                                                                                     
+                select somerandomsequence.nextval into :new.key from dual;
+        end if;   
+ if :NEW.nomenclatural_code != 'noncompliant' THEN
+        IF :new.SUBORDER IS NOT NULL THEN
            IF NOT (regexp_like(:new.SUBORDER,'^[A-Z][a-z]*$')) THEN
-                 status:=status || '; ' || 'SUBORDER (' || :new.SUBORDER || ') must be Proper Case.';
+                 status:=status || '; SUBORDER must be Proper Case.';
             END IF;
         END IF;
+       
         IF :new.FAMILY IS NOT NULL THEN
-        	if :NEW.phylorder is null and :NEW.valid_catalog_term_fg is 1 then
-				status:=status || '; ' || 'Records with Family must have Order to be Accepted.';
-			end if;
-			IF NOT (regexp_like(:new.FAMILY,'^[A-Z][a-z]*$')) THEN
+                if :NEW.phylorder is null and :NEW.valid_catalog_term_fg = 1 then
+                                status:=status || '; ' || 'Records with Family must have Order to be Accepted.';
+                        end if;
+                        IF NOT (regexp_like(:new.FAMILY,'^[A-Z][a-z]*$')) THEN
                  status:=status || '; ' || 'FAMILY (' || :new.FAMILY || ') must be Proper Case.';
             END IF;
         END IF;
+       
+
         IF :new.SUBFAMILY IS NOT NULL THEN
            IF NOT (regexp_like(:new.SUBFAMILY,'^[A-Z][a-z]*$')) THEN
                  status:=status || '; ' || 'SUBFAMILY (' || :new.SUBFAMILY || ') must be Proper Case.';
@@ -82,12 +86,12 @@ if :NEW.key is null then
            IF NOT (regexp_like(:new.TRIBE,'^[A-Z][a-z]*$')) THEN
                 status:=status || '; ' || 'TRIBE (' || :new.TRIBE || ') must be Proper Case.';
             END IF;
-        END IF;    
+        END IF;   
         IF :new.PHYLUM IS NOT NULL THEN
-           if :NEW.kingdom is null and :NEW.valid_catalog_term_fg is 1 then
-				status:=status || '; ' || 'Records with Phylum must have Kingdom to be Accepted.';
-			end if;
-			IF NOT (regexp_like(:new.PHYLUM,'^[A-Z][a-z]*$')) THEN
+           if :NEW.kingdom is null and :NEW.valid_catalog_term_fg = 1 then
+                                status:=status || '; ' || 'Records with Phylum must have Kingdom to be Accepted.';
+                        end if;
+                        IF NOT (regexp_like(:new.PHYLUM,'^[A-Z][a-z]*$')) THEN
                  status:=status || '; ' || 'PHYLUM (' || :new.PHYLUM || ') must be Proper Case.';
             END IF;
         END IF;
@@ -106,113 +110,115 @@ if :NEW.key is null then
                 status:=status || '; ' || 'SUPERFAMILY (' || :new.SUPERFAMILY || ') must be Proper Case.';
             END IF;
         END IF;
+       
         IF :new.PHYLORDER IS NOT NULL THEN
-           if :NEW.phylclass is null and :NEW.valid_catalog_term_fg is 1 then
-				status:=status || '; ' || 'Records with Order must have Class to be Accepted.';
-			end if;
-			IF NOT (regexp_like(:new.PHYLORDER,'^[A-Z][a-z]*$')) THEN
-                 raise_application_error(
-        		 status:=status || '; ' || 'PHYLORDER (' || :new.PHYLORDER || ') must be Proper Case.';
+           if :NEW.phylclass is null and :NEW.valid_catalog_term_fg = 1 then
+                  status:=status || '; Records with Order must have Class to be Accepted.';
+           end if;
+           iF NOT (regexp_like(:new.PHYLORDER,'^[A-Z][a-z]*$')) THEN
+                         status:=status || '; ' || 'PHYLORDER (' || :new.PHYLORDER || ') must be Proper Case.';
             END IF;
         END IF;
+       
         IF :new.phylclass IS NOT NULL THEN
-        	if :NEW.phylum is null and :NEW.valid_catalog_term_fg is 1 then
-				status:=status || '; ' || 'Records with Class must have Phylum to be Accepted.';
-			end if;   
-			IF NOT (regexp_like(:new.phylclass,'^[A-Z][a-z]*$')) THEN
+                if :NEW.phylum is null and :NEW.valid_catalog_term_fg = 1 then
+                                status:=status || '; ' || 'Records with Class must have Phylum to be Accepted.';
+                        end if;  
+                        IF NOT (regexp_like(:new.phylclass,'^[A-Z][a-z]*$')) THEN
                  status:=status || '; ' || 'phylclass (' || :new.phylclass || ') must be Proper Case.';
             END IF;
         END IF;
-        
-   	 IF :new.genus IS NOT NULL THEN
-		if :NEW.family is null and :NEW.valid_catalog_term_fg is 1 then
-			status:=status || '; ' || 'Records with Genus must have Family or to be Accepted.';
-		end if;
-		
-		if :NEW.nomenclatural_code='ICBN' then
-            if NOT (
-                regexp_like(:new.genus,'^[A-Z][a-z-]*[a-z]+$') or 
-                (substr(:new.genus,1,1) = stoopidX and regexp_like(:new.genus,'^.[A-Z][a-z-]*[a-z]+$'))) then 
-              status:=status || '; ' || 'genus (' || :new.genus || '-' || :NEW.taxon_name_id || ') must be Proper Case, but may start with a multiplication sign and contain a dash.';
-            end if;                
-        ELSIF :NEW.nomenclatural_code='ICZN' THEN
-            if NOT regexp_like(:new.genus,'^[A-Z][a-z]*$') then 
-                status:=status || '; ' || 'genus (' || :new.genus || ') must be Proper Case.';
-            END IF;
+       
+         IF :new.genus IS NOT NULL THEN
+                if :NEW.family is null and :NEW.valid_catalog_term_fg = 1 then
+                        status:=status || '; ' || 'Records with Genus must have Family or to be Accepted.';
+                end if;
+               
+                if :NEW.nomenclatural_code='ICBN' then
+                      if NOT ( regexp_like(:new.genus,'^[A-Z][a-z-]*[a-z]+$') or
+                        (substr(:new.genus,1,1) = stoopidX and regexp_like(:new.genus,'^.[A-Z][a-z-]*[a-z]+$'))) then
+                          status:=status || '; ' || 'genus (' || :new.genus || '-' || :NEW.taxon_name_id || ') must be Proper Case, but may start with a multiplication sign and contain a dash.';
+                    end if;               
+                ELSIF :NEW.nomenclatural_code='ICZN' THEN
+                    if NOT regexp_like(:new.genus,'^[A-Z][a-z]*$') then
+                        status:=status || '; ' || 'genus (' || :new.genus || ') must be Proper Case.';
+                    END IF;
+                END IF;
         END IF;
-    END IF;
     IF :new.species IS NOT NULL THEN
         if :NEW.nomenclatural_code='ICBN' then
             if NOT (
-                regexp_like(:new.species,'^[a-z][a-z-]*[a-z]+$') or 
-                (substr(:new.species,1,1) = stoopidX and regexp_like(:new.species,'^.[a-z][a-z-]*[a-z]+$'))) then 
+                regexp_like(:new.species,'^[a-z][a-z-]*[a-z]+$') or
+                (substr(:new.species,1,1) = stoopidX and regexp_like(:new.species,'^.[a-z][a-z-]*[a-z]+$'))) then
                status:=status || '; ' || 'species (' || :new.species || ') must be lowercase letters, but may start with a multiplication sign and contain a dash.';
-            end if;                
+            end if;               
         ELSIF :NEW.nomenclatural_code='ICZN' THEN
             if NOT regexp_like(:new.species,'^[a-z]-{0,1}[a-z]*$') then
                 status:=status || '; ' || 'species (' || :new.species || ')  must be lowercase letters, except the second character may be a hyphen.';
             END IF;
-        END IF; 
+        END IF;
     END IF;
     IF :new.subspecies IS NOT NULL THEN
         if :NEW.nomenclatural_code='ICBN' then
             if NOT (
-                regexp_like(:new.subspecies,'^[a-z][a-z-]*[a-z]+$') or 
-                (substr(:new.subspecies,1,1) = stoopidX and regexp_like(:new.subspecies,'^.[a-z][a-z-]*[a-z]+$'))) then 
+                regexp_like(:new.subspecies,'^[a-z][a-z-]*[a-z]+$') or
+                (substr(:new.subspecies,1,1) = stoopidX and regexp_like(:new.subspecies,'^.[a-z][a-z-]*[a-z]+$'))) then
                status:=status || '; ' || 'subspecies (' || :new.subspecies || ') must be lowercase letters, but may start with a multiplication sign and contain a dash.';
-            end if;                
+            end if;               
         ELSIF :NEW.nomenclatural_code='ICZN' THEN
             if NOT regexp_like(:new.subspecies,'^[a-z]-{0,1}[a-z]*$') then
                 status:=status || '; ' || 'subspecies (' || :new.subspecies || ')  must be lowercase letters, except the second character may be a hyphen.';
             END IF;
-        END IF; 
+        END IF;
     END IF;
 
+end if;
 
     nScientificName:=prependTaxonomy(nScientificName, :NEW.subspecies);
 
     if :NEW.nomenclatural_code='ICBN' then
-    	nScientificName:=prependTaxonomy(nScientificName, :NEW.infraspecific_rank);
+        nScientificName:=prependTaxonomy(nScientificName, :NEW.infraspecific_rank);
     end if;
     nScientificName:=prependTaxonomy(nScientificName, :NEW.species);
-    
+   
     if :new.subgenus is not null then
-    	nScientificName:=prependTaxonomy(nScientificName, '(' || :NEW.subgenus || ')');
+        nScientificName:=prependTaxonomy(nScientificName, '(' || :NEW.subgenus || ')');
     end if;
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.genus);
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.tribe,0,1);
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.subfamily,0,1);
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.family,0,1);
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.superfamily,0,1);
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.suborder,0,1);
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.phylorder,0,1);
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.subclass,0,1);
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.phylclass,0,1);
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.phylum,0,1);
-    
+   
     nScientificName:=prependTaxonomy(nScientificName, :NEW.kingdom,0,1);
-    
+   
     :new.scientific_name:=trim(nScientificName);
-	
-	if :NEW.nomenclatural_code in ('unknown','noncompliant') AND :NEW.valid_catalog_term_fg = 1 then
-		status:=status || '; ' || 'Nomenclatural Code "unknown" or "noncompliant" records may not be Accepted.';
-	end if;
-	
+      
+        if :NEW.nomenclatural_code in ('unknown','noncompliant') AND :NEW.valid_catalog_term_fg = 1 then
+                status:=status || '; Nomenclatural Code -unknown- or -noncompliant- records may not be Accepted.';
+        end if;
+      
 END;
 /
 sho err
 
 
+        
 	
 
 ------>
@@ -291,6 +297,13 @@ sho err
 		update cf_temp_taxonomy set status = status || '; Invalid VALID_CATALOG_TERM_FG'
 		where VALID_CATALOG_TERM_FG NOT IN (0,1)
 	</cfquery>
+	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update cf_temp_taxonomy set status = status || '; invalid nomenclatural_code'
+		where nomenclatural_code NOT IN (
+			select nomenclatural_code from CTnomenclatural_code
+			)
+	</cfquery>
+	
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = status || '; already exists'
 		where scientific_name IN (select scientific_name from taxonomy)
