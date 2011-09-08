@@ -6,11 +6,9 @@ drop table cf_temp_taxonomy;
 
 create table cf_temp_taxonomy (
 	key number,
-	force_load number,
 	status varchar2(4000),
-	taxon_name_id number,
  	PHYLCLASS                                                      VARCHAR2(20),
-SUBCLASS VARCHAR2(255),
+	SUBCLASS VARCHAR2(255),
 	 PHYLORDER                                                      VARCHAR2(30),
 	 SUBORDER                                                       VARCHAR2(30),
 	 SUPERFAMILY VARCHAR2(255),
@@ -29,7 +27,7 @@ SUBCLASS VARCHAR2(255),
 	 TAXON_REMARKS                                                  VARCHAR2(255),
 	 PHYLUM                                                         VARCHAR2(30),
 	 KINGDOM                                                        VARCHAR2(255),
-	 NOMENCLATURAL_CODE                                             VARCHAR2(255),
+	 NOMENCLATURAL_CODE                                             VARCHAR2(255) not null,
 	 INFRASPECIFIC_AUTHOR                                           VARCHAR2(255),
 	 TAXON_STATUS VARCHAR2(255)
 	 	);
@@ -287,7 +285,7 @@ sho err
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = status || '; Invalid source_authority'
-		where source_authority is null or source_authority NOT IN (
+		where source_authority NOT IN (
 			select SOURCE_AUTHORITY from CTTAXONOMIC_AUTHORITY
 			)
 	</cfquery>
@@ -297,8 +295,7 @@ sho err
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = status || '; invalid nomenclatural_code'
-		where nomenclatural_code is null or
-		nomenclatural_code NOT IN (
+		where nomenclatural_code NOT IN (
 			select nomenclatural_code from CTnomenclatural_code
 			)
 	</cfquery>
@@ -405,274 +402,6 @@ sho err
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "fixDups">
-<cfoutput>
-	<a href="BulkloadTaxonomy.cfm?action=validate">Back to Loader</a>
-	<p></p>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from cf_temp_taxonomy where status='already exists'
-	</cfquery>
-	Found #data.recordcount# duplicates.
-	<cfif data.recordcount gt 100>
-		This form will only deal with 100 records at a time. Update these and return here for the next 100.
-	</cfif>
-	<br>
-	The table below contains records which have existing matching scientific names.
-	<br>You must choose to overwrite the existing data with the data you just loaded
-	or to keep existing data where there is a conflict. This form is not a replacement for edit taxonomy. Delete, re-upload, 
-	and edit taxonomy to deal with anything that you can't here.
-	<br>NULLS ("(new)" or "(old)" in the dropdown) will 
-	<blockquote>
-		update taxonomy set {term} = NULL
-	</blockquote>
-	That's probably not ever a good idea.
-	<br>
-	Many taxonomy tools exist. Not all of them are available to all users.
-	 If this form seems awkward or repetitive, you're probably using the wrong tool.
-	<br>
-	<br>Clicking "save" will:
-	<ul>
-		<li>Update Arctos taxonomy <strong><em>for all rows</em></strong> in the table below</li>
-		<li>Delete the temp records from the table below</li>
-	</ul>
-	
-	<p>
-		Here it is again: Once you push the save button, everything in the table below is pushed to taxonomy and 
-		deleted from here. Don't push the button unless you're really sure all the data below are correct.
-	</p>
-	Table format is:
-	<ul>
-		<li>Cells where new term=old term contain text</li>
-		<li>Cells where new term and old term are NULL are empty</li>
-		<li>Cells where either new term or old term are not null contain a dropdown</li>
-		<li><span style="border:2px solid red;">Cells where new term conflicts with old term have a red border. Pay special attention to them. Really. We mean it.</span></li>
-	</ul>
-		
-	
-	</p>
-	Re-uploading your file without cleaning up things you fix here will re-load those records and lead you back to this form.
-	<p>
-	<cfset colList = "PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TRIBE,INFRASPECIFIC_RANK,TAXON_REMARKS,PHYLUM,KINGDOM,NOMENCLATURAL_CODE,INFRASPECIFIC_AUTHOR">
-
-		<table border>
-		<tr>
-			<cfloop list="#colList#" index="i">
-				<td>#i#</td>
-			</cfloop>
-		</tr>
-		<form name="d" method="post" action="BulkloadTaxonomy.cfm">
-			<input type="hidden" name="action" value="saveDupChange">
-			<cfset n=1>
-		<cfloop query="data">
-			<cfif n lte 100>
-				<input type='hidden' name="scientific_name_#key#" value="#scientific_name#">
-				<input type="hidden" name="key_#n#" value="#key#">
-				<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select * from taxonomy where scientific_name='#scientific_name#'
-				</cfquery>
-					<tr>
-					<cfloop list="#colList#" index="i">
-						<cfset newTerm = evaluate("data." & i)>
-						<cfset existTerm = evaluate("current." & i)>
-						
-						<td <cfif len(newTerm) gt 0 and len(existTerm) gt 0 and newTerm is not existTerm> style="border:2px solid red;"</cfif>>
-							<cfif #newTerm# is not #existTerm#>
-							
-								<select name="#i#_#key#" size="1">
-									<option <cfif len(existTerm) gt 0>selected="selected" </cfif> value="#existTerm#">#existTerm# (old)</option>
-									<option <cfif len(newTerm) gt 0>selected="selected" </cfif>	value="#newTerm#">#newTerm# (new)</option>
-								</select>
-							<cfelse>
-								#existTerm#
-								<input type="hidden" name="#i#_#key#" value="#existTerm#">
-							</cfif>
-						</td>
-					</cfloop>
-					<td>
-						
-					</td>
-				</tr>
-				<cfset n=n+1>
-			</cfif>
-		</cfloop>
-		</table>
-		<cfset nr=n-1>
-		<input type="hidden" name="numberOfRecords" value="#nr#">
-		<input type="submit" value="Update Taxonomy" class="savBtn">	
-		</form>
-	</form>
-</cfoutput>
-</cfif>
-<!------------------------------------------------------->
-<cfif action is "saveDupChange">
-	<cfoutput>
-		<cftransaction>
-			<cfloop from ="1" to="#numberOfRecords#" index="i">
-				<cfset key = evaluate("key_" & i)>
-				<cfset valid_catalog_term_fg = evaluate("valid_catalog_term_fg_" & key)>
-				<cfset source_authority = evaluate("source_authority_" & key)>
-				<cfset author_text = evaluate("author_text_" & key)>
-				<cfset tribe = evaluate("tribe_" & key)>
-				<cfset infraspecific_rank = evaluate("infraspecific_rank_" & key)>
-				<cfset phylclass = evaluate("phylclass_" & key)>
-				<cfset phylorder = evaluate("phylorder_" & key)>
-				<cfset suborder = evaluate("suborder_" & key)>
-				<cfset family = evaluate("family_" & key)>
-				<cfset subfamily = evaluate("subfamily_" & key)>
-				<cfset genus = evaluate("genus_" & key)>
-				<cfset subgenus = evaluate("subgenus_" & key)>
-				<cfset species = evaluate("species_" & key)>
-				<cfset subspecies = evaluate("subspecies_" & key)>
-				<cfset phylum = evaluate("phylum_" & key)>
-				<cfset taxon_remarks = evaluate("taxon_remarks_" & key)>
-				<cfset kingdom = evaluate("kingdom_" & key)>
-				<cfset nomenclatural_code = evaluate("nomenclatural_code_" & key)>
-				<cfset scientific_name = evaluate("scientific_name_" & key)>
-				<cfset infraspecific_author = evaluate("infraspecific_author_" & key)>
-				<cfset SUBCLASS = evaluate("SUBCLASS" & key)>
-				<cfset SUPERFAMILY = evaluate("SUPERFAMILY" & key)>
-				<cfset TAXON_STATUS = evaluate("TAXON_STATUS" & key)>
-				
-				<cfset sql="UPDATE taxonomy SET 
-					valid_catalog_term_fg=#valid_catalog_term_fg#,
-					source_authority = '#escapeQuotes(source_authority)#',
-					author_text='#escapeQuotes(author_text)#',
-					tribe = '#tribe#',
-					infraspecific_rank = '#infraspecific_rank#',
-					phylclass = '#phylclass#',
-					phylorder = '#phylorder#',
-					suborder = '#suborder#',
-					family = '#family#',
-					subfamily = '#subfamily#',
-					genus = '#genus#',
-					subgenus = '#subgenus#',
-					species = '#species#',
-					subspecies = '#subspecies#',
-					phylum = '#phylum#',
-					taxon_remarks = '#escapeQuotes(taxon_remarks)#',
-					kingdom = '#kingdom#',
-					nomenclatural_code = '#nomenclatural_code#',
-					SUBCLASS = '#SUBCLASS#',
-					SUPERFAMILY = '#SUPERFAMILY#',
-					TAXON_STATUS = '#TAXON_STATUS#',
-					infraspecific_author = '#escapeQuotes(infraspecific_author)#'
-				WHERE scientific_name='#scientific_name#'">
-				<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
-					#preserveSingleQuotes(sql)#
-				</cfquery>
-				<cfquery name="killTemp" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
-					delete from cf_temp_taxonomy WHERE scientific_name='#scientific_name#'
-				</cfquery>
-				<br>#sql#
-				<br><a href="/name/#scientific_name#">#scientific_name#</a> updated
-				<hr>
-				
-				
-			</cfloop>
-		</cftransaction>
-		If there are no errors above, you've updated #numberOfRecords# taxa records.
-		<a href="BulkloadTaxonomy.cfm?action=fixDups">Fix More Dups</a>
-	</cfoutput>
-	<!----
-	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
-	UPDATE taxonomy SET 
-		valid_catalog_term_fg=#valid_catalog_term_fg#
-		,source_authority = '#source_authority#'
-		<cfif len(#author_text#) gt 0>
-			,author_text='#author_text#'
-		<cfelse>
-			,author_text=null			
-		</cfif>
-		<cfif len(#tribe#) gt 0>
-			,tribe = '#tribe#'
-		<cfelse>
-			,tribe = null			
-		</cfif>
-		<cfif len(#infraspecific_rank#) gt 0>
-			,infraspecific_rank = '#infraspecific_rank#'
-		<cfelse>
-			,infraspecific_rank = null			
-		</cfif>
-		<cfif len(#phylclass#) gt 0>
-			,phylclass = '#phylclass#'
-		<cfelse>
-			,phylclass = null			
-		</cfif>
-		<cfif len(#phylorder#) gt 0>
-			,phylorder = '#phylorder#'
-		<cfelse>
-			,phylorder = null			
-		</cfif>
-		<cfif len(#suborder#) gt 0>
-			,suborder = '#suborder#'
-		<cfelse>
-			,suborder = null			
-		</cfif>
-		<cfif len(#family#) gt 0>
-			,family = '#family#'
-		<cfelse>
-			,family = null			
-		</cfif>
-		<cfif len(#subfamily#) gt 0>
-			,subfamily = '#subfamily#'
-		<cfelse>
-			,subfamily = null			
-		</cfif>
-		<cfif len(#genus#) gt 0>
-			,genus = '#genus#'
-		<cfelse>
-			,genus = null			
-		</cfif>
-		<cfif len(#subgenus#) gt 0>
-			,subgenus = '#subgenus#'
-		<cfelse>
-			,subgenus = null			
-		</cfif>
-		<cfif len(#species#) gt 0>
-			,species = '#species#'
-		<cfelse>
-			,species = null			
-		</cfif>
-		<cfif len(#subspecies#) gt 0>
-			,subspecies = '#subspecies#'
-		<cfelse>
-			,subspecies = null			
-		</cfif>		
-		<cfif len(#phylum#) gt 0>
-			,phylum = '#phylum#'
-		<cfelse>
-			,phylum = null			
-		</cfif>		
-		<cfif len(#taxon_remarks#) gt 0>
-			,taxon_remarks = '#taxon_remarks#'
-		<cfelse>
-			,taxon_remarks = null			
-		</cfif>
-		<cfif len(#kingdom#) gt 0>
-			,kingdom = '#kingdom#'
-		<cfelse>
-			,kingdom = null			
-		</cfif>
-		<cfif len(#nomenclatural_code#) gt 0>
-			,nomenclatural_code = '#nomenclatural_code#'
-		<cfelse>
-			,nomenclatural_code = null			
-		</cfif>
-		<cfif len(#infraspecific_author#) gt 0>
-			,infraspecific_author = '#infraspecific_author#'
-		<cfelse>
-			,infraspecific_author = null			
-		</cfif>	
-	WHERE scientific_name='#scientific_name#'
-	</cfquery>
-	<cfquery name="killTemp" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
-		delete from cf_temp_taxonomy WHERE scientific_name='#scientific_name#'
-	</cfquery>
-	<cflocation url="BulkloadTaxonomy.cfm?action=fixDups" addtoken="false">
-	---->
-</cfif>
-
-<!------------------------------------------------------->
 <cfif #action# is "loadData">
 
 <cfoutput>
@@ -681,140 +410,56 @@ sho err
 	</cfquery>
 	<cftransaction>
 	<cfloop query="data">
-		<cfquery name="nid" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
-			select sq_taxon_name_id.nextval nid from dual
-		</cfquery>
 		<cfquery name="newTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO taxonomy (
-				taxon_name_id
-				,valid_catalog_term_fg
-				,source_authority
-				<cfif len(#author_text#) gt 0>
-					,author_text		
-				</cfif>
-				<cfif len(#tribe#) gt 0>
-					,tribe			
-				</cfif>
-				<cfif len(#infraspecific_rank#) gt 0>
-					,infraspecific_rank			
-				</cfif>
-				<cfif len(#phylclass#) gt 0>
-					,phylclass			
-				</cfif>
-				<cfif len(#phylorder#) gt 0>
-					,phylorder		
-				</cfif>
-				<cfif len(#suborder#) gt 0>
-					,suborder		
-				</cfif>
-				<cfif len(#family#) gt 0>
-					,family	
-				</cfif>
-				<cfif len(#subfamily#) gt 0>
-					,subfamily	
-				</cfif>
-				<cfif len(#genus#) gt 0>
-					,genus			
-				</cfif>
-				<cfif len(#subgenus#) gt 0>
-					,subgenus		
-				</cfif>
-				<cfif len(#species#) gt 0>
-					,species			
-				</cfif>
-				<cfif len(#subspecies#) gt 0>
-					,subspecies		
-				</cfif>	
-				<cfif len(#taxon_remarks#) gt 0>
-					,taxon_remarks		
-				</cfif>	
-				<cfif len(#phylum#) gt 0>
-					,phylum		
-				</cfif>
-				<cfif len(#infraspecific_author#) gt 0>
-					,infraspecific_author		
-				</cfif>
-				<cfif len(#kingdom#) gt 0>
-					,kingdom		
-				</cfif>
-				<cfif len(#nomenclatural_code#) gt 0>
-					,nomenclatural_code		
-				</cfif>
-				<cfif len(#SUBCLASS#) gt 0>
-					,SUBCLASS		
-				</cfif>
-				<cfif len(#SUPERFAMILY#) gt 0>
-					,SUPERFAMILY		
-				</cfif>
-				<cfif len(#TAXON_STATUS#) gt 0>
-					,TAXON_STATUS		
-				</cfif>	
-				)		
-			VALUES (
-				#nid.nid#
-				,#valid_catalog_term_fg#
-				,'#source_authority#'
-				<cfif len(#author_text#) gt 0>
-					,'#author_text#'
-				</cfif>
-				<cfif len(#tribe#) gt 0>
-					,'#tribe#'
-				</cfif>
-				<cfif len(#infraspecific_rank#) gt 0>
-					,'#infraspecific_rank#'
-				</cfif>
-				<cfif len(#phylclass#) gt 0>
-					,'#phylclass#'			
-				</cfif>
-				<cfif len(#phylorder#) gt 0>
-					,'#phylorder#'
-				</cfif>
-				<cfif len(#suborder#) gt 0>
-					,'#suborder#'		
-				</cfif>
-				<cfif len(#family#) gt 0>
-					,'#family#'
-				</cfif>
-				<cfif len(#subfamily#) gt 0>
-					,'#subfamily#'	
-				</cfif>
-				<cfif len(#genus#) gt 0>
-					,'#genus#'
-				</cfif>
-				<cfif len(#subgenus#) gt 0>
-					,'#subgenus#'		
-				</cfif>
-				<cfif len(#species#) gt 0>
-					,'#species#'
-				</cfif>
-				<cfif len(#subspecies#) gt 0>
-					,'#subspecies#'		
-				</cfif>
-				<cfif len(#taxon_remarks#) gt 0>
-					,'#taxon_remarks#'		
-				</cfif>	
-				<cfif len(#phylum#) gt 0>
-					,'#phylum#'		
-				</cfif>
-				<cfif len(#infraspecific_author#) gt 0>
-					,'#infraspecific_author#'		
-				</cfif>
-				<cfif len(#kingdom#) gt 0>
-					,'#kingdom#'
-				</cfif>
-				<cfif len(#nomenclatural_code#) gt 0>
-					,'#nomenclatural_code#'		
-				</cfif>
-				<cfif len(#SUBCLASS#) gt 0>
-					,'#SUBCLASS#'
-				</cfif>
-				<cfif len(#SUPERFAMILY#) gt 0>
-					,'#SUPERFAMILY#'
-				</cfif>
-				<cfif len(#TAXON_STATUS#) gt 0>
-					,'#TAXON_STATUS#'
-				</cfif>		
-					)
+				taxon_name_id,
+				PHYLCLASS,
+				SUBCLASS,
+				PHYLORDER,
+				SUBORDER,
+				SUPERFAMILY,
+				FAMILY,
+				SUBFAMILY,
+				GENUS,
+				SUBGENUS,
+				SPECIES,
+				SUBSPECIES,
+				VALID_CATALOG_TERM_FG,
+				SOURCE_AUTHORITY,
+				AUTHOR_TEXT,
+				TRIBE,
+				INFRASPECIFIC_RANK,
+				TAXON_REMARKS,
+				PHYLUM,
+				KINGDOM,
+				NOMENCLATURAL_CODE,
+				INFRASPECIFIC_AUTHOR,
+				TAXON_STATUS
+			) values (
+				sq_taxon_name_id.nextval,
+				'#PHYLCLASS#',
+				'#SUBCLASS#',
+				'#PHYLORDER#',
+				'#SUBORDER#',
+				'#SUPERFAMILY#',
+				'#FAMILY#',
+				'#SUBFAMILY#',
+				'#GENUS#',
+				'#SUBGENUS#',
+				'#SPECIES#',
+				'#SUBSPECIES#',
+				#VALID_CATALOG_TERM_FG#,
+				'#SOURCE_AUTHORITY#',
+				'#escapeQuotes(AUTHOR_TEXT)#',
+				'#TRIBE#',
+				'#INFRASPECIFIC_RANK#',
+				'#escapeQuotes(TAXON_REMARKS)#',
+				'#PHYLUM#',
+				'#KINGDOM#',
+				'#NOMENCLATURAL_CODE#',
+				'#escapeQuotes(INFRASPECIFIC_AUTHOR)#',
+				'#TAXON_STATUS#'
+			)
 		</cfquery>
 		</cfloop>
 	</cftransaction>
