@@ -228,7 +228,7 @@ sho err
 		select * from cf_temp_taxonomy
 	</cfquery>
 	<cfdump var=#d#>
-	<cfset ac = valuelist(d.column_name)>
+	<cfset ac = d.columnlist>
 	<cfif ListFindNoCase(ac,'KEY')>
 		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'KEY'))>
 	</cfif>
