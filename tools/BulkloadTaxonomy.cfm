@@ -221,6 +221,47 @@ sho err
 	
 
 ------>
+
+<!------------------------------------------------------->
+<cfif action is "down">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from cf_temp_taxonomy
+	</cfquery>
+	<cfset ac = valuelist(d.column_name)>
+	<cfif ListFindNoCase(ac,'KEY')>
+		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'KEY'))>
+	</cfif>
+	<cfset variables.encoding="UTF-8">
+	<cfset fname = "BulkTaxaDown.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	<cfset header=trim(ac)>
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(header); 
+	</cfscript>
+	<cfloop query="d">
+		<cfset oneLine = "">
+		<cfloop list="#ac#" index="c">
+			<cfset thisData = evaluate(c)>
+			<cfif len(oneLine) is 0>
+				<cfset oneLine = '"#thisData#"'>
+			<cfelse>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+			</cfif>
+		</cfloop>
+		<cfset oneLine = trim(oneLine)>
+		<cfscript>
+			variables.joFileWriter.writeLine(oneLine);
+		</cfscript>
+	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+</cfif>
+<!------------------------------------------------------->
 <cfif action is "makeTemplate">
 	<cfset header="PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TRIBE,INFRASPECIFIC_RANK,TAXON_REMARKS,PHYLUM,KINGDOM,NOMENCLATURAL_CODE,INFRASPECIFIC_AUTHOR,TAXON_STATUS">
 	<cffile action = "write" file = "#Application.webDirectory#/download/BulkTaxonomy.csv"
@@ -330,9 +371,8 @@ sho err
 			Data validated. Carefully check the table below, then
 			<a href="BulkloadTaxonomy.cfm?action=loadData">continue to load</a>.
 		<cfelse>
-			The data you loaded do not validate. See STATUS column below. If there are duplicates in the data you are trying to load, 
-			you may delete them from your file (use the existing values), or 
-			<a href="BulkloadTaxonomy.cfm?action=fixDups">merge them now</a>.
+			The data you loaded do not validate. See STATUS column below. Fix them all.
+			<a href="BulkloadTaxonomy.cfm?action=down">[ download ]</a>
 		</cfif>
 		<table border>
 			<tr>
