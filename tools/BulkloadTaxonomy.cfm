@@ -37,8 +37,7 @@ create table cf_temp_taxonomy (
 	grant select on cf_temp_taxonomy to public;
 	
 	
-	
-CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key                                        
+CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key                                         
  before insert  ON cf_temp_taxonomy
 FOR EACH ROW
 DECLARE
@@ -49,17 +48,16 @@ DECLARE
         c NUMBER;
         stoopidX VARCHAR2(10):=CHR (215 USING NCHAR_CS);
 BEGIN
-status:='';
-if :NEW.key is null then                                                                                     
-                select somerandomsequence.nextval into :new.key from dual;
-        end if;   
- if :NEW.nomenclatural_code != 'noncompliant' THEN
+	status:='';
+	if :NEW.key is null then
+		select somerandomsequence.nextval into :new.key from dual;
+    end if;    
+	if :NEW.nomenclatural_code != 'noncompliant' THEN
         IF :new.SUBORDER IS NOT NULL THEN
            IF NOT (regexp_like(:new.SUBORDER,'^[A-Z][a-z]*$')) THEN
                  status:=status || '; SUBORDER must be Proper Case.';
             END IF;
         END IF;
-       
         IF :new.FAMILY IS NOT NULL THEN
                 if :NEW.phylorder is null and :NEW.valid_catalog_term_fg = 1 then
                                 status:=status || '; ' || 'Records with Family must have Order to be Accepted.';
@@ -68,9 +66,7 @@ if :NEW.key is null then
                  status:=status || '; ' || 'FAMILY (' || :new.FAMILY || ') must be Proper Case.';
             END IF;
         END IF;
-       
-
-        IF :new.SUBFAMILY IS NOT NULL THEN
+		IF :new.SUBFAMILY IS NOT NULL THEN
            IF NOT (regexp_like(:new.SUBFAMILY,'^[A-Z][a-z]*$')) THEN
                  status:=status || '; ' || 'SUBFAMILY (' || :new.SUBFAMILY || ') must be Proper Case.';
             END IF;
@@ -84,7 +80,7 @@ if :NEW.key is null then
            IF NOT (regexp_like(:new.TRIBE,'^[A-Z][a-z]*$')) THEN
                 status:=status || '; ' || 'TRIBE (' || :new.TRIBE || ') must be Proper Case.';
             END IF;
-        END IF;   
+        END IF;    
         IF :new.PHYLUM IS NOT NULL THEN
            if :NEW.kingdom is null and :NEW.valid_catalog_term_fg = 1 then
                                 status:=status || '; ' || 'Records with Phylum must have Kingdom to be Accepted.';
@@ -108,7 +104,7 @@ if :NEW.key is null then
                 status:=status || '; ' || 'SUPERFAMILY (' || :new.SUPERFAMILY || ') must be Proper Case.';
             END IF;
         END IF;
-       
+        
         IF :new.PHYLORDER IS NOT NULL THEN
            if :NEW.phylclass is null and :NEW.valid_catalog_term_fg = 1 then
                   status:=status || '; Records with Order must have Class to be Accepted.';
@@ -117,27 +113,26 @@ if :NEW.key is null then
                          status:=status || '; ' || 'PHYLORDER (' || :new.PHYLORDER || ') must be Proper Case.';
             END IF;
         END IF;
-       
+        
         IF :new.phylclass IS NOT NULL THEN
                 if :NEW.phylum is null and :NEW.valid_catalog_term_fg = 1 then
                                 status:=status || '; ' || 'Records with Class must have Phylum to be Accepted.';
-                        end if;  
+                        end if;   
                         IF NOT (regexp_like(:new.phylclass,'^[A-Z][a-z]*$')) THEN
                  status:=status || '; ' || 'phylclass (' || :new.phylclass || ') must be Proper Case.';
             END IF;
         END IF;
-       
+        
          IF :new.genus IS NOT NULL THEN
-		
                 if :NEW.family is null and :NEW.valid_catalog_term_fg = 1 then
                         status:=status || '; ' || 'Records with Genus must have Family or to be Accepted.';
                 end if;
-               
+                
                 if :NEW.nomenclatural_code='ICBN' then
                       if NOT ( regexp_like(:new.genus,'^[A-Z][a-z-]*[a-z]+$') or
                         (substr(:new.genus,1,1) = stoopidX and regexp_like(:new.genus,'^.[A-Z][a-z-]*[a-z]+$'))) then
                           status:=status || '; ' || 'genus (' || :new.genus || '-' || :NEW.taxon_name_id || ') must be Proper Case, but may start with a multiplication sign and contain a dash.';
-                    end if;               
+                    end if;                
                 ELSIF :NEW.nomenclatural_code='ICZN' THEN
                     if NOT regexp_like(:new.genus,'^[A-Z][a-z]*$') then
                         status:=status || '; ' || 'genus (' || :new.genus || ') must be Proper Case.';
@@ -150,7 +145,7 @@ if :NEW.key is null then
                 regexp_like(:new.species,'^[a-z][a-z-]*[a-z]+$') or
                 (substr(:new.species,1,1) = stoopidX and regexp_like(:new.species,'^.[a-z][a-z-]*[a-z]+$'))) then
                status:=status || '; ' || 'species (' || :new.species || ') must be lowercase letters, but may start with a multiplication sign and contain a dash.';
-            end if;               
+            end if;                
         ELSIF :NEW.nomenclatural_code='ICZN' THEN
             if NOT regexp_like(:new.species,'^[a-z]-{0,1}[a-z]*$') then
                 status:=status || '; ' || 'species (' || :new.species || ')  must be lowercase letters, except the second character may be a hyphen.';
@@ -163,7 +158,7 @@ if :NEW.key is null then
                 regexp_like(:new.subspecies,'^[a-z][a-z-]*[a-z]+$') or
                 (substr(:new.subspecies,1,1) = stoopidX and regexp_like(:new.subspecies,'^.[a-z][a-z-]*[a-z]+$'))) then
                status:=status || '; ' || 'subspecies (' || :new.subspecies || ') must be lowercase letters, but may start with a multiplication sign and contain a dash.';
-            end if;               
+            end if;                
         ELSIF :NEW.nomenclatural_code='ICZN' THEN
             if NOT regexp_like(:new.subspecies,'^[a-z]-{0,1}[a-z]*$') then
                 status:=status || '; ' || 'subspecies (' || :new.subspecies || ')  must be lowercase letters, except the second character may be a hyphen.';
@@ -179,47 +174,45 @@ end if;
         nScientificName:=prependTaxonomy(nScientificName, :NEW.infraspecific_rank);
     end if;
     nScientificName:=prependTaxonomy(nScientificName, :NEW.species);
-   
+    
     if :new.subgenus is not null then
         nScientificName:=prependTaxonomy(nScientificName, '(' || :NEW.subgenus || ')');
     end if;
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.genus);
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.tribe,0,1);
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.subfamily,0,1);
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.family,0,1);
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.superfamily,0,1);
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.suborder,0,1);
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.phylorder,0,1);
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.subclass,0,1);
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.phylclass,0,1);
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.phylum,0,1);
-   
+    
     nScientificName:=prependTaxonomy(nScientificName, :NEW.kingdom,0,1);
-   
+    
     :new.scientific_name:=trim(nScientificName);
-      
+       
         if :NEW.nomenclatural_code in ('unknown','noncompliant') AND :NEW.valid_catalog_term_fg = 1 then
                 status:=status || '; Nomenclatural Code -unknown- or -noncompliant- records may not be Accepted.';
         end if;
-      
+       :NEW.status:=status;
 END;
 /
 sho err
 
 
         
-	
-
 ------>
 
 <!------------------------------------------------------->
@@ -272,7 +265,14 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
-		Step 1: Upload a comma-delimited text file (csv). <a href="BulkloadTaxonomy.cfm?action=makeTemplate">[ Get the Template ]</a>
+		Upload a comma-delimited text file (csv). <a href="BulkloadTaxonomy.cfm?action=makeTemplate">[ Get the Template ]</a>
+		<p>Required fields:
+			<ul>
+				<li>VALID_CATALOG_TERM_FG (0 or 1)</li>
+				<li><a href="/info/ctDocumentation.cfm?table=SOURCE_AUTHORITY">SOURCE_AUTHORITY</a></li>
+				<li><a href="/info/ctDocumentation.cfm?table=NOMENCLATURAL_CODE">NOMENCLATURAL_CODE</a></li>
+			</ul>
+		</p> 
 		<cfform name="oids" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
 			<input type="file" name="FiletoUpload" size="45">
