@@ -299,7 +299,8 @@ sho err
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = status || '; invalid nomenclatural_code'
-		where nomenclatural_code NOT IN (
+		where nomenclatural_code is null or
+		nomenclatural_code NOT IN (
 			select nomenclatural_code from CTnomenclatural_code
 			)
 	</cfquery>
