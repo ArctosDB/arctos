@@ -227,6 +227,7 @@ sho err
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_taxonomy
 	</cfquery>
+	<cfdump var=#d#>
 	<cfset ac = valuelist(d.column_name)>
 	<cfif ListFindNoCase(ac,'KEY')>
 		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'KEY'))>
