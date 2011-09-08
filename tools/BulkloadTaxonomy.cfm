@@ -131,7 +131,7 @@ BEGIN
                 if :NEW.nomenclatural_code='ICBN' then
                       if NOT ( regexp_like(:new.genus,'^[A-Z][a-z-]*[a-z]+$') or
                         (substr(:new.genus,1,1) = stoopidX and regexp_like(:new.genus,'^.[A-Z][a-z-]*[a-z]+$'))) then
-                          status:=status || '; ' || 'genus (' || :new.genus || '-' || :NEW.taxon_name_id || ') must be Proper Case, but may start with a multiplication sign and contain a dash.';
+                          status:=status || '; ' || 'genus (' || :new.genus || ') must be Proper Case, but may start with a multiplication sign and contain a dash.';
                     end if;                
                 ELSIF :NEW.nomenclatural_code='ICZN' THEN
                     if NOT regexp_like(:new.genus,'^[A-Z][a-z]*$') then
@@ -400,7 +400,6 @@ sho err
 				<th>NOMENCLATURAL_CODE</th>
 				<th>INFRASPECIFIC_AUTHOR</th>
 				<th>TAXON_REMARKS</th>
-				<th>TAXON_NAME_ID</th>
 				<th>taxon_status</th>
 				<th>SUBCLASS</th>
 				<th>SUPERFAMILY</th>
@@ -430,7 +429,6 @@ sho err
 					<td>#NOMENCLATURAL_CODE#</td>
 					<td>#INFRASPECIFIC_AUTHOR#</td>
 					<td>#TAXON_REMARKS#</td>
-					<td>#TAXON_NAME_ID#</td>
 					<td>#taxon_status#</td>
 					<td>#SUBCLASS#</td>
 					<td>#SUPERFAMILY#</td>
