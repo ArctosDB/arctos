@@ -644,49 +644,20 @@ function success_getSpecResultsData(result){
                                     // Create an audio thumb.
                                     theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle">';	
                                         
-                                    // Place the player here now, with the ID of the fileName.
-								  	theInnerHtml +=
-                                    '<div id="' + fileName + '" class="jp-jplayer"></div>' +
-                                        '<div class="jp-audio"><div class="jp-type-single">' +
-                                            '<div id="jp_interface_1" class="jp-interface">' +
-                                                '<ul class="jp-controls">' +
-                                                  '<li><a href="#" class="jp-play" tabindex="1">play</a></li>' +
-                                                  '<li><a href="#" class="jp-pause" tabindex="1">pause</a></li>' +
-                                                  '<li><a href="#" class="jp-mute" tabindex="1">mute</a></li>' +
-                                                  '<li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>' +
-                                                '</ul>' +
-                                                '<div class="jp-progress">' +
-                                                '   <div class="jp-seek-bar" style="width: 100%; ">' +
-                                                '       <div class="jp-play-bar">' +
-                                                '</div></div></div>' +
-                                                '<div class="jp-volume-bar">' +
-                                                    '<div class="jp-volume-bar-value">' +
-                                                '</div></div>' +
-                                                '<div class="jp-current-time"></div>' +
-                                                '<div class="jp-duration"></div>' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</div>';
-                                   
-                                    // Here's the magical JavaScript function.
-                                    audioPrepFunction =
-                                    	'<script type="text/javascript">' +
-                                    		'$(document).ready(function() {' +
-                                    			'$("#' + fileName + '").jPlayer({' +
-                                    				'ready: function () {' +
-                                    					'$(this).jPlayer("setMedia", {' +
-                                    						'mp3: "' + mp3PlaybackUrl + '", ' +
-                                    						'oga: "' + oggPlaybackUrl + '", ' +
-                                    						'wav: "' + wavPlaybackUrl + '"' +
-                                    					'});' +
-                                    				'},' +
-                                    				'swfPath: "/js",' +
-                                    				'supplied: "mp3, oga, wav"' +
-                                    			'});' +
-                                    		'});' +
-                                    	'</script>';
-                                    					
-                                    document.head.innerHTML = document.head.innerHTML + audioPrepFunction;
+									// Create the audio tag with links.
+									theInnerHtml += '<audio id="' + fileName + '" preload="auto" autobuffer>' +
+										'<source src="' + wavPlaybackUrl '" >' +
+										'<source src="' + mp3PlaybackUrl '" >' +
+										'<source src="' + oggPlaybackUrl '" >' +
+									'</audio>';
+									
+									// Set up the audio controls.
+									theInnerHtml += '<div>' +
+										'<button onclick="document.getElementById("' + fileName + '").play()">Play</button>' +
+										'<button onclick="document.getElementById("' + fileName + '").pause()">Pause</button><br>' +
+										'<button onclick="document.getElementById("' + fileName + '").volume+=0.1">Volume Up</button><br>' +
+										'<button onclick="document.getElementById("' + fileName + '").volume-=0.1">Volume Down</button>' +
+									'</div>';
 									
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
