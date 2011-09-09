@@ -646,9 +646,9 @@ function success_getSpecResultsData(result){
                                         
 									// Create the audio tag with links.
 									theInnerHtml += '<audio id="' + fileName + '" preload="auto" autobuffer>' +
-										'<source src="' + wavPlaybackUrl '" >' +
-										'<source src="' + mp3PlaybackUrl '" >' +
-										'<source src="' + oggPlaybackUrl '" >' +
+										'<source src="' + wavPlaybackUrl '" type="audio/wav">' +
+										'<source src="' + mp3PlaybackUrl '" type="audio/mp3">' +
+										'<source src="' + oggPlaybackUrl '" "type="audio/ogg">' +
 									'</audio>';
 									
 									// Set up the audio controls.
