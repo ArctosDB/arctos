@@ -646,12 +646,59 @@ function success_getSpecResultsData(result){
                                         
 									// Create the audio tag with links.
 									theInnerHtml += '<audio id="' + fileName + '" preload="auto" autobuffer>' +
-										'<source src="' + wavPlaybackUrl '" type="audio/wav">' +
-										'<source src="' + mp3PlaybackUrl '" type="audio/mp3">' +
 										'<source src="' + oggPlaybackUrl '" "type="audio/ogg">' +
+										'<source src="' + wavPlaybackUrl '" type="audio/x-wav">' +
+										'<source src="' + mp3PlaybackUrl '" type="audio/mpeg">' +
 									'</audio>';
 									
 									// Set up the audio controls.
+									theInnerHtml += '<div>' +
+										'<button onclick="document.getElementById("' + fileName + '").play()" style="background:white; height:34px; width:36px; border-width:1; ">' +
+											'<img src="audiographics/Play-icon.png" ></button>' +
+										'<button onclick="document.getElementById("' + fileName + '").pause()" style="background:white; height:34px; width:40px; border-width:1; ">' +
+											'<img src="audiographics/Pause-icon.png" ></button>' +
+									  	'<button onclick="toggleMute()" style="background:white; height:34px; width:40px; border-width:1; ">' +
+									  		'<img src="audiographics/Mute-icon.png" ></button><br>' +
+									  	'<input id="seekbar' + fileName + '" type="range"  min="0" max="100" value="0" /></div>';
+
+								    // Junk for the mute button.
+							        var audio = document.getElementById(fileName);
+							        var seekbarString = "seekbar" + fileName;
+							        var seekbar = document.getElementById(seekbarString);
+							        
+							 	    var other_vol = 0;
+							        
+							        function toggleMute() {
+							          var temp = audio.volume;
+							          audio.volume = other_vol;
+							          other_vol = temp;
+							        }
+							  
+									// Junk for the seek bar.
+							        function setupSeekbar() {
+							          seekbar.min = audio.startTime;
+							          seekbar.max = audio.startTime + audio.duration;
+							        }
+							        
+							        audio.ondurationchange = setupSeekbar;
+							
+							        function seekAudio() {
+							          audio.currentTime = seekbar.value;
+							        }
+							
+							        function updateUI() {
+							          var lastBuffered = audio.buffered.end(audio.buffered.length-1);
+							          seekbar.min = audio.startTime;
+							          seekbar.max = lastBuffered;
+							          seekbar.value = audio.currentTime;
+							        }
+							        
+							        seekbar.onchange = seekAudio;
+							        audio.ontimeupdate = updateUI;
+							        
+							        audio.addEventListener('durationchange', setupSeekbar);
+							        audio.addEventListener('timeupdate', updateUI);
+									
 									theInnerHtml += '<div>' +
 										'<button onclick="document.getElementById("' + fileName + '").play()">Play</button>' +
 										'<button onclick="document.getElementById("' + fileName + '").pause()">Pause</button><br>' +
