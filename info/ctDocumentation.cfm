@@ -14,11 +14,12 @@
 			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
 		 order by table_name
 	</cfquery>
+	<b>Code Table Documentation</b>
 	<cfloop query="getCTName">
 		<br><a href="ctDocumentation.cfm?table=#table_name#">#table_name#</a>
 	</cfloop>
-	<cfabort>
 </cfif>
+<cfif isdefined("table")>
 <cfset tableName = right(table,len(table)-2)>
 <cfif not isdefined("field") or field is "undefined">
 	<cfset field="">
@@ -152,5 +153,6 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				</cfif>
 		</table>
 	</cfif>
+</cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
