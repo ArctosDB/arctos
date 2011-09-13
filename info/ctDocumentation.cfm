@@ -13,6 +13,7 @@
 			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
 		 order by table_name
 	</cfquery>
+	<cfset title="#table_name# - code table values">
 	<cfloop query="getCTName">
 		<br><a href="ctDocumentation.cfm?table=#table_name#">#table_name#</a>
 	</cfloop>
