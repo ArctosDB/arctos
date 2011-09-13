@@ -220,7 +220,6 @@ sho err
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_taxonomy
 	</cfquery>
-	<cfdump var=#d#>
 	<cfset ac = d.columnlist>
 	<cfif ListFindNoCase(ac,'KEY')>
 		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'KEY'))>
@@ -269,8 +268,8 @@ sho err
 		<p>Required fields:
 			<ul>
 				<li>VALID_CATALOG_TERM_FG (0 or 1)</li>
-				<li><a href="/info/ctDocumentation.cfm?table=SOURCE_AUTHORITY">SOURCE_AUTHORITY</a></li>
-				<li><a href="/info/ctDocumentation.cfm?table=NOMENCLATURAL_CODE">NOMENCLATURAL_CODE</a></li>
+				<li><a href="/info/ctDocumentation.cfm?table=CTTAXONOMIC_AUTHORITY">SOURCE_AUTHORITY</a></li>
+				<li><a href="/info/ctDocumentation.cfm?table=CTNOMENCLATURAL_CODE">NOMENCLATURAL_CODE</a></li>
 			</ul>
 		</p> 
 		<cfform name="oids" method="post" enctype="multipart/form-data">
@@ -378,7 +377,6 @@ sho err
 		<table border>
 			<tr>
 				<th>KEY</th>
-				<th>FORCE_LOAD</th>
 				<th>STATUS</th>
 				<th>PHYLCLASS</th>
 				<th>PHYLORDER</th>
@@ -407,7 +405,6 @@ sho err
 			<cfloop query="valData">
 				<tr>
 					<td>#KEY#</td>
-					<td>#FORCE_LOAD#</td>
 					<td>#STATUS#</td>
 					<td>#PHYLCLASS#</td>
 					<td>#PHYLORDER#</td>

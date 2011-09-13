@@ -1,5 +1,5 @@
 <cfoutput>
-<cfinclude template="/includes/_frameHeader.cfm">
+<cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfif not isdefined("table")>
 	<cfquery name="getCTName" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -18,7 +18,6 @@
 	</cfloop>
 	<cfabort>
 </cfif>
-
 <cfset tableName = right(table,len(table)-2)>
 <cfif not isdefined("field") or field is "undefined">
 	<cfset field="">
@@ -46,6 +45,8 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				</tr>
 			</cfloop>
 		</table>
+	<cfelseif table is "ctcollection_cde">
+		<cfdump var=#docs#>
 	<cfelse>
 		
 		<!--- figure out the name of the field they want info about - already have the table name,
@@ -107,7 +108,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</cfif>
 		</cfquery>
 			<cfset i=1>
-			<cfif #docs.columnList# contains "collection_cde">
+			<cfif docs.columnList contains "collection_cde">
 					<cfloop query="theRest">
 						 <tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 							<td nowrap>#evaluate(theColumnName)#</td>
@@ -137,3 +138,4 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		</table>
 	</cfif>
 </cfoutput>
+<cfinclude template="/includes/_footer.cfm">
