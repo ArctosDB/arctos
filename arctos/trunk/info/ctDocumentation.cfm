@@ -2,6 +2,8 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="code table documentation">
 <script src="/includes/sorttable.js"></script>
+<cfparam name="coln" default="">
+
 <cfif not isdefined("table")>
 	<cfquery name="getCTName" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
@@ -27,8 +29,22 @@
 <cfset title="#table# - code table documentation">
 Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumentation.cfm">[ table list ]</a>
 	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select * from #table#
+		select * from #table# <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif>
 	</cfquery>
+	<cfif docs.columnlist contains "collection_cde">
+			<cfquery name="ccde" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+				select collection_cde from ctcollection_cde order by collection_cde
+			</cfquery>
+		<form name="f" method="get" action="ctDocumentation.cfm">
+			<input type="hidden" name="table" value="#table#">
+			<select name="coln">
+				<option value="">All</option>
+				<cfloop query="ccde">
+					<option <cfif coln is collection_cde>selected="selected"</cfif> value="#collection_cde#">#collection_cde#</option>
+				</cfloop>
+			</select>
+		</form>
+	</cfif>
 	<cfif table is "ctmedia_license">
 		<table border id="t" class="sortable">
 			<tr>
@@ -76,7 +92,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		<!---- first, documentation for the field they selected ---->
 		<cfquery name="chosenOne" dbtype="query">
 			select * from docs where #theColumnName# = '#field#'
-			<cfif #docs.columnlist# contains "collection_cde">
+			<cfif docs.columnlist contains "collection_cde">
 				order by collection_cde
 			</cfif>
 		</cfquery>
