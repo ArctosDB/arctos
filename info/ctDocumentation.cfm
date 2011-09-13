@@ -109,7 +109,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			<cfloop query="theRest">
 				<cfset thisVal=evaluate(theColumnName)>
 				<cfif field is thisVal>
-					<tr style="background-color:##339999">
+					<tr style="border:2px solid red;color:red;">
 				<cfelse>
 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				</cfif>
