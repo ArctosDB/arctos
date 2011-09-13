@@ -23,7 +23,7 @@
 <cfif not isdefined("field") or field is "undefined">
 	<cfset field="">
 </cfif>
-<cfset title="#table_name# - code table documentation">
+<cfset title="#table# - code table documentation">
 Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumentation.cfm">[ table list ]</a>
 	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from #table#
