@@ -43,6 +43,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 					<option <cfif coln is collection_cde>selected="selected"</cfif> value="#collection_cde#">#collection_cde#</option>
 				</cfloop>
 			</select>
+			<input type="submit" value="filter">
 		</form>
 	</cfif>
 	<cfif table is "ctmedia_license">
