@@ -81,15 +81,12 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</cfloop>
 		</table>
 	<cfelse>
-		
-		<!--- figure out the name of the field they want info about - already have the table name,
-			passed in as a JS variable ---->
 		<cfloop list="#docs.columnlist#" index="colName">
-			<cfif #colName# is not "COLLECTION_CDE" and #colName# is not "DESCRIPTION">
-				<cfset theColumnName = #colName#>
+			<cfif colName is not "COLLECTION_CDE" and colName is not "DESCRIPTION">
+				<cfset theColumnName = colName>
 			</cfif>
 		</cfloop>
-		
+		theColumnName: #theColumnName#
 		<!---- first, documentation for the field they selected ---->
 		<cfquery name="chosenOne" dbtype="query">
 			select * from docs where #theColumnName# = '#field#'
