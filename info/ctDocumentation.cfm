@@ -1,5 +1,6 @@
 <cfoutput>
 <cfinclude template="/includes/_header.cfm">
+<cfset title="code table documentation">
 <script src="/includes/sorttable.js"></script>
 <cfif not isdefined("table")>
 	<cfquery name="getCTName" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -13,7 +14,6 @@
 			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
 		 order by table_name
 	</cfquery>
-	<cfset title="#table_name# - code table values">
 	<cfloop query="getCTName">
 		<br><a href="ctDocumentation.cfm?table=#table_name#">#table_name#</a>
 	</cfloop>
@@ -23,6 +23,7 @@
 <cfif not isdefined("field") or field is "undefined">
 	<cfset field="">
 </cfif>
+<cfset title="#table_name# - code table documentation">
 Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumentation.cfm">[ table list ]</a>
 	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from #table#
