@@ -55,7 +55,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</tr>
 			<cfloop query="docs">
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<td nowrap>##collection_cde#</td>
+					<td nowrap>#collection_cde#</td>
 				</tr>
 				<cfset i=i+1>
 			</cfloop>
