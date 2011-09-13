@@ -86,87 +86,44 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				<cfset theColumnName = colName>
 			</cfif>
 		</cfloop>
-		theColumnName: #theColumnName#
-		<!---- first, documentation for the field they selected ---->
-		<cfquery name="chosenOne" dbtype="query">
-			select * from docs where #theColumnName# = '#field#'
-			<cfif docs.columnlist contains "collection_cde">
-				order by collection_cde
-			</cfif>
-		</cfquery>
-		
-		<table border id="t" class="sortable">
-			<tr>
-				<th>
-					<strong>Data Value</strong>
-				</th>
-				<th><strong>Collection</strong></th>
-				<th>
-					<strong>Documentation</strong>
-				</th>
-			</tr>
-			<cfif len(field) gt 0>
-				<cfif docs.columnList contains "collection_cde">
-					<cfloop query="chosenOne">
-						<tr style="background-color:##339999 ">
-							<td nowrap>#field#</td>
-							<td>#collection_cde#</td>
-							<td>
-								<cfif isdefined("description")>
-									#description#&nbsp;
-								</cfif>
-							</td>
-						</tr>
-					</cfloop>
-				<cfelse>
-						<tr style="background-color:##339999 ">
-							<td nowrap>#field#</td>
-							<td>All</td>
-							<td>
-								<cfif isdefined("chosenOne.description")>
-									#chosenOne.description#&nbsp;
-								</cfif>
-							</td>
-						</tr>					
-				</cfif>
-			</cfif>
 		<cfquery name="theRest" dbtype="query">
 			select * from docs where #theColumnName# <> '#field#'
 				order by #theColumnName#
-			<cfif #docs.columnlist# contains "collection_cde">
+			<cfif docs.columnlist contains "collection_cde">
 				 ,collection_cde
 			</cfif>
 		</cfquery>
-			<cfset i=1>
-			<cfif docs.columnList contains "collection_cde">
-					<cfloop query="theRest">
-						 <tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-							<td nowrap>#evaluate(theColumnName)#</td>
-							<td>#collection_cde#</td>
-							<td>
-								<cfif isdefined("description")>
-									#description#&nbsp;
-								</cfif>
-							</td>
-						</tr>
-						<cfset i=#i#+1>
-					</cfloop>
-				<cfelse>
-						<cfloop query="theRest">
-						<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-							<td nowrap>#evaluate(theColumnName)#</td>
-							<td>All</td>
-							<td>
-								<cfif isdefined("description")>
-									#description#&nbsp;
-								</cfif>
-							</td>
-							<cfset i=#i#+1>
-						</tr>
-					</cfloop>	
+		<table border id="t" class="sortable">
+			<tr>
+				<th>
+					<strong>#theColumnName#</strong>
+				</th>
+				<cfif docs.columnlist contains "collection_cde">
+					<th><strong>Collection</strong></th>
 				</cfif>
+				<cfif docs.columnlist contains "description">
+					<th><strong>Documentation</strong></th>
+				</cfif>
+			</tr>
+			<cfset i=1>
+			<cfloop query="theRest">
+				<cfset thisVal=evaluate(theColumnName)>
+				<cfif field is thisVal>
+					<tr style="background-color:##339999">
+				<cfelse>
+					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				</cfif>
+				<td>#thisVal#</td>
+				<cfif docs.columnlist contains "collection_cde">
+					<td>#collection_cde#</td>
+				</cfif>
+				<cfif docs.columnlist contains "description">
+					<td>#description#</td>
+				</cfif>
+				</tr>
+			</cfloop>
 		</table>
 	</cfif>
-</cfif>
+</cfif>		
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
