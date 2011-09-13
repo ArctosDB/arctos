@@ -109,8 +109,10 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			<cfloop query="theRest">
 				<cfset thisVal=evaluate(theColumnName)>
 				<cfif field is thisVal>
+					-----------#field# is #thisVal#---------
 					<tr style="border:2px solid red;color:red;">
 				<cfelse>
+				-----------#field# is NOT #thisVal#---------
 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				</cfif>
 				<td>#thisVal#</td>
