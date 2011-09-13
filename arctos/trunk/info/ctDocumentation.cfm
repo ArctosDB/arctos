@@ -121,6 +121,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 					<td>#description#</td>
 				</cfif>
 				</tr>
+				<cfset i=i+1>
 			</cfloop>
 		</table>
 	</cfif>
