@@ -88,8 +88,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</cfif>
 		</cfloop>
 		<cfquery name="theRest" dbtype="query">
-			select * from docs where #theColumnName# <> '#field#'
-				order by #theColumnName#
+			select * from docs order by #theColumnName#
 			<cfif docs.columnlist contains "collection_cde">
 				 ,collection_cde
 			</cfif>
