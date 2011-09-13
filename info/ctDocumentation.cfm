@@ -37,6 +37,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</cfquery>
 		<form name="f" method="get" action="ctDocumentation.cfm">
 			<input type="hidden" name="table" value="#table#">
+			<label for="coln">Show only collection type</label>
 			<select name="coln">
 				<option value="">All</option>
 				<cfloop query="ccde">
