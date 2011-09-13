@@ -46,7 +46,20 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</cfloop>
 		</table>
 	<cfelseif table is "ctcollection_cde">
-		<cfdump var=#docs#>
+		<cfset i=1>
+		<table border id="t" class="sortable">
+			<tr>
+				<th>
+					<strong>Collection_Cde</strong>
+				</th>
+			</tr>
+			<cfloop query="docs">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<td nowrap>##collection_cde#</td>
+				</tr>
+				<cfset i=i+1>
+			</cfloop>
+		</table>
 	<cfelse>
 		
 		<!--- figure out the name of the field they want info about - already have the table name,
