@@ -353,12 +353,12 @@ function saveNewRecord () {
 			function(r) {
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
 				var status=r.DATA.RSLT[0];
+				$("#collection_object_id").val(coid);
 				if (status){
 					msg(status,'err');
 					$("#loadedMsgDiv").text(status).show();
 					changeMode('edit');
 				} else {
-					$("#collection_object_id").val(coid);
 					msg('inserted ' + coid,'good');
 					var o='<option value="' + coid + '">' + coid + '</option>';
 					$("#selectbrowse").append(o);
