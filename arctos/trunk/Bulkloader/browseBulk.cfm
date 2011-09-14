@@ -700,6 +700,7 @@ Roll yer own:
 <cfset ColNameList = replace(ColNameList,"ENTEREDBY","","all")>
 --->
 <hr />There are #data.recordcount# records in this view.
+<br>
 <cfform method="post" action="browseBulk.cfm">
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#enteredby#">
