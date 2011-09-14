@@ -296,11 +296,9 @@
 		The account for #username# is now locked. Contact a DBA to unlock it.
 		<a href="AdminUsers.cfm?username=#username#&action=edit">Continue</a>
 	</cfoutput>
-</cfif>
-
-						
+</cfif>				
 <!---------------------------------------------------->
-<cfif #Action# is "adminSet">
+<cfif action is "adminSet">
 	<cfoutput>
 		<cfquery name="gpw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from temp_allow_cf_user where user_id=#user_id#
@@ -309,7 +307,7 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
-<cfif #Action# is "makeNewDbUser">
+<cfif action is "makeNewDbUser">
 	<cfoutput>
 		<!--- see if they have all the right stuff to be a user --->
 		<cfquery name="getTheirEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
