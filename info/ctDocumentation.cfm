@@ -3,7 +3,6 @@
 <cfset title="code table documentation">
 <script src="/includes/sorttable.js"></script>
 <cfparam name="coln" default="">
-
 <cfif not isdefined("table")>
 	<cfquery name="getCTName" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 

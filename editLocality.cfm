@@ -441,7 +441,7 @@
 					<span style="font-size:smaller;">
 				    	<a href="http://bg.berkeley.edu/latest/" target="_blank">BioGeoMancer<img src="/images/linkOut.gif" border="0"></a>
 				        &nbsp;~&nbsp;
-				        <a href="http://manisnet.org/gc.html" target="_blank">Georef Calculator<img src="/images/linkOut.gif" border="0"></a>
+				        <a href="http://manisnet.org/gci2.html" target="_blank">Georef Calculator<img src="/images/linkOut.gif" border="0"></a>
 				     </span>	
 				</td>
 			</tr>
