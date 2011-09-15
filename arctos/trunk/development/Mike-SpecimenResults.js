@@ -661,7 +661,7 @@ function success_getSpecResultsData(result){
 									  		'<img src="audiographics/Mute-icon.png" ></button><br>' +
 									  	'<input id="seekbar' + fileName + '" type="range"  min="0" max="100" value="0" /></div>';
 
-								   	playerCode += '<script language="javascript" type="text/javascript">' +
+								   	var playerCode = '<script language="javascript" type="text/javascript">' +
 								    
 							        'var audio = document.getElementById("' + fileName + '");' +
 							        'var seekbarString = "seekbar' + fileName + '";' +
