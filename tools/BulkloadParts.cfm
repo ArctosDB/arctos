@@ -477,7 +477,7 @@ validate
 				</cfquery>
 			</cfif>
 		</cfif>
-	<cfelse>
+	<cfelseif len(parent_container_id) gt 0 and len(use_part_id) gt 0>
 	<!--- there is an existing matching container that is not in a parent_container;
 		all we need to do is move the container to a parent IF it exists and is specified, or nothing otherwise --->
 		<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

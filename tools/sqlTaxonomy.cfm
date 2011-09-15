@@ -72,6 +72,9 @@
 <cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select taxon_status from cttaxon_status order by taxon_status
 </cfquery>
+<cfquery name="ctinfraspecific_rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select infraspecific_rank from ctinfraspecific_rank order by infraspecific_rank
+</cfquery>
 	Find taxa
 	<br>Default is case-insensitive substring match.
 	<br>Use prefix = to find exact case-insensitive match. 
@@ -84,79 +87,71 @@
 	<cfoutput>
 	<form name="srch" method="post" action="sqlTaxonomy.cfm">
 		<input type="hidden" name="action" value="findem">
-		<table>
-			<tr>
-				<td>
-				<label for="TAXON_NAME_ID">TAXON_NAME_ID</label>
-						<input name="TAXON_NAME_ID" id="TAXON_NAME_ID" type="text">
-						
-						<label for="phylclass">phylclass</label>
-						<input name="phylclass" id="phylclass" type="text">
-						
-						<label for="phylorder">phylorder</label>
-						<input name="phylorder" id="phylorder" type="text">
-						
-						<label for="SUBORDER">SUBORDER</label>
-						<input name="SUBORDER" id="SUBORDER" type="text">
-						
-						<label for="family">family</label>
-						<input name="family" id="family" type="text">
-						
-						<label for="GENUS">GENUS</label>
-						<input name="GENUS" id="GENUS" type="text">
-						
-						<label for="SUBGENUS">SUBGENUS</label>
-						<input name="SUBGENUS" id="SUBGENUS" type="text">
-						
-						<label for="nomenclatural_code">nomenclatural_code</label>
-						<select name="nomenclatural_code" id="nomenclatural_code" size="1">
-							<option></option>
-							<cfloop query="ctnomenclatural_code">
-								<option value="#nomenclatural_code#">#nomenclatural_code#</option>
-							</cfloop>
-						</select>
-						<label for="taxon_status">taxon_status</label>
-						<select name="taxon_status" id="taxon_status" size="1">
-							<option></option>
-							<option value="NULL">NULL</option>
-							<cfloop query="cttaxon_status">
-								<option value="#taxon_status#">#taxon_status#</option>
-							</cfloop>
-						</select>	
-				</td>
-				<td>
-				<label for="SPECIES">SPECIES</label>
-						<input name="SPECIES" id="SPECIES" type="text">
-						
-						<label for="SUBSPECIES">SUBSPECIES</label>
-						<input name="SUBSPECIES" id="SUBSPECIES" type="text">
-						
-						<label for="VALID_CATALOG_TERM_FG">VALID_CATALOG_TERM_FG</label>
-						<input name="VALID_CATALOG_TERM_FG" id="VALID_CATALOG_TERM_FG" type="text">
-						
-						<label for="SOURCE_AUTHORITY">SOURCE_AUTHORITY</label>
-						<select name="source_authority" id="source_authority" size="1">
-							<option></option>
-							<cfloop query="CTTAXONOMIC_AUTHORITY">
-								<option value="#source_authority#">#source_authority#</option>
-							</cfloop>
-						</select>	
-						
-						<label for="AUTHOR_TEXT">AUTHOR_TEXT</label>
-						<input name="AUTHOR_TEXT" id="AUTHOR_TEXT" type="text">
-						
-						<label for="INFRASPECIFIC_RANK">INFRASPECIFIC_RANK</label>
-						<input name="INFRASPECIFIC_RANK" id="INFRASPECIFIC_RANK" type="text">
-						
-						<label for="phylum">phylum</label>
-						<input name="phylum" id="phylum" type="text">
-						
-						<label for="TRIBE">TRIBE</label>
-						<input name="TRIBE" id="TRIBE" type="text">
-				</td>
-			</tr>
-		</table>
-		<input type="submit" value="find em">
+		<label for="TAXON_NAME_ID">TAXON_NAME_ID (comma-list OK)</label>
+		<input name="TAXON_NAME_ID" id="TAXON_NAME_ID" type="text">
+		<label for="kingdom">kingdom</label>
+		<input name="kingdom" id="kingdom" type="text">
+		<label for="phylum">phylum</label>
+		<input name="phylum" id="phylum" type="text">
+		<label for="phylclass">phylclass</label>
+		<input name="phylclass" id="phylclass" type="text">
+		<label for="subclass">subclass</label>
+		<input name="subclass" id="subclass" type="text">
+		<label for="phylorder">phylorder</label>
+		<input name="phylorder" id="phylorder" type="text">
+		<label for="SUBORDER">SUBORDER</label>
+		<input name="SUBORDER" id="SUBORDER" type="text">
+		<label for="superfamily">superfamily</label>
+		<input name="superfamily" id="superfamily" type="text">
+		<label for="family">family</label>
+		<input name="family" id="family" type="text">
+		<label for="subfamily">subfamily</label>
+		<input name="subfamily" id="subfamily" type="text">
+		<label for="TRIBE">TRIBE</label>
+		<input name="TRIBE" id="TRIBE" type="text">
+		<label for="GENUS">GENUS</label>
+		<input name="GENUS" id="GENUS" type="text">
+		<label for="SUBGENUS">SUBGENUS</label>
+		<input name="SUBGENUS" id="SUBGENUS" type="text">
+		<label for="SPECIES">SPECIES</label>
+		<input name="SPECIES" id="SPECIES" type="text">
+		<label for="INFRASPECIFIC_RANK">INFRASPECIFIC_RANK</label>
+		<select name="infraspecific_rank" id="infraspecific_rank" size="1">
+			<option></option>
+			<option value="NULL">NULL</option>
+			<cfloop query="ctinfraspecific_rank">
+				<option value="#infraspecific_rank#">#infraspecific_rank#</option>
+			</cfloop>
+		</select>
+		<label for="SUBSPECIES">SUBSPECIES</label>
+		<input name="SUBSPECIES" id="SUBSPECIES" type="text">
+		<label for="VALID_CATALOG_TERM_FG">VALID_CATALOG_TERM_FG</label>
+		<input name="VALID_CATALOG_TERM_FG" id="VALID_CATALOG_TERM_FG" type="text">
+		<label for="AUTHOR_TEXT">AUTHOR_TEXT</label>
+		<input name="AUTHOR_TEXT" id="AUTHOR_TEXT" type="text">
+		<label for="SOURCE_AUTHORITY">SOURCE_AUTHORITY</label>
+		<select name="source_authority" id="source_authority" size="1">
+			<option></option>
+			<cfloop query="CTTAXONOMIC_AUTHORITY">
+				<option value="#source_authority#">#source_authority#</option>
+			</cfloop>
+		</select>
+		<label for="nomenclatural_code">nomenclatural_code</label>
+		<select name="nomenclatural_code" id="nomenclatural_code" size="1">
+			<option></option>
+			<cfloop query="ctnomenclatural_code">
+				<option value="#nomenclatural_code#">#nomenclatural_code#</option>
+			</cfloop>
+		</select>
+		<label for="taxon_status">taxon_status</label>
+		<select name="taxon_status" id="taxon_status" size="1">
+			<option></option>
+			<option value="NULL">NULL</option>
+			<cfloop query="cttaxon_status">
+				<option value="#taxon_status#">#taxon_status#</option>
+			</cfloop>
+		</select>	
+		<br><input type="submit" value="find em">
 	</form>
 	</cfoutput>
 	</cfif>		
@@ -166,6 +161,17 @@
 		<cfset sql="select * from taxonomy where 1=1">
 		<cfif len(TAXON_NAME_ID) gt 0>
 			<cfset sql=sql & " and TAXON_NAME_ID IN ( #TAXON_NAME_ID# )">
+		</cfif>
+		
+		
+		<cfif isdefined("kingdom") AND len(kingdom) gt 0>
+			<cfif left(kingdom,1) is "=">
+				<CFSET SQL = "#SQL# AND upper(kingdom) = '#ucase(right(kingdom,len(kingdom)-1))#'">
+			<cfelseif kingdom is "NULL">
+				<CFSET SQL = "#SQL# AND kingdom is null">
+			<cfelse>
+				<CFSET SQL = "#SQL# AND upper(kingdom) LIKE '%#ucase(kingdom)#%'">
+			</cfif>
 		</cfif>
 		<cfif isdefined("phylum") AND len(phylum) gt 0>
 			<cfif left(phylum,1) is "=">
@@ -185,6 +191,17 @@
 				<CFSET SQL = "#SQL# AND upper(phylclass) LIKE '%#ucase(phylclass)#%'">
 			</cfif>
 		</cfif>
+		<cfif isdefined("subclass") AND len(subclass) gt 0>
+			<cfif left(subclass,1) is "=">
+				<CFSET SQL = "#SQL# AND upper(subclass) = '#ucase(right(subclass,len(subclass)-1))#'">
+			<cfelseif subclass is "NULL">
+				<CFSET SQL = "#SQL# AND subclass is null">
+			<cfelse>
+				<CFSET SQL = "#SQL# AND upper(subclass) LIKE '%#ucase(subclass)#%'">
+			</cfif>
+		</cfif>
+		
+		
 		<cfif isdefined("phylorder") AND len(phylorder) gt 0>
 			<cfif left(phylorder,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(phylorder) = '#ucase(right(phylorder,len(phylorder)-1))#'">
@@ -203,13 +220,14 @@
 				<CFSET SQL = "#SQL# AND upper(SUBORDER) LIKE '%#ucase(SUBORDER)#%'">
 			</cfif>
 		</cfif>
-		<cfif isdefined("FAMILY") AND len(FAMILY) gt 0>
-			<cfif left(FAMILY,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(FAMILY) = '#ucase(right(FAMILY,len(FAMILY)-1))#'">
-			<cfelseif FAMILY is "NULL">
-				<CFSET SQL = "#SQL# AND FAMILY is null">
+		
+		<cfif isdefined("superfamily") AND len(superfamily) gt 0>
+			<cfif left(superfamily,1) is "=">
+				<CFSET SQL = "#SQL# AND upper(superfamily) = '#ucase(right(superfamily,len(superfamily)-1))#'">
+			<cfelseif superfamily is "NULL">
+				<CFSET SQL = "#SQL# AND superfamily is null">
 			<cfelse>
-				<CFSET SQL = "#SQL# AND upper(FAMILY) LIKE '%#ucase(FAMILY)#%'">
+				<CFSET SQL = "#SQL# AND upper(superfamily) LIKE '%#ucase(superfamily)#%'">
 			</cfif>
 		</cfif>
 		<cfif isdefined("FAMILY") AND len(FAMILY) gt 0>
@@ -219,6 +237,15 @@
 				<CFSET SQL = "#SQL# AND FAMILY is null">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(FAMILY) LIKE '%#ucase(FAMILY)#%'">
+			</cfif>
+		</cfif>
+		<cfif isdefined("SUBFAMILY") AND len(SUBFAMILY) gt 0>
+			<cfif left(SUBFAMILY,1) is "=">
+				<CFSET SQL = "#SQL# AND upper(SUBFAMILY) = '#ucase(right(SUBFAMILY,len(SUBFAMILY)-1))#'">
+			<cfelseif SUBFAMILY is "NULL">
+				<CFSET SQL = "#SQL# AND SUBFAMILY is null">
+			<cfelse>
+				<CFSET SQL = "#SQL# AND upper(SUBFAMILY) LIKE '%#ucase(SUBFAMILY)#%'">
 			</cfif>
 		</cfif>
 		<cfif isdefined("TRIBE") AND len(TRIBE) gt 0>
@@ -316,7 +343,7 @@
 		</cfif>
 		<table id="t" class="sortable" border="1">
 			<tr>
-				<th>TAXON_NAME_ID</th>
+				<th>kingdom</th>
 				<th>phylum</th>
 				<th>phylclass</th>
 				<th>SUBCLASS</th>
@@ -324,7 +351,7 @@
 				<th>SUBORDER</th>
 				<th>SUPERFAMILY</th>
 				<th>FAMILY</th>
-				<th>GENUS</th>
+				<th>SUBFAMILY</th>
 				<th>TRIBE</th>
 				<th>GENUS</th>
 				<th>SUBGENUS</th>
@@ -341,7 +368,7 @@
 			</tr>
 		<cfloop query="getData">
 			<tr>
-				<td>#TAXON_NAME_ID#</td>
+				<td>#kingdom#</td>
 				<td>#phylum#</td>
 				<td>#phylclass#</td>
 				<td>#SUBCLASS#</td>
@@ -349,7 +376,7 @@
 				<td>#SUBORDER#</td>
 				<td>#SUPERFAMILY#</td>
 				<td>#FAMILY#</td>
-				<td>#GENUS#</td>
+				<td>#SUBFAMILY#</td>
 				<td>#TRIBE#</td>
 				<td>#GENUS#</td>
 				<td>#SUBGENUS#</td>
@@ -360,14 +387,14 @@
 				<td>#AUTHOR_TEXT#</td>
 				<td>#SOURCE_AUTHORITY#</td>
 				<td>#TAXON_REMARKS#</td>
-				<td>#SCIENTIFIC_NAME#</td>
+				<td><a href="/name/#SCIENTIFIC_NAME#">#SCIENTIFIC_NAME#</a></td>
 				<td>#nomenclatural_code#</td>
 				<td>#taxon_status#</td>
 			</tr>
 		</cfloop>
 		</table>
 		<cfif getData.recordcount gt 0>
-			<cfset upList = "kingdom,phylum,phylclass,SUBCLASS,phylorder,SUBORDER,SUPERFAMILY,FAMILY,GENUS,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code,taxon_status">
+			<cfset upList = "kingdom,phylum,phylclass,SUBCLASS,phylorder,SUBORDER,SUPERFAMILY,FAMILY,subfamilyGENUS,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code,taxon_status">
 			<hr>
 			Use this form to update all records in the table above.
 			<br>Everything gets updated when you click - be sure.
