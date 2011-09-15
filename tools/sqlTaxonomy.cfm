@@ -133,7 +133,7 @@
 		</cfquery>
 		<strong>Found #getData.recordcount# records.</strong>
 		<cfif getData.recordcount is 999>
-			that usually means you're not seeing everything, so you can't use this form. Try finding a smaller dataset.
+			That usually means you're not seeing everything, so you can't use this form. Try finding a smaller dataset.
 			<cfabort>
 		</cfif>
 		<table id="t" class="sortable" border="1">
@@ -195,11 +195,10 @@
 			<br>Everything gets updated when you click - be sure.
 			<br>Update is exact match including nonprinting characters.
 			<br>Be paranoid.
-			<br>Got 999 records? You're probably not seeing everything and you're about to make a huge mess. Don't.	
 			<form name="buildIt" method="post" action="sqlTaxonomy.cfm">
 				<input type="hidden" name="action" value="update">
 				<input type="hidden" name="taxonnameidlist" value="#valuelist(getData.taxon_name_id)#">
-				<br>For everything in the table above,<br><strong>UPDATE taxonomy SET</strong>
+				<br>For everything in the table above:<br><strong>UPDATE taxonomy SET</strong>
 				<select name="upFld" id="upFld" size="1">
 				<cfloop list="#upList#" index="f">
 					<option value="#f#">#f#</option>
