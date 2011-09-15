@@ -661,50 +661,45 @@ function success_getSpecResultsData(result){
 									  		'<img src="audiographics/Mute-icon.png" ></button><br>' +
 									  	'<input id="seekbar' + fileName + '" type="range"  min="0" max="100" value="0" /></div>';
 
-								    // Junk for the mute button.
-							        var audio = document.getElementById(fileName);
-							        var seekbarString = "seekbar" + fileName;
-							        var seekbar = document.getElementById(seekbarString);
+								    theInnerHtml += '<script>' +
+								    
+							        'var audio = document.getElementById("' + fileName + '");' +
+							        'var seekbarString = "seekbar' + fileName + '";' +
+							        'var seekbar = document.getElementById(seekbarString);' +
 							        
-							 	    var other_vol = 0;
+							 	    'var other_vol = 0;' +
 							        
-							        function toggleMute() {
-							          var temp = audio.volume;
-							          audio.volume = other_vol;
-							          other_vol = temp;
-							        }
+							        'function toggleMute() {' +
+							          'var temp = audio.volume;' +
+							          'audio.volume = other_vol;' +
+							          'other_vol = temp;' +
+							        '}' +
 							  
-									// Junk for the seek bar.
-							        function setupSeekbar() {
-							          seekbar.min = audio.startTime;
-							          seekbar.max = audio.startTime + audio.duration;
-							        }
+							        'function setupSeekbar() {' + // Junk for the seek bar.
+							          'seekbar.min = audio.startTime;' +
+							          'seekbar.max = audio.startTime + audio.duration;' +
+							        '}' +
 							        
-							        audio.ondurationchange = setupSeekbar;
+							        'audio.ondurationchange = setupSeekbar;' +
 							
-							        function seekAudio() {
-							          audio.currentTime = seekbar.value;
-							        }
+							        'function seekAudio() {' +
+							          'audio.currentTime = seekbar.value;' +
+							        '}' +
 							
-							        function updateUI() {
-							          var lastBuffered = audio.buffered.end(audio.buffered.length-1);
-							          seekbar.min = audio.startTime;
-							          seekbar.max = lastBuffered;
-							          seekbar.value = audio.currentTime;
-							        }
+							        'function updateUI() {' +
+							          'var lastBuffered = audio.buffered.end(audio.buffered.length-1);' +
+							          'seekbar.min = audio.startTime;' +
+							          'seekbar.max = lastBuffered;' +
+							          'seekbar.value = audio.currentTime;' +
+							        '}' +
 							        
-							        seekbar.onchange = seekAudio;
-							        audio.ontimeupdate = updateUI;
+							        'seekbar.onchange = seekAudio;' +
+							        'audio.ontimeupdate = updateUI;' +
 							        
-							        audio.addEventListener('durationchange', setupSeekbar);
-							        audio.addEventListener('timeupdate', updateUI);
-									
-									theInnerHtml += '<div>' +
-										'<button onclick="document.getElementById("' + fileName + '").play()">Play</button>' +
-										'<button onclick="document.getElementById("' + fileName + '").pause()">Pause</button><br>' +
-										'<button onclick="document.getElementById("' + fileName + '").volume+=0.1">Volume Up</button><br>' +
-										'<button onclick="document.getElementById("' + fileName + '").volume-=0.1">Volume Down</button>' +
-									'</div>';
+							        'audio.addEventListener("durationchange", setupSeekbar);' +
+							        'audio.addEventListener("timeupdate", updateUI);' +
+							        
+							        '</script>';
 									
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
