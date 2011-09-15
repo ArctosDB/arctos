@@ -74,6 +74,7 @@ find taxa
 			</form>
 	</cfif>		
 <cfif action is "findem">
+<script src="/includes/sorttable.js"></script>
 	<cfoutput>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from taxonomy where
@@ -180,10 +181,33 @@ find taxa
 			</tr>
 		</cfloop>
 		</table>
+		
+		<cfif getData.recordcount gt 0>
+			<cfset fldList = "TAXON_NAME_ID,PHYLUM,PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,FULL_TAXON_NAME,SCIENTIFIC_NAME,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code">
+			<cfset upList = "PHYLUM,PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code">
+			<form name="buildIt" method="post" action="sqlTaxonomy_update.cfm">
+				<input type="hidden" name="action" value="testUpdate">
+				<input type="hidden" name="taxonnameidlist" value="#valuelist(getData.taxon_name_id)#">
+				<br>For everything in the table above,<br>UPDATE taxonomy SET
+				<br><select name="upFld" id="upFld" size="1">
+				<cfloop list="#upList#" index="f">
+					<option value="#f#">#f#</option>
+				</cfloop>
+				</select>
+			=
+				<input type="text" name="upTo" id="upTo">
+			<br><input type="submit" value="Make Changes">
+			
+		</cfif>
 		<hr>
 		
-		#valuelist(getData.taxon_name_id)#
+		
 		<hr>
+	</cfoutput>
+</cfif>
+<cfif action is "testUpdate">
+	<cfoutput>
+		update taxonomy set #upFld# =  '#upTo#' where taxon_name_id in (#taxonnameidlist#)
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
