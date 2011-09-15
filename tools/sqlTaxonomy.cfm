@@ -72,7 +72,14 @@
 <cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select taxon_status from cttaxon_status order by taxon_status
 </cfquery>
-	find taxa
+	Find taxa
+	<br>Default is case-insensitive substring match.
+	<br>Use prefix = to find exact match. <strong>=Sting</strong> finds <strong>String</strong> but not <strong>subString</strong> and not 
+	<strong>Stringpart</strong> and not <strong>string</strong>.
+	<br><strong>NULL</strong> finds IS NULL values.
+	<ul>
+		<li></li>
+	</ul>
 	<form name="srch" method="post" action="sqlTaxonomy.cfm">
 		<input type="hidden" name="action" value="findem">
 		<table>
