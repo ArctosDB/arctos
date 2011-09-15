@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Magic Taxonomy Thingee II">
 <cfif action is "nothing">
 find taxa
 <form name="srch" method="post" action="sqlTaxonomy.cfm">
