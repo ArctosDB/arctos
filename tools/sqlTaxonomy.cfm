@@ -189,7 +189,7 @@ find taxa
 				<input type="hidden" name="action" value="update">
 				<input type="hidden" name="taxonnameidlist" value="#valuelist(getData.taxon_name_id)#">
 				<br>For everything in the table above,<br>UPDATE taxonomy SET
-				<br><select name="upFld" id="upFld" size="1">
+				<select name="upFld" id="upFld" size="1">
 				<cfloop list="#upList#" index="f">
 					<option value="#f#">#f#</option>
 				</cfloop>
