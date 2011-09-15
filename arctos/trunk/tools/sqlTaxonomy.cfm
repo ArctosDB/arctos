@@ -186,7 +186,7 @@ find taxa
 			<cfset fldList = "TAXON_NAME_ID,PHYLUM,PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,FULL_TAXON_NAME,SCIENTIFIC_NAME,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code">
 			<cfset upList = "PHYLUM,PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code">
 			<form name="buildIt" method="post" action="sqlTaxonomy.cfm">
-				<input type="hidden" name="action" value="testUpdate">
+				<input type="hidden" name="action" value="update">
 				<input type="hidden" name="taxonnameidlist" value="#valuelist(getData.taxon_name_id)#">
 				<br>For everything in the table above,<br>UPDATE taxonomy SET
 				<br><select name="upFld" id="upFld" size="1">
@@ -206,15 +206,15 @@ find taxa
 		<hr>
 	</cfoutput>
 </cfif>
-<cfif action is "testUpdate">
+<cfif action is "update">
 	<cfoutput>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update taxonomy set #upFld# =  '#upTo#' where taxon_name_id in (#taxonnameidlist#)
 		</cfquery>
 		<form name="buildIt" method="post" action="sqlTaxonomy.cfm">
-				<input type="hidden" name="action" value="nothing">
+				<input type="hidden" name="action" value="findem">
 				<input type="hidden" name="taxon_name_id" value="#taxonnameidlist#">
-			<br><input type="submit" value="return">
+			<br><input type="submit" value="update complete - return">
 			</form>
 			
 		
