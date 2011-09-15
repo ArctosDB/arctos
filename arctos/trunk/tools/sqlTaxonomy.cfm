@@ -131,7 +131,6 @@
 			<option value="1">1</option>
 			<option value="0">0</option>
 		</select>
-		<input name="VALID_CATALOG_TERM_FG" id="VALID_CATALOG_TERM_FG" type="text">
 		<label for="AUTHOR_TEXT">AUTHOR_TEXT</label>
 		<input name="AUTHOR_TEXT" id="AUTHOR_TEXT" type="text">
 		<label for="SOURCE_AUTHORITY">SOURCE_AUTHORITY</label>
