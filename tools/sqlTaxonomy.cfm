@@ -185,7 +185,7 @@ find taxa
 		<cfif getData.recordcount gt 0>
 			<cfset fldList = "TAXON_NAME_ID,PHYLUM,PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,FULL_TAXON_NAME,SCIENTIFIC_NAME,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code">
 			<cfset upList = "PHYLUM,PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code">
-			<form name="buildIt" method="post" action="sqlTaxonomy_update.cfm">
+			<form name="buildIt" method="post" action="sqlTaxonomy.cfm">
 				<input type="hidden" name="action" value="testUpdate">
 				<input type="hidden" name="taxonnameidlist" value="#valuelist(getData.taxon_name_id)#">
 				<br>For everything in the table above,<br>UPDATE taxonomy SET
