@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
 find taxa
-<form name="srch" method="post" action="sqlTaxonomy_browse.cfm">
+<form name="srch" method="post" action="sqlTaxonomy.cfm">
 				<input type="hidden" name="action" value="findem">
 <table>
 	<tr>
