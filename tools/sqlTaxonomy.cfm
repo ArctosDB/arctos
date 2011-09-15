@@ -162,7 +162,7 @@
 				<td>#TAXON_NAME_ID#</td>
 				<td>#PHYLUM#</td>
 				<td>#PHYLCLASS#</td>
-				<td>#SUBLCLASS#</td>
+				<td>#SUBCLASS#</td>
 				<td>#PHYLORDER#</td>
 				<td>#SUBORDER#</td>
 				<td>#SUPERFAMILY#</td>
