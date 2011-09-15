@@ -73,7 +73,7 @@ find taxa
 			<input type="submit" value="show in table below">
 			</form>
 	</cfif>		
-			<cfif #Action# is "findem">
+<cfif action is "findem">
 	<cfoutput>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from taxonomy where
@@ -180,9 +180,10 @@ find taxa
 			</tr>
 		</cfloop>
 		</table>
-		
+		<hr>
 		
 		#valuelist(getData.taxon_name_id)#
+		<hr>
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
