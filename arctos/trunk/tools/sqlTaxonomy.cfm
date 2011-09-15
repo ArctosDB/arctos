@@ -81,6 +81,7 @@
 	<strong>partofSomeName</strong> and not 
 	<strong>SomeNamepart</strong>.
 	<br><strong>NULL</strong> finds IS NULL values.
+	<cfoutput>
 	<form name="srch" method="post" action="sqlTaxonomy.cfm">
 		<input type="hidden" name="action" value="findem">
 		<table>
@@ -157,6 +158,7 @@
 		</table>
 		<input type="submit" value="find em">
 	</form>
+	</cfoutput>
 	</cfif>		
 <cfif action is "findem">
 <script src="/includes/sorttable.js"></script>
