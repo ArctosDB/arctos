@@ -74,12 +74,13 @@
 </cfquery>
 	Find taxa
 	<br>Default is case-insensitive substring match.
-	<br>Use prefix = to find exact match. <strong>=Sting</strong> finds <strong>String</strong> but not <strong>subString</strong> and not 
-	<strong>Stringpart</strong> and not <strong>string</strong>.
+	<br>Use prefix = to find exact case-insensitive match. 
+	<strong>=Somename</strong> finds 
+	<strong>Somename</strong>
+	and <strong>somename</strong> but not 
+	<strong>partofSomeName</strong> and not 
+	<strong>SomeNamepart</strong>.
 	<br><strong>NULL</strong> finds IS NULL values.
-	<ul>
-		<li></li>
-	</ul>
 	<form name="srch" method="post" action="sqlTaxonomy.cfm">
 		<input type="hidden" name="action" value="findem">
 		<table>
@@ -103,11 +104,9 @@
 						<label for="GENUS">GENUS</label>
 						<input name="GENUS" id="GENUS" type="text">
 						
-						<label for="GENUS">GENUS</label>
-						<input name="GENUS" id="GENUS" type="text">
-						
 						<label for="SUBGENUS">SUBGENUS</label>
 						<input name="SUBGENUS" id="SUBGENUS" type="text">
+						
 						<label for="nomenclatural_code">nomenclatural_code</label>
 						<select name="nomenclatural_code" id="nomenclatural_code" size="1">
 							<option></option>
@@ -301,12 +300,14 @@
 			<CFSET SQL = "#SQL# AND nomenclatural_code = '#nomenclatural_code#'">
 		</cfif>
 		<CFSET SQL = "#SQL# and rownum < 1000">
-		
+		<p><strong>CHECK THIS SQL BEFORE YOU DO ANYTHING ELSE!!!!!!!!!!!!!</strong></p>
 		<hr>#sql#<hr>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#			
 		</cfquery>
 		<strong>Found #getData.recordcount# records.</strong>
+		<br>
+		Click headers to sort.
 		<cfif getData.recordcount is 999>
 			That usually means you're not seeing everything, so you can't use this form. Try finding a smaller dataset.
 			<cfabort>
