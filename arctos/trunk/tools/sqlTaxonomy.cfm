@@ -132,6 +132,10 @@
 			and rownum < 1000
 		</cfquery>
 		<strong>Found #getData.recordcount# records.</strong>
+		<cfif getData.recordcount is 999>
+			that usually means you're not seeing everything, so you can't use this form. Try finding a smaller dataset.
+			<cfabort>
+		</cfif>
 		<table id="t" class="sortable" border="1">
 			<tr>
 				<th>TAXON_NAME_ID</th>
