@@ -155,7 +155,8 @@
 				<option value="#taxon_status#">#taxon_status#</option>
 			</cfloop>
 		</select>	
-		<br><input type="submit" value="find em">
+		<br><input type="submit" value="find names">
+		<input type="reset" value="clear form">
 	</form>
 	</cfoutput>
 	</cfif>		
