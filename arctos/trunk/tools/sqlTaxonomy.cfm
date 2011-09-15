@@ -197,6 +197,7 @@ find taxa
 			=
 				<input type="text" name="upTo" id="upTo">
 			<br><input type="submit" value="Make Changes">
+			</form>
 			
 		</cfif>
 		<hr>
@@ -207,7 +208,16 @@ find taxa
 </cfif>
 <cfif action is "testUpdate">
 	<cfoutput>
-		update taxonomy set #upFld# =  '#upTo#' where taxon_name_id in (#taxonnameidlist#)
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update taxonomy set #upFld# =  '#upTo#' where taxon_name_id in (#taxonnameidlist#)
+		</cfquery>
+		<form name="buildIt" method="post" action="sqlTaxonomy.cfm">
+				<input type="hidden" name="action" value="nothing">
+				<input type="hidden" name="taxon_name_id" value="#taxonnameidlist#">
+			<br><input type="submit" value="return">
+			</form>
+			
+		
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
