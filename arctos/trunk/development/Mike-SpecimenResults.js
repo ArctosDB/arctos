@@ -653,15 +653,15 @@ function success_getSpecResultsData(result){
 									
 									// Set up the audio controls.
 									theInnerHtml += '<div>' +
-										'<button onclick="document.getElementById("' + fileName + '").play()" style="background:white; height:34px; width:36px; border-width:1; ">' +
+										'<button onclick="document.getElementById("#' + fileName + '").play()" style="background:white; height:34px; width:36px; border-width:1; ">' +
 											'<img src="audiographics/Play-icon.png" ></button>' +
-										'<button onclick="document.getElementById("' + fileName + '").pause()" style="background:white; height:34px; width:40px; border-width:1; ">' +
+										'<button onclick="document.getElementById("#' + fileName + '").pause()" style="background:white; height:34px; width:40px; border-width:1; ">' +
 											'<img src="audiographics/Pause-icon.png" ></button>' +
 									  	'<button onclick="toggleMute()" style="background:white; height:34px; width:40px; border-width:1; ">' +
 									  		'<img src="audiographics/Mute-icon.png" ></button><br>' +
 									  	'<input id="seekbar' + fileName + '" type="range"  min="0" max="100" value="0" /></div>';
 
-								    theInnerHtml += '<script>' +
+								   	playerCode += '<script language="javascript" type="text/javascript">' +
 								    
 							        'var audio = document.getElementById("' + fileName + '");' +
 							        'var seekbarString = "seekbar' + fileName + '";' +
@@ -700,6 +700,8 @@ function success_getSpecResultsData(result){
 							        'audio.addEventListener("timeupdate", updateUI);' +
 							        
 							        '</script>';
+							        
+							        document.head.innerHTML += playerCode;
 									
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
