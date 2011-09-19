@@ -17,7 +17,7 @@
 	<cfelseif uri is "index">
 		<cfset uri="documentation">
 	<cfelseif uri is "pageHelp/spatial_query">
-		<cfset uri="/documentation/places/coordinates">
+		<cfset uri="documentation/places/coordinates">
 		<cfset anchor="spatialquery">
 	<cfelse>
 		<cfset uri="documentation/#uri#">
