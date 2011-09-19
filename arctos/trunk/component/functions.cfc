@@ -32,6 +32,8 @@
 	<cfelse>
 		<cfmail subject="doc_not_found" to="#Application.PageProblemEmail#" from="doc_not_found@#Application.fromEmail#" type="html">
 			#fullURI# is missing
+			<br>----uri-#uri#
+			<br>anchor=#anchor#
 			<cfdump var=#cgi#>
 		</cfmail>	
 		<cfreturn 404>
