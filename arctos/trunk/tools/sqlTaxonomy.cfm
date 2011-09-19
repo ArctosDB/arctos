@@ -77,6 +77,7 @@
 </cfquery>
 	Find taxa
 	<br>Default is case-insensitive substring match.
+	<br>Leave blank to ignore
 	<br>Use prefix = to find exact case-insensitive match. 
 	<strong>=Somename</strong> finds 
 	<strong>Somename</strong>
@@ -84,6 +85,7 @@
 	<strong>partofSomeName</strong> and not 
 	<strong>SomeNamepart</strong>.
 	<br><strong>NULL</strong> finds IS NULL values.
+	<p>&nbsp;</p>
 	<cfoutput>
 	<form name="srch" method="post" action="sqlTaxonomy.cfm">
 		<input type="hidden" name="action" value="findem">
@@ -205,8 +207,6 @@
 				<CFSET SQL = "#SQL# AND upper(subclass) LIKE '%#ucase(subclass)#%'">
 			</cfif>
 		</cfif>
-		
-		
 		<cfif isdefined("phylorder") AND len(phylorder) gt 0>
 			<cfif left(phylorder,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(phylorder) = '#ucase(right(phylorder,len(phylorder)-1))#'">
@@ -225,7 +225,6 @@
 				<CFSET SQL = "#SQL# AND upper(SUBORDER) LIKE '%#ucase(SUBORDER)#%'">
 			</cfif>
 		</cfif>
-		
 		<cfif isdefined("superfamily") AND len(superfamily) gt 0>
 			<cfif left(superfamily,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(superfamily) = '#ucase(right(superfamily,len(superfamily)-1))#'">
@@ -317,7 +316,6 @@
 				<CFSET SQL = "#SQL# AND taxon_status = '#taxon_status#'">
 			</cfif>
 		</cfif>
-		
 		<cfif isdefined("AUTHOR_TEXT") AND len(AUTHOR_TEXT) gt 0>
 			<cfif left(AUTHOR_TEXT,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(AUTHOR_TEXT) = '#ucase(right(AUTHOR_TEXT,len(AUTHOR_TEXT)-1))#'">
