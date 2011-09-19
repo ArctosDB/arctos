@@ -89,6 +89,14 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_sea">Sea:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="sea" id="sea" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="_country">Country:</span>
 		</td>
 		<td class="srch">
