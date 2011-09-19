@@ -95,7 +95,7 @@
 		cataloged_item.collection_object_id = identification.collection_object_id AND
 		cataloged_item.collection_id=collection.collection_id and
 		identification.accepted_id_fg = 1">
-	<cfif len(agent_name) gt 0>
+	<cfif isdefined("agent_name") and len(agent_name) gt 0>
 		<cfset sql=sql & " and cataloged_item.collection_object_id=collector.collection_object_id and
 			collector.agent_id=agent_name.agent_id and
 			upper(agent_name) like '%#ucase(escapequotes(agent_name))#%'">
