@@ -564,17 +564,27 @@
 								<tr>
 									<td align="right"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
 									<td colspan="99" width="100%">
-										<cfset thisLLUnits=#ORIG_LAT_LONG_UNITS#>
-										<select name="orig_lat_long_units" id="orig_lat_long_units"
-											onChange="switchActive(this.value);dataEntry.max_error_distance.focus();">
-											<option value=""></option>
-											<cfloop query="ctunits">
-											  <option <cfif data.orig_lat_long_units is ctunits.orig_lat_long_units> selected="selected" </cfif>
-											  	value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
-											</cfloop>
-										</select>
-										<span class="likeLink" onclick="geolocate()">geolocate</span>
-										<div id="geoLocateResults">hher eis stuff</div>
+										<table>
+											<tr>
+												<td>
+													<cfset thisLLUnits=#ORIG_LAT_LONG_UNITS#>
+													<select name="orig_lat_long_units" id="orig_lat_long_units"
+														onChange="switchActive(this.value);dataEntry.max_error_distance.focus();">
+														<option value=""></option>
+														<cfloop query="ctunits">
+														  <option <cfif data.orig_lat_long_units is ctunits.orig_lat_long_units> selected="selected" </cfif>
+														  	value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+														</cfloop>
+													</select>
+												</td>
+												<td>
+														<span class="likeLink" onclick="geolocate()">geolocate</span>
+														<div id="geoLocateResults">hher eis stuff</div>
+												</td>
+											</tr>
+										</table>
+										
+										
 									</td>
 								</tr>
 							</table>
