@@ -7,7 +7,7 @@
     <cfhttpparam name="County" type="FormField" value="">
     <cfhttpparam name="LocalityString" type="FormField" value="north pole">
     <cfhttpparam name="State" type="FormField" value="Alaska">
-    <cfhttpparam name="HwyX" type="FormField" value="">
+    <cfhttpparam name="HwyX" type="FormField" value="false">
     <cfhttpparam name="FindWaterbody" type="FormField" value="false">
     <cfhttpparam name="RestrictToLowestAdm" type="FormField" value="false">
     <cfhttpparam name="doUncert" type="FormField" value="true">
