@@ -151,7 +151,7 @@
 		$("##gpsaccuracy").val('');	
 		$("##datum").val('World Geodetic System 1984');	
 		$("##determined_by_agent").val('#session.username#');	
-		$("##determined_date").val('#dateformat(now(),"yyyy=mm=dd")#');	
+		$("##determined_date").val('#dateformat(now(),"yyyy-mm-dd")#');	
 		$("##lat_long_ref_source").val('GeoLocate');	
 		$("##georefmethod").val('GeoLocate');	
 		$("##verificationstatus").val('unverified');	
