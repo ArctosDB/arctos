@@ -8,7 +8,7 @@ function geolocate () {
 				queryformat : 'column'
 			},
 			function(r) {
-				var glat=$.trim(r.DATA.GLAT);
+				var glat=jQuery.trim(r.DATA.GLAT);
 				var glon=r.DATA.GLON;
 				var gerr=r.DATA.GERR;
 				console.log(glat.length);
