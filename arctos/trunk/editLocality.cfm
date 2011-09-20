@@ -462,7 +462,7 @@
 			</cfhttp>
 			<cfdump var=#cfhttp#>
 
-			<cfif isdefined(cfhttp.StatusCode) and cfhttp.statuscode is "200 OK">
+			<cfif isdefined("cfhttp.StatusCode") and cfhttp.statuscode is "200 OK">
 				<cfset gl=xmlparse(cfhttp.fileContent)>
 				<cfdump var=#gl#>
 			</cfif>
