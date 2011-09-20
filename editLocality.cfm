@@ -193,7 +193,7 @@
   	<table>
   		<tr>
 			<td>
-  				<cfif #whatSpecs.recordcount# is 0>
+  				<cfif whatSpecs.recordcount is 0>
   					<font color="##FF0000">This Locality (#locDet.locality_id#)
 					<img src="/images/info.gif" border="0" class="likeLink" onClick="getDocs('locality')">
 					contains no specimens. Please delete it if you don't have plans for it!</font>	
@@ -236,17 +236,10 @@
 			<tr>
 				<td>
 					<input type="button" value="Change" class="picBtn" id="changeGeogButton"
-							onmouseover="this.className='picBtn btnhov'" 
-							onmouseout="this.className='picBtn'"
-							onclick="document.getElementById('saveGeogChangeButton').style.display='';document.getElementById('higher_geog').className='red';GeogPick('geog_auth_rec_id','higher_geog','geog'); return false;">
-			 			<input type="submit" value="Save" class="savBtn" id="saveGeogChangeButton" 
-			 				style="display:none"
-							onmouseover="this.className='savBtn btnhov'" 
-							onmouseout="this.className='savBtn'">
-						<input type="button" value="Edit" class="lnkBtn"
-							onmouseover="this.className='lnkBtn btnhov'" 
-							onmouseout="this.className='lnkBtn'"
-							onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#'">
+						onclick="document.getElementById('saveGeogChangeButton').style.display='';document.getElementById('higher_geog').className='red';GeogPick('geog_auth_rec_id','higher_geog','geog'); return false;">
+			 		<input type="submit" value="Save" class="savBtn" id="saveGeogChangeButton" style="display:none">
+					<input type="button" value="Edit" class="lnkBtn"
+						onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#'">
 				</td>
 			</tr>  
          </form>
@@ -473,7 +466,7 @@
 				     </span>	
 				</td>
 			</tr>
-			<cfhttp method="post" url="http://www.museum.tulane.edu/webservices/geolocatesvcv2/geolocatesvc.asmx/Georef2" timeout="3">
+			<cfhttp method="post" url="http://www.museum.tulane.edu/webservices/geolocatesvcv2/geolocatesvc.asmx/Georef2" timeout="5">
 			    <cfhttpparam name="Country" type="FormField" value="#country#">
 			    <cfhttpparam name="County" type="FormField" value="#county#">
 			    <cfhttpparam name="LocalityString" type="FormField" value="#spec_locality#">
@@ -487,11 +480,8 @@
 			    <cfhttpparam name="polyAsLinkID" type="FormField" value="false">
 			    <cfhttpparam name="LanguageKey" type="FormField" value="0">
 			</cfhttp>
-			<cfdump var=#cfhttp#>
-
 			<cfif isdefined("cfhttp.StatusCode") and cfhttp.statuscode is "200 OK">
 				<cfset gl=xmlparse(cfhttp.fileContent)>
-				<cfdump var=#gl#>
 				<cfif gl.Georef_Result_Set.NumResults.xmltext is 1>
 					<cfset glat=gl.Georef_Result_Set.ResultSet.WGS84Coordinate.Latitude.XmlText>
 					<cfset glon=gl.Georef_Result_Set.ResultSet.WGS84Coordinate.Longitude.XmlText>
@@ -504,12 +494,7 @@
                     	<img src="#iu#" alt="Google Map">
                     </a>
 					<a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=#glat#&dec_long=#glon#&max_error_meters=#gerr#" target="_blank">[ BerkeleyMapper ]</a>
-					<span class="likeLink" onclick="useGL(#glat#,#glon#,#gerr#)">useGL</span>
-					
-					
-					
-					
-					
+					<span class="likeLink" onclick="useGL(#glat#,#glon#,#gerr#)">[ create coordinate determination ]</span>
 				<cfelseif gl.Georef_Result_Set.NumResults.xmltext gt 1>
 					<br>GeoLocate found multiple matches. Not sure what to do with that...
 				<cfelse>
