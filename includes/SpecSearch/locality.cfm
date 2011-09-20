@@ -17,6 +17,9 @@
 <cfquery name="ContOcean" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select continent_ocean from geog_auth_rec group by continent_ocean ORDER BY continent_ocean
 </cfquery>
+<cfquery name="ctsea" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select sea from geog_auth_rec where sea is not null group by sea ORDER BY sea
+</cfquery>
 <cfquery name="Country" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select distinct(country) from geog_auth_rec order by country
 </cfquery>
@@ -92,7 +95,13 @@
 			<span class="helpLink" id="_sea">Sea:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="sea" id="sea" size="50">
+			<select name="sea" id="sea" size="1">
+				<option value=""></option>
+				<option value="NULL">NULL</option>
+				<cfloop query="ctsea"> 
+					<option value="#ctsea.sea#">#ctsea.sea#</option>
+				</cfloop>
+			</select>
 		</td>
 	</tr>
 	<tr>
