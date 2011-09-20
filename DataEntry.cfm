@@ -8,74 +8,6 @@
 <script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 --->
 <script type='text/javascript' src='/includes/DEAjax.js'></script>
-<script>
-	function DEuseGL(glat,glon,gerr){
-		if ($("##locality_id").val().length>0 || $("##collecting_event_id").val().length>0){
-			console.log($("##locality_id").val().length);
-			console.log($("##collecting_event_id").val().length);
-			alert('you cannot use geolocate with a picked locality.');
-			return;
-		}
-		if ($("##orig_lat_long_units").val() != ''){
-			var answer = confirm("Replace any existing coordinates?")
-			if (! answer){
-				alert('bye then');
-				return;
-			}
-		}
-		$("##orig_lat_long_units").val('decimal degrees');
-		switchActive('decimal degrees');	
-		$("##orig_lat_long_units").val('decimal');	
-		$("##max_error_distance").val(gerr);	
-		$("##max_error_units").val('m');	
-		$("##extent").val('');	
-		$("##gpsaccuracy").val('');	
-		$("##datum").val('World Geodetic System 1984');	
-		$("##determined_by_agent").val('#session.username#');	
-		$("##determined_date").val('#dateformat(now(),"yyyy=mm=dd")#');	
-		$("##lat_long_ref_source").val('GeoLocate');	
-		$("##georefmethod").val('GeoLocate');	
-		$("##verificationstatus").val('unverified');	
-		$("##lat_long_remarks").val('');	
-		$("##dec_lat").val(glat);	
-		$("##dec_long").val(glon);
-	}
-	function geolocate () {
-			$("##geoLocateResults").html('<img src="/images/indicator.gif">');
-			$.getJSON("/component/Bulkloader.cfc",
-				{
-					method : "geolocate",
-					geog: $("##higher_geog").val(),
-					specloc: $("##spec_locality").val(),
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function(r) {
-					var glat=r.DATA.GLAT[0];
-					var glon=r.DATA.GLON[0];
-					var gerr=r.DATA.GERR[0];
-					console.log(glat);
-					
-					if (glat==''){
-						var d='GeoLocate fail.';
-					} else {
-						var d='GeoLocate found something!';
-						var iu="http://maps.google.com/maps/api/staticmap?key=";
-						iu+='#application.gmap_api_key#';
-						iu+='&center=' + glat + ',' + glon;
-						iu+='&markers=color:red|size:tiny|' + glat + ',' + glon + '&sensor=false&size=100x100&zoom=2&maptype=roadmap';
-						d+='<br><a href="http://maps.google.com/maps?q=' + glat + ',' + glon + '" target="_blank">';
-	                    d+='<img src="' + iu + '" alt="Google Map"></a>';
-						d+='<br>' + glat + ',' + glon + '+/-' + gerr + 'm';
-	                    d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">[ View Using BerkeleyMapper ]</a>';
-						d+='<br><span class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Create Coordinate Determination ]</span>';					
-					}
-					console.log(d);
-					$("##geoLocateResults").html(d);
-				}	
-			);
-	}
-</script>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
 
@@ -197,7 +129,73 @@
 <!------------ editEnterData --------------------------------------------------------------------------------------------->
 <cfif action is "editEnterData">
 	<cfoutput>
-			<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
+		<script>
+	function DEuseGL(glat,glon,gerr){
+		if ($("##locality_id").val().length>0 || $("##collecting_event_id").val().length>0){
+			alert('you cannot use geolocate with a picked locality.');
+			return;
+		}
+		if ($("##orig_lat_long_units").val() != ''){
+			var answer = confirm("Replace any existing coordinates?")
+			if (! answer){
+				alert('bye then');
+				return;
+			}
+		}
+		$("##orig_lat_long_units").val('decimal degrees');
+		switchActive('decimal degrees');	
+		$("##orig_lat_long_units").val('decimal');	
+		$("##max_error_distance").val(gerr);	
+		$("##max_error_units").val('m');	
+		$("##extent").val('');	
+		$("##gpsaccuracy").val('');	
+		$("##datum").val('World Geodetic System 1984');	
+		$("##determined_by_agent").val('#session.username#');	
+		$("##determined_date").val('#dateformat(now(),"yyyy=mm=dd")#');	
+		$("##lat_long_ref_source").val('GeoLocate');	
+		$("##georefmethod").val('GeoLocate');	
+		$("##verificationstatus").val('unverified');	
+		$("##lat_long_remarks").val('');	
+		$("##dec_lat").val(glat);	
+		$("##dec_long").val(glon);
+	}
+	function geolocate () {
+			$("##geoLocateResults").html('<img src="/images/indicator.gif">');
+			$.getJSON("/component/Bulkloader.cfc",
+				{
+					method : "geolocate",
+					geog: $("##higher_geog").val(),
+					specloc: $("##spec_locality").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function(r) {
+					var glat=r.DATA.GLAT[0];
+					var glon=r.DATA.GLON[0];
+					var gerr=r.DATA.GERR[0];
+					console.log(glat);
+					
+					if (glat==''){
+						var d='GeoLocate fail.';
+					} else {
+						var d='GeoLocate found something!';
+						var iu="http://maps.google.com/maps/api/staticmap?key=";
+						iu+='#application.gmap_api_key#';
+						iu+='&center=' + glat + ',' + glon;
+						iu+='&markers=color:red|size:tiny|' + glat + ',' + glon + '&sensor=false&size=100x100&zoom=2&maptype=roadmap';
+						d+='<br><a href="http://maps.google.com/maps?q=' + glat + ',' + glon + '" target="_blank">';
+	                    d+='<img src="' + iu + '" alt="Google Map"></a>';
+						d+='<br>' + glat + ',' + glon + '+/-' + gerr + 'm';
+	                    d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">[ View Using BerkeleyMapper ]</a>';
+						d+='<br><span class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Create Coordinate Determination ]</span>';					
+					}
+					console.log(d);
+					$("##geoLocateResults").html(d);
+				}	
+			);
+	}
+</script>
+		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
 			you don't have an ID. <cfabort>
 		</cfif>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
