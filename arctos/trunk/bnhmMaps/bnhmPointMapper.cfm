@@ -1,7 +1,7 @@
 Retrieving map data - please wait....
 <cfflush>
 <cfoutput>
-	<cfif not isdefined("locality_id") or (not (isdefined("dec_lat") and isdefined("dec_long")))>
+	<cfif not (isdefined("locality_id")) and (not (isdefined("dec_lat") and isdefined("dec_long")))>
 		not enough info
 		<cfabort>
 	</cfif>
