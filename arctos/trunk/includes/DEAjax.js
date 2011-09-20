@@ -21,7 +21,7 @@ function geolocate () {
 					var iu="http://maps.google.com/maps/api/staticmap?key=";
 					iu+='ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg';
 					iu+='&center=' + glat + ',' + glon;
-					ui+='&markers=color:red|size:tiny|' + glat + ',' + glon + '&sensor=false&size=100x100&zoom=2&maptype=roadmap';
+					iu+='&markers=color:red|size:tiny|' + glat + ',' + glon + '&sensor=false&size=100x100&zoom=2&maptype=roadmap';
 					d+='<a href="http://maps.google.com/maps?q=' + glat + ',' + glon + '" target="_blank">';
                     d+='<img src="' + iu + '" alt="Google Map"></a>';
                     d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">[ View Using BerkeleyMapper ]</a>';
