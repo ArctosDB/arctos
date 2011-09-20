@@ -183,9 +183,9 @@
 						iu+='&center=' + glat + ',' + glon;
 						iu+='&markers=color:red|size:tiny|' + glat + ',' + glon + '&sensor=false&size=100x100&zoom=2&maptype=roadmap';
 						d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">';
-	                    d+='<img src="' + iu + '" alt="Google Map"></a>';
-						d+='<br>' + glat + ',' + glon + '+/-' + gerr + 'm';
-						d+='<br><span class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Use This ]</span>';					
+	                    d+='<img src="' + iu + '" alt="click for BerkeleyMapper"></a>';
+						d+='<br><span style="font-size:xx-small">' + glat + ',' + glon + '+/-' + gerr + 'm';
+						d+='<br><span class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Use This ]</span></span>';					
 					}
 					console.log(d);
 					$("##geoLocateResults").html(d);
