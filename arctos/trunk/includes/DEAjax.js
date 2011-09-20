@@ -12,7 +12,6 @@ function geolocate () {
 				var glon=r.DATA.GLON[0];
 				var gerr=r.DATA.GERR[0];
 				console.log(glat);
-				console.log(Int(glat.length));
 				
 				if (glat!=''){
 					$("#geoLocateResults").html('<div>woot</div>');
