@@ -4,8 +4,9 @@
 
 					<script>
 						function useGL(glat,glon,gerr){
-							$("#ORIG_LAT_LONG_U").val('decimal degrees');
+							
 							showLLFormat('decimal degrees','');
+							$("#ORIG_LAT_LONG_U").val('decimal degrees');
 							
 						}
 					</script>
