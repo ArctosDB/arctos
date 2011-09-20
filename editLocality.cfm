@@ -465,6 +465,11 @@
 			<cfif isdefined("cfhttp.StatusCode") and cfhttp.statuscode is "200 OK">
 				<cfset gl=xmlparse(cfhttp.fileContent)>
 				<cfdump var=#gl#>
+				<cfif gl.Georef_Result_Set.NumResults.xmltext gt 0>
+					found something
+				<cfelse>
+					<br>GeoLocate could not automatically georeference this locality string.
+				</cfif>
 			</cfif>
 			<!----
 				<cfif len(dec_lat) gt 0>
