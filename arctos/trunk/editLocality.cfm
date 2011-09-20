@@ -886,7 +886,7 @@
 					<input type="text" name="determined_by" id="determined_by" class="reqdClr" size="40"
 						onchange="getAgent('determined_by_agent_id','determined_by','newlatLong',this.value); return false;"
 		 				onKeyPress="return noenter(event);">
-		 			<input type="hidden" name="determined_by_agent_id">
+		 			<input type="hidden" name="determined_by_agent_id" ID="determined_by_agent_id">
 				</td>
 				<td>
 					<label for="determined_date">
