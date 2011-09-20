@@ -572,7 +572,9 @@
 											  <option <cfif data.orig_lat_long_units is ctunits.orig_lat_long_units> selected="selected" </cfif>
 											  	value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
 											</cfloop>
-										</select> 
+										</select>
+										<span class="likeLink" onclick="geolocate()">geolocate</span>
+										<div id="geoLocateResults"></div>
 									</td>
 								</tr>
 							</table>

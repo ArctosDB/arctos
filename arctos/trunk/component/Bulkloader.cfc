@@ -1,6 +1,50 @@
 <cfcomponent>
-	
-	
+<cffunction name="geolocate" access="remote">
+	<cfargument name="geog" required="yes">
+	<cfargument name="specloc" required="yes">
+	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select
+			country,
+			county,
+			state_prov
+		from
+			geog_auth_rec
+		where
+			higher_geog='#geog#'
+	</cfquery>
+	<cfhttp method="post" url="http://www.museum.tulane.edu/webservices/geolocatesvcv2/geolocatesvc.asmx/Georef2" timeout="5">
+	    <cfhttpparam name="Country" type="FormField" value="#g.country#">
+	    <cfhttpparam name="County" type="FormField" value="#g.county#">
+	    <cfhttpparam name="LocalityString" type="FormField" value="#specloc#">
+	    <cfhttpparam name="State" type="FormField" value="#g.state_prov#">
+	    <cfhttpparam name="HwyX" type="FormField" value="false">
+	    <cfhttpparam name="FindWaterbody" type="FormField" value="false">
+	    <cfhttpparam name="RestrictToLowestAdm" type="FormField" value="false">
+	    <cfhttpparam name="doUncert" type="FormField" value="true">
+	    <cfhttpparam name="doPoly" type="FormField" value="false">
+	    <cfhttpparam name="displacePoly" type="FormField" value="false">
+	    <cfhttpparam name="polyAsLinkID" type="FormField" value="false">
+	    <cfhttpparam name="LanguageKey" type="FormField" value="0">
+	</cfhttp>
+	<cfset glat=''>
+	<cfset glon=''>
+	<cfset gerr=''>
+	<cfif cfhttp.statuscode is "200 OK">
+		<cfset gl=xmlparse(cfhttp.fileContent)>
+		<cfif gl.Georef_Result_Set.NumResults.xmltext is 1>
+			<cfset glat=gl.Georef_Result_Set.ResultSet.WGS84Coordinate.Latitude.XmlText>
+			<cfset glon=gl.Georef_Result_Set.ResultSet.WGS84Coordinate.Longitude.XmlText>
+			<cfset gerr=gl.Georef_Result_Set.ResultSet.UncertaintyRadiusMeters.XmlText>
+		</cfif>
+	</cfif>
+	<cfset result = querynew("glat,glon,gerr")>
+	<cfset temp = queryaddrow(result,1)>
+	<cfset temp = QuerySetCell(result, "glat", glat, 1)>
+	<cfset temp = QuerySetCell(result, "glon", glon, 1)>
+	<cfset temp = QuerySetCell(result, "gerr", gerr, 1)>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
 <cffunction name="incrementCustomId" access="remote">
 	<cfargument name="cidType" required="yes">
 	<cfargument name="cidVal" required="yes">
