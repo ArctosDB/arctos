@@ -1,3 +1,20 @@
+function DEuseGL(glat,glon,gerr){
+	var status='';
+	if ($("#locality_id").val() != '' || $("#collecting_event_id").val() != ''){
+		alert('you cannot use geolocate with a picked locality.');
+		status='fail';
+	}
+	if ($("#orig_lat_long_units").val() != ''){
+		var answer = confirm("Replace any existing coordinates?")
+		if (! answer){
+			status='fail';
+		}
+	}
+	if (status != 'fail'){
+		alert('here we ggo');
+	}
+	
+}
 function geolocate () {
 		$("#geoLocateResults").html('<img src="/images/indicator.gif">');
 		$.getJSON("/component/Bulkloader.cfc",
@@ -27,7 +44,7 @@ function geolocate () {
                     d+='<img src="' + iu + '" alt="Google Map"></a>';
 					d+='<br>' + glat + ',' + glon + '+/-' + gerr + 'm';
                     d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">[ View Using BerkeleyMapper ]</a>';
-					d+='<br><span class="likeLink" onclick="useGL(' + glat + ',' + glon + ',' + gerr + ')">[ Create Coordinate Determination ]</span>';					
+					d+='<br><span class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Create Coordinate Determination ]</span>';					
 				}
 				console.log(d);
 				$("#geoLocateResults").html(d);
