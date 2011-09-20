@@ -3,18 +3,18 @@
 
 
 <cfhttp method="post" url="http://www.museum.tulane.edu/webservices/geolocatesvcv2/geolocatesvc.asmx/Georef2">
-    <cfhttpparam name="Country" type="header" value="United States">
-    <cfhttpparam name="County" type="header" value="">
-    <cfhttpparam name="LocalityString" type="header" value="north pole">
-    <cfhttpparam name="State" type="header" value="Alaska">
-    <cfhttpparam name="HwyX" type="header" value="">
-    <cfhttpparam name="FindWaterbody" type="header" value="false">
-    <cfhttpparam name="RestrictToLowestAdm" type="header" value="false">
-    <cfhttpparam name="doUncert" type="header" value="true">
-    <cfhttpparam name="doPoly" type="header" value="false">
-    <cfhttpparam name="displacePoly" type="header" value="false">
-    <cfhttpparam name="polyAsLinkID" type="header" value="false">
-    <cfhttpparam name="LanguageKey" type="header" value="0">
+    <cfhttpparam name="Country" type="body" value="United States">
+    <cfhttpparam name="County" type="body" value="">
+    <cfhttpparam name="LocalityString" type="body" value="north pole">
+    <cfhttpparam name="State" type="body" value="Alaska">
+    <cfhttpparam name="HwyX" type="body" value="">
+    <cfhttpparam name="FindWaterbody" type="body" value="false">
+    <cfhttpparam name="RestrictToLowestAdm" type="body" value="false">
+    <cfhttpparam name="doUncert" type="body" value="true">
+    <cfhttpparam name="doPoly" type="body" value="false">
+    <cfhttpparam name="displacePoly" type="body" value="false">
+    <cfhttpparam name="polyAsLinkID" type="body" value="false">
+    <cfhttpparam name="LanguageKey" type="body" value="0">
 </cfhttp>
 <cfdump var=#cfhttp#>
 </cfoutput>
