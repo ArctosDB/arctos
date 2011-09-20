@@ -404,7 +404,7 @@
 			}		
 		}
 		alert('setting to ' + orig_units);
-		$("#ORIG_LAT_LONG_U").val(orig_units);
+		$("#ORIG_LAT_LONG_UNITS").val(orig_units);
 		alert('set to ' + orig_units);
 	}
 </script>
