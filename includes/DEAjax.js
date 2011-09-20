@@ -1,3 +1,17 @@
+function geolocate () {
+		$.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "geolocate",
+				geog: $("#higher_geog").val(),
+				specloc: $("#spec_locality").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				$("#geoLocateResults").html(r);
+			}	
+		);
+}
 jQuery(document).ready(function() {
 	$("#made_date").datepicker();
 	$("#began_date").datepicker();
