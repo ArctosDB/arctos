@@ -183,11 +183,14 @@
 	                    d+='<img src="' + iu + '" alt="click for BerkeleyMapper"></a>';
 						d+='<br><span style="font-size:x-small">' + glat + ',' + glon + '+/-' + gerr + 'm</span>';
 						d+='<br><span style="font-size:small" class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Use This ]</span>';
-						d+='<br><span style="font-size:small" class="likeLink" onclick="$('##geoLocateResults').html('')">[ clear ]</span>';					
+						d+='<br><span style="font-size:small" class="likeLink" onclick="clearGeoLocateResults()">[ clear ]</span>';					
 					}
 					$("##geoLocateResults").html(d);
 				}	
 			);
+	}
+	function clearGeoLocateResults() {
+		$("##geoLocateResults").html('');
 	}
 </script>
 		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
