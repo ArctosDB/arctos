@@ -626,7 +626,7 @@
 						<td>
 							<table>
 								<tr>
-									<td align="right"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
+									<td align="right"  valign="top"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
 									<td colspan="99" width="100%">
 										<table>
 											<tr>
