@@ -17,6 +17,6 @@
     <cfhttpparam name="LanguageKey" type="FormField" value="0">
 </cfhttp>
 <cfdump var=#cfhttp#>
-<cfset result=parseXML(cfhttp.fileContent)>
+<cfset result=xmlparse(cfhttp.fileContent)>
 <cfdump var=#result#>
 </cfoutput>
