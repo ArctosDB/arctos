@@ -9,12 +9,12 @@ function geolocate () {
 			},
 			function(r) {
 				var glat=r.DATA.GLAT[0];
-				var glon=r.DATA.GLON;
-				var gerr=r.DATA.GERR;
+				var glon=r.DATA.GLON[0];
+				var gerr=r.DATA.GERR[0];
 				console.log(glat);
-				console.log(glat.length);
+				console.log(Int(glat.length));
 				
-				if (glat.length>0){
+				if (glat!=''){
 					$("#geoLocateResults").html('<div>woot</div>');
 				} else {
 					$("#geoLocateResults").html('<div>got nuthin</div>');
