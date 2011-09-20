@@ -359,7 +359,7 @@
 	}	
 	
 	function showLLFormat(orig_units,recID) {
-		//alert(orig_units);
+		alert(orig_units);
 		//alert(recID);
 		if (recID.length == 0) {
 			//alert('new');
@@ -404,6 +404,7 @@
 			}		
 		}
 		$("#ORIG_LAT_LONG_U").val(orig_units);
+		alert('set to ' + orig_units);
 	}
 </script>
 <cfoutput> 
