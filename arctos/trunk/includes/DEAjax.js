@@ -8,7 +8,12 @@ function geolocate () {
 				queryformat : 'column'
 			},
 			function(r) {
-				$("#geoLocateResults").html(r);
+				if (r.DATA.glat.length>0){
+					$("#geoLocateResults").html('<div>' + r.DATA.glat + '</div>');
+				} else {
+					$("#geoLocateResults").html('<div>got nuthin</div>');
+				}
+				
 			}	
 		);
 }
