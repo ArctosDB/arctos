@@ -171,8 +171,6 @@
 					var glat=r.DATA.GLAT[0];
 					var glon=r.DATA.GLON[0];
 					var gerr=r.DATA.GERR[0];
-					console.log(glat);
-					
 					if (glat==''){
 						var d='GeoLocate fail.';
 					} else {
@@ -184,9 +182,9 @@
 						d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">';
 	                    d+='<img src="' + iu + '" alt="click for BerkeleyMapper"></a>';
 						d+='<br><span style="font-size:x-small">' + glat + ',' + glon + '+/-' + gerr + 'm</span>';
-						d+='<br><span style="font-size:small" class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Use This ]</span>';					
+						d+='<br><span style="font-size:small" class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Use This ]</span>';
+						d+='<br><span style="font-size:small" class="likeLink" onclick="$('##geoLocateResults').html('')">[ clear ]</span>';					
 					}
-					console.log(d);
 					$("##geoLocateResults").html(d);
 				}	
 			);
