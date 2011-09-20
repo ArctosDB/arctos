@@ -8,9 +8,10 @@ function geolocate () {
 				queryformat : 'column'
 			},
 			function(r) {
-				var glat=jQuery.trim(r.DATA.GLAT);
+				var glat=r.DATA.GLAT.replace(/^\s+|\s+$/g,"");
 				var glon=r.DATA.GLON;
 				var gerr=r.DATA.GERR;
+				console.log(glat);
 				console.log(glat.length);
 				
 				if (glat.length>0){
