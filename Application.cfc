@@ -1,3 +1,4 @@
+<cfcomponent>	
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement="True">
 <cfset This.ClientManagement="true">
