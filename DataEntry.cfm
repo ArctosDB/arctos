@@ -132,13 +132,12 @@
 		<script>
 	function DEuseGL(glat,glon,gerr){
 		if ($("##locality_id").val().length>0 || $("##collecting_event_id").val().length>0){
-			alert('you cannot use geolocate with a picked locality.');
+			alert('You cannot use geolocate with a picked locality.');
 			return;
 		}
 		if ($("##orig_lat_long_units").val() != ''){
 			var answer = confirm("Replace existing coordinates?")
 			if (! answer){
-				alert('bye then');
 				return;
 			}
 		}
@@ -183,11 +182,10 @@
 						iu+='#application.gmap_api_key#';
 						iu+='&center=' + glat + ',' + glon;
 						iu+='&markers=color:red|size:tiny|' + glat + ',' + glon + '&sensor=false&size=100x100&zoom=2&maptype=roadmap';
-						d+='<br><a href="http://maps.google.com/maps?q=' + glat + ',' + glon + '" target="_blank">';
+						d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">';
 	                    d+='<img src="' + iu + '" alt="Google Map"></a>';
 						d+='<br>' + glat + ',' + glon + '+/-' + gerr + 'm';
-	                    d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">[ View Using BerkeleyMapper ]</a>';
-						d+='<br><span class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Create Coordinate Determination ]</span>';					
+						d+='<br><span class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Use This ]</span>';					
 					}
 					console.log(d);
 					$("##geoLocateResults").html(d);
