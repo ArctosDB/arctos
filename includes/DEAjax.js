@@ -8,7 +8,12 @@ function geolocate () {
 				queryformat : 'column'
 			},
 			function(r) {
-				if (r.DATA.glat.length>0){
+				var glat=r.DATA.GLAT;
+				var glon=r.DATA.GLON;
+				var gerr=r.DATA.GERR;
+				console.log(glat.length);
+				
+				if (glat.length>0){
 					$("#geoLocateResults").html('<div>woot</div>');
 				} else {
 					$("#geoLocateResults").html('<div>got nuthin</div>');
