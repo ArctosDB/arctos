@@ -136,7 +136,7 @@
 			return;
 		}
 		if ($("##orig_lat_long_units").val() != ''){
-			var answer = confirm("Replace any existing coordinates?")
+			var answer = confirm("Replace existing coordinates?")
 			if (! answer){
 				alert('bye then');
 				return;
