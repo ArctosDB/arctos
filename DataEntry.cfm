@@ -141,9 +141,11 @@
 				return;
 			}
 		}
+		alert('orig....');
 		switchActive('decimal degrees');
-		$("##orig_lat_long_units").val('decimal degrees');	
-		$("##orig_lat_long_units").val('decimal');	
+		$("##orig_lat_long_units").val('decimal degrees');
+				alert('.....orig');
+		
 		$("##max_error_distance").val(gerr);	
 		$("##max_error_units").val('m');	
 		$("##extent").val('');	
