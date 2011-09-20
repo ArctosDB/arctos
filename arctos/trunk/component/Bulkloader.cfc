@@ -26,6 +26,7 @@
 	    <cfhttpparam name="polyAsLinkID" type="FormField" value="false">
 	    <cfhttpparam name="LanguageKey" type="FormField" value="0">
 	</cfhttp>
+	<cfdump var=#cfhttp#>
 	<cfset glat=''>
 	<cfset glon=''>
 	<cfset gerr=''>
