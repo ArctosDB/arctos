@@ -562,7 +562,8 @@
 						<td>
 							<table>
 								<tr>
-									<td align="right"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
+									<td align="right"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span>
+									<br><span class="likeLink" onclick="geolocate()">geolocate</span></td>
 									<td colspan="99" width="100%">
 										<table>
 											<tr>
@@ -578,7 +579,7 @@
 													</select>
 												</td>
 												<td>
-														<span class="likeLink" onclick="geolocate()">geolocate</span>
+														
 														<div id="geoLocateResults">hher eis stuff</div>
 												</td>
 											</tr>
