@@ -183,8 +183,8 @@
 						iu+='&markers=color:red|size:tiny|' + glat + ',' + glon + '&sensor=false&size=100x100&zoom=2&maptype=roadmap';
 						d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">';
 	                    d+='<img src="' + iu + '" alt="click for BerkeleyMapper"></a>';
-						d+='<br><span style="font-size:xx-small">' + glat + ',' + glon + '+/-' + gerr + 'm</span>';
-						d+='<br><span style="font-size:x-small" class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Use This ]</span>';					
+						d+='<br><span style="font-size:x-small">' + glat + ',' + glon + '+/-' + gerr + 'm</span>';
+						d+='<br><span style="font-size:small" class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Use This ]</span>';					
 					}
 					console.log(d);
 					$("##geoLocateResults").html(d);
