@@ -446,6 +446,31 @@
 				     </span>	
 				</td>
 			</tr>
+			<cfhttp method="post" url="http://www.museum.tulane.edu/webservices/geolocatesvcv2/geolocatesvc.asmx/Georef2">
+			    <cfhttpparam name="Country" type="FormField" value="#country#">
+			    <cfhttpparam name="County" type="FormField" value="#county#">
+			    <cfhttpparam name="LocalityString" type="FormField" value="#spec_locality#">
+			    <cfhttpparam name="State" type="FormField" value="#state_prov#">
+			    <cfhttpparam name="HwyX" type="FormField" value="false">
+			    <cfhttpparam name="FindWaterbody" type="FormField" value="false">
+			    <cfhttpparam name="RestrictToLowestAdm" type="FormField" value="false">
+			    <cfhttpparam name="doUncert" type="FormField" value="true">
+			    <cfhttpparam name="doPoly" type="FormField" value="false">
+			    <cfhttpparam name="displacePoly" type="FormField" value="false">
+			    <cfhttpparam name="polyAsLinkID" type="FormField" value="false">
+			    <cfhttpparam name="LanguageKey" type="FormField" value="0">
+			</cfhttp>
+			<cfdump var=#cfhttp#>
+			<!----
+				<cfif len(dec_lat) gt 0>
+						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
+						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+						<cfset iu=iu & "&maptype=roadmap">
+						<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#" target="_blank">
+                        	<img src="#iu#" alt="Google Map">
+                        </a>
+					</cfif>
+					---->
 		</table>
 		<cfset i=1>
 		<table border>
@@ -498,8 +523,7 @@
 					<input type="text" name="determined_date" id="determined_date#i#"
 						value="#dateformat(determined_date,'yyyy-mm-dd')#" class="reqdClr"> 
 				</td>
-				
-				<td rowspan="4">
+				<td rowspan="6">
 					<cfif len(dec_lat) gt 0>
 						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
 						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
