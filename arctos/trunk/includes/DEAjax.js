@@ -9,7 +9,7 @@ function geolocate () {
 			},
 			function(r) {
 				if (r.DATA.glat.length>0){
-					$("#geoLocateResults").html('<div>' + r.DATA.glat + '</div>');
+					$("#geoLocateResults").html('<div>woot</div>');
 				} else {
 					$("#geoLocateResults").html('<div>got nuthin</div>');
 				}
