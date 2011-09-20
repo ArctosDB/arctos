@@ -141,8 +141,8 @@
 				return;
 			}
 		}
-		$("##orig_lat_long_units").val('decimal degrees');
-		switchActive('decimal degrees');	
+		switchActive('decimal degrees');
+		$("##orig_lat_long_units").val('decimal degrees');	
 		$("##orig_lat_long_units").val('decimal');	
 		$("##max_error_distance").val(gerr);	
 		$("##max_error_units").val('m');	
