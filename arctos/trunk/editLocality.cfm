@@ -446,7 +446,7 @@
 				     </span>	
 				</td>
 			</tr>
-			<cfhttp method="post" url="http://www.museum.tulane.edu/webservices/geolocatesvcv2/geolocatesvc.asmx/Georef2">
+			<cfhttp method="post" url="http://www.museum.tulane.edu/webservices/geolocatesvcv2/geolocatesvc.asmx/Georef2" timeout="3">
 			    <cfhttpparam name="Country" type="FormField" value="#country#">
 			    <cfhttpparam name="County" type="FormField" value="#county#">
 			    <cfhttpparam name="LocalityString" type="FormField" value="#spec_locality#">
@@ -461,6 +461,11 @@
 			    <cfhttpparam name="LanguageKey" type="FormField" value="0">
 			</cfhttp>
 			<cfdump var=#cfhttp#>
+
+			<cfif isdefined(cfhttp.StatusCode) and cfhttp.statuscode is "200 OK">
+				<cfset gl=xmlparse(cfhttp.fileContent)>
+				<cfdump var=#gl#>
+			</cfif>
 			<!----
 				<cfif len(dec_lat) gt 0>
 						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
