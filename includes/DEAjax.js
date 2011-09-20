@@ -13,12 +13,13 @@ function geolocate () {
 				var gerr=r.DATA.GERR[0];
 				console.log(glat);
 				
-				if (glat!=''){
-					$("#geoLocateResults").html('<div>woot</div>');
+				if (glat==''){
+					var d='GeoLocate fail.';
 				} else {
-					$("#geoLocateResults").html('<div>got nuthin</div>');
+					var d='GeoLocate found something! ' + glat + ',' + glon + '+/-' + gerr + 'm';
+					
 				}
-				
+				$("#geoLocateResults").html(d);
 			}	
 		);
 }
