@@ -2,12 +2,13 @@ function DEuseGL(glat,glon,gerr){
 	var status='';
 	if ($("#locality_id").val() != '' || $("#collecting_event_id").val() != ''){
 		alert('you cannot use geolocate with a picked locality.');
-		status='fail';
+		return;
 	}
 	if ($("#orig_lat_long_units").val() != ''){
 		var answer = confirm("Replace any existing coordinates?")
 		if (! answer){
-			status='fail';
+			alert('bye then');
+			return;
 		}
 	}
 	if (status != 'fail'){
