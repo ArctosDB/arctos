@@ -1,4 +1,5 @@
 function geolocate () {
+		$("#geoLocateResults").html('<img src="/images/indicator.gif">');
 		$.getJSON("/component/Bulkloader.cfc",
 			{
 				method : "geolocate",
@@ -24,7 +25,7 @@ function geolocate () {
 					iu+='&markers=color:red|size:tiny|' + glat + ',' + glon + '&sensor=false&size=100x100&zoom=2&maptype=roadmap';
 					d+='<br><a href="http://maps.google.com/maps?q=' + glat + ',' + glon + '" target="_blank">';
                     d+='<img src="' + iu + '" alt="Google Map"></a>';
-					d+=glat + ',' + glon + '+/-' + gerr + 'm';
+					d+='<br>' + glat + ',' + glon + '+/-' + gerr + 'm';
                     d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">[ View Using BerkeleyMapper ]</a>';
 					d+='<br><span class="likeLink" onclick="useGL(' + glat + ',' + glon + ',' + gerr + ')">[ Create Coordinate Determination ]</span>';					
 				}
