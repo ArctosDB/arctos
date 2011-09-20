@@ -827,7 +827,7 @@
 	<cfif compare(sea,"NULL") is 0>
 		<cfset basQual = " #basQual# AND sea is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND sea LIKE '#sea#'">
+		<cfset basQual = " #basQual# AND sea = '#sea#'">
 	</cfif>					
 	<cfset mapurl = "#mapurl#&sea=#sea#">			
 </cfif>

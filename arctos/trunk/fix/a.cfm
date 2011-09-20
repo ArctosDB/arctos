@@ -1,21 +1,20 @@
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select 
-		short_doc_id,
-		more_info
- from short_doc where more_info is not null		
-</cfquery>
+
 <cfoutput>
-	<cfloop query="d">
-		<hr>
-		#more_info#
-		<br>
-		<cfhttp url="#more_info#" method="head"></cfhttp>
-		<cfif cfhttp.Statuscode is '200 OK'>
-			<br>spiffy
-		<cfelse>
-			<br><a href="/doc/short_doc.cfm?action=edit&short_doc_id=#short_doc_id#">
-				======================================= fixit ========================
-			</a>
-		</cfif>
-	</cfloop>
+
+
+<cfhttp method="post" url="http://www.museum.tulane.edu/webservices/geolocatesvcv2/geolocatesvc.asmx/Georef2">
+    <cfhttpparam name="Country" type="header" value="United States">
+    <cfhttpparam name="County" type="header" value="">
+    <cfhttpparam name="LocalityString" type="header" value="north pole">
+    <cfhttpparam name="State" type="header" value="Alaska">
+    <cfhttpparam name="HwyX" type="header" value="">
+    <cfhttpparam name="FindWaterbody" type="header" value="false">
+    <cfhttpparam name="RestrictToLowestAdm" type="header" value="false">
+    <cfhttpparam name="doUncert" type="header" value="true">
+    <cfhttpparam name="doPoly" type="header" value="false">
+    <cfhttpparam name="displacePoly" type="header" value="false">
+    <cfhttpparam name="polyAsLinkID" type="header" value="false">
+    <cfhttpparam name="LanguageKey" type="header" value="0">
+</cfhttp>
+<cfdump var=#cfhttp#>
 </cfoutput>
