@@ -52,7 +52,7 @@ Retrieving map data - please wait....
 		<cfset oneLine=trim(oneLine)>
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#oneLine#">
 	</cfloop>
-<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/index.php?ViewResults=tab&tabfile=#Application.ServerRootUrl#/bnhmMaps/tabfiles/#dlFile#&configfile=#Application.ServerRootUrl#/bnhmMaps/PointMap.xml&sourcename=Locality">
+<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/index.php?ViewResults=tab&tabfile=#Application.ServerRootUrl#/bnhmMaps/tabfiles/#dlFile#&configfile=#Application.ServerRootUrl#/bnhmMaps/PointMap.xml&sourcename=Locality&queryerrorcircles=1&maxerrorinmeters=1">
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
