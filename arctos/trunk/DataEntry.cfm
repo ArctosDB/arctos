@@ -562,12 +562,12 @@
 						<td>
 							<table>
 								<tr>
-									<td align="right"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span>
+									<td align="right" valign="top"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span>
 									<br><span class="likeLink" onclick="geolocate()">geolocate</span></td>
 									<td colspan="99" width="100%">
 										<table>
 											<tr>
-												<td>
+												<td valign="top">
 													<cfset thisLLUnits=#ORIG_LAT_LONG_UNITS#>
 													<select name="orig_lat_long_units" id="orig_lat_long_units"
 														onChange="switchActive(this.value);dataEntry.max_error_distance.focus();">
@@ -579,13 +579,10 @@
 													</select>
 												</td>
 												<td>
-														
-														<div id="geoLocateResults">hher eis stuff</div>
+													<div id="geoLocateResults"></div>
 												</td>
 											</tr>
 										</table>
-										
-										
 									</td>
 								</tr>
 							</table>
