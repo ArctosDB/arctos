@@ -76,7 +76,6 @@
 	}	
 	
 	function showLLFormat(orig_units,recID) {
-		alert(orig_units);
 		//alert(recID);
 		if (recID.length == 0) {
 			//alert('new');
@@ -120,9 +119,7 @@
 				alert('I have no idea what to do with ' + orig_units);
 			}		
 		}
-		alert('setting to ' + orig_units);
 		$("#ORIG_LAT_LONG_UNITS").val(orig_units);
-		alert('set to ' + orig_units);
 	}
 </script>
 <cfoutput> 
@@ -507,7 +504,7 @@
                     	<img src="#iu#" alt="Google Map">
                     </a>
 					<a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=#glat#&dec_long=#glon#&max_error_meters=#gerr#" target="_blank">[ BerkeleyMapper ]</a>
-					<span stlye="likeLink" onclick="useGL(#glat#,#glon#,#gerr#)">useGL</span>
+					<span class="likeLink" onclick="useGL(#glat#,#glon#,#gerr#)">useGL</span>
 					
 					
 					
