@@ -1,4 +1,314 @@
 <cfinclude template="includes/_header.cfm">
+
+
+
+					<script>
+						function useGL(glat,glon,gerr){
+							$("#ORIG_LAT_LONG_U").val('decimal degrees');
+							showLLFormat('decimal degrees');
+							
+						}
+					</script>
+					
+					<!----
+					
+					
+					
+					
+							<label for="ORIG_LAT_LONG_UNITS">
+						<a href="javascript:void(0);" onClick="getDocs('lat_long','original_units')">Original Units</a>
+					</label>
+					<select name="ORIG_LAT_LONG_U" 
+						id="" size="1" 
+						class="reqdClr"
+						onchange="document.getElementById('ORIG_LAT_LONG_UNITS').value=this.value; (this.value,'')">
+	                    <option selected value="">Pick one...</option>
+	                    <cfloop query="ctunits">
+	                      <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+	                    </cfloop>
+	                  </select>
+			</td>
+		</tr>
+		<tr>
+			<td>		
+		<table border id="llMeta" style="display:none;">
+              <tr> 		 
+                <td>
+					<label for="ORIG_LAT_LONG_UNITS">
+						<a href="javascript:void(0);" onClick="getDocs('lat_long','original_units')">Original Units</a>
+					</label>
+					<select name="ORIG_LAT_LONG_UNITS" id="ORIG_LAT_LONG_UNITS" size="1" class="reqdClr"
+						onchange="showLLFormat(this.value,'')">
+	                    <cfloop query="ctunits">
+	                      <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+	                    </cfloop>
+	                  </select>
+				</td>
+				<td nowrap>
+	                <label for="accepted_lat_long_fg">
+						<a href="javascript:void(0);" onClick="getDocs('lat_long','accepted')">Accepted?</a>
+					</label>
+					<select name="accepted_lat_long_fg" id="accepted_lat_long_fg" size="1" class="reqdClr">
+						<option selected value="1">yes</option>
+						<option value="0">no</option>
+					</select>
+				</td>
+				<td>
+					<label for="determined_by">
+						<a href="javascript:void(0);" onClick="getDocs('lat_long','determiner')">Determiner</a>
+					</label>
+					<input type="text" name="determined_by" id="determined_by" class="reqdClr" size="40"
+						onchange="getAgent('determined_by_agent_id','determined_by','newlatLong',this.value); return false;"
+		 				onKeyPress="return noenter(event);">
+		 			<input type="hidden" name="determined_by_agent_id">
+				</td>
+				<td>
+					<label for="determined_date">
+						<a href="javascript:void(0);" onClick="getDocs('lat_long','date')">Determined Date</a>
+					</label>
+					<input type="text" name="determined_date" id="determined_date" class="reqdClr"> 
+				</td>
+              </tr>
+            <tr>
+				<td>
+					<table>
+						<tr>
+							<td>
+								<label for="MAX_ERROR_DISTANCE">
+									<a href="javascript:void(0);" onClick="getDocs('lat_long','maximum_error')">Maximum Error</a>
+								</label>
+								<input type="text" name="MAX_ERROR_DISTANCE" id="MAX_ERROR_DISTANCE" size="6">
+							</td>
+							<td>
+								<label for="MAX_ERROR_UNITS">
+									<a href="javascript:void(0);" onClick="getDocs('lat_long','maximum_error')">Maximum Error Units</a>
+								</label>
+								<select name="MAX_ERROR_UNITS" size="1" id="MAX_ERROR_UNITS">
+				                    <option value=""></option>
+				                    <cfloop query="cterror">
+				                      <option value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
+				                    </cfloop>
+				                  </select> 
+							</td>
+						</tr>
+					</table>					
+				</td>
+				<td>
+					<label for="DATUM">
+						<a href="javascript:void(0);" onClick="getDocs('lat_long','datum')">Datum</a>
+					</label>
+					<select name="DATUM" id="DATUM" size="1" class="reqdClr">
+	                    <option value=""></option>
+	                    <cfloop query="ctdatum">
+	                      <option value="#ctdatum.DATUM#">#ctdatum.DATUM#</option>
+	                    </cfloop>
+	                  </select> 
+				</td>
+				<td>
+					<label for="georefMethod">
+						Georeference Method
+					</label>
+					<select name="georefMethod" id="georefMethod" size="1" class="reqdClr">
+				   		<cfloop query="ctGeorefMethod">
+							<option value="#georefMethod#">#georefMethod#</option>
+						</cfloop>
+				   </select>
+				</td>
+				<td>
+					<label for="extent">
+						Extent
+					</label>
+					<input type="text" name="extent" id="extent" size="7">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="GpsAccuracy">
+						GPS Accuracy
+					</label>
+					<input type="text" name="GpsAccuracy" id="GpsAccuracy" size="7">
+				</td>
+				<td>
+					<label for="VerificationStatus">
+						Verification Status
+					</label>
+					<select name="VerificationStatus" id="VerificationStatus" size="1" class="reqdClr">
+					   		<cfloop query="ctVerificationStatus">
+								<option value="#VerificationStatus#">#VerificationStatus#</option>
+							</cfloop>
+					   </select>
+				</td>
+				<td colspan="3">
+					<label for="LAT_LONG_REMARKS">
+						Remarks
+					</label>
+					<input type="text" 
+						name="LAT_LONG_REMARKS" 
+						id="LAT_LONG_REMARKS"
+						size="60">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<label for="LAT_LONG_REF_SOURCE">
+						Reference
+					</label>
+					<input type="text" name="LAT_LONG_REF_SOURCE" 
+						id="LAT_LONG_REF_SOURCE" size="120" class="reqdClr" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					 <table id="dms" style="display:none;">
+						<tr> 
+							<td>
+								<label for="lat_deg">Lat. Deg.</label>
+								<input type="text" name="LAT_DEG" size="4" id="lat_deg" class="reqdClr">
+							</td>
+							<td>
+								<label for="lat_min">Lat. Min.</label>
+								<input type="text" name="LAT_MIN" size="4" id="lat_min" class="reqdClr">
+							</td>
+							<td>
+								<label for="lat_sec">Lat. Sec.</label>
+								<input type="text" name="LAT_SEC" id="lat_sec" class="reqdClr">
+							</td>
+							<td>
+								<label for="lat_dir">Lat. Dir.</label>
+								<select name="LAT_DIR" size="1" id="lat_dir"  class="reqdClr">
+									<option value=""></option>
+							        <option value="N">N</option>
+							        <option value="S">S</option>
+							    </select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="long_deg">Long. Deg.</label>
+								<input type="text" name="LONG_DEG" size="4" id="long_deg" class="reqdClr">
+							</td>
+							<td>
+								<label for="long_min">Long. Min.</label>
+								<input type="text" name="LONG_MIN" size="4" id="long_min" class="reqdClr">
+							</td>
+							<td>
+								<label for="long_sec">Long. Sec.</label>
+								<input type="text" name="LONG_SEC" id="long_sec"  class="reqdClr">
+							</td>
+							<td>
+								<label for="long_dir">Long. Dir.</label>
+								<select name="LONG_DIR" size="1" id="long_dir" class="reqdClr">
+							    	 <option value="E">E</option>
+							        <option value="W">W</option>
+							    </select>
+							</td>
+						</tr>
+					</table>
+					<table id="ddm" style="display:none;">
+						<tr> 
+							<td>
+								<label for="dmlat_deg">Lat. Deg.<label>
+								<input type="text" name="dmLAT_DEG" size="4" id="dmlat_deg" class="reqdClr">
+							</td>
+							<td>
+								<label for="dec_lat_min">Lat. Dec. Min.<label>
+								<input type="text" name="DEC_LAT_MIN" id="dec_lat_min" class="reqdClr">
+							</td>
+							<td>
+								<label for="dmlat_dir">Lat. Dir.<label>
+								<select name="dmLAT_DIR" size="1" id="dmlat_dir" class="reqdClr">
+				                	<option value="N">N</option>
+				                   	<option value="S">S</option>
+				                 </select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="dmlong_deg">Long. Deg.<label>
+								<input type="text" name="dmLONG_DEG" size="4" id="dmlong_deg" class="reqdClr">
+							</td>
+							<td>
+								<label for="dec_long_min">Long. Dec. Min.<label>
+								<input type="text" name="DEC_LONG_MIN" id="dec_long_min" class="reqdClr">
+							</td>
+							<td>
+								<label for="dmlong_dir">Long. Dir.<label>
+								<select name="dmLONG_DIR" size="1" id="dmlong_dir" class="reqdClr">
+								    <option value="E">E</option>
+								    <option value="W">W</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					 <table id="dd" style="display:none;">
+						<tr> 
+							<td>
+								<label for="dec_lat">Decimal Latitude</label>
+								<input type="text" name="DEC_LAT" id="dec_lat"class="reqdClr">
+							</td>
+							<td>
+								<label for="dec_long">Decimal Longitude</label>
+								<input type="text" name="DEC_LONG" id="dec_long" class="reqdClr">
+							</td>
+						</tr>
+					</table>
+					<table id="utm" style="display:none;">
+						<tr> 
+							<td>
+								<label for="utm_zone">UTM Zone<label>
+								<input type="text" name="UTM_ZONE" id="utm_zone" class="reqdClr">
+							</td>
+							<td>
+								<label for="utm_ew">UTM East/West<label>
+								<input type="text" name="UTM_EW"  id="utm_ew" class="reqdClr">
+							</td>
+							<td>
+								<label for="utm_ns">UTM North/South<label>
+								<input type="text" name="UTM_NS" id="utm_ns" class="reqdClr">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+              <tr> 
+                <td colspan="4">
+				<input type="submit" value="Create Determination" class="insBtn"
+  						 onmouseover="this.className='insBtn btnhov'" 
+						 onmouseout="this.className='insBtn'">						
+				</td>
+              </tr>
+            </table>
+		</td>
+		</tr>
+			</form>
+					
+					
+					
+					
+					
+					--->
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+
 <cfif action is "nothing">
 <cfset title="Edit Locality">
 <script language="javascript" type="text/javascript">
@@ -476,7 +786,13 @@
 					<a href="http://maps.google.com/maps?q=#glat#,#glon#" target="_blank">
                     	<img src="#iu#" alt="Google Map">
                     </a>
-					<a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=#glat#&dec_long=#glon#&max_error_meters=#gerr#">BerkeleyMapper</a>
+					<a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=#glat#&dec_long=#glon#&max_error_meters=#gerr#" target="_blank">[ BerkeleyMapper ]</a>
+					<span stlye="likeLink" onclick="useGL(#glat#,#glon#,#gerr#)">useGL</span>
+					
+					
+					
+					
+					
 				<cfelseif gl.Georef_Result_Set.NumResults.xmltext gt 1>
 					<br>GeoLocate found multiple matches. Not sure what to do with that...
 				<cfelse>
