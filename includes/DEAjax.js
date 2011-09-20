@@ -1,6 +1,9 @@
 function DEuseGL(glat,glon,gerr){
 	var status='';
 	if ($("#locality_id").val().length>0 || $("#collecting_event_id").val().length>0){
+		console.log($("#locality_id").val().length);
+		console.log($("#collecting_event_id").val().length);
+		
 		alert('you cannot use geolocate with a picked locality.');
 		return;
 	}
