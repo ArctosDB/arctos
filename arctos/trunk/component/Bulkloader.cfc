@@ -37,11 +37,11 @@
 			<cfset gerr=gl.Georef_Result_Set.ResultSet.UncertaintyRadiusMeters.XmlText>
 		</cfif>
 	</cfif>
-	<cfset result = querynew("glat,glon,gerr")>
+	<cfset result = querynew("GLAT,GLON,GERR")>
 	<cfset temp = queryaddrow(result,1)>
-	<cfset temp = QuerySetCell(result, "glat", glat, 1)>
-	<cfset temp = QuerySetCell(result, "glon", glon, 1)>
-	<cfset temp = QuerySetCell(result, "gerr", gerr, 1)>
+	<cfset temp = QuerySetCell(result, "GLAT", glat, 1)>
+	<cfset temp = QuerySetCell(result, "GLON", glon, 1)>
+	<cfset temp = QuerySetCell(result, "GERR", gerr, 1)>
 	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
