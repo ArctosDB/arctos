@@ -439,9 +439,10 @@
 				<td>
 					&nbsp;&nbsp;&nbsp;
 					<span style="font-size:smaller;">
-				    	<a href="http://bg.berkeley.edu/latest/" target="_blank">BioGeoMancer<img src="/images/linkOut.gif" border="0"></a>
+				    	<a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a>
 				        &nbsp;~&nbsp;
-				        <a href="http://manisnet.org/gci2.html" target="_blank">Georef Calculator<img src="/images/linkOut.gif" border="0"></a>
+				        <a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a>
+				        &nbsp;~&nbsp;<a href="http://www.museum.tulane.edu/geolocate/web/WebGeoref.aspx" target="_blank" class="external">GeoLocate</a>
 				     </span>	
 				</td>
 			</tr>
@@ -715,15 +716,24 @@
               <tr> 
                 <td colspan="4">
 				<input type="button" value="Save Changes" class="savBtn"
-  						 onmouseover="this.className='savBtn btnhov'" 
-						 onmouseout="this.className='savBtn'"
-						 onClick="latLong#i#.Action.value='editAccLatLong';submit();">
-				<input type="button" value="Delete" class="delBtn"
-  						 onmouseover="this.className='delBtn btnhov'" 
-						 onmouseout="this.className='delBtn'" onClick="latLong#i#.Action.value='deleteLatLong';confirmDelete('latLong#i#');">
+					onClick="latLong#i#.Action.value='editAccLatLong';submit();">
+				<input type="button" value="Delete" class="delBtn" 
+					onClick="latLong#i#.Action.value='deleteLatLong';confirmDelete('latLong#i#');">
 						
 				</td>
               </tr>
+			<tr>
+				<td colspan="4">
+					<cfif len(dec_lat) gt 0>
+						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
+						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+						<cfset iu=iu & "&maptype=roadmap">
+						<a href="http://maps.google.com/maps?q=#coord.coordinates#" target="_blank">
+                        	<img src="#iu#" alt="Google Map">
+                        </a>
+					</cfif>
+				</td>
+			</tr>
             </table>
           </form>
 		 
@@ -734,17 +744,7 @@
 			<cfset i=#i#+1>
         </cfoutput>
 		</table>
-		 <cfoutput> 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		 <cfoutput> 
 		
 		<form name="newlatLong" method="post" action="editLocality.cfm">
             <input type="hidden" name="Action" value="AddLatLong">
