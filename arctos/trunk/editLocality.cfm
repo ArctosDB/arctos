@@ -6,7 +6,6 @@
 						function useGL(glat,glon,gerr){
 							
 							showLLFormat('decimal degrees','');
-							$("#ORIG_LAT_LONG_U").val('decimal degrees');
 							
 						}
 					</script>
@@ -403,7 +402,8 @@
 			else {
 				alert('I have no idea what to do with ' + orig_units);
 			}		
-		}	
+		}
+		$("#ORIG_LAT_LONG_U").val(orig_units);
 	}
 </script>
 <cfoutput> 
