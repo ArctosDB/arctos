@@ -491,10 +491,9 @@
 					<cfset iu=iu & "&markers=color:red|size:tiny|#glat#,#glon#&sensor=false&size=100x100&zoom=2">
 					<cfset iu=iu & "&maptype=roadmap">
 					<br>
-					<a href="http://maps.google.com/maps?q=#glat#,#glon#" target="_blank">
+					<a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=#glat#&dec_long=#glon#&max_error_meters=#gerr#" target="_blank">
                     	<img src="#iu#" alt="Google Map">
                     </a>
-					<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=#glat#&dec_long=#glon#&max_error_meters=#gerr#" target="_blank">[ View Using BerkeleyMapper ]</a>
 					<span class="likeLink" onclick="useGL(#glat#,#glon#,#gerr#)">[ Create Coordinate Determination ]</span>
 				<cfelseif gl.Georef_Result_Set.NumResults.xmltext gt 1>
 					<br>GeoLocate found multiple matches. Not sure what to do with that...
