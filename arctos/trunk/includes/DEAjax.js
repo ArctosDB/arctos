@@ -16,7 +16,7 @@ function geolocate () {
 				if (glat==''){
 					var d='GeoLocate fail.';
 				} else {
-					var d='GeoLocate found something!<br>' + glat + ',' + glon + '+/-' + gerr + 'm';
+					var d='GeoLocate found something!';
 					// hardcode==crap.....
 					var iu="http://maps.google.com/maps/api/staticmap?key=";
 					iu+='ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg';
@@ -24,6 +24,7 @@ function geolocate () {
 					iu+='&markers=color:red|size:tiny|' + glat + ',' + glon + '&sensor=false&size=100x100&zoom=2&maptype=roadmap';
 					d+='<br><a href="http://maps.google.com/maps?q=' + glat + ',' + glon + '" target="_blank">';
                     d+='<img src="' + iu + '" alt="Google Map"></a>';
+					d+=glat + ',' + glon + '+/-' + gerr + 'm';
                     d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">[ View Using BerkeleyMapper ]</a>';
 					d+='<br><span class="likeLink" onclick="useGL(' + glat + ',' + glon + ',' + gerr + ')">[ Create Coordinate Determination ]</span>';					
 				}
