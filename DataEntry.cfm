@@ -574,7 +574,7 @@
 											</cfloop>
 										</select>
 										<span class="likeLink" onclick="geolocate()">geolocate</span>
-										<div id="geoLocateResults"></div>
+										<div id="geoLocateResults">hher eis stuff</div>
 									</td>
 								</tr>
 							</table>
