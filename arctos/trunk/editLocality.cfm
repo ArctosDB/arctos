@@ -403,6 +403,7 @@
 				alert('I have no idea what to do with ' + orig_units);
 			}		
 		}
+		alert('setting to ' + orig_units);
 		$("#ORIG_LAT_LONG_U").val(orig_units);
 		alert('set to ' + orig_units);
 	}
