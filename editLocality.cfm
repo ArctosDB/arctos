@@ -476,6 +476,10 @@
 					<a href="http://maps.google.com/maps?q=#glat#,#glon#" target="_blank">
                     	<img src="#iu#" alt="Google Map">
                     </a>
+					<input type="button" value="Map" class="lnkBtn"
+  						 onmouseover="this.className='lnkBtn btnhov'" 
+						 onmouseout="this.className='lnkBtn'"
+						 onClick="window.open('/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#','bnhmMap');">
 				<cfelseif gl.Georef_Result_Set.NumResults.xmltext gt 1>
 					<br>GeoLocate found multiple matches. Not sure what to do with that...
 				<cfelse>
