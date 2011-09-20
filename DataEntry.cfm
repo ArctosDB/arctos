@@ -626,7 +626,7 @@
 						<td>
 							<table>
 								<tr>
-									<td align="right" valign="top"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
+									<td align="right"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
 									<td colspan="99" width="100%">
 										<table>
 											<tr>
@@ -641,8 +641,10 @@
 														</cfloop>
 													</select>
 												</td>
-												<td>
+												<td valign="top">
 													<span style="font-size:small" class="likeLink" onclick="geolocate()">[ geolocate ]</span>
+												</td>
+												<td valign="top">
 													<div id="geoLocateResults"></div>
 												</td>
 											</tr>
