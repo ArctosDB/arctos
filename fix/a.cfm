@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
-		<iframe width="1000" height="1000" id="gl" src="http://www.museum.tulane.edu/geolocate/web/WebGeoref.aspx?v=1&Country=USA&State=Alaska&Locality=Fairbanks"></iframe>
-
+		<iframe width="1000" height="1000" id="gl" src="http://arctos-test.arctos.database.museum/fix/b.cfm"></iframe>
+http://www.museum.tulane.edu/geolocate/web/WebGeoref.aspx?v=1&Country=USA&State=Alaska&Locality=Fairbanks
 <script>
 	function getit() {
 		var lat=$("#lat_id").val();
