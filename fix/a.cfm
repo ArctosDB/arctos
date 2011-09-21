@@ -7,6 +7,14 @@
 		console.log(lat);
 		$("#a").val(lat);
 	}
+	function getit2() {
+		var lat=$("#gl").contents().$("#lat_id").val();
+		console.log(lat);
+		$("#a").val(lat);
+	}
+	
+	 
+	
 </script>
 <cfoutput>
 	
@@ -17,4 +25,6 @@
 	<input name="a" id="a" type="text">
 </form>
 <span onclick="getit()">getit</span>
+<span onclick="getit2()">getit2</span>
+
 </cfoutput>
