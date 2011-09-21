@@ -8,7 +8,7 @@
 		$("#a").val(lat);
 	}
 	function getit2() {
-		var lat=$("#gl").contents()..find('#lat_id').val();
+		var lat=$("#gl").contents().find('#lat_id').val();
 		console.log(lat);
 		$("#a").val(lat);
 	}
