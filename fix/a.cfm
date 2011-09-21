@@ -3,7 +3,9 @@
 
 <script>
 	function getit() {
-		$("#a").val($("#lat_id").val());
+		var lat=$("#lat_id").val();
+		console.log(lat);
+		$("#a").val(lat);
 	}
 </script>
 <cfoutput>
