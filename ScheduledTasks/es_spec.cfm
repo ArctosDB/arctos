@@ -1,10 +1,26 @@
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
-	#action#
 <cfif action is "nothing">
 	<br><A href="es_spec.cfm?action=insBulk">insBulk</A>
-	<br><A href="es_spec.cfm?action=fixWho">fixWho</A>
 	<br><A href="es_spec.cfm?action=findSpec">findSpec</A>
+	<br><A href="es_spec.cfm?action=reset">reset</A>
+	<br><A href="es_spec.cfm?action=shostat">shostat</A>
 </cfif>
+
+
+<cfif action is "shostat">
+	<cfquery name="d" datasource="uam_god">
+		select status,count(*) c from spec_scan group by status
+	</cfquery>
+	<cfdump var=#d#>
+</cfif>
+
+
+<cfif action is "reset">
+	<cfquery name="d" datasource="uam_god">
+		update spec_scan set status = NULL where status not in ('in_bulk')
+	</cfquery>
+</cfif>
+
 <cfif action is "findSpec">
 	<cfquery name="d" datasource="uam_god">
 		select 
@@ -18,10 +34,8 @@
 				status in ('in_bulk')
 			)
 	</cfquery>
-	<cfdump var=#d#>
 	<cfoutput>
 		<cfloop query="d">
-			
 			<cfquery name="cid" datasource="uam_god">
 				select 
 					flat.collection_object_id
@@ -38,7 +52,6 @@
 					p.parent_container_id=c.container_id and
 					c.barcode = '#barcode#'
 			</cfquery>
-			<cfdump var=#cid#>
 			<cfif cid.recordcount is 1>
 				<cfquery name="gguid" datasource="uam_god">
 					update spec_scan set collection_object_id=#cid.collection_object_id# where id=#id#
@@ -51,26 +64,21 @@
 		</cfloop>
 	</cfoutput>
 </cfif>
-
-<cfif action is "fixWho">
+<cfif action is "insBulk">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
 			select who from spec_scan group by who
 		</cfquery>
 		<cfloop query="d">
-			#who#
 			<cfquery name="an" datasource="uam_god">
 				select agent_name from agent_name where agent_name_type='login' and 
 				upper(agent_name)='#ucase(who)#'
 			</cfquery>
-			<cfdump var=#an#>
 			<cfquery name="udn" datasource="uam_god">
 				update spec_scan set who='#an.agent_name#' where who='#who#'
 			</cfquery>
 		</cfloop>
 	</cfoutput>
-</cfif>
-<cfif action is "insBulk">
 	<cfquery name="d" datasource="uam_god">
 		select 
 			spec_scan.id,
@@ -100,7 +108,6 @@
 			spec_scan.collection_object_id is null and
 			spec_scan.idnum like 'AK%'
 	</cfquery>
-	<cfdump var=#d#>
 	<cfloop query="d">
 		<cftry>
 		<cftransaction>

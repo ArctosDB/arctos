@@ -20,7 +20,7 @@
 	alter table loc_card_scan add SeriesEpoch varchar2(255);
 	alter table loc_card_scan add SystemPeriod varchar2(255);
 	
-	
+	CREATE UNIQUE inded iu_loc_card_barcode ON loc_card_scan(barcode);
 	
 		<label for="">Series/Epoch</label>
 		<select name="SeriesEpoch">

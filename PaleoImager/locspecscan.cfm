@@ -99,6 +99,10 @@
 				<td align="right">Formation</td>
 				<td>#formation#</td>
 			</tr>
+			<tr>
+				<td align="right">WhoWhen</td>
+				<td>#who#@#when#</td>
+			</tr>
 		</table>
 		
 		<label for="spec">Specimens</label>
@@ -372,6 +376,7 @@
 <cfif action is "saveNew">
 	<cfset title="ES Imaging: Accn Cards: Dammit">
 	<cftransaction>
+		<h2>If you're reading this, you haven't saved anything.</h2>
 		<br>barcode: #barcode#
 			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select container_id from container where barcode='#barcode#'
@@ -394,7 +399,7 @@
 			<cfif vA.recordcount is 1>
 				<br>is valid (#vA.transaction_id#)
 			<cfelse>
-				<br>is invalid Use your back button.
+				<br>is invalid
 				<cfabort>
 			</cfif>
 			<cfif len(declat) + len(declong)  + len(error_m) gt 0>
@@ -402,8 +407,8 @@
 					<br>You must provide dec lat and dec long together
 					<cfabort>
 				</cfif>
-				<cfif declat lt -90 or declat gt 90 or declong lt -180 or declong gt 180 or error_m lt 1>
-					<br>coordinates hosed
+				<cfif declat lt -90 or declat gt 90 or declong lt -180 or declong gt 180>
+					<br>coordinates invalid
 					<cfabort>
 				</cfif>
 			</cfif>
@@ -492,7 +497,7 @@
 						$('##part_name').val('-entered-').attr('readonly', true).removeClass().addClass("readClr");
 						$('##remark').val('-entered-').attr('readonly', true).removeClass().addClass("readClr");
 					} else {
-						$('##idnum').val('').attr('readonly', false).removeClass().addClass("reqdClr");
+						$('##idnum').attr('readonly', false).removeClass().addClass("reqdClr");
 						$('##taxon_name').val('').attr('readonly', false).removeClass().addClass("reqdClr");
 						$('##part_name').val('').attr('readonly', false).removeClass().addClass("reqdClr");
 						$('##remark').val('').attr('readonly', false).removeClass();
@@ -611,6 +616,16 @@
 			<cfset taxon_name_id=vT.taxon_name_id>
 		<cfelse>
 			is invalid. Use your back button.
+			<cfabort>
+		</cfif>
+		<cfquery name="vP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select part_name from ctspecimen_part_name where collection_cde='ES' and part_name='#part_name#'
+		</cfquery>
+		<br>part_name 
+		<cfif vP.recordcount is 1>
+			is valid
+		<cfelse>
+			is invalid.
 			<cfabort>
 		</cfif>
 	<cfelse>
