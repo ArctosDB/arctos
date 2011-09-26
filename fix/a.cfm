@@ -3,7 +3,7 @@
 			width="1000" 
 			height="1000" 
 			id="gl" 
-			src="http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?state=alaska&locality=fairbanks">
+			src="http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?state=alaska&locality=fairbanks&georef=run">
 		</iframe>
 http://www.museum.tulane.edu/geolocate/web/WebGeoref.aspx?v=1&Country=USA&State=Alaska&Locality=Fairbanks
 <script>
