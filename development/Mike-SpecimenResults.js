@@ -651,29 +651,31 @@ function success_getSpecResultsData(result){
 										'<source src="' + mp3PlaybackUrl + '" type="audio/mpeg">' +
 									'</audio>';
 									
-                                    // Place the player here now, with the ID of the fileName.
+                                    // Place the player here, with the ID of the fileName.
 								  	theInnerHtml +=
                                     '<div id="' + fileName + '" class="jp-jplayer"></div>' +
-                                        '<div class="jp-audio"><div class="jp-type-single">' +
+                                    '<div class="jp-audio">' +
+                                    	'<div class="jp-type-single">' +
                                             '<div id="jp_interface_1" class="jp-interface">' +
                                                 '<ul class="jp-controls">' +
-                                                  '<li><a href="#" class="jp-play" tabindex="1">play</a></li>' +
-                                                  '<li><a href="#" class="jp-pause" tabindex="1">pause</a></li>' +
-                                                  '<li><a href="#" class="jp-mute" tabindex="1">mute</a></li>' +
-                                                  '<li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>' +
+                                                  '<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>' +
+                                                  '<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>' +
+                                                  '<li><a href="javascript:;" class="jp-mute" tabindex="1">mute</a></li>' +
+                                                  '<li><a href="javascript:;" class="jp-unmute" tabindex="1">unmute</a></li>' +
                                                 '</ul>' +
-                                                //'<div class="jp-progress">' +
-                                                //'   <div class="jp-seek-bar" style="width: 100%; ">' +
-                                                //'       <div class="jp-play-bar">' +
-                                                //'</div></div></div>' +
-                                                //'<div class="jp-volume-bar">' +
-                                                //    '<div class="jp-volume-bar-value">' +
-                                                //'</div></div>' +
-                                                //'<div class="jp-current-time"></div>' +
-                                                //'<div class="jp-duration"></div>' +
+                                                '<div class="jp-progress">' +
+                                                '   <div class="jp-seek-bar">' +
+                                                '       <div class="jp-play-bar"></div>' +
+                                                '	</div>' +
+                                                '</div>' +
+                                                '<div class="jp-volume-bar">' +
+                                                    '<div class="jp-volume-bar-value"></div>' +
+                                                '</div>' +
+                                                '<div class="jp-current-time"></div>' +
+                                                '<div class="jp-duration"></div>' +
                                             '</div>' +
-                                        '</div>' +
-                                    '</div>';
+                                    	'</div>' +
+                                	'</div>';
                                    
                                    theInnerHtml +=
                                    '<script>setupAudio("' + fileName + '", "' + mp3PlaybackUrl + '", "' + oggPlaybackUrl + '", "' + wavPlaybackUrl + '");</script>'
@@ -936,15 +938,17 @@ function logIt(msg,status) {
 	}
 }
 function setupAudio(audio_id, url1, url2, url3) {
-	$(audio_id).jPlayer({
-		ready: function () {
-			$(this).jPlayer("setMedia", {
-				mp3: url1,
-				oga: url2,
-				wav: url3
-			});
-		}
-		supplied: "mp3, oga, wav",
-		swfPath: "js/JPlayer.swf"
+	$(document).ready(function(){
+		$(audio_id).jPlayer({
+			ready: function () {
+				$(this).jPlayer("setMedia", {
+					mp3: url1,
+					oga: url2,
+					wav: url3
+				});
+			},
+			supplied: "mp3, oga, wav",
+			swfPath: "js/Jplayer.swf"
+		});
 	});
 }
