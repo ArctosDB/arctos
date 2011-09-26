@@ -172,20 +172,55 @@
 			cDiv.className = 'fancybox-close';
 			cDiv.id='cDiv';
 			cDiv.setAttribute('onclick','closeCust()');
-			$("#popDiv").append(cDiv);
-			$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+			$("##popDiv").append(cDiv);
+			$("##popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
 			var theFrame = document.createElement('iFrame');
 			theFrame.id='theFrame';
 			theFrame.className = 'editFrame';
 			var ptl="http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?state=alaska&locality=fairbanks&georef=run";
 			theFrame.src=ptl;
-			$("#popDiv").append(theFrame);
+			$("##popDiv").append(theFrame);
 			
 	}
 	function clearGeoLocateResults() {
 		$("##geoLocateResults").html('');
 	}
 </script>
+
+<!-----
+
+/*
+			$.getJSON("/component/Bulkloader.cfc",
+				{
+					method : "geolocate",
+					geog: $("##higher_geog").val(),
+					specloc: $("##spec_locality").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function(r) {
+					var glat=r.DATA.GLAT[0];
+					var glon=r.DATA.GLON[0];
+					var gerr=r.DATA.GERR[0];
+					if (glat==''){
+						var d='GeoLocate fail.';
+					} else {
+						var d='GeoLocate found something!';
+						var iu="http://maps.google.com/maps/api/staticmap?key=";
+						iu+='#application.gmap_api_key#';
+						iu+='&center=' + glat + ',' + glon;
+						iu+='&markers=color:red|size:tiny|' + glat + ',' + glon + '&sensor=false&size=100x100&zoom=2&maptype=roadmap';
+						d+='<br><a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=' + glat + '&dec_long=' + glon + '&max_error_meters=' + gerr + '" target="_blank">';
+	                    d+='<img src="' + iu + '" alt="click for BerkeleyMapper"></a>';
+						d+='<br><span style="font-size:x-small">' + glat + ',' + glon + '+/-' + gerr + 'm</span>';
+						d+='<br><span style="font-size:small" class="likeLink" onclick="DEuseGL(' + glat + ',' + glon + ',' + gerr + ')">[ Use This ]</span>';
+						d+='<br><span style="font-size:small" class="likeLink" onclick="clearGeoLocateResults()">[ clear ]</span>';					
+					}
+					$("##geoLocateResults").html(d);
+				}	
+			);
+			*/
+--->
 		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
 			you don't have an ID. <cfabort>
 		</cfif>
