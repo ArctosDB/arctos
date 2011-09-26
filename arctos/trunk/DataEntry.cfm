@@ -130,44 +130,42 @@
 <cfif action is "editEnterData">
 	<cfoutput>
 		<script>
-	  if (window.addEventListener) {
-	        // For standards-compliant web browsers
-	        window.addEventListener("message", getGeolocate, false);
-	    }
-	    else {
-	        window.attachEvent("onmessage", getGeolocate);
-	    }
+if (window.addEventListener) {
+	window.addEventListener("message", getGeolocate, false);
+} else {
+	window.attachEvent("onmessage", getGeolocate);
+}
 	
-	function DEuseGL(glat,glon,gerr){
-		console.log('i am deusegl');
-		
-		if ($("##locality_id").val().length>0 || $("##collecting_event_id").val().length>0){
-			alert('You cannot use geolocate with a picked locality.');
+function DEuseGL(glat,glon,gerr){
+	if ($("##locality_id").val().length>0 || $("##collecting_event_id").val().length>0){
+		alert('You cannot use geolocate with a picked locality.');
+		closeGeoLocate('picked locality fail');
+		return;
+	}
+	if ($("##orig_lat_long_units").val() != ''){
+		var answer = confirm("Replace existing coordinates?")
+		if (! answer){
+			closeGeoLocate('replace denied');
 			return;
 		}
-		if ($("##orig_lat_long_units").val() != ''){
-			var answer = confirm("Replace existing coordinates?")
-			if (! answer){
-				return;
-			}
-		}
-		switchActive('decimal degrees');
-		$("##orig_lat_long_units").val('decimal degrees');
-		$("##max_error_distance").val(gerr);	
-		$("##max_error_units").val('m');	
-		$("##extent").val('');	
-		$("##gpsaccuracy").val('');	
-		$("##datum").val('World Geodetic System 1984');	
-		$("##determined_by_agent").val('#session.username#');	
-		$("##determined_date").val('#dateformat(now(),"yyyy-mm-dd")#');	
-		$("##lat_long_ref_source").val('GeoLocate');	
-		$("##georefmethod").val('GeoLocate');	
-		$("##verificationstatus").val('unverified');	
-		$("##lat_long_remarks").val('');	
-		$("##dec_lat").val(glat);	
-		$("##dec_long").val(glon);
-		closeGeoLocate('inserted coordinates');
 	}
+	switchActive('decimal degrees');
+	$("##orig_lat_long_units").val('decimal degrees');
+	$("##max_error_distance").val(gerr);	
+	$("##max_error_units").val('m');	
+	$("##extent").val('');	
+	$("##gpsaccuracy").val('');	
+	$("##datum").val('World Geodetic System 1984');	
+	$("##determined_by_agent").val('#session.username#');	
+	$("##determined_date").val('#dateformat(now(),"yyyy-mm-dd")#');	
+	$("##lat_long_ref_source").val('GeoLocate');	
+	$("##georefmethod").val('GeoLocate');	
+	$("##verificationstatus").val('unverified');	
+	$("##lat_long_remarks").val('');	
+	$("##dec_lat").val(glat);	
+	$("##dec_long").val(glon);
+	closeGeoLocate('inserted coordinates');
+}
 	function geolocate () {
 			$("##geoLocateResults").html('<img src="/images/indicator.gif">');
 			
