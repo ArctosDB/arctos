@@ -184,7 +184,7 @@
 					var bgDiv = document.createElement('div');
 					bgDiv.id = 'bgDiv';
 					bgDiv.className = 'bgDiv';
-					bgDiv.setAttribute('onclick','closeCust()');
+					bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
 					document.body.appendChild(bgDiv);
 					var popDiv=document.createElement('div');
 					popDiv.id = 'popDiv';
@@ -193,7 +193,7 @@
 					var cDiv=document.createElement('div');
 					cDiv.className = 'fancybox-close';
 					cDiv.id='cDiv';
-					cDiv.setAttribute('onclick','closeCust()');
+					cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
 					$("##popDiv").append(cDiv);
 					$("##popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
 					var theFrame = document.createElement('iFrame');
