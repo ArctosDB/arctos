@@ -52,7 +52,8 @@ function DEuseGL(glat,glon,gerr){
 	$("#extent").val('');	
 	$("#gpsaccuracy").val('');	
 	$("#datum").val('World Geodetic System 1984');	
-	$("#determined_by_agent").val('#session.username#');	
+	$("#determined_by_agent").val('#session.username#');
+	var now = new Date();
 	$("#determined_date").val(toISOString(now));	
 	$("#lat_long_ref_source").val('GeoLocate');	
 	$("#georefmethod").val('GeoLocate');	
