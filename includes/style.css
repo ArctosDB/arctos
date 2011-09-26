@@ -51,6 +51,15 @@
 	width:30px;
 	z-index:10999;
 }
+.fancybox-help {
+	cursor:pointer;
+	height:30px;
+	position:absolute;
+	left:10;
+	top:5;
+	width:50px;
+	z-index:10999;
+}
 #navbar .activeButton , #navbar .activeButton:hover{
 	border:1px solid gray;
 	color:gray;
@@ -693,21 +702,36 @@ div.code {
 	color:#2F4F4F;
 }
 span.helpDiv{
+
     position:relative; /*this is the key*/
+
     z-index:2001;
+
     color:#0000FF;
+
     text-decoration:none;}
+
 .red {background-color:#FF0000;}
+
 redCheck{
+
 	border: 5px solid red;}
+
 .infoLink ,.infoLink a:visited {
 	cursor:pointer;
+
 	color:#2B547E;
+
 	font-size:.65em;
+
 	font-family:Arial, Helvetica, sans-serif;}
+
 .infoLink:hover {
+
 	color:#FF0000;
+
 	text-decoration: underline;
+
 	}
 .browseLink {
 	cursor:pointer;
@@ -716,12 +740,18 @@ redCheck{
 	text-decoration: underline;
 	color: #CC0000;
 	}
+
 .pageHelp, .pagehelp a:visited{
+
 	font-size:.75em;
+
 	font-weight:bold;
 	color:#2B547E;
+
 	float:right;
+
 	}
+
 .error {
 	position:absolute;
 	font-size:1.2em;
@@ -807,85 +837,158 @@ redCheck{
 #navbar span.active:hover {
 	background: #FFFFFF;
 	color: #FF0000; }
+
 div.fldDef {
+
 	float:right; 
+
 	clear:both; 
+
 	border:1px solid green;
+
 	font-size:x-small;
+
 	color:#999999;
+
 	padding:3px;
+
 	margin-left:5px;
+
 	margin-right:2px;
+
 	width:200px;
+
 	z-index:1;}
+
 a.info{
+
     position:relative; /*this is the key*/
+
     z-index:24;
+
     color:#000;
+
     text-decoration:none;}
+
 a.info:hover{z-index:20;
+
 	background-color: transparent;
+
 	font-size:small;}
+
 a.info span{display: none}
+
 a.info:hover span{ /*the span will display just on :hover state*/
+
     display:block;
+
     position:absolute;
+
     top:2em; left:2em;
+
     border:1px solid #0cf;
+
 	background-color:#FFFFFF;
+
     color:#000;
+
     text-align: center;
+
 	text-decoration:none;}
+
 span.helpLink {
+
 	background-color:#FFFFFF; 
+
 	padding:2px;}
+
 h1 {
+
 	font-size:2em;
+
 	font-weight: bold;}
+
 h2 {
+
 	font-size:1.6em;
+
 	font-weight:bold;}
+
 table.sortable a.sortheader {
+
     background-color:#eee;
+
     color:#666666;
+
     font-weight: bold;
+
     text-decoration: none;
+
     display: block;
     }
+
 table.sortable span.sortarrow {
+
     color: black;
+
     text-decoration: none;}
+
 label.h {
 	display:inline;
 	font-size:12px;
 	font-weight:800;
 	padding-right:.5em;}
 label {
+
 	display:block;
+
 	font-size:12px;
+
 	font-weight:800;}
+
 fieldset {
+
 	padding:0;}
+
 div.content {
+
 	margin-left:5px;
+
 	margin-right:5px;
 	clear:both;}
+
 .smaller {
+
 	font-size:.8em;}
+
 div.infoBox {
+
 	background-color:#999999;
+
 	color:#333333;
+
 	font-size:smaller;
+
 	padding:3px;}
+
 .likeLink {
+
 	cursor:pointer;
+
 	color: blue;}
+
 .likeLink:hover {
+
 	text-decoration: underline;
+
 	color: #CC0000;}
+
 div.group {
+
 	background-color:#EFEFEF;
+
 	padding: 5px;
+
 	border: 3px solid #EFEFEF;}
 .controlButton {
 	color:	#666666;
@@ -905,37 +1008,69 @@ div.group {
 .removeRed {
 	border:1px solid red;
 }
+
 .linkButton {
+
 	color:	#666666;
+
 	font-size:10pt;
+
 	font-weight:bold;
+
 	font-family: Arial, Helvetica, sans-serif;
+
 	background-color:#99CCFF;
+
 	border-color: #336666;
+
 	border:1px solid;
+
 	padding:2px;
+
 	text-align:center;}
+
 body {
+
 	font-family:arial,sans-serif;
+
 	background-color:#FFFFFF;}
+
 a:link {
+
 	text-decoration: none; 
+
 	color: blue;}
+
 a:visited:hover {
+
 	text-decoration: underline;
+
 	color: #CC0000;}
+
 a:visited {
+
 	text-decoration: none;
+
 	color:#660099;}
+
 a:hover  {
+
 	text-decoration: underline;
+
 	color: #CC0000;}
+
 a.novisit {
+
 	color: blue;}
+
 .evenRow {
+
 	background-color:#E5E5E5;}
+
 .oddRow {
+
 	background-color:#F5F5F5;}
+
 .indent{
 	text-indent:-2em;
 	padding-left:2em;
@@ -947,92 +1082,172 @@ a.novisit {
 	padding:2em;
 }
 .newRec {
+
 	background-color:#D6F5F2;}
+
 table.newRec {
+
 	background-color: #D6F5F2;
+
 	padding:0;
+
 	border-spacing:0;}
 input.savBtn {
+
    	color:	#666666;
+
    	font-size:10pt;
+
 	font-weight:bold;
+
 	font-family: Arial, Helvetica, sans-serif;
+
 	background-color:#FBD29B;
+
 	border:1px solid;
+
 	border-color: #336666;}
+
 input.lnkBtn {
+
 	color:	#666666;
+
 	font-size:10pt;
+
 	font-weight:bold;
+
 	font-family: Arial, Helvetica, sans-serif;
+
 	background-color:#99CCFF;
+
 	border-color: #336666;
+
 	border:1px solid;}
 .controlButton:hover, input.qutBtn:hover, input.delBtn:hover, input.picBtn:hover, input.clrBtn:hover, input.lnkBtn:hover, input.schBtn:hover, input.insBtn:hover,input.savBtn:hover {
 	border-color:#FF6633;
 	cursor:pointer;
 } 
+
 input.schBtn {
+
 	color:#666666;
+
 	font-size:10pt;
+
 	font-weight:bold;
+
 	font-family:Arial, Helvetica, sans-serif;
+
 	background-color:#CCCC99;
+
 	border-color:#336666;
+
 	border:1px solid;}
 
+
 input.clrBtn {
+
 	color:	#666666;
+
 	font-size:10pt;
+
 	font-weight:bold;
+
 	font-family: Arial, Helvetica, sans-serif;
+
 	background-color:#FFCC00;
+
 	border-color: #336666;
+
 	border:1px solid;}
+
 input.insBtn {
+
 	color:	#666666;
+
 	font-weight:bold;
+
 	background-color:#99CCCC;
+
 	border:1px solid #336666;}
+
 input.picBtn {
+
 	color:	#666666;
+
 	font-size:10pt;
+
 	font-weight:bold;
+
 	font-family: Arial, Helvetica, sans-serif;
+
 	background-color:#CCCC99;
+
 	border-color: #336666;
+
 	border:1px solid;}
+
 input.delBtn {
+
 	color:	#666666;
+
 	font-size:10pt;
+
 	font-weight:bold;
+
 	font-family: Arial, Helvetica, sans-serif;
+
 	background-color:#FF9966;
+
 	border-color: #336666;
+
 	border:1px solid;}
+
 input.qutBtn {
+
 	color:	#666666;
+
 	font-size:10pt;
+
 	font-weight:bold;
+
 	font-family: Arial, Helvetica, sans-serif;
+
 	background-color:#FFFF00  ;
+
 	border-color: #336666;
+
 	border:1px solid;}
+
 input.reqdClr, select.reqdClr, textarea.reqdClr {
+
    background-color:#FFFF33; }
+
 input.badPick, select.badPick, textarea.badPick {
+
 	background-color:#FF3366;}
+
 input.goodPick, select.goodPick, textarea.goodPick {
+
 	background-color:#8BFEB9;}	 
+
 input.seleClr, select.seleClr, textarea.seleClr {
+
 	background-color:#FF0000;}	 	
+
 input.readClr, select.readClr {
+
 	background-color:#CCCCCC;}
 .btnhov {
+
 	border-top-color:#FF6633 ;
+
 	border-left-color:#FF6633 ;
+
 	border-right-color:#FF6666 ;
+
 	border-bottom-color:#FF6666 ;
+
 	cursor:pointer;}
 .external:after {
 	text-decoration: none !important;
