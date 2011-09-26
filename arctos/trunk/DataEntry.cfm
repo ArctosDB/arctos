@@ -228,6 +228,7 @@
                     var glat=breakdown[0];
                     var glon=breakdown[1];
                     var gerr=breakdown[2];
+                    console.log('running with ' + glat + '--' + glon + '--' + gerr);
                     DEuseGL(glat,glon,gerr)
                      
                      
