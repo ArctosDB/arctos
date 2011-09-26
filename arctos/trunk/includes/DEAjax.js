@@ -54,7 +54,13 @@ function DEuseGL(glat,glon,gerr){
 	$("#datum").val('World Geodetic System 1984');	
 	$("#determined_by_agent").val('#session.username#');
 	var now = new Date();
-	$("#determined_date").val(toISOString(now));	
+	console.log(now);
+	var dt=toISOString(now);
+	console.log(dt);
+	var dt2=dt.substring(0,10);
+	console.log(dt2);
+	
+	$("#determined_date").val(dt2);	
 	$("#lat_long_ref_source").val('GeoLocate');	
 	$("#georefmethod").val('GeoLocate');	
 	$("#verificationstatus").val('unverified');	
