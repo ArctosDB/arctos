@@ -54,12 +54,8 @@ function DEuseGL(glat,glon,gerr){
 	$("#datum").val('World Geodetic System 1984');	
 	$("#determined_by_agent").val($("#enteredby").val());
 	var now = new Date();
-	console.log(now);
 	var dt=toISOString(now);
-	console.log(dt);
 	var dt2=dt.substring(0,10);
-	console.log(dt2);
-	
 	$("#determined_date").val(dt2);	
 	$("#lat_long_ref_source").val('GeoLocate');	
 	$("#georefmethod").val('GeoLocate');	
@@ -85,7 +81,6 @@ function geolocate () {
 			queryformat : 'column'
 		},
 		function(r) {
-			console.log(r);
 			var bgDiv = document.createElement('div');
 			bgDiv.id = 'bgDiv';
 			bgDiv.className = 'bgDiv';
