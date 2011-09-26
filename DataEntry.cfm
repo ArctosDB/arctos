@@ -139,6 +139,8 @@
 	    }
 	
 	function DEuseGL(glat,glon,gerr){
+		console.log('i am deusegl');
+		
 		if ($("##locality_id").val().length>0 || $("##collecting_event_id").val().length>0){
 			alert('You cannot use geolocate with a picked locality.');
 			return;
@@ -213,18 +215,23 @@
 	            message = "iframe url does not have permision to interact with me";
 	        }
 	        else {
-	            message = "From GEOLocate @ " + evt.origin + "<br />" + evt.data + "<br /><br />Parsed Results:<br />";
+	            //message = "From GEOLocate @ " + evt.origin + "<br />" + evt.data + "<br /><br />Parsed Results:<br />";
 	            
 
 	            var breakdown = evt.data.split("|");
                 if (breakdown.length == 4)
                 {
-                    message += "Lat:" + breakdown[0] + "<br />";
-                    message += "Lon:" + breakdown[1] + "<br />";
-                    message += "Uncertainty Radius (meters):" + breakdown[2] + "<br />";
-                    message += "Uncertainty Polygon:" + breakdown[3] + "<br />";
+                   // message += "Lat:" + breakdown[0] + "<br />";
+                   // message += "Lon:" + breakdown[1] + "<br />";
+                   // message += "Uncertainty Radius (meters):" + breakdown[2] + "<br />";
+                   // message += "Uncertainty Polygon:" + breakdown[3] + "<br />";
+                    var glat=breakdown[0];
+                    var glon=breakdown[1];
+                    var gerr=breakdown[2;
+                    DEuseGL(glat,glon,gerr)
+                     
+                     
                 }
-                 
 	            
 	            
 	            
