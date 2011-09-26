@@ -132,10 +132,10 @@
 		<script>
 	  if (window.addEventListener) {
 	        // For standards-compliant web browsers
-	        window.addEventListener("message", displayMessage, false);
+	        window.addEventListener("message", getGeolocate, false);
 	    }
 	    else {
-	        window.attachEvent("onmessage", displayMessage);
+	        window.attachEvent("onmessage", getGeolocate);
 	    }
 	
 	function DEuseGL(glat,glon,gerr){
@@ -209,36 +209,25 @@
 	}
 	
 	
-	 function displayMessage(evt) {
+	 function getGeolocate(evt) {
 	        var message;
-	        if (evt.origin !== "http://www.museum.tulane.edu") {
-	            message = "iframe url does not have permision to interact with me";
+	        if (evt.origin !== "http://www.museum.tulane.com") {
+	            alert( "iframe url does not have permision to interact with me" );
+	            closeCust();
 	        }
 	        else {
-	            //message = "From GEOLocate @ " + evt.origin + "<br />" + evt.data + "<br /><br />Parsed Results:<br />";
-	            
-
-	            var breakdown = evt.data.split("|");
-                if (breakdown.length == 4)
-                {
-                   // message += "Lat:" + breakdown[0] + "<br />";
-                   // message += "Lon:" + breakdown[1] + "<br />";
-                   // message += "Uncertainty Radius (meters):" + breakdown[2] + "<br />";
-                   // message += "Uncertainty Polygon:" + breakdown[3] + "<br />";
+	        	var breakdown = evt.data.split("|");
+                if (breakdown.length == 4) {
                     var glat=breakdown[0];
                     var glon=breakdown[1];
                     var gerr=breakdown[2];
                     console.log('running with ' + glat + '--' + glon + '--' + gerr);
                     DEuseGL(glat,glon,gerr)
-                     
-                     
+                } else {
+                	alert( "Whoa - that's not supposed to happen. " +  breakdown.length);
+	            	closeCust();
                 }
-	            
-	            
-	            
-	            
 	        }
-	        console.log(message);
 	    }
 	
 	function clearGeoLocateResults() {
