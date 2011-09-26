@@ -1,5 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
-		<iframe width="1000" height="1000" id="gl" src="http://arctos-test.arctos.database.museum/fix/b.cfm"></iframe>
+		<iframe 
+			width="1000" 
+			height="1000" 
+			id="gl" 
+			src="http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?points=30.1234|-90.1234|||7500">
+		</iframe>
 http://www.museum.tulane.edu/geolocate/web/WebGeoref.aspx?v=1&Country=USA&State=Alaska&Locality=Fairbanks
 <script>
 	function getit() {
@@ -13,13 +18,47 @@ http://www.museum.tulane.edu/geolocate/web/WebGeoref.aspx?v=1&Country=USA&State=
 		$("#a").val(lat);
 	}
 	
-	 
+	  if (window.addEventListener) {
+	        // For standards-compliant web browsers
+	        window.addEventListener("message", displayMessage, false);
+	    }
+	    else {
+	        window.attachEvent("onmessage", displayMessage);
+	    }
+	    
+	    
+	    
+	      function displayMessage(evt) {
+	        var message;
+	        if (evt.origin !== "http://www.museum.tulane.edu") {
+	            message = "iframe url does not have permision to interact with me";
+	        }
+	        else {
+	            message = "From GEOLocate @ " + evt.origin + "<br />" + evt.data + "<br /><br />Parsed Results:<br />";
+	            
+
+	            var breakdown = evt.data.split("|");
+                if (breakdown.length == 4)
+                {
+                    message += "Lat:" + breakdown[0] + "<br />";
+                    message += "Lon:" + breakdown[1] + "<br />";
+                    message += "Uncertainty Radius (meters):" + breakdown[2] + "<br />";
+                    message += "Uncertainty Polygon:" + breakdown[3] + "<br />";
+                }
+                 
+	            
+	            
+	            
+	            
+	        }
+	        document.getElementById("received-message").innerHTML = message;
+	    }
 	
 </script>
 <cfoutput>
 	
 	
-
+<div id="received-message" style="border:2px solid red;"></div>
 
 <form>
 	<input name="a" id="a" type="text">
