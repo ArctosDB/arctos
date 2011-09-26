@@ -137,11 +137,6 @@ if (window.addEventListener) {
 }
 	
 function DEuseGL(glat,glon,gerr){
-	if ($("##locality_id").val().length>0 || $("##collecting_event_id").val().length>0){
-		alert('You cannot use geolocate with a picked locality.');
-		closeGeoLocate('picked locality fail');
-		return;
-	}
 	if ($("##orig_lat_long_units").val() != ''){
 		var answer = confirm("Replace existing coordinates?")
 		if (! answer){
@@ -168,7 +163,11 @@ function DEuseGL(glat,glon,gerr){
 }
 	function geolocate () {
 			$("##geoLocateResults").html('<img src="/images/indicator.gif">');
-			
+			if ($("##locality_id").val().length>0 || $("##collecting_event_id").val().length>0){
+				alert('You cannot use geolocate with a picked locality.');
+				closeGeoLocate('picked locality fail');
+				return;
+			}
 			$.getJSON("/component/Bulkloader.cfc",
 				{
 					method : "splitGeog",
