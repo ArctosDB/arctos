@@ -211,13 +211,13 @@
 	
 	 function getGeolocate(evt) {
 	        var message;
-	        if (evt.origin !== "http://www.museum.tulane.com") {
+	        if (evt.origin !== "http://www.museum.tulane.edu") {
 	            alert( "iframe url does not have permision to interact with me" );
-	            closeCust();
+	            closeGeoLocate('ERROR');
 	        }
 	        else {
 	        	var breakdown = evt.data.split("|");
-                if (breakdown.length == 4) {
+                if (breakdown.length == 3) {
                     var glat=breakdown[0];
                     var glon=breakdown[1];
                     var gerr=breakdown[2];
@@ -225,13 +225,25 @@
                     DEuseGL(glat,glon,gerr)
                 } else {
                 	alert( "Whoa - that's not supposed to happen. " +  breakdown.length);
-	            	closeCust();
+	            	closeGeoLocate('ERROR - breakdown length');
                 }
 	        }
 	    }
 	
 	function clearGeoLocateResults() {
 		$("##geoLocateResults").html('');
+	}
+	
+	function closeGeoLocate(msg) {
+		$('##bgDiv').remove();
+		$('##bgDiv', window.parent.document).remove();
+		$('##popDiv').remove();
+		$('##popDiv', window.parent.document).remove();
+		$('##cDiv').remove();
+		$('##cDiv', window.parent.document).remove();
+		$('##theFrame').remove();
+		$('##theFrame', window.parent.document).remove();
+		$("##geoLocateResults").html(msg);
 	}
 </script>
 
