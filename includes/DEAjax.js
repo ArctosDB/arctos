@@ -15,7 +15,123 @@ jQuery(document).ready(function() {
 		var gid='geology_attribute_' + String(e+1);
 		populateGeology(gid);			
 	});
+	if (window.addEventListener) {
+		window.addEventListener("message", getGeolocate, false);
+	} else {
+		window.attachEvent("onmessage", getGeolocate);
+	}
 });
+function padzero(n) {
+	return n < 10 ? '0' + n : n;
+}
+function pad2zeros(n) {
+	if (n < 100) {
+		n = '0' + n;
+	}
+	if (n < 10) {
+		n = '0' + n;
+	}
+	return n;     
+}
+function toISOString(d) {
+	return d.getUTCFullYear() + '-' +  padzero(d.getUTCMonth() + 1) + '-' + padzero(d.getUTCDate()) + 'T' + padzero(d.getUTCHours()) + ':' +  padzero(d.getUTCMinutes()) + ':' + padzero(d.getUTCSeconds()) + '.' + pad2zeros(d.getUTCMilliseconds()) + 'Z';
+}
+
+function DEuseGL(glat,glon,gerr){
+	if ($("#orig_lat_long_units").val() != ''){
+		var answer = confirm("Replace existing coordinates?")
+		if (! answer){
+			closeGeoLocate('replace denied');
+			return;
+		}
+	}
+	switchActive('decimal degrees');
+	$("#orig_lat_long_units").val('decimal degrees');
+	$("#max_error_distance").val(gerr);	
+	$("#max_error_units").val('m');	
+	$("#extent").val('');	
+	$("#gpsaccuracy").val('');	
+	$("#datum").val('World Geodetic System 1984');	
+	$("#determined_by_agent").val('#session.username#');	
+	$("#determined_date").val(toISOString(now));	
+	$("#lat_long_ref_source").val('GeoLocate');	
+	$("#georefmethod").val('GeoLocate');	
+	$("#verificationstatus").val('unverified');	
+	$("#lat_long_remarks").val('');	
+	$("#dec_lat").val(glat);	
+	$("#dec_long").val(glon);
+	closeGeoLocate('inserted coordinates');
+}
+function geolocate () {
+	$("#geoLocateResults").html('<img src="/images/indicator.gif">');
+	if ($("#locality_id").val().length>0 || $("#collecting_event_id").val().length>0){
+		alert('You cannot use geolocate with a picked locality.');
+		closeGeoLocate('picked locality fail');
+		return;
+	}
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "splitGeog",
+			geog: $("#higher_geog").val(),
+			specloc: $("#spec_locality").val(),
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			console.log(r);
+			var bgDiv = document.createElement('div');
+			bgDiv.id = 'bgDiv';
+			bgDiv.className = 'bgDiv';
+			bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+			document.body.appendChild(bgDiv);
+			var popDiv=document.createElement('div');
+			popDiv.id = 'popDiv';
+			popDiv.className = 'editAppBox';
+			document.body.appendChild(popDiv);	
+			var cDiv=document.createElement('div');
+			cDiv.className = 'fancybox-close';
+			cDiv.id='cDiv';
+			cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+			$("#popDiv").append(cDiv);
+			$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+			var theFrame = document.createElement('iFrame');
+			theFrame.id='theFrame';
+			theFrame.className = 'editFrame';
+			theFrame.src=r;
+			$("#popDiv").append(theFrame);
+		}	
+	);	
+}
+function getGeolocate(evt) {
+	var message;
+	if (evt.origin !== "http://www.museum.tulane.edu") {
+    	alert( "iframe url does not have permision to interact with me" );
+        closeGeoLocate('intruder alert');
+    }
+    else {
+    	var breakdown = evt.data.split("|");
+		if (breakdown.length == 4) {
+		    var glat=breakdown[0];
+		    var glon=breakdown[1];
+		    var gerr=breakdown[2];
+		    DEuseGL(glat,glon,gerr)
+		} else {
+			alert( "Whoa - that's not supposed to happen. " +  breakdown.length);
+			closeGeoLocate('ERROR - breakdown length');
+ 		}
+    }
+}
+function closeGeoLocate(msg) {
+	$('#bgDiv').remove();
+	$('#bgDiv', window.parent.document).remove();
+	$('#popDiv').remove();
+	$('#popDiv', window.parent.document).remove();
+	$('#cDiv').remove();
+	$('#cDiv', window.parent.document).remove();
+	$('#theFrame').remove();
+	$('#theFrame', window.parent.document).remove();
+	$("#geoLocateResults").html(msg);
+}
 function setNewRecDefaults () {
 	var cc = $('#collection_cde').val();
 	var ia =  $('#institution_acronym').val();
