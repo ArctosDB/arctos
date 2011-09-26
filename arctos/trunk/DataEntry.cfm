@@ -734,7 +734,7 @@
 													<span style="font-size:small" class="likeLink" onclick="geolocate()">[ geolocate ]</span>
 												</td>
 												<td valign="top">
-													<div id="geoLocateResults"></div>
+													<div id="geoLocateResults" style="font-size:small">geolocate messages go here</div>
 												</td>
 											</tr>
 										</table>
