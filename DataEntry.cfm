@@ -159,6 +159,28 @@
 	}
 	function geolocate () {
 			$("##geoLocateResults").html('<img src="/images/indicator.gif">');
+			var bgDiv = document.createElement('div');
+			bgDiv.id = 'bgDiv';
+			bgDiv.className = 'bgDiv';
+			bgDiv.setAttribute('onclick','closeCust()');
+			document.body.appendChild(bgDiv);
+			var popDiv=document.createElement('div');
+			popDiv.id = 'popDiv';
+			popDiv.className = 'editAppBox';
+			document.body.appendChild(popDiv);	
+			var cDiv=document.createElement('div');
+			cDiv.className = 'fancybox-close';
+			cDiv.id='cDiv';
+			cDiv.setAttribute('onclick','closeCust()');
+			$("#popDiv").append(cDiv);
+			$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+			var theFrame = document.createElement('iFrame');
+			theFrame.id='theFrame';
+			theFrame.className = 'editFrame';
+			var ptl="http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?state=alaska&locality=fairbanks&georef=run";
+			theFrame.src=ptl;
+			$("#popDiv").append(theFrame);
+			*/
 			$.getJSON("/component/Bulkloader.cfc",
 				{
 					method : "geolocate",
@@ -188,6 +210,7 @@
 					$("##geoLocateResults").html(d);
 				}	
 			);
+			/*
 	}
 	function clearGeoLocateResults() {
 		$("##geoLocateResults").html('');
