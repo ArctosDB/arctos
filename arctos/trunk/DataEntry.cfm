@@ -227,7 +227,7 @@
                    // message += "Uncertainty Polygon:" + breakdown[3] + "<br />";
                     var glat=breakdown[0];
                     var glon=breakdown[1];
-                    var gerr=breakdown[2;
+                    var gerr=breakdown[2];
                     DEuseGL(glat,glon,gerr)
                      
                      
