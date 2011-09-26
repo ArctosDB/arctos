@@ -180,7 +180,7 @@
 			var ptl="http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?state=alaska&locality=fairbanks&georef=run";
 			theFrame.src=ptl;
 			$("#popDiv").append(theFrame);
-			*/
+			/*
 			$.getJSON("/component/Bulkloader.cfc",
 				{
 					method : "geolocate",
@@ -210,7 +210,7 @@
 					$("##geoLocateResults").html(d);
 				}	
 			);
-			/*
+			*/
 	}
 	function clearGeoLocateResults() {
 		$("##geoLocateResults").html('');
