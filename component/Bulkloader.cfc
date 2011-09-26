@@ -1,4 +1,31 @@
 <cfcomponent>
+
+<cffunction name="splitGeog" access="remote">
+	<cfargument name="geog" required="yes">
+	<cfargument name="specloc" required="yes">
+	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select
+			country,
+			county,
+			state_prov
+		from
+			geog_auth_rec
+		where
+			higher_geog='#geog#'
+	</cfquery>
+	<cfset guri="http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run&locality=#specloc#">
+	<cfif len(g.country) gt 0>
+		<cfset guri=listappend(guri,"country=#g.country#","&")>
+	</cfif>
+	<cfif len(g.state) gt 0>
+		<cfset guri=listappend(guri,"state=#g.state_prov#","&")>
+	</cfif>
+	<cfif len(g.county) gt 0>
+		<cfset guri=listappend(guri,"county=#g.county#","&")>
+	</cfif>
+	<cfreturn guri>
+</cffunction>
+<!----------------------------------------------------------------------------------------->	
 <cffunction name="geolocate" access="remote">
 	<cfargument name="geog" required="yes">
 	<cfargument name="specloc" required="yes">
