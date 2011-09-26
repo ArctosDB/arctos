@@ -166,6 +166,7 @@
 		$("##lat_long_remarks").val('');	
 		$("##dec_lat").val(glat);	
 		$("##dec_long").val(glon);
+		closeGeoLocate('inserted coordinates');
 	}
 	function geolocate () {
 			$("##geoLocateResults").html('<img src="/images/indicator.gif">');
@@ -217,11 +218,11 @@
 	        }
 	        else {
 	        	var breakdown = evt.data.split("|");
-                if (breakdown.length == 3) {
+                if (breakdown.length == 4) {
                     var glat=breakdown[0];
                     var glon=breakdown[1];
                     var gerr=breakdown[2];
-                    console.log('running with ' + glat + '--' + glon + '--' + gerr);
+                    //console.log('running with ' + glat + '--' + glon + '--' + gerr);
                     DEuseGL(glat,glon,gerr)
                 } else {
                 	alert( "Whoa - that's not supposed to happen. " +  breakdown.length);
