@@ -17,7 +17,7 @@
 	<cfif len(g.country) gt 0>
 		<cfset guri=listappend(guri,"country=#g.country#","&")>
 	</cfif>
-	<cfif len(g.state) gt 0>
+	<cfif len(g.state_prov) gt 0>
 		<cfset guri=listappend(guri,"state=#g.state_prov#","&")>
 	</cfif>
 	<cfif len(g.county) gt 0>
