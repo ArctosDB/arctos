@@ -39,8 +39,63 @@
 	    $.each($("input[id^='geo_att_determined_date_']"), function() {
 			$("#" + this.id).datepicker();
 	    });
-	    
+	    if (window.addEventListener) {
+			window.addEventListener("message", getGeolocate, false);
+		} else {
+			window.attachEvent("onmessage", getGeolocate);
+		}
 	});
+	function geolocate() {
+		alert('This opens a map. There is a help link at the top. Use it. The "save" button will create a new determination.');
+		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
+		var state_prov=$("#state_prov").val();
+		var country=$("#country").val();
+		var county=$("#county").val();
+		if (state_prov.length > 0){
+			guri+='&state=' + state_prov;
+		}
+		console.log(guri);
+		/*
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "splitGeog",
+			geog: $("#higher_geog").val(),
+			specloc: $("#spec_locality").val(),
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			var bgDiv = document.createElement('div');
+			bgDiv.id = 'bgDiv';
+			bgDiv.className = 'bgDiv';
+			bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+			document.body.appendChild(bgDiv);
+			var popDiv=document.createElement('div');
+			popDiv.id = 'popDiv';
+			popDiv.className = 'editAppBox';
+			document.body.appendChild(popDiv);	
+			var cDiv=document.createElement('div');
+			cDiv.className = 'fancybox-close';
+			cDiv.id='cDiv';
+			cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+			$("#popDiv").append(cDiv);
+			
+			var hDiv=document.createElement('div');
+			hDiv.className = 'fancybox-help';
+			hDiv.id='hDiv';
+			hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
+			$("#popDiv").append(hDiv);
+			
+			$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+			var theFrame = document.createElement('iFrame');
+			theFrame.id='theFrame';
+			theFrame.className = 'editFrame';
+			theFrame.src=r;
+			$("#popDiv").append(theFrame);
+		}	
+	);	
+	}
+	*/
 	function populateGeology(id) {
 		if (id=='geology_attribute') {
 			// new geol attribute
@@ -224,13 +279,10 @@
 			<tr>
 				<td>
 	            	<label for="higher_geog">Higer Geography</label>
-	            	<input type="text" 
-						name="higher_geog" 
-						id="higher_geog"
-						value="#higher_geog#"
-						size="120"
-						class="readClr" 
-						readonly="yes" >           
+	            	<input type="text" name="higher_geog" id="higher_geog" value="#higher_geog#" size="120" class="readClr" readonly="yes">
+					<input type="hidden" name="state_prov" id="state_prov" value="#state_prov#">
+					<input type="hidden" name="country" id="country" value="#country#">
+					<input type="hidden" name="county" id="county" value="#county#">
 				</td>
 			</tr>
 			<tr>
@@ -443,6 +495,7 @@
 							<input type="button" value="New Coll Event" class="insBtn"
 								 onmouseover="this.className='insBtn btnhov'" 
 								 onmouseout="this.className='insBtn'" onClick="nada.submit();">
+							<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
 						</div>
 						 </td>
 					</tr>
@@ -466,6 +519,7 @@
 				     </span>	
 				</td>
 			</tr>
+			<!---
 			<cfhttp method="post" url="http://www.museum.tulane.edu/webservices/geolocatesvcv2/geolocatesvc.asmx/Georef2" timeout="5">
 			    <cfhttpparam name="Country" type="FormField" value="#country#">
 			    <cfhttpparam name="County" type="FormField" value="#county#">
@@ -501,6 +555,7 @@
 					<br>GeoLocate could not automatically georeference this locality string.
 				</cfif>
 			</cfif>
+			--->
 		</table>
 		<cfset i=1>
 		<table border>
