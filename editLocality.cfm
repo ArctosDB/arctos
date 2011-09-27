@@ -243,77 +243,49 @@
      </cfquery>
 	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
-     </cfquery>	                                 
-  	<table border>
-  		<tr>
-			<td>
-  				<cfif whatSpecs.recordcount is 0>
-  					<font color="##FF0000">This Locality (#locDet.locality_id#)
-					<img src="/images/info.gif" border="0" class="likeLink" onClick="getDocs('locality')">
-					contains no specimens. Please delete it if you don't have plans for it!</font>	
-  				<cfelseif #whatSpecs.recordcount# is 1>
-					<font color="##FF0000">This Locality (#locDet.locality_id#)
-					<img src="/images/info.gif" border="0" class="likeLink" onClick="getDocs('locality')">
-					contains #whatSpecs.numOfSpecs# #whatSpecs.collection# 
-					<a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>.</font>	
+     </cfquery>
+		<div style="padding:1em;margin-left:2em;margin-right:2em;border:2px solid red;">
+			This locality contains
+			<cfif whatSpecs.recordcount is 0>
+  					no specimens. Please delete it if you don't have plans for it.
+  			<cfelseif whatSpecs.recordcount is 1>
+					#whatSpecs.numOfSpecs# #whatSpecs.collection# 
+					<a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>
 				<cfelse>
-					<font color="##FF0000">This Locality (#locDet.locality_id#)
-					<img src="/images/info.gif" border="0" class="likeLink" onClick="getDocs('locality')">
-					contains the following <a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>:</font>	  
+					 the following <a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>:  
 					<ul>	
 						<cfloop query="whatSpecs">
 							<li><font color="##FF0000">#numOfSpecs# #collection#</font></li>
 						</cfloop>			
 					</ul>
   				</cfif>
-			</td>
-		</tr>  
-	</cfoutput>
-	<cfoutput query="locDet"> 
+		</div>
 		<form name="geog" action="editLocality.cfm" method="post">
 			<input type="hidden" name="action" value="changeGeog">
             <input type="hidden" name="geog_auth_rec_id">
-            <input type="hidden" name="locality_id" value="#locality_id#">
-			
-			<tr>
-				<td>
-	            	<label for="higher_geog">Higer Geography</label>
-	            	<input type="text" name="higher_geog" id="higher_geog" value="#higher_geog#" size="120" class="readClr" readonly="yes">
-					<input type="hidden" name="state_prov" id="state_prov" value="#state_prov#">
-					<input type="hidden" name="country" id="country" value="#country#">
-					<input type="hidden" name="county" id="county" value="#county#">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="button" value="Change" class="picBtn" id="changeGeogButton"
-						onclick="document.getElementById('saveGeogChangeButton').style.display='';document.getElementById('higher_geog').className='red';GeogPick('geog_auth_rec_id','higher_geog','geog'); return false;">
-			 		<input type="submit" value="Save" class="savBtn" id="saveGeogChangeButton" style="display:none">
-					<input type="button" value="Edit" class="lnkBtn"
-						onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#'">
-				</td>
-			</tr>  
-         </form>
-         <form name="locality" method="post" action="editLocality.cfm">
-            <input type="hidden" name="action" value="saveLocalityEdit">
-            <input type="hidden" name="locality_id" value="#locality_id#">
-         </table>
-			<hr />
-            <table>
-			<tr>
-				<td><strong>Locality</strong></td>
-			</tr>
-            <tr> 
-            	<td>
-					<label for="spec_locality">
-						<a href="javascript:void(0);" onClick="getDocs('locality','specific_locality')">
-							Specific Locality
-						</a>
-					</label>
+            <input type="hidden" name="locality_id" value="#locDet.locality_id#">
+			<label for="higher_geog">Higer Geography</label>
+	        <input type="text" name="higher_geog" id="higher_geog" value="#locDet.higher_geog#" size="120" class="readClr" readonly="yes">
+	        <input type="hidden" name="state_prov" id="state_prov" value="#locDet.state_prov#">
+			<input type="hidden" name="country" id="country" value="#locDet.country#">
+			<input type="hidden" name="county" id="county" value="#locDet.county#">
+			<input type="button" value="Change" class="picBtn" id="changeGeogButton"
+				onclick="document.getElementById('saveGeogChangeButton').style.display='';document.getElementById('higher_geog').className='red';GeogPick('geog_auth_rec_id','higher_geog','geog'); return false;">
+			<input type="submit" value="Save" class="savBtn" id="saveGeogChangeButton" style="display:none">
+			<input type="button" value="Edit" class="lnkBtn"
+				onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
+		</form>
+        <form name="locality" method="post" action="editLocality.cfm">
+        	<input type="hidden" name="action" value="saveLocalityEdit">
+            <input type="hidden" name="locality_id" value="#locDet.locality_id#">
+        	<strong>Locality</strong>
+			<label for="spec_locality" class="likeLink" onClick="getDocs('locality','specific_locality')">
+				Specific Locality
+			</label>
 					<input type="text"
 						id="spec_locality" 
 						name="spec_locality" 
-						value="#stripQuotes(spec_locality)#"  
+						value="#stripQuotes(locDet.spec_locality)#"  
 						size="120">
 				</td>
 			</tr>
@@ -329,7 +301,7 @@
 								</label>
 								<input type="text" name="minimum_elevation" 
 									id="minimum_elevation" 
-									value="#minimum_elevation#" size="3">&nbsp;TO&nbsp;
+									value="#locDet.minimum_elevation#" size="3">&nbsp;TO&nbsp;
 							</td>
 							<td>
 								<label for="maximum_elevation">
@@ -339,7 +311,7 @@
 								</label>
 								<input type="text" name="maximum_elevation" 
 									id="maximum_elevation" 
-									value="#maximum_elevation#" size="3">&nbsp;&nbsp;
+									value="#locDet.maximum_elevation#" size="3">&nbsp;&nbsp;
 							</td>
 							<td>
 								<label for="orig_elev_units">
@@ -350,7 +322,7 @@
 								<select name="orig_elev_units" size="1" id="orig_elev_units">
 									<option value=""></option>
 				                    <cfloop query="ctElevUnit">
-				                      <option <cfif #ctelevunit.orig_elev_units# is "#locdet.orig_elev_units#"> selected </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
+				                      <option <cfif ctelevunit.orig_elev_units is locdet.orig_elev_units> selected="selected" </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
 				                    </cfloop>
 				                  </select>
 							</td>
@@ -370,7 +342,7 @@
 								</label>
 								<input type="text" name="min_depth" 
 									id="min_depth" 
-									value="#min_depth#" size="3">&nbsp;TO&nbsp;
+									value="#locDet.min_depth#" size="3">&nbsp;TO&nbsp;
 							</td>
 							<td>
 								<label for="max_depth">
@@ -380,7 +352,7 @@
 								</label>
 								<input type="text" name="max_depth" 
 									id="max_depth" 
-									value="#max_depth#" size="3">&nbsp;&nbsp;
+									value="#locDet.max_depth#" size="3">&nbsp;&nbsp;
 							</td>
 							<td>
 								<label for="depth_units">
@@ -391,7 +363,7 @@
 								<select name="depth_units" size="1" id="depth_units">
 									<option value=""></option>
 				                    <cfloop query="ctDepthUnit">
-				                      <option <cfif #ctDepthUnit.depth_units# is "#locdet.depth_units#"> selected </cfif>value="#ctDepthUnit.depth_units#">#ctDepthUnit.depth_units#</option>
+				                      <option <cfif ctDepthUnit.depth_units is locdet.depth_units> selected="selected" </cfif>value="#ctDepthUnit.depth_units#">#ctDepthUnit.depth_units#</option>
 				                    </cfloop>
 				                  </select>
 							</td>
@@ -405,7 +377,7 @@
 						Locality Remarks
 					</label>
 					<input type="text" name="locality_remarks" id="locality_remarks" 
-						value="#stripQuotes(locality_remarks)#"  size="120">
+						value="#stripQuotes(locDet.locality_remarks)#"  size="120">
 				</td>
               </tr>
 			<tr>
@@ -414,13 +386,13 @@
 						Not Georeferenced Because
 					</label>
 					<input type="text" name="NoGeorefBecause" 
-						id="NoGeorefBecause" value="#NoGeorefBecause#"  size="120">
-					<cfif getLL.recordcount gt 0 AND len(#NoGeorefBecause#) gt 0>
+						id="NoGeorefBecause" value="#locDet.NoGeorefBecause#"  size="120">
+					<cfif getLL.recordcount gt 0 AND len(locDet.NoGeorefBecause) gt 0>
 						<div style="background-color:red">
 							NoGeorefBecause should be NULL for localities with georeferences.
 							Please review this locality and update accordingly.
 						</div>
-					<cfelseif getLL.recordcount is 0 AND len(#NoGeorefBecause#) is 0>
+					<cfelseif getLL.recordcount is 0 AND len(locDet.NoGeorefBecause) is 0>
 						<div style="background-color:red">
 							Please georeference this locality or enter a value for NoGeorefBecause.
 						</div>
@@ -429,33 +401,16 @@
               </tr>
               <tr> 
                 <td><div align="center"> 
-                   <input type="submit" value="Save" class="savBtn"
-  						 onmouseover="this.className='savBtn btnhov'" 
-						 onmouseout="this.className='savBtn'">
-					 <input type="button" value="Quit" class="qutBtn"
-  						 onmouseover="this.className='qutBtn btnhov'" 
-						 onmouseout="this.className='qutBtn'"
-						 onClick="document.location='Locality.cfm';">
-					<input type="button" value="Delete" class="delBtn"
-  						 onmouseover="this.className='delBtn btnhov'" 
-						 onmouseout="this.className='delBtn'"
-						 onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
-					<input type="button" value="Map" class="lnkBtn"
-  						 onmouseover="this.className='lnkBtn btnhov'" 
-						 onmouseout="this.className='lnkBtn'"
-						 onClick="window.open('/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#','bnhmMap');">
-						
+                   <input type="submit" value="Save" class="savBtn">
+					<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
+					<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank">[ Map All Georeferences ]</a>
+					<a href="Locality.cfm?Action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
                   </div>
 				  		
 					</td>
               </tr>
               <tr> 
-                <td><div align="center"> 
-					<input type="button" value="Collecting Events" class="lnkBtn"
-  						 onmouseover="this.className='lnkBtn btnhov'" 
-						 onmouseout="this.className='lnkBtn'"
-						 onClick="document.location='Locality.cfm?Action=findCollEvent&locality_id=#locality_id#';">
-					</div></td>
+                <td></td>
               </tr>
           </form>
 		  <form name="cloneLoc" method="post" action="Locality.cfm">
