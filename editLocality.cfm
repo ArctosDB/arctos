@@ -464,13 +464,15 @@
 		                  </select>
 					</td>
 					<td nowrap>
-		                <label for="accepted_lat_long_fg#i#" onClick="getDocs('lat_long','accepted')" class="likeLink">
-							Accepted?
-						</label>
-						<select name="accepted_lat_long_fg" id="accepted_lat_long_fg#i#" size="1" class="reqdClr">
-							<option <cfif accepted_lat_long_fg is 1> selected="selected" </cfif>value="1">yes</option>
-							<option <cfif accepted_lat_long_fg is 0> selected="selected" </cfif> value="0">no</option>
-						</select>
+						<div style="border:1px solid <cfif accepted_lat_long_fg is 1>green<cfelse>red</cfif>;">
+			                <label for="accepted_lat_long_fg#i#" onClick="getDocs('lat_long','accepted')" class="likeLink">
+								Accepted?
+							</label>
+							<select name="accepted_lat_long_fg" id="accepted_lat_long_fg#i#" size="1" class="reqdClr">
+								<option <cfif accepted_lat_long_fg is 1> selected="selected" </cfif>value="1">yes</option>
+								<option <cfif accepted_lat_long_fg is 0> selected="selected" </cfif> value="0">no</option>
+							</select>
+						</div>
 					</td>
 					<td>
 						<label for="determined_by#i#" onClick="getDocs('lat_long','determiner')" class="likeLink">
