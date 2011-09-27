@@ -4,6 +4,7 @@
 <cfoutput>
 					<script>
 						function useGL(glat,glon,gerr){
+							console.log('I am useGL');
 							
 							showLLFormat('decimal degrees','');
 							$("##accepted_lat_long_fg").val('1');
@@ -21,7 +22,7 @@
 							$("##dec_lat").val(glat);
 							$("##dec_long").val(glon);
 							
-							
+							closeGeoLocate();
 						}
 					</script>
 	</cfoutput>
@@ -84,7 +85,7 @@
 	}
 	
 	function getGeolocate(evt) {
-		console.log('got it...');
+		console.log('I am getGeolocate');
 		var message;
 		if (evt.origin !== "http://www.museum.tulane.edu") {
 	    	alert( "iframe url does not have permision to interact with me" );
@@ -519,6 +520,7 @@ function closeGeoLocate(msg) {
 					</tr>
 		   </table>
 		   <hr />
+		   <div id="geoLocateResults">fffff</div>
         <table>
 			<tr>
 				<td>
