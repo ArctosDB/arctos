@@ -93,9 +93,10 @@
 			theFrame.src=r;
 			$("#popDiv").append(theFrame);
 		}	
-	);	
+	);
+		*/
+	
 	}
-	*/
 	function populateGeology(id) {
 		if (id=='geology_attribute') {
 			// new geol attribute
