@@ -710,6 +710,7 @@
 	<form name="newlatLong" method="post" action="editLocality.cfm">
 		<input type="hidden" name="action" value="AddLatLong">
 		<input type="hidden" name="locality_id" value="#locDet.locality_id#">
+		<span style="margin:1em;display:inline-block;padding:1em;border:3px solid blue;">
 		<table class="newRec">
 			<tr>
 				<td>
@@ -730,7 +731,7 @@
 			</tr>
 			<tr>
 				<td>		
-					<table border id="llMeta" style="display:none;">
+					<table id="llMeta" style="display:none;">
               			<tr> 		 
                 			<td>
 								<label for="ORIG_LAT_LONG_UNITS" class="likeLink" onClick="getDocs('lat_long','original_units')">Original Units</label>
@@ -949,6 +950,7 @@
 				</td>
 			</tr>
 		</table>
+		</span>
 	</form>	
 	<hr>
 	<strong>Geology Attributes</strong>	
