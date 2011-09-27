@@ -1265,6 +1265,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "deleteLocality">
 <cfoutput>
+	<cfdump var=#form#>
 	<cfquery name="isColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collecting_event_id from collecting_event where locality_id=#locality_id#
 	</cfquery>
