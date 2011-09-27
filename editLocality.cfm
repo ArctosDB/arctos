@@ -386,37 +386,15 @@
 					Please georeference this locality or enter a value for NoGeorefBecause.
 				</div>
 			</cfif>
-			<div align="center"> 
-            	<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
-				
-				<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
-				
-				<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
-            	
-				<input type="button" value="Add Collecting Event" class="insBtn" 
-					onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
-				
-				<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
-				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank">[ Map All Georeferences ]</a>
-				<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
-            </div>
+           	<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
+			<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
+			<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
+			<input type="button" value="Add Collecting Event" class="insBtn" 
+				onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
+			<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
+			<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank">[ Map All Georeferences ]</a>
+			<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
 		</form>
-		<form name="cloneLoc" method="post" action="Locality.cfm">
-			<input type="hidden" name="action" value="newLocality">
-			<input type="hidden" name="geog_auth_rec_id" value="#locDet.geog_auth_rec_id#">
-			<input type="hidden" name="spec_locality" value="#locDet.spec_locality#">
-			<input type="hidden" name="minimum_elevation" value="#locDet.minimum_elevation#">
-			<input type="hidden" name="maximum_elevation" value="#locDet.maximum_elevation#">
-			<input type="hidden" name="ORIGEELEVUNITS" value="#locDet.orig_elev_units#">
-			<input type="hidden" name="locality_id" value="#locDet.locality_id#">
-		</form>
-		<form name="nada" method="post" action="Locality.cfm">
-			<input type="hidden" name="action" value="newCollEvent">
-			<input type="hidden" name="locality_id" value="#locDet.locality_id#">
-		</form>
-		 <div align="center">
-			
-		</div>
 		<hr />
         <table>
 			<tr>
@@ -491,7 +469,7 @@
 				<td rowspan="6">
 					<cfif len(dec_lat) gt 0>
 						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
-						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=200x200&zoom=2">
 						<cfset iu=iu & "&maptype=roadmap">
 						<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank">
                         	<img src="#iu#" alt="Google Map">
