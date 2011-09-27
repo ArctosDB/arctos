@@ -260,6 +260,7 @@
 					</ul>
   				</cfif>
 		</span>
+		<p>Higher Geography</p>
 		<form name="geog" action="editLocality.cfm" method="post">
 			<input type="hidden" name="action" value="changeGeog">
             <input type="hidden" name="geog_auth_rec_id">
