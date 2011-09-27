@@ -863,7 +863,7 @@
         </cfoutput>
 		</table>
 		 <cfoutput> 
-		<a name="newLL"></a>
+		<a name="newLL" id="newLL"></a>
 		<form name="newlatLong" method="post" action="editLocality.cfm">
             <input type="hidden" name="Action" value="AddLatLong">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
