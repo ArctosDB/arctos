@@ -734,7 +734,7 @@
 				                 </select>
 							</td>
 							<td nowrap>
-				                <label for="accepted_lat_long_fg" class="likeLink" onClick="getDocs('lat_long','accepted')">Accepted?<</label>
+				                <label for="accepted_lat_long_fg" class="likeLink" onClick="getDocs('lat_long','accepted')">Accepted?</label>
 								<select name="accepted_lat_long_fg" id="accepted_lat_long_fg" size="1" class="reqdClr">
 									<option selected value="1">yes</option>
 									<option value="0">no</option>
@@ -941,108 +941,92 @@
 				</td>
 			</tr>
 		</table>
-	</form>
-	
-	
-	
-	
-	
-	
-	
-  <table >
+	</form>	
 	<hr>
-	Edit Geology Attributes
+	<strong>Geology Attributes</strong>	
 	<cfif geolDet.recordcount gt 0>
-		<table border>
-			<form name="editGeolAtt" method="post" action="editLocality.cfm">
-				<input type="hidden" name="action" value="editGeol">
-            	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
-				<input type="hidden" name="number_of_determinations" value="#geolDet.recordcount#">
-		
+		<form name="editGeolAtt" method="post" action="editLocality.cfm">
+			<input type="hidden" name="action" value="editGeol">
+           	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
+			<input type="hidden" name="number_of_determinations" value="#geolDet.recordcount#">
 			<cfset i=1>
-			<cfloop query="geolDet">
-				<input type="hidden" name="geology_attribute_id_#i#" value="#geology_attribute_id#">
-				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-					<td>
-						<label for="geology_attribute_#i#">Geology Attribute</label>
-						<cfset ttAtt=#geology_attribute#>
-						<select name="geology_attribute_#i#" id="geology_attribute_#i#" class="reqdClr" onchange="populateGeology(this.id)">
-							<option value="delete" class="red">Delete This</option>
-							<cfloop query="ctgeology_attribute">
-								<option <cfif #geology_attribute# is #ttAtt#> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
-							</cfloop>
-						</select>
-						<span class="infoLink" onclick="document.getElementById('geology_attribute_#i#').value='delete'">Delete This</span>	
-						<label for="geo_att_value">Value</label>
-						<select name="geo_att_value_#i#" id="geo_att_value_#i#" class="reqdClr">
-							<option value="#geo_att_value#">#geo_att_value#</option>
-						</select>
-						<label for="geo_att_determiner_#i#">Determiner</label>
-						<input type="text" name="geo_att_determiner_#i#"  size="40"
-							onchange="getAgent('geo_att_determiner_id_#i#','geo_att_determiner_#i#','editGeolAtt',this.value); return false;"
-		 					onKeyPress="return noenter(event);"
-		 					value="#agent_name#">
-						<input type="hidden" name="geo_att_determiner_id_#i#" id="geo_att_determiner_id" value="#geo_att_determiner_id#">
-						<label for="geo_att_determined_date_#i#">Date</label>
-						<input type="text" name="geo_att_determined_date_#i#" id="geo_att_determined_date_#i#"
-							value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#">
-						<label for="geo_att_determined_method_#i#">Method</label>
-						<input type="text" name="geo_att_determined_method_#i#" 
-							size="60"  value="#geo_att_determined_method#">
-						<label for="geo_att_remark_#i#">Remark</label>
-						<input type="text" name="geo_att_remark_#i#"
-							size="60" value="#geo_att_remark#">
+			<table border>
+				<cfloop query="geolDet">
+					<input type="hidden" name="geology_attribute_id_#i#" value="#geology_attribute_id#">
+					<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<td>
+							<label for="geology_attribute_#i#">Geology Attribute</label>
+							<select name="geology_attribute_#i#" id="geology_attribute_#i#" class="reqdClr" onchange="populateGeology(this.id)">
+								<option value="delete" class="red">Delete This</option>
+								<cfloop query="ctgeology_attribute">
+									<option <cfif #geology_attribute# is geolDet.geology_attribute> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
+								</cfloop>
+							</select>
+							<span class="infoLink" onclick="document.getElementById('geology_attribute_#i#').value='delete'">Delete This</span>	
+							<label for="geo_att_value">Value</label>
+							<select name="geo_att_value_#i#" id="geo_att_value_#i#" class="reqdClr">
+								<option value="#geo_att_value#">#geo_att_value#</option>
+							</select>
+							<label for="geo_att_determiner_#i#">Determiner</label>
+							<input type="text" name="geo_att_determiner_#i#"  size="40"
+								onchange="getAgent('geo_att_determiner_id_#i#','geo_att_determiner_#i#','editGeolAtt',this.value); return false;"
+			 					onKeyPress="return noenter(event);"
+			 					value="#agent_name#">
+							<input type="hidden" name="geo_att_determiner_id_#i#" id="geo_att_determiner_id" value="#geo_att_determiner_id#">
+							<label for="geo_att_determined_date_#i#">Date</label>
+							<input type="text" name="geo_att_determined_date_#i#" id="geo_att_determined_date_#i#" value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#">
+							<label for="geo_att_determined_method_#i#">Method</label>
+							<input type="text" name="geo_att_determined_method_#i#" size="60"  value="#geo_att_determined_method#">
+							<label for="geo_att_remark_#i#">Remark</label>
+							<input type="text" name="geo_att_remark_#i#" size="60" value="#geo_att_remark#">
+						</td>
+					</tr>
+					<cfset i=i+1>
+				</cfloop>
+				<tr>
+					<td colspan="2">
+						<input type="submit" value="Save Changes"  class="savBtn">
 					</td>
 				</tr>
-				<cfset i=i+1>
-			</cfloop>
-			<tr>
-				<td colspan="2">
-					<input type="submit" 
-					value="Save Changes" 
-					class="savBtn"
-					onmouseover="this.className='savBtn btnhov'"
-					onmouseout="this.className='savBtn'">
-				</td>
-			</tr>
-			
-		</table>
-
+			</table>
 		</form>
 	</cfif>
 	<table class="newRec">
-		<tr><td>
-	Create Geology Determination
-	<form name="newGeolDet" method="post" action="editLocality.cfm">
-            <input type="hidden" name="action" value="AddGeol">
-            <input type="hidden" name="locality_id" value="#locDet.locality_id#">
-			<label for="geology_attribute">Geology Attribute</label>
-			<select name="geology_attribute" id="geology_attribute" class="reqdClr" onchange="populateGeology(this.id)">
-				<option value=""></option>
-				<cfloop query="ctgeology_attribute">
-					<option value="#geology_attribute#">#geology_attribute#</option>
-				</cfloop>
-			</select>
-			<label for="geo_att_value">Value</label>
-			<select name="geo_att_value" id="geo_att_value" class="reqdClr"></select>
-			<label for="geo_att_determiner">Determiner</label>
-			<input type="text" name="geo_att_determiner" id="geo_att_determiner" size="40"
-						onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
-		 				onKeyPress="return noenter(event);">
-			<input type="hidden" name="geo_att_determiner_id" id="geo_att_determiner_id">
-			<label for="geo_att_determined_date">Determined Date</label>
-			<input type="text" name="geo_att_determined_date" id="geo_att_determined_date">
-			<label for="geo_att_determined_method">Determination Method</label>
-			<input type="text" name="geo_att_determined_method" id="geo_att_determined_method" size="60">
-			<label for="geo_att_remark">Remark</label>
-			<input type="text" name="geo_att_remark" id="geo_att_remark" size="60">
-			<br>
-			<input type="submit" 
-					value="Create Determination" 
-					class="insBtn"
-					onmouseover="this.className='insBtn btnhov'"
-					onmouseout="this.className='insBtn'">
-			</td></tr>
+		<tr>
+			<td>
+				<strong>Create Geology Determination</strong>
+				<form name="newGeolDet" method="post" action="editLocality.cfm">
+		            <input type="hidden" name="action" value="AddGeol">
+		            <input type="hidden" name="locality_id" value="#locDet.locality_id#">
+					<label for="geology_attribute">Geology Attribute</label>
+					<select name="geology_attribute" id="geology_attribute" class="reqdClr" onchange="populateGeology(this.id)">
+						<option value=""></option>
+						<cfloop query="ctgeology_attribute">
+							<option value="#geology_attribute#">#geology_attribute#</option>
+						</cfloop>
+					</select>
+					<label for="geo_att_value">Value</label>
+					<select name="geo_att_value" id="geo_att_value" class="reqdClr"></select>
+					<label for="geo_att_determiner">Determiner</label>
+					<input type="text" name="geo_att_determiner" id="geo_att_determiner" size="40"
+								onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
+				 				onKeyPress="return noenter(event);">
+					<input type="hidden" name="geo_att_determiner_id" id="geo_att_determiner_id">
+					<label for="geo_att_determined_date">Determined Date</label>
+					<input type="text" name="geo_att_determined_date" id="geo_att_determined_date">
+					<label for="geo_att_determined_method">Determination Method</label>
+					<input type="text" name="geo_att_determined_method" id="geo_att_determined_method" size="60">
+					<label for="geo_att_remark">Remark</label>
+					<input type="text" name="geo_att_remark" id="geo_att_remark" size="60">
+					<br>
+					<input type="submit" 
+							value="Create Determination" 
+							class="insBtn"
+							onmouseover="this.className='insBtn btnhov'"
+							onmouseout="this.className='insBtn'">
+				</form>
+			</td>
+		</tr>
 	</table>
 </cfoutput> 
 <cfinclude template="/includes/_footer.cfm">
