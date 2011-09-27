@@ -18,7 +18,6 @@
 			$("##dec_lat").val(glat);
 			$("##dec_long").val(glon);
 			$(document).scrollTo( $('##newLL'), 800 );
-			
 			closeGeoLocate();
 		}
 	</script>
@@ -108,7 +107,6 @@
 	}
 	function populateGeology(id) {
 		if (id=='geology_attribute') {
-			// new geol attribute
 			var idNum='';
 			var thisValue=$("#geology_attribute").val();
 			var dataValue=$("#geo_att_value").val();
@@ -140,17 +138,13 @@
 		);
 	}	
 	function showLLFormat(orig_units,recID) {
-		//alert(recID);
 		if (recID.length == 0) {
-			//alert('new');
 			var addNewLL = document.getElementById('addNewLL');
 			addNewLL.style.display='none';
 			var llMeta = document.getElementById('llMeta');
 			llMeta.style.display='';
-					
 		}
 		var dd = 'dd' + recID;
-		//alert('dd='+dd+':');
 		var dd = document.getElementById(dd);
 		var utm = 'utm' + recID;
 		var utm = document.getElementById(utm);
@@ -162,16 +156,12 @@
 		utm.style.display='none';
 		ddm.style.display='none';
 		dms.style.display='none';
-		//alert('everything off');
 		if (orig_units.length > 0) {
-			//alert('got something');
 			if (orig_units == 'decimal degrees') {
 				dd.style.display='';
 			} 
 			else if (orig_units == 'UTM') {
-				//alert(utm.style.display);
 				utm.style.display='';
-				//alert(utm.style.display);
 			}
 			else if (orig_units == 'degrees dec. minutes') {
 				ddm.style.display='';
@@ -230,31 +220,31 @@
         and locality_id=#locality_id# 
 		order by ACCEPTED_LAT_LONG_FG DESC, lat_long_id
      </cfquery>
-     <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+     <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select datum from ctdatum order by datum
      </cfquery>
-	<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select orig_elev_units from ctorig_elev_units order by orig_elev_units
 	</cfquery>
-	<cfquery name="ctDepthUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctDepthUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select depth_units from ctdepth_units order by depth_units
 	</cfquery>
-        <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+        <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by LAT_LONG_ERROR_UNITS
      </cfquery>
-     <cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+     <cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select georefMethod from ctgeorefmethod order by georefMethod 
 	</cfquery>
-	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VerificationStatus from ctVerificationStatus order by VerificationStatus
 	</cfquery>
-     <cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+     <cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by ORIG_LAT_LONG_UNITS
      </cfquery>
-	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>	                                 
-  	<table>
+  	<table border>
   		<tr>
 			<td>
   				<cfif whatSpecs.recordcount is 0>
@@ -498,12 +488,8 @@
 				}
 			</script>
 		  	<div align="center">
-						<input type="button" value="Create Clone" class="insBtn"
-  						 	onmouseover="this.className='insBtn btnhov'" 
-						 	onmouseout="this.className='insBtn'" onClick="cloneLocality(#locality_id#)">
-							<input type="button" value="New Coll Event" class="insBtn"
-								 onmouseover="this.className='insBtn btnhov'" 
-								 onmouseout="this.className='insBtn'" onClick="nada.submit();">
+						<input type="button" value="Create Clone" class="insBtn" onClick="cloneLocality(#locality_id#)">
+							<input type="button" value="New Coll Event" class="insBtn" onClick="nada.submit();">
 							<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
 						</div>
 						 </td>
@@ -528,43 +514,6 @@
 				     </span>	
 				</td>
 			</tr>
-			<!---
-			<cfhttp method="post" url="http://www.museum.tulane.edu/webservices/geolocatesvcv2/geolocatesvc.asmx/Georef2" timeout="5">
-			    <cfhttpparam name="Country" type="FormField" value="#country#">
-			    <cfhttpparam name="County" type="FormField" value="#county#">
-			    <cfhttpparam name="LocalityString" type="FormField" value="#spec_locality#">
-			    <cfhttpparam name="State" type="FormField" value="#state_prov#">
-			    <cfhttpparam name="HwyX" type="FormField" value="false">
-			    <cfhttpparam name="FindWaterbody" type="FormField" value="false">
-			    <cfhttpparam name="RestrictToLowestAdm" type="FormField" value="false">
-			    <cfhttpparam name="doUncert" type="FormField" value="true">
-			    <cfhttpparam name="doPoly" type="FormField" value="false">
-			    <cfhttpparam name="displacePoly" type="FormField" value="false">
-			    <cfhttpparam name="polyAsLinkID" type="FormField" value="false">
-			    <cfhttpparam name="LanguageKey" type="FormField" value="0">
-			</cfhttp>
-			<cfif isdefined("cfhttp.StatusCode") and cfhttp.statuscode is "200 OK">
-				<cfset gl=xmlparse(cfhttp.fileContent)>
-				<cfif gl.Georef_Result_Set.NumResults.xmltext is 1>
-					<cfset glat=gl.Georef_Result_Set.ResultSet.WGS84Coordinate.Latitude.XmlText>
-					<cfset glon=gl.Georef_Result_Set.ResultSet.WGS84Coordinate.Longitude.XmlText>
-					<cfset gerr=gl.Georef_Result_Set.ResultSet.UncertaintyRadiusMeters.XmlText>
-					<br>GeoLocate found one match: #glat#, #glon# +/- #gerr#m.
-					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#glat#,#glon#">
-					<cfset iu=iu & "&markers=color:red|size:tiny|#glat#,#glon#&sensor=false&size=100x100&zoom=2">
-					<cfset iu=iu & "&maptype=roadmap">
-					<br>
-					<a href="/bnhmMaps/bnhmPointMapper.cfm?dec_lat=#glat#&dec_long=#glon#&max_error_meters=#gerr#" target="_blank">
-                    	<img src="#iu#" alt="Google Map">
-                    </a>
-					<span class="likeLink" onclick="useGL(#glat#,#glon#,#gerr#)">[ Create Coordinate Determination ]</span>
-				<cfelseif gl.Georef_Result_Set.NumResults.xmltext gt 1>
-					<br>GeoLocate found multiple matches. Not sure what to do with that...
-				<cfelse>
-					<br>GeoLocate could not automatically georeference this locality string.
-				</cfif>
-			</cfif>
-			--->
 		</table>
 		<cfset i=1>
 		<table border>
