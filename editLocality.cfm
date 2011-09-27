@@ -252,7 +252,7 @@
 			DEC_LONG,
 			DEC_LONG_MIN,
 			DETERMINED_BY_AGENT_ID,
-			agent_name
+			agent_name,
 			DETERMINED_DATE,
 			EXTENT,
 			FIELD_VERIFIED_FG,
