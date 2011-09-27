@@ -214,6 +214,7 @@
 			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and 
 			locality.locality_id=#locality_id# 
 	</cfquery>
+	<cfdump var=#locDet#>
 	<cfquery name="geolDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     	select 
 			*
