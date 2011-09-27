@@ -244,7 +244,7 @@
 	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>
-		<div style="padding:1em;margin-left:2em;margin-right:2em;border:2px solid red;">
+		<span style="padding:1em;margin-left:2em;margin-right:2em;border:2px solid red;">
 			This locality contains
 			<cfif whatSpecs.recordcount is 0>
   					no specimens. Please delete it if you don't have plans for it.
@@ -259,7 +259,7 @@
 						</cfloop>			
 					</ul>
   				</cfif>
-		</div>
+		</span>
 		<form name="geog" action="editLocality.cfm" method="post">
 			<input type="hidden" name="action" value="changeGeog">
             <input type="hidden" name="geog_auth_rec_id">
