@@ -191,7 +191,18 @@
 <cfoutput> 
 	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     	select 
-			*
+			locality.locality_id,
+			geog_auth_rec.GEOG_AUTH_REC_ID,
+			spec_locality,
+			MIN_DEPTH,
+			MAX_DEPTH,
+			DEPTH_UNITS,
+			LOCALITY_REMARKS,
+			MINIMUM_ELEVATION,
+			MAXIMUM_ELEVATION,
+			ORIG_ELEV_UNITS,
+			NOGEOREFBECAUSE,
+			SPEC_LOCALITY
 		from 
 			locality, 
 			geog_auth_rec 
