@@ -175,6 +175,18 @@
 		}
 		$("#ORIG_LAT_LONG_UNITS").val(orig_units);
 	}
+	function cloneLocality(locality_id) {
+		if(confirm('Do you want to create a copy of this locality which you may then edit?')) {
+			var rurl='editLocality.cfm?action=clone&locality_id=' + locality_id;
+			if(confirm('Do you want to include accepted georeferences?')){
+				rurl+='&keepAcc=1';
+				if(confirm('Do you want to include unaccepted georeferences too?')){
+					rurl+='&keepUnacc=1';
+				}
+			}
+			document.location=rurl;
+		}
+	}
 </script>
 <cfoutput> 
 	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -260,7 +272,7 @@
 					</ul>
   				</cfif>
 		</span>
-		<p>Higher Geography</p>
+		<p><strong>Higher Geography</strong></p>
 		<form name="geog" action="editLocality.cfm" method="post">
 			<input type="hidden" name="action" value="changeGeog">
             <input type="hidden" name="geog_auth_rec_id">
@@ -276,182 +288,112 @@
 			<input type="button" value="Edit" class="lnkBtn"
 				onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
 		</form>
+		<p><strong>Locality</strong></p>
         <form name="locality" method="post" action="editLocality.cfm">
         	<input type="hidden" name="action" value="saveLocalityEdit">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
-        	<p><strong>Locality</strong></p>
-			<label for="spec_locality" class="likeLink" onClick="getDocs('locality','specific_locality')">
+        	<label for="spec_locality" class="likeLink" onClick="getDocs('locality','specific_locality')">
 				Specific Locality
 			</label>
-					<input type="text"
-						id="spec_locality" 
-						name="spec_locality" 
-						value="#stripQuotes(locDet.spec_locality)#"  
-						size="120">
-				</td>
-			</tr>
-            <tr> 
-				<td>
-					<table>
-						<tr>
-							<td>
-								<label for="minimum_elevation">
-									<a href="javascript:void(0);" onClick="getDocs('locality','elevation')">
-										Min. Elev.
-									</a>
-								</label>
-								<input type="text" name="minimum_elevation" 
-									id="minimum_elevation" 
-									value="#locDet.minimum_elevation#" size="3">&nbsp;TO&nbsp;
-							</td>
-							<td>
-								<label for="maximum_elevation">
-									<a href="javascript:void(0);" onClick="getDocs('locality','elevation')">
-										Max. Elev.
-									</a>
-								</label>
-								<input type="text" name="maximum_elevation" 
-									id="maximum_elevation" 
-									value="#locDet.maximum_elevation#" size="3">&nbsp;&nbsp;
-							</td>
-							<td>
-								<label for="orig_elev_units">
-									<a href="javascript:void(0);" onClick="getDocs('locality','elevation')">
-										Elev. Unit
-									</a>
-								</label>
-								<select name="orig_elev_units" size="1" id="orig_elev_units">
-									<option value=""></option>
-				                    <cfloop query="ctElevUnit">
-				                      <option <cfif ctelevunit.orig_elev_units is locdet.orig_elev_units> selected="selected" </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
-				                    </cfloop>
-				                  </select>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			 <tr> 
-				<td>
-					<table>
-						<tr>
-							<td>
-								<label for="min_depth">
-									<a href="javascript:void(0);" onClick="getDocs('locality','depth')">
-										Min. Depth.
-									</a>
-								</label>
-								<input type="text" name="min_depth" 
-									id="min_depth" 
-									value="#locDet.min_depth#" size="3">&nbsp;TO&nbsp;
-							</td>
-							<td>
-								<label for="max_depth">
-									<a href="javascript:void(0);" onClick="getDocs('locality','depth')">
-										Max. Depth.
-									</a>
-								</label>
-								<input type="text" name="max_depth" 
-									id="max_depth" 
-									value="#locDet.max_depth#" size="3">&nbsp;&nbsp;
-							</td>
-							<td>
-								<label for="depth_units">
-									<a href="javascript:void(0);" onClick="getDocs('locality','depth')">
-										Depth Unit
-									</a>
-								</label>
-								<select name="depth_units" size="1" id="depth_units">
-									<option value=""></option>
-				                    <cfloop query="ctDepthUnit">
-				                      <option <cfif ctDepthUnit.depth_units is locdet.depth_units> selected="selected" </cfif>value="#ctDepthUnit.depth_units#">#ctDepthUnit.depth_units#</option>
-				                    </cfloop>
-				                  </select>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-              <tr> 
-                <td>
-					<label for="locality_remarks">
-						Locality Remarks
-					</label>
-					<input type="text" name="locality_remarks" id="locality_remarks" 
-						value="#stripQuotes(locDet.locality_remarks)#"  size="120">
-				</td>
-              </tr>
-			<tr>
-                <td>
-					<label for="locality_remarks">
-						Not Georeferenced Because
-					</label>
-					<input type="text" name="NoGeorefBecause" 
-						id="NoGeorefBecause" value="#locDet.NoGeorefBecause#"  size="120">
-					<cfif getLL.recordcount gt 0 AND len(locDet.NoGeorefBecause) gt 0>
-						<div style="background-color:red">
-							NoGeorefBecause should be NULL for localities with georeferences.
-							Please review this locality and update accordingly.
-						</div>
-					<cfelseif getLL.recordcount is 0 AND len(locDet.NoGeorefBecause) is 0>
-						<div style="background-color:red">
-							Please georeference this locality or enter a value for NoGeorefBecause.
-						</div>
-					</cfif>
-				</td>
-              </tr>
-              <tr> 
-                <td><div align="center"> 
-                   <input type="submit" value="Save" class="savBtn">
-					<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
-					<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank">[ Map All Georeferences ]</a>
-					<a href="Locality.cfm?Action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
-                  </div>
-				  		
+			<input type="text"id="spec_locality" name="spec_locality" value="#stripQuotes(locDet.spec_locality)#" size="120">
+			<table>
+				<tr>
+					<td>
+						<label for="minimum_elevation" onClick="getDocs('locality','elevation')" class="likeLink">
+							Min. Elev.
+						</label>
+						<input type="text" name="minimum_elevation" id="minimum_elevation" value="#locDet.minimum_elevation#" size="3">
 					</td>
-              </tr>
-              <tr> 
-                <td></td>
-              </tr>
-          </form>
-		  <form name="cloneLoc" method="post" action="Locality.cfm">
-		  				<input type="hidden" name="Action" value="newLocality">
-						<input type="hidden" name="geog_auth_rec_id" value="#geog_auth_rec_id#">
-						<input type="hidden" name="spec_locality" value="#spec_locality#">
-						<input type="hidden" name="minimum_elevation" value="#minimum_elevation#">
-						<input type="hidden" name="maximum_elevation" value="#maximum_elevation#">
-						<input type="hidden" name="ORIGEELEVUNITS" value="#orig_elev_units#">
-						<input type="hidden" name="locality_id" value="#locality_id#">
-					</form>
-					<form name="nada" method="post" action="Locality.cfm">
-							<input type="hidden" name="Action" value="newCollEvent">
-							<input type="hidden" name="locality_id" value="#locality_id#">
-						</form>
-		  <tr>
-		  <td nowrap>
-			<script>
-				function cloneLocality(locality_id) {
-					if(confirm('Do you want to create a copy of this locality which you may then edit?')) {
-						var rurl='editLocality.cfm?action=clone&locality_id=' + locality_id;
-						if(confirm('Do you want to include accepted georeferences?')){
-							rurl+='&keepAcc=1';
-							if(confirm('Do you want to include unaccepted georeferences too?')){
-								rurl+='&keepUnacc=1';
-							}
-						}
-						document.location=rurl;
-					}
-				}
-			</script>
-		  	<div align="center">
-						<input type="button" value="Create Clone" class="insBtn" onClick="cloneLocality(#locality_id#)">
-							<input type="button" value="New Coll Event" class="insBtn" onClick="nada.submit();">
-							<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
-						</div>
-						 </td>
-					</tr>
-		   </table>
-		   <hr />
+					<td>TO</td>
+					<td>
+						<label for="maximum_elevation" onClick="getDocs('locality','elevation')" class="likeLink">
+							Max. Elev.
+						</label>
+						<input type="text" name="maximum_elevation" id="maximum_elevation" value="#locDet.maximum_elevation#" size="3">
+					</td>
+					<td>
+						<label for="orig_elev_units" onClick="getDocs('locality','elevation')" class="likeLink">
+							Elev. Unit
+						</label>
+						<select name="orig_elev_units" size="1" id="orig_elev_units">
+							<option value=""></option>
+		                    <cfloop query="ctElevUnit">
+		                    	<option <cfif ctelevunit.orig_elev_units is locdet.orig_elev_units> selected="selected" </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
+		                    </cfloop>
+		                </select>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td>
+						<label for="min_depth" onClick="getDocs('locality','depth')" class="likeLink">
+							Min. Depth.
+						</label>
+						<input type="text" name="min_depth" id="min_depth" value="#locDet.min_depth#" size="3">
+					</td>
+					<td>TO</td>
+					<td>
+						<label for="max_depth" class="likeLink" onClick="getDocs('locality','depth')">
+							Max. Depth.
+						</label>
+						<input type="text" name="max_depth"  id="max_depth" value="#locDet.max_depth#" size="3">
+					</td>
+					<td>
+						<label for="depth_units" class="likeLink" onClick="getDocs('locality','depth')">
+							Depth Unit
+						</label>
+						<select name="depth_units" size="1" id="depth_units">
+							<option value=""></option>
+		                    <cfloop query="ctDepthUnit">
+		                    	<option <cfif ctDepthUnit.depth_units is locdet.depth_units> selected="selected" </cfif>value="#ctDepthUnit.depth_units#">#ctDepthUnit.depth_units#</option>
+		                    </cfloop>
+		                </select>
+					</td>
+				</tr>
+			</table>
+			<label for="locality_remarks">Locality Remarks</label>
+			<input type="text" name="locality_remarks" id="locality_remarks" value="#stripQuotes(locDet.locality_remarks)#"  size="120">
+			<label for="NoGeorefBecause">
+				Not Georeferenced Because
+			</label>
+			<input type="text" name="NoGeorefBecause" id="NoGeorefBecause" value="#locDet.NoGeorefBecause#"  size="120">
+			<cfif getLL.recordcount gt 0 AND len(locDet.NoGeorefBecause) gt 0>
+				<div style="background-color:red">
+					NoGeorefBecause should be NULL for localities with georeferences.
+					Please review this locality and update accordingly.
+				</div>
+			<cfelseif getLL.recordcount is 0 AND len(locDet.NoGeorefBecause) is 0>
+				<div style="background-color:red">
+					Please georeference this locality or enter a value for NoGeorefBecause.
+				</div>
+			</cfif>
+			<div align="center"> 
+            	<input type="submit" value="Save" class="savBtn">
+				<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
+				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank">[ Map All Georeferences ]</a>
+				<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
+            </div>
+		</form>
+		<form name="cloneLoc" method="post" action="Locality.cfm">
+			<input type="hidden" name="action" value="newLocality">
+			<input type="hidden" name="geog_auth_rec_id" value="#locDet.geog_auth_rec_id#">
+			<input type="hidden" name="spec_locality" value="#locDet.spec_locality#">
+			<input type="hidden" name="minimum_elevation" value="#locDet.minimum_elevation#">
+			<input type="hidden" name="maximum_elevation" value="#locDet.maximum_elevation#">
+			<input type="hidden" name="ORIGEELEVUNITS" value="#locDet.orig_elev_units#">
+			<input type="hidden" name="locality_id" value="#locDet.locality_id#">
+		</form>
+		<form name="nada" method="post" action="Locality.cfm">
+			<input type="hidden" name="action" value="newCollEvent">
+			<input type="hidden" name="locality_id" value="#locDet.locality_id#">
+		</form>
+		 <div align="center">
+			<input type="button" value="Create Clone" class="insBtn" onClick="cloneLocality(#locality_id#)">
+			<input type="button" value="New Coll Event" class="insBtn" onClick="nada.submit();">
+			<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
+		</div>
+		<hr />
         <table>
 			<tr>
 				<td>
@@ -480,7 +422,7 @@
 		<td>
           <form name="latLong#i#" method="post" action="editLocality.cfm" onSubmit="return noenter();">
 		   <input type="hidden" name="locality_id" value="#locality_id#">
-            <input type="hidden" name="Action" value="editAccLatLong">
+            <input type="hidden" name="action" value="editAccLatLong">
             <input type="hidden" name="lat_long_id" value="#lat_long_id#">
             <table border>
               <tr> 		 
@@ -751,9 +693,9 @@
               <tr> 
                 <td colspan="4">
 				<input type="button" value="Save Changes" class="savBtn"
-					onClick="latLong#i#.Action.value='editAccLatLong';submit();">
+					onClick="latLong#i#.action.value='editAccLatLong';submit();">
 				<input type="button" value="Delete" class="delBtn" 
-					onClick="latLong#i#.Action.value='deleteLatLong';confirmDelete('latLong#i#');">
+					onClick="latLong#i#.action.value='deleteLatLong';confirmDelete('latLong#i#');">
 						
 				</td>
               </tr>
@@ -770,7 +712,7 @@
 		 <cfoutput> 
 		<a name="newLL" id="newLL"></a>
 		<form name="newlatLong" method="post" action="editLocality.cfm">
-            <input type="hidden" name="Action" value="AddLatLong">
+            <input type="hidden" name="action" value="AddLatLong">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
 		
 		<table class="newRec">
@@ -1055,7 +997,7 @@
 	<cfif geolDet.recordcount gt 0>
 		<table border>
 			<form name="editGeolAtt" method="post" action="editLocality.cfm">
-				<input type="hidden" name="Action" value="editGeol">
+				<input type="hidden" name="action" value="editGeol">
             	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
 				<input type="hidden" name="number_of_determinations" value="#geolDet.recordcount#">
 		
@@ -1114,7 +1056,7 @@
 		<tr><td>
 	Create Geology Determination
 	<form name="newGeolDet" method="post" action="editLocality.cfm">
-            <input type="hidden" name="Action" value="AddGeol">
+            <input type="hidden" name="action" value="AddGeol">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
 			<label for="geology_attribute">Geology Attribute</label>
 			<select name="geology_attribute" id="geology_attribute" class="reqdClr" onchange="populateGeology(this.id)">
@@ -1320,7 +1262,7 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "deleteLocality">
+<cfif #action# is "deleteLocality">
 <cfoutput>
 	<cfquery name="isColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collecting_event_id from collecting_event where locality_id=#locality_id#
@@ -1762,7 +1704,7 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "editAccLatLong">
+<cfif #action# is "editAccLatLong">
 
 <cfoutput>
 
@@ -1918,7 +1860,7 @@
 </cfoutput>		
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "AddLatLong">
+<cfif #action# is "AddLatLong">
 <cfoutput>	
 	<cfquery name="notAcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE lat_long SET accepted_lat_long_fg = 0 where
@@ -2073,7 +2015,7 @@
 </cfoutput>		
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "deleteLatLong">
+<cfif #action# is "deleteLatLong">
 	<cfoutput>
 		<cfif #ACCEPTED_LAT_LONG_FG# is "1">
 			<div class="error">
