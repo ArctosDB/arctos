@@ -1042,7 +1042,7 @@ INSERT INTO geog_auth_rec (
 		)
 		</cfquery>
 		
-<cflocation addtoken="no" url="#cgi.HTTP_REFERER#?Action=editCollEvnt&collecting_event_id=#nextColl.nextColl#">
+<cflocation addtoken="no" url="Locality.cfm?Action=editCollEvnt&collecting_event_id=#nextColl.nextColl#">
 
 </cfoutput>	
 </cfif>
