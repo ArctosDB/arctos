@@ -21,7 +21,8 @@
 		<cfset guri=listappend(guri,"state=#g.state_prov#","&")>
 	</cfif>
 	<cfif len(g.county) gt 0>
-		<cfset guri=listappend(guri,"county=#g.county#","&")>
+		<cfset cnty=replace(g.county," County","")>
+		<cfset guri=listappend(guri,"county=#cnty#","&")>
 	</cfif>
 	<cfreturn guri>
 </cffunction>
