@@ -449,7 +449,7 @@
 			<input type="hidden" name="locality_id" value="#locality_id#">
             <input type="hidden" name="action" value="editAccLatLong">
             <input type="hidden" name="lat_long_id" value="#lat_long_id#">
-            <span style="padding:1em;border:3px solid <cfif accepted_lat_long_fg is 1>green<cfelse>red</cfif>;">
+            <span style="display:inline-block;padding:1em;border:3px solid <cfif accepted_lat_long_fg is 1>green<cfelse>red</cfif>;">
 			<table>
             	<tr> 		 
                 	<td>
