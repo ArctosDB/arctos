@@ -48,19 +48,11 @@
 	function geolocate() {
 		alert('This opens a map. There is a help link at the top. Use it. The "save" button will create a new determination.');
 		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
-		var state_prov=$("#state_prov").val();
-		var country=$("#country").val();
-		var county=$("#county").val();
-		county=county.replace(" County", "");
-		if (state_prov.length > 0){
-			guri+='&state=' + state_prov;
-		}
-		if (country.length > 0){
-			guri+='&country=' + country;
-		}
-		if (county.length > 0){
-			guri+='&county=' + county;
-		}
+		guri+="&state=" + $("#state_prov").val();
+		guri+="&country="+$("#country").val();
+		guri+="&county="+$("#county").val().replace(" County", "");
+		guri+="&locality="+$("#spec_locality").val();
+		
 		console.log(guri);
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
