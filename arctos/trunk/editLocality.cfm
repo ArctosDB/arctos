@@ -449,7 +449,7 @@
 			<input type="hidden" name="locality_id" value="#locality_id#">
             <input type="hidden" name="action" value="editAccLatLong">
             <input type="hidden" name="lat_long_id" value="#lat_long_id#">
-            <table border>
+            <table>
             	<tr> 		 
                 	<td>
 						<label for="ORIG_LAT_LONG_UNITS#i#" onClick="getDocs('lat_long','original_units')" class="likeLink">
