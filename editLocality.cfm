@@ -279,16 +279,16 @@
 			<cfif whatSpecs.recordcount is 0>
   					no specimens. Please delete it if you don't have plans for it.
   			<cfelseif whatSpecs.recordcount is 1>
-					#whatSpecs.numOfSpecs# #whatSpecs.collection# 
-					<a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>
-				<cfelse>
-					 the following <a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>:  
-					<ul>	
-						<cfloop query="whatSpecs">
-							<li><font color="##FF0000">#numOfSpecs# #collection#</font></li>
-						</cfloop>			
-					</ul>
-  				</cfif>
+				#whatSpecs.numOfSpecs# #whatSpecs.collection# 
+				<a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>
+			<cfelse>
+				 the following <a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>:  
+				<ul>	
+					<cfloop query="whatSpecs">
+						<li><font color="##FF0000">#numOfSpecs# #collection#</font></li>
+					</cfloop>			
+				</ul>
+ 			</cfif>
 		</span>
 		<p><strong>Higher Geography</strong></p>
 		<form name="geog" action="editLocality.cfm" method="post">
@@ -388,9 +388,14 @@
 			</cfif>
 			<div align="center"> 
             	<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
+				
 				<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
+				
 				<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
-            	<input type="button" value="Add Collecting Event" class="savBtn" onclick="locality.action.value='newCollEvent';locality.submit();">
+            	
+				<input type="button" value="Add Collecting Event" class="insBtn" 
+					onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
+				
 				<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
 				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank">[ Map All Georeferences ]</a>
 				<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
