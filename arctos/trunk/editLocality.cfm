@@ -533,7 +533,7 @@
 	                  </select> 
 				</td>
 				<td>
-					<label for="georefMethod#i#">Georeference Method</label>
+					<label for="georefMethod#i#" class="likeLink" onClick="getDocs('lat_long','georefmethod')">Georeference Method</label>
 					<select name="georefMethod" id="georefMethod#i#" size="1" class="reqdClr">
 				   		<cfloop query="ctGeorefMethod">
 							<option 
@@ -543,17 +543,17 @@
 				   </select>
 				</td>
 				<td>
-					<label for="extent#i#">Extent</label>
+					<label for="extent#i#" class="likeLink" onClick="getDocs('lat_long','extent')">Extent</label>
 					<input type="text" name="extent" id="extent#i#" value="#extent#" size="7">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="GpsAccuracy#i#">GPS Accuracy</label>
+					<label for="GpsAccuracy#i#" class="likeLink" onClick="getDocs('lat_long','gpsaccuracy')">GPS Accuracy</label>
 					<input type="text" name="GpsAccuracy" id="GpsAccuracy#i#" value="#GpsAccuracy#" size="7">
 				</td>
 				<td>
-					<label for="VerificationStatus#i#">Verification Status</label>
+					<label for="VerificationStatus#i#" class="likeLink" onClick="getDocs('lat_long','verificationstatus')">Verification Status</label>
 					<select name="VerificationStatus" id="VerificationStatus#i#" size="1" class="reqdClr">
 					   	<cfset thisVerificationStatus = #VerificationStatus#>
 					   		<cfloop query="ctVerificationStatus">
@@ -564,13 +564,13 @@
 					   </select>
 				</td>
 				<td colspan="3">
-					<label for="LAT_LONG_REMARKS#i#">Remarks</label>
+					<label for="LAT_LONG_REMARKS#i#" class="likeLink" onClick="getDocs('lat_long','remarks')">Remarks</label>
 					<input type="text" name="LAT_LONG_REMARKS" id="LAT_LONG_REMARKS#i#" value="#stripQuotes(LAT_LONG_REMARKS)#" size="60">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="4">
-					<label for="LAT_LONG_REF_SOURCE#i#">Reference</label>
+					<label for="LAT_LONG_REF_SOURCE#i#" class="likeLink" onClick="getDocs('lat_long','reference')">Reference</label>
 					<input type="text" name="LAT_LONG_REF_SOURCE" id="LAT_LONG_REF_SOURCE#i#" size="120" class="reqdClr" value='#preservesinglequotes(getLL.LAT_LONG_REF_SOURCE)#' />
 				</td>
 			</tr>
@@ -699,29 +699,25 @@
               </tr>
             </table>
           </form>
-		 
 		  </td></tr>
-		  
-			<cfset i=#i#+1>
+			<cfset i=i+1>
         </cfloop>
 		</table>
 		<a name="newLL" id="newLL"></a>
 		<form name="newlatLong" method="post" action="editLocality.cfm">
             <input type="hidden" name="action" value="AddLatLong">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
-		
 		<table class="newRec">
 			<tr>
 				<td>
 					Add Coordinate Determination
 				</td>
 			</tr>
-		
 		<tr>
 			<td id="addNewLL">
-				<label for="ORIG_LAT_LONG_UNITS">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','original_units')">Original Units</a>
-					</label>
+				<label for="ORIG_LAT_LONG_UNITS" class="likeLink" >
+					<a href="javascript:void(0);" onClick="getDocs('lat_long','original_units')">Original Units</a>
+				</label>
 					<select name="ORIG_LAT_LONG_U" 
 						id="ORIG_LAT_LONG_U" size="1" 
 						class="reqdClr"
@@ -738,9 +734,7 @@
 		<table border id="llMeta" style="display:none;">
               <tr> 		 
                 <td>
-					<label for="ORIG_LAT_LONG_UNITS">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','original_units')">Original Units</a>
-					</label>
+					<label for="ORIG_LAT_LONG_UNITS" class="likeLink" onClick="getDocs('lat_long','original_units')">Original Units</label>
 					<select name="ORIG_LAT_LONG_UNITS" id="ORIG_LAT_LONG_UNITS" size="1" class="reqdClr"
 						onchange="showLLFormat(this.value,'')">
 	                    <cfloop query="ctunits">
@@ -749,27 +743,21 @@
 	                  </select>
 				</td>
 				<td nowrap>
-	                <label for="accepted_lat_long_fg">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','accepted')">Accepted?</a>
-					</label>
+	                <label for="accepted_lat_long_fg" class="likeLink" onClick="getDocs('lat_long','accepted')">Accepted?<</label>
 					<select name="accepted_lat_long_fg" id="accepted_lat_long_fg" size="1" class="reqdClr">
 						<option selected value="1">yes</option>
 						<option value="0">no</option>
 					</select>
 				</td>
 				<td>
-					<label for="determined_by">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','determiner')">Determiner</a>
-					</label>
+					<label for="determined_by" class="likeLink" onClick="getDocs('lat_long','determiner')">Determiner</label>
 					<input type="text" name="determined_by" id="determined_by" class="reqdClr" size="40"
 						onchange="getAgent('determined_by_agent_id','determined_by','newlatLong',this.value); return false;"
 		 				onKeyPress="return noenter(event);">
 		 			<input type="hidden" name="determined_by_agent_id" ID="determined_by_agent_id">
 				</td>
 				<td>
-					<label for="determined_date">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','date')">Determined Date</a>
-					</label>
+					<label for="determined_date" class="likeLink" onClick="getDocs('lat_long','date')">Determined Date</label>
 					<input type="text" name="determined_date" id="determined_date" class="reqdClr"> 
 				</td>
               </tr>
@@ -778,15 +766,11 @@
 					<table>
 						<tr>
 							<td>
-								<label for="MAX_ERROR_DISTANCE">
-									<a href="javascript:void(0);" onClick="getDocs('lat_long','maximum_error')">Maximum Error</a>
-								</label>
+								<label for="MAX_ERROR_DISTANCE" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Maximum Error</label>
 								<input type="text" name="MAX_ERROR_DISTANCE" id="MAX_ERROR_DISTANCE" size="6">
 							</td>
 							<td>
-								<label for="MAX_ERROR_UNITS">
-									<a href="javascript:void(0);" onClick="getDocs('lat_long','maximum_error')">Maximum Error Units</a>
-								</label>
+								<label for="MAX_ERROR_UNITS" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Maximum Error Units</label>
 								<select name="MAX_ERROR_UNITS" size="1" id="MAX_ERROR_UNITS">
 				                    <option value=""></option>
 				                    <cfloop query="cterror">
@@ -798,9 +782,7 @@
 					</table>					
 				</td>
 				<td>
-					<label for="DATUM">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','datum')">Datum</a>
-					</label>
+					<label for="DATUM" class="likeLink" onClick="getDocs('lat_long','datum')">Datum</label>
 					<select name="DATUM" id="DATUM" size="1" class="reqdClr">
 	                    <option value=""></option>
 	                    <cfloop query="ctdatum">
@@ -809,9 +791,7 @@
 	                  </select> 
 				</td>
 				<td>
-					<label for="georefMethod">
-						Georeference Method
-					</label>
+					<label for="georefMethod" class="likeLink" onClick="getDocs('lat_long','georefmethod')">Georeference Method</label>
 					<select name="georefMethod" id="georefMethod" size="1" class="reqdClr">
 				   		<cfloop query="ctGeorefMethod">
 							<option value="#georefMethod#">#georefMethod#</option>
@@ -819,23 +799,19 @@
 				   </select>
 				</td>
 				<td>
-					<label for="extent">
-						Extent
-					</label>
+					<label for="extent" class="likeLink"  onClick="getDocs('lat_long','extent')">Extent</label>
 					<input type="text" name="extent" id="extent" size="7">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="GpsAccuracy">
+					<label for="GpsAccuracy" class="likeLink" onClick="getDocs('lat_long','georefmethod')" >
 						GPS Accuracy
 					</label>
 					<input type="text" name="GpsAccuracy" id="GpsAccuracy" size="7">
 				</td>
 				<td>
-					<label for="VerificationStatus">
-						Verification Status
-					</label>
+					<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verificationstatus')">Verification Status</label>
 					<select name="VerificationStatus" id="VerificationStatus" size="1" class="reqdClr">
 					   		<cfloop query="ctVerificationStatus">
 								<option value="#VerificationStatus#">#VerificationStatus#</option>
@@ -843,22 +819,14 @@
 					   </select>
 				</td>
 				<td colspan="3">
-					<label for="LAT_LONG_REMARKS">
-						Remarks
-					</label>
-					<input type="text" 
-						name="LAT_LONG_REMARKS" 
-						id="LAT_LONG_REMARKS"
-						size="60">
+					<label for="LAT_LONG_REMARKS" class="likeLink" onClick="getDocs('lat_long','remarks')">Remarks</label>
+					<input type="text" name="LAT_LONG_REMARKS" id="LAT_LONG_REMARKS" size="60">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="4">
-					<label for="LAT_LONG_REF_SOURCE">
-						Reference
-					</label>
-					<input type="text" name="LAT_LONG_REF_SOURCE" 
-						id="LAT_LONG_REF_SOURCE" size="120" class="reqdClr" />
+					<label for="LAT_LONG_REF_SOURCE" class="likeLink" onClick="getDocs('lat_long','reference')">Reference</label>
+					<input type="text" name="LAT_LONG_REF_SOURCE" id="LAT_LONG_REF_SOURCE" size="120" class="reqdClr" />
 				</td>
 			</tr>
 			<tr>
