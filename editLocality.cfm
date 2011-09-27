@@ -369,8 +369,11 @@
 				</div>
 			</cfif>
 			<div align="center"> 
-            	<input type="submit" value="Save" class="savBtn">
+            	<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 				<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
+				<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
+            	<input type="button" value="Add Collecting Event" class="savBtn" onclick="locality.action.value='newCollEvent';locality.submit();">
+				<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
 				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank">[ Map All Georeferences ]</a>
 				<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
             </div>
@@ -389,9 +392,7 @@
 			<input type="hidden" name="locality_id" value="#locDet.locality_id#">
 		</form>
 		 <div align="center">
-			<input type="button" value="Create Clone" class="insBtn" onClick="cloneLocality(#locality_id#)">
-			<input type="button" value="New Coll Event" class="insBtn" onClick="nada.submit();">
-			<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
+			
 		</div>
 		<hr />
         <table>
