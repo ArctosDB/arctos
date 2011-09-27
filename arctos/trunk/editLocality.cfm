@@ -278,7 +278,7 @@
         <form name="locality" method="post" action="editLocality.cfm">
         	<input type="hidden" name="action" value="saveLocalityEdit">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
-        	<strong>Locality</strong>
+        	<p><strong>Locality</strong></p>
 			<label for="spec_locality" class="likeLink" onClick="getDocs('locality','specific_locality')">
 				Specific Locality
 			</label>
