@@ -193,6 +193,10 @@
     	select 
 			locality.locality_id,
 			geog_auth_rec.GEOG_AUTH_REC_ID,
+			higher_geog,
+			state_prov,
+			county,
+			country,
 			spec_locality,
 			MIN_DEPTH,
 			MAX_DEPTH,
