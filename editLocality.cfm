@@ -1263,30 +1263,27 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif #action# is "deleteLocality">
+<cfif action is "deleteLocality">
 <cfoutput>
 	<cfquery name="isColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collecting_event_id from collecting_event where locality_id=#locality_id#
 	</cfquery>
-	
-<cfif len(#isColl.collecting_event_id#) gt 0>
-	There are active collecting events for this locality. It cannot be deleted.
-	<br><a href="editLocality.cfm?locality_id=#locality_id#">Return</a> to editing.
-	<cfabort>
-</cfif>
-	
+	<cfif len(isColl.collecting_event_id) gt 0>
+		There are active collecting events for this locality. It cannot be deleted.
+		<br><a href="editLocality.cfm?locality_id=#locality_id#">Return</a> to editing.
+		<cfabort>
+	</cfif>
 	<cftransaction>
 		<cfquery name="deleLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from lat_long where locality_id=#locality_id#
 		</cfquery>
-		
 		<cftransaction action="commit">
 		<cfquery name="deleLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from locality where locality_id=#locality_id#
 		</cfquery>
 	</cftransaction>
-	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
-</cfoutput>
+	You deleted it.
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif #action# is "clone">
