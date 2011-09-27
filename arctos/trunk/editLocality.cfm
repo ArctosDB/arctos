@@ -328,6 +328,7 @@
 			</ul>
 			</cfif>
 	</span>
+    <span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<p><strong>Higher Geography</strong></p>
 	<form name="geog" action="editLocality.cfm" method="post">
 		<input type="hidden" name="action" value="changeGeog">
@@ -344,6 +345,8 @@
 		<input type="button" value="Edit" class="lnkBtn"
 			onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
 	</form>
+	</span>
+	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<p><strong>Locality</strong></p>
        <form name="locality" method="post" action="editLocality.cfm">
        	<input type="hidden" name="action" value="saveLocalityEdit">
@@ -434,7 +437,7 @@
 		<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank">[ Map All Georeferences ]</a>
 		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
 	</form>
-	<hr />
+	</span>
 	<strong>Coordinates for this locality:</strong>
 	&nbsp;&nbsp;&nbsp;
 	<span style="font-size:smaller;">
