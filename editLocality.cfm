@@ -703,9 +703,8 @@
 		  </td></tr>
 		  
 			<cfset i=#i#+1>
-        </cfoutput>
+        </cfloop>
 		</table>
-		 <cfoutput> 
 		<a name="newLL" id="newLL"></a>
 		<form name="newlatLong" method="post" action="editLocality.cfm">
             <input type="hidden" name="action" value="AddLatLong">
