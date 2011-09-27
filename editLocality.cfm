@@ -42,6 +42,7 @@
 		} else {
 			window.attachEvent("onmessage", getGeolocate);
 		}
+		showLLFormat('#orig_lat_long_units#','#i#');
 	});
 	function geolocate() {
 		alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
@@ -243,12 +244,49 @@
 			collection.collection
   	</cfquery>
 	<cfquery name="getLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-        select * from 
+        select
+			ACCEPTED_LAT_LONG_FG,
+			DATUM,
+			DEC_LAT,
+			DEC_LAT_MIN,
+			DEC_LONG,
+			DEC_LONG_MIN,
+			DETERMINED_BY_AGENT_ID,
+			agent_name
+			DETERMINED_DATE,
+			EXTENT,
+			FIELD_VERIFIED_FG,
+			GEOREFMETHOD,
+			GPSACCURACY,
+			LAT_DEG,
+			LAT_DIR,
+			LAT_LONG_FOR_NNP_FG,
+			LAT_LONG_ID,
+			LAT_LONG_REF_SOURCE,
+			LAT_LONG_REMARKS,
+			LAT_MIN,
+			LAT_SEC,
+			LOCALITY_ID,
+			LONG_DEG,
+			LONG_DIR,
+			LONG_MIN,
+			LONG_SEC,
+			MAX_ERROR_DISTANCE,
+			MAX_ERROR_UNITS,
+			ORIG_LAT_LONG_UNITS,
+			SPATIALFIT,
+			UTM_EW,
+			UTM_NS,
+			UTM_ZONE,
+			VERIFICATIONSTATUS
+		from 
 			lat_long,
 			preferred_agent_name 
-		where determined_by_agent_id = agent_id 
-        and locality_id=#locality_id# 
-		order by ACCEPTED_LAT_LONG_FG DESC, lat_long_id
+		where 
+			determined_by_agent_id = agent_id and 
+			locality_id=#locality_id# 
+		order by 
+			ACCEPTED_LAT_LONG_FG DESC, lat_long_id
      </cfquery>
      <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select datum from ctdatum order by datum
@@ -397,53 +435,48 @@
 			<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
 		</form>
 		<hr />
-       <strong>Coordinates for this locality:</strong>
-	&nbsp;&nbsp;&nbsp;<span class="likeLink" style="font-size:smaller;" onClick="getDocs('lat_long')">Help</span>
-	&nbsp;&nbsp;&nbsp;
-					<span style="font-size:smaller;">
-				    	<a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a>
-				        &nbsp;~&nbsp;
-				        <a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a>
-				        &nbsp;~&nbsp;<a href="http://www.museum.tulane.edu/geolocate/web/WebGeoref.aspx" target="_blank" class="external">GeoLocate</a>
-				
+		<strong>Coordinates for this locality:</strong>
+		&nbsp;&nbsp;&nbsp;
+		<span style="font-size:smaller;">
+			<span class="likeLink" onClick="getDocs('lat_long')">Help</span>
+			&nbsp;~&nbsp;<a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a>
+			&nbsp;~&nbsp;<a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a>
+			&nbsp;~&nbsp;<a href="http://www.museum.tulane.edu/geolocate/web/WebGeoref.aspx" target="_blank" class="external">GeoLocate</a>
+		</span>	
 		<cfset i=1>
 		<table border>
-		</cfoutput>
-		
-		<cfoutput query="getLL" group="lat_long_id"> 
-		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-		<td>
-          <form name="latLong#i#" method="post" action="editLocality.cfm" onSubmit="return noenter();">
-		   <input type="hidden" name="locality_id" value="#locality_id#">
+		<cfloop query="getLL"> 
+		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#><td>
+        <form name="latLong#i#" method="post" action="editLocality.cfm" onSubmit="return noenter();">
+			<input type="hidden" name="locality_id" value="#locality_id#">
             <input type="hidden" name="action" value="editAccLatLong">
             <input type="hidden" name="lat_long_id" value="#lat_long_id#">
             <table border>
               <tr> 		 
                 <td>
-					<cfset thisUnits = #getLL.ORIG_LAT_LONG_UNITS#>
-					<label for="ORIG_LAT_LONG_UNITS#i#">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','original_units')">Original Units</a>
+					<label for="ORIG_LAT_LONG_UNITS#i#" onClick="getDocs('lat_long','original_units')" class="likeLink">
+						Original Units
 					</label>
 					<select name="ORIG_LAT_LONG_UNITS" id="ORIG_LAT_LONG_UNITS#i#" size="1" class="reqdClr"
 						onchange="showLLFormat(this.value,'#i#');">
 	                    <cfloop query="ctunits">
 	                      <option 
-						  	<cfif #thisUnits# is "#ctunits.ORIG_LAT_LONG_UNITS#"> selected </cfif>value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+						  	<cfif getLL.ORIG_LAT_LONG_UNITS is ctunits.ORIG_LAT_LONG_UNITS> selected="selected" </cfif>value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
 	                    </cfloop>
 	                  </select>
 				</td>
 				<td nowrap>
-	                <label for="accepted_lat_long_fg#i#">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','accepted')">Accepted?</a>
+	                <label for="accepted_lat_long_fg#i#" onClick="getDocs('lat_long','accepted')" class="likeLink">
+						Accepted?
 					</label>
 					<select name="accepted_lat_long_fg" id="accepted_lat_long_fg#i#" size="1" class="reqdClr">
-						<option <cfif #accepted_lat_long_fg# is 1> selected </cfif>value="1">yes</option>
-						<option <cfif #accepted_lat_long_fg# is 0> selected </cfif> value="0">no</option>
+						<option <cfif accepted_lat_long_fg is 1> selected="selected" </cfif>value="1">yes</option>
+						<option <cfif accepted_lat_long_fg is 0> selected="selected" </cfif> value="0">no</option>
 					</select>
 				</td>
 				<td>
-					<label for="determined_by#i#">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','determiner')">Determiner</a>
+					<label for="determined_by#i#" onClick="getDocs('lat_long','determiner')" class="likeLink">
+						Determiner
 					</label>
 					<input type="text" name="determined_by" id="determined_by#i#" class="reqdClr" value="#agent_name#" size="40"
 						onchange="getAgent('determined_by_agent_id','determined_by','latLong#i#',this.value); return false;"
@@ -451,11 +484,10 @@
 		 			<input type="hidden" name="determined_by_agent_id" value="#determined_by_agent_id#">
 				</td>
 				<td>
-					<label for="determined_date#i#">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','date')">Determined Date</a>
+					<label for="determined_date#i#" class="likeLink" onClick="getDocs('lat_long','date')">
+						Determined Date
 					</label>
-					<input type="text" name="determined_date" id="determined_date#i#"
-						value="#dateformat(determined_date,'yyyy-mm-dd')#" class="reqdClr"> 
+					<input type="text" name="determined_date" id="determined_date#i#" value="#dateformat(determined_date,'yyyy-mm-dd')#" class="reqdClr"> 
 				</td>
 				<td rowspan="6">
 					<cfif len(dec_lat) gt 0>
@@ -467,27 +499,23 @@
                         </a>
 					</cfif>
 				</td>
-				
-              </tr>
+            </tr>
             <tr>
 				<td>
 					<table>
 						<tr>
 							<td>
-								<label for="MAX_ERROR_DISTANCE#i#">
-									<a href="javascript:void(0);" onClick="getDocs('lat_long','maximum_error')">Maximum Error</a>
-								</label>
+								<label for="MAX_ERROR_DISTANCE#i#" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Maximum Error</label>
 								<input type="text" name="MAX_ERROR_DISTANCE" id="MAX_ERROR_DISTANCE#i#" value="#MAX_ERROR_DISTANCE#" size="6">
 							</td>
 							<td>
-								<label for="MAX_ERROR_UNITS#i#">
-									<a href="javascript:void(0);" onClick="getDocs('lat_long','maximum_error')">Maximum Error Units</a>
+								<label for="MAX_ERROR_UNITS#i#" class="likeLink" onClick="getDocs('lat_long','maximum_error')">
+									Maximum Error Units
 								</label>
-								<cfset thisunits = #MAX_ERROR_UNITS#>
 								<select name="MAX_ERROR_UNITS" size="1" id="MAX_ERROR_UNITS#i#">
 				                    <option value=""></option>
 				                    <cfloop query="cterror">
-				                      <option <cfif #cterror.LAT_LONG_ERROR_UNITS# is "#thisunits#"> selected </cfif>
+				                      <option <cfif cterror.LAT_LONG_ERROR_UNITS is getLL.MAX_ERROR_UNITS> selected="selected" </cfif>
 										value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
 				                    </cfloop>
 				                  </select> 
@@ -496,75 +524,54 @@
 					</table>					
 				</td>
 				<td>
-					<label for="DATUM#i#">
-						<a href="javascript:void(0);" onClick="getDocs('lat_long','datum')">Datum</a>
-					</label>
+					<label for="DATUM#i#" class="likeLink" onClick="getDocs('lat_long','datum')">Datum</label>
 					<select name="DATUM" id="DATUM#i#" size="1" class="reqdClr">
-	                   <cfset thisDatum = #getLL.DATUM#>
 	                    <cfloop query="ctdatum">
-	                      <option <cfif #ctdatum.DATUM# is "#thisDatum#"> selected </cfif> 
+	                      <option <cfif ctdatum.DATUM is getLL.DATUM> selected="selected" </cfif> 
 							value="#ctdatum.DATUM#">#ctdatum.DATUM#</option>
 	                    </cfloop>
 	                  </select> 
 				</td>
 				<td>
-					<cfset thisGeoMeth = #georefMethod#>
-					<label for="georefMethod#i#">
-						Georeference Method
-					</label>
+					<label for="georefMethod#i#">Georeference Method</label>
 					<select name="georefMethod" id="georefMethod#i#" size="1" class="reqdClr">
 				   		<cfloop query="ctGeorefMethod">
 							<option 
-								<cfif #thisGeoMeth# is #ctGeorefMethod.georefMethod#> selected </cfif>
-								value="#georefMethod#">#georefMethod#</option>
+								<cfif getLL.georefMethod is ctGeorefMethod.georefMethod> selected="selected" </cfif>
+								value="#ctGeorefMethod.georefMethod#">#ctGeorefMethod.georefMethod#</option>
 						</cfloop>
 				   </select>
 				</td>
 				<td>
-					<label for="extent#i#">
-						Extent
-					</label>
+					<label for="extent#i#">Extent</label>
 					<input type="text" name="extent" id="extent#i#" value="#extent#" size="7">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<label for="GpsAccuracy#i#">
-						GPS Accuracy
-					</label>
+					<label for="GpsAccuracy#i#">GPS Accuracy</label>
 					<input type="text" name="GpsAccuracy" id="GpsAccuracy#i#" value="#GpsAccuracy#" size="7">
 				</td>
 				<td>
-					<label for="VerificationStatus#i#">
-						Verification Status
-					</label>
+					<label for="VerificationStatus#i#">Verification Status</label>
 					<select name="VerificationStatus" id="VerificationStatus#i#" size="1" class="reqdClr">
 					   	<cfset thisVerificationStatus = #VerificationStatus#>
 					   		<cfloop query="ctVerificationStatus">
 								<option 
-									<cfif #thisVerificationStatus# is #ctVerificationStatus.VerificationStatus#> selected </cfif>
-									value="#VerificationStatus#">#VerificationStatus#</option>
+									<cfif getLL.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
+									value="#ctVerificationStatus.VerificationStatus#">#ctVerificationStatus.VerificationStatus#</option>
 							</cfloop>
 					   </select>
 				</td>
 				<td colspan="3">
-					<label for="LAT_LONG_REMARKS#i#">
-						Remarks
-					</label>
-					<input type="text" 
-						name="LAT_LONG_REMARKS" 
-						id="LAT_LONG_REMARKS#i#"
-						value="#stripQuotes(LAT_LONG_REMARKS)#"
-						size="60">
+					<label for="LAT_LONG_REMARKS#i#">Remarks</label>
+					<input type="text" name="LAT_LONG_REMARKS" id="LAT_LONG_REMARKS#i#" value="#stripQuotes(LAT_LONG_REMARKS)#" size="60">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="4">
-					<label for="LAT_LONG_REF_SOURCE#i#">
-						Reference
-					</label>
-					<input type="text" name="LAT_LONG_REF_SOURCE" id="LAT_LONG_REF_SOURCE#i#" size="120" class="reqdClr"
-						value='#preservesinglequotes(getLL.LAT_LONG_REF_SOURCE)#' />
+					<label for="LAT_LONG_REF_SOURCE#i#">Reference</label>
+					<input type="text" name="LAT_LONG_REF_SOURCE" id="LAT_LONG_REF_SOURCE#i#" size="120" class="reqdClr" value='#preservesinglequotes(getLL.LAT_LONG_REF_SOURCE)#' />
 				</td>
 			</tr>
 			<tr>
@@ -587,8 +594,8 @@
 								<label for="lat_dir#i#">Lat. Dir.</label>
 								<select name="LAT_DIR" size="1" id="lat_dir#i#"  class="reqdClr">
 									<option value=""></option>
-							        <option <cfif #LAT_DIR# is "N"> selected </cfif>value="N">N</option>
-							        <option <cfif #LAT_DIR# is "S"> selected </cfif>value="S">S</option>
+							        <option <cfif LAT_DIR is "N"> selected </cfif>value="N">N</option>
+							        <option <cfif LAT_DIR is "S"> selected </cfif>value="S">S</option>
 							    </select>
 							</td>
 						</tr>
@@ -685,10 +692,8 @@
 			</tr>
               <tr> 
                 <td colspan="4">
-				<input type="button" value="Save Changes" class="savBtn"
-					onClick="latLong#i#.action.value='editAccLatLong';submit();">
-				<input type="button" value="Delete" class="delBtn" 
-					onClick="latLong#i#.action.value='deleteLatLong';confirmDelete('latLong#i#');">
+				<input type="button" value="Save Changes" class="savBtn" onClick="latLong#i#.action.value='editAccLatLong';submit();">
+				<input type="button" value="Delete" class="delBtn" onClick="latLong#i#.action.value='deleteLatLong';confirmDelete('latLong#i#');">
 						
 				</td>
               </tr>
@@ -696,9 +701,7 @@
           </form>
 		 
 		  </td></tr>
-		  	<script>
-				showLLFormat('#orig_lat_long_units#','#i#')
-			</script>
+		  
 			<cfset i=#i#+1>
         </cfoutput>
 		</table>
