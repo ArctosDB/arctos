@@ -464,7 +464,7 @@
 		                  </select>
 					</td>
 					<td nowrap>
-						<div style="border:1px solid <cfif accepted_lat_long_fg is 1>green<cfelse>red</cfif>;">
+						<div style="border:3px solid <cfif accepted_lat_long_fg is 1>green<cfelse>red</cfif>;">
 			                <label for="accepted_lat_long_fg#i#" onClick="getDocs('lat_long','accepted')" class="likeLink">
 								Accepted?
 							</label>
