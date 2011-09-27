@@ -643,13 +643,6 @@ function success_getSpecResultsData(result){
 
                                     // Create an audio thumb.
                                     theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle">';	
-                                        
-									// Create the audio tag with links.
-									theInnerHtml += '<audio id="' + fileName + '" preload="auto" autobuffer>' +
-										'<source src="' + oggPlaybackUrl + '" type="audio/ogg">' +
-										'<source src="' + wavPlaybackUrl + '" type="audio/x-wav">' +
-										'<source src="' + mp3PlaybackUrl + '" type="audio/mpeg">' +
-									'</audio>';
 									
                                     // Place the player here, with the ID of the fileName.
 								  	theInnerHtml +=
@@ -678,7 +671,8 @@ function success_getSpecResultsData(result){
                                 	'</div>';
                                    
                                    theInnerHtml +=
-                                   '<script>setupAudio("' + fileName + '", "' + mp3PlaybackUrl + '", "' + oggPlaybackUrl + '", "' + wavPlaybackUrl + '");</script>'
+                                   '<script>setupAudio("' + fileName + '", "' + mp3PlaybackUrl + '", "' + oggPlaybackUrl + '", "' + wavPlaybackUrl + '");</script>';
+                                   setupAudio(filename, mp3PlaybackUrl, oggPlaybackUrl, wavPlaybackUrl;
 
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
@@ -938,17 +932,15 @@ function logIt(msg,status) {
 	}
 }
 function setupAudio(audio_id, url1, url2, url3) {
-	$(document).ready(function(){
-		$(audio_id).jPlayer({
-			ready: function () {
-				$(this).jPlayer("setMedia", {
-					mp3: url1,
-					oga: url2,
-					wav: url3
-				});
-			},
-			supplied: "mp3, oga, wav",
-			swfPath: "js/Jplayer.swf"
-		});
+	$(audio_id).jPlayer({
+		ready: function () {
+			$(this).jPlayer("setMedia", {
+				mp3: url1,
+				oga: url2,
+				wav: url3
+			});
+		},
+		supplied: "mp3, oga, wav",
+		swfPath: "js/Jplayer.swf"
 	});
 }
