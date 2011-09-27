@@ -672,7 +672,7 @@ function success_getSpecResultsData(result){
                                    
                                    theInnerHtml +=
                                    '<script>setupAudio("' + fileName + '", "' + mp3PlaybackUrl + '", "' + oggPlaybackUrl + '", "' + wavPlaybackUrl + '");</script>';
-                                   setupAudio(filename, mp3PlaybackUrl, oggPlaybackUrl, wavPlaybackUrl;
+                                   setupAudio(filename, mp3PlaybackUrl, oggPlaybackUrl, wavPlaybackUrl);
 
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
