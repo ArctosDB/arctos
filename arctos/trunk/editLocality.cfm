@@ -17,6 +17,7 @@
 			$("##LAT_LONG_REF_SOURCE").val('GeoLocate');
 			$("##dec_lat").val(glat);
 			$("##dec_long").val(glon);
+			scrollTo( $('#newLL') );
 			closeGeoLocate();
 		}
 	</script>
@@ -24,6 +25,7 @@
 					
 <cfif action is "nothing">
 <cfset title="Edit Locality">
+<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("select[id^='geology_attribute_']").each(function(e){
@@ -860,7 +862,7 @@
         </cfoutput>
 		</table>
 		 <cfoutput> 
-		
+		<a name="newLL"></a>
 		<form name="newlatLong" method="post" action="editLocality.cfm">
             <input type="hidden" name="Action" value="AddLatLong">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
