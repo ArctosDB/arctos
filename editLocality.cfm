@@ -214,7 +214,9 @@
 			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and 
 			locality.locality_id=#locality_id# 
 	</cfquery>
-	<cfdump var=#locDet#>
+	<cfif locDet.recordcount is not 1>
+		<div class="error">locality not found</div><cfabort>
+	</cfif>
 	<cfquery name="geolDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     	select 
 			*
