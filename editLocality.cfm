@@ -386,6 +386,7 @@
 					Please georeference this locality or enter a value for NoGeorefBecause.
 				</div>
 			</cfif>
+			<br>
            	<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 			<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 			<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
@@ -396,25 +397,15 @@
 			<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
 		</form>
 		<hr />
-        <table>
-			<tr>
-				<td>
-					Coordinates for this locality: 
-				</td>
-				<td>
-					&nbsp;&nbsp;&nbsp;<span class="likeLink" style="font-size:smaller;" onClick="getDocs('lat_long')">Help</span>
-				</td>
-				<td>
-					&nbsp;&nbsp;&nbsp;
+       <strong>Coordinates for this locality:</strong>
+	&nbsp;&nbsp;&nbsp;<span class="likeLink" style="font-size:smaller;" onClick="getDocs('lat_long')">Help</span>
+	&nbsp;&nbsp;&nbsp;
 					<span style="font-size:smaller;">
 				    	<a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a>
 				        &nbsp;~&nbsp;
 				        <a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a>
 				        &nbsp;~&nbsp;<a href="http://www.museum.tulane.edu/geolocate/web/WebGeoref.aspx" target="_blank" class="external">GeoLocate</a>
-				     </span>	
-				</td>
-			</tr>
-		</table>
+				
 		<cfset i=1>
 		<table border>
 		</cfoutput>
