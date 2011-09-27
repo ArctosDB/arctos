@@ -17,7 +17,7 @@
 			$("##LAT_LONG_REF_SOURCE").val('GeoLocate');
 			$("##dec_lat").val(glat);
 			$("##dec_long").val(glon);
-			scrollTo( $('#newLL') );
+			scrollTo( $('##newLL') );
 			closeGeoLocate();
 		}
 	</script>
