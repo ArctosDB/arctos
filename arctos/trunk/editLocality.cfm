@@ -328,6 +328,7 @@
 			</ul>
 			</cfif>
 	</span>
+	<br>
     <span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<p><strong>Higher Geography</strong></p>
 	<form name="geog" action="editLocality.cfm" method="post">
@@ -346,6 +347,7 @@
 			onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
 	</form>
 	</span>
+	<br>
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<p><strong>Locality</strong></p>
        <form name="locality" method="post" action="editLocality.cfm">
@@ -438,6 +440,7 @@
 		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
 	</form>
 	</span>
+	<br>
 	<strong>Coordinates for this locality:</strong>
 	&nbsp;&nbsp;&nbsp;
 	<span style="font-size:smaller;">
