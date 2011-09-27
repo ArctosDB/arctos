@@ -1,31 +1,26 @@
 <cfinclude template="includes/_header.cfm">
-
-
 <cfoutput>
-					<script>
-						function useGL(glat,glon,gerr){
-							console.log('I am useGL');
-							
-							showLLFormat('decimal degrees','');
-							$("##accepted_lat_long_fg").val('1');
-							$("##determined_by").val('#session.username#');
-							$("##determined_by_agent_id").val('#session.myAgentId#');
-							$("##determined_date").val('#dateformat(now(),"yyyy-mm-dd")#');
-							$("##MAX_ERROR_DISTANCE").val(gerr);
-							$("##MAX_ERROR_UNITS").val('m');
-							$("##DATUM").val('World Geodetic System 1984');
-							$("##georefMethod").val('GeoLocate');
-							$("##extent").val('');
-							$("##GpsAccuracy").val('');
-							$("##VerificationStatus").val('unverified');
-							$("##LAT_LONG_REF_SOURCE").val('GeoLocate');
-							$("##dec_lat").val(glat);
-							$("##dec_long").val(glon);
-							
-							closeGeoLocate();
-						}
-					</script>
-	</cfoutput>
+	<script>
+		function useGL(glat,glon,gerr){
+			showLLFormat('decimal degrees','');
+			$("##accepted_lat_long_fg").val('1');
+			$("##determined_by").val('#session.username#');
+			$("##determined_by_agent_id").val('#session.myAgentId#');
+			$("##determined_date").val('#dateformat(now(),"yyyy-mm-dd")#');
+			$("##MAX_ERROR_DISTANCE").val(gerr);
+			$("##MAX_ERROR_UNITS").val('m');
+			$("##DATUM").val('World Geodetic System 1984');
+			$("##georefMethod").val('GeoLocate');
+			$("##extent").val('');
+			$("##GpsAccuracy").val('');
+			$("##VerificationStatus").val('unverified');
+			$("##LAT_LONG_REF_SOURCE").val('GeoLocate');
+			$("##dec_lat").val(glat);
+			$("##dec_long").val(glon);
+			closeGeoLocate();
+		}
+	</script>
+</cfoutput>
 					
 <cfif action is "nothing">
 <cfset title="Edit Locality">
@@ -47,14 +42,12 @@
 		}
 	});
 	function geolocate() {
-		alert('This opens a map. There is a help link at the top. Use it. The "save" button will create a new determination.');
+		alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
 		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
 		guri+="&state=" + $("#state_prov").val();
 		guri+="&country="+$("#country").val();
 		guri+="&county="+$("#county").val().replace(" County", "");
 		guri+="&locality="+$("#spec_locality").val();
-		
-		console.log(guri);
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -69,13 +62,11 @@
 		cDiv.id='cDiv';
 		cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
 		$("#popDiv").append(cDiv);
-		
 		var hDiv=document.createElement('div');
 		hDiv.className = 'fancybox-help';
 		hDiv.id='hDiv';
 		hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
 		$("#popDiv").append(hDiv);
-		
 		$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
 		var theFrame = document.createElement('iFrame');
 		theFrame.id='theFrame';
@@ -83,9 +74,7 @@
 		theFrame.src=guri;
 		$("#popDiv").append(theFrame);
 	}
-	
 	function getGeolocate(evt) {
-		console.log('I am getGeolocate');
 		var message;
 		if (evt.origin !== "http://www.museum.tulane.edu") {
 	    	alert( "iframe url does not have permision to interact with me" );
@@ -104,17 +93,16 @@
 	 		}
 	    }
 	}
-function closeGeoLocate(msg) {
-	$('#bgDiv').remove();
-	$('#bgDiv', window.parent.document).remove();
-	$('#popDiv').remove();
-	$('#popDiv', window.parent.document).remove();
-	$('#cDiv').remove();
-	$('#cDiv', window.parent.document).remove();
-	$('#theFrame').remove();
-	$('#theFrame', window.parent.document).remove();
-	$("#geoLocateResults").html(msg);
-}
+	function closeGeoLocate(msg) {
+		$('#bgDiv').remove();
+		$('#bgDiv', window.parent.document).remove();
+		$('#popDiv').remove();
+		$('#popDiv', window.parent.document).remove();
+		$('#cDiv').remove();
+		$('#cDiv', window.parent.document).remove();
+		$('#theFrame').remove();
+		$('#theFrame', window.parent.document).remove();
+	}
 	function populateGeology(id) {
 		if (id=='geology_attribute') {
 			// new geol attribute
@@ -148,7 +136,6 @@ function closeGeoLocate(msg) {
 			}
 		);
 	}	
-	
 	function showLLFormat(orig_units,recID) {
 		//alert(recID);
 		if (recID.length == 0) {
@@ -520,7 +507,6 @@ function closeGeoLocate(msg) {
 					</tr>
 		   </table>
 		   <hr />
-		   <div id="geoLocateResults">fffff</div>
         <table>
 			<tr>
 				<td>
