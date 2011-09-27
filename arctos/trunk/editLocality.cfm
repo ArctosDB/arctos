@@ -51,51 +51,44 @@
 		var state_prov=$("#state_prov").val();
 		var country=$("#country").val();
 		var county=$("#county").val();
+		county=county.replace(" County", "");
 		if (state_prov.length > 0){
 			guri+='&state=' + state_prov;
 		}
+		if (country.length > 0){
+			guri+='&country=' + country;
+		}
+		if (county.length > 0){
+			guri+='&county=' + county;
+		}
 		console.log(guri);
-		/*
-	$.getJSON("/component/Bulkloader.cfc",
-		{
-			method : "splitGeog",
-			geog: $("#higher_geog").val(),
-			specloc: $("#spec_locality").val(),
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function(r) {
-			var bgDiv = document.createElement('div');
-			bgDiv.id = 'bgDiv';
-			bgDiv.className = 'bgDiv';
-			bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
-			document.body.appendChild(bgDiv);
-			var popDiv=document.createElement('div');
-			popDiv.id = 'popDiv';
-			popDiv.className = 'editAppBox';
-			document.body.appendChild(popDiv);	
-			var cDiv=document.createElement('div');
-			cDiv.className = 'fancybox-close';
-			cDiv.id='cDiv';
-			cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
-			$("#popDiv").append(cDiv);
-			
-			var hDiv=document.createElement('div');
-			hDiv.className = 'fancybox-help';
-			hDiv.id='hDiv';
-			hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
-			$("#popDiv").append(hDiv);
-			
-			$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
-			var theFrame = document.createElement('iFrame');
-			theFrame.id='theFrame';
-			theFrame.className = 'editFrame';
-			theFrame.src=r;
-			$("#popDiv").append(theFrame);
-		}	
-	);
-		*/
-	
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+		document.body.appendChild(bgDiv);
+		var popDiv=document.createElement('div');
+		popDiv.id = 'popDiv';
+		popDiv.className = 'editAppBox';
+		document.body.appendChild(popDiv);	
+		var cDiv=document.createElement('div');
+		cDiv.className = 'fancybox-close';
+		cDiv.id='cDiv';
+		cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+		$("#popDiv").append(cDiv);
+		
+		var hDiv=document.createElement('div');
+		hDiv.className = 'fancybox-help';
+		hDiv.id='hDiv';
+		hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
+		$("#popDiv").append(hDiv);
+		
+		$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+		var theFrame = document.createElement('iFrame');
+		theFrame.id='theFrame';
+		theFrame.className = 'editFrame';
+		theFrame.src=guri;
+		$("#popDiv").append(theFrame);
 	}
 	
 	function getGeolocate(evt) {
@@ -110,7 +103,7 @@
 		    var glat=breakdown[0];
 		    var glon=breakdown[1];
 		    var gerr=breakdown[2];
-		    DEuseGL(glat,glon,gerr)
+		    useGL(glat,glon,gerr)
 		} else {
 			alert( "Whoa - that's not supposed to happen. " +  breakdown.length);
 			closeGeoLocate('ERROR - breakdown length');
