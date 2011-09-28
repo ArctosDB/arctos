@@ -296,6 +296,60 @@ function toggleKillrow(id,status) {
 	}
 }
 
+// Start of Mike's audio media functions.
+// Uses Jquery to prep the jPlayer function, for use after the page loads.
+function setup_jplayer_end(audio_id, wrapper_id, mp3link, ogglink) {
+    $(document).ready(function() {
+        $("#" + audio_id).jPlayer({
+            ready: function() {
+                $(this).jPlayer("setMedia", {
+                    mp3: mp3link,
+                    oga: ogglink
+                });
+            },
+            swfPath: "/js",
+            supplied: "mp3, oga",
+            cssSelectorAncestor: "#" + wrapper_id
+        });
+    });
+}
+// Uses jQuery to prep the jPlayer gui, for use after the page loads.
+function setup_jplayer_gui(audio_id, html) {
+    $(document).ready(function() {
+        var element = document.getElementById(audio_id);
+        element.innerHTML = html;
+    });
+}
+// Simple function that creates the player code and passes on to setup functions.
+function make_audio_html(i, mp3link, ogglink) {
+
+    var html = "";
+
+    // Jplayer requires unique ids for two div classes:
+    // jp-jplayer, and jp-audio.
+    var unq_id_1 = "jquery_jplayer_" + i;
+    var unq_id_2 = "jp_container_" + i;
+
+    html += '<div id="' + unq_id_1 + '" class="jp-jplayer"></div>';
+    html += '<div id="' + unq_id_2 + '" class="jp-audio">';
+    html += '<div class="jp-type-single">';
+    html += '<div class="jp-gui jp-interface">';
+    html += '<ul class="jp-controls">';
+    html += '<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>';
+    html += '<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>';
+    html += '</ul>';
+    html += '</div>'; // End "jp-gui jp-interface".
+    html += '<div class="jp-no-solution">';
+    html += '<span>Update required.</span>';
+    html += 'To play this media, you need to update your browser.';
+    html += '</div>'; // End "jp-no-solution".
+    html += '</div>'; // End "jp-audio".
+    html += '</div>'; // End "jp-jplayer".
+    setup_jplayer_gui("audio_thumb_" + i, html);
+    setup_jplayer_end(unq_id_1, unq_id_2, mp3link, ogglink);
+}
+// End of Mike's audio media functions.
+
 function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	if (document.getElementById('resultsGoHere')) {
 		var guts = '<div id="loading" style="position:relative;top:0px;left:0px;z-index:999;color:white;background-color:green;';
@@ -363,7 +417,9 @@ function success_getSpecResultsData(result){
 			var action = document.getElementById('action').value;
 		} else {
 			var action='';
-		}
+		}									// Jplayer requires unique ids for two div classes: jp-jplayer, and jp-audio.
+								    var unq_id_1 = "jquery_jplayer_" + i;
+								    var unq_id_2 = "jp_container_" + i;
 		if (document.getElementById('transaction_id') && document.getElementById('transaction_id').value.length>0){
 			var transaction_id = document.getElementById('transaction_id').value;
 		} else {
@@ -634,6 +690,9 @@ function success_getSpecResultsData(result){
 
                                 } else {
 
+									// Need this to create unique div tags for the jPlayer functions.
+                                    var unq_identifier = m;
+                                    
                                     // Do arithmetic.
                                     wavPlaybackUrl = thisMedia.DATA.media_uri[m],
                                         length = wavPlaybackUrl.split('/').length,
@@ -642,37 +701,10 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Create an audio thumb.
-                                    theInnerHtml += '<div class="audio_thumb" align="center" style="font-size:small;vertical-align:middle">';	
-									
-                                    // Place the player here, with the ID of the fileName.
-								  	theInnerHtml +=
-                                    '<div id="' + fileName + '" class="jp-jplayer"></div>' +
-                                    '<div class="jp-audio">' +
-                                    	'<div class="jp-type-single">' +
-                                            '<div id="jp_interface_1" class="jp-interface">' +
-                                                '<ul class="jp-controls">' +
-                                                  '<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>' +
-                                                  '<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>' +
-                                                  '<li><a href="javascript:;" class="jp-mute" tabindex="1">mute</a></li>' +
-                                                  '<li><a href="javascript:;" class="jp-unmute" tabindex="1">unmute</a></li>' +
-                                                '</ul>' +
-                                                '<div class="jp-progress">' +
-                                                '   <div class="jp-seek-bar">' +
-                                                '       <div class="jp-play-bar"></div>' +
-                                                '	</div>' +
-                                                '</div>' +
-                                                '<div class="jp-volume-bar">' +
-                                                    '<div class="jp-volume-bar-value"></div>' +
-                                                '</div>' +
-                                                '<div class="jp-current-time"></div>' +
-                                                '<div class="jp-duration"></div>' +
-                                            '</div>' +
-                                    	'</div>' +
-                                	'</div>';
-                                   
-                                   theInnerHtml +=
-                                   '<script>setupAudio("' + fileName + '", "' + mp3PlaybackUrl + '", "' + oggPlaybackUrl + '", "' + wavPlaybackUrl + '");</script>';
-                                   setupAudio(filename, mp3PlaybackUrl, oggPlaybackUrl, wavPlaybackUrl);
+                                    theInnerHtml += '<div class="audio_thumb_' + m + '" align="center" style="vertical-align:middle"></div>';	
+								    
+								    // Here's the audio html injection. jQuery will take care of the rest.
+								    make_audio_html(m, mp3PlaybackUrl, oggPlaybackUrl);
 
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
@@ -692,7 +724,7 @@ function success_getSpecResultsData(result){
                                 }
 
                             }
-                        theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
+                        theInnerHtml += '<div class="thumb_spcr">&nbsp;</div>';
                         theInnerHtml += '</td>';
                     }
                     theInnerHtml += '<td>';
@@ -930,17 +962,4 @@ function logIt(msg,status) {
 		document.getElementById('oidnum').focus();
 		document.getElementById('oidnum').select();
 	}
-}
-function setupAudio(audio_id, url1, url2, url3) {
-	$(audio_id).jPlayer({
-		ready: function () {
-			$(this).jPlayer("setMedia", {
-				mp3: url1,
-				oga: url2,
-				wav: url3
-			});
-		},
-		supplied: "mp3, oga, wav",
-		swfPath: "js/Jplayer.swf"
-	});
 }
