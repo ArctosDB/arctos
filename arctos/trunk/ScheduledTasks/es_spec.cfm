@@ -205,7 +205,7 @@
 							NULL,
 							NULL,
 							'locality card',
-							'not recorded'
+							'not recorded',
 							'unknown',
 							'#dateformat(when,"yyyy-mm-dd")#',
 							'assume coordinates from locality card.',
