@@ -324,7 +324,7 @@ encumbered for proprietary reasons, data are open to the public.
 </p>
 <p><strong >Features:</strong>
 <ul>
-	<li>Vaporware-free since 2001. All this stuff, and much more, really exists in a usable state, and we'll never claim
+	<li>Vaporware-free since 2001. All this stuff and much more really exists in a usable state, and we'll never claim
 		proposed or limited funtionality exists.
 	</li>
 	<li>
@@ -458,9 +458,10 @@ at the
 <a href="http://www.uaf.edu/museum" target="_blank">University of Alaska Museum of the North</a>, 
 the 
 <a href="http://www.msb.unm.edu/" target="_blank">University of New Mexico's Museum of Southwestern Biology</a>,  
-<a href="http://www.wnmu.edu/" target="_blank">Western New Mexico State University</a>, and
+<a href="http://www.wnmu.edu/" target="_blank">Western New Mexico State University</a>,
 the 
-<a href="http://mvz.berkeley.edu/" target="_blank">Museum of Vertebrate Zoology</a>. A second server at the
+<a href="http://mvz.berkeley.edu/" target="_blank">Museum of Vertebrate Zoology</a>, and 
+the <a href="http://www.dmns.org/" target="_blank">Denver Museum of Nature and Science</a>. A second server at the
 <a href="http://mczbase.mcz.harvard.edu" target="_blank">Harvard Museum of Comparative Zoology</a> hosts 
 MCZ's Herp collection, with more collections coming soon.</p>
 
@@ -508,10 +509,12 @@ but we have made some exceptions:
 
 <p><a name="data_usage"><strong>Data Usage</strong></a><br/>
 The collections data available through Arctos are separately 
-copyrighted &#169; 2001 - 2011 by the University of Alaska Museum of the North 
+copyrighted &#169; 2001 - 2011 by the 
+University of Alaska Museum of the North 
 (University of Alaska, Fairbanks, AK),
 and by the Museum of Southwestern Biology (University of New Mexico, Albuquerque, NM),
-and the Museum of Vertebrate Zoology (University of California, Berkeley, CA).
+ the Museum of Vertebrate Zoology (University of California, Berkeley, CA), and 
+the Dewnver Museum of Nature and Science (Denver, CO).
 All rights are reserved. 
 These data are intended for use in education and research and may not be repackaged, redistributed, or sold in any form without prior written consent from the appropriate museum(s). 
 Those wishing to include these data in analyses or reports must acknowledge the provenance of the original data, notify the appropriate curator, and should ask questions prior to publication. 
