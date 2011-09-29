@@ -316,8 +316,7 @@ function setup_jplayer_end(audio_id, wrapper_id, mp3link, ogglink) {
 // Uses jQuery to prep the jPlayer gui, for use after the page loads.
 function setup_jplayer_gui(audio_id, html) {
     $(document).ready(function() {
-        var element = document.getElementById("#" + audio_id);
-        element.innerHTML = html; 
+        document.getElementById(audio_id).innerHTML = html;
     });
 }
 // Simple function that creates the player code and passes on to setup functions.
@@ -697,7 +696,7 @@ function success_getSpecResultsData(result){
                                         oggPlaybackUrl = 'http://web.corral.tacc.utexas.edu/MVZ/audio/ogg/' + fileName + '.ogg';
 
                                     // Create an audio thumb.
-                                    theInnerHtml += '<div class="audio_thumb_' + m + '" align="center" style="vertical-align:middle"></div>';	
+                                    theInnerHtml += '<div id="' + audio_id + '" class="audio" align="center" style="vertical-align:middle"></div>';	
 								    
 								    // Here's the audio html injection. jQuery will take care of the rest.
 								    make_audio_html(m, mp3PlaybackUrl, oggPlaybackUrl);
