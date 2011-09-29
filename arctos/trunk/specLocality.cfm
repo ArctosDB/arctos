@@ -87,7 +87,7 @@
 			}		
 		}		
 	}
-	function GEOLocate(){
+	function geoLocate(){
 		alert('hoi');			
 	}
 </script>
