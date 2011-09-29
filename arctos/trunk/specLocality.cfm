@@ -87,6 +87,9 @@
 			}		
 		}		
 	}
+	function GEOLocate(){
+		alert('hoi');			
+	}
 </script>
 <cfif action is "nothing">
 <cfoutput> 
@@ -537,7 +540,8 @@
 	                	<option 
 						  	<cfif #thisUnits# is "#ctunits.ORIG_LAT_LONG_UNITS#"> selected </cfif>value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
 	                </cfloop>
-	            </select>				
+	            </select>
+	            <span class="likeLink" onclick="geoLocate()">GEOLocate</span>			
 			</td>
 		</tr>
 	<table>
@@ -614,7 +618,7 @@
 		</tr>
 		<tr>
 			<td>
-				<label for="GpsAccuracy" class="likeLink" onClick="getDocs('lat_long','gps_accuracy')">
+				<label for="GpsAccuracy" class="likeLink" onClick="getDocs('lat_long','gpsaccuracy')">
 					GPS Accuracy
 				</label>
 				<input type="text" name="GpsAccuracy" id="GpsAccuracy" value="#l.GpsAccuracy#" size="7">
