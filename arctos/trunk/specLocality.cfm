@@ -150,6 +150,25 @@
 		$('#theFrame', window.parent.document).remove();
 		$("#geoLocateResults").html(msg);
 	}
+	function getGeolocate(evt) {
+		var message;
+		if (evt.origin !== "http://www.museum.tulane.edu") {
+	    	alert( "iframe url does not have permision to interact with me" );
+	        closeGeoLocate('intruder alert');
+	    }
+	    else {
+	    	var breakdown = evt.data.split("|");
+			if (breakdown.length == 4) {
+			    var glat=breakdown[0];
+			    var glon=breakdown[1];
+			    var gerr=breakdown[2];
+			    DEuseGL(glat,glon,gerr)
+			} else {
+				alert( "Whoa - that's not supposed to happen. " +  breakdown.length);
+				closeGeoLocate('ERROR - breakdown length');
+	 		}
+	    }
+	}
 </script>
 <cfif action is "nothing">
 <cfoutput> 
