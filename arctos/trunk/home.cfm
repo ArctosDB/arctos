@@ -225,7 +225,7 @@
 							</li>
 						</cfif>
 						<cfif isdefined("dmns") and dmns.recordcount gt 0>
-							<li><a href="http://www.dmns.org/" target="_blank" class="external">Denver Museum of Nature and Science</a>
+							<li><a href="http://www.dmns.org/" target="_blank" class="external">Denver Museum of Nature & Science</a>
 								<ul>
 									<cfloop query="dmns">
 										<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -461,7 +461,7 @@ the
 <a href="http://www.wnmu.edu/" target="_blank">Western New Mexico State University</a>,
 the 
 <a href="http://mvz.berkeley.edu/" target="_blank">Museum of Vertebrate Zoology</a>, and 
-the <a href="http://www.dmns.org/" target="_blank">Denver Museum of Nature and Science</a>. A second server at the
+the <a href="http://www.dmns.org/" target="_blank">Denver Museum of Nature & Science</a>. A second server at the
 <a href="http://mczbase.mcz.harvard.edu" target="_blank">Harvard Museum of Comparative Zoology</a> hosts 
 MCZ's Herp collection, with more collections coming soon.</p>
 
@@ -514,7 +514,7 @@ University of Alaska Museum of the North
 (University of Alaska, Fairbanks, AK),
 and by the Museum of Southwestern Biology (University of New Mexico, Albuquerque, NM),
  the Museum of Vertebrate Zoology (University of California, Berkeley, CA), and 
-the Dewnver Museum of Nature and Science (Denver, CO).
+the Denver Museum of Nature & Science (Denver, CO).
 All rights are reserved. 
 These data are intended for use in education and research and may not be repackaged, redistributed, or sold in any form without prior written consent from the appropriate museum(s). 
 Those wishing to include these data in analyses or reports must acknowledge the provenance of the original data, notify the appropriate curator, and should ask questions prior to publication. 

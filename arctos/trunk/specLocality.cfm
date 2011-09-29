@@ -9,8 +9,16 @@
 		});
 		$("select[id^='geology_attribute_']").each(function(e){
 			populateGeology(this.id);			
-		});	
+		});
+		if (window.addEventListener) {
+			window.addEventListener("message", getGeolocate, false);
+		} else {
+			window.attachEvent("onmessage", getGeolocate);
+		}	
 	});
+	
+
+
 	function populateGeology(id) {
 		if (id.indexOf('__') > -1) {
 			var idNum=id.replace('geology_attribute__','');
@@ -89,36 +97,58 @@
 	}
 	function geoLocate(){
 		alert('This function will add a determination. Thatis kind of funky from this form. use Edit Locality if you have access.');
-		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
-		guri+="&state=" + $("#state_prov").val();
-		guri+="&country="+$("#country").val();
-		guri+="&county="+$("#county").val().replace(" County", "");
-		guri+="&locality="+$("#spec_locality").val();
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
-		document.body.appendChild(bgDiv);
-		var popDiv=document.createElement('div');
-		popDiv.id = 'popDiv';
-		popDiv.className = 'editAppBox';
-		document.body.appendChild(popDiv);	
-		var cDiv=document.createElement('div');
-		cDiv.className = 'fancybox-close';
-		cDiv.id='cDiv';
-		cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
-		$("#popDiv").append(cDiv);
-		var hDiv=document.createElement('div');
-		hDiv.className = 'fancybox-help';
-		hDiv.id='hDiv';
-		hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
-		$("#popDiv").append(hDiv);
-		$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
-		var theFrame = document.createElement('iFrame');
-		theFrame.id='theFrame';
-		theFrame.className = 'editFrame';
-		theFrame.src=guri;
-		$("#popDiv").append(theFrame);
+		
+		
+		
+		$.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "splitGeog",
+				geog: $("#higher_geog").val(),
+				specloc: $("#spec_locality").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				var bgDiv = document.createElement('div');
+				bgDiv.id = 'bgDiv';
+				bgDiv.className = 'bgDiv';
+				bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+				document.body.appendChild(bgDiv);
+				var popDiv=document.createElement('div');
+				popDiv.id = 'popDiv';
+				popDiv.className = 'editAppBox';
+				document.body.appendChild(popDiv);	
+				var cDiv=document.createElement('div');
+				cDiv.className = 'fancybox-close';
+				cDiv.id='cDiv';
+				cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+				$("#popDiv").append(cDiv);
+				
+				var hDiv=document.createElement('div');
+				hDiv.className = 'fancybox-help';
+				hDiv.id='hDiv';
+				hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
+				$("#popDiv").append(hDiv);
+				
+				$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+				var theFrame = document.createElement('iFrame');
+				theFrame.id='theFrame';
+				theFrame.className = 'editFrame';
+				theFrame.src=r;
+				$("#popDiv").append(theFrame);
+			}	
+		);
+	}
+	function closeGeoLocate(msg) {
+		$('#bgDiv').remove();
+		$('#bgDiv', window.parent.document).remove();
+		$('#popDiv').remove();
+		$('#popDiv', window.parent.document).remove();
+		$('#cDiv').remove();
+		$('#cDiv', window.parent.document).remove();
+		$('#theFrame').remove();
+		$('#theFrame', window.parent.document).remove();
+		$("#geoLocateResults").html(msg);
 	}
 </script>
 <cfif action is "nothing">
