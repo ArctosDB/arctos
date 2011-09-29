@@ -162,7 +162,7 @@
 			    var glat=breakdown[0];
 			    var glon=breakdown[1];
 			    var gerr=breakdown[2];
-			    DEuseGL(glat,glon,gerr)
+			    useGL(glat,glon,gerr)
 			} else {
 				alert( "Whoa - that's not supposed to happen. " +  breakdown.length);
 				closeGeoLocate('ERROR - breakdown length');
