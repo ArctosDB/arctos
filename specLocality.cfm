@@ -171,7 +171,28 @@
 	}
 </script>
 <cfif action is "nothing">
-<cfoutput> 
+<cfoutput>
+<script>
+function useGL(glat,glon,gerr){
+			showLLFormat('decimal degrees','');
+			$("##accepted_lat_long_fg").val('1');
+			$("##determined_by").val('#session.username#');
+			$("##determined_by_agent_id").val('#session.myAgentId#');
+			$("##determined_date").val('#dateformat(now(),"yyyy-mm-dd")#');
+			$("##MAX_ERROR_DISTANCE").val(gerr);
+			$("##MAX_ERROR_UNITS").val('m');
+			$("##DATUM").val('World Geodetic System 1984');
+			$("##georefMethod").val('GeoLocate');
+			$("##extent").val('');
+			$("##GpsAccuracy").val('');
+			$("##VerificationStatus").val('unverified');
+			$("##LAT_LONG_REF_SOURCE").val('GeoLocate');
+			$("##dec_lat").val(glat);
+			$("##dec_long").val(glon);
+			$(document).scrollTo( $('##newLL'), 800 );
+			closeGeoLocate();
+		}
+</script>
 	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     	select 
 			collection_object_id,
