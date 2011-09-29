@@ -317,7 +317,7 @@ function setup_jplayer_end(audio_id, wrapper_id, mp3link, ogglink) {
 function setup_jplayer_gui(audio_id, html) {
     $(document).ready(function() {
         var element = document.getElementById(audio_id);
-        element.innerHTML = html;
+        element.innerHTML = html; 
     });
 }
 // Simple function that creates the player code and passes on to setup functions.
