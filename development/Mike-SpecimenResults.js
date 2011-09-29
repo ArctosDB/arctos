@@ -417,9 +417,7 @@ function success_getSpecResultsData(result){
 			var action = document.getElementById('action').value;
 		} else {
 			var action='';
-		}									// Jplayer requires unique ids for two div classes: jp-jplayer, and jp-audio.
-								    var unq_id_1 = "jquery_jplayer_" + i;
-								    var unq_id_2 = "jp_container_" + i;
+		}
 		if (document.getElementById('transaction_id') && document.getElementById('transaction_id').value.length>0){
 			var transaction_id = document.getElementById('transaction_id').value;
 		} else {
@@ -633,9 +631,6 @@ function success_getSpecResultsData(result){
                 } else {
                     theInnerHtml += '<tr class="evenRow">';
                 }
-
-
-
                     if (killrow == 1){
                         theInnerHtml += '<td align="center"><input type="checkbox" onchange="toggleKillrow(' + "'";
                         theInnerHtml +=data.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
