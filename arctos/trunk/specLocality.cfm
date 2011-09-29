@@ -88,7 +88,37 @@
 		}		
 	}
 	function geoLocate(){
-		alert('hoi');			
+		alert('This function will add a determination. Thatis kind of funky from this form. use Edit Locality if you have access.');
+		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
+		guri+="&state=" + $("#state_prov").val();
+		guri+="&country="+$("#country").val();
+		guri+="&county="+$("#county").val().replace(" County", "");
+		guri+="&locality="+$("#spec_locality").val();
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+		document.body.appendChild(bgDiv);
+		var popDiv=document.createElement('div');
+		popDiv.id = 'popDiv';
+		popDiv.className = 'editAppBox';
+		document.body.appendChild(popDiv);	
+		var cDiv=document.createElement('div');
+		cDiv.className = 'fancybox-close';
+		cDiv.id='cDiv';
+		cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+		$("#popDiv").append(cDiv);
+		var hDiv=document.createElement('div');
+		hDiv.className = 'fancybox-help';
+		hDiv.id='hDiv';
+		hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
+		$("#popDiv").append(hDiv);
+		$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+		var theFrame = document.createElement('iFrame');
+		theFrame.id='theFrame';
+		theFrame.className = 'editFrame';
+		theFrame.src=guri;
+		$("#popDiv").append(theFrame);
 	}
 </script>
 <cfif action is "nothing">
@@ -146,7 +176,10 @@
 			COLL_EVENT_REMARKS,
 			COLLECTING_SOURCE,
 			COLLECTING_METHOD,
-			HABITAT_DESC
+			HABITAT_DESC,
+			state_prov,
+			country,
+			county
 		from 
 			spec_with_loc
 		where 
@@ -268,6 +301,9 @@
 		<input type="hidden" name="action" value="saveChange">
 		<input type="hidden" name="nothing" id="nothing">
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+		<input type="hidden" name="state_prov" value="#state_prov#">
+		<input type="hidden" name="country" value="#country#">
+		<input type="hidden" name="county" value="#county#">
 <table>
 	<tr>
 		<td valign="top"><!--- left half of page ---> 	
