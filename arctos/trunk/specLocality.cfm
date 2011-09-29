@@ -301,9 +301,9 @@
 		<input type="hidden" name="action" value="saveChange">
 		<input type="hidden" name="nothing" id="nothing">
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		<input type="hidden" name="state_prov" value="#state_prov#">
-		<input type="hidden" name="country" value="#country#">
-		<input type="hidden" name="county" value="#county#">
+		<input type="hidden" name="state_prov" value="#l.state_prov#">
+		<input type="hidden" name="country" value="#l.country#">
+		<input type="hidden" name="county" value="#l.county#">
 <table>
 	<tr>
 		<td valign="top"><!--- left half of page ---> 	
