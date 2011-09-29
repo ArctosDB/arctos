@@ -189,7 +189,6 @@ function useGL(glat,glon,gerr){
 			$("##LAT_LONG_REF_SOURCE").val('GeoLocate');
 			$("##dec_lat").val(glat);
 			$("##dec_long").val(glon);
-			$(document).scrollTo( $('##newLL'), 800 );
 			closeGeoLocate();
 		}
 </script>
