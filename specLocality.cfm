@@ -225,10 +225,7 @@
 			COLL_EVENT_REMARKS,
 			COLLECTING_SOURCE,
 			COLLECTING_METHOD,
-			HABITAT_DESC,
-			state_prov,
-			country,
-			county
+			HABITAT_DESC
 		from 
 			spec_with_loc
 		where 
