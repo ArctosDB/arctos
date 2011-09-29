@@ -316,7 +316,7 @@ function setup_jplayer_end(audio_id, wrapper_id, mp3link, ogglink) {
 // Uses jQuery to prep the jPlayer gui, for use after the page loads.
 function setup_jplayer_gui(audio_id, html) {
     $(document).ready(function() {
-        var element = document.getElementById(audio_id);
+        var element = document.getElementById("#" + audio_id);
         element.innerHTML = html; 
     });
 }
@@ -687,6 +687,7 @@ function success_getSpecResultsData(result){
 
 									// Need this to create unique div tags for the jPlayer functions.
                                     var unq_identifier = m;
+                                    var audio_id = "audio_thumb_" + m;
                                     
                                     // Do arithmetic.
                                     wavPlaybackUrl = thisMedia.DATA.media_uri[m],
