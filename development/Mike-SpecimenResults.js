@@ -315,15 +315,9 @@ function setup_jplayer_end(audio_id, wrapper_id, mp3link, ogglink) {
 }
 
 // Simple function that creates the player code and passes on to setup functions.
-function make_audio_html(i, mp3link, ogglink) {
+function make_audio_html(unq_id_1, unq_id_2, mp3link, ogglink) {
 
     var html = "";
-
-    // Jplayer requires unique ids for two div classes:
-    // jp-jplayer, and jp-audio.
-    var unq_id_1 = "jquery_jplayer_" + i;
-    var unq_id_2 = "jp_container_" + i;
-
     html += '<div id="' + unq_id_2 + '" class="jp-audio">';
     html += '<div class="jp-type-single">';
     html += '<div class="jp-gui jp-interface">';
@@ -344,7 +338,7 @@ function make_audio_html(i, mp3link, ogglink) {
             setup_jplayer_end(unq_id_1, unq_id_2, mp3link, ogglink);
             clearInterval(id);
         }
-    }, 500);
+    }, 1000);
 }
 // End of Mike's audio media functions.
 
@@ -685,7 +679,9 @@ function success_getSpecResultsData(result){
 
 									// Need this to create unique div tags for the jPlayer functions.
                                     var unq_identifier = m;
-                                    var audio_id = "audio_thumb_" + m;
+                                    var unq_id_1 = "jquery_jplayer_" + unq_identifier;
+                                    var unq_id_2 = "jp_container_" + unq_identifier;
+                                    var audio_id = "audio_thumb_" + unq_identifier;
                                     
                                     // Do arithmetic.
                                     wavPlaybackUrl = thisMedia.DATA.media_uri[m],
@@ -698,7 +694,7 @@ function success_getSpecResultsData(result){
                                     document.getElementById("audio").innerHTML += '<div id="' + unq_id_1 + '" class="jp-jplayer"></div>';
 								    
 								    // Add the GUI in the correct place.
-								    theInnerHtml += make_audio_html(m, mp3PlaybackUrl, oggPlaybackUrl);
+								    theInnerHtml += make_audio_html(unq_id_1, unq_id_2, mp3PlaybackUrl, oggPlaybackUrl);
 
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
