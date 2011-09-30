@@ -449,6 +449,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 </div>
 </form>
 
+<!--- Hook to place any audio code needed to load results correctly. --->
+<div id="audio"></div>
+
 <!--- The JS function "getSpecResultsData"--->
 
 <div id="resultsGoHere"></div>
