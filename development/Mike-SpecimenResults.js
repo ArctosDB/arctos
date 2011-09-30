@@ -299,7 +299,7 @@ function toggleKillrow(id,status) {
 // Start of Mike's audio media functions.
 // Uses Jquery to prep the jPlayer function, for use after the page loads.
 function setup_jplayer_end(audio_id, wrapper_id, mp3link, ogglink) {
-    $(document).ready(function() {
+    $(document.getElementById(wrapper_id)).ready(function() {
         $("#" + audio_id).jPlayer({
             ready: function() {
                 $(this).jPlayer("setMedia", {
@@ -315,7 +315,7 @@ function setup_jplayer_end(audio_id, wrapper_id, mp3link, ogglink) {
 }
 // Uses jQuery to prep the jPlayer gui, for use after the page loads.
 function setup_jplayer_gui(audio_id, html) {
-    $(document).ready(function() {
+    $(document.getElementById(audio_id)).ready(function() {
         document.getElementById(audio_id).innerHTML = html;
     });
 }
