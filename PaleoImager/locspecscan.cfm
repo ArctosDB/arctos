@@ -84,6 +84,10 @@
 				</td>
 			</tr>
 			<tr>
+				<td align="right">ErathemEra</td>
+				<td>#ErathemEra#</td>
+			</tr>
+			<tr>
 				<td align="right">Age</td>
 				<td>#age#</td>
 			</tr>
@@ -186,6 +190,33 @@
 		order by
 			ATTRIBUTE_VALUE
 	</cfquery>
+	<cfquery name="ctSystemPeriod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			ATTRIBUTE_VALUE 
+		from 
+			geology_attribute_hierarchy 
+		where 
+			ATTRIBUTE='System/Period' and
+			USABLE_VALUE_FG=1
+		group by
+			ATTRIBUTE_VALUE
+		order by
+			ATTRIBUTE_VALUE
+	</cfquery>
+	<cfquery name="ctErathemErad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			ATTRIBUTE_VALUE 
+		from 
+			geology_attribute_hierarchy 
+		where 
+			ATTRIBUTE='Erathem/Era' and
+			USABLE_VALUE_FG=1
+		group by
+			ATTRIBUTE_VALUE
+		order by
+			ATTRIBUTE_VALUE
+	</cfquery>
+	
 	<script>
 		jQuery(document).ready(function() {
 	  		$("##barcode").focus();
@@ -275,6 +306,13 @@
 		<select name="formation">
 			<option value=""></option>
 			<cfloop query="ctFormation">
+				<option value="#ATTRIBUTE_VALUE#">#ATTRIBUTE_VALUE#</option>
+			</cfloop>
+		</select>
+		<label for="ErathemEra">ErathemEra</label>
+		<select name="ErathemEra">
+			<option value=""></option>
+			<cfloop query="ctErathemEra">
 				<option value="#ATTRIBUTE_VALUE#">#ATTRIBUTE_VALUE#</option>
 			</cfloop>
 		</select>
@@ -430,7 +468,8 @@
 					remark,
 					LocalityID,
 					SeriesEpoch,
-					SystemPeriod
+					SystemPeriod,
+					ErathemEra
 				) values (
 					'#accn#',
 					#vA.transaction_id#,
@@ -450,7 +489,8 @@
 					'#escapeQuotes(remark)#',
 					'#LocalityID#',
 					'#SeriesEpoch#',
-					'#SystemPeriod#'
+					'#SystemPeriod#',
+					'#ErathemEra#'
 				)
 			</cfquery>
 			<cfquery name="lid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -532,6 +572,10 @@
 		<tr>
 			<td align="right">formation:</td>
 			<td>#card.formation#</td>
+		</tr>
+		<tr>
+			<td align="right">ErathemEra:</td>
+			<td>#card.ErathemEra#</td>
 		</tr>
 		<tr>
 			<td align="right">age:</td>
