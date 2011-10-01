@@ -332,13 +332,13 @@ function make_audio_html(unq_id_1, unq_id_2, mp3link, ogglink) {
     html += '</div>'; // End "jp-no-solution".
     html += '</div>'; // End "jp-audio".
     html += '</div>'; // End "jp-jplayer".
-    return html;
     var id = setInterval(function() {
         if (document.getElementById(unq_id_1) !== null && document.getElementById(unq_id_2) !== null) {
             setup_jplayer_end(unq_id_1, unq_id_2, mp3link, ogglink);
             clearInterval(id);
         }
     }, 1000);
+    return html;
 }
 // End of Mike's audio media functions.
 
