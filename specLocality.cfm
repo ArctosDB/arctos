@@ -179,14 +179,14 @@ function useGL(glat,glon,gerr){
 			$("##coordinate_determiner").val('#session.username#');
 			$("##determined_by_agent_id").val('#session.myAgentId#');
 			$("##determined_date").val('#dateformat(now(),"yyyy-mm-dd")#');
-			$("##MAX_ERROR_DISTANCE").val(gerr);
-			$("##MAX_ERROR_UNITS").val('m');
-			$("##DATUM").val('World Geodetic System 1984');
+			$("##max_error_distance").val(gerr);
+			$("##max_error_units").val('m');
+			$("##datum").val('World Geodetic System 1984');
 			$("##georefMethod").val('GeoLocate');
 			$("##extent").val('');
 			$("##GpsAccuracy").val('');
 			$("##VerificationStatus").val('unverified');
-			$("##LAT_LONG_REF_SOURCE").val('GeoLocate');
+			$("##lat_long_ref_source").val('GeoLocate');
 			$("##dec_lat").val(glat);
 			$("##dec_long").val(glon);
 			closeGeoLocate();
