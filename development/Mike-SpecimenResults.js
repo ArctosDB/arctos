@@ -678,7 +678,11 @@ function success_getSpecResultsData(result){
                                 } else {
 
 									// Need this to create unique div tags for the jPlayer functions.
-                                    var unq_identifier = m;
+									if (typeof unq_identifier == 'undefined') {
+										var unq_identifier = 0;
+									} else {
+										unq_identifer += 1;
+									}
                                     var unq_id_1 = "jquery_jplayer_" + unq_identifier;
                                     var unq_id_2 = "jp_container_" + unq_identifier;
                                     var audio_id = "audio_thumb_" + unq_identifier;
