@@ -182,10 +182,10 @@ function useGL(glat,glon,gerr){
 			$("##max_error_distance").val(gerr);
 			$("##max_error_units").val('m');
 			$("##datum").val('World Geodetic System 1984');
-			$("##georefMethod").val('GeoLocate');
+			$("##georefmethod").val('GeoLocate');
 			$("##extent").val('');
-			$("##GpsAccuracy").val('');
-			$("##VerificationStatus").val('unverified');
+			$("##gpsaccuracy").val('');
+			$("##verificationstatus").val('unverified');
 			$("##lat_long_ref_source").val('GeoLocate');
 			$("##dec_lat").val(glat);
 			$("##dec_long").val(glon);
