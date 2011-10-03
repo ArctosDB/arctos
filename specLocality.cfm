@@ -96,7 +96,7 @@
 		}		
 	}
 	function geoLocate(){
-		alert('This function will add a determination. Thatis kind of funky from this form. use Edit Locality if you have access.');
+		alert('This function will add a determination. Thatis kind of funky from this form. Use Edit Locality if you have access.');
 		
 		
 		
@@ -109,33 +109,33 @@
 				queryformat : 'column'
 			},
 			function(r) {
-				var bgDiv = document.createElement('div');
-				bgDiv.id = 'bgDiv';
-				bgDiv.className = 'bgDiv';
-				bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
-				document.body.appendChild(bgDiv);
-				var popDiv=document.createElement('div');
-				popDiv.id = 'popDiv';
-				popDiv.className = 'editAppBox';
-				document.body.appendChild(popDiv);	
-				var cDiv=document.createElement('div');
-				cDiv.className = 'fancybox-close';
-				cDiv.id='cDiv';
-				cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
-				$("#popDiv").append(cDiv);
+				var gbgDiv = document.createElement('div');
+				gbgDiv.id = 'gbgDiv';
+				gbgDiv.className = 'bgDiv';
+				gbgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+				document.body.appendChild(gbgDiv);
+				var gpopDiv=document.createElement('div');
+				gpopDiv.id = 'gpopDiv';
+				gpopDiv.className = 'editAppBox';
+				document.body.appendChild(gpopDiv);	
+				var gcDiv=document.createElement('div');
+				gcDiv.className = 'fancybox-close';
+				gcDiv.id='gcDiv';
+				gcDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+				$("#gpopDiv").append(gcDiv);
 				
-				var hDiv=document.createElement('div');
-				hDiv.className = 'fancybox-help';
-				hDiv.id='hDiv';
-				hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
-				$("#popDiv").append(hDiv);
+				var ghDiv=document.createElement('div');
+				ghDiv.className = 'fancybox-help';
+				ghDiv.id='ghDiv';
+				ghDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
+				$("#gpopDiv").append(ghDiv);
 				
-				$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
-				var theFrame = document.createElement('iFrame');
-				theFrame.id='theFrame';
-				theFrame.className = 'editFrame';
-				theFrame.src=r;
-				$("#popDiv").append(theFrame);
+				$("#gpopDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+				var gtheFrame = document.createElement('iFrame');
+				gtheFrame.id='gtheFrame';
+				gtheFrame.className = 'editFrame';
+				gtheFrame.src=r;
+				$("#gpopDiv").append(gtheFrame);
 			}	
 		);
 	}

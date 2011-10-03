@@ -203,7 +203,7 @@
 		order by
 			ATTRIBUTE_VALUE
 	</cfquery>
-	<cfquery name="ctErathemErad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctErathemEra" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			ATTRIBUTE_VALUE 
 		from 
