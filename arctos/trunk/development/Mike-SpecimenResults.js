@@ -336,8 +336,11 @@ function make_audio_html(unq_id_1, unq_id_2, mp3link, ogglink) {
         if (document.getElementById(unq_id_1) !== null && document.getElementById(unq_id_2) !== null) {
             setup_jplayer_end(unq_id_1, unq_id_2, mp3link, ogglink);
             clearInterval(id);
+            clearInterval(id2);
         }
-    }, 1000);
+    }, 500);
+    // Debugging.
+    var id2 = setTimeout(function() {clearInterval(id); alert("Failed to launch audio player.\nDetails:\n\tAudio Tag: " + unq_id_1 + "\n\tWrapper Tag: " + unq_id_2 + "\n\tLink 1: " + mp3link + "\n\tLink 2: " + ogglink);}, 5000);
     return html;
 }
 // End of Mike's audio media functions.
