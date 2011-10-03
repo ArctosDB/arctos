@@ -176,7 +176,7 @@
 function useGL(glat,glon,gerr){
 			showLLFormat('decimal degrees','');
 			$("##accepted_lat_long_fg").val('1');
-			$("##determined_by").val('#session.username#');
+			$("##coordinate_determiner").val('#session.username#');
 			$("##determined_by_agent_id").val('#session.myAgentId#');
 			$("##determined_date").val('#dateformat(now(),"yyyy-mm-dd")#');
 			$("##MAX_ERROR_DISTANCE").val(gerr);
@@ -224,8 +224,8 @@ function useGL(glat,glon,gerr){
 			UTM_EW,
 			UTM_NS,				
 			DATUM,
-			ORIG_LAT_LONG_UNITS,
-			DETERMINED_BY_AGENT_ID,
+			orig_lat_long_units,
+			determined_by_agent_id,
 			coordinate_determiner,
 			DETERMINED_DATE,
 			LAT_LONG_REMARKS,
@@ -281,8 +281,8 @@ function useGL(glat,glon,gerr){
 			UTM_EW,
 			UTM_NS,				
 			DATUM,
-			ORIG_LAT_LONG_UNITS,
-			DETERMINED_BY_AGENT_ID,
+			orig_lat_long_units,
+			determined_by_agent_id,
 			coordinate_determiner,
 			DETERMINED_DATE,
 			LAT_LONG_REMARKS,
@@ -354,7 +354,7 @@ function useGL(glat,glon,gerr){
         select n_or_s from ctns 
      </cfquery>
      <cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-        select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS 
+        select orig_lat_long_units from ctLAT_LONG_UNITS 
      </cfquery>
 	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select COLLECTING_SOURCE from ctcollecting_source 
@@ -629,15 +629,14 @@ function useGL(glat,glon,gerr){
 		<table>
 		<tr>
 			<td>
-				<label for="ORIG_LAT_LONG_UNITS" class="likeLink" onClick="getDocs('lat_long','original_units')">
+				<label for="orig_lat_long_units" class="likeLink" onClick="getDocs('lat_long','original_units')">
 					Original Coordinate Units
 				</label>
-				<cfset thisUnits = #l.ORIG_LAT_LONG_UNITS#>
-				<select name="ORIG_LAT_LONG_UNITS" id="ORIG_LAT_LONG_UNITS" size="1" class="reqdClr" onchange="showLLFormat(this.value)">
+				<select name="orig_lat_long_units" id="orig_lat_long_units" size="1" class="reqdClr" onchange="showLLFormat(this.value)">
 	            	<option value="">Not Georeferenced</option>
 	            	<cfloop query="ctunits">
 	                	<option 
-						  	<cfif #thisUnits# is "#ctunits.ORIG_LAT_LONG_UNITS#"> selected </cfif>value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+						  	<cfif l.orig_lat_long_units is ctunits.orig_lat_long_units> selected="selected" </cfif>value="#ctunits.orig_lat_long_units#">#ctunits.orig_lat_long_units#</option>
 	                </cfloop>
 	            </select>
 	            <span class="likeLink" onclick="geoLocate()">GEOLocate</span>			
@@ -654,9 +653,9 @@ function useGL(glat,glon,gerr){
 					name="coordinate_determiner" 
 					id="coordinate_determiner"
 					class="reqdClr" value="#l.coordinate_determiner#" size="40"
-					 onchange="getAgent('DETERMINED_BY_AGENT_ID','coordinate_determiner','loc',this.value); return false;"
+					 onchange="getAgent('determined_by_agent_id','coordinate_determiner','loc',this.value); return false;"
 					 onKeyPress="return noenter(event);">
-					<input type="hidden" name="DETERMINED_BY_AGENT_ID" value="#l.DETERMINED_BY_AGENT_ID#">
+					<input type="hidden" name="determined_by_agent_id" value="#l.determined_by_agent_id#">
 			</td>
 			<td>
 				<label for="DETERMINED_DATE" class="likeLink" onClick="getDocs('lat_long','date')">
@@ -671,7 +670,7 @@ function useGL(glat,glon,gerr){
 				<label for="MAX_ERROR_DISTANCE" class="likeLink" onClick="getDocs('lat_long','maximum_error')">
 					Maximum Error
 				</label>
-				<input type="text" name="MAX_ERROR_DISTANCE" id="MAX_ERROR_DISTANCE" value="#l.MAX_ERROR_DISTANCE#" size="6">
+				<input type="text" name="max_error_distance" id="max_error_distance" value="#l.MAX_ERROR_DISTANCE#" size="6">
 				<select name="MAX_ERROR_UNITS" size="1">
 					<option value=""></option>
 				    	<cfloop query="cterror">
@@ -685,7 +684,7 @@ function useGL(glat,glon,gerr){
 					Datum
 				</label>
 				<cfset thisDatum = #l.DATUM#>
-				<select name="DATUM" id="DATUM" size="1" class="reqdClr">
+				<select name="DATUM" id="datum" size="1" class="reqdClr">
 					<option value=""></option>
 				    <cfloop query="ctdatum">
 						<option <cfif #ctdatum.DATUM# is "#thisDatum#"> selected </cfif> 
@@ -700,7 +699,7 @@ function useGL(glat,glon,gerr){
 					Georeference Method
 				</label>
 				<cfset thisGeoMeth = #l.georefMethod#>
-				<select name="georefMethod" id="georefMethod" size="1" class="reqdClr">
+				<select name="georefMethod" id="georefmethod" size="1" class="reqdClr">
 					<cfloop query="ctGeorefMethod">
 						<option 
 						<cfif #thisGeoMeth# is #ctGeorefMethod.georefMethod#> selected </cfif>
@@ -720,7 +719,7 @@ function useGL(glat,glon,gerr){
 				<label for="GpsAccuracy" class="likeLink" onClick="getDocs('lat_long','gpsaccuracy')">
 					GPS Accuracy
 				</label>
-				<input type="text" name="GpsAccuracy" id="GpsAccuracy" value="#l.GpsAccuracy#" size="7">
+				<input type="text" name="GpsAccuracy" id="gpsaccuracy" value="#l.GpsAccuracy#" size="7">
 			</td>
 			<td>
 				<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">
@@ -752,7 +751,7 @@ function useGL(glat,glon,gerr){
 				</label>
 				<input type="text" 
 					name="LAT_LONG_REMARKS" 
-					id="LAT_LONG_REMARKS"
+					id="lat_long_remarks"
 					value='#preservesinglequotes(l.LAT_LONG_REMARKS)#' 
 					size="90">
 			</td>
@@ -1015,7 +1014,7 @@ function useGL(glat,glon,gerr){
 	
 	</cfform>
 	<script>
-		showLLFormat('#l.ORIG_LAT_LONG_UNITS#');	
+		showLLFormat('#l.orig_lat_long_units#');	
 	</script>
 	</cfoutput>
 </cfif> 		
@@ -1349,8 +1348,8 @@ gonna try this:
 						UTM_ZONE,
 						UTM_EW,
 						UTM_NS,
-						ORIG_LAT_LONG_UNITS,
-						DETERMINED_BY_AGENT_ID,
+						orig_lat_long_units,
+						determined_by_agent_id,
 						DETERMINED_DATE,
 						LAT_LONG_REF_SOURCE,
 						LAT_LONG_REMARKS,
@@ -1444,9 +1443,9 @@ gonna try this:
 						<cfelse>
 							NULL,
 						</cfif>
-						'#ORIG_LAT_LONG_UNITS#',
-						<cfif len(DETERMINED_BY_AGENT_ID) gt 0>
-							#DETERMINED_BY_AGENT_ID#,
+						'#orig_lat_long_units#',
+						<cfif len(determined_by_agent_id) gt 0>
+							#determined_by_agent_id#,
 						<cfelse>
 							NULL,
 						</cfif>
