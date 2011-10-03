@@ -671,7 +671,7 @@ function useGL(glat,glon,gerr){
 					Maximum Error
 				</label>
 				<input type="text" name="max_error_distance" id="max_error_distance" value="#l.MAX_ERROR_DISTANCE#" size="6">
-				<select name="MAX_ERROR_UNITS" size="1">
+				<select name="MAX_ERROR_UNITS" id="max_error_units" size="1">
 					<option value=""></option>
 				    	<cfloop query="cterror">
 				        	<option <cfif #cterror.LAT_LONG_ERROR_UNITS# is "#l.MAX_ERROR_UNITS#"> selected </cfif>
