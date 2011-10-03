@@ -726,7 +726,7 @@ function useGL(glat,glon,gerr){
 					Verification Status
 				</label>
 				<cfset thisVerificationStatus = #l.VerificationStatus#>
-				<select name="VerificationStatus" id="VerificationStatus" size="1" class="reqdClr">
+				<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 					<cfloop query="ctVerificationStatus">
 						<option 
 							<cfif #thisVerificationStatus# is #ctVerificationStatus.VerificationStatus#> selected </cfif>
