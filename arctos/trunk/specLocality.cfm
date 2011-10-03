@@ -140,14 +140,14 @@
 		);
 	}
 	function closeGeoLocate(msg) {
-		$('#bgDiv').remove();
-		$('#bgDiv', window.parent.document).remove();
-		$('#popDiv').remove();
-		$('#popDiv', window.parent.document).remove();
-		$('#cDiv').remove();
-		$('#cDiv', window.parent.document).remove();
-		$('#theFrame').remove();
-		$('#theFrame', window.parent.document).remove();
+		$('#gbgDiv').remove();
+		$('#gbgDiv', window.parent.document).remove();
+		$('#gpopDiv').remove();
+		$('#gpopDiv', window.parent.document).remove();
+		$('#gcDiv').remove();
+		$('#gcDiv', window.parent.document).remove();
+		$('#gtheFrame').remove();
+		$('#gtheFrame', window.parent.document).remove();
 		$("#geoLocateResults").html(msg);
 	}
 	function getGeolocate(evt) {
