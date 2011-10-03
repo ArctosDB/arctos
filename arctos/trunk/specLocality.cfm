@@ -655,7 +655,7 @@ function useGL(glat,glon,gerr){
 					class="reqdClr" value="#l.coordinate_determiner#" size="40"
 					 onchange="getAgent('determined_by_agent_id','coordinate_determiner','loc',this.value); return false;"
 					 onKeyPress="return noenter(event);">
-					<input type="hidden" name="determined_by_agent_id" value="#l.determined_by_agent_id#">
+					<input type="hidden" name="determined_by_agent_id" id="determined_by_agent_id" value="#l.determined_by_agent_id#">
 			</td>
 			<td>
 				<label for="DETERMINED_DATE" class="likeLink" onClick="getDocs('lat_long','date')">
