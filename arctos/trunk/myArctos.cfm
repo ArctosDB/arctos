@@ -212,6 +212,17 @@
 		<input type="text" name="affiliation" value="#getUserData.affiliation#" class="reqdClr" size="50">
 		<label for="email">Email</label>
 		<input type="text" name="email" value="#getUserData.email#" size="30">
+		<label for="fileFormat">Preferred File Format</label>
+		<select name="fileFormat" size="1">
+			<option <cfif getUserData.fileFormat is "csv"> selected="selected" </cfif>value="csv">CSV</option>
+			<option <cfif getUserData.fileFormat is "text"> selected="selected" </cfif>value="text">tab-delimited text</option>
+			<option <cfif getUserData.fileFormat is "xml"> selected="selected" </cfif>value="xml">XML</option>
+		</select>
+		<label for="ask_for_filename">Ask for File Name?</label>
+		<select name="ask_for_filename" size="1">
+				<option <cfif getUserData.ask_for_filename is "0"> selected="selected" </cfif>value="0">no</option>
+				<option <cfif getUserData.ask_for_filename is "1"> selected="selected" </cfif>value="1">yes</option>
+			</select>
 		<br><input type="submit" value="Save Profile" class="savBtn">
 	</form>
 	<!---
@@ -228,8 +239,6 @@
 		select cf_collection_id,collection from cf_collection
 		order by collection
 	</cfquery>
-
-
 	<hr>
 	<strong>Arctos Settings</strong>
 	<form method="post" action="myArctos.cfm" name="dlForm">
@@ -317,17 +326,11 @@
 			UPDATE cf_user_data SET
 				first_name = '#first_name#',
 				last_name = '#last_name#',
-				affiliation = '#affiliation#'
-				<cfif len(#middle_name#) gt 0>
-					,middle_name = '#middle_name#'
-				<cfelse>
-					,middle_name = NULL
-				</cfif>
-				<cfif len(#email#) gt 0>
-					,email = '#email#'
-				<cfelse>
-					,email = NULL
-				</cfif>
+				affiliation = '#affiliation#',
+				fileFormat='#fileFormat#'m,
+				ask_for_filename=#ask_for_filename#,
+				middle_name = '#middle_name#',
+				email = '#email#'
 			WHERE
 				user_id = #user_id#
 		</cfquery>
@@ -338,32 +341,28 @@
 				user_id,
 				first_name,
 				last_name,
-				affiliation
-				<cfif len(#middle_name#) gt 0>
-					,middle_name
-				</cfif>
-				<cfif len(#email#) gt 0>
-					,email
-				</cfif>
+				affiliation,
+				middle_name,
+				email.
+				fileFormat,
+				ask_for_filename
 				)
 			VALUES (
 				#user_id#,
 				'#first_name#',
 				'#last_name#',
-				'#affiliation#'
-				<cfif len(#middle_name#) gt 0>
-					,'#middle_name#'
-				</cfif>
-				<cfif len(#email#) gt 0>
-					,'#email#'
-				</cfif>
-				)
+				'#affiliation#',
+				'#middle_name#',
+				'#email#',
+				'#fileFormat#',
+				#ask_for_filename#
+			)
 		</cfquery>
 	</cfif>
 	<cflocation url="/myArctos.cfm" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------->
-<cfif isdefined("redir") AND #redir# is "true">
+<cfif isdefined("redir") AND redir is "true">
 	<cfoutput>
 	<!---- 
 		replace cflocation with JavaScript below so I'll always break
