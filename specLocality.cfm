@@ -96,10 +96,7 @@
 		}		
 	}
 	function geoLocate(){
-		alert('This function will add a determination. Thatis kind of funky from this form. Use Edit Locality if you have access.');
-		
-		
-		
+		alert('This form is kind of funky. Use Edit Locality if you have access.');
 		$.getJSON("/component/Bulkloader.cfc",
 			{
 				method : "splitGeog",
