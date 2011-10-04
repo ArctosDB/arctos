@@ -329,7 +329,7 @@
 				first_name = '#first_name#',
 				last_name = '#last_name#',
 				affiliation = '#affiliation#',
-				download_format='#download_format#'m,
+				download_format='#download_format#',
 				ask_for_filename=#ask_for_filename#,
 				middle_name = '#middle_name#',
 				email = '#email#'
