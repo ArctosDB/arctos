@@ -185,7 +185,9 @@
 	        middle_name,
 	        last_name,
 	        affiliation,
-			email
+			email,
+			ask_for_filename,
+			fileFormat
 		FROM 
 			cf_user_data,
 			cf_users
