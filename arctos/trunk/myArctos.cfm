@@ -187,7 +187,7 @@
 	        affiliation,
 			email,
 			ask_for_filename,
-			fileFormat
+			download_format
 		FROM 
 			cf_user_data,
 			cf_users
@@ -214,11 +214,11 @@
 		<input type="text" name="affiliation" value="#getUserData.affiliation#" class="reqdClr" size="50">
 		<label for="email">Email</label>
 		<input type="text" name="email" value="#getUserData.email#" size="30">
-		<label for="fileFormat">Preferred File Format</label>
-		<select name="fileFormat" size="1">
-			<option <cfif getUserData.fileFormat is "csv"> selected="selected" </cfif>value="csv">CSV</option>
-			<option <cfif getUserData.fileFormat is "text"> selected="selected" </cfif>value="text">tab-delimited text</option>
-			<option <cfif getUserData.fileFormat is "xml"> selected="selected" </cfif>value="xml">XML</option>
+		<label for="download_format">Preferred File Format</label>
+		<select name="download_format" size="1">
+			<option <cfif getUserData.download_format is "csv"> selected="selected" </cfif>value="csv">CSV</option>
+			<option <cfif getUserData.download_format is "text"> selected="selected" </cfif>value="text">tab-delimited text</option>
+			<option <cfif getUserData.download_format is "xml"> selected="selected" </cfif>value="xml">XML</option>
 		</select>
 		<label for="ask_for_filename">Ask for File Name?</label>
 		<select name="ask_for_filename" size="1">
@@ -329,7 +329,7 @@
 				first_name = '#first_name#',
 				last_name = '#last_name#',
 				affiliation = '#affiliation#',
-				fileFormat='#fileFormat#'m,
+				download_format='#download_format#'m,
 				ask_for_filename=#ask_for_filename#,
 				middle_name = '#middle_name#',
 				email = '#email#'
@@ -346,7 +346,7 @@
 				affiliation,
 				middle_name,
 				email.
-				fileFormat,
+				download_format,
 				ask_for_filename
 				)
 			VALUES (
@@ -356,7 +356,7 @@
 				'#affiliation#',
 				'#middle_name#',
 				'#email#',
-				'#fileFormat#',
+				'#download_format#',
 				#ask_for_filename#
 			)
 		</cfquery>
