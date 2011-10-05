@@ -680,10 +680,11 @@ function success_getSpecResultsData(result){
 
                                 } else {
 
-									var unq_identifier = i;
-                                    var unq_id_1 = "jquery_jplayer_" + unq_identifier;
-                                    var unq_id_2 = "jp_container_" + unq_identifier;
-                                    var audio_id = "audio_thumb_" + unq_identifier;
+									var unq_mark1 = i;
+									var unq_mark2 = m;
+                                    var unq_id_1 = "jquery_jplayer_" + unq_mark1 + "_" + unq_mark2;
+                                    var unq_id_2 = "jp_container_" + unq_mark1 + "_" + unq_mark2;
+                                    var audio_id = "audio_thumb_" + unq_mark1 + "_" + unq_mark2;
                                     
                                     // Do arithmetic.
                                     wavPlaybackUrl = thisMedia.DATA.media_uri[m],
