@@ -201,136 +201,134 @@
 			'yes'
 		)
 	</cfquery>
-		<cfset ac = valuelist(cols.column_name)>
-		<!--- strip internal columns --->
-		<cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
-				<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_OBJECT_ID'))>
-		</cfif>
-		<cfif ListFindNoCase(ac,'CUSTOMIDINT')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'CUSTOMIDINT'))>
-		</cfif>
-		<cfif ListFindNoCase(ac,'COLLECTION_ID')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_ID'))>
-		</cfif>
-		<cfif ListFindNoCase(ac,'TAXON_NAME_ID')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'TAXON_NAME_ID'))>
-		</cfif>
-		<cfif ListFindNoCase(ac,'COLLECTION_CDE')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_CDE'))>
-		</cfif>
-		<cfif ListFindNoCase(ac,'INSTITUTION_ACRONYM')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'INSTITUTION_ACRONYM'))>
-		</cfif>
-		<cfset fileDir = "#Application.webDirectory#">
-		
-		<!--- add one and only one line break back onto the end --->
-		
-		<cfoutput>
-			<cfset variables.encoding="UTF-8">
-			<cfif fileFormat is "csv">
-				<cfset fname = "#fileName#.csv">
-				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-				<cfset header=trim(ac)>
-				<cfscript>
-					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-					variables.joFileWriter.writeLine(header); 
-				</cfscript>
-				<cfloop query="getData">
-					<cfset oneLine = "">
-					<cfloop list="#ac#" index="c">
-						<cfset thisData = evaluate(c)>
-						<cfif c is "MEDIA">
-							<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
-						</cfif>
-						<cfif len(oneLine) is 0>
-							<cfset oneLine = '"#thisData#"'>
-						<cfelse>
-							<cfset thisData=replace(thisData,'"','""','all')>
-							<cfset oneLine = '#oneLine#,"#thisData#"'>
-						</cfif>
-					</cfloop>
-					<cfset oneLine = trim(oneLine)>
-					<cfscript>
-						variables.joFileWriter.writeLine(oneLine);
-					</cfscript>
-				</cfloop>
-				<cfscript>	
-					variables.joFileWriter.close();
-				</cfscript>
-				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-			<cfelseif fileFormat is "text">
-				<cfset fname = "#fileName#.txt">
-				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-				<cfset header = replace(ac,",","#chr(9)#","all")>
-				<cfset header=#trim(header)#>
-				<cfscript>
-					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-					variables.joFileWriter.writeLine(header); 
-				</cfscript>
-				<cfloop query="getData">
-					<cfset oneLine = "">
-					<cfloop list="#ac#" index="c">
-						<cfset thisData = #evaluate(c)#>
-						<cfif c is "MEDIA">
-							<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
-						</cfif>
-						<cfif len(#oneLine#) is 0>
-							<cfset oneLine = '#thisData#'>
-						<cfelse>
-							<cfset oneLine = '#oneLine##chr(9)##thisData#'>
-						</cfif>
-					</cfloop>
-					<cfset oneLine = trim(oneLine)>
-					<cfscript>
-						variables.joFileWriter.writeLine(oneLine);
-					</cfscript>
-				</cfloop>
-				<cfscript>	
-					variables.joFileWriter.close();
-				</cfscript>
-				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-			
-			<cfelseif fileFormat is "xml">
-				<cfset fname = "#fileName#.xml">
-				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-				<cfset header = "<result>">
-				<cfscript>
-					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-					variables.joFileWriter.writeLine(header); 
-				</cfscript>
-				<cfloop query="getData">
-					<cfset oneLine = "<record>">
-					<cfloop list="#ac#" index="c">
-						<cfset thisData = #evaluate(c)#>
-						<cfif c is "MEDIA">
-							<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
-						</cfif>
-						<cfif len(#oneLine#) is 0>
-							<cfset oneLine = '<#c#>#xmlformat(thisData)#</#c#>'>
-						<cfelse>
-							<cfset oneLine = '#oneLine#<#c#>#xmlformat(thisData)#</#c#>'>
-						</cfif>
-					</cfloop>
-					<cfset oneLine = "#oneLine#</record>">
-					<cfset oneLine = trim(oneLine)>
-					<cfscript>
-						variables.joFileWriter.writeLine(oneLine);
-					</cfscript>
-				</cfloop>
-				<cfset oneLine = "</result>">				
-				<cfscript>	
-					variables.joFileWriter.writeLine(oneLine);
-					variables.joFileWriter.close();
-				</cfscript>
-				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-			<cfelse>
-				That file format doesn't seem to be supported yet!
-			</cfif>
-		</cfoutput>
+	<cfset ac = valuelist(cols.column_name)>
+	<!--- strip internal columns --->
+	<cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
+			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_OBJECT_ID'))>
 	</cfif>
-</cfif>
+	<cfif ListFindNoCase(ac,'CUSTOMIDINT')>
+		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'CUSTOMIDINT'))>
+	</cfif>
+	<cfif ListFindNoCase(ac,'COLLECTION_ID')>
+		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_ID'))>
+	</cfif>
+	<cfif ListFindNoCase(ac,'TAXON_NAME_ID')>
+		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'TAXON_NAME_ID'))>
+	</cfif>
+	<cfif ListFindNoCase(ac,'COLLECTION_CDE')>
+		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_CDE'))>
+	</cfif>
+	<cfif ListFindNoCase(ac,'INSTITUTION_ACRONYM')>
+		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'INSTITUTION_ACRONYM'))>
+	</cfif>
+	<cfset fileDir = "#Application.webDirectory#">
 	
+	<!--- add one and only one line break back onto the end --->
+	
+	<cfoutput>
+		<cfset variables.encoding="UTF-8">
+		<cfif fileFormat is "csv">
+			<cfset fname = "#fileName#.csv">
+			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+			<cfset header=trim(ac)>
+			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				variables.joFileWriter.writeLine(header); 
+			</cfscript>
+			<cfloop query="getData">
+				<cfset oneLine = "">
+				<cfloop list="#ac#" index="c">
+					<cfset thisData = evaluate(c)>
+					<cfif c is "MEDIA">
+						<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
+					</cfif>
+					<cfif len(oneLine) is 0>
+						<cfset oneLine = '"#thisData#"'>
+					<cfelse>
+						<cfset thisData=replace(thisData,'"','""','all')>
+						<cfset oneLine = '#oneLine#,"#thisData#"'>
+					</cfif>
+				</cfloop>
+				<cfset oneLine = trim(oneLine)>
+				<cfscript>
+					variables.joFileWriter.writeLine(oneLine);
+				</cfscript>
+			</cfloop>
+			<cfscript>	
+				variables.joFileWriter.close();
+			</cfscript>
+			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+		<cfelseif fileFormat is "text">
+			<cfset fname = "#fileName#.txt">
+			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+			<cfset header = replace(ac,",","#chr(9)#","all")>
+			<cfset header=#trim(header)#>
+			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				variables.joFileWriter.writeLine(header); 
+			</cfscript>
+			<cfloop query="getData">
+				<cfset oneLine = "">
+				<cfloop list="#ac#" index="c">
+					<cfset thisData = #evaluate(c)#>
+					<cfif c is "MEDIA">
+						<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
+					</cfif>
+					<cfif len(#oneLine#) is 0>
+						<cfset oneLine = '#thisData#'>
+					<cfelse>
+						<cfset oneLine = '#oneLine##chr(9)##thisData#'>
+					</cfif>
+				</cfloop>
+				<cfset oneLine = trim(oneLine)>
+				<cfscript>
+					variables.joFileWriter.writeLine(oneLine);
+				</cfscript>
+			</cfloop>
+			<cfscript>	
+				variables.joFileWriter.close();
+			</cfscript>
+			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+		
+		<cfelseif fileFormat is "xml">
+			<cfset fname = "#fileName#.xml">
+			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+			<cfset header = "<result>">
+			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				variables.joFileWriter.writeLine(header); 
+			</cfscript>
+			<cfloop query="getData">
+				<cfset oneLine = "<record>">
+				<cfloop list="#ac#" index="c">
+					<cfset thisData = #evaluate(c)#>
+					<cfif c is "MEDIA">
+						<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
+					</cfif>
+					<cfif len(#oneLine#) is 0>
+						<cfset oneLine = '<#c#>#xmlformat(thisData)#</#c#>'>
+					<cfelse>
+						<cfset oneLine = '#oneLine#<#c#>#xmlformat(thisData)#</#c#>'>
+					</cfif>
+				</cfloop>
+				<cfset oneLine = "#oneLine#</record>">
+				<cfset oneLine = trim(oneLine)>
+				<cfscript>
+					variables.joFileWriter.writeLine(oneLine);
+				</cfscript>
+			</cfloop>
+			<cfset oneLine = "</result>">				
+			<cfscript>	
+				variables.joFileWriter.writeLine(oneLine);
+				variables.joFileWriter.close();
+			</cfscript>
+			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+		<cfelse>
+			That file format doesn't seem to be supported yet!
+		</cfif>
+	</cfoutput>
+</cfif>
 <cfinclude template="/includes/_footer.cfm">
