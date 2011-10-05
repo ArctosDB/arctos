@@ -345,7 +345,7 @@
 				last_name,
 				affiliation,
 				middle_name,
-				email.
+				email,
 				download_format,
 				ask_for_filename
 				)
