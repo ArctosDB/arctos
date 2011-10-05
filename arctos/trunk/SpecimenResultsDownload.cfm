@@ -86,76 +86,77 @@
 			<cfelse>
 				<cflocation url="SpecimenResultsDownload.cfm?agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#cfid#_#cftoken#" addtoken="false">
 			</cfif>			
-		</cfif>
-		<form method="post" action="SpecimenResultsDownload.cfm" name="dlForm">
-			<input type="hidden" name="tableName" value="#tableName#">
-			<input type="hidden" name="action" value="down">
-			<table>
-				<tr>
-					<td align="right">Purpose of Download</td>
-					<cfquery name="ctPurpose" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-						select * from ctdownload_purpose order by download_purpose
-					</cfquery>
-					<td>
-					<select name="download_purpose" size="1" class="reqdClr">
-						<cfloop query="ctPurpose">
-							<option value="#ctPurpose.download_purpose#">#ctPurpose.download_purpose#</option>
-						</cfloop>
-					</select>
-					</td>
-				</tr>
-				<tr>
-					<td align="right">File Format</td>
-					<td>
-						<select name="fileFormat" size="1">
-							<option <cfif getUserData.download_format is "csv"> selected="selected" </cfif>value="csv">CSV</option>
-							<option <cfif getUserData.download_format is "text"> selected="selected" </cfif>value="text">tab-delimited text</option>
-							<option <cfif getUserData.download_format is "xml"> selected="selected" </cfif>value="xml">XML</option>
+		<cfelse>
+			<form method="post" action="SpecimenResultsDownload.cfm" name="dlForm">
+				<input type="hidden" name="tableName" value="#tableName#">
+				<input type="hidden" name="action" value="down">
+				<table>
+					<tr>
+						<td align="right">Purpose of Download</td>
+						<cfquery name="ctPurpose" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+							select * from ctdownload_purpose order by download_purpose
+						</cfquery>
+						<td>
+						<select name="download_purpose" size="1" class="reqdClr">
+							<cfloop query="ctPurpose">
+								<option value="#ctPurpose.download_purpose#">#ctPurpose.download_purpose#</option>
+							</cfloop>
 						</select>
-					</td>
-				</tr>
-				<tr>
-					<td align="right">File Name</td>
-					<td>
-						<input type="text" name="filename" value="ArctosData_#cfid#_#cftoken#">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-					These data are intended for use in education and research and may not be repackaged, redistributed, or sold in any form 
-					without prior written consent from the Museum. Those wishing to include these data in analyses or reports must acknowledge 
-					the provenance of the original data and notify the appropriate curator prior to publication. These are secondary data, and
-					 their accuracy is not guaranteed. Citation of the data is no substitute for examination of specimens. The Museum and its staff 
-					 are not responsible for loss or damages due to use of these data.
-					</td>
-					
-				</tr>
-				<tr>
-					<td colspan="2">
-					<input type="radio" name="agree" value="yes">
-					<a href="javascript: void(0);" onClick="dlForm.agree[0].checked='true'"><font color="##00FF00" size="+1">
-						I agree that the data that I am now downloading are for my own use and will not be repackaged, redistributed, or sold.
-					</font></a>
-					</td>
-					
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="radio" name="agree" value="no" checked>
-						<a href="javascript: void(0);" onClick="dlForm.agree[1].checked='true'">
-							<font color="##FF0000" size="+1">
-								I do not agree
-							</font>.
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center">
-					<input type="submit" value="Continue to Download" class="savBtn">
-					</td>
-				</tr>
-			</table>
-		</form>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">File Format</td>
+						<td>
+							<select name="fileFormat" size="1">
+								<option <cfif getUserData.download_format is "csv"> selected="selected" </cfif>value="csv">CSV</option>
+								<option <cfif getUserData.download_format is "text"> selected="selected" </cfif>value="text">tab-delimited text</option>
+								<option <cfif getUserData.download_format is "xml"> selected="selected" </cfif>value="xml">XML</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td align="right">File Name</td>
+						<td>
+							<input type="text" name="filename" value="ArctosData_#cfid#_#cftoken#">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+						These data are intended for use in education and research and may not be repackaged, redistributed, or sold in any form 
+						without prior written consent from the Museum. Those wishing to include these data in analyses or reports must acknowledge 
+						the provenance of the original data and notify the appropriate curator prior to publication. These are secondary data, and
+						 their accuracy is not guaranteed. Citation of the data is no substitute for examination of specimens. The Museum and its staff 
+						 are not responsible for loss or damages due to use of these data.
+						</td>
+						
+					</tr>
+					<tr>
+						<td colspan="2">
+						<input type="radio" name="agree" value="yes">
+						<a href="javascript: void(0);" onClick="dlForm.agree[0].checked='true'"><font color="##00FF00" size="+1">
+							I agree that the data that I am now downloading are for my own use and will not be repackaged, redistributed, or sold.
+						</font></a>
+						</td>
+						
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="radio" name="agree" value="no" checked>
+							<a href="javascript: void(0);" onClick="dlForm.agree[1].checked='true'">
+								<font color="##FF0000" size="+1">
+									I do not agree
+								</font>.
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+						<input type="submit" value="Continue to Download" class="savBtn">
+						</td>
+					</tr>
+				</table>
+			</form>
+		</cfif>
 	</cfoutput>
 </cfif>	
 <cfif action is "down">
