@@ -84,7 +84,7 @@
 					</table>
 				</form>
 			<cfelse>
-				<cflocation url="SpecimenResultsDownload.cfm?fileformat=#getUserData.download_format#agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#cfid#_#cftoken#" addtoken="false">
+				<cflocation url="SpecimenResultsDownload.cfm?fileformat=#getUserData.download_format#&agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#cfid#_#cftoken#" addtoken="false">
 			</cfif>			
 		<cfelse>
 			<form method="post" action="SpecimenResultsDownload.cfm" name="dlForm">
