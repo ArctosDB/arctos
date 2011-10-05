@@ -220,11 +220,15 @@
 			<option <cfif getUserData.download_format is "text"> selected="selected" </cfif>value="text">tab-delimited text</option>
 			<option <cfif getUserData.download_format is "xml"> selected="selected" </cfif>value="xml">XML</option>
 		</select>
-		<label for="ask_for_filename">Ask for File Name?</label>
-		<select name="ask_for_filename" size="1">
+		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"coldfusion_user")>
+			<label for="ask_for_filename">Ask for File Name?</label>
+			<select name="ask_for_filename" size="1">
 				<option <cfif getUserData.ask_for_filename is "0"> selected="selected" </cfif>value="0">no</option>
 				<option <cfif getUserData.ask_for_filename is "1"> selected="selected" </cfif>value="1">yes</option>
 			</select>
+		<cfelse>
+			<input type="hidden" name="ask_for_filename" value="0">
+		</cfif>
 		<br><input type="submit" value="Save Profile" class="savBtn">
 	</form>
 	<!---
