@@ -220,7 +220,7 @@
 			<option <cfif getUserData.download_format is "text"> selected="selected" </cfif>value="text">tab-delimited text</option>
 			<option <cfif getUserData.download_format is "xml"> selected="selected" </cfif>value="xml">XML</option>
 		</select>
-		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"coldfusion_user")>
+		<cfif not isdefined("session.roles") or not listcontainsnocase(session.roles,"coldfusion_user")>
 			<label for="ask_for_filename">Ask for File Name?</label>
 			<select name="ask_for_filename" size="1">
 				<option <cfif getUserData.ask_for_filename is "0"> selected="selected" </cfif>value="0">no</option>
