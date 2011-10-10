@@ -21,6 +21,14 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_part_remark">Part Remark:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="part_remark" id="part_remark">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="biol_indiv_relationship">Relationship:</span>
 		</td>
 		<td class="srch">
