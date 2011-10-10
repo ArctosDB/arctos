@@ -39,7 +39,6 @@
 						#ctbiol_relations.biol_indiv_relationship#</option>
 				</cfloop>
 			</select><span class="infoLink" onclick="getCtDoc('ctbiol_relations',SpecData.relationship.value);">Define</span>
-			
 		</td>
 	</tr>
 	<tr>
