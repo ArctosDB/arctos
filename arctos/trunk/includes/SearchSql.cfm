@@ -1060,7 +1060,15 @@
 </cfif>
 <cfif isdefined("partname") AND len(partname) gt 0>
 	<cfset part_name=partname>
-</cfif>		
+</cfif>
+<cfif isdefined("part_remark") AND len(part_remark) gt 0>
+	<cfset mapurl = "#mapurl#&part_remark=#part_remark#">
+	<cfif basJoin does not contain " specimen_part ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
+	</cfif>
+	<cfset basJoin = " #basJoin# INNER JOIN coll_object_remark ON (specimen_part.collection_object_id = coll_object_remark.collection_object_id)">
+	<cfset basQual = " #basQual# AND upper(coll_object_remark.coll_object_remarks) like '%#ucase(part_remark)#%'">
+</cfif>
 <cfif isdefined("part_name") AND len(part_name) gt 0>
 	<cfset mapurl = "#mapurl#&part_name=#part_name#">
 	<cfif part_name contains "|">

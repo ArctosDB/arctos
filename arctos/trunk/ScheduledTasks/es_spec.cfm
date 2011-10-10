@@ -2,7 +2,6 @@
 <cfif action is "nothing">
 	<br><A href="es_spec.cfm?action=insBulk">insBulk</A>
 	<br><A href="es_spec.cfm?action=findSpec">findSpec</A>
-	<br><A href="es_spec.cfm?action=reset">reset</A>
 	<br><A href="es_spec.cfm?action=shostat">shostat</A>
 </cfif>
 
@@ -14,13 +13,6 @@
 	<cfdump var=#d#>
 </cfif>
 
-
-<cfif action is "reset">
-	<cfquery name="d" datasource="uam_god">
-		update spec_scan set status = NULL where status not in ('in_bulk')
-	</cfquery>
-</cfif>
-
 <cfif action is "findSpec">
 	<cfquery name="d" datasource="uam_god">
 		select 
@@ -28,11 +20,7 @@
 		from 
 			spec_scan
 		where 
-			collection_object_id is null and
-			(
-				status is null OR
-				status in ('in_bulk')
-			)
+			collection_object_id is null
 	</cfquery>
 	<cfoutput>
 		<cfloop query="d">
@@ -54,11 +42,11 @@
 			</cfquery>
 			<cfif cid.recordcount is 1>
 				<cfquery name="gguid" datasource="uam_god">
-					update spec_scan set collection_object_id=#cid.collection_object_id# where id=#id#
+					update spec_scan set status='found_specimen', collection_object_id=#cid.collection_object_id# where id=#id#
 				</cfquery>
 			<cfelse>
 				<cfquery name="gguid" datasource="uam_god">
-					update spec_scan set status='funky_guid' where id=#id#
+					update spec_scan set status='specimen_not_found' where id=#id#
 				</cfquery>
 			</cfif>
 		</cfloop>
