@@ -1372,22 +1372,6 @@
 							</cfif>
 						</span>
 					</td>
-					<!---
-					<td width="16%">	
-						<cfif institution_acronym is "MSB" and collection_cde is "Bird" and pMode is "enter">
-							<span id="clearDefault">
-								<input type="button" value="Clear All" class="delBtn" onclick="clearAll();" />
-							</span>
-							<script language="javascript" type="text/javascript">
-								catNumSeq();
-							</script>
-						<cfelse>
-							<span id="clearDefault">
-								<input type="button" value="Clear Defaults" class="delBtn" onclick="setNewRecDefaults();" />
-							</span>
-						</cfif>
-						--->
-					</td>
 					<td width="16%">	
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=ajaxGrid">[ AJAX ]</a>
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=sqlTab">[ SQL ]</a>
