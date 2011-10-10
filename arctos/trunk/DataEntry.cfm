@@ -1367,7 +1367,9 @@
 					<td width="16%" nowrap="nowrap">
 						 <span id="theSaveButton" style="display:none;">
 							<input type="button" value="Save Edits" class="savBtn" onclick="saveEditedRecord();" />
-							<input type="button" value="Delete Record" class="delBtn" onclick="deleteThisRec();" />
+							<cfif ImAGod is not "yes">
+								<input type="button" value="Delete Record" class="delBtn" onclick="deleteThisRec();" />
+							</cfif>
 						</span>
 					</td>
 					<!---
