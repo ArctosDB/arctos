@@ -1005,6 +1005,7 @@
 									from
 										rparts
 									where
+										attribute_type is not null and
 										part_id=#part_id#
 									group by
 										attribute_type,
