@@ -994,25 +994,40 @@
 									<td>#label#</td>
 									<td>#part_remarks#</td>
 								</tr>
-		
-<cfquery name="patt" dbtype="query">
-	select 
-		attribute_type,
-		attribute_value,
-		attribute_units,
-		determined_date,
-		attribute_remark,
-		agent_name
-	from
-		rparts
-	where
-		part_id=#part_id#
-</cfquery>
-<cfif patt.recordcount gt 0>
-	<tr>
-		<td><cfdump var=#patt#></td>
-	</tr>
-</cfif>
+								<cfquery name="patt" dbtype="query">
+									select 
+										attribute_type,
+										attribute_value,
+										attribute_units,
+										determined_date,
+										attribute_remark,
+										agent_name
+									from
+										rparts
+									where
+										part_id=#part_id#
+								</cfquery>
+								<cfif patt.recordcount gt 0>
+									<cfloop query="patt">
+										<tr>
+											<td rowspan="6">
+												#attribute_type#=#attribute_value#
+												<cfif len(attribute_units) gt 0>
+												 	#attribute_units#
+												</cfif>
+												<cfif len(determined_date) gt 0>
+												 	determined data=#determined_date#
+												</cfif>
+												<cfif len(agent_name) gt 0>
+												 	determined by=#agent_name#
+												</cfif>
+												<cfif len(attribute_remark) gt 0>
+												 	attribute_remark=#attribute_remark#
+												</cfif>
+											</td>
+										</tr>
+									</cfloop>
+								</cfif>
 	
 	
 	
