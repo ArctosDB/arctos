@@ -842,15 +842,25 @@
 		coll_object.COLL_OBJ_DISPOSITION part_disposition,
 		coll_object.CONDITION part_condition,
 		lot_count,
-		coll_object_remarks part_remarks
+		coll_object_remarks part_remarks,
+		attribute_type,
+		attribute_value,
+		attribute_units,
+		determined_date,
+		attribute_remark,
+		agent_name
 	from
 		specimen_part,
 		coll_object,
 		coll_object_remark,
 		coll_obj_cont_hist,
 		container oc,
-		container pc
+		container pc,
+		specimen_part_attribute,
+		preferred_agent_name
 	where
+		specimen_part.collection_object_id=specimen_part_attribute.collection_object_id (+) and
+		specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
 		specimen_part.collection_object_id=coll_object.collection_object_id and
 		coll_object.collection_object_id=coll_obj_cont_hist.collection_object_id and
 		coll_object.collection_object_id=coll_object_remark.collection_object_id (+) and
@@ -858,6 +868,77 @@
 		oc.parent_container_id=pc.container_id (+) and
 		specimen_part.derived_from_cat_item=#one.collection_object_id#
 </cfquery>
+
+<cfdump var=#parts#>
+<!-------
+<cfquery name="pAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select
+						 part_attribute_id,
+						 ,
+						 ,
+						 ,
+						 ,
+						 ,
+						 ,
+						 
+					from
+						,
+						
+					where
+						specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
+						collection_object_id=#partID#
+				</cfquery>
+				<tr bgcolor="#bgc#">
+					<td colspan="8" align="center">
+						<cfif pAtt.recordcount gt 0>
+						<table border>
+							<tr>
+								<th>Attribute</th>
+								<th>Value</th>
+								<th>Units</th>
+								<th>Date</th>
+								<th>DeterminedBy</th>
+								<th>Remark</th>
+							</tr>
+							<cfloop query="pAtt">
+								<tr>
+									<td>#attribute_type#</td>
+									<td>
+										#attribute_value#&nbsp;
+									</td>
+									<td>
+										#attribute_units#&nbsp;
+									</td>
+									<td>
+										#dateformat(determined_date,"yyyy-mm-dd")#&nbsp;
+									</td>
+									<td>
+										#agent_name#&nbsp;
+									</td>
+									<td>
+										#attribute_remark#&nbsp;
+									</td>
+								</tr>
+							</cfloop>
+						</td>
+					</table>
+					<cfelse>
+						--no attributes--
+					</cfif>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				---------->	
+					
+					
+					
 <cfquery name="mPart" dbtype="query">
 	select * from parts where sampled_from_obj_id is null order by part_name
 </cfquery>
