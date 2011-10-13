@@ -1006,7 +1006,7 @@
 	from
 		rparts
 	where
-		partID=#partID#
+		part_id=#part_id#
 </cfquery>
 <cfif patt.recordcount gt 0>
 	<tr>
