@@ -20,6 +20,7 @@ jQuery(document).ready(function() {
 	} else {
 		window.attachEvent("onmessage", getGeolocate);
 	}
+	pickedLocality();
 });
 function padzero(n) {
 	return n < 10 ? '0' + n : n;
