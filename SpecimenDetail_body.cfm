@@ -1006,6 +1006,13 @@
 										rparts
 									where
 										part_id=#part_id#
+									group by
+										attribute_type,
+										attribute_value,
+										attribute_units,
+										determined_date,
+										attribute_remark,
+										agent_name
 								</cfquery>
 								<cfif patt.recordcount gt 0>
 									<tr>
