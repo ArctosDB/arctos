@@ -125,6 +125,7 @@
 				<span style="font-size:larger;font-weight:bold;font-style:italic">
 					&nbsp;#sciname#
 				</span>
+				<!---
 				 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
 				    <cfif encumbrance_action does not contain "coordinates" OR
 						(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>						
@@ -132,6 +133,7 @@
 					    <img src="/images/info.gif" border="0" onClick="getDocs('maps')" class="likeLink">
 	                </cfif>
 				</cfif>
+				--->
 		    </td>
 		    <td valign="top">
 			    <strong><em>#spec_locality#</em></strong>
@@ -165,13 +167,24 @@
 				</font>
 			</td>
 			<td>
+				
+				 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
+				    <cfif encumbrance_action does not contain "coordinates" OR
+						(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
+						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
+						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+						<cfset iu=iu & "&maptype=roadmap">
+						<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">
+							<img src="#iu#" alt="Click for BerkeleyMapper">
+						</a>
+						<!---			
+					    <br><a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank" class="external">BerkeleyMapper</a>
+					    <img src="/images/info.gif" border="0" onClick="getDocs('maps')" class="likeLink"--->
+	                </cfif>
+				</cfif>
+				
 				<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
-					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
-					<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
-					<cfset iu=iu & "&maptype=roadmap">
-					<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#" target="_blank">
-						<img src="#iu#" alt="Google Map">
-					</a>
+					
 				</cfif>
 			</td>
 		    <td valign="top">
