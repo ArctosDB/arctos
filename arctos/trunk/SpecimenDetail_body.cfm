@@ -1010,9 +1010,11 @@
 								<cfif patt.recordcount gt 0>
 									<tr>
 										<td colspan="6">
-											<div class="detailCellSmall">
+											<cfloop query="patt">
 												
-												<cfloop query="patt">
+												<div class="detailCellSmall">
+												
+												
 												
 											#attribute_type#=#attribute_value#
 											<cfif len(attribute_units) gt 0>
@@ -1027,9 +1029,9 @@
 											<cfif len(attribute_remark) gt 0>
 											 	attribute_remark=#attribute_remark#
 											</cfif>
-											</cfloop>
 											
 											</div>
+											</cfloop>
 										</td>
 									</tr>
 								</cfif>
