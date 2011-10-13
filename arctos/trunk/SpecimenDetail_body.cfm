@@ -1008,27 +1008,30 @@
 										part_id=#part_id#
 								</cfquery>
 								<cfif patt.recordcount gt 0>
-									<cfloop query="patt">
-										<tr>
-											<td colspan="6">
-												<span class="detailCellSmall">
-												#attribute_type#=#attribute_value#
-												<cfif len(attribute_units) gt 0>
-												 	#attribute_units#
-												</cfif>
-												<cfif len(determined_date) gt 0>
-												 	determined date=#dateformat(determined_date,"yyyy-mm-dd")#
-												</cfif>
-												<cfif len(agent_name) gt 0>
-												 	determined by=#agent_name#
-												</cfif>
-												<cfif len(attribute_remark) gt 0>
-												 	attribute_remark=#attribute_remark#
-												</cfif>
-												</span>
-											</td>
-										</tr>
-									</cfloop>
+									<tr>
+										<td colspan="6">
+											<div class="detailCellSmall">
+												
+												<cfloop query="patt">
+												
+											#attribute_type#=#attribute_value#
+											<cfif len(attribute_units) gt 0>
+											 	#attribute_units#
+											</cfif>
+											<cfif len(determined_date) gt 0>
+											 	determined date=#dateformat(determined_date,"yyyy-mm-dd")#
+											</cfif>
+											<cfif len(agent_name) gt 0>
+											 	determined by=#agent_name#
+											</cfif>
+											<cfif len(attribute_remark) gt 0>
+											 	attribute_remark=#attribute_remark#
+											</cfif>
+											</cfloop>
+											
+											</div>
+										</td>
+									</tr>
 								</cfif>
 	
 	
