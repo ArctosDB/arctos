@@ -286,7 +286,7 @@
 										</span>
 									</span>
 								</cfif>
-								<span class="f11a" onClick="getDocs('accession')" class="likeLink">Accn</span>
+								<span class="f11a" onClick="getDocs('accession')" class="likeLink">Ac-cn</span>
 								<input type="text" name="accn" value="#accn#" size="13" class="reqdClr" id="accn" onchange="isGoodAccn();">
 								<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
 
