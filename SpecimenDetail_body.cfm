@@ -1012,7 +1012,7 @@
 										<td colspan="6">
 											<cfloop query="patt">
 												
-												<div class="detailCellSmall">
+												<div style="margin-left:1em;" class="detailCellSmall">
 												
 												
 												
