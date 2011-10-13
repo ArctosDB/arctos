@@ -1011,26 +1011,22 @@
 									<tr>
 										<td colspan="6">
 											<cfloop query="patt">
-												
 												<div style="margin-left:1em;" class="detailCellSmall">
-												
-												
-												
-											#attribute_type#=#attribute_value#
-											<cfif len(attribute_units) gt 0>
-											 	#attribute_units#
-											</cfif>
-											<cfif len(determined_date) gt 0>
-											 	determined date=#dateformat(determined_date,"yyyy-mm-dd")#
-											</cfif>
-											<cfif len(agent_name) gt 0>
-											 	determined by=#agent_name#
-											</cfif>
-											<cfif len(attribute_remark) gt 0>
-											 	attribute_remark=#attribute_remark#
-											</cfif>
+													<strong>#attribute_type#</strong>=<strong>#attribute_value#</strong>
+													<cfif len(attribute_units) gt 0>
+													 	<strong>#attribute_units#</strong>
+													</cfif>
+													<cfif len(determined_date) gt 0>
+													 	determined date=<strong>#dateformat(determined_date,"yyyy-mm-dd")#</strong>
+													</cfif>
+													<cfif len(agent_name) gt 0>
+													 	determined by=<strong>#agent_name#</strong>
+													</cfif>
+													<cfif len(attribute_remark) gt 0>
+													 	remark=<strong>#attribute_remark#</strong>
+													</cfif>
 											
-											</div>
+												</div>
 											</cfloop>
 										</td>
 									</tr>
