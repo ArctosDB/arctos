@@ -833,7 +833,7 @@
 				</div>
 			</cfif>
 <!------------------------------------ parts ---------------------------------------------->
-<cfquery name="parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="rparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		specimen_part.collection_object_id part_id,
 		pc.label,
@@ -868,8 +868,30 @@
 		oc.parent_container_id=pc.container_id (+) and
 		specimen_part.derived_from_cat_item=#one.collection_object_id#
 </cfquery>
-
-<cfdump var=#parts#>
+<cfquery name="parts" dbtype="query">
+	select 
+		part_id,
+		label,
+		part_name,
+		sampled_from_obj_id,
+		part_disposition,
+		part_condition,
+		lot_count,
+		part_remarks
+	from
+		rparts
+	group by
+		part_id,
+		label,
+		part_name,
+		sampled_from_obj_id,
+		part_disposition,
+		part_condition,
+		lot_count,
+		part_remarks
+	order by
+		part_name
+</cfquery>
 <!-------
 <cfquery name="pAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
@@ -972,6 +994,29 @@
 									<td>#label#</td>
 									<td>#part_remarks#</td>
 								</tr>
+		
+<cfquery name="patt" dbtype="query">
+	select 
+		attribute_type,
+		attribute_value,
+		attribute_units,
+		determined_date,
+		attribute_remark,
+		agent_name
+	from
+		rparts
+	where
+		partID=#partID#
+</cfquery>
+<cfif patt.recordcount gt 0>
+	<tr>
+		<td><cfdump var=#patt#></td>
+	</tr>
+</cfif>
+	
+	
+	
+								
 								<cfquery name="sPart" dbtype="query">
 									select * from parts where sampled_from_obj_id=#part_id#
 								</cfquery>
