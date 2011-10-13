@@ -1010,7 +1010,7 @@
 								<cfif patt.recordcount gt 0>
 									<cfloop query="patt">
 										<tr>
-											<td rowspan="6">
+											<td colspan="6">
 												#attribute_type#=#attribute_value#
 												<cfif len(attribute_units) gt 0>
 												 	#attribute_units#
