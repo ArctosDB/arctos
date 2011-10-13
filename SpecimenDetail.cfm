@@ -125,15 +125,6 @@
 				<span style="font-size:larger;font-weight:bold;font-style:italic">
 					&nbsp;#sciname#
 				</span>
-				<!---
-				 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
-				    <cfif encumbrance_action does not contain "coordinates" OR
-						(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>						
-					    <br><a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank" class="external">BerkeleyMapper</a>
-					    <img src="/images/info.gif" border="0" onClick="getDocs('maps')" class="likeLink">
-	                </cfif>
-				</cfif>
-				--->
 		    </td>
 		    <td valign="top">
 			    <strong><em>#spec_locality#</em></strong>
@@ -167,7 +158,6 @@
 				</font>
 			</td>
 			<td>
-				
 				 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
 				    <cfif encumbrance_action does not contain "coordinates" OR
 						(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
@@ -177,14 +167,7 @@
 						<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">
 							<img src="#iu#" alt="Click for BerkeleyMapper">
 						</a>
-						<!---			
-					    <br><a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank" class="external">BerkeleyMapper</a>
-					    <img src="/images/info.gif" border="0" onClick="getDocs('maps')" class="likeLink"--->
 	                </cfif>
-				</cfif>
-				
-				<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
-					
 				</cfif>
 			</td>
 		    <td valign="top">
@@ -212,20 +195,13 @@
     </table>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<script language="javascript" type="text/javascript">
-			//$(document).ready(function() { 
-			//    document.body.onselectstart = function() {return false;} 
-			//    $('##popDiv').animaDrag(); 
-			//}); 
-			
 			function closeEditApp() {
 				$('##bgDiv').remove();
 				$('##bgDiv', window.parent.document).remove();
 				$('##popDiv').remove();
 				$('##popDiv', window.parent.document).remove();
-				
 				$('##cDiv').remove();
 				$('##cDiv', window.parent.document).remove();
-				
 				$('##theFrame').remove();
 				$('##theFrame', window.parent.document).remove();
 				$("span[id^='BTN_']").each(function(){
@@ -240,7 +216,6 @@
 				bgDiv.className = 'bgDiv';
 				bgDiv.setAttribute('onclick','closeEditApp()');
 				document.body.appendChild(bgDiv);
-				
 				var popDiv=document.createElement('div');
 				popDiv.id = 'popDiv';
 				popDiv.className = 'editAppBox';
@@ -260,7 +235,6 @@
 				links+='<li><span onclick="loadEditApp(\'Encumbrances\')" class="likeLink" id="BTN_Encumbrances">Encumbrance</span></li>';
 				links+='<li><span onclick="loadEditApp(\'catalog\')" class="likeLink" id="BTN_catalog">Catalog</span></li>';
 				links+="</ul>";
-				
 				$("##popDiv").append(links);
 				var cDiv=document.createElement('div');
 				cDiv.className = 'fancybox-close';
@@ -279,7 +253,6 @@
 					$("##" + this.id).removeClass('activeButton');
 					$('##' + this.id, window.parent.document).removeClass('activeButton');
 				});
-				
 				$("##BTN_" + q).addClass('activeButton');
 				$('##BTN_' + q, window.parent.document).addClass('activeButton');
 			}
