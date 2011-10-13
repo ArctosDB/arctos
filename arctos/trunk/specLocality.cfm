@@ -75,6 +75,7 @@
 		//alert('everything off');
 		if (orig_units.length > 0) {
 			//alert('got soemthing');
+			$("#orig_lat_long_units".val(orig_units);
 			llMeta.style.display='';
 			if (orig_units == 'decimal degrees') {
 				decdeg.style.display='';
@@ -186,6 +187,7 @@ function useGL(glat,glon,gerr){
 			$("##lat_long_ref_source").val('GeoLocate');
 			$("##dec_lat").val(glat);
 			$("##dec_long").val(glon);
+			$("##lat_long_remarks").val('');
 			closeGeoLocate();
 		}
 </script>
@@ -737,7 +739,7 @@ function useGL(glat,glon,gerr){
 				<label for="LAT_LONG_REF_SOURCE" class="likeLink" onClick="getDocs('lat_long','source')">
 					Reference
 				</label>
-				<input type="text" name="LAT_LONG_REF_SOURCE" id="LAT_LONG_REF_SOURCE" size="90" class="reqdClr"
+				<input type="text" name="LAT_LONG_REF_SOURCE" id="lat_long_ref_source" size="90" class="reqdClr"
 					value='#preservesinglequotes(l.LAT_LONG_REF_SOURCE)#' />
 			</td>
 		</tr>
