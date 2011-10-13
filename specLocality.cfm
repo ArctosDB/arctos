@@ -75,7 +75,7 @@
 		//alert('everything off');
 		if (orig_units.length > 0) {
 			//alert('got soemthing');
-			$("#orig_lat_long_units".val(orig_units);
+			$("#orig_lat_long_units").val(orig_units);
 			llMeta.style.display='';
 			if (orig_units == 'decimal degrees') {
 				decdeg.style.display='';
