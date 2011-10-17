@@ -315,12 +315,12 @@ function setup_jplayer_end(audio_id, wrapper_id, mp3link, ogglink) {
 }
 
 // Simple function that creates the player code and passes on to setup functions.
-function make_audio_html(unq_id_1, unq_id_2, mp3link, ogglink) {
+function make_audio_html(i, unq_id_1, unq_id_2, unq_id_3, mp3link, ogglink) {
 
     var html = "";
     html += '<div id="' + unq_id_2 + '" class="jp-audio">';
     html += '<div class="jp-type-single">';
-    html += '<div class="jp-gui jp-interface">';
+    html += '<div id="' + unq_id_3 + '" class="jp-gui jp-interface">';
     html += '<ul class="jp-controls">';
     html += '<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>';
     html += '<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>';
@@ -335,12 +335,10 @@ function make_audio_html(unq_id_1, unq_id_2, mp3link, ogglink) {
     var id = setInterval(function() {
         if (document.getElementById(unq_id_1) !== null && document.getElementById(unq_id_2) !== null) {
             setup_jplayer_end(unq_id_1, unq_id_2, mp3link, ogglink);
+            document.getElementById(unq_id_3).style.top = "" + 182*(i-1) + "px";
             clearInterval(id);
-            clearInterval(id2);
         }
     }, 500);
-    // Debugging.
-    var id2 = setTimeout(function() {clearInterval(id); alert("Failed to launch audio player.\nDetails:\n\tAudio Tag: " + unq_id_1 + "\n\tWrapper Tag: " + unq_id_2 + "\n\tLink 1: " + mp3link + "\n\tLink 2: " + ogglink);}, 5000);
     return html;
 }
 // End of Mike's audio media functions.
@@ -681,10 +679,10 @@ function success_getSpecResultsData(result){
                                 } else {
 
 									var unq_mark1 = i;
-									var unq_mark2 = m;
-                                    var unq_id_1 = "jquery_jplayer_" + unq_mark1 + "_" + unq_mark2;
-                                    var unq_id_2 = "jp_container_" + unq_mark1 + "_" + unq_mark2;
-                                    var audio_id = "audio_thumb_" + unq_mark1 + "_" + unq_mark2;
+                                    var unq_id_1 = "jquery_jplayer_" + unq_mark1;
+                                    var unq_id_2 = "jp_container_" + unq_mark1;
+                                    var unq_id_3 = "jp_interface_" + unq_mark1;
+                                    var audio_id = "audio_thumb_" + unq_mark1;
                                     
                                     // Do arithmetic.
                                     wavPlaybackUrl = thisMedia.DATA.media_uri[m],
@@ -697,7 +695,7 @@ function success_getSpecResultsData(result){
                                     document.getElementById("audio").innerHTML += '<div id="' + unq_id_1 + '" class="jp-jplayer"></div>';
 								    
 								    // Add the GUI in the correct place.
-								    theInnerHtml += make_audio_html(unq_id_1, unq_id_2, mp3PlaybackUrl, oggPlaybackUrl);
+								    theInnerHtml += make_audio_html(unq_mark1, unq_id_1, unq_id_2, unq_id_3, mp3PlaybackUrl, oggPlaybackUrl);
 
                                     // Display the type of media explicitly.
                                     theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
