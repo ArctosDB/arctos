@@ -47,6 +47,7 @@ sho err
 	<br>Upload a smaller file if you get a timeout.
 	<br>status=found one match agents exist and do not need loaded, or match the namestring of an existing agent and need made unique.
 	<br>status "did you mean...." suggestions are last-name matches. Fix your data or add an alias to the existing agent if there's a good suggestion.
+	<br>status=null recpords will, all else being correct, probably load
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45">
@@ -171,7 +172,7 @@ sho err
 				group by agent_name
 			</cfquery>
 			<cfif ln.recordcount gt 0>
-				<cfset s=listappend(s,"did you mean #valuelist(ln.agent_name)#?",";")>	
+				<cfset s=listappend(s,"did you mean and of #valuelist(ln.agent_name,"chr(10)")#?",";")>	
 			</cfif>
 		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
