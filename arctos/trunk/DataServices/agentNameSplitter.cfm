@@ -106,6 +106,9 @@ sho err
 		<cfset s=''>
 		<cfset pfx=''>
 		<cfset sfx=''>
+		<cfset firstn=''>
+		<cfset lastn=''>
+		<cfset mdln=''>
 		<cfif len(trim(preferred_name)) is 0>
 			<cfset s=listappend(s,"preferred_name may not be blank",";")>
 		</cfif>
@@ -145,7 +148,25 @@ sho err
 		<cfif right(thisname,1) is ",">
 			<cfset thisName=left(thisName,len(thisName)-1)>
 		</cfif>
+		<cfif listlen(thisName," ") is 1>
+			<cfset s=listappend(s,"will not deal with no-space agents",";")>	
+		<cfelseif listlen(thisName," ") is 2>
+			<cfset firstn=listFirst(thisName," ")>
+			<cfset lastn=listLast(thisName," ")>
+		<cfelse>
+			<cfset firstn=listFirst(thisName," ")>
+			<cfset lastn=listLast(thisName," ")>
+			<cfset mdln=thisName>
+			<cfset mdln=replace(mdln,firstn,'')>
+			<cfset mdln=replace(mdln,lastn,'')>
+			<cfset mdln=trim(mdln)>
+		</cfif>
+		
+			
 		<br>thisName:#thisName#
+		<br>firstn:#firstn#
+		<br>mdln:#mdln#
+		<br>lastn:#lastn#
 		<br>s=#s#
 		<br>pfx=#pfx#
 		<br>sfx=#sfx#
