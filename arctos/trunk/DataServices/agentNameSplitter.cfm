@@ -88,6 +88,14 @@ sho err
 <cflocation url="agentNameSplitter.cfm?action=validate" addtoken="false">
 </cfif>
 <cfif action is "validate">
+	<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update 
+			ds_temp_agent_split 
+		set 
+			status='found ' || 
+				select count(distinct(agent_id)) from agent_name where agent_name=ds_temp_agent_split.preferred_name || ' agents'
+	</cfquery>
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
