@@ -95,10 +95,17 @@ sho err
 	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select suffix from ctsuffix
 	</cfquery>
+	<cfset sfxLst=valuelist(cfsuffix.suffix)>
+	<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select prefix from ctprefix
+	</cfquery>
+	<cfset pfxLst=valuelist(ctprefix.prefix)>
 	<cfloop query="d">
 		<hr>
 		<br>'#preferred_name#'
 		<cfset s=''>
+		<cfset pfx=''>
+		<cfset sfx=''>
 		<cfif len(trim(preferred_name)) is 0>
 			<cfset s=listappend(s,"preferred_name may not be blank",";")>
 		</cfif>
@@ -117,9 +124,17 @@ sho err
 			<cfset s=listappend(s,"found #isThere.recordcount# matches-merge or make unique",";")>
 		</cfif>
 		<cfloop index="i" list="#preferred_name#" delimiters=" ,;">
+			<cfif listfindnocase(pfxLst,i)>
+				<cfset pfx=i>
+			</cfif>
+			<cfif listfindnocase(sfxLst,i)>
+				<cfset sfx=i>
+			</cfif>
 			<br>=+#i#
 		</cfloop>
-		<br>#s#
+		<br>s=#s#
+		<br>pfx=#pfx#
+		<br>sfx=#sfx#
 	</cfloop>
 </cfoutput>
 </cfif>
