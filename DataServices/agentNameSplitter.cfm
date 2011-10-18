@@ -92,6 +92,9 @@ sho err
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
+	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select suffix from ctsuffix
+	</cfquery>
 	<cfloop query="d">
 		<hr>
 		<br>'#preferred_name#'
@@ -108,9 +111,14 @@ sho err
 		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select agent_id from agent_name where agent_name='#preferred_name#'
 		</cfquery>
-		<cfif isThere.recordcount gt 0>
-			<cfset s=listappend(s,"found #isThere.recordcount# matches",";")>			
+		<cfif isThere.recordcount is 1>
+			<cfset s=listappend(s,"found #isThere.recordcount# match",";")>	
+		<cfelseif isThere.recordcount gt 1>
+			<cfset s=listappend(s,"found #isThere.recordcount# matches-merge or make unique",";")>
 		</cfif>
+		<cfloop index="i" list="preferred_name" delimiters=" ,;">
+			<br>=+#i#
+		</cfloop>
 		<br>#s#
 	</cfloop>
 </cfoutput>
