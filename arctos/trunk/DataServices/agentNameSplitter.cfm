@@ -88,6 +88,7 @@ sho err
 <cflocation url="agentNameSplitter.cfm?action=validate" addtoken="false">
 </cfif>
 <cfif action is "validate">
+<cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
@@ -112,5 +113,6 @@ sho err
 		</cfif>
 		<br>#s#
 	</cfloop>
+</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
