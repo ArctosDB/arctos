@@ -211,7 +211,7 @@ sho err
 			<tr>
 				<cfloop list="#theCols#" index="i">
 					<td>
-						#i#
+						#evaluate("data." & i)#
 					</td>
 				</cfloop>
 			</tr>
