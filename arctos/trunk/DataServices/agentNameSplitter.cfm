@@ -43,6 +43,7 @@ sho err
 	this form is not magic; you are responsible for the result.
 	This app only returns a file which may then be cleaned up and bulkloaded. 
 	Upload a smaller file if you get a timeout.
+	<br>status=found one match agents exist and do not need loaded, or match the namestring of an existing agent and need made unique.
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45">
@@ -163,6 +164,17 @@ sho err
 			<cfset mdln=replace(mdln,firstn,'')>
 			<cfset mdln=replace(mdln,lastn,'')>
 			<cfset mdln=trim(mdln)>
+		</cfif>
+		<cfif s does not contain "found">
+			<cfquery name="ln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select agent_name from preferred_agent_name,person where 
+				person.person_id=preferred_agent_name.agent_id and
+				person.last_name='#lastn#'
+				group by agent_name
+			</cfquery>
+			<cfif ln.recordcount gt 0>
+				<cfset s=listappend(s,"did you mean #valuelist(ln.agent_name)#?",";")>	
+			</cfif>
 		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update ds_temp_agent_split set
