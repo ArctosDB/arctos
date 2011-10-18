@@ -46,6 +46,9 @@ sho err
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
+	<p>
+		<a href="agentNameSplitter.cfm">Agent Name Splitter</a> will accept a list of agent names and return a file that can be used here.
+	</p>
 	Step 1: Upload a comma-delimited text file (csv). 
 	Include column headings, spelled exactly as below. 
 	<br>

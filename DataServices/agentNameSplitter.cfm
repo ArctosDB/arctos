@@ -38,6 +38,7 @@ grant select on ds_temp_agent_split to public;
 sho err
 ---->
 <cfinclude template="/includes/_header.cfm">
+<cfset title='Agent Name Splitter Thingee'>
 <cfif action is "nothing">
 	<br>Upload a CSV file of agent names with one column, header "preferred_name". 
 	<br>This app accepts only agent type=person; create everything else manually.
