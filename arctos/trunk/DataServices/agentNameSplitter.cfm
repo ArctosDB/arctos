@@ -94,7 +94,7 @@ sho err
 	</cfquery>
 	<cfloop query="d">
 		<hr>
-		<br>#preferred_name#
+		<br>'#preferred_name#'
 		<cfset s=''>
 		<cfif len(trim(preferred_name)) is 0>
 			<cfset s=listappend(s,"preferred_name may not be blank",";")>
