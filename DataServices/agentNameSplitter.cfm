@@ -142,6 +142,9 @@ sho err
 			<cfset thisName=replace(thisName,sfx,'')>
 		</cfif>
 		<cfset thisName=trim(thisName)>
+		<cfif right(thisname,1) is ",">
+			<cfset thisName=left(thisName,len(thisName)-1)>
+		</cfif>
 		<br>thisName:#thisName#
 		<br>s=#s#
 		<br>pfx=#pfx#
