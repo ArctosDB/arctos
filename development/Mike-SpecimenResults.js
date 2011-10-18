@@ -324,7 +324,19 @@ function make_audio_html(i, unq_id_1, unq_id_2, unq_id_3, mp3link, ogglink) {
     html += '<ul class="jp-controls">';
     html += '<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>';
     html += '<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>';
+    html += '<li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>';
+    html += '<li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>';
     html += '</ul>';
+    html += '<div class="jp-volume-bar">';
+    html += '<div class="jp-volume-bar-value"></div>';
+    html += '</div>';
+    html += '<div class="jp-time-holder">';
+    html += '<div class="jp-current-time"></div>';
+    html += '</div>';
+    html += '<div class="jp-progress">';    
+    html += '<div class="jp-seek-bar">';
+    html += '<div class="jp-play-bar"></div>';
+    html += '</div>';
     html += '</div>'; // End "jp-gui jp-interface".
     html += '<div class="jp-no-solution">';
     html += '<span>Update required.</span>';
