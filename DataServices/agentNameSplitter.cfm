@@ -39,7 +39,9 @@ sho err
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
-	upload a CSV list of agent names with header "preferred_name"
+	upload a CSV list of agent names with header "preferred_name". This form accepts only agent type=person; create everything else manually.
+	this form is not magic; you are responsible for the result.
+	This app only returns a file which may then be cleaned up and bulkloaded. 
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45">
@@ -161,7 +163,27 @@ sho err
 			<cfset mdln=replace(mdln,lastn,'')>
 			<cfset mdln=trim(mdln)>
 		</cfif>
-		
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update ds_temp_agent_split set
+				agent_type='person',
+				preferred_name='#preferred_name#',
+				first_name='#firstn#',
+				middle_name='#mdln#',
+				last_name='#lastn#',
+				birth_date='',
+				death_date='',
+				prefix='#pfx#',
+				suffix='#sfx#',
+				other_name_1='',
+				other_name_type_1='',
+				other_name_2='',
+				other_name_type_2='',
+				other_name_3='',
+				other_name_type_3='',
+				agent_remark='',
+				status='#s#
+			where key=#key#
+		</cfquery>
 			
 		<br>thisName:#thisName#
 		<br>firstn:#firstn#
@@ -171,6 +193,10 @@ sho err
 		<br>pfx=#pfx#
 		<br>sfx=#sfx#
 	</cfloop>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from ds_temp_agent_split			
+	</cfquery>
+	<cfdump var=#d#>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
