@@ -39,11 +39,14 @@ sho err
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
-	upload a CSV list of agent names with header "preferred_name". This form accepts only agent type=person; create everything else manually.
-	this form is not magic; you are responsible for the result.
-	This app only returns a file which may then be cleaned up and bulkloaded. 
-	Upload a smaller file if you get a timeout.
+	<br>upload a CSV list of agent names with header "preferred_name". 
+	<br>This form accepts only agent type=person; create everything else manually.
+	<br>This form is not magic; you are responsible for the result.
+	<br>This app only returns a file which may then be cleaned up and bulkloaded. Clean preferred_name and reload as many times as necessary before
+	accepting the result.
+	<br>Upload a smaller file if you get a timeout.
 	<br>status=found one match agents exist and do not need loaded, or match the namestring of an existing agent and need made unique.
+	<br>status "did you mean...." suggestions are last-name matches. Fix your data or add an alias to the existing agent if there's a good suggestion.
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45">
@@ -105,8 +108,6 @@ sho err
 	<cfset sfxLst=valuelist(ctsuffix.suffix)>
 	<cfset pfxLst=valuelist(ctprefix.prefix)>
 	<cfloop query="d">
-		<hr>
-		<br>'#preferred_name#'
 		<cfset s=''>
 		<cfset pfx=''>
 		<cfset sfx=''>
@@ -132,14 +133,11 @@ sho err
 		</cfif>
 		<cfloop index="i" list="#preferred_name#" delimiters=" ,;">
 			<cfif listfindnocase(pfxLst,i)>
-				<br>=======p #pfxLst# contains #i#===========
 				<cfset pfx=i>
 			</cfif>
 			<cfif listfindnocase(sfxLst,i)>
-				<br>=======s #sfxLst# contains #i#===========
 				<cfset sfx=i>
 			</cfif>
-			<br>=+#i#
 		</cfloop>
 		<cfset thisName=preferred_name>
 		<cfif len(pfx) gt 0>
@@ -197,19 +195,44 @@ sho err
 				status='#s#'
 			where key=#key#
 		</cfquery>
-			
-		<br>thisName:#thisName#
-		<br>firstn:#firstn#
-		<br>mdln:#mdln#
-		<br>lastn:#lastn#
-		<br>s=#s#
-		<br>pfx=#pfx#
-		<br>sfx=#sfx#
 	</cfloop>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
 	<cfdump var=#d#>
+	<a href="agentNameSplitter.cfm?action=download">download</a>
 </cfoutput>
+</cfif>
+<cfif action is "download">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from ds_temp_agent_split			
+	</cfquery>
+	<cfset variables.encoding="UTF-8">
+		<cfset variables.fileName="#Application.webDirectory#/download/splitAgentNames.csv">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(mine.columnList); 
+		</cfscript>
+		<cfset theCols=data.columnList>
+		<cfset theCols=listdeleteat(theCols,listFindNoCase(theCols,"key"))>
+		<cfloop query="data">
+			<cfset d=''>
+			<cfloop list="#theCols#" index="i">
+				<cfset t='"' & evaluate("data." & i) & '"'>
+				<cfset d=listappend(d,t,",")>
+			</cfloop>
+			<cfscript>
+				variables.joFileWriter.writeLine(d); 
+			</cfscript>
+		</cfloop>
+		<cfscript>	
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=splitAgentNames.csv" addtoken="false">
+		<a href="/download/splitAgentNames.csv">Click here if your file does not automatically download.</a>
+		
+		
+		
+		
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
