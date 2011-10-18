@@ -116,7 +116,7 @@ sho err
 		<cfelseif isThere.recordcount gt 1>
 			<cfset s=listappend(s,"found #isThere.recordcount# matches-merge or make unique",";")>
 		</cfif>
-		<cfloop index="i" list="preferred_name" delimiters=" ,;">
+		<cfloop index="i" list="#preferred_name#" delimiters=" ,;">
 			<br>=+#i#
 		</cfloop>
 		<br>#s#
