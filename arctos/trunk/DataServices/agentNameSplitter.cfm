@@ -231,7 +231,7 @@ sho err
 	<cfset variables.fileName="#Application.webDirectory#/download/splitAgentNames.csv">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(mine.columnList); 
+		variables.joFileWriter.writeLine(theCols); 
 	</cfscript>
 	
 	<cfloop query="data">
