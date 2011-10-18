@@ -95,7 +95,7 @@ sho err
 	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select suffix from ctsuffix
 	</cfquery>
-	<cfset sfxLst=valuelist(cfsuffix.suffix)>
+	<cfset sfxLst=valuelist(ctsuffix.suffix)>
 	<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select prefix from ctprefix
 	</cfquery>
