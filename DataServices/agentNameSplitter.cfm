@@ -201,7 +201,8 @@ sho err
 	</cfquery>
 	<cfset theCols=data.columnList>
 	<cfset theCols=listdeleteat(theCols,listFindNoCase(theCols,"key"))>
-	<table>
+	<script src="/includes/sorttable.js"></script>
+	<table border id="t" class="sortable">
 		<tr>
 			<cfloop list="#theCols#" index="i">
 				<th>#i#</th>
