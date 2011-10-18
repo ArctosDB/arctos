@@ -42,6 +42,7 @@ sho err
 	upload a CSV list of agent names with header "preferred_name". This form accepts only agent type=person; create everything else manually.
 	this form is not magic; you are responsible for the result.
 	This app only returns a file which may then be cleaned up and bulkloaded. 
+	Upload a smaller file if you get a timeout.
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45">
@@ -181,7 +182,7 @@ sho err
 				other_name_3='',
 				other_name_type_3='',
 				agent_remark='',
-				status='#s#
+				status='#s#'
 			where key=#key#
 		</cfquery>
 			
