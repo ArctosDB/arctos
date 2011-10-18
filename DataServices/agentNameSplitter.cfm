@@ -96,10 +96,30 @@ sho err
 				select count(distinct(agent_id)) from agent_name where agent_name.agent_name=ds_temp_agent_split.preferred_name || ' agents'
 			where ds_temp_agent_split.preferred_name=agent_name.agent_name
 	</cfquery>
-
+	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
-	<cfdump var=#d#>
+	<cfloop query="d">
+		<hr>
+		<br>#preferred_name#
+		<cfset s=''>
+		<cfif len(trim(preferred_name)) is 0>
+			<cfset s=listappend(s,"preferred_name may not be blank",";")>
+		</cfif>
+		<cfif trim(preferred_name) is not preferred_name>
+			<cfset s=listappend(s,"leading or trailing spaces",";")>
+		</cfif>
+		<cfif preferred_name contains "  ">
+			<cfset s=listappend(s,"preferred_name may not contain double spaces",";")>
+		</cfif>
+		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select agent_id from agent_name where agent_name='#preferred_name#'
+		</cfquery>
+		<cfif isThere.recordcount gt 0>
+			<cfset s=listappend(s,"found #isThere.recordcount# matches",";")>			
+		</cfif>
+		<br>#s#
+	</cfloop>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
