@@ -196,10 +196,28 @@ sho err
 			where key=#key#
 		</cfquery>
 	</cfloop>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
-	<cfdump var=#d#>
+	<cfset theCols=data.columnList>
+	<cfset theCols=listdeleteat(theCols,listFindNoCase(theCols,"key"))>
+	<table>
+		<tr>
+			<cfloop list="#theCols#" index="i">
+				<th>#i#</th>
+			</cfloop>
+		</tr>
+		<cfloop query="data">
+			<tr>
+				<cfloop list="#theCols#" index="i">
+					<td>
+						#i#
+					</td>
+				</cfloop>
+			</tr>
+		</cfloop>
+	</table>
+	
 	<a href="agentNameSplitter.cfm?action=download">download</a>
 </cfoutput>
 </cfif>
@@ -207,32 +225,29 @@ sho err
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
+	<cfset theCols=data.columnList>
+	<cfset theCols=listdeleteat(theCols,listFindNoCase(theCols,"key"))>
 	<cfset variables.encoding="UTF-8">
-		<cfset variables.fileName="#Application.webDirectory#/download/splitAgentNames.csv">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(mine.columnList); 
-		</cfscript>
-		<cfset theCols=data.columnList>
-		<cfset theCols=listdeleteat(theCols,listFindNoCase(theCols,"key"))>
-		<cfloop query="data">
-			<cfset d=''>
-			<cfloop list="#theCols#" index="i">
-				<cfset t='"' & evaluate("data." & i) & '"'>
-				<cfset d=listappend(d,t,",")>
-			</cfloop>
-			<cfscript>
-				variables.joFileWriter.writeLine(d); 
-			</cfscript>
+	<cfset variables.fileName="#Application.webDirectory#/download/splitAgentNames.csv">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(mine.columnList); 
+	</cfscript>
+	
+	<cfloop query="data">
+		<cfset d=''>
+		<cfloop list="#theCols#" index="i">
+			<cfset t='"' & evaluate("data." & i) & '"'>
+			<cfset d=listappend(d,t,",")>
 		</cfloop>
-		<cfscript>	
-			variables.joFileWriter.close();
+		<cfscript>
+			variables.joFileWriter.writeLine(d); 
 		</cfscript>
-		<cflocation url="/download.cfm?file=splitAgentNames.csv" addtoken="false">
-		<a href="/download/splitAgentNames.csv">Click here if your file does not automatically download.</a>
-		
-		
-		
-		
+	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	<cflocation url="/download.cfm?file=splitAgentNames.csv" addtoken="false">
+	<a href="/download/splitAgentNames.csv">Click here if your file does not automatically download.</a>		
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
