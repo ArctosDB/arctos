@@ -93,7 +93,8 @@ sho err
 			ds_temp_agent_split 
 		set 
 			status='found ' || 
-				select count(distinct(agent_id)) from agent_name where agent_name=ds_temp_agent_split.preferred_name || ' agents'
+				select count(distinct(agent_id)) from agent_name where agent_name.agent_name=ds_temp_agent_split.preferred_name || ' agents'
+			where ds_temp_agent_split.preferred_name=agent_name.agent_name
 	</cfquery>
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
