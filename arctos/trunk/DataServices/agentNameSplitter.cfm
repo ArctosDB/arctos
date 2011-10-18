@@ -134,6 +134,11 @@ sho err
 			</cfif>
 			<br>=+#i#
 		</cfloop>
+		<cfset thisName=preferred_name>
+		<cfset thisName=replace(thisName,pfx,'')>
+		<cfset thisName=replace(thisName,sfx,'')>
+		<cfset thisName=trim(thisName)>
+		<br>thisName:#thisName#
 		<br>s=#s#
 		<br>pfx=#pfx#
 		<br>sfx=#sfx#
