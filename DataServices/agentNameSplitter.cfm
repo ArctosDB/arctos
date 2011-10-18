@@ -39,15 +39,16 @@ sho err
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
-	<br>upload a CSV list of agent names with header "preferred_name". 
-	<br>This form accepts only agent type=person; create everything else manually.
-	<br>This form is not magic; you are responsible for the result.
+	<br>Upload a CSV file of agent names with one column, header "preferred_name". 
+	<br>This app accepts only agent type=person; create everything else manually.
+	<br>This app is a tool, not magic; you are responsible for the result.
 	<br>This app only returns a file which may then be cleaned up and bulkloaded. Clean preferred_name and reload as many times as necessary before
 	accepting the result.
 	<br>Upload a smaller file if you get a timeout.
 	<br>status=found one match agents exist and do not need loaded, or match the namestring of an existing agent and need made unique.
 	<br>status "did you mean...." suggestions are last-name matches. Fix your data or add an alias to the existing agent if there's a good suggestion.
-	<br>status=null recpords will, all else being correct, probably load
+	<br>status=null records will, all else being correct, probably load
+	<br>seemingly conflicting status concatenations happen; create them manually if all else fails.
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45">
