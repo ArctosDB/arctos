@@ -347,7 +347,6 @@ function make_audio_html(i, unq_id_1, unq_id_2, unq_id_3, mp3link, ogglink) {
     var id = setInterval(function() {
         if (document.getElementById(unq_id_1) !== null && document.getElementById(unq_id_2) !== null) {
             setup_jplayer_end(unq_id_1, unq_id_2, mp3link, ogglink);
-            document.getElementById(unq_id_3).style.top = "" + 182*(i-1) + "px";
             clearInterval(id);
         }
     }, 500);
@@ -707,6 +706,7 @@ function success_getSpecResultsData(result){
                                     document.getElementById("audio").innerHTML += '<div id="' + unq_id_1 + '" class="jp-jplayer"></div>';
 								    
 								    // Add the GUI in the correct place.
+								    theInnerHtml += '<div class="one_thumb">';
 								    theInnerHtml += make_audio_html(unq_mark1, unq_id_1, unq_id_2, unq_id_3, mp3PlaybackUrl, oggPlaybackUrl);
 
                                     // Display the type of media explicitly.
@@ -719,7 +719,7 @@ function success_getSpecResultsData(result){
 
                                     // Set up the link to the media detail page.
                                     theInnerHtml +=
-                                        '<div class="linktodetails" align="center"><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div>';
+                                        '<div class="linktodetails" align="center"><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></div></div>';
 
                                     // Image - for now, we don't need it.
 //                                    theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">' +
