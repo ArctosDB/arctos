@@ -397,7 +397,7 @@
 		</cfloop>
 		</table>
 		<cfif getData.recordcount gt 0>
-			<cfset upList = "kingdom,phylum,phylclass,SUBCLASS,phylorder,SUBORDER,SUPERFAMILY,FAMILY,subfamilyGENUS,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code,taxon_status">
+			<cfset upList = "kingdom,phylum,phylclass,SUBCLASS,phylorder,SUBORDER,SUPERFAMILY,FAMILY,subfamily,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code,taxon_status">
 			<hr>
 			Use this form to update all records in the table above.
 			<br>Everything gets updated when you click - be sure.

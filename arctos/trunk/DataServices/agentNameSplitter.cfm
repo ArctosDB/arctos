@@ -50,6 +50,7 @@ sho err
 	<br>status "did you mean...." suggestions are last-name matches. Fix your data or add an alias to the existing agent if there's a good suggestion.
 	<br>status=null records will, all else being correct, probably load
 	<br>seemingly conflicting status concatenations happen; create them manually if all else fails.
+	<br>"...trimmed..." warnings have been fixed in the return. 
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45">
@@ -117,24 +118,26 @@ sho err
 		<cfset firstn=''>
 		<cfset lastn=''>
 		<cfset mdln=''>
-		<cfif len(trim(preferred_name)) is 0>
+		<cfset thisName=trim(preferred_name)>
+		<cfif len(thisName) is 0>
 			<cfset s=listappend(s,"preferred_name may not be blank",";")>
 		</cfif>
-		<cfif trim(preferred_name) is not preferred_name>
-			<cfset s=listappend(s,"leading or trailing spaces",";")>
+		<cfif thisName is not preferred_name>
+			<cfset s=listappend(s,"leading or trailing spaces trimmed",";")>
 		</cfif>
-		<cfif preferred_name contains "  ">
-			<cfset s=listappend(s,"preferred_name may not contain double spaces",";")>
+		<cfif thisName contains "  ">
+			<cfset thisName=replace(thisName,"  "," ","all")>
+			<cfset s=listappend(s,"trimmed double spaces",";")>
 		</cfif>
 		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select agent_id from agent_name where agent_name='#preferred_name#'
+			select agent_id from agent_name where agent_name='#thisName#'
 		</cfquery>
 		<cfif isThere.recordcount is 1>
 			<cfset s=listappend(s,"found #isThere.recordcount# match",";")>	
 		<cfelseif isThere.recordcount gt 1>
 			<cfset s=listappend(s,"found #isThere.recordcount# matches-merge or make unique",";")>
 		</cfif>
-		<cfloop index="i" list="#preferred_name#" delimiters=" ,;">
+		<cfloop index="i" list="#thisName#" delimiters=" ,;">
 			<cfif listfindnocase(pfxLst,i)>
 				<cfset pfx=i>
 			</cfif>
@@ -142,26 +145,26 @@ sho err
 				<cfset sfx=i>
 			</cfif>
 		</cfloop>
-		<cfset thisName=preferred_name>
+		<cfset tempName=thisName>
 		<cfif len(pfx) gt 0>
-			<cfset thisName=replace(thisName,pfx,'')>
+			<cfset tempName=replace(tempName,pfx,'')>
 		</cfif>
 		<cfif len(sfx) gt 0>
-			<cfset thisName=replace(thisName,sfx,'')>
+			<cfset tempName=replace(tempName,sfx,'')>
 		</cfif>
-		<cfset thisName=trim(thisName)>
-		<cfif right(thisname,1) is ",">
-			<cfset thisName=left(thisName,len(thisName)-1)>
+		<cfset tempName=trim(tempName)>
+		<cfif right(tempName,1) is ",">
+			<cfset tempName=left(tempName,len(tempName)-1)>
 		</cfif>
-		<cfif listlen(thisName," ") is 1>
+		<cfif listlen(tempName," ") is 1>
 			<cfset s=listappend(s,"will not deal with no-space agents",";")>	
-		<cfelseif listlen(thisName," ") is 2>
-			<cfset firstn=listFirst(thisName," ")>
-			<cfset lastn=listLast(thisName," ")>
+		<cfelseif listlen(tempName," ") is 2>
+			<cfset firstn=listFirst(tempName," ")>
+			<cfset lastn=listLast(tempName," ")>
 		<cfelse>
-			<cfset firstn=listFirst(thisName," ")>
-			<cfset lastn=listLast(thisName," ")>
-			<cfset mdln=thisName>
+			<cfset firstn=listFirst(tempName," ")>
+			<cfset lastn=listLast(tempName," ")>
+			<cfset mdln=tempName>
 			<cfset mdln=replace(mdln,firstn,'')>
 			<cfset mdln=replace(mdln,lastn,'')>
 			<cfset mdln=trim(mdln)>
@@ -180,7 +183,7 @@ sho err
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update ds_temp_agent_split set
 				agent_type='person',
-				preferred_name='#preferred_name#',
+				preferred_name='#thisName#',
 				first_name='#firstn#',
 				middle_name='#mdln#',
 				last_name='#lastn#',
@@ -221,7 +224,6 @@ sho err
 			</tr>
 		</cfloop>
 	</table>
-	
 	<a href="agentNameSplitter.cfm?action=download">download</a>
 </cfoutput>
 </cfif>
