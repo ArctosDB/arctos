@@ -241,12 +241,17 @@ sho err
 		</cfloop>
 	</table>
 	<a href="agentNameSplitter.cfm?action=download">[ download ]</a>
-	<br><a href="agentNameSplitter.cfm?action=delete&s=foundOneMatch">[ delete "found one match" records ]</a>
+	<br><a href="agentNameSplitter.cfm?action=delete&s=foundOneMatch">[ delete all "found one match" records ]</a>
+	<br><a href="agentNameSplitter.cfm?action=delete&s=pnap">[ delete all "probably not a person" records ]</a>
+	
+		
 </cfoutput>
 </cfif>
 <cfif action is "delete">
 	<cfif s is "foundOneMatch">
 		<cfset sql="delete from ds_temp_agent_split where status like '%found 1 match%'">
+	<cfelseif s is "pnap">
+		<cfset sql="delete from ds_temp_agent_split where status like '%probably not a person%'">
 	</cfif>
 	
 	<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
