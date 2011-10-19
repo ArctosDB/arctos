@@ -169,7 +169,7 @@ sho err
 			<cfset mdln=replace(mdln,lastn,'')>
 			<cfset mdln=trim(mdln)>
 		</cfif>
-		<cfset ProbNotPersonClue="class,biol,alaska,california,field,station,research,summer,student,uaf">
+		<cfset ProbNotPersonClue="class,biol,alaska,california,field,station,research,summer,student,students,uaf,national">
 		<cfloop list="#ProbNotPersonClue#" index="i">
 			<cfif listfindnocase(thisName,i," ,;-")>
 				<cfset s=listappend(s,"probably not a person (kw)",";")>
@@ -178,7 +178,7 @@ sho err
 		<cfif refind(thisName,"[A-Z][A-Z]")>
 			<cfset s=listappend(s,"probably not a person (2up)",";")>
 		</cfif>
-		<cfif refind(thisName,"[0-9]")>
+		<cfif refind(thisName,[0-9])>
 			<cfset s=listappend(s,"probably not a person (num)",";")>
 		</cfif>
 		<cfif s does not contain "found">
