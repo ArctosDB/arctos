@@ -175,10 +175,10 @@ sho err
 				<cfset s=listappend(s,"probably not a person (kw)",";")>
 			</cfif>
 		</cfloop>
-		<cfif refind(thisName,"[A-Z][A-Z]">
+		<cfif refind(thisName,"[A-Z][A-Z]")>
 			<cfset s=listappend(s,"probably not a person (2up)",";")>
 		</cfif>
-		<cfif refind(thisName,"[0-9]">
+		<cfif refind(thisName,"[0-9]")>
 			<cfset s=listappend(s,"probably not a person (num)",";")>
 		</cfif>
 		<cfif s does not contain "found">
