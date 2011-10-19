@@ -169,6 +169,18 @@ sho err
 			<cfset mdln=replace(mdln,lastn,'')>
 			<cfset mdln=trim(mdln)>
 		</cfif>
+		<cfset ProbNotPersonClue="class,biol,alaska,california,field,station,research,summer,student,uaf">
+		<cfloop list="#ProbNotPersonClue#" index="i">
+			<cfif listfindnocase(thisName,i," ,;-")>
+				<cfset s=listappend(s,"probably not a person (kw)",";")>
+			</cfif>
+		</cfloop>
+		<cfif refind(thisName,"[A-Z][A-Z]">
+			<cfset s=listappend(s,"probably not a person (2up)",";")>
+		</cfif>
+		<cfif refind(thisName,"[0-9]">
+			<cfset s=listappend(s,"probably not a person (num)",";")>
+		</cfif>
 		<cfif s does not contain "found">
 			<cfquery name="ln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select agent_name from preferred_agent_name,person where 
