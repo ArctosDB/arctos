@@ -170,16 +170,20 @@ sho err
 			<cfset mdln=trim(mdln)>
 		</cfif>
 		<cfset ProbNotPersonClue="class,biol,alaska,california,field,station,research,summer,student,students,uaf,national">
+		<cfset pnap=false>
 		<cfloop list="#ProbNotPersonClue#" index="i">
 			<cfif listfindnocase(thisName,i," ,;-")>
-				<cfset s=listappend(s,"probably not a person (kw)",";")>
+				<cfset pnap=true>
 			</cfif>
 		</cfloop>
 		<cfif refind("[A-Z][A-Z]",thisName)>
-			<cfset s=listappend(s,"probably not a person (2up)",";")>
+			<cfset pnap=true>
 		</cfif>
 		<cfif refind("[0-9]",thisName)>
-			<cfset s=listappend(s,"probably not a person (num)",";")>
+			<cfset pnap=true>
+		</cfif>
+		<cfif pnap>
+			<cfset s=listappend(s,"probably not a person",";")>
 		</cfif>
 		<cfif s does not contain "found">
 			<cfquery name="ln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
