@@ -43,7 +43,7 @@ sho err
 	<br>Upload a CSV file of agent names with one column, header "preferred_name". 
 	<br>This app accepts only agent type=person; create everything else manually.
 	<br>This app is a tool, not magic; you are responsible for the result.
-	<br>This app only returns a file which may then be cleaned up and bulkloaded. Clean preferred_name and reload as many times as necessary before
+	<br>This app only returns a file which may then be cleaned up and bulkloaded. Clean and reload as many times as necessary before
 	accepting the result.
 	<br>Upload a smaller file if you get a timeout.
 	<br>status=found one match agents exist and do not need loaded, or match the namestring of an existing agent and need made unique.
@@ -240,8 +240,19 @@ sho err
 			</tr>
 		</cfloop>
 	</table>
-	<a href="agentNameSplitter.cfm?action=download">download</a>
+	<a href="agentNameSplitter.cfm?action=download">[ download ]</a>
+	<br><a href="agentNameSplitter.cfm?action=delete&s=foundOneMatch">[ delete "found one match" records ]</a>
 </cfoutput>
+</cfif>
+<cfif action is "delete">
+	<cfif s is "foundOneMatch">
+		<cfset sql="delete from ds_temp_agent_split where status like '%found 1 match%'">
+	</cfif>
+	
+	<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		#preserveSingleQuotes(sql)#
+	</cfquery>
+	<cflocation url="agentNameSplitter.cfm?action=validate">
 </cfif>
 <cfif action is "download">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
