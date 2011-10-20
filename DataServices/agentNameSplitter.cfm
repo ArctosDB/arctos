@@ -257,7 +257,7 @@ sho err
 	<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(sql)#
 	</cfquery>
-	<cflocation url="agentNameSplitter.cfm?action=validate">
+	<cflocation url="agentNameSplitter.cfm?action=validate" addtoken="false">
 </cfif>
 <cfif action is "download">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
