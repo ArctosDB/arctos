@@ -22,15 +22,15 @@ div.jp-video {
 	 * Eg. 1.25em = 1 / 0.8em
 	 */
 
-	font-size:1.25em; /* 1.25em for testing in site pages */ /* No parent CSS that can effect the size in the demos ZIP */
-
-	font-family:Verdana, Arial, sans-serif;
+	font-size:medium; /* 1.25em for testing in site pages */ /* No parent CSS that can effect the size in the demos ZIP */
+	font-family:arial,sans-serif;
 	line-height:1.6;
 	position:relative;
 }
 /* Need this. */
 div.jp-audio {
-	width:150px;
+	width:180px;
+	height:187px;
 }
 
 /* Need this for bg color. */
@@ -85,7 +85,7 @@ a.jp-pause {
 	height:40px;
 	position:relative;
 	top: -15px;
-	left: -15px;
+	left: 0px;
 }
 
 a.jp-play {
@@ -145,7 +145,7 @@ div.jp-audio div.jp-progress {
 	height:15px;
 }
 div.jp-audio div.jp-type-single div.jp-progress {
-	left:0px;
+	left:15px;
 	width:150px;
 }
 div.jp-seek-bar {
@@ -181,7 +181,7 @@ div.jp-audio div.jp-type-single a.jp-mute,
 div.jp-audio div.jp-type-single a.jp-unmute {
 	position: relative;
 	top: -4px;
-	left: -5px;	
+	left: 10px;	
 }
 
 a.jp-mute {
@@ -216,7 +216,7 @@ div.jp-volume-bar {
 div.jp-audio div.jp-volume-bar {
 	position: relative;
 	top:-39px;
-	left:84px;
+	left:99px;
 }
 
 div.jp-volume-bar-value {
@@ -234,7 +234,7 @@ div.jp-audio div.jp-time-holder {
 	top:30px;
 }
 div.jp-audio div.jp-type-single div.jp-time-holder {
-	left:88px;
+	left:96px;
 	width:50px;
 }
 
