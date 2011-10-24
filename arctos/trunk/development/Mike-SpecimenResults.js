@@ -710,12 +710,11 @@ function success_getSpecResultsData(result){
 								    theInnerHtml += make_audio_html(unq_mark1, unq_id_1, unq_id_2, unq_id_3, mp3PlaybackUrl, oggPlaybackUrl);
 
                                     // Display the type of media explicitly.
-                                    theInnerHtml += '<div class="mimeinfo">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
-
+                                    theInnerHtml += '<br><br><div class="mimeinfo" align="center">' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')' + '</div>';
                                     // Display all downloads on one line.
-                                    theInnerHtml += '<span class="item" align="center">Downloads: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
+                                    theInnerHtml += '<span class="item" align="center">Download: <a id="download" href="' + mp3PlaybackUrl + '">mp3</a>' +
                                         '/' + '<a id="download" href="' + oggPlaybackUrl + '">ogg</a>' +
-                                        '/' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a>' + '.' + '</span>';
+                                        '/' + '<a id="download" href="' + wavPlaybackUrl + '">wav</a></span>';
 
                                     // Set up the link to the media detail page.
                                     theInnerHtml +=
