@@ -1,7 +1,20 @@
 <cfinclude template="/includes/_header.cfm">
-<script type="text/javascript" language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+
+<!-- Juggle a newer version of jQuery, store in $$. -->
+<script>
+    var old_jquery = $;
+</script>
+<script type="text/javascript" language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.js">
+</script>
+<script>
+    var $$ = jQuery.noConflict(true);
+    $ = old_jquery;
+</script>
+
+<!-- Required files for displaying media results correctly. -->
 <script type="text/javascript" language="javascript" src="Mike-SpecimenResults.js"></script>
 <script type="text/javascript" language="javascript" src="js/jquery.jplayer.min.js"></script>
+
 <link type="text/css" href="js/skin/jplayer.blue.monday.css" rel="stylesheet" />
 <cfif len(session.displayrows) is 0>
 	<cfset session.displayrows=20>
