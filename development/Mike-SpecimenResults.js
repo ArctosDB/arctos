@@ -299,10 +299,10 @@ function toggleKillrow(id,status) {
 // Start of Mike's audio media functions.
 // Uses Jquery to prep the jPlayer function, for use after the page loads.
 function setup_jplayer_end(audio_id, wrapper_id, mp3link, ogglink) {
-    $(document).ready(function() {
-        $("#" + audio_id).jPlayer({
+    $$(document).ready(function() {
+        $$("#" + audio_id).jPlayer({
             ready: function() {
-                $(this).jPlayer("setMedia", {
+                $$(this).jPlayer("setMedia", {
                     mp3: mp3link,
                     oga: ogglink
                 });
