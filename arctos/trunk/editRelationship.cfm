@@ -40,7 +40,7 @@
 	select collection,collection_id from collection ORDER BY COLLECTION
 </cfquery>
 <cfquery name="thisRec"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select scientific_name,collection from flat where collection_object_id=#collection_object_id#
+	select scientific_name,collection,collection_id from flat where collection_object_id=#collection_object_id#
 </cfquery>
 <cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select biol_indiv_relationship from ctbiol_relations order by biol_indiv_relationship
