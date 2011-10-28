@@ -36,6 +36,12 @@
 		relatedSpecimenId.accepted_id_fg=1 AND
 		biol_indiv_relations.collection_object_id=#collection_object_id#
 </cfquery>
+<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select collection,collection_id from collection ORDER BY COLLECTION
+</cfquery>
+<cfquery name="thisRec" dbtype="query">
+	select scientific_name,collection from flat where collection_object_id=#collection_object_id#
+</cfquery>
 <cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select biol_indiv_relationship from ctbiol_relations order by biol_indiv_relationship
 </cfquery>
@@ -48,6 +54,8 @@
 				numRecs: $("##numRecs").val(),
 				collection_object_id : collection_object_id,
 				relationship: $("##cloneReln").val(),
+				taxon_name: $("##taxon_name").val(),
+				collection_id: $("##collection_id").val(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
@@ -71,18 +79,32 @@
 	<br>
 	This might take a minute.
 	Don't get all clicky or you'll make a mess.
-	<br>Create 
+	<br>Create
+	<form name="clone">
+	<label for="numRecs">Number of new records</label> 
 	<select name="numRecs" id="numRecs">
 		<cfloop from="1" to="1000" index="i">
 			<option value="#i#">#i#</option>
 		</cfloop>
-	</select> clones with relationship 
+	</select>
+	<label for="cloneReln">with Relationship to this record</label>
 	<select name="cloneReln" id="cloneReln" size="1">
 		<cfloop query="ctReln">
 			<option value="#ctReln.biol_indiv_relationship#">#ctReln.biol_indiv_relationship#</option>
 		</cfloop>
 	</select>
-	to this record - <span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">[ do it ]</span>.
+	<input type="hidden" name="nothing">
+	<label for="taxon_name">as taxon name</label>
+	<input type="text" name="taxon_name"class="reqdClr" size="40" id="taxon_name" value="#thisRec.scientific_name#" onchange="taxaPick('nothing',this.id,'clone',this.value)">
+	
+	 - <span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">[ do it ]</span>.
+	 <label for="collection_id">in collection</label> 
+	<select name="collection_id" id="collection_id">
+		<cfloop query="c">
+			<option <cfif c.collection_id is thisrec.collection_id> selected="selected" </cfif>value="#collection_id#">#collection#</option>
+		</cfloop>
+	</select>
+	</form>
 </div>
 <br>
 <div id="cloned" style="display:none" class="redBorder"></div>

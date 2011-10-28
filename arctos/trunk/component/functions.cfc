@@ -460,6 +460,8 @@
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfargument name="relationship" type="string" required="yes">
 	<cfargument name="numRecs" type="numeric" required="yes">
+	<cfargument name="taxon_name" type="string" required="yes">
+	<cfargument name="collection_id" type="numeric" required="yes">		
 	<cfset status="spiffy">
 			<cftransaction>
 
@@ -493,12 +495,12 @@
 						'cloned from ' || collection || ' ' || cat_num,
 						'#session.username#',
 						accn_number,
-						scientific_name,
+						'#taxon_name#',
 						nature_of_id,
 						made_date,
 						IDENTIFICATION_REMARKS,
-						collection.COLLECTION_CDE,
-						collection.INSTITUTION_ACRONYM,
+						(select collection_cde from collection where collection_id=#collection_id#),
+						(select institution_acronym from collection where collection_id=#collection_id#),
 						COLL_OBJ_DISPOSITION,
 						CONDITION,
 						COLL_OBJECT_REMARKS,

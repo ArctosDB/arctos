@@ -50,7 +50,7 @@ sho err
 	<br>status "did you mean...." suggestions are last-name matches. Fix your data or add an alias to the existing agent if there's a good suggestion.
 	<br>status=null records will, all else being correct, probably load
 	<br>seemingly conflicting status concatenations happen; create them manually if all else fails.
-	<br>"...trimmed..." warnings have been fixed in the return. 
+	<br>"...trimmed..." warnings have been fixed in the return. You'll need to fix them in your data.
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45">
@@ -169,7 +169,7 @@ sho err
 			<cfset mdln=replace(mdln,lastn,'')>
 			<cfset mdln=trim(mdln)>
 		</cfif>
-		<cfset ProbNotPersonClue="class,biol,alaska,california,field,station,research,summer,student,students,uaf,national">
+		<cfset ProbNotPersonClue="class,biol,alaska,california,field,station,research,summer,student,students,uaf,national,estate">
 		<cfset pnap=false>
 		<cfloop list="#ProbNotPersonClue#" index="i">
 			<cfif listfindnocase(thisName,i," ,;-")>

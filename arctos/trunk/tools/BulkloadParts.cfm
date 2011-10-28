@@ -235,7 +235,7 @@ validate
 						collection.collection_cde = '#collection_cde#' and
 						collection.institution_acronym = '#institution_acronym#' and
 						other_id_type = '#other_id_type#' and
-						other_id_num = '#other_id_number#'
+						display_value = '#other_id_number#'
 				</cfquery>
 			</cfif>
 			<cfif collObj.recordcount is 1>					
@@ -287,7 +287,9 @@ validate
 				(validated_status) = (
 				select 
 					decode(parent_container_id,
-					0,'NOTE: PART EXISTS',
+					0,'NOTE: PART EXISTS IN CONTAINER ZERO',
+					476089,'NOTE: PART EXISTS IN UAM PARENTLESS VOID',
+					397630,'NOTE: PART EXISTS IN MVZ PARENTLESS VOID',
 					'NOTE: PART EXISTS IN PARENT CONTAINER')	
 					from 
 						specimen_part,

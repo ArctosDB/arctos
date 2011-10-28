@@ -20,47 +20,32 @@
  <cfset webbadfile = "/var/www/html/Bulkloader/bulkData.bad">
 ---->
  <!------------------------------------------->
- <cfif #action# is "nothing">
- 
-<strong> Load files to bulkload</strong>
-<ul>
-	<li>You must load a tab-delimited text file</li>
-	<li><strong>Include</strong> headers on the first row; headers must match column names in table Bulkloader</li>
-	<li>Do not put quotes around fields (and you cannot have a tab in the data you are loading)</li>
-	<li>You don't need all available fields to use this application; if you don't want to look at part_name_8, just delete it.</li>
-	<li><strong>Read</strong> the messages on this form; assume nothing.</li>
-</ul>
- Upload a file:
- <br>
-
-  <cfform action="bulkloaderLoader.cfm?action=newScans" method="post" enctype="multipart/form-data">
-      <input type="file"
-   name="FiletoUpload"
-   size="45">
-   
-      <input type="submit" 
-				value="Upload this file" 
-				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'"
-				onmouseout="this.className='savBtn'">
-				
-				
-    </cfform>
+<cfif action is "nothing">
+	<strong> Load files to bulkload</strong>
+	<ul>
+		<li>You must load a CSV file</li>
+		<li>The data may not contain newline characters.</li>
+		<li><strong>Include</strong> headers on the first row; headers must match column names in table Bulkloader</li>
+		<li>You don't need all available fields to use this application; if you don't want to look at part_name_8, just delete it.</li>
+		<li><strong>Read</strong> the messages on this form; assume nothing.</li>
+	</ul>
+ 	Upload a file:
+ 	<br>
+	<cfform action="bulkloaderLoader.cfm?action=newScans" method="post" enctype="multipart/form-data">
+		<input type="file" name="FiletoUpload" size="45">
+		<input type="submit" value="Upload this file" class="savBtn">
+	</cfform>
 </cfif>
 <!------------------------------------------->
-<cfif #action# is "newScans">
- <cfoutput>
-	 
+<cfif action is "newScans">
+<cfoutput>
 	 <cfset filename = "#Application.webDirectory#/Bulkloader/bulk_data_upload.txt">
 	 <cfset controlFile = "#Application.webDirectory#/Bulkloader/bulkData.ctl">
 	 <cfset logFile = "#Application.webDirectory#/Bulkloader/bulkData.log">
 	 <cfset badFile = "#Application.webDirectory#/Bulkloader/bulkData.bad">
-	 
-	 
-	 <cfif #cgi.HTTP_HOST# contains "database.museum">
+	 <cfif cgi.HTTP_HOST contains "database.museum">
 		<cfset sqlldrScript = "/opt/coldfusion8/runtime/bin/runSqlldr">
 	</cfif>
-	
 	<cfif FileExists("#filename#")>
 		  <cffile action="delete" file="#filename#">
 	</cfif>
@@ -73,178 +58,39 @@
 	<cfif FileExists("#badFile#")>
 		<cffile action="delete" file="#badFile#">
 	</cfif>
-	  
-	  
-	  
-	  
- 	<!---<cffile action="write" file="#filename#" nameconflict="overwrite" output="blank" mode="777">--->
-    <cffile action="upload"
-      destination="#filename#"
-      nameConflict="overwrite"
-      fileField="Form.FiletoUpload">
-
-
-		<cfexecute name="/bin/sh" arguments="/usr/bin/dos2unix #filename#" timeout="240">
-		
-		</cfexecute>
-	 <!---- see if the bulkloader is deletable ---->
-	 <cfquery name="remOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	 	delete from bulkloader_stage
-	 </cfquery>
 	
-	 <!----table is empty, get the data to memory ---->
-	 <!--- kill old files 
-	
-	 <cftry>
-		 <cffile action="delete" file="#webbadfile#">
-		 <cffile action="delete" file="#weblogfile#">
-		 <cffile action="delete" file="#webFileName#">
-		 <cffile action="delete" file="#weboutFile#">
-	 	<cfcatch>
-			<!--- whatever - isn't there, don't care ---->
-			
-		</cfcatch>
-	 </cftry>
-	 <!--- Get rid of files in CF runtime, create new blanks with the proper rights --->
-		<cffile action="write" file="#logfile#" nameconflict="overwrite" output="blank" mode="777">
-		<cffile action="write" file="#badfile#" nameconflict="overwrite" output="blank" mode="777">
-		<cffile action="write" file="#outFile#" nameconflict="overwrite" output="blank" mode="777">
-	 
-	 ---->
-	 <!--- first line of file should be column names ---->
+    <cffile action="upload" destination="#filename#" nameConflict="overwrite" fileField="Form.FiletoUpload">
+	<cfexecute name="/bin/sh" arguments="/usr/bin/dos2unix #filename#" timeout="240"></cfexecute>
+	<cfquery name="remOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from bulkloader_stage
+	</cfquery>
 	<cfset stoopidLongColumns = "LAT_LONG_REMARKS,COLL_OBJECT_REMARKS">  
-	
-	
-
 	<cffile action="READ" file="#filename#" variable="fileContent"  charset="iso-8859-1" >
-	 	<cfset fileContent=replace(fileContent,"#chr(13)##chr(10)#",chr(13), "all")>
-	 	<cfset fileContent=replace(fileContent,chr(13),chr(10), "all")>
-	 	<!---
-	 	
-	 	
-	 	<cfset fileContent=replace(fileContent,chr(13),"==================chr(13)=======================", "all")>
-	 	<cfset ColumnList = listgetat(#filecontent#,1,"#chr(10)#")>
-	 	---->
-	 	<cfset ColumnList = listgetat(#filecontent#,1,"#chr(10)#")>
-	 	
-	 	
-	 	
-	 	
-		<cfset theseData = replace(filecontent,ColumnList,"","all")>
-		<cfset ColumnList = replace(ColumnList,"#chr(9)#",",","all")>	
-		<cfset theseData = replace(theseData,"#chr(9)#","|","all")>
-
-		<cfloop list="#stoopidLongColumns#" index="c">
-	 		<cfset ColumnList = replace(ColumnList,c,c & " char(4000)")>
-	 	</cfloop>
-		<cfset thisHeader = "load data">
-		<cfset thisHeader = thisHeader & chr(10) & "infile *">
-		<cfset thisHeader = thisHeader & chr(10) & "insert into table bulkloader_stage">
-		<cfset thisHeader = thisHeader & chr(10) & "fields terminated by ""|""">
-		<cfset thisHeader = thisHeader & chr(10) & "TRAILING NULLCOLS ">
-		<cfset thisHeader = thisHeader & chr(10) & "(#ColumnList#) ">
-		<cfset thisHeader = thisHeader & chr(10) & "begindata" & theseData>
-		
-		<cffile action="write" file="#controlFile#" addnewline="no" output="#thisHeader#" charset="iso-8859-1">		
-		
-		
-		<!---
-		ORACLE_HOME=/opt/oracle/10.2.0/client
-export ORACLE_HOME
-#ls -latr
-#source /home/fndlm/.bash_profile
-echo $ORACLE_HOME
-/opt/oracle/10.2.0/client/bin/sqlldr uam_query@arctos/uamdb1 control=/var/www/ht
-ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
-
-
-
-
-		<cfscript>
-function exec_cmd(cmd) {
-   var runtimeClass="";
-   var out="";
-    // Initialize the Java class.
-    runtimeClass=CreateObject("java", "java.lang.Runtime");
-    // Execute command
-    out=runtimeClass.getRuntime().exec(cmd);
-    // Return the output
-   out.waitFor();
-   return out.getInputStream().read();
-}
-command_output = exec_cmd('#sqlldrScript#');
-</cfscript>
-<hr>
-<cfoutput>#command_output#</cfoutput>
-<hr>
-
-		--->
-		
-		
-		
-		<cfexecute name="#sqlldrScript#" timeout="240">
-		
-		</cfexecute>
-	<cflocation url="bulkloaderLoader.cfm?action=inStage">	
-		
-		<!---
-		<cfdump var=#cfe#>
-		
-		<br />		
-<cfscript>  
-       try {  
-       	 runtime = createObject("java", "java.lang.Runtime").getRuntime();  
-        command = '#sqlldrScript#';   
-         process = runtime.exec(command);  
-         //#results.errorLogSuccess = processStream(process.getErrorStream(), errorLog);  
-         //results.resultLogSuccess = processStream(process.getInputStream(), resultLog);  
-         //results.exitCode = process.waitFor();  
-     }  
-     catch(exception e) {  
-         results.status = e;      
-     }  
- </cfscript>
-
-
- move the files from CF runtime to a web dir <cftry>
-
-
-	 	<cffile action="copy" destination="#weblogfile#" source="#logfile#" nameconflict="overwrite">
-		 <cffile action="copy" destination="#webbadfile#" source="#badfile#" nameconflict="overwrite">
-		 <cffile action="copy" destination="#weboutFile#" source="#outFile#" nameconflict="overwrite">
-		 <cffile action="copy" destination="#webFileName#" source="#filename#" nameconflict="overwrite">
-	 	<cfcatch><!--- so what? ---></cfcatch>
-		</cftry>
-
-		<cffile action="copy" destination="/var/www/html/Bulkloader" source="#logfile#" nameconflict="overwrite">
-		 <cffile action="copy" destination="#webBadFile#" source="#badfile#" nameconflict="overwrite">
-		 <cffile action="copy" destination="#weboutFile#" source="#outFile#" nameconflict="overwrite">
-		 <cffile action="copy" destination="#webFileName#" source="#filename#" nameconflict="overwrite">
-<cflocation url="bulkloaderLoader.cfm?action=inStage">
---->
-
-		<!--- 
-		<cfscript>
-  // first of we set the command to call
-  cmd = "/var/www/html/Bulkloader/a";
-  // the environment variable is empty
-  envp = arraynew(1);
-  // and we want to run from a given "root"
-  path = "/var/www/html/Bulkloader";
-  dir = createobject("java", "java.io.File").init(path);
-  // get the java runtime object
-  rt = createobject("java", "java.lang.Runtime").getRuntime();
-  // and make the exec call to run the command
-  rt.exec(cmd, envp, dir);
-</cfscript>
-		
- uam_query@arctos/uamdb1 control=/var/www/html/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log ---->
-		
-	 </cfoutput>
-</cfif>	 
-
+	<cfset fileContent=replace(fileContent,"#chr(13)##chr(10)#",chr(13), "all")>
+	<cfset fileContent=replace(fileContent,chr(13),chr(10), "all")>
+	<cfset ColumnList = listgetat(#filecontent#,1,"#chr(10)#")>
+	<cfset theseData = replace(filecontent,ColumnList,"","all")>
+	<!---
+	<cfset ColumnList = replace(ColumnList,"#chr(9)#",",","all")>	
+	<cfset theseData = replace(theseData,"#chr(9)#","|","all")>
+	--->
+	<cfloop list="#stoopidLongColumns#" index="c">
+ 		<cfset ColumnList = replace(ColumnList,c,c & " char(4000)")>
+ 	</cfloop>
+	<cfset thisHeader = "load data">
+	<cfset thisHeader = thisHeader & chr(10) & "infile *">
+	<cfset thisHeader = thisHeader & chr(10) & "insert into table bulkloader_stage">
+	<cfset thisHeader = thisHeader & chr(10) & 'fields terminated by "," optionally enclosed by ' & "'" & '"' & "'">
+	<cfset thisHeader = thisHeader & chr(10) & "TRAILING NULLCOLS ">
+	<cfset thisHeader = thisHeader & chr(10) & "(#ColumnList#) ">
+	<cfset thisHeader = thisHeader & chr(10) & "begindata" & theseData>
+	<cffile action="write" file="#controlFile#" addnewline="no" output="#thisHeader#" charset="iso-8859-1">		
+	<cfexecute name="#sqlldrScript#" timeout="240"></cfexecute>
+	<cflocation url="bulkloaderLoader.cfm?action=inStage">
+</cfoutput>
+</cfif>
 <!---------------------------------------->
-<cfif #action# is "inStage">
+<cfif action is "inStage">
 	<cfoutput>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) as cnt from bulkloader_stage

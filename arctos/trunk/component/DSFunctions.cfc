@@ -108,6 +108,7 @@
 	</cfquery>
 	<cfreturn d.c>
 </cffunction>
+
 <cffunction name="getAllAgentNames" access="remote">
 	<cfargument name="agent_id" type="any" required="yes">
 	<cfif isnumeric(agent_id) and len(agent_id) gt 0>
