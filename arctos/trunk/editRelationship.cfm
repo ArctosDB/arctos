@@ -39,7 +39,7 @@
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select collection,collection_id from collection ORDER BY COLLECTION
 </cfquery>
-<cfquery name="thisRec" dbtype="query">
+<cfquery name="thisRec"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select scientific_name,collection from flat where collection_object_id=#collection_object_id#
 </cfquery>
 <cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
