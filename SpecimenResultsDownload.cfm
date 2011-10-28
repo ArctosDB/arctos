@@ -84,6 +84,11 @@
 					</table>
 				</form>
 			<cfelse>
+				<cfif not isdefined("getUserData.download_format") or len(getUserData.download_format) is 0>
+					<cfset ff='csv'>
+				<cfelse>
+					<cfset ff=getUserData.download_format>
+				</cfif>
 				<cflocation url="SpecimenResultsDownload.cfm?fileformat=#getUserData.download_format#&agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#cfid#_#cftoken#" addtoken="false">
 			</cfif>			
 		<cfelse>

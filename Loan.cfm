@@ -732,7 +732,6 @@
 
 <!-------------------------------------------------------------------------------------------------->
 <cfif Action is "deleLoan">
-	<cftry>
 	<cftransaction>
 		<cfquery name="killLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from loan where transaction_id=#transaction_id#
@@ -744,16 +743,7 @@
 			delete from trans where transaction_id=#transaction_id#
 		</cfquery>
 	</cftransaction>
-	Loan deleted.....
-	<cfcatch>
-		DELETE FAILED
-		<p>You cannot delete an active loan. This loan probably has specimens or
-		other transactions attached. Use your back button.</p>
-		<p>
-			<cfdump var=#cfcatch#>
-		</p>
-	</cfcatch>
-	</cftry>
+	loan deleted
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
 <cfif Action is "delePermit">
