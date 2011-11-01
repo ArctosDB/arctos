@@ -29,7 +29,7 @@
 <cfif len(field) gt 0>
 	<script>
 		$(document).ready(function () {		
-			scrollToTag('###field#');
+			$(document).scrollTo( $('###field#'), 800 );
 		});
 	</script>
 </cfif>
@@ -153,9 +153,9 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				<cfelse>
 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				</cfif>
-				<td>
-					<a name="#thisVal#"></a>
-					#thisVal#</td>
+				<td name="#thisVal#">
+					#thisVal
+				</td>
 				<cfif docs.columnlist contains "collection_cde">
 					<td>#collection_cde#</td>
 				</cfif>
