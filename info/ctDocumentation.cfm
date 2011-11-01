@@ -104,10 +104,10 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 						#attribute_type#
 					</td>
 					<td>
-						#value_code_table#
+						<a href="ctDocumentation.cfm?table=#value_code_table#">#value_code_table#</a>
 					</td>
 					<td>
-						#units_code_table#
+						<a href="ctDocumentation.cfm?table=#units_code_table#">#units_code_table#</a>
 					</td>
 					<td>
 				</tr>
