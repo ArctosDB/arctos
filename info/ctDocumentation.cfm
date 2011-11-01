@@ -109,7 +109,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			<cfloop query="thisRec">
 				<tr>
 					<td>
-						#attribute_type#
+						<a href="ctDocumentation.cfm?table=CTATTRIBUTE_TYPE&field=#attribute_type#">#attribute_type#</a>
 					</td>
 					<td>
 						<a href="ctDocumentation.cfm?table=#value_code_table#">#value_code_table#</a>
