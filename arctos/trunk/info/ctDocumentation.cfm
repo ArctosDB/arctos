@@ -80,6 +80,39 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				<cfset i=i+1>
 			</cfloop>
 		</table>
+	<cfelseif table is "ctattribute_code_tables">
+		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select distinct(attribute_type) from ctAttribute_type
+		</cfquery>
+		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			Select * from ctattribute_code_tables
+			order by attribute_type
+		</cfquery>
+		<cfquery name="allCTs" datasource="uam_god">
+			select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
+		</cfquery>
+		<table border>
+			<tr>
+				<th>Attribute</th>
+				<th>Value Code Table</th>
+				<th>Units Code Table</th>
+			</tr>
+			<cfset i=1>
+			<cfloop query="thisRec">
+				<tr>
+					<td>
+						#attribute_type#
+					</td>
+					<td>
+						#value_code_table#
+					</td>
+					<td>
+						#units_code_table#
+					</td>
+					<td>
+				</tr>
+			</cfloop>
+		</table>	
 	<cfelse>
 		<cfloop list="#docs.columnlist#" index="colName">
 			<cfif colName is not "COLLECTION_CDE" and colName is not "DESCRIPTION">
