@@ -1,5 +1,6 @@
 <cfoutput>
 <cfinclude template="/includes/_header.cfm">
+<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <cfset title="code table documentation">
 <script src="/includes/sorttable.js"></script>
 <cfparam name="coln" default="">
@@ -24,6 +25,13 @@
 <cfset tableName = right(table,len(table)-2)>
 <cfif not isdefined("field") or field is "undefined">
 	<cfset field="">
+</cfif>
+<cfif len(field) gt 0>
+	<script>
+		$(document).ready(function () {		
+			scrollToTag('###field#');
+		});
+	</script>
 </cfif>
 <cfset title="#table# - code table documentation">
 Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumentation.cfm">[ table list ]</a>
