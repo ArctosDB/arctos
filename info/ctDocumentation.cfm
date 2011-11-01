@@ -29,11 +29,12 @@
 <cfif len(field) gt 0>
 	<script>
 		$(document).ready(function () {		
-			$(document).scrollTo( $('input[name="#field#"]:first'), 800 );
+			//$(document).scrollTo( $('input[name="#field#"]:first'), 800 );
 			
-			
+			$(document).scrollTo( $('[name="ttt"]'), 800 );
 			
 		});
+		
 	</script>
 </cfif>
 <cfset title="#table# - code table documentation">
@@ -170,6 +171,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</cfloop>
 		</table>
 	</cfif>
-</cfif>		
+</cfif>
+<div name="ttt">ttt</div>	
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
