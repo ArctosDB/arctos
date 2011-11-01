@@ -145,7 +145,9 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				<cfelse>
 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				</cfif>
-				<td>#thisVal#</td>
+				<td>
+					<a name="#thisVal#"></a>
+					#thisVal#</td>
 				<cfif docs.columnlist contains "collection_cde">
 					<td>#collection_cde#</td>
 				</cfif>
