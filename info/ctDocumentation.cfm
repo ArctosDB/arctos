@@ -29,7 +29,10 @@
 <cfif len(field) gt 0>
 	<script>
 		$(document).ready(function () {		
-			$(document).scrollTo( $('###field#'), 800 );
+			$(document).scrollTo( $('input[name="#field#"]'), 800 );
+			
+			
+			
 		});
 	</script>
 </cfif>
