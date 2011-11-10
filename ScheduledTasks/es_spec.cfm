@@ -48,6 +48,13 @@
 				<cfquery name="gguid" datasource="uam_god">
 					update spec_scan set status='specimen_not_found' where id=#id#
 				</cfquery>
+				<br>could not find #barcode#
+				<cfquery name="specbyidnum" datasource="uam_god">
+					select count(*) c from coll_obj_other_id_num where display_value='#IDNUM#'
+				</cfquery>
+				<cfif specbyidnum.c gt 0>
+					<a href="/SpecimenResults.cfm?OIDNum=#IDNUM#&oidOper=IS">#IDNUM# - found #specbyidnum.c# times</a>
+				</cfif>
 			</cfif>
 		</cfloop>
 	</cfoutput>
@@ -92,7 +99,7 @@
 			loc_card_scan 
 		where 
 			spec_scan.loc_id=loc_card_scan.loc_id and
-			spec_scan.status is null and
+			spec_scan.ins_bulk_date is null and
 			spec_scan.collection_object_id is null and
 			spec_scan.idnum like 'AK%'
 	</cfquery>
@@ -236,7 +243,7 @@
 				)	
 			</cfquery>
 			<cfquery name="uss" datasource="uam_god">
-				update spec_scan set status='in_bulk' where id=#id#
+				update spec_scan set status='in_bulk',ins_bulk_date=sysdate where id=#id#
 			</cfquery>
 		</cftransaction>
 		<cfcatch>

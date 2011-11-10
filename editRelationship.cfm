@@ -70,7 +70,7 @@
 		);
 	}
 </script>
-<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">Clone This Record</span>.
+<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">[ Clone This Record ]</span>
 <div id="cThis" style="display:none">
 	Data from this cataloged item will be inserted into the Bulkloader, where you
 	may further edit the record or flag it to load, as with any other new record. 

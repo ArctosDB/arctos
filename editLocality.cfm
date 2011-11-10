@@ -42,7 +42,6 @@
 		} else {
 			window.attachEvent("onmessage", getGeolocate);
 		}
-		showLLFormat('#orig_lat_long_units#','#i#');
 	});
 	function geolocate() {
 		alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
@@ -704,6 +703,9 @@
 			</table>
 			</span>
           </form>
+		<script>
+			showLLFormat('#orig_lat_long_units#','#i#');
+		</script>
 		<cfset i=i+1>
 	</cfloop>
 	<a name="newLL" id="newLL"></a>

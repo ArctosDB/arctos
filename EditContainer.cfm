@@ -127,7 +127,7 @@
 						Checked_Date = '#dateformat(Checked_Date,'yyyy-mm-dd')#',
 						Fluid_Type = '#Fluid_Type#',
 						Concentration = #Concentration#,
-						Fluid_Remarks = '#Fluid_Remarks#
+						Fluid_Remarks = '#Fluid_Remarks#'
 					WHERE 
 						container_id = #container_id#
 				</cfquery>
