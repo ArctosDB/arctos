@@ -36,25 +36,44 @@
 		<br><a href="es_tacc.cfm?action=accn_card_media">accn_card_media</a>
 		<br><a href="es_tacc.cfm?action=loc_card_media">loc_card_media</a>
 		<br><a href="es_tacc.cfm?action=spec_media">spec_media</a>
+		<br><a href="es_tacc.cfm?action=spec_media_alreadyentered">spec_media_alreadyentered</a>
 		<br><a href="es_tacc.cfm?action=status">status</a>
 		
 	</cfif>
 	<!---------------------------------------------------------------------------------------->
-	<cfif action is "spec_media">
+	<cfif action is "spec_media_alreadyentered">
 		<!--- grab everything --->
 		<cfquery name="d" datasource="uam_god">
-			select * from es_img where status is null and rownum<1000
+			select * from es_img where status is null
 		</cfquery>
 		<cfloop query="d">
 			<br>imgname: #imgname#
 			<cfset barcode=listgetat(imgname,1,"_")>
 			<br>barcode: #barcode#
 			<cfquery name="acn" datasource="uam_god">
-				select * from spec_scan where barcode='#barcode#' and 
-					collection_object_id is not null and
-					status is null
+				select 
+					flat.collection_object_id,
+					flat.guid,
+					flat.scientific_name
+				from 
+					flat,
+					specimen_part,
+					coll_obj_cont_hist,
+					container p,
+					container c 
+				where 
+					flat.collection_object_id=specimen_part.derived_from_cat_item and
+					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					coll_obj_cont_hist.container_id=p.container_id and
+					p.parent_container_id=c.container_id and
+					c.barcode = '#barcode#'
+				group by 
+					flat.collection_object_id,
+					flat.guid,
+					flat.scientific_name
 			</cfquery>
-			<cfif acn.recordcount gt 0>
+			<cfif acn.recordcount is 1>
+				<br>------------------------found flat.collection_object_id creating media
 				<cftransaction>
 					<!--- create media --->
 					<cfset d_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/#imgname#.dng'>
@@ -167,7 +186,155 @@
 							2072
 						)
 					</cfquery>
-					
+				
+					<cfquery name="lbl_b" datasource="uam_god">
+						insert into  media_labels (
+							MEDIA_ID,
+							MEDIA_LABEL,
+							LABEL_VALUE,
+							ASSIGNED_BY_AGENT_ID
+						) values (
+							#jpg_id#,
+							'description',
+							'#acn.guid#: #acn.scientific_name#',
+							2072
+						)
+					</cfquery>
+					<cfquery name="fg" datasource="uam_god">
+						update es_img set status='created_media' where imgname='#imgname#'
+					</cfquery>
+				</cftransaction>
+			</cfif>			
+		</cfloop>
+	</cfif>
+	<!---------------------------------------------------------------------------------------->
+	<cfif action is "spec_media">
+		<!--- grab everything --->
+		<cfquery name="d" datasource="uam_god">
+			select * from es_img where status is null
+		</cfquery>
+		<cfloop query="d">
+			<br>imgname: #imgname#
+			<cfset barcode=listgetat(imgname,1,"_")>
+			<br>barcode: #barcode#
+			<cfquery name="acn" datasource="uam_god">
+				select * from spec_scan where barcode='#barcode#' and 
+					collection_object_id is not null
+			</cfquery>
+			<cfif acn.recordcount gt 0>
+				<br>------------------------found spec_scan creating media
+				<cftransaction>
+					<!--- create media --->
+					<cfset d_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/#imgname#.dng'>
+					<cfset j_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpegs/#imgname#.jpg'>
+					<cfset t_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpegs/tn_#imgname#.jpg'>
+					<cfquery name="nid" datasource="uam_god">
+						select sq_media_id.nextval media_id from dual
+					</cfquery>
+					<cfset dng_id=nid.media_id>
+					<!--- create the following media/etc:
+						DNG
+						JPG
+						JPG "derived from media" DNG relationship
+						JPG "documents accn" relationship
+						DNG "created by agent" relationship
+						JPG "bla bla locality ID" label
+					--->
+					<cfquery name="dmedia" datasource="uam_god">
+						insert into media (
+							media_id,
+							media_uri,
+							preview_uri,
+							mime_type,
+							media_type,
+							media_license_id
+						) values (
+							#dng_id#,
+							'#d_uri#',
+							'#t_uri#',
+							'image/dng',
+							'image',
+							7
+						)
+					</cfquery>
+					<br>made media
+					<cfquery name="nid" datasource="uam_god">
+						select sq_media_id.nextval media_id from dual
+					</cfquery>
+					<cfset jpg_id=nid.media_id>
+					<cfquery name="jmedia" datasource="uam_god">
+						insert into media (
+							media_id,
+							media_uri,
+							preview_uri,
+							mime_type,
+							media_type,
+							media_license_id
+						) values (
+							#jpg_id#,
+							'#j_uri#',
+							'#t_uri#',
+							'image/jpeg',
+							'image',
+							7
+						)
+					</cfquery>
+					<br>go relations dng
+					<cfquery name="mr_mder" datasource="uam_god">
+						insert into media_relations (
+							MEDIA_ID,
+							MEDIA_RELATIONSHIP,
+							CREATED_BY_AGENT_ID,
+							RELATED_PRIMARY_KEY
+						) values (
+							#jpg_id#,
+							'derived from media',
+							2072,
+							#dng_id#
+						)
+					</cfquery>
+					<br>go relations cat item
+					<cfquery name="mr_macn" datasource="uam_god">
+						insert into media_relations (
+							MEDIA_ID,
+							MEDIA_RELATIONSHIP,
+							CREATED_BY_AGENT_ID,
+							RELATED_PRIMARY_KEY
+						) values (
+							#jpg_id#,
+							'shows cataloged_item',
+							2072,
+							#acn.collection_object_id#
+						)
+					</cfquery>
+					<br>go relations createdby
+					<cfquery name="mr_dcr" datasource="uam_god">
+						insert into media_relations (
+							MEDIA_ID,
+							MEDIA_RELATIONSHIP,
+							CREATED_BY_AGENT_ID,
+							RELATED_PRIMARY_KEY
+						) values (
+							#dng_id#,
+							'created by agent',
+							2072,
+							21253238
+						)
+					</cfquery>
+					<br>go labels ....
+					<cfquery name="lbl_b" datasource="uam_god">
+						insert into  media_labels (
+							MEDIA_ID,
+							MEDIA_LABEL,
+							LABEL_VALUE,
+							ASSIGNED_BY_AGENT_ID
+						) values (
+							#jpg_id#,
+							'barcode',
+							'#barcode#',
+							2072
+						)
+					</cfquery>
 					<cfif left(acn.idnum,7) is "UAM:ES:">
 						<cfquery name="drn" datasource="uam_god">
 							select scientific_name from flat where guid='#acn.idnum#'
@@ -200,7 +367,7 @@
 	<cfif action is "loc_card_media">
 		<!--- grab everything --->
 		<cfquery name="d" datasource="uam_god">
-			select * from es_img where status is null and rownum<1000
+			select * from es_img where status is null
 		</cfquery>
 		<cfloop query="d">
 			<br>#imgname#
@@ -210,6 +377,7 @@
 				select * from loc_card_scan where barcode='#barcode#'
 			</cfquery>
 			<cfif acn.recordcount gt 0>
+				<br>------------------------found loc_card_scan creating media
 				<cftransaction>
 					<!--- create media --->
 					<cfset d_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/#imgname#.dng'>
@@ -403,7 +571,7 @@
 	<cfif action is "accn_card_media">
 		<!--- grab everything --->
 		<cfquery name="d" datasource="uam_god">
-			select * from es_img where status is null and rownum<1000
+			select * from es_img where status is null
 		</cfquery>
 		<cfloop query="d">
 			<br>#imgname#
@@ -413,6 +581,7 @@
 				select * from accn_scan where barcode='#barcode#'
 			</cfquery>
 			<cfif acn.recordcount gt 0>
+				<br>------------------------found accn_scan creating media
 				<cftransaction>
 					<cftry>
 					<!--- create media --->
@@ -550,6 +719,7 @@
 	</cfif>
 	<!---------------------------------------------------------------------------------------->
 	<cfif action is "getDir">
+	<br>grab the http://web.corral.tacc.utexas.edu/UAF/es directory...
 		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es" charset="utf-8" method="get">
 		</cfhttp>
 		<cfif isXML(cfhttp.FileContent)>
@@ -580,7 +750,7 @@
 						<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
 						<cfloop index="i" from="1" to="#arrayLen(xImage)#">
 							<cfset fname = xImage[i].XmlChildren[1].xmlText>
-							<br>fname: #fname#
+							<br>adding fname: #fname#
 							<cfif right(fname,4) is ".dng">
 								<cfset imgname=replace(fname,".dng","")>
 								<cfquery name="upFile" datasource="uam_god">
