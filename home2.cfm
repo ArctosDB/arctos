@@ -32,6 +32,7 @@
 			portal_name
 		order by collection.collection
 	</cfquery>
+	<cfdump var=#raw#>
 	<cfquery name="coll" dbtype="query">
 		select * from raw where collection is not null
 	</cfquery>
