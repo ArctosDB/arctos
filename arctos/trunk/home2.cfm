@@ -103,20 +103,20 @@
 	<cfquery name="rem" dbtype="query">
 		select * from coll where cf_collection_id not in (#gotem#)
 	</cfquery>
-	
+	<div id="menu">
+		<a href="##top">top</a>
+		<br><a href="##uam">UAM</a>
+		<br><a href="##msb">MSB</a>
+		<br><a href="##mvz">MVZ</a>
+		<br><a href="##dmns">DMNS</a>
+		<br><a href="##wnmu">WNMU</a>
+		<br><a href="##rem">other</a>
+	</div>
+	<div id="body">
 	<a name="top"></a>
 	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
 	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
-	<div id="menu">
-		<a href="##top">top</a>
-		<a href="##uam">UAM</a>
-		<a href="##msb">MSB</a>
-		<a href="##mvz">MVZ</a>
-		<a href="##dmns">DMNS</a>
-		<a href="##wnmu">WNMU</a>
-		<a href="##rem">other</a>
-	</div>
-	<div id="body">
+	
 	<ul>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
 			<a name="uam"></a>
