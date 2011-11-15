@@ -93,13 +93,29 @@
 			font-weight:bold;
 		}
 		ul {list-style:none;}
+		#menu {
+			position:fixed;
+			top:20%;
+			left:0; 
+			width:8;
+		}
+		#body {
+			margin-left:20;
+		}
 	</style>
+	<a name="top"></a>
 	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
 	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
-	<div style="position:fixed;top:20%;left:0; width:8">
+	<div id="menu">
+		<a href="##top">top</a>
 		<a href="##uam">UAM</a>
+		<a href="##msb">MSB</a>
+		<a href="##mvz">MVZ</a>
+		<a href="##dmns">DMNS</a>
+		<a href="##wnmu">WNMU</a>
+		<a href="##rem">other</a>
 	</div>
-	<div style="margin-left:10">
+	<div id="body">
 	<ul>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
 			<a name="uam"></a>
