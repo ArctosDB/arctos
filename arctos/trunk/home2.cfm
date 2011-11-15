@@ -19,6 +19,13 @@
 			cf_collection.collection_id=collection.collection_id (+) and
 			collection.collection_id=cataloged_item.collection_id (+) and
 			PUBLIC_PORTAL_FG = 1 
+		group by
+			collection.collection,
+			collection.collection_id,
+			descr,
+			web_link,
+			web_link_text,
+			loan_policy_url
 		order by 
 			cf_collection.collection
 	</cfquery>
