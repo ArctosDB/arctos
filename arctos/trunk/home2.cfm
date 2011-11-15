@@ -2,7 +2,7 @@
 <cfset metaDesc="Frequently-asked questions (FAQ), Arctos description, participation guidelines, usage policies, suggestions, and requirements for using Arctos or participating in the Arctos community.">
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	<cfquery  name="raw" datasource="uam_god">
+	<cfquery  name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			cf_collection.cf_collection_id,
 			collection.collection,
@@ -87,7 +87,7 @@
 							</cfif>
 							<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
 							<cfif len(web_link) gt 0>
-								<a href="#web_link#"  class="external" target="_blank">[ Collection Home Page ]</a>
+								<br><a href="#web_link#"  class="external" target="_blank">[ Collection Home Page ]</a>
 							</cfif>
 							<cfif len(loan_policy_url) gt 0>
 								<br><a href="#loan_policy_url#" class="external" target="_blank">[ Collection Loan Policy ]</a>
