@@ -72,7 +72,7 @@
 	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
 	
 	<br>
-	<a href="#uam">UAM</a> ~ <a href="#msb">MSB</a
+	<a href="##uam">UAM</a> ~ <a href="##msb">MSB</a
 	<ul>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
 			<a name="uam"></a>
