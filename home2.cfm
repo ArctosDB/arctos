@@ -36,9 +36,14 @@
 		select * from coll where cf_collection_id=0
 	</cfquery>
 	<cfset gotem=valuelist(pub.cf_collection_id)>
+	<cfdump var=#pub#>
+	<cfdump var=#gotem#>
+
 	<cfquery name="uam" dbtype="query">
 		select * from coll where collection like 'UAM %' order by collection
 	</cfquery>
+	<cfdump var=#uam#>
+	
 	<cfset gotem=listappend(gotem,valuelist(uam.cf_collection_id))>
 	<cfquery name="msb" dbtype="query">
 		select * from coll where collection like 'MSB %' order by collection
