@@ -92,6 +92,7 @@
 			font-size:large;
 			font-weight:bold;
 		}
+		ul {list-style:none;}
 	</style>
 	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
 	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
