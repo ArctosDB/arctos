@@ -78,20 +78,19 @@
 						<cfset coll_dir_name = "#lcase(portal_name)#">
 						<li>
 							<div class="collnTitle">
-								<cfif len(web_link) gt 0>
-									<a href="#web_link#"  class="external" target="_blank">#collection#</a> Collection
-								<cfelse>
-									#collection# Collection
-								</cfif>
-								<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+								#collection# Collection
 							</div>
 							<cfif len(descr) gt 0>
 								<div class="collnDescr">
 									#descr#
 								</div>
 							</cfif>
+							<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+							<cfif len(web_link) gt 0>
+								<a href="#web_link#"  class="external" target="_blank">[ Collection Home Page ]</a>
+							</cfif>
 							<cfif len(loan_policy_url) gt 0>
-								<br><a href="#loan_policy_url#" class="external" target="_blank">Collection Loan Policy</a>
+								<br><a href="#loan_policy_url#" class="external" target="_blank">[ Collection Loan Policy ]</a>
 							</cfif>
 						</li>
 					</cfloop>
