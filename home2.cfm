@@ -36,6 +36,7 @@
 	<cfquery name="portal" dbtype="query">
 		select * from raw where collection is null
 	</cfquery>
+	<cfdump var=#raw#>
 	<cfdump var=#coll#>
 	<cfdump var=#portal#>
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
