@@ -1,6 +1,31 @@
 <cfset title="Arctos Home">
 <cfset metaDesc="Frequently-asked questions (FAQ), Arctos description, participation guidelines, usage policies, suggestions, and requirements for using Arctos or participating in the Arctos community.">
 <cfinclude template="/includes/_header.cfm">
+<style>
+	.collnTitle {
+		font-weight:bold;
+	}
+	.collnDescr {
+		font-style:italic;
+	}
+	.collnData {
+		margin-left:2em;
+	}
+	.institution {
+		font-size:large;
+		font-weight:bold;
+	}
+	ul {list-style:none;}
+	#menu {
+		position:fixed;
+		top:20%;
+		left:0; 
+		width:8;
+	}
+	#body {
+		margin-left:20;
+	}
+</style>
 <cfoutput>
 	<!--- 
 	
@@ -78,31 +103,7 @@
 	<cfquery name="rem" dbtype="query">
 		select * from coll where cf_collection_id not in (#gotem#)
 	</cfquery>
-	<style>
-		.collnTitle {
-			font-weight:bold;
-		}
-		.collnDescr {
-			font-style:italic;
-		}
-		.collnData {
-			margin-left:2em;
-		}
-		.institution {
-			font-size:large;
-			font-weight:bold;
-		}
-		ul {list-style:none;}
-		#menu {
-			position:fixed;
-			top:20%;
-			left:0; 
-			width:8;
-		}
-		#body {
-			margin-left:20;
-		}
-	</style>
+	
 	<a name="top"></a>
 	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
 	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
