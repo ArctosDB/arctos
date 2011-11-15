@@ -40,7 +40,7 @@
 	<cfdump var=#gotem#>
 
 	<cfquery name="uam" dbtype="query">
-		select * from coll where collection like 'UAM %' order by collection
+		select * from coll where collection = 'UAM Invertebrates' order by collection
 	</cfquery>
 	<cfdump var=#uam#>
 	
