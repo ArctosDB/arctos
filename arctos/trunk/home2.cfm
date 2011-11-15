@@ -5,7 +5,7 @@
 	<cfquery  name="coll" datasource="uam_god">
 		select 
 			cf_collection.cf_collection_id,
-			collection.collection,
+			nvl(collection.collection,' ') collection,
 			collection.collection_id,
 			descr,
 			web_link,
