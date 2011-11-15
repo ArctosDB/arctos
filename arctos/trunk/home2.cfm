@@ -30,6 +30,7 @@
 			loan_policy_url
 		order by collection.collection
 	</cfquery>
+	<cfdump var=#coll#>
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 	<cfquery name="pub" dbtype="query">
 		select * from coll where cf_collection_id=0
