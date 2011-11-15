@@ -26,8 +26,7 @@
 			web_link,
 			web_link_text,
 			loan_policy_url
-		order by 
-			cf_collection.collection
+		order by collection.collection
 	</cfquery>
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 	<cfquery name="pub" dbtype="query">
