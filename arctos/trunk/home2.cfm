@@ -2,10 +2,10 @@
 <cfset metaDesc="Frequently-asked questions (FAQ), Arctos description, participation guidelines, usage policies, suggestions, and requirements for using Arctos or participating in the Arctos community.">
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	<cfquery  name="coll" datasource="uam_god">
+	<cfquery  name="raw" datasource="uam_god">
 		select 
 			cf_collection.cf_collection_id,
-			nvl(collection.collection,'-nothing to see here-') collection,
+			collection.collection,
 			collection.collection_id,
 			descr,
 			web_link,
@@ -30,7 +30,14 @@
 			loan_policy_url
 		order by collection.collection
 	</cfquery>
+	<cfquery name="coll" dbtype="query">
+		select * from raw where collection is not null
+	</cfquery>
+	<cfquery name="portal" dbtype="query">
+		select * from raw where collection is null
+	</cfquery>
 	<cfdump var=#coll#>
+	<cfdump var=#portal#>
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 	<cfquery name="pub" dbtype="query">
 		select * from coll where cf_collection_id=0
