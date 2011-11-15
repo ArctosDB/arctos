@@ -134,23 +134,27 @@
 					<cfloop query="msb">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
 						<li>
-							<a href="/#coll_dir_name#" target="_top">#collection#</a>
-							<cfif len(descr) gt 0>
-							<span id="plus_minus_#cf_collection_id#" 
-								class="infoLink"
-								onclick="showDet('#cf_collection_id#')" >
-								more...
-							</span>
-							<div id="det_div_#cf_collection_id#" class="noshow">
-								#descr#
-								<cfif len(#WEB_LINK#) gt 0>
-									<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
+							<div class="collnTitle">
+								#collection#
+							</div>
+							<div class="collnData">
+								<cfif len(descr) gt 0>
+									<div class="collnDescr">
+										#descr#
+									</div>
 								</cfif>
-								<cfif len(#loan_policy_url#) gt 0>
-									<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
+								<cfif listlast(collection,' ') is not 'Portal'>
+									<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+								<cfelse>
+									<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
+								</cfif>
+								<cfif len(web_link) gt 0>
+									<br><a href="#web_link#"  class="external" target="_blank">[ Collection Home Page ]</a>
+								</cfif>
+								<cfif len(loan_policy_url) gt 0>
+									<br><a href="#loan_policy_url#" class="external" target="_blank">[ Collection Loan Policy ]</a>
 								</cfif>
 							</div>
-							</cfif>
 						</li>
 					</cfloop>
 				</ul>
