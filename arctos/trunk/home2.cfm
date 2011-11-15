@@ -46,7 +46,7 @@
 		select * from coll where collection like 'UAM %' order by collection
 	</cfquery>
 	<cfdump var=#uam#>
-	
+	<cfset gotem=''>
 	<cfset gotem=listappend(gotem,valuelist(uam.cf_collection_id))>
 	<cfquery name="msb" dbtype="query">
 		select * from coll where collection like 'MSB %' order by collection
