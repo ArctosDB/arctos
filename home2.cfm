@@ -96,7 +96,10 @@
 	</style>
 	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
 	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
-	
+	<div style="position:fixed;top:20%;left:0; width:8">
+		<a href="##uam">UAM</a>
+	</div>
+	<div style="margin-left:10">
 	<ul>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
 			<a name="uam"></a>
@@ -297,5 +300,6 @@
 			</li>
 		</cfif>
 	</ul>
+	</div>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
