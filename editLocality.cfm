@@ -312,7 +312,7 @@
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>
     <span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
-		This locality contains
+		This locality (#locality_id#) contains
 		<cfif whatSpecs.recordcount is 0>
  					no specimens. Please delete it if you don't have plans for it.
  			<cfelseif whatSpecs.recordcount is 1>
