@@ -42,15 +42,8 @@
 	<cfdump var=#coll#>
 	<cfdump var=#portal#>
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
-	<cfquery name="pub" dbtype="query">
-		select * from coll where cf_collection_id=0
-	</cfquery>
-	<cfset gotem=valuelist(pub.cf_collection_id)>
-	<cfdump var=#pub#>
-	<cfdump var=#gotem#>
-
 	<cfquery name="uam" dbtype="query">
-		select * from coll where collection like 'UAM Invertebrates' order by collection
+		select * from coll where collection like 'UAM %' order by collection
 	</cfquery>
 	<cfdump var=#uam#>
 	
