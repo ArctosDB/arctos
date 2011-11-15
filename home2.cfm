@@ -35,7 +35,7 @@
 			web_link_text,
 			loan_policy_url,
 			portal_name
-		order by collection.collection
+		order by cf_collection.collection
 	</cfquery>
 	<cfdump var=#raw#>
 	<cfquery name="coll" dbtype="query">
