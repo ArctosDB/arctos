@@ -74,7 +74,10 @@
 			font-size:large;
 		}
 		.collnDescr {
-			font-style:italics;
+			font-style:italic;
+		}
+		.collnData {
+			margin-let:2em;
 		}
 	</style>
 	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
@@ -89,7 +92,7 @@
 				<ul>
 					<cfloop query="uam">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
-						<li>
+						<li class="collnData">
 							<div class="collnTitle">
 								#collection# Collection
 							</div>
