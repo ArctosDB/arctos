@@ -2,7 +2,12 @@
 <cfset metaDesc="Frequently-asked questions (FAQ), Arctos description, participation guidelines, usage policies, suggestions, and requirements for using Arctos or participating in the Arctos community.">
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	<cfquery  name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<!--- 
+	
+	 cachedwithin="#createtimespan(0,0,60,0)#"
+	 
+	 --->
+	<cfquery  name="raw" datasource="uam_god">
 		select 
 			cf_collection.cf_collection_id,
 			collection.collection,
