@@ -72,12 +72,13 @@
 		.collnTitle {
 			font-weight:bold;
 			font-size:large;
+			margin-left:-1;
 		}
 		.collnDescr {
 			font-style:italic;
 		}
 		.collnData {
-			margin-let:2em;
+			margin-left:2em;
 		}
 	</style>
 	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
