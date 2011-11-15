@@ -6,11 +6,19 @@
 	
 	 cachedwithin="#createtimespan(0,0,60,0)#"
 	 
+	 
+	 <!
+	<br>
+	<a href="##uam">UAM</a> ~ <a href="##msb">MSB</a
+	
+	
 	 --->
-	<cfquery  name="raw" datasource="uam_god">
+	<cfquery  name="coll" datasource="uam_god">
 		select 
 			cf_collection.cf_collection_id,
-			cf_collection.collection,
+			decode(cf_collection.collection_id,
+				null,cf_collection.collection || ' Portal',
+				cf_collection.collection || ' Collection') collection,
 			collection.collection_id,
 			descr,
 			web_link,
@@ -34,15 +42,11 @@
 			web_link,
 			web_link_text,
 			loan_policy_url,
-			portal_name
+			portal_name,
+			decode(cf_collection.collection_id,
+				null,cf_collection.collection || ' Portal',
+				cf_collection.collection || ' Collection')
 		order by cf_collection.collection
-	</cfquery>
-	<cfdump var=#raw#>
-	<cfquery name="coll" dbtype="query">
-		select * from raw where collection is not null
-	</cfquery>
-	<cfquery name="portal" dbtype="query">
-		select * from raw where collection is null
 	</cfquery>
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 	<cfquery name="uam" dbtype="query">
@@ -89,8 +93,6 @@
 	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
 	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
 	
-	<br>
-	<a href="##uam">UAM</a> ~ <a href="##msb">MSB</a
 	<ul>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
 			<a name="uam"></a>
