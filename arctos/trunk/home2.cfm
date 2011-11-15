@@ -69,9 +69,13 @@
 		select * from coll where cf_collection_id not in (#gotem#)
 	</cfquery>
 	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
-	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences. 
+	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
+	
+	<br>
+	<a href="#uam">UAM</a> ~ <a href="#msb">MSB</a
 	<ul>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
+			<a name="uam"></a>
 			<li class="institution"><a href="http://www.uaf.edu/museum/" target="_blank" class="external">University of Alaska Museum</a>
 				<ul>
 					<cfloop query="uam">
@@ -98,6 +102,7 @@
 			</li>
 		</cfif>
 		<cfif isdefined("msb") and msb.recordcount gt 0>
+			<a name="msb"></a>
 			<li><a href="http://www.msb.unm.edu/" target="_blank" class="external">Museum of Southwestern Biology</a>
 				<ul>
 					<cfloop query="msb">
