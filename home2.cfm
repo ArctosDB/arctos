@@ -102,7 +102,7 @@
 						<cfset coll_dir_name = "#lcase(portal_name)#">
 						<li>
 							<div class="collnTitle">
-								#collection# Collection
+								#collection#
 							</div>
 							<div class="collnData">
 								<cfif len(descr) gt 0>
@@ -110,7 +110,11 @@
 										#descr#
 									</div>
 								</cfif>
-								<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+								<cfif listlast(collection,' ') is not 'Portal'>
+									<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+								<cfelse>
+									<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
+								</cfif>
 								<cfif len(web_link) gt 0>
 									<br><a href="#web_link#"  class="external" target="_blank">[ Collection Home Page ]</a>
 								</cfif>
