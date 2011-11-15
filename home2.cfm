@@ -4,6 +4,7 @@
 <cfoutput>
 	<cfquery  name="coll" datasource="uam_god">
 		select 
+			cf_collection,cf_collection_id,
 			collection.collection,
 			collection.collection_id,
 			descr,
@@ -20,6 +21,7 @@
 			collection.collection_id=cataloged_item.collection_id (+) and
 			PUBLIC_PORTAL_FG = 1 
 		group by
+			cf_collection,cf_collection_id,
 			collection.collection,
 			collection.collection_id,
 			descr,
