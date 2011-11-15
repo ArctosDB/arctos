@@ -28,7 +28,7 @@
 			descr,
 			web_link,
 			web_link_text,
-			loan_policy_url
+			loan_policy_url,
 			portal_name,
 		order by collection.collection
 	</cfquery>
