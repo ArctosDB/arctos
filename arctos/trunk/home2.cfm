@@ -29,7 +29,7 @@
 			web_link,
 			web_link_text,
 			loan_policy_url,
-			portal_name,
+			portal_name
 		order by collection.collection
 	</cfquery>
 	<cfquery name="coll" dbtype="query">
