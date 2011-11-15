@@ -81,13 +81,16 @@
 	<style>
 		.collnTitle {
 			font-weight:bold;
-			font-size:large;
 		}
 		.collnDescr {
 			font-style:italic;
 		}
 		.collnData {
 			margin-left:2em;
+		}
+		.institution {
+			font-size:large;
+			font-weight:bold;
 		}
 	</style>
 	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
@@ -96,7 +99,7 @@
 	<ul>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
 			<a name="uam"></a>
-			<li class="institution"><a href="http://www.uaf.edu/museum/" target="_blank" class="external">University of Alaska Museum</a>
+			<li><a href="http://www.uaf.edu/museum/" target="_blank" class="external institution">University of Alaska Museum</a>
 				<ul>
 					<cfloop query="uam">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -129,7 +132,7 @@
 		</cfif>
 		<cfif isdefined("msb") and msb.recordcount gt 0>
 			<a name="msb"></a>
-			<li><a href="http://www.msb.unm.edu/" target="_blank" class="external">Museum of Southwestern Biology</a>
+			<li><a href="http://www.msb.unm.edu/" target="_blank" class="external institution">Museum of Southwestern Biology</a>
 				<ul>
 					<cfloop query="msb">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -162,7 +165,7 @@
 		</cfif>
 		<cfif isdefined("mvz") and mvz.recordcount gt 0>
 			<a name="mvz"></a>
-			<li><a href="http://mvz.berkeley.edu/" target="_blank" class="external">Museum of Vertebrate Zoology</a>
+			<li><a href="http://mvz.berkeley.edu/" target="_blank" class="external institution">Museum of Vertebrate Zoology</a>
 				<ul>
 					<cfloop query="mvz">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -195,7 +198,7 @@
 		</cfif>
 		<cfif isdefined("dmns") and dmns.recordcount gt 0>
 			<a name="dmns"></a>
-			<li><a href="http://www.dmns.org/" target="_blank" class="external">Denver Museum of Nature & Science</a>
+			<li><a href="http://www.dmns.org/" target="_blank" class="external institution">Denver Museum of Nature & Science</a>
 				<ul>
 					<cfloop query="dmns">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -228,7 +231,7 @@
 		</cfif>
 		<cfif isdefined("wnmu") and wnmu.recordcount gt 0>
 			<a name="wnmu"></a>
-			<li><a href="http://www.wnmu.edu/univ/museum.htm" target="_blank" class="external">Western New Mexico University</a>
+			<li><a href="http://www.wnmu.edu/univ/museum.htm" target="_blank" class="external institution">Western New Mexico University</a>
 				<ul>
 					<cfloop query="wnmu">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -261,7 +264,7 @@
 		</cfif>
 		<cfif isdefined("rem") and rem.recordcount gt 0>
 			<a name="rem"></a>
-			<li>Other Collections
+			<li><div class="institution">Other Collections</div>
 				<ul>
 					<cfloop query="rem">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
