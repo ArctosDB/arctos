@@ -68,6 +68,7 @@
 		select * from coll where collection like 'DMNS %' order by collection
 	</cfquery>
 	<cfset gotem=listappend(gotem,valuelist(dmns.cf_collection_id))>
+	<cfset gotem=replace(gotem,',,',',','all')>
 	<cfquery name="rem" dbtype="query">
 		select * from coll where cf_collection_id not in (#gotem#)
 	</cfquery>
