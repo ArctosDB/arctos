@@ -38,14 +38,10 @@
 	<cfquery name="portal" dbtype="query">
 		select * from raw where collection is null
 	</cfquery>
-	<cfdump var=#raw#>
-	<cfdump var=#coll#>
-	<cfdump var=#portal#>
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 	<cfquery name="uam" dbtype="query">
 		select * from coll where collection like 'UAM %' order by collection
 	</cfquery>
-	<cfdump var=#uam#>
 	<cfset gotem=''>
 	<cfset gotem=listappend(gotem,valuelist(uam.cf_collection_id))>
 	<cfquery name="msb" dbtype="query">
@@ -72,26 +68,27 @@
 	<cfquery name="rem" dbtype="query">
 		select * from coll where cf_collection_id not in (#gotem#)
 	</cfquery>
-	Following the search links below will set your preferences to filter by a specific collection or portal. You may click the following link
-	at any time to re-set your preferences. <a href="/all_all">[ search all collections ]</a>
+	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
+	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences. 
 	<ul>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
-			<li><a href="http://www.uaf.edu/museum/" target="_blank" class="external">University of Alaska Museum</a>
+			<li class="institution"><a href="http://www.uaf.edu/museum/" target="_blank" class="external">University of Alaska Museum</a>
 				<ul>
 					<cfloop query="uam">
 						<cfset coll_dir_name = "#lcase(portal_name)#">
 						<li>
 							<div class="collnTitle">
-								#collection#
+								<cfif len(web_link) gt 0>
+									<a href="#web_link#"  class="external" target="_blank">#collection#</a> Collection
+								<cfelse>
+									#collection# Collection
+								</cfif>
+								<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
 							</div>
-							<a href="/#coll_dir_name#" target="_top">Search #cnt# Specimens</a>
 							<cfif len(descr) gt 0>
 								<div class="collnDescr">
 									#descr#
 								</div>
-							</cfif>
-							<cfif len(web_link) gt 0>
-								<br><a href="#web_link#"  class="external" target="_blank">Collection Home Page</a>
 							</cfif>
 							<cfif len(loan_policy_url) gt 0>
 								<br><a href="#loan_policy_url#" class="external" target="_blank">Collection Loan Policy</a>
