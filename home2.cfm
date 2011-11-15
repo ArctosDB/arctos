@@ -20,25 +20,17 @@
 		position:fixed;
 		top:20%;
 		left:0; 
-		width:8;
+		width:3.5em;
+		border:1px solid green;
+		padding:1em;
+		margin:1em;
 	}
 	#body {
-		margin-left:20;
+		margin-left:8em;
 	}
 </style>
 <cfoutput>
-	<!--- 
-	
-	 cachedwithin="#createtimespan(0,0,60,0)#"
-	 
-	 
-	 <!
-	<br>
-	<a href="##uam">UAM</a> ~ <a href="##msb">MSB</a
-	
-	
-	 --->
-	<cfquery  name="coll" datasource="uam_god">
+	<cfquery  name="coll" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			cf_collection.cf_collection_id,
 			decode(cf_collection.collection_id,
@@ -114,9 +106,13 @@
 	</div>
 	<div id="body">
 	<a name="top"></a>
-	Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
-	<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
-	
+	Read more about Arctos at our <a href="https://arctosdb.wordpress.com/">Documentation Site</a>, explore some <a href="/random.cfm">random content</a>, 
+	or use the links in the header to search for specimens, media, taxonomy, projects and publications, and more. Sign in or create an account to save 
+	preferences and searches.
+	<p>
+		Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
+		<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences. 
+	</p>
 	<ul>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
 			<a name="uam"></a>
