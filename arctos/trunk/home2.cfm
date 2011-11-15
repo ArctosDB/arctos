@@ -10,7 +10,7 @@
 	<cfquery  name="raw" datasource="uam_god">
 		select 
 			cf_collection.cf_collection_id,
-			collection.collection,
+			cf_collection.collection,
 			collection.collection_id,
 			descr,
 			web_link,
@@ -28,7 +28,7 @@
 			PUBLIC_PORTAL_FG = 1 
 		group by
 			cf_collection.cf_collection_id,
-			collection.collection,
+			cf_collection.collection,
 			collection.collection_id,
 			descr,
 			web_link,
