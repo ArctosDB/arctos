@@ -261,6 +261,40 @@
 		</cfif>
 		</p>
 		
+		
+		<script>
+			jQuery(document).ready(function(){
+				//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
+				var elemsToLoad='taxRelatedNames,mapTax';
+				
+				getMedia('taxon','#one.taxon_name_id#','specTaxMedia','14','1');
+				
+				
+				//var elemsToLoad='taxRelatedNames';
+				var elemAry = elemsToLoad.split(",");
+				for(var i=0; i<elemAry.length; i++){
+					load(elemAry[i]);
+				}
+			});
+			function load(name){
+				//var el=document.getElementById(name);
+				var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=#one.taxon_name_id#&scientific_name=#one.scientific_name#";
+				jQuery.get(ptl, function(data){
+					 jQuery('##' + name).html(data);
+				})
+			}	
+		</script>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<cfquery name="specMed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				media.media_id,
@@ -280,6 +314,9 @@
 				media_relations.media_id=media.media_id and
 				cataloged_item.accn_id=#transaction_id#
 		</cfquery>
+		
+		
+		
 		<div class="detailBlock">
 	            <span class="detailData">			
 					<div class="thumbs">
