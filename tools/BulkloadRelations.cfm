@@ -162,7 +162,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					collection.collection_cde = '#collection_cde#' and
 					collection.institution_acronym = '#institution_acronym#' and
 					other_id_type = '#other_id_type#' and
-					other_id_num = '#other_id_val#'
+					display_value = '#other_id_val#'
 			</cfquery>				
 		</cfif>
 		<cfif #collObj.recordcount# is 1>					
@@ -205,7 +205,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					collection.collection_cde = '#related_collection_cde#' and
 					collection.institution_acronym = '#related_institution_acronym#' and
 					other_id_type = '#related_other_id_type#' and
-					other_id_num = '#related_other_id_val#'
+					display_value = '#related_other_id_val#'
 			</cfquery>				
 		</cfif>
 		<cfif #rcollObj.recordcount# is 1>					
