@@ -400,6 +400,11 @@
 						alert('sorray');
 					} else {
 						$("#full_citation").val(d.DATA.LONGCITE);
+						$("#short_citation").val(d.DATA.SHORTCITE);
+						$("#publication_type").val(d.DATA.PUBLICATIONTYPE);
+						$("#is_peer_reviewed_fg").val(1);
+						$("#published_year").val(d.DATA.YEAR);
+						$("#short_citation").val(d.DATA.SHORTCITE);
 					}
 					
 						
@@ -411,13 +416,6 @@
 	<!----
 	
 	
-					
-						<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
-		<cfset temp = QuerySetCell(d, "PUBLICATIONTYPE", 'journal article', 1)>
-		<cfset temp = QuerySetCell(d, "LONGCITE", longCit, 1)>
-		<cfset temp = QuerySetCell(d, "SHORTCITE", shortCit, 1)>
-		<cfset temp = QuerySetCell(d, "YEAR", pubYear, 1)>
 		<cfset temp = QuerySetCell(d, "AUTHORS", rauths, 1)>
 	
 	------>
