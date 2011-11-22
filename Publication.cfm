@@ -84,7 +84,7 @@
 		<label for="publication_remarks">Remark</label>
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
 		<p></p>
-		<span class="likeLink" onclick="getDocs('publication','author')">Current Authors</span>:\
+		<span class="likeLink" onclick="getDocs('publication','author')">Current Authors</span>
 		<table border id="authTab">
 			<tr>
 				<th>Role</th>
@@ -98,13 +98,13 @@
 				<input type="hidden" name="publication_agent_id#i#" id="publication_agent_id#i#" value="#publication_agent_id#">
 				<tr id="authortr#i#">
 					<td>
-						<select name="author_role_#i#" id="author_role_#i#">
+						<select name="author_role#i#" id="author_role#i#">
 							<option <cfif author_role is "author"> selected="selected" </cfif>value="author">author</option>
 							<option <cfif author_role is "editor"> selected="selected" </cfif>value="editor">editor</option>
 						</select>
 					</td>
 					<td>
-						<input type="text" name="author_name_#i#" id="author_name_#i#" class="reqdClr" size="50"
+						<input type="text" name="author_name#i#" id="author_name#i#" class="reqdClr" size="50"
 							onchange="getAgent('agent_id#i#',this.name,'editPub',this.value)"
 		 					onkeypress="return noenter(event);"
 		 					value="#agent_name#">
@@ -116,7 +116,7 @@
 			</cfloop>
 			<input type="hidden" name="numberAuthors" id="numberAuthors" value="#i#">
 		</table>
-		<span class="likeLink" onclick="getDocs('publication','author')">Add Authors</span>:\
+		<span class="likeLink" onclick="getDocs('publication','author')">Add Authors</span>
 		<table border id="authTab" class="newRec">
 			<tr>
 				<th>Role</th>
@@ -134,7 +134,7 @@
 						</select>
 					</td>
 					<td>
-						<input type="text" name="n_author_name_#i#" id="n_author_name_#i#" class="reqdClr" size="50"
+						<input type="text" name="n_author_name#i#" id="n_author_name#i#" class="reqdClr" size="50"
 							onchange="getAgent('n_agent_id#i#',this.name,'editPub',this.value)"
 		 					onkeypress="return noenter(event);">
 					</td>
@@ -289,8 +289,8 @@
 		<cfloop from="1" to="#numberAuthors#" index="n">
 			<cfset publication_agent_id = evaluate("publication_agent_id" & n)>
 			<cfset agent_id = evaluate("agent_id" & n)>
-			<cfset author_role = evaluate("author_role_" & n)>
-			<cfset author_name = evaluate("author_name_" & n)>
+			<cfset author_role = evaluate("author_role" & n)>
+			<cfset author_name = evaluate("author_name" & n)>
 			<cfif author_name is "deleted">
 				<cfquery name="delAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					delete from publication_agent where 
