@@ -14,6 +14,9 @@
 			document.tpick.submit();
 		}
 	}
+	function removeAgent(i) {
+	 	$("#agent_name_" + i).val('deleted');
+	 	$("#projAgentRow" + i).removeClass().addClass('red');}
 </script>
 <cfif action is "nothing">
 	<cfheader statuscode="301" statustext="Moved permanently">
@@ -109,12 +112,6 @@
 </cfif>
 <!------------------------------------------------------------------------------------------->
 <cfif action is "editProject">
-	<script>
-		function removeAgent(i) {
-		 	$("#agent_name_" + i).val('deleted');
-		 	$("#projAgentRow" + i).style('border:1px solid red;');
-		}
-	</script>
 	<cfset title="Edit Project">
 	<cfoutput>
 		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
