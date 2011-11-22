@@ -479,29 +479,29 @@
 			<cfset project_agent_role = evaluate("project_agent_role_" & n)>
 			<cfset project_agent_remarks = evaluate("project_agent_remarks_" & n)>
 			<cfset project_agent_id = evaluate("project_agent_id_" & n)>
+			<cfif agent_name is "deleted">
+				<cfquery name="deleAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	 				DELETE FROM project_agent where project_agent_id=#project_agent_id#
+				</cfquery>
+			<cfelse>
+				<cfquery name="upProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				 	UPDATE project_agent SET
+						agent_id = #agent_id#,
+						project_agent_role = '#project_agent_role#',
+						agent_position = #agent_position#,
+						project_agent_remarks='#project_agent_remarks#'
+					WHERE 
+						project_agent_id = #project_agent_id#
+				</cfquery>
+				UPDATE project_agent SET
+						agent_id = #agent_id#,
+						project_agent_role = '#project_agent_role#',
+						agent_position = #agent_position#,
+						project_agent_remarks='#project_agent_remarks#'
+					WHERE 
+						project_agent_id = #project_agent_id#
+			</cfif>
 		</cfloop>
-		<cfif agent_name is "deleted">
-			<cfquery name="deleAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
- 				DELETE FROM project_agent where project_agent_id=#project_agent_id#
-			</cfquery>
-		<cfelse>
-			<cfquery name="upProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			 	UPDATE project_agent SET
-					agent_id = #agent_id#,
-					project_agent_role = '#project_agent_role#',
-					agent_position = #agent_position#,
-					project_agent_remarks='#project_agent_remarks#'
-				WHERE 
-					project_agent_id = #project_agent_id#
-			</cfquery>
-			UPDATE project_agent SET
-					agent_id = #agent_id#,
-					project_agent_role = '#project_agent_role#',
-					agent_position = #agent_position#,
-					project_agent_remarks='#project_agent_remarks#'
-				WHERE 
-					project_agent_id = #project_agent_id#
-		</cfif>
 		<cfif len(new_agent_id) gt 0>
 			  <cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				 INSERT INTO project_agent (
