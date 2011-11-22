@@ -81,6 +81,7 @@
 		<input type="text" name="publication_loc" id="publication_loc" size="80" value="#pub.publication_loc#">
 		<label for="publication_remarks">Remark</label>
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
+		<p></p>
 		<span class="likeLink" onclick="getDocs('publication','author')">Authors</span>: <span class="infoLink" onclick="addAgent()">Add Row</span>
 			<table border id="authTab">
 				<tr>
@@ -91,8 +92,8 @@
 				<cfset i=0>
 				<cfloop query="auth">
 					<cfset i=i+1>
-					<input type="hidden" name="publication_author_name_id#i#" id="publication_author_name_id#i#" value="#publication_author_name_id#">
-					<input type="hidden" name="author_id_#i#" id="author_id_#i#" value="#agent_name_id#">
+					<input type="hidden" name="publication_agent_id#i#" id="publication_agent_id#i#" value="#publication_agent_id#">
+					<input type="hidden" name="agent_id#i#" id="agent_id#i#" value="#agent_id#">
 					<tr id="authortr#i#">
 						<td>
 							<select name="author_role_#i#" id="author_role_#i#">
@@ -102,7 +103,7 @@
 						</td>
 						<td>
 							<input type="text" name="author_name_#i#" id="author_name_#i#" class="reqdClr" size="50"
-								onchange="getAgent('author_id_#i#',this.name,'editPub',this.value)"
+								onchange="getAgent('agent_id#i#',this.name,'editPub',this.value)"
 			 					onkeypress="return noenter(event);"
 			 					value="#agent_name#">
 						</td>
