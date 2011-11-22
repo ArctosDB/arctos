@@ -120,24 +120,18 @@
 					project.project_name,
 					project.start_date,
 					project.end_date,
-					agent_name.agent_name,
+					preferred_agent_name.agent_name,
 					project_agent_role,
-					agent_position,
-					ACKNOWLEDGEMENT,
-					s_name.agent_name sponsor_name">
+					agent_position">
 		<cfset frm="
 				FROM 
 					project,
 					project_agent,
-					agent_name,
-					project_sponsor,
-					agent_name s_name">
+					preferred_agent_name">
 		<cfset whr="
 				WHERE 
 					project.project_id = project_agent.project_id (+) AND
-					project.project_id = project_sponsor.project_id (+) AND
-					project_sponsor.agent_name_id = s_name.agent_name_id (+) AND	
-					project_agent.agent_name_id = agent_name.agent_name_id (+)">
+					project_agent.agent_id = preferred_agent_name.agent_id (+)">
 		<cfset go="no">		
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
 			<cfset title = "#p_title#">
@@ -152,11 +146,8 @@
 		<cfif isdefined("author") AND len(author) gt 0>
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_id IN 
-				( select project_id FROM project_agent
-					WHERE agent_name_id IN 
-						( select agent_name_id FROM agent_name WHERE 
-						upper(agent_name) like '%#escapeQuotes(ucase(author))#%' ))">
-				
+				( select project_id FROM project_agent,agent_name WHERE 
+					project_agent.agent_id=agent_name.agent_id and upper(agent_name) like '%#escapeQuotes(ucase(author))#%' )">
 		</cfif>
 		<cfif isdefined("project_type") AND len(project_type) gt 0>
 			<cfset go="yes">
@@ -196,6 +187,7 @@
 						)">
 			</cfif>
 		</cfif>
+		<!---
 		<cfif isdefined("sponsor") AND len(#sponsor#) gt 0>
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_id IN 
@@ -205,18 +197,19 @@
 						upper(agent_name) like '%#ucase(sponsor)#%' ))">
 				
 		</cfif>
-		<cfif isdefined("year") AND isnumeric(#year#)>
+		--->
+		<cfif isdefined("year") AND isnumeric(year)>
 			<cfset go="yes">
 			<cfset whr = "#whr# AND (
 				#year# between to_number(to_char(start_date,'YYYY')) AND to_number(to_char(end_date,'YYYY'))
 				)">
 		</cfif>
-		<cfif isdefined("publication_id") AND len(#publication_id#) gt 0>
+		<cfif isdefined("publication_id") AND len(publication_id) gt 0>
 			<cfset whr = "#whr# AND project.project_id in
 				(select project_id from project_publication where publication_id=#publication_id#)">
 			<cfset go="yes">
 		</cfif>
-		<cfif isdefined("project_id") AND len(#project_id#) gt 0>
+		<cfif isdefined("project_id") AND len(project_id) gt 0>
 			<cfset whr = "#whr# AND project.project_id = #project_id#">
 			<cfset go="yes">
 		</cfif>
@@ -244,10 +237,6 @@
 			ORDER BY
 				project_name
 		</cfquery>
-		
-		
-		
-		
 		<cfset i=1>
 	<cfset go="no">
 	<cfset basSQL = "SELECT 
@@ -259,20 +248,16 @@
 	<cfset basFrom = "
 		FROM 
 			publication,
-			publication_author_name,
+			publication_agent,
 			project_publication,
-			agent_name pubAuth,
-			agent_name searchAuth,
+			agent_name,
 			citation">
 	<cfset basWhere = "
 		WHERE 
 		publication.publication_id = project_publication.publication_id (+) and
 		publication.publication_id = citation.publication_id (+) 
-		AND publication.publication_id = publication_author_name.publication_id (+) 
-		AND publication_author_name.agent_name_id = pubAuth.agent_name_id (+)
-		AND pubAuth.agent_id = searchAuth.agent_id (+)
-		AND formatted_publication.publication_id = publication.publication_id 
-		AND formatted_publication.format_style = 'long'">
+		AND publication.publication_id = publication_agent.publication_id (+) 
+		AND publication_agent.agent_id = agent_name.agent_id (+)">
 		
 	<cfif isdefined("p_title") AND len(#p_title#) gt 0>
 		<cfset basWhere = "#basWhere# AND UPPER(regexp_replace(publication.publication_title,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(p_title))#%'">
@@ -299,12 +284,13 @@
 	<cfif isdefined("author") AND len(#author#) gt 0>
 		<cfset go="yes">
 		<cfset author = #replace(author,"'","''","all")#>
-		<cfset basWhere = "#basWhere# AND UPPER(searchAuth.agent_name) LIKE '%#ucase(author)#%'">
+		<cfset basWhere = "#basWhere# AND UPPER(agent_name.agent_name) LIKE '%#ucase(author)#%'">
 	</cfif>
 	<cfif isdefined("year") AND isnumeric(year)>
 		<cfset go="yes">
 		<cfset basWhere = "#basWhere# AND publication.PUBLISHED_YEAR = #year#">
 	</cfif>
+	<!---
 	<cfif isdefined("journal") AND len(journal) gt 0>
 		<cfset go="yes">
 		<cfset basFrom = "#basFrom# ,publication_attributes jname">
@@ -312,6 +298,7 @@
 			jname.publication_attribute='journal name' and
 			upper(jname.pub_att_value) like '%#ucase(escapeQuotes(journal))#%'">
 	</cfif>
+	--->
 	<cfif isdefined("onlyCitePubs") AND len(onlyCitePubs) gt 0>
 		<cfset go="yes">
 		<cfif onlyCitePubs is "0">
@@ -360,9 +347,9 @@
 				publication.publication_title,
 				publication.publication_id,
 				publication.publication_type,
-				formatted_publication.formatted_publication
+				full_citation
 			ORDER BY 
-				formatted_publication.formatted_publication,
+				full_citation,
 				publication.publication_id">
 	<!---<cfset checkSql(basSQL)>--->	
 	
