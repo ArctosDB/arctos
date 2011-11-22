@@ -33,6 +33,10 @@
 			<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue..journal_volume.volume.xmltext>
 			<cfset jIssue=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.issue.xmltext>
 			
+			<cfset fPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.pages.first_page.xmltext>
+			<cfset lPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.pages.last_page.xmltext>
+			<br>fPage=#fPage#
+			<br>lPage=#lPage#
 			<br>jIssue=#jIssue#
 			<br>jVol=#jVol#
 			<br>jName=#jName#
