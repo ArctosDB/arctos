@@ -519,20 +519,10 @@ function addAgent (n) {
 	newRow+='</td>';
 	newRow+='<td>';
 	newRow+='<input type="hidden" name="agent_id' + thisID + '" id="agent_id' + thisID + '">';
-	
 	newRow+='<input type="hidden" name="publication_agent_id' + thisID + '" id="publication_agent_id' + thisID + '">';
-	
-	
 	newRow+='<input type="text" name="author_name_' + thisID + '" id="author_name_' + thisID + '" class="reqdClr"  size="50" ';
-
 	newRow+='onchange="getAgent(\'agent_id' + thisID + '\',this.name,\'editPub\',this.value);"';		
-
-		
-			
-		
-			newRow+='onKeyPress="return noenter(event);">';
-			
-			
+	newRow+='onKeyPress="return noenter(event);">';		
 	newRow+='</td>';
 	newRow+='</tr>';		
 	jQuery('#authTab tr:last').after(newRow);
@@ -620,8 +610,8 @@ function setDefaultPub(t){
 }
 function deleteAgent(r){
 	jQuery('#author_name' + r).addClass('red').val("deleted");
-	jQuery('#authortr' + r + ' td:nth-child(1)').addClass('red').text(jQuery('#author_role' + r).val());
-	jQuery('#authortr' + r + ' td:nth-child(3)').addClass('red').text('deleted');						
+	jQuery('#authortr' + r + ' td:nth-child(1)').addClass('red');
+	jQuery('#authortr' + r + ' td:nth-child(3)').addClass('red');						
 }
 function deletePubAtt(r){
 	var newElem='<input type="hidden" name="attribute' + r + '" id="attribute' + r + '" value="deleted">';
