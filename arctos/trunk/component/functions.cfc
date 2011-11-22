@@ -5,16 +5,30 @@
 	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
 	<cfdump var=#cfhttp#>
 	<cfoutput>
-	<cfif left(cfhttp.statuscode,3) is "200">
-		<cfset statusCode=200>
+	
+		
+	<cfset statusCode=left(cfhttp.statuscode,3)>
+	<cfset pubType="">
+	<cfif statusCode is "200">
 		<cfset r=xmlParse(cfhttp.fileContent)>
 		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"journal")>
-			<br>found journal
+			<cfset publicationtype="journal article">
+			
+			<cfset auths=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors>
+			<cfdump var=#auths#>
+			
+			
+			Amy C. Hirons, Donald M. Schell, David J. St. Aubin. 2001. Growth rates of vibrissae of harbor seals (Phoca vitulina) and Steller sea lions (Eumetopias jubatus). Canadian Journal of Zoology 79:1053-1061. 
+			
+			
+			
+			
 		<cfelseif structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"book")>
-			<br>found a book
+			<cfset publicationtype="book">
 		<cfelse>
-			<br>idunno
+			<cfset publicationtype="">
 		</cfif>
+		
 		<cfset crossref=r.doi_records[1].doi_record[1].crossref[1].journal>
 		<br>crossref=#crossref#
 		<cfdump var=#r#>
@@ -37,6 +51,16 @@
 	<cfelse>
 		<cfset statusCode=cfhttp.statuscode>
 	</cfif>
+	
+	
+	<br /><cfset d = querynew("STATUSCODE,PUBLICATIONTYPE")>
+	<cfset temp = queryaddrow(d,1)>
+	
+		<cfset temp = QuerySetCell(d, "STATUSCODE", left(cfhttp.statuscode,3), 1)>
+		<cfset temp = QuerySetCell(d, "I", i, 1)>
+		
+		
+		
 	</cfoutput>
 </cffunction>
 <!------------------------------------------------------------------->
