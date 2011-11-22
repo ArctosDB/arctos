@@ -17,6 +17,7 @@
 	</cfquery>
 	<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
+			publication_agent_id,
 			agent_name,
 			author_role 
 		from 
