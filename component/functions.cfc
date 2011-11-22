@@ -8,6 +8,13 @@
 	<cfif left(cfhttp.statuscode,3) is "200">
 		<cfset statusCode=200>
 		<cfset r=xmlParse(cfhttp.fileContent)>
+		<cfif r.doi_records[1].doi_record[1].crossref[1].journal>
+			<br>found journal
+		<cfelseif r.doi_records[1].doi_record[1].crossref[1].book>
+			<br>found a book
+		<cfelse>
+			<br>idunno
+		</cfif>
 		<cfset crossref=r.doi_records[1].doi_record[1].crossref[1].journal>
 		<br>crossref=#crossref#
 		<cfdump var=#r#>
