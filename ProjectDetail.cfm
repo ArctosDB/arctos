@@ -1,5 +1,6 @@
 <cfinclude template = "includes/_header.cfm">
 <cfoutput>
+	<!---
 <cfif not listfindnocase(cgi.REDIRECT_URL,"project","/")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select project_name from project where project_id=#project_id#
@@ -30,6 +31,7 @@
 		<cfabort>
 	</cfif>
 </cfif>
+--->
 <style>
 	.proj_title {font-size:2em;font-weight:900;text-align:center;}
 	.proj_sponsor {font-size:1.5em;font-weight:800;text-align:center;}
