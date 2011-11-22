@@ -385,9 +385,8 @@
 			}
 		}
 		function doiMagic(){
-			alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
 			$("#doilookup").html('<image src="/images/indicator.gif">');
-			
+			alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "doiMagic",
@@ -405,9 +404,7 @@
 						$("#is_peer_reviewed_fg").val(1);
 						$("#published_year").val(d.DATA.YEAR);
 						$("#short_citation").val(d.DATA.SHORTCITE);
-					}
-					
-						
+					}	
 				}
 			);
 			$("#doilookup").html(' [ crossref ] ');
