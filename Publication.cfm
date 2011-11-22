@@ -410,7 +410,7 @@
 						
 				}
 			);
-			$("#doilookup").html('look up');
+			$("#doilookup").html(' [ crossref ] ');
 		}
 	</script>
 	<!----
@@ -422,7 +422,7 @@
 	<cfoutput>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
-			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" id="doilookup" onclick="doiMagic()">look up</span>
+			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" id="doilookup" onclick="doiMagic()"> [ crossref ] </span>
 			<input type="hidden" name="action" value="createPub">
 			<table>
 				<tr>
