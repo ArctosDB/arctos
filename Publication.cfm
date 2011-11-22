@@ -334,9 +334,6 @@
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_type from ctpublication_type order by publication_type
 	</cfquery>
-	<cfquery name="ctpublication_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select publication_attribute from ctpublication_attribute order by publication_attribute
-	</cfquery>
 	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select media_type from ctmedia_type order by media_type
 	</cfquery>
@@ -390,14 +387,12 @@
 	</script>
 	<cfoutput>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
-			<div class="cellDiv">
-			The Basics:
 			<input type="hidden" name="action" value="createPub">
 			<table>
 				<tr>
 					<td>
-						<label for="publication_title" onclick="getDocs('publication','title')" class="likeLink">Publication Title</label>
-						<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80"></textarea>
+						<label for="full_citation" onclick="getDocs('publication','full_citation')" class="likeLink">Full Citation</label>
+						<textarea name="full_citation" id="full_citation" class="reqdClr" rows="3" cols="80"></textarea>
 					</td>
 					<td>
 						<span class="infoLink" onclick="italicize('publication_title')">italicize selected text</span>
@@ -407,68 +402,90 @@
 					</td>
 				</tr>
 			</table>
-			
-			<label for="publication_type">Publication Type</label>
-			<select name="publication_type" id="publication_type" class="reqdClr" onchange="setDefaultPub(this.value)">
-				<option value=""></option>
-				<cfloop query="ctpublication_type">
-					<option value="#publication_type#">#publication_type#</option>
-				</cfloop>
-			</select>
-			<label for="is_peer_reviewed_fg">Peer Reviewed?</label>
-			<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
-				<option value="1">yes</option>
-				<option value="0">no</option>
-			</select>			
-			<label for="published_year">Published Year</label>
-			<input type="text" name="published_year" id="published_year">
-			<label for="publication_loc">Storage Location</label>
-			<input type="text" name="publication_loc" id="publication_loc" size="80">
-			<label for="publication_remarks">Remark</label>
-			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
-			<input type="hidden" name="numberAuthors" id="numberAuthors" value="1">
-			</div>
-			<div class="cellDiv">
-			Authors: <span class="infoLink" onclick="addAgent()">Add Row</span> ~ <span class="infoLink" onclick="removeAgent()">Remove Last Row</span>
-			<table border id="authTab">
+			<label for="short_citation" onclick="getDocs('publication','short_citation')" class="likeLink">Short Citation</label>
+			<input type="text" id="short_citation" name="short_citation" value="" size="80">
+			<table>
 				<tr>
-					<th>Role</th>
-					<th>Name</th>
-				</tr>
-				<tr id="authortr1">
 					<td>
-						<select name="author_role_1" id="author_role_1">
-							<option value="author">author</option>
-							<option value="editor">editor</option>
+						<label for="publication_type" onclick="getDocs('publication','type')" class="likeLink">Publication Type</label>
+						<select name="publication_type" id="publication_type" class="reqdClr">
+							<option value=""></option>
+							<cfloop query="ctpublication_type">
+								<option value="#publication_type#">#publication_type#</option>
+							</cfloop>
 						</select>
 					</td>
 					<td>
-						<input type="hidden" name="author_id_1" id="author_id_1">
-						<input type="text" name="author_name_1" id="author_name_1" class="reqdClr" size="50"
-							onchange="findAgentName('author_id_1',this.name,this.value)"
-		 					onKeyPress="return noenter(event);">
+						<label for="is_peer_reviewed_fg" onclick="getDocs('publication','peer_review')" class="likeLink">Peer Reviewed?</label>
+						<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
+							<option value="1">yes</option>
+							<option value="0">no</option>
+						</select>	
+					</td>
+					<td>
+						<label for="published_year" onclick="getDocs('publication','published_year')" class="likeLink">Published Year</label>
+						<input type="text" name="published_year" id="published_year" value="">
 					</td>
 				</tr>
 			</table>
-			</div>
-			<div class="cellDiv">
-			Attributes:
-			<input type="hidden" name="numberAttributes" id="numberAttributes" value="0">
-			Add: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
-				<option value=""></option>
-				<cfloop query="ctpublication_attribute">
-					<option value="#publication_attribute#">#publication_attribute#</option>
-				</cfloop>
-			</select>
-			<span class="infoLink" onclick="removeLastAttribute()">Remove Last Row</span>
-			<table border id="attTab">
+			<label for="publication_loc">Storage Location</label>
+			<input type="text" name="publication_loc" id="publication_loc" size="80" value="">
+			<label for="publication_remarks">Remark</label>
+			<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="">
+			<p></p>
+			<span class="likeLink" onclick="getDocs('publication','author')">Add Authors</span>
+			<table border id="authTab" class="newRec">
 				<tr>
-					<th>Attribute</th>
-					<th>Value</th>
+					<th>Role</th>
+					<th>Name</th>
 					<th></th>
-				</tr>			
-			</table>
-			</div>
+				</tr>
+				<cfset numNewAuths="3">
+				<cfloop from="1" to="#numNewAuths#" index="i">
+					<input type="hidden" name="n_agent_id#i#" id="n_agent_id#i#">
+					<tr id="n_authortr#i#">
+						<td>
+							<select name="n_author_role#i#" id="n_author_role#i#">
+								<option value="author">author</option>
+								<option value="editor">editor</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="n_author_name#i#" id="n_author_name#i#" class="reqdClr" size="50"
+								onchange="getAgent('n_agent_id#i#',this.name,'newpub',this.value)"
+			 					onkeypress="return noenter(event);">
+						</td>
+						<td>
+							-
+						</td>
+					</tr>
+				</cfloop>
+			<input type="hidden" name="numNewAuths" id="numNewAuths" value="#numNewAuths#">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			<span class="likeLink" id="mediaToggle" onclick="toggleMedia()">[ Add Media ]</span>
 			<div class="cellDiv" id="media" style="display:none">
 				Media:
@@ -511,7 +528,8 @@
 				published_year,
 				publication_type,
 				publication_loc,
-				publication_title,
+				full_citation,
+				short_citation,
 				publication_remarks,
 				is_peer_reviewed_fg
 			) values (
@@ -519,42 +537,28 @@
 				<cfif len(published_year) gt 0>#published_year#<cfelse>NULL</cfif>,
 				'#publication_type#',
 				'#publication_loc#',
-				'#publication_title#',
+				'#escapeQuotes(full_citation)#',
+				'#escapeQuotes(short_citation)#',
 				'#publication_remarks#',
 				#is_peer_reviewed_fg#
 			)
 		</cfquery>
-		<cfloop from="1" to="#numberAuthors#" index="n">
-			<cfset thisAgentNameId = #evaluate("author_id_" & n)#>
-			<cfset thisAuthorRole = #evaluate("author_role_" & n)#>
-			<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into publication_author_name (
-					publication_id,
-					agent_name_id,
-					author_position,
-					author_role
-				) values (
-					#pid#,
-					#thisAgentNameId#,
-					#n#,
-					'#thisAuthorRole#'
-				)
-			</cfquery>
-		</cfloop>
-		<cfloop from="1" to="#numberAttributes#" index="n">
-			<cfset thisAttribute = #evaluate("attribute_type" & n)#>
-			<cfset thisAttVal = #evaluate("attribute" & n)#>
-			<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into publication_attributes (
-					publication_id,
-					publication_attribute,
-					pub_att_value
-				) values (
-					#pid#,
-					'#thisAttribute#',
-					'#thisAttVal#'
-				)
-			</cfquery>
+		<cfloop from="1" to="#numNewAuths#" index="n">
+			<cfset agent_id = evaluate("n_agent_id" & n)>
+			<cfset author_role = evaluate("n_author_role" & n)>
+			<cfif len(agent_id) gt 0>
+				<cfquery name="insAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					insert into publication_agent (
+						publication_id,
+						agent_id,
+						author_role
+					) values (
+						#publication_id#,
+						#agent_id#,
+						'#author_role#'
+					)
+				</cfquery>
+			</cfif>
 		</cfloop>
 		<cfif len(media_uri) gt 0>
 			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -585,36 +589,6 @@
 			</cfquery>
 		</cfif>					
 	</cftransaction>
-	<cfinvoke component="/component/publication" method="shortCitation" returnVariable="shortCitation">
-		<cfinvokeargument name="publication_id" value="#pid#">
-		<cfinvokeargument name="returnFormat" value="plain">
-	</cfinvoke>
-	<cfinvoke component="/component/publication" method="longCitation" returnVariable="longCitation">
-		<cfinvokeargument name="publication_id" value="#pid#">
-		<cfinvokeargument name="returnFormat" value="plain">
-	</cfinvoke>				
-	<cfquery name="sfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		insert into formatted_publication (
-			publication_id,
-			format_style,
-			formatted_publication
-		) values (
-			#pid#,
-			'short',
-			'#shortCitation#'
-		)
-	</cfquery>
-	<cfquery name="lfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		insert into formatted_publication (
-			publication_id,
-			format_style,
-			formatted_publication
-		) values (
-			#pid#,
-			'long',
-			'#longCitation#'
-		)
-	</cfquery>
 	<cflocation url="Publication.cfm?action=edit&publication_id=#pid#" addtoken="false">
 </cfoutput>
 </cfif>

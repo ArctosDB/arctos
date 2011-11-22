@@ -283,7 +283,7 @@
 					<td>
 						<a href="javascript:void(0);" onClick="getDocs('project','agent_role')">Agent&nbsp;Role</a>
 					</td>
-					<td>Proj.Agnt.Remk.</td>
+					<td>Remark</td>
 				</tr>
 				<cfset i=0>
 				<cfloop query="agents">
@@ -372,8 +372,6 @@
 			<input type="submit" value="Save Updates" class="savBtn">
 			<input type="button" value="Delete Project" class="delBtn" onclick="document.project.action.value='deleteProject';submit();">
 		</form>
-			
-			
 			<a name="trans"></a>
 			<p>
 				<strong>Project Accessions</strong>
