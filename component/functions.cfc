@@ -13,7 +13,7 @@
 		<cfset r=xmlParse(cfhttp.fileContent)>
 		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"journal")>
 			<cfset publicationtype="journal article">
-			<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors)>
+			<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors.xmlchildren)>
 			<br>numberOfAuthors: #numberOfAuthors#
 			<cfset auths=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors>
 			<cfdump var=#auths#>
