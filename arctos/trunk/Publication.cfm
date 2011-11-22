@@ -399,13 +399,28 @@
 					if(d.DATA.STATUS=='FAIL'){
 						alert('sorray');
 					} else {
-						alert('woot!');
+						$("#full_citation").val(d.DATA.LONGCITE);
 					}
+					
+						
 				}
 			);
 			$("#doilookup").html('look up');
 		}
 	</script>
+	<!----
+	
+	
+					
+						<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
+		<cfset temp = QuerySetCell(d, "PUBLICATIONTYPE", 'journal article', 1)>
+		<cfset temp = QuerySetCell(d, "LONGCITE", longCit, 1)>
+		<cfset temp = QuerySetCell(d, "SHORTCITE", shortCit, 1)>
+		<cfset temp = QuerySetCell(d, "YEAR", pubYear, 1)>
+		<cfset temp = QuerySetCell(d, "AUTHORS", rauths, 1)>
+	
+	------>
 	<cfoutput>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
