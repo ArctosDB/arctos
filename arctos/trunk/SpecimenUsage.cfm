@@ -53,11 +53,6 @@
 						<cfloop query="ctAgentRole">
 							<option value="#agent_role#">#agent_role#</option>
 						</cfloop>
-						<option value="loan">Uses Specimens</option>
-						<option value="loan_no_pub">Uses Specimens, no publication</option>
-						<option value="accn">Contributes Specimens</option>
-						<option value="both">Uses and Contributes</option>
-						<option value="neither">Neither Uses nor Contributes</option>
 					</select>
 					<label for="year"><span class="helpLink" id="project_publication_year">Year</span></label>
 					<input name="year" id="year" type="text">
@@ -154,7 +149,7 @@
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
 			<cfset title = "#agent_role#">
 			<cfset go="yes">
-			<cfset whr = "#whr# ANDproject_agent.project_agent_role='#agent_role#'">
+			<cfset whr = "#whr# AND project_agent.project_agent_role='#agent_role#'">
 		</cfif>	
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
 			<cfset title = "#p_title#">
