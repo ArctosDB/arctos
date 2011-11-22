@@ -336,10 +336,10 @@
 				</tr>
 				<cfset numNewAgents=3>
 				<input type="hidden" name="numNewAgents" value="#numNewAgents#">
-				<cfloop from="1" to="#numNewAgents#" index="i">
+				<cfloop from="1" to="#numNewAgents#" index="x">
 					<tr class="newRec">
 						<td>	
-							##<select name="new_agent_position#i#" size="1" class="reqdClr">
+							##<select name="new_agent_position#x#" size="1" class="reqdClr">
 								<cfloop from="1" to="#numberOfAgents#" index="i">
 									<option 
 										<cfif numberOfAgents is i> selected </cfif>	value="#i#">#i#</option>
@@ -347,14 +347,14 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" name="new_agent_name#i#" id="new_agent_name#i#" 
+							<input type="text" name="new_agent_name#x#" id="new_agent_name#x#" 
 								class="reqdClr" 
-								onchange="getAgent('new_agent_id#i#',this.id,'project',this.value); return false;"
+								onchange="getAgent('new_agent_id#x#',this.id,'project',this.value); return false;"
 								onKeyPress="return noenter(event);">
-							<input type="hidden" name="new_agent_id#i#" id="new_agent_id#i#">
+							<input type="hidden" name="new_agent_id#x#" id="new_agent_id#x#">
 						</td>
 						<td>
-							<select name="new_role#i#" size="1" class="reqdClr">
+							<select name="new_role#x#" size="1" class="reqdClr">
 								<cfloop query="ctProjAgRole">
 									<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
 									</option>
@@ -362,10 +362,9 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" name="new_project_agent_remarks#i#" id="new_project_agent_remarks#i#">
+							<input type="text" name="new_project_agent_remarks#x#" id="new_project_agent_remarks#x#">
 						</td>
 						<td>
-						--
 						</td>
 					</tr>
 				</cfloop>
