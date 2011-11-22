@@ -69,13 +69,6 @@
 								<option value="#publication_type#">#publication_type#</option>
 							</cfloop>
 						</select>
-						<label for="journal">Journal Name</label>
-						<select name="journal" id="journal" size="1">
-							<option value=""></option>
-							<cfloop query="ctjournal_name">
-								<option value="#journal_name#">#journal_name#</option>
-							</cfloop>
-						</select>
 						<label for="collection_id">Cites Collection</label>
 						<select name="collection_id" id="collection_id" size="1">
 							<option value="">All</option>
@@ -109,12 +102,8 @@
 			</tr>
 			<tr>
 				<td colspan="99" align="center">
-					<input type="submit" 
-						value="Search" 
-						class="schBtn">
-					<input type="reset" 
-						value="Clear Form" 
-						class="clrBtn">
+					<input type="submit" value="Search" class="schBtn">
+					<input type="reset" value="Clear Form" class="clrBtn">
 				</td>
 			</tr>
 		</table>
@@ -265,7 +254,7 @@
 			publication.publication_title,
 			publication.publication_id,
 			publication.publication_type,
-			formatted_publication.formatted_publication,
+			full_citation,
 			count(distinct(citation.collection_object_id)) numCits">
 	<cfset basFrom = "
 		FROM 
@@ -274,7 +263,6 @@
 			project_publication,
 			agent_name pubAuth,
 			agent_name searchAuth,
-			formatted_publication,
 			citation">
 	<cfset basWhere = "
 		WHERE 
