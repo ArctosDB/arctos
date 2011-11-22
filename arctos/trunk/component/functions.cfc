@@ -20,9 +20,12 @@
 				<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name>
 				<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname>
 				<cfset thisName=fName & ' ' & lName>
-
-				<cfset auths=listappend(auths,thisName)>
+				<cfset auths=listappend(auths,thisName,"|")>
 			</cfloop>
+			<cfif listlen(auths,"|") is 2>
+				<cfset auths=replace(auths,"|","and")>
+			</cfif>
+			
 <br>
 			auths=#auths#
 	
