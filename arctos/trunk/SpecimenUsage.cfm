@@ -450,22 +450,22 @@
 		SELECT
 			publication_id,
 			publication_type,
-			formatted_publication,
+			full_citation,
 			numCits
 		FROM
 			publication
 		GROUP BY
 			publication_id,
 			publication_type,
-			formatted_publication,
+			full_citation,
 			numCits
 		ORDER BY
-			formatted_publication
+			full_citation
 	</cfquery>
 	<cfloop query="pubs">
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<p class="indent">
-				#formatted_publication#
+				#full_citation#
 			</p>	
 			<ul>
 				<li><a href="javascript: openAnnotation('publication_id=#publication_id#')">Annotate</a></li>
