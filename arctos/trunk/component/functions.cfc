@@ -9,6 +9,17 @@
 		<cfset statusCode=200>
 		<cfset r=xmlParse(cfhttp.fileContent)>
 		<cfdump var=#r#>
+		<cfset doi_records=r.doi_records[1]>
+		doi_records
+		<cfdump var=#doi_records#>
+		<cfset doi_record=r.doi_records[1].doi_record>
+		doi_record
+		<cfdump var=#doi_record#>
+		
+		<cfset crossref=r.doi_records[1].doi_record[1].crossref>
+		crossref
+		<cfdump var=#crossref#>
+		
 		<cfset pubType=r.doi_records[1].doi_record[1].crossref[1].xmlText>
 		<hr>
 		
