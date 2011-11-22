@@ -111,8 +111,8 @@
 <cfif action is "editProject">
 	<script>
 		function removeAgent(i) {
-		 	$("#projAgentRow" + i).hide();
 		 	$("#agent_name_" + i).val('deleted');
+		 	$("#projAgentRow" + i).style('border:1px solid red;');
 		}
 	</script>
 	<cfset title="Edit Project">
@@ -519,8 +519,8 @@
 				 	)                 
 				 </cfquery>
 		</cfif>
-		<!----
   		<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
+		<!----
 	---->
 	</cfoutput>
 </cfif>
