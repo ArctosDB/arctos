@@ -619,9 +619,10 @@ function setDefaultPub(t){
 	}
 }
 function deleteAgent(r){
-	jQuery('#author_id_' + r).val("-1");	
+	jQuery('#author_id_' + r).val("-1");
+	jQuery('#author_name_' + r).addClass('red').val("deleted");
+	
 	jQuery('#authortr' + r + ' td:nth-child(1)').addClass('red').text(jQuery('#author_role_' + r).val());
-	jQuery('#authortr' + r + ' td:nth-child(2)').addClass('red').text(jQuery('#author_name_' + r).val());
 	jQuery('#authortr' + r + ' td:nth-child(3)').addClass('red').text('deleted');						
 }
 function deletePubAtt(r){
