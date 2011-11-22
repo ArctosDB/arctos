@@ -68,7 +68,7 @@
 		FROM 
 			project,
 			project_agent,
-			preferred_agent_name,
+			preferred_agent_name
 		WHERE 
 			project.project_id = project_agent.project_id (+) AND 
 			project_agent.agent_id = preferred_agent_name.agent_id (+) and
