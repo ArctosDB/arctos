@@ -3,7 +3,7 @@
 <cffunction name="doiMagic" access="remote">	
 	<cfargument name="doi" type="string" required="yes">
 	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
-	<cfdump var=#cfhttp.fileContent#>
+	<cfdump var=#cfhttp#>
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="get_docs" access="remote">
