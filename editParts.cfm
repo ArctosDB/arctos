@@ -114,7 +114,7 @@
 					</td>
 					<td>
 						<label for="coll_object_remarks#i#">Remark</label>
-						<input type="text" name="coll_object_remarks#i#" id="coll_object_remarks#i#" value="#getparts.coll_object_remarks#">
+						<input type="text" name="coll_object_remarks#i#" id="coll_object_remarks#i#" value="#stripQuotes(getparts.coll_object_remarks)#">
 					</td>
 					<td>
 						<label for="print_fg#i#">PrtFg</label>
