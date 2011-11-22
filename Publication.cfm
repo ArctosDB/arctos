@@ -460,29 +460,8 @@
 						</td>
 					</tr>
 				</cfloop>
+			</table>
 			<input type="hidden" name="numNewAuths" id="numNewAuths" value="#numNewAuths#">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 			
