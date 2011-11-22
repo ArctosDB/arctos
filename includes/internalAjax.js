@@ -518,10 +518,21 @@ function addAgent (n) {
 	newRow+='</select>';
 	newRow+='</td>';
 	newRow+='<td>';
-	newRow+='<input type="hidden" name="author_id_' + thisID + '" id="author_id_' + thisID + '">';
+	newRow+='<input type="hidden" name="agent_id' + thisID + '" id="agent_id' + thisID + '">';
+	
+	newRow+='<input type="hidden" name="publication_agent_id' + thisID + '" id="publication_agent_id' + thisID + '">';
+	
+	
 	newRow+='<input type="text" name="author_name_' + thisID + '" id="author_name_' + thisID + '" class="reqdClr"  size="50" ';
-	newRow+='onchange="findAgentName(\'author_id_' + thisID + '\',this.name,this.value);"';		
-	newRow+='onKeyPress="return noenter(event);">';
+
+	newRow+='onchange="getAgent(\'agent_id' + thisID + '\',this.name,\'editPub\',this.value);"';		
+
+		
+			
+		
+			newRow+='onKeyPress="return noenter(event);">';
+			
+			
 	newRow+='</td>';
 	newRow+='</tr>';		
 	jQuery('#authTab tr:last').after(newRow);
