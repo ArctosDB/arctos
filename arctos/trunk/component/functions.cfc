@@ -6,7 +6,7 @@
 	<cfdump var=#cfhttp#>
 	<cfif left(cfhttp.statuscode,3) is "200">
 		<cfset statusCode=200>
-		<cfset r=xmlParse(cfhttp.fileContent>
+		<cfset r=xmlParse(cfhttp.fileContent)>
 		<cfdump var=#r#>
 	<cfelse>
 		<cfset statusCode=cfhttp.statuscode>
