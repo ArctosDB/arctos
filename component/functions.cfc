@@ -19,7 +19,7 @@
 			<cfloop from="1" to="#numberOfAuthors#" index="i">
 				<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name>
 				<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname>
-				<cfset thisName=fName & ' ' & surname>
+				<cfset thisName=fName & ' ' & lName>
 
 				<cfset auths=listappend(auths,thisName)>
 			</cfloop>
