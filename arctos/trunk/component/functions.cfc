@@ -26,6 +26,9 @@
 			<cfelse>
 				<cfset auths=listchangedelims(auths,",","|")>
 			</cfif>
+			<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date.year.xmltext>
+			<br>
+			pubYear=#pubYear#
 			
 <br>
 			auths=#auths#
