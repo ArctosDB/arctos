@@ -20,13 +20,13 @@
 			select AUTHOR_ROLE agent_role from CTAUTHOR_ROLE
 		) order by agent_role
 	</cfquery>
+	<cfoutput>
 	<h2>Publication / Project Search</h2>
 	<form action="SpecimenUsage.cfm" method="post">
 		<input name="action" type="hidden" value="search">
 		<cfif not isdefined("toproject_id")><cfset toproject_id=""></cfif>
-		<cfoutput>
+		
 			<input name="toproject_id" type="hidden" value="#toproject_id#">
-		</cfoutput>
 		<table width="90%">
 			<tr valign="top">
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
@@ -64,10 +64,6 @@
 				</td>
 				<td>
 					<h4>Project</h4>	
-					<!---				
-					<label for="sponsor"><span class="helpLink" id="project_sponsor">Project Sponsor</span></label>
-					<input name="sponsor" id="sponsor" type="text">
-					--->
 					<label for="project_type"><span class="helpLink" id="project_type">Project Type</span></label>
 					<select name="project_type" id="project_type">
 						<option value=""></option>
@@ -82,22 +78,20 @@
 				</td>
 				<td>
 					<h4>Publication</h4>
-					<cfoutput>
-						<label for="publication_type"><span class="helpLink" id="publication_type">Publication Type</span></label>
-						<select name="publication_type" id="publication_type" size="1">
-							<option value=""></option>
-							<cfloop query="ctpublication_type">
-								<option value="#publication_type#">#publication_type#</option>
-							</cfloop>
-						</select>
-						<label for="collection_id">Cites Collection</label>
-						<select name="collection_id" id="collection_id" size="1">
-							<option value="">All</option>
-							<cfloop query="ctColl">
-								<option value="#collection_id#">#collection#</option>
-							</cfloop>
-						</select>
-					</cfoutput>					
+					<label for="publication_type"><span class="helpLink" id="publication_type">Publication Type</span></label>
+					<select name="publication_type" id="publication_type" size="1">
+						<option value=""></option>
+						<cfloop query="ctpublication_type">
+							<option value="#publication_type#">#publication_type#</option>
+						</cfloop>
+					</select>
+					<label for="collection_id">Cites Collection</label>
+					<select name="collection_id" id="collection_id" size="1">
+						<option value="">All</option>
+						<cfloop query="ctColl">
+							<option value="#collection_id#">#collection#</option>
+						</cfloop>
+					</select>
 					<label for="onlyCitePubs">
 						<span class="helpLink" id="pub_cites_specimens">Cites specimens?</span>
 					</label>
@@ -129,6 +123,7 @@
 			</tr>
 		</table>
 	</form>
+	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfif action is "search">
