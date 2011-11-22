@@ -4,13 +4,19 @@
 	<cfargument name="doi" type="string" required="yes">
 	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
 	<cfdump var=#cfhttp#>
+	<cfoutput>
 	<cfif left(cfhttp.statuscode,3) is "200">
 		<cfset statusCode=200>
 		<cfset r=xmlParse(cfhttp.fileContent)>
 		<cfdump var=#r#>
+		<cfset pubType=r.doi_records.doi_record[1].xmlText>
+		<hr>
+		
+		pubType=#pubType#
 	<cfelse>
 		<cfset statusCode=cfhttp.statuscode>
 	</cfif>
+	</cfoutput>
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="get_docs" access="remote">
