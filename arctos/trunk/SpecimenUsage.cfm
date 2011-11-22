@@ -124,6 +124,7 @@
 					project.start_date,
 					project.end_date,
 					preferred_agent_name.agent_name,
+					PROJECT_AGENT_REMARKS,
 					project_agent_role,
 					agent_position">
 		<cfset frm="
