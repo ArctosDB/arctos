@@ -51,7 +51,7 @@
 			</tr>
 		</table>
 		<label for="short_citation" onclick="getDocs('publication','short_citation')" class="likeLink">Short Citation</label>
-		<input type="text" id="short_citation" name="short_citation" value="#short_citation#" size="80">
+		<input type="text" id="short_citation" name="short_citation" value="#pub.short_citation#" size="80">
 		<table>
 			<tr>
 				<td>
