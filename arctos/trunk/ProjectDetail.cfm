@@ -59,22 +59,17 @@
 			project_description,
 			start_date,
 			end_date,
-			agent_name.agent_name, 
+			preferred_agent_name.agent_name, 
 			agent_position,
 			project_agent_role,
-			ps.agent_name sponsor,
-			acknowledgement
+			project_agent_remarks
 		FROM 
 			project,
 			project_agent,
-			agent_name,
-			project_sponsor,
-			agent_name ps
+			preferred_agent_name,
 		WHERE 
 			project.project_id = project_agent.project_id (+) AND 
-			project_agent.agent_name_id = agent_name.agent_name_id (+) and
-			project.project_id=project_sponsor.project_id (+) and
-			project_sponsor.agent_name_id=ps.agent_name_id (+) and
+			project_agent.agent_id = preferred_agent_name.agent_id (+) and
 			project.project_id = #project_id# 
 	</cfquery>
 	<cfquery name="p" dbtype="query">
@@ -107,15 +102,15 @@
 	</cfquery>
 	<cfquery name="s" dbtype="query">
 		select 
-			sponsor,
-			acknowledgement
+			agent_name,
+			project_agent_remarks
 		from
 			proj
 		where
-			sponsor is not null
+			project_agent_role='Sponsor'
 		group by			
-			sponsor,
-			acknowledgement
+			agent_name,
+			project_agent_remarks
 	</cfquery>
 	<span class="annotateSpace">
 		<cfif len(session.username) gt 0>
@@ -140,7 +135,7 @@
 	<div class="proj_title">#p.project_name#</div>
 	<cfloop query="s">
 		<div class="proj_sponsor">
-			Sponsored by #sponsor# <cfif len(ACKNOWLEDGEMENT) gt 0>: #ACKNOWLEDGEMENT#</cfif>
+			Sponsored by #agent_name# <cfif len(project_agent_remarks) gt 0>: #project_agent_remarks#</cfif>
 		</div>
 	</cfloop>
 	<cfloop query="a">
