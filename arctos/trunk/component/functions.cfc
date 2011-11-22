@@ -10,6 +10,7 @@
 	<cfset pubType="">
 	<cfif statusCode is "200">
 		<cfset r=xmlParse(cfhttp.fileContent)>
+		<cfdump var=#r#>
 		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"journal")>
 			<cfset publicationtype="journal article">
 			<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors.xmlchildren)>
@@ -28,8 +29,15 @@
 			</cfif>
 			<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date.year.xmltext>
 			<cfset pubTitle=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.titles.title.xmltext>
-			<br>
-			pubTitle=#pubTitle#
+			<cfset jName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_metadata.full_title.xmltext>
+			<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue..journal_volume.volume.xmltext>
+			<cfset jIssue=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.issue.xmltext>
+			
+			<br>jIssue=#jIssue#
+			<br>jVol=#jVol#
+			<br>jName=#jName#
+			
+			<br>pubTitle=#pubTitle#
 			<br>
 			pubYear=#pubYear#
 			
@@ -46,24 +54,6 @@
 		<cfelse>
 			<cfset publicationtype="">
 		</cfif>
-		
-		<cfset crossref=r.doi_records[1].doi_record[1].crossref[1].journal>
-		<br>crossref=#crossref#
-		<cfdump var=#r#>
-		<cfset doi_records=r.doi_records[1]>
-		doi_records
-		<cfdump var=#doi_records#>
-		<cfset doi_record=r.doi_records[1].doi_record>
-		doi_record
-		<cfdump var=#doi_record#>
-		
-		<cfset crossref=r.doi_records[1].doi_record[1].crossref>
-		crossref
-		<cfdump var=#crossref#>
-		
-		<cfset crossref=r.doi_records[1].doi_record[1].crossref>
-		<cfset pubType=r.doi_records[1].doi_record[1].crossref[1].xmlChildren[1].xmlText>
-		<hr>
 		
 		pubType=#pubType#
 	<cfelse>
