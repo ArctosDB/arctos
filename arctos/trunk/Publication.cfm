@@ -84,38 +84,67 @@
 		<label for="publication_remarks">Remark</label>
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
 		<p></p>
-		<span class="likeLink" onclick="getDocs('publication','author')">Authors</span>: <span class="infoLink" onclick="addAgent()">Add Row</span>
-			<table border id="authTab">
-				<tr>
-					<th>Role</th>
-					<th>Name</th>
-					<th></th>
+		<span class="likeLink" onclick="getDocs('publication','author')">Current Authors</span>:\
+		<table border id="authTab">
+			<tr>
+				<th>Role</th>
+				<th>Name</th>
+				<th></th>
+			</tr>
+			<cfset i=0>
+			<cfloop query="auth">
+				<cfset i=i+1>
+				<input type="hidden" name="agent_id#i#" id="agent_id#i#" value="#agent_id#">
+				<input type="hidden" name="publication_agent_id#i#" id="publication_agent_id#i#" value="#publication_agent_id#">
+				<tr id="authortr#i#">
+					<td>
+						<select name="author_role_#i#" id="author_role_#i#">
+							<option <cfif author_role is "author"> selected="selected" </cfif>value="author">author</option>
+							<option <cfif author_role is "editor"> selected="selected" </cfif>value="editor">editor</option>
+						</select>
+					</td>
+					<td>
+						<input type="text" name="author_name_#i#" id="author_name_#i#" class="reqdClr" size="50"
+							onchange="getAgent('agent_id#i#',this.name,'editPub',this.value)"
+		 					onkeypress="return noenter(event);"
+		 					value="#agent_name#">
+					</td>
+					<td>
+						<span class="infoLink" onclick="deleteAgent(#i#)">Delete</span>
+					</td>
 				</tr>
-				<cfset i=0>
-				<cfloop query="auth">
-					<cfset i=i+1>
-					<input type="hidden" name="agent_id#i#" id="agent_id#i#" value="#agent_id#">
-					<input type="hidden" name="publication_agent_id#i#" id="publication_agent_id#i#" value="#publication_agent_id#">
-					<tr id="authortr#i#">
-						<td>
-							<select name="author_role_#i#" id="author_role_#i#">
-								<option <cfif author_role is "author"> selected="selected" </cfif>value="author">author</option>
-								<option <cfif author_role is "editor"> selected="selected" </cfif>value="editor">editor</option>
-							</select>
-						</td>
-						<td>
-							<input type="text" name="author_name_#i#" id="author_name_#i#" class="reqdClr" size="50"
-								onchange="getAgent('agent_id#i#',this.name,'editPub',this.value)"
-			 					onkeypress="return noenter(event);"
-			 					value="#agent_name#">
-						</td>
-						<td>
-							<span class="infoLink" onclick="deleteAgent(#i#)">Delete</span>
-						</td>
-					</tr>
-				</cfloop>
-				<input type="hidden" name="numberAuthors" id="numberAuthors" value="#i#">
-			</table>
+			</cfloop>
+			<input type="hidden" name="numberAuthors" id="numberAuthors" value="#i#">
+		</table>
+		<span class="likeLink" onclick="getDocs('publication','author')">Add Authors</span>:\
+		<table border id="authTab" class="newRec">
+			<tr>
+				<th>Role</th>
+				<th>Name</th>
+				<th></th>
+			</tr>
+			<cfset numNewAuths="3">
+			<cfloop from="1" to="#numNewAuths#" index="i">
+				<input type="hidden" name="n_agent_id#i#" id="n_agent_id#i#">
+				<tr id="n_authortr#i#">
+					<td>
+						<select name="n_author_role#i#" id="n_author_role#i#">
+							<option value="author">author</option>
+							<option value="editor">editor</option>
+						</select>
+					</td>
+					<td>
+						<input type="text" name="n_author_name_#i#" id="n_author_name_#i#" class="reqdClr" size="50"
+							onchange="getAgent('n_agent_id#i#',this.name,'editPub',this.value)"
+		 					onkeypress="return noenter(event);">
+					</td>
+					<td>
+						-
+					</td>
+				</tr>
+			</cfloop>
+			<input type="hidden" name="numNewAuths" id="numNewAuths" value="#numNewAuths#">
+		</table>
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		    select distinct 
 		        media.media_id,
@@ -267,7 +296,20 @@
 					delete from publication_agent where 
 					publication_agent_id=#publication_agent_id# 
 				</cfquery>
-			<cfelseif len(publication_agent_id) is 0>
+			<cfelse>
+				<cfquery name="uAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update publication_agent set
+						agent_id=#agent_id#,
+						author_role='#author_role#'
+					where
+						publication_agent_id=#publication_agent_id# 
+				</cfquery>
+			</cfif>
+		</cfloop>
+		<cfloop from="1" to="#numNewAuths#" index="n">
+			<cfset agent_id = evaluate("n_agent_id" & n)>
+			<cfset author_role = evaluate("n_author_role" & n)>
+			<cfif len(agent_id) gt 0>
 				<cfquery name="insAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into publication_agent (
 						publication_id,
@@ -279,16 +321,9 @@
 						'#author_role#'
 					)
 				</cfquery>
-			<cfelse>
-				<cfquery name="uAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					update publication_agent set
-						agent_id=#agent_id#,
-						author_role='#author_role#'
-					where
-						publication_agent_id=#publication_agent_id# 
-				</cfquery>
 			</cfif>
 		</cfloop>
+		
 	</cftransaction>
 	<cflocation url="Publication.cfm?action=edit&publication_id=#publication_id#" addtoken="false">
 </cfoutput>
