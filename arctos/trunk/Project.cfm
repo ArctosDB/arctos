@@ -111,8 +111,8 @@
 <cfif action is "editProject">
 	<script>
 		function removeAgent(i) {
-		 	$("agent_id_" + i).val(-1);
-		 	$("agent_name_" + i).val('deleted');
+		 	$("#agent_id_" + i).val(-1);
+		 	$("#agent_name_" + i).val('deleted');
 		}
 	</script>
 	<cfset title="Edit Project">
