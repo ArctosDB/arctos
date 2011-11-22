@@ -487,7 +487,7 @@
 		<cfelse>
 			<cfquery name="upProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			 	UPDATE project_agent SET
-					agent_id = #agent_id#
+					agent_id = #agent_id#,
 					project_agent_role = '#project_agent_role#',
 					agent_position = #agent_position#,
 					project_agent_remarks='#project_agent_remarks#'
