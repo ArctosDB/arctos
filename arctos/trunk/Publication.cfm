@@ -12,20 +12,20 @@
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_type from ctpublication_type order by publication_type
 	</cfquery>
-	<cfquery name="ctpublication_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select publication_attribute from ctpublication_attribute order by publication_attribute
-	</cfquery>
 	<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication where publication_id=#publication_id#
 	</cfquery>
 	<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from publication_author_name,agent_name where 
-		publication_author_name.agent_name_id=agent_name.agent_name_id and 
-		publication_id=#publication_id#
+		select 
+			agent_name,
+			author_role 
+		from 
+			publication_agent,
+			preferred_agent_name 
+		where 
+			publication_agent.agent_id=preferred_agent_name.agent_id and 
+			publication_id=#publication_id#
 		order by author_position
-	</cfquery>
-	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from publication_attributes where publication_id=#publication_id#
 	</cfquery>
 	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select media_type from ctmedia_type order by media_type
@@ -34,15 +34,13 @@
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	<form name="editPub" method="post" action="Publication.cfm">
-		<div class="cellDiv">
-		The Basics:
 		<input type="hidden" name="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
 		<table>
 			<tr>
 				<td>
-					<label for="publication_title" onclick="getDocs('publication','title')" class="likeLink">Publication Title</label>
-					<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80">#pub.publication_title#</textarea>
+					<label for="full_citation" onclick="getDocs('publication','full_citation')" class="likeLink">Full Citation</label>
+					<textarea name="full_citation" id="full_citation" class="reqdClr" rows="3" cols="80">#pub.full_citation#</textarea>
 				</td>
 				<td>
 					<span class="infoLink" onclick="italicize('publication_title')">italicize selected text</span>
@@ -52,27 +50,37 @@
 				</td>
 			</tr>
 		</table>
-		<label for="publication_type" onclick="getDocs('publication','type')" class="likeLink">Publication Type</label>
-		<select name="publication_type" id="publication_type" class="reqdClr">
-			<option value=""></option>
-			<cfloop query="ctpublication_type">
-				<option <cfif publication_type is pub.publication_type> selected="selected" </cfif>
-					value="#publication_type#">#publication_type#</option>
-			</cfloop>
-		</select>
-		<label for="is_peer_reviewed_fg" onclick="getDocs('publication','peer_review')" class="likeLink">Peer Reviewed?</label>
-		<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
-			<option <cfif pub.is_peer_reviewed_fg is 1> selected="selected" </cfif>value="1">yes</option>
-			<option <cfif pub.is_peer_reviewed_fg is 0> selected="selected" </cfif>value="0">no</option>
-		</select>			
-		<label for="published_year" onclick="getDocs('publication','published_year')" class="likeLink">Published Year</label>
-		<input type="text" name="published_year" id="published_year" value="#pub.published_year#">
+		<label for="short_citation" onclick="getDocs('publication','short_citation')" class="likeLink">Short Citation</label>
+		<input type="text" id="short_citation" name="short_citation" value="#short_citation#" size="80">
+		<table>
+			<tr>
+				<td>
+					<label for="publication_type" onclick="getDocs('publication','type')" class="likeLink">Publication Type</label>
+					<select name="publication_type" id="publication_type" class="reqdClr">
+						<option value=""></option>
+						<cfloop query="ctpublication_type">
+							<option <cfif publication_type is pub.publication_type> selected="selected" </cfif>
+								value="#publication_type#">#publication_type#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<label for="is_peer_reviewed_fg" onclick="getDocs('publication','peer_review')" class="likeLink">Peer Reviewed?</label>
+					<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
+						<option <cfif pub.is_peer_reviewed_fg is 1> selected="selected" </cfif>value="1">yes</option>
+						<option <cfif pub.is_peer_reviewed_fg is 0> selected="selected" </cfif>value="0">no</option>
+					</select>	
+				</td>
+				<td>
+					<label for="published_year" onclick="getDocs('publication','published_year')" class="likeLink">Published Year</label>
+					<input type="text" name="published_year" id="published_year" value="#pub.published_year#">
+				</td>
+			</tr>
+		</table>
 		<label for="publication_loc">Storage Location</label>
 		<input type="text" name="publication_loc" id="publication_loc" size="80" value="#pub.publication_loc#">
 		<label for="publication_remarks">Remark</label>
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
-		</div>
-		<div class="cellDiv">
 		<span class="likeLink" onclick="getDocs('publication','author')">Authors</span>: <span class="infoLink" onclick="addAgent()">Add Row</span>
 			<table border id="authTab">
 				<tr>
@@ -95,7 +103,7 @@
 						</td>
 						<td>
 							<input type="text" name="author_name_#i#" id="author_name_#i#" class="reqdClr" size="50"
-								onchange="findAgentName('author_id_#i#',this.name,this.value)"
+								onchange="getAgent('author_id_#i#',this.name,'editPub',this.value)"
 			 					onkeypress="return noenter(event);"
 			 					value="#agent_name#">
 						</td>
@@ -106,58 +114,6 @@
 				</cfloop>
 				<input type="hidden" name="numberAuthors" id="numberAuthors" value="#i#">
 			</table>
-		</div>
-		<div class="cellDiv">
-		<span class="likeLink" onclick="getDocs('publication','attribute')">Attributes</span>:
-			Add: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
-				<option value=""></option>
-				<cfloop query="ctpublication_attribute">
-					<option value="#publication_attribute#">#publication_attribute#</option>
-				</cfloop>
-			</select>
-			<table border id="attTab">
-				<tr>
-					<th>Attribute</th>
-					<th>Value</th>
-					<th></th>
-				</tr>
-				<cfset i=0>
-				<cfloop query="atts">
-					<cfset i=i+1>
-					<input type="hidden" name="publication_attribute_id#i#" 
-								class="reqdClr" id="publication_attribute_id#i#" value="#publication_attribute_id#">							
-					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="attvalist">
-						<cfinvokeargument name="attribute" value="#publication_attribute#">
-						<cfinvokeargument name="returnFormat" value="plain">
-					</cfinvoke>
-					<tr id="attRow#i#">
-						<td>
-							<input type="hidden" name="attribute_type#i#" 
-								class="reqdClr" id="attribute_type#i#" value="#publication_attribute#">
-							#publication_attribute#
-						</td>
-						<td>
-							<cfif isquery(attvalist)>
-								<select name="attribute#i#" id="attribute#i#" class="reqdClr">
-									<cfloop query="attvalist">
-										<option <cfif v is atts.pub_att_value> selected="selected" </cfif>value="#v#">#v#</option>
-									</cfloop>
-								</select> 								
-							<cfelseif not isobject(attvalist)>
-								<input type="text" name="attribute#i#" id="attribute#i#" class="reqdClr" value="#pub_att_value#" size="50">
-							<cfelse>
-								error: 	<cfdump var="#attvalist#">	
-							</cfif>							
-						</td>
-						<td>
-							<span class="infoLink" onclick="deletePubAtt(#i#)">Delete</span>
-						</td>
-					</tr>
-				</cfloop>			
-			</table>
-		</div>
-		<input type="hidden" name="origNumberAttributes" id="origNumberAttributes" value="#i#">
-		<input type="hidden" name="numberAttributes" id="numberAttributes" value="#i#">
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		    select distinct 
 		        media.media_id,
