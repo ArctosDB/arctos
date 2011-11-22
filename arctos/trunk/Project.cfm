@@ -494,6 +494,13 @@
 				WHERE 
 					project_agent_id = #project_agent_id#
 			</cfquery>
+			UPDATE project_agent SET
+					agent_id = #agent_id#,
+					project_agent_role = '#project_agent_role#',
+					agent_position = #agent_position#,
+					project_agent_remarks='#project_agent_remarks#'
+				WHERE 
+					project_agent_id = #project_agent_id#
 		</cfif>
 		<cfif len(new_agent_id) gt 0>
 			  <cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -512,7 +519,9 @@
 				 	)                 
 				 </cfquery>
 		</cfif>
+		<!----
   		<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
+	---->
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
