@@ -13,6 +13,11 @@
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_type from ctpublication_type order by publication_type
 	</cfquery>
+	<cfquery name="ctAgentRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select PROJECT_AGENT_ROLE agent_role from CTPROJECT_AGENT_ROLE order by PROJECT_AGENT_ROLE
+		union
+		select AUTHOR_ROLE agent_role from CTAUTHOR_ROLE order by AUTHOR_ROLE
+		</cfquery>
 	<h2>Publication / Project Search</h2>
 	<form action="SpecimenUsage.cfm" method="post">
 		<input name="action" type="hidden" value="search">
@@ -40,7 +45,18 @@
 					<input name="p_title" id="p_title" type="text">
 					<label for="author"><span class="helpLink" id="project_publication_agent">Participant</span></label>
 					<input name="author" id="author" type="text">
-					-- participant role here --
+					<label for="agent_role">Agent Role</label>
+					<select name="agent_role" id="agent_role">
+						<option value="">anything</option>
+						<cfloop query="ctAgentRole">
+							<option value="#agent_role#">#agent_role#</option>
+						</cfloop>
+						<option value="loan">Uses Specimens</option>
+						<option value="loan_no_pub">Uses Specimens, no publication</option>
+						<option value="accn">Contributes Specimens</option>
+						<option value="both">Uses and Contributes</option>
+						<option value="neither">Neither Uses nor Contributes</option>
+					</select>
 					<label for="year"><span class="helpLink" id="project_publication_year">Year</span></label>
 					<input name="year" id="year" type="text">
 				</td>
@@ -133,10 +149,16 @@
 					project_agent,
 					preferred_agent_name">
 		<cfset whr="
-				WHERE 
+				WHERE
 					project.project_id = project_agent.project_id (+) AND
 					project_agent.agent_id = preferred_agent_name.agent_id (+)">
-		<cfset go="no">		
+		<cfset go="no">	
+			
+		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
+			<cfset title = "#agent_role#">
+			<cfset go="yes">
+			<cfset whr = "#whr# ANDproject_agent.project_agent_role='#agent_role#'">
+		</cfif>	
 		<cfif isdefined("p_title") AND len(p_title) gt 0>
 			<cfset title = "#p_title#">
 			<cfset go="yes">
@@ -267,6 +289,10 @@
 		<cfset basWhere = "#basWhere# AND UPPER(regexp_replace(publication.publication_title,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(p_title))#%'">
 		<cfset go="yes">
 	</cfif>
+	<cfif isdefined("agent_role") AND len(agent_role) gt 0>
+		<cfset basWhere = "#basWhere# AND publication_agent.author_role='#agent_role#'">
+		<cfset go="yes">
+	</cfif>
 	<cfif isdefined("publication_type") AND len(#publication_type#) gt 0>
 		<cfset basWhere = "#basWhere# AND publication.publication_type = '#publication_type#'">
 		<cfset go="yes">
@@ -335,7 +361,7 @@
 			AND catItemTaxa.accepted_id_fg = 1
 			AND upper(catItemTaxa.scientific_name) LIKE '%#ucase(current_Sci_Name)#%'">
 	</cfif>
-	<cfif isdefined("cited_Sci_Name") AND len(#cited_Sci_Name#) gt 0>
+	<cfif isdefined("cited_Sci_Name") AND len(cited_Sci_Name) gt 0>
 		<cfset go="yes">
 		<cfset basFrom = "#basFrom# ,
 			citation CITED_NAME_CITATION, taxonomy CitTaxa">
@@ -355,19 +381,12 @@
 			ORDER BY 
 				full_citation,
 				publication.publication_id">
-	<!---<cfset checkSql(basSQL)>--->	
-	
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
-	
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<a href="/Reports/SpecUsageReport.cfm?project_id=#valuelist(projects.project_id)#&publication_id=#valuelist(publication.publication_id)#">Create Report Data</a>
-	</cfif>	
-	
-	
-	
-	
+	</cfif>
 	<cfset i=1>
 	<table border width="90%"><tr><td width="50%" valign="top">
 		
