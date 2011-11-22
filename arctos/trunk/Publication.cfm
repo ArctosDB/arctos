@@ -384,9 +384,14 @@
 				$('#media_desc').val('').removeClass('reqdClr');
 			}
 		}
+		function doiMagic(){
+			alert('boo');
+		}
 	</script>
 	<cfoutput>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
+			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
+			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" onclick="doiMagic()">magic</span>
 			<input type="hidden" name="action" value="createPub">
 			<table>
 				<tr>
@@ -462,7 +467,6 @@
 				</cfloop>
 			</table>
 			<input type="hidden" name="numNewAuths" id="numNewAuths" value="#numNewAuths#">
-			
 			
 			
 			<span class="likeLink" id="mediaToggle" onclick="toggleMedia()">[ Add Media ]</span>
