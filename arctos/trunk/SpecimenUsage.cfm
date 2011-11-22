@@ -40,13 +40,16 @@
 					<input name="p_title" id="p_title" type="text">
 					<label for="author"><span class="helpLink" id="project_publication_agent">Participant</span></label>
 					<input name="author" id="author" type="text">
+					-- participant role here --
 					<label for="year"><span class="helpLink" id="project_publication_year">Year</span></label>
 					<input name="year" id="year" type="text">
 				</td>
 				<td>
-					<h4>Project</h4>					
+					<h4>Project</h4>	
+					<!---				
 					<label for="sponsor"><span class="helpLink" id="project_sponsor">Project Sponsor</span></label>
 					<input name="sponsor" id="sponsor" type="text">
+					--->
 					<label for="project_type"><span class="helpLink" id="project_type">Project Type</span></label>
 					<select name="project_type" id="project_type">
 						<option value=""></option>
@@ -395,18 +398,18 @@
 			</cfquery>
 			<cfquery name="thisSponsor" dbtype="query">
 				SELECT 
-					ACKNOWLEDGEMENT,
-					sponsor_name
+					PROJECT_AGENT_REMARKS,
+					agent_name
 				FROM 
 					projects 
 				WHERE 
 					project_id = #project_id# and
-					sponsor_name is not null
+					PROJECT_AGENT_ROLE='Sponsor'
 				GROUP BY 
-					ACKNOWLEDGEMENT,
-					sponsor_name
+					PROJECT_AGENT_REMARKS,
+					agent_name
 				ORDER BY 
-					sponsor_name
+					agent_name
 			</cfquery>
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<a href="/ProjectDetail.cfm?project_id=#project_id#">
@@ -415,7 +418,7 @@
 					</div>
 				</a>
 				<cfloop query="thisSponsor">
-					Sponsored by #sponsor_name# <cfif len(ACKNOWLEDGEMENT) gt 0>: #ACKNOWLEDGEMENT#</cfif><br>
+					Sponsored by #agent_name# <cfif len(PROJECT_AGENT_REMARKS) gt 0>: #PROJECT_AGENT_REMARKS#</cfif><br>
 				</cfloop>
 				<cfloop query="thisAuth">
 					#agent_name# (#project_agent_role#)<br>
