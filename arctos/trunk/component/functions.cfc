@@ -15,6 +15,17 @@
 			<cfset publicationtype="journal article">
 			<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors.xmlchildren)>
 			<br>numberOfAuthors: #numberOfAuthors#
+			<cfset auths="">
+			<cfloop from="1" to="#numberOfAuthors#" index="i">
+				<br>--#r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name#
+			</cfloop>
+
+<cfset BookXML = xmlparse(BookNodes[i])>
+<b>ISBN:</b> #BookXML.book.isbn.xmltext#<br>
+<b>Title:</b> #BookXML.book.title.xmlText#<br>
+<b>Author:</b> #BookXML.book.author.xmlText#<br><br>
+</cfloop>
+			
 			<cfset auths=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors>
 			<cfdump var=#auths#>
 			
