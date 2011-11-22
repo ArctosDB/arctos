@@ -8,72 +8,57 @@
 		
 	<cfset statusCode=left(cfhttp.statuscode,3)>
 	<cfset pubType="">
-	<cfif statusCode is "200">
+	<cfif statusCode is "200" and structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"journal")>
 		<cfset r=xmlParse(cfhttp.fileContent)>
-		<cfdump var=#r#>
-		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"journal")>
-			<cfset publicationtype="journal article">
-			<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors.xmlchildren)>
-			<br>numberOfAuthors: #numberOfAuthors#
-			<cfset auths="">
-			<cfloop from="1" to="#numberOfAuthors#" index="i">
-				<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name>
-				<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname>
-				<cfset thisName=fName & ' ' & lName>
-				<cfset auths=listappend(auths,thisName,"|")>
-			</cfloop>
-			<cfif listlen(auths,"|") is 2>
-				<cfset auths=replace(auths,"|","and")>
-			<cfelse>
-				<cfset auths=listchangedelims(auths,",","|")>
-			</cfif>
-			<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date.year.xmltext>
-			<cfset pubTitle=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.titles.title.xmltext>
-			<cfset jName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_metadata.full_title.xmltext>
-			<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue..journal_volume.volume.xmltext>
-			<cfset jIssue=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.issue.xmltext>
-			
-			<cfset fPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.first_page.xmltext>
-			<cfset lPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.last_page.xmltext>
-			<br>fPage=#fPage#
-			<br>lPage=#lPage#
-			<br>jIssue=#jIssue#
-			<br>jVol=#jVol#
-			<br>jName=#jName#
-			
-			<br>pubTitle=#pubTitle#
-			<br>
-			pubYear=#pubYear#
-			
-<br>
-			auths=#auths#
-	
-	<br>		Amy C. Hirons, Donald M. Schell, David J. St. Aubin. 2001. Growth rates of vibrissae of harbor seals (Phoca vitulina) and Steller sea lions (Eumetopias jubatus). Canadian Journal of Zoology 79:1053-1061. 
-			
-			
-			
-			
-		<cfelseif structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"book")>
-			<cfset publicationtype="book">
+		<cfset publicationtype="journal article">
+		<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors.xmlchildren)>
+		<cfset rauths="">
+		<cfloop from="1" to="#numberOfAuthors#" index="i">
+			<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name>
+			<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname>
+			<cfset thisName=fName & ' ' & lName>
+			<cfset rauths=listappend(auths,thisName,"|")>
+		</cfloop>
+		<cfif listlen(auths,"|") is 2>
+			<cfset auths=replace(rauths,"|","and")>
 		<cfelse>
-			<cfset publicationtype="">
+			<cfset auths=listchangedelims(rauths,",","|")>
+		</cfif>
+		<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date.year.xmltext>
+		<cfset pubTitle=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.titles.title.xmltext>
+		<cfset jName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_metadata.full_title.xmltext>
+		<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue..journal_volume.volume.xmltext>
+		<cfset jIssue=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.issue.xmltext>
+		<cfset fPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.first_page.xmltext>
+		<cfset lPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.last_page.xmltext>
+		<cfset longCit="#auths#. #pubYear#. #pubTitle#. #jName# #jVol#(#jIssue#):#fPage#-#lPage#.">
+		<cfif numberOfAuthors is 1>
+			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname>
+			<cfset shortCit="#faln# #pubYear#">
+		<cfelseif numberOfAuthors is 2>
+			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname>
+			<cfset saln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[2].surname>
+			<cfset shortCit="#faln# and #saln# #pubYear#">
+		<cfelse>
+			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname>
+			<cfset shortCit="#faln# et al. #pubYear#">
 		</cfif>
 		
-		pubType=#pubType#
+		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
+		<cfset temp = QuerySetCell(d, "PUBLICATIONTYPE", 'journal article', 1)>
+		<cfset temp = QuerySetCell(d, "LONGCITE", longCit, 1)>
+		<cfset temp = QuerySetCell(d, "SHORTCITE", shortCit, 1)>
+		<cfset temp = QuerySetCell(d, "YEAR", pubYear, 1)>
+		<cfset temp = QuerySetCell(d, "AUTHORS", rauths, 1)>	
 	<cfelse>
-		<cfset statusCode=cfhttp.statuscode>
+		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'fail', 1)>
 	</cfif>
-	
-	
-	<br /><cfset d = querynew("STATUSCODE,PUBLICATIONTYPE")>
-	<cfset temp = queryaddrow(d,1)>
-	
-		<cfset temp = QuerySetCell(d, "STATUSCODE", left(cfhttp.statuscode,3), 1)>
-		<cfset temp = QuerySetCell(d, "I", i, 1)>
-		
-		
-		
-	</cfoutput>
+	<cfreturn d>
+</cfoutput>
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="get_docs" access="remote">

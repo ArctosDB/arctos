@@ -385,13 +385,30 @@
 			}
 		}
 		function doiMagic(){
-			alert('boo');
+			alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
+			$("#doilookup").html('<image src="/images/indicator.gif">');
+			
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "doiMagic",
+					doi : $('#doi').val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (d) {
+					if(d.DATA.STATUS=='FAIL'){
+						alert('sorray');
+					} else {
+						alert('woot!');
+					}
+				}
+			); 	
 		}
 	</script>
 	<cfoutput>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
-			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" onclick="doiMagic()">magic</span>
+			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" id="doilookup" onclick="doiMagic()">magic</span>
 			<input type="hidden" name="action" value="createPub">
 			<table>
 				<tr>
