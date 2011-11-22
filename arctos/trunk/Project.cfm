@@ -334,37 +334,41 @@
 						Add Agent:
 					</td>
 				</tr>
-				<tr class="newRec">
-					<td>	
-						##<select name="new_agent_position" size="1" class="reqdClr">
-							<cfloop from="1" to="#numberOfAgents#" index="i">
-								<option 
-									<cfif numberOfAgents is i> selected </cfif>	value="#i#">#i#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td>
-						<input type="text" name="new_agent_name" id="new_agent_name" 
-							class="reqdClr" 
-							onchange="getAgent('new_agent_id',this.id,'project',this.value); return false;"
-							onKeyPress="return noenter(event);">
-						<input type="hidden" name="new_agent_id" id="new_agent_id">
-					</td>
-					<td>
-						<select name="new_role" size="1" class="reqdClr">
-							<cfloop query="ctProjAgRole">
-								<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
-								</option>
-							</cfloop>
-						</select>
-					</td>
-					<td>
-						<input type="text" name="new_project_agent_remarks" id="new_project_agent_remarks">
-					</td>
-					<td>
-					--
-					</td>
-				</tr>
+				<cfset numNewAgents=3>
+				<input type="hidden" name="numNewAgents" value="#numNewAgents#">
+				<cfloop from="1" to="#numNewAgents#" index="i">
+					<tr class="newRec">
+						<td>	
+							##<select name="new_agent_position#i#" size="1" class="reqdClr">
+								<cfloop from="1" to="#numberOfAgents#" index="i">
+									<option 
+										<cfif numberOfAgents is i> selected </cfif>	value="#i#">#i#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="new_agent_name#i#" id="new_agent_name#i#" 
+								class="reqdClr" 
+								onchange="getAgent('new_agent_id#i#',this.id,'project',this.value); return false;"
+								onKeyPress="return noenter(event);">
+							<input type="hidden" name="new_agent_id#i#" id="new_agent_id#i#">
+						</td>
+						<td>
+							<select name="new_role#i#" size="1" class="reqdClr">
+								<cfloop query="ctProjAgRole">
+									<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
+									</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="new_project_agent_remarks#i#" id="new_project_agent_remarks#i#">
+						</td>
+						<td>
+						--
+						</td>
+					</tr>
+				</cfloop>
 			</table>
 			<input type="submit" value="Save Updates" class="savBtn">
 			<input type="button" value="Delete Project" class="delBtn" onclick="document.project.action.value='deleteProject';submit();">
@@ -499,7 +503,12 @@
 						project_agent_id = #project_agent_id#
 			</cfif>
 		</cfloop>
-		<cfif len(new_agent_id) gt 0>
+		<cfloop from="1" to="#numNewAgents#" index="n">
+			<cfset new_agent_id = evaluate("new_agent_id" & n)>
+			<cfset new_role = evaluate("new_role" & n)>
+			<cfset new_agent_position = evaluate("new_agent_position" & n)>
+			<cfset new_project_agent_remarks = evaluate("new_project_agent_remarks" & n)>
+			<cfif len(new_agent_id) gt 0>
 			  <cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				 INSERT INTO project_agent (
 				 	 PROJECT_ID,
@@ -515,7 +524,8 @@
 					 '#new_project_agent_remarks#'                
 				 	)                 
 				 </cfquery>
-		</cfif>
+			</cfif>
+		</cfloop>		
   		<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
 		<!----
 	---->
