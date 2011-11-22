@@ -11,8 +11,8 @@
 		<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors.xmlchildren)>
 		<cfset rauths="">
 		<cfloop from="1" to="#numberOfAuthors#" index="i">
-			<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name>
-			<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname>
+			<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name.xmltext>
+			<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname.xmltext>
 			<cfset thisName=fName & ' ' & lName>
 			<cfset rauths=listappend(rauths,thisName,"|")>
 		</cfloop>
@@ -30,14 +30,14 @@
 		<cfset lPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.last_page.xmltext>
 		<cfset longCit="#auths#. #pubYear#. #pubTitle#. #jName# #jVol#(#jIssue#):#fPage#-#lPage#.">
 		<cfif numberOfAuthors is 1>
-			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname>
+			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
 			<cfset shortCit="#faln# #pubYear#">
 		<cfelseif numberOfAuthors is 2>
-			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname>
-			<cfset saln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[2].surname>
+			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
+			<cfset saln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[2].surname.xmltext>
 			<cfset shortCit="#faln# and #saln# #pubYear#">
 		<cfelse>
-			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname>
+			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
 			<cfset shortCit="#faln# et al. #pubYear#">
 		</cfif>
 		
