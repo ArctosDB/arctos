@@ -1,5 +1,11 @@
 <cfcomponent>
 	<!------------------------------------------------------------------->
+<cffunction name="doiMagic" access="remote">	
+	<cfargument name="doi" type="string" required="yes">
+	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
+	<cfdump var=#cfhttp.fileContent#>
+</cffunction>
+<!------------------------------------------------------------------->
 <cffunction name="get_docs" access="remote">
 	<!---
 		deal with whatever structure we have on the doc site here
