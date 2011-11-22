@@ -14,10 +14,12 @@
 		select publication_type from ctpublication_type order by publication_type
 	</cfquery>
 	<cfquery name="ctAgentRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select PROJECT_AGENT_ROLE agent_role from CTPROJECT_AGENT_ROLE order by PROJECT_AGENT_ROLE
-		union
-		select AUTHOR_ROLE agent_role from CTAUTHOR_ROLE order by AUTHOR_ROLE
-		</cfquery>
+		select agent_role from (
+			select PROJECT_AGENT_ROLE agent_role from CTPROJECT_AGENT_ROLE
+			union
+			select AUTHOR_ROLE agent_role from CTAUTHOR_ROLE
+		) order by agent_role
+	</cfquery>
 	<h2>Publication / Project Search</h2>
 	<form action="SpecimenUsage.cfm" method="post">
 		<input name="action" type="hidden" value="search">
