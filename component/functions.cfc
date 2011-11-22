@@ -3,7 +3,6 @@
 <cffunction name="doiMagic" access="remote">	
 	<cfargument name="doi" type="string" required="yes">
 	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
-	<cfdump var=#cfhttp#>
 	<cfoutput>
 	
 		
@@ -24,6 +23,8 @@
 			</cfloop>
 			<cfif listlen(auths,"|") is 2>
 				<cfset auths=replace(auths,"|","and")>
+			<cfelse>
+				<cfset auths=listchangedelims(auths,",")>
 			</cfif>
 			
 <br>
