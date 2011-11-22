@@ -111,7 +111,7 @@
 <cfif action is "editProject">
 	<script>
 		function removeAgent(i) {
-		 	$("#agent_id_" + i).val(-1);
+		 	$("#projAgentRow" + i).hide();
 		 	$("#agent_name_" + i).val('deleted');
 		}
 	</script>
@@ -283,21 +283,20 @@
 					<td colspan="2">
 						<a href="javascript:void(0);" onClick="getDocs('project','agent')">Project&nbsp;Agents</a>
 					</td>
-					<td colspan="2">
+					<td>
 						<a href="javascript:void(0);" onClick="getDocs('project','agent_role')">Agent&nbsp;Role</a>
 					</td>
 					<td>Proj.Agnt.Remk.</td>
 				</tr>
-				
-				
 				<cfset i=0>
 				<cfloop query="agents">
 					 <cfset i = i+1>
 					<input type="hidden" name="agent_id_#i#" value="#agent_id#">
-					<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<input type="hidden" name="project_agent_id_#i#" value="#project_agent_id#">
+					<tr id="projAgentRow#i#"	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<td>
 							##
-							<select name="agent_position" size="1" class="reqdClr">
+							<select name="agent_position_#i#" size="1" class="reqdClr">
 								<cfloop from="1" to="#numberOfAgents#" index="a">
 									<option <cfif agent_position is a> selected="selected" </cfif> value="#a#">#a#</option>
 								</cfloop>
@@ -370,10 +369,9 @@
 					</td>
 				</tr>
 			</table>
-				<input type="submit" value="Save Updates" class="savBtn">
-						<input type="button" value="Delete Project" class="delBtn"
-							onclick="document.project.action.value='deleteProject';submit();">
-			</form>
+			<input type="submit" value="Save Updates" class="savBtn">
+			<input type="button" value="Delete Project" class="delBtn" onclick="document.project.action.value='deleteProject';submit();">
+		</form>
 			
 			
 			<a name="trans"></a>
@@ -459,6 +457,66 @@
 			</p>	
 		</cfoutput>
 </cfif>
+
+
+<!------------------------------------------------------------------------------------------->
+<cfif action is "save">
+	<cfoutput>
+  		<cfquery name="upProject" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+ 			UPDATE project SET
+ 				project_name = '#project_name#',
+				start_date = '#dateformat(start_date,"yyyy-mm-dd")#',
+				 end_date = '#dateformat(end_date,"yyyy-mm-dd")#',
+				 project_description = '#project_description#',
+				 project_remarks = '#project_remarks#'
+			where project_id=#project_id#
+		</cfquery>
+		<cfloop from="1" to="#numberOfAgents#" index="n">
+			<cfset project_agent_id = evaluate("project_agent_id_" & n)>
+			<cfset agent_id = evaluate("agent_id_" & n)>
+			<cfset agent_position = evaluate("agent_position_" & n)>
+			<cfset agent_name = evaluate("agent_name_" & n)>
+			<cfset project_agent_role = evaluate("project_agent_role_" & n)>
+			<cfset project_agent_remarks = evaluate("project_agent_remarks_" & n)>
+			<cfset project_agent_id = evaluate("project_agent_id_" & n)>
+		</cfloop>
+		<cfif agent_name is "deleted">
+			<cfquery name="deleAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+ 				DELETE FROM project_agent where project_agent_id=#project_agent_id#
+			</cfquery>
+		<cfelse>
+			<cfquery name="upProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			 	UPDATE project_agent SET
+					agent_id = #agent_id#
+					project_agent_role = '#project_agent_role#',
+					agent_position = #agent_position#,
+					project_agent_remarks='#project_agent_remarks#'
+				WHERE 
+					project_agent_id = #project_agent_id#
+			</cfquery>
+		</cfif>
+		<cfif len(new_agent_id) gt 0>
+			  <cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				 INSERT INTO project_agent (
+				 	 PROJECT_ID,
+					 AGENT_ID,
+					 PROJECT_AGENT_ROLE,
+					 AGENT_POSITION,
+					 project_agent_remarks)
+				VALUES (
+					#PROJECT_ID#,
+					 #new_agent_id#,
+					 '#new_role#',
+					 #new_agent_position#,
+					 '#new_project_agent_remarks#'                
+				 	)                 
+				 </cfquery>
+		</cfif>
+  		<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------->
+
 <!------------------------------------------------------------------------------------------->
 <cfif action is "removeTaxonomy">
 	<cfoutput>
