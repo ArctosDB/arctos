@@ -20,7 +20,7 @@
 		crossref
 		<cfdump var=#crossref#>
 		
-		<cfset pubType=r.doi_records[1].doi_record[1].crossref[1].xmlText>
+		<cfset pubType=r.doi_records[1].doi_record[1].crossref[1].xmlChildren[1].xmlText>
 		<hr>
 		
 		pubType=#pubType#
