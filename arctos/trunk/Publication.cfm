@@ -94,8 +94,8 @@
 				<cfset i=0>
 				<cfloop query="auth">
 					<cfset i=i+1>
-					<input type="hidden" name="publication_agent_id#i#" id="publication_agent_id#i#" value="#publication_agent_id#">
 					<input type="hidden" name="agent_id#i#" id="agent_id#i#" value="#agent_id#">
+					<input type="hidden" name="publication_agent_id#i#" id="publication_agent_id#i#" value="#publication_agent_id#">
 					<tr id="authortr#i#">
 						<td>
 							<select name="author_role_#i#" id="author_role_#i#">
@@ -204,17 +204,8 @@
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "deletePub">
 	<cftransaction>
-		<cfquery name="dformatted_publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			delete from formatted_publication where publication_id=#publication_id#
-		</cfquery>
 		<cfquery name="dpublication_author_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from publication_author_name where publication_id=#publication_id#
-		</cfquery>
-		<cfquery name="dpublication_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			delete from publication_attributes where publication_id=#publication_id#
-		</cfquery>
-		<cfquery name="dpublication_url" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			delete from publication_url where publication_id=#publication_id#
 		</cfquery>
 		<cfquery name="dpublication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from publication where publication_id=#publication_id#
@@ -222,7 +213,6 @@
 	</cftransaction>
 	it's gone.
 </cfif>
-
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "saveEdit">
 <cfoutput>
@@ -232,8 +222,9 @@
 				published_year=<cfif len(published_year) gt 0>#published_year#<cfelse>NULL</cfif>,
 				publication_type='#publication_type#',
 				publication_loc='#publication_loc#',
-				publication_title='#publication_title#',
-				publication_remarks='#publication_remarks#',
+				full_citation='#escapeQuotes(full_citation)#',
+				short_citation='#escapeQuotes(short_citation)#',
+				publication_remarks='#escapeQuotes(publication_remarks)#',
 				is_peer_reviewed_fg=#is_peer_reviewed_fg#				
 			where publication_id=#publication_id#
 		</cfquery>
@@ -264,168 +255,41 @@
 					label_value)
 				values (#media_id#,'description','#media_desc#')
 			</cfquery>
-		</cfif>	
+		</cfif>
+		
 		<cfloop from="1" to="#numberAuthors#" index="n">
-			<cfset thisAgentNameId = #evaluate("author_id_" & n)#>
-			<cfif isdefined("author_role_#n#")>
-				<cfset thisAuthorRole = #evaluate("author_role_" & n)#>
-			<cfelse>
-				<cfset thisAuthorRole = "">
-			</cfif>
-			<cfif isdefined("publication_author_name_id#n#")>
-				<cfset thisRowId = #evaluate("publication_author_name_id" & n)#>
-			<cfelse>
-				<cfset thisRowId ="">
-			</cfif>
-			<cfif isdefined("author_position#n#")>
-				<cfset thisAuthPosn = #evaluate("author_position" & n)#>			
-			<cfelse>
-				<cfset thisAuthPosn=n>
-			</cfif>			
-			<cfif thisAgentNameId is -1 and thisRowId gt 0>
-				<!--- deleting --->
+			<cfset publication_agent_id = evaluate("publication_agent_id" & n)>
+			<cfset agent_id = evaluate("agent_id" & n)>
+			<cfset author_role = evaluate("author_role_" & n)>
+			<cfset author_name = evaluate("author_name_" & n)>
+			<cfif author_name is "deleted">
 				<cfquery name="delAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					delete from publication_author_name where 
-					publication_id=#publication_id# and
-					publication_author_name_id=#thisRowId#
+					delete from publication_agent where 
+					publication_agent_id=#publication_agent_id# 
 				</cfquery>
-				<cfquery name="incAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					update publication_author_name set author_position=author_position-1 where
-					publication_id=#publication_id# and
-					author_position>#thisAuthPosn#
-				</cfquery>
-			<cfelseif thisAgentNameId gt 0 and thisRowId gt 0>
-				<!--- updating --->
-				<cfquery name="upAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					update 
-						publication_author_name 
-					set 
-						agent_name_id=#thisAgentNameId#,
-						author_role='#thisAuthorRole#'
-					where
-						publication_id=#publication_id# and
-						publication_author_name_id=#thisRowId#
-				</cfquery>
-			<cfelseif thisAgentNameId gt 0 and len(thisRowId) is 0>
-				<!--- inserting --->
+			<cfelseif len(publication_agent_id) is 0>
 				<cfquery name="insAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					insert into publication_author_name (
+					insert into publication_agent (
 						publication_id,
-						agent_name_id,
-						author_position,
+						agent_id,
 						author_role
 					) values (
 						#publication_id#,
-						#thisAgentNameId#,
-						#thisAuthPosn#,
-						'#thisAuthorRole#'
+						#agent_id#,
+						'#author_role#'
 					)
 				</cfquery>
-			</cfif>
-		</cfloop>
-		<cfloop from="1" to="#numberAttributes#" index="n">
-			<cfif isdefined("attribute_type#n#")>
-				<cfset thisAttribute = #evaluate("attribute_type" & n)#>
 			<cfelse>
-				<cfset thisAttribute = "">
-			</cfif>
-			<cfset thisAttVal = #evaluate("attribute" & n)#>
-			<cfif isdefined("publication_attribute_id#n#")>
-				<cfset thisAttId = #evaluate("publication_attribute_id" & n)#>
-			<cfelse>
-				<cfset thisAttId = "">
-			</cfif>
-			<cfif thisAttVal is "deleted">
-				<cfquery name="delAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					delete from publication_attributes where publication_attribute_id=#thisAttId#
-				</cfquery>
-			<cfelseif thisAttId gt 0>
-				<cfquery name="upAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					update
-						publication_attributes 
-					set
-						publication_attribute='#thisAttribute#',
-						pub_att_value='#thisAttVal#'
-					where publication_attribute_id=#thisAttId#
-				</cfquery>
-			<cfelseif len(thisAttId) is 0 and len(thisAttVal) gt 0>
-				<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					insert into publication_attributes (
-						publication_id,
-						publication_attribute,
-						pub_att_value
-					) values (
-						#publication_id#,
-						'#thisAttribute#',
-						'#thisAttVal#'
-					)
-				</cfquery>
-			</cfif>
-		</cfloop>
-		<cfloop from="1" to="#numberLinks#" index="n">
-			<cfif isdefined("link#n#")>
-				<cfset thisLink = #evaluate("link" & n)#>
-			<cfelse>
-				<cfset thisLink = "">
-			</cfif>
-			<cfif isdefined("description#n#")>
-				<cfset thisDesc = #evaluate("description" & n)#>
-			<cfelse>
-				<cfset thisDesc = "">
-			</cfif>
-			<cfif isdefined("publication_url_id#n#")>
-				<cfset thisId = #evaluate("publication_url_id" & n)#>
-			<cfelse>
-				<cfset thisId = "">
-			</cfif>
-			<cfif thisLink is "deleted">
-				<cfquery name="delAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					delete from publication_url where publication_url_id=#thisId#
-				</cfquery>
-			<cfelseif thisLink is not "deleted" and thisId gt 0>
-				<cfquery name="upAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					update
-						publication_url 
-					set
-						link='#thisLink#',
-						description='#thisDesc#'
-					where publication_url_id=#thisId#
-				</cfquery>
-			<cfelseif len(thisId) is 0 and len(thisLink) gt 0>
-				<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					insert into publication_url (
-						publication_id,
-						link,
-						description
-					) values (
-						#publication_id#,
-						'#thisLink#',
-						'#thisDesc#'
-					)
+				<cfquery name="uAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update publication_agent set
+						agent_id=#agent_id#,
+						author_role='#author_role#'
+					where
+						publication_agent_id=#publication_agent_id# 
 				</cfquery>
 			</cfif>
 		</cfloop>
 	</cftransaction>
-	<!--- now get the formatted publications --->
-	<cfinvoke component="/component/publication" method="shortCitation" returnVariable="shortCitation">
-		<cfinvokeargument name="publication_id" value="#publication_id#">
-		<cfinvokeargument name="returnFormat" value="plain">
-	</cfinvoke>
-	<cfinvoke component="/component/publication" method="longCitation" returnVariable="longCitation">
-		<cfinvokeargument name="publication_id" value="#publication_id#">
-		<cfinvokeargument name="returnFormat" value="plain">
-	</cfinvoke>
-				
-	<cfquery name="sfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update formatted_publication set formatted_publication='#shortCitation#' where
-		publication_id=#publication_id# and
-		format_style='short'
-	</cfquery>
-	<cfquery name="lfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update formatted_publication set formatted_publication='#longCitation#' where
-		publication_id=#publication_id# and
-		format_style='long'
-	</cfquery>
 	<cflocation url="Publication.cfm?action=edit&publication_id=#publication_id#" addtoken="false">
 </cfoutput>
 </cfif>
