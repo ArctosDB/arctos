@@ -52,12 +52,12 @@
 	<cfelse>
 		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
 		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "STATUS", 'fail', 1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfhttp.statuscode#:notjournal ', 1)>
 	</cfif>
 	<cfcatch>
 		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
 		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "STATUS", 'fail', 1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfcatch.detail#', 1)>
 	</cfcatch>
 	</cftry>
 	<cfreturn d>
