@@ -9,7 +9,7 @@
 		<cfset statusCode=200>
 		<cfset r=xmlParse(cfhttp.fileContent)>
 		<cfdump var=#r#>
-		<cfset pubType=r.doi_records.doi_record[1].xmlText>
+		<cfset pubType=r.doi_records.doi_record[0].xmlText>
 		<hr>
 		
 		pubType=#pubType#
