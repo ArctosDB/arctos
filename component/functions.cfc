@@ -4,6 +4,7 @@
 	<cfargument name="doi" type="string" required="yes">
 	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
 	<cfoutput>
+	<cftry>
 	<cfset r=xmlParse(cfhttp.fileContent)>
 	
 	<cfif left(cfhttp.statuscode,3) is "200" and structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"journal")>
@@ -13,7 +14,7 @@
 			<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name>
 			<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname>
 			<cfset thisName=fName & ' ' & lName>
-			<cfset rauths=listappend(auths,thisName,"|")>
+			<cfset rauths=listappend(rauths,thisName,"|")>
 		</cfloop>
 		<cfif listlen(auths,"|") is 2>
 			<cfset auths=replace(rauths,"|","and")>
@@ -53,6 +54,12 @@
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'fail', 1)>
 	</cfif>
+	<cfcatch>
+		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'fail', 1)>
+	</cfcatch>
+	</cftry>
 	<cfreturn d>
 </cfoutput>
 </cffunction>
