@@ -17,11 +17,16 @@
 			<br>numberOfAuthors: #numberOfAuthors#
 			<cfset auths="">
 			<cfloop from="1" to="#numberOfAuthors#" index="i">
-				<br>--#r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name#
-			</cfloop>
+				<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name>
+				<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname>
+				<cfset thisName=fName & ' ' & surname>
 
-			
-			Amy C. Hirons, Donald M. Schell, David J. St. Aubin. 2001. Growth rates of vibrissae of harbor seals (Phoca vitulina) and Steller sea lions (Eumetopias jubatus). Canadian Journal of Zoology 79:1053-1061. 
+				<cfset auths=listappend(auths,thisName)>
+			</cfloop>
+<br>
+			auths=#auths#
+	
+	<br>		Amy C. Hirons, Donald M. Schell, David J. St. Aubin. 2001. Growth rates of vibrissae of harbor seals (Phoca vitulina) and Steller sea lions (Eumetopias jubatus). Canadian Journal of Zoology 79:1053-1061. 
 			
 			
 			
