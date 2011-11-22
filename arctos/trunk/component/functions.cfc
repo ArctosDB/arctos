@@ -24,7 +24,7 @@
 			<cfif listlen(auths,"|") is 2>
 				<cfset auths=replace(auths,"|","and")>
 			<cfelse>
-				<cfset auths=listchangedelims(auths,",")>
+				<cfset auths=listchangedelims(auths,",","|")>
 			</cfif>
 			
 <br>
