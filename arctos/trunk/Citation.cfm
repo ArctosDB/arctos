@@ -255,9 +255,7 @@
 			id="submit"
 			title="Insert Citation"
 			value="Insert Citation" 
-			class="insBtn"
-			onmouseover="this.className='insBtn btnhov'" 
-			onmouseout="this.className='insBtn'">
+			class="insBtn">
 	</td>
 	
 	</form>

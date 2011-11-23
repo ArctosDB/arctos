@@ -1339,7 +1339,7 @@
 				where
 					cataloged_item.collection_object_id = identification.collection_object_id AND
 					accepted_id_fg=1 and
-					cat_num=#theNum# and
+					cat_num='#theNum#' and
 					collection_id=#collection_id#
 			</cfquery>
 		<cfelse>
