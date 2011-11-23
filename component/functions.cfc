@@ -15,6 +15,12 @@
 		<cfset rauths="">
 		<cfset lPage=''>
 		<cfset pubYear=''>
+		<cfset jVol=''>
+		<cfset jIssue=''>
+		<cfset fPage=''>
+		
+		
+		
 		<cfloop from="1" to="#numberOfAuthors#" index="i">
 			<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name.xmltext>
 			<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname.xmltext>
@@ -34,9 +40,20 @@
 		
 		<cfset pubTitle=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.titles.title.xmltext>
 		<cfset jName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_metadata.full_title.xmltext>
-		<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue..journal_volume.volume.xmltext>
-		<cfset jIssue=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.issue.xmltext>
-		<cfset fPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.first_page.xmltext>
+		
+		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.journal_volume,"volume")>
+			<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.journal_volume.volume.xmltext>
+		</cfif>
+		
+		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue,"issue")>
+			<cfset jIssue=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.issue.xmltext>
+		</cfif>
+		
+		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages,"first_page")>
+			<cfset fPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.first_page.xmltext>
+		</cfif>
+		
+		
 		
 		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages,"last_page")>
 			<cfset lPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.last_page.xmltext>
