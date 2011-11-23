@@ -412,7 +412,6 @@
 							
 							thisAuthAry=thisAuthStr.split("|");
 							console.log('thisAuthAry.length=' + thisAuthAry.length);
-							console.log('split it....');
 							console.log('thisAuthAry==' + thisAuthAry);
 							
 							for (a = 0; i<thisAuthAry.length; i++) {
