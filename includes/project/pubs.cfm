@@ -1,3 +1,4 @@
+<cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
 	<cfquery name="pubs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
