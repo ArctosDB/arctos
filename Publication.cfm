@@ -410,20 +410,20 @@
 							var thisAuthStr=eval("d.DATA.AUTHOR"+i);
 							thisAuthStr=String(thisAuthStr);
 							thisAuthAry=thisAuthStr.split("|");
-							console.log('thisAuthAry.length=' + thisAuthAry.length);
-							console.log('thisAuthAry==' + thisAuthAry);
+							//console.log('thisAuthAry.length=' + thisAuthAry.length);
+							//console.log('thisAuthAry==' + thisAuthAry);
 							
 							for (z = 0; z<thisAuthAry.length; z++) {
 								var thisAuthRec=thisAuthAry[z].split('@');
-								console.log('thisAuthRec==' + thisAuthRec);
+								//console.log('thisAuthRec==' + thisAuthRec);
 								
 								var thisAgentName=thisAuthRec[0];
 								var thisAgentID=thisAuthRec[1];
-								console.log(thisAgentName);
-								console.log(thisAgentID);
+								//console.log(thisAgentName);
+								//console.log(thisAgentID);
 								var thisSuggest='<span class="infoLink" onclick="useThisAuthor(';
 								thisSuggest += "'" + i + "','" + thisAgentName + "','" + thisAgentID + "'" + ');">' + thisAgentName + "</span>";
-								console.log(thisSuggest);
+								//console.log(thisSuggest);
 								$("#authSugg" + i).append(thisSuggest);
 							}
 						}
