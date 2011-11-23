@@ -404,9 +404,17 @@
 						$("#is_peer_reviewed_fg").val(1);
 						$("#published_year").val(d.DATA.YEAR);
 						$("#short_citation").val(d.DATA.SHORTCITE);
-						for (i = 0; i<5; i++) {
+						for (i = 1; i<5; i++) {
 							var thisAuthStr=eval("d.DATA.AUTHOR"+i);
 							console.log('thisAuthStr:' + thisAuthStr);
+							var thisAuthAry=thisAuthStr.split('|');
+							for (a = 0; i<thisAuthAry.length; i++) {
+								var thisAuthRec=thisAuthAry[a].split('::');
+								var thisAgentName=thisAuthRec[0];
+								var thisAgentID=thisAuthRec[1];
+								var thisSuggest='<span class="infoLink" onclick="useThisAuthor(' + "'" + thisAgentName + "','" + thisAgentID + "')>" + thisAgentName + "</span>";
+								console.log(thisSuggest);
+							}
 						}
 					}	
 				}
