@@ -29,11 +29,7 @@
 					<cfset thisName=fName & ' ' & lName>
 					<cfset rauths=listappend(rauths,thisName,"|")>
 				</cfloop>
-				<cfif listlen(rauths,"|") is 2>
-					<cfset auths=replace(rauths,"|"," and ")>
-				<cfelse>
-					<cfset auths=listchangedelims(rauths,", ","|")>
-				</cfif>
+				
 				<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date,"year")>
 					<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date.year.xmltext>
 				<cfelseif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date,"year")>>
@@ -62,25 +58,6 @@
 					</cfif>
 				</cfif>
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 			</cfif><!--- end DOI --->
 		<cfelseif idtype is "PMID">
 			<cfhttp url="http://www.ncbi.nlm.nih.gov/pubmed/#identifier#?report=XML"></cfhttp>
@@ -90,14 +67,53 @@
 			<cfset theData=replace(theData,"&lt;","<","all")>
 			
 			<cfset r=xmlParse(theData)>
-			<cfif debug>
-				<cfdump var=#r#>
+			<cfif left(cfhttp.statuscode,3) is not "200" or not structKeyExists(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1],"Journal")>
+				<cfset fail="not found or not journal">
 			</cfif>
-			<cfset numberOfAuthors=arraylen(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].xmlchildren)>
-			<br>numberOfAuthors=#numberOfAuthors#
-
+			<cfif len(fail) is 0>
+			
+			
+			
+				<cfif debug>
+					<cfdump var=#r#>
+				</cfif>
+				<cfset numberOfAuthors=arraylen(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].xmlchildren)>
+				<cfloop from="1" to="#numberOfAuthors#" index="i">
+					<cfset fName=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].Author[i].ForeName.xmltext>
+					<cfset lName=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].Author[i].LastName.xmltext>
+					<cfset thisName=fName & ' ' & lName>
+					<cfset rauths=listappend(rauths,thisName,"|")>
+				</cfloop>
+				
+				<cfif structKeyExists(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal[1].JournalIssue[1].PubDate,"Year")>
+					<cfset pubYear=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal[1].JournalIssue[1].PubDate.Year.xmltext>
+				</cfif>
+				
+				<cfset pubTitle=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].ArticleTitle.xmltext>
+				
+				<cfset jName=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal.Title.xmltext>
+				
+				<cfif structKeyExists(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal.JournalIssue,"Issue")>
+					<cfset jIssue=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal.JournalIssue.Issue.xmltext>
+				</cfif>
+				<cfif structKeyExists(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal.JournalIssue,"Volume")>
+					<cfset jVol=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal.JournalIssue.Volume.xmltext>
+				</cfif>
+				
+				<cfset pages=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Pagination.MedlinePgn.xmltext>
+				<cfif listlen(pages,"-") is 2>
+					<cfset fPage=listgetat(pages,1,"-")>
+					<cfset lPage=listgetat(pages,2,"-")>
+				</cfif>
+						
+			</cfif><!--- PMID nofail --->
 		</cfif><!---- end PMID --->
 		<cfif len(fail) is 0>
+			<cfif listlen(rauths,"|") is 2>
+				<cfset auths=replace(rauths,"|"," and ")>
+			<cfelse>
+				<cfset auths=listchangedelims(rauths,", ","|")>
+			</cfif>
 			<cfset longCit="#auths#.">
 			<cfif len(pubYear) gt 0>
 				<cfset longCit=longCit & " #pubYear#.">
