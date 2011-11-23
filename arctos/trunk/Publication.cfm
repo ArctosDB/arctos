@@ -409,7 +409,7 @@
 							
 							var thisAuthAry = new Array();
 							
-							var thisAuthStr="bob|jim";
+							var thisAuthStr="bobjim";
 							
 							console.log('thisAuthStr:' + thisAuthStr);
 							
