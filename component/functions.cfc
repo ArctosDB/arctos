@@ -83,7 +83,11 @@
 				
 			</cfif><!--- end DOI --->
 		<cfelseif idtype is "PMID">
-		
+			<cfhttp url="http://www.ncbi.nlm.nih.gov/pubmed/#identifier#?report=XML"></cfhttp>
+			<cfset r=xmlParse(cfhttp.fileContent)>
+			<cfif debug>
+				<cfdump var=#r#>
+			</cfif>
 		
 		</cfif><!---- end PMID --->
 		<cfif len(fail) is 0>
