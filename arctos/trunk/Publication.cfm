@@ -81,12 +81,12 @@
 		</table>
 		<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
 		<input type="text" id="doi" name="doi" value="#pub.doi#" size="80">
-		<cfif len(doi) gt 0>
+		<cfif len(pub.doi) gt 0>
 			<a class="infoLink" href="http://dx.doi.org/#pub.doi#">[ open DOI ]</a>
 		</cfif>
 		<label for="pmid" onclick="getDocs('publication','pmid')" class="likeLink">PMID</label>
 		<input type="text" id="pmid" name="pmid" value="#pub.pmid#" size="80">
-		<cfif len(pmid) gt 0>
+		<cfif len(pub.pmid) gt 0>
 			<a class="infoLink external" href="http://www.ncbi.nlm.nih.gov/pubmed/#pub.pmid#">[ open PubMed ]</a>
 		</cfif>			
 		<label for="publication_loc">Storage Location</label>
