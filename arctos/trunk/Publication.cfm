@@ -386,7 +386,7 @@
 		}
 		function doiMagic(){
 			$("#doilookup").html('<image src="/images/indicator.gif">');
-			alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
+			//alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "doiMagic",
@@ -405,8 +405,8 @@
 						$("#published_year").val(d.DATA.YEAR);
 						$("#short_citation").val(d.DATA.SHORTCITE);
 						for (i = 0; i<5; i++) {
-							var thisAuthStr=eval(d.DATA.AUTHOR+i);
-							console.log('thisAuthStr=' + thisAuthStr);
+							var thisAuthStr=eval("d.DATA.AUTHOR"+i);
+							console.log('thisAuthStr:' + thisAuthStr);
 						}
 					}	
 				}
@@ -423,7 +423,7 @@
 	<cfoutput>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
-			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" id="doilookup" onclick="doiMagic()"> [ crossref ] </span>
+			<input type="text" id="doi" name="doi" value="10.1111/j.1365-294X.2005.02461.x" size="80"><span class="infoLink" id="doilookup" onclick="doiMagic()"> [ crossref ] </span>
 			<input type="hidden" name="action" value="createPub">
 			<table>
 				<tr>
