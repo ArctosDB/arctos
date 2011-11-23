@@ -34,7 +34,7 @@
 		accepted_id_fg, 
 		identification_remarks,
 		identification_agent_id,
-		formatted_publication,
+		short_citation,
 		identification.publication_id
 	FROM 
 		cataloged_item, 
@@ -42,13 +42,13 @@
 		collection ,
 		identification_agent,
 		preferred_agent_name,
-		(select publication_id,formatted_publication from formatted_publication where format_style='short') formatted_publication
+		publication
 	WHERE 
 		identification.collection_object_id = cataloged_item.collection_object_id AND
 		identification.identification_id = identification_agent.identification_id (+) AND
 		identification_agent.agent_id = preferred_agent_name.agent_id (+) AND
 		cataloged_item.collection_id=collection.collection_id AND
-		identification.publication_id=formatted_publication.publication_id (+) and 
+		identification.publication_id=publication.publication_id (+) and 
 		cataloged_item.collection_object_id = #collection_object_id#
 		ORDER BY accepted_id_fg
 	DESC
@@ -212,7 +212,7 @@
 		nature_of_id, 
 		accepted_id_fg, 
 		identification_remarks,
-		formatted_publication,
+		short_citation,
 		publication_id
 	FROM 
 		getID
@@ -226,7 +226,7 @@
 		nature_of_id, 
 		accepted_id_fg, 
 		identification_remarks,
-		formatted_publication,
+		short_citation,
 		publication_id
 	ORDER BY 
 		accepted_id_fg DESC,
@@ -361,7 +361,7 @@
 				<input type="hidden" name="publication_id_#i#" id="publication_id_#i#" value="#publication_id#">
 				<input type="text" 
 					id="publication_#i#" 
-					value='#formatted_publication#'
+					value='#short_citation#'
 					onchange="getPublication(this.id,'publication_id_#i#',this.value,'editIdentification')" size="50">
 				<span class="infoLink" onclick="$('##publication_id_#i#').val('');$('##publication_#i#').val('');">Remove</span>
 	
