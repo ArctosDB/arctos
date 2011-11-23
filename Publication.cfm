@@ -384,7 +384,7 @@
 				$('#media_desc').val('').removeClass('reqdClr');
 			}
 		}
-		function thisSuggest (i,name,id) {
+		function useThisAuthor (i,name,id) {
 			$("#n_agent_id" + i).val(id);
 			$("#n_author_name" + i).val(name);
 			
