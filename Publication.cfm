@@ -446,6 +446,13 @@
 	
 	------>
 	<cfoutput>
+		<div style="float:right;border:2px solid green;">
+			10.1006/jmbi.1995.0238
+			<br>10.1111/j.1365-294X.2005.02461.x
+			<br>10.1371/journal.pcbi.1000874
+			<br>10.1371/journal.pone.0015323
+			<br>10.1644/1545-1542(2003)084<0144:PDWTSC>2.0.CO;2
+		</div>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
 			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" id="doilookup" onclick="doiMagic()"> [ crossref ] </span>
