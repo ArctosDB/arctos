@@ -388,6 +388,8 @@
 			$("#n_agent_id" + i).val(id);
 			$("#n_author_name" + i).val(name);
 		}
+		
+		
 		function getPublication(idtype){
 			$("#doilookup").html('<image src="/images/indicator.gif">');
 			$("#pmidlookup").html('<image src="/images/indicator.gif">');
@@ -445,7 +447,7 @@
 					}
 				}
 			);
-			$("#doilookup").html('').text(' [ crossref ] ');
+			$("#doilookup").html(' [ crossref ] ');
 			$("#pmidlookup").html(' [ pubmed ] ');
 			
 		}
@@ -457,7 +459,7 @@
 	
 	------>
 	<cfoutput>
-		<div style="float:right;border:2px solid green;">
+		<div style="float:right;border:2px solid green;max-width:40%;">
 			Paste a DOI (the ID only - no prefix) or PubMed ID in and click the appropriate link to try to lookup
 			article metadata. As always, everything is case-sensitive and all characters (including leading and trailing spaces)
 			matter. Note that this returns only what was reported by the publisher, and that is often imperfect; you are still
