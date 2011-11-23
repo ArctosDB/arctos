@@ -407,7 +407,8 @@
 						for (i = 1; i<5; i++) {
 							var thisAuthStr=eval("d.DATA.AUTHOR"+i);
 							console.log('thisAuthStr:' + thisAuthStr);
-							var thisAuthAry=thisAuthStr.split('|');
+							var thisAuthAry = new Array();
+							thisAuthAry=thisAuthStr.split('|');
 							for (a = 0; i<thisAuthAry.length; i++) {
 								var thisAuthRec=thisAuthAry[a].split('::');
 								var thisAgentName=thisAuthRec[0];
