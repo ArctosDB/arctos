@@ -85,7 +85,7 @@
 		<cfelseif idtype is "PMID">
 			<cfhttp url="http://www.ncbi.nlm.nih.gov/pubmed/#identifier#?report=XML"></cfhttp>
 			<cfdump var=#cfhttp#>
-			<cfset theData='<?xml version="1.0" encoding="UTF-8"?>' & cfhttp.fileContent>
+			<cfset theData=replace(cfhttp.fileContent,'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">','')>
 			<cfset r=xmlParse(theData)>
 			<cfif debug>
 				<cfdump var=#r#>
