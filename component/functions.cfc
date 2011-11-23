@@ -11,6 +11,8 @@
 	<cfset jIssue=''>
 	<cfset fPage=''>
 	<cfset fail="">
+	<cfset firstAuthLastName=''>
+	<cfset secondAuthLastName=''>
 	<cfoutput>
 		<cfif idtype is 'DOI'>
 			<cfhttp url="http://www.crossref.org/openurl/?id=#identifier#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
@@ -29,7 +31,11 @@
 					<cfset thisName=fName & ' ' & lName>
 					<cfset rauths=listappend(rauths,thisName,"|")>
 				</cfloop>
-				
+				<cfset firstAuthLastName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
+				<cfif numberOfAuthors gt 1>
+					<cfset secondAuthLastName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[2].surname.xmltext>
+				</cfif>
+
 				<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date,"year")>
 					<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date.year.xmltext>
 				<cfelseif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date,"year")>>
@@ -85,6 +91,12 @@
 					<cfset rauths=listappend(rauths,thisName,"|")>
 				</cfloop>
 				
+				<cfset firstAuthLastName=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].Author[1].LastName.xmltext>
+				<cfif numberOfAuthors gt 1>
+					<cfset secondAuthLastName=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].Author[2].LastName.xmltext>
+				</cfif>
+				
+				
 				<cfif structKeyExists(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal[1].JournalIssue[1].PubDate,"Year")>
 					<cfset pubYear=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal[1].JournalIssue[1].PubDate.Year.xmltext>
 				</cfif>
@@ -133,15 +145,11 @@
 			</cfif>
 			<cfset longCit=longCit & ".">
 			<cfif numberOfAuthors is 1>
-				<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
-				<cfset shortCit="#faln# #pubYear#">
+				<cfset shortCit="#firstAuthLastName# #pubYear#">
 			<cfelseif numberOfAuthors is 2>
-				<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
-				<cfset saln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[2].surname.xmltext>
-				<cfset shortCit="#faln# and #saln# #pubYear#">
+				<cfset shortCit="#firstAuthLastName# and #secondAuthLastName# #pubYear#">
 			<cfelse>
-				<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
-				<cfset shortCit="#faln# et al. #pubYear#">
+				<cfset shortCit="#firstAuthLastName# et al. #pubYear#">
 			</cfif>
 			<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHOR1,AUTHOR2,AUTHOR3,AUTHOR4,AUTHOR5")>
 			<cfset temp = queryaddrow(d,1)>
