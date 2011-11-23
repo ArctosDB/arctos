@@ -71,7 +71,7 @@
 			<cfset longCit=longCit & "(#jIssue#)">
 		</cfif>
 		<cfif len(fPage) gt 0>
-			<cfset longCit=longCit & "(:#fPage#)">
+			<cfset longCit=longCit & ":#fPage#">
 		</cfif>
 		<cfif len(lPage) gt 0>
 			<cfset longCit=longCit & "-#lPage#">
