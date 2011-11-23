@@ -435,8 +435,7 @@
             <cfset temp = QuerySetCell(result, "link", "/media/#related_primary_key#", i)>
 		<cfelseif table_name is "publication">
 			<cfquery name="d" datasource="uam_god">
-				select formatted_publication data from formatted_publication where format_style='long' and 
-				publication_id=#related_primary_key#
+				select full_citation data from publication where publication_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenUsage.cfm?publication_id=#related_primary_key#", i)>
@@ -566,8 +565,7 @@
 			<cfset temp = QuerySetCell(result, "rel_type", "media", i)>
 		<cfelseif table_name is "publication">
 			<cfquery name="d" datasource="uam_god">
-				select formatted_publication data from formatted_publication where format_style='long' and 
-				publication_id=#related_primary_key#
+				select full_citation data from publication where publication_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenUsage.cfm?publication_id=#related_primary_key#", i)>

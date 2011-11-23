@@ -125,7 +125,6 @@
 		Coll_object,
 		coll_obj_other_id_num,
 		collector,
-		formatted_publication,
 		publication,
 		citation,
 		biol_indiv_relations,
@@ -161,7 +160,6 @@
 		collector.agent_id = colls.agent_id AND
 		cataloged_item.collection_object_id = citation.collection_object_id (+) AND
 		citation.publication_id = publication.publication_id (+) AND
-		citation.publication_id = formatted_publication.publication_id (+) AND
 		cataloged_item.collection_object_id = biol_indiv_relations.collection_object_id (+) AND
 		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id (+) AND
 		cataloged_item.collection_object_id=attributes.collection_object_id (+) AND
