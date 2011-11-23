@@ -41,14 +41,65 @@
 			<cfset shortCit="#faln# et al. #pubYear#">
 		</cfif>
 		
-		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
+		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHOR1,AUTHOR2,AUTHOR3,AUTHOR4,AUTHOR5")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
 		<cfset temp = QuerySetCell(d, "PUBLICATIONTYPE", 'journal article', 1)>
 		<cfset temp = QuerySetCell(d, "LONGCITE", longCit, 1)>
 		<cfset temp = QuerySetCell(d, "SHORTCITE", shortCit, 1)>
 		<cfset temp = QuerySetCell(d, "YEAR", pubYear, 1)>
-		<cfset temp = QuerySetCell(d, "AUTHORS", rauths, 1)>	
+		<cfset temp = QuerySetCell(d, "AUTHORS", rauths, 1)>
+		<cfset l=1>
+		<cfloop list="#rauths#" index="a" delimiters="|">
+			<cfif l lt 5>
+				<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select * from (
+						select 
+							preferred_agent_name.agent_name,
+							preferred_agent_name.agent_id 
+						from
+							preferred_agent_name,
+							agent_name
+						where
+							preferred_agent_name.agent_id=agent_name.agent_id and
+							upper(agent_name.agent_name) like '%#ucase(a)#%'
+					) where rownum<=5
+				</cfquery>
+				<cfif a.recordcount gt 0>
+					<cfset thisAuthSugg="">
+					<cfloop query="a">
+						<cfset thisAuthSuggElem="#agent_name#::#agent_id#">
+						<cfset thisAuthSugg=listappend(thisAuthSugg,thisAuthSuggElem,"|")>
+					</cfloop>
+				<cfelse>
+					<cfset thisLastName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[l].surname.xmltext>
+					<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select * from (
+							select 
+								preferred_agent_name.agent_name,
+								preferred_agent_name.agent_id 
+							from
+								preferred_agent_name,
+								agent_name
+							where
+								preferred_agent_name.agent_id=agent_name.agent_id and
+								upper(agent_name.agent_name) like '%#ucase(thisLastName)#%'
+						) where rownum<=5
+					</cfquery>
+					<cfif a.recordcount gt 0>
+						<cfset thisAuthSugg="">
+						<cfloop query="a">
+							<cfset thisAuthSuggElem="#agent_name#::#agent_id#">
+							<cfset thisAuthSugg=listappend(thisAuthSugg,thisAuthSuggElem,"|")>
+						</cfloop>
+					<cfelse>
+						<cfset thisAuthSugg="">
+					</cfif>
+				</cfif>
+			</cfif>
+			<cfset temp = QuerySetCell(d, "AUTHOR#l#", thisAuthSugg, 1)>
+		</cfloop>
+		<cfdump var=#d#>
 	<cfelse>
 		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
 		<cfset temp = queryaddrow(d,1)>

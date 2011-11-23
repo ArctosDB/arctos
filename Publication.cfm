@@ -473,7 +473,7 @@
 					<th>Name</th>
 					<th></th>
 				</tr>
-				<cfset numNewAuths="3">
+				<cfset numNewAuths="5">
 				<cfloop from="1" to="#numNewAuths#" index="i">
 					<input type="hidden" name="n_agent_id#i#" id="n_agent_id#i#">
 					<tr id="n_authortr#i#">
