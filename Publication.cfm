@@ -445,7 +445,7 @@
 					}
 				}
 			);
-			$("#doilookup").html(' [ crossref ] ');
+			$("#doilookup").html('').text(' [ crossref ] ');
 			$("#pmidlookup").html(' [ pubmed ] ');
 			
 		}
