@@ -396,9 +396,7 @@
 			//$("#doilookup").html('<image src="/images/indicator.gif">');
 			//$("#pmidlookup").html('<image src="/images/indicator.gif">');
 			//alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
-			var d=$('#doi').val();
-			d=trim(d);
-			$('#doi').val(d);
+			$('#doi').val($('#doi').val().trim());
 			//$('#doi').val(($trim($('#doi').val()));
 			//$('#pmid').val(($trim($('#pmid').val()))
 			
