@@ -384,6 +384,14 @@
 				$('#media_desc').val('').removeClass('reqdClr');
 			}
 		}
+		thisSuggest (i,name,id) {
+			$("#n_agent_id" + i).val(id);
+			$("#n_author_name" + i).val(name);
+			
+			
+				
+						
+		}
 		function doiMagic(){
 			$("#doilookup").html('<image src="/images/indicator.gif">');
 			//alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
@@ -422,7 +430,8 @@
 								var thisAgentID=thisAuthRec[1];
 								console.log(thisAgentName);
 								console.log(thisAgentID);
-								var thisSuggest='<span class="infoLink" onclick="useThisAuthor(' + "'" + thisAgentName + "','" + thisAgentID + "'" + ');">' + thisAgentName + "</span>";
+								var thisSuggest='<span class="infoLink" onclick="useThisAuthor(';
+								thisSuggest += "'" + i + "','" + thisAgentName + "','" + thisAgentID + "'" + ');">' + thisAgentName + "</span>";
 								console.log(thisSuggest);
 								$("#authSugg" + i).append(thisSuggest);
 							}
