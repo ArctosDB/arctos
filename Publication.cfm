@@ -335,7 +335,6 @@
 				</cfquery>
 			</cfif>
 		</cfloop>
-		
 	</cftransaction>
 	<cflocation url="Publication.cfm?action=edit&publication_id=#publication_id#" addtoken="false">
 </cfoutput>
@@ -400,26 +399,16 @@
 			$("#n_agent_id" + i).val(id);
 			$("#n_author_name" + i).val(name);
 		}
-		
-		
 		function getPubMeta(idtype){
 			$("#doilookup").html('<image src="/images/indicator.gif">');
 			$("#pmidlookup").html('<image src="/images/indicator.gif">');
-			//$("#doilookup").html('<image src="/images/indicator.gif">');
-			//$("#pmidlookup").html('<image src="/images/indicator.gif">');
-			//alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
 			$('#doi').val($('#doi').val().trim());
 			$('#pmid').val($('#pmid').val().trim());
-			//$('#doi').val(($trim($('#doi').val()));
-			//$('#pmid').val(($trim($('#pmid').val()))
-			
 			if (idtype=='DOI'){
 				var identifier=$('#doi').val();
 			} else {
 				var identifier=$('#pmid').val();
 			}
-			
-			
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "getPublication",
@@ -430,7 +419,6 @@
 				},
 				function (d) {
 					if(d.DATA.STATUS=='success'){
-						
 						$("#full_citation").val(d.DATA.LONGCITE);
 						$("#short_citation").val(d.DATA.SHORTCITE);
 						$("#publication_type").val(d.DATA.PUBLICATIONTYPE);
@@ -438,31 +426,20 @@
 						$("#published_year").val(d.DATA.YEAR);
 						$("#short_citation").val(d.DATA.SHORTCITE);
 						for (i = 1; i<5; i++) {
-							
 							$("#authSugg" + i).html('');
 							var thisAuthStr=eval("d.DATA.AUTHOR"+i);
 							thisAuthStr=String(thisAuthStr);
 							if (thisAuthStr.length>0){
 								thisAuthAry=thisAuthStr.split("|");
-								//console.log('thisAuthAry.length=' + thisAuthAry.length);
-								//console.log('thisAuthAry==' + thisAuthAry);
-								
 								for (z = 0; z<thisAuthAry.length; z++) {
 									var thisAuthRec=thisAuthAry[z].split('@');
-									//console.log('thisAuthRec==' + thisAuthRec);
-									
 									var thisAgentName=thisAuthRec[0];
 									var thisAgentID=thisAuthRec[1];
-									//console.log(thisAgentName);
-									//console.log(thisAgentID);
 									var thisSuggest='<span class="infoLink" onclick="useThisAuthor(';
 									thisSuggest += "'" + i + "','" + thisAgentName + "','" + thisAgentID + "'" + ');"> [ ' + thisAgentName + " ] </span>";
-									//console.log(thisSuggest);
 									try {
 										$("#authSugg" + i).append(thisSuggest);
-									} catch(err){
-										// whatever
-									}
+									} catch(err){}
 								}
 							}
 						}
