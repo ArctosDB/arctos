@@ -82,12 +82,12 @@
 		<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
 		<input type="text" id="doi" name="doi" value="#pub.doi#" size="80">
 		<cfif len(pub.doi) gt 0>
-			<a class="infoLink" href="http://dx.doi.org/#pub.doi#">[ open DOI ]</a>
+			<a class="infoLink external" target="_blank" href="http://dx.doi.org/#pub.doi#">[ open DOI ]</a>
 		</cfif>
 		<label for="pmid" onclick="getDocs('publication','pmid')" class="likeLink">PMID</label>
 		<input type="text" id="pmid" name="pmid" value="#pub.pmid#" size="80">
 		<cfif len(pub.pmid) gt 0>
-			<a class="infoLink external" href="http://www.ncbi.nlm.nih.gov/pubmed/#pub.pmid#">[ open PubMed ]</a>
+			<a class="infoLink external" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/#pub.pmid#">[ open PubMed ]</a>
 		</cfif>			
 		<label for="publication_loc">Storage Location</label>
 		<input type="text" name="publication_loc" id="publication_loc" size="80" value="#pub.publication_loc#">
@@ -264,7 +264,9 @@
 				full_citation='#escapeQuotes(full_citation)#',
 				short_citation='#escapeQuotes(short_citation)#',
 				publication_remarks='#escapeQuotes(publication_remarks)#',
-				is_peer_reviewed_fg=#is_peer_reviewed_fg#				
+				is_peer_reviewed_fg=#is_peer_reviewed_fg#,
+				doi='#doi#',
+				pmid='#pmid#'				
 			where publication_id=#publication_id#
 		</cfquery>
 		<cfif len(media_uri) gt 0>
