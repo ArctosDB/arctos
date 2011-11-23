@@ -75,7 +75,7 @@
 		occurs_page_number,
 		type_status,
 		citation_remarks,
-		publication_title,
+		short_citation,
 		cited_taxon_name_id,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
 	FROM 
@@ -98,7 +98,7 @@
 </cfquery>
 
 <a href="javascript:void(0);" onClick="getDocs('publication','citation')">Citations</a>
- for 	<b>#getCited.publication_title#</b>
+ for 	<b>#getCited.short_citation#</b>
 <a href="Publication.cfm?publication_id=#publication_id#">Edit Publication</a>
 <table border cellpadding="0" cellspacing="0"><tr>
 	<td>&nbsp;</td>
