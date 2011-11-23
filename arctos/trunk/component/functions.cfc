@@ -5,7 +5,11 @@
 	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
 	<cfoutput>
 	<cftry>
+		<cfparam name="debug" default="false">
 	<cfset r=xmlParse(cfhttp.fileContent)>
+	<cfif debug>
+		<cfdump var=#r#>
+	</cfif>
 	<cfif left(cfhttp.statuscode,3) is "200" and structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"journal")>
 		<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors.xmlchildren)>
 		<cfset rauths="">
