@@ -387,14 +387,10 @@
 		function useThisAuthor (i,name,id) {
 			$("#n_agent_id" + i).val(id);
 			$("#n_author_name" + i).val(name);
-			
-			
-				
-						
 		}
 		function doiMagic(){
 			$("#doilookup").html('<image src="/images/indicator.gif">');
-			//alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
+			alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "doiMagic",
@@ -403,9 +399,7 @@
 					queryformat : 'column'
 				},
 				function (d) {
-					if(d.DATA.STATUS=='FAIL'){
-						alert('sorray');
-					} else {
+					if(d.DATA.STATUS=='success'){
 						$("#full_citation").val(d.DATA.LONGCITE);
 						$("#short_citation").val(d.DATA.SHORTCITE);
 						$("#publication_type").val(d.DATA.PUBLICATIONTYPE);
@@ -415,9 +409,6 @@
 						for (i = 1; i<5; i++) {
 							var thisAuthStr=eval("d.DATA.AUTHOR"+i);
 							thisAuthStr=String(thisAuthStr);
-							console.log('thisAuthStr:' + thisAuthStr);
-							
-							
 							thisAuthAry=thisAuthStr.split("|");
 							console.log('thisAuthAry.length=' + thisAuthAry.length);
 							console.log('thisAuthAry==' + thisAuthAry);
@@ -436,7 +427,9 @@
 								$("#authSugg" + i).append(thisSuggest);
 							}
 						}
-					}	
+					} else {
+						alert('sorray: ' + d.DATA.STATUS);
+					}
 				}
 			);
 			$("#doilookup").html(' [ crossref ] ');
