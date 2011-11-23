@@ -390,6 +390,7 @@
 		}
 		function getPublication(idtype){
 			$("#doilookup").html('<image src="/images/indicator.gif">');
+			$("#pmidlookup").html('<image src="/images/indicator.gif">');
 			//alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
 			if (idtype=='DOI'){
 				var identifier=$('#doi').val();
@@ -445,6 +446,8 @@
 				}
 			);
 			$("#doilookup").html(' [ crossref ] ');
+			$("#pmidlookup").html(' [ pubmed ] ');
+			
 		}
 	</script>
 	<!----
@@ -455,6 +458,16 @@
 	------>
 	<cfoutput>
 		<div style="float:right;border:2px solid green;">
+			Paste a DOI (the ID only - no prefix) or PubMed ID in and click the appropriate link to try to lookup
+			article metadata. As always, everything is case-sensitive and all characters (including leading and trailing spaces)
+			matter. Note that this returns only what was reported by the publisher, and that is often imperfect; you are still
+			responsible for arcticles you create. (Try DOI=10.1006/mpev.1994.1005 vs. PMID=8025728 for an example.)
+			<p>
+				Agent suggestions may be provided. Click them to accept.
+			</p>
+			<p>
+				Shift-reload the page to start over.
+			</p>
 			10.1006/jmbi.1995.0238
 			<br>10.1111/j.1365-294X.2005.02461.x
 			<br>10.1371/journal.pcbi.1000874
