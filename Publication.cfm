@@ -422,7 +422,7 @@
 								var thisAgentID=thisAuthRec[1];
 								console.log(thisAgentName);
 								console.log(thisAgentID);
-								var thisSuggest='<span class="infoLink" onclick="useThisAuthor(' + "'" + thisAgentName + "','" + thisAgentID + "'" + '")>' + thisAgentName + "</span>";
+								var thisSuggest='<span class="infoLink" onclick="useThisAuthor(' + "'" + thisAgentName + "','" + thisAgentID + "'" + ');">' + thisAgentName + "</span>";
 								console.log(thisSuggest);
 								$("#authSugg" + i).append(thisSuggest);
 							}
