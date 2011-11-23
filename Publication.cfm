@@ -396,6 +396,9 @@
 			//$("#doilookup").html('<image src="/images/indicator.gif">');
 			//$("#pmidlookup").html('<image src="/images/indicator.gif">');
 			//alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
+			$('#doi').val((trim($('#doi').val()));
+			$('#pmid').val((trim($('#pmid').val()))
+			
 			if (idtype=='DOI'){
 				var identifier=$('#doi').val();
 			} else {
@@ -466,15 +469,13 @@
 	
 	------>
 	<cfoutput>
-		<div style="float:right;border:2px solid green;max-width:40%;">
+		<div style="float:right;border:2px solid green;max-width:40%;padding:1em;font-size:smaller;margin:.5em;">
 			Paste a DOI (the ID only - no prefix) or PubMed ID in and click the appropriate link to try to lookup
 			article metadata. As always, everything is case-sensitive and all characters (including leading and trailing spaces)
-			matter. Note that this returns only what was reported by the publisher, and that is often imperfect; you are still
-			responsible for arcticles you create. (Try DOI=
-			<span class="likeLink" onclick="$('##doi').val('10.1006/mpev.1994.1005');">10.1006/mpev.1994.1005</span>
-			 vs. PMID=
-			 <span class="likeLink" onclick="$('##pmid').val('8025728');">80257285</span>
-			  for an example.)
+			matter. Note that this returns only what was reported by the publisher, and that is often imperfect; you are ultimately
+			responsible for the Publications you create. (Try DOI=<span class="likeLink" onclick="$('##doi').val('10.1006/mpev.1994.1005');">10.1006/mpev.1994.1005</span>
+			 vs. PMID=<span class="likeLink" onclick="$('##pmid').val('8025728');">80257285</span>
+			  for an example of potential differences.)
 			<p>
 				Agent suggestions may be provided. Click them to accept.
 			</p>
