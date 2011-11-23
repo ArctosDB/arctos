@@ -452,17 +452,8 @@
 					}
 				}
 			);
-			//$("#doilookup").html(' [ crossref ] ');
-			//$("#pmidlookup").html(' [ pubmed ] ');
-			
 		}
 	</script>
-	<!----
-	
-	
-		<cfset temp = QuerySetCell(d, "AUTHORS", rauths, 1)>
-	
-	------>
 	<cfoutput>
 		<div style="float:right;border:2px solid green;max-width:40%;padding:1em;font-size:smaller;margin:.5em;">
 			Paste a DOI (the ID only - no prefix) or PubMed ID in and click the appropriate link to try to lookup
@@ -476,22 +467,14 @@
 			<p>
 				Shift-reload the page to start over.
 			</p>
-			10.1006/jmbi.1995.0238
-			<br>10.1111/j.1365-294X.2005.02461.x
-			<br>10.1371/journal.pcbi.1000874
-			<br>10.1371/journal.pone.0015323
-			<br>10.1644/1545-1542(2003)084<0144:PDWTSC>2.0.CO;2
 		</div>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
 			<input type="text" id="doi" name="doi" value="" size="80">
 			<span class="likeLink" id="doilookup" onclick="getPubMeta('DOI');"> [ crossref ] </span>
-			
 			<label for="pmid" onclick="getDocs('publication','pmid')" class="likeLink">PMID</label>
 			<input type="text" id="pmid" name="pmid" value="" size="80">
 			<span class="likeLink" id="pmidlookup" onclick="getPubMeta('PMID');"> [ pubmed ] </span>
-			
-			
 			<input type="hidden" name="action" value="createPub">
 			<table>
 				<tr>
