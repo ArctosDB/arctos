@@ -418,8 +418,7 @@
 				},
 				function (d) {
 					if(d.DATA.STATUS=='success'){
-						$("#doilookup").html(' [ crossref ] ');
-						$("#pmidlookup").html(' [ pubmed ] ');
+						
 						$("#full_citation").val(d.DATA.LONGCITE);
 						$("#short_citation").val(d.DATA.SHORTCITE);
 						$("#publication_type").val(d.DATA.PUBLICATIONTYPE);
@@ -447,12 +446,19 @@
 									var thisSuggest='<span class="infoLink" onclick="useThisAuthor(';
 									thisSuggest += "'" + i + "','" + thisAgentName + "','" + thisAgentID + "'" + ');"> [ ' + thisAgentName + " ] </span>";
 									//console.log(thisSuggest);
-									$("#authSugg" + i).append(thisSuggest);
+									
+									
+									//$("#authSugg" + i).append(thisSuggest);
 									
 									
 								}
 							}
 						}
+						
+					$("#doilookup").html(' [ crossref ] ');
+					$("#pmidlookup").html(' [ pubmed ] ');
+						
+						
 					} else {
 						alert('sorray: ' + d.DATA.STATUS);
 						$("#doilookup").text(' [ crossref ] ');
