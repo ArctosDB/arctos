@@ -404,6 +404,10 @@
 						$("#is_peer_reviewed_fg").val(1);
 						$("#published_year").val(d.DATA.YEAR);
 						$("#short_citation").val(d.DATA.SHORTCITE);
+						for (i = 0; i<5; i++) {
+							var thisAuthStr=d.DATA.AUTHOR+i;
+							console.log('thisAuthStr=' + thisAuthStr);
+						}
 					}	
 				}
 			);
@@ -488,8 +492,8 @@
 								onchange="getAgent('n_agent_id#i#',this.name,'newpub',this.value)"
 			 					onkeypress="return noenter(event);">
 						</td>
-						<td>
-							-
+						<td id="authSugg#i#">
+							
 						</td>
 					</tr>
 				</cfloop>
