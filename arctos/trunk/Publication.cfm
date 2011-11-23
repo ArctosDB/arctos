@@ -405,7 +405,7 @@
 						$("#published_year").val(d.DATA.YEAR);
 						$("#short_citation").val(d.DATA.SHORTCITE);
 						for (i = 0; i<5; i++) {
-							var thisAuthStr=d.DATA.AUTHOR+i;
+							var thisAuthStr=eval(d.DATA.AUTHOR+i);
 							console.log('thisAuthStr=' + thisAuthStr);
 						}
 					}	
