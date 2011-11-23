@@ -648,7 +648,7 @@
 						agent_id,
 						author_role
 					) values (
-						#publication_id#,
+						#pid#,
 						#agent_id#,
 						'#author_role#'
 					)
