@@ -18,7 +18,7 @@
 			<cfset rauths=listappend(rauths,thisName,"|")>
 		</cfloop>
 		<cfif listlen(rauths,"|") is 2>
-			<cfset auths=replace(rauths,"|","and")>
+			<cfset auths=replace(rauths,"|"," and ")>
 		<cfelse>
 			<cfset auths=listchangedelims(rauths,", ","|")>
 		</cfif>
