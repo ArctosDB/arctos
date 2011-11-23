@@ -414,8 +414,8 @@
 							console.log('thisAuthAry.length=' + thisAuthAry.length);
 							console.log('thisAuthAry==' + thisAuthAry);
 							
-							for (a = 0; i<thisAuthAry.length; i++) {
-								var thisAuthRec=thisAuthAry[a].split('::');
+							for (z = 0; z<thisAuthAry.length; z++) {
+								var thisAuthRec=thisAuthAry[z].split('@');
 								console.log('thisAuthRec==' + thisAuthRec);
 								
 								var thisAgentName=thisAuthRec[0];
