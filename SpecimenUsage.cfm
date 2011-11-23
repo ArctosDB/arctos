@@ -313,14 +313,12 @@
 					<cfset basFrom = "#basFrom#,citation">
 				</cfif>
 				<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
+			</cfif>
 		</cfif>
 		<cfif isdefined("is_peer_reviewed_fg") AND is_peer_reviewed_fg is 1>
 			<cfset go="yes">
 			<cfset basWhere = "#basWhere# AND publication.is_peer_reviewed_fg=1">
 		</cfif>
-		
-		
-		<!---------
 		<cfif isdefined("current_Sci_Name") AND len(#current_Sci_Name#) gt 0>
 			<cfset go="yes">
 			<cfset basFrom = "#basFrom# ,
@@ -543,9 +541,6 @@
 			<cfset i=#i#+1>
 		</cfloop>
 		</td></tr></table>
-		
-		
-		--------------->
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------->
