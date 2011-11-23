@@ -412,10 +412,12 @@
 							
 							thisAuthAry=thisAuthStr.split("|");
 							console.log('split it....');
-							console.log(thisAuthAry);
+							console.log('thisAuthAry==' + thisAuthAry);
 							
 							for (a = 0; i<thisAuthAry.length; i++) {
 								var thisAuthRec=thisAuthAry[a].split('::');
+								console.log('thisAuthRec==' + thisAuthRec);
+								
 								var thisAgentName=thisAuthRec[0];
 								var thisAgentID=thisAuthRec[1];
 								console.log(thisAgentName);
