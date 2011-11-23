@@ -99,7 +99,8 @@
 
 <a href="javascript:void(0);" onClick="getDocs('publication','citation')">Citations</a>
  for 	<b>#getCited.short_citation#</b>
-<a href="Publication.cfm?publication_id=#publication_id#">Edit Publication</a>
+<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
+<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">[ View Publication ]</a>
 <table border cellpadding="0" cellspacing="0"><tr>
 	<td>&nbsp;</td>
 	<td nowrap>Cat Num</td>
