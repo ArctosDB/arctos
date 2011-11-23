@@ -450,6 +450,7 @@
 			);
 			//$("#doilookup").html(' [ crossref ] ');
 			//$("#pmidlookup").html(' [ pubmed ] ');
+						$("#doilookup").html('o hai');
 			
 		}
 	</script>
