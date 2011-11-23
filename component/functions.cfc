@@ -93,7 +93,9 @@
 			<cfif debug>
 				<cfdump var=#r#>
 			</cfif>
-		
+			<cfset numberOfAuthors=arraylen(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].xmlchildren)>
+			<br>numberOfAuthors=#numberOfAuthors#
+
 		</cfif><!---- end PMID --->
 		<cfif len(fail) is 0>
 			<cfset longCit="#auths#.">
