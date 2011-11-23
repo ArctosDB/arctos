@@ -317,7 +317,7 @@
 	<cfif isdefined("onlyCitePubs") AND len(onlyCitePubs) gt 0>
 		<cfset go="yes">
 		<cfif onlyCitePubs is "0">
-			<cfif #basFrom# does not contain "citation">
+			<cfif basFrom does not contain "citation">
 				<cfset basFrom = "#basFrom#,citation">
 			</cfif>
 			<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id (+) and citation.collection_object_id is null">
