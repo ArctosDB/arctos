@@ -349,7 +349,7 @@
 				publication.publication_type,
 				full_citation,
 				doi,
-				pmid,
+				pmid
 			ORDER BY 
 				full_citation,
 				publication.publication_id">
