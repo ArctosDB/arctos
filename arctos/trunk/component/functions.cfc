@@ -97,6 +97,7 @@
 					</cfif>
 				</cfif>
 			</cfif>
+			<br>setting AUTHOR#l# to #thisAuthSugg#
 			<cfset temp = QuerySetCell(d, "AUTHOR#l#", thisAuthSugg, 1)>
 		</cfloop>
 		<cfdump var=#d#>
