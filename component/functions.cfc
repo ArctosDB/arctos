@@ -99,6 +99,7 @@
 			</cfif>
 			<br>setting AUTHOR#l# to #thisAuthSugg#
 			<cfset temp = QuerySetCell(d, "AUTHOR#l#", thisAuthSugg, 1)>
+			<cfset l=l+1>
 		</cfloop>
 		<cfdump var=#d#>
 	<cfelse>
