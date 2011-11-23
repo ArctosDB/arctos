@@ -422,7 +422,7 @@
 								//console.log(thisAgentName);
 								//console.log(thisAgentID);
 								var thisSuggest='<span class="infoLink" onclick="useThisAuthor(';
-								thisSuggest += "'" + i + "','" + thisAgentName + "','" + thisAgentID + "'" + ');">' + thisAgentName + "</span>";
+								thisSuggest += "'" + i + "','" + thisAgentName + "','" + thisAgentID + "'" + ');"> [ ' + thisAgentName + " ] </span>";
 								//console.log(thisSuggest);
 								$("#authSugg" + i).append(thisSuggest);
 							}
