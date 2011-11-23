@@ -407,9 +407,6 @@
 						for (i = 1; i<5; i++) {
 							var thisAuthStr=eval("d.DATA.AUTHOR"+i);
 							thisAuthStr=String(thisAuthStr);
-							var thisAuthAry = new Array();
-							
-							
 							console.log('thisAuthStr:' + thisAuthStr);
 							
 							
