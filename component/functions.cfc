@@ -97,7 +97,7 @@
 				</cfif>
 				
 				<cfset pubTitle=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].ArticleTitle.xmltext>
-				<cfif right(pubTitle,1) is ".")>
+				<cfif right(pubTitle,1) is ".">
 					<cfset pubTitle=left(pubTitle,len(pubTitle)-1)>
 				</cfif>
 				
