@@ -480,10 +480,10 @@
 		</div>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
-			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" id="doilookup" onclick="getPublication('DOI')"> [ crossref ] </span>
+			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" id="doilookup" onclick="getPublication('DOI');"> [ crossref ] </span>
 			
 			<label for="pmid" onclick="getDocs('publication','pmid')" class="likeLink">PMID</label>
-			<input type="text" id="pmid" name="pmid" value="" size="80"><span class="infoLink" id="pmidlookup" onclick="getPublication('PMID')"> [ pubmed ] </span>
+			<input type="text" id="pmid" name="pmid" value="" size="80"><span class="infoLink" id="pmidlookup" onclick="getPublication('PMID');"> [ pubmed ] </span>
 			
 			
 			<input type="hidden" name="action" value="createPub">
