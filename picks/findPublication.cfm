@@ -21,14 +21,13 @@
 		<cfquery name="getPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				publication_id,
-				formatted_publication
+				full_citation
 			FROM
-				formatted_publication
+				publication
 			WHERE
-				UPPER(regexp_replace(formatted_publication,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(publication_title))#%'and
-				format_style='long'
+				UPPER(regexp_replace(full_citation,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(publication_title))#%'
 			ORDER BY
-				formatted_publication
+				full_citation
 		</cfquery>
 		<cfif #getPub.recordcount# is 0>
 			Nothing matched #publication_title#. <a href="findPublication.cfm?formName=#formName#&pubIdFld=#pubIdFld#&pubStringFld=#pubStringFld#">Try again.</a>
@@ -41,7 +40,7 @@
 		<cfif #getPub.recordcount# is 1>
 			<script>
 				opener.document.#formName#.#pubIdFld#.value='#publication_id#';
-				opener.document.#formName#.#pubStringFld#.value='#formatted_publication#';
+				opener.document.#formName#.#pubStringFld#.value='#full_citation#';
 				opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
 				self.close();
 			</script>
@@ -49,7 +48,7 @@
 			<tr>
 				<td>
 					<a href="##" onClick="javascript: opener.document.#formName#.#pubIdFld#.value='#publication_id#';
-						opener.document.#formName#.#pubStringFld#.value='#formatted_publication#';self.close();">#formatted_publication#</a>
+						opener.document.#formName#.#pubStringFld#.value='#full_citation#';self.close();">#full_citation#</a>
 				</td>
 			</tr>
 		</cfif>
