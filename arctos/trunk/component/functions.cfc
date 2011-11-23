@@ -1,127 +1,131 @@
 <cfcomponent>
 	<!------------------------------------------------------------------->
-<cffunction name="doiMagic" access="remote">	
-	<cfargument name="doi" type="string" required="yes">
-	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
-	<cfoutput>
+<cffunction name="getPublication" access="remote">	
+	<cfargument name="idtype" type="string" required="yes">
+	<cfargument name="identifier" type="string" required="yes">
 	<cfparam name="debug" default="false">
-	
-	<cfset r=xmlParse(cfhttp.fileContent)>
-	<cfif debug>
-		<cfdump var=#r#>
-	</cfif>
-	<cfif left(cfhttp.statuscode,3) is "200" and structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"journal")>
-		<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors.xmlchildren)>
-		<cfset rauths="">
-		<cfset lPage=''>
-		<cfset pubYear=''>
-		<cfset jVol=''>
-		<cfset jIssue=''>
-		<cfset fPage=''>
-		
-		
-		
-		<cfloop from="1" to="#numberOfAuthors#" index="i">
-			<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name.xmltext>
-			<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname.xmltext>
-			<cfset thisName=fName & ' ' & lName>
-			<cfset rauths=listappend(rauths,thisName,"|")>
-		</cfloop>
-		<cfif listlen(rauths,"|") is 2>
-			<cfset auths=replace(rauths,"|"," and ")>
-		<cfelse>
-			<cfset auths=listchangedelims(rauths,", ","|")>
-		</cfif>
-		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date,"year")>
-			<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date.year.xmltext>
-		<cfelseif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date,"year")>>
-			<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date.year.xmltext>
-		</cfif>		
-		
-		<cfset pubTitle=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.titles.title.xmltext>
-		<cfset jName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_metadata.full_title.xmltext>
-		
-		
-		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1],"journal_issue")>
-			<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.journal_volume,"volume")>
-				<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.journal_volume.volume.xmltext>
+	<cfset rauths="">
+	<cfset lPage=''>
+	<cfset pubYear=''>
+	<cfset jVol=''>
+	<cfset jIssue=''>
+	<cfset fPage=''>
+	<cfset fail="">
+	<cfoutput>
+		<cfif idtype is 'DOI'>
+			<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
+			<cfset r=xmlParse(cfhttp.fileContent)>
+			<cfif debug>
+				<cfdump var=#r#>
 			</cfif>
-			
-			<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue,"issue")>
-				<cfset jIssue=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.issue.xmltext>
+			<cfif left(cfhttp.statuscode,3) is not "200" or not structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"journal")>
+				<cfset fail="not found or not journal">
 			</cfif>
-		</cfif>
-		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article,"pages")>
-			<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages,"first_page")>
-				<cfset fPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.first_page.xmltext>
-			</cfif>
-			<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages,"last_page")>
-				<cfset lPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.last_page.xmltext>
-			</cfif>
-		</cfif>
-		<cfset longCit="#auths#.">
-		<cfif len(pubYear) gt 0>
-			<cfset longCit=longCit & " #pubYear#.">
-		</cfif>
-		<cfset longCit=longCit & " #pubTitle#. #jName#">
-		<cfif len(jVol) gt 0>
-			<cfset longCit=longCit & " #jVol#">
-		</cfif>
-		<cfif len(jIssue) gt 0>
-			<cfset longCit=longCit & "(#jIssue#)">
-		</cfif>
-		<cfif len(fPage) gt 0>
-			<cfset longCit=longCit & ":#fPage#">
-		</cfif>
-		<cfif len(lPage) gt 0>
-			<cfset longCit=longCit & "-#lPage#">
-		</cfif>
-		<cfset longCit=longCit & ".">
-		
-				
-		
-		<cfif numberOfAuthors is 1>
-			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
-			<cfset shortCit="#faln# #pubYear#">
-		<cfelseif numberOfAuthors is 2>
-			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
-			<cfset saln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[2].surname.xmltext>
-			<cfset shortCit="#faln# and #saln# #pubYear#">
-		<cfelse>
-			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
-			<cfset shortCit="#faln# et al. #pubYear#">
-		</cfif>
-		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHOR1,AUTHOR2,AUTHOR3,AUTHOR4,AUTHOR5")>
-		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
-		<cfset temp = QuerySetCell(d, "PUBLICATIONTYPE", 'journal article', 1)>
-		<cfset temp = QuerySetCell(d, "LONGCITE", longCit, 1)>
-		<cfset temp = QuerySetCell(d, "SHORTCITE", shortCit, 1)>
-		<cfset temp = QuerySetCell(d, "YEAR", pubYear, 1)>
-		<cfset l=1>
-		<cfloop list="#rauths#" index="a" delimiters="|">
-			<cfif l lt 5>
-				<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select * from (
-						select 
-							preferred_agent_name.agent_name,
-							preferred_agent_name.agent_id 
-						from
-							preferred_agent_name,
-							agent_name
-						where
-							preferred_agent_name.agent_id=agent_name.agent_id and
-							upper(agent_name.agent_name) like '%#ucase(a)#%'
-					) where rownum<=5
-				</cfquery>
-				<cfif a.recordcount gt 0>
-					<cfset thisAuthSugg="">
-					<cfloop query="a">
-						<cfset thisAuthSuggElem="#agent_name#@#agent_id#">
-						<cfset thisAuthSugg=listappend(thisAuthSugg,thisAuthSuggElem,"|")>
-					</cfloop>
+			<cfif len(fail) is 0>
+				<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors.xmlchildren)>
+				<cfloop from="1" to="#numberOfAuthors#" index="i">
+					<cfset fName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].given_name.xmltext>
+					<cfset lName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[i].surname.xmltext>
+					<cfset thisName=fName & ' ' & lName>
+					<cfset rauths=listappend(rauths,thisName,"|")>
+				</cfloop>
+				<cfif listlen(rauths,"|") is 2>
+					<cfset auths=replace(rauths,"|"," and ")>
 				<cfelse>
-					<cfset thisLastName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[l].surname.xmltext>
+					<cfset auths=listchangedelims(rauths,", ","|")>
+				</cfif>
+				<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date,"year")>
+					<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date.year.xmltext>
+				<cfelseif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date,"year")>>
+					<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date.year.xmltext>
+				</cfif>		
+		
+				<cfset pubTitle=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.titles.title.xmltext>
+				<cfset jName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_metadata.full_title.xmltext>
+		
+		
+				<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1],"journal_issue")>
+					<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.journal_volume,"volume")>
+						<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.journal_volume.volume.xmltext>
+					</cfif>
+					
+					<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue,"issue")>
+						<cfset jIssue=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.issue.xmltext>
+					</cfif>
+				</cfif>
+				<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article,"pages")>
+					<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages,"first_page")>
+						<cfset fPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.first_page.xmltext>
+					</cfif>
+					<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages,"last_page")>
+						<cfset lPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.last_page.xmltext>
+					</cfif>
+				</cfif>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			</cfif><!--- end DOI --->
+		<cfelseif idtype is "PMID">
+		
+		
+		</cfif><!---- end PMID --->
+		<cfif len(fail) is 0>
+			<cfset longCit="#auths#.">
+			<cfif len(pubYear) gt 0>
+				<cfset longCit=longCit & " #pubYear#.">
+			</cfif>
+			<cfset longCit=longCit & " #pubTitle#. #jName#">
+			<cfif len(jVol) gt 0>
+				<cfset longCit=longCit & " #jVol#">
+			</cfif>
+			<cfif len(jIssue) gt 0>
+				<cfset longCit=longCit & "(#jIssue#)">
+			</cfif>
+			<cfif len(fPage) gt 0>
+				<cfset longCit=longCit & ":#fPage#">
+			</cfif>
+			<cfif len(lPage) gt 0>
+				<cfset longCit=longCit & "-#lPage#">
+			</cfif>
+			<cfset longCit=longCit & ".">
+			<cfif numberOfAuthors is 1>
+				<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
+				<cfset shortCit="#faln# #pubYear#">
+			<cfelseif numberOfAuthors is 2>
+				<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
+				<cfset saln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[2].surname.xmltext>
+				<cfset shortCit="#faln# and #saln# #pubYear#">
+			<cfelse>
+				<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
+				<cfset shortCit="#faln# et al. #pubYear#">
+			</cfif>
+			<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHOR1,AUTHOR2,AUTHOR3,AUTHOR4,AUTHOR5")>
+			<cfset temp = queryaddrow(d,1)>
+			<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
+			<cfset temp = QuerySetCell(d, "PUBLICATIONTYPE", 'journal article', 1)>
+			<cfset temp = QuerySetCell(d, "LONGCITE", longCit, 1)>
+			<cfset temp = QuerySetCell(d, "SHORTCITE", shortCit, 1)>
+			<cfset temp = QuerySetCell(d, "YEAR", pubYear, 1)>
+			<cfset l=1>
+			<cfloop list="#rauths#" index="a" delimiters="|">
+				<cfif l lt 5>
 					<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select * from (
 							select 
@@ -132,7 +136,7 @@
 								agent_name
 							where
 								preferred_agent_name.agent_id=agent_name.agent_id and
-								upper(agent_name.agent_name) like '%#ucase(thisLastName)#%'
+								upper(agent_name.agent_name) like '%#ucase(a)#%'
 						) where rownum<=5
 					</cfquery>
 					<cfif a.recordcount gt 0>
@@ -142,26 +146,46 @@
 							<cfset thisAuthSugg=listappend(thisAuthSugg,thisAuthSuggElem,"|")>
 						</cfloop>
 					<cfelse>
-						<cfset thisAuthSugg="">
+						<cfset thisLastName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[l].surname.xmltext>
+						<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							select * from (
+								select 
+									preferred_agent_name.agent_name,
+									preferred_agent_name.agent_id 
+								from
+									preferred_agent_name,
+									agent_name
+								where
+									preferred_agent_name.agent_id=agent_name.agent_id and
+									upper(agent_name.agent_name) like '%#ucase(thisLastName)#%'
+							) where rownum<=5
+						</cfquery>
+						<cfif a.recordcount gt 0>
+							<cfset thisAuthSugg="">
+							<cfloop query="a">
+								<cfset thisAuthSuggElem="#agent_name#@#agent_id#">
+								<cfset thisAuthSugg=listappend(thisAuthSugg,thisAuthSuggElem,"|")>
+							</cfloop>
+						<cfelse>
+							<cfset thisAuthSugg="">
+						</cfif>
 					</cfif>
+					<cfset temp = QuerySetCell(d, "AUTHOR#l#", thisAuthSugg, 1)>
 				</cfif>
-				<cfset temp = QuerySetCell(d, "AUTHOR#l#", thisAuthSugg, 1)>
-			</cfif>
-			<cfset l=l+1>
-		</cfloop>
-	<cfelse>
-		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
-		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfhttp.statuscode#:notjournal', 1)>
-	</cfif>
-	<!---
-		<cfcatch>
+				<cfset l=l+1>
+			</cfloop>
+		<cfelse><!--- failed somewhere --->
 			<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
 			<cfset temp = queryaddrow(d,1)>
-			<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfcatch.message#-#cfcatch.detail#', 1)>
-		</cfcatch>
-		</cftry>
-	--->
+			<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfhttp.statuscode#:#fail#', 1)>
+		</cfif>
+	
+		
+		
+		
+				
+		
+	
 	<cfreturn d>
 </cfoutput>
 </cffunction>
