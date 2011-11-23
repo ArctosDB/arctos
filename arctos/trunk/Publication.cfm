@@ -447,8 +447,8 @@
 									//console.log(thisSuggest);
 									$("#authSugg" + i).append(thisSuggest);
 									
-									$("#doilookup").text(' [ crossref ] ');
-									$("#pmidlookup").text(' [ pubmed ] ');
+									$("#doilookup").html(' [ crossref ] ');
+									$("#pmidlookup").html(' [ pubmed ] ');
 								}
 							}
 						}
