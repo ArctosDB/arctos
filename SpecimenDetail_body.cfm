@@ -239,19 +239,18 @@
 		citation.CITATION_REMARKS,
 		cited_taxa.scientific_name as cited_name,
 		cited_taxa.taxon_name_id as cited_name_id,	
-		formatted_publication.formatted_publication,
-		formatted_publication.publication_id
+		short_citation,
+		publication.publication_id
 	from
 		citation,
 		taxonomy cited_taxa,
-		formatted_publication
+		publication
 	where		
 		citation.cited_taxon_name_id = cited_taxa.taxon_name_id  AND
-		citation.publication_id = formatted_publication.publication_id AND
-		format_style='short' and
+		citation.publication_id = publication.publication_id AND
 		citation.collection_object_id = #collection_object_id#
 	order by
-		substr(formatted_publication, - 4)
+		substr(short_citation, - 4)
 </cfquery>
 <style>
 	.acceptedIdDiv {
@@ -298,13 +297,13 @@
 									identification.identification_id,
 									accepted_id_fg,
 									taxa_formula,
-									formatted_publication,
+									short_citation,
 									identification.publication_id
 								FROM
 									identification,
-									(select * from formatted_publication where format_style='short') formatted_publication
+									publication
 								WHERE
-									identification.publication_id=formatted_publication.publication_id (+) and
+									identification.publication_id=publication.publication_id (+) and
 									identification.collection_object_id = #collection_object_id# 
 								ORDER BY accepted_id_fg DESC,made_date DESC
 							</cfquery>
@@ -379,9 +378,9 @@
 										</div>
 										<cfset metaDesc=metaDesc & '; ' & valuelist(cName.common_name,"; ")>
 									</cfloop>
-									<cfif len(formatted_publication) gt 0>
+									<cfif len(short_citation) gt 0>
 										sensu <a href="/publication/#publication_id#" target="_mainFrame">
-												#formatted_publication#
+												#short_citation#
 											</a><br>
 									</cfif>
 									Identified by #agent_name# 
@@ -407,7 +406,7 @@
 							<span class="detailData">
 								<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#" 
 									target="_mainFrame">
-										#formatted_publication#</a>, 
+										#short_citation#</a>, 
 								<cfif len(occurs_page_number) gt 0>
 									Page #occurs_page_number#,
 								</cfif>
