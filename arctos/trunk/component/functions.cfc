@@ -63,11 +63,22 @@
 		<cfif len(pubYear) gt 0>
 			<cfset longCit=longCit & " #pubYear#.">
 		</cfif>
-		<cfset longCit=longCit & " #pubTitle#. #jName# #jVol#(#jIssue#):#fPage#">
+		<cfset longCit=longCit & " #pubTitle#. #jName#">
+		<cfif len(jVol) gt 0>
+			<cfset longCit=longCit & " #jVol#">
+		</cfif>
+		<cfif len(jIssue) gt 0>
+			<cfset longCit=longCit & "(#jIssue#)">
+		</cfif>
+		<cfif len(fPage) gt 0>
+			<cfset longCit=longCit & "(:#fPage#)">
+		</cfif>
 		<cfif len(lPage) gt 0>
 			<cfset longCit=longCit & "-#lPage#">
 		</cfif>
 		<cfset longCit=longCit & ".">
+		
+				
 		
 		<cfif numberOfAuthors is 1>
 			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
