@@ -91,15 +91,15 @@
 	<cfquery name="data" datasource="uam_god">
 		select 
 			publication_id,
-			formatted_publication 
+			short_citation 
 		from 
-			formatted_publication
+			publication
 		where
 			publication_id not in (
 				select publication_id from citation
 			)
 		order by
-			formatted_publication
+			short_citation
 	</cfquery>
 	<cfoutput>
 		<h2>Publications with no Citations</h2>
@@ -107,7 +107,7 @@
 		<cfloop query="data">
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<p class="indent">
-					#formatted_publication#
+					#short_citation#
 					<br>
 					<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Details (This link may not work. These data are suspect. That's why they're here.)</a>
 					<br>

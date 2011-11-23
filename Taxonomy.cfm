@@ -220,19 +220,17 @@
 	<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			taxonomy_publication_id,
-			formatted_publication,
+			full_citation,
 			taxonomy_publication.publication_id
 		from
 			taxonomy_publication,
-			formatted_publication		
+			publication		
 		where
-			format_style='long' and
-			taxonomy_publication.publication_id=formatted_publication.publication_id and
+			taxonomy_publication.publication_id=publication.publication_id and
 			taxonomy_publication.taxon_name_id=#taxon_name_id#
 	</cfquery>
 	<cfset i = 1>
 	<span class="likeLink" onClick="getDocs('taxonomy','taxonomy_publication');">Related Publications</span>
-	
 		<form name="newPub" method="post" action="Taxonomy.cfm">
 			<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
 			<input type="hidden" name="Action" value="newTaxonPub">
@@ -246,7 +244,7 @@
 		</cfif>
 		<cfloop query="tax_pub">
 			<li>
-				#formatted_publication#
+				#short_citation#
 				<ul>
 					<li>
 						<a href="Taxonomy.cfm?action=removePub&taxonomy_publication_id=#taxonomy_publication_id#&taxon_name_id=#taxon_name_id#">[ remove ]</a>

@@ -418,7 +418,7 @@
 				<cfloop query="publications">
 		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<div>
-							#formatted_publication#
+							#full_citation#
 						</div>
 						<br>
 						<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
