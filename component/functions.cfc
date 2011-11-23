@@ -65,7 +65,7 @@
 				<cfif a.recordcount gt 0>
 					<cfset thisAuthSugg="">
 					<cfloop query="a">
-						<cfset thisAuthSuggElem="#agent_name#::#agent_id#">
+						<cfset thisAuthSuggElem="#agent_name#@#agent_id#">
 						<cfset thisAuthSugg=listappend(thisAuthSugg,thisAuthSuggElem,"|")>
 					</cfloop>
 				<cfelse>
@@ -86,7 +86,7 @@
 					<cfif a.recordcount gt 0>
 						<cfset thisAuthSugg="">
 						<cfloop query="a">
-							<cfset thisAuthSuggElem="#agent_name#::#agent_id#">
+							<cfset thisAuthSuggElem="#agent_name#@#agent_id#">
 							<cfset thisAuthSugg=listappend(thisAuthSugg,thisAuthSuggElem,"|")>
 						</cfloop>
 					<cfelse>
