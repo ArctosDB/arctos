@@ -51,19 +51,14 @@
 				<cfset jIssue=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.issue.xmltext>
 			</cfif>
 		</cfif>
-		
-		
-		
-		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages,"first_page")>
-			<cfset fPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.first_page.xmltext>
+		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article,"pages")>
+			<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages,"first_page")>
+				<cfset fPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.first_page.xmltext>
+			</cfif>
+			<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages,"last_page")>
+				<cfset lPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.last_page.xmltext>
+			</cfif>
 		</cfif>
-		
-		
-		
-		<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages,"last_page")>
-			<cfset lPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.last_page.xmltext>
-		</cfif>
-
 		<cfset longCit="#auths#.">
 		<cfif len(pubYear) gt 0>
 			<cfset longCit=longCit & " #pubYear#.">
