@@ -418,6 +418,8 @@
 								var thisAuthRec=thisAuthAry[a].split('::');
 								var thisAgentName=thisAuthRec[0];
 								var thisAgentID=thisAuthRec[1];
+								console.log(thisAgentName);
+								console.log(thisAgentID);
 								var thisSuggest='<span class="infoLink" onclick="useThisAuthor(' + "'" + thisAgentName + "','" + thisAgentID + "')>" + thisAgentName + "</span>";
 								console.log(thisSuggest);
 							}
