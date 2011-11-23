@@ -409,7 +409,9 @@
 							console.log('thisAuthStr:' + thisAuthStr);
 							var thisAuthAry = new Array();
 							
-							thisAuthAry=thisAuthStr.split("::");
+							var thisAuthStr="bob|jim";
+							
+							thisAuthAry=thisAuthStr.split("|");
 							console.log('split it....');
 							for (a = 0; i<thisAuthAry.length; i++) {
 								var thisAuthRec=thisAuthAry[a].split('::');
