@@ -67,19 +67,14 @@
 			</cfif><!--- end DOI --->
 		<cfelseif idtype is "PMID">
 			<cfhttp url="http://www.ncbi.nlm.nih.gov/pubmed/#identifier#?report=XML"></cfhttp>
-			<cfdump var=#cfhttp#>
 			<cfset theData=replace(cfhttp.fileContent,'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">','')>
 			<cfset theData=replace(theData,"&gt;",">","all")>
 			<cfset theData=replace(theData,"&lt;","<","all")>
-			
 			<cfset r=xmlParse(theData)>
 			<cfif left(cfhttp.statuscode,3) is not "200" or not structKeyExists(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1],"Journal")>
 				<cfset fail="not found or not journal">
 			</cfif>
 			<cfif len(fail) is 0>
-			
-			
-			
 				<cfif debug>
 					<cfdump var=#r#>
 				</cfif>
