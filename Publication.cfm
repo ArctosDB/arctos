@@ -452,7 +452,6 @@
 			);
 			//$("#doilookup").html(' [ crossref ] ');
 			//$("#pmidlookup").html(' [ pubmed ] ');
-						$("#doilookup").val('o hai');
 			
 		}
 	</script>
