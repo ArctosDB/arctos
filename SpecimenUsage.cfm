@@ -486,7 +486,7 @@
 				</cfif>
 				<cfif len(pmid) gt 0>
 					<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/#pmid#">PubMed</a>
-				</cfif>	
+				</cfif>
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 					<li><a href="/Publication.cfm?publication_id=#publication_id#">Edit</a></li>
 					<li><a href="/Citation.cfm?publication_id=#publication_id#">Manage Citations</a></li>
