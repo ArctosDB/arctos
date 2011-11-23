@@ -446,19 +446,16 @@
 									var thisSuggest='<span class="infoLink" onclick="useThisAuthor(';
 									thisSuggest += "'" + i + "','" + thisAgentName + "','" + thisAgentID + "'" + ');"> [ ' + thisAgentName + " ] </span>";
 									//console.log(thisSuggest);
-									
-									
-									//$("#authSugg" + i).append(thisSuggest);
-									
-									
+									try {
+										$("#authSugg" + i).append(thisSuggest);
+									} catch(err){
+										// whatever
+									}
 								}
 							}
 						}
-						
-					$("#doilookup").html(' [ crossref ] ');
-					$("#pmidlookup").html(' [ pubmed ] ');
-						
-						
+						$("#doilookup").html(' [ crossref ] ');
+						$("#pmidlookup").html(' [ pubmed ] ');						
 					} else {
 						alert('sorray: ' + d.DATA.STATUS);
 						$("#doilookup").text(' [ crossref ] ');
