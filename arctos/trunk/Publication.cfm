@@ -407,6 +407,8 @@
 						$("#published_year").val(d.DATA.YEAR);
 						$("#short_citation").val(d.DATA.SHORTCITE);
 						for (i = 1; i<5; i++) {
+							
+							$("#authSugg" + i).html('');
 							var thisAuthStr=eval("d.DATA.AUTHOR"+i);
 							thisAuthStr=String(thisAuthStr);
 							if (thisAuthStr.length>0){
