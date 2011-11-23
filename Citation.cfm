@@ -183,7 +183,7 @@
 <table border class="newRec">
 <tr>
 	<td colspan="2">
-	Add Citation to <b>	#getCited.publication_title#</b>:
+	Add Citation to <b>	#getCited.short_citation#</b>:
 	</td>
 </tr>
 <tr>
