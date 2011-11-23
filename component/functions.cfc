@@ -21,7 +21,7 @@
 		<cfelse>
 			<cfset auths=listchangedelims(rauths,", ","|")>
 		</cfif>
-		<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date.year.xmltext>
+		<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date.year.xmltext>
 		<cfset pubTitle=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.titles.title.xmltext>
 		<cfset jName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_metadata.full_title.xmltext>
 		<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue..journal_volume.volume.xmltext>
