@@ -63,6 +63,7 @@
 							upper(agent_name.agent_name) like '%#ucase(a)#%'
 					) where rownum<=5
 				</cfquery>
+				<cfdump var=#a#>
 				<cfif a.recordcount gt 0>
 					<cfset thisAuthSugg="">
 					<cfloop query="a">
@@ -84,6 +85,7 @@
 								upper(agent_name.agent_name) like '%#ucase(thisLastName)#%'
 						) where rownum<=5
 					</cfquery>
+					<cfdump var=#a#>
 					<cfif a.recordcount gt 0>
 						<cfset thisAuthSugg="">
 						<cfloop query="a">
