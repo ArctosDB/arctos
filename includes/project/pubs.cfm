@@ -30,7 +30,7 @@
 			publication_id,
 			numCit
 		order by
-			formatted_publication
+			full_citation
 	</cfquery>
 	<cfif pub.recordcount gt 0>
 		<h2>Publications</h2>
