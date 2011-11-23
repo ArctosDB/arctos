@@ -181,7 +181,12 @@
 							<cfset thisAuthSugg=listappend(thisAuthSugg,thisAuthSuggElem,"|")>
 						</cfloop>
 					<cfelse>
-						<cfset thisLastName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[l].surname.xmltext>
+						<cfif idtype is "DOI">
+							<cfset thisLastName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[l].surname.xmltext>
+						<cfelseif idtype is "PMID">
+							<cfset thisLastName=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].Author[l].LastName.xmltext>
+						</cfif>
+						
 						<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select * from (
 								select 
