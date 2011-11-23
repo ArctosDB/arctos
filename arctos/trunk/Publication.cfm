@@ -481,11 +481,11 @@
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
 			<input type="text" id="doi" name="doi" value="" size="80">
-			<input type="button" id="doilookup" onclick="getPublication('DOI');"> [ crossref ] </input>
+			<input type="button" id="doilookup" value="[ crossref ]" onclick="getPublication('DOI');">
 			
 			<label for="pmid" onclick="getDocs('publication','pmid')" class="likeLink">PMID</label>
 			<input type="text" id="pmid" name="pmid" value="" size="80">
-			<input type="button" id="pmidlookup" onclick="getPublication('PMID');"> [ pubmed ] </label>
+			<input type="button" id="pmidlookup" value=" [ pubmed ] " onclick="getPublication('PMID');">
 			
 			
 			<input type="hidden" name="action" value="createPub">
