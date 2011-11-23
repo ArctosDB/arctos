@@ -4,8 +4,8 @@
 	<cfargument name="doi" type="string" required="yes">
 	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
 	<cfoutput>
+	<cftry>
 	<cfset r=xmlParse(cfhttp.fileContent)>
-	
 	<cfif left(cfhttp.statuscode,3) is "200" and structKeyExists(r.doi_records[1].doi_record[1].crossref[1],"journal")>
 		<cfset numberOfAuthors=arraylen(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors.xmlchildren)>
 		<cfset rauths="">
@@ -39,7 +39,6 @@
 			<cfset faln=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[1].surname.xmltext>
 			<cfset shortCit="#faln# et al. #pubYear#">
 		</cfif>
-		
 		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHOR1,AUTHOR2,AUTHOR3,AUTHOR4,AUTHOR5")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
@@ -63,7 +62,6 @@
 							upper(agent_name.agent_name) like '%#ucase(a)#%'
 					) where rownum<=5
 				</cfquery>
-				<cfdump var=#a#>
 				<cfif a.recordcount gt 0>
 					<cfset thisAuthSugg="">
 					<cfloop query="a">
@@ -85,7 +83,6 @@
 								upper(agent_name.agent_name) like '%#ucase(thisLastName)#%'
 						) where rownum<=5
 					</cfquery>
-					<cfdump var=#a#>
 					<cfif a.recordcount gt 0>
 						<cfset thisAuthSugg="">
 						<cfloop query="a">
@@ -97,24 +94,20 @@
 					</cfif>
 				</cfif>
 			</cfif>
-			<br>setting AUTHOR#l# to #thisAuthSugg#
 			<cfset temp = QuerySetCell(d, "AUTHOR#l#", thisAuthSugg, 1)>
 			<cfset l=l+1>
 		</cfloop>
-		<cfdump var=#d#>
 	<cfelse>
 		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfhttp.statuscode#:notjournal', 1)>
 	</cfif>
-	<!---
 	<cfcatch>
 		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfcatch.detail#', 1)>
 	</cfcatch>
 	</cftry>
-	--->
 	<cfreturn d>
 </cfoutput>
 </cffunction>
