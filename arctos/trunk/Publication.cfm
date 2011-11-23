@@ -391,7 +391,7 @@
 		
 		
 		function getPublication(idtype){
-			$("#doilookup").html('what the hell');
+			$("#doilookup").text('what the hell');
 			//$("#doilookup").html('<image src="/images/indicator.gif">');
 			//$("#pmidlookup").html('<image src="/images/indicator.gif">');
 			//alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
@@ -450,7 +450,7 @@
 			);
 			//$("#doilookup").html(' [ crossref ] ');
 			//$("#pmidlookup").html(' [ pubmed ] ');
-						$("#doilookup").html('o hai');
+						$("#doilookup").text('o hai');
 			
 		}
 	</script>
