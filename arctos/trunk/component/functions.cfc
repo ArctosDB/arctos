@@ -113,8 +113,8 @@
 						<cfset thisAuthSugg="">
 					</cfif>
 				</cfif>
+				<cfset temp = QuerySetCell(d, "AUTHOR#l#", thisAuthSugg, 1)>
 			</cfif>
-			<cfset temp = QuerySetCell(d, "AUTHOR#l#", thisAuthSugg, 1)>
 			<cfset l=l+1>
 		</cfloop>
 	<cfelse>
