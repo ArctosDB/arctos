@@ -572,14 +572,11 @@
 			 					onkeypress="return noenter(event);">
 						</td>
 						<td id="authSugg#i#">
-							
 						</td>
 					</tr>
 				</cfloop>
 			</table>
 			<input type="hidden" name="numNewAuths" id="numNewAuths" value="#numNewAuths#">
-			
-			
 			<span class="likeLink" id="mediaToggle" onclick="toggleMedia()">[ Add Media ]</span>
 			<div class="cellDiv" id="media" style="display:none">
 				Media:
@@ -625,7 +622,9 @@
 				full_citation,
 				short_citation,
 				publication_remarks,
-				is_peer_reviewed_fg
+				is_peer_reviewed_fg,
+				doi,
+				pmid
 			) values (
 				#pid#,
 				<cfif len(published_year) gt 0>#published_year#<cfelse>NULL</cfif>,
@@ -634,7 +633,9 @@
 				'#escapeQuotes(full_citation)#',
 				'#escapeQuotes(short_citation)#',
 				'#publication_remarks#',
-				#is_peer_reviewed_fg#
+				#is_peer_reviewed_fg#,
+				'#doi#',
+				'#pmid#'
 			)
 		</cfquery>
 		<cfloop from="1" to="#numNewAuths#" index="n">
