@@ -391,7 +391,7 @@
 		
 		
 		function getPublication(idtype){
-			$("#doilookup").text('what the hell');
+			$("#doilookup").val('what the hell');
 			//$("#doilookup").html('<image src="/images/indicator.gif">');
 			//$("#pmidlookup").html('<image src="/images/indicator.gif">');
 			//alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
@@ -450,7 +450,7 @@
 			);
 			//$("#doilookup").html(' [ crossref ] ');
 			//$("#pmidlookup").html(' [ pubmed ] ');
-						$("#doilookup").text('o hai');
+						$("#doilookup").val('o hai');
 			
 		}
 	</script>
@@ -480,10 +480,12 @@
 		</div>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
-			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" id="doilookup" onclick="getPublication('DOI');"> [ crossref ] </span>
+			<input type="text" id="doi" name="doi" value="" size="80">
+			<input type="button" id="doilookup" onclick="getPublication('DOI');"> [ crossref ] </input>
 			
 			<label for="pmid" onclick="getDocs('publication','pmid')" class="likeLink">PMID</label>
-			<input type="text" id="pmid" name="pmid" value="" size="80"><span class="infoLink" id="pmidlookup" onclick="getPublication('PMID');"> [ pubmed ] </span>
+			<input type="text" id="pmid" name="pmid" value="" size="80">
+			<input type="button" id="pmidlookup" onclick="getPublication('PMID');"> [ pubmed ] </label>
 			
 			
 			<input type="hidden" name="action" value="createPub">
