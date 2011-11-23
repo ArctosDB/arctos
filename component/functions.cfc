@@ -47,7 +47,6 @@
 		<cfset temp = QuerySetCell(d, "LONGCITE", longCit, 1)>
 		<cfset temp = QuerySetCell(d, "SHORTCITE", shortCit, 1)>
 		<cfset temp = QuerySetCell(d, "YEAR", pubYear, 1)>
-		<cfset temp = QuerySetCell(d, "AUTHORS", rauths, 1)>
 		<cfset l=1>
 		<cfloop list="#rauths#" index="a" delimiters="|">
 			<cfif l lt 5>
