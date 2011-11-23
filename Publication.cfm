@@ -388,13 +388,21 @@
 			$("#n_agent_id" + i).val(id);
 			$("#n_author_name" + i).val(name);
 		}
-		function doiMagic(){
+		function getPublication(idtype){
 			$("#doilookup").html('<image src="/images/indicator.gif">');
 			//alert('This isn\'t really magic. It just looks up a DOI at CrossRef. It will fail if you do not supply a valid DOI, or if the publisher does\'t use CrossRef, and probably for some other reasons. If you get results, check them VERY carefully.');
+			if (idtype=='DOI'){
+				var identifier=$('#doi').val();
+			} else {
+				var identifier=$('#pmid').val();
+			}
+			
+			
 			jQuery.getJSON("/component/functions.cfc",
 				{
-					method : "doiMagic",
-					doi : $('#doi').val(),
+					method : "getPublication",
+					identifier : identifier,
+					idtype: idtype,
 					returnformat : "json",
 					queryformat : 'column'
 				},
@@ -455,7 +463,12 @@
 		</div>
 		<form name="newpub" method="post" onsubmit="if (!confirmpub()){return false;}" action="Publication.cfm">
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">DOI</label>
-			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" id="doilookup" onclick="doiMagic()"> [ crossref ] </span>
+			<input type="text" id="doi" name="doi" value="" size="80"><span class="infoLink" id="doilookup" onclick="getPublication('DOI')"> [ crossref ] </span>
+			
+			<label for="pmid" onclick="getDocs('publication','pmid')" class="likeLink">PMID</label>
+			<input type="text" id="pmid" name="pmid" value="" size="80"><span class="infoLink" id="pmidlookup" onclick="getPublication('PMID')"> [ pubmed ] </span>
+			
+			
 			<input type="hidden" name="action" value="createPub">
 			<table>
 				<tr>
