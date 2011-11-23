@@ -105,7 +105,7 @@
 	<cfcatch>
 		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
 		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfcatch.detail#', 1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfcatch.message#-#cfcatch.detail#', 1)>
 	</cfcatch>
 	</cftry>
 	<cfreturn d>
