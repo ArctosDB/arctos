@@ -477,8 +477,7 @@
 	<cfoutput>
 		<div style="float:right;border:2px solid green;max-width:40%;padding:1em;font-size:smaller;margin:.5em;">
 			Paste a DOI (the ID only - no prefix) or PubMed ID in and click the appropriate link to try to lookup
-			article metadata. As always, everything is case-sensitive and all characters (including leading and trailing spaces)
-			matter. Note that this returns only what was reported by the publisher, and that is often imperfect; you are ultimately
+			article metadata. Note that this returns only what was reported by the publisher and that is often imperfect; you are ultimately
 			responsible for the Publications you create. (Try DOI=<span class="likeLink" onclick="$('##doi').val('10.1006/mpev.1994.1005');">10.1006/mpev.1994.1005</span>
 			 vs. PMID=<span class="likeLink" onclick="$('##pmid').val('8025728');">80257285</span>
 			  for an example of potential differences.)
@@ -520,7 +519,7 @@
 				</tr>
 			</table>
 			<label for="short_citation" onclick="getDocs('publication','short_citation')" class="likeLink">Short Citation</label>
-			<input type="text" id="short_citation" name="short_citation" value="" size="80">
+			<input type="text" id="short_citation" name="short_citation" class="reqdClr" value="" size="80">
 			<table>
 				<tr>
 					<td>
@@ -568,7 +567,7 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" name="n_author_name#i#" id="n_author_name#i#" class="reqdClr" size="50"
+							<input type="text" name="n_author_name#i#" id="n_author_name#i#" size="50"
 								onchange="getAgent('n_agent_id#i#',this.name,'newpub',this.value)"
 			 					onkeypress="return noenter(event);">
 						</td>
