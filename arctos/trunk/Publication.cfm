@@ -406,10 +406,13 @@
 						$("#short_citation").val(d.DATA.SHORTCITE);
 						for (i = 1; i<5; i++) {
 							var thisAuthStr=eval("d.DATA.AUTHOR"+i);
-							console.log('thisAuthStr:' + thisAuthStr);
+							
 							var thisAuthAry = new Array();
 							
 							var thisAuthStr="bob|jim";
+							
+							console.log('thisAuthStr:' + thisAuthStr);
+							
 							
 							thisAuthAry=thisAuthStr.split("|");
 							console.log('split it....');
