@@ -262,6 +262,8 @@
 			publication.publication_id,
 			publication.publication_type,
 			full_citation,
+			doi,
+			pmid,
 			count(distinct(citation.collection_object_id)) numCits">
 	<cfset basFrom = "
 		FROM 
@@ -312,30 +314,18 @@
 		<cfset go="yes">
 		<cfset basWhere = "#basWhere# AND publication.PUBLISHED_YEAR = #year#">
 	</cfif>
-	<!---
-	<cfif isdefined("journal") AND len(journal) gt 0>
-		<cfset go="yes">
-		<cfset basFrom = "#basFrom# ,publication_attributes jname">
-		<cfset basWhere = "#basWhere# AND publication.publication_id=jname.publication_id and
-			jname.publication_attribute='journal name' and
-			upper(jname.pub_att_value) like '%#ucase(escapeQuotes(journal))#%'">
-	</cfif>
-	--->
 	<cfif isdefined("onlyCitePubs") AND len(onlyCitePubs) gt 0>
 		<cfset go="yes">
 		<cfif onlyCitePubs is "0">
 			<cfif #basFrom# does not contain "citation">
 				<cfset basFrom = "#basFrom#,citation">
 			</cfif>
-			<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id (+)
-					and citation.collection_object_id is null">
+			<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id (+) and citation.collection_object_id is null">
 		<cfelse>
 			<cfif #basFrom# does not contain "citation">
 				<cfset basFrom = "#basFrom#,citation">
 			</cfif>
 			<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
-		</cfif>
-		
 	</cfif>
 	<cfif isdefined("is_peer_reviewed_fg") AND is_peer_reviewed_fg is 1>
 		<cfset go="yes">
@@ -462,14 +452,18 @@
 			publication_id,
 			publication_type,
 			full_citation,
-			numCits
+			numCits,
+			doi,
+			pmid
 		FROM
 			publication
 		GROUP BY
 			publication_id,
 			publication_type,
 			full_citation,
-			numCits
+			numCits,
+			doi,
+			pmid
 		ORDER BY
 			full_citation
 	</cfquery>
@@ -487,6 +481,12 @@
 						No Citations
 					</cfif>
 				</li>
+				<cfif len(doi) gt 0>
+					<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
+				</cfif>
+				<cfif len(pmid) gt 0>
+					<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/#pmid#">PubMed</a>
+				</cfif>	
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 					<li><a href="/Publication.cfm?publication_id=#publication_id#">Edit</a></li>
 					<li><a href="/Citation.cfm?publication_id=#publication_id#">Manage Citations</a></li>
