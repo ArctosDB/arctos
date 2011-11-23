@@ -492,7 +492,7 @@
 			</table>
 			<label for="short_citation" onclick="getDocs('publication','short_citation')" class="likeLink">Short Citation</label>
 			<input type="text" id="short_citation" name="short_citation" class="reqdClr" value="" size="80">
-			<table width="100%">
+			<table>
 				<tr>
 					<td>
 						<label for="publication_type" onclick="getDocs('publication','type')" class="likeLink">Publication Type</label>
