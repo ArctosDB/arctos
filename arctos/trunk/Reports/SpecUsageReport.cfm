@@ -158,19 +158,18 @@
 		<cfif len(publication_id) gt 0>
 			<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select
-					formatted_publication.publication_id,
-					formatted_publication,
+					publication.publication_id,
+					full_citation formatted_publication,
 					count(distinct(citation.collection_object_id)) numCits
 				from
-					formatted_publication,
+					publication,
 					citation
 				where
-					formatted_publication.publication_id = citation.publication_id (+) and
-					formatted_publication.format_style = 'long' and
-					formatted_publication.publication_id in (#publication_id#)
+					publication.publication_id = citation.publication_id (+) and
+					publication.publication_id in (#publication_id#)
 				group by
-					formatted_publication.publication_id,
-					formatted_publication
+					publication.publication_id,
+					full_citation
 			</cfquery>
 			<cfloop query="p">
 				<cfquery name="insPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

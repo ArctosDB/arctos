@@ -194,14 +194,13 @@
 <cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		taxonomy_publication_id,
-		formatted_publication,
+		short_citation,
 		taxonomy_publication.publication_id
 	from
 		taxonomy_publication,
-		formatted_publication		
+		publication		
 	where
-		format_style='short' and
-		taxonomy_publication.publication_id=formatted_publication.publication_id and
+		taxonomy_publication.publication_id=publication.publication_id and
 		taxonomy_publication.taxon_name_id=#tnid#
 </cfquery>
 <cfoutput>
@@ -312,14 +311,13 @@
 				<cfloop query="tax_pub">
 					<li>
 						<a href="/SpecimenUsage.cfm?publication_id=#publication_id#">
-							#formatted_publication#
+							#short_citation#
 						</a>
 					</li>
 				</cfloop>
 			</cfif>
 		</ul>    
     </div>
-	
 	<div>
 		Related Taxa:
 		<ul>
