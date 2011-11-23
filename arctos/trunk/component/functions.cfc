@@ -4,8 +4,10 @@
 	<cfargument name="doi" type="string" required="yes">
 	<cfhttp url="http://www.crossref.org/openurl/?id=#doi#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
 	<cfoutput>
-	<cftry>
-		<cfparam name="debug" default="false">
+	<cfparam name="debug" default="false">
+	<cfif not debug>
+		<cftry>
+	</cfif>
 	<cfset r=xmlParse(cfhttp.fileContent)>
 	<cfif debug>
 		<cfdump var=#r#>
@@ -143,12 +145,14 @@
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfhttp.statuscode#:notjournal', 1)>
 	</cfif>
-	<cfcatch>
-		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
-		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfcatch.message#-#cfcatch.detail#', 1)>
-	</cfcatch>
-	</cftry>
+	<cfif not debug>
+		<cfcatch>
+			<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
+			<cfset temp = queryaddrow(d,1)>
+			<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfcatch.message#-#cfcatch.detail#', 1)>
+		</cfcatch>
+		</cftry>
+	</cfif>
 	<cfreturn d>
 </cfoutput>
 </cffunction>
