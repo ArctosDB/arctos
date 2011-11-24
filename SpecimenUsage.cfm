@@ -245,7 +245,7 @@
 		<cfset i=1>
 		<cfset go="no">
 		<cfset basSQL = "SELECT 
-			publication.publication_title,
+			publication.full_citation,
 			publication.publication_id,
 			publication.publication_type,
 			full_citation,
@@ -267,7 +267,7 @@
 				AND publication_agent.agent_id = agent_name.agent_id (+)">
 		
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
-			<cfset basWhere = "#basWhere# AND UPPER(regexp_replace(publication.publication_title,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(p_title))#%'">
+			<cfset basWhere = "#basWhere# AND UPPER(regexp_replace(publication.full_citation,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(p_title))#%'">
 			<cfset go="yes">
 		</cfif>
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
@@ -344,7 +344,7 @@
 		</cfif>
 		<cfset basSql = "#basSQL# #basFrom# #basWhere#
 			group by
-				publication.publication_title,
+				publication.full_citation,
 				publication.publication_id,
 				publication.publication_type,
 				full_citation,
@@ -356,6 +356,8 @@
 		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(basSQL)#
 		</cfquery>
+		
+		#preservesinglequotes(basSQL)#
 		<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 			<a href="/Reports/SpecUsageReport.cfm?project_id=#valuelist(projects.project_id)#&publication_id=#valuelist(publication.publication_id)#">Create Report Data</a>
 		</cfif>
@@ -429,7 +431,7 @@
 					No publications matched your criteria.
 				</div>
 			<cfelseif publication.recordcount is 1>
-				<cfset title = "#publication.publication_title#">	
+				<cfset title = "#publication.full_citation#">	
 			<cfelse>
 				(#publication.recordcount# results)
 			</cfif>
