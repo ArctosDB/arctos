@@ -245,7 +245,6 @@
 		<cfset i=1>
 		<cfset go="no">
 		<cfset basSQL = "SELECT 
-			publication.full_citation,
 			publication.publication_id,
 			publication.publication_type,
 			publication.full_citation,
@@ -344,7 +343,6 @@
 		</cfif>
 		<cfset basSql = "#basSQL# #basFrom# #basWhere#
 			group by
-				publication.full_citation,
 				publication.publication_id,
 				publication.publication_type,
 				publication.full_citation,
