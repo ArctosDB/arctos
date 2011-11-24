@@ -248,9 +248,9 @@
 			publication.full_citation,
 			publication.publication_id,
 			publication.publication_type,
-			full_citation,
-			doi,
-			pmid,
+			publication.full_citation,
+			publication.doi,
+			publication.pmid,
 			count(distinct(citation.collection_object_id)) numCits">
 		<cfset basFrom = "
 			FROM 
@@ -347,11 +347,11 @@
 				publication.full_citation,
 				publication.publication_id,
 				publication.publication_type,
-				full_citation,
-				doi,
-				pmid
+				publication.full_citation,
+				publication.doi,
+				publication.pmid
 			ORDER BY 
-				full_citation,
+				publication.full_citation,
 				publication.publication_id">
 		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(basSQL)#
