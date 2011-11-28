@@ -487,6 +487,8 @@
 						<br><span class="infoLink" onclick="bold('publication_title')">bold selected text</span>
 						<br><span class="infoLink" onclick="superscript('publication_title')">superscript selected text</span>
 						<br><span class="infoLink" onclick="subscript('publication_title')">subscript selected text</span>
+						<br><span class="infoLink" onclick="toProperCase('publication_title')">Proper Case selected text</span>
+						
 					</td>
 				</tr>
 			</table>
