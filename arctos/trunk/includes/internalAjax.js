@@ -23,7 +23,8 @@ function toProperCase(e) {
 	console.log('after is :' + after + ':');
 	
 	var result=before + d + after;
-	console.log(result);	
+	console.log(result);
+	textarea.value = result;	
 }
 
 function italicize(e){
