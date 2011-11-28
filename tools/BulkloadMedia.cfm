@@ -122,7 +122,7 @@ sho err
 			<cfset d=''>
 			<cfloop list="#mine.columnList#" index="i">
 				<cfif i is "loaded_media_id">
-					<cfset t='"http://arctos.database.musuem/media/#evaluate("mine." & i)#"'>
+					<cfset t='"http://arctos.database.museum/media/#evaluate("mine." & i)#"'>
 				<cfelse>
 					<cfset t='"' & evaluate("mine." & i) & '"'>
 				</cfif>
