@@ -6,12 +6,22 @@ function toProperCase(e) {
 	var start = textarea.selectionStart;
 	var end = textarea.selectionEnd;
 	var s = textarea.value.substring(start, end);
-	console.log('s=' + s);
+	
+	
+	console.log('the selected text was :' + s + ':');
 	
 	var d=s.toLowerCase().replace(/^(.)|\s(.)/g, 
 	function($1) { return $1.toUpperCase(); });
-	console.log(d);
+	console.log('the replacement text is :' + d + ':');
 	
+	var before = textarea.value.substring(0,start);
+	
+	console.log('before is :' + before + ':');
+	
+	var after = textarea.value.substring(end, textarea.value.length);
+	
+	console.log('after is :' + after + ':');
+		
 }
 
 function italicize(e){
