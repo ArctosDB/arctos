@@ -155,6 +155,8 @@
 	<cfif not isdefined("end_last_edit_date")>
 		<cfset end_last_edit_date=beg_last_edit_date>
 	</cfif>
+	<cfset mapurl = "#mapurl#&beg_last_edit_date=#beg_last_edit_date#">
+	<cfset mapurl = "#mapurl#&end_last_edit_date=#end_last_edit_date#">
 	<cfset basQual = "#basQual#  AND (
 					to_date(to_char(#session.flatTableName#.last_edited_date,'dd-mon-yyy')) between 
 						to_date('#dateformat(beg_last_edit_date,"yyyy-mm-dd")#')
