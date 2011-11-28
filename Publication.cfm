@@ -483,11 +483,11 @@
 						<textarea name="full_citation" id="full_citation" class="reqdClr" rows="3" cols="80"></textarea>
 					</td>
 					<td>
-						<span class="infoLink" onclick="italicize('publication_title')">italicize selected text</span>
-						<br><span class="infoLink" onclick="bold('publication_title')">bold selected text</span>
-						<br><span class="infoLink" onclick="superscript('publication_title')">superscript selected text</span>
-						<br><span class="infoLink" onclick="subscript('publication_title')">subscript selected text</span>
-						<br><span class="infoLink" onclick="toProperCase('publication_title')">Proper Case selected text</span>
+						<span class="infoLink" onclick="italicize('full_citation')">italicize selected text</span>
+						<br><span class="infoLink" onclick="bold('full_citation')">bold selected text</span>
+						<br><span class="infoLink" onclick="superscript('full_citation')">superscript selected text</span>
+						<br><span class="infoLink" onclick="subscript('full_citation')">subscript selected text</span>
+						<br><span class="infoLink" onclick="toProperCase('full_citation')">Proper Case selected text</span>
 						
 					</td>
 				</tr>
