@@ -1,7 +1,5 @@
 function toProperCase(s) {
 	console.log(s);
-	console.log(s.toLowerCase().replace(/^(.)|\s(.)/g, 
-	function($1) { return $1.toUpperCase(); }););
 	return s.toLowerCase().replace(/^(.)|\s(.)/g, 
 	function($1) { return $1.toUpperCase(); });
 }
