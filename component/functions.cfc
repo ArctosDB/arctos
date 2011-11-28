@@ -14,6 +14,7 @@
 	<cfset firstAuthLastName=''>
 	<cfset secondAuthLastName=''>
 	<cfoutput>
+		<cftry>
 		<cfif idtype is 'DOI'>
 			<cfhttp url="http://www.crossref.org/openurl/?id=#identifier#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
 			<cfset r=xmlParse(cfhttp.fileContent)>
@@ -35,22 +36,17 @@
 				<cfif numberOfAuthors gt 1>
 					<cfset secondAuthLastName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article[1].contributors[1].person_name[2].surname.xmltext>
 				</cfif>
-
 				<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date,"year")>
 					<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.publication_date.year.xmltext>
 				<cfelseif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date,"year")>>
 					<cfset pubYear=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.publication_date.year.xmltext>
 				</cfif>		
-		
 				<cfset pubTitle=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.titles.title.xmltext>
 				<cfset jName=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_metadata.full_title.xmltext>
-		
-		
 				<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1],"journal_issue")>
 					<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.journal_volume,"volume")>
 						<cfset jVol=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.journal_volume.volume.xmltext>
 					</cfif>
-					
 					<cfif structKeyExists(r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue,"issue")>
 						<cfset jIssue=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_issue.issue.xmltext>
 					</cfif>
@@ -63,7 +59,6 @@
 						<cfset lPage=r.doi_records[1].doi_record[1].crossref[1].journal[1].journal_article.pages.last_page.xmltext>
 					</cfif>
 				</cfif>
-				
 			</cfif><!--- end DOI --->
 		<cfelseif idtype is "PMID">
 			<cfhttp url="http://www.ncbi.nlm.nih.gov/pubmed/#identifier#?report=XML"></cfhttp>
@@ -85,40 +80,38 @@
 					<cfset thisName=fName & ' ' & lName>
 					<cfset rauths=listappend(rauths,thisName,"|")>
 				</cfloop>
-				
 				<cfset firstAuthLastName=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].Author[1].LastName.xmltext>
 				<cfif numberOfAuthors gt 1>
 					<cfset secondAuthLastName=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].Author[2].LastName.xmltext>
 				</cfif>
-				
-				
 				<cfif structKeyExists(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal[1].JournalIssue[1].PubDate,"Year")>
 					<cfset pubYear=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal[1].JournalIssue[1].PubDate.Year.xmltext>
 				</cfif>
-				
 				<cfset pubTitle=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].ArticleTitle.xmltext>
 				<cfif right(pubTitle,1) is ".">
 					<cfset pubTitle=left(pubTitle,len(pubTitle)-1)>
 				</cfif>
-				
 				<cfset jName=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal.Title.xmltext>
-				
 				<cfif structKeyExists(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal.JournalIssue,"Issue")>
 					<cfset jIssue=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal.JournalIssue.Issue.xmltext>
 				</cfif>
 				<cfif structKeyExists(r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal.JournalIssue,"Volume")>
 					<cfset jVol=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Journal.JournalIssue.Volume.xmltext>
 				</cfif>
-				
 				<cfset pages=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].Pagination.MedlinePgn.xmltext>
 				<cfif listlen(pages,"-") is 2>
 					<cfset fPage=listgetat(pages,1,"-")>
 					<cfset lPage=listgetat(pages,2,"-")>
 				</cfif>
-						
 			</cfif><!--- PMID nofail --->
 		</cfif><!---- end PMID --->
+		<cfcatch>
+			<cfset fail='error_getting_data: #cfcatch.message# #cfcatch.detail#'>
+		</cfcatch>
+		</cftry>
+		
 		<cfif len(fail) is 0>
+			<cftry>
 			<cfif listlen(rauths,"|") is 2>
 				<cfset auths=replace(rauths,"|"," and ")>
 			<cfelse>
@@ -158,7 +151,7 @@
 			<cfset temp = QuerySetCell(d, "YEAR", pubYear, 1)>
 			<cfset l=1>
 			<cfloop list="#rauths#" index="a" delimiters="|">
-				<cfif l lt 5>
+				<cfif l lte 5>
 					<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select * from (
 							select 
@@ -212,18 +205,16 @@
 				</cfif>
 				<cfset l=l+1>
 			</cfloop>
-		<cfelse><!--- failed somewhere --->
-			<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
-			<cfset temp = queryaddrow(d,1)>
-			<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfhttp.statuscode#:#fail#', 1)>
-		</cfif>
-	
-		
-		
-		
-				
-		
-	
+		<cfcatch>
+			<cfset fail='error_getting_author: #cfcatch.message# #cfcatch.detail#'>
+		</cfcatch>
+		</cftry>
+	</cfif>
+	<cfif len(fail) gt 0>
+		<cfset d = querynew("STATUS,PUBLICATIONTYPE,LONGCITE,SHORTCITE,YEAR,AUTHORS")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'fail:#cfhttp.statuscode#:#fail#', 1)>
+	</cfif>
 	<cfreturn d>
 </cfoutput>
 </cffunction>
