@@ -447,9 +447,9 @@
 						$("#doilookup").html(' [ crossref ] ');
 						$("#pmidlookup").html(' [ pubmed ] ');						
 					} else {
-						alert('sorray: ' + d.DATA.STATUS);
 						$("#doilookup").text(' [ crossref ] ');
 						$("#pmidlookup").text(' [ pubmed ] ');
+						alert(d.DATA.STATUS);
 					}
 				}
 			);
