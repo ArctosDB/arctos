@@ -1,6 +1,7 @@
 function toProperCase(s) {
 	console.log(s);
 	var textarea = document.getElementById(s);
+	console.log(textarea);
 	var len = textarea.value.length;
 	var start = textarea.selectionStart;
 	var end = textarea.selectionEnd;
