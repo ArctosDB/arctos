@@ -85,7 +85,7 @@
 		<cfif len(pub.doi) gt 0>
 			<a class="infoLink external" target="_blank" href="http://dx.doi.org/#pub.doi#">[ open DOI ]</a>
 		</cfif>
-		<label for="pmid" onclick="getDocs('publication','pmid')" class="likeLink">PubMed ID (PMID)</label>
+		<label for="pmid" onclick="getDocs('publication','doi')" class="likeLink">PubMed ID (PMID)</label>
 		<input type="text" id="pmid" name="pmid" value="#pub.pmid#" size="80">
 		<cfif len(pub.pmid) gt 0>
 			<a class="infoLink external" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/#pub.pmid#">[ open PubMed ]</a>
@@ -473,7 +473,7 @@
 			<label for="doi" onclick="getDocs('publication','doi')" class="likeLink">Digital Object Identifier (DOI)</label>
 			<input type="text" id="doi" name="doi" value="" size="80">
 			<span class="likeLink" id="doilookup" onclick="getPubMeta('DOI');"> [ crossref ] </span>
-			<label for="pmid" onclick="getDocs('publication','pmid')" class="likeLink">PubMed ID (PMID)</label>
+			<label for="pmid" onclick="getDocs('publication','doi')" class="likeLink">PubMed ID (PMID)</label>
 			<input type="text" id="pmid" name="pmid" value="" size="80">
 			<span class="likeLink" id="pmidlookup" onclick="getPubMeta('PMID');"> [ pubmed ] </span>
 			<input type="hidden" name="action" value="createPub">
