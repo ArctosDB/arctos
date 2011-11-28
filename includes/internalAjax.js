@@ -1,8 +1,15 @@
 function toProperCase(s) {
 	console.log(s);
-	var d=s.toLowerCase().replace(/^(.)|\s(.)/g, 
-	function($1) { return $1.toUpperCase(); });
-	console.log(d);
+	var textarea = document.getElementById(s);
+	var len = textarea.value.length;
+	var start = textarea.selectionStart;
+	var end = textarea.selectionEnd;
+	var sel = textarea.value.substring(start, end);
+	console.log('sel=' + sel);
+	
+	//var d=s.toLowerCase().replace(/^(.)|\s(.)/g, 
+	//function($1) { return $1.toUpperCase(); });
+	//console.log(d);
 	
 }
 
