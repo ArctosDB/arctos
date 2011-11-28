@@ -1,7 +1,9 @@
 function toProperCase(s) {
 	console.log(s);
-	return s.toLowerCase().replace(/^(.)|\s(.)/g, 
+	var d=s.toLowerCase().replace(/^(.)|\s(.)/g, 
 	function($1) { return $1.toUpperCase(); });
+	console.log(d);
+	
 }
 
 function italicize(e){
