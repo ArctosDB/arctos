@@ -21,7 +21,9 @@ function toProperCase(e) {
 	var after = textarea.value.substring(end, textarea.value.length);
 	
 	console.log('after is :' + after + ':');
-		
+	
+	var result=before + d + after;
+	console.log(result);	
 }
 
 function italicize(e){
