@@ -43,7 +43,7 @@
 				</cfif>
 				<td>
 					<h4>Project or Publication</h4>
-					<label for="p_title"><span class="helpLink" id="project_publication_title">Title</span></label>
+					<label for="p_title"><span class="helpLink" id="project_publication_title">Citation</span></label>
 					<input name="p_title" id="p_title" type="text">
 					<label for="author"><span class="helpLink" id="project_publication_agent">Participant</span></label>
 					<input name="author" id="author" type="text">
@@ -354,8 +354,6 @@
 		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(basSQL)#
 		</cfquery>
-		
-		#preservesinglequotes(basSQL)#
 		<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 			<a href="/Reports/SpecUsageReport.cfm?project_id=#valuelist(projects.project_id)#&publication_id=#valuelist(publication.publication_id)#">Create Report Data</a>
 		</cfif>
