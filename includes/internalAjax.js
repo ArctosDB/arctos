@@ -1,29 +1,14 @@
 function toProperCase(e) {
-	console.log(e);
 	var textarea = document.getElementById(e);
-	console.log(textarea);
 	var len = textarea.value.length;
 	var start = textarea.selectionStart;
 	var end = textarea.selectionEnd;
 	var s = textarea.value.substring(start, end);
-	
-	
-	console.log('the selected text was :' + s + ':');
-	
 	var d=s.toLowerCase().replace(/^(.)|\s(.)/g, 
-	function($1) { return $1.toUpperCase(); });
-	console.log('the replacement text is :' + d + ':');
-	
+	function($1) { return $1.toUpperCase(); });	
 	var before = textarea.value.substring(0,start);
-	
-	console.log('before is :' + before + ':');
-	
 	var after = textarea.value.substring(end, textarea.value.length);
-	
-	console.log('after is :' + after + ':');
-	
 	var result=before + d + after;
-	console.log(result);
 	textarea.value = result;	
 }
 
