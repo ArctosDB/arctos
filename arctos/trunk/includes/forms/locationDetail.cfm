@@ -50,6 +50,7 @@ content: ": ";
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			locality.locality_id locid,
+			collecting_event.collecting_event_id eventID,
 			CONTINENT_OCEAN,
 			COUNTRY,
 			STATE_PROV,
@@ -634,7 +635,8 @@ content: ": ";
 					COLL_EVENT_REMARKS,
 					COLLECTING_SOURCE,
 					COLLECTING_METHOD,
-					HABITAT_DESC
+					HABITAT_DESC,
+					eventID
 				from r group by
 					BEGAN_DATE,
 					ENDED_DATE,
@@ -643,8 +645,38 @@ content: ": ";
 					COLL_EVENT_REMARKS,
 					COLLECTING_SOURCE,
 					COLLECTING_METHOD,
-					HABITAT_DESC	
+					HABITAT_DESC,
+					eventID	
 			</cfquery>
+			
+			<cfquery name="evntMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					media_id
+				from 
+					media_relations 
+				where 
+					media_relationship like '% collecting_event' and 
+					related_primary_key=#event.eventID#
+				group by media_id
+			</cfquery>
+			<cfquery name="evntSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				SELECT 
+					count(cataloged_item.cat_num) numOfSpecs, 
+					collection.collection,
+					collection.collection_id
+				from
+					cataloged_item, 
+					collection
+				WHERE
+					cataloged_item.collection_id = collection.collection_id and
+					cataloged_item.collecting_event_id = #event.eventID#
+				GROUP BY 
+					collection.collection,
+					collection.collection_id
+			</cfquery>
+			
+			
+			
 			<div class="grouped">
 				<cfloop query="event">
 					<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
@@ -657,6 +689,30 @@ content: ": ";
 					<div class="title">
 						Collecting Event
 					</div>
+					
+					
+					<cfif evntMedia.recordcount gt 0 or evntSpecimen.recordcount gt 0>
+						<div class="pair">
+							<div class="data">Contents</div>
+							<div class="value">
+								<cfif evntMedia.recordcount gt 0>
+									<div>
+										<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(evntMedia.media_id)#">[ #evntMedia.recordcount# Media ]</a>
+									</div>
+								</cfif>
+								<cfif evntSpecimen.recordcount gt 0>
+									<cfloop query="evntSpecimen">
+										<div>
+											<a href="SpecimenResults.cfm?collection_id=#collection_id#&collecting_event_id=#locality.eventID#">[ #numOfSpecs# #collection# Specimens ]</a>
+										</div>
+									</cfloop>	
+								</cfif>
+							</div>
+						</div>
+					</cfif>
+					
+					
+					
 			        <div class="pair">
 						<div class="data">Date</div>
 						<div class="value">#thisDate#</div>
