@@ -98,9 +98,9 @@
 
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "srch">
+	<cfset title="Locality Information">
 	<cfoutput>
 		<cf_findLocality>
-
 		<cfquery name="localityResults" dbtype="query">
 			select
 				collecting_event_id,
@@ -159,13 +159,11 @@
 		        <tr>
 					<td>
 						<span class="infoLink" onclick="expand('geog_auth_rec_id', #geog_auth_rec_id#)">[&nbsp;details&nbsp;]</span>
-						<a class="infoLink" href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">[&nbsp;specimens&nbsp;]</a>
 						<a href="showLocality.cfm?action=srch&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
 					</td>
 					<td>
 						<cfif len(locality_id) gt 0>
 							<span class="infoLink" onclick="expand('locality_id', #locality_id#)">[&nbsp;details&nbsp;]</span>
-							<a class="infoLink" href="/SpecimenResults.cfm?locality_id=#locality_id#">[&nbsp;specimens&nbsp;]</a>
 							<cfif len(spec_locality) gt 0>
 								<a href="showLocality.cfm?action=srch&locality_id=#locality_id#">#spec_locality#</a>
 							<cfelse>
@@ -183,7 +181,6 @@
 					<td>
 						<cfif len(collecting_event_id) gt 0>
 							<span class="infoLink" onclick="expand('collecting_event_id', #collecting_event_id#)">[&nbsp;details&nbsp;]</span>
-							<a class="infoLink" href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">[&nbsp;specimens&nbsp;]</a>
 							<a href="showLocality.cfm?action=srch&collecting_event_id=#collecting_event_id#">
 							<cfif len(verbatim_locality) gt 0>
 								#verbatim_locality#
