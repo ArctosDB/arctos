@@ -333,12 +333,12 @@
 			<ul>
 				<cfloop query="whatSpecs">
 					<li><a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locality_id#">#numOfSpecs# #collection# specimens</a></li>
-				</cfloop>	
+				</cfloop>
+				<li>
+					<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
+				</li>
 			</ul>
-			<li>
-				<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
-			</li>
-		</cfif>
+		</cfif>	
 	</span>
 	<br>
     <span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
