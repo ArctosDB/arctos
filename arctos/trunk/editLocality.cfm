@@ -336,7 +336,7 @@
 				</cfloop>	
 			</ul>
 			<li>
-				<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#num# Media records</a>
+				<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
 			</li>
 		</cfif>
 	</span>
