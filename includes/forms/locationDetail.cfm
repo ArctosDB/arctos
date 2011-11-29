@@ -703,7 +703,7 @@ content: ": ";
 								<cfif evntSpecimen.recordcount gt 0>
 									<cfloop query="evntSpecimen">
 										<div>
-											<a href="SpecimenResults.cfm?collection_id=#collection_id#&collecting_event_id=#locality.eventID#">[ #numOfSpecs# #collection# Specimens ]</a>
+											<a href="SpecimenResults.cfm?collection_id=#collection_id#&collecting_event_id=#event.eventID#">[ #numOfSpecs# #collection# Specimens ]</a>
 										</div>
 									</cfloop>	
 								</cfif>
