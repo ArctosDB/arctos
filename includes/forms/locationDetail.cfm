@@ -252,41 +252,42 @@ content: ": ";
 					MAX_DEPTH,
 					NOGEOREFBECAUSE
 			</cfquery>
-			<cfquery name="locMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select 
-					media_id
-				from 
-					media_relations 
-				where 
-					media_relationship like '% locality' and 
-					related_primary_key=#locality_id#
-				group by media_id
-			</cfquery>
-			<cfquery name="locSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT 
-					count(cataloged_item.cat_num) numOfSpecs, 
-					collection.collection,
-					collection.collection_id
-				from
-					cataloged_item, 
-					collection,
-					collecting_event 
-				WHERE
-					cataloged_item.collecting_event_id = collecting_event.collecting_event_id and
-					cataloged_item.collection_id = collection.collection_id and
-					collecting_event.locality_id=#locality_id# 
-				GROUP BY 
-					collection.collection,
-					collection.collection_id
-			</cfquery>
+			<cfif isdefined(locality_id)>
+				<cfquery name="locMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select 
+						media_id
+					from 
+						media_relations 
+					where 
+						media_relationship like '% locality' and 
+						related_primary_key=#locality_id#
+					group by media_id
+				</cfquery>
+				<cfquery name="locSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					SELECT 
+						count(cataloged_item.cat_num) numOfSpecs, 
+						collection.collection,
+						collection.collection_id
+					from
+						cataloged_item, 
+						collection,
+						collecting_event 
+					WHERE
+						cataloged_item.collecting_event_id = collecting_event.collecting_event_id and
+						cataloged_item.collection_id = collection.collection_id and
+						collecting_event.locality_id=#locality_id# 
+					GROUP BY 
+						collection.collection,
+						collection.collection_id
+				</cfquery>
+			</cfif>
 		</cfif>
 			<div class="grouped">
 				<cfloop query="locality">
 					<div class="title">
 						Locality
-						
 					</div>
-					<cfif locMedia.recordcount gt 0 or locSpecimen.recordcount gt 0>
+					<cfif isdefined(locality_id) and locMedia.recordcount gt 0 or locSpecimen.recordcount gt 0>
 						<div class="pair">
 							<div class="data">Contents</div>
 							<div class="value">
