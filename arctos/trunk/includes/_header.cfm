@@ -79,7 +79,6 @@
 			</table>
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
 		    	<cfif len(session.username) gt 0>
-					<a target="_top" href="##" onClick="getDocs('index')">Help</a> ~ 
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 					<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
 						<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)</span>&nbsp;
@@ -101,9 +100,6 @@
 						<input type="hidden" name="gotopage" value="#gtp#">
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
-								<td rowspan="2" valign="top">
-									<a target="_top" href="##" onClick="getDocs('index')">Help</a> ~&nbsp;
-								</td>
 								<td>
 									<input type="text" name="username" title="Username" value="Username" size="12" 
 										class="loginTxt" onfocus="if(this.value==this.title){this.value=''};">
@@ -126,11 +122,6 @@
 					</form>
 				</cfif>
 			</div>
-			<!---
-			<div style="border:2px solid red; text-align:center;margin:2px;padding:2px;background-color:white;font-weight:bold;">
-				We're upgrading! Things may be a little goofy until Monday, February 16.
-			</div>
-			--->
 			<div class="sf-mainMenuWrapper">
 				<ul class="sf-menu">
 					<li>
@@ -370,7 +361,7 @@
 						</ul>
 					</li>
 					<li>
-						<a target="_blank" href="http://arctosdb.wordpress.com">About Arctos</a>
+						<a target="_blank" href="http://arctosdb.org/">About/Help</a>
 					</li>	
 				</ul>
 			</div>
