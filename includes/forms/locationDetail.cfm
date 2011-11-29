@@ -49,6 +49,7 @@ content: ": ";
 <cfoutput>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
+			locality.locality_id,
 			CONTINENT_OCEAN,
 			COUNTRY,
 			STATE_PROV,
