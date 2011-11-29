@@ -328,7 +328,7 @@
     <span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
 		This locality (#locality_id#) contains
 		<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
- 			nothing. Please delete it if you don't have plans for it.
+ 			nothing. Please delete it if you don't have plans for it and there are no used Events.
  		<cfelse>
 			<ul>
 				<cfloop query="whatSpecs">
