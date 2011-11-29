@@ -334,9 +334,11 @@
 				<cfloop query="whatSpecs">
 					<li><a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locality_id#">#numOfSpecs# #collection# specimens</a></li>
 				</cfloop>
-				<li>
-					<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.recordcount# Media records</a>
-				</li>
+				<cfif whatMedia.recordcount gt 0>
+					<li>
+						<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.recordcount# Media records</a>
+					</li>
+				</cfif>
 			</ul>
 		</cfif>	
 	</span>
