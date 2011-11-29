@@ -230,7 +230,8 @@
 	<cfquery name="whatSpecs" datasource="uam_god">
   		SELECT 
 			count(cataloged_item.cat_num) numOfSpecs, 
-			collection.collection
+			collection.collection,
+			collection.collection_id
 		from 
 			cataloged_item, 
 			collection,
@@ -240,8 +241,21 @@
 			cataloged_item.collection_id = collection.collection_id and
 			collecting_event.locality_id=#locality_id# 
 		GROUP BY 
-			collection.collection
+			collection.collection,
+			collection.collection_id
   	</cfquery>
+	<cfquery name="whatMedia" datasource="uam_god">
+  		SELECT 
+			count(*), 
+			media_id
+		from 
+			media_relations 
+		WHERE
+			 media_relationship like '% locality' and 
+			 related_primary_key=#locality_id# 
+		GROUP BY 
+			media_id
+	</cfquery>
 	<cfquery name="getLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select
 			ACCEPTED_LAT_LONG_FG,
@@ -313,19 +327,18 @@
      </cfquery>
     <span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
 		This locality (#locality_id#) contains
-		<cfif whatSpecs.recordcount is 0>
- 					no specimens. Please delete it if you don't have plans for it.
- 			<cfelseif whatSpecs.recordcount is 1>
-			#whatSpecs.numOfSpecs# #whatSpecs.collection# 
-			<a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>
-		<cfelse>
-			 the following <a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>:  
-			<ul>	
+		<cfif whatSpecs.recordcount is 0 and whatMedia.num is 0>
+ 			nothing. Please delete it if you don't have plans for it.
+ 		<cfelse>
+			<ul>
 				<cfloop query="whatSpecs">
-					<li><font color="##FF0000">#numOfSpecs# #collection#</font></li>
-				</cfloop>			
+					<li><a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locality_id#">#numOfSpecs# #collection# specimens</a></li>
+				</cfloop>	
 			</ul>
-			</cfif>
+			<li>
+				<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#num# Media records</a>
+			</li>
+		</cfif>
 	</span>
 	<br>
     <span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
