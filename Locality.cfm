@@ -494,11 +494,23 @@
 			collection,
 	  		collection.collection_id
 	</cfquery>
+	<cfquery name="whatMedia" datasource="uam_god">
+  		SELECT 
+			count(*) num, 
+			media_id
+		from 
+			media_relations 
+		WHERE
+			 media_relationship like '% collecting_event' and 
+			 related_primary_key=#collecting_event_id# 
+		GROUP BY 
+			media_id
+	</cfquery>
 	<div style="border:2px solid red; font-weight:bold">
 		This Collecting Event (#collecting_event_id#) 
 		<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
-		<cfif whatSpecs.recordcount is 0>
-			no specimens. Please delete it if you don't have plans for it.
+		<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
+			nothing. Please delete it if you don't have plans for it.
 		<cfelse>
 			<ul>	
 				<cfloop query="whatSpecs">
@@ -507,7 +519,10 @@
 							#whatSpecs.numOfSpecs# #whatSpecs.collection# specimens
 						</a>
 					</li>
-				</cfloop>			
+				</cfloop>
+				<li>
+					<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
+				</li>		
 			</ul>
 		</cfif>
 	</div>
