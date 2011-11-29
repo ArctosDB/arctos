@@ -520,9 +520,11 @@
 						</a>
 					</li>
 				</cfloop>
-				<li>
-					<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
-				</li>		
+				<cfif whatMedia.recordcount gt 0>
+					<li>
+						<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
+					</li>
+				</cfif>
 			</ul>
 		</cfif>
 	</div>
