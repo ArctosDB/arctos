@@ -282,7 +282,6 @@ content: ": ";
 					collection.collection,
 					collection.collection_id
 			</cfquery>
-		</cfif>
 			<div class="grouped">
 				<cfloop query="locality">
 					<div class="title">
@@ -624,6 +623,7 @@ content: ": ";
 					</cfloop>
 				</div>
 			</cfif>
+		</cfif>
 		<cfif isdefined("collecting_event_id")>
 			<cfquery name="event" dbtype="query">
 				select
