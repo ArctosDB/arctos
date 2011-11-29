@@ -246,7 +246,7 @@
   	</cfquery>
 	<cfquery name="whatMedia" datasource="uam_god">
   		SELECT 
-			count(*), 
+			count(*) num, 
 			media_id
 		from 
 			media_relations 
