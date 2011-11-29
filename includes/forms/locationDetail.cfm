@@ -262,15 +262,49 @@ content: ": ";
 					related_primary_key=#locality_id#
 				group by media_id
 			</cfquery>
+			<cfquery name="locSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				SELECT 
+					count(cataloged_item.cat_num) numOfSpecs, 
+					collection.collection,
+					collection.collection_id
+				from
+					cataloged_item, 
+					collection,
+					collecting_event 
+				WHERE
+					cataloged_item.collecting_event_id = collecting_event.collecting_event_id and
+					cataloged_item.collection_id = collection.collection_id and
+					collecting_event.locality_id=#locality_id# 
+				GROUP BY 
+					collection.collection,
+					collection.collection_id
+			</cfquery>
 		</cfif>
 			<div class="grouped">
 				<cfloop query="locality">
 					<div class="title">
 						Locality
-						<cfif locMedia.recordcount gt 0>
-							<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(locMedia.media_id)#">[ #locMedia.recordcount# Media ]</a>
-						</cfif>
+						
 					</div>
+					<cfif locMedia.recordcount gt 0 or locSpecimen.recordcount gt 0>
+						<div class="pair">
+							<div class="data">Contents</div>
+							<div class="value">
+								<cfif locMedia.recordcount gt 0>
+									<div>
+										<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(locMedia.media_id)#">[ #locMedia.recordcount# Media ]</a>
+									</div>
+								</cfif>
+								<cfif locSpecimen.recordcount gt 0>
+									<cfloop query="locSpecimen">
+										<div>
+											<a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locality_id#">[ #numOfSpecs# #collection# Specimens ]</a>
+										</div>
+									</cfloop>	
+								</cfif>
+							</div>
+						</div>
+					</cfif>
 					<cfif len(SPEC_LOCALITY) gt 0>
 						<div class="pair">
 							<div class="data">Specific Locality</div>
