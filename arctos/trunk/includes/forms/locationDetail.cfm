@@ -252,10 +252,24 @@ content: ": ";
 					MAX_DEPTH,
 					NOGEOREFBECAUSE
 			</cfquery>
+			<cfquery name="locMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					media_id
+				from 
+					media_relations 
+				where 
+					media_relationship like '% locality' and 
+					related_primary_key=#locality_id#
+				group by media_id
+			</cfquery>
+		</cfif>
 			<div class="grouped">
 				<cfloop query="locality">
 					<div class="title">
 						Locality
+						<cfif locMedia.recordcount gt 0>
+							<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(locMedia.media_id)#">[ #locMedia.recordcount# Media ]</a>
+						</cfif>
 					</div>
 					<cfif len(SPEC_LOCALITY) gt 0>
 						<div class="pair">
@@ -574,27 +588,6 @@ content: ": ";
 					</cfloop>
 				</div>
 			</cfif>
-			<cfquery name="locMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select 
-					media_id
-				from 
-					media_relations 
-				where 
-					media_relationship like '% locality' and 
-					related_primary_key=#locality_id#
-				group by media_id
-			</cfquery>
-			<cfif locMedia.recordcount gt 0>
-				<div class="grouped">
-					<div class="title">
-						Media
-					</div>
-					<cfloop query="locMedia">
-						#media_id#<br>
-					</cfloop>
-				</div>
-			</cfif>												
-		</cfif>
 		<cfif isdefined("collecting_event_id")>
 			<cfquery name="event" dbtype="query">
 				select
