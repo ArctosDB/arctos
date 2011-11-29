@@ -241,7 +241,8 @@ content: ": ";
 					DEPTH_UNITS,
 					MIN_DEPTH,
 					MAX_DEPTH,
-					NOGEOREFBECAUSE
+					NOGEOREFBECAUSE,
+					locid
 				from r group by
 					MAXIMUM_ELEVATION,
 					MINIMUM_ELEVATION,
@@ -251,7 +252,8 @@ content: ": ";
 					DEPTH_UNITS,
 					MIN_DEPTH,
 					MAX_DEPTH,
-					NOGEOREFBECAUSE
+					NOGEOREFBECAUSE,
+					locid
 			</cfquery>
 			<cfquery name="locMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
@@ -260,7 +262,7 @@ content: ": ";
 					media_relations 
 				where 
 					media_relationship like '% locality' and 
-					related_primary_key=#locid#
+					related_primary_key=#locality.locid#
 				group by media_id
 			</cfquery>
 			<cfquery name="locSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -275,7 +277,7 @@ content: ": ";
 				WHERE
 					cataloged_item.collecting_event_id = collecting_event.collecting_event_id and
 					cataloged_item.collection_id = collection.collection_id and
-					collecting_event.locality_id=#locid# 
+					collecting_event.locality_id=#locality.locid# 
 				GROUP BY 
 					collection.collection,
 					collection.collection_id
