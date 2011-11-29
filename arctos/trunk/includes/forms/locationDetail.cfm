@@ -252,7 +252,7 @@ content: ": ";
 					MAX_DEPTH,
 					NOGEOREFBECAUSE
 			</cfquery>
-			<cfif isdefined(locality_id)>
+			<cfif isdefined("locality_id")>
 				<cfquery name="locMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
 						media_id
@@ -287,7 +287,7 @@ content: ": ";
 					<div class="title">
 						Locality
 					</div>
-					<cfif isdefined(locality_id) and locMedia.recordcount gt 0 or locSpecimen.recordcount gt 0>
+					<cfif isdefined("locality_id") and locMedia.recordcount gt 0 or locSpecimen.recordcount gt 0>
 						<div class="pair">
 							<div class="data">Contents</div>
 							<div class="value">
