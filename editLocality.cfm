@@ -244,18 +244,6 @@
 			collection.collection,
 			collection.collection_id
   	</cfquery>
-	<cfquery name="whatMedia" datasource="uam_god">
-  		SELECT 
-			count(*) num, 
-			media_id
-		from 
-			media_relations 
-		WHERE
-			 media_relationship like '% locality' and 
-			 related_primary_key=#locality_id# 
-		GROUP BY 
-			media_id
-	</cfquery>
 	<cfquery name="getLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select
 			ACCEPTED_LAT_LONG_FG,
@@ -325,9 +313,21 @@
 	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>
+	
+	<cfquery name="whatMedia" datasource="uam_god">
+  		SELECT 
+			media_id
+		from 
+			media_relations 
+		WHERE
+			 media_relationship like '% locality' and 
+			 related_primary_key=#locality_id# 
+		GROUP BY 
+			media_id
+	</cfquery>
     <span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
 		This locality (#locality_id#) contains
-		<cfif whatSpecs.recordcount is 0 and whatMedia.num is 0>
+		<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
  			nothing. Please delete it if you don't have plans for it.
  		<cfelse>
 			<ul>
@@ -335,7 +335,7 @@
 					<li><a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locality_id#">#numOfSpecs# #collection# specimens</a></li>
 				</cfloop>
 				<li>
-					<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
+					<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.recordcount# Media records</a>
 				</li>
 			</ul>
 		</cfif>	
