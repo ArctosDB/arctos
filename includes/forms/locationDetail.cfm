@@ -300,7 +300,7 @@ content: ": ";
 								<cfif locSpecimen.recordcount gt 0>
 									<cfloop query="locSpecimen">
 										<div>
-											<a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locid#">[ #numOfSpecs# #collection# Specimens ]</a>
+											<a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locality.locid#">[ #numOfSpecs# #collection# Specimens ]</a>
 										</div>
 									</cfloop>	
 								</cfif>
