@@ -101,7 +101,6 @@
 			count(collection) numCollections
 		 from coll
 	</cfquery>
-	<cfdump var=#summary#>
 	<div id="menu">
 		<a href="##top">top</a>
 		<br><a href="##uam">UAM</a>
@@ -118,7 +117,7 @@
 	or use the links in the header to search for specimens, media, taxonomy, projects and publications, and more. Sign in or create an account to save 
 	preferences and searches.
 	<p>
-		Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
+		Arctos is currently #summary.total_specimens# specimens and observations in #summary.numCollections# collections.Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
 		<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences. 
 	</p>
 	<ul>
