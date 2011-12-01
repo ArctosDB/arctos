@@ -329,8 +329,7 @@ border-bottom:1px solid black;
 			</li>
 		</cfif>
 	</ul>
-	</div>
-<a name="features"></a>	
+	<a name="features"></a>	
 <p><strong >Features:</strong>
 <ul>
 	<li>Vaporware-free since 2001. All this stuff and much more really exists in a usable state, and we'll never claim
@@ -409,5 +408,7 @@ border-bottom:1px solid black;
 		provider.</li>
 </ul>
 </p>
+	</div>
+
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
