@@ -42,7 +42,7 @@ border-bottom:1px solid black;
 	}
 </style>
 <cfoutput>
-	<cfquery  name="coll" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="coll" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			cf_collection.cf_collection_id,
 			decode(cf_collection.collection_id,
