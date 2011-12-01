@@ -95,6 +95,13 @@
 	<cfquery name="rem" dbtype="query">
 		select * from coll where cf_collection_id not in (#gotem#)
 	</cfquery>
+	<cfquery name="summary" dbtype="query">
+		select 
+			sum(cnt) total_specimens,
+			count(collection) numCollections
+		 from coll
+	</cfquery>
+	<cfdump var=#summary#>
 	<div id="menu">
 		<a href="##top">top</a>
 		<br><a href="##uam">UAM</a>
@@ -106,6 +113,7 @@
 	</div>
 	<div id="body">
 	<a name="top"></a>
+	Arctos is an ongoing effort to integrate access to specimen data, collection-management tools, and external resources on the internet. 
 	Read more about Arctos at our <a href="https://arctosdb.wordpress.com/">Documentation Site</a>, explore some <a href="/random.cfm">random content</a>, 
 	or use the links in the header to search for specimens, media, taxonomy, projects and publications, and more. Sign in or create an account to save 
 	preferences and searches.
