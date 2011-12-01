@@ -74,19 +74,6 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="disposition">Specimen Disposition:</span>
-		</td>
-		<td class="srch">
-			<select name="coll_obj_disposition" id="coll_obj_disposition" size="1">
-				<option value=""></option>
-				<cfloop query="ctCollObjDisp">
-					<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>
-				</cfloop>
-			</select><span class="infoLink" onclick="getCtDoc('ctcoll_obj_disp',SpecData.coll_obj_disposition.value);">Define</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
 			<span class="helpLink" id="disposition">Part Disposition:</span>
 		</td>
 		<td class="srch">

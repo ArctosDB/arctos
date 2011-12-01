@@ -25,11 +25,7 @@
 		$("#determined_date_" + id).toggle();
 		$("#determination_method_" + id).toggle();
 		$("#agent_name_" + id).toggle();
-	}
-	
-	
-						
-						
+	}			
 	function undeleteAttribute(id){
 		$("#attribute_type_" + id).val($("#deleted_attribute_type_" + id).val());
 		$("#deleted_attribute_type_" + id).remove();
@@ -98,9 +94,6 @@
 	<cfoutput>
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT
-				COLL_OBJ_DISPOSITION,
-				CONDITION,
-				DISPOSITION_REMARKS,
 				COLL_OBJECT_REMARKS,
 				habitat,
 				associated_species,
@@ -138,11 +131,8 @@
 		</cfquery>
 		<cfquery name="indiv" dbtype="query">
 			select 
-				COLL_OBJ_DISPOSITION,
-				CONDITION,
 				CAT_NUM,
 				collection_cde,
-				DISPOSITION_REMARKS,
 				COLL_OBJECT_REMARKS,
 				habitat,
 				associated_species,
@@ -150,11 +140,8 @@
 			FROM
 				raw
 			group by
-				COLL_OBJ_DISPOSITION,
-				CONDITION,
 				CAT_NUM,
 				collection_cde,
-				DISPOSITION_REMARKS,
 				COLL_OBJECT_REMARKS,
 				habitat,
 				associated_species,
@@ -204,20 +191,6 @@
 			<input type="hidden" value="#indiv.collection_cde#" name="collection_cde" id="collection_cde">
     		<table>
       			<tr> 
-			        <td>
-				        <label for="coll_obj_disposition">Disposition</label>
-				        <select name="coll_obj_disposition" id="coll_obj_disposition" size="1" class="reqdClr">
-				            <cfloop query="ctdisp">
-				              <option <cfif indiv.coll_obj_disposition is ctdisp.coll_obj_disposition> selected="selected" </cfif>
-									value="#ctdisp.coll_obj_disposition#">#ctdisp.coll_obj_disposition#</option>
-				            </cfloop>
-			        	</select>
-					</td>
-        			<td>
-						<label for="condition">Specimen Condition</label>
-						<input type="text" name="condition" id="condition" value="#indiv.condition#" class="reqdClr">
-						<span class="infoLink" onClick="chgCondition('#collection_object_id#')">history</span>
-					</td>
 					<td>
 						<label for="flags">Missing</label>
 						<select name="flags" id="flags" size="1">
@@ -229,8 +202,6 @@
 					</td>
 				</tr>
 			</table>
-			<label for="disposition_remarks">Specimen Disposition Remarks</label>
-			<input type="text" name="disposition_remarks" id="disposition_remarks" value="#indiv.disposition_remarks#" size="80">
 			<label for="coll_object_remarks">Specimen Remarks</label>
 			<textarea name="coll_object_remarks" id="coll_object_remarks" cols="80" rows="2">#indiv.coll_object_remarks#</textarea>
 			<label for="habitat">Microhabitat</label>
@@ -580,8 +551,6 @@
 				UPDATE coll_object SET
 					last_edited_person_id = #session.myAgentId#
 					,last_edit_date = sysdate
-					,coll_obj_disposition = '#coll_obj_disposition#'
-					,condition = '#condition#'
 					,flags='#flags#'
 				WHERE collection_object_id = #collection_object_id#
 			</cfquery>
@@ -593,7 +562,6 @@
 				<cfquery name="upCoRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE coll_object_remark SET
 						collection_object_id = #collection_object_id#
-						,disposition_remarks = '#disposition_remarks#'
 						,coll_object_remarks = '#coll_object_remarks#'
 						,habitat = '#habitat#'
 						,associated_species = '#associated_species#'
@@ -601,17 +569,15 @@
 						collection_object_id = #collection_object_id#
 				</cfquery>
 			<cfelse>
-				<cfif len(disposition_remarks) gt 0 OR len(coll_object_remarks) gt 0 OR len(habitat) gt 0 or len(associated_species) gt 0>
+				<cfif len(coll_object_remarks) gt 0 OR len(habitat) gt 0 or len(associated_species) gt 0>
 					<cfquery name="newBIRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO coll_object_remark (
 							collection_object_id
-							,disposition_remarks
 							,coll_object_remarks
 							,habitat
 							,associated_species
 						 ) VALUES (
 							#collection_object_id#
-							,'#escapeQuotes(disposition_remarks)#'
 							,'#escapeQuotes(coll_object_remarks)#'
 							,'#escapeQuotes(habitat)#'
 							,'#escapeQuotes(associated_species)#'
