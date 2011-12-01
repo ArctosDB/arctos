@@ -346,6 +346,7 @@
 							</li>
 					    </cfif>
 					</cfif>
+					<li><a target="_top" href="/home.cfm">Portals</a></li>
 				    <li><a target="_top" href="/myArctos.cfm">My Stuff</a>
 				   		<ul>
 							<cfif len(session.username) gt 0>
@@ -353,7 +354,6 @@
 							<cfelse>
 								<li><a target="_top" href="/myArctos.cfm">Log In</a></li>
 							</cfif>
-							<li><a target="_top" href="/home.cfm">About</a></li>
 							<li><a target="_top" href="/saveSearch.cfm?action=manage">Saved Searches</a></li>
 							<li><a target="_top" href="/info/api.cfm">API</a></li>
 						</ul>
