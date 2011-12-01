@@ -23,11 +23,6 @@
 		<td>
 			Access to #getCount.cnt# records
 		</td>
-		<td style="padding-left:2em;padding-right:2em;">
-			<span class="infoLink" onClick="getHelp('CollStats');">
-				Holdings Details
-			</span>
-		</td>
 		<cfif #hasCanned.recordcount# gt 0>
 			<td style="padding-left:2em;padding-right:2em;">
 				Saved Searches: <select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
