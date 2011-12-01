@@ -213,15 +213,6 @@
 	<cfset basQual = "#basQual#  AND CatItemCollObject.last_edited_person_id = #edited_by_id#" >
 	<cfset mapurl = "#mapurl#&edited_by_id=#edited_by_id#">
 </cfif>
-<cfif isdefined("coll_obj_disposition") AND len(coll_obj_disposition) gt 0>
-	<cfif basJoin does not contain "CatItemCollObject">
-		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON 
-		(cataloged_item.collection_object_id = CatItemCollObject.collection_object_id)">
-	</cfif>
-	<cfset basQual = "#basQual#  AND CatItemCollObject.coll_obj_disposition = '#coll_obj_disposition#'" >
-	<cfset mapurl = "#mapurl#&coll_obj_disposition=#coll_obj_disposition#">
-</cfif>
-
 <cfif isdefined("coll_obj_condition") AND len(coll_obj_condition) gt 0>
 	<cfif basJoin does not contain "CatItemCollObject">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON 

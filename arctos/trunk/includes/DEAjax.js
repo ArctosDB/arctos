@@ -163,17 +163,11 @@ function MSBMammDefaults() {
 	if ($("#nature_of_id").val()==''){
    	 	$("#nature_of_id").val('field');
     }
-	if ($("#coll_obj_disposition").val()==''){
-   	 	$("#coll_obj_disposition").val('being processed');
-    }
 	$.each($("[id^='part_disposition_']"), function() {
 	     if ($("#" + this.id).val()==''){
 	    	 $("#" + this.id).val('being processed');
 	     }
 	});
-	if ($("#condition").val()==''){
-   	 	$("#condition").val('unchecked');
-    }
 	$.each($("input[id^='part_condition_']"), function() {
 	     if ($("#" + this.id).val()==''){
 	    	 $("#" + this.id).val('unchecked');
@@ -198,17 +192,11 @@ function MVZDefaults() {
 	if ($("#nature_of_id").val()==''){
    	 	$("#nature_of_id").val('field');
     }
-	if ($("#coll_obj_disposition").val()==''){
-   	 	$("#coll_obj_disposition").val('in collection');
-    }
 	$.each($("[id^='part_disposition_']"), function() {
 	     if ($("#" + this.id).val()==''){
 	    	 $("#" + this.id).val('in collection');
 	     }
 	});
-	if ($("#condition").val()==''){
-   	 	$("#condition").val('unchecked');
-    }
 	$.each($("input[id^='part_condition_']"), function() {
 	     if ($("#" + this.id).val()==''){
 	    	 $("#" + this.id).val('unchecked');
@@ -236,17 +224,11 @@ function UAMMammDefault() {
 	if ($("#nature_of_id").val()==''){
    	 	$("#nature_of_id").val('field');
     }
-	if ($("#coll_obj_disposition").val()==''){
-   	 	$("#coll_obj_disposition").val('being processed');
-    }
 	$.each($("[id^='part_disposition_']"), function() {
 		if ($("#" + this.id).val()==''){
 	    	 $("#" + this.id).val('being processed');
 	    }
 	});
-	if ($("#condition").val()==''){
-   	 	$("#condition").val('unchecked');
-    }
 	$.each($("input[id^='part_condition_']"), function() {
 	     if ($("#" + this.id).val()==''){
 	    	 $("#" + this.id).val('unchecked');
@@ -292,10 +274,6 @@ function incCatNum() {
 	}
 }
 function MSBBirdDefault () {
-	if ($("#coll_obj_disposition").val()==''){
-		$("#coll_obj_disposition").val('in collection');
-	}
-	
 	if ($("#other_id_num_type_1").val()==''){
 		$("#other_id_num_type_1").val('collector number');
 	}
@@ -1175,8 +1153,6 @@ function cleanup () {
 	reqdFlds.push('began_date');
 	reqdFlds.push('ended_date');
 	reqdFlds.push('taxon_name');
-	reqdFlds.push('condition');
-	reqdFlds.push('coll_obj_disposition');
 	reqdFlds.push('id_made_by_agent');
 	reqdFlds.push('nature_of_id');
 	var thisIA = document.getElementById('institution_acronym').value;

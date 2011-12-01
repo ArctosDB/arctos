@@ -106,7 +106,6 @@
 		geog_auth_rec.island_group,
 		geog_auth_rec.sea,
 		geog_auth_rec.feature,
-		coll_object.coll_obj_disposition,
 		coll_object.coll_object_entered_date,
 		coll_object.last_edit_date,
 		coll_object.flags,
@@ -1235,24 +1234,11 @@
 					<cfif oneOfUs is 1>
 						<div class="detailBlock">
 							<span class="detailData">
-								<span class="innerDetailLabel">Disposition:</span>
-								#one.coll_obj_disposition#
-							</span>
-						</div>
-						<cfif len(one.disposition_remarks) gt 0>
-							<div class="detailBlock">
-								<span class="detailCellSmall">
-									&nbsp;&nbsp;#one.disposition_remarks#
-								</span>
-							</div>
-						</cfif>	
-						<div class="detailBlock">
-							<span class="detailData">
 								<span class="innerDetailLabel">Entered By:</span>
 								#one.EnteredBy# on #dateformat(one.coll_object_entered_date,"yyyy-mm-dd")#
 							</span>
 						</div>
-						<cfif #one.EditedBy# is not "unknown" OR len(#one.last_edit_date#) is not 0>
+						<cfif #one.EditedBy# is not "unknown" OR len(one.last_edit_date) is not 0>
 							<div class="detailBlock">
 								<span class="detailData">
 									<span class="innerDetailLabel">Last Edited By:</span>

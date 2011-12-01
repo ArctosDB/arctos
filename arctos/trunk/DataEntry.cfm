@@ -1208,26 +1208,6 @@
 							#eby#
 						</td>
 					</tr>
-					<tr>
-						<td align="right"><span class="f11a">Disposition</span></td>
-						<td>
-							<cfset thisDisp = COLL_OBJ_DISPOSITION>
-							<select name="coll_obj_disposition" size="1" class="reqdClr" id="coll_obj_disposition">
-								<option value=""></option>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif thisDisp is COLL_OBJ_DISPOSITION> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td align="right"><span class="f11a">Condition</span></td>
-						<td>
-							<input type="text" class="reqdClr" name="condition" value="#condition#" id="condition" size="50">
-						</td>
-					</tr>
 					<tr id="d_relationship">
 						<td align="right"><span class="f11a">Relations</span></td>
 						<td>
