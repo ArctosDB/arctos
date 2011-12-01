@@ -20,13 +20,13 @@
 		position:fixed;
 		top:20%;
 		left:0; 
-		width:3.5em;
+		width:6em;
 		border:1px solid green;
 		padding:1em;
 		margin:1em;
 	}
 	#body {
-		margin-left:8em;
+		margin-left:12em;
 	}
 	.anchortitle {
 font-weight:bold;
