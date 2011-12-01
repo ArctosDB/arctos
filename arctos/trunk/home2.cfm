@@ -33,6 +33,13 @@ font-weight:bold;
 margin-left:-.8em;
 border-bottom:1px solid black;
 }
+.q {
+		font-variant: small-caps;
+	}
+	.a {
+		font-size:smaller;
+		margin-bottom:1em;
+	}
 </style>
 <cfoutput>
 	<cfquery  name="coll" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -117,6 +124,13 @@ border-bottom:1px solid black;
 		<br><a href="##rem">other</a>
 		<div class="anchortitle">Topics</div>
 		<br><a href="##features">Features</a>
+		<br><a href="##nodes">Nodes</a>
+		<br><a href="##participation">Participation</a>
+		<br><a href="##requirements">Requirements</a>
+		<br><a href="##browser_compatiblity">Browsers</a>
+		<br><a href="##data_usage">Usage</a>
+		<br><a href="##faq">FAQ</a>
+		<br><a href="##suggest">Suggestions</a>
 		
 	</div>
 	<div id="body">
@@ -407,6 +421,235 @@ border-bottom:1px solid black;
 		<a href="http://www.digir.net" target="_blank">DiGIR</a> 
 		provider.</li>
 </ul>
+</p>
+
+<a name="nodes"></a>
+<p><strong>Nodes</strong></p>
+<p>
+	Arctos may be thought of as a number of overlapping nodes.
+	<ul>
+		<li>
+			<strong>Specimens</strong> are the core of Arctos. Traditional museum
+			"label data" live here. 
+			<a href="http://g-arctos.appspot.com/arctosdoc/attributes.html" target="_blank" class="external">Attributes</a> 
+			 allow collection-specific determinations
+			of most anything that can be recorded from a specimen, such as sex, weight, age, and various 
+			measurements. Specimen Parts are the physical objects, and are grouped as Cataloged Items, which represent
+			one or more biological individuals. Cataloged items may be encumbered in order to restrict access to objects or data.
+			Other Identifiers record any number assigned to a specimen, and may form links to external resources such as GenBank.
+		</li>
+		<li>
+			<strong>Containers</strong> hold specimen parts and other containers in a flexible recursive model. Containers may
+			be barcoded. Some containers hold fluid, and record a history of concentration and monitored dates. All
+			containers maintain a position and condition history.
+		</li>
+		<li>
+			<strong>Transactions</strong> consist of loans, accessions, and borrows, and may be grouped through projects.
+		</li>
+		<li>
+			<strong>Localities</strong> record descriptive spatial and coordinate data, along with collecting methods, 
+			habitat, and dates.
+		</li>
+		<li>
+			<strong>Agents</strong> are people, groups, or organizations that collect specimens, determine identifications, 
+			attributes, and coordinates, create, authorize, and participate in transactions, author publications, 
+			and act in various other roles.
+		</li>
+		<li>
+			<strong>Publications</strong> are attached to specimens by way of citations, and are often created by projects.
+		</li>
+		<li>
+			<strong>Projects</strong> create and use specimens, produce publications, group taxonomy into checklists, and record usage of specimens
+			in the absence of formal citations.
+		</li>
+		<li>
+			<strong>Taxonomy</strong> forms the basis for identifications and citations. Taxa may be related to each other
+			and to any number of common names in any language.
+		</li>
+		<li>
+			<strong>Media</strong> attaches digital resources to specimens, people, places, and publications. TAGs graphically
+			reference images to specimens, places, and people. Documents paginate scanned publications, such as field notes.
+		</li>
+	</ul>
+</p>
+
+
+<p><a name="participation"><strong>Participation</strong></a><br/>
+Arctos is currently two systems sharing the same code. 
+One is a 
+<a href="http://arctos.database.museum/SpecimenSearch.cfm" target="_blank">multi-hosting version</a> 
+that includes collections 
+at the 
+<a href="http://www.uaf.edu/museum" target="_blank">University of Alaska Museum of the North</a>, 
+the 
+<a href="http://www.msb.unm.edu/" target="_blank">University of New Mexico's Museum of Southwestern Biology</a>,  
+<a href="http://www.wnmu.edu/" target="_blank">Western New Mexico State University</a>,
+the 
+<a href="http://mvz.berkeley.edu/" target="_blank">Museum of Vertebrate Zoology</a>, and 
+the <a href="http://www.dmns.org/" target="_blank">Denver Museum of Nature & Science</a>. A second server at the
+<a href="http://mczbase.mcz.harvard.edu" target="_blank">Harvard Museum of Comparative Zoology</a> hosts 
+MCZ's Herp collection, with more collections coming soon.</p>
+
+<p>Arctos is rooted in the 
+<a href="http://mvz.berkeley.edu/cis/index.html" target="_blank" class="external">Collections Information System</a> at MVZ.  
+Development efforts are shared, 
+and programming is freely available.</p>
+
+<p>Collections or institutions interested in having their 
+data hosted in Arctos, or interested in participating in 
+the development of Arctos should <a href="/info/participate.cfm">review the participation guidelines</a>, then
+<a href="/contact.cfm">contact us</a> for additional information.</p>
+
+
+
+<p><a name="requirements"><strong>System Requirements</strong></a><br/>
+We attempt to keep the client-side of Arctos applications as generic as possible, 
+but we have made some exceptions:
+<ul>
+	<li><strong>JavaScript:</strong>
+	We have used JavaScript throughout the applications. 
+	Your browser must be JavaScript enabled to access all 
+	the features of such applications.</li>
+	<li><strong>Cookies: </strong>
+	 We use cookies only to set and preserve user preferences and user rights. 
+	 In order to benefit from all but the most basic public features, 
+	 you must enable cookies.</li>
+	 <li><strong>Pop-ups:</strong>
+		Users may wish to enable pop-ups. Some informational windows use pop-ups. We promise to only "pop up" things you ask for.
+		<br>
+		Operators must enable pop-ups. Many browsers block this, sometimes cryptically, by default.
+	</li>
+</ul></p>
+
+
+
+<p><a name="browser_compatiblity"><strong>Browser Compatibility</strong></a>
+<ul>
+	<li><strong>Mozilla Firefox:</strong> 
+		All applications have been tested in Firefox. We highly recommend all users upgrade to the latest release
+		of Firefox,
+		 available from <a href="http://www.mozilla.com/firefox/" target="_blank" class="external">Mozilla</a>.</li>
+	<li><strong>The Rest:</strong> 
+    	Most of Arctos should work most of the time in most other browsers.
+		<cfoutput><a href="#Application.ServerRootUrl#/info/bugs.cfm" target="_blank">Let us know</a></cfoutput> if
+		you have trouble accessing this site in your browser, and we'll fix it if we can.
+	</li>
+</ul></p>
+
+
+
+<p><a name="data_usage"><strong>Data Usage</strong></a><br/>
+The collections data available through Arctos are separately 
+copyrighted &#169; 2001 - 2011 by the 
+University of Alaska Museum of the North 
+(University of Alaska, Fairbanks, AK),
+and by the Museum of Southwestern Biology (University of New Mexico, Albuquerque, NM),
+ the Museum of Vertebrate Zoology (University of California, Berkeley, CA), and 
+the Denver Museum of Nature & Science (Denver, CO).
+All rights are reserved. 
+These data are intended for use in education and research and may not be repackaged, redistributed, or sold in any form without prior written consent from the appropriate museum(s). 
+Those wishing to include these data in analyses or reports must acknowledge the provenance of the original data, notify the appropriate curator, and should ask questions prior to publication. 
+These are secondary data, and their accuracy is not guaranteed. 
+Citation of Arctos is no substitute for examination of specimens. 
+The data providers are not responsible for loss or damages due to use of these data.</p>
+
+
+
+<p><a name="faq"><strong>FAQ</strong></a><br/>
+
+<div class="q">
+	Q: I hear Arctos is really complicated. What's up with that?
+</div>
+<div class="a">
+	A: Arctos is complicated, as are the data it strives to accurately represent. There is a steep learning curve to understanding 
+	all functionality. Basic functionality - such as that available from other collections management systems - is pretty simple, 
+	and we think we do a pretty good job of making it intuitive. Perhaps more noticeable is the level of precision required 
+	to use Arctos. Rather than (mis!)typing a string, you may have to pick a value from a list, or you may have to supply metadata
+	qualifying your assertions. We strongly believe that this is a necessary part of managing the specimens and data with which 
+	we have been entrusted. 
+</div>
+
+<div class="q">
+	Q: Where can I find more information about Arctos?
+</div>
+<div class="a">
+	A: <a href="https://sites.google.com/site/arctosdb/" class="external" target="_blank">https://sites.google.com/site/arctosdb/</a>
+</div>
+<div class="q">
+	Q: Are these live data?
+</div>
+<div class="a">
+	A: Almost. Live data are stored in a <a href="http://code.google.com/p/arctos/downloads/list" class="external" target="_blank">
+	highly normalized relational structure</a> - fabulous for 
+	organization, not so hot for query. Some data are then optimized for 
+	query performance by way of Database Triggers. Presentation data are generally less than one minute stale.
+</div>
+<div class="q">
+	Q: Is there a limit on the number of records I can return in a search?
+</div>
+<div class="a">
+	A: We impose no strict limits. Queries almost always take less than 5 seconds. Getting the data to your browser often then
+	becomes a bottleneck. If you have a reasonably fast browser and connection, it should be possible to return 
+	at least 100,000 basic records with a single query. We have no idea why you'd want to. <a href="/contact.cfm" target="_blank">Let us know</a> 
+	if you find something excessively slow.
+</div>
+<div class="q">
+	Q: What's a VPD?
+</div>
+<div class="a">
+	A: A Virtual Private Database allows us to share resources, like programmers and hardware, along with some data,
+	such as Taxonomy and Agents. We all end up with more than we could afford by ourselves, and operators generally can't tell that
+	they're in a shared environment.
+</div>
+<div class="q">
+	Q: What's Media? Can I store images or video in Arctos?
+</div>
+<div class="a">
+	Media, loosely defined, is anything you can produce a URI for. Web pages, Internet-accessible images, and 
+	documents stored on FTP sites are all potentially Media. Media may form relationships with any "node" in Arctos.
+	<br>
+	Arctos proper offers little in the way of storage. However, we have a partnership with the
+	<a href="http://www.tacc.utexas.edu/" class="external" target="_blank">
+	Texas Advanced Computing Center</a> which provides us access to essentially unlimited storage space. Arctos currently
+	links to around 10 terabytes of Media, primarily high-resolution images of ALA herbarium sheets and historical MVZ images, both
+	on TACC's servers.	
+</div>
+<div class="q">
+	Q: Why Oracle and ColdFusion?
+</div>
+<div class="a">
+	Because they work. We've tried many other solutions along the way. Oracle is rock-solid and stable, and allows us to 
+	do things like share/control data via VPDs, maintain current data to our query environments, and 
+	sleep at night. ColdFusion is a very robust rapid development environment that fits our programming style perfectly 
+	while providing very close to 100% uptime and reliability. On a more practical level, implementing an open-source solution 
+	would necessitate hiring at least one additional person to mange software, while compromising stability
+	and security.
+</div>
+<div class="q">
+	Q: How does Arctos compare with Specify?	
+</div>
+<div class="a">
+	While sharing a common ancestor, Arctos and Specify now differ almost every level - software, 
+	hardware, security model, data model, 
+	development strategy, and support community. A <a href="/info/avs.html">comparison</a> is available.
+</div>
+<div class="q">
+	Q: What about security and backups?	
+</div>
+<div class="a">
+	Arctos has multiple levels of security. A lightweight application security package controls access to forms, while Oracle
+	partitions data by user, roles, and context, and provides auditing. Incremental backup logs are maintained on mirrored disks, 
+	and daily backups are maintained in 3 geographically separate secure locations.
+</div>
+
+
+
+<p><a name="suggest"><strong>Suggestions?</strong></a><br/>
+ The utility of Arctos results from user input.
+ If you have a suggestion to make, let's hear it.
+ We accommodate many special requests through custom forms or custom queries,
+ and many of these are then incorporated into Arctos.
+Please <a href="/contact.cfm">contact us</a> if you have any questions, comments, or suggestions. 
 </p>
 	</div>
 
