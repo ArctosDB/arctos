@@ -7,42 +7,32 @@
 	select * from BULKLOADER_STAGE		
 </cfquery>
 <cfoutput>
-	<cfset colList = "">
-	<cfloop query="getCols">
-		<cfif len(#colList#) is 0>
-			<cfset colList = #column_name#>
-		<cfelse>
-			<cfset colList = "#colList##chr(9)##column_name#">
-		</cfif>
-	</cfloop>
-	<cfset colList=#trim(colList)#>
-	<cfset colList = "#colList##chr(10)#"><!--- add one and only one line break back onto the end --->
-
-	<cffile action="write" file="#Application.webDirectory#/Bulkloader/bulkloader.txt" addnewline="no" output="#colList#">
+	<cfset colList = data.columnList>
+	<cfset variables.fileName="#Application.webDirectory#/download/bulkloader_stage.csv">
+	<cfset variables.encoding="UTF-8">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(colList);
+	</cfscript>
 	<cfloop query="data">
-		<cfquery name="thisQueryRow" dbtype="query">
-			select * from data where collection_object_id = #collection_object_id#
-		</cfquery>
-		<cfset thisRow = "">
-		<cfloop list="#colList#" index="i" delimiters="#chr(9)#">
-			<cfset thisData = #evaluate("thisQueryRow." & i)#>
-			<!--- replace linebreak chars in Loaded --->
-			<cfif #i# is "loaded">
-				<cfset thisData = #replace(thisData,chr(10),"-linebreak-","all")#>
-				<cfset thisData = #replace(thisData,chr(9),"-tab-","all")#>
-			</cfif>	
-			<cfif len(#thisData#) is 0>
-				<cfset thisData = " ">
-			</cfif>
-			<cfif len(#thisRow#) is 0>
-				<cfset thisRow = #thisData#>
+		<cfset oneLine = "">
+		<cfloop list="#colList#" index="c">
+			<cfset thisData = evaluate(c)>
+			<cfif len(oneLine) is 0>
+				<cfset oneLine = '"#thisData#"'>
 			<cfelse>
-				<cfset thisRow = "#thisRow##chr(9)##thisData#">
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
 			</cfif>
-			
 		</cfloop>
-		<cfset thisRow=#trim(thisRow)#>
-	<cfset thisRow = "#thisRow##chr(10)#">
-		<cffile action="append" file="#Application.webDirectory#/Bulkloader/bulkloader.txt" addnewline="no" output="#thisRow#">
+		<cfset oneLine = trim(oneLine)>
+		<cfscript>
+			variables.joFileWriter.writeLine(oneLine);
+		</cfscript>
 	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	<cflocation url="/download.cfm?file=bulkloader_stage.csv" addtoken="false">
+	<a href="/download/bulkloader_stage.csv">Click here if your file does not automatically download.</a>
 </cfoutput>
