@@ -1,3 +1,6 @@
+i am tacc
+
+
 <cfinclude template="/includes/_header.cfm">
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
@@ -21,7 +24,7 @@
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-			Access to #getCount.cnt# records -- at tacc --
+			Access to #getCount.cnt# records
 		</td>
 		<cfif #hasCanned.recordcount# gt 0>
 			<td style="padding-left:2em;padding-right:2em;">
