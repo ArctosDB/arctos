@@ -194,7 +194,7 @@
     <cfelseif serverName contains "goodnight.corral.tacc.utexas.edu">
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg">
         <cfset Application.svn = "/usr/local/bin/svn">
-		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
+		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos/">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
 		<cfset Application.bugReportEmail = "dustymc@gmail.com">
 		<cfset Application.technicalEmail = "dustymc@gmail.com">
