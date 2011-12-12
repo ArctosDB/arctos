@@ -107,7 +107,15 @@
 	<cfelse>
 		<cfset basQual = "#basQual# AND upper(geology_attributes.geo_att_value) like '%#ucase(geology_attribute_value)#%'">
 	</cfif>				
-</cfif>		
+</cfif>
+<cfif isdefined("last_edit_by") AND len(last_edit_by) gt 0>
+	<cfset mapurl = "#mapurl#&last_edit_by=#last_edit_by#">
+	<cfif basJoin does not contain "CatItemCollObject">
+		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON (cataloged_item.collection_object_id = CatItemCollObject.collection_object_id)">
+	</cfif>
+	<cfset basJoin = " #basJoin# INNER JOIN agent_name edit_agent ON	(CatItemCollObject.last_edited_person_id = edit_agent.agent_id)">
+	<cfset basQual = "#basQual#  AND upper(edit_agent.agent_name) like '%#ucase(last_edit_by)#%'" >
+</cfif>
 <cfif isdefined("entered_by") AND len(entered_by) gt 0>
 	<cfset mapurl = "#mapurl#&entered_by=#entered_by#">
 	<cfif basJoin does not contain "CatItemCollObject">
