@@ -138,12 +138,6 @@
 	<cfset Application.max_pw_age = 90>
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
-	
-	<cfmail subject="arctos starting" to="dustymc@gmail.com" from="SomethingBroke@#Application.fromEmail#" type="html">
-			serverName=#serverName#
-		</cfmail>	
-		
-		
 	<cfquery name="d" datasource="uam_god">
 		select ip from uam.blacklist
 	</cfquery>
