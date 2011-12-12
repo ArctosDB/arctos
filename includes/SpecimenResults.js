@@ -507,7 +507,11 @@ function success_getSpecResultsData(result){
 			}
 			if (data.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
 				theInnerHtml += '<th>Specific&nbsp;Locality</th>';
-			}			
+			}
+			
+			if (data.COLUMNLIST[0].indexOf('VERBATIM_LOCALITY')> -1) {
+				theInnerHtml += '<th>Verbatim&nbsp;Locality</th>';
+			}
 			if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
 				theInnerHtml += '<th>Geology&nbsp;Attributes</th>';
 			}
@@ -754,6 +758,9 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(data.SPEC_LOCALITY[i]) + '"><div class="wrapLong">' + data.SPEC_LOCALITY[i] + '</div>';
 					theInnerHtml += '</span>';
 					theInnerHtml += '</td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('VERBATIM_LOCALITY')> -1) {
+					theInnerHtml += '<td>' + data.VERBATIM_LOCALITY[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
 					theInnerHtml += '<td>' + data.GEOLOGY_ATTRIBUTES[i] + '</td>';
