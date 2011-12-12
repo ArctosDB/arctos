@@ -70,6 +70,9 @@
 			<hr>
 			<cfdump var="#CGI#" label="CGI">
 		</cfsavecontent>
+		<cfoutput>
+				#errortext#
+			</cfoutput>		
 		<cfif isdefined("session.username") and 
 			(#session.username# is "fselm10" or
 			#session.username# is "brandy" or
