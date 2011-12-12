@@ -131,12 +131,19 @@
 	<cfif serverName is "web.arctos.database.museum">
 		<cfset serverName="arctos.database.museum">
 	</cfif>
+	
 	<cfset Application.session_timeout=90>
 	<cfset Application.serverRootUrl = "http://#serverName#">
 	<cfset Application.user_login="user_login">
 	<cfset Application.max_pw_age = 90>
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
+	
+	<cfmail subject="arctos starting" to="dustymc@gmail.com" from="SomethingBroke@#Application.fromEmail#" type="html">
+			serverName=#serverName#
+		</cfmail>	
+		
+		
 	<cfquery name="d" datasource="uam_god">
 		select ip from uam.blacklist
 	</cfquery>
@@ -195,7 +202,7 @@
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
     <cfelseif serverName contains "goodnight.corral.tacc.utexas.edu">
-		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg">
+		<cfset application.gmap_api_key="6">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos/">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
