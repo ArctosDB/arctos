@@ -18,7 +18,6 @@
 	
 	whats all this then?
 	
-	<!-----------
 	<cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
 	<cfset showErr=1>
@@ -122,7 +121,6 @@
 		</table>
 		<cfinclude template="/includes/_footer.cfm">
 	</cfif>
-	---->
 	<cfreturn/>
 </cffunction>
 <!-------------------------->
