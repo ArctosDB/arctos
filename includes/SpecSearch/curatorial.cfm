@@ -74,6 +74,32 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="entered_date">Entered Date:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="beg_entered_date" id="beg_entered_date" size="10" />-
+			<input type="text" name="end_entered_date" id="end_entered_date" size="10" />
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_last_edit_by">Last Edited By:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="last_edit_by" id="last_edit_by" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="last_edit_date">Last Edited Date:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="beg_last_edit_date" id="beg_last_edit_date" size="10">-
+			<input type="text" name="end_last_edit_date" id="end_last_edit_date" size="10">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="disposition">Part Disposition:</span>
 		</td>
 		<td class="srch">
@@ -95,24 +121,6 @@
 				<option value="1">Box</option>
 				<option value="2">Vial</option>
 			</select>
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="entered_date">Entered Date:</span>
-		</td>
-		<td class="srch">
-			<input type="text" name="beg_entered_date" id="beg_entered_date" size="10" />-
-			<input type="text" name="end_entered_date" id="end_entered_date" size="10" />
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="last_edit_date">Last Edited Date:</span>
-		</td>
-		<td class="srch">
-			<input type="text" name="beg_last_edit_date" id="beg_last_edit_date" size="10">-
-			<input type="text" name="end_last_edit_date" id="end_last_edit_date" size="10">
 		</td>
 	</tr>
 	<tr>
