@@ -122,6 +122,9 @@
 </cffunction>
 <!-------------------------->
 <cffunction name="onApplicationStart" returnType="boolean" output="false">
+	<cfmail subject="arctos starting" to="dustymc@gmail.com" from="SomethingBroke@lusitano.corral.tacc.utexas.edu" type="html">
+			it is
+		</cfmail>	
 	<cfscript>
 		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
 	</cfscript>
