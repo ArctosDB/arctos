@@ -14,10 +14,7 @@
 	<cfabort>
 </cffunction>
 
-<cffunction name="onError">
-	
-	whats all this then?
-	
+<cffunction name="onError">	
 	<cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
 	<cfset showErr=1>
