@@ -546,9 +546,6 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('REMARKS')> -1) {
 				theInnerHtml += '<th>Specimen&nbsp;Remarks</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
-				theInnerHtml += '<th>Specimen&nbsp;Disposition</th>';
-			}
 			for (a=0; a<nAtt; a++) {
 				if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
 					theInnerHtml += '<th>' + attAry[a] + '</th>';
@@ -794,9 +791,6 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('REMARKS')> -1) {
 					theInnerHtml += '<td>' + data.REMARKS[i] + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
-					theInnerHtml += '<td>' + data.COLL_OBJ_DISPOSITION[i] + '</td>';
 				}
 				for (a=0; a<nAtt; a++) {
 					if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
