@@ -91,13 +91,14 @@ test-uam> desc uam_query.query_stats_coll
 			<cfif isdefined("collection_id") and len(collection_id) gt 0>
 				and uam_query.query_stats_coll.collection_id  in (#collection_id#)
 			</cfif>
-			<cfif len(#bdate#) gt 0>
+			<cfif len(bdate) gt 0>
 				AND (
 					to_date(to_char(CREATE_DATE,'yyyy-mm-dd')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
 					and to_date('#dateformat(edate,"yyyy-mm-dd")#')
 				)
 			</cfif>
 		</cfquery>
+		<cfdump var=#total#>
 		<cfquery name="smr" dbtype="query">
 			select 
 				count(*) c,
