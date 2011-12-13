@@ -146,7 +146,10 @@
 						project.project_id = project_agent.project_id (+) AND
 						project_agent.agent_id = preferred_agent_name.agent_id (+)">
 		<cfset go="no">	
-			
+		<cfif isdefined("doi") AND len(doi) gt 0>
+			<cfset basWhere = "#basWhere# AND 1=2">
+			<cfset go="yes">
+		</cfif>
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
 			<cfset title = "#agent_role#">
 			<cfset go="yes">
