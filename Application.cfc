@@ -4,12 +4,7 @@
 <cfset This.ClientManagement="true">
 <cfset This.ClientStorage="Cookie">
 <cffunction name="onMissingTemplate" returnType="boolean" output="false">
-   <cfargument name="thePage" type="string" required="true">
-	<!---
-	<cfscript>
-		getPageContext().forward("/errors/404.cfm");
-	</cfscript
-	--->
+	<cfargument name="thePage" type="string" required="true">
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cffunction>
@@ -70,20 +65,6 @@
 			<hr>
 			<cfdump var="#CGI#" label="CGI">
 		</cfsavecontent>
-		<cfoutput>
-				#errortext#
-			</cfoutput>		
-		<cfif isdefined("session.username") and 
-			(#session.username# is "fselm10" or
-			#session.username# is "brandy" or
-			#session.username# is "dlm" or
-			#session.username# is "sumy" or
-			#session.username# is "Rhiannon" or
-			#session.username# is "dusty")>
-			<cfoutput>
-				#errortext#
-			</cfoutput>		
-		</cfif>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="locked form">
 		<cfelse>
@@ -114,7 +95,7 @@
 						</cfif>
 						</cfoutput></i>
 					</cfif>
-					<p>This message has been logged. Please submit a <a href="/info/bugs.cfm">bug report</a> 
+					<p>This message has been logged. Please <a href="/contact">contact us</a> 
 					with any information that might help us to resolve this problem.</p>
 				</td>
 			</tr>
@@ -125,16 +106,12 @@
 </cffunction>
 <!-------------------------->
 <cffunction name="onApplicationStart" returnType="boolean" output="false">
-	<cfmail subject="arctos starting" to="dustymc@gmail.com" from="SomethingBroke@lusitano.corral.tacc.utexas.edu" type="html">
-			it is
-		</cfmail>	
 	<cfscript>
 		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
 	</cfscript>
 	<cfif serverName is "web.arctos.database.museum">
 		<cfset serverName="arctos.database.museum">
 	</cfif>
-	
 	<cfset Application.session_timeout=90>
 	<cfset Application.serverRootUrl = "http://#serverName#">
 	<cfset Application.user_login="user_login">

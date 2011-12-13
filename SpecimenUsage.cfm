@@ -73,6 +73,8 @@
 				</td>
 				<td>
 					<h4>Publication</h4>
+					<label for="doi"><span class="helpLink" id="_doi">DOI</span></label>
+					<input name="doi" id="doi" type="text">
 					<label for="publication_type"><span class="helpLink" id="publication_type">Publication Type</span></label>
 					<select name="publication_type" id="publication_type" size="1">
 						<option value=""></option>
@@ -265,6 +267,10 @@
 				AND publication.publication_id = publication_agent.publication_id (+) 
 				AND publication_agent.agent_id = agent_name.agent_id (+)">
 		
+		<cfif isdefined("doi") AND len(doi) gt 0>
+			<cfset basWhere = "#basWhere# AND doi ='#doi#'">
+			<cfset go="yes">
+		</cfif>
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
 			<cfset basWhere = "#basWhere# AND UPPER(regexp_replace(publication.full_citation,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(p_title))#%'">
 			<cfset go="yes">
