@@ -322,7 +322,7 @@ test-uam> desc uam_query.query_stats_coll
 				and query_type ='#query_type#'
 			</cfif>
 			<cfif isdefined("collection_id") and len(collection_id) gt 0>
-				and uam_query.query_stats_coll.collection_id ='#collection_id#'
+				and uam_query.query_stats_coll.collection_id in (#collection_id#)
 			</cfif>
 			<cfif len(#bdate#) gt 0>
 				AND (
