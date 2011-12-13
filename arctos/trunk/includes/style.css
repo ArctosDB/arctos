@@ -2,13 +2,15 @@
 .fourohfour {opacity:.2;}
 .bgDiv {
 	height:100%;
-	position:fixed;
+	position:absolute;
 	width:100%;
 	z-index:2000;
 	opacity:0.5;
 	background:#024;
 	top:0;
+	left:0;
 }
+
 
 .editAppBox {
 	border:1px solid gray;
