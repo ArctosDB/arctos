@@ -276,7 +276,9 @@
 				publication.publication_id = citation.publication_id (+) 
 				AND publication.publication_id = publication_agent.publication_id (+) 
 				AND publication_agent.agent_id = agent_name.agent_id (+)">
-		
+		<cfif (isdefined("project_type") AND len(project_type) gt 0)>
+			<cfset basWhere = "#basWhere# AND 1=2">
+		</cfif>
 		<cfif isdefined("doi") AND len(doi) gt 0>
 			<cfset basWhere = "#basWhere# AND doi ='#doi#'">
 			<cfset go="yes">
