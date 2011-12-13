@@ -146,10 +146,17 @@
 						project.project_id = project_agent.project_id (+) AND
 						project_agent.agent_id = preferred_agent_name.agent_id (+)">
 		<cfset go="no">	
-		<cfif isdefined("doi") AND len(doi) gt 0>
+		<cfif (isdefined("doi") AND len(doi) gt 0) or 
+			(isdefined("publication_type") AND len(publication_type) gt 0) or
+			(isdefined("collection_id") AND len(collection_id) gt 0) or 
+			(isdefined("onlyCitePubs") AND len(onlyCitePubs) gt 0) or
+			(isdefined("collection_id") AND len(collection_id) gt 0) or
+			(isdefined("cited_sci_Name") AND len(cited_sci_Name) gt 0) or
+			(isdefined("current_sci_Name") AND len(current_sci_Name) gt 0) or
+			(isdefined("is_peer_reviewed_fg") AND len(is_peer_reviewed_fg) gt 0)>
 			<cfset whr = "#whr# AND 1=2">
 			<cfset go="yes">
-		</cfif>
+		</cfif>	
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
 			<cfset title = "#agent_role#">
 			<cfset go="yes">
