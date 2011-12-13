@@ -26,6 +26,7 @@ test-uam> desc uam_query.query_stats_coll
 ---->
 
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Query Statistics">
 <script src="/includes/sorttable.js"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
@@ -34,7 +35,22 @@ test-uam> desc uam_query.query_stats_coll
 	});
 </script>
 <cfif action is "nothing">
-<cfoutput>
+	These data include all requests, including those made by machines, for specimens or taxon names.
+	
+	<br>Large queries may time out and/or eat your browser. Limit your results and try again, or contact us for help.
+	
+	<p>
+		CSV option headers:
+		
+		<br>QID=query ID
+		<br>COLLECTION=collection that REC_COUNT applies to
+		<br>QUERY_TYPE=specimen,taxonomy
+		<br>CREATE_DATE=timestamp
+		<br>SUM_COUNT=total specimens returned by query. Queries often include specimens from >1 collection.
+		<br>REC_COUNT=specimens for collection reported in COLLECTION. Use QID to find other specimens.
+		<br>USER=Oracle user performing the query
+	</p>
+	<cfoutput>
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_id,collection from collection order by collection
 	</cfquery>
@@ -59,11 +75,133 @@ test-uam> desc uam_query.query_stats_coll
 		
 		<label for="edate">Ended Date</label>
 		<input type="text" name="edate" id="edate">
+		<!---
 	<br><input type="button" class="lnkBtn" value="Table" onclick="f.action.value='showTable';f.submit();">
 	<br><input type="button" class="lnkBtn" value="Graph" onclick="f.action.value='showSummary';f.submit();">
+	--->
+	<br><input type="button" class="lnkBtn" value="Monthly Summary" onclick="f.action.value='monthlySummary';f.submit();">
+	<br><input type="button" class="lnkBtn" value="Raw Data (csv)" onclick="f.action.value='raw';f.submit();">
 </form>
 </cfoutput>
 </cfif>
+
+<cfif action is "raw">
+<cfoutput>
+	
+	<cfif len(bdate) gt 0 and len(edate) is 0>
+		<cfset edate=bdate>
+	</cfif>
+	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			uam_query.query_stats.query_id,
+			collection,
+			QUERY_TYPE,
+			CREATE_DATE,
+			SUM_COUNT,
+			REC_COUNT,
+			username
+		from
+			uam_query.query_stats,
+			uam_query.query_stats_coll,
+			collection
+		where
+			uam_query.query_stats.QUERY_ID=uam_query.query_stats_coll.QUERY_ID (+) and
+			uam_query.query_stats_coll.collection_id=collection.collection_id (+)
+		<cfif isdefined("query_type") and len(query_type) gt 0>
+			and query_type ='#query_type#'
+		</cfif>
+		<cfif isdefined("collection_id") and len(collection_id) gt 0>
+			and uam_query.query_stats_coll.collection_id in (#collection_id#)
+		</cfif>
+		<cfif len(bdate) gt 0>
+			AND (
+				to_date(to_char(CREATE_DATE,'yyyy-mm-dd')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
+				and to_date('#dateformat(edate,"yyyy-mm-dd")#')
+			)
+		</cfif>
+	</cfquery>
+	<cfset variables.encoding="UTF-8">
+	<cfset fname = "arctosQueryStats.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	<cfset header="QID,COLLECTION,QUERY_TYPE,CREATE_DATE,SUM_COUNT,REC_COUNT,USER">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(header); 
+	</cfscript>
+	<cfloop query="d">
+		<cfset oneLine = '"#query_id#","#collection#","#QUERY_TYPE#","#CREATE_DATE#","#SUM_COUNT#","#REC_COUNT#","#username#"'>
+		<cfscript>
+			variables.joFileWriter.writeLine(oneLine);
+		</cfscript>
+	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+</cfoutput>
+</cfif>
+<cfif action is "monthlySummary">
+	<cfoutput>
+		<cfif len(bdate) gt 0 and len(edate) is 0>
+			<cfset edate=bdate>
+		</cfif>
+		<cfquery name="total" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select 
+				collection,
+				to_char(qs.create_date, 'YYYY-MM') d,
+				count(qsc.query_id) c,
+        		sum(qsc.rec_count) s
+			from 
+				uam_query.query_stats qs, 
+				uam_query.query_stats_coll qsc,
+				collection
+			where 
+				qs.query_id = qsc.query_id and
+				qsc.collection_id=collection.collection_id (+)
+				<cfif isdefined("collection_id") and len(collection_id) gt 0>
+					and qsc.collection_id in (#collection_id#)
+				</cfif>
+				<cfif len(bdate) gt 0>
+					AND (
+						to_date(to_char(CREATE_DATE,'yyyy-mm-dd')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
+						and to_date('#dateformat(edate,"yyyy-mm-dd")#')
+					)
+				</cfif>
+				<cfif isdefined("query_type") and len(query_type) gt 0>
+					and query_type ='#query_type#'
+				</cfif>
+			group by 
+				collection,
+				to_char(qs.create_date, 'YYYY-MM')
+			order by 
+				to_char(qs.create_date, 'YYYY-MM')
+		</cfquery>
+		<table border="1" class="sortable">
+			<tr>
+				<th>Collection</th>
+				<th>Date</th>
+				<th>##Queries</th>
+				<th>##records</th>
+			</tr>
+			<cfloop query="total">
+				<tr>
+					<td>#collection#</td>
+					<td>#d#</td>
+					<td>#c#</td>
+					<td>#s#</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
+</cfif>
+
+
+
+
+
+
+
 <cfif action is "showSummary">
 	<cfoutput>
 		<cfif len(bdate) gt 0 and len(edate) is 0>
@@ -91,14 +229,13 @@ test-uam> desc uam_query.query_stats_coll
 			<cfif isdefined("collection_id") and len(collection_id) gt 0>
 				and uam_query.query_stats_coll.collection_id  in (#collection_id#)
 			</cfif>
-			<cfif len(bdate) gt 0>
+			<cfif len(#bdate#) gt 0>
 				AND (
 					to_date(to_char(CREATE_DATE,'yyyy-mm-dd')) between to_date('#dateformat(bdate,"yyyy-mm-dd")#')
 					and to_date('#dateformat(edate,"yyyy-mm-dd")#')
 				)
 			</cfif>
 		</cfquery>
-		<cfdump var=#total#>
 		<cfquery name="smr" dbtype="query">
 			select 
 				count(*) c,
@@ -322,7 +459,7 @@ test-uam> desc uam_query.query_stats_coll
 				and query_type ='#query_type#'
 			</cfif>
 			<cfif isdefined("collection_id") and len(collection_id) gt 0>
-				and uam_query.query_stats_coll.collection_id in (#collection_id#)
+				and uam_query.query_stats_coll.collection_id ='#collection_id#'
 			</cfif>
 			<cfif len(#bdate#) gt 0>
 				AND (
