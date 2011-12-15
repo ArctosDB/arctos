@@ -5,6 +5,7 @@
 </cfif>
 <cfhtmlhead text="<title>Specimen Results</title>">
 <cfoutput>
+	<cfset debug=1>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
 	$("##customizeButton").live('click', function(e){
