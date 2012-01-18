@@ -703,10 +703,7 @@
 					IDENTIFICATION_REMARKS,
 					COLLECTION_CDE,
 					INSTITUTION_ACRONYM,
-					COLL_OBJ_DISPOSITION,
-					CONDITION,
 					COLL_OBJECT_REMARKS,
-					DISPOSITION_REMARKS,
 					COLLECTING_EVENT_ID
 				) (
 					select
@@ -720,10 +717,7 @@
 						IDENTIFICATION_REMARKS,
 						(select collection_cde from collection where collection_id=#collection_id#),
 						(select institution_acronym from collection where collection_id=#collection_id#),
-						COLL_OBJ_DISPOSITION,
-						CONDITION,
 						COLL_OBJECT_REMARKS,
-						DISPOSITION_REMARKS,
 						cataloged_item.COLLECTING_EVENT_ID
 					from
 						cataloged_item,
