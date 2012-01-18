@@ -175,7 +175,7 @@
 		<cfset Application.InstitutionBlurb = "Collections Database, Museum of Comparative Zoology, Harvard University">
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
-    <cfelseif serverName contains "corral.tacc.utexas.edu">
+    <cfelseif serverName contains ".tacc.">
 		<cfset application.gmap_api_key="AIzaSyCYwV5JuBmKAmNwv_15UlGQMyK8XYzsri4">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos/">
