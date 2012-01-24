@@ -11,6 +11,7 @@
 		select ROLE_NAME from cf_form_permissions 
 		where form_path = '#cgi.script_name#'
 	</cfquery>
+	<cfdump var=#isValid#>
 	<cfif isValid.recordcount is 0>
 		<cfset bad=true>
 	<cfelseif valuelist(isValid.role_name) is not "public">
