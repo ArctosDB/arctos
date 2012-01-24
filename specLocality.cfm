@@ -1,4 +1,10 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+<cfif not listfindnocase(session.roles,'manage_specimens')>
+	<div class="error">
+		not authorized
+	</div>
+	<cfabort>
+</cfif>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#determined_date").datepicker();
