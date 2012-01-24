@@ -1361,6 +1361,9 @@
 	<cfargument name="role" type="string" required="yes">
 	<cfargument name="form" type="string" required="yes">
 	<cfargument name="onoff" type="string" required="yes">
+	<cfif left(form_path,1) is not "/">
+		<cfset form_path="/" & form_path>
+	</cfif>
 	<cfif onoff is "true">
 		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into cf_form_permissions (form_path,role_name) values ('#form#','#role#')
