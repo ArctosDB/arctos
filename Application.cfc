@@ -65,7 +65,6 @@
 			<hr>
 			<cfdump var="#CGI#" label="CGI">
 		</cfsavecontent>
-		<cfdump var=#errortext#>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="locked form">
 		<cfelse>
@@ -177,7 +176,6 @@
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
     <cfelseif serverName contains ".tacc.">
-		hello I am starting up now
 		<cfset application.gmap_api_key="AIzaSyCYwV5JuBmKAmNwv_15UlGQMyK8XYzsri4">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos/">
