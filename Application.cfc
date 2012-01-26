@@ -176,6 +176,7 @@
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
     <cfelseif serverName contains ".tacc.">
+		hello I am starting up now
 		<cfset application.gmap_api_key="AIzaSyCYwV5JuBmKAmNwv_15UlGQMyK8XYzsri4">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos/">
