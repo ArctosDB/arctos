@@ -105,7 +105,7 @@
 	<cfreturn/>
 </cffunction>
 <!-------------------------->
-<cffunction name="onApplicationStart" returnType="boolean" output="false">
+<cffunction name="onApplicationStart" returnType="boolean" output="true">
 	<cfscript>
 		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
 	</cfscript>
