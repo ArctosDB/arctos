@@ -65,6 +65,7 @@
 			<hr>
 			<cfdump var="#CGI#" label="CGI">
 		</cfsavecontent>
+		<cfdump var=#errortext#>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="locked form">
 		<cfelse>
