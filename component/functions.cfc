@@ -1361,10 +1361,11 @@
 	<cfargument name="role" type="string" required="yes">
 	<cfargument name="form" type="string" required="yes">
 	<cfargument name="onoff" type="string" required="yes">
+	
+	<cfset form=replace(form,Application.webDirectory,"")>
 	<cfif left(form,1) is not "/">
 		<cfset form="/" & form>
 	</cfif>
-	<cfset form=replace(form,Application.webDirectory,"")>
 	<cfif onoff is "true">
 		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into cf_form_permissions (form_path,role_name) values ('#form#','#role#')
