@@ -8,14 +8,14 @@
 			select password from cf_users where username='#username#'
 		</cfquery>
 		#p.password#
-		<br>trying to connect to Oracle....
+		<br>we have no idea what your Oracle password is, so we'll just try to connect....
 		<cftry>
 			<cfquery name="getDump" datasource="user_login" username="#username#" password="#password#">
 				select 'pass' s from dual
 			</cfquery>
-			pass!
+			<br>....pass! Looks like you're good.
 		<cfcatch>
-			fail
+			<br>....fail. You have password issues.
 			<cfdump var=#cfcatch#>
 		</cfcatch>
 		</cftry>
