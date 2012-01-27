@@ -5,7 +5,7 @@
 		<br>Your hashed password is #hash(password)#
 		<br>Your stored hash is 
 		<cfquery name="p" datasource="uam_god">
-			select password from cf_user where username='#username#'
+			select password from cf_users where username='#username#'
 		</cfquery>
 		#p.password#
 		<br>trying to connect to Oracle....
