@@ -10,7 +10,7 @@
 		#p.password#
 		<br>trying to connect to Oracle....
 		<cftry>
-			<cfquery name="getDump" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="getDump" datasource="user_login" username="#username#" password="#password#">
 				select 'pass' s from dual
 			</cfquery>
 			pass!
