@@ -178,7 +178,7 @@
     <cfelseif serverName contains ".tacc.">
 		<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
         <cfset Application.svn = "/usr/local/bin/svn">
-		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos/">
+		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
 		<cfset Application.bugReportEmail = "dustymc@gmail.com">
 		<cfset Application.technicalEmail = "dustymc@gmail.com">
