@@ -37,21 +37,12 @@
 	}	
 </script>
 <cfoutput>
-	<cfparam name="username" default="">
-	<cfset title="Log In or Create Account">
-	<p><strong>Log In or Create an Account</strong></p>
-	<p>
-		Logging in enables you to turn on, turn off, or otherwise customize many features of 
-		this database. To create an account and log in, simply supply a username and 
-		password here and click Create Account.
-	</p>	
-	<cfif not isdefined("gotopage")>
-		<cfset gotopage=''>
-	</cfif>
+	<cfset title="pwcc">
+	<p><strong>password check</strong></p>
 	<form action="a.cfm" method="post" name="signIn">
 		<input name="action" value="signIn" type="hidden">
 		<label for="username">Username</label>
-		<input name="username" type="text" tabindex="1" value="#username#" id="username">
+		<input name="username" type="text" tabindex="1" id="username">
 		<label for="password">Password</label>
 		<input name="password" type="password" tabindex="2" value="" id="password">
 		
