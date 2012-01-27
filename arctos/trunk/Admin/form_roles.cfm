@@ -124,7 +124,9 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 				#thisName# does not contain "/CFIDE" and
 				#thisName# does not contain "/WEB-INF" and
 				#thisName# does not contain "/cfdocs">
-				
+				<cfif left(thisName,1) is not "/">
+					<cfset thisName="/" & thisName>
+				</cfif>
 				 <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 					<td style="font-size:small;">#thisName#</td>
 					<cfloop query="roles">
