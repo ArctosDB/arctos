@@ -114,7 +114,9 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 		<cfset i=1>
 	<cfloop query="root">
 		<cfset thisName = replace(directory,Application.webdirectory,'','all')>
+		<br>thisName1:#thisName#
 		<cfset thisName = "#thisName#/#name#">
+		<br>thisName2:#thisName#
 		<cfif #thisName# does not contain ".svn" and
 				#type# is "File" and
 				#right(name,4)# is ".cfm" and
