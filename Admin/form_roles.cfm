@@ -101,8 +101,6 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
         name="root"
 		recurse="yes"
 		filter="*#ff#*">
-		
-		<cfdump var=#root#>
 	<form name="r">
 	<table border>
 		<tr>
@@ -112,12 +110,9 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 			</cfloop>
 		</tr>
 		<cfset i=1>
-		<br>Application.webdirectory: #Application.webdirectory#
 	<cfloop query="root">
 		<cfset thisName = replace(directory,Application.webdirectory,'','all')>
-		<br>thisName1:#thisName#
 		<cfset thisName = "#thisName#/#name#">
-		<br>thisName2:#thisName#
 		<cfif #thisName# does not contain ".svn" and
 				#type# is "File" and
 				#right(name,4)# is ".cfm" and
