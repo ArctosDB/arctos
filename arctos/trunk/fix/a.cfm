@@ -1,4 +1,4 @@
-<cfinclude template = "includes/_header.cfm">
+<cfinclude template = "/includes/_header.cfm">
 <cfif action is "signIn">
 	<cfoutput>
 		<br>your clear-text password is #password#
@@ -61,4 +61,4 @@
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------->
-<cfinclude template = "includes/_footer.cfm">
+<cfinclude template = "/includes/_footer.cfm">
