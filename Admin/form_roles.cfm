@@ -112,6 +112,7 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 			</cfloop>
 		</tr>
 		<cfset i=1>
+		<br>Application.webdirectory: #Application.webdirectory#
 	<cfloop query="root">
 		<cfset thisName = replace(directory,Application.webdirectory,'','all')>
 		<br>thisName1:#thisName#
