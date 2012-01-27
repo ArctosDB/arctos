@@ -39,7 +39,7 @@
 <cfoutput>
 	<cfset title="pwcc">
 	<p><strong>password check</strong></p>
-	<form action="a.cfm" method="post" name="signIn">
+	<form action="pc.cfm" method="post" name="signIn">
 		<input name="action" value="signIn" type="hidden">
 		<label for="username">Username</label>
 		<input name="username" type="text" tabindex="1" id="username">
