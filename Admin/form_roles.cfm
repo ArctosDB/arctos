@@ -101,6 +101,8 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
         name="root"
 		recurse="yes"
 		filter="*#ff#*">
+		
+		<cfdump var=#root#>
 	<form name="r">
 	<table border>
 		<tr>
