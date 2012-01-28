@@ -1455,7 +1455,6 @@
 				</div>
 	        </span>		
 		</div>
-		<!----
 		<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select p.barcode from 
 			container c,
@@ -1485,7 +1484,6 @@
 				</div>
 			</cfif>
 		</cfloop>
-		---->
 	</div>		
 </cfif>
 	</td><!--- end right half of table --->
