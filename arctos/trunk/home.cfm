@@ -141,7 +141,7 @@ border-bottom:1px solid black;
 	preferences and searches.
 	<p>
 		Arctos is currently #summary.total_specimens# specimens and observations in #summary.numCollections# collections. Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
-		<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences. 
+		<a href="/all_all">[&nbsp;search&nbsp;all&nbsp;collections&nbsp;]</a> at any time to re-set your preferences. 
 	</p>
 	<ul>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
