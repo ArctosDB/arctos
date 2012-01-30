@@ -15,6 +15,6 @@
 		<cfquery name="ll" datasource="uam_god">
 			select LAST_LOGIN from cf_users where  upper(username)='#username#'
 		</cfquery>
-		"#username#","#valuelist(r.granted_role)#","#an.agent_name#","#ll.last_login#"<br>
+		"#username#","#valuelist(r.granted_role)#","#an.agent_name#","#dateformat(ll.last_login,"yyyy-mm-dd")#"<br>
 	</cfloop>
 </cfoutput>
