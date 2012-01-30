@@ -7,6 +7,6 @@
 		<cfquery name="d" datasource="uam_god">
 			select granted_role from dba_role_privs where grantee='#username#' order by granted_role
 		</cfquery>
-		"#valuelist(r.granted_role#)#"<br>
+		"#valuelist(r.granted_role)#"<br>
 	</cfloop>
 </cfoutput>
