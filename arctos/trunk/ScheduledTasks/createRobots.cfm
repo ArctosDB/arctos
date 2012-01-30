@@ -2,7 +2,6 @@
 <cfinclude template="/includes/_header.cfm">
 hi
 <cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
-<cfdump var=#cfdirectory#>
 <cfset variables.fileName="#Application.webDirectory#/robots.txt">
 <cfset variables.encoding="US-ASCII">
 <cfdump var=#variables.fileName#>
