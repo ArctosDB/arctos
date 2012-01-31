@@ -979,7 +979,7 @@
 	</cfif>	
 </cfif>
 <cfif isdefined("minimum_elevation") and len(minimum_elevation) gt 0>
-	<cfif not isdefined("orig_elev_units") OR len(#orig_elev_units#) is 0>
+	<cfif not isdefined("orig_elev_units") OR len(orig_elev_units) is 0>
 		<div class="error">You must supply units to search by elevation.</div>
 		<script>hidePageLoad();</script>
 		<cfabort>
@@ -990,7 +990,7 @@
 		<cfabort>
 	</cfif>
 	<cfset basQual = " #basQual# AND MIN_ELEV_IN_M >= #getMeters(minimum_elevation,orig_elev_units)#" >
-	<cfset mapurl = "#mapurl#&minimum_elevation=#minimum_elevation#">
+	<cfset mapurl = "#mapurl#&minimum_elevation=#minimum_elevation#&orig_elev_units=#orig_elev_units#">
 </cfif>
 <cfif isdefined("maximum_elevation") and len(maximum_elevation) gt 0>
 	<cfif not isdefined("orig_elev_units") OR len(orig_elev_units) is 0>
@@ -1005,6 +1005,9 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND MAX_ELEV_IN_M <= #getMeters(maximum_elevation,orig_elev_units)#" >
 	<cfset mapurl = "#mapurl#&maximum_elevation=#maximum_elevation#">
+	<cfif mapurl does not contain "orig_elev_units">
+		<cfset mapurl = "#mapurl#&orig_elev_units=#orig_elev_units#">
+	</cfif>
 </cfif>
 <cfif isdefined("feature") AND len(feature) gt 0>
 	<cfif compare(feature,"NULL") is 0>
