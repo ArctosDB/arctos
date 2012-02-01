@@ -1,39 +1,21 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-                <cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-                        select 
-                                media.media_id,
-                                media.media_uri,
-                                media.mime_type,
-                                media.media_type,
-                                media.preview_uri,
-                                ctmedia_license.uri,
-                                ctmedia_license.display
-                        from 
-                                media,
-                                ctmedia_license
-                        where 
-                                media.media_license_id=ctmedia_license.media_license_id (+) and 
-                                media.media_id = #media_id#
-                </cfquery>
-				<!---
-        <cfif findIDs.recordcount is 0>
-                <div class="error">Nothing found.</div>
-                <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"coldfusion_user")>
-                        Not seeing something you just loaded? Come back in an hour when the cache has refreshed.
-                </cfif>
-        
-                <cfabort>
-        <cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
-                <cfheader statuscode="301" statustext="Moved permanently">
-                <cfheader name="Location" value="/media/#findIDs.media_id#">
-                <cfabort>
-        <cfelse>
-                <cfset title="Media Results: #findIDs.recordcount# records found">
-                <cfset metaDesc="Results of Media search: #findIDs.recordcount# records found.">
-                <a href="/MediaSearch.cfm">[ Media Search ]</a>
-        </cfif>
-        --->
+        <cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+                select 
+                        media.media_id,
+                        media.media_uri,
+                        media.mime_type,
+                        media.media_type,
+                        media.preview_uri,
+                        ctmedia_license.uri,
+                        ctmedia_license.display
+                from 
+                        media,
+                        ctmedia_license
+                where 
+                        media.media_license_id=ctmedia_license.media_license_id (+) and 
+                        media.media_id = #media_id#
+        </cfquery>
         <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
             <cfset h="/media.cfm?action=newMedia">
                 <cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
@@ -87,6 +69,7 @@
                         <cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
                                 select coordinates from media_flat where media_id=#media_id#
                         </cfquery>
+						<cfdump var=#coord#>
                         <td>
                                 <cfif coord.recordcount is 1><cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#coord.coordinates#">
                                         <cfset iu=iu & "&markers=color:red|size:tiny|#coord.coordinates#&sensor=false&size=100x100&zoom=2">
