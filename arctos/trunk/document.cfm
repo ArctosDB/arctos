@@ -244,6 +244,9 @@
 		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
 	--->
+	<div id="ttttttt">
+		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
+	</div>
 	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")) or tag.n gt 0>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function () {		
