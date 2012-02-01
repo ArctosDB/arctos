@@ -249,9 +249,6 @@
 			});
 		</script>
 	</cfif>
-	<div>
-		#controls#
-	</div>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
