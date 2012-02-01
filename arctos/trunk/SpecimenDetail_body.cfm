@@ -33,6 +33,7 @@
 		identification.made_date,
 		identification.nature_of_id,
 		collecting_event.collecting_event_id,
+		collecting_event.coll_event_remarks,
 		case when 
 			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask year collected%' then
 				replace(began_date,substr(began_date,1,4),'8888')
@@ -556,6 +557,15 @@
 							<td id="SDCellRight">#one.collecting_source#</td>
 						</tr>
 					</div>
+					<cfif len(one.coll_event_remarks) gt 0>
+						<div class="detailBlock">
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Event&nbsp;Remark:</td>
+								<td id="SDCellRight">#one.coll_event_remarks#</td>
+							</tr>
+						</div>
+					</cfif>
+					
 					<cfif len(one.minimum_elevation) gt 0>
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Elevation:</td>
