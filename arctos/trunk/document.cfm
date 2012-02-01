@@ -17,11 +17,6 @@
 		<cfif r.pg gt 0 and len(r.ttl) gt 0>
 			<cfheader statuscode="301" statustext="Moved permanently">
 			<cfheader name="Location" value="/document/#r.ttl#/#r.pg#">
-			<!---
-			<cflocation url="/document.cfm?action=show&showpage=#r.pg#&mtitle=#r.ttl#" addtoken="false">
-			<cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
-
-			---->
 		<cfelse>
 			fail
 			<cfabort>
@@ -254,6 +249,9 @@
 			});
 		</script>
 	</cfif>
+	<div>
+		#controls#
+	</div>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
