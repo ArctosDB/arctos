@@ -245,7 +245,7 @@
 	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")) or tag.n gt 0>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function () {		
-				loadTAG(#cpg.media_id#,'#cpg.media_uri#');
+				//loadTAG(#cpg.media_id#,'#cpg.media_uri#');
 			});
 		</script>
 	</cfif>
