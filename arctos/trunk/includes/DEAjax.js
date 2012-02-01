@@ -941,6 +941,13 @@ function copyAllDates(theID) {
 		date_array.push('attribute_date_8');
 		date_array.push('attribute_date_9');
 		date_array.push('attribute_date_10');
+		date_array.push('geo_att_determined_date_1');
+		date_array.push('geo_att_determined_date_2');
+		date_array.push('geo_att_determined_date_3');
+		date_array.push('geo_att_determined_date_4');
+		date_array.push('geo_att_determined_date_5');
+		date_array.push('geo_att_determined_date_6');
+		
 		for (i=0;i<date_array.length;i++) {
 			try {
 				var thisFld = document.getElementById(date_array[i]);
@@ -1021,6 +1028,12 @@ function copyAllAgents(theID) {
 		agnt_array.push('attribute_determiner_8');
 		agnt_array.push('attribute_determiner_9');
 		agnt_array.push('attribute_determiner_10');
+		agnt_array.push('geo_att_determiner_1');
+		agnt_array.push('geo_att_determiner_2');
+		agnt_array.push('geo_att_determiner_3');
+		agnt_array.push('geo_att_determiner_4');
+		agnt_array.push('geo_att_determiner_5');
+		agnt_array.push('geo_att_determiner_6');
 		for (i=0;i<agnt_array.length;i++) {
 			try {
 				var thisFld = document.getElementById(agnt_array[i]);
