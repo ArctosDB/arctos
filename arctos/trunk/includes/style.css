@@ -225,9 +225,7 @@ div.one_thumb p {
 	z-index:299;
 }
 #imgDiv{
-	position:absolute;
 	border:1px solid black;
-	float: left;
 	max-width:60%;
 }
 #navDiv {
