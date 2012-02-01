@@ -69,7 +69,6 @@
                         <cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
                                 select coordinates from media_flat where coordinates is not null and media_id=#media_id#
                         </cfquery>
-						<cfdump var=#coord#>
                         <td>
                                 <cfif coord.recordcount is 1><cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#coord.coordinates#">
                                         <cfset iu=iu & "&markers=color:red|size:tiny|#coord.coordinates#&sensor=false&size=100x100&zoom=2">
