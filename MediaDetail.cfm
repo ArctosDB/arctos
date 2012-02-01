@@ -67,7 +67,7 @@
                                 </cfif>
                         </td>
                         <cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-                                select coordinates from media_flat where media_id=#media_id#
+                                select coordinates from media_flat where coordinates is not null and media_id=#media_id#
                         </cfquery>
 						<cfdump var=#coord#>
                         <td>
