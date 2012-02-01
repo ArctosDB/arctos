@@ -551,7 +551,7 @@ function loadRecord (collection_object_id) {
 				var eName=cName.toLowerCase();
 				$("#" + eName).val(cVal);
 			}
-			switchActive($("#orig_lat_long_units".val()));
+			switchActive($("#orig_lat_long_units").val());
 			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
 			$("#pBrowse").show();
 			$("#nBrowse").show();
