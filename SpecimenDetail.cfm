@@ -203,7 +203,7 @@
 				</table>
 			</td>
 			<td valign="top">
-				<div id="SDheaderPart">
+				<div id="SDheaderMap">
 					#detail.partString#
 				</div>
 			</td>
