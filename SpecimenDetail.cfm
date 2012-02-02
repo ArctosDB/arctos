@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
 	#SDheaderCollCatNum {
-		font-size:1.5em;
+		font-size:x-large;
 		font-weight:bold;
 	}
 	#SDheaderCustID {
@@ -12,7 +12,7 @@
 		font-size:larger;
 		font-weight:bold;
 		font-style:italic;
-		padding-left:1em;
+		padding-left:.5em;
 	}
 	#SDheaderSpecLoc {
 		font-weight:bold;
@@ -25,16 +25,20 @@
 	}
 	#SDheaderPart {
 		font-weight:bold;
-		padding-left:1em;
+		padding-left:.5em;
 		font-size:smaller;
 	}
 	#annotateSpace {
 		font-size:small;
+		padding-left:1em;
 	}
 	#navSpace{
 		border:1px solid green;
 		text-align:center;
 		max-width:10em;
+	}
+	#SDheaderMap {
+		padding-left:1em;
 	}
 </style>
 <cfif isdefined("collection_object_id")>
@@ -203,6 +207,7 @@
 				</div>
 			</td>
 			<td valign="top">
+				<div id="SDheaderMap">
 				 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
 						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#detail.dec_lat#,#detail.dec_long#">
 						<cfset iu=iu & "&markers=color:red|size:tiny|#detail.dec_lat#,#detail.dec_long#&sensor=false&size=100x100&zoom=2">
@@ -211,6 +216,7 @@
 							<img src="#iu#" alt="Click for BerkeleyMapper">
 						</a>
 				</cfif>
+				</div>
 			</td>
 		    <td valign="top" align="right">
 		        <div id="annotateSpace">
