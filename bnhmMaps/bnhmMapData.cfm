@@ -209,8 +209,8 @@
 			chr(9) & chr(9) & '<concept order="4" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Specific Locality"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="7" viewlist="1" colorlist="0" datatype="darwin:coordinateuncertaintyinmeters" alias="Coordinate Uncertainty In Meters"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="8" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Horizontal Datum"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="7" viewlist="1" colorlist="0" datatype="darwin:coordinateuncertaintyinmeters" alias="Error (m)"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="8" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Datum"/>' & chr(10) & 
 			chr(9) & '</concepts>';		
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
