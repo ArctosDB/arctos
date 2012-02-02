@@ -109,23 +109,38 @@
 	<cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 	<cf_customizeHeader collection_id=#detail.collection_id#>
 </cfoutput>
+<style>
+	.SDheaderCollCatNum {
+		font-size:1.5em;
+		font-weight:bold;
+	}
+</style>
 <cfoutput query="detail" group="cat_num">
     <table width="100%">
         <tr>
-		    <td nowrap valign="top">
-				<font size="+1"><strong>#collection#&nbsp;#cat_num#</strong></font>
-				<cfif len(web_link) gt 0>
-					<a href="#web_link#" target="_blank"><img src="/images/linkOut.gif" border="0" alt="#web_link_text#"></a>
-				</cfif>
-				<cfif len(session.CustomOtherIdentifier) gt 0>
-					<br>&nbsp;&nbsp;&nbsp;#session.CustomOtherIdentifier#: #CustomID#
-				</cfif>						
-				<br>
-				<cfset sciname = '#replace(Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
-				<span style="font-size:larger;font-weight:bold;font-style:italic">
-					&nbsp;#sciname#
-				</span>
+		    <td>
+				<table>
+					<tr>
+						 <td nowrap valign="top">
+								<span class="SDheaderCollCatNum">
+									#collection#&nbsp;#cat_num#
+								</span>
+								<cfif len(web_link) gt 0>
+									<a href="#web_link#" target="_blank" class="external infoLink">#web_link_text#</a>
+								</cfif>
+								<cfif len(session.CustomOtherIdentifier) gt 0>
+									<br>&nbsp;&nbsp;&nbsp;#session.CustomOtherIdentifier#: #CustomID#
+								</cfif>						
+								<br>
+								<cfset sciname = '#replace(Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
+								<span style="font-size:larger;font-weight:bold;font-style:italic">
+									&nbsp;#sciname#
+								</span>
 		    </td>
+					</tr>
+				</table>
+			</td>
+		   
 		    <td valign="top">
 			    <strong><em>#spec_locality#</em></strong>
 				<br><strong>#higher_geog#</strong>
