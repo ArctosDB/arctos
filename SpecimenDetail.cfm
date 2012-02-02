@@ -251,7 +251,7 @@
 					
 					
 					
-					<cfif isdefined("session.collObjIdList") and len(session.collObjIdList) gt 0 and listcontains(session.collObjIdList,collection_object_id)>
+					<cfif isdefined("session.collObjIdList") and len(session.collObjIdList) gt 0 and listcontains(session.collObjIdList,detail.collection_object_id)>
 						    <cfset isPrev = "no">
 							<cfset isNext = "no">
 							<cfset currPos = 0>
@@ -278,11 +278,10 @@
 									<cfset isNext = "yes">
 								</cfif>
 							</cfif>
-						<cfelse>
-							<cfset isNext="">
-							<cfset isPrev="">
-						</cfif>
-						<table width="100%" cellpadding="0" cellspacing="0">
+							
+							
+							
+							<table width="100%" cellpadding="0" cellspacing="0">
 							<tr>
 								<th>first</th>
 								<th>prev</th>
@@ -323,6 +322,15 @@
 							</cfif>
 							</tr>
 						</table>
+						
+						
+						
+						
+						<cfelse>
+							<cfset isNext="">
+							<cfset isPrev="">
+						</cfif>
+						
 							</div>
 							
 							 </div>	
