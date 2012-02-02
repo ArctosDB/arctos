@@ -1489,6 +1489,7 @@ INSERT INTO geog_auth_rec (
 <cfif action is "findLocality">
 <cfoutput>
 	<cf_findLocality>
+	<cfset title="Locality Search Results">
 	<!--- need to filter out distinct --->
 	<cfquery name="localityResults" dbtype="query">
 		select 
