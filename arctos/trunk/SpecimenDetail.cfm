@@ -25,7 +25,6 @@
 	#SDheaderGeog {
 	}
 	#SDheaderDate {
-		font-weight:bold;
 	}
 	#navSpace {
 		border:1px solid green;
