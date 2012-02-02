@@ -44,7 +44,7 @@
 		padding-left:1em;
 	}
 	
-	#SDheaderPartS {
+	#SDheaderPart {
 		padding-left:.5em;
 		font-size:small;
 	}
@@ -210,11 +210,11 @@
 				</table>
 			</td>
 			<td valign="top">
-				<div id="SDheaderPartS">
+				<div id="SDheaderPart">
 					#detail.partString#
 				</div>
 			</td>
-			<td valign="top">
+			<td valign="top" align="right">
 				<div id="SDheaderMap">
 				 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
 						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#detail.dec_lat#,#detail.dec_long#">
