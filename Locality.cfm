@@ -1525,19 +1525,14 @@ INSERT INTO geog_auth_rec (
 	<br /><strong>Your query found #localityResults.recordcount# localities.</strong>
 	<table border id="t" class="sortable">
 		<tr>
-			<th><b>Geog ID</b></th>
-	    	<th><b>Locality ID</b></th>
-	    	<th><b>Spec Locality</b></th>
-	    	<th><b>Geog</b></th>
+			<th><b>Geog</b></th>
+	    	<th><b>Locality</b></th>
 		</tr>
 		<cfset i=1>
 		<cfloop query="localityResults">
 			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<td>
 					#higher_geog# <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">(#geog_auth_rec_id#)</a>
-				</td>
-				<td>
-					
 				</td>
 				<td>
 					<div>
