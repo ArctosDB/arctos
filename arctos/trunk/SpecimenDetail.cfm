@@ -1,4 +1,33 @@
 <cfinclude template="/includes/_header.cfm">
+<style>
+	#SDheaderCollCatNum {
+		font-size:1.5em;
+		font-weight:bold;
+	}
+	#SDheaderCustID {
+		font-size:smaller;
+		padding-left:1em;
+	}
+	#SDheaderSciName {
+		font-size:larger;
+		font-weight:bold;
+		font-style:italic;
+		padding-left:1em;
+	}
+	#SDheaderSpecLoc {
+		font-weight:bold;
+	}
+	#SDheaderGeog {
+		font-weight:bold;
+	}
+	#SDheaderDate
+		font-weight:bold;
+	}
+	#SDheaderPart
+		font-weight:bold;
+		padding-left:1em;
+	}
+</style>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -120,35 +149,6 @@
 	<cfelse>
 		<cfset thisDate = "#detail.verbatim_date# (#detail.began_date# - #detail.ended_date#)">
 	</cfif>
-<style>
-	#SDheaderCollCatNum {
-		font-size:1.5em;
-		font-weight:bold;
-	}
-	#SDheaderCustID {
-		font-size:smaller;
-		padding-left:1em;
-	}
-	#SDheaderSciName {
-		font-size:larger;
-		font-weight:bold;
-		font-style:italic;
-		padding-left:1em;
-	}
-	#SDheaderSpecLoc {
-		font-weight:bold;
-	}
-	#SDheaderGeog {
-		font-weight:bold;
-	}
-	#SDheaderDate
-		font-weight:bold;
-	}
-	#SDheaderPart
-		font-weight:bold;
-		padding-left:1em;
-	}
-</style>
 	<table width="100%" cellspacing="0" cellpadding="0">
 		<tr>
 			<td>
