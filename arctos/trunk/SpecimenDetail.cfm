@@ -229,7 +229,7 @@
 							[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]	
 						</span>
 						<cfif existingAnnotations.cnt gt 0>
-							<br>(#existingAnnotations.cnt#&nbsp;existing)
+							<br>(#existingAnnotations.cnt#&nbsp;annotations)
 						</cfif>
 					<cfelse>
 						<a href="/login.cfm">Login&nbsp;or&nbsp;Create&nbsp;Account</a>
