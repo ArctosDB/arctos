@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<!----
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -54,6 +55,8 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
+
+---->
 <cfset detSelect = "
 	SELECT DISTINCT
 		#session.flatTableName#.collection,
@@ -222,11 +225,7 @@
                 </span>
             </td>
         </tr>
-    </table>
-	
-	<!---
-	
-	
+    </table>	
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<script language="javascript" type="text/javascript">
 			function closeEditApp() {
@@ -389,8 +388,6 @@
 		    </tr>
 		</table>
 	</cfif>
-	
-	---->
 	<cfinclude template="SpecimenDetail_body.cfm">
 	<cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and showAnnotation is "true">
