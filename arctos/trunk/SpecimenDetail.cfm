@@ -279,39 +279,39 @@
 						<table border>
 							<tr>
 								<th>first</th>
-								<th>previous</th>
+								<th>prev</th>
 								<th>next</th>
 								<th>last</th>
 							</tr>
 							<tr>
 						<cfif isPrev is "yes">
-								<td>
+								<td align="middle">
 								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
 								</td>
-								<td>
+								<td align="middle">
 								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
 							</td>
 							<cfelse>
-								<td>
+								<td align="middle">
 									<img src="/images/no_first.gif" alt="[ inactive button ]">
 								</td>
-								<td>
+								<td align="middle">
 									<img src="/images/no_previous.gif" alt="[ inactive button ]">
 								</td>
 							</cfif>		
 						
 						<cfif isNext is "yes">
-								<td>
+								<td align="middle">
 									<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
 								</td>
-								<td>
+								<td align="middle">
 									<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
 								</td>
 							<cfelse>
-								<td>
+								<td align="middle">
 									<img src="/images/no_next.gif" alt="[ inactive button ]">
 								</td>
-								<td>
+								<td align="middle">
 									<img src="/images/no_last.gif" alt="[ inactive button ]">
 								</td>
 							</cfif>
