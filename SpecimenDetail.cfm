@@ -91,6 +91,7 @@
 <cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
+<cfdump var=#detail#>
 <cfoutput>
 	<cfif detail.recordcount lt 1>
 		<div class="error">
