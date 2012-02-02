@@ -1487,7 +1487,7 @@ INSERT INTO geog_auth_rec (
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "findLocality">
-	<cfoutput>
+<cfoutput>
 	<cf_findLocality>
 	<!--- need to filter out distinct --->
 	<cfquery name="localityResults" dbtype="query">
@@ -1517,16 +1517,16 @@ INSERT INTO geog_auth_rec (
             determined_date,
 			geolAtts
 	</cfquery>
-<cfif localityResults.recordcount lt 1000>
-	<cfset thisLocId="">
-	<cfloop query="localityResults">
-		<cfif len(#thisLocId#) is 0>
-			<cfset thisLocId="#locality_id#">
-		<cfelse>
-			<cfset thisLocId="#thisLocId#,#locality_id#">
-		</cfif>
+	<cfif localityResults.recordcount lt 1000>
+		<cfset thisLocId="">
+		<cfloop query="localityResults">
+			<cfif len(#thisLocId#) is 0>
+				<cfset thisLocId="#locality_id#">
+			<cfelse>
+				<cfset thisLocId="#thisLocId#,#locality_id#">
+			</cfif>
 	</cfloop>
-	<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#thisLocId#" target="_blank">BerkeleyMapper</a>
+	<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">BerkeleyMapper</a>
 <cfelse>
 	1000 record limit on mapping, sorry...
 </cfif>
@@ -1545,10 +1545,11 @@ INSERT INTO geog_auth_rec (
       <tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
         <td rowspan="2"> 
           <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a> </td>
-        <td rowspan="2"> 
+		<td rowspan="2"> 
           <a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a> 
 		  <!----&nbsp;<a href="/fix/DupLocs.cfm?action=killDups&locid=#locality_id#" target="_blank"><font size="-2"><i>kill dups</i></font>----></a>
 		  </td>
+		  
         <td> 
           #spec_locality#
 		<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
