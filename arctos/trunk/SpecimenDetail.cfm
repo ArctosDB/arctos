@@ -30,9 +30,9 @@
 	}
 	#annotateSpace {
 		font-size:small;
+		max-width:20em;
 	}
 	#navSpace{
-		font-size:small;
 		border:1px solid green;
 		text-align:center;
 	}
@@ -223,7 +223,7 @@
 						</a>
 				</cfif>
 			</td>
-		    <td valign="top" id="annoDiv">
+		    <td valign="top" align="right">
 		        <div id="annotateSpace">
 					<cfif len(session.username) gt 0>
 						<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -244,8 +244,7 @@
 					</cfif>
 					
 					
-				  </div>	
-					
+				 
 					<div id="navSpace">
 					
 					
@@ -323,6 +322,9 @@
 							</tr>
 						</table>
 							</div>
+							
+							 </div>	
+					
 						<!---
 						
 							
