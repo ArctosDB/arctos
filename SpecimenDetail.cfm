@@ -110,7 +110,7 @@
 	<cf_customizeHeader collection_id=#detail.collection_id#>
 </cfoutput>
 <cfoutput query="detail" group="cat_num">
-    <table>
+    <table width="100%">
         <tr>
 		    <td nowrap valign="top">
 				<font size="+1"><strong>#collection#&nbsp;#cat_num#</strong></font>
