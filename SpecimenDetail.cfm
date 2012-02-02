@@ -108,19 +108,44 @@
 	<cfset title="#detail.collection# #detail.cat_num#: #detail.scientific_name#">
 	<cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 	<cf_customizeHeader collection_id=#detail.collection_id#>
+	<cfif (detail.verbatim_date is detail.began_date) AND (detail.verbatim_date is detail.ended_date)>
+		<cfset thisDate = detail.verbatim_date>
+	<cfelseif (
+			(detail.verbatim_date is not detail.began_date) OR
+	 		(detail.verbatim_date is not detail.ended_date)
+		)
+		AND
+		detail.began_date is detail.ended_date>
+		<cfset thisDate = "#detail.verbatim_date# (#detail.began_date#)">
+	<cfelse>
+		<cfset thisDate = "#detail.verbatim_date# (#detail.began_date# - #detail.ended_date#)">
+	</cfif>
 <style>
-	.SDheaderCollCatNum {
+	#SDheaderCollCatNum {
 		font-size:1.5em;
 		font-weight:bold;
 	}
-	.SDheaderCustID {
+	#SDheaderCustID {
 		font-size:smaller;
 		padding-left:1em;
 	}
-	.SDheaderSciName {
+	#SDheaderSciName {
 		font-size:larger;
 		font-weight:bold;
 		font-style:italic;
+		padding-left:1em;
+	}
+	#SDheaderSpecLoc {
+		font-weight:bold;
+	}
+	#SDheaderGeog {
+		font-weight:bold;
+	}
+	#SDheaderDate
+		font-weight:bold;
+	}
+	#SDheaderPart
+		font-weight:bold;
 		padding-left:1em;
 	}
 </style>
@@ -130,7 +155,7 @@
 				<table cellspacing="0" cellpadding="0">
 					<tr>
 						<td nowrap valign="top">
-							<span class="SDheaderCollCatNum">
+							<span id="SDheaderCollCatNum">
 								#detail.collection#&nbsp;#detail.cat_num#
 							</span>
 							<cfif len(detail.web_link) gt 0>
@@ -142,12 +167,12 @@
 								<a href="#detail.web_link#" target="_blank" class="external infoLink">#cLink#</a>
 							</cfif>
 							<cfif len(session.CustomOtherIdentifier) gt 0>
-								<div class="SDheaderCustID">
+								<div id="SDheaderCustID">
 									#session.CustomOtherIdentifier#: #detail.CustomID#
 								</div>
 							</cfif>
 							<cfset sciname = '#replace(detail.Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
-							<div class="SDheaderSciName">
+							<div id="SDheaderSciName">
 								#sciname#
 							</div>
 						</td>
@@ -155,33 +180,26 @@
 				</table>
 			</td>
 		    <td>
-			    <table cellspacing="0" cellpadding="0">
+		    	<table cellspacing="0" cellpadding="0">
 					<tr>
 						<td>
-							 <strong><em>#detail.spec_locality#</em></strong>
-								<br><strong>#detail.higher_geog#</strong>
-								    <cfif (detail.verbatim_date is detail.began_date) AND (detail.verbatim_date is detail.ended_date)>
-										<cfset thisDate = detail.verbatim_date>
-									<cfelseif (
-											(detail.verbatim_date is not detail.began_date) OR
-									 		(detail.verbatim_date is not detail.ended_date)
-										)
-										AND
-										detail.began_date is detail.ended_date>
-										<cfset thisDate = "#detail.verbatim_date# (#detail.began_date#)">
-									<cfelse>
-										<cfset thisDate = "#detail.verbatim_date# (#detail.began_date# - #detail.ended_date#)">
-									</cfif>
-							    <br><strong>#thisDate#</strong>
+							<div id="SDheaderSpecLoc">
+								#detail.spec_locality#
+							</div>
+							<div id="SDheaderGeog">
+								#detail.higher_geog#
+							</div>
+							<div id="SDheaderDate">
+								#thisDate#
+							</div>
 						</td>
 						<td>
-							<font size="-1">
-						    		<strong>#detail.partString#</strong>
-								</font>
+							<div id="SDheaderPart">
+								#detail.partString#
+							</div>
 						</td>
 						<td>
 							 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
-							   
 									<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#detail.dec_lat#,#detail.dec_long#">
 									<cfset iu=iu & "&markers=color:red|size:tiny|#detail.dec_lat#,#detail.dec_long#&sensor=false&size=100x100&zoom=2">
 									<cfset iu=iu & "&maptype=roadmap">
