@@ -289,7 +289,7 @@
 								<td align="middle">
 									<img src="/images/first.gif" 
 										class="likeLink"
-										id=""
+										id="firstRecBtn"
 										onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" 
 										alt="[ First Record ]">
 								</td>
