@@ -278,7 +278,7 @@
 								
 								<cfif isPrev is "yes">
 								<th>
-									<span onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'">first</span>
+									<span class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'">first</span>
 								</th>
 								<td align="middle">
 								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
