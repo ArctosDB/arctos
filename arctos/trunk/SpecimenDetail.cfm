@@ -23,10 +23,11 @@
 	#SDheaderDate
 		font-weight:bold;
 	}
-	#SDheaderPartx {
+	#SDheaderPart {
 		font-weight:bold;
 		padding-left:.5em;
 		font-size:smaller;
+		border:1px solid green;
 	}
 	#annotateSpace {
 		font-size:small;
@@ -202,7 +203,7 @@
 				</table>
 			</td>
 			<td valign="top">
-				<div id="SDheaderPartx">
+				<div id="SDheaderPart">
 					#detail.partString#
 				</div>
 			</td>
