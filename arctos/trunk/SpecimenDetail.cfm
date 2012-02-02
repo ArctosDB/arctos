@@ -40,6 +40,9 @@
 		padding-left:.5em;
 		font-size:small;
 	}
+	#SDCollCatBlk {
+		padding-right:.5em;
+	}
 </style>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
@@ -168,17 +171,19 @@
 				<table cellspacing="0" cellpadding="0">
 					<tr>
 						<td nowrap valign="top">
-							<span id="SDheaderCollCatNum">
-								#detail.collection#&nbsp;#detail.cat_num#
-							</span>
-							<cfif len(session.CustomOtherIdentifier) gt 0>
-								<div id="SDheaderCustID">
-									#session.CustomOtherIdentifier#: #detail.CustomID#
+							<div id="SDCollCatBlk">
+								<span id="SDheaderCollCatNum">
+									#detail.collection#&nbsp;#detail.cat_num#
+								</span>
+								<cfif len(session.CustomOtherIdentifier) gt 0>
+									<div id="SDheaderCustID">
+										#session.CustomOtherIdentifier#: #detail.CustomID#
+									</div>
+								</cfif>
+								<cfset sciname = '#replace(detail.Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
+								<div id="SDheaderSciName">
+									#sciname#
 								</div>
-							</cfif>
-							<cfset sciname = '#replace(detail.Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
-							<div id="SDheaderSciName">
-								#sciname#
 							</div>
 						</td>
 					</tr>
