@@ -151,7 +151,7 @@
 	</cfif>
 	<table width="100%" cellspacing="0" cellpadding="0">
 		<tr>
-			<td>
+			<td valign="top">
 				<table cellspacing="0" cellpadding="0">
 					<tr>
 						<td nowrap valign="top">
@@ -179,7 +179,7 @@
 					</tr>
 				</table>
 			</td>
-		    <td>
+		    <td valign="top">
 		    	<table cellspacing="0" cellpadding="0">
 					<tr>
 						<td>
@@ -211,7 +211,7 @@
 					</tr>
 				</table>
 			</td>
-		    <td>
+		    <td valign="top">
 		        <span class="annotateSpace">
 					<cfif len(session.username) gt 0>
 						<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
