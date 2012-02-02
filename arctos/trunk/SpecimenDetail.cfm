@@ -23,7 +23,7 @@
 	#SDheaderDate
 		font-weight:bold;
 	}
-	#SDheaderPart {
+	#SDheaderPartx {
 		font-weight:bold;
 		padding-left:.5em;
 		font-size:smaller;
@@ -202,7 +202,7 @@
 				</table>
 			</td>
 			<td valign="top">
-				<div id="SDheaderPart">
+				<div id="SDheaderPartx">
 					#detail.partString#
 				</div>
 			</td>
