@@ -58,7 +58,7 @@
 
 ---->
 <cfset detSelect = "
-	SELECT DISTINCT
+	SELECT
 		#session.flatTableName#.collection,
 		#session.flatTableName#.collection_id,
 		web_link,
@@ -111,7 +111,6 @@
 	<cfset title="#detail.collection# #detail.cat_num#: #detail.scientific_name#">
 	<cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 	<cf_customizeHeader collection_id=#detail.collection_id#>
-</cfoutput>
 <style>
 	.SDheaderCollCatNum {
 		font-size:1.5em;
@@ -128,7 +127,6 @@
 		padding-left:1em;
 	}
 </style>
-<cfoutput query="detail" group="cat_num">
 	<table width="100%">
 		<tr>
 			<td>
@@ -136,18 +134,18 @@
 					<tr>
 						<td nowrap valign="top">
 							<span class="SDheaderCollCatNum">
-								#collection#&nbsp;#cat_num#
+								#detail.collection#&nbsp;#detail.cat_num#
 							</span>
 							<cfif len(web_link) gt 0>
-								<a href="#web_link#" target="_blank" class="external infoLink">#web_link_text#</a>
+								<a href="#detail.web_link#" target="_blank" class="external infoLink">#detail.web_link_text#</a>
 							</cfif>
 							<cfif len(session.CustomOtherIdentifier) gt 0>
 								<div class="SDheaderCustID">
-									#session.CustomOtherIdentifier#: #CustomID#
+									#session.CustomOtherIdentifier#: #detail.CustomID#
 								</div>
 							</cfif>
 							<div class="SDheaderSciName">
-								#sciname#
+								#detail.sciname#
 							</div>
 						</td>
 					</tr>
