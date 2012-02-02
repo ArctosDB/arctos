@@ -116,84 +116,91 @@
 	}
 	.SDheaderCustID {
 		font-size:smaller;
+		padding-left:1em;
 	}
 	.SDheaderSciName {
 		font-size:larger;
 		font-weight:bold;
 		font-style:italic;
+		padding-left:1em;
 	}
 </style>
 <cfoutput query="detail" group="cat_num">
-    <table width="100%">
-        <tr>
-		    <td>
+	<table width="100%">
+		<tr>
+			<td>
 				<table>
 					<tr>
-						 <td nowrap valign="top">
-								<span class="SDheaderCollCatNum">
-									#collection#&nbsp;#cat_num#
-								</span>
-								<cfif len(web_link) gt 0>
-									<a href="#web_link#" target="_blank" class="external infoLink">#web_link_text#</a>
-								</cfif>
-								<cfif len(session.CustomOtherIdentifier) gt 0>
-									<div class="SDheaderCustID">
-										#session.CustomOtherIdentifier#: #CustomID#
-									</div>
-								</cfif>
-								<div class="SDheaderSciName">
-									#sciname#
+						<td nowrap valign="top">
+							<span class="SDheaderCollCatNum">
+								#collection#&nbsp;#cat_num#
+							</span>
+							<cfif len(web_link) gt 0>
+								<a href="#web_link#" target="_blank" class="external infoLink">#web_link_text#</a>
+							</cfif>
+							<cfif len(session.CustomOtherIdentifier) gt 0>
+								<div class="SDheaderCustID">
+									#session.CustomOtherIdentifier#: #CustomID#
 								</div>
-		    </td>
+							</cfif>
+							<div class="SDheaderSciName">
+								#sciname#
+							</div>
+						</td>
 					</tr>
 				</table>
 			</td>
-		   
-		    <td valign="top">
-			    <strong><em>#spec_locality#</em></strong>
-				<br><strong>#higher_geog#</strong>
-				<cfif encumbrance_action does not contain "year collected" OR
-					(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
-			        <cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
-						<cfset thisDate = verbatim_date>
-					<cfelseif (
-							(verbatim_date is not began_date) OR
-					 		(verbatim_date is not ended_date)
-						)
-						AND
-						began_date is ended_date>
-						<cfset thisDate = "#verbatim_date# (#began_date#)">
-					<cfelse>
-						<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
-					</cfif>
-                <cfelse>
-			        <cfif began_date is ended_date>
-				        <cfset thisDate = replace(began_date,left(began_date,4),"8888")>
-			        <cfelse>
-				        <cfset thisDate = '#replace(began_date,left(began_date,4),"8888")#-&nbsp;#replace(ended_date,left(ended_date,4),"8888")#'>
-			        </cfif>
-				</cfif>
-			    <br><strong>#thisDate#</strong>
-		    </td>
-		    <td valign="top">
-				<font size="-1">
-		    		<strong>#partString#</strong>
-				</font>
+		    <td>
+			    <table>
+					<tr>
+						<td>
+							 <strong><em>#spec_locality#</em></strong>
+								<br><strong>#higher_geog#</strong>
+								<cfif encumbrance_action does not contain "year collected" OR
+									(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
+							        <cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
+										<cfset thisDate = verbatim_date>
+									<cfelseif (
+											(verbatim_date is not began_date) OR
+									 		(verbatim_date is not ended_date)
+										)
+										AND
+										began_date is ended_date>
+										<cfset thisDate = "#verbatim_date# (#began_date#)">
+									<cfelse>
+										<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
+									</cfif>
+				                <cfelse>
+							        <cfif began_date is ended_date>
+								        <cfset thisDate = replace(began_date,left(began_date,4),"8888")>
+							        <cfelse>
+								        <cfset thisDate = '#replace(began_date,left(began_date,4),"8888")#-&nbsp;#replace(ended_date,left(ended_date,4),"8888")#'>
+							        </cfif>
+								</cfif>
+							    <br><strong>#thisDate#</strong>
+						</td>
+						<td>
+							<font size="-1">
+						    		<strong>#partString#</strong>
+								</font>
+						</td>
+						<td>
+							 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
+							    <cfif encumbrance_action does not contain "coordinates" OR
+									(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
+									<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
+									<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+									<cfset iu=iu & "&maptype=roadmap">
+									<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">
+										<img src="#iu#" alt="Click for BerkeleyMapper">
+									</a>
+				                </cfif>
+							</cfif>
+						</td>
+					</tr>
+				</table>
 			</td>
-			<td align="right">
-				 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
-				    <cfif encumbrance_action does not contain "coordinates" OR
-						(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
-						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
-						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
-						<cfset iu=iu & "&maptype=roadmap">
-						<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">
-							<img src="#iu#" alt="Click for BerkeleyMapper">
-						</a>
-	                </cfif>
-				</cfif>
-			</td>
-		    <td valign="top">
+		    <td>
 		        <span class="annotateSpace">
 					<cfif len(session.username) gt 0>
 						<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
