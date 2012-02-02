@@ -136,7 +136,7 @@
 							<span class="SDheaderCollCatNum">
 								#detail.collection#&nbsp;#detail.cat_num#
 							</span>
-							<cfif len(web_link) gt 0>
+							<cfif len(detail.web_link) gt 0>
 								<a href="#detail.web_link#" target="_blank" class="external infoLink">#detail.web_link_text#</a>
 							</cfif>
 							<cfif len(session.CustomOtherIdentifier) gt 0>
@@ -155,44 +155,44 @@
 			    <table>
 					<tr>
 						<td>
-							 <strong><em>#spec_locality#</em></strong>
-								<br><strong>#higher_geog#</strong>
-								<cfif encumbrance_action does not contain "year collected" OR
+							 <strong><em>#detail.spec_locality#</em></strong>
+								<br><strong>#detail.higher_geog#</strong>
+								<cfif detail.encumbrance_action does not contain "year collected" OR
 									(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
-							        <cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
-										<cfset thisDate = verbatim_date>
+							        <cfif (detail.verbatim_date is detail.began_date) AND (detail.verbatim_date is detail.ended_date)>
+										<cfset thisDate = detail.verbatim_date>
 									<cfelseif (
-											(verbatim_date is not began_date) OR
-									 		(verbatim_date is not ended_date)
+											(detail.verbatim_date is not detail.began_date) OR
+									 		(detail.verbatim_date is not detail.ended_date)
 										)
 										AND
-										began_date is ended_date>
-										<cfset thisDate = "#verbatim_date# (#began_date#)">
+										detail.began_date is detail.ended_date>
+										<cfset thisDate = "#detail.verbatim_date# (#detail.began_date#)">
 									<cfelse>
-										<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
+										<cfset thisDate = "#detail.verbatim_date# (#detail.began_date# - #detail.ended_date#)">
 									</cfif>
 				                <cfelse>
-							        <cfif began_date is ended_date>
-								        <cfset thisDate = replace(began_date,left(began_date,4),"8888")>
+							        <cfif detail.began_date is detail.ended_date>
+								        <cfset thisDate = replace(detail.began_date,left(detail.began_date,4),"8888")>
 							        <cfelse>
-								        <cfset thisDate = '#replace(began_date,left(began_date,4),"8888")#-&nbsp;#replace(ended_date,left(ended_date,4),"8888")#'>
+								        <cfset thisDate = '#replace(detail.began_date,left(detail.began_date,4),"8888")#-&nbsp;#replace(detail.ended_date,left(detail.ended_date,4),"8888")#'>
 							        </cfif>
 								</cfif>
 							    <br><strong>#thisDate#</strong>
 						</td>
 						<td>
 							<font size="-1">
-						    		<strong>#partString#</strong>
+						    		<strong>#detail.partString#</strong>
 								</font>
 						</td>
 						<td>
-							 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
-							    <cfif encumbrance_action does not contain "coordinates" OR
+							 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
+							    <cfif detail.encumbrance_action does not contain "coordinates" OR
 									(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
-									<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
-									<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+									<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#detail.dec_lat#,#detail.dec_long#">
+									<cfset iu=iu & "&markers=color:red|size:tiny|#detail.dec_lat#,#detail.dec_long#&sensor=false&size=100x100&zoom=2">
 									<cfset iu=iu & "&maptype=roadmap">
-									<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">
+									<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#detail.collection_object_id#" target="_blank">
 										<img src="#iu#" alt="Click for BerkeleyMapper">
 									</a>
 				                </cfif>
@@ -206,9 +206,9 @@
 					<cfif len(session.username) gt 0>
 						<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select count(*) cnt from annotations
-							where collection_object_id = #collection_object_id#
+							where collection_object_id = #detail.collection_object_id#
 						</cfquery>
-						<span class="likeLink" onclick="openAnnotation('collection_object_id=#collection_object_id#')">
+						<span class="likeLink" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')">
 							[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]	
 						</span>
 						<cfif existingAnnotations.cnt gt 0>
