@@ -1551,7 +1551,7 @@ INSERT INTO geog_auth_rec (
 						<cfif len(verbatimLatitude) gt 0>
 							#verbatimLatitude# / #verbatimLongitude#
 							<span style='font-size:smaller'>
-								Determined by #coordinateDeterminer# on #dateformat(determined_date,"yyyy-mm-dd")# using #lat_long_ref_source#
+								<em>Determined by</em> #coordinateDeterminer# <em>on</em> #dateformat(determined_date,"yyyy-mm-dd")# <em>using</em> #lat_long_ref_source#
 							</span>
 						<cfelse>
 							NoGeorefBecause: #NoGeorefBecause#
