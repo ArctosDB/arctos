@@ -235,7 +235,7 @@
 						<a href="/login.cfm">Login&nbsp;or&nbsp;Create&nbsp;Account</a>
 					</cfif>
 					<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
-						<br><a href="/SpecimenResults.cfm?#session.mapURL#">[&nbsp;Return&nbsp;to&nbsp;results&nbsp;]</a>
+						<br><a href="/SpecimenResults.cfm?#session.mapURL#">Return&nbsp;to&nbsp;results</a>
 					</cfif>
 					
 					
@@ -276,23 +276,47 @@
 							<cfset isNext="">
 							<cfset isPrev="">
 						</cfif>
-						
+						<table>
+							<tr>
+								<th>first</th>
+								<th>previous</th>
+								<th>next</th>
+								<th>last</th>
+							</tr>
+							<tr>
 						<cfif isPrev is "yes">
+								<td>
 								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
+								</td>
+								<td>
 								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
+							</td>
 							<cfelse>
-								<img src="/images/no_first.gif" alt="[ inactive button ]">
-								<img src="/images/no_previous.gif" alt="[ inactive button ]">
+								<td>
+									<img src="/images/no_first.gif" alt="[ inactive button ]">
+								</td>
+								<td>
+									<img src="/images/no_previous.gif" alt="[ inactive button ]">
+								</td>
 							</cfif>		
 						
 						<cfif isNext is "yes">
-								<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
-								<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
+								<td>
+									<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
+								</td>
+								<td>
+									<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
+								</td>
 							<cfelse>
-								<img src="/images/no_next.gif" alt="[ inactive button ]">
-								<img src="/images/no_last.gif" alt="[ inactive button ]">
+								<td>
+									<img src="/images/no_next.gif" alt="[ inactive button ]">
+								</td>
+								<td>
+									<img src="/images/no_last.gif" alt="[ inactive button ]">
+								</td>
 							</cfif>
-							
+							</tr>
+						</table>
 							</div>
 						<!---
 						
