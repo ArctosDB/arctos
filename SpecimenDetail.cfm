@@ -275,10 +275,25 @@
 						<div id="navSpace">
 						<table width="100%" cellpadding="0" cellspacing="0">
 							<tr>
+								
+								<cfif isPrev is "yes">
 								<th>
-									<label for="firstRecBtn">
+									<span onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'">first</span>
+								</th>
+								<td align="middle">
+								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
+							</td>
+							<cfelse>
+								<th>first</th>
+								<td align="middle">
+									<img src="/images/no_previous.gif" alt="[ inactive button ]">
+								</td>
+							</cfif>		
+							
+							
+							
+								<th>
 										first
-									</label>
 								</th>
 								<th>prev</th>
 								<th>next</th>
@@ -289,7 +304,6 @@
 								<td align="middle">
 									<img src="/images/first.gif" 
 										class="likeLink"
-										id="firstRecBtn"
 										onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" 
 										alt="[ First Record ]">
 								</td>
