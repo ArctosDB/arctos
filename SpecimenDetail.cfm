@@ -114,6 +114,14 @@
 		font-size:1.5em;
 		font-weight:bold;
 	}
+	.SDheaderCustID {
+		font-size:smaller;
+	}
+	.SDheaderSciName {
+		font-size:larger;
+		font-weight:bold;
+		font-style:italic;
+	}
 </style>
 <cfoutput query="detail" group="cat_num">
     <table width="100%">
@@ -129,13 +137,13 @@
 									<a href="#web_link#" target="_blank" class="external infoLink">#web_link_text#</a>
 								</cfif>
 								<cfif len(session.CustomOtherIdentifier) gt 0>
-									<br>&nbsp;&nbsp;&nbsp;#session.CustomOtherIdentifier#: #CustomID#
-								</cfif>						
-								<br>
-								<cfset sciname = '#replace(Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
-								<span style="font-size:larger;font-weight:bold;font-style:italic">
-									&nbsp;#sciname#
-								</span>
+									<div class="SDheaderCustID">
+										#session.CustomOtherIdentifier#: #CustomID#
+									</div>
+								</cfif>
+								<div class="SDheaderSciName">
+									#sciname#
+								</div>
 		    </td>
 					</tr>
 				</table>
