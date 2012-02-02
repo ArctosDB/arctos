@@ -245,53 +245,53 @@
 						</cfif>
 						<br><a href="#detail.web_link#" target="_blank" class="external">#cLink#</a>
 					</cfif>
-					
-				 
-					
-					
-					
-					
 					<cfif isdefined("session.collObjIdList") and len(session.collObjIdList) gt 0 and listcontains(session.collObjIdList,detail.collection_object_id)>
-						    <cfset isPrev = "no">
-							<cfset isNext = "no">
-							<cfset currPos = 0>
-							<cfset lenOfIdList = 0>
-							<cfset firstID = collection_object_id>
-							<cfset nextID = collection_object_id>
-							<cfset prevID = collection_object_id>
-							<cfset lastID = collection_object_id>
-							<cfset currPos = listfind(session.collObjIdList,collection_object_id)>
-							<cfset lenOfIdList = listlen(session.collObjIdList)>
-							<cfset firstID = listGetAt(session.collObjIdList,1)>
-							<cfif currPos lt lenOfIdList>
-								<cfset nextID = listGetAt(session.collObjIdList,currPos + 1)>
-							</cfif>
+						<cfset isPrev = "no">
+						<cfset isNext = "no">
+						<cfset currPos = 0>
+						<cfset lenOfIdList = 0>
+						<cfset firstID = collection_object_id>
+						<cfset nextID = collection_object_id>
+						<cfset prevID = collection_object_id>
+						<cfset lastID = collection_object_id>
+						<cfset currPos = listfind(session.collObjIdList,collection_object_id)>
+						<cfset lenOfIdList = listlen(session.collObjIdList)>
+						<cfset firstID = listGetAt(session.collObjIdList,1)>
+						<cfif currPos lt lenOfIdList>
+							<cfset nextID = listGetAt(session.collObjIdList,currPos + 1)>
+						</cfif>
+						<cfif currPos gt 1>
+							<cfset prevID = listGetAt(session.collObjIdList,currPos - 1)>
+						</cfif>	
+						<cfset lastID = listGetAt(session.collObjIdList,lenOfIdList)>
+						<cfif lenOfIdList gt 1>
 							<cfif currPos gt 1>
-								<cfset prevID = listGetAt(session.collObjIdList,currPos - 1)>
-							</cfif>	
-							<cfset lastID = listGetAt(session.collObjIdList,lenOfIdList)>
-							<cfif lenOfIdList gt 1>
-								<cfif currPos gt 1>
-									<cfset isPrev = "yes">
-								</cfif>
-								<cfif currPos lt lenOfIdList>
-									<cfset isNext = "yes">
-								</cfif>
+								<cfset isPrev = "yes">
 							</cfif>
-							<div id="navSpace">
-							
-							
-							<table width="100%" cellpadding="0" cellspacing="0">
+							<cfif currPos lt lenOfIdList>
+								<cfset isNext = "yes">
+							</cfif>
+						</cfif>
+						<div id="navSpace">
+						<table width="100%" cellpadding="0" cellspacing="0">
 							<tr>
-								<th>first</th>
+								<th>
+									<label for="firstRecBtn">
+										first
+									</label>
+								</th>
 								<th>prev</th>
 								<th>next</th>
 								<th>last</th>
 							</tr>
 							<tr>
-						<cfif isPrev is "yes">
+							<cfif isPrev is "yes">
 								<td align="middle">
-								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
+									<img src="/images/first.gif" 
+										class="likeLink"
+										id=""
+										onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" 
+										alt="[ First Record ]">
 								</td>
 								<td align="middle">
 								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
