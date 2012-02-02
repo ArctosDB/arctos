@@ -1527,7 +1527,7 @@ INSERT INTO geog_auth_rec (
 		<tr>
 			<th><b>Geog</b></th>
 	    	<th><b>Locality</b></th>
-	    	<th><b>Loc. MData</b></th>
+	    	<th><b>Locality Metadata</b></th>
 		</tr>
 		<cfset i=1>
 		<cfloop query="localityResults">
@@ -1539,7 +1539,6 @@ INSERT INTO geog_auth_rec (
 					<div>
 						#spec_locality# <a href="editLocality.cfm?locality_id=#locality_id#">(#locality_id#)</a>
 					</div>
-					
 				</td>
 				<td>
 					<cfif len(geolAtts) gt 0>
