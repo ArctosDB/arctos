@@ -49,6 +49,8 @@
 </cfoutput>
 
 <cfelseif isdefined("search") and search IS "MediaSearch">
+	<cfthrow detail="block not found" errorcode="9945" message="A block of code (search,MediaSearch) was not found in the bnhmMapData template">
+	<!---
 <!-- 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset ShowObservations = "true">
 	</cfif> -->
@@ -82,7 +84,8 @@
 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
-
+	---->
+<!------------------------------------------------------------>
 <cfelse><!--- regular mapping routine ---->
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset ShowObservations = "true">
