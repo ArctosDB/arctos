@@ -26,7 +26,7 @@
 	#SDheaderPart {
 		font-weight:bold;
 		padding-left:.5em;
-		font-size:smaller;
+		font-size:x-small;
 		border:1px solid green;
 	}
 	#annotateSpace {
