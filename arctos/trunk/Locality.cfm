@@ -1,4 +1,5 @@
 <cfinclude template="includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cf_customizeIFrame>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
@@ -795,7 +796,6 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
 <cfif action is "deleteCollEvent">
 <cfoutput>
 	<cfquery name="isSpec" datasource="uam_god">
@@ -815,7 +815,6 @@ You deleted a collecting event.
 <br>Go back to <a href="Locality.cfm">localities</a>.
 </cfoutput>
 </cfif>
-<!---------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "changeLocality">
 <cfoutput>
@@ -868,7 +867,6 @@ You deleted a collecting event.
 	<cflocation addtoken="no" url="#refURL#">
 	</cfoutput>
 </cfif>
-<!---------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveGeogEdits">
 	<cfoutput>
@@ -937,8 +935,6 @@ You deleted a collecting event.
 <cfquery name="nextGEO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select sq_geog_auth_rec_id.nextval nextid from dual
 </cfquery>
-
-
 <cfquery name="newGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO geog_auth_rec (
 	geog_auth_rec_id
@@ -1009,7 +1005,6 @@ INSERT INTO geog_auth_rec (
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
 <cfif Action is "newColl">
 <cfoutput>
 	<cfquery name="nextColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1060,12 +1055,9 @@ INSERT INTO geog_auth_rec (
 		</cfquery>
 		
 <cflocation addtoken="no" url="Locality.cfm?Action=editCollEvnt&collecting_event_id=#nextColl.nextColl#">
-
 </cfoutput>	
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-
-<!----------------------------------------------------------------------------------------------------> 
 <cfif action is "makenewLocality">
 	<cfoutput>
 	<cftransaction>
@@ -1292,11 +1284,6 @@ INSERT INTO geog_auth_rec (
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-
-<!--------------------------- End Queries -------------------------------------------------->
-
-<!--------------------------- Results -------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
 <cfif action is "findCollEvent">
 	<cfoutput>
 		<form name="tools" method="post" action="Locality.cfm">
@@ -1389,8 +1376,6 @@ INSERT INTO geog_auth_rec (
 		</form>
 	</cfoutput>
 </cfif>
-<!---------------------------------------------------------------------------------------------------->
-
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "massMoveCollEvent">
 	<cfoutput>
@@ -1500,8 +1485,6 @@ INSERT INTO geog_auth_rec (
 		<cflocation url="Locality.cfm?Action=findCollEvent&locality_id=#locality_id#">
 	</cfoutput>
 </cfif>
-
-
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "findLocality">
 	<cfoutput>
@@ -1534,7 +1517,7 @@ INSERT INTO geog_auth_rec (
             determined_date,
 			geolAtts
 	</cfquery>
-<cfif #localityResults.recordcount# lt 1000>
+<cfif localityResults.recordcount lt 1000>
 	<cfset thisLocId="">
 	<cfloop query="localityResults">
 		<cfif len(#thisLocId#) is 0>
@@ -1549,13 +1532,13 @@ INSERT INTO geog_auth_rec (
 </cfif>
 <br /><strong>Your query found #localityResults.recordcount# localities.</strong>
 
-	
-  <table border>
+	<table border id="t" class="sortable">
+
     <tr> 
-      <td><b>Geog ID</b></td>
-      <td><b>Locality ID</b></td>
-      <td><b>Spec Locality</b></td>
-	   <td><b>Geog</b></td>
+      <th><b>Geog ID</b></th>
+      <th><b>Locality ID</b></th>
+      <th><b>Spec Locality</b></th>
+	  <th><b>Geog</b></th>
     </tr>
 	<cfset i=1>
     <cfloop query="localityResults"> 
@@ -1591,7 +1574,6 @@ INSERT INTO geog_auth_rec (
   </table>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
 <cfif action is "findGeog">
 <cfoutput>
 		<cf_findLocality>
@@ -1615,6 +1597,5 @@ INSERT INTO geog_auth_rec (
 </cfoutput>
 </table>
 </cfif>
-
 <!---------------------------------------------------------------------------------------------------->
 <cfinclude template="includes/_footer.cfm">
