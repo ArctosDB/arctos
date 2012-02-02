@@ -203,11 +203,6 @@
 							</div>
 						</td>
 						<td valign="top">
-							<div id="SDheaderPart">
-								#detail.partString#
-							</div>
-						</td>
-						<td valign="top">
 							 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
 									<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#detail.dec_lat#,#detail.dec_long#">
 									<cfset iu=iu & "&markers=color:red|size:tiny|#detail.dec_lat#,#detail.dec_long#&sensor=false&size=100x100&zoom=2">
@@ -219,6 +214,11 @@
 						</td>
 					</tr>
 				</table>
+			</td>
+			<td valign="top">
+				<div id="SDheaderPart">
+					#detail.partString#
+				</div>
 			</td>
 		    <td valign="top">
 		        <div id="annotateSpace">
