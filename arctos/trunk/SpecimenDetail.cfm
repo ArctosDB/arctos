@@ -170,14 +170,6 @@
 							<span id="SDheaderCollCatNum">
 								#detail.collection#&nbsp;#detail.cat_num#
 							</span>
-							<cfif len(detail.web_link) gt 0>
-								<cfif len(detail.web_link_text) gt 0>
-									<cfset cLink=detail.web_link_text>
-								<cfelse>
-									<cfset cLink="collection">
-								</cfif>
-								<a href="#detail.web_link#" target="_blank" class="external infoLink">#cLink#</a>
-							</cfif>
 							<cfif len(session.CustomOtherIdentifier) gt 0>
 								<div id="SDheaderCustID">
 									#session.CustomOtherIdentifier#: #detail.CustomID#
@@ -242,7 +234,14 @@
 					<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
 						<br><a href="/SpecimenResults.cfm?#session.mapURL#">Return&nbsp;to&nbsp;results</a>
 					</cfif>
-					
+					<cfif len(detail.web_link) gt 0>
+						<cfif len(detail.web_link_text) gt 0>
+							<cfset cLink=detail.web_link_text>
+						<cfelse>
+							<cfset cLink="collection">
+						</cfif>
+						<a href="#detail.web_link#" target="_blank" class="external infoLink">#cLink#</a>
+					</cfif>
 					
 				 
 					<div id="navSpace">
