@@ -1518,61 +1518,50 @@ INSERT INTO geog_auth_rec (
 			geolAtts
 	</cfquery>
 	<cfif localityResults.recordcount lt 1000>
-		<cfset thisLocId="">
-		<cfloop query="localityResults">
-			<cfif len(#thisLocId#) is 0>
-				<cfset thisLocId="#locality_id#">
-			<cfelse>
-				<cfset thisLocId="#thisLocId#,#locality_id#">
-			</cfif>
-	</cfloop>
-	<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">BerkeleyMapper</a>
-<cfelse>
-	1000 record limit on mapping, sorry...
-</cfif>
-<br /><strong>Your query found #localityResults.recordcount# localities.</strong>
-
+		<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">BerkeleyMapper</a>
+	<cfelse>
+		1000 record limit on mapping, sorry...
+	</cfif>
+	<br /><strong>Your query found #localityResults.recordcount# localities.</strong>
 	<table border id="t" class="sortable">
-
-    <tr> 
-      <th><b>Geog ID</b></th>
-      <th><b>Locality ID</b></th>
-      <th><b>Spec Locality</b></th>
-	  <th><b>Geog</b></th>
-    </tr>
-	<cfset i=1>
-    <cfloop query="localityResults"> 
-      <tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-        <td rowspan="2"> 
-          <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a> </td>
-		<td rowspan="2"> 
-          <a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a> 
-		  <!----&nbsp;<a href="/fix/DupLocs.cfm?action=killDups&locid=#locality_id#" target="_blank"><font size="-2"><i>kill dups</i></font>----></a>
-		  </td>
-		  
-        <td> 
-          #spec_locality#
-		<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
-		</td>
-		  
-		  <td rowspan="2">#higher_geog#</td>
-      </tr>
-      <tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-        <td> 
-          <font size="-1"> 
-		 &nbsp;
-          <cfif len(verbatimLatitude) gt 0>
-            #verbatimLatitude# / #verbatimLongitude#
-            <cfelse>
-            <b>NoGeorefBecause: #NoGeorefBecause#</b> 
-          </cfif>
-          Determined by #coordinateDeterminer# on #dateformat(determined_date,"yyyy-mm-dd")# using #lat_long_ref_source#
-          </font> </td>
-      </tr>
-	  <cfset i=#i#+1>
-	  </cfloop>
-    </cfoutput> 
-  </table>
+		<tr>
+			<th><b>Geog ID</b></th>
+	    	<th><b>Locality ID</b></th>
+	    	<th><b>Spec Locality</b></th>
+	    	<th><b>Geog</b></th>
+		</tr>
+		<cfset i=1>
+		<cfloop query="localityResults">
+			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<td>
+					#higher_geog# <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">(#geog_auth_rec_id#)</a>
+				</td>
+				<td>
+					
+				</td>
+				<td>
+					<div>
+						#spec_locality# <a href="editLocality.cfm?locality_id=#locality_id#">(#locality_id#)</a>
+					</div>
+					<cfif len(geolAtts) gt 0>
+						<div>
+							[#geolAtts#]
+						</div>
+					</cfif>
+					<div>
+						<cfif len(verbatimLatitude) gt 0>
+							#verbatimLatitude# / #verbatimLongitude#
+						<cfelse>
+							<b>NoGeorefBecause: #NoGeorefBecause#</b>
+						</cfif>
+						Determined by #coordinateDeterminer# on #dateformat(determined_date,"yyyy-mm-dd")# using #lat_long_ref_source#
+					</div>
+				</td>
+			</tr>
+			<cfset i=i+1>
+		</cfloop>
+	</table>
+</cfoutput> 
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "findGeog">
