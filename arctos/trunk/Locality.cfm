@@ -1527,6 +1527,7 @@ INSERT INTO geog_auth_rec (
 		<tr>
 			<th><b>Geog</b></th>
 	    	<th><b>Locality</b></th>
+	    	<th><b>Loc. MData</b></th>
 		</tr>
 		<cfset i=1>
 		<cfloop query="localityResults">
@@ -1538,18 +1539,23 @@ INSERT INTO geog_auth_rec (
 					<div>
 						#spec_locality# <a href="editLocality.cfm?locality_id=#locality_id#">(#locality_id#)</a>
 					</div>
+					
+				</td>
+				<td>
 					<cfif len(geolAtts) gt 0>
 						<div>
-							[#geolAtts#]
+							Geology: #geolAtts#]
 						</div>
 					</cfif>
 					<div>
 						<cfif len(verbatimLatitude) gt 0>
 							#verbatimLatitude# / #verbatimLongitude#
+							<span style='font-size:smaller'>
+								Determined by #coordinateDeterminer# on #dateformat(determined_date,"yyyy-mm-dd")# using #lat_long_ref_source#
+							</span>
 						<cfelse>
-							<b>NoGeorefBecause: #NoGeorefBecause#</b>
+							NoGeorefBecause: #NoGeorefBecause#
 						</cfif>
-						Determined by #coordinateDeterminer# on #dateformat(determined_date,"yyyy-mm-dd")# using #lat_long_ref_source#
 					</div>
 				</td>
 			</tr>
