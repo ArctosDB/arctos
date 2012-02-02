@@ -4,46 +4,38 @@
 		font-size:small;
 		padding-left:1em;
 	}
-	
 	#SDheaderCollCatNum {
 		font-size:x-large;
 		font-weight:bold;
 	}
-	
 	#SDheaderCustID {
-		font-size:smaller;
-		padding-left:1em;
+		font-size:large;
+		font-weight:bold;
+		padding-left:.5em;
 	}
-	
 	#SDheaderSciName {
 		font-size:larger;
 		font-weight:bold;
 		font-style:italic;
 		padding-left:.5em;
 	}
-	
 	#SDheaderSpecLoc {
 		font-weight:bold;
 	}
-	
 	#SDheaderGeog {
 		font-weight:bold;
 	}
-	
 	#SDheaderDate {
 		font-weight:bold;
 	}
-	
 	#navSpace {
 		border:1px solid green;
 		text-align:center;
 		max-width:10em;
 	}
-	
 	#SDheaderMap {
 		padding-left:1em;
 	}
-	
 	#SDheaderPart {
 		padding-left:.5em;
 		font-size:small;
