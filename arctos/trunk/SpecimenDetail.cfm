@@ -36,6 +36,9 @@
 		border:1px solid green;
 		text-align:center;
 	}
+	#annoDiv {
+		max-width:50em;
+	}
 </style>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
@@ -220,7 +223,7 @@
 						</a>
 				</cfif>
 			</td>
-		    <td valign="top">
+		    <td valign="top" id="annoDiv">
 		        <div id="annotateSpace">
 					<cfif len(session.username) gt 0>
 						<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
