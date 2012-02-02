@@ -30,14 +30,11 @@
 	}
 	#annotateSpace {
 		font-size:small;
-		max-width:20em;
 	}
 	#navSpace{
 		border:1px solid green;
 		text-align:center;
-	}
-	#annoDiv {
-		max-width:50em;
+		max-width:10em;
 	}
 </style>
 <cfif isdefined("collection_object_id")>
