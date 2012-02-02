@@ -4,27 +4,33 @@
 		font-size:small;
 		padding-left:1em;
 	}
+	
 	#SDheaderCollCatNum {
 		font-size:x-large;
 		font-weight:bold;
 	}
+	
 	#SDheaderCustID {
 		font-size:smaller;
 		padding-left:1em;
 	}
+	
 	#SDheaderSciName {
 		font-size:larger;
 		font-weight:bold;
 		font-style:italic;
 		padding-left:.5em;
 	}
+	
 	#SDheaderSpecLoc {
 		font-weight:bold;
 	}
+	
 	#SDheaderGeog {
 		font-weight:bold;
 	}
-	#SDheaderDate
+	
+	#SDheaderDate {
 		font-weight:bold;
 	}
 	
@@ -33,9 +39,11 @@
 		text-align:center;
 		max-width:10em;
 	}
+	
 	#SDheaderMap {
 		padding-left:1em;
 	}
+	
 	#SDheaderPartS {
 		padding-left:.5em;
 		font-size:small;
