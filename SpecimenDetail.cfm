@@ -223,6 +223,10 @@
             </td>
         </tr>
     </table>
+	
+	<!---
+	
+	
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<script language="javascript" type="text/javascript">
 			function closeEditApp() {
@@ -385,6 +389,8 @@
 		    </tr>
 		</table>
 	</cfif>
+	
+	---->
 	<cfinclude template="SpecimenDetail_body.cfm">
 	<cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and showAnnotation is "true">
