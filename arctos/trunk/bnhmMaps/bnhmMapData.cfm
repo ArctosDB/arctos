@@ -211,29 +211,10 @@
 			chr(9) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="7" viewlist="1" colorlist="0" datatype="darwin:coordinateuncertaintyinmeters" alias="Error (m)"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="8" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Datum"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
 			chr(9) & '</concepts>';		
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
-	
-	<!---
-	
-	
-	a=chr(9) & '<concepts>' & chr(10) & 
-			chr(9) & '<concept order="1" viewlist="0" colorlist="0" datatype="darwin:relatedinformation"  alias="Related Information" />' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="2" viewlist="1" colorlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="3" viewlist="1" colorlist="0" datatype="char120_1" alias="Verbatim Date"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="4" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Specific Locality"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="7" viewlist="1" colorlist="0" datatype="darwin:coordinateuncertaintyinmeters" alias="Coordinate Uncertainty In Meters"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="8" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Horizontal Datum"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="10" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="11" viewlist="1" colorlist="0" datatype="darwin:collector" alias="Collector"/>' & chr(10) & 
-			chr(9) & '</concepts>';	
-			
-			
-			--->
 	<cfif isdefined("showRangeMaps") and showRangeMaps is true>
 		<cfquery name="species" dbtype="query">
 			select distinct(scientific_name) from getMapData
@@ -305,32 +286,11 @@
 				chr(9) & dec_lat & 
 				chr(9) & dec_long &
 				chr(9) & COORDINATEUNCERTAINTYINMETERS &
-				chr(9) & datum;
+				chr(9) & datum &
+				chr(9) & collection;
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
-	
-	<!----
-	
-	
-	a='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
-				collection_object_id & '"' &
-				'target="_blank">' & 
-				collection & '&nbsp;' & cat_num & '</a>' & 
-				chr(9) & scientific_name &
-				chr(9) & verbatim_date & 
-				chr(9) & spec_locality & 
-				chr(9) & dec_lat & 
-				chr(9) & dec_long &
-				chr(9) & COORDINATEUNCERTAINTYINMETERS &
-				chr(9) & datum & 
-				chr(9) & collection &
-				chr(9) & collection & ' ' & cat_num &
-				chr(9) & collectors;
-				
-				
-				
-				---->
 	<cfscript>		
 		variables.joFileWriter.close();
 	</cfscript>	
