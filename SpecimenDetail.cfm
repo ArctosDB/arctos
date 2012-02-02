@@ -23,7 +23,7 @@
 	#SDheaderDate
 		font-weight:bold;
 	}
-	#SDheaderPart
+	#SDheaderPart {
 		font-weight:bold;
 		padding-left:1em;
 	}
