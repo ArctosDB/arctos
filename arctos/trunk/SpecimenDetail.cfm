@@ -27,7 +27,7 @@
 		font-weight:bold;
 		padding-left:.5em;
 		font-size:x-small;
-		border:1px solid green;
+		
 	}
 	#annotateSpace {
 		font-size:small;
@@ -40,6 +40,9 @@
 	}
 	#SDheaderMap {
 		padding-left:1em;
+	}
+	#SDheaderPartS {
+		border:1px solid red;
 	}
 </style>
 <cfif isdefined("collection_object_id")>
@@ -203,7 +206,7 @@
 				</table>
 			</td>
 			<td valign="top">
-				<div id="SDheaderMap">
+				<div id="SDheaderPartS">
 					#detail.partString#
 				</div>
 			</td>
