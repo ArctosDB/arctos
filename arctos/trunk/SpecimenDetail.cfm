@@ -273,103 +273,67 @@
 							</cfif>
 						</cfif>
 						<div id="navSpace">
-						<table width="100%" cellpadding="0" cellspacing="0">
-							<tr>
-								
+							<table width="100%" cellpadding="0" cellspacing="0">
+								<tr>
+									<cfif isPrev is "yes">
+										<th>
+											<span onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'">first</span>
+										</th>
+										<th>
+											<span onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'">prev</span>
+										</th>
+									<cfelse>
+										<th>first</th>
+										<th>prev</th>
+									</cfif>		
+									<cfif isNext is "yes">
+										<th>
+											<span onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'">next</span>
+										</th>
+										<th>
+											<span onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'">last</span>
+										</th>
+									<cfelse>
+										<th>next</th>
+										<th>last</th>
+									</cfif>
+								</tr>
+								<tr>
 								<cfif isPrev is "yes">
-								<th>
-									<span class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'">first</span>
-								</th>
-								<td align="middle">
-								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
-							</td>
-							<cfelse>
-								<th>first</th>
-								<td align="middle">
-									<img src="/images/no_previous.gif" alt="[ inactive button ]">
+									<td align="middle">
+										<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
+									</td>
+									<td align="middle">
+									<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
 								</td>
-							</cfif>		
-							
-							
-							
-								<th>
-										first
-								</th>
-								<th>prev</th>
-								<th>next</th>
-								<th>last</th>
-							</tr>
-							<tr>
-							<cfif isPrev is "yes">
-								<td align="middle">
-									<img src="/images/first.gif" 
-										class="likeLink"
-										onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" 
-										alt="[ First Record ]">
-								</td>
-								<td align="middle">
-								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
-							</td>
-							<cfelse>
-								<td align="middle">
-									<img src="/images/no_first.gif" alt="[ inactive button ]">
-								</td>
-								<td align="middle">
-									<img src="/images/no_previous.gif" alt="[ inactive button ]">
-								</td>
-							</cfif>		
-						
-						<cfif isNext is "yes">
-								<td align="middle">
-									<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
-								</td>
-								<td align="middle">
-									<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
-								</td>
-							<cfelse>
-								<td align="middle">
-									<img src="/images/no_next.gif" alt="[ inactive button ]">
-								</td>
-								<td align="middle">
-									<img src="/images/no_last.gif" alt="[ inactive button ]">
-								</td>
-							</cfif>
-							</tr>
-						</table>
-						
-						
+								<cfelse>
+									<td align="middle">
+										<img src="/images/no_first.gif" alt="[ inactive button ]">
+									</td>
+									<td align="middle">
+										<img src="/images/no_previous.gif" alt="[ inactive button ]">
+									</td>
+								</cfif>		
+								<cfif isNext is "yes">
+									<td align="middle">
+										<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
+									</td>
+									<td align="middle">
+										<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
+									</td>
+								<cfelse>
+									<td align="middle">
+										<img src="/images/no_next.gif" alt="[ inactive button ]">
+									</td>
+									<td align="middle">
+										<img src="/images/no_last.gif" alt="[ inactive button ]">
+									</td>
+								</cfif>
+								</tr>
+							</table>
 						</div>
-						</cfif>
-						
-							
-							
-							 </div>	
-					
-						<!---
-						
-							
-						
-						<cfif isPrev is "yes">
-							<span class="infoLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'">
-								<<first record
-							</span>
-							<span class="infoLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'">
-								<previous record
-							</span>
-							</cfif>		
-						
-						<cfif isNext is "yes">
-								<span class="infoLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'">
-								next record>
-							</span>
-							<span class="infoLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'">
-								last record>>
-							</span>
-							</cfif>
-							
-						--->
-						
-              
+					</cfif>
+				 </div>
             </td>
         </tr>
     </table>	
