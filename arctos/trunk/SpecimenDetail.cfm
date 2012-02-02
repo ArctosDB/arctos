@@ -28,6 +28,12 @@
 		padding-left:1em;
 		font-size:smaller;
 	}
+	#annotateSpace {
+		font-size:small;
+	}
+	#navSpace{
+		font-size:small;
+	}
 </style>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
@@ -213,7 +219,7 @@
 				</table>
 			</td>
 		    <td valign="top">
-		        <span class="annotateSpace">
+		        <div id="annotateSpace">
 					<cfif len(session.username) gt 0>
 						<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select count(*) cnt from annotations
@@ -233,9 +239,9 @@
 					</cfif>
 					
 					
-				  </span>	
+				  </div>	
 					
-					
+					<div id="navSpace">
 					
 					
 					
@@ -292,7 +298,7 @@
 							</cfif>
 							
 							
-							
+							</div>
 						<!---
 						<cfif isPrev is "yes">
 								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
