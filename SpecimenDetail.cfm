@@ -90,7 +90,6 @@
 <cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
-<cfdump var=#detail#>
 <cfoutput>
 	<cfif detail.recordcount lt 1>
 		<div class="error">
@@ -135,7 +134,12 @@
 								#detail.collection#&nbsp;#detail.cat_num#
 							</span>
 							<cfif len(detail.web_link) gt 0>
-								<a href="#detail.web_link#" target="_blank" class="external infoLink">#detail.web_link_text#</a>
+								<cfif len(detail.web_link_text) gt 0>
+									<cfset cLink=detail.web_link_text>
+								<cfelse>
+									<cfset cLink="collection">
+								</cfif>
+								<a href="#detail.web_link#" target="_blank" class="external infoLink">#cLink#</a>
 							</cfif>
 							<cfif len(session.CustomOtherIdentifier) gt 0>
 								<div class="SDheaderCustID">
