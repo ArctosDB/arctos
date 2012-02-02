@@ -43,6 +43,8 @@
 	}
 	#SDheaderPartS {
 		border:1px solid red;
+		padding-left:.5em;
+		font-size:x-small;
 	}
 </style>
 <cfif isdefined("collection_object_id")>
