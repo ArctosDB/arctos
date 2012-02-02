@@ -33,6 +33,7 @@
 	}
 	#navSpace{
 		font-size:small;
+		border:1px solid green;
 	}
 </style>
 <cfif isdefined("collection_object_id")>
