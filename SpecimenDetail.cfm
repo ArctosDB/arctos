@@ -276,7 +276,7 @@
 							<cfset isNext="">
 							<cfset isPrev="">
 						</cfif>
-						<table>
+						<table border>
 							<tr>
 								<th>first</th>
 								<th>previous</th>
