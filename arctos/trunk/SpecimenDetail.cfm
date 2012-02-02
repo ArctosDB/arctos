@@ -240,7 +240,7 @@
 						<cfelse>
 							<cfset cLink="collection">
 						</cfif>
-						<a href="#detail.web_link#" target="_blank" class="external infoLink">#cLink#</a>
+						<br><a href="#detail.web_link#" target="_blank" class="external">#cLink#</a>
 					</cfif>
 					
 				 
