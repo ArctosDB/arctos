@@ -23,7 +23,6 @@
 		font-weight:bold;
 	}
 	#SDheaderGeog {
-		font-weight:bold;
 	}
 	#SDheaderDate {
 		font-weight:bold;
