@@ -144,8 +144,9 @@
 									#session.CustomOtherIdentifier#: #detail.CustomID#
 								</div>
 							</cfif>
+							<cfset sciname = '#replace(detail.Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
 							<div class="SDheaderSciName">
-								#detail.sciname#
+								#sciname#
 							</div>
 						</td>
 					</tr>
