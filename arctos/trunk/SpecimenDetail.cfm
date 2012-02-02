@@ -27,7 +27,7 @@
 		font-size:small;
 		padding-left:1em;
 	}
-	#navSpace{
+	#navSpace {
 		border:1px solid green;
 		text-align:center;
 		max-width:10em;
