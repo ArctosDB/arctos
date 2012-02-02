@@ -23,12 +23,6 @@
 	#SDheaderDate
 		font-weight:bold;
 	}
-	#SDheaderPart {
-		font-weight:bold;
-		padding-left:.5em;
-		font-size:x-small;
-		
-	}
 	#annotateSpace {
 		font-size:small;
 		padding-left:1em;
@@ -42,9 +36,8 @@
 		padding-left:1em;
 	}
 	#SDheaderPartS {
-		border:1px solid red;
 		padding-left:.5em;
-		font-size:x-small;
+		font-size:small;
 	}
 </style>
 <cfif isdefined("collection_object_id")>
