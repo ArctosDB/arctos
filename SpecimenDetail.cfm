@@ -251,7 +251,7 @@
 					
 					
 					
-					<cfif isdefined("session.collObjIdList") and len(session.collObjIdList) gt 0>
+					<cfif isdefined("session.collObjIdList") and len(session.collObjIdList) gt 0 and listfind(session.collObjIdList,collection_object_id)>
 						    <cfset isPrev = "no">
 							<cfset isNext = "no">
 							<cfset currPos = 0>
