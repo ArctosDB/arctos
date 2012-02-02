@@ -277,7 +277,26 @@
 							<cfset isPrev="">
 						</cfif>
 						
+						<cfif isPrev is "yes">
+								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
+								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
+							<cfelse>
+								<img src="/images/no_first.gif" alt="[ inactive button ]">
+								<img src="/images/no_previous.gif" alt="[ inactive button ]">
+							</cfif>		
 						
+						<cfif isNext is "yes">
+								<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
+								<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
+							<cfelse>
+								<img src="/images/no_next.gif" alt="[ inactive button ]">
+								<img src="/images/no_last.gif" alt="[ inactive button ]">
+							</cfif>
+							
+							</div>
+						<!---
+						
+							
 						
 						<cfif isPrev is "yes">
 							<span class="infoLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'">
@@ -295,25 +314,6 @@
 							<span class="infoLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'">
 								last record>>
 							</span>
-							</cfif>
-							
-							
-							</div>
-						<!---
-						<cfif isPrev is "yes">
-								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" alt="[ First Record ]">
-								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" alt="[ Previous Record ]">
-							<cfelse>
-								<img src="/images/no_first.gif" alt="[ inactive button ]">
-								<img src="/images/no_previous.gif" alt="[ inactive button ]">
-							</cfif>		
-						
-						<cfif isNext is "yes">
-								<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
-								<img src="/images/last.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'" alt="[ Last Record ]">
-							<cfelse>
-								<img src="/images/no_next.gif" alt="[ inactive button ]">
-								<img src="/images/no_last.gif" alt="[ inactive button ]">
 							</cfif>
 							
 						--->
