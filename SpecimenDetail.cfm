@@ -1,5 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
+	#annotateSpace {
+		font-size:small;
+		padding-left:1em;
+	}
 	#SDheaderCollCatNum {
 		font-size:x-large;
 		font-weight:bold;
@@ -23,10 +27,7 @@
 	#SDheaderDate
 		font-weight:bold;
 	}
-	#annotateSpace {
-		font-size:small;
-		padding-left:1em;
-	}
+	
 	#navSpace {
 		border:1px solid green;
 		text-align:center;
