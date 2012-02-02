@@ -124,10 +124,10 @@
 		padding-left:1em;
 	}
 </style>
-	<table width="100%">
+	<table width="100%" cellspacing="0" cellpadding="0">
 		<tr>
 			<td>
-				<table>
+				<table cellspacing="0" cellpadding="0">
 					<tr>
 						<td nowrap valign="top">
 							<span class="SDheaderCollCatNum">
@@ -155,7 +155,7 @@
 				</table>
 			</td>
 		    <td>
-			    <table>
+			    <table cellspacing="0" cellpadding="0">
 					<tr>
 						<td>
 							 <strong><em>#detail.spec_locality#</em></strong>
