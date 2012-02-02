@@ -70,8 +70,7 @@
 		#session.flatTableName#.verbatim_date,
 		#session.flatTableName#.BEGAN_DATE,
 		#session.flatTableName#.ended_date,
-		concatparts(#session.flatTableName#.collection_object_id) as partString,
-		concatEncumbrances(#session.flatTableName#.collection_object_id) as encumbrance_action,
+		#session.flatTableName#.parts as partString,
 		#session.flatTableName#.dec_lat,
 		#session.flatTableName#.dec_long">
 <cfif len(session.CustomOtherIdentifier) gt 0>
@@ -157,9 +156,7 @@
 						<td>
 							 <strong><em>#detail.spec_locality#</em></strong>
 								<br><strong>#detail.higher_geog#</strong>
-								<cfif detail.encumbrance_action does not contain "year collected" OR
-									(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
-							        <cfif (detail.verbatim_date is detail.began_date) AND (detail.verbatim_date is detail.ended_date)>
+								    <cfif (detail.verbatim_date is detail.began_date) AND (detail.verbatim_date is detail.ended_date)>
 										<cfset thisDate = detail.verbatim_date>
 									<cfelseif (
 											(detail.verbatim_date is not detail.began_date) OR
@@ -171,13 +168,6 @@
 									<cfelse>
 										<cfset thisDate = "#detail.verbatim_date# (#detail.began_date# - #detail.ended_date#)">
 									</cfif>
-				                <cfelse>
-							        <cfif detail.began_date is detail.ended_date>
-								        <cfset thisDate = replace(detail.began_date,left(detail.began_date,4),"8888")>
-							        <cfelse>
-								        <cfset thisDate = '#replace(detail.began_date,left(detail.began_date,4),"8888")#-&nbsp;#replace(detail.ended_date,left(detail.ended_date,4),"8888")#'>
-							        </cfif>
-								</cfif>
 							    <br><strong>#thisDate#</strong>
 						</td>
 						<td>
@@ -187,15 +177,13 @@
 						</td>
 						<td>
 							 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
-							    <cfif detail.encumbrance_action does not contain "coordinates" OR
-									(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
+							   
 									<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#detail.dec_lat#,#detail.dec_long#">
 									<cfset iu=iu & "&markers=color:red|size:tiny|#detail.dec_lat#,#detail.dec_long#&sensor=false&size=100x100&zoom=2">
 									<cfset iu=iu & "&maptype=roadmap">
 									<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#detail.collection_object_id#" target="_blank">
 										<img src="#iu#" alt="Click for BerkeleyMapper">
 									</a>
-				                </cfif>
 							</cfif>
 						</td>
 					</tr>
