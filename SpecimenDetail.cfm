@@ -247,7 +247,7 @@
 					</cfif>
 					
 				 
-					<div id="navSpace">
+					
 					
 					
 					
@@ -278,7 +278,7 @@
 									<cfset isNext = "yes">
 								</cfif>
 							</cfif>
-							
+							<div id="navSpace">
 							
 							
 							<table width="100%" cellpadding="0" cellspacing="0">
@@ -324,14 +324,10 @@
 						</table>
 						
 						
-						
-						
-						<cfelse>
-							<cfset isNext="">
-							<cfset isPrev="">
+						</div>
 						</cfif>
 						
-							</div>
+							
 							
 							 </div>	
 					
