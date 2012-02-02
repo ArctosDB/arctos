@@ -73,7 +73,7 @@
 		concatEncumbrances(#session.flatTableName#.collection_object_id) as encumbrance_action,
 		#session.flatTableName#.dec_lat,
 		#session.flatTableName#.dec_long">
-<cfif len(#session.CustomOtherIdentifier#) gt 0>
+<cfif len(session.CustomOtherIdentifier) gt 0>
 	<cfset detSelect = "#detSelect#
 	,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') as	CustomID">
 </cfif>		
@@ -157,7 +157,7 @@
 		    		<strong>#partString#</strong>
 				</font>
 			</td>
-			<td>
+			<td align="right">
 				 <cfif (len(dec_lat) gt 0 and len(dec_long) gt 0)>
 				    <cfif encumbrance_action does not contain "coordinates" OR
 						(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
