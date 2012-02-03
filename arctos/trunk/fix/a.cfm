@@ -1,7 +1,7 @@
 <cfoutput>
-	<cfparam name="vd">
-	<cfparam name="bd">
-	<cfparam name="ed">
+	<cfparam name="vd" default="">
+	<cfparam name="bd" default="">
+	<cfparam name="ed" default="">
 	<form>
 		<input name="vd" value="#vd#">
 		<input type="submit">
