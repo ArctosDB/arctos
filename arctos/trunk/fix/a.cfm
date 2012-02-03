@@ -7,7 +7,7 @@
 		<input type="submit">
 	</form>
 	
-	<cfif isdefined("vd")>
+	<cfif isdefined("vd") and len(vd) gt 0>
 		
 		<!--- 4-digit year --->
 		<cfif len(vd) is 4 and isnumeric(vd)>
