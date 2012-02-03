@@ -24,7 +24,7 @@
 			<cfset theDay2=day(vd)>
 			<br>theDay2=#theDay2#
 			
-			<br>diff: #DateDiff("day", vd, dateformat(vd,"dd-mm-yyyy"))#
+			<br>diff: #DateDiff("d", vd, dateformat(vd,"dd-mm-yyyy"))#
 		</cfif>
 		
 		<hr>
