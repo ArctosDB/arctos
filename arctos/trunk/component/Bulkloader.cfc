@@ -87,10 +87,21 @@
 			</cfif>
 		<cfcatch>
 			<cfmail to="arctos.database@gmail.com" subject="data entry catch" from="wtf@#Application.fromEmail#" type="html">
+				<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+					<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
+				<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+					<CFSET ipaddress=CGI.Remote_Addr>
+				<cfelse>
+					<cfset ipaddress='unknown'>
+				</CFIF>
+				<cfdump var=#ipaddress#>
 				from incrementCustomId-----
 				cidVal: #cidVal#
 				<br>
 				<cfdump var=#cfcatch#>
+				<cfdump var=#session#>
+				
+				<cfdump var=#cgi#>
 			</cfmail>
 		</cfcatch>
 		</cftry>
