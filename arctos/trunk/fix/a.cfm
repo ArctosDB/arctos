@@ -17,9 +17,9 @@
 			<br>vd is a date --#dateformat(vd,"yyyy-mm-dd")#--
 			<cfset theYear=datepart("yyyy",vd)>
 			<br>theYear=#theYear#>
-			<cfset theMonth=datepart("mm",vd)>
+			<cfset theMonth=datepart("m",vd)>
 			<br>theMonth=#theMonth#>
-			<cfset theDay=datepart("dd",vd)>
+			<cfset theDay=datepart("d",vd)>
 			<br>theDay=#theDay#>
 			
 		</cfif>
