@@ -8,7 +8,7 @@
 	<cfif isdefined("vd")>
 		<hr>vd: #vd#
 		<cfif isdate(vd)>
-			<br>vd is a date
+			<br>vd is a date --#dateformat(vd,"yyyy-mm-dd")#--
 		</cfif>
 	</cfif>
 </cfoutput>
