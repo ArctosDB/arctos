@@ -21,7 +21,8 @@
 			<br>theMonth=#theMonth#>
 			<cfset theDay=datepart("d",vd)>
 			<br>theDay=#theDay#>
-			
+			<cfset theDay2=day(vd)>
+			<br>theDay2=#theDay2#>
 		</cfif>
 		
 		<hr>
