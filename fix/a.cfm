@@ -16,13 +16,15 @@
 		<cfelseif isdate(vd)>
 			<br>vd is a date --#dateformat(vd,"yyyy-mm-dd")#--
 			<cfset theYear=datepart("yyyy",vd)>
-			<br>theYear=#theYear#>
+			<br>theYear=#theYear#
 			<cfset theMonth=datepart("m",vd)>
-			<br>theMonth=#theMonth#>
+			<br>theMonth=#theMonth#
 			<cfset theDay=datepart("d",vd)>
-			<br>theDay=#theDay#>
+			<br>theDay=#theDay#
 			<cfset theDay2=day(vd)>
-			<br>theDay2=#theDay2#>
+			<br>theDay2=#theDay2#
+			
+			<br>diff: #DateDiff("day", vd, dateformat(vd,"dd-mm-yyyy"))#
 		</cfif>
 		
 		<hr>
