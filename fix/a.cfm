@@ -13,9 +13,15 @@
 		<cfif len(vd) is 4 and isnumeric(vd)>
 			<cfset bd="#vd#-01-01">
 			<cfset ed="#vd#-12-31">
-		</cfif>
-		<cfif isdate(vd)>
+		<cfelseif isdate(vd)>
 			<br>vd is a date --#dateformat(vd,"yyyy-mm-dd")#--
+			<cfset theYear=datepart("yyyy",vd)>
+			<br>theYear=#theYear#>
+			<cfset theMonth=datepart("mm",vd)>
+			<br>theMonth=#theMonth#>
+			<cfset theDay=datepart("dd",vd)>
+			<br>theDay=#theDay#>
+			
 		</cfif>
 		
 		<hr>
