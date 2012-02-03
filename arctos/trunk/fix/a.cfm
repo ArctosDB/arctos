@@ -1,7 +1,7 @@
 <cfoutput>
 	<cfparam name="vd">
 	<cfparam name="bd">
-	<cfparam name="dd">
+	<cfparam name="ed">
 	<form>
 		<input name="vd" value="#vd#">
 		<input type="submit">
