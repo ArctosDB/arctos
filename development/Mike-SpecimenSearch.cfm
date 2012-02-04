@@ -5,7 +5,7 @@
 	change is going to be made (and where). --->
 
 <center>
-Testing Audio Searches :-)
+Still testing audio searches.
 </center>
 
 <cfinclude template="/includes/_header.cfm">
