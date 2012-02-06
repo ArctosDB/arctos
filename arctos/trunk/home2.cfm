@@ -183,12 +183,12 @@ border-bottom:1px solid black;
 							no home page
 						</cfif>
 					</td>
+					<td class="collnLoanPolCell">
 						<cfif len(loan_policy_url) gt 0>
-						<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
+							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
 						<cfelse>
 							no loan policy
 						</cfif>
-					<td class="collnLoanPolCell">
 					</td>
 				</tr>
 			</cfloop>
