@@ -143,73 +143,77 @@ border-bottom:1px solid black;
 		Arctos is currently #summary.total_specimens# specimens and observations in #summary.numCollections# collections. Following the search links below will set your preferences to filter by a specific collection or portal. You may click 
 		<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences. 
 	</p>
-	<ul>
+	<table border>
 		<cfif isdefined("uam") and uam.recordcount gt 0>
-			<a name="uam"></a>
-			<li><a href="http://www.uaf.edu/museum/" target="_blank" class="external institution">University of Alaska Museum</a>
-				<ul>
-					<cfloop query="uam">
-						<cfset coll_dir_name = "#lcase(portal_name)#">
-						<li>
-							<div class="collnTitle">
-								#collection#
-							</div>
-							<div class="collnData">
-								<cfif len(descr) gt 0>
-									<div class="collnDescr">
-										#descr#
-									</div>
-								</cfif>
-								<cfif listlast(collection,' ') is not 'Portal'>
-									<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
-								<cfelse>
-									<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
-								</cfif>
-								<cfif len(web_link) gt 0>
-									<br><a href="#web_link#"  class="external" target="_blank">[ Collection Home Page ]</a>
-								</cfif>
-								<cfif len(loan_policy_url) gt 0>
-									<br><a href="#loan_policy_url#" class="external" target="_blank">[ Collection Loan Policy ]</a>
-								</cfif>
-							</div>
-						</li>
-					</cfloop>
-				</ul>
-			</li>
+			<tr>
+				<td colspan="4" class="instHeader">
+					<a name="uam" href="http://www.uaf.edu/museum/" target="_blank" class="external institution">University of Alaska Museum</a>
+				</td>
+			</tr>
+			<cfloop query="uam">
+				<tr>
+					<td class="collnCell">
+						#collection#
+					</td>
+					<td class="collnDescrCell">
+						<cfif len(descr) gt 0>
+							#descr#
+						</cfif>
+						&nbsp;
+					</td>
+					<td class="collnSrchCell">
+						<cfif listlast(collection,' ') is not 'Portal'>
+							<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+						<cfelse>
+							<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
+						</cfif>
+					</td>
+					<td class="collnWeblinkCell">
+						<a href="#web_link#"  class="external" target="_blank">[ Collection Home Page ]</a>
+					</td>
+					<td class="collnLoanPolCell">
+						<a href="#loan_policy_url#" class="external" target="_blank">[ Collection Loan Policy ]</a>
+					</td>
+				</tr>
+			</cfloop>
 		</cfif>
+		
 		<cfif isdefined("msb") and msb.recordcount gt 0>
-			<a name="msb"></a>
-			<li><a href="http://www.msb.unm.edu/" target="_blank" class="external institution">Museum of Southwestern Biology</a>
-				<ul>
-					<cfloop query="msb">
-						<cfset coll_dir_name = "#lcase(portal_name)#">
-						<li>
-							<div class="collnTitle">
-								#collection#
-							</div>
-							<div class="collnData">
-								<cfif len(descr) gt 0>
-									<div class="collnDescr">
-										#descr#
-									</div>
-								</cfif>
-								<cfif listlast(collection,' ') is not 'Portal'>
-									<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
-								<cfelse>
-									<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
-								</cfif>
-								<cfif len(web_link) gt 0>
-									<br><a href="#web_link#"  class="external" target="_blank">[ Collection Home Page ]</a>
-								</cfif>
-								<cfif len(loan_policy_url) gt 0>
-									<br><a href="#loan_policy_url#" class="external" target="_blank">[ Collection Loan Policy ]</a>
-								</cfif>
-							</div>
-						</li>
-					</cfloop>
-				</ul>
-			</li>
+			<tr>
+				<td colspan="4" class="instHeader">
+					<a name="msb" href="http://www.msb.unm.edu/" target="_blank" class="external institution">Museum of Southwestern Biology</a>
+				</td>
+			</tr>
+			<cfloop query="msb">
+				<tr>
+					<td class="collnCell">
+						#collection#
+					</td>
+					<td class="collnDescrCell">
+						<cfif len(descr) gt 0>
+							#descr#
+						</cfif>
+						&nbsp;
+					</td>
+					<td class="collnSrchCell">
+						<cfif listlast(collection,' ') is not 'Portal'>
+							<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+						<cfelse>
+							<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
+						</cfif>
+					</td>
+					<td class="collnWeblinkCell">
+						<a href="#web_link#"  class="external" target="_blank">[ Collection Home Page ]</a>
+					</td>
+					<td class="collnLoanPolCell">
+						<a href="#loan_policy_url#" class="external" target="_blank">[ Collection Loan Policy ]</a>
+					</td>
+				</tr>
+			</cfloop>
 		</cfif>
+	</table>
+	
+	<!---
 		<cfif isdefined("mvz") and mvz.recordcount gt 0>
 			<a name="mvz"></a>
 			<li><a href="http://mvz.berkeley.edu/" target="_blank" class="external institution">Museum of Vertebrate Zoology</a>
@@ -343,6 +347,7 @@ border-bottom:1px solid black;
 			</li>
 		</cfif>
 	</ul>
+	---->
 	<a name="features"></a>	
 <p><strong >Features:</strong>
 <ul>
