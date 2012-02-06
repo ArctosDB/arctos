@@ -8,6 +8,7 @@
 	where
 		upper(DBA_USERS.USERNAME)=upper(cf_users.USERNAME) and
 		PROFILE='ARCTOS_USER' and
+		LOCK_DATE is null and
 		SYSDATE-LAST_LOGIN > 180
 </cfquery>
 <cfdump var=#roles#>
