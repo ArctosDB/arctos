@@ -171,9 +171,9 @@ border-bottom:1px solid black;
 					</td>
 					<td class="collnSrchCell">
 						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
 						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
 						</cfif>
 					</td>
 					<td class="collnWeblinkCell">
@@ -213,9 +213,9 @@ border-bottom:1px solid black;
 					</td>
 					<td class="collnSrchCell">
 						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
 						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
 						</cfif>
 					</td>
 					<td class="collnWeblinkCell">
@@ -254,9 +254,9 @@ border-bottom:1px solid black;
 					</td>
 					<td class="collnSrchCell">
 						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
 						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
 						</cfif>
 					</td>
 					<td class="collnWeblinkCell">
@@ -295,9 +295,9 @@ border-bottom:1px solid black;
 					</td>
 					<td class="collnSrchCell">
 						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
 						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
 						</cfif>
 					</td>
 					<td class="collnWeblinkCell">
@@ -336,9 +336,9 @@ border-bottom:1px solid black;
 					</td>
 					<td class="collnSrchCell">
 						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
 						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
 						</cfif>
 					</td>
 					<td class="collnWeblinkCell">
@@ -378,9 +378,9 @@ border-bottom:1px solid black;
 					</td>
 					<td class="collnSrchCell">
 						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">[ Search #cnt# Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
 						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">[ Search Specimens ]</a>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
 						</cfif>
 					</td>
 					<td class="collnWeblinkCell">
