@@ -219,10 +219,18 @@ border-bottom:1px solid black;
 						</cfif>
 					</td>
 					<td class="collnWeblinkCell">
-						<a href="#web_link#"  class="external" target="_blank">[ Collection Home Page ]</a>
+						<cfif len(web_link) gt 0>
+							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
+						<cfelse>
+							no home page
+						</cfif>
 					</td>
 					<td class="collnLoanPolCell">
-						<a href="#loan_policy_url#" class="external" target="_blank">[ Collection Loan Policy ]</a>
+						<cfif len(loan_policy_url) gt 0>
+							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
+						<cfelse>
+							no loan policy
+						</cfif>
 					</td>
 				</tr>
 			</cfloop>
