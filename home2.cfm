@@ -40,6 +40,13 @@ border-bottom:1px solid black;
 		font-size:smaller;
 		margin-bottom:1em;
 	}
+	
+	.collnDescrCell {
+		font-size:x-small;
+	}
+	.collnCell {
+		margin-left:1em;
+	}
 </style>
 <cfoutput>
 	<cfquery name="coll" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -155,12 +162,11 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
-					</td>
-					<td class="collnDescrCell">
 						<cfif len(descr) gt 0>
-							#descr#
+							<div class="collnDescrCell">
+								#descr#
+							</div>
 						</cfif>
-						&nbsp;
 					</td>
 					<td class="collnSrchCell">
 						<cfif listlast(collection,' ') is not 'Portal'>
@@ -190,12 +196,11 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
-					</td>
-					<td class="collnDescrCell">
 						<cfif len(descr) gt 0>
-							#descr#
+							<div class="collnDescrCell">
+								#descr#
+							</div>
 						</cfif>
-						&nbsp;
 					</td>
 					<td class="collnSrchCell">
 						<cfif listlast(collection,' ') is not 'Portal'>
