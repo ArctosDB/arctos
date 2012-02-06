@@ -43,9 +43,10 @@ border-bottom:1px solid black;
 	
 	.collnDescrCell {
 		font-size:x-small;
+		padding-left:1em;
 	}
 	.collnCell {
-		margin-left:1em;
+		padding-left:1em;
 	}
 </style>
 <cfoutput>
