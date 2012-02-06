@@ -151,6 +151,7 @@ border-bottom:1px solid black;
 				</td>
 			</tr>
 			<cfloop query="uam">
+				<cfset coll_dir_name = "#lcase(portal_name)#">
 				<tr>
 					<td class="collnCell">
 						#collection#
@@ -185,6 +186,7 @@ border-bottom:1px solid black;
 				</td>
 			</tr>
 			<cfloop query="msb">
+				<cfset coll_dir_name = "#lcase(portal_name)#">
 				<tr>
 					<td class="collnCell">
 						#collection#
