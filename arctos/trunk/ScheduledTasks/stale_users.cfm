@@ -14,14 +14,12 @@
 			upper(DBA_USERS.USERNAME)=upper(cf_users.USERNAME) and
 			PROFILE='ARCTOS_USER' and
 			LOCK_DATE is null and
-			SYSDATE-LAST_LOGIN > #d#
+			SYSDATE-LAST_LOGIN > 180
 	</cfquery>
 	<cfdump var=#nologinsixmo#>
-	<!---
 	<cfloop query="nologinsixmo">
 		<cfquery name="nologinsixmo_buhbye" datasource="uam_god">
 			alter user "#username#" account lock
 		</cfquery>
 	</cfloop>
-	---->
 </cfoutput>
