@@ -317,6 +317,14 @@
     startTime = "1:36 AM"
     interval = "weekly"
     requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "stale_users" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/stale_users.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "1:56 AM"
+    interval = "weekly"
+    requestTimeOut = "600">
 <!-----------------------------------   images    ------------------------------------------>
 <cfschedule action = "update"
     task = "image_CheckNew" 
