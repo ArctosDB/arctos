@@ -1007,6 +1007,7 @@
 					<input type="hidden" name="trans_remarks" value="#trans_remarks#">
 					<input type="submit" value="I know what I'm doing. Just create the new loan.">
 				</form>
+				<cfabort>
 			</cfif>
 		<cfelse>
 			<cfmail subject="force loan creation" to="#Application.PageProblemEmail#" from="ForceLoan@#Application.fromEmail#" type="html">
