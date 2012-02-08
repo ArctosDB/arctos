@@ -1011,7 +1011,7 @@
 			</cfif>
 		<cfelse>
 			<cfmail subject="force loan creation" to="#Application.PageProblemEmail#" from="ForceLoan@#Application.fromEmail#" type="html">
-				#session.username# just force-created loan #alreadyGotOne.collection# #alreadyGotOne.loan_number#. That's probably a bad idea.
+				#session.username# just force-created loan #loan_number# for collection_id #collection_id#. That's probably a bad idea.
 			</cfmail>	
 		</cfif>
 		
