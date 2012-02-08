@@ -973,9 +973,11 @@
 					loan_number
 				from
 					loan,
-					trans
+					trans,
+					collection
 				where
 					loan.transaction_id=trans.transaction_id and
+					trans.collection_id=collection.collection_id and
 					upper(trim(loan_number))='#ucase(trim(loan_number))#'
 			</cfquery>
 			<cfif alreadyGotOne.recordcount is not 0>
@@ -997,11 +999,6 @@
 					<input type="hidden" name="loan_instructions" value="#loan_instructions#">
 					<input type="hidden" name="loan_description" value="#loan_description#">
 					<input type="hidden" name="trans_remarks" value="#trans_remarks#">
-					<input type="hidden" name="xxxxx" value="#xxxxxx#">
-					<input type="hidden" name="xxxxx" value="#xxxxxx#">
-					<input type="hidden" name="xxxxx" value="#xxxxxx#">
-					<input type="hidden" name="xxxxx" value="#xxxxxx#">
-					<input type="hidden" name="xxxxx" value="#xxxxxx#">
 					<input type="submit" value="I know what I'm doing. Just create the new loan.">
 				</form>
 			</cfif>
