@@ -952,17 +952,63 @@
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "makeLoan">
 	<cfoutput>
+		<cfif not isdefined("forceCreate")>
+			<cfset forceCreate=false>
+		</cfif>
 		<cfif 
 			len(loan_type) is 0 OR
 			len(loan_number) is 0 OR
 			len(initiating_date) is 0 OR
 			len(rec_agent_id) is 0 OR
-			len(auth_agent_id) is 0
-		>
+			len(auth_agent_id) is 0>
 			<br>Something bad happened.
 			<br>You must fill in loan_type, loannumber, authorizing_agent_name, initiating_date, loan_num_prefix, received_agent_name.
 			<br>Use your browser's back button to fix the problem and try again.
 			<cfabort>
+		</cfif>
+		<cfif forceCreate is false>
+			<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					collection,
+					loan_number
+				from
+					loan,
+					trans
+				where
+					loan.transaction_id=trans.transaction_id and
+					upper(trim(loan_number))='#ucase(trim(loan_number))#'
+			</cfquery>
+			<cfif alreadyGotOne.recordcount is not 0>
+				It looks like you're trying to re-create loan #alreadyGotOne.collection# #alreadyGotOne.loan_number#.
+				<form name="newloan" action="Loan.cfm" method="post">
+					<input type="hidden" name="action" value="makeLoan">
+					<input type="hidden" name="forceCreate" value="true">
+					<input type="hidden" name="collection_id" value="#collection_id#">
+					<input type="hidden" name="loan_number" value="#loan_number#">
+					<input type="hidden" name="auth_agent_name" value="#auth_agent_name#">
+					<input type="hidden" name="rec_agent_name" value="#rec_agent_name#">
+					<input type="hidden" name="in_house_contact_agent_name" value="#in_house_contact_agent_name#">
+					<input type="hidden" name="outside_contact_agent_name" value="#outside_contact_agent_name#">
+					<input type="hidden" name="loan_type" value="#loan_type#">
+					<input type="hidden" name="loan_status" value="#loan_status#">
+					<input type="hidden" name="initiating_date" value="#initiating_date#">
+					<input type="hidden" name="return_due_date" value="#return_due_date#">
+					<input type="hidden" name="nature_of_material" value="#nature_of_material#">
+					<input type="hidden" name="loan_instructions" value="#loan_instructions#">
+					<input type="hidden" name="loan_description" value="#loan_description#">
+					<input type="hidden" name="trans_remarks" value="#trans_remarks#">
+					<input type="hidden" name="xxxxx" value="#xxxxxx#">
+					<input type="hidden" name="xxxxx" value="#xxxxxx#">
+					<input type="hidden" name="xxxxx" value="#xxxxxx#">
+					<input type="hidden" name="xxxxx" value="#xxxxxx#">
+					<input type="hidden" name="xxxxx" value="#xxxxxx#">
+					<input type="submit" value="I know what I'm doing. Just create the new loan.">
+				</form>
+			</cfif>
+		<cfelse>
+			<cfmail subject="force loan creation" to="#Application.PageProblemEmail#" from="ForceLoan@#Application.fromEmail#" type="html">
+				#session.username# just force-created loan #alreadyGotOne.collection# #alreadyGotOne.loan_number#. That's probably a bad idea.
+			</cfmail>	
 		</cfif>
 		<cfif len(in_house_contact_agent_id) is 0>
 			<cfset in_house_contact_agent_id=auth_agent_id>
