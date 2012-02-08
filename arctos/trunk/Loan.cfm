@@ -980,6 +980,7 @@
 					trans.collection_id=collection.collection_id and
 					upper(trim(loan_number))='#ucase(trim(loan_number))#'
 			</cfquery>
+			<cfdump var=#alreadyGotOne#>
 			<cfif alreadyGotOne.recordcount is not 0>
 				It looks like you're trying to re-create loan #alreadyGotOne.collection# #alreadyGotOne.loan_number#.
 				<form name="newloan" action="Loan.cfm" method="post">
@@ -1007,6 +1008,10 @@
 				#session.username# just force-created loan #alreadyGotOne.collection# #alreadyGotOne.loan_number#. That's probably a bad idea.
 			</cfmail>	
 		</cfif>
+		
+		<cfabort>
+		
+		
 		<cfif len(in_house_contact_agent_id) is 0>
 			<cfset in_house_contact_agent_id=auth_agent_id>
 		</cfif>
