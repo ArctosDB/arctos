@@ -966,6 +966,12 @@
 			<br>Use your browser's back button to fix the problem and try again.
 			<cfabort>
 		</cfif>
+		<cfif len(in_house_contact_agent_id) is 0>
+			<cfset in_house_contact_agent_id=auth_agent_id>
+		</cfif>
+		<cfif len(outside_contact_agent_id) is 0>
+			<cfset outside_contact_agent_id=REC_AGENT_ID>
+		</cfif>
 		<cfif forceCreate is false>
 			<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
@@ -988,10 +994,10 @@
 					<input type="hidden" name="forceCreate" value="true">
 					<input type="hidden" name="collection_id" value="#collection_id#">
 					<input type="hidden" name="loan_number" value="#loan_number#">
-					<input type="hidden" name="auth_agent_name" value="#auth_agent_name#">
-					<input type="hidden" name="rec_agent_name" value="#rec_agent_name#">
-					<input type="hidden" name="in_house_contact_agent_name" value="#in_house_contact_agent_name#">
-					<input type="hidden" name="outside_contact_agent_name" value="#outside_contact_agent_name#">
+					<input type="hidden" name="auth_agent_id" value="#auth_agent_id#">
+					<input type="hidden" name="rec_agent_id" value="#rec_agent_id#">
+					<input type="hidden" name="in_house_contact_agent_id" value="#in_house_contact_agent_id#">
+					<input type="hidden" name="outside_contact_agent_id" value="#outside_contact_agent_id#">
 					<input type="hidden" name="loan_type" value="#loan_type#">
 					<input type="hidden" name="loan_status" value="#loan_status#">
 					<input type="hidden" name="initiating_date" value="#initiating_date#">
@@ -1012,12 +1018,7 @@
 		<cfabort>
 		
 		
-		<cfif len(in_house_contact_agent_id) is 0>
-			<cfset in_house_contact_agent_id=auth_agent_id>
-		</cfif>
-		<cfif len(outside_contact_agent_id) is 0>
-			<cfset outside_contact_agent_id=REC_AGENT_ID>
-		</cfif>	
+		
 		<cftransaction>
 			<cfquery name="newLoanTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans (
