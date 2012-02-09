@@ -40,7 +40,7 @@
 		</noscript>
 		<cfif listfindnocase(session.roles,"coldfusion_user")>
 			<div style="margin:1em;padding:1em;font-weight:bold; border:2px solid red;">
-				Arctos is currently moving. UPDATES or INSERTS will <strong>not</strong> be saved, so don't try to change anything. We'll be back soon!
+				We're moving - do not try to change anything!
 			</div>
 		</cfif>
 		<cfif cgi.HTTP_USER_AGENT does not contain "Firefox">
