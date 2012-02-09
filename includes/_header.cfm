@@ -367,10 +367,3 @@
 		<cf_rolecheck>
 	</cfoutput>
 <br><br>
-<cfif listfindnocase(session.roles,"coldfusion_user")>
-			<div style="margin:1em;padding:1em;">
-			<span style="margin:1em;padding:1em;font-weight:bold; border:2px solid red;">
-				We're moving - do not try to change anything!
-			</span>
-			</div>
-		</cfif>
