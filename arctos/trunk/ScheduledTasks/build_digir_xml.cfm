@@ -15,6 +15,11 @@
 	<cfset tableName = "DIGIR_FILTERED_FLAT">
 	<cfset filePath = "/../ht_restricted/DiGIRprov/config/">
 <cfelse>
+	<cfset constr = "meta-1.corral.tacc.utexas.edu:1521">
+	<cfset database = "arctos">
+	<cfset tableName = "DIGIR_FILTERED_FLAT">
+	<cfset filePath = "/temp/">
+	
 	<cfabort>
 	<!----------- add collections here ----------------------->
 </cfif>
