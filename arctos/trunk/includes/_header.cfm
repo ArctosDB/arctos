@@ -38,6 +38,12 @@
 				try our <a target="_top" href="/SpecimenSearchHTML.cfm">HTML SpecimenSearch</a> option.
 			</div>
 		</noscript>
+		
+		<cfif listcontains(session.roles,"coldfusion_user")>
+			<div style="margin:1em;padding:1em;font-weight:bold; border:2px solid red;">
+				@UAM-We're moving! And UPDATES or INSERTS you make will not be saved. So don't try to change anything. We'll be back soon!
+			</div>
+		</cfif>
 		<cfif cgi.HTTP_USER_AGENT does not contain "Firefox">
 			<div class="browserCheck">
 				Some features of this site may not work in your browser. <a href="/home.cfm##requirements">Learn more</a>
