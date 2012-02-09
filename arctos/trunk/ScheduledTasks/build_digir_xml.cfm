@@ -19,8 +19,6 @@ hi.
 	<cfset database = "arctos">
 	<cfset tableName = "DIGIR_FILTERED_FLAT">
 	<cfset filePath = "/temp/">
-	
-	<cfabort>
 	<!----------- add collections here ----------------------->
 </cfif>
 <cfset data = '<?xml version="1.0"?>'>
@@ -33,6 +31,8 @@ hi.
 </cfloop>
 <cfset data = '#data#</resources>'>
 <cfset fileName = "#filePath#resources.xml">
+
+
 writing #application.webDirectory##fileName#...
 <cffile action="write" file="#application.webDirectory##fileName#" addnewline="yes" output="#data#" mode="777">
 
