@@ -38,11 +38,6 @@
 				try our <a target="_top" href="/SpecimenSearchHTML.cfm">HTML SpecimenSearch</a> option.
 			</div>
 		</noscript>
-		<cfif listfindnocase(session.roles,"coldfusion_user")>
-			<div style="margin:1em;padding:1em;font-weight:bold; border:2px solid red;">
-				We're moving - do not try to change anything!
-			</div>
-		</cfif>
 		<cfif cgi.HTTP_USER_AGENT does not contain "Firefox">
 			<div class="browserCheck">
 				Some features of this site may not work in your browser. <a href="/home.cfm##requirements">Learn more</a>
@@ -371,4 +366,10 @@
 		</div><!--- end header div --->
 		<cf_rolecheck>
 	</cfoutput>
+	
+		<cfif listfindnocase(session.roles,"coldfusion_user")>
+			<div style="margin:1em;padding:1em;font-weight:bold; border:2px solid red;">
+				We're moving - do not try to change anything!
+			</div>
+		</cfif>
 <br><br>
