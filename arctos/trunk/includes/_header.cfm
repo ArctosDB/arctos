@@ -39,7 +39,7 @@
 			</div>
 		</noscript>
 		<cfdump var=#session.roles#>
-		<cfif listcontains(session.roles,"coldfusion_user")>
+		<cfif listfindnocase(session.roles,"coldfusion_user")>
 			<div style="margin:1em;padding:1em;font-weight:bold; border:2px solid red;">
 				@UAM-We're moving! And UPDATES or INSERTS you make will not be saved. So don't try to change anything. We'll be back soon!
 			</div>
