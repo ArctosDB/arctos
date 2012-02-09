@@ -85,8 +85,7 @@ writing #application.webDirectory##fileName#...
 		<cfelse>
 			<cfset thisType = "text">
 		</cfif>
-		<cfset data = '#data#<concept searchable="1" returnable="1" name="darwin:#dwcName#" type="#thisType#" 
-			table="DIGIR_FILTERED_FLAT" field="#fieldName#" zid="#i#"/>
+		<cfset data = '#data#<concept searchable="1" returnable="1" name="darwin:#dwcName#" type="#thisType#" table="DIGIR_FILTERED_FLAT" field="#fieldName#" zid="#i#"/>
 			'>
 		<cfset i=#i#+1>
 	</cfloop>
