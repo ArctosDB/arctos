@@ -368,7 +368,7 @@
 	</cfoutput>
 <br><br>
 <cfif listfindnocase(session.roles,"coldfusion_user")>
-			<div>
+			<div style="margin:1em;padding:1em; border:1px solid black;">
 			<span style="margin:1em;padding:1em;font-weight:bold; border:2px solid red;">
 				We're moving - do not try to change anything!
 			</span>
