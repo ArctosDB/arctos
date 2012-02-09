@@ -33,7 +33,7 @@
 </cfloop>
 <cfset data = '#data#</resources>'>
 <cfset fileName = "#filePath#resources.xml">
-
+writing #application.webDirectory##fileName#...
 <cffile action="write" file="#application.webDirectory##fileName#" addnewline="yes" output="#data#" mode="777">
 
 
