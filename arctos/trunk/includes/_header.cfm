@@ -366,10 +366,9 @@
 		</div><!--- end header div --->
 		<cf_rolecheck>
 	</cfoutput>
-	
-		<cfif listfindnocase(session.roles,"coldfusion_user")>
+<br><br>
+<cfif listfindnocase(session.roles,"coldfusion_user")>
 			<div style="margin:1em;padding:1em;font-weight:bold; border:2px solid red;">
 				We're moving - do not try to change anything!
 			</div>
 		</cfif>
-<br><br>
