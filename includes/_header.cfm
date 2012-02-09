@@ -38,10 +38,9 @@
 				try our <a target="_top" href="/SpecimenSearchHTML.cfm">HTML SpecimenSearch</a> option.
 			</div>
 		</noscript>
-		<cfdump var=#session.roles#>
 		<cfif listfindnocase(session.roles,"coldfusion_user")>
 			<div style="margin:1em;padding:1em;font-weight:bold; border:2px solid red;">
-				@UAM-We're moving! And UPDATES or INSERTS you make will not be saved. So don't try to change anything. We'll be back soon!
+				Arctos is currently moving. UPDATES or INSERTS will <strong>not</strong> be saved, so don't try to change anything. We'll be back soon!
 			</div>
 		</cfif>
 		<cfif cgi.HTTP_USER_AGENT does not contain "Firefox">
