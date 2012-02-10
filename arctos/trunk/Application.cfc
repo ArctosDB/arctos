@@ -118,20 +118,14 @@
 	<cfset Application.max_pw_age = 90>
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
-	
-	aborting startup....
-	<cfabort>
-	
-	
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
 			select ip from uam.blacklist
 		</cfquery>
 		<cfset Application.blacklist=valuelist(d.ip)>
 	<cfcatch>
-		<cfmail to="dlmcdonald@alaska.edu" subject="onaoolicationstart failed" from="appstart@#Application.fromEmail#" type="html">
-			failed to get blacklist on app start
-		</cfmail>
+		Failed to connect to database during startup - check db....
+		<cfabort>
 	</cfcatch>
 	</cftry>
 	<cfif serverName is "arctos.database.museum">
