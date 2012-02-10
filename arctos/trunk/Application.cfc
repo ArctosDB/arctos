@@ -119,6 +119,7 @@
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	
+	aborting startup....
 	<cfabort>
 	
 	
