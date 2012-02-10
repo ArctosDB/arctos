@@ -12,6 +12,8 @@
 <cffunction name="onError">	
 	<cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
+<cfdump var=#exception#>
+		
 	<cfdump var=#session#>
 	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
