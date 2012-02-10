@@ -118,10 +118,21 @@
 	<cfset Application.max_pw_age = 90>
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
-	<cfquery name="d" datasource="uam_god">
-		select ip from uam.blacklist
-	</cfquery>
-	<cfset Application.blacklist=valuelist(d.ip)>
+	
+	<cfabort>
+	
+	
+	<cftry>
+		<cfquery name="d" datasource="uam_god">
+			select ip from uam.blacklist
+		</cfquery>
+		<cfset Application.blacklist=valuelist(d.ip)>
+	<cfcatch>
+		<cfmail to="dlmcdonald@alaska.edu" subject="onaoolicationstart failed" from="appstart@#Application.fromEmail#" type="html">
+			failed to get blacklist on app start
+		</cfmail>
+	</cfcatch>
+	</cftry>
 	<cfif serverName is "arctos.database.museum">
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRmuGmxQ-gdo7TWENOfdvPP48uvgxS1Mi5095Z-7DsupXP1SWQjdYKK_w">	
 		<cfset Application.svn = "/usr/local/bin/svn">
