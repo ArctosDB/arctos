@@ -1,37 +1,17 @@
-<cfoutput>
-	<cfquery name="getData" datasource="uam_god">
-		select * from #tableName#
-	</cfquery>
-	<cfset ac = getData.columnList>
-	<cfset fileDir = "#Application.webDirectory#">
-	<cfset variables.encoding="UTF-8">
-	<cfset fname = "#tableName#.csv">
-	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-	<cfset header=trim(ac)>
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(header); 
-	</cfscript>
-	<cfloop query="getData">
-		<cfset oneLine = "">
-		<cfloop list="#ac#" index="c">
-			<cfset thisData = evaluate(c)>
-			<cfif len(oneLine) is 0>
-				<cfset oneLine = '"#thisData#"'>
-			<cfelse>
-				<cfset thisData=replace(thisData,'"','""','all')>
-				<cfset oneLine = '#oneLine#,"#thisData#"'>
-			</cfif>
-		</cfloop>
-		<cfset oneLine = trim(oneLine)>
-		<cfscript>
-			variables.joFileWriter.writeLine(oneLine);
-		</cfscript>
-	</cfloop>
-	<cfscript>	
-		variables.joFileWriter.close();
-	</cfscript>
-	<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-</cfoutput>
-<cfinclude template="/includes/_footer.cfm">
+<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
+        <cfset Application.svn = "/usr/local/bin/svn">
+		<cfset Application.webDirectory = "/corral/tg/uaf/arctos_prod">
+		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
+		<cfset Application.bugReportEmail = "dustymc@gmail.com">
+		<cfset Application.technicalEmail = "dustymc@gmail.com">
+		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
+		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
+		<cfset Application.genBankPrid = "3849">
+		<cfset Application.genBankUsername="uam">
+		<cfset Application.convertPath = "/usr/local/bin/convert">
+		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
+		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
+		<cfset Application.Google_uacct = "UA-315170-1">
+		<cfset Application.InstitutionBlurb = "">
+		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
+		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
