@@ -184,10 +184,28 @@
 		<cfset Application.InstitutionBlurb = "Collections Database, Museum of Comparative Zoology, Harvard University">
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
-    <cfelseif serverName contains ".tacc.">
+    <cfelseif serverName is "login.corral.tacc.utexas.edu ">
 		<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
+		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
+		<cfset Application.bugReportEmail = "dustymc@gmail.com">
+		<cfset Application.technicalEmail = "dustymc@gmail.com">
+		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
+		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
+		<cfset Application.genBankPrid = "3849">
+		<cfset Application.genBankUsername="uam">
+		<cfset Application.convertPath = "/usr/local/bin/convert">
+		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
+		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
+		<cfset Application.Google_uacct = "UA-315170-1">
+		<cfset Application.InstitutionBlurb = "">
+		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
+		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
+	<cfelseif serverName is "meta-1.corral.tacc.utexas.edu ">
+		<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
+        <cfset Application.svn = "/usr/local/bin/svn">
+		<cfset Application.webDirectory = "/corral/tg/uaf/arctos_prod">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
 		<cfset Application.bugReportEmail = "dustymc@gmail.com">
 		<cfset Application.technicalEmail = "dustymc@gmail.com">
