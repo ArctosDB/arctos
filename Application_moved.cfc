@@ -17,10 +17,12 @@
 				We've moved, but the DNS servers haven't caught up yet.
 				<p>
 					You can find us at our top-secret headquarters, <a href="http://129.114.52.171">http://129.114.52.171</a>. 
-					Arctos.database.museum should be back to normal within 24h.
 				</p>
 				<p>
-					Continue to your link at <a href="http://129.114.52.171#cTemp#">http://129.114.52.171#cTemp#</a>
+					http://arctos.database.museum should be back to normal within 72h.
+				</p>
+				<p>
+					Continue to <a href="http://129.114.52.171#cTemp#">http://129.114.52.171#cTemp#</a>
 				</p>
 			</div>
 		</cfoutput>
