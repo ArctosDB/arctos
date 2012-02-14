@@ -112,25 +112,12 @@
 	<cfscript>
 		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
 	</cfscript>
-	<cfif serverName is "web.arctos.database.museum">
-		<cfset serverName="arctos.database.museum">
-	</cfif>
 	<cfset Application.session_timeout=90>
 	<cfset Application.serverRootUrl = "http://#serverName#">
 	<cfset Application.user_login="user_login">
 	<cfset Application.max_pw_age = 90>
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
-	<cftry>
-		<cfquery name="d" datasource="uam_god">
-			select ip from uam.blacklist
-		</cfquery>
-		<cfset Application.blacklist=valuelist(d.ip)>
-	<cfcatch>
-		Failed to connect to database during startup - check db....
-		<cfabort>
-	</cfcatch>
-	</cftry>
 	<cfif serverName is "arctos.database.museum">
 		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRmuGmxQ-gdo7TWENOfdvPP48uvgxS1Mi5095Z-7DsupXP1SWQjdYKK_w">	
 		<cfset Application.svn = "/usr/local/bin/svn">
@@ -184,7 +171,7 @@
 		<cfset Application.InstitutionBlurb = "Collections Database, Museum of Comparative Zoology, Harvard University">
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
-    <cfelseif serverName is "login.corral.tacc.utexas.edu ">
+    <cfelseif serverName is "login.corral.tacc.utexas.edu">
 		<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
@@ -202,7 +189,7 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
-	<cfelseif serverName is "meta-1.corral.tacc.utexas.edu ">
+	<cfelseif serverName is "meta-1.corral.tacc.utexas.edu">
 		<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/corral/tg/uaf/arctos_prod">
@@ -220,7 +207,25 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
-	</cfif>	
+	</cfif>
+	<cftry>
+		<cfquery name="d" datasource="uam_god">
+			select ip from uam.blacklist
+		</cfquery>
+		<cfset Application.blacklist=valuelist(d.ip)>
+	<cfcatch>
+		<cfset Application.blacklist="">
+		<cfmail subject="bad app start" to="#Application.PageProblemEmail#" from="badAppStart@#application.fromEmail#" type="html">
+			caught DB connect exception
+			<cfdump var=#servername#>
+			<cfdump var="#variables#" label="variables">
+			<cfdump var=#client# label="client">
+			<cfdump var=#session# label="session">
+			<cfdump var=#application# label="application">
+			<cfdump var=#cgi# label="cgi">
+		</cfmail>
+	</cfcatch>
+	</cftry>
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
