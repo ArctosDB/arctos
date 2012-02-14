@@ -1171,7 +1171,7 @@ function cleanup () {
 	reqdFlds.push('nature_of_id');
 	var thisIA = document.getElementById('institution_acronym').value;
 
-	if (!(thisIA=='UAM' && thisCC=='Herp') && thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
+	if (!(thisIA=='UAM' && thisCC=='Herp') && thisCC != 'Ento' && thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
 		reqdFlds.push('attribute_value_1');
 		reqdFlds.push('attribute_determiner_1');
 	}
