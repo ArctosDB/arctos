@@ -297,7 +297,7 @@
 			</cfscript>
 			<cfabort>
 	</cfif>
-	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu " and 
+	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" and 
 			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
 			#GetTemplatePath()# does not contain "/login.cfm" and
 			#GetTemplatePath()# does not contain "/ChangePassword.cfm" and
