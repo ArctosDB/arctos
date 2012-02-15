@@ -12,9 +12,6 @@
 <cffunction name="onError">	
 	<cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
-<cfdump var=#exception#>
-		
-	<cfdump var=#session#>
 	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
         <cfset showErr=0>
@@ -194,8 +191,8 @@
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/corral/tg/uaf/arctos_prod">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com">
-		<cfset Application.technicalEmail = "dustymc@gmail.com">
+		<cfset Application.bugReportEmail = "arctos.database@gmail.com,gordon.jarrell@gmail.com">
+		<cfset Application.technicalEmail = "arctos.database@gmail.com,gordon.jarrell@gmail.com">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
 		<cfset Application.genBankPrid = "3849">
@@ -205,8 +202,8 @@
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
 		<cfset Application.Google_uacct = "UA-315170-1">
 		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
-		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
+		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
+		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
 	</cfif>
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
@@ -235,8 +232,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	
-		
 	<!--- uncomment for a break from googlebot ---->
 	<!----
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
@@ -298,7 +293,7 @@
 			</cfscript>
 			<cfabort>
 	</cfif>
-	<cfif cgi.HTTP_HOST is "arctos-test.arctos.database.museum" and 
+	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu " and 
 			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
 			#GetTemplatePath()# does not contain "/login.cfm" and
 			#GetTemplatePath()# does not contain "/ChangePassword.cfm" and
