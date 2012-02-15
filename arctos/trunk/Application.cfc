@@ -204,6 +204,10 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
+		
+		<cfset Application.serverRootUrl="http://arctos.database.museum">
+		<cfset Application.fromEmail="arctos.database.museum">
+		
 	</cfif>
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
