@@ -7,9 +7,6 @@
 	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection,collection_id from collection order by collection
 	</cfquery>
-	<cfquery name="ctjournal_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select journal_name from ctjournal_name order by journal_name
-	</cfquery>
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_type from ctpublication_type order by publication_type
 	</cfquery>
