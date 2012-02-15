@@ -187,6 +187,8 @@
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
 	<cfelseif serverName is "meta-1.corral.tacc.utexas.edu">
+		<cfset Application.serverRootUrl="http://arctos.database.museum">
+		<cfset Application.fromEmail="arctos.database.museum">
 		<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/corral/tg/uaf/arctos_prod">
@@ -204,10 +206,6 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
-		
-		<cfset Application.serverRootUrl="http://arctos.database.museum">
-		<cfset Application.fromEmail="arctos.database.museum">
-		
 	</cfif>
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
