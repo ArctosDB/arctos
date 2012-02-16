@@ -756,6 +756,7 @@
 							<br>adding fname: #fname#
 							<cfif right(fname,4) is ".dng">
 								<cfset imgname=replace(fname,".dng","")>
+								<cftry>
 								<cfquery name="upFile" datasource="uam_god">
 									insert into es_img (
 										imgname,
@@ -765,6 +766,10 @@
 										'#folder#'
 									)	
 								</cfquery>
+								<cfcatch>
+									<br>failed@'#imgname#','#folder#'===#cfcatch.message#: #cfcatch.detail#
+								</cfcatch>
+								</cftry>
 							</cfif> 
 						</cfloop>
 					</cfif> <!--- end not been here --->
