@@ -77,14 +77,9 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 </ul>
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="Action" value="getFile">
-			  <input type="file"
-		   name="FiletoUpload"
-		   size="45">
-			 <input type="submit" value="Upload this file"
-		class="savBtn"
-		onmouseover="this.className='savBtn btnhov'" 
-		onmouseout="this.className='savBtn'">
+	<input type="hidden" name="Action" value="getFile">
+	<input type="file" name="FiletoUpload" size="45">
+	<input type="submit" value="Upload this file" class="savBtn">
   </cfform>
 
 </cfif>
