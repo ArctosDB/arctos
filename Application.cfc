@@ -300,7 +300,9 @@
 		 currentPath contains "/cache/" or
 		 currentPath contains "/temp/">
 		<!--- no CF processing allowed --->
-		denied
+		<cfscript>
+			getPageContext().forward("/errors/forbidden.cfm");
+		</cfscript>
 		<cfabort>
 	</cfif>
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" and 
