@@ -775,8 +775,8 @@
 	
 	<!---------------------------------------------------------------------------------------->
 	<cfif action is "getOneDir">
-		<cfif not isdefined("dir")>
-			call this with URL param folder - dfolderir must be in http://web.corral.tacc.utexas.edu/UAF/es/{folder}
+		<cfif not isdefined("folder")>
+			call this with URL param folder - folder must be in http://web.corral.tacc.utexas.edu/UAF/es/{folder}
 			<cfabort>
 		</cfif>
 		
