@@ -295,8 +295,14 @@
 			</cfscript>
 			<cfabort>
 	</cfif>
-	
-	
+	<cfif currentPath contains "/images/" or
+		 currentPath contains "/download/" or
+		 currentPath contains "/cache/" or
+		 currentPath contains "/temp/">
+		<!--- no CF processing allowed --->
+		denied
+		<cfabort>
+	</cfif>
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" and 
 			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
 			#GetTemplatePath()# does not contain "/login.cfm" and
