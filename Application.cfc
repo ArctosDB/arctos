@@ -296,11 +296,6 @@
 			<cfabort>
 	</cfif>
 	
-	<cfif currentPath contains "/images/" or
-		 currentPath contains "/images/" or>
-		go away
-		<cfabort>
-	</cfif>
 	
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" and 
 			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
