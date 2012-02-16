@@ -33,6 +33,9 @@
 	#action#
 	<cfif action is "nothing">
 		<br><a href="es_tacc.cfm?action=getDir">getDir</a>
+		<br><a href="es_tacc.cfm?action=getOneDir">getOneDir</a>
+		
+		
 		<br><a href="es_tacc.cfm?action=accn_card_media">accn_card_media</a>
 		<br><a href="es_tacc.cfm?action=loc_card_media">loc_card_media</a>
 		<br><a href="es_tacc.cfm?action=spec_media">spec_media</a>
@@ -772,41 +775,42 @@
 	
 	<!---------------------------------------------------------------------------------------->
 	<cfif action is "getOneDir">
-	<cfif not isdefined("dir")>
-		call this with URL param folder - dfolderir must be in http://web.corral.tacc.utexas.edu/UAF/es/{folder}
-		<cfabort>
+		<cfif not isdefined("dir")>
+			call this with URL param folder - dfolderir must be in http://web.corral.tacc.utexas.edu/UAF/es/{folder}
+			<cfabort>
+		</cfif>
+		
+		<br>fetching http://web.corral.tacc.utexas.edu/UAF/es/#folder#
+		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es/#folder#" charset="utf-8" method="get"></cfhttp>
+		<cfset ximgStr=cfhttp.FileContent>
+		<!--- goddamned xmlns bug in CF --->
+		<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
+		<cfset xImgAll=xmlparse(ximgStr)>
+		<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
+		<cfloop index="i" from="1" to="#arrayLen(xImage)#">
+			<cfset fname = xImage[i].XmlChildren[1].xmlText>
+			<cfif right(fname,4) is ".dng">
+				<cfset imgname=replace(fname,".dng","")>
+				<cftry>
+					<cfquery name="upFile" datasource="uam_god">
+						insert into es_img (
+							imgname,
+							folder
+						) values (
+							'#imgname#',
+							'#folder#'
+						)	
+					</cfquery>
+					<br>added fname: #fname#
+				<cfcatch>
+					<br>ALREADY GOT ONE THANKS: #fname#
+				</cfcatch>
+				</cftry>
+			<cfelse>
+				<br>#fname# is not a DNG so we're ignoring it.
+			</cfif> 
+		</cfloop>
 	</cfif>
-	
-	<br>fetching http://web.corral.tacc.utexas.edu/UAF/es/#folder#
-	<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es/#folder#" charset="utf-8" method="get"></cfhttp>
-	<cfset ximgStr=cfhttp.FileContent>
-	<!--- goddamned xmlns bug in CF --->
-	<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
-	<cfset xImgAll=xmlparse(ximgStr)>
-	<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
-	<cfloop index="i" from="1" to="#arrayLen(xImage)#">
-		<cfset fname = xImage[i].XmlChildren[1].xmlText>
-		<cfif right(fname,4) is ".dng">
-			<cfset imgname=replace(fname,".dng","")>
-			<cftry>
-				<cfquery name="upFile" datasource="uam_god">
-					insert into es_img (
-						imgname,
-						folder
-					) values (
-						'#imgname#',
-						'#folder#'
-					)	
-				</cfquery>
-				<br>added fname: #fname#
-			<cfcatch>
-				<br>ALREADY GOT ONE THANKS: #fname#
-			</cfcatch>
-			</cftry>
-		<cfelse>
-			<br>#fname# is not a DNG so we're ignoring it.
-		</cfif> 
-	</cfloop>
 <!------------------------------------------------------->
 	<cfif action is "status">
 		<cfquery name="d" datasource="uam_god">
