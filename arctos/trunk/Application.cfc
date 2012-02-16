@@ -296,7 +296,8 @@
 			<cfabort>
 	</cfif>
 	
-	<cfif currentPath contains "/accessTest/">
+	<cfif currentPath contains "/images/" or
+		 currentPath contains "/images/" or>
 		go away
 		<cfabort>
 	</cfif>
