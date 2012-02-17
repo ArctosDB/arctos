@@ -78,6 +78,9 @@
 				<cfset subject="Unknown Error">
 			</cfif>
 		</cfif>
+		<cfif isdefefined("session.username") and session.username is "dlm">
+			#errortext#
+		</cfif>
 		<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
 			#errortext#
 		</cfmail>	
