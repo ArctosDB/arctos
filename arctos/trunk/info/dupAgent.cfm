@@ -251,7 +251,7 @@
 					</div>
 					<cfloop query="np1">
 						<div>
-							#agent_name# (#t_type#)
+							#agent_name# (#agent_type#)
 						</div>
 					</cfloop>
 					<cfquery name="project_agent" datasource="uam_god">
