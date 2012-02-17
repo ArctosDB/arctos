@@ -304,6 +304,7 @@
 		</cfscript>
 		<cfabort>
 	</cfif>
+	<!---
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" and 
 			currentPath does not contain "/errors/dev_login.cfm" and
 			currentPath does not contain "/login.cfm" and
@@ -330,6 +331,7 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
+	--->
 	<cfreturn true>
 </cffunction>
 </cfcomponent>
