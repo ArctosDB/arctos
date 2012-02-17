@@ -290,7 +290,7 @@
 		currentPath contains "/ScheduledTasks/")>
 			<cfset r=replace(#currentPath#,#application.webDirectory#,"")>
 			<cfscript>
-				getPageContext().forward("/errors/forbidden.cfm");
+				getPageContext().forward("/errors/forbidden.cfm?ref=#r#");
 			</cfscript>
 			<cfabort>
 	</cfif>
