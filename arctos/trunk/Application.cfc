@@ -304,18 +304,20 @@
 		</cfscript>
 		<cfabort>
 	</cfif>
-	currentPath=#currentPath#==GetTemplatePath()=#GetTemplatePath()#
-	<!---
-	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" and 
-			currentPath does not contain "/errors/dev_login.cfm" and
-			currentPath does not contain "/login.cfm" and
-			currentPath does not contain "/ChangePassword.cfm" and
-			currentPath does not contain "/contact.cfm" and
-			currentPath does not contain "/dumpAll.cfm" and
-			currentPath does not contain "/get_short_doc.cfm" and
+	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu">
+		<cfset cPath=GetTemplatePath()>
+		<cfif
+			cPath does not contain "/errors/dev_login.cfm" and
+			cPath does not contain "/login.cfm" and
+			cPath does not contain "/ChangePassword.cfm" and
+			cPath does not contain "/contact.cfm" and
+			cPath does not contain "/dumpAll.cfm" and
+			cPath does not contain "/get_short_doc.cfm" and
 			len(session.username) is 0>
-		<cflocation url="/errors/dev_login.cfm">	
-	<cfelseif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
+			<cflocation url="/errors/dev_login.cfm">
+		</cfif>
+	</cfif>
+	<cfif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
 		<cfset rurl="http://arctos.database.museum">
 		<cfif isdefined("cgi.redirect_url") and len(cgi.redirect_url) gt 0>
 			<cfset rurl=rurl & cgi.redirect_url>
@@ -332,7 +334,6 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
-	--->
 	<cfreturn true>
 </cffunction>
 </cfcomponent>
