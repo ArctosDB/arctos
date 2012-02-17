@@ -304,7 +304,7 @@
 		</cfscript>
 		<cfabort>
 	</cfif>
-	currentPath=#currentPath#
+	currentPath=#currentPath#==GetTemplatePath()=#GetTemplatePath()#
 	<!---
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" and 
 			currentPath does not contain "/errors/dev_login.cfm" and
