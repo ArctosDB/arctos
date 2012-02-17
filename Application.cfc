@@ -304,6 +304,7 @@
 		</cfscript>
 		<cfabort>
 	</cfif>
+	currentPath=#currentPath#
 	<!---
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" and 
 			currentPath does not contain "/errors/dev_login.cfm" and
