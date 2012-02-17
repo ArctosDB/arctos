@@ -260,7 +260,7 @@
 						from 
 							project_agent
 						where
-							project_agent.agent_id IN (#valuelist(one.agent_id)#)
+							project_agent.agent_id=#id1#
 					</cfquery>
 					<cfif project_agent.c gt 0>
 						<div style="color:red;">project agent</div>
@@ -271,7 +271,7 @@
 						from
 							publication_agent
 						where
-							publication_agent.agent_id IN (#valuelist(one.agent_id)#)
+							publication_agent.agent_id =#id1#
 					</cfquery>
 					<cfif publication_agent.c gt 0>
 						<div style="color:red;">publication agent</div>
@@ -423,7 +423,7 @@
 						from 
 							project_agent
 						where
-							project_agent.agent_id IN (#valuelist(two.agent_id)#)
+							project_agent.agent_id=#id2#
 					</cfquery>
 					<cfif project_agent.c gt 0>
 						<div style="color:red;">project agent</div>
@@ -434,7 +434,7 @@
 						from
 							publication_agent
 						where
-							publication_agent.agent_id IN (#valuelist(two.agent_id)#)
+							publication_agent.agent_id=#id2#
 					</cfquery>
 					<cfif publication_agent.c gt 0>
 						<div style="color:red;">publication agent</div>
