@@ -273,11 +273,10 @@
 		<cfset initSession()>
 	</cfif>
 	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
-	<cfif currentPath contains "/CustomTags/" OR
-		currentPath contains "/binary_stuff/" OR
-		currentPath contains "/log/">
-			<cfset r=replace(currentPath,application.webDirectory,"")>
-			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
+	<!--- no reason for anyone to be in these, ever --->
+	<cfif currentPath contains "/CustomTags/">
+		<cfset r=replace(currentPath,application.webDirectory,"")>
+		<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
 	</cfif>
 	<!--- protect "us" directories --->
 	<cfif (CGI.Remote_Addr is not "127.0.0.1") and 
@@ -295,6 +294,7 @@
 			</cfscript>
 			<cfabort>
 	</cfif>
+	<!--- disallow CF execution --->
 	<cfif currentPath contains "/images/" or
 		 currentPath contains "/download/" or
 		 currentPath contains "/cache/" or
@@ -304,6 +304,7 @@
 		</cfscript>
 		<cfabort>
 	</cfif>
+	<!--- keep people/bots from browsing a dev server --->
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu">
 		<cfset cPath=GetTemplatePath()>
 		<cfif
@@ -317,6 +318,7 @@
 			<cflocation url="/errors/dev_login.cfm">
 		</cfif>
 	</cfif>
+	<!--- people still have this thing bookmarked --->
 	<cfif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
 		<cfset rurl="http://arctos.database.museum">
 		<cfif isdefined("cgi.redirect_url") and len(cgi.redirect_url) gt 0>
