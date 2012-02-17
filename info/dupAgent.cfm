@@ -251,7 +251,7 @@
 					</div>
 					<cfloop query="np1">
 						<div>
-							#agent_name# (#agent_name_type#)
+							#agent_name# (#t_type#)
 						</div>
 					</cfloop>
 					<cfquery name="project_agent" datasource="uam_god">
@@ -260,32 +260,21 @@
 						from 
 							project_agent
 						where
-							project_agent.agent_name_id IN (#valuelist(one.agent_name_id)#)
+							project_agent.agent_id IN (#valuelist(one.agent_id)#)
 					</cfquery>
 					<cfif project_agent.c gt 0>
 						<div style="color:red;">project agent</div>
 					</cfif>
-					<cfquery name="publication_author_name" datasource="uam_god">
+					<cfquery name="publication_agent" datasource="uam_god">
 						select 
 							count(*) c
 						from
-							publication_author_name
+							publication_agent
 						where
-							publication_author_name.agent_name_id IN (#valuelist(one.agent_name_id)#)
+							publication_agent.agent_id IN (#valuelist(one.agent_id)#)
 					</cfquery>
-					<cfif publication_author_name.c gt 0>
+					<cfif publication_agent.c gt 0>
 						<div style="color:red;">publication agent</div>
-					</cfif>
-					<cfquery name="project_sponsor" datasource="uam_god">
-						select 
-							count(*) c
-						from 
-							project_sponsor
-						where
-							 project_sponsor.agent_name_id IN (#valuelist(one.agent_name_id)#)
-					</cfquery>
-					<cfif project_sponsor.c gt 0>
-						<div style="color:red;">proj sponsor agent</div>
 					</cfif>
 					<cfquery name="electronic_address" datasource="uam_god">
 						select count(*) c from electronic_address where agent_id=#id1#
@@ -434,32 +423,21 @@
 						from 
 							project_agent
 						where
-							project_agent.agent_name_id IN (#valuelist(two.agent_name_id)#)
+							project_agent.agent_id IN (#valuelist(two.agent_id)#)
 					</cfquery>
 					<cfif project_agent.c gt 0>
 						<div style="color:red;">project agent</div>
 					</cfif>
-					<cfquery name="publication_author_name" datasource="uam_god">
+					<cfquery name="publication_agent" datasource="uam_god">
 						select 
 							count(*) c
 						from
-							publication_author_name
+							publication_agent
 						where
-							publication_author_name.agent_name_id IN (#valuelist(two.agent_name_id)#)
+							publication_agent.agent_id IN (#valuelist(two.agent_id)#)
 					</cfquery>
-					<cfif publication_author_name.c gt 0>
+					<cfif publication_agent.c gt 0>
 						<div style="color:red;">publication agent</div>
-					</cfif>
-					<cfquery name="project_sponsor" datasource="uam_god">
-						select 
-							count(*) c
-						from 
-							project_sponsor
-						where
-							 project_sponsor.agent_name_id IN (#valuelist(two.agent_name_id)#)
-					</cfquery>
-					<cfif project_sponsor.c gt 0>
-						<div style="color:red;">proj sponsor agent</div>
 					</cfif>
 					<cfquery name="electronic_address" datasource="uam_god">
 						select count(*) c from electronic_address where agent_id=#id2#
