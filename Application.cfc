@@ -299,19 +299,18 @@
 		 currentPath contains "/download/" or
 		 currentPath contains "/cache/" or
 		 currentPath contains "/temp/">
-		<!--- no CF processing allowed --->
 		<cfscript>
 			getPageContext().forward("/errors/forbidden.cfm");
 		</cfscript>
 		<cfabort>
 	</cfif>
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" and 
-			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
-			#GetTemplatePath()# does not contain "/login.cfm" and
-			#GetTemplatePath()# does not contain "/ChangePassword.cfm" and
-			#GetTemplatePath()# does not contain "/contact.cfm" and
-			#GetTemplatePath()# does not contain "/dumpAll.cfm" and
-			#GetTemplatePath()# does not contain "/get_short_doc.cfm" and
+			currentPath does not contain "/errors/dev_login.cfm" and
+			currentPath does not contain "/login.cfm" and
+			currentPath does not contain "/ChangePassword.cfm" and
+			currentPath does not contain "/contact.cfm" and
+			currentPath does not contain "/dumpAll.cfm" and
+			currentPath does not contain "/get_short_doc.cfm" and
 			len(session.username) is 0>
 		<cflocation url="/errors/dev_login.cfm">	
 	<cfelseif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
