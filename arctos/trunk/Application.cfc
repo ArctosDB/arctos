@@ -276,7 +276,10 @@
 	<!--- no reason for anyone to be in these, ever --->
 	<cfif currentPath contains "/CustomTags/">
 		<cfset r=replace(currentPath,application.webDirectory,"")>
-		<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
+		<cfscript>
+			getPageContext().forward("/errors/forbidden.cfm?ref=#r#");
+		</cfscript>
+		<cfabort>
 	</cfif>
 	<!--- protect "us" directories --->
 	<cfif (CGI.Remote_Addr is not "127.0.0.1") and 
@@ -288,7 +291,7 @@
 		currentPath contains "/picks/" or
 		currentPath contains "/tools/" or
 		currentPath contains "/ScheduledTasks/")>
-			<cfset r=replace(#currentPath#,#application.webDirectory#,"")>
+			<cfset r=replace(currentPath,application.webDirectory,"")>
 			<cfscript>
 				getPageContext().forward("/errors/forbidden.cfm?ref=#r#");
 			</cfscript>
@@ -299,8 +302,9 @@
 		 currentPath contains "/download/" or
 		 currentPath contains "/cache/" or
 		 currentPath contains "/temp/">
+		<cfset r=replace(currentPath,application.webDirectory,"")>
 		<cfscript>
-			getPageContext().forward("/errors/forbidden.cfm");
+			getPageContext().forward("/errors/forbidden.cfm?ref=#r#");
 		</cfscript>
 		<cfabort>
 	</cfif>
