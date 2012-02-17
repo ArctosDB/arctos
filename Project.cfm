@@ -560,10 +560,10 @@
 <cfif #Action# is "deleteProject">
  <cfoutput>
  	<cfquery name="isAgent"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select agent_name_id FROM project_agent WHERE project_id=#project_id#
+		select agent_id FROM project_agent WHERE project_id=#project_id#
 	</cfquery>
 	<cfif #isAgent.recordcount# gt 0>
-		There are agents for this project! Delete denied!
+		You must remove Project Agents before you delete a project.
 		<cfabort>
 	</cfif>
 	<cfquery name="isTrans"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
