@@ -6,5 +6,8 @@
 	<input type="submit" value="Upload this file" class="savBtn">
   </cfform>
 <cfif action is "getFile">
+	<cfif listlast(FiletoUpload,".") is not "csv">
+		only csv allowed.
+	</cfif>
 	<cfdump var=#form#>
 </cfif>
