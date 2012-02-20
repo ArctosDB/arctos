@@ -1,5 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 
+
+
 <cfform name="atts" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
 	<input type="file" name="FiletoUpload" size="45">
@@ -14,7 +16,7 @@
 	
 	
 	<cffile action="upload"
-    	destination=" /corral/tg/uaf/arctos_uploads/"
+    	destination="/corral/tg/uaf/arctos_uploads/"
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=cffile.serverfile>
