@@ -14,8 +14,9 @@
 	</cfif>
 	<cfset extension=listlast(fileName,".")>
 	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3">
+	
 	<cfif not listfindnocase(extension,acceptExtensions)>
-		<cfset msg="An valid file name extension is required.">
+		<cfset msg="An valid file name extension is required. extension=#extension#">
 		<cfreturn msg>
 	</cfif>
 	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
