@@ -39,7 +39,7 @@ okeedokee
 
 	 <cfset LooksLikeCSV = REFind("^([^;]*;)+[^;]*$", fileContent)>
 	 
-	 <cfdump var=#LooksLikeCSV#>
+	 ----------<cfdump var=#LooksLikeCSV#>-----------
 
 	loaded it to sandbox...
 	<cfdirectory action="list" name="x" directory="/corral/tg/uaf/wwwarctos/sandbox">
