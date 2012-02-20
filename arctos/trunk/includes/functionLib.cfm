@@ -19,7 +19,20 @@
 	</cfif>
 	<cfreturn err>
 </cffunction>
-
+<cffunction name="isValidMediaPreview">
+	<cfargument name="fileName" required="yes">
+	<cfset err="">
+	<cfset extension=listlast(fileName,".")>
+	<cfset acceptExtensions="jpg,jpeg,gif,png">
+	<cfif listfindnocase(acceptExtensions,extension) is 0>
+		<cfset err="An valid file name extension is required. extension=#extension#">
+	</cfif>
+	<cfset name=replace(fileName,".#extension#","")>
+	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
+		<cfset err="Filenames may contain only letters, numbers, dash, and underscore.">
+	</cfif>
+	<cfreturn err>	
+</cffunction>
 <cffunction name="jsescape">
 	<cfargument name="in" required="yes">
 	<cfset out=replace(in,"'","`","all")>
