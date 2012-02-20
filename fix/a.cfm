@@ -49,6 +49,8 @@
 ------------------#msg#---------------	
 	
 	
+	/corral/tg/uaf/arctos_uploads/
+	
 	
 	<cfdump var=#cffile#>
 	<cfdump var=#form#>
