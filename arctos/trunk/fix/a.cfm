@@ -32,12 +32,22 @@ okeedokee
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="600">
 	
+	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<cfif lower(listLast(cffile.serverfile,".")) is not "csv">
+		<br>not csv <cfabort>
+	</cfif>
+	<br>is .csv
+	<cfif REFind("^([^;]*;)+[^;]*$", fileContent) is 1>
+		<br>doesnt look like csv - abort<cfabort>
+	</cfif>
 	
-	<br>uploaded file
 	
-		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<br>uploaded file.........
+	
 
-	 <cfset LooksLikeCSV = REFind("^([^;]*;)+[^;]*$", fileContent)>
+		
+
+	
 	 
 	 ----------<cfdump var=#LooksLikeCSV#>-----------
 
