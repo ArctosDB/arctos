@@ -373,7 +373,8 @@
 			<cfif agents.recordcount is 0 and 
 				getAccns.recordcount is 0 and
 				getLoans.recordcount is 0 and
-				publications taxonomy.recordcount is 0>
+				publications.recordcount is 0 and
+				taxonomy.recordcount is 0>
 				<input type="button" value="Delete Project" class="delBtn" onclick="document.project.action.value='deleteProject';submit();">
 			<cfelse>
 				-not deleteable-
