@@ -231,6 +231,14 @@
 		</cfmail>
 	</cfcatch>
 	</cftry>
+	<!--- 
+		sandbox is a 700-mode directory (necessary for CF to write) used for user-uploaded files.
+		onRequestStart prevents CF executing contents
+	--->	
+	<cfset Application.sandbox = "#Application.webDirectory#/sandbox">
+	<cfif not directoryExists(Application.sandbox)>
+		<cfdirectory action="create" directory="#Application.sandbox#" mode="700">
+	</cfif>
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
@@ -307,7 +315,8 @@
 	<cfif currentPath contains "/images/" or
 		 currentPath contains "/download/" or
 		 currentPath contains "/cache/" or
-		 currentPath contains "/temp/">
+		 currentPath contains "/temp/" or
+		 currentPath contains "/sandbox/">
 		<cfset r=replace(currentPath,application.webDirectory,"")>
 		<cfscript>
 			getPageContext().forward("/errors/forbidden.cfm?ref=#r#");

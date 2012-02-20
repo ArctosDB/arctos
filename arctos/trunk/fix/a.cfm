@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<!---
 <cftry>
 	<cffile action="delete" file="/corral/tg/uaf/wwwarctos/sandbox/test.png">
     	<br>deleted file
@@ -8,10 +9,10 @@
 	<cfdirectory action="delete" directory="/corral/tg/uaf/wwwarctos/sandbox">
 	<br>deleted dir
 	
-	<cfdirectory action="create" directory="/corral/tg/uaf/wwwarctos/sandbox" mode="700">
+	
 <br>create dir
-
-
+--->
+<cfset Application.sandbox="/corral/tg/uaf/wwwarctos/sandbox">
 okeedokee
 
 
@@ -27,7 +28,7 @@ okeedokee
 	
 	
 	<cffile action="upload"
-    	destination="/corral/tg/uaf/wwwarctos/sandbox/"
+    	destination="#Application.sandbox#"
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="600">
 	
