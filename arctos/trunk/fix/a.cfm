@@ -29,7 +29,7 @@
 	
 	
 	--listfindnocase(acceptExtensions,extension)--#listfindnocase(acceptExtensions,extension)#
-	<cfif not listfindnocase(acceptExtensions,extension)>
+	<cfif listfindnocase(acceptExtensions,extension) is 0>
 		<cfset msg="An valid file name extension is required. extension=#extension#">
 	</cfif>
 	
