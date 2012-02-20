@@ -1,6 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 
+<cfdirectory action="create" directory="/corral/tg/uaf/arctos_uploads/">
+woot
 
+<cfabort>
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
