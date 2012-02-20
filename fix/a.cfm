@@ -10,15 +10,15 @@
 
 <cfoutput>
 <cfif action is "getFile">
-	<cfif listlast(FiletoUpload,".") is not "csv">
-		only csv allowed.
-	</cfif>
+
 	
 	
 	<cffile action="upload"
     	destination="/corral/tg/uaf/sandbox/"
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
+	
+	loaded it
 	<cfset fileName=cffile.serverfile>
 	===#isValidMediaUpload(fileName)#===
 	<cfif len(isValidMediaUpload(fileName)) gt 0>
@@ -27,8 +27,10 @@
 	</cfif>
 	passed
 	------------------------------------------
-	
-	
+		<cfif listlast(FiletoUpload,".") is not "csv">
+		only csv allowed.
+	</cfif>
+	/corral/tg/uaf/arctos_uploads/
 	<cfset msg="">
 	
 	
