@@ -18,7 +18,11 @@
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=cffile.serverfile>
-	
+	<cfif isValidMediaUpload(fileName)>
+		#isValidMediaUpload(fileName#
+		<cfabort>
+	</cfif>
+	------------------------------------------
 	
 	
 	<cfset msg="">
