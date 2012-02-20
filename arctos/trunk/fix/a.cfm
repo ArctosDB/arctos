@@ -19,7 +19,7 @@
       	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=cffile.serverfile>
 	===#isValidMediaUpload(fileName)#===
-	<cfif isValidMediaUpload(fileName)>
+	<cfif len(isValidMediaUpload(fileName)) gt 0>
 		failed
 		<cfabort>
 	</cfif>
