@@ -19,6 +19,9 @@
       	fileField="Form.FiletoUpload" mode="777">
 	
 	loaded it
+	
+	
+	<!--------
 	<cfset fileName=cffile.serverfile>
 	===#isValidMediaUpload(fileName)#===
 	<cfif len(isValidMediaUpload(fileName)) gt 0>
@@ -56,6 +59,9 @@
 	
 	<cfdump var=#cffile#>
 	<cfdump var=#form#>
+	
+	
+	_----->
 </cfif>
 
 
