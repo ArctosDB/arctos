@@ -6,19 +6,23 @@ create table bad_taxonomy (
 	species varchar2(255),
 	problem varchar2(255),
 	probcode varchar2(20),
-	used_in_id number
+	used_in_id number,
+	subspecies varchar2(255),
+	genus varchar2(255),
+	family varchar2(255)
 );
 
-alter table bad_taxonomy add subspecies varchar2(255);
+alter table bad_taxonomy add ;
 
-alter table bad_taxonomy add genus varchar2(255);
+alter table bad_taxonomy add ;
 
-alter table bad_taxonomy add family varchar2(255);
+alter table bad_taxonomy add ;
 
 alter table bad_taxonomy add family varchar2(255);
 
 --->
 <cfinclude template="/includes/_header.cfm">
+<cfset title="bad taxonomy">
 <script src="/includes/sorttable.js"></script>
 <cfif action is "nothing">
 <cfoutput>
