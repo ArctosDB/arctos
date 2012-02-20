@@ -35,6 +35,12 @@ okeedokee
 	
 	<br>uploaded file
 	
+		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+
+	 <cfset LooksLikeCSV = REFind("^([^;]*;)+[^;]*$", fileContent)>
+	 
+	 <cfdump var=#LooksLikeCSV#>
+
 	loaded it to sandbox...
 	<cfdirectory action="list" name="x" directory="/corral/tg/uaf/wwwarctos/sandbox">
 <cfdump var=#x#>
