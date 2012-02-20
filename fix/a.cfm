@@ -1,7 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
-
+<cftry>
 	<cffile action="delete" file="/corral/tg/uaf/wwwarctos/sandbox/test.png">
     	<br>deleted file
+<cfcatch>ffff</cfcatch>
+</cftry>
 
 	<cfdirectory action="delete" directory="/corral/tg/uaf/wwwarctos/sandbox">
 	<br>deleted dir
