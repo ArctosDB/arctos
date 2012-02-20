@@ -26,29 +26,19 @@
 	</form>
 	</div>
 </cfif>
-<cfif #action# is "getFile">
+<cfif action is "getFile">
 <cfoutput>
 	<cftry>
 	<cffile action="upload"
     	destination="#Application.webDirectory#/temp/"
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
-	<cfset fileName=#cffile.serverfile#>
-	<cfset dotPos=find(".",fileName)>
-	<cfif dotPos lte 1>
-		<font color="##FF0000" size="+2">The filename (<strong>#fileName#</strong>) you entered does not seem to have an extension.
-		Please rename your file and try again.</font>
-		<a href="javascript:back()">Go Back</a>
-		<cfabort> 
+	<cfset fileName=cffile.serverfile>
+	<cfif isValidMediaUpload(fileName) is not "pass">
+		#isValidMediaUpload(fileName#
+		<cfabort>
 	</cfif>
-	<cfset name=left(fileName,dotPos-1)>
-	<cfset extension=right(fileName,len(fileName)-dotPos+1)>
-	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
-		<font color="##FF0000" size="+2">The filename (<strong>#fileName#</strong>) you entered contains characters that are not alphanumeric.
-		Please rename your file and try again.</font>
-		<a href="javascript:back()">Go Back</a>
-		<cfabort>   
-	</cfif>
+	
 	<!----This name contains only alphanumeric characters, check the extension---->
 	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
 	<cftry>
