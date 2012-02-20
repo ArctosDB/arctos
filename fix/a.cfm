@@ -33,7 +33,7 @@ okeedokee
       	fileField="Form.FiletoUpload" mode="600">
 	
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	<cfif lower(listLast(cffile.serverfile,".")) is not "csv">
+	<cfif lcase(listLast(cffile.serverfile,".")) is not "csv">
 		<br>not csv <cfabort>
 	</cfif>
 	<br>is .csv
