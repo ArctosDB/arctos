@@ -34,11 +34,11 @@
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=cffile.serverfile>
-	<cfif isValidMediaUpload(fileName) is not "pass">
+	<cfif isValidMediaUpload(fileName)>
 		#isValidMediaUpload(fileName#
 		<cfabort>
 	</cfif>
-	
+	------------------------------------------
 	<!----This name contains only alphanumeric characters, check the extension---->
 	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
 	<cftry>

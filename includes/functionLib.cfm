@@ -7,23 +7,17 @@
 
 <cffunction name="isValidMediaUpload">
 	<cfargument name="fileName" required="yes">
-	<cfset msg="">
-	<cfset dotPos=find(".",fileName)>
-	<cfif dotPos lte 1>
-		<cfset msg="An valid file name extension is required.">
-	</cfif>
+	<cfset err="">
 	<cfset extension=listlast(fileName,".")>
 	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3">
-	
-	<cfif not listfindnocase(extension,acceptExtensions)>
-		<cfset msg="An valid file name extension is required. extension=#extension#">
-		<cfreturn msg>
+	<cfif listfindnocase(acceptExtensions,extension) is 0>
+		<cfset err="An valid file name extension is required. extension=#extension#">
 	</cfif>
+	<cfset name=replace(fileName,".#extension#","")>
 	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
-		<cfset msg="Filenames may contain only letters, numbers, dash, and underscore.">
-		<cfreturn msg>   
+		<cfset err="Filenames may contain only letters, numbers, dash, and underscore.">
 	</cfif>
-	<cfreturn "pass">
+	<cfreturn "err">
 </cffunction>
 <cffunction name="jsescape">
 	<cfargument name="in" required="yes">
