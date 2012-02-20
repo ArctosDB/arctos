@@ -369,8 +369,15 @@
 					</tr>
 				</cfloop>
 			</table>
-			<input type="submit" value="Save Updates" class="savBtn">
-			<input type="button" value="Delete Project" class="delBtn" onclick="document.project.action.value='deleteProject';submit();">
+			<input type="button" value="Save Updates" class="savBtn" onclick="document.project.action.value='save';submit();">
+			<cfif agents.recordcount is 0 and 
+				getAccns.recordcount is 0 and
+				getLoans.recordcount is 0 and
+				publications taxonomy.recordcount is 0>
+				<input type="button" value="Delete Project" class="delBtn" onclick="document.project.action.value='deleteProject';submit();">
+			<cfelse>
+				-not deleteable-
+			</cfif>
 		</form>
 			<a name="trans"></a>
 			<p>
