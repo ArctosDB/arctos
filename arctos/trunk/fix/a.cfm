@@ -17,7 +17,9 @@
       	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=cffile.serverfile>
 	<cfif isValidMediaUpload(fileName) is not "pass">
-		#isValidMediaUpload(fileName#
+		<cfoutput>
+		#isValidMediaUpload(fileName)#
+		</cfoutput>
 		<cfabort>
 	</cfif>
 	
