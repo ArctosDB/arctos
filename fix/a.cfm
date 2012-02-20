@@ -18,7 +18,24 @@
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
 	
-	loaded it
+	loaded it to sandbox...
+	
+	<cffile action="upload"
+    	destination="#Application.webDirectory#/temp/"
+      	nameConflict="overwrite"
+      	fileField="Form.FiletoUpload" mode="777">
+	
+	loaded it to #Application.webDirectory#/temp/
+	
+	listing webdir/temp
+	
+	<cfdirectory name="w" action="list" directory="#Application.webDirectory#/temp/">
+	<cfdump var=#w#>
+	
+	listing sandbox
+	
+	<cfdirectory name="s" action="list" directory="/corral/tg/uaf/sandbox/">
+	<cfdump var=#s#>
 	
 	
 	<!--------
