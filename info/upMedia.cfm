@@ -34,11 +34,10 @@
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=cffile.serverfile>
-	<cfif isValidMediaUpload(fileName)>
-		#isValidMediaUpload(fileName#
+	<cfif len(isValidMediaUpload(fileName)) gt 0>
+		#isValidMediaUpload(fileName)#
 		<cfabort>
 	</cfif>
-	------------------------------------------
 	<!----This name contains only alphanumeric characters, check the extension---->
 	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
 	<cftry>
@@ -50,29 +49,17 @@
 		source="#Application.webDirectory#/temp/#fileName#" 
     	destination="#loadPath#"
       	nameConflict="error">
-    <cfif len(PreviewToUpload) gt 0>
+    
+	<cfif len(PreviewToUpload) gt 0>
         <cffile action="upload"
 	    	destination="#Application.webDirectory#/temp/"
 	      	nameConflict="overwrite"
 	      	fileField="Form.PreviewToUpload" mode="777">
 	    <cfset fileName=#cffile.serverfile#>
-	    <cfset dotPos=find(".",fileName)>
-		<cfset name=left(fileName,dotPos-1)>
-		<cfset extension=right(fileName,len(fileName)-dotPos+1)>
-		<cfif REFind("[^A-Za-z0-9_]",name,1) gt 0>
-			<font color="##FF0000" size="+2">The filename (<strong>#fileName#</strong>) you entered contains characters that are not alphanumeric.
-			Please rename your file and try again.</font>
-			<a href="javascript:back()">Go Back</a>
-			<cfabort>   
+	    <cfif len(isValidMediaPreview(fileName)) gt 0>
+			#isValidMediaPreview(fileName)#
+			<cfabort>
 		</cfif>
-        <cfset acceptablePreviewExtensions=".jpg,.jpeg,.gif,.png">
-	    <cfif not listfindnocase(acceptablePreviewExtensions,extension)>
-            <span class="error">
-                Preview extension (#extension#) must be one of:
-                #acceptablePreviewExtensions# 
-            </span>
-            <cfabort>
-        </cfif>
         <cftry>
 			<cfdirectory action="create" directory="#loadPath#">
 			<cfcatch><!--- it already exists, do nothing---></cfcatch>

@@ -14,7 +14,7 @@
 	
 	
 	<cffile action="upload"
-    	destination="#Application.webDirectory#/temp/"
+    	destination=" /corral/tg/uaf/arctos_uploads/"
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=cffile.serverfile>
