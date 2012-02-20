@@ -32,6 +32,9 @@
 	<cfif not listfindnocase(extension,acceptExtensions)>
 		<cfset msg="An valid file name extension is required. extension=#extension#">
 	</cfif>
+	
+	<cfset name=replace(fileName,".#extension#","")>
+	name==#name#
 	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
 		<cfset msg="Filenames may contain only letters, numbers, dash, and underscore.">
 	</cfif>
