@@ -6,7 +6,7 @@
 	<cfdirectory action="delete" directory="/corral/tg/uaf/wwwarctos/sandbox">
 	<br>deleted dir
 	
-	<cfdirectory action="create" directory="/corral/tg/uaf/wwwarctos/sandbox" mode="600">
+	<cfdirectory action="create" directory="/corral/tg/uaf/wwwarctos/sandbox" mode="700">
 <br>create dir
 
 
@@ -27,7 +27,7 @@ okeedokee
 	<cffile action="upload"
     	destination="/corral/tg/uaf/wwwarctos/sandbox/"
       	nameConflict="overwrite"
-      	fileField="Form.FiletoUpload" mode="777">
+      	fileField="Form.FiletoUpload" mode="700">
 	<br>uploaded file
 	
 	loaded it to sandbox...
