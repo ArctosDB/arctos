@@ -28,7 +28,7 @@
 	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3">
 	
 	
-	--listfindnocase(extension,acceptExtensions)--#listfindnocase(extension,acceptExtensions)#
+	--listfindnocase(extension,acceptExtensions)--#listfindnocase(acceptExtensions,extension)#
 	<cfif not listfindnocase(extension,acceptExtensions)>
 		<cfset msg="An valid file name extension is required. extension=#extension#">
 	</cfif>
