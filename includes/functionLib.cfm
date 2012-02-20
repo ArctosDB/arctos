@@ -17,8 +17,9 @@
 	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
 		<cfset err="Filenames may contain only letters, numbers, dash, and underscore.">
 	</cfif>
-	<cfreturn "err">
+	<cfreturn err>
 </cffunction>
+
 <cffunction name="jsescape">
 	<cfargument name="in" required="yes">
 	<cfset out=replace(in,"'","`","all")>
