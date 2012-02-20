@@ -6,7 +6,7 @@
 	<cfdirectory action="delete" directory="/corral/tg/uaf/wwwarctos/sandbox">
 	<br>deleted dir
 	
-	<cfdirectory action="create" directory="/corral/tg/uaf/wwwarctos/sandbox" mode="700">
+	<cfdirectory action="create" directory="/corral/tg/uaf/wwwarctos/sandbox" mode="600">
 <br>create dir
 
 
