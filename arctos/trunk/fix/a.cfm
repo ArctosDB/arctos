@@ -5,6 +5,8 @@
 	<input type="file" name="FiletoUpload" size="45">
 	<input type="submit" value="Upload this file" class="savBtn">
   </cfform>
+
+<cfoutput>
 <cfif action is "getFile">
 	<cfif listlast(FiletoUpload,".") is not "csv">
 		only csv allowed.
@@ -16,15 +18,30 @@
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=cffile.serverfile>
-	<cfif isValidMediaUpload(fileName) is not "pass">
-		<cfoutput>
-		#isValidMediaUpload(fileName)#
-		</cfoutput>
-		<cfabort>
+	
+	
+	
+	<cfset msg="">
+	<cfset dotPos=find(".",fileName)>
+	<cfif dotPos lte 1>
+		<cfset msg="An valid file name extension is required.">
 	</cfif>
+	<cfset extension=listlast(fileName,".")>
+	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3">
+	
+	<cfif not listfindnocase(extension,acceptExtensions)>
+		<cfset msg="An valid file name extension is required. extension=#extension#">
+	</cfif>
+	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
+		<cfset msg="Filenames may contain only letters, numbers, dash, and underscore.">
+	</cfif>
+------------------#msg#---------------	
 	
 	
 	
 	<cfdump var=#cffile#>
 	<cfdump var=#form#>
 </cfif>
+
+
+		</cfoutput>
