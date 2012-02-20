@@ -1,9 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
-<cfdirectory action="create" directory="/corral/tg/uaf/arctos_uploads/">
-woot
 
-<cfabort>
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
@@ -19,7 +16,7 @@ woot
 	
 	
 	<cffile action="upload"
-    	destination="/corral/tg/uaf/arctos_uploads/"
+    	destination="/corral/tg/uaf/sandbox/"
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=cffile.serverfile>
