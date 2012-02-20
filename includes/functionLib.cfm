@@ -4,6 +4,26 @@
        return isValid("regex", x, d);
 	}
 </cfscript>
+
+<cffunction name="isValidMediaUpload">
+	<cfargument name="fileName" required="yes">
+	<cfset msg="">
+	<cfset dotPos=find(".",fileName)>
+	<cfif dotPos lte 1>
+		<cfset msg="An valid file name extension is required.">
+	</cfif>
+	<cfset extension=listlast(fileName,".")>
+	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3">
+	<cfif not listfindnocase(extension,acceptExtensions)>
+		<cfset msg="An valid file name extension is required.">
+		<cfreturn msg>
+	</cfif>
+	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
+		<cfset msg="Filenames may contain only letters, numbers, dash, and underscore.">
+		<cfreturn msg>   
+	</cfif>
+	<cfreturn "pass">
+</cffunction>
 <cffunction name="jsescape">
 	<cfargument name="in" required="yes">
 	<cfset out=replace(in,"'","`","all")>

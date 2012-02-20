@@ -9,5 +9,20 @@
 	<cfif listlast(FiletoUpload,".") is not "csv">
 		only csv allowed.
 	</cfif>
+	
+	
+	<cffile action="upload"
+    	destination="#Application.webDirectory#/temp/"
+      	nameConflict="overwrite"
+      	fileField="Form.FiletoUpload" mode="777">
+	<cfset fileName=cffile.serverfile>
+	<cfif isValidMediaUpload(fileName) is not "pass">
+		#isValidMediaUpload(fileName#
+		<cfabort>
+	</cfif>
+	
+	
+	
+	<cfdump var=#cffile#>
 	<cfdump var=#form#>
 </cfif>
