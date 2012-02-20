@@ -14,7 +14,7 @@
 	
 	
 	<cffile action="upload"
-    	destination="/corral/tg/uaf/sandbox/"
+    	destination="/opt/coldfusion8/tmp/"
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
 	
@@ -34,7 +34,7 @@
 	
 	listing sandbox
 	
-	<cfdirectory name="s" action="list" directory="/corral/tg/uaf/sandbox/">
+	<cfdirectory name="s" action="list" directory="/opt/coldfusion8/tmp/">
 	<cfdump var=#s#>
 	
 	
