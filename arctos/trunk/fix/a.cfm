@@ -22,10 +22,8 @@
 	
 	
 	<cfset msg="">
-	<cfset dotPos=find(".",fileName)>
-	<cfif dotPos lte 1>
-		<cfset msg="An valid file name extension is required.">
-	</cfif>
+	
+	
 	<cfset extension=listlast(fileName,".")>
 	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3">
 	
