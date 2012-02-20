@@ -3,11 +3,8 @@
 
 
 
-<cfdirectory action="create" directory="/corral/tg/uaf/wwwarctos/sandbox" mode="600">
 
 okeedokee
-
-<cfabort>
 
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
@@ -22,11 +19,18 @@ okeedokee
 	
 	
 	<cffile action="upload"
-    	destination="/opt/coldfusion8/tmp/"
+    	destination="/corral/tg/uaf/wwwarctos/sandbox/"
       	nameConflict="overwrite"
-      	fileField="Form.FiletoUpload" mode="777">
+      	fileField="Form.FiletoUpload" mode="600">
 	
 	loaded it to sandbox...
+	<cfdirectory action="list" name="x" directory="/corral/tg/uaf/wwwarctos/sandbox">
+<cfdump var=#x#>
+
+
+<cfabort>
+
+
 	
 	<cffile action="upload"
     	destination="#Application.webDirectory#/temp/"
