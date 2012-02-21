@@ -25,7 +25,8 @@
 <cfif action is "getFile">
 <cfoutput>
 	<cftry>
-	<cffile action="upload"	destination="#Application.webDirectory#/#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
+	<cffile action="upload"	destination="#Application.webDirectory#/#Application.sandbox#/" nameConflict="overwrite" 
+		fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
 	<cfif len(isValidMediaUpload(fileName)) gt 0>
 		#isValidMediaUpload(fileName)#
@@ -64,7 +65,7 @@
          <cfset preview_uri = "">
     </cfif>
 	<cfcatch>
-		<font color="##FF0000" size="+2">Error: #cfcatch.message#</font>
+		<font color="##FF0000" size="+2">Error: #cfcatch.message# #cfcatch.detail#</font>
 			<a href="javascript:back()">Go Back</a>
 			<cfabort>   
 	</cfcatch>
