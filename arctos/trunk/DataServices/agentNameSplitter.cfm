@@ -53,18 +53,13 @@ sho err
 	<br>"...trimmed..." warnings have been fixed in the return. You'll need to fix them in your data.
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
-		<input type="file" name="FiletoUpload" size="45">
+		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
 	</cfform>
 </cfif>
 <cfif action is "getFile">
 <cfoutput>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	<cfset fileName=cffile.serverfile>
-	<cfif len(isValidCSV(fileName)) gt 0>
-		<div class="error">#isValidCSV(fileName)#</div>
-		<cfabort>
-	</cfif>
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from ds_temp_agent_split
 	</cfquery>
