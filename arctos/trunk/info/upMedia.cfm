@@ -14,14 +14,10 @@
       <input type="button" 
 				value="Upload" 
 				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'"
-				onmouseout="this.className='savBtn'"
 				onclick="this.value='Loading....';document.getElementById('formDiv').style.display='none';document.getElementById('progressbar').style.display='';uploadFile.submit();">
 	<input type="button" 
 				value="Cancel" 
 				class="qutBtn"
-				onmouseover="this.className='qutBtn btnhov'"
-				onmouseout="this.className='qutBtn'"
 				onclick="parent.removeUpload('')">
 	</form>
 	</div>
@@ -55,7 +51,7 @@
 			<cfabort>
 		</cfif>
         <cftry>
-			<cfdirectory action="create" directory="#loadPath#" mode="744">
+			<cfdirectory action="create" directory="#loadPath#" mode="644">
 			<cfcatch><!--- it already exists, do nothing---></cfcatch>
 		</cftry>
         <cffile action="move"

@@ -239,6 +239,15 @@
 	<cfif not directoryExists(Application.sandbox)>
 		<cfdirectory action="create" directory="#Application.sandbox#" mode="700">
 	</cfif>
+	<cfif not directoryExists("#Application.webDirectory#/temp")>
+		<cfdirectory action="create" directory="#Application.webDirectory#/temp" mode="744">
+	</cfif>
+	<cfif not directoryExists("#Application.webDirectory#/cache")>
+		<cfdirectory action="create" directory="#Application.webDirectory#/cache" mode="744">
+	</cfif>
+	<cfif not directoryExists("#Application.webDirectory#/download")>
+		<cfdirectory action="create" directory="#Application.webDirectory#/download" mode="744">
+	</cfif>
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
