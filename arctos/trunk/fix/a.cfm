@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
+<cfabort>
 <!---
 <cftry>
 	<cffile action="delete" file="/corral/tg/uaf/wwwarctos/sandbox/test.png">
