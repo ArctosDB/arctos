@@ -5,14 +5,15 @@
 	
 	
 	
-function fileSelectedChanged(obj) {
+function checkCSV(obj) {
     var filePath = obj.value;
-
     var ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
     if(ext != 'csv') {
         alert('Only files with the file extension CSV are allowed');
+        $("input[type=submit]").hide();
+        
     } else {
-        document.getElementById('atts').submit();
+        $("input[type=submit]").show();
     }
 }
 
@@ -36,7 +37,7 @@ okeedokee
 
 <form name="atts" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
-	<input type="file" name="FiletoUpload" size="45" accept="text/csv|application/csv" onchange="fileSelectedChanged(this)">
+	<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this)">
 	<input type="submit" value="Upload this file" class="savBtn">
   </form>
 
