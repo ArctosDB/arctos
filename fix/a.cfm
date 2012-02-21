@@ -1,4 +1,18 @@
 <cfinclude template="/includes/_header.cfm">
+
+<script>
+function fileSelectedChanged(obj) {
+    var filePath = obj.value;
+
+    var ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
+    if(ext != 'csv') {
+        alert('Only files with the file extension CSV are allowed');
+    } else {
+        document.getElementById('atts').submit();
+    }
+}
+
+</script>
 <!---
 <cftry>
 	<cffile action="delete" file="/corral/tg/uaf/wwwarctos/sandbox/test.png">
