@@ -1,6 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 
 <script>
+	
+	filebox.Attributes.Add("onchange", "fileSelectedChanged(this);");
+	
+	
+	
 function fileSelectedChanged(obj) {
     var filePath = obj.value;
 
