@@ -1,5 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 
+<cfdirectory action="delete" directory="/corral/tg/uaf/wwwarctos/temp">
+<cfdirectory action="create" directory="/corral/tg/uaf/wwwarctos/temp" mode="777">
+
+
 <cfabort>
 <!---
 <cftry>
