@@ -111,7 +111,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 	</ul>
 	<cfform name="atts" method="post" enctype="multipart/form-data" action="BulkloadParts.cfm">
 		<input type="hidden" name="action" value="getFile">
-		<input type="file" name="FiletoUpload" size="45">
+		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
 	</cfform>
 </cfif>

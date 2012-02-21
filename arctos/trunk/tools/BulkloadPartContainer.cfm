@@ -74,7 +74,7 @@ sho err
 		<input type="hidden" name="action" value="getFileData">
 		 <input type="file"
 			   name="FiletoUpload"
-			   size="45">
+			   size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
 	</cfform>
 </cfif>

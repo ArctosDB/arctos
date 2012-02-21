@@ -66,7 +66,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 			<input type="hidden" name="Action" value="getFile">
 			  <input type="file"
 		   name="FiletoUpload"
-		   size="45">
+		   size="45" onchange="checkCSV(this);">
 			  <input type="submit" value="Upload this file" #saveClr#>
 		</cfform>
 </cfif>

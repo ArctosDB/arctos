@@ -47,7 +47,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			<input type="hidden" name="Action" value="getFile">
 			  <input type="file"
 		   name="FiletoUpload"
-		   size="45">
+		   size="45" onchange="checkCSV(this);">
 			 <input type="submit" value="Upload this file"
 		class="savBtn"
 		onmouseover="this.className='savBtn btnhov'" 
