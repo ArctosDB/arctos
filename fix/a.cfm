@@ -18,7 +18,7 @@ okeedokee
 
 <form name="atts" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
-	<input type="file" name="FiletoUpload" size="45" accept="audio/*">
+	<input type="file" name="FiletoUpload" size="45" accept="text/csv|application/csv">
 	<input type="submit" value="Upload this file" class="savBtn">
   </form>
 
