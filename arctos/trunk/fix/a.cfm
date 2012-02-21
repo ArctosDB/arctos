@@ -25,13 +25,20 @@ okeedokee
 <cfoutput>
 <cfif action is "getFile">
 <cfdump var=#FiletoUpload#><cfdump var=#form#>
-
-<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	<cfset fileName=cffile.serverfile>
+<cffile action="upload"
+    	destination="#Application.sandbox#"
+      	nameConflict="overwrite"
+      	fileField="Form.FiletoUpload" 
+		mode="600">
+<cfset fileName=cffile.serverfile>
 	<cfif len(isValidCSV(fileName)) gt 0>
 		<div class="error">#isValidCSV(fileName)#</div>
 		<cfabort>
 	</cfif>
+	
+	reading....
+<cffile action="READ" file="#Application.sandbox#/#cffile.serverFile#" variable="fileContent">
+	
 	
 	skippy<cfabort>
 	
