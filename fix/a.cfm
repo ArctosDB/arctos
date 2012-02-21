@@ -2,7 +2,6 @@
 
 <script>
 	
-	filebox.Attributes.Add("onchange", "fileSelectedChanged(this);");
 	
 	
 	
