@@ -24,6 +24,16 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
+function checkCSV(obj) {
+    var filePath = obj.value;
+    var ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
+    if(ext != 'csv') {
+        alert('Only files with the file extension CSV are allowed');
+        $("input[type=submit]").hide();
+    } else {
+        $("input[type=submit]").show();
+    }
+}
 function getMedia(typ,q,tgt,rpp,pg){
 	$('#imgBrowserCtlDiv').append('<img src="/images/indicator.gif">');
 	var typ;
