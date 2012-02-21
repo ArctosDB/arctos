@@ -33,6 +33,16 @@ okeedokee
       	fileField="Form.FiletoUpload" mode="600">
 	
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	
+	<cfset fileName=cffile.serverfile>
+	===#isValidCSV(fileName)#===
+	<cfif len(isValidCSV(fileName)) gt 0>
+		failed
+		<cfabort>
+	</cfif>
+	
+	
+	
 	<cfif lcase(listLast(cffile.serverfile,".")) is not "csv">
 		<br>not csv <cfabort>
 	</cfif>
