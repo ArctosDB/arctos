@@ -24,7 +24,17 @@ okeedokee
 
 <cfoutput>
 <cfif action is "getFile">
-
+<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<cfset fileName=cffile.serverfile>
+	<cfif len(isValidCSV(fileName)) gt 0>
+		<div class="error">#isValidCSV(fileName)#</div>
+		<cfabort>
+	</cfif>
+	
+	skippy<cfabort>
+	
+	
+	
 	
 	
 	<cffile action="upload"

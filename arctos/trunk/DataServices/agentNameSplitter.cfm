@@ -59,11 +59,15 @@ sho err
 </cfif>
 <cfif action is "getFile">
 <cfoutput>
-	<!--- put this in a temp table --->
+	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<cfset fileName=cffile.serverfile>
+	<cfif len(isValidCSV(fileName)) gt 0>
+		<div class="error">#isValidCSV(fileName)#</div>
+		<cfabort>
+	</cfif>
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from ds_temp_agent_split
 	</cfquery>
-	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset numberOfColumns = ArrayLen(arrResult[1])>
