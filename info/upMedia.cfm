@@ -29,45 +29,40 @@
 <cfif action is "getFile">
 <cfoutput>
 	<cftry>
-	<cffile action="upload"
-    	destination="#Application.webDirectory#/temp/"
-      	nameConflict="overwrite"
-      	fileField="Form.FiletoUpload" mode="777">
+	<cffile action="upload"	destination="#Application.webDirectory#/#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
 	<cfif len(isValidMediaUpload(fileName)) gt 0>
 		#isValidMediaUpload(fileName)#
 		<cfabort>
 	</cfif>
-	<!----This name contains only alphanumeric characters, check the extension---->
 	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
 	<cftry>
-		<cfdirectory action="create" directory="#loadPath#">
+		<cfdirectory action="create" directory="#loadPath#" mode="744">
 		<cfcatch><!--- it already exists, do nothing---></cfcatch>
 	</cftry>
 	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
-	<cffile action="move"
-		source="#Application.webDirectory#/temp/#fileName#" 
-    	destination="#loadPath#"
-      	nameConflict="error">
+	<cffile action="move" source="#Application.webDirectory#/#Application.sandbox#/#fileName#" 
+		destination="#loadPath#" nameConflict="error" mode="644">
     
 	<cfif len(PreviewToUpload) gt 0>
         <cffile action="upload"
-	    	destination="#Application.webDirectory#/temp/"
+	    	destination="#Application.webDirectory#/#Application.sandbox#/"
 	      	nameConflict="overwrite"
-	      	fileField="Form.PreviewToUpload" mode="777">
-	    <cfset fileName=#cffile.serverfile#>
+	      	fileField="Form.PreviewToUpload" mode="600">
+	    <cfset fileName=cffile.serverfile>
 	    <cfif len(isValidMediaPreview(fileName)) gt 0>
 			#isValidMediaPreview(fileName)#
 			<cfabort>
 		</cfif>
         <cftry>
-			<cfdirectory action="create" directory="#loadPath#">
+			<cfdirectory action="create" directory="#loadPath#" mode="744">
 			<cfcatch><!--- it already exists, do nothing---></cfcatch>
 		</cftry>
         <cffile action="move"
-			source="#Application.webDirectory#/temp/#fileName#" 
+			source="#Application.webDirectory#/#Application.sandbox#/#fileName#" 
 	    	destination="#loadPath#"
-	      	nameConflict="error">
+	      	nameConflict="error"
+	      	mode="644">
         <cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
     <cfelse>
          <cfset preview_uri = "">
