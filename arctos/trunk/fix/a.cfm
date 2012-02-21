@@ -1,23 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 
-<script>
-	
-	
-	
-	
-function checkCSV(obj) {
-    var filePath = obj.value;
-    var ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
-    if(ext != 'csv') {
-        alert('Only files with the file extension CSV are allowed');
-        $("input[type=submit]").hide();
-        
-    } else {
-        $("input[type=submit]").show();
-    }
-}
-
-</script>
 <!---
 <cftry>
 	<cffile action="delete" file="/corral/tg/uaf/wwwarctos/sandbox/test.png">
@@ -38,7 +20,7 @@ okeedokee
 <form name="atts" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
 	<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this)">
-	<input type="submit" value="Upload this file" class="savBtn hide">
+	<input type="submit" value="Upload this file" class="savBtn">
   </form>
 
 <cfoutput>
