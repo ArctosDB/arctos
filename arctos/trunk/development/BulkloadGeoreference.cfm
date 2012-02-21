@@ -107,7 +107,7 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 			<input type="hidden" name="Action" value="getFile">
 			  <input type="file"
 		   name="FiletoUpload"
-		   size="45">
+		   size="45" onchange="checkCSV(this);">
 			  <input type="submit" value="Upload this file" #saveClr#>
   </cfform>
 
