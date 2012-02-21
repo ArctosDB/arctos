@@ -1,4 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
+<CFDIRECTORY ACTION="List" DIRECTORY="#Application.webDirectory#/temp" NAME="dir_listing"> 
+<cfloop query="dir_listing">
+	<cffile action="DELETE" file="#Application.webDirectory#/temp/#name#">
+</cfloop> 
+
+
 
 <cfdirectory action="delete" directory="/corral/tg/uaf/wwwarctos/temp">
 <cfdirectory action="create" directory="/corral/tg/uaf/wwwarctos/temp" mode="777">
