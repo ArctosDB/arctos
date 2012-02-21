@@ -25,7 +25,7 @@
 <cfif action is "getFile">
 <cfoutput>
 	<cftry>
-	<cffile action="upload"	destination="#Application.webDirectory#/#Application.sandbox#/" nameConflict="overwrite" 
+	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" 
 		fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
 	<cfif len(isValidMediaUpload(fileName)) gt 0>
@@ -38,12 +38,12 @@
 		<cfcatch><!--- it already exists, do nothing---></cfcatch>
 	</cftry>
 	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
-	<cffile action="move" source="#Application.webDirectory#/#Application.sandbox#/#fileName#" 
+	<cffile action="move" source="#Application.sandbox#/#fileName#" 
 		destination="#loadPath#" nameConflict="error" mode="644">
     
 	<cfif len(PreviewToUpload) gt 0>
         <cffile action="upload"
-	    	destination="#Application.webDirectory#/#Application.sandbox#/"
+	    	destination="#Application.sandbox#/"
 	      	nameConflict="overwrite"
 	      	fileField="Form.PreviewToUpload" mode="600">
 	    <cfset fileName=cffile.serverfile>
@@ -56,7 +56,7 @@
 			<cfcatch><!--- it already exists, do nothing---></cfcatch>
 		</cftry>
         <cffile action="move"
-			source="#Application.webDirectory#/#Application.sandbox#/#fileName#" 
+			source="#Application.sandbox#/#fileName#" 
 	    	destination="#loadPath#"
 	      	nameConflict="error"
 	      	mode="644">
