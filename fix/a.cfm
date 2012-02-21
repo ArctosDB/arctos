@@ -24,6 +24,7 @@ okeedokee
 
 <cfoutput>
 <cfif action is "getFile">
+<cfdump var=#FiletoUpload#>
 <cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileName=cffile.serverfile>
 	<cfif len(isValidCSV(fileName)) gt 0>
