@@ -33,6 +33,16 @@
 	</cfif>
 	<cfreturn err>	
 </cffunction>
+<cffunction name="isValidCSV">
+	<cfargument name="fileName" required="yes">
+	<cfset err="">
+	<cfset extension=listlast(fileName,".")>
+	<cfset acceptExtensions="csv">
+	<cfif listfindnocase(acceptExtensions,extension) is 0>
+		<cfset err="Only CSV files are accepted.">
+	</cfif>
+	<cfreturn err>	
+</cffunction>
 <cffunction name="jsescape">
 	<cfargument name="in" required="yes">
 	<cfset out=replace(in,"'","`","all")>
