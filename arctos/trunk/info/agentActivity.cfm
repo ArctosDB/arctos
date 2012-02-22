@@ -79,7 +79,7 @@ Agent Names:
 				</cfloop>
 			</ul>
 		</cfif>
-		<cfquery name="publication_author_name" datasource="uam_god">
+		<cfquery name="publication_agent" datasource="uam_god">
 			select 
 				publication.PUBLICATION_ID,
 				full_citation
@@ -93,10 +93,10 @@ Agent Names:
 				publication.PUBLICATION_ID,
 				full_citation
 		</cfquery>
-		<cfif len(publication_author_name.full_citation) gt 0>
+		<cfif len(publication_agent.full_citation) gt 0>
 			Publications
 			<ul>
-				<cfloop query="publication_author_name">
+				<cfloop query="publication_agent">
 					<li>
 						<a href="/Publication.cfm?PUBLICATION_ID=#PUBLICATION_ID#">#full_citation#</a>
 						<cfquery name="citn" datasource="uam_god">

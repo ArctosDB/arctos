@@ -244,8 +244,8 @@
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "deletePub">
 	<cftransaction>
-		<cfquery name="dpublication_author_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			delete from publication_author_name where publication_id=#publication_id#
+		<cfquery name="dpublication_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from publication_agent where publication_id=#publication_id#
 		</cfquery>
 		<cfquery name="dpublication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from publication where publication_id=#publication_id#

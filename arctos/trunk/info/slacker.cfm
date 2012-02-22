@@ -75,7 +75,7 @@
 		from 
 			publication 
 		where 
-			publication_id not in (select publication_id from publication_author_name)
+			publication_id not in (select publication_id from publication_agent)
 	</cfquery>
 	<cfoutput>
 		<h2>Publications with no Authors</h2>
