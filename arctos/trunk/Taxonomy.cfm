@@ -220,7 +220,7 @@
 	<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			taxonomy_publication_id,
-			full_citation,
+			short_citation,
 			taxonomy_publication.publication_id
 		from
 			taxonomy_publication,
