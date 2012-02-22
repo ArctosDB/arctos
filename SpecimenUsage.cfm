@@ -367,7 +367,8 @@
 				publication.publication_type,
 				publication.full_citation,
 				publication.doi,
-				publication.pmid
+				publication.pmid,
+				display_name
 			ORDER BY 
 				publication.full_citation,
 				publication.publication_id">
