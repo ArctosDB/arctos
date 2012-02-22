@@ -1219,7 +1219,7 @@
 <cfif isdefined("project_id") AND len(project_id) gt 0>
 	<cfif basJoin does not contain " projAccn ">
 		<cfset basJoin = " #basJoin# INNER JOIN accn projAccn ON 
-		(cataloged_item.accn_id = projAccn.transaction_id)">
+		(#session.flatTableName#.accn_id = projAccn.transaction_id)">
 	</cfif>
 	<cfif basJoin does not contain " project_trans ">
 		<cfset basJoin = " #basJoin# INNER JOIN project_trans ON 
@@ -1231,7 +1231,7 @@
 
 <cfif isdefined("project_sponsor") AND len(project_sponsor) gt 0>
 	<cfset basJoin = " #basJoin# INNER JOIN project_trans sProjTrans ON
-		(cataloged_item.accn_id = sProjTrans.transaction_id)
+		(#session.flatTableName#.accn_id = sProjTrans.transaction_id)
 		INNER JOIN PROJECT_AGENT_ROLE ON (
 			sProjTrans.project_id = PROJECT_AGENT_ROLE.project_id)
 		INNER JOIN preferred_agent_name sAgentName ON (PROJECT_AGENT_ROLE.agent_id = sAgentName.agent_id)"> 
