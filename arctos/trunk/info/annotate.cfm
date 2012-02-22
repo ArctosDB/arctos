@@ -137,6 +137,7 @@
 		#collection_object_id#,
 		'#scientific_name#')
 	</cfquery>
+	insert into wrong place<cfabort>
 	<cflocation url="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#&showAnnotation=true">
 </cfoutput>
 </cfif>
