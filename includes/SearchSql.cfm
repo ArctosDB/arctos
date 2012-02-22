@@ -1232,10 +1232,11 @@
 <cfif isdefined("project_sponsor") AND len(project_sponsor) gt 0>
 	<cfset basJoin = " #basJoin# INNER JOIN project_trans sProjTrans ON
 		(cataloged_item.accn_id = sProjTrans.transaction_id)
-		INNER JOIN project_sponsor ON (
-			sProjTrans.project_id = project_sponsor.project_id)
-		INNER JOIN agent_name sAgentName ON (project_sponsor.agent_name_id = sAgentName.agent_name_id)"> 
-	<cfset basQual = " #basQual# AND upper(sAgentName.agent_name) LIKE '%#ucase(project_sponsor)#%'">
+		INNER JOIN PROJECT_AGENT_ROLE ON (
+			sProjTrans.project_id = PROJECT_AGENT_ROLE.project_id)
+		INNER JOIN preferred_agent_name sAgentName ON (PROJECT_AGENT_ROLE.agent_id = sAgentName.agent_id)"> 
+	<cfset basQual = " #basQual# AND upper(sAgentName.agent_name) LIKE '%#ucase(project_sponsor)#%'
+			and PROJECT_AGENT_ROLE='Sponsor'">
 	<cfset mapurl = "#mapurl#&project_sponsor=#project_sponsor#">
 </cfif>
 
