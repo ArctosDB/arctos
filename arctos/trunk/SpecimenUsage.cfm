@@ -260,7 +260,8 @@
 			publication.doi,
 			publication.pmid,
 			count(distinct(citation.collection_object_id)) numCits,
-			display_name">
+			display_name,
+			scientific_name">
 		<cfset basFrom = "
 			FROM 
 			publication,
@@ -368,7 +369,8 @@
 				publication.full_citation,
 				publication.doi,
 				publication.pmid,
-				display_name
+				display_name,
+				scientific_name
 			ORDER BY 
 				publication.full_citation,
 				publication.publication_id">
@@ -549,14 +551,14 @@
 							</div>
 					</cfif>
 					<cfquery name="ptax" dbtype="query">
-						select display_name from publication
+						select display_name,scientific_name from publication
 						where publication_id=#publication_id# and
-						display_name is not null
-						group by display_name
-						order by display_name
+						scientific_name is not null
+						group by scientific_name
+						order by scientific_name
 					</cfquery>
 					<cfloop query="ptax">
-						<li>#display_name#</li>
+						<li><a href="/name/#scientific_name#">#display_name#</a></li>
 					</cfloop>
 				</ul>
 			</div>
