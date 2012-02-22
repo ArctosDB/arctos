@@ -1,7 +1,7 @@
 <cfsetting requestTimeOut = "600"> 
 <cfoutput>
 	<cfquery name="getData" datasource="uam_god">
-		select * from #tableName#
+		select * from #tableName# where rownum<10
 	</cfquery>
 	<cfset ac = getData.columnList>
 	<cfset fileDir = "#Application.webDirectory#">
