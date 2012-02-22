@@ -1,3 +1,4 @@
+<cfsetting requestTimeOut = "600"> 
 <cfoutput>
 	<cfquery name="getData" datasource="uam_god">
 		select * from #tableName#
