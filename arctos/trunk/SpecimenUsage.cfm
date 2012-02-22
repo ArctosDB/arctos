@@ -551,11 +551,19 @@
 							</div>
 					</cfif>
 					<cfquery name="ptax" dbtype="query">
-						select display_name,scientific_name from publication
-						where publication_id=#publication_id# and
-						scientific_name is not null
-						group by scientific_name
-						order by scientific_name
+						select 
+							display_name,
+							scientific_name 
+						from 
+							publication
+						where 
+							publication_id=#publication_id# and
+							scientific_name is not null
+						group by 
+							display_name,
+							scientific_name
+						order by 
+							scientific_name
 					</cfquery>
 					<cfloop query="ptax">
 						<li><a href="/name/#scientific_name#">#display_name#</a></li>
