@@ -4,7 +4,6 @@
        return isValid("regex", x, d);
 	}
 </cfscript>
-
 <cffunction name="isValidMediaUpload">
 	<cfargument name="fileName" required="yes">
 	<cfset err="">

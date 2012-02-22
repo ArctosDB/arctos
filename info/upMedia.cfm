@@ -34,7 +34,7 @@
 	</cfif>
 	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
 	<cftry>
-		<cfdirectory action="create" directory="#loadPath#" mode="744">
+		<cfdirectory action="create" directory="#loadPath#" mode="755">
 		<cfcatch><!--- it already exists, do nothing---></cfcatch>
 	</cftry>
 	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
