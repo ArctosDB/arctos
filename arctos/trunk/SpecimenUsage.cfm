@@ -259,20 +259,25 @@
 			publication.full_citation,
 			publication.doi,
 			publication.pmid,
-			count(distinct(citation.collection_object_id)) numCits">
+			count(distinct(citation.collection_object_id)) numCits,
+			display_name">
 		<cfset basFrom = "
 			FROM 
 			publication,
 			publication_agent,
 			project_publication,
 			agent_name,
-			citation">
+			citation,
+			taxonomy_publication,
+			taxonomy">
 		<cfset basWhere = "
 			WHERE 
 				publication.publication_id = project_publication.publication_id (+) and
 				publication.publication_id = citation.publication_id (+) 
 				AND publication.publication_id = publication_agent.publication_id (+) 
-				AND publication_agent.agent_id = agent_name.agent_id (+)">
+				AND publication_agent.agent_id = agent_name.agent_id (+) and
+				publication.publication_id=taxonomy_publication.publication_id (+) and
+				taxonomy_publication.taxon_name_id=taxonomy.taxon_name_id (+)">
 		<cfif (isdefined("project_type") AND len(project_type) gt 0)>
 			<cfset basWhere = "#basWhere# AND 1=2">
 		</cfif>
@@ -541,14 +546,17 @@
 								</cfloop>
 								<div class="thumb_spcr">&nbsp;</div>
 							</div>
-						
-				
-				<!---
-						
-						<li><a href="/MediaSearch.cfm?action=search&media_id=#valuelist(pubmedia.media_id)#" target="_blank">Media</a></li>
-						
-						--->
 					</cfif>
+					<cfquery name="ptax" dbtype="query">
+						select display_name from publication
+						where publication_id=#publication_id# and
+						display_name is not null
+						group by display_name
+						order by display_name
+					</cfquery>
+					<cfloop query="ptax">
+						<li>#display_name#</li>
+					</cfloop>
 				</ul>
 			</div>
 			<cfset i=#i#+1>
