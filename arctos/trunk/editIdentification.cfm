@@ -336,7 +336,7 @@
 				<div class="helpLink" id="identification.made_date">ID Date:</div>
 			</td>
             <td>
-				<input type="text" value="#dateformat(made_date,'yyyy-mm-dd')#" name="made_date_#i#" id="made_date_#i#">
+				<input type="text" value="#made_date#" name="made_date_#i#" id="made_date_#i#">
            </td>
 		</tr>
         <tr> 
