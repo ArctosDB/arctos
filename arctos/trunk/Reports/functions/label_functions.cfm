@@ -627,7 +627,7 @@
                 
 	    <cfset determiner="">
 		<cfif #collectors# neq #identified_by# AND #identified_by# is not "unknown">
-			<cfset determiner="Det: #identified_by# #dateformat(made_date,"dd mmm yyyy")#">
+			<cfset determiner="Det: #identified_by# #made_date#">
 		</cfif>
         <cfset detrAry[i] = "#determiner#">
         

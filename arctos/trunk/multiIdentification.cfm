@@ -308,7 +308,7 @@
 				sq_identification_id.nextval,
 				#i#
 				<cfif len(#MADE_DATE#) gt 0>
-					,'#dateformat(MADE_DATE,"yyyy-mm-dd")#'
+					,'#MADE_DATE#'
 				</cfif>
 				,'#NATURE_OF_ID#'
 				 ,1
