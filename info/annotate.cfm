@@ -127,17 +127,3 @@
 	</cfif>	
 </cfoutput>
 </cfif>
-<cfif #action# is "insert">
-<cfoutput>
-	<cfquery name="insAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	insert into specimen_annotations (
-		collection_object_id,
-		scientific_name)
-	values (
-		#collection_object_id#,
-		'#scientific_name#')
-	</cfquery>
-	insert into wrong place<cfabort>
-	<cflocation url="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#&showAnnotation=true">
-</cfoutput>
-</cfif>

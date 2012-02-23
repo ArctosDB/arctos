@@ -423,7 +423,7 @@
 				<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						UPDATE identification SET
 						nature_of_id = '#thisNature#',
-						made_date = '#dateformat(thisMadeDate,'yyyy-mm-dd')#',
+						made_date = '#thisMadeDate#',
 						identification_remarks = '#escapeQuotes(thisIdRemark)#'
 						<cfif len(thisPubId) gt 0>
 							,publication_id = #thisPubId#
