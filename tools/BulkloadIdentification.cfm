@@ -319,7 +319,7 @@ Include column headings, spelled exactly as below.
 			) values (
 				sq_identification_id.nextval,
 				#COLLECTION_OBJECT_ID#,
-				to_date('#dateformat(MADE_DATE,"yyyy-mm-dd")#'),
+				'#MADE_DATE#',
 				'#NATURE_OF_ID#',
 				#ACCEPTED_FG#,
 				'#IDENTIFICATION_REMARKS#',

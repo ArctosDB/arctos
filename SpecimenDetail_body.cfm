@@ -385,7 +385,7 @@
 									</cfif>
 									Identified by #agent_name# 
 									<cfif len(made_date) gt 0>
-										on #dateformat(made_date,"yyyy-mm-dd")#
+										on #made_date#
 									</cfif>									
 									<br>Nature of ID: #nature_of_id#
 									<cfif len(identification_remarks) gt 0>
