@@ -432,18 +432,6 @@
 						</cfif>
 					where identification_id=#thisIdentificationId#
 				</cfquery>
-				
-					UPDATE identification SET
-						nature_of_id = '#thisNature#',
-						made_date = '#thisMadeDate#',
-						identification_remarks = '#escapeQuotes(thisIdRemark)#'
-						<cfif len(thisPubId) gt 0>
-							,publication_id = #thisPubId#
-						<cfelse>
-							,publication_id = NULL
-						</cfif>
-					where identification_id=#thisIdentificationId#
-					
 					
 				<cfloop from="1" to="#thisNumIds#" index="nid">
 					<cftry>
@@ -494,7 +482,6 @@
 			</cfif>			
 		</cfloop>
 	</cftransaction>
-	<cfabort>
 	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
@@ -548,11 +535,9 @@
 	<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO identification (
 			IDENTIFICATION_ID,
-			COLLECTION_OBJECT_ID
-			<cfif len(#MADE_DATE#) gt 0>
-				,MADE_DATE
-			</cfif>
-			,NATURE_OF_ID
+			COLLECTION_OBJECT_ID,
+			MADE_DATE,
+			NATURE_OF_ID
 			 ,ACCEPTED_ID_FG
 			 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
 				,IDENTIFICATION_REMARKS
@@ -564,10 +549,8 @@
 			</cfif>
 		) VALUES (
 			sq_identification_id.nextval,
-			#COLLECTION_OBJECT_ID#
-			<cfif len(#MADE_DATE#) gt 0>
-				,'#dateformat(MADE_DATE,"yyyy-mm-dd")#'
-			</cfif>
+			#COLLECTION_OBJECT_ID#,
+			'#MADE_DATE#',
 			,'#NATURE_OF_ID#'
 			 ,1
 			 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
