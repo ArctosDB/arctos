@@ -1033,7 +1033,7 @@
 													 	<strong>#attribute_units#</strong>
 													</cfif>
 													<cfif len(determined_date) gt 0>
-													 	determined date=<strong>#dateformat(determined_date,"yyyy-mm-dd")#</strong>
+													 	determined date=<strong>#determined_date#</strong>
 													</cfif>
 													<cfif len(agent_name) gt 0>
 													 	determined by=<strong>#agent_name#</strong>
@@ -1092,7 +1092,7 @@
 									<cfif len(attributeDeterminer) gt 0>
 										<cfset determination = "#attributeDeterminer#">
 										<cfif len(determined_date) gt 0>
-											<cfset determination = '#determination#, #dateformat(determined_date,"yyyy-mm-dd")#'>
+											<cfset determination = '#determination#, #determined_date#'>
 										</cfif>
 										<cfif len(determination_method) gt 0>
 											<cfset determination = '#determination#, #determination_method#'>
@@ -1162,7 +1162,7 @@
 									<cfif isdefined("attributeDeterminer") and len(#attributeDeterminer#) gt 0>
 										<cfset determination = "#attributeDeterminer#">
 										<cfif len(determined_date) gt 0>
-											<cfset determination = '#determination#, #dateformat(determined_date,"yyyy-mm-dd")#'>
+											<cfset determination = '#determination#, #determined_date#'>
 										</cfif>
 										<cfif len(determination_method) gt 0>
 											<cfset determination = '#determination#, #determination_method#'>
@@ -1192,7 +1192,7 @@
 								<cfif len(attributeDeterminer) gt 0>
 									<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
 									<cfif len(determined_date) gt 0>
-										<cfset determination = '#determination#, #dateformat(determined_date,"yyyy-mm-dd")#'>
+										<cfset determination = '#determination#, #determined_date#'>
 									</cfif>
 									<cfif len(determination_method) gt 0>,
 										<cfset determination = '#determination#, #determination_method#'>
