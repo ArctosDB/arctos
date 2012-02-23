@@ -432,6 +432,19 @@
 						</cfif>
 					where identification_id=#thisIdentificationId#
 				</cfquery>
+				
+					UPDATE identification SET
+						nature_of_id = '#thisNature#',
+						made_date = '#thisMadeDate#',
+						identification_remarks = '#escapeQuotes(thisIdRemark)#'
+						<cfif len(thisPubId) gt 0>
+							,publication_id = #thisPubId#
+						<cfelse>
+							,publication_id = NULL
+						</cfif>
+					where identification_id=#thisIdentificationId#
+					
+					
 				<cfloop from="1" to="#thisNumIds#" index="nid">
 					<cftry>
 						<!--- couter does not increment backwards - may be a few empty loops in here ---->
@@ -481,6 +494,7 @@
 			</cfif>			
 		</cfloop>
 	</cftransaction>
+	<cfabort>
 	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
