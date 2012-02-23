@@ -238,7 +238,7 @@
 						</td>
 						<td id="_determined_date_#attribute_id#">
 							<input type="text" name="determined_date_#attribute_id#" id="determined_date_#attribute_id#" 
-								value="#dateformat(determined_date,'yyyy-mm-dd')#" class="reqdClr" size="12">
+								value="#determined_date#" class="reqdClr" size="12">
 						</td>
 						<td id="_determination_method_#attribute_id#">
 							<input type="text" name="determination_method_#attribute_id#" id="determination_method_#attribute_id#" value="#determination_method#">
@@ -403,7 +403,7 @@
 							ATTRIBUTE_VALUE='#thisAttributeValue#',
 							ATTRIBUTE_UNITS='#thisAttributeUnits#',
 							ATTRIBUTE_REMARK='#thisAttributeRemark#',
-							DETERMINED_DATE='#dateformat(thisDeterminedDate,"yyyy-mm-dd")#',
+							DETERMINED_DATE='#thisDeterminedDate#',
 							DETERMINATION_METHOD='#thisDeterminationMethod#'
 						WHERE 
 							attribute_id=#thisAttributeId#
@@ -430,7 +430,7 @@
 							,'total length'
 							,'#total_length#'
 							,'#total_length_units#'
-							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
+							,'#DETERMINED_DATE#')
 					</cfquery>
 				</cfif>
 				<cfif len(tail_length) gt 0>
@@ -451,7 +451,7 @@
 							,'tail length'
 							,'#tail_length#'
 							,'#tail_length_units#'
-							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
+							,'#DETERMINED_DATE#')
 					</cfquery>
 				</cfif>
 				<cfif len(hind_foot_with_claw) gt 0>
@@ -472,7 +472,7 @@
 							,'hind foot with claw'
 							,'#hind_foot_with_claw#'
 							,'#hind_foot_with_claw_units#'
-							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
+							,'#DETERMINED_DATE#')
 					</cfquery>
 				</cfif>
 				<cfif len(ear_from_notch) gt 0>
@@ -493,7 +493,7 @@
 							,'ear from notch'
 							,'#ear_from_notch#'
 							,'#ear_from_notch_units#'
-							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
+							,'#DETERMINED_DATE#')
 					</cfquery>
 				</cfif>
 				<cfif len(weight) gt 0>
@@ -514,7 +514,7 @@
 							,'weight'
 							,'#weight#'
 							,'#weight_units#'
-							,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#')
+							,'#DETERMINED_DATE#')
 					</cfquery>
 				</cfif>
 			</cfif>
@@ -542,7 +542,7 @@
 						,'#attribute_value_new#'
 						,'#attribute_units_new#'
 						,'#ATTRIBUTE_REMARK#'
-						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#'
+						,'#DETERMINED_DATE#'
 						,'#DETERMINATION_METHOD#'
 					)
 				</cfquery>
