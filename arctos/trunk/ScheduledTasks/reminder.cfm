@@ -305,20 +305,22 @@
 					accn_number,
 					received_date
 			</cfquery>
-			<cfmail to="#valuelist(contact.ADDRESS)#" bcc="arctos.database@gmail.com" subject="Bare Accession" from="bare_accession@#Application.fromEmail#" type="html">
-				You are receiving this message because you are the data quality contact for collection #collection#.
-				<p>
-					The following accessions are one or more years old and have no specimens attached.
-				</p>
-				<p>
-					<cfloop query="data">
-						<a href="#Application.ServerRootUrl#/editAccn.cfm?Action=edit&transaction_id=#transaction_id#">
-							#collection# #accn_number#
-						</a>
-						<br>
-					</cfloop>
-				</p>
-			</cfmail>
+			<cfif len(valuelist(contact.ADDRESS)) gt 0>
+				<cfmail to="#valuelist(contact.ADDRESS)#" bcc="arctos.database@gmail.com" subject="Bare Accession" from="bare_accession@#Application.fromEmail#" type="html">
+					You are receiving this message because you are the data quality contact for collection #collection#.
+					<p>
+						The following accessions are one or more years old and have no specimens attached.
+					</p>
+					<p>
+						<cfloop query="data">
+							<a href="#Application.ServerRootUrl#/editAccn.cfm?Action=edit&transaction_id=#transaction_id#">
+								#collection# #accn_number#
+							</a>
+							<br>
+						</cfloop>
+					</p>
+				</cfmail>
+			</cfif>
 		</cfloop>
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
