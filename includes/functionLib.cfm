@@ -46,7 +46,10 @@
 	<cfargument name="in" required="yes">
 	<cfset out=replace(in,"'","`","all")>
 	<cfset out=replace(out,'"','``',"all")>
-	<cfreturn out>
+	<cfset out=replace(out,chr(10),'[chr-10]',"all")>
+	<cfset out=replace(out,chr(13),'[chr-13]',"all")>
+	<cfset out=replace(out,chr(9),'[tab]',"all")>
+	<cfreturn trim(out)>
 </cffunction>
 <cffunction name="niceURL" returntype="Any">
 	<cfargument name="s" type="string" required="yes">
