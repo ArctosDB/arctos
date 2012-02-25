@@ -1,3 +1,4 @@
+<cfabort>
 <cfinclude template="includes/_header.cfm">	
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
