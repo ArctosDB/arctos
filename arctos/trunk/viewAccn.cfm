@@ -24,7 +24,8 @@
 			WHERE
 				trans.transaction_id = accn.transaction_id AND
 				trans.collection_id=collection.collection_id and
-				trans.transaction_id = #transaction_id#
+				trans.transaction_id = 
+				 <cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
 		<cfif d.is_public_fg is not 1>
 			<div class="error">Data restricted by collection.</div>
