@@ -46,7 +46,7 @@
 			where
 				trans_agent.agent_id = preferred_agent_name.agent_id and
 				trans_agent_role != 'entered by' and
-				trans_agent.transaction_id=#transaction_id#
+				trans_agent.transaction_id=<cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 			order by
 				trans_agent_role,
 				agent_name
@@ -85,7 +85,7 @@
 			select project_name,niceURL(project_name) pn from project,
 			project_trans where 
 			project_trans.project_id =  project.project_id
-			and transaction_id=#transaction_id#
+			and transaction_id=<cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
 		<p>
 			<cfif projs.recordcount gt 0>
@@ -117,7 +117,7 @@
 				media.media_id=media_labels.media_id (+) and
 				media.media_id=media_relations.media_id and
 				media_relationship like '% accn' and
-				related_primary_key=#transaction_id#
+				related_primary_key=<cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
 		<p>
 		<cfif media.recordcount gt 0>
@@ -181,7 +181,7 @@
 				permit.permit_id = permit_trans.permit_id AND
 				permit.issued_by_agent_id = issuedBy.agent_id AND
 				permit.issued_to_agent_id = issuedTo.agent_id AND
-				permit_trans.transaction_id = #d.transaction_id#
+				permit_trans.transaction_id = <cfqueryparam value = "#d.transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
 		<p>
 		<cfif getPermits.recordcount gt 0>
@@ -234,7 +234,7 @@
 				collection
 			where
 				cataloged_item.collection_id=collection.collection_id and
-				cataloged_item.accn_id=#transaction_id#
+				cataloged_item.accn_id=<cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 			group by
 				collection,
 				collection.collection_id
@@ -279,7 +279,7 @@
 				cataloged_item.collection_object_id=media_relations.related_primary_key and
 				media_relations.media_relationship='shows cataloged_item' and
 				media_relations.media_id=media.media_id and
-				cataloged_item.accn_id=#transaction_id#
+				cataloged_item.accn_id=<cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
 		<div class="detailBlock">
 	            <span class="detailData">			
