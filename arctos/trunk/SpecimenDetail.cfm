@@ -212,7 +212,7 @@
 			<td valign="top" align="right">
 				<div id="SDheaderMap">
 				 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
-						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#detail.dec_lat#,#detail.dec_long#">
+						<cfset iu="http://maps.google.com/maps/api/staticmap?center=#detail.dec_lat#,#detail.dec_long#">
 						<cfset iu=iu & "&markers=color:red|size:tiny|#detail.dec_lat#,#detail.dec_long#&sensor=false&size=100x100&zoom=2">
 						<cfset iu=iu & "&maptype=roadmap">
 						<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#detail.collection_object_id#" target="_blank">
