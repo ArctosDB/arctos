@@ -675,7 +675,7 @@
 	</cftry>
 </cffunction>
 
-<cffunction name="cloneCatalogedItem" access="remote">
+<cffunction name="cloneCatalogedItem" access="remote" output="true">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfargument name="relationship" type="string" required="yes">
 	<cfargument name="numRecs" type="numeric" required="yes">
