@@ -122,10 +122,12 @@
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfif serverName is "arctos.database.museum">
-		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRmuGmxQ-gdo7TWENOfdvPP48uvgxS1Mi5095Z-7DsupXP1SWQjdYKK_w">	
-		<cfset Application.svn = "/usr/local/bin/svn">
-		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
-		<cfset Application.DownloadPath = Application.webDirectory & "/download/">
+		<cfset Application.serverRootUrl="http://arctos.database.museum">
+		<cfset Application.fromEmail="arctos.database.museum">
+		<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
+        <cfset Application.svn = "/usr/local/bin/svn">
+		<cfset Application.webDirectory = "/corral/tg/uaf/arctos_prod">
+		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
 		<cfset Application.bugReportEmail = "arctos.database@gmail.com,gordon.jarrell@gmail.com">
 		<cfset Application.technicalEmail = "arctos.database@gmail.com,gordon.jarrell@gmail.com">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
