@@ -28,14 +28,17 @@ END;
 <cfif action is "findDups">
 	<cfquery name="contacts" datasource="uam_god">
 		select 
-			AGENT_ID,
-			RELATED_AGENT_ID
+			agent_relations.AGENT_ID,
+			agent_relations.RELATED_AGENT_ID
 		from
-			agent_relations
+			agent_relations,
+			cf_dup_agent
 		where
-			AGENT_RELATIONSHIP='bad duplicate of'
-		and agent_id,RELATED_AGENT_ID not in
-		(select agent_id,RELATED_AGENT_ID from cf_dup_agent)
+			AGENT_RELATIONSHIP='bad duplicate of' and 
+			agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID (+) and
+			 agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID (+) and
+			cf_dup_agent.AGENT_ID is null and
+			cf_dup_agent.RELATED_AGENT_ID is null	
 	</cfquery>
 	
 	<cfdump var=#findDups#>
