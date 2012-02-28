@@ -42,6 +42,26 @@ END;
 	</cfquery>
 	
 	<cfdump var=#findDups#>
+	
+	<cfloop query="findDups">
+		<cfquery name="findedDups" datasource="uam_god">
+			insert into cf_dup_agent (
+				AGENT_ID,
+				RELATED_AGENT_ID,
+				agent_pref_name,
+				rel_agent_pref_name,
+				detected_date,
+				status
+			) values (
+				#AGENT_ID#,
+				#RELATED_AGENT_ID#,
+				(select agent_name from preferred_agent_name where agent_id=#AGENT_ID#),
+				(select agent_name from preferred_agent_name where agent_id=#RELATED_AGENT_ID#),
+				systimestamp,
+				'new'
+			)
+		</cfquery>
+	</cfloop>
 </cfif>
 
 
