@@ -537,29 +537,25 @@
 			IDENTIFICATION_ID,
 			COLLECTION_OBJECT_ID,
 			MADE_DATE,
-			NATURE_OF_ID
-			 ,ACCEPTED_ID_FG
-			 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
-				,IDENTIFICATION_REMARKS
-			</cfif>
-			,taxa_formula
-			,scientific_name
-			 <cfif len(new_publication_id) gt 0>
-				,publication_id
-			</cfif>
+			NATURE_OF_ID,
+			ACCEPTED_ID_FG,
+			IDENTIFICATION_REMARKS,
+			taxa_formula,
+			scientific_name,
+			publication_id
 		) VALUES (
 			sq_identification_id.nextval,
 			#COLLECTION_OBJECT_ID#,
 			'#MADE_DATE#',
-			,'#NATURE_OF_ID#'
-			 ,1
-			 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
-				,'#IDENTIFICATION_REMARKS#'
-			</cfif>
-			,'#taxa_formula#'
-			,'#scientific_name#'
+			'#NATURE_OF_ID#',
+			1,
+			'#IDENTIFICATION_REMARKS#',
+			'#taxa_formula#',
+			'#scientific_name#',
 			 <cfif len(new_publication_id) gt 0>
-				,#new_publication_id#
+				#new_publication_id#
+			<cfelse>
+				NULL
 			</cfif>
 		)
 	</cfquery>
