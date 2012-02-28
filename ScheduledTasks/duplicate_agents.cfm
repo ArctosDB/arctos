@@ -26,7 +26,7 @@ END;
 
 --->
 <cfif action is "findDups">
-	<cfquery name="contacts" datasource="uam_god">
+	<cfquery name="findDups" datasource="uam_god">
 		select 
 			agent_relations.AGENT_ID,
 			agent_relations.RELATED_AGENT_ID
