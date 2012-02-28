@@ -110,302 +110,115 @@ END;
 	where 
 		coll_object.collection_object_id = cataloged_item.collection_object_id and
 		ENTERED_PERSON_ID in (#theseAgents#)
-			
 	
-	<cfquery name="entered" datasource="uam_god">
-		
-	</cfquery>
-	<ul>
-		<cfloop query="entered">
-			<li>
-				<a href="/SpecimenResults.cfm?entered_by_id=#agent_id#&collection_id=#collection_id#">#cnt# #collection#</a> specimens
-			</li>
-		</cfloop>
-	</ul>
-Edited:	
-	<cfquery name="last_edit" datasource="uam_god">
-		select 
-			count(*) cnt,
-			collection,
-			collection.collection_id
+	
+	select 
+			collection_id
 		from 
 			coll_object,
-			cataloged_item,
-			collection
+			cataloged_item
 		where 
 			coll_object.collection_object_id = cataloged_item.collection_object_id and
-			cataloged_item.collection_id=collection.collection_id and
-			LAST_EDITED_PERSON_ID=#agent_id#
-		group by
-			collection,
-			collection.collection_id
-	</cfquery>
-	<ul>
-		<cfloop query="last_edit">
-			<li>
-				<a href="/SpecimenResults.cfm?edited_by_id=#agent_id#&collection_id=#collection_id#">#cnt# #collection#</a> specimens
-			</li>
-		</cfloop>
-	</ul>
-Attribute Determiner:
-	<cfquery name="attributes" datasource="uam_god">
+			LAST_EDITED_PERSON_ID in (#theseAgents#)
+		
+		
 		select 
-			count(attributes.collection_object_id) c,
-			count(distinct(cataloged_item.collection_object_id)) s,
-			collection.collection_id,
-			collection 
+			collection_id
 		from
 			attributes,
-			cataloged_item,
-			collection
+			cataloged_item
 		where
 			cataloged_item.collection_object_id=attributes.collection_object_id and
-			cataloged_item.collection_id=collection.collection_id and
-			determined_by_agent_id=#agent_id#
-		group by
-			collection.collection_id,
-			collection 
-	</cfquery>
-	<ul>
-		<cfloop query="attributes">
-			<li>
-				#c# attributes for #s#
-				<a href="/SpecimenResults.cfm?attributed_determiner_agent_id=#agent_id#&collection_id=#attributes.collection_id#">
-					#attributes.collection#</a> specimens
-			</li>
-		</cfloop>
-	</ul>
-Media:
-	<cfquery name="media" datasource="uam_god">
-		select media_id from media_relations where media_relationship like '% agent' and
-		related_primary_key=#agent_id#
-	</cfquery>
-	<cfquery name="media_assd_relations" datasource="uam_god">
-		select media_id from media_relations where CREATED_BY_AGENT_ID=#agent_id#
-	</cfquery>
-	<cfquery name="media_labels" datasource="uam_god">
-		select media_id from media_labels where ASSIGNED_BY_AGENT_ID=#agent_id#
-	</cfquery>
-	<ul>
-		<li>
-			Subject of #media.recordcount# <a href="/MediaSearch.cfm?action=search&related_primary_key__1=#agent_id#"> Media entries.</a>
-		</li>
-		<li>
-			Assigned #media_assd_relations.recordcount# Media Relationships.
-		</li>
-		<li>
-			Assigned #media_labels.recordcount# Media Labels.
-		</li>
-	</ul>
-Encumbrances:
-	<ul>
-		<cfquery name="encumbrance" datasource="uam_god">
-			select count(*) cnt from encumbrance where encumbering_agent_id=#agent_id#
-		</cfquery>
-		<cfquery name="coll_object_encumbrance" datasource="uam_god">
-			select 
-				count(distinct(coll_object_encumbrance.collection_object_id)) specs,
-				collection,
-				collection.collection_id
+			determined_by_agent_id in (#theseAgents#)
+			
+			
+		select 
+				collection_id
 			 from 
 			 	encumbrance,
 			 	coll_object_encumbrance,
-			 	cataloged_item,
-			 	collection
+			 	cataloged_item
 			 where
 			 	encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id and
 			 	coll_object_encumbrance.collection_object_id=cataloged_item.collection_object_id and
-			 	cataloged_item.collection_id=collection.collection_id and
-			 	encumbering_agent_id=#agent_id#
-			 group by
-			 	collection,
-				collection.collection_id
-		</cfquery>
-		<li>Owns #encumbrance.cnt# encumbrances</li>
-		<cfloop query="coll_object_encumbrance">
-			<li>Encumbered <a href="/SpecimenResults.cfm?encumbering_agent_id=#agent_id#&collection_id=#collection_id#">
-				#specs# #collection#</a> records</li>
-		</cfloop>
-	</ul>
-Identification:
-	<cfquery name="identification" datasource="uam_god">
+			 	encumbering_agent_id in (#theseAgents#)
 		select 
-			count(*) cnt, 
-			count(distinct(identification.collection_object_id)) specs,
-			collection.collection_id,
-			collection.collection
+			collection_id
 		from 
         	identification,
         	identification_agent,
-			cataloged_item,
-			collection
+			cataloged_item
         where 
-        	cataloged_item.collection_id=collection.collection_id and
 			cataloged_item.collection_object_id=identification.collection_object_id and
 			identification.identification_id=identification_agent.identification_id and
-        	identification_agent.agent_id=#agent_id#
-		group by
-			collection.collection_id,
-			collection.collection
-	</cfquery>
-	<ul>
-		<cfloop query="identification">
-			<li>
-				#cnt# identifications for <a href="/SpecimenResults.cfm?identified_agent_id=#agent_id#&collection_id=#collection_id#">
-					#specs# #collection#</a> specimens
-			</li>
-		</cfloop>
-	</ul>
-Coordinates:
-	<cfquery name="lat_long" datasource="uam_god">
+        	identification_agent.agent_id in (#theseAgents#)
+		
+		
 		select 
-			count(*) cnt,
-			count(distinct(locality_id)) locs from lat_long where determined_by_agent_id=#agent_id#
-	</cfquery>
-	<ul>
-		<li>Determined #lat_long.cnt# coordinates for #lat_long.locs# localities</li>
-	</ul>
-Permits:	
-	<cfquery name="permit_to" datasource="uam_god">
-		select 
-			PERMIT_NUM,
-			PERMIT_TYPE 
+			collection_id
 		from 
-			permit 
+			cataloged_item,
+			collecting_event,
+			lat_long 
 		where 
-			ISSUED_TO_AGENT_ID=#agent_id#
-	</cfquery>
-	<ul>
-		<cfloop query="permit_to">
-			<li>
-				Permit <a href="/Permit.cfm?action=search&ISSUED_TO_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a> was issued to
-			</li>
-		</cfloop>
-		<cfquery name="permit_by" datasource="uam_god">
-			select 
-				PERMIT_NUM,
-				PERMIT_TYPE 
-			from 
-				permit 
-			where ISSUED_by_AGENT_ID=#agent_id#
-		</cfquery>
-		<cfloop query="permit_by">
-			<li>
-				Issued Permit <a href="/Permit.cfm?action=search&ISSUED_by_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
-			</li>
-		</cfloop>
-		<cfquery name="permit_contact" datasource="uam_god">
-			select 
-				PERMIT_NUM,
-				PERMIT_TYPE 
-			from 
-				permit 
-			where CONTACT_AGENT_ID=#agent_id#
-		</cfquery>
-		<cfloop query="permit_by">
-			<li>
-				Contact for Permit <a href="/Permit.cfm?action=search&CONTACT_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
-			</li>
-		</cfloop>
-	</ul>
-Transactions
-	<ul>
-		<cfquery name="shipment" datasource="uam_god">
-			select 
-				LOAN_NUMBER,
-				loan.transaction_id,
-				collection
+			cataloged_item.collecting_event_id=collecting_event.collecting_event_id and
+			collecting_event.locality_id=lat_long.locality_id and
+			determined_by_agent_id in (#theseAgents#)
+			
+		select 
+				collection_id
 			from
 				shipment,
 				loan,
-				trans,
-				collection
+				trans
 			where
 				shipment.transaction_id=loan.transaction_id and
 				loan.transaction_id =trans.transaction_id and
-				trans.collection_id=collection.collection_id and
-				PACKED_BY_AGENT_ID=#agent_id#		
-		</cfquery>
-		<cfloop query="shipment">
-			<li>Packed Shipment for <a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
-		</cfloop>
-		<cfquery name="ship_to" datasource="uam_god">
-			select 
-				LOAN_NUMBER,
-				loan.transaction_id,
-				collection
+				PACKED_BY_AGENT_ID in (#theseAgents#)
+				
+		select 
+							collection_id
 			from
 				shipment,
 				addr,
 				loan,
-				trans,
-				collection
+				trans
 			where
 				shipment.transaction_id=loan.transaction_id and
 				loan.transaction_id =trans.transaction_id and
-				trans.collection_id=collection.collection_id and
 				shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
-				addr.agent_id=#agent_id#
-		</cfquery>
-		<cfloop query="ship_to">
-			<li><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a> shipped to addr</li>
-		</cfloop>
-		<cfquery name="ship_from" datasource="uam_god">
-			select 
-				LOAN_NUMBER,
-				loan.transaction_id,
-				collection
+				addr.agent_id in (#theseAgents#)
+				
+					
+			select 							collection_id
 			from
 				shipment,
 				addr,
 				loan,
-				trans,
-				collection
+				trans
 			where
 				shipment.transaction_id=loan.transaction_id and
 				loan.transaction_id =trans.transaction_id and
-				trans.collection_id=collection.collection_id and
 				shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
-				addr.agent_id=#agent_id#
-		</cfquery>
-		<cfloop query="ship_from">
-			<li><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a> shipped from</li>
-		</cfloop>
-		<cfquery name="trans_agent_l" datasource="uam_god">
+				addr.agent_id in (#theseAgents#)
+		
+		
+		
 			select 
-				loan.transaction_id,
-				TRANS_AGENT_ROLE,
-				loan_number,
-				collection
+				collection_id
 			from
 				trans_agent,
 				loan,
-				trans,
-				collection
+				trans
 			where
 				trans_agent.transaction_id=loan.transaction_id and
 				loan.transaction_id=trans.transaction_id and
-				trans.collection_id=collection.collection_id and
-				AGENT_ID=#agent_id#
-			group by
-				loan.transaction_id,
-				TRANS_AGENT_ROLE,
-				loan_number,
-				collection
-			order by
-				collection,
-				loan_number,
-				TRANS_AGENT_ROLE
-		</cfquery>
-		<cfloop query="trans_agent_l">
-			<li>#TRANS_AGENT_ROLE# for Loan <a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
-		</cfloop>
-		<cfquery name="trans_agent_a" datasource="uam_god">
+				AGENT_ID in (#theseAgents#)
+				
+				
+				
 			select 
-				accn.transaction_id,
-				TRANS_AGENT_ROLE,
-				accn_number,
-				collection
+				collection_id
 			from
 				trans_agent,
 				accn,
