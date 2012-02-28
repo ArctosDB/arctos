@@ -681,12 +681,10 @@
 	<cfargument name="numRecs" type="numeric" required="yes">
 	<cfargument name="taxon_name" type="string" required="yes">
 	<cfargument name="collection_id" type="numeric" required="yes">		
-hi
 	<cfset status="spiffy">
-			<cftransaction>
-
+	<cftransaction>
 	<cfloop from="1" to="#numRecs#" index="lpNum">
-	<cftry>
+		<cftry>
 			<cfset problem="">
 			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select somerandomsequence.nextval c from dual
@@ -940,6 +938,7 @@ hi
 			</cfquery>
 		<cfcatch>
 			<cfset status="fail">
+			<CFDUMP VAR=#CFCATCH#>
 		</cfcatch>
 	</cftry>
 	</cfloop>
