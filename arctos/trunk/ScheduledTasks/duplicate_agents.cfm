@@ -80,8 +80,11 @@ END;
 			 agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
 			 status='new'
 	</cfquery>
+	<cfloop query="findDups">
 	<cfset theseAgents="#findDups.AGENT_ID#,#findDups.RELATED_AGENT_ID#">
 	<!--- need collections for both agents --->
+	<cfquery name="colns" datasource="uam_god">
+	select collection_id from (
 	select 
 		collection_id 
 	from 
@@ -92,6 +95,7 @@ END;
 		cataloged_item.collection_object_id=citation.collection_object_id and
 		citation.publication_id=publication_agent.publication_id and
 		publication_agent.agent_id in (#theseAgents#)
+	union
 	select 
 		cataloged_item.collection_id
 	from 
@@ -100,8 +104,7 @@ END;
 	where 
 		collector.collection_object_id = cataloged_item.collection_object_id AND
 		agent_id in (#theseAgents#)
-		
-	
+	union
 	select 
 		collection_id
 	from 
@@ -110,8 +113,7 @@ END;
 	where 
 		coll_object.collection_object_id = cataloged_item.collection_object_id and
 		ENTERED_PERSON_ID in (#theseAgents#)
-	
-	
+	union
 	select 
 			collection_id
 		from 
@@ -120,8 +122,7 @@ END;
 		where 
 			coll_object.collection_object_id = cataloged_item.collection_object_id and
 			LAST_EDITED_PERSON_ID in (#theseAgents#)
-		
-		
+	union
 		select 
 			collection_id
 		from
@@ -130,8 +131,7 @@ END;
 		where
 			cataloged_item.collection_object_id=attributes.collection_object_id and
 			determined_by_agent_id in (#theseAgents#)
-			
-			
+	union
 		select 
 				collection_id
 			 from 
@@ -142,6 +142,7 @@ END;
 			 	encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id and
 			 	coll_object_encumbrance.collection_object_id=cataloged_item.collection_object_id and
 			 	encumbering_agent_id in (#theseAgents#)
+	union
 		select 
 			collection_id
 		from 
@@ -152,8 +153,7 @@ END;
 			cataloged_item.collection_object_id=identification.collection_object_id and
 			identification.identification_id=identification_agent.identification_id and
         	identification_agent.agent_id in (#theseAgents#)
-		
-		
+	union
 		select 
 			collection_id
 		from 
@@ -164,7 +164,7 @@ END;
 			cataloged_item.collecting_event_id=collecting_event.collecting_event_id and
 			collecting_event.locality_id=lat_long.locality_id and
 			determined_by_agent_id in (#theseAgents#)
-			
+	union
 		select 
 				collection_id
 			from
@@ -175,7 +175,7 @@ END;
 				shipment.transaction_id=loan.transaction_id and
 				loan.transaction_id =trans.transaction_id and
 				PACKED_BY_AGENT_ID in (#theseAgents#)
-				
+	union
 		select 
 							collection_id
 			from
@@ -188,8 +188,7 @@ END;
 				loan.transaction_id =trans.transaction_id and
 				shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
 				addr.agent_id in (#theseAgents#)
-				
-					
+	union
 			select 							collection_id
 			from
 				shipment,
@@ -201,9 +200,7 @@ END;
 				loan.transaction_id =trans.transaction_id and
 				shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
 				addr.agent_id in (#theseAgents#)
-		
-		
-		
+	union
 			select 
 				collection_id
 			from
@@ -214,72 +211,32 @@ END;
 				trans_agent.transaction_id=loan.transaction_id and
 				loan.transaction_id=trans.transaction_id and
 				AGENT_ID in (#theseAgents#)
-				
-				
-				
+	union
 			select 
 				collection_id
 			from
 				trans_agent,
 				accn,
-				trans,
-				collection
+				trans
 			where
 				trans_agent.transaction_id=accn.transaction_id and
 				accn.transaction_id=trans.transaction_id and
-				trans.collection_id=collection.collection_id and
-				AGENT_ID=#agent_id#
-			group by
-				accn.transaction_id,
-				TRANS_AGENT_ROLE,
-				accn_number,
-				collection
-			order by
-				collection,
-				accn_number,
-				TRANS_AGENT_ROLE
-		</cfquery>
-		<cfloop query="trans_agent_a">
-			<li>#TRANS_AGENT_ROLE# for Accession <a href="/editAccn.cfm?action=edit&transaction_id=#transaction_id#">#collection# #accn_number#</a></li>
-		</cfloop>
-		<cfquery name="loan_item" datasource="uam_god">
+				AGENT_ID in (#theseAgents#)
+	union
 			select 
-				trans.transaction_id,
-				loan_number,
-				count(*) cnt,
-				collection
+				collection_id
 			from
 				trans,
 				loan,
-				collection,
 				loan_item
 			where
 				trans.transaction_id=loan.transaction_id and
 				loan.transaction_id=loan_item.transaction_id and
-				trans.collection_id=collection.collection_id and
-				RECONCILED_BY_PERSON_ID =#agent_id#
-			group by
-				trans.transaction_id,
-				loan_number,
-				collection				
+				RECONCILED_BY_PERSON_ID in (#theseAgents#)
+				)
 		</cfquery>
-		<cfloop query="loan_item">
-			<li>Reconciled #cnt# items for Loan 
-				<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a>
-			</li>		
-		</cfloop>
-	</ul>
-</cfoutput>
-<cfinclude template = "/includes/_footer.cfm">
-
-
-
-
-
-
-
-	
-	
+		<cfdump var=#colns#>
+	</cfloop>
 	
 	<cfdump var=#findDups#>
 </cfif>
