@@ -209,7 +209,9 @@ END;
 					DELETE FROM agent_relations WHERE agent_id = #bads.agent_id# OR related_agent_id = #bads.agent_id#
 				</cfquery>
 				del agntreln<br><cfflush>
-				
+				<cfquery name="disableTrig" datasource="uam_god">
+					alter trigger TR_AGENT_NAME_BIUD disable
+				</cfquery>
 				<cfquery name="killnames" datasource="uam_god">
 					DELETE FROM agent_name WHERE agent_id = #bads.agent_id#
 				</cfquery>
@@ -223,11 +225,19 @@ END;
 				<cfquery name="killagent" datasource="uam_god">
 					DELETE FROM agent WHERE agent_id = #bads.agent_id#
 				</cfquery>
+				<cfquery name="disableTrig" datasource="uam_god">
+					alter trigger TR_AGENT_NAME_BIUD enable
+				</cfquery>
 				del agnt<br><cfflush>
 				
 				<!--- send email & mark as merged --->
 			</cftransaction>
 			<cfcatch>
+				
+				<cfquery name="disableTrig" datasource="uam_god">
+					alter trigger TR_AGENT_NAME_BIUD enable
+				</cfquery>
+				
 				<cfdump var=#cfcatch#>
 			</cfcatch>
 			</cftry>
@@ -238,9 +248,7 @@ END;
 
 
 
-<cfquery name="disableTrig" datasource="uam_god">
-	alter trigger TR_AGENT_NAME_BIUD disable
-</cfquery>
+
 
 
 
