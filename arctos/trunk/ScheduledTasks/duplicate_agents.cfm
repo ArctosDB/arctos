@@ -55,10 +55,11 @@ END;
 				AGENT_RELATIONSHIP='bad duplicate of' and 
 				agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID and
 				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
-				status='email_sent' and
-				round(detected_date - sysdate) = -7
+				status='pass_email_sent' and
+				round(sysdate-last_date) >= 7
 		</cfquery>
 		<cfloop query="bads">
+			<cftry>
 			<cftransaction>
 				<cfquery name="collector" datasource="uam_god">
 					UPDATE collector SET agent_id = #bads.related_agent_id#
@@ -225,6 +226,10 @@ END;
 				
 				<!--- send email & mark as merged --->
 			</cftransaction>
+			<cfcatch>
+				<cfdump var=#cfcatch#>
+			</cfcatch>
+			</cftry>
 		</cfloop>
 		
 		
@@ -308,10 +313,9 @@ END;
 				AGENT_RELATIONSHIP='bad duplicate of' and 
 				agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID and
 				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
-				status!='merged'
+				round(sysdate-last_date) gte 1 and
+				status not in ('pass_email_sent','merged')
 		</cfquery>
-		<cfdump var=#findDups#>
-		<cfabort>
 		<cfloop query="findDups">
 			<cfset theseAgents="#findDups.AGENT_ID#,#findDups.RELATED_AGENT_ID#">
 			<cfquery name="colns" datasource="uam_god">
@@ -521,10 +525,11 @@ END;
 						<br>#p#
 					</cfloop>
 				</p>
-			</cfif>
-			<br>To allow this, do nothing.
+			<cfelse>
+				<br>To allow this merger, do nothing.
 			
-			<br>To stop this merger, remove the "bad duplicate of" relationship.
+				<br>To stop this merger, remove the "bad duplicate of" relationship.
+			</cfif>
 			
 			<br>You are receiving this notification because one of more of the agents may have activities pertaining to
 			your collections. See Agent Activity for complete information.
@@ -537,11 +542,16 @@ END;
 			<br>Good Agent: <a href="/agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
 			<br>Duplicate Agent: <a href="/agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
 			<br>Marked As Dup On: #dateformat(detected_date,"yyyy-mm-dd")#
+			<br>Last Action: #dateformat(last_date,"yyyy-mm-dd")#
 			<cfquery name="sentEmail" datasource="uam_god">
 				update 
 					cf_dup_agent
 				set 
-					status='email_sent',
+					<cfif len(prob) gt 0>
+						status='fail_email_sent',
+					<cfelse>
+						status='pass_email_sent',
+					</cfif>
 					last_date=sysdate 
 				where
 					cf_dup_agent_id=#cf_dup_agent_id#
