@@ -64,6 +64,7 @@ END;
 	</cfloop>
 </cfif>
 <cfif action is "notify">
+	<cfoutput>
 	<cfquery name="findDups" datasource="uam_god">
 		select 
 			agent_relations.AGENT_ID,
@@ -256,6 +257,7 @@ END;
 	</cfloop>
 	
 	<cfdump var=#findDups#>
+	</cfoutput>
 </cfif>
 
 <cfinclude template="/includes/_footer.cfm">
