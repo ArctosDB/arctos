@@ -100,7 +100,7 @@ END;
 		cataloged_item.collection_id
 	from 
 		collector,
-		cataloged_item,
+		cataloged_item
 	where 
 		collector.collection_object_id = cataloged_item.collection_object_id AND
 		agent_id in (#theseAgents#)
