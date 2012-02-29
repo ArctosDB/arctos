@@ -251,11 +251,18 @@ END;
 		<br>to: #Application.DataProblemReportEmail#,#valuelist(colns.address)#
 		<br>Subject: Agents marked for merge
 		
-		<br>The following agents are marked for merger on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.
+		<br>The following agents will merge on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.
 		
 		<br>To allow this, do nothing.
 		
 		<br>To stop this merger, remove the "bad duplicate of" relationship.
+		
+		<br>You are receiving this notification because one of more of the agents may have activities pertaining to
+		your collections. See Agent Activity for complete information.
+		
+		<br>
+		
+		<a href="/Admin/ActivityLog.cfm?action=search&sql=#findDups.AGENT_ID#&object=agent_relations">search audit logs for whodunit</a>
 		
 		<br>Good Agent: <a href="/agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
 		<br>Duplicate Agent: <a href="/agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
