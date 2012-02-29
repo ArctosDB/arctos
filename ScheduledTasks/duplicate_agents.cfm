@@ -246,6 +246,12 @@ END;
 				RECONCILED_BY_PERSON_ID in (#theseAgents#)
 				)
 		</cfquery>
+		
+		<br>to: #Application.DataProblemReportEmail#,#valuelist(colns.address)#
+		<br>Subject: Agents marked for merge
+		<br>Good Agent: <a href="agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
+		<br>Duplicate Agent: <a href="agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
+		<br>Marked As Dup On: #detected_date#
 		<cfdump var=#colns#>
 	</cfloop>
 	
