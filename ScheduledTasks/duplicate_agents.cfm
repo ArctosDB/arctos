@@ -250,8 +250,15 @@ END;
 		
 		<br>to: #Application.DataProblemReportEmail#,#valuelist(colns.address)#
 		<br>Subject: Agents marked for merge
-		<br>Good Agent: <a href="agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
-		<br>Duplicate Agent: <a href="agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
+		
+		<br>The following agents are marked for merger on #dateadd("w",1,detected_date)#.
+		
+		<br>To allow this, do nothing.
+		
+		<br>To stop this merger, remoove the "bad duplicate of" relationship.
+		
+		<br>Good Agent: <a href="/agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
+		<br>Duplicate Agent: <a href="/agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
 		<br>Marked As Dup On: #detected_date#
 		<cfdump var=#colns#>
 	</cfloop>
