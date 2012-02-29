@@ -92,8 +92,8 @@ END;
 		electronic_address,
 		preferred_agent_name
 	where
-		collection_contacts.agent_id=preferred_agent_name.agent_id and
-		collection_contacts.agent_id=electronic_address.agent_id and
+		collection_contacts.CONTACT_AGENT_ID=preferred_agent_name.agent_id and
+		collection_contacts.CONTACT_AGENT_ID=electronic_address.agent_id and
 		electronic_address.address_type='e-mail' and
 		collection_contacts.collection_id in  (
 	select 
