@@ -283,6 +283,13 @@
 			<cfabort>
 		</cfif>
 	</cfif>
+	<cfset nono="passwd,etc,proc">
+	<cfloop list="#cgi.query_string#" delimiters="./," index="i">
+		<cfif listfindnocase(nono,i)>
+			<cfinclude template="/errors/autoblacklist.cfm">
+			<cfabort>
+		</cfif>
+	</cfloop>
 	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
 		<cfscript>
