@@ -92,7 +92,7 @@
 	<cfset sql = "#sql# AND geog_auth_rec.geog_auth_rec_id = #geog_auth_rec_id#">
 </cfif>
 <cfif isdefined("collecting_event_id") and len(#collecting_event_id#) gt 0>
-	<cfset sql = "#sql# AND collecting_event.collecting_event_id = #collecting_event_id">
+	<cfset sql = "#sql# AND collecting_event.collecting_event_id = #collecting_event_id#">
 </cfif>
 
 
