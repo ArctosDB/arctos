@@ -1,18 +1,20 @@
 <cfinclude template="/includes/_header.cfm">
 <!---
+
+drop table cf_dup_agent;
+
+
 create table cf_dup_agent (
 	cf_dup_agent_id number not null,
 	AGENT_ID number not null,
 	RELATED_AGENT_ID number not null,
 	agent_pref_name varchar2(255) not null,
 	rel_agent_pref_name varchar2(255) not null,
-	detected_date timestamp not null,
-	last_date timestamp,
+	detected_date date not null,
+	last_date date,
 	status varchar2(255)
 );
 
-ALTER TABLE cf_dup_agent MODIFY resolved_date NULL;
-ALTER TABLE cf_dup_agent rename column resolved_date to last_date;
 
 
 CREATE OR REPLACE TRIGGER tr_cf_dup_agent_key
@@ -30,6 +32,11 @@ END;
 
 --->
 
+<cfif action is "nothing">
+	<a href="duplicate_agents.cfm?action=merge">merge</a>
+	<br><a href="duplicate_agents.cfm?action=findDups">findDups</a>
+	<br><a href="duplicate_agents.cfm?action=notify">notify</a>
+</cfif>
 <!------------------------------------------------------------------------>
 <cfif action is "merge">
 	<cfoutput>
@@ -84,7 +91,7 @@ END;
 				#RELATED_AGENT_ID#,
 				(select agent_name from preferred_agent_name where agent_id=#AGENT_ID#),
 				(select agent_name from preferred_agent_name where agent_id=#RELATED_AGENT_ID#),
-				systimestamp,
+				sysdate,
 				'new'
 			)
 		</cfquery>
@@ -301,7 +308,7 @@ END;
 					cf_dup_agent
 				set 
 					status='email_sent',
-					last_date=systimestamp 
+					last_date=sysdate 
 				where
 					cf_dup_agent_id=#cf_dup_agent_id#
 			</cfquery>
