@@ -58,6 +58,7 @@ END;
 				status='pass_email_sent' and
 				round(sysdate-last_date) >= 7
 		</cfquery>
+		<cfdump var=#bads#>
 		<cfloop query="bads">
 			<cftry>
 			<cftransaction>
@@ -252,7 +253,6 @@ END;
 ---------------->
 
 	
-		<cfdump var=#findDups#>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------>
