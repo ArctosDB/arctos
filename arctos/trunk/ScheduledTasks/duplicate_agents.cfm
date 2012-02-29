@@ -47,8 +47,7 @@ END;
 				agent_relations.RELATED_AGENT_ID,
 				cf_dup_agent.agent_pref_name,
 				cf_dup_agent.rel_agent_pref_name,
-				detected_date,
-				round(detected_date - sysdate)
+				detected_date
 			from
 				agent_relations,
 				cf_dup_agent
@@ -56,7 +55,8 @@ END;
 				AGENT_RELATIONSHIP='bad duplicate of' and 
 				agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID and
 				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
-				status='email_sent'
+				status='email_sent' and
+				round(detected_date - sysdate) = -7
 		</cfquery>
 		<cfdump var=#findDups#>
 	</cfoutput>
