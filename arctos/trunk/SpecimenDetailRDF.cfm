@@ -1,5 +1,11 @@
 <cfcontent type="application/rdf+xml; charset=ISO-8859-1">
 <cfinclude template="/includes/functionLib.cfm">
+<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
+	<cfset oneOfUs=1>
+<cfelse>
+	<cfset oneOfUs=0>
+</cfif>
+
 <cfif isdefined("guid")>
 	<cfset checkSql(guid)>
 	<cfset sql="select collection_object_id from 
