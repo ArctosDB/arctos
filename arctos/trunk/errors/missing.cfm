@@ -46,41 +46,36 @@
 		</cfoutput>	
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
 		<cftry>
-			<cftry>
 			<cfset contentType="text/html">
 			<cfif isdefined("cgi.HTTP_ACCEPT") and cgi.HTTP_ACCEPT contains "application/rdf+xml">
-				<!--- 
-					We can serve only html and rdf - if they won't take rdf, just give them html.
-					If the will accept rdf, pick the prioity based on q and then on order.
-				---->
-				<cfset q=queryNew("o,mt,q")>
-				<cfset r=1>
-				<cfloop list="#cgi.HTTP_ACCEPT#" index="i">
-					<cfset temp=queryaddrow(q,1)>
-					<cfif listlen(i,";") is 2>
-						<cfset qVal=listgetat(i,2,";")>
-					<cfelse>
-						<cfset qVal=1>
-					</cfif>
-					<cfset ft=listgetat(i,1,";")>
-					<cfset temp = QuerySetCell(q, "o", r, r)>
-					<cfset temp = QuerySetCell(q, "mt", ft, r)>
-					<cfset temp = QuerySetCell(q, "q", qVal, r)>
-					<cfset r=r+1>
-				</cfloop>
-				<cfquery name="ctype" dbtype="query">
-					select * from q order by q desc, o desc
-				</cfquery>
-				<cfloop query="ctype">
-					<cfif mt is "application/rdf+xml" or mt is "text/html">
-						<cfset contentType=mt>
-					</cfif>
-				</cfloop>
+			<!--- 
+				We can serve only html and rdf - if they won't take rdf, just give them html.
+				If the will accept rdf, pick the prioity based on q and then on order.
+			---->
+			<cfset q=queryNew("o,mt,q")>
+			<cfset r=1>
+			<cfloop list="#cgi.HTTP_ACCEPT#" index="i">
+				<cfset temp=queryaddrow(q,1)>
+				<cfif listlen(i,";") is 2>
+					<cfset qVal=listgetat(i,2,";")>
+				<cfelse>
+					<cfset qVal=1>
+				</cfif>
+				<cfset ft=listgetat(i,1,";")>
+				<cfset temp = QuerySetCell(q, "o", r, r)>
+				<cfset temp = QuerySetCell(q, "mt", ft, r)>
+				<cfset temp = QuerySetCell(q, "q", qVal, r)>
+				<cfset r=r+1>
+			</cfloop>
+			<cfquery name="ctype" dbtype="query">
+				select * from q order by q desc, o desc
+			</cfquery>
+			<cfloop query="ctype">
+				<cfif mt is "application/rdf+xml" or mt is "text/html">
+					<cfset contentType=mt>
+				</cfif>
+			</cfloop>
 			</cfif>
-			<cfcatch>
-				<cfset contentType="text/html">
-			</cfcatch>
-			</cftry>
 			<cfset gPos=listfindnocase(rdurl,"guid","/")>
 			<cfset guid = listgetat(rdurl,gPos+1,"/")>
 			<cfif contentType is "application/rdf+xml">
