@@ -47,8 +47,10 @@
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
 		<cfset ctype="html">
 		<cfif isdefined("cgi.HTTP_ACCEPT") and len(cgi.HTTP_ACCEPT) gt 0>
-			<cfloop list="cgi.HTTP_ACCEP" index="i">
+			<cfloop list="#cgi.HTTP_ACCEPT#" index="i">
+				<cfoutput>
 				------------------#i#
+				</cfoutput>
 			</cfloop>
 		
 		</cfif>
