@@ -111,21 +111,20 @@
 	-->
     <rdf:Description rdf:about="#application.serverRootUrl#/guid/#guid#">
         <dc:creator>#d.EnteredBy#</dc:creator>
-        <dc:created>#d.COLL_OBJECT_ENTERED_DATE#</dc:created>
+        <dc:created>#dateformat(d.COLL_OBJECT_ENTERED_DATE,"yyyy-mm-dd")#</dc:created>
         <dc:hasVersion rdf:resource="#application.serverRootUrl#/guid/#guid#" />
     </rdf:Description>
       <!-- This is metadata about this specimen -->
     <rdf:Description rdf:about="#application.serverRootUrl#/guid/#guid#">
 		<dc:title>#d.guid# - #d.collection# #d.cat_num# #d.scientific_name#</dc:title>
 		<dc:description>#d.collection# #d.cat_num# #d.scientific_name#</dc:description>
-		<dc:created>#d.COLL_OBJECT_ENTERED_DATE#</dc:created>
 		<geo:Point>
 			<geo:lat>#d.dec_lat#</geo:lat>
 			<geo:long>#d.dec_long#</geo:long>
 		</geo:Point>
 	  	<!-- Assertions based on experimental version of Darwin Core -->
+		<dc:modified>#dateformat(d.last_edit_date,"yyyy-mm-dd)#</dc:modified>
 		<dwc:SampleID>#application.serverRootUrl#/guid/#d.guid#</dwc:SampleID>
-		<dc:modified>#d.last_edit_date#</dc:modified>
 		<dwc:BasisOfRecord>#d.BasisOfRecord#</dwc:BasisOfRecord>
 		<dwc:InstitutionCode>#d.institution_acronym#</dwc:InstitutionCode>
 		<dwc:CollectionCode>#d.collection_cde#</dwc:CollectionCode>
