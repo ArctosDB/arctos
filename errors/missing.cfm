@@ -45,12 +45,23 @@
 		</cftry>
 		</cfoutput>	
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
+		<cfset ctype="html">
+		<cfif isdefined(cgi.HTTP_ACCEPT)>
+			<cfloop list="cgi.HTTP_ACCEP" index="i">
+				------------------#i#
+			</cfloop>
+		
+		</cfif>
 		<cfdump var=#cgi#>
 		<cfabort>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"guid","/")>
 			<cfset guid = listgetat(rdurl,gPos+1,"/")>
-			<cfinclude template="/SpecimenDetail.cfm">
+			<cfif ctype is "html">
+				<cfinclude template="/SpecimenDetail.cfm">
+			<cfelse>
+				<cfinclude template="/SpecimenDetailRDF.cfm">
+			</cfif>
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
