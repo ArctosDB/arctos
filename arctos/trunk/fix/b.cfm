@@ -1,9 +1,129 @@
-<cfset mappings ="DateLastModified:LAST_EDIT_DATE|RelatedInformation:RelatedInformation|BasisOfRecord:BASISOFRECORD|InstitutionCode:INSTITUTION_ACRONYM|CollectionCode:COLLECTION_CDE|CatalogNumberText:CAT_NUM|CatalogNumberNumeric:CAT_NUM|Collector:COLLECTORS|CollectorNumber:COLLECTORNUMBER|FieldNumber:FIELD_NUM|YearCollected:YEAR|MonthCollected:MONTH|DayCollected:DAY|TimeCollected:EMPTYSTRING|VerbatimCollectingDate:VERBATIM_DATE|FieldNotes:FIELDNOTESURL|JulianDay:DAYOFYEAR|HigherGeography:HIGHER_GEOG|ContinentOcean:CONTINENT_OCEAN|IslandGroup:ISLAND_GROUP|Island:ISLAND|Country:COUNTRY|StateProvince:STATE_PROV|County:COUNTY|Locality:SPEC_LOCALITY|DecimalLatitude:DEC_LAT|DecimalLongitude:DEC_LONG|HorizontalDatum:DATUM|OriginalCoordinateSystem:ORIG_LAT_LONG_UNITS|VerbatimLatitude:VERBATIMLATITUDE|VerbatimLongitude:VERBATIMLONGITUDE|GeorefMethod:GEOREFMETHOD|CoordinateUncertaintyInMeters:COORDINATEUNCERTAINTYINMETERS|LatLongComments:LAT_LONG_REMARKS|BoundingBox:EMPTYSTRING|MinimumElevationInMeters:MIN_ELEV_IN_M|MaximumElevationInMeters:MAX_ELEV_IN_M|VerbatimElevation:VERBATIMELEVATION|MinimumDepthInMeters:MIN_DEPTH_IN_M|MaximumDepthInMeters:MAX_DEPTH_IN_M|VerbatimDepth:EMPTYSTRING|ScientificName:SCIENTIFIC_NAME|HigherTaxon:FULL_TAXON_NAME|Kingdom:KINGDOM|Phylum:PHYLUM|Class:PHYLCLASS|Order:PHYLORDER|Family:FAMILY|Genus:GENUS|Species:SPECIES|Subspecies:SUBSPECIES|ScientificNameAuthor:AUTHOR_TEXT|IdentificationModifier:IDENTIFICATIONMODIFIER|IdentifiedBy:IDENTIFIEDBY|YearIdentified:EMPTYSTRING|MonthIdentified:EMPTYSTRING|DayIdentified:EMPTYSTRING|TypeStatus:TYPESTATUS|Sex:SEX|Preparations:PARTS|Tissues:EMPTYSTRING|IndividualCount:INDIVIDUALCOUNT|AgeClass:AGE_CLASS|GenBankNum:GENBANKNUM|OtherCatalogNumbers:OTHERCATALOGNUMBERS|RelatedCatalogedItems:RELATEDCATALOGEDITEMS|Remarks:REMARKS">
 <cfinclude template="/includes/functionLib.cfm">
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from filtered_flat where upper(guid)='#ucase(guid)#'
 </cfquery>
 <cfdump var="#d#">
+<cfoutput>
+
+<cfset mappings ="DateLastModified:LAST_EDIT_DATE|
+		RelatedInformation:RelatedInformation|
+		BasisOfRecord:BASISOFRECORD|
+		InstitutionCode:INSTITUTION_ACRONYM|
+		CollectionCode:COLLECTION_CDE|
+		CatalogNumberText:CAT_NUM|
+		CatalogNumberNumeric:CAT_NUM|
+		Collector:COLLECTORS|
+		CollectorNumber:COLLECTORNUMBER|
+		FieldNumber:FIELD_NUM|
+		YearCollected:YEAR|
+		MonthCollected:MONTH|
+		DayCollected:DAY|
+		TimeCollected:EMPTYSTRING|
+		VerbatimCollectingDate:VERBATIM_DATE|
+		FieldNotes:FIELDNOTESURL|
+		JulianDay:DAYOFYEAR
+		HigherGeography:HIGHER_GEOG|
+		ContinentOcean:CONTINENT_OCEAN|IslandGroup:ISLAND_GROUP|
+					Island:ISLAND|Country:COUNTRY|StateProvince:STATE_PROV|County:COUNTY|Locality:SPEC_LOCALITY|DecimalLatitude:DEC_LAT|
+						DecimalLongitude:DEC_LONG|HorizontalDatum:DATUM|OriginalCoordinateSystem:ORIG_LAT_LONG_UNITS|VerbatimLatitude:VERBATIMLATITUDE|
+							VerbatimLongitude:VERBATIMLONGITUDE|GeorefMethod:GEOREFMETHOD|CoordinateUncertaintyInMeters:COORDINATEUNCERTAINTYINMETERS|
+								LatLongComments:LAT_LONG_REMARKS|BoundingBox:EMPTYSTRING|MinimumElevationInMeters:MIN_ELEV_IN_M|
+									MaximumElevationInMeters:MAX_ELEV_IN_M|VerbatimElevation:VERBATIMELEVATION|MinimumDepthInMeters:MIN_DEPTH_IN_M|
+										MaximumDepthInMeters:MAX_DEPTH_IN_M|VerbatimDepth:EMPTYSTRING|ScientificName:SCIENTIFIC_NAME
+HigherTaxon:FULL_TAXON_NAME|Kingdom:KINGDOM|Phylum:PHYLUM|Class:PHYLCLASS|Order:PHYLORDER|Family:FAMILY|Genus:GENUS|Species:SPECIES|
+Subspecies:SUBSPECIES|ScientificNameAuthor:AUTHOR_TEXT|IdentificationModifier:IDENTIFICATIONMODIFIER|IdentifiedBy:IDENTIFIEDBY|
+YearIdentified:EMPTYSTRING|MonthIdentified:EMPTYSTRING|DayIdentified:EMPTYSTRING|TypeStatus:TYPESTATUS|Sex:SEX|Preparations:PARTS|Tissues:EMPTYSTRING|
+											IndividualCount:INDIVIDUALCOUNT|AgeClass:AGE_CLASS|GenBankNum:GENBANKNUM|OtherCatalogNumbers:OTHERCATALOGNUMBERS|RelatedCatalogedItems:RELATEDCATALOGEDITEMS|
+										Remarks:REMARKS">
+
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns##"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tap="http://rs.tdwg.org/tapir/1.0"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hyam="http://hyam.net/tapir2sw##"
+        xmlns:dwc="http://rs.tdwg.org/dwc/terms/" xmlns:dwcc="http://rs.tdwg.org/dwc/curatorial/"
+        xmlns:dc="http://purl.org/dc/terms/"
+        xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos##">
+
+    <!--This is metadata about this metadata document-->
+    <rdf:Description
+        rdf:about="#application.serverRootUrl#/guid/#guid#">
+        <dc:creator>dustymc</dc:creator>
+        <dc:created>#now()#</dc:created>
+    
+        <dc:hasVersion rdf:resource="#application.serverRootUrl#/guid/#guid#" />
+    
+    </rdf:Description>
+    
+
+    <!--This is metadata about this specimen-->
+    <rdf:Description rdf:about="#application.serverRootUrl#/guid/#guid#">
+	
+	
+	
+	 <dc:title>#d.guid#: #d.collection# #d.cat_num# #d.scientific_name#</dc:title>
+	
+	<dc:description>#d.collection# #d.cat_num# #d.scientific_name#</dc:description>
+
+	<cfif (d.verbatim_date is d.began_date) AND (d.verbatim_date is d.ended_date)>
+		<cfset thisDate = #d.verbatim_date#>
+	<cfelseif (
+		(d.verbatim_date is not d.began_date) OR
+			(d.verbatim_date is not d.ended_date)
+		) AND d.began_date is d.ended_date>
+		<cfset thisDate = "#d.verbatim_date# (#d.began_date#)">
+	<cfelse>
+		<cfset thisDate = "#d.verbatim_date# (#d.began_date# - #d.ended_date#)">
+	</cfif>
+					
+					
+                
+                    <dc:created>#thisDate#</dc:created>
+                
+        <cfif len(d.dec_lat) gt 0>
+		 <geo:Point>
+            <geo:lat>#d.dec_lat#</geo:lat>
+            <geo:long>#d.dec_long#</geo:long>
+        </geo:Point>
+		</cfif>
+               
+                
+        <!-- Assertions based on experimental version of Darwin Core -->
+        <dwc:SampleID>#application.serverRootUrl#/guid/#d.guid#</dwc:SampleID>
+        <dc:modified>#d.last_edit_date#</dc:modified>
+        <dwc:BasisOfRecord>Specimen</dwc:BasisOfRecord>
+        <dwc:InstitutionCode>#d.institution_acronym#</dwc:InstitutionCode>
+        <dwc:CollectionCode>#d.collection_cde#</dwc:CollectionCode>
+        <dwc:CatalogNumber>#d.cat_num#</dwc:CatalogNumber>
+        <dwc:ScientificName>#d.scientific_name#</dwc:ScientificName>
+      
+        <dwc:HigherGeography>#d.higher_geog#</dwc:HigherGeography>
+
+            <dwc:Country>#d.country#</dwc:Country>
+        
+            <dwc:StateProvince>#d.state_prov#</dwc:StateProvince>
+            
+            
+            <dwc:Locality>#d.spec_locality#</dwc:Locality>
+            
+            <dwc:DecimalLongitude>#d.dec_lat#</dwc:DecimalLongitude>
+        <dwc:DecimalLatitude>#d.dec_long#</dwc:DecimalLatitude>
+           
+        
+            <dwc:MinimumElevationInMeters></dwc:MinimumElevationInMeters>
+        <dwc:MaximumElevationInMeters></dwc:MaximumElevationInMeters>
+        
+            <dwc:EarliestDateCollected>#d.began_date#</dwc:EarliestDateCollected>
+        
+            <dwc:Collector>#d.collectors#</dwc:Collector>
+            
+    </rdf:Description>
+    
+</rdf:RDF>  
+	
+	
+	
+	
+</cfoutput>
+
 
 
 <cfabort>
