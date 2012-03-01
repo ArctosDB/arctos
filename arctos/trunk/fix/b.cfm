@@ -157,7 +157,6 @@
 	
 	
 	<dwc:GeorefMethod>#d.GEOREFMETHOD#</dwc:GeorefMethod>
-	<dwc:xxxxxxxx>#d.yyyyyyyyyyyyyyy#</dwc:xxxxxxxxxx>
 	<dwc:CoordinateUncertaintyInMeters>#d.COORDINATEUNCERTAINTYINMETERS#</dwc:CoordinateUncertaintyInMeters>
 	<dwc:LatLongComments>#d.LAT_LONG_REMARKS#</dwc:LatLongComments>
 	
