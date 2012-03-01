@@ -2,6 +2,7 @@
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		filtered_flat.LAST_EDIT_DATE,
+		guid,
 		RelatedInformation,
 		BASISOFRECORD,
 		INSTITUTION_ACRONYM,
