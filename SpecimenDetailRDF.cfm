@@ -86,7 +86,7 @@
 		media_relations 
 	where 
 		media_relationship like '% cataloged_item' and
-		RELATED_PRIMARY_KEY=#flat.collection_object_id
+		RELATED_PRIMARY_KEY=#flat.collection_object_id#
 </cfquery>
 
 <cfcontent type="application/rdf+xml; charset=ISO-8859-1">
