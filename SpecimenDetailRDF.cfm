@@ -93,13 +93,24 @@
 	xmlns:dwc="http://rs.tdwg.org/dwc/terms/" xmlns:dwcc="http://rs.tdwg.org/dwc/curatorial/"
 	xmlns:dc="http://purl.org/dc/terms/"
 	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos##">
+	<!-- 
+		So, we pretty much just made this all up. It's a
+		nifty way to test out content negotiation, but we have no idea
+		if the RDF is actually useful to anyone.
+		If you have actual use for rdf, and would like us to do something diffierent,
+		just drop up an email (you probably know who we are, right?) or fill
+		out the contact form at http://arctos.database.museum/contact.cfm
+		We'd love to hear your feedback.
+		
+		This document in no way represents all information available from Arctos.
+	-->
     <rdf:Description
         rdf:about="#application.serverRootUrl#/guid/#guid#">
         <dc:creator>#d.EnteredBy#</dc:creator>
         <dc:created>#d.COLL_OBJECT_ENTERED_DATE#</dc:created>
         <dc:hasVersion rdf:resource="#application.serverRootUrl#/guid/#guid#" />
     </rdf:Description>
-      <!--This is metadata about this specimen-->
+      <!-- This is metadata about this specimen -->
     <rdf:Description rdf:about="#application.serverRootUrl#/guid/#guid#">
 	<dc:title>#d.guid# - #d.collection# #d.cat_num# #d.scientific_name#</dc:title>
 	<dc:description>#d.collection# #d.cat_num# #d.scientific_name#</dc:description>
@@ -108,16 +119,9 @@
 		<geo:lat>#d.dec_lat#</geo:lat>
 		<geo:long>#d.dec_long#</geo:long>
 	</geo:Point>
-  	<!-- 
-		Assertions based on experimental version of Darwin Core
-		That pretty much means we just made this all up. It's a
-		nifty way to test out content negotiation, but we have no idea
-		if the RDF is actually useful to anyone.
-		If you have actual use for rdf, and would like us to do something diffierent,
-		just drop up an email (you probably know who we are, right?) or fill
-		out the contact form at http://arctos.database.museum/contact.cfm
-		We'd love to hear your feedback.
-	-->
+	
+  	<!-- Assertions based on experimental version of Darwin Core -->
+		
 	<dwc:SampleID>#application.serverRootUrl#/guid/#d.guid#</dwc:SampleID>
 	<dc:modified>#d.last_edit_date#</dc:modified>
 	<dwc:BasisOfRecord>#d.BasisOfRecord#</dwc:BasisOfRecord>
