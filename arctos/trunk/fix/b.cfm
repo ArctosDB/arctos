@@ -4,6 +4,8 @@
 		filtered_flat.LAST_EDIT_DATE,
 		guid,
 		collection,
+		began_date,
+		ended_date,
 		RelatedInformation,
 		BASISOFRECORD,
 		INSTITUTION_ACRONYM,
