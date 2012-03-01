@@ -45,7 +45,7 @@
 		</cftry>
 		</cfoutput>	
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
-		<cfset contentType="text/html">
+		<cfset contentType="application/rdf+xml">
 		<cfif isdefined("cgi.HTTP_ACCEPT") and len(cgi.HTTP_ACCEPT) gt 0>
 			<cfset q=queryNew("o,mt,q")>
 			<cfset r=1>
