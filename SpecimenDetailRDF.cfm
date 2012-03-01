@@ -1,51 +1,16 @@
 <cfcontent type="application/rdf+xml; charset=ISO-8859-1">
-<?xml version="1.0" encoding="utf-8"?>
-
-<cfif isdefined("collection_object_id")>
-	<cfset checkSql(collection_object_id)>
-	<cfoutput>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select GUID from #session.flatTableName# where collection_object_id=#collection_object_id# 
-		</cfquery>
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="/guid/#c.guid#">
-		<cfabort>
-	</cfoutput>	
+<cfif not isdefined("guid")>
 </cfif>
 <cfif isdefined("guid")>
-	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="/guid/#guid#">
-		<cfabort>
-	</cfif>
 	<cfset checkSql(guid)>
-	<cfif guid contains ":">
-		<cfoutput>
-			<cfset sql="select collection_object_id from 
+	<cfset sql="select collection_object_id from 
 					#session.flatTableName#
 				WHERE
 					upper(guid)='#ucase(guid)#'">
-			<cfset checkSql(sql)>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				#preservesinglequotes(sql)#
-			</cfquery>
-		</cfoutput>
-	<cfelseif guid contains " ">
-		<cfset spos=find(" ",reverse(guid))>
-		<cfset cc=left(guid,len(guid)-spos)>
-		<cfset cn=right(guid,spos)>
-		<cfset sql="select collection_object_id from 
-				cataloged_item,
-				collection
-			WHERE
-				cataloged_item.collection_id = collection.collection_id AND
-				cat_num = #cn# AND
-				lower(collection.collection)='#lcase(cc)#'">
-		<cfset checkSql(sql)>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			#preservesinglequotes(sql)#
-		</cfquery>
-	</cfif>
+	<cfset checkSql(sql)>
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		#preservesinglequotes(sql)#
+	</cfquery>
 	<cfif isdefined("c.collection_object_id") and len(c.collection_object_id) gt 0>
 		<cfset collection_object_id=c.collection_object_id>
 	<cfelse>
@@ -53,42 +18,9 @@
 		<cfabort>
 	</cfif>
 <cfelse>
-	<cfinclude template="/errors/404.cfm">
-	<cfabort>
+	guid required<cfabort>
 </cfif>
 
-
-
-
-
-
-
-
-
-
-
-<cfif not isdefined("toProperCase")>
-	<cfinclude template="/includes/_frameHeader.cfm">
-</cfif>
-<cfoutput>
-	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
-		<div class="error">
-			Improper call. Aborting.....
-		</div>
-		<cfabort>
-	</cfif>
-	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-		<cfset oneOfUs = 1>
-		<cfset isClicky = "likeLink">
-	<cfelse>
-		<cfset oneOfUs = 0>
-		<cfset isClicky = "">
-	</cfif>
-	<cfif oneOfUs is 0 and cgi.CF_TEMPLATE_PATH contains "/SpecimenDetail_body.cfm">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-	</cfif>
-</cfoutput>
 <cfset detSelect = "
 	SELECT
 		cataloged_item.collection_object_id as collection_object_id,
@@ -235,7 +167,7 @@
 <cfif one.concatenatedEncumbrances contains "mask record" and oneOfUs neq 1>
 	Record masked.<cfabort>
 </cfif>
-
+<cfoutput>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tap="http://rs.tdwg.org/tapir/1.0"
         xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hyam="http://hyam.net/tapir2sw#"
