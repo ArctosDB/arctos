@@ -3,6 +3,7 @@
 	select 
 		filtered_flat.LAST_EDIT_DATE,
 		guid,
+		collection,
 		RelatedInformation,
 		BASISOFRECORD,
 		INSTITUTION_ACRONYM,
