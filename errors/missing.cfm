@@ -47,12 +47,24 @@
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
 		<cfset ctype="html">
 		<cfif isdefined("cgi.HTTP_ACCEPT") and len(cgi.HTTP_ACCEPT) gt 0>
+			<cfset q=queryNew("mt,q")>
+			<cfset r=1>
 			<cfloop list="#cgi.HTTP_ACCEPT#" index="i">
 				<cfoutput>
+					<cfset temp=queryaddrow(q,1)>
+					<cfif listlen(i,";") is 2>
+						<cfset qVal=listgetat(i,2,";")>
+					<cfelse>
+						<cfset qVal=1>
+					</cfif>
+					<cfset ft=listgetat(i,1,";")>
+					<cfset temp = QuerySetCell(q, "mt", ft, r)>
+					<cfset temp = QuerySetCell(q, "q", qVal, r)>
+					<cfset r=r+1>
 				------------------#i#
 				</cfoutput>
 			</cfloop>
-		
+			<cfdump var=#q#>
 		</cfif>
 		<cfdump var=#cgi#>
 		<cfabort>
