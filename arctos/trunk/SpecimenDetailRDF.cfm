@@ -188,9 +188,7 @@
 		<dwc:LatestDateCollected>#d.ended_date#</dwc:LatestDateCollected>
 		<dwc:VerbatimCollectingDate>#d.VERBATIM_DATE#</dwc:VerbatimCollectingDate>
 		<dwc:Remarks>#d.REMARKS#</dwc:Remarks>
-		<cfif media.recordcount gt 0>
-			<dwc:ImageURL>#application.serverRootUrl#/MediaSearch.cfm?action=search&media_id=#valuelist(media.media_id)#</dwc:ImageURL>
-		</cfif>
+		<cfif media.recordcount gt 0><dwc:ImageURL>#application.serverRootUrl#/MediaSearch.cfm?action=search&media_id=#valuelist(media.media_id)#</dwc:ImageURL></cfif>
     </rdf:Description>
 </rdf:RDF>
 </cfsavecontent>
