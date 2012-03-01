@@ -1,7 +1,7 @@
 <cfinclude template="/includes/functionLib.cfm">
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
-		LAST_EDIT_DATE,
+		filtered_flat.LAST_EDIT_DATE,
 		RelatedInformation,
 		BASISOFRECORD,
 		INSTITUTION_ACRONYM,
