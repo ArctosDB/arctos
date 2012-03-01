@@ -1,3 +1,5 @@
+<cfcontent type="application/rdf+xml; charset=ISO-8859-1">
+
 <?xml version="1.0" encoding="utf-8"?>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tap="http://rs.tdwg.org/tapir/1.0"
