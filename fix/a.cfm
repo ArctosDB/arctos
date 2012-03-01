@@ -1,9 +1,7 @@
 fff
 <cftry>
 	t1
-	<cftry>t2
-	<CFCATCH>C2</CFCATCH>
-	</cftry>
+	
 	<cfcatch>c1</cfcatch>
 </cftry>
 
