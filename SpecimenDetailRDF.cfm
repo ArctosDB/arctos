@@ -89,19 +89,7 @@
 		media_relationship like '% cataloged_item' and
 		RELATED_PRIMARY_KEY=<cfqueryparam value="#d.collection_object_id#" CFSQLType="CF_SQL_INTEGER">
 </cfquery>
-
-
 <cfoutput>
-<cfif (d.verbatim_date is d.began_date) AND (d.verbatim_date is d.ended_date)>
-	<cfset thisDate = #d.verbatim_date#>
-<cfelseif (
-	(d.verbatim_date is not d.began_date) OR
-		(d.verbatim_date is not d.ended_date)
-	) AND d.began_date is d.ended_date>
-	<cfset thisDate = "#d.verbatim_date# (#d.began_date#)">
-<cfelse>
-	<cfset thisDate = "#d.verbatim_date# (#d.began_date# - #d.ended_date#)">
-</cfif>
 <cfcontent type="application/rdf+xml; charset=ISO-8859-1">
 <cfsavecontent variable="myRDF">
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns##"
@@ -130,7 +118,7 @@
     <rdf:Description rdf:about="#application.serverRootUrl#/guid/#guid#">
 		<dc:title>#d.guid# - #d.collection# #d.cat_num# #d.scientific_name#</dc:title>
 		<dc:description>#d.collection# #d.cat_num# #d.scientific_name#</dc:description>
-		<dc:created>#thisDate#</dc:created>
+		<dc:created>#d.COLL_OBJECT_ENTERED_DATE#</dc:created>
 		<geo:Point>
 			<geo:lat>#d.dec_lat#</geo:lat>
 			<geo:long>#d.dec_long#</geo:long>
