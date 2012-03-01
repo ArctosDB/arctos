@@ -72,10 +72,12 @@
 				<br>---#mt#
 			</cfloop>
 			
-				</cfoutput>
 			<cfdump var=#q#>
+		
 		</cfif>
 		<cfdump var=#cgi#>
+		
+				</cfoutput>
 		<cfabort>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"guid","/")>
