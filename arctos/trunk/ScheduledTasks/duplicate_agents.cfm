@@ -231,13 +231,31 @@ END;
 				del agnt<br><cfflush>
 				
 				<!--- send email & mark as merged --->
+				
+				<cfquery name="sentEmail" datasource="uam_god">
+					update 
+						cf_dup_agent
+					set 
+						status='merged'
+					where
+						cf_dup_agent_id=#cf_dup_agent_id#
+				</cfquery>
+			
+			
 			</cftransaction>
 			<cfcatch>
 				
 				<cfquery name="disableTrig" datasource="uam_god">
 					alter trigger TR_AGENT_NAME_BIUD enable
 				</cfquery>
-				
+				<cfquery name="sentEmail" datasource="uam_god">
+					update 
+						cf_dup_agent
+					set 
+						status='merged_failed'
+					where
+						cf_dup_agent_id=#cf_dup_agent_id#
+				</cfquery>
 				<cfdump var=#cfcatch#>
 			</cfcatch>
 			</cftry>

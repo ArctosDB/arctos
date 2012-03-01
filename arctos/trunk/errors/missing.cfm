@@ -45,6 +45,8 @@
 		</cftry>
 		</cfoutput>	
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
+		<cfdump var=#cgi#>
+		<cfabort>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"guid","/")>
 			<cfset guid = listgetat(rdurl,gPos+1,"/")>
