@@ -1,4 +1,3 @@
-<cfcontent type="application/rdf+xml; charset=ISO-8859-1">
 <cfinclude template="/includes/functionLib.cfm">
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
@@ -74,8 +73,13 @@
 		filtered_flat.collection_object_id = coll_object.collection_object_id AND
 		coll_object.entered_person_id = enteredPerson.agent_id AND
 		coll_object.last_edited_person_id = editedPerson.agent_id (+) AND
-	upper(guid)='#ucase(guid)#'		
+	upper(guid)=<cfqueryparam value="#ucase(guid)#" CFSQLType="CF_SQL_VARCHAR" maxLength="25">
 </cfquery>
+<cfif d.recordcount is not 1>
+	<div class="error">fail</div>
+	<cfabort>
+</cfif>
+<cfcontent type="application/rdf+xml; charset=ISO-8859-1">
 <cfoutput>
 <cfif (d.verbatim_date is d.began_date) AND (d.verbatim_date is d.ended_date)>
 	<cfset thisDate = #d.verbatim_date#>
@@ -100,7 +104,7 @@
 		If you have actual use for rdf, and would like us to do something diffierent,
 		just drop up an email (you probably know who we are, right?) or fill
 		out the contact form at http://arctos.database.museum/contact.cfm
-		We'd love to hear your feedback.
+		We'd love to hear your feedback. Or just tell us you found this thing.
 		
 		This document in no way represents all information available from Arctos.
 	-->
@@ -112,68 +116,66 @@
     </rdf:Description>
       <!-- This is metadata about this specimen -->
     <rdf:Description rdf:about="#application.serverRootUrl#/guid/#guid#">
-	<dc:title>#d.guid# - #d.collection# #d.cat_num# #d.scientific_name#</dc:title>
-	<dc:description>#d.collection# #d.cat_num# #d.scientific_name#</dc:description>
-	<dc:created>#thisDate#</dc:created>
-	<geo:Point>
-		<geo:lat>#d.dec_lat#</geo:lat>
-		<geo:long>#d.dec_long#</geo:long>
-	</geo:Point>
-	
-  	<!-- Assertions based on experimental version of Darwin Core -->
-		
-	<dwc:SampleID>#application.serverRootUrl#/guid/#d.guid#</dwc:SampleID>
-	<dc:modified>#d.last_edit_date#</dc:modified>
-	<dwc:BasisOfRecord>#d.BasisOfRecord#</dwc:BasisOfRecord>
-	<dwc:InstitutionCode>#d.institution_acronym#</dwc:InstitutionCode>
-	<dwc:CollectionCode>#d.collection_cde#</dwc:CollectionCode>
-	<dwc:CatalogNumber>#d.cat_num#</dwc:CatalogNumber>
-	<dwc:ScientificName>#d.scientific_name#</dwc:ScientificName>
-	<dwc:HigherTaxon>#d.FULL_TAXON_NAME#</dwc:HigherTaxon>
-	<dwc:Kingdom>#d.KINGDOM#</dwc:Kingdom>
-	<dwc:Phylum>#d.PHYLUM#</dwc:Phylum>
-	<dwc:Class>#d.PHYLCLASS#</dwc:Class>
-	<dwc:Order>#d.PHYLORDER#</dwc:Order>
-	<dwc:Family>#d.FAMILY#</dwc:Family>
-	<dwc:Genus>#d.GENUS#</dwc:Genus>
-	<dwc:Species>#d.SPECIES#</dwc:Species>
-	<dwc:Subspecies>#d.SUBSPECIES#</dwc:Subspecies>
-	<dwc:IdentifiedBy>#d.IDENTIFIEDBY#</dwc:IdentifiedBy>
-	<dwc:HigherGeography>#d.higher_geog#</dwc:HigherGeography>
-	<dwc:ContinentOcean>#d.CONTINENT_OCEAN#</dwc:ContinentOcean>
-	<dwc:Country>#d.country#</dwc:Country>
-	<dwc:StateProvince>#d.state_prov#</dwc:StateProvince>
-	<dwc:IslandGroup>#d.ISLAND_GROUP#</dwc:IslandGroup>
-	<dwc:Island>#d.ISLAND#</dwc:Island>
-	<dwc:County>#d.COUNTY#</dwc:County>
-	<dwc:Locality>#d.spec_locality#</dwc:Locality>
-	<dwc:DecimalLongitude>#d.dec_lat#</dwc:DecimalLongitude>
-	<dwc:DecimalLatitude>#d.dec_long#</dwc:DecimalLatitude>
-	<dwc:HorizontalDatum>#d.DATUM#</dwc:HorizontalDatum>
-	<dwc:OriginalCoordinateSystem>#d.ORIG_LAT_LONG_UNITS#</dwc:OriginalCoordinateSystem>
-	<dwc:VerbatimLatitude>#d.VERBATIMLATITUDE#</dwc:VerbatimLatitude>
-	<dwc:VerbatimLongitude>#d.VERBATIMLONGITUDE#</dwc:VerbatimLongitude>
-	<dwc:GeorefMethod>#d.GEOREFMETHOD#</dwc:GeorefMethod>
-	<dwc:CoordinateUncertaintyInMeters>#d.COORDINATEUNCERTAINTYINMETERS#</dwc:CoordinateUncertaintyInMeters>
-	<dwc:LatLongComments>#d.LAT_LONG_REMARKS#</dwc:LatLongComments>
-	<dwc:MinimumElevationInMeters>#d.MIN_ELEV_IN_M#</dwc:MinimumElevationInMeters>
-	<dwc:MaximumElevationInMeters>#d.MAX_ELEV_IN_M#</dwc:MaximumElevationInMeters>
-	<dwc:VerbatimElevation>#d.VERBATIMELEVATION#</dwc:VerbatimElevation>
-	<dwc:MinimumDepthInMeters>#d.MIN_DEPTH_IN_M#</dwc:MinimumDepthInMeters>
-	<dwc:MaximumDepthInMeters>#d.MAX_DEPTH_IN_M#</dwc:MaximumDepthInMeters>
-	<dwc:TypeStatus>#d.TYPESTATUS#</dwc:TypeStatus>
-	<dwc:Sex>#d.SEX#</dwc:Sex>
-	<dwc:Preparations>#d.PARTS#</dwc:Preparations>
-	<dwc:IndividualCount>#d.INDIVIDUALCOUNT#</dwc:IndividualCount>
-	<dwc:AgeClass>#d.AGE_CLASS#</dwc:AgeClass>
-	<dwc:OtherCatalogNumbers>#d.OTHERCATALOGNUMBERS#</dwc:OtherCatalogNumbers>
-	<dwc:GenBankNum>#d.GENBANKNUM#</dwc:GenBankNum>
-	<dwc:RelatedCatalogedItems>#d.RELATEDCATALOGEDITEMS#</dwc:RelatedCatalogedItems>
-	<dwc:Collector>#d.collectors#</dwc:Collector>
-	<dwc:EarliestDateCollected>#d.began_date#</dwc:EarliestDateCollected>
-	<dwc:LatestDateCollected>#d.ended_date#</dwc:LatestDateCollected>
-	<dwc:VerbatimCollectingDate>#d.VERBATIM_DATE#</dwc:VerbatimCollectingDate>
-	<dwc:Remarks>#d.REMARKS#</dwc:Remarks>
+		<dc:title>#d.guid# - #d.collection# #d.cat_num# #d.scientific_name#</dc:title>
+		<dc:description>#d.collection# #d.cat_num# #d.scientific_name#</dc:description>
+		<dc:created>#thisDate#</dc:created>
+		<geo:Point>
+			<geo:lat>#d.dec_lat#</geo:lat>
+			<geo:long>#d.dec_long#</geo:long>
+		</geo:Point>
+	  	<!-- Assertions based on experimental version of Darwin Core -->
+		<dwc:SampleID>#application.serverRootUrl#/guid/#d.guid#</dwc:SampleID>
+		<dc:modified>#d.last_edit_date#</dc:modified>
+		<dwc:BasisOfRecord>#d.BasisOfRecord#</dwc:BasisOfRecord>
+		<dwc:InstitutionCode>#d.institution_acronym#</dwc:InstitutionCode>
+		<dwc:CollectionCode>#d.collection_cde#</dwc:CollectionCode>
+		<dwc:CatalogNumber>#d.cat_num#</dwc:CatalogNumber>
+		<dwc:ScientificName>#d.scientific_name#</dwc:ScientificName>
+		<dwc:HigherTaxon>#d.FULL_TAXON_NAME#</dwc:HigherTaxon>
+		<dwc:Kingdom>#d.KINGDOM#</dwc:Kingdom>
+		<dwc:Phylum>#d.PHYLUM#</dwc:Phylum>
+		<dwc:Class>#d.PHYLCLASS#</dwc:Class>
+		<dwc:Order>#d.PHYLORDER#</dwc:Order>
+		<dwc:Family>#d.FAMILY#</dwc:Family>
+		<dwc:Genus>#d.GENUS#</dwc:Genus>
+		<dwc:Species>#d.SPECIES#</dwc:Species>
+		<dwc:Subspecies>#d.SUBSPECIES#</dwc:Subspecies>
+		<dwc:IdentifiedBy>#d.IDENTIFIEDBY#</dwc:IdentifiedBy>
+		<dwc:HigherGeography>#d.higher_geog#</dwc:HigherGeography>
+		<dwc:ContinentOcean>#d.CONTINENT_OCEAN#</dwc:ContinentOcean>
+		<dwc:Country>#d.country#</dwc:Country>
+		<dwc:StateProvince>#d.state_prov#</dwc:StateProvince>
+		<dwc:IslandGroup>#d.ISLAND_GROUP#</dwc:IslandGroup>
+		<dwc:Island>#d.ISLAND#</dwc:Island>
+		<dwc:County>#d.COUNTY#</dwc:County>
+		<dwc:Locality>#d.spec_locality#</dwc:Locality>
+		<dwc:DecimalLongitude>#d.dec_lat#</dwc:DecimalLongitude>
+		<dwc:DecimalLatitude>#d.dec_long#</dwc:DecimalLatitude>
+		<dwc:HorizontalDatum>#d.DATUM#</dwc:HorizontalDatum>
+		<dwc:OriginalCoordinateSystem>#d.ORIG_LAT_LONG_UNITS#</dwc:OriginalCoordinateSystem>
+		<dwc:VerbatimLatitude>#d.VERBATIMLATITUDE#</dwc:VerbatimLatitude>
+		<dwc:VerbatimLongitude>#d.VERBATIMLONGITUDE#</dwc:VerbatimLongitude>
+		<dwc:GeorefMethod>#d.GEOREFMETHOD#</dwc:GeorefMethod>
+		<dwc:CoordinateUncertaintyInMeters>#d.COORDINATEUNCERTAINTYINMETERS#</dwc:CoordinateUncertaintyInMeters>
+		<dwc:LatLongComments>#d.LAT_LONG_REMARKS#</dwc:LatLongComments>
+		<dwc:MinimumElevationInMeters>#d.MIN_ELEV_IN_M#</dwc:MinimumElevationInMeters>
+		<dwc:MaximumElevationInMeters>#d.MAX_ELEV_IN_M#</dwc:MaximumElevationInMeters>
+		<dwc:VerbatimElevation>#d.VERBATIMELEVATION#</dwc:VerbatimElevation>
+		<dwc:MinimumDepthInMeters>#d.MIN_DEPTH_IN_M#</dwc:MinimumDepthInMeters>
+		<dwc:MaximumDepthInMeters>#d.MAX_DEPTH_IN_M#</dwc:MaximumDepthInMeters>
+		<dwc:TypeStatus>#d.TYPESTATUS#</dwc:TypeStatus>
+		<dwc:Sex>#d.SEX#</dwc:Sex>
+		<dwc:Preparations>#d.PARTS#</dwc:Preparations>
+		<dwc:IndividualCount>#d.INDIVIDUALCOUNT#</dwc:IndividualCount>
+		<dwc:AgeClass>#d.AGE_CLASS#</dwc:AgeClass>
+		<dwc:OtherCatalogNumbers>#d.OTHERCATALOGNUMBERS#</dwc:OtherCatalogNumbers>
+		<dwc:GenBankNum>#d.GENBANKNUM#</dwc:GenBankNum>
+		<dwc:RelatedCatalogedItems>#d.RELATEDCATALOGEDITEMS#</dwc:RelatedCatalogedItems>
+		<dwc:Collector>#d.collectors#</dwc:Collector>
+		<dwc:EarliestDateCollected>#d.began_date#</dwc:EarliestDateCollected>
+		<dwc:LatestDateCollected>#d.ended_date#</dwc:LatestDateCollected>
+		<dwc:VerbatimCollectingDate>#d.VERBATIM_DATE#</dwc:VerbatimCollectingDate>
+		<dwc:Remarks>#d.REMARKS#</dwc:Remarks>
     </rdf:Description>
 </rdf:RDF>
 </cfoutput>
