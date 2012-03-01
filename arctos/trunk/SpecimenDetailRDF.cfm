@@ -79,6 +79,16 @@
 	<div class="error">fail</div>
 	<cfabort>
 </cfif>
+<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select
+		media_id 
+	from 
+		media_relations 
+	where 
+		media_relationship like '% cataloged_item' and
+		RELATED_PRIMARY_KEY=#flat.collection_object_id
+</cfquery>
+
 <cfcontent type="application/rdf+xml; charset=ISO-8859-1">
 <cfoutput>
 <cfif (d.verbatim_date is d.began_date) AND (d.verbatim_date is d.ended_date)>
@@ -108,8 +118,7 @@
 		
 		This document in no way represents all information available from Arctos.
 	-->
-    <rdf:Description
-        rdf:about="#application.serverRootUrl#/guid/#guid#">
+    <rdf:Description rdf:about="#application.serverRootUrl#/guid/#guid#">
         <dc:creator>#d.EnteredBy#</dc:creator>
         <dc:created>#d.COLL_OBJECT_ENTERED_DATE#</dc:created>
         <dc:hasVersion rdf:resource="#application.serverRootUrl#/guid/#guid#" />
@@ -176,6 +185,11 @@
 		<dwc:LatestDateCollected>#d.ended_date#</dwc:LatestDateCollected>
 		<dwc:VerbatimCollectingDate>#d.VERBATIM_DATE#</dwc:VerbatimCollectingDate>
 		<dwc:Remarks>#d.REMARKS#</dwc:Remarks>
+		<cfif media.recordcount gt 0>
+			<dwc:ImageURL>#application.serverRootUrl#/MediaSearch.cfm?action=search&media_id=#valuelist(media.media_id)#</dwc:ImageURL>
+		</cfif>
+		
+		
     </rdf:Description>
 </rdf:RDF>
 </cfoutput>
