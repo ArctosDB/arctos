@@ -45,55 +45,39 @@
 		</cftry>
 		</cfoutput>	
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
-		<cfoutput>
-		<cfset ctype="html">
+		<cfset contentType="text/html">
 		<cfif isdefined("cgi.HTTP_ACCEPT") and len(cgi.HTTP_ACCEPT) gt 0>
 			<cfset q=queryNew("o,mt,q")>
 			<cfset r=1>
 			<cfloop list="#cgi.HTTP_ACCEPT#" index="i">
-				
-					<cfset temp=queryaddrow(q,1)>
-					<cfif listlen(i,";") is 2>
-						<cfset qVal=listgetat(i,2,";")>
-					<cfelse>
-						<cfset qVal=1>
-					</cfif>
-					<cfset ft=listgetat(i,1,";")>
-					<cfset temp = QuerySetCell(q, "o", r, r)>
-					<cfset temp = QuerySetCell(q, "mt", ft, r)>
-					<cfset temp = QuerySetCell(q, "q", qVal, r)>
-					<cfset r=r+1>
-				------------------#i#
+				<cfset temp=queryaddrow(q,1)>
+				<cfif listlen(i,";") is 2>
+					<cfset qVal=listgetat(i,2,";")>
+				<cfelse>
+					<cfset qVal=1>
+				</cfif>
+				<cfset ft=listgetat(i,1,";")>
+				<cfset temp = QuerySetCell(q, "o", r, r)>
+				<cfset temp = QuerySetCell(q, "mt", ft, r)>
+				<cfset temp = QuerySetCell(q, "q", qVal, r)>
+				<cfset r=r+1>
 			</cfloop>
 			<cfquery name="ctype" dbtype="query">
 				select * from q order by q desc, o desc
 			</cfquery>
-			<cfset contentType="">
 			<cfloop query="ctype">
 				<cfif mt is "application/rdf+xml" or mt is "text/html">
-					<!--- serve rdf if they really insist on it --->
 					<cfset contentType=mt>
 				</cfif>
-				<br>---#mt#
 			</cfloop>
-			
-				<br>winnar: #contentType#
-				
-				
-			<cfdump var=#q#>
-		
 		</cfif>
-		<cfdump var=#cgi#>
-		
-				</cfoutput>
-		<cfabort>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"guid","/")>
 			<cfset guid = listgetat(rdurl,gPos+1,"/")>
-			<cfif ctype is "html">
-				<cfinclude template="/SpecimenDetail.cfm">
-			<cfelse>
+			<cfif contentType is "application/rdf+xml">
 				<cfinclude template="/SpecimenDetailRDF.cfm">
+			<cfelse>
+				<cfinclude template="/SpecimenDetail.cfm">
 			</cfif>
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
