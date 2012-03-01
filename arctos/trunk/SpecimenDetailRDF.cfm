@@ -132,7 +132,7 @@
 		depth_units,
 		collecting_method,
 		collecting_source,
-			concatcoll(cataloged_item.collection_object_id) collectors,
+			concatcoll(cataloged_item.collection_object_id) collectors
 	FROM 
 		cataloged_item,
 		collection,
