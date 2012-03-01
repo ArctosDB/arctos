@@ -51,7 +51,7 @@
 			<cfset r=1>
 			<cfloop list="#cgi.HTTP_ACCEPT#" index="i">
 				<cfoutput>
-					<cfset temp=queryaddrow(o,q,1)>
+					<cfset temp=queryaddrow(q,1)>
 					<cfif listlen(i,";") is 2>
 						<cfset qVal=listgetat(i,2,";")>
 					<cfelse>
