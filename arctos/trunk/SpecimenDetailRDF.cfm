@@ -193,7 +193,7 @@
 	
 	 <dc:title>#one.collection# #one.cat_num# #one.display_name#</dc:title>
 	
-	<dc:description>#one.collection# #one.cat_num# #one.display_name</dc:description>
+	<dc:description>#one.collection# #one.cat_num# #one.display_name#</dc:description>
 
 	<cfif (one.verbatim_date is one.began_date) AND (one.verbatim_date is one.ended_date)>
 		<cfset thisDate = #one.verbatim_date#>
