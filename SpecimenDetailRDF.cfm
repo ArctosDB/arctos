@@ -1,6 +1,5 @@
 <cfcontent type="application/rdf+xml; charset=ISO-8859-1">
-<cfif not isdefined("guid")>
-</cfif>
+<cfinclude template="/includes/functionLib.cfm">
 <cfif isdefined("guid")>
 	<cfset checkSql(guid)>
 	<cfset sql="select collection_object_id from 
