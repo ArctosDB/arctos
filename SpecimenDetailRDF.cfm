@@ -90,7 +90,7 @@
 		RELATED_PRIMARY_KEY=<cfqueryparam value="#d.collection_object_id#" CFSQLType="CF_SQL_INTEGER">
 </cfquery>
 
-<cfcontent type="application/rdf+xml; charset=ISO-8859-1">
+
 <cfoutput>
 <cfif (d.verbatim_date is d.began_date) AND (d.verbatim_date is d.ended_date)>
 	<cfset thisDate = #d.verbatim_date#>
@@ -102,6 +102,8 @@
 <cfelse>
 	<cfset thisDate = "#d.verbatim_date# (#d.began_date# - #d.ended_date#)">
 </cfif>
+<cfcontent type="application/rdf+xml; charset=ISO-8859-1">
+<cfsavecontent variable="myRDF">
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns##"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tap="http://rs.tdwg.org/tapir/1.0"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hyam="http://hyam.net/tapir2sw##"
@@ -189,8 +191,9 @@
 		<cfif media.recordcount gt 0>
 			<dwc:ImageURL>#application.serverRootUrl#/MediaSearch.cfm?action=search&media_id=#valuelist(media.media_id)#</dwc:ImageURL>
 		</cfif>
-		
-		
     </rdf:Description>
 </rdf:RDF>
+</cfsavecontent>
+<cfset myRDF=replace(myRDF,'&','&amp;','all')>
+#myRDF#
 </cfoutput>
