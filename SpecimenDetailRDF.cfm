@@ -123,7 +123,7 @@
 			<geo:long>#d.dec_long#</geo:long>
 		</geo:Point>
 	  	<!-- Assertions based on experimental version of Darwin Core -->
-		<dc:modified>#dateformat(d.last_edit_date,"yyyy-mm-dd)#</dc:modified>
+		<dc:modified>#dateformat(d.last_edit_date,"yyyy-mm-dd")#</dc:modified>
 		<dwc:SampleID>#application.serverRootUrl#/guid/#d.guid#</dwc:SampleID>
 		<dwc:BasisOfRecord>#d.BasisOfRecord#</dwc:BasisOfRecord>
 		<dwc:InstitutionCode>#d.institution_acronym#</dwc:InstitutionCode>
