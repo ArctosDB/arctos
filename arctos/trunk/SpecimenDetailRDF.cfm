@@ -237,7 +237,7 @@
             <dwc:Locality>#one.spec_locality#</dwc:Locality>
             
             <dwc:DecimalLongitude>#one.dec_lat#</dwc:DecimalLongitude>
-        <dwc:DecimalLatitude>#one.dec_long</dwc:DecimalLatitude>
+        <dwc:DecimalLatitude>#one.dec_long#</dwc:DecimalLatitude>
            
         
             <dwc:MinimumElevationInMeters></dwc:MinimumElevationInMeters>
