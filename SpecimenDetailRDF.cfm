@@ -170,10 +170,10 @@
 <cfoutput>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns##"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tap="http://rs.tdwg.org/tapir/1.0"
-        xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hyam="http://hyam.net/tapir2sw#"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hyam="http://hyam.net/tapir2sw##"
         xmlns:dwc="http://rs.tdwg.org/dwc/terms/" xmlns:dwcc="http://rs.tdwg.org/dwc/curatorial/"
         xmlns:dc="http://purl.org/dc/terms/"
-        xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+        xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos##">
 
     <!--This is metadata about this metadata document-->
     <rdf:Description
