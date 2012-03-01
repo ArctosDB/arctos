@@ -47,7 +47,7 @@
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
 		<cfset ctype="html">
 		<cfif isdefined("cgi.HTTP_ACCEPT") and len(cgi.HTTP_ACCEPT) gt 0>
-			<cfset q=queryNew("mt,q")>
+			<cfset q=queryNew("o,mt,q")>
 			<cfset r=1>
 			<cfloop list="#cgi.HTTP_ACCEPT#" index="i">
 				<cfoutput>
