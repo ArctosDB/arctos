@@ -2,6 +2,8 @@
 </cfhttp>
 
 
+<cfdump var=#cfhttp#>
+
 
 <cfhttp url="http://login.corral.tacc.utexas.edu/SpecimenDetailRDF.cfm" method="get">
 </cfhttp>
