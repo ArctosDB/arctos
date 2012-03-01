@@ -196,9 +196,9 @@
 	
 	
 	
-	 <dc:title>#one.collection# #one.cat_num# #one.display_name#</dc:title>
+	 <dc:title>#one.collection# #one.cat_num# #one.scientific_name#</dc:title>
 	
-	<dc:description>#one.collection# #one.cat_num# #one.display_name#</dc:description>
+	<dc:description>#one.collection# #one.cat_num# #one.scientific_name#</dc:description>
 
 	<cfif (one.verbatim_date is one.began_date) AND (one.verbatim_date is one.ended_date)>
 		<cfset thisDate = #one.verbatim_date#>
@@ -230,7 +230,7 @@
         <dwc:InstitutionCode>#one.institution_acronym#</dwc:InstitutionCode>
         <dwc:CollectionCode>#one.collection_cde#</dwc:CollectionCode>
         <dwc:CatalogNumber>#one.cat_num#</dwc:CatalogNumber>
-        <dwc:ScientificName>#one.display_name#</dwc:ScientificName>
+        <dwc:ScientificName>#one.scientific_name#</dwc:ScientificName>
       
         <dwc:HigherGeography>#one.higher_geog#</dwc:HigherGeography>
 
