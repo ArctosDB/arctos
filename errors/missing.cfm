@@ -66,12 +66,20 @@
 				------------------#i#
 			</cfloop>
 			<cfquery name="ctype" dbtype="query">
-				select * from q order by q,o
+				select * from q order by q desc, o desc
 			</cfquery>
+			<cfset contentType="">
 			<cfloop query="ctype">
+				<cfif mt is "application/rdf+xml" or mt is "text/html">
+					<!--- serve rdf if they really insist on it --->
+					<cfset contentType=mt>
+				</cfif>
 				<br>---#mt#
 			</cfloop>
 			
+				<br>winnar: #contentType#
+				
+				
 			<cfdump var=#q#>
 		
 		</cfif>
