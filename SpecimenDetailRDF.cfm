@@ -101,14 +101,23 @@
     </rdf:Description>
       <!--This is metadata about this specimen-->
     <rdf:Description rdf:about="#application.serverRootUrl#/guid/#guid#">
-	<dc:title>#d.guid#: #d.collection# #d.cat_num# #d.scientific_name#</dc:title>
+	<dc:title>#d.guid# - #d.collection# #d.cat_num# #d.scientific_name#</dc:title>
 	<dc:description>#d.collection# #d.cat_num# #d.scientific_name#</dc:description>
 	<dc:created>#thisDate#</dc:created>
 	<geo:Point>
 		<geo:lat>#d.dec_lat#</geo:lat>
 		<geo:long>#d.dec_long#</geo:long>
 	</geo:Point>
-  	<!-- Assertions based on experimental version of Darwin Core -->
+  	<!-- 
+		Assertions based on experimental version of Darwin Core
+		That pretty much means we just made this all up. It's a
+		nifty way to test out content negotiation, but we have no idea
+		if the RDF is actually useful to anyone.
+		If you have actual use for rdf, and would like us to do something diffierent,
+		just drop up an email (you probably know who we are, right?) or fill
+		out the contact form at http://arctos.database.museum/contact.cfm
+		We'd love to hear your feedback.
+	-->
 	<dwc:SampleID>#application.serverRootUrl#/guid/#d.guid#</dwc:SampleID>
 	<dc:modified>#d.last_edit_date#</dc:modified>
 	<dwc:BasisOfRecord>#d.BasisOfRecord#</dwc:BasisOfRecord>
@@ -142,7 +151,8 @@
 	<dwc:VerbatimLongitude>#d.VERBATIMLONGITUDE#</dwc:VerbatimLongitude>
 	<dwc:GeorefMethod>#d.GEOREFMETHOD#</dwc:GeorefMethod>
 	<dwc:CoordinateUncertaintyInMeters>#d.COORDINATEUNCERTAINTYINMETERS#</dwc:CoordinateUncertaintyInMeters>
-	<dwc:LatLongComments>#d.LAT_LONG_REMARKS#</dwc:LatLongComments><dwc:MinimumElevationInMeters>#d.MIN_ELEV_IN_M#</dwc:MinimumElevationInMeters>
+	<dwc:LatLongComments>#d.LAT_LONG_REMARKS#</dwc:LatLongComments>
+	<dwc:MinimumElevationInMeters>#d.MIN_ELEV_IN_M#</dwc:MinimumElevationInMeters>
 	<dwc:MaximumElevationInMeters>#d.MAX_ELEV_IN_M#</dwc:MaximumElevationInMeters>
 	<dwc:VerbatimElevation>#d.VERBATIMELEVATION#</dwc:VerbatimElevation>
 	<dwc:MinimumDepthInMeters>#d.MIN_DEPTH_IN_M#</dwc:MinimumDepthInMeters>
