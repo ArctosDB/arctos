@@ -113,6 +113,7 @@
 		geog_auth_rec.island,
 		geog_auth_rec.island_group,
 		geog_auth_rec.sea,
+		geog_auth_rec.HIGHER_GEOG,
 		geog_auth_rec.feature,
 		coll_object.coll_object_entered_date,
 		coll_object.last_edit_date,
