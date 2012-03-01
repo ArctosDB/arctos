@@ -45,12 +45,13 @@
 		</cftry>
 		</cfoutput>	
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
+		<cfoutput>
 		<cfset ctype="html">
 		<cfif isdefined("cgi.HTTP_ACCEPT") and len(cgi.HTTP_ACCEPT) gt 0>
 			<cfset q=queryNew("o,mt,q")>
 			<cfset r=1>
 			<cfloop list="#cgi.HTTP_ACCEPT#" index="i">
-				<cfoutput>
+				
 					<cfset temp=queryaddrow(q,1)>
 					<cfif listlen(i,";") is 2>
 						<cfset qVal=listgetat(i,2,";")>
@@ -63,7 +64,6 @@
 					<cfset temp = QuerySetCell(q, "q", qVal, r)>
 					<cfset r=r+1>
 				------------------#i#
-				</cfoutput>
 			</cfloop>
 			<cfquery name="ctype" dbtype="query">
 				select * from q order by q,o
@@ -71,6 +71,8 @@
 			<cfloop query="ctype">
 				<br>---#mt#
 			</cfloop>
+			
+				</cfoutput>
 			<cfdump var=#q#>
 		</cfif>
 		<cfdump var=#cgi#>
