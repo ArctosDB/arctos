@@ -60,7 +60,6 @@ END;
 		</cfquery>
 		<cfdump var=#bads#>
 		<cfloop query="bads">
-			<cftry>
 			<cftransaction>
 					<cfquery name="collector" datasource="uam_god">
 						UPDATE collector SET agent_id = #bads.related_agent_id#
@@ -239,6 +238,13 @@ END;
 					</cfquery>
 				
 				</cftransaction>
+				
+				
+				
+				
+			<!-----
+			<cftry>
+			
 				<cfcatch>
 					<cfset s='merged_failed: #cfcatch.message#: #cfcatch.detail#'>
 					<cfquery name="disableTrig" datasource="uam_god">
@@ -256,6 +262,7 @@ END;
 					<cfdump var=#cfcatch#>
 				</cfcatch>
 				</cftry>
+				---->
 		</cfloop>
 		
 		
