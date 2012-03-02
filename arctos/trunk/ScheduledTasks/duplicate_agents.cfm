@@ -60,8 +60,8 @@ END;
 		</cfquery>
 		<cfdump var=#bads#>
 		<cfloop query="bads">
+			<cftry>
 			<cftransaction>
-				<cftry>
 					<cfquery name="collector" datasource="uam_god">
 						UPDATE collector SET agent_id = #bads.related_agent_id#
 						WHERE agent_id = #bads.agent_id#
@@ -237,12 +237,10 @@ END;
 						where
 							cf_dup_agent_id=#cf_dup_agent_id#
 					</cfquery>
-					<cftransaction action="commit">
 				
+				</cftransaction>
 				<cfcatch>
-					<cftransaction action="rollback">
 					<cfset s='merged_failed: #cfcatch.message#: #cfcatch.detail#'>
-					
 					<cfquery name="disableTrig" datasource="uam_god">
 						alter trigger TR_AGENT_NAME_BIUD enable
 					</cfquery>
@@ -258,7 +256,6 @@ END;
 					<cfdump var=#cfcatch#>
 				</cfcatch>
 				</cftry>
-			</cftransaction>
 		</cfloop>
 		
 		
