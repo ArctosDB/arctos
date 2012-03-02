@@ -40,6 +40,7 @@ END;
 <!------------------------------------------------------------------------>
 <cfif action is "merge">
 	<cfoutput>
+		<!----
 		<cfquery name="bads" datasource="uam_god">
 			select 
 				cf_dup_agent.cf_dup_agent_id,
@@ -57,6 +58,23 @@ END;
 				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
 				status='pass_email_sent' and
 				round(sysdate-last_date) >= 7
+		</cfquery>
+		---->
+		<cfquery name="bads" datasource="uam_god">
+			select 
+				cf_dup_agent.cf_dup_agent_id,
+				agent_relations.AGENT_ID,
+				agent_relations.RELATED_AGENT_ID,
+				cf_dup_agent.agent_pref_name,
+				cf_dup_agent.rel_agent_pref_name,
+				detected_date
+			from
+				agent_relations,
+				cf_dup_agent
+			where
+				AGENT_RELATIONSHIP='bad duplicate of' and 
+				agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID and
+				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID
 		</cfquery>
 		<cfdump var=#bads#>
 		<cfloop query="bads">
@@ -200,10 +218,13 @@ END;
 						agent_id = #bads.agent_id#
 					</cfquery>
 					got publication_agent<br><cfflush>
+					<!----
 					<cfquery name="related" datasource="uam_god">
 						DELETE FROM agent_relations WHERE agent_id = #bads.agent_id# OR related_agent_id = #bads.agent_id#
 					</cfquery>
-					del agntreln<br><cfflush>
+					---->
+					
+					SKIPPED del agntreln<br><cfflush>
 					<cfquery name="disableTrig" datasource="uam_god">
 						alter trigger TR_AGENT_NAME_BIUD disable
 					</cfquery>
