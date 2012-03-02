@@ -254,7 +254,7 @@ END;
 						update 
 							cf_dup_agent
 						set 
-							status='#escapeQuotes(left,s,250))#',
+							status='#escapeQuotes(left,s,250)#',
 							last_date=sysdate
 						where
 							cf_dup_agent_id=#cf_dup_agent_id#
