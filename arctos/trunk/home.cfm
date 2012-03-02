@@ -476,6 +476,9 @@ border-bottom:1px solid black;
 	<li>Arctos is a 
 		<a href="http://www.digir.net" target="_blank">DiGIR</a> 
 		provider.</li>
+	<LI>Arctos supports <a href="http://en.wikipedia.org/wiki/Content_negotiation" target="_blank" class="external">content negotiation</a>
+	 and will provide specimen data in the form of 
+	 <a href="http://en.wikipedia.org/wiki/Resource_Description_Framework" target="_blank" class="external">RDF</a> upon client request.</LI>
 </ul>
 </p>
 
