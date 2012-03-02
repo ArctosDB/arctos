@@ -219,12 +219,12 @@ END;
 					</cfquery>
 					got publication_agent<br><cfflush>
 					<!----
+					
+					---->
 					<cfquery name="related" datasource="uam_god">
 						DELETE FROM agent_relations WHERE agent_id = #bads.agent_id# OR related_agent_id = #bads.agent_id#
 					</cfquery>
-					---->
-					
-					SKIPPED del agntreln<br><cfflush>
+					NO SKIPPED del agntreln<br><cfflush>
 					<cfquery name="disableTrig" datasource="uam_god">
 						alter trigger TR_AGENT_NAME_BIUD disable
 					</cfquery>
