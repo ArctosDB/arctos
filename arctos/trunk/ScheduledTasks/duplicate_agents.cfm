@@ -201,10 +201,6 @@ END;
 						agent_id = #bads.agent_id#
 					</cfquery>
 					got publication_agent<br><cfflush>
-					
-					<!---
-					<cftransaction action="commit">
-					---->
 					<cfquery name="related" datasource="uam_god">
 						DELETE FROM agent_relations WHERE agent_id = #bads.agent_id# OR related_agent_id = #bads.agent_id#
 					</cfquery>
@@ -254,7 +250,7 @@ END;
 						update 
 							cf_dup_agent
 						set 
-							status='#escapeQuotes(left,s,250)#',
+							status='#escapeQuotes(left(s,250))#',
 							last_date=sysdate
 						where
 							cf_dup_agent_id=#cf_dup_agent_id#
