@@ -15,7 +15,6 @@
 		font-size:large;
 		font-weight:bold;
 	}
-	ul {list-style:none;}
 	#menu {
 		position:fixed;
 		top:20%;
