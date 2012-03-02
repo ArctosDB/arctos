@@ -252,7 +252,7 @@ END;
 					update 
 						cf_dup_agent
 					set 
-						status='merged_failed'
+						status='merged_failed: #cfcatch.message#: #cfcatch.detail#'
 					where
 						cf_dup_agent_id=#cf_dup_agent_id#
 				</cfquery>
@@ -569,6 +569,7 @@ END;
 			<br>Duplicate Agent: <a href="/agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
 			<br>Marked As Dup On: #dateformat(detected_date,"yyyy-mm-dd")#
 			<br>Last Action: #dateformat(last_date,"yyyy-mm-dd")#
+			<br>Status: #status#
 			<cfquery name="sentEmail" datasource="uam_god">
 				update 
 					cf_dup_agent
