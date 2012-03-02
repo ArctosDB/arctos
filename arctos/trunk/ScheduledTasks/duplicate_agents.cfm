@@ -79,6 +79,7 @@ END;
 		<cfdump var=#bads#>
 		<cfloop query="bads">
 			<cftransaction>
+				<cftry>
 					<cfquery name="collector" datasource="uam_god">
 						UPDATE collector SET agent_id = #bads.related_agent_id#
 						WHERE agent_id = #bads.agent_id#
@@ -257,7 +258,14 @@ END;
 						where
 							cf_dup_agent_id=#cf_dup_agent_id#
 					</cfquery>
-				
+					.........commit...
+						<cftransaction action="commit">
+					<cfcatch>
+					.........rollback...
+						<cftransaction action="rollback">
+							<cfdump var=#cfcatch#>
+					</cfcatch>
+					</cftry>
 				</cftransaction>
 				
 				
