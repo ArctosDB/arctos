@@ -236,7 +236,8 @@ END;
 					update 
 						cf_dup_agent
 					set 
-						status='merged'
+						status='merged',
+						last_date=sysdate
 					where
 						cf_dup_agent_id=#cf_dup_agent_id#
 				</cfquery>
@@ -244,6 +245,7 @@ END;
 			
 			</cftransaction>
 			<cfcatch>
+				<cfset s='merged_failed: #cfcatch.message#: #cfcatch.detail#'>
 				
 				<cfquery name="disableTrig" datasource="uam_god">
 					alter trigger TR_AGENT_NAME_BIUD enable
@@ -252,7 +254,8 @@ END;
 					update 
 						cf_dup_agent
 					set 
-						status='merged_failed: #cfcatch.message#: #cfcatch.detail#'
+						status='#escapeQuotes(left,s,250))#',
+						last_date=sysdate
 					where
 						cf_dup_agent_id=#cf_dup_agent_id#
 				</cfquery>
@@ -331,7 +334,8 @@ END;
 				cf_dup_agent.rel_agent_pref_name,
 				detected_date,
 				last_date,
-				round(sysdate-last_date) days_since_last
+				round(sysdate-last_date) days_since_last,
+				status
 			from
 				agent_relations,
 				cf_dup_agent
@@ -520,24 +524,20 @@ END;
 					)
 			</cfquery>
 			<cfset prob="">		
-			<cfset status="">
 			<cfif agent_relations.cnt gt 0>
 				<cfset prob=listappend(prob,"The bad duplicate agents is involved in relationships.",";")>
-				<cfset status=listappend(status,"has_relationships",";")>
 			</cfif>
 			<cfquery name="addr" datasource="uam_god">
 				select count(*) cnt from addr where agent_id=#findDups.agent_id#
 			</cfquery>
 			<cfif addr.cnt gt 0>
 				<cfset prob=listappend(prob,"The bad duplicate agent has addresses.",";")>
-				<cfset status=listappend(status,"has_address",";")>
 			</cfif>
 			<cfquery name="electronic_address" datasource="uam_god">
 				select count(*) cnt from electronic_address where agent_id=#findDups.agent_id#
 			</cfquery>
 			<cfif electronic_address.cnt gt 0>
 				<cfset prob=listappend(prob,"The bad duplicate agent has electronic addresses.",";")>
-				<cfset status=listappend(status,"has_address",";")>
 			</cfif>
 
 

@@ -1,13 +1,6 @@
-fff
-<cftry>
-	t1
-	<cftry>
-	t2
-	
-	<cfcatch>c2</cfcatch>
-</cftry>
-
-	<cfcatch>c1</cfcatch>
-</cftry>
-
-out
+<cfquery name="sentEmail" datasource="uam_god">
+					update 
+						cf_dup_agent
+					set 
+						status='E',
+						last_date=sysdate
