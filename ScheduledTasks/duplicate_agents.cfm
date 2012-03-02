@@ -259,7 +259,7 @@ END;
 							cf_dup_agent_id=#cf_dup_agent_id#
 					</cfquery>
 					.........commit...
-						<cftransaction action="commit">
+					<cftransaction action="commit">
 					<cfcatch>
 					.........rollback...
 						<cftransaction action="rollback">
