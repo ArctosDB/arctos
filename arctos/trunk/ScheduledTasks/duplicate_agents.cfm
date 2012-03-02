@@ -513,6 +513,9 @@ END;
 							loan.transaction_id=loan_item.transaction_id and
 							RECONCILED_BY_PERSON_ID in (#theseAgents#)
 							)
+				group by
+					agent_name,
+					ADDRESS
 			</cfquery>
 				
 			<cfquery name="agent_relations" datasource="uam_god">
@@ -566,7 +569,7 @@ END;
 			
 			<br>
 			
-			<a href="/Admin/ActivityLog.cfm?action=search&sql=#findDups.AGENT_ID#&object=agent_relations">search audit logs for whodunit</a>
+			<a href="/Admin/ActivityLog.cfm?action=search&sql=#findDups.AGENT_ID#&object=agent_relations">search audit logs for whodunit</a> (possible 24h delay)
 			
 			<br>Good Agent: <a href="/agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
 			<br>Duplicate Agent: <a href="/agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
