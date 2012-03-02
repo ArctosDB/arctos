@@ -339,8 +339,11 @@ END;
 				AGENT_RELATIONSHIP='bad duplicate of' and 
 				agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID and
 				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
-				round(sysdate-last_date) >= 1 and
-				status not in ('pass_email_sent','merged')
+				(
+					(status='new') or
+					(round(sysdate-last_date) >= 1 and
+					status not in ('pass_email_sent','merged'))
+				)
 		</cfquery>
 		<cfloop query="findDups">
 			<cfset theseAgents="#findDups.AGENT_ID#,#findDups.RELATED_AGENT_ID#">
