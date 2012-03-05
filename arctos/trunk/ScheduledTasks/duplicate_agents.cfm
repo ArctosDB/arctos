@@ -42,22 +42,7 @@ END;
 	<cfoutput>
 		<!----
 		<cfquery name="bads" datasource="uam_god">
-			select 
-				cf_dup_agent.cf_dup_agent_id,
-				agent_relations.AGENT_ID,
-				agent_relations.RELATED_AGENT_ID,
-				cf_dup_agent.agent_pref_name,
-				cf_dup_agent.rel_agent_pref_name,
-				detected_date
-			from
-				agent_relations,
-				cf_dup_agent
-			where
-				AGENT_RELATIONSHIP='bad duplicate of' and 
-				agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID and
-				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
-				status='pass_email_sent' and
-				round(sysdate-last_date) >= 7
+			
 		</cfquery>
 		---->
 		<cfquery name="bads" datasource="uam_god">
@@ -74,7 +59,9 @@ END;
 			where
 				AGENT_RELATIONSHIP='bad duplicate of' and 
 				agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID and
-				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID
+				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
+				status='pass_email_sent' and
+				round(sysdate-last_date) >= 7
 		</cfquery>
 		<cfdump var=#bads#>
 		<cfloop query="bads">
