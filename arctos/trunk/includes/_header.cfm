@@ -203,15 +203,7 @@
 										</ul>
 									</li>			
 								</cfif>
-									<li><a target="_top" href="##">Agents</a>
-										<ul>
-											<cfif listfind(formList,"/agents.cfm")>
-												<li><a target="_top" href="/agents.cfm">Agents</a></li>
-											</cfif>
-											<cfif listfind(formList,"/Admin/killBadAgentDups.cfm")>
-												<li><a target="_top" href="/Admin/killBadAgentDups.cfm">Merge bad dup agents</a></li>
-											</cfif>
-										</ul>
+									<li><a target="_top" href="/agents.cfm">Agents</a>
 									</li>
 								<cfif listfind(formList,"/EditContainer.cfm") OR listfind(formList,"/tools/dgr_locator.cfm")>
 									<li><a target="_top" href="##">Object Tracking</a>

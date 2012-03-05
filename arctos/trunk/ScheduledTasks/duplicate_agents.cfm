@@ -63,7 +63,6 @@ END;
 				status='pass_email_sent' and
 				round(sysdate-last_date) >= 7
 		</cfquery>
-		<cfdump var=#bads#>
 		<cfloop query="bads">
 			<cfset fail="">
 			<cfquery name="addr" datasource="uam_god">
@@ -571,7 +570,6 @@ END;
 					agent_name,
 					ADDRESS
 			</cfquery>
-			<cfdump var=#colns#>
 			<cfquery name="agent_relations" datasource="uam_god">
 				select count(*) cnt from agent_relations where 
 					(agent_id=#findDups.agent_id# OR related_agent_id = #findDups.agent_id#)
