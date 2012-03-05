@@ -431,10 +431,12 @@
 				<br>update taxonomy set #upFld# =  '#upTo#' where taxon_name_id = #i#: success!
 				<cfset goodIdList=listappend(goodIdList,i)>
 			<cfcatch>
+				<div style="border:3px solid red;">
 				<br>update taxonomy set #upFld# =  '#upTo#' where taxon_name_id = #i#:FAIL!
 				<br>#cfcatch.message#: #cfcatch.detail#
 				<br><a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#i#" target="_blank">[ edit taxonomy ]</a> (new window)
 				<cfset badIdList=listappend(badIdList,i)>
+				</div>
 			</cfcatch>
 			</cftry>
 			<hr>
@@ -455,10 +457,6 @@
 			<input type="hidden" name="taxon_name_id" value="#badIdList#">
 		<br><input type="submit" value=" [ SQLTaxonomy all FAILED UPDATES ] ">
 		</form>
-		
-		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			update taxonomy set #upFld# =  '#upTo#' where taxon_name_id in ()
-		</cfquery>
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
