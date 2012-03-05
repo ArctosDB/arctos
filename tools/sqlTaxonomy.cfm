@@ -400,9 +400,10 @@
 			<cfset upList = "kingdom,phylum,phylclass,SUBCLASS,phylorder,SUBORDER,SUPERFAMILY,FAMILY,subfamily,TRIBE,GENUS,SUBGENUS,SPECIES,INFRASPECIFIC_RANK,SUBSPECIES,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,AUTHOR_TEXT,TAXON_REMARKS,nomenclatural_code,taxon_status">
 			<hr>
 			Use this form to update all records in the table above.
-			<br>Everything gets updated when you click - be sure.
 			<br>Update is exact match including nonprinting characters.
-			<br>Be paranoid.
+			<br>Update will TRY for each record. It is possible to update only SOME of the records in the table above,
+			and for the update to fail for others.
+			<br>Be paranoid. Srsly.
 			<form name="buildIt" method="post" action="sqlTaxonomy.cfm">
 				<input type="hidden" name="action" value="update">
 				<input type="hidden" name="taxonnameidlist" value="#valuelist(getData.taxon_name_id)#">
