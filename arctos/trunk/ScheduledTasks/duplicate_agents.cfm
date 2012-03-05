@@ -103,6 +103,7 @@ END;
 						cf_dup_agent_id=#cf_dup_agent_id#
 				</cfquery>
 			<cfelse>
+				doing it...
 				<cftransaction>
 					<cftry>
 						<cfquery name="collector" datasource="uam_god">
