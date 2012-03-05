@@ -610,7 +610,6 @@ END;
 			</cfif>
 
 
-
 			<br>to: #Application.DataProblemReportEmail#,#valuelist(colns.address)#
 			<br>Subject: Agents marked for merge
 			
