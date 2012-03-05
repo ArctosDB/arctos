@@ -571,7 +571,7 @@ END;
 					agent_name,
 					ADDRESS
 			</cfquery>
-				
+			<cfdump var=#colns#>
 			<cfquery name="agent_relations" datasource="uam_god">
 				select count(*) cnt from agent_relations where 
 					(agent_id=#findDups.agent_id# OR related_agent_id = #findDups.agent_id#)
