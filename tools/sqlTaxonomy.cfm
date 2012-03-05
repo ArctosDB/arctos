@@ -421,13 +421,43 @@
 </cfif>
 <cfif action is "update">
 	<cfoutput>
-		<form name="buildIt" method="post" action="sqlTaxonomy.cfm">
+		<cfset goodIdList="">
+		<cfset ="">
+		<cfloop list="#taxonnameidlist#" index="i">
+			<cftry>
+				<cfquery name="upTax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update taxonomy set #upFld# =  '#upTo#' where taxon_name_id = #i#
+				</cfquery>
+				<br>update taxonomy set #upFld# =  '#upTo#' where taxon_name_id = #i#: success!
+				<cfset goodIdList=listappend(goodIdList,i)>
+			<cfcatch>
+				<br>update taxonomy set #upFld# =  '#upTo#' where taxon_name_id = #i#:FAIL!
+				<br>#cfcatch.message#: #cfcatch.detail#
+				<br><a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#i#" target="_blank">[ edit taxonomy ]</a> (new window)
+				<cfset badIdList=listappend(badIdList,i)>
+			</cfcatch>
+			</cftry>
+			<hr>
+		</cfloop>
+		
+		<form name="all" method="post" action="sqlTaxonomy.cfm">
 			<input type="hidden" name="action" value="findem">
 			<input type="hidden" name="taxon_name_id" value="#taxonnameidlist#">
 		<br><input type="submit" value=" [ return to taxon table ] ">
 		</form>
+		<form name="good" method="post" action="sqlTaxonomy.cfm">
+			<input type="hidden" name="action" value="findem">
+			<input type="hidden" name="taxon_name_id" value="#goodIdList#">
+		<br><input type="submit" value=" [ SQLTaxonomy all SUCCESSFUL UPDATES ] ">
+		</form>
+		<form name="bad" method="post" action="sqlTaxonomy.cfm">
+			<input type="hidden" name="action" value="findem">
+			<input type="hidden" name="taxon_name_id" value="#badIdList#">
+		<br><input type="submit" value=" [ SQLTaxonomy all FAILED UPDATES ] ">
+		</form>
+		
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			update taxonomy set #upFld# =  '#upTo#' where taxon_name_id in (#taxonnameidlist#)
+			update taxonomy set #upFld# =  '#upTo#' where taxon_name_id in ()
 		</cfquery>
 	</cfoutput>
 </cfif>
