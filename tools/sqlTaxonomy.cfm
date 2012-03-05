@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Magic Taxonomy Thingee II">
+<a href="sqlTaxonomy.cfm">[new search]</a><br>
 <cfif action is "nothing">
 	<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script type="text/javascript" language="javascript">
@@ -64,7 +65,6 @@
 <cfquery name="CTTAXONOMIC_AUTHORITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
 </cfquery>
-
 <cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
 </cfquery>
