@@ -422,7 +422,7 @@
 <cfif action is "update">
 	<cfoutput>
 		<cfset goodIdList="">
-		<cfset ="">
+		<cfset badIdList="">
 		<cfloop list="#taxonnameidlist#" index="i">
 			<cftry>
 				<cfquery name="upTax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
