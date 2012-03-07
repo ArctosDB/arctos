@@ -346,8 +346,6 @@
 	</cfif>
 	<!--- keep people/bots from browsing a dev server 
 	
-	
-	--->
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "altai.corral.tacc.utexas.edu">
 		<div style="border:1px solid red;">This is test. You just logged in. It's a screwey URL. Buh-bye.</div>
 		<cfset cPath=GetTemplatePath()>
@@ -362,6 +360,8 @@
 			<cflocation url="/errors/dev_login.cfm">
 		</cfif>
 	</cfif>
+	--->
+	
 	
 	<!--- people still have this thing bookmarked --->
 	<cfif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
