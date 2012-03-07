@@ -168,7 +168,7 @@
 					,coll_object_remarks
 				) values (
 					bulkloader_pkey.nextval,
-					'ESimg',
+					NULL,
 					'#who#',
 					'#accn_number#',
 					'#taxon_name#',
