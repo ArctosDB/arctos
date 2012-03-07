@@ -88,6 +88,11 @@ END;
 					where
 						cf_dup_agent_id=#cf_dup_agent_id#
 				</cfquery>
+				<cfmail to="arctos.database@gmail.com" subject="agent merger failed" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
+					<br>---------------adjust email settings-----------------
+					<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed.
+					<br>fail reason: #fail#
+				</cfmail>
 			<cfelse>
 				doing it...
 				<cftransaction>
@@ -271,6 +276,10 @@ END;
 							where
 								cf_dup_agent_id=#cf_dup_agent_id#
 						</cfquery>
+						<cfmail to="arctos.database@gmail.com" subject="agent merger success" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
+							<br>---------------adjust email settings-----------------
+							<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
+						</cfmail>
 						.........commit...
 						<cftransaction action="commit">
 						<cfcatch>
@@ -286,6 +295,13 @@ END;
 									where
 										cf_dup_agent_id=#cf_dup_agent_id#
 								</cfquery>
+								<cfmail to="arctos.database@gmail.com" subject="agent merger failed" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
+									<br>---------------adjust email settings-----------------
+									<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
+									<br>cfcatch dump follows.
+									<br>
+									<cfdump var=#cfcatch#>
+								</cfmail>
 						</cfcatch>
 						</cftry>
 					</cftransaction>
@@ -594,39 +610,43 @@ END;
 			<cfif electronic_address.cnt gt 0>
 				<cfset prob=listappend(prob,"The bad duplicate agent has electronic addresses.",";")>
 			</cfif>
+			<cfmail to="arctos.database@gmail.com" subject="agents marked for merge" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
+				<br>---------------adjust email settings-----------------
+				<br>to: #Application.DataProblemReportEmail#,#valuelist(colns.address)#
+				<br>------------------------------------------------------
+				<br>Agents have been marked for merger.
+				<br>#findDups.agent_pref_name# is a bad duplicate of #findDups.rel_agent_pref_name#.
+				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.
+				<cfif len(prob) gt 0>
+					<p>
+						The following must be fixed before the merger can proceed:
+						<cfloop list="#prob#" delimiters=";" index="p">
+							<br>#p#
+						</cfloop>
+					</p>
+				<cfelse>
+					<br>To allow this merger, do nothing.
+				
+					<br>To stop this merger, remove the "bad duplicate of" relationship.
+				</cfif>
+				
+				<br>You are receiving this notification because one of more of the agents may have activities pertaining to
+				your collections. See Agent Activity for complete information.
+				<br>Log in to Arctos before clicking the links below.
+				
+				<br>
+				
+				<a href="/Admin/ActivityLog.cfm?action=search&sql=#findDups.AGENT_ID#&object=agent_relations">search audit logs for whodunit</a> (possible 24h delay)
+				
+				<br>Good Agent: <a href="/agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
+				<br>Duplicate Agent: <a href="/agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
+				<br>Marked As Dup On: #dateformat(detected_date,"yyyy-mm-dd")#
+				<br>Last Action: #dateformat(last_date,"yyyy-mm-dd")#
+				<br>Status: #status#
+			</cfmail>
 
-
-			<br>to: #Application.DataProblemReportEmail#,#valuelist(colns.address)#
-			<br>Subject: Agents marked for merge
+		
 			
-			<br>The following agents are scheduled for merger on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.
-			
-			<cfif len(prob) gt 0>
-				<p>
-					The following must be fixed before the merger can proceed:
-					<cfloop list="#prob#" delimiters=";" index="p">
-						<br>#p#
-					</cfloop>
-				</p>
-			<cfelse>
-				<br>To allow this merger, do nothing.
-			
-				<br>To stop this merger, remove the "bad duplicate of" relationship.
-			</cfif>
-			
-			<br>You are receiving this notification because one of more of the agents may have activities pertaining to
-			your collections. See Agent Activity for complete information.
-			<br>Log in to Arctos before clicking the links below.
-			
-			<br>
-			
-			<a href="/Admin/ActivityLog.cfm?action=search&sql=#findDups.AGENT_ID#&object=agent_relations">search audit logs for whodunit</a> (possible 24h delay)
-			
-			<br>Good Agent: <a href="/agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
-			<br>Duplicate Agent: <a href="/agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
-			<br>Marked As Dup On: #dateformat(detected_date,"yyyy-mm-dd")#
-			<br>Last Action: #dateformat(last_date,"yyyy-mm-dd")#
-			<br>Status: #status#
 			<cfquery name="sentEmail" datasource="uam_god">
 				update 
 					cf_dup_agent

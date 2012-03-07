@@ -5,6 +5,101 @@
 <cfloop index="i" from="1" to="#numberOtasks#">
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
+<!-----------------------------------   Agent merge/delete    ------------------------------------------>
+<cfschedule action = "update"
+    task = "duplicate_agents_findDups" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/duplicate_agents.cfm?action=findDups"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "04:51 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "duplicate_agents_merge" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/duplicate_agents.cfm?action=merge"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "05:01 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "duplicate_agents_notify" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/duplicate_agents.cfm?action=notify"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "05:21 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+		
+	
+<!-----------------------------------   UAM Earth Science Imaging    ------------------------------------------>
+<!--- insert to bulkloader ---->
+<cfschedule action = "update"
+    task = "es_spec_insBulk" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/es_spec.cfm?action=insBulk"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:21 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<!--- give the newly bulkloaded specimens an hour to run, then find them--->
+<cfschedule action = "update"
+    task = "es_spec_findSpec" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/es_spec.cfm?action=findSpec"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "01:31 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+	
+<!--- find everything at TACC ---->
+<cfschedule action = "update"
+    task = "es_tacc_getDir" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/es_tacc.cfm?action=getDir"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "02:31 AM"
+    interval = "daily"
+    requestTimeOut = "600">		
+<!--- TACC media to accn cards ---->
+<cfschedule action = "update"
+    task = "es_tacc_accn_card_media" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/es_tacc.cfm?action=accn_card_media"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "02:51 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<!--- TACC media to locality cards ---->
+<cfschedule action = "update"
+    task = "es_tacc_loc_card_media" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/es_tacc.cfm?action=loc_card_media"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "03:01 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<!--- TACC media to paleoimager-created specimens ---->
+<cfschedule action = "update"
+    task = "es_tacc_spec_media" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/es_tacc.cfm?action=spec_media"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "03:11 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+
+<!--- TACC media to already-existing specimens ---->
+<cfschedule action = "update"
+    task = "es_tacc_spec_media_alreadyentered" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/es_tacc.cfm?action=spec_media_alreadyentered"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "03:21 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+
+<!-----------------------------------   OCR    ------------------------------------------>
 
 <cfschedule action = "update"
     task = "ocr_specimens" 
@@ -325,6 +420,10 @@
     startTime = "1:56 AM"
     interval = "weekly"
     requestTimeOut = "600">
+
+<!----
+	We're now on the TACC server so there's no reason to move this stuff off to the TACC server
+
 <!-----------------------------------   images    ------------------------------------------>
 <cfschedule action = "update"
     task = "image_CheckNew" 
@@ -374,6 +473,10 @@
     startTime = "02:34 AM"
     interval = "weekly"
     requestTimeOut = "600">
+	
+	
+	
+
 
 <cfschedule action = "update"
     task = "dupsAtTacc" 
@@ -383,3 +486,4 @@
     startTime = "12:34 AM"
     interval = "600"
     requestTimeOut = "600">
+--------->
