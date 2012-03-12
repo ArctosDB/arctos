@@ -13,6 +13,10 @@
 	<cfif redir.recordcount is 1>
 		<cfset project_id=redir.project_id>
 	<cfelse>
+		<cfthrow 
+		    detail = "Project #niceProjName# matches #redir.recordcount# projects."
+		    errorCode = "project_hosed">
+		<!----
 		<div class="error">
 			Yikes! Something bad happened. Please file a <a href="/info/bugs.cfm">Bug Report</a>.
 		</div>
@@ -28,6 +32,7 @@
 				<cfdump var=#variables#>
 			</cfmail>
 		<cfabort>
+		---->
 	</cfif>
 </cfif>
 <style>
