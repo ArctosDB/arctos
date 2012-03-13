@@ -24,7 +24,7 @@
 		<td class="srch">
 			<input name="loan_number" id="loan_number" type="text" size="50">
 			<span class="infoLink" onclick="var e=document.getElementById('loan_number');e.value='='+e.value;">Add = for exact match</span>
-			<br><span class="infoLink" onclick="$('##loan_number').val('*');">* for anything</span>
+			or <span class="infoLink" onclick="$('##loan_number').val('[star]');">* for anything</span>
 		</td>
 	</tr>
 	<tr>
