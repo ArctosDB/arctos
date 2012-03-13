@@ -12,27 +12,10 @@
 	</cfquery>
 	<cfif redir.recordcount is 1>
 		<cfset project_id=redir.project_id>
-		<!----
 	<cfelse>
 		<cfthrow 
 		    detail = "Project #niceProjName# matches #redir.recordcount# projects."
 		    errorCode = "project_hosed">
-		<div class="error">
-			Yikes! Something bad happened. Please file a <a href="/info/bugs.cfm">Bug Report</a>.
-		</div>
-			<cfmail subject="Jacked Up Project" to="#Application.PageProblemEmail#" from="hosedProject@#Application.fromEmail#" type="html">
-				Project #niceProjName# matches #redir.recordcount# projects. Fix it.
-				<cfif isdefined("project_id")>
-					<br>project_id=#project_id#
-				</cfif>
-				<cfif isdefined("cgi.REDIRECT_URL")>
-					<br>cgi.REDIRECT_URL=#cgi.REDIRECT_URL#
-				</cfif>
-				<cfdump var=#url#>
-				<cfdump var=#variables#>
-			</cfmail>
-		<cfabort>
-		---->
 	</cfif>
 </cfif>
 <style>

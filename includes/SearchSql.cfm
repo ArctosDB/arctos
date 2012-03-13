@@ -645,6 +645,8 @@
 		INNER JOIN loan ON (loan_item.transaction_id=loan.transaction_id)">	
 	<cfif left(loan_number,1) is '='>
 		<cfset basQual = " #basQual# AND upper(loan.loan_number) = '#ucase(right(loan_number,len(loan_number)-1))#'">
+	<cfelseif loan_number is "*">
+		<!-- don't do anything, just make the join --->
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(loan.loan_number) LIKE '%#ucase(loan_number)#%'">
 	</cfif>
