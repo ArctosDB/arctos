@@ -19,7 +19,7 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="loan_number">Loan Number:</span>
+			<span class="helpLink" id="_loan_number">Loan Number:</span>
 		</td>
 		<td class="srch">
 			<input name="loan_number" id="loan_number" type="text" size="50">
@@ -29,7 +29,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="permit_issued_by">Permit Issued By:</span>
+			<span class="helpLink" id="_permit_issued_by">Permit Issued By:</span>
 		</td>
 		<td class="srch">
 			<input name="permit_issued_by" id="permit_issued_by" type="text" size="50">
@@ -37,7 +37,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="permit_issued_to">Permit Issued To:</span>
+			<span class="helpLink" id="_permit_issued_to">Permit Issued To:</span>
 		</td>
 		<td class="srch">
 			<input name="permit_issued_to" id="permit_issued_to" type="text" size="50">
@@ -45,7 +45,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="permit_type">Permit Type:</span>
+			<span class="helpLink" id="_permit_type">Permit Type:</span>
 		</td>
 		<td class="srch">
 			<select name="permit_type" id="permit_type" size="1">
@@ -58,7 +58,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="permit_number">Permit Number:</span>
+			<span class="helpLink" id="_permit_number">Permit Number:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="permit_num" id="permit_num" size="50">
@@ -67,7 +67,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="entered_by">Entered By:</span>
+			<span class="helpLink" id="_entered_by">Entered By:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="entered_by" id="entered_by" size="50">
@@ -75,7 +75,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="entered_date">Entered Date:</span>
+			<span class="helpLink" id="_entered_date">Entered Date:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="beg_entered_date" id="beg_entered_date" size="10" />-
@@ -101,7 +101,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="disposition">Part Disposition:</span>
+			<span class="helpLink" id="_disposition">Part Disposition:</span>
 		</td>
 		<td class="srch">
 			<select name="part_disposition" id="part_disposition" size="1">
@@ -114,7 +114,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="print_flag">Print Flag:</span>
+			<span class="helpLink" id="_print_flag">Print Flag:</span>
 		</td>
 		<td class="srch">
 			<select name="print_fg" id="print_fg" size="1">
