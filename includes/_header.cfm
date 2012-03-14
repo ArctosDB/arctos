@@ -80,6 +80,7 @@
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
 		    	cgi.script_name: #cgi.script_name#
 		    	cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
+		    	<cfdump var=#cgi#>
 		    	
 		    			    	<cfif len(session.username) gt 0>
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
