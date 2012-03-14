@@ -98,7 +98,9 @@
 					<cfelse>
 						<cfset gtp=cgi.SCRIPT_NAME>
 					</cfif>
-					<cfset gtp="">
+					<cfif len(cgi.query_string) gt 0>
+						<cfset gtp=gtp & "?" & cgi.query_string>
+					</cfif>
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">
 						<input type="text" name="gotopage" value="#gtp#">
