@@ -80,7 +80,9 @@
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
 		    	cgi.script_name: #cgi.script_name#
 		    	cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
-				getRequestURI: #getPageContext().getRequest().getRequestURI()#		    	
+				getRequestURI: #getPageContext().getRequest().getRequestURI()#	
+				<cfif isdefined("ref")>ref=#ref#
+				<cfelse>noref</cfif>	    	
 		    			    	<cfif len(session.username) gt 0>
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 					<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
