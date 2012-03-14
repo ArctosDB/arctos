@@ -78,12 +78,8 @@
 				</tr>
 			</table>
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
-		    	cgi.script_name: #cgi.script_name#
-		    	cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
-				getRequestURI: #getPageContext().getRequest().getRequestURI()#	
-				<cfif isdefined("ref")>ref=#ref#
-				<cfelse>noref</cfif>	    	
-		    			    	<cfif len(session.username) gt 0>
+		    	   	
+		    	<cfif len(session.username) gt 0>
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 					<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
 						<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)</span>&nbsp;
@@ -95,11 +91,14 @@
 						</span>
 					</cfif>
 				<cfelse>
-					<cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
+					<cfif isdefined("ref")><!--- passed in by Application.cfc before termination --->
+						<cfset gtp=ref>
+					<cfelseif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 						<cfset gtp=cgi.REDIRECT_URL>
 					<cfelse>
 						<cfset gtp=cgi.SCRIPT_NAME>
 					</cfif>
+					<cfset gtp="">
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">
 						<input type="text" name="gotopage" value="#gtp#">
