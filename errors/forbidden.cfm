@@ -1,7 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<div class="error">
- Access denied.
-</div>
 <cfif not isdefined("url.ref")><cfset url.ref=""></cfif>
 <cfsavecontent variable="errortext">
 	<cfoutput>
@@ -12,6 +9,7 @@
 <cfthrow 
    type = "Access_Violation"
    message = "Forbidden"
-   detail = "Someone found a locked form."
+   detail = "access denied"
    errorCode = "403 "
    extendedInfo = "#errortext#">
+<cfabort>
