@@ -103,7 +103,7 @@
 					</cfif>
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">
-						<input type="text" name="gotopage" value="#gtp#">
+						<input type="hidden" name="gotopage" value="#gtp#">
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
