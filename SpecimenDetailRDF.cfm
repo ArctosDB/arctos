@@ -1,3 +1,4 @@
+<cfoutput>
 <cfsavecontent variable="myRDF">
 <?xml version="1.0" encoding="utf-8"?>
 <cfinclude template="/includes/functionLib.cfm">
@@ -91,7 +92,6 @@
 		media_relationship like '% cataloged_item' and
 		RELATED_PRIMARY_KEY=<cfqueryparam value="#d.collection_object_id#" CFSQLType="CF_SQL_INTEGER">
 </cfquery>
-<cfoutput>
 <cfcontent type="application/rdf+xml; charset=ISO-8859-1">
 
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns##"
