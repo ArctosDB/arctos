@@ -1,6 +1,3 @@
-<cfoutput>
-<cfsavecontent variable="myRDF">
-<?xml version="1.0" encoding="utf-8"?>
 <cfinclude template="/includes/functionLib.cfm">
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
@@ -92,8 +89,10 @@
 		media_relationship like '% cataloged_item' and
 		RELATED_PRIMARY_KEY=<cfqueryparam value="#d.collection_object_id#" CFSQLType="CF_SQL_INTEGER">
 </cfquery>
+<cfoutput>
 <cfcontent type="application/rdf+xml; charset=ISO-8859-1">
-
+<cfsavecontent variable="myRDF">
+<?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns##"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tap="http://rs.tdwg.org/tapir/1.0"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hyam="http://hyam.net/tapir2sw##"
@@ -180,7 +179,6 @@
 		<cfif media.recordcount gt 0><dwc:ImageURL>#application.serverRootUrl#/MediaSearch.cfm?action=search&media_id=#valuelist(media.media_id)#</dwc:ImageURL></cfif>
     </rdf:Description>
 </rdf:RDF>
-</xml>
 </cfsavecontent>
 <cfset myRDF=replace(myRDF,'&','&amp;','all')>
 <cfset myRDF=REReplace( myRDF, "^[^<]*", "", "all" )>
