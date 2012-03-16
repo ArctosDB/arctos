@@ -1,6 +1,8 @@
 <cfoutput>
 <cfsavecontent variable="myRDF">
 <?xml version="1.0" encoding="utf-8"?>
+
+<!----
 <cfinclude template="/includes/functionLib.cfm">
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
@@ -180,6 +182,7 @@
 		<cfif media.recordcount gt 0><dwc:ImageURL>#application.serverRootUrl#/MediaSearch.cfm?action=search&media_id=#valuelist(media.media_id)#</dwc:ImageURL></cfif>
     </rdf:Description>
 </rdf:RDF>
+---->
 </cfsavecontent>
 <cfset myRDF=replace(myRDF,'&','&amp;','all')>
 #myRDF#
