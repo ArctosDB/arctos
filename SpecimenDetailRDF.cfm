@@ -180,6 +180,7 @@
 		<cfif media.recordcount gt 0><dwc:ImageURL>#application.serverRootUrl#/MediaSearch.cfm?action=search&media_id=#valuelist(media.media_id)#</dwc:ImageURL></cfif>
     </rdf:Description>
 </rdf:RDF>
+</xml>
 </cfsavecontent>
 <cfset myRDF=replace(myRDF,'&','&amp;','all')>
 <cfset myRDF=REReplace( myRDF, "^[^<]*", "", "all" )>
