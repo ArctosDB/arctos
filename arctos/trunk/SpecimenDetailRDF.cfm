@@ -103,7 +103,7 @@
 		So, we pretty much just made this all up. It's a
 		nifty way to test out content negotiation, but we have no idea
 		if the RDF is actually useful to anyone.
-		If you have actual use for rdf, and would like us to do something diffierent,
+		If you have actual use for rdf, and would like us to do something different,
 		just drop up an email (you probably know who we are, right?) or fill
 		out the contact form at http://arctos.database.museum/contact.cfm
 		We'd love to hear your feedback. Or just tell us you found this thing.
@@ -115,7 +115,7 @@
         <dc:created>#dateformat(d.COLL_OBJECT_ENTERED_DATE,"yyyy-mm-dd")#</dc:created>
         <dc:hasVersion rdf:resource="#application.serverRootUrl#/guid/#guid#" />
     </rdf:Description>
-      <!-- This is metadata about this specimen -->
+    <!-- This is metadata about this specimen -->
     <rdf:Description rdf:about="#application.serverRootUrl#/guid/#guid#">
 		<dc:title>#d.guid# - #d.collection# #d.cat_num# #d.scientific_name#</dc:title>
 		<dc:description>#d.collection# #d.cat_num# #d.scientific_name#</dc:description>
