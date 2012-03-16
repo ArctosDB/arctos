@@ -185,6 +185,6 @@
 ---->
 </cfsavecontent>
 <cfset myRDF=replace(myRDF,'&','&amp;','all')>
-<cfset myRDF=myRDF(REReplace( myRDF, "^[^<]*", "", "all" ))>
+<cfset myRDF=REReplace( myRDF, "^[^<]*", "", "all" )>
 #myRDF#
 </cfoutput>
