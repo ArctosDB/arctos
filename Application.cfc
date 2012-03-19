@@ -115,9 +115,11 @@
 	<cfscript>
 		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
 	</cfscript>
+	<!---
 	<cfmail subject="server startingt" to="arctos.database@gmail.com" from="serverStart@arctos.database.museum" type="html">
-			<cfoutput>#serverName# is starting</cfoutput>
-		</cfmail>
+		<cfoutput>#serverName# is starting</cfoutput>
+	</cfmail>
+	---->
 	<cfset Application.session_timeout=90>
 	<cfset Application.serverRootUrl = "http://#serverName#">
 	<cfset Application.user_login="user_login">
