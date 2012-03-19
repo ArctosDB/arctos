@@ -228,9 +228,8 @@
 		<cfmail subject="bad app start" to="#Application.PageProblemEmail#" from="badAppStart@#application.fromEmail#" type="html">
 			caught DB connect exception
 			<cfdump var=#servername#>
+			<cfdump var=#cfcatch#>
 			<cfdump var="#variables#" label="variables">
-			<cfdump var=#client# label="client">
-			<cfdump var=#session# label="session">
 			<cfdump var=#application# label="application">
 			<cfdump var=#cgi# label="cgi">
 		</cfmail>
