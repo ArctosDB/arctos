@@ -1,5 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Review Annotations">
+<cfif not isdefined("type")>
+	<cfset type="">
+</cfif>
+<cfif not isdefined("reviewed")>
+	<cfset type="">
+</cfif>
+
 <cfoutput>
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection from collection order by collection
@@ -9,18 +16,18 @@
 	<label for="type">Type of Annotation</label>
 	<select name="type" size="1">
 		<option value="">Anything</option>
-		<option value="taxon">Taxonomy</option>
-		<option value="project">Project</option>
-		<option value="publication">Publication</option>
+		<option  <cfif type is "taxon">selected="selected" </cfif>value="taxon">Taxonomy</option>
+		<option  <cfif type is "project">selected="selected" </cfif>value="project">Project</option>
+		<option  <cfif type is "publication">selected="selected" </cfif>value="publication">Publication</option>
 		<cfloop query="c">
-			<option value="#collection#">#collection# specimens</option>
+			<option  <cfif type is "#collection#">selected="selected" </cfif>value="#collection#">#collection# specimens</option>
 		</cfloop>
 	</select>
 	<label for="reviewed">Reviewed</label>
 	<select name="reviewed" size="1">
 		<option value="">whatever</option>
-		<option value="1">yes</option>
-		<option value="0">np</option>
+		<option <cfif reviewed is 1>selected="selected" </cfif>value="1">yes</option>
+		<option <cfif reviewed is 0>selected="selected" </cfif>value="0">no</option>
 	</select>
 	<br>
 	<input type="submit" class="lnkBtn" value="Filter">
@@ -135,7 +142,7 @@
 	<cfelse>
 		<cfquery name="data" datasource="uam_god">
 			select
-				 flat.guid || ': ' || flat.scientific_name summary,
+				 flat.guid || ' - ' || flat.scientific_name summary,
 				 '/guid/' || flat.guid datalink,
 				 'COLLECTION_OBJECT_ID' pkeytype,
 				 annotations.COLLECTION_OBJECT_ID pkey,
