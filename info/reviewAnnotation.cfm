@@ -178,6 +178,9 @@
 				<cfif isdefined("reviewed") and len(reviewed) gt 0>
 					and REVIEWED_FG=#reviewed#
 				</cfif>
+				<cfif isdefined("COLLECTION_OBJECT_ID") and len(COLLECTION_OBJECT_ID) gt 0>
+					and flat.COLLECTION_OBJECT_ID=#COLLECTION_OBJECT_ID#
+				</cfif>
 		</cfquery>		
 	</cfif>
 	<cfif not isdefined("data") or data.recordcount is 0>
