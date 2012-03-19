@@ -1,6 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Participating in Arctos">
-<cfset metaDesc="Guidelines for institutions or collections wishing to host data in Artos.">
 <h2>
 	Bringing Collections into Arctos
 </h2>

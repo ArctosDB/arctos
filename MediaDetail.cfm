@@ -50,7 +50,6 @@
         <cfset alt="#findIDs.media_uri#">
         <cfif desc.recordcount is 1 and findIDs.recordcount is 1>
                         <cfset title = desc.label_value>
-                        <cfset metaDesc = "#desc.label_value# for #findIDs.media_type# (#findIDs.mime_type#)">
                         <cfset alt=desc.label_value>
         </cfif>
                                 <cfset mp=getMediaPreview(findIDs.preview_uri,findIDs.media_type)>
