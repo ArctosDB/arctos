@@ -162,8 +162,8 @@
 				<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 					AND annotations.collection_object_id = #collection_object_id#
 				</cfif>
-				<cfif isdefined("collection") and len(#collection#) gt 0>
-					AND flat.collection = '#collection#'
+				<cfif isdefined("type") and len(type) gt 0>
+					AND flat.collection = '#type#'
 				</cfif>
 				<cfif isdefined("reviewed") and len(reviewed) gt 0>
 					and REVIEWED_FG=#reviewed#
