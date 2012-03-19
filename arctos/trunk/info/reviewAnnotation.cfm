@@ -69,6 +69,9 @@
 				<cfif isdefined("reviewed") and len(reviewed) gt 0>
 					and REVIEWED_FG=#reviewed#
 				</cfif>
+				<cfif isdefined("publication_id") and len(publication_id) gt 0>
+					and publication.publication_id=#publication_id#
+				</cfif>
 		</cfquery>
 	<cfelseif type is "project">
 		<cfquery name="data" datasource="uam_god">
