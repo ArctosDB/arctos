@@ -18,7 +18,7 @@
 		<option  <cfif type is "taxon">selected="selected" </cfif>value="taxon">Taxonomy</option>
 		<option  <cfif type is "project">selected="selected" </cfif>value="project">Project</option>
 		<option  <cfif type is "publication">selected="selected" </cfif>value="publication">Publication</option>
-		<option value="">All Specimens</option>
+		<option  <cfif type is "">selected="selected" </cfif>value="">All Specimens</option>
 		<cfloop query="c">
 			<option  <cfif type is "#collection#">selected="selected" </cfif>value="#collection#">#collection# Specimens</option>
 		</cfloop>
