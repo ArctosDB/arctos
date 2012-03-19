@@ -204,7 +204,7 @@
 			pkey
 	</cfquery>
 	<cfset i=1>
-	<table>
+	<table width="100%">
 		<cfloop query="uData">
 			<cfquery name="details" dbtype="query">
 				select * from data where datalink = '#datalink#'
