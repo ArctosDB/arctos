@@ -135,7 +135,7 @@
 	<cfelse>
 		<cfquery name="data" datasource="uam_god">
 			select
-				 flat.guid || ': ' flat.scientific_name summary,
+				 flat.guid || ': ' || flat.scientific_name summary,
 				 '/guid/' || flat.guid datalink,
 				 'COLLECTION_OBJECT_ID' pkeytype,
 				 annotations.COLLECTION_OBJECT_ID pkey,
