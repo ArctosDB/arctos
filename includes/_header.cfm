@@ -282,13 +282,12 @@
 							</ul>
 						<li><a target="_top" href="##">Manage Arctos</a>
 							<ul>
-								<cfif listfind(formList,"/info/svn.cfm")>
+								<cfif listfind(formList,"/Admin/CSVAnyTable.cfm")>
 									<li>
 										<a target="_top" href="##">Developer Widgets</a>
 										<ul>
 											<li><a target="_top" href="/Admin/CSVAnyTable.cfm">CSVAnyTable</a></li>											
 											<li><a target="_top" href="/ScheduledTasks/index.cfm">Scheduled Tasks</a></li>
-											<li><a target="_top" href="/info/svn.cfm">SVN</a></li>
 											<li><a target="_top" href="/Admin/dumpAll.cfm">dump</a></li>
 											<li><a target="_top" href="/CFIDE/administrator/">Manage ColdFusion</a></li>
 											<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
