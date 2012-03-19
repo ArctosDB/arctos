@@ -59,6 +59,9 @@
 				<cfif isdefined("publication_id") and len(publication_id) gt 0>
 					AND annotations.publication_id = #publication_id#
 				</cfif>
+				<cfif isdefined("reviewed") and len(reviewed) gt 0>
+					and REVIEWED_FG=#reviewed#
+				</cfif>
 		</cfquery>
 	<cfelseif type is "project">
 		<cfquery name="data" datasource="uam_god">
@@ -89,6 +92,9 @@
 				cf_users.user_id = cf_user_data.user_id (+)
 				<cfif isdefined("project_id") and len(project_id) gt 0>
 					AND annotations.project_id = #project_id#
+				</cfif>
+				<cfif isdefined("reviewed") and len(reviewed) gt 0>
+					and REVIEWED_FG=#reviewed#
 				</cfif>
 		</cfquery>
 	<cfelseif type is "taxon">
@@ -122,7 +128,47 @@
 				<cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 					AND annotations.taxon_name_id = #taxon_name_id#
 				</cfif>
+				<cfif isdefined("reviewed") and len(reviewed) gt 0>
+					and REVIEWED_FG=#reviewed#
+				</cfif>
 		</cfquery>
+	<cfelse>
+		<cfquery name="data" datasource="uam_god">
+			select
+				 flat.guid || ': ' flat.scientific_name summary,
+				 '/name/' || taxonomy.scientific_name datalink,
+				 'COLLECTION_OBJECT_ID' pkeytype,
+				 annotations.COLLECTION_OBJECT_ID pkey,
+				 annotations.ANNOTATION_ID,
+				 annotations.ANNOTATE_DATE,
+				 annotations.CF_USERNAME,
+				 annotations.annotation,	 
+				 annotations.reviewer_agent_id,
+				 preferred_agent_name.agent_name reviewer,
+				 annotations.reviewed_fg,
+				 annotations.reviewer_comment,
+				 cf_user_data.email
+			FROM
+				annotations,
+				flat,
+				cf_user_data,
+				cf_users,
+				preferred_agent_name
+			WHERE
+				annotations.COLLECTION_OBJECT_ID = flat.COLLECTION_OBJECT_ID AND
+				annotations.reviewer_agent_id=preferred_agent_name.agent_id (+) and
+				annotations.CF_USERNAME=cf_users.username (+) and
+				cf_users.user_id = cf_user_data.user_id (+)
+				<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+					AND annotations.collection_object_id = #collection_object_id#
+				</cfif>
+				<cfif isdefined("collection") and len(#collection#) gt 0>
+					AND flat.collection = '#collection#'
+				</cfif>
+				<cfif isdefined("reviewed") and len(reviewed) gt 0>
+					and REVIEWED_FG=#reviewed#
+				</cfif>
+		</cfquery>		
 	</cfif>
 	<cfif not isdefined("data") or data.recordcount is 0>
 		<div class="error">
