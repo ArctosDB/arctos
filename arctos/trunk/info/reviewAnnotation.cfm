@@ -15,12 +15,12 @@
 	<input type="hidden" name="action" value="show">
 	<label for="type">Type of Annotation</label>
 	<select name="type" size="1">
-		<option value="">Anything</option>
 		<option  <cfif type is "taxon">selected="selected" </cfif>value="taxon">Taxonomy</option>
 		<option  <cfif type is "project">selected="selected" </cfif>value="project">Project</option>
 		<option  <cfif type is "publication">selected="selected" </cfif>value="publication">Publication</option>
+		<option value="">All Specimens</option>
 		<cfloop query="c">
-			<option  <cfif type is "#collection#">selected="selected" </cfif>value="#collection#">#collection# specimens</option>
+			<option  <cfif type is "#collection#">selected="selected" </cfif>value="#collection#">#collection# Specimens</option>
 		</cfloop>
 	</select>
 	<label for="reviewed">Reviewed</label>
