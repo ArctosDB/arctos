@@ -10,7 +10,7 @@
 	<select name="type" size="1">
 		<option value="">Anything</option>
 		<option value="taxon_name_id">Taxonomy</option>
-		<option value="project_id">Project</option>
+		<option value="project">Project</option>
 		<option value="publication">Publication</option>
 		<cfloop query="c">
 			<option value="#collection#">#collection# specimens</option>
@@ -32,7 +32,7 @@
 	<cfif type is "publication">
 		<cfquery name="data" datasource="uam_god">
 			select 
-				publication.short_citation summary,
+				publication.full_citation summary,
 				'/publication/' || annotations.publication_id datalink,
 				'publication_id' pkeytype,
 				publication.publication_id pkey,
@@ -58,6 +58,37 @@
 				cf_users.user_id = cf_user_data.user_id (+)
 				<cfif isdefined("publication_id") and len(publication_id) gt 0>
 					AND annotations.publication_id = #publication_id#
+				</cfif>
+		</cfquery>
+	<cfelseif type is "project">
+		<cfquery name="data" datasource="uam_god">
+			select 
+				project.project_name summary,
+				'/project/' || niceURL(project.project_name) datalink,
+				'project_id' pkeytype,
+				project.project_id pkey,
+				annotations.ANNOTATION_ID,
+				annotations.ANNOTATE_DATE,
+				annotations.CF_USERNAME,
+				annotations.annotation,	 
+				annotations.reviewer_agent_id,
+				preferred_agent_name.agent_name reviewer,
+				annotations.reviewed_fg,
+				annotations.reviewer_comment,
+				cf_user_data.email
+			FROM
+				annotations,
+				project,
+				cf_user_data,
+				cf_users,
+				preferred_agent_name
+			WHERE
+				annotations.project_id = project.project_id AND
+				annotations.reviewer_agent_id=preferred_agent_name.agent_id (+) and
+				annotations.CF_USERNAME=cf_users.username (+) and
+				cf_users.user_id = cf_user_data.user_id (+)
+				<cfif isdefined("project_id") and len(project_id) gt 0>
+					AND annotations.project_id = #project_id#
 				</cfif>
 		</cfquery>
 	</cfif>
