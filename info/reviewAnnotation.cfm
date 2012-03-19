@@ -4,7 +4,7 @@
 	<cfset type="">
 </cfif>
 <cfif not isdefined("reviewed")>
-	<cfset type="">
+	<cfset reviewed="">
 </cfif>
 
 <cfoutput>
