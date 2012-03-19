@@ -82,16 +82,8 @@ pageTracker._trackPageview();
 <cfif not isdefined("title")>
 	<cfset title = "Database Access">
 </cfif>
-<cfif not isdefined("metaDesc") and isdefined("session.meta_description")>
-	<cfif isdefined("session.meta_description")>
-		<cfset metaDesc = session.meta_description>
-	<cfelse>
-		<cfset metadesc="">
-	</cfif>
-</cfif>
 <cftry>
 	<cfhtmlhead text='<title>#title#</title>
-	<meta name="description" content="#metaDesc#">
 	'>
 	<cfcatch type="template">
 	</cfcatch>

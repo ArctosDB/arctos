@@ -1,5 +1,4 @@
 <cfset title="Media">
-<cfset metaDesc="Locate Media, including audio (sound recordings), video (movies), and images (pictures) of specimens, collecting sites, habitat, collectors, and more.">
 <div id="_header">
     <cfinclude template="/includes/_header.cfm">
 </div>
@@ -211,7 +210,6 @@
 		<cfabort> --->
 	<cfelse>
 		<cfset title="Media Results: #findIDs.recordcount# records found">
-		<cfset metaDesc="Results of Media search: #findIDs.recordcount# records found.">
 		<cfif findIDs.recordcount is 500>
 			<div style="border:2px solid red;text-align:center;margin:0 10em;">
 				Note: This form will return a maximum of 500 records.

@@ -1,5 +1,4 @@
 <cfset title="Arctos Home">
-<cfset metaDesc="Frequently-asked questions (FAQ), Arctos description, participation guidelines, usage policies, suggestions, and requirements for using Arctos or participating in the Arctos community.">
 <cfinclude template="/includes/_header.cfm">
 <style>
 	.collnTitle {
