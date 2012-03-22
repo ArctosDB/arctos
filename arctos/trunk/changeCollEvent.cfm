@@ -247,7 +247,7 @@
 			<td align="right" width="30%"><strong>Determined Date</strong></td>
 			<td>
 				<cfif len(#DETERMINED_DATE#) gt 0>
-					#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#
+					#DETERMINED_DATE#
 				<cfelse>
 					<font color="##FF0000">Not given</font>			
 			  </cfif>
