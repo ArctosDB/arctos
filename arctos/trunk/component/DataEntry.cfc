@@ -285,7 +285,7 @@
 				accepted_lat_long.DATUM,
 				accepted_lat_long.ORIG_LAT_LONG_UNITS,
 				llAgnt.agent_name DETERMINED_BY,
-				to_char(accepted_lat_long.DETERMINED_DATE,'yyyy-mm-dd') DETERMINED_DATE,
+				accepted_lat_long.DETERMINED_DATE DETERMINED_DATE,
 				accepted_lat_long.LAT_LONG_REF_SOURCE,
 				accepted_lat_long.LAT_LONG_REMARKS,
 				accepted_lat_long.MAX_ERROR_DISTANCE,
