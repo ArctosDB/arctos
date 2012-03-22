@@ -667,7 +667,7 @@ function useGL(glat,glon,gerr){
 					Determined Date
 				</label>
 				<input type="text" name="determined_date" id="determined_date"
-					value="#dateformat(l.determined_date,'yyyy-mm-dd')#" class="reqdClr">
+					value="#l.determined_date#" class="reqdClr">
 			</td>
 		</tr>
 		<tr>
@@ -1064,7 +1064,7 @@ function useGL(glat,glon,gerr){
 					NVL(orig_lat_long_units,'NULL') = NVL('#orig_lat_long_units#','NULL') AND
 					NVL(datum,'NULL') = NVL('#datum#','NULL') AND
 					NVL(determined_by_agent_id,-1) = nvl('#determined_by_agent_id#',-1) AND
-					NVL(determined_date,'1600-01-01') = NVL(to_date('#determined_date#'),'1600-01-01') AND 
+					NVL(determined_date,'1600-01-01') = NVL('#determined_date#','1600-01-01') AND 
 					NVL(lat_long_ref_source,'NULL') = NVL('#escapeQuotes(lat_long_ref_source)#','NULL') AND 
 					NVL(lat_long_remarks,'NULL') = NVL('#escapeQuotes(lat_long_remarks)#','NULL')  AND 
 					NVL(max_error_distance,-1) = nvl('#max_error_distance#',-1) AND
@@ -1454,7 +1454,7 @@ gonna try this:
 						<cfelse>
 							NULL,
 						</cfif>
-						to_date('#DETERMINED_DATE#'),
+						'#DETERMINED_DATE#',
 						'#escapeQuotes(LAT_LONG_REF_SOURCE)#',
 						'#escapeQuotes(LAT_LONG_REMARKS)#',
 						<cfif len(MAX_ERROR_DISTANCE) gt 0>
