@@ -155,6 +155,111 @@ from geog_auth_rec where rownum<10
 		select * from ds_temp_geog
 	</cfquery>
 	<cfloop query="d">
+		
+		<cfset thisgeog=''>
+		<cfif len(continent_ocean) gt 0>
+			<cfset thisgeog=listappend(thisGeog,continent_ocean,", ">
+		</cfif>
+		<cfif len(sea) gt 0>
+			<cfset thisgeog=listappend(thisGeog,sea,", ">
+		</cfif>
+		<hr>thisgeog:#thisgeog#
+		<hr>
+		
+		<!-----------
+		CREATE OR REPLACE TRIGGER TRG_MK_HIGHER_GEOG
+BEFORE INSERT OR UPDATE ON GEOG_AUTH_REC
+FOR EACH ROW
+DECLARE hg varchar2(4000);
+BEGIN
+	IF :NEW.continent_ocean IS NOT NULL THEN
+		IF hg IS NULL THEN
+			hg := :NEW.continent_ocean;
+		ELSE
+			hg := hg || ', ' || :NEW.continent_ocean;
+		END IF;
+	END IF;
+	    
+	IF :NEW. IS NOT NULL THEN
+		IF hg IS NULL THEN
+			hg := :NEW.sea;
+		ELSE
+			hg := hg || ', ' || :NEW.sea;
+		END IF;
+	END IF;
+	    
+	IF :NEW.country IS NOT NULL THEN
+		IF hg IS NULL THEN
+			hg := :NEW.country;
+		ELSE
+			hg := hg || ', ' || :NEW.country;
+		END IF;
+	END IF;
+	    
+	IF :NEW.state_prov IS NOT NULL THEN
+		IF hg IS NULL THEN
+			hg := :NEW.state_prov;
+		ELSE
+			hg := hg || ', ' || :NEW.state_prov;
+		END IF;
+	END IF;
+	    
+	IF :NEW.county IS NOT NULL THEN
+		IF hg IS NULL THEN
+			hg := :NEW.county;
+		ELSE
+			hg := hg || ', ' || :NEW.county;
+		END IF;
+	END IF;
+	    
+	IF :NEW.quad IS NOT NULL THEN
+		IF hg IS NULL THEN
+			hg := :NEW.quad || ' Quad';
+		ELSE
+			hg := hg || ', ' || :NEW.quad || ' Quad';
+		END IF;
+	END IF;
+	    
+	IF :NEW.feature IS NOT NULL THEN
+		IF hg IS NULL THEN
+			hg := :NEW.feature;
+		ELSE
+			hg := hg || ', ' || :NEW.feature;
+		END IF;
+	END IF;
+	    
+	IF :NEW.island_group IS NOT NULL THEN
+		IF hg IS NULL THEN
+			hg := :NEW.island_group;
+		ELSE
+			hg := hg || ', ' || :NEW.island_group;
+		END IF;
+	END IF;
+	    
+	IF :NEW.island IS NOT NULL THEN
+		IF hg IS NULL THEN
+			hg := :NEW.island;
+		ELSE
+			hg := hg || ', ' || :NEW.island;
+		END IF;
+	END IF;
+	    
+	:NEW.higher_geog := trim(hg);
+END;
+
+CREATE OR REPLACE TRIGGER TR_GEOGAUTHREC_AU_FLAT
+AFTER UPDATE ON GEOG_AUTH_REC
+FOR EACH ROW
+BEGIN
+    UPDATE flat SET
+        stale_flag = 1,
+        lastuser = sys_context('USERENV', 'SESSION_USER'),
+        lastdate = SYSDATE
+    WHERE geog_auth_rec_id = :NEW.geog_auth_rec_id;
+END;
+
+
+
 		<cfset thisCountry=country>
 		<cfif len(country) gt 0>
 			<cfif country is "USA">
@@ -179,6 +284,8 @@ from geog_auth_rec where rownum<10
 				upper(SEA) = '#ucase(trim(SEA))#'
 		</cfquery>
 		<cfdump var=#g1#>
+		
+		---->
 	</cfloop>
 </cfoutput>
 </cfif>
