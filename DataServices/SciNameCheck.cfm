@@ -88,7 +88,7 @@ sho err
 </cfif>
 <cfif action is "validate">
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select scientific_name from ds_temp_taxcheck
+		select * from ds_temp_taxcheck
 	</cfquery>
 	<cfloop query="r">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
