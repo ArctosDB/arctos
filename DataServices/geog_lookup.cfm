@@ -176,6 +176,6 @@ from geog_auth_rec where rownum<10
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_geog
 	</cfquery>
-	<cfdump=#r#>
+	<cfdump var=#r#>
 </cfoutput>
 </cfif>
