@@ -340,6 +340,11 @@
 											<li><a target="_top" href="/info/dispVRemark.cfm">Disposition vs. Remark</a></li>
 										</ul>
 									</li>
+									 <li><a target="_top" href="##">Data Services</a>
+										<ul>
+											<li><a target="_top" href="/DataServices/SciNameCheck.cfm">Taxon Name Checker</a></li>
+										</ul>
+									</li>
 								</ul>
 							</li>
 					    </cfif>

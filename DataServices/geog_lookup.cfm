@@ -1,17 +1,26 @@
 <!----
-drop table ds_temp_taxcheck;
+drop table ds_temp_geog;
 
-create table ds_temp_taxcheck (
+create table ds_temp_geog (
 	key number not null,
-	scientific_name varchar2(255)
-	);
-	
-create public synonym ds_temp_taxcheck for ds_temp_taxcheck;
-grant all on ds_temp_taxcheck to coldfusion_user;
-grant select on ds_temp_taxcheck to public;
+	CONTINENT_OCEAN  varchar2(255),
+	COUNTRY  varchar2(255),
+	STATE_PROV  varchar2(255),
+	COUNTY  varchar2(255),
+	QUAD  varchar2(255),
+	FEATURE  varchar2(255),
+	ISLAND  varchar2(255),
+	ISLAND_GROUP  varchar2(255),
+	SEA  varchar2(255),
+	HIGHER_GEOG  varchar2(255)
+);
 
- CREATE OR REPLACE TRIGGER ds_temp_taxcheck_key                                         
- before insert  ON ds_temp_taxcheck
+create public synonym ds_temp_geog for ds_temp_geog;
+grant all on ds_temp_geog to coldfusion_user;
+grant select on ds_temp_geog to public;
+
+ CREATE OR REPLACE TRIGGER ds_temp_geog_key                                         
+ before insert  ON ds_temp_geog
  for each row 
     begin     
     	if :NEW.key is null then                                                                                      
@@ -21,6 +30,54 @@ grant select on ds_temp_taxcheck to public;
 /
 sho err
 
+
+insert into ds_temp_geog (
+CONTINENT_OCEAN,
+COUNTRY,
+STATE_PROV,
+COUNTY,
+QUAD,
+FEATURE,
+ISLAND,
+ISLAND_GROUP,
+SEA)
+(select 
+CONTINENT_OCEAN,
+COUNTRY,
+STATE_PROV,
+COUNTY,
+QUAD,
+FEATURE,
+ISLAND,
+ISLAND_GROUP,
+SEA
+from geog_auth_rec where rownum<10
+);
+
+update ds_temp_geog set HIGHER_GEOG=select (
+CONTINENT_OCEAN,
+COUNTRY,
+STATE_PROV,
+COUNTY,
+QUAD,
+FEATURE,
+ISLAND,
+ISLAND_GROUP,
+SEA)
+(select 
+CONTINENT_OCEAN,
+COUNTRY,
+STATE_PROV,
+COUNTY,
+QUAD,
+FEATURE,
+ISLAND,
+ISLAND_GROUP,
+SEA
+from geog_auth_rec where rownum<10
+);
+
+
 ---->
 <cfinclude template="/includes/_header.cfm">
 
@@ -28,7 +85,15 @@ sho err
 	
 	Columns in <span style="color:red">red</span> are required; others are optional:
 	<ul>
-		<li style="color:red">scientific_name</li>
+		<li>CONTINENT_OCEAN</li>
+		<li>COUNTRY</li>
+		<li>STATE_PROV</li>
+		<li>COUNTY</li>
+		<li>QUAD</li>
+		<li>FEATURE</li>
+		<li>ISLAND</li>
+		<li>ISLAND_GROUP</li>
+		<li>SEA</li>
 	</ul>
 	
 	
@@ -44,7 +109,7 @@ sho err
 <cfoutput>
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from ds_temp_taxcheck
+		delete from ds_temp_geog
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
@@ -74,24 +139,43 @@ sho err
 				</cfloop>
 			</cfif>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into ds_temp_taxcheck (#colNames#) values (#preservesinglequotes(colVals)#)				
+				insert into ds_temp_geog (#colNames#) values (#preservesinglequotes(colVals)#)				
 			</cfquery>
 		</cfif>
 	</cfloop>
 </cfoutput>
-<cflocation url="SciNameCheck.cfm?action=validate" addtoken="false">
+<cflocation url="geog_lookup.cfm?action=validate" addtoken="false">
 
 <!---
 ---->
 </cfif>
 <cfif action is "validate">
+<cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from ds_temp_taxcheck where scientific_name not in (select scientific_name from taxonomy)
+		select * from ds_temp_geog
 	</cfquery>
+	<cfloop query="d">
+		<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update 
+				ds_temp_geog
+			set 
+				HIGHER_GEOG=select (
+				HIGHER_GEOG from geog_auth_rec where
+				CONTINENT_OCEAN = '#CONTINENT_OCEAN#',
+				COUNTRY = '#COUNTRY#',
+				STATE_PROV = '#STATE_PROV#',
+				COUNTY = '#COUNTY#',
+				QUAD = '#QUAD#',
+				FEATURE = '#FEATURE#',
+				ISLAND = '#ISLAND#',
+				ISLAND_GROUP = '#ISLAND_GROUP#',
+				SEA = '#SEA#'
+			)
+		</cfquery>
+	</cfloop>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select scientific_name from ds_temp_taxcheck
+		select * from ds_temp_geog
 	</cfquery>
-	anything below isn't in Arctos.
-	<cfdump var=#r#>
-	
+	<cfdump=#r#>
+</cfoutput>
 </cfif>
