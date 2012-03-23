@@ -158,10 +158,10 @@ from geog_auth_rec where rownum<10
 		
 		<cfset thisgeog=''>
 		<cfif len(continent_ocean) gt 0>
-			<cfset thisgeog=listappend(thisGeog,continent_ocean,", ">
+			<cfset thisgeog=listappend(thisGeog,continent_ocean,", ")>
 		</cfif>
 		<cfif len(sea) gt 0>
-			<cfset thisgeog=listappend(thisGeog,sea,", ">
+			<cfset thisgeog=listappend(thisGeog,sea,", ")>
 		</cfif>
 		<hr>thisgeog:#thisgeog#
 		<hr>
