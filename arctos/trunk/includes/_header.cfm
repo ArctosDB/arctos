@@ -289,7 +289,6 @@
 											<li><a target="_top" href="/Admin/CSVAnyTable.cfm">CSVAnyTable</a></li>											
 											<li><a target="_top" href="/ScheduledTasks/index.cfm">Scheduled Tasks</a></li>
 											<li><a target="_top" href="/Admin/dumpAll.cfm">dump</a></li>
-											<li><a target="_top" href="/CFIDE/administrator/">Manage ColdFusion</a></li>
 											<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
 										</ul>
 									</li>
@@ -343,6 +342,7 @@
 									 <li><a target="_top" href="##">Data Services</a>
 										<ul>
 											<li><a target="_top" href="/DataServices/SciNameCheck.cfm">Taxon Name Checker</a></li>
+											<li><a target="_top" href="/DataServices/geog_lookup.cfm">Higher Geog Lookup</a></li>
 										</ul>
 									</li>
 								</ul>
