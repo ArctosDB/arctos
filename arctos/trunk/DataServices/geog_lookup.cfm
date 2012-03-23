@@ -161,14 +161,14 @@ from geog_auth_rec where rownum<10
 			set 
 				HIGHER_GEOG=(select 
 				HIGHER_GEOG from geog_auth_rec where
-				CONTINENT_OCEAN = '#CONTINENT_OCEAN#',
-				COUNTRY = '#COUNTRY#',
-				STATE_PROV = '#STATE_PROV#',
-				COUNTY = '#COUNTY#',
-				QUAD = '#QUAD#',
-				FEATURE = '#FEATURE#',
-				ISLAND = '#ISLAND#',
-				ISLAND_GROUP = '#ISLAND_GROUP#',
+				CONTINENT_OCEAN = '#CONTINENT_OCEAN#' and
+				COUNTRY = '#COUNTRY#' and
+				STATE_PROV = '#STATE_PROV#' and
+				COUNTY = '#COUNTY#' and
+				QUAD = '#QUAD#' and
+				FEATURE = '#FEATURE#' and
+				ISLAND = '#ISLAND#' and
+				ISLAND_GROUP = '#ISLAND_GROUP#' and
 				SEA = '#SEA#'
 			)
 		</cfquery>
