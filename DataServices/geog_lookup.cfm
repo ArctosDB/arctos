@@ -155,11 +155,17 @@ from geog_auth_rec where rownum<10
 		select * from ds_temp_geog
 	</cfquery>
 	<cfloop query="d">
+		<cfset thisCountry=country>
+		<cfif len(country) gt 0>
+			<cfif country is "USA">
+				<cfset thisCountry="United States">
+			</cfif>
+		</cfif>
 		<cfquery name="g1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				HIGHER_GEOG from geog_auth_rec where
 				upper(CONTINENT_OCEAN) = '#ucase(trim(CONTINENT_OCEAN))#' and
-				upper(COUNTRY) = '#ucase(trim(COUNTRY))#' and
+				upper(COUNTRY) = '#ucase(trim(thisCountry))#' and
 				upper(STATE_PROV) = '#ucase(trim(STATE_PROV))#' and
 				upper(COUNTY) = '#ucase(trim(COUNTY))#' and
 				upper(QUAD) = '#ucase(trim(QUAD))#' and
