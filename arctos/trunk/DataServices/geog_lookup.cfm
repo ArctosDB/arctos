@@ -171,7 +171,7 @@ from geog_auth_rec where rownum<10
 				upper(CONTINENT_OCEAN) = '#ucase(trim(CONTINENT_OCEAN))#' and
 				upper(COUNTRY) = '#ucase(trim(thisCountry))#' and
 				upper(STATE_PROV) = '#ucase(trim(STATE_PROV))#' and
-				upper(replace(COUNTY,'County')) = '#ucase(trim(thisCounty))#' and
+				trim(upper(replace(COUNTY,'County'))) = '#ucase(trim(thisCounty))#' and
 				upper(QUAD) = '#ucase(trim(QUAD))#' and
 				upper(FEATURE) = '#ucase(trim(FEATURE))#' and
 				upper(ISLAND) = '#ucase(trim(ISLAND))#' and
