@@ -160,7 +160,7 @@ from geog_auth_rec where rownum<10
 				HIGHER_GEOG from geog_auth_rec where
 				upper(CONTINENT_OCEAN) = '#ucase(trim(CONTINENT_OCEAN))#' and
 				upper(COUNTRY) = '#ucase(trim(COUNTRY))#' and
-				upper(STATE_PRO) = '#ucase(trim(STATE_PROV))#' and
+				upper(STATE_PROV) = '#ucase(trim(STATE_PROV))#' and
 				upper(COUNTY) = '#ucase(trim(COUNTY))#' and
 				upper(QUAD) = '#ucase(trim(QUAD))#' and
 				upper(FEATURE) = '#ucase(trim(FEATURE))#' and
