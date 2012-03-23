@@ -159,7 +159,7 @@ from geog_auth_rec where rownum<10
 			update 
 				ds_temp_geog
 			set 
-				HIGHER_GEOG=select (
+				HIGHER_GEOG=(select 
 				HIGHER_GEOG from geog_auth_rec where
 				CONTINENT_OCEAN = '#CONTINENT_OCEAN#',
 				COUNTRY = '#COUNTRY#',
