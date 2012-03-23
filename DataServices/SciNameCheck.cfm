@@ -6,6 +6,8 @@ create table ds_temp_taxcheck (
 	scientific_name varchar2(255)
 	);
 	
+	alter table ds_temp_taxcheck add status varchar2(255);
+	
 create public synonym ds_temp_taxcheck for ds_temp_taxcheck;
 grant all on ds_temp_taxcheck to coldfusion_user;
 grant select on ds_temp_taxcheck to public;
@@ -85,11 +87,25 @@ sho err
 ---->
 </cfif>
 <cfif action is "validate">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from ds_temp_taxcheck where scientific_name not in (select scientific_name from taxonomy)
-	</cfquery>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from ds_temp_taxcheck
+	</cfquery>
+	<cfloop query="r">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select count(*) c from taxonomy where scientific_name='#scientific_name#'
+		</cfquery>
+		<cfif d.c is 1>
+			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update ds_temp_taxcheck set status='OK' where key=#key#
+			</cfquery>
+		<cfelse>
+			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update ds_temp_taxcheck set status='FAIL' where key=#key#
+			</cfquery>
+		</cfif>
+	</cfloop>
+	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from ds_temp_taxcheck
 	</cfquery>
 	anything below isn't in Arctos.
 	<cfdump var=#r#>
