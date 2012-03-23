@@ -155,27 +155,20 @@ from geog_auth_rec where rownum<10
 		select * from ds_temp_geog
 	</cfquery>
 	<cfloop query="d">
-		<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			update 
-				ds_temp_geog
-			set 
-				HIGHER_GEOG=(select 
+		<cfquery name="g1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
 				HIGHER_GEOG from geog_auth_rec where
-				CONTINENT_OCEAN = '#CONTINENT_OCEAN#' and
-				COUNTRY = '#COUNTRY#' and
-				STATE_PROV = '#STATE_PROV#' and
-				COUNTY = '#COUNTY#' and
-				QUAD = '#QUAD#' and
-				FEATURE = '#FEATURE#' and
-				ISLAND = '#ISLAND#' and
-				ISLAND_GROUP = '#ISLAND_GROUP#' and
-				SEA = '#SEA#'
-			)
+				upper(CONTINENT_OCEAN) = '#ucase(trim(CONTINENT_OCEAN))#' and
+				upper(COUNTRY) = '#ucase(trim(COUNTRY))#' and
+				upper(STATE_PRO) = '#ucase(trim(STATE_PROV))#' and
+				upper(COUNTY) = '#ucase(trim(COUNTY))#' and
+				upper(QUAD) = '#ucase(trim(QUAD))#' and
+				upper(FEATURE) = '#ucase(trim(FEATURE))#' and
+				upper(ISLAND) = '#ucase(trim(ISLAND))#' and
+				upper(ISLAND_GROUP) = '#ucase(trim(ISLAND_GROUP))#' and
+				upper(SEA) = '#ucase(trim(SEA))#'
 		</cfquery>
+		<cfdump var=#g1#>
 	</cfloop>
-	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from ds_temp_geog
-	</cfquery>
-	<cfdump var=#r#>
 </cfoutput>
 </cfif>
