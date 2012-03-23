@@ -161,13 +161,17 @@ from geog_auth_rec where rownum<10
 				<cfset thisCountry="United States">
 			</cfif>
 		</cfif>
+		
+		<cfset thisCounty=county>
+		<Cfset thisCounty=replace(thisCounty,'CO','','all')>
+		
 		<cfquery name="g1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				HIGHER_GEOG from geog_auth_rec where
 				upper(CONTINENT_OCEAN) = '#ucase(trim(CONTINENT_OCEAN))#' and
 				upper(COUNTRY) = '#ucase(trim(thisCountry))#' and
 				upper(STATE_PROV) = '#ucase(trim(STATE_PROV))#' and
-				upper(COUNTY) = '#ucase(trim(COUNTY))#' and
+				upper(replace(COUNTY,'County')) = '#ucase(trim(thisCounty))#' and
 				upper(QUAD) = '#ucase(trim(QUAD))#' and
 				upper(FEATURE) = '#ucase(trim(FEATURE))#' and
 				upper(ISLAND) = '#ucase(trim(ISLAND))#' and
