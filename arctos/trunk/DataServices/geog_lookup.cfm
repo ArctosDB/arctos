@@ -192,14 +192,14 @@ from geog_auth_rec where rownum<10
 		
 		<hr>thisgeog:#thisgeog#
 		
-		<cfquery name="g1" datasource="uam_god">
+		<cfquery name="findit" datasource="uam_god">
 			select 
 				HIGHER_GEOG from geog_auth_rec where
 				upper(HIGHER_GEOG)='#ucase(thisgeog)#'
 		</cfquery>
-		===#g1.recordcount#==
-		<cfif g1.recordcount is 1>
-			<br>FOUND:::::::::::#gi.higher_geog#
+		===#findit.recordcount#==
+		<cfif findit.recordcount is 1>
+			<br>FOUND:::::::::::#findit.higher_geog#
 		<cfelse>
 			<cfdump var=#g1#>
 		</cfif>
