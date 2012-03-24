@@ -202,6 +202,11 @@ from geog_auth_rec where rownum<10
 		
 		<cfset sql="select HIGHER_GEOG from geog_auth_rec where trim(upper(HIGHER_GEOG))=trim(upper('#thisgeog#'))">
 		<br>#sql#
+		
+		
+		
+<cfset sql="select HIGHER_GEOG from geog_auth_rec where trim(upper(HIGHER_GEOG))=trim(upper('NORTH AMERICA, United States, ALASKA'))">
+		<br>#sql#
 		<cfquery name="x"datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
