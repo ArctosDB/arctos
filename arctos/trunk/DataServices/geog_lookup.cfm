@@ -163,40 +163,26 @@ from geog_auth_rec where rownum<10
 		<cfif len(sea) gt 0>
 			<cfset thisgeog=listappend(thisGeog,sea,", ")>
 		</cfif>
+		<cfif len(country) gt 0>
+			<cfset thisgeog=listappend(thisGeog,country,", ")>
+		</cfif>
+		<cfif len(state_prov) gt 0>
+			<cfset thisgeog=listappend(thisGeog,state_prov,", ")>
+		</cfif>
 		<hr>thisgeog:#thisgeog#
 		<hr>
 		
 		<!-----------
-		CREATE OR REPLACE TRIGGER TRG_MK_HIGHER_GEOG
-BEFORE INSERT OR UPDATE ON GEOG_AUTH_REC
-FOR EACH ROW
-DECLARE hg varchar2(4000);
-BEGIN
-	IF :NEW.continent_ocean IS NOT NULL THEN
-		IF hg IS NULL THEN
-			hg := :NEW.continent_ocean;
-		ELSE
-			hg := hg || ', ' || :NEW.continent_ocean;
-		END IF;
-	END IF;
-	    
-	IF :NEW. IS NOT NULL THEN
-		IF hg IS NULL THEN
-			hg := :NEW.sea;
-		ELSE
-			hg := hg || ', ' || :NEW.sea;
-		END IF;
-	END IF;
-	    
+		
 	IF :NEW.country IS NOT NULL THEN
 		IF hg IS NULL THEN
-			hg := :NEW.country;
+			hg := :NEW.;
 		ELSE
 			hg := hg || ', ' || :NEW.country;
 		END IF;
 	END IF;
 	    
-	IF :NEW.state_prov IS NOT NULL THEN
+	IF :NEW. IS NOT NULL THEN
 		IF hg IS NULL THEN
 			hg := :NEW.state_prov;
 		ELSE
