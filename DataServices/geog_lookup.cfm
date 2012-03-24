@@ -202,17 +202,11 @@ from geog_auth_rec where rownum<10
 		
 		<cfset sql="select HIGHER_GEOG from geog_auth_rec where trim(upper(HIGHER_GEOG))=trim(upper('#thisgeog#'))">
 		<br>#sql#
-		<cfquery name="findit"datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="x"datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-		===#findit.recordcount#==
-		<cfif findit.recordcount is 1>
-			<br>FOUND:::::::::::#findit.higher_geog#
-		<cfelse>
-			<cfdump var=#findit#>
-		</cfif>
+			<cfdump var=#x#>
 		
-		<cfset n=n+1>
 		<hr>
 		
 		<!-----------
