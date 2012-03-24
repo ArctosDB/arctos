@@ -158,7 +158,6 @@ from geog_auth_rec where rownum<10
 		<cfdump var=#x#>
 		
 		
-		<cfabort>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_geog
 	</cfquery>
@@ -202,9 +201,7 @@ from geog_auth_rec where rownum<10
 		
 		
 		<cfquery name="findit" datasource="uam_god">
-			select 
-				HIGHER_GEOG from geog_auth_rec where
-				upper(HIGHER_GEOG)='#ucase(thisgeog)#'
+			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)='#ucase(thisgeog)#'
 		</cfquery>
 		===#findit.recordcount#==
 		<cfif findit.recordcount is 1>
