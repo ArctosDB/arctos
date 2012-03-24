@@ -200,9 +200,10 @@ from geog_auth_rec where rownum<10
 		
 		<hr>thisgeog:#thisgeog#
 		
-		
+		<cfset sql="select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)=upper('#thisgeog#')">
+		<br>#sql#
 		<cfquery name="findit" datasource="uam_god">
-			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)=upper('#thisgeog#')
+			#preservesinglequotes(sql)#
 		</cfquery>
 		===#findit.recordcount#==
 		<cfif findit.recordcount is 1>
