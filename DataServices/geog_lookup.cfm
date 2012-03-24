@@ -169,67 +169,34 @@ from geog_auth_rec where rownum<10
 		<cfif len(state_prov) gt 0>
 			<cfset thisgeog=listappend(thisGeog,state_prov,", ")>
 		</cfif>
+		<cfif len(county) gt 0>
+			<cfset thisgeog=listappend(thisGeog,county,", ")>
+		</cfif>
+		<cfif len(quad) gt 0>
+			<cfset thisgeog=listappend(thisGeog,quad & " Quad",", ")>
+		</cfif>
+		<cfif len(feature) gt 0>
+			<cfset thisgeog=listappend(thisGeog,feature,", ")>
+		</cfif>
+		<cfif len(island_group) gt 0>
+			<cfset thisgeog=listappend(thisGeog,island_group,", ")>
+		</cfif>
+		<cfif len(island) gt 0>
+			<cfset thisgeog=listappend(thisGeog,island,", ")>
+		</cfif>
+		<cfif len(state_prov) gt 0>
+			<cfset thisgeog=listappend(thisGeog,state_prov,", ")>
+		</cfif>
+		<cfif len(state_prov) gt 0>
+			<cfset thisgeog=listappend(thisGeog,state_prov,", ")>
+		</cfif>
+		<cfset thisgeog=replace(thisgeog,",",", ","all")>
+		<cfset thisgeog=replace(thisgeog,",",  ", ","all")>
+		
 		<hr>thisgeog:#thisgeog#
 		<hr>
 		
 		<!-----------
-		
-	IF :NEW.country IS NOT NULL THEN
-		IF hg IS NULL THEN
-			hg := :NEW.;
-		ELSE
-			hg := hg || ', ' || :NEW.country;
-		END IF;
-	END IF;
-	    
-	IF :NEW. IS NOT NULL THEN
-		IF hg IS NULL THEN
-			hg := :NEW.state_prov;
-		ELSE
-			hg := hg || ', ' || :NEW.state_prov;
-		END IF;
-	END IF;
-	    
-	IF :NEW.county IS NOT NULL THEN
-		IF hg IS NULL THEN
-			hg := :NEW.county;
-		ELSE
-			hg := hg || ', ' || :NEW.county;
-		END IF;
-	END IF;
-	    
-	IF :NEW.quad IS NOT NULL THEN
-		IF hg IS NULL THEN
-			hg := :NEW.quad || ' Quad';
-		ELSE
-			hg := hg || ', ' || :NEW.quad || ' Quad';
-		END IF;
-	END IF;
-	    
-	IF :NEW.feature IS NOT NULL THEN
-		IF hg IS NULL THEN
-			hg := :NEW.feature;
-		ELSE
-			hg := hg || ', ' || :NEW.feature;
-		END IF;
-	END IF;
-	    
-	IF :NEW.island_group IS NOT NULL THEN
-		IF hg IS NULL THEN
-			hg := :NEW.island_group;
-		ELSE
-			hg := hg || ', ' || :NEW.island_group;
-		END IF;
-	END IF;
-	    
-	IF :NEW.island IS NOT NULL THEN
-		IF hg IS NULL THEN
-			hg := :NEW.island;
-		ELSE
-			hg := hg || ', ' || :NEW.island;
-		END IF;
-	END IF;
-	    
 	:NEW.higher_geog := trim(hg);
 END;
 
