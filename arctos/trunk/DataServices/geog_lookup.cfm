@@ -198,7 +198,7 @@ from geog_auth_rec where rownum<10
 		<cfset thisgeog=replace(thisgeog,",",  ", ","all")>
 		<cfset thisgeog=trim(thisgeog)>
 		
-		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z ,_()]","X","all")>
+		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z ,]","X","all")>
 		
 		
 		<hr>thisgeog:#thisgeog#
