@@ -201,7 +201,7 @@ from geog_auth_rec where rownum<10
 		<cfif findit.recordcount is 1>
 			<br>FOUND:::::::::::#findit.higher_geog#
 		<cfelse>
-			<cfdump var=#g1#>
+			<cfdump var=#findit#>
 		</cfif>
 		<hr>
 		
