@@ -198,11 +198,13 @@ from geog_auth_rec where rownum<10
 		<cfset thisgeog=replace(thisgeog,",",  ", ","all")>
 		<cfset thisgeog=trim(thisgeog)>
 		
+		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z ,_()]","X","all")>
+		
+		
 		<hr>thisgeog:#thisgeog#
 		
 		<cfset q="select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)=upper('#thisgeog#')">
 		
-		<cfset q=REReplace(q,"[^A-Za-z ,_]","X","all")>
 		<br>--#q#
 		
 		
