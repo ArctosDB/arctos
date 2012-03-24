@@ -197,6 +197,7 @@ from geog_auth_rec where rownum<10
 				HIGHER_GEOG from geog_auth_rec where
 				upper(HIGHER_GEOG)='#ucase(thisgeog)#'
 		</cfquery>
+		===#g1.recordcount#==
 		<cfif g1.recordcount is 1>
 			<br>FOUND:::::::::::#gi.higher_geog#
 		<cfelse>
