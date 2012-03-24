@@ -192,7 +192,7 @@ from geog_auth_rec where rownum<10
 		
 		<hr>thisgeog:#thisgeog#
 		
-		<cfquery name="g1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="g1" datasource="uam_god">
 			select 
 				HIGHER_GEOG from geog_auth_rec where
 				upper(HIGHER_GEOG)='#ucase(thisgeog)#'
