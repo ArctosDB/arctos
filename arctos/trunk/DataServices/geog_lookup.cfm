@@ -202,7 +202,7 @@ from geog_auth_rec where rownum<10
 		
 		<cfset q="select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)=upper('#thisgeog#')">
 		
-		<cfset q=REReplace(q,"[^A-Za-z]","X","all")>
+		<cfset q=REReplace(q,"[^A-Za-z ,]","X","all")>
 		<br>--#q#
 		
 		
