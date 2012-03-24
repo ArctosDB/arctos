@@ -184,12 +184,6 @@ from geog_auth_rec where rownum<10
 		<cfif len(island) gt 0>
 			<cfset thisgeog=listappend(thisGeog,island,", ")>
 		</cfif>
-		<cfif len(state_prov) gt 0>
-			<cfset thisgeog=listappend(thisGeog,state_prov,", ")>
-		</cfif>
-		<cfif len(state_prov) gt 0>
-			<cfset thisgeog=listappend(thisGeog,state_prov,", ")>
-		</cfif>
 		<cfset thisgeog=replace(thisgeog,",",", ","all")>
 		<cfset thisgeog=replace(thisgeog,",",  ", ","all")>
 		
