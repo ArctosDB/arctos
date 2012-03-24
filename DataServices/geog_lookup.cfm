@@ -200,15 +200,15 @@ from geog_auth_rec where rownum<10
 		
 		<hr>thisgeog:#thisgeog#
 		
-		<cfset sql="select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)=upper('#thisgeog#')">
+		<cfset q="select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)=upper('#thisgeog#')">
 		
-		<cfset sql=REReplaceNoCase(sql,"^[AZaz ]","X","all")>
+		<cfset q=REReplace(q,"^[AZaz]","X","all")>
 		<br>#sql#
 		
 		
 		
 		<cfquery name="x"datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			#preservesinglequotes(sql)#
+			#preservesinglequotes(q)#
 		</cfquery>
 			<cfdump var=#x#>
 		
