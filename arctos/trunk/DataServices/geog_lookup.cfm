@@ -197,7 +197,11 @@ from geog_auth_rec where rownum<10
 				HIGHER_GEOG from geog_auth_rec where
 				upper(HIGHER_GEOG)='#ucase(thisgeog)#'
 		</cfquery>
-		<cfdump var=#g1#>
+		<cfif g1.recordcount is 1>
+			<br>FOUND:::::::::::#gi.higher_geog#
+		<cfelse>
+			<cfdump var=#g1#>
+		</cfif>
 		<hr>
 		
 		<!-----------
