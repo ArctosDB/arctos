@@ -164,15 +164,15 @@ from geog_auth_rec where rownum<10
 			<cfset thisgeog=listappend(thisGeog,sea,", ")>
 		</cfif>
 		<cfif len(country) gt 0>
-			<cfset country=replace(country,'USA',"United States")>
-			<cfset thisgeog=listappend(thisGeog,country,", ")>
+			<cfset thiscountry=replace(country,'USA',"United States")>
+			<cfset thisgeog=listappend(thisGeog,thiscountry,", ")>
 		</cfif>
 		<cfif len(state_prov) gt 0>
 			<cfset thisgeog=listappend(thisGeog,state_prov,", ")>
 		</cfif>
 		<cfif len(county) gt 0>
-			<Cfset county=replace(county,'CO','County','all')>
-			<cfset thisgeog=listappend(thisGeog,county,", ")>
+			<Cfset thiscounty=replace(county,'CO','County','all')>
+			<cfset thisgeog=listappend(thisGeog,thiscounty,", ")>
 		</cfif>
 		<cfif len(quad) gt 0>
 			<cfset thisgeog=listappend(thisGeog,quad & " Quad",", ")>
