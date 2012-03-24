@@ -164,12 +164,14 @@ from geog_auth_rec where rownum<10
 			<cfset thisgeog=listappend(thisGeog,sea,", ")>
 		</cfif>
 		<cfif len(country) gt 0>
+			<cfset country=replace(country,'USA',"United States")>
 			<cfset thisgeog=listappend(thisGeog,country,", ")>
 		</cfif>
 		<cfif len(state_prov) gt 0>
 			<cfset thisgeog=listappend(thisGeog,state_prov,", ")>
 		</cfif>
 		<cfif len(county) gt 0>
+			<Cfset county=replace(county,'CO','County','all')>
 			<cfset thisgeog=listappend(thisGeog,county,", ")>
 		</cfif>
 		<cfif len(quad) gt 0>
@@ -186,8 +188,16 @@ from geog_auth_rec where rownum<10
 		</cfif>
 		<cfset thisgeog=replace(thisgeog,",",", ","all")>
 		<cfset thisgeog=replace(thisgeog,",",  ", ","all")>
+		<cfset thisgeog=trim(thisgeog)>
 		
 		<hr>thisgeog:#thisgeog#
+		
+		<cfquery name="g1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				HIGHER_GEOG from geog_auth_rec where
+				upper(HIGHER_GEOG)='#ucase(thisgeog)#'
+		</cfquery>
+		<cfdump var=#g1#>
 		<hr>
 		
 		<!-----------
