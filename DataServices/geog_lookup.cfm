@@ -202,7 +202,7 @@ from geog_auth_rec where rownum<10
 		
 		<cfset sql="select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)=upper('#thisgeog#')">
 		
-		<cfset sql=rereplace(sql,"^[:print:]","X","all")>
+		<cfset sql=REReplaceNoCase(sql,"^[AZaz ]","X","all")>
 		<br>#sql#
 		
 		
