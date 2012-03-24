@@ -200,7 +200,7 @@ from geog_auth_rec where rownum<10
 		
 		<hr>thisgeog:#thisgeog#
 		
-		<cfset sql="select HIGHER_GEOG from geog_auth_rec where trim(upper(HIGHER_GEOG))=trim(upper('#thisgeog#'))">
+		<cfset sql="select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)=upper('#thisgeog#')">
 		
 		<cfset sql=rereplace(sql,"^[:print:]","X","all")>
 		<br>#sql#
