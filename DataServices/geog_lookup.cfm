@@ -166,41 +166,43 @@ from geog_auth_rec where rownum<10
 		
 		<cfset thisgeog=''>
 		<cfif len(continent_ocean) gt 0>
-			<cfset thisgeog=listappend(thisGeog,continent_ocean,",")>
+			<cfset thisgeog=listappend(thisGeog,continent_ocean,"|")>
 		</cfif>
 		<cfif len(sea) gt 0>
-			<cfset thisgeog=listappend(thisGeog,sea,",")>
+			<cfset thisgeog=listappend(thisGeog,sea,"|")>
 		</cfif>
 		<cfif len(country) gt 0>
 			<cfset thiscountry=replace(country,'USA',"United States")>
-			<cfset thisgeog=listappend(thisGeog,thiscountry,", ")>
+			<cfset thisgeog=listappend(thisGeog,thiscountry,"|")>
 		</cfif>
 		<cfif len(state_prov) gt 0>
-			<cfset thisgeog=listappend(thisGeog,state_prov,",")>
+			<cfset thisgeog=listappend(thisGeog,state_prov,"|")>
 		</cfif>
 		<cfif len(county) gt 0>
 			<Cfset thiscounty=replace(county,'CO','County','all')>
-			<cfset thisgeog=listappend(thisGeog,thiscounty,",")>
+			<cfset thisgeog=listappend(thisGeog,thiscounty,"|")>
 		</cfif>
 		<cfif len(quad) gt 0>
-			<cfset thisgeog=listappend(thisGeog,quad & " Quad",",")>
+			<cfset thisgeog=listappend(thisGeog,quad & " Quad","|")>
 		</cfif>
 		<cfif len(feature) gt 0>
-			<cfset thisgeog=listappend(thisGeog,feature,",")>
+			<cfset thisgeog=listappend(thisGeog,feature,"|")>
 		</cfif>
 		<cfif len(island_group) gt 0>
-			<cfset thisgeog=listappend(thisGeog,island_group,",")>
+			<cfset thisgeog=listappend(thisGeog,island_group,"|")>
 		</cfif>
 		<cfif len(island) gt 0>
-			<cfset thisgeog=listappend(thisGeog,island,",")>
+			<cfset thisgeog=listappend(thisGeog,island,"|")>
 		</cfif>
 		<!----
 		<cfset thisgeog=replace(thisgeog,",",", ","all")>
 		<cfset thisgeog=replace(thisgeog,",",  ", ","all")>
-		---->
-		<cfset thisgeog=trim(thisgeog)>
+		
+		
 		
 		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z ,]","X","all")>
+		---->
+		<cfset thisgeog=trim(thisgeog)>
 		
 		
 		<hr>thisgeog:#thisgeog#
