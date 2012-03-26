@@ -84,6 +84,8 @@ from geog_auth_rec where rownum<10
 
 
 ---->
+
+
 <cfinclude template="/includes/_header.cfm">
 
 <cfif action is "nothing">
@@ -162,8 +164,7 @@ from geog_auth_rec where rownum<10
 		select * from ds_temp_geog
 	</cfquery>
 	<cfloop query="CDasdf">
-		
-		
+	
 		<br>CONTINENT_OCEAN==#CONTINENT_OCEAN#
 		<br>COUNTRY==#COUNTRY#
 		<br>STATE_PROV==#STATE_PROV#

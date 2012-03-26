@@ -49,6 +49,7 @@
 			ORDER BY scientific_name
 		</cfquery>
 	</cfoutput>
+	<cfdump var=#getTaxa#>
 	<cfif #getTaxa.recordcount# is 1>
 	<cfoutput>
 		<cfif #getTaxa.valid_catalog_term_fg# is "1">
