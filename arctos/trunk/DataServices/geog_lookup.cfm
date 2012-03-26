@@ -221,14 +221,19 @@ from geog_auth_rec where rownum<10
 		<cfset isNotNullBS='none'>
 		<br>beforedelete---#thisgeog#
 		<cfloop list="#isNotNullBS#" index="x">
-			
+			<cfloop from="1" to="#ListValueCountNoCase(thisgeog,x,"|")#" index="l">
+				<br>beforedelete==#l#==---#thisgeog#
+				<cfset thisgeog=listdeleteat(thisgeog,listfindnocase(thisgeog,x,"|"),"|")>
+				<br>afterdelete==#l#==---#thisgeog#
+			</cfloop>
 			    
-			  
+			  <!----
 		<br>ListValueCountNoCase===#ListValueCountNoCase(thisgeog,x,"|")# 
 			    
 			<cfif listfindnocase(thisgeog,x,"|")>
-				<cfset thisgeog=listdeleteat(thisgeog,listfindnocase(thisgeog,x,"|"),"|")>
+				
 			</cfif>
+			---->
 		</cfloop>
 		
 
