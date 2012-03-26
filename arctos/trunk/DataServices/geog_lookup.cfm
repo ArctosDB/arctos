@@ -165,7 +165,7 @@ from geog_auth_rec where rownum<10
 	<cfloop query="CDasdf">
 		
 		<cfquery name="tt" dbtype="query">
-			select continent_ocean from CDasdf where pkey = '#pkey#'
+			select continent_ocean from CDasdf where pkey = #pkey#
 		</cfquery>
 		<cfdump var=#tt#>
 		
