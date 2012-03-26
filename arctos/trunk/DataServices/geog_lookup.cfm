@@ -324,6 +324,7 @@ END;
 			select * from
 				ds_temp_geog
 				order by
+				found_higher_geog,
 				calculated_higher_geog
 		</cfquery>
 		<cfdump var=#rr#>
