@@ -153,12 +153,12 @@ from geog_auth_rec where rownum<10
 <cfoutput>
 
 		
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="do" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_geog 
 	</cfquery>
-	<cfloop query="d">
+	<cfloop query="do">
 		<cfquery name="tt" dbtype="query">
-			select * from d where key=#key#
+			select * from do where key=#key#
 		</cfquery>
 		<cfdump var=#tt#>
 		<cfset thisgeog=''>
