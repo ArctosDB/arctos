@@ -210,7 +210,7 @@ from geog_auth_rec where rownum<10
 		
 		
 		<cfquery name="mmmffssds"  datasource="uam_god">
-			select HIGHER_GEOG from geog_auth_rec where HIGHER_GEOG = '#HIGHER_GEOG#'
+			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) = upper('#HIGHER_GEOG#')
 		</cfquery>
 			<cfdump var=#mmmffssds#>
 		
