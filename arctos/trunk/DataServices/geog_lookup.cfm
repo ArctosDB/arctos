@@ -156,9 +156,11 @@ from geog_auth_rec where rownum<10
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_geog 
 	</cfquery>
-	<cfdump var=#d#>
 	<cfloop query="d">
-		
+		<cfquery name="tt" dbtype="query">
+			select * from d where key=#key#
+		</cfquery>
+		<cfdump var=#tt#>
 		<cfset thisgeog=''>
 		<cfif len(continent_ocean) gt 0>
 			<cfset thisgeog=listappend(thisGeog,continent_ocean,"|")>
@@ -195,26 +197,29 @@ from geog_auth_rec where rownum<10
 		
 		
 		
-		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z ,]","X","all")>
 		---->
 		
+		
+		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z ,]","X","all")>
+
+
 		<cfset thisgeog=replace(thisgeog,"|",  ", ","all")>
 		
 		<cfset thisgeog=trim(thisgeog)>
 		
 		
-		<hr>thisgeog:#thisgeog#
 		
-		<cfset q="select HIGHER_GEOG from geog_auth_rec where lower(HIGHER_GEOG)=('#lcase(thisgeog)#')">
-		
-		<br>--#q#
-		
+
 		
 		
 		<cfquery name="mmmffssds"  datasource="uam_god">
 			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) = upper('#thisgeog#')
 		</cfquery>
+		<cfif mmmffssds.recordcount is 1>
+			<br>---------happy@------------
+		<cfelse>
 			<cfdump var=#mmmffssds#>
+		</cfif>
 		
 		<hr>
 		
