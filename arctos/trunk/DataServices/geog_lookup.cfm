@@ -153,7 +153,7 @@ from geog_auth_rec where rownum<10
 <cfoutput>
 	<cfquery name="x" datasource="uam_god">
 		select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)='NORTH AMERICA, UNITED STATES, WASHINGTON, CLALLAM COUNTY' 
-		</cfquery>
+	</cfquery>
 		
 		<cfdump var=#x#>
 		
@@ -209,7 +209,7 @@ from geog_auth_rec where rownum<10
 		
 		
 		
-		<cfquery name="x"datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="x"  datasource="uam_god">
 			#preservesinglequotes(q)#
 		</cfquery>
 			<cfdump var=#x#>
