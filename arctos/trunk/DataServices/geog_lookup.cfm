@@ -151,15 +151,10 @@ from geog_auth_rec where rownum<10
 </cfif>
 <cfif action is "validate">
 <cfoutput>
-	<cfquery name="x" datasource="uam_god">
-		select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG)='NORTH AMERICA, UNITED STATES, WASHINGTON, CLALLAM COUNTY' 
-	</cfquery>
-		
-		<cfdump var=#x#>
-		
+
 		
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from ds_temp_geog where rownum<10
+		select * from ds_temp_geog 
 	</cfquery>
 	<cfdump var=#d#>
 	<cfloop query="d">
