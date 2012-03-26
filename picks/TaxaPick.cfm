@@ -51,6 +51,7 @@
 					a.taxon_name_id is not null and 
 					UPPER(a.scientific_name) LIKE '#ucase(scientific_name)#%'
 			)
+			where taxon_name_id is not null
 			group by 
 				scientific_name,
 				taxon_name_id, 
