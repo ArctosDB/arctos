@@ -220,7 +220,7 @@ from geog_auth_rec where rownum<10
 		
 		<cfset isNotNullBS='none'>
 		<br>beforedelete---#thisgeog#
-		<cfloop list="" index="x">
+		<cfloop list="#isNotNullBS#" index="x">
 			<cfif listfindnocase(thisgeog,x,"|")>
 				<cfset thisgeog=listdeleteat(listfindnocase(thisgeog,x,"|"))>
 			</cfif>
