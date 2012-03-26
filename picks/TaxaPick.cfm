@@ -20,7 +20,7 @@
 				from 
 					taxonomy
 				where
-					scientific_name is not null and 
+					taxon_name_id is not null and 
 					UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'
 				UNION
 				SELECT 
@@ -34,7 +34,7 @@
 				where
 					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
-					b.scientific_name is not null and 
+					b.taxon_name_id is not null and 
 					UPPER(B.scientific_name) LIKE '#ucase(scientific_name)#%'
 				UNION
 				SELECT 
@@ -48,7 +48,7 @@
 				where
 					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
-					a.scientific_name is not null and 
+					a.taxon_name_id is not null and 
 					UPPER(a.scientific_name) LIKE '#ucase(scientific_name)#%'
 			)
 			group by 
