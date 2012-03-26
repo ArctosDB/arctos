@@ -203,14 +203,14 @@ from geog_auth_rec where rownum<10
 		
 		<hr>thisgeog:#thisgeog#
 		
-		<cfset q="select HIGHER_GEOG from flat where lower(HIGHER_GEOG)=('#lcase(thisgeog)#')">
+		<cfset q="select HIGHER_GEOG from geog_auth_rec where lower(HIGHER_GEOG)=('#lcase(thisgeog)#')">
 		
 		<br>--#q#
 		
 		
 		
 		<cfquery name="x"  datasource="uam_god">
-			#preservesinglequotes(q)#
+			#q#
 		</cfquery>
 			<cfdump var=#x#>
 		
