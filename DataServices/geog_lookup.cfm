@@ -247,6 +247,16 @@ from geog_auth_rec where rownum<10
 			<br>NOTFOUND:::#thisgeog#
 		</cfif>
 		
+		
+		<cfquery name="upr"  datasource="uam_god">
+			update
+				ds_temp_geog
+			set
+				calculated_higher_geog='#thisgeog#',
+				found_higher_geog='#mmmffssds.higher_geog#'
+			where
+				pkey=#pkey#
+		</cfquery>
 		<hr>
 		
 		<!-----------
@@ -299,5 +309,13 @@ END;
 		
 		---->
 	</cfloop>
+	
+		<cfquery name="rr"  datasource="uam_god">
+			select * from
+				ds_temp_geog
+				order by
+				calculated_higher_geog
+		</cfquery>
+		<cfdump var=#rr#>
 </cfoutput>
 </cfif>
