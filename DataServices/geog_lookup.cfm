@@ -163,10 +163,16 @@ from geog_auth_rec where rownum<10
 	</cfquery>
 	<cfloop query="CDasdf">
 		
-		<cfquery name="tt" dbtype="query">
-			select * from CDasdf where pkey = #pkey#
-		</cfquery>
-		<cfdump var=#tt#>
+		
+		<br>CONTINENT_OCEAN==#CONTINENT_OCEAN#
+		<br>COUNTRY==#COUNTRY#
+		<br>STATE_PROV==#STATE_PROV#
+		<br>COUNTY==#COUNTY#
+		<br>QUAD==#QUAD#
+		<br>FEATURE==#FEATURE#
+		<br>ISLAND==#ISLAND#
+		<br>ISLAND_GROUP==#ISLAND_GROUP#
+		<br>SEA==#SEA#
 		
 		
 		
@@ -212,7 +218,13 @@ from geog_auth_rec where rownum<10
 		
 		---->
 		
-		
+		<cfset isNotNullBS='none'>
+		<br>beforedelete---#thisgeog#
+		<cfloop list="" index="x">
+			<cfif listfindnocase(thisgeog,x,"|")>
+				<cfset thisgeog=listdeleteat(listfindnocase(thisgeog,x,"|"))>
+			</cfif>
+		</cfloop>
 		
 
 		<cfset thisgeog=replace(thisgeog,"|",  ", ","all")>
