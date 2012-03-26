@@ -194,7 +194,9 @@ from geog_auth_rec where rownum<10
 			<cfset thisgeog=listappend(thisGeog,state_prov,"|")>
 		</cfif>
 		<cfif len(county) gt 0>
-			<Cfset thiscounty=replace(county,'CO','County','all')>
+			<Cfset thiscounty=county>
+			<Cfset thiscounty=replace(thiscounty,' CO.','%','all')>
+			<Cfset thiscounty=replace(thiscounty,' CO','%','all')>
 			<cfset thisgeog=listappend(thisGeog,thiscounty,"|")>
 		</cfif>
 		<cfif len(quad) gt 0>
@@ -359,7 +361,9 @@ END;
 		<cfscript>	
 			variables.joFileWriter.close();
 		</cfscript>
+		<!---
 		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+		---->
 		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 		
 </cfoutput>
