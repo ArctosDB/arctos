@@ -15,7 +15,12 @@ create table ds_temp_geog (
 	HIGHER_GEOG  varchar2(255)
 );
 
-create public synonym ds_temp_geog for ds_temp_geog;
+alter table ds_temp_geog rename column key to pkey;
+alter table ds_temp_geog drop column HIGHER_GEOG;
+alter table ds_temp_geog add calculated_higher_geog varchar2(255);
+alter table ds_temp_geog add found_higher_geog varchar2(255);
+
+create or replace public synonym ds_temp_geog for ds_temp_geog;
 grant all on ds_temp_geog to coldfusion_user;
 grant select on ds_temp_geog to public;
 
@@ -23,8 +28,8 @@ grant select on ds_temp_geog to public;
  before insert  ON ds_temp_geog
  for each row 
     begin     
-    	if :NEW.key is null then                                                                                      
-    		select somerandomsequence.nextval into :new.key from dual;
+    	if :NEW.pkey is null then                                                                                      
+    		select somerandomsequence.nextval into :new.pkey from dual;
     	end if;                                
     end;                                                                                            
 /
@@ -159,9 +164,8 @@ from geog_auth_rec where rownum<10
 	<cfdump var=#CDasdf#>
 	<cfloop query="CDasdf">
 		
-		<!--------
 		<cfquery name="tt" dbtype="query">
-			select continent_ocean from CDasdf where key = '#key#'
+			select continent_ocean from CDasdf where pkey = '#pkey#'
 		</cfquery>
 		<cfdump var=#tt#>
 		
@@ -170,7 +174,6 @@ from geog_auth_rec where rownum<10
 		
 		
 		
-		----------->
 		<cfset thisgeog=''>
 		<cfif len(continent_ocean) gt 0>
 			<cfset thisgeog=listappend(thisGeog,continent_ocean,"|")>
