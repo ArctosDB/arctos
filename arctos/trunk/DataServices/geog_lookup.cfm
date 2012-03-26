@@ -153,13 +153,13 @@ from geog_auth_rec where rownum<10
 <cfoutput>
 
 		
-	<cfquery name="CDasdf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="CDasdf" datasource="uam_god">
 		select * from ds_temp_geog where rownum<20
 	</cfquery>
 	<cfdump var=#CDasdf#>
 	<cfloop query="CDasdf">
 		<cfquery name="tt" dbtype="query">
-			select * from CDasdf where key = '#key#'
+			select continent_ocean from CDasdf where key = '#key#'
 		</cfquery>
 		<cfdump var=#tt#>
 		<cfset thisgeog=''>
