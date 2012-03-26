@@ -232,7 +232,7 @@ from geog_auth_rec where rownum<10
 		<cfif mmmffssds.recordcount is 1>
 			<br>---------happy@------------
 		<cfelse>
-			<cfdump var=#mmmffssds#>
+			<br>NOTFOUND:::#thisgeog#
 		</cfif>
 		
 		<hr>
