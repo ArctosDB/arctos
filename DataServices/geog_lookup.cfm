@@ -19,6 +19,7 @@ alter table ds_temp_geog rename column key to pkey;
 alter table ds_temp_geog drop column HIGHER_GEOG;
 alter table ds_temp_geog add calculated_higher_geog varchar2(255);
 alter table ds_temp_geog add found_higher_geog varchar2(255);
+alter table ds_temp_geog add status varchar2(255);
 
 create or replace public synonym ds_temp_geog for ds_temp_geog;
 grant all on ds_temp_geog to coldfusion_user;
@@ -164,7 +165,6 @@ from geog_auth_rec where rownum<10
 		select * from ds_temp_geog
 	</cfquery>
 	<cfloop query="CDasdf">
-	
 		<br>CONTINENT_OCEAN==#CONTINENT_OCEAN#
 		<br>COUNTRY==#COUNTRY#
 		<br>STATE_PROV==#STATE_PROV#
@@ -175,11 +175,7 @@ from geog_auth_rec where rownum<10
 		<br>ISLAND_GROUP==#ISLAND_GROUP#
 		<br>SEA==#SEA#
 		
-		
-		
-		
-		
-		
+		<cfset thisStatus="">
 		<cfset thisgeog=''>
 		<cfif len(continent_ocean) gt 0>
 			<cfset thisgeog=listappend(thisGeog,continent_ocean,"|")>
@@ -213,52 +209,35 @@ from geog_auth_rec where rownum<10
 			<cfset thisgeog=listappend(thisGeog,island,"|")>
 		</cfif>
 		
-		<!----
-		<cfset thisgeog=replace(thisgeog,",",", ","all")>
-		<cfset thisgeog=replace(thisgeog,",",  ", ","all")>
-		
-		
-		
-		---->
-		
+		<!--- see if we can get rid of some of the strange ideas people have for "NULL" --->
 		<cfset isNotNullBS='none'>
-		<br>beforedelete---#thisgeog#
 		<cfloop list="#isNotNullBS#" index="x">
 			<cfloop from="1" to="#ListValueCountNoCase(thisgeog,x,"|")#" index="l">
 				<br>beforedelete==#l#==---#thisgeog#
 				<cfset thisgeog=listdeleteat(thisgeog,listfindnocase(thisgeog,x,"|"),"|")>
 				<br>afterdelete==#l#==---#thisgeog#
 			</cfloop>
-			    
-			  <!----
-		<br>ListValueCountNoCase===#ListValueCountNoCase(thisgeog,x,"|")# 
-			    
-			<cfif listfindnocase(thisgeog,x,"|")>
-				
-			</cfif>
-			---->
 		</cfloop>
-		
-
-		<cfset thisgeog=replace(thisgeog,"|",  ", ","all")>
-		
+		<cfset thisgeog=replace(thisgeog,"|",  ", ","all")>		
 		<cfset thisgeog=trim(thisgeog)>
-		
-		
 		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z%, ]","X","all")>
-
-
 		<br>#thisgeog#
-		
-		
 		<cfquery name="mmmffssds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) like upper('#thisgeog#')
 		</cfquery>
 		<cfif mmmffssds.recordcount is 1>
-			<br>---------happy@------------
+			<cfset thisStatus='higher_geog_match'>
 		<cfelse>
 			<br>NOTFOUND:::#thisgeog#
+			<cfif len(thiscounty) gt 0>
+				<cfquery name="checkCounty" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select HIGHER_GEOG from geog_auth_rec where upper(county) like upper('#thiscounty#')
+				</cfquery>
+				<cfdump var=#checkCounty#>
+			</cfif>
 		</cfif>
+		
+			
 		
 		
 		<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -266,7 +245,8 @@ from geog_auth_rec where rownum<10
 				ds_temp_geog
 			set
 				calculated_higher_geog='#thisgeog#',
-				found_higher_geog='#mmmffssds.higher_geog#'
+				found_higher_geog='#mmmffssds.higher_geog#',
+				status='#thisStatus#'
 			where
 				pkey=#pkey#
 		</cfquery>
