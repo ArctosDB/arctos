@@ -201,6 +201,8 @@ from geog_auth_rec where rownum<10
 		<cfif len(island) gt 0>
 			<cfset thisgeog=listappend(thisGeog,island,"|")>
 		</cfif>
+		<br>#thisgeog#
+		
 		<!----
 		<cfset thisgeog=replace(thisgeog,",",", ","all")>
 		<cfset thisgeog=replace(thisgeog,",",  ", ","all")>
