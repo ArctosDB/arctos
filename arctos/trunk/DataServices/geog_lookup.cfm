@@ -203,7 +203,7 @@ from geog_auth_rec where rownum<10
 		
 		<hr>thisgeog:#thisgeog#
 		
-		<cfset q="select HIGHER_GEOG from flat where upper(HIGHER_GEOG)=upper('#thisgeog#')">
+		<cfset q="select HIGHER_GEOG from flat where lower(HIGHER_GEOG)=('#lcase(thisgeog)#')">
 		
 		<br>--#q#
 		
