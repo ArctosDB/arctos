@@ -209,10 +209,10 @@ from geog_auth_rec where rownum<10
 		
 		
 		
-		<cfquery name="x"  datasource="uam_god">
+		<cfquery name="mmmffssds"  datasource="uam_god">
 			select HIGHER_GEOG from geog_auth_rec where lower(HIGHER_GEOG) like ('%#lcase(thisgeog)#%')
 		</cfquery>
-			<cfdump var=#x#>
+			<cfdump var=#mmmffssds#>
 		
 		<hr>
 		
