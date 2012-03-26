@@ -48,7 +48,10 @@
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
 					UPPER(a.scientific_name) LIKE '#ucase(scientific_name)#%'
 			)
-			group by scientific_name
+			group by 
+				scientific_name,
+				taxon_name_id, 
+				valid_catalog_term_fg
 			ORDER BY scientific_name
 		</cfquery>
 	</cfoutput>
