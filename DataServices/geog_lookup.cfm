@@ -159,7 +159,7 @@ from geog_auth_rec where rownum<10
 	<cfdump var=#CDasdf#>
 	<cfloop query="CDasdf">
 		<cfquery name="tt" dbtype="query">
-			select * from CDasdf where key = #key#
+			select * from CDasdf where key = '#key#'
 		</cfquery>
 		<cfdump var=#tt#>
 		<cfset thisgeog=''>
