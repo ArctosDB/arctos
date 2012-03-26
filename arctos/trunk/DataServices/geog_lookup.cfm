@@ -202,6 +202,9 @@ from geog_auth_rec where rownum<10
 		
 		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z ,]","X","all")>
 		---->
+		
+		<cfset thisgeog=replace(thisgeog,"|",  ", ","all")>
+		
 		<cfset thisgeog=trim(thisgeog)>
 		
 		
