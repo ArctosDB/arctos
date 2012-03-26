@@ -251,7 +251,7 @@ from geog_auth_rec where rownum<10
 		
 		
 		<cfquery name="mmmffssds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) = upper('#thisgeog#')
+			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) like upper('#thisgeog#')
 		</cfquery>
 		<cfif mmmffssds.recordcount is 1>
 			<br>---------happy@------------
