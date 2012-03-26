@@ -326,7 +326,7 @@ END;
 				found_higher_geog,
 				calculated_higher_geog
 		</cfquery>
-		<cfset ac = getData.column_list>
+		<cfset ac = getData.columnList>
 		<!--- strip internal columns --->
 		<cfif ListFindNoCase(ac,'PKEY')>
 			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'PKEY'))>
