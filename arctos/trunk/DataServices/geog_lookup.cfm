@@ -177,6 +177,7 @@ from geog_auth_rec where rownum<10
 		
 		<cfset thisStatus="">
 		<cfset thisgeog=''>
+		<cfset fhg=''>
 		<cfif len(continent_ocean) gt 0>
 			<cfset thisgeog=listappend(thisGeog,continent_ocean,"|")>
 		</cfif>
@@ -227,25 +228,103 @@ from geog_auth_rec where rownum<10
 		</cfquery>
 		<cfif mmmffssds.recordcount is 1>
 			<cfset thisStatus='higher_geog_match'>
-		<cfelse>
-			<br>NOTFOUND:::#thisgeog#
-			<cfif len(thiscounty) gt 0>
-				<cfquery name="checkCounty" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select HIGHER_GEOG from geog_auth_rec where upper(county) like upper('#thiscounty#')
-				</cfquery>
-				<cfdump var=#checkCounty#>
+			<cfset fhg=mmmffssds.higher_geog>
+		</cfif>
+	<br>NOTFOUND:::#thisgeog#
+		<cfif len(thisStatus) is 0 and len(thiscounty) gt 0>
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select HIGHER_GEOG from geog_auth_rec where upper(county) like upper('#thiscounty#')
+			</cfquery>
+			<cfif checkThis.recordcount is 1>
+				<cfset thisStatus='county_match'>
+				<cfset fhg=checkThis.HIGHER_GEOG>
 			</cfif>
 		</cfif>
-		
-			
-		
+		<cfif len(thisStatus) is 0 and len(FEATURE) gt 0>
+			<!--- this should look for variations on eg NPS, etc. ---->
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select HIGHER_GEOG from geog_auth_rec where upper(feature) like upper('#FEATURE#')
+			</cfquery>
+			<cfif checkThis.recordcount is 1>
+				<cfset thisStatus='feature_match'>
+				<cfset fhg=checkThis.HIGHER_GEOG>
+			</cfif>
+		</cfif>
+		<cfif len(thisStatus) is 0 and len(QUAD) gt 0>
+			<!--- this should look for variations on eg NPS, etc. ---->
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select HIGHER_GEOG from geog_auth_rec where upper(quad) like upper('#QUAD#%')
+			</cfquery>
+			<cfif checkThis.recordcount is 1>
+				<cfset thisStatus='quad_match'>
+				<cfset fhg=checkThis.HIGHER_GEOG>
+			</cfif>
+		</cfif>
+		<cfif len(thisStatus) is 0 and len(ISLAND) gt 0>
+			<Cfset thisisland=island>
+			<Cfset thisisland=replace(thisisland,' ISL.','%','all')>
+			<Cfset thisisland=replace(thisisland,' ISL','%','all')>
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select HIGHER_GEOG from geog_auth_rec where upper(ISLAND) like upper('#thisisland#')
+			</cfquery>
+			<cfif checkThis.recordcount is 1>
+				<cfset thisStatus='island_match'>
+				<cfset fhg=checkThis.HIGHER_GEOG>
+			</cfif>
+		</cfif>
+		<cfif len(thisStatus) is 0 and len(ISLAND_GROUP) gt 0>
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select HIGHER_GEOG from geog_auth_rec where upper(ISLAND_GROUP) like upper('#ISLAND_GROUP#')
+			</cfquery>
+			<cfif checkThis.recordcount is 1>
+				<cfset thisStatus='islandgroup_match'>
+				<cfset fhg=checkThis.HIGHER_GEOG>
+			</cfif>
+		</cfif>
+		<cfif len(thisStatus) is 0 and len(SEA) gt 0>
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select HIGHER_GEOG from geog_auth_rec where upper(SEA) like upper('#SEA#')
+			</cfquery>
+			<cfif checkThis.recordcount is 1>
+				<cfset thisStatus='sea_match'>
+				<cfset fhg=checkThis.HIGHER_GEOG>
+			</cfif>
+		</cfif>
+		<cfif len(thisStatus) is 0 and len(STATE_PROV) gt 0>
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select HIGHER_GEOG from geog_auth_rec where upper(STATE_PROV) like upper('#STATE_PROV#')
+			</cfquery>
+			<cfif checkThis.recordcount is 1>
+				<cfset thisStatus='stateprov_match'>
+				<cfset fhg=checkThis.HIGHER_GEOG>
+			</cfif>
+		</cfif>
+		<cfif len(thisStatus) is 0 and len(COUNTRY) gt 0>
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select HIGHER_GEOG from geog_auth_rec where upper(COUNTRY) like upper('#COUNTRY#')
+			</cfquery>
+			<cfif checkThis.recordcount is 1>
+				<cfset thisStatus='country_match'>
+				<cfset fhg=checkThis.HIGHER_GEOG>
+			</cfif>
+		</cfif>
+		<cfif len(thisStatus) is 0 and len(CONTINENT_OCEAN) gt 0>
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select HIGHER_GEOG from geog_auth_rec where upper(CONTINENT_OCEAN) like upper('#CONTINENT_OCEAN#')
+			</cfquery>
+			<cfif checkThis.recordcount is 1>
+				<cfset thisStatus='continentocean_match'>
+				<cfset fhg=checkThis.HIGHER_GEOG>
+			</cfif>
+		</cfif>
+
 		
 		<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update
 				ds_temp_geog
 			set
 				calculated_higher_geog='#thisgeog#',
-				found_higher_geog='#mmmffssds.higher_geog#',
+				found_higher_geog='#fhg#',
 				status='#thisStatus#'
 			where
 				pkey=#pkey#
