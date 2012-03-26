@@ -326,10 +326,10 @@ END;
 				found_higher_geog,
 				calculated_higher_geog
 		</cfquery>
-		<cfset ac = valuelist(getData.column_name)>
+		<cfset ac = getData.column_list>
 		<!--- strip internal columns --->
 		<cfif ListFindNoCase(ac,'PKEY')>
-				<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'PKEY'))>
+			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'PKEY'))>
 		</cfif>
 		<cfset fileDir = "#Application.webDirectory#">
 		<cfset variables.encoding="UTF-8">
