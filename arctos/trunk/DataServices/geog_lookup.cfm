@@ -158,10 +158,19 @@ from geog_auth_rec where rownum<10
 	</cfquery>
 	<cfdump var=#CDasdf#>
 	<cfloop query="CDasdf">
+		
+		<!--------
 		<cfquery name="tt" dbtype="query">
 			select continent_ocean from CDasdf where key = '#key#'
 		</cfquery>
 		<cfdump var=#tt#>
+		
+		
+		
+		
+		
+		
+		----------->
 		<cfset thisgeog=''>
 		<cfif len(continent_ocean) gt 0>
 			<cfset thisgeog=listappend(thisGeog,continent_ocean,"|")>
