@@ -161,7 +161,7 @@ from geog_auth_rec where rownum<10
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from geog_auth_rec where rownum<10
 	</cfquery>
-	<cfset n=1>
+	<cfdump var=#d#>
 	<cfloop query="d">
 		
 		<cfset thisgeog=''>
@@ -210,7 +210,7 @@ from geog_auth_rec where rownum<10
 		
 		
 		<cfquery name="mmmffssds"  datasource="uam_god">
-			select HIGHER_GEOG from geog_auth_rec where lower(HIGHER_GEOG) like ('%#lcase(thisgeog)#%')
+			select HIGHER_GEOG from geog_auth_rec where HIGHER_GEOG = '#HIGHER_GEOG#'
 		</cfquery>
 			<cfdump var=#mmmffssds#>
 		
