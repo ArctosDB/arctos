@@ -159,9 +159,8 @@ from geog_auth_rec where rownum<10
 
 		
 	<cfquery name="CDasdf" datasource="uam_god">
-		select * from ds_temp_geog where rownum<20
+		select * from ds_temp_geog
 	</cfquery>
-	<cfdump var=#CDasdf#>
 	<cfloop query="CDasdf">
 		
 		<cfquery name="tt" dbtype="query">
