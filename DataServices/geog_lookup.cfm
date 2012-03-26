@@ -158,7 +158,7 @@ from geog_auth_rec where rownum<10
 <cfoutput>
 
 		
-	<cfquery name="CDasdf" datasource="uam_god">
+	<cfquery name="CDasdf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ds_temp_geog
 	</cfquery>
 	<cfloop query="CDasdf">
@@ -248,7 +248,7 @@ from geog_auth_rec where rownum<10
 		<br>#thisgeog#
 		
 		
-		<cfquery name="mmmffssds"  datasource="uam_god">
+		<cfquery name="mmmffssds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) = upper('#thisgeog#')
 		</cfquery>
 		<cfif mmmffssds.recordcount is 1>
@@ -258,7 +258,7 @@ from geog_auth_rec where rownum<10
 		</cfif>
 		
 		
-		<cfquery name="upr"  datasource="uam_god">
+		<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update
 				ds_temp_geog
 			set
@@ -320,13 +320,47 @@ END;
 		---->
 	</cfloop>
 	
-		<cfquery name="rr"  datasource="uam_god">
-			select * from
-				ds_temp_geog
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from ds_temp_geog
 				order by
 				found_higher_geog,
 				calculated_higher_geog
 		</cfquery>
-		<cfdump var=#rr#>
+		<cfset ac = valuelist(getData.column_name)>
+		<!--- strip internal columns --->
+		<cfif ListFindNoCase(ac,'PKEY')>
+				<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'PKEY'))>
+		</cfif>
+		<cfset fileDir = "#Application.webDirectory#">
+		<cfset variables.encoding="UTF-8">
+		<cfset fname = "geog_lookup.csv">
+		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+		<cfset header=trim(ac)>
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(header); 
+		</cfscript>
+		<cfloop query="getData">
+			<cfset oneLine = "">
+			<cfloop list="#ac#" index="c">
+				<cfset thisData = evaluate(c)>
+				<cfif len(oneLine) is 0>
+					<cfset oneLine = '"#thisData#"'>
+				<cfelse>
+					<cfset thisData=replace(thisData,'"','""','all')>
+					<cfset oneLine = '#oneLine#,"#thisData#"'>
+				</cfif>
+			</cfloop>
+			<cfset oneLine = trim(oneLine)>
+			<cfscript>
+				variables.joFileWriter.writeLine(oneLine);
+			</cfscript>
+		</cfloop>
+		<cfscript>	
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+		
 </cfoutput>
 </cfif>
