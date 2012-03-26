@@ -178,6 +178,7 @@ from geog_auth_rec where rownum<10
 		<cfset thisStatus="">
 		<cfset thisgeog=''>
 		<cfset fhg=''>
+		<Cfset thiscounty="">
 		<cfif len(continent_ocean) gt 0>
 			<cfset thisgeog=listappend(thisGeog,continent_ocean,"|")>
 		</cfif>
