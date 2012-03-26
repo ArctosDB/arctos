@@ -20,7 +20,6 @@
 				from 
 					taxonomy
 				where
-					taxon_name_id is not null and 
 					UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'
 				UNION
 				SELECT 
@@ -34,7 +33,6 @@
 				where
 					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
-					b.taxon_name_id is not null and 
 					UPPER(B.scientific_name) LIKE '#ucase(scientific_name)#%'
 				UNION
 				SELECT 
@@ -48,7 +46,6 @@
 				where
 					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
-					a.taxon_name_id is not null and 
 					UPPER(a.scientific_name) LIKE '#ucase(scientific_name)#%'
 			)
 			where taxon_name_id is not null
@@ -59,7 +56,6 @@
 			ORDER BY scientific_name
 		</cfquery>
 	</cfoutput>
-	<cfdump var=#getTaxa#>
 	<cfif #getTaxa.recordcount# is 1>
 	<cfoutput>
 		<cfif #getTaxa.valid_catalog_term_fg# is "1">
