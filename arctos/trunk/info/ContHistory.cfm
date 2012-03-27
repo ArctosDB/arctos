@@ -14,7 +14,8 @@
 		container_type,
 		label,
 		description,
-		barcode
+		barcode,
+		container_id
 		 from container_history,container
 		 where container_history.parent_container_id = container.container_id and
 		  container_history.container_id=#container_id#
@@ -42,6 +43,7 @@ has no scan history.
 		<td><b>Label</b></td>
 		<td><b>Description</b></td>
 		<td><b>Barcode</b></td>
+		<td>&nbsp;</td>
 	</tr>
 
 <cfloop query="getHist">
@@ -52,6 +54,7 @@ has no scan history.
 		<td>#label#</td>
 		<td>#description#</td>
 		<td>#barcode#</td>		
+		<td><a href="/findContainer.cfm?container_id=#container_id#">details</a></td>		
 		</tr>
 </cfloop>
 </table>
