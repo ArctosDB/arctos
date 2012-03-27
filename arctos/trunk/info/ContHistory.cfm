@@ -15,7 +15,7 @@
 		label,
 		description,
 		barcode,
-		container_id
+		container.container_id
 		 from container_history,container
 		 where container_history.parent_container_id = container.container_id and
 		  container_history.container_id=#container_id#
@@ -25,7 +25,7 @@
 		label,
 		description,
 		barcode,
-		container_id
+		container.container_id
 	ORDER BY install_date DESC
 </cfquery>
 <cfif #getHist.recordcount# gt 0>
