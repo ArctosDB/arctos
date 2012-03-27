@@ -315,6 +315,7 @@
 			 	<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
 					#preservesinglequotes(thisSql)#
 				</cfquery>
+				#preservesinglequotes(thisSql)#
 				<cfcatch>
 					<cfset result = querynew("CONTAINER_ID,MSG")>
 					<cfset temp = queryaddrow(result,1)>
