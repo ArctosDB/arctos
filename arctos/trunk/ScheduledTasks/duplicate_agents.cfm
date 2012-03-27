@@ -636,10 +636,10 @@ END;
 				
 				<br>
 				
-				<a href="/Admin/ActivityLog.cfm?action=search&sql=#findDups.AGENT_ID#&object=agent_relations">search audit logs for whodunit</a> (possible 24h delay)
+				<a href="#Application.serverRootUrl#/Admin/ActivityLog.cfm?action=search&sql=#findDups.AGENT_ID#&object=agent_relations">search audit logs for whodunit</a> (possible 24h delay)
 				
-				<br>Good Agent: <a href="/agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
-				<br>Duplicate Agent: <a href="/agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
+				<br>Good Agent: <a href="#Application.serverRootUrl#/agents.cfm?agent_id=#findDups.RELATED_AGENT_ID#">#findDups.rel_agent_pref_name#</a>
+				<br>Duplicate Agent: <a href="#Application.serverRootUrl#/agents.cfm?agent_id=#findDups.AGENT_ID#">#findDups.agent_pref_name#</a>
 				<br>Marked As Dup On: #dateformat(detected_date,"yyyy-mm-dd")#
 				<br>Last Action: #dateformat(last_date,"yyyy-mm-dd")#
 				<br>Status: #status#

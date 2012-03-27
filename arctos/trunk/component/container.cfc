@@ -133,6 +133,7 @@
 	<cfset table_name="">
 	<cfset in_container_type="">
 	<cfset transaction_id="">
+	<cfset container_id="">
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
@@ -151,7 +152,8 @@
 		len(loan_trans_id) is 0 and
 		len(table_name) is 0 and
 		len(in_container_type) is 0 and
-		len(transaction_id) is 0
+		len(transaction_id) is 0 and
+		len(container_id) is 0
 		>
 		<cfset result = querynew("CONTAINER_ID,MSG")>
 		<cfset temp = queryaddrow(result,1)>
@@ -287,6 +289,9 @@
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.collection_id = #collection_id#">
 	 </cfif>
+	 <cfif len(container_id) gt 0>
+				<cfset whr = "#whr# AND container.container_id = #container_id#">
+	</cfif>
 	 <cfset sql = "#sel# #frm# #whr#">
 	<cfset thisSql = "
 				SELECT 
