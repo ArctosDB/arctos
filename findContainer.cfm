@@ -110,6 +110,7 @@ padding-right:10px;
 				<input type="text" name="other_id_value" id="other_id_value" />
 				<input type="hidden" name="collection_object_id" id="collection_object_id" />
 				<input type="hidden" name="loan_trans_id" id="loan_trans_id" />
+				<input type="hidden" name="container_id" id="container_id" />
 				<input type="text" name="table_name" id="table_name" />
 				<br>
 				<input type="submit" value="Search"
