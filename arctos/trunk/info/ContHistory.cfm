@@ -24,7 +24,8 @@
 		container_type,
 		label,
 		description,
-		barcode
+		barcode,
+		container_id
 	ORDER BY install_date DESC
 </cfquery>
 <cfif #getHist.recordcount# gt 0>
