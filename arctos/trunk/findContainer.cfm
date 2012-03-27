@@ -116,8 +116,7 @@ padding-right:10px;
 				<input type="submit" value="Search"
 					class="schBtn">
 				&nbsp;&nbsp;&nbsp;
-				<input class="clrBtn"
-					type="reset" value="Clear"/>				
+				<input class="clrBtn" type="button" value="Clear" onclick='document.location="/findContainer.cfm";'/>				
 				</form>
 				<span class="likeLink" onclick="downloadTree()">Flatten Part Locations</span>
 				<br><span class="likeLink" onclick="showTreeOnly()">Drag/Print</span>
