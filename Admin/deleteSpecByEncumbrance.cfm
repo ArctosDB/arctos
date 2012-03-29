@@ -1,4 +1,120 @@
 <cfinclude template="/includes/_header.cfm">
+<cfif action is "getSQL">
+<cfoutput>
+delete from annotations where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+delete from coll_obj_other_id_num where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+delete from attributes where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+delete from collector where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+delete from specimen_part where derived_from_cat_item IN 
+		(
+			select collection_object_id FROM 
+			coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+delete from identification_taxonomy where identification_id IN 
+		(
+			select identification_id FROM identification where collection_object_id IN 
+			(
+				select collection_object_id FROM coll_object_encumbrance WHERE
+				encumbrance_id = #encumbrance_id#
+			)
+		)
+;
+
+delete from identification_agent where identification_id IN 
+		(
+			select identification_id FROM identification where collection_object_id IN 
+			(
+				select collection_object_id FROM coll_object_encumbrance WHERE
+				encumbrance_id = #encumbrance_id#
+			)
+		)
+;
+
+
+delete from identification where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+delete from coll_object_remark where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+
+delete from BIOL_INDIV_RELATIONS where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+delete from BIOL_INDIV_RELATIONS where RELATED_COLL_OBJECT_ID IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+delete from media_relations where media_relationship like '% cataloged_item' and related_primary_key IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+
+delete from cataloged_item where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+
+create table temp as select collection_object_id from coll_object_encumbrance where encumbrance_id = #encumbrance_id#;
+
+
+delete from coll_object_encumbrance where collection_object_id IN (select collection_object_id from temp);
+
+delete from coll_object where collection_object_id IN (select collection_object_id from temp);
+
+
+drop table temp;
+
+</cfoutput>
+
+</cfif>
 <cfif #action# is "nothing">
 	<cfoutput>
 		<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -59,7 +175,10 @@
 			If you are really sure about this, push the button.
 			<br />Otherwise, <a href="/SpecimenSearch.cfm">go somewhere safe</a>
 		</p>
-		<input type="button" value="Delete All These Records" onclick="document.location='deleteSpecByEncumbrance.cfm?action=goAway&encumbrance_id=#encumbrance_id#'" />
+		<a href="deleteSpecByEncumbrance.cfm?action=goAway&encumbrance_id=#encumbrance_id#">[ delete everything ]</a>
+		<br>
+		
+		<a href="deleteSpecByEncumbrance.cfm?action=getSQL&encumbrance_id=#encumbrance_id#">[ get the SQL ]</a>
 	</cfoutput>
 	<cfinclude template="/includes/_footer.cfm">
 </cfif>

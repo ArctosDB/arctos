@@ -238,6 +238,10 @@
 	<cfelseif uri is "pageHelp/spatial_query">
 		<cfset uri="documentation/places/coordinates">
 		<cfset anchor="spatialquery">
+	<cfelseif uri is "accession">
+		<cfset uri="documentation/transaction/accession">
+	<cfelseif uri is "loans">
+		<cfset uri="documentation/transaction/loans">
 	<cfelse>
 		<cfset uri="documentation/#uri#">
 	</cfif>
