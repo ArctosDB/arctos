@@ -1,8 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Specimens">
 <cfif #action# is "nothing">
-Step 1: Upload a comma-delimited text file (csv). You may build templates using the
-<a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a>
+You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a>
 
 <cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
@@ -101,7 +100,9 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 		</table>
 	</cfif>
 </cfoutput>
+<p></p>
 <cfform name="oids" method="post" enctype="multipart/form-data">
+	<label for="FiletoUpload">Upload a comma-delimited text file (csv)</label>
 	<input type="hidden" name="Action" value="getFile">
 	  <cfinput type="file" name="FiletoUpload" size="45" >
 	  <input type="submit" value="Upload this file" class="savBtn">
