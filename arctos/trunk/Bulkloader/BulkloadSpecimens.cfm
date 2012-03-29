@@ -76,10 +76,24 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 							electronic_address.agent_id=agent_name.agent_id and
 							agent_name='#enteredby#'
 					</cfquery>
+					<cfquery name="coln" datasource="uam_god">
+						select 
+							collection 
+						from
+							collection
+						where
+						<cfif len(collection_id) lt 1>
+							collection.collection_cde='#collection_cde#' and
+							collection.institution_acronym='#institution_acronym#'
+						<cfelse>
+							collection.collection_id=#collection_id#
+						</cfif>
+					</cfquery>
 				<tr>
 					<td>#enteredby#</td>
 					<td>#enteredbyRealName.agent_name#</td>
 					<td>#valuelist(eid.address)#</td>
+					<td>#coln.collection#</td>
 					<td>#last_enter_date#</td>
 					<td>#valuelist(cid.address)#</td>
 				</tr>
