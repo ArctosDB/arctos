@@ -19,7 +19,74 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 		institution_acronym,
 		collection_id
 </cfquery>
-<cfdump var=#whatsThere#>
+
+<cfif whatsThere.recordcount is 0>
+	There is nothing in the staging table. You are free to proceed.
+<cfelse>
+	There are data in the staging table. Don't be a jerk.
+	<table border>
+		<tr>
+			<th>Enteredby</th>
+			<th>Enteredby Name</th>
+			<th>Enteredby Email</th>
+			<th>Collection</th>
+			<th>Entered Date</th>
+			<th>Collection Contacts</th>
+		</tr>
+		<cfloop query="whatsThere">
+				<cfquery name="cid" datasource="uam_god">
+					select 
+						ADDRESS
+					from
+						electronic_address,
+						agent,
+						collection_contacts,
+						collection
+					where
+						ADDRESS_TYPE='e-mail' and
+						electronic_address.agent_id=agent.agent_id and
+						agent.agent_id=collection_contacts.CONTACT_AGENT_ID and
+						collection_contacts.collection_id=collection.collection_id and
+						<cfif len(collection_id) lt 1>
+							collection.collection_cde='#collection_cde#' and
+							collection.institution_acronym='#institution_acronym#'
+						<cfelse>
+							collection.collection_id=#collection_id#
+						</cfif>
+				</cfquery>
+				<cfquery name="enteredbyRealName" datasource="uam_god">
+					select 
+						preferred_agent_name.agent_name
+					from
+						preferred_agent_name,
+						agent_name
+					where
+						preferred_agent_name.agent_id=agent_name.agent_id and
+						agent_name.agent_name='#enteredby#'
+				</cfquery>
+				<cfquery name="eid" datasource="uam_god">
+					select 
+						ADDRESS
+					from
+						electronic_address,
+						agent_name
+					where
+						ADDRESS_TYPE='e-mail' and
+						electronic_address.agent_id=agent_name.agent_id and
+						agent_name='#enteredby#'
+				</cfquery>
+			<tr>
+				<td>#enteredby#</td>
+				<td>#enteredbyRealName.agent_name#</td>
+				<td>#valuelist(eid.address)#</td>
+				<td>#last_enter_date#</td>
+				<td>#valuelist(cid.address)#</td>
+			</tr>
+		</cfloop>
+	</table>
+	
+	 
+</cfif>
 	
 <cfform name="oids" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
