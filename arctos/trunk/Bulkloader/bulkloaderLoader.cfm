@@ -1,4 +1,9 @@
+<cfheader statuscode="301" statustext="Moved permanently">
+<cfheader name="Location" value="/BulkloadSpecimens.cfm">
+<cfabort>
+
 <cfinclude template="/includes/_header.cfm">
+
  <!--- these have to live in CF runtime to be accessable to cfexecute --->
  <!--- relies on a staging table:
  

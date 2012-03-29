@@ -3,6 +3,24 @@
 <cfif #action# is "nothing">
 Step 1: Upload a comma-delimited text file (csv). You may build templates using the
 <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a>
+
+<cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select 
+		enteredby,
+		collection_cde,
+		institution_acronym,
+		collection_id,
+		max(ENTEREDTOBULKDATE) last_enter_date
+	from 
+		bulkloader_stage
+	group by
+		enteredby,
+		collection_cde,
+		institution_acronym,
+		collection_id
+</cfquery>
+<cfdump var=#whatsThere#>
+	
 <cfform name="oids" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
 	  <cfinput type="file" name="FiletoUpload" size="45" >
