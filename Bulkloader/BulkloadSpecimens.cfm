@@ -22,8 +22,15 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 	<cfif whatsThere.recordcount is 0>
 		There is nothing in the staging table. You are free to proceed.
 	<cfelse>
-		There are data in the staging table. Don't be a jerk. If dates are recent, someone's probably working in here. Talk to them. They may be done,
-		or they may be in the middle of a load.
+		<p>
+			This is a single-user application. There are data in the staging table. Don't be a jerk. 
+		</p>
+		<p>
+			If dates are recent, someone's probably working in here. Talk to them. They may be done, or they may be in the middle of a load.
+		</p>
+		<p>
+			<a href="/contact.cfm">contact admin</a>
+		</p>
 		<table border>
 			<tr>
 				<th>Enteredby</th>
@@ -108,6 +115,20 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 	  <input type="submit" value="Upload this file" class="savBtn">
   </cfform>
 </cfif>
+
+
+
+<!------------------------------------------------------->
+<cfif #action# is "delete">
+<cfoutput>
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from bulkloader_stage
+	</cfquery>
+	deleted.
+	<a href="BulkloadSpecimens.cfm">back to bulkloader</a>
+</cfoutput>
+</cfif>
+
 <!------------------------------------------------------->
 <cfif #action# is "getFile">
 <cfoutput>
@@ -189,6 +210,8 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 	Your records have been checked and are now in table Bulkloader and flagged as
 		loaded='BULKLOADED RECORD'. A data administrator can un-flag
 		and load them.
+		
+	<p><a href="bulkloaderLoader.cfm?action=delete">please delete from the staging table</a></p>
 </cfoutput>
 </cfif>
 <!------------------------------------------->
@@ -213,6 +236,7 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 			Click <a href="bulkloaderLoader.cfm?action=loadAnyway">here</a> to load them to the
 			bulkloader anyway. Use Arctos to fix them up and load them.
 			</p>
+
 	<cfelse>
 		<cftransaction >
 			<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -233,6 +257,9 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 			Your records have been checked and are now in table Bulkloader and flagged as
 			loaded='BULKLOADED RECORD'. A data administrator can un-flag
 			and load them.
+			
+			<p><a href="bulkloaderLoader.cfm?action=delete">please delete from the staging table</a></p>
+
 		</cftransaction>
 	</cfif>	
 </cfoutput>
