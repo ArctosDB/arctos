@@ -23,6 +23,9 @@
 			},
 			function (r) {
 				console.log(r);
+				if ("#pickuse_collectors").val()==true {
+					console.log('copy collectors');
+				}
 				var eventID=r.DATA.COLLECTING_EVENT_ID[0];
 				console.log(eventID);
 				
