@@ -9,7 +9,6 @@
 				returnformat : "json"
 			},
 			function (r) {
-				console.log(r);
 			}
 		);
 	}
@@ -22,11 +21,7 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				console.log(r);
-				
-				
 				if ($('#pickuse_collectors').attr('checked')) {
-					console.log('copy collectors');
 					var cList=r.DATA.COLLECTORS[0];
 					var a = cList.split(',');
 					for (i=0; i<a.length; ++i) {
@@ -34,17 +29,14 @@
 						eval('opener.document.dataEntry.collector_role_' + n + ".value='c'");
 						eval('opener.document.dataEntry.collector_agent_' + n + ".value='" + a[i] + "'");
 					}
-	
 				}
 				if ($('#pickuse_collectors').attr('checked')) {
 					eval("opener.document.dataEntry.collecting_event_id.value='" + r.DATA.COLLECTING_EVENT_ID[0] + "'");
 				}
-
-											
+				self.close();											
 			}
 		);
 	}
-
 </script>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection,collection_id cid from collection order by collection
@@ -126,9 +118,7 @@
 				Collectors
 				<input type="checkbox" name="pickuse_collectors" id="pickuse_collectors" value="#mySettings.pickuse_collectors#"
 					<cfif mySettings.pickuse_collectors is 1>checked="checked"</cfif>
-					onchange="updateMySettings('pickuse_collectors',this.checked)">
-					
-						
+					onchange="updateMySettings('pickuse_collectors',this.checked)">						
 			</th>
 			<th>EventID
 				<input type="checkbox" name="pickuse_eventid" id="pickuse_eventid" value="#mySettings.pickuse_eventid#"
@@ -148,6 +138,5 @@
 			</tr>
 		</cfloop>
 	</table>
-       
 </cfoutput>
 <cfinclude template="../includes/_pickFooter.cfm">
