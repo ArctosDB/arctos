@@ -22,6 +22,9 @@
 			},
 			function (r) {
 				console.log(r);
+				var eventID=r.DATA.COLLECTING_EVENT_ID;
+				console.log(eventID);
+				
 			}
 		);
 	}
