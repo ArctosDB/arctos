@@ -1052,7 +1052,7 @@ function confirmDelete(formName,msg) {
 	var yesno=confirm('Are you sure you want to delete ' + msg + '?');
 	//confirmWin=windowOpener("/includes/abort.cfm?formName="+formName+"&msg="+msg,"confirmWin","width=200,height=150,resizable");
 	if (yesno==true) {
-  		$("form[name=" + formName + "]")submit();
+  		$("form[name=" + formName + "]" + )submit();
 	
 	
  	} else {
