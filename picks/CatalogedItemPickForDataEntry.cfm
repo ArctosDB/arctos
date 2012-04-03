@@ -1,20 +1,18 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <script>
-	function updateMySettings(el,v){
-		jQuery.getJSON("/component/Bulkloader.cfc",
-			{
-				method : "updateMySettings",
-				element : el,
-				value : v,
-				returnformat : "json"
-			},
-			function (r) {
-				console.log(r);
-				}
-			}
-		);
-	}
-
+function updateMySettings(el,v){
+	jQuery.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "updateMySettings",
+			element : el,
+			value : v,
+			returnformat : "json"
+		},
+		function (r) {
+			console.log(r);
+		}
+	);
+}
 
 
 </script>
