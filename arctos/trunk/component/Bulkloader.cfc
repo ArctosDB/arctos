@@ -133,6 +133,23 @@
 	</cfquery>
 	<cfreturn next>
 </cffunction>
+
+<!----------------------------------------------------------------------------------------->
+<cffunction name="updateMySettings" access="remote">
+	<cfargument name="element" required="yes">
+	<cfargument name="value" required="yes">
+	<cfif value is true>
+		<cfset thisValue=1>
+	<cfelse>
+		<cfset thisValue=0>
+	</cfif>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update cf_dataentry_settings set #element# = #thisValue# where username='#session.username#'
+	</cfquery>
+	<cfreturn 1>
+</cffunction>
+
+
 <!----------------------------------------------------------------------------------------->
 
 <cffunction name="getPrefs" access="remote">

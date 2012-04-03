@@ -1,10 +1,22 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <script>
 	function updateMySettings(el,v){
-		console.log(el);
-		console.log(v);
-		
+		jQuery.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "updateMySettings",
+				element : el,
+				value : v,
+				returnformat : "json"
+			},
+			function (r) {
+				console.log(r);
+				}
+			}
+		);
 	}
+
+
+
 </script>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection,collection_id cid from collection order by collection
@@ -74,7 +86,7 @@
 	</cfquery>
 	<table border>
 		<tr>
-			<th>Item</th>
+			<th>Item (click to use)</th>
 			<th>
 				Collectors
 				<input type="checkbox" name="pickuse_collectors" id="pickuse_collectors" value="#mySettings.pickuse_collectors#"
@@ -91,7 +103,11 @@
 		</tr>
 		 <cfloop query="getItems">
 			<tr>
-				<td>#guid#: #scientific_name#</td>
+				<td>
+					<span class="likeLink" onclick="copyToDataEntry('#collection_object_id#'")>
+						#guid#: #scientific_name#
+					</span>
+				</td>
 				<td>#collectors#</td>
 				<td>#collecting_event_id#</td>
 			</tr>
