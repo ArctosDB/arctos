@@ -13,10 +13,6 @@
 	<cfoutput>
 	<form name="findCatItem" method="post" action="CatalogedItemPick.cfm">
         <input type="hidden" name="Action" value="findItems">
-        <input type="hidden" name="collIdFld" value="#collIdFld#">
-        <input type="hidden" name="catNumFld" value="#catNumFld#">
-        <input type="hidden" name="formName" value="#formName#">
-        <input type="hidden" name="sciNameFld" value="#sciNameFld#">	
 		<label for="collection">Collection</label>
         <select name="collection" id="collection" size="1">
 		    <option value="">Any</option>
@@ -27,13 +23,13 @@
 		<label for="other_id_type">Other ID Type</label>
         <select name="other_id_type" id="other_id_type" size="1">
 			<option value=""></option>
-			<option value="guid">GUID</option>
+			<option <cfif other_id_type is "guid"> selected="selected" </cfif>value="guid">GUID</option>
 			<cfloop query="ctOtherIdType">
-				<option value="#ctOtherIdType.other_id_type#">#ctOtherIdType.other_id_type#</option>
+				<option  <cfif url.other_id_type is ctOtherIdType.other_id_type> selected="selected" </cfif>value="#ctOtherIdType.other_id_type#">#ctOtherIdType.other_id_type#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_num">Other ID Num</label>
-        <input type="text" name="other_id_num" id="other_id_num">
+        <input type="text" name="other_id_num" id="other_id_num" value="#other_id_num#">
         <br>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
