@@ -25,7 +25,8 @@
 				console.log(r);
 				console.log($("#pickuse_collectors").checked());
 				
-				if ($("#pickuse_collectors").checked()==true) {
+				
+				if ($('#pickuse_collectors').attr('checked')) {
 					console.log('copy collectors');
 				}
 				var eventID=r.DATA.COLLECTING_EVENT_ID[0];
