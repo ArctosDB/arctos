@@ -8,8 +8,6 @@
 <cfparam name="other_id_num" default=''>
 <cfparam name="other_id_type" default=''>
 <cfparam name="collection_id" default=''>
-
-<cfdump var=#variables#>
 <!----------------------------------------------------------->
 	Search for Cataloged Items:
 	<cfoutput>
@@ -38,7 +36,6 @@
     <cfset sql = "SELECT
 				    cat_num, 
 					collection,
-					cataloged_item.collection_object_id,
 					scientific_name
 				FROM 
 					flat,coll_obj_other_id_num
