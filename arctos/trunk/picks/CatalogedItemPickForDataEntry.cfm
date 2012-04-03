@@ -9,6 +9,7 @@
 <cfparam name="other_id_type" default=''>
 <cfparam name="collection_id" default=''>
 
+<cfdump var=#variables#>
 <!----------------------------------------------------------->
 	Search for Cataloged Items:
 	<cfoutput>
