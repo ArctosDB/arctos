@@ -1,19 +1,30 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <script>
-function updateMySettings(el,v){
-	jQuery.getJSON("/component/Bulkloader.cfc",
-		{
-			method : "updateMySettings",
-			element : el,
-			value : v,
-			returnformat : "json"
-		},
-		function (r) {
-			console.log(r);
-		}
-	);
-}
-
+	function updateMySettings(el,v){
+		jQuery.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "updateMySettings",
+				element : el,
+				value : v,
+				returnformat : "json"
+			},
+			function (r) {
+				console.log(r);
+			}
+		);
+	}
+	function copyToDataEntry(id){
+		jQuery.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "getExistingCatItemData",
+				collection_object_id : id,
+				returnformat : "json"
+			},
+			function (r) {
+				console.log(r);
+			}
+		);
+	}
 
 </script>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -102,7 +113,7 @@ function updateMySettings(el,v){
 		 <cfloop query="getItems">
 			<tr>
 				<td>
-					<span class="likeLink" onclick="copyToDataEntry('#collection_object_id#'")>
+					<span class="likeLink" onclick="copyToDataEntry('#collection_object_id#');")>
 						#guid#: #scientific_name#
 					</span>
 				</td>
