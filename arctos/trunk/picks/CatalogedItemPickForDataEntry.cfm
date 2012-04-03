@@ -23,6 +23,8 @@
 			},
 			function (r) {
 				console.log(r);
+				console.log($("#pickuse_collectors").val());
+				
 				if ($("#pickuse_collectors").val()==true) {
 					console.log('copy collectors');
 				}
