@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select distinct(collection) from collection order by collection
+	select collection,collection_id from collection order by collection
 </cfquery>
 <cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
@@ -11,13 +11,12 @@
 <!----------------------------------------------------------->
 	Search for Cataloged Items:
 	<cfoutput>
-	<form name="findCatItem" method="post" action="CatalogedItemPick.cfm">
-        <input type="hidden" name="Action" value="findItems">
-		<label for="collection">Collection</label>
-        <select name="collection" id="collection" size="1">
+	<form name="findCatItem" method="post" action="CatalogedItemPickForDataEntry.cfm">
+		<label for="collection_id">Collection</label>
+        <select name="collection_id" id="collection_id" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option value="#ctcollection.collection#">#ctcollection.collection#</option>
+				<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_type">Other ID Type</label>
@@ -35,41 +34,30 @@
 	</form>
 	</cfoutput>
 <!------------------------------------------------------------->
-<cfif #Action# is "findItems">
     <cfset sql = "SELECT
 				    cat_num, 
 					collection,
 					cataloged_item.collection_object_id,
 					scientific_name
 				FROM 
-					cataloged_item,
-					identification,
-                    collection">
-	<cfif len(#other_id_type#) gt 0 OR len(#other_id_num#) gt 0>
-		<cfset sql = "#sql#,coll_obj_other_id_num">
+					flat,coll_obj_other_id_num
+				WHERE 
+					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+)">
+	
+	<cfif len(other_id_num) is 0>
+		other_id_num - abort<cfabort>
 	</cfif>
-	<cfset sql = "#sql#  WHERE 
-					  cataloged_item.collection_object_id = identification.collection_object_id AND
-                      cataloged_item.collection_id=collection.collection_id and
-					  identification.accepted_id_fg = 1">
-	<cfif len(#other_id_type#) gt 0 OR len(#other_id_num#) gt 0>
-		<cfset sql = "#sql#
-			AND cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id">
-	</cfif>
-	<cfif len(#other_id_type#) gt 0>
-		<cfset sql = "#sql#
-			AND other_id_type = '#other_id_type#'">
-	</cfif>
-	<cfif len(#other_id_num#) gt 0>
-		<cfset sql = "#sql#
-			AND upper(other_id_num) = '%#ucase(other_id_num)#%'">
-	</cfif>
-	<cfif len(#cat_num#) gt 0>
-		<cfset sql = "#sql#
-			AND cat_num=#cat_num#">
-	</cfif>
+	<cfif len(other_id_type) gt 0>
+		<cfif other_id_type is "catalog number">
+			<cfset sql=sql & " and flat.cat_num='#other_id_num#'">
+		<cfelseif other_id_type is "guid">
+			<cfset sql=sql & " and upper(flat.guid='#ucase(other_id_num)#'">
+		<cfelse>
+			<cfset sql=sql & " and upper(coll_obj_other_id_num.display_value like '%#ucase(other_id_num)#%'">
+		</cfif>
+	</cfif>	
 	<cfif len(#collection#) gt 0>
-		<cfset sql = "#sql# AND collection='#collection#'">
+		<cfset sql = "#sql# AND collection_id=#collection_id#">
 	</cfif>	
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
@@ -82,9 +70,8 @@
         
         </cfif>
         <cfloop query="getItems">
-			<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';opener.document.#formName#.#catNumFld#.value='#cat_num_val#';opener.document.#formName#.#sciNameFld#.value='#scientific_name_val#';self.close();">#collection# #cat_num# #scientific_name#</a>
+			<br>#cat_nuM#
 		</cfloop>
     </cfoutput>
 
-</cfif>
 <cfinclude template="../includes/_pickFooter.cfm">
