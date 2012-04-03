@@ -557,8 +557,8 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
 				theInnerHtml += '<th>Dec.&nbsp;Long.</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('GREF_COLLNUM') > -1) {
-				theInnerHtml += '<th>Gref&nbsp;Link</th>';
+			if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_ID') > -1) {
+				theInnerHtml += '<th>CollectingEventId</th>';
 			}
 		theInnerHtml += '</tr>';
 		// get an ordered list of collection_object_ids to pass on to 
@@ -803,6 +803,9 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
 					theInnerHtml += '<td style="font-size:small">' + data.DEC_LONG[i] + '</td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_ID')> -1) {
+					theInnerHtml += '<td>' + data.COLLECTING_EVENT_ID[i] + '</td>';
 				}
 			theInnerHtml += '</tr>';
 		}
