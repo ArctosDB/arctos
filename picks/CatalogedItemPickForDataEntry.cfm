@@ -1,4 +1,11 @@
 <cfinclude template="/includes/_pickHeader.cfm">
+<script>
+	function updateMySettings(el,v){
+		console.log(el);
+		console.log(v);
+		
+	}
+</script>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection,collection_id cid from collection order by collection
 </cfquery>
@@ -34,6 +41,7 @@
 	</form>
 <!------------------------------------------------------------->
     <cfset sql = "SELECT
+				    flat.collection_object_id,
 				    guid, 
 					scientific_name,
 					collectors,
@@ -61,11 +69,25 @@
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
+	<cfquery name="mySettings" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select pickuse_eventid,pickuse_collectors from cf_dataentry_settings where username='#session.username#'
+	</cfquery>
 	<table border>
 		<tr>
 			<th>Item</th>
-			<th>Collectors</th>
-			<th>EventID</th>
+			<th>
+				Collectors
+				<input type="checkbox" name="pickuse_collectors" id="pickuse_collectors" value="#mySettings.pickuse_collectors#"
+					<cfif mySettings.pickuse_collectors is 1>checked="checked"</cfif>
+					onchange="updateMySettings('pickuse_collectors',this.value)">
+					
+						
+			</th>
+			<th>EventID
+				<input type="checkbox" name="pickuse_eventid" id="pickuse_eventid" value="#mySettings.pickuse_eventid#"
+					<cfif mySettings.pickuse_eventid is 1>checked="checked"</cfif>
+					onchange="updateMySettings('pickuse_eventid',this.value)">
+			</th>
 		</tr>
 		 <cfloop query="getItems">
 			<tr>
