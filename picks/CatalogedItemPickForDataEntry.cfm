@@ -86,7 +86,14 @@
 	</cfif>	
 	<cfif len(collection_id) gt 0>
 		<cfset sql = "#sql# AND collection_id=#collection_id#">
-	</cfif>	
+	</cfif>
+	
+	<cfset sql = "#sql# group by
+	 flat.collection_object_id,
+				    guid, 
+					scientific_name,
+					collectors,
+					collecting_event_id">
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
