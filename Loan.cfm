@@ -494,13 +494,15 @@
 			onKeyPress="return noenter(event);">
 		<hr>
 		<label for=""><span style="font-size:large">Create a project from this loan</span></label>
-		<label for="newAgent_name">Project Agent Name</label>
-		<input type="text" name="newAgent_name" id="newAgent_name" 
-			class="reqdClr" 
-			onchange="findAgentName('newAgent_name_id','newAgent_name',this.value); return false;"
-			onKeyPress="return noenter(event);"
-			value="">
-		<input type="hidden" name="newAgent_name_id" id="newAgent_name_id" value="">
+		<label for="newProjectAgent">Project Agent</label>
+		<input type="text" name="newProjectAgent" id="newProjectAgent" size="30" value=""
+			onchange="getAgent('newProjectAgent_id','newProjectAgent','editloan',this.value); return false;"
+		  	onKeyPress="return noenter(event);">
+		
+		
+		
+		
+		<input type="hidden" name="newProjectAgent_id" id="newProjectAgent_id" value="">
 		<cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select project_agent_role from ctproject_agent_role order by project_agent_role
 		</cfquery>
@@ -893,12 +895,12 @@
 					<cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						 INSERT INTO project_agent (
 							 PROJECT_ID,
-							 AGENT_NAME_ID,
+							 AGENT_ID,
 							 PROJECT_AGENT_ROLE,
 							 AGENT_POSITION )
 						VALUES (
 							sq_project_id.currval,
-							 #newAgent_name_id#,
+							 #newProjectAgent_id#,
 							 '#project_agent_role#',
 							 1                   
 							)                 
