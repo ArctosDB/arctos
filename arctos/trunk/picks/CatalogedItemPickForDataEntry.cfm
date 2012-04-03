@@ -36,9 +36,11 @@
 					}
 	
 				}
-				var eventID=r.DATA.COLLECTING_EVENT_ID[0];
-				console.log(eventID);
-				
+				if ($('#pickuse_collectors').attr('checked')) {
+					eval('opener.document.dataEntry.collecting_event_id.value='" + r.DATA.COLLECTING_EVENT_ID[0] + "'");
+				}
+
+											
 			}
 		);
 	}
