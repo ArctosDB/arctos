@@ -34,9 +34,10 @@
 	</form>
 <!------------------------------------------------------------->
     <cfset sql = "SELECT
-				    cat_num, 
-					collection,
-					scientific_name
+				    guid, 
+					scientific_name,
+					collectors,
+					collecting_event_id
 				FROM 
 					flat,coll_obj_other_id_num
 				WHERE 
@@ -60,9 +61,20 @@
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	
-        <cfloop query="getItems">
-			<br>#cat_num#
+	<table border>
+		<tr>
+			<th>Item</th>
+			<th>Collectors</th>
+			<th>EventID</th>
+		</tr>
+		 <cfloop query="getItems">
+			<tr>
+				<td>#guid#: #scientific_name#</td>
+				<td>#collectors#</td>
+				<td>#collecting_event_id#</td>
+			</tr>
 		</cfloop>
+	</table>
+       
 </cfoutput>
 <cfinclude template="../includes/_pickFooter.cfm">
