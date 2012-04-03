@@ -7,6 +7,7 @@
 </cfquery>
 <cfparam name="other_id_num">
 <cfparam name="other_id_type">
+<cfparam name="collection_id">
 
 <!----------------------------------------------------------->
 	Search for Cataloged Items:
@@ -16,7 +17,7 @@
         <select name="collection_id" id="collection_id" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+				<option <cfif url.collection_id is ctcollection.collection_id> selected="selected" </cfif>value="#ctcollection.collection_id#">#ctcollection.collection#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_type">Other ID Type</label>
@@ -32,7 +33,6 @@
         <br>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
-	</cfoutput>
 <!------------------------------------------------------------->
     <cfset sql = "SELECT
 				    cat_num, 
@@ -53,25 +53,18 @@
 		<cfelseif other_id_type is "guid">
 			<cfset sql=sql & " and upper(flat.guid='#ucase(other_id_num)#'">
 		<cfelse>
-			<cfset sql=sql & " and upper(coll_obj_other_id_num.display_value like '%#ucase(other_id_num)#%'">
+			<cfset sql=sql & " and upper(coll_obj_other_id_num.display_value) like '%#ucase(other_id_num)#%'">
 		</cfif>
 	</cfif>	
-	<cfif len(#collection#) gt 0>
+	<cfif len(collection_id) gt 0>
 		<cfset sql = "#sql# AND collection_id=#collection_id#">
 	</cfif>	
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	<cfoutput>
-		<cfif #sciNameFld# is #catNumFld#>
-            <cfset cat_num_val="">
-            scientific_name_val
-        <cfelse>
-        
-        </cfif>
+	
         <cfloop query="getItems">
 			<br>#cat_nuM#
 		</cfloop>
-    </cfoutput>
 
 <cfinclude template="../includes/_pickFooter.cfm">
