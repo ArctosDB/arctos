@@ -1,5 +1,19 @@
 <cfcomponent>
 
+<cffunction name="getExistingCatItemData" access="remote">
+	<cfargument name="collection_object_id" required="yes">
+	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select
+			collecting_event_id,
+			collectors
+		from
+			flat
+		where
+			collection_object_id=#collection_object_id#
+	</cfquery>
+	<cfreturn g>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
 <cffunction name="splitGeog" access="remote">
 	<cfargument name="geog" required="yes">
 	<cfargument name="specloc" required="yes">
