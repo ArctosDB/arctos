@@ -1,4 +1,4 @@
-fvar viewport = {
+var viewport = {
   	o: function() {
       	
 	if (self.innerHeight) {
