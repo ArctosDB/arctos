@@ -1057,10 +1057,6 @@ function confirmDelete(formName,msg) {
 	  	return false;
   	}
 }
-
-
-
-}
 function getHistory(contID) {
 	var idcontID;
 	historyWin=windowOpener("/info/ContHistory.cfm?container_id="+contID,"historyWin","width=800,height=338, resizable,scrollbars");
