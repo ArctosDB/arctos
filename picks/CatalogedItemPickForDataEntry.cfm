@@ -79,14 +79,14 @@
 				Collectors
 				<input type="checkbox" name="pickuse_collectors" id="pickuse_collectors" value="#mySettings.pickuse_collectors#"
 					<cfif mySettings.pickuse_collectors is 1>checked="checked"</cfif>
-					onchange="updateMySettings('pickuse_collectors',this.value)">
+					onchange="updateMySettings('pickuse_collectors',this.checked)">
 					
 						
 			</th>
 			<th>EventID
 				<input type="checkbox" name="pickuse_eventid" id="pickuse_eventid" value="#mySettings.pickuse_eventid#"
 					<cfif mySettings.pickuse_eventid is 1>checked="checked"</cfif>
-					onchange="updateMySettings('pickuse_eventid',this.value)">
+					onchange="updateMySettings('pickuse_eventid',this.checked)">
 			</th>
 		</tr>
 		 <cfloop query="getItems">
