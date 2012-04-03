@@ -23,7 +23,7 @@
 			},
 			function (r) {
 				console.log(r);
-				var eventID=r.DATA;
+				var eventID=r.DATA.COLLECTING_EVENT_ID[0];
 				console.log(eventID);
 				
 			}
