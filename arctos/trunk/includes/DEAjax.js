@@ -1,4 +1,12 @@
+function getRelatedSpecimenData(){
+	
+	var url="/picks/CatalogedItemPickForDataEntry.cfm";
+	var other_id_num = $("#related_to_number").val();
+	var other_id_type = $("#related_to_num_type").val();
+	var popurl=url+"?other_id_num="+other_id_num+"&other_id_type="+other_id_type;
+	CatItemPick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 
+}
 jQuery(document).ready(function() {
 	$("#made_date").datepicker();
 	$("#began_date").datepicker();

@@ -1232,6 +1232,7 @@
 								</cfloop>							
 							</select>
 							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="10" />
+							<span class="likeLink" onclick="getRelatedSpecimenData()">[ pick/use ]</span>
 						</td>
 					</tr>
 				</table><!------ random admin stuff ---------->
