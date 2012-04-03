@@ -172,7 +172,7 @@
     interval = "weekly"
     requestTimeOut = "600">
 <cfschedule action = "update"
-    task = "sitemap_map" 
+    task = "build_sitemap_map" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/build_sitemap.cfm?action=build_map"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
@@ -180,7 +180,7 @@
     interval = "weekly"
     requestTimeOut = "600">
 <cfschedule action = "update"
-    task = "sitemap_index" 
+    task = "build_sitemap_index" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/build_sitemap.cfm?action=build_index"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
@@ -188,7 +188,7 @@
     interval = "weekly"
     requestTimeOut = "600">
 <cfschedule action = "update"
-    task = "sitemap_spec" 
+    task = "build_sitemaps_spec" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_spec"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
@@ -196,28 +196,28 @@
     interval = "1800"
     requestTimeOut = "600">
 <cfschedule action = "update"
-    task = "sitemap_tax" 
+    task = "build_sitemaps_tax" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_tax"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:23 AM"
-    interval = "1800"
+    interval = "3600"
     requestTimeOut = "600">
 <cfschedule action = "update"
-    task = "sitemap_pub" 
+    task = "build_sitemaps_pub" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_pub"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:26 AM"
-    interval = "1800"
+    interval = "3600"
     requestTimeOut = "600">
 <cfschedule action = "update"
-    task = "sitemap_proj" 
+    task = "build_sitemaps_proj" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_proj"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:30 AM"
-    interval = "1800"
+    interval = "3600"
     requestTimeOut = "600">
 <cfschedule action = "update"
     task = "build_sitemaps_stat" 
@@ -225,7 +225,7 @@
     url = "127.0.0.1/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_stat"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:35 AM"
-    interval = "1800"
+    interval = "3600"
     requestTimeOut = "600">
 
 <cfschedule action = "update"
