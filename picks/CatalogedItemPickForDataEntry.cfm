@@ -23,7 +23,6 @@
 			},
 			function (r) {
 				console.log(r);
-				console.log($("#pickuse_collectors").checked());
 				
 				
 				if ($('#pickuse_collectors').attr('checked')) {
