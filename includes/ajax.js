@@ -1053,6 +1053,7 @@ function confirmDelete(formName,msg) {
 	//confirmWin=windowOpener("/includes/abort.cfm?formName="+formName+"&msg="+msg,"confirmWin","width=200,height=150,resizable");
 	if (yesno==true) {
   		var txtstrng=formName + '.submit();';
+		console.log(txtstrng);
 		eval(txtstrng);
 	
  	} else {
