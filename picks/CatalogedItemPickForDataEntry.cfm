@@ -40,7 +40,7 @@
 				FROM 
 					flat,coll_obj_other_id_num
 				WHERE 
-					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+)">
+					flat.collection_object_id = coll_obj_other_id_num.collection_object_id (+)">
 	
 	<cfif len(other_id_num) is 0>
 		other_id_num - abort<cfabort>
