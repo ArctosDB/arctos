@@ -23,9 +23,9 @@
 			},
 			function (r) {
 				console.log(r);
-				console.log($("#pickuse_collectors").val());
+				console.log($("#pickuse_collectors").checked());
 				
-				if ($("#pickuse_collectors").val()==true) {
+				if ($("#pickuse_collectors").checked()==true) {
 					console.log('copy collectors');
 				}
 				var eventID=r.DATA.COLLECTING_EVENT_ID[0];
