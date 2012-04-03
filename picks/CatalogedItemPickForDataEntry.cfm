@@ -18,7 +18,8 @@
 			{
 				method : "getExistingCatItemData",
 				collection_object_id : id,
-				returnformat : "json"
+				returnformat : "json",
+				queryformat : 'column'
 			},
 			function (r) {
 				console.log(r);
