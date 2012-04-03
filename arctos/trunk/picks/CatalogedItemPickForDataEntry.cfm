@@ -27,6 +27,14 @@
 				
 				if ($('#pickuse_collectors').attr('checked')) {
 					console.log('copy collectors');
+					var cList=r.DATA.COLLECTORS[0];
+					var a = cList.split(',');
+					for (i=0; i<a.length; ++i) {
+						var n=i+1;
+						eval('opener.document.dataEntry.collector_role_' + n + ".value='c'");
+						eval('opener.document.dataEntry.collector_agent_' + n + ".value='" + a[i] + "'");
+					}
+	
 				}
 				var eventID=r.DATA.COLLECTING_EVENT_ID[0];
 				console.log(eventID);
