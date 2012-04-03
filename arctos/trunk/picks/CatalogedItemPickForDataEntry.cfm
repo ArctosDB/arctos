@@ -5,9 +5,9 @@
 <cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 </cfquery>
-<cfparam name="other_id_num">
-<cfparam name="other_id_type">
-<cfparam name="collection_id">
+<cfparam name="other_id_num" default=''>
+<cfparam name="other_id_type" default=''>
+<cfparam name="collection_id" default=''>
 
 <!----------------------------------------------------------->
 	Search for Cataloged Items:
