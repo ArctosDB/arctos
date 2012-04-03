@@ -18,7 +18,7 @@
         <select name="collection_id" id="collection_id" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option <cfif variables.collection_id is ctcollection.collection_id> selected="selected" </cfif>value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+				<option <cfif collection_id is ctcollection.collection_id> selected="selected" </cfif>value="#ctcollection.collection_id#">#ctcollection.collection#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_type">Other ID Type</label>
@@ -26,7 +26,7 @@
 			<option value=""></option>
 			<option <cfif other_id_type is "guid"> selected="selected" </cfif>value="guid">GUID</option>
 			<cfloop query="ctOtherIdType">
-				<option  <cfif variables.other_id_type is ctOtherIdType.other_id_type> selected="selected" </cfif>value="#ctOtherIdType.other_id_type#">#ctOtherIdType.other_id_type#</option>
+				<option  <cfif other_id_type is ctOtherIdType.other_id_type> selected="selected" </cfif>value="#ctOtherIdType.other_id_type#">#ctOtherIdType.other_id_type#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_num">Other ID Num</label>
