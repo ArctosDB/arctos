@@ -49,7 +49,7 @@
 		<cfif other_id_type is "catalog number">
 			<cfset sql=sql & " and flat.cat_num='#other_id_num#'">
 		<cfelseif other_id_type is "guid">
-			<cfset sql=sql & " and upper(flat.guid='#ucase(other_id_num)#'">
+			<cfset sql=sql & " and upper(flat.guid)='#ucase(other_id_num)#'">
 		<cfelse>
 			<cfset sql=sql & " and upper(coll_obj_other_id_num.display_value) like '%#ucase(other_id_num)#%'">
 		</cfif>
