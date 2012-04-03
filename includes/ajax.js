@@ -1049,7 +1049,17 @@ function getHelp(help) {
 function confirmDelete(formName,msg) {
 	var formName;
 	var msg = msg || "this record";
-	confirmWin=windowOpener("/includes/abort.cfm?formName="+formName+"&msg="+msg,"confirmWin","width=200,height=150,resizable");
+	var yesno=confirm('Are you sure you want to delete ' + msg + '?');
+	//confirmWin=windowOpener("/includes/abort.cfm?formName="+formName+"&msg="+msg,"confirmWin","width=200,height=150,resizable");
+	if (yesno==true) {
+  		formName.submit();
+ 	} else {
+	  	return false;
+  	}
+}
+
+
+
 }
 function getHistory(contID) {
 	var idcontID;
