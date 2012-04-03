@@ -31,9 +31,11 @@
 					}
 				}
 				if ($('#pickuse_collectors').attr('checked')) {
-					eval("opener.document.dataEntry.collecting_event_id.value='" + r.DATA.COLLECTING_EVENT_ID[0] + "'");
+					opener.document.dataEntry.collecting_event_id.value=r.DATA.COLLECTING_EVENT_ID[0];
 				}
-				self.close();											
+				opener.document.dataEntry.related_to_num_type.value='catalog number';
+				opener.document.dataEntry.related_to_number.value=r.DATA.GUID[0];
+				self.close();																	
 			}
 		);
 	}

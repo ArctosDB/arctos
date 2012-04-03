@@ -1231,7 +1231,7 @@
 									 value="#other_id_type#">#other_id_type#</option>
 								</cfloop>							
 							</select>
-							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="10" />
+							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="15" />
 							<span class="likeLink" onclick="getRelatedSpecimenData()">[ pick/use ]</span>
 						</td>
 					</tr>

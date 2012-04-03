@@ -5,7 +5,8 @@
 	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			collecting_event_id,
-			collectors
+			collectors,
+			guid
 		from
 			flat
 		where
