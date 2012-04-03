@@ -1,9 +1,9 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select collection,collection_id from collection order by collection
+	select collection,collection_id cid from collection order by collection
 </cfquery>
 <cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-    select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
+    select distinct(other_id_type) oidt FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 </cfquery>
 <cfparam name="other_id_num" default=''>
 <cfparam name="other_id_type" default=''>
@@ -16,7 +16,7 @@
         <select name="collection_id" id="collection_id" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option <cfif collection_id is ctcollection.collection_id> selected="selected" </cfif>value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+				<option <cfif collection_id is ctcollection.cid> selected="selected" </cfif>value="#ctcollection.cid#">#ctcollection.collection#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_type">Other ID Type</label>
@@ -24,7 +24,7 @@
 			<option value=""></option>
 			<option <cfif other_id_type is "guid"> selected="selected" </cfif>value="guid">GUID</option>
 			<cfloop query="ctOtherIdType">
-				<option  <cfif other_id_type is ctOtherIdType.other_id_type> selected="selected" </cfif>value="#ctOtherIdType.other_id_type#">#ctOtherIdType.other_id_type#</option>
+				<option  <cfif other_id_type is ctOtherIdType.oidt> selected="selected" </cfif>value="#ctOtherIdType.oidt#">#ctOtherIdType.oidt#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_num">Other ID Num</label>
