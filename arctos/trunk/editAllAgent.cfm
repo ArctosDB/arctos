@@ -425,7 +425,7 @@
 					</select>
 					<input type="text" value="#npname.agent_name#" name="agent_name">
 					<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
-					<input type="button" value="Delete" class="delBtn" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#');">
+					<input type="button" value="Delete" class="delBtn" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#','this agent name');">
 					<input type="button" class="lnkBtn" value="Copy" onClick="newName.agent_name.value='#pname.agent_name#';">
 				</form>
 				<cfset i = i + 1>
