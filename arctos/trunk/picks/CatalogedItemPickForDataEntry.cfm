@@ -64,7 +64,7 @@
 	</cfquery>
 	
         <cfloop query="getItems">
-			<br>#cat_nuM#
+			<br>#cat_num#
 		</cfloop>
-
+</cfoutput>
 <cfinclude template="../includes/_pickFooter.cfm">
