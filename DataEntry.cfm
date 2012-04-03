@@ -1222,7 +1222,7 @@
 								</cfloop>							
 							</select>
 							<cfset thisRELATED_TO_NUM_TYPE = RELATED_TO_NUM_TYPE>
-							<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:80px">
+							<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:150px">
 								<option value=""></option>
 								<option <cfif thisRELATED_TO_NUM_TYPE is "catalog number">selected="selected"</cfif> value="catalog number">catalog number (UAM:Mamm:123 format)</option>
 								<cfloop query="ctOtherIdType">
@@ -1231,7 +1231,7 @@
 									 value="#other_id_type#">#other_id_type#</option>
 								</cfloop>							
 							</select>
-							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="15" />
+							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="20" />
 							<span class="likeLink" onclick="getRelatedSpecimenData()">[ pick/use ]</span>
 						</td>
 					</tr>
