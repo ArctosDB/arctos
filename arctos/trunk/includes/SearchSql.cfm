@@ -969,6 +969,13 @@
 		</cfif>
 	</cfif>	
 </cfif>
+<cfif isdefined("habitat_desc") and len(habitat_desc) gt 0>
+	<cfset mapurl = "#mapurl#&habitat_desc=#habitat_desc#">
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (cataloged_item.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(collecting_event.habitat_desc) like '%#ucase(escapeQuotes(habitat_desc))#%'">
+</cfif>
 <cfif isdefined("verbatim_locality") and len(verbatim_locality) gt 0>
 	<cfset mapurl = "#mapurl#&verbatim_locality=#verbatim_locality#">
 	<cfif basJoin does not contain " collecting_event ">
