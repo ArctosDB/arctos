@@ -62,7 +62,7 @@
 	<cfoutput>
 		<cfset title = "Search for specimens or encumbrances">
 		<p>
-			<cfif len(collection_object_id) gt 0>
+			<cfif len(collection_object_id) gt 0 or (isdefined("table_name") and len(table_name) gt 0)>
 				Now find an encumbrance to apply to the specimens below. If you need a new encumbrance, create it
 				first then come back here.
 			<cfelse>
@@ -466,7 +466,8 @@ UPDATE encumbrance SET
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------->
-<cfif len(collection_object_id) gt 0>
+<cfif len(collection_object_id) gt 0 or (isdefined("table_name") and len(table_name) gt 0)>
+
 	<Cfset title = "Encumber these specimens">
 		<cfoutput>
 			<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
@@ -503,6 +504,9 @@ UPDATE encumbrance SET
 					coll_object_encumbrance, 
 					encumbrance, 
 					preferred_agent_name encumbering_agent
+					<cfif isdefined("table_name") and len(table_name) gt 0>
+						,#table_name#
+					</cfif>
 				WHERE 
 					locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND 
 					collecting_event.locality_id = locality.locality_id AND 
@@ -513,13 +517,14 @@ UPDATE encumbrance SET
 					cataloged_item.collection_id = collection.collection_id AND 
 					cataloged_item.collection_object_id=coll_object_encumbrance.collection_object_id (+) AND 
 					coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND 
-					encumbrance.encumbering_agent_id = encumbering_agent.agent_id (+) AND 
-					cataloged_item.collection_object_id 
-				IN 
-					( #collection_object_id# ) 
+					encumbrance.encumbering_agent_id = encumbering_agent.agent_id (+)
+					<cfif isdefined("table_name") and len(table_name) gt 0>
+						and coll_object_encumbrance.collecting_event_id=#table_name#.collecting_event_id
+					<cfelseif len(collection_object_id) gt 0>
+						 AND cataloged_item.collection_object_id IN ( #collection_object_id# ) 
+					</cfif>
 				ORDER BY 
 					cataloged_item.collection_object_id
-
 			</cfquery>
 
 		<hr>
