@@ -519,7 +519,7 @@ UPDATE encumbrance SET
 					coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND 
 					encumbrance.encumbering_agent_id = encumbering_agent.agent_id (+)
 					<cfif isdefined("table_name") and len(table_name) gt 0>
-						and coll_object_encumbrance.collecting_event_id=#table_name#.collecting_event_id
+						and coll_object_encumbrance.collection_object_id=#table_name#.collection_object_id
 					<cfelseif len(collection_object_id) gt 0>
 						 AND cataloged_item.collection_object_id IN ( #collection_object_id# ) 
 					</cfif>
