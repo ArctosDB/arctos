@@ -49,9 +49,6 @@
 				<hr>
 				<cfdump var="#session#" label="session">
 			</cfif>
-			Client Dump:
-			<hr>
-			<cfdump var="#client#" label="client">
 			<hr>
 			Form Dump:
 			<hr>

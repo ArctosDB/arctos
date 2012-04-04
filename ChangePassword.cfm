@@ -158,9 +158,6 @@
 					</CFIF>
 					<p>ipaddress: <cfoutput><a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></cfoutput></p>
 					<hr>
-					<p>Client Dump:</p>
-					<hr>
-					<cfdump var="#client#" label="client">
 					<hr>
 					<p>URL Dump:</p>
 					<hr>
