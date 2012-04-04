@@ -1,42 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Citations">
-<!---- make the table 
-
-drop table cf_temp_oids;
-drop public synonym cf_temp_oids;
-
-create table cf_temp_oids (
-	key number,
-	collection_object_id number,
-	collection_cde varchar2(4),
-	institution_acronym varchar2(6),
-	existing_other_id_type varchar2(60),
-	existing_other_id_number varchar2(60),
-	new_other_id_type varchar2(60),
-	new_other_id_number varchar2(60)
-	);
-
-	create public synonym cf_temp_oids for cf_temp_oids;
-	grant select,insert,update,delete on cf_temp_oids to uam_query,uam_update;
-	
-	 CREATE OR REPLACE TRIGGER cf_temp_oids_key                                         
- before insert  ON cf_temp_oids  
- for each row 
-    begin     
-    	if :NEW.key is null then                                                                                      
-    		select somerandomsequence.nextval into :new.key from dual;
-    	end if;                                
-    end;                                                                                            
-/
-sho err
------->
 <cfif #action# is "nothing">
 Step 1: Upload a comma-delimited text file (csv). 
 Include column headings, spelled exactly as below. 
 <br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
 	<div id="template" style="display:none;">
 		<label for="t">Copy the following code and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">INSTITUTION_ACRONYM,COLLECTION_CDE,OTHER_ID_TYPE,OTHER_ID_NUMBER,full_citation,CITED_SCIENTIFIC_NAME,OCCURS_PAGE_NUMBER,TYPE_STATUS,CITATION_REMARKS</textarea>
+		<textarea rows="2" cols="80" id="t">INSTITUTION_ACRONYM,COLLECTION_CDE,OTHER_ID_TYPE,OTHER_ID_NUMBER,full_citation,publication_id,CITED_SCIENTIFIC_NAME,OCCURS_PAGE_NUMBER,TYPE_STATUS,CITATION_REMARKS</textarea>
 	</div> 
 <p></p>
 
@@ -45,9 +15,15 @@ Include column headings, spelled exactly as below.
 	<li style="color:red">COLLECTION_CDE</li>
 	<li style="color:red">OTHER_ID_TYPE ("catalog number" is OK)</li>
 	<li style="color:red">OTHER_ID_NUMBER</li>
-	<li style="color:red">full_citation</li>
+	<li>
+		One of
+		<ul>
+			<li style="color:orange">full_citation</li>
+			<li style="color:orange">publication_id</li>
+		</ul>
+	</li>
 	<li style="color:red">CITED_SCIENTIFIC_NAME</li>
-	<li style="color:red">OCCURS_PAGE_NUMBER</li>
+	<li>OCCURS_PAGE_NUMBER</li>
 	<li style="color:red">TYPE_STATUS</li>
 	<li style="color:red">CITATION_REMARKS</li>
 </ul>
@@ -58,7 +34,7 @@ Include column headings, spelled exactly as below.
 			  <input type="file"
 		   name="FiletoUpload"
 		   size="45" onchange="checkCSV(this);">
-			  <input type="submit" value="Upload this file" #saveClr#>
+			  <input type="submit" value="Upload this file" class="insBtn">
   </cfform>
 
 </cfif>
@@ -113,7 +89,7 @@ Include column headings, spelled exactly as below.
 		other_id_number is null or
 		collection_cde is null or
 		institution_acronym is null or
-		full_citation is null or
+		(full_citation is null and publication_id is null) or
 		CITED_SCIENTIFIC_NAME is null or
 		OCCURS_PAGE_NUMBER is null or
 		TYPE_STATUS is null
@@ -165,21 +141,23 @@ Include column headings, spelled exactly as below.
 					key = #key#
 				</cfquery>
 			</cfif>
-			<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
-				select publication_id from publication where full_citation = '#full_citation#'
-				group by publication_id
-			</cfquery>
-			<cfif #isPub.recordcount# is not 1>
-				<cfif len(#problem#) is 0>
-					<cfset problem = "publication not found; check markup">
-				<cfelse>
-					<cfset problem = "#problem#; publication not found; check markup">
-				</cfif>
-			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
-					UPDATE cf_temp_citation SET publication_id = #isPub.publication_id# where
-					key = #key#
+			<cfif publication_id is null>
+				<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+					select publication_id from publication where full_citation = '#full_citation#'
+					group by publication_id
 				</cfquery>
+				<cfif #isPub.recordcount# is not 1>
+					<cfif len(#problem#) is 0>
+						<cfset problem = "publication not found; check markup">
+					<cfelse>
+						<cfset problem = "#problem#; publication not found; check markup">
+					</cfif>
+				<cfelse>
+					<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+						UPDATE cf_temp_citation SET publication_id = #isPub.publication_id# where
+						key = #key#
+					</cfquery>
+				</cfif>
 			</cfif>
 			<cfquery name="isTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select taxon_name_id from taxonomy where scientific_name = '#cited_scientific_name#'
