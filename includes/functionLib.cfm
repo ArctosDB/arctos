@@ -265,7 +265,7 @@
 	<cfset session.target=''>
 	<cfset session.block_suggest=''>
 	<cfset session.meta_description=''>
-	<cfset temp=jsessionid & '_' & cftoken & '_' & RandRange(0, 9999)>
+	<cfset temp=left(jsessionid,10) & '_' & '_' & RandRange(0, 9999)>
 	<cfset session.SpecSrchTab="SpecSrch" & temp>
 	<cfset session.MediaSrchTab="MediaSrch" & temp> <!-- Doris' edit -->
 	<cfset session.TaxSrchTab="TaxSrch" & temp>
