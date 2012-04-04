@@ -209,6 +209,14 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_habitat_desc">Habitat:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="habitat_desc" id="habitat_desc" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="_verificationstatus">Verification Status:</span>
 		</td>
 		<td class="srch">
