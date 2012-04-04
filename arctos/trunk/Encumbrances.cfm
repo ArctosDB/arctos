@@ -503,10 +503,10 @@ UPDATE encumbrance SET
 					<cfif isdefined("table_name") and len(table_name) gt 0>
 						and coll_object_encumbrance.collection_object_id=#table_name#.collection_object_id
 					<cfelseif len(collection_object_id) gt 0>
-						 AND cataloged_item.collection_object_id IN ( #collection_object_id# ) 
+						 AND flat.collection_object_id IN ( #collection_object_id# ) 
 					</cfif>
 				ORDER BY 
-					cataloged_item.collection_object_id
+					flat.collection_object_id
 			</cfquery>
 
 		<hr>
