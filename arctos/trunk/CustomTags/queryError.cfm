@@ -62,9 +62,6 @@ Exceptions:
 			<cfdump var="#exception#" label="exception">
 		</cfif>
 		<hr>
-		Client Dump:
-		<hr>
-		<cfdump var="#client#" label="client">
 		<hr>
 		Form Dump:
 		<hr>
