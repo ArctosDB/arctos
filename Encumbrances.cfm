@@ -9,8 +9,8 @@
 		jQuery("#expiration_date").datepicker();
 	});
 </script>
-<cfif not isdefined("collection_object_id")>
-	<cfset collection_object_id="">
+<cfif not isdefined("table_name")>
+	<cfset table_name="">
 </cfif>
 <cfquery name="ctEncAct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select encumbrance_action from ctencumbrance_action order by encumbrance_action
@@ -62,7 +62,7 @@
 	<cfoutput>
 		<cfset title = "Search for specimens or encumbrances">
 		<p>
-			<cfif len(collection_object_id) gt 0 or (isdefined("table_name") and len(table_name) gt 0)>
+			<cfif isdefined("table_name") and len(table_name) gt 0>
 				Now find an encumbrance to apply to the specimens below. If you need a new encumbrance, create it
 				first then come back here.
 			<cfelse>
@@ -71,7 +71,7 @@
 		</p>
 		<cfform name="encumber" method="post" action="Encumbrances.cfm">
 			<input type="hidden" name="Action" value="listEncumbrances">
-			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+			<input type="hidden" name="table_name" value="#table_name#">
 			<label for="">Encumbering Agent</label>
 			<input name="encumberingAgent" id="encumberingAgent" type="text">
 			<label for="made_date_after">Made Date After</label>
@@ -217,10 +217,10 @@
 			<form name="listEnc#i#" method="post" action="Encumbrances.cfm">
 				<input type="hidden" name="Action">
 				<input type="hidden" name="encumbrance_id" value="#encumbrance_id#">
-				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+				<input type="hidden" name="table_name" value="#table_name#">
 				#encumbrance# (#encumbrance_action#) by #agent_name# made #dateformat(made_date,"yyyy-mm-dd")#, expires #dateformat(expiration_date,"yyyy-mm-dd")# #expiration_event# #remarks#
 				<br>
-				<cfif len(collection_object_id) gt 0>
+				<cfif len(table_name) gt 0>
 					<span class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
 						[ Add All Items To This Encumbrance ]
 					</span>
@@ -248,32 +248,21 @@
 	<cfif len(encumbrance_id) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
 	</cfif>
-	<cfif len(collection_object_id) is 0>
-		Didn't get a collection_object_id!!<cfabort>
+	<cfif len(table_name) is 0>
+		Didn't get specimens - abort<cfabort>
 	</cfif>
-	<cftry>
-	
-	<cfloop index="i" 
-		list="#collection_object_id#" 
-		delimiters=",">
 	
 	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		DELETE FROM coll_object_encumbrance
 		WHERE
 		encumbrance_id = #encumbrance_id# AND
-		collection_object_id =#i#
+		collection_object_id in (select collection_object_id from #table_name#
 	</cfquery>
 	
 	
-	</cfloop>
-	<cfcatch type="database">
-		stuff
-	</cfcatch>
-
-	</cftry>
 	<p>
 		All items listed below have been removed from this encumbrance.
-		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&collection_object_id=#collection_object_id#">Return to Encumbrance.</a>
+		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&table_name=#table_name#">Return to Encumbrance.</a>
 	</p>
 </cfoutput>	
 </cfif>
@@ -442,31 +431,25 @@ UPDATE encumbrance SET
 	<cfif len(#encumbrance_id#) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
 	</cfif>
-	<cfif len(collection_object_id) is 0>
-		Didn't get a collection_object_id!!<cfabort>
+	<cfif  len(table_name) is 0>
+		Didn't get specimens<cfabort>
 	</cfif>
 
 	
-	<cfloop index="i" 
-		list="#collection_object_id#" 
-		delimiters=",">
-	
 	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	INSERT INTO coll_object_encumbrance (encumbrance_id, collection_object_id)
-		VALUES (#encumbrance_id#, #i#)
+		(select #encumbrance_id#, collection_object_id from #table_name#)
 	</cfquery>
-	
-	
-	</cfloop>
+
 	<p>
 		All items listed below have been encumbered.
-		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&collection_object_id=#collection_object_id#">Return to Encumbrance.</a>
+		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&table_name=#table_name#">Return to Encumbrance.</a>
 	</p>
 </cfoutput>	
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------->
-<cfif len(collection_object_id) gt 0 or (isdefined("table_name") and len(table_name) gt 0)>
+<cfif len(table_name) gt 0>
 
 	<Cfset title = "Encumber these specimens">
 		<cfoutput>
@@ -493,18 +476,12 @@ UPDATE encumbrance SET
 					coll_object_encumbrance, 
 					encumbrance, 
 					preferred_agent_name encumbering_agent
-					<cfif isdefined("table_name") and len(table_name) gt 0>
-						,#table_name#
-					</cfif>
+					,#table_name#
 				WHERE 
 					flat.collection_object_id=coll_object_encumbrance.collection_object_id (+) AND 
 					coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND 
 					encumbrance.encumbering_agent_id = encumbering_agent.agent_id (+)
-					<cfif isdefined("table_name") and len(table_name) gt 0>
-						and coll_object_encumbrance.collection_object_id=#table_name#.collection_object_id
-					<cfelseif len(collection_object_id) gt 0>
-						 AND flat.collection_object_id IN ( #collection_object_id# ) 
-					</cfif>
+					and coll_object_encumbrance.collection_object_id=#table_name#.collection_object_id
 				ORDER BY 
 					flat.collection_object_id
 			</cfquery>

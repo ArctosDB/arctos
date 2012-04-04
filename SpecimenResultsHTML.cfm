@@ -1490,9 +1490,6 @@ document.getElementById('saveme').submit();
 		--->
 	<form name="goSomewhereElseNow" method="post">
 		<select name="goWhere" size="1">
-			<option value="Encumbrances.cfm?collection_object_id=#collObjIdList#">
-				Encumbrances
-			</option>
 			<option value="UamMammalVialLabels_pdffile.cfm?collection_object_id=#collObjIdList#">
 				UAM Mammals Vial Labels
 			</option>
