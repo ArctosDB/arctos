@@ -209,7 +209,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_habitat_desc">Habitat:</span>
+			<span class="helpLink" id="_habitat_desc">General Habitat:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="habitat_desc" id="habitat_desc" size="50">
