@@ -272,10 +272,10 @@
 	
 
 <!---- clear old queries from cache and cache flatquery ---->
-	<cfquery name="SpecRes#jsessionid##cftoken#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
+	<cfquery name="SpecRes#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
 		select * from getData where collection_object_id > 0
 	</cfquery>
-	<cfquery name="SpecRes#jsessionid##cftoken#" dbtype="query" cachedwithin="#createtimespan(0,0,120,0)#">
+	<cfquery name="SpecRes#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,120,0)#">
 		select * from getData where collection_object_id > 0
 	</cfquery>
 	<cfquery name="uCollObj" dbtype="query">
@@ -296,19 +296,19 @@
 </cfif>
 
 <cfif isdefined("newSearch") and #newSearch# is 1>
-	<cfquery name="SpecRes#jsessionid##cftoken#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
-		select * from SpecRes#jsessionid##cftoken#
+	<cfquery name="SpecRes#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
+		select * from SpecRes#left(jsessionid,10)#
 	</cfquery>
-	<cfquery name="mapCount#jsessionid##cftoken#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
-		select * from SpecRes#jsessionid##cftoken#
+	<cfquery name="mapCount#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
+		select * from SpecRes#left(jsessionid,10)#
 	</cfquery>
 </cfif>
-<cfquery name="SpecRes#jsessionid##cftoken#" dbtype="query" cachedwithin="#createtimespan(0,0,120,0)#">
-	select * from SpecRes#jsessionid##cftoken#
+<cfquery name="SpecRes#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,120,0)#">
+	select * from SpecRes#left(jsessionid,10)#
 </cfquery>
 
 <cfquery name="getBasic" dbtype="query">
-	select * from SpecRes#jsessionid##cftoken# order by #order_by# #order_order#
+	select * from SpecRes#left(jsessionid,10)# order by #order_by# #order_order#
 </cfquery>
 <!---
 <cfif #getBasic.recordcount# is 1 and #action# is "nothing">

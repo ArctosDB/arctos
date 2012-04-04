@@ -248,7 +248,7 @@
 	<!------------------------ logout ------------------------------------>
 	<cfset StructClear(Session)>
 	<cflogout>
-	<cfset session.DownloadFileName = "ArctosData_#jsessionid##cftoken#.txt">
+	<cfset session.DownloadFileName = "ArctosData_#left(jsessionid,10)#.txt">
 	<cfset session.roles="public">
 	<cfset session.showObservations="">
 	<cfset session.result_sort="">

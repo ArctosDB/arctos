@@ -195,7 +195,7 @@ the option to choose these parameters.  in that case, remove these lines--->
         marginleft=".25"
         marginright=".25"
 		unit="in"
-        orientation="landscape" filename="#Application.webDirectory#/temp/permit_#jsessionid#.pdf" overwrite="true">
+        orientation="landscape" filename="#Application.webDirectory#/temp/permit_#left(jsessionid,10)#.pdf" overwrite="true">
 
 <!---<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">--->
 
@@ -538,7 +538,7 @@ cfdocument will not use it, since it does not consider it valid HTML. Period.
 </cftry>
 </cfloop>
 </cfdocument>
-<a href="/temp/permit_#jsessionid#.pdf">Get the PDF</a><br />
+<a href="/temp/permit_#left(jsessionid,10)#.pdf">Get the PDF</a><br />
 </cfoutput>
 </cfif> <!--- end the action generatePDF --->
 

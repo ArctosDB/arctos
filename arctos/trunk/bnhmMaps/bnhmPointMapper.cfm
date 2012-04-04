@@ -44,7 +44,7 @@ Retrieving map data - please wait....
 		<cfset temp = QuerySetCell(getMapData, "datum", datum, 1)>
 	</cfif>
 	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles/">
-	<cfset dlFile = "tabfile#jsessionid##cftoken#.txt">
+	<cfset dlFile = "tabfile#left(jsessionid,10)#.txt">
 	<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="" nameconflict="overwrite">
 	<cfloop query="getMapData">
 		<cfset relInfo='<a href="#Application.ServerRootUrl#/editLocality.cfm?locality_id=#locality_id#" target="_blank">#spec_locality#</a>'>

@@ -15,7 +15,7 @@
 	<cfset showUnaccepted=0>
 </cfif>
 <cfif not isdefined("userFileName")>
-	<cfset userFileName="kmlfile#jsessionid##cftoken#">
+	<cfset userFileName="kmlfile#left(jsessionid,10)#">
 </cfif>
 <cfif not isdefined("includeTimeSpan")>
 	<cfset includeTimeSpan=0>
@@ -109,7 +109,7 @@
 			<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
 			<cfabort>
 		</cfif>
-		<cfset thisTableName = "SearchResults_#jsessionid#">	
+		<cfset thisTableName = "SearchResults_#left(jsessionid,10)#">	
 		<cftry>
 			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				drop table #session.SpecSrchTab#

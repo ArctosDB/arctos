@@ -154,7 +154,7 @@ the option to choose these parameters.  in that case, remove these lines--->
         marginright=".25"
 		unit="in"
         orientation="landscape" 
-		filename="#Application.webDirectory#/temp/ledger_#jsessionid#.pdf" overwrite="true">
+		filename="#Application.webDirectory#/temp/ledger_#left(jsessionid,10)#.pdf" overwrite="true">
 
 <!---<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">--->
 
@@ -479,7 +479,7 @@ is 1 inch, even => bottom side is 1 inch. --->
         </cfif>
 </cfloop>
 </cfdocument>
-<a href="/temp/ledger_#jsessionid#.pdf">Get the PDF</a><br />
+<a href="/temp/ledger_#left(jsessionid,10)#.pdf">Get the PDF</a><br />
 </cfoutput>
 </cfif> <!--- end the action generatePDF --->
 

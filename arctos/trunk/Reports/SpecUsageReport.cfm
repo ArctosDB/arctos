@@ -13,7 +13,7 @@
 		</form>
 	</cfif>
 	<cfif action is "buildIt">
-		<cfset session.projectReportTable="projTable#jsessionid##cftoken#">
+		<cfset session.projectReportTable="projTable#left(jsessionid,10)#">
 		<cftry>
 			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				drop table #session.projectReportTable#

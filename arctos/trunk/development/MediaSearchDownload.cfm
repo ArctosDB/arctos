@@ -196,7 +196,7 @@ do not agree</font>.</a>
 		<cfset fileDir = Application.webDirectory>
 		<cfoutput>
 			<cfset variables.encoding="UTF-8">
-			<cfset fname = "ArctosMedia_#jsessionid#.csv">
+			<cfset fname = "ArctosMedia_#left(jsessionid,10)#.csv">
 			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 			<cfscript>
 				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);

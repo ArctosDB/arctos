@@ -256,7 +256,7 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
         marginbottom=".2"
         marginleft=".36"
         marginright=".36"  overwrite="true"
-        filename="#Application.webDirectory#/temp/widelabels_#jsessionid#.pdf" orientation="portrait" >
+        filename="#Application.webDirectory#/temp/widelabels_#left(jsessionid,10)#.pdf" orientation="portrait" >
 
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfset i=0>
@@ -587,7 +587,7 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
 		<cfset r=#r#+1>
 </cfloop>
 </cfdocument>
-<a href="/temp/widelabels_#jsessionid#.pdf">Get the PDF</a><br />
+<a href="/temp/widelabels_#left(jsessionid,10)#.pdf">Get the PDF</a><br />
 <!---removing the debugging area
 Start debugging area:<br/>
 <cfdump var='#form#'>
