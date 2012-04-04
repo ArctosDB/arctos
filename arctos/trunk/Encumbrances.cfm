@@ -472,19 +472,14 @@ UPDATE encumbrance SET
 		<cfoutput>
 			<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				 SELECT 
-					cataloged_item.collection_object_id as collection_object_id, 
-					cat_num, 
-					concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-					identification.scientific_name, 
-					country, 
-					state_prov, 
-					county, 
-					cataloged_item.collection_object_id, 
-					quad, 
-					institution_acronym, 
-					collection.collection_cde, 
-					part_name, 
-					specimen_part.collection_object_id AS partID, 
+					flat.collection_object_id,
+					flat.guid,
+					flat.cat_num, 
+					concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+					flat.scientific_name, 
+					flat.higher_geog, 
+					flat.collection, 
+					flat.parts, 
 					encumbering_agent.agent_name AS encumbering_agent, 
 					expiration_date, 
 					expiration_event, 
@@ -494,13 +489,7 @@ UPDATE encumbrance SET
 					encumbrance_action, 
 					encumbrance.encumbrance_id 
 				FROM 
-					identification, 
-					collecting_event, 
-					locality, 
-					geog_auth_rec, 
-					cataloged_item, 
-					collection, 
-					specimen_part, 
+					flat, 
 					coll_object_encumbrance, 
 					encumbrance, 
 					preferred_agent_name encumbering_agent
@@ -508,14 +497,7 @@ UPDATE encumbrance SET
 						,#table_name#
 					</cfif>
 				WHERE 
-					locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND 
-					collecting_event.locality_id = locality.locality_id AND 
-					cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
-					cataloged_item.collection_object_id = identification.collection_object_id AND 
-					identification.accepted_id_fg = 1 AND
-					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item (+) AND 
-					cataloged_item.collection_id = collection.collection_id AND 
-					cataloged_item.collection_object_id=coll_object_encumbrance.collection_object_id (+) AND 
+					flat.collection_object_id=coll_object_encumbrance.collection_object_id (+) AND 
 					coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND 
 					encumbrance.encumbering_agent_id = encumbering_agent.agent_id (+)
 					<cfif isdefined("table_name") and len(table_name) gt 0>
@@ -531,49 +513,24 @@ UPDATE encumbrance SET
 		<br><strong>Cataloged Items being encumbered:</strong>
 			<table width="95%" border="1">
 				<tr>
-					<td><strong>Catalog Number</strong></td>
+					<td><strong>Specimen</strong></td>
 					<td><strong>#session.CustomOtherIdentifier#</strong></td>
 					<td><strong>Scientific Name</strong></td>
-					<td><strong>Country</strong></td>
-					<td><strong>State</strong></td>
-					<td><strong>County</strong></td>
-					<td><strong>Quad</strong></td>
-					<td><strong>Part</strong></td>
+					<td><strong>Geog</strong></td>
+					<td><strong>Parts</strong></td>
 					<td><strong>Existing Encumbrances</strong></td>
 				</tr>
 						</cfoutput>
 		<cfoutput query="getData" group="collection_object_id">
 			<tr>
 				<td>
-					<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-					#collection_cde#&nbsp;#cat_num#</a><br>
+					<a href="/guid/#guid#">#guid#</a>
 				</td>
 				<td>#CustomID#&nbsp;</td>
 				<td><i>#Scientific_Name#</i></td>
-				<td>#Country#&nbsp;</td>
-				<td>#State_Prov#&nbsp;</td>
-				<td>#county#&nbsp;</td>
-				<td>#quad#&nbsp;</td>
+				<td>#higher_geog#&nbsp;</td>
 				<td>
-					<cfquery name="getParts" dbtype="query">
-						SELECT 
-							part_name, 
-							partID
-						FROM 
-							getData 
-						WHERE 
-							collection_object_id = #collection_object_id# 
-						GROUP BY
-							part_name, 
-							partID
-					</cfquery>
-					
-					<cfloop query="getParts">
-						<cfif len (#getParts.partID#) gt 0>
-							#getParts.part_name#<br>
-						</cfif>
-					</cfloop>
-					
+					#parts#
 				</td>
 				<td>
 					<cfquery name="encs" dbtype="query">
@@ -614,8 +571,6 @@ UPDATE encumbrance SET
 							<input type="button" 
 								value="Remove This Encumbrance" 
 								class="delBtn"
-								onmouseover="this.className='delBtn btnhov'"
-								onmouseout="this.className='delBtn'"
 								onClick="deleteEncumbrance(#encumbrance_id#,#encs.collection_object_id#);">
 		
 						</form>
