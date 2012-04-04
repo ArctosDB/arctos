@@ -82,7 +82,7 @@
 					preferred_agent_name.agent_name,
 					agent_type">
 <cfset sql = "#sql# ORDER BY preferred_agent_name.agent_name">
-		<cfquery name="getAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 <cfif getAgents.recordcount is 0>

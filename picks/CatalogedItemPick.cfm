@@ -1,9 +1,9 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfset title = "Cat Item Pick">
-<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select distinct(collection) from collection order by collection
 </cfquery>
-<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 </cfquery>
 <!----------------------------------------------------------->
@@ -74,7 +74,7 @@
 	<cfif len(#collection#) gt 0>
 		<cfset sql = "#sql# AND collection='#collection#'">
 	</cfif>	
-	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<cfoutput>

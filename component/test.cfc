@@ -5,7 +5,7 @@
 <cfargument name="t" type="String" required="false" default=""/>
 
 	<cftry>
-	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from agent_name where upper(agent_name) like '#ucase(q)#%'
 		<cfif len(t) gt 0>and age_name_type='#t#'</cfif>
 	</cfquery>

@@ -1,17 +1,17 @@
 <cfinclude template="includes/_header.cfm">
-<cfquery name="ctInfRank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctInfRank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select infraspecific_rank from ctinfraspecific_rank order by infraspecific_rank
 </cfquery>
-<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select taxon_relationship  from cttaxon_relation order by taxon_relationship
 </cfquery>
-<cfquery name="ctSourceAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctSourceAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
 </cfquery>
-<cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
 </cfquery>
-<cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select taxon_status from cttaxon_status order by taxon_status
 </cfquery>
 <cfset title="Edit Taxonomy">
@@ -42,7 +42,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "edit">
 	<cfset title="Edit Taxonomy">
-	<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from taxonomy where taxon_name_id=#taxon_name_id#
 	</cfquery>
 <cfoutput>
@@ -217,7 +217,7 @@
 		</tr>
       </form>
     </table>
-	<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select 
 			taxonomy_publication_id,
 			short_citation,
@@ -259,7 +259,7 @@
 			</ul>
 		</cfif>
 	</table>
-	<cfquery name="relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT 
 			scientific_name, 
 			taxon_relationship,
@@ -340,7 +340,7 @@
 			<cfset i = #i#+1>
 		</cfloop>
 	</table>
-	<cfquery name="common" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="common" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select common_name from common_name where taxon_name_id = #taxon_name_id#
 	</cfquery>
 	<span class="likeLink" onClick="getDocs('taxonomy','common_names');">Common Names</span>
@@ -373,14 +373,14 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "removePub">
-	<cfquery name="removePub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="removePub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		delete from taxonomy_publication where taxonomy_publication_id=#taxonomy_publication_id#
 	</cfquery>
 	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "newTaxonPub">
-	<cfquery name="newTaxonPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newTaxonPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		INSERT INTO taxonomy_publication (taxon_name_id,publication_id)
 		VALUES (#taxon_name_id#,#new_publication_id#)
 	</cfquery>
@@ -389,7 +389,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "newCommon">
 <cfoutput>
-	<cfquery name="newCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		INSERT INTO common_name (common_name, taxon_name_id)
 		VALUES ('#common_name#', #taxon_name_id#)
 	</cfquery>
@@ -399,7 +399,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif Action is "deleTaxa">
 <cfoutput>
-	<cfquery name="deleTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		DELETE FROM 
 			taxonomy
 		WHERE 
@@ -411,7 +411,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "deleteCommon">
 <cfoutput>
-	<cfquery name="killCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		DELETE FROM 
 			common_name
 		WHERE 
@@ -423,7 +423,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveCommon">
 <cfoutput>
-	<cfquery name="upCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="upCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		UPDATE
 			common_name
 		SET 
@@ -602,10 +602,10 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveNewtaxa">
 <cfoutput>
-<cfquery name="nextID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="nextID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select sq_taxon_name_id.nextval nextID from dual
 </cfquery>
-	<cfquery name="newTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		INSERT INTO taxonomy (
 			taxon_name_id,
 			valid_catalog_term_fg,
@@ -662,7 +662,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "newTaxaRelation">
 <cfoutput>
-	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		INSERT INTO taxon_relations (
 			 TAXON_NAME_ID,
 			 RELATED_TAXON_NAME_ID,
@@ -681,7 +681,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif Action is "deleReln">
 <cfoutput>
-<cfquery name="deleReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="deleReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	DELETE FROM 
 		taxon_relations
 	WHERE
@@ -695,7 +695,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveRelnEdit">
 <cfoutput>
-<cfquery name="edRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="edRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	UPDATE taxon_relations SET
 		taxon_relationship = '#taxon_relationship#'
 		<cfif len(#newRelatedId#) gt 0>
@@ -720,7 +720,7 @@
 <cfif #Action# is "saveTaxaEdits">
 <cfoutput>
 <cftransaction>
-	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
+	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,jsessionid)#">
 	UPDATE taxonomy SET 
 		valid_catalog_term_fg=#valid_catalog_term_fg#,
 		source_authority = '#source_authority#',

@@ -93,7 +93,7 @@ sho err
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		delete from ds_temp_agent
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -123,7 +123,7 @@ sho err
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into ds_temp_agent (#colNames#) values (#preservesinglequotes(colVals)#)				
 			</cfquery>
 		</cfif>
@@ -219,7 +219,7 @@ sho err
 	});
 </script>
 <cfoutput>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from ds_temp_agent
 	</cfquery>
 	<cfquery name="p" dbtype="query">
@@ -229,14 +229,14 @@ sho err
 		<div class="error">Sorry, we can only deal with agent type=person here.</div>
 		<cfabort>
 	</cfif>
-	<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select count(*) c from ds_temp_agent where preferred_name is null
 	</cfquery>
 	<cfif rpn.c is not 0>
 		<div class="error">Preferred name is required for every agent.</div>
 		<cfabort>
 	</cfif>
-	<cfquery name="ont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select nt from (
 			select
 				other_name_type_1 nt
@@ -259,7 +259,7 @@ sho err
 		<div class="error">Other name types may not be "preferred"</div>
 		<cfabort>
 	</cfif>
-	<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select nt from  
 		(
 			select

@@ -18,7 +18,7 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
-		<cfquery name="getPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			SELECT 
 				publication_id,
 				full_citation

@@ -81,7 +81,7 @@ sho err
 <!---------------------------------------------------------------------->
   <cfif action is "getFileData">
 <cfoutput>
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		delete from cf_temp_barcode_parts
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -103,7 +103,7 @@ sho err
 		</cfif>	
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into cf_temp_barcode_parts (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
@@ -113,7 +113,7 @@ sho err
 </cfif>
 <!--------------------------------------------------------------------------->
 <cfif action is "validateFromFile">
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select KEY,
 			INSTITutION_ACRONYM,
 			COLLECTION_CDE,
@@ -126,7 +126,7 @@ sho err
 		from 
 			cf_temp_barcode_parts
 	</cfquery>
-	<cfquery name="goodContainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="goodContainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		update cf_temp_barcode_parts set status='bad_container_type'
 		where new_container_type NOT IN (
 			select container_type from ctcontainer_type)
@@ -135,7 +135,7 @@ sho err
 		<cfloop query="data">
 			<cfset sts=''>
 			<cfif other_id_type is "catalog number">
-				<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select specimen_part.collection_object_id FROM
 						cataloged_item,
 						specimen_part,
@@ -149,7 +149,7 @@ sho err
 						part_name='#part_name#'
 				</cfquery>
 			<cfelse>
-				<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select specimen_part.collection_object_id FROM
 						cataloged_item,
 						specimen_part,
@@ -173,7 +173,7 @@ sho err
 				<cfset sts='item_not_found'>
 			</cfif>
 			<!--- see if they gave a valid parent container ---->
-			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select container_id from container where container_type <> 'collection object'
 				and barcode='#parent_barcode#'
 			</cfquery>
@@ -181,7 +181,7 @@ sho err
 				<cfset sts='parent_barcode_not_found'>
 			</cfif>
 			<cfif sts is ''>
-				<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select container_id FROM coll_obj_cont_hist where
 					collection_object_id=#coll_obj.collection_object_id#
 				</cfquery>
@@ -190,14 +190,14 @@ sho err
 				</cfif>
 			</cfif>
 			<cfif sts is ''>
-				<cfquery name="setter" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="setter" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					update cf_temp_barcode_parts set
 						parent_container_id=#isGoodParent.container_id#,
 						part_container_id=#cont.container_id#
 					where key=#key#
 				</cfquery>
 			<cfelse>
-				<cfquery name="ssetter" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="ssetter" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					update cf_temp_barcode_parts set
 						status='#sts#'
 					where key=#key#
@@ -208,7 +208,7 @@ sho err
 	<cflocation url="BulkloadPartContainer.cfm?action=load">
 </cfif>
 <cfif action is "load">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from cf_temp_barcode_parts
 	</cfquery>
 	<cfif listlen(valuelist(d.status)) gt 0>
@@ -217,7 +217,7 @@ sho err
 	<cfelse>
 		<cftransaction>
 			<cfloop query="d">
-				<cfquery name="flagIT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="flagIT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					update 
 						container 
 					set 
@@ -226,7 +226,7 @@ sho err
 					where 
 						container_id = #parent_container_id#						
 				</cfquery>
-				<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					UPDATE 
 						container 
 					SET 

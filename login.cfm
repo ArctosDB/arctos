@@ -32,7 +32,7 @@
 	<cfif len(err) gt 0>
 		<cflocation url="login.cfm?username=#username#&badPW=true&err=#err#" addtoken="false">
 	</cfif>
-	<cfquery name="nextUserID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="nextUserID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select max(user_id) + 1 as nextid from cf_users
 	</cfquery>
 	<cfoutput>
@@ -70,7 +70,7 @@
 		<cfif not isdefined("gotopage") or len(gotopage) is 0>
 			<cfif isdefined("cgi.HTTP_REFERER") and left(cgi.HTTP_REFERER,(len(application.serverRootUrl))) is application.serverRootUrl>
 				<cfset gotopage=replace(cgi.HTTP_REFERER,application.serverRootUrl,'')>
-				<cfset junk="CFID,CFTOKEN">
+				<cfset junk="jsessionid,CFTOKEN">
 				<cfloop list="#gotopage#" index="e" delimiters="?&">
 					<cfloop list="#junk#" index="j">
 						<cfif left(e,len(j)) is j>

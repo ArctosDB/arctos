@@ -40,10 +40,10 @@
 		);
 	}
 </script>
-<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select collection,collection_id cid from collection order by collection
 </cfquery>
-<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
     select distinct(other_id_type) oidt FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 </cfquery>
 <cfparam name="other_id_num" default=''>
@@ -107,10 +107,10 @@
 					scientific_name,
 					collectors,
 					collecting_event_id">
-	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	<cfquery name="mySettings" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="mySettings" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select pickuse_eventid,pickuse_collectors from cf_dataentry_settings where username='#session.username#'
 	</cfquery>
 	<table border>

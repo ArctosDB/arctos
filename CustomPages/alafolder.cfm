@@ -21,7 +21,7 @@
 				<cfset bclist = "#bclist#,'#i#'">
 			</cfif>
 		</cfloop>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select
 				collection,
 				guid_prefix,

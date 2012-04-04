@@ -70,7 +70,7 @@
 	<cfset title="ES Imaging: Accn Cards: Dammit">
 	<cftransaction>
 		<br>barcode: #barcode#
-			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select container_id from container where barcode='#barcode#'
 			</cfquery>
 			<cfif vB.recordcount is 1>
@@ -81,7 +81,7 @@
 			</cfif>
 			
 			<br>accn: #accn#
-			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select accn.transaction_id from 
 					trans,accn where 
 					trans.transaction_id=accn.transaction_id and
@@ -97,7 +97,7 @@
 			
 			<br>comment: #remark#
 			<br>inserting....
-			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into accn_scan (
 					accn_number,
 					accn_id,
@@ -118,7 +118,7 @@
 </cfif>
 <cfif action is "list">
 	<script src="/includes/sorttable.js"></script>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from accn_scan
 	</cfquery>
 	<table border id="t" class="sortable">

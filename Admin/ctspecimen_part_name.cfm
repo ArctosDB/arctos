@@ -67,14 +67,14 @@
 
 
 <cfif action is "nothing">
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select 
 			*
 		from ctspecimen_part_name
 		ORDER BY
 			collection_cde,part_name
 	</cfquery>
-	<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select distinct collection_cde from ctcollection_cde order by collection_cde
 	</cfquery>
 	<cfoutput>
@@ -140,7 +140,7 @@
 	</cfoutput>
 </cfif>
 <cfif action is "insert">
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		insert into ctspecimen_part_name (
 			collection_cde,
 			part_name,

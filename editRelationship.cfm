@@ -10,7 +10,7 @@
 	window.setInterval("chkVal()",1000);
 </script>
 <cfoutput>
-<cfquery name="getRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	SELECT 
 		cat_num, 
 		collection.collection,
@@ -36,13 +36,13 @@
 		relatedSpecimenId.accepted_id_fg=1 AND
 		biol_indiv_relations.collection_object_id=#collection_object_id#
 </cfquery>
-<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select collection,collection_id from collection ORDER BY COLLECTION
 </cfquery>
-<cfquery name="thisRec"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="thisRec"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select scientific_name,collection,collection_id from flat where collection_object_id=#collection_object_id#
 </cfquery>
-<cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select biol_indiv_relationship from ctbiol_relations order by biol_indiv_relationship
 </cfquery>
 <script>
@@ -153,7 +153,7 @@ Current Relationships:
 	None
 </cfif>
 
-<cfquery name="thisCollId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="thisCollId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select collection from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
     collection_object_id=#collection_object_id#
 </cfquery>
@@ -188,7 +188,7 @@ Current Relationships:
 					>
 		  </td>
 		  <td>
-		  		<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		  		<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select collection from collection 
 					group by collection order by collection
 				</cfquery>
@@ -202,7 +202,7 @@ Current Relationships:
 				</select>
 		  </td>
 		  <td>
-		  	<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		  	<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 		</cfquery>
 		<font size="-2">Other ID Type:<br></font>
@@ -235,7 +235,7 @@ Current Relationships:
 <cfif #Action# is "saveNew">
 <cfoutput>
 	<cfloop list="#related_coll_object_id#" index="relCollObjId" delimiters=",">
-		<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			INSERT INTO biol_indiv_relations (
 			 COLLECTION_OBJECT_ID,
 			 RELATED_COLL_OBJECT_ID,
@@ -252,7 +252,7 @@ Current Relationships:
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "saveEdit">
 <cfoutput>
-	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		UPDATE biol_indiv_relations
 		SET
 		collection_object_id = #collection_object_id#,
@@ -269,7 +269,7 @@ Current Relationships:
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "deleReln">
 <cfoutput>
-	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	DELETE FROM biol_indiv_relations WHERE
 		collection_object_id = #collection_object_id# AND
 	RELATED_COLL_OBJECT_ID = #origRelCollObjId# AND

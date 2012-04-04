@@ -33,27 +33,27 @@
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
 <cfif action is "deleteCard">
-	<cfquery name="la" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="la" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		delete from loc_card_scan where loc_id=#loc_id#
 	</cfquery>
 	you killed it!
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
 <cfif action is "delSpec">
-	<cfquery name="la" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="la" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		delete from spec_scan where id=#id#
 	</cfquery>
 	you killed it! <a href="locspecscan.cfm?action=findLoc&barcode=#barcode#">[ back to card ]</a>
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
 <cfif action is "findLoc">
-	<cfquery name="la" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="la" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from loc_card_scan <cfif len(barcode) gt 0> where barcode='#barcode#'</cfif>
 	</cfquery>
 	<cfloop query="la">
 		<hr>
 		<a href="locspecscan.cfm?action=enterSpec&loc_id=#loc_id#">[ enter more specimens for this card ]</a>
-		<cfquery name="sp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from spec_scan where loc_id=#loc_id#
 		</cfquery>
 		<cfif sp.recordcount is 0>
@@ -138,7 +138,7 @@
 <!--------------------------------------------------------------------------------------------------->
 <cfif action is "enterCard">
 	<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
-	<cfquery name="ctAge" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctAge" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			ATTRIBUTE_VALUE 
 		from 
@@ -151,7 +151,7 @@
 		order by
 			ATTRIBUTE_VALUE
 	</cfquery>
-	<cfquery name="ctFormation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctFormation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			ATTRIBUTE_VALUE 
 		from 
@@ -164,7 +164,7 @@
 		order by
 			ATTRIBUTE_VALUE
 	</cfquery>
-	<cfquery name="ctSeriesEpoch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctSeriesEpoch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			ATTRIBUTE_VALUE 
 		from 
@@ -177,7 +177,7 @@
 		order by
 			ATTRIBUTE_VALUE
 	</cfquery>
-	<cfquery name="ctSystemPeriod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctSystemPeriod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			ATTRIBUTE_VALUE 
 		from 
@@ -190,7 +190,7 @@
 		order by
 			ATTRIBUTE_VALUE
 	</cfquery>
-	<cfquery name="ctSystemPeriod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctSystemPeriod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			ATTRIBUTE_VALUE 
 		from 
@@ -203,7 +203,7 @@
 		order by
 			ATTRIBUTE_VALUE
 	</cfquery>
-	<cfquery name="ctErathemEra" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctErathemEra" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			ATTRIBUTE_VALUE 
 		from 
@@ -416,7 +416,7 @@
 	<cftransaction>
 		<h2>If you're reading this, you haven't saved anything.</h2>
 		<br>barcode: #barcode#
-			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select container_id from container where barcode='#barcode#'
 			</cfquery>
 			<cfif vB.recordcount is 1>
@@ -427,7 +427,7 @@
 			</cfif>
 			
 			<br>accn: #accn#
-			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select accn.transaction_id from 
 					trans,accn where 
 					trans.transaction_id=accn.transaction_id and
@@ -452,7 +452,7 @@
 			</cfif>
 			<br>comment: #remark#
 			<br>inserting....
-			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into loc_card_scan (
 					accn_number,
 					accn_id,
@@ -493,7 +493,7 @@
 					'#ErathemEra#'
 				)
 			</cfquery>
-			<cfquery name="lid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="lid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select sq_loc_card_scan_id.currval cid from dual
 			</cfquery>
 				insert into loc_card_scan (
@@ -504,7 +504,7 @@
 <!--------------------------------------------------------------------------------------------------->
 <cfif action is "enterSpec">
 	<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
-	<cfquery name="card" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="card" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from loc_card_scan where loc_id=#loc_id#
 	</cfquery>
 	<script>
@@ -612,7 +612,7 @@
 		<input type="text" name="remark" id="remark" size="50">
 		<br><input type="submit" class="savBtn" value="Save">
 	</form>
-	<cfquery name="sp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="sp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from spec_scan where loc_id=#loc_id#
 	</cfquery>
 	<br>You can delete specimens from <a href="locspecscan.cfm?action=findLoc&barcode=#card.barcode#">the locality card page</a> and re-enter to fix mistakes
@@ -641,7 +641,7 @@
 <!--------------------------------------------------------------------------------------------------->
 <cfif action is "saveNewSpec">
 	<br>barcode: #barcode#
-	<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select container_id from container where barcode='#barcode#'
 	</cfquery>
 	<cfif vB.recordcount is 1>
@@ -652,7 +652,7 @@
 	</cfif>
 	<cfif left(idnum,7) neq 'UAM:ES:'>
 	<br>taxon_name	
-		<cfquery name="vT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="vT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select taxon_name_id from taxonomy where scientific_name='#taxon_name#'
 		</cfquery>
 		<cfif vT.recordcount is 1>
@@ -662,7 +662,7 @@
 			is invalid. Use your back button.
 			<cfabort>
 		</cfif>
-		<cfquery name="vP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="vP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select part_name from ctspecimen_part_name where collection_cde='ES' and part_name='#part_name#'
 		</cfquery>
 		<br>part_name 
@@ -675,7 +675,7 @@
 	<cfelse>
 		<cfset taxon_name_id=-1>
 	</cfif>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		insert into spec_scan (
 			loc_id,
 			idnum,

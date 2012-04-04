@@ -51,7 +51,7 @@ test-uam> desc uam_query.query_stats_coll
 		<br>USER=Oracle user performing the query
 	</p>
 	<cfoutput>
-	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select collection_id,collection from collection order by collection
 	</cfquery>
 <h2>Query Statistics</h2>

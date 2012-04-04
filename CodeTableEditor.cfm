@@ -1,5 +1,5 @@
 <cfinclude template="includes/_header.cfm">
-<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select distinct collection_cde from ctcollection_cde
 </cfquery>
 <cfoutput>
@@ -32,10 +32,10 @@
 	<cfelseif tbl is "ctmedia_license"><!---------------------------------------------------->
 		<cflocation url="/Admin/ctmedia_license.cfm" addtoken="false">
 	<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
-		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select distinct(attribute_type) from ctAttribute_type
 		</cfquery>
-		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			Select * from ctattribute_code_tables
 			order by attribute_type
 		</cfquery>
@@ -154,7 +154,7 @@
 		</cfloop>
 	</table>
 	<cfelseif tbl is "ctpublication_attribute"><!---------------------------------------------------->
-		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from ctpublication_attribute order by publication_attribute
 		</cfquery>
 		<cfquery name="allCTs" datasource="uam_god">
@@ -237,7 +237,7 @@
 			</cfloop>
 		</table>
 	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
-		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from ctcoll_other_id_type order by other_id_type
 		</cfquery>	
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
@@ -306,11 +306,11 @@
 			</cfloop>
 		</table>
 	<cfelseif tbl is "ctspecimen_part_list_order"><!--- special section to handle  another  funky code table --->
-		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from ctspecimen_part_list_order order by
 			list_order,partname
 		</cfquery>
-		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select collection_cde, part_name partname from ctspecimen_part_name
 		</cfquery>
 		<cfquery name="mo" dbtype="query">
@@ -418,7 +418,7 @@
 			select column_name from getCols where lower(column_name) not in ('collection_cde','description')
 		</cfquery>
 		<cfset fld=f.column_name>
-		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select #fld# as data 
 			<cfif collcde gt 0>
 				,collection_cde
@@ -537,19 +537,19 @@
 	</cfif>
 <cfelseif action is "deleteValue">
 	<cfif tbl is "ctpublication_attribute">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			delete from ctpublication_attribute 
 			where
 				publication_attribute='#origData#'
 		</cfquery>
 	<cfelseif tbl is "ctcoll_other_id_type">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			delete from ctcoll_other_id_type
 			where
 				OTHER_ID_TYPE='#origData#'
 		</cfquery>
 	<cfelseif tbl is "ctattribute_code_tables">
-		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			DELETE FROM ctattribute_code_tables
 			WHERE
 				Attribute_type = '#oldAttribute_type#' 
@@ -561,14 +561,14 @@
 				</cfif> 
 		</cfquery>
 	<cfelseif tbl is "ctspecimen_part_list_order">
-		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			DELETE FROM ctspecimen_part_list_order
 			WHERE
 				partname = '#oldpartname#' AND
 				list_order = '#oldlist_order#'
 		</cfquery>
 	<cfelse>
-		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			DELETE FROM #tbl# 
 			where #fld# = '#origData#'
 			<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
@@ -579,7 +579,7 @@
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
 <cfelseif action is "saveEdit">
 	<cfif tbl is "ctpublication_attribute">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			update ctpublication_attribute set 
 				publication_attribute='#publication_attribute#',
 				DESCRIPTION='#description#',
@@ -588,7 +588,7 @@
 				publication_attribute='#origData#'
 		</cfquery>
 	<cfelseif tbl is "ctcoll_other_id_type">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			update ctcoll_other_id_type set 
 				OTHER_ID_TYPE='#other_id_type#',
 				DESCRIPTION='#description#',
@@ -597,7 +597,7 @@
 				OTHER_ID_TYPE='#origData#'
 		</cfquery>
 	<cfelseif tbl is "ctattribute_code_tables">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			UPDATE ctattribute_code_tables SET
 				Attribute_type = '#Attribute_type#',
 				value_code_table = '#value_code_table#',
@@ -608,7 +608,7 @@
 				units_code_table = '#oldunits_code_table#'
 		</cfquery>
 	<cfelseif tbl is "ctspecimen_part_list_order">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			UPDATE ctspecimen_part_list_order SET
 				partname = '#partname#',
 				list_order = '#list_order#'
@@ -617,7 +617,7 @@
 				list_order = '#oldlist_order#'
 		</cfquery>
 	<cfelse>
-		<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			UPDATE #tbl# SET #fld# = '#thisField#'
 			<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 				,collection_cde='#collection_cde#'
@@ -634,7 +634,7 @@
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
 <cfelseif action is "newValue">
 	<cfif tbl is "ctpublication_attribute">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			insert into ctpublication_attribute (
 				publication_attribute,
 				DESCRIPTION,
@@ -646,7 +646,7 @@
 			)
 		</cfquery>
 	<cfelseif tbl is "ctcoll_other_id_type">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			insert into ctcoll_other_id_type (
 				OTHER_ID_TYPE,
 				DESCRIPTION,
@@ -658,7 +658,7 @@
 			)
 		</cfquery>
 	<cfelseif tbl is "ctattribute_code_tables">
-		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			INSERT INTO ctattribute_code_tables (
 				Attribute_type
 				<cfif len(#value_code_table#) gt 0>
@@ -679,7 +679,7 @@
 			)
 		</cfquery>
 	<cfelseif tbl is "ctspecimen_part_list_order">
-		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			INSERT INTO ctspecimen_part_list_order (
 				partname,
 				list_order
@@ -690,7 +690,7 @@
 			)
 		</cfquery>
 	<cfelse>
-		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			INSERT INTO #tbl# 
 				(#fld#
 				<cfif isdefined("collection_cde") and len(collection_cde) gt 0>

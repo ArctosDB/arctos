@@ -47,7 +47,7 @@ content: ": ";
 </style>
 <div class="infoLink" style="text-align:right;" onclick="removeDetail()">close</div>
 <cfoutput>
-	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select
 			locality.locality_id locid,
 			collecting_event.collecting_event_id eventID,
@@ -256,7 +256,7 @@ content: ": ";
 					NOGEOREFBECAUSE,
 					locid
 			</cfquery>
-			<cfquery name="locMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="locMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select 
 					media_id
 				from 
@@ -266,7 +266,7 @@ content: ": ";
 					related_primary_key=#locality.locid#
 				group by media_id
 			</cfquery>
-			<cfquery name="locSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="locSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				SELECT 
 					count(cataloged_item.cat_num) numOfSpecs, 
 					collection.collection,
@@ -649,7 +649,7 @@ content: ": ";
 					eventID	
 			</cfquery>
 			
-			<cfquery name="evntMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="evntMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select 
 					media_id
 				from 
@@ -659,7 +659,7 @@ content: ": ";
 					related_primary_key=#event.eventID#
 				group by media_id
 			</cfquery>
-			<cfquery name="evntSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="evntSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				SELECT 
 					count(cataloged_item.cat_num) numOfSpecs, 
 					collection.collection,

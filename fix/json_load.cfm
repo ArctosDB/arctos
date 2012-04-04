@@ -1,4 +1,4 @@
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	 SELECT  
 	 	rownum,
 	 	level lvl,

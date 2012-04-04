@@ -1,5 +1,5 @@
 <cfoutput>
-<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
  select taxon_name_id, scientific_name, phylclass, phylorder, family, genus from taxonomy where
  phylclass is null or phylorder is null or family is null order by scientific_name
 </cfquery>

@@ -5,7 +5,7 @@
 </cfif>
 <cfif #newQuery# is 1>
 <cfif url.src is "pubs"><!--- find using publication ID --->
-	<cfquery name="ProjDB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ProjDB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT project.project_id,project_name,start_date,end_date,agent_name,project_agent_role,
 		agent_position 
 		FROM project,project_agent,agent_name,project_publication 
@@ -61,7 +61,7 @@
 		<cfset q = "#q# AND upper(projSponsorName.agent_name) like '%#ucase(sponsor)#%'">
 	</cfif>
 	<cfset sql = "#l# #t# #w# #q#">
-<cfquery name="ProjDB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ProjDB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 </cfif>

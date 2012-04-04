@@ -9,11 +9,11 @@
 
 <cfif #Action# is "nothing">
 <cfoutput>
-<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select loan_num_prefix, loan_num, loan_num_suffix from loan where transaction_id = #transaction_id#
 </cfquery>
 <cfset thisLoan = "#getLoan.loan_num_prefix# #getLoan.loan_num# #getLoan.loan_num_suffix#">
-<cfquery name="details" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="details" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select collection_cde, cat_num from cataloged_item, specimen_part where
 	cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
 	specimen_part.collection_object_id = #collection_object_id#
@@ -54,12 +54,12 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 
 <cfif #Action# is "AddItem">
 	<cfoutput>
-	<cfquery name="details" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="details" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select collection_cde, cat_num from cataloged_item, specimen_part where
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
 		specimen_part.collection_object_id = #collection_object_id#
 	</cfquery>
-	<cfquery name="RECONCILED_BY_PERSON_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="RECONCILED_BY_PERSON_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select agent_id from agent_name where agent_name = '#session.username#'
 		</cfquery>
 		<cfif len(#RECONCILED_BY_PERSON_ID.agent_id#) is 0>
@@ -70,7 +70,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 
 	<cfif #isSubsample# is "y">
 		<!--- make a subsample --->
-		<cfquery name="parentData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="parentData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			SELECT 
 				coll_obj_disposition, 
 				condition,
@@ -82,7 +82,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 				coll_object.collection_object_id = specimen_part.collection_object_id AND
 				coll_object.collection_object_id = #collection_object_id#
 		</cfquery>
-		<cfquery name="newCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="newCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			INSERT INTO coll_object (
 				COLLECTION_OBJECT_ID,
 				COLL_OBJECT_TYPE,
@@ -104,7 +104,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 				1,
 				'#parentData.condition#')
 		</cfquery>
-		<cfquery name="newPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="newPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			INSERT INTO specimen_part (
 				COLLECTION_OBJECT_ID
 				,PART_NAME
@@ -119,7 +119,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 		
 	
 	</cfif>
-	<cfquery name="addLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="addLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	
 	INSERT INTO loan_item (
 		TRANSACTION_ID,
@@ -153,7 +153,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 		)
 		</cfquery>
 		
-		<cfquery name="setDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="setDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			UPDATE coll_object SET coll_obj_disposition = 'on loan'
 			where collection_object_id = 
 			<cfif #isSubsample# is "y">

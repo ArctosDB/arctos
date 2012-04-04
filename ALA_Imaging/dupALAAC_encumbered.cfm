@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
-		<cfquery name="rec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="rec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select
 				cataloged_item.collection_object_id collection_object_id1,
 				cat_num cat_num1,
@@ -36,7 +36,7 @@
 			</cfquery>
 			<cfset tnList="">
 			<cfif len(rec.media) gt 0>
-				<cfquery name="tn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="tn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select media_id,preview_uri from media where media_id in (#rec.media#)
 				</cfquery>
 				<cfloop query="tn">
@@ -81,7 +81,7 @@
 			<cfreturn theTable>
 		</cffunction>
 		<cfset limit=20>
-		<cfquery name="dupRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="dupRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from (	
 				select 
 					count(*) cnt,

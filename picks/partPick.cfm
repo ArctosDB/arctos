@@ -25,15 +25,15 @@
 <div id="thisWholePage">
 <cfif action is "nothing">
 <cfoutput>
-	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select collection,collection_id from collection group by collection,collection_id order by collection,collection_id 
 	</cfquery>
-	<cfquery name="ctOID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctOID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select other_id_type from ctcoll_other_id_type group by other_id_type order by other_id_type 
 	</cfquery>
 	<cfif isdefined("institution_acronym") and len(institution_acronym) gt 0 
 		and isdefined("collection_cde") and len(collection_cde) gt 0>
-		<cfquery name="cidl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="cidl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select collection_id from collection where 
 			institution_acronym='#institution_acronym#' and collection_cde='#collection_cde#'
 		</cfquery>
@@ -143,7 +143,7 @@
 			SAMPLED_FROM_OBJ_ID,
 			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#'),
 			p1.barcode">
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		#preservesinglequotes(s)#
 	</cfquery>
 	<cfif data.recordcount is 0>

@@ -48,7 +48,7 @@
 <cfset numAccnRow=1>
 <cfif action is "nothing">
 	<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
-	<cfquery name="ctAge" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctAge" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			ATTRIBUTE_VALUE 
 		from 
@@ -61,7 +61,7 @@
 		order by
 			ATTRIBUTE_VALUE
 	</cfquery>
-	<cfquery name="ctFormation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctFormation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			ATTRIBUTE_VALUE 
 		from 
@@ -150,7 +150,7 @@
 	<cfset title="ES Imaging: Accn Cards: Dammit">
 	<cftransaction>
 		<br>barcode: #barcode#
-			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select container_id from container where barcode='#barcode#'
 			</cfquery>
 			<cfif vB.recordcount is 1>
@@ -161,7 +161,7 @@
 			</cfif>
 			
 			<br>accn: #accn#
-			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select accn.transaction_id from 
 					trans,accn where 
 					trans.transaction_id=accn.transaction_id and
@@ -225,7 +225,7 @@
 			
 			<br>comment: #remark#
 			<br>inserting....
-			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into loc_card_scan (
 					accn_number,
 					accn_id,
@@ -262,7 +262,7 @@
 </cfif>
 <cfif action is "list">
 	<script src="/includes/sorttable.js"></script>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from loc_card_scan
 	</cfquery>
 	No edit here - delete and re-enter.
@@ -303,7 +303,7 @@
 </cfif>
 <cfif action is "delete">
 	<cfset title="Ha-Ha: deleting">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		delete from loc_card_scan where id=#id#
 	</cfquery>
 	deleted #id#

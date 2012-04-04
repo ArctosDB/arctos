@@ -4,7 +4,7 @@
 </div>
 <!----<cfset sql="SELECT container.container_id, container.parent_container_id, container_type, label FROM container,coll_obj_cont_hist,specimen_part,cataloged_item,identification WHERE container.container_id = coll_obj_cont_hist.container_id AND coll_obj_cont_hist.collection_object_id = specimen_part.collection_object_id AND specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND cataloged_item.collection_object_id = identification.collection_object_id AND identification.accepted_id_fg = 1 AND upper(scientific_name)='SOREX YUKONICUS' ORDER BY container.container_id">
 
-<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 #preservesinglequotes(sql)#
 </cfquery>
 ---->
@@ -134,7 +134,7 @@ SELECT
  	<!--- WAITING FOR SEARCH TERMS --->
 	<cfabort>
  </cfif>
- <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
+ <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" timeout="60">
  	#preservesinglequotes(sql)#
  </cfquery>
 </cfif>
@@ -151,7 +151,7 @@ parent_container_id,
 	WHERE
 	parent_container_id=#container_id#
 	order by label">
-<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
+<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" timeout="60">
  	#preservesinglequotes(sql)#
  </cfquery>
 </cfif>
@@ -182,7 +182,7 @@ parent_container_id,
 			<cfset placedContainers = listappend(placedContainers,#container_id#)> 
 		</cfif>
 		
-		<cfquery name="thisRecord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
+		<cfquery name="thisRecord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" timeout="60">
 	select 
 	CONTAINER_ID,
 	PARENT_CONTAINER_ID,

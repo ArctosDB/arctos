@@ -1,5 +1,5 @@
 <cfoutput>	
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select 
 			taxonomy.taxon_name_id,
 			scientific_name

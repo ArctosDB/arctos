@@ -23,13 +23,13 @@ END;
 <cfparam name="filterForPending" default="true">
 
 <cfif action is "delete">
-	<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		delete from cf_temp_relations where CF_TEMP_RELATIONS_ID in (#delthis#)
 	</cfquery>
 	<cflocation url="pendingRelations.cfm">
 </cfif>
 <cfset title="Pending Relationships">
-<cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select 
 		cataloged_item.collection_object_id,
 		RELATIONSHIP,

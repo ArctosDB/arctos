@@ -3,7 +3,7 @@
 <cfset title="Citation Statistics">
 <cfif action is "nothing">
 	<h2>Citation Summary</h2>
-	<cfquery name="citColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="citColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT 
 			count(citation.collection_object_id) as cnt,
 			collection.collection
@@ -19,7 +19,7 @@
 		ORDER BY 
 			collection.collection
 	</cfquery>
-	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select collection,collection_id from collection group by collection,collection_id order by collection
 	</cfquery>
 	<table border>
@@ -56,7 +56,7 @@
 
 
 <cfif action is "CitTax">
-	<cfquery name="cit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="cit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT 
 			count(citation.collection_object_id) as cnt,
 			identification.scientific_name scientific_name,
@@ -103,7 +103,7 @@
 				
 			</td>
 			<td>
-				<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					SELECT 
 						citation.collection_object_id
 					FROM

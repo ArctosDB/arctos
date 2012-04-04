@@ -18,13 +18,13 @@
 <!------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
-	<cfquery name="ctCollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctCollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select collection, collection_id FROM collection order by collection
 	</cfquery>
-	<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select distinct(other_id_type) FROM ctcoll_other_id_type order by other_id_type
 	</cfquery>	
-	<cfquery name="ctContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select container_type from ctcontainer_type
 		order by container_type
 	</cfquery>

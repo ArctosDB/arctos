@@ -1,8 +1,8 @@
 <cfinclude template="includes/_frameHeader.cfm">
-<cfquery name="prefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="prefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select distinct(prefix) as prefix from person where prefix is not null
 </cfquery>
-<cfquery name="suffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="suffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select distinct(suffix) as suffix from person where suffix is not null
 </cfquery>
 <!---

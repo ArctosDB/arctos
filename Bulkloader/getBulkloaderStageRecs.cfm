@@ -3,7 +3,7 @@
 	where table_name='BULKLOADER_STAGE'
 	order by internal_column_id
 </cfquery>
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select * from BULKLOADER_STAGE		
 </cfquery>
 <cfoutput>

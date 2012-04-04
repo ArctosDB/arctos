@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cf_getLoanFormInfo>
 
-<cfquery name="sponsor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="sponsor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select 
 		agent_name,
 		acknowledgement
@@ -286,7 +286,7 @@ Number of rows to print per page:
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
 <cfoutput>
-<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 
 select 
 		cat_num, 
@@ -500,7 +500,7 @@ select
 	 <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;INVOICE <br>
     <font size="+2"> MAMMAL&nbsp;&nbsp;COLLECTION <br>
     UNIVERSITY&nbsp;&nbsp;OF&nbsp;&nbsp;ALASKA&nbsp;&nbsp;MUSEUM</font></font></b> <br>
-	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
 	</cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>
@@ -740,7 +740,7 @@ select
 	fontembed="yes" >
 	
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
-<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select 
 		cat_num, 
 		collection_cde,
@@ -790,7 +790,7 @@ select
 	 <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;INVOICE <br>
     <font size="+2"> MAMMAL&nbsp;&nbsp;COLLECTION <br>
     UNIVERSITY&nbsp;&nbsp;OF&nbsp;&nbsp;ALASKA&nbsp;&nbsp;MUSEUM</font></font></b> <br>
-	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
 	</cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>

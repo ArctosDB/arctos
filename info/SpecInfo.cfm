@@ -3,7 +3,7 @@
 <div align="left">
 <cfif #subject# is "lat_long">
 	<cfset title="Lat Long Details">
-	<cfquery name="getLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select 
 			decode(orig_lat_long_units,
 				'decimal degrees',to_char(dec_lat) || 'd',
@@ -73,7 +73,7 @@
 
 <!--------------------------------------------------------------------------------------------->
 <cfif #subject# is "identification">
-<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT
 			identification.scientific_name,
 			concatidagent(identification.identification_id) agent_name,
@@ -107,7 +107,7 @@
               <font color="##FF0000">No</font> 
             </cfif></td>
 				<td nowrap>
-				<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select 
 						taxonomy.taxon_name_id,
 						scientific_name,
@@ -147,7 +147,7 @@
 <!--------------------------------------------------------------------------------------------->
 
 <cfif #subject# is "parts">
-<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT
 			part_name,
 			sampled_from_obj_id,
@@ -201,7 +201,7 @@
 	</table>
 </cfif>
 <cfif #subject# is "attributes">
-<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT
 			*
 		FROM

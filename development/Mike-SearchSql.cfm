@@ -518,7 +518,7 @@
 
 <cfif isdefined("begDate") AND len(begDate) gt 0>		
 	<cfset mapurl = "#mapurl#&begDate=#begDate#">
-	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select is_iso8601('#begDate#') isdate from dual
 	</cfquery>
 	<cfif isdate.isdate is not "valid">
@@ -533,7 +533,7 @@
 </cfif>
 <cfif isdefined("endDate") AND len(endDate) gt 0>	
 	<cfset mapurl = "#mapurl#&endDate=#endDate#">
-	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select is_iso8601('#endDate#') isdate from dual
 	</cfquery>
 	<cfif isdate.isdate is not "valid">
@@ -1553,7 +1553,7 @@
 	<cfset basQual = " #basQual# AND cataloged_item.collection_object_id NOT IN (#exclCollObjId#)">
 </cfif>
 <cfif isdefined("institution_appearance") AND len(institution_appearance) gt 0>
-	<cfquery name="whatInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="whatInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select collection_id from collection where institution_acronym='#institution_appearance#'
 	</cfquery>
 	<cfset goodCollIds = valuelist(whatInst.collection_id,",")>
