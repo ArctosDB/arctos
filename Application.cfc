@@ -341,7 +341,7 @@
 		<cfabort>
 	</cfif>
 	<!--- keep people/bots from browsing a dev server 
-	--->
+	
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "altai.corral.tacc.utexas.edu">
 		<cfset cPath=GetTemplatePath()>
 		<cfif
@@ -355,6 +355,8 @@
 			<cflocation url="/errors/dev_login.cfm">
 		</cfif>
 	</cfif>
+	--->
+	
 	
 	
 	<!--- people still have this thing bookmarked --->
