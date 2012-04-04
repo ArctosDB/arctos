@@ -490,6 +490,9 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('HABITAT')> -1) {
 				theInnerHtml += '<th>Microhabitat</th>';
 			}
+			if (data.COLUMNLIST[0].indexOf('HABITAT_DESC')> -1) {
+				theInnerHtml += '<th>General Habitat</th>';
+			}
 			if (data.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
 				theInnerHtml += '<th>Min&nbsp;Elevation&nbsp;(m)</th>';
 			}
@@ -734,6 +737,9 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('HABITAT')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + data.HABITAT[i] + '</div></td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('HABITAT_DESC')> -1) {
+					theInnerHtml += '<td><div class="wrapLong">' + data.HABITAT_DESC[i] + '</div></td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
 					theInnerHtml += '<td>' + data.MIN_ELEV_IN_M[i] + '</td>';
