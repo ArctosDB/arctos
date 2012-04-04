@@ -4,10 +4,10 @@
 
 <cfif action is "nothing">
 <cfoutput>
-<cfquery name="ctContainer_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctContainer_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select container_type from ctcontainer_type order by container_type
 </cfquery>
-<cfquery name="ctinstitution_acronym" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctinstitution_acronym" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select institution_acronym from collection group by institution_acronym order by institution_acronym
 </cfquery>
 Containers (things that you can stick barcode to) in Arctos must exist (generally as some type of
@@ -65,7 +65,7 @@ This form does nothing to labels that already exist. Don't try.
 <cfset num = #num# + 1>
 <cftransaction>
 <cfloop index="index" from="1" to = "#num#">
-<cfquery name="AddLabels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="AddLabels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	INSERT INTO container (container_id, parent_container_id, container_type, barcode, label, container_remarks,locked_position,institution_acronym)
 		VALUES (sq_container_id.nextval, 0, '#container_type#', '#prefix##barcode##suffix#', '#label_prefix##barcode##label_suffix#','#remarks#',0,'#institution_acronym#')
 </cfquery>

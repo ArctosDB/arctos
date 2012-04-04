@@ -45,7 +45,7 @@ sho err
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		delete from ds_temp_taxcheck
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -75,7 +75,7 @@ sho err
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into ds_temp_taxcheck (#colNames#) values (#preservesinglequotes(colVals)#)				
 			</cfquery>
 		</cfif>
@@ -87,24 +87,24 @@ sho err
 ---->
 </cfif>
 <cfif action is "validate">
-	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from ds_temp_taxcheck
 	</cfquery>
 	<cfloop query="r">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select count(*) c from taxonomy where scientific_name='#scientific_name#'
 		</cfquery>
 		<cfif d.c is 1>
-			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				update ds_temp_taxcheck set status='OK' where key=#key#
 			</cfquery>
 		<cfelse>
-			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				update ds_temp_taxcheck set status='FAIL' where key=#key#
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from ds_temp_taxcheck
 	</cfquery>
 	anything below isn't in Arctos.

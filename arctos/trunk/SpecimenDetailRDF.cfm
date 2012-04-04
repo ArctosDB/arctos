@@ -1,5 +1,5 @@
 <cfinclude template="/includes/functionLib.cfm">
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select 
 		filtered_flat.LAST_EDIT_DATE,
 		filtered_flat.collection_object_id,
@@ -80,7 +80,7 @@
 	<div class="error">fail</div>
 	<cfabort>
 </cfif>
-<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select
 		media_id 
 	from 

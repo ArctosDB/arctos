@@ -62,7 +62,7 @@
 	<cfloop query="d">
 		<cfif len(num) gt 0>
 			<hr>got num=#num#
-			<cfquery name="isthere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="isthere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select * from accn where accn_number='#trim(num)#'
 			</cfquery>
 			<cfif isThere.recordcount is 0>
@@ -71,7 +71,7 @@
 				<cfif len(remarks) gt 4000>
 					<hr>#remarks#
 				</cfif>
-				<cfquery name="n" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="n" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,jsessionid)#">
 					select sq_transaction_id.nextval n from dual
 				</cfquery>
 				
@@ -80,7 +80,7 @@
 
 
 
-				<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					INSERT INTO trans (
 						TRANSACTION_ID,
 						TRANS_DATE,
@@ -102,7 +102,7 @@
 					)
 					</cfquery>
 					
-					<cfquery name="newAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="newAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						INSERT INTO accn (
 							TRANSACTION_ID,
 							ACCN_TYPE
@@ -126,13 +126,13 @@
 				<cfset thisAgent=trim(thisAgent)>
 				<cfset thisAgent=replace(thisAgent,"  "," ","all")>
 				
-				<cfquery name="entby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="entby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select agent_id from agent_name where agent_name='#thisAgent#' group by agent_id
 				</cfquery>
 				<cfif entby.recordcount is not 1>
 					<br>=======================entered_by=#entered_by#= not found
 				</cfif>
-				<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						insert into trans_agent (
 							transaction_id,
 							agent_id,
@@ -150,14 +150,14 @@
 				<cfset thisAgent=trim(thisAgent)>
 				<cfset thisAgent=replace(thisAgent,"  "," ","all")>
 				
-				<cfquery name="qrecfrom" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="qrecfrom" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select agent_id from agent_name where agent_name='#thisAgent#' group by agent_id
 				</cfquery>
 				<cfif qrecfrom.recordcount is not 1>
 					<br>=======================recfrom=#recfrom#= not found
 				</cfif>
 				
-				<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						insert into trans_agent (
 							transaction_id,
 							agent_id,
@@ -176,14 +176,14 @@
 					<cfset thisAgent=recfrom2>
 					<cfset thisAgent=trim(thisAgent)>
 					<cfset thisAgent=replace(thisAgent,"  "," ","all")>
-					<cfquery name="qrecfrom2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="qrecfrom2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						select agent_id from agent_name where agent_name='#thisAgent#' group by agent_id
 					</cfquery>
 					<cfif qrecfrom2.recordcount is not 1>
 						<br>=======================recfrom2=#recfrom2#= not found
 					</cfif>
 					
-					<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						insert into trans_agent (
 							transaction_id,
 							agent_id,

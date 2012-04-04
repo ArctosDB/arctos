@@ -112,7 +112,7 @@
 <cffunction name="getAllAgentNames" access="remote">
 	<cfargument name="agent_id" type="any" required="yes">
 	<cfif isnumeric(agent_id) and len(agent_id) gt 0>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select agent_name from agent_name where agent_id=#agent_id# order by agent_name
 		</cfquery>
 		<cfreturn valuelist(d.agent_name,';')>
@@ -130,14 +130,14 @@
 	<cfif isnumeric(agent_id) and agent_id gt -1>
 		<cftry>
 			<cfset msg="">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select * from ds_temp_agent where key=#key#
 			</cfquery>
 			<cftransaction>
 				<cfset thisName=trim(d.preferred_name)>
 				<cfset nametype='aka'>
 				<cftry>
-					<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						insert into agent_name (
 							agent_name_id,
 							AGENT_ID,
@@ -159,7 +159,7 @@
 					<cfset thisName=trim(d.other_name_1)>
 					<cfset nametype=d.other_name_type_1>
 					<cftry>
-						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 							insert into agent_name (
 								agent_name_id,
 								AGENT_ID,
@@ -183,7 +183,7 @@
 					<cfset thisName=trim(d.other_name_2)>
 					<cfset nametype=d.other_name_type_2>
 					<cftry>
-						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 							insert into agent_name (
 								agent_name_id,
 								AGENT_ID,
@@ -206,7 +206,7 @@
 					<cfset thisName=trim(d.other_name_3)>
 					<cfset nametype=d.other_name_type_3>
 					<cftry>
-						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 							insert into agent_name (
 								sq_agent_name_id.nextval,
 								agent_name_id,
@@ -227,7 +227,7 @@
 				</cfif>
 				<cfif len(d.agent_remark) gt 0>
 					<cftry>
-						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 							update agent set agent_remarks=
 								decode(trim(agent_remarks),
 								null,'#trim(d.agent_remark)#',
@@ -253,16 +253,16 @@
 	<cfelseif agent_id is -1>
 		<cftry>
 			<cftransaction>
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select * from ds_temp_agent where key=#key#
 				</cfquery>
-				<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select sq_agent_id.nextval nextAgentId from dual
 				</cfquery>
-				<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select sq_agent_name_id.nextval nextAgentNameId from dual
 				</cfquery>		
-				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					INSERT INTO agent (
 						agent_id,
 						agent_type,
@@ -275,7 +275,7 @@
 						'#trim(d.agent_remark)#'
 						)
 				</cfquery>		
-				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					INSERT INTO person ( 
 						PERSON_ID
 						,prefix
@@ -296,7 +296,7 @@
 						,'#trim(d.death_date)#'
 					)
 				</cfquery>
-				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					INSERT INTO agent_name (
 						agent_name_id,
 						agent_id,
@@ -313,7 +313,7 @@
 				</cfquery>
 			<cftransaction action="commit"><!--- stoopid trigger workaround to have preferred name --->
 				<cfif len(d.other_name_1) gt 0>
-					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						INSERT INTO agent_name (
 							agent_name_id,
 							agent_id,
@@ -330,7 +330,7 @@
 					</cfquery>
 				</cfif>
 				<cfif len(d.other_name_2) gt 0>
-					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						INSERT INTO agent_name (
 							agent_name_id,
 							agent_id,
@@ -347,7 +347,7 @@
 					</cfquery>
 				</cfif>
 				<cfif len(d.other_name_3) gt 0>
-					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						INSERT INTO agent_name (
 							agent_name_id,
 							agent_id,
@@ -386,11 +386,11 @@
 
 <cffunction name="findAgentMatch" access="remote">
 	<cfargument name="key" type="numeric" required="yes">	
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select first_name,middle_name,last_name,preferred_name,other_name_1,other_name_2,other_name_3 
 		from ds_temp_agent where key=#key#
 	</cfquery>
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select
 	        #KEY# key,
 	        preferred_agent_name.agent_id, 
@@ -427,10 +427,10 @@
 </cffunction>
 <cffunction name="findAgentMatchOld" access="remote">
 	<cfargument name="key" type="numeric" required="yes">	
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from ds_temp_agent where key=#key#
 	</cfquery>
-	<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select 
 	        first_name,
 	        middle_name,

@@ -928,30 +928,42 @@
 		
 		<cfset collAr[i] = "#thisColl#">
 		
+
 		<!--- Orig#collector id# or PLC nums--->
+
 		<cfset idLabel = "">
+
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
+
 			<cfset CNpos = find("collector number=", ids)/>
 			<cfset PNpos = find("preparator number=", ids)/>
+
 			<cfset PLCpos = find("Prep Lab Catalog", ids)/>
+
 			<cfif CNpos gt 0 and #use_collector#>
+
 				<cfset idLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#"/>
 			<cfelseif PNpos gt 0 and #use_preparator#>
 				<cfset idLabel = "#right(ids, len(ids)-PNpos-len("preparator number"))#"/>
+
 			<cfelseif PLCpos gt 0>
+
 				<cfset idLabel = "#right(ids, len(ids)-PLCpos-len("Prep Lab Catalog"))#"/>
 				<!-- If we find this number, we must use it. -->
 				<cfbreak>
+
 			</cfif>
+
 		</cfloop>
 		
+
 		<cfset colIdAr[i] = "#idLabel#"/>
 		
 		<!--- Parts Formatting --->
 		<cfset formatted_parts = "">
 		
 		<!-- Get all part names for this collection_object_id -->
-		<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select p.part_name 
 			from specimen_part p 
 				LEFT JOIN ctspecimen_part_list_order c ON (p.part_name = c.partname)
@@ -1190,7 +1202,7 @@
 			<cfset include_list = "baculum,glans penis,phallus,carcass">
 
 			<!-- Get all part names for this collection_object_id -->
-			<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select p.part_name 
 				from specimen_part p 
 					LEFT JOIN ctspecimen_part_list_order c ON (p.part_name = c.partname)

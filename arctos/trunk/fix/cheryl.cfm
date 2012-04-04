@@ -1,7 +1,7 @@
 disabled<cfabort>
 <cfoutput>
 
-<cfquery name="f" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="f" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 select distinct(rack) from dgr_locator where freezer=2
 order by rack
 </cfquery>

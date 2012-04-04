@@ -130,7 +130,7 @@ select * from sikesagent order by preferred_name
 
 
 
-	<cfquery name="newGroupMember" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newGroupMember" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		INSERT INTO group_member (GROUP_AGENT_ID, MEMBER_AGENT_ID, MEMBER_ORDER)
 		values (#agent_id#,#member_id#,#MEMBER_ORDER#)
 	</cfquery>

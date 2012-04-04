@@ -7,7 +7,7 @@
 	<cfif not isdefined("table_name")>
 		Bad call.<cfabort>
 	</cfif>
-<cfquery name="colcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="colcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select distinct(collection_cde) from #table_name#
 </cfquery>
 
@@ -16,14 +16,14 @@
 	You can only use this form on one collection at a time. Please revise your search.
 	<cfabort>
 </cfif>
-<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select count(*) c from #table_name#
 </cfquery>
 <cfif c.c gte 1000>
 	You can only use this form on 1000 specimens at a time. Please revise your search.
 	<cfabort>
 </cfif>
-<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select coll_obj_disposition from ctcoll_obj_disp
 </cfquery>
 	<p><strong>Option 1: Add Part(s)</strong></p>
@@ -69,7 +69,7 @@
 	<p>
 		<strong>Option 2: Modify Existing Parts</strong>
 	</p>
-	<cfquery name="existParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="existParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select 
 			specimen_part.part_name
 		from 
@@ -80,7 +80,7 @@
 		group by specimen_part.part_name
 		order by specimen_part.part_name
 	</cfquery>
-	<cfquery name="existCO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="existCO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select 
 			coll_object.lot_count,
 			coll_object.coll_obj_disposition
@@ -223,7 +223,7 @@
 	<p>
 		<strong>Specimens being Updated</strong>
 	</p>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select
 			cataloged_item.collection_object_id,
 			collection.collection,
@@ -306,7 +306,7 @@
 	<cfoutput>
 		<cftransaction>
 			<cfloop list="#partID#" index="i">
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					delete from specimen_part where collection_object_id=#i#
 				</cfquery>
 			</cfloop>
@@ -317,7 +317,7 @@
 <!---------------------------------------------------------------------------->
 <cfif action is "delPart">
 	<cfoutput>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select
 				specimen_part.collection_object_id partID,
 				collection.collection,
@@ -390,11 +390,11 @@
 	<cfoutput>
 	<cftransaction>
 		<cfloop list="#partID#" index="i">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				update specimen_part set part_name='#new_part_name#' where collection_object_id=#i#
 			</cfquery>			
 			<cfif len(new_lot_count) gt 0 or len(new_coll_obj_disposition) gt 0 or len(new_condition) gt 0>
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					update coll_object set
 						flags=flags
 						<cfif len(new_lot_count) gt 0>
@@ -411,11 +411,11 @@
 			</cfif>
 			<cfif len(new_remark) gt 0>
 				<cftry>
-					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						insert into coll_object_remark (collection_object_id,coll_object_remarks) values (#i#,'#new_remark#')
 					</cfquery>
 					<cfcatch>
-						<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 							update coll_object_remark set coll_object_remarks='#new_remark#' where collection_object_id=#i#
 						</cfquery>						
 					</cfcatch>
@@ -433,7 +433,7 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select
 				specimen_part.collection_object_id partID,
 				collection.collection,
@@ -547,7 +547,7 @@
 <!---------------------------------------------------------------------------->
 <cfif action is "newPart">
 <cfoutput>
-	<cfquery name="ids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select distinct collection_object_id from #table_name#
 	</cfquery>
 	<cftransaction>
@@ -559,7 +559,7 @@
 				<cfset thisCondition = #evaluate("condition_" & n)#>
 				<cfset thisRemark = #evaluate("coll_object_remarks_" & n)#>
 				<cfif len(#thisPartName#) gt 0>
-					<cfquery name="insCollPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="insCollPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						INSERT INTO coll_object (
 							COLLECTION_OBJECT_ID,
 							COLL_OBJECT_TYPE,
@@ -581,7 +581,7 @@
 							'#thisCondition#',
 							0 )		
 					</cfquery>
-					<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						INSERT INTO specimen_part (
 							  COLLECTION_OBJECT_ID,
 							  PART_NAME
@@ -592,7 +592,7 @@
 								,#ids.collection_object_id#)
 					</cfquery>
 					<cfif len(#thisRemark#) gt 0>
-						<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 							INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
 							VALUES (sq_collection_object_id.currval, '#thisRemark#')
 						</cfquery>

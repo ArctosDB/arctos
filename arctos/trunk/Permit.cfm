@@ -1,6 +1,6 @@
 <cfinclude template = "includes/_header.cfm">
 <!--- no security --->
-<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select * from ctpermit_type
 </cfquery>
 <cfif #action# is "nothing">
@@ -174,7 +174,7 @@ where
 <cfelse><!--- came in with sql defined ---->
 	<cfset thisSql = "#sql# ORDER BY #order_by# #order_order#">
 </cfif><!--- end sql isdefined --->
-<cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	#preservesinglequotes(thisSql)#
 </cfquery>
 
@@ -474,7 +474,7 @@ where
 <cfif not isdefined("permit_id") OR len(#permit_id#) is 0>
 	Something bad happened. You didn't pass this form a permit_id. Go back and try again.<cfabort>
 </cfif>
-<cfquery name="permitInfo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="permitInfo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select permit.permit_id,
 	issuedBy.agent_name as IssuedByAgent,
 	issuedBy.agent_id as IssuedByAgentID,
@@ -588,7 +588,7 @@ where
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveChanges">
 <cfoutput>
-<cfquery name="updatePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="updatePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 UPDATE permit SET
 	permit_id = #permit_id#
 	<cfif len(#issuedByAgentId#) gt 0>
@@ -629,10 +629,10 @@ UPDATE permit SET
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "createPermit">
 <cfoutput>
-<cfquery name="nextPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="nextPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select sq_permit_id.nextval nextPermit from dual
 </cfquery>
-<cfquery name="newPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="newPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 INSERT INTO permit (
 	 PERMIT_ID,
 	 ISSUED_BY_AGENT_ID
@@ -687,7 +687,7 @@ VALUES (
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deletePermit">
 <cfoutput>
-<cfquery name="deletePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="deletePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 DELETE FROM permit WHERE permit_id = #permit_id#
 </cfquery>
 	

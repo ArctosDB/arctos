@@ -1,5 +1,5 @@
 <cfif isdefined("cat_num")>
-	<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT
 			collection_object_id,
 		FROM 

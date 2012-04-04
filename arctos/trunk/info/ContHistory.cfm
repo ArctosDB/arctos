@@ -4,11 +4,11 @@
 	Container ID not found. Aborting....
 	<cfabort>
 </cfif>
-<cfquery name="thisCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="thisCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select * from container where container_id=#container_id#
 </cfquery>
 
-<cfquery name="getHist" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getHist" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select 
 		install_date,
 		container_type,

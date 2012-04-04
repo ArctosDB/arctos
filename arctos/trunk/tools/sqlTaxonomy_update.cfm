@@ -241,7 +241,7 @@ sho err
 </cfif>
 <cfif #action# is "testUpdate">
 	<cfoutput>
-	<cfquery name="test" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="test" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		#preservesinglequotes(selectTest)#
 	</cfquery>
 	Your test SQL statement:
@@ -311,7 +311,7 @@ sho err
 </cfif>
 <cfif #action# is "makeUpdate">
 	<cfoutput>
-		<cfquery name="updatetaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="updatetaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			#preservesinglequotes(theSql)#
 		</cfquery>			
 		<CFLOCATION url="sqlTaxonomy_update.cfm">

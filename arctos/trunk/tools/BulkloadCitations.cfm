@@ -71,7 +71,7 @@ Include column headings, spelled exactly as below.
 
 
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		delete from cf_temp_citation
 	</cfquery>
 
@@ -95,7 +95,7 @@ Include column headings, spelled exactly as below.
 		</cfif>	
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into cf_temp_citation (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
@@ -106,7 +106,7 @@ Include column headings, spelled exactly as below.
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		update cf_temp_citation set status='missing data'
 		where
 		other_id_type is null or
@@ -118,13 +118,13 @@ Include column headings, spelled exactly as below.
 		OCCURS_PAGE_NUMBER is null or
 		TYPE_STATUS is null
 	</cfquery>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from cf_temp_citation where status is null
 	</cfquery>
 	<cfloop query="data">
 		<cfset problem="">
 		<cfif #other_id_type# is not "catalog number">
-			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					SELECT 
 						coll_obj_other_id_num.collection_object_id
 					FROM
@@ -140,7 +140,7 @@ Include column headings, spelled exactly as below.
 						display_value = '#trim(other_id_number)#'
 				</cfquery>
 			<cfelse>
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					SELECT 
 						collection_object_id
 					FROM
@@ -160,12 +160,12 @@ Include column headings, spelled exactly as below.
 					<cfset problem = "#problem#; #data.other_id_number# #data.other_id_type# #data.collection_cde# #data.institution_acronym# could not be found">
 				</cfif>
 			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					UPDATE cf_temp_citation SET collection_object_id = #collObj.collection_object_id# where
 					key = #key#
 				</cfquery>
 			</cfif>
-			<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select publication_id from publication where full_citation = '#full_citation#'
 				group by publication_id
 			</cfquery>
@@ -176,12 +176,12 @@ Include column headings, spelled exactly as below.
 					<cfset problem = "#problem#; publication not found; check markup">
 				</cfif>
 			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					UPDATE cf_temp_citation SET publication_id = #isPub.publication_id# where
 					key = #key#
 				</cfquery>
 			</cfif>
-			<cfquery name="isTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="isTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select taxon_name_id from taxonomy where scientific_name = '#cited_scientific_name#'
 				group by taxon_name_id
 			</cfquery>
@@ -192,19 +192,19 @@ Include column headings, spelled exactly as below.
 					<cfset problem = "#problem#; taxonomy not found">
 				</cfif>
 			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					UPDATE cf_temp_citation SET CITED_TAXON_NAME_ID = #isTaxa.taxon_name_id# where
 					key = #key#
 				</cfquery>
 			</cfif>
 			<cfif len(#problem#) gt 0>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					UPDATE cf_temp_citation SET status = '#problem#' where
 					key = #key#
 				</cfquery>
 			</cfif>
 		</cfloop>
-		<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			update cf_temp_citation set status='duplicate' where key in (				
 				select distinct k from cf_temp_citation a,
 				 (select min(key) k, collection_object_id,publication_id  
@@ -214,7 +214,7 @@ Include column headings, spelled exactly as below.
 				a.publication_id = b.publication_id
 			)
 		</cfquery>
-		<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from cf_temp_citation order by status,
 			other_id_type,
 			other_id_number,
@@ -241,13 +241,13 @@ Include column headings, spelled exactly as below.
 <cfoutput>
 	
 		
-	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from cf_temp_citation
 	</cfquery>
 	
 	<cftransaction>
 	<cfloop query="getTempData">
-		<cfquery name="insert" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="insert" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			insert into citation (
 				PUBLICATION_ID,
 				COLLECTION_OBJECT_ID,
@@ -278,7 +278,7 @@ Include column headings, spelled exactly as below.
 				</cfif>
 			)
 		</cfquery>
-		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			update cf_temp_citation set status='loaded' where key=#key#			
 		</cfquery>
 	</cfloop>
@@ -289,7 +289,7 @@ Include column headings, spelled exactly as below.
 <!-------------------------------------------------------------------------->
 <cfif #action# is "allDone">
 	<cfoutput>
-		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select publication_id,full_citation,status from cf_temp_citation group by publication_id,full_citation,status 	
 		</cfquery>
 		<cfif #getTempData.recordcount# is 0>

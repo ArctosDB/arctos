@@ -89,7 +89,7 @@
 	ORDER BY
 		coll_obj_other_id_num.DISPLAY_VALUE
 		">
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfoutput>
@@ -263,7 +263,7 @@
 	ORDER BY
 		coll_obj_other_id_num.DISPLAY_VALUE
 		">
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfoutput>
@@ -386,7 +386,7 @@
 
 <cfif action is "moveMedia">
 	<cfoutput>
-		<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select 
 				coll_object_encumbrance.collection_object_id,
 				display_value
@@ -402,14 +402,14 @@
 		<cfloop query="b">
 			<hr>
 				badrec:#collection_object_id#==#display_value#
-				<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select media_id from media_relations where media_relationship='shows cataloged_item' and
 					related_primary_key=#collection_object_id#
 				</cfquery>
 				<cfif m.recordcount is 0>
 					no media, just delete it
 				<cfelse>
-					<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						select 
 							collection_object_id 
 						from 
@@ -423,7 +423,7 @@
 							)
 					</cfquery>
 					<cfif g.recordcount is 1>
-						<cfquery name="mm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="mm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 							update media_relations set related_primary_key=#g.collection_object_id# where
 							media_relationship='shows cataloged_item' and
 							related_primary_key=#collection_object_id#
@@ -449,7 +449,7 @@
 
 <cfif action is "moveMediaISC">
 	<cfoutput>
-		<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select 
 				coll_object_encumbrance.collection_object_id,
 				display_value
@@ -465,14 +465,14 @@
 		<cfloop query="b">
 			<hr>
 				badrec:#collection_object_id#==#display_value#
-				<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select media_id from media_relations where media_relationship='shows cataloged_item' and
 					related_primary_key=#collection_object_id#
 				</cfquery>
 				<cfif m.recordcount is 0>
 					no media, just delete it
 				<cfelse>
-					<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						select 
 							collection_object_id 
 						from 
@@ -486,7 +486,7 @@
 							)
 					</cfquery>
 					<cfif g.recordcount is 1>
-						<cfquery name="mm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="mm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 							update media_relations set related_primary_key=#g.collection_object_id# where
 							media_relationship='shows cataloged_item' and
 							related_primary_key=#collection_object_id#

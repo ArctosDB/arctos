@@ -152,7 +152,7 @@
 			<cfset l=1>
 			<cfloop list="#rauths#" index="a" delimiters="|">
 				<cfif l lte 5>
-					<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						select * from (
 							select 
 								preferred_agent_name.agent_name,
@@ -178,7 +178,7 @@
 							<cfset thisLastName=r.pre[1].PubmedArticle[1].MedlineCitation[1].Article[1].AuthorList[1].Author[l].LastName.xmltext>
 						</cfif>
 						
-						<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 							select * from (
 								select 
 									preferred_agent_name.agent_name,
@@ -272,7 +272,7 @@
 <cffunction name="getPartByContainer" access="remote">
 	<cfargument name="barcode" type="string" required="yes">
 	<cfargument name="i" type="string" required="yes">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select 
 			1 C,
 			#i# I,
@@ -339,7 +339,7 @@
 	<cfargument name="bad" type="numeric" required="yes">
 	<cfargument name="good" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			insert into agent_relations (agent_id,related_agent_id,agent_relationship) values (#bad#,#good#,'bad duplicate of')
 		</cfquery>
 		<cfset result = querynew("STATUS,GOOD,BAD,MSG")>
@@ -363,7 +363,7 @@
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="collection_cde" type="string" required="yes">
 	<cfargument name="element" type="string" required="yes">
-	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where attribute_type='#attribute#'
 	</cfquery>
 	<cfif isCtControlled.recordcount is 1>
@@ -372,7 +372,7 @@
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
-			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select * from #isCtControlled.value_code_table#
 			</cfquery>
 			<cfset collCode = "">
@@ -411,7 +411,7 @@
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNITS_CODE_TABLE)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
-			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select * from #isCtControlled.UNITS_CODE_TABLE#
 			</cfquery>
 			<cfset collCode = "">
@@ -466,11 +466,11 @@
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
 	<cftry>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select container_id from container where barcode='#barcode#'
 		</cfquery>
 		<cfif c.recordcount is 1>
-			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				delete from trans_container where
 					transaction_id=#transaction_id# and
 					container_id='#c.container_id#'
@@ -500,11 +500,11 @@
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
 	<cftry>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select container_id from container where barcode='#barcode#'
 		</cfquery>
 		<cfif c.recordcount is 1>
-			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into trans_container (
 					transaction_id,
 					container_id
@@ -545,7 +545,7 @@
 	<cfargument name="determined_agent" type="string" required="no">
 	
 	<cftry>
-		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			insert into specimen_part_attribute (
 				collection_object_id,
 				attribute_type,
@@ -587,11 +587,11 @@
 
 <cffunction name="getPartAttOptions" access="remote">
 	<cfargument name="patype" type="string" required="yes">
-	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from ctspec_part_att_att where attribute_type='#patype#'
 	</cfquery>
 	<cfif len(k.VALUE_code_table) gt 0>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from #k.VALUE_code_table#
 		</cfquery>
 		<cfloop list="#d.columnlist#" index="i">
@@ -606,7 +606,7 @@
 		<cfset rA.values=valuelist(r.d,"|")>
 		<cfreturn rA>
 	<cfelseif len(k.unit_code_table) gt 0>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from #k.unit_code_table#
 		</cfquery>
 		<cfloop list="#d.columnlist#" index="i">
@@ -630,7 +630,7 @@
 <cffunction name="deleteCtPartName" access="remote">
 	<cfargument name="ctspnid" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			delete from ctspecimen_part_name where ctspnid=#ctspnid#
 		</cfquery>
 		<cfreturn ctspnid>
@@ -641,7 +641,7 @@
 </cffunction>
 <!------------------------------------------------------->
 <cffunction name="getTrans_agent_role" access="remote">
-	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select trans_agent_role from cttrans_agent_role where trans_agent_role != 'entered by' order by trans_agent_role
 	</cfquery>
 	<cfreturn k>
@@ -651,7 +651,7 @@
 	<cfargument name="name" type="string" required="yes">	
 	<cfargument name="id" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			INSERT INTO agent_name (
 				agent_name_id, agent_id, agent_name_type, agent_name)
 			VALUES (
@@ -668,7 +668,7 @@
 	<cfargument name="cid" type="numeric" required="yes">	
 	<cfargument name="eid" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			insert into  coll_object_encumbrance (ENCUMBRANCE_ID,COLLECTION_OBJECT_ID)
 			values (#eid#,#cid#)
 		</cfquery>
@@ -690,11 +690,11 @@
 	<cfloop from="1" to="#numRecs#" index="lpNum">
 		<cftry>
 			<cfset problem="">
-			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select somerandomsequence.nextval c from dual
 			</cfquery>
 			<cfset key=k.c>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into bulkloader (
 					COLLECTION_OBJECT_ID,
 					LOADED,
@@ -739,7 +739,7 @@
 						cataloged_item.collection_object_id = #collection_object_id#
 				)
 			</cfquery>
-			<cfquery name="idby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="idby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select 
 					agent_name 
 				from 
@@ -753,14 +753,14 @@
 				order by IDENTIFIER_ORDER
 			</cfquery>					
 			<cfif idby.recordcount is 1>
-				<cfquery name="iidby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="iidby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					update bulkloader set ID_MADE_BY_AGENT='#idby.agent_name#'
 					where collection_object_id=#key#
 				</cfquery>
 			<cfelse>
 				<cfset problem="too many identifiers: #valuelist(idby.agent_name)#">
 			</cfif>	
-			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select 
 					other_id_type,
 					display_value 
@@ -781,7 +781,7 @@
 				</cfloop>
 				<cfset sql=sql & ' where collection_object_id=#key#'>
 				<cfset sql=replace(sql,", where"," where","all")>
-				<cfquery name="ioid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="ioid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
@@ -793,7 +793,7 @@
 				<cfset problem="too many IDs: #ids#">
 			</cfif>		
 			
-			<cfquery name="col" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="col" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select 
 					agent_name,
 					COLLECTOR_ROLE
@@ -820,7 +820,7 @@
 				</cfloop>
 				<cfset sql=sql & ' where collection_object_id=#key#'>
 				<cfset sql=replace(sql,", where"," where","all")>
-				<cfquery name="icoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="icoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
@@ -833,7 +833,7 @@
 			</cfif>		
 			
 			
-			<cfquery name="part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select 
 					part_name,
 					condition,
@@ -875,7 +875,7 @@
 				</cfloop>
 				<cfset sql=sql & ' where collection_object_id=#key#'>
 				<cfset sql=replace(sql,", where"," where","all")>
-				<cfquery name="ipart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="ipart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
@@ -885,7 +885,7 @@
 			
 	
 	
-			<cfquery name="att" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="att" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select 
 					ATTRIBUTE_TYPE,
 					ATTRIBUTE_VALUE,
@@ -919,14 +919,14 @@
 				</cfloop>
 				<cfset sql=sql & ' where collection_object_id=#key#'>
 				<cfset sql=replace(sql,", where"," where","all")>
-				<cfquery name="iatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="iatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
 			<cfif att.recordcount gt 4>
 				<cfset problem="too many attribute: #valuelist(att.ATTRIBUTE_TYPE)#">
 			</cfif>		
-			<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				update bulkloader set 
 					COLL_OBJECT_REMARKS='#problem#',
 					RELATIONSHIP='#relationship#',
@@ -956,7 +956,7 @@
 <!------------------------------------------------------->
 <cffunction name="getGeologyValues" access="remote">
 	<cfargument name="attribute" type="string" required="yes">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT 
 			attribute_value
 		FROM 
@@ -978,7 +978,7 @@
 	<cfargument name="transaction_type" type="string" required="yes">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
-		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			insert into agent_rank (
 				agent_id,
 				agent_rank,
@@ -1003,11 +1003,11 @@
 <cffunction name="getPubAttributes" access="remote">
 	<cfargument name="attribute" type="string" required="yes">
 	<cftry>
-		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select control from ctpublication_attribute where publication_attribute ='#attribute#'
 		</cfquery>
 		<cfif len(res.control) gt 0>
-			<cfquery name="ctval" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="ctval" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select * from #res.control#
 			</cfquery>
 			<cfset cl=ctval.columnlist>
@@ -1036,7 +1036,7 @@
 <cffunction name="kill_canned_search" access="remote">
 	<cfargument name="canned_id" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			delete from cf_canned_search where canned_id=#canned_id#
 		</cfquery>
 		<cfset result="#canned_id#">
@@ -1107,7 +1107,7 @@
 	<cfargument name="part_id" type="numeric" required="yes">
 	<cfargument name="disposition" type="string" required="yes">
 	<cftry>
-		<cfquery name="upPartDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upPartDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			update coll_object set COLL_OBJ_DISPOSITION
 			='#disposition#' where
 			collection_object_id=#part_id#
@@ -1132,7 +1132,7 @@
 	<cfargument name="part_id" type="numeric" required="yes">
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="killPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="killPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			delete from loan_item where
 			collection_object_id = #part_id# and
 			transaction_id=#transaction_id#
@@ -1157,12 +1157,12 @@
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cftry>
 		<cftransaction>
-			<cfquery name="killPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="killPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				delete from loan_item where
 				collection_object_id = #part_id# and
 				transaction_id=#transaction_id#
 			</cfquery>		
-			<cfquery name="killPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="killPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				delete from specimen_part where collection_object_id = #part_id#
 			</cfquery>
 		</cftransaction>
@@ -1186,7 +1186,7 @@
 	<cfargument name="item_instructions" type="string" required="yes">
 	<cftry>
 		<cftransaction>
-			<cfquery name="upIns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="upIns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				update loan_item set
 				ITEM_INSTRUCTIONS = '#item_instructions#'
 				where
@@ -1215,7 +1215,7 @@
 	<cfargument name="loan_item_remarks" type="string" required="yes">
 	<cftry>
 		<cftransaction>
-			<cfquery name="upIns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="upIns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				update loan_item set
 				loan_item_remarks = '#loan_item_remarks#'
 				where
@@ -1243,7 +1243,7 @@
 	<cfargument name="condition" type="string" required="yes">
 	<cftry>
 		<cftransaction>
-			<cfquery name="upIns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="upIns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				update coll_object set
 				condition = '#condition#'
 				where
@@ -1271,17 +1271,17 @@
 	<cfargument name="barcode" type="string" required="yes">
 	<cfset thisContainerId = "">
 	<CFTRY>
-		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select container_id,label from container where barcode='#barcode#'
 			AND container_type = 'cryovial'		
 		</cfquery>
 		<cfif #thisID.recordcount# is 0>
-			<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select container_id,label from container where barcode='#barcode#'
 				AND container_type = 'cryovial label'		
 			</cfquery>
 			<cfif #thisID.recordcount# is 1>
-				<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					update container set container_type='cryovial'
 					where container_id=#thisID.container_id#
 				</cfquery>
@@ -1292,7 +1292,7 @@
 		</cfif>
 		
 		<cfif len(#thisContainerId#) gt 0>
-			<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				update container set
 				parent_container_id = #position_id#,
 				PARENT_INSTALL_DATE = sysdate
@@ -1317,7 +1317,7 @@
 	<cfoutput>
 	<cftry>
 		<cfif type is "cat_num">
-			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select 
 					cataloged_item.COLLECTION_OBJECT_ID,
 					cataloged_item.cat_num,
@@ -1332,7 +1332,7 @@
 					collection_id=#collection_id#
 			</cfquery>
 		<cfelse>
-			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select 
 					cataloged_item.COLLECTION_OBJECT_ID,
 					cataloged_item.cat_num,
@@ -1371,11 +1371,11 @@
 		<cfset form="/" & form>
 	</cfif>
 	<cfif onoff is "true">
-		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			insert into cf_form_permissions (form_path,role_name) values ('#form#','#role#')
 		</cfquery>
 	<cfelseif onoff is "false">
-		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			delete from cf_form_permissions where
 				form_path = '#form#' and
 				role_name = '#role#'
@@ -1434,7 +1434,7 @@
 			<cfset w=w & " and specimen_part.SAMPLED_FROM_OBJ_ID is null">
 		</cfif>
 		<cfset q = t & " " & w & " order by part_name">
-		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			#preservesinglequotes(q)#
 		</cfquery>
 		<cfquery name="u" dbtype="query">
@@ -1484,7 +1484,7 @@
 			<cfset w=w & " and cataloged_item.cat_num=#oidnum#">
 		</cfif>
 		<cfset q = t & " " & w>
-		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			#preservesinglequotes(q)#
 		</cfquery>
 		<cfif q.recordcount is 0>
@@ -1514,39 +1514,39 @@
 	<cfoutput>
 	<cftry>
 		<cftransaction>
-			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select container_id from container where container_type <> 'collection object'
 				and barcode='#parent_barcode#'
 			</cfquery>
 			<cfif #isGoodParent.recordcount# is not 1>
 				<cfreturn "0|Parent container (barcode #parent_barcode#) not found.">
 			</cfif>
-			<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select container_id FROM coll_obj_cont_hist where collection_object_id=#part_id#
 			</cfquery>
 			<cfif #cont.recordcount# is not 1>
 				<cfreturn "0|Yikes! A part is not a container.">
 			</cfif>
-			<cfquery name="newparent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newparent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				UPDATE container SET container_type = '#new_container_type#' WHERE
 					container_id=#isGoodParent.container_id#
 			</cfquery>
 			<cftransaction action="commit" />
-			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
 				container_id=#cont.container_id#
 			</cfquery>
 			<cfif len(#part_id2#) gt 0>
-				<cfquery name="cont2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="cont2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select container_id FROM coll_obj_cont_hist where collection_object_id=#part_id2#
 				</cfquery>
-				<cfquery name="moveIt2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="moveIt2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
 					container_id=#cont2.container_id#
 				</cfquery>
 			</cfif>
 		</cftransaction>
-		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select 
 				cat_num,
 				institution_acronym,
@@ -1671,7 +1671,7 @@
 	<cfargument name="collection_id" type="numeric" required="yes">
 	<cfargument name="accn_number" type="string" required="yes">
 	<cftry>
-		<cfquery name="accn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="accn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			SELECT accn.TRANSACTION_ID FROM accn,trans WHERE
 			accn.TRANSACTION_ID=trans.TRANSACTION_ID AND
 			accn_number = '#accn_number#' 
@@ -1697,7 +1697,7 @@
 	<cfset orderBy=replace(orderBy,"%20"," ","all")>
 	<cfset orderBy=replace(orderBy,"%2C",",","all")>
 	<cftry>
-		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			Select * from (
 				Select a.*, rownum rnum From (
 					select * from #session.SpecSrchTab# order by #orderBy#
@@ -1706,7 +1706,7 @@
 		</cfquery>
 		<cfset collObjIdList = valuelist(result.collection_object_id)>
 		<cfset session.collObjIdList=collObjIdList>
-		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			 select column_name from user_tab_cols where 
 			 upper(table_name)=upper('#session.SpecSrchTab#') order by internal_column_id
 		</cfquery>
@@ -1762,10 +1762,10 @@
 	<cfargument name="new_container_type" type="string" required="yes">
 	<cftry>
 		<cftransaction>
-			<cfquery name="ccid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="ccid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select sq_collection_object_id.nextval nv from dual
 			</cfquery>
-			<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				INSERT INTO coll_object (
 					COLLECTION_OBJECT_ID,
 					COLL_OBJECT_TYPE,
@@ -1787,7 +1787,7 @@
 					'#condition#',
 					0 )		
 			</cfquery>
-			<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				INSERT INTO specimen_part (
 					  COLLECTION_OBJECT_ID,
 					  PART_NAME
@@ -1798,23 +1798,23 @@
 						,#collection_object_id#)
 			</cfquery>
 			<cfif len(#coll_object_remarks#) gt 0>
-				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
 					VALUES (#ccid.nv#, '#coll_object_remarks#')
 				</cfquery>
 			</cfif>
 			<cfif len(barcode) gt 0>
-				<cfquery name="np" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="np" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select container_id from coll_obj_cont_hist where collection_object_id=#ccid.nv#
 				</cfquery>
-				<cfquery name="pc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="pc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select container_id from container where barcode='#barcode#'
 				</cfquery>
-				<cfquery name="m2p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="m2p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					update container set parent_container_id=#pc.container_id# where container_id=#np.container_id#
 				</cfquery>
 				<cfif len(new_container_type) gt 0>
-					<cfquery name="uct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="uct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						update container set container_type='#new_container_type#' where
 						container_id=#pc.container_id#
 					</cfquery>					
@@ -1844,7 +1844,7 @@
 <cffunction name="getLoanPartResults" access="remote">
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfoutput>
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select 
 			cataloged_item.COLLECTION_OBJECT_ID,
 			specimen_part.collection_object_id partID,
@@ -1899,10 +1899,10 @@
 	<cfoutput>
 	<cftransaction>
 		<cftry>
-			<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select sq_collection_object_id.nextval n from dual
 			</cfquery>
-			<cfquery name="meta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="meta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select cataloged_item.collection_object_id,
 				cat_num,collection,part_name
 				from
@@ -1915,7 +1915,7 @@
 				specimen_part.collection_object_id=#partID#
 			</cfquery>
 			<cfif #subsample# is 1>
-			<cfquery name="parentData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="parentData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				SELECT 
 					coll_obj_disposition, 
 					condition,
@@ -1927,7 +1927,7 @@
 					coll_object.collection_object_id = specimen_part.collection_object_id AND
 					coll_object.collection_object_id = #partID#
 			</cfquery>
-			<cfquery name="newCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				INSERT INTO coll_object (
 					COLLECTION_OBJECT_ID,
 					COLL_OBJECT_TYPE,
@@ -1949,7 +1949,7 @@
 					1,
 					'#parentData.condition#')
 			</cfquery>
-			<cfquery name="newPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				INSERT INTO specimen_part (
 					COLLECTION_OBJECT_ID
 					,PART_NAME
@@ -1962,7 +1962,7 @@
 					,#parentData.derived_from_cat_item#)				
 			</cfquery>
 		</cfif>
-		<cfquery name="addLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="addLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			INSERT INTO loan_item (
 				TRANSACTION_ID,
 				COLLECTION_OBJECT_ID,
@@ -1994,7 +1994,7 @@
 				</cfif>
 				)
 		</cfquery>		
-		<cfquery name="setDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="setDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			UPDATE coll_object SET coll_obj_disposition = 'on loan'
 			where collection_object_id = 
 		<cfif #subsample# is 1>
@@ -2021,7 +2021,7 @@
 	<cftry>
 	<cfloop list="#idList#" index="cid">
 		<cfloop list="#tableList#" index="tabl">
-			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select getMediaBySpecimen('#tabl#',#cid#) midList from dual
 			</cfquery>
 			<cfif len(mid.midList) gt 0>
@@ -2051,7 +2051,7 @@
 	<cfset r=1>
 	<cftry>
 	<cfloop list="#idList#" index="cid">
-		<cfquery name="ts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="ts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select  type_status || decode(count(*),1,'','(' || count(*) || ')') type_status from citation where collection_object_id=#cid# group by type_status
 		</cfquery>
 		<cfif ts.recordcount gt 0>
@@ -2215,7 +2215,7 @@
 	<cfargument name="attribute_id" type="numeric" required="yes">
 	<cfargument name="i" type="numeric" required="yes">
 	<cfargument name="attribute_determiner" type="string" required="yes">
-	  	<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	  	<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select agent_name,agent_id
 			from preferred_agent_name
 			where upper(agent_name) like '%#ucase(attribute_determiner)#%'
@@ -2224,7 +2224,7 @@
 			<cfset result = "Nothing matched.">
 		<cfelseif #names.recordcount# is 1>
 			<cftry>
-				<cfquery name="upatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="upatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					update attributes set DETERMINED_BY_AGENT_ID = #names.agent_id#
 					where attribute_id = #attribute_id#		 
 				</cfquery>
@@ -2248,7 +2248,7 @@
 	<cfargument name="attribute_id" type="numeric" required="yes">
 	<cfargument name="i" type="numeric" required="yes">
 	<cfargument name="agent_id" type="numeric" required="yes">
-	<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select agent_name,agent_id
 		from preferred_agent_name
 		where agent_id = #agent_id#
@@ -2257,7 +2257,7 @@
 		<cfset result = "Nothing matched.">
 	<cfelseif #names.recordcount# is 1>
 		<cftry>
-			<cfquery name="upatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="upatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				update attributes set DETERMINED_BY_AGENT_ID = #names.agent_id#
 				where attribute_id = #attribute_id#		 
 			</cfquery>

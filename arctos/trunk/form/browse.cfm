@@ -5,7 +5,7 @@
 	<!---- <cftry>
 ---->
 <cfif session.block_suggest neq 1>
-	<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" >
+	<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" >
 		select link,display from (
 			select 
 				link,display

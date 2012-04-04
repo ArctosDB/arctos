@@ -14,7 +14,7 @@
 			target="_blank">Arctos list</a>.
 </div>
 	<cfoutput>
-		<cfquery name="gb" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="gb" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from cf_genbank_crawl order by owner
 		</cfquery>
 		<table border id="t" class="sortable">

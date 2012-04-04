@@ -12,7 +12,7 @@
 <cfif not isdefined("collection_object_id")>
 	<cfset collection_object_id="">
 </cfif>
-<cfquery name="ctEncAct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctEncAct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select encumbrance_action from ctencumbrance_action order by encumbrance_action
 </cfquery>
 <!---------------------------------------------------------------------------->
@@ -102,10 +102,10 @@
 <!-------------------------------------------------------------------->
 <cfif action is "createEncumbrance">
 	<cfoutput>
-		<cfquery name="nextEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="nextEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select sq_encumbrance_id.nextval nextEncumbrance from dual
 		</cfquery>
-		<cfquery name="newEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="newEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			INSERT INTO encumbrance (
 				ENCUMBRANCE_ID,
 				ENCUMBERING_AGENT_ID,
@@ -204,7 +204,7 @@
 				encumbrance.expiration_date,
 				encumbrance.expiration_event,
 				encumbrance.remarks">
-		<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 		<cfif getEnc.recordcount is 0>
@@ -257,7 +257,7 @@
 		list="#collection_object_id#" 
 		delimiters=",">
 	
-	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		DELETE FROM coll_object_encumbrance
 		WHERE
 		encumbrance_id = #encumbrance_id# AND
@@ -286,7 +286,7 @@
 
 <p><a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#">Back to Encumbrance</a></p>
 Edit Encumbrance:
-<cfquery name="encDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="encDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	SELECT
 		 * 
 	FROM
@@ -386,7 +386,7 @@ Edit Encumbrance:
 	<cfoutput>
 
 
-<cfquery name="newEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="newEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 UPDATE encumbrance SET
 	encumbrance_id = #encumbrance_id#
 	,ENCUMBERING_AGENT_ID = #encumberingAgentId#	
@@ -417,13 +417,13 @@ UPDATE encumbrance SET
 	<cfif len(#encumbrance_id#) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
 	</cfif>
-	<cfquery name="isUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="isUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select count(*) as cnt from coll_object_encumbrance where encumbrance_id=#encumbrance_id#
 	</cfquery>
 	<cfif #isUsed.cnt# gt 0>
 		You can't delete this encumbrance because specimens are using it!<cfabort>
 	</cfif>
-	<cfquery name="deleteEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleteEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		DELETE FROM encumbrance WHERE encumbrance_id = #encumbrance_id#
 	</cfquery>
 	
@@ -451,7 +451,7 @@ UPDATE encumbrance SET
 		list="#collection_object_id#" 
 		delimiters=",">
 	
-	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	INSERT INTO coll_object_encumbrance (encumbrance_id, collection_object_id)
 		VALUES (#encumbrance_id#, #i#)
 	</cfquery>
@@ -469,7 +469,7 @@ UPDATE encumbrance SET
 <cfif len(collection_object_id) gt 0>
 	<Cfset title = "Encumber these specimens">
 		<cfoutput>
-			<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				 SELECT 
 					cataloged_item.collection_object_id as collection_object_id, 
 					cat_num, 

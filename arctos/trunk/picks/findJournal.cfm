@@ -16,7 +16,7 @@
 			<cfset sql = "#sql# AND upper(journal_name) LIKE '%#ucase(journalName)#%'">
 		</cfif>	
 		
-		<cfquery name="getJournal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getJournal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 		</cfoutput>

@@ -1,7 +1,7 @@
 <cfparam name="collection_cde" default="Mamm">
 <cfparam name="institution_acronym" default="UAM">
 
-<cfquery name="collection_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="collection_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select collection_id from collection where
 	collection_cde='#collection_cde#' and
 	institution_acronym = '#institution_acronym#'
@@ -10,7 +10,7 @@
 	bad collection<cfabort>
 </cfif>
 
-<cfquery name="thisColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="thisColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select cat_num from cataloged_item where collection_id=#collection_id.collection_id#
 </cfquery>
 <cfoutput>

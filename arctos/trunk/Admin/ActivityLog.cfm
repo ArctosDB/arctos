@@ -49,7 +49,7 @@
 			<cfset edate=bdate>
 		</cfif>
 		<p><strong>Data after 7 August 2009</strong></p>
-		<cfquery name="activity" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="activity" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select 
 				to_char(TIMESTAMP,'yyyy-mm-dd HH24:MI:SS') date_stamp, 
 				SQL_TEXT sql_statement, 

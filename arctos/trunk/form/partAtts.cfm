@@ -8,12 +8,12 @@
 	<cfargument name="paid" type="numeric">
 	<cfoutput>
 		<cfset rv="">
-		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from ctspec_part_att_att where attribute_type='#patype#'
 		</cfquery>
 		<cfif u_or_v is "v">
 			<cfif len(k.VALUE_code_table) gt 0>
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select * from #k.VALUE_code_table#
 				</cfquery>
 				<cfloop list="#d.columnlist#" index="i">
@@ -37,7 +37,7 @@
 			</cfif>
 		<cfelseif u_or_v is "u">
 			<cfif len(k.unit_code_table) gt 0>
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select * from #k.unit_code_table#
 				</cfquery>
 				<cfloop list="#d.columnlist#" index="i">
@@ -66,11 +66,11 @@
 	});
 </script>
 <cfoutput>
-	<cfquery name="ctspecpart_attribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctspecpart_attribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select attribute_type from ctspecpart_attribute_type order by attribute_type
 	</cfquery>
 
-	<cfquery name="pAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="pAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select
 			 part_attribute_id,
 			 attribute_type,
@@ -179,7 +179,7 @@
 	<cfif not isdefined("attribute_units_new")>
 		<cfset attribute_units_new="">
 	</cfif>
-	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		insert into specimen_part_attribute (
 			collection_object_id,
 			attribute_type,
@@ -223,11 +223,11 @@
 			<cfset thisDeterminerId=evaluate("determined_by_agent_id_" & thisPartAtId)>
 			<cfset thisDate=evaluate("determined_date_" & thisPartAtId)>
 			<cfif thisDeleteFlag is 1>
-				<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					delete from specimen_part_attribute where part_attribute_id=#thisPartAtId#
 				</cfquery>
 			<cfelse>
-				<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					update specimen_part_attribute set
 						attribute_units='#thisAttributeUnits#',
 						attribute_remark='#thisAttributeRemark#',

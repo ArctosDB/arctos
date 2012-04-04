@@ -8,7 +8,7 @@
 <script language="JavaScript" src="/includes/TAG.js" type="text/javascript"></script>
 <cfoutput>
 	<cfset title="TAG Images">
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from media where media_id=#media_id#
 	</cfquery>
 	<cfif (c.media_type is not "image" and c.media_type is not "multi-page document") or c.mime_type does not contain 'image/'>
@@ -113,7 +113,7 @@
 					,COLLECTING_EVENT_ID=null">
 				</cfif>
 				<cfset s=s & " where tag_id=#tag_id#">
-				<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					#preservesinglequotes(s)#
 				</cfquery>
 			</cfloop>

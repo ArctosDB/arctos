@@ -1,6 +1,6 @@
 <cfoutput>
 <cfset transaction_id=caller.transaction_id>
-<cfquery name="caller.getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="caller.getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
     SELECT
 		trans_date,
 	    concattransagent(trans.transaction_id, 'authorized by') authAgentName,

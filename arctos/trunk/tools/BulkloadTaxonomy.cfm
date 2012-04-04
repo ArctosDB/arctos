@@ -217,7 +217,7 @@ sho err
 
 <!------------------------------------------------------->
 <cfif action is "down">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from cf_temp_taxonomy
 	</cfquery>
 	<cfset ac = d.columnlist>
@@ -284,7 +284,7 @@ sho err
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		delete from cf_temp_taxonomy
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -307,7 +307,7 @@ sho err
 		</cfif>	
 		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into cf_temp_taxonomy (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
@@ -318,42 +318,42 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>	
-	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		update cf_temp_taxonomy set status = status || '; Invalid taxon_status'
 		where taxon_status is not null and taxon_status NOT IN (
 			select taxon_status from CTtaxon_status
 			)
 	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		update cf_temp_taxonomy set status = status || '; Invalid source_authority'
 		where source_authority NOT IN (
 			select SOURCE_AUTHORITY from CTTAXONOMIC_AUTHORITY
 			)
 	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		update cf_temp_taxonomy set status = status || '; Invalid VALID_CATALOG_TERM_FG'
 		where VALID_CATALOG_TERM_FG is null or  VALID_CATALOG_TERM_FG NOT IN (0,1)
 	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		update cf_temp_taxonomy set status = status || '; invalid nomenclatural_code'
 		where nomenclatural_code NOT IN (
 			select nomenclatural_code from CTnomenclatural_code
 			)
 	</cfquery>
 	
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		update cf_temp_taxonomy set status = status || '; already exists'
 		where scientific_name IN (select scientific_name from taxonomy)
 	</cfquery>
 	<!---
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select * from cf_temp_taxonomy where status is null
 	</cfquery>
 	<cfloop query="data">
 		<cfset problem="">
 			
 		<cfif len(#problem#) gt 0>
-			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				UPDATE cf_temp_taxonomy SET status = '#problem#' where
 				key = #key#
 			</cfquery>
@@ -361,7 +361,7 @@ sho err
 	</cfloop>
 	--->
 	
-		<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select * from cf_temp_taxonomy
 		</cfquery>
 		<cfquery name="isProb" dbtype="query">
@@ -441,12 +441,12 @@ sho err
 <cfif #action# is "loadData">
 
 <cfoutput>
-	<cfquery name="data" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,jsessionid)#">
 		select * from cf_temp_taxonomy
 	</cfquery>
 	<cftransaction>
 	<cfloop query="data">
-		<cfquery name="newTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="newTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			INSERT INTO taxonomy (
 				taxon_name_id,
 				PHYLCLASS,

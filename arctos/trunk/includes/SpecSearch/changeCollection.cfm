@@ -6,7 +6,7 @@ function closeThis(){
 }
 </script>
 <cfoutput>
-<cfquery name="yourcollid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="yourcollid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select collection_id,collection from collection
 	order by collection
 </cfquery>

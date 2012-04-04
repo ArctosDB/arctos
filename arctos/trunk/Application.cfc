@@ -1,8 +1,7 @@
 <cfcomponent>	
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement="True">
-<cfset This.ClientManagement="true">
-<cfset This.ClientStorage="Cookie">
+<cfset This.ClientManagement="false">
 <cffunction name="onMissingTemplate" returnType="boolean" output="false">
 	<cfargument name="thePage" type="string" required="true">
 	<cfinclude template="/errors/404.cfm">

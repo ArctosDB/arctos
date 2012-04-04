@@ -45,7 +45,7 @@
 	
 					
 	
-	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<cfoutput>

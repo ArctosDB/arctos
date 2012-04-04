@@ -110,7 +110,7 @@ These include "male ?,"  "fe<b>male</b>," and "fe<b>male</b> ?"</p>
 	
 	
 	<!---- cache this query - it defines what code tables to use for a specific attribute and won't change often.--->
-<cfquery name="ctCodes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"   cachedwithin="#createtimespan(0,0,120,0)#">
+<cfquery name="ctCodes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#"   cachedwithin="#createtimespan(0,0,120,0)#">
 	select 
 		attribute_type,
 		value_code_table,
@@ -121,7 +121,7 @@ These include "male ?,"  "fe<b>male</b>," and "fe<b>male</b> ?"</p>
 		value_code_table,
 		units_code_table
 </cfquery>
-		<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,120,0)#">
+		<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#"  cachedwithin="#createtimespan(0,0,120,0)#">
 			<!---- attributes don't change very often - cache that query for a couple hours. ---->
 			SELECT DISTINCT(attribute_type) FROM ctattribute_type
 		</cfquery>
@@ -186,7 +186,7 @@ These include "male ?,"  "fe<b>male</b>," and "fe<b>male</b> ?"</p>
 		</cfquery>
 		<cfif isdefined("isValCt.value_code_table") and len(#isValCt.value_code_table#) gt 0>
 			<!--- there's a code table --->
-			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select * from #isValCt.value_code_table#
 			</cfquery>
 			<!----------------------->
@@ -245,7 +245,7 @@ These include "male ?,"  "fe<b>male</b>," and "fe<b>male</b> ?"</p>
 		
 			<!---- there's a code table --->
 			<!---- get the data --->
-			<cfquery name="unitCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="unitCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select * from #isUnitCt.units_code_table#
 			</cfquery>
 			<!---- get column names --->

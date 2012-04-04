@@ -1,4 +1,4 @@
-<cfquery name="gn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="gn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT global_name FROM global_name 
 </cfquery>
 <cfset runtime = CreateObject("java","java.lang.Runtime").getRuntime()>

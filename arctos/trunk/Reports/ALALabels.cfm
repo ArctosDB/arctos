@@ -107,7 +107,7 @@
 	ORDER BY
         #sort_order#
 			">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
     

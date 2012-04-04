@@ -288,7 +288,7 @@
 	<cfoutput>
 	<form name="findLoc" method="post" action="dgr_locator.cfm">
 		<input type="hidden" name="action" value="boxView">
-		<cfquery name="f" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="f" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select distinct(freezer) as f from dgr_locator order by freezer
 		</cfquery>
 		
@@ -381,14 +381,14 @@
 		creates freezer one which contains 40 racks, eash of which contains 11 boxes, each containing 100 slots
 		--->
 		
-		<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" procedure="makeDGRFreezerPositions">
+		<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" procedure="makeDGRFreezerPositions">
 			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="f" value="#freezer#">
 			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="r" value="#numrack#">
 			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="b" value="#numBox#">
 		</cfstoredproc>
 	<!----
 	
-	<cfquery name="makeFreezer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="makeFreezer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			exec makeDGRFreezerPositions (#freezer#,#numrack#,#numBox#)
 		</cfquery>
 		
@@ -405,7 +405,7 @@
 	<cfset sc = 1><!--- current slot count --->
 	<cftransaction>
 	<cfloop from="1" to="#numSlots#" index="s">
-		<cfquery name="ns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="ns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		insert into dgr_locator (
 			LOCATOR_ID,
 			FREEZER,
@@ -478,7 +478,7 @@
 			onmouseover="this.className='lnkBtn btnhov'" 
 			onmouseout="this.className='lnkBtn'">
 	</form>
-		<cfquery name="locs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="locs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select locator_id,
 				freezer,
 				rack,
@@ -513,7 +513,7 @@
 			
 			<cfloop query="locs">
 				<!--- see if there's something in the main DB --->
-				<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select 
 						institution_acronym,
 						collection.collection_cde,
@@ -633,7 +633,7 @@
 <!------------------------------------------------------------------------->
 <cfif #action# is "boxView">
 	<!--- need freezer, rack, and box to do this --->
-	<cfquery name="bView" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="bView" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select place, nk, tissue_type from 
 		dgr_locator
 		where 
@@ -643,15 +643,15 @@
 	</cfquery>	
 	
 	<cfoutput>
-	<cfquery name="f" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="f" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select distinct(freezer) as f from dgr_locator order by freezer
 	</cfquery>
-	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select distinct(rack) as r from dgr_locator
 		where freezer = #freezer#
 		 order by rack
 	</cfquery>
-	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select distinct(box) as b from dgr_locator
 		where freezer = #freezer# and
 		rack=#rack#
@@ -801,7 +801,7 @@
 		<cfset theNewRack = #rack#>
 		<cfset theNewBox = #box#>
 		<!--- see if there's anything already there --->
-		<cfquery name="isItThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="isItThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select count(*) as cnt from dgr_locator where 
 			freezer=#freezer# 
 			and rack=#rack# 
@@ -815,7 +815,7 @@
 			<br /><a href="dgr_locator.cfm?action=boxView&freezer=#oldFreezer#&rack=#oldRack#&box=#oldBox#">Return</a> to freezer #oldFreezer#, rack #oldRack#, box #oldBox#
 		<cfelse>
 			<!--- switch the old out to the (empty) new, then the new out to the empty old --->
-			<cfquery name="contents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="contents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select * from dgr_locator where 
 				freezer=#oldFreezer# and
 					rack=#oldRack# and
@@ -828,14 +828,14 @@
 					If there's one or the other, die --->
 					<cfif len(#NK#) gt 0 and len(#TISSUE_TYPE#) gt 0>
 						<!--- spiffy --->
-						<cfquery name="old" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="old" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						update dgr_locator set NK=null, tissue_type=null where
 						LOCATOR_ID=#LOCATOR_ID#
 						</cfquery>
 						update dgr_locator set NK=null, tissue_type=null where
 						LOCATOR_ID=#LOCATOR_ID#
 						<br />
-						<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 						update dgr_locator set nk=#nk#,tissue_type='#tissue_type#'
 						where freezer=#theNewFreezer# and
 						rack=#theNewRack# and
@@ -857,7 +857,7 @@
 			</cfloop>
 			</cftransaction>
 			<!---
-			<cfquery name="moveBox" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="moveBox" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				UPDATE dgr_locator
 					set freezer=#freezer#,
 					rack=#rack#,
@@ -868,7 +868,7 @@
 					box=#oldBox#
 			</cfquery>
 			<!--- and make an empty replacement --->
-			<cfquery name="newLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				insert into dgr_locator (
 					LOCATOR_ID,
 					FREEZER,
@@ -903,7 +903,7 @@
 <cfif #action# is "test">
 <cfoutput>
 <cftransaction>
-	<cfquery name="newLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		insert into dgr_locator (
 			LOCATOR_ID,
 			FREEZER,
@@ -921,11 +921,11 @@
 			#nk#,
 			'#tissue_type#')		
 	</cfquery>
-	<cfquery name="v" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="v" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select dgr_locator_seq.currval as currval from dual
 	</cfquery>
 	<cfset tv = v.currval>
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select LOCATOR_ID,
 			FREEZER,
 			RACK,
@@ -941,10 +941,10 @@
 <!------------------------------------------------------------------------->
 <cfif #action# is "makeLoanItems">
 <cfoutput>
-<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select distinct(institution_acronym)  from collection
 	</cfquery>
-	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select collection_cde from ctcollection_cde
 	</cfquery>
 	First, select a pre-existing loan:

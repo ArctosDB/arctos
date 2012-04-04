@@ -1,7 +1,7 @@
 <cfinclude template = "/includes/functionLib.cfm">
 
 <cfoutput>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	select * from (
 			   	select
 			   		 media_id,
@@ -96,7 +96,7 @@
 			#pager#
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="d" startrow="#offset#" endrow="#limit#">
-            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select
 						media_label,
 						label_value

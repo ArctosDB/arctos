@@ -1,7 +1,7 @@
 <cfinclude template = "includes/_header.cfm">
 <cfif isdefined("scientific_name") and len(scientific_name) gt 0>
 	<cfset checkSql(scientific_name)>
-	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
 	</cfquery>
 	<cfif getTID.recordcount is 1>
@@ -9,7 +9,7 @@
 	<cfelseif listlen(scientific_name," ") gt 1 and (listlast(scientific_name," ") is "sp." or listlast(scientific_name," ") is "ssp.")>
 		<cfset s=listdeleteat(scientific_name,listlen(scientific_name," ")," ")>
 		<cfset checkSql(s)>
-		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(s)#'
 		</cfquery>
 		<cfif getTID.recordcount is 1>
@@ -19,7 +19,7 @@
 		</cfif>
 	<cfelseif listlen(scientific_name," ") is 3>
 		<cfset checkSql(scientific_name)>
-		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			SELECT 
 				scientific_name 
 			FROM 
@@ -36,7 +36,7 @@
 		</cfif>
 	<cfelseif listlen(scientific_name," ") is 4>
 		<cfset checkSql(scientific_name)>
-		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			SELECT 
 				scientific_name 
 			FROM 
@@ -55,7 +55,7 @@
 </cfif>
 <cfif isdefined("taxon_name_id")>
 	<cfset checkSql(taxon_name_id)>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 		select scientific_name from taxonomy where taxon_name_id=#taxon_name_id# 
 	</cfquery>
 	<cfif len(c.scientific_name) gt 0>
@@ -72,7 +72,7 @@
 <cfset checkSql(tnid)>
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 <cfset taxaRanksList="Kingdom,Phylum,PHYLClass,Subclass,PHYLOrder,Suborder,Superfamily,Family,Subfamily,Genus,Subgenus,Species,Subspecies,Nomenclatural_Code,Taxon_Status">
-<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	SELECT 
 		taxonomy.TAXON_NAME_ID,
 		taxonomy.VALID_CATALOG_TERM_FG,
@@ -190,7 +190,7 @@
 		imp_RELATION_AUTHORITY,
 		imp_related_display_name
 </cfquery>
-<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 	select 
 		taxonomy_publication_id,
 		short_citation,
@@ -233,7 +233,7 @@
 	</cfloop>
 	<span class="annotateSpace">
 		<cfif len(session.username) gt 0>
-			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select count(*) cnt from annotations
 				where taxon_name_id = #tnid#
 			</cfquery>
@@ -348,7 +348,7 @@
 	<p>
 		Arctos Links:
 		<ul>
-			<cfquery name="sidas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="sidas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 				select count(*) c from identification_taxonomy where taxon_name_id=#one.taxon_name_id#
 			</cfquery>
 			<cfif sidas.c gt 0>
@@ -380,7 +380,7 @@
 				<li>No specimens use this name in Identifications.</li>
 			</cfif>
 			<li>
-				 <cfquery name="citas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				 <cfquery name="citas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 					select count(*) c from citation where cited_taxon_name_id=#one.taxon_name_id#
 				</cfquery>
 				<cfif citas.c gt 0>
@@ -502,7 +502,7 @@
 	<p id="taxRelatedNames"></p>
 	<!-------
 	<cfif len(one.genus) gt 0>
-		<cfquery name="samegen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="samegen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
 			select scientific_name,display_name from taxonomy where genus='#one.genus#'
 			and scientific_name != '#one.scientific_name#'
 			order by scientific_name
