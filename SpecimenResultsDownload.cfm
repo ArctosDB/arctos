@@ -67,7 +67,7 @@
 						<tr>
 							<td align="right">File Name</td>
 							<td>
-								<input type="text" name="filename" value="ArctosData_#jsessionid#">
+								<input type="text" name="filename" value="ArctosData_#left(jsessionid,10)#">
 							</td>
 						</tr>
 						<tr>
@@ -89,7 +89,7 @@
 				<cfelse>
 					<cfset ff=getUserData.download_format>
 				</cfif>
-				<cflocation url="SpecimenResultsDownload.cfm?fileformat=#getUserData.download_format#&agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#jsessionid#" addtoken="false">
+				<cflocation url="SpecimenResultsDownload.cfm?fileformat=#getUserData.download_format#&agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#left(jsessionid,10)#" addtoken="false">
 			</cfif>			
 		<cfelse>
 			<form method="post" action="SpecimenResultsDownload.cfm" name="dlForm">
@@ -122,7 +122,7 @@
 					<tr>
 						<td align="right">File Name</td>
 						<td>
-							<input type="text" name="filename" value="ArctosData_#jsessionid#">
+							<input type="text" name="filename" value="ArctosData_#left(jsessionid,10)#">
 						</td>
 					</tr>
 					<tr>
