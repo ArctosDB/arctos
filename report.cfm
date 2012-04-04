@@ -154,7 +154,7 @@ returns it as the attribute_type.--->
         marginleft="#left_margin#"
         marginright="#right_margin#"
 		unit="in"
-        orientation="landscape" filename="#Application.webDirectory#/temp/report_#jsessionid#.pdf" overwrite="true">
+        orientation="landscape" filename="#Application.webDirectory#/temp/report_#left(jsessionid,10)#.pdf" overwrite="true">
 
 <!---<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">--->
 
@@ -614,7 +614,7 @@ cfdocument will not use it. Period
         </cfif>
 </cfloop>
 </cfdocument>
-<a href="/temp/report_#jsessionid#.pdf">Get the PDF</a><br />
+<a href="/temp/report_#left(jsessionid,10)#.pdf">Get the PDF</a><br />
 </cfoutput>
 </cfif> <!--- end the action generatePDF --->
 

@@ -54,7 +54,7 @@
 			#preservesinglequotes(sql)#	
 		</cfquery>
 		<cfset variables.encoding="UTF-8">
-		<cfset fname = "BulkPendingData_#jsessionid#.csv">
+		<cfset fname = "BulkPendingData_#left(jsessionid,10)#.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 		<cfset header=#trim(valuelist(cNames.column_name))#>
 		<cfscript>

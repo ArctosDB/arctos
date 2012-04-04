@@ -156,7 +156,7 @@ function removeHelpDiv() {
 		<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
 		<cfabort>
 	</cfif>
-<cfset thisTableName = "SearchResults_#jsessionid#">	
+<cfset thisTableName = "SearchResults_#left(jsessionid,10)#">	
 <!--- try to kill any old tables that they may have laying around --->
 <cftry>
 	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">

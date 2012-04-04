@@ -52,7 +52,7 @@
                     <cfif format is "csv">
                         <cfset ac = user_sql.columnlist>
                         <cfset fileDir = "#Application.webDirectory#/download/">
-				        <cfset fileName = "ArctosUserSql_#jsessionid#.csv">
+				        <cfset fileName = "ArctosUserSql_#left(jsessionid,10)#.csv">
 				        <cfset header=#trim(ac)#>
 				        <cffile action="write" file="#fileDir##fileName#" addnewline="yes" output="#header#">
 				        <cfloop query="user_sql">

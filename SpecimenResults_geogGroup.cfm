@@ -306,18 +306,18 @@
 </cfif>
 
 <cfif isdefined("newSearch") and #newSearch# is 1>
-	<cfquery name="SpecRes#jsessionid##cftoken#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
+	<cfquery name="SpecRes#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
 		select * from getData
 	</cfquery>
 </cfif>
-<cfquery name="SpecRes#jsessionid##cftoken#" dbtype="query" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="SpecRes#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from getData
 </cfquery>
 
 
 <cfoutput>
 <cfquery name="getBasic" dbtype="query">
-	select * from SpecRes#jsessionid##cftoken# order by #order_by#
+	select * from SpecRes#left(jsessionid,10)# order by #order_by#
 </cfquery>
 </cfoutput>
 

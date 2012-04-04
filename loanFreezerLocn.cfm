@@ -76,7 +76,7 @@
 	select part_name from allCatItemsRaw group by part_name order by part_name
 </cfquery>
 <cfset a=1>
-<cfset fileName = "FreezerLocation_#jsessionid#.csv">
+<cfset fileName = "FreezerLocation_#left(jsessionid,10)#.csv">
 <a href="/download.cfm?file=#fileName#">Download</a>
 <cfset dlData="cataloged_item,#session.customOtherIdentifier#,part_name,location,disposition">
 <cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#dlData#">

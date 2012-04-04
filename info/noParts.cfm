@@ -42,7 +42,7 @@
 		cat_num
 </cfquery>
 <cfset fileDir = "#Application.webDirectory#">
-<cfset fileName = "ArctosData_#jsessionid#.csv">
+<cfset fileName = "ArctosData_#left(jsessionid,10)#.csv">
 <cfset header="collection,cat_num">
 <cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
 <cfloop query="d">
