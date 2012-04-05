@@ -76,8 +76,7 @@
 		</cfif>
 		<cfif isdefined("session.username") and session.username is "dlm">
 			<cfoutput>
-				
-			#errortext#
+				<cfdump var=#errortext#
 			</cfoutput>
 		</cfif>
 		
