@@ -249,7 +249,7 @@
 	<cfset StructClear(Session)>
 	<cflogout>
 	<cfset session.sessionKey=hash(RandRange(1, 9999) & '_' & RandRange(1, 9999))>
-	<cfset session.DownloadFileName = "ArctosData_#sessionKey#.txt">
+	<cfset session.DownloadFileName = "ArctosData_#session.sessionKey#.txt">
 	<cfset session.roles="public">
 	<cfset session.showObservations="">
 	<cfset session.result_sort="">
@@ -266,9 +266,9 @@
 	<cfset session.target=''>
 	<cfset session.block_suggest=''>
 	<cfset session.meta_description=''>
-	<cfset session.SpecSrchTab="SpecSrch" & sessionKey>
-	<cfset session.MediaSrchTab="MediaSrch" & sessionKey> <!-- Doris' edit -->
-	<cfset session.TaxSrchTab="TaxSrch" & sessionKey>
+	<cfset session.SpecSrchTab="SpecSrch" & session.sessionKey>
+	<cfset session.MediaSrchTab="MediaSrch" & session.sessionKey> <!-- Doris' edit -->
+	<cfset session.TaxSrchTab="TaxSrch" & session.sessionKey>
 	<!---------------------------- login ------------------------------------------------>
 	<cfif isdefined("username") and len(username) gt 0 and isdefined("pwd") and len(pwd) gt 0>
 		<cfquery name="getPrefs" datasource="cf_dbuser">
