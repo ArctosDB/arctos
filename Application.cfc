@@ -80,6 +80,10 @@
 			#errortext#
 			</cfoutput>
 		</cfif>
+		
+		#errortext#
+		
+		
 		<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
 			#errortext#
 		</cfmail>	
