@@ -76,14 +76,9 @@
 		</cfif>
 		<cfif isdefined("session.username") and session.username is "dlm">
 			<cfoutput>
-					#errortext#
+				#errortext#
 			</cfoutput>
 		</cfif>
-			<cfoutput>
-					#errortext#
-			</cfoutput>
-		<cfdump var=#errortext#>
-		
 		<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
 			#errortext#
 		</cfmail>	
@@ -256,7 +251,7 @@
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
-<cffunction name="onSessionStart" output="true">
+<cffunction name="onSessionStart" output="false">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 </cffunction>
@@ -345,7 +340,7 @@
 		<cfabort>
 	</cfif>
 	<!--- keep people/bots from browsing a dev server 
-	
+	--->
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "altai.corral.tacc.utexas.edu">
 		<cfset cPath=GetTemplatePath()>
 		<cfif
@@ -359,10 +354,6 @@
 			<cflocation url="/errors/dev_login.cfm">
 		</cfif>
 	</cfif>
-	--->
-	
-	
-	
 	<!--- people still have this thing bookmarked --->
 	<cfif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
 		<cfset rurl="http://arctos.database.museum">
