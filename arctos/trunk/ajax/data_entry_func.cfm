@@ -39,7 +39,7 @@
 		<cfset ac=#accn#>
 		<cfset ia=#institution_acronym#>
 	</cfif>
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			count(*) cnt
 		FROM
@@ -66,7 +66,7 @@
 <cffunction name="get_picked_event" returntype="query">
 	<cfargument name="collecting_event_id" type="numeric" required="yes">
 	<cftry>
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			collecting_event.COLLECTING_EVENT_ID,
 			BEGAN_DATE,
@@ -144,7 +144,7 @@
 <cffunction name="get_picked_locality" returntype="query">
 	<cfargument name="locality_id" type="numeric" required="yes">
 	<cftry>
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			locality.locality_id,
 			geog_auth_rec.HIGHER_GEOG,
@@ -199,7 +199,7 @@
 			locality.locality_id = #locality_id#
 	</cfquery>
 	<!---
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			locality.locality_id,
 			geog_auth_rec.HIGHER_GEOG,
@@ -257,7 +257,7 @@
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="collection_cde" type="string" required="yes">
 	<cfargument name="element" type="string" required="yes">
-	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where attribute_type='#attribute#'
 	</cfquery>
 	<cfif #isCtControlled.recordcount# is 1>
@@ -268,7 +268,7 @@
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
-			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from #isCtControlled.value_code_table#
 			</cfquery>
 			<cfset collCode = "">
@@ -309,7 +309,7 @@
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNITS_CODE_TABLE)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
-			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from #isCtControlled.UNITS_CODE_TABLE#
 			</cfquery>
 			<cfset collCode = "">
@@ -393,18 +393,18 @@
 	<cfset collcde = trim(mid(coll,theSpace,len(coll)))>
 	
 	
-	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_id from collection where
 		institution_acronym='#inst#' and
 		collection_cde='#collcde#'
 	</cfquery>
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(cat_num + 1) as nextnum
 		from cataloged_item 
 		where 
 		collection_id=#collID.collection_id# 
 	</cfquery>
-	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(to_number(cat_num) + 1) as nextnum from bulkloader
 		where
 		institution_acronym='#inst#' and
@@ -428,12 +428,12 @@
 	<cfset inst = trim(left(coll,theSpace))>
 	<cfset coll = trim(mid(coll,theSpace,len(coll)))>
 	
-	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_id from collection where
 		institution_acronym='#inst#' and
 		collection_cde='#coll#'
 	</cfquery>
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select min(cat_num + 1) as missingnum
 		from cataloged_item t1
 		where 
@@ -451,7 +451,7 @@
 		<cfif #q.recordcount# is 1>
 			<cfset result = #q.missingmnum#>
 		<cfelse>
-			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select max(cat_num) + 1 as nextnum from cataloged_item where
 				collection_id=#coll_id#
 			</cfquery>
@@ -461,7 +461,7 @@
 		<cfif #q.recordcount# is 1>
 			<cfset result = "#q.missingnum#">
 		<cfelse>
-			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select max(cat_num) + 1 as nextnum from cataloged_item where
 				collection_id=#coll_id#
 			</cfquery>
@@ -476,7 +476,7 @@
 	<cfargument name="prefx" type="string" required="yes">
 	
 	<cfset y = "#dateformat(now(), "yyyy")#">
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			'#y#' as accn_num_prefix,
 			decode(max(accn_num),NULL,'1',max(accn_num) + 1) as nan
@@ -497,7 +497,7 @@
 <cffunction name="getLoan" returntype="query">
 	<cfargument name="inst" type="string" required="yes">
 	<cfset y = "#dateformat(now(), "yyyy")#">
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			'#y#' as loan_num_prefix,
 			decode(max(loan_num),NULL,'1',max(loan_num) + 1) as nln
@@ -520,7 +520,7 @@
 	<cfif #box# is 1>
 		<cfif #rack# is 1>
 			<cfif #freezer# is 1>
-				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select 
 						0 as freezer,
 						0 as box,
@@ -529,16 +529,16 @@
 				</cfquery>
 			<cfelse>
 				<cfset tf = #freezer# -1 >
-				<cfquery name="pf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="pf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select distinct(freezer) from 
 					dgr_locator where freezer = #tf#
 				</cfquery>
 				<cfif #pf.recordcount# is 1>
-					<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select max(rack) as mrack from dgr_locator where 
 						freezer = #tf#
 					</cfquery>
-					<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select 
 							freezer,
 							rack,
@@ -687,7 +687,7 @@
 <!------------------------------------->
 
 <cffunction name="getContacts" returntype="string">
-	<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			collection_contact_id,
 			contact_role,
@@ -709,7 +709,7 @@
 <cffunction name="getCollInstFromCollId" returntype="string">
 	<cfargument name="collid" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="getCollId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="getCollId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select collection_cde, institution_acronym from
 			collection where collection_id = #collid#
 		</cfquery>
@@ -735,7 +735,7 @@
 	<cfset theCollObjId = mid(theName,hPos + 2,len(theName) - hPos)>
 	<cfset result="#theName#">
 	<cftry>
-		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE bulkloader SET #theField# = '#theValue#'
 			WHERE collection_object_id = #theCollObjId#
 		</cfquery>

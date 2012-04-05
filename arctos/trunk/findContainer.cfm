@@ -48,13 +48,13 @@ padding-right:10px;
 
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
 
-<cfquery name="contType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="contType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select container_type from ctContainer_Type order by container_type
 </cfquery>
-<cfquery name="collections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="collections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select collection_id, institution_acronym || ' ' || collection_cde coll from collection
 </cfquery>
-<cfquery name="ctcoll_other_id_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctcoll_other_id_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select OTHER_ID_TYPE from
 	ctcoll_other_id_type
 	group by OTHER_ID_TYPE

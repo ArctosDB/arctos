@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT * FROM cf_user_log
 </cfquery>
 <cfquery name="ip" dbtype="query">

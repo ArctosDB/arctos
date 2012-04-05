@@ -1,17 +1,17 @@
 <cfoutput>
-		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select * from taxonomy where taxon_name_id=#taxon_name_id#
 		</cfquery>
 		<cfif len(t.species) gt 0 and len(t.genus) gt 0>
 			<cfif len(t.subspecies) gt 0>
-				<cfquery name="ssp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				<cfquery name="ssp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 					select scientific_name,display_name from taxonomy where genus='#t.genus#' and species='#t.species#' and subspecies is null
 				</cfquery>
 				<cfif len(ssp.scientific_name) gt 0>
 					<p>Parent Species: <a href="/name/#ssp.scientific_name#">#ssp.display_name#</a></p>
 				</cfif>
 			</cfif>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select 
 					scientific_name,
 					display_name 
@@ -33,7 +33,7 @@
 					<li><a href="/name/#scientific_name#">#display_name#</a></li>
 				</cfloop>
 			</ul>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select 
 					scientific_name,
 					display_name 
@@ -55,7 +55,7 @@
 				</cfloop>
 			</ul>
 		<cfelseif len(t.genus) gt 0 and len(t.species) is 0>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select 
 					scientific_name,
 					display_name 

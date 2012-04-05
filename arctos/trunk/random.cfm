@@ -1,7 +1,7 @@
 <cfset title="Explore Arctos">
 <cfinclude template="/includes/_header.cfm">
 
-<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" >
+<cfquery name="links" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 	select link,display from (
 		select 
 			link,display

@@ -11,7 +11,7 @@
 
 <cfif #Action# is "nothing">
 <cfoutput>
-<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select project_title from user_loan_request where loan_request_id = #session.loan_request_id#
 </cfquery>
 
@@ -47,7 +47,7 @@ Add #collection_cde# #cat_num# #item# to loan #getLoan.project_title#
 	<cftransaction action="begin">
 		<cftry>
 	
-	<cfquery name="addLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="addLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	
 	INSERT INTO user_loan_item (
 		LOAN_REQUEST_ID,

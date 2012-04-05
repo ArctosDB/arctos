@@ -7,13 +7,13 @@
 	});
 </script>
 <cfoutput>
-<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select permit_type from ctpermit_type order by permit_type
 </cfquery>
-<cfquery name="ctCollObjDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctCollObjDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 </cfquery>
-<cfquery name="ctFlags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctFlags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select flags from ctflags order by flags
 </cfquery>		
 <table id="t_identifiers" class="ssrch">

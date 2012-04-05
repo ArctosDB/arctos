@@ -3,7 +3,7 @@
 <cfif #action# is "nothing">
 You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a>
 
-<cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 
 		enteredby,
 		collection_cde,
@@ -121,7 +121,7 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 <!------------------------------------------------------->
 <cfif #action# is "delete">
 <cfoutput>
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from bulkloader_stage
 	</cfquery>
 	deleted.
@@ -132,7 +132,7 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 <!------------------------------------------------------->
 <cfif #action# is "getFile">
 <cfoutput>
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from bulkloader_stage
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -154,7 +154,7 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 		</cfif>	
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into bulkloader_stage (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
@@ -165,7 +165,7 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) as cnt from bulkloader_stage
 	</cfquery>
 	You successfully loaded #c.cnt# records into the <em><strong>staging</strong></em> table. 
@@ -192,19 +192,19 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 <!------------------------------------------------------->
 <cfif #action# is "loadAnyway">
 <cfoutput>
-	<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_object_id from bulkloader_stage
 	</cfquery>
 	<cfloop query="allId">
-		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update bulkloader_stage set collection_object_id=bulkloader_pkey.nextval
 			where collection_object_id=#collection_object_id#
 		</cfquery>
 	</cfloop>
-	<cfquery name="flag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="flag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update bulkloader_stage set loaded = 'BULKLOADED RECORD'
 	</cfquery>
-	<cfquery name="moveEm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="moveEm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into bulkloader select * from bulkloader_stage
 	</cfquery>
 	Your records have been checked and are now in table Bulkloader and flagged as
@@ -217,13 +217,13 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 <!------------------------------------------->
 <cfif #action# is "checkStaged">
 <cfoutput>
-	<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" procedure="bulkloader_stage_check">
+	<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" procedure="bulkloader_stage_check">
 	</cfstoredproc>
-	<cfquery name="anyBads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="anyBads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) as cnt from bulkloader_stage
 		where loaded is not null
 	</cfquery>
-	<cfquery name="allData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="allData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) as cnt from bulkloader_stage
 	</cfquery>
 	<cfif #anyBads.cnt# gt 0>
@@ -239,19 +239,19 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 
 	<cfelse>
 		<cftransaction >
-			<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select collection_object_id from bulkloader_stage
 			</cfquery>
 			<cfloop query="allId">
-				<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update bulkloader_stage set collection_object_id=bulkloader_pkey.nextval
 					where collection_object_id=#collection_object_id#
 				</cfquery>
 			</cfloop>
-			<cfquery name="flag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="flag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update bulkloader_stage set loaded = 'BULKLOADED RECORD'
 			</cfquery>
-			<cfquery name="moveEm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="moveEm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into bulkloader select * from bulkloader_stage
 			</cfquery>
 			Your records have been checked and are now in table Bulkloader and flagged as

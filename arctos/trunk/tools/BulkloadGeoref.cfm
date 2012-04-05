@@ -95,7 +95,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfif #action# is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_georef
 	</cfquery>
 	
@@ -126,7 +126,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_georef (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 
@@ -139,22 +139,22 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_temp_georef
 </cfquery>
-<cfquery name="ctGEOREFMETHOD" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctGEOREFMETHOD" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select GEOREFMETHOD from ctGEOREFMETHOD
 </cfquery>
-<cfquery name="CTLAT_LONG_UNITS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="CTLAT_LONG_UNITS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select ORIG_LAT_LONG_UNITS from CTLAT_LONG_UNITS
 </cfquery>
-<cfquery name="CTDATUM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="CTDATUM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select DATUM from CTDATUM
 </cfquery>
-<cfquery name="CTVERIFICATIONSTATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="CTVERIFICATIONSTATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select VERIFICATIONSTATUS from CTVERIFICATIONSTATUS
 </cfquery>
-<cfquery name="CTLAT_LONG_ERROR_UNITS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="CTLAT_LONG_ERROR_UNITS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select LAT_LONG_ERROR_UNITS from CTLAT_LONG_ERROR_UNITS
 </cfquery>
 <cfloop query="d">
@@ -164,12 +164,12 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		locality.locality_id=#Locality_ID# and
 		trim(geog_auth_rec.higher_geog)='#trim(HigherGeography)#' and
 		 trim(locality.spec_locality)='#trim(escapeQuotes(SpecLocality))#'">
-	<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<cfif len(m.locality_id) is 0>
 		<cfset ts=listappend(ts,'no Locality_ID:SpecLocality:HigherGeography match',";")>
-		<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				spec_locality,higher_geog
 			from locality,geog_auth_rec where
@@ -207,11 +207,11 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			</table>
 		</cfif>
 	</cfif>
-	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select agent_id from agent_name where agent_name='#DETERMINED_BY_AGENT#'
 	</cfquery>
 	<cfif a.recordcount is 1>
-		<cfquery name="au" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="au" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_georef set DETERMINED_BY_AGENT_ID=#a.agent_id# where key=#key#
 		</cfquery>
 	<cfelse>
@@ -232,7 +232,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfif not listfind(valuelist(CTLAT_LONG_ERROR_UNITS.LAT_LONG_ERROR_UNITS),MAX_ERROR_UNITS)>
 		<cfset ts=listappend(ts,'bad MAX_ERROR_UNITS',";")>
 	</cfif>
-	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from lat_long where
 		lat_long.locality_id=#Locality_ID#
 	</cfquery>
@@ -242,18 +242,18 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	
 	<cfif len(ts) gt 0>
-		<cfquery name="au" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="au" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_georef set status='#ts#' where key=#key#
 		</cfquery>
 	<cfelse>
-		<cfquery name="au" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="au" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_georef set status='spiffy' where key=#key#
 		</cfquery>
 	</cfif>
 	
 	
 </cfloop>
-<cfquery name="dp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="dp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select count(*) c from cf_temp_georef where status != 'spiffy'
 </cfquery>
 <cfif dp.c is 0>
@@ -262,7 +262,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfelse>
 	fail. Something's busted.
 </cfif>
-<cfquery name="df" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="df" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_temp_georef
 </cfquery>
 <cfset internalPath="#Application.webDirectory#/temp/">
@@ -318,7 +318,7 @@ Data:
 <!------------------------------------------------------->
 <cfif #action# is "load">
 <cfoutput>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			*
 		from 
@@ -326,7 +326,7 @@ Data:
 	</cfquery>
 	<cftransaction>
 		<cfloop query="d">
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into lat_long (
 					LAT_LONG_ID,
 					LOCALITY_ID,

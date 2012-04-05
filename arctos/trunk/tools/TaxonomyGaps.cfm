@@ -19,7 +19,7 @@
 <cfif not isdefined("taxaReturns")>
 	<cfset taxaReturns=taxaFields>
 </cfif>
-<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select collection_id,collection from collection order by collection
 </cfquery>
 <cfset taxaRanks="PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,SCIENTIFIC_NAME,TRIBE,INFRASPECIFIC_RANK,PHYLUM,KINGDOM,SUBCLASS,SUPERFAMILY">
@@ -117,7 +117,7 @@
 <!------------------------------------------------------------------->
 <cfif action is "higherCrash">
 	<cfoutput>
-		<cfquery name="termCrash" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="termCrash" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (
 				select
 					a.nomenclatural_code,a.#lterm# l,a.#hterm# h
@@ -156,7 +156,7 @@
 <!------------------------------------------------------------------->
 <cfif action is "funkyChar">
 	<cfoutput>
-		<cfquery name="ctINFRASPECIFIC_RANK" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="ctINFRASPECIFIC_RANK" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select INFRASPECIFIC_RANK from ctINFRASPECIFIC_RANK
 			where infraspecific_rank in ('forma','subsp.','var.')
 		</cfquery>
@@ -206,7 +206,7 @@
 				taxonomy.scientific_name
 			order by taxonomy.scientific_name) where rownum < #limit#'>
 			
-		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#			
 		</cfquery>
 		<table border>
@@ -256,7 +256,7 @@
 		</cfif>
 		<cfset sql="select * from ( " & s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name,#taxaReturns#
 				order by taxonomy.scientific_name) where rownum < #limit#'>
-		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#			
 		</cfquery>
 		

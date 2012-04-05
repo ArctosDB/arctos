@@ -117,7 +117,7 @@ drop table temp;
 </cfif>
 <cfif #action# is "nothing">
 	<cfoutput>
-		<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				cataloged_item.collection_object_id,
 				cat_num,
@@ -185,7 +185,7 @@ drop table temp;
 <!------------------------------------------------------------------------------>
 <cfif #action# is "goAway">
 <cfoutput>
-	<cfquery name="CatCllobjIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="CatCllobjIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			collection_object_id
 		from 
@@ -199,35 +199,35 @@ drop table temp;
 		<cfabort>
 	</cfif>
 <cftransaction>
-<cfquery name="coll_obj_other_id_num" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="coll_obj_other_id_num" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from annotations where collection_object_id IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="coll_obj_other_id_num" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="coll_obj_other_id_num" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from coll_obj_other_id_num where collection_object_id IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from attributes where collection_object_id IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from collector where collection_object_id IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="spcol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">	
+<cfquery name="spcol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
 	delete from specimen_part where derived_from_cat_item IN 
 		(
 			select collection_object_id FROM 
@@ -235,7 +235,7 @@ drop table temp;
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="identification_taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="identification_taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from identification_taxonomy where identification_id IN 
 		(
 			select identification_id FROM identification where collection_object_id IN 
@@ -245,7 +245,7 @@ drop table temp;
 			)
 		)
 </cfquery>
-<cfquery name="identification_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="identification_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from identification_agent where identification_id IN 
 		(
 			select identification_id FROM identification where collection_object_id IN 
@@ -255,35 +255,35 @@ drop table temp;
 			)
 		)
 </cfquery>
-<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">	
+<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
 	delete from identification where collection_object_id IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="coll_object_remark" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">	
+<cfquery name="coll_object_remark" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
 	delete from coll_object_remark where collection_object_id IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">	
+<cfquery name="relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
 	delete from BIOL_INDIV_RELATIONS where collection_object_id IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="relations_related" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">	
+<cfquery name="relations_related" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
 	delete from BIOL_INDIV_RELATIONS where RELATED_COLL_OBJECT_ID IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="cataloged_item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">	
+<cfquery name="cataloged_item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
 	delete from cataloged_item where collection_object_id IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
@@ -291,12 +291,12 @@ drop table temp;
 		)
 </cfquery>
 
-<cfquery name="coll_object_encumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">	
+<cfquery name="coll_object_encumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
 	delete from coll_object_encumbrance where collection_object_id IN 
 		(#catIdList#)
 </cfquery>
 
-<cfquery name="coll_object" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">	
+<cfquery name="coll_object" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
 	delete from coll_object where collection_object_id IN 
 		(#catIdList#)
 </cfquery>

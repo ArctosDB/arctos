@@ -35,7 +35,7 @@
 </cfif>
 <cfset title="#table# - code table documentation">
 Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumentation.cfm">[ table list ]</a>
-	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from #table# <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif>
 	</cfquery>
 	<cfif docs.columnlist contains "collection_cde">
@@ -89,10 +89,10 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</cfloop>
 		</table>
 	<cfelseif table is "ctattribute_code_tables">
-		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct(attribute_type) from ctAttribute_type
 		</cfquery>
-		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			Select * from ctattribute_code_tables
 			order by attribute_type
 		</cfquery>

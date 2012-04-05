@@ -16,7 +16,7 @@
 </cffunction>
 
 <cfif #action# is 'generatePDF'>
-<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select distinct(attribute_type) from ctAttribute_type order by attribute_type
 </cfquery>
 <cfset attList = "">
@@ -92,7 +92,7 @@ following SQL query. --->
 	ORDER BY
 		cat_num
 ">
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <!------------------------------->
@@ -256,7 +256,7 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
         marginbottom=".2"
         marginleft=".36"
         marginright=".36"  overwrite="true"
-        filename="#Application.webDirectory#/temp/widelabels_#left(session.sessionid,10)#.pdf" orientation="portrait" >
+        filename="#Application.webDirectory#/temp/widelabels_#left(session.sessionKey,10)#.pdf" orientation="portrait" >
 
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfset i=0>
@@ -274,7 +274,7 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
 	<cftry><cfif not isdefined('$#collection_object_id#$')>
 		<cfthrow type='continue'>
 	</cfif>
-        <cfquery name="tCollNum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+        <cfquery name="tCollNum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select other_id_number from coll_obj_other_id_num where
                 other_id_type='collector number'
                 and collection_object_id=#collection_object_id#
@@ -587,7 +587,7 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
 		<cfset r=#r#+1>
 </cfloop>
 </cfdocument>
-<a href="/temp/widelabels_#left(session.sessionid,10)#.pdf">Get the PDF</a><br />
+<a href="/temp/widelabels_#left(session.sessionKey,10)#.pdf">Get the PDF</a><br />
 <!---removing the debugging area
 Start debugging area:<br/>
 <cfdump var='#form#'>
@@ -851,7 +851,7 @@ function addNewGeogMod() {
 	WHERE
 		accepted_id_fg=1 AND cataloged_item.collection_object_id IN (#collection_object_id#)
 ">
-<cfquery name="geogQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="geogQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>--->
 <!--- No longer need geography query because new idea does not require the
@@ -873,7 +873,7 @@ specific geography information. --->
 	ORDER BY
 		cat_num
 ">
-<cfquery name="partsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="partsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <!--- end get data for parts--->

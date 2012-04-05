@@ -1,7 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfoutput>
 	<cfif action is "nothing">
-		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select collection_id,collection from collection order by collection
 		</cfquery>
 		<form name="searchForAccn" action="findAccn.cfm" method="post">
@@ -26,7 +26,7 @@
 		</form>
 	</cfif>
 	<cfif action is "srch">
-		<cfquery name="getAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="getAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				collection,
 				accn_number,

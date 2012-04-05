@@ -43,7 +43,7 @@
 					<table>
 						<tr>
 							<td align="right">Purpose of Download</td>
-							<cfquery name="ctPurpose" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+							<cfquery name="ctPurpose" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 								select * from ctdownload_purpose order by download_purpose
 							</cfquery>
 							<td>
@@ -67,7 +67,7 @@
 						<tr>
 							<td align="right">File Name</td>
 							<td>
-								<input type="text" name="filename" value="ArctosData_#left(session.sessionid,10)#">
+								<input type="text" name="filename" value="ArctosData_#left(session.sessionKey,10)#">
 							</td>
 						</tr>
 						<tr>
@@ -89,7 +89,7 @@
 				<cfelse>
 					<cfset ff=getUserData.download_format>
 				</cfif>
-				<cflocation url="SpecimenResultsDownload.cfm?fileformat=#getUserData.download_format#&agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#left(session.sessionid,10)#" addtoken="false">
+				<cflocation url="SpecimenResultsDownload.cfm?fileformat=#getUserData.download_format#&agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#left(session.sessionKey,10)#" addtoken="false">
 			</cfif>			
 		<cfelse>
 			<form method="post" action="SpecimenResultsDownload.cfm" name="dlForm">
@@ -98,7 +98,7 @@
 				<table>
 					<tr>
 						<td align="right">Purpose of Download</td>
-						<cfquery name="ctPurpose" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+						<cfquery name="ctPurpose" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 							select * from ctdownload_purpose order by download_purpose
 						</cfquery>
 						<td>
@@ -122,7 +122,7 @@
 					<tr>
 						<td align="right">File Name</td>
 						<td>
-							<input type="text" name="filename" value="ArctosData_#left(session.sessionid,10)#">
+							<input type="text" name="filename" value="ArctosData_#left(session.sessionKey,10)#">
 						</td>
 					</tr>
 					<tr>
@@ -178,7 +178,7 @@
 		</ul>
 		<cfabort>
 	</cfif>
-	<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			user_tab_cols.column_name 
 		from 
@@ -189,7 +189,7 @@
 		where 
 			upper(table_name)=upper('#tableName#') order by DISP_ORDER
 	</cfquery>
-	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from #tableName#
 	</cfquery>
 	<cfquery name="dl" datasource="cf_dbuser">

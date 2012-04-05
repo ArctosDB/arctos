@@ -4,7 +4,7 @@
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="collection_cde" type="string" required="yes">
 	<cfargument name="element" type="string" required="yes">
-	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where attribute_type='#attribute#'
 	</cfquery>
 	<cfif isCtControlled.recordcount is 1>
@@ -13,7 +13,7 @@
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
-			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from #isCtControlled.value_code_table#
 			</cfquery>
 			<cfset collCode = "">
@@ -52,7 +52,7 @@
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNITS_CODE_TABLE)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
-			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from #isCtControlled.UNITS_CODE_TABLE#
 			</cfquery>
 			<cfset collCode = "">
@@ -108,18 +108,18 @@
 	<cfset theSpace = find(" " ,coll)>
 	<cfset inst = trim(left(coll,theSpace))>
 	<cfset collcde = trim(mid(coll,theSpace,len(coll)))>	
-	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_id from collection where
 		institution_acronym='#inst#' and
 		collection_cde='#collcde#'
 	</cfquery>
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(cat_num + 1) as nextnum
 		from cataloged_item 
 		where 
 		collection_id=#collID.collection_id# 
 	</cfquery>
-	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(to_number(cat_num) + 1) as nextnum from bulkloader
 		where
 		institution_acronym='#inst#' and
@@ -149,7 +149,7 @@
 		<cfset ia=institution_acronym>
 		<cfset cc=collection_cde>
 	</cfif>
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			count(*) cnt
 		FROM
@@ -180,7 +180,7 @@
 <cffunction name="get_picked_event" access="remote">
 	<cfargument name="collecting_event_id" type="numeric" required="yes">
 	<cftry>
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			collecting_event.COLLECTING_EVENT_ID,
 			BEGAN_DATE,
@@ -261,7 +261,7 @@
 <cffunction name="get_picked_locality" access="remote">
 	<cfargument name="locality_id" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				locality.locality_id,
 				geog_auth_rec.HIGHER_GEOG,

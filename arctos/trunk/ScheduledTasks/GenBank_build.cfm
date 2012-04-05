@@ -70,7 +70,7 @@
 		<cffile action="append" file="#Application.webDirectory#/temp/names.ft" addnewline="no" output="#oneLine#">
 </cfloop>
 <!----
-<cfquery name="uamsp2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="uamsp2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 
 		distinct(scientific_name) from taxonomy
 		genus, 
@@ -100,7 +100,7 @@
 		<cfset i=#i#+1>
 		<cffile action="append" file="/var/www/html/temp/uamsp2.ft" addnewline="no" output="#oneLine#">
 </cfloop>
-<cfquery name="uamsp3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="uamsp3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 
 		scientific_name 
 	FROM 

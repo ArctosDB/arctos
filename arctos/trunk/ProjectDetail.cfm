@@ -1,13 +1,13 @@
 <cfinclude template = "includes/_header.cfm">
 <cfoutput>
 <cfif not listfindnocase(cgi.REDIRECT_URL,"project","/")>
-	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_name from project where project_id=#project_id#
 	</cfquery>
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/project/#niceURL(redir.project_name)#">
 <cfelse>
-	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_id from project where niceURL(project_name)='#niceProjName#'
 	</cfquery>
 	<cfif redir.recordcount is 1>
@@ -40,7 +40,7 @@
 		}
 	});
 </script>	
-	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
 			project.project_id,
 			project_name,
@@ -102,7 +102,7 @@
 	</cfquery>
 	<span class="annotateSpace">
 		<cfif len(session.username) gt 0>
-			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) cnt from annotations
 				where project_id = #project_id#
 			</cfquery>

@@ -1,10 +1,10 @@
 <cf_rolecheck>
 <cfoutput>
 	<span style="position:absolute;top:0px;right:0px; border:1px solid black;" class="likeLink" onclick="removePick()">X</span>
-	<cfquery name="agnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="agnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select agent_name from preferred_agent_name where agent_id=#agent_id#
 	</cfquery>
-	<cfquery name="pr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="pr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			agent_rank,
 			transaction_type,
@@ -21,10 +21,10 @@
 			agent_rank,
 			rank_date
 	</cfquery>
-	<cfquery name="ctagent_rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctagent_rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select agent_rank from ctagent_rank order by agent_rank
 	</cfquery>
-	<cfquery name="cttransaction_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="cttransaction_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select transaction_type from cttransaction_type order by transaction_type
 	</cfquery>
 	<strong>#agnt.agent_name#</strong> has been ranked #pr.recordcount# times.&nbsp;&nbsp;&nbsp;

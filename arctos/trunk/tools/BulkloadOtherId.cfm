@@ -68,7 +68,7 @@ Include column headings, spelled exactly as below.
 <cfif #action# is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_oids
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -90,7 +90,7 @@ Include column headings, spelled exactly as below.
 		</cfif>	
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_oids (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
@@ -111,7 +111,7 @@ Include column headings, spelled exactly as below.
 	 	<cfset sql = #reverse(replace(reverse(sql),",","","first"))#>
 		<cfset sql = "#i#,#sql#">
 		<cfset i=#i#+1>
-		<cfquery name="newRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="newRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO cf_temp_oids (
 				key,
 				collection_cde,
@@ -135,38 +135,38 @@ Include column headings, spelled exactly as below.
 <cfif #action# is "validate">
 <cfoutput>
 
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_oids
 	</cfquery>
 	<cfloop query="data">
 		<cfset err="">
 		<cfif len(#existing_other_id_type#) is 0>
 			<cfset err="You must specify an other ID type.">
-			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_oids set status='#err#' where key=#key#
 			</cfquery>
 		</cfif>
 		<cfif len(#existing_other_id_number#) is 0>
 			<cfset err="You must specify an other ID number.">
-			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_oids set status='#err#' where key=#key#
 			</cfquery>
 		</cfif>
 		<cfif len(#collection_cde#) is 0>
 			<cfset err="You must specify a collection_cde.">
-			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_oids set status='#err#' where key=#key#
 			</cfquery>
 		</cfif>
 		<cfif len(#institution_acronym#) is 0>
 			<cfset err="You must specify a institution_acronym.">
-			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_oids set status='#err#' where key=#key#
 			</cfquery>
 		</cfif>
 		<cfif len(err) is 0>
 			<cfif #existing_other_id_type# is not "catalog number">
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					SELECT 
 						coll_obj_other_id_num.collection_object_id
 					FROM
@@ -182,7 +182,7 @@ Include column headings, spelled exactly as below.
 						display_value = '#existing_other_id_number#'
 				</cfquery>
 			<cfelseif len(err) is 0>
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					SELECT 
 						collection_object_id
 					FROM
@@ -197,24 +197,24 @@ Include column headings, spelled exactly as below.
 			</cfif>
 			<cfif #collObj.recordcount# is not 1>
 				<cfset err="#data.institution_acronym# #data.collection_cde# #data.existing_other_id_number# #data.existing_other_id_type# could not be found!">
-				<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update cf_temp_oids set status='#err#' where key=#key#
 				</cfquery>
 			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE cf_temp_oids SET collection_object_id = #collObj.collection_object_id# where
 					key = #key#
 				</cfquery>			
 			</cfif>
 		</cfif>
 		<cfif len(err) is 0>
-			<cfquery name="isValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="isValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select other_id_type from 
 				ctcoll_other_id_type where other_id_type = '#new_other_id_type#'
 			</cfquery>
 			<cfif #isValid.recordcount# is not 1>
 				<cfset err="Other ID type #new_other_id_type# was not found.">
-				<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update cf_temp_oids set status='#err#' where key=#key#
 				</cfquery>
 			</cfif>
@@ -224,7 +224,7 @@ Include column headings, spelled exactly as below.
 </cfoutput>
 </cfif>
 <cfif #action# is "showCheck">
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_oids where status is not null
 	</cfquery>
 	<cfif data.recordcount gt 0>
@@ -242,17 +242,17 @@ Include column headings, spelled exactly as below.
 <cfoutput>
 	
 		
-	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_oids
 	</cfquery>
 	
 	<cftransaction>
 	<cfloop query="getTempData">
-		<!---<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<!---<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		 	{EXEC parse_other_id(#collection_object_id#, '#new_other_id_number#', '#new_other_id_type#')}
 		</cfquery>
 		--->
-		<cfstoredproc procedure="parse_other_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfstoredproc procedure="parse_other_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     
     
     <cfprocparam

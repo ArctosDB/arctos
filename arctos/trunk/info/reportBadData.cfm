@@ -18,7 +18,7 @@
 
 <cfif isdefined("collection_object_id")>
 	<!--- get summary data ---->
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			cataloged_item.collection_object_id id,
 			scientific_name, 
@@ -124,12 +124,12 @@
 <cfoutput>
 <cfset user_id=0>
 <cfif isdefined("session.username") and len(session.username) gt 0>
-	<cfquery name="isUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="isUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT user_id FROM cf_users WHERE username = '#session.username#'
 	</cfquery>
 	<cfset user_id = isUser.user_id>
 </cfif>
-	<cfquery name="bugID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="bugID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(bug_id) + 1 as id from cf_bugs
 	</cfquery>
 	<!--- strip out the crap....--->
@@ -169,7 +169,7 @@
 	</cfquery>
 	
 	<!--- get the proper emails to report this to --->
-	<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select address from
 			electronic_address,
 			collection_contacts,

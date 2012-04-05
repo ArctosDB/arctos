@@ -15,7 +15,7 @@
 	<cfset showUnaccepted=0>
 </cfif>
 <cfif not isdefined("userFileName")>
-	<cfset userFileName="kmlfile#left(session.sessionid,10)#">
+	<cfset userFileName="kmlfile#left(session.sessionKey,10)#">
 </cfif>
 <cfif not isdefined("includeTimeSpan")>
 	<cfset includeTimeSpan=0>
@@ -81,7 +81,7 @@
 <cfif action is "newReq">
 	<cfoutput>
 		<cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id">
-		<cfquery name="reqd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="reqd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_spec_res_cols where category='required'
 		</cfquery>
 		<cfset basSelect = listappend(basSelect,valuelist(reqd.SQL_ELEMENT))>
@@ -109,9 +109,9 @@
 			<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
 			<cfabort>
 		</cfif>
-		<cfset thisTableName = "SearchResults_#left(session.sessionid,10)#">	
+		<cfset thisTableName = "SearchResults_#left(session.sessionKey,10)#">	
 		<cftry>
-			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				drop table #session.SpecSrchTab#
 			</cfquery>
 			<cfcatch>
@@ -120,7 +120,7 @@
 		</cftry>
 		<cfset checkSql(SqlString)>	
 		<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
-		<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preserveSingleQuotes(SqlString)#
 		</cfquery>
 		<cfset burl="kml.cfm?method=#method#&showErrors=#showErrors#&mapByLocality=#mapByLocality#">
@@ -214,7 +214,7 @@
     <cfset dlFile = "#userFileName#.kml">
 	<cfset variables.fileName="#internalPath##dlFile#">
 	<cfset variables.encoding="UTF-8">
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			#flatTableName#.collection_object_id,
 			#flatTableName#.cat_num,
@@ -388,7 +388,7 @@
 	<cfset variables.fileName="#internalPath##dlFile#">
 	<cfset variables.encoding="UTF-8">
 	<cfif mapByLocality is 1>
-		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,
@@ -422,7 +422,7 @@
 			 		where #flatTableName#.collection_object_id = #table_name#.collection_object_id)
 		</cfquery>
 	<cfelse>
-		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,

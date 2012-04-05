@@ -217,7 +217,7 @@
 	spec_locality,
 	verbatim_locality,
 	verbatimLatitude">
-<cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfif caller.localityResults.recordcount is 0>

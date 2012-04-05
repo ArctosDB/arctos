@@ -5,10 +5,10 @@
 	<cfargument name="parent_barcode" type="string" required="yes">
 	<cfargument name="timestamp" type="string" required="yes">	
 	<cftry>
-		<cfquery name="childID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="childID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id,barcode,label,container_type from container where barcode = '#barcode#'
 		</cfquery>
-		<cfquery name="parentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="parentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id,barcode,label,container_type from container where barcode = '#parent_barcode#'
 		</cfquery>
 		<cfset thisDate = "#dateformat(timestamp,'yyyy-mm-dd')# #timeformat(timestamp,'HH:mm:ss')#">
@@ -22,7 +22,7 @@
 			<cfreturn result>
 		</cfif>
 		<cftransaction>
-			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update container set parent_container_id=#parentID.container_id#,
 					parent_install_date=to_date('#thisDate#','yyyy-mm-dd HH24:MI:SS')
 				where
@@ -52,7 +52,7 @@
 		<cfabort>
 	</cfif>
 	<cftry>
-		<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" timeout="60">
+		<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 			SELECT 
 				CONTAINER_ID,
 				PARENT_CONTAINER_ID,
@@ -86,7 +86,7 @@
 <cffunction name="get_containerContents" access="remote">
 	<cfargument name="contr_id" required="yes" type="string"><!--- ID of div, just gets passed back --->
 	<cftry>
-		<cfquery name="result" timeout="60" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="result" timeout="60" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				CONTAINER_ID,
 				PARENT_CONTAINER_ID,
@@ -312,7 +312,7 @@
 			">
 
 			 <cftry>
-			 	<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" timeout="60">
+			 	<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 					#preservesinglequotes(thisSql)#
 				</cfquery>
 				<cfcatch>
@@ -425,7 +425,7 @@
 		<cfabort>
 	</cfif>
 			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" timeout="60">
+			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 					SELECT 
 							CONTAINER_ID,
 						PARENT_CONTAINER_ID,
@@ -591,7 +591,7 @@
 			">
 					
 			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" timeout="60">
+			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 					#preservesinglequotes(thisSql)#
 				 </cfquery>
 				<cfcatch>
@@ -758,7 +758,7 @@
 			">
 			
 			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" timeout="60">
+			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 					#preservesinglequotes(thisSql)#
 				 </cfquery>
 				<cfcatch>

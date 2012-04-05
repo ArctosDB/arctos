@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfquery name="uamloan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="uamloan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 
 		loan.transaction_id,
 		loan_number,
@@ -19,7 +19,7 @@
 			<cfif len(loan_number) is 13 and loan_number contains "Mamm">
 				<td>spiffy</td>
 			<cfelse>
-				<cfquery name="spec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="spec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select collection from 
 						loan_item,
 						cataloged_item,

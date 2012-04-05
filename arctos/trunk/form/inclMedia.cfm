@@ -96,7 +96,7 @@
 	<cfelse>
 		<cfabort>
 	</cfif>
-	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	#preservesinglequotes(sql)#
 	</cfquery>
 	<cfif mediaResultsQuery.recordcount is 0>
@@ -132,7 +132,7 @@
 		<div class="thumbs">
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="mediaResultsQuery" startrow="#start#" endrow="#stop#">
-            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 						media_label,
 						label_value

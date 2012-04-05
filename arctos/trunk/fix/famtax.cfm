@@ -2,17 +2,17 @@
 <cfset theList = "Accipitridae,Alcidae,Sylviidae,Caprimulgidae,Charadriidae,Cisticolidae,Coliidae,Columbidae,Corvidae,Cotingidae,Cuculidae,Dendrocolaptidae,Emberizidae,Estrildidae,Furnariidae,Phasianidae,Picidae,Pipridae,Psittacidae,Strigidae,Troglodytidae,Turdidae,Timaliidae,Tyrannidae,Tytonidae,Laniidae,Meliphagidae,Parulidae,Cathartidae,Upupidae,Vangidae,Viduidae,Vireonidae,Zosteropidae">
 <cfoutput>
 <cfloop list="#theList#" index="i">
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select phylclass from taxonomy where family='#i#'
 		and phylclass is not null
 		group by phylclass
 	</cfquery>
-	<cfquery name="o" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="o" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select phylorder from taxonomy where family='#i#'
 		and phylorder is not null
 		group by phylorder
 	</cfquery>
-	<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select suborder from taxonomy where family='#i#'
 		and suborder is not null
 		group by suborder

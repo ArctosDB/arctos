@@ -13,7 +13,7 @@
 </cfif>
 
 <cfloop query="getBLColNames">
-	<cfquery name="strip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="strip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update bulkloader set #column_name# = trim(#column_name#)
 	</cfquery>
 </cfloop>

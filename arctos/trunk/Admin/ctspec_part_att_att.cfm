@@ -2,10 +2,10 @@
 <cfset title="part attribute controls">
 <cfif action is "nothing">
 	<cfoutput>
-		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct(attribute_type) from ctspecpart_attribute_type
 		</cfquery>
-		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			Select * from ctspec_part_att_att
 			order by attribute_type
 		</cfquery>
@@ -116,7 +116,7 @@
 	</cfoutput>
 </cfif>
 <cfif action is "saveEdit">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update ctspec_part_att_att
 		set VALUE_code_table='#value_code_table#',
 		unit_code_table='#unit_code_table#'
@@ -125,14 +125,14 @@
 	<cflocation addtoken="false" url="ctspec_part_att_att.cfm">
 </cfif>
 <cfif action is "deleteValue">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from ctspec_part_att_att where
     		attribute_type='#attribute_type#'
 	</cfquery>
 	<cflocation addtoken="false" url="ctspec_part_att_att.cfm">
 </cfif>
 <cfif action is "newValue">
-	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into ctspec_part_att_att (
     		attribute_type,
 			VALUE_code_table,

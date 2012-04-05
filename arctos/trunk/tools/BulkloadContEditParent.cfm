@@ -85,7 +85,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 
 	 <cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 
- <cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+ <cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from cf_temp_cont_edit
 </cfquery>
 
@@ -105,7 +105,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfif>	
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_cont_edit (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
@@ -119,57 +119,57 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfif #action# is "validate">
 validate
 <cfoutput>
-	<cfquery name="getCID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getCID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_cont_edit set container_id=
 		(select container_id from container where container.barcode = cf_temp_cont_edit.barcode)
 	</cfquery>
-	<cfquery name="getCID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getCID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_cont_edit set parent_container_id=
 		(select container_id from container where container.barcode = cf_temp_cont_edit.parent_barcode)
 	</cfquery>
-	<cfquery name="miac" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="miac" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_cont_edit set status = 'container_not_found'
 		where container_id is null
 	</cfquery>
-	<cfquery name="miap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="miap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_cont_edit set status = 'parent_container_not_found'
 		where parent_container_id is null and parent_barcode is not null
 	</cfquery>
-	<cfquery name="miap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="miap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_cont_edit set status = 'bad_container_type'
 		where container_type not in (select container_type from ctcontainer_type)
 	</cfquery>
-	<cfquery name="miap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="miap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_cont_edit set status = 'missing_label'
 		where label is null
 	</cfquery>
 	
-	<cfquery name="lq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="lq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select container_id,parent_container_id,key from cf_temp_cont_edit
 	</cfquery>
 	<cfloop query="lq">
-		<cfquery name="islbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="islbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_type from container where container_id='#container_id#'
 		</cfquery>
 		<cfif islbl.container_type does not contain 'label'>
-			<cfquery name="miap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="miap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_cont_edit set status = 'only_updates_to_labels'
 				where key=#key#
 			</cfquery>
 		</cfif>
 		<cfif len(parent_container_id) gt 0>
-			<cfquery name="isplbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="isplbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select container_type from container where container_id='#parent_container_id#'
 			</cfquery>
 			<cfif isplbl.container_type contains 'label'>
-				<cfquery name="miapp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="miapp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update cf_temp_cont_edit set status = 'parent_is_label'
 					where key=#key#
 				</cfquery>
 			</cfif>
 		</cfif>
 	</cfloop>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_cont_edit
 	</cfquery>
 	<cfdump var=#data#>
@@ -186,13 +186,13 @@ validate
 <!-------------------------------------------------------------------------------------------->
 <cfif action is "load">
 <cfoutput>
-	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_cont_edit
 	</cfquery>
 	<cftry>
 	<cftransaction>
 		<cfloop query="getTempData">
-			<cfquery name="updateC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="updateC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update container set
 					CONTAINER_TYPE='#CONTAINER_TYPE#'
 				where CONTAINER_ID=#CONTAINER_ID#
@@ -206,7 +206,7 @@ validate
 	</cftry>
 	<cftransaction>
 		<cfloop query="getTempData">
-			<cfquery name="updateC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="updateC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update container set
 					label='#label#',
 					DESCRIPTION='#DESCRIPTION#',

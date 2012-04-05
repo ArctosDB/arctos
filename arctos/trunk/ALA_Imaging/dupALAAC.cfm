@@ -3,7 +3,7 @@
 		<cffunction name="getRec">
 			<cfargument name="dv" type="string" required="yes">
 			<cfargument name="minmax" type="string" required="yes">
-			<cfquery name="rec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="rec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
 					cataloged_item.collection_object_id,
 					cat_num,
@@ -39,7 +39,7 @@
 			</cfquery>
 			<cfset tnList="">
 			<cfif len(rec.media) gt 0>
-				<cfquery name="tn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="tn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select media_id,preview_uri from media where media_id in (#rec.media#)
 				</cfquery>
 				<cfloop query="tn">
@@ -84,7 +84,7 @@
 			<cfreturn theTable>
 		</cffunction>
 		<cfset limit=20>
-		<cfquery name="dupRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="dupRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (	
 				select 
 					count(*) cnt,

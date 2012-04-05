@@ -22,7 +22,7 @@
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/SpecimenUsage.cfm">
 </cfif>
-<cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select project_agent_role from ctproject_agent_role
 </cfquery>
 <!------------------------------------------------------------------------------------------->
@@ -68,10 +68,10 @@
 <!------------------------------------------------------------------------------------------->
 <cfif Action is "createNew">
 	<cfoutput>
-		<cfquery name="nextID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="nextID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_project_id.nextval nextid from dual
 		</cfquery>
-		<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		INSERT INTO project (
 			PROJECT_ID,
 			PROJECT_NAME
@@ -115,7 +115,7 @@
 	<cfset title="Edit Project">
 	<cfoutput>
 		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
-		<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				project_agent_id,
 				project.project_id,
@@ -153,7 +153,7 @@
 			group by project_agent_id,agent_name, agent_position, agent_id, project_agent_role,project_agent_remarks
 			order by agent_position
 		</cfquery>
-		<cfquery name="getLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="getLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				collection.collection,
 				loan.loan_number,
@@ -173,7 +173,7 @@
 				project_trans.project_id = #getDetails.project_id#
 			order by collection, loan_number
 		</cfquery>
-		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				accn_number,
 				collection,
@@ -192,7 +192,7 @@
 				project_id = #getDetails.project_id#
 				order by collection, accn_number
 		</cfquery>
-		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				taxonomy.taxon_name_id,
 				scientific_name
@@ -231,7 +231,7 @@
 		<cfelse>
 			<cfset numberOfAgents = 1>
 		</cfif>
-		<cfquery name="publications" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="publications" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				full_citation, publication.publication_id  
 			FROM 
@@ -468,7 +468,7 @@
 <!------------------------------------------------------------------------------------------->
 <cfif action is "save">
 	<cfoutput>
-  		<cfquery name="upProject" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+  		<cfquery name="upProject" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  			UPDATE project SET
  				project_name = '#project_name#',
 				start_date = '#dateformat(start_date,"yyyy-mm-dd")#',
@@ -486,11 +486,11 @@
 			<cfset project_agent_remarks = evaluate("project_agent_remarks_" & n)>
 			<cfset project_agent_id = evaluate("project_agent_id_" & n)>
 			<cfif agent_name is "deleted">
-				<cfquery name="deleAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="deleAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	 				DELETE FROM project_agent where project_agent_id=#project_agent_id#
 				</cfquery>
 			<cfelse>
-				<cfquery name="upProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="upProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				 	UPDATE project_agent SET
 						agent_id = #agent_id#,
 						project_agent_role = '#project_agent_role#',
@@ -514,7 +514,7 @@
 			<cfset new_agent_position = evaluate("new_agent_position" & n)>
 			<cfset new_project_agent_remarks = evaluate("new_project_agent_remarks" & n)>
 			<cfif len(new_agent_id) gt 0>
-			  <cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			  <cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				 INSERT INTO project_agent (
 				 	 PROJECT_ID,
 					 AGENT_ID,
@@ -541,7 +541,7 @@
 <!------------------------------------------------------------------------------------------->
 <cfif action is "removeTaxonomy">
 	<cfoutput>
-		<cfquery name="addtaxon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="addtaxon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from project_taxonomy where
 			project_id=#project_id# and
 			taxon_name_id=#taxon_name_id#
@@ -552,7 +552,7 @@
 <!------------------------------------------------------------------------------------------->
 <cfif action is "addtaxon">
 	<cfoutput>
-		<cfquery name="addtaxon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="addtaxon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into project_taxonomy (
 			    project_id,
 			    taxon_name_id
@@ -567,28 +567,28 @@
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleteProject">
  <cfoutput>
- 	<cfquery name="isAgent"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+ 	<cfquery name="isAgent"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select agent_id FROM project_agent WHERE project_id=#project_id#
 	</cfquery>
 	<cfif #isAgent.recordcount# gt 0>
 		You must remove Project Agents before you delete a project.
 		<cfabort>
 	</cfif>
-	<cfquery name="isTrans"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="isTrans"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_id FROM project_trans WHERE project_id=#project_id#
 	</cfquery>
 	<cfif #isTrans.recordcount# gt 0>
 		There are transactions for this project! Delete denied!
 		<cfabort>
 	</cfif>
-	<cfquery name="isPub"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="isPub"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_id FROM project_publication WHERE project_id=#project_id#
 	</cfquery>
 	<cfif #isPub.recordcount# gt 0>
 		There are publications for this project! Delete denied!
 		<cfabort>
 	</cfif>
-	<cfquery name="killProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="killProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from project where project_id=#project_id#
 	</cfquery>
 	
@@ -600,7 +600,7 @@
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "removeAgent">
  <cfoutput>
- 	<cfquery name="deleAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+ 	<cfquery name="deleAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  	DELETE FROM project_agent where project_agent_id=#project_agent_id#
 	</cfquery>
 	 <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###agent" addtoken="false">
@@ -609,7 +609,7 @@
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveAgentChange">
  <cfoutput>
- <cfquery name="upProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+ <cfquery name="upProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  	UPDATE project_agent SET
 		agent_id = #new_agent_id#
 		project_agent_role = '#project_agent_role#',
@@ -624,7 +624,7 @@
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "newAgent">
  <cfoutput>
-  <cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+  <cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  INSERT INTO project_agent (
  	 PROJECT_ID,
 	 AGENT_ID,
@@ -645,7 +645,7 @@ VALUES (
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
  <cfoutput>
-  <cfquery name="upProject" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+  <cfquery name="upProject" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  
  UPDATE project SET project_id = #project_id#
  ,project_name = '#project_name#'
@@ -678,7 +678,7 @@ VALUES (
 <cfif #Action# is "addTrans">
  <cfoutput>
  
-<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  	INSERT INTO project_trans (project_id, transaction_id) values (#project_id#, #transaction_id#)
 
   </cfquery>
@@ -689,7 +689,7 @@ VALUES (
 <cfif #Action# is "addPub">
  <cfoutput>
  
-<cfquery name="newPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="newPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  	INSERT INTO project_publication (project_id, publication_id) values (#project_id#, #publication_id#)
 
   </cfquery>
@@ -700,7 +700,7 @@ VALUES (
 <cfif #Action# is "delePub">
  <cfoutput>
  
-<cfquery name="newPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="newPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  	DELETE FROM project_publication WHERE project_id = #project_id# and publication_id = #publication_id#
 
   </cfquery>
@@ -710,7 +710,7 @@ VALUES (
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "delTrans">
  <cfoutput>
-<cfquery name="delTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="delTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  DELETE FROM  project_trans where project_id = #project_id# and transaction_id = #transaction_id#
 
   </cfquery>

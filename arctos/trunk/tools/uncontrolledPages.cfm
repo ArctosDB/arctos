@@ -21,7 +21,7 @@
 		#name# contains ".cfm">
 		<cfset thisPath=replace(directory,application.webDirectory,"","all")>
 		<cfset thisName="#thisPath#/#name#">
-		<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select ROLE_NAME, count(*) c from cf_form_permissions where form_path='#thisName#'
 			group by ROLE_NAME
 		</cfquery>
@@ -52,7 +52,7 @@
 </table>
 
 <!--- clean up any permissions for nonexistent forms --->
-<cfquery name="ghost" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ghost" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from cf_form_permissions where form_path not in (#ListQualify(valuelist(rslt.path),"'")#)
 </cfquery>
 

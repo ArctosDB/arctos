@@ -21,7 +21,7 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
-		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT agent_name, preferred_agent_name.agent_id, formatted_addr, addr_id,VALID_ADDR_FG from 
 			preferred_agent_name, addr
 			 where 

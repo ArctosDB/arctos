@@ -46,13 +46,13 @@
                     <cfif session.username is "uam" or session.username is "uam_update">
                         <cfabort>
                     </cfif>
-	                 <cfquery name="user_sql" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	                 <cfquery name="user_sql" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		                #preservesinglequotes(sql)#
 		            </cfquery>
                     <cfif format is "csv">
                         <cfset ac = user_sql.columnlist>
                         <cfset fileDir = "#Application.webDirectory#/download/">
-				        <cfset fileName = "ArctosUserSql_#left(session.sessionid,10)#.csv">
+				        <cfset fileName = "ArctosUserSql_#left(session.sessionKey,10)#.csv">
 				        <cfset header=#trim(ac)#>
 				        <cffile action="write" file="#fileDir##fileName#" addnewline="yes" output="#header#">
 				        <cfloop query="user_sql">

@@ -4,7 +4,7 @@
 		<cfabort>
 	</cfif>	
 	<cfoutput>
-		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				dispNames.agent_id,
 				dispNames.agent_name_id ,

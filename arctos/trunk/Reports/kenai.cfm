@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		flat.spec_locality,
 		round(accepted_lat_long.DEC_LAT,4) DEC_LAT,
