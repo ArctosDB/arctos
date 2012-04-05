@@ -248,7 +248,8 @@
 	<!------------------------ logout ------------------------------------>
 	<cfset StructClear(Session)>
 	<cflogout>
-	<cfset session.DownloadFileName = "ArctosData_#left(jsessionid,10)#.txt">
+	<cfset temp=RandRange(1000, 9999) & '_' & RandRange(1000, 9999)>
+	<cfset session.DownloadFileName = "ArctosData_#temp#.txt">
 	<cfset session.roles="public">
 	<cfset session.showObservations="">
 	<cfset session.result_sort="">
@@ -265,7 +266,6 @@
 	<cfset session.target=''>
 	<cfset session.block_suggest=''>
 	<cfset session.meta_description=''>
-	<cfset temp=left(jsessionid,10) & '_' & RandRange(0, 9999)>
 	<cfset session.SpecSrchTab="SpecSrch" & temp>
 	<cfset session.MediaSrchTab="MediaSrch" & temp> <!-- Doris' edit -->
 	<cfset session.TaxSrchTab="TaxSrch" & temp>
