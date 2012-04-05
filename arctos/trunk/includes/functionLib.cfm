@@ -248,7 +248,7 @@
 	<!------------------------ logout ------------------------------------>
 	<cfset StructClear(Session)>
 	<cflogout>
-	<cfset session.sessionKey=hash(RandRange(1, 9999) & '_' & RandRange(1, 9999))>
+	<cfset session.sessionKey=left(hash(RandRange(1, 9999) & '_' & RandRange(1, 9999)),20)>
 	<cfset session.DownloadFileName = "ArctosData_#session.sessionKey#.txt">
 	<cfset session.roles="public">
 	<cfset session.showObservations="">
