@@ -76,10 +76,12 @@
 		</cfif>
 		<cfif isdefined("session.username") and session.username is "dlm">
 			<cfoutput>
-				
+					#errortext#
 			</cfoutput>
 		</cfif>
-		
+			<cfoutput>
+				
+			</cfoutput>
 		<cfdump var=#errortext#>
 		
 		<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
