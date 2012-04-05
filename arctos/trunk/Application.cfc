@@ -80,7 +80,7 @@
 			</cfoutput>
 		</cfif>
 			<cfoutput>
-				
+					#errortext#
 			</cfoutput>
 		<cfdump var=#errortext#>
 		
