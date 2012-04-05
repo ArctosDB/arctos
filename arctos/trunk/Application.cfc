@@ -257,12 +257,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" output="true">
-	<cfdump var=#session#>
-	<cfoutput>
-		<br>session.sessionKey: #session.sessionKey#
-		<br>cfid: #cfid#
-		<br>jsessionid: #jsessionid#
-	</cfoutput>
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 </cffunction>
