@@ -256,7 +256,8 @@
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
-<cffunction name="onSessionStart" output="false">
+<cffunction name="onSessionStart" output="true">
+	<cfdump var=#session#>
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 </cffunction>
