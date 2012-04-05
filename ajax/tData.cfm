@@ -1,5 +1,5 @@
 <cfif #action# is "suggestGeologyAttVal">
-	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		SELECT 
 			attribute_value
 		FROM 

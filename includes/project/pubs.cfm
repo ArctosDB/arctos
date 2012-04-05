@@ -1,6 +1,6 @@
 <cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
-	<cfquery name="pubs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="pubs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		SELECT 
 			publication.publication_id,
 			full_citation,
@@ -28,7 +28,7 @@
 		This project produced #pubs.recordcount# publications.
 		<cfset i=1>
 		<cfloop query="pubs">
-			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			    select distinct 
 			        media.media_id,
 			        media.media_uri,
@@ -66,7 +66,7 @@
 					<li><a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Details</a></li>
 					<cfloop query="media">
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
-		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 							select
 								media_label,
 								label_value

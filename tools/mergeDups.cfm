@@ -6,7 +6,7 @@
 <cfif #action# is "nothing">
 <a href="mergeDups.cfm?autorun=yep">Autorun</a>
  <p>First Hundred Duplicates:
-	<cfquery name="findAllDups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="findAllDups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 			cataloged_item.collection_object_id,
 			collection,
@@ -53,7 +53,7 @@
 			</tr>
 
 		<cfloop query="findAllDups">
-			<cfquery name="dupRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="dupRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select 
 					cataloged_item.collection_object_id,
 					collection,
@@ -154,11 +154,11 @@
 				collecting_event.locality_id = locality.locality_id and
 				locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id
 		">
-		<cfquery name="one" ddatasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="one" ddatasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			 #preservesinglequotes(sql)# and
 				cataloged_item.collection_object_id = #id1#
 		</cfquery>
-		<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			#preservesinglequotes(sql)# and
 				cataloged_item.collection_object_id = #id2#
 		</cfquery>
@@ -203,7 +203,7 @@
 			</cfif>
 		</cfif>
 		<cfif len(#problems#) is 0>
-			<cfquery name="part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select container.container_id,container.parent_container_id from
 					specimen_part,
 					coll_object,
@@ -222,18 +222,18 @@
 		
 		<cfif len(#problems#) is 0>
 	<cftransaction>
-		<cfquery name="goodID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="goodID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select * from identification,identification_taxonomy where 
 			identification.identification_id = identification_taxonomy.identification_id and
 			collection_object_id = #bad.collection_object_id#
 		</cfquery>
-		<cfquery name="nid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="nid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select max(identification_id) + 1 id from identification
 		</cfquery>
 		<cfset idid = nid.id>
 		<cfloop query="goodID">
 			<br>create ID			
-			<cfquery name="newInsId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="newInsId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			insert into identification (
 				IDENTIFICATION_ID,
 				COLLECTION_OBJECT_ID,
@@ -254,7 +254,7 @@
 				'#SCIENTIFIC_NAME#')
 			</cfquery>
 				<br>insert ID taxonomy
-			<cfquery name="newInsIdTax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="newInsIdTax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			insert into identification_taxonomy (
 					IDENTIFICATION_ID,
 					TAXON_NAME_ID,
@@ -264,12 +264,12 @@
 					#TAXON_NAME_ID#,
 					'#VARIABLE#')
 			</cfquery>
-			<cfquery name="IDAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="IDAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select * from identification_agent where IDENTIFICATION_ID = #IDENTIFICATION_ID#
 			</cfquery>
 			<cfloop query="IDAgnt">
 			<br>insert ID agent(s)
-			<cfquery name="newInsIdAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="newInsIdAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into identification_agent (
 					IDENTIFICATION_ID,
 					AGENT_ID,
@@ -284,7 +284,7 @@
 		</cfloop>
 
 		
-		<cfquery name="badpart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="badpart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select container.container_id,container.parent_container_id from
 				specimen_part,
 				coll_object,
@@ -297,13 +297,13 @@
 				specimen_part.derived_from_cat_item = #bad.collection_object_id#
 		</cfquery>
 		<br>Bring container position over
-		<cfquery name="upcont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="upcont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			update container set parent_container_id = #badpart.parent_container_id#
 			where container_id = #part.container_id#
 		</cfquery>
 		
 		<br>Encumber the bad record
-		<cfquery name="mkenc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="mkenc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			insert into  COLL_OBJECT_ENCUMBRANCE (ENCUMBRANCE_ID,COLLECTION_OBJECT_ID)
 			values (1000025,#bad.collection_object_id#)
 		</cfquery>	

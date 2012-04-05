@@ -1,5 +1,5 @@
 <cfoutput>
-	<cfquery name="getUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="getUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		SELECT 
 			collection.collection,
 			collection.collection_id,

@@ -1,5 +1,5 @@
 <cfoutput>
-	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		SELECT 
 			project.project_id,
 			project_name 

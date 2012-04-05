@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 			*
 		from ctmedia_license
@@ -63,13 +63,13 @@
 </cfif>
 
 <cfif action is "delete">
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		delete from ctmedia_license where media_license_id=#media_license_id#
 	</cfquery>
 	<cflocation url="ctmedia_license.cfm" addtoken="false">
 </cfif>	
 <cfif action is "save">
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		update ctmedia_license set
 			display='#display#',
 			description='#description#',
@@ -79,7 +79,7 @@
 	<cflocation url="ctmedia_license.cfm" addtoken="false">
 </cfif>	
 <cfif action is "insert">
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		insert into ctmedia_license (
 			display,
 			description,

@@ -40,7 +40,7 @@ to expand a taxon, <img src="/images/down.gif" border="0"> to collapse, and clic
 <cfparam name="selectedSpecies" default="">
 <cfparam name="selectedSubspecies" default="">
 
-<cfquery name="class" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="class" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select distinct(phylclass) phylclass from taxonomy
 	order by phylclass
 </cfquery>
@@ -81,7 +81,7 @@ to expand a taxon, <img src="/images/down.gif" border="0"> to collapse, and clic
 		</span></a>
 	 </li>
 		<!--- expand children ---->
-			<cfquery name="order" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="order" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select distinct(phylorder) from taxonomy
 				where 
 				<cfif #currentClass# is "NOT RECORDED">
@@ -130,7 +130,7 @@ to expand a taxon, <img src="/images/down.gif" border="0"> to collapse, and clic
 		</cfif>
 		</span></a>
 					</li>
-						<cfquery name="suborder" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+						<cfquery name="suborder" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 							select distinct(suborder) from taxonomy
 								where 
 								<cfif #currentOrder# is "NOT RECORDED">
@@ -185,7 +185,7 @@ to expand a taxon, <img src="/images/down.gif" border="0"> to collapse, and clic
 		</span></a>
 											</li>
 						
-						<cfquery name="family" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+						<cfquery name="family" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 							select distinct(family) from taxonomy
 								where 
 								<cfif #currentSuborder# is "NOT RECORDED">
@@ -244,7 +244,7 @@ to expand a taxon, <img src="/images/down.gif" border="0"> to collapse, and clic
 		</span></a>
 								</li>
 						
-						<cfquery name="subfamily" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+						<cfquery name="subfamily" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 							select distinct(subfamily) from taxonomy
 								where 
 								<cfif #currentFamily# is "NOT RECORDED">
@@ -305,7 +305,7 @@ to expand a taxon, <img src="/images/down.gif" border="0"> to collapse, and clic
 		</span></a></li>
 										
 										
-											<cfquery name="genus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+											<cfquery name="genus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 												SELECT distinct(genus) FROM taxonomy WHERE
 												<cfif #currentSubfamily# is "NOT RECORDED">
 													subfamily is null
@@ -371,7 +371,7 @@ to expand a taxon, <img src="/images/down.gif" border="0"> to collapse, and clic
 		</span></a></li>
 				
 										
-													<cfquery name="species" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+													<cfquery name="species" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 														SELECT distinct(species) FROM taxonomy WHERE
 														<cfif #currentGenus# is "NOT RECORDED">
 															genus is null
@@ -449,7 +449,7 @@ to expand a taxon, <img src="/images/down.gif" border="0"> to collapse, and clic
 		</span></a>
 		</li>
 														
-															<cfquery name="subspecies" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+															<cfquery name="subspecies" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 																SELECT distinct(subspecies) FROM taxonomy WHERE
 																<cfif #currentSpecies# is "NOT RECORDED">
 																	species is null

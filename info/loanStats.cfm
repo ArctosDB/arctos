@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Loan and Citation statistics">
-<cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select 
 	 collection,
 	 collection.collection_id,
@@ -41,7 +41,7 @@
 			<td>#LOAN_STATUS#</td>
 			<td nowrap="nowrap">#dateformat(TRANS_DATE,"dd mmm yyyy")#&nbsp;</td>
 			<td nowrap="nowrap">#dateformat(RETURN_DUE_DATE,"dd mmm yyyy")#&nbsp;</td>
-			<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select 
 					collection,
 					count(distinct(cataloged_item.collection_object_id)) CntCatNum,

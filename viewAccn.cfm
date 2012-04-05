@@ -1,6 +1,6 @@
 <cfinclude template="includes/_header.cfm">	
 	<cfoutput>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			SELECT
 				trans.transaction_id,
 				accn_number,
@@ -34,7 +34,7 @@
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_transactions")>
 	        <a href="/editAccn.cfm?action=edit&transaction_id=#transaction_id#">[ edit accession ]</a>
 	    </cfif>
-		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				trans_agent_id,
 				trans_agent.agent_id, 
@@ -73,7 +73,7 @@
 		<cfif len(d.trans_remarks) gt 0>
 			<br><strong>Remarks:</strong> #d.trans_remarks#
 		</cfif>
-		<cfquery name="accncontainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="accncontainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select barcode from container, trans_container where
 			container.container_id=trans_container.container_id and
 			transaction_id=#transaction_id#
@@ -81,7 +81,7 @@
 		<cfif accncontainers.recordcount gt 0>
 			<p><strong>In Containers:</strong> #valuelist(accncontainers.barcode)#</p>
 		</cfif>
-		<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select project_name,niceURL(project_name) pn from project,
 			project_trans where 
 			project_trans.project_id =  project.project_id
@@ -101,7 +101,7 @@
 				No projects are associated with this accession.
 			</cfif>
 		</p>
-		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				media.media_id,
 				preview_uri,
@@ -128,7 +128,7 @@
 						<div class="thumb_spcr">&nbsp;</div>
 						<cfloop query="media">
 							<cfset puri=getMediaPreview(preview_uri,media_type)>
-			            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 								select
 									media_label,
 									label_value
@@ -161,7 +161,7 @@
 			There are no Media associated with this accession.
 		</cfif>
 		</p>
-		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			SELECT 
 				permit.permit_id,
 				issuedBy.agent_name as IssuedByAgent,
@@ -224,7 +224,7 @@
 			There are no permits associated with this accession.
 		</cfif>
 		</p>
-		<cfquery name="spec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="spec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				collection,
 				collection.collection_id,
@@ -262,7 +262,7 @@
 		</cfif>
 		</p>
 		
-		<cfquery name="specMed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="specMed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				media.media_id,
 				media.preview_uri,

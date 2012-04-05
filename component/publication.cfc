@@ -1,10 +1,10 @@
 <cfcomponent>
 <cffunction name="shortCitation" access="remote">
 	<cfargument name="publication_id" type="numeric" required="yes">
-	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select published_year from publication where publication_id=#publication_id#
 	</cfquery>
-	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 			last_name,
 			author_position
@@ -23,7 +23,7 @@
 		select count(*) c from a where last_name is null
 	</cfquery>
 	<cfif f.c gt 0>
-		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select SUBSTR(publication_title,1,20) || '...' pt from publication where publication_id=#publication_id#
 		</cfquery>
 		<cfreturn p.pt>
@@ -41,14 +41,14 @@
 <!------------------------------------------------------------------------------------------------>
 <cffunction name="longCitation" access="remote" output="true">
 	<cfargument name="publication_id" type="numeric" required="yes">
-		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 			publication_title,
 			published_year,
 			publication_type
 		from publication where publication_id=#publication_id#
 	</cfquery>
-	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 			agent_name,
 			author_position
@@ -62,7 +62,7 @@
 		order by 
 			author_position
 	</cfquery>
-	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 			agent_name,
 			author_position
@@ -98,7 +98,7 @@
 	<cfif right(es,1) is '.'>
 		<cfset es=left(es,len(es)-1)>
 	</cfif>
-	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from publication_attributes where publication_id=#publication_id#
 	</cfquery>
 	<cfquery name="journal" dbtype="query">

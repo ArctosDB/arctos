@@ -1,9 +1,9 @@
 <!--- no security --->
 
-<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select max(cat_num) mc from cataloged_item where collection_id =1
 </cfquery>
-<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select 
 		num
 	from 
@@ -22,7 +22,7 @@
 			order by num
 </cfquery>
 <cfoutput query="b">
-	<cfquery name="lb" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="lb" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select min(collection_object_id) collection_object_id from bulkloader where
 		cat_num is null and
 		institution_acronym='UAM' and
@@ -30,7 +30,7 @@
 		and collection_object_id > 20
 	</cfquery>
 	<cfif len(#lb.collection_object_id#) gt 0>
-	<cfquery name="upbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="upbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		update bulkloader set cat_num='#num#' where
 		collection_object_id = #lb.collection_object_id#
 	</cfquery>

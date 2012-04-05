@@ -13,23 +13,23 @@
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
-    <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+    <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select media_relationship from ctmedia_relationship order by media_relationship
 	</cfquery>
-	<cfquery name="ctmedia_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctmedia_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select media_label from ctmedia_label order by media_label
 	</cfquery>
-	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select media_type from ctmedia_type order by media_type
 	</cfquery>
-	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
         <a href="/media.cfm?action=newMedia">[ Create media ]</a>
     </cfif> 
 
-	<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select SEARCH_NAME,URL
 		from cf_canned_search,cf_users
 		where cf_users.user_id=cf_canned_search.user_id
@@ -192,7 +192,7 @@
 
 	<!-- try to kill any old tables that they may have laying around -->
 	<cftry>
-		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			drop table #session.MediaSrchTab#
 		</cfquery>
 		<cfcatch><!-- not there, so what? -->
@@ -202,11 +202,11 @@
 	<!-- build a temp table (for bulk download)-->
 	<cfset SqlString = "create table #session.MediaSrchTab# AS #ssql#">
 	<hr>#SqlString#<hr>
-	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 	<hr>#ssql#<hr>
-	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
 	
@@ -314,7 +314,7 @@
 	
 	<br>
 	<br>
-	<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select count(distinct(media_id)) cnt from #session.MediaSrchTab# where lat_long is not null
 	</cfquery>
 
@@ -457,7 +457,7 @@
 					
 			<cfelseif findNoCase("shows agent", #rel#) gt 0>
 			
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select agent_name from preferred_agent_name where agent_id=#rpkeys[i]#
 				</cfquery>
 				<cfif len(#d.agent_name#) gt 0>
@@ -561,7 +561,7 @@
 			</div>			
 		
 		<!-- Related Media -->
-		<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select count(*) n from tag where media_id=#media_id#
 		</cfquery>
 		<br>
@@ -575,7 +575,7 @@
 	    <cfif tag.n gt 0>
 			<a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
 		</cfif>
-		<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				media.media_id, 
 				media.media_type, 
@@ -606,7 +606,7 @@
 				<div class="thumb_spcr">&nbsp;</div>
 				<cfloop query="relM">
 					<cfset puri=getMediaPreview(preview_uri,media_type)>
-	            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 						select
 							media_label,
 							label_value

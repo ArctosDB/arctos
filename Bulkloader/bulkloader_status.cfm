@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cf_setDataEntryGroups>
-<cfquery name="bulkSummary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="bulkSummary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select 
 		loaded, 
 		accn, 

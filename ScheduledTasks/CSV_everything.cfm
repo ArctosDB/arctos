@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 
-	<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 			user_tab_cols.column_name 
 		from 
@@ -9,7 +9,7 @@
 		where 
 			upper(table_name)=upper('FILTERED_FLAT')
 	</cfquery>
-	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from FILTERED_FLAT
 	</cfquery>
 	<cfset ac = valuelist(cols.column_name)>

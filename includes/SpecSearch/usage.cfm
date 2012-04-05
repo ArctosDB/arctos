@@ -1,4 +1,4 @@
-<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select media_type from ctmedia_type order by media_type
 </cfquery>
 <script type="text/javascript" language="javascript">

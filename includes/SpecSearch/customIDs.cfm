@@ -6,7 +6,7 @@ function closeThis(){
 }
 </script>
 <cfoutput>
-<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
 </cfquery>
 <cfquery name="collid" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">

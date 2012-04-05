@@ -106,7 +106,7 @@
 	<cfset title="ES Imaging: Specimens: Dammit">
 	<cftransaction>
 		<br>barcode: #barcode#
-			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="vB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select container_id from container where barcode='#barcode#'
 			</cfquery>
 			<cfif vB.recordcount is 1>
@@ -133,7 +133,7 @@ loc_card_scan
 ;
 
 --->
-			<cfquery name="vLID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="vLID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select 
 					locid 
 				from 
@@ -149,7 +149,7 @@ loc_card_scan
 				is spiffy
 			</cfif>
 			taxon_name: #taxon_name#
-			<cfquery name="vTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="vTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select 
 					taxon_name_id 
 				from 
@@ -166,7 +166,7 @@ loc_card_scan
 			
 			<br>comment: #remark#
 			<br>inserting....
-			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="vA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into spec_scan (
 					id_type,
 					id_number,
@@ -193,7 +193,7 @@ loc_card_scan
 </cfif>
 <cfif action is "list">
 	<script src="/includes/sorttable.js"></script>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from accn_scan
 	</cfquery>
 	<table border id="t" class="sortable">

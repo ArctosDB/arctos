@@ -116,7 +116,7 @@ from geog_auth_rec where rownum<10
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		delete from ds_temp_geog
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -146,7 +146,7 @@ from geog_auth_rec where rownum<10
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into ds_temp_geog (#colNames#) values (#preservesinglequotes(colVals)#)				
 			</cfquery>
 		</cfif>
@@ -161,7 +161,7 @@ from geog_auth_rec where rownum<10
 <cfoutput>
 
 		
-	<cfquery name="CDasdf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="CDasdf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from ds_temp_geog
 	</cfquery>
 	<cfloop query="CDasdf">
@@ -224,7 +224,7 @@ from geog_auth_rec where rownum<10
 		<cfset thisgeog=trim(thisgeog)>
 		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z%, ]","X","all")>
 		<br>#thisgeog#
-		<cfquery name="mmmffssds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="mmmffssds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) like upper('#thisgeog#')
 		</cfquery>
 		<cfif mmmffssds.recordcount is 1>
@@ -233,7 +233,7 @@ from geog_auth_rec where rownum<10
 		</cfif>
 	<br>NOTFOUND:::#thisgeog#
 		<cfif len(thisStatus) is 0 and len(thiscounty) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(county) like upper('#thiscounty#')
 			</cfquery>
 			<cfif checkThis.recordcount is 1>
@@ -243,7 +243,7 @@ from geog_auth_rec where rownum<10
 		</cfif>
 		<cfif len(thisStatus) is 0 and len(FEATURE) gt 0>
 			<!--- this should look for variations on eg NPS, etc. ---->
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(feature) like upper('#FEATURE#')
 			</cfquery>
 			<cfif checkThis.recordcount is 1>
@@ -253,7 +253,7 @@ from geog_auth_rec where rownum<10
 		</cfif>
 		<cfif len(thisStatus) is 0 and len(QUAD) gt 0>
 			<!--- this should look for variations on eg NPS, etc. ---->
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(quad) like upper('#QUAD#%')
 			</cfquery>
 			<cfif checkThis.recordcount is 1>
@@ -265,7 +265,7 @@ from geog_auth_rec where rownum<10
 			<Cfset thisisland=island>
 			<Cfset thisisland=replace(thisisland,' ISL.','%','all')>
 			<Cfset thisisland=replace(thisisland,' ISL','%','all')>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(ISLAND) like upper('#thisisland#')
 			</cfquery>
 			<cfif checkThis.recordcount is 1>
@@ -274,7 +274,7 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfif>
 		<cfif len(thisStatus) is 0 and len(ISLAND_GROUP) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(ISLAND_GROUP) like upper('#ISLAND_GROUP#')
 			</cfquery>
 			<cfif checkThis.recordcount is 1>
@@ -283,7 +283,7 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfif>
 		<cfif len(thisStatus) is 0 and len(SEA) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(SEA) like upper('#SEA#')
 			</cfquery>
 			<cfif checkThis.recordcount is 1>
@@ -292,7 +292,7 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfif>
 		<cfif len(thisStatus) is 0 and len(STATE_PROV) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(STATE_PROV) like upper('#STATE_PROV#')
 			</cfquery>
 			<cfif checkThis.recordcount is 1>
@@ -301,7 +301,7 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfif>
 		<cfif len(thisStatus) is 0 and len(COUNTRY) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(COUNTRY) like upper('#COUNTRY#')
 			</cfquery>
 			<cfif checkThis.recordcount is 1>
@@ -310,7 +310,7 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfif>
 		<cfif len(thisStatus) is 0 and len(CONTINENT_OCEAN) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(CONTINENT_OCEAN) like upper('#CONTINENT_OCEAN#')
 			</cfquery>
 			<cfif checkThis.recordcount is 1>
@@ -320,7 +320,7 @@ from geog_auth_rec where rownum<10
 		</cfif>
 
 		
-		<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			update
 				ds_temp_geog
 			set
@@ -365,7 +365,7 @@ END;
 		<cfset thisCounty=county>
 		<Cfset thisCounty=replace(thisCounty,'CO','','all')>
 		
-		<cfquery name="g1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="g1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				HIGHER_GEOG from geog_auth_rec where
 				upper(CONTINENT_OCEAN) = '#ucase(trim(CONTINENT_OCEAN))#' and
@@ -383,7 +383,7 @@ END;
 		---->
 	</cfloop>
 	
-		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select * from ds_temp_geog
 				order by
 				found_higher_geog,

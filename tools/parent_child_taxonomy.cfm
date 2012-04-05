@@ -21,7 +21,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 	<cfset customOtherIdentifier = '--'>
 <cfelse>
 </cfif>
-<cfquery name="whatIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="whatIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select 
 		pID.scientific_name as parentname,
 		cID.scientific_name as childname,
@@ -111,7 +111,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 		<cfloop list="#child_coll_obj_id#" index="i">
 			<!--- make sure the child only has one parent --->
 			<cftransaction>
-			<cfquery name="numP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="numP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select count(*) c from biol_indiv_relations where
 				BIOL_INDIV_RELATIONSHIP='parent of' AND
 				RELATED_COLL_OBJECT_ID = #i#
@@ -122,20 +122,20 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 				 seems to have #numP.c# parents! That may be good data, but I can't handle it here. Update the ID from the link.
 				<cfabort>
 			</cfif>
-			<cfquery name="pData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="pData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select * from identification where
 				identification.accepted_id_fg=1 and collection_object_id IN (
 				select collection_object_id from biol_indiv_relations where
 				BIOL_INDIV_RELATIONSHIP='parent of' AND
 				RELATED_COLL_OBJECT_ID = #i#)
 			</cfquery>
-			<cfquery name="remOldIf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="remOldIf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				update identification set accepted_id_fg=0 where collection_object_id=#i#
 			</cfquery>
-			<cfquery name="idta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="idta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select * from identification_taxonomy where identification_id=#pData.identification_id#
 			</cfquery>
-			<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			insert into identification (
 				 IDENTIFICATION_ID,
 				 COLLECTION_OBJECT_ID,
@@ -154,7 +154,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 				 '#pData.SCIENTIFIC_NAME#')
 				 </cfquery>
 				 <cfloop query="idta">
-				 	<cfquery name="newTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				 	<cfquery name="newTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into identification_taxonomy (
 						 IDENTIFICATION_ID ,
 						 TAXON_NAME_ID,
@@ -165,7 +165,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 							'#VARIABLE#')
 					 </cfquery>
 				 </cfloop>
-				 <cfquery name="insertida1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				 <cfquery name="insertida1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into identification_agent (
 						IDENTIFICATION_ID,
 						AGENT_ID,

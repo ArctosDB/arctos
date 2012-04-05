@@ -2,16 +2,16 @@
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <cfset title = "Search for Taxonomy">
 <cfset metaDesc = "Search Arctos for taxonomy, including accepted, unaccepted, used, and unused names, higher taxonomy, and common names.">
-<cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select count(*) as cnt from taxonomy
 </cfquery>
-<cfquery name="CTTAXONOMIC_AUTHORITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="CTTAXONOMIC_AUTHORITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
 </cfquery>
-<cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
 </cfquery>
-<cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select taxon_status from cttaxon_status order by taxon_status
 </cfquery>
 <script type="text/javascript" language="javascript">
@@ -245,7 +245,7 @@
 							</td>
 						</tr>
 						<!---
-						<cfquery name="ctClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+						<cfquery name="ctClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 							select distinct(phylclass) from taxonomy order by phylclass
 						</cfquery>
 						---->

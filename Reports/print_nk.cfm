@@ -98,7 +98,7 @@
 	
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfloop query="data">
-<cfquery name="attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select * from attributes where collection_object_id=#collection_object_id#
 </cfquery>
 <cfset meas = "total-tail-hindfoot-ear&equiv;weight">

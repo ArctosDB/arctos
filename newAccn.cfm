@@ -8,13 +8,13 @@
 <cfset title = "Create Accession">
 <cfif #action# is "nothing">
 <cfoutput>
-	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select collection,collection_id from collection order by collection
 	</cfquery>
-	<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select accn_status from ctaccn_status order by accn_status
 	</cfquery>
-	<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select accn_type from ctaccn_type order by accn_type
 	</cfquery>
 	<cfset thisDate = #dateformat(now(),"yyyy-mm-dd")#>
@@ -140,7 +140,7 @@
 							<td>Collection</td>
 							<td>Next Number</td>
 						</tr>
-						<cfquery name="all_coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+						<cfquery name="all_coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 							select * from collection order by collection
 						</cfquery>
 						<cfloop query="all_coll">
@@ -159,7 +159,7 @@
 								<cfset whr=" AND is_number(accn_number)=1">
 							</cfif>
 							<cftry>
-								<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+								<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 									select 
 										 #preservesinglequotes(stg)# nn 
 									from 
@@ -180,7 +180,7 @@
 									#cfcatch.detail#
 									<br>
 									#cfcatch.sql#
-									<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+									<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 										select 
 											 'check data' nn 
 										from 
@@ -216,10 +216,10 @@
 <cfif #Action# is "createAccession">
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="n" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="n" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,session.sessionid)#">
 				select sq_transaction_id.nextval n from dual
 			</cfquery>
-			<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				INSERT INTO trans (
 					TRANSACTION_ID,
 					TRANS_DATE,
@@ -248,7 +248,7 @@
 					#is_public_fg#
 				)
 				</cfquery>
-				<cfquery name="newAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="newAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					INSERT INTO accn (
 						TRANSACTION_ID,
 						ACCN_TYPE
@@ -270,7 +270,7 @@
 						</cfif>
 						)
 				</cfquery>
-				<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into trans_agent (
 						transaction_id,
 						agent_id,
@@ -282,7 +282,7 @@
 					)
 				</cfquery>
 				<cfif len(#trans_agency_id#) gt 0>
-					<cfquery name="newAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,jsessionid)#">
+					<cfquery name="newAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,session.sessionid)#">
 						insert into trans_agent (
 							transaction_id,
 							agent_id,

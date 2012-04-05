@@ -11,7 +11,7 @@ Ziphiidae
 Ursus maritimus
 Enhydra lutris
 <hr>
-<cfquery name="ci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 SELECT count(distinct(cat_num)) cat_items FROM
 	cataloged_item,
 	loan_item,
@@ -40,7 +40,7 @@ WHERE
 #ci.cat_items# distinct cataloged items have been loaned as legacy loan items. 
 Catnum 1 will only be represented 1 time, even though it went out in 12 loans.
 
-<cfquery name="collobj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="collobj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 SELECT count(distinct(cat_num)) cat_items FROM
 	cataloged_item,
 	loan_item,
@@ -72,7 +72,7 @@ WHERE
 #collobj.cat_items# distinct cataloged items that have been loaned as parts. 
 Catnum 1 will only be represented 1 time, even though it went out in 12 loans.
 
-<cfquery name="Allcollobj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="Allcollobj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 SELECT count(loan_item.collection_object_id) cat_items FROM
 	cataloged_item,
 	loan_item,
@@ -105,7 +105,7 @@ WHERE
 Catnum 1 will be represented as many times as it's had a part loaned - 
 spleen and lung in loan 1, then spleen again in loan2=3 hits here.
 
-<cfquery name="AllCI" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="AllCI" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 SELECT count(loan_item.collection_object_id) cat_items FROM
 	cataloged_item,
 	loan_item,

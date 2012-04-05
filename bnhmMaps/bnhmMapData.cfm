@@ -27,7 +27,7 @@
 		</div>
 		<cfabort>
 	</cfif>	
-	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		SELECT
 			'All collections' Collection,
 			0 collection_id,
@@ -81,7 +81,7 @@
 
 	<cfinclude template="/development/MediaSearchSql.cfm">
 	<cfset SqlString = "#basSelect# #basFrom# #basWhere# #srch#">	
-	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 	---->
@@ -123,7 +123,7 @@
 	</cfif>
 	<cfinclude template="/includes/SearchSql.cfm">
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">	
-	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 </cfif><!--- end point map option --->
@@ -141,7 +141,7 @@
 	</cfquery>
 	<cfset thisAddress = #Application.DataProblemReportEmail#>
 	<cfif len(valuelist(collID.collection_id)) gt 0>
-		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select address from
 				electronic_address,
 				collection_contacts
@@ -219,7 +219,7 @@
 		<cfquery name="species" dbtype="query">
 			select distinct(scientific_name) from getMapData
 		</cfquery>
-		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select phylclass,genus || ' ' || species scientific_name from taxonomy where scientific_name in
 			 (#ListQualify(valuelist(species.scientific_name), "'")#)
 			 group by 

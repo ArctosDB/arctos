@@ -3,10 +3,10 @@
 <cfset helpBaseUrl="">
 <cfoutput>
 <cfset metaDesc="Provides plain HTML functinality to search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
-<cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select count(collection_object_id) as cnt from cataloged_item
 </cfquery>
-<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select SEARCH_NAME,URL
 	from cf_canned_search,cf_users
 	where cf_users.user_id=cf_canned_search.user_id
@@ -36,7 +36,7 @@ using the <a href="/SpecimenSearch.cfm">standard search form</a>.
 </table>
 <input type="hidden" name="Action" value="#Action#">
 <div class="secDiv">
-	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		SELECT institution_acronym, collection, collection_id FROM collection order by collection
 	</cfquery>
 	<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
@@ -197,7 +197,7 @@ using the <a href="/SpecimenSearch.cfm">standard search form</a>.
 				Basis of Citation:
 			</td>
 			<td class="srch">
-				<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select type_status from ctcitation_type_status
 				</cfquery>
 				<select name="type_status" id="type_status" size="1">

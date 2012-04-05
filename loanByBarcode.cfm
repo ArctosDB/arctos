@@ -88,7 +88,7 @@
 </script>
 <cfif action is "nothing">
 	<cfoutput>
-		<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				loan_number,
 				loan_type,
@@ -116,7 +116,7 @@
 		<br>loan_instructions: #l.loan_instructions#
 		<br>nature_of_material: #l.nature_of_material#
 		
-		<cfquery name="getPartLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="getPartLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				cat_num, 
 				cataloged_item.collection_object_id,

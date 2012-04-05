@@ -1,4 +1,4 @@
-<cfquery name="f" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="f" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select label,container_id,container_type from container where container_type='freezer' order by label
 </cfquery>
 <cfoutput>
@@ -8,7 +8,7 @@
 		<tr>
 			<td valign="top">#label# - #container_type#</td>
 			<td>
-				<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select label,container_id,container_type from container where parent_container_id=#container_id#
 					order by label
 				</cfquery>
@@ -17,7 +17,7 @@
 					<tr>
 						<td valign="top">#label# - #container_type#</td>
 						<td>
-							<cfquery name="c3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+							<cfquery name="c3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 								select label,container_id,container_type from container where parent_container_id=#container_id#
 								order by label
 							</cfquery>

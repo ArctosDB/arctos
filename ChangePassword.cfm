@@ -70,7 +70,7 @@
 			<br>
 	        <input type="submit" value="Save Password Change" class="savBtn">
 	    </form>
-	    <cfquery name="isGoodEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	    <cfquery name="isGoodEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select email,username from cf_user_data,cf_users
 			 where cf_user_data.user_id = cf_users.user_id and
 			 username= '#session.username#'

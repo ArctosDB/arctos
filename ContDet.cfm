@@ -2,7 +2,7 @@
 <cfif not isdefined("container_id")>
 	<cfabort><!--- need an ID to do anything --->
 </cfif>
-<cfquery name="Detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="Detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	SELECT 
 		cataloged_item.collection_object_id,
 		container.container_id,

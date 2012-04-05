@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 <cfif action is "nothing">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select ip from uam.blacklist order by to_number(replace(ip,'.'))
 	</cfquery>
 	<cfset application.blacklist=valuelist(d.ip)>
@@ -18,7 +18,7 @@
 </cfif>
 <cfif action is "ins">
 	<cftry>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		insert into uam.blacklist (ip) values ('#trim(ip)#')
 	</cfquery>
 	<cflocation url="/Admin/blacklist.cfm">
@@ -28,7 +28,7 @@
 	</cftry>
 </cfif>
 <cfif action is "del">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		delete from uam.blacklist where ip = '#ip#'
 	</cfquery>
 	<cflocation url="/Admin/blacklist.cfm">

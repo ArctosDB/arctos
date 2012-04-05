@@ -11,22 +11,22 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 <cfoutput>
-    <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+    <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select media_relationship from ctmedia_relationship order by media_relationship
 	</cfquery>
-	<cfquery name="ctmedia_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctmedia_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select media_label from ctmedia_label order by media_label
 	</cfquery>
-	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select media_type from ctmedia_type order by media_type
 	</cfquery>
-	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
         <a href="/media.cfm?action=newMedia">[ create media ]</a>
     </cfif> 
-	<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select SEARCH_NAME,URL
 		from cf_canned_search,cf_users
 		where cf_users.user_id=cf_canned_search.user_id
@@ -197,7 +197,7 @@
 	<cfset srch = "#srch# AND rownum <= 500">
 	<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
 	<!--- --->
-	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
 	<table cellpadding="10"><tr>

@@ -35,7 +35,7 @@ Based on:
 </cfif>
 
 <cfif #action# is 'generatePDF'>
-<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select distinct(attribute_type) from ctAttribute_type order by attribute_type
 </cfquery>
 <cfset attList = "">
@@ -128,7 +128,7 @@ returns it as the attribute_type.--->
 		cataloged_item.collection_object_id IN (#collection_object_id#)
 		#order_by#
 ">
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <!----------------------------------------------------------------->
@@ -154,7 +154,7 @@ returns it as the attribute_type.--->
         marginleft="#left_margin#"
         marginright="#right_margin#"
 		unit="in"
-        orientation="landscape" filename="#Application.webDirectory#/temp/report_#left(jsessionid,10)#.pdf" overwrite="true">
+        orientation="landscape" filename="#Application.webDirectory#/temp/report_#left(session.sessionid,10)#.pdf" overwrite="true">
 
 <!---<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">--->
 
@@ -285,7 +285,7 @@ deprecated: see NOTE1*--->
 <!--- end major variables for format and layout --->
 
  <cfloop query="data">
-        <cfquery name="tCollNum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+        <cfquery name="tCollNum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
                 select other_id_number from coll_obj_other_id_num where
                 other_id_type='collector number'
                 and collection_object_id=#collection_object_id#
@@ -614,7 +614,7 @@ cfdocument will not use it. Period
         </cfif>
 </cfloop>
 </cfdocument>
-<a href="/temp/report_#left(jsessionid,10)#.pdf">Get the PDF</a><br />
+<a href="/temp/report_#left(session.sessionid,10)#.pdf">Get the PDF</a><br />
 </cfoutput>
 </cfif> <!--- end the action generatePDF --->
 

@@ -41,7 +41,7 @@
 		</td>
 	</tr>
 </table>
-<cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select * from cf_spec_res_cols order by column_name
 </cfquery>
 <cfquery name="attribute" dbtype="query">

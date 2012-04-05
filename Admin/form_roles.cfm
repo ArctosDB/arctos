@@ -86,7 +86,7 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 	Check or uncheck boxs below to require roles for form access. A form may require any number of roles. 
 	No checks means the form is not available to any user and should be PERMANENTLY DELETED.
 	
-	<cfquery name="roles" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="roles" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select distinct role_name from cf_ctuser_roles order by role_name
 	</cfquery>
 	<cfset path="">
@@ -125,7 +125,7 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 				 <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 					<td style="font-size:small;">#thisName#</td>
 					<cfloop query="roles">
-						<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+						<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 							select * from cf_form_permissions where form_path='#thisName#' and
 							upper(role_name) = '#ucase(role_name)#'					
 						</cfquery>

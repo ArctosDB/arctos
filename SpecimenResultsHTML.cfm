@@ -103,7 +103,7 @@
 			 round(MAX_ELEV_IN_M) MAX_ELEV_IN_M">
 	</cfif><!--- end detail_level 2---->
 	<cfif #detail_level# gte 3>
-		<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select distinct(attribute_type) from ctattribute_type
 		</cfquery>
 		<cfloop query="ctAtt">
@@ -241,7 +241,7 @@
 	<!-------------------------- / dlm debug -------------------------------------->
 	
 	
-	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 	<cfset userSql = #preserveSingleQuotes(SqlString)#>
@@ -272,10 +272,10 @@
 	
 
 <!---- clear old queries from cache and cache flatquery ---->
-	<cfquery name="SpecRes#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
+	<cfquery name="SpecRes#left(session.sessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
 		select * from getData where collection_object_id > 0
 	</cfquery>
-	<cfquery name="SpecRes#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,120,0)#">
+	<cfquery name="SpecRes#left(session.sessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,120,0)#">
 		select * from getData where collection_object_id > 0
 	</cfquery>
 	<cfquery name="uCollObj" dbtype="query">
@@ -296,19 +296,19 @@
 </cfif>
 
 <cfif isdefined("newSearch") and #newSearch# is 1>
-	<cfquery name="SpecRes#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
-		select * from SpecRes#left(jsessionid,10)#
+	<cfquery name="SpecRes#left(session.sessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
+		select * from SpecRes#left(session.sessionid,10)#
 	</cfquery>
-	<cfquery name="mapCount#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
-		select * from SpecRes#left(jsessionid,10)#
+	<cfquery name="mapCount#left(session.sessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,0,0)#">
+		select * from SpecRes#left(session.sessionid,10)#
 	</cfquery>
 </cfif>
-<cfquery name="SpecRes#left(jsessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,120,0)#">
-	select * from SpecRes#left(jsessionid,10)#
+<cfquery name="SpecRes#left(session.sessionid,10)#" dbtype="query" cachedwithin="#createtimespan(0,0,120,0)#">
+	select * from SpecRes#left(session.sessionid,10)#
 </cfquery>
 
 <cfquery name="getBasic" dbtype="query">
-	select * from SpecRes#left(jsessionid,10)# order by #order_by# #order_order#
+	select * from SpecRes#left(session.sessionid,10)# order by #order_by# #order_order#
 </cfquery>
 <!---
 <cfif #getBasic.recordcount# is 1 and #action# is "nothing">
@@ -491,7 +491,7 @@ document.getElementById('saveme').submit();
 					<input type="hidden" name="collobjidlist" value="#collobjidlist#">
 				
 				
-<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select distinct(attribute_type) from ctAttribute_type order by attribute_type
 </cfquery>
 <cfset attList = "">
@@ -503,7 +503,7 @@ document.getElementById('saveme').submit();
 	</cfif>
 </cfloop>
 
-<cfquery name="ctOID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctOID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select distinct(other_id_type) from ctcoll_other_id_type order by other_id_type
 </cfquery>
 <cfset OIDlist = "">
@@ -525,7 +525,7 @@ document.getElementById('saveme').submit();
 	</td>
 </cfif>
 <cfif isdefined("session.loan_request_coll_id") and #session.loan_request_coll_id# gt 0>
-	<cfquery name="active_loan_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="active_loan_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select  USER_LOAN_ID from 
 		cf_user_loan,cf_users where
 		cf_user_loan.user_id=cf_users.user_id and
@@ -943,7 +943,7 @@ document.getElementById('saveme').submit();
 	<cfif listfind(#session.loan_request_coll_id#,#collection_id#,",")>
 	
 		<!--- see if they've already got a part --->
-		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select cf_loan_item.collection_object_id from 
 			cf_loan_item,specimen_part
 			where cf_loan_item.collection_object_id=specimen_part.collection_object_id
@@ -1149,7 +1149,7 @@ document.getElementById('saveme').submit();
 		  from getBasic where collection_object_id = #collection_object_id# group by part_name, partID,coll_obj_disposition
 	  </cfquery>
 	  ---->
-	<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	    select 
 			part_name, 
 			specimen_part.collection_object_id partID, 

@@ -1,6 +1,6 @@
 <cfinclude template = "/includes/_frameHeader.cfm">
 <cfoutput>
-	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	    select distinct 
 	        media.media_id,
 	        media.media_uri,
@@ -21,7 +21,7 @@
     	<h2>Media</h2>
 		<div class="projMediaCell">
 			<cfloop query="media">
-            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select
 						media_label,
 						label_value

@@ -147,7 +147,7 @@
 	</cfif>
 </cfif>
 <cfif action is "shareFL">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		Select * from (
 			Select a.*, rownum rnum From (
 				select
@@ -172,7 +172,7 @@
 </cfif>
 
 <cfif action is "fullDup">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">		
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">		
 		Select * from (
 			Select a.*, rownum rnum From (
 				select
@@ -216,7 +216,7 @@
 			<cfset usedAgentIdList=listappend(usedAgentIdList,id2)>
 			<tr>
 				<td valign="top">
-					<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+					<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 						select
 							agent_name,
 							agent_name_type,
@@ -378,7 +378,7 @@
 					</div>
 				</td>
 				<td valign="top">
-					<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+					<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 						select
 							agent_name,
 							agent_name_type,
