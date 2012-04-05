@@ -13,14 +13,14 @@
 		</form>
 	</cfif>
 	<cfif action is "buildIt">
-		<cfset session.projectReportTable="projTable#left(jsessionid,10)#">
+		<cfset session.projectReportTable="projTable#left(session.sessionid,10)#">
 		<cftry>
-			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				drop table #session.projectReportTable#
 			</cfquery>
 		<cfcatch><!--- not there, so what? ---></cfcatch>
 		</cftry>
-		<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			create table #session.projectReportTable# (
 				report_title varchar2(4000),
 				project_id number,
@@ -36,7 +36,7 @@
 			)
 		</cfquery>
 		<cfif len(project_id) gt 0>
-			<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select
 					project.project_id,
 					project.project_name,
@@ -48,7 +48,7 @@
 					project_id in (#project_id#)
 			</cfquery>
 			<cfloop query="p">
-				<cfquery name="pa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="pa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select 
 						agent_name
 					from
@@ -60,7 +60,7 @@
 					order by
 						AGENT_POSITION
 				</cfquery>
-				<cfquery name="ps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="ps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select 
 						agent_name,
 						ACKNOWLEDGEMENT
@@ -71,7 +71,7 @@
 						project_sponsor.agent_name_id=agent_name.agent_name_id and
 						project_id=#p.project_id#
 				</cfquery>
-				<cfquery name="pan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="pan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select 
 						count(distinct(cataloged_item.collection_object_id)) numSpec
 					from
@@ -83,7 +83,7 @@
 						accn.TRANSACTION_ID=cataloged_item.accn_id and
 						project_id=#p.project_id#
 				</cfquery>
-				<cfquery name="plo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="plo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select 
 						count(distinct(specimen_part.derived_from_cat_item)) numSpec
 					from
@@ -132,7 +132,7 @@
 				<cfelseif len(p.end_date) gt 0>
 					<cfset project_dates=p.end_date>			
 				</cfif>
-				<cfquery name="insProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="insProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into #session.projectReportTable# (
 						report_title,
 						project_id,
@@ -156,7 +156,7 @@
 			</cfloop>
 		</cfif>
 		<cfif len(publication_id) gt 0>
-			<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select
 					publication.publication_id,
 					full_citation formatted_publication,
@@ -172,7 +172,7 @@
 					full_citation
 			</cfquery>
 			<cfloop query="p">
-				<cfquery name="insPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="insPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into #session.projectReportTable# (
 						report_title,
 						publication_id,

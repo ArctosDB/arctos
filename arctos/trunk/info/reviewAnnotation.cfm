@@ -10,7 +10,7 @@
 	<cfset type=''>
 </cfif>
 <cfoutput>
-<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select collection from collection order by collection
 </cfquery>
 <form name="filter" method="get" action="reviewAnnotation.cfm">
@@ -269,7 +269,7 @@
 </cfif>
 <cfif action is "saveReview">
 <cfoutput>
-	<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		update annotations set
 			REVIEWER_AGENT_ID=#session.myAgentId#,
 			REVIEWED_FG=#REVIEWED_FG#,

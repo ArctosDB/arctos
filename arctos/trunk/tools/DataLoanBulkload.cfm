@@ -73,7 +73,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 <!------------------------------------------------------->
 <!------------------------------------------------------->
 <cfif #action# is "getFile">
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		delete from cf_temp_data_loan_item
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -95,12 +95,12 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 		</cfif>	
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into cf_temp_data_loan_item (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<cfquery name="gotit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="gotit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from cf_temp_data_loan_item
 	</cfquery>
 	<cfdump var="#gotit#">
@@ -110,7 +110,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 <cfif action is "verify">
 <cfoutput>
 <cftransaction>
-	<cfquery name="loanID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="loanID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		update 
 			cf_temp_data_loan_item 
 		set 
@@ -128,16 +128,16 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 				loan.loan_number = cf_temp_data_loan_item.loan_number
 			)
 	</cfquery>
-	<cfquery name="missedMe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="missedMe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		update cf_temp_data_loan_item set status = 'loan not found' where
 		transaction_id is null
 	</cfquery>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from cf_temp_data_loan_item where status is null
 	</cfquery>  
 		<cfloop query="data">
 			<cfif other_id_type is "catalog number">
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select 
 						cataloged_item.collection_object_id 
 					from
@@ -150,7 +150,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 						cat_num = '#other_id_number#'
 				</cfquery>
 			<cfelse>
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select 
 						cataloged_item.collection_object_id 
 					from
@@ -168,7 +168,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 			</cfif>
 			<cfif collObj.recordcount is 1 and len(collObj.collection_object_id) gt 0>
 				collObj.recordcount is 1....
-				<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					update
 						cf_temp_data_loan_item
 					set
@@ -177,7 +177,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					where
 						key=#key#
 				</cfquery>
-				<cfquery name="defDescr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="defDescr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					update 
 						cf_temp_data_loan_item 
 						set (ITEM_DESCRIPTION)
@@ -194,7 +194,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 				</cfquery>
 			<cfelse>
 				no CI
-				<cfquery name="BooCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="BooCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					update
 						cf_temp_data_loan_item
 					set
@@ -205,7 +205,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 			</cfif>
 		</cfloop>
 	</cftransaction>
-	<cfquery name="done" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="done" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from cf_temp_data_loan_item
 	</cfquery> 
 	<cfdump var=#done#>
@@ -224,12 +224,12 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 <!------------------------------------------------------->
 <cfif #action# is "loadData">
 <cfoutput>
-	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from cf_temp_data_loan_item
 	</cfquery>
 	<cftransaction>
 		<cfloop query="getTempData">
-			<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				INSERT INTO loan_item (
 					transaction_id,
 					collection_object_id,

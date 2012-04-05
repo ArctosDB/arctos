@@ -41,7 +41,7 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
-		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			SELECT agent_name, agent_id from agent_name where
 				UPPER(agent_name) LIKE '%#ucase(agentname)#%'
 				AND agent_name_type = 'preferred'

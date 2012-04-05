@@ -1,7 +1,7 @@
 <cfoutput>
 	<cfif isdefined("session.portal_id") and session.portal_id gt 0>
 		<cftry>
-			<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select a.part_name
 				from (
 				        select part_name, partname
@@ -13,7 +13,7 @@
 				order by a.partname asc, a.part_name
 			</cfquery>
 			<cfcatch>
-				<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 					select a.part_name
 					from (
 					        select part_name, partname
@@ -27,7 +27,7 @@
 			</cfcatch>
 		</cftry>
 	<cfelse>
-		<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select a.part_name
 			from (
 			        select part_name, partname

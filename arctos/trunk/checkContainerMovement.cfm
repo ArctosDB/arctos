@@ -15,7 +15,7 @@
 ---->
 <!---- get the scans we care about ---->
 <cfif #action# is "makeParentLabelsUnknown">
-<cfquery name="isParentLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="isParentLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select container_type,container.container_id
 	 from cf_temp_container_location,container
 	  where container.container_id = cf_temp_container_location.parent_container_id
@@ -23,7 +23,7 @@
 </cfquery>
 <cfoutput>
 	<cfloop query="isParentLabel">
-		<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			update container set container_type='unknown'
 			where container_id=#container_id#
 		</cfquery>
@@ -40,7 +40,7 @@
 			<cfset cid = listgetat(p,1,"|")>
 			<cfset pid = listgetat(p,2,"|")>
 			<cfset ts = listgetat(p,3,"|")>
-			<cfquery name="DIE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="DIE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				delete from cf_temp_container_location where
 				container_id=#cid# and
 				parent_container_id=#pid# and
@@ -55,11 +55,11 @@
 <cfif #action# is "loadEverything">
 	<cftry>
 		<cftransaction>
-			<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select * from cf_temp_container_location
 			</cfquery>
 			<cfloop query="data">
-				<cfquery name="insThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="insThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					UPDATE container SET
 						parent_container_id = #parent_container_id#,
 						parent_install_date='#timestamp#'
@@ -81,14 +81,14 @@
 </cfif>
 <!---------------------------------------------------->
 <cfif #action# is "deleteEverything">
-	<cfquery name="diediedie" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="diediedie" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		delete from cf_temp_container_location
 	</cfquery>
 	<cflocation url="checkContainerMovement.cfm" addtoken="no">
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif #action# is "deleteLoaded">
-	<cfquery name="delAlreadyLoaded" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="delAlreadyLoaded" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		delete from cf_temp_container_location where (
 			container_id,
 			parent_container_id,
@@ -107,7 +107,7 @@
 <!----------------------------------------------------------------------------------->
 <cfif #action# is "makeChildLabelsUnknown">
 
-<cfquery name="isChildLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="isChildLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select 
 		container_type,
 		container.container_id,
@@ -118,7 +118,7 @@
 </cfquery>
 <cfoutput>
 	<cfloop query="isChildLabel">
-		<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			update container set container_type='#container_type#'
 			where container_id=#container_id#
 		</cfquery>
@@ -134,19 +134,19 @@
 <cfoutput>
 <!--- kill true duplicates --->
 <cftry>
-	<cfquery name="byenow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="byenow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		drop table cf_temp_container_location_two
 	</cfquery>
 	<cfcatch>bahhh</cfcatch>
 </cftry>
 	<cftransaction>
-		<cfquery name="bethere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="bethere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			create table cf_temp_container_location_two as select * from cf_temp_container_location
 		</cfquery>
-		<cfquery name="beGone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="beGone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			delete from cf_temp_container_location
 		</cfquery>
-		<cfquery name="noDups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="noDups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			insert into cf_temp_container_location (
 				 CONTAINER_ID,
 				 PARENT_CONTAINER_ID,
@@ -162,11 +162,11 @@
 				 TIMESTAMP
 		</cfquery>
 	</cftransaction>
-	<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select container_type from ctcontainer_type
 		where container_type <> 'collection object'
 	</cfquery>
-<cfquery name="isChildLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="isChildLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select 
 		container_type,
 		container.container_id,
@@ -210,7 +210,7 @@
 	</cfif>
 	<hr />
 	
-	<cfquery name="isParentLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="isParentLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select container_type,container.container_id,label
 	 from cf_temp_container_location,container
 	  where container.container_id = cf_temp_container_location.parent_container_id
@@ -242,7 +242,7 @@
 
 
 
-<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select 
 		CONTAINER_ID,
 		count(CONTAINER_ID)
@@ -254,7 +254,7 @@
 <cfset dupId = valuelist(dups.container_id)>
 <cfif #dups.recordcount# gt 0>
 	You may continue, but there are no guarantees about where they'll end up! Locations are NOT sorted by date.
-	<cfquery name="dupDetail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="dupDetail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 		CONTAINER_ID,
 		get_container_barcode(container_id) child_barcode,
@@ -284,12 +284,12 @@
 
 
 
-<cfquery name="howMany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="howMany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	SELECT container_id, parent_container_id, timestamp FROM cf_temp_container_location
 	group by
 	container_id, parent_container_id, timestamp 
 </cfquery>
-<cfquery name="isMatches" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="isMatches" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select 
 		cf_temp_container_location.container_id,
 		cf_temp_container_location.parent_container_id,
@@ -365,7 +365,7 @@
 		<td>Delete</td>
 	</tr>
 	<cfset globalError = "">
-<cfquery name="scans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="scans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	SELECT container_id, parent_container_id, 
 	to_char(timestamp,'yyyy-mm-ddTHH24:MI:SS') timestamp	
 	 FROM cf_temp_container_location
@@ -379,10 +379,10 @@
 	<!--- we already have container_ids and a timestamp in date format;
 		don't worry about checking that ---->
 	<!--- get container info and check standard stoopidity ---->
-	<cfquery name="child" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="child" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from container where container_id = #container_id#
 	</cfquery>
-	<cfquery name="parent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="parent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from container where container_id = #parent_container_id#
 	</cfquery>
 	

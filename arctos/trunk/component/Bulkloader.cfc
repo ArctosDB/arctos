@@ -2,7 +2,7 @@
 
 <cffunction name="getExistingCatItemData" access="remote">
 	<cfargument name="collection_object_id" required="yes">
-	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select
 			collecting_event_id,
 			collectors,
@@ -18,7 +18,7 @@
 <cffunction name="splitGeog" access="remote">
 	<cfargument name="geog" required="yes">
 	<cfargument name="specloc" required="yes">
-	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select
 			country,
 			county,
@@ -45,7 +45,7 @@
 <cffunction name="geolocate" access="remote">
 	<cfargument name="geog" required="yes">
 	<cfargument name="specloc" required="yes">
-	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select
 			country,
 			county,
@@ -127,7 +127,7 @@
 
 <cffunction name="loadRecord" access="remote">
 	<cfargument name="collection_object_id" required="yes">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from bulkloader where collection_object_id=#collection_object_id#
 	</cfquery>
 	<cfreturn d>
@@ -138,11 +138,11 @@
 <cffunction name="deleteRecord" access="remote">
 	<cfargument name="collection_object_id" required="yes">
 	<cftransaction>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			delete from bulkloader where collection_object_id=#collection_object_id#
 		</cfquery>
 	</cftransaction>
-	<cfquery name="next" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="next" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select #collection_object_id# oldValue, max(collection_object_id) nextValue from bulkloader 
 		where enteredby = '#session.username#'
 	</cfquery>
@@ -158,7 +158,7 @@
 	<cfelse>
 		<cfset thisValue=0>
 	</cfif>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		update cf_dataentry_settings set #element# = #thisValue# where username='#session.username#'
 	</cfquery>
 	<cfreturn 1>
@@ -168,7 +168,7 @@
 <!----------------------------------------------------------------------------------------->
 
 <cffunction name="getPrefs" access="remote">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from cf_dataentry_settings where username='#session.username#'
 	</cfquery>
 	<cfreturn d>
@@ -201,10 +201,10 @@
 		<cfset sql = replace(sql,"UPDATE bulkloader SET ,","UPDATE bulkloader SET ")>			
 		<cftry>
 			<cftransaction>
-				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					#preservesinglequotes(sql)#
 				</cfquery>
-				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select #collection_object_id# collection_object_id, bulk_check_one(#collection_object_id#) rslt from dual
 				</cfquery>
 			</cftransaction>
@@ -255,13 +255,13 @@
 		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">	
 		<cftry>
 			<cftransaction>
-				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					#preservesinglequotes(sql)#
 				</cfquery>
-				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select bulkloader_PKEY.currval as currval from dual
 				</cfquery>
-				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
 				</cfquery>
 			</cftransaction>
@@ -302,7 +302,7 @@
 	</cfif>
 	<cfset sql=sql & " order by #gridsortcolumn# #gridsortdirection#">
 
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfoutput>
@@ -316,7 +316,7 @@
 	<cfoutput>
 		<cfset colname = StructKeyList(cfgridchanged)>
 		<cfset value = cfgridchanged[colname]>
-		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			update bulkloader set  #colname# = '#value#'
 			where collection_object_id=#cfgridrow.collection_object_id#
 		</cfquery>

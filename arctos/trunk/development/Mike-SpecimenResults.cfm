@@ -104,7 +104,7 @@ function removeHelpDiv() {
 <cfif not isdefined("session.resultColumnList")>
 	<cfset session.resultColumnList=''>
 </cfif>
-<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select * from cf_spec_res_cols order by disp_order
 </cfquery>
 <cfquery name="reqd" dbtype="query">
@@ -169,10 +169,10 @@ function removeHelpDiv() {
 		<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
 		<cfabort>
 	</cfif>
-<cfset thisTableName = "SearchResults_#left(jsessionid,10)#">	
+<cfset thisTableName = "SearchResults_#left(session.sessionid,10)#">	
 <!--- try to kill any old tables that they may have laying around --->
 <cftry>
-	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		drop table #session.SpecSrchTab#
 	</cfquery>
 	<cfcatch><!--- not there, so what? --->
@@ -184,7 +184,7 @@ function removeHelpDiv() {
 	#preserveSingleQuotes(SqlString)#
 </cfif>
 <cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
-	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 <form name="defaults">
@@ -200,7 +200,7 @@ function removeHelpDiv() {
 			<input type="hidden" name="loan_request_coll_id" id="loan_request_coll_id" value="#loan_request_coll_id#">
 	</cfif>
 </form>
-	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select distinct collection_object_id from #session.SpecSrchTab#
 	</cfquery>
 <cfif summary.recordcount is 0>
@@ -247,7 +247,7 @@ function removeHelpDiv() {
 <script>
 	hidePageLoad();
 </script>
-<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select count(distinct(collection_object_id)) cnt from #session.SpecSrchTab# where dec_lat is not null and dec_long is not null
 </cfquery>
 

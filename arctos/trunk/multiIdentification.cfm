@@ -10,10 +10,10 @@
 	<!--- edit IDs for a list of specimens passed in from specimenresults --->
 	<!--- no security --->
 <cfset title = "Edit Identification">
-<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select nature_of_id from ctnature_of_id
 </cfquery>
-<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select taxa_formula from cttaxa_formula order by taxa_formula
 </cfquery>
 <cfoutput>
@@ -185,7 +185,7 @@
   
   
 
-<cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	 SELECT 
 	 	cataloged_item.collection_object_id as collection_object_id, 
 		cat_num,
@@ -287,10 +287,10 @@
 <!--- looop through the collection_object_list and update things one at a time--->
 	<cftransaction>
 		<cfloop list="#collection_object_id#" index="i">
-		<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #i#
 		</cfquery>
-		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			INSERT INTO identification (
 				IDENTIFICATION_ID,
 				COLLECTION_OBJECT_ID
@@ -318,7 +318,7 @@
 				,'#taxa_formula#'
 				,'#scientific_name#')
 			</cfquery>
-			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into identification_agent (
 					identification_id,
 					agent_id,
@@ -330,7 +330,7 @@
 					)
 			</cfquery>
 			 <cfif len(#newIdById_two#) gt 0>
-				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into identification_agent (
 						identification_id,
 						agent_id,
@@ -343,7 +343,7 @@
 				</cfquery>
 			 </cfif>
 			 <cfif len(#newIdById_three#) gt 0>
-				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into identification_agent (
 						identification_id,
 						agent_id,
@@ -355,7 +355,7 @@
 						)
 				</cfquery>
 			 </cfif>
-			 <cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			 <cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				INSERT INTO identification_taxonomy (
 					identification_id,
 					taxon_name_id,
@@ -366,7 +366,7 @@
 					'A')
 			 </cfquery>
 			 <cfif #taxa_formula# contains "B">
-				 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					INSERT INTO identification_taxonomy (
 						identification_id,
 						taxon_name_id,

@@ -74,7 +74,7 @@
 
 <cfif #action# is "nothing">
 	<cfoutput>
-	<cfquery name="aBox" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="aBox" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from container where container_id=#container_id#
 	</cfquery>
 	
@@ -118,7 +118,7 @@
 	<!---global--->
 	<cfset thisLabel = 1>
 		<!---- see is positions are used ---->
-		<cfquery name="whatPosAreUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="whatPosAreUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select container_id, container_type, label from container
 			where parent_container_id = #aBox.container_id#
 		</cfquery>
@@ -176,7 +176,7 @@
 				</cfif>
 			</cfloop>
 			<!---- made it through the checks, now actually do stuff --->
-			<cfquery name="positionContents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="positionContents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select 
 					posCon.container_id ,
 					posCon.label contentLabel,
@@ -270,7 +270,7 @@
 	<!--- generate a list of child/parent/timestamp and put it into the standard container upload table ---->
 	<cfoutput>
 		<cfset oops = "">
-		<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			delete from cf_temp_container_location
 		</cfquery>
 		<cftransaction>
@@ -281,7 +281,7 @@
 				<cfset thisParentId = #evaluate("position_id" & bc)#>
 				<cfif len(#thisBarcode#) gt 0>
 					
-						<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+						<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 							select container_id from container where barcode='#thisBarcode#'
 							<!--- we should only be putting cyrovials in box positions ---->
 							AND container_type = 'cryovial'						
@@ -289,13 +289,13 @@
 							
 						<cfif #thisID.recordcount# is 0>
 								<!--- see if it's a label --->
-								<cfquery name="isLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+								<cfquery name="isLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 									select container_id from container where barcode='#thisBarcode#'
 									AND container_type = 'cryovial label'
 								</cfquery>
 								<cfif #isLabel.recordcount# is 1>
 									<!--- switch --->
-									<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+									<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 										update container set container_type='cryovial'
 										where container_id=#isLabel.container_id#
 									</cfquery>
@@ -310,7 +310,7 @@
 						
 					<cfif len(#thisContainerId#) gt 0>
 						
-						<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+						<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 							INSERT INTO cf_temp_container_location (
 								CONTAINER_ID,
 								PARENT_CONTAINER_ID,
@@ -329,7 +329,7 @@
 		</cftransaction>
 		<CFIF LEN(#oops#) gt 0>
 			<!--- cleanup on isle no container.... ---->
-			<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				delete from cf_temp_container_location
 			</cfquery>
 			<hr><font color="##FF0000">#oops#</font>			
@@ -371,7 +371,7 @@
 			<hr><font color="##FF0000">I can't deal with #number_positions# positions in a #container_type#!</font>			
 			<cfabort>
 		</cfif>
-		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select count(*) c from container where parent_container_id=#container_id#
 		</cfquery>
 		<cfif isThere.c gt 0>
@@ -384,7 +384,7 @@
 		<cftransaction>
 			<!--- make number_positions new containers, lock them, and put them in this box ---->
 			<cfloop from="1" to="#number_positions#" index="i">
-				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				INSERT INTO container (
 					CONTAINER_ID,
 					PARENT_CONTAINER_ID,

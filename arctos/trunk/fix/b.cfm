@@ -1,6 +1,6 @@
 <cfcontent type="application/rdf+xml; charset=ISO-8859-1">
 <cfinclude template="/includes/functionLib.cfm">
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select 
 		filtered_flat.LAST_EDIT_DATE,
 		guid,

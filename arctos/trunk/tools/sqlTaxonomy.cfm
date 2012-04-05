@@ -62,17 +62,17 @@
 		});
 	});
 </script>
-<cfquery name="CTTAXONOMIC_AUTHORITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="CTTAXONOMIC_AUTHORITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
 </cfquery>
-<cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
 </cfquery>
 
-<cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select taxon_status from cttaxon_status order by taxon_status
 </cfquery>
-<cfquery name="ctinfraspecific_rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctinfraspecific_rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select infraspecific_rank from ctinfraspecific_rank order by infraspecific_rank
 </cfquery>
 	Find taxa
@@ -334,7 +334,7 @@
 		<CFSET SQL = "#SQL# and rownum < 1000">
 		<p><strong>CHECK THIS SQL BEFORE YOU DO ANYTHING ELSE!!!!!!!!!!!!!</strong></p>
 		<hr>#sql#<hr>
-		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			#preservesinglequotes(sql)#			
 		</cfquery>
 		<strong>Found #getData.recordcount# records.</strong>
@@ -426,7 +426,7 @@
 		<cfset badIdList="">
 		<cfloop list="#taxonnameidlist#" index="i">
 			<cftry>
-				<cfquery name="upTax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="upTax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					update taxonomy set #upFld# =  '#upTo#' where taxon_name_id = #i#
 				</cfquery>
 				<br>update taxonomy set #upFld# =  '#upTo#' where taxon_name_id = #i#: success!

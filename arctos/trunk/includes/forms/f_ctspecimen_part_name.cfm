@@ -2,10 +2,10 @@
 <span class="likeLink" onclick="parent.doneSaving()">[ Remove this window ]</span>
 <br>
 <cfif action is "nothing">
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select * from ctspecimen_part_name where ctspnid=#ctspnid#
 </cfquery>
-<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select distinct collection_cde from ctcollection_cde order by collection_cde
 </cfquery>
 <cfoutput>
@@ -53,7 +53,7 @@
 <cfoutput>
 	<cftry>
 	<cftransaction>
-		<cfquery name="usp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="usp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			update ctspecimen_part_name set
 				collection_cde='#collection_cde#',
 				part_name='#part_name#',
@@ -62,7 +62,7 @@
 			where ctspnid=#ctspnid#
 		</cfquery>
 		<cfif upAllDesc is 1>
-			<cfquery name="upalld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="upalld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				update ctspecimen_part_name set
 				description='#description#'
 				where
@@ -70,7 +70,7 @@
 			</cfquery>
 		</cfif>
 		<cfif upAllTiss is 1>
-			<cfquery name="upallt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="upallt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				update ctspecimen_part_name set
 				is_tissue=#is_tissue#
 				where

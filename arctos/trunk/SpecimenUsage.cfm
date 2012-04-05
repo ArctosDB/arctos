@@ -4,13 +4,13 @@
 		<cflocation url="SpecimenUsage.cfm?action=search&publication_id=#publication_id#" addtoken="false">
 	</cfif>
 	<cfset title = "Search for Results">
-	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select collection,collection_id from collection order by collection
 	</cfquery>
-	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select publication_type from ctpublication_type order by publication_type
 	</cfquery>
-	<cfquery name="ctAgentRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctAgentRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select agent_role from (
 			select PROJECT_AGENT_ROLE agent_role from CTPROJECT_AGENT_ROLE
 			union
@@ -232,7 +232,7 @@
 		</cfif>
 		<cfset sql = "#sel# #frm# #whr# ORDER BY project_name">
 		<cfset checkSql(sql)>
-		<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 		<cfquery name="projNames" dbtype="query">
@@ -374,7 +374,7 @@
 			ORDER BY 
 				publication.full_citation,
 				publication.publication_id">
-		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			#preservesinglequotes(basSQL)#
 		</cfquery>
 		<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
@@ -502,7 +502,7 @@
 							<li><a href="/Project.cfm?action=addPub&publication_id=#publication_id#&project_id=#toproject_id#">Add to Project</a></li>
 						</cfif>
 					</cfif>
-					<cfquery name="pubmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+					<cfquery name="pubmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 						select 
 							media.media_id,
 							media_type,
@@ -522,7 +522,7 @@
 							<div class="thumb_spcr">&nbsp;</div>
 								<cfloop query="pubmedia">
 									<cfset puri=getMediaPreview(preview_uri,media_type)>
-					            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+					            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 										select
 											media_label,
 											label_value

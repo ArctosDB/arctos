@@ -1,5 +1,5 @@
 <cfoutput>
-	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select regexp_replace(project.project_name,'<[^>]*>') project_name from project where upper(regexp_replace(project.project_name,'<[^>]*>')) like '%#ucase(q)#%'
 		order by project_name
 	</cfquery>

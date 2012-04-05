@@ -101,7 +101,7 @@ sho err
 
 <!------------------------------------------------------->
 <cfif action is "killMine">
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		delete from cf_temp_media where username='#session.username#' and status in (#ListQualify(status,"'")#)
 	</cfquery>
 	<a href="BulkloadMedia.cfm?action=myStuff">return to my records</a>
@@ -109,7 +109,7 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "csv">
 	<cfoutput>
-		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select * from cf_temp_media where username='#session.username#' order by key
 		</cfquery>
 		<cfset variables.encoding="UTF-8">
@@ -143,7 +143,7 @@ sho err
 <cfif action is "myStuff">
 	<cfset title=title&": My Stuff">
 	<cfoutput>
-		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select * from cf_temp_media where username='#session.username#' order by key
 		</cfquery>
 		<cfquery name="ss" dbtype="query">
@@ -266,7 +266,7 @@ sho err
 		<input type="submit" value="get template">
 	</form>
 <hr>
-<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select count(*) c from cf_temp_media where username='#session.username#'
 </cfquery>
 <cfif isThere.c gt 0>
@@ -320,7 +320,7 @@ Upload a comma-delimited text file (csv).
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into cf_temp_media (#colNames#,username) values (#preservesinglequotes(colVals)#,'#session.username#')
 			</cfquery>
 		</cfif>

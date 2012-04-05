@@ -4,14 +4,14 @@
 	<div class="error">Error.</div>
 	<cfabort>
 </cfif>
-<cfquery name="isThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="isThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,session.sessionid)#">
 	select count(*) c from attributes where attribute_type='image confirmed' and collection_object_id=#url.collection_object_id#
 </cfquery>
 <cfif isThere.c is 1>
 	<div class="error">This image is already confirmed. Check Attributes.</div>
 	<cfabort>
 </cfif>		
-<cfquery name="newAtt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="newAtt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,session.sessionid)#">
 	insert into attributes (
 		COLLECTION_OBJECT_ID,
 		DETERMINED_BY_AGENT_ID,

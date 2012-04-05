@@ -19,26 +19,26 @@
 		$('#commentiframe').attr('src', guts);
 	}
 </script>
-<cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select media_relationship from ctmedia_relationship order by media_relationship
 </cfquery>
-<cfquery name="ctmedia_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctmedia_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select media_label from ctmedia_label order by media_label
 </cfquery>
-<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select media_type from ctmedia_type order by media_type
 </cfquery>
-<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select mime_type from ctmime_type order by mime_type
 </cfquery>
-<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="ctmedia_license" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select media_license_id,display media_license from ctmedia_license order by display
 </cfquery>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "saveEdit">
 	<cfoutput>
 	<!--- update media --->
-	<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		update media set
 		media_uri='#escapeQuotes(media_uri)#',
 		mime_type='#mime_type#',
@@ -61,7 +61,7 @@
 			<cfset thisRelationID=-1>
 		</cfif>
 		<cfif thisRelationID is -1>
-			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into media_relations (
 					media_id,media_relationship,related_primary_key
 				) values (
@@ -69,13 +69,13 @@
 			</cfquery>
 		<cfelse>
 			<cfif #thisRelationship# is "delete">
-				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					delete from 
 						media_relations
 					where media_relations_id=#thisRelationID#
 				</cfquery>
 			<cfelse>
-				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					update 
 						media_relations
 					set
@@ -95,19 +95,19 @@
 			<cfset thisLabelID=-1>
 		</cfif>
 		<cfif thisLabelID is -1>
-			<cfquery name="makeLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="makeLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into media_labels (media_id,media_label,label_value)
 				values (#media_id#,'#thisLabel#','#thisLabelValue#')
 			</cfquery>
 		<cfelse>
 			<cfif #thisLabel# is "delete">
-				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					delete from 
 						media_labels
 					where media_label_id=#thisLabelID#
 				</cfquery>
 			<cfelse>
-				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					update 
 						media_labels
 					set
@@ -123,11 +123,11 @@
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "edit">
-	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from media where media_id=#media_id#
 	</cfquery>
 	<cfset relns=getMediaRelations(#media_id#)>
-	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select
 			media_label,
 			label_value,
@@ -140,7 +140,7 @@
 			media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
 			media_id=#media_id#
 	</cfquery>
-	<cfquery name="tag"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="tag"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select count(*) c from tag where media_id=#media_id#
 	</cfquery>
 
@@ -276,7 +276,7 @@
 
 <!----------------------------------------------------------------------------------------->
 <cfif action is "delMedia">
-	<cfquery name="deleteMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="deleteMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		delete from media where media_id=#media_id#
 	</cfquery>
 	<cfoutput>
@@ -356,7 +356,7 @@
 				onmouseout="this.className='insBtn'">
 		</form>
 		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-			<cfquery name="s"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="s"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select guid from flat where collection_object_id=#collection_object_id#
 			</cfquery>
 			<script language="javascript" type="text/javascript">
@@ -371,11 +371,11 @@
 <cfif #action# is "saveNew">
 <cfoutput>
 	<cftransaction>
-		<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select sq_media_id.nextval nv from dual
 		</cfquery>
 		<cfset media_id=mid.nv>
-		<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			insert into media (media_id,media_uri,mime_type,media_type,preview_uri<cfif len(media_license_id) gt 0>,media_license_id</cfif>)
             values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#'<cfif len(media_license_id) gt 0>,#media_license_id#</cfif>)
 		</cfquery>
@@ -384,7 +384,7 @@
 			<cfset thisRelatedId = #evaluate("related_id__" & n)#>
 			<cfset thisTableName=ListLast(thisRelationship," ")>
 			<cfif len(#thisRelationship#) gt 0 and len(#thisRelatedId#) gt 0>
-				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into 
 						media_relations (
 						media_id,media_relationship,related_primary_key
@@ -397,7 +397,7 @@
 			<cfset thisLabel = #evaluate("label__" & n)#>
 			<cfset thisLabelValue = #evaluate("label_value__" & n)#>
 			<cfif len(#thisLabel#) gt 0 and len(#thisLabelValue#) gt 0>
-				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into media_labels (media_id,media_label,label_value)
 					values (#media_id#,'#thisLabel#','#thisLabelValue#')
 				</cfquery>

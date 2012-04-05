@@ -17,7 +17,7 @@
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
 <cfelseif action is "afnum">
-	<cfquery name="afnum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="afnum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select display_value as af from coll_obj_other_id_num where other_id_type='AF'
 	</cfquery>
 	<cffile action="write" file="#application.webDirectory#/temp/afnum.txt" addnewline="yes" output="afnum">
@@ -29,7 +29,7 @@
 <cfelseif action is "taxonomy">
 	<cffile action="write" file="#application.webDirectory#/download/taxonomy.csv" addnewline="yes" output="">
 
-	<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select scientific_name,phylclass from taxonomy
 	</cfquery>
 	<cfloop query="taxonomy">
@@ -54,7 +54,7 @@
 	--->
 	<cflocation url="/download.cfm?file=taxonomy.csv">
 <cfelseif action is  "agentnames">
-	<cfquery name="agentnames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="agentnames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select agent_name from agent_name<cfif isdefined("prefOnly")> where agent_name_type='preferred'</cfif>
 	</cfquery>
 	<cfset variables.fileName="#Application.webDirectory#/download/agent_name.csv">
@@ -72,7 +72,7 @@
 	</cfscript>
 	<cflocation url="/download.cfm?file=agent_name.csv">
 <cfelseif #action# is "highergeog">
-	<cfquery name="higher_geog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="higher_geog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select higher_geog from geog_auth_rec order by higher_geog
 	</cfquery>
 	<cfset variables.fileName="#Application.webDirectory#/download/higher_geog.csv">
@@ -258,7 +258,7 @@
 		
 		
 		<!---
-		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select scientific_name from taxonomy order by scientific_name
 		</cfquery>
 		<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/taxonomy.csv">
@@ -281,7 +281,7 @@
 		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
 		
 		<!---
-		<cfquery name="agent_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="agent_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select agent_name from agent_name order by agent_name
 		</cfquery>
 		<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/agent_name.csv">
@@ -304,7 +304,7 @@
 		<cffile action="append" file="#Application.webDirectory#/temp/ctzip/imp.sql" addnewline="no" output="#ss#">
 		
 		<!---
-		<cfquery name="higher_geog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="higher_geog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select higher_geog from geog_auth_rec order by higher_geog
 		</cfquery>
 		<cfset variables.fileName="#Application.webDirectory#/temp/ctzip/higher_geog.csv">

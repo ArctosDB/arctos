@@ -16,7 +16,7 @@
 		<cfset fn="#replace(scientific_name,' ','-','all')#.kml">
 	</cfif>
 	<cfif not fileexists("#internalPath##fn#")>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		 	select 
 		 		count(*) c,
 		 		locality_id,

@@ -61,7 +61,7 @@
 	</tr>
 	<tr>
 		<td align="right">Purpose of Download</td>
-		<cfquery name="ctPurpose" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="ctPurpose" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select * from ctdownload_purpose
 		</cfquery>
 		<td>
@@ -188,7 +188,7 @@ do not agree</font>.</a>
 		</cfif>
 	<!--- if they agree to the terms, send them to their download --->
 	<cfif agree is "yes">
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 		<cfdump var=#findIDs#>
@@ -196,7 +196,7 @@ do not agree</font>.</a>
 		<cfset fileDir = Application.webDirectory>
 		<cfoutput>
 			<cfset variables.encoding="UTF-8">
-			<cfset fname = "ArctosMedia_#left(jsessionid,10)#.csv">
+			<cfset fname = "ArctosMedia_#left(session.sessionid,10)#.csv">
 			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 			<cfscript>
 				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);

@@ -13,7 +13,7 @@
 		});
 	});
 </script>
-<cfquery name="ctNatureOfId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctNatureOfId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	SELECT DISTINCT(nature_of_id) FROM ctnature_of_id ORDER BY nature_of_id
 </cfquery>
 <cfoutput>

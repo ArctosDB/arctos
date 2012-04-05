@@ -16,7 +16,7 @@
 
 <cfif #action# is "nothing">
 	<cfif isdefined("report") and len(#report#) gt 0>
-		<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select report_id from cf_report_sql where upper(report_name)='#ucase(report)#'
 		</cfquery>
 		<cfif id.recordcount is 1 and id.report_id gt 0>
@@ -28,7 +28,7 @@
 		</cfif>
 	</cfif>
 	<a href="reporter.cfm" target="_blank">Manage Reports</a>
-	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	    select * from cf_report_sql order by report_name
 	</cfquery>
 	 
@@ -48,7 +48,7 @@
 </cfif>
 <!------------------------------------------------------>
 <cfif #action# is "print">
-	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	    select * from cf_report_sql where report_id=#report_id#
 	</cfquery>
 	<cfif len(e.sql_text) gt 0>
@@ -85,12 +85,12 @@
 		</cfif>
 		<hr>#ssql#<hr>
 	 	<cftry>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				#preservesinglequotes(ssql)#
 			</cfquery>
 		<cfcatch>
 			<!--- sort can screw the pooch if they try to sort by things that aren't in the query --->
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				#preservesinglequotes(sql)#
 			</cfquery>
 		</cfcatch>

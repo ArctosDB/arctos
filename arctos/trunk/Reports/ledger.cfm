@@ -126,7 +126,7 @@ returns it as the attribute_type.--->
 		cataloged_item.collection_object_id IN (#collection_object_id#)
 		#order_by#
 ">
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 
@@ -154,7 +154,7 @@ the option to choose these parameters.  in that case, remove these lines--->
         marginright=".25"
 		unit="in"
         orientation="landscape" 
-		filename="#Application.webDirectory#/temp/ledger_#left(jsessionid,10)#.pdf" overwrite="true">
+		filename="#Application.webDirectory#/temp/ledger_#left(session.sessionid,10)#.pdf" overwrite="true">
 
 <!---<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">--->
 
@@ -479,7 +479,7 @@ is 1 inch, even => bottom side is 1 inch. --->
         </cfif>
 </cfloop>
 </cfdocument>
-<a href="/temp/ledger_#left(jsessionid,10)#.pdf">Get the PDF</a><br />
+<a href="/temp/ledger_#left(session.sessionid,10)#.pdf">Get the PDF</a><br />
 </cfoutput>
 </cfif> <!--- end the action generatePDF --->
 

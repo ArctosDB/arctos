@@ -1,25 +1,25 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 
 
-<cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
 </cfquery>
-<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_type from ctagent_type order by agent_type
 </cfquery>
-<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select addr_type from ctaddr_type order by addr_type
 </cfquery>
-<cfquery name="ctElecAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctElecAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select address_type from ctelectronic_addr_type order by address_type
 </cfquery>
-<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select prefix from ctprefix order by prefix
 </cfquery>
-<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select suffix from ctsuffix order by suffix
 </cfquery>
-<cfquery name="ctRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP order by AGENT_RELATIONSHIP
 </cfquery>
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
@@ -132,7 +132,7 @@
 	<cfif not isdefined("agent_id") OR agent_id lt 0 >
 		<cfabort>
 	</cfif>
-	<cfquery name="person" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="person" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 			agent_id,
 			person_id,
@@ -169,7 +169,7 @@
 				<cfset nameStr="#nameStr# - unknown)">
 			</cfif>
 		<cfelse>
-			<cfquery name="getName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="getName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select agent_name from agent_name where agent_id=#agent_id#
 				and agent_name_type='preferred'
 			</cfquery>
@@ -182,7 +182,7 @@
 			<br><em>#person.agent_remarks#</em>
 		</cfif>
 		<cfif listcontainsnocase(session.roles,"manage_transactions")>
-			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
 			</cfquery>
 			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
@@ -193,13 +193,13 @@
 			<input type="button" class="lnkBtn" onclick="rankAgent('#agent_id#');" value="Rank">
 		</cfif>
 	</cfoutput>
-	<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from addr
 		where 
 		agent_id = #person.agent_id#
 		order by valid_addr_fg DESC
 	</cfquery>
-	<cfquery name="elecagentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="elecagentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from electronic_address
 		where 
 		agent_id = #person.agent_id#
@@ -338,7 +338,7 @@
 	</cfif>
 	<cfoutput>
 		<cfif person.agent_type is "group">
-			<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select 
 					MEMBER_AGENT_ID,
 					MEMBER_ORDER,
@@ -387,7 +387,7 @@
 				</div>
 			</form>
 		</cfif>
-		<cfquery name="anames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="anames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select * from agent_name where agent_id=#agent_id#
 		</cfquery>
 		<cfquery name="pname" dbtype="query">
@@ -445,7 +445,7 @@
 				<input type="submit" class="insBtn" value="Create Name">
 			</form>
 		</div>
-		<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				agent_relationship, agent_name, related_agent_id
 			from agent_relations, agent_name
@@ -633,7 +633,7 @@
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveEditElecAddr">
 	<cfoutput>
-		<cfquery name="upElecAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="upElecAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			UPDATE electronic_address SET
 				address_type = '#address_type#',
 				address = '#address#'
@@ -648,7 +648,7 @@
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleElecAddr">
 	<cfoutput>
-		<cfquery name="deleElecAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="deleElecAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			delete from electronic_address where
 				agent_id=#agent_id#
 				and address_type='#address_type#'
@@ -758,7 +758,7 @@
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "saveEditsAddr">
 	<cfoutput>
-		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			UPDATE addr SET 
 				STREET_ADDR1 = '#STREET_ADDR1#'
 				,STREET_ADDR2 = '#STREET_ADDR2#'
@@ -782,7 +782,7 @@
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleteAddr">
 	<cfoutput>
-		<cfquery name="killAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="killAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			delete from addr where addr_id=#addr_id#
 		</cfquery>
 		<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
@@ -792,7 +792,7 @@
 <cfif #Action# is "saveCurrentAddress">
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				UPDATE addr SET 
 					addr_id = #addr_id#
 				 	,STREET_ADDR1 = '#STREET_ADDR1#'
@@ -806,7 +806,7 @@
 				 	,MAIL_STOP = '#MAIL_STOP#'
 				 where addr_id = #addr_id#
 			</cfquery>	
-			<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				UPDATE electronic_address 
 				SET 
 					AGENT_ID = #agent_id#
@@ -822,7 +822,7 @@
 <!------------------------------------------------------------------------------------------------------------>
 <cfif #Action# is "newElecAddr">
 	<cfoutput>
-	<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		INSERT INTO electronic_address (
 			AGENT_ID
 			,address_type
@@ -839,10 +839,10 @@
 <!------------------------------------------------------------------------------------------------------------>
 <cfif #Action# is "newAddress">
 	<cfoutput>
-		<cfquery name="prefName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="prefName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select agent_name from preferred_agent_name where agent_id=#agent_id#
 		</cfquery>
-		<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			INSERT INTO addr (
 				ADDR_ID
 				,STREET_ADDR1
@@ -887,7 +887,7 @@
 			Pick an agent, then click the button.
 			<cfabort>
 		</cfif>
-		<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			INSERT INTO agent_relations (
 				AGENT_ID,
 				RELATED_AGENT_ID,
@@ -903,7 +903,7 @@
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "deleteRelated">
 	<cfoutput>
-	<cfquery name="killRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="killRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		delete from agent_relations where
 			agent_id = #agent_id#
 			and related_agent_id = #related_agent_id#
@@ -915,7 +915,7 @@
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "deleteGroupMember">
 	<cfoutput>
-	<cfquery name="killGrpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="killGrpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		DELETE FROM group_member WHERE 
 		GROUP_AGENT_ID =#agent_id# AND
 		MEMBER_AGENT_ID = #MEMBER_AGENT_ID#
@@ -926,7 +926,7 @@
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "changeRelated">
 	<cfoutput>
-		<cfquery name="changeRelated" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="changeRelated" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			UPDATE agent_relations SET
 				related_agent_id = 
 				<cfif len(#newRelatedAgentId#) gt 0>
@@ -945,7 +945,7 @@
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "newName">
 	<cfoutput>
-		<cfquery name="updateName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="updateName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			INSERT INTO agent_name (
 				agent_name_id, agent_id, agent_name_type, agent_name)
 			VALUES (
@@ -957,7 +957,7 @@
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "updateName">
 	<cfoutput>
-		<cfquery name="updateName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="updateName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			UPDATE agent_name SET agent_name = '#agent_name#', agent_name_type='#agent_name_type#'
 			where agent_name_id = #agent_name_id#
 		</cfquery>
@@ -967,7 +967,7 @@
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif action is "deleteName">
 	<cfoutput>
-		<cfquery name="deleteAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="deleteAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#
 		</cfquery>
 		<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
@@ -977,7 +977,7 @@
 <cfif #Action# is "editPerson">
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="editPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="editPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				UPDATE person SET
 					person_id=#agent_id#
 					<cfif len(#first_name#) gt 0>
@@ -1018,7 +1018,7 @@
 				WHERE 
 					person_id=#agent_id#
 			</cfquery>	
-			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				UPDATE agent SET 
 					<cfif len(#agent_remarks#) gt 0>
 						agent_remarks = '#agent_remarks#'
@@ -1037,7 +1037,7 @@
 <cfif action is "editNonPerson">
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				UPDATE agent SET 
 					agent_remarks = '#agent_remarks#'
 				WHERE
@@ -1049,7 +1049,7 @@
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #action# is "makeNewGroupMemeber">
-	<cfquery name="newGroupMember" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="newGroupMember" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		INSERT INTO group_member (GROUP_AGENT_ID, MEMBER_AGENT_ID, MEMBER_ORDER)
 		values (#agent_id#,#member_id#,#MEMBER_ORDER#)
 	</cfquery>
@@ -1059,13 +1059,13 @@
 <cfif action is "insertPerson">
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select sq_agent_id.nextval nextAgentId from dual
 			</cfquery>
-			<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select sq_agent_name_id.nextval nextAgentNameId from dual
 			</cfquery>		
-			<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				INSERT INTO agent (
 					agent_id,
 					agent_type,
@@ -1076,7 +1076,7 @@
 					#agentNameID.nextAgentNameId#
 					)
 			</cfquery>			
-			<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				INSERT INTO person ( 
 					PERSON_ID
 					<cfif len(#prefix#) gt 0>
@@ -1134,7 +1134,7 @@
 				<cfset pref_name = #trim(name)#>
 			</cfif>
 			<cfif not isdefined("ignoreDupChek") or ignoreDupChek is false>
-				<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(pref_name)#%'
 				</cfquery>
 				<cfif dupPref.recordcount gt 0>
@@ -1158,7 +1158,7 @@
 					<cfabort>					
 				</cfif>
 			</cfif>
-			<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				INSERT INTO agent_name (
 					agent_name_id,
 					agent_id,
@@ -1181,13 +1181,13 @@
 <cfif #Action# is "makeNewAgent">
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select sq_agent_id.nextval nextAgentId from dual
 			</cfquery>
-			<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select sq_agent_name_id.nextval nextAgentNameId from dual
 			</cfquery>
-			<cfquery name="insAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="insAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				INSERT INTO agent (
 					agent_id,
 					agent_type,
@@ -1206,7 +1206,7 @@
 					)
 			</cfquery>
 			<cfif not isdefined("ignoreDupChek") or ignoreDupChek is false>
-				<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(agent_name)#%'
 				</cfquery>
 				<cfif dupPref.recordcount gt 0>
@@ -1227,7 +1227,7 @@
 					<cfabort>					
 				</cfif>
 			</cfif>
-			<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				INSERT INTO agent_name (
 					agent_name_id,
 					agent_id,

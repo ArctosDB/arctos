@@ -117,7 +117,7 @@ SELECT
 </cfoutput>
 
 
- <cfquery name="allRecords" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+ <cfquery name="allRecords" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
  	#preservesinglequotes(sql)#
  </cfquery>
 </cfif>
@@ -130,7 +130,7 @@ SELECT
 	container
 	WHERE
 	parent_container_id=#container_id#">
-<cfquery name="allRecords" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="allRecords" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
  	#preservesinglequotes(sql)#
  </cfquery>
 </cfif>

@@ -86,19 +86,19 @@
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
 </cfif>
-<cfquery name="cttrans_agent_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="cttrans_agent_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select distinct(trans_agent_role) from cttrans_agent_role where trans_agent_role != 'entered by' order by trans_agent_role
 </cfquery>
-<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select collection,collection_id from collection order by collection
 </cfquery>
-<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select accn_status from ctaccn_status order by accn_status
 </cfquery>
-<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select accn_type from ctaccn_type order by accn_type
 </cfquery>
-<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from ctpermit_type order by permit_type
 </cfquery>
 
@@ -106,13 +106,13 @@
 <!-------------------------------------------------------------------->
 <cfif action is "deleteAccn">
 	<cftransaction>
-		<cfquery name="delAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="delAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			delete from trans_agent where transaction_id=#transaction_id#
 		</cfquery>
-		<cfquery name="delAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="delAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			delete from accn where transaction_id=#transaction_id#
 		</cfquery>
-		<cfquery name="delTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="delTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			delete from trans where transaction_id=#transaction_id#
 		</cfquery>
 	</cftransaction>
@@ -127,7 +127,7 @@
 			});
 		</script>	
 		<cfset title="Edit Accession">
-		<cfquery name="accnData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="accnData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			SELECT
 				trans.transaction_id,
 				accn_number,
@@ -153,7 +153,7 @@
 				trans.collection_id=collection.collection_id and
 				trans.transaction_id = #transaction_id#
 		</cfquery>
-		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				trans_agent_id,
 				trans_agent.agent_id, 
@@ -332,7 +332,7 @@
 				</table>
 		</div>
 		</td><td valign="top">
-			<cfquery name="accncontainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="accncontainers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select barcode from container, trans_container where
 				container.container_id=trans_container.container_id and
 				transaction_id=#transaction_id#
@@ -364,7 +364,7 @@
 		</td><td valign="top">
 			<strong>Projects associated with this Accn:</strong>
 			<ul>
-				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					select project_name, project.project_id from project,
 					project_trans where 
 					project_trans.project_id =  project.project_id
@@ -399,7 +399,7 @@
 
 			<strong>Media associated with this Accn:</strong>
 			<!---
-			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select 
 					media.media_id,
 					preview_uri,
@@ -442,7 +442,7 @@
 				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
 				<div id="accnMediaDiv"></div>
 		</div>
-		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			SELECT 
 				permit.permit_id,
 				issuedBy.agent_name as IssuedByAgent,
@@ -819,7 +819,7 @@
 			<cfset sql = "#sql# AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
 		</cfif>
 		<cfset thisSQL  = "#sel# #frm# #sql# ORDER BY accn_number, trans.transaction_id ">
-		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			#preservesinglequotes(thisSQL)#
 		</cfquery>
 		<cfif getAccns.recordcount is 0>
@@ -829,7 +829,7 @@
 			<cfquery name="c" dbtype="query">
 				select count(distinct(transaction_id)) c from getAccns
 			</cfquery>
-			<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select count(*) c from cataloged_item where accn_id in (#valuelist(getAccns.transaction_id)#)
 			</cfquery>
 			<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(getAccns.transaction_id)#">
@@ -838,7 +838,7 @@
 		
 		<cfset i=1>
 		<cfif #project_id# gt 0>
-			<cfquery name="sfproj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="sfproj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select project_name from project where project_id=#project_id#
 			</cfquery>
 		</cfif>
@@ -887,7 +887,7 @@
 <!------------------------------------------------------------------------------------------->
 <cfif #action# is "delePermit">
 	<cfoutput>
-		<cfquery name="killPerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="killPerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
 			permit_id=#permit_id#
 		</cfquery>
@@ -900,14 +900,14 @@
 		<cftransaction>
 			<!--- see if they're adding project --->
 			<cfif isdefined("project_id") and project_id gt 0>
-				<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					INSERT INTO project_trans (
 						project_id, transaction_id)
 					VALUES (
 						#project_id#,#transaction_id#)
 				</cfquery>
 			</cfif>
-			<cfquery name="updateAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="updateAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				UPDATE accn SET
 					ACCN_TYPE = '#accn_type#',
 					ACCN_NUMber = '#ACCN_NUMber#',
@@ -918,7 +918,7 @@
 					</cfif> 
 					WHERE transaction_id = #transaction_id#
 			</cfquery>
-			<cfquery name="updateTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="updateTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				UPDATE trans SET
 			 		transaction_id = #transaction_id#
 					,TRANSACTION_TYPE = 'accn',
@@ -935,21 +935,21 @@
 					is_public_fg=#is_public_fg#
 				WHERE transaction_id = #transaction_id#
 			</cfquery>
-			<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select * from trans_agent where transaction_id=#transaction_id#
 				and trans_agent_role !='entered by'
 			</cfquery>
 			<cfloop query="wutsThere">
 				<!--- first, see if the deleted - if so, nothing else matters --->
 				<cfif isdefined("del_agnt_#trans_agent_id#")>
-					<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+					<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 						delete from trans_agent where trans_agent_id=#trans_agent_id#
 					</cfquery>
 				<cfelse>
 					<!--- update, just in case --->
 					<cfset thisAgentId = evaluate("trans_agent_id_" & trans_agent_id)>
 					<cfset thisRole = evaluate("trans_agent_role_" & trans_agent_id)>
-					<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+					<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 						update trans_agent set
 							agent_id = #thisAgentId#,
 							trans_agent_role = '#thisRole#'
@@ -959,7 +959,7 @@
 				</cfif>
 			</cfloop>
 			<cfif isdefined("new_trans_agent_id") and len(#new_trans_agent_id#) gt 0>
-				<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into trans_agent (
 						transaction_id,
 						agent_id,

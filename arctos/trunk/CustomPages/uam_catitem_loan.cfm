@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfif action is "c">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				guid,
 				scientific_name
@@ -18,7 +18,7 @@
 		</cfloop>
 	</cfif>
 	<cfif action is "nothing">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select
 				loan.transaction_id,
 				collection || ' ' || loan_number l

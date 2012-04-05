@@ -9,13 +9,13 @@
 <cfoutput>
 	<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Publication Details</a>
 	<br>
-	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select publication_type from ctpublication_type order by publication_type
 	</cfquery>
-	<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select * from publication where publication_id=#publication_id#
 	</cfquery>
-	<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 			publication_agent_id,
 			publication_agent.agent_id,
@@ -29,10 +29,10 @@
 			publication_id=#publication_id#
 		order by agent_name
 	</cfquery>
-	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select media_type from ctmedia_type order by media_type
 	</cfquery>
-	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	<form name="editPub" method="post" action="Publication.cfm">
@@ -156,7 +156,7 @@
 			</cfloop>
 			<input type="hidden" name="numNewAuths" id="numNewAuths" value="#numNewAuths#">
 		</table>
-		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		    select distinct 
 		        media.media_id,
 		        media.media_uri,
@@ -179,7 +179,7 @@
 				<div class="thumb_spcr">&nbsp;</div>
 				<cfloop query="media">
 					<cfset puri=getMediaPreview(preview_uri,media_type)>
-	            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 						select
 							media_label,
 							label_value
@@ -244,10 +244,10 @@
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "deletePub">
 	<cftransaction>
-		<cfquery name="dpublication_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="dpublication_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			delete from publication_agent where publication_id=#publication_id#
 		</cfquery>
-		<cfquery name="dpublication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="dpublication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			delete from publication where publication_id=#publication_id#
 		</cfquery>
 	</cftransaction>
@@ -257,7 +257,7 @@
 <cfif action is "saveEdit">
 <cfoutput>
 	<cftransaction>
-		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			update publication set
 				published_year=<cfif len(published_year) gt 0>#published_year#<cfelse>NULL</cfif>,
 				publication_type='#publication_type#',
@@ -271,15 +271,15 @@
 			where publication_id=#publication_id#
 		</cfquery>
 		<cfif len(media_uri) gt 0>
-			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select sq_media_id.nextval nv from dual
 			</cfquery>
 			<cfset media_id=mid.nv>
-			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into media (media_id,media_uri,mime_type,media_type,preview_uri)
 	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#')
 			</cfquery>
-			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into media_relations (
 					media_id,
 					media_relationship,
@@ -290,7 +290,7 @@
 					#publication_id#
 				)
 			</cfquery>
-			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into media_labels (
 					media_id,
 					media_label,
@@ -305,12 +305,12 @@
 			<cfset author_role = evaluate("author_role" & n)>
 			<cfset author_name = evaluate("author_name" & n)>
 			<cfif author_name is "deleted">
-				<cfquery name="delAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="delAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					delete from publication_agent where 
 					publication_agent_id=#publication_agent_id# 
 				</cfquery>
 			<cfelse>
-				<cfquery name="uAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="uAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					update publication_agent set
 						agent_id=#agent_id#,
 						author_role='#author_role#'
@@ -323,7 +323,7 @@
 			<cfset agent_id = evaluate("n_agent_id" & n)>
 			<cfset author_role = evaluate("n_author_role" & n)>
 			<cfif len(agent_id) gt 0>
-				<cfquery name="insAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="insAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into publication_agent (
 						publication_id,
 						agent_id,
@@ -343,13 +343,13 @@
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "newPub">
 <cfset title = "Create Publication">
-	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select publication_type from ctpublication_type order by publication_type
 	</cfquery>
-	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select media_type from ctmedia_type order by media_type
 	</cfquery>
-	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	<style>
@@ -584,11 +584,11 @@
 <cfif action is "createPub">
 <cfoutput>
 	<cftransaction>
-		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select sq_publication_id.nextval p from dual
 		</cfquery>
 		<cfset pid=p.p>
-		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			insert into publication (
 				publication_id,
 				published_year,
@@ -617,7 +617,7 @@
 			<cfset agent_id = evaluate("n_agent_id" & n)>
 			<cfset author_role = evaluate("n_author_role" & n)>
 			<cfif len(agent_id) gt 0>
-				<cfquery name="insAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+				<cfquery name="insAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 					insert into publication_agent (
 						publication_id,
 						agent_id,
@@ -631,15 +631,15 @@
 			</cfif>
 		</cfloop>
 		<cfif len(media_uri) gt 0>
-			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select sq_media_id.nextval nv from dual
 			</cfquery>
 			<cfset media_id=mid.nv>
-			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into media (media_id,media_uri,mime_type,media_type,preview_uri)
 	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#')
 			</cfquery>
-			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into media_relations (
 					media_id,
 					media_relationship,
@@ -650,7 +650,7 @@
 					#pid#
 				)
 			</cfquery>
-			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into media_labels (
 					media_id,
 					media_label,

@@ -33,7 +33,7 @@
 		<input type="text" id="agentname" name="agentname" value="#agentname#">
 		<br><input type="submit" class="lnkBtn" value="Search">
 	</form>
-	<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		SELECT 
 			dispNames.agent_id,
 			dispNames.agent_name_id,
@@ -105,7 +105,7 @@
 	</cfif>
 </cfif>
 <cfif action is "newOtherAgent">
-	<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select agent_type from ctagent_type order by agent_type
 	</cfquery>
 	<form name="prefdName" action="findAgentName.cfm" method="post">
@@ -131,10 +131,10 @@
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif Action is "newPerson">
-	<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select prefix from ctprefix order by prefix
 	</cfquery>
-	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select suffix from ctsuffix order by suffix
 	</cfquery>
 	<form name="newPerson" action="findAgentName.cfm" method="post">
@@ -168,13 +168,13 @@
 </cfif>
 <cfif action is "insertPerson">
 	<cftransaction>
-		<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select sq_agent_id.nextval nextAgentId from dual
 		</cfquery>
-		<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select sq_agent_name_id.nextval nextAgentNameId from dual
 		</cfquery>		
-		<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			INSERT INTO agent (
 				agent_id,
 				agent_type,
@@ -185,7 +185,7 @@
 				#agentNameID.nextAgentNameId#
 				)
 		</cfquery>			
-		<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			INSERT INTO person ( 
 				PERSON_ID
 				<cfif len(#prefix#) gt 0>
@@ -243,7 +243,7 @@
 			<cfset pref_name = #trim(name)#>
 		</cfif>
 		<cfif not isdefined("ignoreDupChek") or ignoreDupChek is false>
-			<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(pref_name)#%'
 			</cfquery>
 			<cfif dupPref.recordcount gt 0>
@@ -269,7 +269,7 @@
 				<cfabort>					
 			</cfif>
 		</cfif>
-		<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			INSERT INTO agent_name (
 				agent_name_id,
 				agent_id,
@@ -290,13 +290,13 @@
 </cfif>
 <cfif Action is "makeNewAgent">
 	<cftransaction>
-		<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select sq_agent_id.nextval nextAgentId from dual
 		</cfquery>
-		<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select sq_agent_name_id.nextval nextAgentNameId from dual
 		</cfquery>
-		<cfquery name="insAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="insAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			INSERT INTO agent (
 				agent_id,
 				agent_type,
@@ -315,7 +315,7 @@
 				)
 		</cfquery>
 		<cfif not isdefined("ignoreDupChek") or ignoreDupChek is false>
-			<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(agent_name)#%'
 			</cfquery>
 			<cfif dupPref.recordcount gt 0>
@@ -338,7 +338,7 @@
 				<cfabort>					
 			</cfif>
 		</cfif>
-		<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			INSERT INTO agent_name (
 				agent_name_id,
 				agent_id,

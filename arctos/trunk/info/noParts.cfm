@@ -3,7 +3,7 @@
 <cfif action is "nothing">
 <cfoutput>
 	<h2>Find specimens with no parts</h2>
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select collection_id,collection from collection order by collection
 </cfquery>
 <form method="post">
@@ -22,7 +22,7 @@
 <cfif action is "show">
 <cfoutput>
 <h2>The following specimens have no parts.</h2>
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 	select  
 		collection.collection,
 		cataloged_item.cat_num
@@ -42,7 +42,7 @@
 		cat_num
 </cfquery>
 <cfset fileDir = "#Application.webDirectory#">
-<cfset fileName = "ArctosData_#left(jsessionid,10)#.csv">
+<cfset fileName = "ArctosData_#left(session.sessionid,10)#.csv">
 <cfset header="collection,cat_num">
 <cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
 <cfloop query="d">

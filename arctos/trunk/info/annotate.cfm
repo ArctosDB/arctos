@@ -6,7 +6,7 @@
 	<cfset "#t#"="#v#">
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">		
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
-	<cfquery name="hasEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="hasEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select email from cf_user_data,cf_users
 		where cf_user_data.user_id = cf_users.user_id and
 		cf_users.username='#session.username#'
@@ -22,7 +22,7 @@
 		<cfabort>
 	</cfif>
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				'Specimen <strong>' || collection.collection || ' ' || cat_num ||
 				' <i>' || scientific_name || '</i></strong>' summary
@@ -36,11 +36,11 @@
 				cataloged_item.collection_id = collection.collection_id and
 				cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
-		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select * from annotations where collection_object_id=#collection_object_id#
 		</cfquery>
 	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				'Name <strong>' || display_name || '</strong>' summary
 			from 
@@ -48,11 +48,11 @@
 			where 
 				taxon_name_id=#taxon_name_id#
 		</cfquery>
-		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select * from annotations where taxon_name_id=#taxon_name_id#
 		</cfquery>
 	<cfelseif isdefined("project_id") and len(project_id) gt 0>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				'Project <strong>' || PROJECT_NAME || '</strong>' summary
 			from 
@@ -60,11 +60,11 @@
 			where 
 				project_id=#project_id#
 		</cfquery>
-		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select * from annotations where project_id=#project_id#
 		</cfquery>
 	<cfelseif isdefined("publication_id") and len(publication_id) gt 0>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select 
 				'Publication <strong>' || short_citation || '</strong>' summary
 			from 
@@ -72,7 +72,7 @@
 			where 
 				publication_id=#publication_id#
 		</cfquery>
-		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select * from annotations where publication_id=#publication_id#
 		</cfquery>
 	<cfelse>

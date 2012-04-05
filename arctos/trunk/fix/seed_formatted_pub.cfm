@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select publication_id from publication where publication_id not in (select publication_id from formatted_publication)
 	</cfquery>
 	<cfloop query="p">
@@ -14,7 +14,7 @@
 				<cfinvokeargument name="publication_id" value="#publication_id#">
 				<cfinvokeargument name="returnFormat" value="plain">
 			</cfinvoke>				
-			<cfquery name="sfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="sfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into formatted_publication (
 					publication_id,
 					format_style,
@@ -25,7 +25,7 @@
 					'#shortCitation#'
 				)
 			</cfquery>
-			<cfquery name="lfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+			<cfquery name="lfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 				insert into formatted_publication (
 					publication_id,
 					format_style,

@@ -6,7 +6,7 @@
 			<cfabort>
 		</cfif>
 		<cfoutput>
-		<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+		<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 			select SEARCH_NAME
 			from cf_canned_search
 			where canned_id=#canned_id#

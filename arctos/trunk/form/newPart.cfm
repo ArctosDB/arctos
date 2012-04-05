@@ -1,18 +1,18 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <cfoutput>
-	<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select container_type from ctcontainer_type
 		order by container_type
 	</cfquery>
-	<cfquery name="ctcoll_obj_disposition" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="ctcoll_obj_disposition" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select coll_obj_disposition from ctcoll_obj_disp
 	</cfquery>
-	<cfquery name="thisCC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="thisCC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select collection.collection_cde from collection,cataloged_item where cataloged_item.collection_id=collection.collection_id and
 		cataloged_item.collection_object_id=#collection_object_id#
 	</cfquery>
 
-	<cfquery name="defaults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,jsessionid)#">
+	<cfquery name="defaults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
 		select 
 			part_name,
 			lot_count,
