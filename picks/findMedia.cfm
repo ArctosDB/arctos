@@ -18,7 +18,7 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				media_id,
 				media_uri

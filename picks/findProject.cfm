@@ -13,7 +13,7 @@
 	<cfif len(#project_name#) is 0 or project_name is "undefined">
 		<cfabort>
 	</cfif>
-	<cfquery name="getProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT project_name, project_id from project where
 			UPPER(project_name) LIKE '%#ucase(project_name)#%'
 	</cfquery>

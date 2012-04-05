@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-        <cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+        <cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
                 select 
                         media.media_id,
                         media.media_uri,
@@ -29,7 +29,7 @@
         </cfif>
         
 
-        <cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+        <cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select
                         media_label,
                         label_value,
@@ -65,7 +65,7 @@
                                         <br><span style='font-size:small'>unlicensed</span>
                                 </cfif>
                         </td>
-                        <cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+                        <cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                                 select coordinates from media_flat where coordinates is not null and media_id=#media_id#
                         </cfquery>
                         <td>
@@ -108,7 +108,7 @@
                 </tr>
                 <tr>
                         <td colspan="3" align="center">
-                                <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+                                <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                                         select count(*) n from tag where media_id=#media_id#
                                 </cfquery>
                                 <cfif findIDs.media_type is "multi-page document">
@@ -123,7 +123,7 @@
                                 </cfif>
                         </td>
                 </tr>
-                        <cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+                        <cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                                 select 
                                         media.media_id, 
                                         media.media_type, 
@@ -156,7 +156,7 @@
                                                 <div class="thumb_spcr">&nbsp;</div>
                                                 <cfloop query="relM">
                                                         <cfset puri=getMediaPreview(preview_uri,media_type)>
-                                        <cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+                                        <cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                                                                 select
                                                                         media_label,
                                                                         label_value

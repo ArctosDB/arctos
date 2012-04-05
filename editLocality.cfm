@@ -189,7 +189,7 @@
 	}
 </script>
 <cfoutput> 
-	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select 
 			locality.locality_id,
 			geog_auth_rec.GEOG_AUTH_REC_ID,
@@ -217,7 +217,7 @@
 	<cfif locDet.recordcount is not 1>
 		<div class="error">locality not found</div><cfabort>
 	</cfif>
-	<cfquery name="geolDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="geolDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select 
 			*
 		from 
@@ -244,7 +244,7 @@
 			collection.collection,
 			collection.collection_id
   	</cfquery>
-	<cfquery name="getLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select
 			ACCEPTED_LAT_LONG_FG,
 			DATUM,
@@ -289,28 +289,28 @@
 		order by 
 			ACCEPTED_LAT_LONG_FG DESC, lat_long_id
      </cfquery>
-     <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+     <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select datum from ctdatum order by datum
      </cfquery>
-	<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select orig_elev_units from ctorig_elev_units order by orig_elev_units
 	</cfquery>
-	<cfquery name="ctDepthUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctDepthUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select depth_units from ctdepth_units order by depth_units
 	</cfquery>
-        <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+        <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by LAT_LONG_ERROR_UNITS
      </cfquery>
-     <cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+     <cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select georefMethod from ctgeorefmethod order by georefMethod 
 	</cfquery>
-	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VerificationStatus from ctVerificationStatus order by VerificationStatus
 	</cfquery>
-     <cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+     <cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by ORIG_LAT_LONG_UNITS
      </cfquery>
-	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>
 	
@@ -1072,11 +1072,11 @@
 		<cfset thisRemark = #evaluate("geo_att_remark_" & n)#>
 		
 		<cfif #thisAttribute# is "delete">
-			<cfquery name="deleteGeol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="deleteGeol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from geology_attributes where geology_attribute_id=#thisID#
 			</cfquery>
 		<cfelse>
-			<cfquery name="upGeol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="upGeol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update 
 					geology_attributes 
 				set 
@@ -1113,7 +1113,7 @@
 <!------------------------------------------------------------------------------------------------------>
 <cfif action is "AddGeol">
 <cfoutput>
-		<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into geology_attributes (
     			locality_id,
 			    geology_attribute,
@@ -1154,7 +1154,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "changeGeog">
 	<cfoutput>
-		<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE locality SET geog_auth_rec_id=#geog_auth_rec_id# where locality_id=#locality_id#
 		</cfquery>	
 		<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
@@ -1224,7 +1224,7 @@
 		<cfset sql = "#sql#,NoGeorefBecause = null">
 	</cfif>
 	<cfset sql = "#sql# where locality_id = #locality_id#">
-	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#		
 	</cfquery>
 	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
@@ -1234,7 +1234,7 @@
 <cfif action is "deleteLocality">
 <cfoutput>
 	<cfdump var=#form#>
-	<cfquery name="isColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="isColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collecting_event_id from collecting_event where locality_id=#locality_id#
 	</cfquery>
 	<cfif len(isColl.collecting_event_id) gt 0>
@@ -1243,11 +1243,11 @@
 		<cfabort>
 	</cfif>
 	<cftransaction>
-		<cfquery name="deleLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="deleLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from lat_long where locality_id=#locality_id#
 		</cfquery>
 		<cftransaction action="commit">
-		<cfquery name="deleLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="deleLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from locality where locality_id=#locality_id#
 		</cfquery>
 	</cftransaction>
@@ -1258,14 +1258,14 @@
 <cfif #action# is "clone">
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="nLocId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="nLocId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_locality_id.nextval nv from dual
 			</cfquery>
 			<cfset lid=nLocId.nv>
-			<cfquery name="oldLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="oldLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from locality where locality_id=#locality_id#
 			</cfquery>
-			<cfquery name="newLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="newLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO locality (
 					LOCALITY_ID,
 					GEOG_AUTH_REC_ID
@@ -1329,11 +1329,11 @@
 				)
 			</cfquery>
 			<cfif isdefined("keepAcc") and keepAcc is 1>
-				<cfquery name="accCoord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="accCoord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from lat_long where locality_id=#locality_id# and accepted_lat_long_fg=1
 				</cfquery>
 				<cfloop query="accCoord">
-					<cfquery name="newLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="newLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						INSERT INTO lat_long (
 							LAT_LONG_ID,
 							LOCALITY_ID
@@ -1498,11 +1498,11 @@
 				</cfloop>
 			</cfif>
 			<cfif isdefined("keepUnacc") and keepUnacc is 1>
-				<cfquery name="uaccCoord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="uaccCoord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from lat_long where locality_id=#locality_id# and accepted_lat_long_fg=0
 				</cfquery>
 				<cfloop query="uaccCoord">
-					<cfquery name="newLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="newLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						INSERT INTO lat_long (
 							LAT_LONG_ID,
 							LOCALITY_ID
@@ -1679,7 +1679,7 @@
 	get them once we have an Oracle procedure in place to handle conversions --->
 <cftransaction>
 <cfif ACCEPTED_LAT_LONG_FG is 1>
-	<cfquery name="flagAllZero" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="flagAllZero" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update lat_long set ACCEPTED_LAT_LONG_FG=0 where 
 		locality_id = #locality_id#
 	</cfquery>
@@ -1799,11 +1799,11 @@
 			<cfabort>
 		</cfif>
 		<cfset sql = "#sql#	where lat_long_id=#lat_long_id#">
-<cfquery name="upLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="upLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 </cftransaction>
-<cfquery name="getAcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="getAcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select lat_long_id from lat_long where locality_id=#locality_id#
 	and accepted_lat_long_fg = 1
 </cfquery>
@@ -1829,7 +1829,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif #action# is "AddLatLong">
 <cfoutput>	
-	<cfquery name="notAcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="notAcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE lat_long SET accepted_lat_long_fg = 0 where
 		locality_id=#locality_id#
 	</cfquery>	
@@ -1954,10 +1954,10 @@
 			 	,#UTM_NS#">
 		</cfif>
 		<cfset sql="#sql# )">
-	<cfquery name="newLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="newLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	<cfquery name="getAcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getAcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select lat_long_id from lat_long where locality_id=#locality_id#
 		and accepted_lat_long_fg = 1
 	</cfquery>
@@ -1990,7 +1990,7 @@
 			<cfabort>
 			</div>
 		</cfif>
-		<cfquery name="killLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="killLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from lat_long where lat_long_id = #lat_long_id#
 		</cfquery>
 		

@@ -1,6 +1,6 @@
 <cfoutput>
 <!---
-<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from scans
 </cfquery>
 
@@ -12,7 +12,7 @@
 		<tr>
 			<td>#barcode#</td>
 			<!---
-			<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select container_type,container_id from container where
 				barcode='#barcode#'
 			</cfquery>
@@ -46,7 +46,7 @@
 	</cfloop>
 	</table>
 	--->
-	<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select scans.barcode from scans,container 
 				where scans.barcode=container.barcode (+) and
 				container.barcode is null

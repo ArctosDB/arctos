@@ -149,10 +149,10 @@
 <!----------------------------------------------------------------------->
 <cfif #action# is "cloneCollEvent">
 	<cfoutput>
-		<cfquery name="ctCollecting_Source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="ctCollecting_Source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select collecting_source from ctCollecting_Source
 		</cfquery>
-		<cfquery name="details" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="details" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				decode(orig_lat_long_units,
 					'decimal degrees',to_char(dec_lat) || '&deg; ',
@@ -270,10 +270,10 @@
 	<cfoutput>
 		<cftransaction>
 		<!--- create a coll event --->
-			<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_collecting_event_id.nextval nid from dual
 			</cfquery>
-			<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO collecting_event (
 				collecting_event_id,
 				LOCALITY_ID

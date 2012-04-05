@@ -19,7 +19,7 @@
 		<cfabort>
 	</cfif>
 	
-		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				preferred_agent_name.agent_name, agent.agent_id 
 			from 
@@ -87,10 +87,10 @@
 </cfif>
 <cfif #action# is "createAgent">
 	<cftransaction>
-		<cfquery name="aid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="aid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_agent_id.nextval agent_id from dual
 		</cfquery>
-		<cfquery name="newAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="newAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into agent (
 				AGENT_ID,
 				AGENT_TYPE,
@@ -102,7 +102,7 @@
 				'Created #dateformat(now(),"dd-mmm-yyyy")# by login #session.username#.',
 				#anid.agent_name_id#)
 		</cfquery>
-		<cfquery name="newAgntName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="newAgntName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO agent_name (
 				AGENT_NAME_ID,
 				AGENT_ID,

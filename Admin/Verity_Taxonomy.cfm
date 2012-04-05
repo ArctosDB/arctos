@@ -1,5 +1,5 @@
 <cfif #action# is "update">
-<cfquery name="allTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="allTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from taxonomy
 </cfquery>
 <cfindex 

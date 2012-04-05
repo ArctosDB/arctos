@@ -2,7 +2,7 @@
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select GUID from #session.flatTableName# where collection_object_id=#collection_object_id# 
 		</cfquery>
 		<cfheader statuscode="301" statustext="Moved permanently">
@@ -24,7 +24,7 @@
 				WHERE
 					upper(guid)='#ucase(guid)#'">
 			<cfset checkSql(sql)>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(sql)#
 			</cfquery>
 		</cfoutput>
@@ -40,7 +40,7 @@
 				cat_num = #cn# AND
 				lower(collection.collection)='#lcase(cc)#'">
 		<cfset checkSql(sql)>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 	</cfif>
@@ -87,7 +87,7 @@
 	ORDER BY
 		cat_num">
 <cfset checkSql(detSelect)>	
-<cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfoutput>
@@ -177,7 +177,7 @@
 		    <td valign="top">
 		        <span class="annotateSpace">
 					<cfif len(session.username) gt 0>
-						<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select count(*) cnt from annotations
 							where collection_object_id = #collection_object_id#
 						</cfquery>

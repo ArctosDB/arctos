@@ -40,7 +40,7 @@
 <a name="list"></a>
 
 <hr><a href="##int" onMouseOver="self.status='Interior Map';return true;" onMouseOut="self.status='';return true;">Interior Alaska</a>&nbsp;~&nbsp;<a href="##nort" onMouseOver="self.status='Northern Map';return true;" onMouseOut="self.status='';return true;">Northern Alaska</a>&nbsp;~&nbsp;<a href="##scent" onMouseOver="self.status='Southcentral Map';return true;" onMouseOut="self.status='';return true;">Southcentral Alaska</a>&nbsp;~&nbsp;<a href="##seast" onMouseOver="self.status='Southeast Map';return true;" onMouseOut="self.status='';return true;">Southeast Alaska</a>&nbsp;~&nbsp;<a href="##swest" onMouseOver="self.status='Southwest Map';return true;" onMouseOut="self.status='';return true;">Southwest Alaska</a>&nbsp;~&nbsp;<a href="##wes" onMouseOver="self.status='Western Map';return true;" onMouseOut="self.status='';return true;">Western Alaska</a>&nbsp;~&nbsp;<a href="##list" onMouseOver="self.status='Quad List';return true;" onMouseOut="self.status='';return true;">Quad List</a><hr>
-	<cfquery name="allQuad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="allQuad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct(quad) as quad from geog_auth_rec ORDER BY quad
 	</cfquery>
 <p>

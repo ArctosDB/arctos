@@ -60,7 +60,7 @@ sho err
 <cfif action is "getFile">
 <cfoutput>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from ds_temp_agent_split
 	</cfquery>
 	<cfset fileContent=replace(fileContent,"'","''","all")>
@@ -89,7 +89,7 @@ sho err
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into ds_temp_agent_split (#colNames#) values (#preservesinglequotes(colVals)#)				
 			</cfquery>
 		</cfif>
@@ -99,13 +99,13 @@ sho err
 </cfif>
 <cfif action is "validate">
 <cfoutput>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
-	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select suffix from ctsuffix
 	</cfquery>
-	<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select prefix from ctprefix
 	</cfquery>
 	<cfset sfxLst=valuelist(ctsuffix.suffix)>
@@ -128,7 +128,7 @@ sho err
 			<cfset thisName=replace(thisName,"  "," ","all")>
 			<cfset s=listappend(s,"trimmed double spaces",";")>
 		</cfif>
-		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select agent_id from agent_name where agent_name='#thisName#'
 		</cfquery>
 		<cfif isThere.recordcount is 1>
@@ -185,7 +185,7 @@ sho err
 			<cfset s=listappend(s,"probably not a person",";")>
 		</cfif>
 		<cfif s does not contain "found">
-			<cfquery name="ln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="ln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select agent_name from preferred_agent_name,person where 
 				person.person_id=preferred_agent_name.agent_id and
 				person.last_name='#lastn#'
@@ -195,7 +195,7 @@ sho err
 				<cfset s=listappend(s,"did you mean any of: #valuelist(ln.agent_name,"; ")#?",";")>	
 			</cfif>
 		</cfif>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update ds_temp_agent_split set
 				agent_type='person',
 				preferred_name='#thisName#',
@@ -217,7 +217,7 @@ sho err
 			where key=#key#
 		</cfquery>
 	</cfloop>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
 	<cfset theCols=data.columnList>
@@ -253,13 +253,13 @@ sho err
 		<cfset sql="delete from ds_temp_agent_split where status like '%probably not a person%'">
 	</cfif>
 	
-	<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(sql)#
 	</cfquery>
 	<cflocation url="agentNameSplitter.cfm?action=validate" addtoken="false">
 </cfif>
 <cfif action is "download">
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
 	<cfset theCols=data.columnList>

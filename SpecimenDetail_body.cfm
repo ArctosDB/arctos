@@ -159,13 +159,13 @@
 	cataloged_item.collection_object_id = #collection_object_id#
 	">
 <cfset checkSql(detSelect)>
-<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfif one.concatenatedEncumbrances contains "mask record" and oneOfUs neq 1>
 	Record masked.<cfabort>
 </cfif>
-<cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		collector.coll_order,
 		case when 
@@ -183,7 +183,7 @@
 	ORDER BY 
 		coll_order
 </cfquery>
-<cfquery name="preps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="preps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		collector.coll_order,
 		case when 
@@ -201,7 +201,7 @@
 	ORDER BY 
 		coll_order
 </cfquery>
-<cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select	
 		attributes.attribute_type,
 		attributes.attribute_value,
@@ -217,7 +217,7 @@
 		attributes.determined_by_agent_id = attribute_determiner.agent_id and
 		attributes.collection_object_id = #collection_object_id#
 </cfquery>
-<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT 
 		biol_indiv_relations.biol_indiv_relationship, 
 		biol_indiv_relations.related_coll_object_id,
@@ -232,7 +232,7 @@
 		related_cat_item.collection_id = related_coll.collection_id and
 		biol_indiv_relations.collection_object_id = #collection_object_id#
 </cfquery>			
-<cfquery name="citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT 
 		citation.type_status,
 		citation.occurs_page_number,
@@ -287,7 +287,7 @@
 					</div>
 					<div class="detailBlock">
 						<span class="detailData">
-							<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+							<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								SELECT
 									identification.scientific_name,
 									concatidagent(identification.identification_id) agent_name,
@@ -308,7 +308,7 @@
 								ORDER BY accepted_id_fg DESC,made_date DESC
 							</cfquery>
 							<cfloop query="identification">
-								<cfquery name="getTaxa_r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+								<cfquery name="getTaxa_r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									select 
 										taxonomy.taxon_name_id,
 										display_name,
@@ -482,7 +482,7 @@
 								<td id="SDCellRight">#one.quad#</td>
 							</tr>
 					</cfif>
-					<cfquery name="localityMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="localityMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select 
 							media_id 
 						from 
@@ -502,7 +502,7 @@
 								</td>
 							</tr>
 					</cfif>
-					<cfquery name="collEventMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="collEventMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select 
 							media_id 
 						from 
@@ -615,7 +615,7 @@
 							</tr>
 						</cfif>
 					</cfif>
-					<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select * from 
 						geology_attributes,
 						preferred_agent_name
@@ -701,7 +701,7 @@
 				</div>
 			</cfif>
 <!------------------------------------ relationships ---------------------------------------------->
-			<cfquery name="invRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="invRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
 					collection.collection,
 					cat_num,
@@ -764,7 +764,7 @@
 					</cfif>
 				</div>
 			</cfif>
-			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT project_name, project.project_id project_id FROM 
 				project, project_trans
 				WHERE 
@@ -772,7 +772,7 @@
 				project_trans.transaction_id=#one.accn_id#
 				GROUP BY project_name, project.project_id
 		  </cfquery>
-		  <cfquery name="isLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		  <cfquery name="isLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT project_name, project.project_id FROM 
 					loan_item,
 					project,
@@ -786,7 +786,7 @@
 				GROUP BY 
 					project_name, project.project_id		
 		</cfquery>
-		<cfquery name="isLoanedItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="isLoanedItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT loan_item.collection_object_id FROM
 			loan_item,specimen_part
 			WHERE loan_item.collection_object_id=specimen_part.collection_object_id AND
@@ -795,7 +795,7 @@
 		</td>
 		<td valign="top" width="50%">
 	<!------------------------------------ identifiers ---------------------------------------------->
-			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT 
 					case when #oneOfUs# != 1 and 
 						concatencumbrances(coll_obj_other_id_num.collection_object_id) like '%mask original field number%' and
@@ -841,7 +841,7 @@
 				</div>
 			</cfif>
 <!------------------------------------ parts ---------------------------------------------->
-<cfquery name="rparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="rparts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		specimen_part.collection_object_id part_id,
 		pc.label,
@@ -901,7 +901,7 @@
 		part_name
 </cfquery>
 <!-------
-<cfquery name="pAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="pAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 						 part_attribute_id,
 						 ,
@@ -1275,7 +1275,7 @@
 					</cfif>
 				</div>
 <!------------------------------------ accession ---------------------------------------------->
-			<cfquery name="accnMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="accnMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			    select 
 			        media.media_id,
 			        media.media_uri,
@@ -1359,7 +1359,7 @@
 				</div>
 		</cfif>
 <!------------------------------------ Media ---------------------------------------------->
-<cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select distinct 
         media.media_id,
         media.media_uri,
@@ -1387,7 +1387,7 @@
 		</div>
 	</div>	
 </cfif>
-<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select distinct 
         media.media_id,
         media.media_uri,
@@ -1408,7 +1408,7 @@
     <div class="detailCell">
 		<div class="detailLabel">Media
 			<cfif oneOfUs is 1>
-				 <cfquery name="hasConfirmedImageAttr"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				 <cfquery name="hasConfirmedImageAttr"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					SELECT count(*) c
 					FROM
 						ctattribute_type 
@@ -1436,7 +1436,7 @@
 					<div class="thumb_spcr">&nbsp;</div>
 					<cfloop query="media">
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
-		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select
 								media_label,
 								label_value
@@ -1465,7 +1465,7 @@
 				</div>
 	        </span>		
 		</div>
-		<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select p.barcode from 
 			container c,
 			container p,

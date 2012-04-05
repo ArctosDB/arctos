@@ -8,7 +8,7 @@
 </cfif>
 <cfif action is "srch">
 	<cfoutput>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from short_doc order by colname
 		</cfquery>
 		<table border>
@@ -57,10 +57,10 @@
 
 <cfif action is "insert">
 	<cfoutput>
-		<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_short_doc_id.nextval id from dual
 		</cfquery>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into short_doc
 				(
 					short_doc_id,
@@ -82,7 +82,7 @@
 	</cfoutput>
 </cfif>
 <cfif action is "edit">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from short_doc where short_doc_id=#short_doc_id#
 	</cfquery>
 	<cfoutput>
@@ -110,7 +110,7 @@
 
 <cfif action is "delete">
 	<cfoutput>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from short_doc where short_doc_id=#short_doc_id#
 		</cfquery>
 		deleted
@@ -118,7 +118,7 @@
 </cfif>
 <cfif action is "saveEdit">
 	<cfoutput>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update short_doc set
 			ColName='#ColName#',
 			display_name='#display_name#',

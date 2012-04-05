@@ -86,7 +86,7 @@
 		}
 	}
 </script>
-<cfquery name="whoAreYou" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="whoAreYou" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 
 		collection,
 		contact_agent_id
@@ -111,7 +111,7 @@
 <!-------------------->
 <cfif #action# is "reallyMoveEmNow">
 	<cfoutput>
-		<cfquery name="rec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="rec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select agent_id from agent_name where 
 			agent_name_type='login' and 
 			agent_name='#session.username#'
@@ -122,7 +122,7 @@
 			Bad agent.
 			<cfabort>
 		</cfif>
-	<cfquery name="items" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="items" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			 COLLECTION_OBJECT_ID,
 			 REMARK,
@@ -255,7 +255,7 @@
 <!------------------------------------------>
 <cfif #action# is "makeRealLoan">
 	<cfoutput>
-	<cfquery name="meta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="meta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select  
 			cf_user_loan.USER_LOAN_ID,
 			 PROJECT_TITLE,
@@ -272,10 +272,10 @@
 			cf_user_loan.USER_LOAN_ID=cf_loan_item.USER_LOAN_ID and
 			cf_user_loan.USER_LOAN_ID='#loan_id#'
 	</cfquery>
-	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct(institution_acronym)  from collection
 	</cfquery>
-	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_cde from ctcollection_cde
 	</cfquery>
 	You are adding the <strong>#meta.recordcount#</strong> approved items in User Loan <em><strong>#meta.PROJECT_TITLE#</strong></em> to a Museum loan.
@@ -369,7 +369,7 @@
 		Username: <input type="text" name="req_name" />
 		<input type="submit" />
 	</form>
-	<cfquery name="all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			username,
 			PROJECT_TITLE,
@@ -412,13 +412,13 @@
 	<cfif len(#req_name#) is 0>
 		need a req_name <cfabort>
 	</cfif>
-	<cfquery name="userdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="userdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from CF_USER_DATA,cf_users
 		where
 			CF_USER_DATA.user_id=cf_users.user_id and
 		 username='#req_name#'
 	</cfquery>
-	<cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			institution_acronym,
 			collection_cde,
@@ -455,14 +455,14 @@
 		<br />Affiliation: #userdata.AFFILIATION#
 		<br />Email: #userdata.EMAIL#
 	 </p>
-	 <cfquery name="prevAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	 <cfquery name="prevAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	 	select loan_request_coll_id from cf_users where username='#req_name#'
 	 </cfquery>
 	
 	 <cfif #len(prevAuth.loan_request_coll_id)# is 0>
 	 	This user has not been previously approved to request loans from any collection.
 	<cfelse>
-		 <cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		 <cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select collection_cde,institution_acronym
 			from collection
 			where collection_id IN (#prevAuth.loan_request_coll_id#)
@@ -473,7 +473,7 @@
 			<li>#institution_acronym# #collection_cde#</li>
 		</cfloop>
 		</ul>
-		<cfquery  name="gotSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery  name="gotSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				institution_acronym,
 				cataloged_item.collection_cde,
@@ -557,7 +557,7 @@
 
 <cfif #action# is "manageSpecs">
 <cfoutput>
-	<cfquery name="getLoanId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getLoanId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select  
 			USER_LOAN_ID,
 			 PROJECT_TITLE,
@@ -581,7 +581,7 @@
 			cf_user_loan.user_id=cf_users.user_id and
 			username='#req_name#'
 	<cfif #getLoanId.recordcount# is 1>
-	<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
 					institution_acronym,
 					cataloged_item.collection_cde,
@@ -730,7 +730,7 @@
 		<cfset addToLoanAppList = "">
 		<cfset remFromLoanAppList = "">
 		<cfloop query="whatToDo">
-			<cfquery name="coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select collection_cde,institution_acronym
 				from collection
 				where collection_id =#collid#
@@ -775,7 +775,7 @@
 				select collid from whatToDo where yesno=1
 			</cfquery>
 			<cfif len(valuelist(appcol.collid)) gt 0>
-				<cfquery name="coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select collection
 					from collection
 					where collection_id in (#valuelist(appcol.collid)#)
@@ -796,7 +796,7 @@
 </cfif>
 <cfif #action# is "sendEmailFinally">
 	<cfoutput>
-	<cfquery name="curr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="curr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select loan_request_coll_id from cf_users,cf_user_loan
 		where username='req_name'
 	</cfquery>

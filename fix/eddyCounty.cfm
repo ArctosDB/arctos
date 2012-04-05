@@ -3,7 +3,7 @@
 </cfquery>
 <cfoutput>
 	<cfloop query="e">
-		<cfquery name="loc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="loc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select higher_geog from 
 				geog_auth_rec,
 				locality,

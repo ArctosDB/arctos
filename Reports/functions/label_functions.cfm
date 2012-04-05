@@ -963,7 +963,7 @@
 		<cfset formatted_parts = "">
 		
 		<!-- Get all part names for this collection_object_id -->
-		<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select p.part_name 
 			from specimen_part p 
 				LEFT JOIN ctspecimen_part_list_order c ON (p.part_name = c.partname)
@@ -1202,7 +1202,7 @@
 			<cfset include_list = "baculum,glans penis,phallus,carcass">
 
 			<!-- Get all part names for this collection_object_id -->
-			<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select p.part_name 
 				from specimen_part p 
 					LEFT JOIN ctspecimen_part_list_order c ON (p.part_name = c.partname)

@@ -137,13 +137,13 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfif #action# is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_media
 	</cfquery>
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_media_relations
 	</cfquery>
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_media_labels
 	</cfquery>
 	
@@ -183,7 +183,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_media (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 
@@ -199,7 +199,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_temp_media
 </cfquery>
 <cfloop query="d">
@@ -208,13 +208,13 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		<cfloop list="#media_labels#" index="l" delimiters=";">
 			<cfset ln=listgetat(l,1,"=")>
 			<cfset lv=listgetat(l,2,"=")>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select MEDIA_LABEL from CTMEDIA_LABEL where MEDIA_LABEL='#ln#'
 			</cfquery>
 			<cfif len(c.MEDIA_LABEL) is 0>
 				<cfset rec_stat=listappend(rec_stat,'Media label #ln# is invalid',";")>
 			<cfelse>
-				<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into cf_temp_media_labels (
 						key,
 						MEDIA_LABEL,
@@ -234,7 +234,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		<cfloop list="#MEDIA_RELATIONSHIPS#" index="l" delimiters=";">
 			<cfset ln=listgetat(l,1,"=")>
 			<cfset lv=listgetat(l,2,"=")>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select MEDIA_RELATIONSHIP from CTMEDIA_RELATIONSHIP where MEDIA_RELATIONSHIP='#ln#'
 			</cfquery>
 			<cfif len(c.MEDIA_RELATIONSHIP) is 0>
@@ -242,11 +242,11 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			<cfelse>
 				<cfset table_name = listlast(ln," ")>
 				<cfif table_name is "agent">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select distinct(agent_id) agent_id from agent_name where agent_name ='#lv#'
 					</cfquery>
 					<cfif c.recordcount is 1 and len(c.agent_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							insert into cf_temp_media_relations (
  								key,
 								MEDIA_RELATIONSHIP,
@@ -263,11 +263,11 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						<cfset rec_stat=listappend(rec_stat,'Agent #lv# matched #c.recordcount# records.',";")>
 					</cfif>
 				<cfelseif table_name is "locality">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select locality_id from locality where locality_id ='#lv#'
 					</cfquery>
 					<cfif c.recordcount is 1 and len(c.locality_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							insert into cf_temp_media_relations (
  								key,
 								MEDIA_RELATIONSHIP,
@@ -284,11 +284,11 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						<cfset rec_stat=listappend(rec_stat,'locality_id #lv# matched #c.recordcount# records.',";")>
 					</cfif>
 				<cfelseif table_name is "collecting_event">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select collecting_event_id from collecting_event where collecting_event_id ='#lv#'
 					</cfquery>
 					<cfif c.recordcount is 1 and len(c.collecting_event_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							insert into cf_temp_media_relations (
  								key,
 								MEDIA_RELATIONSHIP,
@@ -305,11 +305,11 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						<cfset rec_stat=listappend(rec_stat,'collecting_event #lv# matched #c.recordcount# records.',";")>
 					</cfif>
 				<cfelseif table_name is "project">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select distinct(project_id) project_id from project where PROJECT_NAME ='#lv#'
 					</cfquery>
 					<cfif c.recordcount is 1 and len(c.project_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							insert into cf_temp_media_relations (
  								key,
 								MEDIA_RELATIONSHIP,
@@ -330,7 +330,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfset institution_acronym = listgetat(lv,1,":")>
 					<cfset collection_cde = listgetat(lv,2,":")>
 					<cfset cat_num = listgetat(lv,3,":")>
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select collection_object_id from 
 							cataloged_item,
 							collection
@@ -341,7 +341,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 							lower(collection.institution_acronym)='#lcase(institution_acronym)#'
 					</cfquery>
 					<cfif c.recordcount is 1 and len(c.collection_object_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							insert into cf_temp_media_relations (
  								key,
 								MEDIA_RELATIONSHIP,
@@ -367,13 +367,13 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			</cfif>
 		</cfloop>
 	</cfif>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select MIME_TYPE from CTMIME_TYPE where MIME_TYPE='#MIME_TYPE#'
 	</cfquery>
 	<cfif len(c.MIME_TYPE) is 0>
 		<cfset rec_stat=listappend(rec_stat,'MIME_TYPE #MIME_TYPE# is invalid',";")>
 	</cfif>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select MEDIA_TYPE from CTMEDIA_TYPE where MEDIA_TYPE='#MEDIA_TYPE#'
 	</cfquery>
 	<cfif len(c.MEDIA_TYPE) is 0>
@@ -389,11 +389,11 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			<cfset rec_stat=listappend(rec_stat,'#preview_uri# is invalid',";")>
 		</cfif>
 	</cfif>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_media set status='#rec_stat#' where key=#key#
 	</cfquery>
 </cfloop>
-<cfquery name="bad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="bad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_temp_media where status is not null
 </cfquery>
 <cfif len(bad.key) gt 0>
@@ -404,7 +404,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<a href="BulkloadMedia.cfm?action=load"><strong>click here</strong></a> to proceed.
 	<br>^^^ that thing. You must click it.
 	(Note that the table below is "flattened." Media entries are repeated for every Label and Relationship.)
-	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			cf_temp_media.key, 
 			status,
@@ -442,7 +442,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <!------------------------------------------------------->
 <cfif #action# is "load">
 <cfoutput>
-	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			*
 		from 
@@ -450,15 +450,15 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	</cfquery>
 	<cftransaction>
 		<cfloop query="media">
-			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_media_id.nextval nv from dual
 			</cfquery>
 			<cfset media_id=mid.nv>
-			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into media (media_id,media_uri,mime_type,media_type,preview_uri)
 	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#')
 			</cfquery>
-			<cfquery name="media_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="media_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
 					*
 				from 
@@ -467,7 +467,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					key=#key#
 			</cfquery>
 			<cfloop query="media_relations">
-				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into 
 						media_relations (
 						media_id,media_relationship,related_primary_key
@@ -475,7 +475,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						#media_id#,'#MEDIA_RELATIONSHIP#',#RELATED_PRIMARY_KEY#)
 				</cfquery>
 			</cfloop>
-			<cfquery name="medialabels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="medialabels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
 					*
 				from 
@@ -484,7 +484,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					key=#key#
 			</cfquery>
 			<cfloop query="medialabels">
-				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into media_labels (media_id,media_label,label_value)
 					values (#media_id#,'#MEDIA_LABEL#','#LABEL_VALUE#')
 				</cfquery>

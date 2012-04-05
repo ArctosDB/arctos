@@ -18,7 +18,7 @@
 		<cfabort>
 	</cfif>
 
-		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT kewAbbr.agent_name agent_name FROM
 			agent_name,
 			agent_name kewAbbr

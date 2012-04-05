@@ -28,7 +28,7 @@ Based on:
 	Select a permit before generating a report!
 	<cfabort>
 </cfif>--->
-<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select distinct(attribute_type) from ctAttribute_type order by attribute_type
 </cfquery>
 <cfset attList = "">
@@ -132,7 +132,7 @@ put in unneeded where statements here
 		cataloged_item.collection_object_id IN (#collection_object_id#)
 	#data_order_by#
 ">
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 
@@ -195,7 +195,7 @@ the option to choose these parameters.  in that case, remove these lines--->
         marginleft=".25"
         marginright=".25"
 		unit="in"
-        orientation="landscape" filename="#Application.webDirectory#/temp/permit_#left(session.sessionid,10)#.pdf" overwrite="true">
+        orientation="landscape" filename="#Application.webDirectory#/temp/permit_#left(session.sessionKey,10)#.pdf" overwrite="true">
 
 <!---<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">--->
 
@@ -324,7 +324,7 @@ deprecated: see NOTE1*--->
 	<cftry><cfif not isdefined('$#collection_object_id#$')>
 		<cfthrow type='continue'>
 	</cfif>
-        <cfquery name="tCollNum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+        <cfquery name="tCollNum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select other_id_number from coll_obj_other_id_num where
                 other_id_type='collector number'
                 and collection_object_id=#collection_object_id#
@@ -538,7 +538,7 @@ cfdocument will not use it, since it does not consider it valid HTML. Period.
 </cftry>
 </cfloop>
 </cfdocument>
-<a href="/temp/permit_#left(session.sessionid,10)#.pdf">Get the PDF</a><br />
+<a href="/temp/permit_#left(session.sessionKey,10)#.pdf">Get the PDF</a><br />
 </cfoutput>
 </cfif> <!--- end the action generatePDF --->
 
@@ -774,7 +774,7 @@ not by specimens. --->
 		select permit_num, permit_id
 		from permit
 		where permit_num = '#permit_num#'">
-	<cfquery name="getPermitID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getPermitID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<!--- debug code
@@ -858,7 +858,7 @@ and on day add a 0 to the front if it is one digit only--->
 				accepted_id_fg=1
 			order by
 				#order#">
-<cfquery name="specimens" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="specimens" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfset collection_object_id="">
@@ -904,7 +904,7 @@ and on day add a 0 to the front if it is one digit only--->
 				permit_id = '#permit_id#' AND 
 				permit.issued_by_agent_id = issuedBy.agent_id AND
 				permit.issued_to_agent_id = issuedTo.agent_id">
-		<cfquery name="permit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="permit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 		<!--- here is where I add in the permit selection--->

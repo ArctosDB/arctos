@@ -13,13 +13,13 @@
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
 <cfoutput>
-<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select nature_of_id from ctnature_of_id
 </cfquery>
-<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select taxa_formula from cttaxa_formula order by taxa_formula
 </cfquery>
-<cfquery name="getID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="getID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		identification.identification_id,
 		institution_acronym,
@@ -401,26 +401,26 @@
 			<cfset thisPubId = #evaluate("publication_id_" & n)#>
 	
 			<cfif thisAcceptedIdFg is 1>
-				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 				</cfquery>
-				<cfquery name="newAcceptedId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="newAcceptedId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #thisIdentificationId#
 				</cfquery>
 			</cfif>
 			<cfif thisAcceptedIdFg is "DELETE">
-					<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM identification_agent WHERE identification_id = #thisIdentificationId#
 					</cfquery>
-					<cfquery name="deleteTId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="deleteTId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM identification_taxonomy WHERE identification_id = #thisIdentificationId#
 					</cfquery>
-					<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						DELETE FROM identification WHERE identification_id = #thisIdentificationId#
 					</cfquery>
 					
 			<cfelse>
-				<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						UPDATE identification SET
 						nature_of_id = '#thisNature#',
 						made_date = '#thisMadeDate#',
@@ -449,7 +449,7 @@
 					</cftry>
 					<cfif #thisIdAgntId# is -1 and (thisIdId is not "DELETE" and thisIdId gte 0)>
 						<!--- new identifier --->
-						<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							insert into identification_agent 
 								( IDENTIFICATION_ID,AGENT_ID,IDENTIFIER_ORDER)
 							values 
@@ -463,13 +463,13 @@
 						<!--- update or delete --->
 						<cfif #thisIdId# is "DELETE">
 							<!--- delete --->
-							<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+							<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								delete from identification_agent
 								where identification_agent_id=#thisIdAgntId#				
 							</cfquery>
 						<cfelseif thisIdId gte 0>
 							<!--- update --->
-							<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+							<cfquery name="updateIdA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update identification_agent set 
 									agent_id=#thisIdId#,
 									identifier_order=#nid#
@@ -529,10 +529,10 @@
 	<cfabort>
 </cfif>
 <cftransaction>
-	<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 	</cfquery>
-	<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		INSERT INTO identification (
 			IDENTIFICATION_ID,
 			COLLECTION_OBJECT_ID,
@@ -559,7 +559,7 @@
 			</cfif>
 		)
 	</cfquery>
-	<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into identification_agent (
 			identification_id,
 			agent_id,
@@ -571,7 +571,7 @@
 			)
 	</cfquery>
 	<cfif len(#newIdBy_two_id#) gt 0>
-		<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into identification_agent (
 				identification_id,
 				agent_id,
@@ -584,7 +584,7 @@
 		</cfquery>
 	</cfif>
 	<cfif len(#newIdBy_three_id#) gt 0>
-		<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into identification_agent (
 				identification_id,
 				agent_id,
@@ -596,7 +596,7 @@
 				)
 		</cfquery>
 	</cfif>
-	<cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		INSERT INTO identification_taxonomy (
 			identification_id,
 			taxon_name_id,
@@ -607,7 +607,7 @@
 			'A')
 	 </cfquery>
 	 <cfif #taxa_formula# contains "B">
-		 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO identification_taxonomy (
 				identification_id,
 				taxon_name_id,

@@ -60,7 +60,7 @@
 	<cftransaction>
 	<cfloop query="d">
 		<cfif len(last) gt 0>
-			<cfquery name="isthere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="isthere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select agent_name, agent_id from person,preferred_agent_name where
 					person.person_id=preferred_agent_name.agent_id and
 					upper(person.last_name)='#trim(ucase(last))#' and 
@@ -69,13 +69,13 @@
 				<cfdump var=#isThere#>
 				<cfif isThere.recordcount is 0>
 					<br>create everything
-					<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select sq_agent_id.nextval nextAgentId from dual
 					</cfquery>
-					<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select sq_agent_name_id.nextval nextAgentNameId from dual
 					</cfquery>		
-					<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						INSERT INTO agent (
 							agent_id,
 							agent_type,
@@ -86,7 +86,7 @@
 							#agentNameID.nextAgentNameId#
 							)
 					</cfquery>			
-					<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						INSERT INTO person ( 
 							PERSON_ID
 							<cfif len(#prefix#) gt 0>
@@ -114,7 +114,7 @@
 					</cfquery>
 					<cfset prefName='#prefix# #first# #last#'>
 					<cfset prefName=trim(prefName)>
-					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						INSERT INTO agent_name (
 							agent_name_id,
 							agent_id,
@@ -129,7 +129,7 @@
 							0
 							)
 					</cfquery>
-					<cfquery name="inssta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="inssta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							INSERT INTO addr (
 							ADDR_ID
 							,STREET_ADDR1
@@ -169,7 +169,7 @@
 						)
 					</cfquery>
 					<cfif len(phone) gt 0>
-						<cfquery name="inssea" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="inssea" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							INSERT INTO electronic_address (
 								AGENT_ID
 								,address_type
@@ -182,7 +182,7 @@
 						</cfquery>
 					</cfif>
 					<cfif len(email) gt 0>
-						<cfquery name="inssem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="inssem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							INSERT INTO electronic_address (
 								AGENT_ID
 								,address_type
@@ -195,7 +195,7 @@
 						</cfquery>
 					</cfif>
 				<cfelseif isThere.recordcount is 1>
-					<cfquery name="inssta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="inssta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							INSERT INTO addr (
 							ADDR_ID
 							,STREET_ADDR1
@@ -235,7 +235,7 @@
 						)
 					</cfquery>
 					<cfif len(phone) gt 0>
-						<cfquery name="inssea" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="inssea" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							INSERT INTO electronic_address (
 								AGENT_ID
 								,address_type
@@ -248,7 +248,7 @@
 						</cfquery>
 					</cfif>
 					<cfif len(email) gt 0>
-						<cfquery name="inssem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+						<cfquery name="inssem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							INSERT INTO electronic_address (
 								AGENT_ID
 								,address_type

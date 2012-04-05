@@ -2,7 +2,7 @@
 <script src="/includes/sorttable.js"></script>
 <cfset title="part/loan summary">
 <cfoutput>
-	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		flat.guid,
 		flat.collection,
@@ -140,7 +140,7 @@
 <cfif action is "download">
 	<cfset ac="CatNum,#session.CustomOtherIdentifier#,ScientificName,BeganDate,EndedDate,VerbatimDate,AccesionedDate,Part,Modifier,Pres,InBarcode,Loan">
 	<cfset variables.encoding="UTF-8">
-	<cfset fname = "ArctosData_#left(session.sessionid,10)#.csv">
+	<cfset fname = "ArctosData_#left(session.sessionKey,10)#.csv">
 	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 	<cfset header=#trim(ac)#>
 	<cfscript>

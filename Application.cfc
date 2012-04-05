@@ -259,7 +259,7 @@
 <cffunction name="onSessionStart" output="true">
 	<cfdump var=#session#>
 	<cfoutput>
-		<br>session.sessionid: #session.sessionid#
+		<br>session.sessionKey: #session.sessionKey#
 		<br>cfid: #cfid#
 		<br>jsessionid: #jsessionid#
 	</cfoutput>

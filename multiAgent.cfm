@@ -3,7 +3,7 @@
 <cfif #Action# is "nothing">
 <cfset title = "Edit Collectors">
 <cfoutput> 
-	<cfquery name="getColls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getColls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
 		 	cataloged_item.collection_object_id as collection_object_id, 
 			cataloged_item.cat_num,
@@ -115,7 +115,7 @@
 		<cftransaction>
 			<cfif coll_order is "first" and collector_role is 'c'>
 				<!--- bump everything up a notch --->
-				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update 
 						collector 
 					set 
@@ -124,7 +124,7 @@
 						collection_object_id IN (#collection_object_id#)
 				</cfquery>
 				<cfloop list="#collection_object_id#" index="i">
-					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collector (
 							collection_object_id,
 							agent_id,
@@ -139,7 +139,7 @@
 					</cfquery>				
 				</cfloop>
 			<cfelseif coll_order is "last" and collector_role is 'c'>
-				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update 
 						collector 
 					set 
@@ -149,12 +149,12 @@
 						collection_object_id IN (#collection_object_id#)
 				</cfquery>			
 				<cfloop list="#collection_object_id#" index="i">
-					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select max(coll_order) +1 m from collector where 
 						collection_object_id=#i# and
 						collector_role='c'
 					</cfquery>
-					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collector (
 							collection_object_id,
 							agent_id,
@@ -169,7 +169,7 @@
 					</cfquery>
 				</cfloop>
 			<cfelseif coll_order is "first" and collector_role is 'p'>
-				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update 
 						collector 
 					set 
@@ -179,12 +179,12 @@
 						collection_object_id IN (#collection_object_id#)
 				</cfquery>			
 				<cfloop list="#collection_object_id#" index="i">
-					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select max(coll_order) +1 m from collector where 
 						collection_object_id=#i# and
 						collector_role='c'
 					</cfquery>
-					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collector (
 							collection_object_id,
 							agent_id,
@@ -200,11 +200,11 @@
 				</cfloop>
 			<cfelseif coll_order is "last" and collector_role is 'p'>
 				<cfloop list="#collection_object_id#" index="i">
-					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select max(coll_order) +1 m from collector where 
 						collection_object_id=#i#
 					</cfquery>
-					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collector (
 							collection_object_id,
 							agent_id,
@@ -228,7 +228,7 @@
 	<cfoutput>
 		<cftransaction>
 			<cfloop list="#collection_object_id#" index="i">
-				<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select 
 						collection_object_id,
 						coll_order 
@@ -240,7 +240,7 @@
 						collector_role='#collector_role#'
 				</cfquery>
 				<cfif max.collection_object_id gt 0>
-					<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						delete from 
 							collector 
 						where 
@@ -248,7 +248,7 @@
 							agent_id=#agent_id# and
 							collector_role='#collector_role#'
 					</cfquery>
-					<cfquery name="inc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+					<cfquery name="inc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update 
 							collector 
 						set

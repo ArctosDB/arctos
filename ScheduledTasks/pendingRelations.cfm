@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_temp_relations where RELATED_COLLECTION_OBJECT_ID is null
 </cfquery>
 <cfoutput>

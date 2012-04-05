@@ -1,21 +1,21 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfset title = "Change Collecting Event">
-<cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select island_group from ctisland_group
 </cfquery>
-<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select orig_elev_units from ctorig_elev_units
 </cfquery>
-<cfquery name="ctCollecting_Source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctCollecting_Source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select collecting_source from ctCollecting_Source
 </cfquery>
-<cfquery name="ctFeature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="ctFeature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select distinct(feature) from geog_auth_rec order by feature
 </cfquery>
 <!--------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
   <cfoutput>
- <cfquery name="getLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+ <cfquery name="getLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  	SELECT
 		cat_num,
 		collection_cde,
@@ -280,7 +280,7 @@
 <!--------------------------------------------------------------------------------------->
 <cfif #action# is "makeSaveGoNow">
 <cfoutput>
-	<cfquery name="upCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="upCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE cataloged_item SET collecting_event_id = #collecting_event_id# where collection_object_id = #collection_object_id#
 	</cfquery>
 	<cflocation url="changeCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="no">

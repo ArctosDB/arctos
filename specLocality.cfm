@@ -197,7 +197,7 @@ function useGL(glat,glon,gerr){
 			closeGeoLocate();
 		}
 </script>
-	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select 
 			collection_object_id,
 			collecting_event_id,
@@ -309,7 +309,7 @@ function useGL(glat,glon,gerr){
 			COLLECTING_METHOD,
 			HABITAT_DESC
 	</cfquery>
-	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			GEOLOGY_ATTRIBUTE_ID,
 			GEOLOGY_ATTRIBUTE,
@@ -334,37 +334,37 @@ function useGL(glat,glon,gerr){
 			GEO_ATT_DETERMINED_METHOD,
 			GEO_ATT_REMARK
 	</cfquery>
-	<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select orig_elev_units from ctorig_elev_units
 	</cfquery>
-	<cfquery name="ctdepthUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctdepthUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select depth_units from ctdepth_units
 	</cfquery>
-     <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+     <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select datum from ctdatum 
      </cfquery>
-	<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select georefMethod from ctgeorefmethod
 	</cfquery>
-	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select VerificationStatus from ctVerificationStatus
 	</cfquery>
-     <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+     <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS 
      </cfquery>
-     <cfquery name="ctew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+     <cfquery name="ctew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select e_or_w from ctew 
      </cfquery>
-     <cfquery name="ctns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+     <cfquery name="ctns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select n_or_s from ctns 
      </cfquery>
-     <cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+     <cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select orig_lat_long_units from ctLAT_LONG_UNITS 
      </cfquery>
-	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select COLLECTING_SOURCE from ctcollecting_source 
      </cfquery>
-	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select geology_attribute from ctgeology_attribute order by geology_attribute
 	</cfquery>
 		

@@ -13,7 +13,7 @@
 		upper(HIGHER_GEOG) LIKE '%#ucase(hg)#%'
 		ORDER BY HIGHER_GEOG">
 	
-<cfquery name="getGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="getGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfif #getGeog.recordcount# is 1>

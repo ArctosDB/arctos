@@ -14,7 +14,7 @@ Still testing audio searches.
 <cfset title="Specimen Search">
 <cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
 <cfoutput>
-<cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select count(collection_object_id) as cnt from cataloged_item
 </cfquery>
 <cfquery name="ctmedia_type" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -24,7 +24,7 @@ Still testing audio searches.
 <!--- Note that SpecimenResults.cfm is mentioned in this query, but
 	it doesn't seem to make a difference if the name is a little different. --->
 
-<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select SEARCH_NAME,URL
 	from cf_canned_search,cf_users
 	where cf_users.user_id=cf_canned_search.user_id
@@ -164,7 +164,7 @@ Still testing audio searches.
 </div>
 <input type="hidden" name="Action" value="#Action#">
 <div class="secDiv">
-	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT institution_acronym, collection, collection_id FROM collection order by collection
 	</cfquery>
 	<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
@@ -367,7 +367,7 @@ Still testing audio searches.
 				<span class="helpLink" id="_type_status">Basis of Citation:</span>
 			</td>
 			<td class="srch">
-				<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select type_status from ctcitation_type_status
 				</cfquery>
 				<select name="type_status" id="type_status" size="1">

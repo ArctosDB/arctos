@@ -49,7 +49,7 @@ sho err
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "nothing">
 <cfoutput>
-	<cfquery name="template" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="template" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select column_name, comments from all_col_comments where lower(table_name) = 'cf_temp_part_sample'
 	</cfquery>
 Step 1: Upload a comma-delimited text file (csv). 
@@ -97,7 +97,7 @@ Columns that begin with r$ are required; others are optional:
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 
- <cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+ <cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from cf_temp_part_sample
 </cfquery>
 
@@ -117,7 +117,7 @@ Columns that begin with r$ are required; others are optional:
 		</cfif>	
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_part_sample (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
@@ -129,24 +129,24 @@ Columns that begin with r$ are required; others are optional:
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_part_sample
 	</cfquery>
 	<cfloop query="d">
 		<cfset status="">
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from ctspecimen_part_name where part_name='#R$SAMPLE_NAME#' and collection_cde='#R$COLLECTION_CDE#'
 		</cfquery>
 		<cfif bads.c is not 1>
 			<cfset status=listappend(status,'bad R$SAMPLE_NAME')>
 		</cfif>
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from ctspecimen_part_name where part_name='#R$EXIST_PART_NAME#' and collection_cde='#R$COLLECTION_CDE#'
 		</cfquery>
 		<cfif bads.c is not 1>
 			<cfset status=listappend(status,'bad R$EXIST_PART_NAME')>
 		</cfif>
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from CTCOLL_OBJ_DISP where COLL_OBJ_DISPOSITION='#R$SAMPLE_DISPOSITION#'
 		</cfquery>
 		<cfif bads.c is not 1>
@@ -154,7 +154,7 @@ Columns that begin with r$ are required; others are optional:
 		</cfif>
 		
 		<cfif #R$OTHER_ID_TYPE# is "catalog number">
-			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT 
 					collection_object_id
 				FROM
@@ -167,7 +167,7 @@ Columns that begin with r$ are required; others are optional:
 					cat_num=#R$OTHER_ID_NUMBER#
 			</cfquery>
 		<cfelse>
-			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT 
 					coll_obj_other_id_num.collection_object_id
 				FROM
@@ -190,7 +190,7 @@ Columns that begin with r$ are required; others are optional:
 			<cfset cat_item_id=-1>
 		</cfif>
 		<cfif len(R$SAMPLE_CONTAINER_TYPE) gt 0>
-			<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) c from ctcontainer_type where container_type='#R$SAMPLE_CONTAINER_TYPE#'
 			</cfquery>
 			<cfif bads.c is not 1>
@@ -203,7 +203,7 @@ Columns that begin with r$ are required; others are optional:
 		<cfif len(R$SAMPLE_CONDITION) is 0>
 			<cfset status=listappend(status,'bad R$SAMPLE_CONDITION')>
 		</cfif>
-		<cfquery name="container" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="container" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id from container where barcode='#R$SAMPLE_BARCODE#'
 		</cfquery>
 		<cfif container.recordcount is 1 and len(container.container_id) gt 0>
@@ -213,7 +213,7 @@ Columns that begin with r$ are required; others are optional:
 			<cfset status=listappend(status,'bad R$SAMPLE_BARCODE')>
 		</cfif>
 
-		<cfquery name="pPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="pPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select min(collection_object_id)  collection_object_id
 			from 
 			specimen_part where
@@ -226,7 +226,7 @@ Columns that begin with r$ are required; others are optional:
 			<cfset partID=-1>
 			<cfset status=listappend(status,'parent part not found')>
 		</cfif>
-		<cfquery name="status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_part_sample set
 				i$validated_status='#status#',
 				i$collection_object_id=#cat_item_id#,
@@ -235,7 +235,7 @@ Columns that begin with r$ are required; others are optional:
 			where i$KEY = #i$KEY#
 		</cfquery>
 	</cfloop>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_part_sample
 	</cfquery>
 	
@@ -262,12 +262,12 @@ Columns that begin with r$ are required; others are optional:
 <cfif #action# is "loadToDb">
 
 <cfoutput>
-	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_part_sample
 	</cfquery>
 	<cftransaction>
 	<cfloop query="getTempData">
-		<cfquery name="pPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+		<cfquery name="pPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				*
 			from 
@@ -281,10 +281,10 @@ Columns that begin with r$ are required; others are optional:
 			I can't yet deal with parent lot count <= 1.
 			<cfabort>
 		<cfelse><!--- parent lot count check --->
-			<cfquery name="lot_count" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="lot_count" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update coll_object set lot_count=lot_count-1 where collection_object_id=#i$exist_part_id#
 			</cfquery>
-			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO coll_object (
 					COLLECTION_OBJECT_ID,
 					COLL_OBJECT_TYPE,
@@ -305,7 +305,7 @@ Columns that begin with r$ are required; others are optional:
 					0
 				)		
 			</cfquery>
-			<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO specimen_part (
 				  COLLECTION_OBJECT_ID,
 				  PART_NAME
@@ -319,18 +319,18 @@ Columns that begin with r$ are required; others are optional:
 				)
 			</cfquery>
 			<cfif len(#sample_remarks#) gt 0>
-				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
 					VALUES (sq_collection_object_id.currval, '#sample_remarks#')
 				</cfquery>
 			</cfif>
-			<cfquery name="pCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="pCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select container_id from coll_obj_cont_hist where collection_object_id=#nextID.nextID#
 			</cfquery>
-			<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update container set parent_container_id=#i$container_id# where container_id=#pCont.container_id#
 			</cfquery>
-			<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+			<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update container set label='#r$sample_label#',
 				container_type='#r$sample_container_type#' where container_id=#i$container_id#
 			</cfquery>	

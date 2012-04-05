@@ -45,7 +45,7 @@
 		cataloged_item.collection_object_id IN ( #collection_object_id# )
 	ORDER BY
 		cat_num">
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <style>

@@ -276,17 +276,17 @@
 <cfset title = "Taxonomy Results: " & titleTerms>
 <CFSET SQL = "create table #session.TaxSrchTab# as #SQL#">
 <cftry>
-	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		drop table #session.TaxSrchTab#
 	</cfquery>
 	<cfcatch><!--- not there, so what? ---></cfcatch>
 </cftry>
-	<cfquery name="makeTable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="makeTable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(SQL)#
 	</cfquery>
 <cfset startAt=1>
 </cfif>
-<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select count(*) cnt from #session.TaxSrchTab#
 </cfquery>
 <cfif summary.cnt is 0>
@@ -298,7 +298,7 @@
 <cfif not isdefined("goTo") or len(goTo) is 0 or goTo lte startAt>
 	<cfset goTo = StartAt + dr>
 </cfif>
-<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	Select * from (
 				Select a.*, rownum rnum From (
 					select * from #session.TaxSrchTab# order by scientific_name
@@ -369,7 +369,7 @@ Found #summary.cnt# records.
     </tr>
   <cfset i=1>
   <cfoutput query="getTaxa">
-	<cfquery name="cName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionid)#">
+	<cfquery name="cName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select common_name from common_name where
 		taxon_name_id = #taxon_name_id#
 	</cfquery>
