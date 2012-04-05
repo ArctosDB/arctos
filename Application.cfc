@@ -260,6 +260,7 @@
 	<cfdump var=#session#>
 	<cfoutput>
 		<br>session.sessionid: #session.sessionid#
+		<br>cfid: #cfid#
 		<br>jsessionid: #jsessionid#
 	</cfoutput>
 	<cfinclude template="/includes/functionLib.cfm">
