@@ -27,7 +27,8 @@ sho err
 <cfinclude template="/includes/_header.cfm">
 
 <cfif action is "nothing">
-	
+	Load scientific name; get back those records without Arctos matches.
+	<p></p>
 	Columns in <span style="color:red">red</span> are required; others are optional:
 	<ul>
 		<li style="color:red">scientific_name</li>

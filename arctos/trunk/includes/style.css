@@ -1,23 +1,12 @@
 .hide {visibility:hidden;}
 .soft404 {opacity:.8;}
 .fourohfour {opacity:.2;}
-.bgDivOld {
-	height:100%;
-	position:absolute;
-	width:100%;
-	z-index:2000;
-	opacity:0.5;
-	background:#024;
-	top:0;
-	left:0;
-}
-
 .bgDiv {
 	position: fixed;
-top: 0;
-left: 0;
-bottom: 0;
-right: 0;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 	z-index:2000;
 	opacity:0.5;
 	background:#024;
