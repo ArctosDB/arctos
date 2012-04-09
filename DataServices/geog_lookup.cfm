@@ -294,17 +294,15 @@ from geog_auth_rec where rownum<10
 		
 		
 		
-		<!----
 		<cfquery name="mmmffssds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) like upper('#thisgeog#')
 		</cfquery>
 		<cfif mmmffssds.recordcount is 1>
 			<cfset thisStatus='higher_geog_match'>
 			<cfset fhg=mmmffssds.higher_geog>
+			<br>FULLSTRINGMATCH
 		</cfif>
-	<br>NOTFOUND:::#thisgeog#
 	
-	---->
 		<cfif len(thisStatus) is 0>
 			<!--- didn't get full-string concatenation match - try to match everything they sent, with replacements --->
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -359,6 +357,7 @@ from geog_auth_rec where rownum<10
 			<cfif componentMatch.recordcount is 1>
 				<cfset thisStatus='component_match'>
 				<cfset fhg=componentMatch.higher_geog>
+				<BR>COMPONENETMATCH
 			<cfelse>
 				<cfdump var=#componentMatch#>
 			</cfif>
