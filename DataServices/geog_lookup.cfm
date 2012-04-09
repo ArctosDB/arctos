@@ -291,6 +291,10 @@ from geog_auth_rec where rownum<10
 		<cfset thisgeog=trim(thisgeog)>
 		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z%, ]","X","all")>
 		<br>#thisgeog#
+		
+		
+		
+		<!----
 		<cfquery name="mmmffssds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) like upper('#thisgeog#')
 		</cfquery>
@@ -300,7 +304,7 @@ from geog_auth_rec where rownum<10
 		</cfif>
 	<br>NOTFOUND:::#thisgeog#
 	
-	
+	---->
 		<cfif len(thisStatus) is 0>
 			<!--- didn't get full-string concatenation match - try to match everything they sent, with replacements --->
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
