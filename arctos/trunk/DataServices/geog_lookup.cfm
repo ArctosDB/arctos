@@ -250,8 +250,18 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfloop>
 		<cfif len(thisCounty) gt 0>
-			<cfset thisCounty=replace(thiscounty,' CO.',' County','all')>
-			<cfset thisCounty=replace(thiscounty,' CO',' County','all')>
+			<cfset thisCounty=replace(thiscounty,' CO.','','all')>
+			<cfset thisCounty=replace(thiscounty,' CO','','all')>
+			<cfset thisCounty=replace(thiscounty,' County','','all')>
+			<cfset thisCounty=replace(thiscounty,' Province','','all')>
+			<cfset thisCounty=replace(thiscounty,' Parish','','all')>
+			<cfset thisCounty=replace(thiscounty,' District','','all')>
+			<cfset thisCounty=replace(thiscounty,' Territory','','all')>
+			<cfset thisCounty=replace(thiscounty,' Prov.','','all')>
+			<cfset thisCounty=replace(thiscounty,' Dist.','','all')>
+			<cfset thisCounty=replace(thiscounty,' PROV','','all')>
+			<cfset thisCounty=replace(thiscounty,' DIST','','all')>
+			<cfset thisCounty=replace(thiscounty,' TERR','','all')>
 		</cfif>
 		
 		<!--- see if we can get rid of some of the strange ideas people have for "NULL" 
@@ -321,7 +331,7 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
-					upper(county) = '#ucase(thisCounty)#'
+					upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 				<cfelse>
 					county is null 
 				</cfif>
