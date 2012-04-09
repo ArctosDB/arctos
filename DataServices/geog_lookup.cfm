@@ -213,6 +213,24 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfloop>
 		
+		<cfif len(thisState) gt 0>
+			<cfset thisState=replace(thisState,'Prov.',"")>
+			<cfset thisState=replace(thisState,'Community',"")>
+			<cfset thisState=replace(thisState,'Island',"")>
+			<cfset thisState=replace(thisState,'kray',"")>
+			<cfset thisState=replace(thisState,'Ward',"")>
+			<cfset thisState=replace(thisState,'Territory',"")>
+			<cfset thisState=replace(thisState,'autonomous oblast',"")>
+			<cfset thisState=replace(thisState,'Republic of',"")>
+			<cfset thisState=replace(thisState,'Oblast',"")>
+			<cfset thisState=replace(thisState,'Parish',"")>
+			<cfset thisState=replace(thisState,'Municipality',"")>
+			<cfset thisState=replace(thisState,'Pref.',"")>
+			<cfset thisState=replace(thisState,'City',"")>
+			<cfset thisState=replace(thisState,'Depto.',"")>
+			<cfset thisState=trim(thisState)>
+		</cfif>
+		
 		<cfset thisQuad=quad>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thisQuad is i>
@@ -320,7 +338,8 @@ from geog_auth_rec where rownum<10
 					country is null and
 				</cfif>
 				<cfif len(thisState) gt 0>
-					upper(state_prov) = '#ucase(thisState)#' and
+					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
+					= '#ucase(thisState)#' and
 				<cfelse>
 					state_prov is null and
 				</cfif>
@@ -349,7 +368,6 @@ from geog_auth_rec where rownum<10
 				<cfelse>
 					county is null 
 				</cfif>
-				
 			</cfquery>
 			<cfif componentMatch.recordcount is 1>
 				<cfset thisStatus='component_match'>
@@ -357,58 +375,61 @@ from geog_auth_rec where rownum<10
 				<BR>COMPONENETMATCH
 			<cfelse>
 				<cfdump var=#componentMatch#>
-				<cfquery name="componentMatch_noCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select HIGHER_GEOG from geog_auth_rec where
-					<cfif len(thisSea) gt 0>
-						upper(sea) = '#ucase(thisSea)#' and
-					<cfelse>
-						sea is null and
-					</cfif>
-					<cfif len(thisCountry) gt 0>
-						upper(country) = '#ucase(thisCountry)#' and
-					<cfelse>
-						country is null and
-					</cfif>
-					<cfif len(thisState) gt 0>
-						upper(state_prov) = '#ucase(thisState)#' and
-					<cfelse>
-						state_prov is null and
-					</cfif>
-					<cfif len(thisQuad) gt 0>
-						upper(quad) = '#ucase(thisQuad)#' and
-					<cfelse>
-						quad is null and
-					</cfif>
-					<cfif len(thisFeature) gt 0>
-						upper(feature) = '#ucase(thisFeature)#' and
-					<cfelse>
-						feature is null and
-					</cfif>
-					<cfif len(thisIslandGroup) gt 0>
-						upper(trim(replace(island_group,'Island'))) = '#ucase(thisIslandGroup)#' and
-					<cfelse>
-						 island_group is null and
-					</cfif>
-					<cfif len(thisIsland) gt 0>
-						upper(trim(replace(island,'Island'))) = '#ucase(thisIsland)#' and
-					<cfelse>
-						island is null and
-					</cfif>
-					<cfif len(thisCounty) gt 0>
-						upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
-					<cfelse>
-						county is null 
-					</cfif>
-				</cfquery>
-				<cfif componentMatch_noCont.recordcount is 1>
-					<cfset thisStatus='componentMatch_noCont'>
-					<cfset fhg=componentMatch_noCont.higher_geog>
-					<BR>componentMatch_noCont
-				<cfelse>
-					<cfdump var=#componentMatch_noCont#>
-				</cfif>
 			</cfif>
-		</cfif>	
+		</cfif>
+		<cfif len(thisStatus) is 0>
+			<cfquery name="componentMatch_noCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select HIGHER_GEOG from geog_auth_rec where
+				<cfif len(thisSea) gt 0>
+					upper(sea) = '#ucase(thisSea)#' and
+				<cfelse>
+					sea is null and
+				</cfif>
+				<cfif len(thisCountry) gt 0>
+					upper(country) = '#ucase(thisCountry)#' and
+				<cfelse>
+					country is null and
+				</cfif>
+				<cfif len(thisState) gt 0>
+					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
+					= '#ucase(thisState)#' and
+				<cfelse>
+					state_prov is null and
+				</cfif>
+				<cfif len(thisQuad) gt 0>
+					upper(quad) = '#ucase(thisQuad)#' and
+				<cfelse>
+					quad is null and
+				</cfif>
+				<cfif len(thisFeature) gt 0>
+					upper(feature) = '#ucase(thisFeature)#' and
+				<cfelse>
+					feature is null and
+				</cfif>
+				<cfif len(thisIslandGroup) gt 0>
+					upper(trim(replace(island_group,'Island'))) = '#ucase(thisIslandGroup)#' and
+				<cfelse>
+					 island_group is null and
+				</cfif>
+				<cfif len(thisIsland) gt 0>
+					upper(trim(replace(island,'Island'))) = '#ucase(thisIsland)#' and
+				<cfelse>
+					island is null and
+				</cfif>
+				<cfif len(thisCounty) gt 0>
+					upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+				<cfelse>
+					county is null 
+				</cfif>
+			</cfquery>
+			<cfif componentMatch_noCont.recordcount is 1>
+				<cfset thisStatus='componentMatch_noCont'>
+				<cfset fhg=componentMatch_noCont.higher_geog>
+				<BR>componentMatch_noCont
+			<cfelse>
+				<cfdump var=#componentMatch_noCont#>
+			</cfif>
+		</cfif>
 			
 			
 			
