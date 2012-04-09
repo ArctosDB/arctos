@@ -180,7 +180,6 @@ from geog_auth_rec where rownum<10
 		<br>SEA==#SEA#
 		
 		<cfset thisStatus="">
-		<cfset thisgeog=''>
 		<cfset fhg=''>
 		
 		<cfset thiscontinent=continent_ocean>
@@ -189,9 +188,6 @@ from geog_auth_rec where rownum<10
 				<cfset thisContinent=''>
 			</cfif>
 		</cfloop>
-		<cfif len(thiscontinent) gt 0>
-			<cfset thisgeog=listappend(thisGeog,thiscontinent,"|")>
-		</cfif>
 		
 		<cfset thisSea=sea>
 		<cfloop list="#isNotNullBS#" index="i">
@@ -199,9 +195,6 @@ from geog_auth_rec where rownum<10
 				<cfset thisSea=''>
 			</cfif>
 		</cfloop>
-		<cfif len(thisSea) gt 0>
-			<cfset thisgeog=listappend(thisGeog,thisSea,"|")>
-		</cfif>
 		
 		<cfset thisCountry=country>
 		<cfloop list="#isNotNullBS#" index="i">
@@ -211,7 +204,6 @@ from geog_auth_rec where rownum<10
 		</cfloop>
 		<cfif len(thisCountry) gt 0>
 			<cfset thisCountry=replace(thisCountry,'USA',"United States")>
-			<cfset thisgeog=listappend(thisGeog,thisCountry,"|")>
 		</cfif>
 		
 		<cfset thisState=state_prov>
@@ -220,9 +212,6 @@ from geog_auth_rec where rownum<10
 				<cfset thisState=''>
 			</cfif>
 		</cfloop>
-		<cfif len(thisState) gt 0>
-			<cfset thisgeog=listappend(thisGeog,thisState,"|")>
-		</cfif>
 		
 		<cfset thisQuad=quad>
 		<cfloop list="#isNotNullBS#" index="i">
@@ -230,9 +219,6 @@ from geog_auth_rec where rownum<10
 				<cfset thisQuad=''>
 			</cfif>
 		</cfloop>
-		<cfif len(thisQuad) gt 0>
-			<cfset thisgeog=listappend(thisGeog,thisQuad,"|")>
-		</cfif>
 		
 		
 		<cfset thisFeature=feature>
@@ -241,9 +227,6 @@ from geog_auth_rec where rownum<10
 				<cfset thisFeature=''>
 			</cfif>
 		</cfloop>
-		<cfif len(thisFeature) gt 0>
-			<cfset thisgeog=listappend(thisGeog,thisFeature,"|")>
-		</cfif>
 		
 		
 		<cfset thisIslandGroup=island_group>
@@ -252,9 +235,6 @@ from geog_auth_rec where rownum<10
 				<cfset thisIslandGroup=''>
 			</cfif>
 		</cfloop>
-		<cfif len(thisIslandGroup) gt 0>
-			<cfset thisgeog=listappend(thisGeog,thisIslandGroup,"|")>
-		</cfif>
 		
 		<cfset thisIsland=island>
 		<cfloop list="#isNotNullBS#" index="i">
@@ -262,9 +242,6 @@ from geog_auth_rec where rownum<10
 				<cfset thisIsland=''>
 			</cfif>
 		</cfloop>
-		<cfif len(thisIsland) gt 0>
-			<cfset thisgeog=listappend(thisGeog,thisIsland,"|")>
-		</cfif>
 		
 		<cfset thisCounty=county>
 		<cfloop list="#isNotNullBS#" index="i">
@@ -275,7 +252,6 @@ from geog_auth_rec where rownum<10
 		<cfif len(thisCounty) gt 0>
 			<cfset thisCounty=replace(thiscounty,' CO.',' County','all')>
 			<cfset thisCounty=replace(thiscounty,' CO',' County','all')>
-			<cfset thisgeog=listappend(thisGeog,thisCounty,"|")>
 		</cfif>
 		
 		<!--- see if we can get rid of some of the strange ideas people have for "NULL" 
@@ -287,13 +263,10 @@ from geog_auth_rec where rownum<10
 			</cfloop>
 		</cfloop>
 		--->
-		<cfset thisgeog=replace(thisgeog,"|",  ", ","all")>		
-		<cfset thisgeog=trim(thisgeog)>
-		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z%, ]","X","all")>
-		<br>#thisgeog#
 		
+		<!---
 		
-		
+		don't think this does anything that componentmatch does not
 		<cfquery name="mmmffssds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) like upper('#thisgeog#')
 		</cfquery>
@@ -302,9 +275,8 @@ from geog_auth_rec where rownum<10
 			<cfset fhg=mmmffssds.higher_geog>
 			<br>FULLSTRINGMATCH
 		</cfif>
-	
+		---->
 		<cfif len(thisStatus) is 0>
-		</cfif>
 			<!--- didn't get full-string concatenation match - try to match everything they sent, with replacements --->
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where
@@ -362,7 +334,7 @@ from geog_auth_rec where rownum<10
 			<cfelse>
 				<cfdump var=#componentMatch#>
 			</cfif>
-			
+		</cfif>	
 			
 			
 			
@@ -465,7 +437,6 @@ from geog_auth_rec where rownum<10
 			update
 				ds_temp_geog
 			set
-				calculated_higher_geog='#thisgeog#',
 				found_higher_geog='#fhg#',
 				status='#thisStatus#'
 			where
