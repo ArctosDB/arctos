@@ -304,6 +304,7 @@ from geog_auth_rec where rownum<10
 		</cfif>
 	
 		<cfif len(thisStatus) is 0>
+		</cfif>
 			<!--- didn't get full-string concatenation match - try to match everything they sent, with replacements --->
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where
@@ -361,7 +362,17 @@ from geog_auth_rec where rownum<10
 			<cfelse>
 				<cfdump var=#componentMatch#>
 			</cfif>
-		</cfif>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		<cfif len(thisStatus) is 0 and len(thiscounty) gt 0>
 			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(county) like upper('#thiscounty#')
