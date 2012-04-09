@@ -274,8 +274,8 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfloop>
 		<cfif len(thisCounty) gt 0>
-			<cfset thiscountyW=replace(thiscounty,' CO.',' County','all')>
-			<cfset thiscountyW=replace(thiscounty,' CO',' County','all')>
+			<cfset thisCounty=replace(thiscounty,' CO.',' County','all')>
+			<cfset thisCounty=replace(thiscounty,' CO',' County','all')>
 			<cfset thisgeog=listappend(thisGeog,thisCounty,"|")>
 		</cfif>
 		
