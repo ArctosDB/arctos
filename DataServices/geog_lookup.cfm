@@ -90,7 +90,7 @@ from geog_auth_rec where rownum<10
 <cfinclude template="/includes/_header.cfm">
 
 <cfif action is "nothing">
-	
+	Load random-ish geography; we'll try to find an appropriate Arctos higher_geog entry.
 	Columns in <span style="color:red">red</span> are required; others are optional:
 	<ul>
 		<li>CONTINENT_OCEAN</li>
@@ -164,6 +164,10 @@ from geog_auth_rec where rownum<10
 	<cfquery name="CDasdf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_geog
 	</cfquery>
+	
+	<cfset isNotNullBS='none'>
+		
+		
 	<cfloop query="CDasdf">
 		<br>CONTINENT_OCEAN==#CONTINENT_OCEAN#
 		<br>COUNTRY==#COUNTRY#
@@ -178,41 +182,104 @@ from geog_auth_rec where rownum<10
 		<cfset thisStatus="">
 		<cfset thisgeog=''>
 		<cfset fhg=''>
-		<Cfset thiscounty="">
-		<cfif len(continent_ocean) gt 0>
-			<cfset thisgeog=listappend(thisGeog,continent_ocean,"|")>
-		</cfif>
-		<cfif len(sea) gt 0>
-			<cfset thisgeog=listappend(thisGeog,sea,"|")>
-		</cfif>
-		<cfif len(country) gt 0>
-			<cfset thiscountry=replace(country,'USA',"United States")>
-			<cfset thisgeog=listappend(thisGeog,thiscountry,"|")>
-		</cfif>
-		<cfif len(state_prov) gt 0>
-			<cfset thisgeog=listappend(thisGeog,state_prov,"|")>
-		</cfif>
-		<cfif len(county) gt 0>
-			<Cfset thiscounty=county>
-			<Cfset thiscounty=replace(thiscounty,' CO.','%','all')>
-			<Cfset thiscounty=replace(thiscounty,' CO','%','all')>
-			<cfset thisgeog=listappend(thisGeog,thiscounty,"|")>
-		</cfif>
-		<cfif len(quad) gt 0>
-			<cfset thisgeog=listappend(thisGeog,quad & " Quad","|")>
-		</cfif>
-		<cfif len(feature) gt 0>
-			<cfset thisgeog=listappend(thisGeog,feature,"|")>
-		</cfif>
-		<cfif len(island_group) gt 0>
-			<cfset thisgeog=listappend(thisGeog,island_group,"|")>
-		</cfif>
-		<cfif len(island) gt 0>
-			<cfset thisgeog=listappend(thisGeog,island,"|")>
+		
+		<cfset thiscontinent=continent_ocean>
+		<cfloop list="#isNotNullBS#" index="i">
+			<cfif thiscontinent is i>
+				<cfset thisContinent=''>
+			</cfif>
+		</cfloop>
+		<cfif len(thiscontinent) gt 0>
+			<cfset thisgeog=listappend(thisGeog,thiscontinent,"|")>
 		</cfif>
 		
-		<!--- see if we can get rid of some of the strange ideas people have for "NULL" --->
-		<cfset isNotNullBS='none'>
+		<cfset thisSea=sea>
+		<cfloop list="#isNotNullBS#" index="i">
+			<cfif thisSea is i>
+				<cfset thisSea=''>
+			</cfif>
+		</cfloop>
+		<cfif len(thisSea) gt 0>
+			<cfset thisgeog=listappend(thisGeog,thisSea,"|")>
+		</cfif>
+		
+		<cfset thisCountry=country>
+		<cfloop list="#isNotNullBS#" index="i">
+			<cfif thisCountry is i>
+				<cfset thisCountry=''>
+			</cfif>
+		</cfloop>
+		<cfif len(thisCountry) gt 0>
+			<cfset thisCountry=replace(thisCountry,'USA',"United States")>
+			<cfset thisgeog=listappend(thisGeog,thisCountry,"|")>
+		</cfif>
+		
+		<cfset thisState=state_prov>
+		<cfloop list="#isNotNullBS#" index="i">
+			<cfif thisState is i>
+				<cfset thisState=''>
+			</cfif>
+		</cfloop>
+		<cfif len(thisState) gt 0>
+			<cfset thisgeog=listappend(thisGeog,thisState,"|")>
+		</cfif>
+		
+		<cfset thisQuad=quad>
+		<cfloop list="#isNotNullBS#" index="i">
+			<cfif thisQuad is i>
+				<cfset thisQuad=''>
+			</cfif>
+		</cfloop>
+		<cfif len(thisQuad) gt 0>
+			 <cfset thisQuad=thisQuad & " Quad">
+			<cfset thisgeog=listappend(thisGeog,thisQuad,"|")>
+		</cfif>
+		
+		
+		<cfset thisFeature=feature>
+		<cfloop list="#isNotNullBS#" index="i">
+			<cfif thisFeature is i>
+				<cfset thisFeature=''>
+			</cfif>
+		</cfloop>
+		<cfif len(thisFeature) gt 0>
+			<cfset thisgeog=listappend(thisGeog,thisFeature,"|")>
+		</cfif>
+		
+		
+		<cfset thisIslandGroup=island_group>
+		<cfloop list="#isNotNullBS#" index="i">
+			<cfif thisIslandGroup is i>
+				<cfset thisIslandGroup=''>
+			</cfif>
+		</cfloop>
+		<cfif len(thisIslandGroup) gt 0>
+			<cfset thisgeog=listappend(thisGeog,thisIslandGroup,"|")>
+		</cfif>
+		
+		<cfset thisIsland=island>
+		<cfloop list="#isNotNullBS#" index="i">
+			<cfif thisIsland is i>
+				<cfset thisIsland=''>
+			</cfif>
+		</cfloop>
+		<cfif len(thisIsland) gt 0>
+			<cfset thisgeog=listappend(thisGeog,thisIsland,"|")>
+		</cfif>
+		
+		<cfset thisCounty=county>
+		<cfloop list="#isNotNullBS#" index="i">
+			<cfif thisCounty is i>
+				<cfset thisCounty=''>
+			</cfif>
+		</cfloop>
+		<cfif len(thisCounty) gt 0>
+			<cfset thiscountyW=replace(thiscounty,' CO.',' County','all')>
+			<cfset thiscountyW=replace(thiscounty,' CO',' County','all')>
+			<cfset thisgeog=listappend(thisGeog,thisCounty,"|")>
+		</cfif>
+		
+		<!--- see if we can get rid of some of the strange ideas people have for "NULL" 
 		<cfloop list="#isNotNullBS#" index="x">
 			<cfloop from="1" to="#ListValueCountNoCase(thisgeog,x,"|")#" index="l">
 				<br>beforedelete==#l#==---#thisgeog#
@@ -220,6 +287,7 @@ from geog_auth_rec where rownum<10
 				<br>afterdelete==#l#==---#thisgeog#
 			</cfloop>
 		</cfloop>
+		--->
 		<cfset thisgeog=replace(thisgeog,"|",  ", ","all")>		
 		<cfset thisgeog=trim(thisgeog)>
 		<cfset thisgeog=REReplace(thisgeog,"[^A-Za-z%, ]","X","all")>
@@ -232,6 +300,25 @@ from geog_auth_rec where rownum<10
 			<cfset fhg=mmmffssds.higher_geog>
 		</cfif>
 	<br>NOTFOUND:::#thisgeog#
+	
+	
+		<cfif len(thisStatus) is 0>
+			<!--- didn't get full-string concatenation match - try to match everything they sent, with replacements --->
+			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select HIGHER_GEOG from geog_auth_rec where 
+				upper(continent_ocean) = '#ucase(thiscontinent)#' and
+				upper(sea) = '#ucase(thisSea)#' and
+				upper(country) = '#ucase(thisCountry)#' and
+				upper(state_prov) = '#ucase(thisState)#' and
+				upper(quad) = '#ucase(thisQuad)#' and
+				upper(feature) = '#ucase(thisFeature)#' and
+				upper(island_group) = '#ucase(thisIslandGroup)#' and
+				upper(island) = '#ucase(thisIsland)#' and
+				upper(county) = '#ucase(thisCounty)#'
+			</cfquery>
+			<cfdump var=#componentMatch#>
+		
+		</cfif>
 		<cfif len(thisStatus) is 0 and len(thiscounty) gt 0>
 			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where upper(county) like upper('#thiscounty#')
