@@ -357,6 +357,56 @@ from geog_auth_rec where rownum<10
 				<BR>COMPONENETMATCH
 			<cfelse>
 				<cfdump var=#componentMatch#>
+				<cfquery name="componentMatch_noCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select HIGHER_GEOG from geog_auth_rec where
+					<cfif len(thisSea) gt 0>
+						upper(sea) = '#ucase(thisSea)#' and
+					<cfelse>
+						sea is null and
+					</cfif>
+					<cfif len(thisCountry) gt 0>
+						upper(country) = '#ucase(thisCountry)#' and
+					<cfelse>
+						country is null and
+					</cfif>
+					<cfif len(thisState) gt 0>
+						upper(state_prov) = '#ucase(thisState)#' and
+					<cfelse>
+						state_prov is null and
+					</cfif>
+					<cfif len(thisQuad) gt 0>
+						upper(quad) = '#ucase(thisQuad)#' and
+					<cfelse>
+						quad is null and
+					</cfif>
+					<cfif len(thisFeature) gt 0>
+						upper(feature) = '#ucase(thisFeature)#' and
+					<cfelse>
+						feature is null and
+					</cfif>
+					<cfif len(thisIslandGroup) gt 0>
+						upper(trim(replace(island_group,'Island'))) = '#ucase(thisIslandGroup)#' and
+					<cfelse>
+						 island_group is null and
+					</cfif>
+					<cfif len(thisIsland) gt 0>
+						upper(trim(replace(island,'Island'))) = '#ucase(thisIsland)#' and
+					<cfelse>
+						island is null and
+					</cfif>
+					<cfif len(thisCounty) gt 0>
+						upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+					<cfelse>
+						county is null 
+					</cfif>
+				</cfquery>
+				<cfif componentMatch_noCont.recordcount is 1>
+					<cfset thisStatus='componentMatch_noCont'>
+					<cfset fhg=componentMatch_noCont.higher_geog>
+					<BR>componentMatch_noCont
+				<cfelse>
+					<cfdump var=#componentMatch_noCont#>
+				</cfif>
 			</cfif>
 		</cfif>	
 			
@@ -366,7 +416,7 @@ from geog_auth_rec where rownum<10
 			
 			
 			
-			
+		<!----
 			
 			
 		<cfif len(thisStatus) is 0 and len(thiscounty) gt 0>
@@ -456,7 +506,7 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfif>
 
-		
+		----->
 		<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update
 				ds_temp_geog
