@@ -2,7 +2,6 @@
 .soft404 {opacity:.8;}
 .fourohfour {opacity:.2;}
 .bgDiv {
-	height:100%;
 	position:absolute;
 	width:100%;
 	z-index:2000;
