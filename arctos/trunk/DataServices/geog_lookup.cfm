@@ -231,7 +231,6 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfloop>
 		<cfif len(thisQuad) gt 0>
-			 <cfset thisQuad=thisQuad & " Quad">
 			<cfset thisgeog=listappend(thisGeog,thisQuad,"|")>
 		</cfif>
 		
@@ -305,16 +304,53 @@ from geog_auth_rec where rownum<10
 		<cfif len(thisStatus) is 0>
 			<!--- didn't get full-string concatenation match - try to match everything they sent, with replacements --->
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where 
-				upper(continent_ocean) = '#ucase(thiscontinent)#' and
-				upper(sea) = '#ucase(thisSea)#' and
-				upper(country) = '#ucase(thisCountry)#' and
-				upper(state_prov) = '#ucase(thisState)#' and
-				upper(quad) = '#ucase(thisQuad)#' and
-				upper(feature) = '#ucase(thisFeature)#' and
-				upper(island_group) = '#ucase(thisIslandGroup)#' and
-				upper(island) = '#ucase(thisIsland)#' and
-				upper(county) = '#ucase(thisCounty)#'
+				select HIGHER_GEOG from geog_auth_rec where
+				<cfif len(thiscontinent) gt 0>
+					upper(continent_ocean) = '#ucase(thiscontinent)#' and
+				<cfelse>
+					continent_ocean is null and
+				</cfif>
+				<cfif len(thisSea) gt 0>
+					upper(sea) = '#ucase(thisSea)#' and
+				<cfelse>
+					sea is null and
+				</cfif>
+				<cfif len(thisCountry) gt 0>
+					upper(country) = '#ucase(thisCountry)#' and
+				<cfelse>
+					country is null and
+				</cfif>
+				<cfif len(thisState) gt 0>
+					upper(state_prov) = '#ucase(thisState)#' and
+				<cfelse>
+					state_prov is null and
+				</cfif>
+				<cfif len(thisQuad) gt 0>
+					upper(quad) = '#ucase(thisQuad)#' and
+				<cfelse>
+					quad is null and
+				</cfif>
+				<cfif len(thisFeature) gt 0>
+					upper(feature) = '#ucase(thisFeature)#' and
+				<cfelse>
+					feature is null and
+				</cfif>
+				<cfif len(thisIslandGroup) gt 0>
+					upper(island_group) = '#ucase(thisIslandGroup)#' and
+				<cfelse>
+					island_group is null and
+				</cfif>
+				<cfif len(thisIsland) gt 0>
+					upper(island) = '#ucase(thisIsland)#' and
+				<cfelse>
+					island is null and
+				</cfif>
+				<cfif len(thisCounty) gt 0>
+					upper(county) = '#ucase(thisCounty)#'
+				<cfelse>
+					county is null 
+				</cfif>
+				
 			</cfquery>
 			<cfif componentMatch.recordcount is 1>
 				<cfset thisStatus='component_match'>
