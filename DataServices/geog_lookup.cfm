@@ -236,12 +236,26 @@ from geog_auth_rec where rownum<10
 			</cfif>
 		</cfloop>
 		
+		<cfif len(thisIslandGroup) gt 0>
+			<cfset thisIslandGroup=replace(thisIslandGroup,' IS.','','all')>
+			<cfset thisIslandGroup=replace(thisIslandGroup,' ISL.','','all')>
+			<cfset thisIslandGroup=replace(thisIslandGroup,' IS','','all')>
+			<cfset thisIslandGroup=replace(thisIslandGroup,' ISL','','all')>
+		</cfif>
+		
 		<cfset thisIsland=island>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thisIsland is i>
 				<cfset thisIsland=''>
 			</cfif>
 		</cfloop>
+		<cfif len(thisIsland) gt 0>
+			<cfset thisIsland=replace(thisIsland,' IS.','','all')>
+			<cfset thisIsland=replace(thisIsland,' ISL.','','all')>
+			<cfset thisIsland=replace(thisIsland,' IS','','all')>
+			<cfset thisIsland=replace(thisIsland,' ISL','','all')>
+		</cfif>
+		
 		
 		<cfset thisCounty=county>
 		<cfloop list="#isNotNullBS#" index="i">
@@ -321,12 +335,12 @@ from geog_auth_rec where rownum<10
 					feature is null and
 				</cfif>
 				<cfif len(thisIslandGroup) gt 0>
-					upper(island_group) = '#ucase(thisIslandGroup)#' and
+					upper(trim(replace(island_group,'Island'))) = '#ucase(thisIslandGroup)#' and
 				<cfelse>
-					island_group is null and
+					 island_group is null and
 				</cfif>
 				<cfif len(thisIsland) gt 0>
-					upper(island) = '#ucase(thisIsland)#' and
+					upper(trim(replace(island,'Island'))) = '#ucase(thisIsland)#' and
 				<cfelse>
 					island is null and
 				</cfif>
