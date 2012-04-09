@@ -316,8 +316,12 @@ from geog_auth_rec where rownum<10
 				upper(island) = '#ucase(thisIsland)#' and
 				upper(county) = '#ucase(thisCounty)#'
 			</cfquery>
-			<cfdump var=#componentMatch#>
-		
+			<cfif componentMatch.recordcount is 1>
+				<cfset thisStatus='component_match'>
+				<cfset fhg=componentMatch.higher_geog>
+			<cfelse>
+				<cfdump var=#componentMatch#>
+			</cfif>
 		</cfif>
 		<cfif len(thisStatus) is 0 and len(thiscounty) gt 0>
 			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
