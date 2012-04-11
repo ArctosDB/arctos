@@ -403,6 +403,9 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('ID_SENSU')> -1) {
 				theInnerHtml += '<th>ID sensu</th>';
 			}
+			if (data.COLUMNLIST[0].indexOf('ID_DATE')> -1) {
+				theInnerHtml += '<th>ID Date</th>';
+			}
 			if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
 				theInnerHtml += '<th>Scientific&nbsp;Name</th>';
 			}
@@ -417,6 +420,9 @@ function success_getSpecResultsData(result){
 			}
 			if (data.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
 				theInnerHtml += '<th>Order</th>';
+			}
+			if (data.COLUMNLIST[0].indexOf('PHYLCLASS')> -1) {
+				theInnerHtml += '<th>Class</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('FAMILY')> -1) {
 				theInnerHtml += '<th>Family</th>';
@@ -514,6 +520,9 @@ function success_getSpecResultsData(result){
 			
 			if (data.COLUMNLIST[0].indexOf('VERBATIM_LOCALITY')> -1) {
 				theInnerHtml += '<th>Verbatim&nbsp;Locality</th>';
+			}
+			if (data.COLUMNLIST[0].indexOf('COLLECTING_METHOD')> -1) {
+				theInnerHtml += '<th>Collecting&nbsp;Method</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
 				theInnerHtml += '<th>Geology&nbsp;Attributes</th>';
@@ -645,6 +654,11 @@ function success_getSpecResultsData(result){
 						theInnerHtml += data.ID_SENSU[i];
 					theInnerHtml += '</td>';
 				}
+				if (data.COLUMNLIST[0].indexOf('ID_DATE')> -1) {
+					theInnerHtml += '<td>';
+						theInnerHtml += data.ID_DATE[i];
+					theInnerHtml += '</td>';
+				}
 				if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
 					theInnerHtml += '<td>';
 						theInnerHtml += spaceStripper(data.SCI_NAME_WITH_AUTH[i]);
@@ -665,6 +679,9 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
 					theInnerHtml += '<td>' + data.PHYLORDER[i] + '</td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('PHYLCLASS')> -1) {
+					theInnerHtml += '<td>' + data.PHYLCLASS[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('FAMILY')> -1) {
 					theInnerHtml += '<td>' + data.FAMILY[i] + '</td>';
@@ -764,6 +781,9 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('VERBATIM_LOCALITY')> -1) {
 					theInnerHtml += '<td>' + data.VERBATIM_LOCALITY[i] + '</td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('COLLECTING_METHOD')> -1) {
+					theInnerHtml += '<td>' + data.COLLECTING_METHOD[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
 					theInnerHtml += '<td>' + data.GEOLOGY_ATTRIBUTES[i] + '</td>';
