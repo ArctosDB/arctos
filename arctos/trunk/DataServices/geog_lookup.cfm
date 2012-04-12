@@ -1,7 +1,5 @@
-
 <script>
 	function useThisOne(pkey,geog) {
-		alert(pkey + ': ' + geog);
 		$.getJSON("/component/DSFunctions.cfc",
 			{
 				method : "upDSGeog",
@@ -14,8 +12,6 @@
 				$('#chooseTab_' + r).hide();
 			}
 		);
-		
-		
 	}
 </script>
 <!---
@@ -180,12 +176,19 @@ from geog_auth_rec where rownum<10
 </cfif>
 <cfif action is "validate">
 <cfoutput>
-
+	things that resolve to one match have been updated.
+	<br>THings with multiple possibilities may be selected.
+	<br>Accuracy varies by method
+	<br>full_component_match > componentMatch_noCont > componentMatch_noSea > componentMatch_noCountry > componentMatch_JustIsland
+	<br>Manually select suggestions and/or scroll to the bottom to download CSV.
+	<br><a href="/contact.cfm">contact us</a> is we could make something unstoopider	
+		
+		
+		
 		
 	<cfquery name="qdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_geog where rownum<20
+		select * from ds_temp_geog
 	</cfquery>
-	<cfdump var=#qdata#>
 	<cfset isNotNullBS='none'>
 
 	<cfset result = QueryNew("method,higher_geog")>
