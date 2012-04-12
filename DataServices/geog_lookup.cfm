@@ -181,9 +181,9 @@ from geog_auth_rec where rownum<10
 	<br>Accuracy varies by method
 	<br>full_component_match > componentMatch_noCont > componentMatch_noSea > componentMatch_noCountry > componentMatch_JustIsland
 	<br>Manually select suggestions and/or scroll to the bottom to download CSV.
-	<br><a href="/contact.cfm">contact us</a> is we could make something unstoopider	
-		
-		
+	<br><a href="/contact.cfm">contact us</a> if we could make something unstoopider	
+	<hr>
+	
 		
 		
 	<cfquery name="qdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -275,6 +275,10 @@ from geog_auth_rec where rownum<10
 			<cfset thisState=replace(thisState,'Pref.',"")>
 			<cfset thisState=replace(thisState,'City',"")>
 			<cfset thisState=replace(thisState,'Depto.',"")>
+			
+			<cfset thisState=rereplace(thisState,'\(.*\)','')>
+			
+				
 			<cfset thisState=trim(thisState)>
 		</cfif>
 		
