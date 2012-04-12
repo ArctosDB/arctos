@@ -40,6 +40,7 @@ alter table ds_temp_geog drop column HIGHER_GEOG;
 alter table ds_temp_geog add calculated_higher_geog varchar2(255);
 alter table ds_temp_geog add found_higher_geog varchar2(255);
 alter table ds_temp_geog add status varchar2(255);
+alter table ds_temp_geog rename column found_higher_geog to higher_geog;
 
 create or replace public synonym ds_temp_geog for ds_temp_geog;
 grant all on ds_temp_geog to coldfusion_user;
@@ -564,7 +565,7 @@ from geog_auth_rec where rownum<10
 				update
 					ds_temp_geog
 				set
-					found_higher_geog='#result.higher_geog#',
+					higher_geog='#result.higher_geog#',
 					status='#result.method#'
 				where
 					pkey=#qdata.pkey#
@@ -737,7 +738,7 @@ END;
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ds_temp_geog
 				order by
-				found_higher_geog,
+				higher_geog,
 				calculated_higher_geog
 		</cfquery>
 		<cfset ac = getData.columnList>
