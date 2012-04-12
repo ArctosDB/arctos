@@ -1,5 +1,5 @@
 <cfcomponent>
-	<cffunction name="upDSGeog" access="">
+	<cffunction name="upDSGeog" access="remote">
 		<cfargument name="pkey" type="number" required="yes">
 		<cfargument name="geog" type="string" required="yes">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
