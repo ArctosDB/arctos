@@ -172,7 +172,7 @@ from geog_auth_rec where rownum<10
 	<cfdump var=#qdata#>
 	<cfset isNotNullBS='none'>
 
-	<cfset result = QueryNew("method,higherGeog")>
+	<cfset result = QueryNew("method,higher_geog")>
 	
 
 			
