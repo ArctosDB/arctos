@@ -1,6 +1,6 @@
 <cfcomponent>
 	<cffunction name="upDSGeog" access="remote">
-		<cfargument name="pkey" type="number" required="yes">
+		<cfargument name="pkey" type="numeric" required="yes">
 		<cfargument name="geog" type="string" required="yes">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update ds_temp_geog set HIGHER_GEOG='#geog#' where pkey=#pkey#
