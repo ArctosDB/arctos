@@ -551,7 +551,7 @@ from geog_auth_rec where rownum<10
 				<BR>componentMatch_JustIsland
 			<cfelseif componentMatch_JustIsland.recordcount gt 1>
 				<cfloop query="componentMatch_JustIsland">
-					<br><span class="likeLink" onclick="useThisOne('#pkey#','#higher_geog#');">#higher_geog#</span>
+					<br><span class="likeLink" onclick="useThisOne('xxxxxx','#higher_geog#');">#higher_geog#</span>
 				</cfloop>
 			</cfif>
 		</cfif>
