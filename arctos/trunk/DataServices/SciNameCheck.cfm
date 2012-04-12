@@ -206,48 +206,47 @@ sho err
 			</cfquery>
 		</cfif>
 	</cfloop>
-	
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ds_temp_taxcheck
-				order by
-				scientific_name
-		</cfquery>
-		<cfset ac = getData.columnList>
-		<!--- strip internal columns --->
-		<cfif ListFindNoCase(ac,'KEY')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'KEY'))>
-		</cfif>
-		<cfset fileDir = "#Application.webDirectory#">
-		<cfset variables.encoding="UTF-8">
-		<cfset fname = "sciname_lookup.csv">
-		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-		<cfset header=trim(ac)>
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(header); 
-		</cfscript>
-		<cfloop query="getData">
-			<cfset oneLine = "">
-			<cfloop list="#ac#" index="c">
-				<cfset thisData = evaluate(c)>
-				<cfif len(oneLine) is 0>
-					<cfset oneLine = '"#thisData#"'>
-				<cfelse>
-					<cfset thisData=replace(thisData,'"','""','all')>
-					<cfset oneLine = '#oneLine#,"#thisData#"'>
-				</cfif>
-			</cfloop>
-			<cfset oneLine = trim(oneLine)>
-			<cfscript>
-				variables.joFileWriter.writeLine(oneLine);
-			</cfscript>
+		select * from ds_temp_taxcheck
+			order by
+			scientific_name
+	</cfquery>
+	<cfset ac = getData.columnList>
+	<!--- strip internal columns --->
+	<cfif ListFindNoCase(ac,'KEY')>
+		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'KEY'))>
+	</cfif>
+	<cfset fileDir = "#Application.webDirectory#">
+	<cfset variables.encoding="UTF-8">
+	<cfset fname = "sciname_lookup.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	<cfset header=trim(ac)>
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(header); 
+	</cfscript>
+	<cfloop query="getData">
+		<cfset oneLine = "">
+		<cfloop list="#ac#" index="c">
+			<cfset thisData = evaluate(c)>
+			<cfif len(oneLine) is 0>
+				<cfset oneLine = '"#thisData#"'>
+			<cfelse>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+			</cfif>
 		</cfloop>
-		<cfscript>	
-			variables.joFileWriter.close();
+		<cfset oneLine = trim(oneLine)>
+		<cfscript>
+			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
-		<!---
+	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	<cfoutput>
 		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-		---->
 		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+	</cfoutput>
 	
 </cfif>
