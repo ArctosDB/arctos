@@ -174,7 +174,7 @@ from geog_auth_rec where rownum<10
 		
 		
 	<cfloop query="CDasdf">
-	#pkey#----
+	#CDasdf.pkey#----
 		Loaded Data:
 		<br>CONTINENT_OCEAN==#CONTINENT_OCEAN#
 		<br>COUNTRY==#COUNTRY#
