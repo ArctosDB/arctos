@@ -166,15 +166,15 @@ from geog_auth_rec where rownum<10
 <cfoutput>
 
 		
-	<cfquery name="CDasdf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="qdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_geog where rownum<20
 	</cfquery>
-	<cfdump var=#CDasdf#>
+	<cfdump var=#qdata#>
 	<cfset isNotNullBS='none'>
 		
 		
-	<cfloop query="CDasdf">
-	#CDasdf.pkey#----
+	<cfloop query="qdata">
+	#qdata.pkey#----
 		Loaded Data:
 		<br>CONTINENT_OCEAN==#CONTINENT_OCEAN#
 		<br>COUNTRY==#COUNTRY#
@@ -382,7 +382,7 @@ from geog_auth_rec where rownum<10
 				<BR>COMPONENETMATCH
 			<cfelseif componentMatch.recordcount gt 1>
 				<cfloop query="componentMatch">
-					<br><span class="likeLink" onclick="useThisOne('#pkey#','#higher_geog#');">#higher_geog#</span>
+					<br>#higher_geog# <span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span>
 				</cfloop>
 			</cfif>
 		</cfif>
@@ -437,7 +437,7 @@ from geog_auth_rec where rownum<10
 				<BR>componentMatch_noCont
 			<cfelseif componentMatch_noCont.recordcount gt 1>
 				<cfloop query="componentMatch_noCont">
-					<br><span class="likeLink" onclick="useThisOne('#pkey#','#higher_geog#');">#higher_geog#</span>
+					<br>#higher_geog# <span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span>
 				</cfloop>
 			</cfif>
 		</cfif>
@@ -487,7 +487,7 @@ from geog_auth_rec where rownum<10
 				<BR>componentMatch_noSea
 			<cfelseif componentMatch_noSea.recordcount gt 1>
 				<cfloop query="componentMatch_noSea">
-					<br><span class="likeLink" onclick="useThisOne('#pkey#','#higher_geog#');">#higher_geog#</span>
+					<br>#higher_geog# <span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span>
 				</cfloop>
 			</cfif>
 		</cfif>
@@ -533,7 +533,7 @@ from geog_auth_rec where rownum<10
 				<BR>componentMatch_noCountry
 			<cfelseif componentMatch_noCountry.recordcount gt 1>
 				<cfloop query="componentMatch_noCountry">
-					<br><span class="likeLink" onclick="useThisOne('#pkey#','#higher_geog#');">#higher_geog#</span>
+					<br>#higher_geog# <span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span>
 				</cfloop>
 			</cfif>
 		</cfif>
@@ -551,7 +551,7 @@ from geog_auth_rec where rownum<10
 				<BR>componentMatch_JustIsland
 			<cfelseif componentMatch_JustIsland.recordcount gt 1>
 				<cfloop query="componentMatch_JustIsland">
-					<br><span class="likeLink" onclick="useThisOne('xxxxxx','#higher_geog#');">#higher_geog#</span>
+					<br>#higher_geog# <span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span>
 				</cfloop>
 			</cfif>
 		</cfif>
@@ -656,7 +656,7 @@ from geog_auth_rec where rownum<10
 				found_higher_geog='#fhg#',
 				status='#thisStatus#'
 			where
-				pkey=#pkey#
+				pkey=#qdata.pkey#
 		</cfquery>
 		<hr>
 		
