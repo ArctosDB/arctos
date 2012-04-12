@@ -207,7 +207,6 @@ from geog_auth_rec where rownum<10
 			</tr>
 		</table>
 		---->
-		#CONTINENT_OCEAN#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#:#SEA#
 		<cfset thisStatus="">
 		<cfset fhg=''>
 		
@@ -324,88 +323,66 @@ from geog_auth_rec where rownum<10
 			<cfset thisCounty=replace(thiscounty,' DIST','','all')>
 			<cfset thisCounty=replace(thiscounty,' TERR','','all')>
 		</cfif>
+		<br>RawData==#CONTINENT_OCEAN#:#SEA#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#
+		<br>InterpretedData==#thiscontinent#:#thisSea#:#thisCountry#:#thisState#:#thisCounty#:#thisQuad#:#thisFeature#:#thisIsland#:#thisIslandGroup#:
 		
-		<!--- see if we can get rid of some of the strange ideas people have for "NULL" 
-		<cfloop list="#isNotNullBS#" index="x">
-			<cfloop from="1" to="#ListValueCountNoCase(thisgeog,x,"|")#" index="l">
-				<br>beforedelete==#l#==---#thisgeog#
-				<cfset thisgeog=listdeleteat(thisgeog,listfindnocase(thisgeog,x,"|"),"|")>
-				<br>afterdelete==#l#==---#thisgeog#
-			</cfloop>
-		</cfloop>
-		--->
 		
-		<!---
-		
-		don't think this does anything that componentmatch does not
-		<cfquery name="mmmffssds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select HIGHER_GEOG from geog_auth_rec where upper(HIGHER_GEOG) like upper('#thisgeog#')
+		<cfset thisMethod="full_component_match">
+		<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select HIGHER_GEOG from geog_auth_rec where
+			<cfif len(thiscontinent) gt 0>
+				upper(continent_ocean) = '#ucase(thiscontinent)#' and
+			<cfelse>
+				continent_ocean is null and
+			</cfif>
+			<cfif len(thisSea) gt 0>
+				upper(sea) = '#ucase(thisSea)#' and
+			<cfelse>
+				sea is null and
+			</cfif>
+			<cfif len(thisCountry) gt 0>
+				upper(country) = '#ucase(thisCountry)#' and
+			<cfelse>
+				country is null and
+			</cfif>
+			<cfif len(thisState) gt 0>
+				upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
+				= '#ucase(thisState)#' and
+			<cfelse>
+				state_prov is null and
+			</cfif>
+			<cfif len(thisQuad) gt 0>
+				upper(quad) = '#ucase(thisQuad)#' and
+			<cfelse>
+				quad is null and
+			</cfif>
+			<cfif len(thisFeature) gt 0>
+				upper(feature) = '#ucase(thisFeature)#' and
+			<cfelse>
+				feature is null and
+			</cfif>
+			<cfif len(thisIslandGroup) gt 0>
+				upper(trim(replace(island_group,'Island'))) = '#ucase(thisIslandGroup)#' and
+			<cfelse>
+				 island_group is null and
+			</cfif>
+			<cfif len(thisIsland) gt 0>
+				upper(trim(replace(island,'Island'))) = '#ucase(thisIsland)#' and
+			<cfelse>
+				island is null and
+			</cfif>
+			<cfif len(thisCounty) gt 0>
+				upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+			<cfelse>
+				county is null 
+			</cfif>
 		</cfquery>
-		<cfif mmmffssds.recordcount is 1>
-			<cfset thisStatus='higher_geog_match'>
-			<cfset fhg=mmmffssds.higher_geog>
-			<br>FULLSTRINGMATCH
-		</cfif>
-		---->
-		<cfif len(thisStatus) is 0>
-			<!--- didn't get full-string concatenation match - try to match everything they sent, with replacements --->
-			<cfset thisMethod="full_component_match">
-			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where
-				<cfif len(thiscontinent) gt 0>
-					upper(continent_ocean) = '#ucase(thiscontinent)#' and
-				<cfelse>
-					continent_ocean is null and
-				</cfif>
-				<cfif len(thisSea) gt 0>
-					upper(sea) = '#ucase(thisSea)#' and
-				<cfelse>
-					sea is null and
-				</cfif>
-				<cfif len(thisCountry) gt 0>
-					upper(country) = '#ucase(thisCountry)#' and
-				<cfelse>
-					country is null and
-				</cfif>
-				<cfif len(thisState) gt 0>
-					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
-					= '#ucase(thisState)#' and
-				<cfelse>
-					state_prov is null and
-				</cfif>
-				<cfif len(thisQuad) gt 0>
-					upper(quad) = '#ucase(thisQuad)#' and
-				<cfelse>
-					quad is null and
-				</cfif>
-				<cfif len(thisFeature) gt 0>
-					upper(feature) = '#ucase(thisFeature)#' and
-				<cfelse>
-					feature is null and
-				</cfif>
-				<cfif len(thisIslandGroup) gt 0>
-					upper(trim(replace(island_group,'Island'))) = '#ucase(thisIslandGroup)#' and
-				<cfelse>
-					 island_group is null and
-				</cfif>
-				<cfif len(thisIsland) gt 0>
-					upper(trim(replace(island,'Island'))) = '#ucase(thisIsland)#' and
-				<cfelse>
-					island is null and
-				</cfif>
-				<cfif len(thisCounty) gt 0>
-					upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
-				<cfelse>
-					county is null 
-				</cfif>
-			</cfquery>
-			<cfloop query="componentMatch">
-				<cfset QueryAddRow(result, 1)>
-				<cfset QuerySetCell(result, "method", thisMethod,n)>
-				<cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
-				<cfset n=n+1>
-			</cfloop>
-		</cfif>
+		<cfloop query="componentMatch">
+			<cfset QueryAddRow(result, 1)>
+			<cfset QuerySetCell(result, "method", thisMethod,n)>
+			<cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
+			<cfset n=n+1>
+		</cfloop>
 		<cfif n eq 1>
 			<cfset thisMethod="componentMatch_noCont">
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
