@@ -177,7 +177,7 @@ from geog_auth_rec where rownum<10
 
 			
 	<cfloop query="qdata">
-		<cfloop from="1" to="arrayLength(result)" index="x">
+		<cfloop from="1" to="arrayLen(result)" index="x">
 			<cfset result = arrayDeleteAt(result,x)>
 		</cfloop>
 		
