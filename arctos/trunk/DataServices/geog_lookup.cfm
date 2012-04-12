@@ -172,10 +172,17 @@ from geog_auth_rec where rownum<10
 	<cfdump var=#qdata#>
 	<cfset isNotNullBS='none'>
 		
-		
+	<cfset result = QueryNew("method,higherGeog")>
+	
+
+			
 	<cfloop query="qdata">
-	#qdata.pkey#----
-		Loaded Data:
+		<cfquery name="flush" dbtype="query">
+			delete from result
+		</cfquery>
+		
+		<cfset i=1>
+		<!----
 		<table border>
 			<tr>
 				<th>CONTINENT_OCEAN</th>
@@ -200,6 +207,8 @@ from geog_auth_rec where rownum<10
 				<td>#SEA#</td>
 			</tr>
 		</table>
+		---->
+		#CONTINENT_OCEAN#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#:#SEA#
 		<cfset thisStatus="">
 		<cfset fhg=''>
 		
@@ -341,6 +350,7 @@ from geog_auth_rec where rownum<10
 		---->
 		<cfif len(thisStatus) is 0>
 			<!--- didn't get full-string concatenation match - try to match everything they sent, with replacements --->
+			<cfset thisMethod="full_component_match">
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where
 				<cfif len(thiscontinent) gt 0>
@@ -390,18 +400,16 @@ from geog_auth_rec where rownum<10
 					county is null 
 				</cfif>
 			</cfquery>
-			<cfif componentMatch.recordcount is 1>
-				<cfset thisStatus='component_match'>
-				<cfset fhg=componentMatch.higher_geog>
-				<BR>COMPONENETMATCH
-			<cfelseif componentMatch.recordcount gt 1>
-				<cfloop query="componentMatch">
-					<br>#higher_geog# <span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span>
-				</cfloop>
-			</cfif>
+			<cfloop query="componentMatch">
+				<cfset newRow = QueryAddRow(result, 1)>
+				<cfset temp = QuerySetCell(result, "method", thisMethod,i)>
+				<cfset temp = QuerySetCell(result, "higher_geog", higher_geog,i)>
+				<cfset i=i+1>
+			</cfloop>
 		</cfif>
 		<cfif len(thisStatus) is 0>
-			<cfquery name="componentMatch_noCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfset thisMethod="componentMatch_noCont">
+			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where
 				<cfif len(thisSea) gt 0>
 					upper(sea) = '#ucase(thisSea)#' and
@@ -445,15 +453,12 @@ from geog_auth_rec where rownum<10
 					county is null 
 				</cfif>
 			</cfquery>
-			<cfif componentMatch_noCont.recordcount is 1>
-				<cfset thisStatus='componentMatch_noCont'>
-				<cfset fhg=componentMatch_noCont.higher_geog>
-				<BR>componentMatch_noCont
-			<cfelseif componentMatch_noCont.recordcount gt 1>
-				<cfloop query="componentMatch_noCont">
-					<br>#higher_geog# <span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span>
-				</cfloop>
-			</cfif>
+			<cfloop query="componentMatch">
+				<cfset newRow = QueryAddRow(result, 1)>
+				<cfset temp = QuerySetCell(result, "method", thisMethod,i)>
+				<cfset temp = QuerySetCell(result, "higher_geog", higher_geog,i)>
+				<cfset i=i+1>
+			</cfloop>
 		</cfif>
 		<cfif len(thisStatus) is 0>
 			<cfquery name="componentMatch_noSea" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
