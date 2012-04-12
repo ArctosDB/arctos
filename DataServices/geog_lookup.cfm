@@ -579,9 +579,21 @@ from geog_auth_rec where rownum<10
 			</cfquery>
 			<br>found one - autoupdate
 		<cfelseif result.recordcount gt 1>
-			<cfloop query="result">
-				<br>#higher_geog# <span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span>
-			</cfloop>
+			<table border>
+				<tr>
+					<th>Method</th>
+					<th>Geog</th>
+					<th>x</th>
+				</tr>
+				<cfloop query="result">
+					<tr>
+						<td>#method#</td>
+						<td>#higher_geog#</td>
+						<td><span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span></td>
+					</tr>
+				</cfloop>
+			
+			</table>
 		<cfelse>
 			<br>found nothing
 		</cfif>
