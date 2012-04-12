@@ -225,7 +225,6 @@
 				<td align="right">Valid?</td>
 				<td>
 					<select name="valid_catalog_term_fg" class="reqdClr">
-						<option value=""></option>
 						<option value="1">yes</option>
 						<option value="0">no</option>
 					</select>
@@ -1001,7 +1000,7 @@ INSERT INTO geog_auth_rec (
 		,'#source_authority#'
 )
 </cfquery>
-<cflocation addtoken="no" url="#cgi.HTTP_REFERER#?Action=editGeog&geog_auth_rec_id=#nextGEO.nextid#">
+<cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#nextGEO.nextid#">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
