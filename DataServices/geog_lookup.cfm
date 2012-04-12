@@ -552,7 +552,7 @@ from geog_auth_rec where rownum<10
 			</cfloop>
 		</cfif>
 			
-		<cfif n eq 1>
+		<cfif n eq 1 and len(thisIsland) gt 0>
 			<cfset thisMethod="componentMatch_JustIsland">
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where
