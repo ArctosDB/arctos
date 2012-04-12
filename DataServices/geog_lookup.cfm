@@ -406,7 +406,7 @@ from geog_auth_rec where rownum<10
 				<cfset n=n+1>
 			</cfloop>
 		</cfif>
-		<cfif len(thisStatus) is 0>
+		<cfif n eq 1>
 			<cfset thisMethod="componentMatch_noCont">
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where
@@ -459,7 +459,7 @@ from geog_auth_rec where rownum<10
 				<cfset n=n+1>
 			</cfloop>
 		</cfif>
-		<cfif len(thisStatus) is 0>
+		<cfif n eq 1>
 			<cfset thisMethod="componentMatch_noSea">
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where
@@ -508,7 +508,7 @@ from geog_auth_rec where rownum<10
 			</cfloop>
 		</cfif>
 			
-		<cfif len(thisStatus) is 0>
+		<cfif n eq 1>
 			<cfset thisMethod="componentMatch_noCountry">
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where
@@ -552,7 +552,7 @@ from geog_auth_rec where rownum<10
 			</cfloop>
 		</cfif>
 			
-		<cfif len(thisStatus) is 0 and len(thisIsland) gt 0>
+		<cfif n eq 1>
 			<cfset thisMethod="componentMatch_JustIsland">
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where
