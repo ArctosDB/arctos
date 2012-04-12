@@ -169,7 +169,7 @@ from geog_auth_rec where rownum<10
 	<cfquery name="CDasdf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_geog
 	</cfquery>
-	
+	#pkey#----
 	<cfset isNotNullBS='none'>
 		
 		
