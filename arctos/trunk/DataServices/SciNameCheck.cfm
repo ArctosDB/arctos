@@ -130,6 +130,27 @@ sho err
 		</cfif>
 		<cfif found is false>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					taxonomy.scientific_name 
+				from 
+					taxonomy,
+					taxon_relations,
+					taxonomy rel
+				where 
+					taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
+					taxon_relations.related_taxon_name_id=rel.taxon_name_id and
+					rel.scientific_name='#scientific_name#' and 
+					taxonomy.VALID_CATALOG_TERM_FG=1
+			</cfquery>
+			<cfif d.recordcount is 1>
+				<cfset found=true>
+				<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='found_related_accepted_name' where key=#key#
+				</cfquery>
+			</cfif>
+		</cfif>
+		<cfif found is false>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select scientific_name from taxonomy where scientific_name='#scientific_name#'
 			</cfquery>
 			<cfif d.recordcount is 1>
@@ -151,6 +172,26 @@ sho err
 					taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
 					taxon_relations.related_taxon_name_id=rel.taxon_name_id and
 					taxonomy.scientific_name='#scientific_name#'
+			</cfquery>
+			<cfif d.recordcount is 1>
+				<cfset found=true>
+				<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='found_related_unaccepted_name' where key=#key#
+				</cfquery>
+			</cfif>
+		</cfif>
+		<cfif found is false>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					taxonomy.scientific_name 
+				from 
+					taxonomy,
+					taxon_relations,
+					taxonomy rel
+				where 
+					taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
+					taxon_relations.related_taxon_name_id=rel.taxon_name_id and
+					rel.scientific_name='#scientific_name#'
 			</cfquery>
 			<cfif d.recordcount is 1>
 				<cfset found=true>
