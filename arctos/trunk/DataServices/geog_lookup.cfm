@@ -171,15 +171,15 @@ from geog_auth_rec where rownum<10
 	</cfquery>
 	<cfdump var=#qdata#>
 	<cfset isNotNullBS='none'>
-		
+
 	<cfset result = QueryNew("method,higherGeog")>
 	
 
 			
 	<cfloop query="qdata">
-		<cfquery name="flush" dbtype="query">
-			delete from result
-		</cfquery>
+		<cfloop from="1" to="arrayLength(result)" index="x">
+			<cfset result = arrayDeleteAt(result,x)>
+		</cfloop>
 		
 		<cfset i=1>
 		<!----
