@@ -8,6 +8,8 @@ create table ds_temp_taxcheck (
 	
 	alter table ds_temp_taxcheck add status varchar2(255);
 	
+	alter table ds_temp_taxcheck add suggested_sci_name varchar2(255);
+
 create public synonym ds_temp_taxcheck for ds_temp_taxcheck;
 grant all on ds_temp_taxcheck to coldfusion_user;
 grant select on ds_temp_taxcheck to public;
@@ -92,19 +94,77 @@ sho err
 		select * from ds_temp_taxcheck
 	</cfquery>
 	<cfloop query="r">
+		<cfset status=false>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from taxonomy where scientific_name='#scientific_name#'
+			select scientific_name from taxonomy where scientific_name='#scientific_name#' and VALID_CATALOG_TERM_FG=1
 		</cfquery>
-		<cfif d.c is 1>
+		<cfif d.recordcount is 1>
+			<cfset status=true>
 			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ds_temp_taxcheck set status='OK' where key=#key#
+				update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='is_accepted_name' where key=#key#
 			</cfquery>
-		<cfelse>
+		</cfif>
+		<cfif status is false>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					rel.scientific_name 
+				from 
+					taxonomy,
+					taxon_relations,
+					taxonomy rel
+				where 
+					taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
+					taxon_relations.related_taxon_name_id=rel.taxon_name_id and
+					taxonomy.scientific_name='#scientific_name#' and 
+					rel.VALID_CATALOG_TERM_FG=1
+			</cfquery>
+			<cfif d.recordcount is 1>
+				<cfset status=true>
+				<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='found_related_accepted_name' where key=#key#
+				</cfquery>
+			</cfif>
+		</cfif>
+		<cfif status is false>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select scientific_name from taxonomy where scientific_name='#scientific_name#'
+			</cfquery>
+			<cfif d.recordcount is 1>
+				<cfset status=true>
+				<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='is_unaccepted_name' where key=#key#
+				</cfquery>
+			</cfif>
+		</cfif>
+		<cfif status is false>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					rel.scientific_name 
+				from 
+					taxonomy,
+					taxon_relations,
+					taxonomy rel
+				where 
+					taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
+					taxon_relations.related_taxon_name_id=rel.taxon_name_id and
+					taxonomy.scientific_name='#scientific_name#'
+			</cfquery>
+			<cfif d.recordcount is 1>
+				<cfset status=true>
+				<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='found_related_unaccepted_name' where key=#key#
+				</cfquery>
+			</cfif>
+		</cfif>	
+		<cfif status is false>
 			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update ds_temp_taxcheck set status='FAIL' where key=#key#
 			</cfquery>
 		</cfif>
 	</cfloop>
+	
+	
+	
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_taxcheck
 	</cfquery>
