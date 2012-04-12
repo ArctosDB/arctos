@@ -180,7 +180,7 @@ from geog_auth_rec where rownum<10
 		<cfquery name="result" dbtype="query">
 			select * from result where 1=2
 		</cfquery>
-		<cfset i=1>
+		<cfset n=1>
 		<!----
 		<table border>
 			<tr>
@@ -400,11 +400,11 @@ from geog_auth_rec where rownum<10
 				</cfif>
 			</cfquery>
 			<cfloop query="componentMatch">
-				----thisIsI:#i#---
+				----thisIsI:#n#---
 				<cfset QueryAddRow(result, 1)>
-				<cfset QuerySetCell(result, "method", thisMethod,i)>
-				<cfset QuerySetCell(result, "higher_geog", higher_geog,i)>
-				<cfset i=i+1>
+				<cfset QuerySetCell(result, "method", thisMethod,n)>
+				<cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
+				<cfset n=n+1>
 			</cfloop>
 		</cfif>
 		<cfif len(thisStatus) is 0>
@@ -455,9 +455,9 @@ from geog_auth_rec where rownum<10
 			</cfquery>
 			<cfloop query="componentMatch">
 				<cfset newRow = QueryAddRow(result, 1)>
-				<cfset temp = QuerySetCell(result, "method", thisMethod,i)>
-				<cfset temp = QuerySetCell(result, "higher_geog", higher_geog,i)>
-				<cfset i=i+1>
+				<cfset temp = QuerySetCell(result, "method", thisMethod,n)>
+				<cfset temp = QuerySetCell(result, "higher_geog", higher_geog,n)>
+				<cfset n=n+1>
 			</cfloop>
 		</cfif>
 		<cfif len(thisStatus) is 0>
