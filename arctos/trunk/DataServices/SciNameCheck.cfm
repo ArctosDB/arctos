@@ -29,7 +29,10 @@ sho err
 <cfinclude template="/includes/_header.cfm">
 
 <cfif action is "nothing">
-	Load scientific name; get back those records without Arctos matches.
+	Load scientific name; get back Arctos matches.
+	<br>See http://arctosdb.org/how-to/create/bulkloader/#taxa for the full scoop: This form considers only
+	namestrings (that is, taxonomy.scientific_name) so will have a high false failure rate for 
+	data with complex names.
 	<p></p>
 	Columns in <span style="color:red">red</span> are required; others are optional:
 	<ul>
@@ -94,17 +97,17 @@ sho err
 		select * from ds_temp_taxcheck
 	</cfquery>
 	<cfloop query="r">
-		<cfset status=false>
+		<cfset found=false>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select scientific_name from taxonomy where scientific_name='#scientific_name#' and VALID_CATALOG_TERM_FG=1
 		</cfquery>
 		<cfif d.recordcount is 1>
-			<cfset status=true>
+			<cfset found=true>
 			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='is_accepted_name' where key=#key#
 			</cfquery>
 		</cfif>
-		<cfif status is false>
+		<cfif found is false>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
 					rel.scientific_name 
@@ -119,24 +122,24 @@ sho err
 					rel.VALID_CATALOG_TERM_FG=1
 			</cfquery>
 			<cfif d.recordcount is 1>
-				<cfset status=true>
+				<cfset found=true>
 				<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='found_related_accepted_name' where key=#key#
 				</cfquery>
 			</cfif>
 		</cfif>
-		<cfif status is false>
+		<cfif found is false>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select scientific_name from taxonomy where scientific_name='#scientific_name#'
 			</cfquery>
 			<cfif d.recordcount is 1>
-				<cfset status=true>
+				<cfset found=true>
 				<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='is_unaccepted_name' where key=#key#
 				</cfquery>
 			</cfif>
 		</cfif>
-		<cfif status is false>
+		<cfif found is false>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
 					rel.scientific_name 
@@ -150,13 +153,13 @@ sho err
 					taxonomy.scientific_name='#scientific_name#'
 			</cfquery>
 			<cfif d.recordcount is 1>
-				<cfset status=true>
+				<cfset found=true>
 				<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='found_related_unaccepted_name' where key=#key#
 				</cfquery>
 			</cfif>
 		</cfif>	
-		<cfif status is false>
+		<cfif found is false>
 			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update ds_temp_taxcheck set status='FAIL' where key=#key#
 			</cfquery>
