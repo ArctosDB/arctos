@@ -1,7 +1,4 @@
-<cfcomponent>
-	
 
-</cfcomponent>
 <script>
 	function useThisOne(pkey,geog) {
 		alert(pkey + ': ' + geog);
