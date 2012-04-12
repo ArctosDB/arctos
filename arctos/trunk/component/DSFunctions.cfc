@@ -1,5 +1,13 @@
 <cfcomponent>
-<cffunction name="getSpecimenByPartBarcode" access="remote">
+	<cffunction name="upDSGeog" access="">
+		<cfargument name="pkey" type="number" required="yes">
+		<cfargument name="geog" type="string" required="yes">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update ds_temp_geog set HIGHER_GEOG='#geog#' where pkey=#pkey#
+		</cfquery>
+		<cfreturn pkey>
+	</cffunction>
+	<cffunction name="getSpecimenByPartBarcode" access="remote">
 	<cfargument name="barcode" type="any" required="yes">
 	<cfquery name="d" datasource="uam_god">
 		select 
