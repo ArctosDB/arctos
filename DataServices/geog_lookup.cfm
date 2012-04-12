@@ -1,12 +1,30 @@
+<cfcomponent>
+	
+
+</cfcomponent>
 <script>
 	function useThisOne(pkey,geog) {
 		alert(pkey + ': ' + geog);
+		$.getJSON("/component/DSFunctions.cfc",
+			{
+				method : "upDSGeog",
+				pkey : pkey,
+				geog : geog,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				$('#chooseTab_' + r).hide();
+			}
+		);
+		
+		
 	}
 </script>
-<!----
+<!---
 drop table ds_temp_geog;
 
-create table ds_temp_geog (
+create table ds_temp_geog (  
 	pkey number not null,
 	CONTINENT_OCEAN  varchar2(255),
 	COUNTRY  varchar2(255),
@@ -556,7 +574,7 @@ from geog_auth_rec where rownum<10
 			</cfquery>
 			<br>found one - autoupdate
 		<cfelseif result.recordcount gt 1>
-			<table border>
+			<table border id="chooseTab_#qdata.pkey#">
 				<tr>
 					<th>Method</th>
 					<th>Geog</th>
