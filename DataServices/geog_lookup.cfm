@@ -176,16 +176,30 @@ from geog_auth_rec where rownum<10
 	<cfloop query="qdata">
 	#qdata.pkey#----
 		Loaded Data:
-		<br>CONTINENT_OCEAN==#CONTINENT_OCEAN#
-		<br>COUNTRY==#COUNTRY#
-		<br>STATE_PROV==#STATE_PROV#
-		<br>COUNTY==#COUNTY#
-		<br>QUAD==#QUAD#
-		<br>FEATURE==#FEATURE#
-		<br>ISLAND==#ISLAND#
-		<br>ISLAND_GROUP==#ISLAND_GROUP#
-		<br>SEA==#SEA#
-		
+		<table border>
+			<tr>
+				<th>CONTINENT_OCEAN</th>
+				<th>COUNTRY</th>
+				<th>STATE_PROV</th>
+				<th>COUNTY</th>
+				<th>QUAD</th>
+				<th>FEATURE</th>
+				<th>ISLAND</th>
+				<th>ISLAND_GROUP</th>
+				<th>SEA</th>
+			</tr>
+			<tr>
+				<td>#CONTINENT_OCEAN#</td>
+				<td>#COUNTRY#</td>
+				<td>#STATE_PROV#</td>
+				<td>#COUNTY#</td>
+				<td>#QUAD#</td>
+				<td>#FEATURE#</td>
+				<td>#ISLAND#</td>
+				<td>#ISLAND_GROUP#</td>
+				<td>#SEA#</td>
+			</tr>
+		</table>
 		<cfset thisStatus="">
 		<cfset fhg=''>
 		
