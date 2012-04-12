@@ -400,9 +400,10 @@ from geog_auth_rec where rownum<10
 				</cfif>
 			</cfquery>
 			<cfloop query="componentMatch">
-				<cfset newRow = QueryAddRow(result, 1)>
-				<cfset temp = QuerySetCell(result, "method", thisMethod,i)>
-				<cfset temp = QuerySetCell(result, "higher_geog", higher_geog,i)>
+				----#i#---
+				<cfset QueryAddRow(result, 1)>
+				<cfset QuerySetCell(result, "method", thisMethod,i)>
+				<cfset QuerySetCell(result, "higher_geog", higher_geog,i)>
 				<cfset i=i+1>
 			</cfloop>
 		</cfif>
