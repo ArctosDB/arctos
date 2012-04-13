@@ -180,7 +180,8 @@ from geog_auth_rec where rownum<10
 	<br>THings with multiple possibilities may be selected.
 	<br>Accuracy varies by method
 	<br>full_component_match > componentMatch_noCont > componentMatch_noSea > componentMatch_noCountry > componentMatch_JustIsland
-	<br>Manually select suggestions and/or scroll to the bottom to download CSV.
+	<br>Manually select suggestions; the more you do here, the fewer problems later.
+	<br><a href="geog_lookup.cfm?action=csv">download CSV</a>
 	<br><a href="/contact.cfm">contact us</a> if we could make something unstoopider	
 	<hr>
 	
@@ -597,194 +598,51 @@ from geog_auth_rec where rownum<10
 		<cfelse>
 			<br>found nothing
 		</cfif>
-		<!----
-			
-			
-		<cfif len(thisStatus) is 0 and len(thiscounty) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where upper(county) like upper('#thiscounty#')
-			</cfquery>
-			<cfif checkThis.recordcount is 1>
-				<cfset thisStatus='county_match'>
-				<cfset fhg=checkThis.HIGHER_GEOG>
-			</cfif>
-		</cfif>
-		<cfif len(thisStatus) is 0 and len(FEATURE) gt 0>
-			<!--- this should look for variations on eg NPS, etc. ---->
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where upper(feature) like upper('#FEATURE#')
-			</cfquery>
-			<cfif checkThis.recordcount is 1>
-				<cfset thisStatus='feature_match'>
-				<cfset fhg=checkThis.HIGHER_GEOG>
-			</cfif>
-		</cfif>
-		<cfif len(thisStatus) is 0 and len(QUAD) gt 0>
-			<!--- this should look for variations on eg NPS, etc. ---->
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where upper(quad) like upper('#QUAD#%')
-			</cfquery>
-			<cfif checkThis.recordcount is 1>
-				<cfset thisStatus='quad_match'>
-				<cfset fhg=checkThis.HIGHER_GEOG>
-			</cfif>
-		</cfif>
-		<cfif len(thisStatus) is 0 and len(ISLAND) gt 0>
-			<Cfset thisisland=island>
-			<Cfset thisisland=replace(thisisland,' ISL.','%','all')>
-			<Cfset thisisland=replace(thisisland,' ISL','%','all')>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where upper(ISLAND) like upper('#thisisland#')
-			</cfquery>
-			<cfif checkThis.recordcount is 1>
-				<cfset thisStatus='island_match'>
-				<cfset fhg=checkThis.HIGHER_GEOG>
-			</cfif>
-		</cfif>
-		<cfif len(thisStatus) is 0 and len(ISLAND_GROUP) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where upper(ISLAND_GROUP) like upper('#ISLAND_GROUP#')
-			</cfquery>
-			<cfif checkThis.recordcount is 1>
-				<cfset thisStatus='islandgroup_match'>
-				<cfset fhg=checkThis.HIGHER_GEOG>
-			</cfif>
-		</cfif>
-		<cfif len(thisStatus) is 0 and len(SEA) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where upper(SEA) like upper('#SEA#')
-			</cfquery>
-			<cfif checkThis.recordcount is 1>
-				<cfset thisStatus='sea_match'>
-				<cfset fhg=checkThis.HIGHER_GEOG>
-			</cfif>
-		</cfif>
-		<cfif len(thisStatus) is 0 and len(STATE_PROV) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where upper(STATE_PROV) like upper('#STATE_PROV#')
-			</cfquery>
-			<cfif checkThis.recordcount is 1>
-				<cfset thisStatus='stateprov_match'>
-				<cfset fhg=checkThis.HIGHER_GEOG>
-			</cfif>
-		</cfif>
-		<cfif len(thisStatus) is 0 and len(COUNTRY) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where upper(COUNTRY) like upper('#COUNTRY#')
-			</cfquery>
-			<cfif checkThis.recordcount is 1>
-				<cfset thisStatus='country_match'>
-				<cfset fhg=checkThis.HIGHER_GEOG>
-			</cfif>
-		</cfif>
-		<cfif len(thisStatus) is 0 and len(CONTINENT_OCEAN) gt 0>
-			<cfquery name="checkThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select HIGHER_GEOG from geog_auth_rec where upper(CONTINENT_OCEAN) like upper('#CONTINENT_OCEAN#')
-			</cfquery>
-			<cfif checkThis.recordcount is 1>
-				<cfset thisStatus='continentocean_match'>
-				<cfset fhg=checkThis.HIGHER_GEOG>
-			</cfif>
-		</cfif>
-
-		----->
-		
-		<hr>
-		
-		<!-----------
-		
-		
-		
-		
-<cfset sql="select HIGHER_GEOG from geog_auth_rec where trim(upper(HIGHER_GEOG))=trim(upper('NORTH AMERICA, United States, ALASKA'))">
-		<br>#sql#
-	:NEW.higher_geog := trim(hg);
-END;
-
-CREATE OR REPLACE TRIGGER TR_GEOGAUTHREC_AU_FLAT
-AFTER UPDATE ON GEOG_AUTH_REC
-FOR EACH ROW
-BEGIN
-    UPDATE flat SET
-        stale_flag = 1,
-        lastuser = sys_context('USERENV', 'SESSION_USER'),
-        lastdate = SYSDATE
-    WHERE geog_auth_rec_id = :NEW.geog_auth_rec_id;
-END;
-
-
-
-		<cfset thisCountry=country>
-		<cfif len(country) gt 0>
-			<cfif country is "USA">
-				<cfset thisCountry="United States">
-			</cfif>
-		</cfif>
-		
-		<cfset thisCounty=county>
-		<Cfset thisCounty=replace(thisCounty,'CO','','all')>
-		
-		<cfquery name="g1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				HIGHER_GEOG from geog_auth_rec where
-				upper(CONTINENT_OCEAN) = '#ucase(trim(CONTINENT_OCEAN))#' and
-				upper(COUNTRY) = '#ucase(trim(thisCountry))#' and
-				upper(STATE_PROV) = '#ucase(trim(STATE_PROV))#' and
-				trim(upper(replace(COUNTY,'County'))) = '#ucase(trim(thisCounty))#' and
-				upper(QUAD) = '#ucase(trim(QUAD))#' and
-				upper(FEATURE) = '#ucase(trim(FEATURE))#' and
-				upper(ISLAND) = '#ucase(trim(ISLAND))#' and
-				upper(ISLAND_GROUP) = '#ucase(trim(ISLAND_GROUP))#' and
-				upper(SEA) = '#ucase(trim(SEA))#'
-		</cfquery>
-		<cfdump var=#g1#>
-		
-		---->
 	</cfloop>
-	
-		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ds_temp_geog
-				order by
-				higher_geog,
-				calculated_higher_geog
-		</cfquery>
-		<cfset ac = getData.columnList>
-		<!--- strip internal columns --->
-		<cfif ListFindNoCase(ac,'PKEY')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'PKEY'))>
-		</cfif>
-		<cfset fileDir = "#Application.webDirectory#">
-		<cfset variables.encoding="UTF-8">
-		<cfset fname = "geog_lookup.csv">
-		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-		<cfset header=trim(ac)>
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(header); 
-		</cfscript>
-		<cfloop query="getData">
-			<cfset oneLine = "">
-			<cfloop list="#ac#" index="c">
-				<cfset thisData = evaluate(c)>
-				<cfif len(oneLine) is 0>
-					<cfset oneLine = '"#thisData#"'>
-				<cfelse>
-					<cfset thisData=replace(thisData,'"','""','all')>
-					<cfset oneLine = '#oneLine#,"#thisData#"'>
-				</cfif>
-			</cfloop>
-			<cfset oneLine = trim(oneLine)>
-			<cfscript>
-				variables.joFileWriter.writeLine(oneLine);
-			</cfscript>
-		</cfloop>
-		<cfscript>	
-			variables.joFileWriter.close();
-		</cfscript>
-		<!---
-		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-		---->
-		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-		
 </cfoutput>
+</cfif>
+<cfif action is "csv">
+	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ds_temp_geog
+			order by
+			higher_geog,
+			calculated_higher_geog
+	</cfquery>
+	<cfset ac = getData.columnList>
+	<!--- strip internal columns --->
+	<cfif ListFindNoCase(ac,'PKEY')>
+		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'PKEY'))>
+	</cfif>
+	<cfset fileDir = "#Application.webDirectory#">
+	<cfset variables.encoding="UTF-8">
+	<cfset fname = "geog_lookup.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	<cfset header=trim(ac)>
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(header); 
+	</cfscript>
+	<cfloop query="getData">
+		<cfset oneLine = "">
+		<cfloop list="#ac#" index="c">
+			<cfset thisData = evaluate(c)>
+			<cfif len(oneLine) is 0>
+				<cfset oneLine = '"#thisData#"'>
+			<cfelse>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+			</cfif>
+		</cfloop>
+		<cfset oneLine = trim(oneLine)>
+		<cfscript>
+			variables.joFileWriter.writeLine(oneLine);
+		</cfscript>
+	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	<cfoutput>
+		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+	</cfoutput>
 </cfif>
