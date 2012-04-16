@@ -79,10 +79,13 @@
 						<cfif len(session[key]) gt 0>
 							<tr>
 								<td>#key#</td>
-								<td>#regexp_replace(session[key]'(.),(.)','\1, \2')#</td>
+								<td>
+									<cfset thisV=session[key]>
+									#regexp_replace(thisV,'(.),(.)','\1, \2')#</td>
 							</tr>
 						</cfif>
 					</cfloop>
+					<!----
 					<tr>
 						<td colspan="2">
 							Form
@@ -109,7 +112,7 @@
 							</tr>
 						</cfif>
 					</cfloop>
-					
+					--->
 				</table>
 			</cfoutput>
 			<hr>
