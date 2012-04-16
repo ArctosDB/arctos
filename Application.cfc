@@ -68,79 +68,66 @@
 							<td>#cgi.PATH_TRANSLATED#</td>
 						</tr>
 					</cfif>
-					<tr>
-						<td colspan="2" align="center">
-							<strong>Form</strong>
-						</td>
-					</tr>
-					<cfif isdefined("thereIsNoSuchThing")>
-					<cfloop collection="#thereIsNoSuchThing#" item="key">
-						<cfif len(thereIsNoSuchThing[key]) gt 0>
-							<tr>
-								<td>#key#</td>
-								<td>#rereplace(thereIsNoSuchThing[key],'(.),(.)','\1, \2','all')#</td>
-							</tr>
-						</cfif>
-					</cfloop>
-					
+					<cfif isdefined("form")>
+						<tr>
+							<td colspan="2" align="center">
+								<strong>Form</strong>
+							</td>
+						</tr>					
+						<cfloop collection="#form#" item="key">
+							<cfif len(form[key]) gt 0>
+								<tr>
+									<td>#key#</td>
+									<td>#rereplace(form[key],'(.),(.)','\1, \2','all')#</td>
+								</tr>
+							</cfif>
+						</cfloop>
 					</cfif>
-					<tr>
-						
-						
-						<td colspan="2" align="center">
-							<strong>URL</strong>
-						</td>
-					</tr>
-					
-					
-					
-					<cfloop collection="#form#" item="key">
-						<cfif len(form[key]) gt 0>
-							<tr>
-								<td>#key#</td>
-								<td>#rereplace(form[key],'(.),(.)','\1, \2','all')#</td>
-							</tr>
-						</cfif>
-					</cfloop>
-					<tr>
-						<td colspan="2" align="center">
-							<strong>URL</strong>
-						</td>
-					</tr>
-					<cfloop collection="#url#" item="key">
-						<cfif len(url[key]) gt 0>
-							<tr>
-								<td>#key#</td>
-								<td>#rereplace(url[key],'(.),(.)','\1, \2','all')#</td>
-							</tr>
-						</cfif>
-					</cfloop>
-					<tr>
-						<td colspan="2" align="center">
-							<strong>Session</strong>
-						</td>
-					</tr>
-					<cfloop collection="#session#" item="key">
-						<cfif len(session[key]) gt 0>
-							<tr>
-								<td>#key#</td>
-								<td>#rereplace(session[key],'(.),(.)','\1, \2','all')#</td>
-							</tr>
-						</cfif>
-					</cfloop>
-					<tr>
-						<td colspan="2" align="center">
-							<strong>CGI</strong>
-						</td>
-					</tr>
-					<cfloop collection="#cgi#" item="key">
-						<cfif len(cgi[key]) gt 0>
-							<tr>
-								<td>#key#</td>
-								<td>#rereplace(cgi[key],'(.),(.)','\1, \2','all')#</td>
-							</tr>
-						</cfif>
-					</cfloop>
+					<cfif isdefined("url")>
+						<tr>
+							<td colspan="2" align="center">
+								<strong>URL</strong>
+							</td>
+						</tr>
+						<cfloop collection="#url#" item="key">
+							<cfif len(url[key]) gt 0>
+								<tr>
+									<td>#key#</td>
+									<td>#rereplace(url[key],'(.),(.)','\1, \2','all')#</td>
+								</tr>
+							</cfif>
+						</cfloop>
+					</cfif>
+					<cfif isdefined("session")>
+						<tr>
+							<td colspan="2" align="center">
+								<strong>Session</strong>
+							</td>
+						</tr>
+						<cfloop collection="#session#" item="key">
+							<cfif len(session[key]) gt 0>
+								<tr>
+									<td>#key#</td>
+									<td>#rereplace(session[key],'(.),(.)','\1, \2','all')#</td>
+								</tr>
+							</cfif>
+						</cfloop>
+					</cfif>
+					<cfif isdefined("cgi")>
+						<tr>
+							<td colspan="2" align="center">
+								<strong>CGI</strong>
+							</td>
+						</tr>
+						<cfloop collection="#cgi#" item="key">
+							<cfif len(cgi[key]) gt 0>
+								<tr>
+									<td>#key#</td>
+									<td>#rereplace(cgi[key],'(.),(.)','\1, \2','all')#</td>
+								</tr>
+							</cfif>
+						</cfloop>
+					</cfif>
 					<tr>
 						<td colspan="2" align="center">
 							<strong>Exception Structure</strong>
