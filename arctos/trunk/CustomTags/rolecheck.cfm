@@ -12,11 +12,11 @@
 		where form_path = '#cgi.script_name#'
 	</cfquery>
 	<cfif isValid.recordcount is 0>
-		<cfset bad=true>
+		<cfthrow message="not authorized" detail="this is detail">
 	<cfelseif valuelist(isValid.role_name) is not "public">
 		<cfloop query="isValid">
 			<cfif not listfindnocase(session.roles,role_name)>
-				<cfset bad=true>
+				<cfthrow message="not authorized" detail="this is detail too">
 			</cfif>
 		</cfloop>
 	</cfif>
