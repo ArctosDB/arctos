@@ -42,6 +42,8 @@
 			<hr>
 			Exceptions:
 			<hr>
+			
+			<cfdump var="#exception#" label="exception">
 			<cfloop collection="#exception#" item="key">
 				<cfif len(exception[key]) gt 0>
 					#key#: #exception[key]#<br />
@@ -50,7 +52,7 @@
 
 
 
-			<cfdump var="#exception#" label="exception">
+			
 			<hr>
 			<cfif isdefined("session")>
 				Session Dump:
