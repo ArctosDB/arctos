@@ -37,6 +37,9 @@
 				</cfif>
 				<cfif isdefined("exception.Sql")>
 					<p>Sql: #exception.Sql#</p>
+				</cfif>	
+				<cfif isdefined("exception.ErrorCode")>
+					<p>ErrorCode: #exception.ErrorCode#</p>
 				</cfif>			
 			</cfoutput>
 			<hr>
@@ -44,9 +47,9 @@
 			<hr>
 			
 			<cfdump var="#exception#" label="exception">
-			<cfloop collection="#exception#" item="key">
-				<cfif len(exception[key]) gt 0>
-					#key#: #exception[key]#<br />
+			<cfloop collection="#session#" item="key">
+				<cfif len(session[key]) gt 0>
+					#key#: #session[key]#<br />
 				</cfif>
 			</cfloop>
 
