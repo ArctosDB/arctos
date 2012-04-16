@@ -73,7 +73,7 @@
 							<strong>Form</strong>
 						</td>
 					</tr>
-					
+					<cfif isdefined("thereIsNoSuchThing")>
 					<cfloop collection="#thereIsNoSuchThing#" item="key">
 						<cfif len(thereIsNoSuchThing[key]) gt 0>
 							<tr>
@@ -82,7 +82,11 @@
 							</tr>
 						</cfif>
 					</cfloop>
+					
+					</cfif>
 					<tr>
+						
+						
 						<td colspan="2" align="center">
 							<strong>URL</strong>
 						</td>
