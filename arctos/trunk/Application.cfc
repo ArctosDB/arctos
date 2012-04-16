@@ -58,6 +58,12 @@
 							<td>#exception.Sql#</td>
 						</tr>
 					</cfif>
+					<cfif isdefined("exception.Message")>
+						<tr>
+							<td>exception.Message</td>
+							<td>#exception.Message#</td>
+						</tr>
+					</cfif>
 					<cfif isdefined("exception.ErrorCode")>
 						<tr>
 							<td>exception.ErrorCode</td>
