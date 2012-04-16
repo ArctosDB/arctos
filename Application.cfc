@@ -72,7 +72,7 @@
 					</cfif>
 					
 				</table>
-					
+					#exception.cause.message#
 			</cfoutput>
 			<hr>
 			Exceptions:
