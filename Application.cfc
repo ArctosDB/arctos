@@ -64,19 +64,6 @@
 							<td>#exception.cause.message#</td>
 						</tr>
 					</cfif>
-					<cfif isdefined("exception.cause.tagContext[1].line")>
-						<tr>
-							<td>exception.cause.tagContext[1].line</td>
-							<td>#exception.cause.tagContext[1].line#</td>
-						</tr>
-					</cfif>
-					<cfif isdefined("exception.cause.tagContext[1].raw_trace")>
-						<tr>
-							<td>exception.cause.tagContext[1].raw_trace</td>
-							<td>#exception.cause.tagContext[1].raw_trace#</td>
-						</tr>
-					</cfif>
-					
 				</table>
 			</cfoutput>
 			<hr>
