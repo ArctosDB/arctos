@@ -83,6 +83,32 @@
 							</tr>
 						</cfif>
 					</cfloop>
+					<tr>
+						<td colspan="2">
+							Form
+						</td>
+					</tr>
+					<cfloop collection="#form#" item="key">
+						<cfif len(form[key]) gt 0>
+							<tr>
+								<td>#key#</td>
+								<td>#regexp_replace(form[key]'(.),(.)','\1, \2')#</td>
+							</tr>
+						</cfif>
+					</cfloop>
+					<tr>
+						<td colspan="2">
+							URL
+						</td>
+					</tr>
+					<cfloop collection="#url#" item="key">
+						<cfif len(url[key]) gt 0>
+							<tr>
+								<td>#key#</td>
+								<td>#regexp_replace(url[key]'(.),(.)','\1, \2')#</td>
+							</tr>
+						</cfif>
+					</cfloop>
 					
 				</table>
 			</cfoutput>
