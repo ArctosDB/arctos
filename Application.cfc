@@ -30,7 +30,7 @@
 				<cfset ipaddress='unknown'>
 			</CFIF>
 			<cfoutput>
-				<table border>
+				<table border width="800px;">
 					<tr>
 						<td colspan="2">
 							Summary
