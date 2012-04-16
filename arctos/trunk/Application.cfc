@@ -98,21 +98,6 @@
 							</cfif>
 						</cfloop>
 					</cfif>
-					<cfif isdefined("session")>
-						<tr>
-							<td colspan="2" align="center">
-								<strong>Session</strong>
-							</td>
-						</tr>
-						<cfloop collection="#session#" item="key">
-							<cfif len(session[key]) gt 0>
-								<tr>
-									<td>#key#</td>
-									<td>#rereplace(session[key],'(.),(.)','\1, \2','all')#</td>
-								</tr>
-							</cfif>
-						</cfloop>
-					</cfif>
 					<cfif isdefined("cgi")>
 						<tr>
 							<td colspan="2" align="center">
@@ -124,6 +109,21 @@
 								<tr>
 									<td>#key#</td>
 									<td>#rereplace(cgi[key],'(.),(.)','\1, \2','all')#</td>
+								</tr>
+							</cfif>
+						</cfloop>
+					</cfif>
+					<cfif isdefined("session")>
+						<tr>
+							<td colspan="2" align="center">
+								<strong>Session</strong>
+							</td>
+						</tr>
+						<cfloop collection="#session#" item="key">
+							<cfif len(session[key]) gt 0>
+								<tr>
+									<td>#key#</td>
+									<td>#rereplace(session[key],'(.),(.)','\1, \2','all')#</td>
 								</tr>
 							</cfif>
 						</cfloop>
