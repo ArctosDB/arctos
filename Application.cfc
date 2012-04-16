@@ -64,11 +64,12 @@
 							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#</td>
 						</tr>
 					</cfif>
-					<tr>
-						<td>
-							#exception.cause.TagContext[1].line#
-						</td>
-					</tr>
+					<cfif isdefined("exception.cause.TagContext[1].line")>
+						<tr>
+							<td>exception.cause.TagContext[1].line</td>
+							<td>#exception.cause.TagContext[1].line#</td>
+						</tr>
+					</cfif>
 				</table>
 			</cfoutput>
 			<hr>
