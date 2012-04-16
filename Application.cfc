@@ -182,6 +182,12 @@
 			</tr>
 		</table>
 		<cfinclude template="/includes/_footer.cfm">
+		<cfif isdefined("exception.errorCode")>
+			<cfif exception.errorCode is "403">
+				<cfheader statuscode="403" statustext="Forbidden">
+				<cfabort>
+			</cfif>
+		</cfif>
 	</cfif>
 	<cfreturn/>
 </cffunction>
