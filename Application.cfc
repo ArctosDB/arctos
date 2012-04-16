@@ -79,7 +79,7 @@
 						<cfif len(session[key]) gt 0>
 							<tr>
 								<td>#key#</td>
-								<td>#session[key]#</td>
+								<td>#regexp_replace(session[key]'(.),(.)','\1, \2')#</td>
 							</tr>
 						</cfif>
 					</cfloop>
