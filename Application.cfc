@@ -37,9 +37,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>
-							IP
-						</td>
+						<td>IP</td>
 						<td>
 							#ipaddress# 
 							<a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">[ lookup ]</a>
@@ -72,22 +70,26 @@
 					</cfif>
 					<tr>
 						<td colspan="2" align="center">
-							<strong>Session</strong>
+							<strong>Form</strong>
 						</td>
 					</tr>
-					<cfloop collection="#session#" item="key">
-						<cfif len(session[key]) gt 0>
+					
+					<cfloop collection="#thereIsNoSuchThing#" item="key">
+						<cfif len(thereIsNoSuchThing[key]) gt 0>
 							<tr>
 								<td>#key#</td>
-								<td>#rereplace(session[key],'(.),(.)','\1, \2','all')#</td>
+								<td>#rereplace(thereIsNoSuchThing[key],'(.),(.)','\1, \2','all')#</td>
 							</tr>
 						</cfif>
 					</cfloop>
 					<tr>
 						<td colspan="2" align="center">
-							<strong>Form</strong>
+							<strong>URL</strong>
 						</td>
 					</tr>
+					
+					
+					
 					<cfloop collection="#form#" item="key">
 						<cfif len(form[key]) gt 0>
 							<tr>
@@ -106,6 +108,19 @@
 							<tr>
 								<td>#key#</td>
 								<td>#rereplace(url[key],'(.),(.)','\1, \2','all')#</td>
+							</tr>
+						</cfif>
+					</cfloop>
+					<tr>
+						<td colspan="2" align="center">
+							<strong>Session</strong>
+						</td>
+					</tr>
+					<cfloop collection="#session#" item="key">
+						<cfif len(session[key]) gt 0>
+							<tr>
+								<td>#key#</td>
+								<td>#rereplace(session[key],'(.),(.)','\1, \2','all')#</td>
 							</tr>
 						</cfif>
 					</cfloop>
