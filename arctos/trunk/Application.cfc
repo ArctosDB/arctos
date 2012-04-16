@@ -81,7 +81,7 @@
 								<td>#key#</td>
 								<td>
 									<cfset thisV=session[key]>
-									#regexp_replace(thisV,'(.),(.)','\1, \2')#</td>
+									#rereplace(thisV,'(.),(.)','\1, \2')#</td>
 							</tr>
 						</cfif>
 					</cfloop>
