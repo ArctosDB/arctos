@@ -32,8 +32,8 @@
 			<cfoutput>
 				<table border width="800px;">
 					<tr>
-						<td colspan="2">
-							Summary
+						<td colspan="2" align="center">
+							<strong>Summary</strong>
 						</td>
 					</tr>
 					<tr>
@@ -71,16 +71,15 @@
 						</tr>
 					</cfif>
 					<tr>
-						<td colspan="2">
-							Session
+						<td colspan="2" align="center">
+							<strong>Session</strong>
 						</td>
 					</tr>
 					<cfloop collection="#session#" item="key">
 						<cfif len(session[key]) gt 0>
 							<tr>
 								<td>#key#</td>
-								<td>
-									#rereplace(session[key],'(.),(.)','\1, \2','all')#</td>
+								<td>#rereplace(session[key],'(.),(.)','\1, \2','all')#</td>
 							</tr>
 						</cfif>
 					</cfloop>
