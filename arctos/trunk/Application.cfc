@@ -30,17 +30,43 @@
 				<cfset ipaddress='unknown'>
 			</CFIF>
 			<cfoutput>
-				<p>ipaddress: <a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></p>
-				(<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#ipaddress#">blacklist</a>)
-				<cfif isdefined("session.username")>
-					<br>Username: #session.username#
-				</cfif>
-				<cfif isdefined("exception.Sql")>
-					<p>Sql: #exception.Sql#</p>
-				</cfif>	
-				<cfif isdefined("exception.ErrorCode")>
-					<p>ErrorCode: #exception.ErrorCode#</p>
-				</cfif>			
+				<table border>
+					<tr>
+						<td colspan="2">
+							Exception
+						</td>
+					</tr>
+					<tr>
+						<td>
+							IP
+						</td>
+						<td>
+							#ipaddress# 
+							<a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">[ lookup ]</a>
+							<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#ipaddress#">[ blacklist ]</a>
+						</td>
+					</tr>
+					<cfif isdefined("session.username")>
+						<tr>
+							<td>Username</td>
+							<td>#session.username#</td>
+						</tr>
+					</cfif>
+					<cfif isdefined("exception.Sql")>
+						<tr>
+							<td>exception.Sql</td>
+							<td>#exception.Sql#</td>
+						</tr>
+					</cfif>
+					<cfif isdefined("exception.ErrorCode")>
+						<tr>
+							<td>exception.ErrorCode</td>
+							<td>#exception.ErrorCode#</td>
+						</tr>
+					</cfif>
+					
+				</table>
+					
 			</cfoutput>
 			<hr>
 			Exceptions:
