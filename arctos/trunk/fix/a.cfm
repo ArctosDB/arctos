@@ -1,3 +1,8 @@
-<cfloop collection="session" index="i">
-				#session#<br>
-			</cfloop>
+<cfoutput>
+			
+			<cfloop collection="#session#" item="key">
+#key#: #session[key]#<br />
+</cfloop>
+
+
+</cfoutput>
