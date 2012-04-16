@@ -83,63 +83,57 @@
 							</tr>
 						</cfif>
 					</cfloop>
-					<!----
 					<tr>
-						<td colspan="2">
-							Form
+						<td colspan="2" align="center">
+							<strong>Form</strong>
 						</td>
 					</tr>
 					<cfloop collection="#form#" item="key">
 						<cfif len(form[key]) gt 0>
 							<tr>
 								<td>#key#</td>
-								<td>#regexp_replace(form[key]'(.),(.)','\1, \2')#</td>
+								<td>#rereplace(form[key],'(.),(.)','\1, \2','all')#</td>
 							</tr>
 						</cfif>
 					</cfloop>
 					<tr>
-						<td colspan="2">
-							URL
+						<td colspan="2" align="center">
+							<strong>URL</strong>
 						</td>
 					</tr>
 					<cfloop collection="#url#" item="key">
 						<cfif len(url[key]) gt 0>
 							<tr>
 								<td>#key#</td>
-								<td>#regexp_replace(url[key]'(.),(.)','\1, \2')#</td>
+								<td>#rereplace(url[key],'(.),(.)','\1, \2','all')#</td>
 							</tr>
 						</cfif>
 					</cfloop>
-					--->
+					<tr>
+						<td colspan="2" align="center">
+							<strong>CGI</strong>
+						</td>
+					</tr>
+					<cfloop collection="#cgi#" item="key">
+						<cfif len(cgi[key]) gt 0>
+							<tr>
+								<td>#key#</td>
+								<td>#rereplace(cgi[key],'(.),(.)','\1, \2','all')#</td>
+							</tr>
+						</cfif>
+					</cfloop>
+					<tr>
+						<td colspan="2" align="center">
+							<strong>Exception Structure</strong>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<cfdump var="#exception#" label="exception">
+						</td>
+					</tr>
 				</table>
 			</cfoutput>
-			<hr>
-			Exceptions:
-			<hr>
-			
-			<cfdump var="#exception#" label="exception">
-			
-
-
-
-			
-			<hr>
-			<cfif isdefined("session")>
-				Session Dump:
-				<hr>
-				<cfdump var="#session#" label="session">
-			</cfif>
-			<hr>
-			Form Dump:
-			<hr>
-			<cfdump var="#form#" label="form">
-			<hr>
-			URL Dump:
-			<hr>
-			<cfdump var="#url#" label="url">
-			CGI Dump:
-			<hr>
-			<cfdump var="#CGI#" label="CGI">
 		</cfsavecontent>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="locked form">
