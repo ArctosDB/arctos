@@ -66,7 +66,7 @@
 					</cfif>
 					<tr>
 						<td>
-							<cfdump var=#exception.cause.TagContext[1].line#>
+							#exception.cause.TagContext[1].line#
 						</td>
 					</tr>
 				</table>
