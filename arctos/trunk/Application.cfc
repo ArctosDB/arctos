@@ -33,7 +33,7 @@
 				<table border>
 					<tr>
 						<td colspan="2">
-							Exception
+							Summary
 						</td>
 					</tr>
 					<tr>
@@ -70,6 +70,11 @@
 							<td>#cgi.PATH_TRANSLATED#</td>
 						</tr>
 					</cfif>
+					<tr>
+						<td colspan="2">
+							Session
+						</td>
+					</tr>
 					<cfloop collection="#session#" item="key">
 						<cfif len(session[key]) gt 0>
 							<tr>
