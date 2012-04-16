@@ -58,21 +58,26 @@
 							<td>#exception.Sql#</td>
 						</tr>
 					</cfif>
-					<cfif isdefined("exception.Message")>
+					<cfif isdefined("exception.cause.message")>
 						<tr>
-							<td>exception.Message</td>
-							<td>#exception.Message#</td>
+							<td>exception.cause.message</td>
+							<td>#exception.cause.message#</td>
 						</tr>
 					</cfif>
-					<cfif isdefined("exception.ErrorCode")>
+					<cfif isdefined("exception.cause.tagContext[1].line")>
 						<tr>
-							<td>exception.ErrorCode</td>
-							<td>#exception.ErrorCode#</td>
+							<td>exception.cause.tagContext[1].line</td>
+							<td>#exception.cause.tagContext[1].line#</td>
+						</tr>
+					</cfif>
+					<cfif isdefined("exception.cause.tagContext[1].raw_trace")>
+						<tr>
+							<td>exception.cause.tagContext[1].raw_trace</td>
+							<td>#exception.cause.tagContext[1].raw_trace#</td>
 						</tr>
 					</cfif>
 					
 				</table>
-					#exception.cause.message#
 			</cfoutput>
 			<hr>
 			Exceptions:
