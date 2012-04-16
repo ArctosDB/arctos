@@ -54,16 +54,31 @@
 					</cfif>
 					<cfif isdefined("exception.Sql")>
 						<tr>
-							<td>exception.Sql</td>
+							<td>SQL</td>
 							<td>#exception.Sql#</td>
 						</tr>
 					</cfif>
 					<cfif isdefined("exception.cause.message")>
 						<tr>
-							<td>exception.cause.message</td>
+							<td>Message</td>
 							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#</td>
 						</tr>
 					</cfif>
+					<cfif isdefined("cgi.PATH_TRANSLATED")>
+						<tr>
+							<td>Path</td>
+							<td>#cgi.PATH_TRANSLATED#</td>
+						</tr>
+					</cfif>
+					<cfloop collection="#session#" item="key">
+						<cfif len(session[key]) gt 0>
+							<tr>
+								<td>#key#</td>
+								<td>#session[key]#</td>
+							</tr>
+						</cfif>
+					</cfloop>
+					
 				</table>
 			</cfoutput>
 			<hr>
@@ -71,11 +86,7 @@
 			<hr>
 			
 			<cfdump var="#exception#" label="exception">
-			<cfloop collection="#session#" item="key">
-				<cfif len(session[key]) gt 0>
-					#key#: #session[key]#<br />
-				</cfif>
-			</cfloop>
+			
 
 
 
