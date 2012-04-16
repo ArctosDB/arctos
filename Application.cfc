@@ -42,7 +42,12 @@
 			<hr>
 			Exceptions:
 			<hr>
-			
+			<cfloop collection="#exception#" item="key">
+				<cfif len(exception[key]) gt 0>
+					#key#: #exception[key]#<br />
+				</cfif>
+			</cfloop>
+
 
 
 			<cfdump var="#exception#" label="exception">
