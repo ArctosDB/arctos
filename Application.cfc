@@ -61,9 +61,14 @@
 					<cfif isdefined("exception.cause.message")>
 						<tr>
 							<td>exception.cause.message</td>
-							<td>#exception.cause.message#</td>
+							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver]','')#</td>
 						</tr>
 					</cfif>
+					<tr>
+						<td>
+							<cfdump var=#exception.cause.TagContext#>
+						</td>
+					</tr>
 				</table>
 			</cfoutput>
 			<hr>
