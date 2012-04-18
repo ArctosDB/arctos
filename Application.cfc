@@ -62,6 +62,12 @@
 							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#</td>
 						</tr>
 					</cfif>
+					<cfif isdefined("cgi.redirect_url")>
+						<tr>
+							<td>Path</td>
+							<td>#cgi.redirect_url#</td>
+						</tr>
+					</cfif>
 					<cfif isdefined("cgi.PATH_TRANSLATED")>
 						<tr>
 							<td>Path</td>

@@ -146,9 +146,11 @@
 			</cftransaction>
 			<cfcatch>
 				<cfsavecontent variable="errortext">
-					<h3>Error in creating user.</h3>
+					<!--- do NOT just cfthrow this as we do NOT want sensitive information in email --->
+					<h3>Error in updating user.</h3>
 					<p>#cfcatch.Message#</p>
 					<p>#cfcatch.Detail#"</p>
+					<p>#session.username#"</p>
 					<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
 						<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
 					<CFELSEif  isdefined("CGI.Remote_Addr") and #len(CGI.Remote_Addr)# gt 0>
