@@ -2313,10 +2313,21 @@
 					1=0
 				</cfif>				
 		</cfquery>
+		<cfquery name="summary" datasource="uam_god">
+			<cfif idType is "COLLECTION_OBJECT_ID">
+				select '<a href="#Application.serverRootUrl#/guid/' || guid || '">' || guid || '</a>' s from flat where collection_object_id=#idvalue#
+			<cfelseif idType is "TAXON_NAME_ID">
+				select '<a href="#Application.serverRootUrl#/name/' || scientific_name || '">' || display_name || '</a>' s from taxonomy where taxon_name_id=#idvalue#
+			<cfelseif idType is "PROJECT_ID">
+				select '<a href="#Application.serverRootUrl#/project/' || niceURL(project_name) || '">' || project_name || '</a>' s from project where project_id=#idvalue#
+			<cfelseif idType is "PUBLICATION_ID">
+				select '<a href="#Application.serverRootUrl#/publication/' || publication_id || '">' || short_citation || '</a>' s from publication where publication_id=#idvalue#
+			</cfif>
+		</cfquery>
 		<cfset mailTo = valuelist(whoTo.address)>
 		<cfset mailTo=listappend(mailTo,Application.bugReportEmail,",")>
 		<cfmail to="#mailTo#" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">
-			Arctos User #session.username# has submitted an annotation. 
+			Arctos User #session.username# has submitted an annotation concerning #summary.s#. 
 			
 			<blockquote>
 				#annotation#
@@ -2324,7 +2335,7 @@
 				
 			View details at
 			<a href="#Application.ServerRootUrl#/info/reviewAnnotation.cfm?action=show&type=#idType#&id=#idvalue#">
-			#Application.ServerRootUrl#/info/annotate.cfm?action=show&type=#idType#&id=#idvalue#
+				#Application.ServerRootUrl#/info/annotate.cfm?action=show&type=#idType#&id=#idvalue#
 			</a>
 		</cfmail>	
 	<cfcatch>
