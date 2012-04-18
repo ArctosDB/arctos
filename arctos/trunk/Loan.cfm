@@ -309,12 +309,16 @@
 			trans_agent_role,
 			agent_name
 	</cfquery>
+	<cfquery name="numItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from loan_item where transaction_id=#transaction_id#
+	</cfquery>
 	<table width="100%" border><tr><td valign="top"><!--- left cell ---->
 	<form name="editloan" action="Loan.cfm" method="post">
 		<input type="hidden" name="action" value="saveEdits">
 		<input type="hidden" name="transaction_id" value="#loanDetails.transaction_id#">
 		<strong>Edit Loan #loanDetails.collection# #loanDetails.loan_number#</strong>
 		<span style="font-size:small;">Entered by #loanDetails.enteredby#</span>
+		<span style="font-size:small;"> (#numItems.c# items)</span>
 		<label for="loan_number">Loan Number</label>
 		<select name="collection_id" id="collection_id" size="1">
 			<cfloop query="ctcollection">
@@ -434,10 +438,10 @@
 		<label for="trans_remarks">Remarks (<span id="lbl_trans_remarks"></span>)</label>
 		<textarea name="trans_remarks" id="trans_remarks" rows="7" cols="60">#loanDetails.trans_remarks#</textarea>
 		<br>
-		<input type="button" value="Save Edits" class="savBtn"
-			onClick="editloan.action.value='saveEdits';submit();">
-		<input type="button" value="Delete Loan" class="delBtn"
-			onClick="editloan.action.value='deleLoan';confirmDelete('editloan');">
+		<input type="button" value="Save Edits" class="savBtn" onClick="editloan.action.value='saveEdits';submit();">
+		<cfif numItems.c is 0>
+			<input type="button" value="Delete Loan" class="delBtn" onClick="editloan.action.value='deleLoan';confirmDelete('editloan');">
+		</cfif>
    		<input type="button" value="Quit" class="qutBtn" onClick="document.location = 'Loan.cfm?Action=addItems'">
 		<input type="button" value="Add Items" class="lnkBtn"
 			onClick="window.open('SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#');">
