@@ -407,7 +407,7 @@ border-bottom:1px solid black;
 			<tr>
 				<td colspan="4" class="instHeader">
 					<a name="rem"></a>
-					Other Collections
+					<strong>Other Collections</strong>
 				</td>
 			</tr>
 			<cfloop query="rem">
