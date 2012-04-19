@@ -8,6 +8,11 @@
 		parent_barcode varchar2(255) not null,
 		install_date date);
 		
+	create or replace public synonym cf_temp_barcodeload for cf_temp_barcodeload;
+	
+	grant all on cf_temp_barcodeload to manage_container;
+	
+	
 	CREATE OR REPLACE TRIGGER cf_temp_barcodeload_key                                         
 	 before insert  ON cf_temp_barcodeload  
 	 for each row 
@@ -111,7 +116,7 @@
 
 
 
-
+<!----------------------
 
 
 
@@ -427,4 +432,13 @@ disabled<cfabort>
 	
 </cfoutput>
 </cfif>
+
+
+
+
+
+
+
+
+-------------------->
 <cfinclude template = "includes/_footer.cfm">
