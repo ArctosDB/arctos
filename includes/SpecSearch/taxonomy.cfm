@@ -11,6 +11,8 @@
 			minChars: 1,
 			selectFirst:false
 		});
+		$("#begin_made_date").datepicker();
+		$("#end_made_date").datepicker();
 	});
 </script>
 <cfquery name="ctNatureOfId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -74,6 +76,15 @@
 		</td>
 		<td class="srch">
 			<input name="common_name" id="common_name" type="text" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="made_date">ID Made Date:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="begin_made_date" id="begin_made_date" size="10" />-
+			<input type="text" name="end_made_date" id="end_made_date" size="10" />
 		</td>
 	</tr>
 	<tr>
