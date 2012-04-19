@@ -63,9 +63,6 @@
 	<cfelse>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(ListChangeDelims(catnum,','),'''')# ) " >
 	</cfif>
-<!---
-	
---->
 </cfif>	
 <cfif isdefined("geology_attribute") AND len(geology_attribute) gt 0>
 	<cfset mapurl = "#mapurl#&geology_attribute=#geology_attribute#">
@@ -346,6 +343,37 @@
 	</cfif>
 </cfif>
 
+<cfif isdefined("begin_made_date") AND len(begin_made_date) gt 0>
+	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select is_iso8601('#begin_made_date#') isdate from dual
+	</cfquery>	
+	<cfif isdate.isdate is not "valid">
+		<div class="error">
+			The begin made date you entered is not a valid ISO8601 date. 
+			See <a target="_blank" href="http://arctosdb.org/documentation/dates/">About Arctos Dates</a>
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset basQual = " #basQual# AND #session.flatTableName#.made_date >= '#begin_made_date#'">		
+	<cfset mapurl = "#mapurl#&begin_made_date=#begin_made_date#">
+</cfif>
+<cfif isdefined("end_made_date") AND len(end_made_date) gt 0>
+	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select is_iso8601('#end_made_date#') isdate from dual
+	</cfquery>	
+	<cfif isdate.isdate is not "valid">
+		<div class="error">
+			The end made date you entered is not a valid ISO8601 date. 
+			See <a target="_blank" href="http://arctosdb.org/documentation/dates/">About Arctos Dates</a>
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset basQual = " #basQual# AND #session.flatTableName#.made_date <= '#end_made_date#'">		
+	<cfset mapurl = "#mapurl#&end_made_date=#end_made_date#">
+</cfif>
+
 <cfif isdefined("anyTaxId") AND len(anyTaxId) gt 0>
 	<cfset mapurl = "#mapurl#&anyTaxId=#anyTaxId#">
 	<cfif basJoin does not contain " identification ">
@@ -533,12 +561,12 @@
 	<cfif isdate.isdate is not "valid">
 		<div class="error">
 			The begin date you entered is not a valid ISO8601 date. 
-			See <a target="_blank" href="http://g-arctos.appspot.com/arctosdoc/date.html">About Arctos Dates</a>
+			See <a target="_blank" href="http://arctosdb.org/documentation/dates/">About Arctos Dates</a>
 		</div>
 		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>
-	<cfset basQual = " #basQual# AND #session.flatTableName#.began_date >= '#begDate#'">		
+	<cfset basQual = " #basQual# AND #session.flatTableName#.began_date >= '#begDate#'">
 </cfif>
 <cfif isdefined("endDate") AND len(endDate) gt 0>	
 	<cfset mapurl = "#mapurl#&endDate=#endDate#">
@@ -548,7 +576,7 @@
 	<cfif isdate.isdate is not "valid">
 		<div class="error">
 			The ended date you entered is not a valid ISO8601 date. 
-			See <a target="_blank" href="http://g-arctos.appspot.com/arctosdoc/date.html">About Arctos Dates</a>
+			See <a target="_blank" href="http://arctosdb.org/documentation/dates/">About Arctos Dates</a>
 		</div>
 		<script>hidePageLoad();</script>
 		<cfabort>
