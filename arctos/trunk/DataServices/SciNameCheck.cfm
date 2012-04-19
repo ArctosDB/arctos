@@ -39,9 +39,34 @@ sho err
 
 <cfif action is "nothing">
 	Load scientific name; get back Arctos matches.
-	<br>See http://arctosdb.org/how-to/create/bulkloader/#taxa for the full scoop: This form considers only
+	<br>See http://arctosdb.org/how-to/create/bulkloader/#taxa for the full scoop on taxonomy.
+	
+	<br>This form considers only
 	namestrings (that is, taxonomy.scientific_name) so will have a high false failure rate for 
-	data with complex names.
+	data with complex names (Name sp., etc.)
+	
+	<br>
+	
+	Returned data will be
+		<ul>
+			<li>SCIENTIFIC_NAME - the name you loaded.</li>
+			<li>STATUS - a possibly-useful indication of what might have happened and how we came up with whatever it is that we're suggesting</li>
+			<li>SUGGESTED_SCI_NAME - this is what we think you meant. Replace your SCIENTIFIC_NAME with this and Arctos will probably be happy. You might not be though, 
+			so make sure you know what you're doing.</li>
+			<li>GENUS - if we didn't find a scientific name, we'll try to pull the thing that looks like genus out of your data. This might be handy if you decide 
+				to bulkload names later on, or it might just be confusing. Delete it if it's not useful to you.
+			</li>
+			<li>SPECIES - if we didn't find a scientific name, we'll try to pull the thing that looks like specific epithet out of your data. This might be handy if you decide 
+				to bulkload names later on, or it might just be confusing. Delete it if it's not useful to you.
+			</li>
+			<li>INF_RANK - if we didn't find a scientific name, we'll try to pull the thing that looks like infraspecific rank out of your data. This might be handy if you decide 
+				to bulkload names later on, or it might just be confusing. Delete it if it's not useful to you.
+			</li>
+			<li>SUBSPECIES - if we didn't find a scientific name, we'll try to pull the thing that looks like infraspecific epithet out of your data. This might be handy if you decide 
+				to bulkload names later on, or it might just be confusing. Delete it if it's not useful to you.
+			</li>
+		</ul>	
+	
 	<p></p>
 	Columns in <span style="color:red">red</span> are required; others are optional:
 	<ul>
