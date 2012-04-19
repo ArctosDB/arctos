@@ -99,7 +99,7 @@
 	
 	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select from cf_temp_barcodeload where status is not null
+		select * from cf_temp_barcodeload where status is not null
 	</cfquery>
 	<cfif d.recordcount gt 0>
 		The data will not load.
