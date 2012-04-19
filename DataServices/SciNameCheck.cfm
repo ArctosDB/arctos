@@ -10,6 +10,15 @@ create table ds_temp_taxcheck (
 	
 	alter table ds_temp_taxcheck add suggested_sci_name varchar2(255);
 
+	alter table ds_temp_taxcheck add genus varchar2(255);
+
+
+	alter table ds_temp_taxcheck add species varchar2(255);
+
+	alter table ds_temp_taxcheck add inf_rank varchar2(255);
+
+	alter table ds_temp_taxcheck add subspecies varchar2(255);
+
 create public synonym ds_temp_taxcheck for ds_temp_taxcheck;
 grant all on ds_temp_taxcheck to coldfusion_user;
 grant select on ds_temp_taxcheck to public;
@@ -201,8 +210,41 @@ sho err
 			</cfif>
 		</cfif>	
 		<cfif found is false>
+			<cfset fstTerm="">
+			<cfset scndTerm="">
+			<cfset thrdTerm="">
+			<cfset fortTerm="">
+			<cfset ir="">
+			<cfset ssp="">
+			
+			<cfif listlen(scientific_name," ") gte 1>
+				<cfset fstTerm=listgetat(scientific_name,1," ")>
+			</cfif>
+			<cfif listlen(scientific_name," ") gte 2>
+				<cfset scndTerm=listgetat(scientific_name,2," ")>
+			</cfif>
+			<cfif listlen(scientific_name," ") gte 3>
+				<cfset thrdTerm=listgetat(scientific_name,3," ")>
+			</cfif>
+			<cfif listlen(scientific_name," ") gte 4>
+				<cfset fortTerm=listgetat(scientific_name,4," ")>
+			</cfif>
+			<cfif len(thrdTerm) gt 0 and len(fortTerm) gt 0>
+				<cfset ir=thrdTerm>
+				<cfset ssp=fortTerm>
+			<cfelseif len(thrdTerm) gt 0>
+				<cfset ssp=thrdTerm>
+			</cfif>
 			<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update ds_temp_taxcheck set status='FAIL' where key=#key#
+				update 
+					ds_temp_taxcheck 
+				set 
+					status='FAIL',
+					genus='#fstTerm#',
+					species='#scndTerm#',
+					inf_rank='#ir#',
+					subspecies='#ssp#'
+				where key=#key#
 			</cfquery>
 		</cfif>
 	</cfloop>
