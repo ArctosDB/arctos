@@ -92,10 +92,15 @@ border-bottom:1px solid black;
 	<cfquery name="msb" dbtype="query">
 		select * from coll where collection like 'MSB %' order by collection
 	</cfquery>
+	<cfset gotem=listappend(gotem,valuelist(msb.cf_collection_id))>
 	<cfquery name="dgr" dbtype="query">
 		select * from coll where collection like 'DGR %' order by collection
 	</cfquery>
-	<cfset gotem=listappend(gotem,valuelist(msb.cf_collection_id))>
+	<cfset gotem=listappend(gotem,valuelist(dgr.cf_collection_id))>
+	<cfquery name="uwymv" dbtype="query">
+		select * from coll where collection like 'UWYMV %' order by collection
+	</cfquery>
+	<cfset gotem=listappend(gotem,valuelist(uwymv.cf_collection_id))>
 	<cfquery name="mvz" dbtype="query">
 		select * from coll where collection like 'MVZ %' order by collection
 	</cfquery>
@@ -365,6 +370,49 @@ border-bottom:1px solid black;
 				</td>
 			</tr>
 			<cfloop query="mlz">
+				<cfset coll_dir_name = "#lcase(portal_name)#">
+				<tr>
+					<td class="collnCell">
+						#collection#
+						<cfif len(descr) gt 0>
+							<div class="collnDescrCell">
+								#descr#
+							</div>
+						</cfif>
+					</td>
+					<td class="collnSrchCell">
+						<cfif listlast(collection,' ') is not 'Portal'>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
+						<cfelse>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
+						</cfif>
+					</td>
+					<td class="collnWeblinkCell">
+						<cfif len(web_link) gt 0>
+							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
+						<cfelse>
+							no home page
+						</cfif>
+					</td>
+					<td class="collnLoanPolCell">
+						<cfif len(loan_policy_url) gt 0>
+							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
+						<cfelse>
+							no loan policy
+						</cfif>
+					</td>
+				</tr>
+			</cfloop>
+		</cfif>
+		<cfif isdefined("uwymv") and uwymv.recordcount gt 0>
+			<tr>
+				<td colspan="4" class="instHeader">
+					<a name="mlz" href="http://www.uwyo.edu/berrycenter/interact/vertebrates.html" target="_blank" class="external institution">
+						University of Wyoming Museum of Vertebrates
+					</a>
+				</td>
+			</tr>
+			<cfloop query="uwymv">
 				<cfset coll_dir_name = "#lcase(portal_name)#">
 				<tr>
 					<td class="collnCell">
