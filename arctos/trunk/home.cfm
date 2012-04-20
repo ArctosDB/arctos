@@ -117,6 +117,10 @@ border-bottom:1px solid black;
 		select * from coll where collection like 'DMNS %' order by collection
 	</cfquery>
 	<cfset gotem=listappend(gotem,valuelist(dmns.cf_collection_id))>
+	<cfquery name="knwr" dbtype="query">
+		select * from coll where collection like 'KNWR %' order by collection
+	</cfquery>
+	<cfset gotem=listappend(gotem,valuelist(knwr.cf_collection_id))>
 	<cfquery name="mlz" dbtype="query">
 		select * from coll where collection like 'MLZ %' order by collection
 	</cfquery>
@@ -138,9 +142,10 @@ border-bottom:1px solid black;
 		<br><a href="##msb">MSB</a>
 		<br><a href="##mvz">MVZ</a>
 		<br><a href="##dmns">DMNS</a>
-		<br><a href="##wnmu">WNMU</a>
 		<br><a href="##mlz">MLZ</a>
-		<br><a href="##uwymv">UWYMV</a>		
+		<br><a href="##uwymv">UWYMV</a>
+		<br><a href="##wnmu">WNMU</a>
+		<br><a href="##knwr">KNWR</a>	
 		<br><a href="##rem">other</a>
 		<div class="anchortitle">Topics</div>
 		<br><a href="##features">Features</a>
@@ -456,6 +461,47 @@ border-bottom:1px solid black;
 				</td>
 			</tr>
 			<cfloop query="wnmu">
+				<cfset coll_dir_name = "#lcase(portal_name)#">
+				<tr>
+					<td class="collnCell">
+						#collection#
+						<cfif len(descr) gt 0>
+							<div class="collnDescrCell">
+								#descr#
+							</div>
+						</cfif>
+					</td>
+					<td class="collnSrchCell">
+						<cfif listlast(collection,' ') is not 'Portal'>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
+						<cfelse>
+							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
+						</cfif>
+					</td>
+					<td class="collnWeblinkCell">
+						<cfif len(web_link) gt 0>
+							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
+						<cfelse>
+							no home page
+						</cfif>
+					</td>
+					<td class="collnLoanPolCell">
+						<cfif len(loan_policy_url) gt 0>
+							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
+						<cfelse>
+							no loan policy
+						</cfif>
+					</td>
+				</tr>
+			</cfloop>
+		</cfif>
+		<cfif isdefined("knwr") and knwr.recordcount gt 0>
+			<tr>
+				<td colspan="4" class="instHeader">
+					<a name="knwr" href="http://kenai.fws.gov/" target="_blank" class="external institution">Kenai National Wildlife Refuge</a>
+				</td>
+			</tr>
+			<cfloop query="knwr">
 				<cfset coll_dir_name = "#lcase(portal_name)#">
 				<tr>
 					<td class="collnCell">
