@@ -139,6 +139,8 @@ border-bottom:1px solid black;
 		<br><a href="##mvz">MVZ</a>
 		<br><a href="##dmns">DMNS</a>
 		<br><a href="##wnmu">WNMU</a>
+		<br><a href="##mlz">MLZ</a>
+		<br><a href="##uwymv">UWYMV</a>		
 		<br><a href="##rem">other</a>
 		<div class="anchortitle">Topics</div>
 		<br><a href="##features">Features</a>
@@ -407,7 +409,7 @@ border-bottom:1px solid black;
 		<cfif isdefined("uwymv") and uwymv.recordcount gt 0>
 			<tr>
 				<td colspan="4" class="instHeader">
-					<a name="mlz" href="http://www.uwyo.edu/berrycenter/interact/vertebrates.html" target="_blank" class="external institution">
+					<a name="uwymv" href="http://www.uwyo.edu/berrycenter/interact/vertebrates.html" target="_blank" class="external institution">
 						University of Wyoming Museum of Vertebrates
 					</a>
 				</td>
