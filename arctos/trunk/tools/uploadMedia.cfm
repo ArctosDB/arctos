@@ -50,6 +50,7 @@
 			<th>KB</th>
 		</tr>
 	<cfloop query="dir">
+		<cffile action="rename" source="#application.webDirectory#/temp/#session.username#/#name#" destination="#application.webDirectory#/temp/#session.username#/#name#" mode="777">
 		<cfif listfindnocase(goodExtensions,listlast(name,".")) and left(name,1) is not "_" and left(name,1) is not ".">
 			<cfset s=round(size/1024)>
 			<tr>
