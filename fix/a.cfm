@@ -1,11 +1,8 @@
 <cfoutput>
 			
-			<cfloop collection="#session#" item="key">
-				<cfif len(session[key]) gt 0>
-				#key#: #session[key]#<br />
+		<cfdirectory action="LIST" directory="#application.webDirectory#/temp/" name="dir" recurse="yes">
 
-				</cfif>
-</cfloop>
 
+<cfdump var=#dir#>
 
 </cfoutput>
