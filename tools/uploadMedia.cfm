@@ -40,7 +40,6 @@
 	Upload complete. <a href="uploadMedia.cfm?action=unzip">Continue to unzip</a>.
 </cfif>
 <cfif action is "unzip">
-	<cffile action="write" file="#application.webDirectory#/temp/#session.username#/temp.zip" output=" " mode="777" nameConflict="overwrite">
 	<cfzip file="#application.webDirectory#/temp/#session.username#/temp.zip" action="unzip" destination="#application.webDirectory#/temp/#session.username#/"/>
 	<cfdirectory action="LIST" directory="#application.webDirectory#/temp/#session.username#" name="dir" recurse="yes">
 	<cfoutput>
