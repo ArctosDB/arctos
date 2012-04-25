@@ -1,7 +1,7 @@
 <cfoutput>
 			
 
-<CFDIRECTORY ACTION="List" DIRECTORY="#Application.webDirectory#/temp" NAME="dir_listing">
+<CFDIRECTORY ACTION="List" DIRECTORY="#Application.webDirectory#/temp" NAME="dir_listing" recurse="true">
 
 <cfdump var=#dir_listing#> 
 <cfloop query="dir_listing">
