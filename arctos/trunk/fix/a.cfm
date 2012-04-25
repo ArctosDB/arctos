@@ -1,8 +1,10 @@
 <cfoutput>
 			
-		<cfdirectory action="LIST" directory="#application.webDirectory#/temp/" name="dir" recurse="yes">
 
-
-<cfdump var=#dir#>
+<CFDIRECTORY ACTION="List" DIRECTORY="#Application.webDirectory#/temp" NAME="dir_listing"> 
+<cfloop query="dir_listing">
+	
+	 	<cffile action="DELETE" file="#Application.webDirectory#/temp/#name#">
+</cfloop> 
 
 </cfoutput>
