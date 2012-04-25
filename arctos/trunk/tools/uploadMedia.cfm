@@ -24,7 +24,7 @@
 </cfif>
 <cfif action is "getFile">
 	<cftry>
-		<cfdirectory action="create" directory="#application.webDirectory#/temp/#session.username#">
+		<cfdirectory action="create" directory="#application.webDirectory#/temp/#session.username#" mode="777">
 		<cfcatch><!--- exists ---></cfcatch>
 	</cftry>
 	<cffile action="upload"
