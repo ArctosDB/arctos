@@ -693,7 +693,7 @@
 			flat.COLLECTION_OBJECT_ID,
 			'cloned from ' || flat.guid loaded,
 			sys_context('USERENV', 'SESSION_USER') enteredby,
-			flat.accn_number,
+			flat.ACCESSION accn_number,
 			identification.scientific_name taxon_name,
 			identification.nature_of_id,
 			identification.made_date,
