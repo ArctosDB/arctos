@@ -103,7 +103,7 @@
 			<option <cfif c.collection_id is thisrec.collection_id> selected="selected" </cfif>value="#collection_id#">#collection#</option>
 		</cfloop>
 	</select>
-	<input type="bytton" onclick="cloneCatalogedItem(#collection_object_id#)" value="Create Clone" class="insBtn">
+	<br><input type="button" onclick="cloneCatalogedItem(#collection_object_id#)" value="Create Clone" class="insBtn">
 	</form>
 </div>
 <br>
