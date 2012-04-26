@@ -19,9 +19,9 @@
 	<cfinvoke component="component.functions" method="getCloneOfCatalogedItemInBulkloaderFormat" returnvariable="getData">
 		<cfinvokeargument name="collection_object_id" value="#collection_object_id#">
 	</cfinvoke>
-	
+	<!---
 	<cfdump var=#getData#>
-	
+	--->
 	<cfset fileDir = "#Application.webDirectory#">
 	
 	
