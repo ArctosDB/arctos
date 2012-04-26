@@ -25,7 +25,7 @@
 		ACCN,
 		TAXON_NAME,
 		NATURE_OF_ID,
-		MADE-DATE,
+		MADE_DATE,
 		IDENTIFICATION_REMARKS,
 		collection_cde,
 		institution_acronym,
