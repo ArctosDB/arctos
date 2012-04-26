@@ -115,9 +115,8 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			</cfif>
 		</cfloop>
 	</cfoutput>
-	<cflocation url="BulkloadRelations.cfm?action=validate">
+	<a href="BulkloadRelations.cfm?action=validate">loaded to temp - proceed</a>
 </cfif>
-<!------------------------------------------------------->
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
@@ -135,18 +134,23 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		select * from cf_temp_bl_relations
 	</cfquery>
 	<cfloop query="d">
-		<cfif #other_id_type# is "catalog number">
+		<cfif other_id_type is "catalog number">
 			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT 
 					collection_object_id
 				FROM
-					cataloged_item,
-					collection
+					cataloged_item
 				WHERE
-					cataloged_item.collection_id = collection.collection_id and
-					collection.collection_cde = '#collection_cde#' and
-					collection.institution_acronym = '#institution_acronym#' and
-					cat_num=#other_id_val#
+					cat_num=#other_id_val# and
+					collection_id = ( 
+						select 
+							collection_id 
+						from 
+							collection 
+						where 
+							collection_cde = '#collection_cde#' and
+							institution_acronym = '#institution_acronym#'
+					)
 			</cfquery>
 		<cfelse>
 			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -165,7 +169,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					display_value = '#other_id_val#'
 			</cfquery>				
 		</cfif>
-		<cfif #collObj.recordcount# is 1>					
+		<cfif collObj.recordcount is 1>					
 			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE cf_temp_bl_relations SET collection_object_id = #collObj.collection_object_id#
 				where
@@ -178,18 +182,23 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				where key = #key#
 			</cfquery>
 		</cfif>
-		<cfif #related_other_id_type# is "catalog number">
+		<cfif related_other_id_type is "catalog number">
 			<cfquery name="rcollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT 
 					collection_object_id
 				FROM
-					cataloged_item,
-					collection
+					cataloged_item
 				WHERE
-					cataloged_item.collection_id = collection.collection_id and
-					collection.collection_cde = '#related_collection_cde#' and
-					collection.institution_acronym = '#related_institution_acronym#' and
-					cat_num=#related_other_id_val#
+					cat_num=#related_other_id_val# and
+					collection_id = ( 
+						select 
+							collection_id 
+						from 
+							collection 
+						where 
+							collection_cde = '#related_collection_cde#' and
+							institution_acronym = '#related_institution_acronym#'
+					)
 			</cfquery>
 		<cfelse>
 			<cfquery name="rcollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -208,7 +217,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					display_value = '#related_other_id_val#'
 			</cfquery>				
 		</cfif>
-		<cfif #rcollObj.recordcount# is 1>					
+		<cfif rcollObj.recordcount is 1>					
 			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE cf_temp_bl_relations SET related_collection_object_id = #rcollObj.collection_object_id#
 				where
@@ -231,9 +240,36 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfif b.c gt 0>
 		You must clean up the #b.recordcount# rows with validated_status != NULL in this table before proceeding.
 	<cfelse>
-		Check out the table below and <a href="BulkloadRelations.cfm?action=loadData">click here to proceed</a> when all looks OK
+		Everything seems to validate. Check out the table below and <a href="BulkloadRelations.cfm?action=loadData">click here to proceed</a> when all looks OK
 	</cfif>
-	<cfdump var=#d#>
+	<table border>
+		<tr>
+			<th>Collection</th>
+			<th>FoundSpecimen</th>
+			<th>OTHER_ID_TYPE</th>
+			<th>OTHER_ID_VAL</th>
+			<th>RelatedCollection</th>
+			<th>FoundRelatedSpecimen</th>
+			<th>RELATED_OTHER_ID_TYPE</th>
+			<th>RELATED_OTHER_ID_VAL</th>
+			<th>RELATIONSHIP</th>
+			<th>VALIDATED_STATUS</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#INSTITUTION_ACRONYM#:#COLLECTION_CDE#</td>
+				<td><a href="/SpecimenDetail.cfm?collection_object_id=#COLLECTION_OBJECT_ID#">#COLLECTION_OBJECT_ID#</a></td>
+				<td>#OTHER_ID_TYPE#</td>
+				<td>#OTHER_ID_VAL#</td>
+				<td>#RELATED_INSTITUTION_ACRONYM#:#RELATED_COLLECTION_CDE#</td>
+				<td><a href="/SpecimenDetail.cfm?collection_object_id=#RELATED_COLLECTION_OBJECT_ID#">#RELATED_COLLECTION_OBJECT_ID#</a></td>
+				<td>#RELATED_OTHER_ID_TYPE#</td>
+				<td>#RELATED_OTHER_ID_VAL#</td>
+				<td>#RELATIONSHIP#</td>
+				<td>#VALIDATED_STATUS#</td>
+			</tr>
+		</cfloop>
+	</table>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
