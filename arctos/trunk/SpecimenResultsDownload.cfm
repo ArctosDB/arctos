@@ -222,7 +222,6 @@
 	<cfset cList=replace(clist,chr(13),'','all')>
 
 	<hr>cList: #cList#	
-	<cfset cList=ListQualify(clist,'"')>
 	<hr>cList: #cList#	
 			
 				
@@ -241,7 +240,7 @@
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(clist); 
+			variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
 		</cfscript>
 		<cfloop query="getData">
 			<cfset oneLine = "">
