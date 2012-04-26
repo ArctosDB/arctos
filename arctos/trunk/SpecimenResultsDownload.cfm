@@ -33,7 +33,7 @@
 		<cfset variables.encoding="UTF-8">
 		<cfset fname = "download_4_bulkloader.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-		<cfset header=valuelist(getData.columnList)>
+		<cfset header=getData.columnList>
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			variables.joFileWriter.writeLine(header); 
