@@ -97,14 +97,13 @@
 	<input type="hidden" name="nothing">
 	<label for="taxon_name">as taxon name</label>
 	<input type="text" name="taxon_name"class="reqdClr" size="40" id="taxon_name" value="#thisRec.scientific_name#" onchange="taxaPick('nothing',this.id,'clone',this.value)">
-	
-	 - <span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">[ do it ]</span>.
 	 <label for="collection_id">in collection</label> 
 	<select name="collection_id" id="collection_id">
 		<cfloop query="c">
 			<option <cfif c.collection_id is thisrec.collection_id> selected="selected" </cfif>value="#collection_id#">#collection#</option>
 		</cfloop>
 	</select>
+	<input type="bytton" onclick="cloneCatalogedItem(#collection_object_id#)" value="Create Clone" class="insBtn">
 	</form>
 </div>
 <br>
