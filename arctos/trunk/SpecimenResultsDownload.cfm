@@ -217,7 +217,7 @@
 	
 			
 				
-					
+		cList: #cList#			
 	<cfinvoke component="component.functions" method="getCloneOfCatalogedItemInBulkloaderFormat" returnvariable="getData">
 		<cfinvokeargument name="collection_object_id" value="#collection_object_id#">
 	</cfinvoke>
@@ -253,7 +253,10 @@
 		<cfscript>	
 			variables.joFileWriter.close();
 		</cfscript>
+		<!----
 		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+		
+		---->
 		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 	</cfoutput>
 </cfif>
