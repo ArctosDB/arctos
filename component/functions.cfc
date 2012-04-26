@@ -827,7 +827,7 @@
 			from
 				d
 			where
-				collection_object_id=#collection_object_id#
+				collection_object_id=#one.collection_object_id#
 		</cfquery>
 		<cfif idby.recordcount is 1>
 			<cfset QuerySetCell(result, "ID_MADE_BY_AGENT", "#idby.id_by_agent#", i)>
