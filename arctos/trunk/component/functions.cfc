@@ -693,7 +693,7 @@
 			flat.COLLECTION_OBJECT_ID,
 			'cloned from ' || flat.guid loaded,
 			sys_context('USERENV', 'SESSION_USER') enteredby,
-			flat.ACCESSION accn_number,
+			flat.ACCESSION ACCN,
 			identification.scientific_name taxon_name,
 			identification.nature_of_id,
 			identification.made_date,
@@ -757,28 +757,137 @@
 			attributes.DETERMINED_BY_AGENT_ID=atagnt.agent_id (+) and
 			flat.collection_object_id in (#collection_object_id#)
 	</cfquery>
-	<cfdump var=#d#>		
+	<cfdump var=#d#>
+	<cfquery name="one" dbtype="query">
+		select
+			COLLECTION_OBJECT_ID,
+			loaded,
+			enteredby,
+			ACCN,
+			taxon_name,
+			nature_of_id,
+			made_date,
+			IDENTIFICATION_REMARKS,
+			collection_cde,
+			institution_acronym,
+			COLL_OBJECT_REMARKS,
+			COLLECTING_EVENT_ID
+		from d group by
+			COLLECTION_OBJECT_ID,
+			loaded,
+			enteredby,
+			ACCN,
+			taxon_name,
+			nature_of_id,
+			made_date,
+			IDENTIFICATION_REMARKS,
+			collection_cde,
+			institution_acronym,
+			COLL_OBJECT_REMARKS,
+			COLLECTING_EVENT_ID
+	</cfquery>
+	<cfset result = querynew("
+		COLLECTION_OBJECT_ID,
+		loaded,
+		enteredby,
+		ACCN,
+		taxon_name,
+		nature_of_id,
+		made_date,
+		IDENTIFICATION_REMARKS,
+		collection_cde,
+		institution_acronym,
+		COLL_OBJECT_REMARKS,
+		COLLECTING_EVENT_ID,
+			ID_MADE_BY_AGENT
+	")>
+		
+		
+		<cfset temp = QuerySetCell(result, "status", "success", 1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "disposition", "#disposition#", 1)>
+	<cfset i=1>			
+	<cfloop query="one">
+		<cfset status="">
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "COLLECTION_OBJECT_ID", "#COLLECTION_OBJECT_ID#", i)>
+		<cfset temp = QuerySetCell(result, "loaded", "#loaded#", i)>
+		<cfset temp = QuerySetCell(result, "enteredby", "#enteredby#", i)>
+		<cfset temp = QuerySetCell(result, "accn_number", "#accn_number#", i)>
+		<cfset temp = QuerySetCell(result, "taxon_name", "#taxon_name#", i)>
+		<cfset temp = QuerySetCell(result, "nature_of_id", "#nature_of_id#", i)>
+		<cfset temp = QuerySetCell(result, "made_date", "#made_date#", i)>
+		<cfset temp = QuerySetCell(result, "IDENTIFICATION_REMARKS", "#IDENTIFICATION_REMARKS#", i)>
+		<cfset temp = QuerySetCell(result, "collection_cde", "#collection_cde#", i)>
+		<cfset temp = QuerySetCell(result, "institution_acronym", "#institution_acronym#", i)>
+		<cfset temp = QuerySetCell(result, "COLL_OBJECT_REMARKS", "#COLL_OBJECT_REMARKS#", i)>
+		<cfset temp = QuerySetCell(result, "COLLECTING_EVENT_ID", "#COLLECTING_EVENT_ID#", i)>
+
+
+		<cfquery name="idby" dbtype="query">
+			select
+				id_by_agent
+			from
+				d
+			where
+				collection_object_id=#collection_object_id#
+		</cfquery>
+		<cfif idby.recordcount is 1>
+			<cfset QuerySetCell(result, "ID_MADE_BY_AGENT", "#idby.id_by_agent#", i)>
+		<cfelse>
+			<cfset status=listappend(status,'too_many_identifiers',";")>
+		</cfif>
+				
+			<!------
+				
+			
+			
+			coll_obj_other_id_num.other_id_type,
+			coll_obj_other_id_num.display_value,
+			
+			
+			colagnt.agent_name collname,
+			collector.COLLECTOR_ROLE,
+			collector.coll_order,
+			
+			
+			specimen_part.part_name,
+			coll_object.condition,
+			p.barcode,
+			p.label,
+			to_char(coll_object.lot_count) lot_count,
+			coll_object.COLL_OBJ_DISPOSITION,
+			coll_object_remark.coll_object_remarks,
+			
+			
+			attributes.ATTRIBUTE_TYPE,
+			attributes.ATTRIBUTE_VALUE,
+			attributes.ATTRIBUTE_UNITS,
+			attributes.ATTRIBUTE_REMARK,
+			atagnt.agent_name atder,
+			attributes.DETERMINED_DATE,
+			attributes.DETERMINATION_METHOD
+			
+			----------->
+		<cfset i=i+1>
+	</cfloop>			
 				
 				
-				
-				
+		<cfdump var=#result#>		
 				
 				
 				<!------------
 				
 				
-				 COLLECTION_OBJECT_ID						   NOT NULL NUMBER
- LOADED 								    VARCHAR2(255)
- ENTEREDBY								    VARCHAR2(255)
  CAT_NUM								    VARCHAR2(20)
  OTHER_ID_NUM_5 							    VARCHAR2(255)
  OTHER_ID_NUM_TYPE_5							    VARCHAR2(255)
  OTHER_ID_NUM_1 							    VARCHAR2(255)
  OTHER_ID_NUM_TYPE_1							    VARCHAR2(255)
- ACCN									    VARCHAR2(60)
- TAXON_NAME								    VARCHAR2(255)
- NATURE_OF_ID								    VARCHAR2(255)
- ID_MADE_BY_AGENT							    VARCHAR2(255)
+ 									    VARCHAR2(60)
+ 								    VARCHAR2(255)
+ 								    VARCHAR2(255)
+ 							    VARCHAR2(255)
  MADE_DATE								    VARCHAR2(20)
  IDENTIFICATION_REMARKS 						    VARCHAR2(4000)
  VERBATIM_DATE								    VARCHAR2(255)
