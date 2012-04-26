@@ -13,12 +13,50 @@
 	</cfif>
 	im downloadin!
 	
-	<cfinvoke component="component.functions" method="getCloneOfCatalogedItemInBulkloaderFormat" returnvariable="dataBL">
-		    <cfinvokeargument name="collection_object_id" value="#collection_object_id#">
+	<cfinvoke component="component.functions" method="getCloneOfCatalogedItemInBulkloaderFormat" returnvariable="getData">
+		<cfinvokeargument name="collection_object_id" value="#collection_object_id#">
 	</cfinvoke>
 	
-	<cfdump var=#dataBL#>
+	<cfdump var=#getData#>
+	
+	<cfset fileDir = "#Application.webDirectory#">
+	
+	
+	<cfoutput>
+		<cfset variables.encoding="UTF-8">
+		<cfset fname = "download_4_bulkloader.csv">
+		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+		<cfset header=valuelist(dataBL.column_name)>
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(header); 
+		</cfscript>
+		<cfloop query="getData">
+			<cfset oneLine = "">
+			<cfloop list="#ac#" index="c">
+				<cfset thisData = evaluate(c)>
+				<cfif len(oneLine) is 0>
+					<cfset oneLine = '"#thisData#"'>
+				<cfelse>
+					<cfset thisData=replace(thisData,'"','""','all')>
+					<cfset oneLine = '#oneLine#,"#thisData#"'>
+				</cfif>
+			</cfloop>
+			<cfset oneLine = trim(oneLine)>
+			<cfscript>
+				variables.joFileWriter.writeLine(oneLine);
+			</cfscript>
+		</cfloop>
+		<cfscript>	
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+	</cfoutput>
 </cfif>
+
+
+
 
 <cfif action is "nothing">
 	<cfoutput>
