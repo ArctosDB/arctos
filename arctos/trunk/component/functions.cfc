@@ -697,7 +697,7 @@
 			flat.scientific_name taxon_name,
 			flat.nature_of_id,
 			flat.made_date,
-			flat.IDENTIFICATION_REMARKS,
+			identification_agent.IDENTIFICATION_REMARKS,
 			flat.collection_cde,
 			flat.institution_acronym,
 			remarks COLL_OBJECT_REMARKS,
