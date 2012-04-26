@@ -1147,12 +1147,16 @@
 		</cfloop>
 		<cfif prt.recordcount gt 10>
 			<cfset status=listappend(status,'too_many_attributes',";")>
-		</cfif>	
+		</cfif>
+		
+		<cfset status=listprepend(status,one.loaded,";")>
+		<cfset temp = QuerySetCell(result, "loaded", "#status#", i)>
+	
+	
 		<cfset i=i+1>
 	</cfloop>			
 	
-	<cfset status=listprepend(status,one.loaded,";")>
-	<cfset temp = QuerySetCell(result, "loaded", "#status#", i)>
+	
 		
 		<cfdump var=#result#>		
 				
