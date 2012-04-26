@@ -1154,6 +1154,8 @@
 		<cfset temp = QuerySetCell(result, "loaded", "#status#", i)>
 		<cfset i=i+1>
 	</cfloop>
+	
+	<cfdump var=#result#>
 	<cfreturn RESULT>
 </cffunction>
 
