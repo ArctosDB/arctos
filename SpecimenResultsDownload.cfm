@@ -6,6 +6,9 @@
 	</div>
 	<cfabort>
 </cfif>
+
+
+
 <cfif action is "bulkloaderFormat">
 	<cfif len(collection_object_id) is 0>
 		This form requires collection_object_id (LIST)
@@ -26,7 +29,7 @@
 		<cfset variables.encoding="UTF-8">
 		<cfset fname = "download_4_bulkloader.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-		<cfset header=valuelist(dataBL.column_name)>
+		<cfset header=valuelist(getData.columnList)>
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			variables.joFileWriter.writeLine(header); 
@@ -57,7 +60,7 @@
 
 
 
-
+<!---------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
 		<cfset title="Download Agreement">
