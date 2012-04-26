@@ -986,7 +986,7 @@
 	<cfloop query="one">
 		<cfset status="">
 		<cfset temp = queryaddrow(result,1)>
-		<cfset temp = QuerySetCell(result, "COLLECTION_OBJECT_ID", "#COLLECTION_OBJECT_ID#", i)>
+		<cfset temp = QuerySetCell(result, "COLLECTION_OBJECT_ID", "#one.COLLECTION_OBJECT_ID#", i)>
 		<cfset temp = QuerySetCell(result, "enteredby", "#enteredby#", i)>
 		<cfset temp = QuerySetCell(result, "ACCN", "#ACCN#", i)>
 		<cfset temp = QuerySetCell(result, "taxon_name", "#taxon_name#", i)>
