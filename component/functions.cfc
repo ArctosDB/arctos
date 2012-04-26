@@ -809,7 +809,177 @@
 		OTHER_ID_NUM_TYPE_2,
 		OTHER_ID_NUM_TYPE_3,
 		OTHER_ID_NUM_TYPE_4,
-		OTHER_ID_NUM_TYPE_5
+		OTHER_ID_NUM_TYPE_5,
+		COLLECTOR_AGENT_1,
+		COLLECTOR_ROLE_1,
+		COLLECTOR_AGENT_2,
+		COLLECTOR_ROLE_2,
+		COLLECTOR_AGENT_3,
+		COLLECTOR_ROLE_3,
+		COLLECTOR_AGENT_4,
+		COLLECTOR_ROLE_4,
+		COLLECTOR_AGENT_5,
+		COLLECTOR_ROLE_5,
+		COLLECTOR_AGENT_6,
+		COLLECTOR_ROLE_6,
+		COLLECTOR_AGENT_7,
+		COLLECTOR_ROLE_7,
+		COLLECTOR_AGENT_8,
+		COLLECTOR_ROLE_8,
+		PART_NAME_1,
+		PART_CONDITION_1,
+		PART_BARCODE_1,
+		PART_CONTAINER_LABEL_1,
+		PART_LOT_COUNT_1,
+		PART_DISPOSITION_1,
+		PART_REMARK_1,
+		PART_NAME_2,
+		PART_CONDITION_2,
+		PART_BARCODE_2,
+		PART_CONTAINER_LABEL_2,
+		PART_LOT_COUNT_2,
+		PART_DISPOSITION_2,
+		PART_REMARK_2,
+		PART_NAME_3,
+		PART_CONDITION_3,
+		PART_BARCODE_3,
+		PART_CONTAINER_LABEL_3,
+		PART_LOT_COUNT_3,
+		PART_DISPOSITION_3,
+		PART_REMARK_3,
+		PART_NAME_4,
+		PART_CONDITION_4,
+		PART_BARCODE_4,
+		PART_CONTAINER_LABEL_4,
+		PART_LOT_COUNT_4,
+		PART_DISPOSITION_4,
+		PART_REMARK_4,
+		PART_NAME_5,
+		PART_CONDITION_5,
+		PART_BARCODE_5,
+		PART_CONTAINER_LABEL_5,
+		PART_LOT_COUNT_5,
+		PART_DISPOSITION_5,
+		PART_REMARK_5,
+		PART_NAME_6,
+		PART_CONDITION_6,
+		PART_BARCODE_6,
+		PART_CONTAINER_LABEL_6,
+		PART_LOT_COUNT_6,
+		PART_DISPOSITION_6,
+		PART_REMARK_6,
+		PART_NAME_7,
+		PART_CONDITION_7,
+		PART_BARCODE_7,
+		PART_CONTAINER_LABEL_7,
+		PART_LOT_COUNT_7,
+		PART_DISPOSITION_7,
+		PART_REMARK_7,
+		PART_NAME_8,
+		PART_CONDITION_8,
+		PART_BARCODE_8,
+		PART_CONTAINER_LABEL_8,
+		PART_LOT_COUNT_8,
+		PART_DISPOSITION_8,
+		PART_REMARK_8,
+		PART_NAME_9,
+		PART_CONDITION_9,
+		PART_BARCODE_9,
+		PART_CONTAINER_LABEL_9,
+		PART_LOT_COUNT_9,
+		PART_DISPOSITION_9,
+		PART_REMARK_9,
+		PART_NAME_10,
+		PART_CONDITION_10,
+		PART_BARCODE_10,
+		PART_CONTAINER_LABEL_10,
+		PART_LOT_COUNT_10,
+		PART_DISPOSITION_10,
+		PART_REMARK_10 ,
+		PART_NAME_11,
+		PART_CONDITION_11,
+		PART_BARCODE_11,
+		PART_CONTAINER_LABEL_11,
+		PART_LOT_COUNT_11,
+		PART_DISPOSITION_11,
+		PART_REMARK_11 ,
+		PART_NAME_12,
+		PART_CONDITION_12,
+		PART_BARCODE_12,
+		PART_CONTAINER_LABEL_12,
+		PART_LOT_COUNT_12,
+		PART_DISPOSITION_12,
+		PART_REMARK_12,
+		ATTRIBUTE_1,
+		ATTRIBUTE_VALUE_1,
+		ATTRIBUTE_UNITS_1,
+		ATTRIBUTE_REMARKS_1,
+		ATTRIBUTE_DATE_1,
+		ATTRIBUTE_DET_METH_1,
+		ATTRIBUTE_DETERMINER_1,
+		ATTRIBUTE_2,
+		ATTRIBUTE_VALUE_2,
+		ATTRIBUTE_UNITS_2,
+		ATTRIBUTE_REMARKS_2,
+		ATTRIBUTE_DATE_2,
+		ATTRIBUTE_DET_METH_2,
+		ATTRIBUTE_DETERMINER_2,
+		ATTRIBUTE_3,
+		ATTRIBUTE_VALUE_3,
+		ATTRIBUTE_UNITS_3,
+		ATTRIBUTE_REMARKS_3,
+		ATTRIBUTE_DATE_3,
+		ATTRIBUTE_DET_METH_3,
+		ATTRIBUTE_DETERMINER_3,
+		ATTRIBUTE_4,
+		ATTRIBUTE_VALUE_4,
+		ATTRIBUTE_UNITS_4,
+		ATTRIBUTE_REMARKS_4,
+		ATTRIBUTE_DATE_4,
+		ATTRIBUTE_DET_METH_4,
+		ATTRIBUTE_DETERMINER_4,
+		ATTRIBUTE_5,
+		ATTRIBUTE_VALUE_5,
+		ATTRIBUTE_UNITS_5,
+		ATTRIBUTE_REMARKS_5,
+		ATTRIBUTE_DATE_5,
+		ATTRIBUTE_DET_METH_5,
+		ATTRIBUTE_DETERMINER_5,
+		ATTRIBUTE_6,
+		ATTRIBUTE_VALUE_6,
+		ATTRIBUTE_UNITS_6,
+		ATTRIBUTE_REMARKS_6,
+		ATTRIBUTE_DATE_6,
+		ATTRIBUTE_DET_METH_6,
+		ATTRIBUTE_DETERMINER_6,
+		ATTRIBUTE_7,
+		ATTRIBUTE_VALUE_7,
+		ATTRIBUTE_UNITS_7,
+		ATTRIBUTE_REMARKS_7,
+		ATTRIBUTE_DATE_7,
+		ATTRIBUTE_DET_METH_7,
+		ATTRIBUTE_DETERMINER_7,
+		ATTRIBUTE_8,
+		ATTRIBUTE_VALUE_8,
+		ATTRIBUTE_UNITS_8,
+		ATTRIBUTE_REMARKS_8,
+		ATTRIBUTE_DATE_8,
+		ATTRIBUTE_DET_METH_8,
+		ATTRIBUTE_DETERMINER_8,
+		ATTRIBUTE_9,
+		ATTRIBUTE_VALUE_9,
+		ATTRIBUTE_UNITS_9,
+		ATTRIBUTE_REMARKS_9,
+		ATTRIBUTE_DATE_9,
+		ATTRIBUTE_DET_METH_9,
+		ATTRIBUTE_DETERMINER_9,
+		ATTRIBUTE_10,
+		ATTRIBUTE_VALUE_10,
+		ATTRIBUTE_UNITS_10,
+		ATTRIBUTE_REMARKS_10,
+		ATTRIBUTE_DATE_10,
+		ATTRIBUTE_DET_METH_10,
+		ATTRIBUTE_DETERMINER_10
 	")>
 		
 		
@@ -862,7 +1032,7 @@
 		</cfquery>
 		<cfset n=1>
 		<cfloop query="oid">
-			<cfif n lt 5>
+			<cfif n lte 5>
 				<cfset QuerySetCell(result, "OTHER_ID_NUM_#n#", "#oid.display_value#", i)>
 				<cfset QuerySetCell(result, "OTHER_ID_NUM_TYPE_#n#", "#oid.other_id_type#", i)>
 				<cfset n=n+1>
@@ -872,41 +1042,113 @@
 			<cfset status=listappend(status,'too_many_otherids',";")>
 		</cfif>		
 			
+		<cfquery name="col" dbtype="query">
+			select
+				collname,
+				COLLECTOR_ROLE
+			from
+				d
+			where
+				collection_object_id=#one.collection_object_id#
+			group by
+				collname,
+				COLLECTOR_ROLE
+			order by
+				coll_order
+		</cfquery>	
+		<cfset n=1>
+		<cfloop query="col">
+			<cfif n lte 8>
+				<cfset QuerySetCell(result, "COLLECTOR_AGENT_#n#", "#col.collname#", i)>
+				<cfset QuerySetCell(result, "COLLECTOR_ROLE_#n#", "#col.COLLECTOR_ROLE#", i)>
+				<cfset n=n+1>
+			</cfif>
+		</cfloop>
+		<cfif col.recordcount gt 8>
+			<cfset status=listappend(status,'too_many_collectors',";")>
+		</cfif>	
 			
-			
-			
-					
-			<!------
-				
-			
-			
-			coll_obj_other_id_num.,
-			coll_obj_other_id_num.,
-			
-			
-			colagnt.agent_name collname,
-			collector.COLLECTOR_ROLE,
-			collector.coll_order,
-			
-			
-			specimen_part.part_name,
-			coll_object.condition,
-			p.barcode,
-			p.label,
-			to_char(coll_object.lot_count) lot_count,
-			coll_object.COLL_OBJ_DISPOSITION,
-			coll_object_remark.coll_object_remarks,
-			
-			
-			attributes.ATTRIBUTE_TYPE,
-			attributes.ATTRIBUTE_VALUE,
-			attributes.ATTRIBUTE_UNITS,
-			attributes.ATTRIBUTE_REMARK,
-			atagnt.agent_name atder,
-			attributes.DETERMINED_DATE,
-			attributes.DETERMINATION_METHOD
-			
-			----------->
+
+
+		<cfquery name="prt" dbtype="query">
+			select
+				part_name,
+				condition,
+				barcode,
+				label,
+				lot_count,
+				COLL_OBJ_DISPOSITION,
+				coll_object_remarks
+			from
+				d
+			where
+				collection_object_id=#one.collection_object_id#
+			group by
+				part_name,
+				condition,
+				barcode,
+				label,
+				lot_count,
+				COLL_OBJ_DISPOSITION,
+				coll_object_remarks
+		</cfquery>	
+		<cfset n=1>
+		<cfloop query="prt">
+			<cfif n lte 12>
+				<cfset QuerySetCell(result, "PART_NAME_#n#", "#prt.part_name#", i)>
+				<cfset QuerySetCell(result, "PART_CONDITION_#n#", "#prt.condition#", i)>
+				<cfset QuerySetCell(result, "PART_BARCODE_#n#", "#prt.barcode#", i)>
+				<cfset QuerySetCell(result, "PART_CONTAINER_LABEL_#n#", "#prt.label#", i)>
+				<cfset QuerySetCell(result, "PART_LOT_COUNT_#n#", "#prt.lot_count#", i)>
+				<cfset QuerySetCell(result, "PART_DISPOSITION_#n#", "#prt.COLL_OBJ_DISPOSITION#", i)>
+				<cfset QuerySetCell(result, "PART_REMARK_#n#", "#prt.coll_object_remarks#", i)>
+				<cfset n=n+1>		
+			</cfif>
+		</cfloop>
+		<cfif prt.recordcount gt 12>
+			<cfset status=listappend(status,'too_many_parts',";")>
+		</cfif>
+		
+		
+		
+		<cfquery name="att" dbtype="query">
+			select
+				ATTRIBUTE_TYPE,
+				ATTRIBUTE_VALUE,
+				ATTRIBUTE_UNITS,
+				ATTRIBUTE_REMARK,
+				atder,
+				DETERMINED_DATE,
+				DETERMINATION_METHOD
+			from
+				d
+			where
+				collection_object_id=#one.collection_object_id#
+			group by
+				ATTRIBUTE_TYPE,
+				ATTRIBUTE_VALUE,
+				ATTRIBUTE_UNITS,
+				ATTRIBUTE_REMARK,
+				atder,
+				DETERMINED_DATE,
+				DETERMINATION_METHOD
+		</cfquery>	
+		<cfset n=1>
+		<cfloop query="att">
+			<cfif n lte 10>
+				<cfset QuerySetCell(result, "ATTRIBUTE_#n#", "#att.ATTRIBUTE_TYPE#", i)>
+				<cfset QuerySetCell(result, "ATTRIBUTE_VALUE_#n#", "#att.ATTRIBUTE_VALUE#", i)>
+				<cfset QuerySetCell(result, "ATTRIBUTE_UNITS_#n#", "#att.ATTRIBUTE_UNITS#", i)>
+				<cfset QuerySetCell(result, "ATTRIBUTE_REMARKS_#n#", "#att.ATTRIBUTE_REMARK#", i)>
+				<cfset QuerySetCell(result, "ATTRIBUTE_DATE_#n#", "#att.DETERMINED_DATE#", i)>
+				<cfset QuerySetCell(result, "ATTRIBUTE_DET_METH_#n#", "#att.DETERMINATION_METHOD#", i)>
+				<cfset QuerySetCell(result, "ATTRIBUTE_DETERMINER_#n#", "#att.atder#", i)>
+				<cfset n=n+1>		
+			</cfif>
+		</cfloop>
+		<cfif prt.recordcount gt 10>
+			<cfset status=listappend(status,'too_many_attributes',";")>
+		</cfif>	
 		<cfset i=i+1>
 	</cfloop>			
 				
@@ -953,22 +1195,7 @@
  LOCALITY_REMARKS							    VARCHAR2(4000)
  HABITAT_DESC								    VARCHAR2(255)
  COLL_EVENT_REMARKS							    VARCHAR2(4000)
- COLLECTOR_AGENT_1							    VARCHAR2(255)
- COLLECTOR_ROLE_1							    VARCHAR2(255)
- COLLECTOR_AGENT_2							    VARCHAR2(255)
- COLLECTOR_ROLE_2							    VARCHAR2(255)
- COLLECTOR_AGENT_3							    VARCHAR2(255)
- COLLECTOR_ROLE_3							    VARCHAR2(255)
- COLLECTOR_AGENT_4							    VARCHAR2(255)
- COLLECTOR_ROLE_4							    VARCHAR2(50)
- COLLECTOR_AGENT_5							    VARCHAR2(255)
- COLLECTOR_ROLE_5							    VARCHAR2(255)
- COLLECTOR_AGENT_6							    VARCHAR2(255)
- COLLECTOR_ROLE_6							    VARCHAR2(255)
- COLLECTOR_AGENT_7							    VARCHAR2(255)
- COLLECTOR_ROLE_7							    VARCHAR2(255)
- COLLECTOR_AGENT_8							    VARCHAR2(255)
- COLLECTOR_ROLE_8							    VARCHAR2(255)
+ 
  COLLECTION_CDE 							    VARCHAR2(5)
  INSTITUTION_ACRONYM							    VARCHAR2(50)
  FLAGS									    VARCHAR2(20)
@@ -979,160 +1206,8 @@
  OTHER_ID_NUM_TYPE_3							    VARCHAR2(255)
  OTHER_ID_NUM_4 							    VARCHAR2(255)
  OTHER_ID_NUM_TYPE_4							    VARCHAR2(255)
- PART_NAME_1								    VARCHAR2(255)
- PART_CONDITION_1							    VARCHAR2(255)
- PART_BARCODE_1 							    VARCHAR2(50)
- PART_CONTAINER_LABEL_1 						    VARCHAR2(50)
- PART_LOT_COUNT_1							    VARCHAR2(5)
- PART_DISPOSITION_1							    VARCHAR2(255)
- PART_REMARK_1								    VARCHAR2(255)
- PART_NAME_2								    VARCHAR2(255)
- PART_CONDITION_2							    VARCHAR2(255)
- PART_BARCODE_2 							    VARCHAR2(50)
- PART_CONTAINER_LABEL_2 						    VARCHAR2(50)
- PART_LOT_COUNT_2							    VARCHAR2(2)
- PART_DISPOSITION_2							    VARCHAR2(255)
- PART_REMARK_2								    VARCHAR2(255)
- PART_NAME_3								    VARCHAR2(255)
- PART_CONDITION_3							    VARCHAR2(255)
- PART_BARCODE_3 							    VARCHAR2(50)
- PART_CONTAINER_LABEL_3 						    VARCHAR2(50)
- PART_LOT_COUNT_3							    VARCHAR2(2)
- PART_DISPOSITION_3							    VARCHAR2(255)
- PART_REMARK_3								    VARCHAR2(255)
- PART_NAME_4								    VARCHAR2(255)
- PART_CONDITION_4							    VARCHAR2(255)
- PART_BARCODE_4 							    VARCHAR2(50)
- PART_CONTAINER_LABEL_4 						    VARCHAR2(50)
- PART_LOT_COUNT_4							    VARCHAR2(2)
- PART_DISPOSITION_4							    VARCHAR2(255)
- PART_REMARK_4								    VARCHAR2(255)
- PART_NAME_5								    VARCHAR2(255)
- PART_CONDITION_5							    VARCHAR2(255)
- PART_BARCODE_5 							    VARCHAR2(50)
- PART_CONTAINER_LABEL_5 						    VARCHAR2(50)
- PART_LOT_COUNT_5							    VARCHAR2(2)
- PART_DISPOSITION_5							    VARCHAR2(255)
- PART_REMARK_5								    VARCHAR2(255)
- PART_NAME_6								    VARCHAR2(255)
- PART_CONDITION_6							    VARCHAR2(255)
- PART_BARCODE_6 							    VARCHAR2(50)
- PART_CONTAINER_LABEL_6 						    VARCHAR2(50)
- PART_LOT_COUNT_6							    VARCHAR2(2)
- PART_DISPOSITION_6							    VARCHAR2(255)
- PART_REMARK_6								    VARCHAR2(255)
- PART_NAME_7								    VARCHAR2(255)
- PART_CONDITION_7							    VARCHAR2(255)
- PART_BARCODE_7 							    VARCHAR2(50)
- PART_CONTAINER_LABEL_7 						    VARCHAR2(50)
- PART_LOT_COUNT_7							    VARCHAR2(2)
- PART_DISPOSITION_7							    VARCHAR2(255)
- PART_REMARK_7								    VARCHAR2(255)
- PART_NAME_8								    VARCHAR2(255)
- PART_CONDITION_8							    VARCHAR2(255)
- PART_BARCODE_8 							    VARCHAR2(50)
- PART_CONTAINER_LABEL_8 						    VARCHAR2(50)
- PART_LOT_COUNT_8							    VARCHAR2(2)
- PART_DISPOSITION_8							    VARCHAR2(255)
- PART_REMARK_8								    VARCHAR2(255)
- PART_NAME_9								    VARCHAR2(255)
- PART_CONDITION_9							    VARCHAR2(255)
- PART_BARCODE_9 							    VARCHAR2(50)
- PART_CONTAINER_LABEL_9 						    VARCHAR2(50)
- PART_LOT_COUNT_9							    VARCHAR2(50)
- PART_DISPOSITION_9							    VARCHAR2(255)
- PART_REMARK_9								    VARCHAR2(255)
- PART_NAME_10								    VARCHAR2(255)
- PART_CONDITION_10							    VARCHAR2(255)
- PART_BARCODE_10							    VARCHAR2(50)
- PART_CONTAINER_LABEL_10						    VARCHAR2(50)
- PART_LOT_COUNT_10							    VARCHAR2(50)
- PART_DISPOSITION_10							    VARCHAR2(255)
- PART_REMARK_10 							    VARCHAR2(255)
- PART_NAME_11								    VARCHAR2(255)
- PART_CONDITION_11							    VARCHAR2(255)
- PART_BARCODE_11							    VARCHAR2(50)
- PART_CONTAINER_LABEL_11						    VARCHAR2(50)
- PART_LOT_COUNT_11							    VARCHAR2(50)
- PART_DISPOSITION_11							    VARCHAR2(255)
- PART_REMARK_11 							    VARCHAR2(255)
- PART_NAME_12								    VARCHAR2(255)
- PART_CONDITION_12							    VARCHAR2(255)
- PART_BARCODE_12							    VARCHAR2(50)
- PART_CONTAINER_LABEL_12						    VARCHAR2(50)
- PART_LOT_COUNT_12							    VARCHAR2(50)
- PART_DISPOSITION_12							    VARCHAR2(255)
- PART_REMARK_12 							    VARCHAR2(255)
- ATTRIBUTE_1								    VARCHAR2(50)
- ATTRIBUTE_VALUE_1							    VARCHAR2(255)
- ATTRIBUTE_UNITS_1							    VARCHAR2(255)
- ATTRIBUTE_REMARKS_1							    VARCHAR2(255)
- ATTRIBUTE_DATE_1							    VARCHAR2(20)
- ATTRIBUTE_DET_METH_1							    VARCHAR2(50)
- ATTRIBUTE_DETERMINER_1 						    VARCHAR2(255)
- ATTRIBUTE_2								    VARCHAR2(50)
- ATTRIBUTE_VALUE_2							    VARCHAR2(255)
- ATTRIBUTE_UNITS_2							    VARCHAR2(50)
- ATTRIBUTE_REMARKS_2							    VARCHAR2(255)
- ATTRIBUTE_DATE_2							    VARCHAR2(20)
- ATTRIBUTE_DET_METH_2							    VARCHAR2(50)
- ATTRIBUTE_DETERMINER_2 						    VARCHAR2(255)
- ATTRIBUTE_3								    VARCHAR2(50)
- ATTRIBUTE_VALUE_3							    VARCHAR2(255)
- ATTRIBUTE_UNITS_3							    VARCHAR2(50)
- ATTRIBUTE_REMARKS_3							    VARCHAR2(255)
- ATTRIBUTE_DATE_3							    VARCHAR2(20)
- ATTRIBUTE_DET_METH_3							    VARCHAR2(50)
- ATTRIBUTE_DETERMINER_3 						    VARCHAR2(255)
- ATTRIBUTE_4								    VARCHAR2(50)
- ATTRIBUTE_VALUE_4							    VARCHAR2(4000)
- ATTRIBUTE_UNITS_4							    VARCHAR2(50)
- ATTRIBUTE_REMARKS_4							    VARCHAR2(255)
- ATTRIBUTE_DATE_4							    VARCHAR2(20)
- ATTRIBUTE_DET_METH_4							    VARCHAR2(50)
- ATTRIBUTE_DETERMINER_4 						    VARCHAR2(255)
- ATTRIBUTE_5								    VARCHAR2(50)
- ATTRIBUTE_VALUE_5							    VARCHAR2(255)
- ATTRIBUTE_UNITS_5							    VARCHAR2(50)
- ATTRIBUTE_REMARKS_5							    VARCHAR2(255)
- ATTRIBUTE_DATE_5							    VARCHAR2(20)
- ATTRIBUTE_DET_METH_5							    VARCHAR2(50)
- ATTRIBUTE_DETERMINER_5 						    VARCHAR2(255)
- ATTRIBUTE_6								    VARCHAR2(50)
- ATTRIBUTE_VALUE_6							    VARCHAR2(255)
- ATTRIBUTE_UNITS_6							    VARCHAR2(50)
- ATTRIBUTE_REMARKS_6							    VARCHAR2(4000)
- ATTRIBUTE_DATE_6							    VARCHAR2(20)
- ATTRIBUTE_DET_METH_6							    VARCHAR2(50)
- ATTRIBUTE_DETERMINER_6 						    VARCHAR2(255)
- ATTRIBUTE_7								    VARCHAR2(50)
- ATTRIBUTE_VALUE_7							    VARCHAR2(255)
- ATTRIBUTE_UNITS_7							    VARCHAR2(50)
- ATTRIBUTE_REMARKS_7							    VARCHAR2(255)
- ATTRIBUTE_DATE_7							    VARCHAR2(20)
- ATTRIBUTE_DET_METH_7							    VARCHAR2(50)
- ATTRIBUTE_DETERMINER_7 						    VARCHAR2(255)
- ATTRIBUTE_8								    VARCHAR2(50)
- ATTRIBUTE_VALUE_8							    VARCHAR2(255)
- ATTRIBUTE_UNITS_8							    VARCHAR2(50)
- ATTRIBUTE_REMARKS_8							    VARCHAR2(255)
- ATTRIBUTE_DATE_8							    VARCHAR2(20)
- ATTRIBUTE_DET_METH_8							    VARCHAR2(50)
- ATTRIBUTE_DETERMINER_8 						    VARCHAR2(255)
- ATTRIBUTE_9								    VARCHAR2(50)
- ATTRIBUTE_VALUE_9							    VARCHAR2(255)
- ATTRIBUTE_UNITS_9							    VARCHAR2(50)
- ATTRIBUTE_REMARKS_9							    VARCHAR2(255)
- ATTRIBUTE_DATE_9							    VARCHAR2(50)
- ATTRIBUTE_DET_METH_9							    VARCHAR2(50)
- ATTRIBUTE_DETERMINER_9 						    VARCHAR2(255)
- ATTRIBUTE_10								    VARCHAR2(50)
- ATTRIBUTE_VALUE_10							    VARCHAR2(255)
- ATTRIBUTE_UNITS_10							    VARCHAR2(50)
- ATTRIBUTE_REMARKS_10							    VARCHAR2(255)
- ATTRIBUTE_DATE_10							    VARCHAR2(50)
- ATTRIBUTE_DET_METH_10							    VARCHAR2(50)
- ATTRIBUTE_DETERMINER_10						    VARCHAR2(255)
+ 
+ 
  RELATIONSHIP								    VARCHAR2(60)
  RELATED_TO_NUMBER							    VARCHAR2(60)
  RELATED_TO_NUM_TYPE							    VARCHAR2(255)
