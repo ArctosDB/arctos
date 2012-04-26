@@ -40,7 +40,7 @@
 		</cfscript>
 		<cfloop query="getData">
 			<cfset oneLine = "">
-			<cfloop list="#ac#" index="c">
+			<cfloop list="#header#" index="c">
 				<cfset thisData = evaluate(c)>
 				<cfif len(oneLine) is 0>
 					<cfset oneLine = '"#thisData#"'>
