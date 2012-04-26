@@ -803,9 +803,6 @@
 	")>
 		
 		
-		<cfset temp = QuerySetCell(result, "status", "success", 1)>
-		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
-		<cfset temp = QuerySetCell(result, "disposition", "#disposition#", 1)>
 	<cfset i=1>			
 	<cfloop query="one">
 		<cfset status="">
