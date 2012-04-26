@@ -679,6 +679,644 @@
 	</cftry>
 </cffunction>
 
+
+
+
+
+
+
+
+<cffunction name="getCloneOfCatalogedItemInBulkloaderFormat" access="remote" output="true">
+	<cfargument name="collection_object_id" type="any" required="yes">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			COLLECTION_OBJECT_ID,
+			'cloned from ' || guid loaded,
+			sys_context('USERENV', 'SESSION_USER') enteredby,
+			accn_number,
+			scientific_name taxon_name,
+			nature_of_id,
+			made_date,
+			IDENTIFICATION_REMARKS,
+			collection_cde,
+			institution_acronym,
+			remarks COLL_OBJECT_REMARKS,
+			COLLECTING_EVENT_ID,
+			idagnt.agent_name id_by_agent,
+			IDENTIFIER_ORDER,
+			other_id_type,
+			display_value,
+			colagnt.agent_name collname,
+			COLLECTOR_ROLE,
+			coll_order,
+			part_name,
+			condition,
+			p.barcode,
+			p.label,
+			to_char(lot_count) lot_count,
+			COLL_OBJ_DISPOSITION,
+			coll_object_remarks,
+			ATTRIBUTE_TYPE,
+			ATTRIBUTE_VALUE,
+			ATTRIBUTE_UNITS,
+			ATTRIBUTE_REMARK,
+			atagnt.agent_name atder,
+			DETERMINED_DATE,
+			DETERMINATION_METHOD
+		from
+			flat, 
+			identification,
+			identification_agent,
+			preferred_agent_name idagnt,
+			coll_obj_other_id_num,
+			collector,
+			preferred_agent_name colagnt,
+			specimen_part,
+			coll_object,
+			coll_object_remark,
+			coll_obj_cont_hist,
+			container c,
+			container p,
+			attributes,
+			preferred_agent_name atagnt
+		where
+			flat.collection_object_id=identification.collection_object_id and
+			identification.accepted_id_fg=1 and
+			identification.identification_id=identification_agent.identification_id and
+			identification_agent.agent_id=preferred_agent_name.agent_id and
+			flat.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and
+			flat.collection_object_id=specimen_part.derived_from_cat_item (+) and
+			specimen_part.collection_object_id=coll_object.collection_object_id  (+) and
+			specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
+			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+			coll_obj_cont_hist.container_id=c.container_id (+) and
+			c.parent_container_id=p.container_id (+) and
+			flat.collection_object_id=attributes.collection_object_id (+) and
+			attributes.DETERMINED_BY_AGENT_ID=preferred_agent_name.agent_id (+) and
+			flat.collection_object_id in (#collection_object_id#)
+	</cfquery>
+	<cfdump var=#d#>		
+				
+				
+				
+				
+				
+				
+				<!------------
+				
+				
+				 COLLECTION_OBJECT_ID						   NOT NULL NUMBER
+ LOADED 								    VARCHAR2(255)
+ ENTEREDBY								    VARCHAR2(255)
+ CAT_NUM								    VARCHAR2(20)
+ OTHER_ID_NUM_5 							    VARCHAR2(255)
+ OTHER_ID_NUM_TYPE_5							    VARCHAR2(255)
+ OTHER_ID_NUM_1 							    VARCHAR2(255)
+ OTHER_ID_NUM_TYPE_1							    VARCHAR2(255)
+ ACCN									    VARCHAR2(60)
+ TAXON_NAME								    VARCHAR2(255)
+ NATURE_OF_ID								    VARCHAR2(255)
+ ID_MADE_BY_AGENT							    VARCHAR2(255)
+ MADE_DATE								    VARCHAR2(20)
+ IDENTIFICATION_REMARKS 						    VARCHAR2(4000)
+ VERBATIM_DATE								    VARCHAR2(255)
+ BEGAN_DATE								    VARCHAR2(20)
+ ENDED_DATE								    VARCHAR2(20)
+ HIGHER_GEOG								    VARCHAR2(255)
+ SPEC_LOCALITY								    VARCHAR2(255)
+ VERBATIM_LOCALITY							    VARCHAR2(255)
+ ORIG_LAT_LONG_UNITS							    VARCHAR2(255)
+ DEC_LAT								    VARCHAR2(255)
+ DEC_LONG								    VARCHAR2(255)
+ LATDEG 								    VARCHAR2(20)
+ DEC_LAT_MIN								    VARCHAR2(255)
+ LATMIN 								    VARCHAR2(255)
+ LATSEC 								    VARCHAR2(255)
+ LATDIR 								    VARCHAR2(50)
+ LONGDEG								    VARCHAR2(20)
+ DEC_LONG_MIN								    VARCHAR2(255)
+ LONGMIN								    VARCHAR2(255)
+ LONGSEC								    VARCHAR2(255)
+ LONGDIR								    VARCHAR2(50)
+ DATUM									    VARCHAR2(255)
+ LAT_LONG_REF_SOURCE							    VARCHAR2(255)
+ MAX_ERROR_DISTANCE							    VARCHAR2(255)
+ MAX_ERROR_UNITS							    VARCHAR2(255)
+ GEOREFMETHOD								    VARCHAR2(255)
+ DETERMINED_BY_AGENT							    VARCHAR2(255)
+ DETERMINED_DATE							    VARCHAR2(20)
+ LAT_LONG_REMARKS							    VARCHAR2(4000)
+ VERIFICATIONSTATUS							    VARCHAR2(255)
+ MAXIMUM_ELEVATION							    VARCHAR2(20)
+ MINIMUM_ELEVATION							    VARCHAR2(20)
+ ORIG_ELEV_UNITS							    VARCHAR2(255)
+ LOCALITY_REMARKS							    VARCHAR2(4000)
+ HABITAT_DESC								    VARCHAR2(255)
+ COLL_EVENT_REMARKS							    VARCHAR2(4000)
+ COLLECTOR_AGENT_1							    VARCHAR2(255)
+ COLLECTOR_ROLE_1							    VARCHAR2(255)
+ COLLECTOR_AGENT_2							    VARCHAR2(255)
+ COLLECTOR_ROLE_2							    VARCHAR2(255)
+ COLLECTOR_AGENT_3							    VARCHAR2(255)
+ COLLECTOR_ROLE_3							    VARCHAR2(255)
+ COLLECTOR_AGENT_4							    VARCHAR2(255)
+ COLLECTOR_ROLE_4							    VARCHAR2(50)
+ COLLECTOR_AGENT_5							    VARCHAR2(255)
+ COLLECTOR_ROLE_5							    VARCHAR2(255)
+ COLLECTOR_AGENT_6							    VARCHAR2(255)
+ COLLECTOR_ROLE_6							    VARCHAR2(255)
+ COLLECTOR_AGENT_7							    VARCHAR2(255)
+ COLLECTOR_ROLE_7							    VARCHAR2(255)
+ COLLECTOR_AGENT_8							    VARCHAR2(255)
+ COLLECTOR_ROLE_8							    VARCHAR2(255)
+ COLLECTION_CDE 							    VARCHAR2(5)
+ INSTITUTION_ACRONYM							    VARCHAR2(50)
+ FLAGS									    VARCHAR2(20)
+ COLL_OBJECT_REMARKS							    VARCHAR2(4000)
+ OTHER_ID_NUM_2 							    VARCHAR2(255)
+ OTHER_ID_NUM_TYPE_2							    VARCHAR2(255)
+ OTHER_ID_NUM_3 							    VARCHAR2(255)
+ OTHER_ID_NUM_TYPE_3							    VARCHAR2(255)
+ OTHER_ID_NUM_4 							    VARCHAR2(255)
+ OTHER_ID_NUM_TYPE_4							    VARCHAR2(255)
+ PART_NAME_1								    VARCHAR2(255)
+ PART_CONDITION_1							    VARCHAR2(255)
+ PART_BARCODE_1 							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_1 						    VARCHAR2(50)
+ PART_LOT_COUNT_1							    VARCHAR2(5)
+ PART_DISPOSITION_1							    VARCHAR2(255)
+ PART_REMARK_1								    VARCHAR2(255)
+ PART_NAME_2								    VARCHAR2(255)
+ PART_CONDITION_2							    VARCHAR2(255)
+ PART_BARCODE_2 							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_2 						    VARCHAR2(50)
+ PART_LOT_COUNT_2							    VARCHAR2(2)
+ PART_DISPOSITION_2							    VARCHAR2(255)
+ PART_REMARK_2								    VARCHAR2(255)
+ PART_NAME_3								    VARCHAR2(255)
+ PART_CONDITION_3							    VARCHAR2(255)
+ PART_BARCODE_3 							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_3 						    VARCHAR2(50)
+ PART_LOT_COUNT_3							    VARCHAR2(2)
+ PART_DISPOSITION_3							    VARCHAR2(255)
+ PART_REMARK_3								    VARCHAR2(255)
+ PART_NAME_4								    VARCHAR2(255)
+ PART_CONDITION_4							    VARCHAR2(255)
+ PART_BARCODE_4 							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_4 						    VARCHAR2(50)
+ PART_LOT_COUNT_4							    VARCHAR2(2)
+ PART_DISPOSITION_4							    VARCHAR2(255)
+ PART_REMARK_4								    VARCHAR2(255)
+ PART_NAME_5								    VARCHAR2(255)
+ PART_CONDITION_5							    VARCHAR2(255)
+ PART_BARCODE_5 							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_5 						    VARCHAR2(50)
+ PART_LOT_COUNT_5							    VARCHAR2(2)
+ PART_DISPOSITION_5							    VARCHAR2(255)
+ PART_REMARK_5								    VARCHAR2(255)
+ PART_NAME_6								    VARCHAR2(255)
+ PART_CONDITION_6							    VARCHAR2(255)
+ PART_BARCODE_6 							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_6 						    VARCHAR2(50)
+ PART_LOT_COUNT_6							    VARCHAR2(2)
+ PART_DISPOSITION_6							    VARCHAR2(255)
+ PART_REMARK_6								    VARCHAR2(255)
+ PART_NAME_7								    VARCHAR2(255)
+ PART_CONDITION_7							    VARCHAR2(255)
+ PART_BARCODE_7 							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_7 						    VARCHAR2(50)
+ PART_LOT_COUNT_7							    VARCHAR2(2)
+ PART_DISPOSITION_7							    VARCHAR2(255)
+ PART_REMARK_7								    VARCHAR2(255)
+ PART_NAME_8								    VARCHAR2(255)
+ PART_CONDITION_8							    VARCHAR2(255)
+ PART_BARCODE_8 							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_8 						    VARCHAR2(50)
+ PART_LOT_COUNT_8							    VARCHAR2(2)
+ PART_DISPOSITION_8							    VARCHAR2(255)
+ PART_REMARK_8								    VARCHAR2(255)
+ PART_NAME_9								    VARCHAR2(255)
+ PART_CONDITION_9							    VARCHAR2(255)
+ PART_BARCODE_9 							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_9 						    VARCHAR2(50)
+ PART_LOT_COUNT_9							    VARCHAR2(50)
+ PART_DISPOSITION_9							    VARCHAR2(255)
+ PART_REMARK_9								    VARCHAR2(255)
+ PART_NAME_10								    VARCHAR2(255)
+ PART_CONDITION_10							    VARCHAR2(255)
+ PART_BARCODE_10							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_10						    VARCHAR2(50)
+ PART_LOT_COUNT_10							    VARCHAR2(50)
+ PART_DISPOSITION_10							    VARCHAR2(255)
+ PART_REMARK_10 							    VARCHAR2(255)
+ PART_NAME_11								    VARCHAR2(255)
+ PART_CONDITION_11							    VARCHAR2(255)
+ PART_BARCODE_11							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_11						    VARCHAR2(50)
+ PART_LOT_COUNT_11							    VARCHAR2(50)
+ PART_DISPOSITION_11							    VARCHAR2(255)
+ PART_REMARK_11 							    VARCHAR2(255)
+ PART_NAME_12								    VARCHAR2(255)
+ PART_CONDITION_12							    VARCHAR2(255)
+ PART_BARCODE_12							    VARCHAR2(50)
+ PART_CONTAINER_LABEL_12						    VARCHAR2(50)
+ PART_LOT_COUNT_12							    VARCHAR2(50)
+ PART_DISPOSITION_12							    VARCHAR2(255)
+ PART_REMARK_12 							    VARCHAR2(255)
+ ATTRIBUTE_1								    VARCHAR2(50)
+ ATTRIBUTE_VALUE_1							    VARCHAR2(255)
+ ATTRIBUTE_UNITS_1							    VARCHAR2(255)
+ ATTRIBUTE_REMARKS_1							    VARCHAR2(255)
+ ATTRIBUTE_DATE_1							    VARCHAR2(20)
+ ATTRIBUTE_DET_METH_1							    VARCHAR2(50)
+ ATTRIBUTE_DETERMINER_1 						    VARCHAR2(255)
+ ATTRIBUTE_2								    VARCHAR2(50)
+ ATTRIBUTE_VALUE_2							    VARCHAR2(255)
+ ATTRIBUTE_UNITS_2							    VARCHAR2(50)
+ ATTRIBUTE_REMARKS_2							    VARCHAR2(255)
+ ATTRIBUTE_DATE_2							    VARCHAR2(20)
+ ATTRIBUTE_DET_METH_2							    VARCHAR2(50)
+ ATTRIBUTE_DETERMINER_2 						    VARCHAR2(255)
+ ATTRIBUTE_3								    VARCHAR2(50)
+ ATTRIBUTE_VALUE_3							    VARCHAR2(255)
+ ATTRIBUTE_UNITS_3							    VARCHAR2(50)
+ ATTRIBUTE_REMARKS_3							    VARCHAR2(255)
+ ATTRIBUTE_DATE_3							    VARCHAR2(20)
+ ATTRIBUTE_DET_METH_3							    VARCHAR2(50)
+ ATTRIBUTE_DETERMINER_3 						    VARCHAR2(255)
+ ATTRIBUTE_4								    VARCHAR2(50)
+ ATTRIBUTE_VALUE_4							    VARCHAR2(4000)
+ ATTRIBUTE_UNITS_4							    VARCHAR2(50)
+ ATTRIBUTE_REMARKS_4							    VARCHAR2(255)
+ ATTRIBUTE_DATE_4							    VARCHAR2(20)
+ ATTRIBUTE_DET_METH_4							    VARCHAR2(50)
+ ATTRIBUTE_DETERMINER_4 						    VARCHAR2(255)
+ ATTRIBUTE_5								    VARCHAR2(50)
+ ATTRIBUTE_VALUE_5							    VARCHAR2(255)
+ ATTRIBUTE_UNITS_5							    VARCHAR2(50)
+ ATTRIBUTE_REMARKS_5							    VARCHAR2(255)
+ ATTRIBUTE_DATE_5							    VARCHAR2(20)
+ ATTRIBUTE_DET_METH_5							    VARCHAR2(50)
+ ATTRIBUTE_DETERMINER_5 						    VARCHAR2(255)
+ ATTRIBUTE_6								    VARCHAR2(50)
+ ATTRIBUTE_VALUE_6							    VARCHAR2(255)
+ ATTRIBUTE_UNITS_6							    VARCHAR2(50)
+ ATTRIBUTE_REMARKS_6							    VARCHAR2(4000)
+ ATTRIBUTE_DATE_6							    VARCHAR2(20)
+ ATTRIBUTE_DET_METH_6							    VARCHAR2(50)
+ ATTRIBUTE_DETERMINER_6 						    VARCHAR2(255)
+ ATTRIBUTE_7								    VARCHAR2(50)
+ ATTRIBUTE_VALUE_7							    VARCHAR2(255)
+ ATTRIBUTE_UNITS_7							    VARCHAR2(50)
+ ATTRIBUTE_REMARKS_7							    VARCHAR2(255)
+ ATTRIBUTE_DATE_7							    VARCHAR2(20)
+ ATTRIBUTE_DET_METH_7							    VARCHAR2(50)
+ ATTRIBUTE_DETERMINER_7 						    VARCHAR2(255)
+ ATTRIBUTE_8								    VARCHAR2(50)
+ ATTRIBUTE_VALUE_8							    VARCHAR2(255)
+ ATTRIBUTE_UNITS_8							    VARCHAR2(50)
+ ATTRIBUTE_REMARKS_8							    VARCHAR2(255)
+ ATTRIBUTE_DATE_8							    VARCHAR2(20)
+ ATTRIBUTE_DET_METH_8							    VARCHAR2(50)
+ ATTRIBUTE_DETERMINER_8 						    VARCHAR2(255)
+ ATTRIBUTE_9								    VARCHAR2(50)
+ ATTRIBUTE_VALUE_9							    VARCHAR2(255)
+ ATTRIBUTE_UNITS_9							    VARCHAR2(50)
+ ATTRIBUTE_REMARKS_9							    VARCHAR2(255)
+ ATTRIBUTE_DATE_9							    VARCHAR2(50)
+ ATTRIBUTE_DET_METH_9							    VARCHAR2(50)
+ ATTRIBUTE_DETERMINER_9 						    VARCHAR2(255)
+ ATTRIBUTE_10								    VARCHAR2(50)
+ ATTRIBUTE_VALUE_10							    VARCHAR2(255)
+ ATTRIBUTE_UNITS_10							    VARCHAR2(50)
+ ATTRIBUTE_REMARKS_10							    VARCHAR2(255)
+ ATTRIBUTE_DATE_10							    VARCHAR2(50)
+ ATTRIBUTE_DET_METH_10							    VARCHAR2(50)
+ ATTRIBUTE_DETERMINER_10						    VARCHAR2(255)
+ RELATIONSHIP								    VARCHAR2(60)
+ RELATED_TO_NUMBER							    VARCHAR2(60)
+ RELATED_TO_NUM_TYPE							    VARCHAR2(255)
+ MIN_DEPTH								    VARCHAR2(20)
+ MAX_DEPTH								    VARCHAR2(20)
+ DEPTH_UNITS								    VARCHAR2(30)
+ COLLECTING_METHOD							    VARCHAR2(255)
+ COLLECTING_SOURCE							    VARCHAR2(255)
+ COLL_OBJECT_HABITAT							    VARCHAR2(255)
+ ASSOCIATED_SPECIES							    VARCHAR2(4000)
+ LOCALITY_ID								    VARCHAR2(20)
+ UTM_ZONE								    VARCHAR2(3)
+ UTM_EW 								    VARCHAR2(60)
+ UTM_NS 								    VARCHAR2(60)
+ EXTENT 								    VARCHAR2(60)
+ GPSACCURACY								    VARCHAR2(60)
+ GEOLOGY_ATTRIBUTE_1							    VARCHAR2(255)
+ GEO_ATT_VALUE_1							    VARCHAR2(255)
+ GEO_ATT_DETERMINER_1							    VARCHAR2(255)
+ GEO_ATT_DETERMINED_DATE_1						    VARCHAR2(255)
+ GEO_ATT_DETERMINED_METHOD_1						    VARCHAR2(255)
+ GEO_ATT_REMARK_1							    VARCHAR2(4000)
+ GEOLOGY_ATTRIBUTE_2							    VARCHAR2(255)
+ GEO_ATT_VALUE_2							    VARCHAR2(255)
+ GEO_ATT_DETERMINER_2							    VARCHAR2(255)
+ GEO_ATT_DETERMINED_DATE_2						    VARCHAR2(255)
+ GEO_ATT_DETERMINED_METHOD_2						    VARCHAR2(255)
+ GEO_ATT_REMARK_2							    VARCHAR2(4000)
+ GEOLOGY_ATTRIBUTE_3							    VARCHAR2(255)
+ GEO_ATT_VALUE_3							    VARCHAR2(255)
+ GEO_ATT_DETERMINER_3							    VARCHAR2(255)
+ GEO_ATT_DETERMINED_DATE_3						    VARCHAR2(255)
+ GEO_ATT_DETERMINED_METHOD_3						    VARCHAR2(255)
+ GEO_ATT_REMARK_3							    VARCHAR2(4000)
+ GEOLOGY_ATTRIBUTE_4							    VARCHAR2(255)
+ GEO_ATT_VALUE_4							    VARCHAR2(255)
+ GEO_ATT_DETERMINER_4							    VARCHAR2(255)
+ GEO_ATT_DETERMINED_DATE_4						    VARCHAR2(255)
+ GEO_ATT_DETERMINED_METHOD_4						    VARCHAR2(255)
+ GEO_ATT_REMARK_4							    VARCHAR2(4000)
+ GEOLOGY_ATTRIBUTE_5							    VARCHAR2(255)
+ GEO_ATT_VALUE_5							    VARCHAR2(255)
+ GEO_ATT_DETERMINER_5							    VARCHAR2(255)
+ GEO_ATT_DETERMINED_DATE_5						    VARCHAR2(255)
+ GEO_ATT_DETERMINED_METHOD_5						    VARCHAR2(255)
+ GEO_ATT_REMARK_5							    VARCHAR2(4000)
+ GEOLOGY_ATTRIBUTE_6							    VARCHAR2(255)
+ GEO_ATT_VALUE_6							    VARCHAR2(255)
+ GEO_ATT_DETERMINER_6							    VARCHAR2(255)
+ GEO_ATT_DETERMINED_DATE_6						    VARCHAR2(255)
+ GEO_ATT_DETERMINED_METHOD_6						    VARCHAR2(255)
+ GEO_ATT_REMARK_6							    VARCHAR2(4000)
+ COLLECTING_EVENT_ID							    NUMBER
+ COLLECTION_ID							   NOT NULL NUMBER
+ ENTERED_AGENT_ID						   NOT NULL NUMBER
+ ENTEREDTOBULKDATE							    TIMESTAMP(6)
+
+				
+	<cfloop from="1" to="#numRecs#" index="lpNum">
+		<cftry>
+			<cfset problem="">
+			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select somerandomsequence.nextval c from dual
+			</cfquery>
+			<cfset key=k.c>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into bulkloader (
+					COLLECTION_OBJECT_ID,
+					LOADED,
+					ENTEREDBY,
+					ACCN,
+					TAXON_NAME,
+					NATURE_OF_ID,
+					MADE_DATE,
+					IDENTIFICATION_REMARKS,
+					COLLECTION_CDE,
+					INSTITUTION_ACRONYM,
+					COLL_OBJECT_REMARKS,
+					COLLECTING_EVENT_ID
+				) (
+					select
+						#key#,
+						'cloned from ' || guid_prefix || ':' || cat_num,
+						'#session.username#',
+						accn_number,
+						'#taxon_name#',
+						nature_of_id,
+						made_date,
+						IDENTIFICATION_REMARKS,
+						(select collection_cde from collection where collection_id=#collection_id#),
+						(select institution_acronym from collection where collection_id=#collection_id#),
+						COLL_OBJECT_REMARKS,
+						cataloged_item.COLLECTING_EVENT_ID
+					from
+						cataloged_item,
+						collection,
+						identification,
+						coll_object,
+						COLL_OBJECT_REMARK,
+						accn
+					where
+						cataloged_item.collection_id=collection.collection_id and
+						cataloged_item.ACCN_ID=accn.transaction_id and
+						cataloged_item.collection_object_id=identification.collection_object_id and
+						identification.accepted_id_fg=1 and
+						cataloged_item.collection_object_id=coll_object.collection_object_id and
+						cataloged_item.collection_object_id=COLL_OBJECT_REMARK.collection_object_id (+) and
+						cataloged_item.collection_object_id = #collection_object_id#
+				)
+			</cfquery>
+			<cfquery name="idby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				
+			</cfquery>					
+			<cfif idby.recordcount is 1>
+				<cfquery name="iidby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update bulkloader set ='#idby.agent_name#'
+					where collection_object_id=#key#
+				</cfquery>
+			<cfelse>
+				<cfset problem="too many identifiers: #valuelist(idby.agent_name)#">
+			</cfif>	
+			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					other_id_type,
+					display_value 
+				from coll_obj_other_id_num
+				where collection_object_id=#collection_object_id#
+			</cfquery>
+			
+			
+			<cfif oid.recordcount gt 0>
+				<cfset i=1>
+				<cfset sql="update bulkloader set ">
+				<cfloop query="oid">
+					<cfif i lt 5>
+						<cfset sql=sql & "OTHER_ID_NUM_TYPE_#i# = '#other_id_type#',
+							OTHER_ID_NUM_#i#='#display_value#',">
+						<cfset i=i+1>
+					</cfif>
+				</cfloop>
+				<cfset sql=sql & ' where collection_object_id=#key#'>
+				<cfset sql=replace(sql,", where"," where","all")>
+				<cfquery name="ioid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					#preservesinglequotes(sql)#
+				</cfquery>
+			</cfif>
+			<cfif oid.recordcount gt 4>
+				<cfset ids="">
+				<cfloop query="oid">
+					<cfset ids=listappend(ids,"#other_id_type#=#display_value#",";")>
+				</cfloop>
+				<cfset problem="too many IDs: #ids#">
+			</cfif>		
+			
+			<cfquery name="col" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					agent_name,
+					COLLECTOR_ROLE
+				from 
+					collector,
+					preferred_agent_name
+				where 
+					collector.agent_id=preferred_agent_name.agent_id and
+					collector.collection_object_id=#collection_object_id#
+				order by
+					COLLECTOR_ROLE,
+					COLL_ORDER
+			</cfquery>
+			
+			<cfif col.recordcount gt 0>
+				<cfset i=1>
+				<cfset sql="update bulkloader set ">
+				<cfloop query="col">
+					<cfif i lt 9>
+						<cfset sql=sql & "COLLECTOR_AGENT_#i# = '#agent_name#',
+							COLLECTOR_ROLE_#i#='#COLLECTOR_ROLE#',">
+						<cfset i=i+1>
+					</cfif>
+				</cfloop>
+				<cfset sql=sql & ' where collection_object_id=#key#'>
+				<cfset sql=replace(sql,", where"," where","all")>
+				<cfquery name="icoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					#preservesinglequotes(sql)#
+				</cfquery>
+			</cfif>
+			<cfif col.recordcount gt 8>
+				<cfset ids="">
+				<cfloop query="oid">
+					<cfset ids=listappend(ids,"#other_id_type#=#display_value#",";")>
+				</cfloop>
+				<cfset problem="too many collectors: #valuelist(col.agent_name)#">
+			</cfif>		
+			
+			
+			<cfquery name="part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					part_name,
+					condition,
+					p.barcode,
+					p.label,
+					to_char(lot_count) lot_count,
+					COLL_OBJ_DISPOSITION,
+					coll_object_remarks
+				from
+					specimen_part,
+					coll_object,
+					coll_object_remark,
+					coll_obj_cont_hist,
+					container c,
+					container p
+				where
+					specimen_part.collection_object_id=coll_object.collection_object_id and
+					specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
+					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					coll_obj_cont_hist.container_id=c.container_id (+) and
+					c.parent_container_id=p.container_id (+) and
+					specimen_part.derived_from_cat_item=#collection_object_id#
+			</cfquery>
+			
+			<cfif part.recordcount gt 0>
+				<cfset i=1>
+				<cfset sql="update bulkloader set ">
+				<cfloop query="part">
+					<cfif i lt 13>
+						<cfset sql=sql & "PART_NAME_#i# = '#part_name#',
+							PART_CONDITION_#i#='#condition#',
+							PART_BARCODE_#i#='#barcode#',
+							PART_CONTAINER_LABEL_#i#='#label#',
+							PART_LOT_COUNT_#i#='#lot_count#',
+							PART_DISPOSITION_#i#='#COLL_OBJ_DISPOSITION#',
+							PART_REMARK_#i#='#coll_object_remarks#',">
+						<cfset i=i+1>
+					</cfif>
+				</cfloop>
+				<cfset sql=sql & ' where collection_object_id=#key#'>
+				<cfset sql=replace(sql,", where"," where","all")>
+				<cfquery name="ipart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					#preservesinglequotes(sql)#
+				</cfquery>
+			</cfif>
+			<cfif part.recordcount gt 12>
+				<cfset problem="too many part: #valuelist(part.part_name)#">
+			</cfif>		
+			
+	
+	
+			<cfquery name="att" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					ATTRIBUTE_TYPE,
+					ATTRIBUTE_VALUE,
+					ATTRIBUTE_UNITS,
+					ATTRIBUTE_REMARK,
+					agent_name,
+					DETERMINED_DATE,
+					DETERMINATION_METHOD
+				from
+					attributes,
+					preferred_agent_name
+				where
+					attributes.DETERMINED_BY_AGENT_ID=preferred_agent_name.agent_id and				
+					attributes.collection_object_id=#collection_object_id#
+			</cfquery>
+			<!--- attributes 1 through 6 are customizable and we can't use them here --->
+			<cfif att.recordcount gt 0>
+				<cfset i=7>
+				<cfset sql="update bulkloader set ">
+				<cfloop query="att">
+					<cfif i lte 10>
+						<cfset sql=sql & "ATTRIBUTE_#i# = '#ATTRIBUTE_TYPE#',
+							ATTRIBUTE_VALUE_#i#='#ATTRIBUTE_VALUE#',
+							ATTRIBUTE_UNITS_#i#='#ATTRIBUTE_UNITS#',
+							ATTRIBUTE_REMARKS_#i#='#ATTRIBUTE_REMARK#',
+							ATTRIBUTE_DATE_#i#='#DETERMINED_DATE#',
+							ATTRIBUTE_DET_METH_#i#='#DETERMINATION_METHOD#',
+							ATTRIBUTE_DETERMINER_#i#='#agent_name#',">
+						<cfset i=i+1>
+					</cfif>
+				</cfloop>
+				<cfset sql=sql & ' where collection_object_id=#key#'>
+				<cfset sql=replace(sql,", where"," where","all")>
+				<cfquery name="iatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					#preservesinglequotes(sql)#
+				</cfquery>
+			</cfif>
+			<cfif att.recordcount gt 4>
+				<cfset problem="too many attribute: #valuelist(att.ATTRIBUTE_TYPE)#">
+			</cfif>		
+			<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update bulkloader set 
+					COLL_OBJECT_REMARKS='#problem#'
+					<cfif len(relationship) gt 0>
+						,RELATIONSHIP='#relationship#',
+						RELATED_TO_NUMBER= (
+										select 
+											guid 
+										from 
+											flat
+										where collection_object_id=#collection_object_id#
+										),
+						RELATED_TO_NUM_TYPE='catalog number'
+					</cfif>
+				where collection_object_id=#key#
+			</cfquery>
+		<cfcatch>
+			<cfset status="fail">
+			<CFDUMP VAR=#CFCATCH#>
+		</cfcatch>
+	</cftry>
+	</cfloop>
+	<cfif status is "fail">
+		<cftransaction action="rollback">
+	</cfif>
+	</cftransaction>
+
+	<cfreturn status>
+	
+	--------->
+	<cfreturn 'ok'>
+</cffunction>
+
+
+
+
+
 <cffunction name="cloneCatalogedItem" access="remote" output="true">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfargument name="relationship" type="string" required="yes">
