@@ -10,6 +10,8 @@
 
 
 <cfif action is "bulkloaderFormat">
+	
+	<cfoutput>
 	<cfif len(collection_object_id) is 0>
 		This form requires collection_object_id (LIST)
 		<cfabort>
@@ -226,7 +228,7 @@
 	<cfset fileDir = "#Application.webDirectory#">
 	
 	
-	<cfoutput>
+	
 		<cfset variables.encoding="UTF-8">
 		<cfset fname = "download_4_bulkloader.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
