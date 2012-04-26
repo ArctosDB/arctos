@@ -215,8 +215,7 @@
 		ATTRIBUTE_DET_METH_10,
 		ATTRIBUTE_DETERMINER_10
 	">
-	<cfset cList=rereplace(clist,'^[A-Za-z0-9_,]','','all')>
-
+	<cfset cList=rereplace(clist,'[^[:print:]\n]','','all')>
 	<hr>cList: #cList#	
 	<cfset cList=ListQualify(clist,'"')>
 	<hr>cList: #cList#	
