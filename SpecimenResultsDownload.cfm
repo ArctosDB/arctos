@@ -245,6 +245,7 @@
 		<cfloop query="getData">
 			<cfset oneLine = "">
 			<cfloop list="#clist#" index="c">
+				--#c#--
 				<cfset thisData = evaluate(c)>
 				<cfif len(oneLine) is 0>
 					<cfset oneLine = '"#thisData#"'>
