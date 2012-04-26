@@ -799,7 +799,17 @@
 		institution_acronym,
 		COLL_OBJECT_REMARKS,
 		COLLECTING_EVENT_ID,
-			ID_MADE_BY_AGENT
+		ID_MADE_BY_AGENT,
+		OTHER_ID_NUM_1,
+		OTHER_ID_NUM_2,
+		OTHER_ID_NUM_3,
+		OTHER_ID_NUM_4,
+		OTHER_ID_NUM_5,
+		OTHER_ID_NUM_TYPE_1,
+		OTHER_ID_NUM_TYPE_2,
+		OTHER_ID_NUM_TYPE_3,
+		OTHER_ID_NUM_TYPE_4,
+		OTHER_ID_NUM_TYPE_5
 	")>
 		
 		
@@ -832,19 +842,46 @@
 				id_by_agent
 		</cfquery>
 		
-		<cfdump var=#idby#>
 		<cfif idby.recordcount is 1>
 			<cfset QuerySetCell(result, "ID_MADE_BY_AGENT", "#idby.id_by_agent#", i)>
 		<cfelse>
 			<cfset status=listappend(status,'too_many_identifiers',";")>
 		</cfif>
-				
+		
+		<cfquery name="oid" dbtype="query">
+			select
+				other_id_type,
+				display_value
+			from
+				d
+			where
+				collection_object_id=#one.collection_object_id#
+			group by
+				other_id_type,
+				display_value
+		</cfquery>
+		<cfset n=1>
+		<cfloop query="oid">
+			<cfif n lt 5>
+				<cfset QuerySetCell(result, "OTHER_ID_NUM_#n#", "#oid.display_value#", i)>
+				<cfset QuerySetCell(result, "OTHER_ID_NUM_TYPE_#n#", "#oid.other_id_type#", i)>
+				<cfset n=n+1>
+			</cfif>
+		</cfloop>
+		<cfif oid.recordcount gt 5>
+			<cfset status=listappend(status,'too_many_otherids',";")>
+		</cfif>		
+			
+			
+			
+			
+					
 			<!------
 				
 			
 			
-			coll_obj_other_id_num.other_id_type,
-			coll_obj_other_id_num.display_value,
+			coll_obj_other_id_num.,
+			coll_obj_other_id_num.,
 			
 			
 			colagnt.agent_name collname,
@@ -881,16 +918,7 @@
 				
 				
  CAT_NUM								    VARCHAR2(20)
- OTHER_ID_NUM_5 							    VARCHAR2(255)
- OTHER_ID_NUM_TYPE_5							    VARCHAR2(255)
- OTHER_ID_NUM_1 							    VARCHAR2(255)
- OTHER_ID_NUM_TYPE_1							    VARCHAR2(255)
- 									    VARCHAR2(60)
- 								    VARCHAR2(255)
- 								    VARCHAR2(255)
- 							    VARCHAR2(255)
- MADE_DATE								    VARCHAR2(20)
- IDENTIFICATION_REMARKS 						    VARCHAR2(4000)
+ 
  VERBATIM_DATE								    VARCHAR2(255)
  BEGAN_DATE								    VARCHAR2(20)
  ENDED_DATE								    VARCHAR2(20)
