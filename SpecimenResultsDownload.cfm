@@ -247,10 +247,12 @@
 			<cfloop list="#clist#" index="c">
 				--#c#--
 				<cfset thisData = evaluate(c)>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				===#thisData#===
+				
 				<cfif len(oneLine) is 0>
 					<cfset oneLine = '"#thisData#"'>
 				<cfelse>
-					<cfset thisData=replace(thisData,'"','""','all')>
 					<cfset oneLine = '#oneLine#,"#thisData#"'>
 				</cfif>
 			</cfloop>
