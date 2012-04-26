@@ -828,6 +828,8 @@
 				d
 			where
 				collection_object_id=#one.collection_object_id#
+			group by
+				id_by_agent
 		</cfquery>
 		
 		<cfdump var=#idby#>
