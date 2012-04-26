@@ -212,7 +212,12 @@
 		ATTRIBUTE_DATE_10,
 		ATTRIBUTE_DET_METH_10,
 		ATTRIBUTE_DETERMINER_10
-	">	
+	">
+	<cfset cList=ListQualify(clist,'"')>
+	
+			
+				
+					
 	<cfinvoke component="component.functions" method="getCloneOfCatalogedItemInBulkloaderFormat" returnvariable="getData">
 		<cfinvokeargument name="collection_object_id" value="#collection_object_id#">
 	</cfinvoke>
