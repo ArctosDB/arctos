@@ -438,14 +438,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/info/part_data_download.cfm">
 						Parts table/download
 					</option>
+                    <option value="/SpecimenResultsDownload.cfm?action=bulkloaderFormat">
+						Download for Bulkloader
+					</option>
                     <option value="/Reports/report_printer.cfm">
 						Print Any Report
 					</option>
 				</select>
-				<input type="button" 
-					value="Go" 
-					class="lnkBtn"
-					onClick="reporter();">
+				<input type="button" value="Go" class="lnkBtn" onClick="reporter();">
 			</cfif>
 		</td>
 	</tr>

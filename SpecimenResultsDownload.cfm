@@ -6,6 +6,10 @@
 	</div>
 	<cfabort>
 </cfif>
+<cfif action is "bulkloaderFormat">
+	im downloadin!
+</cfif>
+
 <cfif action is "nothing">
 	<cfoutput>
 		<cfset title="Download Agreement">
