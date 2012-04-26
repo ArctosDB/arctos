@@ -757,6 +757,8 @@
 			attributes.DETERMINED_BY_AGENT_ID=atagnt.agent_id (+) and
 			flat.collection_object_id in (#collection_object_id#)
 	</cfquery>
+	
+	<cfdump var=#d#>
 	<cfquery name="one" dbtype="query">
 		select
 			COLLECTION_OBJECT_ID,
