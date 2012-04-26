@@ -810,7 +810,7 @@
 		<cfset temp = QuerySetCell(result, "COLLECTION_OBJECT_ID", "#COLLECTION_OBJECT_ID#", i)>
 		<cfset temp = QuerySetCell(result, "loaded", "#loaded#", i)>
 		<cfset temp = QuerySetCell(result, "enteredby", "#enteredby#", i)>
-		<cfset temp = QuerySetCell(result, "accn_number", "#accn_number#", i)>
+		<cfset temp = QuerySetCell(result, "ACCN", "#ACCN#", i)>
 		<cfset temp = QuerySetCell(result, "taxon_name", "#taxon_name#", i)>
 		<cfset temp = QuerySetCell(result, "nature_of_id", "#nature_of_id#", i)>
 		<cfset temp = QuerySetCell(result, "made_date", "#made_date#", i)>
