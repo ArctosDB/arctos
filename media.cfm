@@ -75,6 +75,7 @@
 					where media_relations_id=#thisRelationID#
 				</cfquery>
 			<cfelse>
+				<cftry>
 				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update 
 						media_relations
@@ -83,6 +84,10 @@
 						related_primary_key=#thisRelatedId#
 					where media_relations_id=#thisRelationID#
 				</cfquery>
+				<cfcatch>
+					<!--- like a 99% chance this is because someone from another collection has something hooked to the media - we hope.... ---->
+				</cfcatch>
+				</cftry>
 			</cfif>	
 		</cfif>
 	</cfloop>

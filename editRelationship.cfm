@@ -89,6 +89,7 @@
 	</select>
 	<label for="cloneReln">with Relationship to this record</label>
 	<select name="cloneReln" id="cloneReln" size="1">
+		<option value="">-NONE-</option>
 		<cfloop query="ctReln">
 			<option value="#ctReln.biol_indiv_relationship#">#ctReln.biol_indiv_relationship#</option>
 		</cfloop>
