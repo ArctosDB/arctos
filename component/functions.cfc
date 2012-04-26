@@ -829,6 +829,8 @@
 			where
 				collection_object_id=#one.collection_object_id#
 		</cfquery>
+		
+		<cfdump var=#idby#>
 		<cfif idby.recordcount is 1>
 			<cfset QuerySetCell(result, "ID_MADE_BY_AGENT", "#idby.id_by_agent#", i)>
 		<cfelse>
@@ -869,7 +871,7 @@
 		<cfset i=i+1>
 	</cfloop>			
 				
-				
+				<br>status=#status#
 		<cfdump var=#result#>		
 				
 				
