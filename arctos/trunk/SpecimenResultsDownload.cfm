@@ -16,7 +16,8 @@
 		This form requires collection_object_id (LIST)
 		<cfabort>
 	</cfif>
-	<!--- kind stoopid but simple - copypasta columns list in, in order, frmo the function
+	<!--- 
+		kinda stoopid but simple - copypasta columns list in, in order, frmo the function
 		so things don't come out alpha-sorted
 	---->
 	
@@ -219,57 +220,43 @@
 	<cfset cList=replace(clist,' ','','all')>
 	<cfset cList=replace(clist,chr(10),'','all')>
 	<cfset cList=replace(clist,chr(9),'','all')>
-	<cfset cList=replace(clist,chr(13),'','all')>
-
-	<hr>cList: #cList#	
-	<hr>cList: #cList#	
-			
-				
-				
+	<cfset cList=replace(clist,chr(13),'','all')>				
 	<cfinvoke component="component.functions" method="getCloneOfCatalogedItemInBulkloaderFormat" returnvariable="getData">
 		<cfinvokeargument name="collection_object_id" value="#collection_object_id#">
 	</cfinvoke>
-		
-	<cfdump var=#getData#>
 	<cfset fileDir = "#Application.webDirectory#">
-	
-	
-	
-		<cfset variables.encoding="UTF-8">
-		<cfset fname = "download_4_bulkloader.csv">
-		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
-		</cfscript>
-		<cfloop query="getData">
-			<cfset oneLine = "">
-			<cfloop list="#clist#" index="c">
-				--#c#--
-				<cfset thisData = evaluate("getData." & c)>
-				<cfset thisData=replace(thisData,'"','""','all')>
-				===#thisData#===
-				
-				<cfif len(oneLine) is 0>
-					<cfset oneLine = '"#thisData#"'>
-				<cfelse>
-					<cfset oneLine = '#oneLine#,"#thisData#"'>
-				</cfif>
-			</cfloop>
-			<cfset oneLine = trim(oneLine)>
-			<cfscript>
-				variables.joFileWriter.writeLine(oneLine);
-			</cfscript>
+	<cfset variables.encoding="UTF-8">
+	<cfset fname = "download_4_bulkloader.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
+	</cfscript>
+	<cfloop query="getData">
+		<cfset oneLine = "">
+		<cfloop list="#clist#" index="c">
+			--#c#--
+			<cfset thisData = evaluate("getData." & c)>
+			<cfset thisData=replace(thisData,'"','""','all')>
+			===#thisData#===
+			
+			<cfif len(oneLine) is 0>
+				<cfset oneLine = '"#thisData#"'>
+			<cfelse>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+			</cfif>
 		</cfloop>
-		<cfscript>	
-			variables.joFileWriter.close();
+		<cfset oneLine = trim(oneLine)>
+		<cfscript>
+			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
-		<!----
-		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-		
-		---->
-		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-	</cfoutput>
+	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+</cfoutput>
 </cfif>
 
 
