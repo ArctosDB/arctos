@@ -711,7 +711,7 @@
 				) (
 					select
 						#key#,
-						'cloned from ' || collection || ' ' || cat_num,
+						'cloned from ' || guid_prefix || ':' || cat_num,
 						'#session.username#',
 						accn_number,
 						'#taxon_name#',
@@ -928,16 +928,18 @@
 			</cfif>		
 			<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update bulkloader set 
-					COLL_OBJECT_REMARKS='#problem#',
-					RELATIONSHIP='#relationship#',
-					RELATED_TO_NUMBER= (
+					COLL_OBJECT_REMARKS='#problem#'
+					<cfif len(relationship) gt 0>
+						,RELATIONSHIP='#relationship#',
+						RELATED_TO_NUMBER= (
 										select 
 											guid 
 										from 
 											flat
 										where collection_object_id=#collection_object_id#
 										),
-					RELATED_TO_NUM_TYPE='catalog number'
+						RELATED_TO_NUM_TYPE='catalog number'
+					</cfif>
 				where collection_object_id=#key#
 			</cfquery>
 		<cfcatch>
