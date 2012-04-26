@@ -686,7 +686,7 @@
 
 
 
-<cffunction name="getCloneOfCatalogedItemInBulkloaderFormat" access="remote" output="true" returntype="query">
+<cffunction name="getCloneOfCatalogedItemInBulkloaderFormat" access="remote" output="true" returnType="query">
 	<cfargument name="collection_object_id" type="any" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
