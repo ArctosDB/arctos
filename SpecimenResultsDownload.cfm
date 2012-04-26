@@ -217,6 +217,9 @@
 	">
 	<cfset cList=rereplace(clist,'[^[:print:]\n]','','all')>
 	<cfset cList=replace(clist,' ','','all')>
+	<cfset cList=replace(clist,chr(10),'','all')>
+	<cfset cList=replace(clist,chr(9),'','all')>
+	<cfset cList=replace(clist,chr(13),'','all')>
 
 	<hr>cList: #cList#	
 	<cfset cList=ListQualify(clist,'"')>
