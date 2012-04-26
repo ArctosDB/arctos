@@ -7,7 +7,17 @@
 	<cfabort>
 </cfif>
 <cfif action is "bulkloaderFormat">
+	<cfif len(collection_object_id) is 0>
+		This form requires collection_object_id (LIST)
+		<cfabort>
+	</cfif>
 	im downloadin!
+	
+	<cfinvoke component="components.functions"
+	method="getCloneOfCatalogedItemInBulkloaderFormat"
+	returnvariable="dataBL"></cfinvoke>
+	
+	<cfdump var=#dataBL#>
 </cfif>
 
 <cfif action is "nothing">
