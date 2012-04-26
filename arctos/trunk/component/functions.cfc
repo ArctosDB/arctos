@@ -743,8 +743,10 @@
 			flat.collection_object_id=identification.collection_object_id and
 			identification.accepted_id_fg=1 and
 			identification.identification_id=identification_agent.identification_id and
-			identification_agent.agent_id=preferred_agent_name.agent_id and
+			identification_agent.agent_id=idagnt.agent_id and
 			flat.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and
+			flat.collection_object_id=collector.collection_object_id (+) and
+			collector.agent_id=colagnt.agent_id (+) and
 			flat.collection_object_id=specimen_part.derived_from_cat_item (+) and
 			specimen_part.collection_object_id=coll_object.collection_object_id  (+) and
 			specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
@@ -752,7 +754,7 @@
 			coll_obj_cont_hist.container_id=c.container_id (+) and
 			c.parent_container_id=p.container_id (+) and
 			flat.collection_object_id=attributes.collection_object_id (+) and
-			attributes.DETERMINED_BY_AGENT_ID=preferred_agent_name.agent_id (+) and
+			attributes.DETERMINED_BY_AGENT_ID=atagnt.agent_id (+) and
 			flat.collection_object_id in (#collection_object_id#)
 	</cfquery>
 	<cfdump var=#d#>		
