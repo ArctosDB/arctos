@@ -246,7 +246,7 @@
 			<cfset oneLine = "">
 			<cfloop list="#clist#" index="c">
 				--#c#--
-				<cfset thisData = evaluate(c)>
+				<cfset thisData = evaluate("getData." & c)>
 				<cfset thisData=replace(thisData,'"','""','all')>
 				===#thisData#===
 				
