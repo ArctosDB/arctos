@@ -13,9 +13,9 @@
 	</cfif>
 	im downloadin!
 	
-	<cfinvoke component="component.functions"
-	method="getCloneOfCatalogedItemInBulkloaderFormat"
-	returnvariable="dataBL"></cfinvoke>
+	<cfinvoke component="component.functions" method="getCloneOfCatalogedItemInBulkloaderFormat" returnvariable="dataBL">
+		    <cfinvokeargument name="collection_object_id" value="#collection_object_id#">
+	</cfinvoke>
 	
 	<cfdump var=#dataBL#>
 </cfif>
