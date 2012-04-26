@@ -13,7 +13,7 @@
 	</cfif>
 	im downloadin!
 	
-	<cfinvoke component="components.functions"
+	<cfinvoke component="component.functions"
 	method="getCloneOfCatalogedItemInBulkloaderFormat"
 	returnvariable="dataBL"></cfinvoke>
 	
