@@ -787,12 +787,12 @@
 	</cfquery>
 	<cfset result = querynew("
 		COLLECTION_OBJECT_ID,
-		loaded,
-		enteredby,
+		LOADED,
+		ENTEREDBY,
 		ACCN,
-		taxon_name,
-		nature_of_id,
-		made_date,
+		TAXON_NAME,
+		NATURE_OF_ID,
+		MADE-DATE,
 		IDENTIFICATION_REMARKS,
 		collection_cde,
 		institution_acronym,
