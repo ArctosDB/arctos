@@ -678,15 +678,8 @@
 	</cfcatch>
 	</cftry>
 </cffunction>
-
-
-
-
-
-
-
-
-<cffunction name="getCloneOfCatalogedItemInBulkloaderFormat" access="remote" output="true" returnType="query">
+<!----------------------------------------------------------------------------------------------->
+<cffunction name="getCloneOfCatalogedItemInBulkloaderFormat" access="public" output="true" returnType="query">
 	<cfargument name="collection_object_id" type="any" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -757,8 +750,6 @@
 			attributes.DETERMINED_BY_AGENT_ID=atagnt.agent_id (+) and
 			flat.collection_object_id in (#collection_object_id#)
 	</cfquery>
-	
-	<cfdump var=#d#>
 	<cfquery name="one" dbtype="query">
 		select
 			COLLECTION_OBJECT_ID,
@@ -999,8 +990,6 @@
 		<cfset temp = QuerySetCell(result, "institution_acronym", "#institution_acronym#", i)>
 		<cfset temp = QuerySetCell(result, "COLL_OBJECT_REMARKS", "#COLL_OBJECT_REMARKS#", i)>
 		<cfset temp = QuerySetCell(result, "COLLECTING_EVENT_ID", "#COLLECTING_EVENT_ID#", i)>
-
-
 		<cfquery name="idby" dbtype="query">
 			select
 				id_by_agent
@@ -1011,13 +1000,11 @@
 			group by
 				id_by_agent
 		</cfquery>
-		
 		<cfif idby.recordcount is 1>
 			<cfset QuerySetCell(result, "ID_MADE_BY_AGENT", "#idby.id_by_agent#", i)>
 		<cfelse>
 			<cfset status=listappend(status,'too_many_identifiers',";")>
 		</cfif>
-		
 		<cfquery name="oid" dbtype="query">
 			select
 				other_id_type,
@@ -1041,7 +1028,6 @@
 		<cfif oid.recordcount gt 5>
 			<cfset status=listappend(status,'too_many_otherids',";")>
 		</cfif>		
-			
 		<cfquery name="col" dbtype="query">
 			select
 				collname,
@@ -1067,9 +1053,6 @@
 		<cfif col.recordcount gt 8>
 			<cfset status=listappend(status,'too_many_collectors',";")>
 		</cfif>	
-			
-
-
 		<cfquery name="prt" dbtype="query">
 			select
 				part_name,
@@ -1092,7 +1075,6 @@
 				COLL_OBJ_DISPOSITION,
 				partremark
 		</cfquery>
-		<cfdump var=#prt#>
 		<cfset n=1>
 		<cfloop query="prt">
 			<cfif n lte 12>
@@ -1109,9 +1091,6 @@
 		<cfif prt.recordcount gt 12>
 			<cfset status=listappend(status,'too_many_parts',";")>
 		</cfif>
-		
-		
-		
 		<cfquery name="att" dbtype="query">
 			select
 				ATTRIBUTE_TYPE,
@@ -1150,20 +1129,13 @@
 		<cfif prt.recordcount gt 10>
 			<cfset status=listappend(status,'too_many_attributes',";")>
 		</cfif>
-		
 		<cfset status=listprepend(status,one.loaded,";")>
 		<cfset temp = QuerySetCell(result, "loaded", "#status#", i)>
 		<cfset i=i+1>
 	</cfloop>
-	
-	<cfdump var=#result#>
 	<cfreturn RESULT>
 </cffunction>
-
-
-
-
-
+<!--------------------------------------------------------------------------------------------------------->
 <cffunction name="cloneCatalogedItem" access="remote" output="true">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfargument name="relationship" type="string" required="yes">
