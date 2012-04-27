@@ -6,11 +6,7 @@
 	</div>
 	<cfabort>
 </cfif>
-
-
-
 <cfif action is "bulkloaderFormat">
-	
 	<cfoutput>
 	<cfif len(collection_object_id) is 0>
 		This form requires collection_object_id (LIST)
@@ -20,7 +16,6 @@
 		kinda stoopid but simple - copypasta columns list in, in order, frmo the function
 		so things don't come out alpha-sorted
 	---->
-	
 	<cfset clist = "
 		COLLECTION_OBJECT_ID,
 		LOADED,
@@ -235,11 +230,8 @@
 	<cfloop query="getData">
 		<cfset oneLine = "">
 		<cfloop list="#clist#" index="c">
-			--#c#--
 			<cfset thisData = evaluate("getData." & c)>
-			<cfset thisData=replace(thisData,'"','""','all')>
-			===#thisData#===
-			
+			<cfset thisData=replace(thisData,'"','""','all')>			
 			<cfif len(oneLine) is 0>
 				<cfset oneLine = '"#thisData#"'>
 			<cfelse>
@@ -258,8 +250,6 @@
 	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 </cfoutput>
 </cfif>
-
-
 
 <!---------------------------------------------------------------->
 <cfif action is "nothing">
