@@ -700,7 +700,7 @@
 			identification.IDENTIFICATION_REMARKS,
 			flat.collection_cde,
 			flat.institution_acronym,
-			remarks COLL_OBJECT_REMARKS,
+			flat.remarks COLL_OBJECT_REMARKS,
 			flat.COLLECTING_EVENT_ID,
 			idagnt.agent_name id_by_agent,
 			identification_agent.IDENTIFIER_ORDER,
@@ -1091,7 +1091,8 @@
 				lot_count,
 				COLL_OBJ_DISPOSITION,
 				coll_object_remarks
-		</cfquery>	
+		</cfquery>
+		<cfdump var=#prt#>
 		<cfset n=1>
 		<cfloop query="prt">
 			<cfif n lte 12>
