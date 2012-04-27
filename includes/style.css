@@ -196,6 +196,10 @@ div.shortThumb {
 }
 div.thumbs {
 	border: 1px dashed black;
+	max-width:910px;
+	align:center;
+	margin-left:auto;
+	margin-right:auto;
 }
 div.one_thumb {
  	float: left;
