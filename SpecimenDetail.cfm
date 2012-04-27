@@ -179,10 +179,12 @@
 									</div>
 								</cfif>
 								<cfset sciname = '#replace(detail.Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
-								<div id="SDheaderSciName" border="1px solid red">
+								<div id="SDheaderSciName">
 									#sciname#
 								</div>
-								<br>back
+								<div id="SDheaderGoBakBtn">
+									back
+								</div>
 							</div>
 						</td>
 					</tr>
