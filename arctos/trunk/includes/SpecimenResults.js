@@ -430,6 +430,9 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
 				theInnerHtml += '<th>Other&nbsp;Identifiers</th>';
 			}
+			if (data.COLUMNLIST[0].indexOf('RELATEDCATALOGEDITEMS')> -1) {
+				theInnerHtml += '<th>Related Items</th>';
+			}
 			if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
 				theInnerHtml += '<th>Accession</th>';
 			}
@@ -688,6 +691,10 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
 					theInnerHtml += '<td>' + splitBySemicolon(data.OTHERCATALOGNUMBERS[i]) + '</td>';
+				}
+				
+				if (data.COLUMNLIST[0].indexOf('RELATEDCATALOGEDITEMS')> -1) {
+					theInnerHtml += '<td>' + splitBySemicolon(data.RELATEDCATALOGEDITEMS[i]) + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.ACCESSION[i]) + '</td>';
