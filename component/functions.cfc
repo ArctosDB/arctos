@@ -715,7 +715,7 @@
 			p.label,
 			to_char(coll_object.lot_count) lot_count,
 			coll_object.COLL_OBJ_DISPOSITION,
-			coll_object_remark.coll_object_remarks,
+			coll_object_remark.coll_object_remarks partremark,
 			attributes.ATTRIBUTE_TYPE,
 			attributes.ATTRIBUTE_VALUE,
 			attributes.ATTRIBUTE_UNITS,
@@ -1078,7 +1078,7 @@
 				label,
 				lot_count,
 				COLL_OBJ_DISPOSITION,
-				coll_object_remarks
+				partremark
 			from
 				d
 			where
@@ -1090,7 +1090,7 @@
 				label,
 				lot_count,
 				COLL_OBJ_DISPOSITION,
-				coll_object_remarks
+				partremark
 		</cfquery>
 		<cfdump var=#prt#>
 		<cfset n=1>
@@ -1102,7 +1102,7 @@
 				<cfset QuerySetCell(result, "PART_CONTAINER_LABEL_#n#", "#prt.label#", i)>
 				<cfset QuerySetCell(result, "PART_LOT_COUNT_#n#", "#prt.lot_count#", i)>
 				<cfset QuerySetCell(result, "PART_DISPOSITION_#n#", "#prt.COLL_OBJ_DISPOSITION#", i)>
-				<cfset QuerySetCell(result, "PART_REMARK_#n#", "#prt.coll_object_remarks#", i)>
+				<cfset QuerySetCell(result, "PART_REMARK_#n#", "#prt.partremark#", i)>
 				<cfset n=n+1>		
 			</cfif>
 		</cfloop>
