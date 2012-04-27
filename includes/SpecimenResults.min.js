@@ -256,6 +256,17 @@ function splitBySemicolon(str) {
 	}
 	return rStr;
 }
+
+function splitBySemicolonNS(str) {
+	var rStr;
+	if (str==null) {
+		rStr='';
+	} else {
+		var rExp = /; /gi;
+		rStr = str.replace(rExp,'<br>');
+	}
+	return rStr;
+}
 function goPickParts (collection_object_id,transaction_id) {
 	var url='/picks/internalAddLoanItemTwo.cfm?collection_object_id=' + collection_object_id +"&transaction_id=" + transaction_id;
 	mywin=windowOpener(url,'myWin','height=300,width=800,resizable,location,menubar ,scrollbars ,status ,titlebar,toolbar');
@@ -694,7 +705,7 @@ function success_getSpecResultsData(result){
 				}
 				
 				if (data.COLUMNLIST[0].indexOf('RELATEDCATALOGEDITEMS')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(data.RELATEDCATALOGEDITEMS[i]) + '</td>';
+					theInnerHtml += '<td>' + splitBySemicolonNS(data.RELATEDCATALOGEDITEMS[i]) + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.ACCESSION[i]) + '</td>';
