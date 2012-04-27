@@ -41,6 +41,12 @@
 	#SDCollCatBlk {
 		padding-right:.5em;
 	}
+	#SDheaderGoBakBtn {
+border:0px solid red;
+font-size:smaller;
+font-weight:bold;
+
+}
 </style>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
@@ -183,7 +189,9 @@
 									#sciname#
 								</div>
 								<div id="SDheaderGoBakBtn">
-									back
+									<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
+										<a href="/SpecimenResults.cfm?#session.mapURL#"><< Return&nbsp;to&nbsp;results</a>
+									</cfif>
 								</div>
 							</div>
 						</td>
@@ -239,9 +247,6 @@
 						</cfif>
 					<cfelse>
 						<a href="/login.cfm">Login&nbsp;or&nbsp;Create&nbsp;Account</a>
-					</cfif>
-					<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
-						<br><a href="/SpecimenResults.cfm?#session.mapURL#">Return&nbsp;to&nbsp;results</a>
 					</cfif>
 					<cfif len(detail.web_link) gt 0>
 						<cfif len(detail.web_link_text) gt 0>
