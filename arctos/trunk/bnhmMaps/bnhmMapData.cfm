@@ -248,16 +248,26 @@
 		<cfloop query="getClass">			
 			<cfif phylclass is 'Amphibia'>
 				<cfset name='gaa'>
+				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/binomial/gaa_2011">
 			<cfelseif phylclass is 'Mammalia'>
 				<cfset name='mamm'>
+				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/mamm_2009">
 			<cfelseif phylclass is 'Aves'>
 				<cfset name='birds'>
+				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/birds_2009">
 			<cfelse>
 				<cfset name="">
+				<cfset cdata=''>
 			</cfif>
+			
+
+
+
 			<cfif len(name) gt 0>
 				<cfscript>
-					a = chr(9) & chr(9) &	'<layer title="#getClass.scientific_name#" name="#name#" location="#getClass.scientific_name#" legend="#i#" active="1" url=""/>';
+					a = chr(9) & chr(9) &	'<layer title="#getClass.scientific_name#" name="#name#" location="#getClass.scientific_name#" legend="#i#" active="1" url="">';
+					a = chr(9) & chr(9) & chr(9) &	'<![CDATA[#cdata#]]>';
+					a = chr(9) & chr(9) &	'</layer>';
 					variables.joFileWriter.writeLine(a);
 				</cfscript>
 			</cfif>
