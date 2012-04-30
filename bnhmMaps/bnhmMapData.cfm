@@ -310,7 +310,7 @@
 	<cfset listColl=replace(listColl,",","dna ,","first")>
 	<cfset CollList=reverse(listColl)>
 	<cfset CollList="#CollList# data.">
-	<cfset bnhmUrl="http://bnhmmapstest.berkeley.edu/run.php?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
+	<cfset bnhmUrl="http://bnhmmapstest.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
