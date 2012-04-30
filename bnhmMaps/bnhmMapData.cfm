@@ -266,8 +266,8 @@
 			<cfif len(name) gt 0>
 				<cfscript>
 					a = chr(9) & chr(9) &	'<layer title="#getClass.scientific_name#" name="#name#" location="#getClass.scientific_name#" legend="#i#" active="1" url="">';
-					a = a & chr(9) & chr(9) & chr(9) &	'<![CDATA[#cdata#]]>';
-					a = a & chr(9) & chr(9) &	'</layer>';
+					a = a &	'<![CDATA[#cdata#]]>';
+					a = a & '</layer>';
 					variables.joFileWriter.writeLine(a);
 				</cfscript>
 			</cfif>
