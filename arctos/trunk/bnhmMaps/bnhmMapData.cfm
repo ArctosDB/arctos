@@ -248,13 +248,13 @@
 		<cfloop query="getClass">			
 			<cfif phylclass is 'Amphibia'>
 				<cfset name='gaa'>
-				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/binomial/gaa_2011">
+				<cfset cdata="http://bnhmmapstest.berkeley.edu/v2/speciesrange/#genus#+#species#/binomial/gaa_2011">
 			<cfelseif phylclass is 'Mammalia'>
 				<cfset name='mamm'>
-				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/mamm_2009">
+				<cfset cdata="http://bnhmmapstest.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/mamm_2009">
 			<cfelseif phylclass is 'Aves'>
 				<cfset name='birds'>
-				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/birds_2009">
+				<cfset cdata="http://bnhmmapstest.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/birds_2009">
 			<cfelse>
 				<cfset name="">
 				<cfset cdata=''>
