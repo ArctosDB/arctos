@@ -220,10 +220,10 @@
 			select distinct(scientific_name) from getMapData
 		</cfquery>
 		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select phylclass,genus || ' ' || species scientific_name from taxonomy where scientific_name in
+			select phylclass,genus,species,genus || ' ' || species scientific_name from taxonomy where scientific_name in
 			 (#ListQualify(valuelist(species.scientific_name), "'")#)
 			 group by 
-			 phylclass,genus || ' ' || species
+			 phylclass,genus || ' ' || species,genus,species,
 		</cfquery>
 		<cfif getClass.recordcount is not 1 or (
 				getClass.phylclass is not 'Amphibia' and getClass.phylclass is not 'Mammalia' and getClass.phylclass is not 'Aves'
