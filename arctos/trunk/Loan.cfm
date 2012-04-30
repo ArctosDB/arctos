@@ -214,6 +214,9 @@
 				<cfelseif (institution_acronym is 'MVZ' or institution_acronym is 'MVZObs')>
 					<cfset stg="'#dateformat(now(),"yyyy")#.' || (max(to_number(substr(loan_number,6,4))) + 1) || '.#collection_cde#'">
 					<cfset whr=" and collection.institution_acronym in ('MVZ','MVZObs')">
+				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Es')>
+					<cfset stg="max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || '.' || to_char(sysdate,'yyyy') ||'.ESCI'">
+					<cfset whr=" AND substr(loan_number, -4,4) ='ESCI'">				
 				<cfelse>
 					<!--- n format --->
 					<cfset stg="'#dateformat(now(),"yyyy")#.' || max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || '.#collection_cde#'">
