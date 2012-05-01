@@ -158,7 +158,9 @@ function setNewRecDefaults () {
 	} else if(cc == 'Bird' && ia == 'MSB') {
 		MSBBirdDefault();
 	} else if(cc == 'Fish' && ia == 'UAM') {
-		UAMFishDefault();	
+		UAMFishDefault();
+	} else if(cc == 'Inv' && ia == 'UAM') {
+		UAMInvDefault();
 	} else if(ia == 'UAM' && cc=='Art') {
 		UAMArtDefaults();
 	} else if(ia == 'MSB' && cc=='Mamm') {
@@ -301,7 +303,14 @@ function UAMFishDefault() {
 	    	 $("#" + this.id).val('unchecked');
 	     }
 	});
-}	
+}
+function UAMInvDefault() {
+	$.each($("input[id^='part_condition_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('unchecked');
+	     }
+	});
+}
 function changeMode (mode) {
 	var status=$.trim($("#loadedMsgDiv").text());
 	if(status){
@@ -1179,7 +1188,7 @@ function cleanup () {
 	reqdFlds.push('nature_of_id');
 	var thisIA = document.getElementById('institution_acronym').value;
 
-	if (!(thisIA=='UAM' && thisCC=='Herp') && thisCC != 'Ento' && thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
+	if (!(thisIA=='UAM' && thisCC=='Herp') && thisCC != 'Ento' && thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Inv' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
 		reqdFlds.push('attribute_value_1');
 		reqdFlds.push('attribute_determiner_1');
 	}
