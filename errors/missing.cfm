@@ -188,7 +188,7 @@
 			</cfcatch>
 		</cftry>
 		</Cfoutput>
-	<cfelseif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php"
+	<cfelseif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">
 	<cfelseif isdefined("") and isdefined("") and FileExists("#Application.webDirectory##rdurl#.cfm")>
