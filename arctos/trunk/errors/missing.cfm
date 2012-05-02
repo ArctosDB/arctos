@@ -195,6 +195,7 @@
 			<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">
 		<cfelse>
 			<cftry>
+				<cfif isdefined("cgi.REDIRECT_URL") and isdefined("cgi.redirect_query_string")>
 				<cfscript>
 					getPageContext().forward(cgi.REDIRECT_URL & ".cfm?" & cgi.redirect_query_string);
 				</cfscript>
@@ -206,6 +207,9 @@
 				<cfabort>
 			</cfcatch>
 			</cftry>
+			<cfelse>
+			404...
+			</cfif>
 		</cfif>
 	</cfif>
 <cfelse>
