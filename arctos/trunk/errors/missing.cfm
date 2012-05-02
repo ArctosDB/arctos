@@ -197,7 +197,7 @@
 		</cfscript>
 		<cfabort>
 	<cfelse>
-		404....
+		<cfinclude template="/errors/404.cfm">
 	</cfif>
 <cfelse>
 	<cfinclude template="/errors/404.cfm">
