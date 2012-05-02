@@ -194,36 +194,12 @@
 			<cfheader statuscode="301" statustext="Moved permanently">
 			<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">
 		<cfelseif isdefined("cgi.REDIRECT_URL") and isdefined("cgi.redirect_query_string")>
-			<cfoutput>
-			
-				cgi.script_name=#cgi.script_name#
-				<br>rdurl=#rdurl#
-			</cfoutput>
-			
 			<cfset absPathCFM=Application.webDirectory & rdurl & ".cfm">
 			<cfif FileExists( absPathCFM )>
-				yep
-			<cfelse>
-				nada
-			</cfif>
-				<br>absPathCFM=#absPathCFM#
-			<cfdump var=#url#>
-			<cfdump var=#cgi#>
-			
-			<!----
-			<cftry>
-				<cfscript>
-					getPageContext().forward(cgi.REDIRECT_URL & ".cfm?" & cgi.redirect_query_string);
-				</cfscript>
-				<cfabort>
-			<cfcatch>
-				<cfscript>
-					getPageContext().forward("/errors/404.cfm");
-				</cfscript>
-				<cfabort>
-			</cfcatch>
-			</cftry>
-			---->
+			<cfscript>
+				getPageContext().forward(cgi.REDIRECT_URL & ".cfm?" & cgi.redirect_query_string);
+			</cfscript>
+			<cfabort>
 		<cfelse>
 		404...
 		</cfif>
