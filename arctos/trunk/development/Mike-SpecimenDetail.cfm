@@ -1,3 +1,5 @@
+<!-- Up. -->
+
 <cfinclude template="/includes/_header.cfm">
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
