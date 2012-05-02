@@ -2,7 +2,7 @@
 	that we need to redirect it temporarily to use
 	Mike-SpecimenResults.cfm instead of SpecimenResults.cfm. 
 	  Go to Line 560 to see the comment marking how this
-	change is going to be made (and where). --->
+	change is going to be made (and where). -->
 
 <center>
 Still testing audio searches.
