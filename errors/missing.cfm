@@ -199,13 +199,17 @@
 				cgi.script_name=#cgi.script_name#
 				<br>rdurl=#rdurl#
 			</cfoutput>
-			<cfdump var=#url#>
-			<cfdump var=#cgi#>
 			
 			<cfset absPathCFM=Application.webDirectory & rdurl & ".cfm">
 			<cfif FileExists( absPathCFM )>
 				yep
+			<cfelse>
+				nada
 			</cfif>
+				<br>absPathCFM=#absPathCFM#
+			<cfdump var=#url#>
+			<cfdump var=#cgi#>
+			
 			<!----
 			<cftry>
 				<cfscript>
