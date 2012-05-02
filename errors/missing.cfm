@@ -201,6 +201,9 @@
 			</cfoutput>
 			<cfdump var=#url#>
 			<cfdump var=#cgi#>
+			<cfif FileExists( Application.webDirectory & rdurl )>
+				yep
+			</cfif>
 			<!----
 			<cftry>
 				<cfscript>
