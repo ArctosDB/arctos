@@ -2,11 +2,6 @@
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement="True">
 <cfset This.ClientManagement="false">
-<cffunction name="onMissingTemplate" returnType="boolean" output="false">
-	<cfargument name="thePage" type="string" required="true">
-	<cfinclude template="/errors/404.cfm">
-	<cfabort>
-</cffunction>
 
 <cffunction name="onError">	
 	<cfargument name="exception" required="true">
