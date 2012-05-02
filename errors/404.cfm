@@ -35,7 +35,7 @@
 			<cfabort>
 		</cfif>
 		<cfif listfindnocase(fourohthree,i)>
-			<cfthrow detail="A 403 error has occurred." message="forbidden">
+			<cfthrow detail="A 403 error has occurred." message="forbidden" errorcode="403">
 		</cfif>
 	</cfloop>
 	<!--- we don't have a redirect, and it's not on our hitlist, so 404 --->
