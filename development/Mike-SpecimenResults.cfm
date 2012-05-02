@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
-<!--- Juggle a newer version of jQuery, store in $$. --->
+<!-- Juggle a newer version of jQuery, store in $$. -->
 <script>
     var old_jquery = $;
 </script>
