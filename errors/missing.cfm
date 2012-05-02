@@ -191,7 +191,7 @@
 	<cfelseif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">
-	<cfelseif isdefined("") and isdefined("") and FileExists(#Application.webDirectory##rdurl# & ".cfm")>
+	<cfelseif FileExists("#Application.webDirectory##rdurl#.cfm")>
 		<cfscript>
 			getPageContext().forward(cgi.REDIRECT_URL & ".cfm?" & cgi.redirect_query_string);
 		</cfscript>
