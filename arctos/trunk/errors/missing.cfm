@@ -201,7 +201,9 @@
 			</cfoutput>
 			<cfdump var=#url#>
 			<cfdump var=#cgi#>
-			<cfif FileExists( Application.webDirectory & rdurl )>
+			
+			<cfset absPathCFM=Application.webDirectory & rdurl & ".cfm">
+			<cfif FileExists( absPathCFM )>
 				yep
 			</cfif>
 			<!----
