@@ -198,6 +198,7 @@
 			
 				cgi.script_name=#cgi.script_name#
 			</cfoutput>
+			<cfdump var=#error#>
 			<cfdump var=#url#>
 			<cfdump var=#cgi#>
 			<!----
