@@ -427,7 +427,7 @@
 				<span class="infoLink" onclick="alert('This site does not properly return page status. The link may or may not work.')";>[status unknown]</span>
 			</li>
 			<li>
-				<a class="external soft404" href="http://google.com?q=#thisSearch#" target="_blank">
+				<a class="external soft404" href="http://google.com/search?q=#thisSearch#" target="_blank">
 					Google
 				</a>
 				<a class="external soft404" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
