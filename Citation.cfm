@@ -185,14 +185,15 @@
 			<option value="#collection_id#">#collection#</option>
 		</cfloop>
 	</select>
-	<label for="cat_num">Catalog Number [ <span class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');">force refresh</span> ]</label>
+	<label for="cat_num">Catalog Number</label>
 	<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')" class="reqdClr">
 	<cfif len(session.CustomOtherIdentifier) gt 0>
 		<td>
-			<label for="custom_id">#session.CustomOtherIdentifier#</label>
+			<label for="custom_id">OR #session.CustomOtherIdentifier#</label>
 			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
 		</td>
 	</cfif>
+	[ <span class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');">lookup</span> ]
 </div>
 
 
