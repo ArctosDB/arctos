@@ -85,7 +85,7 @@
 		cataloged_item,
 		collection,
 		identification,
-		identification citedid
+		identification citedid,
 		publication
 	WHERE
 		citation.collection_object_id = cataloged_item.collection_object_id AND
