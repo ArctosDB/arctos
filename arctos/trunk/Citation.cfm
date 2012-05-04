@@ -176,6 +176,13 @@
 		<input type="hidden" name="Action" value="newCitation">
 		<input type="hidden" name="publication_id" value="#publication_id#">
 		<input type="hidden" name="collection_object_id" id="collection_object_id">
+
+<div class-"newRec">
+addin cit
+</div>
+
+
+
 <table border class="newRec">
 <tr>
 	<td colspan="2">
@@ -187,7 +194,7 @@
 		<label for="collection">Collection</label>
 		<select name="collection" id="collection" size="1" class="reqdClr">
 			<cfloop query="ctcollection">
-				<option value="#collection_id#">#collection#</option>
+				<option value="#collection_id#">#guid_prefix#</option>
 			</cfloop>
 		</select>
 	</td>	
@@ -212,12 +219,18 @@
 	<td colspan="2">
 		<label for="cited_taxon_name">
 			<a href="javascript:void(0);" onClick="getDocs('publication','cited_as_taxon')">Cited As</a></label>
-		<input type="text" name="cited_taxon_name" id="cited_taxon_name" class="reqdClr" size="50" onChange="taxaPick('cited_taxon_name_id','cited_taxon_name','newCitation',this.value); return false;">
+		<input type="text" name="CitedIdentification" id="CitedIdentification" class="reqdClr" size="50" 
+			onChange="getIdentification('identification_id','CitedIdentification'); return false;">
+		
+		
 		<span class="infoLink"
-			onClick = "taxaPick('cited_taxon_name_id','cited_taxon_name','newCitation',document.getElementById('scientific_name').value)">Use Current</span>
-		<input type="hidden" name="cited_taxon_name_id">
+			onClick = "getIdentification('identification_id','ididfld','newCitation',document.getElementById('scientific_name').value)">Use Current</span>
+		<input type="hidden" name="identification_id">
 	</td>
 </tr>
+
+
+
 
 <tr>
 	<td>
