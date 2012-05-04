@@ -177,8 +177,22 @@
 		<input type="hidden" name="publication_id" value="#publication_id#">
 		<input type="hidden" name="collection_object_id" id="collection_object_id">
 
-<div class-"newRec">
-addin cit
+<div class="newRec">
+	<h2>Add Citation</h2>
+	<label for="collection">Collection</label>
+	<select name="collection" id="collection" size="1" class="reqdClr">
+		<cfloop query="ctcollection">
+			<option value="#collection_id#">#guid_prefix#</option>
+		</cfloop>
+	</select>
+	<label for="cat_num">Catalog Number [ <span class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');">force refresh</span> ]</label>
+	<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')" class="reqdClr">
+	<cfif len(session.CustomOtherIdentifier) gt 0>
+		<td>
+			<label for="custom_id">#session.CustomOtherIdentifier#</label>
+			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
+		</td>
+	</cfif>
 </div>
 
 
@@ -191,23 +205,12 @@ addin cit
 </tr>
 <tr>
 	<td>
-		<label for="collection">Collection</label>
-		<select name="collection" id="collection" size="1" class="reqdClr">
-			<cfloop query="ctcollection">
-				<option value="#collection_id#">#guid_prefix#</option>
-			</cfloop>
-		</select>
+		
 	</td>	
 	<td>
-		<label for="cat_num">Catalog Number [ <span class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');">force refresh</span> ]</label>
-		<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')" class="reqdClr">
+		
 	</td>
-	<cfif len(session.CustomOtherIdentifier) gt 0>
-		<td>
-			<label for="custom_id">#session.CustomOtherIdentifier#</label>
-			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
-		</td>
-	</cfif>
+	
 </tr>
 <tr>
 	</td>
