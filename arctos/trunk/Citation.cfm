@@ -27,14 +27,14 @@
 				if (r.ROWCOUNT==1) {	
 					var scientific_name=result.SCIENTIFIC_NAME[0];
 					var collection_object_id=result.COLLECTION_OBJECT_ID[0];
-					var cat_num=result.CAT_NUM[0];
+					var guid=result.GUID[0];
 					if (collection_object_id < 0) {
 						alert('error: ' + scientific_name);
 					} else {
 						var sn = document.getElementById('scientific_name');
 						var co = document.getElementById('collection_object_id');
 						var c = document.getElementById('collection');
-						var cn = document.getElementById('cat_num');
+						var cn = document.getElementById('guid');
 						cn.className='reqdClr';
 						if (document.getElementById('custom_id')) {
 						    var cusn = document.getElementById('custom_id');
@@ -42,7 +42,7 @@
 						}
 						co.value=collection_object_id;
 						sn.value=scientific_name;
-						cn.value=cat_num;
+						cn.value=guid;
 						//c.style.background-color='green';
 						//cn.style.background-color='green';
 					}
@@ -178,7 +178,7 @@
 		<input type="hidden" name="collection_object_id" id="collection_object_id">
 
 <div class="newRec">
-	<h2>Add Citation</h2>
+	<h2>Add Citation/ID</h2>
 	<label for="collection">Collection</label>
 	<select name="collection" id="collection" size="1" class="reqdClr">
 		<cfloop query="ctcollection">
@@ -219,6 +219,7 @@
 	<td>
 		<label for="scientific_name">Current Identification</label>
 		<input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
+		<input type="text" name="guid" id="guid" readonly="yes" class="readClr" size="50">
 	</td>
 	<td colspan="2">
 		<label for="cited_taxon_name">

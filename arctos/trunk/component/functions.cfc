@@ -1778,39 +1778,33 @@
 		<cfif type is "cat_num">
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
-					cataloged_item.COLLECTION_OBJECT_ID,
-					cataloged_item.cat_num,
+					flat.COLLECTION_OBJECT_ID,
+					flat.guid,
 					scientific_name
 				from
-					cataloged_item,
-					identification
+					flat
 				where
-					cataloged_item.collection_object_id = identification.collection_object_id AND
-					accepted_id_fg=1 and
 					cat_num='#theNum#' and
 					collection_id=#collection_id#
 			</cfquery>
 		<cfelse>
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
-					cataloged_item.COLLECTION_OBJECT_ID,
-					cataloged_item.cat_num,
+					flat.COLLECTION_OBJECT_ID,
+					flat.guid,
 					scientific_name
 				from
-					cataloged_item,
-					identification,
+					flat,
 					coll_obj_other_id_num
 				where
-					cataloged_item.collection_object_id = identification.collection_object_id AND
-					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
-					accepted_id_fg=1 and
+					flat.collection_object_id = coll_obj_other_id_num.collection_object_id AND
 					display_value='#theNum#' and
 					other_id_type='#type#' and
 					collection_id=#collection_id#
 			</cfquery>
 		</cfif>
 		<cfcatch>
-			<cfset result = querynew("collection_object_id,scientific_name")>
+			<cfset result = querynew("collection_object_id,guid,scientific_name")>
 			<cfset temp = queryaddrow(result,1)>
 			<cfset temp = QuerySetCell(result, "collection_object_id", "-1", 1)>
 			<cfset temp = QuerySetCell(result, "scientific_name", "#cfcatch.Message# #cfcatch.Detail#", 1)>
