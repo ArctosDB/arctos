@@ -194,6 +194,164 @@
 		</td>
 	</cfif>
 	[ <span class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');">lookup</span> ]
+	<input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
+	<input type="text" name="guid" id="guid" readonly="yes" class="readClr" size="50">
+	
+	<label for="type_status">
+			<a href="javascript:void(0);" onClick="getDocs('publication','citation_type')">Citation Type</a>
+		</label>
+		<select name="type_status" id="type_status" size="1">
+			<cfloop query="ctTypeStatus">
+				<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+			</cfloop>
+		</select>
+		<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">Define</span>
+	
+		<label for="occurs_page_number">
+			<a href="javascript:void(0);" onClick="getDocs('publication','cited_on_page_number')">Page ##</a>
+		</label>
+		<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
+
+		<label for="citation_remarks">Remarks:</label>
+		<input type="text" name="citation_remarks" id="citation_remarks" size="90">
+
+		<label for="taxa_formula"><div class="helpLink" id="taxa_formula">ID Formula:</div></label>
+
+			<cfif not isdefined("taxa_formula")>
+				<cfset taxa_formula='A'>
+			</cfif>
+			<cfset thisForm = "#taxa_formula#">
+			<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
+				onchange="newIdFormula(this.value);">
+					<cfloop query="ctFormula">
+						<option 
+							<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#taxa_formula#</option>
+					</cfloop>
+			</select>
+		</td>
+	</tr>     
+	<tr> 
+    	<td>
+			<div class="helpLink" id="scientific_name">Taxon A:</div>
+		</td>
+         <td>
+		  	<input type="text" name="taxona" id="taxona" class="reqdClr" size="50" 
+				onChange="taxaPick('taxona_id','taxona','newID',this.value); return false;"
+				onKeyPress="return noenter(event);">
+			<input type="hidden" name="taxona_id" id="taxona_id" class="reqdClr"> 
+		</td>
+  	</tr>
+	<tr id="userID" style="display:none;"> 
+    	<td>
+			<div class="helpLink" id="user_identification">Identification:</div>
+		</td>
+         <td>
+		  	<input type="text" name="user_id" id="user_id" size="50">
+		</td>
+  	</tr>
+	<tr id="taxon_b_row" style="display:none;"> 
+    	<td>
+			<div align="right">Taxon B:</div>
+		</td>
+        <td>
+			<input type="text" name="taxonb" id="taxonb"  size="50" 
+				onChange="taxaPick('taxonb_id','taxonb','newID',this.value); return false;"
+				onKeyPress="return noenter(event);">
+			<input type="hidden" name="taxonb_id" id="taxonb_id">
+		</td>
+  	</tr>
+    <tr> 
+    	<td>
+			<div class="helpLink" id="id_by">ID By:</div>
+		</td>
+        <td>
+			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" 
+				onchange="getAgent('newIdBy_id',this.id,'newID',this.value);">
+            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
+			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
+		</td>
+	</tr>
+	<tr id="addNewIdBy_two" style="display:none;"> 
+    	<td>
+			<div align="right">
+				ID By:<span class="infoLink" onclick="clearNewIdBy('two');"> remove</span>	
+			</div>
+		</td>
+        <td>
+			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" 
+				onchange="getAgent('newIdBy_two_id',this.id,'newID',this.value);">
+            <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
+			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
+		 </td>
+	</tr>
+    <tr id="addNewIdBy_three" style="display:none;"> 
+    	<td>
+			<div align="right">
+				ID By:<span class="infoLink" onclick="clearNewIdBy('three');"> remove</span>	
+			</div>
+		</td>
+        <td>
+			<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" 
+				onchange="getAgent('newIdBy_three_id',this.id,'newID',this.value);">
+            <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id"> 			
+		 </td>
+    </tr>
+    <tr> 
+    	<td>
+			<div class="helpLink" id="identification.made_date">ID Date:</div>
+		</td>
+        <td>
+			<input type="text" name="made_date" id="made_date">
+		</td>
+	</tr>
+    <tr> 
+    	<td>
+			<div class="helpLink" id="nature_of_id">Nature of ID</div>
+		</td>
+		<td>
+			<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
+            	<cfloop query="ctnature">
+                	<option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
+                </cfloop>
+            </select>
+			<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
+		</td>
+	</tr>
+    <tr> 
+    	<td>
+			<div class="helpLink" id="identification_publication">Sensu:</div>
+		</td>
+		<td>
+			<input type="hidden" name="new_publication_id" id="new_publication_id">
+			<input type="text" id="newPub" onchange="getPublication(this.id,'new_publication_id',this.value,'newID')" size="50">
+		</td>
+	</tr>
+    <tr> 
+    	<td>
+			<div class="helpLink" id="identification_remarks">Remarks:</div>
+		</td>
+        <td>
+			<input type="text" name="identification_remarks" id="identification_remarks" size="50">
+		</td>
+    </tr>
+    <tr>
+		<td colspan="2">
+			<div align="center"> 
+            	<input type="submit" id="newID_submit" value="Create" class="insBtn reqdClr" title="Create Identification">	
+             </div>
+		</td>
+    </tr>
+	</table>
+</form>
+
+
+
+
+
+
+
+	
+	
 </div>
 
 
@@ -218,8 +376,7 @@
 
 	<td>
 		<label for="scientific_name">Current Identification</label>
-		<input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
-		<input type="text" name="guid" id="guid" readonly="yes" class="readClr" size="50">
+		
 	</td>
 	<td colspan="2">
 		<label for="cited_taxon_name">
@@ -239,28 +396,7 @@
 
 <tr>
 	<td>
-		<label for="type_status">
-			<a href="javascript:void(0);" onClick="getDocs('publication','citation_type')">Citation Type</a>
-		</label>
-		<select name="type_status" id="type_status" size="1">
-			<cfloop query="ctTypeStatus">
-				<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-			</cfloop>
-		</select>
-		<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">Define</span>
-	</td>
-	<td>
-		<label for="occurs_page_number">
-			<a href="javascript:void(0);" onClick="getDocs('publication','cited_on_page_number')">Page ##</a>
-		</label>
-		<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
-	</td>
-</tr>
-<tr>
-	<td colspan="3">
-		<label for="citation_remarks">Remarks:</label>
-		<input type="text" name="citation_remarks" id="citation_remarks" size="90">
-	</td>
+		
 </tr>
 
 <tr>
