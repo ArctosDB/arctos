@@ -192,6 +192,7 @@
 			<option value="#collection_id#">#collection#</option>
 		</cfloop>
 	</select>
+	<span style="border:2px solid green;">
 	<label for="cat_num">Catalog Number</label>
 	<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')" class="reqdClr">
 	<cfif len(session.CustomOtherIdentifier) gt 0>
@@ -203,7 +204,7 @@
 	[ <span class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');">lookup</span> ]
 	<input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
 	<input type="text" name="guid" id="guid" readonly="yes" class="readClr" size="50">
-	
+	</span>
 	<label for="type_status">
 			<a href="javascript:void(0);" onClick="getDocs('publication','citation_type')">Citation Type</a>
 		</label>
