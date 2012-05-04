@@ -129,8 +129,6 @@
 			<input type="button" 
 				value="Delete"
 				class="delBtn"
-				onmouseover="this.className='delBtn btnhov'"
-				onmouseout="this.className='delBtn'"
 				onClick="deleCitation#i#.Action.value='deleCitation';submit();">
 
 			
@@ -138,8 +136,6 @@
 			<input type="button" 
 				value="Edit" 
 				class="lnkBtn"
-				onmouseover="this.className='lnkBtn btnhov'" 
-				onmouseout="this.className='lnkBtn'"
 				onClick="deleCitation#i#.Action.value='editCitation'; submit();">
 				
 			</td>
@@ -149,10 +145,8 @@
 			<input type="button" 
 				value="Clone" 
 				class="insBtn"
-				onmouseover="this.className='insBtn btnhov'" 
-				onmouseout="this.className='insBtn'"
 				onclick = "newCitation.cited_taxon_name.value='#getCited.citSciName#';
-				newCitation.cited_taxon_name_id.value='#getCited.cited_taxon_name_id#';
+				newCitation.identification_id.value='#getCited.citedidid#';
 				newCitation.type_status.value='#getCited.type_status#';
 				newCitation.occurs_page_number.value='#getCited.occurs_page_number#';
 				newCitation.citation_remarks.value='#getCited.citation_remarks#';
