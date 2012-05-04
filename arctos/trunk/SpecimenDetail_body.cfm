@@ -233,24 +233,7 @@
 		biol_indiv_relations.collection_object_id = #collection_object_id#
 </cfquery>			
 <cfquery name="citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	SELECT 
-		citation.type_status,
-		citation.occurs_page_number,
-		citation.CITATION_REMARKS,
-		cited_taxa.scientific_name as cited_name,
-		cited_taxa.taxon_name_id as cited_name_id,	
-		short_citation,
-		publication.publication_id
-	from
-		citation,
-		taxonomy cited_taxa,
-		publication
-	where		
-		citation.cited_taxon_name_id = cited_taxa.taxon_name_id  AND
-		citation.publication_id = publication.publication_id AND
-		citation.collection_object_id = #collection_object_id#
-	order by
-		substr(short_citation, - 4)
+	SELECT CONCATTYPESTATUS(#collection_object_id#) typestatus from dual
 </cfquery>
 <style>
 	.acceptedIdDiv {
@@ -398,24 +381,12 @@
 				</div>
 			</div>
 <!------------------------------------ citations ---------------------------------------------->
-			<cfif len(citations.cited_name) gt 0>  
+			<cfif len(citations.typestatus) gt 0>  
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
 					<cfloop query="citations">
 						<div class="detailBlock">
-							<span class="detailData">
-								<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#" 
-									target="_mainFrame">
-										#short_citation#</a>, 
-								<cfif len(occurs_page_number) gt 0>
-									Page #occurs_page_number#,
-								</cfif>
-								#type_status# of 
-								<a href="/TaxonomyDetails.cfm?taxon_name_id=#cited_name_id#" target="_mainFrame"><i>#replace(cited_name," ","&nbsp;","all")#</i></a>
-								<div class="detailCellSmall">
-									#CITATION_REMARKS#
-								</div>
-							</span>
+							#typestatus#
 						</div>
 					</cfloop>
 				</div>
