@@ -65,30 +65,32 @@
 
 <cfquery name="getCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
+		citation.citation_id,
 		citation.publication_id,
 		citation.collection_object_id,
 		collection,
+		guid_prefix,
 		collection.collection_id,
 		cat_num, 
 		identification.scientific_name, 
-		citedTaxa.scientific_name as citSciName,
+		citedid.scientific_name as citSciName,
 		occurs_page_number,
 		type_status,
 		citation_remarks,
 		short_citation,
-		cited_taxon_name_id,
+		citedid.identification_id citedidid,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
 	FROM 
 		citation, 
 		cataloged_item,
 		collection,
 		identification,
-		taxonomy citedTaxa,
+		identification citedid
 		publication
 	WHERE
 		citation.collection_object_id = cataloged_item.collection_object_id AND
 		cataloged_item.collection_id = collection.collection_id AND
-		citation.cited_taxon_name_id = citedTaxa.taxon_name_id (+) AND
+		citation.identification_id = citedid.identification_id AND
 		cataloged_item.collection_object_id = identification.collection_object_id (+) AND
 		identification.accepted_id_fg = 1 AND
 		citation.publication_id = publication.publication_id AND
