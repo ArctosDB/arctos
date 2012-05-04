@@ -172,6 +172,13 @@
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select collection_id,collection from collection order by collection
 </cfquery>
+
+<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select nature_of_id from ctnature_of_id
+</cfquery>
+<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select taxa_formula from cttaxa_formula order by taxa_formula
+</cfquery>
 <form name="newCitation" id="newCitation" method="post" action="Citation.cfm">
 		<input type="hidden" name="Action" value="newCitation">
 		<input type="hidden" name="publication_id" value="#publication_id#">
@@ -217,15 +224,10 @@
 
 		<label for="taxa_formula"><div class="helpLink" id="taxa_formula">ID Formula:</div></label>
 
-			<cfif not isdefined("taxa_formula")>
-				<cfset taxa_formula='A'>
-			</cfif>
-			<cfset thisForm = "#taxa_formula#">
 			<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
 				onchange="newIdFormula(this.value);">
 					<cfloop query="ctFormula">
-						<option 
-							<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#taxa_formula#</option>
+						<option value="#ctFormula.taxa_formula#">#taxa_formula#</option>
 					</cfloop>
 			</select>
 		</td>
