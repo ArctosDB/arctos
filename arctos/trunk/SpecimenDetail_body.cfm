@@ -384,9 +384,9 @@
 			<cfif len(citations.typestatus) gt 0>  
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
-					<cfloop query="citations">
+					<cfloop list="#typestatus#" index="x" delimiters=";">
 						<div class="detailBlock">
-							#typestatus#
+							#x#
 						</div>
 					</cfloop>
 				</div>
