@@ -182,7 +182,7 @@
 	<label for="collection">Collection</label>
 	<select name="collection" id="collection" size="1" class="reqdClr">
 		<cfloop query="ctcollection">
-			<option value="#collection_id#">#guid_prefix#</option>
+			<option value="#collection_id#">#collection#</option>
 		</cfloop>
 	</select>
 	<label for="cat_num">Catalog Number [ <span class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');">force refresh</span> ]</label>
