@@ -119,6 +119,7 @@
 		accn_number accession,
 		concatencumbrances(cataloged_item.collection_object_id) concatenatedEncumbrances,
 		concatEncumbranceDetails(cataloged_item.collection_object_id) encumbranceDetail,
+		CONCATTYPESTATUS(cataloged_item.collection_object_id) typestatus,
 		locality.locality_remarks,
 		verbatim_locality,
 		min_depth,
@@ -231,9 +232,6 @@
 		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id AND
 		related_cat_item.collection_id = related_coll.collection_id and
 		biol_indiv_relations.collection_object_id = #collection_object_id#
-</cfquery>			
-<cfquery name="citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	SELECT CONCATTYPESTATUS(#collection_object_id#) typestatus from dual
 </cfquery>
 <style>
 	.acceptedIdDiv {
@@ -381,10 +379,10 @@
 				</div>
 			</div>
 <!------------------------------------ citations ---------------------------------------------->
-			<cfif len(citations.typestatus) gt 0>  
+			<cfif len(one.typestatus) gt 0>  
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
-					<cfloop list="#citations.typestatus#" index="x" delimiters=";">
+					<cfloop list="#one.typestatus#" index="x" delimiters=";">
 						<div class="detailBlock">
 							#x#
 						</div>
