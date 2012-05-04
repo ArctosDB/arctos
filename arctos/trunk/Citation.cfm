@@ -170,8 +170,7 @@
 </cfloop>
 </tr></table>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select collection_id,collection from collection
-	order by collection
+	select collection_id,collection from collection order by collection
 </cfquery>
 <form name="newCitation" id="newCitation" method="post" action="Citation.cfm">
 		<input type="hidden" name="Action" value="newCitation">
