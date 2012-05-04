@@ -222,7 +222,7 @@
 		<label for="citation_remarks">Remarks:</label>
 		<input type="text" name="citation_remarks" id="citation_remarks" size="90">
 
-		<label for="taxa_formula"><div class="helpLink" id="taxa_formula">ID Formula:</div></label>
+		<label for="taxa_formula"><span class="helpLink" id="taxa_formula">ID Formula:</span></label>
 
 			<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
 				onchange="newIdFormula(this.value);">
