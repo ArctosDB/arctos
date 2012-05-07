@@ -626,6 +626,8 @@
 			<table border>
 				<tr>
 					<td>
+						idid: #idid#
+						<br>one.citation_id: #one.citation_id#
 						<cfif accepted_id_fg is 1>
 							This is the accepted identification.
 						<cfelse>
@@ -638,7 +640,6 @@
 							This is NOT the currently cited identification.
 						</cfif>
 						<br>scientific_name: #scientific_name#
-						<br>made_date: #made_date#
 						<br>made_date: #made_date#
 						<br>NATURE_OF_ID: #NATURE_OF_ID#
 						<br>IDENTIFICATION_REMARKS: #IDENTIFICATION_REMARKS#
