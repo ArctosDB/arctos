@@ -1,4 +1,6 @@
 <cfinclude template="includes/_header.cfm">
+<script type='text/javascript' src='/includes/_editIdentification.js'></script>
+
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 	<script>
 		function getCatalogedItemCitation (id,type) {
