@@ -195,7 +195,7 @@
 <div class="newRec">
 	<h3>Add Citation/ID</h3>
 	Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">bulkloader</a>.
-	<label for="lsp">Find a specimen</label>
+	<br>---------------------------------- find specimen -----------------------------------------
 	<label for="collection">Collection</label>
 	<select name="collection" id="collection" size="1" class="reqdClr">
 		<cfloop query="ctcollection">
@@ -212,6 +212,7 @@
 	(Or check below - we'll save you the click if we can!)
 	</p>
 	<div id="resulttext">[ This will be a link when the lookup is successful. ]</div>
+	<br>---------------------------------- citation -----------------------------------------
 	<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">Citation Type</label>
 	<select name="type_status" id="type_status" size="1">
 		<cfloop query="ctTypeStatus">
@@ -221,8 +222,14 @@
 	<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">Define</span>
 	<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
 	<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
-	<label for="citation_remarks">Remarks:</label>
+	<label for="citation_remarks">Citation Remarks:</label>
 	<input type="text" name="citation_remarks" id="citation_remarks" size="90">
+	<br>---------------------------------- identification -----------------------------------------
+	<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
+	<select name="accepted_id_fg" id="accepted_id_fg" size="1" class="reqdClr">
+		<option value="0">no</option>
+		<option value="1">yes</option>
+	</select>
 	<label for="taxa_formula"><span class="helpLink" id="taxa_formula">ID Formula:</span></label>
 	<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr" onchange="newIdFormula(this.value);">
 		<cfloop query="ctFormula">
@@ -281,52 +288,159 @@
 </div>
 </cfoutput>
 </cfif>
-
 <!------------------------------------------------------------------------------->
-<!------------------------------------------------------------------------------->
-<cfif #Action# is "newCitation">
-	<cfoutput>
-	<cfquery name="newCite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		INSERT INTO citation (
-			publication_id,
-			collection_object_id,
-			cit_current_fg
-			<cfif len(#cited_taxon_name_id#) gt 0>
-				,cited_taxon_name_id
-			</cfif>
-			<cfif len(#occurs_page_number#) gt 0>
-				,occurs_page_number
-			</cfif>
-			<cfif len(#type_status#) gt 0>
-				,type_status
-			</cfif>
-			<cfif len(#citation_remarks#) gt 0>
-				,citation_remarks
-			</cfif>
-			) 
-			VALUES (
-			#publication_id#,
-			#collection_object_id#,
-			1
-			<cfif len(#cited_taxon_name_id#) gt 0>
-				,#cited_taxon_name_id#
-			</cfif>
-			<cfif len(#occurs_page_number#) gt 0>
-				,#occurs_page_number#
-			</cfif>
-			<cfif len(#type_status#) gt 0>
-				,'#type_status#'
-			</cfif>
-			<cfif len(#citation_remarks#) gt 0>
-				,'#citation_remarks#'
-			</cfif>
-			) 
+<cfif actiona is "newCitation">		
+	<cfif taxa_formula is "A {string}">
+		<cfset scientific_name = user_id>
+	<cfelseif taxa_formula is "A">
+		<cfset scientific_name = taxona>
+	<cfelseif taxa_formula is "A or B">
+		<cfset scientific_name = "#taxona# or #taxonb#">
+	<cfelseif taxa_formula is "A and B">
+		<cfset scientific_name = "#taxona# and #taxonb#">
+	<cfelseif taxa_formula is "A x B">
+		<cfset scientific_name = "#taxona# x #taxonb#">
+	<cfelseif taxa_formula is "A ?">
+		<cfset scientific_name = "#taxona# ?">
+	<cfelseif taxa_formula is "A sp.">
+		<cfset scientific_name = "#taxona# sp.">
+	<cfelseif taxa_formula is "A ssp.">
+		<cfset scientific_name = "#taxona# ssp.">
+	<cfelseif taxa_formula is "A cf.">
+		<cfset scientific_name = "#taxona# cf.">
+	<cfelseif taxa_formula is "A aff.">
+		<cfset scientific_name = "#taxona# aff.">
+	<cfelseif taxa_formula is "A / B intergrade">
+		<cfset scientific_name = "#taxona# / #taxonb# intergrade">
+	<cfelse>
+		The taxa formula you entered isn't handled yet! Please submit a bug report.
+		<cfabort>
+	</cfif>
+	<cftransaction>
+		<cfif accepted_id_fg is 1>
+			<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 			</cfquery>
-			<cflocation url="Citation.cfm?publication_id=#publication_id#">
-	</cfoutput>
+		</cfif>
+		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO identification (
+				IDENTIFICATION_ID,
+				COLLECTION_OBJECT_ID,
+				MADE_DATE,
+				NATURE_OF_ID,
+				ACCEPTED_ID_FG,
+				IDENTIFICATION_REMARKS,
+				taxa_formula,
+				scientific_name,
+				publication_id
+			) VALUES (
+				sq_identification_id.nextval,
+				#COLLECTION_OBJECT_ID#,
+				'#MADE_DATE#',
+				'#NATURE_OF_ID#',
+				1,
+				'#IDENTIFICATION_REMARKS#',
+				'#taxa_formula#',
+				'#scientific_name#',
+				#publication_id#
+			)
+		</cfquery>
+		<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into identification_agent (
+				identification_id,
+				agent_id,
+				identifier_order) 
+			values (
+				sq_identification_id.currval,
+				#newIdBy_id#,
+				1
+				)
+		</cfquery>
+		<cfif len(#newIdBy_two_id#) gt 0>
+			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into identification_agent (
+					identification_id,
+					agent_id,
+					identifier_order) 
+				values (
+					sq_identification_id.currval,
+					#newIdBy_two_id#,
+					2
+					)
+			</cfquery>
+		</cfif>
+		<cfif len(#newIdBy_three_id#) gt 0>
+			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into identification_agent (
+					identification_id,
+					agent_id,
+					identifier_order) 
+				values (
+					sq_identification_id.currval,
+					#newIdBy_three_id#,
+					3
+					)
+			</cfquery>
+		</cfif>
+		<cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO identification_taxonomy (
+				identification_id,
+				taxon_name_id,
+				variable)
+			VALUES (
+				sq_identification_id.currval,
+				#taxona_id#,
+				'A')
+		 </cfquery>
+		 <cfif #taxa_formula# contains "B">
+			 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO identification_taxonomy (
+					identification_id,
+					taxon_name_id,
+					variable)
+				VALUES (
+					sq_identification_id.currval,
+					#taxonb_id#,
+					'B')
+			 </cfquery>
+		 </cfif>
 
+	
+		
+		<cfquery name="newCite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO citation (
+				publication_id,
+				collection_object_id,
+				cit_current_fg,
+				identification_id			
+				<cfif len(#occurs_page_number#) gt 0>
+					,occurs_page_number
+				</cfif>
+				<cfif len(#type_status#) gt 0>
+					,type_status
+				</cfif>
+				<cfif len(#citation_remarks#) gt 0>
+					,citation_remarks
+				</cfif>
+			) VALUES (
+				#publication_id#,
+				#collection_object_id#,
+				1,
+				sq_identification_id.currval
+				<cfif len(#occurs_page_number#) gt 0>
+					,#occurs_page_number#
+				</cfif>
+				<cfif len(#type_status#) gt 0>
+					,'#type_status#'
+				</cfif>
+				<cfif len(#citation_remarks#) gt 0>
+					,'#citation_remarks#'
+				</cfif>
+			) 
+		</cfquery>
+	</cftransaction>
+	<cflocation url="Citation.cfm?publication_id=#publication_id#">
 </cfif>
-<!------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
 	<cfoutput>
