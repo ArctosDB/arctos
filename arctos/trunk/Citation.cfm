@@ -533,7 +533,7 @@
 				cataloged_item.collection_object_id = citation.collection_object_id AND
 				cataloged_item.collection_object_id = identification.collection_object_id AND
 				citation.publication_id = publication.publication_id AND
-				citation.citation = #citation#
+				citation.citation_id = #citation_id#
 			order by
 				accepted_id_fg DESC,
 				made_date
