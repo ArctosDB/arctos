@@ -1,11 +1,13 @@
 <cfinclude template="includes/_header.cfm">
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
+<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 
 	<script>
 		function makeClone (cn,cid){
 			$("#cat_num").val(cn);
 			$("#collection").val(cid);
 			getCatalogedItemCitation ('cat_num','cat_num');
+			$(document).scrollTo( $('#newRec'), 800 );
 			
 		
 		}
@@ -189,15 +191,6 @@
 				value="Clone" 
 				class="insBtn"
 				onclick = "makeClone('#cat_num#','#collection_id#');">
-				
-				
-				newCitation.cited_taxon_name.value='#getCited.citSciName#';
-				newCitation.identification_id.value='#getCited.citedidid#';
-				newCitation.type_status.value='#getCited.type_status#';
-				newCitation.occurs_page_number.value='#getCited.occurs_page_number#';
-				newCitation.citation_remarks.value='#getCited.citation_remarks#';
-				newCitation.collection.value='#getCited.collection_id#';
-				">
 			</td></tr>
 		</table>
 	</td>
@@ -230,7 +223,7 @@
 		<input type="hidden" name="publication_id" value="#publication_id#">
 		<input type="hidden" name="collection_object_id" id="collection_object_id">
 
-<div class="newRec">
+<div class="newRec" id="newRec">
 	<h3>Add Citation/ID</h3>
 	Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">bulkloader</a>.
 	<br>---------------------------------- find specimen -----------------------------------------
