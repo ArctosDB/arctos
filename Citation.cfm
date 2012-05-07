@@ -507,51 +507,45 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
-<cfif #Action# is "editCitation">
-<cfset title="Edit Citations">
-<cfoutput>
-
-<cfquery name="getCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	SELECT
-		citation.publication_id,
-		citation.collection_object_id,
-		cat_num,
-		collection,
-		identification.scientific_name, 
-		citedTaxa.scientific_name as citSciName,
-		occurs_page_number,
-		type_status,
-		citation_remarks,
-		full_citation,
-		cited_taxon_name_id
-	FROM 
-		citation, 
-		cataloged_item,
-		identification,
-		taxonomy citedTaxa,
-		publication,
-		collection
-	WHERE
-		cataloged_item.collection_id = collection.collection_id AND
-		citation.collection_object_id = cataloged_item.collection_object_id AND
-		citation.cited_taxon_name_id = citedTaxa.taxon_name_id (+) AND
-		cataloged_item.collection_object_id = identification.collection_object_id AND
-		identification.accepted_id_fg = 1 AND
-		citation.publication_id = publication.publication_id AND
-		citation.publication_id = #publication_id# AND 
-		citation.collection_object_id = #collection_object_id#
-</cfquery>
-
-
-</cfoutput>
-<cfoutput query="getCited">
-
-<br>Edit Citation for <b>#getCited.full_citation#</b>:
-<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
-		<input type="hidden" name="Action" value="saveEdits">
-		<input type="hidden" name="publication_id" value="#publication_id#">
-
-		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+<cfif action is "editCitation">
+	<cfset title="Edit Citations">
+	<cfoutput>
+		<cfquery name="getCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			SELECT
+				citation.publication_id,
+				citation.collection_object_id,
+				cat_num,
+				collection,
+				identification.scientific_name, 
+				citedTaxa.scientific_name as citSciName,
+				occurs_page_number,
+				type_status,
+				citation_remarks,
+				short_citation,
+				cited_taxon_name_id
+			FROM 
+				citation, 
+				cataloged_item,
+				identification,
+				taxonomy citedTaxa,
+				publication,
+				collection
+			WHERE
+				cataloged_item.collection_id = collection.collection_id AND
+				citation.collection_object_id = cataloged_item.collection_object_id AND
+				citation.cited_taxon_name_id = citedTaxa.taxon_name_id (+) AND
+				cataloged_item.collection_object_id = identification.collection_object_id AND
+				identification.accepted_id_fg = 1 AND
+				citation.publication_id = publication.publication_id AND
+				citation.publication_id = #publication_id# AND 
+				citation.collection_object_id = #collection_object_id#
+		</cfquery>
+		<cfloop query="getCited">
+			<br>Edit Citation for <strong>#collection# #cat_num#</strong> in <b>#getCited.short_citation#</b>:
+			<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
+				<input type="hidden" name="Action" value="saveEdits">
+				<input type="hidden" name="publication_id" value="#publication_id#">
+				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 <table border>
 
 <tr>
