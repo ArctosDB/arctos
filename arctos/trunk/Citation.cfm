@@ -613,8 +613,6 @@
 			onmouseout="this.className='savBtn'">	
 	
 	</cfform>
-</tr></table>
-</cfloop>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
