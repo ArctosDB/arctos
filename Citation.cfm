@@ -524,7 +524,7 @@
 				guid_prefix || ':' || cat_num guid,
 				agent_name,
 				IDENTIFIER_ORDER,
-				NATURE_OF_ID
+				NATURE_OF_ID,
 				IDENTIFICATION_REMARKS,
 				sensu.short_citation sensupub
 			FROM 
