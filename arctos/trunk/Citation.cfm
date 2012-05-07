@@ -127,6 +127,14 @@
 	<td nowrap>Page ##</td>
 	<td>Remarks</td>
 </tr>
+
+
+<div style="width:90%; border: solid 1px red;"> //Outer (current div)
+  <div style="overflow: auto;"> //width: auto; (default)
+    <div style="width: 4000px;">Test Wide Content ...</div> //content!
+  </div>
+</div>
+
 <cfset i=1>
 <cfloop query="getCited">
 	<tr>
