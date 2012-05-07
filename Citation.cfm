@@ -514,31 +514,41 @@
 			SELECT
 				citation.publication_id,
 				citation.collection_object_id,
-				cat_num,
+				cataloged_item.cat_num,
 				collection,
 				identification.scientific_name, 
-				citedTaxa.scientific_name as citSciName,
 				occurs_page_number,
 				type_status,
 				citation_remarks,
 				short_citation,
-				cited_taxon_name_id
+				citation.identification_id
 			FROM 
-				citation, 
 				cataloged_item,
+				collection,
+				citation,
 				identification,
-				taxonomy citedTaxa,
-				publication,
-				collection
+				publication
 			WHERE
 				cataloged_item.collection_id = collection.collection_id AND
-				citation.collection_object_id = cataloged_item.collection_object_id AND
-				citation.cited_taxon_name_id = citedTaxa.taxon_name_id (+) AND
+				cataloged_item.collection_object_id = citation.collection_object_id AND
 				cataloged_item.collection_object_id = identification.collection_object_id AND
-				identification.accepted_id_fg = 1 AND
 				citation.publication_id = publication.publication_id AND
 				citation.publication_id = #publication_id# AND 
 				citation.collection_object_id = #collection_object_id#
+			group by
+				citation.publication_id,
+				citation.collection_object_id,
+				cataloged_item.cat_num,
+				collection,
+				identification.scientific_name, 
+				occurs_page_number,
+				type_status,
+				citation_remarks,
+				short_citation,
+				citation.identification_id
+			order by
+				accepted_id_fg DESC,
+				made_date
 		</cfquery>
 		<cfloop query="getCited">
 			<br>Edit Citation for <strong>#collection# #cat_num#</strong> in <b>#getCited.short_citation#</b>:
