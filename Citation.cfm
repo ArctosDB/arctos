@@ -521,7 +521,8 @@
 				type_status,
 				citation_remarks,
 				short_citation,
-				citation.identification_id
+				citation.identification_id,
+				accepted_id_fg
 			FROM 
 				cataloged_item,
 				collection,
@@ -545,7 +546,8 @@
 				type_status,
 				citation_remarks,
 				short_citation,
-				citation.identification_id
+				citation.identification_id,
+				accepted_id_fg
 			order by
 				accepted_id_fg DESC,
 				made_date
