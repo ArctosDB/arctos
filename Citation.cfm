@@ -273,24 +273,17 @@
             <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 			
-	<div id="addNewIdBy_two" style="display:none;">
     					<label for="newIdBy_two"><span class="helpLink" id="id_by">ID By:</span></label>
 			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" 
 				onchange="getAgent('newIdBy_two_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
-			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>	
 			
-		<span class="infoLink" onclick="clearNewIdBy('two');"> remove</span>
 	
-	</div>
-	<div id="addNewIdBy_three" style="display:none;">
     					<label for="newIdBy_three"><span class="helpLink" id="id_by">ID By:</span></label>
 				<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" 
 				onchange="getAgent('newIdBy_three_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id"> 	
-			<span class="infoLink" onclick="clearNewIdBy('three');"> remove</span>	
 	
-	</div>
     					<label for="made_date"><span class="helpLink" id="identification.made_date">ID Date:</span></label>
 	<input type="text" name="made_date" id="made_date">
 	
