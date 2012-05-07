@@ -517,7 +517,7 @@
 				citation.occurs_page_number,
 				citation.type_status,
 				citation.citation_remarks,
-				citation.short_citation,
+				publication.short_citation,
 				citation.identification_id,
 				identification.accepted_id_fg,
 				identification.made_date,
