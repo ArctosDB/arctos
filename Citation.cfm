@@ -566,7 +566,8 @@
 				type_status,
 				citation_remarks,
 				short_citation,
-				identification_id
+				identification_id,
+				citation_remarks
 			from
 				getCited
 			group by
@@ -578,7 +579,8 @@
 				type_status,
 				citation_remarks,
 				short_citation,
-				identification_id
+				identification_id,
+				citation_remarks
 		</cfquery>
 		<br>Edit Citation for <strong>#one.collection# #one.cat_num#</strong> in <b>#one.short_citation#</b>:
 		<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
