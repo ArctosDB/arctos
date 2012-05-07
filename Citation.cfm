@@ -508,7 +508,7 @@
 	<cfoutput>
 		<cfquery name="getCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
-				citation,citation_id,
+				citation.citation_id,
 				citation.publication_id,
 				citation.collection_object_id,
 				cataloged_item.cat_num,
