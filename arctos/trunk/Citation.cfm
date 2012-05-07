@@ -9,15 +9,11 @@
 			});
 		});
 		function getCatalogedItemCitation (id,type) {
-			var collection_id = document.getElementById('collection').value;
-			var el = document.getElementById(id);
-			el.className='red';
-			var theNum = el.value;
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "getCatalogedItemCitation",
-					collection_id : collection_id,
-					theNum : theNum,
+					collection_id : $("#collection").val(),
+					theNum : $("#" + id).val(),
 					type : type,
 					returnformat : "json",
 					queryformat : 'column'
