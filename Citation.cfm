@@ -558,7 +558,8 @@
 				short_citation,
 				identification_id,
 				citation_remarks,
-				guid
+				guid,
+				citation_id
 			from
 				getCited
 			group by
@@ -572,7 +573,8 @@
 				short_citation,
 				identification_id,
 				citation_remarks,
-				guid
+				guid,
+				citation_id
 		</cfquery>
 		<cfquery name="citns" dbtype="query">
 			select	
