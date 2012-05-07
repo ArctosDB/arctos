@@ -388,7 +388,7 @@
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-<cfif #Action# is "saveEdits">
+<cfif #action# is "saveEdits">
 <cfoutput>
 	<cftransaction>
 		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
