@@ -1802,7 +1802,14 @@
 					<cfelse>
 						display_value='#theNum#' and
 						other_id_type='#type#'
-					</cfif>					
+					</cfif>
+				group by
+					cataloged_item.COLLECTION_OBJECT_ID,
+					collection.guid_prefix || ':' || cataloged_item.cat_num,
+					identification.scientific_name,
+					identification_taxonomy.taxon_name_id,
+					identification.NATURE_OF_ID,
+					identification.TAXA_FORMULA			
 			</cfquery>
 		<cfcatch>
 			<cfset result = querynew("collection_object_id,guid,scientific_name")>

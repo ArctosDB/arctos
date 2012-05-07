@@ -301,7 +301,7 @@
 	<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
 	<label for="identification_remarks"><span class="helpLink" id="identification_remarks">Remarks</span></label>
 	<input type="text" name="identification_remarks" id="identification_remarks" size="50">
-    <input type="submit" id="newID_submit" value="Create" class="insBtn reqdClr" title="Create Citation and Identification">	
+	<br><input type="submit" id="newID_submit" value="Create Citation and Identification" class="insBtn reqdClr">	
 </div>
 </cfoutput>
 </cfif>
