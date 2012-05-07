@@ -32,7 +32,8 @@
 						alert('error: ' + scientific_name);
 					} else {
 						$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
-						$("#resulttext").val(result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0]);
+						var ltxt='<a href="/name/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a>';
+						$("#resulttext").val(ltxt);
 						
 						
 						$("#taxa_formula").val(result.TAXA_FORMULA[0]);
@@ -207,8 +208,7 @@
 	</fieldset>
 	<p>Fill the above in, then click the button to find a specimen.</p>
 	<br><input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="look up specimen">
-	<label for="resulttext">Found Specimen</label>
-	<input type="text" name="resulttext" id="resulttext" readonly="yes" class="readClr" size="50">
+	<div id="resulttext">This will be a link when the lookup is successful.</div>
 	<label for="type_status">
 			<a href="javascript:void(0);" onClick="getDocs('publication','citation_type')">Citation Type</a>
 		</label>
