@@ -521,18 +521,29 @@
 				citation.identification_id,
 				accepted_id_fg,
 				made_date,
-				guid_prefix || ':' || cat_num guid
+				guid_prefix || ':' || cat_num guid,
+				agent_name,
+				IDENTIFIER_ORDER,
+				NATURE_OF_ID
+				IDENTIFICATION_REMARKS,
+				sensu.short_citation sensupub
 			FROM 
 				cataloged_item,
 				collection,
 				citation,
 				identification,
-				publication
+				publication,
+				identification_agent,
+				preferred_agent_name,
+				publication sensu
 			WHERE
 				cataloged_item.collection_id = collection.collection_id AND
 				cataloged_item.collection_object_id = citation.collection_object_id AND
 				cataloged_item.collection_object_id = identification.collection_object_id AND
 				citation.publication_id = publication.publication_id AND
+				identification.identification_id=identification_agent.identification_id (+) and
+				identification_agent.agent_id = preferred_agent_name.agent_id (+) and
+				identification.publication_id=sensu.publication_id (+) and
 				citation.citation_id = #citation_id#
 			order by
 				accepted_id_fg DESC,
@@ -566,7 +577,34 @@
 				citation_remarks,
 				guid
 		</cfquery>
-		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid#">#one.collection# #one.cat_num#</a></strong> in <b>#one.short_citation#</b>:
+		<cfquery name="citns" dbtype="query">
+			scientific_name,
+			idid,
+			type_status,
+			accepted_id_fg,
+			made_date,
+			NATURE_OF_ID
+			IDENTIFICATION_REMARKS,
+			sensupub
+		from
+			getCited
+		group by
+			scientific_name,
+			idid,
+			type_status,
+			accepted_id_fg,
+			made_date,
+			NATURE_OF_ID
+			IDENTIFICATION_REMARKS,
+			sensupub
+		order by
+			accepted_id_fg desc,
+			made_date
+		</cfquery>
+		
+		
+		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid#">#one.collection# #one.cat_num#</a></strong> in 
+		<b><a target="_blank" href="/publication/#one.publication_id#">#one.short_citation#</a></b>:
 		<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
 			<input type="hidden" name="Action" value="saveEdits">
 			<input type="hidden" name="publication_id" value="#one.publication_id#">
@@ -585,9 +623,18 @@
 			
 			
 			
-		<cfloop query="getCited">
+		<cfloop query="citns">
 			<br>
 				#scientific_name# -- #idid#
+						<cfquery name="agnts" dbtype="query">
+							select agent_name from getCited where
+							idid=#idid#
+							order by made_date
+						</cfquery>
+		<cfloop query="agnts">
+			<br>-#agent_name#
+		</cfloop>
+
 				
 		</cfloop>
 		<input type="submit" 
