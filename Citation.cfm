@@ -627,14 +627,14 @@
 				<tr>
 					<td>
 						idid: #idid#
-						<br>one.citation_id: #one.citation_id#
+						<br>one.identification_id: #one.identification_id#
 						<cfif accepted_id_fg is 1>
 							This is the accepted identification.
 						<cfelse>
 							This is not the accepted identification.
 						</cfif>
 						<br>
-						<cfif idid is one.citation_id>
+						<cfif idid is one.identification_id>
 							This is the currently cited identification.
 						<cfelse>
 							This is NOT the currently cited identification.
