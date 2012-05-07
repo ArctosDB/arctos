@@ -1,7 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 
-<script type='text/javascript' src='/includes/checkForm.js'></script>
 	<script>
 		jQuery(document).ready(function() {
 			$("#made_date").datepicker();
@@ -198,7 +197,7 @@
 		</cfloop>
 	</select>
 	<label for="cat_num">Catalog Number</label>
-	<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')" class="reqdClr">
+	<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')">
 	<cfif len(session.CustomOtherIdentifier) gt 0>
 		<td>
 			<label for="custom_id">OR #session.CustomOtherIdentifier#</label>
