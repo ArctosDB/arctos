@@ -115,7 +115,7 @@
 		citation_remarks,
 		full_citation,
 		citedid.identification_id citedidid,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') 
 	ORDER BY
 		occurs_page_number,citSciName,cat_num
 </cfquery>
