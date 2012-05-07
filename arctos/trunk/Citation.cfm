@@ -3,6 +3,12 @@
 
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 	<script>
+		jQuery(document).ready(function() {
+			$("#made_date").datepicker();
+			$("input[id^='made_date_']").each(function(){
+				$("#" + this.id).datepicker();
+			});
+		});
 		function getCatalogedItemCitation (id,type) {
 			var collection_id = document.getElementById('collection').value;
 			var el = document.getElementById(id);
@@ -117,12 +123,11 @@
 	<td nowrap>Page ##</td>
 	<td>Remarks</td>
 </tr>
-	<cfset i=1>
+<cfset i=1>
 <cfloop query="getCited">
 	<tr>
 	<td nowrap>
 		<table cellpadding="0" cellspacing="0">
-	
 		<form name="deleCitation#i#" method="post" action="Citation.cfm">
 		<input type="hidden" name="Action">
 			<input type="hidden" value="#publication_id#" name="publication_id">
@@ -132,8 +137,6 @@
 				value="Delete"
 				class="delBtn"
 				onClick="deleCitation#i#.Action.value='deleCitation';submit();">
-
-			
 			</td><td>
 			<input type="button" 
 				value="Edit" 
@@ -187,7 +190,7 @@
 		<input type="hidden" name="collection_object_id" id="collection_object_id">
 
 <div class="newRec">
-	<h2>Add Citation/ID</h2>
+	<h3>Add Citation/ID</h3>
 	<label for="collection">Collection</label>
 	<select name="collection" id="collection" size="1" class="reqdClr">
 		<cfloop query="ctcollection">
@@ -236,7 +239,7 @@
 		<label for="taxona"><span class="helpLink" id="scientific_name">Taxon A:</span></label>
 		
 		<input type="text" name="taxona" id="taxona" class="reqdClr" size="50" 
-				onChange="taxaPick('taxona_id','taxona','newID',this.value); return false;"
+				onChange="taxaPick('taxona_id','taxona','newCitation',this.value); return false;"
 				onKeyPress="return noenter(event);">
 			<input type="hidden" name="taxona_id" id="taxona_id" class="reqdClr"> 
 		
@@ -249,7 +252,7 @@
 			<label for="taxonb"><span class="helpLink" id="scientific_name">Taxon B:</span></label>
 
 			<input type="text" name="taxonb" id="taxonb"  size="50" 
-				onChange="taxaPick('taxonb_id','taxonb','newID',this.value); return false;"
+				onChange="taxaPick('taxonb_id','taxonb','newCitation',this.value); return false;"
 				onKeyPress="return noenter(event);">
 			<input type="hidden" name="taxonb_id" id="taxonb_id">
 	</div>
@@ -257,14 +260,14 @@
 				
 				<label for="newIdBy"><span class="helpLink" id="id_by">ID By:</span></label>
 <input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" 
-				onchange="getAgent('newIdBy_id',this.id,'newID',this.value);">
+				onchange="getAgent('newIdBy_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 			
 	<div id="addNewIdBy_two" style="display:none;">
     					<label for="newIdBy_two"><span class="helpLink" id="id_by">ID By:</span></label>
 			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" 
-				onchange="getAgent('newIdBy_two_id',this.id,'newID',this.value);">
+				onchange="getAgent('newIdBy_two_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
 			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>	
 			
@@ -274,7 +277,7 @@
 	<div id="addNewIdBy_three" style="display:none;">
     					<label for="newIdBy_three"><span class="helpLink" id="id_by">ID By:</span></label>
 				<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" 
-				onchange="getAgent('newIdBy_three_id',this.id,'newID',this.value);">
+				onchange="getAgent('newIdBy_three_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id"> 	
 			<span class="infoLink" onclick="clearNewIdBy('three');"> remove</span>	
 	
