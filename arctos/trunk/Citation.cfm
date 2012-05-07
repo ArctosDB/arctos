@@ -289,7 +289,7 @@
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
-<cfif actiona is "newCitation">		
+<cfif action is "newCitation">		
 	<cfif taxa_formula is "A {string}">
 		<cfset scientific_name = user_id>
 	<cfelseif taxa_formula is "A">
