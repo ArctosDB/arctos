@@ -1775,34 +1775,35 @@
 	<cfargument name="type" type="string" required="yes">		
 	<cfoutput>
 	<cftry>
-		<cfif type is "cat_num">
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
-					flat.COLLECTION_OBJECT_ID,
-					flat.guid,
-					scientific_name
+					cataloged_item.COLLECTION_OBJECT_ID,
+					collection.guid_prefix || cataloged_item.cat_num guid,
+					identification.scientific_name,
+					identification_taxonomy.taxon_name_id
+					identification.NATURE_OF_ID,
+					identification.TAXA_FORMULA
 				from
-					flat
+					cataloged_item,
+					collection,
+					coll_obj_other_id_num,
+					identification,
+					identification_taxonomy
 				where
-					cat_num='#theNum#' and
-					collection_id=#collection_id#
+					cataloged_item.collection_id=collection.collection_id and
+					cataloged_item.collection_object_id=identification.collection_object_id and
+					identification.accepted_id_fg=1 and
+					identification.identification_id=identification_taxonomy.identification_id and
+					identification_taxonomy.variable='A' and
+					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
+					cataloged_item.collection_id=#collection_id#
+					<cfif type is "cat_num">
+						cat_num='#theNum#'
+					<cfelse>
+						display_value='#theNum#' and
+						other_id_type='#type#'
+					</cfif>					
 			</cfquery>
-		<cfelse>
-			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					flat.COLLECTION_OBJECT_ID,
-					flat.guid,
-					scientific_name
-				from
-					flat,
-					coll_obj_other_id_num
-				where
-					flat.collection_object_id = coll_obj_other_id_num.collection_object_id AND
-					display_value='#theNum#' and
-					other_id_type='#type#' and
-					collection_id=#collection_id#
-			</cfquery>
-		</cfif>
 		<cfcatch>
 			<cfset result = querynew("collection_object_id,guid,scientific_name")>
 			<cfset temp = queryaddrow(result,1)>
