@@ -32,26 +32,11 @@
 				alert('Multiple matches.');
 			} else {
 				if (r.ROWCOUNT==1) {	
-					var scientific_name=result.SCIENTIFIC_NAME[0];
-					var collection_object_id=result.COLLECTION_OBJECT_ID[0];
-					var guid=result.GUID[0];
-					if (collection_object_id < 0) {
+					if (result.COLLECTION_OBJECT_ID[0] < 0) {
 						alert('error: ' + scientific_name);
 					} else {
-						var sn = document.getElementById('scientific_name');
-						var co = document.getElementById('collection_object_id');
-						var c = document.getElementById('collection');
-						var cn = document.getElementById('guid');
-						cn.className='reqdClr';
-						if (document.getElementById('custom_id')) {
-						    var cusn = document.getElementById('custom_id');
-						    cusn.className='';
-						}
-						co.value=collection_object_id;
-						sn.value=scientific_name;
-						cn.value=guid;
-						//c.style.background-color='green';
-						//cn.style.background-color='green';
+						$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
+						$("#resulttext").val(result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0]);
 					}
 				} else {
 					alert('Specimen not found.');
@@ -267,19 +252,19 @@
 	</div>
 				
 				
-				<label for="newIdBy"><span class="helpLink" id="id_by">ID By:</span></label>
+				<label for="newIdBy"><span class="helpLink" id="id_by">ID By 1 (save and edit for more agents)</span></label>
 <input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" 
 				onchange="getAgent('newIdBy_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 			
-    					<label for="newIdBy_two"><span class="helpLink" id="id_by">ID By:</span></label>
+    					<label for="newIdBy_two"><span class="helpLink" id="id_by">ID By 2</span></label>
 			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" 
 				onchange="getAgent('newIdBy_two_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
 			
 	
-    					<label for="newIdBy_three"><span class="helpLink" id="id_by">ID By:</span></label>
+    					<label for="newIdBy_three"><span class="helpLink" id="id_by">ID By 3</span></label>
 				<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" 
 				onchange="getAgent('newIdBy_three_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id"> 	
