@@ -62,6 +62,7 @@
 	<style>
 		#lsp {min-width:1em;
 		padding: 0 1;
+		border:2px solid green;
 		}
 	</style>
 <cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
