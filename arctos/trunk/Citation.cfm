@@ -167,10 +167,7 @@
 	<td nowrap>
 		<table>
 			
-		<form name="deleCitation#i#" method="post" action="Citation.cfm">
-		<input type="hidden" name="Action">
-			<input type="hidden" value="#publication_id#" name="publication_id">
-			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+		
 			<tr><td>
 			<input type="button" 
 				value="Delete"
@@ -181,10 +178,9 @@
 			<input type="button" 
 				value="Edit" 
 				class="lnkBtn"
-				onClick="deleCitation#i#.Action.value='editCitation'; submit();">
+				onClick="document.location='Citation.cfm?action=editCitation&citation_id=#citation_id">
 				
 			</td>
-		</form>
 		
 			<td>
 			<input type="button" 
@@ -537,8 +533,8 @@
 				cataloged_item.collection_object_id = citation.collection_object_id AND
 				cataloged_item.collection_object_id = identification.collection_object_id AND
 				citation.publication_id = publication.publication_id AND
-				citation.publication_id = #publication_id# AND 
-				citation.collection_object_id = #collection_object_id#
+				citation.citation = #citation#
+			order by
 				accepted_id_fg DESC,
 				made_date
 		</cfquery>
