@@ -72,6 +72,7 @@
 		citation.publication_id,
 		citation.collection_object_id,
 		collection,
+		PUBLISHED_YEAR,
 		guid_prefix,
 		collection.collection_id,
 		cat_num, 
@@ -272,22 +273,22 @@
 				<label for="newIdBy"><span class="helpLink" id="id_by">ID Agent 1 (save and edit for more agents)</span></label>
 <input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" value="#a1.agent_name#"
 				onchange="getAgent('newIdBy_id',this.id,'newCitation',this.value);">
-            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"  value="#a1.agent_id#"> 
+            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr" value="#a1.agent_id#"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 			
     					<label for="newIdBy_two"><span class="helpLink" id="id_by">ID Agent 2</span></label>
-			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" 
+			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50"  value="#a2.agent_name#"
 				onchange="getAgent('newIdBy_two_id',this.id,'newCitation',this.value);">
-            <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
+            <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id" value="#a2.agent_id#"> 
 			
 	
     					<label for="newIdBy_three"><span class="helpLink" id="id_by">ID Agent 3</span></label>
-				<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" 
+				<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" value="#a3.agent_name#" 
 				onchange="getAgent('newIdBy_three_id',this.id,'newCitation',this.value);">
-            <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id"> 	
+            <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id" value="#a3.agent_id#"> 	
 	
     					<label for="made_date"><span class="helpLink" id="identification.made_date">ID Date:</span></label>
-	<input type="text" name="made_date" id="made_date">
+	<input type="text" name="made_date" id="made_date" value='#getCited.PUBLISHED_YEAR#'>
 	
     					<label for="nature_of_id"><span class="helpLink" id="nature_of_id">Nature of ID</span></label>
 			<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
