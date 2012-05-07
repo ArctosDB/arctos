@@ -32,7 +32,7 @@
 						alert('error: ' + scientific_name);
 					} else {
 						$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
-						var ltxt='<a href="/name/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a>';
+						var ltxt='<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a>';
 						$("#resulttext").html(ltxt);
 						
 						
