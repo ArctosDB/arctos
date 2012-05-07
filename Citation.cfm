@@ -2,6 +2,14 @@
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 
 	<script>
+		function makeClone (cn,cid){
+			$("#cat_num").val(cn);
+			$("#collection").val(cid);
+			getCatalogedItemCitation ('cat_num','cat_num');
+			
+		
+		}
+		
 		function deleteCitation(cid,pid){
 			var yesno=confirm('This will not delete Citation-created Identifications. Do that from the specimen record. Proceed?');
 			if (yesno==true) {
@@ -180,7 +188,10 @@
 			<input type="button" 
 				value="Clone" 
 				class="insBtn"
-				onclick = "newCitation.cited_taxon_name.value='#getCited.citSciName#';
+				onclick = "makeClone('#cat_num#','#collection_id#');">
+				
+				
+				newCitation.cited_taxon_name.value='#getCited.citSciName#';
 				newCitation.identification_id.value='#getCited.citedidid#';
 				newCitation.type_status.value='#getCited.type_status#';
 				newCitation.occurs_page_number.value='#getCited.occurs_page_number#';
