@@ -101,6 +101,11 @@
 	ORDER BY
 		occurs_page_number,citSciName,cat_num
 </cfquery>
+<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select rownum 1,preferred_agent_name.agent_id, agent_name from preferred_agent_name, publication_author
+	where publication_author.agent_id=preferred_agent_name.agent_id and
+	publication_author.publication_id = #publication_id#
+</cfquery>
 
 <a href="javascript:void(0);" onClick="getDocs('publication','citation')">Citations</a>
  for 	<b>#getCited.full_citation#</b>
@@ -254,12 +259,20 @@
 				onKeyPress="return noenter(event);">
 			<input type="hidden" name="taxonb_id" id="taxonb_id">
 	</div>
-				
-				
+			<cfquery name="a1" dbtype="query">
+				select * from auth where r=1
+			</cfquery>
+			<cfquery name="a2" dbtype="query">
+				select * from auth where r=2
+			</cfquery>
+			<cfquery name="a3" dbtype="query">
+				select * from auth where r=3
+			</cfquery>	
+	publication_id = #publication_id#			
 				<label for="newIdBy"><span class="helpLink" id="id_by">ID Agent 1 (save and edit for more agents)</span></label>
-<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" 
+<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" value="#a1.agent_name#"
 				onchange="getAgent('newIdBy_id',this.id,'newCitation',this.value);">
-            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
+            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"  value="#a1.agent_id#"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 			
     					<label for="newIdBy_two"><span class="helpLink" id="id_by">ID Agent 2</span></label>
