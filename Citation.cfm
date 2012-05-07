@@ -202,9 +202,8 @@
 	</fieldset>
 	<p>Fill the above in, then click the button to find a specimen.</p>
 	<br><input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="look up specimen">
-	<label for="scientific_name">Found Specimen</label>
-	<input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
-	<input type="text" name="guid" id="guid" readonly="yes" class="readClr" size="50">
+	<label for="resulttext">Found Specimen</label>
+	<input type="text" name="resulttext" id="resulttext" readonly="yes" class="readClr" size="50">
 	<label for="type_status">
 			<a href="javascript:void(0);" onClick="getDocs('publication','citation_type')">Citation Type</a>
 		</label>
