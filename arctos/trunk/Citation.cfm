@@ -581,7 +581,7 @@
 				type_status,
 				accepted_id_fg,
 				made_date,
-				NATURE_OF_ID
+				NATURE_OF_ID,
 				IDENTIFICATION_REMARKS,
 				sensupub
 			from
@@ -592,7 +592,7 @@
 				type_status,
 				accepted_id_fg,
 				made_date,
-				NATURE_OF_ID
+				NATURE_OF_ID,
 				IDENTIFICATION_REMARKS,
 				sensupub
 			order by
