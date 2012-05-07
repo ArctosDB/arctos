@@ -192,7 +192,6 @@
 			<option value="#collection_id#">#collection#</option>
 		</cfloop>
 	</select>
-	<div style="border:2px solid green;">
 	<label for="cat_num">Catalog Number</label>
 	<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')" class="reqdClr">
 	<cfif len(session.CustomOtherIdentifier) gt 0>
@@ -201,10 +200,12 @@
 			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
 		</td>
 	</cfif>
-	<br><input type="button" class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="look up specimen">
-	<br><input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
+	
+	<p>Fill the above in, then click the button to find a specimen.</p>
+	<br><input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="look up specimen">
+	<label for="scientific_name">Found Specimen</label>
+	<input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
 	<input type="text" name="guid" id="guid" readonly="yes" class="readClr" size="50">
-	</div>
 	<label for="type_status">
 			<a href="javascript:void(0);" onClick="getDocs('publication','citation_type')">Citation Type</a>
 		</label>
