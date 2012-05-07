@@ -575,28 +575,29 @@
 				guid
 		</cfquery>
 		<cfquery name="citns" dbtype="query">
-			scientific_name,
-			idid,
-			type_status,
-			accepted_id_fg,
-			made_date,
-			NATURE_OF_ID
-			IDENTIFICATION_REMARKS,
-			sensupub
-		from
-			getCited
-		group by
-			scientific_name,
-			idid,
-			type_status,
-			accepted_id_fg,
-			made_date,
-			NATURE_OF_ID
-			IDENTIFICATION_REMARKS,
-			sensupub
-		order by
-			accepted_id_fg desc,
-			made_date
+			select	
+				scientific_name,
+				idid,
+				type_status,
+				accepted_id_fg,
+				made_date,
+				NATURE_OF_ID
+				IDENTIFICATION_REMARKS,
+				sensupub
+			from
+				getCited
+			group by
+				scientific_name,
+				idid,
+				type_status,
+				accepted_id_fg,
+				made_date,
+				NATURE_OF_ID
+				IDENTIFICATION_REMARKS,
+				sensupub
+			order by
+				accepted_id_fg desc,
+				made_date
 		</cfquery>
 		
 		
