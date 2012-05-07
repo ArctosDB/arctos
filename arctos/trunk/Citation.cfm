@@ -201,8 +201,8 @@
 			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
 		</td>
 	</cfif>
-	[ <span class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');">lookup</span> ]
-	<input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
+	<br><button class="likeLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="look up specimen">
+	<br><input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
 	<input type="text" name="guid" id="guid" readonly="yes" class="readClr" size="50">
 	</div>
 	<label for="type_status">
