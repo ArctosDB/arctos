@@ -524,7 +524,8 @@
 				short_citation,
 				citation.identification_id,
 				accepted_id_fg,
-				made_date
+				made_date,
+				guid_prefix || ':' || cat_num guid
 			FROM 
 				cataloged_item,
 				collection,
@@ -538,21 +539,6 @@
 				citation.publication_id = publication.publication_id AND
 				citation.publication_id = #publication_id# AND 
 				citation.collection_object_id = #collection_object_id#
-			group by
-				citation.publication_id,
-				citation.collection_object_id,
-				cataloged_item.cat_num,
-				collection,
-				identification.scientific_name,
-				identification.identification_id,
-				occurs_page_number,
-				type_status,
-				citation_remarks,
-				short_citation,
-				citation.identification_id,
-				accepted_id_fg,
-				made_date
-			order by
 				accepted_id_fg DESC,
 				made_date
 		</cfquery>
@@ -567,7 +553,8 @@
 				citation_remarks,
 				short_citation,
 				identification_id,
-				citation_remarks
+				citation_remarks,
+				guid
 			from
 				getCited
 			group by
@@ -580,9 +567,10 @@
 				citation_remarks,
 				short_citation,
 				identification_id,
-				citation_remarks
+				citation_remarks,
+				guid
 		</cfquery>
-		<br>Edit Citation for <strong>#one.collection# #one.cat_num#</strong> in <b>#one.short_citation#</b>:
+		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid">##one.collection# #one.cat_num#</a></strong> in <b>#one.short_citation#</b>:
 		<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
 			<input type="hidden" name="Action" value="saveEdits">
 			<input type="hidden" name="publication_id" value="#one.publication_id#">
