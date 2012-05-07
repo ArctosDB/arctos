@@ -597,7 +597,7 @@
 			<label for="occurs_page_number">Page</label>
 			<input type="text" name="occurs_page_number" id="occurs_page_number" size="4" value="#one.occurs_page_number#">
 			<label for="citation_remarks">Remarks</label>
-			<input type="text" name="citation_remarks" id="citation_remarks" size="50" value="#citation_remarks#">
+			<input type="text" name="citation_remarks" id="citation_remarks" size="50" value="#one.citation_remarks#">
 			
 			
 			
