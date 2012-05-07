@@ -247,19 +247,19 @@
 	</div>
 				
 				
-				<label for="newIdBy"><span class="helpLink" id="id_by">ID By 1 (save and edit for more agents)</span></label>
+				<label for="newIdBy"><span class="helpLink" id="id_by">ID Agent 1 (save and edit for more agents)</span></label>
 <input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" 
 				onchange="getAgent('newIdBy_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 			
-    					<label for="newIdBy_two"><span class="helpLink" id="id_by">ID By 2</span></label>
+    					<label for="newIdBy_two"><span class="helpLink" id="id_by">ID Agent 2</span></label>
 			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" 
 				onchange="getAgent('newIdBy_two_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
 			
 	
-    					<label for="newIdBy_three"><span class="helpLink" id="id_by">ID By 3</span></label>
+    					<label for="newIdBy_three"><span class="helpLink" id="id_by">ID Agent 3</span></label>
 				<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" 
 				onchange="getAgent('newIdBy_three_id',this.id,'newCitation',this.value);">
             <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id"> 	
