@@ -2,10 +2,10 @@
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 
 	<script>
-		function deleteCitation(cid){
+		function deleteCitation(cid,pid){
 			var yesno=confirm('This will not delete Citation-created Identifications. Do that from the specimen record. Proceed?');
 			if (yesno==true) {
-		  		document.location="Citation.cfm?action=deleCitation&citation_id=" + cid;
+		  		document.location="Citation.cfm?action=deleCitation&citation_id=" + cid + "&publication_id=" + pid;
 		 	} else {
 			  	return false;
 		  	}
@@ -165,7 +165,7 @@
 			<input type="button" 
 				value="Delete"
 				class="delBtn"
-				onClick="deleteCitation(#citation_id#);">
+				onClick="deleteCitation(#citation_id#,#publication_id#);">
 			</td>
 			<td>
 			<input type="button" 
