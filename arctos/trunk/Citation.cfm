@@ -59,7 +59,11 @@
 			}
 		}
 	</script>
-	
+	<style>
+		#lsp {min-width:1em;
+		padding: 0 1;
+		}
+	</style>
 <cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select type_status from ctcitation_type_status order by type_status
 </cfquery>
@@ -190,6 +194,9 @@
 
 <div class="newRec">
 	<h3>Add Citation/ID</h3>
+		<label for="lsp">Find a specimen</label>
+
+	<div id="lsp">
 	<label for="collection">Collection</label>
 	<select name="collection" id="collection" size="1" class="reqdClr">
 		<cfloop query="ctcollection">
@@ -204,7 +211,7 @@
 			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
 		</td>
 	</cfif>
-	
+	</div>
 	<p>Fill the above in, then click the button to find a specimen.</p>
 	<br><input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="look up specimen">
 	<label for="scientific_name">Found Specimen</label>
