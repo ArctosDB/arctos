@@ -33,6 +33,15 @@
 					} else {
 						$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
 						$("#resulttext").val(result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0]);
+						
+						
+						$("#taxa_formula").val(result.TAXA_FORMULA[0]);
+						$("#taxona").val(result.SCIENTIFIC_NAME[0]);
+						$("#taxona_id").val(result.TAXON_NAME_ID[0]);
+						$("#nature_of_id").val(result.NATURE_OF_ID[0]);
+						
+					
+					
 					}
 				} else {
 					alert('Specimen not found.');

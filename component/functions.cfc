@@ -1778,7 +1778,7 @@
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
 					cataloged_item.COLLECTION_OBJECT_ID,
-					collection.guid_prefix || cataloged_item.cat_num guid,
+					collection.guid_prefix || ':' || cataloged_item.cat_num guid,
 					identification.scientific_name,
 					identification_taxonomy.taxon_name_id,
 					identification.NATURE_OF_ID,
