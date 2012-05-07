@@ -1780,7 +1780,7 @@
 					cataloged_item.COLLECTION_OBJECT_ID,
 					collection.guid_prefix || cataloged_item.cat_num guid,
 					identification.scientific_name,
-					identification_taxonomy.taxon_name_id
+					identification_taxonomy.taxon_name_id,
 					identification.NATURE_OF_ID,
 					identification.TAXA_FORMULA
 				from
