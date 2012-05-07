@@ -516,7 +516,8 @@
 				citation.collection_object_id,
 				cataloged_item.cat_num,
 				collection,
-				identification.scientific_name, 
+				identification.scientific_name,
+				identification.identification_id idid,
 				occurs_page_number,
 				type_status,
 				citation_remarks,
@@ -542,7 +543,8 @@
 				citation.collection_object_id,
 				cataloged_item.cat_num,
 				collection,
-				identification.scientific_name, 
+				identification.scientific_name,
+				identification.identification_id,
 				occurs_page_number,
 				type_status,
 				citation_remarks,
@@ -554,60 +556,54 @@
 				accepted_id_fg DESC,
 				made_date
 		</cfquery>
+		<cfquery name="one" dbtype="query">
+			select 	
+				publication_id,
+				collection_object_id,
+				cat_num,
+				collection,
+				occurs_page_number,
+				type_status,
+				citation_remarks,
+				short_citation,
+				identification_id
+			from
+				getCited
+			group by
+				publication_id,
+				collection_object_id,
+				cat_num,
+				collection,
+				occurs_page_number,
+				type_status,
+				citation_remarks,
+				short_citation,
+				identification_id
+		</cfquery>
+		<br>Edit Citation for <strong>#one.collection# #one.cat_num#</strong> in <b>#one.short_citation#</b>:
+		<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
+			<input type="hidden" name="Action" value="saveEdits">
+			<input type="hidden" name="publication_id" value="#one.publication_id#">
+			<input type="hidden" name="collection_object_id" value="#one.collection_object_id#">
+			<label for="type_status">Citation Type</label>
+			<select name="type_status" id="type_status" size="1">
+				<cfloop query="ctTypeStatus">
+					<option 
+						<cfif ctTypeStatus.type_status is one.type_status> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+				</cfloop>
+			</select>
+			<label for="occurs_page_number">Page</label>
+			<input type="text" name="occurs_page_number" id="occurs_page_number" size="4" value="#one.occurs_page_number#">
+			<label for="citation_remarks">Remarks</label>
+			<input type="text" name="citation_remarks" id="citation_remarks" size="50" value="#citation_remarks#">
+			
+			
+			
 		<cfloop query="getCited">
-			<br>Edit Citation for <strong>#collection# #cat_num#</strong> in <b>#getCited.short_citation#</b>:
-			<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
-				<input type="hidden" name="Action" value="saveEdits">
-				<input type="hidden" name="publication_id" value="#publication_id#">
-				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-<table border>
-
-<tr>
-	<td>
-		<label for="citem">Cataloged Item</label>
-		<span id="citem">#collection# #cat_num#</span>
-	</td>
-	<td>
-		<label for="scientific_name">Identified As</label>
-		<span id="scientific_name">#scientific_name#</span>
-	</td>
-</tr>
-
-<tr>
-	<td>
-		<label for="cited_taxon_name">Cited As</label>
-		<input type="text" 
-			name="cited_taxon_name"
-			id="cited_taxon_name" 
-			value="#citSciName#"
-			class="reqdClr" 
-			size="50" 
-			onChange="taxaPick('cited_taxon_name_id','cited_taxon_name','editCitation',this.value); return false;">
-		<input type="hidden" name="cited_taxon_name_id" value="#cited_taxon_name_id#" class="reqdClr">
-	</td>
-	<td>
-		<label for="type_status">Citation Type</label>
-		<select name="type_status" id="type_status" size="1">
-			<cfloop query="ctTypeStatus">
-				<option 
-					<cfif #getCited.type_status# is "#ctTypeStatus.type_status#"> selected </cfif>value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-			</cfloop>
-		</select>
-	</td>
-</tr>
-
-<tr>
-	<td>
-		<label for="occurs_page_number">Page</label>
-		<input type="text" name="occurs_page_number" id="occurs_page_number" size="4" value="#occurs_page_number#">
-	</td>
-	<td>
-		<label for="citation_remarks">Remarks</label>
-		<input type="text" name="citation_remarks" id="citation_remarks" size="50" value="#citation_remarks#">
-	</td>
-</tr>
-<tr>
-	<td colspan="2" align="center">
+			<br>
+				#scientific_name# -- #idid#
+				
+		</cfloop>
 		<input type="submit" 
 			value="Save Edits" 
 			class="savBtn"
@@ -615,8 +611,6 @@
 			title="Save Edits"
 			onmouseover="this.className='savBtn btnhov'" 
 			onmouseout="this.className='savBtn'">	
-
-	</td>
 	
 	</cfform>
 </tr></table>
