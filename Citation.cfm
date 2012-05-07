@@ -109,12 +109,12 @@
 		collection.collection_id,
 		cat_num, 
 		identification.scientific_name, 
-		citedid.scientific_name as citSciName,
+		citedid.scientific_name,
 		occurs_page_number,
 		type_status,
 		citation_remarks,
 		full_citation,
-		citedid.identification_id citedidid,
+		citedid.identification_id,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') 
 	ORDER BY
 		occurs_page_number,citSciName,cat_num
