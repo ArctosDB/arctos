@@ -578,7 +578,6 @@
 			select	
 				scientific_name,
 				idid,
-				type_status,
 				accepted_id_fg,
 				made_date,
 				NATURE_OF_ID,
@@ -589,7 +588,6 @@
 			group by
 				scientific_name,
 				idid,
-				type_status,
 				accepted_id_fg,
 				made_date,
 				NATURE_OF_ID,
@@ -622,16 +620,41 @@
 			
 			
 		<cfloop query="citns">
-			<br>
-				#scientific_name# -- #idid#
+			<table border>
+				<tr>
+					<td>
+						<cfif accepted_id_fg is 1>
+							This is the accepted identification.
+						<cfelse>
+							This is not the accepted identification.
+						</cfif>
+						<br>
+						<cfif idid is one.citation_id>
+							This is the currently cited identification.
+						<cfelse>
+							This is NOT the currently cited identification.
+						</cfif>
+						<br>scientific_name: #scientific_name#
+						<br>made_date: #made_date#
+						<br>made_date: #made_date#
+						<br>NATURE_OF_ID: #NATURE_OF_ID#
+						<br>IDENTIFICATION_REMARKS: #IDENTIFICATION_REMARKS#
+						<br>sensupub: #sensupub#
 						<cfquery name="agnts" dbtype="query">
 							select agent_name from getCited where
 							idid=#idid#
 							order by made_date
 						</cfquery>
-		<cfloop query="agnts">
-			<br>-#agent_name#
-		</cfloop>
+						<cfloop query="agnts">
+							<br>-#agent_name#
+						</cfloop>
+						
+				
+					</td>
+				</tr>
+			</table>
+			<br>
+			
 
 				
 		</cfloop>
