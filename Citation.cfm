@@ -102,9 +102,9 @@
 		occurs_page_number,citSciName,cat_num
 </cfquery>
 <cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select rownum r,preferred_agent_name.agent_id, agent_name from preferred_agent_name, publication_author
-	where publication_author.agent_id=preferred_agent_name.agent_id and
-	publication_author.publication_id = #publication_id#
+	select rownum r,preferred_agent_name.agent_id, agent_name from preferred_agent_name, publication_agent
+	where publication_agent.agent_id=preferred_agent_name.agent_id and
+	publication_agent.publication_id = #publication_id#
 </cfquery>
 
 <a href="javascript:void(0);" onClick="getDocs('publication','citation')">Citations</a>
