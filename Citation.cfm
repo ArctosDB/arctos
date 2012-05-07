@@ -355,7 +355,7 @@
 				#COLLECTION_OBJECT_ID#,
 				'#MADE_DATE#',
 				'#NATURE_OF_ID#',
-				1,
+				#accepted_id_fg#,
 				'#IDENTIFICATION_REMARKS#',
 				'#taxa_formula#',
 				'#scientific_name#',
