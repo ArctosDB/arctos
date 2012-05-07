@@ -511,16 +511,16 @@
 				citation.publication_id,
 				citation.collection_object_id,
 				cataloged_item.cat_num,
-				collection,
+				collection.collection,
 				identification.scientific_name,
 				identification.identification_id idid,
-				occurs_page_number,
-				type_status,
-				citation_remarks,
-				short_citation,
+				citation.occurs_page_number,
+				citation.type_status,
+				citation.citation_remarks,
+				citation.short_citation,
 				citation.identification_id,
-				accepted_id_fg,
-				made_date,
+				identification.accepted_id_fg,
+				identification.made_date,
 				guid_prefix || ':' || cat_num guid,
 				agent_name,
 				IDENTIFIER_ORDER,
@@ -545,9 +545,6 @@
 				identification_agent.agent_id = preferred_agent_name.agent_id (+) and
 				identification.publication_id=sensu.publication_id (+) and
 				citation.citation_id = #citation_id#
-			order by
-				accepted_id_fg DESC,
-				made_date
 		</cfquery>
 		<cfquery name="one" dbtype="query">
 			select 	
