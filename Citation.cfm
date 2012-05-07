@@ -129,12 +129,6 @@
 </tr>
 
 
-<div style="width:90%; border: solid 1px red;"> //Outer (current div)
-  <div style="overflow: auto;"> //width: auto; (default)
-    <div style="width: 4000px;">Test Wide Content ...</div> //content!
-  </div>
-</div>
-
 <cfset i=1>
 <cfloop query="getCited">
 	<tr>
@@ -205,7 +199,7 @@
 	<h3>Add Citation/ID</h3>
 		<label for="lsp">Find a specimen</label>
 
-	<div id="lsp">
+	<fieldset id="lsp">
 	<label for="collection">Collection</label>
 	<select name="collection" id="collection" size="1" class="reqdClr">
 		<cfloop query="ctcollection">
@@ -220,7 +214,7 @@
 			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
 		</td>
 	</cfif>
-	</div>
+	</fieldset>
 	<p>Fill the above in, then click the button to find a specimen.</p>
 	<br><input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="look up specimen">
 	<label for="scientific_name">Found Specimen</label>
