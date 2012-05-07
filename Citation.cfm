@@ -212,8 +212,7 @@
 		</td>
 	</cfif>
 	</fieldset>
-	<p>Fill the above in, then click the button to find a specimen.</p>
-	<br><input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="look up specimen">
+	<p>Fill the above in, then <input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="click this button to find a specimen">.</p>
 	<div id="resulttext">This will be a link when the lookup is successful.</div>
 	<label for="type_status">
 			<a href="javascript:void(0);" onClick="getDocs('publication','citation_type')">Citation Type</a>
