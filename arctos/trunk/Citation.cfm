@@ -2,6 +2,14 @@
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 
 	<script>
+		function deleteCitation(cid){
+			var yesno=confirm('This will not delete Citation-created Identifications. Do that from the specimen record. Proceed?');
+			if (yesno==true) {
+		  		document.location="Citation.cfm?action=deleCitation&citation_id=" + cid;
+		 	} else {
+			  	return false;
+		  	}
+		}
 		jQuery(document).ready(function() {
 			$("#made_date").datepicker();
 			$("input[id^='made_date_']").each(function(){
@@ -147,7 +155,8 @@
 <cfloop query="getCited">
 	<tr>
 	<td nowrap>
-		<table cellpadding="0" cellspacing="0">
+		<table>
+			
 		<form name="deleCitation#i#" method="post" action="Citation.cfm">
 		<input type="hidden" name="Action">
 			<input type="hidden" value="#publication_id#" name="publication_id">
@@ -156,8 +165,9 @@
 			<input type="button" 
 				value="Delete"
 				class="delBtn"
-				onClick="deleCitation#i#.Action.value='deleCitation';submit();">
-			</td><td>
+				onClick="deleteCitation(#citation_id#);">
+			</td>
+			<td>
 			<input type="button" 
 				value="Edit" 
 				class="lnkBtn"
@@ -601,10 +611,10 @@
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
-<cfif #Action# is "deleCitation">
+<cfif Action is "deleCitation">
 <cfoutput>
 	<cfquery name="deleCit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	delete from citation where collection_object_id = #collection_object_id# and publication_id = #publication_id#
+	delete from citation where citation_id = #citation_id#
 	</cfquery>
 	<cflocation url="Citation.cfm?publication_id=#publication_id#">
 </cfoutput>
