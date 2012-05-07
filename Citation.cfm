@@ -626,8 +626,6 @@
 			<table border>
 				<tr>
 					<td>
-						idid: #idid#
-						<br>one.identification_id: #one.identification_id#
 						<cfif accepted_id_fg is 1>
 							This is the accepted identification.
 						<cfelse>
@@ -649,11 +647,12 @@
 							idid=#idid#
 							order by made_date
 						</cfquery>
+						<br>Made By Agents
+						<ul>
 						<cfloop query="agnts">
-							<br>-#agent_name#
+							<li>#agent_name#</li>
 						</cfloop>
-						
-				
+						</ul>
 					</td>
 				</tr>
 			</table>
