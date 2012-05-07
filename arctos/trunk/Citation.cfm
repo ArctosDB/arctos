@@ -178,7 +178,7 @@
 			<input type="button" 
 				value="Edit" 
 				class="lnkBtn"
-				onClick="document.location='Citation.cfm?action=editCitation&citation_id=#citation_id">
+				onClick="document.location='Citation.cfm?action=editCitation&citation_id=#citation_id#';">
 				
 			</td>
 		
