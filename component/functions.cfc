@@ -1796,7 +1796,7 @@
 					identification.identification_id=identification_taxonomy.identification_id and
 					identification_taxonomy.variable='A' and
 					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
-					cataloged_item.collection_id=#collection_id#
+					cataloged_item.collection_id=#collection_id# and
 					<cfif type is "cat_num">
 						cat_num='#theNum#'
 					<cfelse>
