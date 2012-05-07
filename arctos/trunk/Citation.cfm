@@ -194,9 +194,8 @@
 
 <div class="newRec">
 	<h3>Add Citation/ID</h3>
-		<label for="lsp">Find a specimen</label>
-
-	<fieldset id="lsp">
+	Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">bulkloader</a>.
+	<label for="lsp">Find a specimen</label>
 	<label for="collection">Collection</label>
 	<select name="collection" id="collection" size="1" class="reqdClr">
 		<cfloop query="ctcollection">
@@ -211,12 +210,11 @@
 			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
 		</td>
 	</cfif>
-	</fieldset>
 	<p>Fill the above in, then <input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="click this button to find a specimen">.</p>
-	<div id="resulttext">This will be a link when the lookup is successful.</div>
-	<label for="type_status">
-			<a href="javascript:void(0);" onClick="getDocs('publication','citation_type')">Citation Type</a>
-		</label>
+	<div id="resulttext">[ This will be a link when the lookup is successful. ]</div>
+	<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">
+		Citation Type
+	</label>
 		<select name="type_status" id="type_status" size="1">
 			<cfloop query="ctTypeStatus">
 				<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
