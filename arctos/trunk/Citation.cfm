@@ -112,7 +112,7 @@
 </cfquery>
 
 <a href="javascript:void(0);" onClick="getDocs('publication','citation')">Citations</a>
- for 	<b>#getCited.full-citation#</b>
+ for 	<b>#getCited.full_citation#</b>
 <a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
 <a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">[ View Publication ]</a>
 <table border cellpadding="0" cellspacing="0"><tr>
@@ -315,7 +315,7 @@
 <table border class="newRec">
 <tr>
 	<td colspan="2">
-	Add Citation to <b>	#getCited.full-citation#</b>:
+	Add Citation to <b>	#getCited.full_citation#</b>:
 	</td>
 </tr>
 <tr>
@@ -466,7 +466,7 @@
 		occurs_page_number,
 		type_status,
 		citation_remarks,
-		full-citation,
+		full_citation,
 		cited_taxon_name_id
 	FROM 
 		citation, 
@@ -490,7 +490,7 @@
 </cfoutput>
 <cfoutput query="getCited">
 
-<br>Edit Citation for <b>#getCited.full-citation#</b>:
+<br>Edit Citation for <b>#getCited.full_citation#</b>:
 <cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
 		<input type="hidden" name="Action" value="saveEdits">
 		<input type="hidden" name="publication_id" value="#publication_id#">
