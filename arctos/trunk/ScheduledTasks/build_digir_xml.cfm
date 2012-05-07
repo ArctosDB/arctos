@@ -13,7 +13,7 @@ hi.
 	<cfset constr = "meta-1.corral.tacc.utexas.edu:1521">
 	<cfset database = "arctos">
 	<cfset tableName = "DIGIR_FILTERED_FLAT">
-	<cfset filePath = "/temp/">
+	<cfset filePath = "/download/">
 	<!----------- add collections here ----------------------->
 <cfset data = '<?xml version="1.0"?>'>
 <cfset data = '#data#<resources>
