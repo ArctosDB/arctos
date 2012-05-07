@@ -566,7 +566,7 @@
 				citation_remarks,
 				guid
 		</cfquery>
-		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid">##one.collection# #one.cat_num#</a></strong> in <b>#one.short_citation#</b>:
+		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid#">#one.collection# #one.cat_num#</a></strong> in <b>#one.short_citation#</b>:
 		<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
 			<input type="hidden" name="Action" value="saveEdits">
 			<input type="hidden" name="publication_id" value="#one.publication_id#">
