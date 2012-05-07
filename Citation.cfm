@@ -522,7 +522,8 @@
 				citation_remarks,
 				short_citation,
 				citation.identification_id,
-				accepted_id_fg
+				accepted_id_fg,
+				made_date
 			FROM 
 				cataloged_item,
 				collection,
@@ -547,7 +548,8 @@
 				citation_remarks,
 				short_citation,
 				citation.identification_id,
-				accepted_id_fg
+				accepted_id_fg,
+				made_date
 			order by
 				accepted_id_fg DESC,
 				made_date
