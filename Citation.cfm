@@ -473,8 +473,8 @@
 	<cfoutput>
 	<cfquery name="edCit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE citation SET
-			cit_current_fg = 1
-			identification_id = #identification_id#
+			cit_current_fg = 1,
+			identification_id = #identification_id#,
 			type_status = '#type_status#',
 			citation_remarks = '#citation_remarks#',
 			occurs_page_number=
@@ -595,7 +595,7 @@
 		<ul>
 			<li>Edit <a target="_blank" href="/guid/#one.guid#">#one.collection# #one.cat_num#</a> in a new window</li>
 			<li>View details for <a target="_blank" href="/publication/#one.publication_id#">#one.short_citation#</a> in a new window</li>
-			<li>Manage citations for r <a target="_blank" href="Citation.cfm?publication_id=#one.publication_id#">#one.short_citation#</a></li>
+			<li>Manage citations for <a href="Citation.cfm?publication_id=#one.publication_id#">#one.short_citation#</a></li>
 			<li>Not finding a useful ID? Add one to the specimen.</li>
 			<li>Need to edit an ID? Edit the specimen.</li>
 			<li>This is a mess? Delete the citation and try again.</li>
