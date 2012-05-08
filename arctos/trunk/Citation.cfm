@@ -514,7 +514,8 @@
 				IDENTIFIER_ORDER,
 				NATURE_OF_ID,
 				IDENTIFICATION_REMARKS,
-				sensu.short_citation sensupub
+				sensu.short_citation sensupub,
+				identification.publication_id sensupubid
 			FROM 
 				cataloged_item,
 				collection,
@@ -572,7 +573,8 @@
 				made_date,
 				NATURE_OF_ID,
 				IDENTIFICATION_REMARKS,
-				sensupub
+				sensupub,
+				sensupubid
 			from
 				getCited
 			group by
@@ -582,7 +584,8 @@
 				made_date,
 				NATURE_OF_ID,
 				IDENTIFICATION_REMARKS,
-				sensupub
+				sensupub,
+				sensupubid
 			order by
 				accepted_id_fg desc,
 				made_date
@@ -654,7 +657,9 @@
 						<td>#made_date#</td>
 						<td>#NATURE_OF_ID#</td>
 						<td>#IDENTIFICATION_REMARKS#</td>
-						<td>#sensupub#</td>
+						<td>
+							<a target="_blank" href="/publication/#sensupubid#">#sensupub#</a>
+						</td>
 						<td>#replace(valuelist(agnts.agent_name),",",", ","all")#</td>
 						<td><input type="radio" name="identification_id" <cfif idid is one.identification_id> checked="true" </cfif>value="#idid#"></td>
 					</tr>
