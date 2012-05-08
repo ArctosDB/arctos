@@ -474,30 +474,17 @@
 	<cfquery name="edCit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE citation SET
 			cit_current_fg = 1
-			<cfif len(#cited_taxon_name_id#) gt 0>
-				,cited_taxon_name_id = #cited_taxon_name_id#
+			identification_id = #identification_id#
+			type_status = '#type_status#',
+			citation_remarks = '#citation_remarks#',
+			occurs_page_number=
+			<cfif len(occurs_page_number) gt 0>
+				#occurs_page_number#
 			  <cfelse>
-			  	,cited_taxon_name_id = null
+			  	null
 			</cfif>
-			<cfif len(#occurs_page_number#) gt 0>
-				,occurs_page_number = #occurs_page_number#
-			  <cfelse>
-			  	,occurs_page_number = null
-			</cfif>
-			<cfif len(#type_status#) gt 0>
-				,type_status = '#type_status#'
-			  <cfelse>
-				,type_status = null
-			</cfif>
-			<cfif len(#citation_remarks#) gt 0>
-				,citation_remarks = '#citation_remarks#'
-			  <cfelse>
-			  	,citation_remarks = null
-			</cfif>
-			
 		WHERE 
-			publication_id = #publication_id# AND
-			collection_object_id = #collection_object_id#
+			citation_id = #citation_id#
 		</cfquery>
 		<cflocation url="Citation.cfm?publication_id=#publication_id#">
 	</cfoutput>
@@ -605,14 +592,18 @@
 		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid#">#one.collection# #one.cat_num#</a></strong> in 
 		<b><a target="_blank" href="/publication/#one.publication_id#">#one.short_citation#</a></b>.
 		
-		<p>
-			Not finding a useful ID? Add one to the specimen.
-			<br>Need to edit an ID? Edit the specimen.
-			<br>This is a mess? Delete the citation and try again.
-		</p>
+		<ul>
+			<li>Edit <a target="_blank" href="/guid/#one.guid#">#one.collection# #one.cat_num#</a> in a new window</li>
+			<li>View details for <a target="_blank" href="/publication/#one.publication_id#">#one.short_citation#</a> in a new window</li>
+			<li>Manage citations for r <a target="_blank" href="Citation.cfm?publication_id=#one.publication_id#">#one.short_citation#</a></li>
+			<li>Not finding a useful ID? Add one to the specimen.</li>
+			<li>Need to edit an ID? Edit the specimen.</li>
+			<li>This is a mess? Delete the citation and try again.</li>
+		</ul>
 		<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
 			<input type="hidden" name="Action" value="saveEdits">
 			<input type="hidden" name="publication_id" value="#one.publication_id#">
+			<input type="hidden" name="citation_id" value="#citation_id#">
 			<input type="hidden" name="collection_object_id" value="#one.collection_object_id#">
 			<label for="type_status">Citation Type</label>
 			<select name="type_status" id="type_status" size="1">
@@ -673,9 +664,7 @@
 			value="Save Edits" 
 			class="savBtn"
 			id="sBtn"
-			title="Save Edits"
-			onmouseover="this.className='savBtn btnhov'" 
-			onmouseout="this.className='savBtn'">	
+			title="Save Edits">	
 	
 	</cfform>
 </cfoutput>
