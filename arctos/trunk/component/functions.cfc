@@ -1827,7 +1827,6 @@
 		<cfset taxa_two = listgetat(temp,2,chr(999))>
 	<cfelseif taxon_name contains " / " and taxon_name contains " intergrade">
 		<cfset temp=replace(taxon_name," intergrade","","all")>
-		temp=#temp#
 		<cfset temp=replace(temp," / ",chr(999),"all")>
 		<cfset taxa_formula = "A / B intergrade">
 		<cfset taxa_one = listgetat(temp,1,chr(999))>
@@ -1855,9 +1854,8 @@
 	<cfif len(taxa_two) gt 0 and 
 		(taxa_one contains " sp." or taxa_two contains " sp." or 
 		taxa_one contains " ?" or taxa_two contains " ?" )>
-		<cfset err='"sp." and "?" are not allowed in multi-taxon IDs'>
+		<cfset err=listappend(err,'"sp." and "?" are not allowed in multi-taxon IDs',";")>
 	</cfif>
-	
 	<cfset QuerySetCell(result, "taxon_name", taxon_name, 1)>
 	<cfset QuerySetCell(result, "taxa_formula", taxa_formula, 1)>
 	<cfset QuerySetCell(result, "taxa_one", taxa_one, 1)>
@@ -1868,14 +1866,20 @@
 	        select taxon_name_id from taxonomy where scientific_name = trim('#taxa_one#') and VALID_CATALOG_TERM_FG = 1
 		</cfquery>
 		<cfset QuerySetCell(result, "taxon_name_id_1", t.taxon_name_id, 1)>
+		<cfif t.recordcount is not 1>
+			<cfset err=listappend(err,"taxon 1 not found",";")>
+		</cfif>
 	</cfif>
 	<cfif len(taxa_two) gt 0>
 		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	        select taxon_name_id from taxonomy where scientific_name = trim('#taxa_two#') and VALID_CATALOG_TERM_FG = 1
 		</cfquery>
+		<cfif t.recordcount is not 1>
+			<cfset err=listappend(err,"taxon 2 not found",";")>
+		</cfif>
 		<cfset QuerySetCell(result, "taxon_name_id_2", t.taxon_name_id, 1)>
 	</cfif>
- 
+ 	
 	<cfset QuerySetCell(result, "status", err, 1)>
 
 	<cfreturn result>
