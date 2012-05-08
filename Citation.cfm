@@ -366,7 +366,7 @@
 				1
 				)
 		</cfquery>
-		<cfif len(#newIdBy_two_id#) gt 0>
+		<cfif len(newIdBy_two_id) gt 0>
 			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into identification_agent (
 					identification_id,
@@ -379,7 +379,7 @@
 					)
 			</cfquery>
 		</cfif>
-		<cfif len(#newIdBy_three_id#) gt 0>
+		<cfif len(newIdBy_three_id) gt 0>
 			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into identification_agent (
 					identification_id,
@@ -402,7 +402,7 @@
 				#taxona_id#,
 				'A')
 		 </cfquery>
-		 <cfif #taxa_formula# contains "B">
+		 <cfif taxa_formula contains "B">
 			 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO identification_taxonomy (
 					identification_id,
@@ -414,9 +414,6 @@
 					'B')
 			 </cfquery>
 		 </cfif>
-
-	
-		
 		<cfquery name="newCite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO citation (
 				publication_id,
@@ -573,11 +570,20 @@
 				accepted_id_fg desc,
 				made_date
 		</cfquery>
-		
-		
+		<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select type_status from ctcitation_type_status order by type_status
+		</cfquery>
+		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select collection_id,collection from collection order by collection
+		</cfquery>
+		<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select nature_of_id from ctnature_of_id
+		</cfquery>
+		<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select taxa_formula from cttaxa_formula order by taxa_formula
+		</cfquery>
 		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid#">#one.collection# #one.cat_num#</a></strong> in 
 		<b><a target="_blank" href="/publication/#one.publication_id#">#one.short_citation#</a></b>.
-		
 		<ul>
 			<li>Edit <a target="_blank" href="/guid/#one.guid#">#one.collection# #one.cat_num#</a> in a new window</li>
 			<li>View details for <a target="_blank" href="/publication/#one.publication_id#">#one.short_citation#</a> in a new window</li>
@@ -586,7 +592,7 @@
 			<li>Need to edit an ID? Edit the specimen.</li>
 			<li>This is a mess? Delete the citation and try again.</li>
 		</ul>
-		<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
+		<form name="editCitation" id="editCitation" method="post" action="Citation.cfm">
 			<input type="hidden" name="Action" value="saveEdits">
 			<input type="hidden" name="publication_id" value="#one.publication_id#">
 			<input type="hidden" name="citation_id" value="#citation_id#">
@@ -619,7 +625,7 @@
 					<cfquery name="agnts" dbtype="query">
 						select agent_name from getCited where
 						idid=#idid#
-						order by made_date
+						order by IDENTIFIER_ORDER
 					</cfquery>
 					<tr>
 						<td>
@@ -648,13 +654,8 @@
 					</tr>
 				</cfloop>
 			</table>
-		<input type="submit" 
-			value="Save Edits" 
-			class="savBtn"
-			id="sBtn"
-			title="Save Edits">	
-	
-	</cfform>
+		<input type="submit" value="Save Edits" class="savBtn" id="sBtn" title="Save Edits">	
+	</form>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
