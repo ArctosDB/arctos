@@ -1772,7 +1772,7 @@
 
 
 
-<cffunction name="getAgentId" access="public">
+<cffunction name="getAgentId" access="remote">
 	<cfargument name="agent_name" required="yes">
 	<cfif len(agent_name) is 0>
 		<cfset result = querynew("agent_name,agent_id,status")>
