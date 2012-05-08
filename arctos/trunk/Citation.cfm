@@ -619,43 +619,46 @@
 			<input type="text" name="occurs_page_number" id="occurs_page_number" size="4" value="#one.occurs_page_number#">
 			<label for="citation_remarks">Remarks</label>
 			<input type="text" name="citation_remarks" id="citation_remarks" size="50" value="#one.citation_remarks#">
-			
-			
-			
-		<cfloop query="citns">
 			<table border>
 				<tr>
-					<td>
-						<cfif accepted_id_fg is 1>
-							This is the accepted identification.
-						<cfelse>
-							This is not the accepted identification.
-						</cfif>
-						<br>
-						<cfif idid is one.identification_id>
-							This is the currently cited identification.
-						<cfelse>
-							This is NOT the currently cited identification.
-						</cfif>
-						<br>scientific_name: #scientific_name#
-						<br>made_date: #made_date#
-						<br>NATURE_OF_ID: #NATURE_OF_ID#
-						<br>IDENTIFICATION_REMARKS: #IDENTIFICATION_REMARKS#
-						<br>sensupub: #sensupub#
-						<cfquery name="agnts" dbtype="query">
-							select agent_name from getCited where
-							idid=#idid#
-							order by made_date
-						</cfquery>
-						<br>Made By Agents
-						<ul>
-						<cfloop query="agnts">
-							<li>#agent_name#</li>
-						</cfloop>
-						</ul>
-					</td>
+					<th>Accepted ID?</th>
+					<th>Cited ID?</th>
+					<th>Scientific Name</th>
+					<th>Made Date</th>
+					<th>Nature of ID</th>
+					<th>ID Remark</th>
+					<th>Sensu</th>
+					<th>ID Agents</th>
 				</tr>
-			</table>
+				<cfloop query="citns">
+					<cfquery name="agnts" dbtype="query">
+						select agent_name from getCited where
+						idid=#idid#
+						order by made_date
+					</cfquery>
+					<tr>
+						<td>
+							<cfif accepted_id_fg is 1>
+								YES
+							<cfelse>
+								no
+							</cfif>
+						</td>
+						<td>
+							<cfif idid is one.identification_id>
+								YES
+							<cfelse>
+								no
+							</cfif>
+						</td>
+						<td>#scientific_name#</td>
+						<td>#made_date#</td>
+						<td>#NATURE_OF_ID#</td>
+						<td>#IDENTIFICATION_REMARKS#</td>
+						<td>#sensupub#</td>
+						<td>#valuelist(agnts.agent_name)#</td>
+					</tr>
+				</table>
 			<br>
 			
 
