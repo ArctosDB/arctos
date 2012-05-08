@@ -1,128 +1,213 @@
+<!----
+KEY									    NUMBER
+ 								    
+
+drop table cf_temp_citation;
+
+create table cf_temp_citation (
+	KEY number not null.
+	FULL_CITATION VARCHAR2(4000),
+ 	PUBLICATION_ID NUMBER,
+ 	GUID_PREFIX	VARCHAR2(20),
+	OTHER_ID_TYPE VARCHAR2(60),
+ 	OTHER_ID_NUMBER VARCHAR2(60),
+ 	COLLECTION_OBJECT_ID NUMBER,
+ 	TYPE_STATUS  VARCHAR2(60),
+ 	OCCURS_PAGE_NUMBER NUMBER,
+ 	CITATION_REMARKS VARCHAR2(255),
+	SCIENTIFIC_NAME  VARCHAR2(60),
+	taxonid1 number,
+	taxonid2 number,
+ 	ACCEPTED_ID_FG NUMBER,
+ 	NATURE_OF_ID  VARCHAR2(60),
+ 	MADE_DATE  VARCHAR2(60),
+ 	IDENTIFICATION_REMARKS VARCHAR2(255),
+ 	IDENTIFIER_1 VARCHAR2(255),
+ 	agentid1 NUMBER,
+ 	IDENTIFIER_2 VARCHAR2(255),
+ 	agentid2 NUMBER,
+ 	IDENTIFIER_3 VARCHAR2(255),
+ 	agentid3 NUMBER,
+	STATUS VARCHAR2(255)
+);
+
+ALTER TABLE cf_temp_citation add CONSTRAINT pk_cf_temp_citation PRIMARY KEY (KEY);
+
+CREATE OR REPLACE TRIGGER CF_TEMP_CITATION_KEY
+before insert ON cf_temp_citation
+for each row
+begin
+    if :NEW.key is null then
+        select somerandomsequence.nextval
+        into :new.key from dual;
+    end if;
+end;
+/
+
+create or replace public synonym CF_TEMP_CITATION for CF_TEMP_CITATION;
+
+grant insert,update,delete ON CF_TEMP_CITATION to COLDFUSION_USER;
+
+---->
+
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Citations">
-<cfif #action# is "nothing">
-Step 1: Upload a comma-delimited text file (csv). 
-Include column headings, spelled exactly as below. 
-<br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
-	<div id="template" style="display:none;">
-		<label for="t">Copy the following code and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">INSTITUTION_ACRONYM,COLLECTION_CDE,OTHER_ID_TYPE,OTHER_ID_NUMBER,full_citation,publication_id,CITED_SCIENTIFIC_NAME,OCCURS_PAGE_NUMBER,TYPE_STATUS,CITATION_REMARKS</textarea>
-	</div> 
-<p></p>
 
-<table border>
-	<tr>
-		<th>ColumnName</th>
-		<th>Required</th>
-		<th>Explanation</th>
-		<th>Documentation</th>
-	</tr>
-	<tr>
-		<td>guid_prefix</td>
-		<td>yes</td>
-		<td>find under Manage Collections - things like "UAM:Mamm"</td>
-		<td><a href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
-	</tr>
-	<tr>
-		<td>other_id_type</td>
-		<td>yes</td>
-		<td>"catalog number" is valid but not in teh code table</td>
-		<td><a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
-	</tr>
-	<tr>
-		<td>other_id_number</td>
-		<td>yes</td>
-		<td>the value of the identifier/catalog number</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>full_citation</td>
-		<td>conditionally</td>
-		<td>includes markup, etc. - use either this or publication_id, not both</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>publication_id</td>
-		<td>conditionally</td>
-		<td>find in URLs - eg, http://arctos.database.museum/publication/<strong>1</strong> - use either this or full_citation, not both</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>type_status</td>
-		<td>yes</td>
-		<td></td>
-		<td><a href="/info/ctDocumentation.cfm?table=CTCITATION_TYPE_STATUS">CTCITATION_TYPE_STATUS</a></td>
-	</tr>
-	<tr>
-		<td>occurs_page_number</td>
-		<td>no</td>
-		<td>numeric page number value on which the citation occurs</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>citation_remarks</td>
-		<td>no</td>
-		<td>remarks concerning the citation, or linkage between the specimen and publication</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>scientific_name</td>
-		<td>yes</td>
-		<td>Identification.scientific_name to apply to the specimen</td>
-		<td><a href="http://arctosdb.org/documentation/identification/#scientific_name">identification.scientific_name</a></td>
-	</tr>
-	<tr>
-		<td>accepted_id_fg</td>
-		<td>yes</td>
-		<td>Should the citation-identification become the specimen's accepted ID?</td>
-		<td>0 or 1</td>
-	</tr>
-	<tr>
-		<td>nature_of_id</td>
-		<td>yes</td>
-		<td></td>
-		<td><a href="/info/ctDocumentation.cfm?table=ctnature_of_id">ctnature_of_id</a></td>
-	</tr>
+<cfif action is "makeTemplate">
+	<cfset header="FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
+	<cffile action = "write" 
+    file = "#Application.webDirectory#/download/BulkCitationsTemplate.csv"
+    output = "#header#"
+    addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkCitationsTemplate.csv" addtoken="false">
+</cfif>
+
+
+<cfif action is "csv">
+	<cfoutput>
+		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_citation
+		</cfquery>
+		<cfset variables.encoding="UTF-8">
+		<cfset variables.fileName="#Application.webDirectory#/download/BulkCitationsDown.csv">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(mine.columnList); 
+		</cfscript>
+		<cfloop query="mine">
+			<cfset d=''>
+			<cfloop list="#mine.columnList#" index="i">
+				<cfif i is "loaded_media_id">
+				<cfset t='"' & evaluate("mine." & i) & '"'>
+				<cfset d=listappend(d,t,",")>
+			</cfloop>
+			<cfscript>
+				variables.joFileWriter.writeLine(d); 
+			</cfscript>
+		</cfloop>
+		<cfscript>	
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=BulkCitationsDown.csv" addtoken="false">
+		<a href="/download/BulkCitationsDown.csv">Click here if your file does not automatically download.</a>
+	</cfoutput>
+</cfif>
+
+
+<cfif action is "nothing">
+	Step 1: Upload a comma-delimited text file (csv). 
+	Include column headings. <a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a>
 	
-	<tr>
-		<td>made_date</td>
-		<td>no</td>
-		<td>ISO8601 data on which the ID was made (usually publication year)</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>identifier_1</td>
-		<td>no</td>
-		<td>First agent responsible for the identification</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>identifier_2</td>
-		<td>no</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>identifier_3</td>
-		<td>no</td>
-		<td>edit the specimen after loading Citations if >3 identifiers are deemed important</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>identification_remarks</td>
-		<td>no</td>
-		<td>remarks concerning the application of the taxon name(s) to the specimen</td>
-		<td></td>
-	</tr>
-</table>
-<cfform name="oids" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="Action" value="getFile">
-			  <input type="file"
-		   name="FiletoUpload"
-		   size="45" onchange="checkCSV(this);">
-			  <input type="submit" value="Upload this file" class="insBtn">
-  </cfform>
-
+	<table border>
+		<tr>
+			<th>ColumnName</th>
+			<th>Required</th>
+			<th>Explanation</th>
+			<th>Documentation</th>
+		</tr>
+		<tr>
+			<td>guid_prefix</td>
+			<td>yes</td>
+			<td>find under Manage Collections - things like "UAM:Mamm"</td>
+			<td><a href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
+		</tr>
+		<tr>
+			<td>other_id_type</td>
+			<td>yes</td>
+			<td>"catalog number" is valid but not in teh code table</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
+		</tr>
+		<tr>
+			<td>other_id_number</td>
+			<td>yes</td>
+			<td>the value of the identifier/catalog number</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>full_citation</td>
+			<td>conditionally</td>
+			<td>includes markup, etc. - use either this or publication_id, not both</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>publication_id</td>
+			<td>conditionally</td>
+			<td>find in URLs - eg, http://arctos.database.museum/publication/<strong>1</strong> - use either this or full_citation, not both</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>type_status</td>
+			<td>yes</td>
+			<td></td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTCITATION_TYPE_STATUS">CTCITATION_TYPE_STATUS</a></td>
+		</tr>
+		<tr>
+			<td>occurs_page_number</td>
+			<td>no</td>
+			<td>numeric page number value on which the citation occurs</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>citation_remarks</td>
+			<td>no</td>
+			<td>remarks concerning the citation, or linkage between the specimen and publication</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>scientific_name</td>
+			<td>yes</td>
+			<td>Identification.scientific_name to apply to the specimen</td>
+			<td><a href="http://arctosdb.org/documentation/identification/#scientific_name">identification.scientific_name</a></td>
+		</tr>
+		<tr>
+			<td>accepted_id_fg</td>
+			<td>yes</td>
+			<td>Should the citation-identification become the specimen's accepted ID?</td>
+			<td>0 or 1</td>
+		</tr>
+		<tr>
+			<td>nature_of_id</td>
+			<td>yes</td>
+			<td></td>
+			<td><a href="/info/ctDocumentation.cfm?table=ctnature_of_id">ctnature_of_id</a></td>
+		</tr>
+		
+		<tr>
+			<td>made_date</td>
+			<td>no</td>
+			<td>ISO8601 data on which the ID was made (usually publication year)</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>identifier_1</td>
+			<td>no</td>
+			<td>First agent responsible for the identification</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>identifier_2</td>
+			<td>no</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>identifier_3</td>
+			<td>no</td>
+			<td>edit the specimen after loading Citations if >3 identifiers are deemed important</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>identification_remarks</td>
+			<td>no</td>
+			<td>remarks concerning the application of the taxon name(s) to the specimen</td>
+			<td></td>
+		</tr>
+	</table>
+	<cfform name="oids" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="Action" value="getFile">
+		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" class="insBtn">
+	</cfform>
 </cfif>
 <!------------------------------------------------------->
 <cfif #action# is "getFile">
@@ -163,124 +248,125 @@ Include column headings, spelled exactly as below.
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "validate">
+<cfif action is "validate">
 <cfoutput>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='missing data'
 		where
 		other_id_type is null or
 		other_id_number is null or
-		collection_cde is null or
-		institution_acronym is null or
+		guid_prefix is null or
 		(full_citation is null and publication_id is null) or
-		CITED_SCIENTIFIC_NAME is null or
-		OCCURS_PAGE_NUMBER is null or
-		TYPE_STATUS is null
+		SCIENTIFIC_NAME is null or
+		TYPE_STATUS is null or
+		ACCEPTED_ID_FG is null or
+		NATURE_OF_ID is null
+	</cfquery>
+	<cfquery name="ctcitation_TYPE_STATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_citation set status='TYPE_STATUS invalid'
+		where
+		TYPE_STATUS not in (select TYPE_STATUS from ctcitation_TYPE_STATUS
+	</cfquery>
+	<cfquery name="NATURE_OF_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_citation set status='NATURE_OF_ID invalid'
+		where
+		NATURE_OF_ID not in (select NATURE_OF_ID from ctNATURE_OF_ID
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation where status is null
 	</cfquery>
 	<cfloop query="data">
 		<cfset problem="">
-		<cfif #other_id_type# is not "catalog number">
-			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT 
-						coll_obj_other_id_num.collection_object_id
-					FROM
-						coll_obj_other_id_num,
-						cataloged_item,
-						collection
-					WHERE
-						coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
-						cataloged_item.collection_id = collection.collection_id and
-						collection.collection_cde = '#collection_cde#' and
-						collection.institution_acronym = '#institution_acronym#' and
-						other_id_type = '#trim(other_id_type)#' and
-						display_value = '#trim(other_id_number)#'
-				</cfquery>
-			<cfelse>
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT 
-						collection_object_id
-					FROM
-						cataloged_item,
-						collection
-					WHERE
-						cataloged_item.collection_id = collection.collection_id and
-						collection.collection_cde = '#collection_cde#' and
-						collection.institution_acronym = '#institution_acronym#' and
-						cat_num=#other_id_number#
-				</cfquery>
-			</cfif>
-			<cfif #collObj.recordcount# is not 1>
-				<cfif len(#problem#) is 0>
-					<cfset problem = "#data.other_id_number# #data.other_id_type# #data.collection_cde# #data.institution_acronym# could not be found">
+		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+				cataloged_item.COLLECTION_OBJECT_ID
+			from
+				cataloged_item,
+				collection,
+				coll_obj_other_id_num
+			where
+				cataloged_item.collection_id=collection.collection_id and
+				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
+				upper(cataloged_item.guid_prefix)='#ucase(guid_prefix)#' and
+				<cfif other_id_type is "catalog number">
+					cat_num=#trim(other_id_number)#
 				<cfelse>
-					<cfset problem = "#problem#; #data.other_id_number# #data.other_id_type# #data.collection_cde# #data.institution_acronym# could not be found">
+					other_id_type = '#trim(other_id_type)#' and
+					display_value = '#trim(other_id_number)#'
 				</cfif>
-			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE cf_temp_citation SET collection_object_id = #collObj.collection_object_id# where
-					key = #key#
-				</cfquery>
-			</cfif>
-			<cfif publication_id is null>
-				<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select publication_id from publication where full_citation = '#full_citation#'
-					group by publication_id
-				</cfquery>
-				<cfif #isPub.recordcount# is not 1>
-					<cfif len(#problem#) is 0>
-						<cfset problem = "publication not found; check markup">
-					<cfelse>
-						<cfset problem = "#problem#; publication not found; check markup">
-					</cfif>
-				<cfelse>
-					<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						UPDATE cf_temp_citation SET publication_id = #isPub.publication_id# where
-						key = #key#
-					</cfquery>
-				</cfif>
-			</cfif>
-			<cfquery name="isTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select taxon_name_id from taxonomy where scientific_name = '#cited_scientific_name#'
-				group by taxon_name_id
+		</cfquery>
+		<cfset thisColObjId=collObj.COLLECTION_OBJECT_ID>
+		
+		<cfif len(publication_id) is 0>
+			<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select publication_id from publication where full_citation = '#full_citation#'
+				group by publication_id
 			</cfquery>
-			<cfif #isTaxa.recordcount# is not 1>
-				<cfif len(#problem#) is 0>
-					<cfset problem = "taxonomy not found">
-				<cfelse>
-					<cfset problem = "#problem#; taxonomy not found">
+			<cfset thisPubId=isPub.publication_id>
+		<cfelse>
+			<cfset thisPubId=publication_id>
+		</cfif>
+		<cfinvoke component="component.functions" method="parseTaxonName" returnvariable="tn">
+			<cfinvokeargument name="taxon_name" value="#SCIENTIFIC_NAME#">
+		</cfinvoke>
+		<cfset thisTNID1=tn.taxon_name_id_1>
+		<cfset thisTNID2=tn.taxon_name_id_2>
+		<cfset thisTNID2=tn.taxon_name_id_2>
+		
+		<cfset problem = listappend(problem,tn.status,";")>
+		
+		<cfinvoke component="component.functions" method="getAgentId" returnvariable="a">
+			<cfinvokeargument name="agent_name" value="#IDENTIFIER_1#">
+		</cfinvoke>
+		<cfset problem = listappend(problem,a.status,";")>
+		<cfset aid1=a.agent_id>
+		<cfinvoke component="component.functions" method="getAgentId" returnvariable="a">
+			<cfinvokeargument name="agent_name" value="#IDENTIFIER_2#">
+		</cfinvoke>
+		<cfset problem = listappend(problem,a.status,";")>
+		<cfset aid2=a.agent_id>
+		<cfinvoke component="component.functions" method="getAgentId" returnvariable="a">
+			<cfinvokeargument name="agent_name" value="#IDENTIFIER_3#">
+		</cfinvoke>
+		<cfset problem = listappend(problem,a.status,";")>
+		<cfset aid3=a.agent_id>
+			
+			
+		
+		<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			UPDATE cf_temp_citation SET 
+				collection_object_id = #thisColObjId#,
+				publication_id=#thisPubId#
+				<cfif len(aid1) gt 0>
+					,agentid1=#aid1#
 				</cfif>
-			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE cf_temp_citation SET CITED_TAXON_NAME_ID = #isTaxa.taxon_name_id# where
-					key = #key#
-				</cfquery>
-			</cfif>
-			<cfif len(#problem#) gt 0>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE cf_temp_citation SET status = '#problem#' where
-					key = #key#
-				</cfquery>
-			</cfif>
-		</cfloop>
-		<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_citation set status='duplicate' where key in (				
-				select distinct k from cf_temp_citation a,
-				 (select min(key) k, collection_object_id,publication_id  
-				from cf_temp_citation having count(*) >  1 group by 
-				collection_object_id,publication_id) b
-				where a.collection_object_id = b.collection_object_id and
-				a.publication_id = b.publication_id
-			)
+				<cfif len(aid2) gt 0>
+					,agentid2=#aid2#
+				</cfif>
+				<cfif len(aid3) gt 0>
+					,agentid3=#aid3#
+				</cfif>
+				,status = '#problem#'
+			 where
+				key = #key#
 		</cfquery>
-		<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_citation order by status,
-			other_id_type,
-			other_id_number,
-			full_citation
-		</cfquery>
+	</cfloop>
+	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_citation set status='duplicate' where key in (				
+			select distinct k from cf_temp_citation a,
+			 (select min(key) k, collection_object_id,publication_id  
+			from cf_temp_citation having count(*) >  1 group by 
+			collection_object_id,publication_id) b
+			where a.collection_object_id = b.collection_object_id and
+			a.publication_id = b.publication_id
+		)
+	</cfquery>
+	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_citation order by status,
+		other_id_type,
+		other_id_number,
+		full_citation
+	</cfquery>
 		<cfquery name="isProb" dbtype="query">
 			select count(*) c from valData where status is not null
 		</cfquery>
@@ -290,6 +376,19 @@ Include column headings, spelled exactly as below.
 		<cfelse>
 			The data you loaded do not validate. See STATUS column below.
 		</cfif>
+		
+		
+		
+		
+		
+		
+	
+				
+				
+				
+				
+				
+				
 		<cfdump var=#valData#>
 		<!---
 	<cflocation url="BulkloadCitations.cfm?action=loadData">
