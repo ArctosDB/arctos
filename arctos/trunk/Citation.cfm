@@ -629,6 +629,7 @@
 					<th>ID Remark</th>
 					<th>Sensu</th>
 					<th>ID Agents</th>
+					<th>UseThisOne</th>
 				</tr>
 				<cfloop query="citns">
 					<cfquery name="agnts" dbtype="query">
@@ -657,13 +658,10 @@
 						<td>#IDENTIFICATION_REMARKS#</td>
 						<td>#sensupub#</td>
 						<td>#valuelist(agnts.agent_name)#</td>
+						<td><input type="radio" name="identification_id" <cfif idid is one.identification_id> checked="true" </cfif>value="#idid#"></td>
 					</tr>
-				</table>
-			<br>
-			
-
-				
-		</cfloop>
+				</cfloop>
+			</table>
 		<input type="submit" 
 			value="Save Edits" 
 			class="savBtn"
