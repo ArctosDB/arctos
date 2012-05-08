@@ -1813,25 +1813,25 @@
 	<cfelseif taxon_name contains " or ">
 		<cfset temp=replace(taxon_name," or ",chr(999),"all")>
 		<cfset taxa_formula = "A or B">
-		<cfset taxa_one = listgetat(temp,chr(999),1)>
-		<cfset taxa_two = listgetat(temp,chr(999),2)>
+		<cfset taxa_one = listgetat(temp,1,chr(999))>
+		<cfset taxa_two = listgetat(temp,2,chr(999))>
 	<cfelseif taxon_name contains " and ">
 		<cfset temp=replace(taxon_name," and ",chr(999),"all")>
 		<cfset taxa_formula = "A and B">
-		<cfset taxa_one = listgetat(temp,chr(999),1)>
-		<cfset taxa_two = listgetat(temp,chr(999),2)>
+		<cfset taxa_one = listgetat(temp,1,chr(999))>
+		<cfset taxa_two = listgetat(temp,2,chr(999))>
 	<cfelseif taxon_name contains " x ">
 		<cfset temp=replace(taxon_name," x ",chr(999),"all")>
 		<cfset taxa_formula = "A x B">
-		<cfset taxa_one = listgetat(temp,chr(999),1)>
-		<cfset taxa_two = listgetat(temp,chr(999),2)>
+		<cfset taxa_one = listgetat(temp,1,chr(999))>
+		<cfset taxa_two = listgetat(temp,2,chr(999))>
 	<cfelseif taxon_name contains " / " and taxon_name contains " intergrade">
 		<cfset temp=replace(taxon_name," intergrade","","all")>
 		temp=#temp#
 		<cfset temp=replace(temp," / ",chr(999),"all")>
 		<cfset taxa_formula = "A / B intergrade">
-		<cfset taxa_one = listgetat(temp,chr(999),1)>
-		<cfset taxa_two = listgetat(temp,chr(999),2)>
+		<cfset taxa_one = listgetat(temp,1,chr(999))>
+		<cfset taxa_two = listgetat(temp,2,chr(999))>
 	<cfelseif right(taxon_name,4) is " sp.">
 		<cfset taxa_formula = "A sp.">
 		<cfset taxa_one = left(taxon_name,len(taxon_name)-4)>	
