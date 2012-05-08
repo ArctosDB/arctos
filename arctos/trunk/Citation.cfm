@@ -657,7 +657,7 @@
 						<td>#NATURE_OF_ID#</td>
 						<td>#IDENTIFICATION_REMARKS#</td>
 						<td>#sensupub#</td>
-						<td>#valuelist(agnts.agent_name)#</td>
+						<td>#replace(valuelist(agnts.agent_name),",",", ","all")#</td>
 						<td><input type="radio" name="identification_id" <cfif idid is one.identification_id> checked="true" </cfif>value="#idid#"></td>
 					</tr>
 				</cfloop>
