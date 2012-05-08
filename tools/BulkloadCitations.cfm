@@ -64,33 +64,30 @@ grant insert,update,delete ON CF_TEMP_CITATION to COLDFUSION_USER;
 
 
 <cfif action is "csv">
-	<cfoutput>
-		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_citation
-		</cfquery>
-		<cfset variables.encoding="UTF-8">
-		<cfset variables.fileName="#Application.webDirectory#/download/BulkCitationsDown.csv">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(mine.columnList); 
-		</cfscript>
-		<cfloop query="mine">
-			<cfset d=''>
-			<cfloop list="#mine.columnList#" index="i">
-				<cfif i is "loaded_media_id">
-				<cfset t='"' & evaluate("mine." & i) & '"'>
-				<cfset d=listappend(d,t,",")>
-			</cfloop>
-			<cfscript>
-				variables.joFileWriter.writeLine(d); 
-			</cfscript>
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_citation
+	</cfquery>
+	<cfset variables.encoding="UTF-8">
+	<cfset variables.fileName="#Application.webDirectory#/download/BulkCitationsDown.csv">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(mine.columnList); 
+	</cfscript>
+	<cfloop query="mine">
+		<cfset d=''>
+		<cfloop list="#mine.columnList#" index="i">
+			<cfset t='"' & evaluate("mine." & i) & '"'>
+			<cfset d=listappend(d,t,",")>
 		</cfloop>
-		<cfscript>	
-			variables.joFileWriter.close();
+		<cfscript>
+			variables.joFileWriter.writeLine(d); 
 		</cfscript>
-		<cflocation url="/download.cfm?file=BulkCitationsDown.csv" addtoken="false">
-		<a href="/download/BulkCitationsDown.csv">Click here if your file does not automatically download.</a>
-	</cfoutput>
+	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	<cflocation url="/download.cfm?file=BulkCitationsDown.csv" addtoken="false">
+	<a href="/download/BulkCitationsDown.csv">Click here if your file does not automatically download.</a>
 </cfif>
 
 
