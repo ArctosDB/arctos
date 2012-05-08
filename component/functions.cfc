@@ -1798,7 +1798,7 @@
 
 
 
-<cffunction name="parseTaxonName" access="public">
+<cffunction name="parseTaxonName" access="remote">
 	<cfargument name="taxon_name" required="yes">
 	<cfset taxa_one=''>
 	<cfset taxa_two=''>
@@ -1826,7 +1826,8 @@
 		<cfset taxa_one = listgetat(temp,chr(999),1)>
 		<cfset taxa_two = listgetat(temp,chr(999),2)>
 	<cfelseif taxon_name contains " / " and taxon_name contains " intergrade">
-		<cfset temp=replace(taxon_name," intergrade",'',"all")>
+		<cfset temp=replace(taxon_name," intergrade","","all")>
+		temp=#temp#
 		<cfset temp=replace(temp," / ",chr(999),"all")>
 		<cfset taxa_formula = "A / B intergrade">
 		<cfset taxa_one = listgetat(temp,chr(999),1)>
