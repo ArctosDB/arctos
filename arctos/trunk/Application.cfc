@@ -31,6 +31,12 @@
 							<strong>Summary</strong>
 						</td>
 					</tr>
+					<cfif isdefined("exception.cause.message")>
+						<tr>
+							<td>Message</td>
+							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#</td>
+						</tr>
+					</cfif>
 					<tr>
 						<td>IP</td>
 						<td>
@@ -49,12 +55,6 @@
 						<tr>
 							<td>SQL</td>
 							<td>#exception.Sql#</td>
-						</tr>
-					</cfif>
-					<cfif isdefined("exception.cause.message")>
-						<tr>
-							<td>Message</td>
-							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#</td>
 						</tr>
 					</cfif>
 					<cfif isdefined("cgi.redirect_url")>
