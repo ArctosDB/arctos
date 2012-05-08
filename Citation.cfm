@@ -486,7 +486,7 @@
 		WHERE 
 			citation_id = #citation_id#
 		</cfquery>
-		<cflocation url="Citation.cfm?publication_id=#publication_id#">
+		<cflocation url="Citation.cfm?action=editCitation&citation_id=#citation_id#">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
