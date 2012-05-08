@@ -603,7 +603,13 @@
 		
 		
 		<br>Edit Citation for <strong><a target="_blank" href="/guid/#one.guid#">#one.collection# #one.cat_num#</a></strong> in 
-		<b><a target="_blank" href="/publication/#one.publication_id#">#one.short_citation#</a></b>:
+		<b><a target="_blank" href="/publication/#one.publication_id#">#one.short_citation#</a></b>.
+		
+		<p>
+			Not finding a useful ID? Add one to the specimen.
+			<br>Need to edit an ID? Edit the specimen.
+			<br>This is a mess? Delete the citation and try again.
+		</p>
 		<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
 			<input type="hidden" name="Action" value="saveEdits">
 			<input type="hidden" name="publication_id" value="#one.publication_id#">
@@ -619,6 +625,7 @@
 			<input type="text" name="occurs_page_number" id="occurs_page_number" size="4" value="#one.occurs_page_number#">
 			<label for="citation_remarks">Remarks</label>
 			<input type="text" name="citation_remarks" id="citation_remarks" size="50" value="#one.citation_remarks#">
+			<br>Identifications for #one.guid#:
 			<table border>
 				<tr>
 					<th>Accepted ID?</th>
