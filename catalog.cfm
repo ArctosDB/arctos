@@ -1,4 +1,8 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+<cfmail subject="someone opened catalog.cfm" to="#Application.PageProblemEmail#" from="itsalive@#Application.fromEmail#" type="html">
+	<cfdump var=#session#>
+	<cfdump var=#form#>
+</cfmail>
 	<link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
 	<script type='text/javascript' src='/ajax/core/engine.js'></script>
 	<script type='text/javascript' src='/ajax/core/util.js'></script>
