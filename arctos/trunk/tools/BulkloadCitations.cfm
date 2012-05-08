@@ -10,25 +10,111 @@ Include column headings, spelled exactly as below.
 	</div> 
 <p></p>
 
-<ul>
-	<li style="color:red">INSTITUTION_ACRONYM</li>
-	<li style="color:red">COLLECTION_CDE</li>
-	<li style="color:red">OTHER_ID_TYPE ("catalog number" is OK)</li>
-	<li style="color:red">OTHER_ID_NUMBER</li>
-	<li>
-		One of
-		<ul>
-			<li style="color:orange">full_citation</li>
-			<li style="color:orange">publication_id</li>
-		</ul>
-	</li>
-	<li style="color:red">CITED_SCIENTIFIC_NAME</li>
-	<li>OCCURS_PAGE_NUMBER</li>
-	<li style="color:red">TYPE_STATUS</li>
-	<li style="color:red">CITATION_REMARKS</li>
-</ul>
-
-
+<table border>
+	<tr>
+		<th>ColumnName</th>
+		<th>Required</th>
+		<th>Explanation</th>
+		<th>Documentation</th>
+	</tr>
+	<tr>
+		<td>guid_prefix</td>
+		<td>yes</td>
+		<td>find under Manage Collections - things like "UAM:Mamm"</td>
+		<td><a href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
+	</tr>
+	<tr>
+		<td>other_id_type</td>
+		<td>yes</td>
+		<td>"catalog number" is valid but not in teh code table</td>
+		<td><a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
+	</tr>
+	<tr>
+		<td>other_id_number</td>
+		<td>yes</td>
+		<td>the value of the identifier/catalog number</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>full_citation</td>
+		<td>conditionally</td>
+		<td>includes markup, etc. - use either this or publication_id, not both</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>publication_id</td>
+		<td>conditionally</td>
+		<td>find in URLs - eg, http://arctos.database.museum/publication/<strong>1</strong> - use either this or full_citation, not both</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>type_status</td>
+		<td>yes</td>
+		<td></td>
+		<td><a href="/info/ctDocumentation.cfm?table=CTCITATION_TYPE_STATUS">CTCITATION_TYPE_STATUS</a></td>
+	</tr>
+	<tr>
+		<td>occurs_page_number</td>
+		<td>no</td>
+		<td>numeric page number value on which the citation occurs</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>citation_remarks</td>
+		<td>no</td>
+		<td>remarks concerning the citation, or linkage between the specimen and publication</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>scientific_name</td>
+		<td>yes</td>
+		<td>Identification.scientific_name to apply to the specimen</td>
+		<td><a href="http://arctosdb.org/documentation/identification/#scientific_name">identification.scientific_name</a></td>
+	</tr>
+	<tr>
+		<td>accepted_id_fg</td>
+		<td>yes</td>
+		<td>Should the citation-identification become the specimen's accepted ID?</td>
+		<td>0 or 1</td>
+	</tr>
+	<tr>
+		<td>nature_of_id</td>
+		<td>yes</td>
+		<td></td>
+		<td><a href="/info/ctDocumentation.cfm?table=ctnature_of_id">ctnature_of_id</a></td>
+	</tr>
+	
+	<tr>
+		<td>made_date</td>
+		<td>no</td>
+		<td>ISO8601 data on which the ID was made (usually publication year)</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>identifier_1</td>
+		<td>no</td>
+		<td>First agent responsible for the identification</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>identifier_2</td>
+		<td>no</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>identifier_3</td>
+		<td>no</td>
+		<td>edit the specimen after loading Citations if >3 identifiers are deemed important</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>identification_remarks</td>
+		<td>no</td>
+		<td>remarks concerning the application of the taxon name(s) to the specimen</td>
+		<td></td>
+	</tr>
+</table>
 <cfform name="oids" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
 			  <input type="file"
