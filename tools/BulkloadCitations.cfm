@@ -1,14 +1,13 @@
 <!----
-KEY									    NUMBER
- 								    
+
 
 drop table cf_temp_citation;
 
 create table cf_temp_citation (
-	KEY number not null.
+	KEY number not null,
 	FULL_CITATION VARCHAR2(4000),
  	PUBLICATION_ID NUMBER,
- 	GUID_PREFIX	VARCHAR2(20),
+ 	GUID_PREFIX VARCHAR2(20),
 	OTHER_ID_TYPE VARCHAR2(60),
  	OTHER_ID_NUMBER VARCHAR2(60),
  	COLLECTION_OBJECT_ID NUMBER,
@@ -262,12 +261,12 @@ grant insert,update,delete ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfquery name="ctcitation_TYPE_STATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='TYPE_STATUS invalid'
 		where
-		TYPE_STATUS not in (select TYPE_STATUS from ctcitation_TYPE_STATUS
+		TYPE_STATUS not in (select TYPE_STATUS from ctcitation_TYPE_STATUS)
 	</cfquery>
 	<cfquery name="NATURE_OF_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='NATURE_OF_ID invalid'
 		where
-		NATURE_OF_ID not in (select NATURE_OF_ID from ctNATURE_OF_ID
+		NATURE_OF_ID not in (select NATURE_OF_ID from ctNATURE_OF_ID)
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation where status is null
