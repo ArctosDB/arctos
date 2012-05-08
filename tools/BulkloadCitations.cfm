@@ -45,7 +45,7 @@ end;
 
 create or replace public synonym CF_TEMP_CITATION for CF_TEMP_CITATION;
 
-grant insert,update,delete ON CF_TEMP_CITATION to COLDFUSION_USER;
+grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 
 ---->
 
@@ -274,7 +274,7 @@ grant insert,update,delete ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfloop query="data">
 		<cfset problem="">
 		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
+			select 
 				cataloged_item.COLLECTION_OBJECT_ID
 			from
 				cataloged_item,
@@ -283,7 +283,7 @@ grant insert,update,delete ON CF_TEMP_CITATION to COLDFUSION_USER;
 			where
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
-				upper(cataloged_item.guid_prefix)='#ucase(guid_prefix)#' and
+				upper(collection.guid_prefix)='#ucase(guid_prefix)#' and
 				<cfif other_id_type is "catalog number">
 					cat_num=#trim(other_id_number)#
 				<cfelse>
