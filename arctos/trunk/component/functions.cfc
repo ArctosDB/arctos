@@ -1769,6 +1769,118 @@
 		<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
+
+
+
+<cffunction name="getAgentId" access="public">
+	<cfargument name="agent_name" required="yes">
+	<cfif len(agent_name) is 0>
+		<cfset result = querynew("agent_name,agent_id,status")>
+		<cfset queryaddrow(result,1)>
+		<cfset QuerySetCell(result, "agent_name", agent_name, 1)>
+		<cfreturn result>
+	</cfif>
+	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select agent_name, agent_id, '' status from agent_name where upper(agent_name)=trim('#ucase(agent_name)#') group by agent_id
+	</cfquery>
+	<cfif t.recordcount is 1>
+		<cfreturn t>
+	<cfelse>
+		<cfset result = querynew("agent_name,agent_id,status")>
+		<cfset queryaddrow(result,1)>
+		<cfset QuerySetCell(result, "agent_name", agent_name, 1)>
+		<cfset QuerySetCell(result, "status", 'found #t.recordcount# matches', 1)>
+		<cfreturn result>
+	</cfif>
+</cffunction>	
+	
+<!----------------------------------------------------------------------------------------------------------------->
+
+
+
+<cffunction name="parseTaxonName" access="public">
+	<cfargument name="taxon_name" required="yes">
+	<cfset taxa_one=''>
+	<cfset taxa_two=''>
+	<cfset taxa_formula=''>
+	<cfset err=''>
+	<cfset result = querynew("taxon_name,taxa_formula,taxa_one,taxon_name_id_1,taxa_two,taxon_name_id_2,status")>
+	<cfset queryaddrow(result,1)>
+	
+	<cfif taxon_name contains " {" and taxon_name contains "}">
+		<cfset taxa_formula = "A {string}">
+		<cfset taxa_one = rereplace(taxon_name,' {.*}$','')>
+	<cfelseif taxon_name contains " or ">
+		<cfset temp=replace(taxon_name," or ",chr(999),"all")>
+		<cfset taxa_formula = "A or B">
+		<cfset taxa_one = listgetat(temp,chr(999),1)>
+		<cfset taxa_two = listgetat(temp,chr(999),2)>
+	<cfelseif taxon_name contains " and ">
+		<cfset temp=replace(taxon_name," and ",chr(999),"all")>
+		<cfset taxa_formula = "A and B">
+		<cfset taxa_one = listgetat(temp,chr(999),1)>
+		<cfset taxa_two = listgetat(temp,chr(999),2)>
+	<cfelseif taxon_name contains " x ">
+		<cfset temp=replace(taxon_name," x ",chr(999),"all")>
+		<cfset taxa_formula = "A x B">
+		<cfset taxa_one = listgetat(temp,chr(999),1)>
+		<cfset taxa_two = listgetat(temp,chr(999),2)>
+	<cfelseif taxon_name contains " / " and taxon_name contains " intergrade">
+		<cfset temp=replace(taxon_name," intergrade",'',"all")>
+		<cfset temp=replace(temp," / ",chr(999),"all")>
+		<cfset taxa_formula = "A / B intergrade">
+		<cfset taxa_one = listgetat(temp,chr(999),1)>
+		<cfset taxa_two = listgetat(temp,chr(999),2)>
+	<cfelseif right(taxon_name,4) is " sp.">
+		<cfset taxa_formula = "A sp.">
+		<cfset taxa_one = left(taxon_name,len(taxon_name)-4)>	
+	<cfelseif right(taxon_name,5) is " ssp.">
+		<cfset taxa_formula = "A ssp.">
+		<cfset taxa_one = left(taxon_name,len(taxon_name)-5)>
+	<cfelseif right(taxon_name,5) is " aff.">
+		<cfset taxa_formula = "A aff.">
+		<cfset taxa_one = left(taxon_name,len(taxon_name)-5)>
+	<cfelseif right(taxon_name,4) is " cf.">
+		<cfset taxa_formula = "A cf.">
+		<cfset taxa_one = left(taxon_name,len(taxon_name)-4)>
+	<cfelseif right(taxon_name,2) is " ?">
+		<cfset taxa_formula = "A ?">
+		<cfset taxa_one = left(taxon_name,len(taxon_name)-2)>
+	<cfelse>
+		<cfset taxa_formula = "A">		
+		<cfset taxa_one = taxon_name>		
+	</cfif>
+	
+	<cfif len(taxa_two) gt 0 and 
+		(taxa_one contains " sp." or taxa_two contains " sp." or 
+		taxa_one contains " ?" or taxa_two contains " ?" )>
+		<cfset err='"sp." and "?" are not allowed in multi-taxon IDs'>
+	</cfif>
+	
+	<cfset QuerySetCell(result, "taxon_name", taxon_name, 1)>
+	<cfset QuerySetCell(result, "taxa_formula", taxa_formula, 1)>
+	<cfset QuerySetCell(result, "taxa_one", taxa_one, 1)>
+	<cfset QuerySetCell(result, "taxa_two", taxa_two, 1)>
+	
+	<cfif len(taxa_one) gt 0>
+		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        select taxon_name_id from taxonomy where scientific_name = trim('#taxa_one#') and VALID_CATALOG_TERM_FG = 1
+		</cfquery>
+		<cfset QuerySetCell(result, "taxon_name_id_1", t.taxon_name_id, 1)>
+	</cfif>
+	<cfif len(taxa_two) gt 0>
+		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        select taxon_name_id from taxonomy where scientific_name = trim('#taxa_two#') and VALID_CATALOG_TERM_FG = 1
+		</cfquery>
+		<cfset QuerySetCell(result, "taxon_name_id_2", t.taxon_name_id, 1)>
+	</cfif>
+ 
+	<cfset QuerySetCell(result, "status", err, 1)>
+
+	<cfreturn result>
+</cffunction>	
+	
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getCatalogedItemCitation" access="remote">
 	<cfargument name="collection_id" type="numeric" required="yes">
 	<cfargument name="theNum" type="string" required="yes">
@@ -1795,7 +1907,7 @@
 					identification.accepted_id_fg=1 and
 					identification.identification_id=identification_taxonomy.identification_id and
 					identification_taxonomy.variable='A' and
-					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
+					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
 					cataloged_item.collection_id=#collection_id# and
 					<cfif type is "cat_num">
 						cat_num='#theNum#'
