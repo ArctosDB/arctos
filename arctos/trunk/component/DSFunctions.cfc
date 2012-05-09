@@ -124,7 +124,7 @@
 	<cfquery name="d" datasource="uam_god">
 		select count(*) c from media where media_uri like '%/#filename#%'
 	</cfquery>
-	<cfreturn d.c>
+	<cfreturn d>
 </cffunction>
 
 <cffunction name="getAllAgentNames" access="remote">
