@@ -279,6 +279,12 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		where
 		TYPE_STATUS not in (select TYPE_STATUS from ctcitation_TYPE_STATUS)
 	</cfquery>
+	
+	update cf_temp_citation set status='TYPE_STATUS invalid'
+		where
+		TYPE_STATUS not in (select TYPE_STATUS from ctcitation_TYPE_STATUS)
+		
+		
 	<cfquery name="NATURE_OF_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='----the NATURE_OF_ID value does not bla bla lba laaksdba sa;ldjhvas invalid'
 		where
