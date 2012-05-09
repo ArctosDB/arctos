@@ -203,8 +203,10 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td></td>
 		</tr>
 	</table>
+	<p></p>
 	<cfform name="oids" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
+		<label for="FiletoUpload">Upload CSV</label>
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="insBtn">
 	</cfform>
@@ -370,7 +372,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<cfquery name="isProb" dbtype="query">
 			select count(*) c from valData where status is not null
 		</cfquery>
-		 #isProb.c#
 		<cfif #isProb.c# is 0 or len(isprob.c) is 0>
 			Data validated. Double-check below. If everything looks OK, <a href="BulkloadCitations.cfm?action=loadData">proceed to load</a>
 		<cfelse>
