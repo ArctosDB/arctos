@@ -370,7 +370,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<cfif #isProb.c# is 0 or len(isprob.c) is 0>
 			Data validated. Double-check below. If everything looks OK, <a href="BulkloadCitations.cfm?action=loadData">proceed to load</a>
 		<cfelse>
-			The data you loaded do not validate. <a href="BulkloadCitions.cfm?action=csv">get the CSV</a>
+			The data you loaded do not validate. <a href="BulkloadCitations.cfm?action=csv">get the CSV</a>
 		</cfif>
 		
 		
