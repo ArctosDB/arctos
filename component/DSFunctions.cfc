@@ -113,8 +113,8 @@
 	<cfargument name="mimetype" type="any" required="no">
 	<cfquery name="d" datasource="uam_god">
 		select media_uri from media where media_uri like '%/#filename#%'
-		<cfif len(mimetype) gt 0>
-			and mime_type='#mime_type#'
+		<cfif isdefined("mimetype") and len(mimetype) gt 0>
+			and mime_type='#mimetype#'
 		</cfif>
 	</cfquery>
 	<cfreturn d.c>
