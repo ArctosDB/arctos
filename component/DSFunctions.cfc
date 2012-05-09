@@ -110,7 +110,7 @@
 </cffunction>
 <cffunction name="getMediaUriByFilename" access="remote">
 	<cfargument name="filename" type="any" required="yes">
-	<cfargument name="mimetype" type="any" required="yes">
+	<cfargument name="mimetype" type="any" required="no">
 	<cfquery name="d" datasource="uam_god">
 		select media_uri from media where media_uri like '%/#filename#%'
 		<cfif len(mimetype) gt 0>
