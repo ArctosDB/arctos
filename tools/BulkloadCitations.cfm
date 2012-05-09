@@ -95,7 +95,13 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 
 <cfif action is "nothing">
 	Step 1: Upload a comma-delimited text file (csv). 
-	Include CSV column headings. <a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a>
+	Include CSV column headings. 
+	<ul>
+		<li><a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a></li>
+		<li><a target="_blank" class="external" href="http://arctosdb.org/documentation/publications/specimen-citations/">Citations documentation</a></li>
+	</ul>
+	
+	
 	<table border>
 		<tr>
 			<th>ColumnName</th>
