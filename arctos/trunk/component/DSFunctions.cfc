@@ -117,14 +117,15 @@
 			and mime_type='#mimetype#'
 		</cfif>
 	</cfquery>
-	<cfreturn d.c>
+	<cfreturn d>
 </cffunction>
+<!---------------------------------------------------------------------->
 <cffunction name="getMediaByFilename" access="remote">
 	<cfargument name="filename" type="any" required="yes">
 	<cfquery name="d" datasource="uam_god">
 		select count(*) c from media where media_uri like '%/#filename#%'
 	</cfquery>
-	<cfreturn d>
+	<cfreturn d.c>
 </cffunction>
 
 <cffunction name="getAllAgentNames" access="remote">
