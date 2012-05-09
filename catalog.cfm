@@ -56,7 +56,6 @@
 		colls.agent_name as collector,
 		collector_role,
 		coll_order,
-		publication.publication_id,
 		specimen_part.collection_object_id as partID,
 		part_name,
 		partcollobj.coll_obj_disposition as part_disposition,
@@ -81,11 +80,11 @@
 				'deg. min. sec.', to_char(lat_deg) || '&deg; ' || to_char(lat_min) || '&acute; ' || to_char(lat_sec) || '&acute;&acute; ' || lat_dir,
 				'degrees dec. minutes', to_char(lat_deg) || '&deg; ' || to_char(dec_lat_min) || '&acute; ' || lat_dir
 			)  VerbatimLatitude,
-			decode(orig_lat_long_units,
-				'decimal degrees',to_char(dec_long) || '&deg;',
-				'deg. min. sec.', to_char(long_deg) || '&deg; ' || to_char(long_min) || '&acute; ' || to_char(long_sec) || '&acute;&acute; ' || long_dir,
-				'degrees dec. minutes', to_char(long_deg) || '&deg; ' || to_char(dec_long_min) || '&acute; ' || long_dir
-			)  VerbatimLongitude,
+		decode(orig_lat_long_units,
+			'decimal degrees',to_char(dec_long) || '&deg;',
+			'deg. min. sec.', to_char(long_deg) || '&deg; ' || to_char(long_min) || '&acute; ' || to_char(long_sec) || '&acute;&acute; ' || long_dir,
+			'degrees dec. minutes', to_char(long_deg) || '&deg; ' || to_char(dec_long_min) || '&acute; ' || long_dir
+		)  VerbatimLongitude,
 		dec_lat,
 		dec_long,
 		max_error_distance,
@@ -95,81 +94,80 @@
         lat_long_ref_source,
 		lat_long_remarks,            
 		concatsingleotherid(cataloged_item.collection_object_id,'AF') af_num,
-		accn_number	AS accession,
-			habitat_desc,
-			coll_object_remark.associated_species,
-			coll_object_remark.habitat,
-			coll_object.flags,
-			ATTRIBUTE_ID,
-			attribute_type,
-			attribute_value,
-			attribute_units,
-			attribute_remark,
-			attDetr.agent_name as attribute_determiner,
-			attributes.DETERMINED_DATE att_det_date,
-			DETERMINATION_METHOD,
-			ConcatOtherId(cataloged_item.collection_object_id) other_identifers
+		accn_number accession,
+		habitat_desc,
+		coll_object_remark.associated_species,
+		coll_object_remark.habitat,
+		coll_object.flags,
+		ATTRIBUTE_ID,
+		attribute_type,
+		attribute_value,
+		attribute_units,
+		attribute_remark,
+		attDetr.agent_name as attribute_determiner,
+		attributes.DETERMINED_DATE att_det_date,
+		DETERMINATION_METHOD,
+		ConcatOtherId(cataloged_item.collection_object_id) other_identifers
 	FROM 
-		collection,
 		cataloged_item,
-		identification,
+		collection,
 		collecting_event,
 		locality,
+		accepted_lat_long,
+		preferred_agent_name latLongDeterminer,
 		geog_auth_rec,
 		coll_object_remark,
-		preferred_agent_name colls,
-		preferred_agent_name id_agent,
-		preferred_agent_name attDetr,
+		identification,
 		identification_agent,
+		preferred_agent_name id_agent,
 		Coll_object,
+		preferred_agent_name enteredPerson,
+		preferred_agent_name editedPerson,
 		coll_obj_other_id_num,
 		collector,
-		publication,
+		preferred_agent_name colls,
 		biol_indiv_relations,
 		cataloged_item related_cat_item,
 		attributes,
-		accepted_lat_long,
-			accn,
-			trans,
-			preferred_agent_name latLongDeterminer,
-			preferred_agent_name enteredPerson,
-			preferred_agent_name editedPerson,
-			specimen_part,
-			Coll_object partcollobj,
-			container parentContainer,
-			container thisContainer,
-			coll_object_remark partremk,
-			coll_obj_cont_hist
-	WHERE 
+		preferred_agent_name attDetr,
+		accn,
+		trans,
+		specimen_part,
+		Coll_object partcollobj,
+		coll_obj_cont_hist,
+		container thisContainer,
+		container parentContainer,
+		coll_object_remark partremk
+WHERE 
 		cataloged_item.collection_id = collection.collection_id AND
-		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
-		collecting_event.locality_id = locality.locality_id  AND
 		Cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
+		collecting_event.locality_id = locality.locality_id  AND
+		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
+		locality.locality_id = accepted_lat_long.locality_id (+) AND
+		accepted_lat_long.determined_by_agent_id = latLongDeterminer.agent_id (+) AND
 		cataloged_item.collection_object_id = coll_object_remark.collection_object_id (+) AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
 		identification.identification_id = identification_agent.identification_id AND
 		identification_agent.agent_id = id_agent.agent_id AND
 		identification.accepted_id_fg = 1 AND
-		coll_object.collection_object_id = cataloged_item.collection_object_id AND
+		cataloged_item.collection_object_id = coll_object.collection_object_id AND
+		coll_object.entered_person_id = enteredPerson.agent_id (+) AND
+		coll_object.last_edited_person_id = editedPerson.agent_id (+) AND
 		cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
 		cataloged_item.collection_object_id = collector.collection_object_id AND
 		collector.agent_id = colls.agent_id AND
 		cataloged_item.collection_object_id = biol_indiv_relations.collection_object_id (+) AND
 		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id (+) AND
 		cataloged_item.collection_object_id=attributes.collection_object_id (+) AND
-		locality.locality_id = accepted_lat_long.locality_id (+) AND
-		accepted_lat_long.determined_by_agent_id = latLongDeterminer.agent_id (+) AND
+		attributes.determined_by_agent_id = attDetr.agent_id (+) AND
 		cataloged_item.accn_id =  accn.transaction_id  AND
 		accn.transaction_id = trans.transaction_id AND
-		coll_object.entered_person_id = enteredPerson.agent_id (+) AND
-		coll_object.last_edited_person_id = editedPerson.agent_id (+) AND
-		attributes.determined_by_agent_id = attDetr.agent_id (+) AND		
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item (+) AND
 		specimen_part.collection_object_id = partcollobj.collection_object_id (+) AND
 		specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id (+) AND
 		coll_obj_cont_hist.container_id = thisContainer.container_id (+) AND
 		thisContainer.parent_container_id = parentContainer.container_id (+) AND
-		specimen_part.collection_object_id = partremk.collection_object_id (+) AND
+		specimen_part.collection_object_id = partremk.collection_object_id (+) AND		
 		cataloged_item.collection_object_id = #collection_object_id#
 	ORDER BY
 		cat_num">
