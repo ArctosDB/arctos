@@ -409,13 +409,6 @@
 		<cfset basQual = " #basQual# AND ( cataloged_item.collection_object_id IN
 			(select collection_object_id FROM identification where 
 				UPPER(scientific_name) LIKE '%#ucase(AnySciName)#%')
-			OR cataloged_item.collection_object_id IN
-				(select collection_object_id FROM
-					citation,
-					taxonomy
-				WHERE
-					citation.cited_taxon_name_id = taxonomy.taxon_name_id AND
-					UPPER(scientific_name) LIKE '%#ucase(AnySciName)#%')
 				OR cataloged_item.collection_object_id IN (
 					select collection_object_id FROM
 						identification,
