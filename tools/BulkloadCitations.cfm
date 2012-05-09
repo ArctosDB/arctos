@@ -591,7 +591,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<cfif #status# is not "loaded">
 				Something bad happened with #full_citation#. Contact your friendly local sysadmin.
 			<cfelse>
-				Everything seems to have worked! View citations for <a href="/Citation.cfm?publication_id=#publication_id#">#full_citation#</a>
+				Everything seems to have worked! <a href="/Citation.cfm?publication_id=#publication_id#">View citations</a>
 			</cfif>
 		</cfloop>
 	</cfoutput>
