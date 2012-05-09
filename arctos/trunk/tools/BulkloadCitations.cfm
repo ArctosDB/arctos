@@ -554,13 +554,13 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				#collection_object_id#,
 				1,
 				sq_identification_id.currval
-				<cfif len(#occurs_page_number#) gt 0>
+				<cfif len(occurs_page_number) gt 0>
 					,#occurs_page_number#
 				</cfif>
-				<cfif len(#type_status#) gt 0>
+				<cfif len(type_status) gt 0>
 					,'#type_status#'
 				</cfif>
-				<cfif len(#citation_remarks#) gt 0>
+				<cfif len(citation_remarks) gt 0>
 					,'#citation_remarks#'
 				</cfif>
 			) 
