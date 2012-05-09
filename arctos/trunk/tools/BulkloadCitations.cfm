@@ -66,15 +66,19 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation
 	</cfquery>
+	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
+	
+	
+	
 	<cfset variables.encoding="UTF-8">
 	<cfset variables.fileName="#Application.webDirectory#/download/BulkCitationsDown.csv">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(mine.columnList); 
+		variables.joFileWriter.writeLine(header); 
 	</cfscript>
 	<cfloop query="mine">
 		<cfset d=''>
-		<cfloop list="#mine.columnList#" index="i">
+		<cfloop list="#header#" index="i">
 			<cfset t='"' & evaluate("mine." & i) & '"'>
 			<cfset d=listappend(d,t,",")>
 		</cfloop>
