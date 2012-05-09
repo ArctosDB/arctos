@@ -391,7 +391,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfloop query="valData">
 		<tr>
 			<cfloop list="#header#" index="i">
-				<td>#evaluate("mine." & i)#</td>
+				<td>#evaluate("valData." & i)#</td>
 			</cfloop>
 		</tr>
 	</cfloop>
