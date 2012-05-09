@@ -30,6 +30,8 @@ create table cf_temp_citation (
 	STATUS VARCHAR2(255)
 );
 
+ALTER TABLE cf_temp_citation add taxa_formula VARCHAR2(60);
+
 ALTER TABLE cf_temp_citation add CONSTRAINT pk_cf_temp_citation PRIMARY KEY (KEY);
 
 CREATE OR REPLACE TRIGGER CF_TEMP_CITATION_KEY
@@ -53,7 +55,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 <cfset title="Bulkload Citations">
 
 <cfif action is "makeTemplate">
-	<cfset header="FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
+	<cfset header="FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
 	<cffile action = "write" 
     file = "#Application.webDirectory#/download/BulkCitationsTemplate.csv"
     output = "#header#"
@@ -66,7 +68,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation
 	</cfquery>
-	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
+	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
 	
 	
 	
@@ -177,6 +179,13 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>no</td>
 			<td>ISO8601 data on which the ID was made (usually publication year)</td>
 			<td></td>
+		</tr>
+		
+		<tr>
+			<td>USE_PUB_AUTHORS</td>
+			<td>no</td>
+			<td>Ignore anything that might be in the author fields and use the publication author-agents as determiners.</td>
+			<td><a href="http://arctosdb.org/documentation/publications/#author">authors</a></td>
 		</tr>
 		<tr>
 			<td>identifier_1</td>
@@ -313,7 +322,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		</cfinvoke>
 		<cfset thisTNID1=tn.taxon_name_id_1>
 		<cfset thisTNID2=tn.taxon_name_id_2>
-		<cfset thisTNID2=tn.taxon_name_id_2>
+		<cfset thisTF=tn.taxa_formula>
 		
 		<cfset problem = listappend(problem,tn.status,";")>
 		
@@ -348,10 +357,19 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				<cfif len(aid3) gt 0>
 					,agentid3=#aid3#
 				</cfif>
+				<cfif len(thisTNID2) gt 0>
+					,taxonid2=#thisTNID2#
+				</cfif>
+				<cfif len(thisTNID1) gt 0>
+					,taxonid1=#thisTNID1#
+				</cfif>
+				,taxa_formula='#thisTF#'
 				,status = '#problem#'
 			 where
 				key = #key#
 		</cfquery>
+		
+	
 	</cfloop>
 	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='duplicate' where key in (				
@@ -378,7 +396,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		The data you loaded do not validate. <a href="BulkloadCitations.cfm?action=csv">get the CSV</a>
 	</cfif>
 	<script src="/includes/sorttable.js"></script>
-	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
+	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
 	<table border id="t" class="sortable">
 		<tr>
 			<cfloop list="#header#" index="i">
@@ -407,37 +425,149 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	
 	<cftransaction>
 	<cfloop query="getTempData">
-		<cfquery name="insert" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into citation (
-				PUBLICATION_ID,
+		<cfif accepted_id_fg is 1>
+			<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
+			</cfquery>
+		</cfif>
+		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO identification (
+				IDENTIFICATION_ID,
 				COLLECTION_OBJECT_ID,
-				CITED_TAXON_NAME_ID,
-				CIT_CURRENT_FG
-				<cfif len(#OCCURS_PAGE_NUMBER#) gt 0>
-					,OCCURS_PAGE_NUMBER
-				</cfif>
-				<cfif len(#TYPE_STATUS#) gt 0>
-					,TYPE_STATUS
-				</cfif>
-				<cfif len(#CITATION_REMARKS#) gt 0>
-					,CITATION_REMARKS
-				</cfif>
-			) values (
-				#PUBLICATION_ID#,
+				MADE_DATE,
+				NATURE_OF_ID,
+				ACCEPTED_ID_FG,
+				IDENTIFICATION_REMARKS,
+				taxa_formula,
+				scientific_name,
+				publication_id
+			) VALUES (
+				sq_identification_id.nextval,
 				#COLLECTION_OBJECT_ID#,
-				#CITED_TAXON_NAME_ID#,
-				1
-				<cfif len(#OCCURS_PAGE_NUMBER#) gt 0>
-					,#OCCURS_PAGE_NUMBER#
-				</cfif>
-				<cfif len(#TYPE_STATUS#) gt 0>
-					,'#TYPE_STATUS#'
-				</cfif>
-				<cfif len(#CITATION_REMARKS#) gt 0>
-					,'#CITATION_REMARKS#'
-				</cfif>
+				'#MADE_DATE#',
+				'#NATURE_OF_ID#',
+				#accepted_id_fg#,
+				'#IDENTIFICATION_REMARKS#',
+				'#taxa_formula#',
+				'#scientific_name#',
+				#publication_id#
 			)
 		</cfquery>
+		<cfif USE_PUB_AUTHORS is true>
+			<cfquery name="pa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select AGENT_ID from publication_agent where publication_id=#publication_id#
+			</cfquery>
+			<cfset ap=1>
+			<cfloop query="pa">
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into identification_agent (
+						identification_id,
+						agent_id,
+						identifier_order) 
+					values (
+						sq_identification_id.currval,
+						#AGENT_ID#,
+						#ap#
+						)
+				</cfquery>
+				<cfset ap=ap+1>
+			</cfloop>
+		<cfelse>
+			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into identification_agent (
+					identification_id,
+					agent_id,
+					identifier_order) 
+				values (
+					sq_identification_id.currval,
+					#agentid1#,
+					1
+					)
+			</cfquery>
+			<cfif len(agentid2) gt 0>
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into identification_agent (
+						identification_id,
+						agent_id,
+						identifier_order) 
+					values (
+						sq_identification_id.currval,
+						#agentid2#,
+						2
+						)
+				</cfquery>
+			</cfif>
+			<cfif len(agentid3) gt 0>
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into identification_agent (
+						identification_id,
+						agent_id,
+						identifier_order) 
+					values (
+						sq_identification_id.currval,
+						#agentid1#,
+						3
+						)
+				</cfquery>
+			</cfif>
+		</cfif>
+		
+		<cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO identification_taxonomy (
+				identification_id,
+				taxon_name_id,
+				variable)
+			VALUES (
+				sq_identification_id.currval,
+				#taxonid1#,
+				'A')
+		 </cfquery>
+		 <cfif taxa_formula contains "B">
+			 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO identification_taxonomy (
+					identification_id,
+					taxon_name_id,
+					variable)
+				VALUES (
+					sq_identification_id.currval,
+					#taxonid2#,
+					'B')
+			 </cfquery>
+		 </cfif>
+		<cfquery name="newCite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO citation (
+				publication_id,
+				collection_object_id,
+				cit_current_fg,
+				identification_id			
+				<cfif len(occurs_page_number) gt 0>
+					,occurs_page_number
+				</cfif>
+				<cfif len(type_status) gt 0>
+					,type_status
+				</cfif>
+				<cfif len(citation_remarks) gt 0>
+					,citation_remarks
+				</cfif>
+			) VALUES (
+				#publication_id#,
+				#collection_object_id#,
+				1,
+				sq_identification_id.currval
+				<cfif len(#occurs_page_number#) gt 0>
+					,#occurs_page_number#
+				</cfif>
+				<cfif len(#type_status#) gt 0>
+					,'#type_status#'
+				</cfif>
+				<cfif len(#citation_remarks#) gt 0>
+					,'#citation_remarks#'
+				</cfif>
+			) 
+		</cfquery>
+		
+		
+		
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_citation set status='loaded' where key=#key#			
 		</cfquery>
