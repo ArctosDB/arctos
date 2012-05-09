@@ -113,13 +113,13 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>guid_prefix</td>
 			<td>yes</td>
 			<td>find under Manage Collections - things like "UAM:Mamm"</td>
-			<td><a href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
+			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
 		</tr>
 		<tr>
 			<td>other_id_type</td>
 			<td>yes</td>
 			<td>"catalog number" is valid but not in teh code table</td>
-			<td><a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
+			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
 		</tr>
 		<tr>
 			<td>other_id_number</td>
@@ -143,7 +143,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>type_status</td>
 			<td>yes</td>
 			<td></td>
-			<td><a href="/info/ctDocumentation.cfm?table=CTCITATION_TYPE_STATUS">CTCITATION_TYPE_STATUS</a></td>
+			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTCITATION_TYPE_STATUS">CTCITATION_TYPE_STATUS</a></td>
 		</tr>
 		<tr>
 			<td>occurs_page_number</td>
@@ -161,7 +161,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>scientific_name</td>
 			<td>yes</td>
 			<td>Identification.scientific_name to apply to the specimen</td>
-			<td><a href="http://arctosdb.org/documentation/identification/#scientific_name">identification.scientific_name</a></td>
+			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/identification/#scientific_name">identification.scientific_name</a></td>
 		</tr>
 		<tr>
 			<td>accepted_id_fg</td>
@@ -173,7 +173,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>nature_of_id</td>
 			<td>yes</td>
 			<td></td>
-			<td><a href="/info/ctDocumentation.cfm?table=ctnature_of_id">ctnature_of_id</a></td>
+			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=ctnature_of_id">ctnature_of_id</a></td>
 		</tr>
 		
 		<tr>
@@ -187,7 +187,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>USE_PUB_AUTHORS</td>
 			<td>no</td>
 			<td>Ignore anything that might be in the author fields and use the publication author-agents as determiners.</td>
-			<td>0 or 1 - <a href="http://arctosdb.org/documentation/publications/#author">authors</a></td>
+			<td>0 or 1 - <a target="_blank" class="external"  href="http://arctosdb.org/documentation/publications/#author">authors</a></td>
 		</tr>
 		<tr>
 			<td>identifier_1</td>
