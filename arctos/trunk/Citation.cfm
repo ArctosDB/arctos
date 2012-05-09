@@ -269,7 +269,12 @@
 				</cfquery>
 				<cfquery name="a3" dbtype="query">
 					select * from auth where r=3
-				</cfquery>	
+				</cfquery>
+				<label for="usePublicationAuthors">Use Publication Authors & ignore any agent info below</label>
+				<select name="usePublicationAuthors" id="usePublicationAuthors" size="1" class="reqdClr">
+					<option value="0">no, use author info below</option>
+					<option value="1">yes, ignore author info below</option>
+				</select>
 				<label for="newIdBy"><span class="helpLink" id="id_by">ID Agent 1 (save and edit for more agents)</span></label>
 				<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" value="#a1.agent_name#"
 					onchange="getAgent('newIdBy_id',this.id,'newCitation',this.value);">
@@ -355,18 +360,26 @@
 				#publication_id#
 			)
 		</cfquery>
-		<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into identification_agent (
-				identification_id,
-				agent_id,
-				identifier_order) 
-			values (
-				sq_identification_id.currval,
-				#newIdBy_id#,
-				1
-				)
-		</cfquery>
-		<cfif len(newIdBy_two_id) gt 0>
+		<cfif isdefined("usePublicationAuthors") and usePublicationAuthors is true>
+			<cfquery name="pa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select AGENT_ID from publication_agent where publication_id=#publication_id#
+			</cfquery>
+			<cfset ap=1>
+			<cfloop query="pa">
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into identification_agent (
+						identification_id,
+						agent_id,
+						identifier_order) 
+					values (
+						sq_identification_id.currval,
+						#AGENT_ID#,
+						#ap#
+						)
+				</cfquery>
+				<cfset ap=ap+1>
+			</cfloop>
+		<cfelse>
 			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into identification_agent (
 					identification_id,
@@ -374,24 +387,38 @@
 					identifier_order) 
 				values (
 					sq_identification_id.currval,
-					#newIdBy_two_id#,
-					2
+					#newIdBy_id#,
+					1
 					)
 			</cfquery>
+			<cfif len(newIdBy_two_id) gt 0>
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into identification_agent (
+						identification_id,
+						agent_id,
+						identifier_order) 
+					values (
+						sq_identification_id.currval,
+						#newIdBy_two_id#,
+						2
+						)
+				</cfquery>
+			</cfif>
+			<cfif len(newIdBy_three_id) gt 0>
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into identification_agent (
+						identification_id,
+						agent_id,
+						identifier_order) 
+					values (
+						sq_identification_id.currval,
+						#newIdBy_three_id#,
+						3
+						)
+				</cfquery>
+			</cfif>
 		</cfif>
-		<cfif len(newIdBy_three_id) gt 0>
-			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into identification_agent (
-					identification_id,
-					agent_id,
-					identifier_order) 
-				values (
-					sq_identification_id.currval,
-					#newIdBy_three_id#,
-					3
-					)
-			</cfquery>
-		</cfif>
+		
 		<cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO identification_taxonomy (
 				identification_id,
