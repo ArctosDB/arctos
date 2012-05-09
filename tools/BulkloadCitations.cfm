@@ -175,16 +175,14 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td></td>
 			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=ctnature_of_id">ctnature_of_id</a></td>
 		</tr>
-		
 		<tr>
 			<td>made_date</td>
 			<td>no</td>
 			<td>ISO8601 data on which the ID was made (usually publication year)</td>
 			<td></td>
 		</tr>
-		
 		<tr>
-			<td>USE_PUB_AUTHORS</td>
+			<td>use_pub_authors</td>
 			<td>no</td>
 			<td>Ignore anything that might be in the author fields and use the publication author-agents as determiners.</td>
 			<td>0 or 1 - <a target="_blank" class="external"  href="http://arctosdb.org/documentation/publications/#author">authors</a></td>

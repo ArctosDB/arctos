@@ -58,8 +58,6 @@
 		coll_order,
 		type_status,
 		occurs_page_number,
-		cited_taxa.scientific_name as cited_name,
-		cited_taxa.taxon_name_id as cited_name_id,	
 		publication.publication_id,
 		specimen_part.collection_object_id as partID,
 		part_name,
@@ -117,7 +115,6 @@
 		collection,
 		cataloged_item,
 		identification,
-		taxonomy cited_taxa,
 		collecting_event,
 		locality,
 		geog_auth_rec,
@@ -130,7 +127,6 @@
 		coll_obj_other_id_num,
 		collector,
 		publication,
-		citation,
 		biol_indiv_relations,
 		cataloged_item related_cat_item,
 		attributes,
@@ -152,8 +148,6 @@
 		collecting_event.locality_id = locality.locality_id  AND
 		Cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
 		cataloged_item.collection_object_id = coll_object_remark.collection_object_id (+) AND
-		cataloged_item.collection_object_id = citation.collection_object_id (+) AND
-		citation.cited_taxon_name_id = cited_taxa.taxon_name_id (+) AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
 		identification.identification_id = identification_agent.identification_id AND
 		identification_agent.agent_id = id_agent.agent_id AND
@@ -162,8 +156,6 @@
 		cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
 		cataloged_item.collection_object_id = collector.collection_object_id AND
 		collector.agent_id = colls.agent_id AND
-		cataloged_item.collection_object_id = citation.collection_object_id (+) AND
-		citation.publication_id = publication.publication_id (+) AND
 		cataloged_item.collection_object_id = biol_indiv_relations.collection_object_id (+) AND
 		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id (+) AND
 		cataloged_item.collection_object_id=attributes.collection_object_id (+) AND
