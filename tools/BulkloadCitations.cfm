@@ -377,15 +377,15 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			The data you loaded do not validate. <a href="BulkloadCitations.cfm?action=csv">get the CSV</a>
 		</cfif>
 	
-	
+		<script src="/includes/sorttable.js"></script>
+
 	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
-	<table border>
+<table border id="t" class="sortable">
 		<tr>
 			<cfloop list="#header#" index="i">
 				<th>#i#</th>
 			</cfloop>
 		</tr>
-	</table>
 	
 	
 	<cfloop query="valData">
@@ -398,6 +398,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		
 		
 		
+	</table>
 		
 		
 	
