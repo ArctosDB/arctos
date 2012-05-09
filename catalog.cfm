@@ -56,8 +56,6 @@
 		colls.agent_name as collector,
 		collector_role,
 		coll_order,
-		type_status,
-		occurs_page_number,
 		publication.publication_id,
 		specimen_part.collection_object_id as partID,
 		part_name,
