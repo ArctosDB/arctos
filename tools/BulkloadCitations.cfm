@@ -369,47 +369,30 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		other_id_number,
 		full_citation
 	</cfquery>
-		<cfquery name="isProb" dbtype="query">
-			select count(*) c from valData where status is not null
-		</cfquery>
-		<cfif #isProb.c# is 0 or len(isprob.c) is 0>
-			Data validated. Double-check below. If everything looks OK, <a href="BulkloadCitations.cfm?action=loadData">proceed to load</a>
-		<cfelse>
-			The data you loaded do not validate. <a href="BulkloadCitations.cfm?action=csv">get the CSV</a>
-		</cfif>
-	
-		<script src="/includes/sorttable.js"></script>
-
+	<cfquery name="isProb" dbtype="query">
+		select count(*) c from valData where status is not null
+	</cfquery>
+	<cfif #isProb.c# is 0 or len(isprob.c) is 0>
+		Data validated. Double-check below. If everything looks OK, <a href="BulkloadCitations.cfm?action=loadData">proceed to load</a>
+	<cfelse>
+		The data you loaded do not validate. <a href="BulkloadCitations.cfm?action=csv">get the CSV</a>
+	</cfif>
+	<script src="/includes/sorttable.js"></script>
 	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
-<table border id="t" class="sortable">
+	<table border id="t" class="sortable">
 		<tr>
 			<cfloop list="#header#" index="i">
 				<th>#i#</th>
 			</cfloop>
 		</tr>
-	
-	
-	<cfloop query="valData">
-		<tr>
-			<cfloop list="#header#" index="i">
-				<td>#evaluate("valData." & i)#</td>
-			</cfloop>
-		</tr>
-	</cfloop>
-		
-		
-		
+		<cfloop query="valData">
+			<tr>
+				<cfloop list="#header#" index="i">
+					<td>#evaluate("valData." & i)#</td>
+				</cfloop>
+			</tr>
+		</cfloop>
 	</table>
-		
-		
-	
-				
-				
-				
-				
-		<!---
-	<cflocation url="BulkloadCitations.cfm?action=loadData">
-	---->
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
