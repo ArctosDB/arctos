@@ -70,9 +70,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		select * from cf_temp_citation
 	</cfquery>
 	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
-	
-	
-	
 	<cfset variables.encoding="UTF-8">
 	<cfset variables.fileName="#Application.webDirectory#/download/BulkCitationsDown.csv">
 	<cfscript>
@@ -96,11 +93,9 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<a href="/download/BulkCitationsDown.csv">Click here if your file does not automatically download.</a>
 </cfif>
 
-
 <cfif action is "nothing">
 	Step 1: Upload a comma-delimited text file (csv). 
-	Include column headings. <a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a>
-	
+	Include CSV column headings. <a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a>
 	<table border>
 		<tr>
 			<th>ColumnName</th>
@@ -222,17 +217,13 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	</cfform>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "getFile">
+<cfif action is "getFile">
 <cfoutput>
-
-
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_citation
 	</cfquery>
-
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
 	<cfset colNames="">
@@ -279,7 +270,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		where
 		TYPE_STATUS not in (select TYPE_STATUS from ctcitation_TYPE_STATUS)
 	</cfquery>
-		
 	<cfquery name="NATURE_OF_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='NATURE_OF_ID invalid'
 		where
@@ -309,7 +299,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				</cfif>
 		</cfquery>
 		<cfset thisColObjId=collObj.COLLECTION_OBJECT_ID>
-		
 		<cfif len(publication_id) is 0>
 			<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select publication_id from publication where full_citation = '#full_citation#'
@@ -325,9 +314,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<cfset thisTNID1=tn.taxon_name_id_1>
 		<cfset thisTNID2=tn.taxon_name_id_2>
 		<cfset thisTF=tn.taxa_formula>
-		
 		<cfset problem = listappend(problem,tn.status,";")>
-		
 		<cfinvoke component="component.functions" method="getAgentId" returnvariable="a">
 			<cfinvokeargument name="agent_name" value="#IDENTIFIER_1#">
 		</cfinvoke>
@@ -343,9 +330,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		</cfinvoke>
 		<cfset problem = listappend(problem,a.status,";")>
 		<cfset aid3=a.agent_id>
-			
-			
-		
 		<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE cf_temp_citation SET 
 				collection_object_id = #thisColObjId#,
@@ -370,8 +354,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			 where
 				key = #key#
 		</cfquery>
-		
-	
 	</cfloop>
 	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='duplicate' where key in (				
@@ -417,14 +399,10 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 </cfif>
 <!------------------------------------------------------->
 <cfif #action# is "loadData">
-
-<cfoutput>
-	
-		
+<cfoutput>	
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation
 	</cfquery>
-	
 	<cftransaction>
 	<cfloop query="getTempData">
 		<cfif accepted_id_fg is 1>
@@ -513,7 +491,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				</cfquery>
 			</cfif>
 		</cfif>
-		
 		<cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO identification_taxonomy (
 				identification_id,
@@ -567,9 +544,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				</cfif>
 			) 
 		</cfquery>
-		
-		
-		
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_citation set status='loaded' where key=#key#			
 		</cfquery>
