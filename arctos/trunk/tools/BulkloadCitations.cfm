@@ -31,6 +31,7 @@ create table cf_temp_citation (
 );
 
 ALTER TABLE cf_temp_citation add taxa_formula VARCHAR2(60);
+ALTER TABLE cf_temp_citation add use_pub_authors number(1);
 
 ALTER TABLE cf_temp_citation add CONSTRAINT pk_cf_temp_citation PRIMARY KEY (KEY);
 
@@ -185,7 +186,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>USE_PUB_AUTHORS</td>
 			<td>no</td>
 			<td>Ignore anything that might be in the author fields and use the publication author-agents as determiners.</td>
-			<td><a href="http://arctosdb.org/documentation/publications/#author">authors</a></td>
+			<td>0 or 1 - <a href="http://arctosdb.org/documentation/publications/#author">authors</a></td>
 		</tr>
 		<tr>
 			<td>identifier_1</td>
@@ -283,6 +284,12 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		where
 		NATURE_OF_ID not in (select NATURE_OF_ID from ctNATURE_OF_ID)
 	</cfquery>
+	<cfquery name="fmwar" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select NATURE_OF_ID from cf_temp_citation 
+		where
+		NATURE_OF_ID not in (select NATURE_OF_ID from ctNATURE_OF_ID)
+	</cfquery>
+	<cfdump var=#fmwar#>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation where status is null
 	</cfquery>
