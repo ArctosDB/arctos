@@ -1365,7 +1365,7 @@
 		select derived_from_cat_item from specimen_part,loan_item where 
 			specimen_part.collection_object_id=loan_item.collection_object_id and loan_item.transaction_id=#loan_trans_id#
 		union
-			collection_object_id from loan_item where loan_item.transaction_id=#loan_trans_id#
+			select loan_item.collection_object_id from loan_item where loan_item.transaction_id=#loan_trans_id#
 			)">
 </cfif>
 
