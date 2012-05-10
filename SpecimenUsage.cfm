@@ -369,8 +369,8 @@
 				publication.full_citation,
 				publication.doi,
 				publication.pmid,
-				display_name,
-				scientific_name
+				taxonomy.display_name,
+				taxonomy.scientific_name
 			ORDER BY 
 				publication.full_citation,
 				publication.publication_id">
