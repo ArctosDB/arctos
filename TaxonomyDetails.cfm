@@ -381,14 +381,21 @@
 			</cfif>
 			<li>
 				 <cfquery name="citas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select count(*) c from citation where cited_taxon_name_id=#one.taxon_name_id#
+					select 
+						count(*) c 
+					from 
+						citation,
+						identification,
+						identification_taxonomy
+					where 
+						identification_taxonomy.taxon_name_id=#one.taxon_name_id#
 				</cfquery>
 				<cfif citas.c gt 0>
 					<a href="/SpecimenResults.cfm?cited_taxon_name_id=#one.taxon_name_id#">
-						Specimens cited as #one.display_name#
+						Specimens cited using #one.display_name#
 					</a>
 				<cfelse>
-					No specimens are cited as this name.
+					No specimens citations use this name.
 				</cfif>
 			</li>
 		</ul>

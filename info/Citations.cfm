@@ -47,8 +47,6 @@
 		<br><input type="submit" class="lnkBtn" value="go">
 	</form>
 </cfif>
-
-
 <cfif action is "CitTax">
 	<cfquery name="cit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
@@ -84,7 +82,7 @@
 		<tr>
 			<td><a href="/SpecimenUsage.cfm?action=search&current_Sci_Name=#scientific_name#">#scientific_name#</a></td>
 			<td>
-				<cfif #CitName# is #scientific_name#>
+				<cfif CitName is scientific_name>
 					<a href="/SpecimenUsage.cfm?action=search&cited_Sci_Name=#CitName#"><font color="##00FF00">#CitName#</font></a>
 				<cfelse>
 					<a href="/SpecimenUsage.cfm?action=search&cited_Sci_Name=#CitName#"><font color="##FF0000">#CitName#</font></a>
@@ -93,10 +91,6 @@
 		</tr>
 	</cfloop>
 	</table>
-	
 	</cfif>
-
-
 </cfoutput>
-
 <cfinclude template="/includes/_footer.cfm">

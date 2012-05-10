@@ -354,9 +354,9 @@
 		<cfif isdefined("cited_Sci_Name") AND len(cited_Sci_Name) gt 0>
 			<cfset go="yes">
 			<cfset basFrom = "#basFrom# ,
-				citation CITED_NAME_CITATION, taxonomy CitTaxa">
+				citation CITED_NAME_CITATION, identification CitTaxa">
 				<cfset basWhere = "#basWhere# AND publication.publication_id = CITED_NAME_CITATION.publication_id (+)
-					AND CITED_NAME_CITATION.cited_taxon_name_id = CitTaxa.taxon_name_id (+)
+					AND CITED_NAME_CITATION.identification_id = CitTaxa.identification_id (+)
 					AND upper(CitTaxa.scientific_name) LIKE '%#ucase(cited_Sci_Name)#%'">
 		</cfif>
 		<cfif go is "no">
