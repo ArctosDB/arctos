@@ -35,6 +35,40 @@
 		LOAN_STATUS,
 		RETURN_DUE_DATE,
 		TRANS_DATE
+	union
+	select 
+		collection,
+		collection.collection_id,
+		loan.TRANSACTION_ID,
+		loan.loan_number,
+		concattransagent(loan.TRANSACTION_ID,'received by') loaned_to,
+		LOAN_STATUS,
+		RETURN_DUE_DATE,
+		TRANS_DATE,
+		count(distinct(specimen_part.derived_from_cat_item)) CntCatNum,
+		count(distinct(citation.collection_object_id)) cntCited
+	from
+		loan,
+		trans,
+		loan_item,
+		specimen_part,
+		citation,
+		collection
+	where
+		loan.transaction_id = trans.transaction_id and
+		trans.collection_id=collection.collection_id and
+		loan.transaction_id=loan_item.transaction_id (+) and
+		loan_item.collection_object_id=specimen_part.derived_from_cat_item (+) and
+		loan_item.collection_object_id=citation.collection_object_id (+)
+	group by
+		collection,
+		collection.collection_id,
+		loan.TRANSACTION_ID,
+		loan.loan_number,
+		concattransagent(loan.TRANSACTION_ID,'received by'),
+		LOAN_STATUS,
+		RETURN_DUE_DATE,
+		TRANS_DATE
 </cfquery>
 <cfoutput>
 	<h2>Loan Statistics</h2>
