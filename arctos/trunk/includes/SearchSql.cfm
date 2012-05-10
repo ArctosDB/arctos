@@ -30,6 +30,18 @@
     </cfif>
 	<cfset basQual = "#basQual#  AND media.mime_type = '#mime_type#'" >
 </cfif>
+
+<cfif isdefined("cited_taxon_name_id") AND len(cited_taxon_name_id) gt 0>
+	<cfif basJoin does not contain " citation ">
+		<cfset basJoin = " #basJoin# INNER JOIN citation ON 
+		(cataloged_item.collection_object_id = citation.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND citation.cited_taxon_name_id = #cited_taxon_name_id#">
+	<cfset mapurl = "#mapurl#&cited_taxon_name_id=#cited_taxon_name_id#">
+</cfif>
+
+
+
 <cfif isdefined("ImgNoConfirm") and len(ImgNoConfirm) gt 0>
 	<cfset mapurl = "#mapurl#&ImgNoConfirm=#ImgNoConfirm#">
    	<cfset basQual = "#basQual#  AND cataloged_item.collection_object_id not in (select 
@@ -1176,14 +1188,6 @@
 	<cfset basQual = " #basQual# AND identification.accepted_id_fg = 1 AND
 		 UPPER(common_name.Common_Name) LIKE '%#ucase(stripQuotes(Common_Name))#%'">
 	<cfset mapurl = "#mapurl#&Common_Name=#Common_Name#">
-</cfif>
-<cfif isdefined("cited_taxon_name_id") AND len(cited_taxon_name_id) gt 0>
-	<cfif basJoin does not contain " citation ">
-		<cfset basJoin = " #basJoin# INNER JOIN citation ON 
-		(cataloged_item.collection_object_id = citation.collection_object_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND citation.cited_taxon_name_id = #cited_taxon_name_id#">
-	<cfset mapurl = "#mapurl#&cited_taxon_name_id=#cited_taxon_name_id#">
 </cfif>
 <cfif isdefined("publication_id") AND len(publication_id) gt 0>
 	<cfif basJoin does not contain " citation ">
