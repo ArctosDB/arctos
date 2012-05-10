@@ -2,6 +2,7 @@
 <script src="/includes/sorttable.js"></script>
 <cfset title="Loan and Citation statistics">
 <cfparam name="loanto" default="">
+<cfoutput>
 <form name="f" method="get" action="loanStats.cfm">
 	<label for="loanto">Loaned To Person</label>
 	<input type="text" name="loanto" id="loanto" value="#loanto#">
@@ -83,7 +84,6 @@
 		RETURN_DUE_DATE,
 		TRANS_DATE
 </cfquery>
-<cfoutput>
 	<h2>Loan Statistics</h2>
 <div style="background-color:lightgray;font-size:small;padding:1em; width:50%; align:center;margin-left:3em;margin:1em;">
 	Citations apply to cataloged items and do not reflect activity resulting from any particular loan.
