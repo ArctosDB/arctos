@@ -53,32 +53,27 @@
 	<cfquery name="cit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
 			count(citation.collection_object_id) as cnt,
-			identification.scientific_name scientific_name,
-			taxonomy.scientific_name citName
+			accidentification.scientific_name scientific_name,
+			citidentification.scientific_name citName
 		FROM
 			citation,
-			identification,
-			taxonomy,
+			identification accidentification,
+			identification citidentification,
 			cataloged_item
 		WHERE
 			citation.collection_object_id = cataloged_item.collection_object_id and
-			cataloged_item.collection_object_id=identification.collection_object_id AND
-			identification.accepted_id_fg = 1 AND
-			citation.cited_taxon_name_id = taxonomy.taxon_name_id
+			cataloged_item.collection_object_id=accidentification.collection_object_id AND
+			accidentification.accepted_id_fg = 1 AND
+			citation.identification_id = citidentification.identification_id
 			<cfif isdefined("collection_id") and len(collection_id) gt 0>
 				and cataloged_item.collection_id=#collection_id#
 			</cfif>
-			<cfif isdefined("ismatch") and ismatch is 0>
-				and identification.scientific_name != taxonomy.scientific_name
-			<cfelseif isdefined("ismatch") and ismatch is 1>
-				and identification.scientific_name = taxonomy.scientific_name
-			</cfif>
 		GROUP BY
-			identification.scientific_name,taxonomy.scientific_name
+			accidentification.scientific_name,citidentification.scientific_name
 		ORDER BY 
-			scientific_name
+			accidentification.scientific_name
 	</cfquery>
-	Citations by Taxonomy:
+	Citations by Collection:
 	<table border>
 		<tr>
 			<td>Accepted Name</td>
@@ -94,24 +89,6 @@
 				<cfelse>
 					<a href="/SpecimenUsage.cfm?action=search&cited_Sci_Name=#CitName#"><font color="##FF0000">#CitName#</font></a>
 				</cfif>
-				
-			</td>
-			<td>
-				<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT 
-						citation.collection_object_id
-					FROM
-						citation,
-						identification,
-						taxonomy
-					WHERE
-						citation.collection_object_id = identification.collection_object_id AND
-						identification.accepted_id_fg = 1 AND
-						citation.cited_taxon_name_id = taxonomy.taxon_name_id and
-						identification.scientific_name='#scientific_name#' and 
-						taxonomy.scientific_name='#CitName#'
-				</cfquery>
-				<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(wtf.collection_object_id)#">#cnt#</a>
 			</td>
 		</tr>
 	</cfloop>
