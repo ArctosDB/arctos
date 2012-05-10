@@ -6,6 +6,7 @@
 <cfparam name="loanstatus" default="">
 <cfparam name="collectionid" default="">
 <cfparam name="citations" default="">
+<cfparam name="itemsloaned" default="">
 
 <cfquery name="ctLoanStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select loan_status from ctloan_status order by loan_status
@@ -57,7 +58,13 @@
 			<option <cfif citations is 0> selected="selected" </cfif> value="0">has none</option>
 			<option <cfif citations is 1> selected="selected" </cfif> value="1">has some</option>
 		</select>	
+			<label for="itemsloaned">Items Loaned</label>
 		
+		<select name="itemsloaned" id="itemsloaned" class="reqdClr">
+			<option value="">whatever</option>
+			<option <cfif itemsloaned is 0> selected="selected" </cfif> value="0">has none</option>
+			<option <cfif itemsloaned is 1> selected="selected" </cfif> value="1">has some</option>
+		</select>
 		
 		
 	<br><input type="submit" value="filter">
@@ -145,6 +152,13 @@
 			and citationID is null
 		<cfelse>
 			and citationID is not null
+		</cfif>
+	</cfif>
+	<cfif len(itemsloaned) gt 0>
+		<cfif itemsloaned is 0>
+			and derived_from_cat_item is null
+		<cfelse>
+			and derived_from_cat_item is not null
 		</cfif>
 	</cfif>
 	group by
