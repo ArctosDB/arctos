@@ -1,6 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Loan and Citation statistics">
+<form name="f" method="get" action="loanStats.cfm">
+	<label for="loanto">Loaned To Person</label>
+	<input type="text" name="loanto" id="loanto">
+	<br><input type="submit" value="filter">
+</form>
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 
 	collection,
@@ -62,7 +67,12 @@
 			loan.transaction_id=loan_item.transaction_id (+) and
 			loan_item.collection_object_id=specimen_part.derived_from_cat_item (+) and
 			loan_item.collection_object_id=citation.collection_object_id (+)
-	) group by
+	) 
+	where 1=1
+	<cfif len(loanto) gt 0>
+		and upper(loaned_to) like '%#ucase(loanto)#%'
+	</cfif>
+	group by
 		collection,
 		collection_id,
 		TRANSACTION_ID,
