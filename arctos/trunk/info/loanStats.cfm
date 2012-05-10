@@ -5,7 +5,7 @@
 <cfparam name="loantype" default="">
 <cfparam name="loanstatus" default="">
 <cfparam name="collectionid" default="">
-
+<cfparam name="citations" default="">
 
 <cfquery name="ctLoanStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select loan_status from ctloan_status order by loan_status
@@ -50,7 +50,16 @@
 				<option  <cfif loanstatus is ctLoanStatus.loan_status> selected="selected" </cfif> value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
 			</cfloop>
 		</select>			
-						
+		<label for="citations">Citations</label>
+		
+		<select name="citations" id="citations" class="reqdClr">
+			<option value="">whatever</option>
+			<option <cfif citations is 0> selected="selected" </cfif> value="0">has none</option>
+			<option <cfif citations is 1> selected="selected" </cfif> value="1">has some</option>
+		</select>	
+		
+		
+		
 	<br><input type="submit" value="filter">
 </form>
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -130,6 +139,13 @@
 	</cfif>
 	<cfif len(collectionid) gt 0>
 		and collection_id=#collectionid#
+	</cfif>
+	<cfif len(citations) gt 0>
+		<cfif citations is 0>
+			and count(distinct(citationID))=0
+		<cfelse>
+			and count(distinct(citationID))>0
+		</cfif>
 	</cfif>
 	group by
 		collection,
