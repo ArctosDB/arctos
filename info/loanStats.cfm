@@ -25,7 +25,7 @@
 		trans.collection_id=collection.collection_id and
 		loan.transaction_id=loan_item.transaction_id (+) and
 		loan_item.collection_object_id=specimen_part.collection_object_id (+) and
-		specimen_part.derived_from_cat_item=citation.collection_object_id (+) and
+		specimen_part.derived_from_cat_item=citation.collection_object_id (+)
 	group by
 		collection,
 		collection.collection_id,
