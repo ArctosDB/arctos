@@ -142,9 +142,9 @@
 	</cfif>
 	<cfif len(citations) gt 0>
 		<cfif citations is 0>
-			and count(citationID)=0
+			and citationID is null
 		<cfelse>
-			and count(citationID)>0
+			and citationID is not null
 		</cfif>
 	</cfif>
 	group by
