@@ -131,7 +131,6 @@
 	<cfif len(collection_id) gt 0>
 		and collection_id=#collection_id#
 	</cfif>
-	ctcollection
 	group by
 		collection,
 		collection_id,
