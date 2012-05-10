@@ -2,9 +2,9 @@
 <script src="/includes/sorttable.js"></script>
 <cfset title="Loan and Citation statistics">
 <cfparam name="loanto" default="">
-<cfparam name="loan_type" default="">
-<cfparam name="loan_status" default="">
-<cfparam name="collection_id" default="">
+<cfparam name="loantype" default="">
+<cfparam name="loanstatus" default="">
+<cfparam name="collectionid" default="">
 
 
 <cfquery name="ctLoanStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -24,30 +24,30 @@
 
 <cfoutput>
 <form name="f" method="get" action="loanStats.cfm">
-	<label for="collection_id">Collection
+	<label for="collectionid">Collection
 						</label>
-						<select name="collection_id" size="1" id="collection_id">
+						<select name="collectionid" size="1" id="collectionid">
 			<option value=""></option>
 							<cfloop query="ctcollection">
-								<option <cfif collection_id is ctcollection.collection_id> selected="selected" </cfif> value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+								<option <cfif collectionid is ctcollection.collection_id> selected="selected" </cfif> value="#ctcollection.collection_id#">#ctcollection.collection#</option>
 							</cfloop>
 						</select>
 						
 	<label for="loanto">Loaned To Person</label>
 	<input type="text" name="loanto" id="loanto" value="#loanto#">
 	
-		<label for="loan_type">Loan Type</label>
-		<select name="loan_type" id="loan_type" class="reqdClr">
+		<label for="loantype">Loan Type</label>
+		<select name="loantype" id="loantype" class="reqdClr">
 			<option value=""></option>
 			<cfloop query="ctLoanType">
-				<option <cfif loan_type is ctLoanType.loan_type> selected="selected" </cfif>value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
+				<option <cfif loantype is ctLoanType.loan_type> selected="selected" </cfif>value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
 			</cfloop>
 		</select>
-		<label for="loan_status">Loan Status</label>
-		<select name="loan_status" id="loan_status" class="reqdClr">
+		<label for="loanstatus">Loan Status</label>
+		<select name="loanstatus" id="loanstatus" class="reqdClr">
 			<option value=""></option>
 			<cfloop query="ctLoanStatus">
-				<option  <cfif loan_status is ctLoanStatus.loan_status> selected="selected" </cfif> value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
+				<option  <cfif loanstatus is ctLoanStatus.loan_status> selected="selected" </cfif> value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
 			</cfloop>
 		</select>			
 						
@@ -122,14 +122,14 @@
 	<cfif len(loanto) gt 0>
 		and upper(loaned_to) like '%#ucase(loanto)#%'
 	</cfif>
-	<cfif len(loan_type) gt 0>
-		and loan_type='#loan_type#'
+	<cfif len(loantype) gt 0>
+		and loan_type='#loantype#'
 	</cfif>
-	<cfif len(loan_status) gt 0>
-		and loan_status='#loan_status#'
+	<cfif len(loanstatus) gt 0>
+		and loan_status='#loanstatus#'
 	</cfif>
-	<cfif len(collection_id) gt 0>
-		and collection_id=#collection_id#
+	<cfif len(collectionid) gt 0>
+		and collection_id=#collectionid#
 	</cfif>
 	group by
 		collection,
