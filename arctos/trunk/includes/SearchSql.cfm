@@ -35,9 +35,8 @@
 	<cfif basJoin does not contain " citation ">
 		<cfset basJoin = " #basJoin# INNER JOIN citation ON (#session.flatTableName#.collection_object_id = citation.collection_object_id)">
 	</cfif>
-	<cfset basJoin = " #basJoin# INNER JOIN identification idcit ON (citation.identification_id = idcit.identification_id)
-		 INNER JOIN identification_taxonomy icdt ON (idcit.taxon_name_id = icdt.taxon_name_id)">
-	<cfset basQual = " #basQual# AND idcit.taxon_name_id = #cited_taxon_name_id#">
+	<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ident_cit_tax ON (citation.identification_id = ident_cit_tax.identification_id)">
+	<cfset basQual = " #basQual# AND ident_cit_tax.taxon_name_id = #cited_taxon_name_id#">
 	<cfset mapurl = "#mapurl#&cited_taxon_name_id=#cited_taxon_name_id#">
 </cfif>
 
