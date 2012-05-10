@@ -44,12 +44,6 @@
 				<option value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
-		<label for="ismatch">ID & Citation match?</label>
-		<select name="ismatch" id="ismatch">
-			<option value="">whatever</option>
-			<option value="1">yes</option>
-			<option value="0">no</option>
-		</select>
 		<br><input type="submit" class="lnkBtn" value="go">
 	</form>
 </cfif>
