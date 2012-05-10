@@ -260,8 +260,8 @@
 			publication.doi,
 			publication.pmid,
 			count(distinct(citation.collection_object_id)) numCits,
-			display_name,
-			scientific_name">
+			taxonomy.display_name,
+			taxonomy.scientific_name">
 		<cfset basFrom = "
 			FROM 
 			publication,
