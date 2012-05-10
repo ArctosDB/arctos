@@ -385,9 +385,9 @@
 						count(*) c 
 					from 
 						citation,
-						identification,
 						identification_taxonomy
 					where 
+						citation.identification_id=identification_taxonomy.identification_id and 
 						identification_taxonomy.taxon_name_id=#one.taxon_name_id#
 				</cfquery>
 				<cfif citas.c gt 0>
