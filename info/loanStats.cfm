@@ -2,10 +2,38 @@
 <script src="/includes/sorttable.js"></script>
 <cfset title="Loan and Citation statistics">
 <cfparam name="loanto" default="">
+<cfparam name="loantype" default="">
+
+
+<cfquery name="ctLoanStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select loan_status from ctloan_status order by loan_status
+</cfquery>
+
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select * from collection order by collection
+</cfquery>
+<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select loan_type from ctloan_type order by loan_type
+</cfquery>
+<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select loan_status from ctloan_status order by loan_status
+</cfquery>
+
+
 <cfoutput>
 <form name="f" method="get" action="loanStats.cfm">
 	<label for="loanto">Loaned To Person</label>
 	<input type="text" name="loanto" id="loanto" value="#loanto#">
+	
+		<label for="loan_type">Loan Type</label>
+		<select name="loan_type" id="loan_type" class="reqdClr">
+			<option value=""></option>
+			<cfloop query="ctLoanType">
+				<option <cfif loantype is ctLoanType.loan_type> selected="selected" </cfif>value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
+			</cfloop>
+		</select>
+						
+						
 	<br><input type="submit" value="filter">
 </form>
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -14,6 +42,7 @@
 	collection_id,
 	TRANSACTION_ID,
 	loan_number,
+	loan_type,
 	loaned_to,
 	LOAN_STATUS,
 	RETURN_DUE_DATE,
@@ -26,6 +55,7 @@
 			collection.collection_id,
 			loan.TRANSACTION_ID,
 			loan.loan_number,
+			loan_type,
 			concattransagent(loan.TRANSACTION_ID,'received by') loaned_to,
 			LOAN_STATUS,
 			RETURN_DUE_DATE,
@@ -50,6 +80,7 @@
 			collection.collection_id,
 			loan.TRANSACTION_ID,
 			loan.loan_number,
+		loan_type,
 			concattransagent(loan.TRANSACTION_ID,'received by') loaned_to,
 			LOAN_STATUS,
 			RETURN_DUE_DATE,
@@ -79,6 +110,7 @@
 		collection_id,
 		TRANSACTION_ID,
 		loan_number,
+		loan_type,
 		loaned_to,
 		LOAN_STATUS,
 		RETURN_DUE_DATE,
