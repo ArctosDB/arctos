@@ -230,8 +230,24 @@
 	  	loan_item.transaction_id = #transaction_id#
 	ORDER BY cat_num
 </cfquery>
-<!--- handle legacy loans with cataloged items as the item --->
+<cfquery name="getDataLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select 
+		count(*) c 			 
+	 from 
+		loan,
+		loan_item, 
+		cataloged_item
+	WHERE
+		loan.transaction_id = loan_item.transaction_id AND
+		loan_item.collection_object_id = cataloged_item.collection_object_id AND
+	  	loan_item.transaction_id = #transaction_id#
+</cfquery>
 <cfoutput>
+	<cfif getDataLoanRequests.c gt 0>
+		<p>
+			This loan contains #getDataLoanRequests.c# data loan items.
+		</p>
+	</cfif>
 <cfif isdefined("Ijustwannadownload") and #Ijustwannadownload# is "yep">
 	<cfset fileName = "/download/ArctosLoanData_#getPartLoanRequests.loan_number#.csv">
 				<cfset ac=getPartLoanRequests.columnlist>
