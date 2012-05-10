@@ -449,7 +449,7 @@
 			<li><a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">[ add items ]</a></li>
 			<li><a href="loanByBarcode.cfm?transaction_id=#transaction_id#">[ add items by barcode ]</a></li>
 			<li><a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">[ review loan items ]</a></li>
-			<li><a href="SpecimenSearch.cfm?loan_trans_id=#transaction_id#">[ view in specimensearch ]</a></li>
+			<li><a href="SpecimenResults.cfm?loan_trans_id=#transaction_id#">[ specimens ]</a></li>
 		</ul>
 		<label for="redir">Print...</label>
 		<select name="redir" id="redir" size="1" onchange="if(this.value.length>0){window.open(this.value,'_blank')};">
