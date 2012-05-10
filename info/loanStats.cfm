@@ -85,6 +85,7 @@
 </div>
 <table border id="t" class="sortable">
 	<tr>
+		<th>Collection</th>
 		<th>Loan</th>
 		<th>Loaned To</th>
 		<th>Status</th>
@@ -95,7 +96,8 @@
 	</tr>
 	<cfloop query="loanData">
 		<tr>
-			<td nowrap="nowrap">#collection# <a href="/Loan.cfm?action=editLoan&TRANSACTION_ID=#TRANSACTION_ID#">#loan_number#</a></td>
+			<td nowrap="nowrap">#collection#</td>
+			<td nowrap="nowrap"><a href="/Loan.cfm?action=editLoan&TRANSACTION_ID=#TRANSACTION_ID#">#loan_number#</a></td>
 			<td nowrap="nowrap">#loaned_to#</td>
 			<td>#LOAN_STATUS#</td>
 			<td nowrap="nowrap">#dateformat(TRANS_DATE,"dd mmm yyyy")#&nbsp;</td>
