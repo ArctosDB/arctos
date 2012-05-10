@@ -445,14 +445,10 @@
 		<cfif numItems.c is 0>
 			<input type="button" value="Delete Loan" class="delBtn" onClick="editloan.action.value='deleLoan';confirmDelete('editloan');">
 		</cfif>
-   		<input type="button" value="Quit" class="qutBtn" onClick="document.location = 'Loan.cfm?Action=addItems'">
-		<input type="button" value="Add Items" class="lnkBtn"
-			onClick="window.open('SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#');">
-		<input type="button" value="Add Items BY Barcode" class="lnkBtn"
-			onClick="window.open('loanByBarcode.cfm?transaction_id=#transaction_id#');">
-
-		<input type="button" value="Review Items" class="lnkBtn"
-			onClick="window.open('a_loanItemReview.cfm?transaction_id=#transaction_id#');">
+		<a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">[ add items ]</a>
+		<a href="loanByBarcode.cfm?transaction_id=#transaction_id#">[ add items by barcode ]</a>
+		<a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">[ review loan items ]</a>
+		<a href="SpecimenSearch.cfm?loan_trans_id=#transaction_id#">[ view in specimensearch ]</a>
    		<br />
    		<label for="redir">Print...</label>
 		<select name="redir" id="redir" size="1" onchange="if(this.value.length>0){window.open(this.value,'_blank')};">
