@@ -1,9 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Loan and Citation statistics">
+<cfparam name="loanto" default="">
 <form name="f" method="get" action="loanStats.cfm">
 	<label for="loanto">Loaned To Person</label>
-	<input type="text" name="loanto" id="loanto">
+	<input type="text" name="loanto" id="loanto" value="#loanto#">
 	<br><input type="submit" value="filter">
 </form>
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
