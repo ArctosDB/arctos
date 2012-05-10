@@ -245,30 +245,30 @@
 <cfoutput>
 	<cfif getDataLoanRequests.c gt 0>
 		<p>
-			This loan contains #getDataLoanRequests.c# data loan items.
+			This loan contains #getDataLoanRequests.c# data loan items. This form won't deal with those items.
 		</p>
 	</cfif>
-<cfif isdefined("Ijustwannadownload") and #Ijustwannadownload# is "yep">
-	<cfset fileName = "/download/ArctosLoanData_#getPartLoanRequests.loan_number#.csv">
-				<cfset ac=getPartLoanRequests.columnlist>
-				<cfset header=#trim(ac)#>
-				<cffile action="write" file="#Application.webDirectory##fileName#" addnewline="yes" output="#header#">
-				<cfloop query="getPartLoanRequests">
-					<cfset oneLine = "">
-					<cfloop list="#ac#" index="c">
-						<cfset thisData = evaluate(c)>
-						<cfif len(oneLine) is 0>
-							<cfset oneLine = '"#thisData#"'>
-						<cfelse>
-							<cfset oneLine = '#oneLine#,"#thisData#"'>
-						</cfif>
-					</cfloop>
-					<cfset oneLine = trim(oneLine)>
-					<cffile action="append" file="#Application.webDirectory##fileName#" addnewline="yes" output="#oneLine#">
-				</cfloop>
-				<a href="#Application.ServerRootUrl#/#fileName#">Right-click to save your download.</a>
-<cfabort>
-</cfif>
+	<cfif isdefined("Ijustwannadownload") and Ijustwannadownload is "yep">
+		<cfset fileName = "/download/ArctosLoanData_#getPartLoanRequests.loan_number#.csv">
+		<cfset ac=getPartLoanRequests.columnlist>
+		<cfset header=trim(ac)>
+		<cffile action="write" file="#Application.webDirectory##fileName#" addnewline="yes" output="#header#">
+		<cfloop query="getPartLoanRequests">
+			<cfset oneLine = "">
+			<cfloop list="#ac#" index="c">
+				<cfset thisData = evaluate(c)>
+				<cfif len(oneLine) is 0>
+					<cfset oneLine = '"#thisData#"'>
+				<cfelse>
+					<cfset oneLine = '#oneLine#,"#thisData#"'>
+				</cfif>
+			</cfloop>
+			<cfset oneLine = trim(oneLine)>
+			<cffile action="append" file="#Application.webDirectory##fileName#" addnewline="yes" output="#oneLine#">
+		</cfloop>
+		<a href="#Application.ServerRootUrl#/#fileName#">Right-click to save your download.</a>
+		<cfabort>
+	</cfif>
 
 <cfquery name="catCnt" dbtype="query">
 	select count(distinct(collection_object_id)) c from getPartLoanRequests
