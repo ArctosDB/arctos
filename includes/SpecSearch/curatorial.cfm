@@ -19,6 +19,14 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="anybarcode">Any Barcode:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="anybarcode" id="anybarcode" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="_loan_number">Loan Number:</span>
 		</td>
 		<td class="srch">

@@ -376,7 +376,7 @@
 			</tr>
 			<tr>
 				<td class="lbl">
-					<span class="helpLink" id="srch_barcode">Barcode:</span>
+					<span class="helpLink" id="srch_barcode">Part Barcode:</span>
 				</td>
 				<td class="srch">
 					<input type="text" name="barcode" id="barcode" size="50">
