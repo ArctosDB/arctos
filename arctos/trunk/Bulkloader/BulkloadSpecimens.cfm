@@ -211,7 +211,7 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 		loaded='BULKLOADED RECORD'. A data administrator can un-flag
 		and load them.
 		
-	<p><a href="bulkloaderLoader.cfm?action=delete">please delete from the staging table</a></p>
+	<p><a href="BulkloadSpecimens.cfm?action=delete">please delete from the staging table</a></p>
 </cfoutput>
 </cfif>
 <!------------------------------------------->
@@ -258,7 +258,7 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 			loaded='BULKLOADED RECORD'. A data administrator can un-flag
 			and load them.
 			
-			<p><a href="bulkloaderLoader.cfm?action=delete">please delete from the staging table</a></p>
+			<p><a href="BulkloadSpecimens.cfm?action=delete">please delete from the staging table</a></p>
 
 		</cftransaction>
 	</cfif>	

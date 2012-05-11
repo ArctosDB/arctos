@@ -252,6 +252,11 @@
 				</cftry>
 				<cfif len(thisQ.nn) gt 0>
 					<span class="likeLink" onclick="setAccnNum('#collection_id#','#thisQ.nn#')">#collection# #thisQ.nn#</span>
+					
+					<cfif (institution_acronym is 'MVZ' or institution_acronym is 'MVZObs')>
+						<cfset temp=replace(thisQ.nn,collection_cde,'Data')>
+						<br><span class="likeLink" onclick="setAccnNum('#collection_id#','#temp#')">#collection# #temp#</span>
+					</cfif>
 				<cfelse>
 					<span style="font-size:x-small">
 						No data available for #collection#.
