@@ -4,7 +4,7 @@
 <cfoutput>
 <cfif isdefined("container_id")>
 	<p>
-		<a href="/SpecimenResults.cfm?anybarcode=c124">Specimens</a>
+		<a href="/SpecimenResults.cfm?anyContainerId=#container_id#">Specimens</a>
 	</p>
 	<cfquery name="leaf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
