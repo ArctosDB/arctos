@@ -198,6 +198,37 @@
 		" >
 	<cfset mapurl = "#mapurl#&print_fg=#print_fg#">
 </cfif>
+<cfif isdefined("anybarcode") AND len(anybarcode) gt 0>
+	<cfset basQual = "#basQual#  AND cataloged_item.collection_object_id IN (
+		select
+			derived_from_cat_item
+		from 
+			coll_obj_cont_hist,
+			specimen_part
+		where
+			coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id and
+			coll_obj_cont_hist.container_id in (
+				select 
+					container.container_id
+				from 
+					container,
+					container p
+				where 
+					container.parent_container_id=p.container_id (+) and
+					container.container_type='collection object'
+				start with 
+					upper(container.barcode)='#trim(ucase(anybarcode))#'
+				connect by 
+					container.parent_container_id = prior container.container_id
+			)
+		" >
+	<cfset mapurl = "#mapurl#&anybarcode=#anybarcode#">
+</cfif>	
+
+
+
+			
+			
 <cfif isdefined("barcode") AND len(barcode) gt 0>
 	<cfset thisBC = #replace(barcode,",","','","all")#>
 	<cfset basQual = "#basQual#  AND cataloged_item.collection_object_id IN (
