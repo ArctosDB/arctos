@@ -223,25 +223,6 @@
 					<cfset whr=" AND is_number(loan_number)=1 and substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
 				</cfif>
 				<hr>
-				
-				select 
-							 #preservesinglequotes(stg)# nn 
-						from 
-							loan,
-							trans,
-							collection
-						where 
-							loan.transaction_id=trans.transaction_id and
-							trans.collection_id=collection.collection_id
-							<cfif institution_acronym is not "MVZ" and institution_acronym is not "MVZObs">
-								and	collection.collection_id=#collection_id#
-							</cfif>
-							#preservesinglequotes(whr)#
-							
-							
-							
-							
-				<!----
 				<cftry>
 					<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select 
@@ -276,7 +257,6 @@
 						No data available for #collection#.
 					</span>
 				</cfif>
-				---->
 				<br>
 			</cfloop>
 		</div>
