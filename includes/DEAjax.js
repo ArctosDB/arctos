@@ -165,10 +165,37 @@ function setNewRecDefaults () {
 		UAMArtDefaults();
 	} else if(ia == 'MSB' && cc=='Mamm') {
 		MSBMammDefaults();
+	} else if(ia == 'UAM' && cc=='ES') {
+		UAMESDefaults();
 	} else if(ia == 'MVZ') {
 		MVZDefaults();
 	}
 }
+
+function UAMESDefaults() {	
+	if ($("#nature_of_id").val()==''){
+   	 	$("#nature_of_id").val('field');
+    }
+	$.each($("[id^='part_disposition_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('in collection');
+	     }
+	});
+	$.each($("input[id^='part_condition_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('unchecked');
+	     }
+	});
+	$.each($("input[id^='part_lot_count_']"), function() {
+	     if ($("#" + this.id).val()==''){
+	    	 $("#" + this.id).val('1');
+	     }
+	});
+	if ($("#collecting_source").val()==''){
+   	 	$("#collecting_source").val('wild caught');
+    }
+}
+
 function MSBMammDefaults() {	
 	if ($("#nature_of_id").val()==''){
    	 	$("#nature_of_id").val('field');
