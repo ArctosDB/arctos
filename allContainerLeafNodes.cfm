@@ -3,6 +3,9 @@
 <cfset title = "Container Locations">
 <cfoutput>
 <cfif isdefined("container_id")>
+	<p>
+		<a href="/SpecimenResults.cfm?anybarcode=c124">Specimens</a>
+	</p>
 	<cfquery name="leaf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			container.container_id, 
