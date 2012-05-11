@@ -211,11 +211,9 @@
 					<!---- yyyy.n.CCDE format --->
 					<cfset stg="'#dateformat(now(),"yyyy")#.' || max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || '.#collection_cde#'">
 					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
-				<!----
 				<cfelseif (institution_acronym is 'MVZ' or institution_acronym is 'MVZObs')>
 					<cfset stg="'#dateformat(now(),"yyyy")#.' || (SUBSTR(loan_number, INSTR(loan_number,'.', 1, 1)+1,INSTR(loan_number,'.',1,2)-INSTR(loan_number,'.',1,1)-1)+1) || '.#collection_cde#'">
 					<cfset whr=" and collection.institution_acronym in ('MVZ','MVZObs')">
-					---->
 				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Es')>
 					<cfset stg="substr(loan_number,0,instr(loan_number,'.',1,1)-1) || '.' || to_char(sysdate,'yyyy') ||'.ESCI'">
 					<cfset whr=" AND substr(loan_number, -4,4) ='ESCI'">				
@@ -225,6 +223,25 @@
 					<cfset whr=" AND is_number(loan_number)=1 and substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
 				</cfif>
 				<hr>
+				
+				select 
+							 #preservesinglequotes(stg)# nn 
+						from 
+							loan,
+							trans,
+							collection
+						where 
+							loan.transaction_id=trans.transaction_id and
+							trans.collection_id=collection.collection_id
+							<cfif institution_acronym is not "MVZ" and institution_acronym is not "MVZObs">
+								and	collection.collection_id=#collection_id#
+							</cfif>
+							#preservesinglequotes(whr)#
+							
+							
+							
+							
+				<!----
 				<cftry>
 					<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select 
@@ -259,6 +276,7 @@
 						No data available for #collection#.
 					</span>
 				</cfif>
+				---->
 				<br>
 			</cfloop>
 		</div>
