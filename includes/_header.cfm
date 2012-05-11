@@ -316,7 +316,7 @@
 									<li><a target="_top" href="/info/reviewAnnotation.cfm">Annotations</a></li>
 									<li><a target="_top" href="/info/loanStats.cfm">Loan/Citation Stats</a></li>
 									<li><a target="_top" href="/info/Citations.cfm">More Citation Stats</a></li>
-									<li><a target="_top" href="/info/MoreCitationStats.cfm">Even More Citation Stats</a></li>
+									<li><a target="_top" href="/info/MoreCitationStats.cfm">Usage Stats</a></li>
 									<li><a target="_top" href="/Admin/download.cfm">Download Stats</a></li>
 									<li><a target="_top" href="/info/queryStats.cfm">Query Stats</a></li>
 									<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
