@@ -221,7 +221,7 @@
 				connect by 
 					container.parent_container_id = prior container.container_id
 			)
-		" >
+		)" >
 	<cfset mapurl = "#mapurl#&anybarcode=#anybarcode#">
 </cfif>	
 
