@@ -200,6 +200,7 @@
 			<cfquery name="all_coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from collection order by collection
 			</cfquery>
+			<!----
 			<cfloop query="all_coll">
 				<cfif (institution_acronym is 'UAM' and collection_cde is 'Mamm')>
 					<!---- yyyy.nnn.CCDE format --->
@@ -259,6 +260,7 @@
 				</cfif>
 				<br>
 			</cfloop>
+			---->
 		</div>
 	</cfoutput>
 </cfif>
