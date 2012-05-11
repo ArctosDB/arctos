@@ -212,7 +212,7 @@
 					<cfset stg="'#dateformat(now(),"yyyy")#.' || max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || '.#collection_cde#'">
 					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
 				<cfelseif (institution_acronym is 'MVZ' or institution_acronym is 'MVZObs')>
-					<cfset stg="'#dateformat(now(),"yyyy")#.' || SUBSTR(loan_number, INSTR(loan_number,'.', 1, 1)+1,INSTR(loan_number,'.',1,2)-INSTR(loan_number,'.',1,1)-1)+1 || '.#collection_cde#'">
+					<cfset stg="'#dateformat(now(),"yyyy")#.' || (SUBSTR(loan_number, INSTR(loan_number,'.', 1, 1)+1,INSTR(loan_number,'.',1,2)-INSTR(loan_number,'.',1,1)-1)+1) || '.#collection_cde#'">
 					<cfset whr=" and collection.institution_acronym in ('MVZ','MVZObs')">
 				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Es')>
 					<cfset stg="substr(loan_number,0,instr(loan_number,'.',1,1)-1) || '.' || to_char(sysdate,'yyyy') ||'.ESCI'">
@@ -244,12 +244,10 @@
 						#cfcatch.detail#
 						<br>
 						#cfcatch.message#
-						<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select 
-								 'check data' nn 
-							from 
-								dual
-						</cfquery>
+						<cfset thisq = querynew("nn")>
+						<cfset queryaddrow(thisq,1)>
+						<cfset QuerySetCell(thisq, "nn", 'check data', 1)>
+	
 					</cfcatch>
 				</cftry>
 				<cfif len(thisQ.nn) gt 0>
