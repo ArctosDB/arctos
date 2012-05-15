@@ -977,16 +977,6 @@ function chgCondition(collection_object_id) {
 	var collection_object_id;
 	helpWin=windowOpener("/picks/condition.cfm?collection_object_id="+collection_object_id,"conditionWin","width=800,height=338, resizable,scrollbars");
 }
-function getIdentification(ididfld,SciNameFld,formName,idid,sciname){
-	var url="/picks/IdentificationPick.cfm";
-	var ididfld;
-	var SciNameFld;
-	var formName;
-	var idid;
-	var sciname;
-	var oawin=url+"?ididfld="+ididfld+"&SciNameFld="+SciNameFld+"&formName="+formName+"&idid="+idid+"&sciname="+sciname;
-	agentpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
-}
 function getAgent(agentIdFld,agentNameFld,formName,agentNameString,allowCreation){
 	var url="/picks/findAgent.cfm";
 	var agentIdFld;
@@ -1068,11 +1058,6 @@ function confirmDelete(formName,msg) {
 	  	return false;
   	}
 }
-
-
-
-
-
 function getHistory(contID) {
 	var idcontID;
 	historyWin=windowOpener("/info/ContHistory.cfm?container_id="+contID,"historyWin","width=800,height=338, resizable,scrollbars");
