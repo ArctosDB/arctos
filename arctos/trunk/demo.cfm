@@ -13,8 +13,8 @@ Citations would be removed if we refactor the table to point to IDs rather than 
 	<tr>
 		<td>
 			<select multiple size="6">
-				<option selected>Current ID</option>
-				<option selected>Any ID</option>
+				<option selected>Current Identification</option>
+				<option selected>Any Identification</option>
 				<option selected>Taxonomy Metadata</option>
 				<option selected>Related Taxonomy Metadata</option>
 				<option selected>Common Names</option>
