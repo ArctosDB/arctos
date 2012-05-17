@@ -245,20 +245,19 @@
 			</td>
 			---->
 			<td class="lbl">
-				<label for="taxon_scope">Select Multiple</label>
-				<select name="taxon_scope" id="taxon_scope" multiple size="3">
-					<option selected>Current Identification</option>
-					<option selected>Any Identification</option>
-					<option selected>Taxonomy</option>
-					<option selected>Common Names</option>
+				<select name="taxon_scope" id="taxon_scope" size="1">
+					<option value="currentID">Current Identification</option>
+					<option value="anyID">above+Any Identification</option>
+					<option value="taxonomy">above+Taxonomy</option>
+					<option value="common">above+Common Names</option>
 				</select>
 			</td>
 			<td class="srch">
 				<select name="taxon_operator" id="taxon_operator">
-					<option selected>contains</option>
-					<option>is</option>
-					<option>in list</option>
-					<option>is not</option>
+					<option value="contains" selected>contains</option>
+					<option value="is">is</option>
+					<option value="list">in list</option>
+					<option value="not">is not</option>
 				</select>
 				<input type="text" value="" name="taxon_term" id="taxon_term">
 			</td>
