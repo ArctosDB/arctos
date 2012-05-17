@@ -208,7 +208,7 @@
 				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Ento')>
 				
 					<!---- UAM.yyyy.nnn.Ento format --->
-					<cfset stg="'#dateformat(now(),"yyyy")#.' || lpad(max(to_number(replace(replace(replace(loan_number,'UAM.'),'.Ento'),to_char(sysdate,'yyyy') || '.'))) + 1,3,0) || '.#collection_cde#'">
+					<cfset stg="'UAM.#dateformat(now(),"yyyy")#.' || lpad(max(to_number(replace(replace(replace(loan_number,'UAM.'),'.Ento'),to_char(sysdate,'yyyy') || '.'))) + 1,3,0) || '.#collection_cde#'">
 					<cfset whr=" AND loan_number like 'UAM.#dateformat(now(),"yyyy")#.%'">
 				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Herb') OR
 					(institution_acronym is 'MSB') OR
