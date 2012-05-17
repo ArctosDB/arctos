@@ -69,12 +69,11 @@
                                 select coordinates from media_flat where coordinates is not null and media_id=#media_id#
                         </cfquery>
                         <td>
-                                <cfif coord.recordcount is 1><cfset iu="http://maps.google.com/maps/api/staticmap?center=#coord.coordinates#">
-                                        <cfset iu=iu & "&markers=color:red|size:tiny|#coord.coordinates#&sensor=false&size=100x100&zoom=2">
-                                        <cfset iu=iu & "&maptype=roadmap">
-                                        <a href="http://maps.google.com/maps?q=#coord.coordinates#" target="_blank">
-                                                <img src="#iu#" alt="Google Map">
-                                        </a>
+                                <cfif coord.recordcount is 1>
+									<cfset iu="http://maps.google.com/maps/api/staticmap?center=#coord.coordinates#">
+                                    <cfset iu=iu & "&markers=color:red|size:tiny|#coord.coordinates#&sensor=false&size=100x100&zoom=2">
+                                    <cfset iu=iu & "&maptype=roadmap">
+                                    <a href="http://maps.google.com/maps?q=#coord.coordinates#" target="_blank"><img src="#iu#" alt="Google Map"></a>
                                 </cfif>
                         </td>
                         <td>
@@ -83,11 +82,11 @@
                                 </cfif>
                                 <cfif labels.recordcount gt 0>
                                         <ul>
-                                                <cfloop query="labels">
-                                                        <li>
-                                                                #media_label#: #label_value#
-                                                        </li>
-                                                </cfloop>
+                                            <cfloop query="labels">
+                                                    <li>
+                                                            #media_label#: #label_value#
+                                                    </li>
+                                            </cfloop>
                                         </ul>
                                 </cfif>
                                 <cfset mrel=getMediaRelations(#findIDs.media_id#)>
