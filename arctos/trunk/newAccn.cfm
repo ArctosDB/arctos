@@ -8,13 +8,13 @@
 <cfset title = "Create Accession">
 <cfif #action# is "nothing">
 <cfoutput>
-	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection,collection_id from collection order by collection
 	</cfquery>
-	<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select accn_status from ctaccn_status order by accn_status
 	</cfquery>
-	<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select accn_type from ctaccn_type order by accn_type
 	</cfquery>
 	<cfset thisDate = #dateformat(now(),"yyyy-mm-dd")#>
@@ -151,6 +151,9 @@
 								<cfset stg="'#dateformat(now(),"yyyy")#.' || lpad(max(to_number(substr(accn_number,6,3))) + 1,3,0) || '.#collection_cde#'">
 								<cfset whr=" AND accn_number like '%.#collection_cde#' AND
 									substr(accn_number,1,4) = '#dateformat(now(),"yyyy")#'">
+							<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Ento')>
+								<cfset stg="'last was ' || accn_number">
+								<cfset whr=" AND accn_number like '%Ento'">
 							<cfelseif (institution_acronym is 'UAM' and collection_cde is 'ES')>
 								<cfset stg="'#dateformat(now(),"yyyy")#.' || lpad(max(to_number(substr(accn_number,6,3))) + 1,3,0) || '.ESCI'">
 								<cfset whr=" AND accn_number like '%.ESCI'">
