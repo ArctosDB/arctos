@@ -40,6 +40,93 @@
 	<cfset mapurl = "#mapurl#&cited_taxon_name_id=#cited_taxon_name_id#">
 </cfif>
 
+				<label for="taxon_scope">Select Multiple</label>
+				<select name="taxon_scope" id="taxon_scope" multiple size="3">
+					<option value="currentID" selected>Current Identification</option>
+					<option value="anyID" selected>Any Identification</option>
+					<option value="taxonomy" selected>Taxonomy</option>
+					<option value="common" selected>Common Names</option>
+				</select>
+			</td>
+			<td class="srch">
+				<select name="taxon_operator" id="taxon_operator">
+					<option value="contains" selected>contains</option>
+					<option value="is">is</option>
+					<option value="list">in list</option>
+					<option value="not">is not</option>
+				</select>
+				<input type="text" value="" name="taxon_term" id="taxon_term">
+			</td>
+					
+					
+					
+
+<cfif isdefined("taxon_term") AND len(taxon_term) gt 0>
+	<cfif not isdefined("taxon_scope") OR len(taxon_scope) is 0>
+		<cfset taxon_scope = "currentID">
+	</cfif>
+	<cfif not isdefined("taxon_operator") OR len(taxon_operator) is 0>
+		<cfset taxon_operator = "contains">
+	</cfif>
+	<cfset mapurl = "#mapurl#&taxon_term=#taxon_term#">
+	<cfset mapurl = "#mapurl#&taxon_scope=#taxon_scope#">
+	<cfset mapurl = "#mapurl#&taxon_operator=#taxon_operator#">
+	<cfif taxon_scope is "currentID">
+		<cfif taxon_operator is "contains">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">
+		<cfelseif taxon_operator is "is">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(scientific_name)#'">
+		<cfelseif taxon_operator is "list">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in '#listqualify(ucase(scientific_name),"'")#'">
+		<cfelseif taxon_operator is "not">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) != '#ucase(scientific_name)#'">
+		</cfif>
+	</cfif>
+	
+	<!----
+	<cfif left(scientific_name,1) is '='>
+		<cfset scientific_name=right(scientific_name,len(scientific_name)-1)>
+		<cfset sciNameOper = "=">
+	</cfif>
+	<cfif not isdefined("sciNameOper") OR len(sciNameOper) is 0>
+		<cfset sciNameOper = "LIKE">
+	</cfif>
+	<cfset mapurl = "#mapurl#&sciNameOper=#sciNameOper#">
+	<cfif sciNameOper is "LIKE">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">
+	<cfelseif sciNameOper is "OR">
+		<cftry>
+			<cfset basQual = " #basQual# AND (">
+			<cfset nEl=listlen(scientific_name)>
+			<cfset i=1>
+			<cfloop list="#scientific_name#" index="s">
+				<cfset basQual = " #basQual# upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(listgetat(scientific_name,i))#%'">
+				<cfif i lt nEl>
+					<cfset basQual = " #basQual# OR ">
+				</cfif>
+				<cfset i=i+1>
+			</cfloop>
+			<cfcatch>
+				<div class="error">
+					Oops! Something bad happened! To search for scientific name in list, enter comma-separated values like
+					"sorex yukonicus, sorex ugyunak"
+					<p>#cfcatch.message#</p>
+				</div>
+				<script>hidePageLoad();</script>
+				<cfabort>
+			</cfcatch>
+		</cftry>
+		<cfset basQual = " #basQual# )">		
+	<cfelseif sciNameOper is "=">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.scientific_name = '#scientific_name#'">
+	<cfelseif sciNameOper is "NOT LIKE">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) NOT LIKE '%#ucase(scientific_name)#%'">
+	</cfif>
+	
+	---->
+</cfif>
+
+
 
 
 <cfif isdefined("ImgNoConfirm") and len(ImgNoConfirm) gt 0>
