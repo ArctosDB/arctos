@@ -415,6 +415,7 @@ validate
 	<cftransaction>
 	<cfloop query="getTempData">
 	<cfif len(use_part_id) is 0 AND len(parent_container_id) gt 0>
+		<!--- new part, add container --->
 		<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_collection_object_id.nextval NEXTID from dual
 		</cfquery>
@@ -486,6 +487,53 @@ validate
 			update container set parent_container_id=#parent_container_id# 
 			where container_id = #use_part_id#
 		</cfquery>
+	<cfelseif len(parent_container_id) gt 0 and len(use_part_id) is 0>
+		<!--- new part, no container --->
+		<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select sq_collection_object_id.nextval NEXTID from dual
+		</cfquery>
+		<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO coll_object (
+				COLLECTION_OBJECT_ID,
+				COLL_OBJECT_TYPE,
+				ENTERED_PERSON_ID,
+				COLL_OBJECT_ENTERED_DATE,
+				LAST_EDITED_PERSON_ID,
+				COLL_OBJ_DISPOSITION,
+				LOT_COUNT,
+				CONDITION,
+				FLAGS )
+			VALUES (
+				#NEXTID.NEXTID#,
+				'SP',
+				#session.myagentid#,
+				sysdate,
+				#session.myagentid#,
+				'#DISPOSITION#',
+				#lot_count#,
+				'#condition#',
+				0 )		
+		</cfquery>
+		<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO specimen_part (
+				COLLECTION_OBJECT_ID,
+				PART_NAME,
+				DERIVED_FROM_cat_item 
+			) VALUES (
+				#NEXTID.NEXTID#,
+				'#PART_NAME#',
+				#collection_object_id#
+			)
+		</cfquery>
+		<cfif len(remarks) gt 0>
+			<!---- new remark --->
+			<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
+				VALUES (#NEXTID.NEXTID#, '#remarks#')
+			</cfquery>
+		</cfif>
+	<cfelse>
+		oops - no handler
 	</cfif>
 	</cfloop>
 	</cftransaction>
