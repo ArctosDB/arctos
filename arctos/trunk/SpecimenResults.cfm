@@ -172,6 +172,12 @@ function removeHelpDiv() {
 </cfif>
 
 
+#preserveSingleQuotes(SqlString)#
+
+
+<cfabort>
+
+
 
 
 
