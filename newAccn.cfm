@@ -153,7 +153,7 @@
 									substr(accn_number,1,4) = '#dateformat(now(),"yyyy")#'">
 							<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Ento')>
 								<cfset stg="'last was ' || accn_number">
-								<cfset whr=" AND accn.transaction_id = (select max(transaction_id from accn where accn_number like '%Ento')">
+								<cfset whr=" AND accn.transaction_id = (select max(transaction_id) from accn where accn_number like '%Ento')">
 							<cfelseif (institution_acronym is 'UAM' and collection_cde is 'ES')>
 								<cfset stg="'#dateformat(now(),"yyyy")#.' || lpad(max(to_number(substr(accn_number,6,3))) + 1,3,0) || '.ESCI'">
 								<cfset whr=" AND accn_number like '%.ESCI'">
