@@ -20,8 +20,7 @@
 <cfif isdefined("mime_type") AND len(mime_type) gt 0>
 	<cfset mapurl = "#mapurl#&mime_type=#mime_type#">
 	<cfif basJoin does not contain "media_relations">
-		<cfset basJoin = " #basJoin# INNER JOIN media_relations ON 
-			(#session.flatTableName#.collection_object_id = media_relations.related_primary_key)">
+		<cfset basJoin = " #basJoin# INNER JOIN media_relations ON (#session.flatTableName#.collection_object_id = media_relations.related_primary_key)">
 	</cfif>
 	<cfset basQual = "#basQual#  AND media_relations.media_relationship like '% cataloged_item'" >
    	<cfif basJoin does not contain " media ">
@@ -29,8 +28,6 @@
     </cfif>
 	<cfset basQual = "#basQual#  AND media.mime_type = '#mime_type#'" >
 </cfif>
-
-
 <cfif isdefined("anyTaxId") AND len(anyTaxId) gt 0>
 	<cfset mapurl = "#mapurl#&anyTaxId=#anyTaxId#">
 	<cfif basJoin does not contain " identification ">
@@ -40,9 +37,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON (identification.identification_id = identification_taxonomy.identification_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND identification_taxonomy.taxon_name_id=#anyTaxId#">
-</cfif>	
-
-
+</cfif>
 <cfif isdefined("cited_taxon_name_id") AND len(cited_taxon_name_id) gt 0>
 	<cfif basJoin does not contain " citation ">
 		<cfset basJoin = " #basJoin# INNER JOIN citation ON (#session.flatTableName#.collection_object_id = citation.collection_object_id)">
@@ -51,13 +46,10 @@
 	<cfset basQual = " #basQual# AND ident_cit_tax.taxon_name_id = #cited_taxon_name_id#">
 	<cfset mapurl = "#mapurl#&cited_taxon_name_id=#cited_taxon_name_id#">
 </cfif>
-
-
 <cfif isdefined("HighTaxa") AND len(HighTaxa) gt 0>
 	<cfset taxon_term=HighTaxa>
 	<cfset taxon_scope="currentTaxonomy">
 </cfif>
-
 <cfif isdefined("AnySciName") AND len(AnySciName) gt 0>
 	<cfset taxon_term=AnySciName>
 	<cfset taxon_scope="anyID_like">
@@ -66,8 +58,6 @@
 	<cfset taxon_term=any_taxa_term>
 	<cfset taxon_scope="common">	
 </cfif>
-
-
 <cfif isdefined("taxon_name_id") AND len(taxon_name_id) gt 0>
 	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON 
@@ -81,18 +71,12 @@
 		AND identification.accepted_id_fg=1">
 	<cfset mapurl = "#mapurl#&taxon_name_id=#taxon_name_id#">
 </cfif>
-
-
-
-
 <cfif isdefined("taxon_term") AND len(taxon_term) gt 0>
 	<cfif not isdefined("taxon_scope") OR len(taxon_scope) is 0>
 		<cfset taxon_scope = "currentID_like">
 	</cfif>
 	<cfset mapurl = "#mapurl#&taxon_term=#taxon_term#">
 	<cfset mapurl = "#mapurl#&taxon_scope=#taxon_scope#">
-	
-	
 	<cfif taxon_scope is "currentID_like">
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(taxon_term)#%'">
 	<cfelseif taxon_scope is "currentID_is">
@@ -156,15 +140,11 @@
 		</cfif>
 		<cfset basJoin = " #basJoin# left outer JOIN taxon_relations ON (taxonomy.taxon_name_id = taxon_relations.taxon_name_id)">
 		<cfset basJoin = " #basJoin# left outer JOIN taxonomy relatedtaxonomy ON (taxon_relations.RELATED_TAXON_NAME_ID = relatedtaxonomy.taxon_name_id)">
-		
 		<cfset basJoin = " #basJoin# left outer JOIN taxon_relations invrelations ON (taxonomy.taxon_name_id = invrelations.RELATED_TAXON_NAME_ID)">
 		<cfset basJoin = " #basJoin# left outer JOIN taxonomy invrelatedtaxonomy ON (invrelations.taxon_name_id = invrelatedtaxonomy.taxon_name_id)">
-		
 		<cfset basJoin = " #basJoin# left outer JOIN common_name ON (taxonomy.taxon_name_id = common_name.taxon_name_id)">
 		<cfset basJoin = " #basJoin# left outer JOIN common_name relcommon_name ON (relatedtaxonomy.taxon_name_id = relcommon_name.taxon_name_id)">
 		<cfset basJoin = " #basJoin# left outer JOIN common_name invcommon_name ON (invrelatedtaxonomy.taxon_name_id = invcommon_name.taxon_name_id)">
-		
-		
 		<cfset basQual = " #basQual# AND (
 			upper(common_name.common_name) LIKE '%#ucase(taxon_term)#%' OR
 			upper(relcommon_name.common_name) LIKE '%#ucase(taxon_term)#%' OR
@@ -176,15 +156,9 @@
 			upper(identification.scientific_name) LIKE '%#ucase(taxon_term)#%'
 		)">
 	<cfelse>
-		wut?<cfabort>
-	
+		not sure what to do with taxon_scope....<cfabort>
 	</cfif>
-	
 </cfif>
-
-
-
-
 <cfif isdefined("ImgNoConfirm") and len(ImgNoConfirm) gt 0>
 	<cfset mapurl = "#mapurl#&ImgNoConfirm=#ImgNoConfirm#">
    	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id not in (select 
@@ -279,8 +253,7 @@
 <cfif isdefined("media_type") AND len(#media_type#) gt 0>
 	<cfset mapurl = "#mapurl#&media_type=#media_type#">
 	<cfif basJoin does not contain "media_relations">
-		<cfset basJoin = " #basJoin# INNER JOIN media_relations ON 
-			(#session.flatTableName#.collection_object_id = media_relations.related_primary_key)">
+		<cfset basJoin = " #basJoin# INNER JOIN media_relations ON (#session.flatTableName#.collection_object_id = media_relations.related_primary_key)">
 	</cfif>
 	<cfset basQual = "#basQual#  AND media_relations.media_relationship like '%cataloged_item%'" >
     <cfif media_type is not "any">
@@ -1118,11 +1091,11 @@
 		AND (isdefined("NWLong") and isnumeric(NWLong))
 		AND (isdefined("SELat") and isnumeric(SELat))
 		AND (isdefined("SELong") and isnumeric(SELong))>
-		<cfset basQual = " #basQual# AND dec_lat BETWEEN #SELat# AND #NWLat#">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SELat# AND #NWLat#">
 		<cfif nwlong gt 0 and selong lt 0>
-			<cfset basQual = " #basQual# AND (dec_long between #nwlong# and 180 OR dec_long between -180 and #selong#)">
+			<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #nwlong# and 180 OR #session.flatTableName#.dec_long between -180 and #selong#)">
 		<cfelse>
-			<cfset basQual = " #basQual# AND dec_long BETWEEN #NWLong# AND #SELong#">
+			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_long BETWEEN #NWLong# AND #SELong#">
 		</cfif>
 		<cfset mapurl = "#mapurl#&NWLat=#NWLat#&NWLong=#NWLong#&SELat=#SELat#&SELong=#SELong#">
 	<cfelse>
