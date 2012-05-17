@@ -53,7 +53,7 @@ jQuery( function($) {
 		theDiv.innerHTML=ih;
 		document.body.appendChild(theDiv);
 		viewport.init("##browseDiv");
-		viewport.init("##bgDiv");
+		//viewport.init("##bgDiv");
 	});
 });
 function closeBrowse(){
