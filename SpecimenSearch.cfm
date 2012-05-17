@@ -236,11 +236,30 @@
 			</td>
 		</tr>
 		<tr>
+			<!----
 			<td class="lbl">
 				<span class="helpLink" id="_any_taxa_term">Any Taxonomic Element:</span>
 			</td>
 			<td class="srch">
 				<input type="text" name="any_taxa_term" id="any_taxa_term" size="50">
+			</td>
+			---->
+			<td class="lbl">
+				<select name="taxon_scope" id="taxon_scope" multiple size="3">
+					<option selected>Current Identification</option>
+					<option selected>Any Identification</option>
+					<option selected>Any+Taxonomy</option>
+					<option selected>Any+Taxonomy+Common Names</option>
+				</select>
+			</td>
+			<td class="srch">
+				<select name="taxon_operator" id="taxon_operator">
+					<option selected>contains</option>
+					<option>is</option>
+					<option>in list</option>
+					<option>is not</option>
+				</select>
+				<input type="text" value="" name="taxon_term" id="taxon_term">
 			</td>
 		</tr>
 	</table>
