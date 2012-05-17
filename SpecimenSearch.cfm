@@ -245,11 +245,12 @@
 			</td>
 			---->
 			<td class="lbl">
+				<label for="taxon_scope">Select Multiple</label>
 				<select name="taxon_scope" id="taxon_scope" multiple size="3">
 					<option selected>Current Identification</option>
 					<option selected>Any Identification</option>
-					<option selected>Any+Taxonomy</option>
-					<option selected>Any+Taxonomy+Common Names</option>
+					<option selected>Taxonomy</option>
+					<option selected>Common Names</option>
 				</select>
 			</td>
 			<td class="srch">
