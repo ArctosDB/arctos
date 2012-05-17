@@ -487,7 +487,7 @@ validate
 			update container set parent_container_id=#parent_container_id# 
 			where container_id = #use_part_id#
 		</cfquery>
-	<cfelseif len(parent_container_id) gt 0 and len(use_part_id) is 0>
+	<cfelseif len(parent_container_id) is 0 and len(use_part_id) is 0>
 		<!--- new part, no container --->
 		<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_collection_object_id.nextval NEXTID from dual
@@ -534,6 +534,7 @@ validate
 		</cfif>
 	<cfelse>
 		oops - no handler
+		<cfabort>
 	</cfif>
 	</cfloop>
 	</cftransaction>
