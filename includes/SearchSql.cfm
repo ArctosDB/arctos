@@ -73,13 +73,13 @@
 	<cfset mapurl = "#mapurl#&taxon_operator=#taxon_operator#">
 	<cfif taxon_scope is "currentID">
 		<cfif taxon_operator is "contains">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(taxon_term)#%'">
 		<cfelseif taxon_operator is "is">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(scientific_name)#'">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(taxon_term)#'">
 		<cfelseif taxon_operator is "list">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in '#listqualify(ucase(scientific_name),"'")#'">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in '#listqualify(ucase(taxon_term),"'")#'">
 		<cfelseif taxon_operator is "not">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) != '#ucase(scientific_name)#'">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) != '#ucase(taxon_term)#'">
 		</cfif>
 	</cfif>
 	
