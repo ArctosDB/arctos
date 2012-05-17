@@ -57,7 +57,7 @@
 	<cfelseif taxon_scope is "currentID_is">
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(taxon_term)#'">
 	<cfelseif taxon_scope is "currentID_list">
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in '#listqualify(ucase(taxon_term),chr(39))#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in #listqualify(ucase(taxon_term),chr(39))#">
 	<cfelseif taxon_scope is "currentID_not">
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) != '#ucase(taxon_term)#'">
 	<cfelseif taxon_scope is "anyID_like">
@@ -74,7 +74,7 @@
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 		</cfif>
-		<cfset basQual = " #basQual# AND upper(identification.scientific_name) in '#listqualify(ucase(taxon_term),chr(39))#'">
+		<cfset basQual = " #basQual# AND upper(identification.scientific_name) in #listqualify(ucase(taxon_term),chr(39))#">
 	<cfelseif taxon_scope is "anyID_not">
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
