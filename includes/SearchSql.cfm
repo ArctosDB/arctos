@@ -1150,19 +1150,16 @@
 <cfif isdefined("habitat_desc") and len(habitat_desc) gt 0>
 	<cfset mapurl = "#mapurl#&habitat_desc=#habitat_desc#">
 	<cfif basJoin does not contain " collecting_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (cataloged_item.collecting_event_id = collecting_event.collecting_event_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (#session.flatTableName#.collecting_event_id = collecting_event.collecting_event_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND upper(collecting_event.habitat_desc) like '%#ucase(escapeQuotes(habitat_desc))#%'">
 </cfif>
 <cfif isdefined("verbatim_locality") and len(verbatim_locality) gt 0>
 	<cfset mapurl = "#mapurl#&verbatim_locality=#verbatim_locality#">
-	<cfif basJoin does not contain " collecting_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (cataloged_item.collecting_event_id = collecting_event.collecting_event_id)">
-	</cfif>
 	<cfif left(verbatim_locality,1) is '='>
-		<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_locality) = '#ucase(escapeQuotes(right(verbatim_locality,len(verbatim_locality)-1)))#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.verbatim_locality) = '#ucase(escapeQuotes(right(verbatim_locality,len(verbatim_locality)-1)))#'">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_locality) like '%#ucase(escapeQuotes(verbatim_locality))#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.verbatim_locality) like '%#ucase(escapeQuotes(verbatim_locality))#%'">
 	</cfif>	
 </cfif>
 <cfif isdefined("minimum_elevation") and len(minimum_elevation) gt 0>
@@ -1206,13 +1203,9 @@
 </cfif>
 <cfif isdefined("any_geog") AND len(any_geog) gt 0>
 	<cfset mapurl = "#mapurl#&any_geog=#any_geog#">
-	<cfif replace(basJoin,"collecting_event flatCollEvent","","all") does not contain " collecting_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON 
-		(cataloged_item.collecting_event_id = collecting_event.collecting_event_id)">
-	</cfif>
 	<cfset basQual = " #basQual# AND 
 		upper(#session.flatTableName#.higher_geog) || ' ' || upper(#session.flatTableName#.spec_locality)
-			|| ' ' || upper(collecting_event.verbatim_locality)  LIKE '%#ucase(escapeQuotes(any_geog))#%'">
+			|| ' ' || upper(#session.flatTableName#.verbatim_locality)  LIKE '%#ucase(escapeQuotes(any_geog))#%'">
 </cfif>
 <cfif isdefined("geog_auth_rec_id") AND len(geog_auth_rec_id) gt 0>
 	<cfset basQual = " #basQual# AND #session.flatTableName#.geog_auth_rec_id=#geog_auth_rec_id#">
