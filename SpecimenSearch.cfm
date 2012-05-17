@@ -263,7 +263,7 @@
 				</select>
 			</td>
 			<td class="srch">
-				<input type="text" value="" name="taxon_term" id="taxon_term">
+				<input type="text" value="" name="taxon_term" id="taxon_term" size="50">
 			</td>
 		</tr>
 	</table>

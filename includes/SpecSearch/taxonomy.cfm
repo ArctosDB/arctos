@@ -20,6 +20,7 @@
 </cfquery>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
+	<!----
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_scientific_name">Scientific&nbsp;Name:</span>
@@ -35,6 +36,7 @@
 			<input type="text" name="scientific_name" id="scientific_name" size="28">
 		</td>
 	</tr>
+	---->
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_phylclass">Class:</span>
