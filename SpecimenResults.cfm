@@ -173,12 +173,6 @@ function removeHelpDiv() {
 
 
 
-#preserveSingleQuotes(SqlString)#
-
-
-<cfabort>
-
-
 
 
 
