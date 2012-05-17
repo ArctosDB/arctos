@@ -40,7 +40,167 @@
 	<cfset mapurl = "#mapurl#&cited_taxon_name_id=#cited_taxon_name_id#">
 </cfif>
 
-				<label for="taxon_scope">Select Multiple</label>
+		
+					
+					
+
+<cfif isdefined("taxon_term") AND len(taxon_term) gt 0>
+	<cfif not isdefined("taxon_scope") OR len(taxon_scope) is 0>
+		<cfset taxon_scope = "currentID_like">
+	</cfif>
+	<cfset mapurl = "#mapurl#&taxon_term=#taxon_term#">
+	<cfset mapurl = "#mapurl#&taxon_scope=#taxon_scope#">
+	
+	
+	<cfif taxon_scope is "currentID_like">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(taxon_term)#%'">
+	<cfelseif taxon_scope is "currentID_is">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(taxon_term)#'">
+	<cfelseif taxon_scope is "currentID_list">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in '#listqualify(ucase(taxon_term),chr(39))#'">
+	<cfelseif taxon_scope is "currentID_not">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) != '#ucase(taxon_term)#'">
+	<cfelseif taxon_scope is "anyID_like">
+		<cfif basJoin does not contain " identification ">
+			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+		</cfif>
+		<cfset basQual = " #basQual# AND upper(identification.scientific_name) LIKE '%#ucase(taxon_term)#%'">
+	<cfelseif taxon_scope is "anyID_is">
+		<cfif basJoin does not contain " identification ">
+			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+		</cfif>
+		<cfset basQual = " #basQual# AND upper(identification.scientific_name) = '#ucase(taxon_term)#'">
+	<cfelseif taxon_scope is "anyID_list">
+		<cfif basJoin does not contain " identification ">
+			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+		</cfif>
+		<cfset basQual = " #basQual# AND upper(identification.scientific_name) in '#listqualify(ucase(taxon_term),chr(39))#'">
+	<cfelseif taxon_scope is "anyID_not">
+		<cfif basJoin does not contain " identification ">
+			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+		</cfif>
+		<cfset basQual = " #basQual# AND upper(identification.scientific_name) != '#ucase(taxon_term)#'">
+	<cfelseif taxon_scope is "currentTaxonomy">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.full_taxon_name) LIKE '%#ucase(taxon_term)#%'">
+	<cfelseif taxon_scope is "relatedTaxonomy">
+		<cfif basJoin does not contain " identification ">
+			<cfset basJoin = " #basJoin# INNER JOIN identification ON (cataloged_item.collection_object_id = identification.collection_object_id)">
+		</cfif>
+		<cfif basJoin does not contain " identification_taxonomy ">
+			<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON (identification.identification_id = identification_taxonomy.identification_id)">
+		</cfif>
+		<cfif basJoin does not contain " taxonomy ">
+			<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON (identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
+		</cfif>
+		<cfset basJoin = " #basJoin# left outer JOIN taxon_relations ON (taxonomy.taxon_name_id = taxon_relations.taxon_name_id)">
+		<cfset basJoin = " #basJoin# left outer JOIN taxonomy relatedtaxonomy ON (taxon_relations.RELATED_TAXON_NAME_ID = relatedtaxonomy.taxon_name_id)">
+		
+		<cfset basJoin = " #basJoin# left outer JOIN taxon_relations invrelations ON (taxonomy.taxon_name_id = invrelations.RELATED_TAXON_NAME_ID)">
+		<cfset basJoin = " #basJoin# left outer JOIN taxonomy invrelatedtaxonomy ON (invrelations.taxon_name_id = invrelatedtaxonomy.taxon_name_id)">
+		<cfset basQual = " #basQual# AND (
+			upper(taxonomy.full_taxon_name) LIKE '%#ucase(taxon_term)#%' OR
+			upper(relatedtaxonomy.full_taxon_name) LIKE '%#ucase(taxon_term)#%' OR
+			upper(invrelatedtaxonomy.full_taxon_name) LIKE '%#ucase(taxon_term)#%' OR
+			upper(identification.scientific_name) LIKE '%#ucase(taxon_term)#%'
+		)">
+	<cfelseif taxon_scope is "common">
+		<cfif basJoin does not contain " identification ">
+			<cfset basJoin = " #basJoin# INNER JOIN identification ON (cataloged_item.collection_object_id = identification.collection_object_id)">
+		</cfif>
+		<cfif basJoin does not contain " identification_taxonomy ">
+			<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON (identification.identification_id = identification_taxonomy.identification_id)">
+		</cfif>
+		<cfif basJoin does not contain " taxonomy ">
+			<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON (identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
+		</cfif>
+		<cfset basJoin = " #basJoin# left outer JOIN taxon_relations ON (taxonomy.taxon_name_id = taxon_relations.taxon_name_id)">
+		<cfset basJoin = " #basJoin# left outer JOIN taxonomy relatedtaxonomy ON (taxon_relations.RELATED_TAXON_NAME_ID = relatedtaxonomy.taxon_name_id)">
+		
+		<cfset basJoin = " #basJoin# left outer JOIN taxon_relations invrelations ON (taxonomy.taxon_name_id = invrelations.RELATED_TAXON_NAME_ID)">
+		<cfset basJoin = " #basJoin# left outer JOIN taxonomy invrelatedtaxonomy ON (invrelations.taxon_name_id = invrelatedtaxonomy.taxon_name_id)">
+		
+		<cfset basJoin = " #basJoin# left outer JOIN common_name ON (taxonomy.taxon_name_id = common_name.taxon_name_id)">
+		<cfset basJoin = " #basJoin# left outer JOIN common_name relcommon_name ON (relatedtaxonomy.taxon_name_id = relcommon_name.taxon_name_id)">
+		<cfset basJoin = " #basJoin# left outer JOIN common_name invcommon_name ON (invrelatedtaxonomy.taxon_name_id = invcommon_name.taxon_name_id)">
+		
+		
+		<cfset basQual = " #basQual# AND (
+			upper(common_name.common_name) LIKE '%#ucase(taxon_term)#%' OR
+			upper(relcommon_name.common_name) LIKE '%#ucase(taxon_term)#%' OR
+			upper(invcommon_name.common_name) LIKE '%#ucase(taxon_term)#%' OR
+			upper(invrelatedtaxonomy.full_taxon_name) LIKE '%#ucase(taxon_term)#%' OR
+			upper(taxonomy.full_taxon_name) LIKE '%#ucase(taxon_term)#%' OR
+			upper(relatedtaxonomy.full_taxon_name) LIKE '%#ucase(taxon_term)#%' OR
+			upper(invrelatedtaxonomy.full_taxon_name) LIKE '%#ucase(taxon_term)#%' OR
+			upper(identification.scientific_name) LIKE '%#ucase(taxon_term)#%'
+		)">
+	<cfelse>
+		wut?<cfabort>
+	
+	</cfif>
+	
+	<!----
+	
+	
+	
+		<select name="taxon_scope" id="taxon_scope" size="1">
+					<option value="">Current Identification CONTAINS</option>
+					<option value="">Current Identification IS</option>
+					<option value="">Current Identification IN LIST</option>
+					<option value="">Current Identification NOT</option>
+					
+					
+					<option value="">Any Identification CONTAINS</option>
+					<option value="">Any Identification IS</option>
+					<option value="">Any Identification IN LIST</option>
+					<option value="">Any Identification NOT</option>
+					
+					<option value="">CurrentTaxonomy CONTAINS</option>
+					<option value="">RelatedTaxonomy CONTAINS</option>
+					<option value="">CommonName CONTAINS</option>
+					
+					
+					
+					
+		<cfset mapurl = "#mapurl#&HighTaxa=#HighTaxa#">
+	<cfif basJoin does not contain " identification ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification ON 
+		(cataloged_item.collection_object_id = identification.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " identification_taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON 
+		(identification.identification_id = identification_taxonomy.identification_id)">
+	</cfif>
+	<cfif basJoin does not contain " taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON 
+		(identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
+	</cfif>
+	<cfset basQual = "#basQual# AND identification.accepted_id_fg=1">
+	<cfset basQual = " #basQual# AND UPPER(taxonomy.Full_Taxon_Name) LIKE '%#ucase(HighTaxa)#%'">
+</cfif>	
+<cfif isdefined("AnySciName") AND len(AnySciName) gt 0>
+	<cfset mapurl = "#mapurl#&AnySciName=#AnySciName#">
+		<cfset basQual = " #basQual# AND ( cataloged_item.collection_object_id IN
+			(select collection_object_id FROM identification where 
+				UPPER(scientific_name) LIKE '%#ucase(AnySciName)#%')
+				OR cataloged_item.collection_object_id IN (
+					select collection_object_id FROM
+						identification,
+						identification_taxonomy,
+						taxonomy AccTax,
+						taxonomy RelTax,
+						taxon_relations
+					WHERE
+						identification.identification_id=identification_taxonomy.identification_id AND
+						identification_taxonomy.taxon_name_id=AccTax.taxon_name_id AND
+						AccTax.taxon_name_id=taxon_relations.taxon_name_id AND
+						taxon_relations.related_taxon_name_id = RelTax.taxon_name_id AND
+						UPPER(RelTax.scientific_name) LIKE '%#ucase(AnySciName)#%'
+					)
+					)">
+</cfif>
+	
+			<label for="taxon_scope">Select Multiple</label>
 				<select name="taxon_scope" id="taxon_scope" multiple size="3">
 					<option value="currentID" selected>Current Identification</option>
 					<option value="anyID" selected>Any Identification</option>
@@ -60,30 +220,18 @@
 					
 					
 					
-
-<cfif isdefined("taxon_term") AND len(taxon_term) gt 0>
-	<cfif not isdefined("taxon_scope") OR len(taxon_scope) is 0>
-		<cfset taxon_scope = "currentID">
-	</cfif>
-	<cfif not isdefined("taxon_operator") OR len(taxon_operator) is 0>
-		<cfset taxon_operator = "contains">
-	</cfif>
-	<cfset mapurl = "#mapurl#&taxon_term=#taxon_term#">
-	<cfset mapurl = "#mapurl#&taxon_scope=#taxon_scope#">
-	<cfset mapurl = "#mapurl#&taxon_operator=#taxon_operator#">
-	<cfif taxon_scope is "currentID">
-		<cfif taxon_operator is "contains">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(taxon_term)#%'">
-		<cfelseif taxon_operator is "is">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(taxon_term)#'">
-		<cfelseif taxon_operator is "list">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in '#listqualify(ucase(taxon_term),"'")#'">
-		<cfelseif taxon_operator is "not">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) != '#ucase(taxon_term)#'">
-		</cfif>
-	</cfif>
-	
-	<!----
+					
+				<cfif isdefined("any_taxa_term") AND len(any_taxa_term) gt 0>
+	<cfset mapurl = "#mapurl#&any_taxa_term=#any_taxa_term#">
+	<cfset basJoin = " #basJoin# inner join taxa_terms on (#session.flatTableName#.collection_object_id = taxa_terms.collection_object_id)">
+	<cfset basQual = " #basQual# AND taxa_terms.taxa_term like '%#escapeQuotes(ucase(any_taxa_term))#%'">		
+</cfif>
+<cfif isdefi
+		
+			
+				
+						
+					
 	<cfif left(scientific_name,1) is '='>
 		<cfset scientific_name=right(scientific_name,len(scientific_name)-1)>
 		<cfset sciNameOper = "=">
@@ -533,12 +681,10 @@
 <cfif isdefined("anyTaxId") AND len(anyTaxId) gt 0>
 	<cfset mapurl = "#mapurl#&anyTaxId=#anyTaxId#">
 	<cfif basJoin does not contain " identification ">
-		<cfset basJoin = " #basJoin# INNER JOIN identification ON 
-		(cataloged_item.collection_object_id = identification.collection_object_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN identification ON (cataloged_item.collection_object_id = identification.collection_object_id)">
 	</cfif>
 	<cfif basJoin does not contain " identification_taxonomy ">
-		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON 
-		(identification.identification_id = identification_taxonomy.identification_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON (identification.identification_id = identification_taxonomy.identification_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND identification_taxonomy.taxon_name_id=#anyTaxId#">
 </cfif>	
