@@ -127,7 +127,7 @@ function removeHelpDiv() {
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif> 
 	<cfset basFrom = " FROM #session.flatTableName#">
-	<cfset basJoin = "INNER JOIN cataloged_item ON (#session.flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
+	<cfset basJoin = "">
 	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">	
 
 	<cfset basQual = "">
@@ -170,18 +170,6 @@ function removeHelpDiv() {
 <cfif isdefined("debug") and debug is true>
 	#preserveSingleQuotes(SqlString)#
 </cfif>
-
-
-#preserveSingleQuotes(SqlString)#
-
-
-<cfabort>
-
-
-
-
-
-
 <cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
 	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(SqlString)#
