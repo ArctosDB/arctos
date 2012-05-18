@@ -128,7 +128,6 @@ function openAnnotation(q) {
 	var guts = "/info/annotate.cfm?q=" + q;
 	jQuery('#annotateDiv').load(guts,{},function(){
 		viewport.init("#annotateDiv");
-		viewport.init("#bgDiv");
 	});
 }
 function npPage(offset,rpp,tnid){
@@ -648,7 +647,6 @@ jQuery(document).ready(function() {
 		var ptl="/includes/SpecSearch/changeCollection.cfm";
 		jQuery(cDiv).load(ptl,{},function(){
 			viewport.init("#customDiv");
-			viewport.init("#bgDiv");
 		});
 	});
 	jQuery("#c_identifiers_cust").click(function(e){
@@ -665,7 +663,6 @@ jQuery(document).ready(function() {
 		var ptl="/includes/SpecSearch/customIDs.cfm";
 		jQuery(cDiv).load(ptl,{},function(){
 			viewport.init("#customDiv");
-			viewport.init("#bgDiv");
 		});
 	});
 });

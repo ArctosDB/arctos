@@ -26,7 +26,6 @@
 		theDiv.innerHTML=ih;
 		document.body.appendChild(theDiv);
 		viewport.init("#browseDiv");
-		viewport.init("#bgDiv");
 	});
 	function closeBrowse() {
 		if(document.getElementById('bgDiv')){

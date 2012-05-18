@@ -43,7 +43,6 @@
 	    $('iframe#frame_ctspid').load(function() 
 	    {
 	        viewport.init("#annotateDiv");
-			viewport.init("#bgDiv");
 	    });
 	}
 	function successUpdate(ctspnid,collection_cde,part_name,is_tissue,description,upAllDesc,upAllTiss) {
