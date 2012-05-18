@@ -205,11 +205,6 @@
 					<!---- yyyy.nnn.CCDE format --->
 					<cfset stg="'#dateformat(now(),"yyyy")#.' || lpad(max(to_number(substr(loan_number,6,3))) + 1,3,0) || '.#collection_cde#'">
 					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
-				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Ento')>
-				
-					<!---- UAM.yyyy.nnn.Ento format --->
-					<cfset stg="'UAM.#dateformat(now(),"yyyy")#.' || lpad(max(to_number(replace(replace(replace(loan_number,'UAM.'),'.Ento'),to_char(sysdate,'yyyy') || '.'))) + 1,3,0) || '.#collection_cde#'">
-					<cfset whr=" AND loan_number like 'UAM.#dateformat(now(),"yyyy")#.%'">
 				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Herb') OR
 					(institution_acronym is 'MSB') OR
 					(institution_acronym is 'DGR')>
@@ -1573,57 +1568,57 @@
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Recipient:</div></td>
-						<td><strong>#rec_agent#</strong></td>
+						<td>#rec_agent#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Nature of Material:</div></td>
-						<td><strong>#nature_of_material#</strong></td>
+						<td>#nature_of_material#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Type:</div></td>
-						<td><strong>#loan_type#</strong></td>
+						<td>#loan_type#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Status:</div></td>
-						<td><strong>#loan_status#</strong></td>
+						<td>#loan_status#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Due Date:</div></td>
-						<td><strong>#return_due_date#</strong></td>
+						<td>#return_due_date#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Transaction Date:</div></td>
-						<td><strong>#dateformat(trans_date,"yyyy-mm-dd")#</strong></td>
+						<td>#dateformat(trans_date,"yyyy-mm-dd")#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Instructions:</div></td>
-						<td><strong>#loan_instructions#</strong></td>
+						<td>#loan_instructions#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Authorized By:</div></td>
-						<td><strong>#auth_agent#</strong></td>
+						<td>#auth_agent#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Entered By:</div></td>
-						<td><strong>#ent_agent#</strong></td>
+						<td>#ent_agent#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Remarks:</div></td>
-						<td><strong>#trans_remarks#</strong></td>
+						<td>#trans_remarks#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap><div align="right">Description:</div></td>
-						<td><strong>#loan_description#</strong></td>
+						<td>#loan_description#</td>
 					</tr>
 					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
@@ -1639,10 +1634,10 @@
 										<img src="/images/li.gif" border="0">
 									</CFIF>
 									<a href="/Project.cfm?Action=editProject&project_id=#p.pid#">
-										<strong>#P.project_name#</strong>
+										#P.project_name#
 									</a><BR>
 								<cfelse>
-									<strong>None</strong>
+									None
 								</cfif>
 							</cfloop>
 						</td>
