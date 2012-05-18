@@ -64,21 +64,18 @@
 					$('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
 		            $('<div />').html(d).attr("id","customDiv").addClass('infoPop').appendTo('body');
 					viewport.init("#customDiv");
-					viewport.init("#bgDiv");
 				} else {
 					alert('An error occurred. \n' + r);
 				}
 			}
 		);
 	}
-	
 	function expand(variable, value){
 		$('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
 		$('<div />').attr("id","customDiv").addClass('infoPop').appendTo('body');
 		var ptl="/includes/forms/locationDetail.cfm?" + variable + "=" + value;
 		jQuery("#customDiv").load(ptl,{},function(){
 			viewport.init("#customDiv");
-			viewport.init("#bgDiv");
 		});
 	}
 </script>

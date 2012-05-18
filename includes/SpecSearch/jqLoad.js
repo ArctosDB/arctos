@@ -66,14 +66,8 @@ jQuery(document).ready(function() {
 		var ptl="/includes/SpecSearch/customIDs.cfm";
 		jQuery(cDiv).load(ptl,{},function(){
 			viewport.init("#customDiv");
-			viewport.init("#bgDiv");
 		});
-		//jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
-		
-		
 	});
-	
-	
 	function customizeIdentifiers() {
 		var theDiv = document.createElement('div');
 			theDiv.id = 'customDiv';
@@ -87,8 +81,6 @@ jQuery(document).ready(function() {
 				})
 			jQuery(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
 	}
-	
-	
 });
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {

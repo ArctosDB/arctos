@@ -478,7 +478,6 @@ function addBGDiv(f){
 	}
 	bgDiv.setAttribute('onclick',f);
 	document.body.appendChild(bgDiv);
-	viewport.init("#bgDiv");
 }
 function removeBgDiv () {
 	if(document.getElementById('bgDiv')){

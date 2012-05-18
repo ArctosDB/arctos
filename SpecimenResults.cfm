@@ -27,7 +27,6 @@ jQuery( function($) {
 		var guts = "/info/SpecimenResultsPrefs.cfm";
 		$('##customDiv').load(guts,{},function(){
 			viewport.init("##customDiv");
-			viewport.init("##bgDiv");
 		});		
 	});
 	$(".browseLink").live('click', function(e){
@@ -53,7 +52,6 @@ jQuery( function($) {
 		theDiv.innerHTML=ih;
 		document.body.appendChild(theDiv);
 		viewport.init("##browseDiv");
-		//viewport.init("##bgDiv");
 	});
 });
 function closeBrowse(){
