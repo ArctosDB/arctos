@@ -247,7 +247,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 					collection,
 					specimen_part
 				where
-					specimen_part.collection_object_id = cf_temp_loan_item.collection_object_id and
+					specimen_part.collection_object_id = cf_temp_loan_item.partID and
 					specimen_part.derived_from_cat_item = cataloged_item.collection_object_id and
 					cataloged_item.collection_id = collection.collection_id
 				)
