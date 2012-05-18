@@ -43,6 +43,7 @@ alter table cf_temp_loan_item add PART_CONDITION varchar2(255);
 		<li>Loan Item reconciled person is you (<i>#session.username#</i>)</li>
 		<li>Loan Item reconciled date is today (#dateformat(now(),"yyyy-mm-dd")#)</li>
 	</ul>
+</cfoutput>
 	Step 1: Upload a file comma-delimited text file (CSV). Include column headers.
 	<br>
 	<a href="loanBulkload.cfm?action=makeTemplate">[ get a template ]</a> 
@@ -120,7 +121,6 @@ alter table cf_temp_loan_item add PART_CONDITION varchar2(255);
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" #saveClr#>
 	</cfform>
-</cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "getFile">
