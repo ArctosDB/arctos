@@ -18,6 +18,11 @@ transaction_id number
 alter table cf_temp_loan_item add PART_DISPOSITION varchar2(255);
 
 alter table cf_temp_loan_item add PART_CONDITION varchar2(255);
+
+alter table cf_temp_loan_item add guid_prefix varchar2(255);
+alter table cf_temp_loan_item drop column INSTITUTION_ACRONYM;
+alter table cf_temp_loan_item drop column COLLECTION_CDE;
+
 --->
 <cfset title="Load Loan Items">
 <script type='text/javascript' src='/includes/loadLoanPart.js'></script>
@@ -186,7 +191,7 @@ alter table cf_temp_loan_item add PART_CONDITION varchar2(255);
 			status = 'disposition not found' 
 		where
 			PART_DISPOSITION is not null and 
-			PART_DISPOSITION not in (select COLL_OBJ_DISP from CTCOLL_OBJ_DISP)
+			PART_DISPOSITION not in (select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP)
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_loan_item where status is null
