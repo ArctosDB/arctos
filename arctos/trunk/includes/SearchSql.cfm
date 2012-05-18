@@ -1056,6 +1056,14 @@
 		</cfif>
 	</cfif>	
 </cfif>
+
+<cfif isdefined("locality_remarks") and len(locality_remarks) gt 0>
+	<cfset mapurl = "#mapurl#&locality_remarks=#locality_remarks#">
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (#session.flatTableName#.locality_id = locality.locality_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(locality.locality_remarks) like '%#ucase(escapeQuotes(locality_remarks))#%'">
+</cfif>
 <cfif isdefined("habitat_desc") and len(habitat_desc) gt 0>
 	<cfset mapurl = "#mapurl#&habitat_desc=#habitat_desc#">
 	<cfif basJoin does not contain " collecting_event ">
