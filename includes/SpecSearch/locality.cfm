@@ -243,5 +243,13 @@
 			</select>
 		</td>
 	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_locality_remarks">Locality Remarks:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="locality_remarks" id="locality_remarks" size="50">
+		</td>
+	</tr>
 </table>
 </cfoutput>
