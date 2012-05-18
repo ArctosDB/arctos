@@ -400,7 +400,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 						from
 							coll_object
 						where
-							collection_object_id = #collection_object_id#
+							collection_object_id = #partID#
 					)
 				</cfquery>
 				<cfquery name="makeSubsample" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
