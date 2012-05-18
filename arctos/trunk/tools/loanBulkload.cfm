@@ -15,16 +15,21 @@ partID number,
 transaction_id number
 );
 
+alter table cf_temp_loan_item add PART_DISPOSITION varchar2(255);
 
+alter table cf_temp_loan_item add PART_CONDITION varchar2(255);
 --->
 <cfset title="Load Loan Items">
-
-
 <script type='text/javascript' src='/includes/loadLoanPart.js'></script>
-
-
-		
-<cfif #action# is "nothing">
+<cfif action is "makeTemplate">
+	<cfset header="GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,PART_DISPOSITION,PART_CONDITION,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER">
+	<cffile action = "write" 
+    file = "#Application.webDirectory#/download/BulkLoanItemTemplate.csv"
+    output = "#header#"
+    addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkLoanItemTemplate.csv" addtoken="false">
+</cfif>
+<cfif action is "nothing">
 <cfoutput>
 	The following must all be true to use this form:
 	<ul>
@@ -38,37 +43,87 @@ transaction_id number
 		<li>Loan Item reconciled person is you (<i>#session.username#</i>)</li>
 		<li>Loan Item reconciled date is today (#dateformat(now(),"yyyy-mm-dd")#)</li>
 	</ul>
-Step 1: Upload a file comma-delimited text file (CSV) in the following format. (You may copy the template below and save as .CSV)
- Include column headers. 
-<ul>
-	<li>Institution_Acronym (required)</li>
-	<li>Collection_Cde (required)</li>
-	<li>Other_Id_Type (required. "catalog number" is acceptable)</li>
-	<li>Other_Id_Number (required; display value)</li>
-	<li>Part_Name (required)</li>
-	<li>Item_Description</li>
-	<li>Item_Remarks</li>
-	<li>subsample (required. "yes" creates a new part subsample. "no" puts the entire part on loan)</li>
-	<li>Loan_Number (required)</li>
-</ul>
+	Step 1: Upload a file comma-delimited text file (CSV). Include column headers.
+	<br>
+	<a href="loanBulkload.cfm?action=makeTemplate">[ get a template ]</a> 
+	<table border>
+		<tr>
+			<th>ColumnName</th>
+			<th>Required</th>
+			<th>Explanation</th>
+			<th>Documentation</th>
+		</tr>
+		<tr>
+			<td>guid_prefix</td>
+			<td>yes</td>
+			<td>find under Manage Collections - things like "UAM:Mamm"</td>
+			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
+		</tr>
+		<tr>
+			<td>other_id_type</td>
+			<td>yes</td>
+			<td>"catalog number" is valid but not in teh code table</td>
+			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
+		</tr>
+		<tr>
+			<td>other_id_number</td>
+			<td>yes</td>
+			<td>the value of the identifier/catalog number</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>PART_NAME</td>
+			<td>yes</td>
+			<td>full name of a part that exists for the cataloged item</td>
+			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTSPECIMEN_PART_NAME">CTSPECIMEN_PART_NAME</a></td>
+		</tr>
+		<tr>
+			<td>PART_DISPOSITION</td>
+			<td>yes</td>
+			<td>update the part to this disposition - generally "on loan"</td>
+			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTCOLL_OBJ_DISP">CTCOLL_OBJ_DISP</a></td>
+		</tr>		
+		<tr>
+			<td>PART_CONDITION</td>
+			<td>no</td>
+			<td>provide a value to update condition; leave blank to make no changes</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ITEM_DESCRIPTION</td>
+			<td>no</td>
+			<td>will default to collection.collection || ' ' || cat_num || ' ' || part_name if left null</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ITEM_REMARKS</td>
+			<td>no</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>SUBSAMPLE</td>
+			<td>yes</td>
+			<td>1 creates a new part subsample. 0 puts the entire part on loan</td>
+			<td>0 or 1</td>
+		</tr>
+		<tr>
+			<td>LOAN_NUMBER</td>
+			<td>yes</td>
+			<td>Loan.Loan_Number - does not include collection as is often displayed with loan number</td>
+			<td>0 or 1</td>
+		</tr>
+	</table>
+	<cfform name="catnum" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="Action" value="getFile">
+		<label for="FiletoUpload">Load CSV</label>
+		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" #saveClr#>
+	</cfform>
 </cfoutput>
-
-<p>
-<div id="template">
-		<textarea rows="2" cols="80" id="t">INSTITUTION_ACRONYM,COLLECTION_CDE,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER</textarea>
-	</div> 
-
-<cfform name="catnum" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="Action" value="getFile">
-			  <input type="file"
-		   name="FiletoUpload"
-		   size="45" onchange="checkCSV(this);">
-			  <input type="submit" value="Upload this file" #saveClr#>
-		</cfform>
 </cfif>
 <!------------------------------------------------------->
-<!------------------------------------------------------->
-<cfif #action# is "getFile">
+<cfif action is "getFile">
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_loan_item
 	</cfquery>
@@ -99,8 +154,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 	<cfquery name="gotit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_loan_item
 	</cfquery>
-	<cfdump var="#gotit#">
-	If the above table is accurate, <a href="loanBulkload.cfm?action=verify">click here to proceed</a>.
+	CSV loaded - <a href="loanBulkload.cfm?action=verify">click here to proceed</a>.
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "verify">
@@ -118,129 +172,105 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 			where 
 				trans.transaction_id = loan.transaction_id and
 				trans.collection_id = collection.collection_id and
-				collection.institution_acronym=cf_temp_loan_item.institution_acronym and
-				collection.collection_cde=cf_temp_loan_item.collection_cde and
+				upper(collection.guid_prefix)=upper(cf_temp_loan_item.guid_prefix) and
 				loan.loan_number = cf_temp_loan_item.loan_number
 			)
 	</cfquery>
 	<cfquery name="missedMe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_loan_item set status = 'loan not found' where
-		transaction_id is null
+		update cf_temp_loan_item set status = 'loan not found' where transaction_id is null
+	</cfquery>
+	<cfquery name="missedMe2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update 
+			cf_temp_loan_item 
+		set 
+			status = 'disposition not found' 
+		where
+			PART_DISPOSITION is not null and 
+			PART_DISPOSITION not in (select COLL_OBJ_DISP from CTCOLL_OBJ_DISP)
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_loan_item where status is null
 	</cfquery>  
 		<cfloop query="data">
-			<cfif other_id_type is "catalog number">
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select 
-						specimen_part.collection_object_id 
-					from
-						cataloged_item,
-						collection,
-						specimen_part,
-						coll_object
-					where
-						cataloged_item.collection_id = collection.collection_id and
-						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
-						specimen_part.collection_object_id = coll_object.collection_object_id and
-						collection.institution_acronym = '#institution_acronym#' and
-						collection.collection_cde = '#collection_cde#' and
-						part_name = '#part_name#' and
-						cat_num = '#other_id_number#' and
-						coll_obj_disposition != 'on loan' and
-						sampled_from_obj_id is null
-				</cfquery>
-			<cfelse>
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select 
-						specimen_part.collection_object_id 
-					from
-						cataloged_item,
-						collection,
-						specimen_part,
-						coll_object,
-						coll_obj_other_id_num
-					where
-						cataloged_item.collection_id = collection.collection_id and
-						cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
-						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
-						specimen_part.collection_object_id = coll_object.collection_object_id and
-						collection.institution_acronym = '#institution_acronym#' and
-						collection.collection_cde = '#collection_cde#' and
-						part_name = '#part_name#' and
-						display_value = '#other_id_number#' and
-						other_id_type = '#other_id_type#' and
-						coll_obj_disposition != 'on loan' and
-						sampled_from_obj_id  is null
-				</cfquery>
+			<cfset msg="spiffy">
+			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					specimen_part.collection_object_id 
+				from
+					cataloged_item,
+					collection,
+					specimen_part,
+					coll_object,
+					coll_obj_other_id_num
+				where
+					cataloged_item.collection_id = collection.collection_id and
+					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) and
+					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
+					specimen_part.collection_object_id = coll_object.collection_object_id and
+					upper(collection.guid_prefix) = '#ucase(guid_prefix)#' and
+					part_name = '#part_name#' and
+					coll_obj_disposition != 'on loan' and
+					sampled_from_obj_id  is null
+					<cfif other_id_type is "catalog number">
+						and cat_num='#other_id_number#'
+					<cfelse>
+						and display_value = '#other_id_number#' and
+						other_id_type = '#other_id_type#'
+					</cfif>
+			</cfquery>
+			<cfif collObj.recordcount is not 1>
+				<cfset msg="coll object found #collObj.recordcount# times">
 			</cfif>
-			<cfif collObj.recordcount is 1>
-				collObj.recordcount is 1....
-				<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update
-						cf_temp_loan_item
-					set
-						status='spiffy'
-					where
-						key=#key#
-				</cfquery>
-				<cfquery name="defDescr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update 
-						cf_temp_loan_item 
-						set (ITEM_DESCRIPTION)
-						= (
-							select collection.collection || ' ' || cat_num || ' ' || part_name
-							from
-							cataloged_item,
-							collection,
-							specimen_part
-							where
-							specimen_part.collection_object_id = #collObj.collection_object_id# and
-							specimen_part.derived_from_cat_item = cataloged_item.collection_object_id and
-							cataloged_item.collection_id = collection.collection_id
-					)
-					where ITEM_DESCRIPTION is null and key=#key#
-				</cfquery>
-				<cfif len(partID) is 0>
-					<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update
-							cf_temp_loan_item
-						set
-							partID = #collObj.collection_object_id#,
-							status='spiffy'
-						where
-							key=#key#
-					</cfquery>
-				</cfif>
-			<cfelseif collObj.recordcount is 0><!--- no part --->
-				no part
-				<cfquery name="BooCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update
-						cf_temp_loan_item
-					set
-						status='no part found'
-					where
-						key=#key#
-				</cfquery>
-			<cfelseif collObj.recordcount gt 1 and len(partID) is 0>
-				<cfquery name="BooCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update
-						cf_temp_loan_item
-					set
-						status='multiple parts found'
-					where
-						key=#key#
-				</cfquery>
-			</cfif>
+			<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update
+					cf_temp_loan_item
+				set
+					status='#msg#',
+					partID = #collObj.collection_object_id#
+				where
+					key=#key#
+			</cfquery>
 		</cfloop>
+		<cfquery name="defDescr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_loan_item 
+			set (ITEM_DESCRIPTION) = (
+				select 
+					collection.collection || ' ' || cataloged_item.cat_num || ' ' || specimen_part.part_name
+				from
+					cataloged_item,
+					collection,
+					specimen_part
+				where
+					specimen_part.collection_object_id = cf_temp_loan_item.collection_object_id and
+					specimen_part.derived_from_cat_item = cataloged_item.collection_object_id and
+					cataloged_item.collection_id = collection.collection_id
+				)
+			where ITEM_DESCRIPTION is null and status='spiffy'
+		</cfquery>
 	</cftransaction>
-	<cfquery name="done" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_loan_item
-	</cfquery> 
-	<cfdump var=#done#>
+	</cfquery>
+	<script src="/includes/sorttable.js"></script>
+	<cfset header="STATUS,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,PART_DISPOSITION,PART_CONDITION,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER">
+	<table border id="t" class="sortable">
+		<tr>
+			<cfloop list="#header#" index="i">
+				<th>#i#</th>
+			</cfloop>
+		</tr>
+		<cfloop query="valData">
+			<tr>
+				<cfloop list="#header#" index="i">
+					<td>#evaluate("valData." & i)#</td>
+				</cfloop>
+			</tr>
+		</cfloop>
+	</table>
+
 	<cfquery name="bads" dbtype="query">
-		select count(*) c from done where status != 'spiffy'
+		select count(*) c from valData where status != 'spiffy'
 	</cfquery>
 	---------#bads.c#-------------
 	<cfif bads.c is 0 or bads.c is ''>
@@ -252,7 +282,6 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 	
 </cfoutput>
 </cfif>
-<!------------------------------------------------------->
 <!------------------------------------------------------->
 <cfif #action# is "pickPart">
 <cfoutput>
@@ -337,51 +366,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 	</cfquery>
 	<cftransaction>
 		<cfloop query="getTempData">
-			<cfif subsample is "yes">
-				<cfif other_id_type is "catalog number">
-					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select 
-							specimen_part.collection_object_id 
-						from
-							cataloged_item,
-							collection,
-							specimen_part,
-							coll_object
-						where
-							cataloged_item.collection_id = collection.collection_id and
-							cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
-							specimen_part.collection_object_id = coll_object.collection_object_id and
-							collection.institution_acronym = '#institution_acronym#' and
-							collection.collection_cde = '#collection_cde#' and
-							part_name = '#part_name#' and
-							cat_num = '#other_id_number#' and
-							coll_obj_disposition != 'on loan' and
-							sampled_from_obj_id is null
-					</cfquery>
-				<cfelse>
-					<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select 
-							specimen_part.collection_object_id 
-						from
-							cataloged_item,
-							collection,
-							specimen_part,
-							coll_object,
-							coll_obj_other_id_num
-						where
-							cataloged_item.collection_id = collection.collection_id and
-							cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
-							cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
-							specimen_part.collection_object_id = coll_object.collection_object_id and
-							collection.institution_acronym = '#institution_acronym#' and
-							collection.collection_cde = '#collection_cde#' and
-							part_name = '#part_name#' and
-							display_value = '#other_id_number#' and
-							other_id_type = '#other_id_type#' and
-							coll_obj_disposition != 'on loan' and
-							sampled_from_obj_id  is null
-					</cfquery>
-				</cfif>
+			<cfif subsample is 1>
 				<cfquery name="nid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select sq_collection_object_id.nextval nid from dual
 				</cfquery>
@@ -410,7 +395,8 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 						from
 							coll_object
 						where
-							collection_object_id = #collObj.collection_object_id#)
+							collection_object_id = #collection_object_id#
+					)
 				</cfquery>
 				<cfquery name="makeSubsample" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					INSERT INTO specimen_part (
@@ -422,11 +408,11 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 		  				#thisPartId#,
 		  				part_name,
 		  				DERIVED_FROM_cat_item,
-		  				#collObj.collection_object_id#
+		  				#partID#
 		  			FROM
 		  				specimen_part
 		  			WHERE
-		  				collection_object_id = #collObj.collection_object_id#)
+		  				collection_object_id = #partID#)
 		  		</cfquery>
 			<cfelse>
 				<cfset thisPartId=partID>
@@ -438,7 +424,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					RECONCILED_BY_PERSON_ID,
 					reconciled_date,
 					item_descr
-					<cfif len(#ITEM_REMARKS#) gt 0>
+					<cfif len(ITEM_REMARKS) gt 0>
 						,LOAN_ITEM_REMARKS
 					</cfif>
 					)
@@ -448,10 +434,21 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					  #session.myAgentId#,
 					  sysdate,
 					  '#ITEM_DESCRIPTION#'
-					  <cfif len(#ITEM_REMARKS#) gt 0>
+					  <cfif len(ITEM_REMARKS) gt 0>
 						,'#ITEM_REMARKS#'
 					</cfif>
 					)
+			</cfquery>
+			<cfquery name="usp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update 
+					coll_object 
+				set
+					COLL_OBJ_DISPOSITION='#PART_DISPOSITION#'
+					<cfif len(PART_CONDITION) gt 0>
+						condition='#PART_CONDITION#'
+					</cfif> 
+				where
+					collection_object_id=#partID#
 			</cfquery>
 		</cfloop>
 	</cftransaction>
