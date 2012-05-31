@@ -7,7 +7,6 @@ function isValidISODate(val) {
 			queryformat : 'column'
 		},
 		function(result){
-			console.log(result);
 			return result;
 		}
 	);
@@ -1288,9 +1287,19 @@ function cleanup () {
 
 	ISOdateFields.push('determined_date');
 	ISOdateFields.push('made_date');
-	
-	
-	
+	ISOdateFields.push('began_date');
+	ISOdateFields.push('ended_date');
+	ISOdateFields.push('attribute_date_1');
+	ISOdateFields.push('attribute_date_2');
+	ISOdateFields.push('attribute_date_3');
+	ISOdateFields.push('attribute_date_4');
+	ISOdateFields.push('attribute_date_5');
+	ISOdateFields.push('attribute_date_6');
+	ISOdateFields.push('attribute_date_7');
+	ISOdateFields.push('attribute_date_8');
+	ISOdateFields.push('attribute_date_9');
+	ISOdateFields.push('attribute_date_10');
+		
 	for (i=0;i<ISOdateFields.length;i++) {
 		var thisFld = document.getElementById(ISOdateFields[i]).value;
 		if (thisFld.length > 0 && isValidISODate(thisFld) == false) {
@@ -1302,23 +1311,8 @@ function cleanup () {
 		return false;
 	}
 	
-	
-	
-	
 	var dateFields = new Array();
 	var badDates = "";
-	//dateFields.push('began_date');
-	//dateFields.push('ended_date');
-	dateFields.push('attribute_date_1');
-	dateFields.push('attribute_date_2');
-	dateFields.push('attribute_date_3');
-	dateFields.push('attribute_date_4');
-	dateFields.push('attribute_date_5');
-	dateFields.push('attribute_date_6');
-	dateFields.push('attribute_date_7');
-	dateFields.push('attribute_date_8');
-	dateFields.push('attribute_date_9');
-	dateFields.push('attribute_date_10');
 	for (i=0;i<dateFields.length;i++) {
 		var thisFld = document.getElementById(dateFields[i]).value;
 		if (thisFld.length > 0 && isValidDate(thisFld) == false) {
