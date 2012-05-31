@@ -1288,9 +1288,9 @@ function cleanup () {
 		return false;
 	}
 	var ISOdateFields = new Array();
-	dateFields.push('determined_date');
-	for (i=0;i<dateFields.length;i++) {
-		var thisFld = document.getElementById(dateFields[i]).value;
+	ISOdateFields.push('determined_date');
+	for (i=0;i<ISOdateFields.length;i++) {
+		var thisFld = document.getElementById(ISOdateFields[i]).value;
 		if (thisFld.length > 0 && isValidISODate(thisFld) == false) {
 			badDates += ' ' + thisFld + '\n';
 		}
