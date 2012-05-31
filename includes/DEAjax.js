@@ -1,11 +1,24 @@
-function getRelatedSpecimenData(){
-	
+function isValidISODate(val) {
+	jQuery.getJSON("/component/DataEntry.cfc",
+		{
+			method : "isValidISODate",
+			datestring : val,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(result){
+			console.log(result);
+			return result;
+		}
+	);
+}
+
+function getRelatedSpecimenData(){	
 	var url="/picks/CatalogedItemPickForDataEntry.cfm";
 	var other_id_num = $("#related_to_number").val();
 	var other_id_type = $("#related_to_num_type").val();
 	var popurl=url+"?other_id_num="+other_id_num+"&other_id_type="+other_id_type;
 	CatItemPick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
-
 }
 jQuery(document).ready(function() {
 	$("#made_date").datepicker();
@@ -289,23 +302,6 @@ function UAMMammDefault() {
 		$("#other_id_num_type_1").val('original identifier');
 	}
 }
-function isValidISODate(val) {
-	jQuery.getJSON("/component/DataEntry.cfc",
-		{
-			method : "isValidISODate",
-			datestring : val,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function(result){
-			return result;
-		}
-	);
-}
-
-
-
-
 function incCatNum() {
 	if ($("#cat_num").val()!=''){
 		alert('There is already a cat number. Aborting....');
@@ -1298,7 +1294,7 @@ function cleanup () {
 		}
 	}
 	if (badDates.length > 0) {
-		alert('The following dates are not in a recognized format, or are not valid dates: \n' + badDates);
+		alert('The following ISO8601 dates are not in a recognized format, or are not valid dates: \n' + badDates);
 		return false;
 	}
 	
