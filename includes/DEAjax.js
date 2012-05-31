@@ -1323,7 +1323,7 @@ function cleanup () {
 		}
 	}
 	if (badDates.length > 0) {
-		alert('The following dates are not in a recognized format, or are not valid dates: \n' + badDates);
+		alert('The following DATE dates are not in a recognized format, or are not valid dates: \n' + badDates);
 		return false;
 	}
 	return true;
