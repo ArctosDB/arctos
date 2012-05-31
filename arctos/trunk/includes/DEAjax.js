@@ -1287,6 +1287,10 @@ function cleanup () {
 	var badDates = "";
 
 	ISOdateFields.push('determined_date');
+	ISOdateFields.push('made_date');
+	
+	
+	
 	for (i=0;i<ISOdateFields.length;i++) {
 		var thisFld = document.getElementById(ISOdateFields[i]).value;
 		if (thisFld.length > 0 && isValidISODate(thisFld) == false) {
@@ -1303,7 +1307,6 @@ function cleanup () {
 	
 	var dateFields = new Array();
 	var badDates = "";
-	dateFields.push('made_date');
 	//dateFields.push('began_date');
 	//dateFields.push('ended_date');
 	dateFields.push('attribute_date_1');
