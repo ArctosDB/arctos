@@ -364,7 +364,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "loadData">
+<cfif action is "loadData">
 <cfoutput>
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_loan_item

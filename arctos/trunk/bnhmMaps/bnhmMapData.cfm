@@ -248,13 +248,13 @@
 		<cfloop query="getClass">			
 			<cfif phylclass is 'Amphibia'>
 				<cfset name='gaa'>
-				<cfset cdata="http://bnhmmapstest.berkeley.edu/v2/speciesrange/#genus#+#species#/binomial/gaa_2011">
+				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/binomial/gaa_2011">
 			<cfelseif phylclass is 'Mammalia'>
 				<cfset name='mamm'>
-				<cfset cdata="http://bnhmmapstest.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/mamm_2009">
+				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/mamm_2009">
 			<cfelseif phylclass is 'Aves'>
 				<cfset name='birds'>
-				<cfset cdata="http://bnhmmapstest.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/birds_2009">
+				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/birds_2009">
 			<cfelse>
 				<cfset name="">
 				<cfset cdata=''>
@@ -320,7 +320,7 @@
 	<cfset listColl=replace(listColl,",","dna ,","first")>
 	<cfset CollList=reverse(listColl)>
 	<cfset CollList="#CollList# data.">
-	<cfset bnhmUrl="http://bnhmmapstest.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
+	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
