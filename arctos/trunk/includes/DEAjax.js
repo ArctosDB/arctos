@@ -289,6 +289,23 @@ function UAMMammDefault() {
 		$("#other_id_num_type_1").val('original identifier');
 	}
 }
+function isValidISODate(val) {
+	jQuery.getJSON("/component/DataEntry.cfc",
+		{
+			method : "isValidISODate",
+			datestring : val,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(result){
+			return result;
+		}
+	);
+}
+
+
+
+
 function incCatNum() {
 	if ($("#cat_num").val()!=''){
 		alert('There is already a cat number. Aborting....');
@@ -1270,12 +1287,27 @@ function cleanup () {
 		alert('You must enter data in required fields: ' + missingData + "\n Aborting Save!");
 		return false;
 	}
+	var ISOdateFields = new Array();
+	dateFields.push('determined_date');
+	for (i=0;i<dateFields.length;i++) {
+		var thisFld = document.getElementById(dateFields[i]).value;
+		if (thisFld.length > 0 && isValidISODate(thisFld) == false) {
+			badDates += ' ' + thisFld + '\n';
+		}
+	}
+	if (badDates.length > 0) {
+		alert('The following dates are not in a recognized format, or are not valid dates: \n' + badDates);
+		return false;
+	}
+	
+	
+	
+	
 	var dateFields = new Array();
 	var badDates = "";
 	dateFields.push('made_date');
 	//dateFields.push('began_date');
 	//dateFields.push('ended_date');
-	dateFields.push('determined_date');
 	dateFields.push('attribute_date_1');
 	dateFields.push('attribute_date_2');
 	dateFields.push('attribute_date_3');

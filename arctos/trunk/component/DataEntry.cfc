@@ -1,5 +1,19 @@
 <cfcomponent>
 <!------------------------------------------------------------------------------->
+<cffunction name="isValidISODate"  access="remote">
+	<cfargument name="datestring" type="string" required="yes">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select is_iso8601('#datestring#') r from dual
+	</cfquery>
+	<cfif result.r is "valid">
+		<cfreturn true>
+	<cfelse>
+		<cfreturn false>
+	</cfif>
+</cffunction>
+<!---------------------------------------------------------------->
+
+
 <cffunction name="getAttCodeTbl"  access="remote">
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="collection_cde" type="string" required="yes">
