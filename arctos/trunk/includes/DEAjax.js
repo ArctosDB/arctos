@@ -1288,6 +1288,8 @@ function cleanup () {
 		return false;
 	}
 	var ISOdateFields = new Array();
+	var badDates = "";
+
 	ISOdateFields.push('determined_date');
 	for (i=0;i<ISOdateFields.length;i++) {
 		var thisFld = document.getElementById(ISOdateFields[i]).value;
