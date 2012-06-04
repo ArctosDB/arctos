@@ -1,5 +1,5 @@
 <cfcomponent>
-	<!------------------------------------------------------------------->
+<!------------------------------------------------------------------->
 <cffunction name="getPublication" access="remote">	
 	<cfargument name="idtype" type="string" required="yes">
 	<cfargument name="identifier" type="string" required="yes">
