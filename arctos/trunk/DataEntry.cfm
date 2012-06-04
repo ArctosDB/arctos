@@ -1283,17 +1283,16 @@
 						<tr id="d_part_name_#i#">
 							<td>
 								<cfset tpn=evaluate("data.part_name_" & i)>
-								<input type="text" name="part_name_#i#" id="part_name_#i#" <cfif i is 1>class="reqdClr"</cfif>
+								<input type="text" name="part_name_#i#" id="part_name_#i#"
 									value="#tpn#" size="25"
 									onchange="findPart(this.id,this.value,'#collection_cde#');requirePartAtts('#i#',this.value);" 
 									onkeypress="return noenter(event);">
 							</td>
 							<td>
-								<input type="text" name="part_condition_#i#" id="part_condition_#i#"
-									<cfif i is 1>class="reqdClr" </cfif>value="#evaluate("data.part_condition_" & i)#">
+								<input type="text" name="part_condition_#i#" id="part_condition_#i#" value="#evaluate("data.part_condition_" & i)#">
 							</td>
 							<td>
-								<select id="part_disposition_#i#" name="part_disposition_#i#" <cfif i is 1>class="reqdClr"</cfif>>
+								<select id="part_disposition_#i#" name="part_disposition_#i#">
 									<option value=""></option>
 									<cfloop query="CTCOLL_OBJ_DISP">
 										<option
@@ -1303,12 +1302,11 @@
 								</select>
 							</td>
 							<td>
-								<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" value="#evaluate("data.part_lot_count_" & i)#" 
-									<cfif i is 1>class="reqdClr" </cfif>size="1">
+								<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" value="#evaluate("data.part_lot_count_" & i)#" size="1">
 							</td>
 							<td>
 								<input type="text" name="part_barcode_#i#" id="part_barcode_#i#" value="#evaluate("data.part_barcode_" & i)#" 
-									 size="6" onchange="part_container_label_#i#.className='reqdClr';setPartLabel(this.id);">
+									 size="6" onchange="setPartLabel(this.id);">
 							</td>
 							<td>
 								<input type="text" name="part_container_label_#i#" id="part_container_label_#i#"
