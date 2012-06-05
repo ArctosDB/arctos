@@ -15,38 +15,56 @@
 http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3
 
 <cfoutput>
-	
-	
-	10242699
-	
+<br><a href="mediatest.cfm?media_id=10242699">10242699</a>
+<br><a href="mediatest.cfm?media_id=10242701">10242701</a>
+<br><a href="mediatest.cfm?media_id=10242701,10242699">10242701,10242699</a>
 	
 	
 <cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from media where media_id=#media_id#
+	select * from media where media_id in (#media_id#)
 </cfquery>
+
+<cfset thingsWeCanPlay="audio/mpeg3">
+<cfset i=1>
+<cfset theJS=''>
+<cfloop query="m">
+	<cfif mime_type is 'audio/mpeg3'>
+		<cfset thisType='mp3'>
+	</cfif>
+<cfset theJS=theJS & '
+		$("##jquery_jplayer_#i#").jPlayer({
+		ready: function (event) {
+			$(this).jPlayer("setMedia", {
+				#thisType#:"#m.media_uri#"
+			});
+		},
+		swfPath: "/development/js",
+		supplied: "#thisType#"
+	});'>
+	<cfset i=i+1>
+	</cfloop>
 <cfdump var=#m#>
+
+
+<hr>
+
+#theJS#
+
+<hr>
 <script>
 	
 	
 $(document).ready(function(){
-	$("##jquery_jplayer_1").jPlayer({
-		ready: function (event) {
-			$(this).jPlayer("setMedia", {
-				mp3:"#m.media_uri#"
-			});
-		},
-		swfPath: "/development/js",
-		supplied: "mp3"
-	});
-      
-      
+	#theJS# 
 });
 	
 </script>
+<cfset i=1>
 
-<div id="jquery_jplayer_1" class="jp-jplayer"></div>
-
-		<div id="jp_container_1" class="jp-audio">
+<cfloop query="m">
+	<cfif mime_type is 'audio/mpeg3'>
+		<div id="jquery_jplayer_#I#" class="jp-jplayer"></div>
+		<div id="jp_container_#I#" class="jp-audio">
 			<div class="jp-type-single">
 				<div class="jp-gui jp-interface">
 					<ul class="jp-controls">
@@ -86,6 +104,15 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
+	<cfelse>
+		<!--- not something we can play ---->
+		<br>this is a normal media thingee, whatever that means.
+	</cfif>
+
+	<cfset i=i+1>
+	</cfloop>
+
+
 		
 		
 	</cfoutput>	
