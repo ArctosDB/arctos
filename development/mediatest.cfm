@@ -1,4 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
+<cfif not isdefined("media_id")>
+	<cfseet media_id=10273014>
+</cfif>
+
+
 
 <link type="text/css" href="/development/js/skin/jplayer.blue.monday.css" rel="stylesheet">
 
@@ -7,11 +12,17 @@
 
 
 http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3
+
+<cfoutput>
+<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select * from container where media_id=#media_id#
+</cfquery>
+<cfdump var=#m#>
 <script>
 	
 	
 $(document).ready(function(){
-	$("#jquery_jplayer_1").jPlayer({
+	$("##jquery_jplayer_1").jPlayer({
 		ready: function (event) {
 			$(this).jPlayer("setMedia", {
 				mp3:"http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3"
@@ -25,8 +36,6 @@ $(document).ready(function(){
 });
 	
 </script>
-
-
 
 <div id="jquery_jplayer_1" class="jp-jplayer"></div>
 
@@ -72,7 +81,7 @@ $(document).ready(function(){
 		</div>
 		
 		
-		
+	</cfoutput>	
 <!-------
 	$("#jquery_jplayer_1").jPlayer({
 		ready: function (event) {
