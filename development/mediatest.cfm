@@ -10,7 +10,51 @@
 <script type='text/javascript' language="javascript" src='/development/js/jquery.mb.miniPlayer.js'></script>
 
 http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3
+<style type="text/css">
 
+    /*Generic page style*/
+
+    body{
+      font:normal 13px/16px 'trebuchet MS', sans-serif;
+      margin:10px;
+      background: #ffffff;
+    }
+    .wrapper{
+      position:relative;
+      padding-top:90px;
+      padding-left:50px;
+      width:80%;
+      margin:auto
+    }
+    .wrapper h1{
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:26px;
+    }
+    button{
+      padding:3px;
+      display:inline-block;
+      cursor:pointer;
+      font:12px/14px Arial, Helvetica, sans-serif;
+      color:#fff;
+      background-color:#ccc;
+      -moz-border-radius:5px;
+      -webkit-border-radius:5px;
+      -moz-box-shadow:#999 1px 1px 3px;
+      -webkit-box-shadow:#999 1px 1px 3px;
+      border:1px solid white;
+      text-shadow: 1px -1px 2px #aaa9a9 !important;
+    }
+    button:hover{
+    /*background-color:#fff;*/
+      color:#666;
+    }
+    hr{
+      border:none;
+      background-color:#ccc;
+      height:1px;
+    }
+
+  </style>
 <script>
 	
 	
@@ -19,22 +63,28 @@ $(document).ready(function(){
 
 	 $(".audio").mb_miniPlayer({
         width:240,
-        inLine:true
+        inLine:false
       });
       
       
 });
 	
-
-
 </script>
 
 
-
- <a  class="audio {skin:'gray', autoPlay:false, inLine:true, showVolumLevel:false, showRew:true, showTime:false, width:100, addShadow:false}" href="http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3">miaowmusic - Lismore (mp3)</a>
-  <span>and it is inline</span>
-
-<a id="m1" class="audio {ogg:'http://www.miaowmusic.com/ogg/Miaow-07-Bubble.ogg'}" href="http://www.miaowmusic.com/mp3/Miaow-07-Bubble.mp3">miaowmusic - Bubble (mp3/ogg)</a>
+<br>
+<br>
+<br>
+<br>
+<div class="wrapper">
+  <h1>mb.miniAudioPlayer.demo</h1>
+  <br>
+  This is a GUI implementation of <a href="http://www.happyworm.com/jquery/jplayer/" target="_blank"><strong>Happyworm jPlayer plugin</strong></a>, an HTML5 audio engine, developed on jQuery framework, that let you listen mp3 and ogg file over the html5 audio tag where supported or using an invisible flash player where not supported.
+  For more informations about html5 browsers' support go to <a href="http://www.happyworm.com/jquery/jplayer/latest/developer-guide.htm">jPlayer documentation site</a>.
+<br>
+<br>
+<br>
+  <a id="m1" class="audio {ogg:'http://www.miaowmusic.com/ogg/Miaow-07-Bubble.ogg'}" href="http://www.miaowmusic.com/mp3/Miaow-07-Bubble.mp3">miaowmusic - Bubble (mp3/ogg)</a>
   <span>param -> all features</span>
   <hr>
   <a id="m2" class="audio {skin:'orange', ogg:'http://www.miaowmusic.com/ogg/Miaow-02-Hidden.ogg', showTime:false}" href="http://www.miaowmusic.com/mp3/Miaow-02-Hidden.mp3">miaowmusic - Hidden (ogg/mp3)</a>
@@ -58,7 +108,12 @@ $(document).ready(function(){
   This is a gray player: <a  class="audio {skin:'gray', autoPlay:false, inLine:true, showVolumLevel:false, showRew:true, showTime:false, width:100, addShadow:false}" href="http://www.miaowmusic.com/mp3/Miaow-04-Lismore.mp3">miaowmusic - Lismore (mp3)</a>
   <span>and it is inline</span>
 
-
+  <hr>
+  <br>
+  <b>jquery.mb.miniPlayer</b> is a GUI implementation of the <a href="http://www.jplayer.org" target="_blank">jquery.jPlayer</a> plug-in realized by © Happyworm LTD. (many thanks to <a href="http://happyworm.com/blog/" target="_blank">Mark Boas</a>)
+  <br>
+  All the music are provided by <a href="http://www.miaowmusic.com" target="_blank">© miaowmusic</a>.
+</div>
 
 <!-------
 	$("#jquery_jplayer_1").jPlayer({
