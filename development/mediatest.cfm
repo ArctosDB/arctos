@@ -1,10 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
 
-<link type="text/css" href="/development/js/skin/jplayer.blue.monday.css" rel="stylesheet">
+<link type="text/css" href="/development/js/skin/miniplayer.css" rel="stylesheet">
 
 
 
 <script type='text/javascript' language="javascript" src='/development/js/jquery.jplayer.min.js'></script>
+
+
+<script type='text/javascript' language="javascript" src='/development/js/jquery.mb.miniPlayer.js'></script>
 
 http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3
 
@@ -22,11 +25,26 @@ $(document).ready(function(){
 		swfPath: "/development/js",
 		supplied: "mp3"
 	});
+	
+	 $(".audio").mb_miniPlayer({
+        width:240,
+        inLine:false
+      });
+      
+      
 });
 	
 
 
 </script>
+
+
+
+ <a  class="audio {skin:'gray', autoPlay:false, inLine:true, showVolumLevel:false, showRew:true, showTime:false, width:100, addShadow:false}" href="http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3">miaowmusic - Lismore (mp3)</a>
+  <span>and it is inline</span>
+
+
+
 
 <!-------
 
