@@ -1,4 +1,4 @@
-<script type='text/javascript' language="javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+<cfinclude template="/includes/_header.cfm">
 
   <link type="text/css" href="/development/js/skin/jplayer.blue.monday.css" rel="stylesheet" />
 
