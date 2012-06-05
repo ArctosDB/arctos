@@ -38,15 +38,14 @@ http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatu
 				#thisType#:"#m.media_uri#"
 			});
 		},
+			play: function() { // To avoid both jPlayers playing together.
+			$(this).jPlayer("pauseOthers");
+		},
 		swfPath: "/development/js",
 		supplied: "#thisType#",
 		wmode: "window"
 	});
 		'>
-	
-	
-	
-	
 	
 	
 	
