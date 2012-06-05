@@ -15,6 +15,12 @@
 http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3
 
 <cfoutput>
+	
+	
+	10242699
+	
+	
+	
 <cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from media where media_id=#media_id#
 </cfquery>
