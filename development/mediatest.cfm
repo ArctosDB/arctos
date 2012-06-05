@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
-<link type="text/css" href="/development/js/skin/jplayer-black-and-yellow.css" rel="stylesheet">
+<link type="text/css" href="/development/js/skin/jplayer.blue.monday.css" rel="stylesheet">
 
 
 <script type='text/javascript' language="javascript" src='/development/js/jquery.jplayer.min.js'></script>
