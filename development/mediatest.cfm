@@ -1,6 +1,6 @@
 <script type='text/javascript' language="javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 
-  <link type="text/css" href="developent/js/skin/jplayer.blue.monday.css" rel="stylesheet" />
+  <link type="text/css" href="/development/js/skin/jplayer.blue.monday.css" rel="stylesheet" />
 
 
 
