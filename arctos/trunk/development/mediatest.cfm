@@ -1,4 +1,4 @@
-<cfinclude template="/includes/_header.cfm">
+<script type='text/javascript' language="javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 <script type='text/javascript' language="javascript" src='/development/jQuery.jPlayer.2.1.0/jquery.jplayer.min.js'></script>
 
 http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3
