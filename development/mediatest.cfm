@@ -874,7 +874,7 @@ $(document).ready(function(){
 				</div>
 				<div class="jp-title">
 					<ul>
-						<li>Cro Magnon Man</li>
+						<li>Carla blathering about birds</li>
 					</ul>
 				</div>
 				<div class="jp-no-solution">
