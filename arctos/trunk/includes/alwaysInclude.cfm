@@ -10,5 +10,5 @@ https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
 
 <script type='text/javascript' language="javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 
-<script type='text/javascript' language="javascript" src='/includes/ajax.js'></script>
+<script type='text/javascript' language="javascript" src='/includes/ajax.min.js'></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
