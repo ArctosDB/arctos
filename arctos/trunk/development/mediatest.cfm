@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif not isdefined("media_id")>
-	<cfseet media_id=10273014>
+	<cfset media_id=10273014>
 </cfif>
 
 
