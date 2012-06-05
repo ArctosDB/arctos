@@ -11,8 +11,8 @@ http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatu
 	    mp3: "http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3"
 	   });
 	  },
-	  swfPath: "/js",
-	  supplied: "m4a, oga"
+	  swfPath: "/development/jQuery.jPlayer.2.1.0",
+	  supplied: "mp3"
 	 });
 	});
 </script>
