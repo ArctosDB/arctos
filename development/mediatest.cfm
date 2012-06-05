@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
-  <link type="text/css" href="/development/js/skin/jplayer.blue.monday.css" rel="stylesheet" />
+<link type="text/css" href="/development/js/skin/jplayer.blue.monday.css" rel="stylesheet">
 
 
 
@@ -20,8 +20,7 @@ $(document).ready(function(){
 			});
 		},
 		swfPath: "/development/js",
-		supplied: "mp3",
-		wmode: "window"
+		supplied: "mp3"
 	});
 });
 	
