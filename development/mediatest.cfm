@@ -16,16 +16,7 @@ http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatu
 	
 $(document).ready(function(){
 
-	$("#jquery_jplayer_1").jPlayer({
-		ready: function (event) {
-			$(this).jPlayer("setMedia", {
-				mp3:"http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3"
-			});
-		},
-		swfPath: "/development/js",
-		supplied: "mp3"
-	});
-	
+
 	 $(".audio").mb_miniPlayer({
         width:240,
         inLine:true
@@ -70,7 +61,21 @@ $(document).ready(function(){
 
 
 <!-------
-
+	$("#jquery_jplayer_1").jPlayer({
+		ready: function (event) {
+			$(this).jPlayer("setMedia", {
+				mp3:"http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3"
+			});
+		},
+		swfPath: "/development/js",
+		supplied: "mp3"
+	});
+	
+	
+	
+	
+	
+	
 
 $(document).ready(function(){
 
@@ -88,7 +93,7 @@ $(document).ready(function(){
 });
 
 
--------------->
+
   <div id="jquery_jplayer_1" class="jp-jplayer"></div>
   <div id="jp_container_1" class="jp-audio">
     <div class="jp-type-single">
@@ -129,4 +134,7 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
+
+
+-------------->
 <cfinclude template="/includes/_footer.cfm">
