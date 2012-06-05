@@ -17,21 +17,6 @@ http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatu
 	});
 </script>
 
-$(document).ready(function(){
- $("#jquery_jplayer_1").jPlayer({
-  ready: function () {
-   $(this).jPlayer("setMedia", {
-    m4a: "/media/mysound.mp4",
-    oga: "/media/mysound.ogg"
-   });
-  },
-  swfPath: "/js",
-  supplied: "m4a, oga"
- });
-});
 
-&lt;div id="jquery_jplayer_1"&gt;&lt;/div&gt;
-
-
-<div id="sd"></div>
+<div id="sd">im here</div>
 <cfinclude template="/includes/_footer.cfm">
