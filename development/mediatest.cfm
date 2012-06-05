@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+
 <cfif not isdefined("media_id")>
 	<cfset media_id=10273014>
 </cfif>
@@ -15,7 +16,7 @@ http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatu
 
 <cfoutput>
 <cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from container where media_id=#media_id#
+	select * from media where media_id=#media_id#
 </cfquery>
 <cfdump var=#m#>
 <script>
