@@ -26,7 +26,7 @@ $(document).ready(function(){
 	$("##jquery_jplayer_1").jPlayer({
 		ready: function (event) {
 			$(this).jPlayer("setMedia", {
-				mp3:"http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatus1_CC3215.mp3"
+				mp3:"#m.media_uri#"
 			});
 		},
 		swfPath: "/development/js",
@@ -71,7 +71,7 @@ $(document).ready(function(){
 				</div>
 				<div class="jp-title">
 					<ul>
-						<li>Carla blathering about birds</li>
+						<li>#m.media_uri#</li>
 					</ul>
 				</div>
 				<div class="jp-no-solution">
