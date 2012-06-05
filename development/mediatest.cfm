@@ -32,7 +32,7 @@ http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatu
 		<cfset thisType='mp3'>
 	</cfif>
 <cfset theJS=theJS & '
-		$("#jquery_jplayer_#i#").jPlayer({
+		$("##jquery_jplayer_#i#").jPlayer({
 		ready: function () {
 			$(this).jPlayer("setMedia", {
 				#thisType#:"#m.media_uri#"
@@ -50,7 +50,7 @@ http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatu
 			} else {
 				$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
 				$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function() {
-					$("#jquery_jplayer_2").jPlayer("play", 0);
+					$("##jquery_jplayer_2").jPlayer("play", 0);
 				});
 			}
 		},
