@@ -48,7 +48,7 @@
       showRew:true,
       addShadow:true,
 
-			swfPath:"inc/"
+			swfPath:"/developement/js/"
 
     },
 
