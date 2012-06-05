@@ -28,7 +28,7 @@ $(document).ready(function(){
 	
 	 $(".audio").mb_miniPlayer({
         width:240,
-        inLine:false
+        inLine:true
       });
       
       
