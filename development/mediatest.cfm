@@ -32,15 +32,42 @@ http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatu
 		<cfset thisType='mp3'>
 	</cfif>
 <cfset theJS=theJS & '
-		$("##jquery_jplayer_#i#").jPlayer({
-		ready: function (event) {
+		$("#jquery_jplayer_#i#").jPlayer({
+		ready: function () {
 			$(this).jPlayer("setMedia", {
 				#thisType#:"#m.media_uri#"
 			});
 		},
+		play: function() { // To avoid both jPlayers playing together.
+			$(this).jPlayer("pauseOthers");
+		},
+		repeat: function(event) { // Override the default jPlayer repeat event handler
+			if(event.jPlayer.options.loop) {
+				$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
+				$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerRepeat", function() {
+					$(this).jPlayer("play");
+				});
+			} else {
+				$(this).unbind(".jPlayerRepeat").unbind(".jPlayerNext");
+				$(this).bind($.jPlayer.event.ended + ".jPlayer.jPlayerNext", function() {
+					$("#jquery_jplayer_2").jPlayer("play", 0);
+				});
+			}
+		},
 		swfPath: "/development/js",
-		supplied: "#thisType#"
-	});'>
+		supplied: "#thisType#",
+		wmode: "window"
+	});
+		'>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<cfset i=i+1>
 	</cfloop>
 <cfdump var=#m#>
@@ -130,7 +157,15 @@ $(document).ready(function(){
 	
 	
 	
-	
+	$("##jquery_jplayer_#i#").jPlayer({
+		ready: function (event) {
+			$(this).jPlayer("setMedia", {
+				#thisType#:"#m.media_uri#"
+			});
+		},
+		swfPath: "/development/js",
+		supplied: "#thisType#"
+	});
 	
 
 $(document).ready(function(){
