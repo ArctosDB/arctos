@@ -20,8 +20,6 @@ $(document).ready(function(){
 		supplied: "m4a, oga",
 		wmode: "window"
 	});
-
-	$("#jplayer_inspector").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
 });
 //]]>
 
