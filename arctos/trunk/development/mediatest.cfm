@@ -6,7 +6,6 @@ http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6229_Cicero_26Jun2006_Pmaculatu
 <script>
 	
 	
-	//<![CDATA[
 $(document).ready(function(){
 
 	$("#jquery_jplayer_1").jPlayer({
@@ -16,12 +15,11 @@ $(document).ready(function(){
 				oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
 			});
 		},
-		swfPath: "../js",
+		swfPath: "/development/jQuery.jPlayer.2.1.0",
 		supplied: "m4a, oga",
 		wmode: "window"
 	});
 });
-//]]>
 
 
 
