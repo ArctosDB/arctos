@@ -123,6 +123,14 @@ $(document).ready(function(){
 	</cfloop>
 
 
+<script>
+	
+	
+$(document).ready(function(){
+	#theJS# 
+});
+	
+</script>
 		
 		
 	</cfoutput>	
@@ -211,4 +219,6 @@ $(document).ready(function(){
 
 
 -------------->
+
+
 <cfinclude template="/includes/_footer.cfm">
