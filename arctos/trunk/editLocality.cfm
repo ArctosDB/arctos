@@ -270,6 +270,10 @@
 			Specific Locality
 		</label>
 		<input type="text"id="spec_locality" name="spec_locality" value="#stripQuotes(locDet.spec_locality)#" size="120">
+		<label for="locality_name" class="likeLink" onClick="getDocs('locality','locality_name')">
+			Locality Name
+		</label>
+		<input type="text"id="locality_name" name="locality_name" value="#stripQuotes(locDet.locality_name)#" size="120">
 		<table>
 			<tr>
 				<td>
