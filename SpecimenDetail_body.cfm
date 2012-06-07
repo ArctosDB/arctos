@@ -309,41 +309,20 @@
 							MEDIA_RELATIONSHIP like '% collecting_event'
 					</cfquery>
 					
-		<!---------
-		,
-		collecting_event.COLLECTING_EVENT_ID,
-    	locality.LOCALITY_ID,
-		VERBATIM_DATE,
-		COLL_EVENT_REMARKS,
-		BEGAN_DATE,
-		ENDED_DATE,
-		verbatim_coordinates,
-		collecting_event_name,
-		locality.DEC_LAT,
-		locality.DEC_LONG,
-		collecting_event.DATUM,
-		collecting_event.ORIG_LAT_LONG_UNITS,
-		MINIMUM_ELEVATION,
-		MAXIMUM_ELEVATION,
-		ORIG_ELEV_UNITS,
-		MIN_DEPTH,
-		MAX_DEPTH,
-		DEPTH_UNITS,
-		MAX_ERROR_DISTANCE,
-		MAX_ERROR_UNITS,
-		LOCALITY_REMARKS,
-		georeference_source,
-		georeference_protocol,
 		
-		------------>
-		
+					<div style="border:1px solid green">
 		
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Determination Type</td>
+							<td id="SDCellLeft" class="innerDetailLabel">Determination Type:</td>
 							<td id="SDCellRight">
 								#specimen_event_type#
-								<br>assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')#
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td id="SDCellRight" class="detailCellSmall">
+								#assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')##
 							</td>
 						</tr>
 						<tr class="detailData">
@@ -368,6 +347,14 @@
 								<td id="SDCellRight">#locality_name#</td>
 							</tr>
 						</cfif>
+						<cfif len(collecting_event_name) gt 0>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Event Name:</td>
+								<td id="SDCellRight">#collecting_event_name#</td>
+							</tr>
+						</cfif>
+						
+						
 						<cfif len(spec_locality) gt 0>
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
@@ -385,6 +372,14 @@
 								<td id="SDCellRight">#specimen_event_remark#</td>
 							</tr>
 						</cfif>
+						<cfif len(COLL_EVENT_REMARKS) gt 0>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Event Remarks:</td>
+								<td id="SDCellRight">#COLL_EVENT_REMARKS#</td>
+							</tr>
+						</cfif>
+						
+						
 						<cfif len(habitat) gt 0>
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Habitat:</td>
@@ -437,10 +432,40 @@
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Spatial:</td>
 								<td id="SDCellRight">
-									<table>
+									<table width="100%">
 										<tr>
 											<td valign="top" align="right"><!---- text stuff here ---->
 												<table>
+													<cfif len(verbatim_coordinates) gt 0>
+														<tr>
+															<td align="right">Coordinates</td>
+															<td align="left">#verbatim_coordinates#</td>
+														</tr>
+													</cfif>
+													<cfif len(DATUM) gt 0>
+														<tr>
+															<td align="right">DATUM</td>
+															<td align="left">#DATUM#</td>
+														</tr>
+													</cfif>
+													<cfif len(verbatim_coordinates) gt 0>
+														<tr>
+															<td align="right">Coordinates</td>
+															<td align="left">#verbatim_coordinates#</td>
+														</tr>
+													</cfif>
+													<cfif len(verbatim_coordinates) gt 0>
+														<tr>
+															<td align="right">Coordinates</td>
+															<td align="left">#verbatim_coordinates#</td>
+														</tr>
+													</cfif>
+													<cfif len(verbatim_coordinates) gt 0>
+														<tr>
+															<td align="right">Coordinates</td>
+															<td align="left">#verbatim_coordinates#</td>
+														</tr>
+													</cfif>
 													<cfif len(verbatim_coordinates) gt 0>
 														<tr>
 															<td align="right">Coordinates</td>
@@ -457,6 +482,29 @@
 							</tr>
 						</div>
 						
+						
+						<!---------
+	
+		,
+		locality.DEC_LAT,
+		locality.DEC_LONG,
+		collecting_event.,
+		collecting_event.ORIG_LAT_LONG_UNITS,
+		MINIMUM_ELEVATION,
+		MAXIMUM_ELEVATION,
+		ORIG_ELEV_UNITS,
+		MIN_DEPTH,
+		MAX_DEPTH,
+		DEPTH_UNITS,
+		MAX_ERROR_DISTANCE,
+		MAX_ERROR_UNITS,
+		LOCALITY_REMARKS,
+		georeference_source,
+		georeference_protocol,
+		
+		------------>
+		
+		
 						<!----
 						
 						<cfif len(one.coll_event_remarks) gt 0>
@@ -524,28 +572,9 @@
 						
 						
 						---->
-					</table>
-				</cfloop>
-				
-				
-								
-					
-					<!--- move this somewhere 
-									
-					
-					
-					<cfif len(one.associated_species) gt 0>
-						<div class="detailBlock">
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Associated Species:</td>
-								<td id="SDCellRight">#one.associated_species#</td>
-							</tr>
-						</div>
-					</cfif>
-					
-					---->
-					
-					<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						
+						
+						<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select * from 
 						geology_attributes,
 						preferred_agent_name
@@ -579,8 +608,28 @@
 							</td>
 						</tr>
 					</cfloop>
+					</table>
+					</div>
+				</cfloop>
+				
+				
+								
 					
-				</table>
+					<!--- move this somewhere 
+									
+					
+					
+					<cfif len(one.associated_species) gt 0>
+						<div class="detailBlock">
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Associated Species:</td>
+								<td id="SDCellRight">#one.associated_species#</td>
+							</tr>
+						</div>
+					</cfif>
+					
+					---->
+					
 			</div>
 			
 <!------------------------------------ collectors ---------------------------------------------->
