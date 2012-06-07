@@ -95,7 +95,6 @@
 			<input type="hidden" name="suppressHeader" value="true">
 			<input type="hidden" name="action" value="nothing">
 			<input type="hidden" name="Srch" value="Part">
-			<input type="hidden" name="collecting_event_id" value="#one.collecting_event_id#">
 	</cfif>
 	<table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
 		<tr>
