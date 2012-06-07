@@ -205,7 +205,14 @@
 			MINIMUM_ELEVATION,
 			MAXIMUM_ELEVATION,
 			ORIG_ELEV_UNITS,
-			SPEC_LOCALITY
+			SPEC_LOCALITY,
+			DEC_LAT,
+			DEC_LONG,
+			MAX_ERROR_DISTANCE,
+			MAX_ERROR_UNITS,
+			DATU,
+			georeference_source,
+			georeference_protocol
 		from 
 			locality, 
 			geog_auth_rec 
