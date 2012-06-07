@@ -256,7 +256,12 @@
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<p><strong>Locality</strong></p>
 	<form name="locality" method="post" action="editLocality.cfm">
-       	<input type="hidden" name="action" value="saveLocalityEdit">
+        <input type="hidden" name="state_prov" value="#locDet.state_prov#">
+        <input type="hidden" name="country" value="#locDet.country#">
+        <input type="hidden" name="county" value="#locDet.county#">
+       	
+		
+		<input type="hidden" name="action" value="saveLocalityEdit">
         <input type="hidden" name="locality_id" value="#locDet.locality_id#">
            <input type="hidden" name="geog_auth_rec_id" value="#locDet.geog_auth_rec_id#">
        	<label for="higher_geog">Higer Geography</label>
@@ -373,6 +378,7 @@
 		</table>
 		<label for="DATUM" class="likeLink" onClick="getDocs('lat_long','datum')">Datum</label>
 		<select name="DATUM" id="DATUM" size="1" class="reqdClr">
+			<option value=''></option>
 			<cfloop query="ctdatum">
 				<option <cfif ctdatum.DATUM is locDet.DATUM> selected="selected" </cfif> value="#ctdatum.DATUM#">#ctdatum.DATUM#</option>
 			</cfloop>
@@ -381,6 +387,7 @@
 		<input type="text" name="georeference_source" id="georeference_source" size="120" class="reqdClr" value='#preservesinglequotes(locDet.georeference_source)#' />
 		<label for="georeference_protocol" class="likeLink" onClick="getDocs('lat_long','georeference_protocol')">Georeference Protocol</label>
 		<select name="georeference_protocol" id="georeference_protocol" size="1" class="reqdClr">
+			<option value=''></option>
 			<cfloop query="ctgeoreference_protocol">
 				<option 
 					<cfif locDet.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
