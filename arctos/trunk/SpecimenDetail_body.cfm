@@ -382,6 +382,12 @@
 								<td id="SDCellRight">#COLL_EVENT_REMARKS#</td>
 							</tr>
 						</cfif>
+						<cfif len(LOCALITY_REMARKS) gt 0>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Locality Remarks:</td>
+								<td id="SDCellRight">#LOCALITY_REMARKS#</td>
+							</tr>
+						</cfif>
 						
 						
 						<cfif len(habitat) gt 0>
@@ -453,34 +459,55 @@
 															<td align="left">#DATUM#</td>
 														</tr>
 													</cfif>
-													<cfif len(verbatim_coordinates) gt 0>
+													<cfif len(ORIG_LAT_LONG_UNITS) gt 0>
 														<tr>
-															<td align="right">Coordinates</td>
-															<td align="left">#verbatim_coordinates#</td>
+															<td align="right">ORIG_LAT_LONG_UNITS</td>
+															<td align="left">#ORIG_LAT_LONG_UNITS#</td>
 														</tr>
 													</cfif>
-													<cfif len(verbatim_coordinates) gt 0>
+													<cfif len(orig_elev_units) gt 0>
 														<tr>
-															<td align="right">Coordinates</td>
-															<td align="left">#verbatim_coordinates#</td>
+															<td align="right">Elevation</td>
+															<td align="left">#minimum_elevation# to #maximum_elevation# #orig_elev_units#</td>
 														</tr>
 													</cfif>
-													<cfif len(verbatim_coordinates) gt 0>
+													<cfif len(DEPTH_UNITS) gt 0>
 														<tr>
-															<td align="right">Coordinates</td>
-															<td align="left">#verbatim_coordinates#</td>
+															<td align="right">Depth</td>
+															<td align="left">#MIN_DEPTH# to #MAX_DEPTH# #DEPTH_UNITS#</td>
 														</tr>
 													</cfif>
-													<cfif len(verbatim_coordinates) gt 0>
+													<cfif len(MAX_ERROR_UNITS) gt 0>
 														<tr>
-															<td align="right">Coordinates</td>
-															<td align="left">#verbatim_coordinates#</td>
+															<td align="right">Error:</td>
+															<td align="left">#MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</td>
+														</tr>
+													</cfif>
+													<cfif len(georeference_source) gt 0>
+														<tr>
+															<td align="right">georeference_source</td>
+															<td align="left">#georeference_source#</td>
+														</tr>
+													</cfif>
+													<cfif len(georeference_protocol) gt 0>
+														<tr>
+															<td align="right">georeference_protocol</td>
+															<td align="left">#georeference_protocol#</td>
 														</tr>
 													</cfif>
 													
 												</table>
 											</td>
-											<td valign="top" align="right"><!---- map here ---> i am map</td>
+											<td valign="top" align="right"><!---- map here --->
+												 <cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
+													<cfset iu="http://maps.google.com/maps/api/staticmap?center=#dec_lat#,#dec_long#">
+													<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+													<cfset iu=iu & "&maptype=roadmap">
+													<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#detail.collection_object_id#" target="_blank">
+														<img src="#iu#" alt="Click for BerkeleyMapper">
+													</a>
+												</cfif>
+											</td>
 										</tr>
 									</table>
 								</td>
@@ -488,91 +515,7 @@
 						</div>
 						
 						
-												<!---------
-
-	
-		,
-		locality.DEC_LAT,
-		locality.DEC_LONG,
-		collecting_event.,
-		collecting_event.ORIG_LAT_LONG_UNITS,
-		MINIMUM_ELEVATION,
-		MAXIMUM_ELEVATION,
-		ORIG_ELEV_UNITS,
-		MIN_DEPTH,
-		MAX_DEPTH,
-		DEPTH_UNITS,
-		MAX_ERROR_DISTANCE,
-		MAX_ERROR_UNITS,
-		LOCALITY_REMARKS,
-		georeference_source,
-		georeference_protocol,
-		
-		------------>
-		
-		
-						<!----
-						
-						<cfif len(one.coll_event_remarks) gt 0>
-							<div class="detailBlock">
-								<tr class="detailData">
-									<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Event&nbsp;Remark:</td>
-									<td id="SDCellRight">#one.coll_event_remarks#</td>
-								</tr>
-							</div>
-						</cfif>
-					
-					<cfif len(one.minimum_elevation) gt 0>
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Elevation:</td>
-							<td id="SDCellRight">#one.minimum_elevation# to #one.maximum_elevation# #one.orig_elev_units#</td>
-						</tr>
-					</cfif>
-					<cfif len(one.depth_units) gt 0>
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Depth:</td>
-							<td id="SDCellRight">#one.min_depth#
-								<cfif one.min_depth neq one.max_depth>to #one.max_depth# </cfif> #one.depth_units#</td>
-						</tr>
-					</cfif>
-					<cfif (len() gt 0)>
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Coordinates:</td>
-							<td id="SDCellRight">#verbatim_coordinates#
-								<cfif len(one.datum) gt 0>
-									(#one.datum#)
-								</cfif>
-								<cfif len(one.max_error_distance) gt 0>
-									, Error: #one.max_error_distance# #one.max_error_units#
-								</cfif>
-							</td>
-						</tr>
-						<cfif len(one.assigned_by_agent_name) gt 0>
-							<cfset determination = one.assigned_by_agent_name>
-							<cfif len(one.latLongDeterminedDate) gt 0>
-								<cfset determination = '#assigned_by_agent_name#; #dateformat(one.latLongDeterminedDate, "yyyy-mm-dd")#'>
-							</cfif>
-							<cfif len(one.lat_long_ref_source) gt 0>
-								<cfset determination = '#determination#; #one.lat_long_ref_source#'>
-							</cfif>
-							<tr>
-								<td></td>
-								<td id="SDCellRight" class="detailCellSmall">
-									#determination#
-								</td>
-							</tr>
-						</cfif>
-						<cfif len(one.lat_long_remarks) gt 0>
-							<tr class="detailCellSmall">
-								<td></td>
-								<td class="innerDetailLabel">Coordinate Remarks:
-									#one.lat_long_remarks#
-								</td>
-							</tr>
-						</cfif>
-					</cfif>
-						
-						
+								
 						
 						
 						
@@ -614,7 +557,6 @@
 					</cfloop>
 					
 					
-						---->
 						
 					</table>
 					</div>
