@@ -456,28 +456,17 @@
 			ENDED_DATE,
 			VERBATIM_DATE,
 			COLL_EVENT_REMARKS,
-			COLLECTING_SOURCE,
-			COLLECTING_METHOD,
-			HABITAT_DESC,
-			CASE orig_lat_long_units
-					WHEN 'decimal degrees' THEN dec_lat || 'd'
-					WHEN 'deg. min. sec.' THEN lat_deg || 'd ' || lat_min || 'm ' || lat_sec || 's ' || lat_dir
-					WHEN 'degrees dec. minutes' THEN lat_deg || 'd ' || dec_lat_min || 'm ' || lat_dir
-				END as VerbatimLatitude,
-				CASE orig_lat_long_units
-					WHEN 'decimal degrees' THEN dec_long || 'd'
-					WHEN'degrees dec. minutes' THEN long_deg || 'd ' || dec_long_min || 'm ' || long_dir
-					WHEN 'deg. min. sec.' THEN long_deg || 'd ' || long_min || 'm ' || long_sec || 's ' || long_dir
-				END as VerbatimLongitude,
+			Verbatim_coordinates,
 			max_error_distance,
 			max_error_units
 		from 
-			locality
-			inner join geog_auth_rec on (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
-			inner join collecting_event on ( locality.locality_id=collecting_event.locality_id )
-			left outer join accepted_lat_long on (locality.locality_id=accepted_lat_long.locality_id)
-			left outer join preferred_agent_name on (accepted_lat_long.determined_by_agent_id = preferred_agent_name.agent_id)
-		where collecting_event.collecting_event_id=#collecting_event_id# 
+			locality,
+			geog_auth_rec,
+			collecting_event
+		where 
+			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and
+			locality.locality_id=collecting_event.locality_id and
+			collecting_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
     </cfquery>
 	<cfquery name="whatSpecs" datasource="uam_god">
 	  	SELECT 
@@ -486,10 +475,12 @@
 	  		collection.collection_id
 		from 
 			cataloged_item,
-			collection 
+			collection,
+			specimen_event
 		WHERE
 			cataloged_item.collection_id=collection.collection_id and
-			collecting_event_id=#collecting_event_id# 
+			cataloged_item.collection_object_id=specimen_event.collection_object_id and
+			specimen_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 		GROUP BY 
 			collection,
 	  		collection.collection_id
@@ -502,7 +493,7 @@
 			media_relations 
 		WHERE
 			 media_relationship like '% collecting_event' and 
-			 related_primary_key=#collecting_event_id# 
+			 related_primary_key=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 		GROUP BY 
 			media_id
 	</cfquery>
