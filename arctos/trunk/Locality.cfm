@@ -1020,9 +1020,18 @@ You deleted a collecting event.
 <cfif action is "saveCollEventEdit">
 	<cfoutput>
 		
-		
-		
-		
+			<cfif orig_lat_long_units is "degrees dec. minutes">
+				<cfset thisLatDeg=dmLAT_DEG>
+				<cfset thisLongDeg=dmLONG_DEG>
+				<cfset thisLongDir=dmLONG_DIR>
+				<cfset thisLatDir=dmLAT_DIR>
+			<cfelse>
+				<cfset thisLatDeg=LAT_DEG>
+				<cfset thisLongDeg=LONG_DEG>
+				<cfset thisLongDir=LONG_DIR>
+				<cfset thisLatDir=LAT_DIR>
+			</cfif> 
+			
 	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE 
 			collecting_event 
@@ -1044,11 +1053,21 @@ You deleted a collecting event.
 			<cfelse>
 				DEC_LONG=NULL,
 			</cfif>
-			<cfif len(LAT_DEG) gt 0>
-				LAT_DEG=#LAT_DEG#,
+			LAT_DIR = '#thisLatDir#',
+			LONG_DIR = '#thisLongDir#',
+			<cfif len(thisLatDeg) gt 0>
+				LAT_DEG=#thisLatDeg#,
 			<cfelse>
 				LAT_DEG=NULL,
 			</cfif>
+			
+			<cfif len(thisLongDeg) gt 0>
+				LONG_DEG=#thisLongDeg#,
+			<cfelse>
+				LONG_DEG=NULL,
+			</cfif>
+			
+			
 			<cfif len(LAT_MIN) gt 0>
 				LAT_MIN=#LAT_MIN#,
 			<cfelse>
@@ -1059,11 +1078,7 @@ You deleted a collecting event.
 			<cfelse>
 				LAT_SEC=NULL,
 			</cfif>
-			<cfif len(LONG_DEG) gt 0>
-				LONG_DEG=#LONG_DEG#,
-			<cfelse>
-				LONG_DEG=NULL,
-			</cfif>
+			
 			<cfif len(LONG_MIN) gt 0>
 				LONG_MIN=#LONG_MIN#,
 			<cfelse>
@@ -1074,21 +1089,12 @@ You deleted a collecting event.
 			<cfelse>
 				LONG_SEC=NULL,
 			</cfif>
-			<cfif len(LAT_DEG) gt 0>
-				LAT_DEG=#LAT_DEG#,
-			<cfelse>
-				LAT_DEG=NULL,
-			</cfif>
 			<cfif len(DEC_LAT_MIN) gt 0>
 				DEC_LAT_MIN=#DEC_LAT_MIN#,
 			<cfelse>
 				DEC_LAT_MIN=NULL,
 			</cfif>
-			<cfif len(dmLONG_DEG) gt 0>
-				dmLONG_DEG=#dmLONG_DEG#,
-			<cfelse>
-				dmLONG_DEG=NULL,
-			</cfif>
+			
 			<cfif len(UTM_EW) gt 0>
 				UTM_EW=#UTM_EW#,
 			<cfelse>
@@ -1100,10 +1106,6 @@ You deleted a collecting event.
 				UTM_NS=NULL,
 			</cfif>
 			datum = '#escapeQuotes(datum)#',
-			LAT_DIR = '#LAT_DIR#',
-			LONG_DIR = '#LONG_DIR#',
-			dmLAT_DIR = '#dmLAT_DIR#',
-			dmLONG_DIR = '#dmLONG_DIR#',
 			UTM_ZONE = '#UTM_ZONE#'
 		where collecting_event_id = <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 		
