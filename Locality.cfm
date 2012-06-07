@@ -1012,12 +1012,12 @@ You deleted a collecting event.
 			COLL_EVENT_REMARKS = '#escapeQuotes(COLL_EVENT_REMARKS)#',
 			collecting_event_name = '#escapeQuotes(collecting_event_name)#',
 			orig_lat_long_units = '#escapeQuotes(orig_lat_long_units)#',
-			datum = '#escapeQuotes(datum)#',
 			<cfif len(dec_lat) gt 0>
 				dec_lat=#dec_lat#,
 			<cfelse>
 				dec_lat=NULL,
 			</cfif>
+			datum = '#escapeQuotes(datum)#'
 			<!----
 			
 			
