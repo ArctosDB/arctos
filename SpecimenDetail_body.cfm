@@ -44,7 +44,6 @@
 	WHERE 
 		#session.flatTableName#.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
-<cfdump var=#one#>
 <cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select	
 		attributes.attribute_type,
@@ -127,10 +126,7 @@
 		collecting_event.locality_id=locality.locality_id and
 		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 		specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
-</cfquery>
-
- <cfdump var=#event#>
-		 
+</cfquery>		 
 <style>
 	.acceptedIdDiv {
 		border:1px dotted green;
