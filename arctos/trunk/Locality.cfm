@@ -1496,12 +1496,7 @@ INSERT INTO geog_auth_rec (
             geog_auth_rec_id,
             spec_locality,
             higher_geog,
-            verbatimLatitude,
-            verbatimLongitude,
-            NoGeorefBecause,
-            coordinateDeterminer,
-            lat_long_ref_source,
-            determined_date,
+            verbatim_coordinates,
 			geolAtts           
 		from localityResults
 		group by
@@ -1509,13 +1504,8 @@ INSERT INTO geog_auth_rec (
             geog_auth_rec_id,
             spec_locality,
             higher_geog,
-            verbatimLatitude,
-            verbatimLongitude,
-            NoGeorefBecause,
-            coordinateDeterminer,
-            lat_long_ref_source,
-            determined_date,
-			geolAtts
+            verbatim_coordinates,
+			geolAtts  
 	</cfquery>
 	<cfif localityResults.recordcount lt 1000>
 		<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">BerkeleyMapper</a>
@@ -1547,13 +1537,12 @@ INSERT INTO geog_auth_rec (
 						</div>
 					</cfif>
 					<div>
-						<cfif len(verbatimLatitude) gt 0>
-							#verbatimLatitude# / #verbatimLongitude#
+						<cfif len(verbatim_coordinates) gt 0>
+							#verbatim_coordinates#
 							<span style='font-size:smaller'>
-								<em>Determined by</em> #coordinateDeterminer# <em>on</em> #dateformat(determined_date,"yyyy-mm-dd")# <em>using</em> #lat_long_ref_source#
+								<em>Determined by</em>....
 							</span>
-						<cfelse>
-							NoGeorefBecause: #NoGeorefBecause#
+			
 						</cfif>
 					</div>
 				</td>
