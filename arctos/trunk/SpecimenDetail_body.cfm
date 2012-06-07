@@ -29,6 +29,8 @@
 		collection,
 		'missingfromflat' EnteredBy,
 		LASTUSER EditedBy,
+		'somedate' entereddate,
+		LASTDATE,
 		accession,
 		concatEncumbranceDetails(collection_object_id) encumbranceDetail,
 		typestatus,
@@ -1204,14 +1206,14 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Entered By:</span>
-								#one.EnteredBy# on #dateformat(one.coll_object_entered_date,"yyyy-mm-dd")#
+								#one.EnteredBy# on #dateformat(one.entereddate,"yyyy-mm-dd")#
 							</span>
 						</div>
-						<cfif #one.EditedBy# is not "unknown" OR len(one.last_edit_date) is not 0>
+						<cfif #one.EditedBy# is not "unknown" OR len(one.lastdate) is not 0>
 							<div class="detailBlock">
 								<span class="detailData">
 									<span class="innerDetailLabel">Last Edited By:</span>
-									#one.EditedBy# on #dateformat(one.last_edit_date,"yyyy-mm-dd")#
+									#one.EditedBy# on #dateformat(one.lastdate,"yyyy-mm-dd")#
 								</span>
 							</div>
 						</cfif>
