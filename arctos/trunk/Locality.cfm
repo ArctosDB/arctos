@@ -1295,16 +1295,12 @@ INSERT INTO geog_auth_rec (
 					geog_auth_rec_id,
 					spec_locality,
 					geolAtts,
-					VerbatimLatitude,
-					VerbatimLongitude,
-					nogeorefbecause,
+					Verbatim_coordinates,
 					locality_id,
 					verbatim_locality,
 					began_date,
 					ended_date,
-					verbatim_date,
-					collecting_source,
-					collecting_method
+					verbatim_date
 				from localityResults
 				group by 
 					collecting_event_id,
@@ -1312,16 +1308,12 @@ INSERT INTO geog_auth_rec (
 					geog_auth_rec_id,
 					spec_locality,
 					geolAtts,
-					VerbatimLatitude,
-					VerbatimLongitude,
-					nogeorefbecause,
+					Verbatim_coordinates,
 					locality_id,
 					verbatim_locality,
 					began_date,
 					ended_date,
-					verbatim_date,
-					collecting_source,
-					collecting_method
+					verbatim_date
 			</cfquery>
 	
 <table border>
@@ -1332,8 +1324,6 @@ INSERT INTO geog_auth_rec (
 		<td><b>Began&nbsp;Date</b></td>
 		<td><b>End&nbsp;Date</b></td>
 		<td><b>Verb.&nbsp;Date</b></td>
-		<td><b>Source</b></td>
-		<td><b>Method</b></td>
 	</tr>
 	<cfloop query="localityResults">
 		<input type="hidden" name="collecting_event_id" value="#collecting_event_id#" />
@@ -1346,9 +1336,7 @@ INSERT INTO geog_auth_rec (
 				 <div class="smaller">
 				 #spec_locality# <cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
 					<cfif len(#VerbatimLatitude#) gt 0>
-						<br>#VerbatimLatitude#/#VerbatimLongitude#
-					<cfelse>
-						<br>#nogeorefbecause#
+						<br>#Verbatim_coordinates#
 					</cfif> 
 					(<a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a>)
 				</div>
@@ -1362,8 +1350,6 @@ INSERT INTO geog_auth_rec (
 			<td>#began_date#</td>
 			<td>#ended_date#</td>
 			<td>#verbatim_date#</td>
-			<td>#collecting_source#</td>
-			<td>#collecting_method#</td>
 		</tr>
 	</cfloop>
 </table>
