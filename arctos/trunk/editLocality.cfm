@@ -238,7 +238,7 @@
 			collecting_event 
 		WHERE
 			cataloged_item.collection_object_id = specimen_event.collection_object_id and
-			specimen_event.collecting_event = collecting_event.collecting_event_id and
+			specimen_event.collecting_event_id = collecting_event.collecting_event_id and
 			cataloged_item.collection_id = collection.collection_id and
 			collecting_event.locality_id=#locality_id# 
 		GROUP BY 
