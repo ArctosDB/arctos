@@ -322,7 +322,7 @@
 						<tr>
 							<td></td>
 							<td id="SDCellRight" class="detailCellSmall">
-								#assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')##
+								assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')##
 							</td>
 						</tr>
 						<tr class="detailData">
