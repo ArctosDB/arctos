@@ -437,8 +437,7 @@
 						
 						<div class="detailBlock">
 							<tr class="detailData">
-								<td></td>
-								<td id="SDCellRight">
+								<td>
 									<table width="100%">
 										<tr>
 											<td valign="top" align="right"><!---- text stuff here ---->
@@ -525,6 +524,7 @@
 						 locality_id=#locality_id#
 					</cfquery>
 					<cfloop query="geology">
+					<tr>
 						 <td id="SDCellLeft" class="innerDetailLabel">#GEOLOGY_ATTRIBUTE#:</td>
 						 <td id="SDCellRight">
 							 #GEO_ATT_VALUE#								 
