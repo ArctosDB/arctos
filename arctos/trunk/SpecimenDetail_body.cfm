@@ -29,7 +29,7 @@
 		collection,
 		'missingfromflat' EnteredBy,
 		LASTUSER EditedBy,
-		'somedate' entereddate,
+		'2387-01-01' entereddate,
 		LASTDATE,
 		accession,
 		concatEncumbranceDetails(collection_object_id) encumbranceDetail,
