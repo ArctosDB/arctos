@@ -210,7 +210,7 @@
 			DEC_LONG,
 			MAX_ERROR_DISTANCE,
 			MAX_ERROR_UNITS,
-			DATU,
+			DATUm,
 			georeference_source,
 			georeference_protocol
 		from 
