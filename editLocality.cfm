@@ -343,9 +343,7 @@
 			<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.dec_lat#,#locDet.dec_long#&sensor=false&size=200x200&zoom=2">
 			<cfset iu=iu & "&maptype=roadmap">
 			<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
-		</cfif>
-		^^ map
-						
+		</cfif>					
 		<table>
 			<tr>
 				<td>
