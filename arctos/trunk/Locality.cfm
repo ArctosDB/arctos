@@ -1013,7 +1013,7 @@ You deleted a collecting event.
 			collecting_event_name = '#escapeQuotes(collecting_event_name)#',
 			orig_lat_long_units = '#escapeQuotes(orig_lat_long_units)#',
 			datum = '#escapeQuotes(datum)#',
-			dec_lat=nvl(dec_lat,89.99)
+			dec_lat=nvl(dec_lat,NULL)
 			<!----
 			
 			
