@@ -205,7 +205,6 @@
 			MINIMUM_ELEVATION,
 			MAXIMUM_ELEVATION,
 			ORIG_ELEV_UNITS,
-			NOGEOREFBECAUSE,
 			SPEC_LOCALITY
 		from 
 			locality, 
@@ -235,60 +234,17 @@
 		from 
 			cataloged_item, 
 			collection,
+			specimen_event,
 			collecting_event 
 		WHERE
-			cataloged_item.collecting_event_id = collecting_event.collecting_event_id and
+			cataloged_item.collection_object_id = specimen_event.collection_object_id and
+			specimen_event.collecting_event = collecting_event.collecting_event_id and
 			cataloged_item.collection_id = collection.collection_id and
 			collecting_event.locality_id=#locality_id# 
 		GROUP BY 
 			collection.collection,
 			collection.collection_id
   	</cfquery>
-	<cfquery name="getLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        select
-			ACCEPTED_LAT_LONG_FG,
-			DATUM,
-			DEC_LAT,
-			DEC_LAT_MIN,
-			DEC_LONG,
-			DEC_LONG_MIN,
-			DETERMINED_BY_AGENT_ID,
-			agent_name,
-			DETERMINED_DATE,
-			EXTENT,
-			FIELD_VERIFIED_FG,
-			GEOREFMETHOD,
-			GPSACCURACY,
-			LAT_DEG,
-			LAT_DIR,
-			LAT_LONG_FOR_NNP_FG,
-			LAT_LONG_ID,
-			LAT_LONG_REF_SOURCE,
-			LAT_LONG_REMARKS,
-			LAT_MIN,
-			LAT_SEC,
-			LOCALITY_ID,
-			LONG_DEG,
-			LONG_DIR,
-			LONG_MIN,
-			LONG_SEC,
-			MAX_ERROR_DISTANCE,
-			MAX_ERROR_UNITS,
-			ORIG_LAT_LONG_UNITS,
-			SPATIALFIT,
-			UTM_EW,
-			UTM_NS,
-			UTM_ZONE,
-			VERIFICATIONSTATUS
-		from 
-			lat_long,
-			preferred_agent_name 
-		where 
-			determined_by_agent_id = agent_id and 
-			locality_id=#locality_id# 
-		order by 
-			ACCEPTED_LAT_LONG_FG DESC, lat_long_id
-     </cfquery>
      <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select datum from ctdatum order by datum
      </cfquery>
@@ -298,18 +254,12 @@
 	<cfquery name="ctDepthUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select depth_units from ctdepth_units order by depth_units
 	</cfquery>
-        <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+    <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by LAT_LONG_ERROR_UNITS
      </cfquery>
-     <cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select georefMethod from ctgeorefmethod order by georefMethod 
+     <cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select georeference_protocol from ctgeoreference_protocol order by georeference_protocol 
 	</cfquery>
-	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select VerificationStatus from ctVerificationStatus order by VerificationStatus
-	</cfquery>
-     <cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by ORIG_LAT_LONG_UNITS
-     </cfquery>
 	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>
