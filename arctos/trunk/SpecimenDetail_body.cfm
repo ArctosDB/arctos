@@ -111,7 +111,8 @@
 		LOCALITY_REMARKS,
 		georeference_source,
 		georeference_protocol,
-		locality_name
+		locality_name,
+		higher_geog
 	from
 		specimen_event,
 		collecting_event,
@@ -288,81 +289,16 @@
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('specLocality');">Edit</span>
 					</cfif>
 				</div>
-				<table id="SD">
-					<cfif len(one.continent_ocean) gt 0>						
-						<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Continent/Ocean:</td>
-								<td id="SDCellRight">#one.continent_ocean#</td>
-						</tr>
-					</cfif>
-					<cfif len(one.sea) gt 0>	
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Sea:</td>
-							<td id="SDCellRight">#one.sea#</td>
-						</tr>
-					</cfif>
-					<cfif len(one.country) gt 0>
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Country:</td>
-							<td id="SDCellRight">#one.country#</td>
-						</tr>
-					</cfif>
-					<cfif len(one.state_prov) gt 0>	
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">State/Province:</td>
-							<td id="SDCellRight">#one.state_prov#</td>
-						</tr>
-					</cfif>
-					<cfif len(one.feature) gt 0>	
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Feature:</td>
-							<td id="SDCellRight">#one.feature#</td>
-						</tr>
-					</cfif>
-					<cfif len(one.county) gt 0>
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">County:</td>
-							<td id="SDCellRight">#one.county#</td>
-						</tr>
-					</cfif>
-					<cfif len(one.island_group) gt 0>	
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Island Group:</td>
-							<td id="SDCellRight">#one.island_group#</td>
-						</tr>
-					</cfif>
-					<cfif len(one.island) gt 0>
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Island:</td>
-							<td id="SDCellRight">#one.island#</td>
-						</tr>
-					</cfif>
-					<cfif len(one.quad) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">USGS Quad:</td>
-								<td id="SDCellRight">#one.quad#</td>
-							</tr>
-					</cfif>
+				<cfloop query="event">
 					<cfquery name="localityMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select 
 							media_id 
 						from 
 							media_relations 
 						where 
-							RELATED_PRIMARY_KEY=#one.locality_id# and
+							RELATED_PRIMARY_KEY=#locality_id# and
 							MEDIA_RELATIONSHIP like '% locality'
-					</cfquery>				
-					<cfif len(one.spec_locality) gt 0>
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
-								<td id="SDCellRight">
-									#one.spec_locality#
-									<cfif localityMedia.recordcount gt 0>
-										<a class="infoLink" target="_blank" href="/MediaSearch.cfm?action=search&media_id=#valuelist(localityMedia.media_id)#">Media</a>
-									</cfif>
-								</td>
-							</tr>
-					</cfif>
+					</cfquery>
 					<cfquery name="collEventMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select 
 							media_id 
@@ -372,60 +308,165 @@
 							RELATED_PRIMARY_KEY=#one.collecting_event_id# and
 							MEDIA_RELATIONSHIP like '% collecting_event'
 					</cfquery>
-					<cfif one.verbatim_locality is not one.spec_locality>
-						<cfif len(one.verbatim_locality) gt 0>
+					
+		
+		,
+		collecting_event.COLLECTING_EVENT_ID,
+    	locality.LOCALITY_ID,
+		VERBATIM_DATE,
+		COLL_EVENT_REMARKS,
+		BEGAN_DATE,
+		ENDED_DATE,
+		verbatim_coordinates,
+		collecting_event_name,
+		locality.DEC_LAT,
+		locality.DEC_LONG,
+		collecting_event.DATUM,
+		collecting_event.ORIG_LAT_LONG_UNITS,
+		MINIMUM_ELEVATION,
+		MAXIMUM_ELEVATION,
+		ORIG_ELEV_UNITS,
+		MIN_DEPTH,
+		MAX_DEPTH,
+		DEPTH_UNITS,
+		MAX_ERROR_DISTANCE,
+		MAX_ERROR_UNITS,
+		LOCALITY_REMARKS,
+		georeference_source,
+		georeference_protocol,
+		
+		
+		
+		
+					<table id="SD_#specimen_event_id#">
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Determination Type</td>
+							<td id="SDCellRight">
+								#specimen_event_type#
+								<br>assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')#
+							</td>
+						</tr>
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Higher Geography:</td>
+							<td id="SDCellRight">#higher_geog#</td>
+						</tr>
+						<cfif verbatim_locality is not spec_locality>
+							<cfif len(verbatim_locality) gt 0>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
+									<td id="SDCellRight">#verbatim_locality#
+										<cfif collEventMedia.recordcount gt 0>
+											<a class="infoLink" target="_blank"	href="/MediaSearch.cfm?action=search&media_id=#valuelist(collEventMedia.media_id)#">Media</a>
+										</cfif>
+									</td>
+								</tr>
+							</cfif>
+						</cfif>
+						<cfif len(locality_name) gt 0>
 							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
-								<td id="SDCellRight">#one.verbatim_locality#
-									<cfif collEventMedia.recordcount gt 0>
-										<a class="infoLink" target="_blank"	href="/MediaSearch.cfm?action=search&media_id=#valuelist(collEventMedia.media_id)#">Media</a>
+								<td id="SDCellLeft" class="innerDetailLabel">Locality Name:</td>
+								<td id="SDCellRight">#locality_name#</td>
+							</tr>
+						</cfif>
+						<cfif len(spec_locality) gt 0>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
+								<td id="SDCellRight">
+									#spec_locality#
+									<cfif localityMedia.recordcount gt 0>
+										<a class="infoLink" target="_blank" href="/MediaSearch.cfm?action=search&media_id=#valuelist(localityMedia.media_id)#">Media</a>
 									</cfif>
 								</td>
 							</tr>
 						</cfif>
-					</cfif>					
-					<cfif len(one.locality_remarks) gt 0>
+						<cfif len(specimen_event_remark) gt 0>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Specimen/Event Remarks:</td>
+								<td id="SDCellRight">#specimen_event_remark#</td>
+							</tr>
+						</cfif>
+						<cfif len(habitat) gt 0>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Habitat:</td>
+								<td id="SDCellRight">#habitat#</td>
+							</tr>
+						</cfif>
+						
+						<cfif len(collecting_method) gt 0>
+							<div class="detailBlock">
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Method:</td>
+									<td id="SDCellRight">#collecting_method#</td>
+								</tr>
+							</div>
+						</cfif>
+						<cfif len(collecting_source) gt 0>
+							<div class="detailBlock">
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Source:</td>
+									<td id="SDCellRight">#collecting_source#</td>
+								</tr>
+							</div>
+						</cfif>
+						<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
+							<cfset thisDate = verbatim_date>
+						<cfelseif (
+							(verbatim_date is not began_date) OR
+				 			(verbatim_date is not ended_date)
+							) AND began_date is ended_date>
+							<cfset thisDate = "#verbatim_date# (#began_date#)">
+						<cfelse>
+							<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
+						</cfif>
 						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Locality Remarks:</td>
-							<td id="SDCellRight">#one.locality_remarks#</td>
+							<td id="SDCellLeft" class="innerDetailLabel">Event Date:</td>
+							<td id="SDCellRight">#thisDate#</td>
 						</tr>
-					</cfif>
-					<cfif len(one.habitat_desc) gt 0>
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">General Habitat:</td>
-							<td id="SDCellRight">#one.habitat_desc#</td>
-						</tr>
-					</cfif>
-					<cfif len(one.associated_species) gt 0>
+						<cfif len(VERIFICATIONSTATUS) gt 0>
+							<div class="detailBlock">
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">VERIFICATIONSTATUS:</td>
+									<td id="SDCellRight">#VERIFICATIONSTATUS#</td>
+								</tr>
+							</div>
+						</cfif>
+						
+						
+						
 						<div class="detailBlock">
 							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Associated Species:</td>
-								<td id="SDCellRight">#one.associated_species#</td>
+								<td id="SDCellLeft" class="innerDetailLabel">Spatial:</td>
+								<td id="SDCellRight">
+									<table>
+										<tr>
+											<td valign="top" align="right"><!---- text stuff here ---->
+												<table>
+													<cfif len(verbatim_coordinates) gt 0>
+														<tr>
+															<td align="right">Coordinates</td>
+															<td align="left">#verbatim_coordinates#</td>
+														</tr>
+													</cfif>
+													
+												</table>
+											</td>
+											<td valign="top" align="right"><!---- map here ---> i am map</td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 						</div>
-					</cfif>
-					<cfif len(one.collecting_method) gt 0>
-						<div class="detailBlock">
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Method:</td>
-								<td id="SDCellRight">#one.collecting_method#</td>
-							</tr>
-						</div>
-					</cfif>
-					<div class="detailBlock">
-						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Source:</td>
-							<td id="SDCellRight">#one.collecting_source#</td>
-						</tr>
-					</div>
-					<cfif len(one.coll_event_remarks) gt 0>
-						<div class="detailBlock">
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Event&nbsp;Remark:</td>
-								<td id="SDCellRight">#one.coll_event_remarks#</td>
-							</tr>
-						</div>
-					</cfif>
+						
+						<!----
+						
+						<cfif len(one.coll_event_remarks) gt 0>
+							<div class="detailBlock">
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Event&nbsp;Remark:</td>
+									<td id="SDCellRight">#one.coll_event_remarks#</td>
+								</tr>
+							</div>
+						</cfif>
 					
 					<cfif len(one.minimum_elevation) gt 0>
 						<tr class="detailData">
@@ -440,10 +481,10 @@
 								<cfif one.min_depth neq one.max_depth>to #one.max_depth# </cfif> #one.depth_units#</td>
 						</tr>
 					</cfif>
-					<cfif (len(verbatimLatitude) gt 0 and len(verbatimLongitude) gt 0)>
+					<cfif (len() gt 0)>
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Coordinates:</td>
-							<td id="SDCellRight">#one.VerbatimLatitude# #one.verbatimLongitude#
+							<td id="SDCellRight">#verbatim_coordinates#
 								<cfif len(one.datum) gt 0>
 									(#one.datum#)
 								</cfif>
@@ -452,10 +493,10 @@
 								</cfif>
 							</td>
 						</tr>
-						<cfif len(one.latLongDeterminer) gt 0>
-							<cfset determination = one.latLongDeterminer>
+						<cfif len(one.assigned_by_agent_name) gt 0>
+							<cfset determination = one.assigned_by_agent_name>
 							<cfif len(one.latLongDeterminedDate) gt 0>
-								<cfset determination = '#determination#; #dateformat(one.latLongDeterminedDate, "yyyy-mm-dd")#'>
+								<cfset determination = '#assigned_by_agent_name#; #dateformat(one.latLongDeterminedDate, "yyyy-mm-dd")#'>
 							</cfif>
 							<cfif len(one.lat_long_ref_source) gt 0>
 								<cfset determination = '#determination#; #one.lat_long_ref_source#'>
@@ -476,6 +517,34 @@
 							</tr>
 						</cfif>
 					</cfif>
+						
+						
+						
+						
+						
+						
+						---->
+					</table>
+				</cfloop>
+				
+				
+								
+					
+					<!--- move this somewhere 
+									
+					
+					
+					<cfif len(one.associated_species) gt 0>
+						<div class="detailBlock">
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Associated Species:</td>
+								<td id="SDCellRight">#one.associated_species#</td>
+							</tr>
+						</div>
+					</cfif>
+					
+					---->
+					
 					<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select * from 
 						geology_attributes,
@@ -510,20 +579,7 @@
 							</td>
 						</tr>
 					</cfloop>
-					<cfif (one.verbatim_date is one.began_date) AND (one.verbatim_date is one.ended_date)>
-						<cfset thisDate = #one.verbatim_date#>
-					<cfelseif (
-						(one.verbatim_date is not one.began_date) OR
-			 			(one.verbatim_date is not one.ended_date)
-						) AND one.began_date is one.ended_date>
-						<cfset thisDate = "#one.verbatim_date# (#one.began_date#)">
-					<cfelse>
-						<cfset thisDate = "#one.verbatim_date# (#one.began_date# - #one.ended_date#)">
-					</cfif>
-					<tr class="detailData">
-						<td id="SDCellLeft" class="innerDetailLabel">Collecting Date:</td>
-						<td id="SDCellRight">#thisDate#</td>
-					</tr>
+					
 				</table>
 			</div>
 			
