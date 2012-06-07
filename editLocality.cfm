@@ -398,11 +398,11 @@
 			<tr>
 				<td>
 					<label for="dec_lat">Decimal Latitude</label>
-					<input type="text" name="DEC_LAT" id="dec_lat" value="#DEC_LAT#" class="">
+					<input type="text" name="DEC_LAT" id="dec_lat" value="#locDet.DEC_LAT#" class="">
 				</td>
 				<td>
 					<label for="dec_long">Decimal Longitude</label>
-					<input type="text" name="DEC_LONG" value="#DEC_LONG#" id="dec_long" class="reqdClr">
+					<input type="text" name="DEC_LONG" value="#locDet.DEC_LONG#" id="dec_long" class="reqdClr">
 				</td>
 			</tr>
 		</table>
@@ -410,14 +410,14 @@
 			<tr>
 				<td>
 					<label for="MAX_ERROR_DISTANCE" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error</label>
-					<input type="text" name="MAX_ERROR_DISTANCE" id="MAX_ERROR_DISTANCE" value="#MAX_ERROR_DISTANCE#" size="6">
+					<input type="text" name="MAX_ERROR_DISTANCE" id="MAX_ERROR_DISTANCE" value="#locDet.MAX_ERROR_DISTANCE#" size="6">
 				</td>
 				<td>
 					<label for="MAX_ERROR_UNITS" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error Units</label>
 					<select name="MAX_ERROR_UNITS" size="1" id="MAX_ERROR_UNITS">
 						<option value=""></option>
 						<cfloop query="cterror">
-							<option <cfif cterror.LAT_LONG_ERROR_UNITS is getLL.MAX_ERROR_UNITS> selected="selected" </cfif>
+							<option <cfif cterror.LAT_LONG_ERROR_UNITS is locDet.MAX_ERROR_UNITS> selected="selected" </cfif>
 								value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
 						</cfloop>
 					</select> 
@@ -427,16 +427,16 @@
 		<label for="DATUM" class="likeLink" onClick="getDocs('lat_long','datum')">Datum</label>
 		<select name="DATUM" id="DATUM" size="1" class="reqdClr">
 			<cfloop query="ctdatum">
-				<option <cfif ctdatum.DATUM is getLL.DATUM> selected="selected" </cfif> value="#ctdatum.DATUM#">#ctdatum.DATUM#</option>
+				<option <cfif ctdatum.DATUM is locDet.DATUM> selected="selected" </cfif> value="#ctdatum.DATUM#">#ctdatum.DATUM#</option>
 			</cfloop>
 		</select> 
 		<label for="georeference_source" class="likeLink" onClick="getDocs('lat_long','georeference_source')">georeference_source</label>
-		<input type="text" name="georeference_source" id="georeference_source" size="120" class="reqdClr" value='#preservesinglequotes(georeference_source)#' />
+		<input type="text" name="georeference_source" id="georeference_source" size="120" class="reqdClr" value='#preservesinglequotes(locDet.georeference_source)#' />
 		<label for="georeference_protocol" class="likeLink" onClick="getDocs('lat_long','georeference_protocol')">Georeference Protocol</label>
 		<select name="georeference_protocol" id="georeference_protocol" size="1" class="reqdClr">
 			<cfloop query="ctgeoreference_protocol">
 				<option 
-					<cfif getLL.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
+					<cfif locDet.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
 					value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocold.georeference_protocol#</option>
 			</cfloop>
 		</select>
