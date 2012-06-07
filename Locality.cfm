@@ -642,7 +642,7 @@
 				else if (orig_units == 'deg. min. sec.') {
 					$("##dms").show();
 				}
-				$("#orig_lat_long_units").val(orig_units);
+				$("##orig_lat_long_units").val(orig_units);
 			}
 		</script>
 		
