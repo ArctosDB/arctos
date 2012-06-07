@@ -34,7 +34,8 @@
 		typestatus,
 		encumbrances,
 		COLLECTORS,
-		PREPARATORS
+		PREPARATORS,
+		remarks
 	FROM 
 		#session.flatTableName#
 	WHERE 
@@ -1190,23 +1191,15 @@
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('editBiolIndiv');">Edit</span>
 					</cfif>
 					</div>	
-					<cfif len(one.coll_object_remarks) gt 0>
+					<cfif len(one.remarks) gt 0>
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Remarks:</span>
-								#one.coll_object_remarks#
+								#one.remarks#
 							</span>
 						</div>
 					</cfif>
 					
-					<cfif len(one.habitat) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Microhabitat:</span>
-								#one.habitat#
-							</span>
-						</div>
-					</cfif>
 					<cfif oneOfUs is 1>
 						<div class="detailBlock">
 							<span class="detailData">
