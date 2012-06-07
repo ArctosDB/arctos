@@ -1111,7 +1111,7 @@ You deleted a collecting event.
 				LAT_DIR=NULL,
 				LONG_DIR=NULL,
 			</cfif> 
-			datum = '#escapeQuotes(datum)#',
+			datum = '#escapeQuotes(datum)#'
 		where collecting_event_id = <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 	</cfquery>	
 		
