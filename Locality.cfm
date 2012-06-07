@@ -634,6 +634,28 @@
 				$("##dms").hide();
 				$("##dmm").hide();
 				$("##utm").hide();
+				
+				
+				$("##DEC_LAT").val('');
+				$("##DEC_LONG").val('');
+				$("##LAT_DEG").val('');
+				$("##LAT_MIN").val('');
+				$("##LAT_SEC").val('');
+				$("##LAT_DIR").val('');
+				$("##LONG_DEG").val('');
+				$("##LONG_MIN").val('');
+				$("##LONG_SEC").val('');
+				$("##LONG_DIR").val('');
+				$("##dmLAT_DEG").val('');
+				$("##DEC_LAT_MIN").val('');
+				$("##dmLAT_DIR").val('');
+				$("##dmLONG_DEG").val('');
+				$("##DEC_LONG_MIN").val('');
+				$("##dmLONG_DIR").val('');
+				$("##UTM_ZONE").val('');
+				$("##UTM_EW").val('');
+				$("##UTM_NS").val('');
+		
 				if (orig_units == 'decimal degrees') {
 					$("##dd").show();
 				} 
@@ -697,7 +719,7 @@
 					</td>
 					<td>
 						<label for="LAT_DIR">LAT_DIR</label>
-						<select name="LAT_DIR">
+						<select name="LAT_DIR" id="LAT_DIR">
 							<option></option>
 							<option <cfif locDet.LAT_DIR is "N">selected="selected" </cfif> value="N">N</option>
 							<option <cfif locDet.LAT_DIR is "S">selected="selected" </cfif> value="S">S</option>
@@ -717,7 +739,7 @@
 					</td>
 					<td>
 						<label for="LONG_DIR">LONG_DIR</label>
-						<select name="LONG_DIR">
+						<select name="LONG_DIR" id="LONG_DIR">
 							<option></option>
 							<option <cfif locDet.LONG_DIR is "W">selected="selected" </cfif> value="W">W</option>
 							<option <cfif locDet.LONG_DIR is "E">selected="selected" </cfif> value="E">E</option>
@@ -729,7 +751,7 @@
 			<table id="dmm" style="display:none;">
 				<tr>
 					<td>
-						<label for="LAT_DEG">LAT_DEG</label>
+						<label for="dmLAT_DEG">LAT_DEG</label>
 						<input type="text" name="dmLAT_DEG" id="dmLAT_DEG" value="#locDet.LAT_DEG#" size="10">
 					</td>
 					<td>
@@ -737,8 +759,8 @@
 						<input type="text" name="DEC_LAT_MIN" id="DEC_LAT_MIN" value="#locDet.DEC_LAT_MIN#" size="10">
 					</td>
 					<td>
-						<label for="LAT_DIR">LAT_DIR</label>
-						<select name="dmLAT_DIR">
+						<label for="dmLAT_DIR">LAT_DIR</label>
+						<select name="dmLAT_DIR" id="dmLAT_DIR">
 							<option></option>
 							<option <cfif locDet.LAT_DIR is "N">selected="selected" </cfif> value="N">N</option>
 							<option <cfif locDet.LAT_DIR is "S">selected="selected" </cfif> value="S">S</option>
@@ -746,7 +768,7 @@
 					</td>
 					<td>
 						<label for="dmLONG_DEG">LONG_DEG</label>
-						<input type="text" name="LONG_DEG" id="LONG_DEG" value="#locDet.LONG_DEG#" size="10">
+						<input type="text" name="dmLONG_DEG" id="dmLONG_DEG" value="#locDet.LONG_DEG#" size="10">
 					</td>
 					<td>
 						<label for="DEC_LONG_MIN">DEC_LONG_MIN</label>
@@ -754,7 +776,7 @@
 					</td>
 					<td>
 						<label for="dmLONG_DIR">LONG_DIR</label>
-						<select name="LONG_DIR">
+						<select name="dmLONG_DIR" id="dmLONG_DIR">
 							<option></option>
 							<option <cfif locDet.LONG_DIR is "W">selected="selected" </cfif> value="W">W</option>
 							<option <cfif locDet.LONG_DIR is "E">selected="selected" </cfif> value="E">E</option>
@@ -1017,120 +1039,72 @@ You deleted a collecting event.
 			<cfelse>
 				dec_lat=NULL,
 			</cfif>
-			datum = '#escapeQuotes(datum)#'
-			<!----
-			
-			
-						<label for="DEC_LAT">DEC_LAT</label>
-						<input type="text" name="DEC_LAT" id="DEC_LAT" value="#locDet.DEC_LAT#" size="10">
-					</td>
-					<td>
-						<label for="DEC_LONG">DEC_LONG</label>
-						<input type="text" name="DEC_LONG" id="DEC_LONG" value="#locDet.DEC_LONG#" size="10">
-					</td>
-				</tr>
-			</table>
-			<table id="dms" style="display:none;">
-				<tr>
-					<td>
-						<label for="LAT_DEG">LAT_DEG</label>
-						<input type="text" name="LAT_DEG" id="LAT_DEG" value="#locDet.LAT_DEG#" size="10">
-					</td>
-					<td>
-						<label for="LAT_MIN">LAT_MIN</label>
-						<input type="text" name="LAT_MIN" id="LAT_MIN" value="#locDet.LAT_MIN#" size="10">
-					</td>
-					<td>
-						<label for="LAT_SEC">LAT_SEC</label>
-						<input type="text" name="LAT_SEC" id="LAT_SEC" value="#locDet.LAT_SEC#" size="10">
-					</td>
-					<td>
-						<label for="LAT_DIR">LAT_DIR</label>
-						<select name="LAT_DIR">
-							<option></option>
-							<option <cfif locDet.LAT_DIR is "N">selected="selected" </cfif> value="N">N</option>
-							<option <cfif locDet.LAT_DIR is "S">selected="selected" </cfif> value="S">S</option>
-						</select>
-					</td>
-					<td>
-						<label for="LONG_DEG">LONG_DEG</label>
-						<input type="text" name="LONG_DEG" id="LONG_DEG" value="#locDet.LONG_DEG#" size="10">
-					</td>
-					<td>
-						<label for="LONG_MIN">LONG_MIN</label>
-						<input type="text" name="LONG_MIN" id="LONG_MIN" value="#locDet.LONG_MIN#" size="10">
-					</td>
-					<td>
-						<label for="LONG_SEC">LONG_SEC</label>
-						<input type="text" name="LONG_SEC" id="LONG_SEC" value="#locDet.LONG_SEC#" size="10">
-					</td>
-					<td>
-						<label for="LONG_DIR">LONG_DIR</label>
-						<select name="LONG_DIR">
-							<option></option>
-							<option <cfif locDet.LONG_DIR is "W">selected="selected" </cfif> value="W">W</option>
-							<option <cfif locDet.LONG_DIR is "E">selected="selected" </cfif> value="E">E</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-			
-			<table id="dmm" style="display:none;">
-				<tr>
-					<td>
-						<label for="LAT_DEG">LAT_DEG</label>
-						<input type="text" name="dmLAT_DEG" id="dmLAT_DEG" value="#locDet.LAT_DEG#" size="10">
-					</td>
-					<td>
-						<label for="DEC_LAT_MIN">DEC_LAT_MIN</label>
-						<input type="text" name="DEC_LAT_MIN" id="DEC_LAT_MIN" value="#locDet.DEC_LAT_MIN#" size="10">
-					</td>
-					<td>
-						<label for="LAT_DIR">LAT_DIR</label>
-						<select name="dmLAT_DIR">
-							<option></option>
-							<option <cfif locDet.LAT_DIR is "N">selected="selected" </cfif> value="N">N</option>
-							<option <cfif locDet.LAT_DIR is "S">selected="selected" </cfif> value="S">S</option>
-						</select>
-					</td>
-					<td>
-						<label for="dmLONG_DEG">LONG_DEG</label>
-						<input type="text" name="LONG_DEG" id="LONG_DEG" value="#locDet.LONG_DEG#" size="10">
-					</td>
-					<td>
-						<label for="DEC_LONG_MIN">DEC_LONG_MIN</label>
-						<input type="text" name="DEC_LONG_MIN" id="DEC_LONG_MIN" value="#locDet.DEC_LONG_MIN#" size="10">
-					</td>
-					<td>
-						<label for="dmLONG_DIR">LONG_DIR</label>
-						<select name="LONG_DIR">
-							<option></option>
-							<option <cfif locDet.LONG_DIR is "W">selected="selected" </cfif> value="W">W</option>
-							<option <cfif locDet.LONG_DIR is "E">selected="selected" </cfif> value="E">E</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-			
-			<table id="utm" style="display:none;">
-				<tr>
-					<td>
-						<label for="UTM_ZONE">UTM_ZONE</label>
-						<input type="text" name="UTM_ZONE" id="UTM_ZONE" value="#locDet.UTM_ZONE#" size="10">
-					</td>
-					<td>
-						<label for="UTM_EW">UTM_EW</label>
-						<input type="text" name="UTM_EW" id="UTM_EW" value="#locDet.UTM_EW#" size="10">
-					</td>
-				
-					<td>
-						<label for="UTM_NS">UTM_NS</label>
-						<input type="text" name="UTM_NS" id="UTM_NS" value="#locDet.UTM_NS#" size="10">
-					</td>
-				</tr>
-			</table>
-		</div>
-		---->
+			<cfif len(DEC_LONG) gt 0>
+				DEC_LONG=#DEC_LONG#,
+			<cfelse>
+				DEC_LONG=NULL,
+			</cfif>
+			<cfif len(LAT_DEG) gt 0>
+				LAT_DEG=#LAT_DEG#,
+			<cfelse>
+				LAT_DEG=NULL,
+			</cfif>
+			<cfif len(LAT_MIN) gt 0>
+				LAT_MIN=#LAT_MIN#,
+			<cfelse>
+				LAT_MIN=NULL,
+			</cfif>
+			<cfif len(LAT_SEC) gt 0>
+				LAT_SEC=#LAT_SEC#,
+			<cfelse>
+				LAT_SEC=NULL,
+			</cfif>
+			<cfif len(LONG_DEG) gt 0>
+				LONG_DEG=#LONG_DEG#,
+			<cfelse>
+				LONG_DEG=NULL,
+			</cfif>
+			<cfif len(LONG_MIN) gt 0>
+				LONG_MIN=#LONG_MIN#,
+			<cfelse>
+				LONG_MIN=NULL,
+			</cfif>
+			<cfif len(LONG_SEC) gt 0>
+				LONG_SEC=#LONG_SEC#,
+			<cfelse>
+				LONG_SEC=NULL,
+			</cfif>
+			<cfif len(LAT_DEG) gt 0>
+				LAT_DEG=#LAT_DEG#,
+			<cfelse>
+				LAT_DEG=NULL,
+			</cfif>
+			<cfif len(DEC_LAT_MIN) gt 0>
+				DEC_LAT_MIN=#DEC_LAT_MIN#,
+			<cfelse>
+				DEC_LAT_MIN=NULL,
+			</cfif>
+			<cfif len(dmLONG_DEG) gt 0>
+				dmLONG_DEG=#dmLONG_DEG#,
+			<cfelse>
+				dmLONG_DEG=NULL,
+			</cfif>
+			<cfif len(UTM_EW) gt 0>
+				UTM_EW=#UTM_EW#,
+			<cfelse>
+				UTM_EW=NULL,
+			</cfif>
+			<cfif len(UTM_NS) gt 0>
+				UTM_NS=#UTM_NS#,
+			<cfelse>
+				UTM_NS=NULL,
+			</cfif>
+			datum = '#escapeQuotes(datum)#',
+			LAT_DIR = '#LAT_DIR#',
+			LONG_DIR = '#LONG_DIR#',
+			dmLAT_DIR = '#dmLAT_DIR#',
+			dmLONG_DIR = '#dmLONG_DIR#',
+			UTM_ZONE = '#UTM_ZONE#'
 		where collecting_event_id = <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 		
 	</cfquery>	
