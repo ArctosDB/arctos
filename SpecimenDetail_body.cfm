@@ -31,7 +31,10 @@
 		LASTUSER EditedBy,
 		accession,
 		concatEncumbranceDetails(collection_object_id) encumbranceDetail,
-		typestatus
+		typestatus,
+		encumbrances,
+		COLLECTORS,
+		PREPARATORS
 	FROM 
 		#session.flatTableName#
 	WHERE 
@@ -40,45 +43,6 @@
         CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
 <cfdump var=#one#>
-<cfif one.concatenatedEncumbrances contains "mask record" and oneOfUs neq 1>
-	Record masked.<cfabort>
-</cfif>
-<cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select
-		collector.coll_order,
-		case when 
-			#oneOfUs# != 1 and concatencumbrances(collector.collection_object_id) like '%mask collector%' then 'Anonymous'
-		else 
-			preferred_agent_name.agent_name  
-		end collectors
-	from
-		collector,
-		preferred_agent_name
-	where
-		collector.collector_role='c' and
-		collector.agent_id=preferred_agent_name.agent_id and
-		collector.collection_object_id = #collection_object_id#
-	ORDER BY 
-		coll_order
-</cfquery>
-<cfquery name="preps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select
-		collector.coll_order,
-		case when 
-			#oneOfUs# != 1 and concatencumbrances(collector.collection_object_id) like '%mask preparator%' then 'Anonymous'
-		else 
-			preferred_agent_name.agent_name  
-		end preparators
-	from
-		collector,
-		preferred_agent_name
-	where
-		collector.collector_role='p' and
-		collector.agent_id=preferred_agent_name.agent_id and
-		collector.collection_object_id = #collection_object_id#
-	ORDER BY 
-		coll_order
-</cfquery>
 <cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select	
 		attributes.attribute_type,
