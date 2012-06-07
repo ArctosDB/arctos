@@ -635,7 +635,7 @@
 				$("##dmm").hide();
 				$("##utm").hide();
 				
-				
+				<!----
 				$("##DEC_LAT").val('');
 				$("##DEC_LONG").val('');
 				$("##LAT_DEG").val('');
@@ -655,7 +655,7 @@
 				$("##UTM_ZONE").val('');
 				$("##UTM_EW").val('');
 				$("##UTM_NS").val('');
-		
+				---->
 				if (orig_units == 'decimal degrees') {
 					$("##dd").show();
 				} 
@@ -1020,17 +1020,7 @@ You deleted a collecting event.
 <cfif action is "saveCollEventEdit">
 	<cfoutput>
 		
-			<cfif orig_lat_long_units is "degrees dec. minutes">
-				<cfset thisLatDeg=dmLAT_DEG>
-				<cfset thisLongDeg=dmLONG_DEG>
-				<cfset thisLongDir=dmLONG_DIR>
-				<cfset thisLatDir=dmLAT_DIR>
-			<cfelse>
-				<cfset thisLatDeg=LAT_DEG>
-				<cfset thisLongDeg=LONG_DEG>
-				<cfset thisLongDir=LONG_DIR>
-				<cfset thisLatDir=LAT_DIR>
-			</cfif> 
+		
 			
 	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE 
@@ -1043,72 +1033,86 @@ You deleted a collecting event.
 			COLL_EVENT_REMARKS = '#escapeQuotes(COLL_EVENT_REMARKS)#',
 			collecting_event_name = '#escapeQuotes(collecting_event_name)#',
 			orig_lat_long_units = '#escapeQuotes(orig_lat_long_units)#',
-			<cfif len(dec_lat) gt 0>
+			
+				
+			
+			<cfif orig_lat_long_units is "degrees dec. minutes">
+				LAT_DEG=#dmLAT_DEG#,
+				LONG_DEG=#dmLONG_DEG#,
+				LAT_DIR = '#dmLAT_DIR#',
+				LONG_DIR = '#dmLONG_DIR#',
+				DEC_LAT_MIN=#DEC_LAT_MIN#,
+				dec_long_min=#dec_long_min#,
+				LAT_MIN=NULL,
+				LAT_SEC=NULL,
+				LONG_MIN=NULL,
+				LONG_SEC=NULL,
+				UTM_EW=NULL,
+				UTM_NS=NULL,
+				UTM_ZONE = NULL,
+			<cfelseif orig_lat_long_units is "UTM">
+				dec_lat=NULL,
+				DEC_LONG=NULL,
+				LAT_DEG=NULL,
+				LONG_DEG=NULL,
+				LAT_MIN=NULL,
+				LAT_SEC=NULL,
+				LONG_MIN=NULL,
+				LONG_SEC=NULL,
+				DEC_LAT_MIN=NULL,
+				dec_long_min=NULL,
+				UTM_EW=#UTM_EW#,
+				UTM_NS=#UTM_NS#,
+				UTM_ZONE = '#UTM_ZONE#'
+			<cfelseif orig_lat_long_units is "decimal degrees">
 				dec_lat=#dec_lat#,
+				DEC_LONG=#DEC_LONG#,
+				LAT_DEG=NULL,
+				LAT_MIN=NULL,
+				LAT_SEC=NULL,
+				LONG_DEG=NULL,
+				LONG_MIN=NULL,
+				LONG_SEC=NULL,
+				DEC_LAT_MIN=NULL,
+				dec_long_min=NULL,
+				UTM_EW=NULL,
+				UTM_NS=NULL,
+				UTM_ZONE = NULL,
+				LAT_DIR=NULL,
+				LONG_DIR=NULL,
+			<cfelseif orig_lat_long_units is "deg. min. sec.">
+				LAT_DEG=#LAT_DEG#,
+				LAT_MIN=#LAT_MIN#,
+				LAT_SEC=#LAT_SEC#,
+				LONG_DEG=#LONG_DEG#,
+				LONG_MIN=#LONG_MIN#,
+				LONG_SEC=#LONG_SEC#,
+				dec_lat=NULL,
+				DEC_LONG=NULL,
+				DEC_LAT_MIN=NULL,
+				dec_long_min=NULL,
+				UTM_EW=NULL,
+				UTM_NS=NULL,
+				UTM_ZONE = NULL,
 			<cfelse>
 				dec_lat=NULL,
-			</cfif>
-			<cfif len(DEC_LONG) gt 0>
-				DEC_LONG=#DEC_LONG#,
-			<cfelse>
 				DEC_LONG=NULL,
-			</cfif>
-			LAT_DIR = '#thisLatDir#',
-			LONG_DIR = '#thisLongDir#',
-			<cfif len(thisLatDeg) gt 0>
-				LAT_DEG=#thisLatDeg#,
-			<cfelse>
 				LAT_DEG=NULL,
-			</cfif>
-			
-			<cfif len(thisLongDeg) gt 0>
-				LONG_DEG=#thisLongDeg#,
-			<cfelse>
-				LONG_DEG=NULL,
-			</cfif>
-			
-			
-			<cfif len(LAT_MIN) gt 0>
-				LAT_MIN=#LAT_MIN#,
-			<cfelse>
 				LAT_MIN=NULL,
-			</cfif>
-			<cfif len(LAT_SEC) gt 0>
-				LAT_SEC=#LAT_SEC#,
-			<cfelse>
 				LAT_SEC=NULL,
-			</cfif>
-			
-			<cfif len(LONG_MIN) gt 0>
-				LONG_MIN=#LONG_MIN#,
-			<cfelse>
+				LONG_DEG=NULL,
 				LONG_MIN=NULL,
-			</cfif>
-			<cfif len(LONG_SEC) gt 0>
-				LONG_SEC=#LONG_SEC#,
-			<cfelse>
 				LONG_SEC=NULL,
-			</cfif>
-			<cfif len(DEC_LAT_MIN) gt 0>
-				DEC_LAT_MIN=#DEC_LAT_MIN#,
-			<cfelse>
 				DEC_LAT_MIN=NULL,
-			</cfif>
-			
-			<cfif len(UTM_EW) gt 0>
-				UTM_EW=#UTM_EW#,
-			<cfelse>
+				dec_long_min=NULL,
 				UTM_EW=NULL,
-			</cfif>
-			<cfif len(UTM_NS) gt 0>
-				UTM_NS=#UTM_NS#,
-			<cfelse>
 				UTM_NS=NULL,
-			</cfif>
+				UTM_ZONE = NULL,
+				LAT_DIR=NULL,
+				LONG_DIR=NULL,
+			</cfif> 
 			datum = '#escapeQuotes(datum)#',
-			UTM_ZONE = '#UTM_ZONE#'
 		where collecting_event_id = <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
-		
 	</cfquery>	
 		
 	<cfif #cgi.HTTP_REFERER# contains "editCollEvnt">
