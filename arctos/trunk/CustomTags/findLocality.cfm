@@ -131,8 +131,8 @@
 	<cfset sql = "#sql# AND upper(collecting_method) like '%#ucase(collecting_method)#%'">
 </cfif>
 
-<cfif isdefined("habitat_desc") and len(#habitat_desc#) gt 0>
-	<cfset sql = "#sql# AND upper(habitat_desc) like '%#ucase(habitat_desc)#%'">
+<cfif isdefined("habitat") and len(#habitat#) gt 0>
+	<cfset sql = "#sql# AND upper(habitat) like '%#ucase(habitat)#%'">
 </cfif>		
 <cfif isdefined("spec_locality") and len(#spec_locality#) gt 0>
 	<cfset sloc = #ucase(replace(spec_locality,"'","''","all"))#>
@@ -186,28 +186,9 @@
 <cfif isdefined("VerificationStatus") AND len(#VerificationStatus#) gt 0>
 	<cfset sql = "#sql# AND VerificationStatus='#VerificationStatus#'">
 </cfif>
-<cfif isdefined("GeorefMethod") AND len(#GeorefMethod#) gt 0>
-	<cfset sql = "#sql# AND GeorefMethod='#GeorefMethod#'">
+<cfif isdefined("georeference_protocol") AND len(#georeference_protocol#) gt 0>
+	<cfset sql = "#sql# AND georeference_protocol='#georeference_protocol#'">
 </cfif>
-<cfif isdefined("nullNoGeorefBecause") and len(#nullNoGeorefBecause#) gt 0>
-	<cfset sql = "#sql# AND NoGeorefBecause IS NULL">
-</cfif>
-<cfif isdefined("isIncomplete") AND len(#isIncomplete#) gt 0>
-	<cfset sql = "#sql# AND 
-		( GPSACCURACY IS NULL OR EXTENT IS NULL OR MAX_ERROR_DISTANCE = 0 or MAX_ERROR_DISTANCE IS NULL)">
-</cfif>
-<cfif isdefined("findNoAccGeoRef") and len(#findNoAccGeoRef#) gt 0>
-	<cfset sql = "#sql# AND locality.locality_id 
-		IN (select locality_id from lat_long) AND
-		locality.locality_id  NOT IN (select locality_id from lat_long where accepted_lat_long_fg=1)">
-</cfif>
-<cfif isdefined("findNoGeoRef") and len(#findNoGeoRef#) gt 0>
-	<cfset sql = "#sql# AND locality.locality_id NOT IN (select locality_id from lat_long)">
-</cfif>
-<cfif isdefined("coordinateDeterminer") and len(#coordinateDeterminer#) gt 0>
-	<cfset sql = "#sql# AND upper(agent_name) like '%#ucase(coordinateDeterminer)#%'">
-</cfif>
-
 <cfif right(sql,4) is " (+)">
 	<span class="error">You must enter search criteria.</span>
 	<cfabort>
