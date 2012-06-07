@@ -571,8 +571,6 @@
 						
 						
 						
-						---->
-						
 						
 						<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select * from 
@@ -608,6 +606,10 @@
 							</td>
 						</tr>
 					</cfloop>
+					
+					
+						---->
+						
 					</table>
 					</div>
 				</cfloop>
