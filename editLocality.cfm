@@ -344,7 +344,7 @@
 			<cfset iu=iu & "&maptype=roadmap">
 			<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
 		</cfif>
-		
+		^^ map
 						
 		<table>
 			<tr>
@@ -354,7 +354,7 @@
 				</td>
 				<td>
 					<label for="dec_long">Decimal Longitude</label>
-					<input type="text" name="DEC_LONG" value="#locDet.DEC_LONG#" id="dec_long" class="reqdClr">
+					<input type="text" name="DEC_LONG" value="#locDet.DEC_LONG#" id="dec_long" class="">
 				</td>
 			</tr>
 		</table>
