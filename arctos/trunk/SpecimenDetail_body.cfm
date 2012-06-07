@@ -305,11 +305,11 @@
 						from 
 							media_relations 
 						where 
-							RELATED_PRIMARY_KEY=#one.collecting_event_id# and
+							RELATED_PRIMARY_KEY=#collecting_event_id# and
 							MEDIA_RELATIONSHIP like '% collecting_event'
 					</cfquery>
 					
-		
+		<!---------
 		,
 		collecting_event.COLLECTING_EVENT_ID,
     	locality.LOCALITY_ID,
@@ -335,7 +335,7 @@
 		georeference_source,
 		georeference_protocol,
 		
-		
+		------------>
 		
 		
 					<table id="SD_#specimen_event_id#">
