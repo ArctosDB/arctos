@@ -308,6 +308,7 @@
 							RELATED_PRIMARY_KEY=#collecting_event_id# and
 							MEDIA_RELATIONSHIP like '% collecting_event'
 					</cfquery>
+							<!---------
 					
 		
 					<div style="border:1px solid green">
@@ -427,7 +428,6 @@
 						</cfif>
 						
 						
-							<!---------
 						
 						
 						<div class="detailBlock">
