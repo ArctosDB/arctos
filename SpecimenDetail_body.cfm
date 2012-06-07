@@ -37,7 +37,8 @@
 		encumbrances,
 		COLLECTORS,
 		PREPARATORS,
-		remarks
+		remarks,
+		'add_to_flat' flags
 	FROM 
 		#session.flatTableName#
 	WHERE 
