@@ -599,7 +599,6 @@
 	<cfoutput>
 
 	<cfset sql = "UPDATE locality SET GEOG_AUTH_REC_ID = #GEOG_AUTH_REC_ID#">
-	<cfset sql = "#sql#,ORIG_ELEV_UNITS = '#ORIG_ELEV_UNITS#'">
 	<cfset sql = "#sql#,MAX_ERROR_UNITS = '#MAX_ERROR_UNITS#'">
 	<cfset sql = "#sql#,DATUM = '#DATUM#'">
 	<cfset sql = "#sql#,georeference_source = '#georeference_source#'">
