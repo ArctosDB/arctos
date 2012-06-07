@@ -521,7 +521,7 @@
 	</div>
 	<form name="localitypick" action="Locality.cfm" method="post">
 		<input type="hidden" name="Action" value="changeLocality">
-    		<input type="hidden" name="locality_id" value="#locDet.locality_id#">
+    	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
 	 	<input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
 		 <cfif not isdefined("collection_object_id")>
 		 	<cfset collection_object_id=-1>
@@ -534,8 +534,8 @@
 		Current Locality: 
 		<div id="locDesc">
 			#locDet.higher_geog#
-			<cfif len(locDet.VerbatimLatitude) gt 0>
-				<br>#locDet.VerbatimLatitude# #locDet.VerbatimLongitude#
+			<cfif len(locDet.Verbatim_coordinates) gt 0>
+				<br>#locDet.Verbatim_coordinates#
 				<cfif len(locDet.max_error_distance) gt 0>
 					&##177; #locDet.max_error_distance# #locDet.max_error_units#
 				</cfif>
