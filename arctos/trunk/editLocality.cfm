@@ -437,7 +437,7 @@
 			<cfloop query="ctgeoreference_protocol">
 				<option 
 					<cfif locDet.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
-					value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocold.georeference_protocol#</option>
+					value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 			</cfloop>
 		</select>
 				
