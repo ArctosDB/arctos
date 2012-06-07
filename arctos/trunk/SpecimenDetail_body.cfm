@@ -432,7 +432,7 @@
 							</div>
 						</cfif>
 						<tr>
-							<td>
+							<td colspan="2">
 								<table width="100%">
 									<tr>
 										<td valign="top" align="right"><!---- text stuff here ---->
