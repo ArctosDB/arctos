@@ -427,6 +427,8 @@
 						</cfif>
 						
 						
+							<!---------
+						
 						
 						<div class="detailBlock">
 							<tr class="detailData">
@@ -483,7 +485,7 @@
 						</div>
 						
 						
-						<!---------
+					
 	
 		,
 		locality.DEC_LAT,
