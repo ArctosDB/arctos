@@ -1013,7 +1013,7 @@ You deleted a collecting event.
 			collecting_event_name = '#escapeQuotes(collecting_event_name)#',
 			orig_lat_long_units = '#escapeQuotes(orig_lat_long_units)#',
 			datum = '#escapeQuotes(datum)#',
-			<cfif len() gt 0>
+			<cfif len(dec_lat) gt 0>
 				dec_lat=#dec_lat#,
 			<cfelse>
 				dec_lat=NULL,
