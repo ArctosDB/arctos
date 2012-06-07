@@ -618,7 +618,7 @@
 		<cfset sql = "#sql#,DEC_LONG = null">
 	</cfif>
 	
-	<cfif len(spec_localit#) gt 0>
+	<cfif len(spec_locality) gt 0>
 		<cfset sql = "#sql#,spec_locality = '#escapeQuotes(spec_locality)#'">
 	  <cfelse>
 		<cfset sql = ",spec_locality=null">
