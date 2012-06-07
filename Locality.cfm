@@ -997,35 +997,140 @@ You deleted a collecting event.
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveCollEventEdit">
 	<cfoutput>
-	<cfset sql = "UPDATE collecting_event SET 
-		BEGAN_DATE = '#BEGAN_DATE#'
-		,ENDED_DATE = '#ENDED_DATE#'
-		,VERBATIM_DATE = '#VERBATIM_DATE#'
-		,COLLECTING_SOURCE = '#COLLECTING_SOURCE#'">
-	<cfif len(#verbatim_locality#) gt 0>
-		<cfset sql = "#sql#,verbatim_locality = '#escapeQuotes(verbatim_locality)#'">
-	<cfelse>
-		<cfset sql = "#sql#,verbatim_locality = null">
-	</cfif>
-	<cfif len(#COLL_EVENT_REMARKS#) gt 0>
-		<cfset sql = "#sql#,COLL_EVENT_REMARKS = '#escapeQuotes(COLL_EVENT_REMARKS)#'">
-	<cfelse>
-		<cfset sql = "#sql#,COLL_EVENT_REMARKS = null">
-	</cfif>
-	<cfif len(#COLLECTING_METHOD#) gt 0>
-		<cfset sql = "#sql#,COLLECTING_METHOD = '#COLLECTING_METHOD#'">
-	<cfelse>
-		<cfset sql = "#sql#,COLLECTING_METHOD = null">
-	</cfif>
-	<cfif len(#HABITAT_DESC#) gt 0>
-		<cfset sql = "#sql#,HABITAT_DESC = '#escapeQuotes(HABITAT_DESC)#'">
-	<cfelse>
-		<cfset sql = "#sql#,HABITAT_DESC = null">
-	</cfif>
-	<cfset sql = "#sql# where collecting_event_id = #collecting_event_id#">
+		
+		
+		
+		
 	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		#preservesinglequotes(sql)#		
-	</cfquery>
+		UPDATE 
+			collecting_event 
+		SET 
+			BEGAN_DATE = '#BEGAN_DATE#',
+			ENDED_DATE = '#ENDED_DATE#',
+			VERBATIM_DATE = '#escapeQuotes(VERBATIM_DATE)#',
+			verbatim_locality = '#escapeQuotes(verbatim_locality)#',
+			COLL_EVENT_REMARKS = '#escapeQuotes(COLL_EVENT_REMARKS)#',
+			collecting_event_name = '#escapeQuotes(collecting_event_name)#',
+			orig_lat_long_units = '#escapeQuotes(orig_lat_long_units)#',
+			datum = '#escapeQuotes(datum)#'
+			dec_lat=nvl(dec_lat,NULL)
+			<!----
+			
+			
+						<label for="DEC_LAT">DEC_LAT</label>
+						<input type="text" name="DEC_LAT" id="DEC_LAT" value="#locDet.DEC_LAT#" size="10">
+					</td>
+					<td>
+						<label for="DEC_LONG">DEC_LONG</label>
+						<input type="text" name="DEC_LONG" id="DEC_LONG" value="#locDet.DEC_LONG#" size="10">
+					</td>
+				</tr>
+			</table>
+			<table id="dms" style="display:none;">
+				<tr>
+					<td>
+						<label for="LAT_DEG">LAT_DEG</label>
+						<input type="text" name="LAT_DEG" id="LAT_DEG" value="#locDet.LAT_DEG#" size="10">
+					</td>
+					<td>
+						<label for="LAT_MIN">LAT_MIN</label>
+						<input type="text" name="LAT_MIN" id="LAT_MIN" value="#locDet.LAT_MIN#" size="10">
+					</td>
+					<td>
+						<label for="LAT_SEC">LAT_SEC</label>
+						<input type="text" name="LAT_SEC" id="LAT_SEC" value="#locDet.LAT_SEC#" size="10">
+					</td>
+					<td>
+						<label for="LAT_DIR">LAT_DIR</label>
+						<select name="LAT_DIR">
+							<option></option>
+							<option <cfif locDet.LAT_DIR is "N">selected="selected" </cfif> value="N">N</option>
+							<option <cfif locDet.LAT_DIR is "S">selected="selected" </cfif> value="S">S</option>
+						</select>
+					</td>
+					<td>
+						<label for="LONG_DEG">LONG_DEG</label>
+						<input type="text" name="LONG_DEG" id="LONG_DEG" value="#locDet.LONG_DEG#" size="10">
+					</td>
+					<td>
+						<label for="LONG_MIN">LONG_MIN</label>
+						<input type="text" name="LONG_MIN" id="LONG_MIN" value="#locDet.LONG_MIN#" size="10">
+					</td>
+					<td>
+						<label for="LONG_SEC">LONG_SEC</label>
+						<input type="text" name="LONG_SEC" id="LONG_SEC" value="#locDet.LONG_SEC#" size="10">
+					</td>
+					<td>
+						<label for="LONG_DIR">LONG_DIR</label>
+						<select name="LONG_DIR">
+							<option></option>
+							<option <cfif locDet.LONG_DIR is "W">selected="selected" </cfif> value="W">W</option>
+							<option <cfif locDet.LONG_DIR is "E">selected="selected" </cfif> value="E">E</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			
+			<table id="dmm" style="display:none;">
+				<tr>
+					<td>
+						<label for="LAT_DEG">LAT_DEG</label>
+						<input type="text" name="dmLAT_DEG" id="dmLAT_DEG" value="#locDet.LAT_DEG#" size="10">
+					</td>
+					<td>
+						<label for="DEC_LAT_MIN">DEC_LAT_MIN</label>
+						<input type="text" name="DEC_LAT_MIN" id="DEC_LAT_MIN" value="#locDet.DEC_LAT_MIN#" size="10">
+					</td>
+					<td>
+						<label for="LAT_DIR">LAT_DIR</label>
+						<select name="dmLAT_DIR">
+							<option></option>
+							<option <cfif locDet.LAT_DIR is "N">selected="selected" </cfif> value="N">N</option>
+							<option <cfif locDet.LAT_DIR is "S">selected="selected" </cfif> value="S">S</option>
+						</select>
+					</td>
+					<td>
+						<label for="dmLONG_DEG">LONG_DEG</label>
+						<input type="text" name="LONG_DEG" id="LONG_DEG" value="#locDet.LONG_DEG#" size="10">
+					</td>
+					<td>
+						<label for="DEC_LONG_MIN">DEC_LONG_MIN</label>
+						<input type="text" name="DEC_LONG_MIN" id="DEC_LONG_MIN" value="#locDet.DEC_LONG_MIN#" size="10">
+					</td>
+					<td>
+						<label for="dmLONG_DIR">LONG_DIR</label>
+						<select name="LONG_DIR">
+							<option></option>
+							<option <cfif locDet.LONG_DIR is "W">selected="selected" </cfif> value="W">W</option>
+							<option <cfif locDet.LONG_DIR is "E">selected="selected" </cfif> value="E">E</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			
+			<table id="utm" style="display:none;">
+				<tr>
+					<td>
+						<label for="UTM_ZONE">UTM_ZONE</label>
+						<input type="text" name="UTM_ZONE" id="UTM_ZONE" value="#locDet.UTM_ZONE#" size="10">
+					</td>
+					<td>
+						<label for="UTM_EW">UTM_EW</label>
+						<input type="text" name="UTM_EW" id="UTM_EW" value="#locDet.UTM_EW#" size="10">
+					</td>
+				
+					<td>
+						<label for="UTM_NS">UTM_NS</label>
+						<input type="text" name="UTM_NS" id="UTM_NS" value="#locDet.UTM_NS#" size="10">
+					</td>
+				</tr>
+			</table>
+		</div>
+		---->
+		where collecting_event_id = <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
+		
+	</cfquery>	
+		
 	<cfif #cgi.HTTP_REFERER# contains "editCollEvnt">
 		<cfset refURL = "#cgi.HTTP_REFERER#">
 	<cfelse>
