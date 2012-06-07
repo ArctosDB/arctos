@@ -503,7 +503,7 @@
 													<cfset iu="http://maps.google.com/maps/api/staticmap?center=#dec_lat#,#dec_long#">
 													<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
 													<cfset iu=iu & "&maptype=roadmap">
-													<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#detail.collection_object_id#" target="_blank">
+													<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">
 														<img src="#iu#" alt="Click for BerkeleyMapper">
 													</a>
 												</cfif>
