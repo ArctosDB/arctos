@@ -643,14 +643,12 @@
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
 					</cfif>
 				</div>
-				<cfloop query="colls">
-					<div class="detailBlock">
-						<span class="detailData">
-							<span class="innerDetailLabel"></span>
-							#collectors#
-						</span>
-					</div>
-				</cfloop>
+				<div class="detailBlock">
+					<span class="detailData">
+						<span class="innerDetailLabel"></span>
+						#collectors#
+					</span>
+				</div>
 			</div>
 <!------------------------------------ preparators ---------------------------------------------->
 			<cfif len(preps.preparators) gt 0>
@@ -660,14 +658,12 @@
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
 						</cfif>
 					</div>
-					<cfloop query="preps">
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel"></span>
-								#preparators#
-							</span>
-						</div>
-					</cfloop>
+					<div class="detailBlock">
+						<span class="detailData">
+							<span class="innerDetailLabel"></span>
+							#preparators#
+						</span>
+					</div>
 				</div>
 			</cfif>
 <!------------------------------------ relationships ---------------------------------------------->
