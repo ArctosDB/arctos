@@ -163,7 +163,8 @@
 			MAX_ERROR_UNITS,
 			DATUm,
 			georeference_source,
-			georeference_protocol
+			georeference_protocol,
+			locality_name
 		from 
 			locality, 
 			geog_auth_rec 
