@@ -38,9 +38,7 @@
 	FROM 
 		#session.flatTableName#
 	WHERE 
-		#session.flatTableName#.collection_object_id = 
-	<cfqueryparam value = "#collection_object_id#"
-        CFSQLType = "CF_SQL_INTEGER">
+		#session.flatTableName#.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
 <cfdump var=#one#>
 <cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -57,7 +55,7 @@
 		preferred_agent_name attribute_determiner
 	where
 		attributes.determined_by_agent_id = attribute_determiner.agent_id and
-		attributes.collection_object_id = #collection_object_id#
+		attributes.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
 <cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT 
@@ -72,8 +70,62 @@
 	where		
 		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id AND
 		related_cat_item.collection_id = related_coll.collection_id and
-		biol_indiv_relations.collection_object_id = #collection_object_id#
+		biol_indiv_relations.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
+<cfquery name="event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select
+		SPECIMEN_EVENT_ID,
+		collecting_event_id,
+		assigned_by_agent_id,
+		getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name
+		assigned_date,
+		specimen_event_remark,
+		specimen_event_type,
+		COLLECTING_METHOD,
+		COLLECTING_SOURCE,
+		VERIFICATIONSTATUS,
+		habitat,
+		collecting_event.COLLECTING_EVENT_ID,
+    	locality.LOCALITY_ID,
+		VERBATIM_DATE,
+		VERBATIM_LOCALITY,
+		COLL_EVENT_REMARKS,
+		BEGAN_DATE,
+		ENDED_DATE,
+		verbatim_coordinates,
+		collecting_event_name,
+		locality.DEC_LAT,
+		locality.DEC_LONG,
+		collecting_event.DATUM,
+		collecting_event.ORIG_LAT_LONG_UNITS,
+		geog_auth_rec.GEOG_AUTH_REC_ID,
+		SPEC_LOCALITY,
+		MINIMUM_ELEVATION,
+		MAXIMUM_ELEVATION,
+		ORIG_ELEV_UNITS,
+		MIN_DEPTH,
+		MAX_DEPTH,
+		DEPTH_UNITS,
+		MAX_ERROR_DISTANCE,
+		MAX_ERROR_UNITS,
+		LOCALITY_REMARKS,
+		georeference_source,
+		georeference_protocol,
+		locality_name
+	from
+		specimen_event,
+		collecting_event,
+		locality,
+		geog_auth_rec
+	where
+		specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+		collecting_event.locality_id=locality.locality_id and
+		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+		specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
+</cfquery>
+
+ <cfdump var=#event#>
+		 
 <style>
 	.acceptedIdDiv {
 		border:1px dotted green;
