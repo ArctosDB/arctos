@@ -512,7 +512,6 @@
 									</table>
 								</td>
 							</tr>
-						</div>
 						
 						
 								
@@ -527,7 +526,7 @@
 						preferred_agent_name
 						where
 						geology_attributes.GEO_ATT_DETERMINER_ID=preferred_agent_name.agent_id (+) and
-						 locality_id=#one.locality_id#
+						 locality_id=#locality_id#
 					</cfquery>
 					<cfloop query="geology">
 						 <td id="SDCellLeft" class="innerDetailLabel">#GEOLOGY_ATTRIBUTE#:</td>
