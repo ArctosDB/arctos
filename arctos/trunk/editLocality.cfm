@@ -386,9 +386,9 @@
 		</table>
 		<label for="locality_remarks">Locality Remarks</label>
 		<input type="text" name="locality_remarks" id="locality_remarks" value="#stripQuotes(locDet.locality_remarks)#"  size="120">
-		<cfif len(dec_lat) gt 0>
-			<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
-			<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=200x200&zoom=2">
+		<cfif len(locDet.dec_lat) gt 0>
+			<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#locDet.dec_lat#,#locDet.dec_long#">
+			<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.dec_lat#,#locDet.dec_long#&sensor=false&size=200x200&zoom=2">
 			<cfset iu=iu & "&maptype=roadmap">
 			<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
 		</cfif>
