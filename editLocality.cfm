@@ -261,7 +261,7 @@
        	<label for="higher_geog">Higer Geography</label>
 		<input type="text" name="higher_geog" id="higher_geog" value="#locDet.higher_geog#" size="120" class="readClr" readonly="yes">
         <input type="button" value="Change" class="picBtn" id="changeGeogButton"
-			onclick="document.getElementById('saveGeogChangeButton').style.display='';document.getElementById('higher_geog').className='red';GeogPick('geog_auth_rec_id','higher_geog','locality'); return false;">
+			onclick="GeogPick('geog_auth_rec_id','higher_geog','locality'); return false;">
 		<input type="button" value="Edit" class="lnkBtn"
 			onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
 		
