@@ -74,8 +74,8 @@
 </cfquery>
 <cfquery name="event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
-		SPECIMEN_EVENT_ID,
-		collecting_event_id,
+		specimen_event.SPECIMEN_EVENT_ID,
+		collecting_event.collecting_event_id,
 		assigned_by_agent_id,
 		getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name,
 		assigned_date,
