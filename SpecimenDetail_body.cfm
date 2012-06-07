@@ -437,7 +437,7 @@
 						
 						<div class="detailBlock">
 							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Spatial:</td>
+								<td></td>
 								<td id="SDCellRight">
 									<table width="100%">
 										<tr>
