@@ -5,8 +5,8 @@
 			$("##MAX_ERROR_DISTANCE").val(gerr);
 			$("##MAX_ERROR_UNITS").val('m');
 			$("##DATUM").val('World Geodetic System 1984');
-			$("##georefMethod").val('GeoLocate');
-			$("##LAT_LONG_REF_SOURCE").val('GeoLocate');
+			$("##georeference_source").val('GeoLocate');
+			$("##georeference_protocol").val('GeoLocate');
 			$("##dec_lat").val(glat);
 			$("##dec_long").val(glon);
 			closeGeoLocate();
@@ -406,7 +406,6 @@
 		
 		&nbsp;~&nbsp;<a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a>
 		&nbsp;~&nbsp;<a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a>
-		&nbsp;~&nbsp;<a href="http://www.museum.tulane.edu/geolocate/web/WebGeoref.aspx" target="_blank" class="external">GeoLocate</a>
 			<span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span>
 		
 		
