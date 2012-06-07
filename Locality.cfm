@@ -1063,7 +1063,7 @@ You deleted a collecting event.
 				dec_long_min=NULL,
 				UTM_EW=#UTM_EW#,
 				UTM_NS=#UTM_NS#,
-				UTM_ZONE = '#UTM_ZONE#'
+				UTM_ZONE = '#UTM_ZONE#',
 			<cfelseif orig_lat_long_units is "decimal degrees">
 				dec_lat=#dec_lat#,
 				DEC_LONG=#DEC_LONG#,
