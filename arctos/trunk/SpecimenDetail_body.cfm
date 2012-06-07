@@ -308,7 +308,6 @@
 							RELATED_PRIMARY_KEY=#collecting_event_id# and
 							MEDIA_RELATIONSHIP like '% collecting_event'
 					</cfquery>
-							<!---------
 					
 		
 					<div style="border:1px solid green">
@@ -323,7 +322,7 @@
 						<tr>
 							<td></td>
 							<td id="SDCellRight" class="detailCellSmall">
-								assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')##
+								assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')#
 							</td>
 						</tr>
 						<tr class="detailData">
@@ -485,7 +484,8 @@
 						</div>
 						
 						
-					
+												<!---------
+
 	
 		,
 		locality.DEC_LAT,
@@ -651,7 +651,7 @@
 				</div>
 			</div>
 <!------------------------------------ preparators ---------------------------------------------->
-			<cfif len(preps.preparators) gt 0>
+			<cfif len(preparators) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Preparators
 						<cfif oneOfUs is 1>
