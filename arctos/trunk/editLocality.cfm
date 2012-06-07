@@ -251,31 +251,22 @@
 		</cfif>	
 	</span>
 	<br>
-    <span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
-	<p><strong>Higher Geography</strong></p>
-	<form name="geog" action="editLocality.cfm" method="post">
-		<input type="hidden" name="action" value="changeGeog">
-           <input type="hidden" name="geog_auth_rec_id">
-           <input type="hidden" name="locality_id" value="#locDet.locality_id#">
-		<label for="higher_geog">Higer Geography</label>
-        <input type="text" name="higher_geog" id="higher_geog" value="#locDet.higher_geog#" size="120" class="readClr" readonly="yes">
-        <input type="hidden" name="state_prov" id="state_prov" value="#locDet.state_prov#">
-		<input type="hidden" name="country" id="country" value="#locDet.country#">
-		<input type="hidden" name="county" id="county" value="#locDet.county#">
-		<input type="button" value="Change" class="picBtn" id="changeGeogButton"
-			onclick="document.getElementById('saveGeogChangeButton').style.display='';document.getElementById('higher_geog').className='red';GeogPick('geog_auth_rec_id','higher_geog','geog'); return false;">
-		<input type="submit" value="Save" class="savBtn" id="saveGeogChangeButton" style="display:none">
-		<input type="button" value="Edit" class="lnkBtn"
-			onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
-	</form>
-	</span>
-	<br>
+  
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<p><strong>Locality</strong></p>
 	<form name="locality" method="post" action="editLocality.cfm">
        	<input type="hidden" name="action" value="saveLocalityEdit">
         <input type="hidden" name="locality_id" value="#locDet.locality_id#">
-       	<label for="spec_locality" class="likeLink" onClick="getDocs('locality','specific_locality')">
+           <input type="hidden" name="geog_auth_rec_id" value="#locDet.geog_auth_rec_id#">
+       	<label for="higher_geog">Higer Geography</label>
+		<input type="text" name="higher_geog" id="higher_geog" value="#locDet.higher_geog#" size="120" class="readClr" readonly="yes">
+        <input type="button" value="Change" class="picBtn" id="changeGeogButton"
+			onclick="document.getElementById('saveGeogChangeButton').style.display='';document.getElementById('higher_geog').className='red';GeogPick('geog_auth_rec_id','higher_geog','locality'); return false;">
+		<input type="button" value="Edit" class="lnkBtn"
+			onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
+		
+		
+		<label for="spec_locality" class="likeLink" onClick="getDocs('locality','specific_locality')">
 			Specific Locality
 		</label>
 		<input type="text"id="spec_locality" name="spec_locality" value="#stripQuotes(locDet.spec_locality)#" size="120">
@@ -599,33 +590,35 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif action is "changeGeog">
-	<cfoutput>
-		<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			UPDATE locality SET geog_auth_rec_id=#geog_auth_rec_id# where locality_id=#locality_id#
-		</cfquery>	
-		<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
-	</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveLocalityEdit">
 	<cfoutput>
-	<cfif len(MINIMUM_ELEVATION) gt 0 OR 
-			len(MAXIMUM_ELEVATION) gt 0>
-		<cfif len(ORIG_ELEV_UNITS) is 0>
-			You must provide elevation units if you provide elevation data!
-			<cfabort>
-		</cfif>
+
+	<cfset sql = "UPDATE locality SET GEOG_AUTH_REC_ID = #GEOG_AUTH_REC_ID#">
+	<cfset sql = "#sql#,ORIG_ELEV_UNITS = '#ORIG_ELEV_UNITS#'">
+	<cfset sql = "#sql#,MAX_ERROR_UNITS = '#MAX_ERROR_UNITS#'">
+	<cfset sql = "#sql#,DATUM = '#DATUM#'">
+	<cfset sql = "#sql#,georeference_source = '#georeference_source#'">
+	<cfset sql = "#sql#,georeference_protocol = '#georeference_protocol#'">
+	<cfset sql = "#sql#,locality_name = '#locality_name#'">
+
+	<cfif len(MAX_ERROR_DISTANCE) gt 0>
+		<cfset sql = "#sql#,MAX_ERROR_DISTANCE = #MAX_ERROR_DISTANCE#">
+	<cfelse>
+		<cfset sql = "#sql#,MAX_ERROR_DISTANCE = null">
 	</cfif>
-	<cfif len(ORIG_ELEV_UNITS) gt 0>
-		<cfif len(MINIMUM_ELEVATION) is 0 AND 
-			len(MAXIMUM_ELEVATION) is 0>
-			You can't provide elevation units if you don't provide elevation data!
-			<cfabort>
-		</cfif>
+	
+	<cfif len(DEC_LAT) gt 0>
+		<cfset sql = "#sql#,DEC_LAT = #DEC_LAT#">
+	<cfelse>
+		<cfset sql = "#sql#,DEC_LAT = null">
 	</cfif>
-	<cfset sql = "UPDATE locality SET locality_id = #locality_id#">
-	<cfif len(#spec_locality#) gt 0>
+	<cfif len(DEC_LONG) gt 0>
+		<cfset sql = "#sql#,DEC_LONG = #DEC_LONG#">
+	<cfelse>
+		<cfset sql = "#sql#,DEC_LONG = null">
+	</cfif>
+	
+	<cfif len(spec_localit#) gt 0>
 		<cfset sql = "#sql#,spec_locality = '#escapeQuotes(spec_locality)#'">
 	  <cfelse>
 		<cfset sql = ",spec_locality=null">
@@ -665,11 +658,9 @@
 	<cfelse>
 		<cfset sql = "#sql#,LOCALITY_REMARKS = null">
 	</cfif>
-	<cfif len(#NoGeorefBecause#) gt 0>
-		<cfset sql = "#sql#,NoGeorefBecause = '#escapeQuotes(NoGeorefBecause)#'">
-	<cfelse>
-		<cfset sql = "#sql#,NoGeorefBecause = null">
-	</cfif>
+	
+	
+	
 	<cfset sql = "#sql# where locality_id = #locality_id#">
 	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#		
