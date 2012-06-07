@@ -20,7 +20,8 @@
 		minimum_elevation,
 		maximum_elevation,
 		orig_elev_units,
-		concatGeologyAttributeDetail(locality.locality_id) geolAtts
+		concatGeologyAttributeDetail(locality.locality_id) geolAtts,
+			specimen_event_type
 	from 
 		geog_auth_rec,
 		locality,
@@ -182,7 +183,7 @@
 	higher_geog,
 	spec_locality,
 	verbatim_locality,
-	verbatimLatitude">
+	verbatim_coordinates">
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
