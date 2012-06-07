@@ -126,6 +126,8 @@
 		collecting_event.locality_id=locality.locality_id and
 		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 		specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
+	order by
+		specimen_event_type
 </cfquery>		 
 <style>
 	.acceptedIdDiv {
@@ -310,14 +312,12 @@
 					</cfquery>
 					
 		
-					<div style="border:1px solid green">
+					<div style="border:1px solid green; margin:1em;">
 		
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination Type:</td>
-							<td id="SDCellRight">
-								#specimen_event_type#
-							</td>
+							<td id="SDCellRight">#specimen_event_type#</td>
 						</tr>
 						<tr>
 							<td></td>
@@ -431,131 +431,116 @@
 								</tr>
 							</div>
 						</cfif>
-						
-						
-						
-						
-						<div class="detailBlock">
-							<tr class="detailData">
-								<td>
-									<table width="100%">
-										<tr>
-											<td valign="top" align="right"><!---- text stuff here ---->
-												<table>
-													<cfif len(verbatim_coordinates) gt 0>
-														<tr>
-															<td align="right">Coordinates</td>
-															<td align="left">#verbatim_coordinates#</td>
-														</tr>
-													</cfif>
-													<cfif len(DATUM) gt 0>
-														<tr>
-															<td align="right">DATUM</td>
-															<td align="left">#DATUM#</td>
-														</tr>
-													</cfif>
-													<cfif len(ORIG_LAT_LONG_UNITS) gt 0>
-														<tr>
-															<td align="right">ORIG_LAT_LONG_UNITS</td>
-															<td align="left">#ORIG_LAT_LONG_UNITS#</td>
-														</tr>
-													</cfif>
-													<cfif len(orig_elev_units) gt 0>
-														<tr>
-															<td align="right">Elevation</td>
-															<td align="left">#minimum_elevation# to #maximum_elevation# #orig_elev_units#</td>
-														</tr>
-													</cfif>
-													<cfif len(DEPTH_UNITS) gt 0>
-														<tr>
-															<td align="right">Depth</td>
-															<td align="left">#MIN_DEPTH# to #MAX_DEPTH# #DEPTH_UNITS#</td>
-														</tr>
-													</cfif>
-													<cfif len(MAX_ERROR_UNITS) gt 0>
-														<tr>
-															<td align="right">Error:</td>
-															<td align="left">#MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</td>
-														</tr>
-													</cfif>
-													<cfif len(georeference_source) gt 0>
-														<tr>
-															<td align="right">georeference_source</td>
-															<td align="left">#georeference_source#</td>
-														</tr>
-													</cfif>
-													<cfif len(georeference_protocol) gt 0>
-														<tr>
-															<td align="right">georeference_protocol</td>
-															<td align="left">#georeference_protocol#</td>
-														</tr>
-													</cfif>
-													
-												</table>
-											</td>
-											<td valign="top" align="right"><!---- map here --->
-												 <cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-													<cfset iu="http://maps.google.com/maps/api/staticmap?center=#dec_lat#,#dec_long#">
-													<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
-													<cfset iu=iu & "&maptype=roadmap">
-													<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">
-														<img src="#iu#" alt="Click for BerkeleyMapper">
-													</a>
-												</cfif>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						
-						
-								
-						
-						
-						
-						
-						
-						<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select * from 
-						geology_attributes,
-						preferred_agent_name
-						where
-						geology_attributes.GEO_ATT_DETERMINER_ID=preferred_agent_name.agent_id (+) and
-						 locality_id=#locality_id#
-					</cfquery>
-					<cfloop query="geology">
-					<tr>
-						 <td id="SDCellLeft" class="innerDetailLabel">#GEOLOGY_ATTRIBUTE#:</td>
-						 <td id="SDCellRight">
-							 #GEO_ATT_VALUE#								 
-						</td>
 						<tr>
-							<td></td>
-							<td id="SDCellRight" class="detailCellSmall">
-								Determined by 
-								<cfif len(agent_name) gt 0>
-									#agent_name#
-								<cfelse>
-									unknown
-								</cfif>
-								<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
-									on #dateformat(GEO_ATT_DETERMINED_DATE,"yyyy-mm-dd")#
-								</cfif>
-								<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
-									Method: #GEO_ATT_DETERMINED_METHOD#
-								</cfif>
-								<cfif len(GEO_ATT_REMARK) gt 0>
-									Remark: #GEO_ATT_REMARK#
-								</cfif>
+							<td>
+								<table width="100%">
+									<tr>
+										<td valign="top" align="right"><!---- text stuff here ---->
+											<table>
+												<cfif len(verbatim_coordinates) gt 0>
+													<tr>
+														<td align="right">Coordinates</td>
+														<td align="left">#verbatim_coordinates#</td>
+													</tr>
+												</cfif>
+												<cfif len(DATUM) gt 0>
+													<tr>
+														<td align="right">DATUM</td>
+														<td align="left">#DATUM#</td>
+													</tr>
+												</cfif>
+												<cfif len(ORIG_LAT_LONG_UNITS) gt 0>
+													<tr>
+														<td align="right">ORIG_LAT_LONG_UNITS</td>
+														<td align="left">#ORIG_LAT_LONG_UNITS#</td>
+													</tr>
+												</cfif>
+												<cfif len(orig_elev_units) gt 0>
+													<tr>
+														<td align="right">Elevation</td>
+														<td align="left">#minimum_elevation# to #maximum_elevation# #orig_elev_units#</td>
+													</tr>
+												</cfif>
+												<cfif len(DEPTH_UNITS) gt 0>
+													<tr>
+														<td align="right">Depth</td>
+														<td align="left">#MIN_DEPTH# to #MAX_DEPTH# #DEPTH_UNITS#</td>
+													</tr>
+												</cfif>
+												<cfif len(MAX_ERROR_UNITS) gt 0>
+													<tr>
+														<td align="right">Error:</td>
+														<td align="left">#MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</td>
+													</tr>
+												</cfif>
+												<cfif len(georeference_source) gt 0>
+													<tr>
+														<td align="right">georeference_source</td>
+														<td align="left">#georeference_source#</td>
+													</tr>
+												</cfif>
+												<cfif len(georeference_protocol) gt 0>
+													<tr>
+														<td align="right">georeference_protocol</td>
+														<td align="left">#georeference_protocol#</td>
+													</tr>
+												</cfif>
+												
+											</table>
+										</td>
+										<td valign="top" align="right"><!---- map here --->
+											 <cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
+												<cfset iu="http://maps.google.com/maps/api/staticmap?center=#dec_lat#,#dec_long#">
+												<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
+												<cfset iu=iu & "&maptype=roadmap">
+												<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">
+													<img src="#iu#" alt="Click for BerkeleyMapper">
+												</a>
+											</cfif>
+										</td>
+									</tr>
+								</table>
 							</td>
 						</tr>
-					</cfloop>
-					
-					
-						
+						<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							select * from 
+							geology_attributes,
+							preferred_agent_name
+							where
+							geology_attributes.GEO_ATT_DETERMINER_ID=preferred_agent_name.agent_id (+) and
+							 locality_id=#locality_id#
+						</cfquery>
+						<cfloop query="geology">
+							<tr>
+								 <td id="SDCellLeft" class="innerDetailLabel">#GEOLOGY_ATTRIBUTE#:</td>
+								 <td id="SDCellRight">
+									 #GEO_ATT_VALUE#								 
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td id="SDCellRight" class="detailCellSmall">
+									Determined by 
+									<cfif len(agent_name) gt 0>
+										#agent_name#
+									<cfelse>
+										unknown
+									</cfif>
+									<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
+										on #dateformat(GEO_ATT_DETERMINED_DATE,"yyyy-mm-dd")#
+									</cfif>
+									<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
+										Method: #GEO_ATT_DETERMINED_METHOD#
+									</cfif>
+									<cfif len(GEO_ATT_REMARK) gt 0>
+										Remark: #GEO_ATT_REMARK#
+									</cfif>
+								</td>
+							</tr>
+						</cfloop>
 					</table>
-					</div>
-				</cfloop>
+				</div>
+			</cfloop>
 				
 				
 								
