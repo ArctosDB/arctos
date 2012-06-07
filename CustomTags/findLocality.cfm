@@ -14,40 +14,25 @@
 		verbatim_locality,
 		collecting_source,
 		collecting_method,
-		CASE orig_lat_long_units
-			WHEN 'decimal degrees' THEN dec_lat || 'd'
-			WHEN 'deg. min. sec.' THEN lat_deg || 'd ' || lat_min || 'm ' || lat_sec || 's ' || lat_dir
-			WHEN 'degrees dec. minutes' THEN lat_deg || 'd ' || dec_lat_min || 'm ' || lat_dir
-		END VerbatimLatitude,
-		CASE orig_lat_long_units
-			WHEN 'decimal degrees' THEN dec_long || 'd'
-			WHEN'degrees dec. minutes' THEN long_deg || 'd ' || dec_long_min || 'm ' || long_dir
-			WHEN 'deg. min. sec.' THEN long_deg || 'd ' || long_min || 'm ' || long_sec || 's ' || long_dir
-		END VerbatimLongitude,
-		nogeorefbecause,
+		Verbatim_coordinates,
 		max_error_distance,
 		max_error_units,
-		lat_long_ref_source,
-        determined_date,
 		minimum_elevation,
 		maximum_elevation,
 		orig_elev_units,
-        coordDet.agent_name coordinateDeterminer,
 		concatGeologyAttributeDetail(locality.locality_id) geolAtts
 	from 
 		geog_auth_rec,
 		locality,
-		accepted_lat_long,
-        preferred_agent_name coordDet,
 		collecting_event,
+		specimen_event,
 		geology_attributes,
 		cataloged_item
 	where
 		geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and
-		locality.locality_id = accepted_lat_long.locality_id (+) and
-        accepted_lat_long.determined_by_agent_id = coordDet.agent_id (+) and
 		locality.locality_id=collecting_event.locality_id (+) and
-		collecting_event.collecting_event_id = cataloged_item.collecting_event_id (+) and
+		collecting_event.collecting_event_id = specimen_event.collecting_event_id (+) and
+		specimen_event.collection_object_id=cataloged_item.collection_object_id (+) and
 		locality.locality_id = geology_attributes.locality_id (+) ">
 
 <cfif isdefined("collection_id") and len(collection_id) gt 0>
