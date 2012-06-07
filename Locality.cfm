@@ -653,7 +653,7 @@
 		<div style="border:2px solid black">
 			<label for="orig_lat_long_units">orig_lat_long_units</label>
 			<select name="orig_lat_long_units" id="orig_lat_long_units" size="1" class="reqdClr" onchange="showLLFormat(this.value);">
-				<option>none</option>
+				<option value="">none</option>
 				<cfloop query="ctlat_long_units">
 					<option 
 						<cfif ctlat_long_units.orig_lat_long_units is locDet.orig_lat_long_units> selected="selected" </cfif>
@@ -662,7 +662,7 @@
 			</select>
 			<label for="datum">datum</label>
 			<select name="datum" id="datum" size="1" class="reqdClr">
-				<option>none</option>
+				<option value="">none</option>
 				<cfloop query="ctdatum">
 					<option 
 						<cfif ctdatum.datum is locDet.datum> selected="selected" </cfif>
