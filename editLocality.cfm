@@ -2,22 +2,13 @@
 <cfoutput>
 	<script>
 		function useGL(glat,glon,gerr){
-			showLLFormat('decimal degrees','');
-			$("##accepted_lat_long_fg").val('1');
-			$("##determined_by").val('#session.username#');
-			$("##determined_by_agent_id").val('#session.myAgentId#');
-			$("##determined_date").val('#dateformat(now(),"yyyy-mm-dd")#');
 			$("##MAX_ERROR_DISTANCE").val(gerr);
 			$("##MAX_ERROR_UNITS").val('m');
 			$("##DATUM").val('World Geodetic System 1984');
 			$("##georefMethod").val('GeoLocate');
-			$("##extent").val('');
-			$("##GpsAccuracy").val('');
-			$("##VerificationStatus").val('unverified');
 			$("##LAT_LONG_REF_SOURCE").val('GeoLocate');
 			$("##dec_lat").val(glat);
 			$("##dec_long").val(glon);
-			$(document).scrollTo( $('##newLL'), 800 );
 			closeGeoLocate();
 		}
 	</script>
@@ -31,9 +22,6 @@
 		$("select[id^='geology_attribute_']").each(function(e){
 			populateGeology(this.id);			
 		});
-		$.each($("input[id^='determined_date']"), function() {
-			$("#" + this.id).datepicker();
-	    });
 	    $.each($("input[id^='geo_att_determined_date_']"), function() {
 			$("#" + this.id).datepicker();
 	    });
@@ -137,44 +125,7 @@
 			}
 		);
 	}	
-	function showLLFormat(orig_units,recID) {
-		if (recID.length == 0) {
-			var addNewLL = document.getElementById('addNewLL');
-			addNewLL.style.display='none';
-			var llMeta = document.getElementById('llMeta');
-			llMeta.style.display='';
-		}
-		var dd = 'dd' + recID;
-		var dd = document.getElementById(dd);
-		var utm = 'utm' + recID;
-		var utm = document.getElementById(utm);
-		var dms = 'dms' + recID;
-		var dms = document.getElementById(dms);
-		var ddm = 'ddm' + recID;
-		var ddm = document.getElementById(ddm);
-		dd.style.display='none';
-		utm.style.display='none';
-		ddm.style.display='none';
-		dms.style.display='none';
-		if (orig_units.length > 0) {
-			if (orig_units == 'decimal degrees') {
-				dd.style.display='';
-			} 
-			else if (orig_units == 'UTM') {
-				utm.style.display='';
-			}
-			else if (orig_units == 'degrees dec. minutes') {
-				ddm.style.display='';
-			}
-			else if (orig_units == 'deg. min. sec.') {
-				dms.style.display='';
-			}
-			else {
-				alert('I have no idea what to do with ' + orig_units);
-			}		
-		}
-		$("#ORIG_LAT_LONG_UNITS").val(orig_units);
-	}
+
 	function cloneLocality(locality_id) {
 		if(confirm('Do you want to create a copy of this locality which you may then edit?')) {
 			var rurl='editLocality.cfm?action=clone&locality_id=' + locality_id;
