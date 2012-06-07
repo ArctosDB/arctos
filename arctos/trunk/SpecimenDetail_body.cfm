@@ -77,7 +77,7 @@
 		SPECIMEN_EVENT_ID,
 		collecting_event_id,
 		assigned_by_agent_id,
-		getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name
+		getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name,
 		assigned_date,
 		specimen_event_remark,
 		specimen_event_type,
