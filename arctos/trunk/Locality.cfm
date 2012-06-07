@@ -73,6 +73,10 @@
 <cfquery name="ctlat_long_units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select ORIG_LAT_LONG_UNITS from ctlat_long_units order by ORIG_LAT_LONG_UNITS
 </cfquery>
+<cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select datum from ctdatum order by datum
+</cfquery>
+
 
 
 <!---------------------------------------------------------------------------------------------------->
