@@ -1335,7 +1335,7 @@ INSERT INTO geog_auth_rec (
 			<td>
 				 <div class="smaller">
 				 #spec_locality# <cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
-					<cfif len(#VerbatimLatitude#) gt 0>
+					<cfif len(#Verbatim_coordinates#) gt 0>
 						<br>#Verbatim_coordinates#
 					</cfif> 
 					(<a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a>)
@@ -1353,11 +1353,7 @@ INSERT INTO geog_auth_rec (
 		</tr>
 	</cfloop>
 </table>
-			<input type="submit" 
-				value="Move These Collecting Events to new Locality" 
-				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'" 
-				onmouseout="this.className='savBtn'" />
+			<input type="submit" value="Move These Collecting Events to new Locality" class="savBtn">
 		</form>
 	</cfoutput>
 </cfif>
