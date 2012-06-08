@@ -3,7 +3,7 @@
 
 <!------------------------------------------------------------------->
 <cffunction name="getLocalityContents" access="public">	
-	<cfargument name="collecting_event_id" type="numeric" required="yes">
+	<cfargument name="locality_id" type="numeric" required="yes">
 	<cfquery name="whatSpecs" datasource="uam_god">
 	  	SELECT 
 	  		count(cat_num) as numOfSpecs, 
@@ -38,7 +38,7 @@
 	<cfoutput>
 		<cfsavecontent variable="return">
 			<span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
-				This Locality (#collecting_event_id#) 
+				This Locality (#locality_id#) 
 				<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
 				<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
 					nothing. Please delete it if you don't have plans for it.
