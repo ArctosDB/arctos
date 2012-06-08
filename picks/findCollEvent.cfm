@@ -74,7 +74,7 @@
 				<td>
 					<input type="button" value="UseThis" class="savBtn"
 						onclick="javascript: opener.document.#formName#.#collIdFld#.value='#collecting_event_id#'; 
-							opener.document.#formName#.#dispField#.value='#URLEncodedFormat(verbatim_locality)#';
+							opener.document.#formName#.#dispField#.value='#jsescape(verbatim_locality)#';
 							self.close();">
 				</td>
 			</tr>
