@@ -57,6 +57,13 @@
 							<td>#exception.Sql#</td>
 						</tr>
 					</cfif>
+					<cfif isdefined("exception.cause.tagcontext[1].line")>
+						<tr>
+							<td>Line</td>
+							<td>#exception.cause.tagcontext[1].line#</td>
+						</tr>
+					</cfif>
+					
 					<cfif isdefined("cgi.redirect_url")>
 						<tr>
 							<td>Path</td>
