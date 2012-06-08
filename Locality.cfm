@@ -501,6 +501,7 @@
 			locality.locality_id=collecting_event.locality_id and
 			collecting_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
     </cfquery>
+	<!----
 	<cfquery name="whatSpecs" datasource="uam_god">
 	  	SELECT 
 	  		count(cat_num) as numOfSpecs, 
@@ -552,6 +553,13 @@
 			</ul>
 		</cfif>
 	</div>
+	---->
+	<cfinvoke component="component.functions" method="getEventContents">
+	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#" returnVariable="contents">
+	</cfinvoke>
+	
+	--#contents#--
+
 	<form name="localitypick" action="Locality.cfm" method="post">
 		<input type="hidden" name="Action" value="changeLocality">
     	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
