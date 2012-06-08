@@ -72,12 +72,10 @@
 						</tr>
 						</cfloop>
 						---->
-						<cfloop index="stack" from="1" to="#arrayLen(exception.tagContext)#">
 						<tr>
 							<td>Line</td>
 							<td>#exception.tagContext[1].line#</td>
 						</tr>
-						</cfloop>
 					</cfif>
 
 
