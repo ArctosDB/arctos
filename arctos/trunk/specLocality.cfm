@@ -554,6 +554,18 @@ function useGL(glat,glon,gerr){
 				<li>DATUM: #DATUM#</li>
 				<li>ORIG_LAT_LONG_UNITS: #ORIG_LAT_LONG_UNITS#</li>
 			</ul>
+			
+			
+			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
+	</cfform>
+	
+	</td>
+	<td valign="top">
+		<h4>Geography</h4>
+			<ul>
+				<li>#higher_geog#</li>
+			</ul>
+			
 			<h4>Locality</h4>
 			<cfinvoke component="component.functions" method="getLocalityContents" returnvariable="contents">
 			    <cfinvokeargument name="locality_id" value="#locality_id#">
@@ -594,15 +606,9 @@ function useGL(glat,glon,gerr){
 					<li>GEO_ATT_REMARK: #GEO_ATT_REMARK#</li>
 				</cfloop>
 			</ul>
-			<h4>Geography</h4>
-			<ul>
-				<li>#higher_geog#</li>
-			</ul>
-			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
-	</cfform>
-	
-	</td>
-	<td valign="top">rightcolumn</td>	
+			
+			
+	</td>	
 	</tr></table>
 	</div>
 		<cfset f=f+1>
