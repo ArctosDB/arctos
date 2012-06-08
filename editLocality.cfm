@@ -254,25 +254,21 @@
 	<br>
   
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
-	<table><tr><td valign="top">
+	<table width="100%"><tr><td valign="top">
 	<p><strong>Locality</strong></p>
 	<form name="locality" method="post" action="editLocality.cfm">
         <input type="hidden" id="state_prov" name="state_prov" value="#locDet.state_prov#">
         <input type="hidden" id="country" name="country" value="#locDet.country#">
         <input type="hidden" id="county" name="county" value="#locDet.county#">
-       	
-		
 		<input type="hidden" name="action" value="saveLocalityEdit">
         <input type="hidden" name="locality_id" value="#locDet.locality_id#">
-           <input type="hidden" name="geog_auth_rec_id" value="#locDet.geog_auth_rec_id#">
+        <input type="hidden" name="geog_auth_rec_id" value="#locDet.geog_auth_rec_id#">
        	<label for="higher_geog">Higer Geography</label>
 		<input type="text" name="higher_geog" id="higher_geog" value="#locDet.higher_geog#" size="120" class="readClr" readonly="yes">
         <input type="button" value="Change" class="picBtn" id="changeGeogButton"
 			onclick="GeogPick('geog_auth_rec_id','higher_geog','locality'); return false;">
 		<input type="button" value="Edit" class="lnkBtn"
 			onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
-		
-		
 		<label for="spec_locality" class="likeLink" onClick="getDocs('locality','specific_locality')">
 			Specific Locality
 		</label>
@@ -386,18 +382,13 @@
 					<cfif locDet.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
 					value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 			</cfloop>
-		</select>
-				
-					   
+		</select>	   
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
 		<input type="button" value="Add Collecting Event" class="insBtn" 
 			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
 		<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
-		
-		
-		
 	</form>
 	</td><td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
