@@ -496,6 +496,9 @@ function useGL(glat,glon,gerr){
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
 			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#l.specimen_event_remark#">
 			
+			<label for="habitat" class="infoLink">habitat</label>
+			<input type="text" name="habitat" id="habitat" value="#l.habitat#">
+			
 			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
 			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
 				<option value=""></option>
