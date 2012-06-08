@@ -35,7 +35,8 @@
 			locality_id,
 			spec_locality,
 			higher_geog,
-			dec_lat,dec_long,
+			dec_lat,
+			dec_long,
 			minimum_elevation,
 			maximum_elevation,
 			orig_elev_units,
@@ -43,7 +44,8 @@
 			georeference_protocol,
 			locality_name,
 			geolAtts
-		from localityResults
+		from 
+			localityResults
 		group by
 			locality_id,
 			geog_auth_rec_id,
