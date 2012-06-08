@@ -468,6 +468,7 @@ function useGL(glat,glon,gerr){
 	<cfset f=1>
 	<cfloop query="l">
 		<div style="border:2px solid black; margin:1em;padding:1em;">
+		<table><tr><td>
 		<cfform name="loc#f#" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
@@ -599,6 +600,10 @@ function useGL(glat,glon,gerr){
 			</ul>
 			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
 	</cfform>
+	
+	</td>
+	<td valign="top">rightcolumn</td>	
+	</tr></table>
 	</div>
 		<cfset f=f+1>
 	</cfloop>
