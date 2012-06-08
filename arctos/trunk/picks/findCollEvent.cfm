@@ -18,76 +18,13 @@
 	<cf_findLocality>
 	<table border>
 		<tr>
-						
-			<tr>
-			<td rowspan="3"> <b>Geog</b></td>
-			<td rowspan="3"><b>Locality</b></td>
-			<td rowspan="3">&nbsp;
-			
-			</td>
-			<td><b>Verb. Loc.</b></td>
-			<td><strong>Coll Date</strong></td>
-			</tr>
-		<tr>
-			
-			<td>
-				<strong>Feature</strong>
-			</td>
-			<td>
-				<strong>Island</strong>
-			</td>
+			<th>Geog</th>
+			<th>Locality</th>
+			<th>Event</th>
+			<th>ctl</th>
 		</tr>
-		<tr>
-			
-			<td colspan="2">
-				<strong>Coordinates</strong>
-			</td>
-		</tr>
-		
-		
-		
-	<cfset i = 1>
-	<cfloop query="localityResults">
-		 <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-			<td rowspan="3"> 
-				<font size="-2">
-					#higher_geog# 
-					(<a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#" 
-						target="_blank">#geog_auth_rec_id#</a>)
-				</font></td>
-			<td rowspan="3">
-				<font size="-2">
-					#spec_locality# 
-					(<a href="/Locality.cfm?Action=editLocality&locality_id=#locality_id#" 
-						target="_blank">#locality_id#</a>)
-				</font>
-</td>
-			<td rowspan="3">
-			<form name="coll#i#" method="post" action="">
-				<input type="hidden" name="formName" value="#formName#">
-				<input type="hidden" name="collIdFld" value="#collIdFld#">
-				<input type="hidden" name="dispField" value="#dispField#">
-				<input type="hidden" name="action" value="updateCollEvent">
-				<table cellpadding="0" cellspacing="0">
-				<tr>
-					<td>
-						<input type="button" 
-							value="Select" 
-							class="savBtn"
-							onmouseover="this.className='savBtn btnhov'" 
-							onmouseout="this.className='savBtn'"
-							onclick="javascript: opener.document.#formName#.#collIdFld#.value='#collecting_event_id#'; 
-								opener.document.#formName#.#dispField#.value='#URLEncodedFormat(verbatim_locality)#';
-								self.close();">
-					</td>
-				</tr>
-			</table>
-			
-						
-						
-			</form>
-			</td>
-			<td>#verbatim_locality#</td>
+		<cfset i = 1>
+		<cfloop query="localityResults">
 			<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
 					<cfset thisDate = began_date>
 			<cfelseif (
@@ -100,29 +37,49 @@
 			<cfelse>
 					<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
 			</cfif>
-			
-			<td>#thisDate#</td>
+		 	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+		 		<td>
+					<span style="font-size:x-small">
+						#higher_geog#
+						(<a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#" 
+						target="_blank">#geog_auth_rec_id#</a>)
+					</span>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td valign="top">
+								<span style="font-size:x-small">
+									#spec_locality#
+									(<a href="/Locality.cfm?Action=editLocality&locality_id=#locality_id#" 
+									target="_blank">#locality_id#</a>)
+								<br>Feature: #feature#
+								<br>Island: #island#
+								</span>
+							</td>
+							<td>
+								<cfif len(DEC_LAT) gt 0>
+									<cfset iu="http://maps.google.com/maps/api/staticmap?center=#DEC_LAT#,#DEC_LONG#">
+									<cfset iu=iu & "&markers=color:red|size:tiny|#DEC_LAT#,#DEC_LONG#&sensor=false&size=200x200&zoom=2&maptype=roadmap">
+									<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+								</cfif>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					#verbatim_locality#
+					<br>#thisDate#
+				</td>
+				<td>
+					<input type="button" value="UseThis" class="savBtn"
+						onclick="javascript: opener.document.#formName#.#collIdFld#.value='#collecting_event_id#'; 
+							opener.document.#formName#.#dispField#.value='#URLEncodedFormat(verbatim_locality)#';
+							self.close();">
+				</td>
 			</tr>
-		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-			
-			<td>
-				#feature#
-			</td>
-			<td>
-				#island#
-			</td>
-		</tr>
-		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-			
-			<td colspan="2">
-				<font size="-1">
-					#Verbatim_coordinates# &plusmn; #max_error_distance# #max_error_units# <em><strong>Ref:</strong></em>
-				</font>
-			</td>
-		</tr>
-	<cfset i=#i#+1>
-	</cfloop>
-		
+		<cfset i=i+1>
+		</cfloop>
 	</table>
 	</cfoutput>
 </cfif>
