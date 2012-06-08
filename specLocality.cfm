@@ -451,63 +451,113 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 			<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
 			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
-			<table>
-				<tr>
-					<td valign="top">
-<!-------------------------------- left half of page ---------------------------------------------------->
-<!-------------------------- specimen_event -------------------------->
-<h4>Specimen/Event</h4>
-<label for="specimen_event_type">specimen_event_type</label>
-<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
-	<cfloop query="ctspecimen_event_type">
-		<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
-			value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
-    </cfloop>
-</select>
+		
+			<!-------------------------- specimen_event -------------------------->
+			<h4>Specimen/Event</h4>
+			<label for="specimen_event_type">specimen_event_type</label>
+			<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
+				<cfloop query="ctspecimen_event_type">
+					<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
+						value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+			    </cfloop>
+			</select>
+			
+			<label for="specimen_event_type">Event Assigned by Agent</label>
+			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
+				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
+				 onKeyPress="return noenter(event);">
+			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
+			
+			<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Date</label>
+			<input type="text" name="assigned_date" id="assigned_date" value="#l.assigned_date#" class="reqdClr">
+			
+			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
+			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#l.specimen_event_remark#">
+			
+			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
+			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+				<option value=""></option>
+				<cfloop query="ctcollecting_source">
+					<option <cfif ctcollecting_source.COLLECTING_SOURCE is l.COLLECTING_SOURCE> selected="selected" </cfif>
+						value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
+				</cfloop>
+			</select>
+			
+			<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
+			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#"  size="75">
+			
+			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
+			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+				<cfloop query="ctVerificationStatus">
+					<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
+						value="#VerificationStatus#">#VerificationStatus#</option>
+				</cfloop>
+			</select>
+			<hr>
+			<h4>Collecting Event</h4>
+			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
+			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
+			</cfinvoke>
+			#contents#
+			<p style="border:2px dashed green; padding:1em; margin:1em; text-align:center;">
+				This may be an edit form eventually, but for now all you can do is pick new events.
+				Please <a href="/contact.cfm" target="_blank">let us know</a> what you'd like to see here.
+			</p>
+			
+			<ul>
+				<li>VERBATIM_DATE: #VERBATIM_DATE#</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			 COLLECTING_EVENT_ID NUMBER NOT NULL,
+    LOCALITY_ID NUMBER NOT NULL,
+     VARCHAR2(60),
+    VERBATIM_LOCALITY VARCHAR2(4000),
+    COLL_EVENT_REMARKS VARCHAR2(4000),
+    BEGAN_DATE VARCHAR2(22),
+    ENDED_DATE VARCHAR2(22),                            
+    verbatim_coordinates VARCHAR2(255),
+    collecting_event_name VARCHAR2(255),
+    LAT_DEG NUMBER,
+    DEC_LAT_MIN NUMBER(8,6),
+    LAT_MIN NUMBER,
+    LAT_SEC NUMBER(8,6),
+    LAT_DIR CHAR(1),
+    LONG_DEG NUMBER,
+    DEC_LONG_MIN NUMBER(10,8),
+    LONG_MIN NUMBER,
+    LONG_SEC NUMBER(8,6),
+    LONG_DIR CHAR(1),
+    DEC_LAT NUMBER(12,10),
+    DEC_LONG  NUMBER(13,10),
+    DATUM VARCHAR2(55),
+    UTM_ZONE VARCHAR2(3),
+    UTM_EW NUMBER,
+    UTM_NS NUMBER,
+    ORIG_LAT_LONG_UNITS VARCHAR2(20),
+    caclulated_dlat NUMBER(12,10),
+    calculated_dlong  NUMBER(13,10)
+);
 
-<label for="specimen_event_type">Event Assigned by Agent</label>
-<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
-	 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
-	 onKeyPress="return noenter(event);">
-<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
-
-<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Date</label>
-<input type="text" name="assigned_date" id="assigned_date" value="#l.assigned_date#" class="reqdClr">
-
-<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
-<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#l.specimen_event_remark#">
-
-<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
-<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
-	<option value=""></option>
-	<cfloop query="ctcollecting_source">
-		<option <cfif ctcollecting_source.COLLECTING_SOURCE is l.COLLECTING_SOURCE> selected="selected" </cfif>
-			value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
-	</cfloop>
-</select>
-
-<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
-<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#"  size="75">
-
-<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
-<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-	<cfloop query="ctVerificationStatus">
-		<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
-			value="#VerificationStatus#">#VerificationStatus#</option>
-	</cfloop>
-</select>
-<hr>
-<h4>Collecting Event</h4>
-<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
-    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
-</cfinvoke>
-
-#contents#
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
 <input type="text" name="habitat" id="habitat" value="#stripQuotes(l.habitat)#"  size="75">
-
-<!-------------------------- collecting_event -------------------------->
-
 
 <label for="verbatim_date" class="infoLink" onClick="getDocs('locality','verbatim_date')">Verbatim Date</a></label>
 <cfinput type="text" name="verbatim_date" id="verbatim_date" value="#stripQuotes(l.verbatim_date)#"  
