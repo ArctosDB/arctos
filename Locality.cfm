@@ -468,6 +468,8 @@
 			max_error_distance,
 			max_error_units,
 			collecting_event_name,
+			locality.DEC_LAT loclat,
+			locality.DEC_LONG loclong,
 			LAT_DEG,
 			DEC_LAT_MIN,
 			LAT_MIN,
@@ -565,8 +567,8 @@
 		Current Locality: 
 		<div id="locDesc">
 			#locDet.higher_geog#
-			<cfif len(locDet.Verbatim_coordinates) gt 0>
-				<br>#locDet.Verbatim_coordinates#
+			<cfif len(locDet.loclat) gt 0>
+					<br>#locDet.loclat# #locDet.loclong#
 				<cfif len(locDet.max_error_distance) gt 0>
 					&##177; #locDet.max_error_distance# #locDet.max_error_units#
 				</cfif>
