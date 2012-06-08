@@ -528,7 +528,7 @@
 				<div id="specific_locality" style="display:none;border:2px solid red;">
 					<label for="picked_spec_locality">
 						If you're seeing this, you've picked the below specloc and havne't saved changes. Save to refresh
-					 	locality information in the right pane.
+					 	locality information in the right pane and get rid of this annoying red box.
 					</label>
 					<input type="text" name="picked_spec_locality" id="picked_spec_locality" size="75" >
 				</div>
@@ -1411,7 +1411,9 @@ INSERT INTO geog_auth_rec (
 					verbatim_locality,
 					began_date,
 					ended_date,
-					verbatim_date
+					verbatim_date,
+					dec_lat,
+					dec_long
 				from localityResults
 				group by 
 					collecting_event_id,
@@ -1424,7 +1426,9 @@ INSERT INTO geog_auth_rec (
 					verbatim_locality,
 					began_date,
 					ended_date,
-					verbatim_date
+					verbatim_date,
+					dec_lat,
+					dec_long
 			</cfquery>
 	
 <table border>
@@ -1446,16 +1450,30 @@ INSERT INTO geog_auth_rec (
 			<td>
 				 <div class="smaller">
 				 #spec_locality# <cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
-					<cfif len(#Verbatim_coordinates#) gt 0>
-						<br>#Verbatim_coordinates#
-					</cfif> 
 					(<a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a>)
-				</div>
-			<!---&nbsp;<a href="/fix/DupLocs.cfm?action=killDups&locid=#locality_id#" target="_blank"><font size="-2"><i>kill dups</i></font></a>---></td>
+				</div>			
+			</td>
+			<td>
+				<cfif len(DEC_LAT) gt 0>
+					<cfset iu="http://maps.google.com/maps/api/staticmap?center=#DEC_LAT#,#DEC_LONG#">
+					<cfset iu=iu & "&markers=color:red|size:tiny|#DEC_LAT#,#DEC_LONG#&sensor=false&size=200x200&zoom=2&maptype=roadmap">
+					<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+					<span style="font-size:small;">
+						<br>#DEC_LAT# / #DEC_LONG#
+						<br>Datum: #DATUM#
+						<br>Error : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+						<br>Georeference Source : #georeference_source#
+						<br>Georeference Protocol : #georeference_protocol#
+					</span>
+				</cfif>
+			</td>
 			<td>
 				<div class="smaller">
 				 	#verbatim_locality#
 					(<a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">#collecting_event_id#</a>)
+					<cfif len(#Verbatim_coordinates#) gt 0>
+						<br>#Verbatim_coordinates#
+					</cfif> 
 				</div>
 			</td>
 			<td>#began_date#</td>
