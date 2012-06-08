@@ -31,30 +31,32 @@
 		GROUP BY 
 			media_id
 	</cfquery>
-	<cfsavecontent variable="return">
-		<div style="border:2px solid red; font-weight:bold">
-			This Collecting Event (#collecting_event_id#) 
-			<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
-			<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
-				nothing. Please delete it if you don't have plans for it.
-			<cfelse>
-				<ul>	
-					<cfloop query="whatSpecs">
-						<li>
-							<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#&collection_id=#collection_id#">
-								#whatSpecs.numOfSpecs# #whatSpecs.collection# specimens
-							</a>
-						</li>
-					</cfloop>
-					<cfif whatMedia.recordcount gt 0>
-						<li>
-							<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
-						</li>
-					</cfif>
-				</ul>
-			</cfif>
-		</div>
-	</cfsavecontent>
+	<cfoutput>
+		<cfsavecontent variable="return">
+			<div style="border:2px solid red; font-weight:bold">
+				This Collecting Event (#collecting_event_id#) 
+				<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
+				<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
+					nothing. Please delete it if you don't have plans for it.
+				<cfelse>
+					<ul>	
+						<cfloop query="whatSpecs">
+							<li>
+								<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#&collection_id=#collection_id#">
+									#whatSpecs.numOfSpecs# #whatSpecs.collection# specimens
+								</a>
+							</li>
+						</cfloop>
+						<cfif whatMedia.recordcount gt 0>
+							<li>
+								<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
+							</li>
+						</cfif>
+					</ul>
+				</cfif>
+			</div>
+		</cfsavecontent>
+	</cfoutput>
 	<cfreturn return>
 </cffunction>
 <!------------------------------------------------------------------->
