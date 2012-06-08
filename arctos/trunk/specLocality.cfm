@@ -1161,23 +1161,10 @@ function useGL(glat,glon,gerr){
 
 </table>
 ----->
-</td>
-	</tr>
-	<tr>
-		<td colspan="2" align="center">
-			<input type="submit" value="Save Changes" class="savBtn"
-   				onmouseover="this.className='savBtn btnhov';this.focus();" onmouseout="this.className='savBtn'">	
-		</td>
-	</tr>
-</table> 
-  	
-	
+			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
 	</cfform>
 	</div>
 	</cfloop>
-	<script>
-		showLLFormat('#l.orig_lat_long_units#');	
-	</script>
 	</cfoutput>
 </cfif> 		
       <!---------------------------------------------------------------------------------------------------->
