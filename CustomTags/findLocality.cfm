@@ -21,7 +21,9 @@
 		maximum_elevation,
 		orig_elev_units,
 		concatGeologyAttributeDetail(locality.locality_id) geolAtts,
-			specimen_event_type
+		specimen_event_type,
+		locality.dec_lat,
+		locality.dec_long
 	from 
 		geog_auth_rec,
 		locality,
