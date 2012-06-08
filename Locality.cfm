@@ -555,7 +555,7 @@
 	</div>
 	---->
 	<cfinvoke component="component.functions" method="getEventContents">
-	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#" returnVariable="contents">
+	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#" name="contents">
 	</cfinvoke>
 	
 	--#contents#--
