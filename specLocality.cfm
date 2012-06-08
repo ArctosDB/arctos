@@ -468,7 +468,7 @@ function useGL(glat,glon,gerr){
 	<cfset f=1>
 	<cfloop query="l">
 		<div style="border:2px solid black; margin:1em;padding:1em;">
-		<table><tr><td>
+		<table border="1"><tr><td>
 		<cfform name="loc#f#" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
