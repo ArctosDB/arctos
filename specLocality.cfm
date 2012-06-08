@@ -605,12 +605,12 @@ function useGL(glat,glon,gerr){
 			collecting_event_id=#collecting_event_id#,
 			assigned_by_agent_id=#assigned_by_agent_id#,
 			assigned_date='#dateformat(assigned_date,"yyyy=mm-dd")#',
-			specimen_event_remark='#escapeQuote(specimen_event_remark)#',
+			specimen_event_remark='#escapeQuotes(specimen_event_remark)#',
 			specimen_event_type='#specimen_event_type#',
-			COLLECTING_METHOD='#escapeQuote(COLLECTING_METHOD)#',
+			COLLECTING_METHOD='#escapeQuotes(COLLECTING_METHOD)#',
 			COLLECTING_SOURCE='#COLLECTING_SOURCE#',
 			VERIFICATIONSTATUS='#VERIFICATIONSTATUS#',
-			habitat='#escapeQuote(habitat)#'
+			habitat='#escapeQuotes(habitat)#'
 		where
 			SPECIMEN_EVENT_ID=#SPECIMEN_EVENT_ID#
 	</cfquery>
