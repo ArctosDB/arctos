@@ -530,8 +530,7 @@ function useGL(glat,glon,gerr){
 			</cfinvoke>
 			#contents#
 			<br>
-			
-			<span class="likeLink" onclick="findCollEvent('collecting_event_id','loc#f#','cepick#f#');">pick new event</span>
+			<button class="picBtn" onclick="findCollEvent('collecting_event_id','loc#f#','cepick#f#');">[ pick new event ]</button>
 			
 			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
 			<input type="text" size="99" name="cepick#f#">
