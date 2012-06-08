@@ -97,7 +97,7 @@
 	</cfquery>
 	<cfoutput>
 		<cfsavecontent variable="return">
-			<div style="border:2px solid red; font-weight:bold">
+			<span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
 				This Collecting Event (#collecting_event_id#) 
 				<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
 				<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
@@ -118,7 +118,7 @@
 						</cfif>
 					</ul>
 				</cfif>
-			</div>
+			</span>
 		</cfsavecontent>
 	</cfoutput>
 	<cfreturn return>
