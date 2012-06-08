@@ -521,20 +521,20 @@ function useGL(glat,glon,gerr){
 						value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
-			<h4>Collecting Event
-			<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">[ Edit Event ]</a>
-			
+			<h4>
+				Collecting Event
+				<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">[ Edit Event ]</a>
 			</h4>
+			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
+			<input type="text" size="50" name="cepick#f#">
+			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc#f#','cepick#f#');">
+			<br>
 			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
 			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
 			</cfinvoke>
 			#contents#
 			<br>
 			
-			
-			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
-			<input type="text" size="50" name="cepick#f#">
-			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc#f#','cepick#f#');">
 			
 			<ul>
 				<li>VERBATIM_DATE: #VERBATIM_DATE#</li>
