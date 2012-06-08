@@ -463,9 +463,10 @@ function useGL(glat,glon,gerr){
 			</cfloop>
 		</ul>
 	</cfif>
+	<cfset f=1>
 	<cfloop query="l">
 		<div style="border:2px solid black; margin:1em;padding:1em;">
-		<cfform name="loc" method="post" action="specLocality.cfm">
+		<cfform name="loc#f#" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -485,7 +486,7 @@ function useGL(glat,glon,gerr){
 			
 			<label for="specimen_event_type">Event Assigned by Agent</label>
 			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
-				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
+				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc#f#',this.value); return false;"
 				 onKeyPress="return noenter(event);">
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
 			
@@ -517,6 +518,11 @@ function useGL(glat,glon,gerr){
 			<hr>
 			<h4>Collecting Event</h4>
 			<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">Edit Event</a>
+			<span class="likeLink" onclick="findCollEvent('#collecting_event_id#','loc#f#','cepick');">pick new event</span>
+			
+
+			<input type="text" name="cepick">
+
 			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
 			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
 			</cfinvoke>
@@ -582,6 +588,13 @@ function useGL(glat,glon,gerr){
 			<ul>
 				<li>#higher_geog#</li>
 			</ul>
+			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
+	</cfform>
+	</div>
+		<cfset f=f+1>
+	</cfloop>
+	</cfoutput>
+</cfif> 		
     	<!--------
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
 <input type="text" name="habitat" id="habitat" value="#stripQuotes(l.habitat)#"  size="75">
@@ -1162,12 +1175,7 @@ function useGL(glat,glon,gerr){
 
 </table>
 ----->
-			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
-	</cfform>
-	</div>
-	</cfloop>
-	</cfoutput>
-</cfif> 		
+
       <!---------------------------------------------------------------------------------------------------->
 <cfif #action# is "saveChange">
 <cfoutput>
