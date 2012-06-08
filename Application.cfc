@@ -262,7 +262,7 @@
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
     <cfelseif serverName is "login.corral.tacc.utexas.edu" or serverName is "altai.corral.tacc.utexas.edu">
-		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
+		<cfset application.gmap_api_key="AIzaSyCoES-wwWe45-9CCFIFjNqTpOpYLZJj99k">
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
 		<cfset Application.bugReportEmail = "dustymc@gmail.com">
