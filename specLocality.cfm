@@ -468,7 +468,7 @@ function useGL(glat,glon,gerr){
 	<cfset f=1>
 	<cfloop query="l">
 		<div style="border:2px solid black; margin:1em;">
-		<table border="1"><tr><td>
+		<table border="1" width="100%"><tr><td>
 		<cfform name="loc#f#" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
@@ -534,16 +534,25 @@ function useGL(glat,glon,gerr){
 			</cfinvoke>
 			#contents#
 			<br>
-			
-			
+		
 			<ul>
-				<li>VERBATIM_DATE: #VERBATIM_DATE#</li>
-				<li>VERBATIM_LOCALITY: #VERBATIM_LOCALITY#</li>
-				<li>BEGAN_DATE: #BEGAN_DATE#</li>
-				<li>ENDED_DATE: #ENDED_DATE#</li>
-				<li>verbatim_coordinates: #verbatim_coordinates#</li>
+				<li>Verbatim Date: #VERBATIM_DATE#</li>
+				<li>Began/Ended Dates: #BEGAN_DATE#-#ENDED_DATE#</li>
+				<cfif len(VERBATIM_LOCALITY) gt 0>
+					<li>Verbatim Locality: #VERBATIM_LOCALITY#</li>
+				</cfif>
+				<cfif len(verbatim_coordinates) gt 0>
+					<li>Verbatim Coordinates: #verbatim_coordinates#</li>
+				</cfif>
+				<cfif len(collecting_event_name) gt 0>
+					<li>Collecting Event Name: #collecting_event_name#</li>
+				</cfif>
+				<cfif len(COLL_EVENT_REMARKS) gt 0>
+					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
+				</cfif>
+				
 				<li>collecting_event_name: #collecting_event_name#</li>
-				<li>COLL_EVENT_REMARKS: #COLL_EVENT_REMARKS#</li>
+				<li>COLL_EVENT_REMARKS: ##</li>
 				<li>DATUM: #DATUM#</li>
 				<li>ORIG_LAT_LONG_UNITS: #ORIG_LAT_LONG_UNITS#</li>
 			</ul>
