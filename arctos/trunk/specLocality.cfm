@@ -517,16 +517,17 @@ function useGL(glat,glon,gerr){
 			</select>
 			<hr>
 			<h4>Collecting Event</h4>
+			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
+			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
+			</cfinvoke>
+			#contents#
 			<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">Edit Event</a>
 			<span class="likeLink" onclick="findCollEvent('collecting_event_id_#f#','loc#f#','cepick#f#');">pick new event</span>
 			
 			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
 			<input type="text" size="99" name="cepick#f#">
 
-			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
-			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
-			</cfinvoke>
-			#contents#
+			
 			<p style="border:2px dashed green; padding:1em; margin:1em; text-align:center;">
 				This may be an edit form eventually, but for now all you can do is pick new events.
 				Please <a href="/contact.cfm" target="_blank">let us know</a> what you'd like to see here.
