@@ -34,7 +34,10 @@
 					<cfif isdefined("exception.cause.message")>
 						<tr>
 							<td>Message</td>
-							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#</td>
+							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
+							<br>
+								#exception.Message#
+							</td>
 						</tr>
 					</cfif>
 					<tr>
