@@ -691,6 +691,7 @@ function useGL(glat,glon,gerr){
 <cfif action is "createSpecEvent">
 	<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into specimen_event (
+			collection_object_id,
 			collecting_event_id,
 			assigned_by_agent_id,
 			assigned_date,
@@ -701,6 +702,7 @@ function useGL(glat,glon,gerr){
 			VERIFICATIONSTATUS,
 			habitat
 		) values (
+			#collection_object_id#,
 			#collecting_event_id#,
 			#assigned_by_agent_id#,
 			'#dateformat(assigned_date,"yyyy=mm-dd")#',
