@@ -497,7 +497,9 @@
 			MIN_DEPTH,
 			MAX_DEPTH,
 			DEPTH_UNITS,
-			LOCALITY_REMARKS
+			LOCALITY_REMARKS,
+			georeference_source,
+			georeference_protocol
 		from 
 			locality,
 			geog_auth_rec,
