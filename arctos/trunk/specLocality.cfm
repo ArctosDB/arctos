@@ -544,7 +544,23 @@ function useGL(glat,glon,gerr){
 				<li>georeference_protocol : #georeference_protocol#</li>
 				<li>locality_name : #locality_name#</li>
 			</ul>
-	
+			
+			<h6>Geology</h6>
+			<ul>
+				<cfloop query="g">
+					<li>GEOLOGY_ATTRIBUTE_ID: #GEOLOGY_ATTRIBUTE_ID#</li>
+					<li>GEOLOGY_ATTRIBUTE: #GEOLOGY_ATTRIBUTE#</li>
+					<li>GEO_ATT_VALUE: #GEO_ATT_VALUE#</li>
+					<li>geo_att_determiner: #geo_att_determiner#</li>
+					<li>GEO_ATT_DETERMINED_DATE: #GEO_ATT_DETERMINED_DATE#</li>
+					<li>GEO_ATT_DETERMINED_METHOD: #GEO_ATT_DETERMINED_METHOD#</li>
+					<li>GEO_ATT_REMARK: #GEO_ATT_REMARK#</li>
+				</cfloop>
+			</ul>
+			<h4>Geography</h4>
+			<ul>
+				<li>#higher_geog#</li>
+			</ul>
     	<!--------
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
 <input type="text" name="habitat" id="habitat" value="#stripQuotes(l.habitat)#"  size="75">
