@@ -521,7 +521,6 @@ function useGL(glat,glon,gerr){
 						value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
-			<hr>
 			<h4>Collecting Event
 			<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">[ Edit Event ]</a>
 			
@@ -534,14 +533,8 @@ function useGL(glat,glon,gerr){
 			
 			
 			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
-			<input type="text" size="99" name="cepick#f#">
+			<input type="text" size="50" name="cepick#f#">
 			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc#f#','cepick#f#');">
-
-			
-			<p style="border:2px dashed green; padding:1em; margin:1em; text-align:center;">
-				This may be an edit form eventually, but for now all you can do is pick new events.
-				Please <a href="/contact.cfm" target="_blank">let us know</a> what you'd like to see here.
-			</p>
 			
 			<ul>
 				<li>VERBATIM_DATE: #VERBATIM_DATE#</li>
