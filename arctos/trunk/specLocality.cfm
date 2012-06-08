@@ -521,6 +521,7 @@ function useGL(glat,glon,gerr){
 			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
 			</cfinvoke>
 			#contents#
+			<br>
 			<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">Edit Event</a>
 			<span class="likeLink" onclick="findCollEvent('collecting_event_id_#f#','loc#f#','cepick#f#');">pick new event</span>
 			
@@ -595,7 +596,29 @@ function useGL(glat,glon,gerr){
 		<cfset f=f+1>
 	</cfloop>
 	</cfoutput>
-</cfif> 		
+</cfif>
+
+
+<cfif action is "saveChange">
+	<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update specimen_event set
+			collecting_event_id=#collecting_event_id#,
+			assigned_by_agent_id=#assigned_by_agent_id#,
+			assigned_date='#dateformat(assigned_date,"yyyy=mm-dd")#',
+			specimen_event_remark='#escapeQuote(specimen_event_remark)#',
+			specimen_event_type='#specimen_event_type#',
+			COLLECTING_METHOD='#escapeQuote(COLLECTING_METHOD)#',
+			COLLECTING_SOURCE='#COLLECTING_SOURCE#',
+			VERIFICATIONSTATUS='#VERIFICATIONSTATUS#',
+			habitat='#escapeQuote(habitat)#'
+		where
+			SPECIMEN_EVENT_ID=#SPECIMEN_EVENT_ID#
+	</cfquery>
+	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+</cfif>
+
+
+		
     	<!--------
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
 <input type="text" name="habitat" id="habitat" value="#stripQuotes(l.habitat)#"  size="75">
@@ -1176,9 +1199,8 @@ function useGL(glat,glon,gerr){
 
 </table>
 ----->
-
-      <!---------------------------------------------------------------------------------------------------->
-<cfif #action# is "saveChange">
+<!---------------------------------------------------------------------------------------------------->
+<cfif #action# is "saveChange___oldBustedThingThatTriedToDoEverything">
 <cfoutput>
 <cfset btime=now()>
 	
