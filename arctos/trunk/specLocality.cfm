@@ -258,7 +258,8 @@ function useGL(glat,glon,gerr){
 			GEO_ATT_DETERMINED_METHOD,
 			GEO_ATT_REMARK,
 			geog_auth_rec.geog_auth_rec_id,
-			higher_geog
+			higher_geog,
+			specimen_event_remark
 		from 
 			geog_auth_rec,
 			locality,
@@ -326,7 +327,8 @@ function useGL(glat,glon,gerr){
 			 habitat,
 			geog_auth_rec_id,
 			higher_geog,
-			specimen_event_id
+			specimen_event_id,
+			specimen_event_remark
 			from raw group by
 			COLLECTING_EVENT_ID,
 			 LOCALITY_ID,
@@ -380,7 +382,8 @@ function useGL(glat,glon,gerr){
 			 habitat,
 			geog_auth_rec_id,
 			higher_geog,
-			specimen_event_id
+			specimen_event_id,
+			specimen_event_remark
 	</cfquery>
 			
 	<cfquery name="g" dbtype="query">
