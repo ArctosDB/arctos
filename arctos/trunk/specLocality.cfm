@@ -199,6 +199,7 @@ function useGL(glat,glon,gerr){
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select 
 			 COLLECTING_EVENT.COLLECTING_EVENT_ID,
+			 specimen_event_id,
 			 locality.LOCALITY_ID,
 			 VERBATIM_DATE,
 			 VERBATIM_LOCALITY,
@@ -324,7 +325,8 @@ function useGL(glat,glon,gerr){
 			 VERIFICATIONSTATUS,
 			 habitat,
 			geog_auth_rec_id,
-			higher_geog
+			higher_geog,
+			specimen_event_id
 			from raw group by
 			COLLECTING_EVENT_ID,
 			 LOCALITY_ID,
@@ -377,7 +379,8 @@ function useGL(glat,glon,gerr){
 			 VERIFICATIONSTATUS,
 			 habitat,
 			geog_auth_rec_id,
-			higher_geog
+			higher_geog,
+			specimen_event_id
 	</cfquery>
 			
 	<cfquery name="g" dbtype="query">
@@ -430,19 +433,148 @@ function useGL(glat,glon,gerr){
         select orig_lat_long_units from ctLAT_LONG_UNITS 
      </cfquery>
 	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        select COLLECTING_SOURCE from ctcollecting_source 
+        select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
      </cfquery>
 	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select geology_attribute from ctgeology_attribute order by geology_attribute
 	</cfquery>
-		
-	<cfform name="loc" method="post" action="specLocality.cfm">
-		<input type="hidden" name="action" value="saveChange">
-		<input type="hidden" name="nothing" id="nothing">
-		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
+	</cfquery>
+	<cfloop query="l">
+		<cfform name="loc" method="post" action="specLocality.cfm">
+			<input type="hidden" name="action" value="saveChange">
+			<input type="hidden" name="nothing" id="nothing">
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+			<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
+			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
+			<table>
+				<tr>
+					<td valign="top">
+<!-------------------------------- left half of page ---------------------------------------------------->
+<!-------------------------- specimen_event -------------------------->
+<h4>Specimen/Event</h4>
+<label for="specimen_event_type">specimen_event_type</label>
+<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
+	<cfloop query="ctspecimen_event_type">
+		<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
+			value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+    </cfloop>
+</select>
+
+<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
+	 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
+	 onKeyPress="return noenter(event);">
+<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
+
+<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Date</label>
+<input type="text" name="assigned_date" id="assigned_date" value="#l.assigned_date#" class="reqdClr">
+
+<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
+<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#l.specimen_event_remark#">
+
+<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
+<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+	<option value=""></option>
+	<cfloop query="ctcollecting_source">
+		<option <cfif ctcollecting_source.COLLECTING_SOURCE is l.COLLECTING_SOURCE> selected="selected" </cfif>
+			value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
+	</cfloop>
+</select>
+
+<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
+<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#"  size="75">
+
+<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
+<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+	<cfloop query="ctVerificationStatus">
+		<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
+			value="#VerificationStatus#">#VerificationStatus#</option>
+	</cfloop>
+</select>
+
+
+<label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
+<input type="text" name="habitat" id="habitat" value="#stripQuotes(l.habitat)#"  size="75">
+
+<!-------------------------- collecting_event -------------------------->
+
+
+<label for="verbatim_date" class="infoLink" onClick="getDocs('locality','verbatim_date')">Verbatim Date</a></label>
+<cfinput type="text" name="verbatim_date" id="verbatim_date" value="#stripQuotes(l.verbatim_date)#"  
+	size="75" required="true" message="Verbatim Date is a required text field.">
 <table>
 	<tr>
-		<td valign="top"><!--- left half of page ---> 	
+		<td>
+			<label for="began_date" class="infoLink" onClick="getDocs('locality','began_date')">Began Date/Time</label>
+			<input type="text" name="began_date" id="began_date" value="#l.began_date#" class="reqdClr">										
+		</td>
+		<td>
+			<label class="infoLink" for="ended_date" onClick="getDocs('locality','ended_date')">Ended Date/Time</label>
+			<input type="text" name="ended_date" id="ended_date" value="#l.ended_date#" class="reqdClr">
+		</td>
+	</tr>
+</table>								
+<label for="verbatim_locality" onClick="getDocs('locality','verbatim_locality')" class="infoLink">
+	Verbatim Locality&nbsp;&nbsp;
+	<a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#l.collecting_event_id#" target="_blank">
+		Edit Collecting Event
+	</a>
+</label>
+<cfinput type="text" name="verbatim_locality" id="verbatim_locality" value="#stripQuotes(l.verbatim_locality)#" size="75" required="true" 
+	message="Verbatim Locality is required.">
+
+
+
+<!-------------------------- locality -------------------------->
+
+
+
+
+
+<!-------------------------- geography -------------------------->
+
+ 
+
+
+
+
+
+
+
+
+                        
+    verbatim_coordinates VARCHAR2(255),
+    LAT_DEG NUMBER,
+    DEC_LAT_MIN NUMBER(8,6),
+    LAT_MIN NUMBER,
+    LAT_SEC NUMBER(8,6),
+    LAT_DIR CHAR(1),
+    LONG_DEG NUMBER,
+    DEC_LONG_MIN NUMBER(10,8),
+    LONG_MIN NUMBER,
+    LONG_SEC NUMBER(8,6),
+    LONG_DIR CHAR(1),
+    DEC_LAT NUMBER(12,10),
+    DEC_LONG  NUMBER(13,10),
+    DATUM VARCHAR2(55),
+    UTM_ZONE VARCHAR2(3),
+    UTM_EW NUMBER,
+    UTM_NS NUMBER,
+    ORIG_LAT_LONG_UNITS VARCHAR2(20),
+    caclulated_dlat NUMBER(12,10),
+    calculated_dlong  NUMBER(13,10)
+);
+
+
+
+<label for="coll_event_remarks">Collecting Event Remarks</label>
+<input type="text" name="coll_event_remarks" id="coll_event_remarks" value="#stripQuotes(l.COLL_EVENT_REMARKS)#" size="75">
+
+
+<label for="collecting_event_name">Collecting Event Name</label>
+<input type="text" name="collecting_event_name" id="collecting_event_name" value="#stripQuotes(l.collecting_event_name)#" size="75">							
+  
 <table>
 		<tr>
 			<td>
@@ -477,102 +609,26 @@ function useGL(glat,glon,gerr){
 		</tr>
 		<tr>
 			<td>
-				<label for="verbatim_locality">
-					<a href="javascript:void(0);" onClick="getDocs('locality','verbatim_locality')">
-						Verbatim Locality</a>
-						&nbsp;&nbsp;
-					<a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#l.collecting_event_id#" target="_blank">
-						Edit Collecting Event</a>
-				</label>
-				<cfinput type="text" 
-					name="verbatim_locality" 
-					id="verbatim_locality"
-					value="#stripQuotes(l.verbatim_locality)#"  
-					size="75"
-					required="true" 
-					message="Verbatim Locality is required.">
+				
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label for="verbatim_date">
-						<a href="javascript:void(0);" onClick="getDocs('locality','verbatim_date')">
-							Verbatim Date</a>
-				</label>
-				<cfinput type="text" 
-					name="verbatim_date"
-					id="verbatim_date" 
-					value="#stripQuotes(l.verbatim_date)#"  
-					size="75"
-					required="true" 
-					message="Verbatim Date is a required text field.">
+				
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<table>
-					<td>
-							<label for="began_date"><a href="javascript:void(0);" onClick="getDocs('locality','began_date')">
-								Began Date/Time</a></label>
-							<input type="text"  
-								name="began_date"
-								id="began_date"
-								value="#l.began_date#"
-								class="reqdClr">										
-						</td>
-						<td>
-							<label for="ended_date">
-								<a href="javascript:void(0);" onClick="getDocs('locality','ended_date')">
-									Ended Date/Time</a>
-							</label>
-							<input type="text" 
-								name="ended_date"
-								id="ended_date" 
-								value="#l.ended_date#"
-								class="reqdClr">
-						</td>
-					</tr>
-				</table>
+				
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label for="coll_event_remarks">
-					Collecting Event Remarks
-				</label>
-				<input type="text" 
-					name="coll_event_remarks"
-						id="coll_event_remarks" 
-					value="#stripQuotes(l.COLL_EVENT_REMARKS)#"  
-					size="75">
+				
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<label for="collecting_source">
-					<a href="javascript:void(0);" 
-						onClick="getDocs('collecting_source','collecting_method')">Collecting Source</a>
-				</label>
-				<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
-					<option value=""></option>
-                    <cfloop query="ctcollecting_source">
-                      <option <cfif #ctcollecting_source.COLLECTING_SOURCE# is "#l.COLLECTING_SOURCE#"> selected </cfif>
-						value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
-                    </cfloop>
-                  </select>
-			</td>
-		</tr>
-			<td>
-				<label for="collecting_method">
-					<a href="javascript:void(0);" 
-						onClick="getDocs('collecting_event','collecting_method')">Collecting Method</a>
-				</label>
-				<input type="text" 
-					name="collecting_method" 
-					id="collecting_method"
-					value="#stripQuotes(l.COLLECTING_METHOD)#"  
-					size="75">
-			</td>
+		
 		</tr>
 		<tr>
 			<td>
@@ -781,17 +837,7 @@ function useGL(glat,glon,gerr){
 				<input type="text" name="GpsAccuracy" id="gpsaccuracy" value="#l.GpsAccuracy#" size="7">
 			</td>
 			<td>
-				<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">
-					Verification Status
-				</label>
-				<cfset thisVerificationStatus = #l.VerificationStatus#>
-				<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-					<cfloop query="ctVerificationStatus">
-						<option 
-							<cfif #thisVerificationStatus# is #ctVerificationStatus.VerificationStatus#> selected </cfif>
-								value="#VerificationStatus#">#VerificationStatus#</option>
-					</cfloop>
-			  	</select>
+			
 			</td>
 		</tr>
 		<tr>
@@ -1073,6 +1119,7 @@ function useGL(glat,glon,gerr){
   	
 	
 	</cfform>
+	</cfloop>
 	<script>
 		showLLFormat('#l.orig_lat_long_units#');	
 	</script>
