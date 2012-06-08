@@ -271,7 +271,7 @@ function useGL(glat,glon,gerr){
 			GEO_ATT_DETERMINED_METHOD,
 			GEO_ATT_REMARK
 		from
-			spec_with_loc
+			geology_attributes
 		where 
 			collection_object_id = #collection_object_id# and
 			GEOLOGY_ATTRIBUTE is not null
