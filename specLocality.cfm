@@ -632,20 +632,16 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-			<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
-			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
-		
+			<input type="hidden" name="collecting_event_id" value="">		
 			<!-------------------------- specimen_event -------------------------->
-			
 			<h4>	
-				Specimen/Event
+				Add Specimen/Event
 				<a name="specimen_event_new" href="##top">[ scroll to top ]</a>
 			</h4>
 			<label for="specimen_event_type">Specimen/Event Type</label>
 			<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
 				<cfloop query="ctspecimen_event_type">
-					<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
-						value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+					<option value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
 			    </cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
