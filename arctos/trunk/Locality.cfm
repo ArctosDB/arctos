@@ -514,256 +514,245 @@
 	</cfinvoke>
 	#contents#
 	<br>
-	
-		
-		
+	<cfform name="locality" method="post" action="Locality.cfm">
 		<table width="100%"><tr><td valign="top">
 			<h4>Edit this Collecting Event:</h4>
-	<cfform name="locality" method="post" action="Locality.cfm">
-    	<input type="hidden" name="Action" value="saveCollEventEdit">
-	    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
-		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		<label for="verbatim_locality" class="likeLink" onclick="getDocs('collecting_event','verbatim_locality')">
-			Verbatim Locality
-		</label>
-		<input type="text" name="verbatim_locality" id="verbatim_locality" value='#stripQuotes(locDet.verbatim_locality)#' size="50">
-		<label for="specific_locality" class="likeLink" onclick="getDocs('locality','specific_locality')">
-			Specific Locality
-		</label>
-		<div id="specific_locality">
-			#locDet.spec_locality#
-		</div>
-		<label for="verbatim_date" class="likeLink" onclick="getDocs('collecting_event','verbatim_date')">
-			Verbatim Date
-		</label>
-		<input type="text" name="VERBATIM_DATE" id="verbatim_date" value="#locDet.VERBATIM_DATE#" class="reqdClr">
-		<table>
-			<tr>
-				<td>
-					<label for="began_date" class="likeLink" onclick="getDocs('collecting_event','began_date')">
-						Began Date/Time
+		    	<input type="hidden" name="Action" value="saveCollEventEdit">
+			    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
+				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+				<label for="verbatim_locality" class="likeLink" onclick="getDocs('collecting_event','verbatim_locality')">
+					Verbatim Locality
+				</label>
+				<input type="text" name="verbatim_locality" id="verbatim_locality" value='#stripQuotes(locDet.verbatim_locality)#' size="50">
+				<div id="specific_locality" style="display:none;">
+					<label for="picked_spec_locality">
+						If you're seeing this, you've picked the below specloc and havne't saved changes. Save to refresh
+					 	locality information in the right pane.
 					</label>
-					<input type="text" name="began_date" id="began_date" value="#locDet.began_date#" size="20">
-				</td>
-				<td>
-					<label for="ended_date" class="likeLink" onclick="getDocs('collecting_event','ended_date')">
-						Ended Date/Time
-					</label>
-					<input type="text" name="ended_date" id="ended_date" value="#locDet.ended_date#" size="20">
-				</td>
-			</tr>
-		</table>
-		<label for="coll_event_remarks">coll_event_remarks</label>
-		<input type="text" name="coll_event_remarks" id="coll_event_remarks" value="#locDet.COLL_EVENT_REMARKS#" size="50">
-		<label for="collecting_event_name">collecting_event_name</label>
-		<input type="text" name="collecting_event_name" id="collecting_event_name" value="#locDet.collecting_event_name#" size="50">
-		<label>Verbatim Coordinates (These are NOT necessarily the same as the mappable coordinate
-		data given for Locality. Entering verbatim coordinates and picking an appropriate locality are separate tasks.)</label>
-		<script>
-			function showLLFormat(orig_units) {
-				$("##dd").hide();
-				$("##dms").hide();
-				$("##dmm").hide();
-				$("##utm").hide();
+					<input type="text" name="picked_spec_locality" id="picked_spec_locality" size="75" >
+				</div>
+				<label for="verbatim_date" class="likeLink" onclick="getDocs('collecting_event','verbatim_date')">
+					Verbatim Date
+				</label>
+				<input type="text" name="VERBATIM_DATE" id="verbatim_date" value="#locDet.VERBATIM_DATE#" class="reqdClr">
+				<table>
+					<tr>
+						<td>
+							<label for="began_date" class="likeLink" onclick="getDocs('collecting_event','began_date')">
+								Began Date/Time
+							</label>
+							<input type="text" name="began_date" id="began_date" value="#locDet.began_date#" size="20">
+						</td>
+						<td>
+							<label for="ended_date" class="likeLink" onclick="getDocs('collecting_event','ended_date')">
+								Ended Date/Time
+							</label>
+							<input type="text" name="ended_date" id="ended_date" value="#locDet.ended_date#" size="20">
+						</td>
+					</tr>
+				</table>
+				<label for="coll_event_remarks">coll_event_remarks</label>
+				<input type="text" name="coll_event_remarks" id="coll_event_remarks" value="#locDet.COLL_EVENT_REMARKS#" size="50">
+				<label for="collecting_event_name">collecting_event_name</label>
+				<input type="text" name="collecting_event_name" id="collecting_event_name" value="#locDet.collecting_event_name#" size="50">
+				<label>Verbatim Coordinates (These are NOT necessarily the same as the mappable coordinate
+				data given for Locality. Entering verbatim coordinates and picking an appropriate locality are separate tasks.)</label>
+				<script>
+					function showLLFormat(orig_units) {
+						$("##dd").hide();
+						$("##dms").hide();
+						$("##dmm").hide();
+						$("##utm").hide();
+						
+						<!----
+						$("##DEC_LAT").val('');
+						$("##DEC_LONG").val('');
+						$("##LAT_DEG").val('');
+						$("##LAT_MIN").val('');
+						$("##LAT_SEC").val('');
+						$("##LAT_DIR").val('');
+						$("##LONG_DEG").val('');
+						$("##LONG_MIN").val('');
+						$("##LONG_SEC").val('');
+						$("##LONG_DIR").val('');
+						$("##dmLAT_DEG").val('');
+						$("##DEC_LAT_MIN").val('');
+						$("##dmLAT_DIR").val('');
+						$("##dmLONG_DEG").val('');
+						$("##DEC_LONG_MIN").val('');
+						$("##dmLONG_DIR").val('');
+						$("##UTM_ZONE").val('');
+						$("##UTM_EW").val('');
+						$("##UTM_NS").val('');
+						---->
+						if (orig_units == 'decimal degrees') {
+							$("##dd").show();
+						} 
+						else if (orig_units == 'UTM') {
+							$("##utm").show();
+						}
+						else if (orig_units == 'degrees dec. minutes') {
+							$("##dmm").show();
+						}
+						else if (orig_units == 'deg. min. sec.') {
+							$("##dms").show();
+						}
+						$("##orig_lat_long_units").val(orig_units);
+					}
+				</script>
 				
-				<!----
-				$("##DEC_LAT").val('');
-				$("##DEC_LONG").val('');
-				$("##LAT_DEG").val('');
-				$("##LAT_MIN").val('');
-				$("##LAT_SEC").val('');
-				$("##LAT_DIR").val('');
-				$("##LONG_DEG").val('');
-				$("##LONG_MIN").val('');
-				$("##LONG_SEC").val('');
-				$("##LONG_DIR").val('');
-				$("##dmLAT_DEG").val('');
-				$("##DEC_LAT_MIN").val('');
-				$("##dmLAT_DIR").val('');
-				$("##dmLONG_DEG").val('');
-				$("##DEC_LONG_MIN").val('');
-				$("##dmLONG_DIR").val('');
-				$("##UTM_ZONE").val('');
-				$("##UTM_EW").val('');
-				$("##UTM_NS").val('');
+				<div style="border:2px solid black">
+					<label for="orig_lat_long_units">orig_lat_long_units</label>
+					<select name="orig_lat_long_units" id="orig_lat_long_units" size="1" class="reqdClr" onchange="showLLFormat(this.value);">
+						<option value="">none</option>
+						<cfloop query="ctlat_long_units">
+							<option 
+								<cfif ctlat_long_units.orig_lat_long_units is locDet.orig_lat_long_units> selected="selected" </cfif>
+								value="#ctlat_long_units.orig_lat_long_units#">#ctlat_long_units.orig_lat_long_units#</option>
+						</cfloop>
+					</select>
+					<label for="datum">datum</label>
+					<select name="datum" id="datum" size="1" class="reqdClr">
+						<option value="">none</option>
+						<cfloop query="ctdatum">
+							<option 
+								<cfif ctdatum.datum is locDet.datum> selected="selected" </cfif>
+								value="#ctdatum.datum#">#ctdatum.datum#</option>
+						</cfloop>
+					</select>
+					<table id="dd" style="display:none;">
+						<tr>
+							<td>
+								<label for="DEC_LAT">DEC_LAT</label>
+								<input type="text" name="DEC_LAT" id="DEC_LAT" value="#locDet.DEC_LAT#" size="10">
+							</td>
+							<td>
+								<label for="DEC_LONG">DEC_LONG</label>
+								<input type="text" name="DEC_LONG" id="DEC_LONG" value="#locDet.DEC_LONG#" size="10">
+							</td>
+						</tr>
+					</table>
+					<table id="dms" style="display:none;">
+						<tr>
+							<td>
+								<label for="LAT_DEG">LAT_DEG</label>
+								<input type="text" name="LAT_DEG" id="LAT_DEG" value="#locDet.LAT_DEG#" size="10">
+							</td>
+							<td>
+								<label for="LAT_MIN">LAT_MIN</label>
+								<input type="text" name="LAT_MIN" id="LAT_MIN" value="#locDet.LAT_MIN#" size="10">
+							</td>
+							<td>
+								<label for="LAT_SEC">LAT_SEC</label>
+								<input type="text" name="LAT_SEC" id="LAT_SEC" value="#locDet.LAT_SEC#" size="10">
+							</td>
+							<td>
+								<label for="LAT_DIR">LAT_DIR</label>
+								<select name="LAT_DIR" id="LAT_DIR">
+									<option></option>
+									<option <cfif locDet.LAT_DIR is "N">selected="selected" </cfif> value="N">N</option>
+									<option <cfif locDet.LAT_DIR is "S">selected="selected" </cfif> value="S">S</option>
+								</select>
+							</td>
+							<td>
+								<label for="LONG_DEG">LONG_DEG</label>
+								<input type="text" name="LONG_DEG" id="LONG_DEG" value="#locDet.LONG_DEG#" size="10">
+							</td>
+							<td>
+								<label for="LONG_MIN">LONG_MIN</label>
+								<input type="text" name="LONG_MIN" id="LONG_MIN" value="#locDet.LONG_MIN#" size="10">
+							</td>
+							<td>
+								<label for="LONG_SEC">LONG_SEC</label>
+								<input type="text" name="LONG_SEC" id="LONG_SEC" value="#locDet.LONG_SEC#" size="10">
+							</td>
+							<td>
+								<label for="LONG_DIR">LONG_DIR</label>
+								<select name="LONG_DIR" id="LONG_DIR">
+									<option></option>
+									<option <cfif locDet.LONG_DIR is "W">selected="selected" </cfif> value="W">W</option>
+									<option <cfif locDet.LONG_DIR is "E">selected="selected" </cfif> value="E">E</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					
+					<table id="dmm" style="display:none;">
+						<tr>
+							<td>
+								<label for="dmLAT_DEG">LAT_DEG</label>
+								<input type="text" name="dmLAT_DEG" id="dmLAT_DEG" value="#locDet.LAT_DEG#" size="10">
+							</td>
+							<td>
+								<label for="DEC_LAT_MIN">DEC_LAT_MIN</label>
+								<input type="text" name="DEC_LAT_MIN" id="DEC_LAT_MIN" value="#locDet.DEC_LAT_MIN#" size="10">
+							</td>
+							<td>
+								<label for="dmLAT_DIR">LAT_DIR</label>
+								<select name="dmLAT_DIR" id="dmLAT_DIR">
+									<option></option>
+									<option <cfif locDet.LAT_DIR is "N">selected="selected" </cfif> value="N">N</option>
+									<option <cfif locDet.LAT_DIR is "S">selected="selected" </cfif> value="S">S</option>
+								</select>
+							</td>
+							<td>
+								<label for="dmLONG_DEG">LONG_DEG</label>
+								<input type="text" name="dmLONG_DEG" id="dmLONG_DEG" value="#locDet.LONG_DEG#" size="10">
+							</td>
+							<td>
+								<label for="DEC_LONG_MIN">DEC_LONG_MIN</label>
+								<input type="text" name="DEC_LONG_MIN" id="DEC_LONG_MIN" value="#locDet.DEC_LONG_MIN#" size="10">
+							</td>
+							<td>
+								<label for="dmLONG_DIR">LONG_DIR</label>
+								<select name="dmLONG_DIR" id="dmLONG_DIR">
+									<option></option>
+									<option <cfif locDet.LONG_DIR is "W">selected="selected" </cfif> value="W">W</option>
+									<option <cfif locDet.LONG_DIR is "E">selected="selected" </cfif> value="E">E</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					
+					<table id="utm" style="display:none;">
+						<tr>
+							<td>
+								<label for="UTM_ZONE">UTM_ZONE</label>
+								<input type="text" name="UTM_ZONE" id="UTM_ZONE" value="#locDet.UTM_ZONE#" size="10">
+							</td>
+							<td>
+								<label for="UTM_EW">UTM_EW</label>
+								<input type="text" name="UTM_EW" id="UTM_EW" value="#locDet.UTM_EW#" size="10">
+							</td>
+						
+							<td>
+								<label for="UTM_NS">UTM_NS</label>
+								<input type="text" name="UTM_NS" id="UTM_NS" value="#locDet.UTM_NS#" size="10">
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<script>
+					showLLFormat('#locDet.orig_lat_long_units#');
+				</script>
+		        <br><input type="submit" value="Save" class="savBtn">	
+					<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
+				<input type="button" value="Delete" class="delBtn"
+					onClick="document.location='Locality.cfm?Action=deleteCollEvent&collecting_event_id=#locDet.collecting_event_id#';">
+					<!---
+				<cfset dLoc="Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#&verbatim_locality=#locDet.verbatim_locality#&began_date=#locDet.began_date#&ended_date=#locDet.began_date#&verbatim_date=#locDet.verbatim_date#&coll_event_remarks=#locDet.coll_event_remarks#&collecting_source=#locDet.collecting_source#&collecting_method=#locDet.collecting_method#&habitat_desc=#locDet.habitat_desc#">
+				<input type="button" value="Create Clone" class="insBtn" onClick="document.location='#dLoc#';">				
 				---->
-				if (orig_units == 'decimal degrees') {
-					$("##dd").show();
-				} 
-				else if (orig_units == 'UTM') {
-					$("##utm").show();
-				}
-				else if (orig_units == 'degrees dec. minutes') {
-					$("##dmm").show();
-				}
-				else if (orig_units == 'deg. min. sec.') {
-					$("##dms").show();
-				}
-				$("##orig_lat_long_units").val(orig_units);
-			}
-		</script>
-		
-		<div style="border:2px solid black">
-			<label for="orig_lat_long_units">orig_lat_long_units</label>
-			<select name="orig_lat_long_units" id="orig_lat_long_units" size="1" class="reqdClr" onchange="showLLFormat(this.value);">
-				<option value="">none</option>
-				<cfloop query="ctlat_long_units">
-					<option 
-						<cfif ctlat_long_units.orig_lat_long_units is locDet.orig_lat_long_units> selected="selected" </cfif>
-						value="#ctlat_long_units.orig_lat_long_units#">#ctlat_long_units.orig_lat_long_units#</option>
-				</cfloop>
-			</select>
-			<label for="datum">datum</label>
-			<select name="datum" id="datum" size="1" class="reqdClr">
-				<option value="">none</option>
-				<cfloop query="ctdatum">
-					<option 
-						<cfif ctdatum.datum is locDet.datum> selected="selected" </cfif>
-						value="#ctdatum.datum#">#ctdatum.datum#</option>
-				</cfloop>
-			</select>
-			<table id="dd" style="display:none;">
-				<tr>
-					<td>
-						<label for="DEC_LAT">DEC_LAT</label>
-						<input type="text" name="DEC_LAT" id="DEC_LAT" value="#locDet.DEC_LAT#" size="10">
-					</td>
-					<td>
-						<label for="DEC_LONG">DEC_LONG</label>
-						<input type="text" name="DEC_LONG" id="DEC_LONG" value="#locDet.DEC_LONG#" size="10">
-					</td>
-				</tr>
-			</table>
-			<table id="dms" style="display:none;">
-				<tr>
-					<td>
-						<label for="LAT_DEG">LAT_DEG</label>
-						<input type="text" name="LAT_DEG" id="LAT_DEG" value="#locDet.LAT_DEG#" size="10">
-					</td>
-					<td>
-						<label for="LAT_MIN">LAT_MIN</label>
-						<input type="text" name="LAT_MIN" id="LAT_MIN" value="#locDet.LAT_MIN#" size="10">
-					</td>
-					<td>
-						<label for="LAT_SEC">LAT_SEC</label>
-						<input type="text" name="LAT_SEC" id="LAT_SEC" value="#locDet.LAT_SEC#" size="10">
-					</td>
-					<td>
-						<label for="LAT_DIR">LAT_DIR</label>
-						<select name="LAT_DIR" id="LAT_DIR">
-							<option></option>
-							<option <cfif locDet.LAT_DIR is "N">selected="selected" </cfif> value="N">N</option>
-							<option <cfif locDet.LAT_DIR is "S">selected="selected" </cfif> value="S">S</option>
-						</select>
-					</td>
-					<td>
-						<label for="LONG_DEG">LONG_DEG</label>
-						<input type="text" name="LONG_DEG" id="LONG_DEG" value="#locDet.LONG_DEG#" size="10">
-					</td>
-					<td>
-						<label for="LONG_MIN">LONG_MIN</label>
-						<input type="text" name="LONG_MIN" id="LONG_MIN" value="#locDet.LONG_MIN#" size="10">
-					</td>
-					<td>
-						<label for="LONG_SEC">LONG_SEC</label>
-						<input type="text" name="LONG_SEC" id="LONG_SEC" value="#locDet.LONG_SEC#" size="10">
-					</td>
-					<td>
-						<label for="LONG_DIR">LONG_DIR</label>
-						<select name="LONG_DIR" id="LONG_DIR">
-							<option></option>
-							<option <cfif locDet.LONG_DIR is "W">selected="selected" </cfif> value="W">W</option>
-							<option <cfif locDet.LONG_DIR is "E">selected="selected" </cfif> value="E">E</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-			
-			<table id="dmm" style="display:none;">
-				<tr>
-					<td>
-						<label for="dmLAT_DEG">LAT_DEG</label>
-						<input type="text" name="dmLAT_DEG" id="dmLAT_DEG" value="#locDet.LAT_DEG#" size="10">
-					</td>
-					<td>
-						<label for="DEC_LAT_MIN">DEC_LAT_MIN</label>
-						<input type="text" name="DEC_LAT_MIN" id="DEC_LAT_MIN" value="#locDet.DEC_LAT_MIN#" size="10">
-					</td>
-					<td>
-						<label for="dmLAT_DIR">LAT_DIR</label>
-						<select name="dmLAT_DIR" id="dmLAT_DIR">
-							<option></option>
-							<option <cfif locDet.LAT_DIR is "N">selected="selected" </cfif> value="N">N</option>
-							<option <cfif locDet.LAT_DIR is "S">selected="selected" </cfif> value="S">S</option>
-						</select>
-					</td>
-					<td>
-						<label for="dmLONG_DEG">LONG_DEG</label>
-						<input type="text" name="dmLONG_DEG" id="dmLONG_DEG" value="#locDet.LONG_DEG#" size="10">
-					</td>
-					<td>
-						<label for="DEC_LONG_MIN">DEC_LONG_MIN</label>
-						<input type="text" name="DEC_LONG_MIN" id="DEC_LONG_MIN" value="#locDet.DEC_LONG_MIN#" size="10">
-					</td>
-					<td>
-						<label for="dmLONG_DIR">LONG_DIR</label>
-						<select name="dmLONG_DIR" id="dmLONG_DIR">
-							<option></option>
-							<option <cfif locDet.LONG_DIR is "W">selected="selected" </cfif> value="W">W</option>
-							<option <cfif locDet.LONG_DIR is "E">selected="selected" </cfif> value="E">E</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-			
-			<table id="utm" style="display:none;">
-				<tr>
-					<td>
-						<label for="UTM_ZONE">UTM_ZONE</label>
-						<input type="text" name="UTM_ZONE" id="UTM_ZONE" value="#locDet.UTM_ZONE#" size="10">
-					</td>
-					<td>
-						<label for="UTM_EW">UTM_EW</label>
-						<input type="text" name="UTM_EW" id="UTM_EW" value="#locDet.UTM_EW#" size="10">
-					</td>
-				
-					<td>
-						<label for="UTM_NS">UTM_NS</label>
-						<input type="text" name="UTM_NS" id="UTM_NS" value="#locDet.UTM_NS#" size="10">
-					</td>
-				</tr>
-			</table>
-		</div>
-		
-		<script>
-			showLLFormat('#locDet.orig_lat_long_units#');
-		</script>
-        <br><input type="submit" value="Save" class="savBtn">	
-			<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
-		<input type="button" value="Delete" class="delBtn"
-			onClick="document.location='Locality.cfm?Action=deleteCollEvent&collecting_event_id=#locDet.collecting_event_id#';">
-			<!---
-		<cfset dLoc="Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#&verbatim_locality=#locDet.verbatim_locality#&began_date=#locDet.began_date#&ended_date=#locDet.began_date#&verbatim_date=#locDet.verbatim_date#&coll_event_remarks=#locDet.coll_event_remarks#&collecting_source=#locDet.collecting_source#&collecting_method=#locDet.collecting_method#&habitat_desc=#locDet.habitat_desc#">
-		<input type="button" value="Create Clone" class="insBtn" onClick="document.location='#dLoc#';">				
-		---->
-	</cfform>
 		</td>
-		<td valign="top">
-			<form name="localitypick" action="Locality.cfm" method="post">
-				<input type="hidden" name="Action" value="changeLocality">
-		    	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
-			 	<input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
-				 <cfif not isdefined("collection_object_id")>
-				 	<cfset collection_object_id=-1>
-				 </cfif>
-			 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+		<td valign="top"><!---------- right side ------------>
 			<h4>
 				Locality
 				<a style="font-size:small;" href="/editLocality.cfm?locality_id=#locDet.locality_id#" target="_top">[ Edit Locality ]</a>
 				<input type="button" value="Pick New Locality for this Collecting Event" class="picBtn"
-					onclick="document.getElementById('locDesc').style.background='red';
-					document.getElementById('hiddenButton').style.visibility='visible';
-					LocalityPick('locality_id','spec_locality','localitypick'); return false;" >
+					onclick="$('##specific_locality').show();
+					LocalityPick('locality_id','picked_spec_locality','locality'); return false;" >
+			
 			</h4>
 			<ul>
 				<li>Higher Geog: #locDet.higher_geog#</li>
@@ -797,16 +786,8 @@
 					<br>Georeference Protocol : #locDet.georeference_protocol#
 				</span>
 			</cfif>
-					<div id="hiddenButton" style="visibility:hidden ">
-					Picked Locality:
-					<input type="text" name="spec_locality" size="50">
-					<input type="submit" value="Save Change" class="savBtn">
-				</div>
-			</form>
 		</td></tr></table>
-		
-	
-	
+	</cfform>	
   </cfoutput> 
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
