@@ -517,7 +517,11 @@ function useGL(glat,glon,gerr){
 				<li>ORIG_LAT_LONG_UNITS: #ORIG_LAT_LONG_UNITS#</li>
 			</ul>
 			<h4>Locality</h4>
-
+			<cfinvoke component="component.functions" method="getLocalityContents" returnvariable="contents">
+			    <cfinvokeargument name="locality_id" value="#locDet.locality_id#">
+			</cfinvoke>
+			
+			#contents#
 	
     	<!--------
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
