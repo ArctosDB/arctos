@@ -375,6 +375,7 @@ function useGL(glat,glon,gerr){
 	</cfquery>
 			
 	<cfquery name="g" dbtype="query">
+		 select 
 		 GEOLOGY_ATTRIBUTE_ID,
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
