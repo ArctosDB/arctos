@@ -684,32 +684,10 @@ function useGL(glat,glon,gerr){
 			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
 			<h4>
 				Collecting Event
-				<a style="font-size:small;" href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">[ Edit Event ]</a>
 			</h4>
-			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
-			<input type="text" size="50" name="cepick#f#">
-			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc#f#','cepick#f#');">
-			<br>
-			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
-			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
-			</cfinvoke>
-			#contents#
-			<br>
-			<ul>
-				<li>Date: #VERBATIM_DATE# (<cfif BEGAN_DATE is ENDED_DATE>#ENDED_DATE#<cfelse>#BEGAN_DATE# to #ENDED_DATE#</cfif>)</li>
-				<cfif len(VERBATIM_LOCALITY) gt 0>
-					<li>Verbatim Locality: #VERBATIM_LOCALITY#</li>
-				</cfif>
-				<cfif len(verbatim_coordinates) gt 0>
-					<li>Verbatim Coordinates: #verbatim_coordinates#</li>
-				</cfif>
-				<cfif len(collecting_event_name) gt 0>
-					<li>Collecting Event Name: #collecting_event_name#</li>
-				</cfif>
-				<cfif len(COLL_EVENT_REMARKS) gt 0>
-					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
-				</cfif>
-			</ul>
+			<label for="">Click the button to pick an event. The Verbatim Locality will go here of the event you pick will go here.</label>
+			<input type="text" size="50" name="cepick">
+			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc_new','cepick');">
 			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
 	</cfform>
 	
