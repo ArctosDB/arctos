@@ -1413,8 +1413,14 @@ INSERT INTO geog_auth_rec (
 					ended_date,
 					verbatim_date,
 					dec_lat,
-					dec_long
+					dec_long,
+					DATUM,
+					MAX_ERROR_DISTANCE,
+					MAX_ERROR_UNITS,
+					georeference_source,
+					georeference_protocol
 				from localityResults
+				
 				group by 
 					collecting_event_id,
 					higher_geog,
@@ -1428,7 +1434,12 @@ INSERT INTO geog_auth_rec (
 					ended_date,
 					verbatim_date,
 					dec_lat,
-					dec_long
+					dec_long,
+					DATUM,
+					MAX_ERROR_DISTANCE,
+					MAX_ERROR_UNITS,
+					georeference_source,
+					georeference_protocol
 			</cfquery>
 	
 <table border>
