@@ -588,7 +588,6 @@ function useGL(glat,glon,gerr){
 			</cfinvoke>
 			#contents#
 			<ul>
-				<li>Specific Locality: #SPEC_LOCALITY#</li>
 				<cfif len(locality_name) gt 0>
 					<li>Locality Name: #locality_name#</li>
 				</cfif>
@@ -597,12 +596,20 @@ function useGL(glat,glon,gerr){
 						<cfset iu="http://maps.google.com/maps/api/staticmap?center=#DEC_LAT#,#DEC_LONG#">
 						<cfset iu=iu & "&markers=color:red|size:tiny|#DEC_LAT#,#DEC_LONG#&sensor=false&size=200x200&zoom=2&maptype=roadmap">
 						<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
-						<br>#DEC_LAT# / #DEC_LONG#
-						<br>Datum: #DATUM#
-						<br>Error : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
-						<br>Georeference Source : #georeference_source#
-						<br>Georeference Protocol : #georeference_protocol#
+						<span style="font-size:small;">
+							<br>#DEC_LAT# / #DEC_LONG#
+							<br>Datum: #DATUM#
+							<br>Error : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+							<br>Georeference Source : #georeference_source#
+							<br>Georeference Protocol : #georeference_protocol#
+						</span>
 					</li>
+				</cfif>
+				<cfif len(SPEC_LOCALITY) gt 0>
+					<li>Specific Locality: #SPEC_LOCALITY#</li>
+				</cfif>
+				<cfif len(locality_name) gt 0>
+					<li>Locality Name: #locality_name#</li>
 				</cfif>
 				<cfif len(ORIG_ELEV_UNITS) gt 0>
 					<li>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</li>
