@@ -27,7 +27,7 @@
 		georeference_source,
 		georeference_protocol,
 		locality_name,
-		DATUM
+		locality.DATUM
 	from 
 		geog_auth_rec,
 		locality,
