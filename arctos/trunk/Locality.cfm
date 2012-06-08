@@ -525,7 +525,7 @@
 					Verbatim Locality
 				</label>
 				<input type="text" name="verbatim_locality" id="verbatim_locality" value='#stripQuotes(locDet.verbatim_locality)#' size="50">
-				<div id="specific_locality" style="display:none;">
+				<div id="specific_locality" style="display:none;border:2px solid red;">
 					<label for="picked_spec_locality">
 						If you're seeing this, you've picked the below specloc and havne't saved changes. Save to refresh
 					 	locality information in the right pane.
@@ -935,6 +935,7 @@ You deleted a collecting event.
 		UPDATE 
 			collecting_event 
 		SET 
+			locality_id=#locality_id#,
 			BEGAN_DATE = '#BEGAN_DATE#',
 			ENDED_DATE = '#ENDED_DATE#',
 			VERBATIM_DATE = '#escapeQuotes(VERBATIM_DATE)#',
@@ -942,9 +943,6 @@ You deleted a collecting event.
 			COLL_EVENT_REMARKS = '#escapeQuotes(COLL_EVENT_REMARKS)#',
 			collecting_event_name = '#escapeQuotes(collecting_event_name)#',
 			orig_lat_long_units = '#escapeQuotes(orig_lat_long_units)#',
-			
-				
-			
 			<cfif orig_lat_long_units is "degrees dec. minutes">
 				LAT_DEG=#dmLAT_DEG#,
 				LONG_DEG=#dmLONG_DEG#,
