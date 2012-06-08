@@ -481,8 +481,6 @@
 			LONG_MIN,
 			LONG_SEC,
 			LONG_DIR,
-			locality.DEC_LAT localityDEC_LAT,
-			locality.DEC_LONG localityDEC_LONG,
 			locality.DATUM localityDATUM,
 			collecting_event.DEC_LAT,
 			collecting_event.DEC_LONG,
@@ -553,18 +551,18 @@
 		</td>
 		
 		<td valign="top">
-			<cfif len(locDet.localityDEC_LAT) gt 0>
+			<cfif len(locDet.loclat) gt 0>
 				
-				<cfset iu="http://maps.google.com/maps/api/staticmap?center=#locDet.localityDEC_LAT#,#locDet.localityDEC_LONG#">
-				<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.localityDEC_LAT#,#locDet.localityDEC_LONG#&sensor=false&size=200x200&zoom=2">
+				<cfset iu="http://maps.google.com/maps/api/staticmap?center=#locDet.loclat#,#locDet.loclong#">
+				<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.loclat#,#locDet.loclong#&sensor=false&size=200x200&zoom=2">
 				<cfset iu=iu & "&maptype=roadmap">
 				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
 				<span style="font-size:small;">
-					<br>#localityDEC_LAT# / #localityDEC_LONG#
-					<br>Datum: #DATUM#
-					<br>Error : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
-					<br>Georeference Source : #georeference_source#
-					<br>Georeference Protocol : #georeference_protocol#
+					<br>#locDet.loclat# / #locDet.loclong#
+					<br>Datum: #locDet.DATUM#
+					<br>Error : #locDet.MAX_ERROR_DISTANCE# #locDet.MAX_ERROR_UNITS#
+					<br>Georeference Source : #locDet.georeference_source#
+					<br>Georeference Protocol : #locDet.georeference_protocol#
 				</span>
 			</cfif>
 		</td></tr></table>
