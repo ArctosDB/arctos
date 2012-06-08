@@ -1,7 +1,7 @@
 <cfcomponent>
 <!------------------------------------------------------------------->
 <cffunction name="getEventContents" access="public">	
-	<cfargument name="collecting_event_id" type="number" required="yes">
+	<cfargument name="collecting_event_id" type="numeric" required="yes">
 	<cfquery name="whatSpecs" datasource="uam_god">
 	  	SELECT 
 	  		count(cat_num) as numOfSpecs, 
