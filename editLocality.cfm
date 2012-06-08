@@ -727,7 +727,7 @@
 						DATUM,
 						georeference_source,
 						georeference_protocol,
-						DECODE(locality_name,NOT NULL,'clone of ' || locality_name)
+						DECODE(locality_name,NULL,NULL,'clone of ' || locality_name)
 					from
 						locality
 					where
