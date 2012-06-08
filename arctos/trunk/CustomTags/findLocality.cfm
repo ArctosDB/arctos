@@ -23,7 +23,9 @@
 		concatGeologyAttributeDetail(locality.locality_id) geolAtts,
 		specimen_event_type,
 		locality.dec_lat,
-		locality.dec_long
+		locality.dec_long,
+		georeference_source,
+		georeference_protocol
 	from 
 		geog_auth_rec,
 		locality,
