@@ -516,6 +516,7 @@ function useGL(glat,glon,gerr){
 			</select>
 			<hr>
 			<h4>Collecting Event</h4>
+			<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">Edit Event</a>
 			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
 			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
 			</cfinvoke>
