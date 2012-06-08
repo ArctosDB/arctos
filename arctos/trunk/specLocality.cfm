@@ -680,7 +680,7 @@ function useGL(glat,glon,gerr){
 			<label for="">Click the button to pick an event. The Verbatim Locality will go here of the event you pick will go here.</label>
 			<input type="text" size="50" name="cepick">
 			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc_new','cepick');">
-			<input type="submit" value="Create this Specimen/Event" class="savBtn">	
+			<br><input type="submit" value="Create this Specimen/Event" class="savBtn">	
 		</cfform>
 	</div>
 	
