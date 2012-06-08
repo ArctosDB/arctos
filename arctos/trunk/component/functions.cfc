@@ -1,5 +1,63 @@
 <cfcomponent>
 <!------------------------------------------------------------------->
+<cffunction name="getEventContents" access="public">	
+	<cfargument name="collecting_event_id" type="number" required="yes">
+	<cfquery name="whatSpecs" datasource="uam_god">
+	  	SELECT 
+	  		count(cat_num) as numOfSpecs, 
+	  		collection,
+	  		collection.collection_id
+		from 
+			cataloged_item,
+			collection,
+			specimen_event
+		WHERE
+			cataloged_item.collection_id=collection.collection_id and
+			cataloged_item.collection_object_id=specimen_event.collection_object_id and
+			specimen_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
+		GROUP BY 
+			collection,
+	  		collection.collection_id
+	</cfquery>
+	<cfquery name="whatMedia" datasource="uam_god">
+  		SELECT 
+			count(*) num, 
+			media_id
+		from 
+			media_relations 
+		WHERE
+			 media_relationship like '% collecting_event' and 
+			 related_primary_key=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
+		GROUP BY 
+			media_id
+	</cfquery>
+	<cfsavecontent variable="return">
+		<div style="border:2px solid red; font-weight:bold">
+			This Collecting Event (#collecting_event_id#) 
+			<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
+			<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
+				nothing. Please delete it if you don't have plans for it.
+			<cfelse>
+				<ul>	
+					<cfloop query="whatSpecs">
+						<li>
+							<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#&collection_id=#collection_id#">
+								#whatSpecs.numOfSpecs# #whatSpecs.collection# specimens
+							</a>
+						</li>
+					</cfloop>
+					<cfif whatMedia.recordcount gt 0>
+						<li>
+							<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
+						</li>
+					</cfif>
+				</ul>
+			</cfif>
+		</div>
+	</cfsavecontent>
+	<cfreturn return>
+</cffunction>
+<!------------------------------------------------------------------->
 <cffunction name="getPublication" access="remote">	
 	<cfargument name="idtype" type="string" required="yes">
 	<cfargument name="identifier" type="string" required="yes">
