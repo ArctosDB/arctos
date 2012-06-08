@@ -836,19 +836,25 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "newCollEvent">
-	<cfset title="Create Collecting Event">
-	<cfoutput> 
-	  	<cfquery name="getLoc"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select  spec_locality, geog_auth_rec_id from locality 
-			where locality_id=#locality_id#
-		</cfquery>
-		<cfquery name="getGeo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select higher_geog from geog_auth_rec where
-			geog_auth_rec_id=#getLoc.geog_auth_rec_id#
-		</cfquery>
-		<h3>Create Collecting Event</h3>
-	   	<br>Higher Geography:  #getGeo.higher_geog#
-	    <br>Spec Locality: #getLoc.spec_locality#
+<cfoutput>
+	<cfquery name="nextColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select sq_collecting_event_id.nextval nextColl from dual
+	</cfquery>
+	<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		INSERT INTO collecting_event (
+			collecting_event_id,
+			LOCALITY_ID
+		) values (
+			#nextColl.nextColl#,
+			#LOCALITY_ID#
+		)
+	</cfquery>
+	<cflocation addtoken="no" url="Locality.cfm?Action=editCollEvnt&collecting_event_id=#nextColl.nextColl#">
+</cfoutput>	
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
+
+
 	    <form name="newCollEvnt" action="Locality.cfm" method="post">
 	    	<input type="hidden" name="Action" value="newColl">
 	     	<input type="hidden" name="locality_id" value="#locality_id#">
@@ -1275,59 +1281,6 @@ INSERT INTO geog_auth_rec (
 </cfquery>
 <cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#nextGEO.nextid#">
 </cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
-<cfif Action is "newColl">
-<cfoutput>
-	<cfquery name="nextColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select sq_collecting_event_id.nextval nextColl from dual
-	</cfquery>
-	
-	<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		INSERT INTO collecting_event (
-		collecting_event_id,
-		LOCALITY_ID
-		,BEGAN_DATE
-		,ENDED_DATE
-		,VERBATIM_DATE
-		,COLLECTING_SOURCE
-		,VERBATIM_LOCALITY
-		,COLL_EVENT_REMARKS
-		,COLLECTING_METHOD
-		,HABITAT_DESC
-		)
-	VALUES (
-		#nextColl.nextColl#,
-		#LOCALITY_ID#
-		,'#BEGAN_DATE#'
-		,'#ENDED_DATE#'
-		,'#VERBATIM_DATE#'
-		,'#COLLECTING_SOURCE#'
-		<cfif len(#VERBATIM_LOCALITY#) gt 0>
-			,'#VERBATIM_LOCALITY#'
-		<cfelse>
-			,NULL
-		</cfif>
-		<cfif len(#COLL_EVENT_REMARKS#) gt 0>
-			,'#COLL_EVENT_REMARKS#'
-		<cfelse>
-			,NULL
-		</cfif>
-		<cfif len(#COLLECTING_METHOD#) gt 0>
-			,'#COLLECTING_METHOD#'
-		<cfelse>
-			,NULL
-		</cfif>
-		<cfif len(#HABITAT_DESC#) gt 0>
-			,'#HABITAT_DESC#'
-		<cfelse>
-			,NULL
-		</cfif>
-		)
-		</cfquery>
-		
-<cflocation addtoken="no" url="Locality.cfm?Action=editCollEvnt&collecting_event_id=#nextColl.nextColl#">
-</cfoutput>	
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "makenewLocality">
