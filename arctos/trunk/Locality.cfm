@@ -558,7 +558,7 @@
 	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
 	</cfinvoke>
 	
-	--#contents#--
+	#contents#
 
 	<form name="localitypick" action="Locality.cfm" method="post">
 		<input type="hidden" name="Action" value="changeLocality">
