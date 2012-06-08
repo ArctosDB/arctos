@@ -470,7 +470,7 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-			<input type="hidden" name="collecting_event_id_#f#" value="#l.collecting_event_id#">
+			<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
 			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
 		
 			<!-------------------------- specimen_event -------------------------->
@@ -523,7 +523,7 @@ function useGL(glat,glon,gerr){
 			#contents#
 			<br>
 			<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">Edit Event</a>
-			<span class="likeLink" onclick="findCollEvent('collecting_event_id_#f#','loc#f#','cepick#f#');">pick new event</span>
+			<span class="likeLink" onclick="findCollEvent('collecting_event_id','loc#f#','cepick#f#');">pick new event</span>
 			
 			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
 			<input type="text" size="99" name="cepick#f#">
