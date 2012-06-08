@@ -57,7 +57,7 @@
 							<td>#exception.Sql#</td>
 						</tr>
 					</cfif>
-					<cfif isdefined("exception.cause.tagcontext[1].line")>
+					<cfif isdefined("exception.cause.tagcontext.line")>
 						<tr>
 							<td>Line</td>
 							<td>#exception.cause.tagcontext.line#</td>
