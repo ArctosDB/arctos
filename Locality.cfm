@@ -1446,6 +1446,7 @@ INSERT INTO geog_auth_rec (
 	<tr>
 		<td><b>Geog</b></td>
 		<td><b>Locality</b></td>
+		<td><b>LocalityMap</b></td>
 		<td><b>Verbatim&nbsp;Locality</b></td>
 		<td><b>Began&nbsp;Date</b></td>
 		<td><b>End&nbsp;Date</b></td>

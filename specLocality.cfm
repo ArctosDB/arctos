@@ -456,15 +456,14 @@ function useGL(glat,glon,gerr){
 		order by 
 			specimen_event_type,specimen_event_id
 	</cfquery>
-	<cfif se.recordcount gt 1>
 		<a name="top"></a>
 		Specimen/Event Shortcuts
 		<ul>
+			<li><a href="##specimen_event_new">Create New Specimen/Event</a></li>
 			<cfloop query="se">
 				<li><a href="##specimen_event_#specimen_event_id#">#specimen_event_type#</a></li>
 			</cfloop>
 		</ul>
-	</cfif>
 	<cfset f=1>
 	<cfloop query="l">
 		<div style="border:2px solid black; margin:1em;">
@@ -480,9 +479,7 @@ function useGL(glat,glon,gerr){
 			
 			<h4>	
 				Specimen/Event
-				<cfif se.recordcount gt 1>
-					<a name="specimen_event_#specimen_event_id#" href="##top">[ scroll to top ]</a>
-				</cfif>
+				<a name="specimen_event_#specimen_event_id#" href="##top">[ scroll to top ]</a>
 			</h4>
 			<label for="specimen_event_type">Specimen/Event Type</label>
 			<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
@@ -624,6 +621,104 @@ function useGL(glat,glon,gerr){
 	</div>
 		<cfset f=f+1>
 	</cfloop>
+	
+	
+	
+	
+	
+	
+	
+	<cfform name="loc_new" method="post" action="specLocality.cfm">
+			<input type="hidden" name="action" value="saveChange">
+			<input type="hidden" name="nothing" id="nothing">
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+			<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
+			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
+		
+			<!-------------------------- specimen_event -------------------------->
+			
+			<h4>	
+				Specimen/Event
+				<a name="specimen_event_new" href="##top">[ scroll to top ]</a>
+			</h4>
+			<label for="specimen_event_type">Specimen/Event Type</label>
+			<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
+				<cfloop query="ctspecimen_event_type">
+					<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
+						value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+			    </cfloop>
+			</select>
+			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
+
+			<label for="specimen_event_type">Event Assigned by Agent</label>
+			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
+				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc#f#',this.value); return false;"
+				 onKeyPress="return noenter(event);">
+			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
+			
+			<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
+			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
+			
+			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
+			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#l.specimen_event_remark#" size="75">
+			
+			<label for="habitat">Habitat</label>
+			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
+			
+			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
+			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+				<option value=""></option>
+				<cfloop query="ctcollecting_source">
+					<option <cfif ctcollecting_source.COLLECTING_SOURCE is l.COLLECTING_SOURCE> selected="selected" </cfif>
+						value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
+				</cfloop>
+			</select>
+			<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
+
+			<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
+			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
+			
+			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
+			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+				<cfloop query="ctVerificationStatus">
+					<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
+						value="#VerificationStatus#">#VerificationStatus#</option>
+				</cfloop>
+			</select>
+			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
+			<h4>
+				Collecting Event
+				<a style="font-size:small;" href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">[ Edit Event ]</a>
+			</h4>
+			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
+			<input type="text" size="50" name="cepick#f#">
+			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc#f#','cepick#f#');">
+			<br>
+			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
+			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
+			</cfinvoke>
+			#contents#
+			<br>
+			<ul>
+				<li>Date: #VERBATIM_DATE# (<cfif BEGAN_DATE is ENDED_DATE>#ENDED_DATE#<cfelse>#BEGAN_DATE# to #ENDED_DATE#</cfif>)</li>
+				<cfif len(VERBATIM_LOCALITY) gt 0>
+					<li>Verbatim Locality: #VERBATIM_LOCALITY#</li>
+				</cfif>
+				<cfif len(verbatim_coordinates) gt 0>
+					<li>Verbatim Coordinates: #verbatim_coordinates#</li>
+				</cfif>
+				<cfif len(collecting_event_name) gt 0>
+					<li>Collecting Event Name: #collecting_event_name#</li>
+				</cfif>
+				<cfif len(COLL_EVENT_REMARKS) gt 0>
+					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
+				</cfif>
+			</ul>
+			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
+	</cfform>
+	
+	
+	
 	</cfoutput>
 </cfif>
 
