@@ -30,21 +30,33 @@
 	<cf_findLocality>
 	<cfquery name="localityResults" dbtype="query">
 		select 
-			locality_id,geog_auth_rec_id,locality_id,spec_locality,higher_geog,
-			verbatimLatitude,verbatimLongitude,NoGeorefBecause,
-			minimum_elevation,maximum_elevation,orig_elev_units,
-			coordinateDeterminer,
-			determined_date,
-			lat_long_ref_source,
+			locality_id,
+			geog_auth_rec_id,
+			locality_id,
+			spec_locality,
+			higher_geog,
+			dec_lat,dec_long,
+			minimum_elevation,
+			maximum_elevation,
+			orig_elev_units,
+			georeference_source,
+			georeference_protocol,
+			locality_name,
 			geolAtts
 		from localityResults
 		group by
-			locality_id,geog_auth_rec_id,locality_id,spec_locality,higher_geog,verbatimLatitude,
-			verbatimLongitude,NoGeorefBecause,
-			minimum_elevation,maximum_elevation,orig_elev_units,
-			coordinateDeterminer,
-			determined_date,
-			lat_long_ref_source,
+			locality_id,
+			geog_auth_rec_id,
+			locality_id,
+			spec_locality,
+			higher_geog,
+			dec_lat,dec_long,
+			minimum_elevation,
+			maximum_elevation,
+			orig_elev_units,
+			georeference_source,
+			georeference_protocol,
+			locality_name,
 			geolAtts
 	</cfquery>
 	<table border>
@@ -67,11 +79,13 @@
 					<cfif len(geolAtts) gt 0> [#geolAtts#] </cfif>
 					<br>
 					<span style="font-size:.7em">
-						<cfif len(#verbatimLatitude#) gt 0 and len(#verbatimLongitude#) gt 0>
-							#verbatimLatitude# #verbatimLongitude# 
-							(#coordinateDeterminer# on #dateformat(determined_date,"yyyy-mm-dd")# ref. #lat_long_ref_source#)
-						<cfelse>
-							#NoGeorefBecause#
+						<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
+							<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#,#dec_long#">
+							<cfset iu=iu & "&markers=color:red|size:tiny|#ldec_latt#,#dec_long#&sensor=false&size=200x200&zoom=2">
+							<cfset iu=iu & "&maptype=roadmap">
+							<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+							#dec_lat# #dec_long# 
+							(#georeference_source# - #georeference_protocol#)
 						</cfif>
 					</span>
 		  			<cfif len(#orig_elev_units#) gt 0>
