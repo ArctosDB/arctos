@@ -572,6 +572,12 @@
 				<cfif len(locDet.max_error_distance) gt 0>
 					&##177; #locDet.max_error_distance# #locDet.max_error_units#
 				</cfif>
+				<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#locDet.loclat#,#locDet.loclong#">
+				<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.loclat#,#locDet.loclong#&sensor=false&size=200x200&zoom=2">
+				<cfset iu=iu & "&maptype=roadmap">
+				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+		
+		
 			</cfif>
 			<br><em>#locDet.spec_locality#</em>
 		</div>
