@@ -395,14 +395,6 @@
 		<input type="button" value="Add Collecting Event" class="insBtn" 
 			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
 		<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
-		<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank">[ Map ]</a>
-		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a>
-		
-		
-		
-		&nbsp;~&nbsp;<a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a>
-		&nbsp;~&nbsp;<a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a>
-			<span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span>
 		
 		
 		
@@ -414,6 +406,15 @@
 			<cfset iu=iu & "&maptype=roadmap">
 			<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
 		</cfif>
+		<ul>
+			<li><a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a></li>
+			<li><a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a></li>
+			<li><a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a></li>
+			<li><span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
 	</td></tr></table>
 	</span>
 	
