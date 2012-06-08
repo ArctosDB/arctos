@@ -533,6 +533,7 @@
 		</h4>
 		<table width="100%"><tr><td valign="top">
 			<ul>
+				<li>Higher Geog: #locDet.higher_geog#</li>
 				<cfif len(locDet.locality_name) gt 0>
 					<li>Locality Name: #locDet.locality_name#</li>
 				</cfif>
@@ -549,12 +550,9 @@
 					<li>Remark: #locDet.LOCALITY_REMARKS#</li>
 				</cfif>
 			</ul>
-		
 		</td>
-		
 		<td valign="top">
 			<cfif len(locDet.loclat) gt 0>
-				
 				<cfset iu="http://maps.google.com/maps/api/staticmap?center=#locDet.loclat#,#locDet.loclong#">
 				<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.loclat#,#locDet.loclong#&sensor=false&size=200x200&zoom=2">
 				<cfset iu=iu & "&maptype=roadmap">
@@ -574,15 +572,8 @@
 			<input type="submit" value="Save Change" class="savBtn">
 		</div>
 	</form>
-	<hr>
-	OR
-	<hr>
-	<input type="button" value="Edit the current Locality" class="lnkBtn"
-		onClick="document.location='editLocality.cfm?locality_id=#locDet.locality_id#'">	
-	<hr>
-	OR
-	<hr>
-	<strong>Edit this Collecting Event:</strong>
+	
+	<h4>Edit this Collecting Event:</h4>
 	<cfform name="locality" method="post" action="Locality.cfm">
     	<input type="hidden" name="Action" value="saveCollEventEdit">
 	    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
