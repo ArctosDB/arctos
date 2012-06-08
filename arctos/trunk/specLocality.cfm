@@ -467,7 +467,7 @@ function useGL(glat,glon,gerr){
 	</cfif>
 	<cfset f=1>
 	<cfloop query="l">
-		<div style="border:2px solid black; margin:1em;padding:1em;">
+		<div style="border:2px solid black; margin:1em;">
 		<table border="1"><tr><td>
 		<cfform name="loc#f#" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
@@ -558,14 +558,14 @@ function useGL(glat,glon,gerr){
 			<ul>
 				<li>#higher_geog#</li>
 			</ul>
-			
-			<h4>Locality</h4>
+			<h4>
+				Locality
+				<a href="/editLocality.cfm?locality_id=#locality_id#" target="_top">[ Edit Locality ]</a>
+			</h4>
 			<cfinvoke component="component.functions" method="getLocalityContents" returnvariable="contents">
 			    <cfinvokeargument name="locality_id" value="#locality_id#">
 			</cfinvoke>
-			
 			#contents#
-			
 			<ul>
 				<li>SPEC_LOCALITY : #SPEC_LOCALITY#</li>
 				<li>DEC_LAT : #DEC_LAT#</li>
