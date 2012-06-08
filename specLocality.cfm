@@ -196,7 +196,7 @@ function useGL(glat,glon,gerr){
 			closeGeoLocate();
 		}
 </script>
-	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select 
 			 COLLECTING_EVENT.COLLECTING_EVENT_ID,
 			 locality.LOCALITY_ID,
@@ -248,35 +248,148 @@ function useGL(glat,glon,gerr){
 			 COLLECTING_METHOD,
 			 COLLECTING_SOURCE,
 			 VERIFICATIONSTATUS,
-			 habitat
+			 habitat,
+			 GEOLOGY_ATTRIBUTE_ID,
+			GEOLOGY_ATTRIBUTE,
+			GEO_ATT_VALUE,
+			GEO_ATT_DETERMINER_ID,
+			getPreferredAgentName(GEO_ATT_DETERMINER_ID) geo_att_determiner,
+			GEO_ATT_DETERMINED_DATE,
+			GEO_ATT_DETERMINED_METHOD,
+			GEO_ATT_REMARK
 		from 
 			geog_auth_rec,
 			locality,
+			geology_attributes,
 			collecting_event,
 			specimen_event
 		where 
 			geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
 			locality.locality_id=collecting_event.locality_id and
+			locality.locality_id=geology_attributes.locality_id (+) and			
 			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 			specimen_event.collection_object_id = #collection_object_id#
 	</cfquery>
-	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="l" dbtype="query">
 		select
-			GEOLOGY_ATTRIBUTE_ID,
+		 COLLECTING_EVENT_ID,
+			 LOCALITY_ID,
+			 VERBATIM_DATE,
+			 VERBATIM_LOCALITY,
+			 COLL_EVENT_REMARKS,
+			 BEGAN_DATE,
+			 ENDED_DATE,
+			 verbatim_coordinates,
+			 collecting_event_name,
+			 LAT_DEG,
+			 DEC_LAT_MIN,
+			 LAT_MIN,
+			 LAT_SEC,
+			 LAT_DIR,
+			 LONG_DEG,
+			 DEC_LONG_MIN,
+			 LONG_MIN,
+			 LONG_SEC,
+			 LONG_DIR,
+			 DEC_LAT,
+			 DEC_LONG,
+			 DATUM,
+			 UTM_ZONE,
+			 UTM_EW,
+			 UTM_NS,
+			 ORIG_LAT_LONG_UNITS,
+			 GEOG_AUTH_REC_ID,
+			 SPEC_LOCALITY,
+			 locdeclat,
+			 locdeclong,
+			 MINIMUM_ELEVATION,
+			 MAXIMUM_ELEVATION,
+			 ORIG_ELEV_UNITS,
+			 MIN_DEPTH,
+			 MAX_DEPTH,
+			 DEPTH_UNITS,
+			 MAX_ERROR_DISTANCE,
+			 MAX_ERROR_UNITS,
+			 COLLECTING_EVENT.DATUM,
+			 LOCALITY_REMARKS,
+			 georeference_source,
+			 georeference_protocol,
+			 locality_name,
+			 assigned_by_agent_id,
+			 assigned_by_agent_name,
+			 assigned_date,
+			 specimen_event_type,
+			 COLLECTING_METHOD,
+			 COLLECTING_SOURCE,
+			 VERIFICATIONSTATUS,
+			 habitat
+			from raw group by
+			COLLECTING_EVENT_ID,
+			 LOCALITY_ID,
+			 VERBATIM_DATE,
+			 VERBATIM_LOCALITY,
+			 COLL_EVENT_REMARKS,
+			 BEGAN_DATE,
+			 ENDED_DATE,
+			 verbatim_coordinates,
+			 collecting_event_name,
+			 LAT_DEG,
+			 DEC_LAT_MIN,
+			 LAT_MIN,
+			 LAT_SEC,
+			 LAT_DIR,
+			 LONG_DEG,
+			 DEC_LONG_MIN,
+			 LONG_MIN,
+			 LONG_SEC,
+			 LONG_DIR,
+			 DEC_LAT,
+			 DEC_LONG,
+			 DATUM,
+			 UTM_ZONE,
+			 UTM_EW,
+			 UTM_NS,
+			 ORIG_LAT_LONG_UNITS,
+			 GEOG_AUTH_REC_ID,
+			 SPEC_LOCALITY,
+			 locdeclat,
+			 locdeclong,
+			 MINIMUM_ELEVATION,
+			 MAXIMUM_ELEVATION,
+			 ORIG_ELEV_UNITS,
+			 MIN_DEPTH,
+			 MAX_DEPTH,
+			 DEPTH_UNITS,
+			 MAX_ERROR_DISTANCE,
+			 MAX_ERROR_UNITS,
+			 COLLECTING_EVENT.DATUM,
+			 LOCALITY_REMARKS,
+			 georeference_source,
+			 georeference_protocol,
+			 locality_name,
+			 assigned_by_agent_id,
+			 assigned_by_agent_name,
+			 assigned_date,
+			 specimen_event_type,
+			 COLLECTING_METHOD,
+			 COLLECTING_SOURCE,
+			 VERIFICATIONSTATUS,
+			 habitat
+	</cfquery>
+			
+	<cfquery name="g" dbtype="query">
+		 GEOLOGY_ATTRIBUTE_ID,
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
 			GEO_ATT_DETERMINER_ID,
-			geo_att_determiner,
+			getPreferredAgentName(GEO_ATT_DETERMINER_ID) geo_att_determiner,
 			GEO_ATT_DETERMINED_DATE,
 			GEO_ATT_DETERMINED_METHOD,
 			GEO_ATT_REMARK
 		from
-			geology_attributes
-		where 
-			collection_object_id = #collection_object_id# and
-			GEOLOGY_ATTRIBUTE is not null
-		group by
-			GEOLOGY_ATTRIBUTE_ID,
+			raw
+			group by
+			 GEOLOGY_ATTRIBUTE_ID,
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
 			GEO_ATT_DETERMINER_ID,
