@@ -529,10 +529,9 @@ function useGL(glat,glon,gerr){
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
-
 			<h4>
 				Collecting Event
-				<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">[ Edit Event ]</a>
+				<a style="font-size:small;" href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">[ Edit Event ]</a>
 			</h4>
 			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
 			<input type="text" size="50" name="cepick#f#">
@@ -543,11 +542,6 @@ function useGL(glat,glon,gerr){
 			</cfinvoke>
 			#contents#
 			<br>
-			<cfif BEGAN_DATE is ENDED_DATE>
-				#ENDED_DATE#
-			<cfelse>
-				#BEGAN_DATE# to #ENDED_DATE#
-			</cfif>
 			<ul>
 				<li>Date: #VERBATIM_DATE# (<cfif BEGAN_DATE is ENDED_DATE>#ENDED_DATE#<cfelse>#BEGAN_DATE# to #ENDED_DATE#</cfif>)</li>
 				<cfif len(VERBATIM_LOCALITY) gt 0>
@@ -563,12 +557,9 @@ function useGL(glat,glon,gerr){
 					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
 				</cfif>
 			</ul>
-			
 			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
 	</cfform>
-	
-	</td>
-	<td valign="top">
+	</td><td valign="top">
 		<h4>Geography</h4>
 			<ul>
 				<li>#higher_geog#</li>
