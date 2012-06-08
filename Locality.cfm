@@ -457,6 +457,7 @@
     	select 
 			higher_geog,
 			spec_locality,
+			locality_name,
 			collecting_event.collecting_event_id,
 			locality.locality_id,
 			verbatim_locality,
@@ -525,23 +526,20 @@
 		</h4>
 		<table width="100%"><tr><td valign="top">
 			<ul>
-				<cfif len(locality_name) gt 0>
-					<li>Locality Name: #locality_name#</li>
+				<cfif len(locDet.locality_name) gt 0>
+					<li>Locality Name: #locDet.locality_name#</li>
 				</cfif>
-				<cfif len(SPEC_LOCALITY) gt 0>
-					<li>Specific Locality: #SPEC_LOCALITY#</li>
+				<cfif len(locDet.SPEC_LOCALITY) gt 0>
+					<li>Specific Locality: #locDet.SPEC_LOCALITY#</li>
 				</cfif>
-				<cfif len(locality_name) gt 0>
-					<li>Locality Name: #locality_name#</li>
+				<cfif len(locDet.ORIG_ELEV_UNITS) gt 0>
+					<li>Elevation: #locDet.MINIMUM_ELEVATION#-#locDet.MAXIMUM_ELEVATION# #locDet.ORIG_ELEV_UNITS#</li>
 				</cfif>
-				<cfif len(ORIG_ELEV_UNITS) gt 0>
-					<li>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</li>
+				<cfif len(locDet.DEPTH_UNITS) gt 0>
+					<li>Depth: #locDet.MIN_DEPTH#-#locDet.MAX_DEPTH# #locDet.DEPTH_UNITS#</li>
 				</cfif>
-				<cfif len(DEPTH_UNITS) gt 0>
-					<li>Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#</li>
-				</cfif>
-				<cfif len(LOCALITY_REMARKS) gt 0>
-					<li>Remark: #LOCALITY_REMARKS#</li>
+				<cfif len(locDet.LOCALITY_REMARKS) gt 0>
+					<li>Remark: #locDet.LOCALITY_REMARKS#</li>
 				</cfif>
 			</ul>
 		

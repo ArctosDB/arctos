@@ -593,9 +593,6 @@ function useGL(glat,glon,gerr){
 				<cfif len(SPEC_LOCALITY) gt 0>
 					<li>Specific Locality: #SPEC_LOCALITY#</li>
 				</cfif>
-				<cfif len(locality_name) gt 0>
-					<li>Locality Name: #locality_name#</li>
-				</cfif>
 				<cfif len(ORIG_ELEV_UNITS) gt 0>
 					<li>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</li>
 				</cfif>
