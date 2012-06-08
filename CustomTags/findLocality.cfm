@@ -25,7 +25,8 @@
 		locality.dec_lat,
 		locality.dec_long,
 		georeference_source,
-		georeference_protocol
+		georeference_protocol,
+		locality_name
 	from 
 		geog_auth_rec,
 		locality,
