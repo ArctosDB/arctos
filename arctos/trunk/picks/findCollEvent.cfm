@@ -1,23 +1,21 @@
 <cfinclude template="/includes/_frameHeader.cfm">
-<cfif #action# is "nothing">
-<cfoutput>
-<cfset showLocality=1>
-<cfset showEvent=1>
-<form name="findCollEvent" method="post" action="findCollEvent.cfm">
-	<input type="hidden" name="action" value="findem">
-	<input type="hidden" name="dispField" value="#dispField#">
-	<input type="hidden" name="formName" value="#formName#">
-	<input type="hidden" name="collIdFld" value="#collIdFld#">
- 	<cfinclude template="/includes/frmFindLocation_guts.cfm">
-</form>
-</cfoutput>
+<cfif action is "nothing">
+	<cfoutput>
+		<cfset showLocality=1>
+		<cfset showEvent=1>
+		<form name="findCollEvent" method="post" action="findCollEvent.cfm">
+			<input type="hidden" name="action" value="findem">
+			<input type="hidden" name="dispField" value="#dispField#">
+			<input type="hidden" name="formName" value="#formName#">
+			<input type="hidden" name="collIdFld" value="#collIdFld#">
+		 	<cfinclude template="/includes/frmFindLocation_guts.cfm">
+		</form>
+	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------->
-<cfif #action# is "findem">
-
+<cfif action is "findem">
 <cfoutput>
 	<cf_findLocality>
-	
 	<table border>
 		<tr>
 						
@@ -118,7 +116,7 @@
 			
 			<td colspan="2">
 				<font size="-1">
-					#VerbatimLatitude# / #verbatimLongitude# &plusmn; #max_error_distance# #max_error_units# <em><strong>Ref:</strong></em> #lat_long_ref_source#
+					#Verbatim_coordinates# &plusmn; #max_error_distance# #max_error_units# <em><strong>Ref:</strong></em>
 				</font>
 			</td>
 		</tr>
