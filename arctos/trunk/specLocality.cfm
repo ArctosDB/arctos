@@ -445,7 +445,7 @@ function useGL(glat,glon,gerr){
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
 	<cfloop query="l">
-		<div style="border:2px solid black;">
+		<div style="border:2px solid black; margin:1em;padding:1em;">
 		<cfform name="loc" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
@@ -522,6 +522,28 @@ function useGL(glat,glon,gerr){
 			</cfinvoke>
 			
 			#contents#
+			
+			<ul>
+				<li>SPEC_LOCALITY : #SPEC_LOCALITY#</li>
+				<li>DEC_LAT : #DEC_LAT#</li>
+				<li>DEC_LONG : #DEC_LONG#</li>
+				<cfif len(DEC_LAT) gt 0>
+					<li>
+						<cfset iu="http://maps.google.com/maps/api/staticmap?center=#DEC_LAT#,#DEC_LONG#">
+						<cfset iu=iu & "&markers=color:red|size:tiny|#DEC_LAT#,#DEC_LONG#&sensor=false&size=200x200&zoom=2&maptype=roadmap">
+						<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+					</li>
+				</cfif>
+				<li>SPEC_LOCALITY : #SPEC_LOCALITY#</li>
+				<li>Elevation : #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</li>
+				<li>Depth : #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#</li>
+				<li>CoordinateError : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</li>
+				<li>DATUM : #DATUM#</li>
+				<li>LOCALITY_REMARKS : #LOCALITY_REMARKS#</li>
+				<li>georeference_source : #georeference_source#</li>
+				<li>georeference_protocol : #georeference_protocol#</li>
+				<li>locality_name : #locality_name#</li>
+			</ul>
 	
     	<!--------
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
