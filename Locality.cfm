@@ -501,65 +501,11 @@
 			locality.locality_id=collecting_event.locality_id and
 			collecting_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
     </cfquery>
-	<!----
-	<cfquery name="whatSpecs" datasource="uam_god">
-	  	SELECT 
-	  		count(cat_num) as numOfSpecs, 
-	  		collection,
-	  		collection.collection_id
-		from 
-			cataloged_item,
-			collection,
-			specimen_event
-		WHERE
-			cataloged_item.collection_id=collection.collection_id and
-			cataloged_item.collection_object_id=specimen_event.collection_object_id and
-			specimen_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
-		GROUP BY 
-			collection,
-	  		collection.collection_id
-	</cfquery>
-	<cfquery name="whatMedia" datasource="uam_god">
-  		SELECT 
-			count(*) num, 
-			media_id
-		from 
-			media_relations 
-		WHERE
-			 media_relationship like '% collecting_event' and 
-			 related_primary_key=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
-		GROUP BY 
-			media_id
-	</cfquery>
-	<div style="border:2px solid red; font-weight:bold">
-		This Collecting Event (#collecting_event_id#) 
-		<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
-		<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
-			nothing. Please delete it if you don't have plans for it.
-		<cfelse>
-			<ul>	
-				<cfloop query="whatSpecs">
-					<li>
-						<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#&collection_id=#collection_id#">
-							#whatSpecs.numOfSpecs# #whatSpecs.collection# specimens
-						</a>
-					</li>
-				</cfloop>
-				<cfif whatMedia.recordcount gt 0>
-					<li>
-						<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.num# Media records</a>
-					</li>
-				</cfif>
-			</ul>
-		</cfif>
-	</div>
-	---->
 	<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
 	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
 	</cfinvoke>
-	
 	#contents#
-
+	<br>
 	<form name="localitypick" action="Locality.cfm" method="post">
 		<input type="hidden" name="Action" value="changeLocality">
     	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
@@ -568,27 +514,55 @@
 		 	<cfset collection_object_id=-1>
 		 </cfif>
 	 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		<input type="button" value="Change Locality for this Collecting Event" class="picBtn"
-			onclick="document.getElementById('locDesc').style.background='red';
+		
+		<h4>
+			Locality
+			<a style="font-size:small;" href="/editLocality.cfm?locality_id=#locDet.locality_id#" target="_top">[ Edit Locality ]</a>
+			<input type="button" value="Pick New Locality for this Collecting Event" class="picBtn"
+				onclick="document.getElementById('locDesc').style.background='red';
 				document.getElementById('hiddenButton').style.visibility='visible';
 				LocalityPick('locality_id','spec_locality','localitypick'); return false;" >
-		Current Locality: 
-		<div id="locDesc">
-			#locDet.higher_geog#
-			<cfif len(locDet.loclat) gt 0>
-					<br>#locDet.loclat# #locDet.loclong#
-				<cfif len(locDet.max_error_distance) gt 0>
-					&##177; #locDet.max_error_distance# #locDet.max_error_units#
+		</h4>
+		<table width="100%"><tr><td valign="top">
+			<ul>
+				<cfif len(locality_name) gt 0>
+					<li>Locality Name: #locality_name#</li>
 				</cfif>
-				<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#locDet.loclat#,#locDet.loclong#">
+				<cfif len(SPEC_LOCALITY) gt 0>
+					<li>Specific Locality: #SPEC_LOCALITY#</li>
+				</cfif>
+				<cfif len(locality_name) gt 0>
+					<li>Locality Name: #locality_name#</li>
+				</cfif>
+				<cfif len(ORIG_ELEV_UNITS) gt 0>
+					<li>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</li>
+				</cfif>
+				<cfif len(DEPTH_UNITS) gt 0>
+					<li>Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#</li>
+				</cfif>
+				<cfif len(LOCALITY_REMARKS) gt 0>
+					<li>Remark: #LOCALITY_REMARKS#</li>
+				</cfif>
+			</ul>
+		
+		</td>
+		
+		<td valign="top">
+			<cfif len(locDet.loclat) gt 0>
+				
+				<cfset iu="http://maps.google.com/maps/api/staticmap?center=#locDet.loclat#,#locDet.loclong#">
 				<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.loclat#,#locDet.loclong#&sensor=false&size=200x200&zoom=2">
 				<cfset iu=iu & "&maptype=roadmap">
 				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
-		
-		
+				<span style="font-size:small;">
+					<br>#DEC_LAT# / #DEC_LONG#
+					<br>Datum: #DATUM#
+					<br>Error : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+					<br>Georeference Source : #georeference_source#
+					<br>Georeference Protocol : #georeference_protocol#
+				</span>
 			</cfif>
-			<br><em>#locDet.spec_locality#</em>
-		</div>
+		</td></tr></table>
 		<div id="hiddenButton" style="visibility:hidden ">
 			Picked Locality:
 			<input type="text" name="spec_locality" size="50">
