@@ -492,7 +492,13 @@
 			UTM_NS,
 			ORIG_LAT_LONG_UNITS,
 			caclulated_dlat,
-			calculated_dlong
+			calculated_dlong,
+			MINIMUM_ELEVATION,
+			MAXIMUM_ELEVATION,
+			ORIG_ELEV_UNITS,
+			MIN_DEPTH,
+			MAX_DEPTH,
+			DEPTH_UNITS
 		from 
 			locality,
 			geog_auth_rec,
