@@ -1,6 +1,6 @@
 		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
 
-
+<cfoutput>
 
 
 
@@ -25,3 +25,7 @@ AIzaSyCoES-wwWe45-9CCFIFjNqTpOpYLZJj99k
 			<cfset iu=iu & "&markers=color:red|size:tiny|#12#,#34#&sensor=false&size=200x200&zoom=2">
 			<cfset iu=iu & "&maptype=roadmap">
 			<img src="#iu#" alt="Google Map">
+			
+			
+			
+			</cfoutput>
