@@ -31,7 +31,7 @@
 			media_relations 
 		WHERE
 			 media_relationship like '% locality' and 
-			 related_primary_key=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
+			 related_primary_key=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
 		GROUP BY 
 			media_id
 	</cfquery>
