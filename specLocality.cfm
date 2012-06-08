@@ -576,14 +576,14 @@ function useGL(glat,glon,gerr){
 		</tr>
 		<tr>
 			<td>
-				<label for="habitat_desc">
+				<label for="habitat">
 					<a href="javascript:void(0);" 
 						onClick="getDocs('collecting_event','habitat')">Habitat</a>
 				</label>
 				<input type="text" 
-					name="habitat_desc" 
-					id="habitat_desc"
-					value="#stripQuotes(l.habitat_desc)#"  
+					name="habitat" 
+					id="habitat"
+					value="#stripQuotes(l.habitat)#"  
 					size="75">
 			</td>
 		</tr>

@@ -34,10 +34,12 @@
 					<cfif isdefined("exception.cause.message")>
 						<tr>
 							<td>Message</td>
-							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
-							<br>
-								#exception.Message#
-							</td>
+							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#</td>
+						</tr>
+					<cfelseif isdefined("exception.Message")>
+						<tr>
+							<td>Message</td>
+							<td>#exception.Message#</td>
 						</tr>
 					</cfif>
 					<tr>
@@ -62,10 +64,18 @@
 					</cfif>
 					
 					<cfif structKeyExists(exception,"tagcontext")>
+						<!----
 						<cfloop index="stack" from="1" to="#arrayLen(exception.tagContext)#">
 						<tr>
 							<td>Line</td>
 							<td>#exception.tagContext[stack].line#</td>
+						</tr>
+						</cfloop>
+						---->
+						<cfloop index="stack" from="1" to="#arrayLen(exception.tagContext)#">
+						<tr>
+							<td>Line</td>
+							<td>#exception.tagContext[1].line#</td>
 						</tr>
 						</cfloop>
 					</cfif>
