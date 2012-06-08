@@ -498,7 +498,8 @@
 			ORIG_ELEV_UNITS,
 			MIN_DEPTH,
 			MAX_DEPTH,
-			DEPTH_UNITS
+			DEPTH_UNITS,
+			LOCALITY_REMARKS
 		from 
 			locality,
 			geog_auth_rec,
@@ -552,14 +553,14 @@
 		</td>
 		
 		<td valign="top">
-			<cfif len(locDet.loclat) gt 0>
+			<cfif len(locDet.localityDEC_LAT) gt 0>
 				
-				<cfset iu="http://maps.google.com/maps/api/staticmap?center=#locDet.loclat#,#locDet.loclong#">
-				<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.loclat#,#locDet.loclong#&sensor=false&size=200x200&zoom=2">
+				<cfset iu="http://maps.google.com/maps/api/staticmap?center=#locDet.localityDEC_LAT#,#locDet.localityDEC_LONG#">
+				<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.localityDEC_LAT#,#locDet.localityDEC_LONG#&sensor=false&size=200x200&zoom=2">
 				<cfset iu=iu & "&maptype=roadmap">
 				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
 				<span style="font-size:small;">
-					<br>#DEC_LAT# / #DEC_LONG#
+					<br>#localityDEC_LAT# / #localityDEC_LONG#
 					<br>Datum: #DATUM#
 					<br>Error : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
 					<br>Georeference Source : #georeference_source#
