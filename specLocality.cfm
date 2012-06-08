@@ -380,7 +380,7 @@ function useGL(glat,glon,gerr){
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
 			GEO_ATT_DETERMINER_ID,
-			getPreferredAgentName(GEO_ATT_DETERMINER_ID) geo_att_determiner,
+			geo_att_determiner,
 			GEO_ATT_DETERMINED_DATE,
 			GEO_ATT_DETERMINED_METHOD,
 			GEO_ATT_REMARK
