@@ -575,7 +575,7 @@ function useGL(glat,glon,gerr){
 			</ul>
 			<h4>
 				Locality
-				<a href="/editLocality.cfm?locality_id=#locality_id#" target="_top">[ Edit Locality ]</a>
+				<a style="font-size:small;" href="/editLocality.cfm?locality_id=#locality_id#" target="_top">[ Edit Locality ]</a>
 			</h4>
 			<cfinvoke component="component.functions" method="getLocalityContents" returnvariable="contents">
 			    <cfinvokeargument name="locality_id" value="#locality_id#">
