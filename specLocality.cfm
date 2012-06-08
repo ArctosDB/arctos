@@ -444,6 +444,24 @@ function useGL(glat,glon,gerr){
 	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
+	<cfquery name="se" dbtype="query">
+		select 
+			specimen_event_type,specimen_event_id 
+		from 
+			raw 
+		group by 
+			specimen_event_type,specimen_event_id 
+		order by 
+			specimen_event_type,specimen_event_id
+	</cfquery>
+	<cfif se.recordcount gt 1>
+		Specimen/Event Shortcuts
+		<ul>
+			<cfloop query="se">
+				<li><a href="##specimen_event_#specimen_event_id#">#specimen_event_type#</a></li>
+			</cfloop>
+		</ul>
+	</cfif>
 	<cfloop query="l">
 		<div style="border:2px solid black; margin:1em;padding:1em;">
 		<cfform name="loc" method="post" action="specLocality.cfm">
@@ -454,6 +472,7 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
 		
 			<!-------------------------- specimen_event -------------------------->
+			<a name="specimen_event_#specimen_event_id#"></a>
 			<h4>Specimen/Event</h4>
 			<label for="specimen_event_type">specimen_event_type</label>
 			<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
