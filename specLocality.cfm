@@ -255,7 +255,9 @@ function useGL(glat,glon,gerr){
 			getPreferredAgentName(GEO_ATT_DETERMINER_ID) geo_att_determiner,
 			GEO_ATT_DETERMINED_DATE,
 			GEO_ATT_DETERMINED_METHOD,
-			GEO_ATT_REMARK
+			GEO_ATT_REMARK,
+			geog_auth_rec.geog_auth_rec_id,
+			higher_geog
 		from 
 			geog_auth_rec,
 			locality,
@@ -320,7 +322,9 @@ function useGL(glat,glon,gerr){
 			 COLLECTING_METHOD,
 			 COLLECTING_SOURCE,
 			 VERIFICATIONSTATUS,
-			 habitat
+			 habitat,
+			geog_auth_rec_id,
+			higher_geog
 			from raw group by
 			COLLECTING_EVENT_ID,
 			 LOCALITY_ID,
@@ -371,7 +375,9 @@ function useGL(glat,glon,gerr){
 			 COLLECTING_METHOD,
 			 COLLECTING_SOURCE,
 			 VERIFICATIONSTATUS,
-			 habitat
+			 habitat,
+			geog_auth_rec_id,
+			higher_geog
 	</cfquery>
 			
 	<cfquery name="g" dbtype="query">
