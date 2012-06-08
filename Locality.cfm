@@ -514,66 +514,11 @@
 	</cfinvoke>
 	#contents#
 	<br>
-	<form name="localitypick" action="Locality.cfm" method="post">
-		<input type="hidden" name="Action" value="changeLocality">
-    	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
-	 	<input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
-		 <cfif not isdefined("collection_object_id")>
-		 	<cfset collection_object_id=-1>
-		 </cfif>
-	 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		
-		<h4>
-			Locality
-			<a style="font-size:small;" href="/editLocality.cfm?locality_id=#locDet.locality_id#" target="_top">[ Edit Locality ]</a>
-			<input type="button" value="Pick New Locality for this Collecting Event" class="picBtn"
-				onclick="document.getElementById('locDesc').style.background='red';
-				document.getElementById('hiddenButton').style.visibility='visible';
-				LocalityPick('locality_id','spec_locality','localitypick'); return false;" >
-		</h4>
-		<table width="100%"><tr><td valign="top">
-			<ul>
-				<li>Higher Geog: #locDet.higher_geog#</li>
-				<cfif len(locDet.locality_name) gt 0>
-					<li>Locality Name: #locDet.locality_name#</li>
-				</cfif>
-				<cfif len(locDet.SPEC_LOCALITY) gt 0>
-					<li>Specific Locality: #locDet.SPEC_LOCALITY#</li>
-				</cfif>
-				<cfif len(locDet.ORIG_ELEV_UNITS) gt 0>
-					<li>Elevation: #locDet.MINIMUM_ELEVATION#-#locDet.MAXIMUM_ELEVATION# #locDet.ORIG_ELEV_UNITS#</li>
-				</cfif>
-				<cfif len(locDet.DEPTH_UNITS) gt 0>
-					<li>Depth: #locDet.MIN_DEPTH#-#locDet.MAX_DEPTH# #locDet.DEPTH_UNITS#</li>
-				</cfif>
-				<cfif len(locDet.LOCALITY_REMARKS) gt 0>
-					<li>Remark: #locDet.LOCALITY_REMARKS#</li>
-				</cfif>
-			</ul>
-		</td>
-		<td valign="top">
-			<cfif len(locDet.loclat) gt 0>
-				<cfset iu="http://maps.google.com/maps/api/staticmap?center=#locDet.loclat#,#locDet.loclong#">
-				<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.loclat#,#locDet.loclong#&sensor=false&size=200x200&zoom=2">
-				<cfset iu=iu & "&maptype=roadmap">
-				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
-				<span style="font-size:small;">
-					<br>#locDet.loclat# / #locDet.loclong#
-					<br>Datum: #locDet.DATUM#
-					<br>Error : #locDet.MAX_ERROR_DISTANCE# #locDet.MAX_ERROR_UNITS#
-					<br>Georeference Source : #locDet.georeference_source#
-					<br>Georeference Protocol : #locDet.georeference_protocol#
-				</span>
-			</cfif>
-		</td></tr></table>
-		<div id="hiddenButton" style="visibility:hidden ">
-			Picked Locality:
-			<input type="text" name="spec_locality" size="50">
-			<input type="submit" value="Save Change" class="savBtn">
-		</div>
-	</form>
 	
-	<h4>Edit this Collecting Event:</h4>
+		
+		
+		<table width="100%"><tr><td valign="top">
+			<h4>Edit this Collecting Event:</h4>
 	<cfform name="locality" method="post" action="Locality.cfm">
     	<input type="hidden" name="Action" value="saveCollEventEdit">
 	    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
@@ -802,6 +747,66 @@
 		<input type="button" value="Create Clone" class="insBtn" onClick="document.location='#dLoc#';">				
 		---->
 	</cfform>
+		</td>
+		<td valign="top">
+			<form name="localitypick" action="Locality.cfm" method="post">
+				<input type="hidden" name="Action" value="changeLocality">
+		    	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
+			 	<input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
+				 <cfif not isdefined("collection_object_id")>
+				 	<cfset collection_object_id=-1>
+				 </cfif>
+			 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+			<h4>
+				Locality
+				<a style="font-size:small;" href="/editLocality.cfm?locality_id=#locDet.locality_id#" target="_top">[ Edit Locality ]</a>
+				<input type="button" value="Pick New Locality for this Collecting Event" class="picBtn"
+					onclick="document.getElementById('locDesc').style.background='red';
+					document.getElementById('hiddenButton').style.visibility='visible';
+					LocalityPick('locality_id','spec_locality','localitypick'); return false;" >
+			</h4>
+			<ul>
+				<li>Higher Geog: #locDet.higher_geog#</li>
+				<cfif len(locDet.locality_name) gt 0>
+					<li>Locality Name: #locDet.locality_name#</li>
+				</cfif>
+				<cfif len(locDet.SPEC_LOCALITY) gt 0>
+					<li>Specific Locality: #locDet.SPEC_LOCALITY#</li>
+				</cfif>
+				<cfif len(locDet.ORIG_ELEV_UNITS) gt 0>
+					<li>Elevation: #locDet.MINIMUM_ELEVATION#-#locDet.MAXIMUM_ELEVATION# #locDet.ORIG_ELEV_UNITS#</li>
+				</cfif>
+				<cfif len(locDet.DEPTH_UNITS) gt 0>
+					<li>Depth: #locDet.MIN_DEPTH#-#locDet.MAX_DEPTH# #locDet.DEPTH_UNITS#</li>
+				</cfif>
+				<cfif len(locDet.LOCALITY_REMARKS) gt 0>
+					<li>Remark: #locDet.LOCALITY_REMARKS#</li>
+				</cfif>
+			</ul>
+			
+			<cfif len(locDet.loclat) gt 0>
+				<cfset iu="http://maps.google.com/maps/api/staticmap?center=#locDet.loclat#,#locDet.loclong#">
+				<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.loclat#,#locDet.loclong#&sensor=false&size=200x200&zoom=2">
+				<cfset iu=iu & "&maptype=roadmap">
+				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+				<span style="font-size:small;">
+					<br>#locDet.loclat# / #locDet.loclong#
+					<br>Datum: #locDet.DATUM#
+					<br>Error : #locDet.MAX_ERROR_DISTANCE# #locDet.MAX_ERROR_UNITS#
+					<br>Georeference Source : #locDet.georeference_source#
+					<br>Georeference Protocol : #locDet.georeference_protocol#
+				</span>
+			</cfif>
+					<div id="hiddenButton" style="visibility:hidden ">
+					Picked Locality:
+					<input type="text" name="spec_locality" size="50">
+					<input type="submit" value="Save Change" class="savBtn">
+				</div>
+			</form>
+		</td></tr></table>
+		
+	
+	
   </cfoutput> 
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
