@@ -388,7 +388,7 @@ function useGL(glat,glon,gerr){
 			
 	<cfquery name="g" dbtype="query">
 		 select 
-		 GEOLOGY_ATTRIBUTE_ID,
+		 	GEOLOGY_ATTRIBUTE_ID,
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
 			GEO_ATT_DETERMINER_ID,
@@ -398,7 +398,9 @@ function useGL(glat,glon,gerr){
 			GEO_ATT_REMARK
 		from
 			raw
-			group by
+		where
+			GEOLOGY_ATTRIBUTE_ID is not null
+		group by
 			 GEOLOGY_ATTRIBUTE_ID,
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
@@ -519,13 +521,16 @@ function useGL(glat,glon,gerr){
 				</cfloop>
 			</select>
 			<hr>
-			<h4>Collecting Event</h4>
+			<h4>Collecting Event
+			<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">[ Edit Event ]</a>
+			
+			</h4>
 			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
 			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
 			</cfinvoke>
 			#contents#
 			<br>
-			<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">Edit Event</a>
+			
 			<span class="likeLink" onclick="findCollEvent('collecting_event_id','loc#f#','cepick#f#');">pick new event</span>
 			
 			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
@@ -566,7 +571,6 @@ function useGL(glat,glon,gerr){
 						<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
 					</li>
 				</cfif>
-				<li>SPEC_LOCALITY : #SPEC_LOCALITY#</li>
 				<li>Elevation : #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</li>
 				<li>Depth : #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#</li>
 				<li>CoordinateError : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</li>
