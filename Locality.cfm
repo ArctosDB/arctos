@@ -554,8 +554,8 @@
 		</cfif>
 	</div>
 	---->
-	<cfinvoke component="component.functions" method="getEventContents">
-	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#" name="contents">
+	<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
+	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
 	</cfinvoke>
 	
 	--#contents#--
