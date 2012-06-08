@@ -455,6 +455,7 @@ function useGL(glat,glon,gerr){
 			specimen_event_type,specimen_event_id
 	</cfquery>
 	<cfif se.recordcount gt 1>
+		<a name="top"></a>
 		Specimen/Event Shortcuts
 		<ul>
 			<cfloop query="se">
@@ -472,7 +473,7 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
 		
 			<!-------------------------- specimen_event -------------------------->
-			<a name="specimen_event_#specimen_event_id#"></a>
+			<a name="specimen_event_#specimen_event_id#" href="##top">[ scroll to top ]</a>
 			<h4>Specimen/Event</h4>
 			<label for="specimen_event_type">specimen_event_type</label>
 			<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
