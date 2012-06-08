@@ -127,14 +127,8 @@
 	}	
 
 	function cloneLocality(locality_id) {
-		if(confirm('Do you want to create a copy of this locality which you may then edit?')) {
+		if(confirm('Are you sure you want to create a copy of this locality which you may then edit?')) {
 			var rurl='editLocality.cfm?action=clone&locality_id=' + locality_id;
-			if(confirm('Do you want to include accepted georeferences?')){
-				rurl+='&keepAcc=1';
-				if(confirm('Do you want to include unaccepted georeferences too?')){
-					rurl+='&keepUnacc=1';
-				}
-			}
 			document.location=rurl;
 		}
 	}
