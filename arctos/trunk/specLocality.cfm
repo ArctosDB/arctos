@@ -678,24 +678,6 @@ function useGL(glat,glon,gerr){
 				<input type="text" name="locality_remarks" id="locality_remarks" value="#l.LOCALITY_REMARKS#"  size="75">
 			</td>
         </tr>
-		<tr> 
-            <td>
-				<label for="NoGeorefBecause" class="likeLink" onClick="getDocs('locality','nogeorefbecause')">
-					Not Georefererenced Because
-				</label>
-				<input type="text" name="NoGeorefBecause" value="#l.NoGeorefBecause#"  size="75">
-				<cfif #len(l.orig_lat_long_units)# gt 0 AND len(#l.NoGeorefBecause#) gt 0>
-					<div style="background-color:red">
-						NoGeorefBecause should be NULL for localities with georeferences.
-						Please review this locality and update accordingly.
-					</div>
-				<cfelseif #len(l.orig_lat_long_units)# is 0 AND len(#l.NoGeorefBecause#) is 0>
-					<div style="background-color:red">
-						Please georeference this locality or enter a value for NoGeorefBecause.
-					</div>
-				</cfif>
-			</td>
-		</tr>
 		</table>
 	</td>
 	<td valign="top">
@@ -715,6 +697,10 @@ function useGL(glat,glon,gerr){
 	            <span class="likeLink" onclick="geoLocate()">GEOLocate</span>			
 			</td>
 		</tr>
+		
+		
+		
+		<!--------
 	<table>
 	<table id="llMeta" style="display:none;">
 		<tr>
@@ -1074,6 +1060,7 @@ function useGL(glat,glon,gerr){
 
 
 </table>
+----->
 </td>
 	</tr>
 	<tr>
