@@ -669,10 +669,6 @@
 		<cfabort>
 	</cfif>
 	<cftransaction>
-		<cfquery name="deleLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from lat_long where locality_id=#locality_id#
-		</cfquery>
-		<cftransaction action="commit">
 		<cfquery name="deleLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from locality where locality_id=#locality_id#
 		</cfquery>
