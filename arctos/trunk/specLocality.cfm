@@ -470,7 +470,7 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-			<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
+			<input type="hidden" name="collecting_event_id_#f#" value="#l.collecting_event_id#">
 			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
 		
 			<!-------------------------- specimen_event -------------------------->
@@ -518,10 +518,10 @@ function useGL(glat,glon,gerr){
 			<hr>
 			<h4>Collecting Event</h4>
 			<a href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">Edit Event</a>
-			<span class="likeLink" onclick="findCollEvent('#collecting_event_id#','loc#f#','cepick');">pick new event</span>
+			<span class="likeLink" onclick="findCollEvent('collecting_event_id_#f#','loc#f#','cepick#f#');">pick new event</span>
 			
 
-			<input type="text" name="cepick">
+			<input type="text" name="cepick#f#">
 
 			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
 			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
