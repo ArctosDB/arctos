@@ -486,7 +486,7 @@ function useGL(glat,glon,gerr){
 						value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
 			    </cfloop>
 			</select>
-			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type';);">Define</span>
+			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
 
 			<label for="specimen_event_type">Event Assigned by Agent</label>
 			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
@@ -511,7 +511,7 @@ function useGL(glat,glon,gerr){
 						value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
 				</cfloop>
 			</select>
-			<span class="infoLink" onclick="getCtDoc('ctcollecting_source';);">Define</span>
+			<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
 
 			<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
 			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
@@ -523,7 +523,7 @@ function useGL(glat,glon,gerr){
 						value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
-			<span class="infoLink" onclick="getCtDoc('ctverificationstatus';);">Define</span>
+			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
 
 			<h4>
 				Collecting Event
