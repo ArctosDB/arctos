@@ -518,7 +518,7 @@ function useGL(glat,glon,gerr){
 			</ul>
 			<h4>Locality</h4>
 			<cfinvoke component="component.functions" method="getLocalityContents" returnvariable="contents">
-			    <cfinvokeargument name="locality_id" value="#locDet.locality_id#">
+			    <cfinvokeargument name="locality_id" value="#locality_id#">
 			</cfinvoke>
 			
 			#contents#
