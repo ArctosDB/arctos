@@ -493,14 +493,14 @@ function useGL(glat,glon,gerr){
 				 onKeyPress="return noenter(event);">
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
 			
-			<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Date</label>
-			<input type="text" name="assigned_date" id="assigned_date" value="#l.assigned_date#" class="reqdClr">
+			<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
+			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
 			
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
-			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#l.specimen_event_remark#">
+			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#l.specimen_event_remark#" size="75">
 			
-			<label for="habitat" class="infoLink">habitat</label>
-			<input type="text" name="habitat" id="habitat" value="#l.habitat#">
+			<label for="habitat">Habitat</label>
+			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
 			
 			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
 			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
@@ -512,7 +512,7 @@ function useGL(glat,glon,gerr){
 			</select>
 			
 			<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
-			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#"  size="75">
+			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
 			
 			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
@@ -538,7 +538,7 @@ function useGL(glat,glon,gerr){
 			<ul>
 				<li>Verbatim Date: #VERBATIM_DATE#</li>
 				<li>
-					Began/Ended Dates: 
+					Began/Ended Date(s): 
 					<cfif BEGAN_DATE is ENDED_DATE>
 						#ENDED_DATE#
 					<cfelse>
