@@ -621,14 +621,8 @@ function useGL(glat,glon,gerr){
 	</div>
 		<cfset f=f+1>
 	</cfloop>
-	
-	
-	
-	
-	
-	
-	
-	<cfform name="loc_new" method="post" action="specLocality.cfm">
+	<div style="border:2px solid black; margin:1em;">	
+		<cfform name="loc_new" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -647,16 +641,16 @@ function useGL(glat,glon,gerr){
 			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
 
 			<label for="specimen_event_type">Event Assigned by Agent</label>
-			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
-				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc#f#',this.value); return false;"
+			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" size="40" value="#session.dbuser#"
+				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
 				 onKeyPress="return noenter(event);">
-			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
+			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
 			
 			<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
-			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
+			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
 			
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
-			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#l.specimen_event_remark#" size="75">
+			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="" size="75">
 			
 			<label for="habitat">Habitat</label>
 			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
@@ -665,20 +659,18 @@ function useGL(glat,glon,gerr){
 			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
 				<option value=""></option>
 				<cfloop query="ctcollecting_source">
-					<option <cfif ctcollecting_source.COLLECTING_SOURCE is l.COLLECTING_SOURCE> selected="selected" </cfif>
-						value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
+					<option value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
 
 			<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
-			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
+			<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
 			
 			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 				<cfloop query="ctVerificationStatus">
-					<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
-						value="#VerificationStatus#">#VerificationStatus#</option>
+					<option value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
@@ -689,7 +681,8 @@ function useGL(glat,glon,gerr){
 			<input type="text" size="50" name="cepick">
 			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc_new','cepick');">
 			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
-	</cfform>
+		</cfform>
+	</div>
 	
 	
 	
