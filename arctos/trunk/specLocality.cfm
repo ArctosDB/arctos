@@ -495,7 +495,8 @@ function useGL(glat,glon,gerr){
 			value="#VerificationStatus#">#VerificationStatus#</option>
 	</cfloop>
 </select>
-
+<hr>
+<h4>Collecting Event</h4>
 
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
 <input type="text" name="habitat" id="habitat" value="#stripQuotes(l.habitat)#"  size="75">
