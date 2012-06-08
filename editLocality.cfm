@@ -382,7 +382,8 @@
 					<cfif locDet.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
 					value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 			</cfloop>
-		</select>	   
+		</select>
+		<br>	   
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
@@ -402,16 +403,9 @@
 			<li><a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a></li>
 			<li><a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a></li>
 			<li><span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span></li>
-			<li></li>
-			<li></li>
-			<li></li>
 		</ul>
 	</td></tr></table>
 	</span>
-	
-		
-		
-		
 	<hr>
 	<strong>Geology Attributes</strong>	
 	<cfif geolDet.recordcount gt 0>
@@ -479,8 +473,8 @@
 					<select name="geo_att_value" id="geo_att_value" class="reqdClr"></select>
 					<label for="geo_att_determiner">Determiner</label>
 					<input type="text" name="geo_att_determiner" id="geo_att_determiner" size="40"
-								onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
-				 				onKeyPress="return noenter(event);">
+						onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
+				 		onKeyPress="return noenter(event);">
 					<input type="hidden" name="geo_att_determiner_id" id="geo_att_determiner_id">
 					<label for="geo_att_determined_date">Determined Date</label>
 					<input type="text" name="geo_att_determined_date" id="geo_att_determined_date">
@@ -489,11 +483,7 @@
 					<label for="geo_att_remark">Remark</label>
 					<input type="text" name="geo_att_remark" id="geo_att_remark" size="60">
 					<br>
-					<input type="submit" 
-							value="Create Determination" 
-							class="insBtn"
-							onmouseover="this.className='insBtn btnhov'"
-							onmouseout="this.className='insBtn'">
+					<input type="submit" value="Create Determination" class="insBtn">
 				</form>
 			</td>
 		</tr>
