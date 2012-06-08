@@ -623,7 +623,7 @@ function useGL(glat,glon,gerr){
 	</cfloop>
 	<div style="border:2px solid black; margin:1em;">	
 		<cfform name="loc_new" method="post" action="specLocality.cfm">
-			<input type="hidden" name="action" value="saveChange">
+			<input type="hidden" name="action" value="createSpecEvent">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 			<input type="hidden" name="collecting_event_id" value="">		
@@ -680,13 +680,39 @@ function useGL(glat,glon,gerr){
 			<label for="">Click the button to pick an event. The Verbatim Locality will go here of the event you pick will go here.</label>
 			<input type="text" size="50" name="cepick">
 			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc_new','cepick');">
-			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
+			<input type="submit" value="Create this Specimen/Event" class="savBtn">	
 		</cfform>
 	</div>
 	
 	
 	
 	</cfoutput>
+</cfif>
+<cfif action is "createSpecEvent">
+	<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into specimen_event (
+			collecting_event_id,
+			assigned_by_agent_id,
+			assigned_date,
+			specimen_event_remark,
+			specimen_event_type,
+			COLLECTING_METHOD,
+			COLLECTING_SOURCE,
+			VERIFICATIONSTATUS,
+			habitat
+		) values (
+			#collecting_event_id#,
+			#assigned_by_agent_id#,
+			'#dateformat(assigned_date,"yyyy=mm-dd")#',
+			'#escapeQuotes(specimen_event_remark)#',
+			'#specimen_event_type#',
+			'#escapeQuotes(COLLECTING_METHOD)#',
+			'#COLLECTING_SOURCE#',
+			'#VERIFICATIONSTATUS#',
+			'#escapeQuotes(habitat)#'
+		)
+	</cfquery>
+	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfif>
 
 
