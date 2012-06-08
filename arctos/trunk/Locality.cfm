@@ -520,6 +520,7 @@
 		    	<input type="hidden" name="Action" value="saveCollEventEdit">
 			    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
 				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+				<input type="hidden" name="locality_id" id="locality_id" value="#locDet.locality_id#">
 				<label for="verbatim_locality" class="likeLink" onclick="getDocs('collecting_event','verbatim_locality')">
 					Verbatim Locality
 				</label>
