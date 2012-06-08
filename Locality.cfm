@@ -813,7 +813,6 @@
 <cfif action is "newLocality">
 	<cfoutput>
 		<h3>Create locality (edit to add more stuff)</h3>
-		<br><b>Higher Geography:</b>
 		<form name="geog" action="Locality.cfm" method="post">
             <input type="hidden" name="Action" value="makenewLocality">
             <input type="hidden" name="geog_auth_rec_id">
