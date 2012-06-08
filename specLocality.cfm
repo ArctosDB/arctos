@@ -497,7 +497,11 @@ function useGL(glat,glon,gerr){
 </select>
 <hr>
 <h4>Collecting Event</h4>
+<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
+    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
+</cfinvoke>
 
+#contents#
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
 <input type="text" name="habitat" id="habitat" value="#stripQuotes(l.habitat)#"  size="75">
 
