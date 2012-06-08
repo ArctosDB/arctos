@@ -811,66 +811,31 @@
 </cfif>
 <!-------------------------------------------------------------------->
 <cfif action is "newLocality">
-	<cfif isdefined('geog_auth_rec_id')>
-		<cfquery name="getHG" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select higher_geog from geog_auth_rec where geog_auth_rec_id=#geog_auth_rec_id#
-		</cfquery>
-	</cfif>
 	<cfoutput>
-		<h3>Create locality</h3>
+		<h3>Create locality (edit to add more stuff)</h3>
 		<br><b>Higher Geography:</b>
 		<form name="geog" action="Locality.cfm" method="post">
             <input type="hidden" name="Action" value="makenewLocality">
-            <input type="hidden" name="geog_auth_rec_id"
-				<cfif isdefined("geog_auth_rec_id")>
-					value = "#geog_auth_rec_id#"
-				</cfif>>
-			<input type="text" name="higher_geog" class="readClr"
-				<cfif isdefined("getHG.higher_geog")>
-					value = "#getHG.higher_geog#"
-				</cfif>
-			size="50"  readonly="yes" >
-			<input type="button" value="Pick" class="picBtn"
-				onclick="GeogPick('geog_auth_rec_id','higher_geog','geog'); return false;">	
-   			<cfif isdefined("geog_auth_rec_id")>
-				<input type="button" value="Details" class="lnkBtn"
-					onclick="document.location='Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#'">	
-         	</cfif>
+            <input type="hidden" name="geog_auth_rec_id">
+			<label for="higher_geog">pick geography</label>
+			<input type="text" name="higher_geog" class="readClr" size="50"  readonly="yes" >
+			<input type="button" value="Pick" class="picBtn" onclick="GeogPick('geog_auth_rec_id','higher_geog','geog'); return false;">	
            <label for="spec_locality">Specific Locality</label>
-           <input type="text" name="spec_locality" id="spec_locality" 
-				<cfif isdefined("spec_locality")>
-					value= "#spec_locality#"
-				</cfif>
-			>
+           <input type="text" name="spec_locality" id="spec_locality">
 			<label for="minimum_elevation">Minimum Elevation</label>
-            <input type="text" name="minimum_elevation" id="minimum_elevation"
-				<cfif isdefined("minimum_elevation")>
-					value = "#minimum_elevation#"
-				</cfif>
-			>
+            <input type="text" name="minimum_elevation" id="minimum_elevation">
 			<label for="maximum_elevation">Maximum Elevation</label>
-			<input type="text" name="maximum_elevation" id="maximum_elevation"
-				<cfif isdefined("maximum_elevation")>
-					value = "#maximum_elevation#"
-				</cfif>
-			>
+			<input type="text" name="maximum_elevation" id="maximum_elevation">
 			<label for="orig_elev_units">Elevation Units</label>
 			<select name="orig_elev_units" id="orig_elev_units" size="1">
 				<option value=""></option>
                 <cfloop query="ctElevUnit">
-            	    <option <cfif isdefined("origelevunits") AND ctelevunit.orig_elev_units is origelevunits> selected="selected" </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
+            	    <option value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
                 </cfloop>
 			</select>
 			<label for="locality_remarks">Locality Remarks</label>
 			<input type="text" name="locality_remarks" id="locality_remarks">
-			<cfif isdefined("locality_id") and len(locality_id) gt 0>
-				<input type="hidden" name="locality_id" value="locality_id" />
-				<label for="">Include coordinates from <a href="/editLocality.cfm?locality_id=#locality_id#">#locality_id#</a>?</label>
-				Y<input type="radio" name="cloneCoords" value="yes" />
-				<br>N<input type="radio" name="cloneCoords" value="no" checked="checked" />
-		 	</cfif>
             <br><input type="submit" value="Save" class="savBtn">	
-  			<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
 		</form>
 	</cfoutput>
 </cfif> 
@@ -1169,228 +1134,37 @@ INSERT INTO geog_auth_rec (
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "makenewLocality">
-	<cfoutput>
-	<cftransaction>
-	<cfif not isdefined("cloneCoords") or #cloneCoords# is not "yes">
-		<cfset cloneCoords = "no">
-	</cfif>
-	<cfquery name="nextLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select sq_locality_id.nextval nextLoc from dual
-	</cfquery>
-	<cfquery name="newLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	INSERT INTO locality (
-		LOCALITY_ID,
-		GEOG_AUTH_REC_ID
-		,MAXIMUM_ELEVATION
-		,MINIMUM_ELEVATION
-		,ORIG_ELEV_UNITS
-		,SPEC_LOCALITY
-		,LOCALITY_REMARKS
-		,LEGACY_SPEC_LOCALITY_FG )
-	VALUES (
-		#nextLoc.nextLoc#,
-		#GEOG_AUTH_REC_ID#
-		<cfif len(#MAXIMUM_ELEVATION#) gt 0>
-			,#MAXIMUM_ELEVATION#
-		<cfelse>
-			,NULL
-		</cfif>
-		<cfif len(#MINIMUM_ELEVATION#) gt 0>
-			,#MINIMUM_ELEVATION#
-		<cfelse>
-			,NULL
-		</cfif>
-		<cfif len(#orig_elev_units#) gt 0>
-			,'#orig_elev_units#'
-		<cfelse>
-			,NULL
-		</cfif>
-		<cfif len(#SPEC_LOCALITY#) gt 0>
-			,'#SPEC_LOCALITY#'
-		<cfelse>
-			,NULL
-		</cfif>
-		<cfif len(#LOCALITY_REMARKS#) gt 0>
-			,'#LOCALITY_REMARKS#'
-		<cfelse>
-			,NULL
-		</cfif>
-		,0 )
+	<cfoutput>	
+		<cfquery name="nextLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select sq_locality_id.nextval nextLoc from dual
 		</cfquery>
-		<cfif #cloneCoords# is "yes">
-			<cfquery name="cloneCoordinates" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from lat_long where locality_id = #locality_id#
-			</cfquery>
-			<cfloop query="cloneCoordinates">
-				<cfset thisLatLongId = #llID.mLatLongId# + 1>
-				<cfquery name="newLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO lat_long (
-						LAT_LONG_ID,
-						LOCALITY_ID
-						,LAT_DEG
-						,DEC_LAT_MIN
-						,LAT_MIN
-						,LAT_SEC
-						,LAT_DIR
-						,LONG_DEG
-						,DEC_LONG_MIN
-						,LONG_MIN
-						,LONG_SEC
-						,LONG_DIR
-						,DEC_LAT
-						,DEC_LONG
-						,DATUM
-						,UTM_ZONE
-						,UTM_EW
-						,UTM_NS
-						,ORIG_LAT_LONG_UNITS
-						,DETERMINED_BY_AGENT_ID
-						,DETERMINED_DATE
-						,LAT_LONG_REF_SOURCE
-						,LAT_LONG_REMARKS
-						,MAX_ERROR_DISTANCE
-						,MAX_ERROR_UNITS
-						,NEAREST_NAMED_PLACE
-						,LAT_LONG_FOR_NNP_FG
-						,FIELD_VERIFIED_FG
-						,ACCEPTED_LAT_LONG_FG
-						,EXTENT
-						,GPSACCURACY
-						,GEOREFMETHOD
-						,VERIFICATIONSTATUS)
-					VALUES (
-						sq_lat_long_id.nextval,
-						#nextLoc.nextLoc#
-						<cfif len(#LAT_DEG#) gt 0>
-							,#LAT_DEG#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#DEC_LAT_MIN#) gt 0>
-							,#DEC_LAT_MIN#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#LAT_MIN#) gt 0>
-							,#LAT_MIN#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#LAT_SEC#) gt 0>
-							,#LAT_SEC#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#LAT_DIR#) gt 0>
-							,'#LAT_DIR#'
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#LONG_DEG#) gt 0>
-							,#LONG_DEG#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#DEC_LONG_MIN#) gt 0>
-							,#DEC_LONG_MIN#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#LONG_MIN#) gt 0>
-							,#LONG_MIN#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#LONG_SEC#) gt 0>
-							,#LONG_SEC#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#LONG_DIR#) gt 0>
-							,'#LONG_DIR#'
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#DEC_LAT#) gt 0>
-							,#DEC_LAT#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#DEC_LONG#) gt 0>
-							,#DEC_LONG#
-						<cfelse>
-							,NULL
-						</cfif>
-						,'#DATUM#'
-						<cfif len(#UTM_ZONE#) gt 0>
-							,'#UTM_ZONE#'
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#UTM_EW#) gt 0>
-							,'#UTM_EW#'
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#UTM_NS#) gt 0>
-							,'#UTM_NS#'
-						<cfelse>
-							,NULL
-						</cfif>
-						,'#ORIG_LAT_LONG_UNITS#'
-						,#DETERMINED_BY_AGENT_ID#
-						,'#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#'
-						,'#LAT_LONG_REF_SOURCE#'
-						<cfif len(#LAT_LONG_REMARKS#) gt 0>
-							,'#LAT_LONG_REMARKS#'
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#MAX_ERROR_DISTANCE#) gt 0>
-							,#MAX_ERROR_DISTANCE#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#MAX_ERROR_UNITS#) gt 0>
-							,'#MAX_ERROR_UNITS#'
-						<cfelse>
-							,NULL
-						</cfif>			
-						<cfif len(#NEAREST_NAMED_PLACE#) gt 0>
-							,'#NEAREST_NAMED_PLACE#'
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#LAT_LONG_FOR_NNP_FG#) gt 0>
-							,#LAT_LONG_FOR_NNP_FG#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#FIELD_VERIFIED_FG#) gt 0>
-							,#FIELD_VERIFIED_FG#
-						<cfelse>
-							,NULL
-						</cfif>
-						,#ACCEPTED_LAT_LONG_FG#
-						<cfif len(#EXTENT#) gt 0>
-							,#EXTENT#
-						<cfelse>
-							,NULL
-						</cfif>
-						<cfif len(#GPSACCURACY#) gt 0>
-							,#GPSACCURACY#
-						<cfelse>
-							,NULL
-						</cfif>
-						,'#GEOREFMETHOD#'
-						,'#VERIFICATIONSTATUS#')
-				</cfquery>
-			</cfloop>
-			
-
-		</cfif>
-		</cftransaction>
-	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#nextLoc.nextLoc#">
+		<cfquery name="newLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO locality (
+				LOCALITY_ID,
+				GEOG_AUTH_REC_ID
+				,MAXIMUM_ELEVATION
+				,MINIMUM_ELEVATION
+				,ORIG_ELEV_UNITS
+				,SPEC_LOCALITY
+				,LOCALITY_REMARKS
+			)	VALUES (
+				#nextLoc.nextLoc#,
+				#GEOG_AUTH_REC_ID#
+				<cfif len(#MAXIMUM_ELEVATION#) gt 0>
+					,#MAXIMUM_ELEVATION#
+				<cfelse>
+					,NULL
+				</cfif>
+				<cfif len(#MINIMUM_ELEVATION#) gt 0>
+					,#MINIMUM_ELEVATION#
+				<cfelse>
+					,NULL
+				</cfif>
+					,'#orig_elev_units#'
+					,'#escapeQuotes(SPEC_LOCALITY)#'
+					,'#escapeQuotes(LOCALITY_REMARKS)#')
+		</cfquery>
+		<cflocation addtoken="no" url="editLocality.cfm?locality_id=#nextLoc.nextLoc#">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
