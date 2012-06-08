@@ -562,13 +562,7 @@ function useGL(glat,glon,gerr){
 				<cfif len(COLL_EVENT_REMARKS) gt 0>
 					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
 				</cfif>
-				
-				<li>collecting_event_name: #collecting_event_name#</li>
-				<li>COLL_EVENT_REMARKS: ##</li>
-				<li>DATUM: #DATUM#</li>
-				<li>ORIG_LAT_LONG_UNITS: #ORIG_LAT_LONG_UNITS#</li>
 			</ul>
-			
 			
 			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
 	</cfform>
