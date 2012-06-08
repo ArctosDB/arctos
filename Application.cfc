@@ -57,12 +57,17 @@
 							<td>#exception.Sql#</td>
 						</tr>
 					</cfif>
-					<cfif isdefined("exception.cause.tagcontext.exception[1].line")>
+					
+					<cfif structKeyExists(exception,"tagcontext")>
+						<cfloop index="stack" from="1" to="#arrayLen(exception.tagContext)#">
 						<tr>
 							<td>Line</td>
-							<td>#exception.cause.tagcontext.exception[1].line#</td>
+							<td>#exception.tagContext[stack].line#</td>
 						</tr>
+						</cfloop>
 					</cfif>
+
+
 					
 					<cfif isdefined("cgi.redirect_url")>
 						<tr>
