@@ -567,38 +567,46 @@ function useGL(glat,glon,gerr){
 			</cfinvoke>
 			#contents#
 			<ul>
-				<li>SPEC_LOCALITY : #SPEC_LOCALITY#</li>
-				<li>DEC_LAT : #DEC_LAT#</li>
-				<li>DEC_LONG : #DEC_LONG#</li>
+				<li>Specific Locality: #SPEC_LOCALITY#</li>
+				<cfif len(locality_name) gt 0>
+					<li>Locality Name: #locality_name#</li>
+				</cfif>
 				<cfif len(DEC_LAT) gt 0>
 					<li>
 						<cfset iu="http://maps.google.com/maps/api/staticmap?center=#DEC_LAT#,#DEC_LONG#">
 						<cfset iu=iu & "&markers=color:red|size:tiny|#DEC_LAT#,#DEC_LONG#&sensor=false&size=200x200&zoom=2&maptype=roadmap">
 						<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+						<br>#DEC_LAT# / #DEC_LONG#
+						<br>Datum: #DATUM#
+						<br>Error : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+						<br>Georeference Source : #georeference_source#
+						<br>Georeference Protocol : #georeference_protocol#
 					</li>
 				</cfif>
-				<li>Elevation : #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</li>
-				<li>Depth : #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#</li>
-				<li>CoordinateError : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</li>
-				<li>DATUM : #DATUM#</li>
-				<li>LOCALITY_REMARKS : #LOCALITY_REMARKS#</li>
-				<li>georeference_source : #georeference_source#</li>
-				<li>georeference_protocol : #georeference_protocol#</li>
-				<li>locality_name : #locality_name#</li>
+				<cfif len(ORIG_ELEV_UNITS) gt 0>
+					<li>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</li>
+				</cfif>
+				<cfif len(DEPTH_UNITS) gt 0>
+					<li>Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#</li>
+				</cfif>
+				<cfif len(LOCALITY_REMARKS) gt 0>
+					<li>Remark: #LOCALITY_REMARKS#</li>
+				</cfif>
 			</ul>
-			
-			<h6>Geology</h6>
-			<ul>
-				<cfloop query="g">
-					<li>GEOLOGY_ATTRIBUTE_ID: #GEOLOGY_ATTRIBUTE_ID#</li>
-					<li>GEOLOGY_ATTRIBUTE: #GEOLOGY_ATTRIBUTE#</li>
-					<li>GEO_ATT_VALUE: #GEO_ATT_VALUE#</li>
-					<li>geo_att_determiner: #geo_att_determiner#</li>
-					<li>GEO_ATT_DETERMINED_DATE: #GEO_ATT_DETERMINED_DATE#</li>
-					<li>GEO_ATT_DETERMINED_METHOD: #GEO_ATT_DETERMINED_METHOD#</li>
-					<li>GEO_ATT_REMARK: #GEO_ATT_REMARK#</li>
-				</cfloop>
-			</ul>
+			<cfif g.recordcount gt 0>
+				<h4>Geology</h6>
+				<ul>
+					<cfloop query="g">
+						<li>GEOLOGY_ATTRIBUTE_ID: #GEOLOGY_ATTRIBUTE_ID#</li>
+						<li>GEOLOGY_ATTRIBUTE: #GEOLOGY_ATTRIBUTE#</li>
+						<li>GEO_ATT_VALUE: #GEO_ATT_VALUE#</li>
+						<li>geo_att_determiner: #geo_att_determiner#</li>
+						<li>GEO_ATT_DETERMINED_DATE: #GEO_ATT_DETERMINED_DATE#</li>
+						<li>GEO_ATT_DETERMINED_METHOD: #GEO_ATT_DETERMINED_METHOD#</li>
+						<li>GEO_ATT_REMARK: #GEO_ATT_REMARK#</li>
+					</cfloop>
+				</ul>
+			</cfif>
 			
 			
 	</td>	
