@@ -538,17 +538,13 @@ function useGL(glat,glon,gerr){
 			</cfinvoke>
 			#contents#
 			<br>
-		
+			<cfif BEGAN_DATE is ENDED_DATE>
+				#ENDED_DATE#
+			<cfelse>
+				#BEGAN_DATE# to #ENDED_DATE#
+			</cfif>
 			<ul>
-				<li>Verbatim Date: #VERBATIM_DATE#</li>
-				<li>
-					Began/Ended Date(s): 
-					<cfif BEGAN_DATE is ENDED_DATE>
-						#ENDED_DATE#
-					<cfelse>
-						#BEGAN_DATE# to #ENDED_DATE#
-					</cfif>
-				</li>
+				<li>Date: #VERBATIM_DATE# (<cfif BEGAN_DATE is ENDED_DATE>#ENDED_DATE#<cfelse>#BEGAN_DATE# to #ENDED_DATE#</cfif>)</li>
 				<cfif len(VERBATIM_LOCALITY) gt 0>
 					<li>Verbatim Locality: #VERBATIM_LOCALITY#</li>
 				</cfif>
