@@ -1,4 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+ohai!
 <cfif not listfindnocase(session.roles,'manage_specimens')>
 	<div class="error">
 		not authorized
