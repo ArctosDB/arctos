@@ -445,6 +445,7 @@ function useGL(glat,glon,gerr){
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
 	<cfloop query="l">
+		<div style="border:2px solid black;">
 		<cfform name="loc" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
@@ -506,56 +507,17 @@ function useGL(glat,glon,gerr){
 			
 			<ul>
 				<li>VERBATIM_DATE: #VERBATIM_DATE#</li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
+				<li>VERBATIM_LOCALITY: #VERBATIM_LOCALITY#</li>
+				<li>BEGAN_DATE: #BEGAN_DATE#</li>
+				<li>ENDED_DATE: #ENDED_DATE#</li>
+				<li>verbatim_coordinates: #verbatim_coordinates#</li>
+				<li>collecting_event_name: #collecting_event_name#</li>
+				<li>COLL_EVENT_REMARKS: #COLL_EVENT_REMARKS#</li>
+				<li>DATUM: #DATUM#</li>
+				<li>ORIG_LAT_LONG_UNITS: #ORIG_LAT_LONG_UNITS#</li>
 			</ul>
-			 COLLECTING_EVENT_ID NUMBER NOT NULL,
-    LOCALITY_ID NUMBER NOT NULL,
-     VARCHAR2(60),
-    VERBATIM_LOCALITY VARCHAR2(4000),
-    COLL_EVENT_REMARKS VARCHAR2(4000),
-    BEGAN_DATE VARCHAR2(22),
-    ENDED_DATE VARCHAR2(22),                            
-    verbatim_coordinates VARCHAR2(255),
-    collecting_event_name VARCHAR2(255),
-    LAT_DEG NUMBER,
-    DEC_LAT_MIN NUMBER(8,6),
-    LAT_MIN NUMBER,
-    LAT_SEC NUMBER(8,6),
-    LAT_DIR CHAR(1),
-    LONG_DEG NUMBER,
-    DEC_LONG_MIN NUMBER(10,8),
-    LONG_MIN NUMBER,
-    LONG_SEC NUMBER(8,6),
-    LONG_DIR CHAR(1),
-    DEC_LAT NUMBER(12,10),
-    DEC_LONG  NUMBER(13,10),
-    DATUM VARCHAR2(55),
-    UTM_ZONE VARCHAR2(3),
-    UTM_EW NUMBER,
-    UTM_NS NUMBER,
-    ORIG_LAT_LONG_UNITS VARCHAR2(20),
-    caclulated_dlat NUMBER(12,10),
-    calculated_dlong  NUMBER(13,10)
-);
-
+	
+    
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
 <input type="text" name="habitat" id="habitat" value="#stripQuotes(l.habitat)#"  size="75">
 
@@ -1178,6 +1140,7 @@ function useGL(glat,glon,gerr){
   	
 	
 	</cfform>
+	</div>
 	</cfloop>
 	<script>
 		showLLFormat('#l.orig_lat_long_units#');	
