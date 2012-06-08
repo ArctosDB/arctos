@@ -516,8 +516,10 @@ function useGL(glat,glon,gerr){
 				<li>DATUM: #DATUM#</li>
 				<li>ORIG_LAT_LONG_UNITS: #ORIG_LAT_LONG_UNITS#</li>
 			</ul>
+			<h4>Locality</h4>
+
 	
-    
+    	<!--------
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
 <input type="text" name="habitat" id="habitat" value="#stripQuotes(l.habitat)#"  size="75">
 
@@ -556,37 +558,6 @@ function useGL(glat,glon,gerr){
 <!-------------------------- geography -------------------------->
 
  
-
-
-
-
-
-
-
-
-                        
-    verbatim_coordinates VARCHAR2(255),
-    LAT_DEG NUMBER,
-    DEC_LAT_MIN NUMBER(8,6),
-    LAT_MIN NUMBER,
-    LAT_SEC NUMBER(8,6),
-    LAT_DIR CHAR(1),
-    LONG_DEG NUMBER,
-    DEC_LONG_MIN NUMBER(10,8),
-    LONG_MIN NUMBER,
-    LONG_SEC NUMBER(8,6),
-    LONG_DIR CHAR(1),
-    DEC_LAT NUMBER(12,10),
-    DEC_LONG  NUMBER(13,10),
-    DATUM VARCHAR2(55),
-    UTM_ZONE VARCHAR2(3),
-    UTM_EW NUMBER,
-    UTM_NS NUMBER,
-    ORIG_LAT_LONG_UNITS VARCHAR2(20),
-    caclulated_dlat NUMBER(12,10),
-    calculated_dlong  NUMBER(13,10)
-);
-
 
 
 <label for="coll_event_remarks">Collecting Event Remarks</label>
@@ -777,7 +748,7 @@ function useGL(glat,glon,gerr){
 		
 		
 		
-		<!--------
+	
 	<table>
 	<table id="llMeta" style="display:none;">
 		<tr>
