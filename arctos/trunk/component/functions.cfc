@@ -3,10 +3,12 @@
 <cffunction name="getMap" access="remote">
 	<cfargument name="lat" type="numeric" required="yes">
 	<cfargument name="long" type="numeric" required="yes">
+	<cfargument name="size" type="string" required="no" default="200x200">
+	<cfargument name="maptype" type="string" required="no" default="roadmap">
 	<cfoutput>
 	<cfset iu="http://maps.google.com/maps/api/staticmap?key=AIzaSyCoES-wwWe45-9CCFIFjNqTpOpYLZJj99k&center=#lat#,#long#">
-	<cfset iu=iu & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=200x200&zoom=2">
-	<cfset iu=iu & "&maptype=roadmap">
+	<cfset iu=iu & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=#size#&zoom=2">
+	<cfset iu=iu & "&maptype=#maptype#">
 	<cfreturn '<img src="#iu#" alt="Google Map">'>
 	</cfoutput>	
 </cffunction>
