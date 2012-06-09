@@ -6,7 +6,8 @@
 	<cfargument name="size" type="string" required="no" default="200x200">
 	<cfargument name="maptype" type="string" required="no" default="roadmap">
 	<cfoutput>
-	<cfset iu="http://maps.google.com/maps/api/staticmap?key=AIzaSyCoES-wwWe45-9CCFIFjNqTpOpYLZJj99k&center=#lat#,#long#">
+	<cfset key="AIzaSyAi_QED6Z35AvUr3jxm0nLhm-5gIWZ0Fc0">
+	<cfset iu="http://maps.google.com/maps/api/staticmap?key=#key#&center=#lat#,#long#">
 	<cfset iu=iu & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=#size#&zoom=2">
 	<cfset iu=iu & "&maptype=#maptype#">
 	<cfreturn '<img src="#iu#" alt="Google Map">'>
