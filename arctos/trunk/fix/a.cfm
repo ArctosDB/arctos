@@ -1,8 +1,15 @@
-		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
 
 <cfoutput>
 
-http://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=600x300&key=AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw
+<cfset u='http://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=600x300'>
+<hr>#u#-----<img src="#u#" alt="#u#">
+
+<cfset u=u & '&key=AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw'>
+
+<hr>#u#-----<img src="#u#" alt="#u#">
+
+
+&key=AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw
 
 <img src="http://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=600x300&key=AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw
 " alt="Google Map">
