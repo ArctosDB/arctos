@@ -1,7 +1,7 @@
 
 <cfoutput>
 
-<cfset u='http://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=600x300'>
+<cfset u='http://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=600x300&sensor=false'>
 <hr>#u#-----<img src="#u#" alt="#u#">
 
 <cfset u=u & '&key=AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw'>
