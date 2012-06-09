@@ -1,6 +1,14 @@
 <cfcomponent>
-	
-
+<!------------------------------------------------------------------->
+<cffunction name="getMap" access="remote">	
+	<cfargument name="lat" type="numeric" required="yes">
+	<cfargument name="long" type="numeric" required="yes">
+	<cfoutput>
+	<cfset iu="http://maps.google.com/maps/api/staticmap?key=AIzaSyCoES-wwWe45-9CCFIFjNqTpOpYLZJj99k&center=#lat#,#long#">
+	<cfset iu=iu & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=200x200&zoom=2">
+	<cfset iu=iu & "&maptype=roadmap">
+	<cfreturn '<img src="#iu#" alt="Google Map">'>
+	</cfoutput>	
 <!------------------------------------------------------------------->
 <cffunction name="getLocalityContents" access="public">	
 	<cfargument name="locality_id" type="numeric" required="yes">
