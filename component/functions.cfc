@@ -1,6 +1,6 @@
 <cfcomponent>
 <!------------------------------------------------------------------->
-<cffunction name="getMap" access="remote">	
+<cffunction name="getMap" access="remote">
 	<cfargument name="lat" type="numeric" required="yes">
 	<cfargument name="long" type="numeric" required="yes">
 	<cfoutput>
@@ -9,6 +9,7 @@
 	<cfset iu=iu & "&maptype=roadmap">
 	<cfreturn '<img src="#iu#" alt="Google Map">'>
 	</cfoutput>	
+</cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getLocalityContents" access="public">	
 	<cfargument name="locality_id" type="numeric" required="yes">
