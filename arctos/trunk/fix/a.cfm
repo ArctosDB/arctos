@@ -47,4 +47,13 @@ AIzaSyCoES-wwWe45-9CCFIFjNqTpOpYLZJj99k
 	<br>
 	http://maps.googleapis.com/maps/api/staticmap?sensor=false&center=New+York,NY&zoom=13&size=600x300&key=AIzaSyAi_QED6Z35AvUr3jxm0nLhm-5gIWZ0Fc0
 	<img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&center=New+York,NY&zoom=13&size=600x300&key=AIzaSyAi_QED6Z35AvUr3jxm0nLhm-5gIWZ0Fc0">		
+	
+	<br>
+	<cfset iu="http://maps.google.com/maps/api/staticmap?key=AIzaSyAi_QED6Z35AvUr3jxm0nLhm-5gIWZ0Fc0&center=#DEC_LAT#,#DEC_LONG#">
+					<cfset iu=iu & "&markers=color:red|size:tiny|#DEC_LAT#,#DEC_LONG#&sensor=false&size=200x200&zoom=2&maptype=roadmap">
+					<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+					
+					
+	
+	
 			</cfoutput>
