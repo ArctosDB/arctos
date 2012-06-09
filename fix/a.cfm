@@ -8,6 +8,25 @@
 
 
 <hr>
+
+<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+	    <cfinvokeargument name="lat" value="12">
+	    <cfinvokeargument name="long" value="12">
+	    <cfinvokeargument name="size" value="400x400">
+	</cfinvoke>
+	#contents#
+
+<hr>
+
+<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+	    <cfinvokeargument name="lat" value="12">
+	    <cfinvokeargument name="long" value="12">
+	    <cfinvokeargument name="size" value="400x400">
+	    <cfinvokeargument name="maptype" value="hybrid">
+	</cfinvoke>
+	#contents#
+
+<hr>
 <cfset u='http://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=600x300&sensor=false'>
 <hr>#u#-----<img src="#u#" alt="#u#">
 
