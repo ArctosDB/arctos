@@ -15,6 +15,10 @@
 		<cfset showErr=0>
 		<cfreturn/>
 	</cfif>
+	<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
+		<cflocation url="/errors/autoblacklist.cfm">
+		<cfreturn/>
+	</cfif>
 	<cfif showErr is 1>
 		<cfsavecontent variable="errortext">
 			<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
