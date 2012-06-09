@@ -37,6 +37,6 @@ AIzaSyCoES-wwWe45-9CCFIFjNqTpOpYLZJj99k
 			
 			
 	<br>
-	http://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=600x300&key=AIzaSyAi_QED6Z35AvUr3jxm0nLhm-5gIWZ0Fc0
-	<img src="http://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=600x300&key=AIzaSyAi_QED6Z35AvUr3jxm0nLhm-5gIWZ0Fc0">		
+	http://maps.googleapis.com/maps/api/staticmap?sensor=false&center=New+York,NY&zoom=13&size=600x300&key=AIzaSyAi_QED6Z35AvUr3jxm0nLhm-5gIWZ0Fc0
+	<img src="http://maps.googleapis.com/maps/api/staticmap?sensor=false&center=New+York,NY&zoom=13&size=600x300&key=AIzaSyAi_QED6Z35AvUr3jxm0nLhm-5gIWZ0Fc0">		
 			</cfoutput>
