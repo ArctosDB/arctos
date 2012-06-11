@@ -310,12 +310,6 @@ content: ": ";
 							<div class="value">#LOCALITY_REMARKS#</div>
 						</div>
 					</cfif>
-					<cfif len(NOGEOREFBECAUSE) gt 0>
-						<div class="pair">
-							<div class="data">Not georeferenced because</div>
-							<div class="value">#NOGEOREFBECAUSE#</div>
-						</div>
-					</cfif>
 				</cfloop>
 			</div>
 			<cfquery name="coords" dbtype="query">
