@@ -78,7 +78,6 @@ content: ": ";
 			georeference_protocol,
 			MAX_ERROR_DISTANCE,
 			MAX_ERROR_UNITS,
-			getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name,
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
 			getPreferredAgentName(GEO_ATT_DETERMINER_ID) geologyDeterminer,
