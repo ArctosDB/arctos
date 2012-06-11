@@ -112,16 +112,6 @@
 					<option value="0">no</option>
 					<option value="1">yes</option>
 				</select>
-				<label for="showUnaccepted1">Show unaccepted determinations?</label>
-				<select name="showUnaccepted1"  id="showUnaccepted1" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-				<label for="mapByLocality1">All specimens from localities?</label>
-				<select  name="mapByLocality1" id="mapByLocality1" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
 				<label for="showErrors1">Show error radii?</label>
 				<select  name="showErrors1" id="showErrors1" onchange="kmlSync(this.id,this.value)">
 					<option value="0">no</option>
@@ -472,16 +462,6 @@
 				</select>
 				<label for="includeTimeSpan">include Time?</label>
 				<select name="includeTimeSpan" id="includeTimeSpan" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-				<label for="showUnaccepted">Show unaccepted determinations?</label>
-				<select name="showUnaccepted" id="showUnaccepted" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-				<label for="mapByLocality">All specimens from localities?</label>
-				<select name="mapByLocality" id="mapByLocality" onchange="kmlSync(this.id,this.value)">
 					<option value="0">no</option>
 					<option value="1">yes</option>
 				</select>

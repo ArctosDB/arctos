@@ -8,12 +8,6 @@
 <cfif not isdefined("showErrors")>
 	<cfset showErrors=0>
 </cfif>
-<cfif not isdefined("mapByLocality")>
-	<cfset mapByLocality=0>
-</cfif>
-<cfif not isdefined("showUnaccepted")>
-	<cfset showUnaccepted=0>
-</cfif>
 <cfif not isdefined("userFileName")>
 	<cfset userFileName="kmlfile#left(session.sessionKey,10)#">
 </cfif>
@@ -123,8 +117,7 @@
 		<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preserveSingleQuotes(SqlString)#
 		</cfquery>
-		<cfset burl="kml.cfm?method=#method#&showErrors=#showErrors#&mapByLocality=#mapByLocality#">
-		<cfset burl=burl & "&showUnaccepted=#showUnaccepted#&userFileName=#userFileName#&action=#next#">	
+		<cfset burl="kml.cfm?method=#method#&showErrors=#showErrors#&#&userFileName=#userFileName#&action=#next#">	
 		<cflocation url="#burl#" addtoken="false">
 	</cfoutput>
 </cfif>
@@ -150,21 +143,6 @@
 							<cfif showErrors is 1> checked="checked"</cfif>
 							name="showErrors" id="showErrors" value="1">
 					</td>
-				</tr>
-				<tr>
-					<td align="right">Show all specimens at each locality represented by query?</td>
-					<td>
-						<input type="checkbox" 
-							<cfif mapByLocality is 1> checked="checked"</cfif>
-							name="mapByLocality" id="mapByLocality" value="1">
-					</td>
-				</tr>
-				<tr>
-					<td align="right">Show unaccepted coordinate determinations?</td>
-					<td>
-						<input type="checkbox" 
-							<cfif showUnaccepted is 1> checked="checked"</cfif>
-							name="showUnaccepted" id="showUnaccepted" value="1"></td>
 				</tr>
 				<tr>
 					<td align="right">Include TimeSpan?</td>
@@ -220,26 +198,24 @@
 			#flatTableName#.cat_num,
 			#flatTableName#.began_date began_date,
 			#flatTableName#.ended_date ended_date,
-			lat_long.dec_lat,
-			lat_long.dec_long,
-			round(to_meters(lat_long.max_error_distance,lat_long.max_error_units)) errorInMeters,
-			lat_long.datum,
+			locality.dec_lat,
+			locality.dec_long,
+			round(to_meters(locality.max_error_distance,locality.max_error_units)) errorInMeters,
+			locality.datum,
 			#flatTableName#.scientific_name,
 			#flatTableName#.collection,
 			#flatTableName#.spec_locality,
 			#flatTableName#.locality_id,
 			#flatTableName#.verbatimLatitude,
-			#flatTableName#.verbatimLongitude,
-			lat_long.lat_long_id
+			#flatTableName#.verbatimLongitude
 		 from 
 		 	#flatTableName#,
-		 	lat_long,
+		 	locality,
 		 	#table_name#
 		 where
-		 	#flatTableName#.locality_id = lat_long.locality_id and
-		 	lat_long.accepted_lat_long_fg = 1 AND
-		 	lat_long.dec_lat is not null and 
-		 	lat_long.dec_long is not null and
+		 	#flatTableName#.locality_id = locality.locality_id and
+		 	locality.dec_lat is not null and 
+		 	locality.dec_long is not null and
 		 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
 	</cfquery>
     <cfquery name="species" dbtype="query">
@@ -288,7 +264,6 @@
 				locality_id,
 				verbatimLatitude,
 				verbatimLongitude,
-				lat_long_id,
 				began_date,
 				ended_date,
 		        collection_object_id,
@@ -308,7 +283,6 @@
 				locality_id,
 				verbatimLatitude,
 				verbatimLongitude,
-				lat_long_id,
 				began_date,
 				ended_date,
 		        collection_object_id,
@@ -382,80 +356,41 @@
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------->
-<cfif #action# is "colorByCollection">
+<cfif action is "colorByCollection">
 <cfoutput>
 	<cfset dlFile = "#userFileName#.kml">
 	<cfset variables.fileName="#internalPath##dlFile#">
 	<cfset variables.encoding="UTF-8">
-	<cfif mapByLocality is 1>
-		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				#flatTableName#.collection_object_id,
-				#flatTableName#.cat_num,
-				#flatTableName#.began_date began_date,
-				#flatTableName#.ended_date ended_date,
-				lat_long.dec_lat,
-				lat_long.dec_long,
-				decode(lat_long.accepted_lat_long_fg,
-					1,'yes',
-					0,'no') isAcceptedLatLong,
-				round(to_meters(lat_long.max_error_distance,lat_long.max_error_units)) errorInMeters,
-				lat_long.datum,
-				#flatTableName#.scientific_name,
-				#flatTableName#.collection,
-				#flatTableName#.spec_locality,
-				#flatTableName#.locality_id,
-				#flatTableName#.verbatimLatitude,
-				#flatTableName#.verbatimLongitude,
-				lat_long.lat_long_id
-			 from 
-			 	#flatTableName#,
-			 	lat_long
-			 where
-			 	#flatTableName#.locality_id = lat_long.locality_id and
-			 	<cfif showUnaccepted is 0>
-			 		lat_long.accepted_lat_long_fg = 1 AND
-			 	</cfif>
-			 	lat_long.dec_lat is not null and lat_long.dec_long is not null and
-			 	#flatTableName#.locality_id IN (
-			 		select #flatTableName#.locality_id from #table_name#,#flatTableName#
-			 		where #flatTableName#.collection_object_id = #table_name#.collection_object_id)
-		</cfquery>
-	<cfelse>
-		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				#flatTableName#.collection_object_id,
-				#flatTableName#.cat_num,
-				#flatTableName#.began_date,
-				#flatTableName#.ended_date,
-				lat_long.dec_lat,
-				lat_long.dec_long,
-				decode(lat_long.accepted_lat_long_fg,
-					1,'yes',
-					0,'no') isAcceptedLatLong,
-				round(to_meters(lat_long.max_error_distance,lat_long.max_error_units)) errorInMeters,
-				lat_long.datum,
-				#flatTableName#.scientific_name,
-				#flatTableName#.collection,
-				#flatTableName#.spec_locality,
-				#flatTableName#.locality_id,
-				#flatTableName#.verbatimLatitude,
-				#flatTableName#.verbatimLongitude,
-				lat_long.lat_long_id
-			 from 
-			 	#flatTableName#,
-			 	lat_long,
-			 	#table_name#
-			 where
-			 	#flatTableName#.locality_id = lat_long.locality_id and
-			 	<cfif showUnaccepted is 0>
-			 		lat_long.accepted_lat_long_fg = 1 AND
-			 	</cfif>
-			 	lat_long.dec_lat is not null and 
-			 	lat_long.dec_long is not null and
-			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
-		</cfquery>
-	</cfif>
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select 
+			#flatTableName#.collection_object_id,
+			#flatTableName#.cat_num,
+			#flatTableName#.began_date began_date,
+			#flatTableName#.ended_date ended_date,
+			locality.dec_lat,
+			locality.dec_long,
+			round(to_meters(locality.max_error_distance,locality.max_error_units)) errorInMeters,
+			locality.datum,
+			specimen_event_type,
+			#flatTableName#.scientific_name,
+			#flatTableName#.collection,
+			#flatTableName#.spec_locality,
+			#flatTableName#.locality_id,
+			#flatTableName#.verbatimLatitude,
+			#flatTableName#.verbatimLongitude
+		 from 
+		 	#flatTableName#,
+		 	specimen_event,
+		 	collecting_event,
+		 	locality,
+		 	#table_name#		 	
+		 where
+		 	#flatTableName#.collection_object_id = specimen_event.collection_object_id and
+		 	specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+		 	collecting_event.locality_id=locality.locality_id and
+		 	locality.dec_lat is not null 
+		 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
+	</cfquery>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
@@ -494,14 +429,13 @@
 			select 
 				dec_lat,
 				dec_long,
-				isAcceptedLatLong,
+				specimen_event_type,
 				errorInMeters,
 				datum,
 				spec_locality,
 				locality_id,
 				verbatimLatitude,
 				verbatimLongitude,
-				lat_long_id,
 				began_date,
 				ended_date
 			from
@@ -511,14 +445,13 @@
 			group by
 				dec_lat,
 				dec_long,
-				isAcceptedLatLong,
+				specimen_event_type,
 				errorInMeters,
 				datum,
 				spec_locality,
 				locality_id,
 				verbatimLatitude,
 				verbatimLongitude,
-				lat_long_id,
 				began_date,
 				ended_date
 		</cfquery>
@@ -578,30 +511,12 @@
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</Point>';
 				variables.joFileWriter.writeLine(kml);
-				if (isAcceptedLatLong is "yes") {
-					kml=chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>';					
-				} else {
-					kml=chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##red-star</styleUrl>';
-				}
+				kml=chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>';					
 				kml=kml & chr(10) &
 					chr(9) & chr(9) & chr(9) & '</Placemark>';
 				variables.joFileWriter.writeLine(kml);
 			</cfscript>
 		</cfloop>
-		<!---
-		
-		if (isAcceptedLatLong is "yes") {
-					kml=chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';					
-				} else {
-					kml=chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##red-star</styleUrl>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';
-				}
-				--->
 		<cfscript>
 			kml=chr(9) & chr(9) & '</Folder>';
 			variables.joFileWriter.writeLine(kml);
