@@ -18,74 +18,10 @@
 </cfif>
 <cfset mediaFlatTableName = "media_flat">
 <!----------------------------------------------------------------->
-<cfif isdefined("action") and action IS "mapPoint">
-<cfoutput>
-	<!---- map a lat_long_id ---->
-	<cfif not isdefined("lat_long_id") or len(lat_long_id) is 0>
-		<div class="error">
-			You can't map a point without a lat_long_id.
-		</div>
-		<cfabort>
-	</cfif>	
-	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT
-			'All collections' Collection,
-			0 collection_id,
-			'000000' cat_num,
-			'Lat Long ID: ' || lat_long_id scientific_name,
-			'none' verbatim_date,
-			'none' spec_locality,
-			dec_lat,
-			dec_long,
-			to_meters(max_error_distance,max_error_units) max_error_meters,
-			datum,
-			'000000' collection_object_id,
-			' ' collectors
-		FROM 
-			lat_long 
-		WHERE
-			lat_long_id=#lat_long_id#
-	</cfquery>
-</cfoutput>
-
+<cfif isdefined("") and action IS "mapPoint">
+	<cfthrow detail="block not found" errorcode="9945" message="A block of code (action,mapPoint) was not found in the bnhmMapData template">
 <cfelseif isdefined("search") and search IS "MediaSearch">
 	<cfthrow detail="block not found" errorcode="9945" message="A block of code (search,MediaSearch) was not found in the bnhmMapData template">
-	<!---
-<!-- 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-		<cfset ShowObservations = "true">
-	</cfif> -->
-	
-	<cfset ShowObservations = "true">
-
-	<cfset basSelect = "SELECT DISTINCT 
-		#flatTableName#.collection,
-		#flatTableName#.collection_id,
-		#flatTableName#.cat_num,
-		#flatTableName#.scientific_name,
-		#flatTableName#.verbatim_date,
-		#flatTableName#.spec_locality,
-		#flatTableName#.dec_lat,
-		#flatTableName#.dec_long,
-		#flatTableName#.COORDINATEUNCERTAINTYINMETERS,
-		#flatTableName#.datum,
-		#flatTableName#.collection_object_id,
-		#flatTableName#.collectors">
-	<cfset basFrom = "	FROM #flatTableName#, #mediaFlatTableName#">
-	<cfset basWhere = " WHERE 
-		#flatTableName#.collection_object_id IN (#mediaFlatTableName#.collecting_object_id) AND
-		#flatTableName#.dec_lat is not null AND
-		#flatTableName#.dec_long is not null AND
-		#flatTableName#.collecting_source = 'wild caught' ">	
-			
-	<cfset srch = "">
-
-	<cfinclude template="/development/MediaSearchSql.cfm">
-	<cfset SqlString = "#basSelect# #basFrom# #basWhere# #srch#">	
-	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		#preserveSingleQuotes(SqlString)#
-	</cfquery>
-	---->
-<!------------------------------------------------------------>
 <cfelse><!--- regular mapping routine ---->
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset ShowObservations = "true">
