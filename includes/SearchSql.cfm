@@ -54,6 +54,14 @@
 	<cfset basQual = " #basQual# AND specimen_event.collecting_source = '#collecting_source#'">
 </cfif>
 
+<cfif isdefined("specimen_event_type") AND len(specimen_event_type) gt 0>
+	<cfset mapurl = "#mapurl#&specimen_event_type=#specimen_event_type#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND specimen_event.specimen_event_type = '#specimen_event_type#'">
+</cfif>
+
 
 
 <cfif isdefined("ocr_text") AND len(ocr_text) gt 0>
