@@ -393,7 +393,7 @@
 			<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
 		</cfif>
 		<ul>
-			<li><a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#" target="_blank">[ Find all Collecting Events ]</a></li>
+			<li><a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a></li>
 			<li><a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a></li>
 			<li><a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a></li>
 			<li><span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span></li>

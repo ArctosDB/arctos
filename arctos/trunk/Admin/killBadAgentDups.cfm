@@ -212,13 +212,13 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 		where agent_id = #bads.agent_id#
 	</cfquery>
 	got ID agnt<br><cfflush>
-	<cfquery name="lat_long" datasource="uam_god">
+	<cfquery name="SPECIMEN_EVENT" datasource="uam_god">
 		update
-		lat_long set 
-		determined_by_agent_id = #bads.related_agent_id# where
-		determined_by_agent_id = #bads.agent_id#
+		SPECIMEN_EVENT set 
+		assigned_by_agent_id = #bads.related_agent_id# where
+		assigned_by_agent_id = #bads.agent_id#
 	</cfquery>
-	got latlong<br><cfflush>
+	got SPECIMEN_EVENT<br><cfflush>
 	<cfquery name="permit_to" datasource="uam_god">
 		update permit set
 			ISSUED_TO_AGENT_ID = #bads.related_agent_id# where
