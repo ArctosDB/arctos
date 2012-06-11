@@ -38,9 +38,6 @@
 <cfquery name="ctlat_long_error_units"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select lat_long_error_units from ctlat_long_error_units group by lat_long_error_units order by lat_long_error_units 
 </cfquery>
-<cfquery name="ctverificationstatus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select verificationstatus from ctverificationstatus group by verificationstatus order by verificationstatus 
-</cfquery>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 	
@@ -209,23 +206,10 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_habitat_desc">General Habitat:</span>
+			<span class="helpLink" id="_habitat">Habitat:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="habitat_desc" id="habitat_desc" size="50">
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="_verificationstatus">Verification Status:</span>
-		</td>
-		<td class="srch">
-			<select name="verificationstatus" id="verificationstatus" size="1">
-				<option value=""></option>
-				<cfloop query="ctverificationstatus">
-					<option value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
-				</cfloop>
-			</select>
+			<input type="text" name="habitat" id="habitat" size="50">
 		</td>
 	</tr>
 	<tr>
