@@ -453,11 +453,8 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('PREPARATORS')> -1) {
 				theInnerHtml += '<th>Preparators</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
-				theInnerHtml += '<th>Latitude</th>';
-			}
-			if (data.COLUMNLIST[0].indexOf('VERBATIMLONGITUDE')> -1) {
-				theInnerHtml += '<th>Longitude</th>';
+			if (data.COLUMNLIST[0].indexOf('VERBATIMCOORDINATES')> -1) {
+				theInnerHtml += '<th>Coordinates</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
 				theInnerHtml += '<th>Max&nbsp;Error&nbsp;(m)</th>';
@@ -468,14 +465,27 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
 				theInnerHtml += '<th>Original&nbsp;Lat/Long&nbsp;Units</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('LAT_LONG_DETERMINER')> -1) {
-				theInnerHtml += '<th>Georeferenced&nbsp;By</th>';
+			if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_BY_AGENT')> -1) {
+				theInnerHtml += '<th>Event&nbsp;Assigned&nbsp;By</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('LAT_LONG_REF_SOURCE')> -1) {
-				theInnerHtml += '<th>Lat/Long&nbsp;Reference</th>';
+			if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_DATE')> -1) {
+				theInnerHtml += '<th>Event&nbsp;Assigned&nbsp;Date</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('LAT_LONG_REMARKS')> -1) {
-				theInnerHtml += '<th>Lat/Long&nbsp;Remarks</th>';
+			if (data.COLUMNLIST[0].indexOf('SPECIMEN_EVENT_REMARK')> -1) {
+				theInnerHtml += '<th>Spec/Event Remark</th>';
+			}
+			if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_NAME')> -1) {
+				theInnerHtml += '<th>Event Name</th>';
+			}
+			if (data.COLUMNLIST[0].indexOf('LOCALITY_NAME')> -1) {
+				theInnerHtml += '<th>Locality Name</th>';
+			}
+			
+			if (data.COLUMNLIST[0].indexOf('GEOREFERENCE_SOURCE')> -1) {
+				theInnerHtml += '<th>Georeference&nbsp;Source</th>';
+			}
+			if (data.COLUMNLIST[0].indexOf('GEOREFERENCE_PROTOCOL')> -1) {
+				theInnerHtml += '<th>Georeference&nbsp;Protocol</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
 				theInnerHtml += '<th>Continent</th>';
@@ -508,10 +518,7 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<th>Associated&nbsp;Species</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('HABITAT')> -1) {
-				theInnerHtml += '<th>Microhabitat</th>';
-			}
-			if (data.COLUMNLIST[0].indexOf('HABITAT_DESC')> -1) {
-				theInnerHtml += '<th>General Habitat</th>';
+				theInnerHtml += '<th>Habitat</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
 				theInnerHtml += '<th>Min&nbsp;Elevation&nbsp;(m)</th>';
@@ -716,11 +723,8 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('PREPARATORS')> -1) {
 					theInnerHtml += '<td>' + splitByComma(data.PREPARATORS[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
-					theInnerHtml += '<td>' + cordFormat(data.VERBATIMLATITUDE[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('VERBATIMLONGITUDE')> -1) {
-					theInnerHtml += '<td>' + cordFormat(data.VERBATIMLONGITUDE[i]) + '</td>';
+				if (data.COLUMNLIST[0].indexOf('VERBATIMCOORDINATES')> -1) {
+					theInnerHtml += '<td>' + cordFormat(data.VERBATIMCOORDINATES[i]) + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
 					theInnerHtml += '<td>' + data.COORDINATEUNCERTAINTYINMETERS[i] + '</td>';
@@ -731,15 +735,33 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
 					theInnerHtml += '<td>' + data.ORIG_LAT_LONG_UNITS[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('LAT_LONG_DETERMINER')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(data.LAT_LONG_DETERMINER[i]) + '</td>';
+				if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_BY_AGENT')> -1) {
+					theInnerHtml += '<td>' + splitBySemicolon(data.EVENT_ASSIGNED_BY_AGENT[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('LAT_LONG_REF_SOURCE')> -1) {
-					theInnerHtml += '<td>' + data.LAT_LONG_REF_SOURCE[i] + '</td>';
+				if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_BY_AGENT')> -1) {
+					theInnerHtml += '<td>' + splitBySemicolon(data.EVENT_ASSIGNED_BY_AGENT[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('LAT_LONG_REMARKS')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + data.LAT_LONG_REMARKS[i] + '</div></td>';
+				if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_DATE')> -1) {
+					theInnerHtml += '<td>' + data.EVENT_ASSIGNED_DATE[i] + '</td>';
 				}
+				if (data.COLUMNLIST[0].indexOf('SPECIMEN_EVENT_REMARK')> -1) {
+					theInnerHtml += '<td>' + data.SPECIMEN_EVENT_REMARK[i] + '</td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_NAME')> -1) {
+					theInnerHtml += '<td>' + data.COLLECTING_EVENT_NAME[i] + '</td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('LOCALITY_NAME')> -1) {
+					theInnerHtml += '<td>' + data.LOCALITY_NAME[i] + '</td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('GEOREFERENCE_SOURCE')> -1) {
+					theInnerHtml += '<td>' + data.GEOREFERENCE_SOURCE[i] + '</td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('GEOREFERENCE_PROTOCOL')> -1) {
+					theInnerHtml += '<td>' + data.GEOREFERENCE_PROTOCOL[i] + '</td>';
+				}
+				
+				
+				
 				if (data.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.CONTINENT_OCEAN[i]) + '</td>';
 				}
