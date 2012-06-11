@@ -226,7 +226,7 @@
 	</cfscript>
 	<cfloop query="getMapData">
 		<cfscript>
-			a='<a href="#Application.serverRootUrl#/guid/#guid# '"' &
+			a='<a href="#Application.serverRootUrl#/guid/#guid#"' &
 				'target="_blank">' & 
 				collection & '&nbsp;' & cat_num & '</a>' & 
 				chr(9) & scientific_name &
