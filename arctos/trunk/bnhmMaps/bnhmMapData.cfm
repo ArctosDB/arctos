@@ -49,10 +49,10 @@
 		dec_long is not null AND
 		flatCollEvent.collecting_source = 'wild caught' ">
 	---->	
-	<cfset basJoin = " INNER JOIN specimen_event ON (#flatTableName#.collection_object_id =specimen_event.collection_object_id)"
+	<cfset basJoin = " INNER JOIN specimen_event ON (#flatTableName#.collection_object_id =specimen_event.collection_object_id)
 			INNER JOIN collecting_event ON (specimen_event.collecting_event_id =collecting_event.collecting_event_id)
 			INNER JOIN locality ON (collecting_event.locality_id =locality.locality_id)
-				>
+				">
 	<cfset basWhere = " WHERE 
 		locality.dec_lat is not null ">		
 	<cfset basQual = "">
