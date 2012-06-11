@@ -554,7 +554,9 @@ function useGL(glat,glon,gerr){
 					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
 				</cfif>
 			</ul>
-			<input type="submit" value="Save Changes to this Specimen/Event" class="savBtn">	
+			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
+			<input type="button" value="Delete this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='delete';confirmDelete(loc#f#);">			
+			
 	</cfform>
 	</td><td valign="top">
 		<h4>Geography</h4>
@@ -688,6 +690,16 @@ function useGL(glat,glon,gerr){
 	
 	</cfoutput>
 </cfif>
+
+
+
+<cfif action is "delete">
+	<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from specimen_event where specimen_event_id=#specimen_event_id#
+	</cfquery>
+	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+</cfif>
+
 <cfif action is "createSpecEvent">
 	<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into specimen_event (
