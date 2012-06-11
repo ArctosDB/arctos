@@ -7,7 +7,10 @@
 		</cfquery>
 		<cfreturn pkey>
 	</cffunction>
+	<!--------------------------------------------------------------------------->
 	<cffunction name="getSpecimenByPartBarcode" access="remote">
+		<cfthrow detail="block not found" errorcode="9945" message="A block of code (component.DSFunctions,getSpecimenByPartBarcode) was not found.">
+		<!--------------
 	<cfargument name="barcode" type="any" required="yes">
 	<cfquery name="d" datasource="uam_god">
 		select 
@@ -85,6 +88,8 @@
 			c.barcode in (#ListQualify(barcode, "'")#)
 	</cfquery>
 	<cfreturn d>
+	
+	------------>
 </cffunction>
 
 <cffunction name="getGuidByPartBarcode" access="remote">
