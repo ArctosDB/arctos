@@ -105,11 +105,12 @@
 				geog_auth_rec_id,
 				spec_locality,
 				geolAtts,
-				VerbatimLatitude,
-				VerbatimLongitude,
+				Verbatim_coordinates,
 				nogeorefbecause,
 				locality_id,
 				verbatim_locality,
+				dec_lat,
+				dec_long,
 				began_date,
 				ended_date,
 				verbatim_date,
@@ -122,8 +123,7 @@
 				geog_auth_rec_id,
 				spec_locality,
 				geolAtts,
-				VerbatimLatitude,
-				VerbatimLongitude,
+				Verbatim_coordinates,
 				nogeorefbecause,
 				locality_id,
 				verbatim_locality,
@@ -167,10 +167,13 @@
 								[null]
 							</cfif>
 							<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
-							<cfif len(#VerbatimLatitude#) gt 0>
-								<br>#VerbatimLatitude#/#VerbatimLongitude#
-							<cfelse>
-								<br>#nogeorefbecause#
+							<cfif len(dec_lat) gt 0>
+								<br>#dec_lat#/#dec_long#
+								<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+								    <cfinvokeargument name="lat" value="12">
+								    <cfinvokeargument name="long" value="12">
+								</cfinvoke>
+								#contents#
 							</cfif>
 						<cfelse>
 							[no localities]
