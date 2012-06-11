@@ -73,7 +73,6 @@ content: ": ";
 			locality.DEC_LAT,
 			locality.DEC_LONG,
 			locality.DATUM,
-			locality.ORIG_LAT_LONG_UNITS,
 			georeference_source,
 			georeference_protocol,
 			MAX_ERROR_DISTANCE,
