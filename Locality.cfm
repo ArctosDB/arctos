@@ -1392,7 +1392,10 @@ INSERT INTO geog_auth_rec (
             geog_auth_rec_id,
             spec_locality,
             higher_geog,
-            verbatim_coordinates,
+            dec_lat,
+			dec_long,
+			georeference_method,
+			georeference_protocol,
 			geolAtts           
 		from localityResults
 		group by
@@ -1400,7 +1403,10 @@ INSERT INTO geog_auth_rec (
             geog_auth_rec_id,
             spec_locality,
             higher_geog,
-            verbatim_coordinates,
+            dec_lat,
+			dec_long,
+			georeference_method,
+			georeference_protocol,
 			geolAtts  
 	</cfquery>
 	<cfif localityResults.recordcount lt 1000>
@@ -1433,12 +1439,15 @@ INSERT INTO geog_auth_rec (
 						</div>
 					</cfif>
 					<div>
-						<cfif len(verbatim_coordinates) gt 0>
-							#verbatim_coordinates#
-							<span style='font-size:smaller'>
-								<em>Determined by</em>....
-							</span>
-			
+						<cfif len(dec_lat) gt 0>
+							<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+							    <cfinvokeargument name="lat" value="#dec_lat#">
+							    <cfinvokeargument name="long" value="#dec_long#">
+							</cfinvoke>
+							#contents#
+							<br>#dec_lat#/#dec_long#
+							<br>#georeference_method#
+							<br>#georeference_protocol#
 						</cfif>
 					</div>
 				</td>
