@@ -123,6 +123,8 @@
 				spec_locality,
 				geolAtts,
 				Verbatim_coordinates,
+				dec_lat,
+				dec_long,
 				locality_id,
 				verbatim_locality,
 				began_date,
