@@ -349,10 +349,6 @@ content: ": ";
 						<div class="value">#DATUM#</div>
 					</div>
 					<div class="pair">
-						<div class="data">Reference</div>
-						<div class="value">#LAT_LONG_REF_SOURCE#</div>
-					</div>
-					<div class="pair">
 						<div class="data">Source</div>
 						<div class="value">#georeference_source#</div>
 					</div>
