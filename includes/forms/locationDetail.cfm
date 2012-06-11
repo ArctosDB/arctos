@@ -432,9 +432,7 @@ content: ": ";
 					ENDED_DATE,
 					VERBATIM_DATE,
 					VERBATIM_LOCALITY,
-					COLL_EVENT_REMARKS,
-					COLLECTING_SOURCE,
-					COLLECTING_METHOD,
+					COLL_EVENT_REMARKS
 					HABITAT,
 					eventID
 				from r group by
@@ -443,8 +441,6 @@ content: ": ";
 					VERBATIM_DATE,
 					VERBATIM_LOCALITY,
 					COLL_EVENT_REMARKS,
-					COLLECTING_SOURCE,
-					COLLECTING_METHOD,
 					HABITAT,
 					eventID	
 			</cfquery>
@@ -523,22 +519,10 @@ content: ": ";
 							<div class="value">#VERBATIM_LOCALITY#</div>
 						</div>
 					</cfif>
-					<cfif len(COLLECTING_SOURCE) gt 0>
-						<div class="pair">
-							<div class="data">Collecting Source</div>
-							<div class="value">#COLLECTING_SOURCE#</div>
-						</div>
-					</cfif>
-					<cfif len(COLLECTING_METHOD) gt 0>
-						<div class="pair">
-							<div class="data">Collecting Method</div>
-							<div class="value">#COLLECTING_METHOD#</div>
-						</div>
-					</cfif>
-					<cfif len(HABITAT_DESC) gt 0>
+					<cfif len(HABITAT) gt 0>
 						<div class="pair">
 							<div class="data">Habitat</div>
-							<div class="value">#HABITAT_DESC#</div>
+							<div class="value">#HABITAT#</div>
 						</div>
 					</cfif>
 					<cfif len(COLL_EVENT_REMARKS) gt 0>
