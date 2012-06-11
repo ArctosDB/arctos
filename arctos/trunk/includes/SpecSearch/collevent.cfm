@@ -7,6 +7,14 @@
 <cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select collecting_source from ctcollecting_source order by collecting_source
 </cfquery>
+<cfquery name="ctverificationstatus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select verificationstatus from ctverificationstatus group by verificationstatus order by verificationstatus 
+</cfquery>
+<cfquery name="ctspecimen_event_type"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select specimen_event_type from ctspecimen_event_type group by specimen_event_type order by specimen_event_type 
+</cfquery>
+
+
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<tr>
@@ -153,6 +161,20 @@
 			<input type="text" name="chronological_extent" id="chronological_extent">
 		</td>
 	</tr>
+	
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_specimen_event_type">Specimen/Event Type:</span>
+		</td>
+		<td class="srch">
+			<select name="specimen_event_type" id="specimen_event_type" size="1">
+				<option value=""></option>
+				<cfloop query="ctspecimen_event_type">
+					<option value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+				</cfloop>
+			</select>
+		</td>
+	</tr>
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_collecting_source">Collecting Source:</span>
@@ -163,6 +185,29 @@
 				<cfloop query="ctcollecting_source">
 					<option value="#ctcollecting_source.collecting_source#">
 						#ctcollecting_source.collecting_source#</option>
+				</cfloop>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_collecting_method">Collecting Method:</span>
+			</a>
+		</td>
+		<td class="srch">
+			<input type="text" name="collecting_method" id="collecting_method">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_verificationstatus">Verification Status:</span>
+		</td>
+		<td class="srch">
+			<select name="verificationstatus" id="verificationstatus" size="1">
+				<option value=""></option>
+				<cfloop query="ctverificationstatus">
+					<option value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
 				</cfloop>
 			</select>
 		</td>

@@ -36,6 +36,26 @@
 	<cfset taxon_scope="common">	
 </cfif>
 <!--------------------------- / end old stuff --------------------------------------->
+
+<cfif isdefined("collecting_method") AND len(collecting_method) gt 0>
+	<cfset mapurl = "#mapurl#&collecting_method=#collecting_method#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(specimen_event.collecting_method) like '#ucase(escapeQuotes(collecting_method))#'">
+</cfif>
+
+
+<cfif isdefined("collecting_source") AND len(collecting_source) gt 0>
+	<cfset mapurl = "#mapurl#&collecting_source=#collecting_source#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND specimen_event.collecting_source = '#collecting_source#'">
+</cfif>
+
+
+
 <cfif isdefined("ocr_text") AND len(ocr_text) gt 0>
 	<cfset mapurl = "#mapurl#&ocr_text=#ocr_text#">
 	<cfif basJoin does not contain "ocr_text">
@@ -940,11 +960,16 @@
 		<cfset max_max_error=9999999999>
 	</cfif>
 	<cfset mapurl = "#mapurl#&min_max_error=#min_max_error#&max_max_error=#max_max_error#&max_error_units=#max_error_units#">
-	<cfif basJoin does not contain " lat_long ">
-		<cfset basJoin = " #basJoin# INNER JOIN lat_long ON (#session.flatTableName#.locality_id = lat_long.locality_id)">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND lat_long.accepted_lat_long_fg=1">
-	<cfset basQual = " #basQual# AND to_meters(lat_long.max_error_distance,max_error_units) between 
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND to_meters(locality.max_error_distance,locality.max_error_units) between 
 		to_meters(#min_max_error#,'#max_error_units#') and to_meters(#max_max_error#,'#max_error_units#')">
 </cfif>
 <cfif isdefined("max_error_in_meters") AND len(max_error_in_meters) gt 0>
@@ -1020,12 +1045,9 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND upper(locality.locality_remarks) like '%#ucase(escapeQuotes(locality_remarks))#%'">
 </cfif>
-<cfif isdefined("habitat_desc") and len(habitat_desc) gt 0>
-	<cfset mapurl = "#mapurl#&habitat_desc=#habitat_desc#">
-	<cfif basJoin does not contain " collecting_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (#session.flatTableName#.collecting_event_id = collecting_event.collecting_event_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND upper(collecting_event.habitat_desc) like '%#ucase(escapeQuotes(habitat_desc))#%'">
+<cfif isdefined("habitat") and len(habitat) gt 0>
+	<cfset mapurl = "#mapurl#&habitat=#habitat#">
+	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.habitat) like '%#ucase(escapeQuotes(habitat))#%'">
 </cfif>
 <cfif isdefined("verbatim_locality") and len(verbatim_locality) gt 0>
 	<cfset mapurl = "#mapurl#&verbatim_locality=#verbatim_locality#">
@@ -1374,10 +1396,6 @@
 		<cfset basJoin = " #basJoin# INNER JOIN permit ON (permit_trans.permit_id = permit.permit_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND permit_num='#permit_num#'">
-</cfif>
-<cfif isdefined("collecting_source") AND len(collecting_source) gt 0>
-	<cfset mapurl = "#mapurl#&collecting_source=#collecting_source#">
-	<cfset basQual = " #basQual# AND #session.flatTableName#.collecting_source='#collecting_source#'">
 </cfif>
 <cfif isdefined("remark") AND len(remark) gt 0>
 	<cfset mapurl = "#mapurl#&remark=#remark#">
