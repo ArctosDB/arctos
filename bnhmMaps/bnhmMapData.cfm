@@ -28,6 +28,7 @@
 	</cfif>
 	<cfset basSelect = "SELECT DISTINCT 
 		#flatTableName#.collection,
+			#flatTableName#.guid,
 		#flatTableName#.collection_id,
 		#flatTableName#.cat_num,
 		#flatTableName#.scientific_name,
@@ -225,8 +226,7 @@
 	</cfscript>
 	<cfloop query="getMapData">
 		<cfscript>
-			a='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
-				collection_object_id & '"' &
+			a='<a href="#Application.serverRootUrl#/guid/#guid# '"' &
 				'target="_blank">' & 
 				collection & '&nbsp;' & cat_num & '</a>' & 
 				chr(9) & scientific_name &
