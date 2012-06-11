@@ -524,13 +524,7 @@ content: ": ";
 							<div class="data">Habitat</div>
 							<div class="value">#HABITAT#</div>
 						</div>
-					</cfif>
-					<cfif len(COLL_EVENT_REMARKS) gt 0>
-						<div class="pair">
-							<div class="data">Event Remarks</div>
-							<div class="value">#COLL_EVENT_REMARKS#</div>
-						</div>
-					</cfif>							
+					</cfif>					
 				</cfloop>
 			</div>
 		</cfif>
