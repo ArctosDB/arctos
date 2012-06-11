@@ -31,12 +31,13 @@
 		#flatTableName#.collection_id,
 		#flatTableName#.cat_num,
 		#flatTableName#.scientific_name,
-		#flatTableName#.verbatim_date,
-		#flatTableName#.spec_locality,
-		#flatTableName#.dec_lat,
-		#flatTableName#.dec_long,
-		#flatTableName#.COORDINATEUNCERTAINTYINMETERS,
-		#flatTableName#.datum,
+		collecting_event.verbatim_date,
+		specimen_event.specimen_event_type,
+		locality.spec_locality,
+		locality.dec_lat,
+		locality.dec_long,
+		to_meters(locality.max_error_distance,locality.max_error_units) COORDINATEUNCERTAINTYINMETERS,
+		locality.datum,
 		#flatTableName#.collection_object_id,
 		#flatTableName#.collectors">
 	<cfset basFrom = "	FROM #flatTableName#">
@@ -48,11 +49,12 @@
 		dec_long is not null AND
 		flatCollEvent.collecting_source = 'wild caught' ">
 	---->	
-	<cfset basJoin = " INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
+	<cfset basJoin = " INNER JOIN specimen_event ON (#flatTableName#.collection_object_id =specimen_event.collection_object_id)"
+			INNER JOIN collecting_event ON (specimen_event.collecting_event_id =collecting_event.collecting_event_id)
+			INNER JOIN locality ON (collecting_event.locality_id =locality.locality_id)
+				>
 	<cfset basWhere = " WHERE 
-		#flatTableName#.dec_lat is not null AND
-		#flatTableName#.dec_long is not null AND
-		#flatTableName#.collecting_source = 'wild caught' ">		
+		locality.dec_lat is not null ">		
 	<cfset basQual = "">
 	<cfif not isdefined("basJoin")>
 		<cfset basJoin = "">
@@ -141,13 +143,14 @@
 		a=chr(9) & '<concepts>' & chr(10) & 
 			chr(9) & '<concept order="1" viewlist="0" colorlist="0" datatype="darwin:relatedinformation"  alias="Related Information" />' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="2" viewlist="1" colorlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="3" viewlist="1" colorlist="0" datatype="char120_1" alias="Verbatim Date"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="4" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Specific Locality"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="7" viewlist="1" colorlist="0" datatype="darwin:coordinateuncertaintyinmeters" alias="Error (m)"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="8" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Datum"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="3" viewlist="1" colorlist="0" datatype="char120_1" alias="Specimen/Event Type"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="4" viewlist="1" colorlist="0" datatype="char120_1" alias="Verbatim Date"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="5" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Specific Locality"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="7" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="8" viewlist="1" colorlist="0" datatype="darwin:coordinateuncertaintyinmeters" alias="Error (m)"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="9" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Datum"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="10" viewlist="0" colorlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
 			chr(9) & '</concepts>';		
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
@@ -227,6 +230,7 @@
 				'target="_blank">' & 
 				collection & '&nbsp;' & cat_num & '</a>' & 
 				chr(9) & scientific_name &
+				chr(9) & specimen_event_type &
 				chr(9) & verbatim_date & 
 				chr(9) & spec_locality & 
 				chr(9) & dec_lat & 
