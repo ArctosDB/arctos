@@ -70,38 +70,18 @@ content: ": ";
 			DEPTH_UNITS,
 			MIN_DEPTH,
 			MAX_DEPTH,
-			NOGEOREFBECAUSE,
-			LAT_DEG,
-			DEC_LAT_MIN,
-			LAT_MIN,
-			LAT_SEC,
-			LAT_DIR,
-			LONG_DEG,
-			DEC_LONG_MIN,
-			LONG_MIN,
-			LONG_SEC,
-			LONG_DIR,
-			DEC_LAT,
-			DEC_LONG,
-			DATUM,
-			UTM_ZONE,
-			UTM_EW,
-			UTM_NS,
-			ORIG_LAT_LONG_UNITS,
-			LAT_LONG_REF_SOURCE,
-			LAT_LONG_REMARKS,
+			locality.DEC_LAT,
+			locality.DEC_LONG,
+			locality.DATUM,
+			locality.ORIG_LAT_LONG_UNITS,
+			georeference_source,
+			georeference_protocol,
 			MAX_ERROR_DISTANCE,
 			MAX_ERROR_UNITS,
-			ACCEPTED_LAT_LONG_FG,
-			EXTENT,
-			GPSACCURACY,
-			GEOREFMETHOD,
-			VERIFICATIONSTATUS,
-			cdet.agent_name coordinateDeterminer,
-			DETERMINED_DATE,
+			getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name,
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
-			gdet.agent_name geologyDeterminer,
+			getPreferredAgentName(GEO_ATT_DETERMINER_ID) geologyDeterminer,
 			GEO_ATT_DETERMINED_DATE,
 			GEO_ATT_DETERMINED_METHOD,
 			GEO_ATT_REMARK,
@@ -109,25 +89,16 @@ content: ": ";
 			ENDED_DATE,
 			VERBATIM_DATE,
 			VERBATIM_LOCALITY,
-			COLL_EVENT_REMARKS,
-			COLLECTING_SOURCE,
-			COLLECTING_METHOD,
-			HABITAT_DESC	
+			COLL_EVENT_REMARKS
 		from
 			geog_auth_rec,
 			locality,
-			lat_long,
 			geology_attributes,
-			preferred_agent_name cdet,
-			preferred_agent_name gdet,
 			collecting_event
 		where
-			geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id(+) and
-			locality.locality_id=lat_long.locality_id(+) and
-			lat_long.determined_by_agent_id=cdet.agent_id(+) and
-			locality.locality_id=geology_attributes.locality_id(+) and
-			geology_attributes.GEO_ATT_DETERMINER_ID=gdet.agent_id(+) and
-			locality.locality_id=collecting_event.locality_id(+) and
+			geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id (+) and
+			locality.locality_id=geology_attributes.locality_id (+) and
+			locality.locality_id=collecting_event.locality_id (+) and
 			<cfif isdefined("geog_auth_rec_id") and len(geog_auth_rec_id) gt 0>
 				geog_auth_rec.geog_auth_rec_id=#geog_auth_rec_id#
 			<cfelseif isdefined("locality_id") and len(locality_id) gt 0>
@@ -242,7 +213,6 @@ content: ": ";
 					DEPTH_UNITS,
 					MIN_DEPTH,
 					MAX_DEPTH,
-					NOGEOREFBECAUSE,
 					locid
 				from r group by
 					MAXIMUM_ELEVATION,
@@ -253,7 +223,6 @@ content: ": ";
 					DEPTH_UNITS,
 					MIN_DEPTH,
 					MAX_DEPTH,
-					NOGEOREFBECAUSE,
 					locid
 			</cfquery>
 			<cfquery name="locMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -274,10 +243,12 @@ content: ": ";
 				from
 					cataloged_item, 
 					collection,
+					specimen_event,
 					collecting_event 
 				WHERE
-					cataloged_item.collecting_event_id = collecting_event.collecting_event_id and
 					cataloged_item.collection_id = collection.collection_id and
+					cataloged_item.collection_object_id = specimen_event.collection_object_id and
+					specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 					collecting_event.locality_id=#locality.locid# 
 				GROUP BY 
 					collection.collection,
@@ -351,159 +322,36 @@ content: ": ";
 			</div>
 			<cfquery name="coords" dbtype="query">
 				select
-					LAT_DEG,
-					DEC_LAT_MIN,
-					LAT_MIN,
-					LAT_SEC,
-					LAT_DIR,
-					LONG_DEG,
-					DEC_LONG_MIN,
-					LONG_MIN,
-					LONG_SEC,
-					LONG_DIR,
 					DEC_LAT,
 					DEC_LONG,
 					DATUM,
-					UTM_ZONE,
-					UTM_EW,
-					UTM_NS,
-					ORIG_LAT_LONG_UNITS,
-					LAT_LONG_REF_SOURCE,
-					LAT_LONG_REMARKS,
+					georeference_source,
+					georeference_protocol,
 					MAX_ERROR_DISTANCE,
-					MAX_ERROR_UNITS,
-					ACCEPTED_LAT_LONG_FG,
-					EXTENT,
-					GPSACCURACY,
-					GEOREFMETHOD,
-					VERIFICATIONSTATUS,
-					coordinateDeterminer,
-					DETERMINED_DATE
+					MAX_ERROR_UNITS
 				from r 
-				where
-					ACCEPTED_LAT_LONG_FG is not null
 				group by
-					LAT_DEG,
-					DEC_LAT_MIN,
-					LAT_MIN,
-					LAT_SEC,
-					LAT_DIR,
-					LONG_DEG,
-					DEC_LONG_MIN,
-					LONG_MIN,
-					LONG_SEC,
-					LONG_DIR,
 					DEC_LAT,
 					DEC_LONG,
 					DATUM,
-					UTM_ZONE,
-					UTM_EW,
-					UTM_NS,
-					ORIG_LAT_LONG_UNITS,
-					LAT_LONG_REF_SOURCE,
-					LAT_LONG_REMARKS,
+					georeference_source,
+					georeference_protocol,
 					MAX_ERROR_DISTANCE,
-					MAX_ERROR_UNITS,
-					ACCEPTED_LAT_LONG_FG,
-					EXTENT,
-					GPSACCURACY,
-					GEOREFMETHOD,
-					VERIFICATIONSTATUS,
-					coordinateDeterminer,
-					DETERMINED_DATE
-				order by
-					ACCEPTED_LAT_LONG_FG desc
+					MAX_ERROR_UNITS
 			</cfquery>
 			<div class="grouped">
 				<cfloop query="coords">
 					<div class="title">
-						<cfif ACCEPTED_LAT_LONG_FG is 1>
-							Accepted Coordinates
-						<cfelse>
-							Unaccepted Coordinates
-						</cfif>
+						Coordinates
 					</div>
-					<cfif ORIG_LAT_LONG_UNITS is "decimal degrees">
-						<div class="pair">
-							<div class="data">Decimal Latitude</div>
-							<div class="value">#DEC_LAT#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Decimal Longitude</div>
-							<div class="value">#DEC_LONG#</div>
-						</div>
-					<cfelseif ORIG_LAT_LONG_UNITS is "degrees dec. minutes">
-						<div class="pair">
-							<div class="data">Degrees Latitude</div>
-							<div class="value">#LAT_DEG#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Minutes Latitude</div>
-							<div class="value">#DEC_LAT_MIN#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Latitude Direction</div>
-							<div class="value">#LAT_DIR#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Degrees Longitude</div>
-							<div class="value">#LONG_DEG#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Minutes Longitude</div>
-							<div class="value">#DEC_LONG_MIN#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Longitude Direction</div>
-							<div class="value">#LONG_DIR#</div>
-						</div>
-					<cfelseif ORIG_LAT_LONG_UNITS is "deg. min. sec.">
-						<div class="pair">
-							<div class="data">Degrees Latitude</div>
-							<div class="value">#LAT_DEG#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Minutes Latitude</div>
-							<div class="value">#LAT_MIN#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Seconds Latitude</div>
-							<div class="value">#LAT_SEC#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Latitude Direction</div>
-							<div class="value">#LAT_DIR#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Degrees Longitude</div>
-							<div class="value">#LONG_DEG#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Minutes Longitude</div>
-							<div class="value">#LONG_MIN#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Seconds Longitude</div>
-							<div class="value">#LONG_SEC#</div>
-						</div>
-						<div class="pair">
-							<div class="data">Longitude Direction</div>
-							<div class="value">#LONG_DIR#</div>
-						</div>
-					<cfelseif ORIG_LAT_LONG_UNITS is "UTM">
-						<div class="pair">
-							<div class="data">UTM Zone</div>
-							<div class="value">#UTM_ZONE#</div>
-						</div>
-						<div class="pair">
-							<div class="data">UTM E/W</div>
-							<div class="value">#UTM_EW#</div>
-						</div>
-						<div class="pair">
-							<div class="data">UTM N/S</div>
-							<div class="value">#UTM_NS#</div>
-						</div>
-					</cfif>
+					<div class="pair">
+						<div class="data">Decimal Latitude</div>
+						<div class="value">#DEC_LAT#</div>
+					</div>
+					<div class="pair">
+						<div class="data">Decimal Longitude</div>
+						<div class="value">#DEC_LONG#</div>
+					</div>
 					<div class="pair">
 						<div class="data">Datum</div>
 						<div class="value">#DATUM#</div>
@@ -513,53 +361,17 @@ content: ": ";
 						<div class="value">#LAT_LONG_REF_SOURCE#</div>
 					</div>
 					<div class="pair">
-						<div class="data">Reference</div>
-						<div class="value">#LAT_LONG_REF_SOURCE#</div>
+						<div class="data">Source</div>
+						<div class="value">#georeference_source#</div>
+					</div>
+					<div class="pair">
+						<div class="data">Protocol</div>
+						<div class="value">#georeference_protocol#</div>
 					</div>
 					<cfif len(MAX_ERROR_DISTANCE) gt 0>
 						<div class="pair">
 							<div class="data">Error</div>
 							<div class="value">#MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</div>
-						</div>
-					</cfif>
-					<div class="pair">
-						<div class="data">Determiner</div>
-						<div class="value">#coordinateDeterminer#</div>
-					</div>
-					<div class="pair">
-						<div class="data">Determined Date</div>
-						<div class="value">#dateformat(DETERMINED_DATE,"yyyy-mm-dd")#</div>
-					</div>
-					<div class="pair">
-						<div class="data">Method</div>
-						<div class="value">#GEOREFMETHOD#</div>
-					</div>
-					<div class="pair">
-						<div class="data">Verification Status</div>
-						<div class="value">#VERIFICATIONSTATUS#</div>
-					</div>
-					<cfif len(EXTENT) gt 0>
-						<div class="pair">
-							<div class="data">Extent</div>
-							<div class="value">#EXTENT# #MAX_ERROR_UNITS#</div>
-						</div>
-					</cfif>
-					<cfif len(GPSACCURACY) gt 0>
-						<div class="pair">
-							<div class="data">GPS Accuracy</div>
-							<div class="value">#GPSACCURACY# #MAX_ERROR_UNITS#</div>
-						</div>
-					</cfif>
-					<cfif len(GEOREFMETHOD) gt 0>
-						<div class="pair">
-							<div class="data">Method</div>
-							<div class="value">#GEOREFMETHOD#</div>
-						</div>
-					</cfif>
-					<cfif len(LAT_LONG_REMARKS) gt 0>
-						<div class="pair">
-							<div class="data">Remark</div>
-							<div class="value">#LAT_LONG_REMARKS#</div>
 						</div>
 					</cfif>
 				</cfloop>
@@ -635,7 +447,7 @@ content: ": ";
 					COLL_EVENT_REMARKS,
 					COLLECTING_SOURCE,
 					COLLECTING_METHOD,
-					HABITAT_DESC,
+					HABITAT,
 					eventID
 				from r group by
 					BEGAN_DATE,
@@ -645,7 +457,7 @@ content: ": ";
 					COLL_EVENT_REMARKS,
 					COLLECTING_SOURCE,
 					COLLECTING_METHOD,
-					HABITAT_DESC,
+					HABITAT,
 					eventID	
 			</cfquery>
 			
