@@ -170,8 +170,8 @@
 							<cfif len(dec_lat) gt 0>
 								<br>#dec_lat#/#dec_long#
 								<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-								    <cfinvokeargument name="lat" value="12">
-								    <cfinvokeargument name="long" value="12">
+								    <cfinvokeargument name="lat" value="#dec_lat#">
+								    <cfinvokeargument name="long" value="#dec_long#">
 								</cfinvoke>
 								#contents#
 							</cfif>
