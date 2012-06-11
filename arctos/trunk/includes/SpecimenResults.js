@@ -738,9 +738,6 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_BY_AGENT')> -1) {
 					theInnerHtml += '<td>' + splitBySemicolon(data.EVENT_ASSIGNED_BY_AGENT[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_BY_AGENT')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(data.EVENT_ASSIGNED_BY_AGENT[i]) + '</td>';
-				}
 				if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_DATE')> -1) {
 					theInnerHtml += '<td>' + data.EVENT_ASSIGNED_DATE[i] + '</td>';
 				}
