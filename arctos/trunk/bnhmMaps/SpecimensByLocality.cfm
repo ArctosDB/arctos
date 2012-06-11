@@ -1,3 +1,4 @@
+deprecated<cfabort>
 Retrieving map data - please wait....
 <cfflush>
 <cfoutput>
@@ -12,20 +13,17 @@ Retrieving map data - please wait....
 		select 
 			#flatTableName#.collection_object_id,
 			#flatTableName#.cat_num,
-			lat_long.dec_lat,
-			lat_long.dec_long,
-			decode(lat_long.accepted_lat_long_fg,
-				1,'yes',
-				0,'no') isAcceptedLatLong,
-			to_meters(lat_long.max_error_distance,lat_long.max_error_units) errorInMeters,
-			lat_long.datum,
+			locality.dec_lat,
+			locality.dec_long,
+			specimen_event_type,
+			to_meters(locality.max_error_distance,locality.max_error_units) errorInMeters,
+			locality.datum,
 			#flatTableName#.scientific_name,
 			#flatTableName#.collection,
 			#flatTableName#.spec_locality,
 			#flatTableName#.locality_id,
 			#flatTableName#.verbatimLatitude,
-			#flatTableName#.verbatimLongitude,
-			lat_long.lat_long_id
+			#flatTableName#.verbatimLongitude
 		 from 
 		 	#flatTableName#,
 		 	lat_long
@@ -34,6 +32,23 @@ Retrieving map data - please wait....
 		 	#flatTableName#.locality_id IN (
 		 		select #flatTableName#.locality_id from #table_name#,#flatTableName#
 		 		where #flatTableName#.collection_object_id = #table_name#.collection_object_id)
+		 		
+		 		
+		 		 from 
+		 	#flatTableName#,
+		 	specimen_event,
+		 	collecting_event,
+		 	locality,
+		 	#table_name#		 	
+		 where
+		 	#flatTableName#.collection_object_id = specimen_event.collection_object_id and
+		 	specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+		 	collecting_event.locality_id=locality.locality_id and
+		 	locality.dec_lat is not null 
+		 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
+		 	
+		 	
+		 	
 	</cfquery>
 	<cfquery name="loc" dbtype="query">
 		select 
@@ -45,8 +60,7 @@ Retrieving map data - please wait....
 			spec_locality,
 			locality_id,
 			verbatimLatitude,
-			verbatimLongitude,
-			lat_long_id
+			verbatimLongitude
 		from
 			data
 		group by
@@ -58,8 +72,7 @@ Retrieving map data - please wait....
 			spec_locality,
 			locality_id,
 			verbatimLatitude,
-			verbatimLongitude,
-			lat_long_id
+			verbatimLongitude
 	</cfquery>
 	<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="" nameconflict="overwrite">
 	<cfloop query="loc">

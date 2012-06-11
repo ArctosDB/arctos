@@ -430,9 +430,11 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/Reports/report_printer.cfm?report=ala_label">
 						ALA Labels
 					</option>
+					<!----
 					<option value="/bnhmMaps/SpecimensByLocality.cfm">
 						Map By Locality
 					</option>
+					---->
 					<option value="/info/part_data_download.cfm">
 						Parts table/download
 					</option>
