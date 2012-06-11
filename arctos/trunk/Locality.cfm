@@ -1394,7 +1394,7 @@ INSERT INTO geog_auth_rec (
             higher_geog,
             dec_lat,
 			dec_long,
-			georeference_method,
+			georeference_source,
 			georeference_protocol,
 			geolAtts           
 		from localityResults
