@@ -1,6 +1,9 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif action is "nothing">
 	<cfoutput>
+		<cfif collecting_event_name is "undefined">
+			<cfset collecting_event_name=''>
+		</cfif>
 		<script>
 		jQuery(document).ready(function() {
 			if ('#collecting_event_name#'.length > 0) {
