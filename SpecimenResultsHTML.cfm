@@ -24,6 +24,8 @@
  }
 
 </script>
+<cfset detail_level = 1>
+<!------
 <cfif not isdefined("detail_level") OR len(#detail_level#) is 0>
 	<cfif isdefined("session.detailLevel") AND #session.detailLevel# gt 0>
 		<cfset detail_level = #session.detailLevel#>
@@ -31,6 +33,7 @@
 		<cfset detail_level = 1>
 	</cfif>	
 </cfif>
+---------->
 <cfoutput>
 </cfoutput>
 <cfset title="Specimen Results">
@@ -1338,6 +1341,7 @@ document.getElementById('saveme').submit();
 	</table>
 	<!---- end browse buttons ---------------------->
 	---->
+	<!----
 <form name="level" action="SpecimenResultsHTML.cfm" method="post">
 #searchParams#
 				<input name="mapurl" type="hidden" value="#mapurl#">
@@ -1418,6 +1422,7 @@ document.getElementById('saveme').submit();
 				</table>
 				
 </form>		
+---->
 </cfoutput>
 <!---------------------------- reload this page -------------------------------------------->
 <cfoutput>
