@@ -493,6 +493,7 @@
 												<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 													<cfinvokeargument name="lat" value="#dec_lat#">
 													<cfinvokeargument name="long" value="#dec_long#">
+													<cfinvokeargument name="collection_object_id" value="#collection_object_id#">
 												</cfinvoke>
 												#contents#
 												<!-------
