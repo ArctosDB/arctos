@@ -7,11 +7,13 @@
 		jQuery(document).ready(function() {
 			if ('#locality_name#'.length > 0) {
 				console.log('got something');
+				$("##locality_name").val('#locality_name#');
+				$("##getLoc").submit();
 			}
 		});
 		</script>
 		<cfset showLocality=1>
-		<form name="getLoc" method="post" action="LocalityPick.cfm">
+		<form name="getLoc" id="getLoc" method="post" action="LocalityPick.cfm">
 			<input type="hidden" name="Action" value="findLocality">
 			<input type="hidden" name="localityIdFld" value="#localityIdFld#">
 			<input type="hidden" name="speclocFld" value="#speclocFld#">
