@@ -710,6 +710,7 @@
 	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.verbatim_date) LIKE '%#ucase(escapeQuotes(verbatim_date))#%'">
 </cfif>
 <cfif isdefined("accn_trans_id") AND len(accn_trans_id) gt 0>
+	<cfset mapurl = "#mapurl#&accn_trans_id=#accn_trans_id#">
 	<cfset basQual = " #basQual# AND #session.flatTableName#.accn_id IN (#accn_trans_id#)">
 </cfif>	
 <cfif isdefined("accn_inst") and len(accn_inst) gt 0>
