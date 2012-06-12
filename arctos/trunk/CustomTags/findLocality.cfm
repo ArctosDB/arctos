@@ -27,7 +27,8 @@
 		georeference_source,
 		georeference_protocol,
 		locality_name,
-		locality.DATUM
+		locality.DATUM,
+		collecting_event_name
 	from 
 		geog_auth_rec,
 		locality,
