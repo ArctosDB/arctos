@@ -1,27 +1,17 @@
 <cfinclude template="../includes/_pickHeader.cfm">
-<script>
-	function fireEvent (fEvent) {
-		//alert('event thingy: ' + fEvent);
-		if (fEvent.length > 0 && fEvent != 'undefined') {
-			var fireThis = "opener." + fEvent + "()";
-			eval(fireThis);
-		}
-		self.close();
-	}
-</script>
 <cfset title = "Locality Pick Search">
 <cfif action is "nothing">
-<cfoutput>
-<cfset showLocality=1>
-<form name="getLoc" method="post" action="LocalityPick.cfm">
-	<input type="hidden" name="Action" value="findLocality">
-	<input type="hidden" name="localityIdFld" value="#localityIdFld#">
-		<input type="hidden" name="speclocFld" value="#speclocFld#">
-		<input type="hidden" name="formName" value="#formName#">
-		<input type="hidden" name="fireEvent" value="#fireEvent#">
-		<cfinclude template="/includes/frmFindLocation_guts.cfm">
-	</form>
-</cfoutput>
+	<cfoutput>
+		<cfset showLocality=1>
+		<form name="getLoc" method="post" action="LocalityPick.cfm">
+			<input type="hidden" name="Action" value="findLocality">
+			<input type="hidden" name="localityIdFld" value="#localityIdFld#">
+			<input type="hidden" name="speclocFld" value="#speclocFld#">
+			<input type="hidden" name="formName" value="#formName#">
+			<input type="hidden" name="fireEvent" value="#fireEvent#">
+			<cfinclude template="/includes/frmFindLocation_guts.cfm">
+		</form>
+	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------->
 <cfif #Action# is "findLocality">

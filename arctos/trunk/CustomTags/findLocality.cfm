@@ -123,7 +123,7 @@
 	<cfset sql = "#sql# AND upper(collecting_method) like '%#ucase(collecting_method)#%'">
 </cfif>
 
-<cfif isdefined("habitat") and len(#habitat#) gt 0>
+<cfif isdefined("habitat") and len(habitat) gt 0>
 	<cfset sql = "#sql# AND upper(habitat) like '%#ucase(habitat)#%'">
 </cfif>		
 <cfif isdefined("spec_locality") and len(#spec_locality#) gt 0>
