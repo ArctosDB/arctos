@@ -35,8 +35,39 @@
 			<th>ctl</th>
 		</tr>
 		<cfset i = 1>
-		<cfdump var=#localityResults#>
-		<cfloop query="localityResults">
+		<cfquery name="d" dbtype="query">
+			select
+				verbatim_date,
+				began_date,
+				ended_date,
+				higher_geog,
+				geog_auth_rec_id,
+				spec_locality,
+				locality_id,
+				feature,
+				island,
+				DEC_LAT,
+				DEC_LONG,
+				verbatim_locality,
+				collecting_event_name
+			from
+				localityResults
+			group by
+				verbatim_date,
+				began_date,
+				ended_date,
+				higher_geog,
+				geog_auth_rec_id,
+				spec_locality,
+				locality_id,
+				feature,
+				island,
+				DEC_LAT,
+				DEC_LONG,
+				verbatim_locality,
+				collecting_event_name		
+		</cfquery>
+		<cfloop query="d">
 			<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
 					<cfset thisDate = began_date>
 			<cfelseif (
