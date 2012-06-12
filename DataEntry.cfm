@@ -532,11 +532,8 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
-								
-								<label for="verificationstatus">
-									VerificationStatus
-								</label>
+							<td align="right"><span class="f11a">VerificationStatus</span></td>
+							<td>
 								<select name="verificationstatus" size="1" class="reqdClr" id="verificationstatus">
 									<cfloop query="ctverificationstatus">
 										<option <cfif data.verificationstatus is ctverificationstatus.verificationstatus> selected="selected" </cfif>
