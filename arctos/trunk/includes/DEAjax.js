@@ -1586,6 +1586,8 @@ function success_pickedLocality (r) {
 		//$("#utm_zone").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_ZONE[0]);
 		//$("#utm_ew").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_EW[0]);
 		//$("#utm_ns").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_NS[0]);
+		$("#georeference_source").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFERENCE_SOURCE[0]);
+		$("#georeference_protocol").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFERENCE_PROTOCOL[0]);
 		
 		
 		switchActive(result.ORIG_LAT_LONG_UNITS[0]);

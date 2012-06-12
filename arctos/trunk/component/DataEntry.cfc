@@ -290,6 +290,8 @@
 				locality.MAX_ERROR_DISTANCE,
 				locality.MAX_ERROR_UNITS,
 				locality.DATUM,
+				locality.georeference_protocol,
+				locality.georeference_source,
 				<!----
 				accepted_lat_long.LAT_DEG,			
 				accepted_lat_long.DEC_LAT_MIN,
