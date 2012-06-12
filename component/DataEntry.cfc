@@ -256,7 +256,6 @@
 			to_char(GEO_ATT_DETERMINED_DATE,'yyyy-mm-dd') GEO_ATT_DETERMINED_DATE,
 			GEO_ATT_DETERMINED_METHOD,
 			GEO_ATT_REMARK 
-			
 		FROM
 			geog_auth_rec,
 			locality,
