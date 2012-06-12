@@ -44,8 +44,6 @@
 				geog_auth_rec_id,
 				spec_locality,
 				locality_id,
-				feature,
-				island,
 				DEC_LAT,
 				DEC_LONG,
 				verbatim_locality,
@@ -60,8 +58,6 @@
 				geog_auth_rec_id,
 				spec_locality,
 				locality_id,
-				feature,
-				island,
 				DEC_LAT,
 				DEC_LONG,
 				verbatim_locality,
@@ -96,8 +92,6 @@
 									#spec_locality#
 									(<a href="/Locality.cfm?Action=editLocality&locality_id=#locality_id#" 
 									target="_blank">#locality_id#</a>)
-								<br>Feature: #feature#
-								<br>Island: #island#
 								</span>
 							</td>
 							<td>
