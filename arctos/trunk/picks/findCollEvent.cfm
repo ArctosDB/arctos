@@ -80,6 +80,7 @@
 				</td>
 				<td>
 					#verbatim_locality#
+					<br>collecting_event_name: #collecting_event_name#
 					<br>#thisDate#
 				</td>
 				<td>
