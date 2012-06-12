@@ -877,6 +877,7 @@ function changeSex(sex) {
 	}
 }
 function switchActive(OrigUnits) {
+	console.log('switchActive');
 	var OrigUnits;
 	var a=document.getElementById('dms');
 	var b=document.getElementById('ddm');
@@ -906,6 +907,8 @@ function switchActive(OrigUnits) {
 	} else if (OrigUnits == 'UTM') {
 		u.className='doShow';
 	}
+	
+	console.log('switchActive exiting');
 }
 
 
