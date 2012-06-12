@@ -252,7 +252,7 @@
 			----> 
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
-			geoAgnt.agent_name GEO_ATT_DETERMINER,
+			getPreferredAgentName(GEO_ATT_DETERMINER_ID) GEO_ATT_DETERMINER,
 			to_char(GEO_ATT_DETERMINED_DATE,'yyyy-mm-dd') GEO_ATT_DETERMINED_DATE,
 			GEO_ATT_DETERMINED_METHOD,
 			GEO_ATT_REMARK 
@@ -261,12 +261,10 @@
 			geog_auth_rec,
 			locality,
 			geology_attributes,
-			preferred_agent_name geoAgnt,
 			collecting_event
 		WHERE
 			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and
 			locality.LOCALITY_ID = geology_attributes.LOCALITY_ID (+) AND
-			geology_attributes.GEO_ATT_DETERMINER_ID = geoAgnt.agent_id (+) AND
 			locality.locality_id=collecting_event.LOCALITY_ID and
 			collecting_event.collecting_event_id = #collecting_event_id#
 	</cfquery>
