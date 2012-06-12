@@ -95,8 +95,8 @@ function geolocate () {
 	console.log('len=' + $("#higher_geog").val().length>0);
 	
 	
-	if ($("#higher_geog").val().length==0){
-		alert('You cannot use geolocate without a higher geography value');
+	if ($("#higher_geog").val().length==0 || $("#spec_locality").val().length==0){
+		alert('You cannot use geolocate without values in higher geography and spec locality.');
 		closeGeoLocate('no geog fail');
 		return;
 	}
