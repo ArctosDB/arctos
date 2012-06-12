@@ -398,12 +398,9 @@
 							</td>
 						</tr>
 					</table><!------ /identification -------->
-					<label for="loctbl">Locality</label>
+					<label onClick="getDocs('locality')" class="likeLink" for="loctbl">Locality</label>
 					<table cellspacing="0" cellpadding="0" class="fs" border="1"><!----- locality ---------->
-					 	<tr>
-							<td rowspan="99" valign="top">
-								<img src="/images/info.gif" border="0" onClick="getDocs('locality')" class="likeLink" alt="[ help ]">
-							</td>
+						<tr>
 							<td colspan="2" width="100%" align="middle">
 								------------- locality metadata junk -----------------								
 							</td>
