@@ -1413,11 +1413,12 @@ function unpickEvent() {
 	$("#began_date").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#ended_date").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#verbatim_date").attr("readOnly", false).removeClass().addClass('reqdClr');
-	$("#collecting_source").attr("readOnly", false).removeClass().addClass('reqdClr');
+	//$("#collecting_source").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#verbatim_locality").attr("readOnly", false).removeClass();
 	$("#coll_event_remarks").attr("readOnly", false).removeClass();
-	$("#collecting_method").attr("readOnly", false).removeClass();
-	$("#habitat_desc").attr("readOnly", false).removeClass();
+	$("#collecting_event_name").attr("readOnly", false).removeClass();
+	//$("#collecting_method").attr("readOnly", false).removeClass();
+	//$("#habitat_desc").attr("readOnly", false).removeClass();
 	$("#eventUnPicker").hide();
 	$("#eventPicker").show();
 	unpickLocality();
@@ -1458,7 +1459,10 @@ function unpickLocality () {
 	$("#extent").attr("readOnly", false).removeClass();
 	$("#gpsaccuracy").attr("readOnly", false).removeClass();
 	$("#lat_long_remarks").attr("readOnly", false).removeClass();
-	$("#orig_lat_long_units").attr("readOnly", false).removeClass();	
+	$("#orig_lat_long_units").attr("readOnly", false).removeClass();
+	$("#locality_name").attr("readOnly", false).removeClass();	
+	$("#georeference_source").attr("readOnly", false).removeClass();
+	$("#georeference_protocol").attr("readOnly", false).removeClass();	
 	$("#utm_zone").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#utm_ew").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#utm_ns").attr("readOnly", false).removeClass().addClass('reqdClr');
