@@ -553,6 +553,32 @@
 					<label onClick="getDocs('collecting_event')" class="likeLink" for="loctbl">Collecting Event</label>
 					<table cellspacing="0" cellpadding="0" class="fs">					
 						<tr>
+							<td colspan="2">
+								<table>
+									<tr>
+										<td align="right"><span class="f11a">Event Name</span></td>
+										<td>
+											<input type="text" name="collecting_event_name" class="" id="collecting_event_name" value="#collecting_event_name#" size="60">
+										</td>
+										<td id="d_collecting_event_id">
+											<label for="collecting_event_id">Existing&nbsp;EventID</label>
+										</td><td>	
+											<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
+											<input type="hidden" id="fetched_eventid">
+										</td>
+										<td>	
+											<span class="infoLink" id="eventPicker" onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
+												Pick&nbsp;Event
+											</span>
+											<span class="infoLink" id="eventUnPicker" style="display:none;" onclick="unpickEvent()">
+												Depick&nbsp;Event
+											</span>									
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
 							<td align="right"><span class="f11a">Verbatim Locality</span></td>
 							<td>
 								<input type="text"  name="verbatim_locality"
