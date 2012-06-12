@@ -114,9 +114,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<strong>Cataloged Item Identifiers</strong>
 				<br><span style="font-size:small;">ID 5 is your Custom ID</span>
 				<br>
-				<span class="likeLink" onclick="toggleTo('cat','hide')">[ hide all ]</span>
-				<span class="likeLink" onclick="toggleTo('cat','show')">[ show all ]</span>
-				<span class="likeLink" onclick="toggleTo('cat','carry')">[ carry all ]</span>				
+				<span class="likeLink" onclick="toggleTo('cat','0')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('cat','1')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('cat','2')">[ carry all ]</span>				
 				<table border id="_cat">
 					<cfloop list="#cat#" index="i">
 						<tr>
