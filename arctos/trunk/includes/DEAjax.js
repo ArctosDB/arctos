@@ -95,7 +95,7 @@ function geolocate () {
 	console.log('len=' + $("#higher_geog").val().length>0);
 	
 	
-	if ($("#higher_geog").val().length>==0){
+	if ($("#higher_geog").val().length==0){
 		alert('You cannot use geolocate without a higher geography value');
 		closeGeoLocate('no geog fail');
 		return;
