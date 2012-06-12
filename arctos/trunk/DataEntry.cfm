@@ -405,7 +405,7 @@
 							<td align="right"><span class="f11a">Locality Name</span></td>
 							<td width="100%">
 								<input type="text" name="locality_name" class="" id="locality_name" value="#locality_name#" size="80" 
-									onchange="LocalityPick('locality_id','verbatim_locality','dataEntry'")>
+									onchange="LocalityPick('locality_id','verbatim_locality','dataEntry');">
 							</td>
 						</tr>
 						<tr>
