@@ -16,7 +16,9 @@ grant all on cf_dataentry_settings to data_entry;
 	function toggleTo(e,v){
 		console.log(e);
 		console.log(v);
-		$("#" + e + " :input").val(v);			
+		$("#" + e + " :input").val(v);
+		$("#" + e + " :input").css('style:border 1px solid red;');
+		//(v);			
 	}
 	function toggleAll(v){
 		$("select").val(v);
