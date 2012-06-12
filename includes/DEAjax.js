@@ -40,7 +40,11 @@ jQuery(document).ready(function() {
 		window.attachEvent("onmessage", getGeolocate);
 	}
 	pickedLocality();
+	setInterval(function() { CheckLocalityNameChange($('#locality_name').val()); }, 100);
 });
+function CheckLocalityNameChange () {
+	console.log('I am CheckLocalityNameChange');
+}
 function padzero(n) {
 	return n < 10 ? '0' + n : n;
 }

@@ -402,9 +402,15 @@
 							<td rowspan="99" valign="top">
 								<img src="/images/info.gif" border="0" onClick="getDocs('locality')" class="likeLink" alt="[ help ]">
 							</td>
-							<td align="right"><span class="f11a">Type a Locality Name</span></td>
+							<td align="right"><span class="f11a">Locality Name</span></td>
 							<td width="100%">
-								<input type="text" name="locality_name" class="reqdClr" id="locality_name" value="#locality_name#" size="80">
+								<input type="text" name="locality_name" class="" id="locality_name" value="#locality_name#" size="80">
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Event Name</span></td>
+							<td>
+								<input type="text" name="collecting_event_name" class="" id="collecting_event_name" value="#collecting_event_name#" size="80">
 							</td>
 						</tr>
 						<tr>
