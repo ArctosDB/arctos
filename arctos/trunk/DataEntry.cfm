@@ -107,7 +107,7 @@
 		<form name="begin" method="post" action="DataEntry.cfm">
 			<input type="hidden" name="action" value="editEnterData" />
 			<select name="collection_object_id" size="1">
-				<cfif #theirLast.recordcount# gt 0>
+				<cfif theirLast.recordcount gt 0>
 					<cfloop query="theirLast">
 						<cfquery name="temp" dbtype="query">
 							select collection from c where institution_acronym='#instAc#' and collection_cde='#collnCde#'
@@ -144,6 +144,7 @@
 			<cfset loadedMsg = "">
 		</cfif>
 	</cfoutput>
+	<cfdump var=#data#>
 	<cfoutput query="data">
 		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT institution_acronym || ' ' || collection_cde as instcoll, collection_id FROM collection
