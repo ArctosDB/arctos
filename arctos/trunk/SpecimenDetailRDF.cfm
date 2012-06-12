@@ -31,7 +31,6 @@
 		DATUM,
 		ORIG_LAT_LONG_UNITS,
 		VERBATIM_coordinates,
-		GEOREFMETHOD,
 		COORDINATEUNCERTAINTYINMETERS,
 		MIN_ELEV_IN_M,
 		MAX_ELEV_IN_M,
@@ -62,7 +61,9 @@
 		REMARKS,
 		enteredPerson.agent_name EnteredBy,
 		editedPerson.agent_name EditedBy,
-		COLL_OBJECT_ENTERED_DATE		
+		COLL_OBJECT_ENTERED_DATE,
+		georeference_source,
+		georeference_protocol
 	from 
 		filtered_flat,
 		coll_object,
@@ -153,7 +154,8 @@
 		<dwc:OriginalCoordinateSystem>#d.ORIG_LAT_LONG_UNITS#</dwc:OriginalCoordinateSystem>
 		<dwc:VerbatimLatitude>#d.VERBATIMLATITUDE#</dwc:VerbatimLatitude>
 		<dwc:VerbatimLongitude>#d.VERBATIMLONGITUDE#</dwc:VerbatimLongitude>
-		<dwc:GeorefMethod>#d.GEOREFMETHOD#</dwc:GeorefMethod>
+		<dwc:GeoreferenceSource>#d.georeference_source#</dwc:GeoreferenceSource>
+		<dwc:GeoreferenceProtocol>#d.georeference_protocol#</dwc:GeoreferenceProtocol>
 		<dwc:CoordinateUncertaintyInMeters>#d.COORDINATEUNCERTAINTYINMETERS#</dwc:CoordinateUncertaintyInMeters>
 		<dwc:LatLongComments>#d.LAT_LONG_REMARKS#</dwc:LatLongComments>
 		<dwc:MinimumElevationInMeters>#d.MIN_ELEV_IN_M#</dwc:MinimumElevationInMeters>
