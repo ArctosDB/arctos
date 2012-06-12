@@ -835,7 +835,7 @@
 										<td align="right"><span class="f11a">Event Name</span></td>
 										<td>
 											<input type="text" name="collecting_event_name" class="" id="collecting_event_name" value="#collecting_event_name#" size="60"
-												onchange="findCollEvent('collecting_event_id','dataEntry','verbatim_locality',this.value">
+												onchange="findCollEvent('collecting_event_id','dataEntry','verbatim_locality',this.value);">
 										</td>
 										<td id="d_collecting_event_id">
 											<label for="collecting_event_id">Existing&nbsp;EventID</label>
