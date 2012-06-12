@@ -125,7 +125,10 @@
 
 <cfif isdefined("habitat") and len(habitat) gt 0>
 	<cfset sql = "#sql# AND upper(habitat) like '%#ucase(habitat)#%'">
-</cfif>		
+</cfif>			
+<cfif isdefined("locality_name") and len(locality_name) gt 0>
+	<cfset sql = "#sql# AND upper(locality_name) like '%#escapeQuotes(ucase(locality_name))#%'">
+</cfif>	
 <cfif isdefined("spec_locality") and len(#spec_locality#) gt 0>
 	<cfset sloc = #ucase(replace(spec_locality,"'","''","all"))#>
 	<cfset sql = "#sql# AND upper(spec_locality) like '%#escapeQuotes(ucase(spec_locality))#%'">
