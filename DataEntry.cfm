@@ -455,20 +455,6 @@
 							</table>
 						</tr>
 						<tr>
-							<td align="right"><span class="f11a">Locality Name</span></td>
-							<td>
-								<input type="text" name="locality_name" class="" id="locality_name" value="#locality_name#" size="80" 
-									onchange="LocalityPick('locality_id','verbatim_locality','dataEntry',this.value);">
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">Spec&nbsp;Locality&nbsp;</span></td>
-							<td nowrap="nowrap">
-								<input type="text" name="spec_locality" class="reqdClr"
-									id="spec_locality"	value="#stripQuotes(spec_locality)#" size="80">
-							</td>
-						</tr>
-						<tr>
 							<td align="right"><span class="f11a">Verbatim Locality</span></td>
 							<td>
 								<input type="text"  name="verbatim_locality"
