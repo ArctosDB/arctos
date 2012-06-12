@@ -1010,6 +1010,7 @@ function findCollEvent(collIdFld,formName,dispField,eventName){
 	var dispField;
 	var formName;
 	var eventName;
+	if (eventName=='undefined'){eventName='';}
 	var covwin=url+"?collIdFld="+collIdFld+"&dispField="+dispField+"&formName="+formName+"&collecting_event_name="+eventName;
 	ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
 }
