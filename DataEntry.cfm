@@ -214,8 +214,9 @@
 		<cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
 		</cfquery>
-		
-		
+		<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select specimen_event_type from ctspecimen_event_type order by specimen_event_type
+		</cfquery>
 		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT attribute_type FROM ctattribute_type 
 			<cfif len(#collection_cde#) gt 0>
@@ -458,6 +459,33 @@
 							</td>
 						</tr>
 						<tr>
+							<td align="right">
+								<span class="f11a">Event Assigned By</span>
+							</td>
+							<td>
+								<input type="text" name="event_assigned_by_agent" value="#event_assigned_by_agent#" class="reqdClr" 
+									id="event_assigned_by_agent"
+									onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+									onkeypress="return noenter(event);">
+							</td>
+							<td align="right"><span class="f11a">On Date</span></td>
+							<td>
+								<input type="text" name="event_assigned_date" class="reqdClr" value="#event_assigned_date#" id="event_assigned_date">
+								<span class="infoLink" onclick="copyAllDates('event_assigned_date');">Copy2All</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<select name="specimen_event_type" size="1" id="specimen_event_type" class="reqdClr">										
+									<cfloop query="ctspecimen_event_type">
+										<option <cfif ctspecimen_event_type.specimen_event_type is data.ctspecimen_event_type> selected="selected" </cfif>
+														value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+						
+						<tr>
 							<td align="right"><span class="f11a">Verbatim Locality</span></td>
 							<td>
 								<input type="text"  name="verbatim_locality"
@@ -629,27 +657,6 @@
 									</tr>
 									
 									
-									<!----------
-									<tr>
-										<td align="right">
-											<span class="f11a">Determiner</span>
-										</td>
-										<td>
-											<input type="text" name="determined_by_agent" value="#determined_by_agent#" class="reqdClr" 
-												id="determined_by_agent"
-												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
-												onkeypress="return noenter(event);">
-										</td>
-										<td align="right"><span class="f11a">Date</span></td>
-										<td>
-											<input type="text" name="determined_date" class="reqdClr" value="#determined_date#" id="determined_date">
-											<span class="infoLink" onclick="copyAllDates('determined_date');">Copy2All</span>
-										</td>
-									</tr>
-									
-									
-									
-									----------->
 									<tr>
 										<td align="right"><span class="f11a infoLink" onclick="getHelp('georeference_source');">Georeference Source</span></td>
 										<td colspan="3" nowrap="nowrap">
