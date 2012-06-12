@@ -8,7 +8,7 @@
 			if ('#locality_name#'.length > 0) {
 				console.log('got something');
 				$("##locality_name").val('#locality_name#');
-				//$("##getLoc").submit();
+				$("##getLoc").submit();
 			}
 		});
 		</script>
