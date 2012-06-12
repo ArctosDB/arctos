@@ -888,6 +888,7 @@
 						<tr>
 							<td colspan="2" id="dateConvertStatus"></td>
 						</tr>
+					</table>
 					<label onClick="getDocs('locality')" class="likeLink" for="loctbl">Locality</label>
 					<table cellspacing="0" cellpadding="0" class="fs">					
 						<tr>
@@ -954,6 +955,7 @@
 						</tr>
 					</table><!----- /locality ---------->
 				
+					<label onClick="getDocs('coordinates')" class="likeLink" for="loctbl">Coordinates (event and locality)</label>
 				<table cellpadding="0" cellspacing="0" class="fs" id="d_orig_lat_long_units"><!------- coordinates ------->
 					<tr>
 						<td rowspan="99" valign="top">
