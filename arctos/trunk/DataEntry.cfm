@@ -458,6 +458,12 @@
 							</td>
 						</tr>
 					</table>
+					
+					<label for="x">this is x</label>
+					<input id="x">
+					
+					<label class="h" for="y">y here</label>
+					<input id="y">
 					<label onClick="getDocs('specimen_event')" class="likeLink" for="loctbl">Specimen/Event</label>
 					<table cellspacing="0" cellpadding="0" class="fs"><!----- Specimen/Event ---------->
 						<tr>
