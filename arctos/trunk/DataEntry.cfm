@@ -904,7 +904,8 @@
 									<tr>
 										<td align="right"><span class="f11a">Locality Name</span></td>
 										<td>
-											<input type="text" name="locality_name" class="" id="locality_name" value="#locality_name#" size="60">
+											<input type="text" name="locality_name" class="" id="locality_name" value="#locality_name#" size="60"
+												onclick="LocalityPick('locality_id','spec_locality','dataEntry','this.value');">
 										</td>
 										<td id="d_locality_id">
 											<label for="fetched_locid">Existing&nbsp;LocalityID</label>
@@ -914,7 +915,7 @@
 										</td>
 										<td>
 											<span class="infoLink" id="localityPicker"
-												onclick="LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
+												onclick="LocalityPick('locality_id','spec_locality','dataEntry',''); return false;">
 												Pick&nbsp;Locality
 											</span>
 											<span class="infoLink" 
