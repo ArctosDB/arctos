@@ -439,19 +439,19 @@
 											<table>
 												<cfif len(verbatim_coordinates) gt 0>
 													<tr>
-														<td align="right">Coordinates</td>
+														<td align="right">Event Coordinates:</td>
 														<td align="left">#verbatim_coordinates#</td>
 													</tr>
 												</cfif>
 												<cfif len(DATUM) gt 0>
 													<tr>
-														<td align="right">DATUM</td>
+														<td align="right">Datum:</td>
 														<td align="left">#DATUM#</td>
 													</tr>
 												</cfif>
 												<cfif len(ORIG_LAT_LONG_UNITS) gt 0>
 													<tr>
-														<td align="right">ORIG_LAT_LONG_UNITS</td>
+														<td align="right">Original Coordinate Format:</td>
 														<td align="left">#ORIG_LAT_LONG_UNITS#</td>
 													</tr>
 												</cfif>
@@ -475,13 +475,13 @@
 												</cfif>
 												<cfif len(georeference_source) gt 0>
 													<tr>
-														<td align="right">georeference_source</td>
+														<td align="right">Georeference Source</td>
 														<td align="left">#georeference_source#</td>
 													</tr>
 												</cfif>
 												<cfif len(georeference_protocol) gt 0>
 													<tr>
-														<td align="right">georeference_protocol</td>
+														<td align="right">Georeference Protocol</td>
 														<td align="left">#georeference_protocol#</td>
 													</tr>
 												</cfif>
@@ -490,12 +490,22 @@
 										</td>
 										<td valign="top" align="right"><!---- map here --->
 											 <cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-												<cfset iu="http://maps.google.com/maps/api/staticmap?center=#dec_lat#,#dec_long#">
+												<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+													<cfinvokeargument name="lat" value="#dec_lat#">
+													<cfinvokeargument name="long" value="#dec_long#">
+												</cfinvoke>
+												#contents#
+												<!-------
+	
+	
+	<cfset iu="http://maps.google.com/maps/api/staticmap?center=#dec_lat#,#dec_long#">
 												<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
 												<cfset iu=iu & "&maptype=roadmap">
 												<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">
 													<img src="#iu#" alt="Click for BerkeleyMapper">
 												</a>
+												
+												--------->
 											</cfif>
 										</td>
 									</tr>
