@@ -420,12 +420,12 @@
 											<label for="fetched_locid">Existing&nbsp;LocalityID</label>
 											<input type="hidden" id="fetched_locid">
 											<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr" size="8">
+										</td>
+										<td>
 											<span class="infoLink" id="localityPicker"
 												onclick="LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
 												Pick&nbsp;Locality
 											</span>
-										</td>
-										<td>
 											<span class="infoLink" 
 												id="localityUnPicker"
 												style="display:none;"
@@ -443,10 +443,10 @@
 											<label for="collecting_event_id">Existing&nbsp;EventID</label>
 											<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
 											<input type="hidden" id="fetched_eventid">
+										</td><td>	
 											<span class="infoLink" id="eventPicker" onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
 												Pick&nbsp;Event
 											</span>
-										</td><td>
 											<span class="infoLink" id="eventUnPicker" style="display:none;" onclick="unpickEvent()">
 												Depick&nbsp;Event
 											</span>									
