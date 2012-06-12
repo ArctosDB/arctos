@@ -30,32 +30,6 @@ grant all on cf_dataentry_settings to data_entry;
 </script>
 
 
-<div class="fs" id="cat">
-				<!--- cat --->
-				<strong>Cataloged Item Identifiers</strong>
-				<br><span style="font-size:small;">ID 5 is your Custom ID</span>
-				<br>
-				<span class="likeLink" onclick="toggleTo('cat','hide')">[ hide all ]</span>
-				<span class="likeLink" onclick="toggleTo('cat','show')">[ show all ]</span>
-				<span class="likeLink" onclick="toggleTo('cat','carry')">[ carry all ]</span>	
-				<span class="likeLink" onclick="toggleTo('cat','0')">[ 0 all ]</span>
-				<span class="likeLink" onclick="toggleTo('cat','1')">[ 1 all ]</span>
-				<span class="likeLink" onclick="toggleTo('cat','2')">[ 2 all ]</span>				
-				<table border id="_cat">
-						<tr>
-							<td>
-							</td>
-							<td>
-								<select name="x" id="x">
-									<option value="0">hide</option>
-									<option value="1">show</option>
-									<option value="2">carry</option>
-								</select>
-							</td>
-						</tr>
-				</table>
-			</div>
-			<!---------
 			
 			
 <style>
@@ -342,9 +316,9 @@ grant all on cf_dataentry_settings to data_entry;
 				<!--- locality ---->
 				<strong>Locality</strong>
 				<br>
-				<span class="likeLink" onclick="toggleTo('locality','hide')">[ hide all ]</span>
-				<span class="likeLink" onclick="toggleTo('locality','show')">[ show all ]</span>
-				<span class="likeLink" onclick="toggleTo('locality','carry')">[ carry all ]</span>
+				<span class="likeLink" onclick="toggleTo('locality','0')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('locality','1')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('locality','2')">[ carry all ]</span>
 				<table border>
 					<cfloop list="#locality#" index="i">
 						<tr>
@@ -459,4 +433,3 @@ grant all on cf_dataentry_settings to data_entry;
 		--->
 	</cfif>
 </cfoutput>
----->
