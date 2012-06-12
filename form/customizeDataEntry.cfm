@@ -101,7 +101,7 @@ grant all on cf_dataentry_settings to data_entry;
 			<!-- along with required stuff, use this to deal with linked stuff,like elevation --->
 			<a name="cat" href="##top">[ top ]</a>
 			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
-			<div class="fs" id="cat">
+			<div class="fs" id="_cat">
 				<!--- cat --->
 				<strong>Cataloged Item Identifiers</strong>
 				<br><span style="font-size:small;">ID 5 is your Custom ID</span>
