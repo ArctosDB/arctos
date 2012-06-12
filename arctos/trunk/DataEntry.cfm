@@ -478,7 +478,7 @@
 							<td>
 								<select name="specimen_event_type" size="1" id="specimen_event_type" class="reqdClr">										
 									<cfloop query="ctspecimen_event_type">
-										<option <cfif ctspecimen_event_type.specimen_event_type is data.ctspecimen_event_type> selected="selected" </cfif>
+										<option <cfif ctspecimen_event_type.specimen_event_type is data.specimen_event_type> selected="selected" </cfif>
 														value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
 									</cfloop>
 								</select>
