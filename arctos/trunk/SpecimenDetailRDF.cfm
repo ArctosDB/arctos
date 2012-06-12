@@ -152,8 +152,7 @@
 		<dwc:DecimalLatitude>#d.dec_long#</dwc:DecimalLatitude>
 		<dwc:HorizontalDatum>#d.DATUM#</dwc:HorizontalDatum>
 		<dwc:OriginalCoordinateSystem>#d.ORIG_LAT_LONG_UNITS#</dwc:OriginalCoordinateSystem>
-		<dwc:VerbatimLatitude>#d.VERBATIMLATITUDE#</dwc:VerbatimLatitude>
-		<dwc:VerbatimLongitude>#d.VERBATIMLONGITUDE#</dwc:VerbatimLongitude>
+		<dwc:VerbatimCoordinates>#d.VERBATIM_coordinates#</dwc:VerbatimCoordinates>
 		<dwc:GeoreferenceSource>#d.georeference_source#</dwc:GeoreferenceSource>
 		<dwc:GeoreferenceProtocol>#d.georeference_protocol#</dwc:GeoreferenceProtocol>
 		<dwc:CoordinateUncertaintyInMeters>#d.COORDINATEUNCERTAINTYINMETERS#</dwc:CoordinateUncertaintyInMeters>
