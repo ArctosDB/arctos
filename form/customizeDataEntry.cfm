@@ -16,9 +16,7 @@ grant all on cf_dataentry_settings to data_entry;
 	function toggleTo(e,v){
 		console.log(e);
 		console.log(v);
-		$("#" + e + " :input").val(v);	
-		$("#cat:input").val('carry');
-		
+		$("#" + e + " :input").val(v);			
 	}
 	function toggleAll(v){
 		$("select").val(v);
@@ -101,7 +99,7 @@ grant all on cf_dataentry_settings to data_entry;
 			<!-- along with required stuff, use this to deal with linked stuff,like elevation --->
 			<a name="cat" href="##top">[ top ]</a>
 			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
-			<div class="fs" id="_cat">
+			<div class="fs" id="cat">
 				<!--- cat --->
 				<strong>Cataloged Item Identifiers</strong>
 				<br><span style="font-size:small;">ID 5 is your Custom ID</span>
@@ -109,7 +107,7 @@ grant all on cf_dataentry_settings to data_entry;
 				<span class="likeLink" onclick="toggleTo('cat','hide')">[ hide all ]</span>
 				<span class="likeLink" onclick="toggleTo('cat','show')">[ show all ]</span>
 				<span class="likeLink" onclick="toggleTo('cat','carry')">[ carry all ]</span>				
-				<table border id="cat">
+				<table border id="_cat">
 					<cfloop list="#cat#" index="i">
 						<tr>
 							<td>
@@ -132,7 +130,6 @@ grant all on cf_dataentry_settings to data_entry;
 			<a name="taxa" href="##top">[ top ]</a>
 			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="taxa">
-				<!--- cat --->
 				<strong>Identification</strong>
 				<br>
 				<span class="likeLink" onclick="toggleTo('taxa','hide')">[ hide all ]</span>
