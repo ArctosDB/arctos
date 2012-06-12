@@ -61,10 +61,6 @@
 			geolAtts
 	</cfquery>
 	<table border>
-    	<tr> 
-      		<td><b>&nbsp;</b></td>
-	   		<td><b>Spec Locality</b></td>
-    	</tr>
     	 <cfloop query="localityResults"> 
       		<tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
        			<td>
@@ -77,6 +73,9 @@
 				<td> 
           			<span style="font-size:.7em">#higher_geog#</span>
 					<br>#localityResults.spec_locality#
+					<cfif len(locality_name) gt 0>
+						<br>Locality Name: #locality_name#
+					</cfif>
 					<cfif len(geolAtts) gt 0> [#geolAtts#] </cfif>
 					<br>
 					<span style="font-size:.7em">
