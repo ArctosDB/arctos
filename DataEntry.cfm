@@ -651,6 +651,87 @@
 					</tr>
 				</table><!---- /attributes ----->
 					
+					<table cellpadding="0" cellspacing="0" class="fs"><!--- random admin stuff ---->
+					<tr>
+						<td align="right"><span class="f11a">Entered&nbsp;By</span></td>
+						<td width="100%">
+							<cfif ImAGod is not "yes">
+								<cfset eby=session.username>
+							<cfelseif ImAGod is "yes">
+								<cfset eby=enteredby>
+							<cfelse>
+								ERROR!!!
+							</cfif>
+							<input type="hidden" name="enteredby" value="#eby#" id="enteredby">
+							#eby#
+						</td>
+					</tr>
+					<tr id="d_relationship">
+						<td align="right"><span class="f11a">Relations</span></td>
+						<td>
+							<cfset thisRELATIONSHIP = RELATIONSHIP>
+							<select name="relationship" size="1" id="relationship">
+								<option value=""></option>
+								<cfloop query="ctbiol_relations">
+									<option
+										<cfif thisRELATIONSHIP is BIOL_INDIV_RELATIONSHIP> selected="selected" </cfif>
+									 value="#BIOL_INDIV_RELATIONSHIP#">#BIOL_INDIV_RELATIONSHIP#</option>
+								</cfloop>							
+							</select>
+							<cfset thisRELATED_TO_NUM_TYPE = RELATED_TO_NUM_TYPE>
+							<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:150px">
+								<option value=""></option>
+								<option <cfif thisRELATED_TO_NUM_TYPE is "catalog number">selected="selected"</cfif> value="catalog number">catalog number (UAM:Mamm:123 format)</option>
+								<cfloop query="ctOtherIdType">
+									<option
+										<cfif thisRELATED_TO_NUM_TYPE is other_id_type> selected="selected" </cfif>
+									 value="#other_id_type#">#other_id_type#</option>
+								</cfloop>							
+							</select>
+							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="20" />
+							<span class="likeLink" onclick="getRelatedSpecimenData()">[ pick/use ]</span>
+						</td>
+					</tr>
+				</table><!------ random admin stuff ---------->
+				<table cellpadding="0" cellspacing="0" class="fs"><!------- remarkey stuff --->
+					<tr id="d_coll_object_remarks">
+						<td colspan="2">
+							<span class="f11a">Spec Remark</span>
+								<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="80">#coll_object_remarks#</textarea>
+						</td>
+					</tr>
+					<tr id="d_associated_species">
+						<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
+						<td>
+							<input type="text" name="associated_species" size="80" id="associated_species" value="#associated_species#">
+						</td>
+					</tr>
+					<tr>
+						<td id="d_flags">
+							<span class="f11a">Missing....</span>
+							<cfset thisflags = flags>
+							<select name="flags" size="1" style="width:120px" id="flags">
+								<option  value=""></option>
+								<cfloop query="ctflags">
+									<option <cfif flags is thisflags> selected </cfif>
+										value="#flags#">#flags#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<span class="f11a">Status</span>
+							#loaded#
+						</td>
+					</tr>
+				</table><!------- /remarkey stuff --->
+					
+					
+					
+					
+					
+					
+					
+					
 				</td> <!---- end top left --->		
 				<td valign="top"><!----- right column ---->	
 				<label onClick="getDocs('specimen_event')" class="likeLink" for="loctbl">Specimen/Event</label>
@@ -1225,79 +1306,7 @@
 					</div>
 				</cfif><!---- /geology ------->
 				
-				<table cellpadding="0" cellspacing="0" class="fs"><!--- random admin stuff ---->
-					<tr>
-						<td align="right"><span class="f11a">Entered&nbsp;By</span></td>
-						<td width="100%">
-							<cfif ImAGod is not "yes">
-								<cfset eby=session.username>
-							<cfelseif ImAGod is "yes">
-								<cfset eby=enteredby>
-							<cfelse>
-								ERROR!!!
-							</cfif>
-							<input type="hidden" name="enteredby" value="#eby#" id="enteredby">
-							#eby#
-						</td>
-					</tr>
-					<tr id="d_relationship">
-						<td align="right"><span class="f11a">Relations</span></td>
-						<td>
-							<cfset thisRELATIONSHIP = RELATIONSHIP>
-							<select name="relationship" size="1" id="relationship">
-								<option value=""></option>
-								<cfloop query="ctbiol_relations">
-									<option
-										<cfif thisRELATIONSHIP is BIOL_INDIV_RELATIONSHIP> selected="selected" </cfif>
-									 value="#BIOL_INDIV_RELATIONSHIP#">#BIOL_INDIV_RELATIONSHIP#</option>
-								</cfloop>							
-							</select>
-							<cfset thisRELATED_TO_NUM_TYPE = RELATED_TO_NUM_TYPE>
-							<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:150px">
-								<option value=""></option>
-								<option <cfif thisRELATED_TO_NUM_TYPE is "catalog number">selected="selected"</cfif> value="catalog number">catalog number (UAM:Mamm:123 format)</option>
-								<cfloop query="ctOtherIdType">
-									<option
-										<cfif thisRELATED_TO_NUM_TYPE is other_id_type> selected="selected" </cfif>
-									 value="#other_id_type#">#other_id_type#</option>
-								</cfloop>							
-							</select>
-							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="20" />
-							<span class="likeLink" onclick="getRelatedSpecimenData()">[ pick/use ]</span>
-						</td>
-					</tr>
-				</table><!------ random admin stuff ---------->
-				<table cellpadding="0" cellspacing="0" class="fs"><!------- remarkey stuff --->
-					<tr id="d_coll_object_remarks">
-						<td colspan="2">
-							<span class="f11a">Spec Remark</span>
-								<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="80">#coll_object_remarks#</textarea>
-						</td>
-					</tr>
-					<tr id="d_associated_species">
-						<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
-						<td>
-							<input type="text" name="associated_species" size="80" id="associated_species" value="#associated_species#">
-						</td>
-					</tr>
-					<tr>
-						<td id="d_flags">
-							<span class="f11a">Missing....</span>
-							<cfset thisflags = flags>
-							<select name="flags" size="1" style="width:120px" id="flags">
-								<option  value=""></option>
-								<cfloop query="ctflags">
-									<option <cfif flags is thisflags> selected </cfif>
-										value="#flags#">#flags#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<span class="f11a">Status</span>
-							#loaded#
-						</td>
-					</tr>
-				</table><!------- /remarkey stuff --->
+				
 			</td><!--- end right column --->
 		</tr><!---- end top row of page --->
 		<tr><!---- start bottom row of page --->
