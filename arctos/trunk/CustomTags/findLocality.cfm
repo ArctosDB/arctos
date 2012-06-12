@@ -175,8 +175,8 @@
 <cfif isdefined("higher_geog") and len(#higher_geog#) gt 0>
 	<cfset sql = "#sql# AND upper(higher_geog) like '%#ucase(higher_geog)#%'">
 </cfif>
-<cfif isdefined("NoGeorefBecause") AND len(#NoGeorefBecause#) gt 0>
-	<cfset sql = "#sql# AND upper(NoGeorefBecause) like '%#ucase(NoGeorefBecause)#%'">
+<cfif isdefined("collecting_event_name") AND len(collecting_event_name) gt 0>
+	<cfset sql = "#sql# AND upper(collecting_event_name) like '%#ucase(collecting_event_name)#%'">
 </cfif>
 <cfif isdefined("VerificationStatus") AND len(#VerificationStatus#) gt 0>
 	<cfset sql = "#sql# AND VerificationStatus='#VerificationStatus#'">
