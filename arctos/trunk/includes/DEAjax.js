@@ -1340,6 +1340,7 @@ function cleanup () {
 }
 setInterval ( "checkPicked()", 5000 );
 setInterval ( "checkPickedEvnt()", 5000 );
+
 function checkPicked(){
 	if(document.getElementById('locality_id')){
 		var locality_id=document.getElementById('locality_id');
@@ -1573,14 +1574,14 @@ function success_pickedLocality (r) {
 		$("#max_error_distance").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_ERROR_DISTANCE[0]);
 		$("#max_error_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_ERROR_UNITS[0]);
 		$("#extent").attr("readOnly", true).removeClass().addClass('readClr').val(result.EXTENT[0]);
-		$("#gpsaccuracy").attr("readOnly", true).removeClass().addClass('readClr').val(result.GPSACCURACY[0]);
+		//$("#gpsaccuracy").attr("readOnly", true).removeClass().addClass('readClr').val(result.GPSACCURACY[0]);
 		$("#datum").attr("readOnly", true).removeClass().addClass('readClr').val(result.DATUM[0]);
-		$("#determined_by_agent").attr("readOnly", true).removeClass().addClass('readClr').val(result.DETERMINED_BY[0]);
-		$("#determined_date").attr("readOnly", true).removeClass().addClass('readClr').val(result.DETERMINED_DATE[0]);
-		$("#lat_long_ref_source").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_LONG_REF_SOURCE[0]);
-		$("#georefmethod").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFMETHOD[0]);
-		$("#verificationstatus").attr("readOnly", true).removeClass().addClass('readClr').val(result.VERIFICATIONSTATUS[0]);
-		$("#lat_long_remarks").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_LONG_REMARKS[0]);
+		//$("#determined_by_agent").attr("readOnly", true).removeClass().addClass('readClr').val(result.DETERMINED_BY[0]);
+		//$("#determined_date").attr("readOnly", true).removeClass().addClass('readClr').val(result.DETERMINED_DATE[0]);
+		//$("#lat_long_ref_source").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_LONG_REF_SOURCE[0]);
+		//$("#georefmethod").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFMETHOD[0]);
+		//$("#verificationstatus").attr("readOnly", true).removeClass().addClass('readClr').val(result.VERIFICATIONSTATUS[0]);
+		//$("#lat_long_remarks").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_LONG_REMARKS[0]);
 		$("#utm_zone").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_ZONE[0]);
 		$("#utm_ew").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_EW[0]);
 		$("#utm_ns").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_NS[0]);
