@@ -14,7 +14,6 @@
 			<input type="hidden" name="localityIdFld" value="#localityIdFld#">
 			<input type="hidden" name="speclocFld" value="#speclocFld#">
 			<input type="hidden" name="formName" value="#formName#">
-			<input type="hidden" name="fireEvent" value="#fireEvent#">
 			<cfinclude template="/includes/frmFindLocation_guts.cfm">
 		</form>
 	</cfoutput>
