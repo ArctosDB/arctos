@@ -929,7 +929,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td align="right"><span class="f11a"Spec Locality</span></td>
+							<td align="right"><span class="f11a">Spec Locality</span></td>
 							<td>
 								<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" value="#spec_locality#" size="80">
 							</td>
@@ -954,7 +954,7 @@
 						</tr>
 						
 						<tr id="d_locality_remarks">
-							<td align="right"><span class="f11a" onclick="checkPicked()">LocalityRemk - checkPicked</span></td>
+							<td align="right"><span class="f11a">LocalityRemk</span></td>
 							<td>
 								<input type="text" name="locality_remarks" size="80" value="#locality_remarks#" id="locality_remarks">
 							</td>
