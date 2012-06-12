@@ -370,6 +370,12 @@
 			</tr>
 			<tr>
 				<td>
+					<label for="collecting_event_name">CollectingEventName</label>
+					<input type="text" name="collecting_event_name" id="collecting_event_name" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<label for="coll_event_remarks">Collecting Event Remarks</label>
 					<input type="text" name="coll_event_remarks" id="coll_event_remarks" size="50">
 				</td>
