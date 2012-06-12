@@ -289,7 +289,7 @@
 				'decimal degrees' ORIG_LAT_LONG_UNITS,
 				locality.MAX_ERROR_DISTANCE,
 				locality.MAX_ERROR_UNITS,
-				accepted_lat_long.DATUM,
+				locality.DATUM,
 				<!----
 				accepted_lat_long.LAT_DEG,			
 				accepted_lat_long.DEC_LAT_MIN,
