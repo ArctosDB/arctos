@@ -156,7 +156,6 @@
 		<dwc:GeoreferenceSource>#d.georeference_source#</dwc:GeoreferenceSource>
 		<dwc:GeoreferenceProtocol>#d.georeference_protocol#</dwc:GeoreferenceProtocol>
 		<dwc:CoordinateUncertaintyInMeters>#d.COORDINATEUNCERTAINTYINMETERS#</dwc:CoordinateUncertaintyInMeters>
-		<dwc:LatLongComments>#d.LAT_LONG_REMARKS#</dwc:LatLongComments>
 		<dwc:MinimumElevationInMeters>#d.MIN_ELEV_IN_M#</dwc:MinimumElevationInMeters>
 		<dwc:MaximumElevationInMeters>#d.MAX_ELEV_IN_M#</dwc:MaximumElevationInMeters>
 		<dwc:VerbatimElevation>#d.VERBATIMELEVATION#</dwc:VerbatimElevation>
