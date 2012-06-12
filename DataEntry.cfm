@@ -402,37 +402,23 @@
 							<td rowspan="99" valign="top">
 								<img src="/images/info.gif" border="0" onClick="getDocs('locality')" class="likeLink" alt="[ help ]">
 							</td>
-							<td align="right"><span class="f11a">Locality Name</span></td>
-							<td width="100%">
-								<input type="text" name="locality_name" class="" id="locality_name" value="#locality_name#" size="80" 
-									onchange="LocalityPick('locality_id','verbatim_locality','dataEntry',this.value);">
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">Event Name</span></td>
-							<td>
-								<input type="text" name="collecting_event_name" class="" id="collecting_event_name" value="#collecting_event_name#" size="80">
-							</td>
-						</tr>
-						<tr>
 							<td align="right"><span class="f11a">Higher Geog</span></td>
-							<td>
+							<td width="100%">
 								<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" value="#higher_geog#" size="80"
 									onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
 							</td>
 						</tr>
 						<tr>
-							<td align="right"><span class="f11a">Spec&nbsp;Locality&nbsp;</span></td>
-							<td nowrap="nowrap">
-								<input type="text" name="spec_locality" class="reqdClr"
-									id="spec_locality"	value="#stripQuotes(spec_locality)#" size="80">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<table>
-									<tr>
-										<td id="d_locality_id">
+							<table>
+								<tr>
+									<td align="right"><span class="f11a">Event Name</span></td>
+										<td>
+											<input type="text" name="collecting_event_name" class="" id="collecting_event_name" value="#collecting_event_name#" size="80">
+										</td>
+											
+											
+											
+											<td id="d_locality_id">
 											<label for="fetched_locid">Existing&nbsp;LocalityID</label>
 											<input type="hidden" id="fetched_locid">
 											<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr" size="8">
@@ -447,6 +433,31 @@
 												Depick&nbsp;Locality
 											</span>
 										</td>
+										
+										
+								</tr>	
+							</table>
+							
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Locality Name</span></td>
+							<td>
+								<input type="text" name="locality_name" class="" id="locality_name" value="#locality_name#" size="80" 
+									onchange="LocalityPick('locality_id','verbatim_locality','dataEntry',this.value);">
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Spec&nbsp;Locality&nbsp;</span></td>
+							<td nowrap="nowrap">
+								<input type="text" name="spec_locality" class="reqdClr"
+									id="spec_locality"	value="#stripQuotes(spec_locality)#" size="80">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<table>
+									<tr>
+										
 										<td id="d_collecting_event_id">
 											<label for="collecting_event_id">Existing&nbsp;EventID</label>
 											<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
