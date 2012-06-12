@@ -287,6 +287,8 @@
 				locality.DEC_LAT,
 				locality.DEC_LONG,
 				'decimal degrees' ORIG_LAT_LONG_UNITS,
+				locality.MAX_ERROR_DISTANCE,
+				locality.MAX_ERROR_UNITS,
 				<!----
 				accepted_lat_long.LAT_DEG,			
 				accepted_lat_long.DEC_LAT_MIN,
@@ -304,8 +306,6 @@
 				accepted_lat_long.DETERMINED_DATE DETERMINED_DATE,
 				accepted_lat_long.LAT_LONG_REF_SOURCE,
 				accepted_lat_long.LAT_LONG_REMARKS,
-				accepted_lat_long.MAX_ERROR_DISTANCE,
-				accepted_lat_long.MAX_ERROR_UNITS,
 				accepted_lat_long.EXTENT,
 				accepted_lat_long.GPSACCURACY,
 				accepted_lat_long.GEOREFMETHOD,
