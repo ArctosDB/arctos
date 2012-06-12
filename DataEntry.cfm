@@ -506,19 +506,13 @@
 						<tr id="d_habitat_desc">
 							<td align="right"><span class="f11a">Habitat</span></td>
 							<td>
-								<input type="text" name="habitat_desc" size="50" id="habitat_desc" value="#habitat_desc#">
+								<input type="text" name="habitat_desc" size="50" id="habitat" value="#habitat#">
 							</td>
 						</tr>
 						<tr id="d_associated_species">
 							<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
 							<td>
 								<input type="text" name="associated_species" size="80" id="associated_species" value="#associated_species#">
-							</td>
-						</tr>
-						<tr id="d_coll_object_habitat">
-							<td align="right"><span class="f11a">Microhabitat</span></td>
-							<td>
-								<input type="text" name="coll_object_habitat" size="80" id="coll_object_habitat" value="#coll_object_habitat#">
 							</td>
 						</tr>
 						<tr>
@@ -607,16 +601,8 @@
 												</cfloop>
 											</select> 
 										</td>
-										<td align="right"><span class="f11a">Extent</span></td>
-										<td>
-											<input type="text" name="extent" id="extent" value="#extent#" size="10">
-										</td>
 									</tr>
 									<tr>
-										<td align="right"><span class="f11a">GPS Accuracy</span></td>
-										<td>
-											<input type="text" name="gpsaccuracy" id="gpsaccuracy" value="#gpsaccuracy#" size="10">
-										</td>
 										<td align="right"><span class="f11a">Datum</span></td>
 										<td>
 											<select name="datum" size="1" class="reqdClr" id="datum">
@@ -645,20 +631,20 @@
 										</td>
 									</tr>
 									<tr>
-										<td align="right"><span class="f11a">Reference</span></td>
+										<td align="right"><span class="f11a infoLink" onclick="getHelp('georeference_source');">Georeference Source</span></td>
 										<td colspan="3" nowrap="nowrap">
-											<input type="text" name="lat_long_ref_source" id="lat_long_ref_source"  class="reqdClr" 
-												size="60" value="#lat_long_ref_source#">
-											<span class="infoLink" onclick="getHelp('lat_long_ref_source');">Pick</span>
+											<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" 
+												size="60" value="#georeference_source#">
+											<span >Pick</span>
 										</td>
 									</tr>
 									<tr>
-										<td align="right"><span class="f11a">Georef Meth</span></td>
+										<td align="right"><span class="f11a">Georeference Protocol</span></td>
 										<td>
-											<select name="georefmethod" size="1" class="reqdClr" style="width:130px" id="georefmethod">
-												<cfloop query="ctgeorefmethod">
-													<option <cfif data.georefmethod is ctgeorefmethod.georefmethod> selected="selected" </cfif>
-														value="#ctgeorefmethod.georefmethod#">#ctgeorefmethod.georefmethod#</option>
+											<select name="georeference_protocol" size="1" class="reqdClr" style="width:130px" id="georeference_protocol">
+												<cfloop query="ctgeoreference_protocol">
+													<option <cfif data.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
+														value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 												</cfloop>
 											</select> 
 										</td>
@@ -671,12 +657,6 @@
 												  		value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
 												</cfloop>
 											</select>
-										</td>
-									</tr>
-									<tr id="d_lat_long_remarks">
-										<td align="right"><span class="f11a">LatLongRemk</span></td>
-										<td colspan="3">
-											<input type="text" name="lat_long_remarks" size="80" value="#lat_long_remarks#" id="lat_long_remarks">
 										</td>
 									</tr>
 								</table>
