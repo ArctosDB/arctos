@@ -198,10 +198,10 @@
 		select 
 			collecting_event.COLLECTING_EVENT_ID,
 			collecting_event.BEGAN_DATE,
-			collecting_eventENDED_DATE,
-			collecting_eventVERBATIM_DATE,
-			collecting_eventVERBATIM_LOCALITY,
-			collecting_eventCOLL_EVENT_REMARKS,
+			collecting_event.ENDED_DATE,
+			collecting_event.VERBATIM_DATE,
+			collecting_event.VERBATIM_LOCALITY,
+			collecting_event.COLL_EVENT_REMARKS,
 			<!----
 			
 			COLLECTING_SOURCE,
