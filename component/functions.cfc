@@ -12,10 +12,9 @@
 	<cfset iu=iu & "&maptype=#maptype#">
 	<cfset mapImage='<img src="#iu#" alt="Google Map">'>
 	<cfif len(collection_object_id) gt 0>
-		<cfset rVal='<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">'>
-		<cfset rVal=rVal & mapImage & '</a>'>
+		<cfset rVal='<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank"> & mapImage & '</a>'>
 	<cfelse>
-		<cfset rVal='<a href="http://maps.google.com/maps?q=#lat#,#long#" target="_blank">'>
+		<cfset rVal='<a href="http://maps.google.com/maps?q=#lat#,#long#" target="_blank">' & mapImage & '</a>'>
 	</cfif>
 	<cfreturn rVal> 
 	</cfoutput>	
