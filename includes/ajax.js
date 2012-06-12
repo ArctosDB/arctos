@@ -1004,12 +1004,13 @@ function findCatalogedItem(collIdFld,CatNumStrFld,formName,oidType,oidNum,collID
 	var ciWin=url+"?collIdFld="+collIdFld+"&CatNumStrFld="+CatNumStrFld+"&formName="+formName+"&oidType="+oidType+"&oidNum="+oidNum+"&collID="+collID;
 	catItemWin=window.open(ciWin,"","width=400,height=338, resizable,scrollbars");
 }
-function findCollEvent(collIdFld,formName,dispField){
+function findCollEvent(collIdFld,formName,dispField,eventName){
 	var url="/picks/findCollEvent.cfm";
 	var collIdFld;
 	var dispField;
 	var formName;
-	var covwin=url+"?collIdFld="+collIdFld+"&dispField="+dispField+"&formName="+formName;
+	var eventName;
+	var covwin=url+"?collIdFld="+collIdFld+"&dispField="+dispField+"&formName="+formName+"&collecting_event_name="+eventName;
 	ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
 }
 function getPublication(pubStringFld,pubIdFld,publication_title,formName){
