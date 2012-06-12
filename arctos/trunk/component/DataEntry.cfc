@@ -193,7 +193,8 @@
 <!---------------------------------------------------------------------------------------->
 <cffunction name="get_picked_event" access="remote">
 	<cfargument name="collecting_event_id" type="numeric" required="yes">
-	
+		<cftry>
+
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			collecting_event.COLLECTING_EVENT_ID,
@@ -267,9 +268,6 @@
 			locality.locality_id=collecting_event.LOCALITY_ID and
 			collecting_event.collecting_event_id = #collecting_event_id#
 	</cfquery>
-	<cfdump var=#result#>
-	<cftry>
-			<cfset f=1>
 	<cfcatch>
 	<cfset result = QueryNew("COLLECTING_EVENT_ID,MSG")>
 	<cfset temp = QueryAddRow(result, 1)>
