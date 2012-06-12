@@ -50,7 +50,8 @@
 				DEC_LAT,
 				DEC_LONG,
 				verbatim_locality,
-				collecting_event_name
+				collecting_event_name,
+				collecting_event_id
 			from
 				localityResults
 			group by
@@ -64,7 +65,8 @@
 				DEC_LAT,
 				DEC_LONG,
 				verbatim_locality,
-				collecting_event_name		
+				collecting_event_name,
+				collecting_event_id	
 		</cfquery>
 		<cfloop query="d">
 			<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
