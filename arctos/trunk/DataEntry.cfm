@@ -929,6 +929,12 @@
 							</td>
 						</tr>
 						<tr>
+							<td align="right"><span class="f11a"Spec Locality</span></td>
+							<td>
+								<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" value="#spec_locality#" size="80">
+							</td>
+						</tr>
+						<tr>
 							<td colspan="2" id="d_orig_elev_units">
 								<label for="minimum_elevation">Elevation (min-max)</label>
 								<span class="f11a">&nbsp;between</span>
