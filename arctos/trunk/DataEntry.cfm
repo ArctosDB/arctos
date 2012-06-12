@@ -403,8 +403,13 @@
 							<td rowspan="99" valign="top">
 								<img src="/images/info.gif" border="0" onClick="getDocs('locality')" class="likeLink" alt="[ help ]">
 							</td>
+							<td colspan="2" width="100%" align="middle">
+								------------- locality metadata junk -----------------								
+							</td>
+						</tr>
+						<tr>
 							<td align="right"><span class="f11a">Higher Geog</span></td>
-							<td width="100%">
+							<td>
 								<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" value="#higher_geog#" size="80"
 									onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
 							</td>
@@ -464,7 +469,7 @@
 								<table>
 									<tr>
 										<td align="right">
-											<span class="f11a">Event Assigned By</span>
+											<span class="f11a">Event Assigned By
 										</td>
 										<td>
 											<input type="text" name="event_assigned_by_agent" value="#event_assigned_by_agent#" class="reqdClr" 
@@ -482,14 +487,21 @@
 							</td>
 						</tr>
 						<tr>
-							<td align="right">Specimen/Event Type</td>
+							<td align="right"><span class="f11a">Specimen/Event Type</span></td>
 							<td>
 								<select name="specimen_event_type" size="1" id="specimen_event_type" class="reqdClr">										
 									<cfloop query="ctspecimen_event_type">
 										<option <cfif ctspecimen_event_type.specimen_event_type is data.specimen_event_type> selected="selected" </cfif>
-														value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+											value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
 									</cfloop>
 								</select>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Specimen/Event Remark</span></td>
+							<td>
+								<input type="text"  name="specimen_event_remark" class="" size="80"
+									id="specimen_event_remark" value="#stripQuotes(specimen_event_remark)#">
 							</td>
 						</tr>
 						
