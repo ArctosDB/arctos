@@ -1012,14 +1012,6 @@ function findCollEvent(collIdFld,formName,dispField){
 	var covwin=url+"?collIdFld="+collIdFld+"&dispField="+dispField+"&formName="+formName;
 	ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
 }
-function pickCollEvent(collIdFld,formName,collObjId){
-	var url="/picks/pickCollEvent.cfm";
-	var collIdFld;
-	var collObjId;
-	var formName;
-	var covwin=url+"?collIdFld="+collIdFld+"&collection_object_id="+collObjId+"&formName="+formName;
-	ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
-}
 function getPublication(pubStringFld,pubIdFld,publication_title,formName){
 	var url="/picks/findPublication.cfm";
 	var pubwin=url+"?pubStringFld="+pubStringFld+"&pubIdFld="+pubIdFld+"&publication_title="+publication_title+"&formName="+formName;
