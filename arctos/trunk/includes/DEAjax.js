@@ -1547,6 +1547,7 @@ function success_pickedLocality (r) {
 	if (result.LOCALITY_ID[0] < 0) {
 		alert('Oops! Something bad happend with the locality pick. ' + result.MSG[0]);
 	} else {
+		// picked localities are always either NULL or decimal degrees coordinates
 		$("#fetched_locid").val(result.LOCALITY_ID[0]);
 
 		$("#higher_geog").attr("readOnly", true).removeClass().addClass('readClr').val(result.HIGHER_GEOG[0]);
@@ -1555,25 +1556,25 @@ function success_pickedLocality (r) {
 		$("#orig_elev_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.ORIG_ELEV_UNITS[0]);
 		$("#spec_locality").attr("readOnly", true).removeClass().addClass('readClr').val(result.SPEC_LOCALITY[0]);
 		$("#locality_remarks").attr("readOnly", true).removeClass().addClass('readClr').val(result.LOCALITY_REMARKS[0]);
-		$("#latdeg").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DEG[0]);
-		$("#decLAT_DEG").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DEG[0]);
-		$("#latmin").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_MIN[0]);
-		$("#latsec").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_SEC[0]);
-		$("#latdir").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DIR[0]);
-		$("#longdeg").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DEG[0]);
-		$("#longmin").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_MIN[0]);
-		$("#longsec").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_SEC[0]);
-		$("#longdir").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DIR[0]);
-		$("#dec_lat_min").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LAT_MIN[0]);
-		$("#decLAT_DIR").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DIR[0]);
-		$("#decLONGDEG").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DEG[0]);
-		$("#dec_long_min").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LONG_MIN[0]);
-		$("#decLONGDIR").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DIR[0]);
+		//$("#latdeg").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DEG[0]);
+		//$("#decLAT_DEG").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DEG[0]);
+		//$("#latmin").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_MIN[0]);
+		//$("#latsec").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_SEC[0]);
+		//$("#latdir").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DIR[0]);
+		//$("#longdeg").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DEG[0]);
+		//$("#longmin").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_MIN[0]);
+		//$("#longsec").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_SEC[0]);
+		//$("#longdir").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DIR[0]);
+		//$("#dec_lat_min").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LAT_MIN[0]);
+		//$("#decLAT_DIR").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_DIR[0]);
+		//$("#decLONGDEG").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DEG[0]);
+		//$("#dec_long_min").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LONG_MIN[0]);
+		//$("#decLONGDIR").attr("readOnly", true).removeClass().addClass('readClr').val(result.LONG_DIR[0]);
 		$("#dec_lat").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LAT[0]);
 		$("#dec_long").attr("readOnly", true).removeClass().addClass('readClr').val(result.DEC_LONG[0]);
 		$("#max_error_distance").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_ERROR_DISTANCE[0]);
 		$("#max_error_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAX_ERROR_UNITS[0]);
-		$("#extent").attr("readOnly", true).removeClass().addClass('readClr').val(result.EXTENT[0]);
+		//$("#extent").attr("readOnly", true).removeClass().addClass('readClr').val(result.EXTENT[0]);
 		//$("#gpsaccuracy").attr("readOnly", true).removeClass().addClass('readClr').val(result.GPSACCURACY[0]);
 		$("#datum").attr("readOnly", true).removeClass().addClass('readClr').val(result.DATUM[0]);
 		//$("#determined_by_agent").attr("readOnly", true).removeClass().addClass('readClr').val(result.DETERMINED_BY[0]);
@@ -1582,9 +1583,9 @@ function success_pickedLocality (r) {
 		//$("#georefmethod").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFMETHOD[0]);
 		//$("#verificationstatus").attr("readOnly", true).removeClass().addClass('readClr').val(result.VERIFICATIONSTATUS[0]);
 		//$("#lat_long_remarks").attr("readOnly", true).removeClass().addClass('readClr').val(result.LAT_LONG_REMARKS[0]);
-		$("#utm_zone").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_ZONE[0]);
-		$("#utm_ew").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_EW[0]);
-		$("#utm_ns").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_NS[0]);
+		//$("#utm_zone").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_ZONE[0]);
+		//$("#utm_ew").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_EW[0]);
+		//$("#utm_ns").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_NS[0]);
 		
 		
 		switchActive(result.ORIG_LAT_LONG_UNITS[0]);
