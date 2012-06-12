@@ -44,10 +44,8 @@ grant all on cf_dataentry_settings to data_entry;
 				<table border id="_cat">
 						<tr>
 							<td>
-								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
 							</td>
 							<td>
-								<cfset uservalue=evaluate("d." & i)>
 								<select name="x" id="x">
 									<option value="0">hide</option>
 									<option value="1">show</option>
