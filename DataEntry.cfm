@@ -446,7 +446,8 @@
 										</td><td>	
 											<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
 											<input type="hidden" id="fetched_eventid">
-										</td><td>	
+										</td>
+										<td>	
 											<span class="infoLink" id="eventPicker" onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
 												Pick&nbsp;Event
 											</span>
@@ -459,22 +460,29 @@
 							</td>
 						</tr>
 						<tr>
-							<td align="right">
-								<span class="f11a">Event Assigned By</span>
-							</td>
-							<td>
-								<input type="text" name="event_assigned_by_agent" value="#event_assigned_by_agent#" class="reqdClr" 
-									id="event_assigned_by_agent"
-									onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
-									onkeypress="return noenter(event);">
-							</td>
-							<td align="right"><span class="f11a">On Date</span></td>
-							<td>
-								<input type="text" name="event_assigned_date" class="reqdClr" value="#event_assigned_date#" id="event_assigned_date">
-								<span class="infoLink" onclick="copyAllDates('event_assigned_date');">Copy2All</span>
+							<td colspan="2">
+								<table>
+									<tr>
+										<td align="right">
+											<span class="f11a">Event Assigned By</span>
+										</td>
+										<td>
+											<input type="text" name="event_assigned_by_agent" value="#event_assigned_by_agent#" class="reqdClr" 
+												id="event_assigned_by_agent"
+												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+												onkeypress="return noenter(event);">
+										</td>
+										<td align="right"><span class="f11a">On Date</span></td>
+										<td>
+											<input type="text" name="event_assigned_date" class="reqdClr" value="#event_assigned_date#" id="event_assigned_date">
+											<span class="infoLink" onclick="copyAllDates('event_assigned_date');">Copy2All</span>
+										</td>
+									</tr>
+								</table>
 							</td>
 						</tr>
 						<tr>
+							<td align="right">Specimen/Event Type</td>
 							<td>
 								<select name="specimen_event_type" size="1" id="specimen_event_type" class="reqdClr">										
 									<cfloop query="ctspecimen_event_type">
