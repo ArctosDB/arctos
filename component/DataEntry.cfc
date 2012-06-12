@@ -292,6 +292,7 @@
 				locality.DATUM,
 				locality.georeference_protocol,
 				locality.georeference_source,
+				locality.locality_name,
 				<!----
 				accepted_lat_long.LAT_DEG,			
 				accepted_lat_long.DEC_LAT_MIN,
