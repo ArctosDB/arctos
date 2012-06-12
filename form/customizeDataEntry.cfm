@@ -28,6 +28,38 @@ grant all on cf_dataentry_settings to data_entry;
 		$("select").val(v);
 	}
 </script>
+
+
+<div class="fs" id="cat">
+				<!--- cat --->
+				<strong>Cataloged Item Identifiers</strong>
+				<br><span style="font-size:small;">ID 5 is your Custom ID</span>
+				<br>
+				<span class="likeLink" onclick="toggleTo('cat','hide')">[ hide all ]</span>
+				<span class="likeLink" onclick="toggleTo('cat','show')">[ show all ]</span>
+				<span class="likeLink" onclick="toggleTo('cat','carry')">[ carry all ]</span>	
+				<span class="likeLink" onclick="toggleTo('cat','0')">[ 0 all ]</span>
+				<span class="likeLink" onclick="toggleTo('cat','1')">[ 1 all ]</span>
+				<span class="likeLink" onclick="toggleTo('cat','2')">[ 2 all ]</span>				
+				<table border id="_cat">
+						<tr>
+							<td>
+								<div <cfif listfindnocase(child,i)>class="child"</cfif>>#i#</div>
+							</td>
+							<td>
+								<cfset uservalue=evaluate("d." & i)>
+								<select name="x" id="x">
+									<option value="0">hide</option>
+									<option value="1">show</option>
+									<option value="2">carry</option>
+								</select>
+							</td>
+						</tr>
+				</table>
+			</div>
+			<!---------
+			
+			
 <style>
 	.fs{
 		border:1px solid green;
@@ -102,7 +134,7 @@ grant all on cf_dataentry_settings to data_entry;
 		<form name="customize" method="post" action="customizeDataEntry.cfm">
 			<input type="hidden" name="action" value="saveChanges">
 			<input type="hidden" name="oldaction" value="#action#">
-			<!-- along with required stuff, use this to deal with linked stuff,like elevation --->
+			<!--- along with required stuff, use this to deal with linked stuff,like elevation --->
 			<a name="cat" href="##top">[ top ]</a>
 			<span class="likeLink" onclick="customize.submit();">[ save and close ]</span>
 			<div class="fs" id="cat">
@@ -429,3 +461,4 @@ grant all on cf_dataentry_settings to data_entry;
 		--->
 	</cfif>
 </cfoutput>
+---->
