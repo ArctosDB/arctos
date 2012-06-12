@@ -424,6 +424,7 @@
 												onclick="LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
 												Pick&nbsp;Locality
 											</span>
+										<td></td>
 											<span class="infoLink" 
 												id="localityUnPicker"
 												style="display:none;"
@@ -444,18 +445,12 @@
 											<span class="infoLink" id="eventPicker" onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
 												Pick&nbsp;Event
 											</span>
+										<td></td>
 											<span class="infoLink" id="eventUnPicker" style="display:none;" onclick="unpickEvent()">
 												Depick&nbsp;Event
 											</span>									
 										</td>
 									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<table>
-										
 								</table>
 							</td>
 						</tr>
