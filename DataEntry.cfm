@@ -144,7 +144,6 @@
 			<cfset loadedMsg = "">
 		</cfif>
 	</cfoutput>
-	<cfdump var=#data#>
 	<cfoutput query="data">
 		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT institution_acronym || ' ' || collection_cde as instcoll, collection_id FROM collection
@@ -615,6 +614,9 @@
 											</select> 
 										</td>
 									</tr>
+									
+									
+									<!----------
 									<tr>
 										<td align="right">
 											<span class="f11a">Determiner</span>
@@ -631,6 +633,10 @@
 											<span class="infoLink" onclick="copyAllDates('determined_date');">Copy2All</span>
 										</td>
 									</tr>
+									
+									
+									
+									----------->
 									<tr>
 										<td align="right"><span class="f11a infoLink" onclick="getHelp('georeference_source');">Georeference Source</span></td>
 										<td colspan="3" nowrap="nowrap">
