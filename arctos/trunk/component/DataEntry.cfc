@@ -284,6 +284,7 @@
 				locality.ORIG_ELEV_UNITS,
 				locality.SPEC_LOCALITY,
 				locality.LOCALITY_REMARKS,
+				<!---
 				accepted_lat_long.LAT_DEG,			
 				accepted_lat_long.DEC_LAT_MIN,
 				accepted_lat_long.LAT_MIN,
@@ -310,7 +311,8 @@
 				accepted_lat_long.VERIFICATIONSTATUS,
 				accepted_lat_long.UTM_ZONE,
 				accepted_lat_long.UTM_EW,
-				accepted_lat_long.UTM_NS, 
+				accepted_lat_long.UTM_NS,
+				----> 
 				GEOLOGY_ATTRIBUTE,
 				GEO_ATT_VALUE,
 				geoAgnt.agent_name GEO_ATT_DETERMINER,
@@ -320,16 +322,12 @@
 			FROM
 				geog_auth_rec,
 				locality,
-				accepted_lat_long,
-				preferred_agent_name llAgnt,
 				geology_attributes,
 				preferred_agent_name geoAgnt
 			WHERE
 				locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and
-				locality.LOCALITY_ID = accepted_lat_long.LOCALITY_ID (+) AND
 				locality.LOCALITY_ID = geology_attributes.LOCALITY_ID (+) AND
 				geology_attributes.GEO_ATT_DETERMINER_ID = geoAgnt.agent_id (+) AND
-				accepted_lat_long.DETERMINED_BY_AGENT_ID = llAgnt.agent_id (+) AND
 				locality.locality_id = #locality_id#
 		</cfquery>
 	<cfcatch>
