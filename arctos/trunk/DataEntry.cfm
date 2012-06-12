@@ -418,6 +418,7 @@
 										</td>
 										<td id="d_locality_id">
 											<label for="fetched_locid">Existing&nbsp;LocalityID</label>
+										</td><td>	
 											<input type="hidden" id="fetched_locid">
 											<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr" size="8">
 										</td>
@@ -441,6 +442,7 @@
 										</td>
 										<td id="d_collecting_event_id">
 											<label for="collecting_event_id">Existing&nbsp;EventID</label>
+										</td><td>	
 											<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
 											<input type="hidden" id="fetched_eventid">
 										</td><td>	
