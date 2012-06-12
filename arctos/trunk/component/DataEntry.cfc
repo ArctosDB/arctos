@@ -198,6 +198,7 @@
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			collecting_event.COLLECTING_EVENT_ID,
+			collecting_event.COLLECTING_EVENT_name,
 			collecting_event.BEGAN_DATE,
 			collecting_event.ENDED_DATE,
 			collecting_event.VERBATIM_DATE,
