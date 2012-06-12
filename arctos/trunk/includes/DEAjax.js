@@ -1588,6 +1588,7 @@ function success_pickedLocality (r) {
 		//$("#utm_ns").attr("readOnly", true).removeClass().addClass('readClr').val(result.UTM_NS[0]);
 		$("#georeference_source").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFERENCE_SOURCE[0]);
 		$("#georeference_protocol").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFERENCE_PROTOCOL[0]);
+		$("#locality_name").attr("readOnly", true).removeClass().addClass('readClr').val(result.LOCALITY_NAME[0]);
 		
 		
 		switchActive(result.ORIG_LAT_LONG_UNITS[0]);
