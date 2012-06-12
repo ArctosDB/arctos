@@ -1,7 +1,13 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfset title = "Locality Pick Search">
 <cfif action is "nothing">
+	
 	<cfoutput>
+		jQuery(document).ready(function() {
+			if '#locality_name#'.length > 0 {
+				console.log('got something');
+			}
+		});
 		<cfset showLocality=1>
 		<form name="getLoc" method="post" action="LocalityPick.cfm">
 			<input type="hidden" name="Action" value="findLocality">
