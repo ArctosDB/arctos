@@ -227,6 +227,7 @@ font-weight:bold;
 						<cfinvokeargument name="lat" value="#detail.dec_lat#">
 						<cfinvokeargument name="long" value="#detail.dec_long#">
 						<cfinvokeargument name="collection_object_id" value="#detail.collection_object_id#">
+						<cfinvokeargument name="size" value="150x150">
 					</cfinvoke>
 					#contents#
 				</cfif>
