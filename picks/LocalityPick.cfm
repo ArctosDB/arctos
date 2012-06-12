@@ -5,7 +5,7 @@
 	<cfoutput>
 		<script>
 		jQuery(document).ready(function() {
-			if ('#locality_name#'.length) > 0 {
+			if ('#locality_name#'.length > 0) {
 				console.log('got something');
 			}
 		});
