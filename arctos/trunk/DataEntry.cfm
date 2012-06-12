@@ -398,7 +398,7 @@
 							</td>
 						</tr>
 					</table><!------ /identification -------->
-					<table cellspacing="0" cellpadding="0" class="fs"><!----- locality ---------->
+					<table cellspacing="0" cellpadding="0" class="fs" border="1"><!----- locality ---------->
 					 	<tr>
 							<td rowspan="99" valign="top">
 								<img src="/images/info.gif" border="0" onClick="getDocs('locality')" class="likeLink" alt="[ help ]">
