@@ -458,12 +458,6 @@
 							</td>
 						</tr>
 					</table>
-					
-					<label for="x">this is x</label>
-					<input id="x">
-					
-					<label class="h" for="y">y here</label>
-					<input id="y">
 					<label onClick="getDocs('specimen_event')" class="likeLink" for="loctbl">Specimen/Event</label>
 					<table cellspacing="0" cellpadding="0" class="fs"><!----- Specimen/Event ---------->
 						<tr>
@@ -500,42 +494,6 @@
 							</td>
 						</tr>
 						<tr>
-							<td align="right"><span class="f11a">Specimen/Event Remark</span></td>
-							<td>
-								<input type="text"  name="specimen_event_remark" class="" size="80"
-									id="specimen_event_remark" value="#stripQuotes(specimen_event_remark)#">
-							</td>
-						</tr>
-						
-						<tr>
-							<td align="right"><span class="f11a">Verbatim Locality</span></td>
-							<td>
-								<input type="text"  name="verbatim_locality"
-									class="reqdClr" size="80"
-									id="verbatim_locality" value="#stripQuotes(verbatim_locality)#">
-								<span class="infoLink" onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">
-									&nbsp;Use&nbsp;Specloc
-								</span>
-							</td>
-						</tr>			
-						<tr>
-							<td align="right"><span class="f11a">VerbatimDate</span></td>
-							<td>
-								<input type="text" name="verbatim_date" class="reqdClr" value="#verbatim_date#" id="verbatim_date" size="20">
-								<span class="infoLink"
-									onClick="copyVerbatim($('##verbatim_date').val());">--></span>
-								<span class="f11a">Begin</span>
-								<input type="text" name="began_date" class="reqdClr" value="#began_date#" id="began_date" size="10">
-								<span class="infoLink" onclick="copyAllDates('began_date');">Copy2All</span>
-								<span class="f11a">End</span>
-								<input type="text" name="ended_date" class="reqdClr" value="#ended_date#" id="ended_date" size="10">
-								<span class="infoLink" onclick="copyAllDates('ended_date');">Copy2All</span>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" id="dateConvertStatus"></td>
-						</tr>
-						<tr>
 							<td align="right"><span class="f11a">Coll. Meth.:</span></td>
 							<td>
 								<table cellspacing="0" cellpadding="0">
@@ -566,17 +524,64 @@
 								</table>
 							</td>
 						</tr>
+						
 						<tr id="d_habitat_desc">
 							<td align="right"><span class="f11a">Habitat</span></td>
 							<td>
 								<input type="text" name="habitat_desc" size="50" id="habitat" value="#habitat#">
 							</td>
 						</tr>
-						<tr id="d_associated_species">
-							<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
-							<td>
-								<input type="text" name="associated_species" size="80" id="associated_species" value="#associated_species#">
+						<tr>
+							<td colspan="2">
+								
+								<label for="verificationstatus">
+									VerificationStatus
+								</label>
+								<select name="verificationstatus" size="1" class="reqdClr" id="verificationstatus">
+									<cfloop query="ctverificationstatus">
+										<option <cfif data.verificationstatus is ctverificationstatus.verificationstatus> selected="selected" </cfif>
+									  		value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
+									</cfloop>
+								</select>
 							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Specimen/Event Remark</span></td>
+							<td>
+								<input type="text"  name="specimen_event_remark" class="" size="80"
+									id="specimen_event_remark" value="#stripQuotes(specimen_event_remark)#">
+							</td>
+						</tr>
+					</table>
+					<label onClick="getDocs('collecting_event')" class="likeLink" for="loctbl">Collecting Event</label>
+					<table cellspacing="0" cellpadding="0" class="fs">					
+						<tr>
+							<td align="right"><span class="f11a">Verbatim Locality</span></td>
+							<td>
+								<input type="text"  name="verbatim_locality"
+									class="reqdClr" size="80"
+									id="verbatim_locality" value="#stripQuotes(verbatim_locality)#">
+								<span class="infoLink" onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">
+									&nbsp;Use&nbsp;Specloc
+								</span>
+							</td>
+						</tr>			
+						<tr>
+							<td align="right"><span class="f11a">VerbatimDate</span></td>
+							<td>
+								<input type="text" name="verbatim_date" class="reqdClr" value="#verbatim_date#" id="verbatim_date" size="20">
+								<span class="infoLink"
+									onClick="copyVerbatim($('##verbatim_date').val());">--></span>
+								<span class="f11a">Begin</span>
+								<input type="text" name="began_date" class="reqdClr" value="#began_date#" id="began_date" size="10">
+								<span class="infoLink" onclick="copyAllDates('began_date');">Copy2All</span>
+								<span class="f11a">End</span>
+								<input type="text" name="ended_date" class="reqdClr" value="#ended_date#" id="ended_date" size="10">
+								<span class="infoLink" onclick="copyAllDates('ended_date');">Copy2All</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" id="dateConvertStatus"></td>
 						</tr>
 						<tr>
 							<td colspan="2" id="d_orig_elev_units">
@@ -684,7 +689,7 @@
 										<td colspan="3" nowrap="nowrap">
 											<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" 
 												size="60" value="#georeference_source#">
-											<span >Pick</span>
+											<span>Pick</span>
 										</td>
 									</tr>
 									<tr>
@@ -696,16 +701,6 @@
 														value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 												</cfloop>
 											</select> 
-										</td>
-										<td align="right"><span class="f11a">Verification</span></td>
-										<td>
-											<cfset thisverificationstatus = #verificationstatus#>
-											<select name="verificationstatus" size="1" class="reqdClr" id="verificationstatus">
-												<cfloop query="ctverificationstatus">
-													<option <cfif data.verificationstatus is ctverificationstatus.verificationstatus> selected="selected" </cfif>
-												  		value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
-												</cfloop>
-											</select>
 										</td>
 									</tr>
 								</table>
@@ -1271,6 +1266,12 @@
 						<td colspan="2">
 							<span class="f11a">Spec Remark</span>
 								<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="80">#coll_object_remarks#</textarea>
+						</td>
+					</tr>
+					<tr id="d_associated_species">
+						<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
+						<td>
+							<input type="text" name="associated_species" size="80" id="associated_species" value="#associated_species#">
 						</td>
 					</tr>
 					<tr>
