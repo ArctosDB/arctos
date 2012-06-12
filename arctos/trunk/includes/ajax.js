@@ -1117,13 +1117,13 @@ function GeogPick(geogIdFld,highGeogFld,formName){
 	var popurl=url+"?geogIdFld="+geogIdFld+"&highGeogFld="+highGeogFld+"&formName="+formName;
 	geogpick=window.open(popurl,"","width=600,height=600, toolbar,resizable,scrollbars,");
 }
-function LocalityPick(localityIdFld,speclocFld,formName,fireEvent){
+function LocalityPick(localityIdFld,speclocFld,formName,localityNameString){
 	var url="/picks/LocalityPick.cfm";
 	var localityIdFld;
 	var speclocFld;
 	var formName;
 	var fireEvent;
-	var popurl=url+"?localityIdFld="+localityIdFld+"&speclocFld="+speclocFld+"&formName="+formName+"&fireEvent="+fireEvent;
+	var popurl=url+"?localityIdFld="+localityIdFld+"&speclocFld="+speclocFld+"&formName="+formName+"&locality_name="+localityNameString;
 	localitypick=window.open(popurl,"","width=800,height=600,resizable,scrollbars,");
 }
 function findJournal(journalIdFld,journalNameFld,formName,journalNameString){
