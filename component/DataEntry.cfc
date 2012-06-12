@@ -267,6 +267,7 @@
 			locality.locality_id=collecting_event.LOCALITY_ID and
 			collecting_event.collecting_event_id = #collecting_event_id#
 	</cfquery>
+	<cfdump var=#result#>
 	<cfcatch>
 	<cfset result = QueryNew("COLLECTING_EVENT_ID,MSG")>
 	<cfset temp = QueryAddRow(result, 1)>
