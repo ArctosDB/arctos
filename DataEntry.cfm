@@ -1298,7 +1298,7 @@
 							</td>
 							<td>
 								<input type="text" name="part_barcode_#i#" id="part_barcode_#i#" value="#evaluate("data.part_barcode_" & i)#" 
-									 size="6" onchange="setPartLabel(this.id);">
+									 size="15" onchange="setPartLabel(this.id);">
 							</td>
 							<td>
 								<input type="text" name="part_container_label_#i#" id="part_container_label_#i#"
