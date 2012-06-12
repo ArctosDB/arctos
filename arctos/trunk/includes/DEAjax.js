@@ -93,6 +93,7 @@ function geolocate () {
 		return;
 	}
 	console.log('len=' + $("#higher_geog").val().length>0);
+	console.log('len=' + $("#spec_locality").val().length>0);
 	
 	
 	if ($("#higher_geog").val().length==0 || $("#spec_locality").val().length==0){
