@@ -18,6 +18,7 @@ grant all on cf_dataentry_settings to data_entry;
 		console.log(v);
 		$("#" + e + " :input").val(v);	
 		$("#cat:input").val('carry');
+		
 	}
 	function toggleAll(v){
 		$("select").val(v);
