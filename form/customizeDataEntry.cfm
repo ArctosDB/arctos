@@ -14,6 +14,8 @@ grant all on cf_dataentry_settings to data_entry;
 
 <script>
 	function toggleTo(e,v){
+		console.log(e);
+		console.log(v);
 		$("#" + e + " :input").val(v);	
 	}
 	function toggleAll(v){
