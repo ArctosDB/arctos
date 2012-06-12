@@ -5,11 +5,19 @@
 	<cfargument name="long" type="numeric" required="yes">
 	<cfargument name="size" type="string" required="no" default="200x200">
 	<cfargument name="maptype" type="string" required="no" default="roadmap">
+	<cfargument name="collection_object_id" type="numeric" required="no" default="">
 	<cfoutput>
 	<cfset iu="http://maps.google.com/maps/api/staticmap?center=#lat#,#long#">
 	<cfset iu=iu & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=#size#&zoom=2">
 	<cfset iu=iu & "&maptype=#maptype#">
-	<cfreturn '<img src="#iu#" alt="Google Map">'>
+	<cfset mapImage='<img src="#iu#" alt="Google Map">'>
+	<cfif len(collection_object_id) gt 0>
+		<cfset rVal='<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">'>
+		<cfset rVal=rVal & mapImage & '</a>'>
+	<cfelse>
+		<cfset rVal=mapImage>									
+	</cfif>
+	<cfreturn rVal> 
 	</cfoutput>	
 </cffunction>
 <!------------------------------------------------------------------->
