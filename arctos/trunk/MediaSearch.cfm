@@ -117,7 +117,6 @@
 	<cfset whr ="WHERE 1=1 ">
 	<cfset srch=" ">
 	<cfset mapurl = "">
-	<cfset mapurl = "">
 	<cfparam name="relationships" default="">
 	<cfset n=1>
 	<cfloop list="#relationships#" delimiters="," index="thisRelationship">
@@ -329,12 +328,11 @@
 		<td align="middle">					
 			<div id="mapID_#media_uri#">
 				<cfif len(coordinates) gt 0>
-					<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#coordinates#">
-					<cfset iu=iu & "&markers=color:red|size:tiny|#coordinates#&sensor=false&size=100x100&zoom=2">
-					<cfset iu=iu & "&maptype=roadmap">
-					<a href="http://maps.google.com/maps?q=#coordinates#" target="_blank">
-						<img src="#iu#" alt="Google Map">
-					</a>
+					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+					    <cfinvokeargument name="lat" value="#listgetat(coordinates,1)#">
+					    <cfinvokeargument name="long" value="#listgetat(coordinates,2)#">
+					</cfinvoke>
+					#contents#
 				</cfif>
 			</div>			
 		</td>
