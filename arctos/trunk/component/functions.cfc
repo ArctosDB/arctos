@@ -15,7 +15,7 @@
 		<cfset rVal='<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">'>
 		<cfset rVal=rVal & mapImage & '</a>'>
 	<cfelse>
-		<cfset rVal=mapImage>									
+		<cfset rVal='<a href="http://maps.google.com/maps?q=#lat#,#long#" target="_blank">'>
 	</cfif>
 	<cfreturn rVal> 
 	</cfoutput>	
