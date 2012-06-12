@@ -1,9 +1,20 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif action is "nothing">
 	<cfoutput>
+		<script>
+		jQuery(document).ready(function() {
+			if ('#collecting_event_name#'.length > 0) {
+				console.log('got something');
+				$("##collecting_event_name").val('#collecting_event_name#');
+				$("##findCollEvent").submit();
+			}
+		});
+		</script>
+		
+		
 		<cfset showLocality=1>
 		<cfset showEvent=1>
-		<form name="findCollEvent" method="post" action="findCollEvent.cfm">
+		<form name="findCollEvent" id="findCollEvent" method="post" action="findCollEvent.cfm">
 			<input type="hidden" name="action" value="findem">
 			<input type="hidden" name="dispField" value="#dispField#">
 			<input type="hidden" name="formName" value="#formName#">
