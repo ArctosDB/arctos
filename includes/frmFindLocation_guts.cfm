@@ -207,11 +207,16 @@
 	
 </div>
 
-<cfif #showLocality# is 1>
+<cfif showLocality is 1>
 	<div class="locGroup">
 		<span id="locDetailCtl" class="infoLink" onclick="toggleLocDetail(1)";>Show More Options</span>
 	<table cellpadding="0" cellspacign="0">
 		<tr>
+			<td colspan="2">
+				<label for="locality_name">Locality Name</label>
+				<input type="text" name="locality_name" id="locality_name" size="50">
+			</td>
+		</tr><tr>
 			<td colspan="2">
 				<label for="spec_locality">Specific Locality</label>
 				<input type="text" name="spec_locality" id="spec_locality" size="50">
@@ -316,74 +321,11 @@
 				</td>
 			</tr>
 		</table>
-		<span id="georefDetailCtl" class="infoLink" onclick="toggleGeorefDetail(1)";>Show Georeference Options</span>
-		<div id="georefDetail" class="noShow">
-		<table cellpadding="0" cellspacign="0">
-			<tr>
-				<td>
-					<label for="findNoGeoRef">No Georeferences</label>
-					<input type="checkbox" name="findNoGeoRef" id="findNoGeoRef">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="findNoAccGeoRef">No Accepted Georeferences</label>
-					<input type="checkbox" name="findNoAccGeoRef" id="findNoAccGeoRef">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="isIncomplete">isIncomplete</label>
-					<input type="checkbox" name="isIncomplete" id="isIncomplete">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="NoGeorefBecause">NoGeorefBecause</label>
-					<input type="text" name="NoGeorefBecause" size="50" id="NoGeorefBecause">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="nullNoGeorefBecause">NULL NoGeorefBecause</label>
-					<input type="checkbox" name="nullNoGeorefBecause" id="nullNoGeorefBecause">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="VerificationStatus">VerificationStatus</label>
-					<select name="VerificationStatus" id="VerificationStatus" size="1">
-						<option value=""></option>
-						<cfloop query="ctVerificationStatus">
-							<option value="#VerificationStatus#">#VerificationStatus#</option>
-						</cfloop>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="GeorefMethod">GeorefMethod</label>
-					<select name="GeorefMethod" id="GeorefMethod" size="1">
-						<option value=""></option>
-						<cfloop query="ctGeorefMethod">
-							<option value="#GeorefMethod#">#GeorefMethod#</option>
-						</cfloop>
-					</select>
-				</td>
-			</tr>
-            <tr>
-				<td>
-					<label for="coordinateDeterminer">Coordinate Determiner</label>
-					<input type="text" name="coordinateDeterminer" size="50" id="coordinateDeterminer">
-				</td>
-			</tr>
-		</table>
-	</div>	
 	</div>
 	</div>	
 </cfif>	
 	<!--------------------------------------- event ----------------------------------------------------------->
-	<cfif #showEvent# is 1>	
+	<cfif showEvent is 1>	
 	<div class="locGroup">
 		<span id="eventDetailCtl" class="infoLink" onclick="toggleEventDetail(1)";>Show More Options</span>
 	<table cellpadding="0" cellspacign="0">
@@ -432,29 +374,6 @@
 			</tr>
 			<tr>
 				<td>
-					<label for="collecting_source">Collecting Source</label>
-					<select name="collecting_source" id="collecting_source" size="1">
-		            	<option value=""></option>
-		                <cfloop query="ctCollectingSource">
-		                	<option value="#ctCollectingSource.collecting_source#">#ctCollectingSource.collecting_source#</option>
-		                </cfloop>
-		           	</select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="collecting_method">Collecting Method</label>
-					<input type="text" name="collecting_method" id="collecting_method" size="50">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="habitat_desc">Habitat</label>
-					<input type="text" name="habitat_desc" id="habitat_desc" size="50">
-				</td>
-			</tr>
-			<tr>
-				<td>
 					<label for="collecting_event_id">Collecting Event ID</label>
 					<input type="text" name="collecting_event_id" id="collecting_event_id" >
 				</td>
@@ -468,14 +387,10 @@
 		<td align="center">
 			<input type="submit" 
 				value="Find Matches" 
-				class="schBtn"
-				onmouseover="this.className='schBtn btnhov'" 
-				onmouseout="this.className='schBtn'">
+				class="schBtn">
            <input type="reset"
 				value="Clear Form"
-				class="qutBtn"
-				onmouseover="this.className='qutBtn btnhov'"
-				onmouseout="this.className='qutBtn'">
+				class="qutBtn">
 		</td>
 	</tr>
 </table>
