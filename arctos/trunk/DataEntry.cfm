@@ -398,6 +398,7 @@
 							</td>
 						</tr>
 					</table><!------ /identification -------->
+					<label for="loctbl">Locality</label>
 					<table cellspacing="0" cellpadding="0" class="fs" border="1"><!----- locality ---------->
 					 	<tr>
 							<td rowspan="99" valign="top">
