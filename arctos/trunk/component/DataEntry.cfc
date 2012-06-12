@@ -284,7 +284,10 @@
 				locality.ORIG_ELEV_UNITS,
 				locality.SPEC_LOCALITY,
 				locality.LOCALITY_REMARKS,
-				<!---
+				locality.DEC_LAT,
+				locality.DEC_LONG,
+				'decimal degrees' ORIG_LAT_LONG_UNITS,
+				<!----
 				accepted_lat_long.LAT_DEG,			
 				accepted_lat_long.DEC_LAT_MIN,
 				accepted_lat_long.LAT_MIN,
@@ -295,8 +298,6 @@
 				accepted_lat_long.LONG_MIN,
 				accepted_lat_long.LONG_SEC,			
 				accepted_lat_long.LONG_DIR,
-				accepted_lat_long.DEC_LAT,
-				accepted_lat_long.DEC_LONG,
 				accepted_lat_long.DATUM,
 				accepted_lat_long.ORIG_LAT_LONG_UNITS,
 				llAgnt.agent_name DETERMINED_BY,
