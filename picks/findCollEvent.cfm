@@ -35,6 +35,7 @@
 			<th>ctl</th>
 		</tr>
 		<cfset i = 1>
+		<cfdump var=#localityResults#>
 		<cfloop query="localityResults">
 			<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
 					<cfset thisDate = began_date>
