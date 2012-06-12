@@ -431,13 +431,7 @@
 												Depick&nbsp;Locality
 											</span>
 										</td>
-									</tr>	
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<table>
+									</tr>
 									<tr>
 										<td align="right"><span class="f11a">Locality Name</span></td>
 										<td>
@@ -454,7 +448,14 @@
 												Depick&nbsp;Event
 											</span>									
 										</td>
-									</tr>	
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<table>
+										
 								</table>
 							</td>
 						</tr>
