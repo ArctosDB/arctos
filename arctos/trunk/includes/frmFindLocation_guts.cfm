@@ -48,6 +48,7 @@
 			nada
 		);
 	}
+	/*
 	function toggleGeorefDetail(onOff) {
 		if (onOff==0) {
 			$("#georefDetail").hide();
@@ -67,6 +68,7 @@
 			nada
 		);
 	}
+	*/
 	function toggleEventDetail(onOff) {
 		if (onOff==0) {
 			$("#eventDetail").hide();
