@@ -398,13 +398,8 @@
 							</td>
 						</tr>
 					</table><!------ /identification -------->
-					<label onClick="getDocs('locality')" class="likeLink" for="loctbl">Locality</label>
-					<table cellspacing="0" cellpadding="0" class="fs" border="1"><!----- locality ---------->
-						<tr>
-							<td colspan="2" width="100%" align="middle">
-								------------- locality metadata junk -----------------								
-							</td>
-						</tr>
+					<label onClick="getDocs('locality')" class="likeLink" for="loctbl">Locality Metadata and Tools</label>
+					<table cellspacing="0" cellpadding="0" class="fs"><!----- locality ---------->
 						<tr>
 							<td align="right"><span class="f11a">Higher Geog</span></td>
 							<td>
@@ -462,6 +457,9 @@
 								</table>
 							</td>
 						</tr>
+					</table>
+					<label onClick="getDocs('specimen_event')" class="likeLink" for="loctbl">Specimen/Event</label>
+					<table cellspacing="0" cellpadding="0" class="fs"><!----- Specimen/Event ---------->
 						<tr>
 							<td colspan="2">
 								<table>
