@@ -17,10 +17,10 @@ grant all on cf_dataentry_settings to data_entry;
 		console.log(e);
 		console.log(v);
 		
-		$("#cat :input").val(v);
+		//$("#cat :input").val(v);
 		
 		
-		//$("#" + e + " :input").val(v);
+		$("#" + e + " :input").val(v);
 		//$("#" + e + " :input").css('style:border 1px solid red;');
 		//(v);			
 	}
