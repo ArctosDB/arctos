@@ -100,7 +100,7 @@ function removeHelpDiv() {
 		<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
 	</cfif>
 </cfloop>
-<cfset basSelect = " SELECT #session.flatTableName#.collection_object_id">
+<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 <cfif len(session.CustomOtherIdentifier) gt 0>
 	<cfset basSelect = "#basSelect# 
 		,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
