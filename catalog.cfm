@@ -1,3 +1,4 @@
+deprecated<cfabort>
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfmail subject="someone opened catalog.cfm" to="#Application.PageProblemEmail#" from="itsalive@#Application.fromEmail#" type="html">
 	<cfdump var=#session#>

@@ -1,6 +1,14 @@
 <cfinclude template="includes/_header.cfm">
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "nothing">
+	<p>
+		This form is inactive; it's not clear how it could work under the new model, where specimens may have any
+		number of collecting events. Contact us with needs, and we'll build needed functionality into Arctos as we
+		identify deficiencies. 
+	</p>
+	<p>
+		Old form was:
+	</p>
 <cfset title = "Change Coll Event">
 	<!--- edit IDs for a list of specimens passed in from specimenresults --->
 	<!--- no security --->
@@ -142,6 +150,7 @@
 </table>
 <!----------------------------------------------------------------------------------->
 <cfif action is "updateCollEvent">
+	deprecated<cfabort>
 <cfoutput>
 	<cftransaction>
 		<cfloop list="#collection_object_id#" index="i">
