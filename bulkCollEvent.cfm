@@ -236,11 +236,11 @@
 					<td>
 						<cfif allowReplace is true>
 							<br>REPLACE all existing events with this
+							<br>REMOVE existing event from all specimens
 						<cfelse>
-							<br>REPLACE tools are not available for this specimen set
+							<br>Only additive tools are available for this specimen set
 						</cfif>
 						<br>ADD this event to all specimens
-						<br>REMOVE existing event from all specimens
 						<!------
 
 					<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
