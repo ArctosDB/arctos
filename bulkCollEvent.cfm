@@ -235,7 +235,9 @@
 					<td><a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a></td>
 					<td>
 						<cfif allowReplace is true>
-							REPLACE all existing events with this
+							<br>REPLACE all existing events with this
+						<cfelse>
+							<br>REPLACE tools are not available for this specimen set
 						</cfif>
 						<br>ADD this event to all specimens
 						<br>REMOVE existing event from all specimens
