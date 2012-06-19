@@ -118,10 +118,11 @@
 <cfquery name="events_per_spec" dbtype="query">
 	select collection_object_id,count(*) c from specimenList group by collection_object_id
 </cfquery>
-
+<cfdump var=#events_per_spec#>
 <cfquery name="events_per_spec2" dbtype="query">
 	select count(*) x from events_per_spec where c != 1
 </cfquery>
+<cfdump var=#events_per_spec2#>
 
 <cfif events_per_spec2.x is not 0>
 	not 1:1 ratio
