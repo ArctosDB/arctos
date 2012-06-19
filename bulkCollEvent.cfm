@@ -2,54 +2,6 @@
 <!--------------------------------------------------------------------------------------------------->
 
 <!------------------------------------->
-<cfif action is "findCollEvent">
-	<cfoutput>
-		<cf_findLocality>
-		<table border>
-			<tr>
-				<td><b>Geog ID</b></td>
-				<td><b>Locality ID</b></td>
-				<td><b>&nbsp;</b></td>
-				<td><b>Verb. Loc</b></td>
-				<td><b>Beg. Date</b></td>
-				<td><b>End Date</b></td>
-				<td><b>Verb. Date</b></td>
-				<td><b>Source</b></td>
-				<td><b>Method</b></td>
-			</tr>
-			<cfset i = 1>
-			<cfloop query="localityResults">
-				<tr>
-					<td> <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a></td>
-					<td><a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a></td>
-					<td>
-					<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
-						<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-						<input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
-						<input type="hidden" name="action" value="updateCollEvent">
-						<input type="submit" 
-							 	value="Change ALL listed specimens to this coll event" 
-								class="savBtn"
-		   						onmouseover="this.className='savBtn btnhov'" 
-								onmouseout="this.className='savBtn'">
-					</form>
-					</td>
-					<td>#verbatim_locality#
-						<cfif #spec_locality# neq #verbatim_locality#>
-							<br><strong><em>Spec. Locality:</em></strong> #spec_locality#
-						</cfif>
-					</td>
-					<td>#began_date#</td>
-					<td>#ended_date#</td>
-					<td>#verbatim_date#</td>
-					<td>#collecting_source#</td>
-					<td>#collecting_method#</td>
-				</tr>
-				<cfset i=#i#+1>
-			</cfloop>
-		</table>
-	</cfoutput>
-</cfif>
 <!---------------------------------------------->
 
 <cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -259,6 +211,66 @@
 		</cfloop>
 	</table>
 </cfoutput>
+
+
+<cfif action is "findCollEvent">
+	<cfoutput>
+		<cf_findLocality>
+		<table border>
+			<tr>
+				<td><b>Geog ID</b></td>
+				<td><b>Locality ID</b></td>
+				<td><b>&nbsp;</b></td>
+				<td><b>Verb. Loc</b></td>
+				<td><b>Beg. Date</b></td>
+				<td><b>End Date</b></td>
+				<td><b>Verb. Date</b></td>
+				<td><b>Source</b></td>
+				<td><b>Method</b></td>
+			</tr>
+			<cfset i = 1>
+			<cfloop query="localityResults">
+				<tr>
+					<td> <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a></td>
+					<td><a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a></td>
+					<td>
+						<cfif allowReplace is true>
+							REPLACE all existing events with this
+						</cfif>
+						<br>ADD this event to all specimens
+						<br>REMOVE existing event from all specimens
+						<!------
+
+					<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
+						<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+						<input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
+						<input type="hidden" name="action" value="updateCollEvent">
+						<input type="submit" 
+							 	value="Change ALL listed specimens to this coll event" 
+								class="savBtn"
+		   						onmouseover="this.className='savBtn btnhov'" 
+								onmouseout="this.className='savBtn'">
+					</form>
+					-------->
+					</td>
+					<td>#verbatim_locality#
+						<cfif #spec_locality# neq #verbatim_locality#>
+							<br><strong><em>Spec. Locality:</em></strong> #spec_locality#
+						</cfif>
+					</td>
+					<td>#began_date#</td>
+					<td>#ended_date#</td>
+					<td>#verbatim_date#</td>
+					<td>#collecting_source#</td>
+					<td>#collecting_method#</td>
+				</tr>
+				<cfset i=#i#+1>
+			</cfloop>
+		</table>
+	</cfoutput>
+</cfif>
+
+
 <!----------------------------------------------------------------------------------->
 <cfif action is "updateCollEvent">
 	deprecated<cfabort>
