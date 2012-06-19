@@ -393,10 +393,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/findContainer.cfm?showControl=1">
 						Part Locations
 					</option>
-					<!----
 					<option value="/bulkCollEvent.cfm">
 						Collecting Events
 					</option>
+					<!----
 					<option value="/compDGR.cfm">
 						MSB<->DGR
 					</option>
