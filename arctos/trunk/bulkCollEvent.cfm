@@ -299,22 +299,24 @@
 								</cfloop>
 							</select>
 							
-			
-			
-			
-						
-						<input type="button"
+							<cfif allowReplace is true>
+								<input type="button"
+									onclick="coll#i#.action.value='replaceAll';coll#i#.submit();" 
+								 	value="REPLACE all specimens event with this" 
+									class="savBtn">
+								<input type="button"
+									onclick="coll#i#.action.value='replaceAll';coll#i#.submit();" 
+								 	value="REMOVE all specimen-events" 
+									class="savBtn">
+							<cfelse>
+								<br>Only additive tools are available for this specimen set
+							</cfif>
+							<input type="button"
 								onclick="coll#i#.action.value='addToAll';coll#i#.submit();" 
 							 	value="Add this event to all listed specimens" 
 								class="savBtn">
 					</form>
-						<cfif allowReplace is true>
-							<br>REPLACE all existing events with this
-							<br>REMOVE existing event from all specimens
-						<cfelse>
-							<br>Only additive tools are available for this specimen set
-						</cfif>
-						<br>ADD this event to all specimens
+						
 						<!------
 
 					<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
