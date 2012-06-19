@@ -124,7 +124,7 @@
 </cfquery>
 <cfdump var=#events_per_spec2#>
 
-<cfif events_per_spec2.x is not 0>
+<cfif len(events_per_spec2.x) gt 0 and events_per_spec2.x is not 0>
 	not 1:1 ratio
 </cfif>
 <br><b>Specimens Being Changed:</b>
