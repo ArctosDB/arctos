@@ -115,6 +115,17 @@
 		CustomID,
 		scientific_name
 </cfquery>
+<cfquery name="events_per_spec" dbtype="query">
+	select collection_object_id,count(*) c from specimenList group by collection_object_id
+</cfquery>
+
+<cfquery name="events_per_spec2" dbtype="query">
+	select count(*) x from events_per_spec where c != 1
+</cfquery>
+
+<cfif events_per_spec2.x is not 0>
+	not 1:1 ratio
+</cfif>
 <br><b>Specimens Being Changed:</b>
 <cfoutput>
 	<table width="95%" border="1">
