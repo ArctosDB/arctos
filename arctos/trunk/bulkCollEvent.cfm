@@ -126,7 +126,18 @@
 
 <cfif len(events_per_spec2.x) gt 0 and events_per_spec2.x is not 0>
 	not 1:1 ratio
+<cfelse>
+	1:1 - woot
 </cfif>
+<cfquery name="et" dbtype="query">
+	select specimen_event_type from specimenList group by specimen_event_type
+</cfquery>
+<cfif et.recordcount is 1 and valuelist(et.specimen_event_type) is "accepted place of collection">
+	all accepted place of collection
+<cfelse>
+	NOT all accepted place of collection
+</cfif> 
+
 <br><b>Specimens Being Changed:</b>
 <cfoutput>
 	<table width="95%" border="1">
