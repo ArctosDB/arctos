@@ -76,7 +76,7 @@
 			select verificationstatus from specimenList group by verificationstatus
 		</cfquery>
 		<cfif vs.recordcount is 1 and valuelist(vs.verificationstatus) is "unverified">
-			<br>all events are unverified - you may replace existing events
+			<br>all events are unverified
 			<cfset allowReplace=true>
 		<cfelse>
 			<br>verified events - do not allow replace
@@ -104,7 +104,9 @@
 
 
 
-
+<p>
+	Tools are under specimen list.
+</p>
 
 <br><b>Specimens Being Changed:</b>
 <cfoutput>
@@ -212,8 +214,24 @@
 	</table>
 </cfoutput>
 
+<a href="bulkCollEvent.cfm?action=removeAll&collection_object_id=#collection_object_id#">
 
+
+	
+	
+	
 <cfif action is "findCollEvent">
+	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
+	</cfquery>
+	
+	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+        select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
+     </cfquery>
+	
+	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select VerificationStatus from ctVerificationStatus
+	</cfquery>
 	<cfoutput>
 		<cf_findLocality>
 		<table border>
@@ -234,6 +252,62 @@
 					<td> <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a></td>
 					<td><a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a></td>
 					<td>
+						
+						<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
+							<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+							<input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
+							<input type="hidden" name="action" value="">
+							<label for="specimen_event_type">Specimen/Event Type</label>
+							<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
+								<cfloop query="ctspecimen_event_type">
+									<option value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+							    </cfloop>
+							</select>
+							<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
+
+							<label for="specimen_event_type">Event Assigned by Agent</label>
+							<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" size="40"
+								 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','coll#i#',this.value); return false;"
+								 onKeyPress="return noenter(event);">
+							<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id">
+			
+							<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
+							<input type="text" name="assigned_date" id="assigned_date" class="reqdClr">
+			
+							<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
+							<input type="text" name="specimen_event_remark" id="specimen_event_remark" size="75">
+							
+							<label for="habitat">Habitat</label>
+							<input type="text" name="habitat" id="habitat" size="75">
+							
+							<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
+							<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+								<option value=""></option>
+								<cfloop query="ctcollecting_source">
+									<option value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
+								</cfloop>
+							</select>
+							<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
+				
+							<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
+							<input type="text" name="collecting_method" id="collecting_method" size="75">
+							
+							<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
+							<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+								<cfloop query="ctVerificationStatus">
+									<option value="#VerificationStatus#">#VerificationStatus#</option>
+								</cfloop>
+							</select>
+							
+			
+			
+			
+						
+						<input type="button"
+								onclick="coll#i#.action.value='addToAll';coll#i#.submit();" 
+							 	value="Add this event to all listed specimens" 
+								class="savBtn">
+					</form>
 						<cfif allowReplace is true>
 							<br>REPLACE all existing events with this
 							<br>REMOVE existing event from all specimens
@@ -272,7 +346,13 @@
 	</cfoutput>
 </cfif>
 
+addToAll
 
+
+<!----------------------------------------------------------------------------------->
+<cfif action is "addToAll">
+	<cfdump var=#form#>
+</cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "updateCollEvent">
 	deprecated<cfabort>
