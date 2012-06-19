@@ -1,18 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <!--------------------------------------------------------------------------------------------------->
-<cfif action is "nothing">
-	<cfset title = "Change Coll Event">
-	<cfset showLocality=1>
-	<cfset showEvent=1>
-	<cfoutput>
- 		<h3>Find new collecting event</h3>
-		<form name="getCol" method="post" action="bulkCollEvent.cfm">
-			<input type="hidden" name="Action" value="findCollEvent">
-			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-			<cfinclude template="/includes/frmFindLocation_guts.cfm">	   
-		</form>
-	</cfoutput>
-</cfif>
+
 <!------------------------------------->
 <cfif action is "findCollEvent">
 	<cfoutput>
@@ -118,25 +106,53 @@
 <cfquery name="events_per_spec" dbtype="query">
 	select collection_object_id,count(*) c from specimenList group by collection_object_id
 </cfquery>
-<cfdump var=#events_per_spec#>
 <cfquery name="events_per_spec2" dbtype="query">
 	select count(*) x from events_per_spec where c != 1
 </cfquery>
-<cfdump var=#events_per_spec2#>
+<cfset allowReplace=false>
 
 <cfif len(events_per_spec2.x) gt 0 and events_per_spec2.x is not 0>
-	not 1:1 ratio
+	<br>There is not 1 event per specimen - only additive tools are available
 <cfelse>
-	1:1 - woot
+	<br>There is 1 event per specimen.....
+	<cfquery name="et" dbtype="query">
+		select specimen_event_type from specimenList group by specimen_event_type
+	</cfquery>
+	<cfif et.recordcount is 1 and valuelist(et.specimen_event_type) is "accepted place of collection">
+		<br>All events are accepted place of collection....
+		<cfquery name="vs" dbtype="query">
+			select verificationstatus from specimenList group by verificationstatus
+		</cfquery>
+		<cfif vs.recordcount is 1 and valuelist(vs.verificationstatus) is "unverified">
+			<br>all events are unverified - you may replace existing events
+			<cfset allowReplace=true>
+		<cfelse>
+			<br>verified events - do not allow replace
+		</cfif>
+	<cfelse>
+		<br>NOT all accepted place of collection
+	</cfif> 
 </cfif>
-<cfquery name="et" dbtype="query">
-	select specimen_event_type from specimenList group by specimen_event_type
-</cfquery>
-<cfif et.recordcount is 1 and valuelist(et.specimen_event_type) is "accepted place of collection">
-	all accepted place of collection
-<cfelse>
-	NOT all accepted place of collection
-</cfif> 
+
+
+<cfif action is "nothing">
+<cfset title = "Change Coll Event">
+	<cfset showLocality=1>
+	<cfset showEvent=1>
+	<cfoutput>
+ 		<h3>Find new collecting event</h3>
+		<form name="getCol" method="post" action="bulkCollEvent.cfm">
+			<input type="hidden" name="Action" value="findCollEvent">
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+			<cfinclude template="/includes/frmFindLocation_guts.cfm">	   
+		</form>
+	</cfoutput>
+</cfif>
+
+
+
+
+
 
 <br><b>Specimens Being Changed:</b>
 <cfoutput>
