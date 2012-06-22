@@ -352,9 +352,11 @@
 	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
+		<cfabort>
 	<cfelseif cgi.HTTP_HOST contains "meta-1.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
+		<cfabort>
 	</cfif>
 	
 	<!--- uncomment for a break from googlebot ---->
