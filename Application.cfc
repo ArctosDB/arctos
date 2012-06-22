@@ -224,6 +224,11 @@
 	<cfscript>
 		serverName = CreateObject("java", "java.net.InetAddress").getLocalHost().getHostName();
 	</cfscript>
+	<cfif serverName is "altai.corral.tacc.utexas.edu">
+		<cfset serverName='login.corral.tacc.utexas.edu'>
+	<cfelseif serverName is 'meta-1.corral.tacc.utexas.edu'>
+		<cfset serverName='arctos.database.museum'>
+	</cfif>
 	<!---
 	<cfmail subject="server startingt" to="arctos.database@gmail.com" from="serverStart@arctos.database.museum" type="html">
 		<cfoutput>#serverName# is starting</cfoutput>
@@ -254,23 +259,6 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
-	<cfelseif serverName is "arctos-test.arctos.database.museum">
-		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg">
-		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
-		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "arctos.database@gmail.com">
-		<cfset Application.technicalEmail = "arctos.database@gmail.com">
-		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
-		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
-		<cfset Application.genBankPrid = "3849">
-		<cfset Application.genBankUsername="uam">
-		<cfset Application.convertPath = "/usr/local/bin/convert">
-		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
-		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
-		<cfset Application.Google_uacct = "UA-315170-1">
-		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
-		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
     <cfelseif serverName contains "harvard.edu">
 		<cfset Application.svn = "/usr/bin/svn">
 		<cfset Application.webDirectory = "/var/www/html/arctosv.2.2.2">
@@ -288,7 +276,7 @@
 		<cfset Application.InstitutionBlurb = "Collections Database, Museum of Comparative Zoology, Harvard University">
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
-    <cfelseif serverName is "login.corral.tacc.utexas.edu" or serverName is "altai.corral.tacc.utexas.edu">
+    <cfelseif serverName is "login.corral.tacc.utexas.edu">
 		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
@@ -305,25 +293,12 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
-	<cfelseif serverName is "meta-1.corral.tacc.utexas.edu">
-		<cfset Application.serverRootUrl="http://arctos.database.museum">
-		<cfset Application.fromEmail="arctos.database.museum">
-		<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
-		<cfset Application.webDirectory = "/corral/tg/uaf/arctos_prod">
-		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "arctos.database@gmail.com,gordon.jarrell@gmail.com">
-		<cfset Application.technicalEmail = "arctos.database@gmail.com,gordon.jarrell@gmail.com">
-		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
-		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
-		<cfset Application.genBankPrid = "3849">
-		<cfset Application.genBankUsername="uam">
-		<cfset Application.convertPath = "/usr/local/bin/convert">
-		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
-		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
-		<cfset Application.Google_uacct = "UA-315170-1">
-		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
-		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
+	<cfelse>
+		<cfmail subject="bad app start" to="#Application.PageProblemEmail#" from="badAppStart@#application.fromEmail#" type="html">
+			Idon't know who I am
+			serverName=<cfdump var=serverName>
+			<cfdump var=#cgi# label="cgi">
+		</cfmail>
 	</cfif>
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
@@ -366,8 +341,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" output="true">
-	
-	
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 </cffunction>
@@ -376,9 +349,10 @@
 	<cfif cgi.HTTP_HOST is "altai.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
+	<cfelseif gi.HTTP_HOST is "meta-1.corral.tacc.utexas.edu">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://arctos.database.museum/">
 	</cfif>
-	
-	
 	
 	<!--- uncomment for a break from googlebot ---->
 	<!----
