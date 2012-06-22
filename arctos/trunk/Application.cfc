@@ -366,6 +366,13 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" output="true">
+	
+	
+	<cfinclude template="/includes/functionLib.cfm">
+	<cfset initSession()>
+</cffunction>
+<!-------------------------------------------------------------->
+<cffunction name="onRequestStart" returnType="boolean" output="true">
 	<cfoutput>
 		-----#cgi.HTTP_HOST#----
 	</cfoutput>
@@ -374,11 +381,8 @@
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
 	</cfif>
 	
-	<cfinclude template="/includes/functionLib.cfm">
-	<cfset initSession()>
-</cffunction>
-<!-------------------------------------------------------------->
-<cffunction name="onRequestStart" returnType="boolean" output="true">
+	
+	
 	<!--- uncomment for a break from googlebot ---->
 	<!----
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
