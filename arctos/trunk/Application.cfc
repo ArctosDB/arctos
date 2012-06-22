@@ -346,10 +346,10 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	<cfif cgi.HTTP_HOST is "altai.corral.tacc.utexas.edu">
+	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
-	<cfelseif cgi.HTTP_HOST is "meta-1.corral.tacc.utexas.edu">
+	<cfelseif cgi.HTTP_HOST contains "meta-1.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
 	</cfif>
