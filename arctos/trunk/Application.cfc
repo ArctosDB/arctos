@@ -365,7 +365,10 @@
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
-<cffunction name="onSessionStart" output="false">
+<cffunction name="onSessionStart" output="true">
+	<cfoutput>
+		-----#cgi.HTTP_HOST#----
+	</cfoutput>
 	<cfif cgi.HTTP_HOST is "altai.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
