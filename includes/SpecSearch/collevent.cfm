@@ -196,7 +196,7 @@
 			</a>
 		</td>
 		<td class="srch">
-			<input type="text" name="collecting_method" id="collecting_method">
+			<input type="text" name="collecting_method" id="collecting_method" size="50">
 		</td>
 	</tr>
 	<tr>
