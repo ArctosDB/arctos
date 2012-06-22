@@ -366,6 +366,11 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" output="false">
+	<cfif cgi.HTTP_HOST is "altai.corral.tacc.utexas.edu">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
+	</cfif>
+	
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 </cffunction>
@@ -455,7 +460,7 @@
 	</cfif>
 	<!--- keep people/bots from browsing a dev server 
 	--->
-	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "altai.corral.tacc.utexas.edu">
+	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu">
 		<cfset cPath=GetTemplatePath()>
 		<cfif
 			cPath does not contain "/errors/dev_login.cfm" and
