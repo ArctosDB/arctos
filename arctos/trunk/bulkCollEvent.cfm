@@ -339,44 +339,22 @@
 					geog_auth_rec_id,
 					locality_id,
 					collecting_event_id,
-					specimen_event_type,
-					assigned_by_agent_name,
-					assigned_by_agent_id,
-					assigned_date,
-					specimen_event_remark,
-					habitat,
-					collecting_source,
-					collecting_method,
-					VerificationStatus,
 					verbatim_locality,
 					spec_locality,
 					began_date,
 					ended_date,
-					verbatim_date,
-					collecting_source,
-					collecting_method
+					verbatim_date
 				from
 					localityResults
 				group by
 					geog_auth_rec_id,
 					locality_id,
 					collecting_event_id,
-					specimen_event_type,
-					assigned_by_agent_name,
-					assigned_by_agent_id,
-					assigned_date,
-					specimen_event_remark,
-					habitat,
-					collecting_source,
-					collecting_method,
-					VerificationStatus,
 					verbatim_locality,
 					spec_locality,
 					began_date,
 					ended_date,
-					verbatim_date,
-					collecting_source,
-					collecting_method
+					verbatim_date
 			</cfquery>
 			<cfloop query="localityResults">
 				<tr>
