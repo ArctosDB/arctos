@@ -65,7 +65,6 @@
       		<tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
        			<td>
 		  			<input type="button" value="Accept" class="lnkBtn"
-   						onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
   						onClick="javascript: opener.document.#formName#.#localityIdFld#.value='#locality_id#';
 						opener.document.#formName#.#speclocFld#.value='#jsescape(spec_locality)#';
 						self.close();">
@@ -80,10 +79,13 @@
 					<br>
 					<span style="font-size:.7em">
 						<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-							<cfset iu="http://maps.google.com/maps/api/staticmap?center=#dec_lat#,#dec_long#">
-							<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=200x200&zoom=2">
-							<cfset iu=iu & "&maptype=roadmap">
-							<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+							<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+								<cfinvokeargument name="lat" value="#DEC_LAT#">
+								<cfinvokeargument name="long" value="#DEC_LONG#">
+								<cfinvokeargument name="locality_id" value="#locality_id#">
+							</cfinvoke>
+							#contents#
+							<br>
 							#dec_lat# #dec_long# 
 							(#georeference_source# - #georeference_protocol#)
 						</cfif>
