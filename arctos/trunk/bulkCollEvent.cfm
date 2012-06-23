@@ -172,6 +172,13 @@
 				<br>NOT all accepted place of collection
 			</cfif> 
 		</cfif>
+		<cfif allowReplace is true>
+			<br><input type="button"
+					onclick="document.locaton='bulkCollEvent.cfm?action=deleteAll&collection_object_id=#collection_object_id#';" 
+				 	value="REMOVE all specimen events (presumably so you can add new ones)" 
+					class="delBtn">
+		</cfif>
+		
 	</div>
 	<br><b>Specimens Being Changed:</b>
 	<cfoutput>
@@ -413,10 +420,6 @@
 									onclick="coll#i#.action.value='replaceAll';coll#i#.submit();" 
 								 	value="REPLACE all specimens event with this event" 
 									class="savBtn">
-								<br><input type="button"
-									onclick="coll#i#.action.value='deleteAll';coll#i#.submit();" 
-								 	value="REMOVE all specimen events (presumably so you can add new ones)" 
-									class="delBtn">
 							<cfelse>
 								<br>Only additive tools are available for this specimen set
 							</cfif>
