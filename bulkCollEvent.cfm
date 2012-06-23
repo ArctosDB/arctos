@@ -1,9 +1,5 @@
 <cfinclude template="includes/_header.cfm">
 <!--------------------------------------------------------------------------------------------------->
-
-<!------------------------------------->
-<!---------------------------------------------->
-
 <cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	 SELECT 
 	 	flat.collection_object_id,
@@ -62,30 +58,31 @@
 	select count(*) x from events_per_spec where c != 1
 </cfquery>
 <cfset allowReplace=false>
-
-<cfif len(events_per_spec2.x) gt 0 and events_per_spec2.x is not 0>
-	<br>There is not 1 event per specimen - only additive tools are available
-<cfelse>
-	<br>There is 1 event per specimen.....
-	<cfquery name="et" dbtype="query">
-		select specimen_event_type from specimenList group by specimen_event_type
-	</cfquery>
-	<cfif et.recordcount is 1 and valuelist(et.specimen_event_type) is "accepted place of collection">
-		<br>All events are accepted place of collection....
-		<cfquery name="vs" dbtype="query">
-			select verificationstatus from specimenList group by verificationstatus
-		</cfquery>
-		<cfif vs.recordcount is 1 and valuelist(vs.verificationstatus) is "unverified">
-			<br>all events are unverified
-			<cfset allowReplace=true>
-		<cfelse>
-			<br>verified events - do not allow replace
-		</cfif>
+<div style="padding:1em; text-align:center; margin:1em; width:70%'border:2px solid red">
+	Tools are at the bottom....
+	<cfif len(events_per_spec2.x) gt 0 and events_per_spec2.x is not 0>
+		<br>There is not 1 event per specimen - only additive tools are available
 	<cfelse>
-		<br>NOT all accepted place of collection
-	</cfif> 
-</cfif>
-
+		<br>There is 1 event per specimen.....
+		<cfquery name="et" dbtype="query">
+			select specimen_event_type from specimenList group by specimen_event_type
+		</cfquery>
+		<cfif et.recordcount is 1 and valuelist(et.specimen_event_type) is "accepted place of collection">
+			<br>All events are accepted place of collection....
+			<cfquery name="vs" dbtype="query">
+				select verificationstatus from specimenList group by verificationstatus
+			</cfquery>
+			<cfif vs.recordcount is 1 and valuelist(vs.verificationstatus) is "unverified">
+				<br>all events are unverified
+				<cfset allowReplace=true>
+			<cfelse>
+				<br>verified events - do not allow replace
+			</cfif>
+		<cfelse>
+			<br>NOT all accepted place of collection
+		</cfif> 
+	</cfif>
+</div>
 
 <cfif action is "nothing">
 <cfset title = "Change Coll Event">
@@ -100,13 +97,6 @@
 		</form>
 	</cfoutput>
 </cfif>
-
-
-
-
-<p>
-	Tools are under specimen list.
-</p>
 
 <br><b>Specimens Being Changed:</b>
 <cfoutput>
@@ -332,7 +322,7 @@
 					-------->
 					</td>
 					<td>#verbatim_locality#
-						<cfif #spec_locality# neq #verbatim_locality#>
+						<cfif spec_locality neq verbatim_locality>
 							<br><strong><em>Spec. Locality:</em></strong> #spec_locality#
 						</cfif>
 					</td>
@@ -342,14 +332,11 @@
 					<td>#collecting_source#</td>
 					<td>#collecting_method#</td>
 				</tr>
-				<cfset i=#i#+1>
+				<cfset i=i+1>
 			</cfloop>
 		</table>
 	</cfoutput>
 </cfif>
-
-addToAll
-
 
 <!----------------------------------------------------------------------------------->
 <cfif action is "addToAll">
