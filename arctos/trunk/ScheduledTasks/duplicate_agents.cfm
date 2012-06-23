@@ -89,7 +89,6 @@ END;
 						cf_dup_agent_id=#cf_dup_agent_id#
 				</cfquery>
 				<cfmail to="arctos.database@gmail.com" subject="agent merger failed" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
-					<br>---------------adjust email settings-----------------
 					<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed.
 					<br>fail reason: #fail#
 				</cfmail>

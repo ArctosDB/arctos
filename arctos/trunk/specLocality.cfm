@@ -577,15 +577,18 @@ function useGL(glat,glon,gerr){
 				</cfif>
 				<cfif len(DEC_LAT) gt 0>
 					<li>
-						<cfset iu="http://maps.google.com/maps/api/staticmap?center=#DEC_LAT#,#DEC_LONG#">
-						<cfset iu=iu & "&markers=color:red|size:tiny|#DEC_LAT#,#DEC_LONG#&sensor=false&size=200x200&zoom=2&maptype=roadmap">
-						<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+						<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+							<cfinvokeargument name="lat" value="#DEC_LAT#">
+							<cfinvokeargument name="long" value="#DEC_LONG#">
+							<cfinvokeargument name="locality_id" value="#locality_id#">
+						</cfinvoke>
+						#contents#
 						<span style="font-size:small;">
 							<br>#DEC_LAT# / #DEC_LONG#
 							<br>Datum: #DATUM#
-							<br>Error : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
-							<br>Georeference Source : #georeference_source#
-							<br>Georeference Protocol : #georeference_protocol#
+							<br>Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+							<br>Georeference Source: #georeference_source#
+							<br>Georeference Protocol: #georeference_protocol#
 						</span>
 					</li>
 				</cfif>
