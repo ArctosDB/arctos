@@ -408,20 +408,19 @@
 									<option value="#VerificationStatus#">#VerificationStatus#</option>
 								</cfloop>
 							</select>
-							<br>
 							<cfif allowReplace is true>
-								<input type="button"
+								<br><input type="button"
 									onclick="coll#i#.action.value='replaceAll';coll#i#.submit();" 
 								 	value="REPLACE all specimens event with this event" 
 									class="savBtn">
-								<input type="button"
+								<br><input type="button"
 									onclick="coll#i#.action.value='deleteAll';coll#i#.submit();" 
 								 	value="REMOVE all specimen events (presumably so you can add new ones)" 
 									class="delBtn">
 							<cfelse>
 								<br>Only additive tools are available for this specimen set
 							</cfif>
-							<input type="button"
+							<br><input type="button"
 								onclick="coll#i#.action.value='addToAll';coll#i#.submit();" 
 							 	value="Add this event to all listed specimens (may remove the ability to bulk-update)" 
 								class="insBtn">
