@@ -346,9 +346,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	<cfoutput>
-		#cgi.HTTP_HOST#
-	</cfoutput>
 	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
