@@ -292,6 +292,7 @@
 						ENDED_DATE,
 						VERBATIM_COORDINATES,
 						COLLECTING_EVENT_NAME,
+						locality_name,
 						spec_locality,
 						higher_geog
 					from
