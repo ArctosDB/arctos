@@ -203,7 +203,7 @@
 	</table>
 </cfoutput>
 
-<a href="bulkCollEvent.cfm?action=removeAll&collection_object_id=#collection_object_id#">
+<a href="bulkCollEvent.cfm?action=removeAll&collection_object_id=#collection_object_id#">remove all</a>
 
 
 	
