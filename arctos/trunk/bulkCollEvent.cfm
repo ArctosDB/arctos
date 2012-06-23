@@ -1,7 +1,49 @@
 <cfinclude template="includes/_header.cfm">
 <!----------------------------------------------------------------------------------->
+<cfif action is "deleteAll">
+	<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from specimen_event where collection_object_id in (#collection_object_id#)
+	</cfquery>
+	<cflocation url="bulkCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+</cfif>
+<!----------------------------------------------------------------------------------->
+<cfif action is "replaceAll">
+	<cftransaction>
+		<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from specimen_event where collection_object_id in (#collection_object_id#)
+		</cfquery>
+		<cfloop list="#COLLECTION_OBJECT_ID#" index="i">
+			<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into specimen_event (
+					collection_object_id,
+					collecting_event_id,
+					assigned_by_agent_id,
+					assigned_date,
+					specimen_event_remark,
+					specimen_event_type,
+					COLLECTING_METHOD,
+					COLLECTING_SOURCE,
+					VERIFICATIONSTATUS,
+					habitat
+				) values (
+					#i#,
+					#collecting_event_id#,
+					#assigned_by_agent_id#,
+					'#dateformat(assigned_date,"yyyy=mm-dd")#',
+					'#escapeQuotes(specimen_event_remark)#',
+					'#specimen_event_type#',
+					'#escapeQuotes(COLLECTING_METHOD)#',
+					'#COLLECTING_SOURCE#',
+					'#VERIFICATIONSTATUS#',
+					'#escapeQuotes(habitat)#'
+				)
+			</cfquery>
+		</cfloop>
+	</cftransaction>
+	<cflocation url="bulkCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+</cfif>
+<!----------------------------------------------------------------------------------->
 <cfif action is "addToAll">
-	<cfdump var=#form#>
 	<cftransaction>
 		<cfloop list="#COLLECTION_OBJECT_ID#" index="i">
 			<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -131,11 +173,6 @@
 			</cfif> 
 		</cfif>
 	</div>
-	<cfif allowReplace is true>
-		<p><a href="bulkCollEvent.cfm?action=removeAll&collection_object_id=#collection_object_id#">[ remove the event from all specimens ]</a></p>
-	</cfif>
-	
-	
 	<br><b>Specimens Being Changed:</b>
 	<cfoutput>
 		<table width="95%" border="1">
@@ -349,23 +386,23 @@
 									<option value="#VerificationStatus#">#VerificationStatus#</option>
 								</cfloop>
 							</select>
-							
+							<br>
 							<cfif allowReplace is true>
 								<input type="button"
 									onclick="coll#i#.action.value='replaceAll';coll#i#.submit();" 
-								 	value="REPLACE all specimens event with this" 
+								 	value="REPLACE all specimens event with this event" 
 									class="savBtn">
 								<input type="button"
-									onclick="coll#i#.action.value='replaceAll';coll#i#.submit();" 
-								 	value="REMOVE all specimen-events" 
-									class="savBtn">
+									onclick="coll#i#.action.value='deleteAll';coll#i#.submit();" 
+								 	value="REMOVE all specimen events (presumably so you can add new ones)" 
+									class="delBtn">
 							<cfelse>
 								<br>Only additive tools are available for this specimen set
 							</cfif>
 							<input type="button"
 								onclick="coll#i#.action.value='addToAll';coll#i#.submit();" 
-							 	value="Add this event to all listed specimens" 
-								class="savBtn">
+							 	value="Add this event to all listed specimens (may remove the ability to bulk-update)" 
+								class="insBtn">
 					</form>
 						
 						<!------
