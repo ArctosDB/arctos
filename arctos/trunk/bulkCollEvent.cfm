@@ -309,59 +309,83 @@
 							<table #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# border>
 								<cfset i=1+1>
 								<tr>
-									<td align="right">specimen_event_type</td>
+									<td align="right">Specimen/Event Type</td>
 									<td>#specimen_event_type#</td>
 								</tr>
 								<tr>
-									<td align="right">assignedBy/Date</td>
+									<td align="right">EventAssignedBy/Date</td>
 									<td>#assignedBy# on #assigned_date#</td>
 								</tr>
+								<cfif len(specimen_event_remark) gt 0>
+									<tr>
+										<td align="right">Specimen/Event Remark</td>
+										<td>#specimen_event_remark#</td>
+									</tr>
+								</cfif>
+								<cfif len(COLLECTING_METHOD) gt 0>
+									<tr>
+										<td align="right">Collecting Method</td>
+										<td>#COLLECTING_METHOD#</td>
+									</tr>
+								</cfif>
+								<cfif len(COLLECTING_SOURCE) gt 0>
+									<tr>
+										<td align="right">Collecting Source</td>
+										<td>#COLLECTING_SOURCE#</td>
+									</tr>
+								</cfif>
 								<tr>
-									<td align="right">specimen_event_remark</td>
-									<td>#specimen_event_remark#</td>
-								</tr>
-								<tr>
-									<td align="right">COLLECTING_METHOD</td>
-									<td>#COLLECTING_METHOD#</td>
-								</tr>
-								<tr>
-									<td align="right">COLLECTING_SOURCE</td>
-									<td>#COLLECTING_SOURCE#</td>
-								</tr>
-								<tr>
-									<td align="right">VERIFICATIONSTATUS</td>
+									<td align="right">VerificationStatus</td>
 									<td>#VERIFICATIONSTATUS#</td>
 								</tr>
+								<cfif len(habitat) gt 0>
+									<tr>
+										<td align="right">Habitat</td>
+										<td>#habitat#</td>
+									</tr>
+								</cfif>
 								<tr>
-									<td align="right">habitat</td>
-									<td>#habitat#</td>
-								</tr>
-								<tr>
-									<td align="right">VERBATIM_DATE</td>
+									<td align="right">Date</td>
 									<td>#VERBATIM_DATE# (#BEGAN_DATE#-#ENDED_DATE#)</td>
 								</tr>
+								<cfif len(VERBATIM_LOCALITY) gt 0>
+									<tr>
+										<td align="right">Verbatim Locality</td>
+										<td>#VERBATIM_LOCALITY#</td>
+									</tr>
+								</cfif>
+								<cfif len(COLL_EVENT_REMARKS) gt 0>
+									<tr>
+										<td align="right">EventRemark</td>
+										<td>#COLL_EVENT_REMARKS#</td>
+									</tr>
+								</cfif>
+								<cfif len(VERBATIM_COORDINATES) gt 0>
+									<tr>
+										<td align="right">EventCoordinates</td>
+										<td>#VERBATIM_COORDINATES#</td>
+									</tr>
+								</cfif>
+								<cfif len(COLLECTING_EVENT_NAME) gt 0>
+									<tr>
+										<td align="right">EventName</td>
+										<td>#COLLECTING_EVENT_NAME#</td>
+									</tr>
+								</cfif>
+								<cfif len(locality_name) gt 0>
+									<tr>
+										<td align="right">LocalityName</td>
+										<td>#locality_name#</td>
+									</tr>
+								</cfif>
+								<cfif len(spec_locality) gt 0>
+									<tr>
+										<td align="right">SpecificLocality</td>
+										<td>#spec_locality#</td>
+									</tr>
+								</cfif>
 								<tr>
-									<td align="right">VERBATIM_LOCALITY</td>
-									<td>#VERBATIM_LOCALITY#</td>
-								</tr>
-								<tr>
-									<td align="right">COLL_EVENT_REMARKS</td>
-									<td>#COLL_EVENT_REMARKS#</td>
-								</tr>
-								<tr>
-									<td align="right">VERBATIM_COORDINATES</td>
-									<td>#VERBATIM_COORDINATES#</td>
-								</tr>
-								<tr>
-									<td align="right">COLLECTING_EVENT_NAME</td>
-									<td>#COLLECTING_EVENT_NAME#</td>
-								</tr>
-								<tr>
-									<td align="right">spec_locality</td>
-									<td>#spec_locality#</td>
-								</tr>
-								<tr>
-									<td align="right">higher_geog</td>
+									<td align="right">Geography</td>
 									<td>#higher_geog#</td>
 								</tr>
 							</table>
