@@ -304,8 +304,10 @@
 					<td>#CustomID#&nbsp;</td>
 					<td><i>#Scientific_Name#</i></td>
 					<td>
+						<cfset i=1>
 						<cfloop query="thisEvents">
 							<table #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# border>
+								<cfset i=1+1>
 								<tr>
 									<td align="right">specimen_event_type</td>
 									<td>#specimen_event_type#</td>
