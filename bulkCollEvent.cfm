@@ -200,7 +200,8 @@
 			collecting_event.VERBATIM_COORDINATES,
 			collecting_event.COLLECTING_EVENT_NAME,
 			locality.spec_locality,
-			geog_auth_rec.higher_geog
+			geog_auth_rec.higher_geog,
+			locality.locality_name
 		FROM 
 			flat,
 			specimen_event,
