@@ -334,6 +334,50 @@
 				<td><b>Method</b></td>
 			</tr>
 			<cfset i = 1>
+			<cfquery name="localityResults" dbtype="query">
+				select
+					geog_auth_rec_id,
+					locality_id,
+					collecting_event_id,
+					specimen_event_type,
+					assigned_by_agent_name,
+					assigned_by_agent_id,
+					assigned_date,
+					specimen_event_remark,
+					habitat,
+					collecting_source,
+					collecting_method,
+					VerificationStatus,
+					verbatim_locality,
+					spec_locality,
+					began_date,
+					ended_date,
+					verbatim_date,
+					collecting_source,
+					collecting_method
+				from
+					localityResults
+				group by
+					geog_auth_rec_id,
+					locality_id,
+					collecting_event_id,
+					specimen_event_type,
+					assigned_by_agent_name,
+					assigned_by_agent_id,
+					assigned_date,
+					specimen_event_remark,
+					habitat,
+					collecting_source,
+					collecting_method,
+					VerificationStatus,
+					verbatim_locality,
+					spec_locality,
+					began_date,
+					ended_date,
+					verbatim_date,
+					collecting_source,
+					collecting_method
+			</cfquery>
 			<cfloop query="localityResults">
 				<tr>
 					<td> <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a></td>
