@@ -148,6 +148,8 @@
 	<cfquery name="events_per_spec2" dbtype="query">
 		select count(*) x from events_per_spec where c != 1
 	</cfquery>
+	
+	<cfoutput>
 	<cfset allowReplace=false>
 	<div style="padding:1em; text-align:center; margin:1em; width:70%;border:2px solid red;">
 		<cfif len(events_per_spec2.x) gt 0 and events_per_spec2.x is not 0>
@@ -181,7 +183,6 @@
 		
 	</div>
 	<br><b>Specimens Being Changed:</b>
-	<cfoutput>
 		<table width="95%" border="1">
 			<tr>
 				<th>Specimen</th>
