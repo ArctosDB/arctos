@@ -58,8 +58,7 @@
 	select count(*) x from events_per_spec where c != 1
 </cfquery>
 <cfset allowReplace=false>
-<div style="padding:1em; text-align:center; margin:1em; width:70%'border:2px solid red">
-	Tools are at the bottom....
+<div style="padding:1em; text-align:center; margin:1em; width:70%;border:2px solid red;">
 	<cfif len(events_per_spec2.x) gt 0 and events_per_spec2.x is not 0>
 		<br>There is not 1 event per specimen - only additive tools are available
 	<cfelse>
@@ -211,6 +210,7 @@
 	
 	
 <cfif action is "findCollEvent">
+<p>Tools are at the bottom....</p>
 	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
@@ -223,6 +223,7 @@
 		select VerificationStatus from ctVerificationStatus
 	</cfquery>
 	<cfoutput>
+		<h3>Locality Search Results</h3>
 		<cf_findLocality>
 		<table border>
 			<tr>
@@ -256,10 +257,10 @@
 							<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
 
 							<label for="specimen_event_type">Event Assigned by Agent</label>
-							<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" size="40"
+							<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" size="40" value="#session.dbuser#"
 								 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','coll#i#',this.value); return false;"
 								 onKeyPress="return noenter(event);">
-							<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id">
+							<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
 			
 							<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
 							<input type="text" name="assigned_date" id="assigned_date" class="reqdClr">
