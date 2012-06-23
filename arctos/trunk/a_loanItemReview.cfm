@@ -9,7 +9,7 @@
 	You did something very naughty.<cfabort>
 </cfif>
 <!-------------------------------------------------------------------------------->
-<cfif #Action# is "delete">
+<cfif action is "delete">
 	<cfoutput>
 	<cfif isdefined("coll_obj_disposition") AND coll_obj_disposition is "on loan">
 		<!--- see if it's a subsample --->

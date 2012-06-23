@@ -1,6 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-<!--------------------------------------------------------------------------------------------------->
-
 <!----------------------------------------------------------------------------------->
 <cfif action is "addToAll">
 	<cfdump var=#form#>
@@ -50,17 +48,13 @@
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-
-<!----------------------------------------------------------------------------------->
 <cfif action is "findCollEvent">
 	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
-	
 	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
      </cfquery>
-	
 	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select VerificationStatus from ctVerificationStatus
 	</cfquery>
@@ -311,7 +305,7 @@
 					<td><i>#Scientific_Name#</i></td>
 					<td>
 						<cfloop query="thisEvents">
-							<table border>
+							<table #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# border>
 								<tr>
 									<td align="right">specimen_event_type</td>
 									<td>#specimen_event_type#</td>
