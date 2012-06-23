@@ -215,6 +215,7 @@
 					from
 						specimenList
 					where
+						specimen_event_type is not null and
 						collection_object_id=#collection_object_id#
 				</cfquery>
 				<tr>
