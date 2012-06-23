@@ -449,8 +449,6 @@
 					<td>#began_date#</td>
 					<td>#ended_date#</td>
 					<td>#verbatim_date#</td>
-					<td>#collecting_source#</td>
-					<td>#collecting_method#</td>
 				</tr>
 				<cfset i=i+1>
 			</cfloop>
