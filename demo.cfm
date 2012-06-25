@@ -17,3 +17,9 @@ http://altai.corral.tacc.utexas.edu/mediaUploads/dlm/SweetHomeAlabama.mp3
 </cfhttp>	
 	
 	<cfdump var=#cfhttp#>
+	
+	<cfoutput>
+		#cfhttp.fileContent#
+	</cfoutput>
+	
+	
