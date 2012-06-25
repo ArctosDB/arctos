@@ -498,9 +498,9 @@
 												#contents#
 											</cfif>
 											<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#dec_lat#,#dec_long#&sensor=false"></cfhttp>
-											<cfset x=DeserializeJSON(cfhttp.fileContent).results[1].elevation>
-											<br>Elevation: #x#
-		
+											<div class="webElevation">
+												Elevation (from Google): #round(DeserializeJSON(cfhttp.fileContent).results[1].elevation)#
+											</div>
 										</td>
 									</tr>
 								</table>
