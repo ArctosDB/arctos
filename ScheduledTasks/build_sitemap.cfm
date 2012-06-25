@@ -421,7 +421,7 @@
          	select a.*, rownum rnum from (
             	select                
                 	guid,
-                	to_char(LAST_EDIT_DATE,'yyyy-mm-dd') lastMod
+                	to_char(lastdate,'yyyy-mm-dd') lastMod
 				from 
 					filtered_flat
 				where guid is not null
