@@ -1319,8 +1319,20 @@
             <span class="detailData">			
 				<div class="thumbs">
 					<div class="thumb_spcr">&nbsp;</div>
+					
+					<cfset stuffToNotPlay="audio/x-wav">
 					<cfloop query="media">
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
+						<cfset thisTypeTag="">
+						<cfloop list="#stuffToNotPlay#" index="f">
+							<cfif mime_type is x>
+								<cfset thisTypeTag="do_not_play">
+							<cfelse>
+								<cfset thisTypeTag="mime_type">
+							</cfif>
+						</cfloop>
+						
+						
 		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select
 								media_label,
@@ -1338,7 +1350,7 @@
 							<cfset alt=desc.label_value>
 						</cfif>
 		               <div class="one_thumb">
-			               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+			               <a href="#media_uri#" target="_blank" type="#thisTypeTag#"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
 		                   	<p>
 								#media_type# (#mime_type#)
 			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
