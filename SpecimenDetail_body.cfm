@@ -1325,7 +1325,7 @@
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
 						<cfset thisTypeTag="">
 						<cfloop list="#stuffToNotPlay#" index="f">
-							<cfif mime_type is x>
+							<cfif mime_type is f>
 								<cfset thisTypeTag="do_not_play">
 							<cfelse>
 								<cfset thisTypeTag="mime_type">
