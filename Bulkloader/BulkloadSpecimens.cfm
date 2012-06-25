@@ -219,6 +219,10 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 <cfoutput>
 	<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" procedure="bulkloader_stage_check">
 	</cfstoredproc>
+	
+	<cfabort>
+	
+	
 	<cfquery name="anyBads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) as cnt from bulkloader_stage
 		where loaded is not null
