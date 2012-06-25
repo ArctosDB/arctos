@@ -1323,15 +1323,10 @@
 					<cfset stuffToNotPlay="audio/x-wav">
 					<cfloop query="media">
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
-						<cfset thisTypeTag="">
-						<cfloop list="#stuffToNotPlay#" index="f">
-							<cfif mime_type is f>
-								<cfset thisTypeTag="do_not_play">
-							<cfelse>
-								<cfset thisTypeTag="mime_type">
-							</cfif>
-						</cfloop>
-						
+						<cfset thisTypeTag=mime_type>
+						<cfif listfind(stuffToNotPlay,mime_type)>
+							<cfset thisTypeTag="image/png">
+						</cfif>
 						
 		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select
