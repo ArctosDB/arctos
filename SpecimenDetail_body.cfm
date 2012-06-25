@@ -1,6 +1,7 @@
 <cfif not isdefined("toProperCase")>
 	<cfinclude template="/includes/_frameHeader.cfm">
-</cfif><script type="text/javascript">
+</cfif>
+<script type="text/javascript">
     var YWPParams = 
     {
         termDetection: "on" 
@@ -1333,7 +1334,7 @@
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
 						<cfset thisTypeTag=mime_type>
 						<cfif listfind(stuffToNotPlay,mime_type)>
-							<cfset thisTypeTag="binary/noplay">
+							<cfset thisTypeTag="image/png">
 						</cfif>
 		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select
