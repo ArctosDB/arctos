@@ -1,3 +1,7 @@
+.webElevation {
+	font-size:small;
+	font-color:gray;
+}
 .hide {visibility:hidden;}
 .soft404 {opacity:.8;}
 .fourohfour {opacity:.2;}
