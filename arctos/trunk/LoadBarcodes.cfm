@@ -97,6 +97,19 @@
 			(select barcode from container where barcode is not null and container_type = 'collection object')
 	</cfquery>
 	
+	<cfquery name="ucid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_barcodeload set child_id=(select container_id from container where container.barcode=cf_temp_barcodeload.child_barcode)
+	</cfquery>
+	
+	<cfquery name="upid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_barcodeload set parent_id=(select container_id from container where container.barcode=cf_temp_barcodeload.parent_barcode)
+	</cfquery>
+	
+	
+	<cfquery name="parent_is_colobj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_barcodeload set status='barcode_not_found' where child_id is null or parent_id is null
+	</cfquery>
+	
 	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_barcodeload where status is not null
@@ -105,10 +118,13 @@
 		The data will not load.
 		<cfdump var=#d#>
 	<cfelse>
-		The data will probably load - click to continue....
+		The data will probably load - <a href="LoadBarcodes.cfm?action=load">click to continue....</a>
 	</cfif>
 </cfif>
 
+<cfif action is "load">
+
+</cfif>
 
 
 
