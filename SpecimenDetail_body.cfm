@@ -38,7 +38,7 @@
 		COLLECTORS,
 		PREPARATORS,
 		remarks,
-		'add_to_flat' flags
+		flags
 	FROM 
 		#session.flatTableName#
 	WHERE 
