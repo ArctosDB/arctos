@@ -330,7 +330,7 @@
 	<cfset mapurl = "#mapurl#&beg_last_edit_date=#beg_last_edit_date#">
 	<cfset mapurl = "#mapurl#&end_last_edit_date=#end_last_edit_date#">
 	<cfset basQual = "#basQual#  AND (
-					to_date(to_char(#session.flatTableName#.last_edit_date,'yyyy-mm-dd')) between 
+					to_date(to_char(#session.flatTableName#.lastdate,'yyyy-mm-dd')) between 
 						to_date('#dateformat(beg_last_edit_date,"yyyy-mm-dd")#')
 						and to_date('#dateformat(end_last_edit_date,"yyyy-mm-dd")#')
 				)" >
