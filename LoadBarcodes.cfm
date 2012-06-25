@@ -72,7 +72,9 @@
 		</cfif>
 	</cfloop>
 	<a href="LoadBarcodes.cfm?action=verify">data loaded to temp table - click to verify</a>
-</cfif>  
+</cfif>
+
+ 
 <cfif action is "verify">
 	<cfquery name="child_not_found" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_barcodeload set status='child_not_found' where child_barcode not in (select barcode from container where barcode is not null)
@@ -123,7 +125,20 @@
 </cfif>
 
 <cfif action is "load">
-
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_barcodeload
+	</cfquery>
+	<cftransaction>
+		<cfloop query="d">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update container set parent_container_id=#parent_id# where container_id=#child_id#
+			</cfquery>
+		</cfloop>
+	</cftransaction>
+	
+	Errors above? nothing loaded - try again.
+	
+	No errors? All done.
 </cfif>
 
 
