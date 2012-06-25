@@ -1,14 +1,6 @@
 <cfif not isdefined("toProperCase")>
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
-<script type="text/javascript">
-    var YWPParams = 
-    {
-        termDetection: "on" ,
-        theme: "silver" 
-    };
-</script>
-<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
@@ -1326,10 +1318,6 @@
             <span class="detailData">			
 				<div class="thumbs">
 					<div class="thumb_spcr">&nbsp;</div>
-					<!--- Yahoo doesn't really seem to ignore this stuff, even though
-					http://webplayer.yahoo.com/docs/how-to-use/
-					says they do. Maybe someday....
-					--->
 					<cfset stuffToNotPlay="audio/x-wav">
 					<cfloop query="media">
 						<cfset puri=getMediaPreview(preview_uri,media_type)>

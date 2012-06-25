@@ -3,7 +3,6 @@
     <cfinclude template="/includes/_header.cfm">
 </div>
 <script type='text/javascript' language="javascript" src='/includes/media.js'></script>
-<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
     	<cflocation url="MediaSearch.cfm?action=search&relationships=shows cataloged_item&related_primary_key1=#url.collection_object_id#" addtoken="false">
@@ -301,6 +300,7 @@
 	<cfset rownum=1>
 <table>
 <cfif url.offset is 0><cfset url.offset=1></cfif>
+<cfset stuffToNotPlay="audio/x-wav">
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 	<cfset mp=getMediaPreview(preview_uri,media_type)>
 	<cfset alt=''>
@@ -311,12 +311,16 @@
 			<cfset alt=listgetat(i,2,chr(7))>
 		</cfif>
 	</cfloop>
+	<cfset addThisClass=''>
+	<cfif listfind(stuffToNotPlay,mime_type)>
+		<cfset addThisClass="noplay">
+	</cfif>
 	<cfif len(alt) is 0>
 		<cfset alt=media_uri>
 	</cfif>
 	<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td align="middle">
-			<a href="#media_uri#" target="_blank">
+			<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 				<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
 			</a>
 			<br>
