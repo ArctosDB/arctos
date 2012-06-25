@@ -11,3 +11,7 @@ http://altai.corral.tacc.utexas.edu/mediaUploads/dlm/SweetHomeAlabama.mp3</a>
 
 
 http://altai.corral.tacc.utexas.edu/mediaUploads/dlm/SweetHomeAlabama.mp3
+
+<cfhttp url="http://maps.googleapis.com/maps/api/elevation/json?locations=39.7391536,-104.9847034&sensor=false"></cfhttp>
+
+<cfdump var=#cfhttp#>
