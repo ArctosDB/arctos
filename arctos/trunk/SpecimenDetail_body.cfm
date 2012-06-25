@@ -1319,15 +1319,17 @@
             <span class="detailData">			
 				<div class="thumbs">
 					<div class="thumb_spcr">&nbsp;</div>
-					
+					<!--- Yahoo doesn't really seem to ignore this stuff, even though
+					http://webplayer.yahoo.com/docs/how-to-use/
+					says they do. Maybe someday....
+					--->
 					<cfset stuffToNotPlay="audio/x-wav">
 					<cfloop query="media">
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
 						<cfset thisTypeTag=mime_type>
 						<cfif listfind(stuffToNotPlay,mime_type)>
-							<cfset thisTypeTag="image/png">
+							<cfset thisTypeTag="binary/noplay">
 						</cfif>
-						
 		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select
 								media_label,
@@ -1345,7 +1347,7 @@
 							<cfset alt=desc.label_value>
 						</cfif>
 		               <div class="one_thumb">
-			               <a href="#media_uri#" target="_blank" type="#thisTypeTag#"><img type="#thisTypeTag#" src="#trim(getMediaPreview(preview_uri,media_type))#" alt="#alt#" class="theThumb"></a>
+			               <a href="#media_uri#" target="_blank" type="#thisTypeTag#"><img src="#trim(getMediaPreview(preview_uri,media_type))#" alt="#alt#" class="theThumb"></a>
 		                   	<p>
 								#media_type# (#mime_type#)
 			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
