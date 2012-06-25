@@ -25,6 +25,8 @@ http://altai.corral.tacc.utexas.edu/mediaUploads/dlm/SweetHomeAlabama.mp3
 		<cfset x=DeserializeJSON(cfhttp.fileContent)>
 		
 		<cfdump var=#x#>
+		
+		#x.results[1].elevation#
 	</cfoutput>
 	
 	
