@@ -89,8 +89,8 @@
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="incrementCustomId" access="remote">
-	<cfargument name="cidType" required="yes">
-	<cfargument name="cidVal" required="yes">
+	<cfargument name="cidType" required="no">
+	<cfargument name="cidVal" required="no">
 	<cfset cVal="">
 	<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1>
 		<cftry>
@@ -101,23 +101,7 @@
 				<cfset cVal = left(cidVal,1) & temp>
 			</cfif>
 		<cfcatch>
-			<cfmail to="arctos.database@gmail.com" subject="data entry catch" from="wtf@#Application.fromEmail#" type="html">
-				<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-					<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
-				<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
-					<CFSET ipaddress=CGI.Remote_Addr>
-				<cfelse>
-					<cfset ipaddress='unknown'>
-				</CFIF>
-				<cfdump var=#ipaddress#>
-				from incrementCustomId-----
-				cidVal: #cidVal#
-				<br>
-				<cfdump var=#cfcatch#>
-				<cfdump var=#session#>
-				
-				<cfdump var=#cgi#>
-			</cfmail>
+			<!--- whatever ---->
 		</cfcatch>
 		</cftry>
 	</cfif>
