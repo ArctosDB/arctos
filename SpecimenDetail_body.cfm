@@ -4,7 +4,8 @@
 <script type="text/javascript">
     var YWPParams = 
     {
-        termDetection: "on" 
+        termDetection: "on" ,
+        theme: "silver" 
     };
 </script>
 <script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
