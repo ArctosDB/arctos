@@ -105,7 +105,7 @@
 		The data will not load.
 		<cfdump var=#d#>
 	<cfelse>
-		skippy....
+		The data will probably load - click to continue....
 	</cfif>
 </cfif>
 
