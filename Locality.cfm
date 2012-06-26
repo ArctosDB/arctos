@@ -1420,23 +1420,40 @@ INSERT INTO geog_auth_rec (
 			locality_id,
             geog_auth_rec_id,
             spec_locality,
+			locality_name,
+			MINIMUM_ELEVATION,
+			MAXIMUM_ELEVATION,
+			ORIG_ELEV_UNITS,
+			MIN_DEPTH,
+			MAX_DEPTH,
+			DEPTH_UNITS,
+			LOCALITY_REMARKS,
             higher_geog,
             dec_lat,
 			dec_long,
 			georeference_source,
 			georeference_protocol,
 			geolAtts           
-		from localityResults
+		from 
+			localityResults
 		group by
-            locality_id,
+           locality_id,
             geog_auth_rec_id,
             spec_locality,
+			locality_name,
+			MINIMUM_ELEVATION,
+			MAXIMUM_ELEVATION,
+			ORIG_ELEV_UNITS,
+			MIN_DEPTH,
+			MAX_DEPTH,
+			DEPTH_UNITS,
+			LOCALITY_REMARKS,
             higher_geog,
             dec_lat,
 			dec_long,
 			georeference_source,
 			georeference_protocol,
-			geolAtts  
+			geolAtts        
 	</cfquery>
 	<cfif localityResults.recordcount lt 1000>
 		<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">BerkeleyMapper</a>
@@ -1448,7 +1465,7 @@ INSERT INTO geog_auth_rec (
 		<tr>
 			<th><b>Geog</b></th>
 	    	<th><b>Locality</b></th>
-	    	<th><b>Locality Metadata</b></th>
+	    	<th><b>Map</b></th>
 		</tr>
 		<cfset i=1>
 		<cfloop query="localityResults">
@@ -1457,16 +1474,24 @@ INSERT INTO geog_auth_rec (
 					#higher_geog# <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">(#geog_auth_rec_id#)</a>
 				</td>
 				<td>
-					<div>
-						#spec_locality# <a href="editLocality.cfm?locality_id=#locality_id#">(#locality_id#)</a>
+					<div class="smaller">
+					 	<cfif len(spec_locality) gt 0>Specific Locality: #spec_locality#</cfif>
+					 	<cfif len(LOCALITY_NAME) gt 0><br>Locality Name: #LOCALITY_NAME#</cfif>
+					 	<cfif len(DEC_LAT) gt 0>
+						 	<br>Coordinates: #DEC_LAT# / #DEC_LONG#
+						 	<br>Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+						 	<br>Datum: #DATUM#
+						 	<br>GeorefSource: #GEOREFERENCE_SOURCE#
+						 	<br>GeorefProtocol: #GEOREFERENCE_PROTOCOL#
+						</cfif>
+					 	<cfif len(ORIG_ELEV_UNITS) gt 0><br>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</cfif>
+					 	<cfif len(DEPTH_UNITS) gt 0><br>Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#</cfif>
+					 	<cfif len(LOCALITY_REMARKS) gt 0><br>Remark: #LOCALITY_REMARKS#</cfif>
+					 	 <cfif len(geolAtts) gt 0><br>[#geolAtts#]</cfif>
+						<br><a href="editLocality.cfm?locality_id=#locality_id#">Edit #locality_id#</a>
 					</div>
 				</td>
 				<td>
-					<cfif len(geolAtts) gt 0>
-						<div>
-							Geology: #geolAtts#]
-						</div>
-					</cfif>
 					<div>
 						<cfif len(dec_lat) gt 0>
 							<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
@@ -1474,9 +1499,6 @@ INSERT INTO geog_auth_rec (
 							    <cfinvokeargument name="long" value="#dec_long#">
 							</cfinvoke>
 							#contents#
-							<br>#dec_lat#/#dec_long#
-							<br>#georeference_source#
-							<br>#georeference_protocol#
 						</cfif>
 					</div>
 				</td>
