@@ -775,17 +775,19 @@
 			</ul>
 			
 			<cfif len(locDet.loclat) gt 0>
-				<cfset iu="http://maps.google.com/maps/api/staticmap?center=#locDet.loclat#,#locDet.loclong#">
-				<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.loclat#,#locDet.loclong#&sensor=false&size=200x200&zoom=2">
-				<cfset iu=iu & "&maptype=roadmap">
-				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locDet.locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
-				<span style="font-size:small;">
+				<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+					<cfinvokeargument name="lat" value="#locDet.loclat#">
+					<cfinvokeargument name="long" value="#locDet.loclong#">
+					<cfinvokeargument name="locality_id" value="#locDet.locality_id#">
+				</cfinvoke>
+				#contents#
+				<div style="font-size:small;">
 					<br>#locDet.loclat# / #locDet.loclong#
 					<br>Datum: #locDet.DATUM#
 					<br>Error : #locDet.MAX_ERROR_DISTANCE# #locDet.MAX_ERROR_UNITS#
 					<br>Georeference Source : #locDet.georeference_source#
 					<br>Georeference Protocol : #locDet.georeference_protocol#
-				</span>
+				</div>
 			</cfif>
 		</td></tr></table>
 	</cfform>	
