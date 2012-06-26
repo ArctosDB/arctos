@@ -351,7 +351,7 @@
 				<cfinvokeargument name="long" value="#locDet.dec_long#">
 				<cfinvokeargument name="locality_id" value="#locality_id#">
 			</cfinvoke>
-		#	contents#
+		#contents#
 		</cfif>
 		<ul>
 			<li><a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a></li>

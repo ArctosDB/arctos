@@ -28,7 +28,14 @@
 		georeference_protocol,
 		locality_name,
 		locality.DATUM,
-		collecting_event_name
+		collecting_event_name,
+		MINIMUM_ELEVATION,
+		MAXIMUM_ELEVATION,
+		ORIG_ELEV_UNITS,
+		MIN_DEPTH,
+		MAX_DEPTH,
+		DEPTH_UNITS,
+		LOCALITY_REMARKS
 	from 
 		geog_auth_rec,
 		locality,
