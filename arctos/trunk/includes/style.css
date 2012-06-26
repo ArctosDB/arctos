@@ -1,4 +1,3 @@
-
 figure {
     display: table;
     width: 1px; /* This can be any width, so long as it's narrower than any image */
@@ -7,14 +6,6 @@ img, figcaption {
     display: table-row;
 	font-size:small;
 	color:gray;
-}
-
-
-
-.mapCaption {
-	font-size:small;
-	color:gray;
-	text-align:center
 }
 .hide {visibility:hidden;}
 .soft404 {opacity:.8;}
