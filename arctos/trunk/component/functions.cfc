@@ -25,7 +25,7 @@
 	
 	<cfset rVal=rVal & '<figcaption class="webElevation">#lat#,#long#'>
 	<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-		<cfset rVal=rVal & " (Elevation: #round(elevResult.results[1].elevation)# m)">
+		<cfset rVal=rVal & "<br>Elevation: #round(elevResult.results[1].elevation)# m">
 	</cfif>
 	<cfset rVal=rVal & "</figcaption></figure>">
 	<cfreturn rVal> 
