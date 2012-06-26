@@ -1192,9 +1192,16 @@ INSERT INTO geog_auth_rec (
 					MAX_ERROR_UNITS,
 					georeference_source,
 					georeference_protocol,
-					locality_name
-				from localityResults
-				
+					locality_name,
+					MINIMUM_ELEVATION,
+					MAXIMUM_ELEVATION,
+					ORIG_ELEV_UNITS,
+					MIN_DEPTH,
+					MAX_DEPTH,
+					DEPTH_UNITS,
+					LOCALITY_REMARKS
+				from 
+					localityResults
 				group by 
 					collecting_event_id,
 					higher_geog,
@@ -1214,7 +1221,14 @@ INSERT INTO geog_auth_rec (
 					MAX_ERROR_UNITS,
 					georeference_source,
 					georeference_protocol,
-					locality_name
+					locality_name,
+					MINIMUM_ELEVATION,
+					MAXIMUM_ELEVATION,
+					ORIG_ELEV_UNITS,
+					MIN_DEPTH,
+					MAX_DEPTH,
+					DEPTH_UNITS,
+					LOCALITY_REMARKS
 			</cfquery>
 	
 <table border>
