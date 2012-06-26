@@ -6,6 +6,9 @@
 	<cfargument name="size" type="string" required="no" default="200x200">
 	<cfargument name="maptype" type="string" required="no" default="roadmap">
 	<cfargument name="collection_object_id" type="any" required="no" default="">
+	<cfargument name="locality_id" type="any" required="no" default="">
+	<cfargument name="collecting_event_id" type="any" required="no" default="">
+	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cfoutput>
 	<cfset mapurl="http://maps.google.com/maps/api/staticmap?center=#lat#,#long#">
 	<cfset mapurl=mapurl & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=#size#&zoom=2&maptype=#maptype#">
@@ -19,15 +22,21 @@
 	<cfset rVal='<figure>'>
 	<cfif len(collection_object_id) gt 0>
 		<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">' & mapImage & '</a>'>
+	<cfelseif len(locality_id) gt 0>
+		<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#locality_id#" target="_blank">' & mapImage & '</a>'>
+	<cfelseif len(collecting_event_id) gt 0>
+		<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?collecting_event_id=#collecting_event_id#" target="_blank">' & mapImage & '</a>'>
 	<cfelse>
 		<cfset rVal=rVal & '<a href="http://maps.google.com/maps?q=#lat#,#long#" target="_blank">' & mapImage & '</a>'>
 	</cfif>
-	
+	<cfif showCaption>
 	<cfset rVal=rVal & '<figcaption class="webElevation">#lat#,#long#'>
-	<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-		<cfset rVal=rVal & "<br>Elevation: #round(elevResult.results[1].elevation)# m">
+		<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+			<cfset rVal=rVal & "<br>Elevation: #round(elevResult.results[1].elevation)# m">
+		</cfif>
+		<cfset rVal=rVal & "</figcaption>">
 	</cfif>
-	<cfset rVal=rVal & "</figcaption></figure>">
+	<cfset rVal=rVal & "</figure>">
 	<cfreturn rVal> 
 	</cfoutput>	
 </cffunction>
