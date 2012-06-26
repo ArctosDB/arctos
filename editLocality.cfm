@@ -346,10 +346,12 @@
 	</form>
 	</td><td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
-			<cfset iu="http://maps.google.com/maps/api/staticmap?center=#locDet.dec_lat#,#locDet.dec_long#">
-			<cfset iu=iu & "&markers=color:red|size:tiny|#locDet.dec_lat#,#locDet.dec_long#&sensor=false&size=200x200&zoom=2">
-			<cfset iu=iu & "&maptype=roadmap">
-			<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+			<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+				<cfinvokeargument name="lat" value="#locDet.dec_lat#">
+				<cfinvokeargument name="long" value="#locDet.dec_long#">
+				<cfinvokeargument name="locality_id" value="#locality_id#">
+			</cfinvoke>
+		#	contents#
 		</cfif>
 		<ul>
 			<li><a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a></li>
