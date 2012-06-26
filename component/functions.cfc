@@ -11,6 +11,8 @@
 	<cfset iu=iu & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=#size#&zoom=2">
 	<cfset iu=iu & "&maptype=#maptype#">
 	<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#lat#,#long#&sensor=false"></cfhttp>
+	<cfset elevResult=DeserializeJSON((cfhttp.fileContent)>
+	
 	<cfset mapImage='<figure><img src="#iu#" alt="[ Google Map of #lat#,#long# ]">'>
 	<cfif len(collection_object_id) gt 0>
 		<cfset rVal='<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">' & mapImage & '</a>'>
@@ -18,8 +20,8 @@
 		<cfset rVal='<a href="http://maps.google.com/maps?q=#lat#,#long#" target="_blank">' & mapImage & '</a>'>
 	</cfif>
 	<cfset rVal=rVal & "<figcaption>#lat#,#long#">
-	<cfif isdefined("DeserializeJSON(cfhttp.fileContent.status)") and DeserializeJSON((cfhttp.fileContent.status) is "OK">
-		<cfset rVal= "(Elevation: #rVal & round(DeserializeJSON(cfhttp.fileContent).results[1].elevation)# m)">
+	<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+		<cfset rVal= "(Elevation: #rVal & round(elevResult.results[1].elevation)# m)">
 	</cfif>
 	<cfset rVal=rVal & "</figcaption></figure>">
 	<cfreturn rVal> 
