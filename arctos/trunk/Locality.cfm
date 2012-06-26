@@ -1474,7 +1474,10 @@ INSERT INTO geog_auth_rec (
 	    	<th><b>Map</b></th>
 		</tr>
 		<cfset i=1>
-		
+		<cfif x=2>
+																<cfset getMap = CreateObject("component","component.functions")>
+
+		</cfif>
 		<cfloop query="localityResults">
 			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<td>
@@ -1502,12 +1505,21 @@ INSERT INTO geog_auth_rec (
 					<div>
 						<cfif len(dec_lat) gt 0>
 							<!----
-														<cfset getMap = CreateObject("component","component.functions")>
 
 														<cfset contents=getMap.getMap(lat=#dec_lat#,long=#dec_long#)>
 
 							---->
 							
+							<cfif x=2>
+							
+
+														<cfset contents=getMap.getMap(lat=#dec_lat#,long=#dec_long#)>
+														
+														
+							#contents#
+							</cfif>
+							
+							<cfif x=1>
 							<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 							    <cfinvokeargument name="lat" value="#dec_lat#">
 							    <cfinvokeargument name="long" value="#dec_long#">
@@ -1515,6 +1527,8 @@ INSERT INTO geog_auth_rec (
 							
 							
 							#contents#
+							
+							</cfif>
 						</cfif>
 					</div>
 				</td>
