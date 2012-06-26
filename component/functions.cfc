@@ -7,15 +7,14 @@
 	<cfargument name="maptype" type="string" required="no" default="roadmap">
 	<cfargument name="collection_object_id" type="any" required="no" default="">
 	<cfoutput>
-	<cfset iu="http://maps.google.com/maps/api/staticmap?center=#lat#,#long#">
-	<cfset iu=iu & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=#size#&zoom=2">
-	<cfset iu=iu & "&maptype=#maptype#">
+	<cfset mapurl="http://maps.google.com/maps/api/staticmap?center=#lat#,#long#">
+	<cfset mapurl=mapurl & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=#size#&zoom=2&maptype=#maptype#">
 	
 	
 	<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#lat#,#long#&sensor=false"></cfhttp>
 	<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 	
-	<cfset mapImage='<img src="#iu#" alt="[ Google Map of #lat#,#long# ]">'>
+	<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #lat#,#long# ]">'>
 	
 	<cfset rVal='<figure>'>
 	<cfif len(collection_object_id) gt 0>
@@ -23,9 +22,10 @@
 	<cfelse>
 		<cfset rVal=rVal & '<a href="http://maps.google.com/maps?q=#lat#,#long#" target="_blank">' & mapImage & '</a>'>
 	</cfif>
+	
 	<cfset rVal=rVal & "<figcaption>#lat#,#long#">
 	<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-		<cfset rVal=rVal & " (Elevation: #rVal & round(elevResult.results[1].elevation)# m)">
+		<cfset rVal=rVal & " (Elevation: #round(elevResult.results[1].elevation)# m)">
 	</cfif>
 	<cfset rVal=rVal & "</figcaption></figure>">
 	<cfreturn rVal> 
