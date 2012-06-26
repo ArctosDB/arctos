@@ -23,7 +23,7 @@
 		<cfset rVal=rVal & '<a href="http://maps.google.com/maps?q=#lat#,#long#" target="_blank">' & mapImage & '</a>'>
 	</cfif>
 	
-	<cfset rVal=rVal & "<figcaption>#lat#,#long#">
+	<cfset rVal=rVal & '<figcaption class="webElevation">#lat#,#long#'>
 	<cfif isdefined("elevResult.status") and elevResult.status is "OK">
 		<cfset rVal=rVal & " (Elevation: #round(elevResult.results[1].elevation)# m)">
 	</cfif>
