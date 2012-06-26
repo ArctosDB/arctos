@@ -496,15 +496,6 @@
 													<cfinvokeargument name="collection_object_id" value="#collection_object_id#">
 												</cfinvoke>
 												#contents#
-												<cftry>
-												<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#dec_lat#,#dec_long#&sensor=false"></cfhttp>
-												<div class="webElevation">
-													Elevation (from Google): #round(DeserializeJSON(cfhttp.fileContent).results[1].elevation)# m
-												</div>
-												<cfcatch>
-													<cfdump var=#cfcatch#>
-												</cfcatch>
-												</cftry>
 											</cfif>
 											
 										</td>
