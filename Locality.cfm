@@ -1240,9 +1240,12 @@ INSERT INTO geog_auth_rec (
 			</td>
 			<td>
 				<cfif len(DEC_LAT) gt 0>
-					<cfset iu="http://maps.google.com/maps/api/staticmap?center=#DEC_LAT#,#DEC_LONG#">
-					<cfset iu=iu & "&markers=color:red|size:tiny|#DEC_LAT#,#DEC_LONG#&sensor=false&size=200x200&zoom=2&maptype=roadmap">
-					<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#locality_id#" target="_blank"><img src="#iu#" alt="Google Map"></a>
+					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+						<cfinvokeargument name="lat" value="#dec_lat#">
+						<cfinvokeargument name="long" value="#dec_long#">
+						<cfinvokeargument name="locality_id" value="#locality_id#">
+					</cfinvoke>
+					#contents#
 					<span style="font-size:small;">
 						<br>#DEC_LAT# / #DEC_LONG#
 						<br>Datum: #DATUM#
