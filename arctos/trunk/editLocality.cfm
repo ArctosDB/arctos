@@ -201,8 +201,8 @@
 	
 	
 	
-	<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
-	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
+	<cfinvoke component="component.functions" method="getLocalityContents" returnvariable="contents">
+	    <cfinvokeargument name="locality_id" value="#locality_id#">
 	</cfinvoke>
 	#contents#
 	<br>
