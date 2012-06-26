@@ -14,10 +14,12 @@
 	<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 	
 	<cfset mapImage='<figure><img src="#iu#" alt="[ Google Map of #lat#,#long# ]">'>
+	
+	<cfset rVal=''>
 	<cfif len(collection_object_id) gt 0>
-		<cfset rVal='<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">' & mapImage & '</a>'>
+		<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">' & mapImage & '</a>'>
 	<cfelse>
-		<cfset rVal='<a href="http://maps.google.com/maps?q=#lat#,#long#" target="_blank">' & mapImage & '</a>'>
+		<cfset rVal=rVal & '<a href="http://maps.google.com/maps?q=#lat#,#long#" target="_blank">' & mapImage & '</a>'>
 	</cfif>
 	<cfset rVal=rVal & "<figcaption>#lat#,#long#">
 	<cfif isdefined("elevResult.status") and elevResult.status is "OK">
