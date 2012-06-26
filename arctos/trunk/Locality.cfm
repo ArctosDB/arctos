@@ -1435,7 +1435,8 @@ INSERT INTO geog_auth_rec (
 			georeference_protocol,
 			geolAtts,
 			MAX_ERROR_DISTANCE,
-			MAX_ERROR_UNITS        
+			MAX_ERROR_UNITS,
+			datum      
 		from 
 			localityResults
 		group by
@@ -1457,7 +1458,8 @@ INSERT INTO geog_auth_rec (
 			georeference_protocol,
 			geolAtts,
 			MAX_ERROR_DISTANCE,
-			MAX_ERROR_UNITS        
+			MAX_ERROR_UNITS,
+			datum
 	</cfquery>
 	<cfif localityResults.recordcount lt 1000>
 		<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">BerkeleyMapper</a>
