@@ -118,7 +118,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<tr>
 			<td>other_id_type</td>
 			<td>yes</td>
-			<td>"catalog number" is valid but not in teh code table</td>
+			<td>"catalog number" is valid but not in the code table</td>
 			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
 		</tr>
 		<tr>
@@ -130,7 +130,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<tr>
 			<td>full_citation</td>
 			<td>conditionally</td>
-			<td>includes markup, etc. - use either this or publication_id, not both</td>
+			<td>exact string match, includes markup, etc. - use either this or publication_id, not both</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -184,7 +184,10 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<tr>
 			<td>use_pub_authors</td>
 			<td>no</td>
-			<td>Ignore anything that might be in the author fields and use the publication author-agents as determiners.</td>
+			<td>
+				1==>Ignore anything that might be in the author fields and use the publication author-agents as determiners. 
+				<br>0==>require and use the information provided in the identifier_x fields for identifier
+			</td>
 			<td>0 or 1 - <a target="_blank" class="external"  href="http://arctosdb.org/documentation/publications/#author">authors</a></td>
 		</tr>
 		<tr>
