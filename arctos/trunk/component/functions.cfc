@@ -113,6 +113,15 @@
 		GROUP BY 
 			media_id
 	</cfquery>
+	<cfquery name="verifiedSpecs" datasource="uam_god">
+		select
+			count(*) 
+		from
+			specimen_event 
+		where
+			verifiationstatus like 'verified by %'
+	</cfquery>
+
 	<cfoutput>
 		<cfsavecontent variable="return">
 			<span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
@@ -135,6 +144,12 @@
 							</li>
 						</cfif>
 					</ul>
+				</cfif>
+				<cfif verifiedSpecs.c gt 0>
+					<br>
+					<a href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#&verification_status=verified by">
+						Specimens
+					</a> are verified to this event; updates are disallowed.
 				</cfif>
 			</span>
 		</cfsavecontent>
