@@ -21,7 +21,7 @@
 	</cfif>
 	<cfset rVal=rVal & "<figcaption>#lat#,#long#">
 	<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-		<cfset rVal= "(Elevation: #rVal & round(elevResult.results[1].elevation)# m)">
+		<cfset rVal=rVal & " (Elevation: #rVal & round(elevResult.results[1].elevation)# m)">
 	</cfif>
 	<cfset rVal=rVal & "</figcaption></figure>">
 	<cfreturn rVal> 
