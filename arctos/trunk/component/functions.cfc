@@ -53,6 +53,19 @@
 		GROUP BY 
 			media_id
 	</cfquery>
+	
+	<cfquery name="verifiedSpecs" datasource="uam_god">
+		select
+			count(distinct(collection_object_id)) c
+		from
+			specimen_event,
+			collecting_event
+		where
+			specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+			specimen_event.verificationstatus like 'verified by %' and
+			collecting_event.locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
+	</cfquery>
+	
 	<cfoutput>
 		<cfsavecontent variable="return">
 			<span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
@@ -75,6 +88,13 @@
 							</li>
 						</cfif>
 					</ul>
+				</cfif>
+				<cfif verifiedSpecs.c gt 0>
+					<br>
+					#verifiedSpecs.c#
+					<a href="/SpecimenResults.cfm?locality_id=#locality_id#&verificationstatus=verified by">
+						Specimens
+					</a> are verified to this locality; updates are disallowed.
 				</cfif>
 			</span>
 		</cfsavecontent>

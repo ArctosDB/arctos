@@ -179,25 +179,6 @@
 			geology_attributes.geo_att_determiner_id = preferred_agent_name.agent_id (+) and
 			geology_attributes.locality_id=#locality_id# 
 	</cfquery>
-	<cfquery name="whatSpecs" datasource="uam_god">
-  		SELECT 
-			count(cataloged_item.cat_num) numOfSpecs, 
-			collection.collection,
-			collection.collection_id
-		from 
-			cataloged_item, 
-			collection,
-			specimen_event,
-			collecting_event 
-		WHERE
-			cataloged_item.collection_object_id = specimen_event.collection_object_id and
-			specimen_event.collecting_event_id = collecting_event.collecting_event_id and
-			cataloged_item.collection_id = collection.collection_id and
-			collecting_event.locality_id=#locality_id# 
-		GROUP BY 
-			collection.collection,
-			collection.collection_id
-  	</cfquery>
      <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select datum from ctdatum order by datum
      </cfquery>
@@ -217,36 +198,14 @@
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>
 	
-	<cfquery name="whatMedia" datasource="uam_god">
-  		SELECT 
-			media_id
-		from 
-			media_relations 
-		WHERE
-			 media_relationship like '% locality' and 
-			 related_primary_key=#locality_id# 
-		GROUP BY 
-			media_id
-	</cfquery>
-    <span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
-		This locality (#locality_id#) contains
-		<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>
- 			nothing. Please delete it if you don't have plans for it and there are no used Events.
- 		<cfelse>
-			<ul>
-				<cfloop query="whatSpecs">
-					<li><a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locality_id#">#numOfSpecs# #collection# specimens</a></li>
-				</cfloop>
-				<cfif whatMedia.recordcount gt 0>
-					<li>
-						<a href="MediaSearch.cfm?action=search&media_id=#valuelist(whatMedia.media_id)#">#whatMedia.recordcount# Media records</a>
-					</li>
-				</cfif>
-			</ul>
-		</cfif>	
-	</span>
+	
+	
+	
+	<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
+	    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
+	</cfinvoke>
+	#contents#
 	<br>
-  
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<table width="100%"><tr><td valign="top">
 	<p><strong>Locality</strong></p>
