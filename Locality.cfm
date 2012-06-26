@@ -1510,7 +1510,7 @@ INSERT INTO geog_auth_rec (
 							
 							<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 							    <cfinvokeargument name="lat" value="#dec_lat#">
-							    <cfinvokeargument name="" value="#dec_long#">
+							    <cfinvokeargument name="long" value="#dec_long#">
 							</cfinvoke>
 							
 							
