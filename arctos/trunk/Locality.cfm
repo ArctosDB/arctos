@@ -1191,7 +1191,8 @@ INSERT INTO geog_auth_rec (
 					MAX_ERROR_DISTANCE,
 					MAX_ERROR_UNITS,
 					georeference_source,
-					georeference_protocol
+					georeference_protocol,
+					locality_name
 				from localityResults
 				
 				group by 
@@ -1212,7 +1213,8 @@ INSERT INTO geog_auth_rec (
 					MAX_ERROR_DISTANCE,
 					MAX_ERROR_UNITS,
 					georeference_source,
-					georeference_protocol
+					georeference_protocol,
+					locality_name
 			</cfquery>
 	
 <table border>
