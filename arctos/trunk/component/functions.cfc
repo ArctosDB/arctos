@@ -18,7 +18,7 @@
 		<cfset rVal='<a href="http://maps.google.com/maps?q=#lat#,#long#" target="_blank">' & mapImage & '</a>'>
 	</cfif>
 	<cfset rVal=rVal & "<figcaption>#lat#,#long#">
-	<cfif isdefined("cfhttp.fileContent.status") and cfhttp.fileContent.status is "OK">
+	<cfif isdefined("DeserializeJSON(cfhttp.fileContent.status)") and DeserializeJSON((cfhttp.fileContent.status) is "OK">
 		<cfset rVal= "(Elevation: #rVal & round(DeserializeJSON(cfhttp.fileContent).results[1].elevation)# m)">
 	</cfif>
 	<cfset rVal=rVal & "</figcaption></figure>">
