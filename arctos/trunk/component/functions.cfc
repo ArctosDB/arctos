@@ -10,12 +10,14 @@
 	<cfset iu="http://maps.google.com/maps/api/staticmap?center=#lat#,#long#">
 	<cfset iu=iu & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=#size#&zoom=2">
 	<cfset iu=iu & "&maptype=#maptype#">
+	
+	
 	<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#lat#,#long#&sensor=false"></cfhttp>
 	<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 	
-	<cfset mapImage='<figure><img src="#iu#" alt="[ Google Map of #lat#,#long# ]">'>
+	<cfset mapImage='<img src="#iu#" alt="[ Google Map of #lat#,#long# ]">'>
 	
-	<cfset rVal=''>
+	<cfset rVal='<figure>'>
 	<cfif len(collection_object_id) gt 0>
 		<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#" target="_blank">' & mapImage & '</a>'>
 	<cfelse>
