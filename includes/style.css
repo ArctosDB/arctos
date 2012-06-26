@@ -1,6 +1,7 @@
-.webElevation {
+.mapCaption {
 	font-size:small;
 	color:gray;
+	text-align:center
 }
 .hide {visibility:hidden;}
 .soft404 {opacity:.8;}
