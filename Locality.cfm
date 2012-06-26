@@ -1474,7 +1474,7 @@ INSERT INTO geog_auth_rec (
 	    	<th><b>Map</b></th>
 		</tr>
 		<cfset i=1>
-		<cfif x=2>
+		<cfif x is 2>
 																<cfset getMap = CreateObject("component","component.functions")>
 
 		</cfif>
@@ -1510,7 +1510,7 @@ INSERT INTO geog_auth_rec (
 
 							---->
 							
-							<cfif x=2>
+							<cfif x is 2>
 							
 
 														<cfset contents=getMap.getMap(lat=#dec_lat#,long=#dec_long#)>
@@ -1519,7 +1519,7 @@ INSERT INTO geog_auth_rec (
 							#contents#
 							</cfif>
 							
-							<cfif x=1>
+							<cfif x is 1>
 							<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 							    <cfinvokeargument name="lat" value="#dec_lat#">
 							    <cfinvokeargument name="long" value="#dec_long#">
