@@ -711,6 +711,20 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND upper(specimen_event.verificationstatus) like '%#ucase(verificationstatus)#%'">
 </cfif>
+
+<cfif isdefined("locality_id") AND len(locality_id) gt 0>
+	<cfset mapurl = "#mapurl#&locality_id=#locality_id#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND collecting_event.locality_id = #locality_id#">
+</cfif>
+
+
+
 <cfif isdefined("inMon") AND len(inMon) gt 0>
 	<cfset mapurl = "#mapurl#&inMon=#inMon#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) IN (#inMon#)">
@@ -1338,10 +1352,7 @@
 	<cfset mapurl = "#mapurl#&project_name=#project_name#">
 </cfif>
 
-<cfif isdefined("locality_id") AND len(locality_id) gt 0>
-	<cfset basQual = " #basQual# AND #session.flatTableName#.locality_id = #locality_id#">
-	<cfset mapurl = "#mapurl#&locality_id=#locality_id#">
-</cfif>
+
 <cfif isdefined("loan_trans_id") and len(loan_trans_id) gt 0>
 	<cfset mapurl = "#mapurl#&loan_trans_id=#loan_trans_id#">
 	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id IN (
