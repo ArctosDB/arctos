@@ -21,7 +21,7 @@
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-			Access to #getCount.cnt# records
+			Access to #numberformat(getCount.cnt,",")# records
 		</td>
 		<cfif #hasCanned.recordcount# gt 0>
 			<td style="padding-left:2em;padding-right:2em;">
