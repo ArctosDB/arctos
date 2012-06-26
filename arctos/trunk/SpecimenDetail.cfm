@@ -228,6 +228,7 @@ font-weight:bold;
 						<cfinvokeargument name="long" value="#detail.dec_long#">
 						<cfinvokeargument name="collection_object_id" value="#detail.collection_object_id#">
 						<cfinvokeargument name="size" value="150x150">
+						<cfinvokeargument name="showCaption" value="false">
 					</cfinvoke>
 					#contents#
 				</cfif>
