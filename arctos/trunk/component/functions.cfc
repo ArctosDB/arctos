@@ -115,7 +115,7 @@
 	</cfquery>
 	<cfquery name="verifiedSpecs" datasource="uam_god">
 		select
-			count(*) 
+			count(*) c
 		from
 			specimen_event 
 		where
