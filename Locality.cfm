@@ -1234,9 +1234,21 @@ INSERT INTO geog_auth_rec (
 			</td>
 			<td>
 				 <div class="smaller">
-				 #spec_locality# <cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
-					(<a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a>)
-				</div>			
+				 	<cfif len(spec_locality) gt 0>Specific Locality: #spec_locality#</cfif>
+				 	<cfif len(LOCALITY_NAME) gt 0><br>Locality Name: #LOCALITY_NAME#</cfif>
+				 	<cfif len(DEC_LAT) gt 0>
+					 	<br>Coordinates: #DEC_LAT# / #DEC_LONG#
+					 	<br>Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
+					 	<br>Datum: #DATUM#
+					 	<br>GeorefSource: #GEOREFERENCE_SOURCE#
+					 	<br>GeorefProtocol: #GEOREFERENCE_PROTOCOL#
+					</cfif>
+				 	<cfif len(ORIG_ELEV_UNITS) gt 0><br>Elevation: #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#</cfif>
+				 	<cfif len(DEPTH_UNITS) gt 0><br>Depth: #MIN_DEPTH#-#MAX_DEPTH# #DEPTH_UNITS#</cfif>
+				 	<cfif len(LOCALITY_REMARKS) gt 0><br>Remark: #LOCALITY_REMARKS#</cfif>
+				 	 <cfif len(geolAtts) gt 0><br>[#geolAtts#]</cfif>
+					<br><a href="editLocality.cfm?locality_id=#locality_id#">Edit #locality_id#</a>
+				</div>
 			</td>
 			<td>
 				<cfif len(DEC_LAT) gt 0>
@@ -1246,13 +1258,6 @@ INSERT INTO geog_auth_rec (
 						<cfinvokeargument name="locality_id" value="#locality_id#">
 					</cfinvoke>
 					#contents#
-					<span style="font-size:small;">
-						<br>#DEC_LAT# / #DEC_LONG#
-						<br>Datum: #DATUM#
-						<br>Error : #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
-						<br>Georeference Source : #georeference_source#
-						<br>Georeference Protocol : #georeference_protocol#
-					</span>
 				</cfif>
 			</td>
 			<td>
