@@ -697,7 +697,13 @@
 	<cfset mapurl = "#mapurl#&endDay=#endDay#">
 	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.ended_date,9,2)) <= #endDay#">
 </cfif>
-
+<cfif isdefined("collecting_event_id") AND len(collecting_event_id) gt 0>
+	<cfset mapurl = "#mapurl#&collecting_event_id=#collecting_event_id#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND specimen_event.collecting_event_id IN ( #collecting_event_id# )">
+</cfif>
 <cfif isdefined("verificationstatus") AND len(verificationstatus) gt 0>
 	<cfset mapurl = "#mapurl#&verificationstatus=#verificationstatus#">
 	<cfif basJoin does not contain " specimen_event ">
@@ -1331,10 +1337,7 @@
 	<cfset basQual = " #basQual# AND upper(regexp_replace(project.project_name,'<[^>]*>')) like '%#ucase(project_name)#%'">
 	<cfset mapurl = "#mapurl#&project_name=#project_name#">
 </cfif>
-<cfif isdefined("collecting_event_id") AND len(collecting_event_id) gt 0>
-	<cfset basQual = " #basQual# AND #session.flatTableName#.collecting_event_id IN ( #collecting_event_id# )">
-	<cfset mapurl = "#mapurl#&collecting_event_id=#collecting_event_id#">
-</cfif>
+
 <cfif isdefined("locality_id") AND len(locality_id) gt 0>
 	<cfset basQual = " #basQual# AND #session.flatTableName#.locality_id = #locality_id#">
 	<cfset mapurl = "#mapurl#&locality_id=#locality_id#">
