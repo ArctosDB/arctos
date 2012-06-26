@@ -763,6 +763,9 @@
 				<cfif len(locDet.SPEC_LOCALITY) gt 0>
 					<li>Specific Locality: #locDet.SPEC_LOCALITY#</li>
 				</cfif>
+				<cfif len(locDet.locality_name) gt 0>
+					<li>Locality Name: #locDet.locality_name#</li>
+				</cfif>
 				<cfif len(locDet.ORIG_ELEV_UNITS) gt 0>
 					<li>Elevation: #locDet.MINIMUM_ELEVATION#-#locDet.MAXIMUM_ELEVATION# #locDet.ORIG_ELEV_UNITS#</li>
 				</cfif>
