@@ -115,11 +115,12 @@
 	</cfquery>
 	<cfquery name="verifiedSpecs" datasource="uam_god">
 		select
-			count(*) c
+			count(distinct(collection_object_id)) c
 		from
 			specimen_event 
 		where
-			verificationstatus like 'verified by %'
+			verificationstatus like 'verified by %' and
+			specimen_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 	</cfquery>
 
 	<cfoutput>
@@ -147,6 +148,7 @@
 				</cfif>
 				<cfif verifiedSpecs.c gt 0>
 					<br>
+					#verifiedSpecs.c#
 					<a href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#&verificationstatus=verified by">
 						Specimens
 					</a> are verified to this event; updates are disallowed.
