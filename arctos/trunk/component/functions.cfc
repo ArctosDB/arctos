@@ -8,6 +8,7 @@
 	<cfargument name="collection_object_id" type="any" required="no" default="">
 	<cfargument name="locality_id" type="any" required="no" default="">
 	<cfargument name="collecting_event_id" type="any" required="no" default="">
+	<cfargument name="specimen_event_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cfif len(locality_id) gt 0>
 		<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
