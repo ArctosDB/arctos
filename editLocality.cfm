@@ -449,23 +449,14 @@
 			<li><span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span></li>
 		</ul>
 		<hr>
-		Webservice Lookup Data
-		<table>
-			<tr>
-				<td>
-					<label for="s$dec_lat">s$dec_lat</label>
-					<input type="text" name="s$dec_lat" id="s$dec_lat" value="#slat#" class="">
-				</td>
-				<td>
-					<label for="s$dec_long">s$dec_long</label>
-					<input type="text" name="s$dec_long" value="#slon#" id="s$dec_long" class="">
-				</td>
-			</tr>
-		</table>
-		<label for="s$elevation">s$elevation</label>
-		<input type="text" name="s$elevation" value="#sele#" id="s$elevation" class="">
-		<label for="s$geography">s$geography </label>
-		<textarea rows="4" cols="50" name="s$geography" id="s$geography">#sgeo#</textarea>
+		<h5>Webservice Lookup Data</h5>
+		Coordinates: #slat#/slon#
+		<br>Elevation (m): #sele#
+		<br>Descriptive: #sgeo#
+		<input type="hidden" name="s$dec_lat" id="s$dec_lat" value="#slat#">
+		<input type="hidden" name="s$dec_long" value="#slon#" id="s$dec_long">
+		<input type="hidden" name="s$elevation" value="#sele#" id="s$elevation">
+		<input type="hidden" name="s$geography" value="#sgeo#" id="s$geography">
 	</form>
 	
 	</td></tr></table>
