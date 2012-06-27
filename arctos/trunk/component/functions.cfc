@@ -59,20 +59,22 @@
 	<cfif d.recordcount is 1 and len(d.S$ELEVATION) is 0>
 		<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#d.DEC_LAT#,#d.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
 		<cfdump var=#cfhttp#>
-		<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-		<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-			<cfquery name="upelev" datasource="uam_god">
-				update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
-			</cfquery>
-			<cfquery name="d" dbtype="query">
-				select
-					locality_id,
-					DEC_LAT,
-					DEC_LONG,
-					#round(elevResult.results[1].elevation)# as S$ELEVATION
-				from
-					d
-			</cfquery>
+		<cfif cfhttp.responseHeader.Status_Code is 200>
+			<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+			<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+				<cfquery name="upelev" datasource="uam_god">
+					update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
+				</cfquery>
+				<cfquery name="d" dbtype="query">
+					select
+						locality_id,
+						DEC_LAT,
+						DEC_LONG,
+						#round(elevResult.results[1].elevation)# as S$ELEVATION
+					from
+						d
+				</cfquery>
+			</cfif>
 		</cfif>
 	</cfif>
 	<cfoutput>
