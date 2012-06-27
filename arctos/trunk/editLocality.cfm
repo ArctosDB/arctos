@@ -454,8 +454,8 @@
 			<li><a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a></li>
 			<li><span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span></li>
 		</ul>
-		<hr>
-		<h5>Webservice Lookup Data</h5>
+		<div style="border:1px dashed red;">
+		<h5>Google Webservice Lookup Data</h5>
 		Coordinates: 
 		<cfif len(slat) gt 0>
 			<figure>
@@ -467,6 +467,7 @@
 		</cfif>
 		<br>Elevation (m): #sele#
 		<br>Descriptive: #sgeo#
+		</div>
 		<input type="hidden" name="s$dec_lat" value="#slat#">
 		<input type="hidden" name="s$dec_long" value="#slon#" id="s$dec_long">
 		<input type="hidden" name="s$elevation" value="#sele#" id="s$elevation">
