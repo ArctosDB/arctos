@@ -1474,10 +1474,7 @@ INSERT INTO geog_auth_rec (
 	    	<th><b>Map</b></th>
 		</tr>
 		<cfset i=1>
-		<cfif x is 2>
-																<cfset getMap = CreateObject("component","component.functions")>
-
-		</cfif>
+		<cfset getMap = CreateObject("component","component.functions")>
 		<cfloop query="localityResults">
 			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<td>
@@ -1504,30 +1501,11 @@ INSERT INTO geog_auth_rec (
 				<td>
 					<div>
 						<cfif len(dec_lat) gt 0>
-							<!----
-
-														<cfset contents=getMap.getMap(lat=#dec_lat#,long=#dec_long#)>
-
-							---->
-							
-							<cfif x is 2>
-							
-
-														<cfset contents=getMap.getMap(lat=#dec_lat#,long=#dec_long#)>
-														
-														
-							#contents#
-							</cfif>
-							
-							<cfif x is 1>
-							<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-							    <cfinvokeargument name="lat" value="#dec_lat#">
-							    <cfinvokeargument name="long" value="#dec_long#">
-							</cfinvoke>
-							
-							
-							#contents#
-							
+							<cfif i lte 25>
+								<cfset contents=getMap.getMap(lat=#dec_lat#,long=#dec_long#)>						
+								#contents#
+							<cfelse>
+								TooManyMatches - no map for you.
 							</cfif>
 						</cfif>
 					</div>
