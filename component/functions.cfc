@@ -58,6 +58,7 @@
 		<cfelseif len(media_id) gt 0>
 			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select 
+					'' locality_id,
 					COORDINATES,
 					' ' S$ELEVATION
 				from
