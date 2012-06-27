@@ -372,7 +372,6 @@
 				</cfloop>
 				<cfset slat=llresult.results[1].geometry.location.lat>
 				<cfset slon=llresult.results[1].geometry.location.lng>
-				<cfset sgeo=geoList>
 			</cfif>
 		</cfif>
 		<!--- see if we can get better political data from the coordinates ---->
@@ -428,7 +427,7 @@
 				</cfif>
 			</cfif>
 		</cfif>
-		
+		<cfset sgeo=geoList>
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
