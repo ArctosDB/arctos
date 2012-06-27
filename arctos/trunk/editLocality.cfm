@@ -352,10 +352,8 @@
 		<cfset geoList="">
 		<cfif len(locDet.s$dec_lat) is 0>
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#locDet.spec_locality#, #locDet.higher_geog#&sensor=false" timeout="1"></cfhttp>
-			
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-				<cfdump var=#llresult#>
 				<cfif llresult.status is "OK">
 					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
@@ -458,7 +456,15 @@
 		</ul>
 		<hr>
 		<h5>Webservice Lookup Data</h5>
-		Coordinates: #slat#/#slon#
+		Coordinates: 
+		<cfif len(slat) gt 0>
+			<figure>
+				<img src="http://maps.google.com/maps/api/staticmap?center=#slat#,#slon#&markers=color:red|size:tiny|#slat#,#slon#&sensor=false&size=#80x80#&zoom=2&maptype=roadmap" alt="[ Google Map of #slat#,#slon# ]">
+				<figcaption>#slat#/#slon#</figcaption>
+			</figure>
+		<cfelse>
+			not found
+		</cfif>
 		<br>Elevation (m): #sele#
 		<br>Descriptive: #sgeo#
 		<input type="hidden" name="s$dec_lat" value="#slat#">
