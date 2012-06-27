@@ -68,8 +68,8 @@
 			<cfquery name="d" dbtype="query">
 					select
 						'' as locality_id,
-						#listgetat(coordinates,1)# as DEC_LAT,
-						#listgetat(coordinates,2)# as DEC_LONG,
+						#listgetat(d.coordinates,1)# as DEC_LAT,
+						#listgetat(d.coordinates,2)# as DEC_LONG,
 						'' as S$ELEVATION
 					from
 						d
