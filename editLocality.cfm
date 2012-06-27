@@ -361,25 +361,25 @@
 		
 	
 			
-		<cfif len(s$dec_lat) is 0>
-			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#spec_locality#, #higher_geog#&sensor=false" timeout="1"></cfhttp>
+		<cfif len(locDet.s$dec_lat) is 0>
+			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#locDet.spec_locality#, #locDet.higher_geog#&sensor=false" timeout="1"></cfhttp>
 			<cfdump var=#cfhttp#>
 		</cfif>
-		<cfif len(s$geography) is 0>
-			<cfif len(dec_lat) gt 0>
-				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#dec_lat#,#dec_long#&sensor=false" timeout="1"></cfhttp>
+		<cfif len(locDet.s$geography) is 0>
+			<cfif len(locDet.dec_lat) gt 0>
+				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#locDet.dec_lat#,#locDet.dec_long#&sensor=false" timeout="1"></cfhttp>
 				<cfdump var=#cfhttp#>
-			<cfelseif len(s$dec_lat) gt 0>
-				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#s$dec_lat#,#s$dec_long#&sensor=false" timeout="1"></cfhttp>
+			<cfelseif len(locDet.s$dec_lat) gt 0>
+				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#locDet.s$dec_lat#,#locDet.s$dec_long#&sensor=false" timeout="1"></cfhttp>
 				<cfdump var=#cfhttp#>
 			</cfif>
 		</cfif>
-		<cfif len(s$elevation) is 0>
-			<cfif len(dec_lat) gt 0>
-				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#DEC_LAT#,#DEC_LONG#&sensor=false" timeout="1"></cfhttp>
+		<cfif len(locDet.s$elevation) is 0>
+			<cfif len(locDet.dec_lat) gt 0>
+				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#locDet.DEC_LAT#,#locDet.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
 				<cfdump var=#cfhttp#>
-			<cfelseif len(s$dec_lat) gt 0>
-				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#s$dec_lat#,#s$dec_long#&sensor=false" timeout="1"></cfhttp>
+			<cfelseif len(locDet.s$dec_lat) gt 0>
+				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#locDet.s$dec_lat#,#locDet.s$dec_long#&sensor=false" timeout="1"></cfhttp>
 				<cfdump var=#cfhttp#>
 			</cfif>
 		</cfif>
