@@ -379,7 +379,7 @@
 				<cfdump var=#llresult.results#>
 				
 				
-				llresult.results.geometry
+				llresult.results[1].geometry
 				<cfdump var=#llresult.results.geometry#>
 				
 				
