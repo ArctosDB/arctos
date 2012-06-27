@@ -356,7 +356,9 @@
 		
 		
 		
-		<!---- no collector-supplied coordinates, but we have calculate coordinates - get political stuff from them ---->
+		<!---- 
+			get calculated coordinates and political stuff from the descriptive data
+		---->
 		<cfif len(locDet.s$dec_lat) is 0>
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#locDet.spec_locality#, #locDet.higher_geog#&sensor=false" timeout="1"></cfhttp>
 			<cfdump var=#cfhttp#>
@@ -374,24 +376,12 @@
 						</cfif>
 					</cfloop>
 				</cfloop>
-				<!--------------
-				llresult.results
-				<cfdump var=#llresult.results#>
-				
-				
-				llresult.results[1].geometry
-				<cfdump var=#llresult[1].results.geometry#>
-				
-				
-				
-			llresult.results[1].geometry.location
-				<cfdump var=#llresult.results[1].geometry.location#>
-				--------->
 				<cfset slat=llresult.results[1].geometry.location.lat>
 				<cfset slon=llresult.results[1].geometry.location.lng>
 				<cfset sgeo=geoList>
 			</cfif>
 		</cfif>
+		<!--- see if we can get better political data from the coordinates ---->
 		<cfif len(locDet.s$geography) is 0>
 			<cfif len(locDet.dec_lat) gt 0>
 				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#locDet.dec_lat#,#locDet.dec_long#&sensor=false" timeout="1"></cfhttp>
