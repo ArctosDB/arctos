@@ -454,6 +454,7 @@
 			<li><a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a></li>
 			<li><span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span></li>
 		</ul>
+		
 		<div style="border:1px dashed red; padding:1em;background-color:lightgray;">
 		<h5>Google Webservice Lookup Data</h5>
 		Coordinates: 
@@ -466,9 +467,10 @@
 			not found
 		</cfif>
 		<cfset sgeo=replace(sgeo,",",", ","all")>
-		<br><strong>Elevation:</strong>: #sele# m
+		<br><strong>Elevation:</strong> #sele# m
 		<br><strong>Descriptive:</strong> #sgeo#
 		</div>
+		
 		<input type="hidden" name="s$dec_lat" value="#slat#">
 		<input type="hidden" name="s$dec_long" value="#slon#" id="s$dec_long">
 		<input type="hidden" name="s$elevation" value="#sele#" id="s$elevation">
