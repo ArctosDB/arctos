@@ -356,18 +356,20 @@
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 				<cfdump var=#llresult#>
-				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-					<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-							<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-						</cfif>
-						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-							<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-						</cfif>
+				<cfif llresult.results.status is "OK">
+					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+							</cfif>
+							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+							</cfif>
+						</cfloop>
 					</cfloop>
-				</cfloop>
-				<cfset slat=llresult.results[1].geometry.location.lat>
-				<cfset slon=llresult.results[1].geometry.location.lng>
+					<cfset slat=llresult.results[1].geometry.location.lat>
+					<cfset slon=llresult.results[1].geometry.location.lng>
+				</cfif>
 			</cfif>
 		</cfif>
 		<!--- see if we can get better political data from the coordinates ---->
