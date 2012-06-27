@@ -342,28 +342,36 @@
 		</select>
 		<br>
 		------------------------------------ random webservice data -------------------------------------------------------
-		<table>
-			<tr>
-				<td>
-					<label for="s$dec_lat">s$dec_lat</label>
-					<input type="text" name="s$dec_lat" id="s$dec_lat" value="#locDet.s$dec_lat#" class="">
-				</td>
-				<td>
-					<label for="s$dec_long">s$dec_long</label>
-					<input type="text" name="s$dec_long" value="#locDet.s$dec_long#" id="s$dec_long" class="">
-				</td>
-			</tr>
-		</table>
-		<label for="s$elevation">s$elevation</label>
-		<input type="text" name="s$elevation" value="#locDet.s$elevation#" id="s$elevation" class="">
-		<label for="s$geography">s$geography </label>
-		<input type="text" name="s$geography" value="#locDet.s$geography#" id="s$geography" class="">
+		<cfset slat=locDet.s$dec_lat>
+		<cfset slon=locDet.s$dec_long>
+		<cfset sgeo=locDet.s$geography>
+		<cfset sele=locDet.s$elevation>
 		
-	
-			
 		<cfif len(locDet.s$dec_lat) is 0>
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#locDet.spec_locality#, #locDet.higher_geog#&sensor=false" timeout="1"></cfhttp>
 			<cfdump var=#cfhttp#>
+			<cfif cfhttp.responseHeader.Status_Code is 200>
+				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+				<cfdump var=#llresult#>
+				<!----
+				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+					<cfquery name="upelev" datasource="uam_god">
+						update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
+					</cfquery>
+					<cfquery name="d" dbtype="query">
+						select
+							locality_id,
+							DEC_LAT,
+							DEC_LONG,
+							#round(elevResult.results[1].elevation)# as S$ELEVATION
+						from
+							d
+					</cfquery>
+				</cfif>
+				--->
+			</cfif>
+			
+			
 		</cfif>
 		<cfif len(locDet.s$geography) is 0>
 			<cfif len(locDet.dec_lat) gt 0>
@@ -383,6 +391,28 @@
 				<cfdump var=#cfhttp#>
 			</cfif>
 		</cfif>
+		
+		
+		<table>
+			<tr>
+				<td>
+					<label for="s$dec_lat">s$dec_lat</label>
+					<input type="text" name="s$dec_lat" id="s$dec_lat" value="#slat#" class="">
+				</td>
+				<td>
+					<label for="s$dec_long">s$dec_long</label>
+					<input type="text" name="s$dec_long" value="#locDet.#" id="s$dec_long" class="">
+				</td>
+			</tr>
+		</table>
+		<label for="s$elevation">s$elevation</label>
+		<input type="text" name="s$elevation" value="#locDet.#" id="s$elevation" class="">
+		<label for="s$geography">s$geography </label>
+		<input type="text" name="s$geography" value="#locDet.#" id="s$geography" class="">
+		
+	
+			
+		
 <cfabort>
 
 
