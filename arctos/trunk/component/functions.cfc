@@ -8,88 +8,91 @@
 	<cfargument name="collecting_event_id" type="any" required="no" default="">
 	<cfargument name="specimen_event_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
-	<cfif len(locality_id) gt 0>
-		<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select 
-				locality.locality_id,
-				locality.DEC_LAT,
-				locality.DEC_LONG,
-				locality.S$ELEVATION
-			from
-				locality
-			where
-				locality.DEC_LAT is not null and
-				locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
-		</cfquery>
-	<cfelseif len(collecting_event_id) gt 0>
-		<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select 
-				locality.locality_id,
-				locality.DEC_LAT,
-				locality.DEC_LONG,
-				locality.S$ELEVATION
-			from
-				locality,
-				collecting_event
-			where
-				locality.DEC_LAT is not null and
-				locality.locality_id=collecting_event.locality_id and
-				collecting_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
-		</cfquery>
-	<cfelseif len(specimen_event_id) gt 0>
-		<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select 
-				locality.locality_id,
-				locality.DEC_LAT,
-				locality.DEC_LONG,
-				locality.S$ELEVATION
-			from
-				locality,
-				collecting_event,
-				specimen_event
-			where
-				locality.DEC_LAT is not null and
-				locality.locality_id=collecting_event.locality_id and
-				collecting_event.collecting_event_id=specimen_event.collecting_event_id and
-				specimen_event.specimen_event_id=<cfqueryparam value = "#specimen_event_id#" CFSQLType = "CF_SQL_INTEGER">
-		</cfquery>
-	<cfelse>
-		<cfreturn 'not_enough_info'>
-	</cfif>
-	<cfif d.recordcount is 1 and len(d.S$ELEVATION) is 0>
-		<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#d.DEC_LAT#,#d.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
-		<cfdump var=#cfhttp#>
-		<cfif cfhttp.responseHeader.Status_Code is 200>
-			<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-			<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-				<cfquery name="upelev" datasource="uam_god">
-					update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
-				</cfquery>
-				<cfquery name="d" dbtype="query">
-					select
-						locality_id,
-						DEC_LAT,
-						DEC_LONG,
-						#round(elevResult.results[1].elevation)# as S$ELEVATION
-					from
-						d
-				</cfquery>
+	<cftry>
+		<cfif len(locality_id) gt 0>
+			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select 
+					locality.locality_id,
+					locality.DEC_LAT,
+					locality.DEC_LONG,
+					locality.S$ELEVATION
+				from
+					locality
+				where
+					locality.DEC_LAT is not null and
+					locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
+			</cfquery>
+		<cfelseif len(collecting_event_id) gt 0>
+			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select 
+					locality.locality_id,
+					locality.DEC_LAT,
+					locality.DEC_LONG,
+					locality.S$ELEVATION
+				from
+					locality,
+					collecting_event
+				where
+					locality.DEC_LAT is not null and
+					locality.locality_id=collecting_event.locality_id and
+					collecting_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
+			</cfquery>
+		<cfelseif len(specimen_event_id) gt 0>
+			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select 
+					locality.locality_id,
+					locality.DEC_LAT,
+					locality.DEC_LONG,
+					locality.S$ELEVATION
+				from
+					locality,
+					collecting_event,
+					specimen_event
+				where
+					locality.DEC_LAT is not null and
+					locality.locality_id=collecting_event.locality_id and
+					collecting_event.collecting_event_id=specimen_event.collecting_event_id and
+					specimen_event.specimen_event_id=<cfqueryparam value = "#specimen_event_id#" CFSQLType = "CF_SQL_INTEGER">
+			</cfquery>
+		<cfelse>
+			<cfreturn 'not_enough_info'>
+		</cfif>
+		<cfif d.recordcount is 1 and len(d.S$ELEVATION) is 0>
+			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#d.DEC_LAT#,#d.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
+			<cfif cfhttp.responseHeader.Status_Code is 200>
+				<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+					<cfquery name="upelev" datasource="uam_god">
+						update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
+					</cfquery>
+					<cfquery name="d" dbtype="query">
+						select
+							locality_id,
+							DEC_LAT,
+							DEC_LONG,
+							#round(elevResult.results[1].elevation)# as S$ELEVATION
+						from
+							d
+					</cfquery>
+				</cfif>
 			</cfif>
 		</cfif>
-	</cfif>
-	<cfoutput>
-	<cfset mapurl="http://maps.google.com/maps/api/staticmap?center=#d.DEC_LAT#,#d.DEC_LONG#">
-	<cfset mapurl=mapurl & "&markers=color:red|size:tiny|#d.DEC_LAT#,#d.DEC_LONG#&sensor=false&size=#size#&zoom=2&maptype=#maptype#">
-	<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
-	
-	<cfset rVal='<figure>'>
-	<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#locality_id#" target="_blank">' & mapImage & '</a>'>
-	<cfif showCaption>
-		<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#</figcaption>'>
-	</cfif>
-	<cfset rVal=rVal & "</figure>">
-	<cfreturn rVal> 
-	</cfoutput>	
+		<cfoutput>
+		<cfset mapurl="http://maps.google.com/maps/api/staticmap?center=#d.DEC_LAT#,#d.DEC_LONG#">
+		<cfset mapurl=mapurl & "&markers=color:red|size:tiny|#d.DEC_LAT#,#d.DEC_LONG#&sensor=false&size=#size#&zoom=2&maptype=#maptype#">
+		<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
+		<cfset rVal='<figure>'>
+		<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#locality_id#" target="_blank">' & mapImage & '</a>'>
+		<cfif showCaption>
+			<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#</figcaption>'>
+		</cfif>
+		<cfset rVal=rVal & "</figure>">
+		<cfreturn rVal> 
+		</cfoutput>
+	<cfcatch>
+		<cfreturn "try_fail">
+	</cfcatch>
+	</cftry>
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getLocalityContents" access="public">	
