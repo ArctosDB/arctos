@@ -108,6 +108,7 @@
 		<cfreturn rVal> 
 		</cfoutput>
 	<cfcatch>
+		<cfdump var=#cfcatch#>
 		<cfreturn "try_fail">
 	</cfcatch>
 	</cftry>
