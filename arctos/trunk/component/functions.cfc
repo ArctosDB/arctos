@@ -58,6 +58,7 @@
 	</cfif>
 	<cfif d.recordcount is 1 and len(d.S$ELEVATION) is 0>
 		<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#d.DEC_LAT#,#d.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
+		<cfdump var=#cfhttp#>
 		<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 		<cfif isdefined("elevResult.status") and elevResult.status is "OK">
 			<cfquery name="upelev" datasource="uam_god">
