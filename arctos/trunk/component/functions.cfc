@@ -69,7 +69,7 @@
 					select
 						'' as locality_id,
 						#listgetat(coordinates,1)# as DEC_LAT,
-						#listgetat(coordinates,2) as #DEC_LONG,
+						#listgetat(coordinates,2)# as #DEC_LONG,
 						'' as S$ELEVATION
 					from
 						d
