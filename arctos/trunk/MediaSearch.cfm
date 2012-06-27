@@ -334,8 +334,7 @@
 			<div id="mapID_#media_uri#">
 				<cfif len(coordinates) gt 0>
 					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-					    <cfinvokeargument name="lat" value="#listgetat(coordinates,1)#">
-					    <cfinvokeargument name="long" value="#listgetat(coordinates,2)#">
+					    <cfinvokeargument name="media_id" value="#media_id#">
 					</cfinvoke>
 					#contents#
 				</cfif>

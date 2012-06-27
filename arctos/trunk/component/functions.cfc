@@ -100,7 +100,7 @@
 		<cfif showCaption>
 			<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#'>
 			<cfif len(d.S$ELEVATION) gt 0>
-				<cfset rVal=rVal & '; Elev. #d.S$ELEVATION#'>
+				<cfset rVal=rVal & '; Elev. #d.S$ELEVATION# m'>
 			</cfif>
 			<cfset rVal=rVal & '</figcaption>'>
 		</cfif>
