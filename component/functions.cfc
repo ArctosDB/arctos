@@ -32,7 +32,7 @@
 	<cfif showCaption>
 	<cfset rVal=rVal & '<figcaption>#numberformat(lat,"__.___")#,#numberformat(long,"___.___")#'>
 		<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-			<cfset rVal=rVal & "<br>Elevation: #round(elevResult.results[1].elevation)# m">
+			<cfset rVal=rVal & "<br>---Elevation: #round(elevResult.results[1].elevation)# m">
 		</cfif>
 		<cfset rVal=rVal & "</figcaption>">
 	</cfif>
