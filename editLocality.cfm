@@ -444,45 +444,6 @@
 		<input type="text" name="s$elevation" value="#sele#" id="s$elevation" class="">
 		<label for="s$geography">s$geography </label>
 		<input type="text" name="s$geography" value="#sgeo#" id="s$geography" class="">
-		
-	
-			
-		
-<cfabort>
-
-
-		1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
-		
-		
-		<cfif len(s$dec_lat) is 0>
-			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=false" timeout="1"></cfhttp>
-
-			
-		</cfif>
-		
-		<cfif len(s$elevation) is 0>
-			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#d.DEC_LAT#,#d.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
-			<cfif cfhttp.responseHeader.Status_Code is 200>
-				<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-					<cfquery name="upelev" datasource="uam_god">
-						update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
-					</cfquery>
-					<cfquery name="d" dbtype="query">
-						select
-							locality_id,
-							DEC_LAT,
-							DEC_LONG,
-							#round(elevResult.results[1].elevation)# as S$ELEVATION
-						from
-							d
-					</cfquery>
-				</cfif>
-			</cfif>
-		</cfif>
-			
-			
-			   
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
