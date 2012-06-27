@@ -353,7 +353,7 @@
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 				<cfdump var=#llresult#>
-				-------#result[1].address_components[1].long_name#-----
+				-------#llresult.result[1].address_components[1].long_name#-----
 				<!----
 				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
 					<cfquery name="upelev" datasource="uam_god">
