@@ -14,7 +14,7 @@
 	<cfset mapurl=mapurl & "&markers=color:red|size:tiny|#lat#,#long#&sensor=false&size=#size#&zoom=2&maptype=#maptype#">
 	
 	
-	<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#lat#,#long#&sensor=false" timeout=".000001"></cfhttp>
+	<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#lat#,#long#&sensor=false" timeout="1"></cfhttp>
 	<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 	
 	<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #lat#,#long# ]">'>
@@ -32,7 +32,7 @@
 	<cfif showCaption>
 	<cfset rVal=rVal & '<figcaption>#numberformat(lat,"__.___")#,#numberformat(long,"___.___")#'>
 		<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-			<cfset rVal=rVal & "<br>---Elevation: #round(elevResult.results[1].elevation)# m">
+			<cfset rVal=rVal & "<br>Elevation: #round(elevResult.results[1].elevation)# m">
 		</cfif>
 		<cfset rVal=rVal & "</figcaption>">
 	</cfif>
