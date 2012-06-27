@@ -345,11 +345,11 @@
 		<table>
 			<tr>
 				<td>
-					<label for="s$dec_lat">s$dec_lat Latitude</label>
+					<label for="s$dec_lat">s$dec_lat</label>
 					<input type="text" name="s$dec_lat" id="s$dec_lat" value="#locDet.s$dec_lat#" class="">
 				</td>
 				<td>
-					<label for="s$dec_long">s$dec_long Longitude</label>
+					<label for="s$dec_long">s$dec_long</label>
 					<input type="text" name="s$dec_long" value="#locDet.s$dec_long#" id="s$dec_long" class="">
 				</td>
 			</tr>
@@ -359,7 +359,45 @@
 		<label for="s$geography">s$geography </label>
 		<input type="text" name="s$geography" value="#locDet.s$geography#" id="s$geography" class="">
 		
+	
 			
+		<cfif len(s$dec_lat) is 0>
+			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#spec_locality#, #higher_geog#&sensor=false" timeout="1"></cfhttp>
+			<cfdump var=#cfhttp#>
+		</cfif>
+
+<cfabort>
+
+
+		1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
+		
+		
+		<cfif len(s$dec_lat) is 0>
+			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=false" timeout="1"></cfhttp>
+
+			
+		</cfif>
+		
+		<cfif len(s$elevation) is 0>
+			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#d.DEC_LAT#,#d.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
+			<cfif cfhttp.responseHeader.Status_Code is 200>
+				<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+					<cfquery name="upelev" datasource="uam_god">
+						update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
+					</cfquery>
+					<cfquery name="d" dbtype="query">
+						select
+							locality_id,
+							DEC_LAT,
+							DEC_LONG,
+							#round(elevResult.results[1].elevation)# as S$ELEVATION
+						from
+							d
+					</cfquery>
+				</cfif>
+			</cfif>
+		</cfif>
 			
 			
 			   
