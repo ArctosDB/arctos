@@ -426,7 +426,9 @@
 				</cfif>
 			</cfif>
 		</cfif>
-		<cfset sgeo=geoList>
+		<cfif len(geoList) gt 0>
+			<cfset sgeo=geoList>
+		</cfif>
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
