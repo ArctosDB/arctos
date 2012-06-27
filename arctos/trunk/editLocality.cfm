@@ -428,6 +428,28 @@
 				</cfif>
 			</cfif>
 		</cfif>
+		
+		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
+		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
+		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
+		<input type="button" value="Add Collecting Event" class="insBtn" 
+			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
+		<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
+	</td><td valign="top">
+		<cfif len(locDet.dec_lat) gt 0>
+			<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+				<cfinvokeargument name="locality_id" value="#locality_id#">
+			</cfinvoke>
+		#contents#
+		</cfif>
+		<ul>
+			<li><a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a></li>
+			<li><a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a></li>
+			<li><a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a></li>
+			<li><span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span></li>
+		</ul>
+		<hr>
+		Webservice Lookup Data
 		<table>
 			<tr>
 				<td>
@@ -443,27 +465,9 @@
 		<label for="s$elevation">s$elevation</label>
 		<input type="text" name="s$elevation" value="#sele#" id="s$elevation" class="">
 		<label for="s$geography">s$geography </label>
-		<input type="text" name="s$geography" value="#sgeo#" id="s$geography" class="">
-		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
-		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
-		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
-		<input type="button" value="Add Collecting Event" class="insBtn" 
-			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
-		<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
+		<textarea rows="4" cols="50" name="s$geography" id="s$geography">#sgeo#</textarea>
 	</form>
-	</td><td valign="top">
-		<cfif len(locDet.dec_lat) gt 0>
-			<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-				<cfinvokeargument name="locality_id" value="#locality_id#">
-			</cfinvoke>
-		#contents#
-		</cfif>
-		<ul>
-			<li><a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a></li>
-			<li><a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a></li>
-			<li><a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a></li>
-			<li><span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span></li>
-		</ul>
+	
 	</td></tr></table>
 	</span>
 	<hr>
