@@ -350,6 +350,8 @@
 		<!--- get some service-supplied coordinates to see how they match up with ours ---->
 		<cfif len(locDet.s$dec_lat) is 0>
 		
+		</cfif>
+		
 		<!--- we have collector-supplied coordinates, try to get some political stuff ---->
 		
 		
