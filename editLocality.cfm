@@ -356,7 +356,7 @@
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 				<cfdump var=#llresult#>
-				<cfif llresult.results.status is "OK">
+				<cfif llresult.status is "OK">
 					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
 							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
