@@ -347,6 +347,14 @@
 		<cfset sgeo=locDet.s$geography>
 		<cfset sele=locDet.s$elevation>
 		
+		<!--- get some service-supplied coordinates to see how they match up with ours ---->
+		<cfif len(locDet.s$dec_lat) is 0>
+		
+		<!--- we have collector-supplied coordinates, try to get some political stuff ---->
+		
+		
+		
+		<!---- no collector-supplied coordinates, but we have calculate coordinates - get political stuff from them ---->
 		<cfif len(locDet.s$dec_lat) is 0>
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#locDet.spec_locality#, #locDet.higher_geog#&sensor=false" timeout="1"></cfhttp>
 			<cfdump var=#cfhttp#>
@@ -355,44 +363,17 @@
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 				<cfdump var=#llresult#>
 				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-					<br>llr: #llr#
 					<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
 						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
 							<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
 						</cfif>
-						
 						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
 							<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
 						</cfif>
-						<br>#ac#
-						<br>=======#llresult.results[llr].address_components[ac].long_name#========
-						<br>=======#llresult.results[llr].address_components[ac].short_name#========
 					</cfloop>
 				</cfloop>
-				
-				<br>geoList: #geoList#
-				
-				<br>
-				-------#llresult.results[1].address_components[1].long_name#-----
-				<!----
-				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-					<cfquery name="upelev" datasource="uam_god">
-						update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
-					</cfquery>
-					<cfquery name="d" dbtype="query">
-						select
-							locality_id,
-							DEC_LAT,
-							DEC_LONG,
-							#round(elevResult.results[1].elevation)# as S$ELEVATION
-						from
-							d
-					</cfquery>
-				</cfif>
-				--->
+				<cfset sgeo=geoList>
 			</cfif>
-			
-			
 		</cfif>
 		<cfif len(locDet.s$geography) is 0>
 			<cfif len(locDet.dec_lat) gt 0>
