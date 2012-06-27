@@ -39,12 +39,7 @@ END;
 </cfif>
 <!------------------------------------------------------------------------>
 <cfif action is "merge">
-	<cfoutput>
-		<!----
-		<cfquery name="bads" datasource="uam_god">
-			
-		</cfquery>
-		---->
+	<cfoutput>		
 		<cfquery name="bads" datasource="uam_god">
 			select 
 				cf_dup_agent.cf_dup_agent_id,
@@ -431,6 +426,7 @@ END;
 					collection_contacts.CONTACT_AGENT_ID=preferred_agent_name.agent_id and
 					collection_contacts.CONTACT_AGENT_ID=electronic_address.agent_id and
 					electronic_address.address_type='e-mail' and
+					CONTACT_ROLE='data quality' and
 					collection_contacts.collection_id in  (
 				select 
 					collection_id 
