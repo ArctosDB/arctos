@@ -386,9 +386,9 @@
 				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#locDet.dec_lat#,#locDet.dec_long#&sensor=false" timeout="1"></cfhttp>
 				<cfdump var=#cfhttp#>
 				<cfif cfhttp.responseHeader.Status_Code is 200>
-				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-				<cfdump var=#llresult#>
-					
+					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+					<cfdump var=#llresult#>
+				</cfif>
 			<cfelseif len(locDet.s$dec_lat) gt 0>
 				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#locDet.s$dec_lat#,#locDet.s$dec_long#&sensor=false" timeout="1"></cfhttp>
 				<cfdump var=#cfhttp#>
