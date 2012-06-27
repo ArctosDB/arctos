@@ -454,7 +454,7 @@
 			<li><a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a></li>
 			<li><span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span></li>
 		</ul>
-		<div style="border:1px dashed red; padding:1em;">
+		<div style="border:1px dashed red; padding:1em;background-color:lightgray;">
 		<h5>Google Webservice Lookup Data</h5>
 		Coordinates: 
 		<cfif len(slat) gt 0>
