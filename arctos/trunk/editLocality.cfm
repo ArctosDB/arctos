@@ -715,8 +715,27 @@
 	<cfelse>
 		<cfset sql = "#sql#,LOCALITY_REMARKS = null">
 	</cfif>
+	<cfif len(s$geography) gt 0>
+		<cfset sql = "#sql#,s$geography = '#escapeQuotes(s$geography)#'">
+	<cfelse>
+		<cfset sql = "#sql#,s$geography = null">
+	</cfif>
 	
-	
+	<cfif len(s$elevation) gt 0>
+		<cfset sql = "#sql#,s$elevation = #s$elevation#">
+	<cfelse>
+		<cfset sql = "#sql#,s$elevation = null">
+	</cfif>
+	<cfif len(s$dec_lat) gt 0>
+		<cfset sql = "#sql#,s$dec_lat = #s$dec_lat#">
+	<cfelse>
+		<cfset sql = "#sql#,s$dec_lat = null">
+	</cfif>
+	<cfif len(s$dec_long) gt 0>
+		<cfset sql = "#sql#,s$dec_long = #s$dec_long#">
+	<cfelse>
+		<cfset sql = "#sql#,s$dec_long = null">
+	</cfif>
 	
 	<cfset sql = "#sql# where locality_id = #locality_id#">
 	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
