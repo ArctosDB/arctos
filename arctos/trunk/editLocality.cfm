@@ -459,7 +459,7 @@
 		Coordinates: 
 		<cfif len(slat) gt 0>
 			<figure>
-				<img src="http://maps.google.com/maps/api/staticmap?center=#slat#,#slon#&markers=color:red|size:tiny|#slat#,#slon#&sensor=false&size=#80x80#&zoom=2&maptype=roadmap" alt="[ Google Map of #slat#,#slon# ]">
+				<img src="http://maps.google.com/maps/api/staticmap?center=#slat#,#slon#&markers=color:red|size:tiny|#slat#,#slon#&sensor=false&size=80x80&zoom=2&maptype=roadmap" alt="[ Google Map of #slat#,#slon# ]">
 				<figcaption>#slat#/#slon#</figcaption>
 			</figure>
 		<cfelse>
