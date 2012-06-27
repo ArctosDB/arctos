@@ -347,10 +347,6 @@
 		<cfset sgeo=locDet.s$geography>
 		<cfset sele=locDet.s$elevation>
 		
-		<!--- get some service-supplied coordinates to see how they match up with ours ---->
-		<cfif len(locDet.s$dec_lat) is 0>
-		
-		</cfif>
 		
 		<!--- we have collector-supplied coordinates, try to get some political stuff ---->
 		
@@ -362,7 +358,6 @@
 		<cfset geoList="">
 		<cfif len(locDet.s$dec_lat) is 0>
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#locDet.spec_locality#, #locDet.higher_geog#&sensor=false" timeout="1"></cfhttp>
-			<cfdump var=#cfhttp#>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
@@ -417,18 +412,12 @@
 		<cfif len(locDet.s$elevation) is 0>
 			<cfif len(locDet.dec_lat) gt 0>
 				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#locDet.DEC_LAT#,#locDet.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
-				
 				<cfif cfhttp.responseHeader.Status_Code is 200>
 					<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 					<cfif isdefined("elevResult.status") and elevResult.status is "OK">
 						<cfset sele=round(elevResult.results[1].elevation)>
 					</cfif>
 				</cfif>
-			
-			
-			
-				
-				
 			<cfelseif len(locDet.s$dec_lat) gt 0>
 				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#locDet.s$dec_lat#,#locDet.s$dec_long#&sensor=false" timeout="1"></cfhttp>
 				<cfif cfhttp.responseHeader.Status_Code is 200>
@@ -439,8 +428,6 @@
 				</cfif>
 			</cfif>
 		</cfif>
-		
-		
 		<table>
 			<tr>
 				<td>
