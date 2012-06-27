@@ -779,8 +779,6 @@
 			
 			<cfif len(locDet.loclat) gt 0>
 				<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-					<cfinvokeargument name="lat" value="#locDet.loclat#">
-					<cfinvokeargument name="long" value="#locDet.loclong#">
 					<cfinvokeargument name="locality_id" value="#locDet.locality_id#">
 				</cfinvoke>
 				#contents#
@@ -1274,8 +1272,6 @@ INSERT INTO geog_auth_rec (
 			<td>
 				<cfif len(DEC_LAT) gt 0>
 					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-						<cfinvokeargument name="lat" value="#dec_lat#">
-						<cfinvokeargument name="long" value="#dec_long#">
 						<cfinvokeargument name="locality_id" value="#locality_id#">
 					</cfinvoke>
 					#contents#
