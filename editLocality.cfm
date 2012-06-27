@@ -465,8 +465,8 @@
 		<cfelse>
 			not found
 		</cfif>
-		<br>Elevation (m): #sele#
-		<br>Descriptive: #sgeo#
+		<br><strong>Elevation:</strong>: #sele# m
+		<br><strong>Descriptive:</strong> #sgeo#
 		</div>
 		<input type="hidden" name="s$dec_lat" value="#slat#">
 		<input type="hidden" name="s$dec_long" value="#slon#" id="s$dec_long">
