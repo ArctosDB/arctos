@@ -1,8 +1,6 @@
 <cfcomponent>
 <!------------------------------------------------------------------->
 <cffunction name="getMap" access="remote">
-	<cfargument name="lat" type="numeric" required="yes">
-	<cfargument name="long" type="numeric" required="yes">
 	<cfargument name="size" type="string" required="no" default="200x200">
 	<cfargument name="maptype" type="string" required="no" default="roadmap">
 	<cfargument name="collection_object_id" type="any" required="no" default="">
