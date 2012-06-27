@@ -162,7 +162,7 @@
 			s$elevation,
 			s$geography,
 			s$dec_lat,
-			s$dec_lon
+			s$dec_long
 		from 
 			locality, 
 			geog_auth_rec 
@@ -365,7 +365,24 @@
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#spec_locality#, #higher_geog#&sensor=false" timeout="1"></cfhttp>
 			<cfdump var=#cfhttp#>
 		</cfif>
-
+		<cfif len(s$geography) is 0>
+			<cfif len(dec_lat) gt 0>
+				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#dec_lat#,#dec_long#&sensor=false" timeout="1"></cfhttp>
+				<cfdump var=#cfhttp#>
+			<cfelseif len(s$dec_lat) gt 0>
+				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#s$dec_lat#,#s$dec_long#&sensor=false" timeout="1"></cfhttp>
+				<cfdump var=#cfhttp#>
+			</cfif>
+		</cfif>
+		<cfif len(s$elevation) is 0>
+			<cfif len(dec_lat) gt 0>
+				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#DEC_LAT#,#DEC_LONG#&sensor=false" timeout="1"></cfhttp>
+				<cfdump var=#cfhttp#>
+			<cfelseif len(s$dec_lat) gt 0>
+				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#s$dec_lat#,#s$dec_long#&sensor=false" timeout="1"></cfhttp>
+				<cfdump var=#cfhttp#>
+			</cfif>
+		</cfif>
 <cfabort>
 
 
