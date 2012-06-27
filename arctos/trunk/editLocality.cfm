@@ -357,7 +357,8 @@
 					<br>llr: #llr#
 					<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
 						<br>#ac#
-					
+						<br>=======#llresult.results[llr].address_components[ac].long_name#========
+						<br>=======#llresult.results[llr].address_components[ac].short_name#========
 					</cfloop>
 				</cfloop>
 				
