@@ -98,22 +98,24 @@
 			</cfif>
 		</cfif>
 		<cfoutput>
-		<cfset mapurl="http://maps.google.com/maps/api/staticmap?center=#d.DEC_LAT#,#d.DEC_LONG#">
-		<cfset mapurl=mapurl & "&markers=color:red|size:tiny|#d.DEC_LAT#,#d.DEC_LONG#&sensor=false&size=#size#&zoom=2&maptype=#maptype#">
-		<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
-		<cfset rVal='<figure>'>
-		<cfif len(d.locality_id) gt 0>
-			<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#locality_id#" target="_blank">' & mapImage & '</a>'>
-		</cfif>
-		<cfif showCaption>
-			<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#'>
-			<cfif len(d.S$ELEVATION) gt 0>
-				<cfset rVal=rVal & '; Elev. #d.S$ELEVATION# m'>
+			<cfset mapurl="http://maps.google.com/maps/api/staticmap?center=#d.DEC_LAT#,#d.DEC_LONG#">
+			<cfset mapurl=mapurl & "&markers=color:red|size:tiny|#d.DEC_LAT#,#d.DEC_LONG#&sensor=false&size=#size#&zoom=2&maptype=#maptype#">
+			<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
+			<cfset rVal='<figure>'>
+			<cfif len(d.locality_id) gt 0>
+				<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#locality_id#" target="_blank">' & mapImage & '</a>'>
+			<cfelse>
+				<cfset rVal=rVal & mapImage>
 			</cfif>
-			<cfset rVal=rVal & '</figcaption>'>
-		</cfif>
-		<cfset rVal=rVal & "</figure>">
-		<cfreturn rVal> 
+			<cfif showCaption>
+				<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#'>
+				<cfif len(d.S$ELEVATION) gt 0>
+					<cfset rVal=rVal & '; Elev. #d.S$ELEVATION# m'>
+				</cfif>
+				<cfset rVal=rVal & '</figcaption>'>
+			</cfif>
+			<cfset rVal=rVal & "</figure>">
+			<cfreturn rVal> 
 		</cfoutput>
 	<cfcatch>
 		<cfdump var=#cfcatch#>
