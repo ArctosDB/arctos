@@ -347,8 +347,6 @@
 	</td><td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
 			<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-				<cfinvokeargument name="lat" value="#locDet.dec_lat#">
-				<cfinvokeargument name="long" value="#locDet.dec_long#">
 				<cfinvokeargument name="locality_id" value="#locality_id#">
 			</cfinvoke>
 		#contents#

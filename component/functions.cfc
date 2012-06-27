@@ -7,6 +7,7 @@
 	<cfargument name="locality_id" type="any" required="no" default="">
 	<cfargument name="collecting_event_id" type="any" required="no" default="">
 	<cfargument name="specimen_event_id" type="any" required="no" default="">
+	<cfargument name="media_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cftry>
 		<cfif len(locality_id) gt 0>
@@ -54,10 +55,21 @@
 					collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 					specimen_event.specimen_event_id=<cfqueryparam value = "#specimen_event_id#" CFSQLType = "CF_SQL_INTEGER">
 			</cfquery>
+		<cfelseif len(media_id) gt 0>
+			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select 
+					COORDINATES,
+					' ' S$ELEVATION
+				from
+					media_flat
+				where
+					COORDINATES is not null and
+					media_id=<cfqueryparam value = "#media_id#" CFSQLType = "CF_SQL_INTEGER">
+			</cfquery>
 		<cfelse>
 			<cfreturn 'not_enough_info'>
 		</cfif>
-		<cfif d.recordcount is 1 and len(d.S$ELEVATION) is 0>
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.S$ELEVATION) is 0>
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#d.DEC_LAT#,#d.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
@@ -82,9 +94,14 @@
 		<cfset mapurl=mapurl & "&markers=color:red|size:tiny|#d.DEC_LAT#,#d.DEC_LONG#&sensor=false&size=#size#&zoom=2&maptype=#maptype#">
 		<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
 		<cfset rVal='<figure>'>
-		<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#locality_id#" target="_blank">' & mapImage & '</a>'>
+		<cfif len(d.locality_id) gt 0>
+			<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#locality_id#" target="_blank">' & mapImage & '</a>'>
+		</cfif>
 		<cfif showCaption>
 			<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#</figcaption>'>
+			<cfif len(d.S$ELEVATION) gt 0>
+				<cfset rVal=rVal & '; Elev. #d.S$ELEVATION#'>
+			</cfif>
 		</cfif>
 		<cfset rVal=rVal & "</figure>">
 		<cfreturn rVal> 
