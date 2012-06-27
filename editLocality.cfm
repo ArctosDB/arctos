@@ -463,7 +463,7 @@
 				<figcaption>#numberformat(slat,"__.___")#,#numberformat(slon,"___.___")#</figcaption>
 			</figure>
 		<cfelse>
-			Coordinates not found
+			<br>Coordinates not found
 		</cfif>
 		<cfset sgeo=replace(sgeo,",",", ","all")>
 		<strong>Elevation:</strong> #sele# m
