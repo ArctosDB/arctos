@@ -465,6 +465,7 @@
 		<cfelse>
 			not found
 		</cfif>
+		<cfset sgeo=replace(sgeo,",",", ","all")>
 		<br><strong>Elevation:</strong>: #sele# m
 		<br><strong>Descriptive:</strong> #sgeo#
 		</div>
