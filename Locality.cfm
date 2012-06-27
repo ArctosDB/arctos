@@ -1502,7 +1502,7 @@ INSERT INTO geog_auth_rec (
 					<div>
 						<cfif len(dec_lat) gt 0>
 							<cfif i lte 25>
-								<cfset contents=getMap.getMap(lat=#dec_lat#,long=#dec_long#)>						
+								<cfset contents=getMap.getMap(locality_id=#locality_id#)>						
 								#contents#
 							<cfelse>
 								TooManyMatches - no map for you.
