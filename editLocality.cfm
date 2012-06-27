@@ -401,14 +401,14 @@
 				</td>
 				<td>
 					<label for="s$dec_long">s$dec_long</label>
-					<input type="text" name="s$dec_long" value="#locDet.#" id="s$dec_long" class="">
+					<input type="text" name="s$dec_long" value="#slon#" id="s$dec_long" class="">
 				</td>
 			</tr>
 		</table>
 		<label for="s$elevation">s$elevation</label>
-		<input type="text" name="s$elevation" value="#locDet.#" id="s$elevation" class="">
+		<input type="text" name="s$elevation" value="#sele#" id="s$elevation" class="">
 		<label for="s$geography">s$geography </label>
-		<input type="text" name="s$geography" value="#locDet.#" id="s$geography" class="">
+		<input type="text" name="s$geography" value="#sgeo#" id="s$geography" class="">
 		
 	
 			
