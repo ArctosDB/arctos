@@ -352,6 +352,7 @@
 		<cfset geoList="">
 		<cfif len(locDet.s$dec_lat) is 0>
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#locDet.spec_locality#, #locDet.higher_geog#&sensor=false" timeout="1"></cfhttp>
+			<cfdump var=#cfhttp#>
 			<cfif cfhttp.responseHeader.Status_Code is 200 and cfhttp.results.status is "OK">
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
