@@ -450,10 +450,10 @@
 		</ul>
 		<hr>
 		<h5>Webservice Lookup Data</h5>
-		Coordinates: #slat#/slon#
+		Coordinates: #slat#/#slon#
 		<br>Elevation (m): #sele#
 		<br>Descriptive: #sgeo#
-		<input type="hidden" name="s$dec_lat" id="s$dec_lat" value="#slat#">
+		<input type="hidden" name="s$dec_lat" value="#slat#">
 		<input type="hidden" name="s$dec_long" value="#slon#" id="s$dec_long">
 		<input type="hidden" name="s$elevation" value="#sele#" id="s$elevation">
 		<input type="hidden" name="s$geography" value="#sgeo#" id="s$geography">
