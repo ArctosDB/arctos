@@ -353,7 +353,7 @@
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 				<cfdump var=#llresult#>
-				<cfloop from="1" to ="#arraylen(llresult.results)" index="llr">
+				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 					<br>llr: #llr#
 				</cfloop>
 				
