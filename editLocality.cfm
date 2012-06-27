@@ -441,6 +441,11 @@
 		<input type="button" value="Add Collecting Event" class="insBtn" 
 			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
 		<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
+		<br>
+		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a>
+		<a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">[ BioGeoMancer ]</a>
+		<a href="http://manisnet.org/gci2.html" target="_blank" class="external">[ Georef Calculator ]</a>
+		<span class="likeLink" onClick="getDocs('lat_long')">[ lat_long help ]</span>
 	</td><td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
 			<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
@@ -448,12 +453,7 @@
 			</cfinvoke>
 		#contents#
 		</cfif>
-		<ul>
-			<li><a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a></li>
-			<li><a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">BioGeoMancer</a></li>
-			<li><a href="http://manisnet.org/gci2.html" target="_blank" class="external">Georef Calculator</a></li>
-			<li><span class="likeLink" onClick="getDocs('lat_long')">lat_long Help</span></li>
-		</ul>
+		
 		
 		<div style="border:1px dashed red; padding:1em;background-color:lightgray;">
 		<strong>Google Webservice Lookup Data</strong>
