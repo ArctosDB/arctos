@@ -56,7 +56,7 @@
 				specimen_event.specimen_event_id=<cfqueryparam value = "#specimen_event_id#" CFSQLType = "CF_SQL_INTEGER">
 		</cfquery>
 	<cfelse>
-		<cfreturn />
+		<cfreturn 'not_enough_info'>
 	</cfif>
 	<cfif d.recordcount is 1 and len(d.S$ELEVATION) is 0>
 		<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#lat#,#long#&sensor=false" timeout="1"></cfhttp>
