@@ -355,6 +355,10 @@
 				<cfdump var=#llresult#>
 				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 					<br>llr: #llr#
+					<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+						<br>#ac#
+					
+					</cfloop>
 				</cfloop>
 				
 				-------#llresult.results[1].address_components[1].long_name#-----
