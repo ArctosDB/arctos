@@ -98,10 +98,11 @@
 			<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#locality_id#" target="_blank">' & mapImage & '</a>'>
 		</cfif>
 		<cfif showCaption>
-			<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#</figcaption>'>
+			<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#'>
 			<cfif len(d.S$ELEVATION) gt 0>
 				<cfset rVal=rVal & '; Elev. #d.S$ELEVATION#'>
 			</cfif>
+			<cfset rVal=rVal & '</figcaption>'>
 		</cfif>
 		<cfset rVal=rVal & "</figure>">
 		<cfreturn rVal> 
