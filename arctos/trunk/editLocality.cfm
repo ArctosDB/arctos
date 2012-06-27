@@ -341,7 +341,6 @@
 			</cfloop>
 		</select>
 		<br>
-		------------------------------------ random webservice data -------------------------------------------------------
 		<cfset slat=locDet.s$dec_lat>
 		<cfset slon=locDet.s$dec_long>
 		<cfset sgeo=locDet.s$geography>
