@@ -158,7 +158,11 @@
 			DATUm,
 			georeference_source,
 			georeference_protocol,
-			locality_name
+			locality_name,
+			s$elevation,
+			s$geography,
+			s$dec_lat,
+			s$dec_lon
 		from 
 			locality, 
 			geog_auth_rec 
@@ -336,7 +340,29 @@
 					value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 			</cfloop>
 		</select>
-		<br>	   
+		<br>
+		------------------------------------ random webservice data -------------------------------------------------------
+		<table>
+			<tr>
+				<td>
+					<label for="s$dec_lat">s$dec_lat Latitude</label>
+					<input type="text" name="s$dec_lat" id="s$dec_lat" value="#locDet.s$dec_lat#" class="">
+				</td>
+				<td>
+					<label for="s$dec_long">s$dec_long Longitude</label>
+					<input type="text" name="s$dec_long" value="#locDet.s$dec_long#" id="s$dec_long" class="">
+				</td>
+			</tr>
+		</table>
+		<label for="s$elevation">s$elevation</label>
+		<input type="text" name="s$elevation" value="#locDet.s$elevation#" id="s$elevation" class="">
+		<label for="s$geography">s$geography </label>
+		<input type="text" name="s$geography" value="#locDet.s$geography#" id="s$geography" class="">
+		
+			
+			
+			
+			   
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
