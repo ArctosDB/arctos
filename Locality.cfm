@@ -1435,6 +1435,7 @@ INSERT INTO geog_auth_rec (
 			datum      
 		from 
 			localityResults
+		where locality_id is no null
 		group by
            locality_id,
             geog_auth_rec_id,
