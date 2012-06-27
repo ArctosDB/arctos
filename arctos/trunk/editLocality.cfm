@@ -374,6 +374,8 @@
 						</cfif>
 					</cfloop>
 				</cfloop>
+				<cfset slat=llresult.results.geometry.location.lat>
+				<cfset slon=llresult.results.geometry.location.lng>
 				<cfset sgeo=geoList>
 			</cfif>
 		</cfif>
