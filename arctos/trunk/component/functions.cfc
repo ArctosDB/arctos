@@ -58,15 +58,22 @@
 		<cfelseif len(media_id) gt 0>
 			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select 
-					'' locality_id,
 					COORDINATES,
-					' ' S$ELEVATION
 				from
 					media_flat
 				where
 					COORDINATES is not null and
 					media_id=<cfqueryparam value = "#media_id#" CFSQLType = "CF_SQL_INTEGER">
 			</cfquery>
+			<cfquery name="d" dbtype="query">
+					select
+						'' as locality_id,
+						#listgetat(coordinates,1)# as DEC_LAT,
+						#listgetat(coordinates,2) as #DEC_LONG,
+						'' as S$ELEVATION
+					from
+						d
+				</cfquery>
 		<cfelse>
 			<cfreturn 'not_enough_info'>
 		</cfif>
