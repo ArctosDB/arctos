@@ -380,15 +380,15 @@
 				
 				
 				llresult.results[1].geometry
-				<cfdump var=#llresult.results.geometry#>
+				<cfdump var=#llresult[1].results.geometry#>
 				
 				
 				
-			llresult.results.geometry.location
-				<cfdump var=#llresult.results.geometry.location#>
+			llresult.results[1].geometry.location
+				<cfdump var=#llresult.results[1].geometry.location#>
 				
-				<cfset slat=llresult.results.geometry.lat>
-				<cfset slon=llresult.results.geometry.location.lng>
+				<cfset slat=llresult.results[1].geometry.lat>
+				<cfset slon=llresult.results[1].geometry.location.lng>
 				<cfset sgeo=geoList>
 			</cfif>
 		</cfif>
