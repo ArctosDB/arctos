@@ -384,11 +384,8 @@
 		<cfif len(locDet.s$geography) is 0>
 			<cfif len(locDet.dec_lat) gt 0>
 				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#locDet.dec_lat#,#locDet.dec_long#&sensor=false" timeout="1"></cfhttp>
-				<cfdump var=#cfhttp#>
 				<cfif cfhttp.responseHeader.Status_Code is 200>
 					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-					<cfdump var=#llresult#>
-					
 					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
 							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
@@ -402,16 +399,44 @@
 				</cfif>
 			<cfelseif len(locDet.s$dec_lat) gt 0>
 				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#locDet.s$dec_lat#,#locDet.s$dec_long#&sensor=false" timeout="1"></cfhttp>
-				<cfdump var=#cfhttp#>
+				<cfif cfhttp.responseHeader.Status_Code is 200>
+					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+							</cfif>
+							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+							</cfif>
+						</cfloop>
+					</cfloop>
+				</cfif>
 			</cfif>
 		</cfif>
 		<cfif len(locDet.s$elevation) is 0>
 			<cfif len(locDet.dec_lat) gt 0>
 				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#locDet.DEC_LAT#,#locDet.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
-				<cfdump var=#cfhttp#>
+				
+				<cfif cfhttp.responseHeader.Status_Code is 200>
+					<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+					<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+						<cfset sele=round(elevResult.results[1].elevation)>
+					</cfif>
+				</cfif>
+			
+			
+			
+				
+				
 			<cfelseif len(locDet.s$dec_lat) gt 0>
 				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#locDet.s$dec_lat#,#locDet.s$dec_long#&sensor=false" timeout="1"></cfhttp>
-				<cfdump var=#cfhttp#>
+				<cfif cfhttp.responseHeader.Status_Code is 200>
+					<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+					<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+						<cfset sele=round(elevResult.results[1].elevation)>
+					</cfif>
+				</cfif>
 			</cfif>
 		</cfif>
 		
