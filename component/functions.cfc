@@ -55,6 +55,23 @@
 					collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 					specimen_event.specimen_event_id=<cfqueryparam value = "#specimen_event_id#" CFSQLType = "CF_SQL_INTEGER">
 			</cfquery>
+		<cfelseif len(collection_object_id) gt 0>
+			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select 
+					locality.locality_id,
+					locality.DEC_LAT,
+					locality.DEC_LONG,
+					locality.S$ELEVATION
+				from
+					locality,
+					collecting_event,
+					specimen_event
+				where
+					locality.DEC_LAT is not null and
+					locality.locality_id=collecting_event.locality_id and
+					collecting_event.collecting_event_id=specimen_event.collecting_event_id and
+					specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
+			</cfquery>
 		<cfelseif len(media_id) gt 0>
 			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select 
