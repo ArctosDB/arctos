@@ -136,7 +136,7 @@
 			<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
 			<cfset rVal='<figure>'>
 			<cfif len(d.locality_id) gt 0>
-				<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#locality_id#" target="_blank">' & mapImage & '</a>'>
+				<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>'>
 			<cfelse>
 				<cfset rVal=rVal & mapImage>
 			</cfif>
