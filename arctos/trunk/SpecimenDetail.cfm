@@ -224,8 +224,6 @@ font-weight:bold;
 				<div id="SDheaderMap">
 				 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
 					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-						<cfinvokeargument name="lat" value="#detail.dec_lat#">
-						<cfinvokeargument name="long" value="#detail.dec_long#">
 						<cfinvokeargument name="collection_object_id" value="#detail.collection_object_id#">
 						<cfinvokeargument name="size" value="150x150">
 						<cfinvokeargument name="showCaption" value="false">

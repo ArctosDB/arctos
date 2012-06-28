@@ -1,37 +1,74 @@
 <!---
-drop table cf_temp_georef;
+drop table cf_temp_place;
 
-create table cf_temp_georef (
+create table cf_temp_place (
 	key NUMBER NOT NULL,
 	status varchar2(4000),
-	DETERMINED_BY_AGENT_ID number,
- 	HigherGeography VARCHAR2(255) NOT NULL,
- 	SpecLocality VARCHAR2(255) NOT NULL,
-	Locality_ID number NOT NULL,
-	Dec_Lat NUMBER(12,10),
-	Dec_Long NUMBER(13,10),
-	MAX_ERROR_DISTANCE number,
-	MAX_ERROR_UNITS VARCHAR2(2),
-	LAT_LONG_REMARKS VARCHAR2(255),
-	DETERMINED_BY_AGENT VARCHAR2(255) NOT NULL,
-	GEOREFMETHOD VARCHAR2(255) NOT NULL,
-	ORIG_LAT_LONG_UNITS VARCHAR2(20) NOT NULL,
-	DATUM VARCHAR2(55) NOT NULL,
-	DETERMINED_DATE DATE NOT NULL,
-	LAT_LONG_REF_SOURCE VARCHAR2(255) NOT NULL,
-	EXTENT NUMBER(8,3),
-	GPSACCURACY NUMBER(8,3),
-	VERIFICATIONSTATUS VARCHAR2(40) NOT NULL,
-	SPATIALFIT NUMBER(4,3)
+	higher_geog varchar2(255),
+	geog_auth_rec_id number,
+	action varchar2(255),
+	guid_prefix,
+	other_id_type,
+	other_id_num,
+	collection_object_id NUMBER,
+    collecting_event_id NUMBER,
+    assigned_by_agent_id NUMBER,
+	event_assigned_by_agent varchar2(255),
+    assigned_date DATE NOT NULL,
+    specimen_event_remark VARCHAR2(4000),
+    specimen_event_type VARCHAR2(60),
+    COLLECTING_METHOD VARCHAR2(255),
+    COLLECTING_SOURCE VARCHAR2(60),
+    VERIFICATIONSTATUS VARCHAR2(60),
+    habitat  VARCHAR2(4000)
+	LOCALITY_ID NUMBER,
+    VERBATIM_DATE VARCHAR2(60),
+    VERBATIM_LOCALITY VARCHAR2(4000),
+    COLL_EVENT_REMARKS VARCHAR2(4000),
+    BEGAN_DATE VARCHAR2(22),
+    ENDED_DATE VARCHAR2(22),
+    collecting_event_name VARCHAR2(255),
+    LAT_DEG NUMBER,
+    DEC_LAT_MIN NUMBER(8,6),
+    LAT_MIN NUMBER,
+    LAT_SEC NUMBER(8,6),
+    LAT_DIR CHAR(1),
+    LONG_DEG NUMBER,
+    DEC_LONG_MIN NUMBER(10,8),
+    LONG_MIN NUMBER,
+    LONG_SEC NUMBER(8,6),
+    LONG_DIR CHAR(1),
+    DEC_LAT NUMBER(12,10),
+    DEC_LONG  NUMBER(13,10),
+    DATUM VARCHAR2(55),
+    UTM_ZONE VARCHAR2(3),
+    UTM_EW NUMBER,
+    UTM_NS NUMBER,
+    ORIG_LAT_LONG_UNITS VARCHAR2(20),
+	SPEC_LOCALITY VARCHAR2(255),
+    MINIMUM_ELEVATION NUMBER,
+    MAXIMUM_ELEVATION NUMBER,
+    ORIG_ELEV_UNITS VARCHAR2(30),
+    MIN_DEPTH NUMBER,
+    MAX_DEPTH NUMBER,
+    DEPTH_UNITS VARCHAR2(30),
+    MAX_ERROR_DISTANCE NUMBER,
+    MAX_ERROR_UNITS VARCHAR2(30),
+    LOCALITY_REMARKS VARCHAR2(4000),
+    georeference_source VARCHAR2(4000),
+    georeference_protocol VARCHAR2(255),
+    locality_name VARCHAR2(255)
 );
 
 
-create or replace public synonym cf_temp_georef for cf_temp_georef;
-grant all on cf_temp_georef to manage_locality;
-grant select on cf_temp_georef to public;
 
-CREATE OR REPLACE TRIGGER cf_temp_georef_key                                         
- before insert  ON cf_temp_georef  
+
+create or replace public synonym cf_temp_place for cf_temp_place;
+grant all on cf_temp_place to manage_locality;
+grant select on cf_temp_place to public;
+
+CREATE OR REPLACE TRIGGER cf_temp_place_key                                         
+ before insert  ON cf_temp_place  
  for each row 
     begin     
     	if :NEW.key is null then                                                                                      
@@ -42,39 +79,276 @@ CREATE OR REPLACE TRIGGER cf_temp_georef_key
 sho err
 --->
 <cfinclude template="/includes/_header.cfm">
-<cfif #action# is "nothing">
-	HigherGeography, SpecLocality, and locality_id must all match Arctos data or this form will not work. There are still plenty of ways
-	to hook a georeference to the wrong socket - make sure you know what you're doing before you try to use this form.
-	<br>
-	<a href="http://g-arctos.appspot.com/arctosdoc/lat_long.html">Help is here</a>
+<cfif action is "nothing">
+
 	
 <br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
 	<div id="template" style="display:none;">
 		<label for="t">Copy and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">HigherGeography,SpecLocality,Locality_ID,Dec_Lat,Dec_Long,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LAT_LONG_REMARKS,DETERMINED_BY_AGENT,GEOREFMETHOD,ORIG_LAT_LONG_UNITS,DATUM,DETERMINED_DATE,LAT_LONG_REF_SOURCE,EXTENT,GPSACCURACY,VERIFICATIONSTATUS,SPATIALFIT</textarea>
+		<textarea rows="2" cols="80" id="t">higher_geog,action,guid_prefix,other_id_type,other_id_num,event_assigned_by_agent,assigned_date,specimen_event_remark,specimen_event_type,COLLECTING_METHOD,COLLECTING_SOURCE,VERIFICATIONSTATUS,habitat,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,collecting_event_name,LAT_DEG,DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS, MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,georeference_source,georeference_protocol,locality_name</textarea>
 	</div> 
-<p></p>
-Columns in <span style="color:red">red</span> are required; others are optional:
-<ul>
-	<li style="color:red">HigherGeography</li>
-	<li style="color:red">SpecLocality</li>
-	<li style="color:red">Locality_ID</li>
-	<li style="color:red">Dec_Lat</li>
-	<li style="color:red">Dec_Long</li>
-	<li style="color:red">DETERMINED_BY_AGENT</li>
-	<li style="color:red">GEOREFMETHOD<span class="infoLink" onclick="getCtDoc('ctGEOREFMETHOD','');">Define</span></li>
-	<li style="color:red">ORIG_LAT_LONG_UNITS<span class="infoLink" onclick="getCtDoc('CTLAT_LONG_UNITS','');">Define</span></li>
-	<li style="color:red">DATUM<span class="infoLink" onclick="getCtDoc('CTDATUM','');">Define</span></li>
-	<li style="color:red">DETERMINED_DATE</li>
-	<li style="color:red">LAT_LONG_REF_SOURCE</li>
-	<li style="color:red">VERIFICATIONSTATUS<span class="infoLink" onclick="getCtDoc('CTVERIFICATIONSTATUS','');">Define</span></li>
-	<li>MAX_ERROR_DISTANCE</li>
-	<li>MAX_ERROR_UNITS<span class="infoLink" onclick="getCtDoc('CTLAT_LONG_ERROR_UNITS','');">Define</span></li>
-	<li>LAT_LONG_REMARKS</li>
-	<li>EXTENT</li>	
-	<li>GPSACCURACY</li>	
-	<li>SPATIALFIT</li>			 
-</ul>
+<p>
+	Action MODIFY_LOCALITY will work only if there is one "accepted place of collection" locality that is not
+	used for "verified by %" verificationstatus or by collections to which you do not have access. Useful for eg, adding georeference.
+</p>
+
+<table border>
+	<tr>
+		<th>Column</th>
+		<th>RequiredWhen</th>
+		<th>docs</th>
+	</tr>
+	<tr>
+		<td>higher_geog</td>
+		<td>locality_name or collecting_event_name not given</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>action</td>
+		<td>always</td>
+		<td>one of (MODIFY_LOCALITY)</td>
+	</tr>
+	<tr>
+		<td>guid_prefix</td>
+		<td>always</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>other_id_type</td>
+		<td>always</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>other_id_num</td>
+		<td>always</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>event_assigned_by_agent</td>
+		<td>action one on (ADD_LOCALITY)</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>assigned_date</td>
+		<td>action one on (ADD_LOCALITY)</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>specimen_event_remark</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>specimen_event_type</td>
+		<td>action one on (ADD_LOCALITY)</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>COLLECTING_METHOD</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>COLLECTING_SOURCE</td>
+		<td>action one on (ADD_LOCALITY)</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>VERIFICATIONSTATUS</td>
+		<td>action one on (ADD_LOCALITY)</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>habitat</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>VERBATIM_DATE</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>VERBATIM_LOCALITY</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>COLL_EVENT_REMARKS</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>BEGAN_DATE</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>ENDED_DATE</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>collecting_event_name</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>LAT_DEG</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DEC_LAT_MIN</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>LAT_MIN</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>LAT_SEC</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>LAT_DIR</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>LONG_DEG</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DEC_LONG_MIN</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>LONG_MIN</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>LONG_SEC</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>LONG_DIR</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DEC_LAT</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DEC_LONG</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DATUM</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>UTM_ZONE</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>UTM_EW</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>UTM_NS</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>ORIG_LAT_LONG_UNITS</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>SPEC_LOCALITY</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>MINIMUM_ELEVATION</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>MAXIMUM_ELEVATION</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>ORIG_ELEV_UNITS</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>MIN_DEPTH</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>MAX_DEPTH</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>DEPTH_UNITS</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>MAX_ERROR_DISTANCE</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>MAX_ERROR_UNITS</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>LOCALITY_REMARKS</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>georeference_source</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>georeference_protocol</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>locality_name</td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
+
+
+
+
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
