@@ -114,7 +114,7 @@
 				</cfif>
 			</cfif>
 		</cfif>
-		<cfdump var=#d#>
+		<!---
 		<cfquery name="mapcenter" dbtype="query">
 			select
 				avg(dec_lat) as cdlat,
@@ -122,15 +122,17 @@
 			from
 				d
 		</cfquery>
-				<cfdump var=#d#>
-
+		center=#mapcenter.cdlat#,#mapcenter.cdlong#
+		--->
 		<cfoutput>
-			<cfset mapurl="http://maps.google.com/maps/api/staticmap?center=#mapcenter.cdlat#,#mapcenter.cdlong#">
-			<cfset mapurl=mapurl & "&markers=color:red|size:tiny">
+			<cfset mapurl="http://maps.google.com/maps/api/staticmap?markers=color:red|size:tiny">
 			<cfloop query="d">
 				<cfset mapurl=mapurl & "|#d.DEC_LAT#,#d.DEC_LONG#">
 			</cfloop>
-			<cfset mapurl=mapurl & "&sensor=false&size=#size#&zoom=2&maptype=#maptype#">
+			<cfset mapurl=mapurl & "&sensor=false&size=#size#&maptype=#maptype#">
+			<cfif d.recordcount is 1>
+			<cfset mapurl=mapurl & "&zoom=2">
+			</cfif>
 			<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
 			<cfset rVal='<figure>'>
 			<cfif len(d.locality_id) gt 0>
