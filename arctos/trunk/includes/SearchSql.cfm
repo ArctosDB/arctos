@@ -720,7 +720,7 @@
 	<cfif basJoin does not contain " collecting_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND collecting_event.locality_id = #locality_id#">
+	<cfset basQual = " #basQual# AND collecting_event.locality_id IN ( #locality_id# )">
 </cfif>
 
 
