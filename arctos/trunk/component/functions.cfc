@@ -114,6 +114,7 @@
 				</cfif>
 			</cfif>
 		</cfif>
+		<cfdump var=#d#>
 		<cfoutput>
 			<cfset mapurl="http://maps.google.com/maps/api/staticmap?center=#d.DEC_LAT#,#d.DEC_LONG#">
 			<cfset mapurl=mapurl & "&markers=color:red|size:tiny|#d.DEC_LAT#,#d.DEC_LONG#&sensor=false&size=#size#&zoom=2&maptype=#maptype#">
