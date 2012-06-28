@@ -95,6 +95,7 @@
 			<cfreturn 'not_enough_info'>
 		</cfif>
 		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.S$ELEVATION) is 0>
+			<cftry>
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#d.DEC_LAT#,#d.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
@@ -113,6 +114,8 @@
 					</cfquery>
 				</cfif>
 			</cfif>
+			<cfcatch><!--- whatever ---></cfcatch>
+			</cftry>
 		</cfif>
 		<!---
 		<cfquery name="mapcenter" dbtype="query">
