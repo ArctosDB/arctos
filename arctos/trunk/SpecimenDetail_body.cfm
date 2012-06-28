@@ -493,7 +493,7 @@
 										<td valign="top" align="right"><!---- map here --->
 											 <cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
 												<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-													<cfinvokeargument name="collection_object_id" value="#collection_object_id#">
+													<cfinvokeargument name="collection_object_id" value="#specimen_event_id#">
 												</cfinvoke>
 												#contents#
 											</cfif>
