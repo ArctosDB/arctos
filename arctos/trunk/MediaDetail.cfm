@@ -74,43 +74,36 @@
 									<cfinvokeargument name="media_id" value="#media_id#">
 									<cfinvokeargument name="size" value="100x100">
 								</cfinvoke>
-								<!----
-									<cfset iu="http://maps.google.com/maps/api/staticmap?center=#coord.coordinates#">
-                                    <cfset iu=iu & "&markers=color:red|size:tiny|#coord.coordinates#&sensor=false&size=100x100&zoom=2">
-                                    <cfset iu=iu & "&maptype=roadmap">
-                                    <a href="http://maps.google.com/maps?q=#coord.coordinates#" target="_blank"><img src="#iu#" alt="Google Map"></a>
-									--->
-									#contents#
-                                </cfif>
+								#contents#
+							</cfif>
                         </td>
                         <td>
-                                <cfif len(desc.label_value) gt 0>
-                                        <ul><li>#desc.label_value#</li></ul>
-                                </cfif>
-                                <cfif labels.recordcount gt 0>
-                                        <ul>
-                                            <cfloop query="labels">
-                                                    <li>
-                                                            #media_label#: #label_value#
-                                                    </li>
-                                            </cfloop>
-                                        </ul>
-                                </cfif>
-                                <cfset mrel=getMediaRelations(#findIDs.media_id#)>
-                                <cfif mrel.recordcount gt 0>
-                                        <ul>
-                                        <cfloop query="mrel">
-                                                <li>#media_relationship#  
-                                    <cfif len(#link#) gt 0>
-                                        <a href="#link#" target="_blank">#summary#</a>
-                                    <cfelse>
-                                                                #summary#
-                                                        </cfif>
-                                </li>
-                                        </cfloop>
-                                        </ul>
-                                </cfif>
-                        </td>
+							<cfif len(desc.label_value) gt 0>
+								<ul><li>#desc.label_value#</li></ul>
+							</cfif>
+							<cfif labels.recordcount gt 0>
+								<ul>
+									<cfloop query="labels">
+										<li>#media_label#: #label_value#</li>
+									</cfloop>
+								</ul>
+							</cfif>
+							<cfset mrel=getMediaRelations(findIDs.media_id)>
+							<cfif mrel.recordcount gt 0>
+								<ul>
+									<cfloop query="mrel">
+										<li>
+											#media_relationship#  
+											<cfif len(link) gt 0>
+												<a href="#link#" target="_blank">#summary#</a>
+											<cfelse>
+												#summary#
+											</cfif>
+										</li>
+									</cfloop>
+								</ul>
+							</cfif>
+						</td>
                 </tr>
                 <tr>
                         <td colspan="3" align="center">
