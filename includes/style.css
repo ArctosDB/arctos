@@ -241,6 +241,8 @@ div.one_thumb p {
 #imgDiv{
 	border:1px solid black;
 	max-width:60%;
+	position:absolute;
+	float: left;
 }
 #navDiv {
 	float:right;
