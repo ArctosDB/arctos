@@ -228,7 +228,7 @@ div.one_thumb p {
 }
 
 
-/* TAG style */
+/* --------  TAG style - DO NOT EDIT THIS STUFF UNLESS YOU REALLY KNOW WHAT YOU'RE DOING! -------------   */
 
 .editing {
 	border:1px solid red;
@@ -294,7 +294,7 @@ div.one_thumb p {
 .refPane_highlight {
 	border:3px solid yellow;
 }
-/* end TAG style */
+/* -------------------   end TAG style ------------------------  */
 
 .annotateBox {
 	border:3px solid green;
