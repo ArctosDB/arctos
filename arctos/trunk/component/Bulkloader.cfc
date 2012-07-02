@@ -91,21 +91,25 @@
 <cffunction name="incrementCustomId" access="remote">
 	<cfargument name="cidType" required="no">
 	<cfargument name="cidVal" required="no">
-	<cfset cVal="">
-	<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1>
-		<cftry>
-			<cfif isnumeric(cidVal)>
-				<cfset cVal = cidVal + 1>
-			<cfelseif isnumeric(right(cidVal,len(cidVal)-1))>
-				<cfset temp = (right(cidVal,len(cidVal)-1)) + 1>
-				<cfset cVal = left(cidVal,1) & temp>
-			</cfif>
-		<cfcatch>
-			<!--- whatever ---->
-		</cfcatch>
-		</cftry>
+	<cfif len(cidType) gt 0>
+		<cfset cVal="">
+		<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1>
+			<cftry>
+				<cfif isnumeric(cidVal)>
+					<cfset cVal = cidVal + 1>
+				<cfelseif isnumeric(right(cidVal,len(cidVal)-1))>
+					<cfset temp = (right(cidVal,len(cidVal)-1)) + 1>
+					<cfset cVal = left(cidVal,1) & temp>
+				</cfif>
+			<cfcatch>
+				<!--- whatever ---->
+			</cfcatch>
+			</cftry>
+		</cfif>
+		<cfreturn cVal>
+	<cfelse>
+		<cfreturn ''>
 	</cfif>
-	<cfreturn cVal>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 
