@@ -456,7 +456,7 @@
 		
 		
 		<div style="border:1px dashed red; padding:1em;background-color:lightgray;">
-		<strong>Google Webservice Lookup Data</strong>
+		<strong>Webservice Lookup Data</strong>
 		<div style="font-size:small">
 			Data in this box come from various webservices. They are NOT specimen data and come with no guarantees.	
 		</div>
