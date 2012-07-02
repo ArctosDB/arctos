@@ -1733,19 +1733,23 @@
 </cffunction>
 <!------------------------------------------------------->
 <cffunction name="getGeologyValues" access="remote">
-	<cfargument name="attribute" type="string" required="yes">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT 
-			attribute_value
-		FROM 
-			geology_attribute_hierarchy
-		WHERE 
-			USABLE_VALUE_FG=1 and
-			attribute='#attribute#'
-		group by attribute_value
-		order by attribute_value
-	</cfquery>
-	<cfreturn d>
+	<cfargument name="attribute" type="string" required="no">
+	<cfif len(attribute) gt 0>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			SELECT 
+				attribute_value
+			FROM 
+				geology_attribute_hierarchy
+			WHERE 
+				USABLE_VALUE_FG=1 and
+				attribute='#attribute#'
+			group by attribute_value
+			order by attribute_value
+		</cfquery>
+		<cfreturn d>
+	<cfelse>
+		<cfreturn ''>
+	</cfif>
 </cffunction>
 
 <!------------------------------------------------------->

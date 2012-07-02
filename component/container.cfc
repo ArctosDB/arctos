@@ -290,7 +290,7 @@
 		<cfset whr = "#whr# AND cataloged_item.collection_id = #collection_id#">
 	 </cfif>
 	 <cfif len(container_id) gt 0>
-				<cfset whr = "#whr# AND container.container_id = #container_id#">
+		<cfset whr = "#whr# AND container.container_id = #container_id#">
 	</cfif>
 	 <cfset sql = "#sel# #frm# #whr#">
 	<cfset thisSql = "
