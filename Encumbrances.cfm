@@ -448,7 +448,7 @@ UPDATE encumbrance SET
 			<cfif len(table_name) gt 0>
 			(select #encumbrance_id#, collection_object_id from #table_name#)
 			<cfelse>
-				(select #encumbrance_id#, collection_object_id from #cataloged_item where collection_object_id in ( #collection_object_id# ))
+				(select #encumbrance_id#, collection_object_id from cataloged_item where collection_object_id in ( #collection_object_id# ))
 			</cfif>
 		</cfquery>
 
