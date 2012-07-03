@@ -198,7 +198,7 @@
 		<cfif isdefined("remarks") and len(remarks) gt 0>
 			<cfset sql = "#sql# AND upper(remarks) like '%#ucase(remarks)#%'">	
 		</cfif>
-		<cfset sql=s & q & sql & "group by encumbrance.encumbrance_id,
+		<cfset sql=s & q & sql & " group by encumbrance.encumbrance_id,
 				encumbrance.encumbrance,
 				encumbrance.encumbrance_action,
 				preferred_agent_name.agent_name,
@@ -538,7 +538,7 @@ UPDATE encumbrance SET
 							remarks
 						FROM getData
 						WHERE 
-							collection_object_id = #collection_object_id# 
+							collection_object_id = #collection_object_id#
 						GROUP BY
 							collection_object_id,
 							encumbrance_id,
