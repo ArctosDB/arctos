@@ -255,8 +255,8 @@
 		</select>
 		<label for="showObservations">Include Observations?</label>
 		<select name="showObservations" id="showObservations" onchange="changeshowObservations(this.value)">
-			<option value="0" <cfif session.showObservations neq 1> selected="selected" </cfif>>No</option>
-			<option value="1" <cfif session.showObservations is 1> selected="selected" </cfif>>Yes</option>
+			<option value="1" <cfif session.showObservations neq 0> selected="selected" </cfif>>Yes</option>
+			<option value="0" <cfif session.showObservations is 0> selected="selected" </cfif>>No</option>
 		</select>
 		<label for="showObservations">Specimen & Taxonomy Records Per Page</label>
 		<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
