@@ -12,6 +12,9 @@
 <cfif not isdefined("table_name")>
 	<cfset table_name="">
 </cfif>
+<cfif not isdefined("collection_object_id")>
+	<cfset collection_object_id="">
+</cfif>
 <cfquery name="ctEncAct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select encumbrance_action from ctencumbrance_action order by encumbrance_action
 </cfquery>
@@ -51,9 +54,7 @@
 	         </select>
 			<label for="remarks">Remarks</label>
 			<textarea name="remarks" rows="3" cols="50"></textarea>
-			<br><input type="submit" 
-				value="Create New Encumbrance"
-				class="insBtn">
+			<br><input type="submit" value="Create New Encumbrance"	class="insBtn">
 		</form>
 	</cfoutput>
 </cfif>
@@ -62,7 +63,7 @@
 	<cfoutput>
 		<cfset title = "Search for specimens or encumbrances">
 		<p>
-			<cfif isdefined("table_name") and len(table_name) gt 0>
+			<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
 				Now find an encumbrance to apply to the specimens below. If you need a new encumbrance, create it
 				first then come back here.
 			<cfelse>
@@ -72,6 +73,7 @@
 		<cfform name="encumber" method="post" action="Encumbrances.cfm">
 			<input type="hidden" name="Action" value="listEncumbrances">
 			<input type="hidden" name="table_name" value="#table_name#">
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 			<label for="">Encumbering Agent</label>
 			<input name="encumberingAgent" id="encumberingAgent" type="text">
 			<label for="made_date_after">Made Date After</label>
@@ -256,13 +258,18 @@
 		DELETE FROM coll_object_encumbrance
 		WHERE
 		encumbrance_id = #encumbrance_id# AND
-		collection_object_id in (select collection_object_id from #table_name#
+		collection_object_id in 
+		<cfif len(table_name) gt 0>
+			(select collection_object_id from #table_name#)
+		<cfelse>
+			(#collection_object_id#)
+		</cfif>
 	</cfquery>
 	
 	
 	<p>
 		All items listed below have been removed from this encumbrance.
-		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&table_name=#table_name#">Return to Encumbrance.</a>
+		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&table_name=#table_name#&collection_object_id=#collection_object_id#">Return to Encumbrance.</a>
 	</p>
 </cfoutput>	
 </cfif>
@@ -428,28 +435,32 @@ UPDATE encumbrance SET
 <!-------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveEncumbrances">
 <cfoutput>
-	<cfif len(#encumbrance_id#) is 0>
+	<cfif len(encumbrance_id) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
 	</cfif>
-	<cfif  len(table_name) is 0>
+	<cfif  len(table_name) is 0 and len(collection_object_id) is 0>
 		Didn't get specimens<cfabort>
 	</cfif>
 
 	
 	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	INSERT INTO coll_object_encumbrance (encumbrance_id, collection_object_id)
-		(select #encumbrance_id#, collection_object_id from #table_name#)
-	</cfquery>
+		INSERT INTO coll_object_encumbrance (encumbrance_id, collection_object_id)
+			<cfif len(table_name) gt 0>
+			(select #encumbrance_id#, collection_object_id from #table_name#)
+			<cfelse>
+				(select #encumbrance_id#, collection_object_id from #cataloged_item where collection_object_id in ( #collection_object_id# ))
+			</cfif>
+		</cfquery>
 
 	<p>
 		All items listed below have been encumbered.
-		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&table_name=#table_name#">Return to Encumbrance.</a>
+		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&table_name=#table_name#&collection_object_id=#collection_object_id#">Return to Encumbrance.</a>
 	</p>
 </cfoutput>	
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------->
-<cfif len(table_name) gt 0>
+<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
 
 	<Cfset title = "Encumber these specimens">
 		<cfoutput>
@@ -463,7 +474,7 @@ UPDATE encumbrance SET
 					flat.higher_geog, 
 					flat.collection, 
 					flat.parts, 
-					encumbering_agent.agent_name AS encumbering_agent, 
+					getPreferredAgentName(encumbering_agent_id) encumbering_agent, 
 					expiration_date, 
 					expiration_event, 
 					encumbrance, 
@@ -474,14 +485,17 @@ UPDATE encumbrance SET
 				FROM 
 					flat, 
 					coll_object_encumbrance, 
-					encumbrance, 
-					preferred_agent_name encumbering_agent
-					,#table_name#
+					encumbrance
 				WHERE 
 					flat.collection_object_id=coll_object_encumbrance.collection_object_id (+) AND 
 					coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND 
-					encumbrance.encumbering_agent_id = encumbering_agent.agent_id (+)
-					and coll_object_encumbrance.collection_object_id=#table_name#.collection_object_id
+					coll_object_encumbrance.collection_object_id IN (
+						<cfif len(table_name) gt 0>
+							(select collection_object_id from #table_name#)
+						<cfelse>
+							( #collection_object_id# )
+						</cfif>
+					)
 				ORDER BY 
 					flat.collection_object_id
 			</cfquery>
