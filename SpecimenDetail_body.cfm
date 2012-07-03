@@ -314,7 +314,7 @@
 		
 					<div style="border:1px solid green; margin:1em;">
 		
-					<table border id="SD_#specimen_event_id#">
+					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination Type:</td>
 							<td id="SDCellRight">#specimen_event_type#</td>
