@@ -45,7 +45,7 @@
 		#session.flatTableName#.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
 
-
+<cfdump var=#one#>
 <cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select	
 		attributes.attribute_type,
@@ -1132,7 +1132,7 @@
 								#one.EnteredBy# on #dateformat(one.entereddate,"yyyy-mm-dd")#
 							</span>
 						</div>
-						<cfif #one.EditedBy# is not "unknown" OR len(one.lastdate) is not 0>
+						<cfif one.EditedBy is not "unknown" OR len(one.lastdate) is not 0>
 							<div class="detailBlock">
 								<span class="detailData">
 									<span class="innerDetailLabel">Last Edited By:</span>
