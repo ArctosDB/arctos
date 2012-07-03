@@ -220,9 +220,10 @@
 				<input type="hidden" name="Action">
 				<input type="hidden" name="encumbrance_id" value="#encumbrance_id#">
 				<input type="hidden" name="table_name" value="#table_name#">
+				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 				#encumbrance# (#encumbrance_action#) by #agent_name# made #dateformat(made_date,"yyyy-mm-dd")#, expires #dateformat(expiration_date,"yyyy-mm-dd")# #expiration_event# #remarks#
 				<br>
-				<cfif len(table_name) gt 0>
+				<cfif len(table_name) gt 0 or len(collection_object_id) gt 0>
 					<span class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
 						[ Add All Items To This Encumbrance ]
 					</span>
