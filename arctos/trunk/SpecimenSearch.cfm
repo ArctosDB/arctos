@@ -156,7 +156,7 @@
 				<span class="helpLink" id="collection">Collection</span>:
 			</td>
 			<td class="srch">
-				<select name="collection_id" id="collection_id" size="1">
+				<select name="collection_id" id="collection_id" size="3" multiple="multiple">
 						<option value="">All</option>
 					<cfloop query="ctInst">
 						<option <cfif #thisCollId# is #ctInst.collection_id#>

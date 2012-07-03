@@ -423,10 +423,8 @@
 			parent_container.barcode IN ('#ListChangeDelims(thisBC,',')#') )
 		" >
 	<cfset mapurl = "#mapurl#&barcode=#barcode#">
-</cfif>	
-<cfif isdefined("session.ShowObservations") AND session.ShowObservations is true>
-	<cfset mapurl = "#mapurl#&ShowObservations=#session.ShowObservations#">
-<cfelse>
+</cfif>
+<cfif isdefined("session.ShowObservations") AND session.ShowObservations is false>
 	<cfset mapurl = "#mapurl#&ShowObservations=false">
 	<cfset basQual = "#basQual#  AND lower( #session.flatTableName#.institution_acronym) not like '%obs'" >
 </cfif>
@@ -461,8 +459,8 @@
 	<cfset basQual = "#basQual#  AND encumbering_agent_id = #encumbering_agent_id#" >
 	<cfset mapurl = "#mapurl#&encumbering_agent_id=#encumbering_agent_id#">
 </cfif>	
-<cfif isdefined("collection_id") AND isnumeric(collection_id)>
-	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_id = #collection_id#" >
+<cfif isdefined("collection_id") AND len(collection_id) gt 0>
+	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_id IN ( #collection_id# )" >
 	<cfset mapurl = "#mapurl#&collection_id=#collection_id#">
 </cfif>		
 <cfif isdefined("session.collection") and len(session.collection) gt 0>
