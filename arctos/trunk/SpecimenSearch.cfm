@@ -138,8 +138,8 @@
 	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT institution_acronym, collection, collection_id FROM collection order by collection
 	</cfquery>
-	<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
-		<cfset thisCollId = #collection_id#>
+	<cfif isdefined("collection_id") and len(collection_id) gt 0>
+		<cfset thisCollId = collection_id>
 	<cfelse>
 		<cfset thisCollId = "">
 	</cfif>
@@ -157,12 +157,8 @@
 			</td>
 			<td class="srch">
 				<select name="collection_id" id="collection_id" size="3" multiple="multiple">
-						<option value="">All</option>
 					<cfloop query="ctInst">
-						<option <cfif #thisCollId# is #ctInst.collection_id#>
-					 		selected </cfif>
-							value="#ctInst.collection_id#">
-							#ctInst.collection#</option>
+						<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
 					</cfloop>
 				</select>
 				<span class="helpLink" id="cat_num">Number:</span>
