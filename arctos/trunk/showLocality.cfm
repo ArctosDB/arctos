@@ -113,7 +113,8 @@
 				began_date,
 				ended_date,
 				verbatim_date
-			from localityResults
+			from 
+				localityResults
 			group by 
 				collecting_event_id,
 				higher_geog,
@@ -136,7 +137,9 @@
 				<th>Locality</th>
 				<th>Event</th>
 			</tr>
+			<cfset x=0>
 			<cfloop query="localityResults">
+				<cfset x=x+1>
 		        <cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
 					<cfset thisDate = began_date>
 				<cfelseif (
@@ -165,10 +168,12 @@
 							<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
 							<cfif len(dec_lat) gt 0>
 								<br>#dec_lat#/#dec_long#
-								<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-								    <cfinvokeargument name="locality_id" value="#locality_id#">
-								</cfinvoke>
-								#contents#
+								<cfif x lte 25>
+									<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+									    <cfinvokeargument name="locality_id" value="#locality_id#">
+									</cfinvoke>
+									#contents#
+								</cfif>
 							</cfif>
 						<cfelse>
 							[no localities]
