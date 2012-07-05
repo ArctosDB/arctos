@@ -365,14 +365,10 @@
 					AND CITED_NAME_CITATION.identification_id = CitTaxa.identification_id (+)
 					AND upper(CitTaxa.scientific_name) LIKE '%#ucase(cited_Sci_Name)#%'">
 		</cfif>
-		
-		
 		<cfif isdefined("proj_pub_remark") AND len(proj_pub_remark) gt 0>
 			<cfset go="yes">
 			<cfset basWhere = "#basWhere# AND upper(PUBLICATION_REMARKS) like '%#escapeQuotes(ucase(proj_pub_remark))#%'">
 		</cfif>
-		
-		
 		<cfif go is "no">
 			<cfset basWhere = "#basWhere# AND 1=2">
 		</cfif>
@@ -391,8 +387,6 @@
 		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(basSQL)#
 		</cfquery>
-		
-		#preservesinglequotes(basSQL)#
 		<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 			<a href="/Reports/SpecUsageReport.cfm?project_id=#valuelist(projects.project_id)#&publication_id=#valuelist(publication.publication_id)#">Create Report Data</a>
 		</cfif>
