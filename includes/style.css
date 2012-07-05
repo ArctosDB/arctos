@@ -594,6 +594,7 @@ td#SDCellLeft{
 	}
 td#SDCellRight{
 	text-align: left;
+	vertical-align:top;
 	row-span: 1;
 	}
 .detailElements{
