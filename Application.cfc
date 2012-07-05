@@ -369,6 +369,7 @@
 	<cfif not isdefined("application.blacklist")>
 		<cfset application.blacklist="">
 	</cfif>
+	<!----
 	<cfif listfindnocase(application.blacklist,cgi.REMOTE_ADDR)>
 		<cfif cgi.script_name is not "/errors/gtfo.cfm">
 			<cfscript>
@@ -377,6 +378,8 @@
 			<cfabort>
 		</cfif>
 	</cfif>
+	
+	---->
 	<cfset nono="passwd,etc,proc">
 	<cfloop list="#cgi.query_string#" delimiters="./," index="i">
 		<cfif listfindnocase(nono,i)>
