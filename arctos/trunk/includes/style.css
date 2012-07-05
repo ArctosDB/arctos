@@ -590,6 +590,7 @@ table#SD {
 }
 td#SDCellLeft{
 	text-align: right;
+	vertical-align:top;
 	row-span: 1;
 	}
 td#SDCellRight{
