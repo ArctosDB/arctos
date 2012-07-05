@@ -18,6 +18,9 @@
 <cfquery name="ctNatureOfId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	SELECT DISTINCT(nature_of_id) FROM ctnature_of_id ORDER BY nature_of_id
 </cfquery>
+<cfquery name="CTTAXA_FORMULA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	SELECT DISTINCT(TAXA_FORMULA) FROM CTTAXA_FORMULA ORDER BY TAXA_FORMULA
+</cfquery>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<!----
@@ -101,6 +104,19 @@
 				</cfloop>
 			</select><span class="infoLink" 
 							onclick="getCtDoc('ctnature_of_id',SpecData.nature_of_id.value);">Define</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_taxa_formula">Taxa Formula:</span>
+		</td>
+		<td class="srch">
+			<select name="taxa_formula" id="taxa_formula" size="1">
+				<option value=""></option>
+				<cfloop query="cttaxa_formula">
+					<option value="#cttaxa_formula.taxa_formula#">#cttaxa_formula.taxa_formula#</option>
+				</cfloop>
+			</select><span class="infoLink" onclick="getCtDoc('cttaxa_formula',SpecData.taxa_formula.value);">Define</span>
 		</td>
 	</tr>
 	<tr>
