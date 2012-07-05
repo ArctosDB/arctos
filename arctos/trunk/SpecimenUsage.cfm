@@ -53,6 +53,8 @@
 					</select>
 					<label for="year"><span class="helpLink" id="project_publication_year">Year</span></label>
 					<input name="year" id="year" type="text">
+					<label for="year"><span class="helpLink" id="proj_pub_remark">Remark</span></label>
+					<input name="proj_pub_remark" id="proj_pub_remark" type="text">
 				</td>
 				<td>
 					<h4>Project</h4>	
@@ -218,6 +220,10 @@
 				#year# between to_number(to_char(start_date,'YYYY')) AND to_number(to_char(end_date,'YYYY'))
 				)">
 		</cfif>
+		<cfif isdefined("proj_pub_remark") AND len(proj_pub_remark) gt 0>
+			<cfset go="yes">
+			<cfset whr = "#whr# AND upper(PROJECT_REMARKS) like '%#escapeQuotes(ucase(proj_pub_remark))#%' )">
+		</cfif>
 		<cfif isdefined("publication_id") AND len(publication_id) gt 0>
 			<cfset whr = "#whr# AND project.project_id in
 				(select project_id from project_publication where publication_id=#publication_id#)">
@@ -359,6 +365,14 @@
 					AND CITED_NAME_CITATION.identification_id = CitTaxa.identification_id (+)
 					AND upper(CitTaxa.scientific_name) LIKE '%#ucase(cited_Sci_Name)#%'">
 		</cfif>
+		
+		
+		<cfif isdefined("proj_pub_remark") AND len(proj_pub_remark) gt 0>
+			<cfset go="yes">
+			<cfset whr = "#whr# AND upper(PUBLICATION_REMARKS) like '%#escapeQuotes(ucase(proj_pub_remark))#%' )">
+		</cfif>
+		
+		
 		<cfif go is "no">
 			<cfset basWhere = "#basWhere# AND 1=2">
 		</cfif>
