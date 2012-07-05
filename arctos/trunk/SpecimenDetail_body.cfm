@@ -274,7 +274,7 @@
 				</div>
 			</div>
 <!------------------------------------ citations ---------------------------------------------->
-			<cfif len(one.typestatus) gt 0>  
+			<cfif len(one.typestatus) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
 					<cfloop list="#one.typestatus#" index="x" delimiters=";">
@@ -316,7 +316,7 @@
 		
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
-							<td id="SDCellLeft" class="innerDetailLabel">Determination Type:</td>
+							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
 							<td id="SDCellRight">#specimen_event_type#</td>
 						</tr>
 						<tr>
