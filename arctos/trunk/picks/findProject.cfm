@@ -17,15 +17,7 @@
 		SELECT project_name, project_id from project where
 			UPPER(project_name) LIKE '%#ucase(project_name)#%'
 	</cfquery>
-	<cfif #getProj.recordcount# is 1>
-		<cfset thisName = replace(getProj.project_name,"'","`","all")>
-		<script>
-			opener.document.#formName#.#projIdFld#.value='#getProj.project_id#';
-			opener.document.#formName#.#projNameFld#.value='#jsescape(getProj.project_name)#';
-			opener.document.#formName#.#projNameFld#.className='goodPick';
-			self.close();
-		</script>
-	<cfelseif #getProj.recordcount# is 0>
+	<cfif getProj.recordcount is 0>
 			Nothing matched #project_name#.
 	<cfelse>
 		<cfloop query="getProj">
