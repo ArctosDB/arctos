@@ -132,10 +132,7 @@
 			<cfloop query="d">
 				<cfset mapurl=mapurl & "|#d.DEC_LAT#,#d.DEC_LONG#">
 			</cfloop>
-			<cfset mapurl=mapurl & "&sensor=false&size=#size#&maptype=#maptype#">
-			<cfif d.recordcount is 1>
-			<cfset mapurl=mapurl & "&zoom=2">
-			</cfif>
+			<cfset mapurl=mapurl & "&sensor=false&size=#size#&maptype=#maptype#&zoom=2">
 			<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
 			<cfset rVal='<figure>'>
 			<cfif len(d.locality_id) gt 0>
