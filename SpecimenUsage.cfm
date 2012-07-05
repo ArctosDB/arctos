@@ -369,7 +369,7 @@
 		
 		<cfif isdefined("proj_pub_remark") AND len(proj_pub_remark) gt 0>
 			<cfset go="yes">
-			<cfset whr = "#whr# AND upper(PUBLICATION_REMARKS) like '%#escapeQuotes(ucase(proj_pub_remark))#%'">
+			<cfset basWhere = "#basWhere# AND upper(PUBLICATION_REMARKS) like '%#escapeQuotes(ucase(proj_pub_remark))#%'">
 		</cfif>
 		
 		
