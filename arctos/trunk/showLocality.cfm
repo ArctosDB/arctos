@@ -112,9 +112,7 @@
 				dec_long,
 				began_date,
 				ended_date,
-				verbatim_date,
-				collecting_source,
-				collecting_method
+				verbatim_date
 			from localityResults
 			group by 
 				collecting_event_id,
@@ -129,9 +127,7 @@
 				verbatim_locality,
 				began_date,
 				ended_date,
-				verbatim_date,
-				collecting_source,
-				collecting_method
+				verbatim_date
 		</cfquery>
 		<a href="showLocality.cfm">Search Again</a>
 		<table border id="t" class="sortable">
@@ -170,8 +166,7 @@
 							<cfif len(dec_lat) gt 0>
 								<br>#dec_lat#/#dec_long#
 								<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-								    <cfinvokeargument name="lat" value="#dec_lat#">
-								    <cfinvokeargument name="long" value="#dec_long#">
+								    <cfinvokeargument name="locality_id" value="#locality_id#">
 								</cfinvoke>
 								#contents#
 							</cfif>
@@ -188,10 +183,7 @@
 								[null]
 							</cfif>
 							</a>
-							<br>#thisDate#; #collecting_source#
-							<cfif len(collecting_method) gt 0> 
-								(#collecting_method#)
-							</cfif>
+							<br>#thisDate#
 						<cfelse>
 							[no events]
 						</cfif>
