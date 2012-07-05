@@ -426,7 +426,7 @@
 						<cfif len(VERIFICATIONSTATUS) gt 0>
 							<div class="detailBlock">
 								<tr class="detailData">
-									<td id="SDCellLeft" class="innerDetailLabel">Verification Status:</td>
+									<td id="SDCellLeft" class="innerDetailLabel">Verification&nbsp;Status:</td>
 									<td id="SDCellRight">#VERIFICATIONSTATUS#</td>
 								</tr>
 							</div>
@@ -475,13 +475,13 @@
 												</cfif>
 												<cfif len(georeference_source) gt 0>
 													<tr>
-														<td align="right">Georeference Source:</td>
+														<td align="right">Georeference&nbsp;Source:</td>
 														<td align="left">#georeference_source#</td>
 													</tr>
 												</cfif>
 												<cfif len(georeference_protocol) gt 0>
 													<tr>
-														<td align="right">Georeference Protocol:</td>
+														<td align="right">Georeference&nbsp;Protocol:</td>
 														<td align="left">#georeference_protocol#</td>
 													</tr>
 												</cfif>
