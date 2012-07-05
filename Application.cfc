@@ -454,10 +454,7 @@
 			<cflocation url="/errors/dev_login.cfm">
 		</cfif>
 	</cfif>
-	
-	
 	<!--- keep people/bots from browsing a dev server 
-	
 	
 	--->
 	<!--- people still have this thing bookmarked --->
