@@ -1231,6 +1231,18 @@
 	<cfset basQual = " #basQual# AND identification.accepted_id_fg = 1 AND UPPER(common_name.Common_Name) LIKE '%#ucase(stripQuotes(Common_Name))#%'">
 	<cfset mapurl = "#mapurl#&Common_Name=#Common_Name#">
 </cfif>
+
+<cfif isdefined("publication_title") AND len(publication_title) gt 0>
+	<cfif basJoin does not contain " citation ">
+		<cfset basJoin = " #basJoin# INNER JOIN citation ON (#session.flatTableName#.collection_object_id = citation.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " publication ">
+		<cfset basJoin = " #basJoin# INNER JOIN publication ON (citation.publication_id = publication.publication_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(publication.FULL_CITATION) like '%#ucase(stripQuotes(publication_title))#%">
+	<cfset mapurl = "#mapurl#&publication_title=#publication_title#">
+</cfif>
+
 <cfif isdefined("publication_id") AND len(publication_id) gt 0>
 	<cfif basJoin does not contain " citation ">
 		<cfset basJoin = " #basJoin# INNER JOIN citation ON (#session.flatTableName#.collection_object_id = citation.collection_object_id)">

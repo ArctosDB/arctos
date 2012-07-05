@@ -59,13 +59,22 @@
 		<td class="srch">
 			<input type="text" name="loan_project_name" id="loan_project_name" size="50">
 		</td>
-	</tr>		
+	</tr>	
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_project_sponsor">Project Sponsor:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="project_sponsor" id="project_sponsor" size="50">
+		</td>
+	</tr>
+		
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_publication_title">Cited in Publication:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="publication_title" id="publication_title" size="50">
 		</td>
 	</tr>		
 </table>
