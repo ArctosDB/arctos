@@ -222,7 +222,7 @@
 		</cfif>
 		<cfif isdefined("proj_pub_remark") AND len(proj_pub_remark) gt 0>
 			<cfset go="yes">
-			<cfset whr = "#whr# AND upper(PROJECT_REMARKS) like '%#escapeQuotes(ucase(proj_pub_remark))#%' )">
+			<cfset whr = "#whr# AND upper(PROJECT_REMARKS) like '%#escapeQuotes(ucase(proj_pub_remark))#%' ">
 		</cfif>
 		<cfif isdefined("publication_id") AND len(publication_id) gt 0>
 			<cfset whr = "#whr# AND project.project_id in
