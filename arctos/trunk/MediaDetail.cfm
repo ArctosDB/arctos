@@ -63,7 +63,7 @@
         <table>
                 <tr>
                         <td align="middle">
-                                <a href="#findIDs.media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
+                                <a class="#addThisClass#" href="#findIDs.media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
                                 <br><span style='font-size:small'>#findIDs.media_type#&nbsp;(#findIDs.mime_type#)</span>
                                 <cfif len(findIDs.display) gt 0>
                                         <br><span style='font-size:small'>License: <a href="#findIDs.uri#" target="_blank" class="external">#findIDs.display#</a></span>
