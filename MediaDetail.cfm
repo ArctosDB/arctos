@@ -54,6 +54,10 @@
                         <cfset alt=desc.label_value>
         </cfif>
                                 <cfset mp=getMediaPreview(findIDs.preview_uri,findIDs.media_type)>
+									<cfset addThisClass=''>
+						<cfif listfind(stuffToNotPlay,findIDs.mime_type)>
+							<cfset addThisClass="noplay">
+						</cfif>
 						
 
         <table>
