@@ -177,10 +177,7 @@
                                                                 <cfset alt=desc.label_value>
                                                         </cfif>
                                        <div class="one_thumb">
-										<cfset addThisClass=''>
-						<cfif listfind(stuffToNotPlay,mime_type)>
-							<cfset addThisClass="noplay">
-						</cfif>
+									
                                                <a href="#media_uri#" class="" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
                                                 <p>
                                                                         #media_type# (#mime_type#)
