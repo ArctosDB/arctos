@@ -162,7 +162,7 @@
                                                 <cfloop query="relM">
                                                         <cfset puri=getMediaPreview(preview_uri,media_type)>
 														<cfset addThisClass=''>
-						<cfif listfind(stuffToNotPlay,findIDs.mime_type)>
+						<cfif listfind(stuffToNotPlay,mime_type)>
 							<cfset addThisClass="noplay">
 						</cfif>
 						
