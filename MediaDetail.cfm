@@ -54,15 +54,12 @@
                         <cfset alt=desc.label_value>
         </cfif>
                                 <cfset mp=getMediaPreview(findIDs.preview_uri,findIDs.media_type)>
-						<cfset addThisClass=''>
-						<cfif listfind(stuffToNotPlay,mime_type)>
-							<cfset addThisClass="noplay">
-						</cfif>
+						
 
         <table>
                 <tr>
                         <td align="middle">
-                                <a href="#findIDs.media_uri#" class="#addThisClass#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
+                                <a href="#findIDs.media_uri#" target="_blank"><img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;"></a>
                                 <br><span style='font-size:small'>#findIDs.media_type#&nbsp;(#findIDs.mime_type#)</span>
                                 <cfif len(findIDs.display) gt 0>
                                         <br><span style='font-size:small'>License: <a href="#findIDs.uri#" target="_blank" class="external">#findIDs.display#</a></span>
