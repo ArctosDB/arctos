@@ -161,6 +161,11 @@
                                                 <div class="thumb_spcr">&nbsp;</div>
                                                 <cfloop query="relM">
                                                         <cfset puri=getMediaPreview(preview_uri,media_type)>
+														<cfset addThisClass=''>
+						<cfif listfind(stuffToNotPlay,findIDs.mime_type)>
+							<cfset addThisClass="noplay">
+						</cfif>
+						
                                         <cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                                                                 select
                                                                         media_label,
@@ -179,7 +184,7 @@
                                                         </cfif>
                                        <div class="one_thumb">
 									
-                                               <a href="#media_uri#" class="" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+                                               <a href="#media_uri#" class="#addThisClass#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
                                                 <p>
                                                                         #media_type# (#mime_type#)
                                                         <br><a href="/media/#media_id#">Media Details</a>
