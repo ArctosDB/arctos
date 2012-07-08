@@ -181,7 +181,7 @@
 						<cfif listfind(stuffToNotPlay,mime_type)>
 							<cfset addThisClass="noplay">
 						</cfif>
-                                               <a href="#media_uri#" class="#addThisClass#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+                                               <a href="#media_uri#" class="" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
                                                 <p>
                                                                         #media_type# (#mime_type#)
                                                         <br><a href="/media/#media_id#">Media Details</a>
