@@ -934,6 +934,9 @@
 							<td align="right"><span class="f11a">Spec Locality</span></td>
 							<td>
 								<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" value="#spec_locality#" size="80">
+								<span class="infoLink" onclick="document.getElementById('spec_locality').value=document.getElementById('verbatim_locality').value;">
+									&nbsp;Use&nbsp;VerbLoc
+								</span>
 							</td>
 						</tr>
 						<tr>
@@ -1033,11 +1036,10 @@
 									
 									
 									<tr>
-										<td align="right"><span class="f11a infoLink" onclick="getHelp('georeference_source');">Georeference Source</span></td>
+										<td align="right"><span class="f11a">Georeference Source</span></td>
 										<td colspan="3" nowrap="nowrap">
 											<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" 
 												size="60" value="#georeference_source#">
-											<span>Pick</span>
 										</td>
 									</tr>
 									<tr>
