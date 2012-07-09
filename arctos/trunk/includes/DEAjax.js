@@ -1312,6 +1312,7 @@ function cleanup () {
 		
 	for (i=0;i<ISOdateFields.length;i++) {
 		var thisFld = document.getElementById(ISOdateFields[i]).value;
+		console.log(thisFld);
 		if (thisFld.length > 0 && isValidISODate(thisFld) == false) {
 			badDates += ' ' + thisFld + '\n';
 		}
