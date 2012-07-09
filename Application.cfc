@@ -170,6 +170,11 @@
 			</cfoutput>
 		</cfsavecontent>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
+			<cfif cgi.HTTP_USER_AGENT contains "slurp">
+				<!--- friggin yahoo ignoring robots.txt - buh-bye, biatchez.... --->
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
 			<cfset subject="locked form">
 		<cfelse>
 			<cfif isdefined("exception.detail")>

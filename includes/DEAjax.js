@@ -92,8 +92,6 @@ function geolocate () {
 		closeGeoLocate('picked locality fail');
 		return;
 	}
-	console.log('len=' + $("#higher_geog").val().length>0);
-	console.log('len=' + $("#spec_locality").val().length>0);
 	
 	
 	if ($("#higher_geog").val().length==0 || $("#spec_locality").val().length==0){
@@ -359,7 +357,6 @@ function UAMInvDefault() {
 	});
 }
 function changeMode (mode) {
-	console.log('going to ' + mode);
 	
 	var status=$.trim($("#loadedMsgDiv").text());
 	if(status){
@@ -886,7 +883,7 @@ function changeSex(sex) {
 	}
 }
 function switchActive(OrigUnits) {
-	console.log('switchActive');
+	//console.log('switchActive');
 	var OrigUnits;
 	var a=document.getElementById('dms');
 	var b=document.getElementById('ddm');
@@ -917,7 +914,7 @@ function switchActive(OrigUnits) {
 		u.className='doShow';
 	}
 	
-	console.log('switchActive exiting');
+	//console.log('switchActive exiting');
 }
 
 
