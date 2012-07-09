@@ -1309,10 +1309,12 @@ function cleanup () {
 	ISOdateFields.push('attribute_date_8');
 	ISOdateFields.push('attribute_date_9');
 	ISOdateFields.push('attribute_date_10');
+	
 	console.log('ISOdateFields.length=='+ISOdateFields.length);
 	
 	for (i=0;i<ISOdateFields.length;i++) {
-		var thisFld = document.getElementById(ISOdateFields[i]).value;
+		console.log('i='+i);
+			var thisFld = document.getElementById(ISOdateFields[i]).value;
 		console.log(thisFld);
 		if (thisFld.length > 0 && isValidISODate(thisFld) == false) {
 			badDates += ' ' + thisFld + '\n';
