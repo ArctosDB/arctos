@@ -37,7 +37,7 @@
 <cfif action is "download">
 	<cfoutput>
 		<cfquery name="cNames" datasource="uam_god">
-			select column_name from user_tab_cols where table_name='BULKLOADER'
+			select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
 			order by internal_column_id
 		</cfquery>
 		<cfset sql = "select * from bulkloader where 1=1">
@@ -86,7 +86,7 @@
 <cfif action is "ajaxGrid">
 	<cfoutput>
 		<cfquery name="cNames" datasource="uam_god">
-			select column_name from user_tab_cols where table_name='BULKLOADER'
+			select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
 			order by internal_column_id
 		</cfquery>
 		<cfset ColNameList = valuelist(cNames.column_name)>
@@ -379,7 +379,7 @@
 		#preservesinglequotes(sql)#	
 	</cfquery>
 	<cfquery name="cNames" datasource="uam_god">
-		select column_name from user_tab_cols where table_name='BULKLOADER'
+		select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
 		order by internal_column_id
 	</cfquery>
 	<div style="background-color:##C0C0C0; font-size:smaller;">
@@ -579,7 +579,7 @@
 <cfif #action# is "saveGridUpdate">
 <cfoutput>
 <cfquery name="cNames" datasource="uam_god">
-	select column_name from user_tab_cols where table_name='BULKLOADER'
+	select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
 </cfquery>
 <cfset ColNameList = valuelist(cNames.column_name)>
 <cfset GridName = "blGrid">
@@ -646,8 +646,7 @@
 <!-------------------------------------------------------------->
 <cfif #action# is "viewTable">
 <cfoutput>
-<cfset sql = "select * from bulkloader
-	where 1=1">
+<cfset sql = "select * from bulkloader where 1=1">
 <cfif len(enteredby) gt 0>
 	<cfset sql = "#sql# AND enteredby IN (#enteredby#)">
 </cfif>
@@ -662,7 +661,7 @@
 	#preservesinglequotes(sql)#	
 </cfquery>
 <cfquery name="cNames" datasource="uam_god">
-	select column_name from user_tab_cols where table_name='BULKLOADER'
+	select column_name from user_tab_cols where table_name='BULKLOADER' and column_name not like '%$%'
 	order by internal_column_id
 </cfquery>
 <!---

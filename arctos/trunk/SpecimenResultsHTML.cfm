@@ -140,7 +140,7 @@
 			get_taxonomy(cataloged_item.collection_object_id,'phylorder') phylorder
 		">
 	</cfif><!--- end detail_level 4---->
-		<cfset basSelect = "#basSelect#,dec_lat,dec_long">
+		<cfset basSelect = "#basSelect#,#session.flatTableName#.dec_lat,#session.flatTableName#.dec_long">
 		
 		<cfif #detail_level# gte 2>
 			<cfset basSelect = "#basSelect#, collectors,VerbatimLatitude,VerbatimLongitude,OTHERCATALOGNUMBERS">
