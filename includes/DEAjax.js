@@ -1295,7 +1295,7 @@ function cleanup () {
 	var ISOdateFields = new Array();
 	var badDates = "";
 
-	ISOdateFields.push('determined_date');
+	ISOdateFields.push('event_assigned_date');
 	ISOdateFields.push('made_date');
 	ISOdateFields.push('began_date');
 	ISOdateFields.push('ended_date');
