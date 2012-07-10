@@ -341,6 +341,15 @@ font-weight:bold;
 									</td>
 								</cfif>
 								</tr>
+								<tr>
+									<td>
+										<select>
+											<cfloop list="#session.collObjIdList#" index="lp">
+												<option <cfif currPos is lp>selected="selected"</cfif>	value="#lp#">#lp#</option>
+											</cfloop>
+										</select>
+									</td>
+								</tr>
 							</table>
 						</div>
 					</cfif>

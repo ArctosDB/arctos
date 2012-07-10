@@ -188,17 +188,6 @@
 		</cfloop>
 		<cfset sql = "#SQL# where collection_object_id = #collection_object_id#">
 		<cfset sql = replace(sql,"UPDATE bulkloader SET ,","UPDATE bulkloader SET ")>			
-		
-		
-		
-		<cfset result = querynew("COLLECTION_OBJECT_ID,RSLT")>
-			<cfset temp = queryaddrow(result,1)>
-			<cfset temp = QuerySetCell(result, "collection_object_id", collection_object_id, 1)>
-			<cfset temp = QuerySetCell(result, "rslt",  sql, 1)>
-			
-			
-			
-		<!-------
 		<cftry>
 			<cftransaction>
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -215,9 +204,6 @@
 			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail, 1)>
 		</cfcatch>
 		</cftry>
-		
-		
-		=--------->
 		<cfreturn result>
 	</cfoutput>
 </cffunction>
