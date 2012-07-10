@@ -345,12 +345,12 @@ font-weight:bold;
 									<td>
 										<cfset lp=1>
 										Record
-										<select>
+										<select id="recpager" onchange="document.location='/SpecimenDetail.cfm?collection_object_id=#lp#'">
 											<cfloop list="#session.collObjIdList#" index="ccid">
 												<option <cfif currPos is lp>selected="selected"</cfif>	value="#ccid#">#lp#</option>
+												<cfset lp=lp+1>
 											</cfloop>
 										</select>
-										<cfset lp=lp+1>
 										of #listlen(session.collObjIdList)#
 									</td>
 								</tr>
