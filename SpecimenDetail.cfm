@@ -343,11 +343,15 @@ font-weight:bold;
 								</tr>
 								<tr>
 									<td>
+										<cfset lp=1>
+										Record
 										<select>
-											<cfloop list="#session.collObjIdList#" index="lp">
-												<option <cfif currPos is lp>selected="selected"</cfif>	value="#lp#">#lp#</option>
+											<cfloop list="#session.collObjIdList#" index="ccid">
+												<option <cfif currPos is lp>selected="selected"</cfif>	value="#ccid#">#lp#</option>
 											</cfloop>
 										</select>
+										<cfset lp=lp+1>
+										of #listlen(session.collObjIdList)#
 									</td>
 								</tr>
 							</table>
