@@ -345,7 +345,7 @@ font-weight:bold;
 									<cfset lp=1>
 									<td>Record</td>
 									<td colspan="2">
-										<select id="recpager" onchange="document.location='/SpecimenDetail.cfm?collection_object_id=#lp#'">
+										<select id="recpager" onchange="document.location='/SpecimenDetail.cfm?collection_object_id=#ccid#'">
 											<cfloop list="#session.collObjIdList#" index="ccid">
 												<option <cfif currPos is lp>selected="selected"</cfif>	value="#ccid#">#lp#</option>
 												<cfset lp=lp+1>
