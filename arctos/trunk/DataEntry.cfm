@@ -804,7 +804,7 @@
 						<tr id="d_habitat_desc">
 							<td align="right"><span class="f11a">Habitat</span></td>
 							<td>
-								<input type="text" name="habitat_desc" size="50" id="habitat" value="#habitat#">
+								<input type="text" name="habitat" size="50" id="habitat" value="#habitat#">
 							</td>
 						</tr>
 						<tr>
