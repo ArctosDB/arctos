@@ -1300,9 +1300,9 @@ INSERT INTO geog_auth_rec (
 <cfif action is "massMoveCollEvent">
 	<cfoutput>
 		<cfset numCollEvents = listlen(collecting_event_id)>
-		<cfloop list="#collecting_event_id#" inxed="c">
+		<cfloop list="#collecting_event_id#" index="c">
 			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
-			  	<cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
+			  	<cfinvokeargument name="collecting_event_id" value="#c#">
 			  </cfinvoke>
 			#contents#
 			<br>
