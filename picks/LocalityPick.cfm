@@ -2,6 +2,9 @@
 <cfset title = "Locality Pick Search">
 <cfif action is "nothing">
 	<cfoutput>
+		<cfif locality_name is 'undefined'>
+			<cfset locality_name=''>
+		</cfif>
 		<script>
 			jQuery(document).ready(function() {
 				if ('#locality_name#'.length > 0) {
