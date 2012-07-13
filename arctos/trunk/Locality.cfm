@@ -1300,95 +1300,47 @@ INSERT INTO geog_auth_rec (
 <cfif action is "massMoveCollEvent">
 	<cfoutput>
 		<cfset numCollEvents = listlen(collecting_event_id)>
-		
-		
-		
-  <cfquery name="whatSpecs" datasource="uam_god">
-  	SELECT count(cat_num) as numOfSpecs, 
-	collection.collection_cde,
-	collection.institution_acronym
-	from cataloged_item,collection WHERE
-	cataloged_item.collection_id = collection.collection_id AND
-	collecting_event_id IN (#collecting_event_id#) 
-	GROUP BY collection.collection_cde,collection.institution_acronym
-  </cfquery>
-  <table>
-  <tr>
-  	<td>
-  <cfif #whatSpecs.recordcount# is 0>
-  		<font color="##FF0000"><strong>These #numCollEvents# Collecting Events</strong></font>	
-		<span style="font-size:small;">
-		(#collecting_event_id#) 
-		</span>
-		<font color="##FF0000"><strong>
-		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
-		contains no specimens. Please delete it if you don't have plans for it!</strong></font>	
-  	<cfelseif #whatSpecs.recordcount# is 1>
-		<font color="##FF0000"><strong>These #numCollEvents# Collecting Events </strong></font>	
-		<span style="font-size:small;">
-		(#collecting_event_id#) 
-		</span>
-		<font color="##FF0000"><strong>
-		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
-		contains #whatSpecs.numOfSpecs# #whatSpecs.collection_cde#
-		<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>.</strong></font>	
-	<cfelse>
-		<font color="##FF0000"><strong>These #numCollEvents# Collecting Events
-		 </strong></font>	
-		<span style="font-size:small;">
-		(#collecting_event_id#) 
-		</span>
-		<font color="##FF0000"><strong>
-		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
-		contains the following <a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>:</strong></font>	  
-		<ul>	
-			<cfloop query="whatSpecs">
-				<li><font color="##FF0000"><strong>#numOfSpecs# #collection_cde#</strong></font></li>
-			</cfloop>			
-		</ul>
-  </cfif>
-  
-  <cfquery name="cd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-  	select * from collecting_event
-	inner join locality on (collecting_event.locality_id = locality.locality_id)
-	inner join geog_auth_rec on (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
-	left outer join accepted_lat_long on (locality.locality_id = accepted_lat_long.locality_id)
-	where collecting_event.collecting_event_id IN (#collecting_event_id#)
-  </cfquery>
-  <p></p>Current Data:
-  <table border>
-  	<tr>
-		<td>Spec Loc</td>
-		<td>Geog</td>
-		<td>Lat/Long</td>
-	</tr>
-	<cfloop query="cd">
-		<tr>
-			<td><a href="editLocality.cfm?locality_id=#locality_id#">#spec_locality#</a></td>
-			<td>#higher_geog#</td>
-			<td>#dec_lat# #dec_long#</td>
-		</tr>
-	</cfloop>
-  </table>
-  <p>
-	<form name="mlc" method="post" action="Locality.cfm">
-		<input type="hidden" name="action" value="mmCollEvnt2" />
-		<input type="hidden" name="collecting_event_id" value="#collecting_event_id#" />
-		<input type="hidden" name="locality_id" />
-		
-		<input type="button" 
-			value="Pick New Locality" 
-			class="picBtn"
-			onmouseover="this.className='picBtn btnhov'" 
-			onmouseout="this.className='picBtn'"
-			onclick="document.getElementById('theSpanSaveThingy').style.display='';LocalityPick('locality_id','spec_locality','mlc'); return false;" >
-			<input type="text" name="spec_locality" readonly="readonly" border="0" size="60"/>
-			<span id="theSpanSaveThingy" style="display:none;">
-				<input type="submit" value="Save" />	
-			</span>
-				
+		<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
+	    	<cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
+		</cfinvoke>
+		#contents#
+		<br>
+		<cfquery name="cd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+  			select * from collecting_event
+				inner join locality on (collecting_event.locality_id = locality.locality_id)
+				inner join geog_auth_rec on (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
+				where collecting_event.collecting_event_id IN (#collecting_event_id#)
+  		</cfquery>
+		<p></p>Current Data:
+		<table border>
+			<tr>
+				<td>Spec Loc</td>
+				<td>Geog</td>
+				<td>Lat/Long</td>
+			</tr>
+			<cfloop query="cd">
+				<tr>
+					<td><a href="editLocality.cfm?locality_id=#locality_id#">#spec_locality#</a></td>
+					<td>#higher_geog#</td>
+					<td>#dec_lat# #dec_long#</td>
+				</tr>
+			</cfloop>
+		</table>
+		<p>
+		<form name="mlc" method="post" action="Locality.cfm">
+			<input type="hidden" name="action" value="mmCollEvnt2" />
+			<input type="hidden" name="collecting_event_id" value="#collecting_event_id#" />
+			<input type="hidden" name="locality_id" />
+			<input type="button" 
+				value="Pick New Locality" 
+				class="picBtn"
+				onclick="document.getElementById('theSpanSaveThingy').style.display='';LocalityPick('locality_id','spec_locality','mlc'); return false;" >
+				<input type="text" name="spec_locality" readonly="readonly" border="0" size="60"/>
+				<span id="theSpanSaveThingy" style="display:none;">
+					<input type="submit" value="Save" />	
+				</span>
 		</form>
-  </p>
+		</p>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
