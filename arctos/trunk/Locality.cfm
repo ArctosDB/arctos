@@ -1300,11 +1300,15 @@ INSERT INTO geog_auth_rec (
 <cfif action is "massMoveCollEvent">
 	<cfoutput>
 		<cfset numCollEvents = listlen(collecting_event_id)>
-		<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
-	    	<cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
-		</cfinvoke>
-		#contents#
-		<br>
+		<cfloop list="#collecting_event_id#" inxed="c">
+			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
+			  	<cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
+			  </cfinvoke>
+			#contents#
+			<br>
+		</cfloop>
+		
+	  
 		<cfquery name="cd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
   			select * from collecting_event
 				inner join locality on (collecting_event.locality_id = locality.locality_id)
