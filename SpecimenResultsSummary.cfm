@@ -89,8 +89,8 @@
 	 <cfset basGroup = "#basGroup#,#session.flatTableName#.spec_locality">		
 </cfif>
 <cfif #groupBy# contains "yr">
-	 <cfset basSelect = "#basSelect#,to_char(#session.flatTableName#.began_date,'yyyy') yr">
-	 <cfset basGroup = "#basGroup#,to_char(#session.flatTableName#.began_date,'yyyy')">		
+	 <cfset basSelect = "#basSelect#,substr(#session.flatTableName#.began_date,1,4) yr">
+	 <cfset basGroup = "#basGroup#,substr(#session.flatTableName#.began_date,1,4)">		
 </cfif>
 	
 	
