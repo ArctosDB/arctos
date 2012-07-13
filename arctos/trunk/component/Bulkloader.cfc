@@ -91,7 +91,7 @@
 <cffunction name="incrementCustomId" access="remote">
 	<cfargument name="cidType" required="no">
 	<cfargument name="cidVal" required="no">
-	<cfif len(cidType) gt 0>
+	<cfif isdefined("cidType") and len(cidType) gt 0>
 		<cfset cVal="">
 		<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1>
 			<cftry>

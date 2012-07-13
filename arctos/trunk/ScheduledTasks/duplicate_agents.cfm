@@ -133,11 +133,11 @@ END;
 							where agent_id = #bads.agent_id#
 						</cfquery>
 						got ID agnt<br><cfflush>
-						<cfquery name="lat_long" datasource="uam_god">
+						<cfquery name="specimen_event" datasource="uam_god">
 							update
-							lat_long set 
-							determined_by_agent_id = #bads.related_agent_id# where
-							determined_by_agent_id = #bads.agent_id#
+							specimen_event set 
+							ASSIGNED_BY_AGENT_ID = #bads.related_agent_id# where
+							ASSIGNED_BY_AGENT_ID = #bads.agent_id#
 						</cfquery>
 						got latlong<br><cfflush>
 						<cfquery name="permit_to" datasource="uam_god">
@@ -501,12 +501,10 @@ END;
 						collection_id
 					from 
 						cataloged_item,
-						collecting_event,
-						lat_long 
+						specimen_event
 					where 
-						cataloged_item.collecting_event_id=collecting_event.collecting_event_id and
-						collecting_event.locality_id=lat_long.locality_id and
-						determined_by_agent_id in (#theseAgents#)
+						cataloged_item.collection_object_id=specimen_event.collection_object_id and
+						specimen_event.ASSIGNED_BY_AGENT_ID in (#theseAgents#)
 				union
 					select 
 							collection_id
