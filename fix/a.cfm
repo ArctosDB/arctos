@@ -5,8 +5,9 @@
 		select * from taxonomy where 1=2		
 	</cfquery>
 	<cfset c=cols.columnlist>
-	<cfset c=listdeleteat(listfind(c,"taxon_name_id"))>
-	
+	<cfset c=listdeleteat(listfindnocase(c,"taxon_name_id"))>
+		<cfset c=listdeleteat(listfindnocase(c,"VALID_CATALOG_TERM_FG"))>
+
 	<cfloop list="#c#" index="fl">
 	
 		<cfloop list="#c#" index="sl">
