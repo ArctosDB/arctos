@@ -11,8 +11,8 @@
 	
 	=#listfindnocase(c,"VALID_CATALOG_TERM_FG")#===
 	
-	<cfset c=listdeleteat(listfindnocase(c,"taxon_name_id"))>
-		<cfset c=listdeleteat(listfindnocase(c,"VALID_CATALOG_TERM_FG"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"taxon_name_id"))>
+		<cfset c=listdeleteat(c,listfindnocase(c,"VALID_CATALOG_TERM_FG"))>
 
 	<cfloop list="#c#" index="fl">
 	
