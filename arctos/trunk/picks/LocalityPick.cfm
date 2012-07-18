@@ -8,7 +8,6 @@
 		<script>
 			jQuery(document).ready(function() {
 				if ('#locality_name#'.length > 0) {
-					alert('got one');
 					$("##locality_name").val('#locality_name#');
 					$("##getLoc").submit();
 				}
