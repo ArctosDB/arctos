@@ -5,14 +5,20 @@
 		select * from taxonomy where 1=2		
 	</cfquery>
 	<cfset c=cols.columnlist>
-	<cfdump var=#c#>
-	
-	---#listfindnocase(c,"taxon_name_id")#---
-	
-	=#listfindnocase(c,"VALID_CATALOG_TERM_FG")#===
 	
 	<cfset c=listdeleteat(c,listfindnocase(c,"taxon_name_id"))>
-		<cfset c=listdeleteat(c,listfindnocase(c,"VALID_CATALOG_TERM_FG"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"VALID_CATALOG_TERM_FG"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"display_name"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"scientific_name"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"author_text"))>
+
+	<cfset c=listdeleteat(c,listfindnocase(c,"FULL_TAXON_NAME"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"INFRASPECIFIC_RANK"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"INFRASPECIFIC_AUTHOR"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"NOMENCLATURAL_CODE"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"SOURCE_AUTHORITY"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"TAXON_REMARKS"))>
+	<cfset c=listdeleteat(c,listfindnocase(c,"TAXON_STATUS"))>
 
 	<cfloop list="#c#" index="fl">
 	
