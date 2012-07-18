@@ -1,4 +1,5 @@
 <cfinclude template="includes/_header.cfm">
+<Cfset title="Bulk Coll Event">
 <!----------------------------------------------------------------------------------->
 <cfif action is "deleteAll">
 	<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -355,6 +356,8 @@
 					verbatim_date
 				from
 					localityResults
+				where
+					collecting_event_id is not null
 				group by
 					geog_auth_rec_id,
 					locality_id,
