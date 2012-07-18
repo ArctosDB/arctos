@@ -26,9 +26,10 @@
 			<cfif sl is not fl>
 				
 				<cfquery datasource="uam_god" name="ttt">
-					select count(*) c from taxonomy where #fl#=#sl#			
+					select #fl#,count(*) c from taxonomy where #fl#=#sl# group by #fl#
 				</cfquery>
 				<cfif ttt.c gt 0>
+					
 					<cfdump var=#ttt#>
 				</cfif>
 			</cfif>
