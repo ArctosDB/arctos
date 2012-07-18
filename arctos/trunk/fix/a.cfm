@@ -5,14 +5,20 @@
 		select * from taxonomy where 1=2		
 	</cfquery>
 	<cfset c=cols.columnlist>
+	<cfset c=listdeleteat(listfind(c,"taxon_name_id"))>
 	
 	<cfloop list="#c#" index="fl">
 	
 		<cfloop list="#c#" index="sl">
-			<cfquery datasource="uam_god" name="ttt">
-				select count(*) from taxonomy where #fl#=#sl#			
-			</cfquery>
-			<cfdump var=#ttt#>
+			<cfif sl is not fl>
+				
+				<cfquery datasource="uam_god" name="ttt">
+					select count(*) c from taxonomy where #fl#=#sl#			
+				</cfquery>
+				<cfif ttt.c gt 0>
+					<cfdump var=#ttt#>
+				</cfif>
+			</cfif>
 		</cfloop>
 	</cfloop>	
 </cfoutput>
