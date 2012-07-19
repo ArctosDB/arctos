@@ -14,11 +14,15 @@ hi.
 		<cfquery name="getDFF" datasource="uam_god">
 			select * from digir_query.DIGIR_FILTERED_FLAT where 1=2
 		</cfquery>
+		<cfset dfcols=getDFF.columnlist>
+		
+		<hr>dfcols: #dfcols#
+		<hr>
 		<cfloop list="#mappings#" index="x" delimiters="|">
 			<cfset thisTerm=listgetat(x,2,":")>
 			
 			<br>looking for #thisTerm#......
-			<cfif listfindnocase(getDFF.columnlist,listgetat(x,2,":"))>
+			<cfif not listfindnocase(dfcols,thisTerm)>
 			
 				============NOT FOUND
 			<cfelse>
