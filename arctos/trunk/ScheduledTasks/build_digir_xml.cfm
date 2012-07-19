@@ -15,9 +15,9 @@ hi.
 			select * from digir_query.DIGIR_FILTERED_FLAT where 1=2
 		</cfquery>
 		<cfloop list="#mappings#" index="x" delimiters="|">
-			<cfif listfindnocase(getDFF.columnlist,listgetat(x,2))>
+			<cfif listfindnocase(getDFF.columnlist,listgetat(x,2,":"))>
 			
-				<br>#listgetat(x,2)# NOT FOUND
+				<br>#listgetat(x,2,":")# NOT FOUND
 			</cfif>
 		</cfloop>
 	
