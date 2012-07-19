@@ -490,8 +490,8 @@
 			<cfset geog="#geog#; #replace(county,'County','Co.')#">
 		</cfif>
 		<cfset coordinates = "">
-		<cfif len(#verbatimLatitude#) gt 0 AND len(#verbatimLongitude#) gt 0>
-			<cfset coordinates = "#verbatimLatitude# / #verbatimLongitude#">
+		<cfif len(verbatim_coordinates) gt 0>
+			<cfset coordinates = verbatim_coordinates>
 			<!---
 			<cfset coordinates = replace(coordinates,"d","&##176;","all")>
 			<cfset coordinates = replace(coordinates,"m","'","all")>

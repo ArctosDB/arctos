@@ -1,3 +1,5 @@
+<cfsetting requesttimeout="600"> 
+
 <cfinclude template="/includes/_header.cfm">
 <!---- make the table 
 
@@ -57,13 +59,10 @@ Include column headings, spelled exactly as below.
 			  <input type="file"
 		   name="FiletoUpload"
 		   size="45" onchange="checkCSV(this);">
-			  <input type="submit" value="Upload this file" #saveClr#>
+			  <input type="submit" value="Upload this file">
   </cfform>
 
 </cfif>
-<!------------------------------------------------------->
-<!------------------------------------------------------->
-
 <!------------------------------------------------------->
 <cfif #action# is "getFile">
 <cfoutput>
@@ -134,95 +133,84 @@ Include column headings, spelled exactly as below.
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
-
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_oids
 	</cfquery>
 	<cfloop query="data">
 		<cfset err="">
-		<cfif len(#existing_other_id_type#) is 0>
-			<cfset err="You must specify an other ID type.">
-			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cf_temp_oids set status='#err#' where key=#key#
-			</cfquery>
+		<cfif len(existing_other_id_type) is 0>
+			<cfset err=listappend(err,"You must specify an other ID type.")>
 		</cfif>
-		<cfif len(#existing_other_id_number#) is 0>
-			<cfset err="You must specify an other ID number.">
-			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cf_temp_oids set status='#err#' where key=#key#
-			</cfquery>
+		<cfif len(existing_other_id_number) is 0>
+			<cfset err=listappend(err,"You must specify an other ID number.")>
 		</cfif>
-		<cfif len(#collection_cde#) is 0>
-			<cfset err="You must specify a collection_cde.">
-			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cf_temp_oids set status='#err#' where key=#key#
-			</cfquery>
+		<cfif len(collection_cde) is 0>
+			<cfset err=listappend(err,"You must specify a collection_cde.")>
 		</cfif>
-		<cfif len(#institution_acronym#) is 0>
-			<cfset err="You must specify a institution_acronym.">
-			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cf_temp_oids set status='#err#' where key=#key#
-			</cfquery>
+		<cfif len(institution_acronym) is 0>
+			<cfset err=listappend(err,"You must specify a institution_acronym.")>
 		</cfif>
 		<cfif len(err) is 0>
-			<cfif #existing_other_id_type# is not "catalog number">
+			<cfif existing_other_id_type is not "catalog number">
 				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					SELECT 
 						coll_obj_other_id_num.collection_object_id
 					FROM
 						coll_obj_other_id_num,
-						cataloged_item,
-						collection
+						cataloged_item
 					WHERE
 						coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
-						cataloged_item.collection_id = collection.collection_id and
-						collection.collection_cde = '#collection_cde#' and
-						collection.institution_acronym = '#institution_acronym#' and
+						cataloged_item.collection_id = (
+							select collection_id from collection where						
+							collection.collection_cde = '#collection_cde#' and
+							collection.institution_acronym = '#institution_acronym#') and
 						other_id_type = '#existing_other_id_type#' and
 						display_value = '#existing_other_id_number#'
 				</cfquery>
-			<cfelseif len(err) is 0>
+			<cfelse>
 				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					SELECT 
 						collection_object_id
 					FROM
-						cataloged_item,
-						collection
+						cataloged_item
 					WHERE
-						cataloged_item.collection_id = collection.collection_id and
-						collection.collection_cde = '#collection_cde#' and
-						collection.institution_acronym = '#institution_acronym#' and
+						cataloged_item.collection_id = (
+							select collection_id from collection where						
+							collection.collection_cde = '#collection_cde#' and
+							collection.institution_acronym = '#institution_acronym#') and
 						cat_num=#existing_other_id_number#
 				</cfquery>
 			</cfif>
-			<cfif #collObj.recordcount# is not 1>
-				<cfset err="#data.institution_acronym# #data.collection_cde# #data.existing_other_id_number# #data.existing_other_id_type# could not be found!">
-				<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update cf_temp_oids set status='#err#' where key=#key#
-				</cfquery>
-			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE cf_temp_oids SET collection_object_id = #collObj.collection_object_id# where
-					key = #key#
-				</cfquery>			
+			<cfif collObj.recordcount is not 1>
+				<cfset err=listappend(err,"#data.institution_acronym# #data.collection_cde# #data.existing_other_id_number# #data.existing_other_id_type# could not be found!")>
 			</cfif>
 		</cfif>
 		<cfif len(err) is 0>
-			<cfquery name="isValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select other_id_type from 
-				ctcoll_other_id_type where other_id_type = '#new_other_id_type#'
+			<cfquery name="isValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select other_id_type from ctcoll_other_id_type where other_id_type = '#new_other_id_type#'
 			</cfquery>
-			<cfif #isValid.recordcount# is not 1>
-				<cfset err="Other ID type #new_other_id_type# was not found.">
-				<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update cf_temp_oids set status='#err#' where key=#key#
-				</cfquery>
+			<cfif isValid.recordcount is not 1>
+				<cfset err=listappend(err,"Other ID type #new_other_id_type# was not found.")>
 			</cfif>
+		</cfif>
+		<cfif len(err) is 0>
+			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				UPDATE cf_temp_oids SET collection_object_id = #collObj.collection_object_id# where
+				key = #key#
+			</cfquery>
+		<cfelse>
+			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update cf_temp_oids set status='#err#' where key=#key#
+			</cfquery>
 		</cfif>
 	</cfloop>
 	<cflocation url="BulkloadOtherId.cfm?action=showCheck" addtoken="false">
 </cfoutput>
 </cfif>
+
+
+
+
 <cfif #action# is "showCheck">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_oids where status is not null
@@ -231,7 +219,7 @@ Include column headings, spelled exactly as below.
 		You must fix everything in the table below and reload your file to continue.
 		<cfdump var=#data#>
 	<cfelse>
-		<cflocation url="BulkloadOtherId.cfm?action=loadData" addtoken="false">
+		<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load</a>
 	</cfif>
 </cfif>
 
