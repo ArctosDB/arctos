@@ -165,7 +165,7 @@
 							Mammal Collection <br>
 							907 Yukon Drive <br>
 							Fairbanks, Alaska 99775-6960 <br>
-							e-mail: ffleo@uaf.edu <br>
+							e-mail:  leolson@alaska.edu<br>
 							Office: (907) 474-5998&nbsp;&nbsp;Fax: (907) 474-5468</font> 
 						  </blockquote>
 					</td>
