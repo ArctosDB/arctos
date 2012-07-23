@@ -742,8 +742,10 @@
 					<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
 				<input type="button" value="Delete" class="delBtn"
 					onClick="document.location='Locality.cfm?Action=deleteCollEvent&collecting_event_id=#locDet.collecting_event_id#';">
-				<input type="button" value="Clone" class="insBtn"
-					onClick="locality.action.value='clone';locality.submit();">
+				<input type="button" value="Clone Event and Locality (eg, to add 'unaccepted' coordinates)" class="insBtn"
+					onClick="locality.action.value='cloneEventAndLocality';locality.submit();">
+				<input type="button" value="Clone Event (new event under this locality)" class="insBtn"
+					onClick="locality.action.value='cloneEventWithoutLocality';locality.submit();">
 				
 				
 					<!---
@@ -799,8 +801,74 @@
 	</cfform>	
   </cfoutput> 
 </cfif>
+
+
 <!---------------------------------------------------------------------------------------------------->
-<cfif action is "newCollEvent">
+<cfif action is "cloneEventAndLocality">
+	<cfoutput>
+		<cfquery name="nextColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select sq_collecting_event_id.nextval nextColl from dual
+		</cfquery>
+		<cfquery name="newLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO locality (
+				LOCALITY_ID,
+				GEOG_AUTH_REC_ID,
+				SPEC_LOCALITY,
+				DEC_LAT,
+				DEC_LONG,
+				MINIMUM_ELEVATION,
+				MAXIMUM_ELEVATION,
+				ORIG_ELEV_UNITS,
+				MIN_DEPTH,
+				MAX_DEPTH,
+				DEPTH_UNITS,
+				MAX_ERROR_DISTANCE,
+				MAX_ERROR_UNITS,
+				DATUM,
+				LOCALITY_REMARKS,
+				GEOREFERENCE_SOURCE,
+				GEOREFERENCE_PROTOCOL,
+				LOCALITY_NAME
+			) (
+				select 
+					sq_locality_id.nextval,
+					GEOG_AUTH_REC_ID,
+					SPEC_LOCALITY,
+					DEC_LAT,
+					DEC_LONG,
+					MINIMUM_ELEVATION,
+					MAXIMUM_ELEVATION,
+					ORIG_ELEV_UNITS,
+					MIN_DEPTH,
+					MAX_DEPTH,
+					DEPTH_UNITS,
+					MAX_ERROR_DISTANCE,
+					MAX_ERROR_UNITS,
+					DATUM,
+					LOCALITY_REMARKS,
+					GEOREFERENCE_SOURCE,
+					GEOREFERENCE_PROTOCOL,
+					LOCALITY_NAME
+				from
+					locality
+				where
+					locality_id=#locality_id#
+			)
+		</cfquery>
+		<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO collecting_event (
+				collecting_event_id,
+				LOCALITY_ID
+			) values (
+				#nextColl.nextColl#,
+				sq_locality_id.currval
+			)
+		</cfquery>
+		<cflocation addtoken="no" url="Locality.cfm?Action=editCollEvnt&collecting_event_id=#nextColl.nextColl#">
+	</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "cloneEventWithoutLocality">
 <cfoutput>
 	<cfquery name="nextColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select sq_collecting_event_id.nextval nextColl from dual
