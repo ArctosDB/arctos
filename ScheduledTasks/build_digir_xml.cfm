@@ -9,7 +9,9 @@ hi.
 <!--- JRW edits --->
 <cfset mappings ="DateLastModified:LAST_EDIT_DATE|RelatedInformation:RelatedInformation|BasisOfRecord:BASISOFRECORD|InstitutionCode:INSTITUTION_ACRONYM|CollectionCode:COLLECTION_CDE|CatalogNumberText:CAT_NUM|CatalogNumberNumeric:CAT_NUM|Collector:COLLECTORS|CollectorNumber:COLLECTORNUMBER|FieldNumber:FIELD_NUM|YearCollected:YEAR|MonthCollected:MONTH|DayCollected:DAY|TimeCollected:EMPTYSTRING|VerbatimCollectingDate:VERBATIM_DATE|FieldNotes:FIELDNOTESURL|JulianDay:DAYOFYEAR|HigherGeography:HIGHER_GEOG|ContinentOcean:CONTINENT_OCEAN|IslandGroup:ISLAND_GROUP|Island:ISLAND|Country:COUNTRY|StateProvince:STATE_PROV|County:COUNTY|Locality:SPEC_LOCALITY|DecimalLatitude:DEC_LAT|DecimalLongitude:DEC_LONG|HorizontalDatum:DATUM|OriginalCoordinateSystem:ORIG_LAT_LONG_UNITS|VerbatimLatitude:VERBATIMLATITUDE|VerbatimLongitude:VERBATIMLONGITUDE|GeorefMethod:GEOREFMETHOD|CoordinateUncertaintyInMeters:COORDINATEUNCERTAINTYINMETERS|LatLongComments:LAT_LONG_REMARKS|BoundingBox:EMPTYSTRING|MinimumElevationInMeters:MIN_ELEV_IN_M|MaximumElevationInMeters:MAX_ELEV_IN_M|VerbatimElevation:VERBATIMELEVATION|MinimumDepthInMeters:MIN_DEPTH_IN_M|MaximumDepthInMeters:MAX_DEPTH_IN_M|VerbatimDepth:EMPTYSTRING|ScientificName:SCIENTIFIC_NAME|HigherTaxon:FULL_TAXON_NAME|Kingdom:KINGDOM|Phylum:PHYLUM|Class:PHYLCLASS|Order:PHYLORDER|Family:FAMILY|Genus:GENUS|Species:SPECIES|Subspecies:SUBSPECIES|ScientificNameAuthor:AUTHOR_TEXT|IdentificationModifier:IDENTIFICATIONMODIFIER|IdentifiedBy:IDENTIFIEDBY|YearIdentified:EMPTYSTRING|MonthIdentified:EMPTYSTRING|DayIdentified:EMPTYSTRING|TypeStatus:TYPESTATUS|Sex:SEX|Preparations:PARTS|Tissues:EMPTYSTRING|IndividualCount:INDIVIDUALCOUNT|AgeClass:AGE_CLASS|GenBankNum:GENBANKNUM|OtherCatalogNumbers:OTHERCATALOGNUMBERS|RelatedCatalogedItems:RELATEDCATALOGEDITEMS|Remarks:REMARKS">
 <!---- may want to put these in a table at some point, for now we can just set them here --->
-
+<cfif not isdefined("action")>
+	<cfset action="nothing">
+</cfif>
 <cfif action is "checkMapping">
 		<cfquery name="getDFF" datasource="uam_god">
 			select * from digir_query.DIGIR_FILTERED_FLAT where 1=2
