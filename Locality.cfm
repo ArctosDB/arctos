@@ -857,11 +857,64 @@
 		</cfquery>
 		<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO collecting_event (
-				collecting_event_id,
-				LOCALITY_ID
-			) values (
-				#nextColl.nextColl#,
-				sq_locality_id.currval
+				COLLECTING_EVENT_ID,
+				LOCALITY_ID,
+				VERBATIM_DATE,
+				VERBATIM_LOCALITY,
+				COLL_EVENT_REMARKS,
+				BEGAN_DATE,
+				ENDED_DATE,
+				VERBATIM_COORDINATES,
+				COLLECTING_EVENT_NAME,
+				LAT_DEG,
+				DEC_LAT_MIN,
+				LAT_MIN,
+				LAT_SEC,
+				LAT_DIR,
+				LONG_DEG,
+				DEC_LONG_MIN,
+				LONG_MIN,
+				LONG_SEC,
+				LONG_DIR,
+				DEC_LAT,
+				DEC_LONG,
+				DATUM,
+				UTM_ZONE,
+				UTM_EW,
+				UTM_NS,
+				ORIG_LAT_LONG_UNITS
+			) (
+				select
+					#nextColl.nextColl#,
+					LOCALITY_ID,
+					VERBATIM_DATE,
+					VERBATIM_LOCALITY,
+					COLL_EVENT_REMARKS,
+					BEGAN_DATE,
+					ENDED_DATE,
+					VERBATIM_COORDINATES,
+					COLLECTING_EVENT_NAME,
+					LAT_DEG,
+					DEC_LAT_MIN,
+					LAT_MIN,
+					LAT_SEC,
+					LAT_DIR,
+					LONG_DEG,
+					DEC_LONG_MIN,
+					LONG_MIN,
+					LONG_SEC,
+					LONG_DIR,
+					DEC_LAT,
+					DEC_LONG,
+					DATUM,
+					UTM_ZONE,
+					UTM_EW,
+					UTM_NS,
+					ORIG_LAT_LONG_UNITS
+				from
+					collecting_event
+				where
+					collecting_event_id=#collecting_event_id#
 			)
 		</cfquery>
 		<cflocation addtoken="no" url="Locality.cfm?Action=editCollEvnt&collecting_event_id=#nextColl.nextColl#">
@@ -874,14 +927,67 @@
 		select sq_collecting_event_id.nextval nextColl from dual
 	</cfquery>
 	<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		INSERT INTO collecting_event (
-			collecting_event_id,
-			LOCALITY_ID
-		) values (
-			#nextColl.nextColl#,
-			#LOCALITY_ID#
-		)
-	</cfquery>
+			INSERT INTO collecting_event (
+				COLLECTING_EVENT_ID,
+				LOCALITY_ID,
+				VERBATIM_DATE,
+				VERBATIM_LOCALITY,
+				COLL_EVENT_REMARKS,
+				BEGAN_DATE,
+				ENDED_DATE,
+				VERBATIM_COORDINATES,
+				COLLECTING_EVENT_NAME,
+				LAT_DEG,
+				DEC_LAT_MIN,
+				LAT_MIN,
+				LAT_SEC,
+				LAT_DIR,
+				LONG_DEG,
+				DEC_LONG_MIN,
+				LONG_MIN,
+				LONG_SEC,
+				LONG_DIR,
+				DEC_LAT,
+				DEC_LONG,
+				DATUM,
+				UTM_ZONE,
+				UTM_EW,
+				UTM_NS,
+				ORIG_LAT_LONG_UNITS
+			) (
+				select
+					#nextColl.nextColl#,
+					LOCALITY_ID,
+					VERBATIM_DATE,
+					VERBATIM_LOCALITY,
+					COLL_EVENT_REMARKS,
+					BEGAN_DATE,
+					ENDED_DATE,
+					VERBATIM_COORDINATES,
+					COLLECTING_EVENT_NAME,
+					LAT_DEG,
+					DEC_LAT_MIN,
+					LAT_MIN,
+					LAT_SEC,
+					LAT_DIR,
+					LONG_DEG,
+					DEC_LONG_MIN,
+					LONG_MIN,
+					LONG_SEC,
+					LONG_DIR,
+					DEC_LAT,
+					DEC_LONG,
+					DATUM,
+					UTM_ZONE,
+					UTM_EW,
+					UTM_NS,
+					ORIG_LAT_LONG_UNITS
+				from
+					collecting_event
+				where
+					collecting_event_id=#collecting_event_id#
+			)
+		</cfquery>
 	<cflocation addtoken="no" url="Locality.cfm?Action=editCollEvnt&collecting_event_id=#nextColl.nextColl#">
 </cfoutput>	
 </cfif>
