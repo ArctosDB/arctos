@@ -173,6 +173,17 @@
 							<cfelse>
 								<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
 							</cfif>
+						<cfelseif table_name is "media">
+							<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+								select distinct(media_id) project_id from media where media_uri ='#rt#'
+							</cfquery>
+							<cfif c.recordcount is 1 and len(c.media_id) gt 0>
+								<cfquery name="i" datasource="uam_god">
+									update cf_temp_media set media_related_key_#i#=#c.media_id# where key=#key#
+								</cfquery>
+							<cfelse>
+								<cfset rec_stat=listappend(rec_stat,'Media #lv# matched #c.recordcount# records.',";")>
+							</cfif>
 						<cfelseif table_name is "cataloged_item">
 							<cfif debug is true>
 								-----------here we are now-------------
