@@ -95,6 +95,12 @@ delete from media_relations where media_relationship like '% cataloged_item' and
 ;
 
 
+delete from specimen_event where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
 delete from cataloged_item where collection_object_id IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
@@ -243,6 +249,14 @@ drop table temp;
 				select collection_object_id FROM coll_object_encumbrance WHERE
 				encumbrance_id = #encumbrance_id#
 			)
+		)
+</cfquery>
+
+<cfquery name="specimen_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
+	delete from specimen_event where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
 <cfquery name="identification_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
