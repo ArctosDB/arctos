@@ -189,7 +189,7 @@
         </tr>
     <cfloop query="reportList">
 		<cfquery name="h" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	        select * from cf_report_sql where report_template='#name#'
+	        select * from cf_report_sql where report_template='#name#' order by report_template
 	    </cfquery>
         <cfif h.recordcount is 0>
             <cfquery name="h" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
