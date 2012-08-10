@@ -212,14 +212,20 @@
 				<cfform name="loc" method="post" action="bulkCollEvent.cfm">
 					<input type="hidden" name="action" value="saveChangeMultiEvent">
 					<input type="hidden" name="specimen_event_id" value="#valuelist(specimenList.specimen_event_id)#">
-					<cfquery name="c_specimen_event_type" dbtype="query">
-						select specimen_event_type from specimenList group by specimen_event_type
+					
+					
+					<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 					</cfquery>
 					<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				        select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
 				     </cfquery>
 				     <cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select VerificationStatus from ctVerificationStatus
+					</cfquery>
+					
+					<cfquery name="c_specimen_event_type" dbtype="query">
+						select specimen_event_type from specimenList group by specimen_event_type
 					</cfquery>
 					<label for="specimen_event_type">Specimen/Event Type</label>
 					<cfif c_specimen_event_type.recordcount is 1>
