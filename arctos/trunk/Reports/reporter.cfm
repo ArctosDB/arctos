@@ -149,7 +149,9 @@
     <cffile action="upload"
     	destination="#Application.webDirectory#/Reports/templates/"
       	nameConflict="overwrite"
-      	fileField="Form.FiletoUpload" mode="777">
+      	fileField="Form.FiletoUpload" mode="777" result="r">
+		  
+		  <cfdump var=#r#>
 	<cfset fileName=#cffile.serverfile#>
 	<cfset dotPos=find(".",fileName)>
 	<cfset name=left(fileName,dotPos-1)>
