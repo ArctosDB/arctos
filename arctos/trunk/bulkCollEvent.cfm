@@ -204,7 +204,7 @@
 			
 			<script language="javascript" type="text/javascript">
 				jQuery(document).ready(function() {
-					$("#assigned_date").datepicker();
+					$("##assigned_date").datepicker();
 				});
 			</script>
 			
