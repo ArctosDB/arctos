@@ -886,7 +886,7 @@
 			) (
 				select
 					#nextColl.nextColl#,
-					LOCALITY_ID,
+					sq_locality_id.currval,
 					VERBATIM_DATE,
 					VERBATIM_LOCALITY,
 					COLL_EVENT_REMARKS,
