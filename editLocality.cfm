@@ -233,7 +233,11 @@
 		<label for="locality_name" class="likeLink" onClick="getDocs('locality','locality_name')">
 			Locality Name
 		</label>
-		<input type="text"id="locality_name" name="locality_name" value="#stripQuotes(locDet.locality_name)#" size="120">
+		<input type="text"id=" locality_name" name="locality_name" value="#stripQuotes(locDet.locality_name)#" size="120">
+		
+		<cfif len(locDet.locality_name) is 0>
+			<span class="infoLink" onclick="$('##locality_name').val('#CreateUUID()#');">create GUID</span>
+		</cfif>
 		<table>
 			<tr>
 				<td>
