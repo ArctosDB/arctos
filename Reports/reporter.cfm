@@ -40,7 +40,7 @@
     </cfif>
 
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        select * from cf_report_sql where report_id='#report_id#'
+        select * from cf_report_sql where report_id='#report_id#' order by report_name
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
    
