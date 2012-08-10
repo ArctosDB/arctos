@@ -339,7 +339,7 @@
 							various - no edit allowed.
 						</div>
 					</cfif>
-					<br><input type="submmit" value="update all specimen/events listed below" class="savBtn">
+					<br><input type="submit" value="update all specimen/events listed below" class="savBtn">
 				</cfform>
 			</div>
 		</cfif>		
