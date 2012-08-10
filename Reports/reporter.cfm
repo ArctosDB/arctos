@@ -169,7 +169,13 @@
 	    	file="#Application.webDirectory#/Reports/templates/#fileName#">
         <cfabort>
 	</cfif>
-	loaded....<cfabort>
+	<cfoutput>
+	loaded....#Application.webDirectory#/Reports/templates/#fileName#
+	
+	
+	</cfoutput>
+	
+	<cfabort>
 	<cflocation url="reporter.cfm">
 
 </cfif>
