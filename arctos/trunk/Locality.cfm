@@ -557,12 +557,8 @@
 				<label for="collecting_event_name">collecting_event_name</label>
 				<input type="text" name="collecting_event_name" id="collecting_event_name" value="#locDet.collecting_event_name#" size="50">
 				<cfif len(locDet.collecting_event_name) is 0>
-					<span class="likeLink" onclick="$('##collecting_event_name').val('#CreateUUID()#');">create GUID</span>
+					<span class="infoLink" onclick="$('##collecting_event_name').val('#CreateUUID()#');">create GUID</span>
 				</cfif>
-				
-				
-				
-				
 				<label>Verbatim Coordinates (These are NOT necessarily the same as the mappable coordinate
 				data given for Locality. Entering verbatim coordinates and picking an appropriate locality are separate tasks.)</label>
 				<script>
