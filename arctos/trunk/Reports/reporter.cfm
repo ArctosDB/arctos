@@ -172,7 +172,9 @@
 	<cfoutput>
 	loaded....#Application.webDirectory#/Reports/templates/#fileName#
 	
-	
+	    <cfdirectory action="list" name="x" directory="#Application.webDirectory#/Reports/templates">
+		<cfdump var=#x#>
+
 	</cfoutput>
 	
 	<cfabort>
