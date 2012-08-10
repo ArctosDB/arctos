@@ -801,8 +801,23 @@
 	</cfform>	
   </cfoutput> 
 </cfif>
-
-
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "newCollEvent">
+	<!--- create new empty collecting event, redirect to edit it ---->
+	<cfquery name="nextColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select sq_collecting_event_id.nextval nextColl from dual
+	</cfquery>
+	<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		INSERT INTO collecting_event (
+			COLLECTING_EVENT_ID,
+			LOCALITY_ID
+		) values (
+			#nextColl.nextColl#,
+			sq_locality_id.nextval
+		)
+	</cfquery>
+	<cflocation addtoken="no" url="Locality.cfm?Action=editCollEvnt&collecting_event_id=#nextColl.nextColl#">
+</cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "cloneEventAndLocality">
 	<cfoutput>
