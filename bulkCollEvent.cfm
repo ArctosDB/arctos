@@ -207,7 +207,7 @@
 			
 			
 			
-			<cfform name="loc#f#" method="post" action="specLocality.cfm">
+			<cfform name="loc" method="post" action="specLocality.cfm">
 				<input type="hidden" name="action" value="saveChangeMultiEvent">
 				<input type="hidden" name="specimen_event_id" value="#valuelist(specimenList.specimen_event_id)#">
 				<label for="specimen_event_type">Specimen/Event Type</label>
