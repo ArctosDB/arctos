@@ -512,7 +512,7 @@
 						<cfif isdefined("VerificationStatus") and len(VerificationStatus) gt 0>
 							VerificationStatus='#VerificationStatus#',
 						</cfif>
-						1=1
+						specimen_event_id=#i#
 					where
 						specimen_event_id=#i#
 					</cfquery>
