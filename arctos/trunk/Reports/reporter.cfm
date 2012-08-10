@@ -152,7 +152,7 @@
       	fileField="Form.FiletoUpload" mode="777" result="r">
 		  
 		  <cfdump var=#r#>
-	<cfset fileName=#x.serverfile#>
+	<cfset fileName=#r.serverfile#>
 	<cfset dotPos=find(".",fileName)>
 	<cfset name=left(fileName,dotPos-1)>
 	<cfset extension=right(fileName,len(fileName)-dotPos+1)>
