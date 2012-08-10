@@ -212,6 +212,7 @@
 				<cfform name="loc" method="post" action="bulkCollEvent.cfm">
 					<input type="hidden" name="action" value="saveChangeMultiEvent">
 					<input type="hidden" name="specimen_event_id" value="#valuelist(specimenList.specimen_event_id)#">
+					<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 					
 					
 					<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -338,6 +339,7 @@
 							various - no edit allowed.
 						</div>
 					</cfif>
+					<br><input type="submmit" value="update all specimen/events listed below" class="savBtn">
 				</cfform>
 			</div>
 		</cfif>		
@@ -474,6 +476,49 @@
 			</cfloop>
 		</table>
 	</cfoutput>
+</cfif>
+
+
+<!----------------------------------------------------------------------------------->
+<cfif action is "saveChangeMultiEvent">
+	<cfoutput>
+		<cftransaction>
+			<cfloop list="#specimen_event_id#" index="i">
+				<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update 
+						specimen_event 
+					set
+						<cfif isdefined("specimen_event_type") and len(specimen_event_type) gt 0>
+							specimen_event_type='#specimen_event_type#'
+						</cfif>
+						<cfif isdefined("assigned_by_agent_id") and len(assigned_by_agent_id) gt 0>
+							assigned_by_agent_id=#assigned_by_agent_id#
+						</cfif>
+						<cfif isdefined("assigned_date") and len(assigned_date) gt 0>
+							assigned_date='#assigned_date#'
+						</cfif>
+						<cfif isdefined("specimen_event_remark") and len(specimen_event_remark) gt 0>
+							assigned_date='#escapeQuotes(specimen_event_remark)#'
+						</cfif>
+						<cfif isdefined("habitat") and len(habitat) gt 0>
+							habitat='#escapeQuotes(habitat)#'
+						</cfif>
+						<cfif isdefined("collecting_source") and len(collecting_source) gt 0>
+							collecting_source='#collecting_source#'
+						</cfif>
+						<cfif isdefined("collecting_method") and len(collecting_method) gt 0>
+							collecting_method='#escapeQuotes(collecting_method)#'
+						</cfif>
+						<cfif isdefined("VerificationStatus") and len(VerificationStatus) gt 0>
+							VerificationStatus='#VerificationStatus#'
+						</cfif>
+					where
+						specimen_event_id=#i#
+					</cfquery>
+			</cfloop>
+		</cftransaction>
+		<cflocation url="bulkCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+	</cfoutput>	
 </cfif>
 <!----------------------------------------------------------------------------------->
 
