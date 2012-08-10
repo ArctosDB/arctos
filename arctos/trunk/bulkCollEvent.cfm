@@ -284,7 +284,7 @@
 					</cfquery>
 					<label for="habitat">Habitat</label>
 					<cfif c_specimen_event_remark.recordcount is 1>
-						<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
+						<input type="text" name="habitat" id="habitat" value="#c_habitat.habitat#" size="75">
 					<cfelse>
 						<div id="habitat">
 							various - no edit allowed.
