@@ -489,29 +489,30 @@
 						specimen_event 
 					set
 						<cfif isdefined("specimen_event_type") and len(specimen_event_type) gt 0>
-							specimen_event_type='#specimen_event_type#'
+							specimen_event_type='#specimen_event_type#',
 						</cfif>
 						<cfif isdefined("assigned_by_agent_id") and len(assigned_by_agent_id) gt 0>
-							assigned_by_agent_id=#assigned_by_agent_id#
+							assigned_by_agent_id=#assigned_by_agent_id#,
 						</cfif>
 						<cfif isdefined("assigned_date") and len(assigned_date) gt 0>
-							assigned_date='#assigned_date#'
+							assigned_date='#assigned_date#',
 						</cfif>
 						<cfif isdefined("specimen_event_remark") and len(specimen_event_remark) gt 0>
 							assigned_date='#escapeQuotes(specimen_event_remark)#'
 						</cfif>
 						<cfif isdefined("habitat") and len(habitat) gt 0>
-							habitat='#escapeQuotes(habitat)#'
+							habitat='#escapeQuotes(habitat)#',
 						</cfif>
 						<cfif isdefined("collecting_source") and len(collecting_source) gt 0>
-							collecting_source='#collecting_source#'
+							collecting_source='#collecting_source#',
 						</cfif>
 						<cfif isdefined("collecting_method") and len(collecting_method) gt 0>
-							collecting_method='#escapeQuotes(collecting_method)#'
+							collecting_method='#escapeQuotes(collecting_method)#',
 						</cfif>
 						<cfif isdefined("VerificationStatus") and len(VerificationStatus) gt 0>
-							VerificationStatus='#VerificationStatus#'
+							VerificationStatus='#VerificationStatus#',
 						</cfif>
+						1=1
 					where
 						specimen_event_id=#i#
 					</cfquery>
