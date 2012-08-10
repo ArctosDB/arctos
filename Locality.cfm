@@ -813,7 +813,7 @@
 			LOCALITY_ID
 		) values (
 			#nextColl.nextColl#,
-			sq_locality_id.nextval
+			#locality_id#
 		)
 	</cfquery>
 	<cflocation addtoken="no" url="Locality.cfm?Action=editCollEvnt&collecting_event_id=#nextColl.nextColl#">
