@@ -192,7 +192,6 @@
 				
 				<!-------
 				
-				getPreferredAgentName(specimen_event.assigned_by_agent_id) assignedBy,
 	    	specimen_event.assigned_date,
 			specimen_event.specimen_event_remark,
 			specimen_event.specimen_event_type,
@@ -203,110 +202,139 @@
 			
 			-------->
 			
+			<script language="javascript" type="text/javascript">
+				jQuery(document).ready(function() {
+					$("#assigned_date").datepicker();
+				});
+			</script>
 			
-			
-			
-			<cfform name="loc" method="post" action="bulkCollEvent.cfm">
-				<input type="hidden" name="action" value="saveChangeMultiEvent">
-				<input type="hidden" name="specimen_event_id" value="#valuelist(specimenList.specimen_event_id)#">
-				<cfquery name="c_assignedBy" dbtype="query">
-					select assignedBy,assigned_by_agent_id from specimenList group by assignedBy,assigned_by_agent_id
-				</cfquery>
-				<label for="specimen_event_type">Event Assigned by Agent</label>
-				<cfif c_assignedBy.recordcount is 1>
-					<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#c_assignedBy.assignedBy#" size="40"
-						 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
-						 onKeyPress="return noenter(event);">
-					<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#c_assignedBy.assigned_by_agent_id#">
-				<cfelse>
-					<div id="assigned_by_agent_name">
-						various - no edit allowed.
-					</div>
-				</cfif>
-			
-				<label for="specimen_event_type">Specimen/Event Type</label>
-				specimenList.specimen_event_id----#valuelist(specimenList.specimen_event_id)#
-				specimenList.specimen_event_type----#valuelist(specimenList.specimen_event_type)#
-				
-				
-				<!-----
-				<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
-					<cfloop query="ctspecimen_event_type">
-						<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
-							value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
-				    </cfloop>
-				</select>
-			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
-
-			
-			
-			<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
-			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
-			
-			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
-			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#l.specimen_event_remark#" size="75">
-			
-			<label for="habitat">Habitat</label>
-			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
-			
-			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
-			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
-				<option value=""></option>
-				<cfloop query="ctcollecting_source">
-					<option <cfif ctcollecting_source.COLLECTING_SOURCE is l.COLLECTING_SOURCE> selected="selected" </cfif>
-						value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
-				</cfloop>
-			</select>
-			<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
-
-			<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
-			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
-			
-			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
-			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-				<cfloop query="ctVerificationStatus">
-					<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
-						value="#VerificationStatus#">#VerificationStatus#</option>
-				</cfloop>
-			</select>
-			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
-			<h4>
-				Collecting Event
-				<a style="font-size:small;" href="/Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#" target="_top">[ Edit Event ]</a>
-			</h4>
-			<label for="">If you pick a new event, the Verbatim Locality will go here. Save to see the changes in the rest of the form.</label>
-			<input type="text" size="50" name="cepick#f#">
-			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc#f#','cepick#f#');">
-			<br>
-			<cfinvoke component="component.functions" method="getEventContents" returnvariable="contents">
-			    <cfinvokeargument name="collecting_event_id" value="#collecting_event_id#">
-			</cfinvoke>
-			#contents#
-			<br>
-			<ul>
-				<li>Date: #VERBATIM_DATE# (<cfif BEGAN_DATE is ENDED_DATE>#ENDED_DATE#<cfelse>#BEGAN_DATE# to #ENDED_DATE#</cfif>)</li>
-				<cfif len(VERBATIM_LOCALITY) gt 0>
-					<li>Verbatim Locality: #VERBATIM_LOCALITY#</li>
-				</cfif>
-				<cfif len(verbatim_coordinates) gt 0>
-					<li>Verbatim Coordinates: #verbatim_coordinates#</li>
-				</cfif>
-				<cfif len(collecting_event_name) gt 0>
-					<li>Collecting Event Name: #collecting_event_name#</li>
-				</cfif>
-				<cfif len(COLL_EVENT_REMARKS) gt 0>
-					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
-				</cfif>
-			</ul>
-			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
-			<input type="button" value="Delete this Specimen/Event" class="delBtn" onclick="loc#f#.action.value='delete';confirmDelete('loc#f#');">			
-			----------->
-	</cfform>
-	
-	
-			
-		</cfif>
-		
+			<div style=" text-align:left">
+				<cfform name="loc" method="post" action="bulkCollEvent.cfm">
+					<input type="hidden" name="action" value="saveChangeMultiEvent">
+					<input type="hidden" name="specimen_event_id" value="#valuelist(specimenList.specimen_event_id)#">
+					<cfquery name="c_specimen_event_type" dbtype="query">
+						select specimen_event_type from specimenList group by specimen_event_type
+					</cfquery>
+					<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				        select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
+				     </cfquery>
+				     <cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select VerificationStatus from ctVerificationStatus
+					</cfquery>
+					<label for="specimen_event_type">Specimen/Event Type</label>
+					<cfif c_specimen_event_type.recordcount is 1>
+						<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
+							<cfloop query="ctspecimen_event_type">
+								<option <cfif ctspecimen_event_type.specimen_event_type is c_specimen_event_type.specimen_event_type> selected="selected" </cfif>
+									value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+						    </cfloop>
+						</select>
+					<cfelse>
+						<div id="specimen_event_type">
+							various - no edit allowed.
+						</div>
+					</cfif>
+					
+					<cfquery name="c_assignedBy" dbtype="query">
+						select assignedBy,assigned_by_agent_id from specimenList group by assignedBy,assigned_by_agent_id
+					</cfquery>
+					<label for="assigned_by_agent_name">Event Assigned by Agent</label>
+					<cfif c_assignedBy.recordcount is 1>
+						<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#c_assignedBy.assignedBy#" size="40"
+							 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
+							 onKeyPress="return noenter(event);">
+						<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#c_assignedBy.assigned_by_agent_id#">
+					<cfelse>
+						<div id="assigned_by_agent_name">
+							various - no edit allowed.
+						</div>
+					</cfif>
+					<cfquery name="c_assigned_date" dbtype="query">
+						select assigned_date from specimenList group by assigned_date
+					</cfquery>
+					<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
+					<cfif c_assigned_date.recordcount is 1>
+						<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(c_assigned_date.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
+					<cfelse>
+						<div id="assigned_by_agent_name">
+							various - no edit allowed.
+						</div>
+					</cfif>
+					
+					<cfquery name="c_specimen_event_remark" dbtype="query">
+						select specimen_event_remark from specimenList group by specimen_event_remark
+					</cfquery>
+					<label for="specimen_event_remark">Specimen/Event Remark</label>
+					<cfif c_specimen_event_remark.recordcount is 1>
+						<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#c_specimen_event_remark.specimen_event_remark#" size="75">
+					<cfelse>
+						<div id="specimen_event_remark">
+							various - no edit allowed.
+						</div>
+					</cfif>
+					
+					<cfquery name="c_habitat" dbtype="query">
+						select habitat from specimenList group by habitat
+					</cfquery>
+					<label for="habitat">Habitat</label>
+					<cfif c_specimen_event_remark.recordcount is 1>
+						<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
+					<cfelse>
+						<div id="habitat">
+							various - no edit allowed.
+						</div>
+					</cfif>
+					
+					
+					<cfquery name="c_collecting_source" dbtype="query">
+						select collecting_source from specimenList group by collecting_source
+					</cfquery>
+					<label for="" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
+					<cfif c_collecting_source.recordcount is 1>
+						<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+							<option value=""></option>
+							<cfloop query="ctcollecting_source">
+								<option <cfif ctcollecting_source.COLLECTING_SOURCE is c_collecting_source.COLLECTING_SOURCE> selected="selected" </cfif>
+									value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
+							</cfloop>
+						</select>
+					<cfelse>
+						<div id="collecting_source">
+							various - no edit allowed.
+						</div>
+					</cfif>
+					
+					<cfquery name="c_collecting_method" dbtype="query">
+						select collecting_method from specimenList group by collecting_method
+					</cfquery>
+					<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
+					<cfif c_collecting_method.recordcount is 1>
+						<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(c_collecting_method.COLLECTING_METHOD)#" size="75">
+					<cfelse>
+						<div id="collecting_method">
+							various - no edit allowed.
+						</div>
+					</cfif>
+					
+					<cfquery name="c_VerificationStatus" dbtype="query">
+						select VerificationStatus from specimenList group by VerificationStatus
+					</cfquery>
+					<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
+					<cfif c_VerificationStatus.recordcount is 1>
+						<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+							<cfloop query="ctVerificationStatus">
+								<option <cfif c_VerificationStatus.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
+									value="#VerificationStatus#">#VerificationStatus#</option>
+							</cfloop>
+						</select>
+					<cfelse>
+						<div id="VerificationStatus">
+							various - no edit allowed.
+						</div>
+					</cfif>
+				</cfform>
+			</div>
+		</cfif>		
 	</div>
 	<br><b>Specimens Being Changed:</b>
 		<table width="95%" border="1">
