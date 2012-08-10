@@ -180,6 +180,8 @@
 					onclick="document.location='bulkCollEvent.cfm?action=deleteAll&collection_object_id=#collection_object_id#';" 
 				 	value="REMOVE all specimen events (presumably so you can add new ones)" 
 					class="delBtn">
+			<hr>
+			edit events
 		</cfif>
 		
 	</div>
