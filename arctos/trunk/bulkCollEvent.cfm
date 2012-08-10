@@ -99,6 +99,7 @@
 			flat.scientific_name,
 			collecting_event.collecting_event_id,
 			getPreferredAgentName(specimen_event.assigned_by_agent_id) assignedBy,
+			specimen_event.assigned_by_agent_id,
 	    	specimen_event.specimen_event_id,
 	    	specimen_event.assigned_date,
 			specimen_event.specimen_event_remark,
@@ -186,9 +187,7 @@
 			<hr>
 			
 			
-			<cfquery name="c_assignedBy" dbtype="query">
-				select assignedBy from specimenList group by assignedBy
-			</cfquery>
+			
 			
 				
 				<!-------
@@ -207,9 +206,24 @@
 			
 			
 			
-			<cfform name="loc" method="post" action="specLocality.cfm">
+			<cfform name="loc" method="post" action="bulkCollEvent.cfm">
 				<input type="hidden" name="action" value="saveChangeMultiEvent">
 				<input type="hidden" name="specimen_event_id" value="#valuelist(specimenList.specimen_event_id)#">
+				<cfquery name="c_assignedBy" dbtype="query">
+					select assignedBy,assigned_by_agent_id from specimenList group by assignedBy,assigned_by_agent_id
+				</cfquery>
+				<label for="specimen_event_type">Event Assigned by Agent</label>
+				<cfif c_assignedBy.recordcount is 1>
+					<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#c_assignedBy.assignedBy#" size="40"
+						 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
+						 onKeyPress="return noenter(event);">
+					<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#c_assignedBy.assigned_by_agent_id#">
+				<cfelse>
+					<div id="assigned_by_agent_name">
+						various - no edit allowed.
+					</div>
+				</cfif>
+			
 				<label for="specimen_event_type">Specimen/Event Type</label>
 				specimenList.specimen_event_id----#valuelist(specimenList.specimen_event_id)#
 				specimenList.specimen_event_type----#valuelist(specimenList.specimen_event_type)#
@@ -224,11 +238,7 @@
 				</select>
 			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
 
-			<label for="specimen_event_type">Event Assigned by Agent</label>
-			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
-				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc#f#',this.value); return false;"
-				 onKeyPress="return noenter(event);">
-			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
+			
 			
 			<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
 			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
