@@ -1,4 +1,176 @@
 <cfcomponent>
+	
+<!------------------------------------------------------------------->
+<cffunction name="agentCollectionContacts" access="remote">
+	<!--------- get email addresses of people who have some involvement with agent(s) ---->
+	<cfargument name="agent_id" type="string" required="yes">
+	<cfquery name="colns" datasource="uam_god">
+		select 
+			agent_name,
+			ADDRESS
+		from
+			collection_contacts,
+			electronic_address,
+			preferred_agent_name
+		where
+			collection_contacts.CONTACT_AGENT_ID=preferred_agent_name.agent_id and
+			collection_contacts.CONTACT_AGENT_ID=electronic_address.agent_id and
+			electronic_address.address_type='e-mail' and
+			CONTACT_ROLE='data quality' and
+			collection_contacts.collection_id in  (
+		select 
+			collection_id 
+		from 
+			cataloged_item,
+			citation,
+			publication_agent
+		where
+			cataloged_item.collection_object_id=citation.collection_object_id and
+			citation.publication_id=publication_agent.publication_id and
+			publication_agent.agent_id in (#agent_id#)
+		union
+		select 
+			cataloged_item.collection_id
+		from 
+			collector,
+			cataloged_item
+		where 
+			collector.collection_object_id = cataloged_item.collection_object_id AND
+			agent_id in (#agent_id#)
+		union
+		select 
+			collection_id
+		from 
+			coll_object,
+			cataloged_item
+		where 
+			coll_object.collection_object_id = cataloged_item.collection_object_id and
+			ENTERED_PERSON_ID in (#agent_id#)
+		union
+		select 
+			collection_id
+		from 
+			coll_object,
+			cataloged_item
+		where 
+			coll_object.collection_object_id = cataloged_item.collection_object_id and
+			LAST_EDITED_PERSON_ID in (#agent_id#)
+		union
+			select 
+				collection_id
+			from
+				attributes,
+				cataloged_item
+			where
+				cataloged_item.collection_object_id=attributes.collection_object_id and
+				determined_by_agent_id in (#agent_id#)
+		union
+			select 
+					collection_id
+				 from 
+				 	encumbrance,
+				 	coll_object_encumbrance,
+				 	cataloged_item
+				 where
+				 	encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id and
+				 	coll_object_encumbrance.collection_object_id=cataloged_item.collection_object_id and
+				 	encumbering_agent_id in (#agent_id#)
+		union
+			select 
+				collection_id
+			from 
+	        	identification,
+	        	identification_agent,
+				cataloged_item
+	        where 
+				cataloged_item.collection_object_id=identification.collection_object_id and
+				identification.identification_id=identification_agent.identification_id and
+	        	identification_agent.agent_id in (#agent_id#)
+		union
+			select 
+				collection_id
+			from 
+				cataloged_item,
+				specimen_event
+			where 
+				cataloged_item.collection_object_id=specimen_event.collection_object_id and
+				specimen_event.ASSIGNED_BY_AGENT_ID in (#agent_id#)
+		union
+			select 
+					collection_id
+				from
+					shipment,
+					loan,
+					trans
+				where
+					shipment.transaction_id=loan.transaction_id and
+					loan.transaction_id =trans.transaction_id and
+					PACKED_BY_AGENT_ID in (#agent_id#)
+		union
+			select 
+								collection_id
+				from
+					shipment,
+					addr,
+					loan,
+					trans
+				where
+					shipment.transaction_id=loan.transaction_id and
+					loan.transaction_id =trans.transaction_id and
+					shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
+					addr.agent_id in (#agent_id#)
+		union
+				select 							collection_id
+				from
+					shipment,
+					addr,
+					loan,
+					trans
+				where
+					shipment.transaction_id=loan.transaction_id and
+					loan.transaction_id =trans.transaction_id and
+					shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
+					addr.agent_id in (#agent_id#)
+		union
+				select 
+					collection_id
+				from
+					trans_agent,
+					loan,
+					trans
+				where
+					trans_agent.transaction_id=loan.transaction_id and
+					loan.transaction_id=trans.transaction_id and
+					AGENT_ID in (#agent_id#)
+		union
+				select 
+					collection_id
+				from
+					trans_agent,
+					accn,
+					trans
+				where
+					trans_agent.transaction_id=accn.transaction_id and
+					accn.transaction_id=trans.transaction_id and
+					AGENT_ID in (#agent_id#)
+		union
+				select 
+					collection_id
+				from
+					trans,
+					loan,
+					loan_item
+				where
+					trans.transaction_id=loan.transaction_id and
+					loan.transaction_id=loan_item.transaction_id and
+					RECONCILED_BY_PERSON_ID in (#agent_id#)
+					)
+		group by
+			agent_name,
+			ADDRESS
+	</cfquery>
+	<cfreturn colns>
+</cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMap" access="remote">
 	<cfargument name="size" type="string" required="no" default="200x200">
