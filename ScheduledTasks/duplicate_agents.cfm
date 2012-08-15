@@ -417,7 +417,7 @@ END;
 				<cfinvoke component="component.functions" method="agentCollectionContacts" returnvariable="contents">
 					<cfinvokeargument name="agent_id" value="#theseAgents#">
 				</cfinvoke>
-				#contents#
+				<cfdump var=#contents#>
 				
 				
 				<cfabort>
