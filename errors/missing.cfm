@@ -1,4 +1,11 @@
 <cfoutput>
+	getPageContext().getRequest().getAttribute('REDIRECT_URL')
+	
+	<cfdump var="#getPageContext().getRequest().getAttribute('REDIRECT_URL')#" />
+	
+	
+	<hr>
+	
 	dump of getPageContext().getRequest().getOriginalRequest().getAttribute('REDIRECT_URL')
 	
 	<cfdump var="#getPageContext().getRequest().getOriginalRequest().getAttribute('REDIRECT_URL')#" />
