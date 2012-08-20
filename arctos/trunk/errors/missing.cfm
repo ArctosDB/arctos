@@ -6,16 +6,22 @@
 <hr>
 <cfset REDIRECT_URL = objRequest.getAttribute("REDIRECT_URL")>
 
-
+REDIRECT_URL
 <cftry>
 <cfdump var="#REDIRECT_URL#">
 <cfcatch>crashy....</cfcatch>
 </cftry>
 <hr>
+
+
+
 <cfset REDIRECT_QUERY_STRING = objRequest.getAttribute("REDIRECT_QUERY_STRING")>
 
 REDIRECT_QUERY_STRING
+<cftry>
 <cfdump var="#REDIRECT_QUERY_STRING#">
+<cfcatch>crashy....</cfcatch>
+</cftry>
 	
 	
 	getPageContext().getRequest()
@@ -61,7 +67,7 @@ REDIRECT_QUERY_STRING
 
 
 cgi.path_info: #cgi.path_info#
-
+CGI dump
 <cfdump var=#cgi#>
 url:
 <cfdump var=#url#>
