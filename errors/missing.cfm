@@ -4,9 +4,9 @@
 <cfset REDIRECT_QUERY_STRING = objRequest.getAttribute("REDIRECT_QUERY_STRING")>
 
 REDIRECT_URL
-<cfump var="#REDIRECT_URL#">
+<cfdump var="#REDIRECT_URL#">
 REDIRECT_QUERY_STRING
-<cfump var="#REDIRECT_QUERY_STRING#">
+<cfdump var="#REDIRECT_QUERY_STRING#">
 	
 	
 	getPageContext().getRequest()
