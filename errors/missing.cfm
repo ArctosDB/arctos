@@ -1,4 +1,10 @@
 <cfoutput>
+	dump of getPageContext().getRequest().getOriginalRequest().getAttribute('REDIRECT_URL')
+	
+	<cfdump var="#getPageContext().getRequest().getOriginalRequest().getAttribute('REDIRECT_URL')#" />
+	<hr>
+	
+	
 <br>cgi.request_uri: #cgi.request_uri#
 <br>cgi.redirect_url: #cgi.redirect_url#
 <cfset x=GetPageContext().getRequest().getRequestURI() >
@@ -41,7 +47,10 @@ else                     // fallback to cgi.path_info
 
 
 <cffunction name="pathHandler" access="remote" returntype="string" httpmethod="GET" produces="text/plain" 
-	restpath="{productName}/{productCodeName}"> <cfargument name="productName" required="true" type="string" restargsource="path"/> <cfargument name="productCodeName" required="true" type="string" restargsource="path"/> <cfreturn productName & " " & productCodeName> </cffunction>
+	restpath="{productName}/{productCodeName}"> 
+		<cfargument name="productName" required="true" type="string" restargsource="path"/> 
+		<cfargument name="productCodeName" required="true" type="string" restargsource="path"/> 
+		<cfreturn productName & " " & productCodeName> </cffunction>
 
 
 <cfset x=pathHandler()>
