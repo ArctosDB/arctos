@@ -4,11 +4,11 @@
 	objRequest
 <cfdump var="#objRequest#">
 <hr>
-<cfset REDIRECT_URL = objRequest.getAttribute("REDIRECT_URL")>
+<cfset ffffffREDIRECT_URL = objRequest.getAttribute("REDIRECT_URL")>
 
 
-REDIRECT_URL
-<cfdump var="#REDIRECT_URL#">
+ffffffREDIRECT_URL
+<cfdump var="#ffffffREDIRECT_URL#">
 <hr>
 <cfset REDIRECT_QUERY_STRING = objRequest.getAttribute("REDIRECT_QUERY_STRING")>
 
