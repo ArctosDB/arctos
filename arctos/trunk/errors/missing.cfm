@@ -1,5 +1,10 @@
 <cfoutput>
+	getPageContext().getRequest()
 	
+	<cfdump var="#getPageContext().getRequest()#" />
+	
+	
+	<hr>
 	
 	getPageContext().
 	
