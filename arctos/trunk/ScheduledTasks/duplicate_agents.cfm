@@ -270,8 +270,10 @@ END;
 							where
 								cf_dup_agent_id=#cf_dup_agent_id#
 						</cfquery>
-						<cfmail to="arctos.database@gmail.com" subject="agent merger success" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
-							<br>---------------adjust email settings-----------------
+						<cfinvoke component="component.functions" method="agentCollectionContacts" returnvariable="colns">
+							<cfinvokeargument name="agent_id" value="#bads.related_agent_id#,#bads.agent_id#">
+						</cfinvoke>
+						<cfmail to="#valuelist(colns.address)#" subject="agent merger success" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
 							<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
 						</cfmail>
 						.........commit...
@@ -289,8 +291,7 @@ END;
 									where
 										cf_dup_agent_id=#cf_dup_agent_id#
 								</cfquery>
-								<cfmail to="arctos.database@gmail.com" subject="agent merger failed" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
-									<br>---------------adjust email settings-----------------
+								<cfmail to="#valuelist(colns.address)#" subject="agent merger failed" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
 									<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
 									<br>cfcatch dump follows.
 									<br>
@@ -308,7 +309,7 @@ END;
 			<cftry>
 			
 				<cfcatch>
-					<cfset s='merged_failed: #cfcatch.message#: #cfcatch.detail#'>
+					<cfset s='merged_failed: #cfcatch.message#: #cfcatch.detail#'>1
 					<cfquery name="disableTrig" datasource="uam_god">
 						alter trigger TR_AGENT_NAME_BIUD enable
 					</cfquery>
@@ -414,15 +415,9 @@ END;
 		</cfquery>
 		<cfloop query="findDups">
 			<cfset theseAgents="#findDups.AGENT_ID#,#findDups.RELATED_AGENT_ID#">
-				<cfinvoke component="component.functions" method="agentCollectionContacts" returnvariable="contents">
-					<cfinvokeargument name="agent_id" value="#theseAgents#">
-				</cfinvoke>
-				<cfdump var=#contents#>
-				
-				
-				<cfabort>
-				
-				
+			<cfinvoke component="component.functions" method="agentCollectionContacts" returnvariable="colns">
+				<cfinvokeargument name="agent_id" value="#theseAgents#">
+			</cfinvoke>
 			<cfquery name="agent_relations" datasource="uam_god">
 				select count(*) cnt from agent_relations where 
 					(agent_id=#findDups.agent_id# OR related_agent_id = #findDups.agent_id#)

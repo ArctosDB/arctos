@@ -427,6 +427,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/Reports/kenai.cfm">
 						download bug .tex
 					</option>
+					<option value="/Reports/uamento.cfm">
+						download UAM Ento CSV
+					</option>
 					<option value="/Reports/print_nk.cfm">
 						Print NK pages
 					</option>
