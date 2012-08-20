@@ -1,6 +1,6 @@
 <cfoutput>
 	
-	
+	<br>GetPageContext().getRequest().getRequestURI(): #GetPageContext().getRequest().getRequestURI()#
 	
 	
 	
