@@ -1,4 +1,21 @@
 <cfoutput>
+	
+	
+	
+	
+	
+	<br>
+	cgi.path_translated: #cgi.path_translated#
+	<br>GetPageContext().GetServletContext().getRealPath("/"): #GetPageContext().GetServletContext().getRealPath("/")#
+	
+	
+
+
+
+
+
+
+
 	<cfset objRequest = GetPageContext().getRequest()>
 	
 	objRequest
