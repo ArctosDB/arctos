@@ -38,8 +38,10 @@ REDIRECT_QUERY_STRING
 	
 	<hr>
 	getPageContext().getRequest().getAttribute('REDIRECT_URL')
-	
+	<cftry>
 	<cfdump var="#getPageContext().getRequest().getAttribute('REDIRECT_URL')#" />
+<cfcatch>crashy....</cfcatch>
+</cftry>
 	
 	
 	<hr>
