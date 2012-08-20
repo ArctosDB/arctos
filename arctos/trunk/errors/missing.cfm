@@ -18,6 +18,9 @@ request dump
 
 	<cfset objRequest = GetPageContext().getRequest()>
 	
+	<cfset x=GetPageContext().getRequest().getLocalAddr()>
+	x:#x#
+	
 	objRequest
 <cfdump var="#objRequest#">
 <hr>
