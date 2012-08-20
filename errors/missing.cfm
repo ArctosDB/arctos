@@ -7,8 +7,10 @@
 <cfset REDIRECT_URL = objRequest.getAttribute("REDIRECT_URL")>
 
 
-
+<cftry>
 <cfdump var="#REDIRECT_URL#">
+<cfcatch>crashy....</cfcatch>
+</cftry>
 <hr>
 <cfset REDIRECT_QUERY_STRING = objRequest.getAttribute("REDIRECT_QUERY_STRING")>
 
