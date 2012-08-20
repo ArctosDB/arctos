@@ -1,3 +1,4 @@
+<cfoutput>
 <br>cgi.request_uri: #cgi.request_uri#
 <br>cgi.redirect_url: #cgi.redirect_url#
 <cfset x=GetPageContext().getRequest().getRequestURI() >
@@ -51,7 +52,7 @@ else                     // fallback to cgi.path_info
 
 
 
-
+</cfoutput>
 
 
 
