@@ -1,10 +1,17 @@
 <cfoutput>
 	<cfset objRequest = GetPageContext().getRequest()>
+	
+	objRequest
+<cfdump var="#objRequest#">
+<hr>
 <cfset REDIRECT_URL = objRequest.getAttribute("REDIRECT_URL")>
-<cfset REDIRECT_QUERY_STRING = objRequest.getAttribute("REDIRECT_QUERY_STRING")>
+
 
 REDIRECT_URL
 <cfdump var="#REDIRECT_URL#">
+<hr>
+<cfset REDIRECT_QUERY_STRING = objRequest.getAttribute("REDIRECT_QUERY_STRING")>
+
 REDIRECT_QUERY_STRING
 <cfdump var="#REDIRECT_QUERY_STRING#">
 	
