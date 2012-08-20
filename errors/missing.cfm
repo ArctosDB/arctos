@@ -1,3 +1,63 @@
+<br>cgi.request_uri: #cgi.request_uri#
+<br>cgi.redirect_url: #cgi.redirect_url#
+<cfset x=GetPageContext().getRequest().getRequestURI() >
+<br>x: #x#
+
+<br>CGI.HTTP_X_REWRITE_URL: #CGI.HTTP_X_REWRITE_URL#
+
+<br>CGI.X_FORWARDED_FOR: #CGI.X_FORWARDED_FOR#
+
+<br>CGI.HTTP_X_ORIGINAL_URL: #CGI.HTTP_X_ORIGINAL_URL#
+
+ <cfset request.urlStrings= listToArray(spanExcluding(CGI.REDIRECT_URL ,"?"), "/")>
+  
+  <cfdump var=#request.urlStrings#>
+
+
+cgi.path_info: #cgi.path_info#
+
+<cfdump var=#cgi#>
+url:
+<cfdump var=#url#>
+<cfscript>
+if (structKeyExists(cgi,"http_x_rewrite_url") && len(cgi.http_x_rewrite_url))   // iis6 1/ IIRF (Ionics Isapi Rewrite Filter)
+ request.path_info = listFirst(cgi.http_x_rewrite_url,'?');
+else if (structKeyExists(cgi,"http_x_original_url") && len(cgi.http_x_original_url)) // iis7 rewrite default
+ request.path_info = listFirst(cgi.http_x_original_url,"?");
+else if (structKeyExists(cgi,"request_uri") && len(cgi.request_uri))      // apache default
+ request.path_info = listFirst(cgi.request_uri,'?');
+else if (structKeyExists(cgi,"redirect_url") && len(cgi.redirect_url))      // apache fallback
+ request.path_info = listFirst(cgi.redirect_url,'?');
+else                     // fallback to cgi.path_info
+ request.path_info = cgi.path_info;
+ </cfscript>
+ 
+ <cfdump var=#request#>
+
+	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
+
+<br>currentpath:#currentpath#
+
+
+<cffunction name="pathHandler" access="remote" returntype="string" httpmethod="GET" produces="text/plain" 
+	restpath="{productName}/{productCodeName}"> <cfargument name="productName" required="true" type="string" restargsource="path"/> <cfargument name="productCodeName" required="true" type="string" restargsource="path"/> <cfreturn productName & " " & productCodeName> </cffunction>
+
+
+<cfset x=pathHandler()>
+
+<cfdump var=#x#>
+
+
+
+
+
+
+
+
+
+
+
+
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 	<cfset rdurl=cgi.REDIRECT_URL>
 	<cfif rdurl contains chr(195) & chr(151)>
