@@ -2,6 +2,10 @@
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
 <cfoutput>
+	
+	/SpecimenDetail.cfm?collection_object_id=#collection_object_id#
+	
+	<cfabort>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
 			Improper call. Aborting.....
