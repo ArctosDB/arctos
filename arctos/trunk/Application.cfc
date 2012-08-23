@@ -238,6 +238,8 @@
 		<cfset serverName='login.corral.tacc.utexas.edu'>
 	<cfelseif serverName is 'meta-1.corral.tacc.utexas.edu'>
 		<cfset serverName='arctos.database.museum'>
+	<cfelseif serverName is 'arctos-test'>
+		<cfset serverName='arctos-test.tacc.utexas.edu'>
 	</cfif>
 	<!---
 	<cfmail subject="server startingt" to="arctos.database@gmail.com" from="serverStart@arctos.database.museum" type="html">
