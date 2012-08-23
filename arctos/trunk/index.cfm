@@ -1,3 +1,5 @@
+<cfdump var=#cgi#>
+<cfabort>
 <!---<cflocation url="SpecimenSearch.cfm" addtoken="false">--->
 <cfscript>
 	getPageContext().forward("/SpecimenSearch.cfm");
