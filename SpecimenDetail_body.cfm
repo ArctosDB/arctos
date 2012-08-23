@@ -25,7 +25,7 @@
 	</cfif>---->
 </cfoutput>
 
-
+<cftry>
 <cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		collection_object_id,
@@ -50,7 +50,12 @@
 	WHERE 
 		#session.flatTableName#.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
+<cfcatch>
+	
+	<cfdump var=#cfcatch#>
+</cfcatch>
 
+</cftry>
 <cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select	
 		attributes.attribute_type,
