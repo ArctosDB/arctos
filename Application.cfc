@@ -404,8 +404,6 @@
 	</cfif>
 	
 	
-	<cfdump var=#cgi#>
-<cfabort>
 	
 	<!--- uncomment for a break from googlebot ---->
 	<!----
