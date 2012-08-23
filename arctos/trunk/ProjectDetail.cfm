@@ -1,12 +1,8 @@
 <cfinclude template = "includes/_header.cfm">
 <cfoutput>
-	
-	
-	
-	<cfif isdefined("cgi.query_string") and len(cgi.query_string) gt 0>
-		<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
-	</cfif>
-	
+<cfif isdefined("cgi.query_string") and len(cgi.query_string) gt 0>
+	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
+</cfif>
 <cfif not listfindnocase(rdurl,"project","/")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_name from project where project_id=#project_id#

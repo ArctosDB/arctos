@@ -35,17 +35,12 @@
 			
 			<cfinclude template="/document.cfm">
 			<cfcatch>
-				<cfdump var=#cfcatch#>
-				<!---
-				
-				
-			<cfif listgetat(rdurl,gPos+2,"/")>
-				<cfset p=listgetat(rdurl,gPos+2,"/")>
-			<cfelse>
-				<cfset p=1>
-			</cfif>
+				<cfif listgetat(rdurl,gPos+2,"/")>
+					<cfset p=listgetat(rdurl,gPos+2,"/")>
+				<cfelse>
+					<cfset p=1>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
-				--->
 			</cfcatch>
 		</cftry>
 		</cfoutput>	
