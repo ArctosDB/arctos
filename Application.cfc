@@ -384,12 +384,6 @@
 	</cfif>
 	
 	
-	
-	
-	<cfif isdefined("cgi.query_string") and len(cgi.query_string) gt 0>
-		<cfset cgi.redirect_url=replacenocase(cgi.query_string,"path=","","all")>
-	</cfif>
-	
 	<!--- uncomment for a break from googlebot ---->
 	<!----
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
