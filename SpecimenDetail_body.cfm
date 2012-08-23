@@ -5,7 +5,6 @@
 	
 	/SpecimenDetail.cfm?collection_object_id=#collection_object_id#
 	
-	<!----
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
 			Improper call. Aborting.....
@@ -22,7 +21,7 @@
 	<cfif oneOfUs is 0 and cgi.CF_TEMPLATE_PATH contains "/SpecimenDetail_body.cfm">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-	</cfif>---->
+	</cfif>
 </cfoutput>
 
 <cftry>
