@@ -89,12 +89,7 @@
 				<cfinclude template="/SpecimenDetail.cfm">
 			</cfif>
 			<cfcatch>
-				
-				<cfdump var=#cfcatch#>
-				
-				<!---
 				<cfinclude template="/errors/404.cfm">
-				--->
 			</cfcatch>
 		</cftry>				
 	<cfelseif listfindnocase(rdurl,'name',"/")>
