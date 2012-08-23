@@ -5,7 +5,7 @@
 	
 	/SpecimenDetail.cfm?collection_object_id=#collection_object_id#
 	
-	<cfabort>
+	
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
 			Improper call. Aborting.....
@@ -146,7 +146,10 @@
 	.taxDetDiv {
 		padding-left:1em;	
 	}
-</style>		
+</style>
+
+
+<cfabort>
 <cfoutput query="one">
 	<cfif oneOfUs is 1>
 		<form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
