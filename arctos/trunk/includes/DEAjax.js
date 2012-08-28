@@ -593,6 +593,10 @@ function browseTo(dir){
 	
 	var xx=$("#selectbrowse").val();
 	console.log('xx='+xx)	
+	
+	var xx=$("#selectbrowse");
+	
+	console.log('xx='+xx)
 	if (dir=='next'){
 		ix=parseInt(parseInt(ix)+1);
 	} else {
