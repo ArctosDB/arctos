@@ -588,11 +588,13 @@ function editThis(){
 	}
 }
 function browseTo(dir){
-	//var ix = $("#selectbrowse").attr( "selectedIndex" );
-	//console.log('ix='+ix)	
+	var ix = $("#selectbrowse").prop( "selectedIndex" );
 	
-	var ix=$("#selectbrowse").val();
-	console.log('val--xx='+ix)	
+
+	console.log('ix='+ix)	
+	
+	//var ix=$("#selectbrowse").val();
+	//console.log('val--xx='+ix)	
 	
 	//var xx=$("#selectbrowse");
 	
