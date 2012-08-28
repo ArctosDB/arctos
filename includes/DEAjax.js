@@ -588,15 +588,15 @@ function editThis(){
 	}
 }
 function browseTo(dir){
-	var ix = $("#selectbrowse").attr( "selectedIndex" );
-	console.log('ix='+ix)	
+	//var ix = $("#selectbrowse").attr( "selectedIndex" );
+	//console.log('ix='+ix)	
 	
-	var xx=$("#selectbrowse").val();
+	var ix=$("#selectbrowse").val();
 	console.log('val--xx='+xx)	
 	
-	var xx=$("#selectbrowse");
+	//var xx=$("#selectbrowse");
 	
-	console.log('xx='+xx)
+	//console.log('xx='+xx)
 	if (dir=='next'){
 		ix=parseInt(parseInt(ix)+1);
 	} else {
