@@ -604,6 +604,7 @@ function browseTo(dir){
 		console.log('ix now='+ix)	
 	}
 	var c = $("#selectbrowse").find("option:eq(" + ix +")" ).val();
+	console.log('c='+c)	
 	loadRecord(c);	
 }
 function loadRecord (collection_object_id) {
