@@ -592,7 +592,7 @@ function browseTo(dir){
 	//console.log('ix='+ix)	
 	
 	var ix=$("#selectbrowse").val();
-	console.log('val--xx='+xx)	
+	console.log('val--xx='+ix)	
 	
 	//var xx=$("#selectbrowse");
 	
