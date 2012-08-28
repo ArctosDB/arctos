@@ -590,6 +590,9 @@ function editThis(){
 function browseTo(dir){
 	var ix = $("#selectbrowse").attr( "selectedIndex" );
 	console.log('ix='+ix)	
+	
+	var xx=$("#selectbrowse").val();
+	console.log('xx='+xx)	
 	if (dir=='next'){
 		ix=parseInt(parseInt(ix)+1);
 	} else {
