@@ -187,31 +187,19 @@
 
 <cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	 SELECT 
-	 	cataloged_item.collection_object_id as collection_object_id, 
+	 	collection_object_id, 
 		cat_num,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+		concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		scientific_name,
 		country,
 		state_prov,
 		county,
 		quad,
-		institution_acronym,
-		collection.collection
-	FROM 
-		identification, 
-		collecting_event,
-		locality,
-		geog_auth_rec,
-		cataloged_item,
 		collection
+	FROM 
+		flat
 	WHERE 
-		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id 
-		AND collecting_event.locality_id = locality.locality_id 
-		AND cataloged_item.collecting_event_id = collecting_event.collecting_event_id 
-		AND cataloged_item.collection_object_id = identification.collection_object_id 
-		and accepted_id_fg=1
-		AND cataloged_item.collection_id = collection.collection_id
-		AND cataloged_item.collection_object_id IN (#collection_object_id#)
+		flat.collection_object_id IN (#collection_object_id#)
 	ORDER BY 
 		collection_object_id
 </cfquery>
