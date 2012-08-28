@@ -83,7 +83,9 @@
 						---->
 						<tr>
 							<td>Line</td>
+							<!---
 							<td>#exception.tagContext[1].line#</td>
+							---->
 						</tr>
 					</cfif>
 
