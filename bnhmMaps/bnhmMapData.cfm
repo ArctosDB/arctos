@@ -107,7 +107,7 @@
 </berkeleymapper>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
-		var a='<berkeleymapper>' & chr(10) & 
+		a='<berkeleymapper>' & chr(10) & 
 			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) & 
 			chr(9) & '<concepts>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:relatedinformation" alias="Related Information"/>' & chr(10) & 
