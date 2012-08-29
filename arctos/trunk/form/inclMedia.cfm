@@ -22,16 +22,14 @@
 				     media_uri,
 				     mime_type,
 				     media_type,
-				     preview_uri,
-				     related_primary_key
+				     preview_uri
 				from (
 			   		select  
 				        media.media_id,
 				        media.media_uri,
 				        media.mime_type,
 				        media.media_type,
-				        media.preview_uri,
-				        media_relations.related_primary_key
+				        media.preview_uri
 				     from
 				        media,
 				        media_relations,
@@ -51,8 +49,7 @@
 				        media.media_uri,
 				        media.mime_type,
 				        media.media_type,
-				        media.preview_uri,
-				        media_relations.related_primary_key
+				        media.preview_uri
 				     from
 				         media,
 				         media_relations
@@ -65,8 +62,7 @@
 				    media_uri,
 				    mime_type,
 				    media_type,
-				    preview_uri,
-				    related_primary_key
+				    preview_uri
 			) 
 			--where rownum <= 500">
 	<cfelseif typ is "accn">
@@ -76,8 +72,7 @@
 			        media.media_uri,
 			        media.mime_type,
 			        media.media_type,
-			        media.preview_uri,
-			        media_relations.related_primary_key
+			        media.preview_uri
 				from 
 					media,
 					media_relations
@@ -90,8 +85,7 @@
 			        media.media_uri,
 			        media.mime_type,
 			        media.media_type,
-			        media.preview_uri,
-			        media_relations.related_primary_key
+			        media.preview_uri
 			">
 	<cfelse>
 		<cfabort>
