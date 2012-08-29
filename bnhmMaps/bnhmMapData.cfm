@@ -107,12 +107,9 @@
 </berkeleymapper>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
-		a='<berkeleymapper>' & chr(10) & 
+		var a='<berkeleymapper>' & chr(10) & 
 			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) & 
-			
 			chr(9) & '<concepts>' & chr(10) & 
-			
-			
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:relatedinformation" alias="Related Information"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120_1" alias="Verbatim Date"/>' & chr(10) & 
@@ -122,11 +119,7 @@
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:coordinateuncertaintyinmeters" alias="Error (m)"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:horizontaldatum" alias="Datum"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
-			
 			chr(9) & '</concepts>' & chr(10) & 
-			
-			
-		
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
 
