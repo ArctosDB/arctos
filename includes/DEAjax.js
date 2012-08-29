@@ -589,24 +589,12 @@ function editThis(){
 }
 function browseTo(dir){
 	var ix = $("#selectbrowse").prop( "selectedIndex" );
-	
-
-	console.log('ix='+ix)	
-	
-	//var ix=$("#selectbrowse").val();
-	//console.log('val--xx='+ix)	
-	
-	//var xx=$("#selectbrowse");
-	
-	//console.log('xx='+xx)
 	if (dir=='next'){
 		ix=parseInt(parseInt(ix)+1);
 	} else {
 		ix=parseInt(parseInt(ix)-1);
-		console.log('ix now='+ix)	
 	}
 	var c = $("#selectbrowse").find("option:eq(" + ix +")" ).val();
-	console.log('c='+c)	
 	loadRecord(c);	
 }
 function loadRecord (collection_object_id) {

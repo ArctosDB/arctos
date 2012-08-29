@@ -95,6 +95,122 @@
 			<cfset thisAddress = listappend(thisAddress,address)>
 		</cfloop>
 	</cfif>	
+	
+	
+	
+	
+    <logos>
+        <logo img="http://arctos.database.museum/images/genericHeaderIcon.gif" url="http://arctos.database.museum/"/>
+        <logo img="http://amphibiaweb.org/images/redlist_logo.jpg"
+              url="http://www.iucnredlist.org/initiatives/mammals"/>
+    </logos>
+</berkeleymapper>
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
+		a='<berkeleymapper>' & chr(10) & 
+			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) & 
+			
+			chr(9) & '<concepts>' & chr(10) & 
+			
+			
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:relatedinformation" alias="Related Information"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120_1" alias="Verbatim Date"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:locality" alias="Specific Locality"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:coordinateuncertaintyinmeters" alias="Error (m)"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:horizontaldatum" alias="Datum"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
+			
+			chr(9) & '</concepts>' & chr(10) & 
+			
+			
+		
+		variables.joFileWriter.writeLine(a);
+	</cfscript>
+
+
+
+
+	<cfif isdefined("showRangeMaps") and showRangeMaps is true>
+		<cfquery name="species" dbtype="query">
+			select distinct(scientific_name) scientific_name from getMapData
+		</cfquery>
+		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select phylclass,genus,species,genus || ' ' || species scientific_name from taxonomy where scientific_name in
+			 (#ListQualify(valuelist(species.scientific_name), "'")#)
+			 group by 
+			 phylclass,genus || ' ' || species,genus,species
+		</cfquery>
+		<cfif getClass.recordcount is not 1 or (
+				getClass.phylclass is not 'Amphibia' and getClass.phylclass is not 'Mammalia' and getClass.phylclass is not 'Aves'
+			)>
+			<div class="error">
+				Rangemaps are only available for queries which return one species in Classes
+				Amphibia, Aves or Mammalia.
+				<br>Subspecies are ignored for rangemapping.
+				<br>You may use the BerkeleyMapper or Google Maps options for any query.
+				<br>Please use your browser's back button or close this window.
+			</div>
+			<script>
+				document.getElementById('status').style.display='none';
+			</script>
+			<cfabort>
+		</cfif>
+		
+		
+		
+
+    <gisdata>
+        
+        	
+		</layer>
+    </gisdata>
+
+
+
+
+		<cfscript>
+			a=chr(9) & '<gisdata>' & chr(10) & 
+			chr(9) & chr(9) & '<layer title="#genus# #species#" name="mamm" location="#genus# #species#" legend="1" active="1" url="">' & chr(10);
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+		<cfset i=1>
+		<cfif getClass.phylclass is 'Amphibia'>
+			<cfscript>
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymappertest.berkeley.edu/v2/speciesrange/#genus#+#species#/binomial/gaa_2011]]>' & chr(10);
+				variables.joFileWriter.writeLine(a);
+			</cfscript>
+		<cfelseif getClass.phylclass is 'Mammalia'>
+			<cfscript>
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymappertest.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/mamm_2009]]>' & chr(10);
+				variables.joFileWriter.writeLine(a);
+			</cfscript>
+		<cfelseif getClass.phylclass is 'Aves'>
+			<cfscript>
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymappertest.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/birds_2009]]>' & chr(10);
+				variables.joFileWriter.writeLine(a);
+			</cfscript>
+		</cfif>
+		<cfscript>
+			a = chr(9) & '</gisdata>' & chr(10);;
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+	</cfif>
+	<cfscript>
+		a = chr(9) & '<logos>' & chr(10) & 
+			chr(9) & chr(9) & '<logo img="http://arctos.database.museum/images/genericHeaderIcon.gif" url="http://arctos.database.museum/"/>' & chr(10) & 
+			chr(9) & '</logos>' & chr(10) &
+			'</berkeleymapper>';
+		variables.joFileWriter.writeLine(a);
+	</cfscript>
+		
+		
+
+
+	
+<!----------------
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
 		a='<bnhmmaps>' & chr(10) & 
@@ -241,6 +357,9 @@
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
+	
+	
+	---->
 	<cfscript>		
 		variables.joFileWriter.close();
 	</cfscript>	
@@ -260,7 +379,7 @@
 	<cfset listColl=replace(listColl,",","dna ,","first")>
 	<cfset CollList=reverse(listColl)>
 	<cfset CollList="#CollList# data.">
-	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
+	<cfset bnhmUrl="http://berkeleymappertest.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
