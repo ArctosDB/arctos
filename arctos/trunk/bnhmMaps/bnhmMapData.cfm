@@ -111,8 +111,10 @@
 			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) & 
 			chr(9) & '<concepts>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:relatedinformation" alias="Related Information"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="3" viewlist="1" datatype="char120:1" alias="GUID"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120_1" alias="Verbatim Date"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="3" viewlist="1" datatype="char120:2" alias="Event Type"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:3" alias="Verbatim Date"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:locality" alias="Specific Locality"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
@@ -122,8 +124,6 @@
 			chr(9) & '</concepts>' & chr(10); 
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
-
-
 
 
 	<cfif isdefined("showRangeMaps") and showRangeMaps is true>
@@ -152,18 +152,6 @@
 			<cfabort>
 		</cfif>
 		
-		
-		
-
-    <gisdata>
-        
-        	
-		</layer>
-    </gisdata>
-
-
-
-
 		<cfscript>
 			a=chr(9) & '<gisdata>' & chr(10) & 
 			chr(9) & chr(9) & '<layer title="#genus# #species#" name="mamm" location="#genus# #species#" legend="1" active="1" url="">' & chr(10);
@@ -355,7 +343,34 @@
 	---->
 	<cfscript>		
 		variables.joFileWriter.close();
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
 	</cfscript>	
+	
+	
+	
+	
+	<cfloop query="getMapData">
+		<cfscript>
+			a='<a href="#Application.serverRootUrl#/guid/#guid#" target="_blank">' & guid & '</a>' & 
+				chr(9) & guid &
+				chr(9) & scientific_name &
+				chr(9) & specimen_event_type &
+				chr(9) & verbatim_date & 
+				chr(9) & spec_locality & 
+				chr(9) & dec_lat & 
+				chr(9) & dec_long &
+				chr(9) & COORDINATEUNCERTAINTYINMETERS &
+				chr(9) & datum &
+				chr(9) & collection;
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+	</cfloop>
+	
+	<cfscript>		
+		variables.joFileWriter.close();
+	</cfscript>	
+	
+	
 	<cfquery name="distColl" dbtype="query">
 		select collection from getMapData group by collection
 		order by collection
