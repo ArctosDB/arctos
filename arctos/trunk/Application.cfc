@@ -72,7 +72,7 @@
 						</tr>
 					</cfif>
 					
-					<cfif structKeyExists(exception,"tagcontext")>
+					<cfif structKeyExists(exception,"tagcontext") and isdefined("exception.tagContext[1].line")>
 						<!----
 						<cfloop index="stack" from="1" to="#arrayLen(exception.tagContext)#">
 						<tr>
@@ -83,9 +83,7 @@
 						---->
 						<tr>
 							<td>Line</td>
-							<!---
 							<td>#exception.tagContext[1].line#</td>
-							---->
 						</tr>
 					</cfif>
 
