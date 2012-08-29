@@ -119,7 +119,7 @@
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:coordinateuncertaintyinmeters" alias="Error (m)"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:horizontaldatum" alias="Datum"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
-			chr(9) & '</concepts>' & chr(10) & 
+			chr(9) & '</concepts>' & chr(10); 
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
 
