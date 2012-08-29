@@ -111,7 +111,6 @@
 			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) & 
 			chr(9) & '<concepts>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:relatedinformation" alias="Related Information"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="3" viewlist="1" datatype="char120:1" alias="GUID"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="3" viewlist="1" datatype="char120:2" alias="Event Type"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:3" alias="Verbatim Date"/>' & chr(10) & 
@@ -352,7 +351,6 @@
 	<cfloop query="getMapData">
 		<cfscript>
 			a='<a href="#Application.serverRootUrl#/guid/#guid#" target="_blank">' & guid & '</a>' & 
-				chr(9) & guid &
 				chr(9) & scientific_name &
 				chr(9) & specimen_event_type &
 				chr(9) & verbatim_date & 
