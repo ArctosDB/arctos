@@ -50,7 +50,6 @@
 					SELECT  #columnName# as valCodes from valCT
 				</cfquery>
 			</cfif>
-			<cfdump var=#valCodes#>
 			<cfset result = QueryNew("V")>
 			<cfset newRow = QueryAddRow(result, 1)>
 			<cfset temp = QuerySetCell(result, "v", "value",1)>
@@ -125,18 +124,11 @@
 	</cfif>
 	
 	<cfset theJsonResult=SerializeJSON(result,true)>
-	<hr>
-<cfdump var=#theJsonResult#>
 
-<hr>
+	<cfset theJsonResult=replace(theJsonResult,'_yes_','yes','all')>
+	<cfset theJsonResult=replace(theJsonResult,'_no_','no','all')>
 
-<cfset theJsonResult=replace(theJsonResult,'_yes_','yes','all')>
-<cfset theJsonResult=replace(theJsonResult,'_no_','no','all')>
-<cfdump var=#theJsonResult#>
-
-<hr>
-
-	<cfreturn result>
+	<cfreturn theJsonResult>
 </cffunction>
 <!---------------------------------------------------------------->
 <cffunction name="getcatNumSeq" access="remote">
