@@ -22,7 +22,8 @@ function getRelatedSpecimenData(){
 jQuery(document).ready(function() {
 	$("#made_date").datepicker();
 	$("#began_date").datepicker();
-	$("#ended_date").datepicker();	
+	$("#ended_date").datepicker();
+	$("#event_assigned_date").datepicker();
 	for (i=1;i<=12;i++){
 		$("#geo_att_determined_date_" + i).datepicker();
 		$("#attribute_date_" + i).datepicker();
@@ -1013,7 +1014,7 @@ function copyAllDates(theID) {
 		date_array.push('geo_att_determined_date_4');
 		date_array.push('geo_att_determined_date_5');
 		date_array.push('geo_att_determined_date_6');
-		
+		date_array.push('event_assigned_date');		
 		for (i=0;i<date_array.length;i++) {
 			try {
 				var thisFld = document.getElementById(date_array[i]);
@@ -1100,6 +1101,8 @@ function copyAllAgents(theID) {
 		agnt_array.push('geo_att_determiner_4');
 		agnt_array.push('geo_att_determiner_5');
 		agnt_array.push('geo_att_determiner_6');
+		agnt_array.push('event_assigned_by_agent');
+		
 		for (i=0;i<agnt_array.length;i++) {
 			try {
 				var thisFld = document.getElementById(agnt_array[i]);
