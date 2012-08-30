@@ -50,6 +50,7 @@
 					SELECT #replace(columnName,'yes','_yes_')# as valCodes from valCT
 				</cfquery>
 			</cfif>
+			<cfdump var=#valCodes#>
 			<cfset result = QueryNew("V")>
 			<cfset newRow = QueryAddRow(result, 1)>
 			<cfset temp = QuerySetCell(result, "v", "value",1)>
