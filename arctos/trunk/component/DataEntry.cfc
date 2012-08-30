@@ -68,8 +68,6 @@
 				</cfif>
 				<cfset temp = QuerySetCell(result, "v", rval,i)>
 				<cfset i=i+1>
-				
-				
 			</cfloop>
 			
 		<cfelseif #isCtControlled.UNITS_CODE_TABLE# gt 0>
@@ -125,6 +123,10 @@
 		<cfset newRow = QueryAddRow(result, 1)>
 		<cfset temp = QuerySetCell(result, "v", "#element#",2)>
 	</cfif>
+	
+	<cfset theJsonResult=SerializeJSON(result)>
+	
+	<hr>#theJsonResult#</hr>
 	<cfreturn result>
 </cffunction>
 <!---------------------------------------------------------------->
