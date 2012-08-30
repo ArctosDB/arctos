@@ -159,17 +159,17 @@
 		<cfset i=1>
 		<cfif getClass.phylclass is 'Amphibia'>
 			<cfscript>
-				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymappertest.berkeley.edu/v2/speciesrange/#genus#+#species#/binomial/gaa_2011]]>' & chr(10);
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/binomial/gaa_2011]]>' & chr(10);
 				variables.joFileWriter.writeLine(a);
 			</cfscript>
 		<cfelseif getClass.phylclass is 'Mammalia'>
 			<cfscript>
-				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymappertest.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/mamm_2009]]>' & chr(10);
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/mamm_2009]]>' & chr(10);
 				variables.joFileWriter.writeLine(a);
 			</cfscript>
 		<cfelseif getClass.phylclass is 'Aves'>
 			<cfscript>
-				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymappertest.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/birds_2009]]>' & chr(10);
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/birds_2009]]>' & chr(10);
 				variables.joFileWriter.writeLine(a);
 			</cfscript>
 		</cfif>
@@ -344,10 +344,6 @@
 		variables.joFileWriter.close();
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
 	</cfscript>	
-	
-	
-	
-	
 	<cfloop query="getMapData">
 		<cfscript>
 			a='<a href="#Application.serverRootUrl#/guid/#guid#" target="_blank">' & guid & '</a>' & 
@@ -385,8 +381,9 @@
 	<cfset listColl=replace(listColl,",","dna ,","first")>
 	<cfset CollList=reverse(listColl)>
 	<cfset CollList="#CollList# data.">
-	<cfset bnhmUrl="http://berkeleymappertest.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
+	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
+	 <noscript>BerkeleyMapper reqiures JavaScript.</noscript> 
 </cfoutput>
