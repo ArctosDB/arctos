@@ -126,7 +126,10 @@
 	
 	<cfset theJsonResult=SerializeJSON(result)>
 	
-	<hr>#theJsonResult#</hr>
+<cfdump var=#theJsonResult#>
+
+
+
 	<cfreturn result>
 </cffunction>
 <!---------------------------------------------------------------->
