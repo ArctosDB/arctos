@@ -124,7 +124,7 @@
 		<cfset temp = QuerySetCell(result, "v", "#element#",2)>
 	</cfif>
 	
-	<cfset theJsonResult=SerializeJSON(result,serializeQueryByColumns)>
+	<cfset theJsonResult=SerializeJSON(result,serializeQueryByColumns="true")>
 	
 <cfdump var=#theJsonResult#>
 
