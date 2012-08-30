@@ -153,23 +153,23 @@
 		
 		<cfscript>
 			a=chr(9) & '<gisdata>' & chr(10) & 
-			chr(9) & chr(9) & '<layer title="#genus# #species#" name="mamm" location="#genus# #species#" legend="1" active="1" url="">' & chr(10);
+			chr(9) & chr(9) & '<layer title="#getClass.genus# #getClass.species#" name="mamm" location="#getClass.genus# #getClass.species#" legend="1" active="1" url="">' & chr(10);
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 		<cfset i=1>
 		<cfif getClass.phylclass is 'Amphibia'>
 			<cfscript>
-				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/binomial/gaa_2011]]>' & chr(10);
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#getClass.genus#+#getClass.species#/binomial/gaa_2011]]>' & chr(10);
 				variables.joFileWriter.writeLine(a);
 			</cfscript>
 		<cfelseif getClass.phylclass is 'Mammalia'>
 			<cfscript>
-				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/mamm_2009]]>' & chr(10);
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#getClass.genus#+#getClass.species#/sci_name/mamm_2009]]>' & chr(10);
 				variables.joFileWriter.writeLine(a);
 			</cfscript>
 		<cfelseif getClass.phylclass is 'Aves'>
 			<cfscript>
-				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/birds_2009]]>' & chr(10);
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#getClass.genus#+#getClass.species#/sci_name/birds_2009]]>' & chr(10);
 				variables.joFileWriter.writeLine(a);
 			</cfscript>
 		</cfif>
@@ -184,163 +184,6 @@
 			chr(9) & '</logos>' & chr(10) &
 			'</berkeleymapper>';
 		variables.joFileWriter.writeLine(a);
-	</cfscript>
-		
-		
-
-
-	
-<!----------------
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
-		a='<bnhmmaps>' & chr(10) & 
-			chr(9) & '<metadata>' & chr(10) & 
-			chr(9) & chr(9) & '<name>BerkeleyMapper Configuration File</name>' & chr(10) & 
-			chr(9) & chr(9) & '<relatedinformation>#Application.serverRootUrl#</relatedinformation>' & chr(10) & 
-			chr(9) & chr(9) & '<abstract>GIS configuration file for specimen query interface</abstract>' & chr(10) & 
-			chr(9) & chr(9) & '<mapkeyword keyword="specimens"/>' & chr(10) & 
-			chr(9) & chr(9) & '<header location="#Application.mapHeaderUrl#"/>' & chr(10) & 
-			chr(9) & chr(9) & '<linkbackheader location="#Application.serverRootUrl#"/>' & chr(10) & 
-			chr(9) & chr(9) & '<footer location="#Application.mapFooterUrl#"/>' & chr(10) & 
-			chr(9) & chr(9) & '<charset name="UTF-8"></charset>' & chr(10) & 
-			chr(9) &'</metadata>';
-		variables.joFileWriter.writeLine(a);
-	</cfscript>
-	<cfquery name="whatColls" dbtype="query">
-		select Collection from getMapData group by Collection
-	</cfquery>
-	<cfset theseColls = valuelist(whatColls.Collection)>
-	<cfscript>
-		a=chr(9) & '<colors method="field" fieldname="darwin:collectioncode" label="Collection">' & chr(10) &
-			chr(9) & chr(9) & '<dominantcolor webcolor="9999cc"/>' & chr(10) & 
-			chr(9) & chr(9) & '<subdominantcolor webcolor="9999cc"/>';
-		variables.joFileWriter.writeLine(a);
-	</cfscript>
-	<cfset i=1>
-	<cfloop query="whatColls">
-		<cfscript>
-			a=chr(9) & chr(9) & 
-				'<color key="#whatColls.collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="7" label="#whatColls.collection#"/>';
-			variables.joFileWriter.writeLine(a);
-		</cfscript>
-	</cfloop>
-	<cfscript>
-		a=chr(9) & chr(9) &
-			'<color key="default" red="255" green="0" blue="0" symbol="2" label="Unspecified Collection"/>' & chr(10) & 
-			chr(9) & '</colors>';
-		variables.joFileWriter.writeLine(a);
-		a=chr(9) & '<recordlinkback>' & chr(10) & 
-			chr(9) & chr(9) & '<linkback method="entireurl" linkurl="Related Information" fieldname="More Information (opens in new window)"/>' & chr(10) & 
-			chr(9) & '</recordlinkback>';
-		variables.joFileWriter.writeLine(a);
-		a=chr(9) & '<annotation show="1">' & chr(10) & 
-			chr(9) & chr(9) & '<annotation_replyto_email value="#thisAddress#" />' & chr(10) & 
-			chr(9) & '</annotation>';		
-		variables.joFileWriter.writeLine(a);
-		a=chr(9) & '<concepts>' & chr(10) & 
-			chr(9) & '<concept order="1" viewlist="0" colorlist="0" datatype="darwin:relatedinformation"  alias="Related Information" />' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="2" viewlist="1" colorlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="3" viewlist="1" colorlist="0" datatype="char120_1" alias="Specimen/Event Type"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="4" viewlist="1" colorlist="0" datatype="char120_2" alias="Verbatim Date"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="5" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Specific Locality"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="7" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="8" viewlist="1" colorlist="0" datatype="darwin:coordinateuncertaintyinmeters" alias="Error (m)"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="9" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Datum"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="10" viewlist="0" colorlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
-			chr(9) & '</concepts>';		
-		variables.joFileWriter.writeLine(a);
-	</cfscript>
-	<cfif isdefined("showRangeMaps") and showRangeMaps is true>
-		<cfquery name="species" dbtype="query">
-			select distinct(scientific_name) from getMapData
-		</cfquery>
-		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select phylclass,genus,species,genus || ' ' || species scientific_name from taxonomy where scientific_name in
-			 (#ListQualify(valuelist(species.scientific_name), "'")#)
-			 group by 
-			 phylclass,genus || ' ' || species,genus,species
-		</cfquery>
-		<cfif getClass.recordcount is not 1 or (
-				getClass.phylclass is not 'Amphibia' and getClass.phylclass is not 'Mammalia' and getClass.phylclass is not 'Aves'
-			)>
-			<div class="error">
-				Rangemaps are only available for queries which return one species in Classes
-				Amphibia, Aves or Mammalia.
-				<br>Subspecies are ignored for rangemapping.
-				<br>You may use the BerkeleyMapper or Google Maps options for any query.
-				<br>Please use your browser's back button or close this window.
-			</div>
-			<script>
-				document.getElementById('status').style.display='none';
-			</script>
-			<cfabort>
-		</cfif>
-		<cfscript>
-			a=chr(9) & '<gisdata>';
-			variables.joFileWriter.writeLine(a);
-		</cfscript>
-		<cfset i=1>
-		<cfloop query="getClass">			
-			<cfif phylclass is 'Amphibia'>
-				<cfset name='gaa'>
-				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/binomial/gaa_2011">
-			<cfelseif phylclass is 'Mammalia'>
-				<cfset name='mamm'>
-				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/mamm_2009">
-			<cfelseif phylclass is 'Aves'>
-				<cfset name='birds'>
-				<cfset cdata="http://berkeleymapper.berkeley.edu/v2/speciesrange/#genus#+#species#/sci_name/birds_2009">
-			<cfelse>
-				<cfset name="">
-				<cfset cdata=''>
-			</cfif>
-			
-
-
-
-			<cfif len(name) gt 0>
-				<cfscript>
-					a = chr(9) & chr(9) &	'<layer title="#getClass.scientific_name#" name="#name#" location="#getClass.scientific_name#" legend="#i#" active="1" url="">';
-					a = a &	'<![CDATA[#cdata#]]>';
-					a = a & '</layer>';
-					variables.joFileWriter.writeLine(a);
-				</cfscript>
-			</cfif>
-			<cfset i=i+1>	
-		</cfloop>
-		<cfscript>
-			a = chr(9) & '</gisdata>';
-			variables.joFileWriter.writeLine(a);
-		</cfscript>
-	</cfif>
-	<cfscript>
-		a='</bnhmmaps>';
-		variables.joFileWriter.writeLine(a);
-		variables.joFileWriter.close();	
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
-	</cfscript>
-	<cfloop query="getMapData">
-		<cfscript>
-			a='<a href="#Application.serverRootUrl#/guid/#guid#"' &
-				'target="_blank">' & 
-				collection & '&nbsp;' & cat_num & '</a>' & 
-				chr(9) & scientific_name &
-				chr(9) & specimen_event_type &
-				chr(9) & verbatim_date & 
-				chr(9) & spec_locality & 
-				chr(9) & dec_lat & 
-				chr(9) & dec_long &
-				chr(9) & COORDINATEUNCERTAINTYINMETERS &
-				chr(9) & datum &
-				chr(9) & collection;
-			variables.joFileWriter.writeLine(a);
-		</cfscript>
-	</cfloop>
-	
-	
-	---->
-	<cfscript>		
 		variables.joFileWriter.close();
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
 	</cfscript>	
@@ -359,12 +202,9 @@
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
-	
 	<cfscript>		
 		variables.joFileWriter.close();
-	</cfscript>	
-	
-	
+	</cfscript>
 	<cfquery name="distColl" dbtype="query">
 		select collection from getMapData group by collection
 		order by collection
