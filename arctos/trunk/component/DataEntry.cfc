@@ -125,10 +125,15 @@
 	</cfif>
 	
 	<cfset theJsonResult=SerializeJSON(result,true)>
-	
+	<hr>
 <cfdump var=#theJsonResult#>
 
+<hr>
 
+<cfset theJsonResult=replace(theJsonResult,'_yes_','yes','all')>
+<cfdump var=#theJsonResult#>
+
+<hr>
 
 	<cfreturn result>
 </cffunction>
