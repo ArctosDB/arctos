@@ -174,7 +174,8 @@
 			</cfscript>
 		</cfif>
 		<cfscript>
-			a = chr(9) & '</gisdata>' & chr(10);;
+			a = chr(9) & '</gisdata>' & chr(10) & 
+			chr(9) & chr(9) & '</layer>';
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfif>
