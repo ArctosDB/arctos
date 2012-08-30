@@ -238,6 +238,7 @@ sho err
 				</li>
 				<li>Cataloged Item - DWC GUID format ("UAM:Mamm:12") or part's container's barcode</li>
 				<li>Agent: Distinct string match with agent_name</li>
+				<li>Media - media_uri</li>
 			</UL>
 		</li>
 	</ul>
