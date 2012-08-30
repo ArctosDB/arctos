@@ -42,12 +42,12 @@
 			</cfloop>
 			<cfif len(collCode) gt 0>
 				<cfquery name="valCodes" dbtype="query">
-					SELECT #replace(columnName,'yes','_yes_')# as valCodes from valCT
+					SELECT #columnName# as valCodes from valCT
 					WHERE collection_cde='#collection_cde#'
 				</cfquery>
 			  <cfelse>
 				<cfquery name="valCodes" dbtype="query">
-					SELECT #replace(columnName,'yes','_yes_')# as valCodes from valCT
+					SELECT  #columnName# as valCodes from valCT
 				</cfquery>
 			</cfif>
 			<cfdump var=#valCodes#>
@@ -59,8 +59,17 @@
 			<cfset i=3>
 			<cfloop query="valCodes">
 				<cfset newRow = QueryAddRow(result, 1)>
-				<cfset temp = QuerySetCell(result, "v", "#valCodes#",#i#)>
-				<cfset i=#i#+1>
+				<cfif valcodes is "yes">
+					<cfset rval="_yes_">
+				<cfelseif valcodes is "no">
+					<cfset rval="_no_">
+				<cfelse>
+					<cfset rval=valcodes>					
+				</cfif>
+				<cfset temp = QuerySetCell(result, "v", rval,i)>
+				<cfset i=i+1>
+				
+				
 			</cfloop>
 			
 		<cfelseif #isCtControlled.UNITS_CODE_TABLE# gt 0>
