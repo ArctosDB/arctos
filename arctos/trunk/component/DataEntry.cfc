@@ -47,7 +47,7 @@
 				</cfquery>
 			  <cfelse>
 				<cfquery name="valCodes" dbtype="query">
-					SELECT replace(#columnName#,'yes','_yes_') as valCodes from valCT
+					SELECT #replace(columnName,'yes','_yes_')# as valCodes from valCT
 				</cfquery>
 			</cfif>
 			<cfset result = QueryNew("V")>
