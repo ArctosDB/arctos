@@ -23,6 +23,7 @@
 	</cfquery>
 	<cfif isCtControlled.recordcount is 1>
 		<cfif len(isCtControlled.VALUE_CODE_TABLE) gt 0>
+			value code table....
 			<cfquery name="getCols" datasource="uam_god">
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#'
 				and column_name <> 'DESCRIPTION'
