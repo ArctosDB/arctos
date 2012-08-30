@@ -42,7 +42,7 @@
 			</cfloop>
 			<cfif len(collCode) gt 0>
 				<cfquery name="valCodes" dbtype="query">
-					SELECT replace(#columnName#,'yes','_yes_') as valCodes from valCT
+					SELECT #replace(columnName,'yes','_yes_')# as valCodes from valCT
 					WHERE collection_cde='#collection_cde#'
 				</cfquery>
 			  <cfelse>
