@@ -122,7 +122,7 @@
 		<cfset temp = QuerySetCell(result, "v", "#element#",2)>
 	</cfif>
 
-	<cfreturn theJsonResult>
+	<cfreturn result>
 	
 </cffunction>
 <!---------------------------------------------------------------->
