@@ -1675,6 +1675,7 @@ function success_getAttributeStuff (r) {
 	var result=r.DATA;
 	var resType=result.V[0];
 	var theEl=result.V[1];
+	var x;
 	var optn = document.getElementById(theEl);
 	optn.style.backgroundColor='';
 	var n=result.V.length;
@@ -1717,6 +1718,16 @@ function success_getAttributeStuff (r) {
 			theNewSelect.appendChild(a);// add blank
 			for (i=2;i<result.V.length;i++) {
 				var theStr = result.V[i];
+				
+				if(theStr=='_yes_'){
+					theStr='yes';
+				}
+				if(theStr=='_no_'){
+					theStr='no';
+				}
+		
+		
+		
 				var a = document.createElement("option");
 				a.text = theStr;
 				a.value = theStr;
