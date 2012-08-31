@@ -128,7 +128,10 @@
 	<cfset theJsonResult=replace(theJsonResult,'_no_','no','all')>
 	<cfset theJsonResult=replace(theJsonResult,'\"','"','all')>
 	
+	<cfdump var=#theJsonResult#>
+	
 	<cfset theJsonResult=DeserializeJSON(theJsonResult)>
+	<cfdump var=#theJsonResult#>
 	<cfreturn theJsonResult>
 </cffunction>
 <!---------------------------------------------------------------->
