@@ -46,7 +46,9 @@
 				method : "getAttCodeTbl",
 				attribute : $("#attribute_type_" + aid).val(),
 				collection_cde : $("#collection_cde").val(),
-				element : aid
+				element : aid,
+				returnformat : "json",
+				queryformat : 'column'
 			},
 			success_populateAttribute
 		);	
