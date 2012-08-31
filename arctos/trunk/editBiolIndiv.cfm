@@ -57,6 +57,7 @@
 		var result=r.DATA;
 		var resType=result.V[0];
 		var aid=result.V[1];
+		var x;
 		aid='_' + aid;
 		$("#attribute_value" + aid).remove();
 		$("#attribute_units" + aid).remove();	
@@ -64,7 +65,15 @@
 			var d = '<select name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
 			d+='<option value=""></option>';
 			for (i=2;i<result.V.length;i++) {
-				d+='<option value="' + result.V[i] + '">' + result.V[i] + '</option>';
+				x=result.V[i];
+				if(x=='_yes_'){
+					x='yes';
+				}
+				if(x=='_no_'){
+					x='no';
+				}
+				
+				d+='<option value="' + x + '">' + x + '</option>';
 			}
 			d+='</select>';
 			$("#_attribute_value" + aid).append(d);

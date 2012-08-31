@@ -121,18 +121,9 @@
 		<cfset newRow = QueryAddRow(result, 1)>
 		<cfset temp = QuerySetCell(result, "v", "#element#",2)>
 	</cfif>
-	
-	<cfset theJsonResult=SerializeJSON(result,true)>
 
-	<cfset theJsonResult=replace(theJsonResult,'_yes_','yes','all')>
-	<cfset theJsonResult=replace(theJsonResult,'_no_','no','all')>
-	<cfset theJsonResult=replace(theJsonResult,'\"','"','all')>
-	
-	<cfdump var=#theJsonResult#>
-	
-	<cfset theJsonResult=DeserializeJSON(theJsonResult)>
-	<cfdump var=#theJsonResult#>
 	<cfreturn theJsonResult>
+	
 </cffunction>
 <!---------------------------------------------------------------->
 <cffunction name="getcatNumSeq" access="remote">
