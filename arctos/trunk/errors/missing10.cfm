@@ -1,5 +1,5 @@
-<cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
-	<cfset rdurl=cgi.REDIRECT_URL>
+<cfif isdefined("cgi.query_string") and len(cgi.query_string) gt 0>
+	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfif rdurl contains chr(195) & chr(151)>
 		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
@@ -30,17 +30,12 @@
 			
 			<cfinclude template="/document.cfm">
 			<cfcatch>
-				<cfdump var=#cfcatch#>
-				<!---
-				
-				
-			<cfif listgetat(rdurl,gPos+2,"/")>
-				<cfset p=listgetat(rdurl,gPos+2,"/")>
-			<cfelse>
-				<cfset p=1>
-			</cfif>
+				<cfif listgetat(rdurl,gPos+2,"/")>
+					<cfset p=listgetat(rdurl,gPos+2,"/")>
+				<cfelse>
+					<cfset p=1>
+				</cfif>
 				<cfinclude template="/errors/404.cfm">
-				--->
 			</cfcatch>
 		</cftry>
 		</cfoutput>	
@@ -119,9 +114,14 @@
 				<cfset niceProjName = listgetat(rdurl,gPos+1,"/")>
 			</cfif>
 			<cfinclude template="/ProjectDetail.cfm">
-			<cfcatch>
+			
+			<cfcatch><!---
 				<cfinclude template="/errors/404.cfm">
+			---->
+			<cfdump var=#cfcatch#>
 			</cfcatch>
+			
+			
 		</cftry>
 	<cfelseif listfindnocase(rdurl,'media',"/")>
 		<cftry>
