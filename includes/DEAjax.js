@@ -1,8 +1,4 @@
-function lookupAccn(){
-	var an=;
-	getAccn(an,'accn','#institution_acronym#:#collection_cde#');
 
-}
 function copyBeganEnded() {
 	$("#ended_date").val($("#began_date").val());
 }
