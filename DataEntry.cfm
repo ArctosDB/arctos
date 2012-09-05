@@ -874,7 +874,7 @@
 									onClick="copyVerbatim($('##verbatim_date').val());">--></span>
 								<span class="f11a">Begin</span>
 								<input type="text" name="began_date" class="reqdClr" value="#began_date#" id="began_date" size="10">
-								<span class="infoLink" onclick="copyBeganEnded('began_date');">>></span>
+								<span class="infoLink" onclick="copyBeganEnded();">>></span>
 								<span class="f11a">End</span>
 								<input type="text" name="ended_date" class="reqdClr" value="#ended_date#" id="ended_date" size="10">
 								<span class="infoLink" onclick="copyAllDates('ended_date');">Copy2All</span>
