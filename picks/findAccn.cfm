@@ -12,7 +12,7 @@
 	<cfif left(r_accnNumber,1) is "[" and r_accnNumber contains "]">
 		<cfset InstAcrColnCde = rereplace(r_accnNumber,"^.*\[(.*)\].*$",'\1')>
 		<cfset accnNumber = rereplace(r_accnNumber,"\[(.*)\]",'')>
-	<cfelse>
+	<cfelseif isdefined("r_accnNumber") and not isdefined("accnNumber")>
 		<cfset accnNumber=r_accnNumber>
 		<cfset InstAcrColnCde=r_InstAcrColnCde>
 	</cfif>
