@@ -3,6 +3,12 @@
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select institution_acronym || ':' || collection_cde instccde from collection order by institution_acronym,collection_cde
 	</cfquery>
+	<cfif not isdefined("r_accnNumber")>
+		<cfset r_accnNumber=''>
+	</cfif>
+	<cfif not isdefined("r_InstAcrColnCde")>
+		<cfset r_InstAcrColnCde=''>
+	</cfif>
 	<cfif left(r_accnNumber,1) is "[" and r_accnNumber contains "]">
 		<cfset InstAcrColnCde = rereplace(r_accnNumber,"^.*\[(.*)\].*$",'\1')>
 		<cfset accnNumber = rereplace(r_accnNumber,"\[(.*)\]",'')>
