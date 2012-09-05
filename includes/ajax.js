@@ -1019,7 +1019,7 @@ function getAccn(accnNumber,rtnFldID,InstAcrColnCde){
 	//rtnFldID=ID of field to write back to
 	//InstAcrColnCde=Inst:Coln (UAM:Mamm)
 	var url="/picks/findAccn.cfm";
-	var pickwin=url+"?accnNumber="+accnNumber+"&rtnFldID="+rtnFldID+"&InstAcrColnCde="+InstAcrColnCde;
+	var pickwin=url+"?r_accnNumber="+accnNumber+"&rtnFldID="+rtnFldID+"&r_InstAcrColnCde="+InstAcrColnCde;
 	pickwin=window.open(pickwin,"","width=400,height=338, resizable,scrollbars");
 }
 function getGeog(geogIdFld,geogStringFld,formName,geogString){
