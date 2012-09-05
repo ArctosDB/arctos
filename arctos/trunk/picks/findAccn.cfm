@@ -6,15 +6,20 @@
 	<cfif left(r_accnNumber,1) is "[" and r_accnNumber contains "]">
 		
 		r_accnNumber=#r_accnNumber#
-		<cfset accnNumber = rereplace(r_accnNumber,"^.*\[(.*)\].*$",'\1')>
 		
-		<cfdump var=#accnNumber#>
+		
+		[UAM:Fish]5555.555.Fish 
+		<cfset InstAcrColnCde = rereplace(r_accnNumber,"^.*\[(.*)\].*$",'\1')>
+		<br>
+		InstAcrColnCde=#InstAcrColnCde#
+		<cfset accnNumber = rereplace(r_accnNumber,"\[(.*)\]",'')>
+		
 		
 		
 		accnNumber=#accnNumber#
 		
 		
-		[UAM:Fish]5555.555.Fish 
+		
 		
 		<!----
 		got inst
@@ -29,7 +34,7 @@
 		
 		
 		<cfset InstAcrColnCde=mid(r_accnNumber,obpos,cbpos)>
-		InstAcrColnCde=#InstAcrColnCde#
+		=#InstAcrColnCde#
 	<cfelse>
 		<cfset accnNumber=r_accnNumber>
 		<cfset InstAcrColnCde=r_InstAcrColnCde>
