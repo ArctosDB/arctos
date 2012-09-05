@@ -104,7 +104,6 @@
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				COLL_OBJECT_REMARKS,
-				habitat,
 				associated_species,
 				flags,
 				cat_num, 
@@ -143,7 +142,6 @@
 				CAT_NUM,
 				collection_cde,
 				COLL_OBJECT_REMARKS,
-				habitat,
 				associated_species,
 				flags
 			FROM
@@ -152,7 +150,6 @@
 				CAT_NUM,
 				collection_cde,
 				COLL_OBJECT_REMARKS,
-				habitat,
 				associated_species,
 				flags
 		</cfquery>
@@ -213,9 +210,7 @@
 			</table>
 			<label for="coll_object_remarks">Specimen Remarks</label>
 			<textarea name="coll_object_remarks" id="coll_object_remarks" cols="80" rows="2">#indiv.coll_object_remarks#</textarea>
-			<label for="habitat">Microhabitat</label>
-			<textarea name="habitat" id="habitat" cols="80" rows="2">#indiv.habitat#</textarea>
-			<label for="habitat">Associated Species</label>
+			<label for="associated_species">Associated Species</label>
 			<textarea name="associated_species" id="associated_species" cols="80" rows="2">#indiv.associated_species#</textarea>
 			<cfset i=1>
 			<table border cellpadding="2">
@@ -572,23 +567,20 @@
 					UPDATE coll_object_remark SET
 						collection_object_id = #collection_object_id#
 						,coll_object_remarks = '#coll_object_remarks#'
-						,habitat = '#habitat#'
 						,associated_species = '#associated_species#'
 					WHERE 
 						collection_object_id = #collection_object_id#
 				</cfquery>
 			<cfelse>
-				<cfif len(coll_object_remarks) gt 0 OR len(habitat) gt 0 or len(associated_species) gt 0>
+				<cfif len(coll_object_remarks) gt 0 or len(associated_species) gt 0>
 					<cfquery name="newBIRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						INSERT INTO coll_object_remark (
 							collection_object_id
 							,coll_object_remarks
-							,habitat
 							,associated_species
 						 ) VALUES (
 							#collection_object_id#
 							,'#escapeQuotes(coll_object_remarks)#'
-							,'#escapeQuotes(habitat)#'
 							,'#escapeQuotes(associated_species)#'
 						)
 					</cfquery>

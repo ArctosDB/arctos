@@ -1,3 +1,6 @@
+function copyBeganEnded(began_date) {
+	$("#ended_date").val(began_date);
+}
 function isValidISODate(val) {
 	jQuery.getJSON("/component/DataEntry.cfc",
 		{
