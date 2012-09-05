@@ -2,16 +2,19 @@
 <cfset title="BulkloaderBuilder">
 <cfif action is "nothing">
 <cfquery name="blt" datasource="uam_god">
-	select column_name from user_tab_cols where table_name='BULKLOADER'
+	select 
+		column_name 
+	from 
+		user_tab_cols 
+	where 
+		table_name='BULKLOADER' and
+		column_name not in (
+			'COLLECTION_ID','ENTERED_AGENT_ID','ENTEREDTOBULKDATE','C$LAT','C$LONG'
+		)
 	order by internal_column_id
 </cfquery>
 <cfoutput>
 	<cfset everything=valuelist(blt.column_name)>
-	<cfset internals="COLLECTION_ID,ENTERED_AGENT_ID,ENTEREDTOBULKDATE,C$LAT,C$LONG">
-	<cfloop list="#internals#" index="i">
-		<cfset everything=listdeleteat(everything,listfind(everything,i))>		
-	</cfloop>
-#everything#
 	<cfset inListItems="">
 	<cfset required="COLLECTION_OBJECT_ID,ENTEREDBY,ACCN,TAXON_NAME,NATURE_OF_ID,ID_MADE_BY_AGENT,MADE_DATE,VERBATIM_DATE,BEGAN_DATE,ENDED_DATE,HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY,COLLECTION_CDE,INSTITUTION_ACRONYM,COLLECTOR_AGENT_1,COLLECTOR_ROLE_1,PART_NAME_1,PART_CONDITION_1,PART_LOT_COUNT_1,PART_DISPOSITION_1,COLLECTING_SOURCE,SPECIMEN_EVENT_TYPE">
 	<cfset inListItems=listappend(inListItems,required)>
@@ -213,7 +216,7 @@
 		<cfloop query="blt">
 			<tr>
 				<td>#column_name#</td>
-				<td><input type="checkbox" name="fld" id="#column_name#" value="#column_name#">hi</td>
+				<td><input type="checkbox" name="fld" id="#column_name#" value="#column_name#"></td>
 			</tr> 
 		</cfloop>
 		</table>
