@@ -1,13 +1,16 @@
 <cfquery name="getCols" datasource="uam_god">
 	select column_name from sys.user_tab_cols
-	where table_name='BULKLOADER_STAGE'
+	where table_name='BULKLOADER_STAGE' and
+		column_name not in (
+			'COLLECTION_ID','ENTERED_AGENT_ID','ENTEREDTOBULKDATE','C$LAT','C$LONG'
+		)
 	order by internal_column_id
 </cfquery>
 <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from BULKLOADER_STAGE		
 </cfquery>
 <cfoutput>
-	<cfset colList = data.columnList>
+	<cfset colList = valuelist(getCols.column_name)>
 	<cfset variables.fileName="#Application.webDirectory#/download/bulkloader_stage.csv">
 	<cfset variables.encoding="UTF-8">
 	<cfscript>
@@ -33,5 +36,4 @@
 	<cfscript>	
 		variables.joFileWriter.close();
 	</cfscript>
-	
 </cfoutput>
