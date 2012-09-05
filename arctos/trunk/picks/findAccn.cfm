@@ -4,37 +4,8 @@
 		select institution_acronym || ':' || collection_cde instccde from collection order by institution_acronym,collection_cde
 	</cfquery>
 	<cfif left(r_accnNumber,1) is "[" and r_accnNumber contains "]">
-		
-		r_accnNumber=#r_accnNumber#
-		
-		
-		[UAM:Fish]5555.555.Fish 
 		<cfset InstAcrColnCde = rereplace(r_accnNumber,"^.*\[(.*)\].*$",'\1')>
-		<br>
-		InstAcrColnCde=#InstAcrColnCde#
 		<cfset accnNumber = rereplace(r_accnNumber,"\[(.*)\]",'')>
-		
-		
-		
-		accnNumber=#accnNumber#
-		
-		
-		
-		
-		<!----
-		got inst
-		<cfset obpos=find(r_accnNumber,"[")>
-		obpos=#obpos#
-		<cfset cbpos=find(r_accnNumber,"]")>
-		cbpos=#cbpos#
-		
-		<cfset accnNumber=mid(r_accnNumber,cbpos+1,len(r_accnNumber))>
-		
-		---->
-		
-		
-		<cfset InstAcrColnCde=mid(r_accnNumber,obpos,cbpos)>
-		=#InstAcrColnCde#
 	<cfelse>
 		<cfset accnNumber=r_accnNumber>
 		<cfset InstAcrColnCde=r_InstAcrColnCde>
