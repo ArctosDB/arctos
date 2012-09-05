@@ -5,7 +5,7 @@
 	</cfquery>
 	<cfif r_accnNumber contains "[" and r_accnNumber contains "]">
 		
-		
+		r_accnNumber=#r_accnNumber#
 		<cfset accnNumber = reMatch("\[[^>]+\]", r_accnNumber)>
 		
 		
