@@ -213,7 +213,7 @@
 		<cfloop query="blt">
 			<tr>
 				<td>#column_name#</td>
-				<td><input type="checkbox" name="fld" id="#column_name#" value="#column_name#"></td>
+				<td><input type="checkbox" name="fld" id="#column_name#" value="#column_name#">hi</td>
 			</tr> 
 		</cfloop>
 		</table>
