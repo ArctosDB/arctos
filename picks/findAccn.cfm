@@ -23,7 +23,7 @@
 		<input type="text" name="accnNumber" id="accnNumber" value="#accnNumber#">
 		<input type="submit" value="Search"	class="lnkBtn">
 	</form>
-	<cfif len(accnNumberMod) gt 0>
+	<cfif len(accnNumber) gt 0>
 		<cfquery name="getAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				collection.institution_acronym || ':' || collection.collection_cde instccde,
