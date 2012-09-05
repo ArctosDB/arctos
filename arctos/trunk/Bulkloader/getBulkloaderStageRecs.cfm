@@ -33,6 +33,5 @@
 	<cfscript>	
 		variables.joFileWriter.close();
 	</cfscript>
-	<cflocation url="/download.cfm?file=bulkloader_stage.csv" addtoken="false">
-	<a href="/download/bulkloader_stage.csv">Click here if your file does not automatically download.</a>
+	
 </cfoutput>

@@ -215,11 +215,11 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 </cfoutput>
 </cfif>
 <!------------------------------------------->
-<cfif #action# is "checkStaged">
+<cfif action is "checkStaged">
+	
 <cfoutput>
 	<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" procedure="bulkloader_stage_check">
 	</cfstoredproc>
-	
 	
 	<cfquery name="anyBads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) as cnt from bulkloader_stage
@@ -229,17 +229,25 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 		select count(*) as cnt from bulkloader_stage
 	</cfquery>
 	<cfif #anyBads.cnt# gt 0>
-		<cfinclude template="getBulkloaderStageRecs.cfm">
+			<cfinclude template="getBulkloaderStageRecs.cfm">
+		
 			#anyBads.cnt# of #allData.cnt# records will not successfully load. 
-			<br>
-			Click <a href="bulkloader.txt" target="_blank">here</a> 
-			to retrieve all data including error messages. Fix them up and reload them.
+			<p>
+			
+			<a href="/download/bulkloader_stage.csv">download data with errors</a>
+			</p>
+			
 			<p>
 			Click <a href="bulkloaderLoader.cfm?action=loadAnyway">here</a> to load them to the
 			bulkloader anyway. Use Arctos to fix them up and load them.
 			</p>
+			
+			
+			
+		
 
 	<cfelse>
+		
 		<cftransaction >
 			<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select collection_object_id from bulkloader_stage
@@ -264,6 +272,8 @@ You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkl
 
 		</cftransaction>
 	</cfif>	
+	
+	after if
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
