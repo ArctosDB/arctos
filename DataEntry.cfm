@@ -294,6 +294,7 @@
 								</cfif>
 								<span class="f11a likeLink" onClick="getDocs('accession')">Accn</span>
 								<input type="text" name="accn" value="#accn#" size="13" class="reqdClr" id="accn" onchange="isGoodAccn();">
+								<span class="infoLink" onclick="getAccn(accn,nothing,dataEntry);">pick</span>
 								<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
 
 							</td>
