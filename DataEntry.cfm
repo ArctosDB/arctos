@@ -294,7 +294,10 @@
 								</cfif>
 								<span class="f11a likeLink" onClick="getDocs('accession')">Accn</span>
 								<input type="text" name="accn" value="#accn#" size="30" class="reqdClr" id="accn" onchange="getAccn(this.value,this.id,'#institution_acronym#:#collection_cde#');">
-								<span class="infoLink" onclick="var an=$('##accn').val();getAccn(an,'accn','#institution_acronym#:#collection_cde#');">pick</span>
+								<span class="infoLink" onclick="var an=$('##accn').val();getAccn(an,'accn','#institution_acronym#:#collection_cde#');">[ pick ]</span>
+								<span class="infoLink" onclick="isGoodAccn();">[ verify ]</span>
+								
+								
 								<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
 							</td>
 						</tr>
