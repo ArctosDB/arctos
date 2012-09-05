@@ -7,6 +7,11 @@
 		
 		
 		<cfset accnNumber = reMatch("\[[^>]+\]", r_accnNumber)>
+		
+		
+		accnNumber=#accnNumber#
+		
+		
 		<!----
 		got inst
 		<cfset obpos=find(r_accnNumber,"[")>
@@ -19,7 +24,6 @@
 		---->
 		
 		
-		accnNumber=#accnNumber#
 		<cfset InstAcrColnCde=mid(r_accnNumber,obpos,cbpos)>
 		InstAcrColnCde=#InstAcrColnCde#
 	<cfelse>
