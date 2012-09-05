@@ -1,4 +1,4 @@
-function copyBeganEnded(began_date) {
+function copyBeganEnded() {
 	$("#ended_date").val($("#began_date").val());
 }
 function isValidISODate(val) {
