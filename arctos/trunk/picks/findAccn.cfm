@@ -6,7 +6,7 @@
 	<cfif left(r_accnNumber,1) is "[" and r_accnNumber contains "]">
 		
 		r_accnNumber=#r_accnNumber#
-		<cfset accnNumber = rereplace(r_accnNumber,".*\[(.*?)\].*'",'\1')>
+		<cfset accnNumber = rereplace(r_accnNumber,"\[(.*)\]'",'\1')>
 		
 		<cfdump var=#accnNumber#>
 		
