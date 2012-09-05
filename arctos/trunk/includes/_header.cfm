@@ -139,6 +139,7 @@
 			                <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
 			                <li><a target="_top" href="/showLocality.cfm">Places</a></li>
 			                <li><a target="_top" href="/document.cfm">Documents&nbsp;(BETA)</a></li>
+			                <li><a target="_top" href="/info/ctDocumentation.cfm">Code&nbsp;Tables</a></li>
 							<li><a target="_top" href="/googlesearch.cfm">Google&nbsp;Custom&nbsp;(BETA)</a></li>
 						</ul>
 					</li>
