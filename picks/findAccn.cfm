@@ -3,16 +3,18 @@
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select institution_acronym || ':' || collection_cde instccde from collection order by institution_acronym,collection_cde
 	</cfquery>
-	<cfif r_accnNumber contains "[" and r_accnNumber contains "]">
+	<cfif left(r_accnNumber,1) is "[" and r_accnNumber contains "]">
 		
 		r_accnNumber=#r_accnNumber#
-		<cfset accnNumber = reMatch("/\[(.*?)\]/'", r_accnNumber)>
+		<cfset accnNumber = rereplace(r_accnNumber,"/\[(.*?)\]/'",'\1')>
 		
 		<cfdump var=#accnNumber#>
 		
 		
 		accnNumber=#accnNumber#
 		
+		
+		[UAM:Fish]5555.555.Fish 
 		
 		<!----
 		got inst
