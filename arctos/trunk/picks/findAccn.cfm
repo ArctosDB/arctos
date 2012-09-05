@@ -31,7 +31,7 @@
 				<cfif len(InstAcrColnCde) gt 0>
 					collection.institution_acronym || ':' || collection.collection_cde='#InstAcrColnCde#' and
 				</cfif>
-				upper(accn_number) like '%#ucase(accn_number)#%'
+				upper(accn_number) like '%#ucase(accnNumber)#%'
 			ORDER BY
 				collection.institution_acronym,
 				collection.collection_cde,
