@@ -23,7 +23,7 @@
 		<td>
 			Access to #numberformat(getCount.cnt,",")# records
 		</td>
-		<cfif #hasCanned.recordcount# gt 0>
+		<cfif hasCanned.recordcount gt 0>
 			<td style="padding-left:2em;padding-right:2em;">
 				Saved Searches: <select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
 					<option value=""></option>
@@ -36,15 +36,15 @@
 		</cfif>
 		<td style="padding-left:2em;padding-right:2em;">
 			<span style="color:red;">
-				<cfif #action# is "dispCollObj">
+				<cfif action is "dispCollObj">
 					<p>You are searching for items to add to a loan.</p>
-				<cfelseif #action# is "encumber">
+				<cfelseif action is "encumber">
 					<p>You are searching for items to encumber.</p>
-				<cfelseif #action# is "collEvent">
+				<cfelseif action is "collEvent">
 					<p>You are searching for items to change collecting event.</p>
-				<cfelseif #action# is "identification">
+				<cfelseif action is "identification">
 					<p>You are searching for items to reidentify.</p>
-				<cfelseif #action# is "addAccn">
+				<cfelseif action is "addAccn">
 					<p>You are searching for items to reaccession.</p>
 				</cfif>
 			</span>
