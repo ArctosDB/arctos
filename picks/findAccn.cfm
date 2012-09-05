@@ -8,6 +8,8 @@
 		r_accnNumber=#r_accnNumber#
 		<cfset accnNumber = reMatch("/\[(.*?)\]/'", r_accnNumber)>
 		
+		<cfdump var=#accnNumber#>
+		
 		
 		accnNumber=#accnNumber#
 		
