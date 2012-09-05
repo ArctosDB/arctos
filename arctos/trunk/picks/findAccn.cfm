@@ -3,8 +3,12 @@
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select institution_acronym || ':' || collection_cde instccde from collection order by institution_acronym,collection_cde
 	</cfquery>
-	<cfif accnNumber contains "[" and accnNumber contains "]">
-		<cfset accnNumber=mid(accnNumber,find(accnNumber,"]")+1,len(accnNumber))>
+	<cfif r_accnNumber contains "[" and r_accnNumber contains "]">
+		<cfset accnNumber=mid(r_accnNumber,find(r_accnNumber,"]")+1,len(r_accnNumber))>
+		<cfset InstAcrColnCde=mid(r_accnNumber,2,find(r_accnNumber,"]")-1)>
+	<cfelse>
+		<cfset accnNumber=r_accnNumber>
+		<cfset InstAcrColnCde=r_InstAcrColnCde>
 	</cfif>
 	<form name="searchForAccn" action="findAccn.cfm" method="get">
 		<input type="hidden" name="rtnFldID" value="#rtnFldID#">
@@ -19,7 +23,7 @@
 		<input type="text" name="accnNumber" id="accnNumber" value="#accnNumber#">
 		<input type="submit" value="Search"	class="lnkBtn">
 	</form>
-	<cfif len(accnNumber) gt 0>
+	<cfif len(accnNumberMod) gt 0>
 		<cfquery name="getAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				collection.institution_acronym || ':' || collection.collection_cde instccde,
