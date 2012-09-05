@@ -41,7 +41,7 @@
 			Nothing matched.
 		<cfelse>
 			<cfloop query="getAccn">
-				<br><span class="likeLink" onClick="opener.document.getElementById('#rtnFldID#').value='#instccde# #accn_number#';self.close();">#instccde# #accn_number#</span>
+				<br><span class="likeLink" onClick="opener.document.getElementById('#rtnFldID#').value='[#instccde#]#accn_number#';self.close();">#instccde# #accn_number#</span>
 			</cfloop>
 		</cfif>
 	</cfif>
