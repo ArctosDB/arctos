@@ -3,7 +3,7 @@
 <cfif action is "nothing">
 	<h2>Bulkloading Specimens</h2>
 	<p>
-		This <a href="/Bulkloader/BulkloadSpecimens.cfm">web-based specimen bulkloader</a> will handle a few thousand records. 
+		This web-based specimen bulkloader will handle a few thousand records. 
 	</p>
 	<p>
 		If that won't work, split your load into smaller files or contact a DBA. We're happy to help, and can load files of any size.
@@ -19,6 +19,14 @@
 	<p>
 		Documentation, including field definitions, is at <a href="https://arctosdb.wordpress.com/how-to/create/bulkloader/">Bulkloader Docs</a>
 	</p>
+	
+	<p>
+		<a href="/Bulkloader/BulkloadSpecimens.cfm?action=validate">validate</a>
+	</p>
+	<p>
+		<a href="/Bulkloader/BulkloadSpecimens.cfm?action=delete">delete</a>
+	</p>
+	
 	<cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			enteredby,
@@ -137,20 +145,24 @@
 </cfif>
 
 
-
 <!------------------------------------------------------->
-<cfif #action# is "delete">
-<cfoutput>
+<cfif action is "delete">
+	Are you sure you want to delete everything from the bulkloader stage?
+	<ul>
+		<li><a href="BulkloadSpecimens.cfm?action=reallydelete">yep, delete away</a></li>
+		<li><a href="BulkloadSpecimens.cfm">whoa, back up</a></li>
+	</ul>
+</cfif>
+<!------------------------------------------------------->
+<cfif action is "reallydelete">
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from bulkloader_stage
 	</cfquery>
 	deleted.
 	<a href="BulkloadSpecimens.cfm">back to bulkloader</a>
-</cfoutput>
 </cfif>
-
 <!------------------------------------------------------->
-<cfif #action# is "getFile">
+<cfif action is "getFile">
 <cfoutput>
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from bulkloader_stage
@@ -183,17 +195,17 @@
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "validate">
+<cfif action is "validate">
 <cfoutput>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) as cnt from bulkloader_stage
 	</cfquery>
-	You successfully loaded #c.cnt# records into the <em><strong>staging</strong></em> table. 
-	They have not been checked or processed yet. You aren't done here!
+	There are #c.cnt# records in the <em><strong>staging</strong></em> table. 
+	They have not been checked or processed yet.
 	<ul>
 		<li>
 			<a href="BulkloadSpecimens.cfm?action=checkStaged" target="_self">Check and load these records</a>.
-			This is a slow process, but completing it will allow you to re-load your data as necessary.
+			This can be a slow process, but completing it will allow you to re-load your data as necessary.
 			Email a DBA if you wish to check your records at this stage but the process times out. We can schedule
 			the process, allowing it to take as long as necessary to complete, and notify you when it's done.
 			This method is strongly preferred.
@@ -210,7 +222,7 @@
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "loadAnyway">
+<cfif action is "loadAnyway">
 <cfoutput>
 	<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_object_id from bulkloader_stage
@@ -229,18 +241,15 @@
 	</cfquery>
 	Your records have been checked and are now in table Bulkloader and flagged as
 		loaded='BULKLOADED RECORD'. A data administrator can un-flag
-		and load them.
-		
+		and load them.	
 	<p><a href="BulkloadSpecimens.cfm?action=delete">please delete from the staging table</a></p>
 </cfoutput>
 </cfif>
 <!------------------------------------------->
 <cfif action is "checkStaged">
-	
 <cfoutput>
 	<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" procedure="bulkloader_stage_check">
 	</cfstoredproc>
-	
 	<cfquery name="anyBads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) as cnt from bulkloader_stage
 		where loaded is not null
@@ -248,26 +257,19 @@
 	<cfquery name="allData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) as cnt from bulkloader_stage
 	</cfquery>
-	<cfif #anyBads.cnt# gt 0>
-			<cfinclude template="getBulkloaderStageRecs.cfm">
-		
+	<cfif anyBads.cnt gt 0>
+		<cfinclude template="getBulkloaderStageRecs.cfm">
+		<p>
 			#anyBads.cnt# of #allData.cnt# records will not successfully load. 
-			<p>
-			
+		</p>
+		<p>
 			<a href="/download/bulkloader_stage.csv">download data with errors</a>
-			</p>
-			
-			<p>
+		</p>
+		<p>
 			Click <a href="bulkloaderLoader.cfm?action=loadAnyway">here</a> to load them to the
 			bulkloader anyway. Use Arctos to fix them up and load them.
-			</p>
-			
-			
-			
-		
-
+		</p>
 	<cfelse>
-		
 		<cftransaction >
 			<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select collection_object_id from bulkloader_stage
@@ -287,13 +289,9 @@
 			Your records have been checked and are now in table Bulkloader and flagged as
 			loaded='BULKLOADED RECORD'. A data administrator can un-flag
 			and load them.
-			
 			<p><a href="BulkloadSpecimens.cfm?action=delete">please delete from the staging table</a></p>
-
 		</cftransaction>
-	</cfif>	
-	
-	after if
+	</cfif>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
