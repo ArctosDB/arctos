@@ -4,8 +4,24 @@
 		select institution_acronym || ':' || collection_cde instccde from collection order by institution_acronym,collection_cde
 	</cfquery>
 	<cfif r_accnNumber contains "[" and r_accnNumber contains "]">
-		<cfset accnNumber=mid(r_accnNumber,find(r_accnNumber,"]")+1,len(r_accnNumber))>
-		<cfset InstAcrColnCde=mid(r_accnNumber,2,find(r_accnNumber,"]")-1)>
+		
+		
+		<cfset accnNumber = reMatch("\[[^>]+\]", r_accnNumber)>
+		<!----
+		got inst
+		<cfset obpos=find(r_accnNumber,"[")>
+		obpos=#obpos#
+		<cfset cbpos=find(r_accnNumber,"]")>
+		cbpos=#cbpos#
+		
+		<cfset accnNumber=mid(r_accnNumber,cbpos+1,len(r_accnNumber))>
+		
+		---->
+		
+		
+		accnNumber=#accnNumber#
+		<cfset InstAcrColnCde=mid(r_accnNumber,obpos,cbpos)>
+		InstAcrColnCde=#InstAcrColnCde#
 	<cfelse>
 		<cfset accnNumber=r_accnNumber>
 		<cfset InstAcrColnCde=r_InstAcrColnCde>
