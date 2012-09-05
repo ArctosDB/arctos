@@ -298,7 +298,7 @@
 								
 
 
-<span class="infoLink" onclick="getAccn('$('##accn').val()'',accn','#institution_acronym#:#collection_cde#');">pick</span>
+<span class="infoLink" onclick="getAccn('$('##accn').val();',accn','#institution_acronym#:#collection_cde#');">pick</span>
 								<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
 
 							</td>
