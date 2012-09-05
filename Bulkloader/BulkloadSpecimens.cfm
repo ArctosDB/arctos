@@ -1,149 +1,132 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Specimens">
-<cfif #action# is "nothing">
-
-	
-	<cfinclude template="/includes/_header.cfm">
-<h2>Bulkloading Specimens</h2>
-<p>
-	The <a href="/Bulkloader/BulkloadSpecimens.cfm">web-based specimen bulkloader</a> will handle a few thousand records. 
-</p>
-
-		
-		 
-<p>
-	If that won't work, split your load into smaller files or contact a DBA. We're happy to help, and can load files of any size.
-</p>
-
-<p>You may create your own templates with the <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a>. This is the only valid place to 
-find bulkloader fields. It is not static: That year-old template probably won't work.
-</p>
-
-<p>Use <a href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a> to see what's made it to the
-bulkloader but not yet to Arctos</p>
-
-<p>Documentation, including field definitions, is at <a href="https://arctosdb.wordpress.com/how-to/create/bulkloader/">Bulkloader Docs</a>
-</p>
-<cfinclude template="/includes/_footer.cfm">
-
-
-
-
-
-
-
-
-	
-	
-	
-	You may build specimen bulkloader templates using the <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a>
-
-<cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select 
-		enteredby,
-		collection_cde,
-		institution_acronym,
-		collection_id,
-		max(ENTEREDTOBULKDATE) last_enter_date
-	from 
-		bulkloader_stage
-	group by
-		enteredby,
-		collection_cde,
-		institution_acronym,
-		collection_id
-</cfquery>
-<cfoutput>
-	<cfif whatsThere.recordcount is 0>
-		There is nothing in the staging table. You are free to proceed.
-	<cfelse>
-		<p>
-			This is a single-user application. There are data in the staging table. Don't be a jerk. 
-		</p>
-		<p>
-			If dates are recent, someone's probably working in here. Talk to them. They may be done, or they may be in the middle of a load.
-		</p>
-		<p>
-			<a href="/contact.cfm">contact admin</a>
-		</p>
-		<table border>
-			<tr>
-				<th>Enteredby</th>
-				<th>Enteredby Name</th>
-				<th>Enteredby Email</th>
-				<th>Collection</th>
-				<th>Entered Date</th>
-				<th>Collection Contacts</th>
-			</tr>
-			<cfloop query="whatsThere">
-					<cfquery name="cid" datasource="uam_god">
-						select 
-							ADDRESS
-						from
-							electronic_address,
-							agent,
-							collection_contacts,
-							collection
-						where
-							ADDRESS_TYPE='e-mail' and
-							electronic_address.agent_id=agent.agent_id and
-							agent.agent_id=collection_contacts.CONTACT_AGENT_ID and
-							collection_contacts.collection_id=collection.collection_id and
+<cfif action is "nothing">
+	<h2>Bulkloading Specimens</h2>
+	<p>
+		This <a href="/Bulkloader/BulkloadSpecimens.cfm">web-based specimen bulkloader</a> will handle a few thousand records. 
+	</p>
+	<p>
+		If that won't work, split your load into smaller files or contact a DBA. We're happy to help, and can load files of any size.
+	</p>
+	<p>
+		You may create your own templates with the <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a>. This is the only valid place to 
+		find bulkloader fields. It is not static: That year-old template probably won't work.
+	</p>
+	<p>
+		Use <a href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a> to see what's made it to the
+		bulkloader but not yet to Arctos
+	</p>
+	<p>
+		Documentation, including field definitions, is at <a href="https://arctosdb.wordpress.com/how-to/create/bulkloader/">Bulkloader Docs</a>
+	</p>
+	<cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select 
+			enteredby,
+			collection_cde,
+			institution_acronym,
+			collection_id,
+			max(ENTEREDTOBULKDATE) last_enter_date
+		from 
+			bulkloader_stage
+		group by
+			enteredby,
+			collection_cde,
+			institution_acronym,
+			collection_id
+	</cfquery>
+	<cfoutput>
+		<cfif whatsThere.recordcount is 0>
+			There is nothing in the staging table. You are free to proceed.
+		<cfelse>
+			<p>
+				This is a single-user application. There are data in the staging table. Don't be a jerk. 
+			</p>
+			<p>
+				If dates are recent, someone's probably working in here. Talk to them. They may be done, or they may be in the middle of a load.
+			</p>
+			<p>
+				If dates are more than a week old, you can probably just delete everything.
+			</p>
+			<p>
+				If all else fails, <a href="/contact.cfm">contact admin</a>.
+			</p>
+			<table border>
+				<tr>
+					<th>Enteredby</th>
+					<th>Enteredby Name</th>
+					<th>Enteredby Email</th>
+					<th>Collection</th>
+					<th>Entered Date</th>
+					<th>Collection Contacts</th>
+				</tr>
+				<cfloop query="whatsThere">
+						<cfquery name="cid" datasource="uam_god">
+							select 
+								ADDRESS
+							from
+								electronic_address,
+								agent,
+								collection_contacts,
+								collection
+							where
+								ADDRESS_TYPE='e-mail' and
+								electronic_address.agent_id=agent.agent_id and
+								agent.agent_id=collection_contacts.CONTACT_AGENT_ID and
+								collection_contacts.collection_id=collection.collection_id and
+								<cfif len(collection_id) lt 1>
+									collection.collection_cde='#collection_cde#' and
+									collection.institution_acronym='#institution_acronym#'
+								<cfelse>
+									collection.collection_id=#collection_id#
+								</cfif>
+						</cfquery>
+						<cfquery name="enteredbyRealName" datasource="uam_god">
+							select 
+								preferred_agent_name.agent_name
+							from
+								preferred_agent_name,
+								agent_name
+							where
+								preferred_agent_name.agent_id=agent_name.agent_id and
+								agent_name.agent_name='#enteredby#'
+						</cfquery>
+						<cfquery name="eid" datasource="uam_god">
+							select 
+								ADDRESS
+							from
+								electronic_address,
+								agent_name
+							where
+								ADDRESS_TYPE='e-mail' and
+								electronic_address.agent_id=agent_name.agent_id and
+								agent_name='#enteredby#'
+						</cfquery>
+						<cfquery name="coln" datasource="uam_god">
+							select 
+								collection 
+							from
+								collection
+							where
 							<cfif len(collection_id) lt 1>
 								collection.collection_cde='#collection_cde#' and
 								collection.institution_acronym='#institution_acronym#'
 							<cfelse>
 								collection.collection_id=#collection_id#
 							</cfif>
-					</cfquery>
-					<cfquery name="enteredbyRealName" datasource="uam_god">
-						select 
-							preferred_agent_name.agent_name
-						from
-							preferred_agent_name,
-							agent_name
-						where
-							preferred_agent_name.agent_id=agent_name.agent_id and
-							agent_name.agent_name='#enteredby#'
-					</cfquery>
-					<cfquery name="eid" datasource="uam_god">
-						select 
-							ADDRESS
-						from
-							electronic_address,
-							agent_name
-						where
-							ADDRESS_TYPE='e-mail' and
-							electronic_address.agent_id=agent_name.agent_id and
-							agent_name='#enteredby#'
-					</cfquery>
-					<cfquery name="coln" datasource="uam_god">
-						select 
-							collection 
-						from
-							collection
-						where
-						<cfif len(collection_id) lt 1>
-							collection.collection_cde='#collection_cde#' and
-							collection.institution_acronym='#institution_acronym#'
-						<cfelse>
-							collection.collection_id=#collection_id#
-						</cfif>
-					</cfquery>
-				<tr>
-					<td>#enteredby#</td>
-					<td>#enteredbyRealName.agent_name#</td>
-					<td>#valuelist(eid.address)#</td>
-					<td>#coln.collection#</td>
-					<td>#last_enter_date#</td>
-					<td>#valuelist(cid.address)#</td>
-				</tr>
-			</cfloop>
-		</table>
-	</cfif>
-</cfoutput>
-<p></p>
-<cfform name="oids" method="post" enctype="multipart/form-data">
+						</cfquery>
+					<tr>
+						<td>#enteredby#</td>
+						<td>#enteredbyRealName.agent_name#</td>
+						<td>#valuelist(eid.address)#</td>
+						<td>#coln.collection#</td>
+						<td>#last_enter_date#</td>
+						<td>#valuelist(cid.address)#</td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfif>
+	</cfoutput>
+	<cfform name="oids" method="post" enctype="multipart/form-data">
 	<label for="FiletoUpload">Upload a comma-delimited text file (csv)</label>
 	<input type="hidden" name="Action" value="getFile">
 	  <cfinput type="file" name="FiletoUpload" size="45" >
