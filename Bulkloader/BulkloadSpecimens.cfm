@@ -126,6 +126,8 @@
 			</table>
 		</cfif>
 	</cfoutput>
+	<hr>
+	<label for="oids">Bulkload Specimens</label>
 	<cfform name="oids" method="post" enctype="multipart/form-data">
 	<label for="FiletoUpload">Upload a comma-delimited text file (csv)</label>
 	<input type="hidden" name="Action" value="getFile">
