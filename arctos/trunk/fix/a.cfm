@@ -1,7 +1,7 @@
 <cfoutput>
 <cfdump var=#application#>
 	
-<cfset variables.fn="#Application.webDirectory#/bnhmMaps/tabfiles/test.xml">
+<cfset variables.fn="#Application.Arctos.webDirectory#/bnhmMaps/tabfiles/test.xml">
 <cfset variables.encoding="UTF-8">
 
 	<cfscript>
