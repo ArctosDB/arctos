@@ -42,7 +42,7 @@
 	
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
-		a='boogity'; 
+		a='boogity test two'; 
 		variables.joFileWriter.writeLine(a);
 
 	
