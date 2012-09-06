@@ -1,6 +1,8 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 
 <cfoutput>
+	HI
+	<!-------
 <cfset variables.fn="#Application.webDirectory#/bnhmMaps/tabfiles/test.xml">
 <cfset variables.encoding="UTF-8">
 
@@ -14,7 +16,7 @@
 
 	<a href="/bnhmMaps/tabfiles/test.xml">/bnhmMaps/tabfiles/test.xml</a>
 	
-	
+	-------->
 	
 </cfoutput>
 
