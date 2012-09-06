@@ -1,6 +1,5 @@
-<cfinclude template="/includes/_header.cfm">
 <cfoutput>
-
+<cfdump var=#application#>
 	
 <cfset variables.fn="#Application.webDirectory#/bnhmMaps/tabfiles/test.xml">
 <cfset variables.encoding="UTF-8">
