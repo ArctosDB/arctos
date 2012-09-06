@@ -12,7 +12,14 @@
 	</cfscript>
 
 
-	<a href="//bnhmMaps/tabfiles/test.xml">/bnhmMaps/tabfiles/test.xml</a>
+	<a href="/bnhmMaps/tabfiles/test.xml">/bnhmMaps/tabfiles/test.xml</a>
+	
+	
+	
+</cfoutput>
+
+
+
 	<!----------------
 	<cfquery datasource="uam_god" name="cols">
 		select * from taxonomy where 1=2		
@@ -50,4 +57,3 @@
 	</cfloop>	
 	
 		---------->
-</cfoutput>
