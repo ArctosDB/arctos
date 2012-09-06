@@ -1,7 +1,7 @@
 <cfcomponent>	
 <cfset This.name = "Arctos">
-<cfset This.SessionManagement="True">
-<cfset This.ClientManagement="false">
+<cfset This.SessionManagement=true>
+<cfset This.ClientManagement=false>
 <cffunction name="onError">	
 	<cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
