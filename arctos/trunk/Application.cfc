@@ -252,6 +252,7 @@
 	<cfset Application.max_pw_age = 90>
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
+	<cfset Application.StartupServerName=serverName>
 	<cfif serverName is "arctos.database.museum">
 		<cfset Application.serverRootUrl="http://arctos.database.museum">
 		<cfset Application.fromEmail="arctos.database.museum">
