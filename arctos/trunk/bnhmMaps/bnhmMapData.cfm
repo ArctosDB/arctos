@@ -22,7 +22,13 @@
 	<cfthrow detail="block not found" errorcode="9945" message="A block of code (action,mapPoint) was not found in the bnhmMapData template">
 <cfelseif isdefined("search") and search IS "MediaSearch">
 	<cfthrow detail="block not found" errorcode="9945" message="A block of code (search,MediaSearch) was not found in the bnhmMapData template">
-<cfelse><!--- regular mapping routine ---->
+<cfelse>
+	hi.
+	
+	<cfabort>
+	
+	
+	<!--- regular mapping routine ---->
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset ShowObservations = "true">
 	</cfif>
