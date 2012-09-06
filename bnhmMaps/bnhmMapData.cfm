@@ -25,6 +25,33 @@
 <cfelse>
 	hi.
 	
+	
+	
+	
+	
+	<cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/ttttt.xml">
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
+		a='boogity'; 
+		variables.joFileWriter.writeLine(a);
+
+	
+		variables.joFileWriter.close();
+	</cfscript>
+	
+	
+	
+	wrote #Application.webDirectory#/bnhmMaps/tabfiles/ttttt.xml
 	<cfabort>
 	
 	
