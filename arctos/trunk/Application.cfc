@@ -2,12 +2,6 @@
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement="True">
 <cfset This.ClientManagement="false">
-
-<!--------------------- CF 10 code!!!!!!!!!!!!!!!!!!!!!!! --------------->
-<cffunction name="onMissingTemplate">
-	I am onMissingTemplate
-</cffunction>
-
 <cffunction name="onError">	
 	<cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
