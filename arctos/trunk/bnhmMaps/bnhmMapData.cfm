@@ -18,7 +18,7 @@
 </cfif>
 <cfset mediaFlatTableName = "media_flat">
 <!----------------------------------------------------------------->
-<cfif isdefined("") and action IS "mapPoint">
+<cfif isdefined("action") and action IS "mapPoint">
 	<cfthrow detail="block not found" errorcode="9945" message="A block of code (action,mapPoint) was not found in the bnhmMapData template">
 <cfelseif isdefined("search") and search IS "MediaSearch">
 	<cfthrow detail="block not found" errorcode="9945" message="A block of code (search,MediaSearch) was not found in the bnhmMapData template">
@@ -101,8 +101,7 @@
 	
     <logos>
         <logo img="http://arctos.database.museum/images/genericHeaderIcon.gif" url="http://arctos.database.museum/"/>
-        <logo img="http://amphibiaweb.org/images/redlist_logo.jpg"
-              url="http://www.iucnredlist.org/initiatives/mammals"/>
+        <logo img="http://amphibiaweb.org/images/redlist_logo.jpg" url="http://www.iucnredlist.org/initiatives/mammals"/>
     </logos>
 </berkeleymapper>
 	<cfscript>
@@ -223,8 +222,11 @@
 	<cfset CollList=reverse(listColl)>
 	<cfset CollList="#CollList# data.">
 	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
+	#bnhmUrl#
+	<!----
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
+	---->
 	 <noscript>BerkeleyMapper reqiures JavaScript.</noscript> 
 </cfoutput>
