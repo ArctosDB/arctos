@@ -488,7 +488,7 @@
 		</cfscript>
 		<cfabort>
 	</cfif>
-	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu">
+	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "arctos-test.tacc.utexas.edu">
 		<cfset cPath=GetTemplatePath()>
 		<cfif
 			cPath does not contain "/errors/dev_login.cfm" and
