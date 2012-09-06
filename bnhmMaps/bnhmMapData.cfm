@@ -27,7 +27,7 @@
 	
 	
 	
-	
+	<cfoutput>
 	
 	<cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/ttttt.xml">
 
@@ -52,6 +52,11 @@
 	
 	
 	wrote #Application.webDirectory#/bnhmMaps/tabfiles/ttttt.xml
+	
+	
+	</cfoutput>
+	
+	
 	<cfabort>
 	
 	
