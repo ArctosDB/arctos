@@ -1,6 +1,6 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfset fn="arctos_#randRange(1,1000)#">
-<cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.xml">
+<cfset variables.localXmlFile="#Application.webDirectory#/download/#fn#.xml">
 <cfset variables.localTabFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.txt">
 <cfset variables.remoteXmlFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.xml">
 <cfset variables.remoteTabFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.txt">
