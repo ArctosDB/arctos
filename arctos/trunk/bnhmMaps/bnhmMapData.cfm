@@ -23,43 +23,6 @@
 <cfelseif isdefined("search") and search IS "MediaSearch">
 	<cfthrow detail="block not found" errorcode="9945" message="A block of code (search,MediaSearch) was not found in the bnhmMapData template">
 <cfelse>
-	hi.
-	
-	
-	
-	<cfoutput>
-	
-	<cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/ttttt.xml">
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
-		a='boogity test two'; 
-		variables.joFileWriter.writeLine(a);
-
-	
-		variables.joFileWriter.close();
-	</cfscript>
-	
-	
-	
-	wrote #Application.webDirectory#/bnhmMaps/tabfiles/ttttt.xml
-	
-	
-	</cfoutput>
-	
-	
-	<cfabort>
-	
-	
 	<!--- regular mapping routine ---->
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset ShowObservations = "true">
