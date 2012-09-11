@@ -54,6 +54,34 @@
 	wrote #Application.webDirectory#/bnhmMaps/tabfiles/ttttt.xml
 	
 	
+	
+	
+	<cfset variables.localXmlFile="#Application.webDirectory#/download/ttttt.xml">
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
+		a='boogity test download'; 
+		variables.joFileWriter.writeLine(a);
+
+	
+		variables.joFileWriter.close();
+	</cfscript>
+	
+	
+	
+	wrote #Application.webDirectory#/download/ttttt.xml
+	
+	
+	
 	</cfoutput>
 	
 	
