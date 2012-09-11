@@ -427,11 +427,11 @@
 					<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
 					<input type="button" value="Delete" class="delBtn" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#','this agent name');">
 					<input type="button" class="lnkBtn" value="Copy" onClick="newName.agent_name.value='#pname.agent_name#';">
+					<cfif agent_name_type is "login">
+						<a href="/AdminUsers.cfm?action=edit&username=#agent_name#" class="infoLink" target="_top">[ Arctos user ]</a>
+					</cfif>
 				</form>
 				<cfset i = i + 1>
-				<cfif agent_name_type is "login">
-					<a href="/AdminUsers.cfm?action=edit&username=#agent_name#" class="infoLink" target="_top">[ Arctos user ]</a>
-				</cfif>
 			</cfloop>
 		</div>
 		<div id="nagnndv" class="newRec">
