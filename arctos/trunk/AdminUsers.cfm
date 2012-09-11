@@ -71,57 +71,62 @@
 </cfif>
 <!-------------------------------------------------->
 <cfif action is "edit">
-	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT 
-			username,
-			FIRST_NAME,
-			MIDDLE_NAME,
-			LAST_NAME,
-			AFFILIATION,
-			EMAIL,
-			cf_users.USER_ID
-		FROM 
-			cf_users,
-			cf_user_data
-		where
-			cf_users.user_id = cf_user_data.user_id (+) and
-		 	username = '#username#'
-	</cfquery>
-	<cfdump var=#getUsers#>
-	<cfquery name="ctRoleName" datasource="uam_god">
-		select 
-			role_name 
-		from 
-			cf_ctuser_roles 
-		where 
-			upper(role_name) not in (
-				select 
-					upper(granted_role) role_name
-				from 
-					dba_role_privs,
-					cf_ctuser_roles
-				where
-					upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
-					upper(grantee) = '#ucase(username)#'
-			)
-	</cfquery>
-	<cfquery name="roles" datasource="uam_god">
-		select 
-			granted_role role_name
-		from 
-			dba_role_privs,
-			cf_ctuser_roles
-		where
-			upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
-			upper(grantee) = '#ucase(username)#'
-	</cfquery>
-	<cfquery name="isDbUser" datasource="uam_god">
-		select username,account_status from dba_users where username='#ucase(username)#'
-	</cfquery>
-	<cfquery name="hasInvite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select user_id,allow from temp_allow_cf_user where user_id=#getUsers.user_id#
-	</cfquery>
 	<cfoutput>
+		<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			SELECT 
+				username,
+				FIRST_NAME,
+				MIDDLE_NAME,
+				LAST_NAME,
+				AFFILIATION,
+				EMAIL,
+				cf_users.USER_ID
+			FROM 
+				cf_users,
+				cf_user_data
+			where
+				cf_users.user_id = cf_user_data.user_id (+) and
+			 	upper(username) = '#ucase(username)#'
+		</cfquery>
+		<cfif getUsers.recordcount is not 1>
+			<div class="error">
+				#getUsers.recordcount# records found for username #username#.
+			</div>
+			<cfabort>
+		</cfif>
+		<cfquery name="ctRoleName" datasource="uam_god">
+			select 
+				role_name 
+			from 
+				cf_ctuser_roles 
+			where 
+				upper(role_name) not in (
+					select 
+						upper(granted_role) role_name
+					from 
+						dba_role_privs,
+						cf_ctuser_roles
+					where
+						upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
+						upper(grantee) = '#ucase(username)#'
+				)
+		</cfquery>
+		<cfquery name="roles" datasource="uam_god">
+			select 
+				granted_role role_name
+			from 
+				dba_role_privs,
+				cf_ctuser_roles
+			where
+				upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
+				upper(grantee) = '#ucase(username)#'
+		</cfquery>
+		<cfquery name="isDbUser" datasource="uam_god">
+			select username,account_status from dba_users where username='#ucase(username)#'
+		</cfquery>
+		<cfquery name="hasInvite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select user_id,allow from temp_allow_cf_user where user_id=#getUsers.user_id#
+		</cfquery>
 		<cfset title="edit user #username#">
 		<h3>Editing User #username#</h3>
 		<table border>
