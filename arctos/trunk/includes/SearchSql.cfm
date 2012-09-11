@@ -527,6 +527,14 @@
 	<cfset basQual = " #basQual# AND #session.flatTableName#.made_date <= '#end_made_date#'">		
 	<cfset mapurl = "#mapurl#&end_made_date=#end_made_date#">
 </cfif>
+<cfif isdefined("family") and len(family) gt 0>
+	<cfset mapurl = "#mapurl#&family=#family#">
+	<cfif left(family,1) is '='>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.family) = '#ucase(right(family,len(family)-1))#'">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.family) LIKE '%#ucase(family)#%'">
+	</cfif>
+</cfif>
 <cfif isdefined("genus") AND len(genus) gt 0>
 	<cfset mapurl = "#mapurl#&genus=#genus#">
 	<cfif basJoin does not contain " identification ">

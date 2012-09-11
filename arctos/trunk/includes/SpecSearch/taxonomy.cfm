@@ -51,6 +51,14 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_family">Family:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="family" id="family" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="_genus">Genus:</span>
 		</td>
 		<td class="srch">
