@@ -114,6 +114,9 @@
 			upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
 			upper(grantee) = '#ucase(username)#'
 	</cfquery>
+	<cfquery name="isDbUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select username,account_status from all_users where username='#ucase(username)#'
+	</cfquery>
 	<cfoutput>
 		<cfset title="edit user #username#">
 		<h3>Editing User #username#</h3>
@@ -137,30 +140,28 @@
 							<td align="right">Reported Email:</td>
 							<td>#getUsers.EMAIL#</td>
 						</tr>
+						<tr>
+							<td>Database User Status:#account_status#</td>
+							<td>
+								<cfif len(isDbUser.username) gt 0>
+									Is User
+									<a href="AdminUsers.cfm?username=#username#&action=lockUser">Lock Account</a>
+								<cfelse>
+									<cfquery name="hasInvite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+										select user_id,allow from temp_allow_cf_user where user_id=#getUsers.user_id#
+									</cfquery>
+									<cfif hasInvite.allow is 1>
+										Awaiting User Action
+									<cfelse>
+										<a href="AdminUsers.cfm?action=makeNewDbUser&username=#username#&user_id=#getUsers.user_id#">Invite</a>
+									</cfif>
+								</cfif>					
+							</td>
+						</tr>
 					</table>
 				</td>
-		<cfquery name="isDbUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select username from all_users where username='#ucase(username)#'
-		</cfquery>
 		<table border>
-			<tr>
-				<td>Database User Status:</td>
-				<td>
-					<cfif len(isDbUser.username) gt 0>
-						Is User
-						<a href="AdminUsers.cfm?username=#username#&action=lockUser">Lock Account</a>
-					<cfelse>
-						<cfquery name="hasInvite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select user_id,allow from temp_allow_cf_user where user_id=#getUsers.user_id#
-						</cfquery>
-						<cfif hasInvite.allow is 1>
-							Awaiting User Action
-						<cfelse>
-							<a href="AdminUsers.cfm?action=makeNewDbUser&username=#username#&user_id=#getUsers.user_id#">Invite</a>
-						</cfif>
-					</cfif>					
-				</td>
-			</tr>
+			
 			<tr>
 				<td colspan="2">Roles <a href="AdminUsers.cfm?username=#username#&action=dbRole"><img src="/images/info.gif" border="0" /></a></td>
 			</tr>
