@@ -87,6 +87,7 @@
 			cf_users.user_id = cf_user_data.user_id and
 		 	username = '#username#'
 	</cfquery>
+	<cfdump var=#getUsers#>
 	<cfquery name="ctRoleName" datasource="uam_god">
 		select 
 			role_name 
