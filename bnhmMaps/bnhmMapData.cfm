@@ -82,6 +82,31 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	<cfset variables.encoding="UTF-8">
+		<cfif fileFormat is "csv">
+			<cfset fname = "fffff.csv">
+			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+			<cfset header='balalsdas'>
+			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				variables.joFileWriter.writeLine(header); 
+			</cfscript>
+			
+			<cfscript>	
+				variables.joFileWriter.close();
+			</cfscript>
+			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+			
+			
+			
+			
 	</cfoutput>
 	
 	
