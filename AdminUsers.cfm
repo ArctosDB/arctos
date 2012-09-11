@@ -175,12 +175,15 @@
 					<table border>
 						<tr>
 							<td align="right">Arctos username:</td>
+							<td>#username#</td>
+						</tr>
+						<tr>
+							<td align="right">Agent:</td>
 							<td>
-								#username#
 								<cfif len(isAgent.agent_id) gt 0>
-									<a href="/editAllAgent.cfm?agent_id=#isAgent.agent_id#" class="infoLink"> [ edit Agent ] </a>
+									<a href="/editAllAgent.cfm?agent_id=#isAgent.agent_id#"> [ edit Agent ] </a>
 								<cfelse>
-									<span class="infoLink">Agent not found</span>
+									Agent not found
 								</cfif>
 							</td>
 						</tr>
