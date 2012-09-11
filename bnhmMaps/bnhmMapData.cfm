@@ -208,6 +208,7 @@
 	<cfscript>		
 		variables.joFileWriter.close();
 	</cfscript>
+	<!----
 	<cfquery name="distColl" dbtype="query">
 		select collection from getMapData group by collection
 		order by collection
@@ -224,8 +225,12 @@
 	<cfset listColl=replace(listColl,",","dna ,","first")>
 	<cfset CollList=reverse(listColl)>
 	<cfset CollList="#CollList# data.">
-	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
-	#bnhmUrl#
+		<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
+
+	---->
+	
+		<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#">
+
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
