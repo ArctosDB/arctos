@@ -155,8 +155,7 @@
 								<cfif isDbUser.account_status is "OPEN">
 									Account open and active <a href="AdminUsers.cfm?username=#username#&action=lockUser">[ Lock Account ]</a>
 								<cfelseif len(isDbUser.account_status) gt 0>
-									#isDbUser.account_status#
-									<br><a href="/contact.cfm">contact a DBA</a> to unlock the account. 
+									#isDbUser.account_status# - <a href="/contact.cfm">contact a DBA</a> to unlock the account. 
 								<cfelseif hasInvite.allow is 1>
 									Awaiting User Action
 								<cfelse>
@@ -166,6 +165,7 @@
 						</tr>
 					</table>
 				</td>
+				<td>
 		<table border>
 			
 			<tr>
