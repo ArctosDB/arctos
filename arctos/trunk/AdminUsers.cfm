@@ -113,16 +113,20 @@
 			upper(grantee) = '#ucase(username)#'
 	</cfquery>
 	<cfoutput>
+		
+		<table border>
+			<tr>
+				<td>hai
+				</td>
 		<hr>
 		Editing user:
-		#getUsers.FIRST_NAME# #getUsers.MIDDLE_NAME# #getUsers.LAST_NAME# #getUsers.AFFILIATION# #getUsers.EMAIL#
-		
-<cfquery name="isDbUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select username from all_users where username='#ucase(username)#'
-</cfquery>
-
-		</td>
-		<td valign="top">
+		#getUsers.FIRST_NAME# #getUsers.MIDDLE_NAME# #getUsers.LAST_NAME# 
+		<br>#getUsers.AFFILIATION# 
+		<br>#getUsers.EMAIL#
+		<p></p>
+		<cfquery name="isDbUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select username from all_users where username='#ucase(username)#'
+		</cfquery>
 		<table border>
 			<tr>
 				<td>Database User Status:</td>
