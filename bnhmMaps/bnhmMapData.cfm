@@ -78,35 +78,6 @@
 </cfif>
 <!---- write an XML config file specific to the critters they're mapping --->
 <cfoutput>
-	<cfquery name="collID" dbtype="query">
-		select collection_id from getMapData group by collection_id
-	</cfquery>
-	<cfset thisAddress = #Application.DataProblemReportEmail#>
-	<cfif len(valuelist(collID.collection_id)) gt 0>
-		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select address from
-				electronic_address,
-				collection_contacts
-			WHERE
-				electronic_address.agent_id = collection_contacts.contact_agent_id AND
-				collection_contacts.collection_id IN (#valuelist(collID.collection_id)#) AND
-				address_type='e-mail' AND
-				contact_role='data quality'
-			GROUP BY address
-		</cfquery>
-		<cfloop query="whatEmails">
-			<cfset thisAddress = listappend(thisAddress,address)>
-		</cfloop>
-	</cfif>	
-	
-	
-	
-	
-    <logos>
-        <logo img="http://arctos.database.museum/images/genericHeaderIcon.gif" url="http://arctos.database.museum/"/>
-        <logo img="http://amphibiaweb.org/images/redlist_logo.jpg" url="http://www.iucnredlist.org/initiatives/mammals"/>
-    </logos>
-</berkeleymapper>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
 		a='<berkeleymapper>' & chr(10) & 
