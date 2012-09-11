@@ -18,39 +18,41 @@
 			LAST_NAME,
 			AFFILIATION,
 			EMAIL
-		FROM cf_users
-		left outer join cf_user_data on (cf_users.user_id = cf_user_data.user_id)
-		 where upper(username) like '%#ucase(username)#%'
+		FROM 
+			cf_users,
+			cf_user_data
+		where 
+			cf_users.user_id = cf_user_data.user_id (+) and
+			upper(username) like '%#ucase(username)#%'
 		ORDER BY
 			rights, ucasename
 	</cfquery>
 	<br>Select a user to administer<br>
-<table border="1" id="t" class="sortable">
+	<table border="1" id="t" class="sortable">
 		<tr>
 			<th>Username</th>
 			<th>Collections</th>
 			<th>Info</th>
 		</tr>
-	<cfoutput query="getUsers">
-		  <cfquery name="roles" datasource="uam_god">
-			select 
-				granted_role role_name
-			from 
-				dba_role_privs,
-				collection
-			where
-				upper(dba_role_privs.granted_role) = upper(collection.institution_acronym) || '_' || upper(collection.collection_cde) and
-				upper(grantee) = '#ucasename#'
-		</cfquery>
-		<tr>
-			 	<td><a href="AdminUsers.cfm?action=edit&username=#username#">#username#</a></td>
-			 	<td>#valuelist(roles.role_name)#</td>
+		<cfoutput query="getUsers">
+			<cfquery name="roles" datasource="uam_god">
+				select 
+					granted_role role_name
+				from 
+					dba_role_privs,
+					collection
+				where
+					upper(dba_role_privs.granted_role) = upper(collection.institution_acronym) || '_' || upper(collection.collection_cde) and
+					upper(grantee) = '#ucasename#'
+			</cfquery>
+			<tr>
+				 <td><a href="AdminUsers.cfm?action=edit&username=#username#">#username#</a></td>
+				 <td>#replace(valuelist(roles.role_name),",",", ","all")#</td>
 				<td>#FIRST_NAME# #MIDDLE_NAME# #LAST_NAME#: #AFFILIATION# (#EMAIL#)</td>
-			 </tr>
-	</cfoutput>
+			</tr>
+		</cfoutput>
 	</table>
 </cfif>
-
 <!-------------------------------------------------->
 <cfif action is "addRole">
 	<cfoutput>
