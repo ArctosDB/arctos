@@ -226,10 +226,8 @@
 	<cfset CollList="#CollList# data.">
 	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
 	#bnhmUrl#
-	<!----
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
-	---->
 	 <noscript>BerkeleyMapper reqiures JavaScript.</noscript> 
 </cfoutput>
