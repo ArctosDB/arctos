@@ -76,7 +76,8 @@
 			MIDDLE_NAME,
 			LAST_NAME,
 			AFFILIATION,
-			EMAIL
+			EMAIL,
+			cf_users.USER_ID
 		FROM 
 			cf_users,
 			cf_user_data
@@ -112,6 +113,7 @@
 			upper(grantee) = '#ucase(username)#'
 	</cfquery>
 	<cfoutput>
+		<hr>
 		Editing user:
 		#getUsers.FIRST_NAME# #getUsers.MIDDLE_NAME# #getUsers.LAST_NAME# #getUsers.AFFILIATION# #getUsers.EMAIL#
 		
