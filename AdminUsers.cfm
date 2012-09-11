@@ -88,6 +88,15 @@
 				cf_users.user_id = cf_user_data.user_id (+) and
 			 	upper(username) = '#ucase(username)#'
 		</cfquery>
+		<cfquery name="isAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			SELECT 
+				agent_id
+			FROM 
+				agent_name
+			where
+				agent_name_type='login' and 
+			 	upper(agent_name) = '#ucase(username)#'
+		</cfquery>
 		<cfif getUsers.recordcount is not 1>
 			<div class="error">
 				#getUsers.recordcount# records found for username #username#.
@@ -166,7 +175,14 @@
 					<table border>
 						<tr>
 							<td align="right">Arctos username:</td>
-							<td>#username#</td>
+							<td>
+								#username#
+								<cfif len(isAgent.agent_id) gt 0>
+									<a href="/editAllAgent.cfm?agent_id=#isAgent.agent_id#" class="infoLink"> [ edit Agent ] </a>
+								<cfelse>
+									<span class="infoLink">Agent not found</span>
+								</cfif>
+							</td>
 						</tr>
 						<tr>
 							<td align="right">Reported First/Middle/Last:</td>
@@ -181,7 +197,7 @@
 							<td>#getUsers.EMAIL#</td>
 						</tr>
 						<tr>
-							<td>Database User Status:</td>
+							<td align="right">Database User Status:</td>
 							<td>
 								<cfif isDbUser.account_status is "OPEN">
 									Account open and active <a href="AdminUsers.cfm?username=#username#&action=lockUser">[ Lock Account ]</a>
