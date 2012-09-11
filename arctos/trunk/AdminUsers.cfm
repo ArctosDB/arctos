@@ -52,7 +52,7 @@
 </cfif>
 
 <!-------------------------------------------------->
-<cfif #Action# is "addRole">
+<cfif action is "addRole">
 	<cfoutput>
 		<cfquery name="g" datasource="uam_god">
 			grant #role_name# to #username#
@@ -61,7 +61,7 @@
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------->
-<cfif #Action# is "remrole">
+<cfif action is "remrole">
 	<cfoutput>
 		<cfquery name="t" datasource="uam_god">
 			revoke #role_name# from #username#
@@ -115,6 +115,8 @@
 			upper(grantee) = '#ucase(username)#'
 	</cfquery>
 	<cfoutput>
+		<cfset title="edit user #username#">
+		<h3>Editing User #username#</h3>
 		<table border>
 			<tr>
 				<td colspan="2">
