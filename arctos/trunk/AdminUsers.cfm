@@ -118,6 +118,10 @@
 				<td colspan="2">
 					<table border>
 						<tr>
+							<td align="right">Arctos username:</td>
+							<td>#username#</td>
+						</tr>
+						<tr>
 							<td align="right">Reported First/Middle/Last:</td>
 							<td>#getUsers.FIRST_NAME# #getUsers.MIDDLE_NAME# #getUsers.LAST_NAME# </td>
 						</tr>
