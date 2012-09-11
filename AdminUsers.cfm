@@ -84,7 +84,7 @@
 			cf_users,
 			cf_user_data
 		where
-			cf_users.user_id = cf_user_data.user_id and
+			cf_users.user_id = cf_user_data.user_id (+) and
 		 	username = '#username#'
 	</cfquery>
 	<cfdump var=#getUsers#>
