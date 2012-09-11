@@ -115,7 +115,7 @@
 			upper(grantee) = '#ucase(username)#'
 	</cfquery>
 	<cfquery name="isDbUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select username,account_status from all_users where username='#ucase(username)#'
+		select username,account_status from dba_users where username='#ucase(username)#'
 	</cfquery>
 	<cfoutput>
 		<cfset title="edit user #username#">
