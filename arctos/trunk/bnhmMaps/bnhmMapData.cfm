@@ -23,15 +23,13 @@
 <cfelseif isdefined("search") and search IS "MediaSearch">
 	<cfthrow detail="block not found" errorcode="9945" message="A block of code (search,MediaSearch) was not found in the bnhmMapData template">
 <cfelse>
-	
-	
 	<!--- regular mapping routine ---->
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset ShowObservations = "true">
 	</cfif>
 	<cfset basSelect = "SELECT DISTINCT 
 		#flatTableName#.collection,
-			#flatTableName#.guid,
+		#flatTableName#.guid,
 		#flatTableName#.collection_id,
 		#flatTableName#.cat_num,
 		#flatTableName#.scientific_name,
@@ -45,20 +43,10 @@
 		#flatTableName#.collection_object_id,
 		#flatTableName#.collectors">
 	<cfset basFrom = "	FROM #flatTableName#">
-	<!----
-	<cfset basJoin = " INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)
-		INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_id = flatCollEvent.collecting_event_id)">	
-	<cfset basWhere = " WHERE 
-		dec_lat is not null AND
-		dec_long is not null AND
-		flatCollEvent.collecting_source = 'wild caught' ">
-	---->	
 	<cfset basJoin = " INNER JOIN specimen_event ON (#flatTableName#.collection_object_id =specimen_event.collection_object_id)
 			INNER JOIN collecting_event ON (specimen_event.collecting_event_id =collecting_event.collecting_event_id)
-			INNER JOIN locality ON (collecting_event.locality_id =locality.locality_id)
-				">
-	<cfset basWhere = " WHERE 
-		locality.dec_lat is not null ">		
+			INNER JOIN locality ON (collecting_event.locality_id =locality.locality_id)">
+	<cfset basWhere = " WHERE locality.dec_lat is not null ">		
 	<cfset basQual = "">
 	<cfif not isdefined("basJoin")>
 		<cfset basJoin = "">
@@ -96,8 +84,6 @@
 			chr(9) & '</concepts>' & chr(10); 
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
-
-
 	<cfif isdefined("showRangeMaps") and showRangeMaps is true>
 		<cfquery name="species" dbtype="query">
 			select distinct(scientific_name) scientific_name from getMapData
@@ -123,7 +109,6 @@
 			</script>
 			<cfabort>
 		</cfif>
-		
 		<cfscript>
 			a=chr(9) & '<gisdata>' & chr(10) & 
 			chr(9) & chr(9) & '<layer title="#getClass.genus# #getClass.species#" name="mamm" location="#getClass.genus# #getClass.species#" legend="1" active="1" url="">' & chr(10);
@@ -179,29 +164,7 @@
 	<cfscript>		
 		variables.joFileWriter.close();
 	</cfscript>
-	<!----
-	<cfquery name="distColl" dbtype="query">
-		select collection from getMapData group by collection
-		order by collection
-	</cfquery>
-	<cfset collList=''>
-	<cfloop query="distColl">
-		<cfif len(collList) is 0>
-			<cfset collList="#collection#">
-		<cfelse>
-			<cfset CollList="#collList#, #collection#">
-		</cfif>
-	</cfloop>
-	<cfset listColl=reverse(CollList)>
-	<cfset listColl=replace(listColl,",","dna ,","first")>
-	<cfset CollList=reverse(listColl)>
-	<cfset CollList="#CollList# data.">
-		<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1&maxerrorinmeters=1">
-
-	---->
-	
-		<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#">
-
+	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#">
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
