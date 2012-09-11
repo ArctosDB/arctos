@@ -68,85 +68,48 @@
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------->
-<cfif #Action# is "edit">
+<cfif action is "edit">
 	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT * FROM cf_users
-		left outer join cf_user_data on (cf_users.user_id = cf_user_data.user_id)
-		 where username = '#username#'
+		SELECT 
+			username
+		FROM 
+			cf_users,
+			cf_user_data
+		where
+			cf_users.user_id = cf_user_data.user_id and
+		 	username = '#username#'
 	</cfquery>
 	<cfquery name="ctRoleName" datasource="uam_god">
-				select role_name from cf_ctuser_roles where upper(role_name) not in (
-					select upper(granted_role) role_name
-					from 
+		select 
+			role_name 
+		from 
+			cf_ctuser_roles 
+		where 
+			upper(role_name) not in (
+				select 
+					upper(granted_role) role_name
+				from 
 					dba_role_privs,
 					cf_ctuser_roles
-					where
+				where
 					upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
 					upper(grantee) = '#ucase(username)#'
-				)
-			</cfquery>
-	<cfquery name="roles" datasource="uam_god">
-		select granted_role role_name
-		from 
-		dba_role_privs,
-		cf_ctuser_roles
-		where
-		upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
-		upper(grantee) = '#ucase(username)#'
+			)
 	</cfquery>
-	
+	<cfquery name="roles" datasource="uam_god">
+		select 
+			granted_role role_name
+		from 
+			dba_role_privs,
+			cf_ctuser_roles
+		where
+			upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
+			upper(grantee) = '#ucase(username)#'
+	</cfquery>
 	<cfoutput>
-	<form action="AdminUsers.cfm" method="post">
-		<input type="hidden" name="Action" value="runUpdate">
-		<input type="hidden" name="orig_username" value="#getUsers.username#">
-<table>
-	<tr>
-		<td valign="top">
-		
-<table border="1">
-  <tr>
-    <td>Username</td>
-	<td>
-		<input type="text" name="username" value="#getUsers.username#">
-				
-	</td>
-  </tr>
-  
-  <tr>
-    <td>Password</td>
-    <td>
-	<input type="password" name="password">
-	</td>
-  </tr>
-     <tr>
-          <td>Approved to request loans?</td>
-    <td>
-		<select name="approved_to_request_loans" size="1">
-			<option <cfif #getUsers.approved_to_request_loans# is "0"> selected </cfif>value="0">no</option>
-			<option <cfif #getUsers.approved_to_request_loans# is "1"> selected </cfif>value="1">yes</option>
-		</select>
-	</td>
-  </tr>
-  <tr>
-          <td><font color="##FF0000">Delete this user</font></td>
-    <td>
-		<input type="text" name="delete">(type 'delete' to delete the user)
-	</td>
-  </tr>
-  <tr>
-  	<td>Info</td>
-	<td>
+		Editing user:
 		#getUsers.FIRST_NAME# #getUsers.MIDDLE_NAME# #getUsers.LAST_NAME# #getUsers.AFFILIATION# #getUsers.EMAIL#
-	</td>
-  </tr>
-  <tr>
-  	<td colspan="2">
-		<input type="submit" value="update">		
-	</td>
-  </tr>
-</table>
-</form>
-
+		
 <cfquery name="isDbUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select username from all_users where username='#ucase(username)#'
 </cfquery>
@@ -424,6 +387,11 @@
 		</cfloop>
 	</cfoutput>
 </cfif>
+
+
+<!---------------
+
+deprecated
 <!---------------------------------------------------->
 <cfif #Action# is "runUpdate">
 	<cfoutput>
@@ -451,9 +419,6 @@
 				<cfelse>
 					username='#orig_username#'
 				</cfif>
-				<cfif len(#password#) gt 0>
-					,password = '#hash(password)#'
-				</cfif>
 				<cfif isdefined("approved_to_request_loans") and len(#approved_to_request_loans#) gt 0>
 					,approved_to_request_loans = '#approved_to_request_loans#'
 				</cfif>			
@@ -474,4 +439,5 @@
 	</cfif>
 	</cfoutput>
 </cfif>
+-------------------->
 <cfinclude template = "includes/_footer.cfm">
