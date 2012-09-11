@@ -90,7 +90,6 @@
 	
 	
 	<cfset variables.encoding="UTF-8">
-		<cfif fileFormat is "csv">
 			<cfset fname = "fffff.csv">
 			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 			<cfset header='balalsdas'>
