@@ -160,7 +160,7 @@
 		</cfquery>
 		<cfset title="edit user #username#">
 		<h3>Editing User #username#</h3>
-		<table border>
+		<table>
 			<tr>
 				<td colspan="2">
 					<table border>
@@ -196,7 +196,15 @@
 						</tr>
 					</table>
 				</td>
-			</tr>
+			</tr><tr>
+				<td colspan="2">
+					Users must have both functional roles and access to collections to use Arctos.
+					<br>All operators require the coldfusion_user role.
+					<br>Give role "public" to everyone, just because Oracle is goofy.
+					<br>Be very cautious in assigning access to shared information, such as agents and places.
+					<br>Only members of the Arctos Advisory Committee or their designated representatives should have access to code tables, geography, and taxonomy.
+					<br>Role documentation is <a href="Admin/user_roles.cfm">here</a>.
+				</td>
 			<tr>
 				<td valign="top">
 					<table border>
@@ -216,7 +224,6 @@
 								</td>
 								<td>
 									<input type="submit" value="Grant Role" class="savBtn">
-									<a href="Admin/user_roles.cfm" class="infoLink">[ define ]</a>
 								</td>
 							</form>
 						</tr>
