@@ -71,7 +71,12 @@
 <cfif action is "edit">
 	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
-			username
+			username,
+			FIRST_NAME,
+			MIDDLE_NAM,
+			LAST_NAME,
+			AFFILIATION,
+			EMAIL
 		FROM 
 			cf_users,
 			cf_user_data
