@@ -29,6 +29,21 @@
 	
 	<cfoutput>
 	
+	
+	
+	
+	
+	
+	
+	<cfscript> 
+FileWrite("mail_list", "aljsdkhfailsdhbfas"); 
+mlist = FileRead("mail_list"); 
+FileWrite("#Application.webDirectory#/bnhmMaps/tabfiles/fwrite.txt", "#mlist#"); 
+</cfscript>
+
+
+
+
 	<cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/ttttt.xml">
 
 	
