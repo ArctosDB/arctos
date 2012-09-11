@@ -114,7 +114,7 @@
 			upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
 			upper(grantee) = '#ucase(username)#'
 	</cfquery>
-	<cfquery name="isDbUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="isDbUser" datasource="uam_god">
 		select username,account_status from dba_users where username='#ucase(username)#'
 	</cfquery>
 	<cfoutput>
