@@ -300,12 +300,11 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
-<cfif #Action# is "lockUser">
+<cfif action is "lockUser">
 	<cfoutput>
 		<cfquery name="lock" datasource="uam_god">
 			alter user #username# account lock
 		</cfquery>
-		
 		The account for #username# is now locked. Contact a DBA to unlock it.
 		<a href="AdminUsers.cfm?username=#username#&action=edit">Continue</a>
 	</cfoutput>
