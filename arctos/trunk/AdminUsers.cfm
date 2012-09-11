@@ -141,7 +141,7 @@
 							<td>#getUsers.EMAIL#</td>
 						</tr>
 						<tr>
-							<td>Database User Status:#account_status#</td>
+							<td>Database User Status:#isDbUser.account_status#</td>
 							<td>
 								<cfif len(isDbUser.username) gt 0>
 									Is User
