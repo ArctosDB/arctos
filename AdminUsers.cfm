@@ -73,7 +73,7 @@
 		SELECT 
 			username,
 			FIRST_NAME,
-			MIDDLE_NAM,
+			MIDDLE_NAME,
 			LAST_NAME,
 			AFFILIATION,
 			EMAIL
