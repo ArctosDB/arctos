@@ -117,6 +117,9 @@
 	<cfquery name="isDbUser" datasource="uam_god">
 		select username,account_status from dba_users where username='#ucase(username)#'
 	</cfquery>
+	<cfquery name="hasInvite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select user_id,allow from temp_allow_cf_user where user_id=#getUsers.user_id#
+	</cfquery>
 	<cfoutput>
 		<cfset title="edit user #username#">
 		<h3>Editing User #username#</h3>
@@ -141,21 +144,18 @@
 							<td>#getUsers.EMAIL#</td>
 						</tr>
 						<tr>
-							<td>Database User Status:#isDbUser.account_status#</td>
+							<td>Database User Status:</td>
 							<td>
-								<cfif len(isDbUser.username) gt 0>
-									Is User
-									<a href="AdminUsers.cfm?username=#username#&action=lockUser">Lock Account</a>
+								<cfif isDbUser.account_status is "OPEN">
+									Account open and active <a href="AdminUsers.cfm?username=#username#&action=lockUser">[ Lock Account ]</a>
+								<cfelseif len(isDbUser.account_status) gt 0>
+									#isDbUser.account_status#
+									<br><a href="/contact.cfm">contact a DBA</a> to unlock the account. 
+								<cfelseif hasInvite.allow is 1>
+									Awaiting User Action
 								<cfelse>
-									<cfquery name="hasInvite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-										select user_id,allow from temp_allow_cf_user where user_id=#getUsers.user_id#
-									</cfquery>
-									<cfif hasInvite.allow is 1>
-										Awaiting User Action
-									<cfelse>
-										<a href="AdminUsers.cfm?action=makeNewDbUser&username=#username#&user_id=#getUsers.user_id#">Invite</a>
-									</cfif>
-								</cfif>					
+									<a href="AdminUsers.cfm?action=makeNewDbUser&username=#username#&user_id=#getUsers.user_id#">Invite as Operator</a>
+								</cfif>				
 							</td>
 						</tr>
 					</table>
