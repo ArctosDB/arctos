@@ -217,12 +217,14 @@
 				</td>
 			</tr><tr>
 				<td colspan="2">
-					Users must have both functional roles and access to collections to use Arctos.
-					<br>All operators require the coldfusion_user role.
-					<br>Give role "public" to everyone, just because Oracle is goofy.
-					<br>Be very cautious in assigning access to shared information, such as agents and places.
-					<br>Only members of the Arctos Advisory Committee or their designated representatives should have access to code tables, geography, and taxonomy.
-					<br>Role documentation is <a href="Admin/user_roles.cfm">here</a>.
+					<ul>
+						<li>Users must have both functional roles and access to collections to use Arctos</li>
+						<li>All operators require the coldfusion_user role</li>
+						<li>Give role "public" to everyone, just because Oracle is goofy</li>
+						<li>Be very cautious in assigning access to shared information, such as agents and places</li>
+						<li>Only members of the Arctos Advisory Committee or their designated representatives should have access to code tables, geography, and taxonomy</li>
+						<li>Role documentation is <a href="Admin/user_roles.cfm">here</a></li>
+					</ul>
 				</td>
 			<tr>
 				<td valign="top">
