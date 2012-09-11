@@ -3,8 +3,10 @@
 <cfset title="Administer Users">
 <form action="AdminUsers.cfm" method="post">
 	<input type="hidden" name="Action" value="list">
-	Find a user: <input name="username">&nbsp;<input type="submit" value="Find">
+	<label for="username">Search by Arctos Username</label>
+	<input name="username">&nbsp;<input type="submit" value="Find">
 </form>
+<hr>
 <cfif Action is "list">
 	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
