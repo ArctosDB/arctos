@@ -302,7 +302,7 @@
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
 	<cfelseif serverName is  "arctos-test.tacc.utexas.edu">
 		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
-		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
+		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
 		<cfset Application.bugReportEmail = "dustymc@gmail.com">
 		<cfset Application.technicalEmail = "dustymc@gmail.com">
