@@ -18,7 +18,7 @@
 	</cfif>
 	<cfset accnNumber=r_accnNumber>
 	<cfset collectionID=r_collectionID>
-	<form name="searchForAccn" action="findAccn.cfm" method="get">
+	<form name="searchForAccn" action="getAccn.cfm" method="get">
 		<label for="collectionID">Collection</label>
 		<select name="collectionID" id="collectionID">
 			<option value=""></option>
