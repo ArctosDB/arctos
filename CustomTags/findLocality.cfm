@@ -13,6 +13,7 @@
 attributes.type=#attributes.type#
 <!--- always include geog, not typed --->
 <!--- include loclaity if type is locality OR if type is any child of locality --->
+<!--- make sure these aren't cfif-ed together or it'll stop when it finds the first - it needs multiple --->
 <cfif attributes.type is "locality" or attributes.type is "event" or attributes.type is "specevent">
 	<cfset sel=sel & ",locality.locality_id,
 		spec_locality,
@@ -37,7 +38,8 @@ attributes.type=#attributes.type#
 	<cfset frm=frm & ",locality,geology_attributes">
 	<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and locality.locality_id = geology_attributes.locality_id (+)">
 	<cfset orderby=orderby & ",spec_locality">
-<cfelseif attributes.type is "event" or attributes.type is "specevent">
+</cfif>
+<cfif attributes.type is "event" or attributes.type is "specevent">
 	
 	ohai!
 	<cfset sel=sel & ",collecting_event.collecting_event_id,
@@ -50,7 +52,8 @@ attributes.type=#attributes.type#
 	<cfset frm=frm & ",collecting_event">
 	<cfset whr=whr & " and locality.locality_id=collecting_event.locality_id (+)">
 	<cfset orderby=orderby & ",verbatim_locality,verbatim_coordinates">
-<cfelseif attributes.type is "specevent">
+</cfif>
+<cfif attributes.type is "specevent">
 	<cfset sel=sel & ",collecting_source,
 		collecting_method,
 		specimen_event_type">
