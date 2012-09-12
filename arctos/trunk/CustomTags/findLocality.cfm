@@ -218,7 +218,7 @@ sel: select geog_auth_rec.geog_auth_rec_id, higher_geog frm: from geog_auth_rec 
 
 
 
-<cfset sql="#sel# #frm# #whr# #qual# order by #orderby#">
+<cfset sql="#sel# #frm# where #whr# #qual# order by #orderby#">
 
 
 
