@@ -10,7 +10,9 @@
 <cfset orderby="higher_geog">
 <cfset qual="">
 
-<cfif attributes.type is "locality">
+<!--- always include geog, not typed --->
+<!--- include loclaity if type is locality OR if type is any child of locality --->
+<cfif attributes.type is "locality" or attributes.type is "event" or attributes.type is "specevent">
 	<cfset sel=sel & ",locality.locality_id,
 		spec_locality,
 		max_error_distance,
@@ -34,7 +36,7 @@
 	<cfset frm=frm & ",locality,geology_attributes">
 	<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and locality.locality_id = geology_attributes.locality_id (+)">
 	<cfset orderby=orderby & ",spec_locality">
-<cfelseif attributes.type is "event">
+<cfelseif attributes.type is "event" or attributes.type is "specevent">
 	<cfset sel=sel & ",collecting_event.collecting_event_id,
 		began_date,
 		ended_date,
