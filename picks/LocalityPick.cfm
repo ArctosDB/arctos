@@ -27,7 +27,7 @@
 <cfif #Action# is "findLocality">
 <cfset title = "Select a Locality">
 <cfoutput>
-	<cf_findLocality>
+	<cf_findLocality type="locality">
 	<cfquery name="localityResults" dbtype="query">
 		select 
 			locality_id,

@@ -97,7 +97,7 @@
 <cfif action is "srch">
 	<cfset title="Locality Information">
 	<cfoutput>
-		<cf_findLocality>
+		<cf_findLocality type="event">
 		<cfquery name="localityResults" dbtype="query">
 			select
 				collecting_event_id,
