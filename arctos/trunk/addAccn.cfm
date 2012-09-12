@@ -8,7 +8,7 @@
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		flat.collection,
-		accn.accn_num,
+		accn.ACCN_NUMBER,
 		flat.collection_object_id,
 		flat.guid,
 		flat.collectors,
