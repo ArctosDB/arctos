@@ -1371,7 +1371,7 @@ INSERT INTO geog_auth_rec (
 	<cfoutput>
 		<form name="tools" method="post" action="Locality.cfm">
 			<input type="hidden" name="action" value="massMoveCollEvent" />
-			<cf_findLocality type="locality">
+			<cf_findLocality type="event">
 			<cfquery name="localityResults" dbtype="query">
 				select
 					collecting_event_id,
@@ -1561,7 +1561,7 @@ INSERT INTO geog_auth_rec (
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "findLocality">
 <cfoutput>
-	<cf_findLocality>
+	<cf_findLocality type="locality">
 	<cfset title="Locality Search Results">
 	<!--- need to filter out distinct --->
 	<cfquery name="localityResults" dbtype="query">
