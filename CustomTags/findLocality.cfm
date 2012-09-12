@@ -30,7 +30,7 @@
 		DEPTH_UNITS,
 		concatGeologyAttributeDetail(locality.locality_id) geolAtts,minimum_elevation,
 		maximum_elevation,
-		orig_elev_units,">
+		orig_elev_units">
 	<cfset frm=frm & ",locality,geology_attributes">
 	<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and locality.locality_id = geology_attributes.locality_id (+)">
 	<cfset orderby=orderby & ",spec_locality">
