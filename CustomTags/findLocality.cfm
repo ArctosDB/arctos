@@ -204,10 +204,13 @@
 	<span class="error">You must enter search criteria.</span>
 	<cfabort>
 </cfif>
-<cfset sql="#sel# #frm# where #whr# #qual# order by #orderby#">
+<cfset sql="#sel# #frm# where #whr# #qual# and rownum < 1001 order by #orderby#">
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
+<cfif caller.localityResults.recordcount is 1000>
+	<br>This application returns a maximum of 1000 rows. Not all results are displayed.<br>
+</cfif>
 <cfif caller.localityResults.recordcount is 0>
 	<span class="error">Your search found no matches.</span>
 	<cfabort>
