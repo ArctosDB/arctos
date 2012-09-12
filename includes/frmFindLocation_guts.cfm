@@ -90,7 +90,6 @@
 	}	
 </script>
 <cfoutput>
-	action: #action#
 <cfif not isdefined("showLocality")>
 	<cfset showLocality=0>
 </cfif>

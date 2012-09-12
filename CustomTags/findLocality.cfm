@@ -1,55 +1,62 @@
 <!--- returns query object localityResults --->
 <cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
-<cfset sql = "
-	select
+	
+<cfset sel = "select
 		geog_auth_rec.geog_auth_rec_id,
-		locality.locality_id,
-		collecting_event.collecting_event_id,
-		higher_geog,
+		higher_geog">
+<cfset frm=" from geog_auth_rec">
+<cfset whr=" 1=1">
+<cfset orderby="higher_geog">
+
+
+<cfif retTab is "loc">
+	<cfset sel=sel & ",locality.locality_id,
 		spec_locality,
-		began_date,
-		ended_date,
-		verbatim_date,
-		verbatim_locality,
-		collecting_source,
-		collecting_method,
-		Verbatim_coordinates,
 		max_error_distance,
 		max_error_units,
-		minimum_elevation,
-		maximum_elevation,
-		orig_elev_units,
-		concatGeologyAttributeDetail(locality.locality_id) geolAtts,
-		specimen_event_type,
 		locality.dec_lat,
 		locality.dec_long,
 		georeference_source,
 		georeference_protocol,
 		locality_name,
 		locality.DATUM,
-		collecting_event_name,
+		LOCALITY_REMARKS,
 		MINIMUM_ELEVATION,
 		MAXIMUM_ELEVATION,
 		ORIG_ELEV_UNITS,
 		MIN_DEPTH,
 		MAX_DEPTH,
 		DEPTH_UNITS,
-		LOCALITY_REMARKS
-	from 
-		geog_auth_rec,
-		locality,
-		collecting_event,
-		specimen_event,
-		geology_attributes,
-		cataloged_item
-	where
-		geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and
-		locality.locality_id=collecting_event.locality_id (+) and
-		collecting_event.collecting_event_id = specimen_event.collecting_event_id (+) and
-		specimen_event.collection_object_id=cataloged_item.collection_object_id (+) and
-		locality.locality_id = geology_attributes.locality_id (+) ">
+		concatGeologyAttributeDetail(locality.locality_id) geolAtts,minimum_elevation,
+		maximum_elevation,
+		orig_elev_units,">
+	<cfset frm=frm & ",locality,geology_attributes">
+	<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and locality.locality_id = geology_attributes.locality_id (+)">
+	<cfset orderby=orderby & ",spec_locality">
+<cfelseif retTab is "event">
+	<cfset sel=sel & ",collecting_event.collecting_event_id,
+		began_date,
+		ended_date,
+		verbatim_date,
+		verbatim_locality,
+		Verbatim_coordinates,
+		collecting_event_name">
+	<cfset frm=frm & ",collecting_event">
+	<cfset whr=whr & " and locality.locality_id=collecting_event.locality_id (+)">
+	<cfset orderby=orderby & ",verbatim_locality,verbatim_coordinates">
+<cfelseif retTab is "specevent">
+	<cfset sel=sel & ",collecting_source,
+		collecting_method,
+		specimen_event_type">
+		
+	<cfset frm=frm & ",specimen_event,cataloged_item">
+	<cfset whr=whr & " and collecting_event.collecting_event_id = specimen_event.collecting_event_id (+) and
+		specimen_event.collection_object_id=cataloged_item.collection_object_id (+)">
+</cfif>
+<cfset sql="">
 
+		
 <cfif isdefined("collection_id") and len(collection_id) gt 0>
 	<cfif not isdefined("collnOper") or len(collnOper) is 0>
 		<cfset collnOper="usedOnlyBy">
@@ -69,7 +76,7 @@
 <cfif isdefined("geology_attribute") and len(#geology_attribute#) gt 0>
 	<cfset sql = "#sql# AND geology_attributes.geology_attribute = '#geology_attribute#'">	
 </cfif>
-<cfif isdefined("geo_att_value") and len(#geo_att_value#) gt 0>
+<cfif isdefined("geo_att_value") and len(geo_att_value) gt 0>
 	<cfif isdefined("geology_attribute_hier") and #geology_attribute_hier# is 1>
 		<!--- not quite sure what to do with this yet - turning it off at the 
 		search form for now - DLM --->
@@ -196,11 +203,23 @@
 	<span class="error">You must enter search criteria.</span>
 	<cfabort>
 </cfif>
+<hr>
+sel: #sel#
+<hr>
+frm: #frm#
+<hr>
+whr: #whr#
+<hr>
+sql: #sql#
+<hr>
+orderby: #orderby#
+
+
+
+
+
 <cfset sql = "#sql# ORDER BY
-	higher_geog,
-	spec_locality,
-	verbatim_locality,
-	verbatim_coordinates">
+	">
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
