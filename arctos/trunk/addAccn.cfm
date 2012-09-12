@@ -7,55 +7,36 @@
 <cfoutput>
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
-		cataloged_item.collection_object_id,
-		cataloged_item.cat_num,
-		accn.accn_number,
-		preferred_agent_name.agent_name,
-		collector.coll_order,
-		geog_auth_rec.higher_geog,
-		locality.spec_locality,
-		collecting_event.verbatim_date,
-		identification.scientific_name,
-		collection.institution_acronym,
-		trans.institution_acronym transInst,
-		trans.transaction_id,
+		flat.collection,
+		accn.accn_num,
+		flat.collection_object_id,
+		flat.guid,
+		flat.collectors,
+		flat.higher_geog,
+		flat.spec_locality,
+		flat.verbatim_date,
+		flat.scientific_name,
 		collection.collection,
-		a_coll.collection accnColln
+		accn.transaction_id
 	FROM
-		cataloged_item,
+		flat,
 		accn,
 		trans,
-		collecting_event,
-		locality,
-		geog_auth_rec,
-		collector,
-		preferred_agent_name,
-		identification,
 		collection,
-		collection a_coll
 		<cfif (not isdefined("collection_object_id")) or (isdefined("collection_object_id") and listlen(collection_object_id) gt 1)>
 			,#session.SpecSrchTab#
 		</cfif>
 	WHERE
-		cataloged_item.accn_id = accn.transaction_id AND
+		flat.accn_id = accn.transaction_id AND
 		accn.transaction_id = trans.transaction_id AND
-		trans.collection_id=a_coll.collection_id and
-		cataloged_item.collection_object_id = collector.collection_object_id AND
-		collector.agent_id = preferred_agent_name.agent_id AND
-		collector_role='c' AND
-		cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
-		cataloged_item.collection_id = collection.collection_id AND
-		collecting_event.locality_id = locality.locality_id AND
-		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
-		cataloged_item.collection_object_id = identification.collection_object_id AND
-		identification.accepted_id_fg = 1 AND
-		cataloged_item.collection_object_id = 
+		trans.collection_id=collection.collection_id and
+		flat.collection_object_id = 
 		<cfif isdefined("collection_object_id") and listlen(collection_object_id) is 1>
 			#collection_object_id#
 		<cfelse>
 			#session.SpecSrchTab#.collection_object_id
 		</cfif>
-	ORDER BY cataloged_item.collection_object_id
+	ORDER BY flat.collection_object_id
 	</cfquery>
 	Add all the items listed below to accession:
 	<form name="addItems" method="post" action="addAccn.cfm">
@@ -94,7 +75,7 @@
 	</form>
 <table border>
 	<tr>
-		<td>Cat Num</td>
+		<td>GUID</td>
 		<td>Scientific Name</td>
 		<td>Accn</td>
 		<td>Collectors</td>
@@ -106,23 +87,10 @@
 	</cfoutput>
 	<cfoutput query="getItems" group="collection_object_id">
 	<tr>
-		<td>#collection# #cat_num#</td>
+		<td>#guid#</td>
 		<td>#scientific_name#</td>
-		<td><a href="/SpecimenResults.cfm?Accn_trans_id=#transaction_id#" target="_top">#accnColln# #Accn_number#</a></td>
-		<td>
-			<cfquery name="getAgent" dbtype="query">
-				select agent_name, coll_order from getItems where collection_object_id = #getItems.collection_object_id#
-				order by coll_order
-			</cfquery>
-			<cfset colls = "">
-			<cfloop query="getAgent">
-				<cfif len(#colls#) is 0>
-					<cfset colls = #getAgent.agent_name#>
-				  <cfelse>
-				  	<cfset colls = "#colls#, #getAgent.agent_name#">
-				</cfif>
-			</cfloop>
-		#colls#</td>
+		<td><a href="/SpecimenResults.cfm?Accn_trans_id=#transaction_id#" target="_top">#collection# #Accn_number#</a></td>
+		<td>#collectors#</td>
 		<td>#higher_geog#</td>
 		<td>#spec_locality#</td>
 		<td>#verbatim_date#</td>
