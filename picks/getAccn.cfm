@@ -10,14 +10,6 @@
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection,collection_id from collection order by institution_acronym,collection_cde
 	</cfquery>
-	<cfif not isdefined("r_accnNumber")>
-		<cfset r_accnNumber=''>
-	</cfif>
-	<cfif not isdefined("r_collectionID")>
-		<cfset r_collectionID=''>
-	</cfif>
-	<cfset accnNumber=r_accnNumber>
-	<cfset collectionID=r_collectionID>
 	<form name="searchForAccn" action="getAccn.cfm" method="get">
 		<label for="collectionID">Collection</label>
 		<select name="collectionID" id="collectionID">
