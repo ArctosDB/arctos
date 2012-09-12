@@ -13,23 +13,17 @@
 	<cfif not isdefined("r_accnNumber")>
 		<cfset r_accnNumber=''>
 	</cfif>
-	<cfif not isdefined("r_InstAcrColnCde")>
-		<cfset r_InstAcrColnCde=''>
+	<cfif not isdefined("r_collectionID")>
+		<cfset r_collectionID=''>
 	</cfif>
-	<cfif left(r_accnNumber,1) is "[" and r_accnNumber contains "]">
-		<cfset InstAcrColnCde = rereplace(r_accnNumber,"^.*\[(.*)\].*$",'\1')>
-		<cfset accnNumber = rereplace(r_accnNumber,"\[(.*)\]",'')>
-	<cfelseif isdefined("r_accnNumber") and not isdefined("accnNumber")>
-		<cfset accnNumber=r_accnNumber>
-		<cfset InstAcrColnCde=r_InstAcrColnCde>
-	</cfif>
+	<cfset accnNumber=r_accnNumber>
+	<cfset collectionID=r_collectionID>
 	<form name="searchForAccn" action="findAccn.cfm" method="get">
-		<input type="hidden" name="rtnFldID" value="#rtnFldID#">
-		<label for="InstAcrColnCde">Collection</label>
-		<select name="InstAcrColnCde" id="InstAcrColnCde">
+		<label for="collectionID">Collection</label>
+		<select name="collectionID" id="collectionID">
 			<option value=""></option>
 			<cfloop query="ctcollection">
-				<option <cfif instccde is InstAcrColnCde> selected="selected" </cfif>value="#instccde#">#instccde#</option>
+				<option <cfif collectionID is collection_id> selected="selected" </cfif>value="#collection#">#collection#</option>
 			</cfloop>
 		</select>
 		<label for="accnNumber">Accn Number</label>
@@ -49,8 +43,8 @@
 			WHERE
 				accn.transaction_id=trans.transaction_id and
 				trans.collection_id=collection.collection_id and
-				<cfif len(InstAcrColnCde) gt 0>
-					collection.institution_acronym || ':' || collection.collection_cde='#InstAcrColnCde#' and
+				<cfif len(collectionID) gt 0>
+					collection.collection_id=#collectionID# and
 				</cfif>
 				upper(accn_number) like '%#ucase(accnNumber)#%'
 			ORDER BY
