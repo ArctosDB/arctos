@@ -214,12 +214,16 @@ orderby: #orderby#
 
 
 
+sel: select geog_auth_rec.geog_auth_rec_id, higher_geog frm: from geog_auth_rec whr: 1=1 qual: AND upper(higher_geog) like '%DASFAS%' orderby: higher_geog 
 
 
-<cfset qual = "#qual# ORDER BY
-	">
+
+<cfset sql="#sel# #frm# #whr# #qual# order by #orderby#">
+
+
+
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	#preservesinglequotes(qual)#
+	#preservesinglequotes(sql)#
 </cfquery>
 <cfif caller.localityResults.recordcount is 0>
 	<span class="error">Your search found no matches.</span>
