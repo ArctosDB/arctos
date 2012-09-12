@@ -40,9 +40,9 @@
 <cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
 	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
 	<cfif isGeoreferenced is true>
-		<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat) is not null" >
+		<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat is not null" >
 	<cfelse>
-		<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat) is null" >
+		<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat is null" >
 	</cfif>
 </cfif>
 <cfif isdefined("collecting_method") AND len(collecting_method) gt 0>
