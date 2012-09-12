@@ -1564,53 +1564,7 @@ INSERT INTO geog_auth_rec (
 	<cf_findLocality type="locality">
 	<cfset title="Locality Search Results">
 	<!--- need to filter out distinct --->
-	<cfquery name="localityResults" dbtype="query">
-		select 
-			locality_id,
-            geog_auth_rec_id,
-            spec_locality,
-			locality_name,
-			MINIMUM_ELEVATION,
-			MAXIMUM_ELEVATION,
-			ORIG_ELEV_UNITS,
-			MIN_DEPTH,
-			MAX_DEPTH,
-			DEPTH_UNITS,
-			LOCALITY_REMARKS,
-            higher_geog,
-            dec_lat,
-			dec_long,
-			georeference_source,
-			georeference_protocol,
-			geolAtts,
-			MAX_ERROR_DISTANCE,
-			MAX_ERROR_UNITS,
-			datum      
-		from 
-			localityResults
-		where locality_id is not null
-		group by
-           locality_id,
-            geog_auth_rec_id,
-            spec_locality,
-			locality_name,
-			MINIMUM_ELEVATION,
-			MAXIMUM_ELEVATION,
-			ORIG_ELEV_UNITS,
-			MIN_DEPTH,
-			MAX_DEPTH,
-			DEPTH_UNITS,
-			LOCALITY_REMARKS,
-            higher_geog,
-            dec_lat,
-			dec_long,
-			georeference_source,
-			georeference_protocol,
-			geolAtts,
-			MAX_ERROR_DISTANCE,
-			MAX_ERROR_UNITS,
-			datum
-	</cfquery>
+	
 	<cfif localityResults.recordcount lt 1000>
 		<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">BerkeleyMapper</a>
 	<cfelse>
