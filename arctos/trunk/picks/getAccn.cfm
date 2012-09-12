@@ -2,13 +2,13 @@
 <!------------
 
 
-		this form works for data entry only!!
+		use findAccn for data entry
 		
 		
 ------------>
 <cfoutput>
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select institution_acronym || ':' || collection_cde instccde from collection order by institution_acronym,collection_cde
+		select collection,collection_id from collection order by institution_acronym,collection_cde
 	</cfquery>
 	<cfif not isdefined("r_accnNumber")>
 		<cfset r_accnNumber=''>
@@ -39,7 +39,8 @@
 	<cfif len(accnNumber) gt 0>
 		<cfquery name="getAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
-				collection.institution_acronym || ':' || collection.collection_cde instccde,
+				collection.collection,
+				collection.collection_id,
 				accn_number
 			FROM
 				accn,
@@ -53,15 +54,14 @@
 				</cfif>
 				upper(accn_number) like '%#ucase(accnNumber)#%'
 			ORDER BY
-				collection.institution_acronym,
-				collection.collection_cde,
+				collection.collection,
 				accn_number
 		</cfquery>
 		<cfif getAccn.recordcount is 0>
 			Nothing matched.
 		<cfelse>
 			<cfloop query="getAccn">
-				<br><span class="likeLink" onClick="opener.document.getElementById('#rtnFldID#').value='[#instccde#]#accn_number#';self.close();">[#instccde#]#accn_number#</span>
+				<br><span class="likeLink" onClick="opener.document.getElementById('accn_number').value='#accn_number#';opener.document.getElementById('collection_id').value='#collection_id#'self.close();">#collection# #accn_number#</span>
 			</cfloop>
 		</cfif>
 	</cfif>

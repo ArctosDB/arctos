@@ -1022,6 +1022,14 @@ function getAccn(accnNumber,rtnFldID,InstAcrColnCde){
 	var pickwin=url+"?r_accnNumber="+accnNumber+"&rtnFldID="+rtnFldID+"&r_InstAcrColnCde="+InstAcrColnCde;
 	pickwin=window.open(pickwin,"","width=400,height=338, resizable,scrollbars");
 }
+
+function getAccn2(accnNumber,colID){
+	//accnNumber=value submitted by user, optional
+	//collection_id
+	var url="/picks/getAccn.cfm";
+	var pickwin=url+"?r_accnNumber="+accnNumber+"&r_InstAcrColnCde="+InstAcrColnCde;
+	pickwin=window.open(pickwin,"","width=400,height=338, resizable,scrollbars");
+}
 function getGeog(geogIdFld,geogStringFld,formName,geogString){
 	var url="/picks/findHigherGeog.cfm";
 	var geogIdFld;

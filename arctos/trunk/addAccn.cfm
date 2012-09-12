@@ -1,6 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select institution_acronym || ':' || collection_cde instccde, collection_id from collection order by collection
+	select collection, collection_id from collection order by collection
 </cfquery>
 <!--------------------------------------------------------------------------------->
 <cfif action is "nothing">
@@ -52,16 +52,16 @@
 					<label for="collection_id">Collection</label>
 					<select name="collection_id" id="collection_id" size="1">
 						<cfloop query="ctcoll">
-							<option value="#collection_id#">#instccde#</option>
+							<option value="#collection_id#">#collection#</option>
 						</cfloop>
 					</select>
 				</td>
 				<td>
 					<label for="accn_number">Accession</label>
-					<input type="text" name="accn_number" id="accn_number" onchange="getAccn(this.value,this.id,$('##collection_id').val());">
+					<input type="text" name="accn_number" id="accn_number" onchange="getAccn2(this.value,this.id,$('##collection_id').val());">
 				</td>
 				<td>
-					<input type="button" id="a_lkup" value="lookup" class="lnkBtn" onclick="getAccn($('##accn_number.val()','accn_number',$('##collection_id').val());">
+					<input type="button" id="a_lkup" value="lookup" class="lnkBtn" onclick="getAccn2($('##accn_number.val()','accn_number',$('##collection_id').val());">
 					
 				
 				</td>
