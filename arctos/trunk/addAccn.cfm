@@ -6,9 +6,10 @@
 <cfif action is "nothing">
 	<script>
 		function getit(){
-			var a=$('#accn_number').val();	
-			var c=$('#collection_id').val();
-			getAccn2(a,c);
+			var a = $('#accn_number').val();
+			var c = $('#collection_id').val();
+			getAccn2(a, c);
+		}
 	</script>
 <cfoutput>
 	
