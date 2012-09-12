@@ -10,7 +10,7 @@
 <cfset orderby="higher_geog">
 <cfset qual="">
 
-<cfif attributes.type is "loc">
+<cfif attributes.type is "locality">
 	<cfset sel=sel & ",locality.locality_id,
 		spec_locality,
 		max_error_distance,
