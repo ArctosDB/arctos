@@ -52,7 +52,7 @@
 	<form name="addItems" method="post" action="addAccn.cfm">
 		<input type="hidden" name="Action" value="addItems">
 		<cfif isdefined("collection_object_id") and listlen(collection_object_id) is 1>
-			<input type="text" name="collection_object_id" value="#collection_object_id#">
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		</cfif>
 		<table border="1">
 			<tr>
