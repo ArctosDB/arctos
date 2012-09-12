@@ -54,7 +54,8 @@
 		<cfif isdefined("collection_object_id") and listlen(collection_object_id) is 1>
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		</cfif>
-		<table border="1">
+		<label for="tCtl">Find Accession</label>
+		<table border="1" id="tCtl">
 			<tr>
 				<td>
 					<label for="collection_id">Collection</label>
@@ -68,18 +69,14 @@
 					<label for="accn_number">Accession</label>
 					<input type="text" name="accn_number" id="accn_number" onchange="getit();">
 				</td>
-				<td>
-					<input type="button" id="a_lkup" value="lookup" class="lnkBtn" onclick="getit();">
-					
-				
-				</td>
      			<td>
 					<input type="submit" id="s_btn" value="Add Items" class="savBtn">
 				</td>
 			</tr>
 		</table>	
 	</form>
-<table border>
+	<label for="tSpc">Specimens being reaccessioned</label>
+<table border id="tSpc">
 	<tr>
 		<td>GUID</td>
 		<td>Scientific Name</td>
