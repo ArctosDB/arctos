@@ -58,7 +58,7 @@
 				</td>
 				<td>
 					<label for="accn_number">Accession</label>
-					<input type="text" name="accn_number" id="accn_number" onchange="getAccn(this.value,this.id,$('##collection_id').val();");">
+					<input type="text" name="accn_number" id="accn_number" onchange="getAccn(this.value,this.id,$('##collection_id').val());">
 				</td>
 				<td>
 					<input type="button" id="a_lkup" value="lookup" class="lnkBtn" onclick="getAccn($('##accn_number.val()','accn_number',$('##collection_id').val();");">
