@@ -214,6 +214,18 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_isgeoreferenced">Georeferenced?</span>
+		</td>
+		<td class="srch">
+			<select name="isgeoreferenced" id="isgeoreferenced" size="1">
+				<option value=""></option>
+				<option value="true">Is Georeferenced</option>
+				<option value="false">Not Georeferenced</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="max_error_distance">Maximum Uncertainty:</span>
 		</td>
 		<td class="srch">

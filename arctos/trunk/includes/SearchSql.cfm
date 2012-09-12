@@ -37,6 +37,14 @@
 </cfif>
 <!--------------------------- / end old stuff --------------------------------------->
 
+<cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
+	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
+	<cfif isGeoreferenced is true>
+		<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat) is not null" >
+	<cfelse>
+		<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat) is null" >
+	</cfif>
+</cfif>
 <cfif isdefined("collecting_method") AND len(collecting_method) gt 0>
 	<cfset mapurl = "#mapurl#&collecting_method=#collecting_method#">
 	<cfif basJoin does not contain " specimen_event ">
@@ -44,8 +52,6 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND upper(specimen_event.collecting_method) like '#ucase(escapeQuotes(collecting_method))#'">
 </cfif>
-
-
 <cfif isdefined("collecting_source") AND len(collecting_source) gt 0>
 	<cfset mapurl = "#mapurl#&collecting_source=#collecting_source#">
 	<cfif basJoin does not contain " specimen_event ">
@@ -53,7 +59,6 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND specimen_event.collecting_source = '#collecting_source#'">
 </cfif>
-
 <cfif isdefined("specimen_event_type") AND len(specimen_event_type) gt 0>
 	<cfset mapurl = "#mapurl#&specimen_event_type=#specimen_event_type#">
 	<cfif basJoin does not contain " specimen_event ">
@@ -61,9 +66,6 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND specimen_event.specimen_event_type = '#specimen_event_type#'">
 </cfif>
-
-
-
 <cfif isdefined("ocr_text") AND len(ocr_text) gt 0>
 	<cfset mapurl = "#mapurl#&ocr_text=#ocr_text#">
 	<cfif basJoin does not contain "ocr_text">
@@ -404,8 +406,7 @@
 			)
 		)">
 	<cfset mapurl = "#mapurl#&anyContainerId=#anyContainerId#">
-</cfif>	
-	
+</cfif>
 <cfif isdefined("barcode") AND len(barcode) gt 0>
 	<cfset thisBC = replace(barcode,",","','","all")>
 	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id IN (
