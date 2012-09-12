@@ -9,7 +9,8 @@
 <cfset whr=" 1=1">
 <cfset orderby="higher_geog">
 <cfset qual="">
-
+<hr>
+attributes.type=#attributes.type#
 <!--- always include geog, not typed --->
 <!--- include loclaity if type is locality OR if type is any child of locality --->
 <cfif attributes.type is "locality" or attributes.type is "event" or attributes.type is "specevent">
