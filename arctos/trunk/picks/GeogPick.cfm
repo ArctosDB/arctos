@@ -13,7 +13,7 @@
 </cfoutput>
 <!-------------------------------------------------------------------->
 <cfif #Action# is "findGeog">
-<cf_findLocality>
+<cf_findLocality type="geog">
 <cfquery name="localityResults" dbtype="query">
 	select geog_auth_rec_id,higher_geog
 	from localityResults

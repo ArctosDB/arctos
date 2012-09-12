@@ -29,7 +29,7 @@
 <!----------------------------------------------------------------------->
 <cfif action is "findem">
 <cfoutput>
-	<cf_findLocality>
+	<cf_findLocality type="event">
 	<table border>
 		<tr>
 			<th>Geog</th>

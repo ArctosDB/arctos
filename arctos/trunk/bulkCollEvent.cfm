@@ -535,7 +535,7 @@
 	</cfquery>
 	<cfoutput>
 		<h3>Locality Search Results</h3>
-		<cf_findLocality>
+		<cf_findLocality type="event">
 		<table border>
 			<tr>
 				<td><b>Geog ID</b></td>

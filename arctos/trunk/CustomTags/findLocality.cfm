@@ -1,7 +1,6 @@
 <!--- returns query object localityResults --->
 <cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
-	
 <cfset sel = "select
 		geog_auth_rec.geog_auth_rec_id,
 		higher_geog">
@@ -9,8 +8,6 @@
 <cfset whr=" 1=1">
 <cfset orderby="higher_geog">
 <cfset qual="">
-<hr>
-attributes.type=#attributes.type#
 <!--- always include geog, not typed --->
 <!--- include loclaity if type is locality OR if type is any child of locality --->
 <!--- make sure these aren't cfif-ed together or it'll stop when it finds the first - it needs multiple --->
@@ -40,8 +37,6 @@ attributes.type=#attributes.type#
 	<cfset orderby=orderby & ",spec_locality">
 </cfif>
 <cfif attributes.type is "event" or attributes.type is "specevent">
-	
-	ohai!
 	<cfset sel=sel & ",collecting_event.collecting_event_id,
 		began_date,
 		ended_date,
@@ -209,27 +204,7 @@ attributes.type=#attributes.type#
 	<span class="error">You must enter search criteria.</span>
 	<cfabort>
 </cfif>
-<hr>
-sel: #sel#
-<hr>
-frm: #frm#
-<hr>
-whr: #whr#
-<hr>
-qual: #qual#
-<hr>
-orderby: #orderby#
-
-
-
-sel: select geog_auth_rec.geog_auth_rec_id, higher_geog frm: from geog_auth_rec whr: 1=1 qual: AND upper(higher_geog) like '%DASFAS%' orderby: higher_geog 
-
-
-
 <cfset sql="#sel# #frm# where #whr# #qual# order by #orderby#">
-
-
-
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
