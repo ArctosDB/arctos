@@ -61,7 +61,7 @@
 					<input type="text" name="accn_number" id="accn_number" onchange="getAccn2(this.value,$('##collection_id').val());">
 				</td>
 				<td>
-					<input type="button" id="a_lkup" value="lookup" class="lnkBtn" onclick="getAccn2($('##accn_number').val()',$('##collection_id').val());">
+					<input type="button" id="a_lkup" value="lookup" class="lnkBtn" onclick="getAccn2($('##accn_number').val();',$('##collection_id').val(););">
 					
 				
 				</td>
