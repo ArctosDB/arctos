@@ -20,6 +20,7 @@
 		accn.transaction_id
 	FROM
 		flat,
+		cataloged_item,
 		accn,
 		trans,
 		collection
@@ -27,7 +28,8 @@
 			,#session.SpecSrchTab#
 		</cfif>
 	WHERE
-		flat.accn_id = accn.transaction_id AND
+		flat.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.accn_id = accn.transaction_id AND
 		accn.transaction_id = trans.transaction_id AND
 		trans.collection_id=collection.collection_id and
 		flat.collection_object_id = 
