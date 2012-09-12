@@ -1372,65 +1372,6 @@ INSERT INTO geog_auth_rec (
 		<form name="tools" method="post" action="Locality.cfm">
 			<input type="hidden" name="action" value="massMoveCollEvent" />
 			<cf_findLocality type="event">
-			<cfquery name="localityResults" dbtype="query">
-				select
-					collecting_event_id,
-					higher_geog,
-					geog_auth_rec_id,
-					spec_locality,
-					geolAtts,
-					Verbatim_coordinates,
-					locality_id,
-					verbatim_locality,
-					began_date,
-					ended_date,
-					verbatim_date,
-					dec_lat,
-					dec_long,
-					DATUM,
-					MAX_ERROR_DISTANCE,
-					MAX_ERROR_UNITS,
-					georeference_source,
-					georeference_protocol,
-					locality_name,
-					MINIMUM_ELEVATION,
-					MAXIMUM_ELEVATION,
-					ORIG_ELEV_UNITS,
-					MIN_DEPTH,
-					MAX_DEPTH,
-					DEPTH_UNITS,
-					LOCALITY_REMARKS
-				from 
-					localityResults
-				group by 
-					collecting_event_id,
-					higher_geog,
-					geog_auth_rec_id,
-					spec_locality,
-					geolAtts,
-					Verbatim_coordinates,
-					locality_id,
-					verbatim_locality,
-					began_date,
-					ended_date,
-					verbatim_date,
-					dec_lat,
-					dec_long,
-					DATUM,
-					MAX_ERROR_DISTANCE,
-					MAX_ERROR_UNITS,
-					georeference_source,
-					georeference_protocol,
-					locality_name,
-					MINIMUM_ELEVATION,
-					MAXIMUM_ELEVATION,
-					ORIG_ELEV_UNITS,
-					MIN_DEPTH,
-					MAX_DEPTH,
-					DEPTH_UNITS,
-					LOCALITY_REMARKS
-			</cfquery>
-	
 <table border>
 	<tr>
 		<td><b>Geog</b></td>
