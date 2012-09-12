@@ -74,14 +74,7 @@
 				
 				</td>
      			<td>
-					<div id="g_num" class="noShow">
-						<input type="submit" id="s_btn" value="Add Items" class="savBtn">
-					</div>
-					<div id="g_msg" class="noShow"></div>
-					<div id="b_num">
-						Pick a valid Accession
-					</div>
-					
+					<input type="submit" id="s_btn" value="Add Items" class="savBtn">
 				</td>
 			</tr>
 		</table>	
