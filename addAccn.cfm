@@ -15,7 +15,6 @@
 	
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
-		flat.collection,
 		accn.ACCN_NUMBER,
 		flat.collection_object_id,
 		flat.guid,
@@ -25,7 +24,8 @@
 		flat.verbatim_date,
 		flat.scientific_name,
 		collection.collection,
-		accn.transaction_id
+		accn.transaction_id,
+		collection.collection_id
 	FROM
 		flat,
 		cataloged_item,
@@ -60,7 +60,7 @@
 					<label for="collection_id">Collection</label>
 					<select name="collection_id" id="collection_id" size="1">
 						<cfloop query="ctcoll">
-							<option value="#collection_id#">#collection#</option>
+							<option <cfif ctcoll.collection_id is getItems.collection_id> selected="selected" </cfif>value="#collection_id#">#collection#</option>
 						</cfloop>
 					</select>
 				</td>
