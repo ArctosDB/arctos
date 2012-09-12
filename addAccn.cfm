@@ -4,7 +4,14 @@
 </cfquery>
 <!--------------------------------------------------------------------------------->
 <cfif action is "nothing">
+	<script>
+		function getit(){
+			var a=$('#accn_number').val();	
+			var c=$('#collection_id').val();
+			getAccn2(a,c);
+	</script>
 <cfoutput>
+	
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		flat.collection,
@@ -58,10 +65,10 @@
 				</td>
 				<td>
 					<label for="accn_number">Accession</label>
-					<input type="text" name="accn_number" id="accn_number" onchange="getAccn2(this.value,$('##collection_id').val());">
+					<input type="text" name="accn_number" id="accn_number" onchange="getit();">
 				</td>
 				<td>
-					<input type="button" id="a_lkup" value="lookup" class="lnkBtn" onclick="getAccn2($('##accn_number').val();',$('##collection_id').val(););">
+					<input type="button" id="a_lkup" value="lookup" class="lnkBtn" onclick="getit();">
 					
 				
 				</td>
