@@ -367,10 +367,6 @@
 					</a>
 				</li>
 				<li>
-					<a href="/bnhmMaps/kml.cfm?method=gmap&amp;ampaction=newReq&next=colorBySpecies&scientific_name=#one.scientific_name#" class="external" target="_blank">
-						Google Map of Arctos specimens
-					</a>
-				</li>
 				<li>
 					<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&scientific_name=#one.scientific_name#" class="external" target="_blank">
 						BerkeleyMapper + RangeMaps
