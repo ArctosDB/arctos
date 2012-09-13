@@ -241,7 +241,7 @@
 			specimen_part.collection_object_id=coll_object.collection_object_id and
 			specimen_part.collection_object_id=coll_object_remark.collection_object_id (+)
 		order by
-			collection,cat_num		
+			flat.guid		
 	</cfquery>
 	<cfquery name="s" dbtype="query">
 		select collection_object_id,guid,scientific_name from d group by collection_object_id,guid,scientific_name
