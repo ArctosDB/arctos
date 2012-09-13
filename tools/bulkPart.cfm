@@ -239,7 +239,7 @@
 			flat.collection_object_id=#table_name#.collection_object_id and
 			flat.collection_object_id=specimen_part.derived_from_cat_item and
 			specimen_part.collection_object_id=coll_object.collection_object_id and
-			specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
+			specimen_part.collection_object_id=coll_object_remark.collection_object_id (+)
 		order by
 			collection,cat_num		
 	</cfquery>
