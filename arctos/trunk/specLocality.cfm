@@ -384,6 +384,8 @@ function useGL(glat,glon,gerr){
 			higher_geog,
 			specimen_event_id,
 			specimen_event_remark
+		order by
+		specimen_event_type
 	</cfquery>
 			
 	<cfquery name="g" dbtype="query">
