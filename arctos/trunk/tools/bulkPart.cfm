@@ -221,36 +221,30 @@
 	</p>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			cataloged_item.collection_object_id,
-			collection.collection,
-			cataloged_item.cat_num,
-			identification.scientific_name,
+			flat.collection_object_id,
+			flat.guid,
+			flat.scientific_name,
 			specimen_part.part_name,
 			coll_object.condition,
 			coll_object.lot_count,
 			coll_object.coll_obj_disposition,
 			coll_object_remark.coll_object_remarks
 		from
-			cataloged_item,
-			collection,
-			coll_object,
+			flat,
 			specimen_part,
-			identification,
+			coll_object,
 			coll_object_remark,
 			#table_name#
 		where
-			cataloged_item.collection_id=collection.collection_id and
-			cataloged_item.collection_object_id=#table_name#.collection_object_id and
-			cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+			flat.collection_object_id=#table_name#.collection_object_id and
+			flat.collection_object_id=specimen_part.derived_from_cat_item and
 			specimen_part.collection_object_id=coll_object.collection_object_id and
 			specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
-			cataloged_item.collection_object_id=identification.collection_object_id and
-			accepted_id_fg=1
 		order by
-			collection.collection,cataloged_item.cat_num		
+			collection,cat_num		
 	</cfquery>
 	<cfquery name="s" dbtype="query">
-		select collection_object_id,collection,cat_num,scientific_name from d group by collection_object_id,collection,cat_num,scientific_name
+		select collection_object_id,guid,scientific_name from d group by collection_object_id,guid,scientific_name
 	</cfquery>
 	<table border>
 			<tr>
@@ -260,7 +254,7 @@
 			</tr>
 			<cfloop query="s">
 				<tr>
-					<td><a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a></td>
+					<td><a href="/guid/#guid#">#guid#</a></td>
 					<td>#scientific_name#</td>
 					<cfquery name="sp" dbtype="query">
 						select
