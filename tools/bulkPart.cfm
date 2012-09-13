@@ -19,12 +19,8 @@
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select count(*) c from #table_name#
 </cfquery>
-<cfif c.c gte 1000>
-	You can only use this form on 1000 specimens at a time. Please revise your search.
-	<cfabort>
-</cfif>
 <cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select coll_obj_disposition from ctcoll_obj_disp
+	select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 </cfquery>
 	<p><strong>Option 1: Add Part(s)</strong></p>
 	<form name="newPart" method="post" action="bulkPart.cfm">
