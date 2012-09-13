@@ -639,7 +639,6 @@
 					<td>
 						<label  for="IssuedByAgent">Permit Number</label>
 						<input type="text" name="permit_num" id="permit_num">			
-						<span class="infoLink" onclick="getHelp('get_permit_number');">Pick</span>
 					</td>
 				</tr>
 				<tr>

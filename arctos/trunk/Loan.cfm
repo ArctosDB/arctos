@@ -1254,7 +1254,6 @@
 			<td align="right">Permit Number:</td>
 			<td>
 				<input type="text" name="permit_num" size="50">
-				<span class="infoLink" onclick="getHelp('get_permit_number');">Pick</span>
 			</td>
 		</tr>
 		<tr>

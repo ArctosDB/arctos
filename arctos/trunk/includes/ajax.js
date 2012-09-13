@@ -1039,10 +1039,6 @@ function getGeog(geogIdFld,geogStringFld,formName,geogString){
 	var geogwin=url+"?geogIdFld="+geogIdFld+"&geogStringFld="+geogStringFld+"&formName="+formName+"&geogString="+geogString;
 	geogpickwin=window.open(geogwin,"","width=400,height=338, resizable,scrollbars");
 }
-function getHelp(help) {
-	var help;
-	helpWin=windowOpener("/info/help.cfm?content="+help,"helpWin","width=400,height=338, resizable,scrollbars");
-}
 function confirmDelete(formName,msg) {
 	var formName;
 	var msg = msg || "this record";

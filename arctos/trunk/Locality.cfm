@@ -982,7 +982,10 @@
 					BEGAN_DATE,
 					ENDED_DATE,
 					VERBATIM_COORDINATES,
-					COLLECTING_EVENT_NAME,
+					decode(
+						COLLECTING_EVENT_NAME,
+						null,'',
+						'clone of ' || COLLECTING_EVENT_NAME),
 					LAT_DEG,
 					DEC_LAT_MIN,
 					LAT_MIN,
