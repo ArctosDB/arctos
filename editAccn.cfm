@@ -829,11 +829,14 @@
 			<cfquery name="c" dbtype="query">
 				select count(distinct(transaction_id)) c from getAccns
 			</cfquery>
-			<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select count(*) c from cataloged_item where accn_id in (#valuelist(getAccns.transaction_id)#)
-			</cfquery>
-			<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(getAccns.transaction_id)#">
-				View #specs.c# items in these #c.c# Accessions</a>
+			<cfif getAccns.recordcount lt 1000>
+				<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select count(*) c from cataloged_item where accn_id in (#valuelist(getAccns.transaction_id)#)
+				</cfquery>
+				<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(getAccns.transaction_id)#">
+					View #specs.c# items in these #c.c# Accessions
+				</a>
+			</cfif>
 		</cfif>
 		
 		<cfset i=1>
