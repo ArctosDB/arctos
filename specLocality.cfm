@@ -196,7 +196,7 @@ function useGL(glat,glon,gerr){
 			closeGeoLocate();
 		}
 </script>
-	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">s
     	select 
 			 COLLECTING_EVENT.COLLECTING_EVENT_ID,
 			 specimen_event_id,
