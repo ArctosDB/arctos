@@ -5,8 +5,10 @@
 <link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
 <!---
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
-<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 --->
+
+<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
+
 <script type='text/javascript' src='/includes/DEAjax.js'></script>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
