@@ -1903,7 +1903,7 @@
 <!------------------------------------------------------->
 <cffunction name="getGeologyValues" access="remote">
 	<cfargument name="attribute" type="string" required="no">
-	<cfif len(attribute) gt 0>
+	<cfif isdefined("attribute") and len(attribute) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				attribute_value
