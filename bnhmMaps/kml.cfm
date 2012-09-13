@@ -117,7 +117,7 @@
 		<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preserveSingleQuotes(SqlString)#
 		</cfquery>
-		<cfset burl="kml.cfm?method=#method#&showErrors=#showErrors#&#&userFileName=#userFileName#&action=#next#">	
+		<cfset burl="kml.cfm?method=#method#&showErrors=#showErrors#&userFileName=#userFileName#&action=#next#">	
 		<cflocation url="#burl#" addtoken="false">
 	</cfoutput>
 </cfif>
