@@ -1451,6 +1451,18 @@
 	switchActive('#orig_lat_long_units#');
 	highlightErrors('#trim(loadedMsg)#');
 	changeMode('#pMode#');
+	
+	jQuery("##georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
+		width: 320,
+		max: 50,
+		autofill: false,
+		multiple: false,
+		scroll: true,
+		scrollHeight: 300,
+		matchContains: true,
+		minChars: 1,
+		selectFirst:false
+	});	
 </script>
 <cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1 and pMode is "enter">
 	<cftry>
