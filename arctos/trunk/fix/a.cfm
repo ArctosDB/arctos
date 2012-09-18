@@ -3,6 +3,8 @@
     name=geObj
     type="JAVA"  
     class="java.awt.GraphicsEnvironment">
+	
+<cfdump var=#obj#>
 <cfset geResponse = geObj.isHeadless()>
 <cfdump var="#geResponse#">
 
