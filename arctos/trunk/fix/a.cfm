@@ -4,7 +4,7 @@
     type="JAVA"  
     class="java.awt.GraphicsEnvironment">
 	
-<cfdump var=#obj#>
+<cfdump var=#geObj#>
 <cfset geResponse = geObj.isHeadless()>
 <cfdump var="#geResponse#">
 
