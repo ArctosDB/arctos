@@ -6,10 +6,11 @@
 	
 <cfdump var=#geObj#>
 <cfset geResponse = geObj.isHeadless()>
+geObj.isHeadless
 <cfdump var="#geResponse#">
 
-
-<cfset geResponse = geObj.GraphicsEnvironment()>
+geObj.getLocalGraphicsEnvironment()
+<cfset geResponse = geObj.getLocalGraphicsEnvironment()>
 <cfdump var="#geResponse#">
 
 
