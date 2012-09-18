@@ -1,7 +1,7 @@
 j
 
 	<cfscript>
-		serverName = CreateObject("java", "ava.awt.graphicsenv");
+		serverName = CreateObject("java", "java.awt.graphicsenv");
 	</cfscript>
 	<hr>
 	<cfdump var=#serverName#>
