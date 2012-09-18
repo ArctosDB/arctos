@@ -1,3 +1,4 @@
+<cfinclude template="/includes/_header.cfm">
 
 <cfoutput>
 	HI
