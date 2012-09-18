@@ -1040,8 +1040,7 @@
 									<tr>
 										<td align="right"><span class="f11a">Georeference Source</span></td>
 										<td colspan="3" nowrap="nowrap">
-											<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" 
-												size="60" value="#georeference_source#">
+											<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" size="60" value="#georeference_source#">
 										</td>
 									</tr>
 									<tr>
