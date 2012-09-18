@@ -9,6 +9,11 @@
 <cfdump var="#geResponse#">
 
 
+<cfset geResponse = geObj.GraphicsEnvironment()>
+<cfdump var="#geResponse#">
+
+
+
 <cfoutput>
 	HI
 	<!-------
