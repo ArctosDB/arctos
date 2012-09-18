@@ -1,12 +1,4 @@
-j
-
-	<cfscript>
-		serverName = CreateObject("java", "java.awt.graphicsenv");
-	</cfscript>
-	<hr>
-	<cfdump var=#serverName#>
-		<hr>	
-			
+	
 <cfinclude template="/includes/_header.cfm">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	    select * from flat where collection_object_id=12
