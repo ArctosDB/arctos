@@ -14,8 +14,8 @@
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
 
-<cfif #action# is "nothing">
-	<cfif isdefined("report") and len(#report#) gt 0>
+<cfif action is "nothing">
+	<cfif isdefined("report") and len(report) gt 0>
 		<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select report_id from cf_report_sql where upper(report_name)='#ucase(report)#'
 		</cfquery>
@@ -31,7 +31,6 @@
 	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	    select * from cf_report_sql order by report_name
 	</cfquery>
-	 
 	<form name="print" id="print" method="post" action="report_printer.cfm">
 	    <input type="hidden" name="action" value="print">
 	    <input type="hidden" name="transaction_id" value="#transaction_id#">
@@ -47,17 +46,14 @@
 	</form>
 </cfif>
 <!------------------------------------------------------>
-<cfif #action# is "print">
+<cfif action is "print">
 	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	    select * from cf_report_sql where report_id=#report_id#
 	</cfquery>
 	<cfif len(e.sql_text) gt 0>
 		<cfset sql=e.sql_text>
          <cfif sql contains "##transaction_id##">
-			yeppers
 			<cfset sql=replace(sql,"##transaction_id##",#transaction_id#,"all")>
-		<cfelse>
-			noper
 		</cfif> 
 		<cfif sql contains "##collection_object_id##">
 			<cfset sql=replace(sql,"##collection_object_id##",#collection_object_id#)>
@@ -65,7 +61,6 @@
 		<cfif sql contains "##container_id##">
 			<cfset sql=replace(sql,"##container_id##",#container_id#)>
 		</cfif>
-		
 		<cfif sql contains "##session.CustomOtherIdentifier##">
 			<cfset sql=replace(sql,"##session.CustomOtherIdentifier##",#session.CustomOtherIdentifier#,"all")>
 		</cfif>
@@ -75,10 +70,7 @@
 		<cfif sql contains "##session.projectReportTable##">
 			<cfset sql=replace(sql,"##session.projectReportTable##",#session.projectReportTable#,"all")>
 		</cfif>
-		
-		
-		 
-		<cfif len(#sort#) gt 0 and #sql# does not contain "order by">
+		<cfif len(sort) gt 0 and sql does not contain "order by">
 			<cfset ssql=sql & " order by #sort#">
 		<cfelse>
 			<cfset ssql=sql>
@@ -113,7 +105,8 @@
     <cfreport format="#e.report_format#" 
     	template="#application.webDirectory#/Reports/templates/#e.report_template#"
         query="d"
-        overwrite="true"></cfreport>
+        overwrite="true">
+	</cfreport>
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
