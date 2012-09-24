@@ -126,9 +126,7 @@
 				<input type="hidden" name="action" value="getGraph">
 				<tr>
 					<td colspan="2" align="center">
-						<input type="submit" 
-								value="Get Graphs" 
-								class="schBtn">	
+						<input type="submit" value="Get Graphs"	class="schBtn">	
 					</td>
 				</tr>
 				<tr>
