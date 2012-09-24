@@ -42,7 +42,7 @@
 	
 <cfdump var=#mapurl#>	
 	
-	
+	<cfoutput>
 <table border="1">
 <tr>
 	<td>Count</td>
@@ -51,12 +51,15 @@
 	</cfloop>
 </tr>
 <cfloop query="getData">
+	<tr>
 	<td>#COUNTOFCATALOGEDITEM#</td>
 	<cfloop list="#groupby#" index="x">
 		<td>#evaluate("getData." & x)#</td>
 	</cfloop>
+	</tr>
 </cfloop>
-	
+	</table>
+	</cfoutput>
 	
 	<cfabort>
 	
