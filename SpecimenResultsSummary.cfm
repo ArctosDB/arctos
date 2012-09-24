@@ -40,7 +40,7 @@
 
 <cfdump var=#buildIt#>
 	
-	
+<cfdump var=#mapurl#>	
 	
 	
 	
