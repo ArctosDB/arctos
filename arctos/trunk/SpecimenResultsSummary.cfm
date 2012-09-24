@@ -60,7 +60,7 @@
 	<cfloop query="getData">
 		<cfset thisLink=mapurl>
 		<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
-		<cfset thisLink="/SpecimenResults.cfm?">
+		<cfset thisLink="#Application.ServerRootURL#/SpecimenResults.cfm?">
 		<tr>
 			<td>#COUNTOFCATALOGEDITEM#</td>
 			<cfloop list="#groupby#" index="x">
