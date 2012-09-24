@@ -1,8 +1,10 @@
 <cfinclude template = "/includes/_header.cfm">
-<cfset title="Specimen Results">
-<cfif not isdefined("displayrows")>
-	<cfset displayrows = session.displayrows>
-</cfif>
+<cfset title="Specimen Results Summary">
+
+<cfdump var=#form#>
+<cfdump var=#url#>
+
+
 <cfif not isdefined("SearchParams")>
 	<cfset SearchParams = "">
 </cfif>
