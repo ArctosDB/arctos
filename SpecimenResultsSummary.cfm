@@ -1,11 +1,5 @@
 <cfinclude template = "/includes/_header.cfm">
 <cfset title="Specimen Results Summary">
-
-<cfdump var=#form#>
-<cfdump var=#url#>
-
-
-
 <cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem,#groupby#">
 <cfset basFrom = " FROM #session.flatTableName#">
 <cfset basJoin = "">
@@ -40,18 +34,11 @@
 <cfif isdefined("debug") and debug is true>
 	#preserveSingleQuotes(SqlString)#
 </cfif>
+<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	#preserveSingleQuotes(SqlString)#
+</cfquery>
 
-<hr>
-<cfoutput>
-#SqlString#
-</cfoutput>
-
-
-<cfabort>
-<cfset SqlString = "create table #session.SpecSrchTab# AS ">
-	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		#preserveSingleQuotes(SqlString)#
-	</cfquery>
+<cfdump var=#buildIt#>
 	
 	
 	
