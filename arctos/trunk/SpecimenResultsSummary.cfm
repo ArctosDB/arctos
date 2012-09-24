@@ -46,6 +46,7 @@
 <table border="1">
 	<tr>
 		<td>Count</td>
+		<td>Link</td>
 		<cfloop list="#groupby#" index="x">
 			<td>#x#</td>
 		</cfloop>
@@ -56,7 +57,8 @@
 			<cfset thisLink=listappend(thisLink,'#x#=#evaluate("getData." & x)#',"&")>
 		</cfloop>
 		<tr>
-		<td>#COUNTOFCATALOGEDITEM# - #thisLink#</td>
+			<td><a href="/SpecimenResults.cfm?#thisLink#">specimens</a>
+		<td>#COUNTOFCATALOGEDITEM#</td>
 		<cfloop list="#groupby#" index="x">
 			<td>#evaluate("getData." & x)#</td>
 		</cfloop>
