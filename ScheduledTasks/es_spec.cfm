@@ -106,7 +106,7 @@
 	<cfloop query="d">
 		<cftry>
 		<cftransaction>
-			<cfquery name="ib" datasource="uam_god">
+			<cfquery name="ib" datasource="uam_god">	
 				insert into bulkloader (
 					collection_object_id,
 					loaded,
@@ -120,22 +120,22 @@
 					ended_date,
 					higher_geog,
 					spec_locality,
-					verbatim_locality
+					verbatim_locality,
+					SPECIMEN_EVENT_TYPE,
 					<cfif len(dec_lat) gt 0>
-						,orig_lat_long_units,
+						orig_lat_long_units,
 						dec_lat,
 						dec_long,
 						datum,
 						max_error_distance,
 						max_error_units,
-						lat_long_ref_source,
-						georefmethod,
-						determined_by_agent,
-						determined_date,
-						lat_long_remarks,
-						verificationstatus
+						GEOREFERENCE_SOURCE,
+						GEOREFERENCE_PROTOCOL,
+						event_assigned_by_agent,
+						event_assigned_date,
+						verificationstatus,
 					</cfif>
-					,collector_agent_1,
+					collector_agent_1,
 					collector_role_1,
 					collection_cde,
 					institution_acronym,
@@ -179,9 +179,10 @@
 					'#dateformat(now(),"yyyy-mm-dd")#',
 					'no higher geography recorded',
 					'no specific locality recorded',
-					'no verbatim locality recorded'
+					'no verbatim locality recorded',
+					'accepted place of collection',
 					<cfif len(dec_lat) gt 0>
-						,'decimal degrees',
+						'decimal degrees',
 						#dec_lat#,
 						#dec_long#,
 						<cfif len(error_m) gt 0>
@@ -192,7 +193,6 @@
 							'BioGeoMancer',
 							'#who#',
 							'#dateformat(when,"yyyy-mm-dd")#',
-							NULL,
 						<cfelse>
 							'unknown',
 							NULL,
@@ -201,11 +201,10 @@
 							'not recorded',
 							'unknown',
 							'#dateformat(when,"yyyy-mm-dd")#',
-							'assume coordinates from locality card.',
 						</cfif>
-						'unverified'			
+						'unverified',		
 					</cfif>
-					,'unknown',
+					'unknown',
 					'c',
 					'ES',
 					'UAM',

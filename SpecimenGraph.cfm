@@ -1,11 +1,12 @@
 <cfinclude template="includes/_header.cfm">
-<cfif #action# is "nothing">
+<cfset title="Specimen Graphs">
+<cfif action is "nothing">
 <cfoutput>
 	<cfset searchParams = "">
 	<!--- set up hidden form variables to use when customizing.
 			Explicitly exclude things we don't want --->
 		<cfloop list="#StructKeyList(form)#" index="key">
-			 <cfif len(#form[key]#) gt 0>
+			 <cfif len(form[key]) gt 0>
 				<cfif #key# is not "FIELDNAMES" 
 					AND #key# is not "SEARCHPARAMS" 
 					AND #key# is not "mapurl" 
@@ -116,6 +117,7 @@
 							<option value="genus">Specimens by Genus</option>
 							<option value="family">Specimens by Family</option>
 							<option value="phylorder">Specimens by Order</option>
+							<option value="year">Specimens by Year</option>
 						</select>
 					</td>
 				</tr>
@@ -126,9 +128,7 @@
 					<td colspan="2" align="center">
 						<input type="submit" 
 								value="Get Graphs" 
-								class="schBtn"
-   								onmouseover="this.className='schBtn btnhov'" 
-								onmouseout="this.className='schBtn'">	
+								class="schBtn">	
 					</td>
 				</tr>
 				<tr>
@@ -152,7 +152,7 @@
 		</cfoutput>
 </cfif>		
 <!------------------------------------------------------------------->
-<cfif #action# is "getGraph">
+<cfif action is "getGraph">
 <cfoutput>
 	<cfset chartHeight = listfirst(size," x ")>
 	<cfset chartWidth = listlast(size," x ")>

@@ -14,13 +14,6 @@ geObj.getLocalGraphicsEnvironment()
 <cfdump var="#geResponse#">
 
 
-<cfobject  
-    action=create  
-    name=geObj
-    type="JAVA"  
-    class="java.awt.GraphicsEnv">
-	
-<cfdump var=#geObj#>
 <cfoutput>
 	<!-------
 <cfset variables.fn="#Application.webDirectory#/bnhmMaps/tabfiles/test.xml">
