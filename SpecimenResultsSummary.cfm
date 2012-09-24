@@ -92,6 +92,10 @@
 	 <cfset basSelect = "#basSelect#,substr(#session.flatTableName#.began_date,1,4) yr">
 	 <cfset basGroup = "#basGroup#,substr(#session.flatTableName#.began_date,1,4)">		
 </cfif>
+<cfif groupBy contains "family">
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.family">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.family">		
+</cfif>
 	
 	
 	
@@ -106,7 +110,7 @@
 		<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basQual# #basGroup#">	
 
 	
-		<cfif len(#basQual#) is 0 AND basFrom does not contain "binary_object">
+		<cfif len(basQual) is 0 >
 			<CFSETTING ENABLECFOUTPUTONLY=0>
 			
 			<font color="#FF0000" size="+2">You must enter some search criteria!</font>	  
@@ -289,6 +293,15 @@
 	 </cfif>
 </cfif>
 
+
+<cfif #groupBy# contains "family">
+	 <cfif len(#order_by#) is 0>
+	 	<cfset order_by = "family">
+	 <cfelse>
+	 	<cfset order_by = "#order_by#,family">
+	 </cfif>
+</cfif>
+
 	 <cfif len(#order_by#) is 0>
 	 	<cfset order_by = "scientific_name">
 	 <cfelse>
@@ -337,6 +350,9 @@ Returned #s.c# specimens in #getBasic.recordcount# rows.
 	<td nowrap><strong>Scientific Name</strong></td>
 	<cfif #groupBy# contains "continent_ocean">
 		<td nowrap><strong>Continent</strong></td>
+	</cfif>
+	<cfif #groupBy# contains "family">
+		<td nowrap><strong>Family</strong></td>
 	</cfif>
 	<cfif #groupBy# contains "yr">
 		<td nowrap><strong>Year</strong></td>
@@ -465,6 +481,9 @@ Returned #s.c# specimens in #getBasic.recordcount# rows.
 			>#countOfCatalogedItem#</div></a>	 </td>
 	
 	<td nowrap><i>#Scientific_Name#</i></td>
+	<cfif #groupBy# contains "family">
+		<td nowrap>#family#&nbsp;</td>
+	</cfif>
 	<cfif #groupBy# contains "continent_ocean">
 		<td nowrap>#continent_ocean#&nbsp;</td>
 	</cfif>
@@ -509,6 +528,9 @@ Returned #s.c# specimens in #getBasic.recordcount# rows.
 <cfset dlPath = "#Application.DownloadPath#">
 <cfset dlFile = "#session.DownloadFileName#">
  <cfset header ="Count#chr(9)#Scientific_Name">
+	<cfif #groupBy# contains "family">
+		 <cfset header = "#header##chr(9)#family">
+	</cfif>
 	<cfif #groupBy# contains "continent_ocean">
 		 <cfset header = "#header##chr(9)#continent_ocean">
 	</cfif>
@@ -547,6 +569,9 @@ Returned #s.c# specimens in #getBasic.recordcount# rows.
 
 <cfoutput query="getBasic">
  	 <cfset oneLine ="#countOfCatalogedItem##chr(9)##Scientific_Name#">
+	<cfif #groupBy# contains "family">
+		 <cfset oneLine = "#oneLine##chr(9)##family#">
+	</cfif>
 	<cfif #groupBy# contains "continent_ocean">
 		 <cfset oneLine = "#oneLine##chr(9)##continent_ocean#">
 	</cfif>
