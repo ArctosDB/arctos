@@ -528,14 +528,26 @@
 	<cfset basQual = " #basQual# AND #session.flatTableName#.made_date <= '#end_made_date#'">		
 	<cfset mapurl = "#mapurl#&end_made_date=#end_made_date#">
 </cfif>
-<cfif isdefined("family") and len(family) gt 0>
+<cfif isdefined("family") AND len(family) gt 0>
 	<cfset mapurl = "#mapurl#&family=#family#">
+	<cfif basJoin does not contain " identification ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification ON 
+			(#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+	</cfif>
+	<cfif basJoin does not contain " identification_taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON (identification.identification_id = identification_taxonomy.identification_id)">
+	</cfif>
+	<cfif basJoin does not contain " taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON (identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
+	</cfif>
 	<cfif left(family,1) is '='>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.family) = '#ucase(right(family,len(family)-1))#'">
+		<cfset basQual = " #basQual# AND upper(taxonomy.family) = '#ucase(right(family,len(family)-1))#'">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.family) LIKE '%#ucase(family)#%'">
+		<cfset basQual = " #basQual# AND upper(taxonomy.family) like '%#ucase(family)#%'">
 	</cfif>
 </cfif>
+
 <cfif isdefined("genus") AND len(genus) gt 0>
 	<cfset mapurl = "#mapurl#&genus=#genus#">
 	<cfif basJoin does not contain " identification ">
@@ -591,6 +603,67 @@
 		<cfset basQual = " #basQual# AND upper(taxonomy.subspecies) like '%#ucase(subspecies)#%'">
 	</cfif>		
 </cfif>
+
+
+<cfif isdefined("phylum") AND len(phylum) gt 0>
+	<cfset mapurl = "#mapurl#&phylum=#phylum#">
+	<cfif basJoin does not contain " identification ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " identification_taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON (identification.identification_id = identification_taxonomy.identification_id)">
+	</cfif>
+	<cfif basJoin does not contain " taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON (identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
+	</cfif>
+	<cfif left(phylum,1) is '='>
+		<cfset basQual = " #basQual# AND upper(taxonomy.phylum) = '#ucase(right(phylum,len(phylum)-1))#'">
+	<cfelseif compare(phylum,"NULL") is 0>
+		<cfset basQual = " #basQual# AND taxonomy.phylum is NULL">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(taxonomy.phylum) like '%#ucase(phylum)#%'">
+	</cfif>
+</cfif>
+
+<cfif isdefined("phylorder") AND len(phylorder) gt 0>
+	<cfset mapurl = "#mapurl#&phylorder=#phylorder#">
+	<cfif basJoin does not contain " identification ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " identification_taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON (identification.identification_id = identification_taxonomy.identification_id)">
+	</cfif>
+	<cfif basJoin does not contain " taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON (identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
+	</cfif>
+	<cfif left(phylorder,1) is '='>
+		<cfset basQual = " #basQual# AND upper(taxonomy.phylorder) = '#ucase(right(phylorder,len(phylorder)-1))#'">
+	<cfelseif compare(phylorder,"NULL") is 0>
+		<cfset basQual = " #basQual# AND taxonomy.phylorder is NULL">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(taxonomy.phylorder) like '%#ucase(phylorder)#%'">
+	</cfif>
+</cfif>
+<cfif isdefined("kingdom") AND len(kingdom) gt 0>
+	<cfset mapurl = "#mapurl#&kingdom=#kingdom#">
+	<cfif basJoin does not contain " identification ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " identification_taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON (identification.identification_id = identification_taxonomy.identification_id)">
+	</cfif>
+	<cfif basJoin does not contain " taxonomy ">
+		<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON (identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
+	</cfif>
+	<cfif left(kingdom,1) is '='>
+		<cfset basQual = " #basQual# AND upper(taxonomy.kingdom) = '#ucase(right(kingdom,len(kingdom)-1))#'">
+	<cfelseif compare(kingdom,"NULL") is 0>
+		<cfset basQual = " #basQual# AND taxonomy.kingdom is NULL">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(taxonomy.kingdom) like '%#ucase(kingdom)#%'">
+	</cfif>
+</cfif>	
+
 <cfif isdefined("Phylclass") AND len(Phylclass) gt 0>
 	<cfset mapurl = "#mapurl#&Phylclass=#Phylclass#">
 	<cfif basJoin does not contain " identification ">
