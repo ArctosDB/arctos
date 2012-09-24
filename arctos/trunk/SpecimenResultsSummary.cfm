@@ -69,7 +69,7 @@
 				<cfelse>
 					<cfset thisVal=evaluate("getData." & x)>
 				</cfif>
-				<cfset thisLink=listappend(thisLink,thisVal,"&")>
+				<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
 				<cfset oneLine=oneline & ',"#thisVal#"'>
 				<td>#thisVal#</td>
 			</cfloop>
