@@ -81,7 +81,12 @@
 				<font size="-1"><em><strong>Group by:</strong></em></font><br>
 				<select name="groupBy1" id="groupBy1" multiple size="4" onchange="changeGrp(this.id)">
 					<option value="">Scientific Name</option>
+					<option value="kingdom">Kingdom</option>
+					<option value="phylum">Phylum</option>
+					<option value="phylclass">Class</option>
+					<option value="phylorder">Order</option>
 					<option value="family">Family</option>
+					<option value="genus">Genus</option>
 					<option value="continent_ocean">Continent</option>
 					<option value="country">Country</option>
 					<option value="state_prov">State</option>
@@ -431,7 +436,12 @@
 			<font size="-1"><em><strong>Group by:</strong></em></font><br>
 			<select name="groupBy" id="groupBy" multiple size="4" onchange="changeGrp(this.id)">
 				<option value="">Scientific Name</option>
+				<option value="kingdom">Kingdom</option>
+				<option value="phylum">Phylum</option>
+				<option value="phylclass">Class</option>
+				<option value="phylorder">Order</option>
 				<option value="family">Family</option>
+				<option value="genus">Genus</option>
 				<option value="continent_ocean">Continent</option>
 				<option value="country">Country</option>
 				<option value="state_prov">State</option>
