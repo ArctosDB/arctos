@@ -44,21 +44,25 @@
 	
 	<cfoutput>
 <table border="1">
-<tr>
-	<td>Count</td>
-	<cfloop list="#groupby#" index="x">
-		<td>#x#</td>
-	</cfloop>
-</tr>
-<cfloop query="getData">
 	<tr>
-	<td>#COUNTOFCATALOGEDITEM#</td>
-	<cfloop list="#groupby#" index="x">
-		<td>#evaluate("getData." & x)#</td>
-	</cfloop>
+		<td>Count</td>
+		<cfloop list="#groupby#" index="x">
+			<td>#x#</td>
+		</cfloop>
 	</tr>
-</cfloop>
-	</table>
+	<cfloop query="getData">
+		<cfset thisLink=mapurl>
+		<cfloop list="#groupby#" index="x">
+			<cfset thisLink=listappend(thisLink,'#x#=#evaluate("getData." & x)#',"&")>
+		</cfloop>
+		<tr>
+		<td>#COUNTOFCATALOGEDITEM# - #thisLink#</td>
+		<cfloop list="#groupby#" index="x">
+			<td>#evaluate("getData." & x)#</td>
+		</cfloop>
+		</tr>
+	</cfloop>
+</table>
 	</cfoutput>
 	
 	<cfabort>
