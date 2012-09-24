@@ -61,106 +61,46 @@
 		</tr>
 	</cfloop>
 </table>
-</cfoutput>
 	
 <!------------------------------- download --------------------------------->
 
 
 <cfset dlPath = "#Application.DownloadPath#">
-<cfset dlFile = "#session.DownloadFileName#">
- <cfset header ="Count#chr(9)#Scientific_Name">
-	<cfif #groupBy# contains "family">
-		 <cfset header = "#header##chr(9)#family">
-	</cfif>
-	<cfif #groupBy# contains "continent_ocean">
-		 <cfset header = "#header##chr(9)#continent_ocean">
-	</cfif>
-	<cfif #groupBy# contains "country">
-		<cfset header = "#header##chr(9)#country">
-	</cfif>
-	<cfif #groupBy# contains "state_prov">
-		<cfset header = "#header##chr(9)#state_prov">
-	</cfif>
-	<cfif #groupBy# contains "county">
-		<cfset header = "#header##chr(9)#county">
-	</cfif>
-	<cfif #groupBy# contains "quad">
-		<cfset header = "#header##chr(9)#quad">
-	</cfif>
-	<cfif #groupBy# contains "feature">
-		<cfset header = "#header##chr(9)#feature">
-	</cfif>
-	<cfif #groupBy# contains "isl_group">
-		<cfset header = "#header##chr(9)#island_group">
-	</cfif>
-	<cfif #groupBy# contains "island">
-		<cfset header = "#header##chr(9)#island">
-	</cfif>
-	<cfif #groupBy# contains "sea">
-		<cfset header = "#header##chr(9)#sea">
-	</cfif>
-	<cfif #groupBy# contains "spec_locality">
-		<cfset header = "#header##chr(9)#spec_locality">
-	</cfif>
+<cfset variables.encoding="UTF-8">
+<cfset variables.fileName="#Application.webDirectory#/download/ArctosSpecimenSummary.csv">
+<cfset header ="Count,Link,#groupBy#">
 
-<cfset header=#trim(header)#>
-	<cfset header = "#header##chr(10)#"><!--- add one and only one line break back onto the end --->
-<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#header#">
-
-
-<cfoutput query="getBasic">
- 	 <cfset oneLine ="#countOfCatalogedItem##chr(9)##Scientific_Name#">
-	<cfif #groupBy# contains "family">
-		 <cfset oneLine = "#oneLine##chr(9)##family#">
-	</cfif>
-	<cfif #groupBy# contains "continent_ocean">
-		 <cfset oneLine = "#oneLine##chr(9)##continent_ocean#">
-	</cfif>
-	<cfif #groupBy# contains "country">
-		<cfset oneLine = "#oneLine##chr(9)##country#">
-	</cfif>
-	<cfif #groupBy# contains "state_prov">
-		<cfset oneLine = "#oneLine##chr(9)##state_prov#">
-	</cfif>
-	<cfif #groupBy# contains "county">
-		<cfset oneLine = "#oneLine##chr(9)##county#">
-	</cfif>
-	<cfif #groupBy# contains "quad">
-		<cfset oneLine = "#oneLine##chr(9)##quad#">
-	</cfif>
-	<cfif #groupBy# contains "feature">
-		<cfset oneLine = "#oneLine##chr(9)##feature#">
-	</cfif>
-	<cfif #groupBy# contains "isl_group">
-		<cfset oneLine = "#oneLine##chr(9)##island_group#">
-	</cfif>
-	<cfif #groupBy# contains "island">
-		<cfset oneLine = "#oneLine##chr(9)##island#">
-	</cfif>
-	<cfif #groupBy# contains "sea">
-		<cfset oneLine = "#oneLine##chr(9)##sea#">
-	</cfif>
-	<cfif #groupBy# contains "spec_locality">
-		<cfset oneLine = "#oneLine##chr(9)##spec_locality#">
-	</cfif>
-
-
-
-
-
-
-<cfset oneLine = trim(#oneLine#)>
-	<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#oneLine#">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(ListQualify(header,'"')); 
+	</cfscript>
+	<cfloop query="getData">
+		<cfset thisLink=mapurl>
+		<cfloop list="#groupby#" index="x">
+			<cfset thisLink=listappend(thisLink,'#x#=#evaluate("getData." & x)#',"&")>
+		</cfloop>
+		<cfset oneLine='"#COUNTOFCATALOGEDITEM#","/SpecimenResults.cfm?#thisLink#"'>
+		
+			<cfloop list="#groupby#" index="x">
+				<cfset oneLine=oneline & ',"#evaluate("getData." & x)#"'>
+			</cfloop>
+			
+			<cfscript>
+				variables.joFileWriter.writeLine(oneLine); 
+			</cfscript>
+	
+	
+	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	
+	<a href="/download/#fname#">get CSV</a>
+	
+	
+	
 </cfoutput>
-	<cfoutput>
-		<cfset downloadFile = "/download/#dlFile#">
-		<form name="download" method="post" action="/download_agree.cfm">
-			<input type="hidden" name="cnt" value="#cnt.recordcount#">
-			<input type="hidden" name="downloadFile" value="#downloadFile#">
-			<input type="submit" value="Download" 
-			class="lnkBtn"
-   			onmouseover="this.className='lnkBtn btnhov'" 
-			onmouseout="this.className='lnkBtn'">
-		</form>
-	</cfoutput>
+
+
+
 <cfinclude template = "includes/_footer.cfm">
