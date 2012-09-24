@@ -42,8 +42,9 @@
 </cfif>
 
 <hr>
+<cfoutput>
 #SqlString#
-
+</cfoutput>
 
 
 <cfabort>
