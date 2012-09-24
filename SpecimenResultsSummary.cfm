@@ -5,6 +5,59 @@
 <cfdump var=#url#>
 
 
+
+<cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem,#groupby#">
+<cfset basFrom = " FROM #session.flatTableName#">
+<cfset basJoin = "">
+<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">	
+<cfset basQual = "">
+<cfset mapurl="">
+<cfinclude template="includes/SearchSql.cfm">
+<!--- wrap everything up in a string --->
+<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
+<cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
+<!--- require some actual searching --->
+<cfset srchTerms="">
+<cfloop list="#mapurl#" delimiters="&" index="t">
+	<cfset tt=listgetat(t,1,"=")>
+	<cfset srchTerms=listappend(srchTerms,tt)>
+</cfloop>
+<!--- remove standard criteria that kill Oracle... --->
+<cfif listcontains(srchTerms,"ShowObservations")>
+	<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
+</cfif>
+<cfif listcontains(srchTerms,"collection_id")>
+	<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
+</cfif>
+<!--- ... and abort if there's nothing left --->
+<cfif len(srchTerms) is 0>
+	<CFSETTING ENABLECFOUTPUTONLY=0>			
+	<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
+	<cfabort>
+</cfif>
+
+<cfset checkSql(SqlString)>
+<cfif isdefined("debug") and debug is true>
+	#preserveSingleQuotes(SqlString)#
+</cfif>
+
+<hr>
+#SqlString#
+
+
+
+<cfabort>
+<cfset SqlString = "create table #session.SpecSrchTab# AS ">
+	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		#preserveSingleQuotes(SqlString)#
+	</cfquery>
+	
+	
+	
+	
+	
+	
+
 <cfif not isdefined("SearchParams")>
 	<cfset SearchParams = "">
 </cfif>
