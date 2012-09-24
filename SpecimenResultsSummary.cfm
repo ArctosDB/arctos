@@ -34,7 +34,7 @@
 <cfif isdefined("debug") and debug is true>
 	#preserveSingleQuotes(SqlString)#
 </cfif>
-<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
 
@@ -43,7 +43,22 @@
 <cfdump var=#mapurl#>	
 	
 	
+<table border="1">
+<tr>
+	<td>Count</td>
+	<cfloop list="#groupby#" index="x">
+		<td>#x#</td>
+	</cfloop>
+</tr>
+<cfloop query="getData">
+	<td>#COUNTOFCATALOGEDITEM#</td>
+	<cfloop list="#groupby#" index="x">
+		<td>#evaluate("getData." & x)#</td>
+	</cfloop>
+</cfloop>
 	
+	
+	<cfabort>
 	
 
 <cfif not isdefined("SearchParams")>
