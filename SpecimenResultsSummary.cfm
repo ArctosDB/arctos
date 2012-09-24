@@ -95,7 +95,7 @@
 		variables.joFileWriter.close();
 	</cfscript>
 	
-	<a href="/download/#fname#">get CSV</a>
+	<a href="/download.cfm?file=ArctosSpecimenSummary.csv">get CSV</a>
 	
 	
 	
