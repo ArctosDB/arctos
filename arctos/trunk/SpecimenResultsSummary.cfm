@@ -187,6 +187,7 @@
 <cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
+	<cfdump var=#getData#>
 	<cfif getData.recordcount is 0>
 	<CFSETTING ENABLECFOUTPUTONLY=0>
 			<cfoutput>
