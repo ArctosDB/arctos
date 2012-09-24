@@ -38,7 +38,7 @@
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
 
-<cfdump var=#buildIt#>
+<cfdump var=#getData#>
 	
 <cfdump var=#mapurl#>	
 	
