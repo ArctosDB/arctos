@@ -139,10 +139,6 @@
 						</div>
 					</td>
 				</tr>
-				
-				
-				
-				
 			</form>
 			
 	</table>
