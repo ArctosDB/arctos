@@ -39,58 +39,50 @@
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
 <cfoutput>
-<table border id="t" class="sortable">
-	<tr>
-		<th>Count</th>
-		<th>Link</th>
-		<cfloop list="#groupby#" index="x">
-			<th>#x#</th>
-		</cfloop>
-	</tr>
-	<cfloop query="getData">
-		<cfset thisLink=mapurl>
-		<cfloop list="#groupby#" index="x">
-			<cfset thisLink=listappend(thisLink,'#x#=#evaluate("getData." & x)#',"&")>
-		</cfloop>
-		<tr>
-			<td>#COUNTOFCATALOGEDITEM#</td>
-			<td><a href="/SpecimenResults.cfm?#thisLink#">specimens</a>
-			<cfloop list="#groupby#" index="x">
-				<td>#evaluate("getData." & x)#</td>
-			</cfloop>
-		</tr>
-	</cfloop>
-</table>
 	
-<!------------------------------- download --------------------------------->
-
 
 <cfset dlPath = "#Application.DownloadPath#">
 <cfset variables.encoding="UTF-8">
 <cfset variables.fileName="#Application.webDirectory#/download/ArctosSpecimenSummary.csv">
-<cfset header ="Count,Link,#groupBy#">
-
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(ListQualify(header,'"')); 
-	</cfscript>
+<cfset header ="Count,#groupBy#,Link">
+<cfscript>
+	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+	variables.joFileWriter.writeLine(ListQualify(header,'"')); 
+</cfscript>
+<table border id="t" class="sortable">
+	<tr>
+		<th>Count</th>
+		<cfloop list="#groupby#" index="x">
+			<th>#x#</th>
+		</cfloop>
+		<th>Specimens</th>
+	</tr>
 	<cfloop query="getData">
 		<cfset thisLink=mapurl>
-		<cfloop list="#groupby#" index="x">
-			<cfset thisLink=listappend(thisLink,'#x#=#evaluate("getData." & x)#',"&")>
-		</cfloop>
 		<cfset oneLine='"#COUNTOFCATALOGEDITEM#","/SpecimenResults.cfm?#thisLink#"'>
-		
+		<tr>
+			<td>#COUNTOFCATALOGEDITEM#</td>
 			<cfloop list="#groupby#" index="x">
-				<cfset oneLine=oneline & ',"#evaluate("getData." & x)#"'>
+				<cfif len(evaluate("getData." & x)) is 0>
+					<cfset thisVal='NULL'>
+				<cfelse>
+					<cfset thisVal=evaluate("getData." & x)>
+				</cfif>
+				<cfset thisLink=listappend(thisLink,thisVal,"&")>
+				<cfset oneLine=oneline & ',"#thisVal#"'>
+				<td>#thisVal#</td>
 			</cfloop>
-			
+			<cfset oneLine=oneline & ',"#thisLink#"'>
 			<cfscript>
 				variables.joFileWriter.writeLine(oneLine); 
 			</cfscript>
-	
-	
+			<td><a href="/SpecimenResults.cfm?#thisLink#">specimens</a>
+		</tr>
 	</cfloop>
+</table>
+	
+
+
 	<cfscript>	
 		variables.joFileWriter.close();
 	</cfscript>
