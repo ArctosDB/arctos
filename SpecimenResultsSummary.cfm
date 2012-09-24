@@ -14,7 +14,7 @@
 <cfset mapurl="">
 <cfinclude template="includes/SearchSql.cfm">
 <!--- wrap everything up in a string --->
-<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
+<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by #groupby#">
 <cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
 <!--- require some actual searching --->
 <cfset srchTerms="">
