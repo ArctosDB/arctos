@@ -199,7 +199,7 @@
 			<input type="hidden" value="save" name="action">
 			<input type="hidden" value="#collection_object_id#" name="collection_object_id">
 			<input type="hidden" value="#indiv.collection_cde#" name="collection_cde" id="collection_cde">
-    		<table>
+    		<table width="100%">
       			<tr> 
 					<td>
 						<label for="flags">Missing</label>
