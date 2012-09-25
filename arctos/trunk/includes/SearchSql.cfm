@@ -36,7 +36,10 @@
 	<cfset taxon_scope="common">	
 </cfif>
 <!--------------------------- / end old stuff --------------------------------------->
-
+<cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
+	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
+	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
+</cfif>
 <cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
 	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
 	<cfif isGeoreferenced is true>
