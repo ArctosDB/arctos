@@ -105,6 +105,7 @@
 			SELECT
 				COLL_OBJECT_REMARKS,
 				associated_species,
+				cataloged_item_type,
 				flags,
 				cat_num, 
 				collection.collection_cde, 
@@ -134,12 +135,22 @@
 				cataloged_item.collection_object_id = coll_object_remark.collection_object_id (+) AND
 				cataloged_item.collection_object_id = #collection_object_id#
 		</cfquery>
-		<cfquery name="ctflags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT flags from ctflags
+		<cfquery name="ctflags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT flags from ctflags order by flags
+		</cfquery>
+		<cfquery name="ctcataloged_item_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT cataloged_item_type from ctcataloged_item_type order by cataloged_item_type
+		</cfquery>
+		<cfquery name="ctdisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
+		</cfquery>
+		<cfquery name="ctattribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT attribute_type FROM ctattribute_type where collection_cde='#indiv.collection_cde#' order by attribute_type
 		</cfquery>
 		<cfquery name="indiv" dbtype="query">
 			select 
 				CAT_NUM,
+				cataloged_item_type,
 				collection_cde,
 				COLL_OBJECT_REMARKS,
 				associated_species,
@@ -148,14 +159,11 @@
 				raw
 			group by
 				CAT_NUM,
+				cataloged_item_type,
 				collection_cde,
 				COLL_OBJECT_REMARKS,
 				associated_species,
 				flags
-		</cfquery>
-		<cfquery name="ctattribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT attribute_type FROM ctattribute_type where 
-			collection_cde='#indiv.collection_cde#'
 		</cfquery>
 		<cfquery name="atts" dbtype="query">
 			select
@@ -185,12 +193,8 @@
 				DETERMINED_DATE,
 				DETERMINATION_METHOD
 		</cfquery>
-		<cfquery name="ctdisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select coll_obj_disposition from ctcoll_obj_disp
-		</cfquery>
-		<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select collection_cde from ctcollection_cde
-		</cfquery>
+	
+	
 		<form name="details" method="post" action="editBiolIndiv.cfm">
 			<input type="hidden" value="save" name="action">
 			<input type="hidden" value="#collection_object_id#" name="collection_object_id">
@@ -203,6 +207,14 @@
 							<option value=""></option>
 							<cfloop query="ctflags">
 								<option <cfif indiv.flags is ctflags.flags> selected="selected" </cfif>value="#flags#">#flags#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="cataloged_item_type">CatItemType</label>
+						<select name="cataloged_item_type" id="cataloged_item_type" size="1" class="reqdClr">
+							<cfloop query="ctcataloged_item_type">
+								<option <cfif indiv.cataloged_item_type is ctcataloged_item_type.cataloged_item_type> selected="selected" </cfif>value="#cataloged_item_type#">#cataloged_item_type#</option>
 							</cfloop>
 						</select>
 					</td>
@@ -558,6 +570,11 @@
 					,flags='#flags#'
 				WHERE collection_object_id = #collection_object_id#
 			</cfquery>
+			<cfquery name="cataloged_item_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update cataloged_item set cataloged_item_type='#cataloged_item_type#' where 
+				collection_object_id = #collection_object_id#
+			</cfquery>
+			
 			<cfquery name="isCORem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select collection_object_id from coll_object_remark where 
 				collection_object_id = #collection_object_id#
