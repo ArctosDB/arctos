@@ -144,9 +144,6 @@
 		<cfquery name="ctdisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 		</cfquery>
-		<cfquery name="ctattribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT attribute_type FROM ctattribute_type where collection_cde='#indiv.collection_cde#' order by attribute_type
-		</cfquery>
 		<cfquery name="indiv" dbtype="query">
 			select 
 				CAT_NUM,
@@ -164,6 +161,9 @@
 				COLL_OBJECT_REMARKS,
 				associated_species,
 				flags
+		</cfquery>
+		<cfquery name="ctattribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT attribute_type FROM ctattribute_type where collection_cde='#indiv.collection_cde#' order by attribute_type
 		</cfquery>
 		<cfquery name="atts" dbtype="query">
 			select
