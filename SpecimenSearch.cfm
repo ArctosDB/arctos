@@ -10,6 +10,11 @@
 <cfquery name="ctmedia_type" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 	select media_type from ctmedia_type order by media_type
 </cfquery>
+<cfquery name="ctcataloged_item_type" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+	select cataloged_item_type from ctcataloged_item_type order by cataloged_item_type
+</cfquery>
+
+
 <cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select SEARCH_NAME,URL
 	from cf_canned_search,cf_users
@@ -129,6 +134,13 @@
 	</tr>
 </table>
 <div>
+		&nbsp;&nbsp;&nbsp;<span class="helpLink" id="_cataloged_item_type">Type</span>:<select name="cataloged_item_type" id="cataloged_item_type" size="1">
+			<option value=""></option>
+				<cfloop query="ctcataloged_item_type">
+					<option value="#ctcataloged_item_type.cataloged_item_type#">#ctcataloged_item_type.cataloged_item_type#</option>
+				</cfloop>
+			</select>
+
 	<span class="helpLink" id="observations">Include&nbsp;Observations?</span><input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif session.showObservations eq 1> checked="checked"</cfif>>
 	&nbsp;&nbsp;&nbsp;<span class="helpLink" id="_is_tissue">Require&nbsp;Tissues?</span><input type="checkbox" name="is_tissue" id="is_tissue" value="1">
 	&nbsp;&nbsp;&nbsp;<span class="helpLink" id="_media_type">Require&nbsp;Media</span>:<select name="media_type" id="media_type" size="1">
