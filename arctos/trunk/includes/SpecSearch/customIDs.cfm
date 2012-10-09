@@ -17,8 +17,7 @@ function closeThis(){
 	<tr>
 		<td colspan="2" class="secHead">
 				<span class="secLabel">Customize Identifiers</span>
-				<span class="secControl" id="c_collevent"
-					onclick="closeThis();">Close</span>
+				<span class="secControl" id="c_collevent" onclick="closeThis();">Close</span>
 		</td>
 	</tr>
 	<tr>
