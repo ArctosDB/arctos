@@ -1,9 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 
 <!---- relies on table bulkloader_clone
-
+ drop table bulkloader_clone;
 create table bulkloader_clone as select * from bulkloader where 1=0;
-create public synonym bulkloader_clone for bulkloader_clone;
+create or replace public synonym bulkloader_clone for bulkloader_clone;
 grant all on bulkloader_clone to coldfusion_user;
 
 

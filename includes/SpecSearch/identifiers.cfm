@@ -16,7 +16,6 @@
 				select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
 			</cfquery>
 		</cfif>
-		
 	</cfoutput>
 	<tr>					
 		<td class="lbl">
@@ -24,14 +23,15 @@
 		</td>
 		<td class="srch">
 			<select name="OIDType" id="OIDType" size="1"
-				<cfif isdefined("OIDType") and len(#OIDType#) gt 0>
-					class="reqdClr" </cfif>>
+				<cfif isdefined("OIDType") and len(OIDType) gt 0>
+					class="reqdClr" 
+				</cfif>>
 				<option value=""></option>
 				<cfoutput query="OtherIdType">
 					<option 
-						<cfif isdefined("OIDType") and len(#OIDType#) gt 0>
-							<cfif #OIDType# is #OtherIdType.other_id_type#>
-								selected
+						<cfif isdefined("OIDType") and len(OIDType) gt 0>
+							<cfif OIDType is OtherIdType.other_id_type>
+								selected="selected"
 							</cfif>
 						</cfif>
 						value="#OtherIdType.other_id_type#">#OtherIdType.other_id_type#</option>
@@ -48,8 +48,8 @@
 		</td>
 		<td class="srch">
 			<select name="oidOper" id="oidOper" size="1">
-				<option value="" selected="selected">contains</option>
-				<option value="IS">is</option>
+				<option value="" ">contains</option>
+				<option selected="selected value="IS">is</option>
 			</select>
 			<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 				<textarea name="OIDNum" id="OIDNum" rows="6" cols="30" wrap="soft"></textarea>
