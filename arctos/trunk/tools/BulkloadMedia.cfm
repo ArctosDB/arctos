@@ -102,7 +102,10 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "killMine">
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from cf_temp_media where username='#session.username#' and status in (#ListQualify(status,"'")#)
+		delete from cf_temp_media where username='#session.username#' 
+		<cfif len(status) gt 0>
+			and status in (#ListQualify(status,"'")#)
+		</cfif>
 	</cfquery>
 	<a href="BulkloadMedia.cfm?action=myStuff">return to my records</a>
 </cfif>
