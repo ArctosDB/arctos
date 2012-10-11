@@ -357,7 +357,7 @@
 		
 		<cfmail subject="bad app start" to="arctos.database@gmail.com" from="badAppStart@#application.fromEmail#" type="html">
 			Idon't know who I am
-			serverName=<cfdump var=serverName>
+			serverName=<cfdump var="#serverName#">
 			<cfdump var=#cgi# label="cgi">
 		</cfmail>
 	</cfif>
