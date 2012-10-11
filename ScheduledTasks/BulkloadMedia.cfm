@@ -3,6 +3,10 @@
 <cfset numRelns=5>
 <cfif not isdefined("debug")><cfset debug=false></cfif>
 <!------------------------------------------------------->
+<cfif action is "nothing">
+	<a href="/BulkLoadMedia.cfm?action=validate">validate</a>
+	
+</cfif>
 <cfif action is "report">
 	<cfoutput>
 	<cfquery name="who" datasource="uam_god">
