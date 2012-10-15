@@ -83,7 +83,7 @@
 			<div id="groupByDiv1" style="display:none;border:1px solid green;padding:.5em;">
 				<font size="-1"><em><strong>Group by:</strong></em></font><br>
 				<select name="groupBy1" id="groupBy1" multiple size="4" onchange="changeGrp(this.id)">
-					<option value="">Scientific Name</option>
+					<option value="scientific_name">Scientific Name</option>
 					<option value="kingdom">Kingdom</option>
 					<option value="phylum">Phylum</option>
 					<option value="phylclass">Class</option>
@@ -442,7 +442,7 @@
 			<div id="groupByDiv" style="display:none;border:1px solid green;padding:.5em;">
 			<font size="-1"><em><strong>Group by:</strong></em></font><br>
 			<select name="groupBy" id="groupBy" multiple size="4" onchange="changeGrp(this.id)">
-				<option value="">Scientific Name</option>
+				<option value="scientific_name">Scientific Name</option>
 				<option value="kingdom">Kingdom</option>
 				<option value="phylum">Phylum</option>
 				<option value="phylclass">Class</option>
