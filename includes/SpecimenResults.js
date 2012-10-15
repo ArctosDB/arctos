@@ -58,6 +58,7 @@ function insertMedia(idList) {
 	s.className='ajaxStatus';
 	s.innerHTML='Checking for Media...';
 	document.body.appendChild(s);
+	console.log('got some stuff....');
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getMedia",
