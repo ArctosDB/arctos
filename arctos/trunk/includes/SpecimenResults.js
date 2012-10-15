@@ -69,6 +69,8 @@ function insertMedia(idList) {
 		function (result) {
 			console.log('result='+result);
 			console.log('result.DATA='+result.DATA);
+			console.log('result.DATA.COLLECTION_OBJECT_ID[0]='+result.DATA.COLLECTION_OBJECT_ID[0]);
+			
 			try{
 				var sBox=document.getElementById('ajaxStatus');
 				sBox.innerHTML='Processing Media....';
