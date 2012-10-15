@@ -76,10 +76,10 @@ function insertMedia(idList) {
 				sBox.innerHTML='Processing Media....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sel;
-					var sid=result.DATA.collection_object_id[i];
+					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
 					console.log('sid='+sid);
-					var mid=result.DATA.media_id[i];
-					var rel=result.DATA.media_relationship[i];
+					var mid=result.DATA.MEDIA_ID[i];
+					var rel=result.DATA.MEDIA_RELATIONSHIP[i];
 					if (rel=='cataloged_item') {
 						sel='CatItem_' + sid;
 					} else if (rel=='collecting_event') {
