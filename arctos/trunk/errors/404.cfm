@@ -18,6 +18,7 @@
 	<cfquery name="redir" datasource="cf_dbuser">
 		select new_path from redirect where upper(old_path)='#ucase(cTemp)#'
 	</cfquery>
+	-select new_path from redirect where upper(old_path)='#ucase(cTemp)#'-
 	<cfif redir.recordcount is 1>
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfif left(redir.new_path,4) is "http">
