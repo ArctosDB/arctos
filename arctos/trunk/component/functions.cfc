@@ -3094,6 +3094,7 @@
 			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select getMediaBySpecimen('#tabl#',#cid#) midList from dual
 			</cfquery>
+			<cfdump var=#mid#>
 			<cfif len(mid.midList) gt 0>
 				<cfset t = queryaddrow(theResult,1)>
 				<cfset t = QuerySetCell(theResult, "collection_object_id", "#cid#", r)>
