@@ -92,6 +92,7 @@ function insertMedia(idList) {
 				document.body.removeChild(sBox);
 				}
 			catch(e) {
+				console.log('err=' + e);
 				sBox=document.getElementById('ajaxStatus');
 				document.body.removeChild(sBox);
 			}
