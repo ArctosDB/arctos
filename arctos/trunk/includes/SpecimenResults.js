@@ -67,6 +67,8 @@ function insertMedia(idList) {
 			queryformat : 'column'
 		},
 		function (result) {
+			console.log('result='+result);
+			console.log('result.DATA='+result.DATA);
 			try{
 				var sBox=document.getElementById('ajaxStatus');
 				sBox.innerHTML='Processing Media....';
