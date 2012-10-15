@@ -58,7 +58,6 @@ function insertMedia(idList) {
 	s.className='ajaxStatus';
 	s.innerHTML='Checking for Media...';
 	document.body.appendChild(s);
-	console.log('got some stuff....');
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getMedia",
@@ -67,17 +66,12 @@ function insertMedia(idList) {
 			queryformat : 'column'
 		},
 		function (result) {
-			console.log('result='+result);
-			console.log('result.DATA='+result.DATA);
-			console.log('result.DATA.COLLECTION_OBJECT_ID[0]='+result.DATA.COLLECTION_OBJECT_ID[0]);
-			
 			try{
 				var sBox=document.getElementById('ajaxStatus');
 				sBox.innerHTML='Processing Media....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sel;
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
-					console.log('sid='+sid);
 					var mid=result.DATA.MEDIA_ID[i];
 					var rel=result.DATA.MEDIA_RELATIONSHIP[i];
 					if (rel=='cataloged_item') {
@@ -96,7 +90,6 @@ function insertMedia(idList) {
 				document.body.removeChild(sBox);
 				}
 			catch(e) {
-				console.log('err=' + e);
 				sBox=document.getElementById('ajaxStatus');
 				document.body.removeChild(sBox);
 			}
