@@ -10,8 +10,8 @@
 		<cfset ipaddress='unknown'>
 	</CFIF>
 	<cfset cTemp="">
-	<cfif len(cgi.redirect_url) gt 0>
-		<cfset cTemp=cgi.redirect_url>
+	<cfif len(cgi.query_string) gt 0>
+		<cfset cTemp=cgi.query_string>
 	<cfelseif len(cgi.script_name) gt 0>
 		<cfset cTemp=cgi.script_name>
 	</cfif>
