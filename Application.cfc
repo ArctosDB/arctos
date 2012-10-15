@@ -262,9 +262,9 @@
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
 		<cfset Application.Google_uacct = "UA-315170-1">
 		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
-		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
-		<cfset Application.AppVersion= "preprod">
+		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
+		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
+		<cfset Application.AppVersion= "prod">
 		
 		
 		
