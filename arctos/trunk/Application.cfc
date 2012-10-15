@@ -248,6 +248,27 @@
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.StartupServerName=serverName>
 	<cfif serverName is "arctos.database.museum">
+		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
+		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
+		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
+		<cfset Application.bugReportEmail = "dustymc@gmail.com">
+		<cfset Application.technicalEmail = "dustymc@gmail.com">
+		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
+		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
+		<cfset Application.genBankPrid = "3849">
+		<cfset Application.genBankUsername="uam">
+		<cfset Application.convertPath = "/usr/local/bin/convert">
+		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
+		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
+		<cfset Application.Google_uacct = "UA-315170-1">
+		<cfset Application.InstitutionBlurb = "">
+		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
+		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
+		<cfset Application.AppVersion= "preprod">
+		
+		
+		
+		<!----
 		<cfset Application.serverRootUrl="http://arctos.database.museum">
 		<cfset Application.fromEmail="arctos.database.museum">
 		<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
@@ -266,6 +287,8 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
+		
+		---->
     <cfelseif serverName contains "harvard.edu">
 		<cfset Application.svn = "/usr/bin/svn">
 		<cfset Application.webDirectory = "/var/www/html/arctosv.2.2.2">
