@@ -4,7 +4,6 @@
 	   <cfargument name="preview_uri" required="true" type="string">
 	   <cfargument name="media_type" required="false" type="string">
 	      
-	      <!---
 	   <cfset r=0>
 	   <cfif len(preview_uri) gt 0>
 			<cfhttp method="head" url="#preview_uri#" timeout="1">
@@ -12,8 +11,7 @@
 				<cfset r=1>
 			</cfif>
 		</cfif>
-		--->
-		<cfif len(preview_uri) is 0>
+		<cfif r is 0>
 			<cfif mt is "image">
 				<cfreturn "/images/noThumb.jpg">
 			<cfelseif mt is "audio">
