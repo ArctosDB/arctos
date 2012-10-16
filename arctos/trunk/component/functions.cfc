@@ -15,13 +15,13 @@
 		</cfif>
 		---->
 		<cfif len(preview_uri) is 0>
-			<cfif mt is "image">
+			<cfif media_type is "image">
 				<cfreturn "/images/noThumb.jpg">
-			<cfelseif mt is "audio">
+			<cfelseif media_type is "audio">
 				<cfreturn "/images/audioNoThumb.png">
-			<cfelseif mt is "text">
+			<cfelseif media_type is "text">
 				<cfreturn "/images/documentNoThumb.png">
-			<cfelseif mt is "multi-page document">
+			<cfelseif media_type is "multi-page document">
 				<cfreturn "/images/document_thumbnail.png">
 			<cfelse>
 				<cfreturn "/images/noThumb.jpg">
