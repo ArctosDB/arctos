@@ -559,7 +559,7 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<th>Ended&nbsp;Date</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('YEARCOLL')> -1) {
-				theInnerHtml += '<th>Year</th>';
+				theInnerHtml += '<th>ttttttYeartttttt</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('MONCOLL')> -1) {
 				theInnerHtml += '<th>Month</th>';
