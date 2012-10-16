@@ -4,6 +4,8 @@
 	   <cfargument name="preview_uri" required="true" type="string">
 	   <cfargument name="media_type" required="false" type="string">
 	     <!----
+		 
+		 it would be just fabulous to check the previews, but cfhttp doesn't seem to time out properly
 	   <cfset r=0>
 	   <cfif len(preview_uri) gt 0>
 			<cfhttp method="head" url="#preview_uri#" timeout="1">
