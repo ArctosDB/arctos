@@ -32,7 +32,7 @@
 		accn,
 		trans,
 		collection
-		<cfif (not isdefined("collection_object_id")) or (isdefined("collection_object_id") and listlen(collection_object_id) gt 1)>
+		<cfif (not isdefined("collection_object_id")) or (isdefined("collection_object_id") and listlen(collection_object_id) gt 1) or len(collection_object_id) is 0>
 			,#session.username#.#session.SpecSrchTab#
 		</cfif>
 	WHERE
