@@ -1331,6 +1331,7 @@
 					<div class="thumb_spcr">&nbsp;</div>
 					<cfset stuffToNotPlay="audio/x-wav">
 					<cfloop query="media">
+						<!----
 						<cftry>
 						<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
 							<cfinvokeargument name="preview_uri" value="#preview_uri#">
@@ -1343,10 +1344,11 @@
 							<cfdump var=#cfcatch#>
 						</cfcatch>
 							</cftry>
-						<!----
+						
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
 						---->
-
+						
+						<cfset puri="/images/noThumb.jpg">
 						<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,mime_type)>
 							<cfset addThisClass="noplay">
