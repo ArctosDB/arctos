@@ -1,6 +1,6 @@
 <cfcomponent>
 
-<cffunction name="getMediaPreview" access="public" output="true">
+<cffunction name="getMediaPreview" access="remote" output="true">
 	   <cfargument name="preview_uri" required="true" type="string">
 	   <cfargument name="media_type" required="false" type="string">
 	   <cfset r=0>
