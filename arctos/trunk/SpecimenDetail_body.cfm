@@ -1331,8 +1331,10 @@
 					<div class="thumb_spcr">&nbsp;</div>
 					<cfset stuffToNotPlay="audio/x-wav">
 					<cfloop query="media">
-						<!----
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
+						
+												<!----
+
 						<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,mime_type)>
 							<cfset addThisClass="noplay">
