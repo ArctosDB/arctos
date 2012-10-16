@@ -131,13 +131,11 @@
 				</cfquery>
 			</cftransaction>
 		<cfelse>
-      <font color="##FF0000" size="+2">That accn was not found! 
-	  <cfdump var=#accn#>
-	 SELECT accn.TRANSACTION_ID FROM accn,trans WHERE
-			accn.TRANSACTION_ID=trans.TRANSACTION_ID AND
-			accn_number = '#accn_number#' 
-			and collection_id = '#collection_id#'	
-      <cfabort>
+		     <div class="error">
+		      	Not one match - aborting.... 
+			 	<cfdump var=#accn#>
+			 </div>
+			<cfabort>
 		</cfif>
 		
 		<cfif isdefined("collection_object_id") and listlen(collection_object_id) is 1>
