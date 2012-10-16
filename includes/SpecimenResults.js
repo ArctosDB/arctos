@@ -562,10 +562,10 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<th>ttttttYeartttttt</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('MONCOLL')> -1) {
-				theInnerHtml += '<th>Month</th>';
+				theInnerHtml += '<th>tttttMonth</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('DAYCOLL')> -1) {
-				theInnerHtml += '<th>Day</th>';
+				theInnerHtml += '<th>ttttttDay</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 				theInnerHtml += '<th>Parts</th>';
