@@ -1,12 +1,17 @@
-<cftimer type="inline" label="corral fetch">
-			<cfhttp method="head" url="http://web.corral.tacc.utexas.edu/UAF/2008_10_15/jpegs/tn_H1175660.jpg">
-			<cfdump var=#cfhttp#>
-</cftimer>
-
+		
 
 <cfhttp method="head" url="http://faculty.washington.edu/leache/wordpress/wp-content/uploads/2012/09/magister1.png">
 			<cfdump var=#cfhttp#>
 	<!----------------
+
+
+	<cfhttp method="head" url="http://web.corral.tacc.utexas.edu/UAF/2008_10_15/jpegs/tn_H1175660.jpg">
+			<cfdump var=#cfhttp#>
+			
+			
+			
+			
+			
 	<cfquery datasource="uam_god" name="cols">
 		select * from taxonomy where 1=2		
 	</cfquery>
