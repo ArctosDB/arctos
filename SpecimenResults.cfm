@@ -117,7 +117,7 @@ function removeHelpDiv() {
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
 <cfif ListContainsNoCase(session.resultColumnList,"_day_of_ymd")>
-	<cfset basSelect = "#basSelect#, 'bob' AS YearColl,
+	<cfset basSelect = "#basSelect#, '67' AS YearColl,
 		'jim' MonColl,
 		'bill' DayColl ">
 	<!----
