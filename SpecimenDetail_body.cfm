@@ -1333,7 +1333,7 @@
 					<cfloop query="media">
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
 						
-												<!----
+												
 
 						<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,mime_type)>
@@ -1348,6 +1348,7 @@
 							where
 								media_id=#media_id#
 						</cfquery>
+						<!----
 						<cfquery name="desc" dbtype="query">
 							select label_value from labels where media_label='description'
 						</cfquery>
