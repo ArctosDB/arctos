@@ -838,10 +838,10 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>hi</td>;'// + data.YEARCOLL[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('MONCOLL')> -1) {
-					theInnerHtml += '<td>' + data.MONCOLL[i] + '</td>';
+					theInnerHtml += '<td>hi</td>;'//theInnerHtml += '<td>' + data.MONCOLL[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('DAYCOLL')> -1) {
-					theInnerHtml += '<td>' + data.DAYCOLL[i] + '</td>';
+					theInnerHtml += '<td>hi</td>;'//theInnerHtml += '<td>' + data.DAYCOLL[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
