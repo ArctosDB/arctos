@@ -835,7 +835,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + data.ENDED_DATE[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('YEARCOLL')> -1) {
-					theInnerHtml += '<td>' + data.YEARCOLL[i] + '</td>';
+					theInnerHtml += '<td>hi</td>;'// + data.YEARCOLL[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('MONCOLL')> -1) {
 					theInnerHtml += '<td>' + data.MONCOLL[i] + '</td>';
