@@ -7,7 +7,7 @@
 
 
 <cfset tick = GetTickCount()>
- <cfhttp method="head" url="#u#">
+ <cfhttp method="head" url="#u#" timeout="1">
 
 <cfset tock = GetTickCount()>
 <cfset time = tock-tick>
