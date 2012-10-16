@@ -1295,31 +1295,36 @@
          media_relations.related_primary_key = #collection_object_id#
 </cfquery>
 <cfif media.recordcount gt 0>
-	
-	<!---
     <div class="detailCell">
 		<div class="detailLabel">Media
 			<cfif oneOfUs is 1>
+				<!----
 				 <cfquery name="hasConfirmedImageAttr"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT count(*) c
+					SELECT 
+						count(*) c
 					FROM
 						ctattribute_type 
-					where attribute_type='image confirmed' and
-					collection_cde='#one.collection_cde#'
+					where 
+						attribute_type='image confirmed' and
+						collection_cde='#one.collection_cde#'
 				</cfquery>
 				<span class="detailEditCell" onclick="window.parent.loadEditApp('MediaSearch');">Edit</span>
 				<cfquery name="isConf"  dbtype="query">
-					SELECT count(*) c
+					SELECT 
+						count(*) c
 					FROM
 						attribute 
-					where attribute_type='image confirmed'
+					where 
+						attribute_type='image confirmed'
 				</cfquery>
-				<CFIF isConf.c is "" and hasConfirmedImageAttr.c gt 0>
+				<CFIF len(isConf.c) is 0 and hasConfirmedImageAttr.c gt 0>
 					<span class="infoLink" 
-						id="ala_image_confirm" onclick='windowOpener("/ALA_Imaging/confirmImage.cfm?collection_object_id=#collection_object_id#","alaWin","width=700,height=400, resizable,scrollbars,location,toolbar");'>
+						id="ala_image_confirm" 
+						onclick='windowOpener("/ALA_Imaging/confirmImage.cfm?collection_object_id=#collection_object_id#","alaWin","width=700,height=400, resizable,scrollbars,location,toolbar");'>
 						Confirm Image IDs
 					</span> 
 				</CFIF>
+				---->
 			</cfif>
 		</div>
 		<div class="detailBlock">
@@ -1394,7 +1399,6 @@
 			</cfif>
 		</cfloop>
 	</div>
-	--->
 </cfif>
 	</td><!--- end right half of table --->
 </table>
