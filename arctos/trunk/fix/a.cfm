@@ -1,6 +1,6 @@
 		
 
-<cfhttp method="head" url="http://faculty.washington.edu/leache/wordpress/wp-content/uploads/2012/09/magister1.png">
+<cfhttp method="head" url="http://www.google.com/url?source=imglanding&ct=img&q=http://s3-ec.buzzfed.com/static/imagebuzz/web04/2011/8/2/17/boogity-boogity-boogity-amen-4954-1312319570-19.jpg&sa=X&ei=K3x9UOygH-m0iQLaloDwDw&ved=0CAkQ8wc&usg=AFQjCNHioR9ACBtuMGtA_bK4WA4XA9ZtgA">
 			<cfdump var=#cfhttp#>
 	<!----------------
 
