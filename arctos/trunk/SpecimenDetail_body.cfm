@@ -1352,11 +1352,12 @@
 						<cfquery name="desc" dbtype="query">
 							select label_value from labels where media_label='description'
 						</cfquery>
-						<!----
+						
 						<cfset alt="Media Preview Image">
 						<cfif desc.recordcount is 1>
 							<cfset alt=desc.label_value>
 						</cfif>
+						<!---
 		               <div class="one_thumb">
 			               <a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 							   	<img src="#trim(getMediaPreview(preview_uri,media_type))#" alt="#alt#" class="theThumb">
