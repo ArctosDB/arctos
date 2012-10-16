@@ -1,5 +1,4 @@
 <cfcomponent>
-	
 <!------------------------------------------------------------------->
 <cffunction name="agentCollectionContacts" access="remote">
 	<!--------- get email addresses of people who have some involvement with agent(s) ---->
