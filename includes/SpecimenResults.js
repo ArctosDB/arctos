@@ -558,17 +558,15 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
 				theInnerHtml += '<th>Ended&nbsp;Date</th>';
 			}
-			/*
 			if (data.COLUMNLIST[0].indexOf('YEARCOLL')> -1) {
-				theInnerHtml += '<th>ttttttYeartttttt</th>';
+				theInnerHtml += '<th>Year</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('MONCOLL')> -1) {
-				theInnerHtml += '<th>tttttMonth</th>';
+				theInnerHtml += '<th>Month</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('DAYCOLL')> -1) {
-				theInnerHtml += '<th>ttttttDay</th>';
+				theInnerHtml += '<th>Day</th>';
 			}
-			*/
 			if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 				theInnerHtml += '<th>Parts</th>';
 			}
@@ -836,18 +834,16 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
 					theInnerHtml += '<td>' + data.ENDED_DATE[i] + '</td>';
 				}
-				/*
 				if (data.COLUMNLIST[0].indexOf('YEARCOLL')> -1) {
-					theInnerHtml += '<td>hi</td>;'// + data.YEARCOLL[i] + '</td>';
+					theInnerHtml += '<td>' + data.YEARCOLL[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('MONCOLL')> -1) {
-					theInnerHtml += '<td>hi</td>;'//theInnerHtml += '<td>' + data.MONCOLL[i] + '</td>';
+					theInnerHtml += '<td>' + data.MONCOLL[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('DAYCOLL')> -1) {
-					theInnerHtml += '<td>hi</td>;'//theInnerHtml += '<td>' + data.DAYCOLL[i] + '</td>';
+					theInnerHtml += '<td>' + data.DAYCOLL[i] + '</td>';
 				}
 				
-				*/
 				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
 				}
