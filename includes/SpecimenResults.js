@@ -558,6 +558,7 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
 				theInnerHtml += '<th>Ended&nbsp;Date</th>';
 			}
+			/*
 			if (data.COLUMNLIST[0].indexOf('YEARCOLL')> -1) {
 				theInnerHtml += '<th>ttttttYeartttttt</th>';
 			}
@@ -567,6 +568,7 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('DAYCOLL')> -1) {
 				theInnerHtml += '<th>ttttttDay</th>';
 			}
+			*/
 			if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 				theInnerHtml += '<th>Parts</th>';
 			}
