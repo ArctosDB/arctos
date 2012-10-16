@@ -1,4 +1,4 @@
-<cftimer type="debug" label="corral fetch">
+<cftimer type="inline" label="corral fetch">
 			<cfhttp method="head" url="http://web.corral.tacc.utexas.edu/UAF/2008_10_15/jpegs/tn_H1175660.jpg">
 			<cfdump var=#cfhttp#>
 </cftimer>
