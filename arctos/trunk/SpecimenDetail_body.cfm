@@ -1349,9 +1349,7 @@
 						</cfif>
 		               <div class="one_thumb">
 			               <a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
-			               	<!---
 							   	<img src="#trim(getMediaPreview(preview_uri,media_type))#" alt="#alt#" class="theThumb">
-							--->
 							</a>
 		                   	<p>
 								#media_type# (#mime_type#)
