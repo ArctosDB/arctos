@@ -207,10 +207,7 @@
 		jQuery(document).ready(function(){
 			//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
 			var elemsToLoad='taxRelatedNames,mapTax';
-			
 			getMedia('taxon','#one.taxon_name_id#','specTaxMedia','10','1');
-			
-			
 			//var elemsToLoad='taxRelatedNames';
 			var elemAry = elemsToLoad.split(",");
 			for(var i=0; i<elemAry.length; i++){
@@ -366,7 +363,6 @@
 						[ with Media ]
 					</a>
 				</li>
-				<li>
 				<li>
 					<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&scientific_name=#one.scientific_name#" class="external" target="_blank">
 						BerkeleyMapper + RangeMaps
