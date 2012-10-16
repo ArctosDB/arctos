@@ -53,7 +53,13 @@
                         <cfset title = desc.label_value>
                         <cfset alt=desc.label_value>
         </cfif>
-                                <cfset mp=getMediaPreview(findIDs.preview_uri,findIDs.media_type)>
+        
+        <cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="mp">
+			<cfinvokeargument name="preview_uri" value="#findIDs.preview_uri#">
+			<cfinvokeargument name="media_type" value="#findIDs.media_type#">
+		</cfinvoke>
+						
+						
 									<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,findIDs.mime_type)>
 							<cfset addThisClass="noplay">
@@ -160,7 +166,11 @@
                                         <div class="thumbs">
                                                 <div class="thumb_spcr">&nbsp;</div>
                                                 <cfloop query="relM">
-                                                        <cfset puri=getMediaPreview(preview_uri,media_type)>
+													
+													<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
+														<cfinvokeargument name="preview_uri" value="#preview_uri#">
+														<cfinvokeargument name="media_type" value="#media_type#">
+													</cfinvoke>
 														<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,mime_type)>
 							<cfset addThisClass="noplay">
@@ -184,7 +194,7 @@
                                                         </cfif>
                                        <div class="one_thumb">
 									
-                                               <a href="#media_uri#" class="#addThisClass#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+                                               <a href="#media_uri#" class="#addThisClass#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
                                                 <p>
                                                                         #media_type# (#mime_type#)
                                                         <br><a href="/media/#media_id#">Media Details</a>
