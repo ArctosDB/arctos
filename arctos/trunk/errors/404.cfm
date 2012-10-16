@@ -32,7 +32,7 @@
 	</cfif>
 	<cfset nono="crossdomain,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
 	<cfset fourohthree="dll,asp,png">
-	<cfloop list="#cgi.redirect_url#" delimiters="./" index="i">
+	<cfloop list="#rdurl#" delimiters="./" index="i">
 		<cfif listfindnocase(nono,i)>
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
@@ -62,13 +62,13 @@
 					queryformat : 'column'
 				},
 				function (d) {
-		  			document.location='#cgi.REDIRECT_URL#';
+		  			document.location='#rdurl#';
 				}		
 			);
 		}
 	</script>
 	<cfset isGuid=false>
-	<cfif len(cgi.REDIRECT_URL) gt 0 and cgi.redirect_url contains "guid">
+	<cfif len(rdurl) gt 0 and rdurl contains "guid">
 		<cfset isGuid=true>
 		<cfif session.dbuser is not "pub_usr_all_all">
 			<cfquery name="yourcollid" datasource="cf_dbuser">
@@ -122,7 +122,7 @@
 		<cfset sub="Missing GUID">
 		<cfset frm="dead.guid">
 	</cfif>
-	<cfif cgi.REDIRECT_URL contains 'coldfusion.applets.CFGridApplet.class'>
+	<cfif rdurl contains 'coldfusion.applets.CFGridApplet.class'>
 		<cfset sub="stoopid safari">
 		<cfset frm="stoopid.safari">
 	</cfif>
@@ -131,8 +131,8 @@
 		<cfif isdefined("CGI.script_name")>
 			<br>The missing page is #Replace(CGI.script_name, "/", "")#
 		</cfif>
-		<cfif isdefined("cgi.REDIRECT_URL")>
-			<br>cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
+		<cfif isdefined("rdurl")>
+			<br>rdurl: #rdurl#
 		</cfif>
 		<cfif isdefined("session.username")>
 			<br>The username is #session.username#
