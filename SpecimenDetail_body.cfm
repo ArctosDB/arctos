@@ -1346,9 +1346,9 @@
 							</cftry>
 								<!----
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
-					
+											<cfset puri="/images/noThumb.jpg">
+
 						---->
-						<cfset puri="/images/noThumb.jpg">
 						<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,mime_type)>
 							<cfset addThisClass="noplay">
