@@ -1295,6 +1295,8 @@
          media_relations.related_primary_key = #collection_object_id#
 </cfquery>
 <cfif media.recordcount gt 0>
+	
+	<!---
     <div class="detailCell">
 		<div class="detailLabel">Media
 			<cfif oneOfUs is 1>
@@ -1391,7 +1393,8 @@
 				</div>
 			</cfif>
 		</cfloop>
-	</div>		
+	</div>
+	--->
 </cfif>
 	</td><!--- end right half of table --->
 </table>
