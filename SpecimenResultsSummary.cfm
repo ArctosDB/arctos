@@ -1,7 +1,10 @@
 <cfinclude template = "/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Specimen Results Summary">
-<cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem,#groupby#">
+<cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem,">
+<cfloop list="#groupBy#" index="x">
+	<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
+</cfloop>
 <cfset basFrom = " FROM #session.flatTableName#">
 <cfset basJoin = "">
 <cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">	
