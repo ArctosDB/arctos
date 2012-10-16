@@ -1,4 +1,31 @@
 <cfcomponent>
+
+<cffunction name="getMediaPreview" access="public" output="true">
+	   <cfargument name="preview_uri" required="true" type="string">
+	   <cfargument name="media_type" required="false" type="string">
+	   <cfset r=0>
+	   <cfif len(puri) gt 0>
+			<cfhttp method="head" url="#puri#" timeout="1">
+			<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200>
+				<cfset r=1>
+			</cfif>
+		</cfif>
+		<cfif r is 0>
+			<cfif mt is "image">
+				<cfreturn "/images/noThumb.jpg">
+			<cfelseif mt is "audio">
+				<cfreturn "/images/audioNoThumb.png">
+			<cfelseif mt is "text">
+				<cfreturn "/images/documentNoThumb.png">
+			<cfelseif mt is "multi-page document">
+				<cfreturn "/images/document_thumbnail.png">
+			<cfelse>
+				<cfreturn "/images/noThumb.jpg">
+			</cfif>
+		<cfelse>
+			<cfreturn puri>
+		</cfif>
+</cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="agentCollectionContacts" access="remote">
 	<!--------- get email addresses of people who have some involvement with agent(s) ---->
