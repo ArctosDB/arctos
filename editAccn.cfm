@@ -2,7 +2,8 @@
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		$("#ent_date").datepicker();
+		$("#b_ent_date").datepicker();
+		$("#e_ent_date").datepicker();
 		$("#rec_date").datepicker();
 		$("#rec_until_date").datepicker();	
 		$("#issued_date").datepicker();
