@@ -118,8 +118,8 @@ function removeHelpDiv() {
 </cfif>
 <cfif ListContainsNoCase(session.resultColumnList,"_day_of_ymd")>
 	<cfset basSelect = "#basSelect#, getYearCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) AS YearColl,
-		'jim' MonColl,
-		'bill' DayColl ">
+		getMonthCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) MonColl,
+		getDayCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) DayColl ">
 	<!----
 	<cfset basSelect = "#basSelect#,getYearCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) ddddYearColl,
 		getMonthCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) ddddMonColl,
