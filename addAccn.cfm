@@ -33,7 +33,7 @@
 		trans,
 		collection
 		<cfif (not isdefined("collection_object_id")) or (isdefined("collection_object_id") and listlen(collection_object_id) gt 1)>
-			,#session.SpecSrchTab#
+			,#session.username#.#session.SpecSrchTab#
 		</cfif>
 	WHERE
 		flat.collection_object_id=cataloged_item.collection_object_id and
@@ -44,7 +44,7 @@
 		<cfif isdefined("collection_object_id") and listlen(collection_object_id) is 1>
 			#collection_object_id#
 		<cfelse>
-			#session.SpecSrchTab#.collection_object_id
+			#session.username#.#session.SpecSrchTab#.collection_object_id
 		</cfif>
 	ORDER BY flat.collection_object_id
 	</cfquery>
