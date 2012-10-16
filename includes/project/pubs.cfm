@@ -65,7 +65,10 @@
 					</cfif>
 					<li><a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Details</a></li>
 					<cfloop query="media">
-						<cfset puri=getMediaPreview(preview_uri,media_type)>
+						<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
+							<cfinvokeargument name="preview_uri" value="#preview_uri#">
+							<cfinvokeargument name="media_type" value="#media_type#">
+						</cfinvoke>
 		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select
 								media_label,
