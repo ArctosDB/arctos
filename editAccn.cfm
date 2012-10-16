@@ -588,12 +588,7 @@
 				<tr>
 					<td>
 						<label for="ent_Date">Entry Date</label>
-						<select name="entDateOper" id="entDateOper" size="1">
-							<option value="<=">Before</option>
-							<option selected value="=" >Is</option>
-							<option value=">=">After</option>
-						</select>
-						<input type="text" name="ent_date" id="ent_date">
+						<input type="text" name="b_ent_date" id="b_ent_date">-<input type="text" name="e_ent_date" id="e_ent_date">
 					</td>
 					<td colspan=2 nowrap>
 						<table cellspacing='0' cellpadding='0'>
@@ -786,8 +781,12 @@
 		<cfif isdefined("remarks") and  len(#remarks#) gt 0>
 			<cfset sql = "#sql# AND upper(trans_remarks) like '%#ucase(remarks)#%'">
 		</cfif>
-		<cfif  isdefined("ent_date") and len(ent_date) gt 0>
-			<cfset sql = "#sql# AND TRANS_DATE #entDateOper# '#ucase(dateformat(ent_date,"yyyy-mm-dd"))#'">
+		<cfif  isdefined("b_ent_date") and len(b_ent_date) gt 0>
+			<cfif not isdefined("e_ent_date") or len(e_ent_date) is 0>
+				<cfset e_ent_date=b_ent_date>
+			</cfif>
+			
+			<cfset sql = "#sql# AND TRANS_DATE between '#b_ent_date#' and '#e_ent_date#'">
 		</cfif>
 		<cfif isdefined("IssuedByAgent") and len(#IssuedByAgent#) gt 0>
 			<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
