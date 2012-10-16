@@ -1298,7 +1298,6 @@
     <div class="detailCell">
 		<div class="detailLabel">Media
 			<cfif oneOfUs is 1>
-				<!----
 				 <cfquery name="hasConfirmedImageAttr"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					SELECT 
 						count(*) c
@@ -1324,7 +1323,6 @@
 						Confirm Image IDs
 					</span> 
 				</CFIF>
-				---->
 			</cfif>
 		</div>
 		<div class="detailBlock">
@@ -1333,6 +1331,7 @@
 					<div class="thumb_spcr">&nbsp;</div>
 					<cfset stuffToNotPlay="audio/x-wav">
 					<cfloop query="media">
+						<!----
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
 						<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,mime_type)>
@@ -1364,6 +1363,7 @@
 								<br>#alt#
 							</p>
 						</div>
+						---->
 					</cfloop>
 					<div class="thumb_spcr">&nbsp;</div>
 				</div>
