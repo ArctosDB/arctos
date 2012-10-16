@@ -588,8 +588,16 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="ent_Date">Entry Date</label>
-						<input type="text" name="b_ent_date" id="b_ent_date">-<input type="text" name="e_ent_date" id="e_ent_date">
+						<table cellspacing='0' cellpadding='0'>
+							<td>
+								<label  for="b_ent_date">Entry Date:</label>
+								<input type="text" name="b_ent_date" id="b_ent_date">
+							</td> 
+							<td>
+								<label for="e_ent_date">Until: (leave blank otherwise)</label>
+								<input type='text' name='e_ent_date' id='e_ent_date'>
+							</td>
+						</table>
 					</td>
 					<td colspan=2 nowrap>
 						<table cellspacing='0' cellpadding='0'>
@@ -821,6 +829,9 @@
 		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(thisSQL)#
 		</cfquery>
+		<cfif not isdefined("csv")>
+			<cfset csv=false>
+		</cfif>
 		<cfif getAccns.recordcount is 0>
 			Nothing matched your search criteria.
 			<cfabort>
@@ -836,10 +847,26 @@
 					View #specs.c# items in these #c.c# Accessions
 				</a>
 			</cfif>
+			<cfset rURL="editAccn.cfm?csv=true">
+			<cfloop list="#StructKeyList(form)#" index="key">
+				<cfif len(form[key]) gt 0>
+					<cfset rURL='#rURL#&#key#=#form[key]#'>
+				 </cfif>
+			</cfloop>
+			<br><a href="#rURL#">[ download CSV ]</a>
 		</cfif>
-		
+		<cfif csv is true>
+			<cfset dlFile = "ArctosAccnSearchData.csv">
+			<cfset variables.fileName="#Application.webDirectory#/download/#dlFile#">
+			<cfset variables.encoding="UTF-8">
+			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				d='accn_number,accn_status,received_from,received_date,nature_of_material,remarks,estimated_count,entered_by';
+			 	variables.joFileWriter.writeLine(d);
+			</cfscript>
+		</cfif>
 		<cfset i=1>
-		<cfif #project_id# gt 0>
+		<cfif project_id gt 0>
 			<cfquery name="sfproj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select project_name from project where project_id=#project_id#
 			</cfquery>
@@ -883,8 +910,35 @@
 				</CFIF>	
 			</div>
 		</div>
-		<cfset i=#i#+1>
+		<cfif csv is true>
+			<cfset d='"#escapeDoubleQuotes(collection)# #escapeDoubleQuotes(accn_number)#"'>
+			<cfset d=d &',"#c.c#","#escapeDoubleQuotes(recFromAgent)#"'>
+			<cfset d=d &',"#c.c#","#escapeDoubleQuotes(accn_status)#"'>
+			<cfset d=d &',"#DateFormat(received_date, "yyyy-mm-dd")#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(nature_of_material)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(trans_remarks)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(estimated_count)#"'>
+			<cfset d=d &',"#escapeDoubleQuotes(entAgent)#"'>
+			<cfscript>
+				variables.joFileWriter.writeLine(d);
+			</cfscript>
+		</cfif>	
+		<cfset i=i+1>
 	</cfoutput>
+	
+
+	
+	<cfif csv is true>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+		<cfoutput>
+			<cflocation url="/download.cfm?file=#dlFile#" addtoken="false">
+		</cfoutput>
+	</cfif>
+	
+	
+	
 </cfif>
 <!------------------------------------------------------------------------------------------->
 <cfif #action# is "delePermit">
