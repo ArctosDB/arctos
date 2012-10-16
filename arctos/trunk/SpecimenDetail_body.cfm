@@ -1332,9 +1332,13 @@
 					<cfset stuffToNotPlay="audio/x-wav">
 					<cfloop query="media">
 						
-						
+						<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
+							<cfinvokeargument name="preview_uri" value="#preview_uri#">
+							<cfinvokeargument name="media_type" value="#media_type#">
+						</cfinvoke>
+						<!----
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
-						
+						---->
 
 						<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,mime_type)>
