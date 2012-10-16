@@ -108,12 +108,17 @@
 	<cfoutput>
 		
 		<cfquery name="accn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT accn.TRANSACTION_ID FROM accn,trans WHERE
-			accn.TRANSACTION_ID=trans.TRANSACTION_ID AND
-			accn_number = '#accn_number#' 
-			and collection_id = #collection_id#			
+			SELECT 
+				accn.TRANSACTION_ID 
+			FROM 
+				accn,
+				trans 
+			WHERE
+				accn.TRANSACTION_ID=trans.TRANSACTION_ID AND
+				accn_number = '#accn_number#' 
+				and collection_id = #collection_id#			
 		</cfquery>
-		<cfif accn.recordcount is 1 and accn.transaction_id gt 0>
+		<cfif accn.recordcount is 1 and len(accn.transaction_id) gt 0>
 			<cftransaction>
 				<cfquery name="upAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE cataloged_item SET accn_id = #accn.transaction_id# where collection_object_id  in (
