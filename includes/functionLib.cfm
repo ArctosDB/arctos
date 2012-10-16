@@ -70,7 +70,7 @@
 	   <cfargument name="mt" required="false" type="string">
 	   <cfset r=0>
 	   <cfif len(puri) gt 0>
-			<cfhttp method="head" url="#puri#">
+			<cfhttp method="head" url="#puri#" timeout="1">
 			<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200>
 				<cfset r=1>
 			</cfif>

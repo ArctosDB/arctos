@@ -1335,7 +1335,6 @@
 						
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
 						
-							<!---					
 
 						<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,mime_type)>
