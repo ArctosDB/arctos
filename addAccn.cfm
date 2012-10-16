@@ -132,6 +132,7 @@
 			</cftransaction>
 		<cfelse>
       <font color="##FF0000" size="+2">That accn was not found! 
+	  <cfdump var=#accn#>
 	 SELECT accn.TRANSACTION_ID FROM accn,trans WHERE
 			accn.TRANSACTION_ID=trans.TRANSACTION_ID AND
 			accn_number = '#accn_number#' 
