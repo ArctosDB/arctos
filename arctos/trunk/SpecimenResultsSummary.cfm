@@ -12,12 +12,12 @@
 <cfset mapurl="">
 <cfinclude template="includes/SearchSql.cfm">
 <!--- wrap everything up in a string --->
-<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by ">
+<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by">
 
 <cfloop list="#groupBy#" index="x">
 	<cfset SqlString = "#SqlString#	,#session.flatTableName#.#x#">
 </cfloop>
-<cfset SqlString = replace(sqlstring, "group by ,","group by ")>
+<cfset SqlString = replace(SqlString, "group by,","group by ")>
 
 <cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
 <!--- require some actual searching --->
