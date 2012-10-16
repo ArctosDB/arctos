@@ -15,7 +15,7 @@
 <cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by">
 
 <cfloop list="#groupBy#" index="x">
-	<cfset SqlString = "#SqlString#	,#session.flatTableName#.#x#">
+	<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
 </cfloop>
 <cfset SqlString = replace(SqlString, "group by,","group by ")>
 
