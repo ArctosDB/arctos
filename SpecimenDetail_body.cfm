@@ -1331,6 +1331,8 @@
 					<div class="thumb_spcr">&nbsp;</div>
 					<cfset stuffToNotPlay="audio/x-wav">
 					<cfloop query="media">
+						
+						<!---
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
 						
 												
@@ -1357,7 +1359,7 @@
 						<cfif desc.recordcount is 1>
 							<cfset alt=desc.label_value>
 						</cfif>
-						<!---
+						
 		               <div class="one_thumb">
 			               <a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 							   	<img src="#trim(getMediaPreview(preview_uri,media_type))#" alt="#alt#" class="theThumb">
