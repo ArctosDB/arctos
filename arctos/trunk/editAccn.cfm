@@ -912,8 +912,8 @@
 		</div>
 		<cfif csv is true>
 			<cfset d='"#escapeDoubleQuotes(collection)# #escapeDoubleQuotes(accn_number)#"'>
-			<cfset d=d &',"#c.c#","#escapeDoubleQuotes(recFromAgent)#"'>
 			<cfset d=d &',"#c.c#","#escapeDoubleQuotes(accn_status)#"'>
+			<cfset d=d &',"#c.c#","#escapeDoubleQuotes(recFromAgent)#"'>
 			<cfset d=d &',"#DateFormat(received_date, "yyyy-mm-dd")#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(nature_of_material)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(trans_remarks)#"'>
