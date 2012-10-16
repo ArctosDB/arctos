@@ -125,7 +125,7 @@
 					<cfif isdefined("collection_object_id") and listlen(collection_object_id) is 1>
 						#collection_object_id#
 					<cfelse>
-						select collection_object_id from #session.SpecSrchTab#
+						select collection_object_id from #session.username#.#session.SpecSrchTab#
 					</cfif>
 					) 
 				</cfquery>
