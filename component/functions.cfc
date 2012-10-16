@@ -4,8 +4,8 @@
 	   <cfargument name="preview_uri" required="true" type="string">
 	   <cfargument name="media_type" required="false" type="string">
 	   <cfset r=0>
-	   <cfif len(puri) gt 0>
-			<cfhttp method="head" url="#puri#" timeout="1">
+	   <cfif len(preview_uri) gt 0>
+			<cfhttp method="head" url="#preview_uri#" timeout="1">
 			<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200>
 				<cfset r=1>
 			</cfif>
@@ -23,7 +23,7 @@
 				<cfreturn "/images/noThumb.jpg">
 			</cfif>
 		<cfelse>
-			<cfreturn puri>
+			<cfreturn preview_uri>
 		</cfif>
 </cffunction>
 <!------------------------------------------------------------------->
