@@ -302,7 +302,10 @@
 <cfif url.offset is 0><cfset url.offset=1></cfif>
 <cfset stuffToNotPlay="audio/x-wav">
 <cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
-	<cfset mp=getMediaPreview(preview_uri,media_type)>
+	<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="mp">
+		<cfinvokeargument name="preview_uri" value="#preview_uri#">
+		<cfinvokeargument name="media_type" value="#media_type#">
+	</cfinvoke>
 	<cfset alt=''>
 	<cfset lbl=replace(labels,"==",chr(7),"all")>
 	<cfset rel=replace(relationships,"==",chr(7),"all")>		

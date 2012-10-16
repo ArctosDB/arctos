@@ -127,7 +127,10 @@
 					<div class="thumbs">
 						<div class="thumb_spcr">&nbsp;</div>
 						<cfloop query="media">
-							<cfset puri=getMediaPreview(preview_uri,media_type)>
+							<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
+								<cfinvokeargument name="preview_uri" value="#preview_uri#">
+								<cfinvokeargument name="media_type" value="#media_type#">
+							</cfinvoke>
 			            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								select
 									media_label,
@@ -145,7 +148,7 @@
 								<cfset alt=desc.label_value>
 							</cfif>
 			               <div class="one_thumb">
-				               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+				               <a href="#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
 			                   	<p>
 									#media_type# (#mime_type#)
 				                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
@@ -286,8 +289,12 @@
 					<div class="thumbs">
 						<div class="thumb_spcr">&nbsp;</div>
 						<cfloop query="specMed">
+							<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
+								<cfinvokeargument name="preview_uri" value="#preview_uri#">
+								<cfinvokeargument name="media_type" value="#media_type#">
+							</cfinvoke>
 							<div class="one_thumb">
-				               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" class="theThumb"></a>
+				               <a href="#media_uri#" target="_blank"><img src="#puri#" class="theThumb"></a>
 			                   	<p>
 									#media_type# (#mime_type#)
 				                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>

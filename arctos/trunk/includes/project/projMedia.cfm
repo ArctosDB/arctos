@@ -38,9 +38,13 @@
 					<cfset alt=desc.label_value>
 				</cfif>
                 <cfset mrel=getMediaRelations(#media_id#)>
+				<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
+					<cfinvokeargument name="preview_uri" value="#preview_uri#">
+					<cfinvokeargument name="media_type" value="#media_type#">
+				</cfinvoke>
 				<div class="bigThumbDiv">
 					<a href="#media_uri#" target="_blank">
-						<img class="bigImgPrev" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#">
+						<img class="bigImgPrev" src="#puri#" alt="#alt#">
 					</a>
                    	<div class="imgCaptionDiv">
 						#media_type# (#mime_type#)

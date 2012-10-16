@@ -1200,9 +1200,13 @@
 							<div class="thumbs">
 								<div class="thumb_spcr">&nbsp;</div>
 								<cfloop query="accnMedia">
+									<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
+										<cfinvokeargument name="preview_uri" value="#preview_uri#">
+										<cfinvokeargument name="media_type" value="#media_type#">
+									</cfinvoke>
 									<div class="one_thumb">
 						            	<a href="#media_uri#" target="_blank">
-							               <img src="#getMediaPreview(preview_uri,media_type)#" alt="#descr#" class="theThumb">
+							               <img src="#puri#" alt="#descr#" class="theThumb">
 										</a>
 					                   	<p>
 											#media_type# (#mime_type#)
@@ -1269,7 +1273,10 @@
 		</div>
 		<div class="detailBlock">
 			<cfloop query="mediaTag">
-				<cfset puri=getMediaPreview(preview_uri,media_type)>
+				<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
+					<cfinvokeargument name="preview_uri" value="#preview_uri#">
+					<cfinvokeargument name="media_type" value="#media_type#">
+				</cfinvoke>
 				 <span class="detailData">			
 					<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
 		        </span>	
