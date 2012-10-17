@@ -2815,7 +2815,7 @@
 		<cfset temp = queryaddcolumn(result,"COLUMNLIST",t)>
 		<cfset temp = QuerySetCell(result, "COLUMNLIST", "#valuelist(cols.column_name)#", 1)>
 		<cfoutput>
-		<cfset jsonResult='{"ROWCOUNT":#result.recordcount#,"COLUMNS":[#valuelist(cols.column_name)#'>
+		<cfset jsonResult='{"ROWCOUNT":#result.recordcount#,"COLUMNS":[#listqualify(valuelist(cols.column_name),'"')#'>
 		
 		<hr>#jsonResult#
 		</cfoutput>
