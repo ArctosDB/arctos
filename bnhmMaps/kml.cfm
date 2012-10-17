@@ -368,7 +368,7 @@
 			locality.dec_long,
 			round(to_meters(locality.max_error_distance,locality.max_error_units)) errorInMeters,
 			locality.datum,
-			specimen_event_type,
+			specimen_event.specimen_event_type,
 			#flatTableName#.scientific_name,
 			#flatTableName#.collection,
 			#flatTableName#.spec_locality,
