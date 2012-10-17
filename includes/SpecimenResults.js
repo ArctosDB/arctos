@@ -715,7 +715,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + splitBySemicolonNS(data.RELATEDCATALOGEDITEMS[i]) + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(String(data.ACCESSION[i])) + '</td>';
+					theInnerHtml += '<td>' + spaceStripper(String(data.ACCESSION[i])).replace("0000","_0000_") + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
 					theInnerHtml += '<td>' + splitByComma(data.COLLECTORS[i]) + '</td>';
