@@ -2814,6 +2814,20 @@
 		<cfset t = arrayNew(1)>
 		<cfset temp = queryaddcolumn(result,"COLUMNLIST",t)>
 		<cfset temp = QuerySetCell(result, "COLUMNLIST", "#valuelist(cols.column_name)#", 1)>
+		<cfset jsonResult='{"ROWCOUNT":#result.recordcount#,"COLUMNS":[#valuelist(cols.column_name)#'>
+		
+		<hr>#jsonResult#
+		
+		<cfabort>
+		
+		
+		
+		<!----
+		
+		{"ROWCOUNT":1,"COLUMNS":["COLLECTION_OBJECT_ID","CUSTOMID","MYCUSTOMIDTYPE","CUSTOMIDINT","COLLECTION","CAT_NUM","SCIENTIFIC_NAME","ACCESSION","SPEC_LOCALITY","VERBATIM_DATE","DEC_LAT","DEC_LONG","COLLECTION_ID","INSTITUTION_ACRONYM","COLLECTION_CDE","RNUM","COLUMNLIST"],"DATA":{"COLLECTION_OBJECT_ID":[21531530],"CUSTOMID":[null],"MYCUSTOMIDTYPE":["collector number"],"CUSTOMIDINT":[null],"COLLECTION":["DMNS Birds"],"CAT_NUM":[12],"SCIENTIFIC_NAME":["Meleagris gallopavo"],"ACCESSION":[0000],"SPEC_LOCALITY":["no specific locality recorded"],"VERBATIM_DATE":["before 1-Mar-2010"],"DEC_LAT":[null],"DEC_LONG":[null],"COLLECTION_ID":[43],"INSTITUTION_ACRONYM":["DMNS"],"COLLECTION_CDE":["Bird"],"RNUM":[1],"COLUMNLIST":["COLLECTION_OBJECT_ID,CUSTOMID,MYCUSTOMIDTYPE,CUSTOMIDINT,COLLECTION,CAT_NUM,SCIENTIFIC_NAME,ACCESSION,SPEC_LOCALITY,VERBATIM_DATE,DEC_LAT,DEC_LONG,COLLECTION_ID,INSTITUTION_ACRONYM,COLLECTION_CDE"]}}
+		
+		
+		---->
 	<cfcatch>
 			<cfset result = querynew("collection_object_id,message")>
 			<cfset temp = queryaddrow(result,1)>
