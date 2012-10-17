@@ -32,7 +32,11 @@
 				 --->
 				 <cfset numColsRec = ArrayLen(arrResult[o])>
 				<cfset thisBit=arrResult[o][i]>
-				<cfif #o# is 1>
+				<cfif o is 1>
+					<cfset thisBit=replace(thisBit," ","_","all")>
+					<cfset thisBit=replace(thisBit,")","","all")>
+					<cfset thisBit=replace(thisBit,"(","","all")>
+					<cfset thisBit=left(thisBit,32)>
 					<cfset colNames="#colNames#,#thisBit#">
 				<cfelse>
 					<cfset colVals="#colVals#,'#thisBit#'">
@@ -44,18 +48,13 @@
 			#colNames#
 			<hr>
 			<cfset colNames=replace(colNames,",","","first")>
-			<cfset colNames=replace(colNames," ","_","all")>
-			<cfset colNames=replace(colNames,")","","all")>
-			<cfset colNames=replace(colNames,"(","","all")>
-			<cfset colNames=left(colNames,30)>
 			<cfset s='create table #session.username#.my_temp_cf ('>
 			<cfset c=1>
 			<cfloop list="#colNames#" index="x">
 				<cfset s="#s# #x# varchar2(4000),">
 			</cfloop>
-			<cfset s=rereplace(s,",[^,]*$","")>
+			<cfset s=rereplace(s,",[^,]*$","")  & ")">
 			
-			<cfset s=s & ")">
 			
 			
 			
