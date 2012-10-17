@@ -388,7 +388,7 @@
 		 	#flatTableName#.collection_object_id = specimen_event.collection_object_id and
 		 	specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 		 	collecting_event.locality_id=locality.locality_id and
-		 	locality.dec_lat is not null 
+		 	locality.dec_lat is not null and
 		 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
 	</cfquery>
 	<cfscript>

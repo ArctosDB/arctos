@@ -341,8 +341,6 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	} else {
 		orderBy += ' ' + orderOrder;
 	}
-	
-	
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
@@ -354,9 +352,6 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		},
 		success_getSpecResultsData
 	);
-	
-
-
 }
 function success_getSpecResultsData(result){
 	var data = result.DATA;
