@@ -206,8 +206,7 @@
 			#flatTableName#.collection,
 			#flatTableName#.spec_locality,
 			#flatTableName#.locality_id,
-			#flatTableName#.verbatimLatitude,
-			#flatTableName#.verbatimLongitude
+			#flatTableName#.verbatim_coordinates
 		 from 
 		 	#flatTableName#,
 		 	locality,
@@ -262,8 +261,7 @@
 				datum,
 				spec_locality,
 				locality_id,
-				verbatimLatitude,
-				verbatimLongitude,
+				verbatim_coordinates,
 				began_date,
 				ended_date,
 		        collection_object_id,
@@ -281,8 +279,7 @@
 				datum,
 				spec_locality,
 				locality_id,
-				verbatimLatitude,
-				verbatimLongitude,
+				verbatim_coordinates,
 				began_date,
 				ended_date,
 		        collection_object_id,
@@ -376,8 +373,7 @@
 			#flatTableName#.collection,
 			#flatTableName#.spec_locality,
 			#flatTableName#.locality_id,
-			#flatTableName#.verbatimLatitude,
-			#flatTableName#.verbatimLongitude
+			#flatTableName#.verbatim_coordinates
 		 from 
 		 	#flatTableName#,
 		 	specimen_event,
@@ -434,8 +430,7 @@
 				datum,
 				spec_locality,
 				locality_id,
-				verbatimLatitude,
-				verbatimLongitude,
+				verbatim_coordinates,
 				began_date,
 				ended_date
 			from
@@ -450,8 +445,7 @@
 				datum,
 				spec_locality,
 				locality_id,
-				verbatimLatitude,
-				verbatimLongitude,
+				verbatim_coordinates,
 				began_date,
 				ended_date
 		</cfquery>
