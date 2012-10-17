@@ -341,6 +341,9 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	} else {
 		orderBy += ' ' + orderOrder;
 	}
+	
+	
+	/*
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
@@ -352,6 +355,23 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		},
 		success_getSpecResultsData
 	);
+	
+	*/
+	
+	jQuery.ajax({
+  		url: "/component/functions.cfc",
+		method : "getSpecResultsData",
+		startrow : startrow,
+		numrecs : numrecs,
+		orderBy : orderBy,
+		returnformat : "json",
+		queryformat : 'column'
+  		dataType: 'json',
+  		data: result,
+  		success: success
+});
+
+
 }
 function success_getSpecResultsData(result){
 	var data = result.DATA;
@@ -715,7 +735,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + splitBySemicolonNS(data.RELATEDCATALOGEDITEMS[i]) + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
-					theInnerHtml += '<td>hi</td>'; // + spaceStripper(data.ACCESSION[i]) + '</td>';
+					theInnerHtml += '<td> + spaceStripper(data.ACCESSION[i]) + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
 					theInnerHtml += '<td>' + splitByComma(data.COLLECTORS[i]) + '</td>';
