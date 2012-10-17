@@ -367,7 +367,6 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		returnformat : "json",
 		queryformat : 'column',
   		dataType: 'json',
-  		data: result,
   		success: success
 });
 
