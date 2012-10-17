@@ -78,7 +78,6 @@
 				</tr>
 			</table>
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
-		    	   	
 		    	<cfif len(session.username) gt 0>
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 					<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
@@ -103,7 +102,7 @@
 					</cfif>
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">
-						<input type="hidden" name="gotopage" value="#gtp#">
+						<input type="hidden" name="gotopage" value="#replace(gtp,'//','/','all')#">
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
