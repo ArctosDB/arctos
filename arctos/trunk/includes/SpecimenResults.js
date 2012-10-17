@@ -343,7 +343,6 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	}
 	
 	
-	/*
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
@@ -356,19 +355,6 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		success_getSpecResultsData
 	);
 	
-	*/
-	
-	jQuery.ajax({
-  		url: "http://arctos-test.tacc.utexas.edu/component/functions.cfc",
-		method : "getSpecResultsData",
-		startrow : startrow,
-		numrecs : numrecs,
-		orderBy : orderBy,
-		returnformat : "json",
-		queryformat : 'column',
-  		dataType: 'json',
-  		success: "success_getSpecResultsData"
-});
 
 
 }
