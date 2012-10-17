@@ -359,7 +359,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	*/
 	
 	jQuery.ajax({
-  		url: "/component/functions.cfc",
+  		url: "http://arctos-test.tacc.utexas.edu/component/functions.cfc",
 		method : "getSpecResultsData",
 		startrow : startrow,
 		numrecs : numrecs,
