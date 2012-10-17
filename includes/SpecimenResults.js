@@ -885,7 +885,7 @@ function success_getSpecResultsData(result){
 		}
 		insertMedia(orderedCollObjIdList);
 		insertTypes(orderedCollObjIdList);
-		//addTracks(tgt,1,false));
+		YAHOO.MediaPlayer.addTracks(tgt,1,false);
 	}
 }
 function ssvar (startrow,maxrows) {
