@@ -2792,7 +2792,7 @@
 		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select '123' a from dual union
 			select '0' a from dual union
-			select '0000' a from dual union
+			select '0000' a from dual 
 		</cfquery>
 		<cfreturn result>
 </cffunction>
