@@ -312,7 +312,7 @@
 				<cfcatch>
 					<cftransaction action="rollback">
 					<cfquery name="tm" datasource="uam_god">
-						update cf_temp_media set status='#cfcatch.message#: #cfcatch.detail# <cfif isdefined("cfcatch.sq;")>#cfcatch.sql#</cfif>' where key=#key#
+						update cf_temp_media set status='#cfcatch.message#: #cfcatch.detail# <cfif isdefined("cfcatch.sql")>#cfcatch.sql#</cfif>' where key=#key#
 					</cfquery>
 				</cfcatch>
 			</cftry>
