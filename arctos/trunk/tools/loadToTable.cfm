@@ -1,23 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfsetting requesttimeout="600"> 
 
-drop table tsa;
-
-create table tsa (
-COLLECTION_CDE varchar2(255),
-INSTITUTION_ACRONYM varchar2(255),
-OTHER_ID_TYPE varchar2(255),
-OTHER_ID_NUMBER varchar2(255),
-ATTRIBUTE varchar2(255),
-ATTRIBUTE_VALUE varchar2(255),
-DETERMINER varchar2(255),
-DETERMINER_FIRST varchar2(255),
-DETERMINER_MID varchar2(255),
-DETERMINER_LAST varchar2(255), 
-DET_DATE varchar2(255)
-);
-
-
 <cfform name="atts" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
 	<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
@@ -63,7 +46,8 @@ DET_DATE varchar2(255)
 			<cfloop list="#colNames#" index="x">
 				<cfset s="#s# #x# varchar2(4000),">
 			</cfloop>
-			<cfset s=replace(s,",","","last")>
+			<cfset s=rereplace(s,",[^,]*$","")>
+			
 			<cfset s=s & ")">
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#s#							
