@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfsetting requesttimeout="600"> 
-
+Upload CSV
 <cfform name="atts" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
 	<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
@@ -57,16 +57,6 @@
 				<cfset s="#s# #x# varchar2(4000),">
 			</cfloop>
 			<cfset s=rereplace(s,",[^,]*$","")  & ")">
-			
-			
-			
-			
-			<hr>
-			s: <br>
-			#s#
-			<hr>
-			
-			
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(s)#							
 			</cfquery>
@@ -88,104 +78,7 @@
 		</cfif>
 	</cfloop>
 	</cfif>
-	
-	loaded
-	<cfabort>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	-- temp table - upload to it with this app
-	create table t_bc (old varchar2(255),new varchar2(255));
-
-	-- add temp barcodes and container ID placeholders
-	alter table t_bc add told varchar2(255);
-	alter table t_bc add tnew varchar2(255);
-	update t_bc set told='temp_uames_' || old;
-	update t_bc set tnew='temp_uames_' || new;
-	alter table t_bc add nc number;
-	alter table t_bc add oc number;
-	
-	-- set the container ID
-	
-	
-	declare 
-		ocid number;
-		ncid number;
-		
-	begin
-	for r in (select * from t_bc) loop
-	
-		dbms_output.put_line('old: ' || r.old);
-		select container_id into ocid from container where barcode = r.old;
-		
-		dbms_output.put_line('ocid: ' || ocid);
-		dbms_output.put_line('new: ' || r.new);
-		select container_id into ncid from container where barcode = r.new;
-		
-		dbms_output.put_line('ocid: ' || ocid);
-		
-		update t_bc set oc=ocid,nc=ncid where old=r.old and new=r.new;
-		
-		
-	end loop;
-	end;
-	/
-	
-	
-	--- flip old and new with intermediate step to avoid unique key constraints
-	
-	declare 
-		ocid number;
-		ncid number;
-		
-	begin
-	for r in (select * from t_bc) loop
-	
-		-- update container to temp barcodes to avoid any unique constraint issues
-		update container set barcode = r.told where container_id = r.oc;
-		update container set barcode = r.tnew where container_id = r.nc;
-		
-		-- update the old container to have the new barcode
-		-- this will keep parentage, etc. in place
-		
-		update container set barcode=r.new where container_id=r.oc;
-		
-		-- "new" (now old) containers should be kept around for reuse
-		-- update container type and remarks
-		
-		update container set 
-			barcode=r.old,
-			container_type='container label',
-			parent_container_id=0
-		where container_id=r.nc;
-	
-		
-		
-	end loop;
-	end;
-	/
-	
-	
-	
-		<cfif action is "mup">
-			<cfquery name="d" datasource="uam_god">
-				select * from t_bc
-			</cfquery>
-			<cftransaction>
-				<cfloop query="d">
-					
-				</cfloop>
-				
-			</cftransaction>
-		</cfif>
+	<hr>
+	loaded to #session.username#.my_temp_cf
 </cfoutput>
-
- 
+<cfinclude template="/includes/_footer.cfm">
