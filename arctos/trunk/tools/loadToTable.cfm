@@ -50,7 +50,7 @@
 			
 			<cfset s=s & ")">
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				#s#							
+				#preservesinglequotes(s)#							
 			</cfquery>
 		</cfif>	
 		<cfif len(colVals) gt 1>
