@@ -39,6 +39,10 @@
 				</cfif>
 			</cfloop>
 		<cfif o is 1>
+			<hr>
+			colNames: <br>
+			#colNames#
+			<hr>
 			<cfset colNames=replace(colNames,",","","first")>
 			<cfset colNames=replace(colNames," ","_","all")>
 			<cfset colNames=replace(colNames,")","","all")>
@@ -52,6 +56,15 @@
 			<cfset s=rereplace(s,",[^,]*$","")>
 			
 			<cfset s=s & ")">
+			
+			
+			
+			<hr>
+			s: <br>
+			#s#
+			<hr>
+			
+			
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(s)#							
 			</cfquery>
