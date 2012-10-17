@@ -2787,6 +2787,15 @@
 		</cfcatch>
 	</cftry>
 </cffunction>
+
+<cffunction name="jsontest" access="remote">
+		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select '123' a from dual union
+			select '0' a from dual union
+			select '0000' a from dual union
+		</cfquery>
+		<cfreturn result>
+</cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getSpecResultsData" access="remote">
 	<cfargument name="startrow" type="numeric" required="yes">
