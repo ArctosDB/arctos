@@ -36,7 +36,7 @@
 					<cfset thisBit=replace(thisBit," ","_","all")>
 					<cfset thisBit=replace(thisBit,")","","all")>
 					<cfset thisBit=replace(thisBit,"(","","all")>
-					<cfset thisBit=left(thisBit,32)>
+					<cfset thisBit=left(thisBit,28)>
 					<cfset colNames="#colNames#,#thisBit#">
 				<cfelse>
 					<cfset colVals="#colVals#,'#thisBit#'">
