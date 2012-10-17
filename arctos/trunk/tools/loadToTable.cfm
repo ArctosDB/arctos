@@ -43,6 +43,7 @@
 			<cfset colNames=replace(colNames," ","_","all")>
 			<cfset colNames=replace(colNames,")","","all")>
 			<cfset colNames=replace(colNames,"(","","all")>
+			<cfset colNames=left(colNames,30)>
 			<cfset s='create table #session.username#.my_temp_cf ('>
 			<cfset c=1>
 			<cfloop list="#colNames#" index="x">
