@@ -2794,6 +2794,9 @@
 			select '0' a from dual union
 			select '0000' a from dual 
 		</cfquery>
+		
+		<cfset t=SerializeJSON (123)>
+		<cfdump var=#t#>
 		<cfset result=serializejson(result)>
 		<cfreturn result>
 </cffunction>
