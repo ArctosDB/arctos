@@ -360,7 +360,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	Params.dataType = "json";
 	Params.success = success_getSpecResultsData;
 	Params.error = function(x,y,z) {
-	     alert('The result is not valid JSON. Try Customize Form, turn stuff off until it works.\nAccession and day_of_ymd are known issues, and will not work with some data.\nPlease contact us (link in footer) if you find other problems. We apologize for the inconvenience');
+	     alert('The result is not valid JSON. Try Customize Form, turn stuff off until it works.\nAccession is a known issue, and will not work with some data.\nPlease contact us (link in footer) if you find other problems. We apologize for the inconvenience');
 	};
 	jQuery.ajax(Params);
 }
