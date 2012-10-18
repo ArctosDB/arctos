@@ -370,43 +370,43 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	Params.success = success_getSpecResultsData;
 	Params.error = function(x,y,z) {
 	     alert('Something bad happened - the result is not valid JSON. Aborting....');
-		 console.log(x.responseText);
+		// console.log(x.responseText);
 	};
 	$.ajax(Params);
 
 
 }
 function success_getSpecResultsData(result){
-	console.log('so far so good!');
+	//console.log('so far so good!');
 	
 	
-	var xx=jQuery.parseJSON(result);
+	//var xx=jQuery.parseJSON(result);
 	
-		console.log(xx);
+	//console.log(xx);
 
 
-	console.log('that is xx');
-	console.log(result);
+	//console.log('that is xx');
+	//console.log(result);
 
 	var data = result.DATA;
 	
-	console.log(data);
-	console.log('yup');
+	//console.log(data);
+	//console.log('yup');
 	var attributes="SNV_results,abundance,age,age_class,appraised_value,axillary_girth,body_condition,body_width,breadth,bursa,carapace_length,caste,clutch_size,clutch_size_of_nest_parasite,colors,crown_rump_length,curvilinear_length,diploid_number,ear_from_crown,ear_from_notch,egg_content_weight,eggshell_thickness,extension,fat_deposition,forearm_length,gonad,head_length,head_width,height,hind_foot_with_claw,hind_foot_without_claw,image_confirmed,incubation_stage,location_in_host,molt_condition,neck_width,nest_description,nest_phenology,number_of_labels,numeric_age,ovum,reproductive_condition,reproductive_data,skull_ossification,snout_vent_length,soft_part_color,soft_part_colors,soft_parts,stomach_contents,tail_base_width,tail_condition,tail_length,title,total_length,tragus_length,trap_identifier,trap_type,unformatted_measurements,verbatim_host_ID,verbatim_preservation_date,weight,width,wing_chord,wing_span";
-	console.log('still yup');
+	//console.log('still yup');
 	var attAry=attributes.split(",");
-	console.log('after split');
+	//console.log('after split');
 	var nAtt=attAry.length;
-	console.log('len');
+	//console.log('len');
 	var collection_object_id = data.COLLECTION_OBJECT_ID[0];
 	
-	console.log('coid');
+	//console.log('coid');
 	if (collection_object_id < 1) {
 		var msg = data.message[0];
 		alert(msg);
 	} else {
 		
-			console.log('still happy....');
+		//console.log('still happy....');
 
 		var clist = data.COLUMNLIST[0];
 		var tgt = document.getElementById('resultsGoHere');
