@@ -364,9 +364,10 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	Params.url = "/component/functions.cfc";
 	Params.data = {startrow: startrow, numrecs: numrecs, orderBy: orderBy, method: "getSpecResultsData", returnformat: "json", queryformat: "column" };
 	Params.dataType = "json";
-	Params.success = function(data) {
-	      alert(data);
-	};
+	//Params.success = function(data) {
+	//      alert(data);
+	//};
+	Params.success = success_getSpecResultsData;
 	Params.error = function(x,y,z) {
 	     alert('this is an error: ' + x.responseText);
 	};
