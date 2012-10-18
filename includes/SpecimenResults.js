@@ -369,7 +369,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	//};
 	Params.success = success_getSpecResultsData;
 	Params.error = function(x,y,z) {
-	     alert('this is an error: ' + x.responseText);
+	     alert('Something bad happened - the result is not valid JSON. Aborting....');
 	};
 	$.ajax(Params);
 
