@@ -388,6 +388,9 @@ function success_getSpecResultsData(result){
 		var msg = data.message[0];
 		alert(msg);
 	} else {
+		
+			console.log('still happy....');
+
 		var clist = data.COLUMNLIST[0];
 		var tgt = document.getElementById('resultsGoHere');
 		if (document.getElementById('killrow') && document.getElementById('killrow').value==1){
