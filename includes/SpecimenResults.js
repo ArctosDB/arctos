@@ -341,6 +341,9 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	} else {
 		orderBy += ' ' + orderOrder;
 	}
+	
+	
+	/*
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
@@ -352,6 +355,24 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		},
 		success_getSpecResultsData
 	);
+	
+	*/
+	
+	
+	
+	var Params = {};
+	Params.url = "/component/functions.cfc";
+	Params.data = {startrow: startrow, numrecs: numrecs, orderBy: orderBy, method: "getSpecResultsData" };
+	Params.dataType = "json";
+	Params.success = function(data) {
+	      alert(data);
+	};
+	Params.error = function(x,y,z) {
+	     alert(x.responseText);
+	};
+	$.ajax(Params);
+
+
 }
 function success_getSpecResultsData(result){
 	console.log('so far so good!');
