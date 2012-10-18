@@ -370,6 +370,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	Params.success = success_getSpecResultsData;
 	Params.error = function(x,y,z) {
 	     alert('Something bad happened - the result is not valid JSON. Aborting....');
+		 console.log(x);
 	};
 	$.ajax(Params);
 
