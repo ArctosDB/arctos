@@ -929,6 +929,9 @@ function success_getSpecResultsData(result){
 		}
 		insertMedia(orderedCollObjIdList);
 		insertTypes(orderedCollObjIdList);
+		
+		setTimeout(function() {},1250);
+		
 		YAHOO.MediaPlayer.addTracks(tgt,1,false);
 	}
 }
