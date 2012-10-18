@@ -345,24 +345,6 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	
 	/*
 	
-	
-	var Params = {};
-	Params.url = "/component/functions.cfc";
-	Params.data = {startrow: startrow, numrecs: numrecs, orderBy: orderBy, method: "getSpecResultsData", returnformat: "json", queryformat: "column" };
-	Params.dataType = "text";
-	//Params.success = function(data) {
-	//      alert(data);
-	//};
-	Params.success = success_getSpecResultsData;
-	Params.error = function(x,y,z) {
-	     alert('The result is not valid JSON. Try Customize Form, turn stuff off until it works - and contact us with your result (link in footer).');
-		// console.log(x.responseText);
-	};
-	jQuery.ajax(Params);
-	*/
-	
-	
-	
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
@@ -374,6 +356,26 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		},
 		success_getSpecResultsData
 	);
+	
+	*/
+	
+	
+	var Params = {};
+	Params.url = "/component/functions.cfc";
+	Params.data = {startrow: startrow, numrecs: numrecs, orderBy: orderBy, method: "getSpecResultsData", returnformat: "json", queryformat: "column" };
+	Params.dataType = "json";
+	//Params.success = function(data) {
+	//      alert(data);
+	//};
+	Params.success = success_getSpecResultsData;
+	Params.error = function(x,y,z) {
+	     alert('The result is not valid JSON. Try Customize Form, turn stuff off until it works - and contact us with your result (link in footer).');
+		// console.log(x.responseText);
+	};
+	jQuery.ajax(Params);
+	
+	
+	
 	
 
 
