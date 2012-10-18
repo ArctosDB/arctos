@@ -100,7 +100,7 @@ sho err
 <cfif action is "validate">
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_agent_split			
+		select * from ds_temp_agent_split where preferred_name is not null		
 	</cfquery>
 	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select suffix from ctsuffix
