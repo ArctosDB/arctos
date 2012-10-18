@@ -111,6 +111,7 @@ sho err
 	<cfset sfxLst=valuelist(ctsuffix.suffix)>
 	<cfset pfxLst=valuelist(ctprefix.prefix)>
 	<cfloop query="d">
+		<p>#preferred_name#</p>
 		<cfset s=''>
 		<cfset pfx=''>
 		<cfset sfx=''>
