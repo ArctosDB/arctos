@@ -380,7 +380,7 @@ function success_getSpecResultsData(result){
 	console.log('so far so good!');
 	
 	
-	var xx=jQuery.parseJSON(result);
+	var xx=JSON.parse(result);
 	
 		console.log(xx);
 
