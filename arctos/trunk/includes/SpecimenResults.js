@@ -353,7 +353,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	//};
 	Params.success = success_getSpecResultsData;
 	Params.error = function(x,y,z) {
-	     alert('Something bad happened - the result is not valid JSON. Aborting....');
+	     alert('The result is not valid JSON. Try Customize Form, turn stuff off until it works - and contact us with your result (link in footer).');
 		// console.log(x.responseText);
 	};
 	$.ajax(Params);
