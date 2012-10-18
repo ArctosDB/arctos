@@ -344,22 +344,6 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	
 	
 	/*
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "getSpecResultsData",
-			startrow : startrow,
-			numrecs : numrecs,
-			orderBy : orderBy,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		success_getSpecResultsData
-	);
-	
-	*/
-	
-	
-	
 	var Params = {};
 	Params.url = "/component/functions.cfc";
 	Params.data = {startrow: startrow, numrecs: numrecs, orderBy: orderBy, method: "getSpecResultsData", returnformat: "json", queryformat: "column" };
@@ -373,6 +357,22 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		// console.log(x.responseText);
 	};
 	$.ajax(Params);
+	
+	*/
+	
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "getSpecResultsData",
+			startrow : startrow,
+			numrecs : numrecs,
+			orderBy : orderBy,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_getSpecResultsData
+	);
+	
+	
 
 
 }
