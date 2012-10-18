@@ -368,7 +368,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	      alert(data);
 	};
 	Params.error = function(x,y,z) {
-	     alert(x.responseText);
+	     alert('this is an error: ' + x.responseText);
 	};
 	$.ajax(Params);
 
