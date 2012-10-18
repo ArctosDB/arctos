@@ -379,13 +379,14 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 function success_getSpecResultsData(result){
 	console.log('so far so good!');
 	
-	console.log(result);
 	
 	var xx=jQuery.parseJSON(result);
 	
 		console.log(xx);
 
 
+	console.log('that is xx');
+	console.log(result);
 
 	var data = result.DATA;
 	
