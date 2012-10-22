@@ -4,6 +4,11 @@
 
 alter table cf_temp_loan_item add barcode varchar2(255);
 
+alter table cf_temp_loan_item modify OTHER_ID_TYPE null;
+alter table cf_temp_loan_item modify OTHER_ID_NUMBER null;
+alter table cf_temp_loan_item modify PART_NAME null;
+
+
 
 create table cf_temp_loan_item (
  KEY                                                            NUMBER,
@@ -71,7 +76,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 				Part's immediate parent container - the cryovial holding a tissue sample, for example. 
 				Used preferentially instead of cataloged item + part information.
 			</td>
-			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
+			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/container/">docs</a></td>
 		</tr>
 		<tr>
 			<td>guid_prefix</td>
@@ -179,6 +184,32 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 <cfif action is "verify">
 <cfoutput>
 <cftransaction>
+	<cfquery name="loanID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update 
+			cf_temp_loan_item 
+		set 
+			(guid_prefix) 
+		= (select
+				collection.guid_prefix 
+			from 
+				collection,
+				cataloged_item,
+				specimen_part,
+				coll_obj_cont_hist, 
+				container partcontainer, 
+				container barcodecontainer
+			where 
+				collection.collection_id=cataloged_item.collection_id and
+				cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				coll_obj_cont_hist.container_id=partcontainer.container_id and
+				partcontainer.parent_container_id=barcodecontainer.container_id and
+				barcodecontainer.barcode=cf_temp_loan_item.barcode
+			)
+			where 
+				guid_prefix is null and
+				barcode is not null
+	</cfquery>
 	<cfquery name="loanID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
 			cf_temp_loan_item 
