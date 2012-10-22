@@ -763,7 +763,7 @@
 	<cfelse>
 		<cfset uri="documentation/#uri#">
 	</cfif>
-	<cfif anchor is "undefined" or len(anchor) is 0>
+	<cfif not isdefined("anchor") or anchor is "undefined" or len(anchor) is 0>
 		<cfset anchor="top">
 	</cfif>
 	<cfset fullURI="http://arctosdb.wordpress.com/#uri#/###anchor#">
