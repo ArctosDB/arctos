@@ -1,5 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
+
 <!---
+
+alter table cf_temp_loan_item add barcode varchar2(255);
+
+
 create table cf_temp_loan_item (
  KEY                                                            NUMBER,
  INSTITUTION_ACRONYM                                            VARCHAR2(5),
@@ -27,7 +32,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 <cfset title="Load Loan Items">
 <script type='text/javascript' src='/includes/loadLoanPart.js'></script>
 <cfif action is "makeTemplate">
-	<cfset header="GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,PART_DISPOSITION,PART_CONDITION,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER">
+	<cfset header="BARCODE,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,PART_DISPOSITION,PART_CONDITION,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER">
 	<cffile action = "write" 
     file = "#Application.webDirectory#/download/BulkLoanItemTemplate.csv"
     output = "#header#"
@@ -60,26 +65,35 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 			<th>Documentation</th>
 		</tr>
 		<tr>
+			<td>barcode</td>
+			<td>yes (or specimen+part)</td>
+			<td>
+				Part's immediate parent container - the cryovial holding a tissue sample, for example. 
+				Used preferentially instead of cataloged item + part information.
+			</td>
+			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
+		</tr>
+		<tr>
 			<td>guid_prefix</td>
-			<td>yes</td>
+			<td>yes (or barcode)</td>
 			<td>find under Manage Collections - things like "UAM:Mamm"</td>
 			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
 		</tr>
 		<tr>
 			<td>other_id_type</td>
-			<td>yes</td>
+			<td>yes (or barcode)</td>
 			<td>"catalog number" is valid but not in teh code table</td>
 			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
 		</tr>
 		<tr>
 			<td>other_id_number</td>
-			<td>yes</td>
+			<td>yes (or barcode)</td>
 			<td>the value of the identifier/catalog number</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>PART_NAME</td>
-			<td>yes</td>
+			<td>yes (or barcode)</td>
 			<td>full name of a part that exists for the cataloged item</td>
 			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTSPECIMEN_PART_NAME">CTSPECIMEN_PART_NAME</a></td>
 		</tr>
@@ -207,20 +221,32 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 					specimen_part,
 					coll_object,
 					coll_obj_other_id_num
+					<cfif len(barcode) gt 0>
+						,coll_obj_cont_hist, 
+						container partcontainer, 
+						container barcodecontainer
+					</cfif>
 				where
 					cataloged_item.collection_id = collection.collection_id and
 					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) and
 					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
 					specimen_part.collection_object_id = coll_object.collection_object_id and
-					upper(collection.guid_prefix) = '#ucase(guid_prefix)#' and
-					part_name = '#part_name#' and
 					coll_obj_disposition != 'on loan' and
 					sampled_from_obj_id  is null
-					<cfif other_id_type is "catalog number">
-						and cat_num='#other_id_number#'
+					<cfif len(barcode) gt 0>
+						and specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+						coll_obj_cont_hist.container_id=partcontainer.container_id and
+						partcontainer.parent_container_id=barcodecontainer.container_id and
+						barcodecontainer.barcode='#barcode#'
 					<cfelse>
-						and display_value = '#other_id_number#' and
-						other_id_type = '#other_id_type#'
+						and upper(collection.guid_prefix) = '#ucase(guid_prefix)#' and
+						part_name = '#part_name#' and
+						<cfif other_id_type is "catalog number">
+							and cat_num='#other_id_number#'
+						<cfelse>
+							and display_value = '#other_id_number#' and
+							other_id_type = '#other_id_type#'
+						</cfif>
 					</cfif>
 			</cfquery>
 			<cfif collObj.recordcount is not 1>
@@ -258,7 +284,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 		select * from cf_temp_loan_item
 	</cfquery>
 	<script src="/includes/sorttable.js"></script>
-	<cfset header="STATUS,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,PART_DISPOSITION,PART_CONDITION,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER">
+	<cfset header="STATUS,BARCODE,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,PART_DISPOSITION,PART_CONDITION,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER">
 	<table border id="t" class="sortable">
 		<tr>
 			<cfloop list="#header#" index="i">
@@ -273,7 +299,6 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 			</tr>
 		</cfloop>
 	</table>
-
 	<cfquery name="bads" dbtype="query">
 		select count(*) c from valData where status != 'spiffy'
 	</cfquery>
