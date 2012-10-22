@@ -104,7 +104,7 @@
 		<label for="collection">Collection</label>
 		<select name="collection_id" id="collection_id">
 			<cfloop query="ctcollection">
-				<option value="#collection#">#collection#</option>
+				<option value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
 		<label for="loan_number">Loan Number</label>
