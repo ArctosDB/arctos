@@ -36,6 +36,7 @@
 			<td><strong>In Barcode</strong></td>
 			<td><strong>Remarks</strong></td>
 			<td><strong>Part Name</strong></td>
+			<td><strong>Disposition</strong></td>
 			<td><strong>Cat Num</strong></td>
 			<td><strong>Scientific Name</strong></td>
 		</tr>
@@ -48,15 +49,18 @@
 				part_name,
 				cat_num,
 				cataloged_item.collection_cde,
-				institution_acronym
+				institution_acronym,
+				coll_object.COLL_OBJ_DISPOSITION
 			FROM
 				coll_obj_cont_hist,
 				specimen_part,
 				cataloged_item,
 				identification,
-				collection
+				collection,
+				coll_object
 			WHERE
 				coll_obj_cont_hist.collection_object_id = specimen_part.collection_object_id AND
+				specimen_part.collection_object_id=coll_object.collection_object_id and
 				specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
 				cataloged_item.collection_object_id = identification.collection_object_id AND
 				cataloged_item.collection_id=collection.collection_id AND
@@ -72,6 +76,7 @@
 			<td>#barcode#&nbsp;</td>
 			<td>#container_remarks#&nbsp;</td>
 			<td>#specData.part_name#</td>
+			<td>#specData.COLL_OBJ_DISPOSITION#</td>
 			<td>
 				<a href="/SpecimenDetail.cfm?collection_object_id=#specData.collection_object_id#">
 					#specData.institution_acronym# #specData.collection_cde# #specData.cat_num#
