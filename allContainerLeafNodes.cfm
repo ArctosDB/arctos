@@ -102,13 +102,14 @@
 		<input type="hidden" name="Action" value="addPartsToLoan">
 		<input type="hidden" name="partIDs" value="#partIDs#">
 		<label for="collection">Collection</label>
-		<select name="collection" id="collection">
+		<select name="collection_id" id="collection_id">
 			<cfloop query="ctcollection">
 				<option value="#collection#">#collection#</option>
 			</cfloop>
 		</select>
 		<label for="loan_number">Loan Number</label>
 		<input type="text" name="loan_number" size="25">
+		<br>
 		<input type="submit" value="add all items to loan">
 	</form>
 </cfif>
