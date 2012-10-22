@@ -438,7 +438,7 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
 		<cfabort>
-	<cfelseif cgi.HTTP_HOST contains "web.arctos.database.museum/">
+	<cfelseif cgi.HTTP_HOST contains "web.arctos.database.museum">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
 		<cfabort>
