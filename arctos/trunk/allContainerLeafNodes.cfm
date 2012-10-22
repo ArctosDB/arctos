@@ -128,7 +128,7 @@
 	</cfif>
 	<cftransaction>
 		<cfloop list="#partIDs#" index="li">
-			<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="insItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				insert into loan_item (
 					TRANSACTION_ID,
 					COLLECTION_OBJECT_ID,
