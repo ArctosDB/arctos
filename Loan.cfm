@@ -449,7 +449,7 @@
 		</cfif>
 		<ul>
 			<li><a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">[ add items ]</a></li>
-			<li><a href="loanByBarcode.cfm?transaction_id=#transaction_id#">[ add items by barcode ]</a></li>
+			<li><a href="loanByBarcode.cfm?transaction_id=#transaction_id#">[ add items by part container barcode ]</a></li>
 			<li><a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">[ review loan items ]</a></li>
 			<li><a href="SpecimenResults.cfm?loan_trans_id=#transaction_id#">[ specimens ]</a></li>
 		</ul>
@@ -1652,7 +1652,7 @@
 								<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 									<td>
 										<a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">[ Add Items ]</a>
-										<a href="loanByBarcode.cfm?transaction_id=#transaction_id#">[ Add Items By Barcode ]</a>
+										<a href="loanByBarcode.cfm?transaction_id=#transaction_id#">[ Add Items By Part Container Barcode ]</a>
 									</td>
 									<td>
 										<a href="Loan.cfm?transaction_id=#transaction_id#&Action=editLoan">[ Edit Loan ]</a>
