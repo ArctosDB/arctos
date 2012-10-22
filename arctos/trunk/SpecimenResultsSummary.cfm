@@ -1,6 +1,7 @@
 <cfinclude template = "/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Specimen Results Summary">
+<cfif not isdefined("groupBy")><cfset groupBy='scientific_name'></cfif>
 <cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem">
 <cfloop list="#groupBy#" index="x">
 	<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
