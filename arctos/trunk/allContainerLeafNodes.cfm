@@ -142,7 +142,7 @@
 					sysdate,
 					(
 						select 
-							guid, || ' ' || part_name 
+							guid || ' ' || part_name 
 						from 
 							flat,
 							specimen_part 
