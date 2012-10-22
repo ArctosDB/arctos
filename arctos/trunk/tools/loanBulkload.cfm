@@ -182,6 +182,8 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "verify">
+
+heyro
 <cfoutput>
 <cftransaction>
 	<cfquery name="loanID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
