@@ -27,6 +27,7 @@
 	</cfquery>
 	<strong>
 	<cfset partIDs="">
+	<cfset displ="">
 	<a href="ContDet.cfm?container_id=#container_id#" target="_detail">Container #container_id#</a>
 	 has #leaf.recordcount# leaf containers:</strong>
 	<table border id="t" class="sortable">
@@ -68,6 +69,9 @@
 				container_id=#container_id#
 		</cfquery>
 		<cfset partIDs=listappend(partIDs,specData.partID)>
+		<cfset displ=listappend(displ,specData.COLL_OBJ_DISPOSITION)>
+		
+		
 		<tr>
 			<td>
 				<a href="ContDet.cfm?container_id=#container_id#" target="_detail">#label#</a>
@@ -87,10 +91,69 @@
 		</cfloop>
 	</table>
 </cfif>
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select collection,collection_id from collection order by collection
+</cfquery>
+<cfif listcontains(displ,"on loan")>
+	You can't use this to add loan items because some listed items are already on loan.
+<cfelse>
+	<label for="f">Add All Items To Loan....</label>
+	<form name="f" method="post" action="">
+		<input type="hidden" name="Action" value="addPartsToLoan">
+		<input type="hidden" name="partIDs" value="#partIDs#">
+		<label for="collection">Collection</label>
+		<select name="collection" id="collection">
+			<cfloop query="ctcollection">
+				<option value="#collection#">#collection#</option>
+			</cfloop>
+		</select>
+		<label for="loan_number">Loan Number</label>
+		<input type="text" name="loan_number" size="25">
+		<input type="submit" value="add all items to loan">
+	</form>
+</cfif>
 
-
-#partIDs#
 </cfoutput>
+<cfif action is "addPartsToLoan">
+	<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select loan.transaction_id from loan,trans where loan.transaction_id=trans.transaction_id and
+		loan.loan_number='#loan_number#' and
+		trans.collection_id=#collection_id#
+	</cfquery>
+	<cfif getLoan.recordcount is not 1>
+		error finding loan
+		<cfdump var=#getLoan#>
+		<cfabort>
+	</cfif>
+	<cftransaction>
+		<cfloop list="#partIDs#" index="li">
+			<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				insert into loan_item (
+					TRANSACTION_ID,
+					COLLECTION_OBJECT_ID,
+					RECONCILED_BY_PERSON_ID,
+					RECONCILED_DATE,
+					ITEM_DESCR
+				) values (
+					#getLoan.transaction_id#,
+					#li#,
+					#session.myAgentId#,
+					sysdate,
+					(
+						select 
+							guid, || ' ' || part_name 
+						from 
+							flat,
+							specimen_part 
+						where
+							flat.collection_object_id=specimen_part.derived_from_cat_item and
+							specimen_part.collection_object_id=#li#
+					)
+			</cfquery>
+		</cfloop>
+	</cftransaction>
+	Added #listlen(partIDs)# items to loan <a href="Loan.cfm?action=editLoan&transaction_id=#getLoan.transaction_id#">#loan_number#</a>
+</cfif>
 
 
 
