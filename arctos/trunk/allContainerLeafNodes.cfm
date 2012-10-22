@@ -150,6 +150,7 @@
 							flat.collection_object_id=specimen_part.derived_from_cat_item and
 							specimen_part.collection_object_id=#li#
 					)
+				)
 			</cfquery>
 		</cfloop>
 	</cftransaction>
