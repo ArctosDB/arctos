@@ -97,7 +97,7 @@
 <cfif listcontains(displ,"on loan")>
 	You can't use this to add loan items because some listed items are already on loan.
 <cfelse>
-	<label for="f">Add All Items To Loan....</label>
+	<label for="f">Add All Items To Loan and update part disposition to "on loan"</label>
 	<form name="f" method="post" action="">
 		<input type="hidden" name="Action" value="addPartsToLoan">
 		<input type="hidden" name="partIDs" value="#partIDs#">
@@ -152,9 +152,15 @@
 					)
 				)
 			</cfquery>
+			<cfquery name="upD" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				update coll_object set COLL_OBJ_DISPOSITION='on loan' where COLLECTION_OBJECT_ID=#li#
+			</cfquery>
 		</cfloop>
 	</cftransaction>
-	Added #listlen(partIDs)# items to loan <a href="Loan.cfm?action=editLoan&transaction_id=#getLoan.transaction_id#">#loan_number#</a>
+	<cfoutput>
+		Added #listlen(partIDs)# items to loan <a href="Loan.cfm?action=editLoan&transaction_id=#getLoan.transaction_id#">#loan_number#</a>
+	</cfoutput>
+	<cfabort>
 </cfif>
 
 
