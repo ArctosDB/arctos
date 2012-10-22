@@ -26,6 +26,7 @@
 			container.parent_container_id = prior container.container_id
 	</cfquery>
 	<strong>
+	<cfset partIDs="">
 	<a href="ContDet.cfm?container_id=#container_id#" target="_detail">Container #container_id#</a>
 	 has #leaf.recordcount# leaf containers:</strong>
 	<table border id="t" class="sortable">
@@ -42,6 +43,7 @@
 		<cfquery name="specData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				cataloged_item.collection_object_id,
+				specimen_part.collection_object_id partID,
 				scientific_name,
 				part_name,
 				cat_num,
@@ -61,6 +63,7 @@
 				accepted_id_fg=1 AND
 				container_id=#container_id#
 		</cfquery>
+		<cfset partIDs=listappend(partIDs,specData.partID)>
 		<tr>
 			<td>
 				<a href="ContDet.cfm?container_id=#container_id#" target="_detail">#label#</a>
@@ -79,6 +82,9 @@
 		</cfloop>
 	</table>
 </cfif>
+
+
+#partIDs#
 </cfoutput>
 
 
