@@ -279,6 +279,8 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 							other_id_type = '#other_id_type#'
 						</cfif>
 					</cfif>
+				group by
+					specimen_part.collection_object_id
 			</cfquery>
 			<cfif collObj.recordcount is not 1>
 				<cfset msg="coll object found #collObj.recordcount# times">
