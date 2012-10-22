@@ -282,6 +282,49 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 				group by
 					specimen_part.collection_object_id
 			</cfquery>
+			
+			
+			
+			select 
+					specimen_part.collection_object_id 
+				from
+					cataloged_item,
+					collection,
+					specimen_part,
+					coll_object,
+					coll_obj_other_id_num
+					<cfif len(barcode) gt 0>
+						,coll_obj_cont_hist, 
+						container partcontainer, 
+						container barcodecontainer
+					</cfif>
+				where
+					cataloged_item.collection_id = collection.collection_id and
+					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) and
+					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
+					specimen_part.collection_object_id = coll_object.collection_object_id and
+					coll_obj_disposition != 'on loan' and
+					sampled_from_obj_id  is null
+					<cfif len(barcode) gt 0>
+						and specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+						coll_obj_cont_hist.container_id=partcontainer.container_id and
+						partcontainer.parent_container_id=barcodecontainer.container_id and
+						barcodecontainer.barcode='#barcode#'
+					<cfelse>
+						and upper(collection.guid_prefix) = '#ucase(guid_prefix)#' and
+						part_name = '#part_name#' and
+						<cfif other_id_type is "catalog number">
+							and cat_num='#other_id_number#'
+						<cfelse>
+							and display_value = '#other_id_number#' and
+							other_id_type = '#other_id_type#'
+						</cfif>
+					</cfif>
+				group by
+					specimen_part.collection_object_id
+					
+					
+					
 			<cfif collObj.recordcount is not 1>
 				<cfset msg="coll object found #collObj.recordcount# times">
 			</cfif>
