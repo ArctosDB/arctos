@@ -767,6 +767,10 @@
 		<cfset anchor="top">
 	</cfif>
 	<cfset fullURI="http://arctosdb.wordpress.com/#uri#/###anchor#">
+	<cfreturn fullURI>
+	<!---
+		wordpress randomly gets slow or something, so this is useless 
+		
 	<cfhttp url="#fullURI#" method="head"></cfhttp>
 	<cfif left(cfhttp.statuscode,3) is "200">
 		<cfreturn fullURI>
@@ -779,6 +783,8 @@
 		</cfmail>	
 		<cfreturn 404>
 	</cfif>
+	
+	--->
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getExternalStatus" access="remote">
