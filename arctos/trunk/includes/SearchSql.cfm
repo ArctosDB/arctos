@@ -1332,7 +1332,8 @@
 	<cfif basJoin does not contain " publication ">
 		<cfset basJoin = " #basJoin# INNER JOIN publication ON (citation.publication_id = publication.publication_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(publication.FULL_CITATION) like '%#ucase(stripQuotes(publication_title))#%'">
+	<cfset basQual = " #basQual# AND (upper(publication.FULL_CITATION) like '%#ucase(stripQuotes(publication_title))#%'
+		OR upper(publication.SHORT_CITATION) like '%#ucase(stripQuotes(publication_title))#%')">
 	<cfset mapurl = "#mapurl#&publication_title=#publication_title#">
 </cfif>
 
