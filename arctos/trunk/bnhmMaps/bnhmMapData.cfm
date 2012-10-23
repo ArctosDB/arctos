@@ -57,6 +57,11 @@
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 </cfif><!--- end point map option --->
+
+<cfif isdefined("debug") and debug is true>
+	<cfdump var=#getMapData#>
+	<cfabort>
+</cfif>
 <cfif getMapData.recordcount is 0>
 	<div class="error">
 		Oops! We didn't find anything mappable.
