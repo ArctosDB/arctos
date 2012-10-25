@@ -1,20 +1,17 @@
 <cfoutput>
-	
-	<br><a href="a.cfm?u=http://www.google.com/url?source=imglanding&ct=img&q=http://s3-ec.buzzfed.com/static/imagebuzz/web04/2011/8/2/17/boogity-boogity-boogity-amen-4954-1312319570-19.jpg&sa=X&ei=K3x9UOygH-m0iQLaloDwDw&ved=0CAkQ8wc&usg=AFQjCNHioR9ACBtuMGtA_bK4WA4XA9ZtgA">http://www.google.com/url?source=imglanding&ct=img&q=http://s3-ec.buzzfed.com/static/imagebuzz/web04/2011/8/2/17/boogity-boogity-boogity-amen-4954-1312319570-19.jpg&sa=X&ei=K3x9UOygH-m0iQLaloDwDw&ved=0CAkQ8wc&usg=AFQjCNHioR9ACBtuMGtA_bK4WA4XA9ZtgA</a>
-
-	<br><a href="a.cfm?u=http://web.corral.tacc.utexas.edu/UAF/2008_10_15/jpegs/tn_H1175660.jpg">http://web.corral.tacc.utexas.edu/UAF/2008_10_15/jpegs/tn_H1175660.jpg</a>
-<br><a href="a.cfm?u=http://faculty.washington.edu/leache/wordpress/wp-content/uploads/2012/09/magister1-199x300.png">http://faculty.washington.edu/leache/wordpress/wp-content/uploads/2012/09/magister1-199x300.png</a>
-
-
-<cfset tick = GetTickCount()>
- <cfhttp method="head" url="#u#" timeout="1">
-
-<cfset tock = GetTickCount()>
-<cfset time = tock-tick>
-<hr>
-fetched #u# in #time#ms
-<hr>
-<cfdump var=#cfhttp#>
+	<cfquery name="d" datasource="uam_god">
+		select PREFERRED_NAME from uw_ac where orig is null
+	</cfquery>
+	<cfloop query="d">
+		<cfquery name="f" datasource="uam_god">
+			select agent from uw_agent where trim(agent)='#trim(PREFERRED_NAME)#'
+		</cfquery>
+		<cfif f.recordcount gt 0>
+			<cfdump var=#f#>
+		<cfelse>
+			<br>#PREFERRED_NAME#
+		</cfif>
+	</cfloop>
 
 </cfoutput>
 
