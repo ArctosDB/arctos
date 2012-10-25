@@ -29,9 +29,9 @@
 		<cfset i=1>
 		<cfloop query="one">
 			<br>thisPREFERRED_NAME=#PREFERRED_NAME#
-			<br>#FIRST_NAME#
-			<br>#MIDDLE_NAME#
-			<br>#LAST_NAME#
+			<br>FIRST_NAME=#FIRST_NAME#
+			<br>MIDDLE_NAME=#MIDDLE_NAME#
+			<br>LAST_NAME=#LAST_NAME#
 			<br>ORIG=#ORIG#
 			
 				<cfif first_name contains ",">
