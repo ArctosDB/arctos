@@ -54,7 +54,7 @@
 					<cfset namelist=listappend(namelist,pname,'|')>
 				</cfif>
 				<cfset i=i+1>
-				<cfif i gt nname><cfset nname=i></cfif>
+				<cfif listlen(namelist,'|') gt nname><cfset nname=listlen(namelist,'|')></cfif>
 				<br>namelist=#namelist#
 			</cfloop>
 		
