@@ -8,10 +8,10 @@
 		<cfquery name="one" datasource="uam_god">
 			select * from uw_agentlast where preferred_name='#preferred_name#'
 		</cfquery>
-		<hr>#preferred_name#
+		<hr>preferred_name=#preferred_name#
 		<cfset i=1>
 		<cfloop query="one">
-			<br>#PREFERRED_NAME#
+			<br>thisPREFERRED_NAME=#PREFERRED_NAME#
 			<br>#FIRST_NAME#
 			<br>#MIDDLE_NAME#
 			<br>#LAST_NAME#
@@ -19,7 +19,7 @@
 			<br>#PREFERRED_NAME#
 			
 				<cfif first_name contains ",">
-					<cfset pname=LAST_NAME & ' ' & MIDDLE_NAME & ' ' &  FIRST_NAME>
+					<cfset pname='hascomma==' & LAST_NAME & ' ' & MIDDLE_NAME & ' ' &  FIRST_NAME>
 				<cfelse>
 					<cfset pname=FIRST_NAME  & ' ' & MIDDLE_NAME & ' ' & LAST_NAME >
 				</cfif>
