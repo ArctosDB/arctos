@@ -8,11 +8,11 @@
 		n2  varchar2(4000),
 		n3  varchar2(4000),
 		n4  varchar2(4000),
-		n5  varchar2(4000),
-		n6  varchar2(4000),
-		n7  varchar2(4000),
-		n8  varchar2(4000),
-		n1  varchar2(4000),
+		first_name varchar2(4000),
+		middle_name varchar2(4000),
+		last_name varchar2(4000)
+	);
+	
 	
 	
 	---->
@@ -25,15 +25,21 @@
 		<cfquery name="one" datasource="uam_god">
 			select * from uw_agentlast where preferred_name='#preferred_name#'
 		</cfquery>
+		<cfset fpref=preferred_name>
 		<hr>preferred_name=#preferred_name#
 		<cfset namelist=preferred_name>
+		<cfset everything=preferred_name>
 		<cfset i=1>
 		<cfloop query="one">
 			<cfif not listcontains(namelist,PREFERRED_NAME,'|')>
 				<cfset namelist=listappend(namelist,PREFERRED_NAME,'|')>
+				<cfset everything=listappend(everything,PREFERRED_NAME,'|')>
 			</cfif>
 			<br>thisPREFERRED_NAME=#PREFERRED_NAME#
 			
+			<cfset everything=listappend(everything,FIRST_NAME,'|')>
+			<cfset everything=listappend(everything,MIDDLE_NAME,'|')>
+			<cfset everything=listappend(everything,LAST_NAME,'|')>
 			<br>FIRST_NAME=#FIRST_NAME#
 			<br>MIDDLE_NAME=#MIDDLE_NAME#
 			<br>LAST_NAME=#LAST_NAME#
@@ -56,6 +62,45 @@
 				<cfset i=i+1>
 				<cfif listlen(namelist,'|') gt nname><cfset nname=listlen(namelist,'|')></cfif>
 				<br>namelist=#namelist#
+				<cfquery name="ins" datasource="uam_god">
+					insert into uw_af (
+						preferred_name,
+						n1,
+						n2,
+						n3,
+						n4,
+						first_name,
+						middle_name,
+						last_name
+					) values (
+						'#preferred_name#',
+						<cfif listlen(namelist,'|') gte 1>
+							'#listgetat(namelist,1,'|')#',
+						<cfelse>
+							null,	
+						</cfif>
+						<cfif listlen(namelist,'|') gte 2>
+							'#listgetat(namelist,2,'|')#',
+						<cfelse>
+							null,	
+						</cfif>
+						<cfif listlen(namelist,'|') gte 3>
+							'#listgetat(namelist,3,'|')#',
+						<cfelse>
+							null,	
+						</cfif>
+						<cfif listlen(namelist,'|') gte 4>
+							'#listgetat(namelist,4,'|')#',
+						<cfelse>
+							null,	
+						</cfif>
+						'#first_name#',
+						'#middle_name#',
+						last_name#'
+					)
+				</cfquery>
+
+				uw_af
 			</cfloop>
 		
 					
