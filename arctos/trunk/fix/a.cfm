@@ -9,8 +9,8 @@
 			select * from uw_agentlast where preferred_name='#preferred_name#'
 		</cfquery>
 		<hr>#preferred_name#
+		<cfset i=1>
 		<cfloop query="one">
-			<cfset i=1>
 			<br>#PREFERRED_NAME#
 			<br>#FIRST_NAME#
 			<br>#MIDDLE_NAME#
@@ -26,9 +26,10 @@
 				<cfset pname=replace(pname,',','','all')>
 				<cfset pname=replace(pname,'  ',' ','all')>
 				<br>pname=#pname#
-				<cfif i gt nname><cfset nname=i></cfif>
 				<cfset i=i+1>
+				<cfif i gt nname><cfset nname=i></cfif>
 			</cfloop>
+		
 					
 
 
