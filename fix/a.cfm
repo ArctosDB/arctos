@@ -34,8 +34,8 @@
 			<br>LAST_NAME=#LAST_NAME#
 			<br>ORIG=#ORIG#
 			
-				<cfif first_name contains ",">
-					<cfset pname='hascomma==' & LAST_NAME & ' ' & MIDDLE_NAME & ' ' &  FIRST_NAME>
+				<cfif len(first_name) gt 2 and first_name contains ",">
+					<cfset pname='hascommamorethan2==' & LAST_NAME & ' ' & MIDDLE_NAME & ' ' &  FIRST_NAME>
 				<cfelse>
 					<cfset pname=FIRST_NAME  & ' ' & MIDDLE_NAME & ' ' & LAST_NAME >
 				</cfif>
