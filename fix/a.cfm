@@ -1,4 +1,21 @@
 <cfoutput>
+	
+	
+	<!---
+	create table uw_af (
+		preferred_name varchar2(4000),
+		n1  varchar2(4000),
+		n2  varchar2(4000),
+		n3  varchar2(4000),
+		n4  varchar2(4000),
+		n5  varchar2(4000),
+		n6  varchar2(4000),
+		n7  varchar2(4000),
+		n8  varchar2(4000),
+		n1  varchar2(4000),
+	
+	
+	---->
 	<cfquery name="d" datasource="uam_god">
 		select preferred_name from uw_agentlast group by preferred_name
 	</cfquery>
@@ -15,8 +32,7 @@
 			<br>#FIRST_NAME#
 			<br>#MIDDLE_NAME#
 			<br>#LAST_NAME#
-			<br>#ORIG#
-			<br>#PREFERRED_NAME#
+			<br>ORIG=#ORIG#
 			
 				<cfif first_name contains ",">
 					<cfset pname='hascomma==' & LAST_NAME & ' ' & MIDDLE_NAME & ' ' &  FIRST_NAME>
