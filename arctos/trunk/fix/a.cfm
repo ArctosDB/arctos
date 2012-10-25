@@ -1,7 +1,36 @@
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
-		select PREFERRED_NAME from uw_ac where orig is null
+		select * from uw_agentlast 
 	</cfquery>
+	
+	<table border>
+	<cfloop query="d">
+		<tr>
+			<td>#FIRST_NAME#</td>
+			<td>#MIDDLE_NAME#</td>
+			<td>#LAST_NAME#</td>
+			<td>#ORIG#</td>
+			<td>#PREFERRED_NAME#</td>
+		</tr>
+					
+
+
+	</cfloop>
+	</table>
+
+</cfoutput>
+
+			
+	<!----------------
+
+
+	<cfhttp method="head" url="http://web.corral.tacc.utexas.edu/UAF/2008_10_15/jpegs/tn_H1175660.jpg">
+			<cfdump var=#cfhttp#>
+			
+			
+			
+		
+	
 	<cfloop query="d">
 		<cfset l=listgetat(PREFERRED_NAME,1)>
 		<cfquery name="f" datasource="uam_god">
@@ -20,20 +49,7 @@
 		<cfelse>
 			<br>#PREFERRED_NAME#
 		</cfif>
-	</cfloop>
-
-</cfoutput>
-
-			
-	<!----------------
-
-
-	<cfhttp method="head" url="http://web.corral.tacc.utexas.edu/UAF/2008_10_15/jpegs/tn_H1175660.jpg">
-			<cfdump var=#cfhttp#>
-			
-			
-			
-			
+	</cfloop>	
 			
 	<cfquery datasource="uam_god" name="cols">
 		select * from taxonomy where 1=2		
