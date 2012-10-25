@@ -43,7 +43,7 @@
 			<br>ORIG=#ORIG#
 			
 				<cfif len(first_name) gt 2 and first_name contains ",">
-					<cfset pname='hascommamorethan2==' & LAST_NAME & ' ' & MIDDLE_NAME & ' ' &  FIRST_NAME>
+					<cfset pname=LAST_NAME & ' ' & MIDDLE_NAME & ' ' &  FIRST_NAME>
 				<cfelse>
 					<cfset pname=FIRST_NAME  & ' ' & MIDDLE_NAME & ' ' & LAST_NAME >
 				</cfif>
