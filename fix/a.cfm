@@ -3,14 +3,18 @@
 		select PREFERRED_NAME from uw_ac where orig is null
 	</cfquery>
 	<cfloop query="d">
+		<cfset l=listgetat(PREFERRED_NAME,1)>
 		<cfquery name="f" datasource="uam_god">
-			select agent from uw_agent where trim(agent)='#trim(PREFERRED_NAME)#'
+			select PREFERRED_NAME from uw_splot where trim(LAST_NAME)='#trim(l)#'
 		</cfquery>
 		<cfif f.recordcount gt 0>
 			<cfdump var=#f#>
+			<!----
 			<cfquery name="u" datasource="uam_god">
 				update uw_ac set orig='#PREFERRED_NAME#' where PREFERRED_NAME='#PREFERRED_NAME#'
 			</cfquery>
+			
+			---->
 		<cfelse>
 			<br>#PREFERRED_NAME#
 		</cfif>
