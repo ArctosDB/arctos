@@ -5,7 +5,7 @@
 	<cfloop query="d">
 		<cfset l=listgetat(PREFERRED_NAME,1)>
 		<cfquery name="f" datasource="uam_god">
-			select PREFERRED_NAME from uw_splot where trim(LAST_NAME)='#trim(l)#'
+			select PREFERRED_NAME from uw_split where trim(LAST_NAME)='#trim(l)#'
 		</cfquery>
 		<cfif f.recordcount gt 0>
 			<cfdump var=#f#>
