@@ -26,12 +26,20 @@
 			select * from uw_agentlast where preferred_name='#preferred_name#'
 		</cfquery>
 		<hr>preferred_name=#preferred_name#
+		<cfset namelist=preferred_name>
 		<cfset i=1>
 		<cfloop query="one">
+			<cfif not listcontains(namelist,PREFERRED_NAME,'|')>
+				<cfset namelist=listappend(namelist,PREFERRED_NAME,'|')>
+			</cfif>
 			<br>thisPREFERRED_NAME=#PREFERRED_NAME#
+			
 			<br>FIRST_NAME=#FIRST_NAME#
 			<br>MIDDLE_NAME=#MIDDLE_NAME#
 			<br>LAST_NAME=#LAST_NAME#
+			<cfif not listcontains(namelist,ORIG,'|')>
+				<cfset namelist=listappend(namelist,ORIG,'|')>
+			</cfif>
 			<br>ORIG=#ORIG#
 			
 				<cfif len(first_name) gt 2 and first_name contains ",">
@@ -42,8 +50,12 @@
 				<cfset pname=replace(pname,',','','all')>
 				<cfset pname=replace(pname,'  ',' ','all')>
 				<br>pname=#pname#
+				<cfif not listcontains(namelist,pname,'|')>
+					<cfset namelist=listappend(namelist,pname,'|')>
+				</cfif>
 				<cfset i=i+1>
 				<cfif i gt nname><cfset nname=i></cfif>
+				<br>namelist=#namelist#
 			</cfloop>
 		
 					
