@@ -9,11 +9,9 @@
 		</cfquery>
 		<cfif f.recordcount is 1>
 			<cfdump var=#f#>
-			<!---
 			<cfquery name="u" datasource="uam_god">
 				update uw_ac set orig='#f.PREFERRED_NAME#' where PREFERRED_NAME='#PREFERRED_NAME#'
 			</cfquery>
-			---->
 		<cfelse>
 			<br>#PREFERRED_NAME#
 		</cfif>
