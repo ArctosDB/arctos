@@ -1,24 +1,30 @@
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
-		select * from uw_agentlast 
+		select preferred_name from uw_agentlast group by preferred_name
 	</cfquery>
 	
 	<table border>
 	<cfloop query="d">
+		<cfquery name="one" datasource="uam_god">
+			select * from uw_agentlast where preferred_name='#preferred_name#'
+		</cfquery>
 		<tr>
+			<td>#PREFERRED_NAME#</td>
 			<td>#FIRST_NAME#</td>
 			<td>#MIDDLE_NAME#</td>
 			<td>#LAST_NAME#</td>
 			<td>#ORIG#</td>
 			<td>#PREFERRED_NAME#</td>
-			<cfif first_name contains ",">
-				<cfset pname=LAST_NAME & ' ' & MIDDLE_NAME & ' ' &  FIRST_NAME>
-			<cfelse>
-				<cfset pname=FIRST_NAME  & ' ' & MIDDLE_NAME & ' ' & LAST_NAME >
-			</cfif>
-			<cfset pname=replace(pname,',','','all')>
-			<cfset pname=replace(pname,'  ',' ','all')>
-			<td>#pname#</td>
+			<cfloop query="one">
+				<cfif first_name contains ",">
+					<cfset pname=LAST_NAME & ' ' & MIDDLE_NAME & ' ' &  FIRST_NAME>
+				<cfelse>
+					<cfset pname=FIRST_NAME  & ' ' & MIDDLE_NAME & ' ' & LAST_NAME >
+				</cfif>
+				<cfset pname=replace(pname,',','','all')>
+				<cfset pname=replace(pname,'  ',' ','all')>
+				<td>pname=#pname#</td>
+			</cfloop>
 		</tr>
 					
 
