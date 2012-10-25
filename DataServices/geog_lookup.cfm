@@ -177,7 +177,7 @@ from geog_auth_rec where rownum<10
 <cfif action is "validate">
 <cfoutput>
 	things that resolve to one match have been updated.
-	<br>THings with multiple possibilities may be selected.
+	<br>Things with multiple possibilities may be selected.
 	<br>Accuracy varies by method
 	<br>full_component_match > componentMatch_noCont > componentMatch_noSea > componentMatch_noCountry > componentMatch_JustIsland
 	<br>Manually select suggestions; the more you do here, the fewer problems later.
@@ -573,7 +573,7 @@ from geog_auth_rec where rownum<10
 				update
 					ds_temp_geog
 				set
-					higher_geog='#result.higher_geog#',
+					FOUND_HIGHER_GEOG='#result.higher_geog#',
 					status='#result.method#'
 				where
 					pkey=#qdata.pkey#
@@ -605,7 +605,7 @@ from geog_auth_rec where rownum<10
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_geog
 			order by
-			higher_geog,
+			FOUND_HIGHER_GEOG,
 			calculated_higher_geog
 	</cfquery>
 	<cfset ac = getData.columnList>
