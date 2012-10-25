@@ -100,9 +100,9 @@
 					<cfelse>
 						null,	
 					</cfif>
-					'#first_name#',
-					'#middle_name#',
-					'#last_name#'
+					'#one.first_name#',
+					'#one.middle_name#',
+					'#one.last_name#'
 				)
 			</cfquery>
 
