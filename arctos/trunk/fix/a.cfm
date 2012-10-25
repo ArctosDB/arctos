@@ -11,6 +11,14 @@
 			<td>#LAST_NAME#</td>
 			<td>#ORIG#</td>
 			<td>#PREFERRED_NAME#</td>
+			<cfif first_name contains ",">
+				<cfset pname=LAST_NAME & ' ' & MIDDLE_NAME & ' ' &  FIRST_NAME>
+			<cfelse>
+				<cfset pname=FIRST_NAME  & ' ' & MIDDLE_NAME & ' ' & LAST_NAME >
+			</cfif>
+			<cfset pname=replace(pname,',','','all')>
+			<cfset pname=replace(pname,'  ',' ','all')>
+			<td>#pname#</td>
 		</tr>
 					
 
