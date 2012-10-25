@@ -3,12 +3,14 @@
 		select preferred_name from uw_agentlast group by preferred_name
 	</cfquery>
 	
+	<cfset nname=1>
 	<cfloop query="d">
 		<cfquery name="one" datasource="uam_god">
 			select * from uw_agentlast where preferred_name='#preferred_name#'
 		</cfquery>
 		<hr>#preferred_name#
 		<cfloop query="one">
+			<cfset i=1>
 			<br>#PREFERRED_NAME#
 			<br>#FIRST_NAME#
 			<br>#MIDDLE_NAME#
@@ -24,12 +26,15 @@
 				<cfset pname=replace(pname,',','','all')>
 				<cfset pname=replace(pname,'  ',' ','all')>
 				<br>pname=#pname#
+				<cfif i gt nname><cfset nname=i></cfif>
+				<cfset i=i+1>
 			</cfloop>
 					
 
 
 	</cfloop>
-
+	<br>
+nname: #nname#
 </cfoutput>
 
 			
