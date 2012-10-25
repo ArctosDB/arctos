@@ -7,14 +7,12 @@
 		<cfquery name="f" datasource="uam_god">
 			select PREFERRED_NAME from uw_split where trim(LAST_NAME)='#trim(l)#' group by PREFERRED_NAME
 		</cfquery>
-		<cfif f.recordcount gt 0>
+		<cfif f.recordcount is 1>
 			<cfdump var=#f#>
-			<!----
 			<cfquery name="u" datasource="uam_god">
-				update uw_ac set orig='#PREFERRED_NAME#' where PREFERRED_NAME='#PREFERRED_NAME#'
+				update uw_ac set orig='#f.PREFERRED_NAME#' where PREFERRED_NAME='#PREFERRED_NAME#'
 			</cfquery>
 			
-			---->
 		<cfelse>
 			<br>#PREFERRED_NAME#
 		</cfif>
