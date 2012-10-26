@@ -77,7 +77,14 @@
 						---->
 						<tr>
 							<td>Line</td>
-							<td>#exception.tagContext[1].line#</td>
+							<td>
+								<cftry>
+									#exception.tagContext[1].line#
+								<cfcatch>
+									-no line - see exception dump - 
+								</cfcatch>
+								</cftry>	
+							</td>
 						</tr>
 					</cfif>
 
