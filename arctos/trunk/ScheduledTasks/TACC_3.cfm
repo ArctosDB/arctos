@@ -62,6 +62,7 @@ select media_uri,replace(media_uri,'http://irods.tacc.teragrid.org:8000/UAF/','h
 media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 --->
 
+<cfsetting requesttimeout="600"> 
 
 
 <cfoutput>

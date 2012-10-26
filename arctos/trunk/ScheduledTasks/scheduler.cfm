@@ -265,7 +265,7 @@
     url = "127.0.0.1/ScheduledTasks/tacc.cfm?action=linkToSpecimens"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:27 AM"
-    interval = "3600">
+    interval = "1200">
 <cfschedule action = "update"
     task = "TACC4_makeDNGMedia" 
     operation = "HTTPRequest"
