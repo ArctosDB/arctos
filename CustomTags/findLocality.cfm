@@ -188,7 +188,7 @@
 <cfif isdefined("sea") and len(#sea#) gt 0>
 	<cfset qual = "#qual# AND upper(sea) LIKE '%#ucase(sea)#%'">
 </cfif>
-<cfif isdefined("higher_geog") and len(#higher_geog#) gt 0>
+<cfif isdefined("higher_geog") and len(higher_geog) gt 0>
 	<cfset qual = "#qual# AND upper(higher_geog) like '%#ucase(higher_geog)#%'">
 </cfif>
 <cfif isdefined("collecting_event_name") AND len(collecting_event_name) gt 0>
@@ -208,6 +208,7 @@
 
 	#preservesinglequotes(sql)#
 
+<cfabort>
 
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
