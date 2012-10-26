@@ -14,6 +14,7 @@ create table tacc_check (
 	
 	update tacc_check set collection_object_id = (select collection_object_id from tcb2 where tcb2.barcode=tacc_check.barcode);
 --->
+<cfsetting requesttimeout="600"> 
 
 <cfoutput>
 	<cfquery name="fldr" datasource="uam_god">
@@ -32,7 +33,7 @@ create table tacc_check (
 			where
 				folder = '#folder#'
 		</cfquery>
-		<cfif fldr.file_count is not (fl.c + 1)>
+		<cfif fldr.file_count is not (fl.c + 2)>
 			Something hinky is going on with #folder#
 			<br>
 			fldr.file_count: #fldr.file_count#
@@ -51,34 +52,36 @@ create table tacc_check (
 			and status is null
 	</cfquery>
 	<cfloop query="data">
-		<cfquery name="bc" datasource="uam_god">
-			select 
-				cataloged_item.collection_object_id 
-			from
-				cataloged_item,
-				specimen_part,
-				coll_obj_cont_hist,
-				container pc,
-				container prnt
-			where
-				cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
-				specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
-				coll_obj_cont_hist.container_id = pc.container_id and
-				pc.parent_container_id = prnt.container_id and
-				prnt.barcode='#barcode#'
-		</cfquery>
-		<cfif bc.collection_object_id is "">
-			<cfquery name="data" datasource="uam_god">
-				update tacc_check set collection_object_id=-1 where barcode='#barcode#'
+		<cftransaction>
+			<cfquery name="bc" datasource="uam_god">
+				select 
+					cataloged_item.collection_object_id 
+				from
+					cataloged_item,
+					specimen_part,
+					coll_obj_cont_hist,
+					container pc,
+					container prnt
+				where
+					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
+					specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
+					coll_obj_cont_hist.container_id = pc.container_id and
+					pc.parent_container_id = prnt.container_id and
+					prnt.barcode='#barcode#'
 			</cfquery>
-		<cfelseif bc.recordcount is not 1>
-			<cfquery name="data" datasource="uam_god">
-				update tacc_check set collection_object_id=-2 where barcode='#barcode#'
-			</cfquery>
-		<cfelse>
-			<cfquery name="data" datasource="uam_god">
-				update tacc_check set collection_object_id=#bc.collection_object_id# where barcode='#barcode#'
-			</cfquery>
-		</cfif>
+			<cfif bc.collection_object_id is "">
+				<cfquery name="data" datasource="uam_god">
+					update tacc_check set collection_object_id=-1 where barcode='#barcode#'
+				</cfquery>
+			<cfelseif bc.recordcount is not 1>
+				<cfquery name="data" datasource="uam_god">
+					update tacc_check set collection_object_id=-2 where barcode='#barcode#'
+				</cfquery>
+			<cfelse>
+				<cfquery name="data" datasource="uam_god">
+					update tacc_check set collection_object_id=#bc.collection_object_id# where barcode='#barcode#'
+				</cfquery>
+			</cfif>
+		</cftransaction>
 	</cfloop>
 </cfoutput>
