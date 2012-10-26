@@ -206,11 +206,11 @@
 </cfif>
 <cfset sql="#sel# #frm# where #whr# #qual# and rownum < 501 order by #orderby#">
 
-	#preservesinglequotes(sql)#
+	
 
 
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select geog_auth_rec.geog_auth_rec_id, higher_geog,locality.locality_id, spec_locality, max_error_distance, max_error_units, locality.dec_lat, locality.dec_long, georeference_source, georeference_protocol, locality_name, locality.DATUM, LOCALITY_REMARKS, MINIMUM_ELEVATION, MAXIMUM_ELEVATION, ORIG_ELEV_UNITS, MIN_DEPTH, MAX_DEPTH, DEPTH_UNITS, concatGeologyAttributeDetail(locality.locality_id) geolAtts,minimum_elevation, maximum_elevation, orig_elev_units from geog_auth_rec,locality,geology_attributes where 1=1 and geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and locality.locality_id = geology_attributes.locality_id (+) AND upper(spec_locality) like '%RIDDLE%' AND upper(state_prov) LIKE '%IDAHO%' and rownum < 501 order by higher_geog,spec_locality 
+	#preservesinglequotes(sql)#
 </cfquery>
 <cfif caller.localityResults.recordcount is 500>
 	<br>This application returns a maximum of 500 rows. Not all results are displayed.<br>
