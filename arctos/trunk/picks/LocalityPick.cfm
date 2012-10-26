@@ -26,7 +26,7 @@
 <!-------------------------------------------------------------------->
 <cfif #Action# is "findLocality">
 <cfset title = "Select a Locality">
-<br>only the first 10 results have maps
+<br>only the first 20 results have maps
 <cfoutput>
 	<cf_findLocality type="locality">
 	<cfquery name="localityResults" dbtype="query">
@@ -82,7 +82,7 @@
 					<br>
 					<span style="font-size:.7em">
 						<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-							<cfif x lte 10>
+							<cfif x lte 20>
 								<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 									<cfinvokeargument name="lat" value="#DEC_LAT#">
 									<cfinvokeargument name="long" value="#DEC_LONG#">
