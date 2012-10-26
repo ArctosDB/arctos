@@ -52,37 +52,40 @@ create table tacc_check (
 				</cfif>
 				<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/ala/#folder#" charset="utf-8" method="get">
 				</cfhttp>
+				<hr>got #folder#....
 				<cfset ximgStr=cfhttp.FileContent>
 				<!--- goddamned xmlns bug in CF --->
 				<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
 				<cfset xImgAll=xmlparse(ximgStr)>
 				<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
-				<cfloop index="i" from="1" to="#arrayLen(xImage)#">
-					<cfset fname = xImage[i].XmlChildren[1].xmlText>
-					<br>fname: #fname#
-					<cfif #right(fname,4)# is ".dng">
-						<cfset barcode=replace(fname,".dng","")>
-						<cfquery name="upFile" datasource="uam_god">
-							insert into tacc_check (
-								barcode,
-								folder
-							) values (
-								'#barcode#',
-								'ala/#folder#'
-							)	
-						</cfquery>
-					</cfif> 
-				</cfloop>
-				<!--- made it thru the files, update the folder --->
-				<cfquery name="upFolder" datasource="uam_god">
-					insert into tacc_folder (
-						folder,
-						file_count
-					) values (
-						'ala/#folder#',
-						#arrayLen(xImage)#
-					)
-				</cfquery>
+				<cftransaction>
+					<cfloop index="i" from="1" to="#arrayLen(xImage)#">
+						<cfset fname = xImage[i].XmlChildren[1].xmlText>
+						<br>fname: #fname#
+						<cfif #right(fname,4)# is ".dng">
+							<cfset barcode=replace(fname,".dng","")>
+							<cfquery name="upFile" datasource="uam_god">
+								insert into tacc_check (
+									barcode,
+									folder
+								) values (
+									'#barcode#',
+									'ala/#folder#'
+								)	
+							</cfquery>
+						</cfif> 
+					</cfloop>
+					<!--- made it thru the files, update the folder --->
+					<cfquery name="upFolder" datasource="uam_god">
+						insert into tacc_folder (
+							folder,
+							file_count
+						) values (
+							'ala/#folder#',
+							#arrayLen(xImage)#
+						)
+					</cfquery>
+				</cftransaction>
 			</cfif> <!--- end not been here --->			
 		</cfif><!--- end 2008..... name --->
 	</cfloop>
