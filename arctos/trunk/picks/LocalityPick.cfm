@@ -26,6 +26,7 @@
 <!-------------------------------------------------------------------->
 <cfif #Action# is "findLocality">
 <cfset title = "Select a Locality">
+<br>only the first 10 results have maps
 <cfoutput>
 	<cf_findLocality type="locality">
 	<cfquery name="localityResults" dbtype="query">
@@ -62,6 +63,7 @@
 			geolAtts
 	</cfquery>
 	<table border>
+		<cfset x=1>
     	 <cfloop query="localityResults"> 
       		<tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
        			<td>
@@ -80,12 +82,15 @@
 					<br>
 					<span style="font-size:.7em">
 						<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-							<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-								<cfinvokeargument name="lat" value="#DEC_LAT#">
-								<cfinvokeargument name="long" value="#DEC_LONG#">
-								<cfinvokeargument name="locality_id" value="#locality_id#">
-							</cfinvoke>
-							#contents#
+							<cfif x lte 10>
+								<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
+									<cfinvokeargument name="lat" value="#DEC_LAT#">
+									<cfinvokeargument name="long" value="#DEC_LONG#">
+									<cfinvokeargument name="locality_id" value="#locality_id#">
+								</cfinvoke>
+								#contents#
+							</cfif>
+							<cfset x=x+1>
 							<br>
 							#dec_lat# #dec_long# 
 							(#georeference_source# - #georeference_protocol#)
