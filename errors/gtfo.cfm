@@ -29,6 +29,7 @@
 		<input type="text" name="email" id="email" class="reqdClr">
 		<br>
 	    <cfimage action="captcha" width="300" height="50" text="#captcha#" destination="#application.webdirectory#/temp/captcha.png">
+	    <img src="/temp/captcha.png">
 	   	<br>
 	    <label for="captcha">Enter the text above</label>
 	    <input type="text" name="captcha" id="captcha" class="reqdClr">
