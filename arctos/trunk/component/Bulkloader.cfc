@@ -115,8 +115,20 @@
 
 <cffunction name="loadRecord" access="remote">
 	<cfargument name="collection_object_id" required="yes">
+	<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			column_name 
+		from 
+			sys.user_tab_cols
+		where 
+			table_name='BULKLOADER'
+		and 
+			column_name not like '%$%'
+		order by 
+			internal_column_id
+	</cfquery>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from bulkloader where collection_object_id=#collection_object_id#
+		select #valuelist(getCols.column_Name)# from bulkloader where collection_object_id=#collection_object_id#
 	</cfquery>
 	<cfreturn d>
 </cffunction>
@@ -165,7 +177,7 @@
 <cffunction name="saveEdits" access="remote">
 	<cfargument name="q" required="yes">
 	<cfoutput>
-		<cfquery name="getCols" datasource="uam_god">
+		<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select column_name from sys.user_tab_cols
 			where table_name='BULKLOADER'
 			and column_name not like '%$%'
