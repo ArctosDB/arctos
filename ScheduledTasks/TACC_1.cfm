@@ -17,6 +17,10 @@ create table tacc_check (
 
 --->
 
+<cfsetting requesttimeout="600"> 
+
+
+
 <cfoutput>
 	
 	
