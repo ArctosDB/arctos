@@ -18,72 +18,9 @@ create table tacc_check (
 --->
 
 <cfoutput>
-<cfhttp url="http://web.corral.tacc.utexas.edu/UAF" charset="utf-8" method="get">
-</cfhttp>
-<cfif isXML(cfhttp.FileContent)>
-	<cfset xStr=cfhttp.FileContent>
-	<!--- goddamned xmlns bug in CF --->
-	<cfset xStr= replace(xStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
-	<cfset xdir=xmlparse(xStr)>
-	<cfset dir = xmlsearch(xdir, "//td[@class='n']")>	
-	<cfloop index="i" from="1" to="#arrayLen(dir)#">
-		<cfset folder = dir[i].XmlChildren[1].xmlText>
-		<br>folder: #folder#
-		<cfif left(folder,3) is "200" or left(folder,6) is "MB_200"><!--- the old ALA stuff is in 200y_mm_dd folders --->
-			<cfquery name="gotFolder" datasource="uam_god">
-				select count(*) c, file_count from tacc_folder where folder='#folder#' group by file_count		
-			</cfquery>
-			<cfquery name="gotFile" datasource="uam_god">
-				select count(distinct(barcode)) cbc from tacc_check where folder='#folder#'			
-			</cfquery>
-			<cfif len(gotFolder.file_count) is 0><!--- been here? --->
-				<cfif (len(gotFolder.file_count) gt 0 and (gotFolder.file_count is not gotFile.cbc)) or gotFolder.file_count is not gotFolder.c>
-					<cfquery name="dammit" datasource="uam_god">
-						delete from tacc_folder where folder='#folder#'
-					</cfquery>
-					<cfquery name="dammit2" datasource="uam_god">
-						delete from tacc_check where folder='#folder#'
-					</cfquery>
-				</cfif>
-				<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#folder#" charset="utf-8" method="get">
-				</cfhttp>
-				<cfset ximgStr=cfhttp.FileContent>
-				<!--- goddamned xmlns bug in CF --->
-				<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
-				<cfset xImgAll=xmlparse(ximgStr)>
-				<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
-				<cfloop index="i" from="1" to="#arrayLen(xImage)#">
-					<cfset fname = xImage[i].XmlChildren[1].xmlText>
-					<br>fname: #fname#
-					<cfif #right(fname,4)# is ".dng">
-						<cfset barcode=replace(fname,".dng","")>
-						<cfquery name="upFile" datasource="uam_god">
-							insert into tacc_check (
-								barcode,
-								folder
-							) values (
-								'#barcode#',
-								'#folder#'
-							)	
-						</cfquery>
-					</cfif> 
-				</cfloop>
-				<!--- made it thru the files, update the folder --->
-				<cfquery name="upFolder" datasource="uam_god">
-					insert into tacc_folder (
-						folder,
-						file_count
-					) values (
-						'#folder#',
-						#arrayLen(xImage)#
-					)
-				</cfquery>
-			</cfif> <!--- end not been here --->			
-		</cfif><!--- end 2008..... name --->
-	</cfloop>
-</cfif>
-
-
+	
+	
+	
 <!----------------------- and do it all over again for the ala/subfolders    ---------------->
 
 <cfhttp url="http://web.corral.tacc.utexas.edu/UAF/ala" charset="utf-8" method="get">
@@ -97,7 +34,7 @@ create table tacc_check (
 	<cfloop index="i" from="1" to="#arrayLen(dir)#">
 		<cfset folder = dir[i].XmlChildren[1].xmlText>
 		<br>folder: #folder#
-		<cfif left(folder,3) is "200"><!--- the old ALA stuff is in 200y_mm_dd folders --->
+		<cfif left(folder,3) is "201"><!--- the old ALA stuff is in 200y_mm_dd folders --->
 			<cfquery name="gotFolder" datasource="uam_god">
 				select count(*) c, file_count from tacc_folder where folder='ala/#folder#' group by file_count		
 			</cfquery>
