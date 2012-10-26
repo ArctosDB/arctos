@@ -205,6 +205,10 @@
 	<cfabort>
 </cfif>
 <cfset sql="#sel# #frm# where #whr# #qual# and rownum < 501 order by #orderby#">
+
+	#preservesinglequotes(sql)#
+
+
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
