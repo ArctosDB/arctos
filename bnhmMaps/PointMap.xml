@@ -29,7 +29,6 @@
 	<concepts>
 		<concept order="1" viewlist="0" datatype="darwin:relatedinformation"  alias="Edit Locality" />
 		<concept order="2" viewlist="1" datatype="char120_1" alias="Locality ID"/>
-		<concept order="3" viewlist="1" datatype="char120_2" alias="LatLong ID"/>
 		<concept order="4" viewlist="1" datatype="darwin:locality" alias="Specific Locality"/>
 		<concept order="5" viewlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>
 		<concept order="6" viewlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>
