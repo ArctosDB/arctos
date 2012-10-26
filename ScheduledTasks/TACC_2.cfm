@@ -35,6 +35,7 @@ update tacc_check set status = (select status from tcb2 where tcb2.barcode=tacc_
 select status ||chr(9) || count(*) from tcb2 group by status;
 
 --->
+<cfsetting requesttimeout="600"> 
 
 <cfoutput>
 	<cfquery name="data" datasource="uam_god">
