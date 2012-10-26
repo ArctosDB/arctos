@@ -208,7 +208,6 @@
 
 	#preservesinglequotes(sql)#
 
-<cfabort>
 
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
