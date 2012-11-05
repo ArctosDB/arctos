@@ -134,6 +134,9 @@
 	group by
 		common_name
 </cfquery>
+<cfif debug>
+		<cfdump var=#common_name#>
+	</cfif>
 <cfquery name="one" dbtype="query">
 	select
 		TAXON_NAME_ID,
@@ -212,6 +215,10 @@
 		taxonomy_publication.publication_id=publication.publication_id and
 		taxonomy_publication.taxon_name_id=#tnid#
 </cfquery>
+
+<cfif debug>
+		<cfdump var=#tax_pub#>
+	</cfif>
 <cfoutput>
 	<script>
 		jQuery(document).ready(function(){
