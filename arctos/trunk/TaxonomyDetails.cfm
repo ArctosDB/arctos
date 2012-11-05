@@ -261,6 +261,11 @@
 			<a href="/login.cfm">Login or Create Account</a>
 		</cfif>
     </span>
+	
+	<cfif debug>
+		<cfdump var=#existingAnnotations#>
+	</cfif>
+	
 	<div align="left">
 		<cfif one.VALID_CATALOG_TERM_FG is 1>
 	   		<font size="+1"	>
@@ -365,6 +370,11 @@
 			<cfquery name="sidas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) c from identification_taxonomy where taxon_name_id=#one.taxon_name_id#
 			</cfquery>
+			
+				<cfif debug>
+		<cfdump var=#sidas#>
+	</cfif>
+	
 			<cfif sidas.c gt 0>
 				<li>
 					<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">
@@ -399,6 +409,10 @@
 						citation.identification_id=identification_taxonomy.identification_id and 
 						identification_taxonomy.taxon_name_id=#one.taxon_name_id#
 				</cfquery>
+				
+				<cfif debug>
+		<cfdump var=#citas#>
+	</cfif>
 				<cfif citas.c gt 0>
 					<a href="/SpecimenResults.cfm?cited_taxon_name_id=#one.taxon_name_id#">
 						Specimens cited using #one.display_name#
