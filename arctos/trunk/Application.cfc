@@ -465,7 +465,14 @@
 	<cfif not isdefined("application.blacklist")>
 		<cfset application.blacklist="">
 	</cfif>
-	<cfif listfindnocase(application.blacklist,cgi.REMOTE_ADDR)>
+	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+		<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
+	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+		<CFSET ipaddress=CGI.Remote_Addr>
+	<cfelse>
+		<cfset ipaddress='unknown'>
+	</CFIF>
+	<cfif listfindnocase(application.blacklist,ipaddress)>
 		<cfif cgi.script_name is not "/errors/gtfo.cfm">
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
