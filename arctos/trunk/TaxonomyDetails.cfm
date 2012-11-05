@@ -3,7 +3,7 @@
 	<cfset debug=false>
 </cfif>
 <cfif debug>
-	debug
+	<cfdump var=#variables#>
 </cfif>
 <cfif isdefined("scientific_name") and len(scientific_name) gt 0>
 	<cfset checkSql(scientific_name)>
