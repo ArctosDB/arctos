@@ -1,8 +1,10 @@
 <cfinclude template = "/includes/_header.cfm">
-<cfif not isefined("debug")>
+<cfif not isdefined("debug")>
 	<cfset debug=false>
 </cfif>
-<cfif debug>debug</cfif>
+<cfif debug>
+	debug
+</cfif>
 <cfif isdefined("scientific_name") and len(scientific_name) gt 0>
 	<cfset checkSql(scientific_name)>
 	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
