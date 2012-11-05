@@ -2,14 +2,15 @@
 <cfif not isdefined("debug")>
 	<cfset debug=false>
 </cfif>
-<cfif debug>
-	<cfdump var=#variables#>
-</cfif>
+
 <cfif isdefined("scientific_name") and len(scientific_name) gt 0>
 	<cfset checkSql(scientific_name)>
 	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
 	</cfquery>
+	<cfif debug>
+		<cfdump var=#getTID#>
+	</cfif>
 	<cfif getTID.recordcount is 1>
 		<cfset tnid=getTID.taxon_name_id>
 	<cfelseif listlen(scientific_name," ") gt 1 and (listlast(scientific_name," ") is "sp." or listlast(scientific_name," ") is "ssp.")>
@@ -120,6 +121,9 @@
 		taxonomy.taxon_name_id = #tnid#
 		ORDER BY scientific_name, common_name, related_taxon_name_id
 </cfquery>
+<cfif debug>
+		<cfdump var=#getDetails#>
+	</cfif>
 <cfquery name="common_name" dbtype="query">
 	select
 		common_name
