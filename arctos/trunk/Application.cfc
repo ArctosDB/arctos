@@ -241,6 +241,8 @@
 		<cfset serverName='arctos.database.museum'>
 	<cfelseif serverName is 'arctos-test'>
 		<cfset serverName='arctos-test.tacc.utexas.edu'>
+	<cfelseif serverName is 'arctos.tacc.utexas.edu'>
+		<cfset serverName='arctos.database.museum'>
 	</cfif>
 	<!---
 	<cfmail subject="server startingt" to="arctos.database@gmail.com" from="serverStart@arctos.database.museum" type="html">
@@ -449,6 +451,9 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
 		<cfabort>
+	<cfelseif cgi.HTTP_HOST contains "arctos.tacc.utexas.edu">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://arctos.database.museum/">
 	</cfif>
 	
 	<!--- uncomment for a break from googlebot 
