@@ -73,7 +73,7 @@
 		--->
 		<input type="submit" value="Search" class="schBtn">
 	</form>
-	<cfif len(oidNum) is 0>
+	<cfif len(oidNum) is 0 and len(agent_name) is 0>
 		<cfabort>
 	</cfif>
 	<cfset sql = "SELECT
