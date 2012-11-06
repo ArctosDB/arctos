@@ -82,6 +82,8 @@
     </cfif>
 	<cfcatch>
 		i am catch
+		
+		<cfdump var=#cfcatch#>
 		<font color="##FF0000" size="+2">Error: #cfcatch.message# #cfcatch.detail#</font>
 			<a href="javascript:back()">Go Back</a>
 			<cfabort>   
