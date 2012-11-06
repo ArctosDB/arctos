@@ -49,6 +49,8 @@
 
 renamed
 
+ <cfdirectory directory="#Application.sandbox#" name="sbox" action="LIST"> 
+<cfdump var=#sbox#>
 	#tempName#.tmp
 	
 	
