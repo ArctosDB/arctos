@@ -31,9 +31,16 @@
 			window.attachEvent("onmessage", getGeolocate);
 		}
 	});
-	function geolocate() {
+	function geolocate(method) {
 		alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
 		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
+		
+		
+		
+		//http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?tab=result&points=64|-148|||2000
+		
+		
+		
 		guri+="&state=" + $("#state_prov").val();
 		guri+="&country="+$("#country").val();
 		guri+="&county="+$("#county").val().replace(" County", "");
