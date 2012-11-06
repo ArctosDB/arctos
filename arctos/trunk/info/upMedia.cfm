@@ -25,103 +25,61 @@
 <cfif action is "getFile">
 <cfoutput>
 	<cftry>
-	<cfset tempName=createUUID()>
-	
-	
-	
-	<cfdump var=#form#>
-	
-	<!----
-	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" 
-		fileField="Form.FiletoUpload" mode="600">
+		<cfset tempName=createUUID()>
+		<!--- 
+			only way to get original name seems to be upload file
+			upload to somewhere safe, then move after paranoid confirmation
 		---->
-		
-		<cffile action="upload"	destination="#Application.webDirectory#/mediaUploads/#session.username#/" nameConflict="overwrite" 
-		fileField="Form.FiletoUpload" mode="600">
-		
-		
-		
-	<cfset fileName=cffile.serverfile>
-	#Application.ServerRootUrl#/mediaUploads/#session.username#
-	fileName=#fileName#
-	
-	
-	renaming
-	<cffile 
-    action = "rename"
-    destination = "#Application.sandbox#/#tempName#.tmp" 
-    source = "#Application.sandbox#/#fileName#"
-    >
-
-
-renamed
-
- <cfdirectory directory="#Application.sandbox#" name="sbox" action="LIST"> 
-<cfdump var=#sbox#>
-	#tempName#.tmp
-	
-	
-	
-	<cfset fext=listlast(fileName,".")>
-	<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
-	<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
-	<cfset fName=replace(fName,'__','_','all')>
-	<cfset fileName=fName & '.' & fext>
-	<cfif len(isValidMediaUpload(fileName)) gt 0>
-		#isValidMediaUpload(fileName)#
-		<cfabort>
-	</cfif>
-	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
-	<cftry>
-		<cfdirectory action="create" directory="#loadPath#" mode="755">
-		<cfcatch><!--- it already exists, do nothing---></cfcatch>
-	</cftry>
-	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
-	<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" 
-		destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
-    
-	<cfif len(PreviewToUpload) gt 0>
-		loading a preview
-        <cffile action="upload"
-	    	destination="#Application.sandbox#/"
-	      	nameConflict="overwrite"
-	      	fileField="Form.PreviewToUpload" mode="600">
-	    <cfset fileName=cffile.serverfile>
-	    <cfset fext=listlast(fileName,".")>
+		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.FiletoUpload" mode="600">
+		<cfset fileName=cffile.serverfile>
+		<cffile action = "rename" destination = "#Application.sandbox#/#tempName#.tmp" source = "#Application.sandbox#/#fileName#">
+		<cfset fext=listlast(fileName,".")>
 		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 		<cfset fName=replace(fName,'__','_','all')>
 		<cfset fileName=fName & '.' & fext>
-		
-		checking fileName=#fileName#....
-	    <cfif len(isValidMediaPreview(fileName)) gt 0>
-			#isValidMediaPreview(fileName)#
+		<cfif len(isValidMediaUpload(fileName)) gt 0>
+			#isValidMediaUpload(fileName)#
 			<cfabort>
 		</cfif>
-        <cftry>
-			<cfdirectory action="create" directory="#loadPath#" mode="644">
+		<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
+		<cftry>
+			<cfdirectory action="create" directory="#loadPath#" mode="755">
 			<cfcatch><!--- it already exists, do nothing---></cfcatch>
 		</cftry>
-		moving....
-        <cffile action="move"
-			source="#Application.sandbox#/#fileName#" 
-	    	destination="#loadPath#"
-	      	nameConflict="error"
-	      	mode="644">
-	      	
-	      	moved....
-        <cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
-    <cfelse>
-         <cfset preview_uri = "">
-    </cfif>
-	<cfcatch>
-		i am catch
-		
-		<cfdump var=#cfcatch#>
-		<font color="##FF0000" size="+2">Error: #cfcatch.message# #cfcatch.detail#</font>
-			<a href="javascript:back()">Go Back</a>
+		<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
+		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
+		<cfif len(PreviewToUpload) gt 0>
+	        <cffile action="upload" destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.PreviewToUpload" mode="600">
+		    <cfset fileName=cffile.serverfile>
+		    <cfset fext=listlast(fileName,".")>
+			<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
+			<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
+			<cfset fName=replace(fName,'__','_','all')>
+			<cfset fileName=fName & '.' & fext>
+		    <cfif len(isValidMediaPreview(fileName)) gt 0>
+				#isValidMediaPreview(fileName)#
+				<cfabort>
+			</cfif>
+	        <cftry>
+				<cfdirectory action="create" directory="#loadPath#" mode="644">
+				<cfcatch><!--- it already exists, do nothing---></cfcatch>
+			</cftry>
+	        <cffile action="move"
+				source="#Application.sandbox#/#fileName#" 
+		    	destination="#loadPath#"
+		      	nameConflict="error"
+		      	mode="644">
+	        <cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
+	    <cfelse>
+	         <cfset preview_uri = "">
+	    </cfif>
+		<cfcatch>
+			<cfdump var=#cfcatch#>
+			<font color="##FF0000" size="+2">Error: #cfcatch.message# #cfcatch.detail#</font>
+			<br><a href="javascript:back()">Go Back</a>
 			<cfabort>   
-	</cfcatch>
+		</cfcatch>
 	</cftry>
 	<cfif IsImageFile("#loadPath#/#fileName#")>
 		<cfif len(preview_uri) is 0>
