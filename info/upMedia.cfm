@@ -44,9 +44,10 @@
 	</cftry>
 	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
 	<cffile action="move" source="#Application.sandbox#/#fileName#" 
-		destination="#loadPath#" nameConflict="error" mode="644">
+		destination="#loadPath#" nameConflict="error" mode="775">
     
 	<cfif len(PreviewToUpload) gt 0>
+		loading a preview
         <cffile action="upload"
 	    	destination="#Application.sandbox#/"
 	      	nameConflict="overwrite"
