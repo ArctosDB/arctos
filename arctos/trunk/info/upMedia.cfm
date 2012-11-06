@@ -33,14 +33,10 @@
 	<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 	<cfset fName=replace(fName,'__','_','all')>
 	<cfset fileName=fName & '.' & fext>
-	   
-	    <br>fileName--#fileName#
 	<cfif len(isValidMediaUpload(fileName)) gt 0>
 		#isValidMediaUpload(fileName)#
 		<cfabort>
 	</cfif>
-	
-	buhbye<cfabort>
 	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
 	<cftry>
 		<cfdirectory action="create" directory="#loadPath#" mode="755">
@@ -56,10 +52,11 @@
 	      	nameConflict="overwrite"
 	      	fileField="Form.PreviewToUpload" mode="600">
 	    <cfset fileName=cffile.serverfile>
-	    
-	    <cfset fileName=REReplace(fileName,"[^A-Za-z0-9_$]","_","all")>
-	    
-	    <br>filename...#fileName#
+	    <cfset fext=listlast(fileName,".")>
+		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
+		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
+		<cfset fName=replace(fName,'__','_','all')>
+		<cfset fileName=fName & '.' & fext>
 	    <cfif len(isValidMediaPreview(fileName)) gt 0>
 			#isValidMediaPreview(fileName)#
 			<cfabort>
