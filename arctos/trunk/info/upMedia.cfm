@@ -31,12 +31,12 @@
 	
 	<cfdump var=#form#>
 	
-	<cfabort>
+	
 	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" 
 		fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
 	
-	
+	fileName=#fileName#
 	
 	#tempName#.tmp
 	
