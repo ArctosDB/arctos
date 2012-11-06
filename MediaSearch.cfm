@@ -199,26 +199,19 @@
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
-	
-	<cfdump var=#url#>
 	<table cellpadding="10"><tr>
 	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	    <cfset h="/media.cfm?action=newMedia">
 		<cfif isdefined("url.relationships") and isdefined("url.related_primary_key1") and url.relationships is "shows cataloged_item">
 			<cfset h=h & '&collection_object_id=#url.related_primary_key1#'>
-			( find Media and pick an item to link to existing Media )
+			find Media and pick an item to link to existing Media
 			<br>
 		</cfif>
 		<td><a href="#h#">[ create media ]</a></td>
 	</cfif>
-	
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfabort>
-<!--- 	<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="/media/#findIDs.media_id#">
-		<cfabort> --->
 	<cfelse>
 		<cfset title="Media Results: #findIDs.recordcount# records found">
 		<cfif findIDs.recordcount is 500>
@@ -228,7 +221,6 @@
 		</cfif>
 		<td><a href="/MediaSearch.cfm">[ Media Search ]</a></td>
 	</cfif>
-	
 	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm" target="_blank">
 		<input type="hidden" name="ssql" value="#ssql#">
 		<td valign="middle">
