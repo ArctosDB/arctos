@@ -199,6 +199,8 @@
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
+	
+	<cfdump var=#url#>
 	<table cellpadding="10"><tr>
 	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	    <cfset h="/media.cfm?action=newMedia">
