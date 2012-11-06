@@ -409,7 +409,9 @@
 			</cfif>
 		</cfloop>
 	</cftransaction>
-<p>Media Created <a href="media.cfm?action=edit&media_id=#media_id#">continue to Edit Media</a></p>
+<p>
+	Media Created <a href="media.cfm?action=edit&media_id=#media_id#">continue to Edit Media</a>
+</p>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
