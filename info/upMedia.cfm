@@ -47,6 +47,10 @@
 	      	nameConflict="overwrite"
 	      	fileField="Form.PreviewToUpload" mode="600">
 	    <cfset fileName=cffile.serverfile>
+	    
+	    <cfset fileName=REReplace(fileName,"[^A-Za-z0-9_$]","_","all")>
+	    
+	    <br>filename...#fileName#
 	    <cfif len(isValidMediaPreview(fileName)) gt 0>
 			#isValidMediaPreview(fileName)#
 			<cfabort>
