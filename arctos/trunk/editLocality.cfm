@@ -36,6 +36,7 @@
 		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
 		console.log('method='+method);
 		if (method=='adjust'){
+			console.log('ello gunva='+method);
 			guri+='&tab=result&points=' + $("#dec_lat").val() + '|' + $("#dec_long").val() + '|||' & $("#error_in_meters").val();
 		} else {
 		
