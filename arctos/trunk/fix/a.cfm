@@ -12,7 +12,6 @@
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.StartupServerName=serverName>
-	<cfif serverName is "arctos.database.museum">
 		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
