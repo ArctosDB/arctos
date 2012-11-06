@@ -25,7 +25,8 @@
 <cfif action is "getFile">
 <cfoutput>
 	<cftry>
-	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" 
+	<cfset tempName=createUUID()>
+	<cffile action="upload"	destination="#Application.sandbox#/#tempName#.tmp" nameConflict="overwrite" 
 		fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
 	<cfset fext=listlast(fileName,".")>
@@ -43,8 +44,8 @@
 		<cfcatch><!--- it already exists, do nothing---></cfcatch>
 	</cftry>
 	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
-	<cffile action="move" source="#Application.sandbox#/#fileName#" 
-		destination="#loadPath#" nameConflict="error" mode="775">
+	<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" 
+		destination="#loadPath#" nameConflict="error" mode="644">
     
 	<cfif len(PreviewToUpload) gt 0>
 		loading a preview
