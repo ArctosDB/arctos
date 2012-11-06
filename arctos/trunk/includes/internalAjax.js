@@ -222,15 +222,38 @@ function removeUpload() {
 function closeUpload(media_uri,preview_uri) {
 	document.getElementById('media_uri').value=media_uri;
 	document.getElementById('preview_uri').value=preview_uri;
-	
-	
 	 var uext = (media_uri.substr(1 + media_uri.lastIndexOf('/')).split('?')[0]).substr(media_uri.lastIndexOf('.')).toLowerCase();
-	    console.log(uext);
-	 if (uext=='.jpg'){
+	 if (uext=='.jpg' || uext=='.jpeg'){
 		 $("#mime_type").val('image/jpeg');
 		 $("#media_type").val('image');
-	 }
-	 
+	 } else if (uext=='.pdf'){
+		 $("#mime_type").val('application/pdf');
+		 $("#media_type").val('text');
+	 } else if (uext=='.mp3'){
+		 $("#mime_type").val('audio/mpeg3');
+		 $("#media_type").val('audio');}
+	} else if (uext=='.wav'){
+		 $("#mime_type").val('audio/x-wav');
+		 $("#media_type").val('audio');
+	} else if (uext=='.dng'){
+		 $("#mime_type").val('image/dng');
+		 $("#media_type").val('image');
+	} else if (uext=='.png'){
+		 $("#mime_type").val('image/png');
+		 $("#media_type").val('image');
+	} else if (uext=='.tif' || uext=='.tiff'){
+		 $("#mime_type").val('image/tiff');
+		 $("#media_type").val('image');
+	} else if (uext=='.htm' || uext=='.html'){
+		 $("#mime_type").val('text/html');
+		 $("#media_type").val('');
+	} else if (uext=='.txt'){
+		 $("#mime_type").val('text/plain');
+		 $("#media_type").val('text');
+	} else if (uext=='.mp4'){
+		 $("#mime_type").val('video/mp4');
+		 $("#media_type").val('video');
+	}
 	removeUpload();
 }
 function generateMD5() {
