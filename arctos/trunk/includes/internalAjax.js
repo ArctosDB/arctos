@@ -231,7 +231,7 @@ function closeUpload(media_uri,preview_uri) {
 		 $("#media_type").val('text');
 	 } else if (uext=='.mp3'){
 		 $("#mime_type").val('audio/mpeg3');
-		 $("#media_type").val('audio');}
+		 $("#media_type").val('audio');
 	} else if (uext=='.wav'){
 		 $("#mime_type").val('audio/x-wav');
 		 $("#media_type").val('audio');
