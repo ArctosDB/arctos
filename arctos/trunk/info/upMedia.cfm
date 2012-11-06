@@ -26,9 +26,16 @@
 <cfoutput>
 	<cftry>
 	<cfset tempName=createUUID()>
-	<cffile action="upload"	destination="#Application.sandbox#/#tempName#.tmp" nameConflict="overwrite" 
+	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" 
 		fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
+	
+	
+	
+	#tempName#.tmp
+	
+	
+	
 	<cfset fext=listlast(fileName,".")>
 	<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 	<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
@@ -44,7 +51,7 @@
 		<cfcatch><!--- it already exists, do nothing---></cfcatch>
 	</cftry>
 	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
-	<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" 
+	<cffile action="move" source="#Application.sandbox#/#cffile.serverfile#" 
 		destination="#loadPath#" nameConflict="error" mode="644">
     
 	<cfif len(PreviewToUpload) gt 0>
