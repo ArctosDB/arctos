@@ -34,19 +34,9 @@
 	function geolocate(method) {
 		alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
 		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
-		console.log('method='+method);
 		if (method=='adjust'){
-			console.log('ello gunva='+method);
-			console.log(guri);
 			guri+="&tab=result&points=" + $("#dec_lat").val() + "|" + $("#dec_long").val() + "|||" + $("#error_in_meters").val();
-			console.log(guri);
 		} else {
-		
-		
-		//http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?tab=result&points=64|-148|||2000
-		
-		
-		
 			guri+="&state=" + $("#state_prov").val();
 			guri+="&country="+$("#country").val();
 			guri+="&county="+$("#county").val().replace(" County", "");
@@ -77,8 +67,6 @@
 		theFrame.className = 'editFrame';
 		theFrame.src=guri;
 		$("#popDiv").append(theFrame);
-		
-		console.log(guri);
 	}
 	function getGeolocate(evt) {
 		var message;
@@ -462,8 +450,10 @@
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
 		<input type="button" value="Add Collecting Event" class="insBtn" 
 			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
-		<input type="button" value="GeoLocate (from description)" class="insBtn" onClick="geolocate();">
-		<input type="button" value="GeoLocate (from coordinates)" class="insBtn" onClick="geolocate('adjust');">
+		<input type="button" value="Georeference with GeoLocate" class="insBtn" onClick="geolocate();">
+		<cfif len(locDet.DEC_LONG) gt 0>
+			<input type="button" value="Modify Coordinates/Error with GeoLocate" class="insBtn" onClick="geolocate('adjust');">
+		</cfif>
 		<br>
 		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a>
 		<a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">[ BioGeoMancer ]</a>
