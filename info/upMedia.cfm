@@ -65,11 +65,14 @@
 			<cfdirectory action="create" directory="#loadPath#" mode="644">
 			<cfcatch><!--- it already exists, do nothing---></cfcatch>
 		</cftry>
+		moving....
         <cffile action="move"
 			source="#Application.sandbox#/#fileName#" 
 	    	destination="#loadPath#"
 	      	nameConflict="error"
 	      	mode="644">
+	      	
+	      	moved....
         <cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
     <cfelse>
          <cfset preview_uri = "">
