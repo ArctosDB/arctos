@@ -5,16 +5,14 @@
 			<cfset collecting_event_name=''>
 		</cfif>
 		<script>
-		jQuery(document).ready(function() {
-			if ('#collecting_event_name#'.length > 0) {
-				console.log('got something');
-				$("##collecting_event_name").val('#collecting_event_name#');
-				$("##findCollEvent").submit();
-			}
-		});
+			jQuery(document).ready(function() {
+				if ('#collecting_event_name#'.length > 0) {
+					console.log('got something');
+					$("##collecting_event_name").val('#collecting_event_name#');
+					$("##findCollEvent").submit();
+				}
+			});
 		</script>
-		
-		
 		<cfset showLocality=1>
 		<cfset showEvent=1>
 		<form name="findCollEvent" id="findCollEvent" method="post" action="findCollEvent.cfm">
@@ -41,6 +39,7 @@
 		<cfquery name="d" dbtype="query">
 			select
 				verbatim_date,
+				verbatim_coordinates,
 				began_date,
 				ended_date,
 				higher_geog,
@@ -56,6 +55,7 @@
 				localityResults
 			group by
 				verbatim_date,
+				verbatim_coordinates,
 				began_date,
 				ended_date,
 				higher_geog,
@@ -83,7 +83,7 @@
 			</cfif>
 		 	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		 		<td>
-					<span style="font-size:x-small">
+					<span style="font-size:x-small" title="higher_geog">
 						#higher_geog#
 						(<a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#" 
 						target="_blank">#geog_auth_rec_id#</a>)
@@ -93,7 +93,7 @@
 					<table>
 						<tr>
 							<td valign="top">
-								<span style="font-size:x-small">
+								<span style="font-size:x-small" title="spec_locality">
 									#spec_locality#
 									(<a href="/Locality.cfm?Action=editLocality&locality_id=#locality_id#" 
 									target="_blank">#locality_id#</a>)
@@ -111,9 +111,14 @@
 					</table>
 				</td>
 				<td>
-					#verbatim_locality#
-					<br>collecting_event_name: #collecting_event_name#
-					<br>#thisDate#
+					<div title="verbatim_locality">#verbatim_locality#</div>
+					<cfif len(collecting_event_name) gt 0>
+						<div title="collecting_event_name">#collecting_event_name#</div>
+					</cfif>
+					<cfif len(verbatim_coordinates) gt 0>
+						<div title="verbatim_coordinates">#verbatim_coordinates#</div>
+					</cfif>
+					<div title="collecting date">#thisDate#</div>
 				</td>
 				<td>
 					<input type="button" value="UseThis" class="savBtn"
