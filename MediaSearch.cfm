@@ -204,7 +204,7 @@
 	<table cellpadding="10"><tr>
 	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	    <cfset h="/media.cfm?action=newMedia">
-		<cfif isdefined("url.relationships") and isdefined("url.related_primary_key__1") and url.relationships is "cataloged_item">
+		<cfif isdefined("url.relationships") and isdefined("url.related_primary_key__1") and url.relationships is "shows cataloged_item">
 			<cfset h=h & '&collection_object_id=#url.related_primary_key__1#'>
 			( find Media and pick an item to link to existing Media )
 			<br>
