@@ -52,9 +52,6 @@
 			border:1px dotted green;
 		}
 	</style>
-	
-	
-	<span onclick="closeUpload('bla.jpg','bla.jpg')">closeupload....</span>
 	<form name="newMedia" method="post" action="">
 		<input type="hidden" name="action" value="search">
 		<label for="keyword">Keyword</label>

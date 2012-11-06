@@ -297,7 +297,11 @@
 </cfif>
 
 <!----------------------------------------------------------------------------------------->
-<cfif #action# is "newMedia">
+<cfif action is "newMedia">
+
+
+	<span onclick="closeUpload('bla.jpg','bla.jpg')">closeupload....</span>
+
 	<cfoutput>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="saveNew">
