@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 	<div id="progressbar" style="display:none" align="center">
 		Uploading Media....<br><img src="/images/progressbar.gif">
 	</div>
@@ -80,6 +80,7 @@
          <cfset preview_uri = "">
     </cfif>
 	<cfcatch>
+		i am catch
 		<font color="##FF0000" size="+2">Error: #cfcatch.message# #cfcatch.detail#</font>
 			<a href="javascript:back()">Go Back</a>
 			<cfabort>   
