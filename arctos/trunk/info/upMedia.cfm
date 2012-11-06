@@ -32,8 +32,9 @@
 	<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 	<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 	<cfset fName=replace(fName,'__','_','all')>
-	    
-	    <br>fName...#fName#
+	<cfset fileName=fName & '.' & fext>
+	   
+	    <br>fileName--#fileName#
 	<cfif len(isValidMediaUpload(fileName)) gt 0>
 		#isValidMediaUpload(fileName)#
 		<cfabort>
