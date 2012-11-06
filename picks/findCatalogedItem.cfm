@@ -103,7 +103,7 @@
 	<cfset oidNumList=ListQualify(oidNum, "'")>
 	<cfif oidType is "catalog_number">
 		<cfset sql = "#sql#	AND cat_num IN ( #oidNumList# )">
-	<cfelse>
+	<cfelseif len(oidNum) gt 0>
 		<cfset sql = "#sql#
 			AND cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id
 			AND other_id_type = '#oidType#'
