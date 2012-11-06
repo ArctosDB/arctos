@@ -38,6 +38,17 @@
 	
 	fileName=#fileName#
 	
+	
+	renaming
+	<cffile 
+    action = "rename"
+    destination = "#Application.sandbox#/#tempName#.tmp" 
+    source = "#Application.sandbox#/#fileName#"
+    >
+
+
+renamed
+
 	#tempName#.tmp
 	
 	
