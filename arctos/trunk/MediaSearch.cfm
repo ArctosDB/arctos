@@ -2,8 +2,6 @@
 <div id="_header">
     <cfinclude template="/includes/_header.cfm">
 </div>
-
-<cfdump var=#url#>
 <script type='text/javascript' language="javascript" src='/includes/media.js'></script>
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
@@ -202,6 +200,18 @@
 		#preservesinglequotes(ssql)#
 	</cfquery>
 	<table cellpadding="10"><tr>
+	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+	    <cfset h="/media.cfm?action=newMedia">
+		<cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
+			<cfif url.relationship__1 is "cataloged_item">
+				<cfset h=h & '&collection_object_id=#url.related_primary_key__1#'>
+				( find Media and pick an item to link to existing Media )
+				<br>
+			</cfif>
+		</cfif>
+		<td><a href="#h#">[ create media ]</a></td>
+	</cfif>
+	
 	<cfif findIDs.recordcount is 0>
 		<div class="error">Nothing found.</div>
 		<cfabort>
@@ -218,17 +228,7 @@
 		</cfif>
 		<td><a href="/MediaSearch.cfm">[ Media Search ]</a></td>
 	</cfif>
-	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-	    <cfset h="/media.cfm?action=newMedia">
-		<cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
-			<cfif url.relationship__1 is "cataloged_item">
-				<cfset h=h & '&collection_object_id=#url.related_primary_key__1#'>
-				( find Media and pick an item to link to existing Media )
-				<br>
-			</cfif>
-		</cfif>
-		<td><a href="#h#">[ create media ]</a></td>
-	</cfif>
+	
 	<form name="dlm" method="post" action="/bnhmMaps/bnhmMapMediaData.cfm" target="_blank">
 		<input type="hidden" name="ssql" value="#ssql#">
 		<td valign="middle">
