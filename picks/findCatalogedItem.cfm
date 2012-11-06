@@ -101,7 +101,7 @@
 			upper(agent_name) like '%#ucase(escapequotes(agent_name))#%'">
 	</cfif>
 	<cfset oidNumList=ListQualify(oidNum, "'")>
-	<cfif oidType is "catalog_number">
+	<cfif oidType is "catalog_number" and len(oidNum) gt 0>
 		<cfset sql = "#sql#	AND cat_num IN ( #oidNumList# )">
 	<cfelseif len(oidNum) gt 0>
 		<cfset sql = "#sql#
