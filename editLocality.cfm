@@ -34,17 +34,20 @@
 	function geolocate(method) {
 		alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
 		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
-		
+		if (method=='adjust'){
+			guri+='&tab=result&points=' + $("#dec_lat").val() + '|' + $("#dec_long").val() + '|||' & $("#error_in_meters").val();
+		} else {
 		
 		
 		//http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?tab=result&points=64|-148|||2000
 		
 		
 		
-		guri+="&state=" + $("#state_prov").val();
-		guri+="&country="+$("#country").val();
-		guri+="&county="+$("#county").val().replace(" County", "");
-		guri+="&locality="+$("#spec_locality").val();
+			guri+="&state=" + $("#state_prov").val();
+			guri+="&country="+$("#country").val();
+			guri+="&county="+$("#county").val().replace(" County", "");
+			guri+="&locality="+$("#spec_locality").val();
+		}
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -164,6 +167,7 @@
 			DEC_LONG,
 			MAX_ERROR_DISTANCE,
 			MAX_ERROR_UNITS,
+			to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS) error_in_meters,
 			DATUm,
 			georeference_source,
 			georeference_protocol,
@@ -320,6 +324,7 @@
 		<table>
 			<tr>
 				<td>
+					<input type="hidden" id="error_in_meters" value="#error_in_meters#">
 					<label for="MAX_ERROR_DISTANCE" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error</label>
 					<input type="text" name="MAX_ERROR_DISTANCE" id="MAX_ERROR_DISTANCE" value="#locDet.MAX_ERROR_DISTANCE#" size="6">
 				</td>
@@ -453,7 +458,8 @@
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
 		<input type="button" value="Add Collecting Event" class="insBtn" 
 			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
-		<input type="button" value="GeoLocate" class="insBtn" onClick="geolocate();">
+		<input type="button" value="GeoLocate (from description)" class="insBtn" onClick="geolocate();">
+		<input type="button" value="GeoLocate (from coordinates)" class="insBtn" onClick="geolocate('adjust');">
 		<br>
 		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a>
 		<a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">[ BioGeoMancer ]</a>
