@@ -57,6 +57,8 @@
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 		<cfset fName=replace(fName,'__','_','all')>
 		<cfset fileName=fName & '.' & fext>
+		
+		checking fileName=#fileName#....
 	    <cfif len(isValidMediaPreview(fileName)) gt 0>
 			#isValidMediaPreview(fileName)#
 			<cfabort>
