@@ -1,5 +1,19 @@
 <cfoutput>
-	<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
+		<cfset serverName='arctos.database.museum'>
+	<!---
+	<cfmail subject="server startingt" to="arctos.database@gmail.com" from="serverStart@arctos.database.museum" type="html">
+		<cfoutput>#serverName# is starting</cfoutput>
+	</cfmail>
+	---->
+	<cfset Application.session_timeout=90>
+	<cfset Application.serverRootUrl = "http://#serverName#">
+	<cfset Application.user_login="user_login">
+	<cfset Application.max_pw_age = 90>
+	<cfset Application.fromEmail = "#serverName#">
+	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
+	<cfset Application.StartupServerName=serverName>
+	<cfif serverName is "arctos.database.museum">
+		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
 		<cfset Application.bugReportEmail = "dustymc@gmail.com">
@@ -16,7 +30,6 @@
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
 		<cfset Application.AppVersion= "prod">
-		
 		
 		<cfabort>
 	
