@@ -2,6 +2,8 @@
 <div id="_header">
     <cfinclude template="/includes/_header.cfm">
 </div>
+
+<cfdump var=#url#>
 <script type='text/javascript' language="javascript" src='/includes/media.js'></script>
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
