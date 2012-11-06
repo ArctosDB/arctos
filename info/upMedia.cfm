@@ -71,7 +71,7 @@ renamed
 	</cftry>
 	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
 	<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" 
-		destination="#loadPath#" nameConflict="error" mode="644">
+		destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
     
 	<cfif len(PreviewToUpload) gt 0>
 		loading a preview
