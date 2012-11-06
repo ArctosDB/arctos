@@ -324,7 +324,7 @@
 		<table>
 			<tr>
 				<td>
-					<input type="hidden" id="error_in_meters" value="#error_in_meters#">
+					<input type="hidden" id="error_in_meters" value="#locDet.error_in_meters#">
 					<label for="MAX_ERROR_DISTANCE" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error</label>
 					<input type="text" name="MAX_ERROR_DISTANCE" id="MAX_ERROR_DISTANCE" value="#locDet.MAX_ERROR_DISTANCE#" size="6">
 				</td>
