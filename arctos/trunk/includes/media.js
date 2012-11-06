@@ -22,6 +22,8 @@ function removeUpload() {
 	}
 	removeBgDiv();
 }
+
+
 function closeUpload(media_uri,preview_uri) {
 	document.getElementById('media_uri').value=media_uri;
 	document.getElementById('preview_uri').value=preview_uri;
