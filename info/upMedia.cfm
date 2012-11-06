@@ -28,6 +28,9 @@
 	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" 
 		fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
+	<cfset fileName=REReplace(fileName,"[^A-Za-z0-9_$]","_","all")>
+	    
+	    <br>filename...#fileName#
 	<cfif len(isValidMediaUpload(fileName)) gt 0>
 		#isValidMediaUpload(fileName)#
 		<cfabort>
