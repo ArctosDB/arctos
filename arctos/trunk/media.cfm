@@ -298,10 +298,6 @@
 
 <!----------------------------------------------------------------------------------------->
 <cfif action is "newMedia">
-
-
-	<span onclick="closeUpload('http://arctos-test.tacc.utexas.edu/mediaUploads/dlm/screenshot_2012_11_06_at_11_09_58_AM.png','bla.jpg')">closeupload....</span>
-
 	<cfoutput>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="saveNew">
@@ -377,7 +373,7 @@
 	</cfoutput>    
 </cfif>
 <!------------------------------------------------------------------------------------------>
-<cfif #action# is "saveNew">
+<cfif action is "saveNew">
 <cfoutput>
 	<cftransaction>
 		<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -413,7 +409,7 @@
 			</cfif>
 		</cfloop>
 	</cftransaction>
-<cflocation url="media.cfm?action=edit&media_id=#media_id#" addtoken="false">
+<p>Media Created <a href="media.cfm?action=edit&media_id=#media_id#">continue to Edit Media</a></p>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
