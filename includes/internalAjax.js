@@ -224,7 +224,7 @@ function closeUpload(media_uri,preview_uri) {
 	document.getElementById('preview_uri').value=preview_uri;
 	// var uext = (media_uri.substr(1 + media_uri.lastIndexOf('/')).split('?')[0]).substr(media_uri.lastIndexOf('.')).toLowerCase();
 	//var uext = preview_uri.match(/([^\/]+)(?=\.\w+$)/)[0];
-	var uext = preview_uri.split('.').pop();
+	var uext = media_uri.split('.').pop();
 	
 	console.log('setting to ' + uext);
 	 if (uext=='jpg' || uext=='jpeg'){
