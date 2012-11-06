@@ -68,7 +68,7 @@ renamed
 		<cfcatch><!--- it already exists, do nothing---></cfcatch>
 	</cftry>
 	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
-	<cffile action="move" source="#Application.sandbox#/#cffile.serverfile#" 
+	<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" 
 		destination="#loadPath#" nameConflict="error" mode="644">
     
 	<cfif len(PreviewToUpload) gt 0>
