@@ -34,6 +34,7 @@
 	function geolocate(method) {
 		alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
 		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
+		console.log('method='+method);
 		if (method=='adjust'){
 			guri+='&tab=result&points=' + $("#dec_lat").val() + '|' + $("#dec_long").val() + '|||' & $("#error_in_meters").val();
 		} else {
