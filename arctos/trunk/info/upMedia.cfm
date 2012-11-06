@@ -28,13 +28,17 @@
 	<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" 
 		fileField="Form.FiletoUpload" mode="600">
 	<cfset fileName=cffile.serverfile>
-	<cfset fileName=REReplace(fileName,"[^A-Za-z0-9_$]","_","all")>
+	<cfset fext=listlast(fileName,".")>
+	<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
+	<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
 	    
-	    <br>filename...#fileName#
+	    <br>fName...#fName#
 	<cfif len(isValidMediaUpload(fileName)) gt 0>
 		#isValidMediaUpload(fileName)#
 		<cfabort>
 	</cfif>
+	
+	buhbye<cfabort>
 	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
 	<cftry>
 		<cfdirectory action="create" directory="#loadPath#" mode="755">
