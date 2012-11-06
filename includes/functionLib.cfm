@@ -10,7 +10,7 @@
 	<cfset extension=listlast(fileName,".")>
 	<cfset acceptExtensions="jpg,jpeg,gif,png,pdf,txt,m4v,mp3,wav">
 	<cfif listfindnocase(acceptExtensions,extension) is 0>
-		<cfset err="An valid file name extension is required. extension=#extension#">
+		<cfset err="An valid file name extension (#acceptExtensions#) is required. extension=#extension#">
 	</cfif>
 	<cfset name=replace(fileName,".#extension#","")>
 	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
@@ -24,7 +24,7 @@
 	<cfset extension=listlast(fileName,".")>
 	<cfset acceptExtensions="jpg,jpeg,gif,png">
 	<cfif listfindnocase(acceptExtensions,extension) is 0>
-		<cfset err="An valid file name extension is required. extension=#extension#">
+		<cfset err="An valid file name extension is required. Acceptable preview extensions are #acceptExtensions#. Your extension is #extension#">
 	</cfif>
 	<cfset name=replace(fileName,".#extension#","")>
 	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
