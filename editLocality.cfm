@@ -63,6 +63,8 @@
 		theFrame.className = 'editFrame';
 		theFrame.src=guri;
 		$("#popDiv").append(theFrame);
+		
+		console.log(guri);
 	}
 	function getGeolocate(evt) {
 		var message;
