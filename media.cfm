@@ -300,7 +300,7 @@
 <cfif action is "newMedia">
 
 
-	<span onclick="closeUpload('bla.jpg','bla.jpg')">closeupload....</span>
+	<span onclick="closeUpload('http://arctos-test.tacc.utexas.edu/mediaUploads/dlm/screenshot_2012_11_06_at_11_09_58_AM.png','bla.jpg')">closeupload....</span>
 
 	<cfoutput>
 		<form name="newMedia" method="post" action="media.cfm">
