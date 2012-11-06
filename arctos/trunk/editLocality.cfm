@@ -38,7 +38,7 @@
 		if (method=='adjust'){
 			console.log('ello gunva='+method);
 			console.log(guri);
-			guri+='&tab=result&points=' + $("#dec_lat").val() + '|' + $("#dec_long").val() + '|||' & $("#error_in_meters").val();
+			guri+="&tab=result&points=" + $("#dec_lat").val() + "|" + $("#dec_long").val() + "|||" + $("#error_in_meters").val();
 			console.log(guri);
 		} else {
 		
