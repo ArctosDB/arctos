@@ -36,7 +36,7 @@
 		fileField="Form.FiletoUpload" mode="600">
 		---->
 		
-		<cffile action="upload"	destination="#Application.ServerRootUrl#/mediaUploads/#session.username#/" nameConflict="overwrite" 
+		<cffile action="upload"	destination="#Application.webDirectory#/mediaUploads/#session.username#/" nameConflict="overwrite" 
 		fileField="Form.FiletoUpload" mode="600">
 		
 		
