@@ -25,6 +25,10 @@ function removeUpload() {
 function closeUpload(media_uri,preview_uri) {
 	document.getElementById('media_uri').value=media_uri;
 	document.getElementById('preview_uri').value=preview_uri;
+    var uext = media_uri.substr(1 + media_uri.lastIndexOf("/")).split('?')[0]).substr(media_uri.lastIndexOf("."))
+    alert(uext);
+    
+    
 	removeUpload();
 }
 function generateMD5() {
