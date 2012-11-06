@@ -39,15 +39,24 @@
     </table>
     <P>&nbsp;</P>
 <cfelse>
-	<br>
-	 <table width="95%" border="0" cellspacing="0" cellpadding="0">
-	  	<tr>
-	    	<td align="center" nowrap><a href="/Collections/index.cfm"><FONT size="-1">Data Providers</FONT></a></td>
-	    	<td align="center" nowrap><a href="/info/bugs.cfm"><FONT size="-1">Report Errors</FONT></a></td>
-	    	<td align="center" nowrap>
-		    	<cfoutput><a HREF="/contact.cfm"><FONT size="-1">Contact Us</FONT></a></cfoutput>
+	 <table id="_footerTable">
+		<tr>
+			<td align="left" valign="middle">
+			 <a href="/home.cfm">
+			    <img SRC="/images/arctos.gif" BORDER=0 ALT="[ Link to home page. ]">
+				</a>
+			 </td>
+			<td>
+				<ul>
+					<li>
+						<a href="/Collections/index.cfm"><font size="-1">Data Providers</font></a>
+					</li>
+					<li>
+						<a HREF="/contact.cfm"><font size="-1">Report a bug or request support</font></a>
+					</li>
+				</ul>
 			</td>
-	  	</tr>
+		</tr>
 	</table>
 </cfif>
 <script type="text/javascript">
