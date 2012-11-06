@@ -6,9 +6,9 @@
 	<div id="formDiv">
 	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
 		<input type="hidden" name="action" value="getFile">
-		  <label for="FiletoUpload">Browse for Media....</label>
+		  <label for="FiletoUpload">Browse your drive for Media....</label>
 		  <input type="file" name="FiletoUpload" id="FiletoUpload" size="90" >
-          <label for="PreviewToUpload">Browse for Media Preview (thumbnail) [ or Arctos will try to create one ]</label>
+          <label for="PreviewToUpload">Browse for Thumbnail - leave blank to attempt auto create</label>
 		  <input type="file" name="PreviewToUpload" id="PreviewToUpload" size="90">
    			<br>
       <input type="button" 
