@@ -157,10 +157,10 @@ sho err
 		<cfif len(status) is 0>
 			<cfset iso=y>
 			<cfif len(mm) gt 0>
-				<cfset iso=iso & ':' & mm>
+				<cfset iso=iso & '-' & mm>
 			</cfif>
 			<cfif len(dd) gt 0>
-				<cfset iso=iso & ':' & d>
+				<cfset iso=iso & '-' & d>
 			</cfif>d<br>iso==#iso#
 			<cfquery name="fu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select is_iso8601('#iso#') isiso from dual
