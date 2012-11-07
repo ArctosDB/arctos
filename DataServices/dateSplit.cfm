@@ -123,7 +123,7 @@ sho err
 			<cfset mm='07'>
 		<cfelseif m is "August">
 			<cfset mm='08'>
-		<cfelseif m is "September">
+		<cfelseif trim(m) is "September">
 			<cfset mm='09'>
 		<cfelseif m is "October">
 			<cfset mm='10'>
