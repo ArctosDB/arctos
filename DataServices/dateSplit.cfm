@@ -11,7 +11,8 @@ create table ds_temp_date (
 	m varchar2(255),
 	d varchar2(255),
 	returndate   varchar2(255),
-	status varchar2(4000)
+	status varchar2(4000),
+	concat  varchar2(255)
 	);
 	
 create public synonym ds_temp_date for ds_temp_date;
@@ -162,15 +163,29 @@ sho err
 			<cfif len(dd) gt 0>
 				<cfset iso=iso & '-' & dd>
 			</cfif>d<br>iso==#iso#
+			
+			<cfset cc=d & ' ' & m & ' '  & y>
+			<br>cc=#cc#
 			<cfquery name="fu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select is_iso8601('#iso#') isiso from dual
 			</cfquery>
+			<cfif fu.isiso is not "valid">
+				<cfset status=listappend(status,fu.isiso,';')>
+			</cfif>
+			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update ds_temp_date set
+					returndate='#iso#',
+					status='#status#',
+					concat='#cc#'
+				where
+					key=#key#
+			</cfquery>
+
 			<br>#fu.isiso#
 
 		</cfif>
 	</cfloop>
 	
-	<cfdump var=#d#>
 </cfoutput>
 </cfif>
 
