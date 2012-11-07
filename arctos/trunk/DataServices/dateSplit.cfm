@@ -170,7 +170,6 @@ sho err
 			<cfquery name="fu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select is_iso8601('#iso#') isiso from dual
 			</cfquery>
-			<cfdump var=#fu#>
 			<cfset thisStatus=listappend(thisStatus,'#fu.isiso#',';')>
 			<br>thisStatus=#thisStatus#
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
