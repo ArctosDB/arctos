@@ -179,7 +179,7 @@
 							</cfif>
 						<cfelseif table_name is "media">
 							<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-								select distinct(media_id) project_id from media where media_uri ='#rt#'
+								select distinct(media_id) media_id from media where media_uri ='#rt#'
 							</cfquery>
 							<cfif c.recordcount is 1 and len(c.media_id) gt 0>
 								<cfquery name="i" datasource="uam_god">
