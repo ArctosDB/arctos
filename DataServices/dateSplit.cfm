@@ -170,7 +170,7 @@ sho err
 			<cfquery name="fu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select is_iso8601('#iso#') isiso from dual
 			</cfquery>
-			<cfset status=listappend(status,fu.isiso,';')>
+			<cfset status=listappend(status,'#fu.isiso#',';')>
 			<br>status=#status#
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update ds_temp_date set
