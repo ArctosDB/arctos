@@ -147,7 +147,7 @@ sho err
 			<cfset status=listappend(status,'month invalid',';')>
 		</cfif>
 		<cfset dd=d>
-		<cfif not refind('^[0-9]{2}$',dd)>
+		<cfif len(dd) gt 0 and not refind('^[0-9]{2}$',dd)>
 			<cfset dd='0' & dd>
 			<cfif not refind('^[0-9]{2}$',dd)>
 				<br>#dd# isn't a 2-digit day
