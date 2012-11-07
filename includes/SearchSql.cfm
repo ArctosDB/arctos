@@ -980,22 +980,7 @@
 	<cfif basJoin does not contain " otherIdSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
 	</cfif>
-	<cfif oidsrch is "anyof">
-		<cfset numElem=listlen(OIDType)>
-		<cfset i=1>
-		<cfset basQual = " #basQual# AND (">
-		<cfloop list="#OIDType#" index="idt">
-			<cfset basQual = " #basQual# otherIdSearch.other_id_type = '#OIDType#'">
-			<cfif i lt numElem>
-				<cfset basQual = " #basQual# OR ">
-			</cfif>
-			<cfset i=i+1>
-		</cfloop>
-		<cfset basQual = " #basQual# )">
-	<cfelse>
-		<cfset basQual = " #basQual# AND otherIdSearch.other_id_type in (#listqualify(OIDType,chr(39))#)">
-	</cfif>
-	
+	<cfset basQual = " #basQual# AND otherIdSearch.other_id_type in (#listqualify(OIDType,chr(39))#)">	
 </cfif>
 <cfif isdefined("OIDNum") and len(OIDNum) gt 0>
 	<cfif not isdefined("oidOper") OR len(oidOper) is 0>
