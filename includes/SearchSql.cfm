@@ -993,7 +993,7 @@
 		</cfloop>
 		<cfset basQual = " #basQual# )">
 	<cfelse>
-		<cfset basQual = " #basQual# AND otherIdSearch.other_id_type in ('#listqualify(OIDType,chr(39))#')">
+		<cfset basQual = " #basQual# AND otherIdSearch.other_id_type in (#listqualify(OIDType,chr(39))#)">
 	</cfif>
 	
 </cfif>
