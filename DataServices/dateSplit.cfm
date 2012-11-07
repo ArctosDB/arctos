@@ -146,7 +146,14 @@ sho err
 			<br>#mm# isn't a 2-digit month
 			<cfset status=listappend(status,'month invalid',';')>
 		</cfif>
-		
+		<cfset dd=d>
+		<cfif not refind('^[0-9]{2}$',dd)>
+			<cfset dd='0' & dd>
+			<cfif not refind('^[0-9]{2}$',dd)>
+				<br>#dd# isn't a 2-digit day
+				<cfset status=listappend(status,'day invalid',';')>
+			</cfif>
+		</cfif>
 	</cfloop>
 	
 	<cfdump var=#d#>
