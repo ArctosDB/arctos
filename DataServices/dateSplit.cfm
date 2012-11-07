@@ -155,7 +155,6 @@ sho err
 				<cfset thisStatus=listappend(thisStatus,'day invalid',';')>
 			</cfif>
 		</cfif>
-		<cfif len(thisStatus) is 0>
 			<cfset iso=y>
 			<cfif len(mm) gt 0>
 				<cfset iso=iso & '-' & mm>
@@ -183,7 +182,6 @@ sho err
 
 			<br>#fu.isiso#
 
-		</cfif>
 	</cfloop>
 	
 </cfoutput>
