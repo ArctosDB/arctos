@@ -154,6 +154,20 @@ sho err
 				<cfset status=listappend(status,'day invalid',';')>
 			</cfif>
 		</cfif>
+		<cfif len(status) is 0>
+			<cfset iso=year>
+			<cfif len(mm) gt 0>
+				<cfset iso=iso & ':' & mm>
+			</cfif>
+			<cfif len(dd) gt 0>
+				<cfset iso=iso & ':' & d>
+			</cfif>d<br>iso==#iso#
+			<cfquery name="fu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select is_iso8601('#iso#') isiso from dual
+			</cfquery>
+			<br>#fu.isiso#
+
+		</cfif>
 	</cfloop>
 	
 	<cfdump var=#d#>
