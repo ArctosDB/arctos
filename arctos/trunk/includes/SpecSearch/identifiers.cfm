@@ -22,6 +22,7 @@
 			<span class="helpLink" id="other_id_type">Other&nbsp;Identifier&nbsp;Type:</span>
 		</td>
 		<td class="srch">
+			<label for="">Apple/click or Ctl/click to select multiple & match any</label>
 			<select name="OIDType" id="OIDType" size="5" multiple="multiple"
 				<cfif isdefined("OIDType") and len(OIDType) gt 0>
 					class="reqdClr" 
@@ -37,17 +38,6 @@
 						value="#OtherIdType.other_id_type#">#OtherIdType.other_id_type#</option>
 				</cfoutput> 
 			</select><span class="infoLink" onclick="getCtDoc('ctcoll_other_id_type',SpecData.OIDType.value);">Define</span>
-		</td>
-	</tr>
-	<tr>					
-		<td class="lbl">
-			Other&nbsp;Identifier&nbsp;Search:
-		</td>
-		<td class="srch">
-			<select name="oidsrch" id="oidsrch" size="1">
-				<option value="allof">All Selected</option>
-				<option value="anyof">Any Selected</option> 
-			</select>
 		</td>
 	</tr>
 	<tr>
