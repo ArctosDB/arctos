@@ -100,7 +100,12 @@ sho err
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_date
 	</cfquery>
-	
+	<cfloop query="d">
+		<hr>#y# - #m# - #d#
+		<cfif len(y) neq 4 or not refind('^[0-9]4$',y)>
+			<br>#y# isn't a 4-digit thingee
+		</cfif>
+	</cfloop>
 	
 	<cfdump var=#d#>
 </cfoutput>
