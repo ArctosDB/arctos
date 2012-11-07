@@ -39,6 +39,17 @@
 			</select><span class="infoLink" onclick="getCtDoc('ctcoll_other_id_type',SpecData.OIDType.value);">Define</span>
 		</td>
 	</tr>
+	<tr>					
+		<td class="lbl">
+			Other&nbsp;Identifier&nbsp;Search:
+		</td>
+		<td class="srch">
+			<select name="oidsrch" id="oidsrch" size="1">
+				<option value="allof">All Selected</option>
+				<option value="anyof">Any Selected</option> 
+			</select>
+		</td>
+	</tr>
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="other_id_num">Other&nbsp;Identifier:</span>
