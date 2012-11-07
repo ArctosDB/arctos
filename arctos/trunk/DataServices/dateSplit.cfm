@@ -102,9 +102,43 @@ sho err
 	</cfquery>
 	<cfloop query="d">
 		<hr>#y# - #m# - #d#
+		<cfset status=''>
 		<cfif not refind('^[0-9]{4}$',y)>
 			<br>#y# isn't a 4-digit thingee
+			<cfset status=listappend(status,'year invalid',';')>
 		</cfif>
+		<cfif m is "January">
+			<cfset mm='01'>
+		<cfelseif m is "February">
+			<cfset mm='02'>
+		<cfelseif m is "March">
+			<cfset mm='03'>
+		<cfelseif m is "April">
+			<cfset mm='04'>
+		<cfelseif m is "May">
+			<cfset mm='05'>
+		<cfelseif m is "June">
+			<cfset mm='06'>
+		<cfelseif m is "July">
+			<cfset mm='07'>
+		<cfelseif m is "August">
+			<cfset mm='08'>
+		<cfelseif m is "September">
+			<cfset mm='09'>
+		<cfelseif m is "October">
+			<cfset mm='10'>
+		<cfelseif m is "November">
+			<cfset mm='11'>
+		<cfelseif m is "December">
+			<cfset mm='12'>
+		<cfelse>
+			<cfset mm=m>
+		</cfif>
+		<cfif not refind('^[0-9]{2}$',mm)>
+			<br>#mm# isn't a 2-digit month
+			<cfset status=listappend(status,'month invalid',';')>
+		</cfif>
+		
 	</cfloop>
 	
 	<cfdump var=#d#>
