@@ -111,10 +111,10 @@ sho err
 	
 	<cfloop query="d">
 		<hr>#y# - #m# - #d#
-		<cfset status=''>
+		<cfset thisStatus=''>
 		<cfif not refind('^[0-9]{4}$',y)>
 			<br>#y# isn't a 4-digit thingee
-			<cfset status=listappend(status,'year invalid',';')>
+			<cfset thisStatus=listappend(thisStatus,'year invalid',';')>
 		</cfif>
 		<cfif m is "January">
 			<cfset mm='01'>
@@ -145,17 +145,17 @@ sho err
 		</cfif>
 		<cfif len(mm) gt 0 and not refind('^[0-9]{2}$',mm)>
 			<br>#mm# isn't a 2-digit month
-			<cfset status=listappend(status,'month invalid',';')>
+			<cfset thisStatus=listappend(thisStatus,'month invalid',';')>
 		</cfif>
 		<cfset dd=d>
 		<cfif len(dd) gt 0 and not refind('^[0-9]{2}$',dd)>
 			<cfset dd='0' & dd>
 			<cfif not refind('^[0-9]{2}$',dd)>
 				<br>#dd# isn't a 2-digit day
-				<cfset status=listappend(status,'day invalid',';')>
+				<cfset thisStatus=listappend(thisStatus,'day invalid',';')>
 			</cfif>
 		</cfif>
-		<cfif len(status) is 0>
+		<cfif len(thisStatus) is 0>
 			<cfset iso=y>
 			<cfif len(mm) gt 0>
 				<cfset iso=iso & '-' & mm>
@@ -171,12 +171,12 @@ sho err
 				select is_iso8601('#iso#') isiso from dual
 			</cfquery>
 			<cfdump var=#fu#>
-			<cfset status=listappend(status,'#fu.isiso#',';')>
-			<br>status=#status#
+			<cfset thisStatus=listappend(thisStatus,'#fu.isiso#',';')>
+			<br>thisStatus=#thisStatus#
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update ds_temp_date set
 					returndate='#iso#',
-					status='#status#',
+					status='#thisStatus#',
 					concat='#cc#'
 				where
 					key=#key#
