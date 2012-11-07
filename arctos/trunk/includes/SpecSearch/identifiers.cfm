@@ -22,7 +22,7 @@
 			<span class="helpLink" id="other_id_type">Other&nbsp;Identifier&nbsp;Type:</span>
 		</td>
 		<td class="srch">
-			<select name="OIDType" id="OIDType" size="1"
+			<select name="OIDType" id="OIDType" size="5" multiple="multiple"
 				<cfif isdefined("OIDType") and len(OIDType) gt 0>
 					class="reqdClr" 
 				</cfif>>
@@ -39,9 +39,6 @@
 			</select><span class="infoLink" onclick="getCtDoc('ctcoll_other_id_type',SpecData.OIDType.value);">Define</span>
 		</td>
 	</tr>
-	<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
-	</cfquery>
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="other_id_num">Other&nbsp;Identifier:</span>

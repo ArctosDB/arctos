@@ -977,7 +977,7 @@
 	<cfif basJoin does not contain " otherIdSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND otherIdSearch.other_id_type = '#OIDType#'">
+	<cfset basQual = " #basQual# AND otherIdSearch.other_id_type in ('#OIDType#')">
 </cfif>
 <cfif isdefined("OIDNum") and len(OIDNum) gt 0>
 	<cfif not isdefined("oidOper") OR len(oidOper) is 0>
