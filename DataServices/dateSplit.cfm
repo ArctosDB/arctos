@@ -134,7 +134,7 @@ sho err
 		<cfelse>
 			<cfset mm=m>
 		</cfif>
-		<cfif not refind('^[0-9]{2}$',mm)>
+		<cfif len(mm) gt 0 and not refind('^[0-9]{2}$',mm)>
 			<br>#mm# isn't a 2-digit month
 			<cfset status=listappend(status,'month invalid',';')>
 		</cfif>
