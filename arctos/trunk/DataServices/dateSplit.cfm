@@ -165,6 +165,7 @@ sho err
 			</cfif>d<br>iso==#iso#
 			
 			<cfset cc=d & ' ' & m & ' '  & y>
+			<cfset cc=trim(replace(cc,"  ", " ","all"))>
 			<br>cc=#cc#
 			<cfquery name="fu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select is_iso8601('#iso#') isiso from dual
