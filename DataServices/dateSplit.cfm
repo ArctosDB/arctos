@@ -155,7 +155,7 @@ sho err
 			</cfif>
 		</cfif>
 		<cfif len(status) is 0>
-			<cfset iso=year>
+			<cfset iso=y>
 			<cfif len(mm) gt 0>
 				<cfset iso=iso & ':' & mm>
 			</cfif>
