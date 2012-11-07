@@ -102,7 +102,7 @@ sho err
 	</cfquery>
 	<cfloop query="d">
 		<hr>#y# - #m# - #d#
-		<cfif len(y) neq 4 or not refind('^[0-9]4$',y)>
+		<cfif not refind('^[0-9][0-9][0-9][0-9]$',y)>
 			<br>#y# isn't a 4-digit thingee
 		</cfif>
 	</cfloop>
