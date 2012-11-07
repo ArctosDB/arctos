@@ -97,9 +97,17 @@ sho err
 </cfif>
 <cfif action is "validate">
 <cfoutput>
+	<cfquery name="fu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update ds_temp_date set
+		y=trim(y),
+		m=trim(m),
+		d=trim(d)
+	</cfquery>
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_date
 	</cfquery>
+	
 	<cfloop query="d">
 		<hr>#y# - #m# - #d#
 		<cfset status=''>
