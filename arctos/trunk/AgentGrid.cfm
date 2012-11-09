@@ -22,7 +22,6 @@
 </cfif>
 ---->
 
-
 <cfoutput>
 
 <cfset sql = "SELECT 
