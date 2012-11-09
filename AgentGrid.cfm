@@ -40,7 +40,7 @@
 					<!---
 					agent_name_type='preferred'
 					--->
-<cfif isdefined("First_Name") AND len(#First_Name#) gt 0>
+<cfif isdefined("First_Name") AND len(First_Name) gt 0>
 	<cfset sql = "#sql# AND first_name LIKE '#First_Name#'">
 </cfif>
 <cfif isdefined("Last_Name") AND len(#Last_Name#) gt 0>
