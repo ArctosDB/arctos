@@ -28,18 +28,11 @@
 	<cfif d.recordcount is 1>
 		<cfset r=r & '<div class="docTitle">#d.display_name#</div><div class="docDef">#d.definition#</div><div class="docSrchTip">#d.search_hint#</div>'>
 		<cfif len(d.more_info) gt 0>
-			<cfhttp url="#d.more_info#" method="head" timeout="2"></cfhttp>
-			<cfif cfhttp.Statuscode is '200 OK'>
 				<cfset r=r & '<a class="docMoreInfo" href="#d.more_info#"'>
 				<cfif addCtl is 1>
 					<cfset r=r & 'target="_docMoreWin" onclick="removeHelpDiv()"'>
 				</cfif>
 				<cfset r=r & '>[ More Information ]</div>'>
-			<cfelse>
-				<cfmail subject="docs: bad moreinfo" to="#Application.PageProblemEmail#" from="badlink@#Application.fromEmail#" type="html">
-					#fld#: #d.more_info# not found
-				</cfmail>
-			</cfif>
 		</cfif>
 	<cfelse>
 		<cfset r=r & '<div class="docTitle">No documentation is available for #fld#.</div>'>
