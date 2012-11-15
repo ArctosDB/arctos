@@ -1,8 +1,8 @@
-<cfcomponent>	
+<cfcomponent>
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
-<cffunction name="onError">	
+<cffunction name="onError">
 	<cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
 	<cfset showErr=1>
@@ -48,7 +48,7 @@
 					<tr>
 						<td>IP</td>
 						<td>
-							#ipaddress# 
+							#ipaddress#
 							<a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">[ lookup ]</a>
 							<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#ipaddress#">[ blacklist ]</a>
 						</td>
@@ -65,7 +65,7 @@
 							<td>#exception.Sql#</td>
 						</tr>
 					</cfif>
-					
+
 					<cfif structKeyExists(exception,"tagcontext")>
 						<!----
 						<cfloop index="stack" from="1" to="#arrayLen(exception.tagContext)#">
@@ -81,15 +81,15 @@
 								<cftry>
 									#exception.tagContext[1].line#
 								<cfcatch>
-									-no line - see exception dump - 
+									-no line - see exception dump -
 								</cfcatch>
-								</cftry>	
+								</cftry>
 							</td>
 						</tr>
 					</cfif>
 
 
-					
+
 					<cfif isdefined("cgi.redirect_url")>
 						<tr>
 							<td>Path</td>
@@ -107,7 +107,7 @@
 							<td colspan="2" align="center">
 								<strong>Form</strong>
 							</td>
-						</tr>					
+						</tr>
 						<cfloop collection="#form#" item="key">
 							<cfif len(form[key]) gt 0>
 								<tr>
@@ -200,7 +200,7 @@
 		</cfif>
 		<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
 			#errortext#
-		</cfmail>	
+		</cfmail>
 		<table cellpadding="10">
 			<tr>
 				<td valign="top">
@@ -215,7 +215,7 @@
 						</cfif>
 						</cfoutput></i>
 					</cfif>
-					<p>This message has been logged. Please <a href="/contact">contact us</a> 
+					<p>This message has been logged. Please <a href="/contact.cfm">contact us</a>
 					with any information that might help us to resolve this problem.</p>
 				</td>
 			</tr>
@@ -274,9 +274,9 @@
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
 		<cfset Application.AppVersion= "prod">
-		
-		
-		
+
+
+
 		<!----
 		<cfset Application.serverRootUrl="http://arctos.database.museum">
 		<cfset Application.fromEmail="arctos.database.museum">
@@ -296,7 +296,7 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
-		
+
 		---->
     <cfelseif serverName contains "harvard.edu">
 		<cfset Application.svn = "/usr/bin/svn">
@@ -385,8 +385,8 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
-		
-		
+
+
 		<cfmail subject="bad app start" to="arctos.database@gmail.com" from="badAppStart@#application.fromEmail#" type="html">
 			Idon't know who I am
 			serverName=<cfdump var="#serverName#">
@@ -410,10 +410,10 @@
 		</cfmail>
 	</cfcatch>
 	</cftry>
-	<!--- 
+	<!---
 		sandbox is a 700-mode directory (necessary for CF to write) used for user-uploaded files.
 		onRequestStart prevents CF executing contents
-	--->	
+	--->
 	<cfset Application.sandbox = "#Application.webDirectory#/sandbox">
 	<cfif not directoryExists(Application.sandbox)>
 		<cfdirectory action="create" directory="#Application.sandbox#" mode="700">
@@ -455,9 +455,9 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
 	</cfif>
-	
-	<!--- uncomment for a break from googlebot 
-		
+
+	<!--- uncomment for a break from googlebot
+
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
 		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
 		<cfheader name="retry-after" value="3600"/>
@@ -465,7 +465,7 @@
 		<cfreturn false>
 		<cfabort>
 	</cfif>
-	
+
 	---->
 	<cfif not isdefined("application.blacklist")>
 		<cfset application.blacklist="">
@@ -478,7 +478,7 @@
 		<cfset ipaddress='unknown'>
 	</CFIF>
 	<cfif listfindnocase(application.blacklist,ipaddress)>
-		<cfif cgi.script_name is not "/errors/gtfo.cfm">
+		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
 			</cfscript>
@@ -504,12 +504,12 @@
 		<cfscript>
 			StructDelete(request, "fixAmp");
 		</cfscript>
-	</cfif> 
+	</cfif>
 	<cfif not isdefined("session.roles")>
 		<cfinclude template="/includes/functionLib.cfm">
 		<cfset initSession()>
 	</cfif>
-	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
+	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())>
 	<!--- no reason for anyone to be in these, ever --->
 	<cfif currentPath contains "/CustomTags/">
 		<cfset r=replace(currentPath,application.webDirectory,"")>
@@ -520,8 +520,8 @@
 	</cfif>
 	<!--- protect "us" directories	 --->
 
-	<cfif (CGI.Remote_Addr is not "127.0.0.1") and 
-		(not isdefined("session.roles") or session.roles is "public" or len(session.roles) is 0) and 
+	<cfif (CGI.Remote_Addr is not "127.0.0.1") and
+		(not isdefined("session.roles") or session.roles is "public" or len(session.roles) is 0) and
 		(currentPath contains "/Admin/" or
 		currentPath contains "/ALA_Imaging/" or
 		currentPath contains "/Bulkloader/" or
@@ -535,7 +535,7 @@
 			</cfscript>
 			<cfabort>
 	</cfif>
-	
+
 	<!--- disallow CF execution --->
 	<cfif currentPath contains "/images/" or
 		 currentPath contains "/download/" or
@@ -561,8 +561,8 @@
 			<cflocation url="/errors/dev_login.cfm">
 		</cfif>
 	</cfif>
-	<!--- keep people/bots from browsing a dev server 
-	
+	<!--- keep people/bots from browsing a dev server
+
 	--->
 	<!--- people still have this thing bookmarked --->
 	<cfif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
