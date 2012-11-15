@@ -3,14 +3,14 @@ create table tacc_folder (
 	folder varchar2(255),
 	file_count number
 	);
-	
+
 create table tacc_check (
 	collection_object_id number,
 	barcode varchar2(255),
 	folder varchar2(255),
 	chkdate date default sysdate)
 	;
-	
+
 create table tacc (
 	fullpath varchar2(4000),
 	filename varchar2(255),
@@ -65,11 +65,6 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 	</cfif>
 	<cfreturn "FAIL">
 </cffunction>
-<cffunction name="arrayFind"  access="public" hint="returns the index number of an item if it is in the array" output="false"  returntype="numeric">
-	<cfargument name="array" required="true" type="array">
-	<cfargument name="valueToFind" required="true" type="string">
-	<cfreturn (arguments.array.indexOf(arguments.valueToFind)) + 1>
-</cffunction>
 <cffunction name="getDescr">
 	<cfargument name="collection_object_id" required="true" type="numeric">
 	<cfquery name="ala" datasource="uam_god">
@@ -79,12 +74,12 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 				'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
 			)  || ': ' ||
 			get_taxonomy(coll_obj_other_id_num.collection_object_id,'display_name') descr
-		from 
+		from
 			coll_obj_other_id_num,
 			cataloged_item
-		where 
+		where
 			cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
-			other_id_type='ALAAC' and 
+			other_id_type='ALAAC' and
 			coll_obj_other_id_num.collection_object_id=#collection_object_id#
 	</cfquery>
 	<cfif ala.recordcount is not 1>
@@ -95,12 +90,12 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
 				)  || ': ' ||
 				get_taxonomy(coll_obj_other_id_num.collection_object_id,'display_name') descr
-			from 
+			from
 				coll_obj_other_id_num,
 				cataloged_item
-			where 
+			where
 				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
-				other_id_type='ISC: Ada Hayden Herbarium, Iowa State University' and 
+				other_id_type='ISC: Ada Hayden Herbarium, Iowa State University' and
 				coll_obj_other_id_num.collection_object_id=#collection_object_id#
 		</cfquery>
 	</cfif>
@@ -168,7 +163,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 		</cfloop>
 	</cfif>
 	<cfquery name="exist" datasource="uam_god">
-		select FULLPATH from tacc where FILETYPE = 'path' 
+		select FULLPATH from tacc where FILETYPE = 'path'
 	</cfquery>
 	<cfloop query="exist">
 		<cfif arrayfind(dirs,#fullpath#)>
@@ -235,7 +230,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					'dng'
 				)
 			</cfquery>
-			
+
 			<cfcatch>
 				<cfdump var="#cfcatch#">
 			</cfcatch>
@@ -250,20 +245,20 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 <cfif action is "linkToSpecimens">
 	<cfoutput>
 		<cfquery name="data" datasource="uam_god">
-			select 
+			select
 				filename,
 				fullpath
 			from
 				tacc
 			where
 				filetype='dng' and
-				collection_object_id is null and 
+				collection_object_id is null and
 				status is null
 		</cfquery>
 		<cfloop query="data">
 			<cftransaction >
 			<cfquery name="bc" datasource="uam_god">
-				select 
+				select
 					cataloged_item.collection_object_id,
 					cataloged_item.collection_id
 				from
@@ -313,8 +308,8 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 				tacc
 			where
 				filetype='dng' and
-				collection_object_id > 0 and 
-				status is null and 
+				collection_object_id > 0 and
+				status is null and
 				rownum<10000
 		</cfquery>
 		<cfloop query="data">
@@ -398,10 +393,10 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					<br>made #ala.descr#
 					<cfquery name="spiffy" datasource="uam_god">
 						update tacc set status='dng_created' where collection_object_id=#collection_object_id#
-					</cfquery>							
+					</cfquery>
 				</cftransaction>
 			</cfif>
-		
+
 		</cfloop>
 	</cfoutput>
 </cfif>
@@ -413,7 +408,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			from
 				tacc
 			where
-				status='dng_created' and 
+				status='dng_created' and
 				rownum<501
 		</cfquery>
 		<hr>
@@ -421,11 +416,11 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 		<cfloop query="data">
 			<cfset go=true>
 			<cfquery name="dng_id" datasource="uam_god">
-				select 
-					media.media_id 
-				from 
+				select
+					media.media_id
+				from
 					media,
-					media_relations 
+					media_relations
 				where
 					media.media_id = media_relations.media_id and
 					media_relationship='shows cataloged_item' and
@@ -451,7 +446,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 				<cfset go=false>
 				<cfquery name="fail" datasource="uam_god">
 					update tacc set status='dng_not_found_for_jpg' where collection_object_id=#collection_object_id#
-				</cfquery>		
+				</cfquery>
 			</cfif>
 			<cfset jpgPath=getJpgPath(fullpath)>
 			<cfhttp url="#jpgPath#" charset="utf-8" method="head"></cfhttp>
@@ -459,7 +454,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 				<cfset go=false>
 				<cfquery name="fail" datasource="uam_god">
 					update tacc set status='jpg_not_found_for_jpg' where collection_object_id=#collection_object_id#
-				</cfquery>		
+				</cfquery>
 			</cfif>
 			<cfset tnPath=getTnPath(fullpath)>
 			<cfhttp url="#tnPath#" charset="utf-8" method="head"></cfhttp>
@@ -467,7 +462,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 				<cfset go=false>
 				<cfquery name="fail" datasource="uam_god">
 					update tacc set status='tn_not_found_for_jpg' where collection_object_id=#collection_object_id#
-				</cfquery>		
+				</cfquery>
 			</cfif>
 			<cfif go is true>
 				<cftransaction>
@@ -475,7 +470,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 						<cfquery name="nid" datasource="uam_god">
 							select sq_media_id.nextval media_id from dual
 						</cfquery>
-						<cfquery name="media" datasource="uam_god">	
+						<cfquery name="media" datasource="uam_god">
 							insert into media (
 								media_id,
 								media_uri,
@@ -550,7 +545,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 								update tacc set status='fail_at_jpg: #cfcatch.message#' where collection_object_id=#collection_object_id#
 							</cfquery>
 						</cfcatch>
-					</cftry>	
+					</cftry>
 				</cftransaction>
 			</cfif>
 		</cfloop>
