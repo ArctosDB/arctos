@@ -1,3 +1,8 @@
+<cfquery name="d" datasource="uam_god">
+	select * from flat where guid='#idtype#:#idval#'
+</cfquery>
+<cfdump var=#d#>
+
 i am getRelatedData
 <cfdump var=#url#>
 <cfabort>
