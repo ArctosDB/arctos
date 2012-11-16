@@ -1,8 +1,6 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 	<script>
 		function saveCheck (id, val) {
-			alert(id);
-			alert(val);
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "saveDeSettings",
@@ -13,8 +11,18 @@
 				},
 				function (result){}
 			);
+
 		}
-		function useThis(id,ev,lo,co) {
+		function useThis(id) {
+
+
+			var ev=$("#relpick_event").val();
+			var lo=$("#relpick_locality").val();
+			var co=$("#relpick_collector").val();
+
+
+					console.log('ev= ' + ev);
+
 			evv=$("#cevid_" + id).val();
 			lov=$("#locid_" + id).val();
 			cov=$("#colls_" + id).val();
@@ -138,12 +146,14 @@
 			<th>Collectors</th>
 		</tr>
 		<cfset i=1>
+
+
 		<cfloop query="d">
 			<input type="hidden" id="cevid_#i#" value="#collecting_event_id#">
 			<input type="hidden" id="locid_#i#" value="#locality_id#">
 			<input type="hidden" id="colls_#i#" value="#collectors#">
 			<tr>
-				<td><span class="likeLink" onclick="useThis(#i#,#desettings.relpick_event#,#desettings.relpick_locality#,#desettings.relpick_collector#)">[&nbsp;use&nbsp;]</span></td>
+				<td><span class="likeLink" onclick="useThis(#i#)">[&nbsp;use&nbsp;]</span></td>
 				<td>#guid#</td>
 				<td>#scientific_name#</td>
 				<td>#higher_geog#</td>
