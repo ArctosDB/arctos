@@ -13,10 +13,16 @@
 				},
 				function (result){}
 			);
+		}
+		function useThis(id,ev,lo,co) {
+			evv=$("#cevid_" + id).val();
+			if (ev==1){
+				// use event
+				$("#collecting_event_id").val(evv);
+			}
 
 
 		}
-
 	</script>
 	<cfoutput>
 	<cfquery name="desettings" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -28,6 +34,8 @@
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
 		select
+			collecting_event_id,
+			locality_id,
 			guid,
 			scientific_name,
 			higher_geog,
@@ -41,6 +49,8 @@
 			upper(guid)='#ucase(idtype)#:#ucase(trim(idval))#'
 		union
 		select
+			collecting_event_id,
+			locality_id,
 			guid,
 			scientific_name,
 			higher_geog,
@@ -100,9 +110,13 @@
 			<th>VerbatimDate</th>
 			<th>Collectors</th>
 		</tr>
+		<cfset i=1>
 		<cfloop query="d">
+			<input type="hidden" id="cevid_#i#" value="#collecting_event_id#">
+			<input type="hidden" id="locid_#i#" value="#locality_id#">
+			<input type="hidden" id="colls_#i#" value="#collectors#">
 			<tr>
-				<td><span class="likeLink" onclick="useThis()">use this</span></td>
+				<td><span class="likeLink" onclick="useThis(#id#,#desettings.relpick_event#,#desettings.relpick_locality#,#desettings.relpick_collector#)">[&nbsp;use&nbsp;]</span></td>
 				<td>#guid#</td>
 				<td>#scientific_name#</td>
 				<td>#higher_geog#</td>
@@ -111,6 +125,7 @@
 				<td>#verbatim_date#</td>
 				<td>#collectors#</td>
 			</tr>
+			<cfset i=i+1>
 		</cfloop>
 	</table>
 	</cfoutput>
