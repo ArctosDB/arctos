@@ -19,8 +19,8 @@
 			console.log('ev='+ev);
 			if (ev==1){
 				// use event
-			console.log('collecting_event_id='+parent.jQuery("#collecting_event_id").val());
-				;
+			//console.log('collecting_event_id='+parent.jQuery("#collecting_event_id").val());
+				parent.jQuery("#collecting_event_id").val(evv);
 
 			}
 
