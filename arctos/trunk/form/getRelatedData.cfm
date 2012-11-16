@@ -28,7 +28,7 @@
 			evv=$("#cevid_" + id).val();
 			lov=$("#locid_" + id).val();
 			cov=$("#colls_" + id).val();
-			console.log('ev='+ev);
+			//console.log('ev='+ev);
 			if (ev==true){
 				// use event
 				parent.jQuery("#collecting_event_id").val(evv);
@@ -63,9 +63,9 @@
 			var idtype=$("#idtype").val();
 			var idval=$("#idval").val();
 
-			console.log('clickedfrom='+clickedfrom);
-			console.log('idtype='+idtype);
-			console.log('idval='+idval);
+			//console.log('clickedfrom='+clickedfrom);
+			//console.log('idtype='+idtype);
+			//console.log('idval='+idval);
 			parent.jQuery("#other_id_num_type_" + clickedfrom).val(idtype);
 			parent.jQuery("#other_id_num_" + clickedfrom).val(idval);
 			parent.closegetRelatedData();
