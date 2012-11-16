@@ -926,7 +926,7 @@ function switchActive(OrigUnits) {
 		 OrigUnits=$("#orig_lat_long_units").val();
 	 };
 	
-	console.log('switchActive@'+OrigUnits);
+	//console.log('switchActive@'+OrigUnits);
 	var a=document.getElementById('dms');
 	var b=document.getElementById('ddm');
 	var c=document.getElementById('dd');
