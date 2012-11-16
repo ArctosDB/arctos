@@ -16,14 +16,35 @@
 		}
 		function useThis(id,ev,lo,co) {
 			evv=$("#cevid_" + id).val();
+			lov=$("#locid_" + id).val();
+			cov=$("#colls_" + id).val();
 			console.log('ev='+ev);
 			if (ev==1){
 				// use event
-			//console.log('collecting_event_id='+parent.jQuery("#collecting_event_id").val());
 				parent.jQuery("#collecting_event_id").val(evv);
+			} else {
+				// do not update locality AND event
+				if (lo==1) {
+					parent.jQuery("#locality_id").val(lov);
+				}
+			}
+			if (co==1){
+
+				parent.jQuery('input[id^="collector_role_"]').val('c');
+				parent.jQuery('input[id^="collector_agent_"]').val('');
+
+
+
+				cary=cov.split(',');
+
+				$.each(cary, function(key, value) {
+					console.log(key + ': ' + value);
+					parent.jQuery("#collector_agent_" + key+1).val(value);
+
+				});
+
 
 			}
-
 
 		}
 	</script>
