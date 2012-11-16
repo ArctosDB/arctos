@@ -16,7 +16,7 @@
 		function useThis(id) {
 
 
-			var ev=$("#relpick_event").attr('checked');
+			var ev=$("#relpick_event").is(':checked');
 
 			//$('#checkBox').attr('checked');
 			var lo=$("#relpick_locality").val();
