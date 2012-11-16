@@ -25,11 +25,12 @@
 			} else {
 				// do not update locality AND event
 				if (lo==1) {
+					parent.jQuery("#collecting_event_id").val('');
 					parent.jQuery("#locality_id").val(lov);
 				}
 			}
 			if (co==1){
-				parent.jQuery('select[id^="collector_role_"]').val('c');
+				//parent.jQuery('select[id^="collector_role_"]').val('c');
 				parent.jQuery('select[id^="collector_role_"]').val('Collector');
 				parent.jQuery('input[id^="collector_agent_"]').val('');
 
