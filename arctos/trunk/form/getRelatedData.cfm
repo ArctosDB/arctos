@@ -36,15 +36,25 @@
 			verbatim_date,
 			collectors
 		from
+			flat
+		where
+			upper(guid)='#ucase(idtype)#:#ucase(trim(idval))#'
+		union
+		select
+			guid,
+			scientific_name,
+			higher_geog,
+			spec_locality,
+			verbatim_locality,
+			verbatim_date,
+			collectors
+		from
 			flat,
 			coll_obj_other_id_num
 		where
-			flat.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and
-			upper(guid)='#ucase(idtype)#:#ucase(trim(idval))#' or
-			(
-				coll_obj_other_id_num.other_id_type='#idtype#' and
-				upper(coll_obj_other_id_num.display_value)='#ucase(trim(idval))#'
-			)
+			flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
+			coll_obj_other_id_num.other_id_type='#idtype#' and
+			upper(coll_obj_other_id_num.display_value)='#ucase(trim(idval))#'
 	</cfquery>
 	Save to Data Entry....
 	<form name="setting">
