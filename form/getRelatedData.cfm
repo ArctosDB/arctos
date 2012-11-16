@@ -19,8 +19,8 @@
 			var ev=$("#relpick_event").is(':checked');
 
 			//$('#checkBox').attr('checked');
-			var lo=$("#relpick_locality").val();
-			var co=$("#relpick_collector").val();
+			var lo=$("#relpick_locality").is(':checked');
+			var co=$("#relpick_collector").is(':checked');
 
 
 		//console.log('ev= ' + ev);
@@ -29,17 +29,17 @@
 			lov=$("#locid_" + id).val();
 			cov=$("#colls_" + id).val();
 			console.log('ev='+ev);
-			if (ev==1){
+			if (ev==true){
 				// use event
 				parent.jQuery("#collecting_event_id").val(evv);
 			} else {
 				// do not update locality AND event
-				if (lo==1) {
+				if (lo==true) {
 					parent.jQuery("#collecting_event_id").val('');
 					parent.jQuery("#locality_id").val(lov);
 				}
 			}
-			if (co==1){
+			if (co==true){
 				//parent.jQuery('select[id^="collector_role_"]').val('c');
 				parent.jQuery('select[id^="collector_role_"]').val('Collector');
 				parent.jQuery('input[id^="collector_agent_"]').val('');
