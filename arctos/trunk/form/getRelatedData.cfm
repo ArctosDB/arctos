@@ -62,6 +62,10 @@
 			var clickedfrom=$("#clickedfrom").val();
 			var idtype=$("#idtype").val();
 			var idval=$("#idval").val();
+
+			console.log('clickedfrom='+clickedfrom);
+			console.log('idtype='+idtype);
+			console.log('idval='+idval);
 			parent.jQuery("#other_id_num_type_" + clickedfrom).val(idtype);
 			parent.jQuery("#other_id_num_" + clickedfrom).val(idval);
 			parent.closegetRelatedData();
