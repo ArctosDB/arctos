@@ -1,5 +1,14 @@
 <cfcomponent>
-
+saveDeSettings
+<cffunction name="saveDeSettings" access="remote">
+	   	<cfargument name="id" required="true" type="string">
+	   	<cfargument name="val" required="true" type="string">
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	    	update cf_dataentry_settings set #id#='#val#' where username='#session.username#
+	    </cfquery>
+	    <cfreturn>
+</cffunction>
+<!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
 	   <cfargument name="preview_uri" required="true" type="string">
 	   <cfargument name="media_type" required="false" type="string">

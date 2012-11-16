@@ -3,6 +3,18 @@
 		function saveCheck (id, val) {
 			alert(id);
 			alert(val);
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "saveDeSettings",
+					id : id,
+					val : val,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (result){}
+			);
+
+
 		}
 
 	</script>
@@ -22,7 +34,7 @@
 			<tr>
 				<td>Event (collecting_event_id)</td>
 				<td>
-					<input
+					<input id="relpick_event"
 						<cfif desettings.relpick_event is 1>checked="checked"</cfif>
 						type="checkbox" value="#desettings.relpick_event#"
 						onchange="saveCheck(this.id,this.checked)">
