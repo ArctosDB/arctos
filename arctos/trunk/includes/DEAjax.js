@@ -922,7 +922,7 @@ function changeSex(sex) {
 	}
 }
 function switchActive(OrigUnits) {
-	//console.log('switchActive');
+	console.log('switchActive');
 	var OrigUnits=$("#orig_lat_long_units").val();
 	var a=document.getElementById('dms');
 	var b=document.getElementById('ddm');
