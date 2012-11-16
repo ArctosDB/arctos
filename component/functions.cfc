@@ -9,7 +9,7 @@ saveDeSettings
 	   		<cfset val=0>
 	   	</cfif>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	    	update cf_dataentry_settings set #id#='#val#' where username='#session.username#
+	    	update cf_dataentry_settings set #id#=#val# where username='#session.username#
 	    </cfquery>
 	    <cfreturn>
 </cffunction>
