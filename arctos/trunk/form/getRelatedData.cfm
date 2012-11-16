@@ -64,6 +64,29 @@
 		}
 	</script>
 	<cfoutput>
+		<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT distinct(other_id_type) FROM ctColl_Other_id_type order by other_id_type
+	    </cfquery>
+		<form name="s" method="get" action="getRelatedData.cfm">
+			<label for="idtype">
+				ID Type
+			</label>
+			<select name="idtype" id="idtype">
+				<cfloop query="ctOtherIdType">
+					<option <cfif idtype is ctOtherIdType.other_id_type> selected="selected" </cfif>
+						value="#other_id_type#">#other_id_type#</option>
+				</cfloop>
+			</select>
+			<label for="idtype">
+				ID
+			</label>
+			<input type="text" name="idval" value="#idval#" id="idval">
+			<br>
+			<input type="submit" value="go">
+
+
+
+		</form>
 	<cfquery name="desettings" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			relpick_event,
@@ -106,7 +129,6 @@
 			upper(coll_obj_other_id_num.display_value)='#ucase(trim(idval))#'
 	</cfquery>
 	Save to Data Entry....
-	<form name="setting">
 		<table border>
 			<tr>
 				<td>Event (collecting_event_id)</td>
@@ -136,7 +158,6 @@
 					</td>
 			</tr>
 		</table>
-	</form>
 	Check boxes for what you want to save above, then pick a specimen from the table below.
 	<table border>
 		<tr>

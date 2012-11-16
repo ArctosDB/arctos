@@ -347,7 +347,7 @@
 										</cfloop>
 									</select>
 									<input type="text" name="other_id_num_#i#" value="#evaluate("data.other_id_num_" & i)#" id="other_id_num_#i#">
-									<span class="likeLink" onclick="getRelatedData(#i#)">getRelatedData</span>
+									<span class="infoLink" onclick="getRelatedData(#i#)">[ pull ]</span>
 								</td>
 							</tr>
 						</cfloop>
