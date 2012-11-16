@@ -35,7 +35,15 @@
 			verbatim_locality,
 			verbatim_date,
 			collectors
-		from flat where upper(guid)='#ucase(idtype)#:#ucase(idval)#'
+		from
+			flat,
+			coll_obj_other_id_num (+)
+		where
+			upper(guid)='#ucase(idtype)#:#ucase(trim(idval))#' or
+			(
+				coll_obj_other_id_num.other_id_type='#idtype#' and
+				upper(coll_obj_other_id_num.display_value)='ucase(trim(#idval#))' and
+			)
 	</cfquery>
 	Save to Data Entry....
 	<form name="setting">
@@ -72,6 +80,7 @@
 	Check boxes for what you want to save above, then pick a specimen from the table below.
 	<table border>
 		<tr>
+			<th></th>
 			<th>GUID</th>
 			<th>ID</th>
 			<th>Geog</th>
@@ -82,6 +91,7 @@
 		</tr>
 		<cfloop query="d">
 			<tr>
+				<td><span class="likeLink" onclick="useThis()">use this</span></td>
 				<td>#guid#</td>
 				<td>#scientific_name#</td>
 				<td>#higher_geog#</td>
