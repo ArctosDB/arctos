@@ -29,8 +29,7 @@
 				}
 			}
 			if (co==1){
-
-				parent.jQuery('input[id^="collector_role_"]').val('c');
+				parent.jQuery('select[id^="collector_role_"]').val('c');
 				parent.jQuery('input[id^="collector_agent_"]').val('');
 
 
