@@ -1,5 +1,5 @@
 i am getRelatedData
-
+<cfdump var=#url#>
 <cfabort>
 <!----
 
