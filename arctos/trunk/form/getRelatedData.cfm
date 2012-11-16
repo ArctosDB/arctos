@@ -26,9 +26,17 @@
  		from cf_dataentry_settings where username='#session.username#'
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
-		select * from flat where upper(guid)='#ucase(idtype)#:#ucase(idval)#'
+		select
+			guid,
+			scientific_name,
+			higher_geog,
+			spec_locality,
+			verbatim_locality,
+			verbatim_date,
+			collectors
+		from flat where upper(guid)='#ucase(idtype)#:#ucase(idval)#'
 	</cfquery>
-
+	Save to Data Entry....
 	<form name="setting">
 		<table border>
 			<tr>
@@ -40,8 +48,49 @@
 						onchange="saveCheck(this.id,this.checked)">
 					</td>
 			</tr>
+			<tr>
+				<td>Locality (locality_id)</td>
+				<td>
+					<input id="relpick_locality"
+						<cfif desettings.relpick_locality is 1>checked="checked"</cfif>
+						type="checkbox" value="#desettings.relpick_locality#"
+						onchange="saveCheck(this.id,this.checked)">
+					</td>
+			</tr>
+			<tr>
+				<td>Collectors</td>
+				<td>
+					<input id="relpick_collector"
+						<cfif desettings.relpick_collector is 1>checked="checked"</cfif>
+						type="checkbox" value="#desettings.relpick_collector#"
+						onchange="saveCheck(this.id,this.checked)">
+					</td>
+			</tr>
 		</table>
 	</form>
+	Check boxes for what you want to save above, then pick a specimen from the table below.
+	<table border>
+		<tr>
+			<th>GUID</th>
+			<th>ID</th>
+			<th>Geog</th>
+			<th>SpecLocality</th>
+			<th>VerbatimLocality</th>
+			<th>VerbatimDate</th>
+			<th>Collectors</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#guid#</td>
+				<td>#scientific_name#</td>
+				<td>#higher_geog#</td>
+				<td>#spec_locality#</td>
+				<td>#verbatim_locality#</td>
+				<td>#verbatim_date#</td>
+				<td>#collectors#</td>
+			</tr>
+		</cfloop>
+	</table>
 <cfdump var=#d#>
 
 i am getRelatedData
