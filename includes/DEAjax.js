@@ -17,7 +17,10 @@ function getRelatedData(id) {
 	var theFrame = document.createElement('iFrame');
 	theFrame.id='theFrame';
 	theFrame.className = 'editFrame';
-	var ptl="/form/getRelatedData.cfm";
+	var idtype=$("#other_id_num_type_" + id).val();
+	var idval=$("#other_id_num_" + id).val();
+	
+	var ptl="/form/getRelatedData.cfm?idtype=" + idtype +'&idval=' + idval;
 	theFrame.src=ptl;
 	$("#popDiv").append(theFrame);
 }
