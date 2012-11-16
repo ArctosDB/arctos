@@ -59,6 +59,11 @@
 
 
 			}
+			var clickedfrom=$("#clickedfrom").val();
+			var idtype=$("#idtype").val();
+			var idval=$("#idval").val();
+			parent.jQuery("#other_id_num_type_" + clickedfrom).val(idtype);
+			parent.jQuery("#other_id_num_" + clickedfrom).val(idval);
 			parent.closegetRelatedData();
 
 		}
@@ -81,6 +86,8 @@
 				ID
 			</label>
 			<input type="text" name="idval" value="#idval#" id="idval">
+			<input type="hidden" name="clickedfrom" value="#clickedfrom#" id="clickedfrom">
+
 			<br>
 			<input type="submit" value="go">
 

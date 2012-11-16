@@ -20,7 +20,7 @@ function getRelatedData(id) {
 	var idtype=$("#other_id_num_type_" + id).val();
 	var idval=$("#other_id_num_" + id).val();
 	
-	var ptl="/form/getRelatedData.cfm?idtype=" + idtype +'&idval=' + idval;
+	var ptl="/form/getRelatedData.cfm?idtype=" + idtype +'&idval=' + idval + '&clickedfrom=' + id;
 	theFrame.src=ptl;
 	$("#popDiv").append(theFrame);
 }
