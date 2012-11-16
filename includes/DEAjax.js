@@ -923,7 +923,7 @@ function changeSex(sex) {
 }
 function switchActive(OrigUnits) {
 	//console.log('switchActive');
-	var OrigUnits;
+	var OrigUnits=$("#orig_lat_long_units").val();
 	var a=document.getElementById('dms');
 	var b=document.getElementById('ddm');
 	var c=document.getElementById('dd');
