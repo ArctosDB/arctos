@@ -58,7 +58,7 @@
 
 
 			}
-			closegetRelatedData();
+			parent.closegetRelatedData();
 
 		}
 	</script>
