@@ -3,6 +3,11 @@ saveDeSettings
 <cffunction name="saveDeSettings" access="remote">
 	   	<cfargument name="id" required="true" type="string">
 	   	<cfargument name="val" required="true" type="string">
+	   	<cfif val is true>
+	   		<cfset val=1>
+	   	<cfelse>
+	   		<cfset val=0>
+	   	</cfif>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	    	update cf_dataentry_settings set #id#='#val#' where username='#session.username#
 	    </cfquery>
