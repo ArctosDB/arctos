@@ -11,19 +11,14 @@
 				},
 				function (result){}
 			);
-
 		}
 		function useThis(id) {
-
-
 			var ev=$("#relpick_event").is(':checked');
-
 			//$('#checkBox').attr('checked');
 			var lo=$("#relpick_locality").is(':checked');
 			var co=$("#relpick_collector").is(':checked');
 
-
-		//console.log('ev= ' + ev);
+			//console.log('ev= ' + ev);
 
 			evv=$("#cevid_" + id).val();
 			lov=$("#locid_" + id).val();
@@ -76,6 +71,9 @@
 		<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(other_id_type) FROM ctColl_Other_id_type order by other_id_type
 	    </cfquery>
+	    <label for="s">
+	    	Find Specimen
+	    </label>
 		<form name="s" method="get" action="getRelatedData.cfm">
 			<label for="idtype">
 				ID Type
@@ -139,7 +137,10 @@
 			coll_obj_other_id_num.other_id_type='#idtype#' and
 			upper(coll_obj_other_id_num.display_value)='#ucase(trim(idval))#'
 	</cfquery>
-	Save to Data Entry....
+	<label for="t">
+		Save to Data Entry....
+	</label>
+
 		<table border>
 			<tr>
 				<td>Event (collecting_event_id)</td>
@@ -169,7 +170,11 @@
 					</td>
 			</tr>
 		</table>
-	Check boxes for what you want to save above, then pick a specimen from the table below.
+		<label for="t2">
+							Check boxes for what you want to save above, then pick a specimen from the table below.
+
+
+		</label>
 	<table border>
 		<tr>
 			<th></th>
