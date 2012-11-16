@@ -58,6 +58,7 @@
 
 
 			}
+			closegetRelatedData();
 
 		}
 	</script>
