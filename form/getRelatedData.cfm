@@ -1,9 +1,16 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+	<script>
+		fucntion saveCheck (id, val) {
+			alert(id);
+alert(val);
+}
+
+	</script>
 	<cfquery name="desettings" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			relpick_event,
 			relpick_locality,
-			cf_dataentry_settings
+			relpick_collector
  		from cf_dataentry_settings where username='#session.username#'
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
@@ -14,7 +21,12 @@
 		<table border>
 			<tr>
 				<td>Event (collecting_event_id)</td>
-				<td><input type="checkbox" value="#desettings.relpick_event#"></td>
+				<td>
+					<input
+						<cfif desettings.relpick_event is 1>checked="checked"</cfif>
+						type="checkbox" value="#desettings.relpick_event#"
+						onchange="saveCheck(this.id,this.checked)">
+					</td>
 			</tr>
 		</table>
 	</form>
