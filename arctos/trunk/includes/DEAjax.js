@@ -2,7 +2,7 @@ function getRelatedData(id) {
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
-	bgDiv.setAttribute('onclick','closeCust()');
+	bgDiv.setAttribute('onclick','closegetRelatedData()');
 	document.body.appendChild(bgDiv);
 	var popDiv=document.createElement('div');
 	popDiv.id = 'popDiv';
@@ -11,7 +11,7 @@ function getRelatedData(id) {
 	var cDiv=document.createElement('div');
 	cDiv.className = 'fancybox-close';
 	cDiv.id='cDiv';
-	cDiv.setAttribute('onclick','closeCust()');
+	cDiv.setAttribute('onclick','closegetRelatedData()');
 	$("#popDiv").append(cDiv);
 	$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
 	var theFrame = document.createElement('iFrame');
@@ -25,6 +25,16 @@ function getRelatedData(id) {
 	$("#popDiv").append(theFrame);
 }
 
+function closegetRelatedData() {
+	$('#bgDiv').remove();
+	$('#bgDiv', window.parent.document).remove();
+	$('#popDiv').remove();
+	$('#popDiv', window.parent.document).remove();
+	$('#cDiv').remove();
+	$('#cDiv', window.parent.document).remove();
+	$('#theFrame').remove();
+	$('#theFrame', window.parent.document).remove();
+}
 function copyBeganEnded() {
 	$("#ended_date").val($("#began_date").val());
 }
