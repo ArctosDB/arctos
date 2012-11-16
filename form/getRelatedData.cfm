@@ -37,8 +37,9 @@
 			collectors
 		from
 			flat,
-			coll_obj_other_id_num (+)
+			coll_obj_other_id_num
 		where
+			flat.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and
 			upper(guid)='#ucase(idtype)#:#ucase(trim(idval))#' or
 			(
 				coll_obj_other_id_num.other_id_type='#idtype#' and
