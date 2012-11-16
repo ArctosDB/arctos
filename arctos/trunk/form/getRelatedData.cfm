@@ -1,6 +1,23 @@
-<cfquery name="d" datasource="uam_god">
-	select * from flat where upper(guid)='#ucase(idtype)#:#ucase(idval)#'
-</cfquery>
+<cfinclude template="/includes/alwaysInclude.cfm">
+	<cfquery name="desettings" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			relpick_event,
+			relpick_locality,
+			cf_dataentry_settings
+ 		from cf_dataentry_settings where username='#session.username#'
+	</cfquery>
+	<cfquery name="d" datasource="uam_god">
+		select * from flat where upper(guid)='#ucase(idtype)#:#ucase(idval)#'
+	</cfquery>
+
+	<form name="setting">
+		<table border>
+			<tr>
+				<td>Event (collecting_event_id)</td>
+				<td><input type="checkbox" value="#desettings.relpick_event#"></td>
+			</tr>
+		</table>
+	</form>
 <cfdump var=#d#>
 
 i am getRelatedData
@@ -17,7 +34,6 @@ create or replace public synonym cf_dataentry_settings for cf_dataentry_settings
 grant all on cf_dataentry_settings to data_entry;
 
 ---->
-<cfinclude template="/includes/alwaysInclude.cfm">
 
 
 <script>
