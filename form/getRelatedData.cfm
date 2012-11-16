@@ -21,7 +21,7 @@
 			var co=$("#relpick_collector").val();
 
 
-					console.log('ev= ' + ev);
+		//console.log('ev= ' + ev);
 
 			evv=$("#cevid_" + id).val();
 			lov=$("#locid_" + id).val();
@@ -47,9 +47,9 @@
 				cary=cov.split(',');
 
 				$.each(cary, function(key, value) {
-					console.log(key + ': ' + value);
+					//console.log(key + ': ' + value);
 					var thisKey=key+1;
-					console.log('thisKey= ' + thisKey);
+					//console.log('thisKey= ' + thisKey);
 					parent.jQuery("#collector_agent_" + thisKey).val(value);
 
 				});
