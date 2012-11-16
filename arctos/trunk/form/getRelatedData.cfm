@@ -42,7 +42,7 @@
 			upper(guid)='#ucase(idtype)#:#ucase(trim(idval))#' or
 			(
 				coll_obj_other_id_num.other_id_type='#idtype#' and
-				upper(coll_obj_other_id_num.display_value)='ucase(trim(#idval#))' and
+				upper(coll_obj_other_id_num.display_value)='ucase(trim(#idval#))'
 			)
 	</cfquery>
 	Save to Data Entry....
