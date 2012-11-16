@@ -922,8 +922,9 @@ function changeSex(sex) {
 	}
 }
 function switchActive(OrigUnits) {
-	
-	var OrigUnits=$("#orig_lat_long_units").val();
+	 if (typeof(OrigUnits) === 'undefined') {
+		 OrigUnits=$("#orig_lat_long_units").val();
+	 };
 	
 	console.log('switchActive@'+OrigUnits);
 	var a=document.getElementById('dms');
@@ -1462,7 +1463,7 @@ function unpickEvent() {
 	unpickLocality();
 }						
 function unpickLocality () {
-	switchActive($("#orig_lat_long_units").val());
+	switchActive();
 	
 	$("#higher_geog").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#spec_locality").attr("readOnly", false).removeClass().addClass('reqdClr');
