@@ -1,9 +1,9 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 	<script>
-		fucntion saveCheck (id, val) {
+		function saveCheck (id, val) {
 			alert(id);
-alert(val);
-}
+			alert(val);
+		}
 
 	</script>
 	<cfquery name="desettings" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
