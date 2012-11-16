@@ -1,3 +1,27 @@
+function getRelatedData(id) {
+	var bgDiv = document.createElement('div');
+	bgDiv.id = 'bgDiv';
+	bgDiv.className = 'bgDiv';
+	bgDiv.setAttribute('onclick','closeCust()');
+	document.body.appendChild(bgDiv);
+	var popDiv=document.createElement('div');
+	popDiv.id = 'popDiv';
+	popDiv.className = 'editAppBox';
+	document.body.appendChild(popDiv);	
+	var cDiv=document.createElement('div');
+	cDiv.className = 'fancybox-close';
+	cDiv.id='cDiv';
+	cDiv.setAttribute('onclick','closeCust()');
+	$("#popDiv").append(cDiv);
+	$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+	var theFrame = document.createElement('iFrame');
+	theFrame.id='theFrame';
+	theFrame.className = 'editFrame';
+	var ptl="/form/getRelatedData.cfm";
+	theFrame.src=ptl;
+	$("#popDiv").append(theFrame);
+}
+
 function copyBeganEnded() {
 	$("#ended_date").val($("#began_date").val());
 }
