@@ -1,5 +1,5 @@
 <cfquery name="d" datasource="uam_god">
-	select * from flat where guid='#idtype#:#idval#'
+	select * from flat where upper(guid)='#ucase(idtype)#:#ucase(idval)#'
 </cfquery>
 <cfdump var=#d#>
 
