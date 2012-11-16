@@ -16,9 +16,11 @@
 		}
 		function useThis(id,ev,lo,co) {
 			evv=$("#cevid_" + id).val();
+			console.log('ev='+ev);
 			if (ev==1){
 				// use event
 				$("#collecting_event_id").val(evv);
+
 			}
 
 
