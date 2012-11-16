@@ -40,6 +40,7 @@
 				$.each(cary, function(key, value) {
 					console.log(key + ': ' + value);
 					var thisKey=key+1>
+					console.log('thisKey= ' + thisKey);
 					parent.jQuery("#collector_agent_" + thisKey).val(value);
 
 				});
