@@ -82,7 +82,7 @@ jQuery(document).ready(function() {
 	}
 	pickedLocality();
 	
-	    $('#theTable').sortable();
+	    $('#theTable' tbody).sortable();
 });
 function padzero(n) {
 	return n < 10 ? '0' + n : n;
