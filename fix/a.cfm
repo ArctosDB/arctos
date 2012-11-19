@@ -8,6 +8,7 @@
 	});
 </script>
 <table id="theTable" border>
+<tbody>
 	<tr>
 		<td>
 			<table border>
@@ -40,4 +41,5 @@
 			</table>
 		</td>
 	</tr>
+	</tbody>
 </table>
