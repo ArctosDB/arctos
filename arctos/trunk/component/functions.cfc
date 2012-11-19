@@ -1710,7 +1710,7 @@ saveDeSettings
 						'cloned from ' || guid,
 						'#session.username#',
 						ACCESSION,
-						'#scientific_name#',
+						scientific_name,
 						nature_of_id,
 						made_date,
 						COLLECTION_CDE,
