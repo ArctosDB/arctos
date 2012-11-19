@@ -82,7 +82,7 @@ jQuery(document).ready(function() {
 	}
 	pickedLocality();
 	
-	    $('#theTable table').draggable();
+	    $('#theTable table').draggable({ snap: true });
 });
 function padzero(n) {
 	return n < 10 ? '0' + n : n;
