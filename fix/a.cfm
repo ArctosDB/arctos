@@ -4,7 +4,7 @@
 <script>
 	jQuery(document).ready(function() {
 
-		    $('#theTable table').sortable();
+		    $('#theTable tbody table').sortable();
 	});
 </script>
 <table id="theTable" border>
