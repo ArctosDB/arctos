@@ -1,5 +1,4 @@
 <cfcomponent>
-saveDeSettings
 <cffunction name="saveDeSettings" access="remote">
 	   	<cfargument name="id" required="true" type="string">
 	   	<cfargument name="val" required="true" type="string">
