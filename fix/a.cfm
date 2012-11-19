@@ -4,7 +4,20 @@
 <script>
 	jQuery(document).ready(function() {
 
-		    $('#theTable tbody table').sortable();
+		    //$('#theTable tbody table').sortable();
+
+		    $('#theTable tbody').sortable({
+        helper: function (e, ui) {
+            ui.children().each(function () {
+                $(this).width($(this).width());
+            });
+            return ui;
+        },
+        scroll: true,
+        stop: function (event, ui) {
+            //SAVE YOUR SORT ORDER
+        }
+    }).disableSelection();
 	});
 </script>
 <table id="theTable" border>
