@@ -3,14 +3,14 @@ create table tacc_folder (
 	folder varchar2(255),
 	file_count number
 	);
-	
+
 create table tacc_check (
 	collection_object_id number,
 	barcode varchar2(255),
 	folder varchar2(255),
 	chkdate date default sysdate)
 	;
-	
+
 alter table tacc_check add status varchar2(255);
 
 
@@ -36,8 +36,8 @@ select folder from tacc_check where jpg_status='not_there'group by folder order 
 
 select collection_object_id from tacc_check where status='all_done' and jpg_status='all_done' and collection_object_id in (
 	select collection_object_id from tacc_check_dlm where status='all_done' and jpg_status is null);
-	
-	
+
+
 delete from tcb2 where barcode in ( select barcode from tcb2 having count(barcode) > 1 group by barcode);
 
 
@@ -62,7 +62,7 @@ select media_uri,replace(media_uri,'http://irods.tacc.teragrid.org:8000/UAF/','h
 media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 --->
 
-<cfsetting requesttimeout="600"> 
+<cfsetting requesttimeout="600">
 
 
 <cfoutput>
@@ -83,13 +83,13 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 		<cfquery name="izaplant" datasource="uam_god">
 			select collection_id from cataloged_item where collection_object_id=#collection_object_id#
 		</cfquery>
-		<cfif izaplant.collection_id is 6>
+		<cfif izaplant.collection_id is 6 or izaplant.collection_id is 40>
 			<cfquery name="dng_id" datasource="uam_god">
-				select 
-					media.media_id 
-				from 
+				select
+					media.media_id
+				from
 					media,
-					media_relations 
+					media_relations
 				where
 					media.media_id = media_relations.media_id and
 					media_relationship='shows cataloged_item' and
@@ -101,11 +101,11 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 					update tacc_check set jpg_status='bad_dng_id' where collection_object_id=#collection_object_id#
 				</cfquery>
 				<br>bad DNG:::::
-				select 
-					media.media_id 
-				from 
+				select
+					media.media_id
+				from
 					media,
-					media_relations 
+					media_relations
 				where
 					media.media_id = media_relations.media_id and
 					media_relationship='shows cataloged_item' and
@@ -118,10 +118,10 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 					<br>200: file exists (http://web.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg)
 					<cftransaction>
 							<cfquery name="ala" datasource="uam_god">
-								 select 
+								 select
 									decode(
 										ConcatSingleOtherId(cataloged_item.collection_object_id,'ALAAC'),
-											null, 
+											null,
 												decode(
 													ConcatSingleOtherId(cataloged_item.collection_object_id,'ISC: Ada Hayden Herbarium, Iowa State University'),
 													null,
@@ -145,7 +145,7 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 								<cfset preview_uri=''>
 							</cfif>
 							<cftry>
-								<cfquery name="media" datasource="uam_god">	
+								<cfquery name="media" datasource="uam_god">
 									insert into media (
 										media_id,
 										media_uri,
@@ -163,9 +163,9 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 								<cfif len(preview_uri) gt 0>
 									<cfquery name="prev_dngmedia" datasource="uam_god">
 										update media set preview_uri='#preview_uri#'
-										where preview_uri is null and 
+										where preview_uri is null and
 										media_id=#dng_id.media_id#
-									</cfquery>								
+									</cfquery>
 								</cfif>
 								<cfquery name="mr_cat" datasource="uam_god">
 									insert into media_relations (
@@ -227,13 +227,13 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 									update tacc_check set jpg_status='fail: #cfcatch.message#' where collection_object_id=#collection_object_id#
 								</cfquery>
 							</cfcatch>
-							</cftry>	
+							</cftry>
 						</cftransaction>
 				<cfelse><!--- status=200 --->
 					<br>no file (http://web.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg)
 					<cfquery name="spiffy" datasource="uam_god">
 						update tacc_check set jpg_status='not_there' where collection_object_id=#collection_object_id#
-					</cfquery>		
+					</cfquery>
 				</cfif><!--- status=200 --->
 			</cfif><!--- bad DNG ID --->
 		<cfelse>
