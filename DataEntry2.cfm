@@ -7,8 +7,8 @@
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
 --->
 
-<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 
 <script type='text/javascript' src='/includes/DEAjax.js'></script>
 <cf_showMenuOnly>
