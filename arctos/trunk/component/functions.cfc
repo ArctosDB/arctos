@@ -1698,42 +1698,37 @@ saveDeSettings
 					TAXON_NAME,
 					NATURE_OF_ID,
 					MADE_DATE,
-					IDENTIFICATION_REMARKS,
 					COLLECTION_CDE,
 					INSTITUTION_ACRONYM,
 					COLL_OBJECT_REMARKS,
-					COLLECTING_EVENT_ID
-				) (
-					select
+					COLLECTING_EVENT_ID,
+					SPECIMEN_EVENT_TYPE,
+					EVENT_ASSIGNED_BY_AGENT,
+					EVENT_ASSIGNED_DATE
+				) (	select
 						#key#,
-						'cloned from ' || guid_prefix || ':' || cat_num,
+						'cloned from ' || guid,
 						'#session.username#',
-						accn_number,
-						'#taxon_name#',
+						ACCESSION,
+						'#scientific_name#',
 						nature_of_id,
 						made_date,
-						IDENTIFICATION_REMARKS,
-						(select collection_cde from collection where collection_id=#collection_id#),
-						(select institution_acronym from collection where collection_id=#collection_id#),
-						COLL_OBJECT_REMARKS,
-						cataloged_item.COLLECTING_EVENT_ID
+						COLLECTION_CDE,
+						INSTITUTION_ACRONYM,
+						REMARKS,
+						COLLECTING_EVENT_ID,
+						SPECIMEN_EVENT_TYPE,
+						EVENT_ASSIGNED_BY_AGENT,
+						EVENT_ASSIGNED_DATE
 					from
-						cataloged_item,
-						collection,
-						identification,
-						coll_object,
-						COLL_OBJECT_REMARK,
-						accn
+						flat
 					where
-						cataloged_item.collection_id=collection.collection_id and
-						cataloged_item.ACCN_ID=accn.transaction_id and
-						cataloged_item.collection_object_id=identification.collection_object_id and
-						identification.accepted_id_fg=1 and
-						cataloged_item.collection_object_id=coll_object.collection_object_id and
-						cataloged_item.collection_object_id=COLL_OBJECT_REMARK.collection_object_id (+) and
-						cataloged_item.collection_object_id = #collection_object_id#
+						collection_object_id = #collection_object_id#
 				)
 			</cfquery>
+
+
+
 			<cfquery name="idby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
 					agent_name
