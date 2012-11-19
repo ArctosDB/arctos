@@ -30,6 +30,8 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 --->
 <cfsetting requesttimeout="6000">
 
+
+<!-------------------------- some functions to simplify things ----------------------------------->
 <cffunction name="getTnPath">
 	<cfargument name="inpStr" type="string" required="yes">
 	<cfset filename=listfirst(listlast(inpStr,"/"),".")>
@@ -105,6 +107,16 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 		<cfreturn "descr_not_found">
 	</cfif>
 </cffunction>
+
+
+<!-------------------------- some functions to simplify things ----------------------------------->
+
+
+
+
+
+
+
 <!----------------------------------------- nothing  --------------------------------------------->
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
 <cfif action is "nothing">
