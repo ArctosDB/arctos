@@ -20,6 +20,44 @@
     }).disableSelection();
 	});
 </script>
+
+
+	<table id="theTable" border>
+	<tbody>
+		<tr>
+			<td>
+				one
+			</td>
+		</tr>
+		<tr>
+			<td>
+				too
+			</td>
+		</tr>
+		<!----
+		<tr>
+			<td>
+				<table border>
+					<tr>
+						<td>i am table</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table border>
+					<tr>
+						<td>i am table</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		---->
+		</tbody>
+	</table>
+
+
+
+<!-----------
 <table id="theTable" border>
 <tbody>
 	<tr>
@@ -60,3 +98,5 @@
 	---->
 	</tbody>
 </table>
+
+----->
