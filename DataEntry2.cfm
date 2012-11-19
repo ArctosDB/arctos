@@ -107,7 +107,7 @@
 				institution_acronym
 		</cfquery>
 		Begin at....<br>
-		<form name="begin" method="post" action="DataEntry.cfm">
+		<form name="begin" method="post" action="DataEntry2.cfm">
 			<input type="hidden" name="action" value="editEnterData" />
 			<select name="collection_object_id" size="1">
 				<cfif theirLast.recordcount gt 0>
@@ -258,7 +258,7 @@
 				Page Loading....
 			</span>
 		</div>
-		<form name="dataEntry" method="post" action="DataEntry.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
+		<form name="dataEntry" method="post" action="DataEntry2.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
 			<input type="hidden" name="action" value="" id="action">
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
 			<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
