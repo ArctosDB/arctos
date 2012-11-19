@@ -81,6 +81,8 @@ jQuery(document).ready(function() {
 		window.attachEvent("onmessage", getGeolocate);
 	}
 	pickedLocality();
+	
+	    $('#theTable').sortable();
 });
 function padzero(n) {
 	return n < 10 ? '0' + n : n;
