@@ -565,9 +565,10 @@
 </cfif>
 <cfif action is "nothing">
 	<cfoutput>
+		<br>
 		When to use this form:
 		<ul>
-			<li>You have clean data with lots of missing homogenous default values.</li>
+			<li>You have otherwise-clean data with lots of missing homogenous default values.</li>
 		</ul>
 		When NOT to use this form:
 		<ul>
@@ -578,6 +579,7 @@
 				You have no idea what you're trying to do. (This form will mess up all your data at once.)
 			</li>
 		</ul>
+		All of these options may eat your browser on large datasets. Use with caution.
 		<ul>
 			<li>
 				<a href="BulkloaderStageCleanup.cfm?action=distinctValues">Show distinct values</a>
@@ -591,7 +593,7 @@
 	<li>
 		<a href="BulkloaderStageCleanup.cfm?action=ajaxGrid">Edit in AJAX grid</a>
 	</li>
-
+<li><a href="BulkloadSpecimens.cfm?action=checkStaged">check these records</a></li>
 
 		</ul>
 	</cfoutput>
