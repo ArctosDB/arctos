@@ -10,6 +10,16 @@
 		 function appendToSQL(l) {
 		 	$("#s").append (' ' + l);
 		 }
+		 function showExample(i) {
+		 	switch(i){
+	        	case 1:
+	           	 $("#s").val("enteredby='billybob'");
+	            break;
+	        case 2:
+	            $("#s").val("enteredby='billybob,\n accn='blah'");
+	            break;
+  		  }
+		 }
 </script>
 <!--------------------------------------------------------------------------------->
 <cfif action is "sql">
@@ -23,6 +33,15 @@
 							Whatever you enter in the box will be appended to "update bulkloader_stage set "
 							<br>
 							This isn't a great place to learn SQL - make sure you know what you're doing!
+							<br>Examples:
+							<ul>
+								<li>
+									<span class="likeLink" onclick="showExample(1)">set enteredby to "billybob"</span>
+								</li>
+	<li>
+										<span class="likeLink" onclick="showExample(1)">set enteredby to "billybob" and accn to "blah"</span>
+									</li>
+							</ul>
 					<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 						<input type="hidden" name="action" value="runSQL">
 						<label for="s">sql</label>
