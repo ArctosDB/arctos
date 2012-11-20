@@ -27,6 +27,22 @@
   		  }
 		 }
 </script>
+
+
+	<!--------------------------------------------------------------------------------->
+	<cfif action is "runSQL">
+		<cfoutput>
+				<cfset sql="update bulkloader_stage set collection_object_id=collection_object_id,#s#" />
+
+				<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					#preservesinglequotes(sql)#
+				</cfquery>
+				<cfdump var=#sql# />
+				<hr>
+				done -
+				<a href="BulkloaderStageCleanup.cfm?action=sql">back to sql</a>
+			</cfoutput>
+	</cfif>
 <!--------------------------------------------------------------------------------->
 <cfif action is "sql">
 	<cfoutput>
@@ -58,7 +74,8 @@
 					<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 						<input type="hidden" name="action" value="runSQL">
 						<label for="s">SQL: UPDATE bulkloader_stage SET ....</label>
-						<textarea name="s" id="s" rows="50" cols="90"></textarea>
+						<textarea name="s" id="s" rows="20" cols="90"></textarea>
+						<br><input type="submit" value="run SQL">
 					</form>
 				</td>
 				<td valign="top">
