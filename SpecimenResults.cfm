@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js'></script>
+<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js'></script>
 <cfif len(session.displayrows) is 0>
 	<cfset session.displayrows=20>
 </cfif>
@@ -18,12 +18,12 @@ jQuery( function($) {
 		var dval=$(this).attr('dval');
 		var theDiv = document.createElement('div');
 		theDiv.id = 'customDiv';
-		theDiv.className = 'customBox';		
+		theDiv.className = 'customBox';
 		document.body.appendChild(theDiv);
 		var guts = "/info/SpecimenResultsPrefs.cfm";
 		$('##customDiv').load(guts,{},function(){
 			viewport.init("##customDiv");
-		});		
+		});
 	});
 	$(".browseLink").live('click', function(e){
 		var bgDiv = document.createElement('div');
@@ -102,7 +102,7 @@ function removeHelpDiv() {
 </cfloop>
 <cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 <cfif len(session.CustomOtherIdentifier) gt 0>
-	<cfset basSelect = "#basSelect# 
+	<cfset basSelect = "#basSelect#
 		,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		'#session.CustomOtherIdentifier#' as myCustomIdType,
 		to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
@@ -128,17 +128,17 @@ function removeHelpDiv() {
 </cfif>
 <cfif ListContainsNoCase(session.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
-</cfif> 
+</cfif>
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "">
-	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">	
+	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
 
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="includes/SearchSql.cfm">
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
-	
+
 	<cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
 	<!--- require some actual searching --->
 	<cfset srchTerms="">
@@ -155,11 +155,11 @@ function removeHelpDiv() {
 	</cfif>
 	<!--- ... and abort if there's nothing left --->
 	<cfif len(srchTerms) is 0>
-		<CFSETTING ENABLECFOUTPUTONLY=0>			
-		<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
+		<CFSETTING ENABLECFOUTPUTONLY=0>
+		<font color="##FF0000" size="+2">You must enter some search criteria!</font>
 		<cfabort>
 	</cfif>
-<cfset thisTableName = "SearchResults_#left(session.sessionKey,10)#">	
+<cfset thisTableName = "SearchResults_#left(session.sessionKey,10)#">
 <!--- try to kill any old tables that they may have laying around --->
 <cftry>
 	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -203,28 +203,28 @@ function removeHelpDiv() {
 			<li>Check your form input, or use the Clear Form button to start over.</li>
 			<li>
 				If you searched by taxonomy, consult <a href="/TaxonomySearch.cfm" class="novisit">Arctos Taxonomy</a>.
-				Taxa are often synonymized and revised, and may not be consistent across collections. Previous Identifications, 
-				which are separate from the taxonomy used in Identifications, may be located using the scientific name 
+				Taxa are often synonymized and revised, and may not be consistent across collections. Previous Identifications,
+				which are separate from the taxonomy used in Identifications, may be located using the scientific name
 				"is/was/cited/related" option.
 			</li>
 			<li>
-				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, or use a substring match. 
+				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, or use a substring match.
 				Don't assume we've accurately or predictably recorded data.
 			</li>
 			<li>
 				 Not all specimens have coordinates - the spatial query tool will not locate all specimens.
 			</li>
 			<li>
-				Use dropdowns or partial word matches instead of text strings, which may be entered in unexpected ways. 
+				Use dropdowns or partial word matches instead of text strings, which may be entered in unexpected ways.
 				"Doe" is a good choice for a collector if "John P. Doe" didn't match anything, for example.
 			</li>
 			<li>
-				Read the documentation for individual search fields (click the title of the field to see documentation). 
+				Read the documentation for individual search fields (click the title of the field to see documentation).
 				Arctos fields may not be what you expect them to be.
 			</li>
 			<li>
-				<a href="/googlesearch.cfm">Try our Google search</a>. Not everything in Arctos 
-				is indexed in Google, but it may provide a starting point to locate specific items.  		
+				<a href="/googlesearch.cfm">Try our Google search</a>. Not everything in Arctos
+				is indexed in Google, but it may provide a starting point to locate specific items.
 			</li>
 			<li>
 				<a href="/contact.cfm">Contact us</a> if you still can't find what you need. We'll help if we can.
@@ -281,7 +281,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
-<strong>#mappable.cnt#</strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with 
+<strong>#mappable.cnt#</strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with
 			<span class="controlButton"
 				onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 			<span class="controlButton"
@@ -291,7 +291,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			</span>
 			<a href="bnhmMaps/kml.cfm">Google Earth/Maps</a>
 			<a href="SpecimenResultsHTML.cfm?#mapurl#" class="infoLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a>
-			&nbsp;&nbsp;&nbsp;<a class="infoLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>	
+			&nbsp;&nbsp;&nbsp;<a class="infoLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
 <div style="border:2px solid blue;" id="ssControl">
 <cfif isdefined("transaction_id")>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
@@ -327,7 +327,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<cfloop list="#resultList#" index="i">
 					<option <cfif #session.result_sort# is #i#>selected="selected" </cfif>value="#i#">#i#</option>
 				</cfloop>
-			</select>			
+			</select>
 		</td>
 		<td>
 			<label for="orderBy2">...then order by</label>
@@ -364,7 +364,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<span id="removeChecked"
 				style="display:none;"
 				class="controlButton redButton"
-				onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>	
+				onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
@@ -382,7 +382,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 				onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
 		</td>
 		<td nowrap="nowrap">
-			<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
+			<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
 				<label for="goWhere">Manage...</label>
 				<select name="goWhere" id="goWhere" size="1">
 					<option value="">::Change Stuff::</option>
@@ -409,18 +409,18 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/addAccn.cfm">
 						Accession
 					</option>
-					
+
 					<option value="/tools/bulkPart.cfm">
 						Modify Parts
 					</option>
-					
+
 					<option value="">::Print Stuff::</option>
 					<option value="/Reports/report_printer.cfm?report=uam_mamm_vial">
 						UAM Mammals Vial Labels
 					</option>
 					<option value="/Reports/report_printer.cfm?report=uam_mamm_box">
 						UAM Mammals Box Labels
-					</option>					
+					</option>
 					<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
 						MSB Mammals Vial Labels
 					</option>
