@@ -21,6 +21,9 @@
 	        case 3:
 	            $("#s").val("enteredby='billybob',\naccn='blah'\nattribute_determiner_1=collector_agent_1");
 	            break;
+	         case 4:
+	            $("#s").val("enteredby='billybob',\naccn='blah'\nattribute_determiner_1=collector_agent_1\nWHERE\ntaxon_name LIKE 'Sorex %'");
+	            break;
   		  }
 		 }
 </script>
@@ -36,21 +39,25 @@
 							Whatever you enter in the box will be appended to "update bulkloader_stage set "
 							<br>
 							This isn't a great place to learn SQL - make sure you know what you're doing!
-							<br>Examples:
+							<br>Examples: update.....
 							<ul>
 								<li>
-									<span class="likeLink" onclick="showExample(1)">set enteredby to "billybob"</span>
+									<span class="likeLink" onclick="showExample(1)"><strong>enteredby</strong> to "billybob"</span>
 								</li>
 	<li>
-										<span class="likeLink" onclick="showExample(2)">set enteredby to "billybob" and accn to "blah"</span>
+										<span class="likeLink" onclick="showExample(2)"><strong>enteredby</strong> to "billybob"; <strong>accn</strong> to "blah"</span>
 									</li>
 	<li>
-											<span class="likeLink" onclick="showExample(3)">set enteredby to "billybob," accn to "blah," and ATTRIBUTE_DETERMINER_1 to COLLECTOR_AGENT_1</span>
+											<span class="likeLink" onclick="showExample(3)"><strong>enteredby</strong> to "billybob," <strong>accn</strong> to "blah," and <strong>attribute_determined_1</strong> to <em>collector_agent_1</em></span>
 										</li>
+	<li>
+	<span class="likeLink" onclick="showExample(4)"><strong>enteredby</strong> to "billybob," <strong>accn</strong> to "blah," and <strong>attribute_determined_1</strong> to <em>collector_agent_1</em>
+	where <strong>taxon_name</strong> starts with "Sorex "</span>
+											</li>
 							</ul>
 					<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 						<input type="hidden" name="action" value="runSQL">
-						<label for="s">sql</label>
+						<label for="s">SQL: UPDATE bulkloader_stage SET ....</label>
 						<textarea name="s" id="s" rows="50" cols="50"></textarea>
 					</form>
 				</td>
