@@ -58,7 +58,7 @@
 					<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 						<input type="hidden" name="action" value="runSQL">
 						<label for="s">SQL: UPDATE bulkloader_stage SET ....</label>
-						<textarea name="s" id="s" rows="50" cols="50"></textarea>
+						<textarea name="s" id="s" rows="50" cols="90"></textarea>
 					</form>
 				</td>
 				<td valign="top">
