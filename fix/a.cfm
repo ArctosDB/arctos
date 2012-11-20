@@ -11,7 +11,7 @@
 
 
 
-<table id="theTable" border>
+<table id="theTable" border cellspacing="10">
 	<tr>
 		<td>
 			<div class="draggy">
