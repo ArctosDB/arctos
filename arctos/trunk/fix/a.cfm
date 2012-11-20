@@ -13,6 +13,10 @@
 	    float: left;
 	}
 	.draggy {border:2px solid red;}
+
+[draggable=true] {
+  -khtml-user-drag: element;
+}
 </style>
 
 	<div id="columns">
