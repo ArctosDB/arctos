@@ -1,24 +1,3 @@
-	<cfif action is "showDistinct">
-			<cfoutput>
-				Distinct values of #col#
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select #col# data,count(*) c from bulkloader_stage group by #col# order by #col#
-			</cfquery>
-			<table border>
-				<tr>
-					<th>#col#</th>
-					<th>##</th>
-				</tr>
-				<cfloop query="d">
-					<tr>
-						<td>#data#</td>
-						<td>#c#</td>
-					</tr>
-				</cfloop>
-			</table>
-			</cfoutput>
-		</cfif>
-
 
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkloader Stage Cleanup" />
@@ -56,7 +35,7 @@
 		function getDistinct(col){
 		$('#distHere').append('<img src="/images/indicator.gif">');
 
-			var ptl="/Bulkloader/BulkloaderStageCleanup.cfm?action=showDistinct&col=" + col;
+			var ptl="/ajax/bulk_stage_distinct.cfm?col=" + col;
 
 			jQuery.get(ptl, function(data){
 				 jQuery('#distHere').html(data);
