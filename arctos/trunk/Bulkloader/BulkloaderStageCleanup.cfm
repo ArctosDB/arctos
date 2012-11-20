@@ -31,7 +31,14 @@
 				<cfloop list="#d.columnList#" index="colname">
 					<tr>
 						<td>#colname#</td>
-						<td>....</td>
+						<cfquery name="thisDistinct" dbtype="query">
+							select #colname# cval from d group by #colname#
+						</cfquery>
+						<td>
+							<cfloop query="thisDistinct">
+								<br>#cval#
+							</cfloop>
+						</td>
 					</tr>
 				</cfloop>
 			</table>
