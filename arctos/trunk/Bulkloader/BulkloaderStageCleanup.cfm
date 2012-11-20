@@ -40,6 +40,7 @@
 				</cfif>
 			</cfloop>
 		</cfquery>
+		<cfdump var=#update#>
 		<hr>
 		done -
 		<a href="BulkloaderStageCleanup.cfm?action=updateCommonDefaults">back to update defaults</a>
