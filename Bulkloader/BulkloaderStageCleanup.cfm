@@ -1,3 +1,13 @@
+	<cfif action is "showDistinct">
+			<cfoutput>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select #col# from bulkloader_stage group by #col# order by #col#
+			</cfquery>
+			<cfdump var=#d#>
+			</cfoutput>
+		</cfif>
+
+
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkloader Stage Cleanup" />
 <cfif action is "distinctValues">
@@ -25,14 +35,7 @@
 		</table>
 	</cfoutput>
 </cfif>
-	<cfif action is "showDistinct">
-		<cfoutput>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select #col# from bulkloader_stage group by #col# order by #col#
-		</cfquery>
-		<cfdump var=#d#>
-		</cfoutput>
-	</cfif>
+
 <cfif action is "runUpdate">
 	<cfoutput><cfdump var=#form# /></cfoutput>
 </cfif>
