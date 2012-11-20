@@ -15,7 +15,7 @@
 	.draggy {border:2px solid red;}
 </style>
 
-	<div class="left">
+
 
 		<div class="draggy">
 					11111
@@ -25,8 +25,7 @@
 		<div class="draggy">
 						22222
 					</div>
-	</div>
-	<div class="right">
+
 	<div class="draggy">
 							33333
 						</div>
@@ -37,10 +36,11 @@
 
 
 
-	</div>
 <!----
 
-
+	<div class="left"></div>
+	<div class="right">
+	</div>
 
 
 	<div class="left">
