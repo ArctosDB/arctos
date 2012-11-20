@@ -397,6 +397,7 @@
 					</td>
 				</tr>
 			</table>
+			<input type="submit" value="update everything">
 		</form>
 	</cfoutput>
 </cfif>
@@ -424,17 +425,5 @@
 			</li>
 		</ul>
 	</cfoutput>
-</cfif>
-<cfif action is "runsql">
-	<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update bulkloader_stage set collection_object_id=collection_object_id
-		<cfif len(ENTEREDBY) gt 0>
-			,ENTEREDBY='#ENTEREDBY#'
-		</cfif>
-		where 1=1
-		<cfif ENTEREDBY_CRIT is "NULL">
-			and ENTEREDBY is null
-		</cfif>
-	</cfquery>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
