@@ -36,7 +36,7 @@
 		<cfquery name="ctnature_of_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select nature_of_id from ctnature_of_id order by nature_of_id
 		</cfquery>
-
+<cfdump var=#ctnature_of_id#>
 		<hr>
 		select something to update ALL rows in bulkloader stage to the selected value.
 
