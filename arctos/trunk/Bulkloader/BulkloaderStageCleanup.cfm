@@ -29,16 +29,20 @@
 <!--------------------------------------------------------------------------------->
 <cfif action is "runUpdate">
 	<cfoutput>
-		update bulkloader_stage set collection_object_id=collection_object_id
-		<cfloop list="#form.fieldnames#" index="f">
-			<cfif f is not "ACTION">
-				<cfset thisValue=evaluate(f)>
-				<cfif len(thisValue) gt 0>
-					,#f#='#thisValue#'
+		<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update bulkloader_stage set collection_object_id=collection_object_id
+			<cfloop list="#form.fieldnames#" index="f">
+				<cfif f is not "ACTION">
+					<cfset thisValue=evaluate(f) />
+					<cfif len(thisValue) gt 0>
+						,#f#='#thisValue#'
+					</cfif>
 				</cfif>
-			</cfif>
-		</cfloop>
-	<hr>done - <a href="BulkloaderStageCleanup.cfm?action=updateCommonDefaults">back to update defaults</a>
+			</cfloop>
+		</cfquery>
+		<hr>
+		done -
+		<a href="BulkloaderStageCleanup.cfm?action=updateCommonDefaults">back to update defaults</a>
 	</cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------->
@@ -48,7 +52,7 @@
 			$('#distHere').append('<img src="/images/indicator.gif">');
 			var ptl="/ajax/bulk_stage_distinct.cfm?col=" + col;
 			jQuery.get(ptl, function(data){ jQuery('#distHere').html(data); })
-		}
+		 }
 	</script>
 	<cfoutput>
 		<cfquery name="ctnature_of_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
