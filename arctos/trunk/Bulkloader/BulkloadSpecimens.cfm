@@ -3,13 +3,13 @@
 <cfif action is "nothing">
 	<h2>Bulkloading Specimens</h2>
 	<p>
-		This web-based specimen bulkloader will handle a few thousand records. 
+		This web-based specimen bulkloader will handle a few thousand records.
 	</p>
 	<p>
 		If that won't work, split your load into smaller files or contact a DBA. We're happy to help, and can load files of any size.
 	</p>
 	<p>
-		You may create your own templates with the <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a>. This is the only valid place to 
+		You may create your own templates with the <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a>. This is the only valid place to
 		find bulkloader fields. It is not static: That year-old template probably won't work.
 	</p>
 	<p>
@@ -19,22 +19,23 @@
 	<p>
 		Documentation, including field definitions, is at <a href="https://arctosdb.wordpress.com/how-to/create/bulkloader/">Bulkloader Docs</a>
 	</p>
-	
+
 	<p>
-		<a href="/Bulkloader/BulkloadSpecimens.cfm?action=validate">validate</a>
+		<a href="/Bulkloader/BulkloadSpecimens.cfm?action=validate">validate</a> whatever's in the bulkloader staging table
 	</p>
 	<p>
-		<a href="/Bulkloader/BulkloadSpecimens.cfm?action=delete">delete</a>
+		<a href="/Bulkloader/BulkloadSpecimens.cfm?action=delete">delete</a> everything from the bulkloader staging table
+		(or just load new data to delete)
 	</p>
-	
+
 	<cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			enteredby,
 			collection_cde,
 			institution_acronym,
 			collection_id,
 			max(ENTEREDTOBULKDATE) last_enter_date
-		from 
+		from
 			bulkloader_stage
 		group by
 			enteredby,
@@ -47,7 +48,7 @@
 			There is nothing in the staging table. You are free to proceed.
 		<cfelse>
 			<p>
-				This is a single-user application. There are data in the staging table. Don't be a jerk. 
+				This is a single-user application. There are data in the staging table. Don't be a jerk.
 			</p>
 			<p>
 				If dates are recent, someone's probably working in here. Talk to them. They may be done, or they may be in the middle of a load.
@@ -69,7 +70,7 @@
 				</tr>
 				<cfloop query="whatsThere">
 						<cfquery name="cid" datasource="uam_god">
-							select 
+							select
 								ADDRESS
 							from
 								electronic_address,
@@ -89,7 +90,7 @@
 								</cfif>
 						</cfquery>
 						<cfquery name="enteredbyRealName" datasource="uam_god">
-							select 
+							select
 								preferred_agent_name.agent_name
 							from
 								preferred_agent_name,
@@ -99,7 +100,7 @@
 								agent_name.agent_name='#enteredby#'
 						</cfquery>
 						<cfquery name="eid" datasource="uam_god">
-							select 
+							select
 								ADDRESS
 							from
 								electronic_address,
@@ -110,8 +111,8 @@
 								agent_name='#enteredby#'
 						</cfquery>
 						<cfquery name="coln" datasource="uam_god">
-							select 
-								collection 
+							select
+								collection
 							from
 								collection
 							where
@@ -164,12 +165,37 @@
 <!------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
+
+	Seeing errors? Here are some common causes and their solution. <a href="/contact.cfm">Let us know</a> if you find more problems and/or solutions.
+
+	<ul>
+		<li>
+			<strong>not enough values</strong>: Excel hates you, and has served up invalid CSV. Columns with trailing NULL values have
+			been lopped off. Select all colums to the right of your data, and delete them. Select all columns under your data and delete tehm.
+			Save as CSV.
+		</li>
+		<li><strong>SOME_RANDOM_STRING: invalid identifier</strong>: You've made up a column name. See BulkloaderBuilder.
+			Check your headers for spaces, commas, etc.
+		</li>
+		<LI><strong>duplicate column name</strong>: You got all carried away with the sheer joy of copypasta, and have the same column name entered twice.
+		Hopefully with identical values.... </LI>
+		<li>
+			<strong>"{triangle-question-mark-thingees}{some column name}": invalid identifier</strong>. Excel hates you, and has chosen to ignore the <a href="http://en.wikipedia.org/wiki/Byte_order_mark"
+				>BOM</a>, which was probably there to signify a UTF8 file, which might have contained UTF8 data - which Excel will not support. Check your headers, check your
+				data, consider using a different application.
+		</li>
+		<li>
+			<strong>invalid user.table.column, table.column, or column specification </strong>. You've made up a column name. See BulkloaderBuilder.
+			Check for NULL column names, and periods or other punctuation in column names.
+		</li>
+	</ul>
+
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from bulkloader_stage
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
-	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -183,7 +209,7 @@
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -200,7 +226,7 @@
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) as cnt from bulkloader_stage
 	</cfquery>
-	There are #c.cnt# records in the <em><strong>staging</strong></em> table. 
+	There are #c.cnt# records in the <em><strong>staging</strong></em> table.
 	They have not been checked or processed yet.
 	<ul>
 		<li>
@@ -212,13 +238,18 @@
 		</li>
 		<li>
 			<a href="BulkloadSpecimens.cfm?action=loadAnyway" target="_self">Just load these records</a>.
-			Use this method if you wish to use Arctos' tools to fix any errors. Everything will go to the normal 
+			Use this method if you wish to use Arctos' tools to fix any errors. Everything will go to the normal
 			Bulkloader tables and be available via <a href="Bulkloader/browseBulk.cfm">the Browse Bulk</a> app.
 			You need a thorough understanding of Arctos' bulkloader tools and great confidence in your data
-			to use this application. Misuse can result in 
+			to use this application. Misuse can result in
 			a huge mess in the Bulkloader, which may require sorting out record by record.
 		</li>
-	</ul>	
+
+		<li>
+			<a href="BulkloaderStageCleanup.cfm" target="_self">Cleanup</a>.
+			Fill in the blanks and stuff.
+		</li>
+	</ul>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
@@ -241,7 +272,7 @@
 	</cfquery>
 	Your records have been checked and are now in table Bulkloader and flagged as
 		loaded='BULKLOADED RECORD'. A data administrator can un-flag
-		and load them.	
+		and load them.
 	<p><a href="BulkloadSpecimens.cfm?action=delete">please delete from the staging table</a></p>
 </cfoutput>
 </cfif>
@@ -260,7 +291,7 @@
 	<cfif anyBads.cnt gt 0>
 		<cfinclude template="getBulkloaderStageRecs.cfm">
 		<p>
-			#anyBads.cnt# of #allData.cnt# records will not successfully load. 
+			#anyBads.cnt# of #allData.cnt# records will not successfully load.
 		</p>
 		<p>
 			<a href="/download/bulkloader_stage.csv">download data with errors</a>
