@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkloader Stage Cleanup" />
-<a href="/BulkloaderStageCleanup.cfm">[ cleanup home ]</a>
+<a href="BulkloaderStageCleanup.cfm">[ cleanup home ]</a>
 	<script>
 		function getDistinct(col){
 				$('#distHere').append('<img src="/images/indicator.gif">');
