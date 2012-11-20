@@ -3,7 +3,7 @@
 <cfif action is "distinctValues">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from bulkloader_stage
+			select * from bulkloader_stage where 1=2
 		</cfquery>
 		<table border>
 			<tr>
@@ -25,10 +25,30 @@
 		</table>
 	</cfoutput>
 </cfif>
+	<cfif action is "showDistinct">
+		<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select #col# from bulkloader_stage group by #col# order by #col#
+		</cfquery>
+		<cfdump var=#d#>
+		</cfoutput>
+	</cfif>
 <cfif action is "runUpdate">
 	<cfoutput><cfdump var=#form# /></cfoutput>
 </cfif>
 <cfif action is "updateCommonDefaults">
+	<script>
+		function getDistinct(col){
+		$('#distHere').append('<img src="/images/indicator.gif">');
+
+			var ptl="/Bulkloader/BulkloaderStageCleanup.cfm?action=showDistinct&col=" + col;
+
+			jQuery.get(ptl, function(data){
+				 jQuery('#distHere').html(data);
+			})
+		}
+	</script>
+
 	<cfoutput>
 		<cfquery name="ctnature_of_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select nature_of_id from ctnature_of_id order by nature_of_id
@@ -67,6 +87,7 @@
 		select something to update ALL rows in bulkloader stage to the selected value.
 		<br>
 		Mess it up? Reload your text file.
+		<div id="distHere"></div>
 		<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 			<input type="hidden" name="action" value="runUpdate">
 			<table border>
@@ -75,7 +96,7 @@
 					<th>UpdateTo (leave blank to ignore)</th>
 				</tr>
 				<tr>
-					<td>ENTEREDBY</td>
+					<td>ENTEREDBY <span class="likeLink" onclick="getDistinct('ENTEREDBY')">[ Show Distinct ]</span></td>
 					<td>
 						<select name="ENTEREDBY" id="ENTEREDBY">
 							<option value=""></option>
