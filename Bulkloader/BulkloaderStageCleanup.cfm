@@ -24,10 +24,10 @@
 		</ul>
 		<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 			<table border>
-				<th>
-					<td>Column Name</td>
-					<td>Distinct Values</td>
-				</th>
+				<tr>
+					<th>Column Name</th>
+					<th>Distinct Values</th>
+				</tr>
 				<cfloop list="#d.columnList#" index="colname">
 					<tr>
 						<td>#colname#</td>
