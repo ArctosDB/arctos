@@ -12,16 +12,17 @@
 	.left {
 	    float: left;
 	}
+	.draggy {border:2px solid red;}
 </style>
 
 	<div class="left">
 
-	<div class="draggy">
+		<div class="draggy">
 					11111
 				</div>
 
 
-	<div class="draggy">
+		<div class="draggy">
 						22222
 					</div>
 	</div>
