@@ -10,74 +10,51 @@
 </script>
 
 
-	<table id="theTable" border>
 
-		<tr>
-			<td>
+<table id="theTable" border>
+	<tr>
+		<td>
 			<div class="draggy">
 				<table border>
 					<tr>
-						<td>i am table</td>
+						<td>i am table1</td>
 					</tr>
 				</table>
-	</div>
-			</td>
-			<td>
-	<div class="draggy">
-
-				<table border>
-					<tr>
-						<td>i am table</td>
-					</tr>
-				</table>
-	</div>
-
-			</td>
-		</tr>
-	</table>
-
-
-
-<!-----------
-<table id="theTable" border>
-<tbody>
-	<tr>
-		<td>
-			<table border>
-				<tr>
-					<td>i am table1</td>
-				</tr>
-			</table>
+			</div>
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<table border>
-				<tr>
-					<td>i am table2</td>
-				</tr>
-			</table>
+			<div class="draggy">
+					<table border>
+						<tr>
+							<td>i am table2</td>
+						</tr>
+					</table>
+				</div>
 		</td>
 	</tr>
-	<!----
-	<tr>
-		<td>
-			<table border>
-				<tr>
-					<td>i am table</td>
-				</tr>
-			</table>
-		</td>
-		<td>
-			<table border>
-				<tr>
-					<td>i am table</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	---->
-	</tbody>
+		<tr>
+				<td>
+					<div class="draggy">
+						<table border>
+							<tr>
+								<td>i am table3</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="draggy">
+							<table border>
+								<tr>
+									<td>i am table4</td>
+								</tr>
+							</table>
+						</div>
+				</td>
+			</tr>
 </table>
 
------>
