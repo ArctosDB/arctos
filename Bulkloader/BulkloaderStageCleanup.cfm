@@ -34,9 +34,11 @@
 <cfif action is "updateCommonDefaults">
 	<script>
 		function getDistinct(col){
-		$('#distHere').append('
-	<img src="/images/indicator.gif">
-	'); var ptl="/ajax/bulk_stage_distinct.cfm?col=" + col; jQuery.get(ptl, function(data){ jQuery('#distHere').html(data); }) } </script>
+			$('#distHere').append('<img src="/images/indicator.gif">');
+			var ptl="/ajax/bulk_stage_distinct.cfm?col=" + col;
+			jQuery.get(ptl, function(data){ jQuery('#distHere').html(data); })
+		}
+	</script>
 	<cfoutput>
 		<cfquery name="ctnature_of_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select nature_of_id from ctnature_of_id order by nature_of_id
