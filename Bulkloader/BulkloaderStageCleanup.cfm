@@ -9,7 +9,7 @@
 					<th>#col#</th>
 					<th>##</th>
 				</tr>
-				<cfloop query="">
+				<cfloop query="d">
 					<tr>
 						<td>#data#</td>
 						<td>#c#</td>
