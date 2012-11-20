@@ -66,7 +66,7 @@
 				NATURE_OF_ID=
 				<select name="NATURE_OF_ID" id="NATURE_OF_ID">
 					<option value=""></option>
-					<cfloop query="nature_of_id">
+					<cfloop query="ctnature_of_id">
 						<option value="#nature_of_id#">#nature_of_id#</option>
 					</cfloop>
 				</select>
