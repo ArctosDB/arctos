@@ -1,6 +1,6 @@
-
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkloader Stage Cleanup" />
+<!--------------------------------------------------------------------------------->
 <cfif action is "distinctValues">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -26,23 +26,17 @@
 		</table>
 	</cfoutput>
 </cfif>
-
+<!--------------------------------------------------------------------------------->
 <cfif action is "runUpdate">
 	<cfoutput><cfdump var=#form# /></cfoutput>
 </cfif>
+<!--------------------------------------------------------------------------------->
 <cfif action is "updateCommonDefaults">
 	<script>
 		function getDistinct(col){
-		$('#distHere').append('<img src="/images/indicator.gif">');
-
-			var ptl="/ajax/bulk_stage_distinct.cfm?col=" + col;
-
-			jQuery.get(ptl, function(data){
-				 jQuery('#distHere').html(data);
-			})
-		}
-	</script>
-
+		$('#distHere').append('
+	<img src="/images/indicator.gif">
+	'); var ptl="/ajax/bulk_stage_distinct.cfm?col=" + col; jQuery.get(ptl, function(data){ jQuery('#distHere').html(data); }) } </script>
 	<cfoutput>
 		<cfquery name="ctnature_of_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select nature_of_id from ctnature_of_id order by nature_of_id
@@ -78,9 +72,8 @@
 			select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 		</cfquery>
 		<hr>
-		select something to update ALL rows in bulkloader stage to the selected value.
 		<br>
-		Mess it up? Reload your text file.
+		This form will happily replace all your good values with garbage. There is no finesse. (Load to bulkloader and use SQL browse/edit option.) Reload your text file and start over if you muck it up.
 		<div id="distHere" style="border:2px solid red">results of "show distinct" go here</div>
 		<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 			<input type="hidden" name="action" value="runUpdate">
@@ -90,7 +83,10 @@
 					<th>UpdateTo (leave blank to ignore)</th>
 				</tr>
 				<tr>
-					<td>ENTEREDBY <span class="likeLink" onclick="getDistinct('ENTEREDBY')">[ Show Distinct ]</span></td>
+					<td>
+						ENTEREDBY
+						<span class="likeLink" onclick="getDistinct('ENTEREDBY')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="ENTEREDBY" id="ENTEREDBY">
 							<option value=""></option>
@@ -99,7 +95,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>NATURE_OF_ID <span class="likeLink" onclick="getDistinct('NATURE_OF_ID')">[ Show Distinct ]</span></td>
+					<td>
+						NATURE_OF_ID
+						<span class="likeLink" onclick="getDistinct('NATURE_OF_ID')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="NATURE_OF_ID" id="NATURE_OF_ID">
 							<option value=""></option>
@@ -110,7 +109,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>ID_MADE_BY_AGENT <span class="likeLink" onclick="getDistinct('ID_MADE_BY_AGENT')">[ Show Distinct ]</span></td>
+					<td>
+						ID_MADE_BY_AGENT
+						<span class="likeLink" onclick="getDistinct('ID_MADE_BY_AGENT')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="ID_MADE_BY_AGENT" id="ID_MADE_BY_AGENT">
 							<option value=""></option>
@@ -155,7 +157,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>ORIG_LAT_LONG_UNITS</td>
+					<td>
+						ORIG_LAT_LONG_UNITS
+						<span class="likeLink" onclick="getDistinct('ORIG_LAT_LONG_UNITS')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="VERBATIM_LOCALITY" id="VERBATIM_LOCALITY">
 							<option value=""></option>
@@ -166,7 +171,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>DATUM</td>
+					<td>
+						DATUM
+						<span class="likeLink" onclick="getDistinct('DATUM')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="VERBATIM_LOCALITY" id="VERBATIM_LOCALITY">
 							<option value=""></option>
@@ -177,14 +185,20 @@
 					</td>
 				</tr>
 				<tr>
-					<td>GEOREFERENCE_SOURCE <span class="likeLink" onclick="getDistinct('GEOREFERENCE_SOURCE')">[ Show Distinct ]</span></td>
+					<td>
+						GEOREFERENCE_SOURCE
+						<span class="likeLink" onclick="getDistinct('GEOREFERENCE_SOURCE')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<input type="text" name="GEOREFERENCE_SOURCE" id="GEOREFERENCE_SOURCE">
 						(don't know anything? Use "unknown".)
 					</td>
 				</tr>
 				<tr>
-					<td>MAX_ERROR_UNITS</td>
+					<td>
+						MAX_ERROR_UNITS
+						<span class="likeLink" onclick="getDistinct('MAX_ERROR_UNITS')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="MAX_ERROR_UNITS" id="MAX_ERROR_UNITS">
 							<option value=""></option>
@@ -195,7 +209,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>GEOREFERENCE_PROTOCOL</td>
+					<td>
+						GEOREFERENCE_PROTOCOL
+						<span class="likeLink" onclick="getDistinct('GEOREFERENCE_PROTOCOL')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="GEOREFERENCE_PROTOCOL" id="GEOREFERENCE_PROTOCOL">
 							<option value=""></option>
@@ -215,7 +232,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>EVENT_ASSIGNED_DATE</td>
+					<td>
+						EVENT_ASSIGNED_DATE
+						<span class="likeLink" onclick="getDistinct('EVENT_ASSIGNED_DATE')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="EVENT_ASSIGNED_DATE" id="EVENT_ASSIGNED_DATE">
 							<option value=""></option>
@@ -224,7 +244,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>VERIFICATIONSTATUS</td>
+					<td>
+						VERIFICATIONSTATUS
+						<span class="likeLink" onclick="getDistinct('VERIFICATIONSTATUS')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="VERIFICATIONSTATUS" id="VERIFICATIONSTATUS">
 							<option value=""></option>
@@ -236,7 +259,10 @@
 				</tr>
 				<cfloop from="1" to="8" index="x">
 					<tr>
-						<td>COLLECTOR_ROLE_#x#</td>
+						<td>
+							COLLECTOR_ROLE_#x#
+							<span class="likeLink" onclick="getDistinct('COLLECTOR_ROLE_#x#')">[ Show Distinct ]</span>
+						</td>
 						<td>
 							<select name="COLLECTOR_ROLE_#x#" id="COLLECTOR_ROLE_#x#">
 								<option value=""></option>
@@ -247,7 +273,10 @@
 					</tr>
 				</cfloop>
 				<tr>
-					<td>COLLECTION_CDE</td>
+					<td>
+						COLLECTION_CDE
+						<span class="likeLink" onclick="getDistinct('COLLECTION_CDE')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="COLLECTION_CDE" id="COLLECTION_CDE">
 							<option value=""></option>
@@ -258,7 +287,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>INSTITUTION_ACRONYM</td>
+					<td>
+						INSTITUTION_ACRONYM
+						<span class="likeLink" onclick="getDistinct('INSTITUTION_ACRONYM')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="INSTITUTION_ACRONYM" id="INSTITUTION_ACRONYM">
 							<option value=""></option>
@@ -270,7 +302,10 @@
 				</tr>
 				<cfloop from="1" to="12" index="x">
 					<tr>
-						<td>PART_CONDITION_#x#</td>
+						<td>
+							PART_CONDITION_#x#
+							<span class="likeLink" onclick="getDistinct('PART_CONDITION_#x#')">[ Show Distinct ]</span>
+						</td>
 						<td>
 							<select name="PART_CONDITION_#x#" id="PART_CONDITION_#x#">
 								<option value=""></option>
@@ -279,7 +314,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td>PART_LOT_COUNT_#x#</td>
+						<td>
+							PART_LOT_COUNT_#x#
+							<span class="likeLink" onclick="getDistinct('PART_LOT_COUNT_#x#')">[ Show Distinct ]</span>
+						</td>
 						<td>
 							<select name="PART_LOT_COUNT_#x#" id="PART_LOT_COUNT_#x#">
 								<option value=""></option>
@@ -288,7 +326,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td>PART_DISPOSITION_#x#</td>
+						<td>
+							PART_DISPOSITION_#x#
+							<span class="likeLink" onclick="getDistinct('PART_DISPOSITION_#x#')">[ Show Distinct ]</span>
+						</td>
 						<td>
 							<select name="PART_DISPOSITION_#x#" id="PART_DISPOSITION_#x#">
 								<option value=""></option>
@@ -301,7 +342,10 @@
 				</cfloop>
 				<cfloop from="1" to="10" index="x">
 					<tr>
-						<td>ATTRIBUTE_DATE_#x#</td>
+						<td>
+							ATTRIBUTE_DATE_#x#
+							<span class="likeLink" onclick="getDistinct('ATTRIBUTE_DATE_#x#')">[ Show Distinct ]</span>
+						</td>
 						<td>
 							<select name="ATTRIBUTE_DATE_#x#" id="ATTRIBUTE_DATE_#x#">
 								<option value=""></option>
@@ -310,7 +354,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td>ATTRIBUTE_DETERMINER_#x#</td>
+						<td>
+							ATTRIBUTE_DETERMINER_#x#
+							<span class="likeLink" onclick="getDistinct('ATTRIBUTE_DETERMINER_#x#')">[ Show Distinct ]</span>
+						</td>
 						<td>
 							<select name="ATTRIBUTE_DETERMINER_#x#" id="ATTRIBUTE_DETERMINER_#x#">
 								<option value=""></option>
@@ -320,7 +367,10 @@
 					</tr>
 				</cfloop>
 				<tr>
-					<td>COLLECTING_SOURCE</td>
+					<td>
+						COLLECTING_SOURCE
+						<span class="likeLink" onclick="getDistinct('COLLECTING_SOURCE')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="COLLECTING_SOURCE" id="COLLECTING_SOURCE">
 							<option value=""></option>
@@ -331,7 +381,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>SPECIMEN_EVENT_TYPE</td>
+					<td>
+						SPECIMEN_EVENT_TYPE
+						<span class="likeLink" onclick="getDistinct('SPECIMEN_EVENT_TYPE')">[ Show Distinct ]</span>
+					</td>
 					<td>
 						<select name="SPECIMEN_EVENT_TYPE" id="SPECIMEN_EVENT_TYPE">
 							<option value=""></option>
@@ -382,3 +435,4 @@
 		</cfif>
 	</cfquery>
 </cfif>
+<cfinclude template="/includes/_footer.cfm">
