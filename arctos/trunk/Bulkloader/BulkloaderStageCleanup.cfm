@@ -16,7 +16,7 @@
 	           	 $("#s").val("enteredby='billybob'");
 	            break;
 	        case 2:
-	            $("#s").val("enteredby='billybob,\n accn='blah'");
+	            $("#s").val("enteredby='billybob', accn='blah'");
 	            break;
   		  }
 		 }
@@ -39,7 +39,7 @@
 									<span class="likeLink" onclick="showExample(1)">set enteredby to "billybob"</span>
 								</li>
 	<li>
-										<span class="likeLink" onclick="showExample(1)">set enteredby to "billybob" and accn to "blah"</span>
+										<span class="likeLink" onclick="showExample(2)">set enteredby to "billybob" and accn to "blah"</span>
 									</li>
 							</ul>
 					<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
