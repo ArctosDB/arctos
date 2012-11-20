@@ -81,7 +81,7 @@
 		select something to update ALL rows in bulkloader stage to the selected value.
 		<br>
 		Mess it up? Reload your text file.
-		<div id="distHere"></div>
+		<div id="distHere" style="border:2px solid red">results of "show distinct" go here</div>
 		<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 			<input type="hidden" name="action" value="runUpdate">
 			<table border>
