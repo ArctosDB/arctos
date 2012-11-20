@@ -296,9 +296,12 @@
 		<p>
 			<a href="/download/bulkloader_stage.csv">download data with errors</a>
 		</p>
+			<p>
+						<a href="BulkloaderStageCleanup.cfm">fix/view with Arctos tools</a>
+					</p>
 		<p>
 			Click <a href="bulkloaderLoader.cfm?action=loadAnyway">here</a> to load them to the
-			bulkloader anyway. Use Arctos to fix them up and load them.
+			bulkloader anyway.
 		</p>
 	<cfelse>
 		<cftransaction >
