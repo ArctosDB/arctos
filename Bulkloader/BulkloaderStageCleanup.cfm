@@ -1,9 +1,21 @@
 	<cfif action is "showDistinct">
 			<cfoutput>
+				Distinct values of #col#
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select #col# from bulkloader_stage group by #col# order by #col#
+				select #col# data,count(*) c from bulkloader_stage group by #col# order by #col#
 			</cfquery>
-			<cfdump var=#d#>
+			<table border>
+				<tr>
+					<th>#col#</th>
+					<th>##</th>
+				</tr>
+				<cfloop query="">
+					<tr>
+						<td>#data#</td>
+						<td>#c#</td>
+					</tr>
+				</cfloop>
+			</table>
 			</cfoutput>
 		</cfif>
 
