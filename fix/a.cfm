@@ -4,55 +4,36 @@
 <script>
 	jQuery(document).ready(function() {
 
-		    //$('#theTable tbody table').sortable();
+		    $('.draggy').sortable();
 
-		    $('#theTable tbody').sortable({
-        helper: function (e, ui) {
-            ui.children().each(function () {
-                $(this).width($(this).width());
-            });
-            return ui;
-        },
-        scroll: true,
-        stop: function (event, ui) {
-            //SAVE YOUR SORT ORDER
-        }
-    }).disableSelection();
-	});
+
 </script>
 
 
 	<table id="theTable" border>
-	<tbody>
+
 		<tr>
 			<td>
-				one
-			</td>
-		</tr>
-		<tr>
-			<td>
-				too
-			</td>
-		</tr>
-		<!----
-		<tr>
-			<td>
+			<div class="draggy">
 				<table border>
 					<tr>
 						<td>i am table</td>
 					</tr>
 				</table>
+	</div>
 			</td>
 			<td>
+	<div class="draggy">
+
 				<table border>
 					<tr>
 						<td>i am table</td>
 					</tr>
 				</table>
+	</div>
+
 			</td>
 		</tr>
-		---->
-		</tbody>
 	</table>
 
 
