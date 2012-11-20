@@ -18,6 +18,9 @@
 	        case 2:
 	            $("#s").val("enteredby='billybob',\naccn='blah'");
 	            break;
+	        case 3:
+	            $("#s").val("enteredby='billybob',\naccn='blah'\nattribute_determiner_1=collector_agent_1");
+	            break;
   		  }
 		 }
 </script>
@@ -41,6 +44,9 @@
 	<li>
 										<span class="likeLink" onclick="showExample(2)">set enteredby to "billybob" and accn to "blah"</span>
 									</li>
+	<li>
+											<span class="likeLink" onclick="showExample(3)">set enteredby to "billybob," accn to "blah," and ATTRIBUTE_DETERMINER_1 to COLLECTOR_AGENT_1</span>
+										</li>
 							</ul>
 					<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 						<input type="hidden" name="action" value="runSQL">
