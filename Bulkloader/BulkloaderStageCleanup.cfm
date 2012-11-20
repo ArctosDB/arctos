@@ -16,7 +16,7 @@
 	           	 $("#s").val("enteredby='billybob'");
 	            break;
 	        case 2:
-	            $("#s").val("enteredby='billybob',\n accn='blah'");
+	            $("#s").val("enteredby='billybob',\naccn='blah'");
 	            break;
   		  }
 		 }
