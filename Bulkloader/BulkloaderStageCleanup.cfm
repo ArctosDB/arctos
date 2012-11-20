@@ -99,7 +99,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>NATURE_OF_ID</td>
+					<td>NATURE_OF_ID <span class="likeLink" onclick="getDistinct('NATURE_OF_ID')">[ Show Distinct ]</span></td>
 					<td>
 						<select name="NATURE_OF_ID" id="NATURE_OF_ID">
 							<option value=""></option>
@@ -110,7 +110,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>ID_MADE_BY_AGENT</td>
+					<td>ID_MADE_BY_AGENT <span class="likeLink" onclick="getDistinct('ID_MADE_BY_AGENT')">[ Show Distinct ]</span></td>
 					<td>
 						<select name="ID_MADE_BY_AGENT" id="ID_MADE_BY_AGENT">
 							<option value=""></option>
@@ -177,7 +177,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>GEOREFERENCE_SOURCE</td>
+					<td>GEOREFERENCE_SOURCE <span class="likeLink" onclick="getDistinct('GEOREFERENCE_SOURCE')">[ Show Distinct ]</span></td>
 					<td>
 						<input type="text" name="GEOREFERENCE_SOURCE" id="GEOREFERENCE_SOURCE">
 						(don't know anything? Use "unknown".)
