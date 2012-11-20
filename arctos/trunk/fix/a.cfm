@@ -7,6 +7,18 @@
 		    $('div.draggy').draggable();
 
 });
+
+var dragItems = document.querySelectorAll('[draggable=true]');
+
+for (var i = 0; i < dragItems.length; i++) {
+  addEvent(dragItems[i], 'dragstart', function (event) {
+    // store the ID of the element, and collect it on the drop later on
+
+    event.dataTransfer.setData('Text', this.id);
+  });
+}
+
+
 </script>
 <style>
 	.left {
