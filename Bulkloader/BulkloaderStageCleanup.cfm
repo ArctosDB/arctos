@@ -30,7 +30,7 @@
 <cfif action is "runUpdate">
 	<cfoutput>
 		update bulkloader_stage set
-		<cfloop list="form.fieldnames" index="f">
+		<cfloop list="#form.fieldnames#" index="f">
 			<cfset thisValue=evaluate(f)>
 			<cfif len(thisValue) gt 0>
 				,#f#='#thisValue#'
