@@ -29,14 +29,17 @@
 <!--------------------------------------------------------------------------------->
 <cfif action is "runUpdate">
 	<cfoutput>
-		update bulkloader_stage set
+		update bulkloader_stage set collection_object_id=collection_object_id
 		<cfloop list="#form.fieldnames#" index="f">
-			<cfset thisValue=evaluate(f)>
-			<cfif len(thisValue) gt 0>
-				,#f#='#thisValue#'
+			<cfif f is not "ACTION">
+				<cfset thisValue=evaluate(f)>
+				<cfif len(thisValue) gt 0>
+					,#f#='#thisValue#'
+				</cfif>
 			</cfif>
 		</cfloop>
-		<cfdump var=#form# /></cfoutput>
+	<hr>done - <a href="BulkloaderStageCleanup.cfm?action=updateCommonDefaults">back to update defaults</a>
+	</cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------->
 <cfif action is "updateCommonDefaults">
