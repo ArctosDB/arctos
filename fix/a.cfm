@@ -15,7 +15,11 @@
 	.draggy {border:2px solid red;}
 </style>
 
-
+	<div id="columns">
+	  <div class="column" draggable="true"><header>A</header></div>
+	  <div class="column" draggable="true"><header>B</header></div>
+	  <div class="column" draggable="true"><header>C</header></div>
+	</div>
 
 		<div class="draggy">
 					11111
