@@ -14,28 +14,29 @@
 <!--------------------------------------------------------------------------------->
 <cfif action is "sql">
 	<cfoutput>
-		<table>
+		<table width="100%">
 			<tr>
 				<td valign="top">
 					<div id="distHere" style="border:2px solid red;">results of "show distinct" go here</div>
+	Write your own SQL.
+							<br>
+							Whatever you enter in the box will be appended to "update bulkloader_stage set "
+							<br>
+							This isn't a great place to learn SQL - make sure you know what you're doing!
 					<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 						<input type="hidden" name="action" value="runSQL">
-						Write your own SQL.
-						<br>
-						Whatever you enter in the box will be appended to "update bulkloader_stage set "
-						<br>
-						This isn't a great place to learn SQL - make sure you know what you're doing!
+						<label for="s">sql</label>
 						<textarea name="s" id="s" rows="50" cols="50"></textarea>
 					</form>
 				</td>
-				<td>
+				<td valign="top">
 					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select * from bulkloader_stage where 1=2
 					</cfquery>
-					<div style="max-height:200px;overflow:auto;">
+					<div style="max-height:600px;overflow:auto;">
 						<cfloop list="#d.columnList#" index="l">
 							<br>
-							#l# (
+							#l#
 							<span class="infoLink" onclick="appendToSQL('#l#')">append to SQL box</span>
 							~
 							<span class="infoLink" onclick="getDistinct('#l#')">distinct</span>
