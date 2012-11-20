@@ -4,7 +4,7 @@
 <script>
 	jQuery(document).ready(function() {
 
-		    $('div.draggy').sortable();
+		    $('div.draggy').draggable();
 
 });
 </script>
