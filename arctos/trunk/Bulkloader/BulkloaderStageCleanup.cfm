@@ -156,7 +156,7 @@
 <cfif action is "distinctValues">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from bulkloader_stage where 1=2
+			select * from bulkloader_stage
 		</cfquery>
 		<table border>
 			<tr>
