@@ -6,7 +6,7 @@
 
 		    $('.draggy').sortable();
 
-
+});
 </script>
 
 
