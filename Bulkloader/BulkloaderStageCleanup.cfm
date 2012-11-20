@@ -19,7 +19,7 @@
 	<cfoutput>
 			<table>
 				<tr>
-					<td>
+					<td valign="top">
 
 	<div id="distHere" style="border:2px solid red">results of "show distinct" go here</div>
 
@@ -39,9 +39,11 @@
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select * from bulkloader_stage where 1=2
 					</cfquery>
+					<div style="height:200;overflow:auto">
 					<cfloop list="#d.columnList#" index="l">
 						<br>#l# (<span class="infoLink" onclick="appendToSQL('#l#')">append to SQL box</span> ~ <span class="infoLink" onclick="getDistinct('#l#')">distinct</span>
 					</cfloop>
+						</div>
 					</td>
 				</tr>
 			</table>
