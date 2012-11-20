@@ -36,6 +36,33 @@
 		<cfquery name="ctLAT_LONG_UNITS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by orig_lat_long_units
 		</cfquery>
+		<cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select datum from ctdatum order by datum
+		</cfquery>
+		<cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by lat_long_error_units
+		</cfquery>
+		<cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
+		</cfquery>
+		<cfquery name="ctverificationstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select verificationstatus from ctverificationstatus order by verificationstatus
+		</cfquery>
+		<cfquery name="ctCOLLECTION_CDE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select COLLECTION_CDE from COLLECTION group by COLLECTION_CDE order by COLLECTION_CDE
+		</cfquery>
+		<cfquery name="ctinstitution_acronym" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select institution_acronym from COLLECTION group by institution_acronym order by institution_acronym
+		</cfquery>
+		<cfquery name="CTCOLL_OBJ_DISP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by coll_obj_DISPOSITION
+		</cfquery>
+		<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select collecting_source from ctcollecting_source order by collecting_source
+		</cfquery>
+		<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select specimen_event_type from ctspecimen_event_type order by specimen_event_type
+		</cfquery>
 		<hr>
 		select something to update ALL rows in bulkloader stage to the selected value.
 		<br>
@@ -115,38 +142,192 @@
 				<tr>
 					<td>ORIG_LAT_LONG_UNITS</td>
 					<td>
-						<cfloop query="ctLAT_LONG_UNITS">
-							<option value="#ORIG_LAT_LONG_UNITS#">#ORIG_LAT_LONG_UNITS#</option>
-						</cfloop>
+						<select name="VERBATIM_LOCALITY" id="VERBATIM_LOCALITY">
+							<option value=""></option>
+							<cfloop query="ctLAT_LONG_UNITS">
+								<option value="#ORIG_LAT_LONG_UNITS#">#ORIG_LAT_LONG_UNITS#</option>
+							</cfloop>
+						</select>
 					</td>
 				</tr>
-				<tr><td>
-					</td>
+				<tr>
+					<td>DATUM</td>
 					<td>
-					</td></tr>
-				<tr><td>
+						<select name="VERBATIM_LOCALITY" id="VERBATIM_LOCALITY">
+							<option value=""></option>
+							<cfloop query="ctdatum"><option value="#datum#">
+									#datum#
+								</option></cfloop>
+						</select>
 					</td>
+				</tr>
+				<tr>
+					<td>GEOREFERENCE_SOURCE</td>
 					<td>
-					</td></tr>
-				<tr><td>
+						<input type="text" name="GEOREFERENCE_SOURCE" id="GEOREFERENCE_SOURCE">
+						(don't know anything? Use "unknown".)
 					</td>
+				</tr>
+				<tr>
+					<td>MAX_ERROR_UNITS</td>
 					<td>
-					</td></tr>
-				<tr><td>
+						<select name="MAX_ERROR_UNITS" id="MAX_ERROR_UNITS">
+							<option value=""></option>
+							<cfloop query="cterror">
+								<option value="#LAT_LONG_ERROR_UNITS#">#LAT_LONG_ERROR_UNITS#</option>
+							</cfloop>
+						</select>
 					</td>
+				</tr>
+				<tr>
+					<td>GEOREFERENCE_PROTOCOL</td>
 					<td>
-					</td></tr>
-				<tr><td>
+						<select name="GEOREFERENCE_PROTOCOL" id="GEOREFERENCE_PROTOCOL">
+							<option value=""></option>
+							<cfloop query="ctgeoreference_protocol">
+								<option value="#georeference_protocol#">#georeference_protocol#</option>
+							</cfloop>
+						</select>
 					</td>
+				</tr>
+				<tr>
+					<td>EVENT_ASSIGNED_BY_AGENT</td>
 					<td>
-					</td></tr>
-				<tr><td>
+						<select name="EVENT_ASSIGNED_BY_AGENT" id="EVENT_ASSIGNED_BY_AGENT">
+							<option value=""></option>
+							<option value="collector_agent_1">{collector_agent_1}</option>
+						</select>
 					</td>
+				</tr>
+				<tr>
+					<td>EVENT_ASSIGNED_DATE</td>
 					<td>
-					</td></tr>
+						<select name="EVENT_ASSIGNED_DATE" id="EVENT_ASSIGNED_DATE">
+							<option value=""></option>
+							<option value="verbatim_date">{verbatim_date}</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>VERIFICATIONSTATUS</td>
+					<td>
+						<select name="VERIFICATIONSTATUS" id="VERIFICATIONSTATUS">
+							<option value=""></option>
+							<cfloop query="ctverificationstatus">
+								<option value="#verificationstatus#">#verificationstatus#</option>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
+				<cfloop from="1" to="8" index="x">
+					<tr>
+						<td>COLLECTOR_ROLE_#x#</td>
+						<td>
+							<select name="COLLECTOR_ROLE_#x#" id="COLLECTOR_ROLE_#x#">
+								<option value=""></option>
+								<option value="c">c</option>
+								<option value="p">p</option>
+							</select>
+						</td>
+					</tr>
+				</cfloop>
+				<tr>
+					<td>COLLECTION_CDE</td>
+					<td>
+						<select name="COLLECTION_CDE" id="COLLECTION_CDE">
+							<option value=""></option>
+							<cfloop query="ctCOLLECTION_CDE">
+								<option value="#COLLECTION_CDE#">#COLLECTION_CDE#</option>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>INSTITUTION_ACRONYM</td>
+					<td>
+						<select name="INSTITUTION_ACRONYM" id="INSTITUTION_ACRONYM">
+							<option value=""></option>
+							<cfloop query="ctinstitution_acronym">
+								<option value="#institution_acronym#">#institution_acronym#</option>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
+				<cfloop from="1" to="12" index="x">
+					<tr>
+						<td>PART_CONDITION_#x#</td>
+						<td>
+							<select name="PART_CONDITION_#x#" id="PART_CONDITION_#x#">
+								<option value=""></option>
+								<option value="unchecked">unchecked</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>PART_LOT_COUNT_#x#</td>
+						<td>
+							<select name="PART_LOT_COUNT_#x#" id="PART_LOT_COUNT_#x#">
+								<option value=""></option>
+								<option value="1">1</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>PART_DISPOSITION_#x#</td>
+						<td>
+							<select name="PART_DISPOSITION_#x#" id="PART_DISPOSITION_#x#">
+								<option value=""></option>
+								<cfloop query="CTCOLL_OBJ_DISP">
+									<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
+								</cfloop>
+							</select>
+						</td>
+					</tr>
+				</cfloop>
+				<cfloop from="1" to="10" index="x">
+					<tr>
+						<td>ATTRIBUTE_DATE_#x#</td>
+						<td>
+							<select name="ATTRIBUTE_DATE_#x#" id="ATTRIBUTE_DATE_#x#">
+								<option value=""></option>
+								<option value="began_date">{began_date}</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>ATTRIBUTE_DETERMINER_#x#</td>
+						<td>
+							<select name="ATTRIBUTE_DETERMINER_#x#" id="ATTRIBUTE_DETERMINER_#x#">
+								<option value=""></option>
+								<option value="collector_agent_1">{collector_agent_1}</option>
+							</select>
+						</td>
+					</tr>
+				</cfloop>
+				<tr>
+					<td>COLLECTING_SOURCE</td>
+					<td>
+						<select name="COLLECTING_SOURCE" id="COLLECTING_SOURCE">
+							<option value=""></option>
+							<cfloop query="ctcollecting_source">
+								<option value="#collecting_source#">#collecting_source#</option>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>SPECIMEN_EVENT_TYPE</td>
+					<td>
+						<select name="SPECIMEN_EVENT_TYPE" id="SPECIMEN_EVENT_TYPE">
+							<option value=""></option>
+							<cfloop query="ctspecimen_event_type">
+								<option value="#specimen_event_type#">#specimen_event_type#</option>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
 			</table>
 		</form>
-		,,HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY,,DEC_LAT,DEC_LONG,LATDEG,DEC_LAT_MIN,LATMIN,LATSEC,LATDIR,LONGDEG,DEC_LONG_MIN,LONGMIN,LONGSEC,LONGDIR,DATUM,GEOREFERENCE_SOURCE,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,GEOREFERENCE_PROTOCOL,EVENT_ASSIGNED_BY_AGENT,EVENT_ASSIGNED_DATE,VERIFICATIONSTATUS,MAXIMUM_ELEVATION,MINIMUM_ELEVATION,ORIG_ELEV_UNITS,LOCALITY_REMARKS,HABITAT,COLL_EVENT_REMARKS,COLLECTOR_AGENT_1,COLLECTOR_ROLE_1,COLLECTOR_AGENT_2,COLLECTOR_ROLE_2,COLLECTOR_AGENT_3,COLLECTOR_ROLE_3,COLLECTOR_AGENT_4,COLLECTOR_ROLE_4,COLLECTOR_AGENT_5,COLLECTOR_ROLE_5,COLLECTOR_AGENT_6,COLLECTOR_ROLE_6,COLLECTOR_AGENT_7,COLLECTOR_ROLE_7,COLLECTOR_AGENT_8,COLLECTOR_ROLE_8,COLLECTION_CDE,INSTITUTION_ACRONYM,FLAGS,COLL_OBJECT_REMARKS,OTHER_ID_NUM_2,OTHER_ID_NUM_TYPE_2,OTHER_ID_NUM_3,OTHER_ID_NUM_TYPE_3,OTHER_ID_NUM_4,OTHER_ID_NUM_TYPE_4,PART_NAME_1,PART_CONDITION_1,PART_BARCODE_1,PART_CONTAINER_LABEL_1,PART_LOT_COUNT_1,PART_DISPOSITION_1,PART_REMARK_1,PART_NAME_2,PART_CONDITION_2,PART_BARCODE_2,PART_CONTAINER_LABEL_2,PART_LOT_COUNT_2,PART_DISPOSITION_2,PART_REMARK_2,PART_NAME_3,PART_CONDITION_3,PART_BARCODE_3,PART_CONTAINER_LABEL_3,PART_LOT_COUNT_3,PART_DISPOSITION_3,PART_REMARK_3,PART_NAME_4,PART_CONDITION_4,PART_BARCODE_4,PART_CONTAINER_LABEL_4,PART_LOT_COUNT_4,PART_DISPOSITION_4,PART_REMARK_4,PART_NAME_5,PART_CONDITION_5,PART_BARCODE_5,PART_CONTAINER_LABEL_5,PART_LOT_COUNT_5,PART_DISPOSITION_5,PART_REMARK_5,PART_NAME_6,PART_CONDITION_6,PART_BARCODE_6,PART_CONTAINER_LABEL_6,PART_LOT_COUNT_6,PART_DISPOSITION_6,PART_REMARK_6,PART_NAME_7,PART_CONDITION_7,PART_BARCODE_7,PART_CONTAINER_LABEL_7,PART_LOT_COUNT_7,PART_DISPOSITION_7,PART_REMARK_7,PART_NAME_8,PART_CONDITION_8,PART_BARCODE_8,PART_CONTAINER_LABEL_8,PART_LOT_COUNT_8,PART_DISPOSITION_8,PART_REMARK_8,PART_NAME_9,PART_CONDITION_9,PART_BARCODE_9,PART_CONTAINER_LABEL_9,PART_LOT_COUNT_9,PART_DISPOSITION_9,PART_REMARK_9,PART_NAME_10,PART_CONDITION_10,PART_BARCODE_10,PART_CONTAINER_LABEL_10,PART_LOT_COUNT_10,PART_DISPOSITION_10,PART_REMARK_10,PART_NAME_11,PART_CONDITION_11,PART_BARCODE_11,PART_CONTAINER_LABEL_11,PART_LOT_COUNT_11,PART_DISPOSITION_11,PART_REMARK_11,PART_NAME_12,PART_CONDITION_12,PART_BARCODE_12,PART_CONTAINER_LABEL_12,PART_LOT_COUNT_12,PART_DISPOSITION_12,PART_REMARK_12,ATTRIBUTE_1,ATTRIBUTE_VALUE_1,ATTRIBUTE_UNITS_1,ATTRIBUTE_REMARKS_1,ATTRIBUTE_DATE_1,ATTRIBUTE_DET_METH_1,ATTRIBUTE_DETERMINER_1,ATTRIBUTE_2,ATTRIBUTE_VALUE_2,ATTRIBUTE_UNITS_2,ATTRIBUTE_REMARKS_2,ATTRIBUTE_DATE_2,ATTRIBUTE_DET_METH_2,ATTRIBUTE_DETERMINER_2,ATTRIBUTE_3,ATTRIBUTE_VALUE_3,ATTRIBUTE_UNITS_3,ATTRIBUTE_REMARKS_3,ATTRIBUTE_DATE_3,ATTRIBUTE_DET_METH_3,ATTRIBUTE_DETERMINER_3,ATTRIBUTE_4,ATTRIBUTE_VALUE_4,ATTRIBUTE_UNITS_4,ATTRIBUTE_REMARKS_4,ATTRIBUTE_DATE_4,ATTRIBUTE_DET_METH_4,ATTRIBUTE_DETERMINER_4,ATTRIBUTE_5,ATTRIBUTE_VALUE_5,ATTRIBUTE_UNITS_5,ATTRIBUTE_REMARKS_5,ATTRIBUTE_DATE_5,ATTRIBUTE_DET_METH_5,ATTRIBUTE_DETERMINER_5,ATTRIBUTE_6,ATTRIBUTE_VALUE_6,ATTRIBUTE_UNITS_6,ATTRIBUTE_REMARKS_6,ATTRIBUTE_DATE_6,ATTRIBUTE_DET_METH_6,ATTRIBUTE_DETERMINER_6,ATTRIBUTE_7,ATTRIBUTE_VALUE_7,ATTRIBUTE_UNITS_7,ATTRIBUTE_REMARKS_7,ATTRIBUTE_DATE_7,ATTRIBUTE_DET_METH_7,ATTRIBUTE_DETERMINER_7,ATTRIBUTE_8,ATTRIBUTE_VALUE_8,ATTRIBUTE_UNITS_8,ATTRIBUTE_REMARKS_8,ATTRIBUTE_DATE_8,ATTRIBUTE_DET_METH_8,ATTRIBUTE_DETERMINER_8,ATTRIBUTE_9,ATTRIBUTE_VALUE_9,ATTRIBUTE_UNITS_9,ATTRIBUTE_REMARKS_9,ATTRIBUTE_DATE_9,ATTRIBUTE_DET_METH_9,ATTRIBUTE_DETERMINER_9,ATTRIBUTE_10,ATTRIBUTE_VALUE_10,ATTRIBUTE_UNITS_10,ATTRIBUTE_REMARKS_10,ATTRIBUTE_DATE_10,ATTRIBUTE_DET_METH_10,ATTRIBUTE_DETERMINER_10,RELATIONSHIP,RELATED_TO_NUMBER,RELATED_TO_NUM_TYPE,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,COLLECTING_METHOD,COLLECTING_SOURCE,ASSOCIATED_SPECIES,LOCALITY_ID,UTM_ZONE,UTM_EW,UTM_NS,GEOLOGY_ATTRIBUTE_1,GEO_ATT_VALUE_1,GEO_ATT_DETERMINER_1,GEO_ATT_DETERMINED_DATE_1,GEO_ATT_DETERMINED_METHOD_1,GEO_ATT_REMARK_1,GEOLOGY_ATTRIBUTE_2,GEO_ATT_VALUE_2,GEO_ATT_DETERMINER_2,GEO_ATT_DETERMINED_DATE_2,GEO_ATT_DETERMINED_METHOD_2,GEO_ATT_REMARK_2,GEOLOGY_ATTRIBUTE_3,GEO_ATT_VALUE_3,GEO_ATT_DETERMINER_3,GEO_ATT_DETERMINED_DATE_3,GEO_ATT_DETERMINED_METHOD_3,GEO_ATT_REMARK_3,GEOLOGY_ATTRIBUTE_4,GEO_ATT_VALUE_4,GEO_ATT_DETERMINER_4,GEO_ATT_DETERMINED_DATE_4,GEO_ATT_DETERMINED_METHOD_4,GEO_ATT_REMARK_4,GEOLOGY_ATTRIBUTE_5,GEO_ATT_VALUE_5,GEO_ATT_DETERMINER_5,GEO_ATT_DETERMINED_DATE_5,GEO_ATT_DETERMINED_METHOD_5,GEO_ATT_REMARK_5,GEOLOGY_ATTRIBUTE_6,GEO_ATT_VALUE_6,GEO_ATT_DETERMINER_6,GEO_ATT_DETERMINED_DATE_6,GEO_ATT_DETERMINED_METHOD_6,GEO_ATT_REMARK_6,COLLECTING_EVENT_ID,SPECIMEN_EVENT_REMARK,SPECIMEN_EVENT_TYPE,COLLECTING_EVENT_NAME,LOCALITY_NAME
 	</cfoutput>
 </cfif>
 <cfif action is "nothing">
