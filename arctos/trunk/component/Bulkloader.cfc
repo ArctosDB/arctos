@@ -41,7 +41,7 @@
 	</cfif>
 	<cfreturn guri>
 </cffunction>
-<!----------------------------------------------------------------------------------------->	
+<!----------------------------------------------------------------------------------------->
 <cffunction name="geolocate" access="remote">
 	<cfargument name="geog" required="yes">
 	<cfargument name="specloc" required="yes">
@@ -116,15 +116,15 @@
 <cffunction name="loadRecord" access="remote">
 	<cfargument name="collection_object_id" required="yes">
 	<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
-			column_name 
-		from 
+		select
+			column_name
+		from
 			sys.user_tab_cols
-		where 
+		where
 			table_name='BULKLOADER'
-		and 
+		and
 			column_name not like '%$%'
-		order by 
+		order by
 			internal_column_id
 	</cfquery>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -143,7 +143,7 @@
 		</cfquery>
 	</cftransaction>
 	<cfquery name="next" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select #collection_object_id# oldValue, max(collection_object_id) nextValue from bulkloader 
+		select #collection_object_id# oldValue, max(collection_object_id) nextValue from bulkloader
 		where enteredby = '#session.username#'
 	</cfquery>
 	<cfreturn next>
@@ -199,7 +199,7 @@
 			</cfif>
 		</cfloop>
 		<cfset sql = "#SQL# where collection_object_id = #collection_object_id#">
-		<cfset sql = replace(sql,"UPDATE bulkloader SET ,","UPDATE bulkloader SET ")>			
+		<cfset sql = replace(sql,"UPDATE bulkloader SET ,","UPDATE bulkloader SET ")>
 		<cftry>
 			<cftransaction>
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -254,7 +254,7 @@
 		<cfset data=right(data,len(data)-1)>
 		<cfset flds = "collection_object_id,#flds#">
 		<cfset data = "bulkloader_PKEY.nextval,#data#">
-		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">	
+		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">
 		<cftry>
 			<cftransaction>
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -277,6 +277,27 @@
 		<cfreturn result>
 	</cfoutput>
 </cffunction>
+
+	<!----------------------------------------------------------------------------------------->
+	<cffunction name="getStagePage" access="remote">
+		<cfargument name="page" required="yes">
+	    <cfargument name="pageSize" required="yes">
+		<cfargument name="gridsortcolumn" required="yes">
+	    <cfargument name="gridsortdirection" required="yes">
+		<cfset startrow=page * pageSize>
+		<cfset stoprow=startrow + pageSize>
+		<cfif len(gridsortcolumn) is 0>
+			<cfset gridsortcolumn="collection_object_id">
+		</cfif>
+	<cfoutput>
+		<cfset sql="select * from bulkloader_stage where 1=1">
+		<cfset sql=sql & " order by #gridsortcolumn# #gridsortdirection#">
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+	</cfoutput>
+		      <cfreturn queryconvertforgrid(data,page,pagesize)/>
+	</cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="getPage" access="remote">
 	<cfargument name="page" required="yes">
@@ -324,4 +345,19 @@
 		</cfquery>
 	</cfoutput>
 </cffunction>
+
+	<!--------------------------------------->
+	<cffunction name="editStageRecord" access="remote">
+		<cfargument name="cfgridaction" required="yes">
+	    <cfargument name="cfgridrow" required="yes">
+		<cfargument name="cfgridchanged" required="yes">
+		<cfoutput>
+			<cfset colname = StructKeyList(cfgridchanged)>
+			<cfset value = cfgridchanged[colname]>
+			<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update bulkloader_stage set  #colname# = '#value#'
+				where collection_object_id=#cfgridrow.collection_object_id#
+			</cfquery>
+		</cfoutput>
+	</cffunction>
 </cfcomponent>

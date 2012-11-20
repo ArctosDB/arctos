@@ -1,48 +1,76 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkloader Stage Cleanup" />
 <a href="/BulkloaderStageCleanup.cfm">[ cleanup home ]</a>
-<script>
-	function getDistinct(col){
-			$('#distHere').append('<img src="/images/indicator.gif">');
-			var ptl="/ajax/bulk_stage_distinct.cfm?col=" + col;
-			jQuery.get(ptl, function(data){ jQuery('#distHere').html(data); })
-		 }
-		 function appendToSQL(l) {
-		 	$("#s").append (' ' + l);
-		 }
-		 function showExample(i) {
-		 	switch(i){
-	        	case 1:
-	           	 $("#s").val("enteredby='billybob'");
-	            break;
-	        case 2:
-	            $("#s").val("enteredby='billybob',\naccn='blah'");
-	            break;
-	        case 3:
-	            $("#s").val("enteredby='billybob',\naccn='blah'\nattribute_determiner_1=collector_agent_1");
-	            break;
-	         case 4:
-	            $("#s").val("enteredby='billybob',\naccn='blah',\nattribute_determiner_1=collector_agent_1\nWHERE\ntaxon_name LIKE 'Sorex %'");
-	            break;
-  		  }
-		 }
-</script>
+	<script>
+		function getDistinct(col){
+				$('#distHere').append('<img src="/images/indicator.gif">');
+				var ptl="/ajax/bulk_stage_distinct.cfm?col=" + col;
+				jQuery.get(ptl, function(data){ jQuery('#distHere').html(data); })
+			 }
+			 function appendToSQL(l) {
+			 	$("#s").append (' ' + l);
+			 }
+			 function showExample(i) {
+			 	switch(i){
+		        	case 1:
+		           	 $("#s").val("enteredby='billybob'");
+		            break;
+		        case 2:
+		            $("#s").val("enteredby='billybob',\naccn='blah'");
+		            break;
+		        case 3:
+		            $("#s").val("enteredby='billybob',\naccn='blah'\nattribute_determiner_1=collector_agent_1");
+		            break;
+		         case 4:
+		            $("#s").val("enteredby='billybob',\naccn='blah',\nattribute_determiner_1=collector_agent_1\nWHERE\ntaxon_name LIKE 'Sorex %'");
+		            break;
+	  		  }
+			 }
+	</script>
 
-
-	<!--------------------------------------------------------------------------------->
-	<cfif action is "runSQL">
-		<cfoutput>
-				<cfset sql="update bulkloader_stage set collection_object_id=collection_object_id,#s#" />
-
-				<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					#preservesinglequotes(sql)#
+		<cfif action is "ajaxGrid">
+			<cfoutput>
+				<cfquery name="cNames" datasource="uam_god">
+					select column_name from user_tab_cols where table_name='BULKLOADER_STAGE' and column_name not like '%$%'
+					order by internal_column_id
 				</cfquery>
-				<cfdump var=#sql# />
-				<hr>
-				done -
-				<a href="BulkloaderStageCleanup.cfm?action=sql">back to sql</a>
+				<cfset ColNameList = valuelist(cNames.column_name)>
+				<cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
+				<cfset args.width="1200">
+				<cfset args.height="600">
+				<cfset args.stripeRows = true>
+				<cfset args.selectColor = "##D9E8FB">
+				<cfset args.selectmode = "edit">
+				<cfset args.format="html">
+				<cfset args.onchange = "cfc:component.Bulkloader.editStageRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
+				<cfset args.bind="cfc:component.Bulkloader.getStagePage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection})">
+				<cfset args.name="blGrid">
+				<cfset args.pageSize="20">
+
+				<cfform method="post" action="BulkloaderStageCleanup.cfm">
+					<cfinput type="hidden" name="returnAction" value="ajaxGrid">
+					<cfinput type="hidden" name="action" value="saveGridUpdate">
+					<cfgrid attributeCollection="#args#">
+						<cfloop list="#ColNameList#" index="thisName">
+							<cfgridcolumn name="#thisName#">
+						</cfloop>
+					</cfgrid>
+				</cfform>
 			</cfoutput>
-	</cfif>
+		</cfif>
+<!--------------------------------------------------------------------------------->
+<cfif action is "runSQL">
+	<cfoutput>
+		<cfset sql="update bulkloader_stage set collection_object_id=collection_object_id,#s#" />
+		<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+		<cfdump var=#sql# />
+		<hr>
+		done -
+		<a href="BulkloaderStageCleanup.cfm?action=sql">back to sql</a>
+	</cfoutput>
+</cfif>
 <!--------------------------------------------------------------------------------->
 <cfif action is "sql">
 	<cfoutput>
@@ -50,32 +78,60 @@
 			<tr>
 				<td valign="top">
 					<div id="distHere" style="border:2px solid red;">results of "show distinct" go here</div>
-	Write your own SQL.
-							<br>
-							Whatever you enter in the box will be appended to "update bulkloader_stage set "
-							<br>
-							This isn't a great place to learn SQL - make sure you know what you're doing!
-							<br>Examples: update.....
-							<ul>
-								<li>
-									<span class="likeLink" onclick="showExample(1)"><strong>enteredby</strong> to "billybob"</span>
-								</li>
-	<li>
-										<span class="likeLink" onclick="showExample(2)"><strong>enteredby</strong> to "billybob"; <strong>accn</strong> to "blah"</span>
-									</li>
-	<li>
-											<span class="likeLink" onclick="showExample(3)"><strong>enteredby</strong> to "billybob," <strong>accn</strong> to "blah," and <strong>attribute_determined_1</strong> to <em>collector_agent_1</em></span>
-										</li>
-	<li>
-	<span class="likeLink" onclick="showExample(4)"><strong>enteredby</strong> to "billybob," <strong>accn</strong> to "blah," and <strong>attribute_determined_1</strong> to <em>collector_agent_1</em>
-	where <strong>taxon_name</strong> starts with "Sorex "</span>
-											</li>
-							</ul>
+					Write your own SQL.
+					<br>
+					Whatever you enter in the box will be appended to "update bulkloader_stage set "
+					<br>
+					This isn't a great place to learn SQL - make sure you know what you're doing!
+					<br>
+					Examples: update.....
+					<ul>
+						<li>
+							<span class="likeLink" onclick="showExample(1)">
+								<strong>enteredby</strong>
+								to "billybob"
+							</span>
+						</li>
+						<li>
+							<span class="likeLink" onclick="showExample(2)">
+								<strong>enteredby</strong>
+								to "billybob";
+								<strong>accn</strong>
+								to "blah"
+							</span>
+						</li>
+						<li>
+							<span class="likeLink" onclick="showExample(3)">
+								<strong>enteredby</strong>
+								to "billybob,"
+								<strong>accn</strong>
+								to "blah," and
+								<strong>attribute_determined_1</strong>
+								to
+								<em>collector_agent_1</em>
+							</span>
+						</li>
+						<li>
+							<span class="likeLink" onclick="showExample(4)">
+								<strong>enteredby</strong>
+								to "billybob,"
+								<strong>accn</strong>
+								to "blah," and
+								<strong>attribute_determined_1</strong>
+								to
+								<em>collector_agent_1</em>
+								where
+								<strong>taxon_name</strong>
+								starts with "Sorex "
+							</span>
+						</li>
+					</ul>
 					<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
 						<input type="hidden" name="action" value="runSQL">
 						<label for="s">SQL: UPDATE bulkloader_stage SET ....</label>
 						<textarea name="s" id="s" rows="20" cols="90"></textarea>
-						<br><input type="submit" value="run SQL">
+						<br>
+						<input type="submit" value="run SQL">
 					</form>
 				</td>
 				<td valign="top">
@@ -532,6 +588,11 @@
 			<li>
 				<a href="BulkloaderStageCleanup.cfm?action=sql">Write SQL</a>
 			</li>
+	<li>
+		<a href="BulkloaderStageCleanup.cfm?action=ajaxGrid">Edit in AJAX grid</a>
+	</li>
+
+
 		</ul>
 	</cfoutput>
 </cfif>
