@@ -29,18 +29,21 @@
 <!--------------------------------------------------------------------------------->
 <cfif action is "runUpdate">
 	<cfoutput>
-		<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update bulkloader_stage set collection_object_id=collection_object_id
+		<cfset sql="update bulkloader_stage set collection_object_id=collection_object_id">
+
+
 			<cfloop list="#form.fieldnames#" index="f">
 				<cfif f is not "ACTION">
 					<cfset thisValue=evaluate(f) />
 					<cfif len(thisValue) gt 0>
-						,#f#='#thisValue#'
+						<cfset sql=sql&",#f#='#thisValue#'">
 					</cfif>
 				</cfif>
 			</cfloop>
+	<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		#preservesinglequotes(sql)#
 		</cfquery>
-		<cfdump var=#update#>
+		<cfdump var=#sql#>
 		<hr>
 		done -
 		<a href="BulkloaderStageCleanup.cfm?action=updateCommonDefaults">back to update defaults</a>
