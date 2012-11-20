@@ -1,9 +1,80 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkloader Stage Cleanup" />
+<cfif action is "distinctValues">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from bulkloader_stage
+		</cfquery>
+		<table border>
+			<tr>
+				<th>Column Name</th>
+				<th>Distinct Values</th>
+			</tr>
+			<cfloop list="#d.columnList#" index="colname">
+				<tr>
+					<td>#colname#</td>
+					<cfquery name="thisDistinct" dbtype="query">
+						select #colname# cval from d group by #colname# order by #colname#
+					</cfquery>
+					<td>
+						<cfloop query="thisDistinct"><br>
+							#cval#</cfloop>
+					</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
+</cfif>
+	<cfif action is "runUpdate">
+		<cfoutput>
+			<cfdump var=#form#>
+		</cfoutput>
+	</cfif>
+<cfif action is "updateCommonDefaults">
+	<cfoutput>
+
+		<cfquery name="ctnature_of_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select nature_of_id from ctnature_of_id order by nature_of_id
+		</cfquery>
+
+		<hr>
+		select something to update ALL rows in bulkloader stage to the selected value.
+
+		<br>Mess it up? Reload your text file.
+
+		<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
+			<input type="hidden" name="action" value="runUpdate">
+			UPDATE bulkloader_stage SET
+			<div>
+				ENTEREDBY=
+				<select name="ENTEREDBY" id="ENTEREDBY">
+					<option value=""></option>
+					<option value="#session.username#">#session.username#</option>
+				</select>
+			</div>
+			<div>
+				NATURE_OF_ID=
+				<select name="NATURE_OF_ID" id="NATURE_OF_ID">
+					<option value=""></option>
+					<cfloop query="nature_of_id">
+						<option value="#nature_of_id#">#nature_of_id#</option>
+					</cfloop>
+				</select>
+			</div>
+		</form>
+			<div>
+				NATURE_OF_ID=
+				<select name="NATURE_OF_ID" id="NATURE_OF_ID">
+					<option value=""></option>
+					<cfloop query="nature_of_id">
+						<option value="#nature_of_id#">#nature_of_id#</option>
+					</cfloop>
+				</select>
+			</div>
+		</form>
+	</cfoutput>
+</cfif>
 <cfif action is "nothing">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from bulkloader_stage
-	</cfquery>
 	<cfoutput>
 		When to use this form:
 		<ul>
@@ -18,56 +89,14 @@
 				You have no idea what you're trying to do. (This form will mess up all your data at once.)
 			</li>
 		</ul>
-		What does this form do?
 		<ul>
-			<li>Writes a SQL statement and applies it to bulkloader_stage.</li>
+			<li>
+				<a href="BulkloaderStageCleanup.cfm?action=distinctValues">Show distinct values</a>
+			</li>
+			<li>
+				<a href="BulkloaderStageCleanup.cfm?action=updateCommonDefaults">Update Common Defaults</a>
+			</li>
 		</ul>
-		<form name="x" method="post" action="BulkloaderStageCleanup.cfm">
-			<table border>
-				<tr>
-					<th>Column Name</th>
-					<th>Distinct Values</th>
-				</tr>
-				<cfloop list="#d.columnList#" index="colname">
-					<tr>
-						<td>#colname#</td>
-						<cfquery name="thisDistinct" dbtype="query">
-							select #colname# cval from d group by #colname#
-						</cfquery>
-						<td>
-							<cfloop query="thisDistinct">
-								<br>#cval#
-							</cfloop>
-						</td>
-					</tr>
-				</cfloop>
-			</table>
-			UPDATE bulkloader_stage SET
-			<div>
-				ENTEREDBY=
-				<select name="ENTEREDBY" id="ENTEREDBY">
-					<option value=""></option>
-					<option value="#session.username#">#session.username#</option>
-				</select>
-				WHERE ENTEREDBY
-				<select name="ENTEREDBY_CRIT" id="ENTEREDBY_CRIT">
-					<option value=""></option>
-					<option value="NULL">IS NULL</option>
-				</select>
-			</div>
-			<div>
-				NATURE_OF_ID=
-				<select name="NATURE_OF_ID" id="NATURE_OF_ID">
-					<option value=""></option>
-					<option value="#session.username#">#session.username#</option>
-				</select>
-				WHERE ENTEREDBY
-				<select name="ENTEREDBY_CRIT" id="ENTEREDBY_CRIT">
-					<option value=""></option>
-					<option value="NULL">IS NULL</option>
-				</select>
-			</div>
-		</form>
 	</cfoutput>
 </cfif>
 <cfif action is "runsql">
