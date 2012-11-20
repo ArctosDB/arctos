@@ -22,7 +22,7 @@
 	            $("#s").val("enteredby='billybob',\naccn='blah'\nattribute_determiner_1=collector_agent_1");
 	            break;
 	         case 4:
-	            $("#s").val("enteredby='billybob',\naccn='blah'\nattribute_determiner_1=collector_agent_1\nWHERE\ntaxon_name LIKE 'Sorex %'");
+	            $("#s").val("enteredby='billybob',\naccn='blah',\nattribute_determiner_1=collector_agent_1\nWHERE\ntaxon_name LIKE 'Sorex %'");
 	            break;
   		  }
 		 }
