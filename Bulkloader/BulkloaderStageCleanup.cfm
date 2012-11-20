@@ -28,7 +28,15 @@
 </cfif>
 <!--------------------------------------------------------------------------------->
 <cfif action is "runUpdate">
-	<cfoutput><cfdump var=#form# /></cfoutput>
+	<cfoutput>
+		update bulkloader_stage set
+		<cfloop list="form.fieldnames" index="f">
+			<cfset thisValue=evaluate(f)>
+			<cfif len(thisValue) gt 0>
+				,#f#='#thisValue#'
+			</cfif>
+		</cfloop>
+		<cfdump var=#form# /></cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------->
 <cfif action is "updateCommonDefaults">
