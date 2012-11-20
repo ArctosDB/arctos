@@ -1,6 +1,6 @@
 <cfoutput>
 	Distinct values of #col#
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select #col# data,count(*) c from bulkloader_stage group by #col# order by #col#
 	</cfquery>
 	<table border>
