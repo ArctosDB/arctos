@@ -649,7 +649,7 @@ function loadRecord (collection_object_id) {
 		},
 		function(r) {
 			var columns=r.COLUMNS;
-			var ccde=r.DATA.COLLECTION_CDE[1];
+			var ccde=r.DATA.COLLECTION_CDE[0];
 			console.log(ccde);
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
