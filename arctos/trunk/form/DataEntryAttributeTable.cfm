@@ -1,16 +1,15 @@
 <cfoutput>
-<cfif not isdefined("data.collection_cde") and not isdefined("collection_cde")>
-	no collection code
-<cfelse>
-
+<cfif isdefined("data.collection_cde")>
+	<cfset collection_cde=data.collection_cde>
+	</cfif>
 	<cftry>
 		<cfif not isdefined("useCustom")>
 			<cfset useCustom="true">
 		</cfif>
 		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT attribute_type FROM ctattribute_type
-			<cfif len(data.collection_cde) gt 0>
-				WHERE collection_cde='#data.collection_cde#'
+			<cfif len(collection_cde) gt 0>
+				WHERE collection_cde='#collection_cde#'
 			</cfif>
 			order by attribute_type
 		</cfquery>
@@ -24,7 +23,7 @@
 		<cfdump var=#cfcatch#>
 	</cfcatch>
 			</cftry>
-</cfif>
+
 
 
 <!------------------
