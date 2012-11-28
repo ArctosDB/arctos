@@ -403,7 +403,7 @@
 					</table><!------ /identification -------->
 					<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
 					<tr>
-						<td>
+						<td id="attributeTableCell">
 							<cfif collection_cde is "Mamm">
 								<cfinclude template="/form/DataEntryAttribute_Mamm.cfm">
 							<cfelse>
