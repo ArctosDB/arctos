@@ -1,6 +1,5 @@
 <cfoutput>
-	ello gunvu
-			<!----<table cellpadding="1" cellspacing="0">
+<table cellpadding="1" cellspacing="0">
 		<tr>
 			<td><span class="f11a">len</span></td>
 			<td><span class="f11a">tail</span></td>
@@ -73,5 +72,4 @@
 			</td>
 		</tr>
 	</table>
-		---->
 </cfoutput>

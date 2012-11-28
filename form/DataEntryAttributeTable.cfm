@@ -55,4 +55,5 @@
 										</td>
 									</tr>
 								</cfloop>
+								</table>
 									</cfoutput>
