@@ -1,3 +1,48 @@
+function loadRecord (collection_object_id) {
+	msg('fetching data....','bad');
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "loadRecord",
+			collection_object_id : collection_object_id,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			var columns=r.COLUMNS;
+			var ccde=r.DATA.COLLECTION_CDE[0];
+			console.log(ccde);
+			if (ccde=='Mamm'){
+				// make sure things are lined up - if not, 
+				// switch in an appropriate form
+				if (1==1) {
+					console.log('failure - switching');
+					var tab=document.getElementById('attributeTableCell');
+					jQuery.get("/form/DataEntryAttributeTable.cfm", function(data){
+						jQuery(tab).html(data);
+					});
+				
+				}
+			}
+			for (i=0;i<columns.length;i++) {
+				var cName=columns[i];
+				var cVal=eval("r.DATA." + columns[i]);
+				var eName=cName.toLowerCase();
+				$("#" + eName).val(cVal);
+			}
+			switchActive($("#orig_lat_long_units").val());
+			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
+			$("#pBrowse").show();
+			$("#nBrowse").show();
+			if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
+				$("#nBrowse").hide();
+			}
+			if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
+				$("#pBrowse").hide();
+			}
+			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
+		}
+	);
+}
 function getRelatedData(id) {
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
@@ -638,47 +683,7 @@ function browseTo(dir){
 	var c = $("#selectbrowse").find("option:eq(" + ix +")" ).val();
 	loadRecord(c);	
 }
-function loadRecord (collection_object_id) {
-	msg('fetching data....','bad');
-	$.getJSON("/component/Bulkloader.cfc",
-		{
-			method : "loadRecord",
-			collection_object_id : collection_object_id,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function(r) {
-			var columns=r.COLUMNS;
-			var ccde=r.DATA.COLLECTION_CDE[0];
-			console.log(ccde);
-			if (ccde=='Mamm'){
-				// make sure things are lined up - if not, 
-				// switch in an appropriate form
-				if (1==1) {
-					console.log('failure - switching');
-				
-				}
-			}
-			for (i=0;i<columns.length;i++) {
-				var cName=columns[i];
-				var cVal=eval("r.DATA." + columns[i]);
-				var eName=cName.toLowerCase();
-				$("#" + eName).val(cVal);
-			}
-			switchActive($("#orig_lat_long_units").val());
-			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
-			$("#pBrowse").show();
-			$("#nBrowse").show();
-			if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
-				$("#nBrowse").hide();
-			}
-			if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
-				$("#pBrowse").hide();
-			}
-			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
-		}
-	);
-}
+
 function copyVerbatim(str){
 	$.getJSON("/component/functions.cfc",
 		{
