@@ -64,7 +64,7 @@ going with mammal customizations
 							<input type="hidden" name="attribute_date_3" id="attribute_date_3" />
 							<input type="hidden" name="attribute_determiner_3" id="attribute_determiner_3" />
 							<input type="hidden" name="attribute_3" value="tail length" />
-							<input type="text" name="attribute_value_3" value="#attribute_value_3#" size="3" id="attribute_value_3">
+							<input type="text" name="attribute_value_3" size="3" id="attribute_value_3">
 						</td>
 						<td align='center'>
 							<input type="hidden" name="attribute_units_4" id="attribute_units_4" />
@@ -84,8 +84,7 @@ going with mammal customizations
 							<select name="attribute_units_2" size="1" id="attribute_units_2">
 								<option value=""></option>
 								<cfloop query="ctLength_Units">
-									<option <cfif #data.attribute_units_2# is #Length_Units#> selected </cfif>
-									value="#Length_Units#">#Length_Units#</option>
+									<option value="#Length_Units#">#Length_Units#</option>
 								</cfloop>
 							</select>
 						</td>
