@@ -22,19 +22,8 @@
 		</cfquery>
 		<cfif collection_cde is "Mamm" and useCustom is true>
 
-			<input type="hidden" name="attribute_1" id="attribute_1" value="">
-													<input type="hidden" name="attribute_value_1"  id="attribute_value_1" value="x">
-													<input type="hidden" name="attribute_date_1"  id="attribute_date_1" value="">
-													<input type="hidden" name="attribute_determiner_1"  id="attribute_determiner_1" value="">
-													<input type="hidden" name="attribute_det_meth_1"  id="attribute_det_meth_1" value="">
 
-													<cfloop from="7" to="10" index="i">
-													<input type="hidden" name="attribute_#i#" id="attribute_#i#" value="">
-													<input type="hidden" name="attribute_value_#i#"  id="attribute_value_#i#" value="">
-													<input type="hidden" name="attribute_date_#i#"  id="attribute_date_#i#" value="">
-													<input type="hidden" name="attribute_determiner_#i#"  id="attribute_determiner_#i#" value="">
-													<input type="hidden" name="attribute_det_meth_#i#"  id="attribute_det_meth_#i#" value="">
-												</cfloop>
+
 
 				<table cellpadding="1" cellspacing="0">
 					<tr>
@@ -61,6 +50,10 @@
 									<option value="#Sex_Cde#">#Sex_Cde#</option>
 								</cfloop>
 							</select>
+							<input type="hidden" name="attribute_date_1"  id="attribute_date_1" value="">
+							<input type="hidden" name="attribute_determiner_1"  id="attribute_determiner_1" value="">
+							<input type="hidden" name="attribute_det_meth_1"  id="attribute_det_meth_1" value="">
+
 						</td>
 						<td>
 							<input type="hidden" name="attribute_2" value="total length" />
