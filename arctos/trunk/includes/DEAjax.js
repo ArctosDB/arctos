@@ -22,7 +22,7 @@ function loadRecord (collection_object_id) {
 			// these are hard-coded in /form/DataEntryAttributeTable.cfm
 			// make sure to coordinate any changes
 			if (ccde=='Mamm'){
-				if (trim(r.DATA.ATTRIBUTE_1.length) > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
+				if (r.DATA.ATTRIBUTE_1.length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
 					useCustom=false;
 					console.log('sexfail');
 					console.log('len=' + r.DATA.ATTRIBUTE_1.length);
