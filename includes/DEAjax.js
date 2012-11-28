@@ -23,7 +23,21 @@ function loadRecord (collection_object_id) {
 			// make sure to coordinate any changes
 			if (ccde=='Mamm'){
 				if (r.DATA.ATTRIBUTE_1.length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
-					//|| r.DATA.ATTRIBUTE_2 != 'total length' || r.DATA.ATTRIBUTE_3 != 'tail length' || r.DATA.ATTRIBUTE_4 != 'hind foot with claw' || r.DATA.ATTRIBUTE_5 != 'ear from notch' || r.DATA.ATTRIBUTE_6 != 'weight') {
+					useCustom=false;
+				}
+				if (r.DATA.ATTRIBUTE_2.length > 0 && r.DATA.ATTRIBUTE_2 != 'total length'){
+					useCustom=false;
+				}
+				if (r.DATA.ATTRIBUTE_3.length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length'){
+					useCustom=false;
+				}
+				if (r.DATA.ATTRIBUTE_4.length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw'){
+					useCustom=false;
+				}
+				if (r.DATA.ATTRIBUTE_5.length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch'){
+					useCustom=false;
+				}
+				if (r.DATA.ATTRIBUTE_6.length > 0 && r.DATA.ATTRIBUTE_6 != 'weight'){
 					useCustom=false;
 				}
 			}
