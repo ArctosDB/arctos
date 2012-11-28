@@ -651,6 +651,14 @@ function loadRecord (collection_object_id) {
 			var columns=r.COLUMNS;
 			var ccde=r.DATA.COLLECTION_CDE[0];
 			console.log(ccde);
+			if (ccde=='Mamm'){
+				// make sure things are lined up - if not, 
+				// switch in an appropriate form
+				if (1==1) {
+					console.log('failure - switching');
+				
+				}
+			}
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
 				var cVal=eval("r.DATA." + columns[i]);
