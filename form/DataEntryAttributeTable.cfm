@@ -1,3 +1,4 @@
+<cfoutput>
 <table cellspacing="0" cellpadding="0">
 								<tr>
 									<th><span class="f11a">Attribute</span></th>
@@ -54,3 +55,4 @@
 										</td>
 									</tr>
 								</cfloop>
+									</cfoutput>
