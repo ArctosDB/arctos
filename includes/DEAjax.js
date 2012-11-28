@@ -30,19 +30,19 @@ function loadRecord (collection_object_id) {
 					console.log('val="' + r.DATA.ATTRIBUTE_1 + '"');
 					
 				}
-				if (r.DATA.ATTRIBUTE_2.length > 0 && r.DATA.ATTRIBUTE_2 != 'total length'){
+				if (String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length'){
 					useCustom=false;
 				}
-				if (r.DATA.ATTRIBUTE_3.length > 0 || r.DATA.ATTRIBUTE_3 != 'tail length'){
+				if (String(r.DATA.ATTRIBUTE_3).length > 0 || r.DATA.ATTRIBUTE_3 != 'tail length'){
 					useCustom=false;
 				}
-				if (r.DATA.ATTRIBUTE_4.length > 0 || r.DATA.ATTRIBUTE_4 != 'hind foot with claw'){
+				if (String(r.DATA.ATTRIBUTE_4).length > 0 || r.DATA.ATTRIBUTE_4 != 'hind foot with claw'){
 					useCustom=false;
 				}
-				if (r.DATA.ATTRIBUTE_5.length > 0 || r.DATA.ATTRIBUTE_5 != 'ear from notch'){
+				if (String(r.DATA.ATTRIBUTE_5).length > 0 || r.DATA.ATTRIBUTE_5 != 'ear from notch'){
 					useCustom=false;
 				}
-				if (r.DATA.ATTRIBUTE_6.length > 0 || r.DATA.ATTRIBUTE_6 != 'weight'){
+				if (String(r.DATA.ATTRIBUTE_6).length > 0 || r.DATA.ATTRIBUTE_6 != 'weight'){
 					useCustom=false;
 				}
 			}
