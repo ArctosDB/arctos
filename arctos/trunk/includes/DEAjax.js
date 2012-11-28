@@ -12,52 +12,44 @@ function loadRecord (collection_object_id) {
 			var columns=r.COLUMNS;
 			var ccde=r.DATA.COLLECTION_CDE[0];
 			console.log(ccde);
+			var useCustom=true;
+			var ptl="/form/DataEntryAttributeTable.cfm&collection_cde=" + ccde;";
+			var tab=document.getElementById('attributeTableCell');
 			
-			for (i=0;i<columns.length;i++) {
-				var cName=columns[i];
-				var cVal=eval("r.DATA." + columns[i]);
-				var eName=cName.toLowerCase();
-				console.log('setting ' + eName + ' to ' + cVal);
-				$("#" + eName).val(cVal);
-			}
-			console.log('default init load');
+			// switch in attributes based on collection and whether 
+			// or not hard-coded attributes jive with the data
 			
-			
-			
+			// these are hard-coded in /form/DataEntryAttributeTable.cfm
+			// make sure to coordinate any changes
 			if (ccde=='Mamm'){
-				// make sure things are lined up - if not, 
-				// switch in an appropriate form
-				// these are hard-coded in /form/DataEntryAttributeTable.cfm
-				// make sure to coordinate any changes
-				var useCustom=true;
 				if (r.DATA.ATTRIBUTE_1.length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
 					//|| r.DATA.ATTRIBUTE_2 != 'total length' || r.DATA.ATTRIBUTE_3 != 'tail length' || r.DATA.ATTRIBUTE_4 != 'hind foot with claw' || r.DATA.ATTRIBUTE_5 != 'ear from notch' || r.DATA.ATTRIBUTE_6 != 'weight') {
 					useCustom=false;
 				}
-				console.log('useCustom==' + useCustom);
-				if (useCustom==false) {
-					console.log('failure - switching');
-					var tab=document.getElementById('attributeTableCell');
-					var ptl="/form/DataEntryAttributeTable.cfm?useCustom=false&collection_cde=" + ccde;
-					jQuery.get(ptl, function(data){
-						jQuery(tab).html(data);
-						//console.log('gotot');
-						//console.log(data);
-
-						// re-fill the form inside the function - otherwise, we're filling and switching out
-						// asynchronously==explode
-						for (i=0;i<columns.length;i++) {
-							var cName=columns[i];
-							var cVal=eval("r.DATA." + columns[i]);
-							var eName=cName.toLowerCase();
-							console.log('setting ' + eName + ' to ' + cVal);
-							$("#" + eName).val(cVal);
-						}
-						console.log('failed attribute check');
-					});
-				}
 			}
-				
+			if (useCustom==false) {
+				console.log('failure - switching');
+				ptl+='?useCustom=false';				
+			}
+			console.log('useCustom==' + useCustom);
+			jQuery.get(ptl, function(data){
+				jQuery(tab).html(data);
+				//console.log('gotot');
+				//console.log(data);
+
+				// re-fill the form inside the function - otherwise, we're filling and switching out
+				// asynchronously==explode
+				for (i=0;i<columns.length;i++) {
+					var cName=columns[i];
+					var cVal=eval("r.DATA." + columns[i]);
+					var eName=cName.toLowerCase();
+					console.log('setting ' + eName + ' to ' + cVal);
+					$("#" + eName).val(cVal);
+				}
+				console.log('failed attribute check');
+			});
+			
+			
 			switchActive($("#orig_lat_long_units").val());
 			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
 			$("#pBrowse").show();
