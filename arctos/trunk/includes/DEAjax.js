@@ -22,22 +22,22 @@ function loadRecord (collection_object_id) {
 			// these are hard-coded in /form/DataEntryAttributeTable.cfm
 			// make sure to coordinate any changes
 			if (ccde=='Mamm'){
-				if (r.DATA.ATTRIBUTE_1.length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
+				if (r.DATA.ATTRIBUTE_1.length > 0 || r.DATA.ATTRIBUTE_1 != 'sex'){
 					useCustom=false;
 				}
-				if (r.DATA.ATTRIBUTE_2.length > 0 && r.DATA.ATTRIBUTE_2 != 'total length'){
+				if (r.DATA.ATTRIBUTE_2.length > 0 || r.DATA.ATTRIBUTE_2 != 'total length'){
 					useCustom=false;
 				}
-				if (r.DATA.ATTRIBUTE_3.length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length'){
+				if (r.DATA.ATTRIBUTE_3.length > 0 || r.DATA.ATTRIBUTE_3 != 'tail length'){
 					useCustom=false;
 				}
-				if (r.DATA.ATTRIBUTE_4.length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw'){
+				if (r.DATA.ATTRIBUTE_4.length > 0 || r.DATA.ATTRIBUTE_4 != 'hind foot with claw'){
 					useCustom=false;
 				}
-				if (r.DATA.ATTRIBUTE_5.length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch'){
+				if (r.DATA.ATTRIBUTE_5.length > 0 || r.DATA.ATTRIBUTE_5 != 'ear from notch'){
 					useCustom=false;
 				}
-				if (r.DATA.ATTRIBUTE_6.length > 0 && r.DATA.ATTRIBUTE_6 != 'weight'){
+				if (r.DATA.ATTRIBUTE_6.length > 0 || r.DATA.ATTRIBUTE_6 != 'weight'){
 					useCustom=false;
 				}
 			}
@@ -60,7 +60,6 @@ function loadRecord (collection_object_id) {
 					//console.log('setting ' + eName + ' to ' + cVal);
 					$("#" + eName).val(cVal);
 				}
-				console.log('failed attribute check');
 			});
 			
 			
