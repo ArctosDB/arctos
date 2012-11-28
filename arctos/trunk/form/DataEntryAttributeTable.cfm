@@ -225,7 +225,7 @@
 						</select>
 					</td>
 					<td>
-						<input type="text" name="attribute_date_2" id="attribute_date_2" value="#attribute_date_2#">
+						<input type="text" name="attribute_date_2" id="attribute_date_2">
 					</td>
 					<td>
 						<input type="text"
