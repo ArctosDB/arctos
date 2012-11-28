@@ -13,7 +13,13 @@
 	</cfquery>
 	<cfif collection_cde is "Mamm" and useCustom is true>
 		mammal stuff, yes it it
+	<cfelse>
+		i am not mammal
 	</cfif>
+
+
+<cfabort>
+
 
 	<cfloop from="1" to="6" index="i">
 										<input type="hidden" name="attribute_#i#" id="attribute_#i#" value="">
