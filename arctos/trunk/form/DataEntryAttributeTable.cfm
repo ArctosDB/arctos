@@ -20,6 +20,12 @@
 			</cfif>
 			order by sex_cde
 		</cfquery>
+		<cfquery name="ctLength_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select length_units from ctLength_Units order by length_units
+		</cfquery>
+		<cfquery name="ctWeight_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select Weight_Units from ctWeight_Units order by weight_units
+		</cfquery>
 		<cfif collection_cde is "Mamm" and useCustom is true>
 
 going with mammal customizations
