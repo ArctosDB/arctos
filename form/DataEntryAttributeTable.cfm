@@ -1,4 +1,6 @@
 <cfoutput>
+
+	#collection_cde#
 	<cfloop from="1" to="6" index="i">
 										<input type="hidden" name="attribute_#i#" id="attribute_#i#" value="">
 										<input type="hidden" name="attribute_value_#i#"  id="attribute_value_#i#" value="">
