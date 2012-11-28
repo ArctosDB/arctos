@@ -137,7 +137,7 @@
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from bulkloader where collection_object_id=#collection_object_id#
 		</cfquery>
-		<cfif collection_object_id GT 50>
+		<cfif collection_object_id GT 100>
 			<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select bulk_check_one(#collection_object_id#) rslt from dual
 			</cfquery>
