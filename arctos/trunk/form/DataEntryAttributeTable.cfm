@@ -220,7 +220,7 @@
 					<td>
 						<select name="attribute_units_6" size="1" id="attribute_units_6" >
 							<cfloop query="ctWeight_Units">
-								<option <cfif #data.attribute_units_6# is #Weight_Units#> selected </cfif>value="#Weight_Units#">#Weight_Units#</option>
+								<option value="#Weight_Units#">#Weight_Units#</option>
 							</cfloop>
 						</select>
 					</td>
