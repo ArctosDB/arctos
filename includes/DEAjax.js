@@ -25,6 +25,9 @@ function loadRecord (collection_object_id) {
 				if (r.DATA.ATTRIBUTE_1.length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
 					useCustom=false;
 					console.log('sexfail');
+					console.log('len=' + r.DATA.ATTRIBUTE_1.length);
+					console.log('val=' + r.DATA.ATTRIBUTE_1);
+					
 				}
 				if (r.DATA.ATTRIBUTE_2.length > 0 && r.DATA.ATTRIBUTE_2 != 'total length'){
 					useCustom=false;
