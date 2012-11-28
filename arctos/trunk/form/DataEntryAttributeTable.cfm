@@ -1,13 +1,13 @@
 <cfoutput>
 
-	<cfdump var=#data#>
 
-	<cfabort>
-
+	<cfif not isdefined("useCustom")>
+		<cfset useCustom="true">
+	</cfif>
 	<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT attribute_type FROM ctattribute_type
-		<cfif len(#collection_cde#) gt 0>
-			WHERE collection_cde='#collection_cde#'
+		<cfif len(data.collection_cde) gt 0>
+			WHERE collection_cde='#data.collection_cde#'
 		</cfif>
 		order by attribute_type
 	</cfquery>
