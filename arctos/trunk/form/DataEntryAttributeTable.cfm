@@ -22,10 +22,12 @@
 											<select name="attribute_#i#" onChange="getAttributeStuff(this.value,this.id);"
 												style="width:100px;" id="attribute_#i#">
 												<option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>
+												<!----
 												<cfloop query="ctAttributeType">
 													<option <cfif evaluate("data.attribute_" & i) is ctAttributeType.attribute_type> selected="selected" </cfif>
 														value="#attribute_type#">#attribute_type#</option>
 												</cfloop>
+												---->
 											</select>
 										</td>
 										<td>
