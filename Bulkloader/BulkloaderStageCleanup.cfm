@@ -576,7 +576,11 @@
 			<li>You expect magic. (We have none.)</li>
 			<li>You have missing heterogeneous values. (This form won't work.)</li>
 			<li>
-				You have no idea what you're trying to do. (This form will mess up all your data at once.)
+				You have no idea what you're trying to do. (This form will happily mess up all your data at once.)
+			</li>
+			<li>
+				You're going to be a while - this is part of a single-user, shared application, and someone will probably over-write your data eventually.
+				You can download (perhaps partially-cleaned) and re-upload data if you need a pause.
 			</li>
 		</ul>
 		All of these options may eat your browser on large datasets. Use with caution.

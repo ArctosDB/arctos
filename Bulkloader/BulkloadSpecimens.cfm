@@ -300,7 +300,7 @@
 						<a href="BulkloaderStageCleanup.cfm">fix/view with Arctos tools</a>
 					</p>
 		<p>
-			Click <a href="bulkloaderLoader.cfm?action=loadAnyway">here</a> to load them to the
+			Click <a href="BulkloadSpecimens.cfm?action=loadAnyway">here</a> to load them to the
 			bulkloader anyway.
 		</p>
 	<cfelse>
