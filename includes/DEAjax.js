@@ -11,7 +11,16 @@ function loadRecord (collection_object_id) {
 			var columns=r.COLUMNS;
 			var ccde=r.DATA.COLLECTION_CDE[0];
 			console.log(ccde);
-			var filledForm=0;
+			
+			for (i=0;i<columns.length;i++) {
+				var cName=columns[i];
+				var cVal=eval("r.DATA." + columns[i]);
+				var eName=cName.toLowerCase();
+				$("#" + eName).val(cVal);
+			}
+			
+			
+			
 			if (ccde=='Mamm'){
 				// make sure things are lined up - if not, 
 				// switch in an appropriate form
@@ -24,7 +33,8 @@ function loadRecord (collection_object_id) {
 						//console.log('gotot');
 						//console.log(data);
 
-						
+						// re-fill the form inside the function - otherwise, we're filling and switching out
+						// asynchronously==explode
 						for (i=0;i<columns.length;i++) {
 							var cName=columns[i];
 							var cVal=eval("r.DATA." + columns[i]);
@@ -32,20 +42,10 @@ function loadRecord (collection_object_id) {
 							$("#" + eName).val(cVal);
 						}
 						console.log('mark form as filled');
-						filledForm=1;
 					});
 				}
 			}
-			if (filledForm!=1){
-				console.log('default fill form');
-				for (i=0;i<columns.length;i++) {
-					var cName=columns[i];
-					var cVal=eval("r.DATA." + columns[i]);
-					var eName=cName.toLowerCase();
-					$("#" + eName).val(cVal);
-				}
 				
-			}
 			switchActive($("#orig_lat_long_units").val());
 			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
 			$("#pBrowse").show();
