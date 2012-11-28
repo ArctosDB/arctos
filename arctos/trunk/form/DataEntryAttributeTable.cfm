@@ -1,6 +1,6 @@
 <cfoutput>
 
-
+<cftry>
 	<cfif not isdefined("useCustom")>
 		<cfset useCustom="true">
 	</cfif>
@@ -17,6 +17,10 @@
 		i am not mammal
 	</cfif>
 
+<cfcatch>
+	<cfdump var=#cfcatch#>
+</cfcatch>
+		</cftry>
 <!------------------
 
 
