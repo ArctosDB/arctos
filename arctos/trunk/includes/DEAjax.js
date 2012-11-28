@@ -19,7 +19,8 @@ function loadRecord (collection_object_id) {
 				var eName=cName.toLowerCase();
 				$("#" + eName).val(cVal);
 			}
-			
+			console.log('default init load');
+			console.log('setting ' + eName + ' to ' + cVal);
 			
 			
 			if (ccde=='Mamm'){
@@ -51,7 +52,7 @@ function loadRecord (collection_object_id) {
 							console.log('setting ' + eName + ' to ' + cVal);
 							$("#" + eName).val(cVal);
 						}
-						console.log('mark form as filled');
+						console.log('failed attribute check');
 					});
 				}
 			}
