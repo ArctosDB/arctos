@@ -32,18 +32,18 @@
 										</td>
 										<td>
 											<div id="attribute_value_cell_#i#">
-												<input type="text" name="attribute_value_#i#" value="#evaluate("data.attribute_value_" & i)#"
+												<input type="text" name="attribute_value_#i#"
 													id="attribute_value_#i#"size="15">
 											</div>
 										</td>
 										<td>
 											<div id="attribute_units_cell_#i#">
-											<input type="text" name="attribute_units_#i#"  value="#evaluate("data.attribute_units_" & i)#"
+											<input type="text" name="attribute_units_#i#"
 												id="attribute_units_#i#" size="6">
 											</div>
 										</td>
 										<td>
-											<input type="text" name="attribute_date_#i#" value="#evaluate("data.attribute_date_" & i)#"
+											<input type="text" name="attribute_date_#i#"
 												id="attribute_date_#i#" size="10">
 										</td>
 										<td>
@@ -55,12 +55,11 @@
 										</td>
 										<td>
 											<input type="text" name="attribute_det_meth_#i#"
-												id="attribute_det_meth_#i#" size="15" value="#evaluate("data.attribute_det_meth_" & i)#">
+												id="attribute_det_meth_#i#" size="15">
 										</td>
 										<td>
 											<input type="text" name="attribute_remarks_#i#"
-												id="attribute_remarks_#i#"
-												value="#evaluate("data.attribute_remarks_" & i)#">
+												id="attribute_remarks_#i#">
 										</td>
 									</tr>
 								</cfloop>
