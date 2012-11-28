@@ -34,19 +34,19 @@ function loadRecord (collection_object_id) {
 					useCustom=false;
 					console.log('tlfail');
 				}
-				if (String(r.DATA.ATTRIBUTE_3).length > 0 || r.DATA.ATTRIBUTE_3 != 'tail length'){
+				if (String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length'){
 					useCustom=false;
 					console.log('tafail');
 				}
-				if (String(r.DATA.ATTRIBUTE_4).length > 0 || r.DATA.ATTRIBUTE_4 != 'hind foot with claw'){
+				if (String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw'){
 					useCustom=false;
 					console.log('hffail');
 				}
-				if (String(r.DATA.ATTRIBUTE_5).length > 0 || r.DATA.ATTRIBUTE_5 != 'ear from notch'){
+				if (String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch'){
 					useCustom=false;
 					console.log('efail');
 				}
-				if (String(r.DATA.ATTRIBUTE_6).length > 0 || r.DATA.ATTRIBUTE_6 != 'weight'){
+				if (String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight'){
 					useCustom=false;
 					console.log('wfail');
 				}
