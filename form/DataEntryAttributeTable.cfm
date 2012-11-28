@@ -49,7 +49,6 @@
 										<td>
 											 <input type="text" name="attribute_determiner_#i#"
 												id="attribute_determiner_#i#" size="15"
-												value="#evaluate("data.attribute_determiner_" & i)#"
 												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 												onkeypress="return noenter(event);">
 										</td>
