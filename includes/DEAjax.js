@@ -26,7 +26,6 @@ function loadRecord (collection_object_id) {
 					useCustom=false;
 					console.log('sexfail');
 					console.log('len=' + String(r.DATA.ATTRIBUTE_1).length);
-					console.log('0len=' + r.DATA[0].ATTRIBUTE_1.length);
 					console.log('val="' + r.DATA.ATTRIBUTE_1 + '"');
 					
 				}
