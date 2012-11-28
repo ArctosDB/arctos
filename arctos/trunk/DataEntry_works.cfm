@@ -404,8 +404,6 @@
 					<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
 					<tr>
 						<td>
-							<cfinclude template="/form/DataEntryAttributeTable.cfm">
-							<!---------
 							<cfif collection_cde is not "Crus" and collection_cde is not "Herb"
 								and collection_cde is not "ES" and collection_cde is not "Fish"
 								and collection_cde is not "Ento"
@@ -651,9 +649,6 @@
 										</td>
 									</tr>
 								</cfloop>
-								
-								
-								------------->
 							</table>
 						</td>
 					</tr>

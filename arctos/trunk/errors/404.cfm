@@ -10,7 +10,7 @@
 		<cfset ipaddress='unknown'>
 	</CFIF>
 	<cfset cTemp="">
-	
+
 	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
 
 	<cfif len(rdurl) gt 0>
@@ -30,8 +30,8 @@
 		</cfif>
 		<cfabort>
 	</cfif>
-	<cfset nono="verify-tldnotify,crossdomain,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
-	<cfset fourohthree="dll,asp,png">
+	<cfset nono="verify-tldnotify,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
+	<cfset fourohthree="dll,asp,png,crossdomain">
 	<cfloop list="#rdurl#" delimiters="./&" index="i">
 		<cfif listfindnocase(nono,i)>
 			<cfinclude template="/errors/autoblacklist.cfm">
@@ -63,7 +63,7 @@
 				},
 				function (d) {
 		  			document.location='#rdurl#';
-				}		
+				}
 			);
 		}
 	</script>
@@ -79,7 +79,7 @@
 					If you are an operator, you may have to log out or ask your supervisor for more access.
 				</cfif>
 				You are accessing Arctos through the #yourcollid.collection# portal, and cannot access specimen data in
-				other collections. You may 
+				other collections. You may
 				<span class="likeLink" onclick="changeCollection()">try again in the public portal</span>.
 			</p>
 		</cfif>
@@ -93,7 +93,7 @@
 		If you followed an external link, please use your back button and tell the webmaster that
 		something is broken, or <a href="/info/bugs.cfm">submit a bug report</a> telling us how you got this error.
 	</p>
-	
+
 	<p><a href="/TaxonomySearch">Search for Taxon Names here</a></p>
 	<p><a href="/SpecimenUsage">Search for Projects and Publications here</a></p>
 	<p>
@@ -113,7 +113,7 @@
 		Some specimens are restricted. You may <a href="/contact.cfm">contact us</a> for more information.
 		<p>
 			Occasionally, a specimen is recataloged. You may be able to find them by using Other Identifiers in Specimen Search.
-		</p>	
+		</p>
 	</p>
 	<cfif isGuid is false>
 		<cfset sub="Dead Link">
