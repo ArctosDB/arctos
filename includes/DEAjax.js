@@ -27,7 +27,8 @@ function loadRecord (collection_object_id) {
 				// these are hard-coded in /form/DataEntryAttributeTable.cfm
 				// make sure to coordinate any changes
 				var useCustom=true;
-				if (r.DATA.ATTRIBUTE_1 != 'sex' || r.DATA.ATTRIBUTE_2 != 'total length' || r.DATA.ATTRIBUTE_3 != 'tail length' || r.DATA.ATTRIBUTE_4 != 'hind foot with claw' || r.DATA.ATTRIBUTE_5 != 'ear from notch' || r.DATA.ATTRIBUTE_6 != 'weight') {
+				if (r.DATA.ATTRIBUTE_1.length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
+					//|| r.DATA.ATTRIBUTE_2 != 'total length' || r.DATA.ATTRIBUTE_3 != 'tail length' || r.DATA.ATTRIBUTE_4 != 'hind foot with claw' || r.DATA.ATTRIBUTE_5 != 'ear from notch' || r.DATA.ATTRIBUTE_6 != 'weight') {
 					useCustom=false;
 				}
 			
