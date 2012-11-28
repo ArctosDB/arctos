@@ -1,6 +1,6 @@
 <cfoutput>
 
-	<cfdump var=#variables#>
+	<cfdump var=#data#>
 
 	<cfabort>
 
