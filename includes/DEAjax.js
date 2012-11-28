@@ -13,7 +13,7 @@ function loadRecord (collection_object_id) {
 			var ccde=r.DATA.COLLECTION_CDE[0];
 			console.log(ccde);
 			var useCustom=true;
-			var ptl="/form/DataEntryAttributeTable.cfm&collection_cde=" + ccde;
+			var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
 			var tab=document.getElementById('attributeTableCell');
 			
 			// switch in attributes based on collection and whether 
@@ -29,7 +29,7 @@ function loadRecord (collection_object_id) {
 			}
 			if (useCustom==false) {
 				console.log('failure - switching');
-				ptl+='?useCustom=false';				
+				ptl+='&useCustom=false';				
 			}
 			console.log('useCustom==' + useCustom);
 			jQuery.get(ptl, function(data){
