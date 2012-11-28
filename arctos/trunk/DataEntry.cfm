@@ -390,7 +390,7 @@
 						<tr>
 							<td align="right"><span class="f11a">Date</span></td>
 							<td>
-								<input type="text" name="made_date" value="#made_date#" id="made_date">
+								<input type="text " name="made_date" value="#made_date#" id="made_date">
 								<span class="infoLink" onclick="copyAllDates('made_date');">Copy2All</span>
 							</td>
 						</tr>
@@ -1471,6 +1471,10 @@
 		matchContains: true,
 		minChars: 1,
 		selectFirst:false
+	});
+
+	jQuery(document).ready(function() {
+		loadRecord('#collection_object_id#');
 	});
 </script>
 <cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1 and pMode is "enter">
