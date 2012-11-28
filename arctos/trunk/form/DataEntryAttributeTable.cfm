@@ -1,4 +1,11 @@
 <cfoutput>
+	<cfloop from="1" to="6" index="i">
+										<input type="hidden" name="attribute_#i#" id="attribute_#i#" value="">
+										<input type="hidden" name="attribute_value_#i#"  id="attribute_value_#i#" value="">
+										<input type="hidden" name="attribute_date_#i#"  id="attribute_date_#i#" value="">
+										<input type="hidden" name="attribute_determiner_#i#"  id="attribute_determiner_#i#" value="">
+										<input type="hidden" name="attribute_det_meth_#i#"  id="attribute_det_meth_#i#" value="">
+									</cfloop>
 <table cellspacing="0" cellpadding="0">
 								<tr>
 									<th><span class="f11a">Attribute</span></th>
