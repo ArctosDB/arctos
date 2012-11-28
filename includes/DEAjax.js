@@ -17,9 +17,10 @@ function loadRecord (collection_object_id) {
 				if (1==1) {
 					console.log('failure - switching');
 					var tab=document.getElementById('attributeTableCell');
-					//jQuery.get("/form/DataEntryAttributeTable.cfm", function(data){
+					jQuery.get("/form/DataEntryAttributeTable.cfm", function(data){
 					//	jQuery(tab).html(data);
-					//});
+						console.log('gotot');
+					});
 					jQuery(tab).html('I am new thing');
 				}
 			}
