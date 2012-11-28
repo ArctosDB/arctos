@@ -10,6 +10,7 @@
 			<td><span class="f11a">Date</span></td>
 			<td><span class="f11a">Determiner</span></td>
 		</tr>
+		<!----
 		<tr>
 			<td>
 				<input type="hidden" name="attribute_2" value="total length" />
@@ -70,5 +71,6 @@
 
 			</td>
 		</tr>
+		---->
 	</table>
 </cfoutput>
