@@ -20,6 +20,8 @@ function loadRecord (collection_object_id) {
 					jQuery.get("/form/DataEntryAttributeTable.cfm", function(data){
 					//	jQuery(tab).html(data);
 						console.log('gotot');
+						console.log(data);
+
 					});
 					jQuery(tab).html('I am new thing');
 				}
