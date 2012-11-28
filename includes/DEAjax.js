@@ -17,7 +17,8 @@ function loadRecord (collection_object_id) {
 				if (1==1) {
 					console.log('failure - switching');
 					var tab=document.getElementById('attributeTableCell');
-					jQuery.get("/form/DataEntryAttributeTable.cfm", function(data){
+					var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
+					jQuery.get(ptl, function(data){
 						jQuery(tab).html(data);
 						console.log('gotot');
 						console.log(data);
