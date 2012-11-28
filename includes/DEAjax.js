@@ -649,6 +649,8 @@ function loadRecord (collection_object_id) {
 		},
 		function(r) {
 			var columns=r.COLUMNS;
+			//var ccde=
+			//console.log(ccde);
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
 				var cVal=eval("r.DATA." + columns[i]);
