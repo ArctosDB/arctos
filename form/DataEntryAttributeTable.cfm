@@ -4,7 +4,7 @@
 	</cfif>
 	<cftry>
 		<cfif not isdefined("useCustom")>
-			<cfset useCustom="true">
+			<cfset useCustom="false">
 		</cfif>
 		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT attribute_type FROM ctattribute_type
