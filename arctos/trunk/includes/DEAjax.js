@@ -1,4 +1,5 @@
 function loadRecord (collection_object_id) {
+	console.log('loading record ' + collection_object_id);
 	msg('fetching data....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
