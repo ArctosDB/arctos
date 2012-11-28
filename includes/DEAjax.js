@@ -11,6 +11,7 @@ function loadRecord (collection_object_id) {
 			var columns=r.COLUMNS;
 			var ccde=r.DATA.COLLECTION_CDE[0];
 			console.log(ccde);
+			var filledForm=0;
 			if (ccde=='Mamm'){
 				// make sure things are lined up - if not, 
 				// switch in an appropriate form
@@ -20,17 +21,30 @@ function loadRecord (collection_object_id) {
 					var ptl="/form/DataEntryAttributeTable.cfm?useCustom=false&collection_cde=" + ccde;
 					jQuery.get(ptl, function(data){
 						jQuery(tab).html(data);
-						console.log('gotot');
-						console.log(data);
+						//console.log('gotot');
+						//console.log(data);
 
+						
+						for (i=0;i<columns.length;i++) {
+							var cName=columns[i];
+							var cVal=eval("r.DATA." + columns[i]);
+							var eName=cName.toLowerCase();
+							$("#" + eName).val(cVal);
+						}
+						console.log('mark form as filled');
+						filledForm=1;
 					});
 				}
 			}
-			for (i=0;i<columns.length;i++) {
-				var cName=columns[i];
-				var cVal=eval("r.DATA." + columns[i]);
-				var eName=cName.toLowerCase();
-				$("#" + eName).val(cVal);
+			if (filledForm!=1){
+				console.log('default fill form');
+				for (i=0;i<columns.length;i++) {
+					var cName=columns[i];
+					var cVal=eval("r.DATA." + columns[i]);
+					var eName=cName.toLowerCase();
+					$("#" + eName).val(cVal);
+				}
+				
 			}
 			switchActive($("#orig_lat_long_units").val());
 			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
