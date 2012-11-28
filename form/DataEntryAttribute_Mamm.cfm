@@ -72,6 +72,6 @@
 
 			</td>
 		</tr>
-		---->
 	</table>
+		---->
 </cfoutput>
