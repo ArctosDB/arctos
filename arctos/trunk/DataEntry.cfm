@@ -404,11 +404,7 @@
 					<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
 					<tr>
 						<td id="attributeTableCell">
-							<cfif collection_cde is "Mamm">
-								<cfinclude template="/form/DataEntryAttribute_Mamm.cfm">
-							<cfelse>
-								<cfinclude template="/form/DataEntryAttributeTable.cfm">
-							</cfif>
+							<cfinclude template="/form/DataEntryAttributeTable.cfm?collection_cde=#collection_cde#&useCustom=true">
 
 							<!---------
 							<cfif collection_cde is not "Crus" and collection_cde is not "Herb"
