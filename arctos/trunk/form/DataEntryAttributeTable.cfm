@@ -1,4 +1,9 @@
 <cfoutput>
+
+	<cfdump var=#variables#>
+
+	<cfabort>
+
 	<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT attribute_type FROM ctattribute_type
 		<cfif len(#collection_cde#) gt 0>
