@@ -34,7 +34,7 @@ function loadRecord (collection_object_id) {
 					//|| r.DATA.ATTRIBUTE_2 != 'total length' || r.DATA.ATTRIBUTE_3 != 'tail length' || r.DATA.ATTRIBUTE_4 != 'hind foot with claw' || r.DATA.ATTRIBUTE_5 != 'ear from notch' || r.DATA.ATTRIBUTE_6 != 'weight') {
 					useCustom=false;
 				}
-			
+				console.log('useCustom==' + useCustom);
 				if (useCustom==false) {
 					console.log('failure - switching');
 					var tab=document.getElementById('attributeTableCell');
