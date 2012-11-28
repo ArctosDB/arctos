@@ -1,6 +1,6 @@
 <cfoutput>
 		<input type="hidden" name="attribute_1" id="attribute_1" value="">
-										<input type="hidden" name="attribute_value_1"  id="attribute_value_1" value="">
+										<input type="hidden" name="attribute_value_1"  id="attribute_value_1" value="x">
 										<input type="hidden" name="attribute_date_1"  id="attribute_date_1" value="">
 										<input type="hidden" name="attribute_determiner_1"  id="attribute_determiner_1" value="">
 										<input type="hidden" name="attribute_det_meth_1"  id="attribute_det_meth_1" value="">
