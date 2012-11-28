@@ -17,8 +17,7 @@
 		i am not mammal
 	</cfif>
 
-
-<cfabort>
+<!------------------
 
 
 	<cfloop from="1" to="6" index="i">
@@ -82,4 +81,6 @@
 									</tr>
 								</cfloop>
 								</table>
+
+								-------------->
 									</cfoutput>
