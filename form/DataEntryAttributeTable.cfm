@@ -1,26 +1,32 @@
 <cfoutput>
+<cfif not isdefined("data.collection_cde") and not isdefined("collection_cde")>
+	no collection code
+<cfelse>
 
-<cftry>
-	<cfif not isdefined("useCustom")>
-		<cfset useCustom="true">
-	</cfif>
-	<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT attribute_type FROM ctattribute_type
-		<cfif len(data.collection_cde) gt 0>
-			WHERE collection_cde='#data.collection_cde#'
+	<cftry>
+		<cfif not isdefined("useCustom")>
+			<cfset useCustom="true">
 		</cfif>
-		order by attribute_type
-	</cfquery>
-	<cfif collection_cde is "Mamm" and useCustom is true>
-		mammal stuff, yes it it
-	<cfelse>
-		i am not mammal
-	</cfif>
+		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT attribute_type FROM ctattribute_type
+			<cfif len(data.collection_cde) gt 0>
+				WHERE collection_cde='#data.collection_cde#'
+			</cfif>
+			order by attribute_type
+		</cfquery>
+		<cfif collection_cde is "Mamm" and useCustom is true>
+			mammal stuff, yes it it
+		<cfelse>
+			i am not mammal
+		</cfif>
 
-<cfcatch>
-	<cfdump var=#cfcatch#>
-</cfcatch>
-		</cftry>
+	<cfcatch>
+		<cfdump var=#cfcatch#>
+	</cfcatch>
+			</cftry>
+</cfif>
+
+
 <!------------------
 
 
