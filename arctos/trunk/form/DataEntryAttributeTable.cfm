@@ -22,7 +22,7 @@
 		</cfquery>
 		<cfif collection_cde is "Mamm" and useCustom is true>
 
-
+going with mammal customizations
 
 
 				<table cellpadding="1" cellspacing="0">
@@ -171,6 +171,7 @@
 				</cfloop>
 			</table>
 		<cfelse><!---- fall back to all attributes in table --->
+			default/fallback
 			<table cellspacing="0" cellpadding="0">
 				<tr>
 					<th><span class="f11a">Attribute</span></th>
