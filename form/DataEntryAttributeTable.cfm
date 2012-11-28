@@ -1,5 +1,4 @@
 <cfoutput>
-			#collection_cde#
 	<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT attribute_type FROM ctattribute_type
 		<cfif len(#collection_cde#) gt 0>
@@ -7,6 +6,9 @@
 		</cfif>
 		order by attribute_type
 	</cfquery>
+	<cfif collection_cde is "Mamm" and useCustom is true>
+		mammal stuff, yes it it
+	</cfif>
 
 	<cfloop from="1" to="6" index="i">
 										<input type="hidden" name="attribute_#i#" id="attribute_#i#" value="">
