@@ -56,7 +56,7 @@ going with mammal customizations
 
 						</td>
 						<td>
-							<input type="hidden" name="attribute_2" value="total length" />
+							<input type="hidden" name="attribute_2" id="attribute_2" value="total length" />
 							<input type="text" name="attribute_value_2" value="#attribute_value_2#" size="3" id="attribute_value_2">
 						</td>
 						<td>
