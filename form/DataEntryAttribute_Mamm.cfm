@@ -1,5 +1,6 @@
 <cfoutput>
-	<table cellpadding="1" cellspacing="0">
+	ello gunvu
+			<!----<table cellpadding="1" cellspacing="0">
 		<tr>
 			<td><span class="f11a">len</span></td>
 			<td><span class="f11a">tail</span></td>
@@ -10,7 +11,7 @@
 			<td><span class="f11a">Date</span></td>
 			<td><span class="f11a">Determiner</span></td>
 		</tr>
-		<!----
+
 		<tr>
 			<td>
 				<input type="hidden" name="attribute_2" value="total length" />
