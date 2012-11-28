@@ -409,7 +409,7 @@
 							<cfelse>
 								<cfinclude template="/form/DataEntryAttributeTable.cfm">
 							</cfif>
-							
+
 							<!---------
 							<cfif collection_cde is not "Crus" and collection_cde is not "Herb"
 								and collection_cde is not "ES" and collection_cde is not "Fish"
@@ -656,10 +656,11 @@
 										</td>
 									</tr>
 								</cfloop>
-								
-								
-								------------->
+
+
+
 							</table>
+									------------->
 						</td>
 					</tr>
 				</table><!---- /attributes ----->
