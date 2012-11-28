@@ -24,7 +24,14 @@ function loadRecord (collection_object_id) {
 			if (ccde=='Mamm'){
 				// make sure things are lined up - if not, 
 				// switch in an appropriate form
-				if (1==1) {
+				// these are hard-coded in /form/DataEntryAttributeTable.cfm
+				// make sure to coordinate any changes
+				var useCustom=true;
+				if (r.DATA.ATTRIBUTE_1 != 'sex' || r.DATA.ATTRIBUTE_2 != 'total length' || r.DATA.ATTRIBUTE_3 != 'tail length' || r.DATA.ATTRIBUTE_4 != 'hind foot with claw' || r.DATA.ATTRIBUTE_5 != 'ear from notch' || r.DATA.ATTRIBUTE_6 != 'weight') {
+					useCustom=false;
+				}
+			
+				if (useCustom==false) {
 					console.log('failure - switching');
 					var tab=document.getElementById('attributeTableCell');
 					var ptl="/form/DataEntryAttributeTable.cfm?useCustom=false&collection_cde=" + ccde;
