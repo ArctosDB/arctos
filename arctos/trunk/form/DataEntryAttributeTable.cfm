@@ -1,5 +1,12 @@
 <cfoutput>
 
+	<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT attribute_type FROM ctattribute_type
+		<cfif len(#collection_cde#) gt 0>
+			WHERE collection_cde='#collection_cde#'
+		</cfif>
+		order by attribute_type
+	</cfquery>
 	#collection_cde#
 	<cfloop from="1" to="6" index="i">
 										<input type="hidden" name="attribute_#i#" id="attribute_#i#" value="">
@@ -24,12 +31,10 @@
 											<select name="attribute_#i#" onChange="getAttributeStuff(this.value,this.id);"
 												style="width:100px;" id="attribute_#i#">
 												<option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>
-												<!----
 												<cfloop query="ctAttributeType">
 													<option <cfif evaluate("data.attribute_" & i) is ctAttributeType.attribute_type> selected="selected" </cfif>
 														value="#attribute_type#">#attribute_type#</option>
 												</cfloop>
-												---->
 											</select>
 										</td>
 										<td>
