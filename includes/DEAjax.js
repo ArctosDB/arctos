@@ -17,10 +17,11 @@ function loadRecord (collection_object_id) {
 				var cName=columns[i];
 				var cVal=eval("r.DATA." + columns[i]);
 				var eName=cName.toLowerCase();
+				console.log('setting ' + eName + ' to ' + cVal);
 				$("#" + eName).val(cVal);
 			}
 			console.log('default init load');
-			console.log('setting ' + eName + ' to ' + cVal);
+			
 			
 			
 			if (ccde=='Mamm'){
