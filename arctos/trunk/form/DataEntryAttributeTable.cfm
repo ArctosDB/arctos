@@ -27,6 +27,7 @@
 			select Weight_Units from ctWeight_Units order by weight_units
 		</cfquery>
 		<cfif collection_cde is "Mamm" and useCustom is true>
+			<input type="hidden" id="mammalCustomAttributes">
 			<table cellpadding="1" cellspacing="0">
 				<tr>
 					<td><span class="f11a">sex</span></td>
