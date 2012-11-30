@@ -1245,64 +1245,73 @@ function highlightErrors (loadedMsg) {
 
 function cleanup () {
 	var thisCC = document.getElementById('collection_cde').value;
-	console.log('dalen=' + $("#mammalCustomAttributes").length);
+	// make sure mammalCustomAttributes is a hidden attribute in forms that need mammal magic
 	if (thisCC == 'Mamm' && $("#mammalCustomAttributes").length>0) {
 		console.log('mammal attribute cleanup');
+		/*
+		 * 	mammal default:
+		 * 	attributes 1-6 are in custom boxes
+		 * 	date and determiner 1 apply to 1-6
+		 * 	6 is weight
+		 * 	attribute_units_2 applies to 2-5
+		 * 
+		 */ 
+		
 		/******************************** Mammal Routine ************************************************/
 		try {
-			var Att2UnitVal = document.getElementById('attribute_units_2').value; //total length & "standard"
-			var Att3UnitVal = document.getElementById('attribute_units_3'); //tail length
-			var Att4UnitVal = document.getElementById('attribute_units_4'); //HF length
-			var Att5UnitVal = document.getElementById('attribute_units_5'); //EFN length
-			Att3UnitVal.value = Att2UnitVal;
-			Att4UnitVal.value = Att2UnitVal;
-			Att5UnitVal.value = Att2UnitVal;
-			var Det2UnitVal = document.getElementById('attribute_determiner_2').value; //total length
-			var Det3UnitVal = document.getElementById('attribute_determiner_3'); //tail length
-			var Det4UnitVal = document.getElementById('attribute_determiner_4'); //HF length
-			var Det5UnitVal = document.getElementById('attribute_determiner_5'); //EFN length
-			var Det6UnitVal = document.getElementById('attribute_determiner_6'); //weight
-			Det3UnitVal.value = Det2UnitVal;
-			Det4UnitVal.value = Det2UnitVal;
-			Det5UnitVal.value = Det2UnitVal;
-			Det6UnitVal.value = Det2UnitVal;
-			var Date2UnitVal = document.getElementById('attribute_date_2').value; //total length
-			var Date3UnitVal = document.getElementById('attribute_date_3'); //tail length
-			var Date4UnitVal = document.getElementById('attribute_date_4'); //HF length
-			var Date5UnitVal = document.getElementById('attribute_date_5'); //EFN length
-			var Date6UnitVal = document.getElementById('attribute_date_6'); //weight
-			Date3UnitVal.value = Date2UnitVal;
-			Date4UnitVal.value = Date2UnitVal;
-			Date5UnitVal.value = Date2UnitVal;
-			Date6UnitVal.value = Date2UnitVal;
+			var theDeterminer=$("#attribute_determiner_1").val();
+			$("#attribute_determiner_2").val(theDeterminer);
+			$("#attribute_determiner_3").val(theDeterminer);
+			$("#attribute_determiner_4").val(theDeterminer);
+			$("#attribute_determiner_5").val(theDeterminer);
+			$("#attribute_determiner_6").val(theDeterminer);
+			var lenUnit=$("#attribute_units_2").val();
+			$("#attribute_units_3").val(lenUnit);
+			$("#attribute_units_4").val(lenUnit);
+			$("#attribute_units_5").val(lenUnit);
+			var theDate=$("#attribute_date_1").val();
+			$("#attribute_date_2").val(theDate);
+			$("#attribute_date_3").val(theDate);
+			$("#attribute_date_4").val(theDate);
+			$("#attribute_date_5").val(theDate);
+			$("#attribute_date_6").val(theDate);
 		} catch(e){
 			// whatever
+			console.log(e);
 		}
-	} else if (thisCC == 'Bird') {
+	} else if (thisCC == 'Bird' && $("#birdCustomAttributes").length>0) {
 		/************************************************** Bird Routine **************************************************/
+		/*
+		 * bird default:
+		 * 	1 is sex
+		 * determiner, date 1 is default
+		 * 2-5=uncontrolled
+		 * 6=weight
+		 * 
+		 */
+		
+		
 		try {
-			var Det2UnitVal = document.getElementById('attribute_determiner_2').value; //age & standard
-			var Det3UnitVal = document.getElementById('attribute_determiner_3'); //fat
-			var Det4UnitVal = document.getElementById('attribute_determiner_4'); //molt
-			var Det5UnitVal = document.getElementById('attribute_determiner_5'); //skull
-			var Det6UnitVal = document.getElementById('attribute_determiner_6'); //weight
-			Det3UnitVal.value = Det2UnitVal;
-			Det4UnitVal.value = Det2UnitVal;
-			Det5UnitVal.value = Det2UnitVal;
-			Det6UnitVal.value = Det2UnitVal;
-			var Date2UnitVal = document.getElementById('attribute_date_2').value; //age & standard
-			var Date3UnitVal = document.getElementById('attribute_date_3'); //fat
-			var Date4UnitVal = document.getElementById('attribute_date_4'); //molt
-			var Date5UnitVal = document.getElementById('attribute_date_5'); //skull
-			var Date6UnitVal = document.getElementById('attribute_date_6'); //weight
-			Date3UnitVal.value = Date2UnitVal;
-			Date4UnitVal.value = Date2UnitVal;
-			Date5UnitVal.value = Date2UnitVal;
-			Date6UnitVal.value = Date2UnitVal;
-			var oid1 = document.getElementById('other_id_num_type_1');
+			var theDeterminer=$("#attribute_determiner_1").val();
+			$("#attribute_determiner_2").val(theDeterminer);
+			$("#attribute_determiner_3").val(theDeterminer);
+			$("#attribute_determiner_4").val(theDeterminer);
+			$("#attribute_determiner_5").val(theDeterminer);
+			$("#attribute_determiner_6").val(theDeterminer);
+			var theDate=$("#attribute_date_1").val();
+			$("#attribute_date_2").val(theDate);
+			$("#attribute_date_3").val(theDate);
+			$("#attribute_date_4").val(theDate);
+			$("#attribute_date_5").val(theDate);
+			$("#attribute_date_6").val(theDate);
+			
+			
+			
+			/*
+			 * 
+			 * var oid1 = document.getElementById('other_id_num_type_1');
 			var oid2 = document.getElementById('other_id_num_type_2');
 			var theMsg = "";
-			/*
 			if (oid1.value == 'collector number') {
 				var oidv1 = document.getElementById('other_id_num_1').value;
 				if (oidv1.length == 0) {
@@ -1315,7 +1324,7 @@ function cleanup () {
 					theMsg += "\nYou did not enter a preparator number";
 				}			
 			}
-			*/
+			
 			if (theMsg.length > 0) {
 				theMsg +="\nContinue?";
 				whatever = window.confirm(theMsg);
@@ -1325,8 +1334,11 @@ function cleanup () {
 					return true;
 				}
 			}
+			*/
+			
 		} catch(e){
 			// whatever
+			console.log(e);
 		}
 	}// end collection specific thingy
 	/******************************************************************** Any Collection ***************************************/
