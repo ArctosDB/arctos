@@ -1245,7 +1245,8 @@ function highlightErrors (loadedMsg) {
 
 function cleanup () {
 	var thisCC = document.getElementById('collection_cde').value;
-	if (thisCC == 'Mamm' && $("$mammalCustomAttributes").length>0) {
+	console.log('dalen=' + $("#mammalCustomAttributes").length);
+	if (thisCC == 'Mamm' && $("#mammalCustomAttributes").length>0) {
 		console.log('mammal attribute cleanup');
 		/******************************** Mammal Routine ************************************************/
 		try {
