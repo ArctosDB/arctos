@@ -90,7 +90,7 @@
 					</td>
 					<td>
 						<input type="hidden" name="attribute_date_6" id="attribute_date_6" />
-						<input type="hidden" name="attribute_determiner_6" id="attribute_determiner_6" />
+						<input type="text" name="attribute_determiner_6" id="attribute_determiner_6" />
 						<input type="hidden" name="attribute_6" value="weight" />
 						<input type="text" name="attribute_value_6" size="3" id="attribute_value_6">
 					</td>
@@ -108,7 +108,8 @@
 					<td>
 						<input type="text" name="attribute_determiner_2" id="attribute_determiner_2"
 							onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
-							onkeypress="return noenter(event);">
+							onkeypress="return noenter(event);"
+							onchange="$('##attribute_determiner_6').val(this.value);">
 					</td>
 				</tr>
 			</table>
