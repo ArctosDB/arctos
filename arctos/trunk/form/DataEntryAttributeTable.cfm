@@ -51,12 +51,12 @@
 						<input type="hidden" name="attribute_det_meth_1" id="attribute_det_meth_1" value="">
 					</td>
 					<td>
-						<label for="attribute_2">len</label>
+						<label for="attribute_2">TLen</label>
 						<input type="hidden" name="attribute_2" id="attribute_2" value="total length" />
 						<input type="text" name="attribute_value_2" size="3" id="attribute_value_2">
 					</td>
 					<td>
-						<label for="attribute_3">tail</label>
+						<label for="attribute_3">Tail</label>
 						<input type="hidden" name="attribute_units_3" id="attribute_units_3" />
 						<input type="hidden" name="attribute_date_3" id="attribute_date_3" />
 						<input type="hidden" name="attribute_determiner_3" id="attribute_determiner_3" />
@@ -72,7 +72,7 @@
 						<input type="text" name="attribute_value_4" size="3" id="attribute_value_4">
 					</td>
 					<td>
-						<label for="attribute_5">EarFNtch</label>
+						<label for="attribute_5">Ear</label>
 						<input type="hidden" name="attribute_units_5" id="attribute_units_5" />
 						<input type="hidden" name="attribute_date_5" id="attribute_date_5" />
 						<input type="hidden" name="attribute_determiner_5" id="attribute_determiner_5" />
@@ -80,7 +80,7 @@
 						<input type="text" name="attribute_value_5" size="3" id="attribute_value_5">
 					</td>
 					<td>
-						<label for="attribute_units_2">Unit</label>
+						<label for="attribute_units_2">Units</label>
 						<select name="attribute_units_2" size="1" id="attribute_units_2">
 							<option value=""></option>
 							<cfloop query="ctLength_Units">
@@ -91,7 +91,7 @@
 					<td>
 						<label for="attribute_value_6">Weight</label>
 						<input type="hidden" name="attribute_date_6" id="attribute_date_6" />
-						<input type="text" name="attribute_determiner_6" id="attribute_determiner_6" />
+						<input type="hidden" name="attribute_determiner_6" id="attribute_determiner_6" />
 						<input type="hidden" name="attribute_6" value="weight" />
 						<input type="text" name="attribute_value_6" size="3" id="attribute_value_6">
 					</td>
@@ -107,7 +107,7 @@
 					<td>
 						<label for="attribute_date_1">Det.Date</label>
 						<!--- attribute_date_2 is at the other end of the table ---->
-						<input type="text" name="attribute_date_1" id="attribute_date_1">
+						<input type="text" name="attribute_date_1" id="attribute_date_1" size="10">
 					</td>
 					<td>
 						<label for="attribute_date_1">Determiner</label>
@@ -119,7 +119,7 @@
 					</td>
 				</tr>
 			</table>
-								</div>
+			</div>
 			<!---- attributes 7-10 are freeform --->
 			<table cellspacing="0" cellpadding="0">
 				<tr>
@@ -172,20 +172,11 @@
 		<cfelseif collection_cde is "Bird" and useCustom is true>
 			<!--- this sets off the attribute default updater - make sure it's not removed --->
 			<input type="hidden" id="birdCustomAttributes">
+			<div style="border:1px solid green">
 			<table cellpadding="1" cellspacing="0">
 				<tr>
-					<td><span class="f11a">Sex</span></td>
-					<td><span class="f11a">Age</span></td>
-					<td><span class="f11a">Fat</span></td>
-					<td><span class="f11a">Molt</span></td>
-					<td><span class="f11a">Ossification</span></td>
-					<td colspan="2" align="center"><span class="f11a">Weight</span></td>
-					<td><span class="f11a">Date</span></td>
-					<td><span class="f11a">Determiner</span></td>
-				</tr>
-				<tr>
 					<td>
-						<input type="hidden" name="attribute_1" id="attribute_1" value="sex">
+						<label for="attribute_value_1">Sex</label>
 						<select name="attribute_value_1" size="1" onChange="changeSex(this.value)"
 							id="attribute_value_1"
 							class="reqdClr"
@@ -195,39 +186,47 @@
 								<option value="#Sex_Cde#">#Sex_Cde#</option>
 							</cfloop>
 						</select>
+						<input type="hidden" name="attribute_1" id="attribute_1" value="sex">
 						<input type="hidden" name="attribute_date_2" id="attribute_date_2">
 						<input type="hidden" name="attribute_determiner_2" id="attribute_determiner_2">
 						<input type="hidden" name="attribute_det_meth_1" id="attribute_det_meth_1">
 					</td>
 					<td>
-						<input type="hidden" name="attribute_2" id="attribute_2" value="age" />
+						<label for="attribute_value_2">Age</label>
 						<input type="text" name="attribute_value_2" size="3" id="attribute_value_2">
+						<input type="hidden" name="attribute_2" id="attribute_2" value="age" />
 					</td>
 					<td>
+						<label for="attribute_value_3">Fat</label>
+						<input type="text" name="attribute_value_3" size="15" id="attribute_value_3">
 						<input type="hidden" name="attribute_date_3" id="attribute_date_3" />
 						<input type="hidden" name="attribute_determiner_3" id="attribute_determiner_3" />
 						<input type="hidden" name="attribute_3" id="attribute_3" value="fat deposition" />
-						<input type="text" name="attribute_value_3" size="15" id="attribute_value_3">
 					</td>
 					<td>
+						<label for="attribute_value_4">Molt</label>
+						<input type="text" name="attribute_value_4" size="15" id="attribute_value_4">
 						<input type="hidden" name="attribute_date_4" id="attribute_date_4" />
 						<input type="hidden" name="attribute_determiner_4" id="attribute_determiner_4" />
 						<input type="hidden" name="attribute_4" id="attribute_4" value="molt condition" />
-						<input type="text" name="attribute_value_4" size="15" id="attribute_value_4">
 					</td>
 					<td>
+						<label for="attribute_value_5">Ossification</label>
+						<input type="text" name="attribute_value_5"  size="15" id="attribute_value_5">
 						<input type="hidden" name="attribute_date_5" id="attribute_date_5" />
 						<input type="hidden" name="attribute_determiner_5" id="attribute_determiner_5" />
 						<input type="hidden" name="attribute_5" id="attribute_5" value="skull ossification" />
-						<input type="text" name="attribute_value_5"  size="15" id="attribute_value_5">
 					</td>
 					<td>
+						<label for="attribute_value_6">Weight</label>
+						<input type="text" name="attribute_value_6" size="2" id="attribute_value_6">
 						<input type="hidden" name="attribute_date_6" id="attribute_date_6" />
 						<input type="hidden" name="attribute_determiner_6" id="attribute_determiner_6" />
 						<input type="hidden" name="attribute_6" id="attribute_6" value="weight" />
 						<input type="text" name="attribute_value_6" size="2" id="attribute_value_6">
 					</td>
 					<td>
+						<label for="attribute_units_6">Wt.Unit</label>
 						<select name="attribute_units_6" size="1" id="attribute_units_6" >
 							<cfloop query="ctWeight_Units">
 								<option value="#Weight_Units#">#Weight_Units#</option>
@@ -235,9 +234,11 @@
 						</select>
 					</td>
 					<td>
-						<input type="text" name="attribute_date_1" id="attribute_date_1">
+						<label for="attribute_date_1">Attr.Date</label>
+						<input type="text" name="attribute_date_1" id="attribute_date_1" size="10">
 					</td>
 					<td>
+						<label for="attribute_determiner_1">Determiner</label>
 						<input type="text"
 							name="attribute_determiner_1"
 							id="attribute_determiner_1"
@@ -246,6 +247,7 @@
 					</td>
 				</tr>
 			</table>
+			</div>
 			<!---- attributes 7-10 are freeform --->
 			<table cellspacing="0" cellpadding="0">
 				<tr>
