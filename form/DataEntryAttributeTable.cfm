@@ -29,6 +29,7 @@
 		<cfif collection_cde is "Mamm" and useCustom is true>
 			<!--- this sets off the attribute default updater - make sure it's not removed --->
 			<input type="hidden" id="mammalCustomAttributes">
+			<div style="border:1px solid green">
 			<table cellpadding="1" cellspacing="0">
 				<tr>
 					<td>
@@ -63,7 +64,7 @@
 						<input type="text" name="attribute_value_3" size="3" id="attribute_value_3">
 					</td>
 					<td>
-						<label for="attribute_4">Hind Foot</label>
+						<label for="attribute_4">HFoot</label>
 						<input type="hidden" name="attribute_units_4" id="attribute_units_4" />
 						<input type="hidden" name="attribute_date_4" id="attribute_date_4" />
 						<input type="hidden" name="attribute_determiner_4" id="attribute_determiner_4" />
@@ -71,7 +72,7 @@
 						<input type="text" name="attribute_value_4" size="3" id="attribute_value_4">
 					</td>
 					<td>
-						<label for="attribute_5">Ear From Notch</label>
+						<label for="attribute_5">EarFNtch</label>
 						<input type="hidden" name="attribute_units_5" id="attribute_units_5" />
 						<input type="hidden" name="attribute_date_5" id="attribute_date_5" />
 						<input type="hidden" name="attribute_determiner_5" id="attribute_determiner_5" />
@@ -79,7 +80,7 @@
 						<input type="text" name="attribute_value_5" size="3" id="attribute_value_5">
 					</td>
 					<td>
-						<label for="attribute_units_2">Len. Unit</label>
+						<label for="attribute_units_2">Unit</label>
 						<select name="attribute_units_2" size="1" id="attribute_units_2">
 							<option value=""></option>
 							<cfloop query="ctLength_Units">
@@ -95,7 +96,7 @@
 						<input type="text" name="attribute_value_6" size="3" id="attribute_value_6">
 					</td>
 					<td>
-						<label for="attribute_units_6">Wt. Unit</label>
+						<label for="attribute_units_6">Wt.Unit</label>
 						<select name="attribute_units_6" size="1" id="attribute_units_6">
 							<option value=""></option>
 							<cfloop query="ctWeight_Units">
@@ -104,7 +105,7 @@
 						</select>
 					</td>
 					<td>
-						<label for="attribute_date_1">Attr. Date</label>
+						<label for="attribute_date_1">Det.Date</label>
 						<!--- attribute_date_2 is at the other end of the table ---->
 						<input type="text" name="attribute_date_1" id="attribute_date_1">
 					</td>
@@ -118,6 +119,7 @@
 					</td>
 				</tr>
 			</table>
+								</div>
 			<!---- attributes 7-10 are freeform --->
 			<table cellspacing="0" cellpadding="0">
 				<tr>
