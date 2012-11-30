@@ -1,6 +1,6 @@
 function autocopyAttDetr() {
 	console.log('autocopyAttDetr');
-	$('#attribute_determiner_6').val($("#attribute_determiner_2".val());
+	$('#attribute_determiner_6').val($("#attribute_determiner_2").val());
 
 }
 
