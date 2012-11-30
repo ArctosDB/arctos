@@ -31,17 +31,6 @@
 			<input type="hidden" id="mammalCustomAttributes">
 			<table cellpadding="1" cellspacing="0">
 				<tr>
-					<td><span class="f11a">sex</span></td>
-					<td><span class="f11a">len</span></td>
-					<td><span class="f11a">tail</span></td>
-					<td><span class="f11a">Hind Foot</span></td>
-					<td><span class="f11a">Ear From Notch</span></td>
-					<td><span class="f11a">Units</span></td>
-					<td colspan="2" align="center"><span class="f11a">Weight</span></td>
-					<td><span class="f11a">Date</span></td>
-					<td><span class="f11a">Determiner</span></td>
-				</tr>
-				<tr>
 					<td>
 						<label for="attribute_1">sex</label>
 						<input type="hidden" name="attribute_1" value="sex">
@@ -61,24 +50,28 @@
 						<input type="hidden" name="attribute_det_meth_1" id="attribute_det_meth_1" value="">
 					</td>
 					<td>
+						<label for="attribute_2">len</label>
 						<input type="hidden" name="attribute_2" id="attribute_2" value="total length" />
 						<input type="text" name="attribute_value_2" size="3" id="attribute_value_2">
 					</td>
 					<td>
+						<label for="attribute_3">tail</label>
 						<input type="hidden" name="attribute_units_3" id="attribute_units_3" />
 						<input type="hidden" name="attribute_date_3" id="attribute_date_3" />
 						<input type="hidden" name="attribute_determiner_3" id="attribute_determiner_3" />
 						<input type="hidden" name="attribute_3" value="tail length" />
 						<input type="text" name="attribute_value_3" size="3" id="attribute_value_3">
 					</td>
-					<td align='center'>
+					<td>
+						<label for="attribute_4">Hind Foot</label>
 						<input type="hidden" name="attribute_units_4" id="attribute_units_4" />
 						<input type="hidden" name="attribute_date_4" id="attribute_date_4" />
 						<input type="hidden" name="attribute_determiner_4" id="attribute_determiner_4" />
 						<input type="hidden" name="attribute_4" value="hind foot with claw" />
 						<input type="text" name="attribute_value_4" size="3" id="attribute_value_4">
 					</td>
-					<td align='center'>
+					<td>
+						<label for="attribute_5">Ear From Notch</label>
 						<input type="hidden" name="attribute_units_5" id="attribute_units_5" />
 						<input type="hidden" name="attribute_date_5" id="attribute_date_5" />
 						<input type="hidden" name="attribute_determiner_5" id="attribute_determiner_5" />
@@ -86,6 +79,7 @@
 						<input type="text" name="attribute_value_5" size="3" id="attribute_value_5">
 					</td>
 					<td>
+						<label for="attribute_units_2">Len. Unit</label>
 						<select name="attribute_units_2" size="1" id="attribute_units_2">
 							<option value=""></option>
 							<cfloop query="ctLength_Units">
@@ -94,12 +88,14 @@
 						</select>
 					</td>
 					<td>
+						<label for="attribute_value_6">Weight</label>
 						<input type="hidden" name="attribute_date_6" id="attribute_date_6" />
 						<input type="text" name="attribute_determiner_6" id="attribute_determiner_6" />
 						<input type="hidden" name="attribute_6" value="weight" />
 						<input type="text" name="attribute_value_6" size="3" id="attribute_value_6">
 					</td>
 					<td>
+						<label for="attribute_units_6">Wt. Unit</label>
 						<select name="attribute_units_6" size="1" id="attribute_units_6">
 							<option value=""></option>
 							<cfloop query="ctWeight_Units">
@@ -108,11 +104,12 @@
 						</select>
 					</td>
 					<td>
+						<label for="attribute_date_1">Attr. Date</label>
 						<!--- attribute_date_2 is at the other end of the table ---->
 						<input type="text" name="attribute_date_1" id="attribute_date_1">
 					</td>
 					<td>
-
+						<label for="attribute_date_1">Determiner</label>
 						<!--- attribute_determiner_2 is at the other end of the table ---->
 						<input type="text" name="attribute_determiner_1" id="attribute_determiner_1"
 							onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
