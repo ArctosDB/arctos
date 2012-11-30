@@ -27,6 +27,7 @@
 			select Weight_Units from ctWeight_Units order by weight_units
 		</cfquery>
 		<cfif collection_cde is "Mamm" and useCustom is true>
+			<!--- this sets off the attribute default updater - make sure it's not removed --->
 			<input type="hidden" id="mammalCustomAttributes">
 			<table cellpadding="1" cellspacing="0">
 				<tr>
@@ -42,6 +43,7 @@
 				</tr>
 				<tr>
 					<td>
+						<label for="attribute_1">sex</label>
 						<input type="hidden" name="attribute_1" value="sex">
 						<select name="attribute_value_1" size="1" onChange="changeSex(this.value)"
 							id="attribute_value_1"
@@ -52,8 +54,10 @@
 								<option value="#Sex_Cde#">#Sex_Cde#</option>
 							</cfloop>
 						</select>
-						<input type="hidden" name="attribute_date_1"  id="attribute_date_1" value="">
-						<input type="hidden" name="attribute_determiner_1" id="attribute_determiner_1" value="">
+						<!--- attribute_date_1 is at the other end of the table ---->
+						<input type="hidden" name="attribute_date_2"  id="attribute_date_2" value="">
+						<!--- attribute_determiner_1 is at the other end of the table ---->
+						<input type="hidden" name="attribute_determiner_2" id="attribute_determiner_2" value="">
 						<input type="hidden" name="attribute_det_meth_1" id="attribute_det_meth_1" value="">
 					</td>
 					<td>
@@ -104,10 +108,13 @@
 						</select>
 					</td>
 					<td>
-						<input type="text" name="attribute_date_2" id="attribute_date_2">
+						<!--- attribute_date_2 is at the other end of the table ---->
+						<input type="text" name="attribute_date_1" id="attribute_date_1">
 					</td>
 					<td>
-						<input type="text" name="attribute_determiner_2" id="attribute_determiner_2"
+
+						<!--- attribute_determiner_2 is at the other end of the table ---->
+						<input type="text" name="attribute_determiner_1" id="attribute_determiner_1"
 							onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 							onkeypress="return noenter(event);"
 							onchange="autocopyAttDetr();">
@@ -164,6 +171,8 @@
 				</cfloop>
 			</table>
 		<cfelseif collection_cde is "Bird" and useCustom is true>
+			<!--- this sets off the attribute default updater - make sure it's not removed --->
+			<input type="hidden" id="birdCustomAttributes">
 			<table cellpadding="1" cellspacing="0">
 				<tr>
 					<td><span class="f11a">Sex</span></td>
@@ -187,9 +196,9 @@
 								<option value="#Sex_Cde#">#Sex_Cde#</option>
 							</cfloop>
 						</select>
-						<input type="hidden" name="attribute_date_1"  id="attribute_date_1" value="">
-						<input type="hidden" name="attribute_determiner_1" id="attribute_determiner_1" value="">
-						<input type="hidden" name="attribute_det_meth_1" id="attribute_det_meth_1" value="">
+						<input type="hidden" name="attribute_date_2" id="attribute_date_2">
+						<input type="hidden" name="attribute_determiner_2" id="attribute_determiner_2">
+						<input type="hidden" name="attribute_det_meth_1" id="attribute_det_meth_1">
 					</td>
 					<td>
 						<input type="hidden" name="attribute_2" id="attribute_2" value="age" />
@@ -227,12 +236,12 @@
 						</select>
 					</td>
 					<td>
-						<input type="text" name="attribute_date_2" id="attribute_date_2">
+						<input type="text" name="attribute_date_1" id="attribute_date_1">
 					</td>
 					<td>
 						<input type="text"
-							name="attribute_determiner_2"
-							id="attribute_determiner_2"
+							name="attribute_determiner_1"
+							id="attribute_determiner_1"
 							onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 							onkeypress="return noenter(event);">
 					</td>
@@ -343,25 +352,8 @@
 				</cfloop>
 			</table>
 		</cfif>
-
 	<cfcatch>
 		<cfdump var=#cfcatch#>
 	</cfcatch>
-			</cftry>
-
-
-
-<!------------------
-
-
-	<cfloop from="1" to="6" index="i">
-										<input type="hidden" name="attribute_#i#" id="attribute_#i#" value="">
-										<input type="hidden" name="attribute_value_#i#"  id="attribute_value_#i#" value="">
-										<input type="hidden" name="attribute_date_#i#"  id="attribute_date_#i#" value="">
-										<input type="hidden" name="attribute_determiner_#i#"  id="attribute_determiner_#i#" value="">
-										<input type="hidden" name="attribute_det_meth_#i#"  id="attribute_det_meth_#i#" value="">
-									</cfloop>
-
-
-								-------------->
-									</cfoutput>
+</cftry>
+</cfoutput>

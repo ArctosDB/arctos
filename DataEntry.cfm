@@ -193,13 +193,6 @@
 			SELECT distinct(other_id_type) FROM ctColl_Other_id_type
 			order by other_id_type
 	    </cfquery>
-		<cfquery name="ctSex_Cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT distinct(sex_cde) as sex_cde FROM ctSex_Cde
-			<cfif len(collection_cde) gt 0>
-				WHERE collection_cde='#collection_cde#'
-			</cfif>
-			order by sex_cde
-		</cfquery>
 		<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select orig_elev_units from ctorig_elev_units
 	    </cfquery>
@@ -207,24 +200,11 @@
 	      	select BIOL_INDIV_RELATIONSHIP from ctbiol_relations
 			order by BIOL_INDIV_RELATIONSHIP
 	    </cfquery>
-		<cfquery name="ctLength_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select length_units from ctLength_Units order by length_units
-		</cfquery>
-		<cfquery name="ctWeight_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select Weight_Units from ctWeight_Units order by weight_units
-		</cfquery>
 		<cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
 		</cfquery>
 		<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select specimen_event_type from ctspecimen_event_type order by specimen_event_type
-		</cfquery>
-		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT attribute_type FROM ctattribute_type
-			<cfif len(#collection_cde#) gt 0>
-				WHERE collection_cde='#collection_cde#'
-			</cfif>
-			order by attribute_type
 		</cfquery>
 		<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select geology_attribute from ctgeology_attribute order by geology_attribute
