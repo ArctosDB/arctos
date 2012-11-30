@@ -109,7 +109,7 @@
 						<input type="text" name="attribute_determiner_2" id="attribute_determiner_2"
 							onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 							onkeypress="return noenter(event);"
-							onchange="$('##attribute_determiner_6').val(this.value);">
+							onchange="autocopyAttDetr();">
 					</td>
 				</tr>
 			</table>

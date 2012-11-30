@@ -1,3 +1,10 @@
+function autocopyAttDetr() {
+	console.log('autocopyAttDetr');
+	$('#attribute_determiner_6').val($("#attribute_determiner_2".val());
+
+}
+
+
 function loadRecord (collection_object_id) {
 	console.log('loading record ' + collection_object_id);
 	msg('fetching data....','bad');
