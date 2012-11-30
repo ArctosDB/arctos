@@ -281,13 +281,14 @@
 								<span id="catNumLbl" class="f11a">Cat##</span>
 								<input type="text" name="cat_num" value="#cat_num#"  size="6" id="cat_num">
 
-								<cfif isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0>
+								<cfif (isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0) or
+										isdefined("data.other_id_num_type_5") and len(data.other_id_num_type_5) gt 0>
 									<cfif isdefined("data.other_id_num_type_5") and len(data.other_id_num_type_5) gt 0>
 										<cfset thisID=data.other_id_num_type_5>
 									<cfelse>
 										<cfset thisID=session.CustomOtherIdentifier>
 									</cfif>
-									<select name="other_id_num_type_5" style="width:250px"
+									<select name="other_id_num_type_5" style="width:180px"
 										id="other_id_num_type_5"
 										onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
 										<option value=""></option>
@@ -296,6 +297,8 @@
 												value="#other_id_type#">#other_id_type#</option>
 										</cfloop>
 									</select>
+									<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
+
 
 									<!----
 									<span id="d_other_id_num_type_5">
@@ -313,7 +316,7 @@
 									---->
 								<cfelse>
 									<input type="hidden" name="other_id_num_type_5" id="other_id_num_type_5" value=''.
-									<input type="hidden" name="other_id_num_5" id="other_id_num_5" value=''.
+									<input type="hidden" name="other_id_num_5" id="other_id_num_5" value=''>
 								</cfif>
 								<span class="f11a likeLink" onClick="getDocs('accession')">Accn</span>
 								<input type="text" name="accn" value="#accn#" size="30" class="reqdClr" id="accn" onchange="getAccn(this.value,this.id,'#institution_acronym#:#collection_cde#');">
