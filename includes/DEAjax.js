@@ -1010,9 +1010,9 @@ function changeSex(sex) {
 		if ($("#attribute_value_7").val().length==0){
 			$("#attribute_7").val('reproductive data');
 			if (sex.indexOf('female') > -1) {
-				thisAtt.value = 'OV:  mm';
+				$("#attribute_value_7").val('OV:  mm');
 			} else if (sex.indexOf('male') > -1) {
-				thisAtt.value = 'TE:  mm';
+				$("#attribute_value_7").val('TE:  mm');
 			}
 		}
 	}
