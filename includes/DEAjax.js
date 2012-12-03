@@ -206,7 +206,19 @@ function removeCalendars(){
 }
 
 function addCalendar(){
-	console.log('addcalendar');
+	var hasDates=[ "made_date", "began_date", "ended_date", "event_assigned_date" ];
+
+	for (i=1;i<=12;i++){
+		x="geo_att_determined_date_" + i;
+		hasDates.push(x);
+		x="attribute_date_" + i;
+		hasDates.push(x);
+	}
+	jQuery.each(hasDates, function(i,v) {
+	     console.log(v);
+		 // $("#" + this).text("Mine is " + this + ".");
+	     $( "#" + v ).datepicker();
+	 });
 }
 function getRelatedSpecimenData(){	
 	var url="/picks/CatalogedItemPickForDataEntry.cfm";
