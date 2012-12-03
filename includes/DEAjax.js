@@ -183,8 +183,8 @@ function removeCalendars(){
 	var hasDates=[ "made_date", "began_date", "ended_date", "event_assigned_date" ];
 
     
-	jQuery.each(hasDates, function() {
-	     console.log(this);
+	jQuery.each(hasDates, function(i,v) {
+	     console.log(v);
 		 // $("#" + this).text("Mine is " + this + ".");
 	   });
 
