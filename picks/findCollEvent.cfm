@@ -10,10 +10,16 @@
 		    console.log(this.id);
 		    var c=this.id.split('_');
 		    console.log('locality is ' + c[2]);
-		    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&locality_id=' + c[2];
-		    jQuery.get(ptl, function(data){
-				jQuery("#" + this.id).html('i like fish');
-			});
+
+
+		    jQuery("#" + this.id).html('i like fish');
+
+		    jQuery("#" + this.id).append('appended morewoot');
+
+		    //var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&locality_id=' + c[2];
+		   // jQuery.get(ptl, function(data){
+			//	jQuery("#" + this.id).html('i like fish');
+		//	});
 		});
 	});
 
