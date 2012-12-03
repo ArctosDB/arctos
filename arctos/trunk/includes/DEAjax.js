@@ -84,10 +84,12 @@ function loadRecord (collection_object_id) {
 				*/
 				for (i=0;i<columns.length;i++) {
 					var cName=columns[i];
-					var cVal=eval("r.DATA." + columns[i]);
-					var eName=cName.toLowerCase();
-					//console.log('setting ' + eName + ' to ' + cVal);
-					$("#" + eName).val(cVal);
+					if (cName != 'ENTEREDBY'){
+						var cVal=eval("r.DATA." + columns[i]);
+						var eName=cName.toLowerCase();
+						//console.log('setting ' + eName + ' to ' + cVal);
+						$("#" + eName).val(cVal);
+					}
 				}
 				
 				set_attribute_dropdowns();
