@@ -12,7 +12,7 @@
 		    console.log('locality is ' + c[2]);
 		    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&locality_id=' + c[2];
 		    jQuery.get(ptl, function(data){
-				jQuery("#" + this.id).html(data);
+				jQuery("#" + this.id).append(data);
 			});
 		});
 	});
@@ -117,7 +117,7 @@
 							<td valign="top">
 								<span style="font-size:x-small" title="spec_locality">
 									#spec_locality#
-									(<a href="/Locality.cfm?Action=editLocality&locality_id=#locality_id#"
+									(<a href="/editLocality.cfm?locality_id=#locality_id#"
 									target="_blank">#locality_id#</a>)
 								</span>
 							</td>
