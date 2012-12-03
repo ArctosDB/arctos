@@ -1853,7 +1853,7 @@ function success_getAttributeStuff (r) {
 	var theNumber = theEl.replace("attribute_","");
 	
 
-	var oldAttributeType=$("#attribute_" + theNumber).val();
+	//var oldAttributeType=$("#attribute_" + theNumber).val();
 	var oldAttributeUnit=$("#attribute_units_" + theNumber).val();
 	var oldAttributeValue=$("#attribute_value_" + theNumber).val();
 	
@@ -1936,10 +1936,24 @@ function success_getAttributeStuff (r) {
 		alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
 	}
 	
-	var newAttributeType=$("#attribute_" + theNumber).val();
+	// try to bring old values to new
+	try {
+		$("#attribute_units_" + theNumber).val(oldAttributeUnit);
+	}
+	catch ( err ){// nothing, just ignore 
+		console.log('failed setting units: ' + err)
+	}
 	
-	console.log('newAttributeType='+newAttributeType);
-	console.log('oldAttributeType='+oldAttributeType);
+	try {
+		$("#attribute_value_" + theNumber).val(oldAttributeValue);
+	}
+	catch ( err ){// nothing, just ignore 
+		console.log('failed setting value: ' + err)
+	}
+	//var newAttributeType=$("#attribute_" + theNumber).val();
+	
+	//console.log('newAttributeType='+newAttributeType);
+	//console.log('oldAttributeType='+oldAttributeType);
 	
 	//var oldAttributeUnit=$("#attribute_units_" + theNumber).val();
 	//var oldAttributeValue=$("#attribute_value_" + theNumber).val();
