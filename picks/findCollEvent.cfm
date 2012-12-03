@@ -5,6 +5,8 @@
 jQuery(document).ready(function() {
 	$.each($("span[id^='mapgohere_']"), function() {
 	    console.log(this.id);
+	    var c=this.id.split('_');
+	    console.log('locality is ' + c[2])'
 
    });
 
