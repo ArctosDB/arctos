@@ -177,7 +177,7 @@ jQuery(document).ready(function() {
 	}
 	pickedLocality();
 	
-	getAttributeStuff ($("#attribute_2").val(),'attribute_2');
+	set_attribute_dropdowns();
 	
 });
 function padzero(n) {
@@ -1793,6 +1793,15 @@ function getAttributeStuff (attribute,element) {
 			success_getAttributeStuff
 		);
 	}
+}
+
+function set_attribute_dropdowns() {
+
+	$.(each($('select[name^="attribute_"]'), function(key, value) { 
+		  alert(key + ': ' + value); 
+	});
+
+	
 }
 function success_getAttributeStuff (r) {
 	var result=r.DATA;
