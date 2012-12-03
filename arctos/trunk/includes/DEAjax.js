@@ -202,7 +202,7 @@ function removeCalendars(){
 	$('#calControl').html('enable calendars');
 }
 
-fucntion addCalendar(){
+function addCalendar(){
 	console.log('addcalendar');
 }
 function getRelatedSpecimenData(){	
