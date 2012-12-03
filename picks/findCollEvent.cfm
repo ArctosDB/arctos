@@ -124,6 +124,7 @@
 							<td>
 								<cfif len(DEC_LAT) gt 0>
 									<span id="mapgohere_#collecting_event_id#_#locality_id#">
+										i am map thingee mapgohere_#collecting_event_id#_#locality_id#
 
 									</span>
 									<!----
