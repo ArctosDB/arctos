@@ -10,15 +10,12 @@ jQuery(document).ready(function() {
 	    console.log(this.id);
 	    var c=this.id.split('_');
 	    console.log('locality is ' + c[2]);
-
 	    jQuery.get('/component/functions.cfc?method=getMap&locality_id=' + c[2], function(data){
 				jQuery("#" + this.id).html(data);
 
-
-   });
-
+		});
+	});
 });
-
 
 
 </script>
