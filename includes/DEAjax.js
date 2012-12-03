@@ -80,7 +80,7 @@ function loadRecord (collection_object_id) {
 				}
 				*/
 				$.each(columns, function(key, value) { 
-					  alert(key + ': ' + value); 
+					  console.log(key + ': ' + value); 
 					});
 			});
 			
