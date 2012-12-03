@@ -223,7 +223,6 @@
 						<input type="hidden" name="attribute_date_6" id="attribute_date_6" />
 						<input type="hidden" name="attribute_determiner_6" id="attribute_determiner_6" />
 						<input type="hidden" name="attribute_6" id="attribute_6" value="weight" />
-						<input type="text" name="attribute_value_6" size="2" id="attribute_value_6">
 					</td>
 					<td>
 						<label for="attribute_units_6">Wt.Unit</label>
