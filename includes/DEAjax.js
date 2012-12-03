@@ -1776,12 +1776,14 @@ function success_pickedLocality (r) {
 		$("#locality_name").attr("readOnly", true).removeClass().addClass('readClr').val(result.LOCALITY_NAME[0]);
 		
 		
-		switchActive(result.ORIG_LAT_LONG_UNITS[0]);
 		
 		$("#orig_lat_long_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.ORIG_LAT_LONG_UNITS[0]);
 		
 		$("#localityPicker").hide();
 		$("#localityUnPicker").show();
+		
+		switchActive(result.ORIG_LAT_LONG_UNITS[0]);
+
 		
 		if (r.ROWCOUNT > 6) {
 			alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
