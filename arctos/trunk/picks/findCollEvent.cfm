@@ -66,7 +66,7 @@
 				DEC_LONG,
 				verbatim_locality,
 				collecting_event_name,
-				collecting_event_id	
+				collecting_event_id
 		</cfquery>
 		<cfloop query="d">
 			<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
@@ -85,7 +85,7 @@
 		 		<td>
 					<span style="font-size:x-small" title="higher_geog">
 						#higher_geog#
-						(<a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#" 
+						(<a href="/Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#"
 						target="_blank">#geog_auth_rec_id#</a>)
 					</span>
 				</td>
@@ -95,17 +95,19 @@
 							<td valign="top">
 								<span style="font-size:x-small" title="spec_locality">
 									#spec_locality#
-									(<a href="/Locality.cfm?Action=editLocality&locality_id=#locality_id#" 
+									(<a href="/Locality.cfm?Action=editLocality&locality_id=#locality_id#"
 									target="_blank">#locality_id#</a>)
 								</span>
 							</td>
 							<td>
+								<!----
 								<cfif len(DEC_LAT) gt 0>
 									<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 										<cfinvokeargument name="locality_id" value="#locality_id#">
 									</cfinvoke>
 									#contents#
 								</cfif>
+								---->
 							</td>
 						</tr>
 					</table>
@@ -122,7 +124,7 @@
 				</td>
 				<td>
 					<input type="button" value="UseThis" class="savBtn"
-						onclick="javascript: opener.document.#formName#.#collIdFld#.value='#collecting_event_id#'; 
+						onclick="javascript: opener.document.#formName#.#collIdFld#.value='#collecting_event_id#';
 							opener.document.#formName#.#dispField#.value='#jsescape(verbatim_locality)#';
 							self.close();">
 				</td>
