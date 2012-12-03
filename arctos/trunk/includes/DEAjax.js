@@ -1,6 +1,5 @@
 function loadRecord (collection_object_id) {
 	console.log('loading record ' + collection_object_id);
-	var useCustom=true;
 	msg('fetching data....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
@@ -65,8 +64,7 @@ function loadRecord (collection_object_id) {
 				}
 				if (String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight'){
 					useCustom=false;
-				}				
-			}
+				}
 			}
 			if (useCustom==false) {
 				console.log('failure - switching');
