@@ -62,12 +62,12 @@
 				<cfelseif valcodes is "no">
 					<cfset rval="_no_">
 				<cfelse>
-					<cfset rval=valcodes>					
+					<cfset rval=valcodes>
 				</cfif>
 				<cfset temp = QuerySetCell(result, "v", rval,i)>
 				<cfset i=i+1>
 			</cfloop>
-			
+
 		<cfelseif #isCtControlled.UNITS_CODE_TABLE# gt 0>
 			<cfquery name="getCols" datasource="uam_god">
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNITS_CODE_TABLE)#'
@@ -94,7 +94,7 @@
 				<cfquery name="valCodes" dbtype="query">
 					SELECT #columnName# as valCodes from valCT
 				</cfquery>
-			</cfif>			
+			</cfif>
 			<cfset result = "unit - #isCtControlled.UNITS_CODE_TABLE#">
 			<cfset result = QueryNew("V")>
 			<cfset newRow = QueryAddRow(result, 1)>
@@ -123,14 +123,14 @@
 	</cfif>
 
 	<cfreturn result>
-	
+
 </cffunction>
 <!---------------------------------------------------------------->
 <cffunction name="getcatNumSeq" access="remote">
 	<cfargument name="coll" type="string" required="yes">
 	<cfset theSpace = find(" " ,coll)>
 	<cfset inst = trim(left(coll,theSpace))>
-	<cfset collcde = trim(mid(coll,theSpace,len(coll)))>	
+	<cfset collcde = trim(mid(coll,theSpace,len(coll)))>
 	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_id from collection where
 		institution_acronym='#inst#' and
@@ -138,9 +138,9 @@
 	</cfquery>
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(cat_num + 1) as nextnum
-		from cataloged_item 
-		where 
-		collection_id=#collID.collection_id# 
+		from cataloged_item
+		where
+		collection_id=#collID.collection_id#
 	</cfquery>
 	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(to_number(cat_num) + 1) as nextnum from bulkloader
@@ -173,7 +173,7 @@
 		<cfset cc=collection_cde>
 	</cfif>
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			count(*) cnt
 		FROM
 			accn,
@@ -190,7 +190,7 @@
 	<cfcatch>
 		<cfset result = "#cfcatch.detail#">
 	</cfcatch>
-	</cftry>	
+	</cftry>
 	<cfreturn result>
 </cffunction>
 <!---------------------------------------------------------------------------------------->
@@ -205,7 +205,7 @@
 		<cftry>
 
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			collecting_event.COLLECTING_EVENT_ID,
 			collecting_event.COLLECTING_EVENT_name,
 			collecting_event.BEGAN_DATE,
@@ -214,12 +214,12 @@
 			collecting_event.VERBATIM_LOCALITY,
 			collecting_event.COLL_EVENT_REMARKS,
 			<!----
-			
+
 			COLLECTING_SOURCE,
 			COLLECTING_METHOD,
 			HABITAT_DESC,
-			
-			
+
+
 			---->
 			locality.locality_id,
 			geog_auth_rec.HIGHER_GEOG,
@@ -230,7 +230,9 @@
 			locality.LOCALITY_REMARKS,
 			locality.DEC_LAT,
 			locality.DEC_LONG,
-			'decimal degrees' ORIG_LAT_LONG_UNITS,
+			decode (locality.DEC_LAT,
+				NULL,'',
+				'decimal degrees') ORIG_LAT_LONG_UNITS,
 			locality.MAX_ERROR_DISTANCE,
 			locality.MAX_ERROR_UNITS,
 			locality.DATUM,
@@ -238,15 +240,15 @@
 			locality.georeference_source,
 			locality.locality_name,
 			<!----
-			accepted_lat_long.LAT_DEG,			
+			accepted_lat_long.LAT_DEG,
 			accepted_lat_long.DEC_LAT_MIN,
 			accepted_lat_long.LAT_MIN,
 			accepted_lat_long.LAT_SEC,
-			accepted_lat_long.LAT_DIR,			
+			accepted_lat_long.LAT_DIR,
 			accepted_lat_long.LONG_DEG,
 			accepted_lat_long.DEC_LONG_MIN,
 			accepted_lat_long.LONG_MIN,
-			accepted_lat_long.LONG_SEC,			
+			accepted_lat_long.LONG_SEC,
 			accepted_lat_long.LONG_DIR,
 			accepted_lat_long.ORIG_LAT_LONG_UNITS,
 			llAgnt.agent_name DETERMINED_BY,
@@ -260,13 +262,13 @@
 			accepted_lat_long.UTM_ZONE,
 			accepted_lat_long.UTM_EW,
 			accepted_lat_long.UTM_NS,
-			----> 
+			---->
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
 			getPreferredAgentName(GEO_ATT_DETERMINER_ID) GEO_ATT_DETERMINER,
 			to_char(GEO_ATT_DETERMINED_DATE,'yyyy-mm-dd') GEO_ATT_DETERMINED_DATE,
 			GEO_ATT_DETERMINED_METHOD,
-			GEO_ATT_REMARK 
+			GEO_ATT_REMARK
 		FROM
 			geog_auth_rec,
 			locality,
@@ -284,7 +286,7 @@
 	<cfset temp = QuerySetCell(result, "collecting_event_id", "-1",1)>
 	<cfset temp = QuerySetCell(result, "msg", "#cfcatch.detail#",1)>
 	</cfcatch>
-	</cftry>	
+	</cftry>
 	<cfreturn result>
 </cffunction>
 <!---------------------------------------------------------------------------------------->
@@ -292,7 +294,7 @@
 	<cfargument name="locality_id" type="numeric" required="yes">
 	<cftry>
 		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				locality.locality_id,
 				geog_auth_rec.HIGHER_GEOG,
 				locality.MAXIMUM_ELEVATION,
@@ -310,15 +312,15 @@
 				locality.georeference_source,
 				locality.locality_name,
 				<!----
-				accepted_lat_long.LAT_DEG,			
+				accepted_lat_long.LAT_DEG,
 				accepted_lat_long.DEC_LAT_MIN,
 				accepted_lat_long.LAT_MIN,
 				accepted_lat_long.LAT_SEC,
-				accepted_lat_long.LAT_DIR,			
+				accepted_lat_long.LAT_DIR,
 				accepted_lat_long.LONG_DEG,
 				accepted_lat_long.DEC_LONG_MIN,
 				accepted_lat_long.LONG_MIN,
-				accepted_lat_long.LONG_SEC,			
+				accepted_lat_long.LONG_SEC,
 				accepted_lat_long.LONG_DIR,
 				accepted_lat_long.ORIG_LAT_LONG_UNITS,
 				llAgnt.agent_name DETERMINED_BY,
@@ -332,13 +334,13 @@
 				accepted_lat_long.UTM_ZONE,
 				accepted_lat_long.UTM_EW,
 				accepted_lat_long.UTM_NS,
-				----> 
+				---->
 				GEOLOGY_ATTRIBUTE,
 				GEO_ATT_VALUE,
 				geoAgnt.agent_name GEO_ATT_DETERMINER,
 				to_char(GEO_ATT_DETERMINED_DATE,'yyyy-mm-dd') GEO_ATT_DETERMINED_DATE,
 				GEO_ATT_DETERMINED_METHOD,
-				GEO_ATT_REMARK 
+				GEO_ATT_REMARK
 			FROM
 				geog_auth_rec,
 				locality,
@@ -356,7 +358,7 @@
 		<cfset temp = QuerySetCell(result, "locality_id", "-1",1)>
 		<cfset temp = QuerySetCell(result, "msg", "#cfcatch.detail#",1)>
 	</cfcatch>
-	</cftry>	
+	</cftry>
 	<cfreturn result>
 </cffunction>
 </cfcomponent>

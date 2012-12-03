@@ -181,7 +181,6 @@ function isValidISODate(val) {
 }
 function removeCalendars(){
 	var hasDates=[ "made_date", "began_date", "ended_date", "event_assigned_date" ];
-
 	for (i=1;i<=12;i++){
 		x="geo_att_determined_date_" + i;
 		hasDates.push(x);
@@ -189,23 +188,14 @@ function removeCalendars(){
 		hasDates.push(x);
 	}
 	jQuery.each(hasDates, function(i,v) {
-	     console.log(v);
-		 // $("#" + this).text("Mine is " + this + ".");
 	     $( "#" + v ).datepicker( "destroy" );
 	     $(  "#" + v  ).removeClass("hasDatepicker");
 	 });
-	
-	//$('#calControl').onclick(function() { addCalendar(); });
-	
-	//$('#calControl').onclick = function (){addCalendar();};
-	
 	$("#calControl").unbind('click', removeCalendars).click(addCalendar).html('[ enable calendars ]');
-	
 }
 
 function addCalendar(){
 	var hasDates=[ "made_date", "began_date", "ended_date", "event_assigned_date" ];
-
 	for (i=1;i<=12;i++){
 		x="geo_att_determined_date_" + i;
 		hasDates.push(x);
@@ -213,8 +203,6 @@ function addCalendar(){
 		hasDates.push(x);
 	}
 	jQuery.each(hasDates, function(i,v) {
-	     console.log(v);
-		 // $("#" + this).text("Mine is " + this + ".");
 	     $( "#" + v ).datepicker();
 	 });
 	$("#calControl").unbind('click', addCalendar).click(removeCalendars).html('[ disable calendars ]');
