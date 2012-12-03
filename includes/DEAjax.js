@@ -31,10 +31,6 @@ function loadRecord (collection_object_id) {
 			if (ccde=='Mamm'){
 				if (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
 					useCustom=false;
-					console.log('sexfail');
-					console.log('len=' + String(r.DATA.ATTRIBUTE_1).length);
-					console.log('val="' + r.DATA.ATTRIBUTE_1 + '"');
-					
 				}
 				if (String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length'){
 					useCustom=false;
@@ -56,6 +52,27 @@ function loadRecord (collection_object_id) {
 					useCustom=false;
 					console.log('wfail');
 				}
+			}
+			if (ccde=='Bird'){
+				if (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
+					useCustom=false;
+				}
+				if (String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age'){
+					useCustom=false;
+				}
+				if (String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition'){
+					useCustom=false;
+				}
+				if (String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'molt condition'){
+					useCustom=false;
+				}
+				if (String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification'){
+					useCustom=false;
+				}
+				if (String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight'){
+					useCustom=false;
+				}				
+			}
 			}
 			if (useCustom==false) {
 				console.log('failure - switching');
@@ -1669,26 +1686,28 @@ function success_pickedEvent(r){
 	}
 }
 function pickedLocality () {
-	var locality_id = document.getElementById('locality_id').value;
-	var pid = document.getElementById('fetched_locid').value;
-	var collecting_event_id = document.getElementById('collecting_event_id').value;
-	if (collecting_event_id.length>0){
-		locality_id.value='';
-		return false;
-	}
-	if (locality_id==pid){
-		return false;
-	}
-	if (locality_id.length > 0) {
-		jQuery.getJSON("/component/DataEntry.cfc",
-			{
-				method : "get_picked_locality",
-				locality_id : locality_id,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			success_pickedLocality
-		);
+	if (document.getElementById('locality_id')){
+		var locality_id = document.getElementById('locality_id').value;
+		var pid = document.getElementById('fetched_locid').value;
+		var collecting_event_id = document.getElementById('collecting_event_id').value;
+		if (collecting_event_id.length>0){
+			locality_id.value='';
+			return false;
+		}
+		if (locality_id==pid){
+			return false;
+		}
+		if (locality_id.length > 0) {
+			jQuery.getJSON("/component/DataEntry.cfc",
+				{
+					method : "get_picked_locality",
+					locality_id : locality_id,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				success_pickedLocality
+			);
+		}
 	}
 }
 function success_pickedLocality (r) {
