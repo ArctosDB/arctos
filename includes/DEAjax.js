@@ -1803,6 +1803,25 @@ function catNumSeq () {
 		);
 	}
 }
+
+function set_attribute_dropdowns() {
+
+	
+	$.each($("select[id^='attribute_']"), function() {
+	    console.log(this.id);
+	    //var theVal=$("#")
+	    if  (!(this.id.indexOf("units") >= 0 || this.id.indexOf("value") >= 0)) {
+	    	console.log('use this one');
+	    	
+	    	getAttributeStuff($("#" + this.id),val(),this.id);
+	    }
+   });
+	
+	
+	
+
+	
+}
 function getAttributeStuff (attribute,element) {
 	var isSomething = attribute.length;
 	if (isSomething > 0) {
@@ -1823,23 +1842,6 @@ function getAttributeStuff (attribute,element) {
 	}
 }
 
-function set_attribute_dropdowns() {
-
-	
-	$.each($("select[id^='attribute_']"), function() {
-	    console.log(this.id);
-	    //var theVal=$("#")
-	    if  (!(this.id.indexOf("units") >= 0 || this.id.indexOf("value") >= 0)) {
-	    	console.log('use this one');
-	    	
-	    }
-   });
-	
-	
-	
-
-	
-}
 function success_getAttributeStuff (r) {
 	var result=r.DATA;
 	var resType=result.V[0];
