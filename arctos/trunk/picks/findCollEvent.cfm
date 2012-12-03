@@ -2,11 +2,14 @@
 
 <script>
 //http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=getMap&locality_id=1234
-
+jQuery(document).ready(function() {
 	$.each($("span[id^='mapgohere_']"), function() {
 	    console.log(this.id);
 
    });
+
+});
+
 
 
 </script>
