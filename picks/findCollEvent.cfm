@@ -19,7 +19,9 @@
 		    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&locality_id=' + c[2];
 		    jQuery.get(ptl, function(data){
 				console.log(data);
-				jQuery("#" + this.id).html('<figure><a href="/bnhmMaps/bnhmMapData.cfm?locality_id=10032348" target="_blank"><img src="http://maps.google.com/maps/api/staticmap?markers=color:red|size:tiny|37.8756554000,-122.2375535000&sensor=false&size=200x200&maptype=roadmap&zoom=2" alt="[ Google Map of 37.8756554000,-122.2375535000 ]"></a></figure>');
+
+				//<figure><a href="/bnhmMaps/bnhmMapData.cfm?locality_id=10032348" target="_blank"><img src="http://maps.google.com/maps/api/staticmap?markers=color:red|size:tiny|37.8756554000,-122.2375535000&sensor=false&size=200x200&maptype=roadmap&zoom=2" alt="[ Google Map of 37.8756554000,-122.2375535000 ]"></a></figure>
+				jQuery("#" + this.id).html('inserted');
 			});
 		});
 	});
