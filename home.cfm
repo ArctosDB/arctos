@@ -52,9 +52,9 @@ border-bottom:1px solid black;
 		select
 			cf_collection.cf_collection_id,
 			decode(cf_collection.collection_id,
-				null,collection.collection || ' Portal',
-				collection.collection || ' Collection') collection,
-			collection.collection_id,
+				null,cf_collection.collection || ' Portal',
+				cf_collection.collection || ' Collection') collection,
+			cf_collection.collection_id,
 			descr,
 			web_link,
 			web_link_text,
@@ -79,14 +79,15 @@ border-bottom:1px solid black;
 			loan_policy_url,
 			portal_name,
 			decode(cf_collection.collection_id,
-				null,collection.collection || ' Portal',
-				collection.collection || ' Collection')
+				null,cf_collection.collection || ' Portal',
+				cf_collection.collection || ' Collection'),
+			cf_collection.collection_id
 		order by cf_collection.collection
 	</cfquery>
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 	<cfset gotem=''>
 	<cfquery name="uam" dbtype="query">
-		select * from coll where collection like 'UAM %' order by collection
+		select * from coll where (collection like 'UAM %' or collection like 'Herbarium %') order by collection
 	</cfquery>
 	<cfset gotem=listappend(gotem,valuelist(uam.cf_collection_id))>
 	<cfquery name="msb" dbtype="query">

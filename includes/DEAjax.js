@@ -69,6 +69,8 @@ function loadRecord (collection_object_id) {
 
 				// re-fill the form inside the function - otherwise, we're filling and switching out
 				// asynchronously==explode
+				
+				/* this works
 				for (i=0;i<columns.length;i++) {
 					var cName=columns[i];
 					var cVal=eval("r.DATA." + columns[i]);
@@ -76,9 +78,28 @@ function loadRecord (collection_object_id) {
 					//console.log('setting ' + eName + ' to ' + cVal);
 					$("#" + eName).val(cVal);
 				}
+				*/
+				$.each(columns, function(key, value) { 
+					  alert(key + ': ' + value); 
+					});
 			});
 			
-			set_attribute_dropdowns();
+			//set_attribute_dropdowns();
+			
+			/*
+			$.each(map, function(key, value) { 
+				  alert(key + ': ' + value); 
+				});
+			
+			
+			$("button").click(function(){
+				  $("p").hide("slow",function(){
+				    alert("The paragraph is now hidden");
+				  });
+				});
+			
+			*/
+			
 			
 			switchActive($("#orig_lat_long_units").val());
 			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
