@@ -185,11 +185,14 @@ function removeCalendars(){
 	for (i=1;i<=12;i++){
 		x="geo_att_determined_date_" + i;
 		hasDates.push(x);
-		//$("#attribute_date_" + i).datepicker();
+		x="attribute_date_" + i;
+		hasDates.push(x);
 	}
 	jQuery.each(hasDates, function(i,v) {
 	     console.log(v);
 		 // $("#" + this).text("Mine is " + this + ".");
+	     $( "#" + v ).datepicker( "destroy" );
+	     $(  "#" + v  ).removeClass("hasDatepicker");
 	   });
 
 }
