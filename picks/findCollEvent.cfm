@@ -2,11 +2,18 @@
 
 <script>
 //http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=getMap&locality_id=1234
+//$("#rightcolumn").append("img").prop("src", "my_image_file.jpg");
+
+
 jQuery(document).ready(function() {
 	$.each($("span[id^='mapgohere_']"), function() {
 	    console.log(this.id);
 	    var c=this.id.split('_');
 	    console.log('locality is ' + c[2]);
+
+	    jQuery.get('/component/functions.cfc?method=getMap&locality_id=' + c[2], function(data){
+				jQuery("#" + this.id).html(data);
+
 
    });
 
