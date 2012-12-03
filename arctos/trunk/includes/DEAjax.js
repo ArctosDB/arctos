@@ -80,7 +80,9 @@ function loadRecord (collection_object_id) {
 				}
 				*/
 				$.each(columns, function(key, value) { 
-					  console.log(key + ': ' + value); 
+					  
+					  var cVal=eval("r.DATA." + key);
+					  console.log(key + ': ' + value + '==' + cVal); 
 					});
 			});
 			
