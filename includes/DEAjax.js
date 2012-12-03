@@ -179,7 +179,14 @@ function isValidISODate(val) {
 		}
 	);
 }
+function removeCalendars(){
+	var hasDates=["made_date", "began_date", "ended_date", "event_assigned_date"];
+	 jQuery.each(hasDates, function() {
+	     console.log(this);
+		 // $("#" + this).text("Mine is " + this + ".");
+	   });
 
+}
 function getRelatedSpecimenData(){	
 	var url="/picks/CatalogedItemPickForDataEntry.cfm";
 	var other_id_num = $("#related_to_number").val();
