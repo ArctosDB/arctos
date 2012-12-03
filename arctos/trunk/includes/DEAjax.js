@@ -177,7 +177,7 @@ jQuery(document).ready(function() {
 	}
 	pickedLocality();
 	
-	//getAttributeStuff ($("#attribute_1").val(),'attribtue_1');
+	getAttributeStuff ($("#attribute_2").val(),'attribute_2');
 	
 });
 function padzero(n) {
