@@ -1829,8 +1829,8 @@ function set_attribute_dropdowns() {
 	$.each($("select[id^='attribute_']"), function() {
 	    console.log(this.id);
 	    //var theVal=$("#")
-	    if (this.id.indexOf("units") >= 0) {
-	    	console.log('^units');
+	    if ! (this.id.indexOf("units") >= 0 || this.id.indexOf("value") >= 0) {
+	    	console.log('use this one');
 	    	
 	    }
    });
