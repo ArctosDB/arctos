@@ -78,6 +78,7 @@ function loadRecord (collection_object_id) {
 				}
 			});
 			
+			set_attribute_dropdowns();
 			
 			switchActive($("#orig_lat_long_units").val());
 			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
@@ -177,7 +178,7 @@ jQuery(document).ready(function() {
 	}
 	pickedLocality();
 	
-	set_attribute_dropdowns();
+	//set_attribute_dropdowns();
 	
 });
 function padzero(n) {
