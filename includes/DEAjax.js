@@ -197,9 +197,12 @@ function removeCalendars(){
 	
 	//$('#calControl').onclick(function() { addCalendar(); });
 	
-	$('#calControl').onclick = function (){addCalendar();};
+	//$('#calControl').onclick = function (){addCalendar();};
 	
-	$('#calControl').html('enable calendars');
+	$("#calControl").unbind('click', removeCalendars).click(addCalendar);
+	
+	
+	$('#calControl').html('[ enable calendars ]');
 }
 
 function addCalendar(){
