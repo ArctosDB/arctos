@@ -10,7 +10,7 @@
 		    console.log(this.id);
 		    var c=this.id.split('_');
 		    console.log('locality is ' + c[2]);
-		    var ptl='/component/functions.cfc?method=getMap&locality_id=' + c[2];
+		    var ptl='/component/functions.cfc?method=getMap&showCaption=false&locality_id=' + c[2];
 		    jQuery.get(ptl, function(data){
 				jQuery("#" + this.id).html(data);
 			});
