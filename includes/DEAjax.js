@@ -71,6 +71,8 @@ function loadRecord (collection_object_id) {
 				// asynchronously==explode
 				
 				/* this works
+				
+				*/
 				for (i=0;i<columns.length;i++) {
 					var cName=columns[i];
 					var cVal=eval("r.DATA." + columns[i]);
@@ -78,14 +80,6 @@ function loadRecord (collection_object_id) {
 					//console.log('setting ' + eName + ' to ' + cVal);
 					$("#" + eName).val(cVal);
 				}
-				*/
-				$.each(columns, function(key, value) { 
-					  
-					  var cVal=eval("r.DATA." + value);
-					  var eName=value.toLowerCase();
-					 // console.log(key + ': ' + value + '==' + cVal); 
-					  $("#" + eName).val(cVal);
-					});
 				
 				set_attribute_dropdowns();
 			});
