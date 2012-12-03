@@ -1797,9 +1797,13 @@ function getAttributeStuff (attribute,element) {
 
 function set_attribute_dropdowns() {
 
-	$.(each($('select[name^="attribute_"]'), function(key, value) { 
-		  alert(key + ': ' + value); 
-	});
+	
+	$.each($("select[id^='attribute_']"), function() {
+	    console.log(this.id);
+   });
+	
+	
+	
 
 	
 }
