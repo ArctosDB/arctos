@@ -195,7 +195,10 @@ function removeCalendars(){
 	     $(  "#" + v  ).removeClass("hasDatepicker");
 	 });
 	
-	$('#calControl').click(function() { addCalendar(); });
+	//$('#calControl').onclick(function() { addCalendar(); });
+	
+	$('#calControl').onclick = function (){addCalendar();};
+	
 	$('#calControl').html('enable calendars');
 }
 
