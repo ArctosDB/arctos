@@ -1842,6 +1842,7 @@ function getAttributeStuff (attribute,element) {
 }
 
 function success_getAttributeStuff (r) {
+	
 	var result=r.DATA;
 	var resType=result.V[0];
 	var theEl=result.V[1];
@@ -1850,6 +1851,13 @@ function success_getAttributeStuff (r) {
 	optn.style.backgroundColor='';
 	var n=result.V.length;
 	var theNumber = theEl.replace("attribute_","");
+	
+
+	var oldAttributeType=$("#attribute_" + theNumber).val();
+	var oldAttributeUnit=$("#attribute_units_" + theNumber).val();
+	var oldAttributeValue=$("#attribute_value_" + theNumber).val();
+	
+	
 	if (resType == 'value') {
 		var theDivName = "attribute_value_cell_" + theNumber;
 		theTextDivName = "attribute_units_cell_" + theNumber;
@@ -1927,4 +1935,13 @@ function success_getAttributeStuff (r) {
 	} else {
 		alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
 	}
+	
+	var newAttributeType=$("#attribute_" + theNumber).val();
+	
+	console.log('newAttributeType='+newAttributeType);
+	console.log('oldAttributeType='+oldAttributeType);
+	
+	//var oldAttributeUnit=$("#attribute_units_" + theNumber).val();
+	//var oldAttributeValue=$("#attribute_value_" + theNumber).val();
+	
 }
