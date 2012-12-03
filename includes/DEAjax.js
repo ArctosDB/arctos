@@ -81,7 +81,7 @@ function loadRecord (collection_object_id) {
 				*/
 				$.each(columns, function(key, value) { 
 					  
-					  var cVal=eval("r.DATA." + key);
+					  var cVal=eval("r.DATA." + value);
 					  console.log(key + ': ' + value + '==' + cVal); 
 					});
 			});
