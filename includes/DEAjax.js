@@ -180,8 +180,10 @@ function isValidISODate(val) {
 	);
 }
 function removeCalendars(){
-	var hasDates=["made_date", "began_date", "ended_date", "event_assigned_date"];
-	 jQuery.each(hasDates, function() {
+	var hasDates=[ "made_date", "began_date", "ended_date", "event_assigned_date" ];
+
+    
+	jQuery.each(hasDates, function() {
 	     console.log(this);
 		 // $("#" + this).text("Mine is " + this + ".");
 	   });
