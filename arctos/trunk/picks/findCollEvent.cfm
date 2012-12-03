@@ -1,4 +1,15 @@
 <cfinclude template="/includes/_frameHeader.cfm">
+
+<script>
+//http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=getMap&locality_id=1234
+
+	$.each($("span[id^='mapgohere_']"), function() {
+	    console.log(this.id);
+
+   });
+
+
+</script>
 <cfif action is "nothing">
 	<cfoutput>
 		<cfif collecting_event_name is "undefined">
@@ -100,14 +111,17 @@
 								</span>
 							</td>
 							<td>
-								<!----
 								<cfif len(DEC_LAT) gt 0>
+									<span id="mapgohere_#collecting_event_id#_#locality_id#">
+
+									</span>
+									<!----
 									<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 										<cfinvokeargument name="locality_id" value="#locality_id#">
 									</cfinvoke>
 									#contents#
+									---->
 								</cfif>
-								---->
 							</td>
 						</tr>
 					</table>
