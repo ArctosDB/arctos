@@ -82,11 +82,15 @@ function loadRecord (collection_object_id) {
 				$.each(columns, function(key, value) { 
 					  
 					  var cVal=eval("r.DATA." + value);
-					  console.log(key + ': ' + value + '==' + cVal); 
+					  var eName=value.toLowerCase();
+					 // console.log(key + ': ' + value + '==' + cVal); 
+					  $("#" + eName).val(cVal);
 					});
+				
+				set_attribute_dropdowns();
 			});
 			
-			//set_attribute_dropdowns();
+			//
 			
 			/*
 			$.each(map, function(key, value) { 
