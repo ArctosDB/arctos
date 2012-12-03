@@ -67,6 +67,8 @@ jQuery(document).ready(function() {
 				collecting_event_id
 			from
 				localityResults
+			where
+				collecting_event_id is not null
 			group by
 				verbatim_date,
 				verbatim_coordinates,
