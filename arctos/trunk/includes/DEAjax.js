@@ -193,8 +193,14 @@ function removeCalendars(){
 		 // $("#" + this).text("Mine is " + this + ".");
 	     $( "#" + v ).datepicker( "destroy" );
 	     $(  "#" + v  ).removeClass("hasDatepicker");
-	   });
+	 });
+	
+	$('#calControl').click(function() { addCalendar(); });
+	$('#calControl').html('enable calendars');
+}
 
+fucntion addCalendar(){
+	console.log('addcalendar');
 }
 function getRelatedSpecimenData(){	
 	var url="/picks/CatalogedItemPickForDataEntry.cfm";
