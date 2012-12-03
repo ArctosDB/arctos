@@ -199,10 +199,8 @@ function removeCalendars(){
 	
 	//$('#calControl').onclick = function (){addCalendar();};
 	
-	$("#calControl").unbind('click', removeCalendars).click(addCalendar);
+	$("#calControl").unbind('click', removeCalendars).click(addCalendar).html('[ enable calendars ]');
 	
-	
-	$('#calControl').html('[ enable calendars ]');
 }
 
 function addCalendar(){
@@ -219,6 +217,8 @@ function addCalendar(){
 		 // $("#" + this).text("Mine is " + this + ".");
 	     $( "#" + v ).datepicker();
 	 });
+	$("#calControl").unbind('click', addCalendar).click(removeCalendars).html('[ disable calendars ]');
+
 }
 function getRelatedSpecimenData(){	
 	var url="/picks/CatalogedItemPickForDataEntry.cfm";
