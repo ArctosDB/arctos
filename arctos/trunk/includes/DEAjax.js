@@ -182,7 +182,11 @@ function isValidISODate(val) {
 function removeCalendars(){
 	var hasDates=[ "made_date", "began_date", "ended_date", "event_assigned_date" ];
 
-    
+	for (i=1;i<=12;i++){
+		x="geo_att_determined_date_" + i;
+		hasDates.push(x);
+		//$("#attribute_date_" + i).datepicker();
+	}
 	jQuery.each(hasDates, function(i,v) {
 	     console.log(v);
 		 // $("#" + this).text("Mine is " + this + ".");
