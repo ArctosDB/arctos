@@ -57,7 +57,7 @@
 		specimen_event.collection_object_id=cataloged_item.collection_object_id (+)">
 </cfif>
 
-		
+
 <cfif isdefined("collection_id") and len(collection_id) gt 0>
 	<cfif not isdefined("collnOper") or len(collnOper) is 0>
 		<cfset collnOper="usedOnlyBy">
@@ -75,25 +75,25 @@
 	<cfset qual = "#qual# AND locality.locality_id = #locality_id#">
 </cfif>
 <cfif isdefined("geology_attribute") and len(#geology_attribute#) gt 0>
-	<cfset qual = "#qual# AND geology_attributes.geology_attribute = '#geology_attribute#'">	
+	<cfset qual = "#qual# AND geology_attributes.geology_attribute = '#geology_attribute#'">
 </cfif>
 <cfif isdefined("geo_att_value") and len(geo_att_value) gt 0>
 	<cfif isdefined("geology_attribute_hier") and #geology_attribute_hier# is 1>
-		<!--- not quite sure what to do with this yet - turning it off at the 
+		<!--- not quite sure what to do with this yet - turning it off at the
 		search form for now - DLM --->
 		<cfset qual = "#qual# AND geology_attributes.geo_att_value IN (
-				SELECT  
-	 				attribute_value	
+				SELECT
+	 				attribute_value
 	 			FROM
 					geology_attribute_hierarchy
-				start with 
+				start with
 					upper(attribute_value) like '%#ucase(geo_att_value)#%'
-				CONNECT BY PRIOR 
+				CONNECT BY PRIOR
 					geology_attribute_hierarchy_id = parent_id
 				)">
 	<cfelse>
 		<cfset qual = "#qual# AND upper(geology_attributes.geo_att_value) like '%#ucase(geo_att_value)#%'">
-	</cfif>	
+	</cfif>
 </cfif>
 
 <cfif isdefined("geog_auth_rec_id") and len(#geog_auth_rec_id#) gt 0>
@@ -115,7 +115,7 @@
 </cfif>
 <cfif isdefined("began_date") and len(#began_date#) gt 0>
 	<cfset qual = "#qual# AND began_date #begDateOper# '#began_date#'">
-</cfif>		
+</cfif>
 <cfif isdefined("ended_date") and len(#ended_date#) gt 0>
 	<cfset qual = "#qual# AND ended_date #endDateOper# '#ended_date#'">
 </cfif>
@@ -141,10 +141,10 @@
 
 <cfif isdefined("habitat") and len(habitat) gt 0>
 	<cfset qual = "#qual# AND upper(habitat) like '%#ucase(habitat)#%'">
-</cfif>			
+</cfif>
 <cfif isdefined("locality_name") and len(locality_name) gt 0>
 	<cfset qual = "#qual# AND upper(locality_name) like '%#escapeQuotes(ucase(locality_name))#%'">
-</cfif>	
+</cfif>
 <cfif isdefined("spec_locality") and len(#spec_locality#) gt 0>
 	<cfset sloc = #ucase(replace(spec_locality,"'","''","all"))#>
 	<cfset qual = "#qual# AND upper(spec_locality) like '%#escapeQuotes(ucase(spec_locality))#%'">
@@ -206,7 +206,9 @@
 </cfif>
 <cfset sql="#sel# #frm# where #whr# #qual# and rownum < 501 order by #orderby#">
 
-	
+	<cfdump var=#sql#>
+
+	<cfabort>
 
 
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -218,5 +220,5 @@
 <cfif caller.localityResults.recordcount is 0>
 	<span class="error">Your search found no matches.</span>
 	<cfabort>
-</cfif>	
+</cfif>
 </cfoutput>
