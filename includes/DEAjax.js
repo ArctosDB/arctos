@@ -1401,7 +1401,7 @@ function cleanup () {
 		reqdFlds.push('attribute_determiner_1');
 	}
 	var llUnit=document.getElementById('orig_lat_long_units').value;
-	if (llUnit.length > 0) {
+	if (llUnit.length > 0 && $("#collecting_event_id").val().length==0 && $("#locality_id").val().length==0) {
 		reqdFlds.push('datum');
 		reqdFlds.push('determined_by_agent');
 		reqdFlds.push('determined_date');
