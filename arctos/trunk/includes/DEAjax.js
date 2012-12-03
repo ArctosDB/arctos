@@ -1006,19 +1006,14 @@ function clearAll () {
 	}	
 }
 function changeSex(sex) {
-	var thisCC = document.getElementById('collection_cde').value;
-	if (thisCC == 'Bird') {	
-		var thisAtt = document.getElementById('attribute_value_7');
-		var thisAttUnit = document.getElementById('attribute_units_7');
-		thisAttUnit.className='readClr';
-		thisAttUnit.readOnly=true;
-		var a7 = document.getElementById('attribute_7');
-		a7.value = 'reproductive data';
-		if (sex.indexOf('female') > -1) {
-			thisAtt.value = 'OV:  mm';
-		} else if (sex.indexOf('male') > -1) {
-			thisAtt.value = 'TE:  mm';
-		} else {
+	if ($("#collection_cde").val() == 'Bird' && $("#institution_acronym").val()=='MSB') {	
+		if ($("#attribute_value_7").val().length==0){
+			$("#attribute_7").val('reproductive data');
+			if (sex.indexOf('female') > -1) {
+				thisAtt.value = 'OV:  mm';
+			} else if (sex.indexOf('male') > -1) {
+				thisAtt.value = 'TE:  mm';
+			}
 		}
 	}
 }
