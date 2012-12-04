@@ -119,12 +119,6 @@
 									<span id="mapgohere_#collecting_event_id#_#locality_id#">
 										fetching map for #DEC_LAT#,#DEC_LONG# <img src="/images/indicator.gif">
 									</span>
-									<!----
-									<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-										<cfinvokeargument name="locality_id" value="#locality_id#">
-									</cfinvoke>
-									#contents#
-									---->
 								</cfif>
 							</td>
 						</tr>
