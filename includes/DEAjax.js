@@ -9,11 +9,13 @@ function checkRecord() {
 				returnformat : "json",
 				queryformat : 'column'
 			},
-			function(loadedMsg) {
+			function(r) {
+				var loadedMsg=r.DATA.RESULT;
+				
 				if(loadedMsg){
 					$("#loadedMsgDiv").show();
 					
-					/*
+					
 					
 					var prob_array = loadedMsg.split(" ");
 					for (var loop=0; loop < prob_array.length; loop++) {
@@ -28,7 +30,7 @@ function checkRecord() {
 							}
 						}
 					}
-					*/
+					
 				} else {
 					$("#loadedMsgDiv").hide();
 				}
