@@ -901,6 +901,9 @@
 						</td>
 					</tr>
 				</table><!---- /coordinates ---->
+
+
+				<!----
 				<cfif collection_cde is "ES"><!--- geology ---->
 					<div id="geolCell">
 						<table cellpadding="0" cellspacing="0" class="fs">
@@ -966,7 +969,7 @@
 						</table>
 					</div>
 				</cfif><!---- /geology ------->
-
+---->
 
 			</td><!--- end right column --->
 		</tr><!---- end top row of page --->
