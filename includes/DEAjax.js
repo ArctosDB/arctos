@@ -1,5 +1,4 @@
 function loadRecord (collection_object_id) {
-	console.log('loading record ' + collection_object_id);
 	msg('fetching data....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
@@ -11,7 +10,6 @@ function loadRecord (collection_object_id) {
 		function(r) {
 			var columns=r.COLUMNS;
 			var ccde=r.DATA.COLLECTION_CDE[0];
-			console.log(ccde);
 			var useCustom=true;
 			var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
 			var tab=document.getElementById('attributeTableCell');
@@ -22,28 +20,24 @@ function loadRecord (collection_object_id) {
 			// these are hard-coded in /form/DataEntryAttributeTable.cfm
 			// make sure to coordinate any changes
 			if (ccde=='Mamm'){
-				if (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
+				if ( \
+					(String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex')) || \
+					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length')
+					){
 					useCustom=false;
 				}
-				if (String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length'){
-					useCustom=false;
-					console.log('tlfail');
-				}
+			
 				if (String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length'){
 					useCustom=false;
-					console.log('tafail');
 				}
 				if (String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw'){
 					useCustom=false;
-					console.log('hffail');
 				}
 				if (String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch'){
 					useCustom=false;
-					console.log('efail');
 				}
 				if (String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight'){
 					useCustom=false;
-					console.log('wfail');
 				}
 			}
 			if (ccde=='Bird'){
@@ -1917,19 +1911,10 @@ function success_getAttributeStuff (r) {
 	}
 	catch ( err ){// nothing, just ignore
 	}
-	
 	try {
 		$("#attribute_value_" + theNumber).val(oldAttributeValue);
 	}
 	catch ( err ){// nothing, just ignore 
 		console.log('failed setting value: ' + err)
 	}
-	//var newAttributeType=$("#attribute_" + theNumber).val();
-	
-	//console.log('newAttributeType='+newAttributeType);
-	//console.log('oldAttributeType='+oldAttributeType);
-	
-	//var oldAttributeUnit=$("#attribute_units_" + theNumber).val();
-	//var oldAttributeValue=$("#attribute_value_" + theNumber).val();
-	
 }
