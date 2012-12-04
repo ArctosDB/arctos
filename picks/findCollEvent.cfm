@@ -1,37 +1,16 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 
 <script>
-//http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=getMap&locality_id=1234
-//$("#rightcolumn").append("img").prop("src", "my_image_file.jpg");
-
-
 	jQuery(document).ready(function() {
 		$.each($("span[id^='mapgohere_']"), function() {
 		    var theElemID=this.id;
-
-		    console.log(this.id);
-		    var c=this.id.split('_');
-		    var locid=c[2];
-		    console.log('locality is ' + locid);
-
-
-		    jQuery("#" + this.id).html('i like fish');
-
-		    jQuery("#" + this.id).append('appended morewoot');
-
-		    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&locality_id=' + c[2];
+		    var locid=this.id.split('_')[2];
+		    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&locality_id=' + locid;
 		    jQuery.get(ptl, function(data){
-				console.log(data);
-				console.log(theElemID);
-								console.log(locid);
-
-				var tt='<figure><a href="/bnhmMaps/bnhmMapData.cfm?locality_id=10032348" target="_blank"><img src="http://maps.google.com/maps/api/staticmap?markers=color:red|size:tiny|37.8756554000,-122.2375535000&sensor=false&size=200x200&maptype=roadmap&zoom=2" alt="[ Google Map of 37.8756554000,-122.2375535000 ]"></a></figure>';
 				jQuery("#" + theElemID).html(data);
 			});
 		});
 	});
-
-
 </script>
 <cfif action is "nothing">
 	<cfoutput>
