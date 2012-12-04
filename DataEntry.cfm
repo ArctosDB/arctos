@@ -259,12 +259,12 @@
 							<td valign="middle">
 								#institution_acronym#:#collection_cde#
 							</td>
-							<td valign="top">
+							<td class="valigntop">
 								<label for="cat_num">Cat##</label>
 								<input type="text" name="" value="#cat_num#"  size="6" id="cat_num">
 								<span id="catNumLbl" class="f11a"></span>
 							</td>
-							<td valign="top">
+							<td class="valigntop">
 								<cfif (isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0) or
 										isdefined("data.other_id_num_type_5") and len(data.other_id_num_type_5) gt 0>
 									<cfif isdefined("data.other_id_num_type_5") and len(data.other_id_num_type_5) gt 0>
@@ -283,7 +283,7 @@
 										</cfloop>
 									</select>
 							</td>
-							<td valign="top">
+							<td class="valigntop">
 									<label for="other_id_num_5">CustomID</label>
 									<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
 								<cfelse>
@@ -291,12 +291,12 @@
 									<input type="hidden" name="other_id_num_5" id="other_id_num_5" value=''>
 								</cfif>
 							</td>
-							<td class="nowrap" valign="top">
+							<td class="nowrap valigntop">
 								<label for="accn">Accn</label><br>
 								<input type="text" name="accn" value="#accn#" size="25" class="reqdClr" id="accn" onchange="getAccn(this.value,this.id,'#institution_acronym#:#collection_cde#');">
 								<span class="infoLink" onclick="var an=$('##accn').val();getAccn(an,'accn','#institution_acronym#:#collection_cde#');">[ pick ]</span>
 							</td>
-							<td class="nowrap" valign="top">
+							<td class="nowrap valignmiddle">
 								<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
 								<br><span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
 							</td>
