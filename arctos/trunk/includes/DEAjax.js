@@ -19,7 +19,6 @@ function editLast() {
 				returnformat : "plain",
 			},
 			function(r) {
-				console.log(r);
 				loadRecord(r);
 				$("#selectbrowse").val(r);
 				changeMode('edit');
@@ -29,7 +28,6 @@ function editLast() {
 }
 
 function changeMode (mode) {
-	console.log('i am changeMode');
 	$("#action").val(mode);
 	var status=$.trim($("#loadedMsgDiv").text());
 	if(status){
@@ -81,7 +79,6 @@ function checkRecord() {
 			},
 			function(r) {
 				var loadedMsg=r.DATA.RESULT[0];
-				console.log(loadedMsg);
 				if(loadedMsg){
 					$("#loadedMsgDiv").text(loadedMsg).show();
 					
