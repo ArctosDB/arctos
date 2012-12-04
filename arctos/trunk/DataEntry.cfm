@@ -1168,14 +1168,17 @@
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=download">[ download ]</a>
 
 					</td>
-
+					<td align="right" width="16%" nowrap="nowrap">
+								<span id="recCount">#whatIds.recordcount#</span> records
+								</span>
+					</td>
 					<!----
 					<cfhtmlhead text='<title>1171</title>'>
-					<td align="right" width="16%" nowrap="nowrap">
+
 
 						<cfhtmlhead text='<title>1173</title>'>
 
-												<span id="recCount">#whatIds.recordcount#</span> records
+
 						<cfhtmlhead text='<title>1174</title>'>
 						<span id="browseThingy">
 							 - Jump to
@@ -1193,8 +1196,8 @@
 							</select>
 										<cfhtmlhead text='<title>1189</title>'>
 							<span id="nBrowse" class="infoLink" onclick="browseTo('next')">[ next ]</span>
-						</span>
-					</td>
+
+
 
 						---->				<cfhtmlhead text='<title>1190</title>'>
 				</tr>
