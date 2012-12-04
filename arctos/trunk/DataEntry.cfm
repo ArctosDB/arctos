@@ -484,13 +484,6 @@
 					</tr>
 				</table><!------- /remarkey stuff --->
 
-
-
-
-<cfhtmlhead text='<title>490</title>'>
-
-
-
 				</td> <!---- end top left --->
 				<td valign="top"><!----- right column ---->
 				<label onClick="getDocs('specimen_event')" class="likeLink" for="loctbl">Specimen/Event</label>
@@ -1199,6 +1192,11 @@
 	</tr>
 </table>
 </form>
+
+										<cfhtmlhead text='<title>1195</title>'>
+
+
+
 <cfif len(loadedMsg) gt 0>
 	<cfset pMode = 'edit'>
 </cfif>
