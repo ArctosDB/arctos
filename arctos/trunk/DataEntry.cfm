@@ -213,12 +213,8 @@
 				<tr><td width="50%" valign="top"><!--- left top of page --->
 					<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
 						<tr>
-							<td valign="middle">
-								:
-
-							</td>
 							<td class="valigntop">
-								<label for="institution_acronym">Inst##</label>
+								<label for="institution_acronym">Inst</label>
 								<input type="text" reaonly="readonly" name="institution_acronym" id="institution_acronym" size="4">:
 							</td>
 							<td class="valigntop">
@@ -899,9 +895,7 @@
 				</table><!---- /coordinates ---->
 
 
-				<!----
-				<cfif collection_cde is "ES"><!--- geology ---->
-					<div id="geolCell">
+					<div id="geolCell" style="display:none;">
 						<table cellpadding="0" cellspacing="0" class="fs">
 							<tr>
 								<td>
@@ -964,8 +958,6 @@
 							</tr>
 						</table>
 					</div>
-				</cfif><!---- /geology ------->
----->
 
 			</td><!--- end right column --->
 		</tr><!---- end top row of page --->
