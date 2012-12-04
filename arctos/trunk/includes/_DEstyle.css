@@ -1,7 +1,12 @@
 .nowrap {
  	white-space:nowrap;
  }
- 
+.valignmiddle {
+	vertical-align: middle;
+}
+.valigntop {
+	vertical-align: top;
+}
 #loadingAnimation{
 	position:fixed;
 	top:50%;
