@@ -313,15 +313,14 @@
 								<span class="f11a">Scientific&nbsp;Name</span>
 							</td>
 							<td width="100%">
-								<input type="text" name="taxon_name" value="#taxon_name#" class="reqdClr" size="40"
-									id="taxon_name"
+								<input type="text" name="taxon_name" class="reqdClr" size="40" id="taxon_name"
 									onchange="taxaPick('nothing',this.id,'dataEntry',this.value)">
 							</td>
 						</tr>
 						<tr>
 							<td align="right"><span class="f11a">ID By</span></td>
 							<td>
-								<input type="text" name="id_made_by_agent" value="#id_made_by_agent#" class="reqdClr" size="40"
+								<input type="text" name="id_made_by_agent" class="reqdClr" size="40"
 									id="id_made_by_agent"
 									onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 									onkeypress="return noenter(event);">
@@ -333,8 +332,7 @@
 							<td>
 								<select name="nature_of_id" class="reqdClr" id="nature_of_id">
 									<cfloop query="ctnature">
-										<option <cfif data.nature_of_id is ctnature.nature_of_id> selected="selected" </cfif>
-											value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
+										<option value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
 									</cfloop>
 								</select>
 							</td>
@@ -342,21 +340,22 @@
 						<tr>
 							<td align="right"><span class="f11a">Date</span></td>
 							<td>
-								<input type="text " name="made_date" value="#made_date#" id="made_date">
+								<input type="text " name="made_date" id="made_date">
 								<span class="infoLink" onclick="copyAllDates('made_date');">Copy2All</span>
 							</td>
 						</tr>
 						<tr id="d_identification_remarks">
 							<td align="right"><span class="f11a">ID Remk</span></td>
-							<td><input type="text" name="identification_remarks" value="#identification_remarks#"
-								id="identification_remarks" size="80">
+							<td><input type="text" name="identification_remarks" id="identification_remarks" size="80">
 							</td>
 						</tr>
 					</table><!------ /identification -------->
 					<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
 						<tr>
 							<td id="attributeTableCell">
+								<!----
 								<cfinclude template="/form/DataEntryAttributeTable.cfm">
+								---->
 							</td>
 						</tr>
 					</table><!---- /attributes ----->
@@ -371,8 +370,7 @@
 							<cfelse>
 								ERROR!!!
 							</cfif>
-							<input type="hidden" name="enteredby" value="#eby#" id="enteredby">
-							#eby#
+							<input type="text" name="enteredby" value="#eby#" id="enteredby">
 						</td>
 					</tr>
 					<tr id="d_relationship">
@@ -382,22 +380,17 @@
 							<select name="relationship" size="1" id="relationship">
 								<option value=""></option>
 								<cfloop query="ctbiol_relations">
-									<option
-										<cfif thisRELATIONSHIP is BIOL_INDIV_RELATIONSHIP> selected="selected" </cfif>
-									 value="#BIOL_INDIV_RELATIONSHIP#">#BIOL_INDIV_RELATIONSHIP#</option>
+									<option value="#BIOL_INDIV_RELATIONSHIP#">#BIOL_INDIV_RELATIONSHIP#</option>
 								</cfloop>
 							</select>
-							<cfset thisRELATED_TO_NUM_TYPE = RELATED_TO_NUM_TYPE>
 							<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:150px">
 								<option value=""></option>
 								<option <cfif thisRELATED_TO_NUM_TYPE is "catalog number">selected="selected"</cfif> value="catalog number">catalog number (UAM:Mamm:123 format)</option>
 								<cfloop query="ctOtherIdType">
-									<option
-										<cfif thisRELATED_TO_NUM_TYPE is other_id_type> selected="selected" </cfif>
-									 value="#other_id_type#">#other_id_type#</option>
+									<option value="#other_id_type#">#other_id_type#</option>
 								</cfloop>
 							</select>
-							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="20" />
+							<input type="text" name="related_to_number" id="related_to_number" size="20" />
 							<span class="likeLink" onclick="getRelatedSpecimenData()">[ pick/use ]</span>
 						</td>
 					</tr>
@@ -412,7 +405,7 @@
 					<tr id="d_associated_species">
 						<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
 						<td>
-							<input type="text" name="associated_species" size="80" id="associated_species" value="#associated_species#">
+							<input type="text" name="associated_species" size="80" id="associated_species">
 						</td>
 					</tr>
 					<tr>
@@ -422,14 +415,14 @@
 							<select name="flags" size="1" style="width:120px" id="flags">
 								<option  value=""></option>
 								<cfloop query="ctflags">
-									<option <cfif flags is thisflags> selected </cfif>
-										value="#flags#">#flags#</option>
+									<option value="#flags#">#flags#</option>
 								</cfloop>
 							</select>
 						</td>
 						<td>
 							<span class="f11a">Status</span>
-							#loaded#
+									<input type="text" name="loaded" size="80" id="loaded">
+
 						</td>
 					</tr>
 				</table><!------- /remarkey stuff --->
@@ -446,14 +439,14 @@
 											<span class="f11a">Event Assigned By
 										</td>
 										<td>
-											<input type="text" name="event_assigned_by_agent" value="#event_assigned_by_agent#" class="reqdClr"
+											<input type="text" name="event_assigned_by_agent" class="reqdClr"
 												id="event_assigned_by_agent"
 												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 												onkeypress="return noenter(event);">
 										</td>
 										<td align="right"><span class="f11a">On Date</span></td>
 										<td>
-											<input type="text" name="event_assigned_date" class="reqdClr" value="#event_assigned_date#" id="event_assigned_date">
+											<input type="text" name="event_assigned_date" class="reqdClr" id="event_assigned_date">
 											<span class="infoLink" onclick="copyAllDates('event_assigned_date');">Copy2All</span>
 										</td>
 									</tr>
@@ -465,8 +458,7 @@
 							<td>
 								<select name="specimen_event_type" size="1" id="specimen_event_type" class="reqdClr">
 									<cfloop query="ctspecimen_event_type">
-										<option <cfif ctspecimen_event_type.specimen_event_type is data.specimen_event_type> selected="selected" </cfif>
-											value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+										<option value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
 									</cfloop>
 								</select>
 							</td>
@@ -481,20 +473,13 @@
 										</td>
 										<td align="right"><span class="f11a">Coll. Src.:</span></td>
 										<td>
-											<cfif len(collecting_source) gt 0>
-												<cfset thisCollSrc=collecting_source>
-											<cfelse>
-												<cfset thisCollSrc="wild caught">
-											</cfif>
 											<select name="collecting_source"
 												size="1"
 												id="collecting_source"
 												class="reqdClr">
 												<option value=""></option>
 												<cfloop query="ctcollecting_source">
-													<option
-														<cfif collecting_source is thisCollSrc> selected </cfif>
-														value="#collecting_source#">#collecting_source#</option>
+													<option value="#collecting_source#">#collecting_source#</option>
 												</cfloop>
 											</select>
 										</td>
@@ -506,7 +491,7 @@
 						<tr id="d_habitat_desc">
 							<td align="right"><span class="f11a">Habitat</span></td>
 							<td>
-								<input type="text" name="habitat" size="50" id="habitat" value="#habitat#">
+								<input type="text" name="habitat" size="50" id="habitat">
 							</td>
 						</tr>
 						<tr>
@@ -514,8 +499,7 @@
 							<td>
 								<select name="verificationstatus" size="1" class="reqdClr" id="verificationstatus">
 									<cfloop query="ctverificationstatus">
-										<option <cfif data.verificationstatus is ctverificationstatus.verificationstatus> selected="selected" </cfif>
-									  		value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
+										<option value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
 									</cfloop>
 								</select>
 							</td>
@@ -524,7 +508,7 @@
 							<td align="right"><span class="f11a">Specimen/Event Remark</span></td>
 							<td>
 								<input type="text"  name="specimen_event_remark" class="" size="80"
-									id="specimen_event_remark" value="#stripQuotes(specimen_event_remark)#">
+									id="specimen_event_remark">
 							</td>
 						</tr>
 					</table>
@@ -536,13 +520,13 @@
 									<tr>
 										<td align="right"><span class="f11a">Event Name</span></td>
 										<td>
-											<input type="text" name="collecting_event_name" class="" id="collecting_event_name" value="#collecting_event_name#" size="60"
+											<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
 												onchange="findCollEvent('collecting_event_id','dataEntry','verbatim_locality',this.value);">
 										</td>
 										<td id="d_collecting_event_id">
 											<label for="collecting_event_id">Existing&nbsp;EventID</label>
 										</td><td>
-											<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" class="readClr" size="8">
+											<input type="text" name="collecting_event_id" id="collecting_event_id" class="readClr" size="8">
 											<input type="hidden" id="fetched_eventid">
 										</td>
 										<td>
@@ -562,7 +546,7 @@
 							<td>
 								<input type="text"  name="verbatim_locality"
 									class="reqdClr" size="80"
-									id="verbatim_locality" value="#stripQuotes(verbatim_locality)#">
+									id="verbatim_locality">
 								<span class="infoLink" onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">
 									&nbsp;Use&nbsp;Specloc
 								</span>
@@ -571,21 +555,21 @@
 						<tr>
 							<td align="right"><span class="f11a">VerbatimDate</span></td>
 							<td>
-								<input type="text" name="verbatim_date" class="reqdClr" value="#verbatim_date#" id="verbatim_date" size="20">
+								<input type="text" name="verbatim_date" class="reqdClr" id="verbatim_date" size="20">
 								<span class="infoLink"
 									onClick="copyVerbatim($('##verbatim_date').val());">--></span>
 								<span class="f11a">Begin</span>
-								<input type="text" name="began_date" class="reqdClr" value="#began_date#" id="began_date" size="10">
+								<input type="text" name="began_date" class="reqdClr"  id="began_date" size="10">
 								<span class="infoLink" onclick="copyBeganEnded();">>></span>
 								<span class="f11a">End</span>
-								<input type="text" name="ended_date" class="reqdClr" value="#ended_date#" id="ended_date" size="10">
+								<input type="text" name="ended_date" class="reqdClr"  id="ended_date" size="10">
 								<span class="infoLink" onclick="copyAllDates('ended_date');">Copy2All</span>
 							</td>
 						</tr>
 						<tr id="d_coll_event_remarks">
 							<td align="right"><span class="f11a">CollEvntRemk</span></td>
 							<td>
-								<input type="text" name="coll_event_remarks" size="80" value="#coll_event_remarks#" id="coll_event_remarks">
+								<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
 							</td>
 						</tr>
 						<tr>
@@ -597,7 +581,7 @@
 						<tr>
 							<td align="right"><span class="f11a">Higher Geog</span></td>
 							<td>
-								<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" value="#higher_geog#" size="80"
+								<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
 									onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
 							</td>
 						</tr>
@@ -607,14 +591,14 @@
 									<tr>
 										<td align="right"><span class="f11a">Locality Name</span></td>
 										<td>
-											<input type="text" name="locality_name" class="" id="locality_name" value="#locality_name#" size="60"
+											<input type="text" name="locality_name" class="" id="locality_name" size="60"
 												onchange="LocalityPick('locality_id','spec_locality','dataEntry',this.value);">
 										</td>
 										<td id="d_locality_id">
 											<label for="fetched_locid">Existing&nbsp;LocalityID</label>
 										</td><td>
 											<input type="hidden" id="fetched_locid">
-											<input type="text" name="locality_id" id="locality_id" value="#locality_id#" class="readClr" size="8">
+											<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
 										</td>
 										<td>
 											<span class="infoLink" id="localityPicker"
@@ -635,7 +619,7 @@
 						<tr>
 							<td align="right"><span class="f11a">Spec Locality</span></td>
 							<td>
-								<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" value="#spec_locality#" size="80">
+								<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" size="80">
 								<span class="infoLink" onclick="document.getElementById('spec_locality').value=document.getElementById('verbatim_locality').value;">
 									&nbsp;Use&nbsp;VerbLoc
 								</span>
@@ -645,16 +629,14 @@
 							<td colspan="2" id="d_orig_elev_units">
 								<label for="minimum_elevation">Elevation (min-max)</label>
 								<span class="f11a">&nbsp;between</span>
-								<input type="text" name="minimum_elevation" size="4" value="#minimum_elevation#" id="minimum_elevation">
+								<input type="text" name="minimum_elevation" size="4" id="minimum_elevation">
 								<span class="infoLink"
 									onclick="document.getElementById('maximum_elevation').value=document.getElementById('minimum_elevation').value";>&nbsp;>>&nbsp;</span>
-								<input type="text" name="maximum_elevation" size="4" value="#maximum_elevation#" id="maximum_elevation">
+								<input type="text" name="maximum_elevation" size="4" id="maximum_elevation">
 								<select name="orig_elev_units" size="1" id="orig_elev_units">
 									<option value=""></option>
 									<cfloop query="ctOrigElevUnits">
-										<option
-											<cfif data.orig_elev_units is ctOrigElevUnits.orig_elev_units> selected="selected" </cfif>
-											value="#orig_elev_units#">#orig_elev_units#</option>
+										<option value="#orig_elev_units#">#orig_elev_units#</option>
 									</cfloop>
 								</select>
 							</td>
@@ -663,7 +645,7 @@
 						<tr id="d_locality_remarks">
 							<td align="right"><span class="f11a">LocalityRemk</span></td>
 							<td>
-								<input type="text" name="locality_remarks" size="80" value="#locality_remarks#" id="locality_remarks">
+								<input type="text" name="locality_remarks" size="80" id="locality_remarks">
 							</td>
 						</tr>
 					</table><!----- /locality ---------->
@@ -682,13 +664,11 @@
 										<table>
 											<tr>
 												<td valign="top">
-													<cfset thisLLUnits=#ORIG_LAT_LONG_UNITS#>
 													<select name="orig_lat_long_units" id="orig_lat_long_units"
 														onChange="switchActive(this.value);dataEntry.max_error_distance.focus();">
 														<option value=""></option>
 														<cfloop query="ctunits">
-														  <option <cfif data.orig_lat_long_units is ctunits.orig_lat_long_units> selected="selected" </cfif>
-														  	value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+														  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
 														</cfloop>
 													</select>
 												</td>
@@ -712,13 +692,11 @@
 									<tr>
 										<td align="right"><span class="f11a">Max Error</span></td>
 										<td>
-											<input type="text" name="max_error_distance" id="max_error_distance" value="#max_error_distance#" size="10">
+											<input type="text" name="max_error_distance" id="max_error_distance" size="10">
 											<select name="max_error_units" size="1" id="max_error_units">
 												<option value=""></option>
 												<cfloop query="cterror">
-												  <option
-												  <cfif cterror.LAT_LONG_ERROR_UNITS is data.max_error_units> selected="selected" </cfif>
-												  	value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
+												  <option value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
 												</cfloop>
 											</select>
 										</td>
@@ -729,8 +707,7 @@
 											<select name="datum" size="1" class="reqdClr" id="datum">
 												<option value=""></option>
 												<cfloop query="ctdatum">
-													<option <cfif data.datum is ctdatum.datum> selected="selected" </cfif>
-												 		value="#datum#">#datum#</option>
+													<option value="#datum#">#datum#</option>
 												</cfloop>
 											</select>
 										</td>
@@ -740,7 +717,7 @@
 									<tr>
 										<td align="right"><span class="f11a">Georeference Source</span></td>
 										<td colspan="3" nowrap="nowrap">
-											<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" size="60" value="#georeference_source#">
+											<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" size="60">
 										</td>
 									</tr>
 									<tr>
@@ -748,8 +725,7 @@
 										<td>
 											<select name="georeference_protocol" size="1" class="reqdClr" style="width:130px" id="georeference_protocol">
 												<cfloop query="ctgeoreference_protocol">
-													<option <cfif data.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
-														value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
+													<option value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 												</cfloop>
 											</select>
 										</td>
@@ -769,8 +745,7 @@
 												 name="LATMIN"
 												size="4"
 												id="latmin"
-												class="reqdClr"
-												value="#LATMIN#">
+												class="reqdClr">
 										</td>
 										<td align="right"><span class="f11a">Sec</span></td>
 										<td>
@@ -778,15 +753,14 @@
 												 name="latsec"
 												size="6"
 												id="latsec"
-												class="reqdClr"
-												value="#latsec#">
+												class="reqdClr">
 											</td>
 										<td align="right"><span class="f11a">Dir</span></td>
 										<td>
 											<select name="latdir" size="1" id="latdir" class="reqdClr">
 												<option value=""></option>
-												<option <cfif #LATDIR# is "N"> selected </cfif>value="N">N</option>
-												<option <cfif #LATDIR# is "S"> selected </cfif>value="S">S</option>
+												<option value="N">N</option>
+												<option value="S">S</option>
 											  </select>
 										</td>
 									</tr>
@@ -797,8 +771,7 @@
 												name="longdeg"
 												size="4"
 												id="longdeg"
-												class="reqdClr"
-												value="#longdeg#">
+												class="reqdClr">
 										</td>
 										<td align="right"><span class="f11a">Min</span></td>
 										<td>
@@ -806,8 +779,7 @@
 												name="longmin"
 												size="4"
 												id="longmin"
-												class="reqdClr"
-												value="#longmin#">
+												class="reqdClr">
 										</td>
 										<td align="right"><span class="f11a">Sec</span></td>
 										<td>
@@ -815,15 +787,14 @@
 												 name="longsec"
 												size="6"
 												id="longsec"
-												class="reqdClr"
-												value="#longsec#">
+												class="reqdClr">
 										</td>
 										<td align="right"><span class="f11a">Dir</span></td>
 										<td>
 											<select name="longdir" size="1" id="longdir" class="reqdClr">
 												<option value=""></option>
-												<option <cfif #LONGDIR# is "E"> selected </cfif>value="E">E</option>
-												<option <cfif #LONGDIR# is "W"> selected </cfif>value="W">W</option>
+												<option value="E">E</option>
+												<option value="W">W</option>
 											  </select>
 										</td>
 									</tr>
@@ -839,7 +810,6 @@
 												size="4"
 												id="decLAT_DEG"
 												class="reqdClr"
-												value="#latdeg#"
 												onchange="dataEntry.latdeg.value=this.value;">
 										</td>
 										<td align="right"><span class="f11a">Dec Min</span></td>
@@ -848,8 +818,7 @@
 												name="dec_lat_min"
 												 size="8"
 												id="dec_lat_min"
-												class="reqdClr"
-												value="#dec_lat_min#">
+												class="reqdClr">
 										</td>
 										<td align="right"><span class="f11a">Dir</span></td>
 										<td>
@@ -859,8 +828,8 @@
 												class="reqdClr"
 												onchange="dataEntry.latdir.value=this.value;">
 												<option value=""></option>
-												<option <cfif #LATDIR# is "N"> selected </cfif>value="N">N</option>
-												<option <cfif #LATDIR# is "S"> selected </cfif>value="S">S</option>
+												<option value="N">N</option>
+												<option value="S">S</option>
 											</select>
 										</td>
 									</tr>
@@ -872,7 +841,6 @@
 												size="4"
 												id="decLONGDEG"
 												class="reqdClr"
-												value="#longdeg#"
 												onchange="dataEntry.longdeg.value=this.value;">
 										</td>
 										<td align="right"><span class="f11a">Dec Min</span></td>
@@ -881,8 +849,7 @@
 												name="DEC_LONG_MIN"
 												size="8"
 												id="dec_long_min"
-												class="reqdClr"
-												value="#DEC_LONG_MIN#">
+												class="reqdClr">
 										</td>
 										<td align="right"><span class="f11a">Dir</span></td>
 										<td>
@@ -892,8 +859,8 @@
 												class="reqdClr"
 												onchange="dataEntry.longdir.value=this.value;">
 												<option value=""></option>
-												<option <cfif #LONGDIR# is "E"> selected </cfif>value="E">E</option>
-												<option <cfif #LONGDIR# is "W"> selected </cfif>value="W">W</option>
+												<option value="E">E</option>
+												<option value="W">W</option>
 											</select>
 										</td>
 									</tr>
@@ -905,15 +872,13 @@
 									 name="dec_lat"
 									size="8"
 									id="dec_lat"
-									class="reqdClr"
-									value="#dec_lat#">
+									class="reqdClr">
 								<span class="f11a">Dec Long</span>
 									<input type="text"
 										 name="dec_long"
 										size="8"
 										id="dec_long"
-										class="reqdClr"
-										value="#dec_long#">
+										class="reqdClr">
 							</div>
 							<div id="utm" class="noShow">
 								<span class="f11a">UTM Zone</span>
@@ -921,22 +886,19 @@
 									 name="utm_zone"
 									size="8"
 									id="utm_zone"
-									class="reqdClr"
-									value="#utm_zone#">
+									class="reqdClr">
 								<span class="f11a">UTM E/W</span>
 								<input type="text"
 									 name="utm_ew"
 									size="8"
 									id="utm_ew"
-									class="reqdClr"
-									value="#utm_ew#">
+									class="reqdClr">
 								<span class="f11a">UTM N/S</span>
 								<input type="text"
 									 name="utm_ns"
 									size="8"
 									id="utm_ns"
-									class="reqdClr"
-									value="#utm_ns#">
+									class="reqdClr">
 							</div>
 						</td>
 					</tr>
@@ -957,34 +919,25 @@
 											<th><span class="f11a">Remark</span></th>
 										</tr>
 										<cfloop from="1" to="6" index="i">
-											<cfset thisAttribute= evaluate("data.geology_attribute_" & i)>
-											<cfset thisVal= evaluate("data.geo_att_value_" & i)>
-											<cfset thisDeterminer= evaluate("data.geo_att_determiner_" & i)>
-											<cfset thisDate= evaluate("data.geo_att_determined_date_" & i)>
-											<cfset thisMeth= evaluate("data.geo_att_determined_method_" & i)>
-											<cfset thisRemark= evaluate("data.geo_att_remark_" & i)>
 											<div id="#i#">
 											<tr id="d_geology_attribute_#i#">
 												<td>
 													<select name="geology_attribute_#i#" id="geology_attribute_#i#" size="1" onchange="populateGeology(this.id);">
 														<option value=""></option>
 														<cfloop query="ctgeology_attribute">
-															<option
-																<cfif thisAttribute is geology_attribute> selected="selected" </cfif>
-																	value="#geology_attribute#">#geology_attribute#</option>
+															<option value="#geology_attribute#">#geology_attribute#</option>
 														</cfloop>
 													</select>
 												</td>
 												<td>
 													<select name="geo_att_value_#i#" id="geo_att_value_#i#">
-														<option value="#thisVal#">#thisVal#</option>
+
 													</select>
 												</td>
 												<td>
 													<input type="text"
 														name="geo_att_determiner_#i#"
 														id="geo_att_determiner_#i#"
-														value="#thisDeterminer#"
 														onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 														onkeypress="return noenter(event);">
 												</td>
@@ -992,21 +945,18 @@
 													<input type="text"
 														name="geo_att_determined_date_#i#"
 														id="geo_att_determined_date_#i#"
-														value="#thisDate#"
 														size="10">
 												</td>
 												<td>
 													<input type="text"
 														name="geo_att_determined_method_#i#"
 														id="geo_att_determined_method_#i#"
-														value="#thisMeth#"
 														size="15">
 												</td>
 												<td>
 													<input type="text"
 														name="geo_att_remark_#i#"
 														id="geo_att_remark_#i#"
-														value="#thisRemark#"
 														size="15">
 												</td>
 											</tr>
@@ -1040,39 +990,34 @@
 					<cfloop from="1" to="12" index="i">
 						<tr id="d_part_name_#i#">
 							<td>
-								<cfset tpn=evaluate("data.part_name_" & i)>
 								<input type="text" name="part_name_#i#" id="part_name_#i#"
-									value="#tpn#" size="25"
+									 size="25"
 									onchange="findPart(this.id,this.value,'#collection_cde#');requirePartAtts('#i#',this.value);"
 									onkeypress="return noenter(event);">
 							</td>
 							<td>
-								<input type="text" name="part_condition_#i#" id="part_condition_#i#" value="#evaluate("data.part_condition_" & i)#">
+								<input type="text" name="part_condition_#i#" id="part_condition_#i#">
 							</td>
 							<td>
 								<select id="part_disposition_#i#" name="part_disposition_#i#">
 									<option value=""></option>
 									<cfloop query="CTCOLL_OBJ_DISP">
-										<option
-											<cfif evaluate("data.part_disposition_" & i) is CTCOLL_OBJ_DISP.COLL_OBJ_DISPOSITION> selected="selected" </cfif>
-										 	value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
+										<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
 									</cfloop>
 								</select>
 							</td>
 							<td>
-								<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" value="#evaluate("data.part_lot_count_" & i)#" size="1">
+								<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" size="1">
 							</td>
 							<td>
-								<input type="text" name="part_barcode_#i#" id="part_barcode_#i#" value="#evaluate("data.part_barcode_" & i)#"
+								<input type="text" name="part_barcode_#i#" id="part_barcode_#i#"
 									 size="15" onchange="setPartLabel(this.id);">
 							</td>
 							<td>
-								<input type="text" name="part_container_label_#i#" id="part_container_label_#i#"
-									value="#evaluate("data.part_container_label_" & i)#" size="10">
+								<input type="text" name="part_container_label_#i#" id="part_container_label_#i#" size="10">
 							</td>
 							<td>
-								<input type="text" name="part_remark_#i#" id="part_remark_#i#"
-									value="#evaluate("data.part_remark_" & i)#" size="40">
+								<input type="text" name="part_remark_#i#" id="part_remark_#i#" size="40">
 							</td>
 						</tr>
 					</cfloop>
