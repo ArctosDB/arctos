@@ -13,7 +13,7 @@ function checkRecord() {
 				var loadedMsg=r.DATA.RESULT[0];
 				console.log(loadedMsg);
 				if(loadedMsg){
-					$("#loadedMsgDiv").show();
+					$("#loadedMsgDiv").text(loadedMsg).show();
 					
 					
 					
@@ -578,7 +578,7 @@ function changeMode (mode) {
 			$("#editMode").hide(); // Clone This Record
 			$("#theTable").removeClass().addClass('isBadEdit');
 			$("#pageTitle").show();	
-			highlightErrors(status);
+			//highlightErrors(status);
 		} else {
 			$("#browseThingy").show();
 			$("#editMode").show(); // Clone This Record
