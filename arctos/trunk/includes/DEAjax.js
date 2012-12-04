@@ -8,9 +8,9 @@ function editLast() {
 			},
 			function(r) {
 				console.log(r);
-				//loadRecord($("#collection_object_id").val());
-				//$("#selectbrowse").val($("#collection_object_id").val());
-				//changeMode('edit');
+				loadRecord(r);
+				$("#selectbrowse").val(r);
+				changeMode('edit');
 			}	
 		);
 	}
