@@ -10,7 +10,7 @@ function checkRecord() {
 				queryformat : 'column'
 			},
 			function(r) {
-				var loadedMsg=r.DATA.RESULT;
+				var loadedMsg=r.DATA.RESULT[0];
 				console.log(loadedMsg);
 				if(loadedMsg){
 					$("#loadedMsgDiv").show();
