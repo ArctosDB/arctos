@@ -5,11 +5,14 @@
 <cffunction name="bulk_check_one" access="remote">
 	<cfargument name="collection_object_id" required="yes">
 	<cfif collection_object_id lt 500>
-		<cfreturn />
+			<cfset result = querynew("result")>
+			<cfset temp = queryaddrow(result,1)>
+	<cfelse>
+		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select bulk_check_one(#collection_object_id#) result from dual
+		</cfquery>
 	</cfif>
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select bulk_check_one(#collection_object_id#) result from dual
-	</cfquery>
+
 	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
