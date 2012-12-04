@@ -1170,6 +1170,10 @@
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
 								<span id="recCount">#whatIds.recordcount#</span> records
+								<span id="browseThingy">
+								 - Jump to
+								<span class="infoLink" id="pBrowse" onclick="browseTo('previous')">[ previous ]</span>
+								</span>
 								</span>
 					</td>
 					<!----
@@ -1180,9 +1184,9 @@
 
 
 						<cfhtmlhead text='<title>1174</title>'>
-						<span id="browseThingy">
-							 - Jump to
-							<span class="infoLink" id="pBrowse" onclick="browseTo('previous')">[ previous ]</span>
+
+
+
 						<cfhtmlhead text='<title>1178</title>'>
 							<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecord(this.value);">
 								<cfset recposn=1>
