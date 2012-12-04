@@ -4,7 +4,7 @@
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(collection_object_id) collection_object_id from bulkloader where enteredby='#session.username#'
 	</cfquery>
-	<cfreturn result>
+	<cfreturn result.collection_object_id>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 
