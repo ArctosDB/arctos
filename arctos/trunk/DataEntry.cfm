@@ -284,7 +284,7 @@
 									</select>
 							</td>
 							<td valign="top">
-									<label for="">CustomID</label>
+									<label for="other_id_num_5">CustomID</label>
 									<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
 								<cfelse>
 									<input type="hidden" name="other_id_num_type_5" id="other_id_num_type_5" value=''.
@@ -292,7 +292,7 @@
 								</cfif>
 							</td>
 							<td valign="top">
-								<label for="accn">Accn</label>
+								<label for="accn">Accn</label><br>
 								<input type="text" name="accn" value="#accn#" size="30" class="reqdClr" id="accn" onchange="getAccn(this.value,this.id,'#institution_acronym#:#collection_cde#');">
 								<span class="infoLink" onclick="var an=$('##accn').val();getAccn(an,'accn','#institution_acronym#:#collection_cde#');">[ pick ]</span>
 							</td>
