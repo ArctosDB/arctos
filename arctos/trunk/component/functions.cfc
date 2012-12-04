@@ -2867,8 +2867,6 @@
 
 		---->
 	<cfcatch>
-					<cfdump var=#cfcatch#>
-
 			<cfset result = querynew("collection_object_id,message")>
 			<cfset temp = queryaddrow(result,1)>
 			<cfset temp = QuerySetCell(result, "collection_object_id", "-1", 1)>

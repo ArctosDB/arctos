@@ -131,11 +131,9 @@ function loadRecord (collection_object_id) {
 				jQuery(tab).html(data);
 				for (i=0;i<columns.length;i++) {
 					var cName=columns[i];
-					//if (cName != 'ENTEREDBY'){
-						var cVal=eval("r.DATA." + columns[i]);
-						var eName=cName.toLowerCase();
-						$("#" + eName).val(cVal);
-					//}
+					var cVal=eval("r.DATA." + columns[i]);
+					var eName=cName.toLowerCase();
+					$("#" + eName).val(cVal);
 				}
 				// default in enteredby if we didn't get one
 				// won't have one if we're coming from a template/new record
@@ -144,8 +142,14 @@ function loadRecord (collection_object_id) {
 				}
 				set_attribute_dropdowns();
 				
+				if (r.DATA.COLLECTION_OBJECT[0]<500){
+					// one of the templates
+					var loadedMsg='';
+				} else {
+					var loadedMsg=r.DATA.LOADED[0];
+				}
 				
-				var loadedMsg=r.DATA.LOADED[0];
+				
 				
 				//console.log('loadedMsg='+loadedMsg);
 				if(loadedMsg){
