@@ -40,51 +40,20 @@ function loadRecord (collection_object_id) {
 				}
 			}
 			if (useCustom==false) {
-				console.log('failure - switching');
 				ptl+='&useCustom=false';				
 			}
-			console.log('useCustom==' + useCustom);
 			jQuery.get(ptl, function(data){
 				jQuery(tab).html(data);
-				//console.log('gotot');
-				//console.log(data);
-
-				// re-fill the form inside the function - otherwise, we're filling and switching out
-				// asynchronously==explode
-				
-				/* this works
-				
-				*/
 				for (i=0;i<columns.length;i++) {
 					var cName=columns[i];
 					if (cName != 'ENTEREDBY'){
 						var cVal=eval("r.DATA." + columns[i]);
 						var eName=cName.toLowerCase();
-						//console.log('setting ' + eName + ' to ' + cVal);
 						$("#" + eName).val(cVal);
 					}
 				}
-				
 				set_attribute_dropdowns();
 			});
-			
-			//
-			
-			/*
-			$.each(map, function(key, value) { 
-				  alert(key + ': ' + value); 
-				});
-			
-			
-			$("button").click(function(){
-				  $("p").hide("slow",function(){
-				    alert("The paragraph is now hidden");
-				  });
-				});
-			
-			*/
-			
-			
 			switchActive($("#orig_lat_long_units").val());
 			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
 			$("#pBrowse").show();
@@ -1764,7 +1733,6 @@ function catNumSeq () {
 function set_attribute_dropdowns() {
 	$.each($("select[id^='attribute_']"), function() {
 	    if  (!(this.id.indexOf("units") >= 0 || this.id.indexOf("value") >= 0)) {
-	    	console.log('use this one');
 	    	getAttributeStuff($("#" + this.id).val(),this.id);
 	    }
    });	
@@ -1894,6 +1862,5 @@ function success_getAttributeStuff (r) {
 		$("#attribute_value_" + theNumber).val(oldAttributeValue);
 	}
 	catch ( err ){// nothing, just ignore 
-		console.log('failed setting value: ' + err)
 	}
 }
