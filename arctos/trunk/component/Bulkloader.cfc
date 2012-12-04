@@ -318,7 +318,9 @@ sdasd
 			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail, 1)>
 		</cfcatch>
 		</cftry>
+		<!---
 		<cfreturn result>
+		---->
 	</cfoutput>
 </cffunction>
 
