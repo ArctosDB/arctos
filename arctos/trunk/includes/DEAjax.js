@@ -28,7 +28,6 @@ function loadRecord (collection_object_id) {
 						(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') +
 					){
 					useCustom=false;
-				}
 			}
 			if (ccde=='Bird'){
 				if (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
