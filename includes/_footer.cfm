@@ -72,10 +72,8 @@ pageTracker._trackPageview();
 	<cfset title = "Database Access">
 </cfif>
 <cftry>
-	<cfhtmlhead text='<title>#title#</title>
-	'>
+	<cfhtmlhead text='<title>#title#</title>'>
 	<cfcatch type="template">
-		<cfdump var=#cfcatch#>
 	</cfcatch>
 </cftry>
 </body>
