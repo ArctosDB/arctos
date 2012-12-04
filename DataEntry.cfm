@@ -1135,9 +1135,9 @@
 					<td width="16%">
 						<span id="enterMode" style="display:none">
 							<input type="button"
-								value="Edit Last Record"
+								value="Edit Your Last Record"
 								class="lnkBtn"
-								onclick="editThis()">
+								onclick="editLast()">
 						</span>
 						<span id="editMode" style="display:none">
 								<input type="button"
