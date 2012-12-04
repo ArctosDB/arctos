@@ -117,7 +117,7 @@
 							<td>
 								<cfif len(DEC_LAT) gt 0>
 									<span id="mapgohere_#collecting_event_id#_#locality_id#">
-										#DEC_LAT#,#DEC_LONG#
+										fetching map for #DEC_LAT#,#DEC_LONG# <img src="/images/indicator.gif">
 									</span>
 									<!----
 									<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
