@@ -735,7 +735,7 @@
 									<tr>
 										<td align="right"><span class="f11a">Lat Deg</span></td>
 										<td>
-											<input type="text" name="latdeg" size="4" id="latdeg" class="reqdClr" value="#latdeg#">
+											<input type="text" name="latdeg" size="4" id="latdeg" class="reqdClr">
 										</td>
 										<td align="right"><span class="f11a">Min</span></td>
 										<td>
