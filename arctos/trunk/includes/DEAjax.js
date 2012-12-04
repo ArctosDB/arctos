@@ -535,9 +535,6 @@ function MSBBirdDefault () {
 	}
 	var d='<span onclick="incCatNum()" class="likeLink">++</span>';
 	$("#catNumLbl").html(d);
-	
-	
-	
 	//catNumSeq();
 }
 function UAMFishDefault() {
@@ -555,7 +552,6 @@ function UAMInvDefault() {
 	});
 }
 function changeMode (mode) {
-	
 	var status=$.trim($("#loadedMsgDiv").text());
 	if(status){
 		// got an error - force them to fix it
@@ -1049,8 +1045,6 @@ function switchActive(OrigUnits) {
 	 if (typeof(OrigUnits) === 'undefined') {
 		 OrigUnits=$("#orig_lat_long_units").val();
 	 };
-	
-	//console.log('switchActive@'+OrigUnits);
 	var a=document.getElementById('dms');
 	var b=document.getElementById('ddm');
 	var c=document.getElementById('dd');
@@ -1079,12 +1073,7 @@ function switchActive(OrigUnits) {
 	} else if (OrigUnits == 'UTM') {
 		u.className='doShow';
 	}
-	
-	//console.log('switchActive exiting');
 }
-
-
-
 function setPartLabel (thisID) {
 	var thePartNum = thisID.replace('part_barcode_','');
 	var theOIDType = document.getElementById('other_id_num_type_5').value;
@@ -1305,7 +1294,6 @@ function cleanup () {
 	var thisCC = document.getElementById('collection_cde').value;
 	// make sure mammalCustomAttributes is a hidden attribute in forms that need mammal magic
 	if (thisCC == 'Mamm' && $("#mammalCustomAttributes").length>0) {
-		console.log('mammal attribute cleanup');
 		/*
 		 * 	mammal default:
 		 * 	attributes 1-6 are in custom boxes
@@ -1335,7 +1323,6 @@ function cleanup () {
 			$("#attribute_date_6").val(theDate);
 		} catch(e){
 			// whatever
-			console.log(e);
 		}
 	} else if (thisCC == 'Bird' && $("#birdCustomAttributes").length>0) {
 		/************************************************** Bird Routine **************************************************/
@@ -1345,10 +1332,7 @@ function cleanup () {
 		 * determiner, date 1 is default
 		 * 2-5=uncontrolled
 		 * 6=weight
-		 * 
 		 */
-		
-		
 		try {
 			var theDeterminer=$("#attribute_determiner_1").val();
 			$("#attribute_determiner_2").val(theDeterminer);
@@ -1363,40 +1347,8 @@ function cleanup () {
 			$("#attribute_date_5").val(theDate);
 			$("#attribute_date_6").val(theDate);
 			
-			
-			
-			/*
-			 * 
-			 * var oid1 = document.getElementById('other_id_num_type_1');
-			var oid2 = document.getElementById('other_id_num_type_2');
-			var theMsg = "";
-			if (oid1.value == 'collector number') {
-				var oidv1 = document.getElementById('other_id_num_1').value;
-				if (oidv1.length == 0) {
-					theMsg = "You did not enter a collector number";
-				}			
-			}
-			if (oid2.value == 'preparator number') {
-				var oidv2 = document.getElementById('other_id_num_2').value;
-				if (oidv2.length == 0) {
-					theMsg += "\nYou did not enter a preparator number";
-				}			
-			}
-			
-			if (theMsg.length > 0) {
-				theMsg +="\nContinue?";
-				whatever = window.confirm(theMsg);
-				if (whatever == false) {
-					return false;
-				} else {
-					return true;
-				}
-			}
-			*/
-			
 		} catch(e){
 			// whatever
-			console.log(e);
 		}
 	}// end collection specific thingy
 	/******************************************************************** Any Collection ***************************************/
@@ -1837,21 +1789,12 @@ function catNumSeq () {
 }
 
 function set_attribute_dropdowns() {
-
-	
 	$.each($("select[id^='attribute_']"), function() {
-	    console.log(this.id);
-	    //var theVal=$("#")
 	    if  (!(this.id.indexOf("units") >= 0 || this.id.indexOf("value") >= 0)) {
 	    	console.log('use this one');
 	    	getAttributeStuff($("#" + this.id).val(),this.id);
 	    }
-   });
-	
-	
-	
-
-	
+   });	
 }
 function getAttributeStuff (attribute,element) {
 	var isSomething = attribute.length;
@@ -1972,8 +1915,7 @@ function success_getAttributeStuff (r) {
 	try {
 		$("#attribute_units_" + theNumber).val(oldAttributeUnit);
 	}
-	catch ( err ){// nothing, just ignore 
-		console.log('failed setting units: ' + err)
+	catch ( err ){// nothing, just ignore
 	}
 	
 	try {
