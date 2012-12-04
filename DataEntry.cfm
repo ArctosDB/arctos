@@ -1169,7 +1169,7 @@
 
 					</td>
 					<cfhtmlhead text='<title>1171</title>'>
-					<td align="right" width="16%" nowrap="nowrap">
+					<td align="right">
 
 						<cfhtmlhead text='<title>1173</title>'>
 
