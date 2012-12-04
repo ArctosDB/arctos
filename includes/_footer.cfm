@@ -75,6 +75,7 @@ pageTracker._trackPageview();
 	<cfhtmlhead text='<title>#title#</title>
 	'>
 	<cfcatch type="template">
+		<cfdump var=#cfcatch#>
 	</cfcatch>
 </cftry>
 </body>
