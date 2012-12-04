@@ -198,7 +198,7 @@
 		<cfset idList=valuelist(whatIds.collection_object_id)>
 		<cfset currentPos = listFind(idList,collection_object_id)>
 		<form name="dataEntry" method="post" action="DataEntry.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
-			<input type="hidden" name="action" value="" id="action">
+			<input type="hidden" name="action" value="#action#" id="action">
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
 			<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
 			<input type="hidden" name="sessionusername" value="#session.username#" id="sessionusername">
