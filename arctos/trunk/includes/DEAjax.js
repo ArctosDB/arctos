@@ -10,7 +10,7 @@ function checkRecord() {
 				queryformat : 'column'
 			},
 			function(r) {
-				msg(r,'bad');
+				msg('checked it....','bad');
 			}
 		);
 }
