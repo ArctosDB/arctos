@@ -467,7 +467,7 @@
 								<table cellspacing="0" cellpadding="0">
 									<tr>
 										<td>
-											<input type="text" name="collecting_method" value="#collecting_method#" id="collecting_method">
+											<input type="text" name="collecting_method" id="collecting_method">
 										</td>
 										<td align="right"><span class="f11a">Coll. Src.:</span></td>
 										<td>
