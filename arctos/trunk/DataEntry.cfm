@@ -410,7 +410,6 @@
 					<tr>
 						<td id="d_flags">
 							<span class="f11a">Missing....</span>
-							<cfset thisflags = flags>
 							<select name="flags" size="1" style="width:120px" id="flags">
 								<option  value=""></option>
 								<cfloop query="ctflags">
