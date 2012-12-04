@@ -24,8 +24,19 @@ function editLast() {
 }
 
 function changeMode (mode) {
-	$("#action").val(mode);
-	var status=$.trim($("#loadedMsgDiv").text());
+	if ($("#collection_object_id").val()<500){
+		// one of the templates
+		var status='';
+		// disallow edit
+		$("#action").val('enter');
+	} else {
+		var status=$.trim($("#loadedMsgDiv").text());
+		$("#action").val(mode);
+	}
+	
+	
+	
+	
 	//console.log('status='+status);
 	if(status){
 		// got an error - force them to fix it
