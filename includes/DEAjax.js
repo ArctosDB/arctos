@@ -124,6 +124,7 @@ function loadRecord (collection_object_id) {
 				set_attribute_dropdowns();
 				checkRecord();
 				switchActive($("#orig_lat_long_units").val());
+				changeMode($("#action").val());
 			});
 			$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
 			$("#pBrowse").show();
