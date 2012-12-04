@@ -152,7 +152,7 @@ function loadRecord (collection_object_id) {
 				}
 				
 				switchActive($("#orig_lat_long_units").val());
-				changeMode($("#action").val());
+				//changeMode($("#action").val());
 				// turn this thing on when necessary
 				if($("#collection_cde").val()=='ES') {
 					$("#geolCell").show();
