@@ -572,6 +572,7 @@ function UAMInvDefault() {
 	});
 }
 function changeMode (mode) {
+	$("#pMode").val(mode);
 	var status=$.trim($("#loadedMsgDiv").text());
 	if(status){
 		// got an error - force them to fix it
