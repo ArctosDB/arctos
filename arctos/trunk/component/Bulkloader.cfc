@@ -308,7 +308,6 @@
 				</cfquery>
 			</cftransaction>
 
-		<cfreturn result>
 	</cfoutput>
 </cffunction>
 
