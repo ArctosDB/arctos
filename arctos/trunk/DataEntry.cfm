@@ -11,8 +11,9 @@
 
 <script type='text/javascript' src='/includes/DEAjax.js'></script>
 <cf_showMenuOnly>
+<!--- don't think this is necessary anymore
 <cf_setDataEntryGroups>
-
+---->
 <cfif not isdefined("ImAGod") or len(ImAGod) is 0>
 	<cfset ImAGod = "no">
 </cfif>
@@ -486,7 +487,7 @@
 
 
 
-
+<cfhtmlhead text='<title>490</title>'>
 
 
 
