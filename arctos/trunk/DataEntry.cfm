@@ -1245,6 +1245,7 @@
 </cfif>
 </cfoutput>
 </cfif>
-
-here i am
+<cfoutput>
+#title#
+	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
