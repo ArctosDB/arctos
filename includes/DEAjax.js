@@ -9,9 +9,25 @@ function checkRecord() {
 				returnformat : "json",
 				queryformat : 'column'
 			},
-			function(r) {
-				msg('checked it....');
-				console.log(r);
+			function(loadedMsg) {
+				if(loadedMsg){
+					$("#loadedMsgDiv").show();
+					var prob_array = loadedMsg.split(" ");
+					for (var loop=0; loop < prob_array.length; loop++) {
+						var thisSlice = prob_array[loop];
+						var hasSpace = thisSlice.indexOf(" ");
+						if (hasSpace == -1) {
+							try {
+								var theField = document.getElementById(thisSlice.toLowerCase());
+								theField.className = 'hasProbs';
+							}
+							catch ( err ){// nothing, just ignore 
+							}
+						}
+					}
+				} else {
+					$("#loadedMsgDiv").hide();
+				}
 			}
 		);
 }
@@ -548,7 +564,7 @@ function changeMode (mode) {
 		$("#theNewButton").hide(); //Save This As A New Record
 		$("#theSaveButton").show(); // Save Edits/Delete Record
 		$("#enterMode").hide(); // Edit Last Record
-		if(status){
+		if(status && $("#ImAGod").val() != "yes"){
 			// don't let them leave until this is fixed
 			$("#browseThingy").hide();
 			$("#editMode").hide(); // Clone This Record
