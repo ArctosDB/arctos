@@ -398,7 +398,7 @@
 					<tr id="d_coll_object_remarks">
 						<td colspan="2">
 							<span class="f11a">Spec Remark</span>
-								<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="80">#coll_object_remarks#</textarea>
+								<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="80"></textarea>
 						</td>
 					</tr>
 					<tr id="d_associated_species">
