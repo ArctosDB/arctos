@@ -37,6 +37,14 @@ function checkRecord() {
 			}
 		);
 	msg('checking record done....');
+	
+		var theURL=''/DataEntry.cfm?collection_object_id=' + $("#collection_object_id").val();
+		if ($("#ImAGod").val()=="yes"){
+			var theURL+='&ImAGod=yes';
+		}
+		if (typeof window.history.pushState == 'function') {
+		  history.replaceState({}, 'DataEntry', theURL);
+		}
 
 }
 function highlightErrors (loadedMsg) {
