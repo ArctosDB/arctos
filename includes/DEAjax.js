@@ -1,3 +1,44 @@
+function checkRecord() {
+	msg('checking record....','bad');
+	
+	
+	$.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "bulk_check_one",
+				collection_object_id : $("#collection_object_id").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				msg(r,'bad');
+			}
+		);
+}
+function highlightErrors (loadedMsg) {
+	
+
+	if(loadedMsg){
+		$("#loadedMsgDiv").show();
+		var prob_array = loadedMsg.split(" ");
+		for (var loop=0; loop < prob_array.length; loop++) {
+			var thisSlice = prob_array[loop];
+			var hasSpace = thisSlice.indexOf(" ");
+			if (hasSpace == -1) {
+				try {
+					var theField = document.getElementById(thisSlice.toLowerCase());
+					theField.className = 'hasProbs';
+				}
+				catch ( err ){// nothing, just ignore 
+				}
+			}
+		}
+	} else {
+		$("#loadedMsgDiv").hide();
+	}
+
+}
+
+
 function loadRecord (collection_object_id) {
 	msg('fetching data....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
@@ -65,6 +106,7 @@ function loadRecord (collection_object_id) {
 				$("#pBrowse").hide();
 			}
 			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
+			checkRecord();
 		}
 	);
 }
@@ -1211,26 +1253,7 @@ function copyAllAgents(theID) {
 		}	
 	}
 }
-function highlightErrors (loadedMsg) {
-	if(loadedMsg){
-		$("#loadedMsgDiv").show();
-		var prob_array = loadedMsg.split(" ");
-		for (var loop=0; loop < prob_array.length; loop++) {
-			var thisSlice = prob_array[loop];
-			var hasSpace = thisSlice.indexOf(" ");
-			if (hasSpace == -1) {
-				try {
-					var theField = document.getElementById(thisSlice.toLowerCase());
-					theField.className = 'hasProbs';
-				}
-				catch ( err ){// nothing, just ignore 
-				}
-			}
-		}
-	} else {
-		$("#loadedMsgDiv").hide();
-	}
-}
+
 
 function cleanup () {
 	var thisCC = document.getElementById('collection_cde').value;
