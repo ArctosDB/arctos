@@ -68,6 +68,19 @@ function changeMode (mode) {
 		setPagePrefs();
 	}
 	//checkRecord();
+	var theURL='/DataEntry.cfm';
+	console.log('action='+$("#action").val().toLowerCase());
+	
+	if ($("#action").val().toLowerCase()=='edit'){
+		theURL+='?action=edit';
+		if ($("#ImAGod").val()=="yes"){
+			theURL+='&ImAGod=yes';
+		}
+		theURL+='&collection_object_id=' + $("#collection_object_id").val();
+	}
+	if (typeof window.history.pushState == 'function') {
+	  history.replaceState({}, 'DataEntry', theURL);
+	}
 }
 
 function loadRecord (collection_object_id) {
@@ -172,19 +185,6 @@ function loadRecord (collection_object_id) {
 				}
 				if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
 					$("#pBrowse").hide();
-				}
-				var theURL='/DataEntry.cfm';
-				console.log('action='+$("#action").val().toLowerCase());
-				
-				if ($("#action").val().toLowerCase()=='edit'){
-					theURL+='?action=edit';
-					if ($("#ImAGod").val()=="yes"){
-						theURL+='&ImAGod=yes';
-					}
-					theURL+='&collection_object_id=' + $("#collection_object_id").val();
-				}
-				if (typeof window.history.pushState == 'function') {
-				  history.replaceState({}, 'DataEntry', theURL);
 				}
 				msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
 				switchActive($("#orig_lat_long_units").val());
