@@ -133,6 +133,7 @@ function loadRecord (collection_object_id) {
 					var prob_array = loadedMsg.split(" ");
 					for (var loop=0; loop < prob_array.length; loop++) {
 						var thisSlice = prob_array[loop];
+						console.log('thisSlice='+thisSlice);
 						var hasSpace = thisSlice.indexOf(" ");
 						if (hasSpace == -1) {
 							try {
