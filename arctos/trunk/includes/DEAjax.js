@@ -31,7 +31,7 @@ function changeMode (mode) {
 		// got an error - force them to fix it
 		mode='edit';
 	}
-	$(".hasProbs").removeClass();
+	
 	if (mode == 'edit') {
 		$("#customizeForm").hide(); //Save This As A New Record
 		$("#theNewButton").hide(); //Save This As A New Record
@@ -136,6 +136,7 @@ function loadRecord (collection_object_id) {
 						console.log('thisSlice='+thisSlice);
 						var hasSpace = thisSlice.indexOf(" ");
 						if (hasSpace == -1) {
+							console.log('trying....');
 							try {
 								var theField = document.getElementById(thisSlice.toLowerCase());
 								theField.className = 'hasProbs';
@@ -147,6 +148,7 @@ function loadRecord (collection_object_id) {
 					}
 					
 				} else {
+					$(".hasProbs").removeClass();
 					$("#loadedMsgDiv").hide();
 				}
 				
