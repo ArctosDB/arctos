@@ -57,7 +57,7 @@ function checkRecord() {
 	
 		var theURL='/DataEntry.cfm';
 		if ($("#action").val().toLowerCase()=='edit'){
-			theURL+='?action=edit;
+			theURL+='?action=edit';
 			if ($("#ImAGod").val()=="yes"){
 				theURL+='&ImAGod=yes';
 			}
