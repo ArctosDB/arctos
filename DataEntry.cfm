@@ -1068,7 +1068,7 @@
 								<span class="infoLink" id="pBrowse" onclick="browseTo('previous')">[ previous ]</span>
 								<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecord(this.value);">
 									<cfloop query="whatIds">
-										<option <cfif data.collection_object_id is whatIds.collection_object_id> selected="selected" </cfif>
+										<option <cfif collection_object_id is whatIds.collection_object_id> selected="selected" </cfif>
 											value="#collection_object_id#">#collection_object_id#</option>
 									</cfloop>
 								</select>
