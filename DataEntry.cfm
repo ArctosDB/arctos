@@ -258,9 +258,13 @@
 						<tr>
 							<td valign="top">
 								#institution_acronym#:#collection_cde#
-								<span id="catNumLbl" class="f11a">Cat##</span>
-								<input type="text" name="cat_num" value="#cat_num#"  size="6" id="cat_num">
-
+							</td>
+							<td valign="top">
+								<label for="cat_num">Cat##</label>
+								<input type="text" name="" value="#cat_num#"  size="6" id="cat_num">
+								<span id="catNumLbl" class="f11a"></span>
+							</td>
+							<td valign="top">
 								<cfif (isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0) or
 										isdefined("data.other_id_num_type_5") and len(data.other_id_num_type_5) gt 0>
 									<cfif isdefined("data.other_id_num_type_5") and len(data.other_id_num_type_5) gt 0>
@@ -268,6 +272,7 @@
 									<cfelse>
 										<cfset thisID=session.CustomOtherIdentifier>
 									</cfif>
+									<label for="other_id_num_type_5">CustomID</label>
 									<select name="other_id_num_type_5" style="width:180px"
 										id="other_id_num_type_5"
 										onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
@@ -282,12 +287,15 @@
 									<input type="hidden" name="other_id_num_type_5" id="other_id_num_type_5" value=''.
 									<input type="hidden" name="other_id_num_5" id="other_id_num_5" value=''>
 								</cfif>
-								<span class="f11a likeLink" onClick="getDocs('accession')">Accn</span>
+							</td>
+							<td valign="top">
+								<label for="accn">Accn</label>
 								<input type="text" name="accn" value="#accn#" size="30" class="reqdClr" id="accn" onchange="getAccn(this.value,this.id,'#institution_acronym#:#collection_cde#');">
 								<span class="infoLink" onclick="var an=$('##accn').val();getAccn(an,'accn','#institution_acronym#:#collection_cde#');">[ pick ]</span>
+							</td>
+							<td valign="top">
 								<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
 								<span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
-
 							</td>
 						</tr>
 					</table><!---------------------------------- / cat item IDs ---------------------------------------------->
