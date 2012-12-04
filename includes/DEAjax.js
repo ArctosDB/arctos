@@ -21,31 +21,21 @@ function loadRecord (collection_object_id) {
 			// make sure to coordinate any changes
 			if (ccde=='Mamm'){
 				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
-						(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length') || +
-						(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length') || +
-						(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw') || +
-						(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch') || +
-						(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ){
+					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length') || +
+					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length') || +
+					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw') || +
+					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch') || +
+					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ){
 					useCustom=false;
 				}
 			}
 			if (ccde=='Bird'){
-				if (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex'){
-					useCustom=false;
-				}
-				if (String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age'){
-					useCustom=false;
-				}
-				if (String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition'){
-					useCustom=false;
-				}
-				if (String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'molt condition'){
-					useCustom=false;
-				}
-				if (String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification'){
-					useCustom=false;
-				}
-				if (String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight'){
+				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
+					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age') || +
+					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition') || +
+					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'molt condition') || +
+					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification') || +
+					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ) {
 					useCustom=false;
 				}
 			}
