@@ -1168,7 +1168,7 @@
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=download">[ download ]</a>
 
 					</td>
-								<cfhtmlhead text='<title>1195</title>'>
+					<cfhtmlhead text='<title>1171</title>'>
 					<td align="right" width="16%" nowrap="nowrap">
 						<span id="recCount">#whatIds.recordcount#</span> records
 						<span id="browseThingy">
@@ -1187,12 +1187,16 @@
 							<span id="nBrowse" class="infoLink" onclick="browseTo('next')">[ next ]</span>
 						</span>
 					</td>
+
+										<cfhtmlhead text='<title>1190</title>'>
 				</tr>
 			</table>
    		</td>
 	</tr>
 </table>
 </form>
+
+											<cfhtmlhead text='<title>1198</title>'>
 <cfif len(loadedMsg) gt 0>
 	<cfset pMode = 'edit'>
 </cfif>
@@ -1218,6 +1222,8 @@
 		loadRecord('#collection_object_id#');
 	});
 </script>
+
+	<cfhtmlhead text='<title>1225</title>'>
 <cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1 and pMode is "enter">
 	<cftry>
 		<cfset cVal="">
