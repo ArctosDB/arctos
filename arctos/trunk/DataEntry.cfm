@@ -13,9 +13,6 @@
 	<cfset collection_object_id = CFGRIDKEY>
 </cfif>
 <cfset collid = 1>
-<cfif not isdefined("pMode") or len(pMode) is 0>
-	<cfset pMode = "enter">
-</cfif>
 <cfset thisDate = dateformat(now(),"yyyy-mm-dd")>
 <!--------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
@@ -100,7 +97,7 @@
 		</cfquery>
 		Begin at....<br>
 		<form name="begin" method="post" action="DataEntry.cfm">
-			<input type="hidden" name="action" value="editEnterData" />
+			<input type="hidden" name="action" value="enter" />
 			<select name="collection_object_id" size="1">
 				<cfif theirLast.recordcount gt 0>
 					<cfloop query="theirLast">
@@ -122,7 +119,7 @@
 	<cfdump var=#form#>
 </cfif>
 <!------------ editEnterData --------------------------------------------------------------------------------------------->
-<cfif action is "editEnterData">
+<cfif action is "enter" or action is "edit">
 	<cfoutput>
 		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
 			you don't have an ID. <cfabort>
@@ -237,7 +234,6 @@
 			<input type="hidden" name="collection_cde" value="#collection_cde#" id="collection_cde">
 			<input type="hidden" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>
-			<input type="hidden" name="pMode" value="#pMode#"  id="pMode"/>
 			<input type="hidden" name="loaded" value="waiting approval"  id="loaded"/>
 			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style=""> <!--- display:none-------whole page table --->
 				<tr>
@@ -1182,14 +1178,10 @@
 	</tr>
 </table>
 </form>
-<cfif len(loadedMsg) gt 0>
-	<cfset pMode = 'edit'>
-</cfif>
-<cfset loadedMsg = replace(loadedMsg,"'","`","all")>
 <script language="javascript" type="text/javascript">
 	//switchActive('#orig_lat_long_units#');
 	//highlightErrors('#trim(loadedMsg)#');
-	changeMode('#pMode#');
+	//changeMode('#pMode#');
 	jQuery("##georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
 		width: 320,
 		max: 50,
@@ -1206,7 +1198,7 @@
 		loadRecord('#collection_object_id#');
 	});
 </script>
-<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1 and pMode is "enter">
+<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1 and action is "enter">
 	<cftry>
 		<cfset cVal="">
 		<cfif isnumeric(other_id_num_5)>
