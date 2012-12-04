@@ -234,8 +234,7 @@
 									onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
 									<option value=""></option>
 									<cfloop query="ctOtherIdType">
-										<option <cfif thisID is ctOtherIdType.other_id_type> selected="selected" </cfif>
-											value="#other_id_type#">#other_id_type#</option>
+										<option value="#other_id_type#">#other_id_type#</option>
 									</cfloop>
 								</select>
 							</td>
