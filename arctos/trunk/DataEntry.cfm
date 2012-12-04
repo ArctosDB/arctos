@@ -124,11 +124,6 @@
 		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
 			you don't have an ID. <cfabort>
 		</cfif>
-		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				collection_cde
-			from bulkloader where collection_object_id=#collection_object_id#
-		</cfquery>
 		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select collection_cde,institution_acronym,collection from collection order by collection
 		</cfquery>
@@ -219,8 +214,16 @@
 					<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
 						<tr>
 							<td valign="middle">
-								<input type="text" reaonly="readonly" name="institution_acronym" id="institution_acronym">:
-								<input type="text" reaonly="readonly"  name="collection_cde" id="collection_cde">
+								:
+
+							</td>
+							<td class="valigntop">
+								<label for="institution_acronym">Inst##</label>
+								<input type="text" reaonly="readonly" name="institution_acronym" id="institution_acronym" size="4">:
+							</td>
+							<td class="valigntop">
+								<label for="collection_cde">CCDE</label>
+								<input type="text" reaonly="readonly"  name="collection_cde" id="collection_cde" size="4">
 							</td>
 							<td class="valigntop">
 								<label for="cat_num">Cat##</label>
