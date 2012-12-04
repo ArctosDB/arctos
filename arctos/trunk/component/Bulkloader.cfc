@@ -12,8 +12,11 @@
 <cffunction name="loadRecord" access="remote">
 	<cfargument name="collection_object_id" required="yes">
 	<cfif collection_object_id lt 500>
-		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update bulkloader set loaded=bulk_check_one(collection_object_id) where collection_object_id=#collection_object_id#
+		<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select bulk_check_one(collection_object_id) ld from bulkloader where collection_object_id=#collection_object_id#
+		</cfquery>
+		<cfquery name="rchk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update bulkloader set loaded='#chk.ld#' where collection_object_id=#collection_object_id#
 		</cfquery>
 	</cfif>
 	<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
