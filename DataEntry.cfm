@@ -1181,7 +1181,6 @@
 <script language="javascript" type="text/javascript">
 	//switchActive('#orig_lat_long_units#');
 	//highlightErrors('#trim(loadedMsg)#');
-	//changeMode('#pMode#');
 	jQuery("##georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
 		width: 320,
 		max: 50,
