@@ -1153,7 +1153,6 @@
 									onclick="createClone()">
 						</span>
 					</td>
-												<cfhtmlhead text='<title>1195</title>'>
 					<td width="16%" nowrap="nowrap">
 						 <span id="theSaveButton" style="display:none;">
 							<input type="button" value="Save Edits" class="savBtn" onclick="saveEditedRecord();" />
@@ -1169,6 +1168,7 @@
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=download">[ download ]</a>
 
 					</td>
+								<cfhtmlhead text='<title>1195</title>'>
 					<td align="right" width="16%" nowrap="nowrap">
 						<span id="recCount">#whatIds.recordcount#</span> records
 						<span id="browseThingy">
