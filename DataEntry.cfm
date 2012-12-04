@@ -1168,8 +1168,10 @@
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=download">[ download ]</a>
 
 					</td>
+
+					<!----
 					<cfhtmlhead text='<title>1171</title>'>
-					<td align="right">
+					<td align="right" width="16%" nowrap="nowrap">
 
 						<cfhtmlhead text='<title>1173</title>'>
 
@@ -1194,7 +1196,7 @@
 						</span>
 					</td>
 
-										<cfhtmlhead text='<title>1190</title>'>
+						---->				<cfhtmlhead text='<title>1190</title>'>
 				</tr>
 			</table>
    		</td>
