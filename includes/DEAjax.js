@@ -165,11 +165,11 @@ function loadRecord (collection_object_id) {
 				jQuery(tab).html(data);
 				for (i=0;i<columns.length;i++) {
 					var cName=columns[i];
-					if (cName != 'ENTEREDBY'){
+					//if (cName != 'ENTEREDBY'){
 						var cVal=eval("r.DATA." + columns[i]);
 						var eName=cName.toLowerCase();
 						$("#" + eName).val(cVal);
-					}
+					//}
 				}
 				set_attribute_dropdowns();
 				checkRecord();
