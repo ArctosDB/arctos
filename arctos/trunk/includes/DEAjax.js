@@ -38,15 +38,17 @@ function checkRecord() {
 		);
 	msg('checking record done....');
 	
-		var theURL='/DataEntry.cfm?action=editEnterData&collection_object_id=' + $("#collection_object_id").val();
-		theURL+='&pMode=' + $("#pMode").val();
-		if ($("#ImAGod").val()=="yes"){
-			theURL+='&ImAGod=yes';
+		var theURL='/DataEntry.cfm';
+		if ($("#pMode").val().toLowerCase()!='enter'){
+			theURL+='?pMode=' + $("#pMode").val();
+			if ($("#ImAGod").val()=="yes"){
+				theURL+='&ImAGod=yes';
+			}
+			theURL+='&action=editEnterData&collection_object_id=' + $("#collection_object_id").val();
 		}
 		if (typeof window.history.pushState == 'function') {
 		  history.replaceState({}, 'DataEntry', theURL);
 		}
-
 }
 function highlightErrors (loadedMsg) {
 	
