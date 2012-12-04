@@ -56,12 +56,12 @@ function checkRecord() {
 	msg('checking record done....');
 	
 		var theURL='/DataEntry.cfm';
-		if ($("#pMode").val().toLowerCase()!='enter'){
-			theURL+='?pMode=' + $("#pMode").val();
+		if ($("#action").val().toLowerCase()=='edit'){
+			theURL+='?action=edit;
 			if ($("#ImAGod").val()=="yes"){
 				theURL+='&ImAGod=yes';
 			}
-			theURL+='&action=editEnterData&collection_object_id=' + $("#collection_object_id").val();
+			theURL+='&collection_object_id=' + $("#collection_object_id").val();
 		}
 		if (typeof window.history.pushState == 'function') {
 		  history.replaceState({}, 'DataEntry', theURL);
@@ -589,7 +589,7 @@ function UAMInvDefault() {
 	});
 }
 function changeMode (mode) {
-	$("#pMode").val(mode);
+	$("#action").val(mode);
 	var status=$.trim($("#loadedMsgDiv").text());
 	if(status){
 		// got an error - force them to fix it
@@ -1157,17 +1157,6 @@ function doAttributeDefaults () {
 		}
 	}
 }
-function click_changeMode (mode,collobjid) {
-	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
-	if (yesChange == true) {
-		if (mode == 'edit') {
-				document.location='DataEntry.cfm?collection_object_id=' + collobjid + '&pMode=edit&action=editEnterData';
-		} else {
-			changeMode(mode,collobjid);
-		}
-	}	
-}
-
 function UAMArtDefaults() {
 	var i=1;
 	for (i=1;i<=12;i++){
