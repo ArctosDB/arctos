@@ -296,7 +296,11 @@
 		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">
 
 		<cfdump var=#sql#>
-			<cftransaction>
+		<hr>
+
+		boogity
+
+
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					#preservesinglequotes(sql)#
 				</cfquery>
@@ -306,7 +310,6 @@
 				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
 				</cfquery>
-			</cftransaction>
 
 	</cfoutput>
 </cffunction>
