@@ -254,7 +254,7 @@
 					</td>
 				</tr>
 				<tr><td width="50%" valign="top"><!--- left top of page --->
-					<table cellpadding="0" cellspacing="0" class="fs" border="1"><!--- cat item IDs --->
+					<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
 						<tr>
 							<td valign="middle">
 								#institution_acronym#:#collection_cde#
@@ -296,7 +296,7 @@
 								<input type="text" name="accn" value="#accn#" size="25" class="reqdClr" id="accn" onchange="getAccn(this.value,this.id,'#institution_acronym#:#collection_cde#');">
 								<span class="infoLink" onclick="var an=$('##accn').val();getAccn(an,'accn','#institution_acronym#:#collection_cde#');">[ pick ]</span>
 							</td>
-							<td valign="top">
+							<td class="nowrap" valign="top">
 								<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
 								<br><span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
 							</td>
