@@ -26,7 +26,7 @@ function editLast() {
 function changeMode (mode) {
 	$("#action").val(mode);
 	var status=$.trim($("#loadedMsgDiv").text());
-	console.log('status='+status);
+	//console.log('status='+status);
 	if(status){
 		// got an error - force them to fix it
 		mode='edit';
@@ -41,7 +41,7 @@ function changeMode (mode) {
 		
 		if(status){
 			// don't let them leave until this is fixed
-			console.log('is bad edit');
+			//console.log('is bad edit');
 			$("#editMode").hide(); // Clone This Record
 			$("#theTable").removeClass().addClass('isBadEdit');
 			$("#pageTitle").show();
@@ -69,7 +69,7 @@ function changeMode (mode) {
 	}
 	//checkRecord();
 	var theURL='/DataEntry.cfm';
-	console.log('action='+$("#action").val().toLowerCase());
+	//console.log('action='+$("#action").val().toLowerCase());
 	
 	if ($("#action").val().toLowerCase()=='edit'){
 		theURL+='?action=edit';
@@ -147,22 +147,22 @@ function loadRecord (collection_object_id) {
 				
 				var loadedMsg=r.DATA.LOADED[0];
 				
-				console.log('loadedMsg='+loadedMsg);
+				//console.log('loadedMsg='+loadedMsg);
 				if(loadedMsg){
 					$("#loadedMsgDiv").text(loadedMsg).show();
 					var prob_array = loadedMsg.split(" ");
 					for (var loop=0; loop < prob_array.length; loop++) {
 						var thisSlice = prob_array[loop];
-						console.log('thisSlice='+thisSlice);
+						//console.log('thisSlice='+thisSlice);
 						var hasSpace = thisSlice.indexOf(" ");
 						if (hasSpace == -1) {
-							console.log('trying....');
+							//console.log('trying....');
 							try {
 								var theField = document.getElementById(thisSlice.toLowerCase());
 								theField.className = 'hasProbs';
 							}
 							catch ( err ){// nothing, just ignore 
-								console.log('caught: ' + err);
+								//console.log('caught: ' + err);
 							}
 						}
 					}
