@@ -2,25 +2,18 @@ function editLast() {
 	yesChange = window.confirm('You will lose any unsaved changes to this record. Continue?');
 	if (yesChange == true) {
 		$.getJSON("/component/Bulkloader.cfc",
-				{
-					method : "my_last_record",
-					returnformat : "plain",
-				},
-				function(r) {
-					console.log(r);
-					//loadRecord($("#collection_object_id").val());
-					//$("#selectbrowse").val($("#collection_object_id").val());
-					//changeMode('edit');
-					
-			);
-		
-		
-		
-		
-		
-	
+			{
+				method : "my_last_record",
+				returnformat : "plain",
+			},
+			function(r) {
+				console.log(r);
+				//loadRecord($("#collection_object_id").val());
+				//$("#selectbrowse").val($("#collection_object_id").val());
+				//changeMode('edit');
+			}	
+		);
 	}
-	
 }
 function checkRecord() {
 	msg('checking record....','bad');
