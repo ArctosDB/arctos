@@ -384,7 +384,7 @@
 							</select>
 							<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:150px">
 								<option value=""></option>
-								<option <cfif thisRELATED_TO_NUM_TYPE is "catalog number">selected="selected"</cfif> value="catalog number">catalog number (UAM:Mamm:123 format)</option>
+								<option value="catalog number">catalog number (UAM:Mamm:123 format)</option>
 								<cfloop query="ctOtherIdType">
 									<option value="#other_id_type#">#other_id_type#</option>
 								</cfloop>
