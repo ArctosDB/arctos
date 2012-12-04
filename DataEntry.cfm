@@ -376,7 +376,6 @@
 					<tr id="d_relationship">
 						<td align="right"><span class="f11a">Relations</span></td>
 						<td>
-							<cfset thisRELATIONSHIP = RELATIONSHIP>
 							<select name="relationship" size="1" id="relationship">
 								<option value=""></option>
 								<cfloop query="ctbiol_relations">
