@@ -171,6 +171,11 @@ function loadRecord (collection_object_id) {
 						$("#" + eName).val(cVal);
 					//}
 				}
+				// default in enteredby if we didn't get one
+				// won't have one if we're coming from a template/new record
+				if ($("#enteredby").val().length==0){
+					$("#enteredby").val($("#sessionusername").val());
+				}
 				set_attribute_dropdowns();
 				checkRecord();
 				switchActive($("#orig_lat_long_units").val());
