@@ -11,7 +11,7 @@ function checkRecord() {
 			},
 			function(r) {
 				var loadedMsg=r.DATA.RESULT;
-				
+				console.log(loadedMsg);
 				if(loadedMsg){
 					$("#loadedMsgDiv").show();
 					
