@@ -1178,13 +1178,8 @@
 									<cfset idList = "#idList#,">
 																								<cfset recposn=recposn+1>
 								<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecord(this.value);">
+	<option value=''>boogers</option>
 
-														<cfloop query="whatIds">
-															<option
-																<cfif data.collection_object_id is whatIds.collection_object_id> selected="selected" </cfif>
-																value="#collection_object_id#">#collection_object_id#</option>
-
-														</cfloop>
 													</select>
 								<span id="nBrowse" class="infoLink" onclick="browseTo('next')">[ next ]</span>
 								</span>
@@ -1193,7 +1188,12 @@
 					<!----
 					<cfhtmlhead text='<title>1171</title>'>
 
+<cfloop query="whatIds">
+															<option
+																<cfif data.collection_object_id is whatIds.collection_object_id> selected="selected" </cfif>
+																value="#collection_object_id#">#collection_object_id#</option>
 
+														</cfloop>
 						<cfhtmlhead text='<title>1173</title>'>
 
 
