@@ -1211,6 +1211,10 @@
 
 	jQuery(document).ready(function() {
 		loadRecord('#collection_object_id#');
+
+		if (typeof window.history.pushState == 'function') {
+		  history.replaceState({}, 'Scout ~ Chart', '/charts?');
+		}
 	});
 </script>
 <cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1 and pMode is "enter">
