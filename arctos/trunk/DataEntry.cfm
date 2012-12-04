@@ -1130,8 +1130,6 @@
 			</td><!--- end parts block --->
 		</tr>
 		<tr>
-												<cfhtmlhead text='<title>1195</title>'>
-
 		<td colspan="2">
 			<table cellpadding="0" cellspacing="0" width="100%" style="background-color:##339999">
 				<tr>
@@ -1155,6 +1153,7 @@
 									onclick="createClone()">
 						</span>
 					</td>
+												<cfhtmlhead text='<title>1195</title>'>
 					<td width="16%" nowrap="nowrap">
 						 <span id="theSaveButton" style="display:none;">
 							<input type="button" value="Save Edits" class="savBtn" onclick="saveEditedRecord();" />
