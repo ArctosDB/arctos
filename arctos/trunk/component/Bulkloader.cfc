@@ -1,6 +1,12 @@
 <cfcomponent>
 
-
+<cffunction name="my_last_record" access="remote">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select max(collection_object_id) collection_object_id from bulkloader where enteredby='#session.username#'
+	</cfquery>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
 
 <cffunction name="bulk_check_one" access="remote">
 	<cfargument name="collection_object_id" required="yes">
