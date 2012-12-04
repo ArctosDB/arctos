@@ -16,7 +16,7 @@
 			select bulk_check_one(collection_object_id) ld from bulkloader where collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfif len(chk.ld) gt 254>
-			<cfset msg=left(chk.ld,250) & '... {snip}'>
+			<cfset msg=left(chk.ld,200) & '... {snip}'>
 		<cfelse>
 			<cfset msg=chk.ld>
 		</cfif>
