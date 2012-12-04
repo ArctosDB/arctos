@@ -1170,7 +1170,10 @@
 					</td>
 					<cfhtmlhead text='<title>1171</title>'>
 					<td align="right" width="16%" nowrap="nowrap">
-						<span id="recCount">#whatIds.recordcount#</span> records
+
+						<cfhtmlhead text='<title>1173</title>'>
+
+												<span id="recCount">#whatIds.recordcount#</span> records
 						<cfhtmlhead text='<title>1174</title>'>
 						<span id="browseThingy">
 							 - Jump to
