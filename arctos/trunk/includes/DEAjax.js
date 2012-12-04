@@ -105,17 +105,7 @@ function checkRecord() {
 		);
 	msg('checking record done....');
 	
-		var theURL='/DataEntry.cfm';
-		if ($("#action").val().toLowerCase()=='edit'){
-			theURL+='?action=edit';
-			if ($("#ImAGod").val()=="yes"){
-				theURL+='&ImAGod=yes';
-			}
-			theURL+='&collection_object_id=' + $("#collection_object_id").val();
-		}
-		if (typeof window.history.pushState == 'function') {
-		  history.replaceState({}, 'DataEntry', theURL);
-		}
+		
 }
 function loadRecord (collection_object_id) {
 	msg('fetching data....','bad');
@@ -182,12 +172,8 @@ function loadRecord (collection_object_id) {
 				var loadedMsg=r.DATA.LOADED[0];
 				
 				console.log('loadedMsg='+loadedMsg);
-				/*
 				if(loadedMsg){
 					$("#loadedMsgDiv").text(loadedMsg).show();
-					
-					
-					
 					var prob_array = loadedMsg.split(" ");
 					for (var loop=0; loop < prob_array.length; loop++) {
 						var thisSlice = prob_array[loop];
@@ -205,7 +191,6 @@ function loadRecord (collection_object_id) {
 				} else {
 					$("#loadedMsgDiv").hide();
 				}
-				*/
 				
 				switchActive($("#orig_lat_long_units").val());
 				changeMode($("#action").val());
@@ -223,11 +208,23 @@ function loadRecord (collection_object_id) {
 					$("#pBrowse").hide();
 				}
 				//checkRecord();
+				var theURL='/DataEntry.cfm';
+				if ($("#action").val().toLowerCase()=='edit'){
+					theURL+='?action=edit';
+					if ($("#ImAGod").val()=="yes"){
+						theURL+='&ImAGod=yes';
+					}
+					theURL+='&collection_object_id=' + $("#collection_object_id").val();
+				}
+				if (typeof window.history.pushState == 'function') {
+				  history.replaceState({}, 'DataEntry', theURL);
+				}
+				msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
 			});
 			
-			msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
 		}
 	);
+	
 }
 function getRelatedData(id) {
 	var bgDiv = document.createElement('div');
