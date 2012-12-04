@@ -6,6 +6,35 @@
 	</cfquery>
 	<cfreturn result.collection_object_id>
 </cffunction>
+
+<!----------------------------------------------------------------------------------------->
+
+<cffunction name="loadRecord" access="remote">
+	<cfargument name="collection_object_id" required="yes">
+	<cfif collection_object_id lt 500>
+		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update bulkloader set loaded=bulk_check_one(collection_object_id) where collection_object_id=#collection_object_id#
+		</cfquery>
+	</cfif>
+	<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			column_name
+		from
+			sys.user_tab_cols
+		where
+			table_name='BULKLOADER'
+		and
+			column_name not like '%$%'
+		order by
+			internal_column_id
+	</cfquery>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select #valuelist(getCols.column_Name)# from bulkloader where collection_object_id=#collection_object_id#
+	</cfquery>
+	<cfreturn d>
+</cffunction>
+
+
 <!----------------------------------------------------------------------------------------->
 
 <cffunction name="bulk_check_one" access="remote">
@@ -133,27 +162,7 @@
 		<cfreturn ''>
 	</cfif>
 </cffunction>
-<!----------------------------------------------------------------------------------------->
 
-<cffunction name="loadRecord" access="remote">
-	<cfargument name="collection_object_id" required="yes">
-	<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
-			column_name
-		from
-			sys.user_tab_cols
-		where
-			table_name='BULKLOADER'
-		and
-			column_name not like '%$%'
-		order by
-			internal_column_id
-	</cfquery>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select #valuelist(getCols.column_Name)# from bulkloader where collection_object_id=#collection_object_id#
-	</cfquery>
-	<cfreturn d>
-</cffunction>
 
 <!----------------------------------------------------------------------------------------->
 
