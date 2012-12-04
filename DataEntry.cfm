@@ -1130,6 +1130,8 @@
 			</td><!--- end parts block --->
 		</tr>
 		<tr>
+												<cfhtmlhead text='<title>1195</title>'>
+
 		<td colspan="2">
 			<table cellpadding="0" cellspacing="0" width="100%" style="background-color:##339999">
 				<tr>
@@ -1192,11 +1194,6 @@
 	</tr>
 </table>
 </form>
-
-										<cfhtmlhead text='<title>1195</title>'>
-
-
-
 <cfif len(loadedMsg) gt 0>
 	<cfset pMode = 'edit'>
 </cfif>
