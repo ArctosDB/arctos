@@ -155,7 +155,7 @@ function loadRecord (collection_object_id) {
 				}
 				set_attribute_dropdowns();
 				
-				if (r.DATA.COLLECTION_OBJECT[0]<500){
+				if (r.DATA.COLLECTION_OBJECT_ID[0]<500){
 					// one of the templates
 					var loadedMsg='';
 				} else {
