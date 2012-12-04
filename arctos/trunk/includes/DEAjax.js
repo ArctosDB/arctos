@@ -1,3 +1,11 @@
+function getDEAccn() {
+	
+	getAccn($("##institution_acronym").val(),'accn',$("##institution_acronym").val() + ':' + $("##collection_cde").val(););
+
+	
+	
+	
+}
 function editLast() {
 	yesChange = window.confirm('You will lose any unsaved changes to this record. Continue?');
 	if (yesChange == true) {

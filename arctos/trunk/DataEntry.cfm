@@ -125,23 +125,9 @@
 			you don't have an ID. <cfabort>
 		</cfif>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from bulkloader where collection_object_id=#collection_object_id#
-		</cfquery>
-		<cfif collection_object_id GT 100>
-			<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select bulk_check_one(#collection_object_id#) rslt from dual
-			</cfquery>
-			<cfset loadedMsg=chk.rslt>
-		<cfelse>
-			<cfset loadedMsg = "">
-		</cfif>
-	</cfoutput>
-	<cfoutput query="data">
-		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT institution_acronym || ' ' || collection_cde as instcoll, collection_id FROM collection
-				<cfif len(collection_cde) gt 0>
-					WHERE collection_cde='#collection_cde#'
-				</cfif>
+			select
+				collection_cde
+			from bulkloader where collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select collection_cde,institution_acronym,collection from collection order by collection
@@ -215,71 +201,53 @@
 			#preservesinglequotes(sql)#
 		</cfquery>
 		<cfset idList=valuelist(whatIds.collection_object_id)>
-		<cfset currentPos = listFind(idList,data.collection_object_id)>
-		<cfif len(loadedMsg) gt 0>
-			<cfset loadedMsg = right(loadedMsg,len(loadedMsg) - 2)>
-			<cfset pageTitle = replace(loadedMsg,"::","","all")>
-		<cfelse>
-			<cfset pageTitle = "This record has passed all bulkloader checks!">
-		</cfif>
+		<cfset currentPos = listFind(idList,collection_object_id)>
 		<form name="dataEntry" method="post" action="DataEntry.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
 			<input type="hidden" name="action" value="" id="action">
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
 			<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
-			<input type="hidden" name="collection_cde" value="#collection_cde#" id="collection_cde">
-			<input type="hidden" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
-			<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>
+
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#" id="collection_object_id"/>
 			<input type="hidden" name="loaded" value="waiting approval"  id="loaded"/>
 			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style=""> <!--- display:none-------whole page table --->
 				<tr>
 					<td colspan="2" style="border-bottom: 1px solid black; " align="center">
-						<div id="loadedMsgDiv">
-							#loadedMsg#
-						</div>
+						<div id="loadedMsgDiv"></div>
 					</td>
 				</tr>
 				<tr><td width="50%" valign="top"><!--- left top of page --->
 					<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
 						<tr>
 							<td valign="middle">
-								#institution_acronym#:#collection_cde#
+								<input type="text" reaonly="readonly" name="institution_acronym" id="institution_acronym">:
+								<input type="text" reaonly="readonly"  name="collection_cde" id="collection_cde">
 							</td>
 							<td class="valigntop">
 								<label for="cat_num">Cat##</label>
-								<input type="text" name="" value="#cat_num#"  size="6" id="cat_num">
+								<input type="text" name="cat_num" size="6" id="cat_num">
 								<span id="catNumLbl" class="f11a"></span>
 							</td>
 							<td class="valigntop">
-								<cfif (isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0) or
-										isdefined("data.other_id_num_type_5") and len(data.other_id_num_type_5) gt 0>
-									<cfif isdefined("data.other_id_num_type_5") and len(data.other_id_num_type_5) gt 0>
-										<cfset thisID=data.other_id_num_type_5>
-									<cfelse>
-										<cfset thisID=session.CustomOtherIdentifier>
-									</cfif>
-									<label for="other_id_num_type_5">CustomID Type</label>
-									<select name="other_id_num_type_5" style="width:180px"
-										id="other_id_num_type_5"
-										onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
-										<option value=""></option>
-										<cfloop query="ctOtherIdType">
-											<option <cfif thisID is ctOtherIdType.other_id_type> selected="selected" </cfif>
-												value="#other_id_type#">#other_id_type#</option>
-										</cfloop>
-									</select>
+								<label for="other_id_num_type_5">CustomID Type</label>
+								<select name="other_id_num_type_5" style="width:180px"
+									id="other_id_num_type_5"
+									onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
+									<option value=""></option>
+									<cfloop query="ctOtherIdType">
+										<option <cfif thisID is ctOtherIdType.other_id_type> selected="selected" </cfif>
+											value="#other_id_type#">#other_id_type#</option>
+									</cfloop>
+								</select>
 							</td>
 							<td class="valigntop">
-									<label for="other_id_num_5">CustomID</label>
-									<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
-								<cfelse>
-									<input type="hidden" name="other_id_num_type_5" id="other_id_num_type_5" value=''.
-									<input type="hidden" name="other_id_num_5" id="other_id_num_5" value=''>
-								</cfif>
+								<label for="other_id_num_5">CustomID</label>
+								<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
 							</td>
 							<td class="nowrap valigntop">
 								<label for="accn">Accn</label><br>
-								<input type="text" name="accn" value="#accn#" size="25" class="reqdClr" id="accn" onchange="getAccn(this.value,this.id,'#institution_acronym#:#collection_cde#');">
-								<span class="infoLink" onclick="var an=$('##accn').val();getAccn(an,'accn','#institution_acronym#:#collection_cde#');">[ pick ]</span>
+								<input type="text" name="accn" size="25" class="reqdClr" id="accn"
+									onchange="getDEAccn();">
+								<span class="infoLink" onclick="getDEAccn();">[ pick ]</span>
 							</td>
 							<td class="nowrap valignmiddle">
 								<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
@@ -296,15 +264,15 @@
 								<cfif i is 1 or i is 3 or i is 5><tr></cfif>
 								<td id="d_collector_role_#i#" align="right">
 									<select name="collector_role_#i#" size="1" <cfif i is 1>class="reqdClr"</cfif> id="collector_role_#i#">
-										<option <cfif evaluate("data.collector_role_" & i) is "c">selected="selected"</cfif> value="c">Collector</option>
+										<option value="c">Collector</option>
 										<cfif i gt 1>
-											<option <cfif evaluate("data.collector_role_" & i) is "p">selected="selected"</cfif> value="p">Preparator</option>
+											<option value="p">Preparator</option>
 										</cfif>
 									</select>
 								</td>
 								<td  id="d_collector_agent_#i#" nowrap="nowrap">
 									<span class="f11a">#i#</span>
-									<input type="text" name="collector_agent_#i#" value="#evaluate("data.collector_agent_" & i)#"
+									<input type="text" name="collector_agent_#i#"
 										<cfif i is 1>class="reqdClr"</cfif> id="collector_agent_#i#"
 										onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 										onkeypress="return noenter(event);">
@@ -328,11 +296,10 @@
 										onChange="this.className='reqdClr';dataEntry.other_id_num_#i#.className='reqdClr';dataEntry.other_id_num_#i#.focus();">
 										<option value=""></option>
 										<cfloop query="ctOtherIdType">
-											<option <cfif evaluate("data.other_id_num_type_" & i) is ctOtherIdType.other_id_type> selected="selected" </cfif>
-												value="#other_id_type#">#other_id_type#</option>
+											<option value="#other_id_type#">#other_id_type#</option>
 										</cfloop>
 									</select>
-									<input type="text" name="other_id_num_#i#" value="#evaluate("data.other_id_num_" & i)#" id="other_id_num_#i#">
+									<input type="text" name="other_id_num_#i#" id="other_id_num_#i#">
 									<span class="infoLink" onclick="getRelatedData(#i#)">[ pull ]</span>
 								</td>
 							</tr>
@@ -1131,10 +1098,7 @@
 								onclick="editLast()">
 						</span>
 						<span id="editMode" style="display:none">
-								<input type="button"
-									value="Clone This Record"
-									class="lnkBtn"
-									onclick="createClone()">
+							<input type="button" value="Clone This Record" class="lnkBtn" onclick="createClone()">
 						</span>
 					</td>
 					<td width="16%" nowrap="nowrap">
