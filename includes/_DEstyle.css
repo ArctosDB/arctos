@@ -1,3 +1,7 @@
+.nowrap {
+ 	white-space:nowrap;
+ }
+ 
 #loadingAnimation{
 	position:fixed;
 	top:50%;
