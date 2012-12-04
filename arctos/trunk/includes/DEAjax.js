@@ -38,7 +38,8 @@ function checkRecord() {
 		);
 	msg('checking record done....');
 	
-		var theURL=''/DataEntry.cfm?collection_object_id=' + $("#collection_object_id").val();
+		var theURL='/DataEntry.cfm?collection_object_id=' + $("#collection_object_id").val();
+		var theURL+='&pMode=' + $("#pMode").val();
 		if ($("#ImAGod").val()=="yes"){
 			var theURL+='&ImAGod=yes';
 		}
