@@ -363,14 +363,7 @@
 					<tr>
 						<td align="right"><span class="f11a">Entered&nbsp;By</span></td>
 						<td width="100%">
-							<cfif ImAGod is not "yes">
-								<cfset eby=session.username>
-							<cfelseif ImAGod is "yes">
-								<cfset eby=enteredby>
-							<cfelse>
-								ERROR!!!
-							</cfif>
-							<input type="text" name="enteredby" value="#eby#" id="enteredby">
+							<input type="text" readonly="readonly" name="enteredby" id="enteredby">
 						</td>
 					</tr>
 					<tr id="d_relationship">
