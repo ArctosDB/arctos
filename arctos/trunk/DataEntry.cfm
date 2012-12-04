@@ -244,9 +244,8 @@
 			<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
 			<input type="hidden" name="collection_cde" value="#collection_cde#" id="collection_cde">
 			<input type="hidden" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
-			<input type="text" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>
-			<input type="text" name="pMode" value="#pMode#"  id="pMode"/>
-
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>
+			<input type="hidden" name="pMode" value="#pMode#"  id="pMode"/>
 			<input type="hidden" name="loaded" value="waiting approval"  id="loaded"/>
 			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style=""> <!--- display:none-------whole page table --->
 				<tr>
@@ -1237,7 +1236,4 @@
 </cfif>
 </cfoutput>
 </cfif>
-<cfoutput>
-#title#
-	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
