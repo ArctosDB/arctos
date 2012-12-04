@@ -993,7 +993,7 @@
 							<td>
 								<input type="text" name="part_name_#i#" id="part_name_#i#"
 									 size="25"
-									onchange="findPart(this.id,this.value,'#collection_cde#');requirePartAtts('#i#',this.value);"
+									onchange="findPart(this.id,this.value,'$("##collection_cde").val();');requirePartAtts('#i#',this.value);"
 									onkeypress="return noenter(event);">
 							</td>
 							<td>
