@@ -264,7 +264,7 @@
 								<input type="text" name="" value="#cat_num#"  size="6" id="cat_num">
 								<span id="catNumLbl" class="f11a"></span>
 							</td>
-							<td valign="top">
+							<td valign="top" align="right">
 								<cfif (isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0) or
 										isdefined("data.other_id_num_type_5") and len(data.other_id_num_type_5) gt 0>
 									<cfif isdefined("data.other_id_num_type_5") and len(data.other_id_num_type_5) gt 0>
@@ -272,7 +272,7 @@
 									<cfelse>
 										<cfset thisID=session.CustomOtherIdentifier>
 									</cfif>
-									<label for="other_id_num_type_5">CustomID</label>
+									<label for="other_id_num_type_5">CustomID Type</label>
 									<select name="other_id_num_type_5" style="width:180px"
 										id="other_id_num_type_5"
 										onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
@@ -282,6 +282,9 @@
 												value="#other_id_type#">#other_id_type#</option>
 										</cfloop>
 									</select>
+							</td>
+							<td valign="top" align="left">
+									<label for="">CustomID</label>
 									<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
 								<cfelse>
 									<input type="hidden" name="other_id_num_type_5" id="other_id_num_type_5" value=''.
