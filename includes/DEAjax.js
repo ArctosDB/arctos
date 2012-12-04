@@ -39,6 +39,7 @@ function changeMode (mode) {
 		$("#enterMode").hide(); // Edit Last Record
 		if(status && $("#ImAGod").val() != "yes"){
 			// don't let them leave until this is fixed
+			console.log('is bad edit');
 			$("#browseThingy").hide();
 			$("#editMode").hide(); // Clone This Record
 			$("#theTable").removeClass().addClass('isBadEdit');
