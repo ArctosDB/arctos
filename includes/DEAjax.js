@@ -1,8 +1,12 @@
 function getDEAccn() {
+	var institution_acronym=$("#institution_acronym").val();
+	var collection_cde=$("#collection_cde").val();
+	var InstAcrColnCde=institution_acronym+ ':' +collection_cde;
+	var accnNumber=$("#accn").val();
 	
-	getAccn($("##institution_acronym").val(),'accn',$("##institution_acronym").val() + ':' + $("##collection_cde").val(););
+	getAccn(accnNumber,'accn',InstAcrColnCde);
 
-	
+
 	
 	
 }
