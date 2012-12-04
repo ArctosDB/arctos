@@ -12,6 +12,9 @@ function checkRecord() {
 			function(loadedMsg) {
 				if(loadedMsg){
 					$("#loadedMsgDiv").show();
+					
+					/*
+					
 					var prob_array = loadedMsg.split(" ");
 					for (var loop=0; loop < prob_array.length; loop++) {
 						var thisSlice = prob_array[loop];
@@ -25,11 +28,14 @@ function checkRecord() {
 							}
 						}
 					}
+					*/
 				} else {
 					$("#loadedMsgDiv").hide();
 				}
 			}
 		);
+	msg('checking record done....');
+
 }
 function highlightErrors (loadedMsg) {
 	
