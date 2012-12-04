@@ -22,7 +22,7 @@ function loadRecord (collection_object_id) {
 			if (ccde=='Mamm'){
 				if ( \
 					(String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex')) || \
-					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length')
+					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length') \
 					){
 					useCustom=false;
 				}
