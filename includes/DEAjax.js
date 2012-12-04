@@ -3,12 +3,8 @@ function getDEAccn() {
 	var collection_cde=$("#collection_cde").val();
 	var InstAcrColnCde=institution_acronym+ ':' +collection_cde;
 	var accnNumber=$("#accn").val();
-	
 	getAccn(accnNumber,'accn',InstAcrColnCde);
 
-
-	
-	
 }
 function editLast() {
 	yesChange = window.confirm('You will lose any unsaved changes to this record. Continue?');
@@ -30,6 +26,7 @@ function editLast() {
 function changeMode (mode) {
 	$("#action").val(mode);
 	var status=$.trim($("#loadedMsgDiv").text());
+	console.log('status='+status);
 	if(status){
 		// got an error - force them to fix it
 		mode='edit';
