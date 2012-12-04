@@ -738,6 +738,7 @@ function deleteThisRec () {
 function saveNewRecord () {
 	if (cleanup()) {
 		msg('saving....','bad');
+		$(".hasProbs").removeClass();
 		$.getJSON("/component/Bulkloader.cfc",
 			{
 				method : "saveNewRecord",
