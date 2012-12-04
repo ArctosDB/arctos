@@ -624,6 +624,8 @@ function createClone() {
 	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
 	if (yesChange == true) {
 		changeMode('enter');
+		// because it's possible to clone other users' records
+		$("#enteredby").val($("#sessionusername").val());
 	}	
 }
 function setPagePrefs(){
@@ -654,7 +656,7 @@ function setPagePrefs(){
 				}
 			}
 			setNewRecDefaults();
-			msg('page ready','good');
+			msg('template loaded - enter data','good');
 		}
 	);
 }
