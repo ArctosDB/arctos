@@ -1169,49 +1169,26 @@
 
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
-								<span id="recCount">#whatIds.recordcount#</span> records
-								<span id="browseThingy">
+						<span id="recCount">#whatIds.recordcount#</span> records <cfif whatIds.recordcount is 1000>(limit)</cfif>
+							<span id="browseThingy">
 								 - Jump to
 								<span class="infoLink" id="pBrowse" onclick="browseTo('previous')">[ previous ]</span>
-
-
 								<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecord(this.value);">
-						<cfloop query="whatIds">
-							<option <cfif data.collection_object_id is whatIds.collection_object_id> selected="selected" </cfif>value="#collection_object_id#">#collection_object_id#</option>
-						</cfloop></select>
+									<cfloop query="whatIds">
+										<option <cfif data.collection_object_id is whatIds.collection_object_id> selected="selected" </cfif>
+											value="#collection_object_id#">#collection_object_id#</option>
+									</cfloop>
+								</select>
 								<span id="nBrowse" class="infoLink" onclick="browseTo('next')">[ next ]</span>
-								</span>
-								</span>
+							</span>
+						</span>
 					</td>
-					<!----
-					<cfhtmlhead text='<title>1171</title>'>
-
-
-
-														</cfloop>
-						<cfhtmlhead text='<title>1173</title>'>
-
-
-						<cfhtmlhead text='<title>1174</title>'>
-
-
-
-						<cfhtmlhead text='<title>1178</title>'>
-
-										<cfhtmlhead text='<title>1189</title>'>
-
-
-
-
-						---->				<cfhtmlhead text='<title>1190</title>'>
 				</tr>
 			</table>
    		</td>
 	</tr>
 </table>
 </form>
-
-											<cfhtmlhead text='<title>1198</title>'>
 <cfif len(loadedMsg) gt 0>
 	<cfset pMode = 'edit'>
 </cfif>
@@ -1220,7 +1197,6 @@
 	//switchActive('#orig_lat_long_units#');
 	//highlightErrors('#trim(loadedMsg)#');
 	changeMode('#pMode#');
-
 	jQuery("##georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
 		width: 320,
 		max: 50,
@@ -1237,8 +1213,6 @@
 		loadRecord('#collection_object_id#');
 	});
 </script>
-
-	<cfhtmlhead text='<title>1225</title>'>
 <cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1 and pMode is "enter">
 	<cftry>
 		<cfset cVal="">
