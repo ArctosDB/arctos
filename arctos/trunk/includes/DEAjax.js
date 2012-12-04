@@ -37,13 +37,19 @@ function changeMode (mode) {
 		$("#theNewButton").hide(); //Save This As A New Record
 		$("#theSaveButton").show(); // Save Edits/Delete Record
 		$("#enterMode").hide(); // Edit Last Record
-		if(status && $("#ImAGod").val() != "yes"){
+		
+		
+		if(status){
 			// don't let them leave until this is fixed
 			console.log('is bad edit');
-			$("#browseThingy").hide();
 			$("#editMode").hide(); // Clone This Record
 			$("#theTable").removeClass().addClass('isBadEdit');
-			$("#pageTitle").show();	
+			$("#pageTitle").show();
+			if ($("#ImAGod").val() != "yes"){
+				// let "god" users browse; force non-god users to fix their stuff
+				$("#browseThingy").hide();
+			}
+			
 			//highlightErrors(status);
 		} else {
 			$("#browseThingy").show();
