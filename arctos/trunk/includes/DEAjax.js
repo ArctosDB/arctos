@@ -140,6 +140,7 @@ function loadRecord (collection_object_id) {
 								theField.className = 'hasProbs';
 							}
 							catch ( err ){// nothing, just ignore 
+								console.log('caught: ' + err);
 							}
 						}
 					}
