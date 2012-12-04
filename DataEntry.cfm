@@ -222,11 +222,6 @@
 		<cfelse>
 			<cfset pageTitle = "This record has passed all bulkloader checks!">
 		</cfif>
-		<div id="splash"align="center">
-			<span style="background-color:##FF0000; font-size:large;">
-				Page Loading....
-			</span>
-		</div>
 		<form name="dataEntry" method="post" action="DataEntry.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
 			<input type="hidden" name="action" value="" id="action">
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->

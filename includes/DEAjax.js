@@ -67,31 +67,6 @@ function checkRecord() {
 		  history.replaceState({}, 'DataEntry', theURL);
 		}
 }
-function highlightErrors (loadedMsg) {
-	
-
-	if(loadedMsg){
-		$("#loadedMsgDiv").show();
-		var prob_array = loadedMsg.split(" ");
-		for (var loop=0; loop < prob_array.length; loop++) {
-			var thisSlice = prob_array[loop];
-			var hasSpace = thisSlice.indexOf(" ");
-			if (hasSpace == -1) {
-				try {
-					var theField = document.getElementById(thisSlice.toLowerCase());
-					theField.className = 'hasProbs';
-				}
-				catch ( err ){// nothing, just ignore 
-				}
-			}
-		}
-	} else {
-		$("#loadedMsgDiv").hide();
-	}
-
-}
-
-
 function loadRecord (collection_object_id) {
 	msg('fetching data....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
@@ -589,6 +564,7 @@ function UAMInvDefault() {
 	});
 }
 function changeMode (mode) {
+	console.log('i am changeMode');
 	$("#action").val(mode);
 	var status=$.trim($("#loadedMsgDiv").text());
 	if(status){
@@ -624,8 +600,6 @@ function changeMode (mode) {
 		$("#browseThingy").hide();
 		setPagePrefs();
 	}
-	$("#splash").hide();
-	$("#theTable").show();	
 }
 function createClone() {
 	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
