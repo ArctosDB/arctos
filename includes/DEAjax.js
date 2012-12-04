@@ -24,6 +24,8 @@ function editLast() {
 }
 
 function changeMode (mode) {
+	
+	console.log($("#collection_object_id").val());
 	if ($("#collection_object_id").val()<500){
 		// one of the templates
 		var status='';
@@ -164,6 +166,7 @@ function loadRecord (collection_object_id) {
 				
 				//console.log('loadedMsg='+loadedMsg);
 				if(loadedMsg){
+					console.log('+loadedMsg='+loadedMsg);
 					$("#loadedMsgDiv").text(loadedMsg).show();
 					var prob_array = loadedMsg.split(" ");
 					for (var loop=0; loop < prob_array.length; loop++) {
