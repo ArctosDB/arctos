@@ -63,7 +63,7 @@ function changeMode (mode) {
 		$("#browseThingy").hide();
 		setPagePrefs();
 	}
-	checkRecord();
+	//checkRecord();
 }
 
 function loadRecord (collection_object_id) {
@@ -151,8 +151,7 @@ function loadRecord (collection_object_id) {
 					$("#loadedMsgDiv").hide();
 				}
 				
-				switchActive($("#orig_lat_long_units").val());
-				//changeMode($("#action").val());
+				
 				// turn this thing on when necessary
 				if($("#collection_cde").val()=='ES') {
 					$("#geolCell").show();
@@ -180,6 +179,8 @@ function loadRecord (collection_object_id) {
 				  history.replaceState({}, 'DataEntry', theURL);
 				}
 				msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
+				switchActive($("#orig_lat_long_units").val());
+				changeMode($("#action").val());
 			});
 			
 		}
