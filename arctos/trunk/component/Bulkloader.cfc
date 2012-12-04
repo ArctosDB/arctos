@@ -260,6 +260,58 @@
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 
+<cffunction name="tt" access="remote">
+	<cfargument name="q" required="yes">
+	<cfoutput>
+		<cfquery name="getCols" datasource="uam_god">
+			select column_name from sys.user_tab_cols
+			where table_name='BULKLOADER'
+			and column_name not like '%$%'
+			order by internal_column_id
+		</cfquery>
+		<cfloop list="#q#" index="kv" delimiters="&">
+			<cfset k=listfirst(kv,"=")>
+			<cfset v=replace(kv,k & "=",'')>
+			<cfset "variables.#k#"=urldecode(v)>
+		</cfloop>
+		<cfset sql = "INSERT INTO bulkloader (">
+		<cfset flds = "">
+		<cfset data = "">
+		<cfloop query="getCols">
+			<cfif isDefined("variables.#column_name#")>
+				<cfif column_name is not "collection_object_id">
+					<cfset flds = "#flds#,#column_name#">
+					<cfset thisData = evaluate("variables." & column_name)>
+					<cfset thisData = replace(thisData,"'","''","all")>
+					<cfset data = "#data#,'#thisData#'">
+				</cfif>
+			</cfif>
+		</cfloop>
+		<cfset flds = trim(flds)>
+		<cfset flds=right(flds,len(flds)-1)>
+		<cfset data = trim(data)>
+		<cfset data=right(data,len(data)-1)>
+		<cfset flds = "collection_object_id,#flds#">
+		<cfset data = "bulkloader_PKEY.nextval,#data#">
+		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">
+
+		<cfdump var=#sql#>
+			<cftransaction>
+				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					#preservesinglequotes(sql)#
+				</cfquery>
+				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select bulkloader_PKEY.currval as currval from dual
+				</cfquery>
+				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
+				</cfquery>
+			</cftransaction>
+
+		<cfreturn result>
+	</cfoutput>
+</cffunction>
+
 <cffunction name="saveNewRecord" access="remote">
 	<cfargument name="q" required="yes">
 	<cfoutput>
