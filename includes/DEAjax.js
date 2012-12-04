@@ -15,6 +15,47 @@ function editLast() {
 		);
 	}
 }
+
+function changeMode (mode) {
+	console.log('i am changeMode');
+	$("#action").val(mode);
+	var status=$.trim($("#loadedMsgDiv").text());
+	if(status){
+		// got an error - force them to fix it
+		mode='edit';
+	}
+	$(".hasProbs").removeClass();
+	if (mode == 'edit') {
+		$("#customizeForm").hide(); //Save This As A New Record
+		$("#theNewButton").hide(); //Save This As A New Record
+		$("#theSaveButton").show(); // Save Edits/Delete Record
+		$("#enterMode").hide(); // Edit Last Record
+		if(status && $("#ImAGod").val() != "yes"){
+			// don't let them leave until this is fixed
+			$("#browseThingy").hide();
+			$("#editMode").hide(); // Clone This Record
+			$("#theTable").removeClass().addClass('isBadEdit');
+			$("#pageTitle").show();	
+			//highlightErrors(status);
+		} else {
+			$("#browseThingy").show();
+			$("#editMode").show(); // Clone This Record
+			$("#theTable").removeClass().addClass('isGoodEdit');
+			$("#pageTitle").hide();	
+		}
+	} else { // entry mode
+		$("#customizeForm").show(); //Save This As A New Record
+		$("#theTable").removeClass().addClass('isEnter');
+		$("#theNewButton").show(); //Save This As A New Record
+		$("#theSaveButton").hide(); // Save Edits/Delete Record
+		$("#enterMode").show(); // Edit Last Record
+		$("#editMode").hide(); // Clone This Record
+		$("#browseThingy").hide();
+		setPagePrefs();
+	}
+	checkRecord();
+}
+
 function checkRecord() {
 	msg('checking record....','bad');
 	
@@ -563,44 +604,6 @@ function UAMInvDefault() {
 	    	 $("#" + this.id).val('unchecked');
 	     }
 	});
-}
-function changeMode (mode) {
-	console.log('i am changeMode');
-	$("#action").val(mode);
-	var status=$.trim($("#loadedMsgDiv").text());
-	if(status){
-		// got an error - force them to fix it
-		mode='edit';
-	}
-	$(".hasProbs").removeClass();
-	if (mode == 'edit') {
-		$("#customizeForm").hide(); //Save This As A New Record
-		$("#theNewButton").hide(); //Save This As A New Record
-		$("#theSaveButton").show(); // Save Edits/Delete Record
-		$("#enterMode").hide(); // Edit Last Record
-		if(status && $("#ImAGod").val() != "yes"){
-			// don't let them leave until this is fixed
-			$("#browseThingy").hide();
-			$("#editMode").hide(); // Clone This Record
-			$("#theTable").removeClass().addClass('isBadEdit');
-			$("#pageTitle").show();	
-			//highlightErrors(status);
-		} else {
-			$("#browseThingy").show();
-			$("#editMode").show(); // Clone This Record
-			$("#theTable").removeClass().addClass('isGoodEdit');
-			$("#pageTitle").hide();	
-		}
-	} else { // entry mode
-		$("#customizeForm").show(); //Save This As A New Record
-		$("#theTable").removeClass().addClass('isEnter');
-		$("#theNewButton").show(); //Save This As A New Record
-		$("#theSaveButton").hide(); // Save Edits/Delete Record
-		$("#enterMode").show(); // Edit Last Record
-		$("#editMode").hide(); // Clone This Record
-		$("#browseThingy").hide();
-		setPagePrefs();
-	}
 }
 function createClone() {
 	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
