@@ -1496,7 +1496,6 @@ function unpickEvent() {
 }						
 function unpickLocality () {
 	switchActive();
-	
 	$("#higher_geog").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#spec_locality").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#latdeg").attr("readOnly", false).removeClass().addClass('reqdClr');
@@ -1628,7 +1627,6 @@ function success_pickedLocality (r) {
 	} else {
 		// picked localities are always either NULL or decimal degrees coordinates
 		$("#fetched_locid").val(result.LOCALITY_ID[0]);
-
 		$("#higher_geog").attr("readOnly", true).removeClass().addClass('readClr').val(result.HIGHER_GEOG[0]);
 		$("#maximum_elevation").attr("readOnly", true).removeClass().addClass('readClr').val(result.MAXIMUM_ELEVATION[0]);
 		$("#minimum_elevation").attr("readOnly", true).removeClass().addClass('readClr').val(result.MINIMUM_ELEVATION[0]);
@@ -1668,21 +1666,14 @@ function success_pickedLocality (r) {
 		$("#georeference_source").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFERENCE_SOURCE[0]);
 		$("#georeference_protocol").attr("readOnly", true).removeClass().addClass('readClr').val(result.GEOREFERENCE_PROTOCOL[0]);
 		$("#locality_name").attr("readOnly", true).removeClass().addClass('readClr').val(result.LOCALITY_NAME[0]);
-		
-		
-		
 		$("#orig_lat_long_units").attr("readOnly", true).removeClass().addClass('readClr').val(result.ORIG_LAT_LONG_UNITS[0]);
-		
 		$("#localityPicker").hide();
 		$("#localityUnPicker").show();
-		
 		switchActive(result.ORIG_LAT_LONG_UNITS[0]);
-
-		
 		if (r.ROWCOUNT > 6) {
 			alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
 		}
-		//try {
+		try {
 		for (i=0;i<6;i++) {
 				var eNum=parseInt(i+1);
 				$("#geology_attribute_" + eNum).attr("readOnly", true).removeClass().addClass('readClr').val('');
@@ -1703,9 +1694,9 @@ function success_pickedLocality (r) {
 					$("#geo_att_remark_" + eNum).val(result.GEO_ATT_DETERMINED_DATE[i]);
 				}
 			}
-		//} catch(err) {
+		} catch(err) {
 			// whatever
-		//}		
+		}		
 	}
 }
 function catNumSeq () {
@@ -1729,7 +1720,6 @@ function catNumSeq () {
 		);
 	}
 }
-
 function set_attribute_dropdowns() {
 	$.each($("select[id^='attribute_']"), function() {
 	    if  (!(this.id.indexOf("units") >= 0 || this.id.indexOf("value") >= 0)) {
@@ -1756,9 +1746,7 @@ function getAttributeStuff (attribute,element) {
 		);
 	}
 }
-
 function success_getAttributeStuff (r) {
-	
 	var result=r.DATA;
 	var resType=result.V[0];
 	var theEl=result.V[1];
@@ -1767,13 +1755,8 @@ function success_getAttributeStuff (r) {
 	optn.style.backgroundColor='';
 	var n=result.V.length;
 	var theNumber = theEl.replace("attribute_","");
-	
-
-	//var oldAttributeType=$("#attribute_" + theNumber).val();
 	var oldAttributeUnit=$("#attribute_units_" + theNumber).val();
 	var oldAttributeValue=$("#attribute_value_" + theNumber).val();
-	
-	
 	if (resType == 'value') {
 		var theDivName = "attribute_value_cell_" + theNumber;
 		theTextDivName = "attribute_units_cell_" + theNumber;
@@ -1812,16 +1795,12 @@ function success_getAttributeStuff (r) {
 			theNewSelect.appendChild(a);// add blank
 			for (i=2;i<result.V.length;i++) {
 				var theStr = result.V[i];
-				
 				if(theStr=='_yes_'){
 					theStr='yes';
 				}
 				if(theStr=='_no_'){
 					theStr='no';
 				}
-		
-		
-		
 				var a = document.createElement("option");
 				a.text = theStr;
 				a.value = theStr;
