@@ -294,6 +294,8 @@
 		<cfset flds = "collection_object_id,#flds#">
 		<cfset data = "bulkloader_PKEY.nextval,#data#">
 		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">
+
+		<cfdump var=#sql#>
 		<cftry>
 			<cftransaction>
 				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -318,9 +320,7 @@ sdasd
 			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail, 1)>
 		</cfcatch>
 		</cftry>
-		<!---
 		<cfreturn result>
-		---->
 	</cfoutput>
 </cffunction>
 
