@@ -308,6 +308,10 @@
 			</cftransaction>
 		<cfcatch>
 			<cfdump var=#cfcatch#>
+
+
+sdasd
+
 			<cfset result = querynew("COLLECTION_OBJECT_ID,RSLT")>
 			<cfset temp = queryaddrow(result,1)>
 			<cfset temp = QuerySetCell(result, "COLLECTION_OBJECT_ID", collection_object_id, 1)>
