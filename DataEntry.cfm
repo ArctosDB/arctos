@@ -922,8 +922,6 @@
 												</td>
 												<td>
 													<select name="geo_att_value_#i#" id="geo_att_value_#i#">
-															<option value="eereer">erere</option>
-														<option value="x">x</option>
 													</select>
 												</td>
 												<td>
