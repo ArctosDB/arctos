@@ -2158,19 +2158,19 @@ function set_attribute_dropdowns() {
 	    }
    });	
 }
-function getAttributeStuff (attribute,element) {
-	if (attribute.length && element.length){
-		var isSomething = attribute.length;
+function getAttributeStuff (attr,elem) {
+	if (attr.length && elem.length){
+		var isSomething = attr.length;
 		if (isSomething > 0) {
-			var optn = document.getElementById(element);
+			var optn = document.getElementById(elem);
 			optn.style.backgroundColor='red';
 			var thisCC = document.getElementById('collection_cde').value;
 			jQuery.getJSON("/component/DataEntry.cfc",
 				{
 					method : "getAttCodeTbl",
-					attribute : attribute,
+					attribute : attr,
 					collection_cde : thisCC,
-					element : element,
+					element : elem,
 					returnformat : "json",
 					queryformat : 'column'
 				},
