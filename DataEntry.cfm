@@ -410,7 +410,7 @@
 						</td>
 						<td>
 							<span class="f11a">Status</span>
-									<input type="text" name="loaded" size="80" id="loaded" value="waiting approval">
+									<input type="text" name="loaded" size="80" id="loaded" readonly="readonly" value="waiting approval">
 
 						</td>
 					</tr>
