@@ -292,12 +292,12 @@ function loadRecordEdit (collection_object_id) {
 						(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ) {
 						useCustom=false;
 						console.log('failed attribute check....');
-						cnosole.log('a1==sex--' + r.DATA.ATTRIBUTE_1);
-						cnosole.log('a2==age--' + r.DATA.ATTRIBUTE_2);
-						cnosole.log('a3==fat deposition--' + r.DATA.ATTRIBUTE_3);
-						cnosole.log('a4==molt condition--' + r.DATA.ATTRIBUTE_4);
-						cnosole.log('a5==skull ossification--' + r.DATA.ATTRIBUTE_5);
-						cnosole.log('a6==weight--' + r.DATA.ATTRIBUTE_6);
+						console.log('a1==sex--' + r.DATA.ATTRIBUTE_1);
+						console.log('a2==age--' + r.DATA.ATTRIBUTE_2);
+						console.log('a3==fat deposition--' + r.DATA.ATTRIBUTE_3);
+						console.log('a4==molt condition--' + r.DATA.ATTRIBUTE_4);
+						console.log('a5==skull ossification--' + r.DATA.ATTRIBUTE_5);
+						console.log('a6==weight--' + r.DATA.ATTRIBUTE_6);
 					}
 				}
 				if (useCustom==false) {
