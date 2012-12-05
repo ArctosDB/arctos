@@ -13,12 +13,12 @@ function deleteThisRec () {
 			},
 			function(r) {
 				console.log(r);
-				if(r.length>0){
+				if(r){
 					alert(r);
 					msg(r,'good');
 					return false;
 				} else {
-					console.log('r is zero length');
+					console.log('r is not');
 				}
 				console.log('deleted ' + collection_object_id);
 				var nextID=$('#selectbrowse option:selected').next().val();
