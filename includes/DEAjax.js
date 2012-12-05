@@ -277,13 +277,13 @@ function loadRecordEdit (collection_object_id) {
 	msg('fetching data....','bad');
 	$.ajax({
 	    url: "/component/Bulkloader.cfc",
-	    method : "loadRecord",
-		collection_object_id : collection_object_id,
-		returnformat : "json",
-		queryformat : 'column'
-	    dataType: 'json',
-	    data: data,
-	    success: success_loadRecordEdit(data),
+	    data: {
+				method: "loadRecord",
+				collection_object_id : collection_object_id,
+				returnformat : "json",
+				queryformat : 'column'
+		},
+		success: success_loadRecordEdit(data),
 	    error: fail_loadRecordEdit(data)
 	});
 	
