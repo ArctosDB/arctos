@@ -2160,13 +2160,14 @@ function set_attribute_dropdowns() {
 }
 function getAttributeStuff (attr,elem) {
 	console.log('getAttributeStuff');
+	
 	if (typeof attr === null){
 		console.log('typeof attr === null=='+ attr);
 	} 
 	
-	//if (typeof attr !=== null){
-		//console.log('typeof attr !=== null=='+ attr);
-	//} 
+	if (typeof attr !=== null){
+		console.log('typeof attr !=== null=='+ attr);
+	} 
 	
 	if(attr==null){
 		console.log('attr==null=='+ attr);
@@ -2179,7 +2180,9 @@ function getAttributeStuff (attr,elem) {
 		console.log('!attr=='+ attr);
 
 		 }
-		console.log('made it through all checks - attr='+ attr);
+		
+	
+	console.log('made it through all checks - attr='+ attr);
 	
 		var optn = document.getElementById(elem);
 		optn.style.backgroundColor='red';
@@ -2195,7 +2198,7 @@ function getAttributeStuff (attr,elem) {
 			},
 			success_getAttributeStuff
 		);
-	}
+	
 }
 function success_getAttributeStuff (r) {
 	var result=r.DATA;
