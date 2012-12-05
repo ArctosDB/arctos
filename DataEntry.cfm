@@ -202,6 +202,7 @@
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
 			<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
 			<input type="hidden" name="sessionusername" value="#session.username#" id="sessionusername">
+			<input type="hidden" name="sessioncustomotheridentifier" value="#session.customotheridentifier#" id="sessioncustomotheridentifier">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#" id="collection_object_id"/>
 			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style=""> <!--- display:none-------whole page table --->
 				<tr>
