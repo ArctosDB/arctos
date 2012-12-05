@@ -11,7 +11,8 @@ $(function(){ //DOM Ready
     $(".gridster ul").gridster({
         widget_margins: [10, 10],
         widget_base_dimensions: [140, 140],
-        avoid_overlapped_widgets: true
+        avoid_overlapped_widgets: true,
+        max_size_x: 2
     });
 
 });
@@ -43,7 +44,7 @@ $(function(){ //DOM Ready
 
 					</table>
 			</li>
-			<li data-row="2" data-col="1" data-sizex="2" data-sizey="2">
+			<li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
 					<table border="1">
 						<tr>
 							<td>
@@ -64,7 +65,7 @@ $(function(){ //DOM Ready
 						</table>
 				</li>
 
-	<li data-row="3" data-col="1" data-sizex="2" data-sizey="2">
+	<li data-row="3" data-col="1" data-sizex="1" data-sizey="1">
 					<table border="1">
 						<tr>
 							<td>
