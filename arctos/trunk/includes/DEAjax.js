@@ -1,3 +1,9 @@
+function DEpartLookup(id){
+	var val=$("#" + id).val();
+	var ccde=$("#collection_cde").val();
+	findPart(id,val,ccde);
+}
+
 function createClone() {
 	// available from edit mode
 	// uses the record in the window as a template for new data entry
