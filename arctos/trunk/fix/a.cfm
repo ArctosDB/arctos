@@ -9,14 +9,14 @@ border:1px solid blue;
 div#screenshot-preview
 {
     float:right;
-    width:30%;
+    width:45%;
 border:1px solid green;
 
 }
 
 div#endants-main-content
 {
-    margin-right:30%;
+    margin-right:55%;
     overflow:auto;
 border:1px solid red;
 
