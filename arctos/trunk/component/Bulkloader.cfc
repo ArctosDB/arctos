@@ -351,7 +351,7 @@
 		<cfset gridsortcolumn="collection_object_id">
 	</cfif>
 <cfoutput>
-	<cfset sql="select * from bulkloader where 1=1">
+	<cfset sql="select * from bulkloader where collection_object_id > 500 ">
 	<cfif len(accn) gt 0>
 		<cfset sql=sql & " and accn IN (#accn#)">
 	</cfif>
