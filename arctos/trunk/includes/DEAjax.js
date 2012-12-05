@@ -286,8 +286,6 @@ function loadRecordEdit (collection_object_id) {
 		},
 			success: function( r ){
 				console.log('success_loadRecordEdit' +  r);
-				
-				
 				if (r.ROWCOUNT==0){
 					alert('record not found');
 					return false;
@@ -297,7 +295,6 @@ function loadRecordEdit (collection_object_id) {
 				var useCustom=true;
 				var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
 				var tab=document.getElementById('attributeTableCell');
-				
 				// switch in attributes based on collection and whether 
 				// or not hard-coded attributes jive with the data
 				// these are hard-coded in /form/DataEntryAttributeTable.cfm
@@ -342,38 +339,14 @@ function loadRecordEdit (collection_object_id) {
 					switchActive($("#orig_lat_long_units").val());
 					loadedEditRecord();
 				});
-				
-				
 			},
 			error: function( result, strError ){
-				alert('the record failed to load - use some other app to edit, and your back button to get out of there');
+				alert('The record failed to load - use some other app to edit.\n' + strError);
 				msg('record failed to load','good');
 				return false;
 			}
 		}
 	);
-	
-	
-	
-	/*
-	
-	$.getJSON("/component/Bulkloader.cfc",
-		{
-			method : "loadRecord",
-			collection_object_id : collection_object_id,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function(r) {
-			console.log('back');
-			
-			return false;
-			
-			
-			
-		}
-	);
-	*/
 }
 
 
