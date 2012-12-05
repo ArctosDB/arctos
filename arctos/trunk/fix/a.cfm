@@ -67,9 +67,7 @@ this is default and it works
 								<td>
 									<select id="part_disposition_#i#" name="part_disposition_#i#">
 										<option value=""></option>
-										<cfloop query="CTCOLL_OBJ_DISP">
-											<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-										</cfloop>
+
 									</select>
 								</td>
 								<td>
