@@ -18,7 +18,7 @@
 </cfif>
 <cfif action is "loadAll">
 	<cfoutput>
-		<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE 1=1">
+		<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE collection_object_id > 500" >
 		<cfif len(enteredby) gt 0>
 			<cfset sql = "#sql# AND enteredby IN (#enteredby#)">
 		</cfif>
