@@ -107,14 +107,7 @@ function loadRecord(collection_object_id){
 }
 function setURL(){
 	
-	var theURL='/DataEntry.cfm?action=edit';
-	if ($("#ImAGod").val()=="yes"){
-		theURL+='&ImAGod=yes';
-	}
-	theURL+='&collection_object_id=' + $("#collection_object_id").val();
-	if (typeof window.history.pushState == 'function') {
-	  history.replaceState({}, 'DataEntry', theURL);
-	}
+	
 	
 }
 function saveEditedRecord () {
@@ -247,7 +240,15 @@ function loadedEditRecord(){
 	
 	//changeMode($("#action").val());
 	
-	
+	// set up edit URL
+	var theURL='/DataEntry.cfm?action=edit';
+	if ($("#ImAGod").val()=="yes"){
+		theURL+='&ImAGod=yes';
+	}
+	theURL+='&collection_object_id=' + $("#collection_object_id").val();
+	if (typeof window.history.pushState == 'function') {
+	  history.replaceState({}, 'DataEntry', theURL);
+	}
 	
 	
 	
@@ -372,7 +373,6 @@ function loadRecordEdit (collection_object_id) {
 			
 		}
 	);
-	setURL();
 }
 
 
