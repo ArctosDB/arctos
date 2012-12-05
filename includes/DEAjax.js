@@ -72,11 +72,13 @@ function highlightErrors(){
 			if (hasSpace == -1) {
 				//console.log('trying....');
 				try {
-					var theField = document.getElementById(thisSlice.toLowerCase());
-					theField.addClass('hasProbs');
+					console.log('adding class to ' + thisSlice.toLowerCase());
+					$("#" + thisSlice.toLowerCase()).addClass('hasProbs');
+					//var theField = document.getElementById(thisSlice.toLowerCase());
+					//theField.addClass('hasProbs');
 				}
 				catch ( err ){// nothing, just ignore 
-					//console.log('caught: ' + err);
+					console.log('caught: ' + err);
 				}
 			}
 		}
