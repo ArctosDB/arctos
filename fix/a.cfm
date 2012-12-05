@@ -15,8 +15,8 @@ this is default and it works
 ---->
     <style>
     #sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-    #sortable li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 50%;}
-	#sortable li.dubbl { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100%;}
+    #sortable li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 45%;}
+	#sortable li.dubbl { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 90%;}
     </style>
     <script>
     $(function() {
