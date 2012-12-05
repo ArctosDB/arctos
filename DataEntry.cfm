@@ -203,7 +203,6 @@
 			<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
 			<input type="hidden" name="sessionusername" value="#session.username#" id="sessionusername">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#" id="collection_object_id"/>
-			<input type="hidden" name="loaded" value="waiting approval"  id="loaded"/>
 			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style=""> <!--- display:none-------whole page table --->
 				<tr>
 					<td colspan="2" style="border-bottom: 1px solid black; " align="center">
@@ -411,7 +410,7 @@
 						</td>
 						<td>
 							<span class="f11a">Status</span>
-									<input type="text" name="loaded" size="80" id="loaded">
+									<input type="text" name="loaded" size="80" id="loaded" value="waiting approval">
 
 						</td>
 					</tr>
