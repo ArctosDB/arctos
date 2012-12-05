@@ -181,7 +181,7 @@
 			delete from bulkloader where collection_object_id=#collection_object_id#
 		</cfquery>
 	<cfcatch>
-		<cfreturn 'Failure deleting record: #cfcatch.message#'>
+		<cfreturn 'Failure deleting record: #cfcatch.message# #cfcatch.detail#'>
 	</cfcatch>
 	</cftry>
 	<cfreturn />
