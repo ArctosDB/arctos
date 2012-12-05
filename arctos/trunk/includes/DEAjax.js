@@ -54,6 +54,8 @@ function saveNewRecord () {
 							}
 						}
 					);
+					// switch to enter mode
+					$("#action").val('enter');
 					// reapple any customizations, etc.
 					setPagePrefs();
 				}
@@ -70,7 +72,7 @@ function setPagePrefs(){
 	var mode=$("#action").val();
 	console.log('mode='+mode);
 	if (mode=='edit'){
-		alert('bad call to setPagePrefs');
+		alert('bad call to setPagePrefs - aborting');
 		return false;
 	}
 	console.log('made it past return');
