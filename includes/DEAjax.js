@@ -283,8 +283,8 @@ function loadRecordEdit (collection_object_id) {
 				returnformat : "json",
 				queryformat : 'column'
 		},
-			success: function( result ){
-				console.log('success_loadRecordEdit' +  result);
+			success: function( r ){
+				console.log('success_loadRecordEdit' +  r);
 				
 				
 				if (r.ROWCOUNT==0){
