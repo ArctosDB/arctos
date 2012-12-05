@@ -32,7 +32,7 @@ function deleteThisRec () {
 				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
 				$("#selectbrowse option[value=" + collection_object_id + "]").remove();
 				$("#selectbrowse").val(nextID);
-				loadRecordEdit(n);
+				loadRecordEdit(nextID);
 			}
 		);
 	}
