@@ -672,7 +672,7 @@ function setPagePrefs(){
 					} else {
 						// editing a record someone else may have entered - force on stuff that matters
 						if ($("#" + eName).length && $("#" + eName).val() && $("#" + eName).val().length){
-                              console.log(eName + ' has a value - show it anyway....' + $("#" + eName).val());
+                              //console.log(eName + ' has a value - show it anyway....' + $("#" + eName).val());
                               $("#d_" + eName).show();
                         }
 					}				
