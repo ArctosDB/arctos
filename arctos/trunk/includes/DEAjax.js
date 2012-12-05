@@ -378,7 +378,7 @@ function loadRecordEnter(collection_object_id){
 					$("#attribute_2").val('age');
 					$("#attribute_3").val('fat deposition');
 					$("#attribute_4").val('molt condition');
-					$("#attribute_5").val('skull ossificationh');
+					$("#attribute_5").val('skull ossification');
 					$("#attribute_6").val('weight');
 				}
 				// fix the dropdowns for anything that landed in the table
