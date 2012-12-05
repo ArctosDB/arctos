@@ -122,7 +122,7 @@ function highlightErrors(){
 				//console.log('trying....');
 				try {
 					var theField = document.getElementById(thisSlice.toLowerCase());
-					theField.className = 'hasProbs';
+					theField.addClass('hasProbs');
 				}
 				catch ( err ){// nothing, just ignore 
 					//console.log('caught: ' + err);
