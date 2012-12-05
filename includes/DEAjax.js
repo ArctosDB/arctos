@@ -10,7 +10,34 @@ function loadRecord(collection_object_id){
 		alert('i have no idea what you want to do');
 	}
 }
-
+function saveEditedRecord () {
+	if (cleanup()) {
+		msg('saving....','bad');
+		$.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "saveEdits",
+				q : $("#dataEntry").serialize(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
+				var status=r.DATA.RSLT[0];
+				if (status) {
+					$("#loadedMsgDiv").text(status).show();
+					highlightErrors();
+					//changeMode('edit');
+					msg(status,'err');
+				} else {
+					$("#loadedMsgDiv").text('').hide();
+					$("#collection_object_id").val(coid);
+					msg('updated ' + coid,'good');
+					//changeMode('edit');
+				}
+			}
+		);
+	}
+}
 function loadRecordEdit (collection_object_id) {
 	//load a record in EDIT mode
 	console.log('loadRecordEdit');
@@ -726,34 +753,7 @@ function saveNewRecord () {
 		);
 	}
 }
-function saveEditedRecord () {
-	if (cleanup()) {
-		msg('saving....','bad');
-		$.getJSON("/component/Bulkloader.cfc",
-			{
-				method : "saveEdits",
-				q : $("#dataEntry").serialize(),
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function(r) {
-				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
-				var status=r.DATA.RSLT[0];
-				if (status) {
-					$("#loadedMsgDiv").text(status).show();
-					highlightErrors();
-					changeMode('edit');
-					msg(status,'err');
-				} else {
-					$("#loadedMsgDiv").text('').hide();
-					$("#collection_object_id").val(coid);
-					msg('updated ' + coid,'good');
-					changeMode('edit');
-				}
-			}
-		);
-	}
-}
+
 function editThis(){
 	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
 	if (yesChange == true) {
