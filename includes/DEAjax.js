@@ -2159,9 +2159,7 @@ function set_attribute_dropdowns() {
    });	
 }
 function getAttributeStuff (attr,elem) {
-	var attr;
-	var elem;
-	if (attr.length){
+	if (typeof attr != null && attr.length){
 		var optn = document.getElementById(elem);
 		optn.style.backgroundColor='red';
 		var thisCC = document.getElementById('collection_cde').value;
