@@ -26,74 +26,21 @@ $(function(){ //DOM Ready
 	        <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
 				<table border="1">
 					<tr>
-						<td>table stuff here</td>
+						<td>
+							<div style="border:2px solid red; height:200px;width:400px;">i am div</div>
+						</td>
 					</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
-	<tr>
-		<td>table stuff here</td>
-	</tr>
+
 				</table>
 			</li>
 	        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
-
-	<table border="1">
+				<table border="1">
 						<tr>
-							<td>table stuff here</td>
+							<td>
+								<div style="border:2px solid red; height:200px;width:400px;">i am div</div>
+							</td>
 						</tr>
-		<tr>
-			<td>table stuff here</td>
-		</tr>
-		<tr>
-			<td>table stuff here</td>
-		</tr>
-		<tr>
-			<td>table stuff here</td>
-		</tr>
 
-		<tr>
-			<td>table stuff here</td>
-		</tr>
-		<tr>
-			<td>table stuff here</td>
-		</tr>
-		<tr>
-			<td>table stuff here</td>
-		</tr>
-		<tr>
-			<td>table stuff here</td>
-		</tr>
 					</table>
 			</li>
 	        <li data-row="3" data-col="1" data-sizex="1" data-sizey="1"></li>
