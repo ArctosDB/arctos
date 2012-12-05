@@ -68,6 +68,14 @@ function loadedEditRecord(){
 	$(".hasProbs").removeClass();
 	
 	console.log('loadedMsg='+loadedMsg);
+	
+	// make sure loaded isn't NULL for some reason
+	// this form cannot be used to set records to load
+	// just stop that and document if necessary
+	
+	if ($("#loaded").val().length==0){
+		$("#loaded").val('waiting approval');
+	}
 	if(loadedMsg){
 		console.log('loadedEditRecord+loadedMsg='+loadedMsg);
 		$("#loadedMsgDiv").show();
