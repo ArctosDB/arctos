@@ -44,6 +44,10 @@ $(function(){ //DOM Ready
 
 					</table>
 			</li>
+
+
+
+			<!-------
 			<li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
 					<table border="1">
 						<tr>
@@ -85,6 +89,8 @@ $(function(){ //DOM Ready
 
 						</table>
 				</li>
+
+				---------->
 	    </ul>
 	</div>
 
