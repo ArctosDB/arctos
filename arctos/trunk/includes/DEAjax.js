@@ -24,6 +24,10 @@ function loadRecordEdit (collection_object_id) {
 		},
 		function(r) {
 			console.log('back');
+			if (r.ROWCOUNT==0){
+				alert('record not found');
+				return false;
+			}
 			var columns=r.COLUMNS;
 			var ccde=r.DATA.COLLECTION_CDE[0];
 			var useCustom=true;
