@@ -258,6 +258,24 @@ function loadRecordEnter(collection_object_id){
 
 
 
+function editLast() {
+	//find the last record entered by the current user and load it for edit
+	yesChange = window.confirm('You will lose any unsaved changes to this record. Continue?');
+	if (yesChange == true) {
+		$.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "my_last_record",
+				returnformat : "plain",
+			},
+			function(r) {
+				loadRecordEdit(r);
+				//$("#selectbrowse").val(r);
+				//changeMode('edit');
+			}	
+		);
+	}
+}
+
 function highlightErrors(){
 	console.log('highlightErrors');
 	if ($("#collection_object_id").val()<500){
@@ -754,24 +772,6 @@ function browseTo(dir){
 
 
 
-
-// find the last record entered by the current user and load it
-function editLast() {
-	yesChange = window.confirm('You will lose any unsaved changes to this record. Continue?');
-	if (yesChange == true) {
-		$.getJSON("/component/Bulkloader.cfc",
-			{
-				method : "my_last_record",
-				returnformat : "plain",
-			},
-			function(r) {
-				loadRecord(r);
-				$("#selectbrowse").val(r);
-				changeMode('edit');
-			}	
-		);
-	}
-}
 
 
 */
