@@ -81,7 +81,7 @@
 					</td>
 					<td>
 						<label for="attribute_units_2">Units</label>
-						<select name="attribute_units_2" size="1" id="attribute_units_2">
+						<select name="attribute_units_2" size="1" id="attribute_units_2" class="reqdClr">
 							<option value=""></option>
 							<cfloop query="ctLength_Units">
 								<option value="#Length_Units#">#Length_Units#</option>
@@ -227,7 +227,7 @@
 					</td>
 					<td>
 						<label for="attribute_units_6">Wt.Unit</label>
-						<select name="attribute_units_6" size="1" id="attribute_units_6" >
+						<select name="attribute_units_6" size="1" id="attribute_units_6" class="reqdClr">
 							<cfloop query="ctWeight_Units">
 								<option value="#Weight_Units#">#Weight_Units#</option>
 							</cfloop>
