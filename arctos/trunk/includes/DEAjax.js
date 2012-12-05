@@ -2159,7 +2159,9 @@ function set_attribute_dropdowns() {
    });	
 }
 function getAttributeStuff (attr,elem) {
-	if (typeof attr != null && attr.length){
+	console.log('getAttributeStuff');
+	if (typeof attr != null){
+		console.log('made it through checks - attr='+ attr);
 		var optn = document.getElementById(elem);
 		optn.style.backgroundColor='red';
 		var thisCC = document.getElementById('collection_cde').value;
