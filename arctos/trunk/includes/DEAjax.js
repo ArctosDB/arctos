@@ -1,11 +1,142 @@
-function getDEAccn() {
-	var institution_acronym=$("#institution_acronym").val();
-	var collection_cde=$("#collection_cde").val();
-	var InstAcrColnCde=institution_acronym+ ':' +collection_cde;
-	var accnNumber=$("#accn").val();
-	getAccn(accnNumber,'accn',InstAcrColnCde);
-
+function loadRecord(collection_object_id){
+	// figure out if we're trying to enter or edit and call the appropriate function
+	if($("#action").val()=='enter') {
+		loadRecordEnter(collection_object_id);
+	} else {
+		alert('i have no idea what you want to do');
+	}
 }
+//load a record (using an existing record as a template) in INSERT mode
+function loadRecordEnter(collection_object_id){
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "loadRecord",
+			collection_object_id : collection_object_id,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			console.log('back');
+			var columns=r.COLUMNS;
+			var ccde=r.DATA.COLLECTION_CDE[0];
+			// always load the custom template in entry mode
+			// we'll force attribute types after we load whatever's in the template
+			var ptl="/form/DataEntryAttributeTable.cfm?useCustom=true&collection_cde=" + ccde;
+			var tab=document.getElementById('attributeTableCell');
+			jQuery.get(ptl, function(data){
+				jQuery(tab).html(data);
+				for (i=0;i<columns.length;i++) {
+					var cName=columns[i];
+					var cVal=eval("r.DATA." + columns[i]);
+					var eName=cName.toLowerCase();
+					$("#" + eName).val(cVal);
+				}
+				// default stuff for new records
+				$("#enteredby").val($("#sessionusername").val());
+				$("#other_id_num_type_5").val($("#sessioncustomotheridentifier").val());
+				$("#loaded").val('waiting approval');
+				
+				// everything's loaded, now force attributes for collections that need them
+				// let not-customized collections deal with whatever pops up in the table
+				// this is hard-coded in  /form/DataEntryAttributeTable.cfm
+				// make sure to coordinate any changes
+				if (ccde=='Mamm'){
+					$("#attribute_1").val('sex');
+					$("#attribute_2").val('total length');
+					$("#attribute_3").val('tail length');
+					$("#attribute_4").val('hind foot with claw');
+					$("#attribute_5").val('ear from notch');
+					$("#attribute_6").val('weight');
+				}
+				if (ccde=='Bird'){
+					$("#attribute_1").val('sex');
+					$("#attribute_2").val('age');
+					$("#attribute_3").val('fat deposition');
+					$("#attribute_4").val('molt condition');
+					$("#attribute_5").val('skull ossificationh');
+					$("#attribute_6").val('weight');
+				}
+				// fix the dropdowns for anything that landed in the table
+				set_attribute_dropdowns();
+				// turn this thing on when necessary
+				if($("#collection_cde").val()=='ES') {
+					$("#geolCell").show();
+				}
+				// deal with coordinate format
+				switchActive($("#orig_lat_long_units").val());
+				// tell them we're done here
+				msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded as template','good');
+				// apply any customizations that they've set up
+				
+				$.getJSON("/component/Bulkloader.cfc",
+					{
+						method : "getPrefs",
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function(r) {
+						var columns=r.COLUMNS;
+						for (i=0;i<columns.length;i++) {
+							var cName=columns[i];
+							var cVal=eval("r.DATA." + columns[i]);
+							var eName=cName.toLowerCase();
+							if (cVal==0){
+								$("#" + eName).val('');
+								$("#d_" + eName).hide();
+							} else if (cVal==1) {
+								// visible and clear
+								$("#" + eName).val('');
+								$("#d_" + eName).show();
+							} else {
+								// visible and leave value alone
+								$("#d_" + eName).show();
+							}
+						}
+					}
+				);
+				// apply collection-specific customizations
+				setNewRecDefaults();
+				msg('template loaded - enter data','good');
+				
+				// turn some form stuff on/off as appropriate
+				$("#customizeForm").show(); //Save This As A New Record
+				$("#theTable").removeClass().addClass('isEnter');
+				$("#theNewButton").show(); //Save This As A New Record
+				$("#theSaveButton").hide(); // Save Edits/Delete Record
+				$("#enterMode").show(); // Edit Last Record
+				$("#editMode").hide(); // Clone This Record
+				$("#browseThingy").hide();
+			});
+		}
+	);
+	// show URL that they can't try to save or anything clever
+	var theURL='/DataEntry.cfm';
+	if (typeof window.history.pushState == 'function') {
+	  history.replaceState({}, 'DataEntry', theURL);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// find the last record entered by the current user and load it
 function editLast() {
 	yesChange = window.confirm('You will lose any unsaved changes to this record. Continue?');
 	if (yesChange == true) {
@@ -22,6 +153,100 @@ function editLast() {
 		);
 	}
 }
+// load a record in EDIT mode
+function loadRecordEdit(collection_object_id){
+	
+}
+
+// fetch a record into a local JSON object
+function fetchRecord (collection_object_id) {
+	console.log('fetchRecord');
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "loadRecord",
+			collection_object_id : collection_object_id,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			console.log('back');
+			var columns=r.COLUMNS;
+			var ccde=r.DATA.COLLECTION_CDE[0];
+			var useCustom=true;
+			var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
+			var tab=document.getElementById('attributeTableCell');
+			
+			// switch in attributes based on collection and whether 
+			// or not hard-coded attributes jive with the data
+			
+			// these are hard-coded in /form/DataEntryAttributeTable.cfm
+			// make sure to coordinate any changes
+			if (ccde=='Mamm'){
+				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
+					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length') || +
+					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length') || +
+					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw') || +
+					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch') || +
+					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ){
+					useCustom=false;
+				}
+			}
+			if (ccde=='Bird'){
+				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
+					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age') || +
+					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition') || +
+					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'molt condition') || +
+					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification') || +
+					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ) {
+					useCustom=false;
+				}
+			}
+			if (useCustom==false) {
+				ptl+='&useCustom=false';				
+			}
+			jQuery.get(ptl, function(data){
+				jQuery(tab).html(data);
+				for (i=0;i<columns.length;i++) {
+					var cName=columns[i];
+					var cVal=eval("r.DATA." + columns[i]);
+					var eName=cName.toLowerCase();
+					$("#" + eName).val(cVal);
+				}
+				// default in enteredby if we didn't get one
+				// won't have one if we're coming from a template/new record
+				if ($("#enteredby").val().length==0){
+					$("#enteredby").val($("#sessionusername").val());
+				}
+				// and custom ID if there's not a conflict
+				if ($("#other_id_num_type_5").val().length==0){
+					$("#other_id_num_type_5").val($("#sessioncustomotheridentifier").val())
+				}
+				
+				set_attribute_dropdowns();
+				// turn this thing on when necessary
+				if($("#collection_cde").val()=='ES') {
+					$("#geolCell").show();
+				}
+				$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
+				$("#pBrowse").show();
+				$("#nBrowse").show();
+				if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
+					$("#nBrowse").hide();
+				}
+				if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
+					$("#pBrowse").hide();
+				}
+				msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
+				switchActive($("#orig_lat_long_units").val());
+				changeMode($("#action").val());
+			});
+			
+		}
+	);
+	
+}
+
+
 
 function changeMode (mode) {
 	
@@ -135,7 +360,20 @@ function highlightErrors(){
 		$("#loadedMsgDiv").hide();
 	}
 }
-function loadRecord (collection_object_id) {
+
+
+
+//open up the accession pick with data entry values
+function getDEAccn() {
+	var institution_acronym=$("#institution_acronym").val();
+	var collection_cde=$("#collection_cde").val();
+	var InstAcrColnCde=institution_acronym+ ':' +collection_cde;
+	var accnNumber=$("#accn").val();
+	getAccn(accnNumber,'accn',InstAcrColnCde);
+}
+
+
+function loadRecordDISABLE (collection_object_id) {
 	console.log('loadRecord');
 	msg('fetching data....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
@@ -691,6 +929,7 @@ function setPagePrefs(){
 					$("#d_" + eName).show();
 				}
 			}
+			
 			setNewRecDefaults();
 			msg('template loaded - enter data','good');
 		}
