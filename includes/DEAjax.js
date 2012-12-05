@@ -2159,24 +2159,23 @@ function set_attribute_dropdowns() {
    });	
 }
 function getAttributeStuff (attr,elem) {
-	if (attr.length && elem.length){
-		var isSomething = attr.length;
-		if (isSomething > 0) {
-			var optn = document.getElementById(elem);
-			optn.style.backgroundColor='red';
-			var thisCC = document.getElementById('collection_cde').value;
-			jQuery.getJSON("/component/DataEntry.cfc",
-				{
-					method : "getAttCodeTbl",
-					attribute : attr,
-					collection_cde : thisCC,
-					element : elem,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				success_getAttributeStuff
-			);
-		}
+	var attr;
+	var elem;
+	if (attr.length>0 && elem.length>0){
+		var optn = document.getElementById(elem);
+		optn.style.backgroundColor='red';
+		var thisCC = document.getElementById('collection_cde').value;
+		jQuery.getJSON("/component/DataEntry.cfc",
+			{
+				method : "getAttCodeTbl",
+				attribute : attr,
+				collection_cde : thisCC,
+				element : elem,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_getAttributeStuff
+		);
 	}
 }
 function success_getAttributeStuff (r) {
