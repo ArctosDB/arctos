@@ -2160,7 +2160,7 @@ function set_attribute_dropdowns() {
 }
 function getAttributeStuff (attr,elem) {
 	console.log('getAttributeStuff');
-	if (typeof attr != null){
+	if (typeof attr !== null){
 		console.log('made it through checks - attr='+ attr);
 		var optn = document.getElementById(elem);
 		optn.style.backgroundColor='red';
