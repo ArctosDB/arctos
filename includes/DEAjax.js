@@ -346,7 +346,9 @@ function loadRecordEdit (collection_object_id) {
 				
 			},
 			error: function( result, strError ){
-				console.log('fail_loadRecordEdit' +  result);
+				alert('the record failed to load - use some other app to edit, and your back button to get out of there');
+				msg('record failed to load','good');
+				return false;
 			}
 		}
 	);
