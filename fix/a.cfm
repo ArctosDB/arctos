@@ -1,11 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" type="text/css" />
+
+
 <!----
  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 ---->
-    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css" />
     <style>
     #sortable { list-style-type: none; margin: 0; padding: 0; width: 450px; }
     #sortable li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 200px; height: 90px; font-size: 4em; text-align: center; }
