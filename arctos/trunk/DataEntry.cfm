@@ -453,14 +453,10 @@
 							</td>
 						</tr>
 						<tr>
-							<td align="right"><span class="f11a">Coll. Meth.:</span></td>
+							<td align="right"><span class="f11a">Coll. Src.:</span></td>
 							<td>
 								<table cellspacing="0" cellpadding="0">
 									<tr>
-										<td>
-											<input type="text" name="collecting_method" id="collecting_method">
-										</td>
-										<td align="right"><span class="f11a">Coll. Src.:</span></td>
 										<td>
 											<select name="collecting_source"
 												size="1"
@@ -471,6 +467,10 @@
 													<option value="#collecting_source#">#collecting_source#</option>
 												</cfloop>
 											</select>
+										</td>
+										<td align="right"><span class="f11a">Coll. Meth.:</span></td>
+										<td>
+											<input type="text" name="collecting_method" id="collecting_method">
 										</td>
 									</tr>
 								</table>
