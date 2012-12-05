@@ -284,10 +284,10 @@ function loadRecordEdit (collection_object_id) {
 				queryformat : 'column'
 		},
 			success: function( result ){
-				console.log('success_loadRecordEdit + ' result);
+				console.log('success_loadRecordEdit' +  result);
 			},
 			error: function( result, strError ){
-				console.log('fail_loadRecordEdit + ' result);
+				console.log('fail_loadRecordEdit' +  result);
 			}
 		}
 	);
