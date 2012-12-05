@@ -194,6 +194,11 @@ function loadRecord (collection_object_id) {
 				if ($("#enteredby").val().length==0){
 					$("#enteredby").val($("#sessionusername").val());
 				}
+				// and custom ID if there's not a conflict
+				if ($("#other_id_num_type_5").val().length==0){
+					$("#other_id_num_type_5").val($("#sessioncustomotheridentifier").val())
+				}
+				
 				set_attribute_dropdowns();
 				// turn this thing on when necessary
 				if($("#collection_cde").val()=='ES') {
