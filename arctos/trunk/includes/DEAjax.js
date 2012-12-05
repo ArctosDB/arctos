@@ -9,7 +9,7 @@ function loadRecord(collection_object_id){
 	}
 }
 function loadRecordEdit (collection_object_id) {
-	console.log('loadRecord');
+	console.log('loadRecordEdit');
 	msg('fetching data....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
