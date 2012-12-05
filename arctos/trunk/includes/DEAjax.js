@@ -90,7 +90,7 @@ function loadRecordEdit (collection_object_id) {
 				$("#enterMode").hide(); // Edit Last Record
 				
 				
-				if(r.DATA.LOADED[0].length>0){
+				if($("#loaded").length>0){
 					// don't let them leave until this is fixed
 					//console.log('is bad edit');
 					$("#editMode").hide(); // Clone This Record
