@@ -88,7 +88,265 @@ this is default and it works
 								</tr>
 							</table>
 	</li>
-    <li class="ui-state-default">2</li>
+    <li class="ui-state-default">
+
+
+												<table cellpadding="0" cellspacing="0" class="fs" id="d_orig_lat_long_units"><!------- coordinates ------->
+																	<tr>
+																		<td rowspan="99" valign="top">
+																			<img src="/images/info.gif" border="0" onClick="getDocs('lat_long')" class="likeLink" alt="[ help ]">
+																		</td>
+																		<td>
+																			<table>
+																				<tr>
+																					<td align="right"  valign="top"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
+																					<td colspan="99" width="100%">
+																						<table>
+																							<tr>
+																								<td valign="top">
+																									<select name="orig_lat_long_units" id="orig_lat_long_units"
+																										onChange="switchActive(this.value);dataEntry.max_error_distance.focus();">
+																										<option value=""></option>
+																										<cfloop query="ctunits">
+																										  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+																										</cfloop>
+																									</select>
+																								</td>
+																								<td valign="top">
+																									<span style="font-size:small" class="likeLink" onclick="geolocate()">[ geolocate ]</span>
+																								</td>
+																								<td valign="top">
+																									<div id="geoLocateResults" style="font-size:small">geolocate messages go here</div>
+																								</td>
+																							</tr>
+																						</table>
+																					</td>
+																				</tr>
+																			</table>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			<div id="lat_long_meta" class="noShow">
+																				<table cellpadding="0" cellspacing="0">
+																					<tr>
+																						<td align="right"><span class="f11a">Max Error</span></td>
+																						<td>
+																							<input type="text" name="max_error_distance" id="max_error_distance" size="10">
+																							<select name="max_error_units" size="1" id="max_error_units">
+																								<option value=""></option>
+																								<cfloop query="cterror">
+																								  <option value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
+																								</cfloop>
+																							</select>
+																						</td>
+																					</tr>
+																					<tr>
+																						<td align="right"><span class="f11a">Datum</span></td>
+																						<td>
+																							<select name="datum" size="1" class="reqdClr" id="datum">
+																								<option value=""></option>
+																								<cfloop query="ctdatum">
+																									<option value="#datum#">#datum#</option>
+																								</cfloop>
+																							</select>
+																						</td>
+																					</tr>
+
+
+																					<tr>
+																						<td align="right"><span class="f11a">Georeference Source</span></td>
+																						<td colspan="3" nowrap="nowrap">
+																							<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" size="60">
+																						</td>
+																					</tr>
+																					<tr>
+																						<td align="right"><span class="f11a">Georeference Protocol</span></td>
+																						<td>
+																							<select name="georeference_protocol" size="1" class="reqdClr" style="width:130px" id="georeference_protocol">
+																								<cfloop query="ctgeoreference_protocol">
+																									<option value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
+																								</cfloop>
+																							</select>
+																						</td>
+																					</tr>
+																				</table>
+																			</div>
+																			<div id="dms" class="noShow">
+																				<table cellpadding="0" cellspacing="0">
+																					<tr>
+																						<td align="right"><span class="f11a">Lat Deg</span></td>
+																						<td>
+																							<input type="text" name="latdeg" size="4" id="latdeg" class="reqdClr">
+																						</td>
+																						<td align="right"><span class="f11a">Min</span></td>
+																						<td>
+																							<input type="text"
+																								 name="LATMIN"
+																								size="4"
+																								id="latmin"
+																								class="reqdClr">
+																						</td>
+																						<td align="right"><span class="f11a">Sec</span></td>
+																						<td>
+																							<input type="text"
+																								 name="latsec"
+																								size="6"
+																								id="latsec"
+																								class="reqdClr">
+																							</td>
+																						<td align="right"><span class="f11a">Dir</span></td>
+																						<td>
+																							<select name="latdir" size="1" id="latdir" class="reqdClr">
+																								<option value=""></option>
+																								<option value="N">N</option>
+																								<option value="S">S</option>
+																							  </select>
+																						</td>
+																					</tr>
+																					<tr>
+																						<td align="right"><span class="f11a">Long Deg</span></td>
+																						<td>
+																							<input type="text"
+																								name="longdeg"
+																								size="4"
+																								id="longdeg"
+																								class="reqdClr">
+																						</td>
+																						<td align="right"><span class="f11a">Min</span></td>
+																						<td>
+																							<input type="text"
+																								name="longmin"
+																								size="4"
+																								id="longmin"
+																								class="reqdClr">
+																						</td>
+																						<td align="right"><span class="f11a">Sec</span></td>
+																						<td>
+																							<input type="text"
+																								 name="longsec"
+																								size="6"
+																								id="longsec"
+																								class="reqdClr">
+																						</td>
+																						<td align="right"><span class="f11a">Dir</span></td>
+																						<td>
+																							<select name="longdir" size="1" id="longdir" class="reqdClr">
+																								<option value=""></option>
+																								<option value="E">E</option>
+																								<option value="W">W</option>
+																							  </select>
+																						</td>
+																					</tr>
+																				</table>
+																			</div>
+																			<div id="ddm" class="noShow">
+																				<table cellpadding="0" cellspacing="0">
+																					<tr>
+																						<td align="right"><span class="f11a">Lat Deg</span></td>
+																						<td>
+																							<input type="text"
+																								 name="decLAT_DEG"
+																								size="4"
+																								id="decLAT_DEG"
+																								class="reqdClr"
+																								onchange="dataEntry.latdeg.value=this.value;">
+																						</td>
+																						<td align="right"><span class="f11a">Dec Min</span></td>
+																						<td>
+																							<input type="text"
+																								name="dec_lat_min"
+																								 size="8"
+																								id="dec_lat_min"
+																								class="reqdClr">
+																						</td>
+																						<td align="right"><span class="f11a">Dir</span></td>
+																						<td>
+																							<select name="decLAT_DIR"
+																								size="1"
+																								id="decLAT_DIR"
+																								class="reqdClr"
+																								onchange="dataEntry.latdir.value=this.value;">
+																								<option value=""></option>
+																								<option value="N">N</option>
+																								<option value="S">S</option>
+																							</select>
+																						</td>
+																					</tr>
+																					<tr>
+																						<td align="right"><span class="f11a">Long Deg</span></td>
+																						<td>
+																							<input type="text"
+																								name="decLONGDEG"
+																								size="4"
+																								id="decLONGDEG"
+																								class="reqdClr"
+																								onchange="dataEntry.longdeg.value=this.value;">
+																						</td>
+																						<td align="right"><span class="f11a">Dec Min</span></td>
+																						<td>
+																							<input type="text"
+																								name="DEC_LONG_MIN"
+																								size="8"
+																								id="dec_long_min"
+																								class="reqdClr">
+																						</td>
+																						<td align="right"><span class="f11a">Dir</span></td>
+																						<td>
+																							<select name="decLONGDIR"
+																								 size="1"
+																								id="decLONGDIR"
+																								class="reqdClr"
+																								onchange="dataEntry.longdir.value=this.value;">
+																								<option value=""></option>
+																								<option value="E">E</option>
+																								<option value="W">W</option>
+																							</select>
+																						</td>
+																					</tr>
+																				</table>
+																			</div>
+																			<div id="dd" class="noShow">
+																				<span class="f11a">Dec Lat</span>
+																				<input type="text"
+																					 name="dec_lat"
+																					size="8"
+																					id="dec_lat"
+																					class="reqdClr">
+																				<span class="f11a">Dec Long</span>
+																					<input type="text"
+																						 name="dec_long"
+																						size="8"
+																						id="dec_long"
+																						class="reqdClr">
+																			</div>
+																			<div id="utm" class="noShow">
+																				<span class="f11a">UTM Zone</span>
+																				<input type="text"
+																					 name="utm_zone"
+																					size="8"
+																					id="utm_zone"
+																					class="reqdClr">
+																				<span class="f11a">UTM E/W</span>
+																				<input type="text"
+																					 name="utm_ew"
+																					size="8"
+																					id="utm_ew"
+																					class="reqdClr">
+																				<span class="f11a">UTM N/S</span>
+																				<input type="text"
+																					 name="utm_ns"
+																					size="8"
+																					id="utm_ns"
+																					class="reqdClr">
+																			</div>
+																		</td>
+																	</tr>
+																</table><!---- /coordinates ---->
+
+
+
+	</li>
     <li class="ui-state-default">3</li>
     <li class="ui-state-default">4</li>
     <li class="ui-state-default">5</li>
