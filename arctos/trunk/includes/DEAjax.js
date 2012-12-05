@@ -654,6 +654,10 @@ function setPagePrefs(){
 	console.log('setPagePrefs');
 	var mode=$("#action").val();
 	console.log('mode='+mode);
+	if (mode=='edit'){
+		return;		
+	}
+	console.log('made it past return');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "getPrefs",
@@ -667,18 +671,10 @@ function setPagePrefs(){
 				var cVal=eval("r.DATA." + columns[i]);
 				var eName=cName.toLowerCase();
 				if (cVal==0){
-					// clear and hide
-					if (mode=='enter'){
-						// whatever - fine to ignore stuff, just won't load
-						$("#" + eName).val('');
-						$("#d_" + eName).hide();
-					} else {
-						// editing a record someone else may have entered - force on stuff that matters
-						if ($("#" + eName).length && $("#" + eName).val() && $("#" + eName).val().length){
-                              //console.log(eName + ' has a value - show it anyway....' + $("#" + eName).val());
-                              $("#d_" + eName).show();
-                        }
-					}				
+					
+					$("#" + eName).val('');
+					$("#d_" + eName).hide();
+					
 				} else if (cVal==1) {
 					// visible and clear
 					$("#" + eName).val('');
