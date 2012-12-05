@@ -107,7 +107,6 @@ function highlightErrors(){
 		console.log(loadedMsg);
 	}
 	
-	/*
 	$(".hasProbs").removeClass();
 	
 	//console.log('loadedMsg='+loadedMsg);
@@ -134,7 +133,6 @@ function highlightErrors(){
 	} else {
 		$("#loadedMsgDiv").hide();
 	}
-	*/
 }
 function loadRecord (collection_object_id) {
 	console.log('loadRecord');
