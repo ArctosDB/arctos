@@ -5,7 +5,7 @@
 			width: 90%;
 		}
 		.one {
-			width: 50%;
+			width: 35%;
 			border:2px solid green;
 		}
 	</style>
