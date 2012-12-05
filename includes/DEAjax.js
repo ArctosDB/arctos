@@ -194,9 +194,7 @@ function loadedEditRecord(){
 	// make sure everything is on - override any user customizations	
 	$("div[id^='d_']").show();
 	var loadedMsg=$.trim($("#loadedMsgDiv").text());
-	console.log('loadedMsg='+loadedMsg);
-	console.log('collection_object_id='+$("#collection_object_id").val());
-	$("#selectbrowse").val($("#collection_object_id").val());	
+	console.log('loadedMsg='+loadedMsg);	
 	$(".hasProbs").removeClass();
 	console.log('loadedMsg='+loadedMsg);
 	// make sure loaded isn't NULL for some reason
@@ -261,6 +259,8 @@ function loadedEditRecord(){
 		$("#loadedMsgDiv").hide();
 		msg('record loaded - passed checks','good');
 	}
+	console.log('collection_object_id='+$("#collection_object_id").val());
+	$("#selectbrowse").val($("#collection_object_id").val());
 	// this is always off in edit mode
 	$("#enterMode").hide(); // Edit Last Record
 	$("#theNewButton").hide();
