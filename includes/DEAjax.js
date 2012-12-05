@@ -2,9 +2,9 @@ function loadRecord(collection_object_id){
 	// figure out if we're trying to enter or edit and call the appropriate function
 	if($("#action").val()=='enter') {
 		loadRecordEnter(collection_object_id);
-	} else (if($("#action").val()=='edit') {
+	} else if($("#action").val()=='edit') {
 		loadRecordEdit(collection_object_id);
-	else {
+	} else {
 		alert('i have no idea what you want to do');
 	}
 }
