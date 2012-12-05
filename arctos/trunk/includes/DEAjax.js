@@ -1395,6 +1395,16 @@ function cleanup () {
 	// make an array of required values and loop through the array checking them
 	// this must always happen at the bottom of function cleanup - some of these things
 	// may be populated by this function
+
+	
+	$(".reqdClr").each(function() {
+	    console.log(this.id + ' is required....')
+	});
+	
+	return false;
+	
+	
+	/*
 	var reqdFlds = new Array();
 	var missingData = "";
 	// these fields are always required
@@ -1470,6 +1480,7 @@ function cleanup () {
 		alert('You must enter data in required fields: ' + missingData + "\n Aborting Save!");
 		return false;
 	}
+	*/
 	var ISOdateFields = new Array();
 	var badDates = "";
 
