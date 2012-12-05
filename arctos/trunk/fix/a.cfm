@@ -18,6 +18,6 @@ div#endants-main-content
 }
 	</style>
 	<div id="endants-content">
-	    <div id="screenshot-preview">...</div>
-	    <div id="endants-main-content">...</div>
+	    <div id="screenshot-preview">zcvzxcvcxzvzxvzxzxvzxvzxvzxcvz.</div>
+	    <div id="endants-main-content">zcvzxcvcxzvzxvzxzxvzxvzxvzxcvz</div>
 	</div>
