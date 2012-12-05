@@ -9,7 +9,7 @@ function deleteThisRec () {
 			{
 				method : "deleteRecord",
 				collection_object_id : collection_object_id,
-				returnformat : "plain"
+				returnformat : "json"
 			},
 			function(r) {
 				console.log(r);
