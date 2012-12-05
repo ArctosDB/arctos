@@ -23,7 +23,7 @@ $(function(){ //DOM Ready
 
 	<div class="gridster">
 	    <ul>
-	        <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+	        <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
 				<table border="1">
 					<tr>
 						<td>table stuff here</td>
