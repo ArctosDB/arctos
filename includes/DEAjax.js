@@ -22,10 +22,10 @@ function deleteThisRec () {
 				}
 				console.log('deleted ' + collection_object_id);
 				var nextID=$('#selectbrowse option:selected').next().val();
-				if (nextID.length==0){
+				if (nextID){
 					console.log('going for previous');
 					var nextID=$('#selectbrowse option:selected').prev().val();
-					if (nextID.length==0){
+					if (nextID){
 						alert('Error loading new record - aborting.');
 						msg('no record found','good');
 						return false;
