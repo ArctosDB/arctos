@@ -99,6 +99,7 @@ function changeMode (mode) {
 }
 
 function loadRecord (collection_object_id) {
+	console.log('loadRecord');
 	msg('fetching data....','bad');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
@@ -108,6 +109,7 @@ function loadRecord (collection_object_id) {
 			queryformat : 'column'
 		},
 		function(r) {
+			console.log('back');
 			var columns=r.COLUMNS;
 			var ccde=r.DATA.COLLECTION_CDE[0];
 			var useCustom=true;
