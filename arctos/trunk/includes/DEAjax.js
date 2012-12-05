@@ -2166,30 +2166,30 @@ function getAttributeStuff (attr,elem) {
 	 if (typeof attr !=== null){
 		console.log('typeof attr !=== null=='+ attr);
 	} 
-	
-	
-	 * */
-	
-	
 	 if (typeof attr === null){
 		 console.log('typeof attr === null=='+ attr);
 		 } 
 		 
 	if (!attr) { 
-		console.log('!attr=='+ attr);
+		console.log('!attr=='+ attr);//
 
 		 }
 		 
 	if(attr==null){
-		console.log('attr==null=='+ attr);
+		console.log('attr==null=='+ attr);//
 		}
-	if(attr!==null){
+	
 		console.log('attr!==null=='+ attr);
 		}
 
 	
-		
+	 * */
 	
+	
+	
+	
+		
+if(attr!==null && elem!==null){
 	console.log('made it through all checks - attr='+ attr);
 	
 		var optn = document.getElementById(elem);
@@ -2206,7 +2206,7 @@ function getAttributeStuff (attr,elem) {
 			},
 			success_getAttributeStuff
 		);
-	
+	}
 }
 function success_getAttributeStuff (r) {
 	var result=r.DATA;
