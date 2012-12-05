@@ -34,6 +34,18 @@ $(function(){ //DOM Ready
 
 				</table>
 			</li>
+			<li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+						<table border="1">
+							<tr>
+								<td>
+									<div style="border:2px solid red; height:200px;width:400px;">i am div2-1</div>
+								</td>
+							</tr>
+
+						</table>
+					</li>
+
+
 	        <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 				<table border="1">
 						<tr>
@@ -48,16 +60,7 @@ $(function(){ //DOM Ready
 
 
 
-			<li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
-					<table border="1">
-						<tr>
-							<td>
-								<div style="border:2px solid red; height:200px;width:400px;">i am div2-1</div>
-							</td>
-						</tr>
 
-					</table>
-				</li>
 		        <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
 					<table border="1">
 							<tr>
