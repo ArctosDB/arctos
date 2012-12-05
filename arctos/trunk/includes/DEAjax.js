@@ -78,11 +78,13 @@ function changeMode (mode) {
 		$("#enterMode").show(); // Edit Last Record
 		$("#editMode").hide(); // Clone This Record
 		$("#browseThingy").hide();
-		setPagePrefs();
 	}
 	//checkRecord();
 	var theURL='/DataEntry.cfm';
 	//console.log('action='+$("#action").val().toLowerCase());
+	
+
+	setPagePrefs();
 	
 	if ($("#action").val().toLowerCase()=='edit'){
 		theURL+='?action=edit';
