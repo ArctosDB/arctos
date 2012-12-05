@@ -650,6 +650,7 @@ function createClone() {
 }
 function setPagePrefs(){
 	msg('setting customizations.....','bad');
+	var mode=$("#action").val();
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "getPrefs",
@@ -664,8 +665,17 @@ function setPagePrefs(){
 				var eName=cName.toLowerCase();
 				if (cVal==0){
 					// clear and hide
-					$("#" + eName).val('');
-					$("#d_" + eName).hide();
+					if (mode=='enter'){
+						// whatever - fine to ignore stuff, just won't load
+						$("#" + eName).val('');
+						$("#d_" + eName).hide();
+					} else {
+						// editing a record someone else may have entered - force on stuff that matters
+						if ($("#" + eName).length && $("#" + eName).val() && $("#" + eName).val().length){
+                              console.log(eName + ' has a value - show it anyway....' + $("#" + eName).val());
+                              $("#d_" + eName).show();
+                        }
+					}				
 				} else if (cVal==1) {
 					// visible and clear
 					$("#" + eName).val('');
