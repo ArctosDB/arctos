@@ -24,7 +24,7 @@ this is default and it works
         $( "#sortable" ).disableSelection();
     });
     </script>
-
+<cfoutput>
 
 <ul id="sortable">
     <li class="ui-state-default">1</li>
@@ -92,3 +92,4 @@ this is default and it works
 	</li>
 </ul>
 
+	</cfoutput>
