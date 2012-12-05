@@ -1410,88 +1410,6 @@ function cleanup () {
 		alert('You must enter data in required fields: ' + missingData + "\n Aborting Save!");
 		return false;
 	}
-	
-	
-	return false;
-	
-	
-	/*
-	var reqdFlds = new Array();
-	
-	// these fields are always required
-	reqdFlds.push('accn');
-	reqdFlds.push('collector_agent_1');
-	
-	reqdFlds.push('taxon_name');
-	reqdFlds.push('id_made_by_agent');
-	reqdFlds.push('nature_of_id');
-	
-	if $("#collecting_event_id").val().length==0 && $("#locality_id").val().length==0) {
-		reqdFlds.push('higher_geog');
-		reqdFlds.push('spec_locality');
-		reqdFlds.push('verbatim_locality');
-		reqdFlds.push('verbatim_date');
-		reqdFlds.push('began_date');
-		reqdFlds.push('ended_date');
-	}
-	
-	var thisIA = document.getElementById('institution_acronym').value;
-
-	if (!(thisIA=='UAM' && thisCC=='Herp') && thisCC != 'Ento' && thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Inv' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
-		reqdFlds.push('attribute_value_1');
-		reqdFlds.push('attribute_determiner_1');
-	}
-	var llUnit=document.getElementById('orig_lat_long_units').value;
-	if (llUnit.length > 0 && $("#collecting_event_id").val().length==0 && $("#locality_id").val().length==0) {
-		reqdFlds.push('datum');
-		reqdFlds.push('determined_by_agent');
-		reqdFlds.push('determined_date');
-		reqdFlds.push('lat_long_ref_source');
-		reqdFlds.push('georefmethod');
-		reqdFlds.push('verificationstatus');
-		if (llUnit == 'deg. min. sec.') {
-			reqdFlds.push('latdeg');
-			reqdFlds.push('latmin');
-			reqdFlds.push('latsec');
-			reqdFlds.push('latdir');
-			reqdFlds.push('longdeg');
-			reqdFlds.push('longmin');
-			reqdFlds.push('longsec');
-			reqdFlds.push('longdir');
-		}
-		if (llUnit == 'decimal degrees') {
-			reqdFlds.push('dec_lat');
-			reqdFlds.push('dec_long');
-		}
-		if (llUnit == 'degrees dec. minutes') {
-			reqdFlds.push('decLAT_DEG');
-			reqdFlds.push('dec_lat_min');
-			reqdFlds.push('decLAT_DIR');
-			reqdFlds.push('decLONGDEG');
-			reqdFlds.push('DEC_LONG_MIN');
-			reqdFlds.push('decLONGDIR');
-		}
-		if (llUnit == 'UTM') {
-			reqdFlds.push('utm_zone');
-			reqdFlds.push('utm_ns');
-			reqdFlds.push('utm_ew');
-		}
-	}
-	for (i=0;i<reqdFlds.length;i++) {
-		try {
-			var thisFld = document.getElementById(reqdFlds[i]).value;
-			if (thisFld.length == 0) {
-				var thisFldName = document.getElementById(reqdFlds[i]).name;
-				missingData = missingData + "\n" + thisFldName;					}
-			}
-		catch ( err ){// nothing, just ignore 
-		}
-	}
-	if (missingData.length > 0) {
-		alert('You must enter data in required fields: ' + missingData + "\n Aborting Save!");
-		return false;
-	}
-	*/
 	var ISOdateFields = new Array();
 	var badDates = "";
 
@@ -1610,7 +1528,7 @@ function unpickEvent() {
 	$("#ended_date").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#verbatim_date").attr("readOnly", false).removeClass().addClass('reqdClr');
 	//$("#collecting_source").attr("readOnly", false).removeClass().addClass('reqdClr');
-	$("#verbatim_locality").attr("readOnly", false).removeClass();
+	$("#verbatim_locality").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#coll_event_remarks").attr("readOnly", false).removeClass();
 	$("#collecting_event_name").attr("readOnly", false).removeClass();
 	//$("#collecting_method").attr("readOnly", false).removeClass();
