@@ -12,7 +12,7 @@ function deleteThisRec () {
 				returnformat : "plain"
 			},
 			function(r) {
-				if(r){
+				if(r.length>0){
 					alert(r);
 					msg(r,'good');
 					return false;
