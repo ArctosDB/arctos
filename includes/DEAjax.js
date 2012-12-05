@@ -242,7 +242,6 @@ function loadedEditRecord(){
 			$("#browseThingy").hide();
 		}
 		$("#customizeForm").hide(); //Save This As A New Record
-		$("#theSaveButton").show(); // Save Edits/Delete Record
 		msg('record loaded - failed checks','good');
 	} else {
 		$("#theTable").removeClass().addClass('isGoodEdit');
@@ -262,9 +261,7 @@ function loadedEditRecord(){
 		$("#customizeForm").show(); 
 		// ?? $("#pageTitle").hide();	
 		 //Save This As A New Record
-		$("#theSaveButton").hide(); // Save Edits/Delete Record
-		$("#enterMode").show(); // Edit Last Record
-		
+		$("#enterMode").show(); // Edit Last Record		
 		$("#loadedMsgDiv").hide();
 		msg('record loaded - passed checks','good');
 	}
@@ -273,6 +270,8 @@ function loadedEditRecord(){
 	// this is always off in edit mode
 	$("#enterMode").hide(); // Edit Last Record
 	$("#theNewButton").hide();
+	$("#theSaveButton").show(); // Save Edits/Delete Record
+
 	//changeMode($("#action").val());
 	// set up edit URL
 	var theURL='/DataEntry.cfm?action=edit';
