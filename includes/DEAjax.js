@@ -293,6 +293,7 @@ function loadRecordEdit (collection_object_id) {
 				console.log('success_loadRecordEdit' +  r);
 				if (r.ROWCOUNT==0){
 					alert('record not found');
+					msg('record not found',good);
 					return false;
 				}
 				var columns=r.COLUMNS;
