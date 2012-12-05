@@ -283,9 +283,15 @@ function loadRecordEdit (collection_object_id) {
 				returnformat : "json",
 				queryformat : 'column'
 		},
-		success: success_loadRecordEdit(objResponse),
-	    error: fail_loadRecordEdit(objResponse)
-	});
+			success: function( result ){
+				console.log('success_loadRecordEdit');
+			},
+			error: function( result, strError ){
+				console.log('fail_loadRecordEdit');
+			}
+		}
+	);
+	
 	
 	
 	/*
