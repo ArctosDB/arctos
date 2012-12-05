@@ -16,6 +16,8 @@ function deleteThisRec () {
 					alert(r);
 					msg(r,'good');
 					return false;
+				} else {
+					console.log('r is zero length');
 				}
 				console.log('deleted ' + collection_object_id);
 				var nextID=$('#selectbrowse option:selected').next().val();
