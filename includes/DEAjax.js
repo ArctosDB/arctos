@@ -46,7 +46,7 @@ function changeMode (mode) {
 	}
 	
 	if (mode == 'edit') {
-		$("#customizeForm").hide(); //Save This As A New Record
+		//$("#customizeForm").hide(); //Save This As A New Record
 		$("#theNewButton").hide(); //Save This As A New Record
 		$("#theSaveButton").show(); // Save Edits/Delete Record
 		$("#enterMode").hide(); // Edit Last Record
