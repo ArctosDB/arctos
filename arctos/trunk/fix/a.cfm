@@ -10,7 +10,7 @@ $(function(){ //DOM Ready
 
     $(".gridster ul").gridster({
         widget_margins: [10, 10],
-        widget_base_dimensions: [140, 300],
+        widget_base_dimensions: [200, 400],
         avoid_overlapped_widgets: true,
         max_size_x: 2
     });
