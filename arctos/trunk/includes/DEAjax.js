@@ -17,7 +17,7 @@ function deleteThisRec () {
 				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
 				$("#selectbrowse option[value=" + o + "]").remove();
 				if(n){
-					msg('loading previous record....','bad');
+					msg('loading previous record-'+n,'bad');
 					loadRecordEdit(n);
 				} else {
 					alert('Error loading previous - aborting.');
@@ -216,13 +216,13 @@ function loadedEditRecord(){
 			if (hasSpace == -1) {
 				//console.log('trying....');
 				try {
-					console.log('adding class to ' + thisSlice.toLowerCase());
+					//console.log('adding class to ' + thisSlice.toLowerCase());
 					$("#" + thisSlice.toLowerCase()).addClass('hasProbs');
 					//var theField = document.getElementById(thisSlice.toLowerCase());
 					//theField.addClass('hasProbs');
 				}
 				catch ( err ){// nothing, just ignore 
-					console.log('caught: ' + err);
+					//console.log('caught: ' + err);
 				}
 			}
 		}
