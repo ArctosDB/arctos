@@ -15,7 +15,7 @@ this is default and it works
 ---->
     <style>
     #sortable { list-style-type: none; margin: 0; padding: 0; width: 450px; }
-    #sortable li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 200px; height: 90px; font-size: 4em; text-align: center; }
+    #sortable li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 200px;}
 	#sortable li.dubbl { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 400px; height: 90px; font-size: 4em; text-align: center; }
     </style>
     <script>
@@ -40,7 +40,7 @@ this is default and it works
     <li class="ui-state-default">11</li>
     <li class="ui-state-default dubbl">
 
-	<table cellpadding="0" cellspacing="0" class="fs">
+	<table border>
 						<tr>
 							<td rowspan="99" valign="top">
 								<img src="/images/info.gif" border="0" onClick="getDocs('parts')" class="likeLink" alt="[ help ]">
