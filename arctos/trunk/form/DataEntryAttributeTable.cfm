@@ -59,7 +59,7 @@ jQuery(document).ready(function() {
 					</td>
 					<td>
 						<label for="attribute_2">TLen</label>
-						<input type="hidden" name="attribute_2" id="attribute_2" value="total length" />
+						<input type="hidden" name="attribute_2" id="attribute_2" value="total length" onchange="checkCustomAtts()">/>
 						<input type="text" name="attribute_value_2" size="3" id="attribute_value_2">
 					</td>
 					<td>
@@ -68,7 +68,7 @@ jQuery(document).ready(function() {
 						<input type="hidden" name="attribute_date_3" id="attribute_date_3" />
 						<input type="hidden" name="attribute_determiner_3" id="attribute_determiner_3" />
 						<input type="hidden" name="attribute_3" value="tail length" />
-						<input type="text" name="attribute_value_3" size="3" id="attribute_value_3">
+						<input type="text" name="attribute_value_3" size="3" id="attribute_value_3" onchange="checkCustomAtts()">>
 					</td>
 					<td>
 						<label for="attribute_4">HFoot</label>
@@ -76,7 +76,7 @@ jQuery(document).ready(function() {
 						<input type="hidden" name="attribute_date_4" id="attribute_date_4" />
 						<input type="hidden" name="attribute_determiner_4" id="attribute_determiner_4" />
 						<input type="hidden" name="attribute_4" value="hind foot with claw" />
-						<input type="text" name="attribute_value_4" size="3" id="attribute_value_4">
+						<input type="text" name="attribute_value_4" size="3" id="attribute_value_4" onchange="checkCustomAtts()">>
 					</td>
 					<td>
 						<label for="attribute_5">Ear</label>
@@ -84,11 +84,11 @@ jQuery(document).ready(function() {
 						<input type="hidden" name="attribute_date_5" id="attribute_date_5" />
 						<input type="hidden" name="attribute_determiner_5" id="attribute_determiner_5" />
 						<input type="hidden" name="attribute_5" value="ear from notch" />
-						<input type="text" name="attribute_value_5" size="3" id="attribute_value_5">
+						<input type="text" name="attribute_value_5" size="3" id="attribute_value_5" onchange="checkCustomAtts()">>
 					</td>
 					<td>
 						<label for="attribute_units_2">Units</label>
-						<select name="attribute_units_2" size="1" id="attribute_units_2" class="reqdClr">
+						<select name="attribute_units_2" size="1" id="attribute_units_2">
 							<option value=""></option>
 							<cfloop query="ctLength_Units">
 								<option value="#Length_Units#">#Length_Units#</option>
@@ -100,7 +100,7 @@ jQuery(document).ready(function() {
 						<input type="hidden" name="attribute_date_6" id="attribute_date_6" />
 						<input type="hidden" name="attribute_determiner_6" id="attribute_determiner_6" />
 						<input type="hidden" name="attribute_6" value="weight" />
-						<input type="text" name="attribute_value_6" size="3" id="attribute_value_6">
+						<input type="text" name="attribute_value_6" size="3" id="attribute_value_6" onchange="checkCustomAtts()">>
 					</td>
 					<td>
 						<label for="attribute_units_6">Wt.Unit</label>
