@@ -1,16 +1,23 @@
 <cfinclude template="/includes/_header.cfm">
 	<style>
-		#outer {
-			border:2px solid red;
-			width: 90%;
-		}
-		.one {
-			width: 35%;
-			border:2px solid green;
-		}
+div#endants-content
+{
+    /* put min-width here is you need it */
+}
+
+div#screenshot-preview
+{
+    float:right;
+    width:30%;
+}
+
+div#endants-main-content
+{
+    margin-right:30%;
+    overflow:auto;
+}
 	</style>
-	<div id="outer">
-		<div class="one">bla</div>
-	<div class="one">bla</div>
-	<div class="one">bla</div>
+	<div id="endants-content">
+	    <div id="screenshot-preview">...</div>
+	    <div id="endants-main-content">...</div>
 	</div>
