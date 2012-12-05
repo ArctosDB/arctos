@@ -1396,17 +1396,28 @@ function cleanup () {
 	// this must always happen at the bottom of function cleanup - some of these things
 	// may be populated by this function
 
-	
+	var missingData = "";
 	$(".reqdClr:visible").each(function() {
 	    console.log(this.id + ' is required....')
+	    if ($("#" + this.id).val().length==0){
+	    	missingData = missingData + "\n" + this.id;
+	    	$("#" + this.id).addClass('hasProbs');
+	    }
 	});
+	
+	
+	if (missingData.length > 0) {
+		alert('You must enter data in required fields: ' + missingData + "\n Aborting Save!");
+		return false;
+	}
+	
 	
 	return false;
 	
 	
 	/*
 	var reqdFlds = new Array();
-	var missingData = "";
+	
 	// these fields are always required
 	reqdFlds.push('accn');
 	reqdFlds.push('collector_agent_1');
