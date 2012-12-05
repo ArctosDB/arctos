@@ -2,10 +2,125 @@ function loadRecord(collection_object_id){
 	// figure out if we're trying to enter or edit and call the appropriate function
 	if($("#action").val()=='enter') {
 		loadRecordEnter(collection_object_id);
-	} else {
+	} else (if($("#action").val()=='edit') {
+		loadRecordEdit(collection_object_id);
+	else {
 		alert('i have no idea what you want to do');
 	}
 }
+function loadRecordEdit (collection_object_id) {
+	console.log('loadRecord');
+	msg('fetching data....','bad');
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "loadRecord",
+			collection_object_id : collection_object_id,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			console.log('back');
+			var columns=r.COLUMNS;
+			var ccde=r.DATA.COLLECTION_CDE[0];
+			var useCustom=true;
+			var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
+			var tab=document.getElementById('attributeTableCell');
+			
+			// switch in attributes based on collection and whether 
+			// or not hard-coded attributes jive with the data
+			// these are hard-coded in /form/DataEntryAttributeTable.cfm
+			// make sure to coordinate any changes
+			if (ccde=='Mamm'){
+				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
+					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length') || +
+					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length') || +
+					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw') || +
+					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch') || +
+					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ){
+					useCustom=false;
+				}
+			}
+			if (ccde=='Bird'){
+				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
+					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age') || +
+					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition') || +
+					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'molt condition') || +
+					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification') || +
+					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ) {
+					useCustom=false;
+				}
+			}
+			if (useCustom==false) {
+				ptl+='&useCustom=false';				
+			}
+			jQuery.get(ptl, function(data){
+				jQuery(tab).html(data);
+				for (i=0;i<columns.length;i++) {
+					var cName=columns[i];
+					var cVal=eval("r.DATA." + columns[i]);
+					var eName=cName.toLowerCase();
+					$("#" + eName).val(cVal);
+				}
+				
+				set_attribute_dropdowns();
+				// turn this thing on when necessary
+				if($("#collection_cde").val()=='ES') {
+					$("#geolCell").show();
+				}
+				$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
+				$("#pBrowse").show();
+				$("#nBrowse").show();
+				if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
+					$("#nBrowse").hide();
+				}
+				if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
+					$("#pBrowse").hide();
+				}
+				switchActive($("#orig_lat_long_units").val());
+				changeMode($("#action").val());
+				
+				$("#customizeForm").hide(); //Save This As A New Record
+				$("#theNewButton").hide(); //Save This As A New Record
+				$("#theSaveButton").show(); // Save Edits/Delete Record
+				$("#enterMode").hide(); // Edit Last Record
+				
+				
+				if(r.DATA.LOADED[0].length>-){
+					// don't let them leave until this is fixed
+					//console.log('is bad edit');
+					$("#editMode").hide(); // Clone This Record
+					$("#theTable").removeClass().addClass('isBadEdit');
+					$("#pageTitle").show();
+					if ($("#ImAGod").val() != "yes"){
+						// let "god" users browse; force non-god users to fix their stuff
+						$("#browseThingy").hide();
+					}
+					highlightErrors();
+				} else {
+					$("#browseThingy").show();
+					$("#editMode").show(); // Clone This Record
+					$("#theTable").removeClass().addClass('isGoodEdit');
+					$("#pageTitle").hide();	
+				}
+				
+				
+				
+				msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded for edit','good');
+			});
+			
+		}
+	);
+	var theURL='/DataEntry.cfm?action=edit';
+	if ($("#ImAGod").val()=="yes"){
+		theURL+='&ImAGod=yes';
+	}
+	theURL+='&collection_object_id=' + $("#collection_object_id").val();
+	if (typeof window.history.pushState == 'function') {
+	  history.replaceState({}, 'DataEntry', theURL);
+	}
+}
+
+
 //load a record (using an existing record as a template) in INSERT mode
 function loadRecordEnter(collection_object_id){
 	$.getJSON("/component/Bulkloader.cfc",
