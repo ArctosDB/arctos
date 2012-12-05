@@ -3,6 +3,7 @@ jQuery(document).ready(function() {
 	for (i=1;i<=11;i++){
 		$("#attribute_date_" + i).datepicker();
 	}
+	checkCustomAtts();
 });
 </script>
 <cfoutput>

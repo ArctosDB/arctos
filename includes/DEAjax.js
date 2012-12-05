@@ -938,7 +938,6 @@ jQuery(document).ready(function() {
 		window.attachEvent("onmessage", getGeolocate);
 	}
 	pickedLocality();
-	checkCustomAtts();
 	//set_attribute_dropdowns();
 	
 });
