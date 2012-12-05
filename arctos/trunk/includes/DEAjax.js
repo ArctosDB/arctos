@@ -4,26 +4,35 @@ function deleteThisRec () {
 	yesDelete = window.confirm('Are you sure you want to delete this record?');
 	if (yesDelete == true) {
 		msg('deleting record....','bad');
+		collection_object_id=$("#collection_object_id").val();
 		$.getJSON("/component/Bulkloader.cfc",
 			{
 				method : "deleteRecord",
-				collection_object_id : $("#collection_object_id").val(),
-				returnformat : "json",
-				queryformat : 'column'
+				collection_object_id : collection_object_id,
+				returnformat : "plain"
 			},
 			function(r) {
-				var o=r.DATA.OLDVALUE[0];
-				var n=r.DATA.NEXTVALUE[0];
-				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
-				$("#selectbrowse option[value=" + o + "]").remove();
-				if(n){
-					msg('loading previous record-'+n,'bad');
-					loadRecordEdit(n);
-				} else {
-					alert('Error loading previous - aborting.');
-					msg('no record found','good');
+				if(r){
+					alert(r);
+					msg(r,'good');
 					return false;
 				}
+				console.log('deleted ' + collection_object_id);
+				var nextID=$('#selectbrowse option:selected').next().val();
+				if (nextID.length==0){
+					console.log('going for previous';)
+					var nextID=$('#selectbrowse option:selected').prev().val();
+					if (nextID.length==0){
+						alert('Error loading new record - aborting.');
+						msg('no record found','good');
+						return false;
+					}
+				}
+				console.log('going to ' + nextID);
+				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
+				$("#selectbrowse option[value=" + collection_object_id + "]").remove();
+				$("#selectbrowse").val(nextID);
+				loadRecordEdit(n);
 			}
 		);
 	}
