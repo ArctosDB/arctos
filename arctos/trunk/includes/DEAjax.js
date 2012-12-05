@@ -103,7 +103,7 @@ function highlightErrors(){
 		// one of the templates
 		var loadedMsg='';
 	} else {
-		var loadedMsg=$("#loadedMsgDiv").text();
+		var loadedMsg=$("#loaded").val();
 		console.log(loadedMsg);
 	}
 	
