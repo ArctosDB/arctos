@@ -71,7 +71,7 @@ function changeMode (mode) {
 			$("#pageTitle").hide();	
 		}
 	} else { // entry mode
-		$("#loaded").val('waiting-approval');
+		$("#loaded").val('waiting approval');
 		$("#customizeForm").show(); //Save This As A New Record
 		$("#theTable").removeClass().addClass('isEnter');
 		$("#theNewButton").show(); //Save This As A New Record
