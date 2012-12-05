@@ -1400,15 +1400,20 @@ function cleanup () {
 	// these fields are always required
 	reqdFlds.push('accn');
 	reqdFlds.push('collector_agent_1');
-	reqdFlds.push('higher_geog');
-	reqdFlds.push('spec_locality');
-	reqdFlds.push('verbatim_locality');
-	reqdFlds.push('verbatim_date');
-	reqdFlds.push('began_date');
-	reqdFlds.push('ended_date');
+	
 	reqdFlds.push('taxon_name');
 	reqdFlds.push('id_made_by_agent');
 	reqdFlds.push('nature_of_id');
+	
+	if $("#collecting_event_id").val().length==0 && $("#locality_id").val().length==0) {
+		reqdFlds.push('higher_geog');
+		reqdFlds.push('spec_locality');
+		reqdFlds.push('verbatim_locality');
+		reqdFlds.push('verbatim_date');
+		reqdFlds.push('began_date');
+		reqdFlds.push('ended_date');
+	}
+	
 	var thisIA = document.getElementById('institution_acronym').value;
 
 	if (!(thisIA=='UAM' && thisCC=='Herp') && thisCC != 'Ento' && thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Inv' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
