@@ -61,8 +61,8 @@ input, select {
 	padding-right:2px;
 }
 .hasProbs {
-	border:2px solid #FF0000;
-	outline: 2px solid white;
+	border:4px solid #FF0000;
+	outline: 4px solid white;
 }
 input:focus, textarea:focus, select:focus {
 	border: 2px solid #FFFF00;
