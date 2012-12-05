@@ -276,6 +276,9 @@ function loadedEditRecord(){
 	$("#theSaveButton").show(); // Save Edits/Delete Record
 
 	//changeMode($("#action").val());
+	// force attribute check
+	checkCustomAtts();
+	
 	// set up edit URL
 	var theURL='/DataEntry.cfm?action=edit';
 	if ($("#ImAGod").val()=="yes"){
