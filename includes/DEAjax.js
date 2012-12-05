@@ -46,10 +46,10 @@ function highlightErrors(){
 	
 	$(".hasProbs").removeClass();
 	
-	//console.log('loadedMsg='+loadedMsg);
+	console.log('loadedMsg='+loadedMsg);
 	if(loadedMsg){
-		console.log('+loadedMsg='+loadedMsg);
-		$("#loadedMsgDiv").text(loadedMsg).show();
+		console.log('highlightErrors+loadedMsg='+loadedMsg);
+		$("#loadedMsgDiv").show();
 		var prob_array = loadedMsg.split(" ");
 		for (var loop=0; loop < prob_array.length; loop++) {
 			var thisSlice = prob_array[loop];
