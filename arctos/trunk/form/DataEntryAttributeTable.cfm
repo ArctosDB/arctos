@@ -1,3 +1,10 @@
+<script>
+jQuery(document).ready(function() {
+	for (i=1;i<=11;i++){
+		$("#attribute_date_" + i).datepicker();
+	}
+});
+</script>
 <cfoutput>
 <cfif isdefined("data.collection_cde")>
 	<cfset collection_cde=data.collection_cde>

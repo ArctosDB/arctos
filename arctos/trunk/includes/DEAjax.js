@@ -488,7 +488,57 @@ function getDEAccn() {
 	getAccn(accnNumber,'accn',InstAcrColnCde);
 }
 
-
+/*
+function createClone() {
+	yesChange = window.confirm('You will lose any unsaved changes. \nCustomize Form and set carry if you seem to be losing information.\nContinue?');
+	if (yesChange == true) {
+		changeMode('enter');
+		// because it's possible to clone other users' records
+		$("#enteredby").val($("#sessionusername").val());
+	}	
+}
+function setPagePrefs(){
+	msg('setting customizations.....','bad');
+	console.log('setPagePrefs');
+	var mode=$("#action").val();
+	console.log('mode='+mode);
+	if (mode=='edit'){
+		msg('edit mode','good');
+		return;		
+	}
+	console.log('made it past return');
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "getPrefs",
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			var columns=r.COLUMNS;
+			for (i=0;i<columns.length;i++) {
+				var cName=columns[i];
+				var cVal=eval("r.DATA." + columns[i]);
+				var eName=cName.toLowerCase();
+				if (cVal==0){
+					
+					$("#" + eName).val('');
+					$("#d_" + eName).hide();
+					
+				} else if (cVal==1) {
+					// visible and clear
+					$("#" + eName).val('');
+					$("#d_" + eName).show();
+				} else {
+					// visible and leave value alone
+					$("#d_" + eName).show();
+				}
+			}
+			
+			setNewRecDefaults();
+			msg('template loaded - enter data','good');
+		}
+	);
+}
 function loadRecordDISABLE (collection_object_id) {
 	console.log('loadRecord');
 	msg('fetching data....','bad');
@@ -576,6 +626,8 @@ function loadRecordDISABLE (collection_object_id) {
 	);
 	
 }
+*/
+
 function getRelatedData(id) {
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
@@ -1000,56 +1052,6 @@ function UAMInvDefault() {
 	    	 $("#" + this.id).val('unchecked');
 	     }
 	});
-}
-function createClone() {
-	yesChange = window.confirm('You will lose any unsaved changes. \nCustomize Form and set carry if you seem to be losing information.\nContinue?');
-	if (yesChange == true) {
-		changeMode('enter');
-		// because it's possible to clone other users' records
-		$("#enteredby").val($("#sessionusername").val());
-	}	
-}
-function setPagePrefs(){
-	msg('setting customizations.....','bad');
-	console.log('setPagePrefs');
-	var mode=$("#action").val();
-	console.log('mode='+mode);
-	if (mode=='edit'){
-		msg('edit mode','good');
-		return;		
-	}
-	console.log('made it past return');
-	$.getJSON("/component/Bulkloader.cfc",
-		{
-			method : "getPrefs",
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function(r) {
-			var columns=r.COLUMNS;
-			for (i=0;i<columns.length;i++) {
-				var cName=columns[i];
-				var cVal=eval("r.DATA." + columns[i]);
-				var eName=cName.toLowerCase();
-				if (cVal==0){
-					
-					$("#" + eName).val('');
-					$("#d_" + eName).hide();
-					
-				} else if (cVal==1) {
-					// visible and clear
-					$("#" + eName).val('');
-					$("#d_" + eName).show();
-				} else {
-					// visible and leave value alone
-					$("#d_" + eName).show();
-				}
-			}
-			
-			setNewRecDefaults();
-			msg('template loaded - enter data','good');
-		}
-	);
 }
 function closeCust() {
 	$('#bgDiv').remove();
