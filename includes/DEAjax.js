@@ -278,7 +278,7 @@ function loadedEditRecord(){
 	//changeMode($("#action").val());
 	// force attribute check
 	checkCustomAtts();
-	
+	requirePartAtts();
 	// set up edit URL
 	var theURL='/DataEntry.cfm?action=edit';
 	if ($("#ImAGod").val()=="yes"){
@@ -1366,20 +1366,17 @@ function changeCollection(v){
 }
 /* recheck */
 function requirePartAtts(i,v){
-	var pn=document.getElementById('part_name_' + i);
-	var pc=document.getElementById('part_condition_' + i);
-	var pl=document.getElementById('part_lot_count_' + i);
-	var pd=document.getElementById('part_disposition_' + i);
-	if (v.length > 0) {
-		pn.className='reqdClr';
-		pc.className='reqdClr';
-		pl.className='reqdClr';
-		pd.className='reqdClr';
-	} else {
-		pn.className='';
-		pc.className='';
-		pl.className='';
-		pd.className='';
+	
+	for (i=1;i<=12;i++){
+		if ($("#part_name_" + i) && $("#part_name_" + i).val().length>0{
+			$("#part_condition_" + i).addClass(reqdClr);
+			$("#part_lot_count_" + i).addClass(reqdClr);
+			$("#part_disposition_" + i).addClass(reqdClr);
+		} else {
+			$("#part_condition_" + i).removeClass(reqdClr);
+			$("#part_lot_count_" + i).removeClass(reqdClr);
+			$("#part_disposition_" + i).removeClass(reqdClr);
+		}
 	}
 }
 function checkCustomAtts(){
