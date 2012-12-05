@@ -97,7 +97,45 @@ function changeMode (mode) {
 	  history.replaceState({}, 'DataEntry', theURL);
 	}
 }
-
+function highlightErrors(){
+	console.log('highlightErrors');
+	if ($("#collection_object_id").val()<500){
+		// one of the templates
+		var loadedMsg='';
+	} else {
+		var loadedMsg=$("#loadedMsgDiv").text();
+		console.log(loadedMsg);
+	}
+	
+	/*
+	$(".hasProbs").removeClass();
+	
+	//console.log('loadedMsg='+loadedMsg);
+	if(loadedMsg){
+		console.log('+loadedMsg='+loadedMsg);
+		$("#loadedMsgDiv").text(loadedMsg).show();
+		var prob_array = loadedMsg.split(" ");
+		for (var loop=0; loop < prob_array.length; loop++) {
+			var thisSlice = prob_array[loop];
+			//console.log('thisSlice='+thisSlice);
+			var hasSpace = thisSlice.indexOf(" ");
+			if (hasSpace == -1) {
+				//console.log('trying....');
+				try {
+					var theField = document.getElementById(thisSlice.toLowerCase());
+					theField.className = 'hasProbs';
+				}
+				catch ( err ){// nothing, just ignore 
+					//console.log('caught: ' + err);
+				}
+			}
+		}
+		
+	} else {
+		$("#loadedMsgDiv").hide();
+	}
+	*/
+}
 function loadRecord (collection_object_id) {
 	console.log('loadRecord');
 	msg('fetching data....','bad');
@@ -158,40 +196,9 @@ function loadRecord (collection_object_id) {
 					$("#enteredby").val($("#sessionusername").val());
 				}
 				set_attribute_dropdowns();
+				highlightErrors();
 				
-				if (r.DATA.COLLECTION_OBJECT_ID[0]<500){
-					// one of the templates
-					var loadedMsg='';
-				} else {
-					var loadedMsg=r.DATA.LOADED[0];
-				}
 				
-				$(".hasProbs").removeClass();
-				
-				//console.log('loadedMsg='+loadedMsg);
-				if(loadedMsg){
-					console.log('+loadedMsg='+loadedMsg);
-					$("#loadedMsgDiv").text(loadedMsg).show();
-					var prob_array = loadedMsg.split(" ");
-					for (var loop=0; loop < prob_array.length; loop++) {
-						var thisSlice = prob_array[loop];
-						//console.log('thisSlice='+thisSlice);
-						var hasSpace = thisSlice.indexOf(" ");
-						if (hasSpace == -1) {
-							//console.log('trying....');
-							try {
-								var theField = document.getElementById(thisSlice.toLowerCase());
-								theField.className = 'hasProbs';
-							}
-							catch ( err ){// nothing, just ignore 
-								//console.log('caught: ' + err);
-							}
-						}
-					}
-					
-				} else {
-					$("#loadedMsgDiv").hide();
-				}
 				
 				
 				// turn this thing on when necessary
@@ -825,6 +832,7 @@ function saveEditedRecord () {
 				var status=r.DATA.RSLT[0];
 				if (status) {
 					$("#loadedMsgDiv").text(status).show();
+					highlightErrors();
 					changeMode('edit');
 					msg(status,'err');
 				} else {
