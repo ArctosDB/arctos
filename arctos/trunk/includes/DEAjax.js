@@ -65,7 +65,7 @@ function loadRecordEdit (collection_object_id) {
 					var eName=cName.toLowerCase();
 					$("#" + eName).val(cVal);
 				}
-				
+				$("#loadedMsgDiv").text(r.DATA.LOADED[i]);
 				set_attribute_dropdowns();
 				// turn this thing on when necessary
 				if($("#collection_cde").val()=='ES') {
@@ -90,9 +90,9 @@ function loadRecordEdit (collection_object_id) {
 				$("#enterMode").hide(); // Edit Last Record
 				
 				
-				if($("#loaded").length>0 && $("#loaded").val() != 'waiting approval'){
+				if($("#loadedMsgDiv").text.length>0 && $("#loadedMsgDiv").text() != 'waiting approval'){
 					// don't let them leave until this is fixed
-					console.log('is bad edit - loaded=' + $("#loaded").val());
+					console.log('is bad edit - loaded=' + $("#loadedMsgDiv").text());
 					$("#editMode").hide(); // Clone This Record
 					$("#theTable").removeClass().addClass('isBadEdit');
 					$("#pageTitle").show();
