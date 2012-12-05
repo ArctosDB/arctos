@@ -1385,13 +1385,18 @@ function checkCustomAtts(){
 			$("#attribute_value_4").val().length>0 || +
 			$("#attribute_value_5").val().length>0){
 		$("#attribute_units_2").addClass("reqdClr");
+		console.log('got some attribtue values');
 	} else {
 		$("#attribute_units_2").removeClass("reqdClr");
+		console.log('got no attribtue values');
 	}
 	if ($("#attribute_value_6").val().length>0){
 		$("#attribute_units_6").addClass("reqdClr");
+		console.log('got weight attribtue values');
+
 	} else {
 		$("#attribute_units_6").removeClass("reqdClr");
+		console.log('got no weight attribtue values');
 	}
 }
 function _isInteger(val){var digits="1234567890";for(var i=0;i < val.length;i++){if(digits.indexOf(val.charAt(i))==-1){return false;}}return true;}
