@@ -199,9 +199,8 @@ function loadedEditRecord(){
 		}
 		
 		$("#customizeForm").hide(); //Save This As A New Record
-		$("#theNewButton").hide(); //Save This As A New Record
 		$("#theSaveButton").show(); // Save Edits/Delete Record
-		$("#enterMode").hide(); // Edit Last Record
+		
 		
 		
 		
@@ -223,7 +222,7 @@ function loadedEditRecord(){
 		
 		$("#customizeForm").show(); 
 		// ?? $("#pageTitle").hide();	
-		$("#theNewButton").show(); //Save This As A New Record
+		 //Save This As A New Record
 		$("#theSaveButton").hide(); // Save Edits/Delete Record
 		$("#enterMode").show(); // Edit Last Record
 		
@@ -233,9 +232,9 @@ function loadedEditRecord(){
 	
 	
 	
-	
-	
-	
+	// this is always off in edit mode
+	$("#enterMode").hide(); // Edit Last Record
+	$("#theNewButton").hide();
 	
 	
 	//changeMode($("#action").val());
@@ -473,12 +472,14 @@ function loadRecordEnter(collection_object_id){
 				$("#theTable").removeClass().addClass('isEnter');
 				$("#theNewButton").show(); //Save This As A New Record
 				$("#theSaveButton").hide(); // Save Edits/Delete Record
-				$("#enterMode").show(); // Edit Last Record
 				$("#editMode").hide(); // Clone This Record
 				$("#browseThingy").hide();
+				$("#enterMode").show();
 			});
 		}
 	);
+	
+
 	// show URL that they can't try to save or anything clever
 	var theURL='/DataEntry.cfm';
 	if (typeof window.history.pushState == 'function') {
