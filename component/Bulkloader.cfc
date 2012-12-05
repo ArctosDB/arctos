@@ -176,16 +176,15 @@
 
 <cffunction name="deleteRecord" access="remote">
 	<cfargument name="collection_object_id" required="yes">
-	<cftransaction>
+	<cftry>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from bulkloader where collection_object_id=#collection_object_id#
 		</cfquery>
-	</cftransaction>
-	<cfquery name="next" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select #collection_object_id# oldValue, max(collection_object_id) nextValue from bulkloader
-		where enteredby = '#session.username#'
-	</cfquery>
-	<cfreturn next>
+	<cfcatch>
+		<cfreturn 'Failure deleting record: #cfcatch.message#'>
+	</cfcatch>
+	</cftry>
+	<cfreturn />
 </cffunction>
 
 <!----------------------------------------------------------------------------------------->
