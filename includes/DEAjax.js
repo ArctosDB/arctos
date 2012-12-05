@@ -1754,7 +1754,7 @@ function cleanup () {
 
 	var missingData = "";
 	$(".reqdClr:visible").each(function() {
-	    console.log(this.id + ' is required....')
+	    //console.log(this.id + ' is required....')
 	    if ($("#" + this.id).val().length==0){
 	    	missingData = missingData + "\n" + this.id;
 	    	$("#" + this.id).addClass('hasProbs');
