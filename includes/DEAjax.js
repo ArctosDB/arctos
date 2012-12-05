@@ -39,30 +39,37 @@ function saveEditedRecord () {
 				var status=r.DATA.RSLT[0];
 				console.log('saveEditedRecord back with msg ' + status);
 				$("#loadedMsgDiv").text(status);
-				highlightErrors();
+				loadedEditRecord();
 			}
 		);
 	}
 }
 
-function highlightErrors(){
+function loadedEditRecord(){
 	// show errors and set the form up to deal with them if necessary
 	// used by saveEditedRecord and loadRecordEdit
 	// this function is NOT suitable for enter mode calls
-	console.log('highlightErrors');
+	console.log('loadedEditRecord');
 	if ($("#collection_object_id").val()<500){
 		// one of the templates
-		var loadedMsg='';
-	} else {
-		var loadedMsg=$.trim($("#loadedMsgDiv").text());
-		console.log(loadedMsg);
-	}
+		//var loadedMsg='';
+		alert('edit template - bad');
+		return false;
+	} 
+	
+	
+	var loadedMsg=$.trim($("#loadedMsgDiv").text());
+	console.log(loadedMsg);
+	
+	
+	$("#selectbrowse").val($(".collection_object_id").val());
+	
 	
 	$(".hasProbs").removeClass();
 	
 	console.log('loadedMsg='+loadedMsg);
 	if(loadedMsg){
-		console.log('highlightErrors+loadedMsg='+loadedMsg);
+		console.log('loadedEditRecord+loadedMsg='+loadedMsg);
 		$("#loadedMsgDiv").show();
 		var prob_array = loadedMsg.split(" ");
 		for (var loop=0; loop < prob_array.length; loop++) {
@@ -83,27 +90,64 @@ function highlightErrors(){
 			}
 		}
 		// don't let them leave until this is fixed
-		$("#editMode").hide(); // Clone This Record
 		$("#theTable").removeClass().addClass('isBadEdit');
+		$("#editMode").hide(); // Clone This Record
+		
+		
 		// ?? $("#pageTitle").show();
 		if ($("#ImAGod").val() != "yes"){
 			// let "god" users browse; force non-god users to fix their stuff
 			$("#browseThingy").hide();
 		}
 		
+		$("#customizeForm").hide(); //Save This As A New Record
+		$("#theNewButton").hide(); //Save This As A New Record
+		$("#theSaveButton").show(); // Save Edits/Delete Record
+		$("#enterMode").hide(); // Edit Last Record
+		
+		
 		
 		msg('record loaded - failed checks','good');
 	} else {
-		
-		$("#browseThingy").show();
-		$("#editMode").show(); // Clone This Record
 		$("#theTable").removeClass().addClass('isGoodEdit');
-		// ?? $("#pageTitle").hide();	
+		$("#editMode").show(); // Clone This Record
+		$("#browseThingy").show();
+		if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
+			$("#nBrowse").hide();
+		} else {
+			$("#nBrowse").show();
+		}
+		if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
+			$("#pBrowse").hide();
+		} else {
+			$("#pBrowse").show();
+		}
 		
+		$("#customizeForm").show(); 
+		// ?? $("#pageTitle").hide();	
+		$("#theNewButton").show(); //Save This As A New Record
+		$("#theSaveButton").hide(); // Save Edits/Delete Record
+		$("#enterMode").show(); // Edit Last Record
 		
 		$("#loadedMsgDiv").hide();
 		msg('record loaded - passed checks','good');
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	//changeMode($("#action").val());
+	
+	
+	
+	
+	
+	
+	
 }
 
 
@@ -174,7 +218,12 @@ function loadRecordEdit (collection_object_id) {
 				if($("#collection_cde").val()=='ES') {
 					$("#geolCell").show();
 				}
-				$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
+				
+				switchActive($("#orig_lat_long_units").val());
+				
+				
+				//$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
+				/*
 				$("#pBrowse").show();
 				$("#nBrowse").show();
 				if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
@@ -183,7 +232,9 @@ function loadRecordEdit (collection_object_id) {
 				if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
 					$("#pBrowse").hide();
 				}
-				switchActive($("#orig_lat_long_units").val());
+				
+				
+				
 				
 				//changeMode($("#action").val());
 				
@@ -192,7 +243,6 @@ function loadRecordEdit (collection_object_id) {
 				$("#theSaveButton").show(); // Save Edits/Delete Record
 				$("#enterMode").hide(); // Edit Last Record
 				
-				/*
 				if($("#loadedMsgDiv").text.length>0 && $("#loadedMsgDiv").text() != 'waiting approval'){
 					// don't let them leave until this is fixed
 					console.log('is bad edit - loaded=' + $("#loadedMsgDiv").text());
@@ -211,7 +261,7 @@ function loadRecordEdit (collection_object_id) {
 					$("#pageTitle").hide();	
 				}
 				*/
-				highlightErrors();
+				loadedEditRecord();
 				
 			});
 			
