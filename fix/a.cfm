@@ -21,8 +21,17 @@ div#endants-main-content
 border:1px solid red;
 
 }
+
+
+.fullwidth {
+	border:3px solid black;
+}
 	</style>
 	<div id="endants-content">
 	    <div id="screenshot-preview">zcvzxcvcxzvzxvzxzxvzxvzxvzxcvz.</div>
 	    <div id="endants-main-content">zcvzxcvcxzvzxvzxzxvzxvzxvzxcvz</div>
+
+	    <div class="fullwidth">
+			this goes all the way across
+		</div>
 	</div>
