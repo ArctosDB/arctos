@@ -11,6 +11,8 @@ function loadRecord(collection_object_id){
 	}
 }
 function saveEditedRecord () {
+	// save edited - this happens only from edit and 
+	// returns only to edit
 	if (cleanup()) {
 		msg('saving....','bad');
 		$.getJSON("/component/Bulkloader.cfc",
@@ -23,17 +25,8 @@ function saveEditedRecord () {
 			function(r) {
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
 				var status=r.DATA.RSLT[0];
-				if (status) {
-					$("#loadedMsgDiv").text(status).show();
-					highlightErrors();
-					//changeMode('edit');
-					msg(status,'err');
-				} else {
-					$("#loadedMsgDiv").text('').hide();
-					$("#collection_object_id").val(coid);
-					msg('updated ' + coid,'good');
-					//changeMode('edit');
-				}
+				$("#loadedMsgDiv").text(status);
+				highlightErrors();
 			}
 		);
 	}
@@ -339,9 +332,10 @@ function highlightErrors(){
 				}
 			}
 		}
-		
+		$("#theTable").removeClass().addClass('isBadEdit');
 	} else {
 		$("#loadedMsgDiv").hide();
+		$("#theTable").removeClass().addClass('isGoodEdit');
 	}
 }
 
