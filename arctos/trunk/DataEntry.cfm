@@ -215,7 +215,7 @@
 						<tr>
 							<td class="valigntop">
 								<label for="institution_acronym">Inst</label>
-								<input type="text" readonly="readonly" class="readClr" name="institution_acronym" id="institution_acronym" size="4">:
+								<input type="text" readonly="readonly" class="readClr" name="institution_acronym" id="institution_acronym" size="4">
 							</td>
 							<td class="valigntop">
 								<label for="collection_cde">CCDE</label>
