@@ -653,6 +653,7 @@ function setPagePrefs(){
 	msg('setting customizations.....','bad');
 	console.log('setPagePrefs');
 	var mode=$("#action").val();
+	console.log('mode='+mode);
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "getPrefs",
