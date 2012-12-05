@@ -1499,8 +1499,14 @@ function changeSex(sex) {
 		}
 	}
 }
+
+
+
+	
+	
+	
 function switchActive(OrigUnits) {
-	 if (typeof(OrigUnits) === 'undefined') {
+	 if (OrigUnits!==null) {
 		 OrigUnits=$("#orig_lat_long_units").val();
 	 };
 	var a=document.getElementById('dms');
