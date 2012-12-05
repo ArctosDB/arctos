@@ -10,6 +10,18 @@ function loadRecord(collection_object_id){
 		alert('i have no idea what you want to do');
 	}
 }
+function setURL(){
+	
+	var theURL='/DataEntry.cfm?action=edit';
+	if ($("#ImAGod").val()=="yes"){
+		theURL+='&ImAGod=yes';
+	}
+	theURL+='&collection_object_id=' + $("#collection_object_id").val();
+	if (typeof window.history.pushState == 'function') {
+	  history.replaceState({}, 'DataEntry', theURL);
+	}
+	
+}
 function saveEditedRecord () {
 	// save edited - this happens only from edit and 
 	// returns only to edit
@@ -33,8 +45,10 @@ function saveEditedRecord () {
 	}
 }
 
-
 function highlightErrors(){
+	// show errors and set the form up to deal with them if necessary
+	// used by saveEditedRecord and loadRecordEdit
+	// this function is NOT suitable for enter mode calls
 	console.log('highlightErrors');
 	if ($("#collection_object_id").val()<500){
 		// one of the templates
@@ -66,12 +80,27 @@ function highlightErrors(){
 				}
 			}
 		}
+		// don't let them leave until this is fixed
+		$("#editMode").hide(); // Clone This Record
 		$("#theTable").removeClass().addClass('isBadEdit');
+		// ?? $("#pageTitle").show();
+		if ($("#ImAGod").val() != "yes"){
+			// let "god" users browse; force non-god users to fix their stuff
+			$("#browseThingy").hide();
+		}
+		
+		
 		msg('record loaded - failed checks','good');
 	} else {
-		$("#loadedMsgDiv").hide();
+		
+		$("#browseThingy").show();
+		$("#editMode").show(); // Clone This Record
 		$("#theTable").removeClass().addClass('isGoodEdit');
-		msg('record loaded - pass checks','good');
+		// ?? $("#pageTitle").hide();	
+		
+		
+		$("#loadedMsgDiv").hide();
+		msg('record loaded - passed checks','good');
 	}
 }
 
@@ -161,7 +190,7 @@ function loadRecordEdit (collection_object_id) {
 				$("#theSaveButton").show(); // Save Edits/Delete Record
 				$("#enterMode").hide(); // Edit Last Record
 				
-				
+				/*
 				if($("#loadedMsgDiv").text.length>0 && $("#loadedMsgDiv").text() != 'waiting approval'){
 					// don't let them leave until this is fixed
 					console.log('is bad edit - loaded=' + $("#loadedMsgDiv").text());
@@ -179,22 +208,14 @@ function loadRecordEdit (collection_object_id) {
 					$("#theTable").removeClass().addClass('isGoodEdit');
 					$("#pageTitle").hide();	
 				}
+				*/
+				highlightErrors();
 				
-				
-				
-				msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded for edit','good');
 			});
 			
 		}
 	);
-	var theURL='/DataEntry.cfm?action=edit';
-	if ($("#ImAGod").val()=="yes"){
-		theURL+='&ImAGod=yes';
-	}
-	theURL+='&collection_object_id=' + $("#collection_object_id").val();
-	if (typeof window.history.pushState == 'function') {
-	  history.replaceState({}, 'DataEntry', theURL);
-	}
+	setURL();
 }
 
 
