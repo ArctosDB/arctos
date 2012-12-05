@@ -277,6 +277,7 @@ function loadRecordEdit (collection_object_id) {
 	msg('fetching data....','bad');
 	$.ajax({
 	    url: "/component/Bulkloader.cfc",
+	    datatype: "json",
 	    data: {
 				method: "loadRecord",
 				collection_object_id : collection_object_id,
