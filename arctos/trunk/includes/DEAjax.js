@@ -134,7 +134,10 @@ function loadRecordEdit (collection_object_id) {
 					var eName=cName.toLowerCase();
 					$("#" + eName).val(cVal);
 				}
-				$("#loadedMsgDiv").text(r.DATA.LOADED[i]);
+				
+				
+				
+				$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
 				set_attribute_dropdowns();
 				// turn this thing on when necessary
 				if($("#collection_cde").val()=='ES') {
