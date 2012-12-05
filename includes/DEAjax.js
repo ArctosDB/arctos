@@ -2171,7 +2171,10 @@ function getAttributeStuff (attr,elem) {
 		 console.log('typeof attr === null=='+ attr);
 		 } 
 		 
-	
+	if (!attr) { 
+		console.log('!attr=='+ attr);
+
+		 }
 	 * */
 	 */
 	//
@@ -2188,10 +2191,7 @@ function getAttributeStuff (attr,elem) {
 		console.log('attr!==null=='+ attr);
 		}
 
-	if (!attr) { 
-		console.log('!attr=='+ attr);
-
-		 }
+	
 		
 	
 	console.log('made it through all checks - attr='+ attr);
