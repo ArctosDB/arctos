@@ -1397,7 +1397,7 @@ function cleanup () {
 	// may be populated by this function
 
 	
-	$(".reqdClr").each(function() {
+	$(".reqdClr:visible").each(function() {
 	    console.log(this.id + ' is required....')
 	});
 	
