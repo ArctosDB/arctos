@@ -314,62 +314,15 @@ function loadRecordEdit (collection_object_id) {
 					var eName=cName.toLowerCase();
 					$("#" + eName).val(cVal);
 				}
-				
-				
-				
 				$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
 				set_attribute_dropdowns();
 				// turn this thing on when necessary
 				if($("#collection_cde").val()=='ES') {
 					$("#geolCell").show();
 				}
-				
 				switchActive($("#orig_lat_long_units").val());
-				
-				
-				//$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
-				/*
-				$("#pBrowse").show();
-				$("#nBrowse").show();
-				if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
-					$("#nBrowse").hide();
-				}
-				if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
-					$("#pBrowse").hide();
-				}
-				
-				
-				
-				
-				//changeMode($("#action").val());
-				
-				$("#customizeForm").hide(); //Save This As A New Record
-				$("#theNewButton").hide(); //Save This As A New Record
-				$("#theSaveButton").show(); // Save Edits/Delete Record
-				$("#enterMode").hide(); // Edit Last Record
-				
-				if($("#loadedMsgDiv").text.length>0 && $("#loadedMsgDiv").text() != 'waiting approval'){
-					// don't let them leave until this is fixed
-					console.log('is bad edit - loaded=' + $("#loadedMsgDiv").text());
-					$("#editMode").hide(); // Clone This Record
-					$("#theTable").removeClass().addClass('isBadEdit');
-					$("#pageTitle").show();
-					if ($("#ImAGod").val() != "yes"){
-						// let "god" users browse; force non-god users to fix their stuff
-						$("#browseThingy").hide();
-					}
-					highlightErrors();
-				} else {
-					$("#browseThingy").show();
-					$("#editMode").show(); // Clone This Record
-					$("#theTable").removeClass().addClass('isGoodEdit');
-					$("#pageTitle").hide();	
-				}
-				*/
 				loadedEditRecord();
-				
 			});
-			
 		}
 	);
 }
