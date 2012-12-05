@@ -674,16 +674,6 @@ function setPagePrefs(){
 					// visible and leave value alone
 					$("#d_" + eName).show();
 				}
-				console.log(eName);
-				console.log($("#" + eName).val());
-				console.log($("#" + eName).length);
-				console.log($("#" + eName).val());
-				if ($("#" + eName).length && $("#" + eName).val() && $("#" + eName).val().length){
-					console.log(eName + ' has a value - show it anyway....' + $("#" + eName).val());
-					$("#d_" + eName).show();
-					
-					
-				}
 			}
 			setNewRecDefaults();
 			msg('template loaded - enter data','good');
