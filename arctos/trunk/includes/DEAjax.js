@@ -655,6 +655,7 @@ function setPagePrefs(){
 	var mode=$("#action").val();
 	console.log('mode='+mode);
 	if (mode=='edit'){
+		msg('edit mode','good');
 		return;		
 	}
 	console.log('made it past return');
