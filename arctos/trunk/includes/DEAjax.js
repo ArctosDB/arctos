@@ -12,6 +12,7 @@ function deleteThisRec () {
 				returnformat : "plain"
 			},
 			function(r) {
+				console.log(r);
 				if(r.length>0){
 					alert(r);
 					msg(r,'good');
