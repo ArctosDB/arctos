@@ -1,4 +1,6 @@
 function loadRecord(collection_object_id){
+	console.log('loadRecord');
+
 	// figure out if we're trying to enter or edit and call the appropriate function
 	if($("#action").val()=='enter') {
 		loadRecordEnter(collection_object_id);
@@ -8,6 +10,8 @@ function loadRecord(collection_object_id){
 		alert('i have no idea what you want to do');
 	}
 }
+//load a record in EDIT mode
+
 function loadRecordEdit (collection_object_id) {
 	console.log('loadRecordEdit');
 	msg('fetching data....','bad');
@@ -268,10 +272,7 @@ function editLast() {
 		);
 	}
 }
-// load a record in EDIT mode
-function loadRecordEdit(collection_object_id){
-	
-}
+
 
 // fetch a record into a local JSON object
 function fetchRecord (collection_object_id) {
