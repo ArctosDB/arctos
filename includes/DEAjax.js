@@ -26,13 +26,56 @@ function saveEditedRecord () {
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
 				var status=r.DATA.RSLT[0];
 				console.log('saveEditedRecord back with msg ' + status);
-				$("#loadedMsgDiv").show(); // TEST
 				$("#loadedMsgDiv").text(status);
 				highlightErrors();
 			}
 		);
 	}
 }
+
+
+function highlightErrors(){
+	console.log('highlightErrors');
+	if ($("#collection_object_id").val()<500){
+		// one of the templates
+		var loadedMsg='';
+	} else {
+		var loadedMsg=$.trim($("#loadedMsgDiv").text());
+		console.log(loadedMsg);
+	}
+	
+	$(".hasProbs").removeClass();
+	
+	//console.log('loadedMsg='+loadedMsg);
+	if(loadedMsg){
+		console.log('+loadedMsg='+loadedMsg);
+		$("#loadedMsgDiv").text(loadedMsg).show();
+		var prob_array = loadedMsg.split(" ");
+		for (var loop=0; loop < prob_array.length; loop++) {
+			var thisSlice = prob_array[loop];
+			//console.log('thisSlice='+thisSlice);
+			var hasSpace = thisSlice.indexOf(" ");
+			if (hasSpace == -1) {
+				//console.log('trying....');
+				try {
+					var theField = document.getElementById(thisSlice.toLowerCase());
+					theField.addClass('hasProbs');
+				}
+				catch ( err ){// nothing, just ignore 
+					//console.log('caught: ' + err);
+				}
+			}
+		}
+		$("#theTable").removeClass().addClass('isBadEdit');
+		msg('record loaded - failed checks','good');
+	} else {
+		$("#loadedMsgDiv").hide();
+		$("#theTable").removeClass().addClass('isGoodEdit');
+		msg('record loaded - pass checks','good');
+	}
+}
+
+
 function loadRecordEdit (collection_object_id) {
 	//load a record in EDIT mode
 	console.log('loadRecordEdit');
@@ -302,46 +345,6 @@ function editLast() {
 	}
 }
 
-function highlightErrors(){
-	console.log('highlightErrors');
-	if ($("#collection_object_id").val()<500){
-		// one of the templates
-		var loadedMsg='';
-	} else {
-		var loadedMsg=$("#loaded").val();
-		console.log(loadedMsg);
-	}
-	
-	$(".hasProbs").removeClass();
-	
-	//console.log('loadedMsg='+loadedMsg);
-	if(loadedMsg){
-		console.log('+loadedMsg='+loadedMsg);
-		$("#loadedMsgDiv").text(loadedMsg).show();
-		var prob_array = loadedMsg.split(" ");
-		for (var loop=0; loop < prob_array.length; loop++) {
-			var thisSlice = prob_array[loop];
-			//console.log('thisSlice='+thisSlice);
-			var hasSpace = thisSlice.indexOf(" ");
-			if (hasSpace == -1) {
-				//console.log('trying....');
-				try {
-					var theField = document.getElementById(thisSlice.toLowerCase());
-					theField.addClass('hasProbs');
-				}
-				catch ( err ){// nothing, just ignore 
-					//console.log('caught: ' + err);
-				}
-			}
-		}
-		$("#theTable").removeClass().addClass('isBadEdit');
-		msg('record loaded - failed checks','good');
-	} else {
-		$("#loadedMsgDiv").hide();
-		$("#theTable").removeClass().addClass('isGoodEdit');
-		msg('record loaded - pass checks','good');
-	}
-}
 
 
 
