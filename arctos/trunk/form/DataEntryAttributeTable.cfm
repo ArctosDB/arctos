@@ -107,7 +107,7 @@
 					<td>
 						<label for="attribute_date_1">Det.Date</label>
 						<!--- attribute_date_2 is at the other end of the table ---->
-						<input type="text" name="attribute_date_1" id="attribute_date_1" size="10">
+						<input type="text" name="attribute_date_1" id="attribute_date_1" size="10" class="reqdClr">
 					</td>
 					<td>
 						<label for="attribute_date_1">Determiner</label>
@@ -115,6 +115,7 @@
 						<input type="text" name="attribute_determiner_1" id="attribute_determiner_1"
 							onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 							onkeypress="return noenter(event);"
+							class="reqdClr"
 							onchange="autocopyAttDetr();">
 					</td>
 				</tr>
@@ -234,11 +235,11 @@
 					</td>
 					<td>
 						<label for="attribute_date_1">Attr.Date</label>
-						<input type="text" name="attribute_date_1" id="attribute_date_1" size="10">
+						<input type="text" name="attribute_date_1" id="attribute_date_1" class="reqdClr" size="10">
 					</td>
 					<td>
 						<label for="attribute_determiner_1">Determiner</label>
-						<input type="text"
+						<input type="text" class="reqdClr"
 							name="attribute_determiner_1"
 							id="attribute_determiner_1"
 							onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
