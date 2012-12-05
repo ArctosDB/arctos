@@ -285,6 +285,64 @@ function loadRecordEdit (collection_object_id) {
 		},
 			success: function( result ){
 				console.log('success_loadRecordEdit' +  result);
+				
+				
+				if (r.ROWCOUNT==0){
+					alert('record not found');
+					return false;
+				}
+				var columns=r.COLUMNS;
+				var ccde=r.DATA.COLLECTION_CDE[0];
+				var useCustom=true;
+				var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
+				var tab=document.getElementById('attributeTableCell');
+				
+				// switch in attributes based on collection and whether 
+				// or not hard-coded attributes jive with the data
+				// these are hard-coded in /form/DataEntryAttributeTable.cfm
+				// make sure to coordinate any changes
+				if (ccde=='Mamm'){
+					if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
+						(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length') || +
+						(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length') || +
+						(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw') || +
+						(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch') || +
+						(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ){
+						useCustom=false;
+					}
+				}
+				if (ccde=='Bird'){
+					if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
+						(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age') || +
+						(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition') || +
+						(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'molt condition') || +
+						(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification') || +
+						(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ) {
+						useCustom=false;
+					}
+				}
+				if (useCustom==false) {
+					ptl+='&useCustom=false';				
+				}
+				jQuery.get(ptl, function(data){
+					jQuery(tab).html(data);
+					for (i=0;i<columns.length;i++) {
+						var cName=columns[i];
+						var cVal=eval("r.DATA." + columns[i]);
+						var eName=cName.toLowerCase();
+						$("#" + eName).val(cVal);
+					}
+					$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
+					set_attribute_dropdowns();
+					// turn this thing on when necessary
+					if($("#collection_cde").val()=='ES') {
+						$("#geolCell").show();
+					}
+					switchActive($("#orig_lat_long_units").val());
+					loadedEditRecord();
+				});
+				
+				
 			},
 			error: function( result, strError ){
 				console.log('fail_loadRecordEdit' +  result);
@@ -309,60 +367,7 @@ function loadRecordEdit (collection_object_id) {
 			return false;
 			
 			
-			if (r.ROWCOUNT==0){
-				alert('record not found');
-				return false;
-			}
-			var columns=r.COLUMNS;
-			var ccde=r.DATA.COLLECTION_CDE[0];
-			var useCustom=true;
-			var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
-			var tab=document.getElementById('attributeTableCell');
 			
-			// switch in attributes based on collection and whether 
-			// or not hard-coded attributes jive with the data
-			// these are hard-coded in /form/DataEntryAttributeTable.cfm
-			// make sure to coordinate any changes
-			if (ccde=='Mamm'){
-				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
-					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length') || +
-					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length') || +
-					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw') || +
-					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch') || +
-					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ){
-					useCustom=false;
-				}
-			}
-			if (ccde=='Bird'){
-				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
-					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age') || +
-					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition') || +
-					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'molt condition') || +
-					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification') || +
-					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ) {
-					useCustom=false;
-				}
-			}
-			if (useCustom==false) {
-				ptl+='&useCustom=false';				
-			}
-			jQuery.get(ptl, function(data){
-				jQuery(tab).html(data);
-				for (i=0;i<columns.length;i++) {
-					var cName=columns[i];
-					var cVal=eval("r.DATA." + columns[i]);
-					var eName=cName.toLowerCase();
-					$("#" + eName).val(cVal);
-				}
-				$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
-				set_attribute_dropdowns();
-				// turn this thing on when necessary
-				if($("#collection_cde").val()=='ES') {
-					$("#geolCell").show();
-				}
-				switchActive($("#orig_lat_long_units").val());
-				loadedEditRecord();
-			});
 		}
 	);
 	*/
