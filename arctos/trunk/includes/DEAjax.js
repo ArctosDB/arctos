@@ -651,6 +651,7 @@ function createClone() {
 }
 function setPagePrefs(){
 	msg('setting customizations.....','bad');
+	console.log('setPagePrefs');
 	var mode=$("#action").val();
 	$.getJSON("/component/Bulkloader.cfc",
 		{
