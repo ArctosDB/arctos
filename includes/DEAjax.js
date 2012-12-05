@@ -151,8 +151,9 @@ function loadedEditRecord(){
 	var loadedMsg=$.trim($("#loadedMsgDiv").text());
 	console.log('loadedMsg='+loadedMsg);
 	
-	console.log('collection_object_id='+$(".collection_object_id").val());
-	$("#selectbrowse").val($(".collection_object_id").val());
+	console.log('collection_object_id='+$("#collection_object_id").val());
+	
+	$("#selectbrowse").val($("#collection_object_id").val());
 	
 	
 	$(".hasProbs").removeClass();
