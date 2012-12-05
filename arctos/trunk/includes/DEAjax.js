@@ -25,7 +25,7 @@ function editLast() {
 
 function changeMode (mode) {
 	
-	console.log($("#collection_object_id").val());
+	console.log('changemode - mode=' + mode + ' id=' + $("#collection_object_id").val());
 	if ($("#collection_object_id").val()<500){
 		// one of the templates
 		var status='';
@@ -40,10 +40,10 @@ function changeMode (mode) {
 	
 	
 	//console.log('status='+status);
-	if(status){
+	//if(status){
 		// got an error - force them to fix it
-		mode='edit';
-	}
+	//	mode='edit';
+	//}
 	
 	if (mode == 'edit') {
 		$("#customizeForm").hide(); //Save This As A New Record
@@ -194,11 +194,6 @@ function loadRecord (collection_object_id) {
 					$("#enteredby").val($("#sessionusername").val());
 				}
 				set_attribute_dropdowns();
-				highlightErrors();
-				
-				
-				
-				
 				// turn this thing on when necessary
 				if($("#collection_cde").val()=='ES') {
 					$("#geolCell").show();
@@ -647,7 +642,7 @@ function UAMInvDefault() {
 	});
 }
 function createClone() {
-	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
+	yesChange = window.confirm('You will lose any unsaved changes. \nCustomize Form and set carry if you seem to be losing information.\nContinue?');
 	if (yesChange == true) {
 		changeMode('enter');
 		// because it's possible to clone other users' records
