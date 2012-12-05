@@ -674,7 +674,8 @@ function setPagePrefs(){
 					// visible and leave value alone
 					$("#d_" + eName).show();
 				}
-				if ($("#" + eName && $("#" + eName).val().length>0){
+				console.log(eName);
+				if ($("#" + eName) && $("#" + eName).val().length>0){
 					console.log(eName + ' has a value - show it anyway....' + $("#" + eName).val());
 					$("#d_" + eName).show();
 					
