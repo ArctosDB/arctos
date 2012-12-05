@@ -279,6 +279,10 @@ function loadRecordEdit (collection_object_id) {
 		},
 		function(r) {
 			console.log('back');
+			
+			return false;
+			
+			
 			if (r.ROWCOUNT==0){
 				alert('record not found');
 				return false;
