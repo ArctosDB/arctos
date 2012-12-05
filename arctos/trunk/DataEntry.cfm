@@ -214,11 +214,11 @@
 						<tr>
 							<td class="valigntop">
 								<label for="institution_acronym">Inst</label>
-								<input type="text" reaonly="readonly" name="institution_acronym" id="institution_acronym" size="4">:
+								<input type="text" readonly="readonly" class="readClr" name="institution_acronym" id="institution_acronym" size="4">:
 							</td>
 							<td class="valigntop">
 								<label for="collection_cde">CCDE</label>
-								<input type="text" reaonly="readonly"  name="collection_cde" id="collection_cde" size="4">
+								<input type="text" readonly="readonly" class="readClr" name="collection_cde" id="collection_cde" size="4">
 							</td>
 							<td class="valigntop">
 								<label for="cat_num">Cat##</label>
@@ -410,8 +410,7 @@
 						</td>
 						<td>
 							<span class="f11a">Status</span>
-									<input type="text" name="loaded" size="80" id="loaded" readonly="readonly" value="waiting approval">
-
+							<input type="text" name="loaded" size="80" id="loaded" readonly="readonly" class="readClr" value="waiting approval">
 						</td>
 					</tr>
 				</table><!------- /remarkey stuff --->
