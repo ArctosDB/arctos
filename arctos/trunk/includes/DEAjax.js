@@ -164,7 +164,7 @@ function loadRecord (collection_object_id) {
 					var loadedMsg=r.DATA.LOADED[0];
 				}
 				
-				
+				$(".hasProbs").removeClass();
 				
 				//console.log('loadedMsg='+loadedMsg);
 				if(loadedMsg){
@@ -188,7 +188,6 @@ function loadRecord (collection_object_id) {
 					}
 					
 				} else {
-					$(".hasProbs").removeClass();
 					$("#loadedMsgDiv").hide();
 				}
 				
