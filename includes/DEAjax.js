@@ -676,7 +676,7 @@ function setPagePrefs(){
 				}
 				console.log(eName);
 				console.log($("#" + eName).val());
-				
+				console.log($("#" + eName).length);
 				if ($("#" + eName).length && $("#" + eName).val().length){
 					console.log(eName + ' has a value - show it anyway....' + $("#" + eName).val());
 					$("#d_" + eName).show();
