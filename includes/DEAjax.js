@@ -1,3 +1,35 @@
+function deleteThisRec () {
+	// only available from edit mode
+	
+	yesDelete = window.confirm('Are you sure you want to delete this record?');
+	if (yesDelete == true) {
+		msg('deleting record....','bad');
+		$.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "deleteRecord",
+				collection_object_id : $("#collection_object_id").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				var o=r.DATA.OLDVALUE[0];
+				var n=r.DATA.NEXTVALUE[0];
+				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
+				$("#selectbrowse option[value=" + o + "]").remove();
+				if(n){
+					msg('loading previous record....','bad');
+					loadRecordEdit(n);
+				} else {
+					alert('Error loading previous - aborting.');
+					msg('no record found','good');
+					return false;
+				}
+			}
+		);
+	}
+}
+
+
 function DEpartLookup(id){
 	var val=$("#" + id).val();
 	var ccde=$("#collection_cde").val();
@@ -443,28 +475,6 @@ function loadRecordEnter(collection_object_id){
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function editLast() {
 	//find the last record entered by the current user and load it for edit
 	yesChange = window.confirm('You will lose any unsaved changes to this record. Continue?');
@@ -482,9 +492,6 @@ function editLast() {
 		);
 	}
 }
-
-
-
 
 //open up the accession pick with data entry values
 function getDEAccn() {
@@ -779,33 +786,7 @@ function loadRecordDISABLE (collection_object_id) {
 
 
 
-function deleteThisRec () {
-	yesDelete = window.confirm('Are you sure you want to delete this record?');
-	if (yesDelete == true) {
-		msg('deleting record....','bad');
-		$.getJSON("/component/Bulkloader.cfc",
-			{
-				method : "deleteRecord",
-				collection_object_id : $("#collection_object_id").val(),
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function(r) {
-				var o=r.DATA.OLDVALUE[0];
-				var n=r.DATA.NEXTVALUE[0];
-				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
-				$("#selectbrowse option[value=" + o + "]").remove();
-				if(n){
-					msg('loading previous record....','bad');
-					loadRecord(n);
-				} else {
-					alert('No other records found. Click OK to return to the start page.');
-					document.location=document.location;
-				}
-			}
-		);
-	}
-}
+
 
 
 function editThis(){
