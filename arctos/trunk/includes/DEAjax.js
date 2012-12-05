@@ -335,9 +335,11 @@ function highlightErrors(){
 			}
 		}
 		$("#theTable").removeClass().addClass('isBadEdit');
+		msg('record loaded - failed checks','good');
 	} else {
 		$("#loadedMsgDiv").hide();
 		$("#theTable").removeClass().addClass('isGoodEdit');
+		msg('record loaded - pass checks','good');
 	}
 }
 
