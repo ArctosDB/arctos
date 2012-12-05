@@ -149,9 +149,9 @@ function loadedEditRecord(){
 	$("div[id^='d_']").show();
 	
 	var loadedMsg=$.trim($("#loadedMsgDiv").text());
-	console.log(loadedMsg);
+	console.log('loadedMsg='+loadedMsg);
 	
-	
+	console.log('collection_object_id='+$(".collection_object_id").val());
 	$("#selectbrowse").val($(".collection_object_id").val());
 	
 	
