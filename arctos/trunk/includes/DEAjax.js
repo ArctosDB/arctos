@@ -159,26 +159,17 @@ function loadedEditRecord(){
 		alert('edit template - bad');
 		return false;
 	} 
-	
 	// make sure everything is on - override any user customizations	
 	$("div[id^='d_']").show();
-	
 	var loadedMsg=$.trim($("#loadedMsgDiv").text());
 	console.log('loadedMsg='+loadedMsg);
-	
 	console.log('collection_object_id='+$("#collection_object_id").val());
-	
-	$("#selectbrowse").val($("#collection_object_id").val());
-	
-	
+	$("#selectbrowse").val($("#collection_object_id").val());	
 	$(".hasProbs").removeClass();
-	
 	console.log('loadedMsg='+loadedMsg);
-	
 	// make sure loaded isn't NULL for some reason
 	// this form cannot be used to set records to load
 	// just stop that and document if necessary
-	
 	if ($("#loaded").val().length==0){
 		$("#loaded").val('waiting approval');
 	}
@@ -206,20 +197,13 @@ function loadedEditRecord(){
 		// don't let them leave until this is fixed
 		$("#theTable").removeClass().addClass('isBadEdit');
 		$("#editMode").hide(); // Clone This Record
-		
-		
 		// ?? $("#pageTitle").show();
 		if ($("#ImAGod").val() != "yes"){
 			// let "god" users browse; force non-god users to fix their stuff
 			$("#browseThingy").hide();
 		}
-		
 		$("#customizeForm").hide(); //Save This As A New Record
 		$("#theSaveButton").show(); // Save Edits/Delete Record
-		
-		
-		
-		
 		msg('record loaded - failed checks','good');
 	} else {
 		$("#theTable").removeClass().addClass('isGoodEdit');
@@ -245,16 +229,10 @@ function loadedEditRecord(){
 		$("#loadedMsgDiv").hide();
 		msg('record loaded - passed checks','good');
 	}
-	
-	
-	
 	// this is always off in edit mode
 	$("#enterMode").hide(); // Edit Last Record
 	$("#theNewButton").hide();
-	
-	
 	//changeMode($("#action").val());
-	
 	// set up edit URL
 	var theURL='/DataEntry.cfm?action=edit';
 	if ($("#ImAGod").val()=="yes"){
@@ -264,17 +242,6 @@ function loadedEditRecord(){
 	if (typeof window.history.pushState == 'function') {
 	  history.replaceState({}, 'DataEntry', theURL);
 	}
-	
-	
-	
-	
-	
-}
-function success_loadRecordEdit(data){
-	console.log('success_loadRecordEdit');
-}
-function fail_loadRecordEdit(data){
-	console.log('fail_loadRecordEdit');
 }
 
 function loadRecordEdit (collection_object_id) {
@@ -316,6 +283,7 @@ function loadRecordEdit (collection_object_id) {
 					}
 				}
 				if (ccde=='Bird'){
+					console.log('is bird....');
 					if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
 						(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age') || +
 						(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition') || +
@@ -323,6 +291,13 @@ function loadRecordEdit (collection_object_id) {
 						(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification') || +
 						(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ) {
 						useCustom=false;
+						console.log('failed attribute check....');
+						cnosole.log('a1==sex--' + r.DATA.ATTRIBUTE_1);
+						cnosole.log('a2==age--' + r.DATA.ATTRIBUTE_2);
+						cnosole.log('a3==fat deposition--' + r.DATA.ATTRIBUTE_3);
+						cnosole.log('a4==molt condition--' + r.DATA.ATTRIBUTE_4);
+						cnosole.log('a5==skull ossification--' + r.DATA.ATTRIBUTE_5);
+						cnosole.log('a6==weight--' + r.DATA.ATTRIBUTE_6);
 					}
 				}
 				if (useCustom==false) {
