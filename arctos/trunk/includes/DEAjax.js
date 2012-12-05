@@ -1368,7 +1368,7 @@ function changeCollection(v){
 function requirePartAtts(i,v){
 	
 	for (i=1;i<=12;i++){
-		if ($("#part_name_" + i) && $("#part_name_" + i).val().length>0{
+		if ($("#part_name_" + i) && $("#part_name_" + i).val().length>0){
 			$("#part_condition_" + i).addClass(reqdClr);
 			$("#part_lot_count_" + i).addClass(reqdClr);
 			$("#part_disposition_" + i).addClass(reqdClr);
