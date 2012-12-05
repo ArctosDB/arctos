@@ -27,58 +27,58 @@ $(function(){ //DOM Ready
 				<table border="1">
 					<tr>
 						<td>
-							<div style="border:2px solid red; height:200px;width:400px;">i am div</div>
+							<div style="border:2px solid red; height:200px;width:400px;">i am div 1-1</div>
 						</td>
 					</tr>
 
 				</table>
 			</li>
-	        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+	        <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 				<table border="1">
 						<tr>
 							<td>
-								<div style="border:2px solid red; height:200px;width:400px;">i am div</div>
+								<div style="border:2px solid red; height:200px;width:400px;">i am div1-2</div>
 							</td>
 						</tr>
 
 					</table>
 			</li>
-			<li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
+			<li data-row="2" data-col="1" data-sizex="2" data-sizey="2">
 					<table border="1">
 						<tr>
 							<td>
-								<div style="border:2px solid red; height:200px;width:400px;">i am div</div>
+								<div style="border:2px solid red; height:200px;width:400px;">i am div2-1</div>
 							</td>
 						</tr>
 
 					</table>
 				</li>
-		        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+		        <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
 					<table border="1">
 							<tr>
 								<td>
-									<div style="border:2px solid red; height:200px;width:400px;">i am div</div>
+									<div style="border:2px solid red; height:200px;width:400px;">i am div2-2</div>
 								</td>
 							</tr>
 
 						</table>
 				</li>
 
-	<li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
+	<li data-row="3" data-col="1" data-sizex="2" data-sizey="2">
 					<table border="1">
 						<tr>
 							<td>
-								<div style="border:2px solid red; height:200px;width:400px;">i am div</div>
+								<div style="border:2px solid red; height:200px;width:400px;">i am div3-1</div>
 							</td>
 						</tr>
 
 					</table>
 				</li>
-		        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+		        <li data-row="3" data-col="2" data-sizex="1" data-sizey="1">
 					<table border="1">
 							<tr>
 								<td>
-									<div style="border:2px solid red; height:200px;width:400px;">i am div</div>
+									<div style="border:2px solid red; height:200px;width:400px;">i am div3-2</div>
 								</td>
 							</tr>
 
