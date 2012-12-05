@@ -107,9 +107,7 @@ this is default and it works
 																									<select name="orig_lat_long_units" id="orig_lat_long_units"
 																										onChange="switchActive(this.value);dataEntry.max_error_distance.focus();">
 																										<option value=""></option>
-																										<cfloop query="ctunits">
-																										  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
-																										</cfloop>
+
 																									</select>
 																								</td>
 																								<td valign="top">
@@ -135,9 +133,7 @@ this is default and it works
 																							<input type="text" name="max_error_distance" id="max_error_distance" size="10">
 																							<select name="max_error_units" size="1" id="max_error_units">
 																								<option value=""></option>
-																								<cfloop query="cterror">
-																								  <option value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
-																								</cfloop>
+
 																							</select>
 																						</td>
 																					</tr>
@@ -146,9 +142,7 @@ this is default and it works
 																						<td>
 																							<select name="datum" size="1" class="reqdClr" id="datum">
 																								<option value=""></option>
-																								<cfloop query="ctdatum">
-																									<option value="#datum#">#datum#</option>
-																								</cfloop>
+
 																							</select>
 																						</td>
 																					</tr>
@@ -164,9 +158,7 @@ this is default and it works
 																						<td align="right"><span class="f11a">Georeference Protocol</span></td>
 																						<td>
 																							<select name="georeference_protocol" size="1" class="reqdClr" style="width:130px" id="georeference_protocol">
-																								<cfloop query="ctgeoreference_protocol">
-																									<option value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
-																								</cfloop>
+
 																							</select>
 																						</td>
 																					</tr>
