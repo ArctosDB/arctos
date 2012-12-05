@@ -264,12 +264,32 @@ function loadedEditRecord(){
 	
 	
 }
-
+function success_loadRecordEdit(data){
+	console.log('success_loadRecordEdit');
+}
+function fail_loadRecordEdit(data){
+	console.log('fail_loadRecordEdit');
+}
 
 function loadRecordEdit (collection_object_id) {
 	//load a record in EDIT mode
 	console.log('loadRecordEdit');
 	msg('fetching data....','bad');
+	$.ajax({
+	    url: "/component/Bulkloader.cfc",
+	    method : "loadRecord",
+		collection_object_id : collection_object_id,
+		returnformat : "json",
+		queryformat : 'column'
+	    dataType: 'json',
+	    data: data,
+	    success: success_loadRecordEdit(data),
+	    error: fail_loadRecordEdit(data)
+	});
+	
+	
+	/*
+	
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "loadRecord",
@@ -339,6 +359,7 @@ function loadRecordEdit (collection_object_id) {
 			});
 		}
 	);
+	*/
 }
 
 
