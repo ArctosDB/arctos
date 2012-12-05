@@ -2161,9 +2161,9 @@ function set_attribute_dropdowns() {
 function getAttributeStuff (attr,elem) {
 	console.log('getAttributeStuff');
 	
-	if (typeof attr === null){
-		console.log('typeof attr === null=='+ attr);
-	} 
+	//if (typeof attr === null){
+	//	console.log('typeof attr === null=='+ attr);
+	//} 
 	
 	if (typeof attr !=== null){
 		console.log('typeof attr !=== null=='+ attr);
