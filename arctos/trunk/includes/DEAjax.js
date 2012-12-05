@@ -1,3 +1,98 @@
+function saveNewRecord () {
+	// tries to save whatever's in the screen to the bulkloader
+	// if success, just let them know it saved and move on to the next record
+	// if fail, force edit
+	// check that we've met all the restrictions imposed by collections, etc.
+	if (cleanup()) {
+		msg('saving....','bad');
+		$(".hasProbs").removeClass();
+		$.getJSON("/component/Bulkloader.cfc",
+			{
+				method : "saveNewRecord",
+				q : $("#dataEntry").serialize(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
+				var status=r.DATA.RSLT[0];
+				$("#collection_object_id").val(coid);
+				if (status){
+					msg(status,'err');
+					$("#loadedMsgDiv").text(status).show();
+					// dump the result into edit mode
+					loadedEditRecord();
+					//changeMode('edit');
+				} else {
+					msg('inserted ' + coid,'good');
+					var o='<option value="' + coid + '">' + coid + '</option>';
+					$("#selectbrowse").append(o);
+					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
+					// test/increment customID after successful save
+					$.getJSON("/component/Bulkloader.cfc",
+						{
+							method : "incrementCustomId",
+							cidType: $("#other_id_num_type_5").val(),
+							cidVal: $("#other_id_num_5").val(),
+							returnformat : "json",
+							queryformat : 'column'								
+						},
+						function(r) {
+							if (r!='') {
+								$("#other_id_num_5").val(r);
+							}
+						}
+					);
+					// reapple any customizations, etc.
+					setPagePrefs();
+				}
+			}
+		);
+	}
+}
+
+
+function setPagePrefs(){
+	// called only in enter data mode
+	msg('setting customizations.....','bad');
+	console.log('setPagePrefs');
+	var mode=$("#action").val();
+	console.log('mode='+mode);
+	if (mode=='edit'){
+		alert('bad call to setPagePrefs');
+		return false;
+	}
+	console.log('made it past return');
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "getPrefs",
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			var columns=r.COLUMNS;
+			for (i=0;i<columns.length;i++) {
+				var cName=columns[i];
+				var cVal=eval("r.DATA." + columns[i]);
+				var eName=cName.toLowerCase();
+				if (cVal==0){
+					$("#" + eName).val('');
+					$("#d_" + eName).hide();
+				} else if (cVal==1) {
+					// visible and clear
+					$("#" + eName).val('');
+					$("#d_" + eName).show();
+				} else {
+					// visible and leave value alone
+					$("#d_" + eName).show();
+				}
+			}
+			// stuff requested by collections
+			setNewRecDefaults();
+			msg('template loaded - enter data','good');
+		}
+	);
+}
 function loadRecord(collection_object_id){
 	console.log('loadRecord');
 
@@ -57,6 +152,8 @@ function loadedEditRecord(){
 		return false;
 	} 
 	
+	// make sure everything is on - override any user customizations	
+	$("div[id^='d_']").show();
 	
 	var loadedMsg=$.trim($("#loadedMsgDiv").text());
 	console.log(loadedMsg);
@@ -628,48 +725,7 @@ function createClone() {
 		$("#enteredby").val($("#sessionusername").val());
 	}	
 }
-function setPagePrefs(){
-	msg('setting customizations.....','bad');
-	console.log('setPagePrefs');
-	var mode=$("#action").val();
-	console.log('mode='+mode);
-	if (mode=='edit'){
-		msg('edit mode','good');
-		return;		
-	}
-	console.log('made it past return');
-	$.getJSON("/component/Bulkloader.cfc",
-		{
-			method : "getPrefs",
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function(r) {
-			var columns=r.COLUMNS;
-			for (i=0;i<columns.length;i++) {
-				var cName=columns[i];
-				var cVal=eval("r.DATA." + columns[i]);
-				var eName=cName.toLowerCase();
-				if (cVal==0){
-					
-					$("#" + eName).val('');
-					$("#d_" + eName).hide();
-					
-				} else if (cVal==1) {
-					// visible and clear
-					$("#" + eName).val('');
-					$("#d_" + eName).show();
-				} else {
-					// visible and leave value alone
-					$("#d_" + eName).show();
-				}
-			}
-			
-			setNewRecDefaults();
-			msg('template loaded - enter data','good');
-		}
-	);
-}
+
 function loadRecordDISABLE (collection_object_id) {
 	console.log('loadRecord');
 	msg('fetching data....','bad');
@@ -793,51 +849,7 @@ function deleteThisRec () {
 		);
 	}
 }
-function saveNewRecord () {
-	if (cleanup()) {
-		msg('saving....','bad');
-		$(".hasProbs").removeClass();
-		$.getJSON("/component/Bulkloader.cfc",
-			{
-				method : "saveNewRecord",
-				q : $("#dataEntry").serialize(),
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function(r) {
-				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
-				var status=r.DATA.RSLT[0];
-				$("#collection_object_id").val(coid);
-				if (status){
-					msg(status,'err');
-					$("#loadedMsgDiv").text(status).show();
-					changeMode('edit');
-				} else {
-					msg('inserted ' + coid,'good');
-					var o='<option value="' + coid + '">' + coid + '</option>';
-					$("#selectbrowse").append(o);
-					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
-					// test/increment customID after successful save
-					$.getJSON("/component/Bulkloader.cfc",
-						{
-							method : "incrementCustomId",
-							cidType: $("#other_id_num_type_5").val(),
-							cidVal: $("#other_id_num_5").val(),
-							returnformat : "json",
-							queryformat : 'column'								
-						},
-						function(r) {
-							if (r!='') {
-								$("#other_id_num_5").val(r);
-							}
-						}
-					);
-					setPagePrefs();
-				}
-			}
-		);
-	}
-}
+
 
 function editThis(){
 	yesChange = window.confirm('You will lose any unsaved changes. Continue?');

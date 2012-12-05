@@ -1017,8 +1017,7 @@
 				<tr>
 					<td width="16%">
 						<span id="theNewButton" style="display:none;">
-							<input type="button" value="Save This As A New Record" class="insBtn"
-								onclick="saveNewRecord();"/>
+							<input type="button" value="Save This As A New Record" class="insBtn" onclick="saveNewRecord();"/>
 						 </span>
 					</td>
 					<td width="16%">
