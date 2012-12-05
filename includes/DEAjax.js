@@ -90,9 +90,9 @@ function loadRecordEdit (collection_object_id) {
 				$("#enterMode").hide(); // Edit Last Record
 				
 				
-				if($("#loaded").length>0){
+				if($("#loaded").length>0 && $("#loaded").val() != 'waiting approval'){
 					// don't let them leave until this is fixed
-					//console.log('is bad edit');
+					console.log('is bad edit - loaded=' + $("#loaded").val());
 					$("#editMode").hide(); // Clone This Record
 					$("#theTable").removeClass().addClass('isBadEdit');
 					$("#pageTitle").show();
