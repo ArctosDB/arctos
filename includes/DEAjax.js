@@ -22,11 +22,11 @@ function deleteThisRec () {
 				}
 				console.log('deleted ' + collection_object_id);
 				var nextID=$('#selectbrowse option:selected').next().val();
-				if (nextID){
+				if (! nextID){
 					console.log('going for previous');
 					var nextID=$('#selectbrowse option:selected').prev().val();
-					if (nextID){
-						alert('Error loading new record - aborting.');
+					if (! nextID){
+						alert('Error loading new record. Select a new record in the dropdown, or close and re-open this form.');
 						msg('no record found','good');
 						return false;
 					}
