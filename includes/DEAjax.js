@@ -1,3 +1,14 @@
+function createClone() {
+	// available from edit mode
+	// uses the record in the window as a template for new data entry
+	yesChange = window.confirm('You will lose any unsaved changes. \nCustomize Form and set carry if you seem to be losing information.\nContinue?');
+	if (yesChange == true) {
+		//changeMode('enter');
+		// because it's possible to clone other users' records
+		//$("#enteredby").val($("#sessionusername").val());
+		loadRecordEnter($("#collection_object_id").val());
+	}	
+}
 function saveNewRecord () {
 	// tries to save whatever's in the screen to the bulkloader
 	// if success, just let them know it saved and move on to the next record
@@ -105,11 +116,7 @@ function loadRecord(collection_object_id){
 		alert('i have no idea what you want to do');
 	}
 }
-function setURL(){
-	
-	
-	
-}
+
 function saveEditedRecord () {
 	// save edited - this happens only from edit and 
 	// returns only to edit
