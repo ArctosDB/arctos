@@ -243,18 +243,25 @@
 											<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
 										</td>
 										<td class="nowrap valigntop">
-											<label for="accn">Accn</label><br>
-											<input type="text" name="accn" size="25" class="reqdClr" id="accn"
-												onchange="getDEAccn();">
+											<label for="accn">Accn</label>
+											<input type="text" name="accn" size="25" class="reqdClr" id="accn" onchange="getDEAccn();">
 											<span class="infoLink" onclick="getDEAccn();">[ pick ]</span>
 										</td>
 										<td class="nowrap valignmiddle">
 											<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
 											<br><span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
-													<br><span id="makeSortable" class="infoLink" onclick="makeSortable();">[ makeSortable ]</span>
-													<br><span id="killSortable" class="infoLink" onclick="killSortable();">[ killSortable ]</span>
-
-
+											<br><span id="makeSortable" class="infoLink" onclick="makeSortable();">[ makeSortable ]</span>
+											<br><span id="killSortable" class="infoLink" onclick="killSortable();">[ killSortable ]</span>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<label for="enteredby">Entered&nbsp;By</label>
+											<input type="text" readonly="readonly" name="enteredby" id="enteredby">
+										</td>
+										<td colspan="5">
+											<label for="loaded">Status</label>
+											<input type="text" name="loaded" size="80" id="loaded" readonly="readonly" class="readClr" value="waiting approval">
 										</td>
 									</tr>
 								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
@@ -379,12 +386,6 @@
 							<div class="item">
 								<div class="celltitle">Random Junk</div>
 								<table cellpadding="0" cellspacing="0" class="fs"><!--- random admin stuff ---->
-									<tr>
-										<td align="right"><span class="f11a">Entered&nbsp;By</span></td>
-										<td width="100%">
-											<input type="text" readonly="readonly" name="enteredby" id="enteredby">
-										</td>
-									</tr>
 									<tr id="d_relationship">
 										<td align="right"><span class="f11a">Relations</span></td>
 										<td>
@@ -428,10 +429,6 @@
 													<option value="#flags#">#flags#</option>
 												</cfloop>
 											</select>
-										</td>
-										<td>
-											<span class="f11a">Status</span>
-											<input type="text" name="loaded" size="80" id="loaded" readonly="readonly" class="readClr" value="waiting approval">
 										</td>
 									</tr>
 								</table><!------- /remarkey stuff --->
