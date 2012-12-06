@@ -42,7 +42,7 @@ jQuery(document).ready(function() {
         	  var sortR=$("#right-col").sortable('toArray');
               var sortL=$("#left-col").sortable('toArray');
               
-              console.log('sortR='+sortR.join()+' ; sortL=' + sortL.join());
+              //console.log('sortR='+sortR.join()+' ; sortL=' + sortL.join());
               $.getJSON("/component/Bulkloader.cfc",
 	      			{
 	      				method : "set_sort_order",
@@ -52,7 +52,7 @@ jQuery(document).ready(function() {
 	      				sort_rightcolumn: sortR.join()
 	      			},
 	      			function(r) {
-	      				console.log('r='+r);
+	      				//console.log('r='+r);
 	      			}
 	      		);
         }
@@ -101,20 +101,20 @@ function r(){
 				queryformat : 'column'
 			},
 			function(r) {
-				console.log('r='+r);
+				//console.log('r='+r);
 				if (r.DATA.SORT_LEFTCOLUMN[0]) {
     				var elAry = r.DATA.SORT_LEFTCOLUMN[0].split(",");
-    				console.log('elAry='+elAry);
+    				//console.log('elAry='+elAry);
     				for (var i=0;i<elAry.length; i++) {
-    					console.log('thisEl='+elAry[i]);
+    					//console.log('thisEl='+elAry[i]);
     					$('#left-col').append($("#" + elAry[i]));
     				}
 				}
 				if (r.DATA.SORT_RIGHTCOLUMN[0]) {
     				var elAry = r.DATA.SORT_RIGHTCOLUMN[0].split(",");
-    				console.log('elAry='+elAry);
+    				//console.log('elAry='+elAry);
     				for (var i=0;i<elAry.length; i++) {
-    					console.log('thisEl='+elAry[i]);
+    					//console.log('thisEl='+elAry[i]);
     					$('#right-col').append($("#" + elAry[i]));
     				}
 				}
@@ -124,15 +124,15 @@ function r(){
     function resetSort(){
     	// manually reset the form....
 			var elAry = 'sort_catitemid,sort_agent,sort_otherid,sort_identification,sort_attributes,sort_randomness'.split(",");
-			console.log('elAry='+elAry);
+			//console.log('elAry='+elAry);
 			for (var i=0;i<elAry.length; i++) {
-				console.log('thisEl='+elAry[i]);
+				//console.log('thisEl='+elAry[i]);
 				$('#left-col').append($("#" + elAry[i]));
 			}
 			var elAry = 'sort_specevent,sort_collevent,sort_locality,sort_coordinates,sort_geology,sort_parts'.split(",");
-			console.log('elAry='+elAry);
+			//console.log('elAry='+elAry);
 			for (var i=0;i<elAry.length; i++) {
-				console.log('thisEl='+elAry[i]);
+				//console.log('thisEl='+elAry[i]);
 				$('#right-col').append($("#" + elAry[i]));
 			}
     	// and update their DB record
@@ -145,7 +145,7 @@ function r(){
   				sort_rightcolumn: 'sort_specevent,sort_collevent,sort_locality,sort_coordinates,sort_geology,sort_parts'
   			},
   			function(r) {
-  				console.log('r='+r);
+  				//console.log('r='+r);
   			}
   		);
     }
