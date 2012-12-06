@@ -218,8 +218,9 @@
 				<span>Drag gray cell title bars to rearrange form</span>
 			</div>
 			<div id="dataEntryContainer">
-			<!----
+
 				    <div id="left-col">
+
 				        <div class="wrapper" id="sort_catitemid">
 				            <div class="item">
 								<div class="celltitle">Cat Item IDs</div>
@@ -272,6 +273,7 @@
 								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
 				            </div><!--- end item --->
 				        </div><!--- end sort_catitemid --->
+	<!----
 				        <div class="wrapper" id="sort_agent">
 				            <div class="item">
 								<div class="celltitle">Agents <span class="likeLink" onClick="getDocs('agent')">[ documentation ]</span></div>
@@ -437,9 +439,10 @@
 								</table><!------- /remarkey stuff --->
 							</div><!--- end item --->
 						</div><!--- end sort_randomness --->
+			 ---->
 				    </div><!-- end left-col -->
 
-				    ---->
+
 				    <div id="right-col">
 						<div class="wrapper" id="sort_specevent">
 							<div class="item">
