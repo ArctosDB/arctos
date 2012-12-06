@@ -28,7 +28,7 @@
    	   ]
    	}'>
 	---->
-	<cfreturn pn>
+	<cfreturn '["Census 2000 TIGER/Line Data; MaNIS Georeferencing Calculator"]'>
 
 </cffunction>
 
