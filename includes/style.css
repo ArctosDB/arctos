@@ -6,6 +6,8 @@
        font-size:x-small;
        max-width:200px;
    }
+.ui-widget { font-size: .6em; }
+
 figure {
     display: table;
     width: 1px; /* This can be any width, so long as it's narrower than any image */
