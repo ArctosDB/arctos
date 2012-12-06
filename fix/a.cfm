@@ -51,8 +51,10 @@ function r(){
     						console.log('newOrderingL='+newOrdering);
 	}
 	function refreshPositions(){
-		$("#left-col").sortable(refreshPositions);
-		$("#right-col").sortable(refreshPositions);
+			console.log('refreshPositions');
+
+		$("#left-col").sortable("refreshPositions");
+		$("#right-col").sortable("refreshPositions");
 	}
 	</script>
 <span class="likeLink" onclick="r();">sort</span>
