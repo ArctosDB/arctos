@@ -106,7 +106,7 @@ function r(){
     				console.log('elAry='+elAry);
     				for (var i=0;i<elAry.length; i++) {
     					console.log('thisEl='+elAry[i]);
-    					$('#left-col').append(elAry[i]);
+    					$('#left-col').append($("#" + elAry[i]));
     				}
 				}
 				if (r.DATA.SORT_RIGHTCOLUMN[0]) {
@@ -114,7 +114,7 @@ function r(){
     				console.log('elAry='+elAry);
     				for (var i=0;i<elAry.length; i++) {
     					console.log('thisEl='+elAry[i]);
-    					$('#right-col').append(elAry[i]);
+    					$('#right-col').append($("#" + elAry[i]));
     				}
 				}
 			}
