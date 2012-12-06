@@ -523,6 +523,8 @@ function loadRecordEdit (collection_object_id) {
 			error: function( result, strError ){
 				alert('The record failed to load - use some other app to edit.\n' + strError);
 				msg('record failed to load','good');
+				// turn on browse at least
+				$("#browseThingy").show();
 				return false;
 			}
 		}
