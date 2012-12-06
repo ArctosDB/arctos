@@ -43,9 +43,9 @@ jQuery(document).ready(function() {
 	pickedLocality();
 	//set_attribute_dropdowns();
 	
-	$("#left-col", "#right-col").sortable({
+	$("#left-col,#right-col").sortable({
         handle: '.item .celltitle',
-        connectWith: '#right-col',
+        connectWith: '#right-col, #left-col',
         cursor: "move"
     });
    
