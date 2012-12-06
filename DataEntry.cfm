@@ -250,7 +250,7 @@
 										<td class="nowrap" rowspan="2">
 											<div id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</div>
 											<div id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</div>
-											<div id="makeSortable" class="infoLink" onclick="makeSortable();">[ makeSortable ]</div>
+											<div id="makeSortable" class="infoLink" onclick="reorderSort();">[ reorderSort ]</div>
 											<div id="killSortable" class="infoLink" onclick="killSortable();">[ killSortable ]</div>
 										</td>
 									</tr>
