@@ -87,7 +87,7 @@ function r(){
     			},
     			function(r) {
     				console.log('r='+r);
-    				var elAry = r.DATA.SORT_LEFTCOLUMN[0] split(",");
+    				var elAry = r.DATA.SORT_LEFTCOLUMN[0].split(",");
     				console.log('elAry='+elAry);
     				for (var i=0; loop < elAry.length; i++) {
     					var thisEl = elAry[i];
