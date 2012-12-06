@@ -218,6 +218,7 @@
 				<span>Drag gray cell title bars to rearrange form</span>
 			</div>
 			<div id="dataEntryContainer">
+			<!----
 				    <div id="left-col">
 				        <div class="wrapper" id="sort_catitemid">
 				            <div class="item">
@@ -437,6 +438,8 @@
 							</div><!--- end item --->
 						</div><!--- end sort_randomness --->
 				    </div><!-- end left-col -->
+
+				    ---->
 				    <div id="right-col">
 						<div class="wrapper" id="sort_specevent">
 							<div class="item">
