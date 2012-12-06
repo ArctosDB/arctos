@@ -1,7 +1,8 @@
 .celltitle{
-	color:red;
 	cursor:move;
-	background: #ccc; 
+	background: #ccc;
+	font-weight: bold;
+	font-size:x-small; 
 }
 
 #dataEntryContainer {
