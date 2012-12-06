@@ -97,7 +97,7 @@ function r(){
 	        </div>
 	        <div class="wrapper" id="w2">
 	            <div class="item" id="i2">
-	<p class="celltitle">w two</p>
+	<span class="celltitle">w two</span>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
@@ -107,14 +107,14 @@ function r(){
 	    <div id="right-col">
 	        <div class="wrapper" id="w3">
 	            <div class="item">
-	                <<p class="celltitle">w three</p>
+	                <p class="celltitle">w three</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	            </div>
 	        </div>
 	        <div class="wrapper" id="w4">
 	            <div class="item">
-	<p class="celltitle">w four</p>
+					<p class="celltitle">w four</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
