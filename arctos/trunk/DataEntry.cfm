@@ -249,9 +249,9 @@
 										</td>
 										<td class="nowrap">
 											<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
-											<br><span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
-											<br><span id="makeSortable" class="infoLink" onclick="makeSortable();">[ makeSortable ]</span>
-											<br><span id="killSortable" class="infoLink" onclick="killSortable();">[ killSortable ]</span>
+											<span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
+											<span id="makeSortable" class="infoLink" onclick="makeSortable();">[ makeSortable ]</span>
+											<span id="killSortable" class="infoLink" onclick="killSortable();">[ killSortable ]</span>
 										</td>
 									</tr>
 									<tr>
