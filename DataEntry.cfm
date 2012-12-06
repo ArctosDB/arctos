@@ -327,7 +327,7 @@
 								</table><!---- /other IDs ---->
 					        </div><!--- end item --->
 				        </div><!--- end sort_otherid --->
-<!----
+
 						<div class="wrapper" id="sort_identification">
 				            <div class="item">
 								<div class="celltitle">Identification <span class="likeLink" onClick="getDocs('identification')">[ documentation ]</span></div>
@@ -376,6 +376,7 @@
 								</table><!------ /identification -------->
 					        </div><!--- end item --->
 				        </div><!--- end sort_identification --->
+<!----
 						<div class="wrapper" id="sort_attributes">
 							<div class="item">
 								<div class="celltitle">Attributes</div>
