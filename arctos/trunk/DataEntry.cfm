@@ -336,7 +336,7 @@
 										<td align="right">
 											<span class="f11a">Scientific&nbsp;Name</span>
 										</td>
-										<td width="100%">
+										<td>
 											<input type="text" name="taxon_name" class="reqdClr" size="40" id="taxon_name"
 												onchange="taxaPick('nothing',this.id,'dataEntry',this.value)">
 										</td>
