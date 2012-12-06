@@ -189,6 +189,15 @@
 
 
 <!----------------------------------------------------------------------------------------->
+<cffunction name="set_sort_order" access="remote">
+	<cfargument name="sort_leftcolumn" required="yes">
+	<cfargument name="sort_rightcolumn" required="yes">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_dataentry_settings set sort_leftcolumn='#sort_leftcolumn#',sort_rightcolumn='#sort_rightcolumn#'  where username='#session.username#'
+	</cfquery>
+	<cfreturn />
+</cffunction>
+<!----------------------------------------------------------------------------------------->
 <cffunction name="get_sort_order" access="remote">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select sort_leftcolumn,sort_rightcolumn from cf_dataentry_settings where username='#session.username#'

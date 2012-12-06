@@ -41,7 +41,19 @@ jQuery(document).ready(function() {
         	  var sortR=$("#right-col").sortable('toArray');
               var sortL=$("#left-col").sortable('toArray');
               console.log('sortR='+sortR+' ; sortL=' + sortL);
-        } 
+              $.getJSON("/component/Bulkloader.cfc",
+	      			{
+	      				method : "set_sort_order",
+	      				returnformat : "json",
+	      				queryformat : 'column',
+	      				sort_leftcolumn: sortL,
+	      				sort_rightcolumn: sortR
+	      			},
+	      			function(r) {
+	      				console.log('r='+r);
+	      			}
+	      		);
+        }
 	});
    
 	
