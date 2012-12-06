@@ -7,6 +7,8 @@
 
 
 	<style>
+		.celltitle{color:red;}
+
 		#container {
             border: 1px solid black;
             overflow: hidden;
@@ -35,10 +37,11 @@ jQuery(document).ready(function() {
 
 			$(function() {
 			    $("#left-col").sortable({
+			        handle: '.item .celltitle',
 			        connectWith: '#right-col'
 			    }).disableSelection();
 			    $("#right-col").sortable({
-			        handle: '.item h2',
+			        handle: '.item .celltitle',
 			        connectWith: '#left-col'
 			    }).disableSelection();
 			});
@@ -50,12 +53,7 @@ function r(){
 	 var newOrdering = $('#left-col').sortable('toArray');
     						console.log('newOrderingL='+newOrdering);
 	}
-	function refreshPositions(){
-			console.log('refreshPositions');
 
-		$("#left-col").sortable("refreshPositions");
-		$("#right-col").sortable("refreshPositions");
-	}
 
 
 
@@ -89,7 +87,7 @@ function r(){
 	    <div id="left-col">
 	        <div class="wrapper" id="w1">
 	            <div class="item" id="i1">
-	                <h2>Row 1 Column 1</h2>
+	                <p class="celltitle">w one</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
@@ -99,7 +97,7 @@ function r(){
 	        </div>
 	        <div class="wrapper" id="w2">
 	            <div class="item" id="i2">
-	                <h2>Row 2 Column 1</h2>
+	<p class="celltitle">w two</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
@@ -109,14 +107,14 @@ function r(){
 	    <div id="right-col">
 	        <div class="wrapper" id="w3">
 	            <div class="item">
-	                <h2>Row 1 Column 2</h2>
+	                <<p class="celltitle">w three</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	            </div>
 	        </div>
 	        <div class="wrapper" id="w4">
 	            <div class="item">
-	                <h2>Row 2 Column 2</h2>
+	<p class="celltitle">w four</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
