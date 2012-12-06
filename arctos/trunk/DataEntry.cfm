@@ -251,6 +251,10 @@
 										<td class="nowrap valignmiddle">
 											<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
 											<br><span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
+													<br><span id="makeSortable" class="infoLink" onclick="makeSortable();">[ makeSortable ]</span>
+													<br><span id="killSortable" class="infoLink" onclick="killSortable();">[ killSortable ]</span>
+
+
 										</td>
 									</tr>
 								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
