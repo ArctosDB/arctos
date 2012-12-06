@@ -3,6 +3,7 @@
     overflow-y: auto;
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
+    font-size:x-small;
 }
 figure {
     display: table;
