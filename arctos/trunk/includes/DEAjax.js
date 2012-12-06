@@ -38,16 +38,17 @@ jQuery(document).ready(function() {
         connectWith: '#right-col, #left-col',
         update : function () 
         { 
-        	  var sortR=$("#right-col").sortable('serialize');
-              var sortL=$("#left-col").sortable('serialize');
-              console.log('sortR='+sortR+' ; sortL=' + sortL);
+        	  var sortR=$("#right-col").sortable('toArray');
+              var sortL=$("#left-col").sortable('toArray');
+              
+              console.log('sortR='+sortR.join()+' ; sortL=' + sortL.join());
               $.getJSON("/component/Bulkloader.cfc",
 	      			{
 	      				method : "set_sort_order",
 	      				returnformat : "json",
 	      				queryformat : 'column',
-	      				sort_leftcolumn: sortL,
-	      				sort_rightcolumn: sortR
+	      				sort_leftcolumn: sortL.join(),
+	      				sort_rightcolumn: sortR.join()
 	      			},
 	      			function(r) {
 	      				console.log('r='+r);
