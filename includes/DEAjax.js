@@ -1,3 +1,33 @@
+// sortable functions
+
+function r(){
+	var newOrdering = $('#right-col').sortable('toArray');
+	console.log('newOrderingR='+newOrdering);
+	 var newOrdering = $('#left-col').sortable('toArray');
+    						console.log('newOrderingL='+newOrdering);
+	}
+
+
+
+
+
+    function reorder()
+    {
+       var orderArray=["w1","w3","w4"];
+       var elementContainer=$("#left-col");
+        $.each(orderArray, function(key, val){
+            elementContainer.append($("#"+val));
+        });
+
+
+         var orderArray=["w2"];
+       var elementContainer=$("#right-col");
+        $.each(orderArray, function(key, val){
+            elementContainer.append($("#"+val));
+        });
+    }
+    
+    
 function deleteThisRec () {
 	// only available from edit mode
 	
@@ -943,6 +973,20 @@ jQuery(document).ready(function() {
 	pickedLocality();
 	//set_attribute_dropdowns();
 	
+	// sortable
+	$(function() {
+	    $("#left-col").sortable({
+	        handle: '.item .celltitle',
+	        connectWith: '#right-col',
+	        cursor: "move"
+	    }).disableSelection();
+	    $("#right-col").sortable({
+	        handle: '.item .celltitle',
+	        connectWith: '#left-col',
+	        cursor: "move"
+	    }).disableSelection();
+	});
+});
 });
 function padzero(n) {
 	return n < 10 ? '0' + n : n;

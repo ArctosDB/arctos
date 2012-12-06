@@ -1,3 +1,29 @@
+.celltitle{
+	color:red;
+	cursor:move;
+	background: #ccc; 
+}
+
+#container {
+    border: 1px solid black;
+    overflow: hidden;
+    margin: auto;
+}
+#container .wrapper {
+    width: 100%;
+}
+#container #left-col .item {
+    margin: .5em .25em .5em .5em;
+    border: 1px solid black;
+}
+#container #right-col .item {
+    margin: .5em .5em .5em .25em;
+    border: 1px solid black;
+}
+#left-col, #right-col { width: 50%;    }
+#left-col { float: left; }
+#right-col { float: right; }
+      
 .nowrap {
  	white-space:nowrap;
  }

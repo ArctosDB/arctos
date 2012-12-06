@@ -4,6 +4,8 @@
 <cfset title="Data Entry">
 <link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
 <script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script type='text/javascript' src='/includes/DEAjax.js'></script>
 <cf_showMenuOnly>
 <cfif not isdefined("ImAGod") or len(ImAGod) is 0>
@@ -204,6 +206,92 @@
 			<input type="hidden" name="sessionusername" value="#session.username#" id="sessionusername">
 			<input type="hidden" name="sessioncustomotheridentifier" value="#session.customotheridentifier#" id="sessioncustomotheridentifier">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#" id="collection_object_id"/>
+			<div id="container">
+				    <div id="left-col">
+				        <div class="wrapper" id="catitem_id">
+				            <div class="item" id="i1">
+								<span class="celltitle">Cat Item IDs</span>
+								<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
+									<tr>
+										<td class="valigntop">
+											<label for="institution_acronym">Inst</label>
+											<input type="text" readonly="readonly" class="readClr" name="institution_acronym" id="institution_acronym" size="4">
+										</td>
+										<td class="valigntop">
+											<label for="collection_cde">CCDE</label>
+											<input type="text" readonly="readonly" class="readClr" name="collection_cde" id="collection_cde" size="4">
+										</td>
+										<td class="valigntop">
+											<label for="cat_num">Cat##</label>
+											<input type="text" name="cat_num" size="6" id="cat_num">
+											<span id="catNumLbl" class="f11a"></span>
+										</td>
+										<td class="valigntop">
+											<label for="other_id_num_type_5">CustomID Type</label>
+											<select name="other_id_num_type_5" style="width:180px"
+												id="other_id_num_type_5"
+												onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
+												<option value=""></option>
+												<cfloop query="ctOtherIdType">
+													<option value="#other_id_type#">#other_id_type#</option>
+												</cfloop>
+											</select>
+										</td>
+										<td class="valigntop">
+											<label for="other_id_num_5">CustomID</label>
+											<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
+										</td>
+										<td class="nowrap valigntop">
+											<label for="accn">Accn</label><br>
+											<input type="text" name="accn" size="25" class="reqdClr" id="accn"
+												onchange="getDEAccn();">
+											<span class="infoLink" onclick="getDEAccn();">[ pick ]</span>
+										</td>
+										<td class="nowrap valignmiddle">
+											<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
+											<br><span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
+										</td>
+									</tr>
+								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
+				            </div>
+				        </div>
+				        <div class="wrapper" id="w2">
+				            <div class="item" id="i2">
+				<span class="celltitle">w two</span>
+				                <p>Lorem ipsum dolor sit amet</p>
+				                <p>Lorem ipsum dolor sit amet</p>
+				                <p>Lorem ipsum dolor sit amet</p>
+				            </div>
+				        </div>
+				    </div><!-- end left-col -->
+				    <div id="right-col">
+				        <div class="wrapper" id="w3">
+				            <div class="item">
+				                <p class="celltitle">w three</p>
+				                <p>Lorem ipsum dolor sit amet</p>
+				                <p>Lorem ipsum dolor sit amet</p>
+				            </div>
+				        </div>
+				        <div class="wrapper" id="w4">
+				            <div class="item">
+								<p class="celltitle">w four</p>
+				                <p>Lorem ipsum dolor sit amet</p>
+				                <p>Lorem ipsum dolor sit amet</p>
+				                <p>Lorem ipsum dolor sit amet</p>
+				                <p>Lorem ipsum dolor sit amet</p>
+				            </div>
+				        </div>
+				    </div><!-- end right-col -->
+				</div>
+
+
+
+
+
+
+
+
+
 			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style=""> <!--- display:none-------whole page table --->
 				<tr>
 					<td colspan="2" style="border-bottom: 1px solid black; " align="center">
@@ -211,48 +299,7 @@
 					</td>
 				</tr>
 				<tr><td width="50%" valign="top"><!--- left top of page --->
-					<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
-						<tr>
-							<td class="valigntop">
-								<label for="institution_acronym">Inst</label>
-								<input type="text" readonly="readonly" class="readClr" name="institution_acronym" id="institution_acronym" size="4">
-							</td>
-							<td class="valigntop">
-								<label for="collection_cde">CCDE</label>
-								<input type="text" readonly="readonly" class="readClr" name="collection_cde" id="collection_cde" size="4">
-							</td>
-							<td class="valigntop">
-								<label for="cat_num">Cat##</label>
-								<input type="text" name="cat_num" size="6" id="cat_num">
-								<span id="catNumLbl" class="f11a"></span>
-							</td>
-							<td class="valigntop">
-								<label for="other_id_num_type_5">CustomID Type</label>
-								<select name="other_id_num_type_5" style="width:180px"
-									id="other_id_num_type_5"
-									onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
-									<option value=""></option>
-									<cfloop query="ctOtherIdType">
-										<option value="#other_id_type#">#other_id_type#</option>
-									</cfloop>
-								</select>
-							</td>
-							<td class="valigntop">
-								<label for="other_id_num_5">CustomID</label>
-								<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
-							</td>
-							<td class="nowrap valigntop">
-								<label for="accn">Accn</label><br>
-								<input type="text" name="accn" size="25" class="reqdClr" id="accn"
-									onchange="getDEAccn();">
-								<span class="infoLink" onclick="getDEAccn();">[ pick ]</span>
-							</td>
-							<td class="nowrap valignmiddle">
-								<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
-								<br><span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
-							</td>
-						</tr>
-					</table><!---------------------------------- / cat item IDs ---------------------------------------------->
+
 					<table cellpadding="0" cellspacing="0" class="fs"><!--- agents --->
 						<tr>
 							<td rowspan="99" valign="top">
