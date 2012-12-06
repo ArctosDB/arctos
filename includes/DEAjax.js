@@ -461,7 +461,7 @@ function loadRecordEdit (collection_object_id) {
 					set_attribute_dropdowns();
 					// turn this thing on when necessary
 					if($("#collection_cde").val()=='ES') {
-						$("#geolCell").show();
+						$("#sort_geology").show();
 					}
 					switchActive($("#orig_lat_long_units").val());
 					loadedEditRecord();
@@ -531,7 +531,7 @@ function loadRecordEnter(collection_object_id){
 				set_attribute_dropdowns();
 				// turn this thing on when necessary
 				if($("#collection_cde").val()=='ES') {
-					$("#geolCell").show();
+					$("#sort_geology").show();
 				}
 				// deal with coordinate format
 				switchActive($("#orig_lat_long_units").val());
