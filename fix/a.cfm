@@ -8,7 +8,7 @@ rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css
 ---->
 
 <link <cfinclude template="/includes/_header.cfm">
-
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
 <style>
 
