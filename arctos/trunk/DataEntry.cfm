@@ -537,7 +537,7 @@
 															onchange="findCollEvent('collecting_event_id','dataEntry','verbatim_locality',this.value);">
 													</td>
 													<td id="d_collecting_event_id">
-														<label for="collecting_event_id">Existing&nbsp;EventID</label>
+													<span class="f11a">Existing&nbsp;EventID</span>
 													</td><td>
 														<input type="text" name="collecting_event_id" id="collecting_event_id" class="readClr" size="8">
 														<input type="hidden" id="fetched_eventid">
@@ -612,7 +612,7 @@
 															onchange="LocalityPick('locality_id','spec_locality','dataEntry',this.value);">
 													</td>
 													<td id="d_locality_id">
-														<label for="fetched_locid">Existing&nbsp;LocalityID</label>
+													<span class="f11a">Existing&nbsp;LocalityID</span>
 													</td><td>
 														<input type="hidden" id="fetched_locid">
 														<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
@@ -644,8 +644,7 @@
 									</tr>
 									<tr>
 										<td colspan="2" id="d_orig_elev_units">
-											<label for="minimum_elevation">Elevation (min-max)</label>
-											<span class="f11a">&nbsp;between</span>
+											<span class="f11a">Elevation&nbsp;(min-max)&nbsp;between</span>
 											<input type="text" name="minimum_elevation" size="4" id="minimum_elevation">
 											<span class="infoLink"
 												onclick="document.getElementById('maximum_elevation').value=document.getElementById('minimum_elevation').value";>&nbsp;>>&nbsp;</span>
@@ -698,7 +697,7 @@
 																	<span style="font-size:small" class="likeLink" onclick="geolocate()">[ geolocate ]</span>
 																</td>
 																<td valign="top">
-																	<div id="geoLocateResults" style="font-size:small">geolocate messages go here</div>
+																	<div id="geoLocateResults" style="font-size:small"></div>
 																</td>
 															</tr>
 														</table>
