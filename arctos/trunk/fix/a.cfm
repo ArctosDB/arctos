@@ -56,9 +56,21 @@ function r(){
 		$("#left-col").sortable("refreshPositions");
 		$("#right-col").sortable("refreshPositions");
 	}
+
+
+	var orderArray=["w1","w3","w4"];
+	function reorder(orderArray, elementContainer)
+		{
+		    $.each(orderArray, function(key, val){
+		        $("#left-col").append($("#"+val));
+		    });
+		}
+
+
 	</script>
 <span class="likeLink" onclick="r();">sort</span>
 	<span class="likeLink" onclick="refreshPositions();">refreshPositions</span>
+	<span class="likeLink" onclick="reorder();">sortw1,w3,w4</span>
 
 	<div id="container">
 	    <div id="left-col">
