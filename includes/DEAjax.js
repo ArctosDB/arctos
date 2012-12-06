@@ -43,7 +43,16 @@ jQuery(document).ready(function() {
 	pickedLocality();
 	//set_attribute_dropdowns();
 	
-	
+	$("#left-col").sortable({
+        handle: '.item .celltitle',
+        connectWith: '#right-col',
+        cursor: "move"
+    });
+    $("#right-col").sortable({
+        handle: '.item .celltitle',
+        connectWith: '#left-col',
+        cursor: "move"
+    });
 	
 });
 
