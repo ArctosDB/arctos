@@ -207,11 +207,19 @@
 			<input type="hidden" name="sessionusername" value="#session.username#" id="sessionusername">
 			<input type="hidden" name="sessioncustomotheridentifier" value="#session.customotheridentifier#" id="sessioncustomotheridentifier">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#" id="collection_object_id"/>
+			<div id="DEControls">
+				<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
+				<span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
+				<span id="makeSortable" class="infoLink" onclick="reorderSort();">[ reorderSort ]</div>
+				<span id="killSortable" class="infoLink" onclick="killSortable();">[ kill sortable (reload to refresh)]</span>
+				<span id="resetSort" class="infoLink" onclick="resetSort();">[ reset sorting]</span>
+				<span>Drag gray cell title bars to rearrange form</span>
+			</div>
 			<div id="dataEntryContainer">
 				    <div id="left-col">
 				        <div class="wrapper" id="sort_catitemid">
 				            <div class="item">
-								<div class="celltitle">Cat Item IDs - These gray title bars are drag handles</div>
+								<div class="celltitle">Cat Item IDs</div>
 								<table cellpadding="0" cellspacing="0" class="fs" border="1"><!--- cat item IDs --->
 									<tr>
 										<td class="valigntop">
@@ -247,21 +255,15 @@
 											<input type="text" name="accn" size="25" class="reqdClr" id="accn" onchange="getDEAccn();">
 
 										</td>
-										<td class="nowrap" rowspan="2">
-											<div id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</div>
-											<div id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</div>
-											<div id="makeSortable" class="infoLink" onclick="reorderSort();">[ reorderSort ]</div>
-											<div id="killSortable" class="infoLink" onclick="killSortable();">[ killSortable ]</div>
-										</td>
 									</tr>
 									<tr>
 										<td colspan="2">
 											<label for="enteredby">Entered&nbsp;By</label>
 											<input type="text" class="readClr" readonly="readonly" size="15" name="enteredby" id="enteredby">
 										</td>
-										<td colspan="4">
+										<td colspan="6">
 											<label for="loaded">Status</label>
-											<input type="text" name="loaded" size="80" id="loaded" readonly="readonly" class="readClr" value="waiting approval">
+											<input type="text" name="loaded" size="120" id="loaded" readonly="readonly" class="readClr" value="waiting approval">
 										</td>
 									</tr>
 								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
