@@ -248,10 +248,10 @@
 											<span class="infoLink" onclick="getDEAccn();">[ pick ]</span>
 										</td>
 										<td class="nowrap">
-											<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
-											<span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
-											<span id="makeSortable" class="infoLink" onclick="makeSortable();">[ makeSortable ]</span>
-											<span id="killSortable" class="infoLink" onclick="killSortable();">[ killSortable ]</span>
+											<div id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</div>
+											<div id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</div>
+											<div id="makeSortable" class="infoLink" onclick="makeSortable();">[ makeSortable ]</div>
+											<div id="killSortable" class="infoLink" onclick="killSortable();">[ killSortable ]</div>
 										</td>
 									</tr>
 									<tr>
