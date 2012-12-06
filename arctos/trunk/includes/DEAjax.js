@@ -396,7 +396,7 @@ function loadedEditRecord(){
 			// let "god" users browse; force non-god users to fix their stuff
 			$("#browseThingy").hide();
 		}
-		$("#customizeForm").hide(); //Save This As A New Record
+		
 		msg('record failed checks: ' + loadedMsg,'bad');
 	} else {
 		$("#dataEntryContainer").removeClass().addClass('isGoodEdit');
@@ -413,7 +413,6 @@ function loadedEditRecord(){
 			$("#pBrowse").show();
 		}
 		
-		$("#customizeForm").show(); 
 		// ?? $("#pageTitle").hide();	
 		 //Save This As A New Record
 		$("#enterMode").show(); // Edit Last Record		
@@ -426,7 +425,7 @@ function loadedEditRecord(){
 	$("#enterMode").hide(); // Edit Last Record
 	$("#theNewButton").hide();
 	$("#theSaveButton").show(); // Save Edits/Delete Record
-
+	$("#customizeForm").hide(); //Save This As A New Record
 	//changeMode($("#action").val());
 	// force attribute check
 	checkCustomAtts();
