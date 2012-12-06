@@ -9,7 +9,7 @@
 
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
-
+<input type="text" id="georeference_source">
 
 	<script>
 
@@ -32,4 +32,3 @@ jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georefe
 });
 	</script>
 
-	<input type="text" id="georeference_source">
