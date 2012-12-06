@@ -50,8 +50,14 @@ function r(){
 	 var newOrdering = $('#left-col').sortable('toArray');
     						console.log('newOrderingL='+newOrdering);
 	}
+	function refreshPositions(){
+		$("#left-col").sortable(refreshPositions);
+		$("#right-col").sortable(refreshPositions);
+	}
 	</script>
 <span class="likeLink" onclick="r();">sort</span>
+	<span class="likeLink" onclick="refreshPositions();">refreshPositions</span>
+
 	<div id="container">
 	    <div id="left-col">
 	        <div class="wrapper" id="w1">
