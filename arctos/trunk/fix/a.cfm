@@ -38,7 +38,7 @@
 			        handle: '.item h2',
 			        connectWith: '#right-col',
 			          update:function(e,ui) {
-			                var order = foo.sortable("toArray").join();
+			                var order = .sortable("toArray").join();
 			                console.log(order);
 			          }
 			    }).disableSelection();
@@ -46,7 +46,7 @@
 			        handle: '.item h2',
 			        connectWith: '#left-col',
 			         update:function(e,ui) {
-			                var order = foo.sortable("toArray").join();
+			                var order = .sortable("toArray").join();
 			                console.log(order);
 			          }
 			    }).disableSelection();
