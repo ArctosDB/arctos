@@ -1,20 +1,29 @@
 jQuery(document).ready(function() {
 	//sortable
 	
+	function makeSortable() {
+		 $("#left-col").sortable({
+		        handle: '.item .celltitle',
+		        connectWith: '#right-col',
+		        cursor: "move",
+		        zIndex: 0
+		    }).disableSelection();
+		    $("#right-col").sortable({
+		        handle: '.item .celltitle',
+		        connectWith: '#left-col',
+		        cursor: "move",
+		        zIndex: 0
+		    }).disableSelection();
+		
+	}
+	
+	function killSortable(){
+		$('.#left-col').sortable('disable');
+		$('.#right-col').sortable('disable');
+	}
 	/*
 	$(function() {
-	    $("#left-col").sortable({
-	        handle: '.item .celltitle',
-	        connectWith: '#right-col',
-	        cursor: "move",
-	        zIndex: 0
-	    }).disableSelection();
-	    $("#right-col").sortable({
-	        handle: '.item .celltitle',
-	        connectWith: '#left-col',
-	        cursor: "move",
-	        zIndex: 0
-	    }).disableSelection();
+	   
 	});
 	*/
 	jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
