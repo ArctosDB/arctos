@@ -3,7 +3,7 @@
    	<cfargument name="term" required="true" type="string">
 	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select georeference_source label from locality where upper(georeference_source) like '%#ucase(term)#%'
-		and rownnum < 50
+		and rownum < 50
 		group by georeference_source
 		order by georeference_source
 	</cfquery>
