@@ -28,7 +28,7 @@
    	   ]
    	}'>
 	---->
-	<cfreturn '["Census 2000 TIGER/Line Data; MaNIS Georeferencing Calculator"]'>
+	<cfreturn '["Census 2000 TIGER/Line Data; MaNIS Georeferencing Calculator","Google Earth"]'>
 
 </cffunction>
 
