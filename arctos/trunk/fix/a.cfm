@@ -43,7 +43,8 @@ jQuery(document).ready(function() {
 			    }).disableSelection();
 			    $("#right-col").sortable({
 			        handle: '.item .celltitle',
-			        connectWith: '#left-col'
+			        connectWith: '#left-col',
+			        cursor: "move"
 			    }).disableSelection();
 			});
 		});
