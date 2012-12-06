@@ -47,7 +47,9 @@ $(function() {
 });
 
 function r(){
-	var sorted = $( ".selector" ).sortable( "serialize", { key: "sort" } );
+	var sorted = $( "#left-col" ).sortable( "serialize", { key: "sort" } );
+	console.log(sorted);
+	var sorted = $( "#right-col" ).sortable( "serialize", { key: "sort" } );
 	console.log(sorted);
 }
 
