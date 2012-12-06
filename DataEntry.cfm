@@ -410,7 +410,7 @@
 								</table><!------ random admin stuff ---------->
 								<table cellpadding="0" cellspacing="0" class="fs"><!------- remarkey stuff --->
 									<tr id="d_coll_object_remarks">
-										<td>
+										<td colspan="2">
 											<span class="f11a">Spec&nbsp;Remark</span>
 												<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="60"></textarea>
 										</td>
