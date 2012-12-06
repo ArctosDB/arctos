@@ -273,7 +273,7 @@
 								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
 				            </div><!--- end item --->
 				        </div><!--- end sort_catitemid --->
-	<!----
+
 				        <div class="wrapper" id="sort_agent">
 				            <div class="item">
 								<div class="celltitle">Agents <span class="likeLink" onClick="getDocs('agent')">[ documentation ]</span></div>
@@ -302,6 +302,7 @@
 								</table><!---- / agents------------->
 				            </div><!--- end item --->
 						</div><!--- end sort_agent --->
+	<!----
 						<div class="wrapper" id="sort_otherid">
 				            <div class="item">
 								<div class="celltitle">Other IDs  <span class="likeLink" onClick="getDocs('cataloged_item','other_id')">[ documentation ]</span></div>
