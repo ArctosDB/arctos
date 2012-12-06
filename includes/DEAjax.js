@@ -104,9 +104,17 @@ function r(){
     				if (r.DATA.SORT_LEFTCOLUMN[0]) {
 	    				var elAry = r.DATA.SORT_LEFTCOLUMN[0].split(",");
 	    				console.log('elAry='+elAry);
-	    				for (var i=0; loop < elAry.length; i++) {
-	    					var thisEl = elAry[i];
-	    					console.log('thisEl='+thisEl);
+	    				for (var i=0;i<elAry.length; i++) {
+	    					console.log('thisEl='+elAry[i]);
+	    					$('#left-col').append(elAry[i]);
+	    				}
+    				}
+    				if (r.DATA.SORT_RIGHTCOLUMN[0]) {
+	    				var elAry = r.DATA.SORT_RIGHTCOLUMN[0].split(",");
+	    				console.log('elAry='+elAry);
+	    				for (var i=0;i<elAry.length; i++) {
+	    					console.log('thisEl='+elAry[i]);
+	    					$('#right-col').append(elAry[i]);
 	    				}
     				}
     			}
