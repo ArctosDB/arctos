@@ -1,3 +1,42 @@
+jQuery(document).ready(function() {
+	$("#made_date").datepicker();
+	$("#began_date").datepicker();
+	$("#ended_date").datepicker();
+	$("#event_assigned_date").datepicker();
+	for (i=1;i<=12;i++){
+		$("#geo_att_determined_date_" + i).datepicker();
+		$("#attribute_date_" + i).datepicker();
+	}
+	$("input[type=text]").focus(function(){
+	    //this.select();
+	});
+	$("select[id^='geology_attribute_']").each(function(e){
+		var gid='geology_attribute_' + String(e+1);
+		populateGeology(gid);			
+	});
+	if (window.addEventListener) {
+		window.addEventListener("message", getGeolocate, false);
+	} else {
+		window.attachEvent("onmessage", getGeolocate);
+	}
+	pickedLocality();
+	//set_attribute_dropdowns();
+	
+	// sortable
+	$(function() {
+	    $("#left-col").sortable({
+	        handle: '.item .celltitle',
+	        connectWith: '#right-col',
+	        cursor: "move"
+	    }).disableSelection();
+	    $("#right-col").sortable({
+	        handle: '.item .celltitle',
+	        connectWith: '#left-col',
+	        cursor: "move"
+	    }).disableSelection();
+	});
+});
+
 // sortable functions
 
 function r(){
@@ -949,45 +988,7 @@ function getRelatedSpecimenData(){
 	var popurl=url+"?other_id_num="+other_id_num+"&other_id_type="+other_id_type;
 	CatItemPick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
-jQuery(document).ready(function() {
-	$("#made_date").datepicker();
-	$("#began_date").datepicker();
-	$("#ended_date").datepicker();
-	$("#event_assigned_date").datepicker();
-	for (i=1;i<=12;i++){
-		$("#geo_att_determined_date_" + i).datepicker();
-		$("#attribute_date_" + i).datepicker();
-	}
-	$("input[type=text]").focus(function(){
-	    //this.select();
-	});
-	$("select[id^='geology_attribute_']").each(function(e){
-		var gid='geology_attribute_' + String(e+1);
-		populateGeology(gid);			
-	});
-	if (window.addEventListener) {
-		window.addEventListener("message", getGeolocate, false);
-	} else {
-		window.attachEvent("onmessage", getGeolocate);
-	}
-	pickedLocality();
-	//set_attribute_dropdowns();
-	
-	// sortable
-	$(function() {
-	    $("#left-col").sortable({
-	        handle: '.item .celltitle',
-	        connectWith: '#right-col',
-	        cursor: "move"
-	    }).disableSelection();
-	    $("#right-col").sortable({
-	        handle: '.item .celltitle',
-	        connectWith: '#left-col',
-	        cursor: "move"
-	    }).disableSelection();
-	});
-});
-});
+
 function padzero(n) {
 	return n < 10 ? '0' + n : n;
 }
