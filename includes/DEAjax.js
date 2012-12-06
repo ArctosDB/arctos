@@ -34,17 +34,25 @@ jQuery(document).ready(function() {
 	pickedLocality();
 	//set_attribute_dropdowns();
 
+	makeSortable();
+	
+	//reorderSort();
+	
+});
+
+// sortable functions
+
+
+function makeSortable() {
 	$("#left-col,#right-col").sortable({
         handle: '.item .celltitle',
         connectWith: '#right-col, #left-col',
-        update : function () 
-        { 
-        	  var sortR=$("#right-col").sortable('toArray');
-              var sortL=$("#left-col").sortable('toArray');
-              
-              //console.log('sortR='+sortR.join()+' ; sortL=' + sortL.join());
-              $.getJSON("/component/Bulkloader.cfc",
-	      			{
+        update : function () { 
+        	var sortR=$("#right-col").sortable('toArray');
+            var sortL=$("#left-col").sortable('toArray');
+            //console.log('sortR='+sortR.join()+' ; sortL=' + sortL.join());
+            $.getJSON("/component/Bulkloader.cfc",
+            		{
 	      				method : "set_sort_order",
 	      				returnformat : "json",
 	      				queryformat : 'column',
@@ -53,34 +61,21 @@ jQuery(document).ready(function() {
 	      			},
 	      			function(r) {
 	      				//console.log('r='+r);
+
+	      				$("#killSortable").show();
+	      				$("#makeSortable").hide();
 	      			}
-	      		);
+	      	);
         }
 	});
-	reorderSort();
-	
-});
-
-// sortable functions
-
-
-function makeSortable() {
-	 $("#left-col").sortable({
-	        handle: '.item .celltitle',
-	        connectWith: '#right-col',
-	        cursor: "move"
-	    });
-	    $("#right-col").sortable({
-	        handle: '.item .celltitle',
-	        connectWith: '#left-col',
-	        cursor: "move"
-	    });
-	
 }
 
 function killSortable(){
 	$('#left-col').sortable('destroy');
 	$('#right-col').sortable('destroy');
+	$("#killSortable").hide();
+	$("#makeSortable").show();
+	
 }
 function r(){
 	var newOrdering = $('#right-col').sortable('toArray');
