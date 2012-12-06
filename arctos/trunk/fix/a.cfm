@@ -36,6 +36,7 @@ $(document).ready(function() {
 			  connectWith: '#right-col',
   update : function () {
     var newOrdering = $('#mylist').sortable('toArray');
+    console.log('newOrdering='+newOrdering);
     var l = "myItem_".length;
     var newOrderIds = new Array(newOrdering.length);
     var ctr = 0;
