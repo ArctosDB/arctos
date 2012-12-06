@@ -24,11 +24,11 @@
 #left-col, #right-col {     }
 #left-col { 
 	float: left;,
-	width: 55%; 
+	width: 50%; 
 }
 #right-col { 
 	float: right;
-	width: 45%;
+	width: 50%;
 }      
 .nowrap {
  	white-space:nowrap;

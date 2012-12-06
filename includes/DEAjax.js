@@ -111,7 +111,7 @@ function deleteThisRec () {
 	
 	yesDelete = window.confirm('Are you sure you want to delete this record?');
 	if (yesDelete == true) {
-		msg('deleting record....','bad');
+		msg('deleting record....','wait');
 		collection_object_id=$("#collection_object_id").val();
 		$.getJSON("/component/Bulkloader.cfc",
 			{
@@ -173,7 +173,7 @@ function saveNewRecord () {
 	// if fail, force edit
 	// check that we've met all the restrictions imposed by collections, etc.
 	if (cleanup()) {
-		msg('saving....','bad');
+		msg('saving....','wait');
 		$(".hasProbs").removeClass();
 		$.getJSON("/component/Bulkloader.cfc",
 			{
@@ -188,7 +188,7 @@ function saveNewRecord () {
 				$("#collection_object_id").val(coid);
 				if (status){
 					msg(status,'err');
-					$("#loadedMsgDiv").text(status).show();
+					//$("#loadedMsgDiv").text(status).show();
 					// dump the result into edit mode
 					loadedEditRecord();
 					//changeMode('edit');
@@ -225,7 +225,7 @@ function saveNewRecord () {
 
 function setPagePrefs(){
 	// called only in enter data mode
-	msg('setting customizations.....','bad');
+	msg('setting customizations.....','wait');
 	//console.log('setPagePrefs');
 	var mode=$("#action").val();
 	//console.log('mode='+mode);
@@ -279,7 +279,7 @@ function saveEditedRecord () {
 	// save edited - this happens only from edit and 
 	// returns only to edit
 	if (cleanup()) {
-		msg('saving....','bad');
+		msg('saving....','wait');
 		$.getJSON("/component/Bulkloader.cfc",
 			{
 				method : "saveEdits",
@@ -291,7 +291,8 @@ function saveEditedRecord () {
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
 				var status=r.DATA.RSLT[0];
 				//console.log('saveEditedRecord back with msg ' + status);
-				$("#loadedMsgDiv").text(status);
+				msg(status);
+				//$("#loadedMsgDiv").text(status);
 				loadedEditRecord();
 			}
 		);
@@ -311,7 +312,8 @@ function loadedEditRecord(){
 	} 
 	// make sure everything is on - override any user customizations	
 	$("div[id^='d_']").show();
-	var loadedMsg=$.trim($("#loadedMsgDiv").text());
+	var loadedMsg=$.trim($("#msg").text());
+	//var loadedMsg=$.trim($("#loadedMsgDiv").text());
 	//console.log('loadedMsg='+loadedMsg);	
 	$(".hasProbs").removeClass();
 	//console.log('loadedMsg='+loadedMsg);
@@ -323,7 +325,7 @@ function loadedEditRecord(){
 	}
 	if(loadedMsg){
 		//console.log('loadedEditRecord+loadedMsg='+loadedMsg);
-		$("#loadedMsgDiv").show();
+		//$("#loadedMsgDiv").show();
 		var prob_array = loadedMsg.split(" ");
 		for (var loop=0; loop < prob_array.length; loop++) {
 			var thisSlice = prob_array[loop];
@@ -351,7 +353,7 @@ function loadedEditRecord(){
 			$("#browseThingy").hide();
 		}
 		$("#customizeForm").hide(); //Save This As A New Record
-		msg('record loaded - failed checks','good');
+		msg('record failed checks: ' + loadedMsg,'');
 	} else {
 		$("#dataEntryContainer").removeClass().addClass('isGoodEdit');
 		$("#editMode").show(); // Clone This Record
@@ -371,7 +373,7 @@ function loadedEditRecord(){
 		// ?? $("#pageTitle").hide();	
 		 //Save This As A New Record
 		$("#enterMode").show(); // Edit Last Record		
-		$("#loadedMsgDiv").hide();
+		//$("#loadedMsgDiv").hide();
 		msg('record loaded - passed checks','good');
 	}
 	//console.log('collection_object_id='+$("#collection_object_id").val());
@@ -399,7 +401,7 @@ function loadedEditRecord(){
 function loadRecordEdit (collection_object_id) {
 	//load a record in EDIT mode
 	//console.log('loadRecordEdit');
-	msg('fetching data....','bad');
+	msg('fetching data....','wait');
 	$.ajax({
 	    url: "/component/Bulkloader.cfc",
 	    dataType: "json",
@@ -464,7 +466,8 @@ function loadRecordEdit (collection_object_id) {
 						var eName=cName.toLowerCase();
 						$("#" + eName).val(cVal);
 					}
-					$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
+					msg(r.DATA.LOADED[0]);
+					//$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
 					set_attribute_dropdowns();
 					// turn this thing on when necessary
 					if($("#collection_cde").val()=='ES') {
@@ -1371,7 +1374,7 @@ function customize(t) {
 	$("#popDiv").append(theFrame);
 }
 function msg(m,s){
-	if (s=='bad'){
+	if (s=='wait'){
 		if ($("#bgDiv").length==0){
 			var d='<div id="bgDiv" class="bgDiv"></div>';
 			$('body').append(d);
