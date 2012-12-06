@@ -208,11 +208,10 @@
 			<input type="hidden" name="sessioncustomotheridentifier" value="#session.customotheridentifier#" id="sessioncustomotheridentifier">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#" id="collection_object_id"/>
 			<div id="DEControls">
-				<span id="customizeForm" class="likeLink" onclick="customize()">[ customize form ]</span>
-				<span id="calControl" class="likeLink" onclick="removeCalendars();">[ disable calendars ]</span>
-				<span id="makeSortable" class="likeLink" onclick="reorderSort();">[ reorderSort ]</span>
-				<span id="killSortable" class="likeLink" onclick="killSortable();">[ kill sortable (reload to refresh)]</span>
-				<span id="resetSort" class="likeLink" onclick="resetSort();">[ reset sorting]</span>
+				<span id="customizeForm" class="likeLink" onclick="customize()">[ customize form ]</span> ~
+				<span id="calControl" class="likeLink" onclick="removeCalendars();">[ disable calendars ]</span> ~
+				<span id="killSortable" class="likeLink" onclick="killSortable();">[ kill sortable (reload to refresh)]</span> ~
+				<span id="resetSort" class="likeLink" onclick="resetSort();">[ reset sorting]</span> ~
 				<span>Drag gray cell title bars to rearrange form</span>
 			</div>
 			<div id="dataEntryContainer">
