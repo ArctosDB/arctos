@@ -79,12 +79,28 @@ function r(){
 
 
 
-    function reorder()
-    {
-       var orderArray=["w1","w3","w4"];
-       var elementContainer=$("#left-col");
+    function reorderSort() {
+    	$.getJSON("/component/Bulkloader.cfc",
+    			{
+    				method : "get_sort_order"
+    				returnformat : "json"
+    			},
+    			function(r) {
+    				console.log(r);
+    				var elAry = r.split(",");
+    				for (var i=0; loop < elAry.length; i++) {
+    					var thisEl = elAry[i];
+    					console.log('thisEl='+thisEl);
+    				}
+    			}
+    		);
+    	
+    	/*
+    	
+    var orderArray=["w1","w3","w4"];
+       
         $.each(orderArray, function(key, val){
-            elementContainer.append($("#"+val));
+            elementContainer.);
         });
 
 
@@ -93,6 +109,7 @@ function r(){
         $.each(orderArray, function(key, val){
             elementContainer.append($("#"+val));
         });
+        */
     }
     
     
