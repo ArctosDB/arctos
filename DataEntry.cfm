@@ -418,7 +418,7 @@
 									<tr>
 										<td id="d_associated_species">
 											<span class="f11a">Associated&nbsp;Species</span>
-											<input type="text" name="associated_species" size="80" id="associated_species">
+											<input type="text" name="associated_species" size="60" id="associated_species">
 										</td>
 										<td id="d_flags">
 											<span class="f11a">Missing....</span>
