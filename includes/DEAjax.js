@@ -94,47 +94,31 @@ function r(){
 
     function reorderSort() {
     	$.getJSON("/component/Bulkloader.cfc",
-    			{
-    				method : "get_sort_order",
-    				returnformat : "json",
-    				queryformat : 'column'
-    			},
-    			function(r) {
-    				console.log('r='+r);
-    				if (r.DATA.SORT_LEFTCOLUMN[0]) {
-	    				var elAry = r.DATA.SORT_LEFTCOLUMN[0].split(",");
-	    				console.log('elAry='+elAry);
-	    				for (var i=0;i<elAry.length; i++) {
-	    					console.log('thisEl='+elAry[i]);
-	    					$('#left-col').append(elAry[i]);
-	    				}
+			{
+				method : "get_sort_order",
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				console.log('r='+r);
+				if (r.DATA.SORT_LEFTCOLUMN[0]) {
+    				var elAry = r.DATA.SORT_LEFTCOLUMN[0].split(",");
+    				console.log('elAry='+elAry);
+    				for (var i=0;i<elAry.length; i++) {
+    					console.log('thisEl='+elAry[i]);
+    					$('#left-col').append(elAry[i]);
     				}
-    				if (r.DATA.SORT_RIGHTCOLUMN[0]) {
-	    				var elAry = r.DATA.SORT_RIGHTCOLUMN[0].split(",");
-	    				console.log('elAry='+elAry);
-	    				for (var i=0;i<elAry.length; i++) {
-	    					console.log('thisEl='+elAry[i]);
-	    					$('#right-col').append(elAry[i]);
-	    				}
+				}
+				if (r.DATA.SORT_RIGHTCOLUMN[0]) {
+    				var elAry = r.DATA.SORT_RIGHTCOLUMN[0].split(",");
+    				console.log('elAry='+elAry);
+    				for (var i=0;i<elAry.length; i++) {
+    					console.log('thisEl='+elAry[i]);
+    					$('#right-col').append(elAry[i]);
     				}
-    			}
-    		);
-    	
-    	/*
-    	
-    var orderArray=["w1","w3","w4"];
-       
-        $.each(orderArray, function(key, val){
-            elementContainer.);
-        });
-
-
-         var orderArray=["w2"];
-       var elementContainer=$("#right-col");
-        $.each(orderArray, function(key, val){
-            elementContainer.append($("#"+val));
-        });
-        */
+				}
+			}
+		);
     }
     
     
