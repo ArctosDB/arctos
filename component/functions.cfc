@@ -8,7 +8,7 @@
 	</cfquery>
 	<!----
 
-    <cfreturn "[" & ListQualify(valuelist(pn.georeference_source),'"') & "]">
+
 
 
 	<cfreturn '{
@@ -27,9 +27,11 @@
    	       }
    	   ]
    	}'>
-	---->
-	<cfreturn '["Census 2000 TIGER/Line Data; MaNIS Georeferencing Calculator","Google Earth"]'>
 
+		<cfreturn '["Census 2000 TIGER/Line Data; MaNIS Georeferencing Calculator","Google Earth"]'>
+
+	---->
+<cfreturn "[" & ListQualify(valuelist(pn.georeference_source),'"') & "]">
 </cffunction>
 
 
