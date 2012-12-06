@@ -353,7 +353,7 @@ function loadedEditRecord(){
 			$("#browseThingy").hide();
 		}
 		$("#customizeForm").hide(); //Save This As A New Record
-		msg('record failed checks: ' + loadedMsg,'');
+		msg('record failed checks: ' + loadedMsg,'bad');
 	} else {
 		$("#dataEntryContainer").removeClass().addClass('isGoodEdit');
 		$("#editMode").show(); // Clone This Record
