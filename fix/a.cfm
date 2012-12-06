@@ -6,11 +6,20 @@
 	jQuery(document).ready(function() {
 
 
-	$("#made_date").datepicker();
+jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
+		width: 320,
+		max: 50,
+		autofill: false,
+		multiple: false,
+		scroll: true,
+		scrollHeight: 300,
+		matchContains: true,
+		minChars: 1,
+		selectFirst:false
+	});
 
-//"option", "dateFormat", "yy-mm-dd"
 
 });
 	</script>
 
-	<input type="text" id="made_date">
+	<input type="text" id="georeference_source">
