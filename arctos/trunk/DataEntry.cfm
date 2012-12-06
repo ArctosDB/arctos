@@ -211,7 +211,7 @@
 				    <div id="left-col">
 				        <div class="wrapper" id="sort_catitemid">
 				            <div class="item">
-								<span class="celltitle">Cat Item IDs</span>
+								<div class="celltitle">Cat Item IDs - These gray title bars are drag handles</div>
 								<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
 									<tr>
 										<td class="valigntop">
@@ -262,12 +262,9 @@
 				        </div><!--- end sort_catitemid --->
 				        <div class="wrapper" id="sort_agent">
 				            <div class="item">
-								<span class="celltitle">Agents</span>
+								<div class="celltitle">Agents <span class="likeLink" onClick="getDocs('agent')">[ documentation ]</span></div>
 								<table cellpadding="0" cellspacing="0" class="fs"><!--- agents --->
 									<tr>
-										<td rowspan="99" valign="top">
-											<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
-										</td>
 										<cfloop from="1" to="5" index="i">
 											<cfif i is 1 or i is 3 or i is 5><tr></cfif>
 											<td id="d_collector_role_#i#" align="right">
@@ -293,13 +290,8 @@
 						</div><!--- end sort_agent --->
 						<div class="wrapper" id="sort_otherid">
 				            <div class="item">
-								<span class="celltitle">Other IDs</span>
+								<div class="celltitle">Other IDs  <span class="likeLink" onClick="getDocs('cataloged_item','other_id')">[ documentation ]</span></div>
 								<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
-									<tr>
-										<td rowspan="99" valign="top">
-											<img src="/images/info.gif" border="0" onClick="getDocs('cataloged_item','other_id')" class="likeLink" alt="[ help ]">
-										</td>
-									</tr>
 									<cfloop from="1" to="4" index="i">
 										<tr>
 											<td id="d_other_id_num_#i#">
@@ -323,12 +315,9 @@
 
 						<div class="wrapper" id="sort_identification">
 				            <div class="item">
-								<span class="celltitle">Identification</span>
+								<div class="celltitle">Identification <span class="likeLink" onClick="getDocs('identification')">[ documentation ]</span></div>
 								<table cellpadding="0" cellspacing="0" class="fs"><!----- identification ----->
 									<tr>
-										<td rowspan="99" valign="top">
-											<img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink" alt="[ help ]">
-										</td>
 										<td align="right">
 											<span class="f11a">Scientific&nbsp;Name</span>
 										</td>
@@ -374,7 +363,7 @@
 				        </div><!--- end sort_identification --->
 						<div class="wrapper" id="sort_attributes">
 							<div class="item">
-								<span class="celltitle">Attributes</span>
+								<div class="celltitle">Attributes</div>
 								<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
 									<tr>
 										<td id="attributeTableCell">
@@ -388,7 +377,7 @@
 						</div><!--- end sort_attributes --->
 						<div class="wrapper" id="sort_randomness">
 							<div class="item">
-								<span class="celltitle">Random Junk</span>
+								<div class="celltitle">Random Junk</div>
 								<table cellpadding="0" cellspacing="0" class="fs"><!--- random admin stuff ---->
 									<tr>
 										<td align="right"><span class="f11a">Entered&nbsp;By</span></td>
@@ -450,12 +439,9 @@
 						</div><!--- end sort_randomness --->
 						<div class="wrapper" id="sort_parts">
 							<div class="item">
-								<span class="celltitle">Parts</span>
+								<div class="celltitle">Parts <span class="likeLink" onClick="getDocs('parts')">[ documentation ]</span></div>
 								<table cellpadding="0" cellspacing="0" class="fs">
 									<tr>
-										<td rowspan="99" valign="top">
-											<img src="/images/info.gif" border="0" onClick="getDocs('parts')" class="likeLink" alt="[ help ]">
-										</td>
 										<th><span class="f11a">Part Name</span></th>
 										<th><span class="f11a">Condition</span></th>
 										<th><span class="f11a">Disposition</span></th>
@@ -505,8 +491,7 @@
 				    <div id="right-col">
 						<div class="wrapper" id="sort_specevent">
 							<div class="item">
-								<span class="celltitle">Specimen/Event</span>
-								<label onClick="getDocs('specimen_event')" class="likeLink" for="loctbl">Specimen/Event</label>
+								<div class="celltitle">Specimen/Event <span class="likeLink" onClick="getDocs('specimen_event')">[ documentation ]</span></div>
 								<table cellspacing="0" cellpadding="0" class="fs"><!----- Specimen/Event ---------->
 									<tr>
 										<td colspan="2">
@@ -565,7 +550,7 @@
 										</td>
 									</tr>
 
-									<tr id="d_habitat_desc">
+									<tr id="d_habitat">
 										<td align="right"><span class="f11a">Habitat</span></td>
 										<td>
 											<input type="text" name="habitat" size="50" id="habitat">
@@ -593,8 +578,7 @@
 						</div><!--- end sort_specevent --->
 						<div class="wrapper" id="sort_collevent">
 							<div class="item">
-								<span class="celltitle">Collecting Event</span>
-								<label onClick="getDocs('collecting_event')" class="likeLink" for="loctbl">Collecting Event</label>
+								<div class="celltitle">Collecting Event <span class="likeLink" onClick="getDocs('collecting_event')">[ documentation ]</span></div>
 								<table cellspacing="0" cellpadding="0" class="fs">
 									<tr>
 										<td colspan="2">
@@ -662,8 +646,7 @@
 						</div><!--- end sort_collevent --->
 						<div class="wrapper" id="sort_locality">
 							<div class="item">
-								<span class="celltitle">Locality</span>
-								<label onClick="getDocs('locality')" class="likeLink" for="loctbl">Locality</label>
+								<div class="celltitle">Locality <span class="likeLink" onClick="getDocs('locality')">[ documentation ]</span></div>
 								<table cellspacing="0" cellpadding="0" class="fs">
 									<tr>
 										<td align="right"><span class="f11a">Higher Geog</span></td>
@@ -740,8 +723,9 @@
 						</div><!--- end sort_locality --->
 						<div class="wrapper" id="sort_coordinates">
 							<div class="item">
-								<span class="celltitle">Coordinates</span>
-								<label onClick="getDocs('coordinates')" class="likeLink" for="loctbl">Coordinates (event and locality)</label>
+								<div class="celltitle">
+									Coordinates (event and locality) <span class="likeLink" onClick="getDocs('coordinates')">[ documentation ]</span>
+								</div>
 								<table cellpadding="0" cellspacing="0" class="fs" id="d_orig_lat_long_units"><!------- coordinates ------->
 									<tr>
 										<td rowspan="99" valign="top">
@@ -998,7 +982,9 @@
 						</div><!--- end sort_coordinates --->
 						<div class="wrapper" id="sort_geology">
 							<div class="item">
-								<span class="celltitle">Geology</span>
+								<div class="celltitle">
+									Geology (event and locality) <span class="likeLink" onClick="getDocs('geology')">[ documentation ]</span>
+								</div>
 								<div id="geolCell" style="display:none;">
 									<table cellpadding="0" cellspacing="0" class="fs">
 										<tr>
