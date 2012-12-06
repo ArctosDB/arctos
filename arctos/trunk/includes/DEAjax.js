@@ -46,8 +46,13 @@ jQuery(document).ready(function() {
 	$("#left-col,#right-col").sortable({
         handle: '.item .celltitle',
         connectWith: '#right-col, #left-col',
-        cursor: "move"
-    });
+        update : function () 
+        { 
+        	  var sortR=$("#right-col").sortable('serialize'),
+              var sortL=$("#left-col").sortable('serialize')
+              console.log('sortR='+sortR+' ; sortL=' + sortL);
+        } 
+	});
    
 	
 });
