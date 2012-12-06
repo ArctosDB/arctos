@@ -591,7 +591,7 @@
 								</table>
 							</div><!--- end item --->
 						</div><!--- end sort_collevent --->
-						<div class="wrapper" id="sort-locality">
+						<div class="wrapper" id="sort_locality">
 							<div class="item">
 								<div class="celltitle">Locality <span class="likeLink" onClick="getDocs('locality')">[ documentation ]</span></div>
 								<table cellspacing="0" cellpadding="0" class="fs">
@@ -926,7 +926,6 @@
 								</table><!---- /coordinates ---->
 							</div><!--- end item --->
 						</div><!--- end sort_coordinates --->
-						<div id="geolCell" style="display:none;">
 						<div class="wrapper" id="sort_geology">
 							<div class="item">
 								<div class="celltitle">
@@ -994,7 +993,6 @@
 									</table>
 							</div><!--- end item --->
 						</div><!--- end sort_geology --->
-						</div><!--- end hidey geology thingeemabopper ---->
 						<div class="wrapper" id="sort_parts">
 							<div class="item">
 								<div class="celltitle">Parts <span class="likeLink" onClick="getDocs('parts')">[ documentation ]</span></div>

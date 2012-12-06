@@ -63,7 +63,7 @@ label.inline {
 	border:none;
 	background-color:#bed88f;
 }
-
+#sort_geology {display:none;}
 #msg {
 	position:fixed;
 	bottom:0;
