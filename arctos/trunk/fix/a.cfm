@@ -9,9 +9,9 @@
 
 
 
-	$("#made_date").datepicker("option", "dateFormat", "yy-mm-dd");
+	$("#made_date").datepicker();
 
-
+//"option", "dateFormat", "yy-mm-dd"
 
 });
 	</script>
