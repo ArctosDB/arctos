@@ -254,8 +254,8 @@
 										</td>
 									</tr>
 								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
-				            </div>
-				        </div>
+				            </div><!--- end item --->
+				        </div><!--- end sort_catitemid --->
 				        <div class="wrapper" id="sort_agent">
 				            <div class="item">
 								<span class="celltitle">Agents</span>
@@ -285,10 +285,780 @@
 											<cfif i is 2 or i is 4 or i is 5></tr></cfif>
 										</cfloop>
 								</table><!---- / agents------------->
-				            </div>
-				        </div>
+				            </div><!--- end item --->
+						</div><!--- end sort_agent --->
+						<div class="wrapper" id="sort_otherid">
+				            <div class="item">
+								<span class="celltitle">Other IDs</span>
+								<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
+									<tr>
+										<td rowspan="99" valign="top">
+											<img src="/images/info.gif" border="0" onClick="getDocs('cataloged_item','other_id')" class="likeLink" alt="[ help ]">
+										</td>
+									</tr>
+									<cfloop from="1" to="4" index="i">
+										<tr>
+											<td id="d_other_id_num_#i#">
+												<span class="f11a">OtherID #i#</span>
+												<select name="other_id_num_type_#i#" style="width:250px"
+													id="other_id_num_type_#i#"
+													onChange="this.className='reqdClr';dataEntry.other_id_num_#i#.className='reqdClr';dataEntry.other_id_num_#i#.focus();">
+													<option value=""></option>
+													<cfloop query="ctOtherIdType">
+														<option value="#other_id_type#">#other_id_type#</option>
+													</cfloop>
+												</select>
+												<input type="text" name="other_id_num_#i#" id="other_id_num_#i#">
+												<span class="infoLink" onclick="getRelatedData(#i#)">[ pull ]</span>
+											</td>
+										</tr>
+									</cfloop>
+								</table><!---- /other IDs ---->
+					        </div><!--- end item --->
+				        </div><!--- end sort_otherid --->
+
+						<div class="wrapper" id="sort_identification">
+				            <div class="item">
+								<span class="celltitle">Identification</span>
+								<table cellpadding="0" cellspacing="0" class="fs"><!----- identification ----->
+									<tr>
+										<td rowspan="99" valign="top">
+											<img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink" alt="[ help ]">
+										</td>
+										<td align="right">
+											<span class="f11a">Scientific&nbsp;Name</span>
+										</td>
+										<td width="100%">
+											<input type="text" name="taxon_name" class="reqdClr" size="40" id="taxon_name"
+												onchange="taxaPick('nothing',this.id,'dataEntry',this.value)">
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">ID By</span></td>
+										<td>
+											<input type="text" name="id_made_by_agent" class="reqdClr" size="40"
+												id="id_made_by_agent"
+												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+												onkeypress="return noenter(event);">
+											<span class="infoLink" onclick="copyAllAgents('id_made_by_agent');">Copy2All</span>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">Nature</span></td>
+										<td>
+											<select name="nature_of_id" class="reqdClr" id="nature_of_id">
+												<cfloop query="ctnature">
+													<option value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
+												</cfloop>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">Date</span></td>
+										<td>
+											<input type="text " name="made_date" id="made_date">
+											<span class="infoLink" onclick="copyAllDates('made_date');">Copy2All</span>
+										</td>
+									</tr>
+									<tr id="d_identification_remarks">
+										<td align="right"><span class="f11a">ID Remk</span></td>
+										<td><input type="text" name="identification_remarks" id="identification_remarks" size="80">
+										</td>
+									</tr>
+								</table><!------ /identification -------->
+					        </div><!--- end item --->
+				        </div><!--- end sort_identification --->
+						<div class="wrapper" id="sort_attributes">
+							<div class="item">
+								<span class="celltitle">Attributes</span>
+								<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
+									<tr>
+										<td id="attributeTableCell">
+											<!----
+											<cfinclude template="/form/DataEntryAttributeTable.cfm">
+											---->
+										</td>
+									</tr>
+								</table><!---- /attributes ----->
+							</div><!--- end item --->
+						</div><!--- end sort_attributes --->
+						<div class="wrapper" id="sort_randomness">
+							<div class="item">
+								<span class="celltitle">Random Junk</span>
+								<table cellpadding="0" cellspacing="0" class="fs"><!--- random admin stuff ---->
+									<tr>
+										<td align="right"><span class="f11a">Entered&nbsp;By</span></td>
+										<td width="100%">
+											<input type="text" readonly="readonly" name="enteredby" id="enteredby">
+										</td>
+									</tr>
+									<tr id="d_relationship">
+										<td align="right"><span class="f11a">Relations</span></td>
+										<td>
+											<select name="relationship" size="1" id="relationship">
+												<option value=""></option>
+												<cfloop query="ctbiol_relations">
+													<option value="#BIOL_INDIV_RELATIONSHIP#">#BIOL_INDIV_RELATIONSHIP#</option>
+												</cfloop>
+											</select>
+											<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:150px">
+												<option value=""></option>
+												<option value="catalog number">catalog number (UAM:Mamm:123 format)</option>
+												<cfloop query="ctOtherIdType">
+													<option value="#other_id_type#">#other_id_type#</option>
+												</cfloop>
+											</select>
+											<input type="text" name="related_to_number" id="related_to_number" size="20" />
+											<span class="likeLink" onclick="getRelatedSpecimenData()">[ pick/use ]</span>
+										</td>
+									</tr>
+								</table><!------ random admin stuff ---------->
+								<table cellpadding="0" cellspacing="0" class="fs"><!------- remarkey stuff --->
+									<tr id="d_coll_object_remarks">
+										<td colspan="2">
+											<span class="f11a">Spec Remark</span>
+												<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="80"></textarea>
+										</td>
+									</tr>
+									<tr id="d_associated_species">
+										<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
+										<td>
+											<input type="text" name="associated_species" size="80" id="associated_species">
+										</td>
+									</tr>
+									<tr>
+										<td id="d_flags">
+											<span class="f11a">Missing....</span>
+											<select name="flags" size="1" style="width:120px" id="flags">
+												<option  value=""></option>
+												<cfloop query="ctflags">
+													<option value="#flags#">#flags#</option>
+												</cfloop>
+											</select>
+										</td>
+										<td>
+											<span class="f11a">Status</span>
+											<input type="text" name="loaded" size="80" id="loaded" readonly="readonly" class="readClr" value="waiting approval">
+										</td>
+									</tr>
+								</table><!------- /remarkey stuff --->
+							</div><!--- end item --->
+						</div><!--- end sort_randomness --->
+						<div class="wrapper" id="sort_parts">
+							<div class="item">
+								<span class="celltitle">Parts</span>
+								<table cellpadding="0" cellspacing="0" class="fs">
+									<tr>
+										<td rowspan="99" valign="top">
+											<img src="/images/info.gif" border="0" onClick="getDocs('parts')" class="likeLink" alt="[ help ]">
+										</td>
+										<th><span class="f11a">Part Name</span></th>
+										<th><span class="f11a">Condition</span></th>
+										<th><span class="f11a">Disposition</span></th>
+										<th><span class="f11a">##</span></th>
+										<th><span class="f11a">Barcode</span></th>
+										<th><span class="f11a">Label</span></th>
+										<th><span class="f11a">Remark</span></th>
+									</tr>
+									<cfloop from="1" to="12" index="i">
+										<tr id="d_part_name_#i#">
+											<td>
+												<input type="text" name="part_name_#i#" id="part_name_#i#"
+													 size="25"
+													onchange="DEpartLookup(this.id);requirePartAtts('#i#',this.value);"
+													onkeypress="return noenter(event);">
+											</td>
+											<td>
+												<input type="text" name="part_condition_#i#" id="part_condition_#i#">
+											</td>
+											<td>
+												<select id="part_disposition_#i#" name="part_disposition_#i#">
+													<option value=""></option>
+													<cfloop query="CTCOLL_OBJ_DISP">
+														<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
+													</cfloop>
+												</select>
+											</td>
+											<td>
+												<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" size="1">
+											</td>
+											<td>
+												<input type="text" name="part_barcode_#i#" id="part_barcode_#i#"
+													 size="15" onchange="setPartLabel(this.id);">
+											</td>
+											<td>
+												<input type="text" name="part_container_label_#i#" id="part_container_label_#i#" size="10">
+											</td>
+											<td>
+												<input type="text" name="part_remark_#i#" id="part_remark_#i#" size="40">
+											</td>
+										</tr>
+									</cfloop>
+								</table>
+							</div><!--- end item --->
+						</div><!--- end sort_parts --->
 				    </div><!-- end left-col -->
 				    <div id="right-col">
+						<div class="wrapper" id="sort_specevent">
+							<div class="item">
+								<span class="celltitle">Specimen/Event</span>
+								<label onClick="getDocs('specimen_event')" class="likeLink" for="loctbl">Specimen/Event</label>
+								<table cellspacing="0" cellpadding="0" class="fs"><!----- Specimen/Event ---------->
+									<tr>
+										<td colspan="2">
+											<table>
+												<tr>
+													<td align="right">
+														<span class="f11a">Event Assigned By
+													</td>
+													<td>
+														<input type="text" name="event_assigned_by_agent" class="reqdClr"
+															id="event_assigned_by_agent"
+															onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+															onkeypress="return noenter(event);">
+													</td>
+													<td align="right"><span class="f11a">On Date</span></td>
+													<td>
+														<input type="text" name="event_assigned_date" class="reqdClr" id="event_assigned_date">
+														<span class="infoLink" onclick="copyAllDates('event_assigned_date');">Copy2All</span>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">Specimen/Event Type</span></td>
+										<td>
+											<select name="specimen_event_type" size="1" id="specimen_event_type" class="reqdClr">
+												<cfloop query="ctspecimen_event_type">
+													<option value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+												</cfloop>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">Coll. Src.:</span></td>
+										<td>
+											<table cellspacing="0" cellpadding="0">
+												<tr>
+													<td>
+														<select name="collecting_source"
+															size="1"
+															id="collecting_source"
+															class="reqdClr">
+															<option value=""></option>
+															<cfloop query="ctcollecting_source">
+																<option value="#collecting_source#">#collecting_source#</option>
+															</cfloop>
+														</select>
+													</td>
+													<td align="right"><span class="f11a">Coll. Meth.:</span></td>
+													<td>
+														<input type="text" name="collecting_method" id="collecting_method">
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+
+									<tr id="d_habitat_desc">
+										<td align="right"><span class="f11a">Habitat</span></td>
+										<td>
+											<input type="text" name="habitat" size="50" id="habitat">
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">VerificationStatus</span></td>
+										<td>
+											<select name="verificationstatus" size="1" class="reqdClr" id="verificationstatus">
+												<cfloop query="ctverificationstatus">
+													<option value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
+												</cfloop>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">Specimen/Event Remark</span></td>
+										<td>
+											<input type="text"  name="specimen_event_remark" class="" size="80"
+												id="specimen_event_remark">
+										</td>
+									</tr>
+								</table>
+							</div><!--- end item --->
+						</div><!--- end sort_specevent --->
+						<div class="wrapper" id="sort_collevent">
+							<div class="item">
+								<span class="celltitle">Collecting Event</span>
+								<label onClick="getDocs('collecting_event')" class="likeLink" for="loctbl">Collecting Event</label>
+								<table cellspacing="0" cellpadding="0" class="fs">
+									<tr>
+										<td colspan="2">
+											<table>
+												<tr>
+													<td align="right"><span class="f11a">Event Name</span></td>
+													<td>
+														<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
+															onchange="findCollEvent('collecting_event_id','dataEntry','verbatim_locality',this.value);">
+													</td>
+													<td id="d_collecting_event_id">
+														<label for="collecting_event_id">Existing&nbsp;EventID</label>
+													</td><td>
+														<input type="text" name="collecting_event_id" id="collecting_event_id" class="readClr" size="8">
+														<input type="hidden" id="fetched_eventid">
+													</td>
+													<td>
+														<span class="infoLink" id="eventPicker" onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
+															Pick&nbsp;Event
+														</span>
+														<span class="infoLink" id="eventUnPicker" style="display:none;" onclick="unpickEvent()">
+															Depick&nbsp;Event
+														</span>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">Verbatim Locality</span></td>
+										<td>
+											<input type="text"  name="verbatim_locality"
+												class="reqdClr" size="80"
+												id="verbatim_locality">
+											<span class="infoLink" onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">
+												&nbsp;Use&nbsp;Specloc
+											</span>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">VerbatimDate</span></td>
+										<td>
+											<input type="text" name="verbatim_date" class="reqdClr" id="verbatim_date" size="20">
+											<span class="infoLink"
+												onClick="copyVerbatim($('##verbatim_date').val());">--></span>
+											<span class="f11a">Begin</span>
+											<input type="text" name="began_date" class="reqdClr"  id="began_date" size="10">
+											<span class="infoLink" onclick="copyBeganEnded();">>></span>
+											<span class="f11a">End</span>
+											<input type="text" name="ended_date" class="reqdClr"  id="ended_date" size="10">
+											<span class="infoLink" onclick="copyAllDates('ended_date');">Copy2All</span>
+										</td>
+									</tr>
+									<tr id="d_coll_event_remarks">
+										<td align="right"><span class="f11a">CollEvntRemk</span></td>
+										<td>
+											<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" id="dateConvertStatus"></td>
+									</tr>
+								</table>
+							</div><!--- end item --->
+						</div><!--- end sort_collevent --->
+						<div class="wrapper" id="sort_locality">
+							<div class="item">
+								<span class="celltitle">Locality</span>
+								<label onClick="getDocs('locality')" class="likeLink" for="loctbl">Locality</label>
+								<table cellspacing="0" cellpadding="0" class="fs">
+									<tr>
+										<td align="right"><span class="f11a">Higher Geog</span></td>
+										<td>
+											<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
+												onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<table>
+												<tr>
+													<td align="right"><span class="f11a">Locality Name</span></td>
+													<td>
+														<input type="text" name="locality_name" class="" id="locality_name" size="60"
+															onchange="LocalityPick('locality_id','spec_locality','dataEntry',this.value);">
+													</td>
+													<td id="d_locality_id">
+														<label for="fetched_locid">Existing&nbsp;LocalityID</label>
+													</td><td>
+														<input type="hidden" id="fetched_locid">
+														<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
+													</td>
+													<td>
+														<span class="infoLink" id="localityPicker"
+															onclick="LocalityPick('locality_id','spec_locality','dataEntry',''); return false;">
+															Pick&nbsp;Locality
+														</span>
+														<span class="infoLink"
+															id="localityUnPicker"
+															style="display:none;"
+															onclick="unpickLocality()">
+															Depick&nbsp;Locality
+														</span>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">Spec Locality</span></td>
+										<td>
+											<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" size="80">
+											<span class="infoLink" onclick="document.getElementById('spec_locality').value=document.getElementById('verbatim_locality').value;">
+												&nbsp;Use&nbsp;VerbLoc
+											</span>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" id="d_orig_elev_units">
+											<label for="minimum_elevation">Elevation (min-max)</label>
+											<span class="f11a">&nbsp;between</span>
+											<input type="text" name="minimum_elevation" size="4" id="minimum_elevation">
+											<span class="infoLink"
+												onclick="document.getElementById('maximum_elevation').value=document.getElementById('minimum_elevation').value";>&nbsp;>>&nbsp;</span>
+											<input type="text" name="maximum_elevation" size="4" id="maximum_elevation">
+											<select name="orig_elev_units" size="1" id="orig_elev_units">
+												<option value=""></option>
+												<cfloop query="ctOrigElevUnits">
+													<option value="#orig_elev_units#">#orig_elev_units#</option>
+												</cfloop>
+											</select>
+										</td>
+									</tr>
+
+									<tr id="d_locality_remarks">
+										<td align="right"><span class="f11a">LocalityRemk</span></td>
+										<td>
+											<input type="text" name="locality_remarks" size="80" id="locality_remarks">
+										</td>
+									</tr>
+								</table><!----- /locality ---------->
+							</div><!--- end item --->
+						</div><!--- end sort_locality --->
+						<div class="wrapper" id="sort_coordinates">
+							<div class="item">
+								<span class="celltitle">Coordinates</span>
+								<label onClick="getDocs('coordinates')" class="likeLink" for="loctbl">Coordinates (event and locality)</label>
+								<table cellpadding="0" cellspacing="0" class="fs" id="d_orig_lat_long_units"><!------- coordinates ------->
+									<tr>
+										<td rowspan="99" valign="top">
+											<img src="/images/info.gif" border="0" onClick="getDocs('lat_long')" class="likeLink" alt="[ help ]">
+										</td>
+										<td>
+											<table>
+												<tr>
+													<td align="right"  valign="top"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
+													<td colspan="99" width="100%">
+														<table>
+															<tr>
+																<td valign="top">
+																	<select name="orig_lat_long_units" id="orig_lat_long_units"
+																		onChange="switchActive(this.value);dataEntry.max_error_distance.focus();">
+																		<option value=""></option>
+																		<cfloop query="ctunits">
+																		  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+																		</cfloop>
+																	</select>
+																</td>
+																<td valign="top">
+																	<span style="font-size:small" class="likeLink" onclick="geolocate()">[ geolocate ]</span>
+																</td>
+																<td valign="top">
+																	<div id="geoLocateResults" style="font-size:small">geolocate messages go here</div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div id="lat_long_meta" class="noShow">
+												<table cellpadding="0" cellspacing="0">
+													<tr>
+														<td align="right"><span class="f11a">Max Error</span></td>
+														<td>
+															<input type="text" name="max_error_distance" id="max_error_distance" size="10">
+															<select name="max_error_units" size="1" id="max_error_units">
+																<option value=""></option>
+																<cfloop query="cterror">
+																  <option value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
+																</cfloop>
+															</select>
+														</td>
+													</tr>
+													<tr>
+														<td align="right"><span class="f11a">Datum</span></td>
+														<td>
+															<select name="datum" size="1" class="reqdClr" id="datum">
+																<option value=""></option>
+																<cfloop query="ctdatum">
+																	<option value="#datum#">#datum#</option>
+																</cfloop>
+															</select>
+														</td>
+													</tr>
+
+
+													<tr>
+														<td align="right"><span class="f11a">Georeference Source</span></td>
+														<td colspan="3" nowrap="nowrap">
+															<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" size="60">
+														</td>
+													</tr>
+													<tr>
+														<td align="right"><span class="f11a">Georeference Protocol</span></td>
+														<td>
+															<select name="georeference_protocol" size="1" class="reqdClr" style="width:130px" id="georeference_protocol">
+																<cfloop query="ctgeoreference_protocol">
+																	<option value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
+																</cfloop>
+															</select>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<div id="dms" class="noShow">
+												<table cellpadding="0" cellspacing="0">
+													<tr>
+														<td align="right"><span class="f11a">Lat Deg</span></td>
+														<td>
+															<input type="text" name="latdeg" size="4" id="latdeg" class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Min</span></td>
+														<td>
+															<input type="text"
+																 name="LATMIN"
+																size="4"
+																id="latmin"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Sec</span></td>
+														<td>
+															<input type="text"
+																 name="latsec"
+																size="6"
+																id="latsec"
+																class="reqdClr">
+															</td>
+														<td align="right"><span class="f11a">Dir</span></td>
+														<td>
+															<select name="latdir" size="1" id="latdir" class="reqdClr">
+																<option value=""></option>
+																<option value="N">N</option>
+																<option value="S">S</option>
+															  </select>
+														</td>
+													</tr>
+													<tr>
+														<td align="right"><span class="f11a">Long Deg</span></td>
+														<td>
+															<input type="text"
+																name="longdeg"
+																size="4"
+																id="longdeg"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Min</span></td>
+														<td>
+															<input type="text"
+																name="longmin"
+																size="4"
+																id="longmin"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Sec</span></td>
+														<td>
+															<input type="text"
+																 name="longsec"
+																size="6"
+																id="longsec"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Dir</span></td>
+														<td>
+															<select name="longdir" size="1" id="longdir" class="reqdClr">
+																<option value=""></option>
+																<option value="E">E</option>
+																<option value="W">W</option>
+															  </select>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<div id="ddm" class="noShow">
+												<table cellpadding="0" cellspacing="0">
+													<tr>
+														<td align="right"><span class="f11a">Lat Deg</span></td>
+														<td>
+															<input type="text"
+																 name="decLAT_DEG"
+																size="4"
+																id="decLAT_DEG"
+																class="reqdClr"
+																onchange="dataEntry.latdeg.value=this.value;">
+														</td>
+														<td align="right"><span class="f11a">Dec Min</span></td>
+														<td>
+															<input type="text"
+																name="dec_lat_min"
+																 size="8"
+																id="dec_lat_min"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Dir</span></td>
+														<td>
+															<select name="decLAT_DIR"
+																size="1"
+																id="decLAT_DIR"
+																class="reqdClr"
+																onchange="dataEntry.latdir.value=this.value;">
+																<option value=""></option>
+																<option value="N">N</option>
+																<option value="S">S</option>
+															</select>
+														</td>
+													</tr>
+													<tr>
+														<td align="right"><span class="f11a">Long Deg</span></td>
+														<td>
+															<input type="text"
+																name="decLONGDEG"
+																size="4"
+																id="decLONGDEG"
+																class="reqdClr"
+																onchange="dataEntry.longdeg.value=this.value;">
+														</td>
+														<td align="right"><span class="f11a">Dec Min</span></td>
+														<td>
+															<input type="text"
+																name="DEC_LONG_MIN"
+																size="8"
+																id="dec_long_min"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Dir</span></td>
+														<td>
+															<select name="decLONGDIR"
+																 size="1"
+																id="decLONGDIR"
+																class="reqdClr"
+																onchange="dataEntry.longdir.value=this.value;">
+																<option value=""></option>
+																<option value="E">E</option>
+																<option value="W">W</option>
+															</select>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<div id="dd" class="noShow">
+												<span class="f11a">Dec Lat</span>
+												<input type="text"
+													 name="dec_lat"
+													size="8"
+													id="dec_lat"
+													class="reqdClr">
+												<span class="f11a">Dec Long</span>
+													<input type="text"
+														 name="dec_long"
+														size="8"
+														id="dec_long"
+														class="reqdClr">
+											</div>
+											<div id="utm" class="noShow">
+												<span class="f11a">UTM Zone</span>
+												<input type="text"
+													 name="utm_zone"
+													size="8"
+													id="utm_zone"
+													class="reqdClr">
+												<span class="f11a">UTM E/W</span>
+												<input type="text"
+													 name="utm_ew"
+													size="8"
+													id="utm_ew"
+													class="reqdClr">
+												<span class="f11a">UTM N/S</span>
+												<input type="text"
+													 name="utm_ns"
+													size="8"
+													id="utm_ns"
+													class="reqdClr">
+											</div>
+										</td>
+									</tr>
+								</table><!---- /coordinates ---->
+							</div><!--- end item --->
+						</div><!--- end sort_coordinates --->
+						<div class="wrapper" id="sort_geology">
+							<div class="item">
+								<span class="celltitle">Geology</span>
+								<div id="geolCell" style="display:none;">
+									<table cellpadding="0" cellspacing="0" class="fs">
+										<tr>
+											<td>
+												<img src="/images/info.gif" border="0" onClick="getDocs('geology_attributes')" class="likeLink" alt="[ help ]">
+												<table cellpadding="0" cellspacing="0">
+													<tr>
+														<th nowrap="nowrap"><span class="f11a">Geol Att.</span></th>
+														<th><span class="f11a">Geol Att. Value</span></th>
+														<th><span class="f11a">Determiner</span></th>
+														<th><span class="f11a">Date</span></th>
+														<th><span class="f11a">Method</span></th>
+														<th><span class="f11a">Remark</span></th>
+													</tr>
+													<cfloop from="1" to="6" index="i">
+														<div id="#i#">
+														<tr id="d_geology_attribute_#i#">
+															<td>
+																<select name="geology_attribute_#i#" id="geology_attribute_#i#" size="1" onchange="populateGeology(this.id);">
+																	<option value=""></option>
+																	<cfloop query="ctgeology_attribute">
+																		<option value="#geology_attribute#">#geology_attribute#</option>
+																	</cfloop>
+																</select>
+															</td>
+															<td>
+																<select name="geo_att_value_#i#" id="geo_att_value_#i#">
+																</select>
+															</td>
+															<td>
+																<input type="text"
+																	name="geo_att_determiner_#i#"
+																	id="geo_att_determiner_#i#"
+																	onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+																	onkeypress="return noenter(event);">
+															</td>
+															<td>
+																<input type="text"
+																	name="geo_att_determined_date_#i#"
+																	id="geo_att_determined_date_#i#"
+																	size="10">
+															</td>
+															<td>
+																<input type="text"
+																	name="geo_att_determined_method_#i#"
+																	id="geo_att_determined_method_#i#"
+																	size="15">
+															</td>
+															<td>
+																<input type="text"
+																	name="geo_att_remark_#i#"
+																	id="geo_att_remark_#i#"
+																	size="15">
+															</td>
+														</tr>
+														</div>
+													</cfloop>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</div><!--- end hidey geology thingeemabopper ---->
+							</div><!--- end item --->
+						</div><!--- end sort_geology --->
 				        <div class="wrapper" id="w3">
 				            <div class="item">
 				                <p class="celltitle">w three</p>
@@ -306,757 +1076,8 @@
 				            </div>
 				        </div>
 				    </div><!-- end right-col -->
-				</div>
+				</div><!---- end bodywrapperthingee ---->
 
-
-
-
-
-
-
-
-
-			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style=""> <!--- display:none-------whole page table --->
-				<tr>
-					<td colspan="2" style="border-bottom: 1px solid black; " align="center">
-
-					</td>
-				</tr>
-				<tr><td width="50%" valign="top"><!--- left top of page --->
-
-
-					<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
-						<tr>
-							<td rowspan="99" valign="top">
-								<img src="/images/info.gif" border="0" onClick="getDocs('cataloged_item','other_id')" class="likeLink" alt="[ help ]">
-							</td>
-						</tr>
-						<cfloop from="1" to="4" index="i">
-							<tr>
-								<td id="d_other_id_num_#i#">
-									<span class="f11a">OtherID #i#</span>
-									<select name="other_id_num_type_#i#" style="width:250px"
-										id="other_id_num_type_#i#"
-										onChange="this.className='reqdClr';dataEntry.other_id_num_#i#.className='reqdClr';dataEntry.other_id_num_#i#.focus();">
-										<option value=""></option>
-										<cfloop query="ctOtherIdType">
-											<option value="#other_id_type#">#other_id_type#</option>
-										</cfloop>
-									</select>
-									<input type="text" name="other_id_num_#i#" id="other_id_num_#i#">
-									<span class="infoLink" onclick="getRelatedData(#i#)">[ pull ]</span>
-								</td>
-							</tr>
-						</cfloop>
-					</table><!---- /other IDs ---->
-					<table cellpadding="0" cellspacing="0" class="fs"><!----- identification ----->
-						<tr>
-							<td rowspan="99" valign="top">
-								<img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink" alt="[ help ]">
-							</td>
-							<td align="right">
-								<span class="f11a">Scientific&nbsp;Name</span>
-							</td>
-							<td width="100%">
-								<input type="text" name="taxon_name" class="reqdClr" size="40" id="taxon_name"
-									onchange="taxaPick('nothing',this.id,'dataEntry',this.value)">
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">ID By</span></td>
-							<td>
-								<input type="text" name="id_made_by_agent" class="reqdClr" size="40"
-									id="id_made_by_agent"
-									onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
-									onkeypress="return noenter(event);">
-								<span class="infoLink" onclick="copyAllAgents('id_made_by_agent');">Copy2All</span>
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">Nature</span></td>
-							<td>
-								<select name="nature_of_id" class="reqdClr" id="nature_of_id">
-									<cfloop query="ctnature">
-										<option value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
-									</cfloop>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">Date</span></td>
-							<td>
-								<input type="text " name="made_date" id="made_date">
-								<span class="infoLink" onclick="copyAllDates('made_date');">Copy2All</span>
-							</td>
-						</tr>
-						<tr id="d_identification_remarks">
-							<td align="right"><span class="f11a">ID Remk</span></td>
-							<td><input type="text" name="identification_remarks" id="identification_remarks" size="80">
-							</td>
-						</tr>
-					</table><!------ /identification -------->
-					<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
-						<tr>
-							<td id="attributeTableCell">
-								<!----
-								<cfinclude template="/form/DataEntryAttributeTable.cfm">
-								---->
-							</td>
-						</tr>
-					</table><!---- /attributes ----->
-					<table cellpadding="0" cellspacing="0" class="fs"><!--- random admin stuff ---->
-					<tr>
-						<td align="right"><span class="f11a">Entered&nbsp;By</span></td>
-						<td width="100%">
-							<input type="text" readonly="readonly" name="enteredby" id="enteredby">
-						</td>
-					</tr>
-					<tr id="d_relationship">
-						<td align="right"><span class="f11a">Relations</span></td>
-						<td>
-							<select name="relationship" size="1" id="relationship">
-								<option value=""></option>
-								<cfloop query="ctbiol_relations">
-									<option value="#BIOL_INDIV_RELATIONSHIP#">#BIOL_INDIV_RELATIONSHIP#</option>
-								</cfloop>
-							</select>
-							<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:150px">
-								<option value=""></option>
-								<option value="catalog number">catalog number (UAM:Mamm:123 format)</option>
-								<cfloop query="ctOtherIdType">
-									<option value="#other_id_type#">#other_id_type#</option>
-								</cfloop>
-							</select>
-							<input type="text" name="related_to_number" id="related_to_number" size="20" />
-							<span class="likeLink" onclick="getRelatedSpecimenData()">[ pick/use ]</span>
-						</td>
-					</tr>
-				</table><!------ random admin stuff ---------->
-				<table cellpadding="0" cellspacing="0" class="fs"><!------- remarkey stuff --->
-					<tr id="d_coll_object_remarks">
-						<td colspan="2">
-							<span class="f11a">Spec Remark</span>
-								<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="80"></textarea>
-						</td>
-					</tr>
-					<tr id="d_associated_species">
-						<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
-						<td>
-							<input type="text" name="associated_species" size="80" id="associated_species">
-						</td>
-					</tr>
-					<tr>
-						<td id="d_flags">
-							<span class="f11a">Missing....</span>
-							<select name="flags" size="1" style="width:120px" id="flags">
-								<option  value=""></option>
-								<cfloop query="ctflags">
-									<option value="#flags#">#flags#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<span class="f11a">Status</span>
-							<input type="text" name="loaded" size="80" id="loaded" readonly="readonly" class="readClr" value="waiting approval">
-						</td>
-					</tr>
-				</table><!------- /remarkey stuff --->
-				</td> <!---- end top left --->
-				<td valign="top"><!----- right column ---->
-				<label onClick="getDocs('specimen_event')" class="likeLink" for="loctbl">Specimen/Event</label>
-					<table cellspacing="0" cellpadding="0" class="fs"><!----- Specimen/Event ---------->
-						<tr>
-							<td colspan="2">
-								<table>
-									<tr>
-										<td align="right">
-											<span class="f11a">Event Assigned By
-										</td>
-										<td>
-											<input type="text" name="event_assigned_by_agent" class="reqdClr"
-												id="event_assigned_by_agent"
-												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
-												onkeypress="return noenter(event);">
-										</td>
-										<td align="right"><span class="f11a">On Date</span></td>
-										<td>
-											<input type="text" name="event_assigned_date" class="reqdClr" id="event_assigned_date">
-											<span class="infoLink" onclick="copyAllDates('event_assigned_date');">Copy2All</span>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">Specimen/Event Type</span></td>
-							<td>
-								<select name="specimen_event_type" size="1" id="specimen_event_type" class="reqdClr">
-									<cfloop query="ctspecimen_event_type">
-										<option value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
-									</cfloop>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">Coll. Src.:</span></td>
-							<td>
-								<table cellspacing="0" cellpadding="0">
-									<tr>
-										<td>
-											<select name="collecting_source"
-												size="1"
-												id="collecting_source"
-												class="reqdClr">
-												<option value=""></option>
-												<cfloop query="ctcollecting_source">
-													<option value="#collecting_source#">#collecting_source#</option>
-												</cfloop>
-											</select>
-										</td>
-										<td align="right"><span class="f11a">Coll. Meth.:</span></td>
-										<td>
-											<input type="text" name="collecting_method" id="collecting_method">
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-
-						<tr id="d_habitat_desc">
-							<td align="right"><span class="f11a">Habitat</span></td>
-							<td>
-								<input type="text" name="habitat" size="50" id="habitat">
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">VerificationStatus</span></td>
-							<td>
-								<select name="verificationstatus" size="1" class="reqdClr" id="verificationstatus">
-									<cfloop query="ctverificationstatus">
-										<option value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
-									</cfloop>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">Specimen/Event Remark</span></td>
-							<td>
-								<input type="text"  name="specimen_event_remark" class="" size="80"
-									id="specimen_event_remark">
-							</td>
-						</tr>
-					</table>
-					<label onClick="getDocs('collecting_event')" class="likeLink" for="loctbl">Collecting Event</label>
-					<table cellspacing="0" cellpadding="0" class="fs">
-						<tr>
-							<td colspan="2">
-								<table>
-									<tr>
-										<td align="right"><span class="f11a">Event Name</span></td>
-										<td>
-											<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
-												onchange="findCollEvent('collecting_event_id','dataEntry','verbatim_locality',this.value);">
-										</td>
-										<td id="d_collecting_event_id">
-											<label for="collecting_event_id">Existing&nbsp;EventID</label>
-										</td><td>
-											<input type="text" name="collecting_event_id" id="collecting_event_id" class="readClr" size="8">
-											<input type="hidden" id="fetched_eventid">
-										</td>
-										<td>
-											<span class="infoLink" id="eventPicker" onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
-												Pick&nbsp;Event
-											</span>
-											<span class="infoLink" id="eventUnPicker" style="display:none;" onclick="unpickEvent()">
-												Depick&nbsp;Event
-											</span>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">Verbatim Locality</span></td>
-							<td>
-								<input type="text"  name="verbatim_locality"
-									class="reqdClr" size="80"
-									id="verbatim_locality">
-								<span class="infoLink" onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">
-									&nbsp;Use&nbsp;Specloc
-								</span>
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">VerbatimDate</span></td>
-							<td>
-								<input type="text" name="verbatim_date" class="reqdClr" id="verbatim_date" size="20">
-								<span class="infoLink"
-									onClick="copyVerbatim($('##verbatim_date').val());">--></span>
-								<span class="f11a">Begin</span>
-								<input type="text" name="began_date" class="reqdClr"  id="began_date" size="10">
-								<span class="infoLink" onclick="copyBeganEnded();">>></span>
-								<span class="f11a">End</span>
-								<input type="text" name="ended_date" class="reqdClr"  id="ended_date" size="10">
-								<span class="infoLink" onclick="copyAllDates('ended_date');">Copy2All</span>
-							</td>
-						</tr>
-						<tr id="d_coll_event_remarks">
-							<td align="right"><span class="f11a">CollEvntRemk</span></td>
-							<td>
-								<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" id="dateConvertStatus"></td>
-						</tr>
-					</table>
-					<label onClick="getDocs('locality')" class="likeLink" for="loctbl">Locality</label>
-					<table cellspacing="0" cellpadding="0" class="fs">
-						<tr>
-							<td align="right"><span class="f11a">Higher Geog</span></td>
-							<td>
-								<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
-									onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<table>
-									<tr>
-										<td align="right"><span class="f11a">Locality Name</span></td>
-										<td>
-											<input type="text" name="locality_name" class="" id="locality_name" size="60"
-												onchange="LocalityPick('locality_id','spec_locality','dataEntry',this.value);">
-										</td>
-										<td id="d_locality_id">
-											<label for="fetched_locid">Existing&nbsp;LocalityID</label>
-										</td><td>
-											<input type="hidden" id="fetched_locid">
-											<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
-										</td>
-										<td>
-											<span class="infoLink" id="localityPicker"
-												onclick="LocalityPick('locality_id','spec_locality','dataEntry',''); return false;">
-												Pick&nbsp;Locality
-											</span>
-											<span class="infoLink"
-												id="localityUnPicker"
-												style="display:none;"
-												onclick="unpickLocality()">
-												Depick&nbsp;Locality
-											</span>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td align="right"><span class="f11a">Spec Locality</span></td>
-							<td>
-								<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" size="80">
-								<span class="infoLink" onclick="document.getElementById('spec_locality').value=document.getElementById('verbatim_locality').value;">
-									&nbsp;Use&nbsp;VerbLoc
-								</span>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" id="d_orig_elev_units">
-								<label for="minimum_elevation">Elevation (min-max)</label>
-								<span class="f11a">&nbsp;between</span>
-								<input type="text" name="minimum_elevation" size="4" id="minimum_elevation">
-								<span class="infoLink"
-									onclick="document.getElementById('maximum_elevation').value=document.getElementById('minimum_elevation').value";>&nbsp;>>&nbsp;</span>
-								<input type="text" name="maximum_elevation" size="4" id="maximum_elevation">
-								<select name="orig_elev_units" size="1" id="orig_elev_units">
-									<option value=""></option>
-									<cfloop query="ctOrigElevUnits">
-										<option value="#orig_elev_units#">#orig_elev_units#</option>
-									</cfloop>
-								</select>
-							</td>
-						</tr>
-
-						<tr id="d_locality_remarks">
-							<td align="right"><span class="f11a">LocalityRemk</span></td>
-							<td>
-								<input type="text" name="locality_remarks" size="80" id="locality_remarks">
-							</td>
-						</tr>
-					</table><!----- /locality ---------->
-
-					<label onClick="getDocs('coordinates')" class="likeLink" for="loctbl">Coordinates (event and locality)</label>
-				<table cellpadding="0" cellspacing="0" class="fs" id="d_orig_lat_long_units"><!------- coordinates ------->
-					<tr>
-						<td rowspan="99" valign="top">
-							<img src="/images/info.gif" border="0" onClick="getDocs('lat_long')" class="likeLink" alt="[ help ]">
-						</td>
-						<td>
-							<table>
-								<tr>
-									<td align="right"  valign="top"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
-									<td colspan="99" width="100%">
-										<table>
-											<tr>
-												<td valign="top">
-													<select name="orig_lat_long_units" id="orig_lat_long_units"
-														onChange="switchActive(this.value);dataEntry.max_error_distance.focus();">
-														<option value=""></option>
-														<cfloop query="ctunits">
-														  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
-														</cfloop>
-													</select>
-												</td>
-												<td valign="top">
-													<span style="font-size:small" class="likeLink" onclick="geolocate()">[ geolocate ]</span>
-												</td>
-												<td valign="top">
-													<div id="geoLocateResults" style="font-size:small">geolocate messages go here</div>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div id="lat_long_meta" class="noShow">
-								<table cellpadding="0" cellspacing="0">
-									<tr>
-										<td align="right"><span class="f11a">Max Error</span></td>
-										<td>
-											<input type="text" name="max_error_distance" id="max_error_distance" size="10">
-											<select name="max_error_units" size="1" id="max_error_units">
-												<option value=""></option>
-												<cfloop query="cterror">
-												  <option value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
-												</cfloop>
-											</select>
-										</td>
-									</tr>
-									<tr>
-										<td align="right"><span class="f11a">Datum</span></td>
-										<td>
-											<select name="datum" size="1" class="reqdClr" id="datum">
-												<option value=""></option>
-												<cfloop query="ctdatum">
-													<option value="#datum#">#datum#</option>
-												</cfloop>
-											</select>
-										</td>
-									</tr>
-
-
-									<tr>
-										<td align="right"><span class="f11a">Georeference Source</span></td>
-										<td colspan="3" nowrap="nowrap">
-											<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" size="60">
-										</td>
-									</tr>
-									<tr>
-										<td align="right"><span class="f11a">Georeference Protocol</span></td>
-										<td>
-											<select name="georeference_protocol" size="1" class="reqdClr" style="width:130px" id="georeference_protocol">
-												<cfloop query="ctgeoreference_protocol">
-													<option value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
-												</cfloop>
-											</select>
-										</td>
-									</tr>
-								</table>
-							</div>
-							<div id="dms" class="noShow">
-								<table cellpadding="0" cellspacing="0">
-									<tr>
-										<td align="right"><span class="f11a">Lat Deg</span></td>
-										<td>
-											<input type="text" name="latdeg" size="4" id="latdeg" class="reqdClr">
-										</td>
-										<td align="right"><span class="f11a">Min</span></td>
-										<td>
-											<input type="text"
-												 name="LATMIN"
-												size="4"
-												id="latmin"
-												class="reqdClr">
-										</td>
-										<td align="right"><span class="f11a">Sec</span></td>
-										<td>
-											<input type="text"
-												 name="latsec"
-												size="6"
-												id="latsec"
-												class="reqdClr">
-											</td>
-										<td align="right"><span class="f11a">Dir</span></td>
-										<td>
-											<select name="latdir" size="1" id="latdir" class="reqdClr">
-												<option value=""></option>
-												<option value="N">N</option>
-												<option value="S">S</option>
-											  </select>
-										</td>
-									</tr>
-									<tr>
-										<td align="right"><span class="f11a">Long Deg</span></td>
-										<td>
-											<input type="text"
-												name="longdeg"
-												size="4"
-												id="longdeg"
-												class="reqdClr">
-										</td>
-										<td align="right"><span class="f11a">Min</span></td>
-										<td>
-											<input type="text"
-												name="longmin"
-												size="4"
-												id="longmin"
-												class="reqdClr">
-										</td>
-										<td align="right"><span class="f11a">Sec</span></td>
-										<td>
-											<input type="text"
-												 name="longsec"
-												size="6"
-												id="longsec"
-												class="reqdClr">
-										</td>
-										<td align="right"><span class="f11a">Dir</span></td>
-										<td>
-											<select name="longdir" size="1" id="longdir" class="reqdClr">
-												<option value=""></option>
-												<option value="E">E</option>
-												<option value="W">W</option>
-											  </select>
-										</td>
-									</tr>
-								</table>
-							</div>
-							<div id="ddm" class="noShow">
-								<table cellpadding="0" cellspacing="0">
-									<tr>
-										<td align="right"><span class="f11a">Lat Deg</span></td>
-										<td>
-											<input type="text"
-												 name="decLAT_DEG"
-												size="4"
-												id="decLAT_DEG"
-												class="reqdClr"
-												onchange="dataEntry.latdeg.value=this.value;">
-										</td>
-										<td align="right"><span class="f11a">Dec Min</span></td>
-										<td>
-											<input type="text"
-												name="dec_lat_min"
-												 size="8"
-												id="dec_lat_min"
-												class="reqdClr">
-										</td>
-										<td align="right"><span class="f11a">Dir</span></td>
-										<td>
-											<select name="decLAT_DIR"
-												size="1"
-												id="decLAT_DIR"
-												class="reqdClr"
-												onchange="dataEntry.latdir.value=this.value;">
-												<option value=""></option>
-												<option value="N">N</option>
-												<option value="S">S</option>
-											</select>
-										</td>
-									</tr>
-									<tr>
-										<td align="right"><span class="f11a">Long Deg</span></td>
-										<td>
-											<input type="text"
-												name="decLONGDEG"
-												size="4"
-												id="decLONGDEG"
-												class="reqdClr"
-												onchange="dataEntry.longdeg.value=this.value;">
-										</td>
-										<td align="right"><span class="f11a">Dec Min</span></td>
-										<td>
-											<input type="text"
-												name="DEC_LONG_MIN"
-												size="8"
-												id="dec_long_min"
-												class="reqdClr">
-										</td>
-										<td align="right"><span class="f11a">Dir</span></td>
-										<td>
-											<select name="decLONGDIR"
-												 size="1"
-												id="decLONGDIR"
-												class="reqdClr"
-												onchange="dataEntry.longdir.value=this.value;">
-												<option value=""></option>
-												<option value="E">E</option>
-												<option value="W">W</option>
-											</select>
-										</td>
-									</tr>
-								</table>
-							</div>
-							<div id="dd" class="noShow">
-								<span class="f11a">Dec Lat</span>
-								<input type="text"
-									 name="dec_lat"
-									size="8"
-									id="dec_lat"
-									class="reqdClr">
-								<span class="f11a">Dec Long</span>
-									<input type="text"
-										 name="dec_long"
-										size="8"
-										id="dec_long"
-										class="reqdClr">
-							</div>
-							<div id="utm" class="noShow">
-								<span class="f11a">UTM Zone</span>
-								<input type="text"
-									 name="utm_zone"
-									size="8"
-									id="utm_zone"
-									class="reqdClr">
-								<span class="f11a">UTM E/W</span>
-								<input type="text"
-									 name="utm_ew"
-									size="8"
-									id="utm_ew"
-									class="reqdClr">
-								<span class="f11a">UTM N/S</span>
-								<input type="text"
-									 name="utm_ns"
-									size="8"
-									id="utm_ns"
-									class="reqdClr">
-							</div>
-						</td>
-					</tr>
-				</table><!---- /coordinates ---->
-
-
-					<div id="geolCell" style="display:none;">
-						<table cellpadding="0" cellspacing="0" class="fs">
-							<tr>
-								<td>
-									<img src="/images/info.gif" border="0" onClick="getDocs('geology_attributes')" class="likeLink" alt="[ help ]">
-									<table cellpadding="0" cellspacing="0">
-										<tr>
-											<th nowrap="nowrap"><span class="f11a">Geol Att.</span></th>
-											<th><span class="f11a">Geol Att. Value</span></th>
-											<th><span class="f11a">Determiner</span></th>
-											<th><span class="f11a">Date</span></th>
-											<th><span class="f11a">Method</span></th>
-											<th><span class="f11a">Remark</span></th>
-										</tr>
-										<cfloop from="1" to="6" index="i">
-											<div id="#i#">
-											<tr id="d_geology_attribute_#i#">
-												<td>
-													<select name="geology_attribute_#i#" id="geology_attribute_#i#" size="1" onchange="populateGeology(this.id);">
-														<option value=""></option>
-														<cfloop query="ctgeology_attribute">
-															<option value="#geology_attribute#">#geology_attribute#</option>
-														</cfloop>
-													</select>
-												</td>
-												<td>
-													<select name="geo_att_value_#i#" id="geo_att_value_#i#">
-													</select>
-												</td>
-												<td>
-													<input type="text"
-														name="geo_att_determiner_#i#"
-														id="geo_att_determiner_#i#"
-														onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
-														onkeypress="return noenter(event);">
-												</td>
-												<td>
-													<input type="text"
-														name="geo_att_determined_date_#i#"
-														id="geo_att_determined_date_#i#"
-														size="10">
-												</td>
-												<td>
-													<input type="text"
-														name="geo_att_determined_method_#i#"
-														id="geo_att_determined_method_#i#"
-														size="15">
-												</td>
-												<td>
-													<input type="text"
-														name="geo_att_remark_#i#"
-														id="geo_att_remark_#i#"
-														size="15">
-												</td>
-											</tr>
-											</div>
-										</cfloop>
-									</table>
-								</td>
-							</tr>
-						</table>
-					</div>
-			</td><!--- end right column --->
-		</tr><!---- end top row of page --->
-		<tr><!---- start bottom row of page --->
-			<td colspan="2"><!--- parts block --->
-				<table cellpadding="0" cellspacing="0" class="fs">
-					<tr>
-						<td rowspan="99" valign="top">
-							<img src="/images/info.gif" border="0" onClick="getDocs('parts')" class="likeLink" alt="[ help ]">
-						</td>
-						<th><span class="f11a">Part Name</span></th>
-						<th><span class="f11a">Condition</span></th>
-						<th><span class="f11a">Disposition</span></th>
-						<th><span class="f11a">##</span></th>
-						<th><span class="f11a">Barcode</span></th>
-						<th><span class="f11a">Label</span></th>
-						<th><span class="f11a">Remark</span></th>
-					</tr>
-					<cfloop from="1" to="12" index="i">
-						<tr id="d_part_name_#i#">
-							<td>
-								<input type="text" name="part_name_#i#" id="part_name_#i#"
-									 size="25"
-									onchange="DEpartLookup(this.id);requirePartAtts('#i#',this.value);"
-									onkeypress="return noenter(event);">
-							</td>
-							<td>
-								<input type="text" name="part_condition_#i#" id="part_condition_#i#">
-							</td>
-							<td>
-								<select id="part_disposition_#i#" name="part_disposition_#i#">
-									<option value=""></option>
-									<cfloop query="CTCOLL_OBJ_DISP">
-										<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-									</cfloop>
-								</select>
-							</td>
-							<td>
-								<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" size="1">
-							</td>
-							<td>
-								<input type="text" name="part_barcode_#i#" id="part_barcode_#i#"
-									 size="15" onchange="setPartLabel(this.id);">
-							</td>
-							<td>
-								<input type="text" name="part_container_label_#i#" id="part_container_label_#i#" size="10">
-							</td>
-							<td>
-								<input type="text" name="part_remark_#i#" id="part_remark_#i#" size="40">
-							</td>
-						</tr>
-					</cfloop>
-				</table>
-			</td><!--- end parts block --->
-		</tr>
-		<tr>
-		<td colspan="2">
 			<table cellpadding="0" cellspacing="0" width="100%" style="background-color:##339999">
 				<tr>
 					<td width="16%">
@@ -1105,9 +1126,6 @@
 					</td>
 				</tr>
 			</table>
-   		</td>
-	</tr>
-</table>
 </form>
 <script language="javascript" type="text/javascript">
 
