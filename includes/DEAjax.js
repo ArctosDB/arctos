@@ -54,23 +54,19 @@ function makeSortable() {
 	 $("#left-col").sortable({
 	        handle: '.item .celltitle',
 	        connectWith: '#right-col',
-	        cursor: "move",
-	        revert: true,
-	        containment: 'parent'
+	        cursor: "move"
 	    }).disableSelection();
 	    $("#right-col").sortable({
 	        handle: '.item .celltitle',
 	        connectWith: '#left-col',
-	        cursor: "move",
-	        revert: true,
-	        containment: 'parent'
+	        cursor: "move"
 	    }).disableSelection();
 	
 }
 
 function killSortable(){
-	$('#left-col').sortable('disable');
-	$('#right-col').sortable('disable');
+	$('#left-col').sortable('destroy');
+	$('#right-col').sortable('destroy');
 }
 function r(){
 	var newOrdering = $('#right-col').sortable('toArray');
