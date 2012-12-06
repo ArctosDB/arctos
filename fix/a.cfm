@@ -33,38 +33,25 @@
 
 		jQuery(document).ready(function() {
 
-$(function() {
-    $("#left-col").sortable({
-        handle: '.item h2',
-        connectWith: '#right-col',
-          update:function(e,ui) {
-                var order = foo.sortable("toArray").join();
-                console.log(order);
-          }
-    }).disableSelection();
-    $("#right-col").sortable({
-        handle: '.item h2',
-        connectWith: '#left-col',
-         update:function(e,ui) {
-                var order = foo.sortable("toArray").join();
-                console.log(order);
-          }
-    }).disableSelection();
-});
-
-
-
-
-});
-
-function r(){
-	var sorted = $( "#left-col" ).sortable( "serialize", { key: "sort" } );
-	console.log(sorted);
-	var sorted = $( "#right-col" ).sortable( "serialize", { key: "sort" } );
-	console.log(sorted);
-	var sorted = .sortable( "serialize", { key: "sort" } );
-	console.log(sorted);
-}
+			$(function() {
+			    $("#left-col").sortable({
+			        handle: '.item h2',
+			        connectWith: '#right-col',
+			          update:function(e,ui) {
+			                var order = foo.sortable("toArray").join();
+			                console.log(order);
+			          }
+			    }).disableSelection();
+			    $("#right-col").sortable({
+			        handle: '.item h2',
+			        connectWith: '#left-col',
+			         update:function(e,ui) {
+			                var order = foo.sortable("toArray").join();
+			                console.log(order);
+			          }
+			    }).disableSelection();
+			});
+		});
 
 	</script>
 <span class="likeLink" onclick="r();">sort</span>
