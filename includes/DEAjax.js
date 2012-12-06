@@ -322,7 +322,7 @@ function loadedEditRecord(){
 			}
 		}
 		// don't let them leave until this is fixed
-		$("#theTable").removeClass().addClass('isBadEdit');
+		$("#dataEntryContainer").removeClass().addClass('isBadEdit');
 		$("#editMode").hide(); // Clone This Record
 		// ?? $("#pageTitle").show();
 		if ($("#ImAGod").val() != "yes"){
@@ -332,7 +332,7 @@ function loadedEditRecord(){
 		$("#customizeForm").hide(); //Save This As A New Record
 		msg('record loaded - failed checks','good');
 	} else {
-		$("#theTable").removeClass().addClass('isGoodEdit');
+		$("#dataEntryContainer").removeClass().addClass('isGoodEdit');
 		$("#editMode").show(); // Clone This Record
 		$("#browseThingy").show();
 		if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
@@ -557,7 +557,7 @@ function loadRecordEnter(collection_object_id){
 				
 				// turn some form stuff on/off as appropriate
 				$("#customizeForm").show(); //Save This As A New Record
-				$("#theTable").removeClass().addClass('isEnter');
+				$("#dataEntryContainer").removeClass().addClass('isEnter');
 				$("#theNewButton").show(); //Save This As A New Record
 				$("#theSaveButton").hide(); // Save Edits/Delete Record
 				$("#editMode").hide(); // Clone This Record

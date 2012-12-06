@@ -207,7 +207,7 @@
 			<input type="hidden" name="sessionusername" value="#session.username#" id="sessionusername">
 			<input type="hidden" name="sessioncustomotheridentifier" value="#session.customotheridentifier#" id="sessioncustomotheridentifier">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#" id="collection_object_id"/>
-			<div id="container">
+			<div id="dataEntryContainer">
 				    <div id="left-col">
 				        <div class="wrapper" id="sort_catitemid">
 				            <div class="item">
@@ -1059,22 +1059,6 @@
 								</div><!--- end hidey geology thingeemabopper ---->
 							</div><!--- end item --->
 						</div><!--- end sort_geology --->
-				        <div class="wrapper" id="w3">
-				            <div class="item">
-				                <p class="celltitle">w three</p>
-				                <p>Lorem ipsum dolor sit amet</p>
-				                <p>Lorem ipsum dolor sit amet</p>
-				            </div>
-				        </div>
-				        <div class="wrapper" id="w4">
-				            <div class="item">
-								<p class="celltitle">w four</p>
-				                <p>Lorem ipsum dolor sit amet</p>
-				                <p>Lorem ipsum dolor sit amet</p>
-				                <p>Lorem ipsum dolor sit amet</p>
-				                <p>Lorem ipsum dolor sit amet</p>
-				            </div>
-				        </div>
 				    </div><!-- end right-col -->
 				</div><!---- end bodywrapperthingee ---->
 
