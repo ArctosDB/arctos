@@ -33,6 +33,7 @@ rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css
         });
     });
 
+	$("#made_date").datepicker();
 
     /*
 jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
@@ -52,3 +53,6 @@ jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georefe
 	</script>
 
 <input type="text" id="georeference_source">
+	<input type="text" id="made_date">
+
+
