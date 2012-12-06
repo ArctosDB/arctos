@@ -187,6 +187,14 @@
 	<cfreturn />
 </cffunction>
 
+
+<!----------------------------------------------------------------------------------------->
+<cffunction name="get_sort_order" access="remote">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select sort_leftcolumn,sort_rightcolumn from cf_dataentry_settings where username='#session.username#'
+	</cfquery>
+	<cfreturn d>
+</cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="updateMySettings" access="remote">
 	<cfargument name="element" required="yes">

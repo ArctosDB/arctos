@@ -82,12 +82,13 @@ function r(){
     function reorderSort() {
     	$.getJSON("/component/Bulkloader.cfc",
     			{
-    				method : "get_sort_order"
+    				method : "get_sort_order",
     				returnformat : "json"
     			},
     			function(r) {
-    				console.log(r);
-    				var elAry = r.split(",");
+    				console.log('r='+r);
+    				var elAry = r.DATA.SORT_LEFTCOLUMN[0] split(",");
+    				console.log('elAry='+elAry);
     				for (var i=0; loop < elAry.length; i++) {
     					var thisEl = elAry[i];
     					console.log('thisEl='+thisEl);
