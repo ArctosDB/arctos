@@ -38,7 +38,8 @@ jQuery(document).ready(function() {
 			$(function() {
 			    $("#left-col").sortable({
 			        handle: '.item .celltitle',
-			        connectWith: '#right-col'
+			        connectWith: '#right-col',
+			        cursor: "move"
 			    }).disableSelection();
 			    $("#right-col").sortable({
 			        handle: '.item .celltitle',
