@@ -243,9 +243,9 @@
 											<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
 										</td>
 										<td class="nowrap valigntop">
-											<label for="accn">Accn</label>
+											<label for="accn">Accn <span class="infoLink" onclick="getDEAccn();">[ pick ]</span></label>
 											<input type="text" name="accn" size="25" class="reqdClr" id="accn" onchange="getDEAccn();">
-											<span class="infoLink" onclick="getDEAccn();">[ pick ]</span>
+
 										</td>
 										<td class="nowrap" rowspan="2">
 											<div id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</div>
@@ -451,15 +451,14 @@
 										<tr id="d_part_name_#i#">
 											<td>
 												<input type="text" name="part_name_#i#" id="part_name_#i#"
-													 size="25"
-													onchange="DEpartLookup(this.id);requirePartAtts('#i#',this.value);"
+													 size="20" onchange="DEpartLookup(this.id);requirePartAtts('#i#',this.value);"
 													onkeypress="return noenter(event);">
 											</td>
 											<td>
 												<input type="text" name="part_condition_#i#" id="part_condition_#i#">
 											</td>
 											<td>
-												<select id="part_disposition_#i#" name="part_disposition_#i#">
+												<select id="part_disposition_#i#" name="part_disposition_#i#" style="max-width:80px;">
 													<option value=""></option>
 													<cfloop query="CTCOLL_OBJ_DISP">
 														<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
@@ -477,7 +476,7 @@
 												<input type="text" name="part_container_label_#i#" id="part_container_label_#i#" size="10">
 											</td>
 											<td>
-												<input type="text" name="part_remark_#i#" id="part_remark_#i#" size="40">
+												<input type="text" name="part_remark_#i#" id="part_remark_#i#" size="25">
 											</td>
 										</tr>
 									</cfloop>
