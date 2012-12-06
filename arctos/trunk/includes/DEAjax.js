@@ -4,12 +4,14 @@ jQuery(document).ready(function() {
 	    $("#left-col").sortable({
 	        handle: '.item .celltitle',
 	        connectWith: '#right-col',
-	        cursor: "move"
+	        cursor: "move",
+	        zIndex: 0
 	    }).disableSelection();
 	    $("#right-col").sortable({
 	        handle: '.item .celltitle',
 	        connectWith: '#left-col',
-	        cursor: "move"
+	        cursor: "move",
+	        zIndex: 0
 	    }).disableSelection();
 	});
 	
