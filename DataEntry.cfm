@@ -415,58 +415,6 @@
 						</td>
 					</tr>
 				</table><!------- /remarkey stuff --->
-
-
-
-
-<table cellpadding="0" cellspacing="0" class="fs">
-																				<tr>
-																					<td rowspan="99" valign="top">
-																						<img src="/images/info.gif" border="0" onClick="getDocs('parts')" class="likeLink" alt="[ help ]">
-																					</td>
-																					<th><span class="f11a">Part Name</span></th>
-																					<th><span class="f11a">Condition</span></th>
-																					<th><span class="f11a">Disposition</span></th>
-																					<th><span class="f11a">##</span></th>
-																					<th><span class="f11a">Barcode</span></th>
-																					<th><span class="f11a">Label</span></th>
-																					<th><span class="f11a">Remark</span></th>
-																				</tr>
-																				<cfloop from="1" to="12" index="i">
-																					<tr id="d_part_name_#i#">
-																						<td>
-																							<input type="text" name="part_name_#i#" id="part_name_#i#"
-																								 size="25"
-																								onchange="DEpartLookup(this.id);requirePartAtts('#i#',this.value);"
-																								onkeypress="return noenter(event);">
-																						</td>
-																						<td>
-																							<input type="text" name="part_condition_#i#" id="part_condition_#i#">
-																						</td>
-																						<td>
-																							<select id="part_disposition_#i#" name="part_disposition_#i#">
-																								<option value=""></option>
-																								<cfloop query="CTCOLL_OBJ_DISP">
-																									<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-																								</cfloop>
-																							</select>
-																						</td>
-																						<td>
-																							<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" size="1">
-																						</td>
-																						<td>
-																							<input type="text" name="part_barcode_#i#" id="part_barcode_#i#"
-																								 size="15" onchange="setPartLabel(this.id);">
-																						</td>
-																						<td>
-																							<input type="text" name="part_container_label_#i#" id="part_container_label_#i#" size="10">
-																						</td>
-																						<td>
-																							<input type="text" name="part_remark_#i#" id="part_remark_#i#" size="40">
-																						</td>
-																					</tr>
-																				</cfloop>
-																			</table>
 				</td> <!---- end top left --->
 				<td valign="top"><!----- right column ---->
 				<label onClick="getDocs('specimen_event')" class="likeLink" for="loctbl">Specimen/Event</label>
