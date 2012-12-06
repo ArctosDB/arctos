@@ -6,7 +6,7 @@
 		group by georeference_source
 		order by georeference_source
 	</cfquery>
-    <cfreturn "[" & ListQualify(valulist(pn.georeference_source),'"') & "]">
+    <cfreturn "[" & ListQualify(valuelist(pn.georeference_source),'"') & "]">
 </cffunction>
 
 
