@@ -20,7 +20,7 @@
 
 	<script type='text/javascript' language="javascript" src='/includes/ajax.min.js'></script>
 
-	<rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
 
 
