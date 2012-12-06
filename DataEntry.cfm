@@ -199,6 +199,7 @@
 		</cfquery>
 		<cfset idList=valuelist(whatIds.collection_object_id)>
 		<cfset currentPos = listFind(idList,collection_object_id)>
+		<div id="loadedMsgDiv"></div>
 		<form name="dataEntry" method="post" action="DataEntry.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
 			<input type="hidden" name="action" value="#action#" id="action">
 			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
@@ -208,8 +209,8 @@
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#" id="collection_object_id"/>
 			<div id="container">
 				    <div id="left-col">
-				        <div class="wrapper" id="catitem_id">
-				            <div class="item" id="i1">
+				        <div class="wrapper" id="sort_catitemid">
+				            <div class="item">
 								<span class="celltitle">Cat Item IDs</span>
 								<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
 									<tr>
@@ -255,12 +256,35 @@
 								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
 				            </div>
 				        </div>
-				        <div class="wrapper" id="w2">
-				            <div class="item" id="i2">
-				<span class="celltitle">w two</span>
-				                <p>Lorem ipsum dolor sit amet</p>
-				                <p>Lorem ipsum dolor sit amet</p>
-				                <p>Lorem ipsum dolor sit amet</p>
+				        <div class="wrapper" id="sort_agent">
+				            <div class="item">
+								<span class="celltitle">Agents</span>
+								<table cellpadding="0" cellspacing="0" class="fs"><!--- agents --->
+									<tr>
+										<td rowspan="99" valign="top">
+											<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
+										</td>
+										<cfloop from="1" to="5" index="i">
+											<cfif i is 1 or i is 3 or i is 5><tr></cfif>
+											<td id="d_collector_role_#i#" align="right">
+												<select name="collector_role_#i#" size="1" <cfif i is 1>class="reqdClr"</cfif> id="collector_role_#i#">
+													<option value="c">Collector</option>
+													<cfif i gt 1>
+														<option value="p">Preparator</option>
+													</cfif>
+												</select>
+											</td>
+											<td  id="d_collector_agent_#i#" nowrap="nowrap">
+												<span class="f11a">#i#</span>
+												<input type="text" name="collector_agent_#i#"
+													<cfif i is 1>class="reqdClr"</cfif> id="collector_agent_#i#"
+													onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+													onkeypress="return noenter(event);">
+												<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
+											</td>
+											<cfif i is 2 or i is 4 or i is 5></tr></cfif>
+										</cfloop>
+								</table><!---- / agents------------->
 				            </div>
 				        </div>
 				    </div><!-- end left-col -->
@@ -295,37 +319,12 @@
 			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style=""> <!--- display:none-------whole page table --->
 				<tr>
 					<td colspan="2" style="border-bottom: 1px solid black; " align="center">
-						<div id="loadedMsgDiv"></div>
+
 					</td>
 				</tr>
 				<tr><td width="50%" valign="top"><!--- left top of page --->
 
-					<table cellpadding="0" cellspacing="0" class="fs"><!--- agents --->
-						<tr>
-							<td rowspan="99" valign="top">
-								<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
-							</td>
-							<cfloop from="1" to="5" index="i">
-								<cfif i is 1 or i is 3 or i is 5><tr></cfif>
-								<td id="d_collector_role_#i#" align="right">
-									<select name="collector_role_#i#" size="1" <cfif i is 1>class="reqdClr"</cfif> id="collector_role_#i#">
-										<option value="c">Collector</option>
-										<cfif i gt 1>
-											<option value="p">Preparator</option>
-										</cfif>
-									</select>
-								</td>
-								<td  id="d_collector_agent_#i#" nowrap="nowrap">
-									<span class="f11a">#i#</span>
-									<input type="text" name="collector_agent_#i#"
-										<cfif i is 1>class="reqdClr"</cfif> id="collector_agent_#i#"
-										onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
-										onkeypress="return noenter(event);">
-									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
-								</td>
-								<cfif i is 2 or i is 4 or i is 5></tr></cfif>
-							</cfloop>
-					</table><!---- / agents------------->
+
 					<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
 						<tr>
 							<td rowspan="99" valign="top">
@@ -1112,7 +1111,7 @@
 </form>
 <script language="javascript" type="text/javascript">
 
-
+/*
 	jQuery(document).ready(function() {
 
 		jQuery("##georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
@@ -1130,6 +1129,8 @@
 
 		loadRecord('#collection_object_id#');
 	});
+
+	*/
 </script>
 <cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1 and action is "enter">
 	<cftry>
