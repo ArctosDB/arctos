@@ -30,53 +30,53 @@
 	</style>
 
 	<script>
-$(document).ready(function() {
+
+jQuery(document).ready(function() {
+
+			$(function() {
+			    $("#left-col").sortable({
+			        connectWith: '#right-col',
+			          update : function () {
+			              var newOrdering = $('#left-col').sortable('toArray');
+    						console.log('newOrdering='+newOrdering);
+			          }
+			    }).disableSelection();
+			    $("#right-col").sortable({
+			        handle: '.item h2',
+			        connectWith: '#left-col',
+			         update : function () {
+			              var newOrdering = $('#right-col').sortable('toArray');
+    						console.log('newOrdering='+newOrdering);
+			          }
+			    }).disableSelection();
+			});
+		});
+/*
+	$(document).ready(function() {
   $("#left-col").sortable({
 			 handle: '.item h2',
 			  connectWith: '#right-col',
   update : function () {
     var newOrdering = $('#left-col').sortable('toArray');
     console.log('newOrdering='+newOrdering);
-    var l = "myItem_".length;
-    var newOrderIds = new Array(newOrdering.length);
-    var ctr = 0;
+    //var l = "myItem_".length;
+    //var newOrderIds = new Array(newOrdering.length);
+    //var ctr = 0;
     // Loop over each value in the array and get the ID
-    $.each(
-      newOrdering,
-      function(intIndex, objValue) {
+   // $.each(
+    //  newOrdering,
+    //  function(intIndex, objValue) {
         //Get the ID of the reordered items
         //- this is sent back to server to save
-        newOrderIds[ctr] = objValue.substring(l,objValue.length);
-        ctr = ctr + 1;
-      }
-    );
-    alert("newOrderIds : "+newOrderIds); //Remove after testing
+   //     newOrderIds[ctr] = objValue.substring(l,objValue.length);
+   //     ctr = ctr + 1;
+   //   }
+   // );
+    //alert("newOrderIds : "+newOrderIds); //Remove after testing
    // $("#info").load("save-item-ordering.jsp?"+newOrderIds);
   }
   });
 });
-
-/*
-		jQuery(document).ready(function() {
-
-			$(function() {
-			    $("#left-col").sortable({
-			        connectWith: '#right-col',
-			          update:function(e,ui) {
-			                var order = .sortable("toArray").join();
-			                console.log(order);
-			          }
-			    }).disableSelection();
-			    $("#right-col").sortable({
-			        handle: '.item h2',
-			        connectWith: '#left-col',
-			         update:function(e,ui) {
-			                var order = .sortable("toArray").join();
-			                console.log(order);
-			          }
-			    }).disableSelection();
-			});
-		});
 */
 	</script>
 <span class="likeLink" onclick="r();">sort</span>
@@ -102,14 +102,14 @@ $(document).ready(function() {
 	        </div>
 	    </div><!-- end left-col -->
 	    <div id="right-col">
-	        <div class="wrapper">
+	        <div class="wrapper" id="w3">
 	            <div class="item">
 	                <h2>Row 1 Column 2</h2>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
 	            </div>
 	        </div>
-	        <div class="wrapper">
+	        <div class="wrapper" id="w4">
 	            <div class="item">
 	                <h2>Row 2 Column 2</h2>
 	                <p>Lorem ipsum dolor sit amet</p>
