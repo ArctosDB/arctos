@@ -262,7 +262,7 @@
 										</td>
 										<td colspan="6">
 											<label for="loaded">Status</label>
-											<input type="text" name="loaded" size="120" id="loaded" readonly="readonly" class="readClr" value="waiting approval">
+											<input type="text" name="loaded" size="100" id="loaded" readonly="readonly" class="readClr" value="waiting approval">
 										</td>
 									</tr>
 								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
@@ -410,18 +410,16 @@
 								</table><!------ random admin stuff ---------->
 								<table cellpadding="0" cellspacing="0" class="fs"><!------- remarkey stuff --->
 									<tr id="d_coll_object_remarks">
-										<td colspan="2">
-											<span class="f11a">Spec Remark</span>
-												<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="80"></textarea>
-										</td>
-									</tr>
-									<tr id="d_associated_species">
-										<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
 										<td>
-											<input type="text" name="associated_species" size="80" id="associated_species">
+											<span class="f11a">Spec&nbsp;Remark</span>
+												<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="60"></textarea>
 										</td>
 									</tr>
 									<tr>
+										<td id="d_associated_species">
+											<span class="f11a">Associated&nbsp;Species</span>
+											<input type="text" name="associated_species" size="80" id="associated_species">
+										</td>
 										<td id="d_flags">
 											<span class="f11a">Missing....</span>
 											<select name="flags" size="1" style="width:120px" id="flags">
