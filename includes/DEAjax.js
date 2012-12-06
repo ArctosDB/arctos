@@ -49,8 +49,8 @@ jQuery(document).ready(function() {
 	pickedLocality();
 	//set_attribute_dropdowns();
 	
-
-	loadRecord('#collection_object_id#');
+	
+	
 });
 
 // sortable functions
