@@ -257,7 +257,7 @@
 									<tr>
 										<td colspan="2">
 											<label for="enteredby">Entered&nbsp;By</label>
-											<input type="text" class="readClr" readonly="readonly" name="enteredby" id="enteredby">
+											<input type="text" class="readClr" readonly="readonly" size="15" name="enteredby" id="enteredby">
 										</td>
 										<td colspan="4">
 											<label for="loaded">Status</label>
