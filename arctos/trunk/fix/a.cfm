@@ -81,8 +81,8 @@ $(document).ready(function() {
 <span class="likeLink" onclick="r();">sort</span>
 	<div id="container">
 	    <div id="left-col">
-	        <div class="wrapper">
-	            <div class="item">
+	        <div class="wrapper" id="w1">
+	            <div class="item" id="i1">
 	                <h2>Row 1 Column 1</h2>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
@@ -91,8 +91,8 @@ $(document).ready(function() {
 	                <p>Lorem ipsum dolor sit amet</p>
 	            </div>
 	        </div>
-	        <div class="wrapper">
-	            <div class="item">
+	        <div class="wrapper" id="w2">
+	            <div class="item" id="i2">
 	                <h2>Row 2 Column 1</h2>
 	                <p>Lorem ipsum dolor sit amet</p>
 	                <p>Lorem ipsum dolor sit amet</p>
