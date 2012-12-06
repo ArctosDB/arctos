@@ -50,7 +50,7 @@ jQuery(document).ready(function() {
         { 
         	  var sortR=$("#right-col").sortable('serialize');
               var sortL=$("#left-col").sortable('serialize');
-              console.log('sortR='+sortR+' ; sortL=' + sortL);
+              //console.log('sortR='+sortR+' ; sortL=' + sortL);
         } 
 	});
    
@@ -80,9 +80,9 @@ function killSortable(){
 }
 function r(){
 	var newOrdering = $('#right-col').sortable('toArray');
-	console.log('newOrderingR='+newOrdering);
+	//console.log('newOrderingR='+newOrdering);
 	 var newOrdering = $('#left-col').sortable('toArray');
-    						console.log('newOrderingL='+newOrdering);
+    						//console.log('newOrderingL='+newOrdering);
 	}
 
 
@@ -120,18 +120,18 @@ function deleteThisRec () {
 				returnformat : "json"
 			},
 			function(r) {
-				console.log(r);
+				//console.log(r);
 				if(r){
 					alert(r);
 					msg(r,'good');
 					return false;
 				} else {
-					console.log('r is not');
+					//console.log('r is not');
 				}
-				console.log('deleted ' + collection_object_id);
+				//console.log('deleted ' + collection_object_id);
 				var nextID=$('#selectbrowse option:selected').next().val();
 				if (! nextID){
-					console.log('going for previous');
+					//console.log('going for previous');
 					var nextID=$('#selectbrowse option:selected').prev().val();
 					if (! nextID){
 						alert('Error loading new record. Select a new record in the dropdown, or close and re-open this form.');
@@ -139,7 +139,7 @@ function deleteThisRec () {
 						return false;
 					}
 				}
-				console.log('going to ' + nextID);
+				//console.log('going to ' + nextID);
 				$("#recCount").text(parseInt(parseInt($("#recCount").text())-1));
 				$("#selectbrowse option[value=" + collection_object_id + "]").remove();
 				$("#selectbrowse").val(nextID);
@@ -226,14 +226,14 @@ function saveNewRecord () {
 function setPagePrefs(){
 	// called only in enter data mode
 	msg('setting customizations.....','bad');
-	console.log('setPagePrefs');
+	//console.log('setPagePrefs');
 	var mode=$("#action").val();
-	console.log('mode='+mode);
+	//console.log('mode='+mode);
 	if (mode=='edit'){
 		alert('bad call to setPagePrefs - aborting');
 		return false;
 	}
-	console.log('made it past return');
+	//console.log('made it past return');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "getPrefs",
@@ -265,7 +265,7 @@ function setPagePrefs(){
 	);
 }
 function loadRecord(collection_object_id){
-	console.log('loadRecord');
+	//console.log('loadRecord');
 
 	// figure out if we're trying to enter or edit and call the appropriate function
 	if($("#action").val()=='enter') {
@@ -290,7 +290,7 @@ function saveEditedRecord () {
 			function(r) {
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
 				var status=r.DATA.RSLT[0];
-				console.log('saveEditedRecord back with msg ' + status);
+				//console.log('saveEditedRecord back with msg ' + status);
 				$("#loadedMsgDiv").text(status);
 				loadedEditRecord();
 			}
@@ -302,7 +302,7 @@ function loadedEditRecord(){
 	// show errors and set the form up to deal with them if necessary
 	// used by saveEditedRecord and loadRecordEdit
 	// this function is NOT suitable for enter mode calls
-	console.log('loadedEditRecord');
+	//console.log('loadedEditRecord');
 	if ($("#collection_object_id").val()<500){
 		// one of the templates
 		//var loadedMsg='';
@@ -312,9 +312,9 @@ function loadedEditRecord(){
 	// make sure everything is on - override any user customizations	
 	$("div[id^='d_']").show();
 	var loadedMsg=$.trim($("#loadedMsgDiv").text());
-	console.log('loadedMsg='+loadedMsg);	
+	//console.log('loadedMsg='+loadedMsg);	
 	$(".hasProbs").removeClass();
-	console.log('loadedMsg='+loadedMsg);
+	//console.log('loadedMsg='+loadedMsg);
 	// make sure loaded isn't NULL for some reason
 	// this form cannot be used to set records to load
 	// just stop that and document if necessary
@@ -322,12 +322,12 @@ function loadedEditRecord(){
 		$("#loaded").val('waiting approval');
 	}
 	if(loadedMsg){
-		console.log('loadedEditRecord+loadedMsg='+loadedMsg);
+		//console.log('loadedEditRecord+loadedMsg='+loadedMsg);
 		$("#loadedMsgDiv").show();
 		var prob_array = loadedMsg.split(" ");
 		for (var loop=0; loop < prob_array.length; loop++) {
 			var thisSlice = prob_array[loop];
-			//console.log('thisSlice='+thisSlice);
+			////console.log('thisSlice='+thisSlice);
 			var hasSpace = thisSlice.indexOf(" ");
 			if (hasSpace == -1) {
 				//console.log('trying....');
@@ -374,7 +374,7 @@ function loadedEditRecord(){
 		$("#loadedMsgDiv").hide();
 		msg('record loaded - passed checks','good');
 	}
-	console.log('collection_object_id='+$("#collection_object_id").val());
+	//console.log('collection_object_id='+$("#collection_object_id").val());
 	$("#selectbrowse").val($("#collection_object_id").val());
 	// this is always off in edit mode
 	$("#enterMode").hide(); // Edit Last Record
@@ -398,7 +398,7 @@ function loadedEditRecord(){
 
 function loadRecordEdit (collection_object_id) {
 	//load a record in EDIT mode
-	console.log('loadRecordEdit');
+	//console.log('loadRecordEdit');
 	msg('fetching data....','bad');
 	$.ajax({
 	    url: "/component/Bulkloader.cfc",
@@ -410,7 +410,7 @@ function loadRecordEdit (collection_object_id) {
 				queryformat : 'column'
 		},
 			success: function( r ){
-				console.log('success_loadRecordEdit' +  r);
+				//console.log('success_loadRecordEdit' +  r);
 				if (r.ROWCOUNT==0){
 					alert('record not found');
 					msg('record not found','good');
@@ -436,7 +436,7 @@ function loadRecordEdit (collection_object_id) {
 					}
 				}
 				if (ccde=='Bird'){
-					console.log('is bird....');
+					//console.log('is bird....');
 					if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
 						(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age') || +
 						(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition') || +
@@ -444,13 +444,13 @@ function loadRecordEdit (collection_object_id) {
 						(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification') || +
 						(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ) {
 						useCustom=false;
-						console.log('failed attribute check....');
-						console.log('a1==sex--' + r.DATA.ATTRIBUTE_1);
-						console.log('a2==age--' + r.DATA.ATTRIBUTE_2);
-						console.log('a3==fat deposition--' + r.DATA.ATTRIBUTE_3);
-						console.log('a4==molt condition--' + r.DATA.ATTRIBUTE_4);
-						console.log('a5==skull ossification--' + r.DATA.ATTRIBUTE_5);
-						console.log('a6==weight--' + r.DATA.ATTRIBUTE_6);
+						//console.log('failed attribute check....');
+						//console.log('a1==sex--' + r.DATA.ATTRIBUTE_1);
+						//console.log('a2==age--' + r.DATA.ATTRIBUTE_2);
+						//console.log('a3==fat deposition--' + r.DATA.ATTRIBUTE_3);
+						//console.log('a4==molt condition--' + r.DATA.ATTRIBUTE_4);
+						//console.log('a5==skull ossification--' + r.DATA.ATTRIBUTE_5);
+						//console.log('a6==weight--' + r.DATA.ATTRIBUTE_6);
 					}
 				}
 				if (useCustom==false) {
@@ -494,7 +494,7 @@ function loadRecordEnter(collection_object_id){
 			queryformat : 'column'
 		},
 		function(r) {
-			console.log('back loadRecordEnter');
+			//console.log('back loadRecordEnter');
 			var columns=r.COLUMNS;
 			var ccde=r.DATA.COLLECTION_CDE[0];
 			// always load the custom template in entry mode
@@ -635,7 +635,7 @@ function getDEAccn() {
 
 // fetch a record into a local JSON object
 function fetchRecord (collection_object_id) {
-	console.log('fetchRecord');
+	//console.log('fetchRecord');
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "loadRecord",
@@ -1467,18 +1467,18 @@ function checkCustomAtts(){
 			$("#attribute_value_4").val().length>0 || +
 			$("#attribute_value_5").val().length>0){
 		$("#attribute_units_2").addClass("reqdClr");
-		console.log('got some attribtue values');
+		//console.log('got some attribtue values');
 	} else {
 		$("#attribute_units_2").removeClass("reqdClr");
-		console.log('got no attribtue values');
+		//console.log('got no attribtue values');
 	}
 	if ($("#attribute_value_6").val().length>0){
 		$("#attribute_units_6").addClass("reqdClr");
-		console.log('got weight attribtue values');
+		//console.log('got weight attribtue values');
 
 	} else {
 		$("#attribute_units_6").removeClass("reqdClr");
-		console.log('got no weight attribtue values');
+		//console.log('got no weight attribtue values');
 	}
 }
 function _isInteger(val){var digits="1234567890";for(var i=0;i < val.length;i++){if(digits.indexOf(val.charAt(i))==-1){return false;}}return true;}
@@ -2317,7 +2317,7 @@ function set_attribute_dropdowns() {
    });	
 }
 function getAttributeStuff (attr,elem) {
-	console.log('getAttributeStuff');
+	//console.log('getAttributeStuff');
 	/*
 	 
 	
@@ -2348,7 +2348,7 @@ function getAttributeStuff (attr,elem) {
 	
 		
 if(attr!==null && elem!==null){
-	console.log('made it through all checks - attr='+ attr);
+	//console.log('made it through all checks - attr='+ attr);
 	
 		var optn = document.getElementById(elem);
 		optn.style.backgroundColor='red';
