@@ -302,7 +302,7 @@
 								</table><!---- / agents------------->
 				            </div><!--- end item --->
 						</div><!--- end sort_agent --->
-	<!----
+
 						<div class="wrapper" id="sort_otherid">
 				            <div class="item">
 								<div class="celltitle">Other IDs  <span class="likeLink" onClick="getDocs('cataloged_item','other_id')">[ documentation ]</span></div>
@@ -327,7 +327,7 @@
 								</table><!---- /other IDs ---->
 					        </div><!--- end item --->
 				        </div><!--- end sort_otherid --->
-
+<!----
 						<div class="wrapper" id="sort_identification">
 				            <div class="item">
 								<div class="celltitle">Identification <span class="likeLink" onClick="getDocs('identification')">[ documentation ]</span></div>
