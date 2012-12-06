@@ -41,7 +41,7 @@
             "Scheme"
         ];
         $( "#georeference_source" ).autocomplete({
-            source: '/component/functions.cfc?method=test'
+            source: '/component/functions.cfc?method=test&queryformat=column'
         });
     });
 
