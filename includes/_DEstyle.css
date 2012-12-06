@@ -1,3 +1,8 @@
+#DEControls {
+	font-size:x-small;
+	font-weight:bold;
+	border:1px solid black;
+}
 .celltitle{
 	cursor:move;
 	background: #ccc;

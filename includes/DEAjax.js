@@ -120,8 +120,36 @@ function r(){
 			}
 		);
     }
-    
-    
+    function resetSort(){
+    	// manually reset the form....
+			var elAry = 'sort_catitemid,sort_agent,sort_otherid,sort_identification,sort_attributes,sort_randomness'.split(",");
+			console.log('elAry='+elAry);
+			for (var i=0;i<elAry.length; i++) {
+				console.log('thisEl='+elAry[i]);
+				$('#left-col').append($("#" + elAry[i]));
+			}
+			var elAry = 'sort_specevent,sort_collevent,sort_locality,sort_coordinates,sort_geology,sort_parts'.split(",");
+			console.log('elAry='+elAry);
+			for (var i=0;i<elAry.length; i++) {
+				console.log('thisEl='+elAry[i]);
+				$('#right-col').append($("#" + elAry[i]));
+			}
+    	// and update their DB record
+    	 $.getJSON("/component/Bulkloader.cfc",
+  			{
+  				method : "set_sort_order",
+  				returnformat : "json",
+  				queryformat : 'column',
+  				sort_leftcolumn: 'sort_catitemid,sort_agent,sort_otherid,sort_identification,sort_attributes,sort_randomness',
+  				sort_rightcolumn: 'sort_specevent,sort_collevent,sort_locality,sort_coordinates,sort_geology,sort_parts'
+  			},
+  			function(r) {
+  				console.log('r='+r);
+  			}
+  		);
+    }
+
+
 function deleteThisRec () {
 	// only available from edit mode
 	
