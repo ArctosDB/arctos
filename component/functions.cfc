@@ -31,7 +31,7 @@
 		<cfreturn '["Census 2000 TIGER/Line Data; MaNIS Georeferencing Calculator","Google Earth"]'>
 
 	---->
-<cfreturn "[" & ListQualify(valuelist(pn.georeference_source),'"') & "]">
+<cfreturn "[" & ListQualify(valuelist(pn.label),'"') & "]">
 </cffunction>
 
 
