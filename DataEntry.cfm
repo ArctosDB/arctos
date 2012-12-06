@@ -212,7 +212,7 @@
 				        <div class="wrapper" id="sort_catitemid">
 				            <div class="item">
 								<div class="celltitle">Cat Item IDs - These gray title bars are drag handles</div>
-								<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
+								<table cellpadding="0" cellspacing="0" class="fs" border="1"><!--- cat item IDs --->
 									<tr>
 										<td class="valigntop">
 											<label for="institution_acronym">Inst</label>
