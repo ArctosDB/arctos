@@ -5,17 +5,47 @@
 
 
 
-<script type='text/javascript' language="javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
+<script type='text/javascript' language="javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
 
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
-<input type="text" id="georeference_source">
 
 	<script>
 
 	jQuery(document).ready(function() {
 
+ $(function() {
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+        $( "#georeference_source" ).autocomplete({
+            source: availableTags
+        });
+    });
 
+
+    /*
 jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
 		width: 320,
 		max: 50,
@@ -28,7 +58,8 @@ jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georefe
 		selectFirst:false
 	});
 
-
+*/
 });
 	</script>
 
+<input type="text" id="georeference_source">
