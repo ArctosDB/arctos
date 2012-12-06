@@ -51,33 +51,13 @@ jQuery(document).ready(function() {
 			    }).disableSelection();
 			});
 		});
-/*
-	$(document).ready(function() {
-  $("#left-col").sortable({
-			 handle: '.item h2',
-			  connectWith: '#right-col',
-  update : function () {
-    var newOrdering = $('#left-col').sortable('toArray');
-    console.log('newOrdering='+newOrdering);
-    //var l = "myItem_".length;
-    //var newOrderIds = new Array(newOrdering.length);
-    //var ctr = 0;
-    // Loop over each value in the array and get the ID
-   // $.each(
-    //  newOrdering,
-    //  function(intIndex, objValue) {
-        //Get the ID of the reordered items
-        //- this is sent back to server to save
-   //     newOrderIds[ctr] = objValue.substring(l,objValue.length);
-   //     ctr = ctr + 1;
-   //   }
-   // );
-    //alert("newOrderIds : "+newOrderIds); //Remove after testing
-   // $("#info").load("save-item-ordering.jsp?"+newOrderIds);
-  }
-  });
-});
-*/
+
+function r(){
+	var newOrdering = $('#right-col').sortable('toArray');
+	console.log('newOrderingR='+newOrdering);
+	 var newOrdering = $('#left-col').sortable('toArray');
+    						console.log('newOrderingL='+newOrdering);
+	}
 	</script>
 <span class="likeLink" onclick="r();">sort</span>
 	<div id="container">
