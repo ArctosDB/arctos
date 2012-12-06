@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
 	      		);
         }
 	});
-   
+	reorderSort();
 	
 });
 
