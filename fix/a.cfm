@@ -48,6 +48,7 @@ $(function() {
           update:function(e,ui) {
                 var order = foo.sortable("toArray").join();
                 console.log(order);
+            }
           });
     });
 
