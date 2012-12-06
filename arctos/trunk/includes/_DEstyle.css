@@ -20,10 +20,15 @@
     margin: .5em .5em .5em .25em;
     border: 1px solid black;
 }
-#left-col, #right-col { width: 50%;    }
-#left-col { float: left; }
-#right-col { float: right; }
-      
+#left-col, #right-col {     }
+#left-col { 
+	float: left;,
+	width: 60%; 
+}
+#right-col { 
+	float: right;
+	width: 40%;
+}      
 .nowrap {
  	white-space:nowrap;
  }
