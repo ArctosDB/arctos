@@ -22,6 +22,6 @@
         termDetection: "on" ,
         theme: "silver"
     };
-    $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd' });
+    $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true });
 </script>
 <script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
