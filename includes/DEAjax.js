@@ -14,9 +14,7 @@ jQuery(document).ready(function() {
 	});
 	*/
 	
-    $( "#format" ).change(function() {
-        $( "#datepicker" ).datepicker( "option", "dateFormat", "yyyy-mm-dd" );
-    });
+   
 
 	        
 	$("#made_date").datepicker();
