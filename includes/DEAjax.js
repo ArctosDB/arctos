@@ -60,14 +60,15 @@ function makeSortable() {
 	      				sort_rightcolumn: sortR.join()
 	      			},
 	      			function(r) {
-	      				//console.log('r='+r);
-
-	      				$("#killSortable").show();
-	      				$("#makeSortable").hide();
+	      				
 	      			}
 	      	);
         }
 	});
+	console.log('r='+r);
+
+	$("#killSortable").show();
+	$("#makeSortable").hide();
 }
 
 function killSortable(){
