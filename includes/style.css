@@ -1,3 +1,9 @@
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
 figure {
     display: table;
     width: 1px; /* This can be any width, so long as it's narrower than any image */
