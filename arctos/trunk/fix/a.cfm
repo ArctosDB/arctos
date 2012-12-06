@@ -50,75 +50,7 @@
        max-width:200px;
    }
 
-
-
-.ui-datepicker {
-    padding: 0.1em 0.1em 0;
-    width: 11em;
-}
-
-.ui-widget {
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 14px;
-}
-
-.ui-datepicker th {
-    border: 0 none;
-    font-weight: normal;
-    padding: 0.2em 0.1em;
-    text-align: center;
-}
-
-.ui-datepicker th span {
-    font-size: 11px;
-}
-
-.ui-datepicker td span, .ui-datepicker td a {
-    padding: 0.1em;
-}
-
-.ui-datepicker td {
-    padding: 0.9px;
-}
-
-.ui-datepicker .ui-state-highlight {
-    height: 12px;
-    margin-bottom: 0;
-}
-
-.ui-state-default, .ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default {
-    font-size: 10px;
-    font-weight: normal;
-    text-align: center;
-}
-
-.ui-datepicker .ui-datepicker-title {
-    line-height: 13px;
-}
-
-.ui-datepicker .ui-datepicker-title span {
-    font-size: 11px;
-}
-
-.ui-datepicker .ui-datepicker-prev span,
-.ui-datepicker .ui-datepicker-next span {
-    margin-left: -8px;
-    margin-top: -8px;
-}
-
-.ui-datepicker .ui-datepicker-prev,
-.ui-datepicker .ui-datepicker-next {
-    height: 15px;
-    top: 1px;
-    width: 15px;
-}
-
-.ui-datepicker-next-hover .ui-icon {
-    height: 16px;
-    width: 16px;
-}
-
+.ui-widget { font-size: 1em; }
 
 </style>
 	<script>
