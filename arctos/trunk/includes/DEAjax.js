@@ -67,8 +67,8 @@ function makeSortable() {
 }
 
 function killSortable(){
-	$('.#left-col').sortable('disable');
-	$('.#right-col').sortable('disable');
+	$('#left-col').sortable('disable');
+	$('#right-col').sortable('disable');
 }
 function r(){
 	var newOrdering = $('#right-col').sortable('toArray');
