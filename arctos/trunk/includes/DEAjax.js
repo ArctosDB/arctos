@@ -1,17 +1,4 @@
 jQuery(document).ready(function() {
-	/*
-	jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
-		width: 320,
-		max: 50,
-		autofill: false,
-		multiple: false,
-		scroll: true,
-		scrollHeight: 300,
-		matchContains: true,
-		minChars: 1,
-		selectFirst:false
-	});
-	*/
 	$( "#georeference_source" ).autocomplete({
 		source: '/component/functions.cfc?method=ac_georeference_source',
 		width: 320,
@@ -24,8 +11,6 @@ jQuery(document).ready(function() {
 		minChars: 1,
 		selectFirst:false
 	});
-
-	        
 	$("#made_date").datepicker();
 	$("#began_date").datepicker();
 	$("#ended_date").datepicker();
