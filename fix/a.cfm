@@ -36,21 +36,21 @@
 $(function() {
     $("#left-col").sortable({
         handle: '.item h2',
-        connectWith: '#right-col'
-    }).disableSelection();
-    $("#right-col").sortable({
-        handle: '.item h2',
-        connectWith: '#left-col'
-    }).disableSelection();
-});
-
-    var foo = $("#left-col").sortable({
+        connectWith: '#right-col',
           update:function(e,ui) {
                 var order = foo.sortable("toArray").join();
                 console.log(order);
-          });
-    });
-
+          }
+    }).disableSelection();
+    $("#right-col").sortable({
+        handle: '.item h2',
+        connectWith: '#left-col',
+         update:function(e,ui) {
+                var order = foo.sortable("toArray").join();
+                console.log(order);
+          }
+    }).disableSelection();
+});
 
 
 
