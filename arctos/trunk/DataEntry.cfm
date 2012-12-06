@@ -247,7 +247,7 @@
 											<input type="text" name="accn" size="25" class="reqdClr" id="accn" onchange="getDEAccn();">
 											<span class="infoLink" onclick="getDEAccn();">[ pick ]</span>
 										</td>
-										<td class="nowrap">
+										<td class="nowrap" rowspan="2">
 											<div id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</div>
 											<div id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</div>
 											<div id="makeSortable" class="infoLink" onclick="makeSortable();">[ makeSortable ]</div>
@@ -257,9 +257,9 @@
 									<tr>
 										<td colspan="2">
 											<label for="enteredby">Entered&nbsp;By</label>
-											<input type="text" readonly="readonly" name="enteredby" id="enteredby">
+											<input type="text" class="readClr" readonly="readonly" name="enteredby" id="enteredby">
 										</td>
-										<td colspan="5">
+										<td colspan="4">
 											<label for="loaded">Status</label>
 											<input type="text" name="loaded" size="80" id="loaded" readonly="readonly" class="readClr" value="waiting approval">
 										</td>
