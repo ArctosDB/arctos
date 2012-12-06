@@ -40,7 +40,7 @@ jQuery(document).ready(function() {
 			<table cellpadding="1" cellspacing="0">
 				<tr>
 					<td>
-						<label style="display" block" for="attribute_1">sex</label>
+						<label for="attribute_1">sex</label>
 						<input type="hidden" name="attribute_1" value="sex">
 						<select name="attribute_value_1" size="1" onChange="changeSex(this.value)"
 							id="attribute_value_1"
