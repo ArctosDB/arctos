@@ -7,77 +7,15 @@
 
 
 	<style>
-		.celltitle{
-			color:red;
-			cursor:move;
-		}
-
-		#container {
-            border: 1px solid black;
-            overflow: hidden;
-            margin: auto;
-        }
-        #container .wrapper {
-            width: 100%;
-        }
-        #container #left-col .item {
-            margin: .5em .25em .5em .5em;
-            border: 1px solid black;
-        }
-        #container #right-col .item {
-            margin: .5em .5em .5em .25em;
-            border: 1px solid black;
-        }
-        #left-col, #right-col { width: 50%;    }
-        #left-col { float: left; }
-        #right-col { float: right; }
-        .item h2 { background: #ccc; }
+		
 	</style>
 
 	<script>
 
 jQuery(document).ready(function() {
 
-			$(function() {
-			    $("#left-col").sortable({
-			        handle: '.item .celltitle',
-			        connectWith: '#right-col',
-			        cursor: "move"
-			    }).disableSelection();
-			    $("#right-col").sortable({
-			        handle: '.item .celltitle',
-			        connectWith: '#left-col',
-			        cursor: "move"
-			    }).disableSelection();
-			});
-		});
-
-function r(){
-	var newOrdering = $('#right-col').sortable('toArray');
-	console.log('newOrderingR='+newOrdering);
-	 var newOrdering = $('#left-col').sortable('toArray');
-    						console.log('newOrderingL='+newOrdering);
-	}
 
 
-
-
-
-    function reorder()
-    {
-       var orderArray=["w1","w3","w4"];
-       var elementContainer=$("#left-col");
-        $.each(orderArray, function(key, val){
-            elementContainer.append($("#"+val));
-        });
-
-
-         var orderArray=["w2"];
-       var elementContainer=$("#right-col");
-        $.each(orderArray, function(key, val){
-            elementContainer.append($("#"+val));
-        });
-    }
 
 
 
