@@ -22,6 +22,7 @@
 
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
+	<link rel="stylesheet" href="/includes/style.css" />
 
 
 
@@ -37,7 +38,7 @@
 	</script>
 	<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
 
-
+<!----
 
 
 <style>
@@ -53,6 +54,8 @@
 .ui-widget { font-size: 1em; }
 
 </style>
+
+---->
 	<script>
 
 	jQuery(document).ready(function() {
