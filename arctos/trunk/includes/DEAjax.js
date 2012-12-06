@@ -55,12 +55,12 @@ function makeSortable() {
 	        handle: '.item .celltitle',
 	        connectWith: '#right-col',
 	        cursor: "move"
-	    }).disableSelection();
+	    });
 	    $("#right-col").sortable({
 	        handle: '.item .celltitle',
 	        connectWith: '#left-col',
 	        cursor: "move"
-	    }).disableSelection();
+	    });
 	
 }
 
