@@ -249,8 +249,6 @@ function loadRecord(collection_object_id){
 		loadRecordEnter(collection_object_id);
 	} else if($("#action").val()=='edit') {
 		loadRecordEdit(collection_object_id);
-	} else {
-		alert('i have no idea what you want to do');
 	}
 }
 
