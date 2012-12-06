@@ -46,7 +46,13 @@ $(function() {
 
 });
 
+function r(){
+	var sorted = $( ".selector" ).sortable( "serialize", { key: "sort" } );
+	console.log(sorted);
+}
+
 	</script>
+<span class="likeLink" onclick="r();">sort</span>
 	<div id="container">
 	    <div id="left-col">
 	        <div class="wrapper">
