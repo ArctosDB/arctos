@@ -48,8 +48,8 @@ jQuery(document).ready(function() {
         connectWith: '#right-col, #left-col',
         update : function () 
         { 
-        	  var sortR=$("#right-col").sortable('serialize');
-              var sortL=$("#left-col").sortable('serialize');
+        	  var sortR=$("#right-col").sortable('serialize').join();
+              var sortL=$("#left-col").sortable('serialize').join;
               console.log('sortR='+sortR+' ; sortL=' + sortL);
         } 
 	});
