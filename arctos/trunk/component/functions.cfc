@@ -1,5 +1,5 @@
 <cfcomponent>
-<cffunction name="test" access="remote" returnformat="json">
+<cffunction name="ac_georeference_source" access="remote" returnformat="json">
    	<cfargument name="term" required="true" type="string">
 	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select georeference_source label from locality where upper(georeference_source) like '%#ucase(term)#%'
@@ -7,36 +7,9 @@
 		group by georeference_source
 		order by georeference_source
 	</cfquery>
-	<!----
-
-
-
-
-	<cfreturn '{
-   	   "Records": [
-   	       {
-   	           "WI_ID": "1",
-   	           "Project": "ExampleProject",
-   	           "Work_Item": "ExampleWorkItem",
-   	           "Purchase_Order": "",
-   	           "Price": "",
-   	           "Comments": "",
-   	           "Quoted_Hours": "",
-   	           "Estimated_Hours": "",
-   	           "Achieved": "False",
-   	           "Used_Hours": "0"
-   	       }
-   	   ]
-   	}'>
-
-		<cfreturn '["Census 2000 TIGER/Line Data; MaNIS Georeferencing Calculator","Google Earth"]'>
-
-	---->
-<cfreturn "[" & ListQualify(valuelist(pn.label),'"') & "]">
+	<cfreturn "[" & ListQualify(valuelist(pn.label),'"') & "]">
 </cffunction>
-
-
-
+<!------------------------------------------------------------------->
 <cffunction name="saveDeSettings" access="remote">
 	   	<cfargument name="id" required="true" type="string">
 	   	<cfargument name="val" required="true" type="string">
