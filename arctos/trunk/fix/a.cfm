@@ -40,7 +40,7 @@
             "Scheme"
         ];
         $( "#georeference_source" ).autocomplete({
-            source: availableTags
+            source: '/ajax/autocomplete.cfm?term=georeference_source'
         });
     });
 
