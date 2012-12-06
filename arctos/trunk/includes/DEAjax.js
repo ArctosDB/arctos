@@ -1,4 +1,31 @@
 jQuery(document).ready(function() {
+	//sortable
+	$(function() {
+	    $("#left-col").sortable({
+	        handle: '.item .celltitle',
+	        connectWith: '#right-col',
+	        cursor: "move"
+	    }).disableSelection();
+	    $("#right-col").sortable({
+	        handle: '.item .celltitle',
+	        connectWith: '#left-col',
+	        cursor: "move"
+	    }).disableSelection();
+	});
+	
+	jQuery("##georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
+		width: 320,
+		max: 50,
+		autofill: false,
+		multiple: false,
+		scroll: true,
+		scrollHeight: 300,
+		matchContains: true,
+		minChars: 1,
+		selectFirst:false
+	});
+
+
 	$("#made_date").datepicker();
 	$("#began_date").datepicker();
 	$("#ended_date").datepicker();
@@ -22,21 +49,10 @@ jQuery(document).ready(function() {
 	pickedLocality();
 	//set_attribute_dropdowns();
 	
-	
+
+	loadRecord('#collection_object_id#');
 });
-//sortable
-$(function() {
-    $("#left-col").sortable({
-        handle: '.item .celltitle',
-        connectWith: '#right-col',
-        cursor: "move"
-    }).disableSelection();
-    $("#right-col").sortable({
-        handle: '.item .celltitle',
-        connectWith: '#left-col',
-        cursor: "move"
-    }).disableSelection();
-});
+
 // sortable functions
 
 function r(){
