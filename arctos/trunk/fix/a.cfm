@@ -41,7 +41,7 @@
             "Scheme"
         ];
         $( "#georeference_source" ).autocomplete({
-            source: '/ajax/autocomplete.cfm?type=georeference_source'
+            source: '/component/functions.cfc?method=test'
         });
     });
 
