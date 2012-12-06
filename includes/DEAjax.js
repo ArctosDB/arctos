@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
 	    }).disableSelection();
 	});
 	
-	jQuery("##georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
+	jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
 		width: 320,
 		max: 50,
 		autofill: false,
