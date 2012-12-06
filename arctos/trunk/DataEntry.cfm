@@ -376,7 +376,7 @@
 								</table><!------ /identification -------->
 					        </div><!--- end item --->
 				        </div><!--- end sort_identification --->
-<!----
+
 						<div class="wrapper" id="sort_attributes">
 							<div class="item">
 								<div class="celltitle">Attributes</div>
@@ -441,7 +441,7 @@
 								</table><!------- /remarkey stuff --->
 							</div><!--- end item --->
 						</div><!--- end sort_randomness --->
-			 ---->
+<!---- ---->
 				    </div><!-- end left-col -->
 
 
