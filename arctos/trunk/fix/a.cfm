@@ -18,7 +18,16 @@
  $(function() {
         var availableTags = ["Census 2000 TIGER/Line Data; MaNIS Georeferencing Calculator","Google Earth"," MaNIS Georeferencing Calculator","MaNIS Georeferencing Calculator","MaNIS Georeferencing Calculator"," BioGeomancer","MaNIS Georeferencing Calculator; Terrain Navigator 3.02 USGS 1:24000","specimen label 	Coordinate Remarks: located point at coordinates given in another identical locality description; MaNIS Det. Ref.: locality description; Calculated from original degrees minutes seconds"];
         $( "#georeference_source" ).autocomplete({
-            source: '/component/functions.cfc?method=test'
+            source: '/component/functions.cfc?method=test',
+            width: 320,
+			max: 50,
+			autofill: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300,
+			matchContains: true,
+			minChars: 1,
+			selectFirst:false
         });
     });
 
