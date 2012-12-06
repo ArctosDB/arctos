@@ -58,13 +58,19 @@ function r(){
 	}
 
 
-	var orderArray=["w1","w3","w4"];
-	function reorder(orderArray, elementContainer)
-		{
-		    $.each(orderArray, function(key, val){
-		        $("#left-col").append($("#"+val));
-		    });
-		}
+
+
+    function reorder()
+    {
+       var orderArray=["w1","w3","w4"];
+       var elementContainer=$("#left-col");
+        $.each(orderArray, function(key, val){
+            elementContainer.append($("#"+val));
+        });
+    }
+
+
+
 
 
 	</script>
