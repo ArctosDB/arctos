@@ -35,19 +35,11 @@ jQuery(document).ready(function() {
 
 			$(function() {
 			    $("#left-col").sortable({
-			        connectWith: '#right-col',
-			          update : function () {
-			              var newOrdering = $('#left-col').sortable('toArray');
-    						console.log('newOrdering='+newOrdering);
-			          }
+			        connectWith: '#right-col'
 			    }).disableSelection();
 			    $("#right-col").sortable({
 			        handle: '.item h2',
-			        connectWith: '#left-col',
-			         update : function () {
-			              var newOrdering = $('#right-col').sortable('toArray');
-    						console.log('newOrdering='+newOrdering);
-			          }
+			        connectWith: '#left-col'
 			    }).disableSelection();
 			});
 		});
