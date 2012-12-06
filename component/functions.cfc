@@ -1,4 +1,9 @@
 <cfcomponent>
+<cffunction name="test" access="remote" returnformat="json">
+   	<cfargument name="term" required="true" type="string">
+
+    <cfreturn term & ' from test'>
+</cffunction>
 <cffunction name="saveDeSettings" access="remote">
 	   	<cfargument name="id" required="true" type="string">
 	   	<cfargument name="val" required="true" type="string">
