@@ -55,13 +55,15 @@ function makeSortable() {
 	        handle: '.item .celltitle',
 	        connectWith: '#right-col',
 	        cursor: "move",
-	        zIndex: 0
+	        revert: true,
+	        containment: 'parent'
 	    }).disableSelection();
 	    $("#right-col").sortable({
 	        handle: '.item .celltitle',
 	        connectWith: '#left-col',
 	        cursor: "move",
-	        zIndex: 0
+	        revert: true,
+	        containment: 'parent'
 	    }).disableSelection();
 	
 }
