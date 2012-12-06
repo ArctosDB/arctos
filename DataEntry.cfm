@@ -434,55 +434,6 @@
 								</table><!------- /remarkey stuff --->
 							</div><!--- end item --->
 						</div><!--- end sort_randomness --->
-						<div class="wrapper" id="sort_parts">
-							<div class="item">
-								<div class="celltitle">Parts <span class="likeLink" onClick="getDocs('parts')">[ documentation ]</span></div>
-								<table cellpadding="0" cellspacing="0" class="fs">
-									<tr>
-										<th><span class="f11a">Part Name</span></th>
-										<th><span class="f11a">Condition</span></th>
-										<th><span class="f11a">Disposition</span></th>
-										<th><span class="f11a">##</span></th>
-										<th><span class="f11a">Barcode</span></th>
-										<th><span class="f11a">Label</span></th>
-										<th><span class="f11a">Remark</span></th>
-									</tr>
-									<cfloop from="1" to="12" index="i">
-										<tr id="d_part_name_#i#">
-											<td>
-												<input type="text" name="part_name_#i#" id="part_name_#i#"
-													 size="20" onchange="DEpartLookup(this.id);requirePartAtts('#i#',this.value);"
-													onkeypress="return noenter(event);">
-											</td>
-											<td>
-												<input type="text" name="part_condition_#i#" id="part_condition_#i#">
-											</td>
-											<td>
-												<select id="part_disposition_#i#" name="part_disposition_#i#" style="max-width:80px;">
-													<option value=""></option>
-													<cfloop query="CTCOLL_OBJ_DISP">
-														<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-													</cfloop>
-												</select>
-											</td>
-											<td>
-												<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" size="1">
-											</td>
-											<td>
-												<input type="text" name="part_barcode_#i#" id="part_barcode_#i#"
-													 size="15" onchange="setPartLabel(this.id);">
-											</td>
-											<td>
-												<input type="text" name="part_container_label_#i#" id="part_container_label_#i#" size="10">
-											</td>
-											<td>
-												<input type="text" name="part_remark_#i#" id="part_remark_#i#" size="25">
-											</td>
-										</tr>
-									</cfloop>
-								</table>
-							</div><!--- end item --->
-						</div><!--- end sort_parts --->
 				    </div><!-- end left-col -->
 				    <div id="right-col">
 						<div class="wrapper" id="sort_specevent">
@@ -976,12 +927,12 @@
 								</table><!---- /coordinates ---->
 							</div><!--- end item --->
 						</div><!--- end sort_coordinates --->
+						<div id="geolCell" style="display:none;">
 						<div class="wrapper" id="sort_geology">
 							<div class="item">
 								<div class="celltitle">
 									Geology (event and locality) <span class="likeLink" onClick="getDocs('geology')">[ documentation ]</span>
 								</div>
-								<div id="geolCell" style="display:none;">
 									<table cellpadding="0" cellspacing="0" class="fs">
 										<tr>
 											<td>
@@ -1042,9 +993,58 @@
 											</td>
 										</tr>
 									</table>
-								</div><!--- end hidey geology thingeemabopper ---->
 							</div><!--- end item --->
 						</div><!--- end sort_geology --->
+						</div><!--- end hidey geology thingeemabopper ---->
+						<div class="wrapper" id="sort_parts">
+							<div class="item">
+								<div class="celltitle">Parts <span class="likeLink" onClick="getDocs('parts')">[ documentation ]</span></div>
+								<table cellpadding="0" cellspacing="0" class="fs">
+									<tr>
+										<th><span class="f11a">Part Name</span></th>
+										<th><span class="f11a">Condition</span></th>
+										<th><span class="f11a">Disposition</span></th>
+										<th><span class="f11a">##</span></th>
+										<th><span class="f11a">Barcode</span></th>
+										<th><span class="f11a">Label</span></th>
+										<th><span class="f11a">Remark</span></th>
+									</tr>
+									<cfloop from="1" to="12" index="i">
+										<tr id="d_part_name_#i#">
+											<td>
+												<input type="text" name="part_name_#i#" id="part_name_#i#"
+													 size="20" onchange="DEpartLookup(this.id);requirePartAtts('#i#',this.value);"
+													onkeypress="return noenter(event);">
+											</td>
+											<td>
+												<input type="text" name="part_condition_#i#" id="part_condition_#i#">
+											</td>
+											<td>
+												<select id="part_disposition_#i#" name="part_disposition_#i#" style="max-width:80px;">
+													<option value=""></option>
+													<cfloop query="CTCOLL_OBJ_DISP">
+														<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
+													</cfloop>
+												</select>
+											</td>
+											<td>
+												<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" size="1">
+											</td>
+											<td>
+												<input type="text" name="part_barcode_#i#" id="part_barcode_#i#"
+													 size="15" onchange="setPartLabel(this.id);">
+											</td>
+											<td>
+												<input type="text" name="part_container_label_#i#" id="part_container_label_#i#" size="10">
+											</td>
+											<td>
+												<input type="text" name="part_remark_#i#" id="part_remark_#i#" size="25">
+											</td>
+										</tr>
+									</cfloop>
+								</table>
+							</div><!--- end item --->
+						</div><!--- end sort_parts --->
 				    </div><!-- end right-col -->
 				</div><!---- end bodywrapperthingee ---->
 
