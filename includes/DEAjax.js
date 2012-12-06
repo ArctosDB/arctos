@@ -1,4 +1,6 @@
 jQuery(document).ready(function() {
+	
+	/*
 	jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
 		width: 320,
 		max: 50,
@@ -10,7 +12,7 @@ jQuery(document).ready(function() {
 		minChars: 1,
 		selectFirst:false
 	});
-	
+	*/
 	
     $( "#format" ).change(function() {
         $( "#datepicker" ).datepicker( "option", "dateFormat", "yyyy-mm-dd" );
