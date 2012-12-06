@@ -11,7 +11,14 @@ rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
 <style>
-
+.ui-autocomplete {
+       max-height: 100px;
+       overflow-y: auto;
+       /* prevent horizontal scrollbar */
+       overflow-x: hidden;
+       font-size:x-small;
+       max-width:200px;
+   }
 </style>
 	<script>
 
