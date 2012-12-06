@@ -1,22 +1,17 @@
 <!----
-<cfinclude template="/includes/_header.cfm">
-
----->
-
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
 
 <script type='text/javascript' language="javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
 
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+---->
+
+<link <cfinclude template="/includes/_header.cfm">
+
 
 <style>
- .ui-autocomplete {
-        max-height: 100px;
-        overflow-y: auto;
-        /* prevent horizontal scrollbar */
-        overflow-x: hidden;
-    }
+
 </style>
 	<script>
 
