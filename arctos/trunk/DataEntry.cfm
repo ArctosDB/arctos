@@ -591,7 +591,7 @@
 								</table>
 							</div><!--- end item --->
 						</div><!--- end sort_collevent --->
-						<div class="wrapper" id="sort_locality">
+						<div class="wrapper" id="sort-locality">
 							<div class="item">
 								<div class="celltitle">Locality <span class="likeLink" onClick="getDocs('locality')">[ documentation ]</span></div>
 								<table cellspacing="0" cellpadding="0" class="fs">
