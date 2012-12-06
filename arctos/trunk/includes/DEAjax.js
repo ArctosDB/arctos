@@ -22,21 +22,21 @@ jQuery(document).ready(function() {
 	pickedLocality();
 	//set_attribute_dropdowns();
 	
-	// sortable
-	$(function() {
-	    $("#left-col").sortable({
-	        handle: '.item .celltitle',
-	        connectWith: '#right-col',
-	        cursor: "move"
-	    }).disableSelection();
-	    $("#right-col").sortable({
-	        handle: '.item .celltitle',
-	        connectWith: '#left-col',
-	        cursor: "move"
-	    }).disableSelection();
-	});
+	
 });
-
+//sortable
+$(function() {
+    $("#left-col").sortable({
+        handle: '.item .celltitle',
+        connectWith: '#right-col',
+        cursor: "move"
+    }).disableSelection();
+    $("#right-col").sortable({
+        handle: '.item .celltitle',
+        connectWith: '#left-col',
+        cursor: "move"
+    }).disableSelection();
+});
 // sortable functions
 
 function r(){
