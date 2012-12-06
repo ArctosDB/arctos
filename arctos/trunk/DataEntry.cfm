@@ -247,7 +247,7 @@
 											<input type="text" name="accn" size="25" class="reqdClr" id="accn" onchange="getDEAccn();">
 											<span class="infoLink" onclick="getDEAccn();">[ pick ]</span>
 										</td>
-										<td class="nowrap valignmiddle">
+										<td class="nowrap">
 											<span id="customizeForm" class="infoLink" onclick="customize()">[ customize form ]</span>
 											<br><span id="calControl" class="infoLink" onclick="removeCalendars();">[ disable calendars ]</span>
 											<br><span id="makeSortable" class="infoLink" onclick="makeSortable();">[ makeSortable ]</span>
