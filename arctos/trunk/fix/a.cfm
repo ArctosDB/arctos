@@ -67,6 +67,13 @@ function r(){
         $.each(orderArray, function(key, val){
             elementContainer.append($("#"+val));
         });
+
+
+         var orderArray=["w2"];
+       var elementContainer=$("#right-col");
+        $.each(orderArray, function(key, val){
+            elementContainer.append($("#"+val));
+        });
     }
 
 
