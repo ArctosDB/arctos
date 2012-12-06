@@ -7,8 +7,7 @@ rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 ---->
 
-<link <cfinclude template="/includes/_header.cfm">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+<cfinclude template="/includes/_header.cfm">
 
 <style>
 .ui-autocomplete {
