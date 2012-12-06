@@ -51,6 +51,8 @@ function r(){
 	console.log(sorted);
 	var sorted = $( "#right-col" ).sortable( "serialize", { key: "sort" } );
 	console.log(sorted);
+	var sorted = $.sortable( "serialize", { key: "sort" } );
+	console.log(sorted);
 }
 
 	</script>
