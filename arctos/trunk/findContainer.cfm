@@ -3,7 +3,6 @@
 <script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 <script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
 <link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
-<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 
 <script>
 	jQuery(document).ready(function() {
@@ -20,14 +19,14 @@
 </script>
 <style >
 	.cTreePane {
-		height:400px;	
+		height:400px;
 overflow-y:scroll;
 overflow-x:auto;
-padding-right:10px;	
+padding-right:10px;
 	}
-	.ajaxWorking{ 
-		top: 20%; 
-		color: green; 
+	.ajaxWorking{
+		top: 20%;
+		color: green;
 		text-align: center;
 		margin: auto;
 		position:absolute;
@@ -38,7 +37,7 @@ padding-right:10px;
 		border:1px solid;
 		overflow:hidden;
 		z-index:1;
-		overflow-y:scroll;	
+		overflow-y:scroll;
 		}
 	.ajaxDone {display:none}
 	.ajaxMessage {color:green;}
@@ -77,7 +76,7 @@ padding-right:10px;
 				<label for="collection_id">Collection</label>
 				<select name="collection_id" id="collection_id" size="1">
 					<option value=""></option>
-						<cfloop query="collections"> 
+						<cfloop query="collections">
 							<option value="#collection_id#">#coll#</option>
 				  		</cfloop>
 				</select>
@@ -88,24 +87,24 @@ padding-right:10px;
 				<label for="container_type">Container Type</label>
 				<select name="container_type" id="container_type" size="1">
 					<option value=""></option>
-					  <cfloop query="contType"> 
+					  <cfloop query="contType">
 						<option value="#contType.container_type#">#contType.container_type#</option>
 					  </cfloop>
 				</select>
 				<label for="in_container_type">Contained By Container Type</label>
 				<select name="in_container_type" id="in_container_type" size="1">
 					<option value=""></option>
-					  <cfloop query="contType"> 
+					  <cfloop query="contType">
 						<option value="#contType.container_type#">#contType.container_type#</option>
 					  </cfloop>
 				</select>
 				<label for="other_id_type">OID Type</label>
 				<select name="other_id_type" id="other_id_type" size="1" style="width:120px;">
 					<option value=""></option>
-					<cfloop query="ctcoll_other_id_type"> 
+					<cfloop query="ctcoll_other_id_type">
 						<option value="#ctcoll_other_id_type.other_id_type#">#ctcoll_other_id_type.other_id_type#</option>
 					</cfloop>
-				</select>	
+				</select>
 				<label for="other_id_value">OID Value (% for wildcard)</label>
 				<input type="text" name="other_id_value" id="other_id_value" />
 				<input type="hidden" name="collection_object_id" id="collection_object_id" />
@@ -116,19 +115,19 @@ padding-right:10px;
 				<input type="submit" value="Search"
 					class="schBtn">
 				&nbsp;&nbsp;&nbsp;
-				<input class="clrBtn" type="button" value="Clear" onclick='document.location="/findContainer.cfm";'/>				
+				<input class="clrBtn" type="button" value="Clear" onclick='document.location="/findContainer.cfm";'/>
 				</form>
 				<span class="likeLink" onclick="downloadTree()">Flatten Part Locations</span>
 				<br><span class="likeLink" onclick="showTreeOnly()">Drag/Print</span>
 				<br><span class="likeLink" onclick="printLabels()">Print Labels</span>
 			</div>
-				
-				
+
+
 		</td><!--------------------------------- end search pane ------------------------------------->
 		<td><!------------------------------------- tree pane --------------------------------------------->
 			<div id="treePane" class="cTreePane"></div>
 		</td><!------------------------------------- end tree pane --------------------------------------------->
-		
+
 		<td valign="top">
 			<div id="detailPane"></div>
 		</td>
@@ -165,5 +164,5 @@ padding-right:10px;
 		loadTree();
 	</script>
 	</cfif>
-</cfif> 
+</cfif>
 </cfoutput>
