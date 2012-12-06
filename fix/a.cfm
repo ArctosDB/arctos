@@ -7,7 +7,10 @@
 
 
 	<style>
-		.celltitle{color:red;}
+		.celltitle{
+			color:red;
+			cursor:move;
+		}
 
 		#container {
             border: 1px solid black;
