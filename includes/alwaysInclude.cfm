@@ -1,8 +1,7 @@
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
 <cfinclude template="/includes/functionLib.cfm">
-<link rel="stylesheet" type="text/css" href="/includes/style.css">
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-
+<link rel="stylesheet" type="text/css" href="/includes/style.css">
 <!--- need to host this locally as setting datepicker format is retarded. Need autocomplete, sortable, datepicker. Change dateformat, min, save
 <script type='text/javascript' language="javascript" src='/includes/jquery-custom.js'></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
