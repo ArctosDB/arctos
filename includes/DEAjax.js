@@ -1,5 +1,7 @@
 jQuery(document).ready(function() {
 	//sortable
+	
+	/*
 	$(function() {
 	    $("#left-col").sortable({
 	        handle: '.item .celltitle',
@@ -14,7 +16,7 @@ jQuery(document).ready(function() {
 	        zIndex: 0
 	    }).disableSelection();
 	});
-	
+	*/
 	jQuery("#georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
 		width: 320,
 		max: 50,
