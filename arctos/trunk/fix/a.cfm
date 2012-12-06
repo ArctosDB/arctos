@@ -44,6 +44,14 @@ $(function() {
     }).disableSelection();
 });
 
+    var foo = $("#left-col").sortable({
+          update:function(e,ui) {
+                var order = foo.sortable("toArray").join();
+                console.log(order);
+          });
+    });
+
+
 });
 
 function r(){
@@ -51,7 +59,7 @@ function r(){
 	console.log(sorted);
 	var sorted = $( "#right-col" ).sortable( "serialize", { key: "sort" } );
 	console.log(sorted);
-	var sorted = $.sortable( "serialize", { key: "sort" } );
+	var sorted = .sortable( "serialize", { key: "sort" } );
 	console.log(sorted);
 }
 
