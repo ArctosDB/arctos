@@ -10,7 +10,14 @@
 
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
-
+<style>
+ .ui-autocomplete {
+        max-height: 100px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+    }
+</style>
 	<script>
 
 	jQuery(document).ready(function() {
