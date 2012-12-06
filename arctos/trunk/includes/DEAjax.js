@@ -10,6 +10,13 @@ jQuery(document).ready(function() {
 		minChars: 1,
 		selectFirst:false
 	});
+	
+	
+    $( "#format" ).change(function() {
+        $( "#datepicker" ).datepicker( "option", "dateFormat", "yyyy-mm-dd" );
+    });
+
+	        
 	$("#made_date").datepicker();
 	$("#began_date").datepicker();
 	$("#ended_date").datepicker();

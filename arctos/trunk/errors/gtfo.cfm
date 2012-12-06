@@ -11,11 +11,11 @@
     </cfscript>
 </cffunction>
 <cfif not isdefined("action") or action is not "p">
-	Oops. It looks like you are on our blacklist. That's probably because someone from your IP 
-	made a lame attempt to hack us, or possibly we were just feeling exceptionally paranoid when you 
+	Oops. It looks like you are on our blacklist. That's probably because someone from your IP
+	made a lame attempt to hack us, or possibly we were just feeling exceptionally paranoid when you
 	tried to do something legit, so you ended up in our logs anyway. We get like that sometimes, and we'd
 	like to apologize now if you are neither a robot nor a hacker.
-	<p>Use the form below to convince us that you 
+	<p>Use the form below to convince us that you
 	are a non-malicious carbon-based life form and we'll happily restore your access.</p>
 	<p>Sometimes the text gets messed up, so just click reload if you can't read it.</p>
 	<cfset captcha = makeRandomString()>
@@ -28,14 +28,14 @@
 		<label for="c">Your email</label><br>
 		<input type="text" name="email" id="email" class="reqdClr">
 		<br>
-	    <cfimage 
-	    	action="captcha" 
+	    <cfimage
+	    	action="captcha"
 	    	width="300"
 	    	height="50"
 	    	text="#captcha#"
 	    	overwrite="yes"
 	    	destination="#application.webdirectory#/temp/captcha.png">
-	    
+
 	    <img src="/temp/captcha.png">
 	   	<br>
 	    <label for="captcha">Enter the text above</label>
@@ -61,8 +61,17 @@
 			Email is required.
 			<cfabort>
 		</cfif>
-		<cfmail subject="BlackList Objection" to="#Application.PageProblemEmail#" from="blacklist@#application.fromEmail#" type="html">
-			IP #cgi.REMOTE_ADDR# (#email#) had this to say:
+		<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+			<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
+		<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+			<CFSET ipaddress=CGI.Remote_Addr>
+		<cfelse>
+			<cfset ipaddress='unknown'>
+		</CFIF>
+
+
+		<cfmail subject="BlackList Objection" replyto="#email#" to="#Application.PageProblemEmail#" from="blacklist@#application.fromEmail#" type="html">
+			IP #ipaddress# ( #email# ) had this to say:
 			<p>
 				#c#
 			</p>
