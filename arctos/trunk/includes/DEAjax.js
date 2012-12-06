@@ -83,7 +83,8 @@ function r(){
     	$.getJSON("/component/Bulkloader.cfc",
     			{
     				method : "get_sort_order",
-    				returnformat : "json"
+    				returnformat : "json",
+    				queryformat : 'column'
     			},
     			function(r) {
     				console.log('r='+r);
