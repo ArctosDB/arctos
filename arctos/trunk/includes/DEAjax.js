@@ -726,7 +726,7 @@ function removeCalendars(){
 	     $(  "#" + v  ).removeClass("hasDatepicker");
 	 });
 	$("#calControl").unbind('click', removeCalendars).click(addCalendar).html('[ enable calendars ]');
-	jQuery.getJSON("/component/DataEntry.cfc",
+	jQuery.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "show_calendars",
 			onoff : 0,
@@ -749,7 +749,7 @@ function addCalendar(){
 	     $( "#" + v ).datepicker();
 	 });
 	$("#calControl").unbind('click', addCalendar).click(removeCalendars).html('[ disable calendars ]');
-	jQuery.getJSON("/component/DataEntry.cfc",
+	jQuery.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "show_calendars",
 			onoff : 1,
