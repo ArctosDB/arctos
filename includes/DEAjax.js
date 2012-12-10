@@ -36,12 +36,15 @@ jQuery(document).ready(function() {
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "checkshowcal",
-			returnformat : "json"
+			returnformat : "json",
+  				queryformat : 'column'
 		},
 		function(r) {
 			console.log(r);
 			console.log(r.DATA);
 			console.log(r.DATA.SHOW_CALENDARS[0]);
+			
+			
 			if(r.DATA.SHOW_CALENDARS[0]==0){
 				removeCalendars();
 			}
