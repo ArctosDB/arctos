@@ -395,7 +395,7 @@
 						<div class="wrapper" id="sort_randomness">
 							<div class="item">
 								<div class="celltitle">Random Junk</div>
-								<!---<table cellpadding="0" cellspacing="0" class="fs"><!--- random admin stuff ---->
+								<table cellpadding="0" cellspacing="0" class="fs"><!--- random admin stuff ---->
 									<tr id="d_relationship">
 										<td align="right"><span class="f11a">Relations</span></td>
 										<td>
@@ -416,7 +416,7 @@
 											<span class="likeLink" onclick="getRelatedSpecimenData()">[ pick/use ]</span>
 										</td>
 									</tr>
-								</table><!------ random admin stuff ---------->--->
+								</table><!------ random admin stuff ---------->
 								<table cellpadding="0" cellspacing="0" class="fs"><!------- remarkey stuff --->
 									<tr id="d_coll_object_remarks">
 										<td colspan="2">
