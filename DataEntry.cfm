@@ -685,14 +685,11 @@
 								</div>
 								<table cellpadding="0" cellspacing="0" class="fs" id="d_orig_lat_long_units"><!------- coordinates ------->
 									<tr>
-										<td rowspan="99" valign="top">
-											<img src="/images/info.gif" border="0" onClick="getDocs('lat_long')" class="likeLink" alt="[ help ]">
-										</td>
 										<td>
 											<table>
 												<tr>
 													<td align="right"  valign="top"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
-													<td colspan="99" width="100%">
+													<td colspan="99">
 														<table>
 															<tr>
 																<td valign="top">
