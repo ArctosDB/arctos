@@ -39,13 +39,17 @@ jQuery(document).ready(function() {
 			returnformat : "json"
 		},
 		function(r) {
-			//console.log(r);
+			console.log(r);
+			console.log(r.DATA);
+			console.log(r.DATA.SHOW_CALENDARS[0]);
 			if(r.DATA.SHOW_CALENDARS[0]==0){
 				removeCalendars();
 			}
 		}
 	);
 });
+
+
 
 function makeSortable() {
 	$("#left-col,#right-col").sortable({
