@@ -225,6 +225,7 @@
 				        <div class="wrapper" id="sort_catitemid">
 				            <div class="item">
 								<div class="celltitle">Cat Item IDs</div>
+								<!----
 								<table cellpadding="0" cellspacing="0" class="fs" border="1"><!--- cat item IDs --->
 									<tr>
 										<td class="valigntop">
@@ -272,6 +273,7 @@
 										</td>
 									</tr>
 								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
+								---->
 				            </div><!--- end item --->
 				        </div><!--- end sort_catitemid --->
 
