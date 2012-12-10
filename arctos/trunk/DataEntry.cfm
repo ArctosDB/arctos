@@ -225,7 +225,6 @@
 				        <div class="wrapper" id="sort_catitemid">
 				            <div class="item">
 								<div class="celltitle">Cat Item IDs</div>
-								<!----
 								<table cellpadding="0" cellspacing="0" class="fs" border="1"><!--- cat item IDs --->
 									<tr>
 										<td class="valigntop">
@@ -273,13 +272,13 @@
 										</td>
 									</tr>
 								</table><!---------------------------------- / cat item IDs ---------------------------------------------->
-								---->
 				            </div><!--- end item --->
 				        </div><!--- end sort_catitemid --->
 
 				        <div class="wrapper" id="sort_agent">
 				            <div class="item">
 								<div class="celltitle">Agents <span class="likeLink" onClick="getDocs('agent')">[ documentation ]</span></div>
+								<!----
 								<table cellpadding="0" cellspacing="0" class="fs"><!--- agents --->
 									<tr>
 										<cfloop from="1" to="5" index="i">
@@ -303,6 +302,7 @@
 											<cfif i is 2 or i is 4 or i is 5></tr></cfif>
 										</cfloop>
 								</table><!---- / agents------------->
+								---->
 				            </div><!--- end item --->
 						</div><!--- end sort_agent --->
 
