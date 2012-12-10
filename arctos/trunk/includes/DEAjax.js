@@ -33,6 +33,18 @@ jQuery(document).ready(function() {
 	}
 	pickedLocality();
 	makeSortable();
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "checkshowcal",
+			returnformat : "json"
+		},
+		function(r) {
+			//console.log(r);
+			if(r==0){
+				removeCalendars();
+			}
+		}
+	);
 });
 
 function makeSortable() {
@@ -714,6 +726,15 @@ function removeCalendars(){
 	     $(  "#" + v  ).removeClass("hasDatepicker");
 	 });
 	$("#calControl").unbind('click', removeCalendars).click(addCalendar).html('[ enable calendars ]');
+	jQuery.getJSON("/component/DataEntry.cfc",
+		{
+			method : "show_calendars",
+			onoff : 0,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(result){}
+	);
 }
 
 function addCalendar(){
@@ -728,6 +749,15 @@ function addCalendar(){
 	     $( "#" + v ).datepicker();
 	 });
 	$("#calControl").unbind('click', addCalendar).click(removeCalendars).html('[ disable calendars ]');
+	jQuery.getJSON("/component/DataEntry.cfc",
+		{
+			method : "show_calendars",
+			onoff : 1,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(result){}
+	);
 
 }
 function getRelatedSpecimenData(){	
