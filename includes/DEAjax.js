@@ -65,7 +65,7 @@ function makeSortable() {
 	      	);
         }
 	});
-	console.log('r='+r);
+	//console.log('r='+r);
 
 	$("#killSortable").show();
 	$("#makeSortable").hide();
