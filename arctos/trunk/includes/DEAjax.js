@@ -40,7 +40,7 @@ jQuery(document).ready(function() {
 		},
 		function(r) {
 			//console.log(r);
-			if(r==0){
+			if(r.DATA.SHOW_CALENDARS[0]==0){
 				removeCalendars();
 			}
 		}
