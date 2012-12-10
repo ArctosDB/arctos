@@ -307,7 +307,7 @@
 						<div class="wrapper" id="sort_otherid">
 				            <div class="item">
 								<div class="celltitle">Other IDs  <span class="likeLink" onClick="getDocs('cataloged_item','other_id')">[ documentation ]</span></div>
-								<!---<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
+									<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
 									<cfloop from="1" to="4" index="i">
 										<tr>
 											<td id="d_other_id_num_#i#">
@@ -325,7 +325,7 @@
 											</td>
 										</tr>
 									</cfloop>
-								</table><!---- /other IDs ---->--->
+								</table><!---- /other IDs ---->
 					        </div><!--- end item --->
 				        </div><!--- end sort_otherid --->
 
