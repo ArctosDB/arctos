@@ -383,7 +383,7 @@
 						<div class="wrapper" id="sort_attributes">
 							<div class="item">
 								<div class="celltitle">Attributes</div>
-								<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
+								<!---<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
 									<tr>
 										<td id="attributeTableCell">
 											<!----
@@ -391,7 +391,7 @@
 											---->
 										</td>
 									</tr>
-								</table><!---- /attributes ----->
+								</table><!---- /attributes ----->--->
 							</div><!--- end item --->
 						</div><!--- end sort_attributes --->
 						<div class="wrapper" id="sort_randomness">
