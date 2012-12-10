@@ -186,7 +186,21 @@
 	</cftry>
 	<cfreturn />
 </cffunction>
-
+<!----------------------------------------------------------------------------------------->
+<cffunction name="checkshowcal" access="remote">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select show_calendars from cf_dataentry_settings where username='#session.username#'
+	</cfquery>
+	<cfreturn d>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
+<cffunction name="show_calendars" access="remote">
+	<cfargument name="onoff" required="yes">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_dataentry_settings set show_calendars=#onoff# where username='#session.username#'
+	</cfquery>
+	<cfreturn />
+</cffunction>
 
 <!----------------------------------------------------------------------------------------->
 <cffunction name="set_sort_order" access="remote">

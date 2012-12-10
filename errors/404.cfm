@@ -38,6 +38,11 @@
 			<cfabort>
 		</cfif>
 		<cfif listfindnocase(fourohthree,i)>
+			<!--- allow this stuff, but not when it's a blatant probe! --->
+			<cfif cgi.HTTP_REFERER contains '/App/DddWrapper.swf'>
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
 			<cfthrow detail="You've requested a form which isn't available. This may be an indication of unwanted or malicious software on your computer." message="403: Forbidden" errorcode="403">
 		</cfif>
 	</cfloop>
