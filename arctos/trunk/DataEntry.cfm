@@ -334,7 +334,7 @@
 						<div class="wrapper" id="sort_identification">
 				            <div class="item">
 								<div class="celltitle">Identification <span class="likeLink" onClick="getDocs('identification')">[ documentation ]</span></div>
-								<table cellpadding="0" cellspacing="0" class="fs"><!----- identification ----->
+								<!---<table cellpadding="0" cellspacing="0" class="fs"><!----- identification ----->
 									<tr>
 										<td align="right">
 											<span class="f11a">Scientific&nbsp;Name</span>
@@ -376,7 +376,7 @@
 										<td><input type="text" name="identification_remarks" id="identification_remarks" size="80">
 										</td>
 									</tr>
-								</table><!------ /identification -------->
+								</table><!------ /identification -------->---->
 					        </div><!--- end item --->
 				        </div><!--- end sort_identification --->
 
