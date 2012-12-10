@@ -40,11 +40,6 @@ jQuery(document).ready(function() {
   				queryformat : 'column'
 		},
 		function(r) {
-			console.log(r);
-			console.log(r.DATA);
-			console.log(r.DATA.SHOW_CALENDARS[0]);
-			
-			
 			if(r.DATA.SHOW_CALENDARS[0]==0){
 				removeCalendars();
 			}
