@@ -278,7 +278,6 @@
 				        <div class="wrapper" id="sort_agent">
 				            <div class="item">
 								<div class="celltitle">Agents <span class="likeLink" onClick="getDocs('agent')">[ documentation ]</span></div>
-								<!----
 								<table cellpadding="0" cellspacing="0" class="fs"><!--- agents --->
 									<tr>
 										<cfloop from="1" to="5" index="i">
@@ -302,7 +301,6 @@
 											<cfif i is 2 or i is 4 or i is 5></tr></cfif>
 										</cfloop>
 								</table><!---- / agents------------->
-								---->
 				            </div><!--- end item --->
 						</div><!--- end sort_agent --->
 
