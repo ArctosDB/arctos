@@ -32,16 +32,8 @@ jQuery(document).ready(function() {
 		window.attachEvent("onmessage", getGeolocate);
 	}
 	pickedLocality();
-	//set_attribute_dropdowns();
-
 	makeSortable();
-	
-	//reorderSort();
-	
 });
-
-// sortable functions
-
 
 function makeSortable() {
 	$("#left-col,#right-col").sortable({
@@ -52,104 +44,89 @@ function makeSortable() {
             var sortL=$("#left-col").sortable('toArray');
             //console.log('sortR='+sortR.join()+' ; sortL=' + sortL.join());
             $.getJSON("/component/Bulkloader.cfc",
-            		{
-	      				method : "set_sort_order",
-	      				returnformat : "json",
-	      				queryformat : 'column',
-	      				sort_leftcolumn: sortL.join(),
-	      				sort_rightcolumn: sortR.join()
-	      			},
-	      			function(r) {
-	      				
-	      			}
+        		{
+      				method : "set_sort_order",
+      				returnformat : "json",
+      				queryformat : 'column',
+      				sort_leftcolumn: sortL.join(),
+      				sort_rightcolumn: sortR.join()
+      			},
+      			function(r) {}
 	      	);
         }
 	});
 	//console.log('r='+r);
-
+	// and load their last-saved sort
+	reorderSort();
 	$("#killSortable").show();
 	$("#makeSortable").hide();
 }
-
 function killSortable(){
 	$('#left-col').sortable('destroy');
 	$('#right-col').sortable('destroy');
 	$("#killSortable").hide();
 	$("#makeSortable").show();
-	
 }
-function r(){
-	var newOrdering = $('#right-col').sortable('toArray');
-	//console.log('newOrderingR='+newOrdering);
-	 var newOrdering = $('#left-col').sortable('toArray');
-    						//console.log('newOrderingL='+newOrdering);
-	}
 
-
-
-
-
-    function reorderSort() {
-    	$.getJSON("/component/Bulkloader.cfc",
-			{
-				method : "get_sort_order",
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function(r) {
-				//console.log('r='+r);
-				if (r.DATA.SORT_LEFTCOLUMN[0]) {
-    				var elAry = r.DATA.SORT_LEFTCOLUMN[0].split(",");
-    				//console.log('elAry='+elAry);
-    				for (var i=0;i<elAry.length; i++) {
-    					//console.log('thisEl='+elAry[i]);
-    					$('#left-col').append($("#" + elAry[i]));
-    				}
-				}
-				if (r.DATA.SORT_RIGHTCOLUMN[0]) {
-    				var elAry = r.DATA.SORT_RIGHTCOLUMN[0].split(",");
-    				//console.log('elAry='+elAry);
-    				for (var i=0;i<elAry.length; i++) {
-    					//console.log('thisEl='+elAry[i]);
-    					$('#right-col').append($("#" + elAry[i]));
-    				}
+function reorderSort() {
+	$.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "get_sort_order",
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			//console.log('r='+r);
+			if (r.DATA.SORT_LEFTCOLUMN[0]) {
+				var elAry = r.DATA.SORT_LEFTCOLUMN[0].split(",");
+				//console.log('elAry='+elAry);
+				for (var i=0;i<elAry.length; i++) {
+					//console.log('thisEl='+elAry[i]);
+					$('#left-col').append($("#" + elAry[i]));
 				}
 			}
-		);
-    }
-    function resetSort(){
-    	// manually reset the form....
-			var elAry = 'sort_catitemid,sort_agent,sort_otherid,sort_identification,sort_attributes,sort_randomness'.split(",");
-			//console.log('elAry='+elAry);
-			for (var i=0;i<elAry.length; i++) {
-				//console.log('thisEl='+elAry[i]);
-				$('#left-col').append($("#" + elAry[i]));
+			if (r.DATA.SORT_RIGHTCOLUMN[0]) {
+				var elAry = r.DATA.SORT_RIGHTCOLUMN[0].split(",");
+				//console.log('elAry='+elAry);
+				for (var i=0;i<elAry.length; i++) {
+					//console.log('thisEl='+elAry[i]);
+					$('#right-col').append($("#" + elAry[i]));
+				}
 			}
-			var elAry = 'sort_specevent,sort_collevent,sort_locality,sort_coordinates,sort_geology,sort_parts'.split(",");
-			//console.log('elAry='+elAry);
-			for (var i=0;i<elAry.length; i++) {
-				//console.log('thisEl='+elAry[i]);
-				$('#right-col').append($("#" + elAry[i]));
-			}
-    	// and update their DB record
-    	 $.getJSON("/component/Bulkloader.cfc",
-  			{
-  				method : "set_sort_order",
-  				returnformat : "json",
-  				queryformat : 'column',
-  				sort_leftcolumn: 'sort_catitemid,sort_agent,sort_otherid,sort_identification,sort_attributes,sort_randomness',
-  				sort_rightcolumn: 'sort_specevent,sort_collevent,sort_locality,sort_coordinates,sort_geology,sort_parts'
-  			},
-  			function(r) {
-  				//console.log('r='+r);
-  			}
-  		);
-    }
-
+		}
+	);
+}
+function resetSort(){
+	// manually reset the form....
+		var elAry = 'sort_catitemid,sort_agent,sort_otherid,sort_identification,sort_attributes,sort_randomness'.split(",");
+		//console.log('elAry='+elAry);
+		for (var i=0;i<elAry.length; i++) {
+			//console.log('thisEl='+elAry[i]);
+			$('#left-col').append($("#" + elAry[i]));
+		}
+		var elAry = 'sort_specevent,sort_collevent,sort_locality,sort_coordinates,sort_geology,sort_parts'.split(",");
+		//console.log('elAry='+elAry);
+		for (var i=0;i<elAry.length; i++) {
+			//console.log('thisEl='+elAry[i]);
+			$('#right-col').append($("#" + elAry[i]));
+		}
+	// and update their DB record
+	 $.getJSON("/component/Bulkloader.cfc",
+		{
+			method : "set_sort_order",
+			returnformat : "json",
+			queryformat : 'column',
+			sort_leftcolumn: 'sort_catitemid,sort_agent,sort_otherid,sort_identification,sort_attributes,sort_randomness',
+			sort_rightcolumn: 'sort_specevent,sort_collevent,sort_locality,sort_coordinates,sort_geology,sort_parts'
+		},
+		function(r) {
+			//console.log('r='+r);
+		}
+	);
+}
 
 function deleteThisRec () {
 	// only available from edit mode
-	
 	yesDelete = window.confirm('Are you sure you want to delete this record?');
 	if (yesDelete == true) {
 		msg('deleting record....','wait');
@@ -190,7 +167,6 @@ function deleteThisRec () {
 	}
 }
 
-
 function DEpartLookup(id){
 	var val=$("#" + id).val();
 	var ccde=$("#collection_cde").val();
@@ -202,7 +178,6 @@ function createClone() {
 	// uses the record in the window as a template for new data entry
 	yesChange = window.confirm('You will lose any unsaved changes. \nCustomize Form and set carry if you seem to be losing information.\nContinue?');
 	if (yesChange == true) {
-		//changeMode('enter');
 		// because it's possible to clone other users' records
 		//$("#enteredby").val($("#sessionusername").val());
 		loadRecordEnter($("#collection_object_id").val());
@@ -232,7 +207,6 @@ function saveNewRecord () {
 					//$("#loadedMsgDiv").text(status).show();
 					// dump the result into edit mode
 					loadedEditRecord();
-					//changeMode('edit');
 				} else {
 					msg('inserted ' + coid,'good');
 					var o='<option value="' + coid + '">' + coid + '</option>';
@@ -354,7 +328,6 @@ function loadedEditRecord(){
 	// make sure everything is on - override any user customizations	
 	$("div[id^='d_']").show();
 	var loadedMsg=$.trim($("#msg").text());
-	//var loadedMsg=$.trim($("#loadedMsgDiv").text());
 	//console.log('loadedMsg='+loadedMsg);	
 	$(".hasProbs").removeClass();
 	//console.log('loadedMsg='+loadedMsg);
@@ -423,7 +396,6 @@ function loadedEditRecord(){
 	$("#theNewButton").hide();
 	$("#theSaveButton").show(); // Save Edits/Delete Record
 	$("#customizeForm").hide(); //Save This As A New Record
-	//changeMode($("#action").val());
 	// force attribute check
 	checkCustomAtts();
 	requirePartAtts();
@@ -632,8 +604,6 @@ function loadRecordEnter(collection_object_id){
 			});
 		}
 	);
-	
-
 	// show URL that they can't try to save or anything clever
 	var theURL='/DataEntry.cfm';
 	if (typeof window.history.pushState == 'function') {
@@ -653,7 +623,6 @@ function editLast() {
 			function(r) {
 				loadRecordEdit(r);
 				//$("#selectbrowse").val(r);
-				//changeMode('edit');
 			}	
 		);
 	}
@@ -668,301 +637,6 @@ function getDEAccn() {
 	getAccn(accnNumber,'accn',InstAcrColnCde);
 }
 
-/*
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
-
-// fetch a record into a local JSON object
-function fetchRecord (collection_object_id) {
-	//console.log('fetchRecord');
-	$.getJSON("/component/Bulkloader.cfc",
-		{
-			method : "loadRecord",
-			collection_object_id : collection_object_id,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function(r) {
-			console.log('back');
-			var columns=r.COLUMNS;
-			var ccde=r.DATA.COLLECTION_CDE[0];
-			var useCustom=true;
-			var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
-			var tab=document.getElementById('attributeTableCell');
-			
-			// switch in attributes based on collection and whether 
-			// or not hard-coded attributes jive with the data
-			
-			// these are hard-coded in /form/DataEntryAttributeTable.cfm
-			// make sure to coordinate any changes
-			if (ccde=='Mamm'){
-				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
-					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length') || +
-					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length') || +
-					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw') || +
-					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch') || +
-					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ){
-					useCustom=false;
-				}
-			}
-			if (ccde=='Bird'){
-				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
-					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age') || +
-					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition') || +
-					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'molt condition') || +
-					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification') || +
-					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ) {
-					useCustom=false;
-				}
-			}
-			if (useCustom==false) {
-				ptl+='&useCustom=false';				
-			}
-			jQuery.get(ptl, function(data){
-				jQuery(tab).html(data);
-				for (i=0;i<columns.length;i++) {
-					var cName=columns[i];
-					var cVal=eval("r.DATA." + columns[i]);
-					var eName=cName.toLowerCase();
-					$("#" + eName).val(cVal);
-				}
-				// default in enteredby if we didn't get one
-				// won't have one if we're coming from a template/new record
-				if ($("#enteredby").val().length==0){
-					$("#enteredby").val($("#sessionusername").val());
-				}
-				// and custom ID if there's not a conflict
-				if ($("#other_id_num_type_5").val().length==0){
-					$("#other_id_num_type_5").val($("#sessioncustomotheridentifier").val())
-				}
-				
-				set_attribute_dropdowns();
-				// turn this thing on when necessary
-				if($("#collection_cde").val()=='ES') {
-					$("#geolCell").show();
-				}
-				$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
-				$("#pBrowse").show();
-				$("#nBrowse").show();
-				if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
-					$("#nBrowse").hide();
-				}
-				if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
-					$("#pBrowse").hide();
-				}
-				msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
-				switchActive($("#orig_lat_long_units").val());
-				changeMode($("#action").val());
-			});
-			
-		}
-	);
-	
-}
-
-
-
-
-
-function changeMode (mode) {
-	
-	console.log('changemode - mode=' + mode + ' id=' + $("#collection_object_id").val());
-	if ($("#collection_object_id").val()<500){
-		// one of the templates
-		var status='';
-		// disallow edit
-		$("#action").val('enter');
-	} else {
-		var status=$.trim($("#loadedMsgDiv").text());
-		$("#action").val(mode);
-	}
-	
-	
-	
-	
-	//console.log('status='+status);
-	//if(status){
-		// got an error - force them to fix it
-	//	mode='edit';
-	//}
-	
-	if (mode == 'edit') {
-		$("#customizeForm").hide(); //Save This As A New Record
-		$("#theNewButton").hide(); //Save This As A New Record
-		$("#theSaveButton").show(); // Save Edits/Delete Record
-		$("#enterMode").hide(); // Edit Last Record
-		
-		
-		if(status){
-			// don't let them leave until this is fixed
-			//console.log('is bad edit');
-			$("#editMode").hide(); // Clone This Record
-			$("#theTable").removeClass().addClass('isBadEdit');
-			$("#pageTitle").show();
-			if ($("#ImAGod").val() != "yes"){
-				// let "god" users browse; force non-god users to fix their stuff
-				$("#browseThingy").hide();
-			}
-			
-			//highlightErrors(status);
-		} else {
-			$("#browseThingy").show();
-			$("#editMode").show(); // Clone This Record
-			$("#theTable").removeClass().addClass('isGoodEdit');
-			$("#pageTitle").hide();	
-		}
-	} else { // entry mode
-		$("#loaded").val('waiting approval');
-		$("#customizeForm").show(); //Save This As A New Record
-		$("#theTable").removeClass().addClass('isEnter');
-		$("#theNewButton").show(); //Save This As A New Record
-		$("#theSaveButton").hide(); // Save Edits/Delete Record
-		$("#enterMode").show(); // Edit Last Record
-		$("#editMode").hide(); // Clone This Record
-		$("#browseThingy").hide();
-	}
-	//checkRecord();
-	var theURL='/DataEntry.cfm';
-	//console.log('action='+$("#action").val().toLowerCase());
-	
-
-	setPagePrefs();
-	
-	if ($("#action").val().toLowerCase()=='edit'){
-		theURL+='?action=edit';
-		if ($("#ImAGod").val()=="yes"){
-			theURL+='&ImAGod=yes';
-		}
-		theURL+='&collection_object_id=' + $("#collection_object_id").val();
-	}
-	if (typeof window.history.pushState == 'function') {
-	  history.replaceState({}, 'DataEntry', theURL);
-	}
-}
-
-
-function createClone() {
-	yesChange = window.confirm('You will lose any unsaved changes. \nCustomize Form and set carry if you seem to be losing information.\nContinue?');
-	if (yesChange == true) {
-		changeMode('enter');
-		// because it's possible to clone other users' records
-		$("#enteredby").val($("#sessionusername").val());
-	}	
-}
-
-function loadRecordDISABLE (collection_object_id) {
-	console.log('loadRecord');
-	msg('fetching data....','bad');
-	$.getJSON("/component/Bulkloader.cfc",
-		{
-			method : "loadRecord",
-			collection_object_id : collection_object_id,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function(r) {
-			console.log('back');
-			var columns=r.COLUMNS;
-			var ccde=r.DATA.COLLECTION_CDE[0];
-			var useCustom=true;
-			var ptl="/form/DataEntryAttributeTable.cfm?collection_cde=" + ccde;
-			var tab=document.getElementById('attributeTableCell');
-			
-			// switch in attributes based on collection and whether 
-			// or not hard-coded attributes jive with the data
-			
-			// these are hard-coded in /form/DataEntryAttributeTable.cfm
-			// make sure to coordinate any changes
-			if (ccde=='Mamm'){
-				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
-					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'total length') || +
-					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'tail length') || +
-					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'hind foot with claw') || +
-					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'ear from notch') || +
-					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ){
-					useCustom=false;
-				}
-			}
-			if (ccde=='Bird'){
-				if ( (String(r.DATA.ATTRIBUTE_1).length > 0 && r.DATA.ATTRIBUTE_1 != 'sex') || +
-					(String(r.DATA.ATTRIBUTE_2).length > 0 && r.DATA.ATTRIBUTE_2 != 'age') || +
-					(String(r.DATA.ATTRIBUTE_3).length > 0 && r.DATA.ATTRIBUTE_3 != 'fat deposition') || +
-					(String(r.DATA.ATTRIBUTE_4).length > 0 && r.DATA.ATTRIBUTE_4 != 'molt condition') || +
-					(String(r.DATA.ATTRIBUTE_5).length > 0 && r.DATA.ATTRIBUTE_5 != 'skull ossification') || +
-					(String(r.DATA.ATTRIBUTE_6).length > 0 && r.DATA.ATTRIBUTE_6 != 'weight') ) {
-					useCustom=false;
-				}
-			}
-			if (useCustom==false) {
-				ptl+='&useCustom=false';				
-			}
-			jQuery.get(ptl, function(data){
-				jQuery(tab).html(data);
-				for (i=0;i<columns.length;i++) {
-					var cName=columns[i];
-					var cVal=eval("r.DATA." + columns[i]);
-					var eName=cName.toLowerCase();
-					$("#" + eName).val(cVal);
-				}
-				// default in enteredby if we didn't get one
-				// won't have one if we're coming from a template/new record
-				if ($("#enteredby").val().length==0){
-					$("#enteredby").val($("#sessionusername").val());
-				}
-				// and custom ID if there's not a conflict
-				if ($("#other_id_num_type_5").val().length==0){
-					$("#other_id_num_type_5").val($("#sessioncustomotheridentifier").val())
-				}
-				
-				set_attribute_dropdowns();
-				// turn this thing on when necessary
-				if($("#collection_cde").val()=='ES') {
-					$("#geolCell").show();
-				}
-				$("#selectbrowse").val(r.DATA.COLLECTION_OBJECT_ID[0]);
-				$("#pBrowse").show();
-				$("#nBrowse").show();
-				if ($("#selectbrowse").val()==$("#selectbrowse option:last").val()){
-					$("#nBrowse").hide();
-				}
-				if ($("#selectbrowse").val()==$("#selectbrowse option:first").val()){
-					$("#pBrowse").hide();
-				}
-				msg('record ' + r.DATA.COLLECTION_OBJECT_ID[0] + ' loaded','good');
-				switchActive($("#orig_lat_long_units").val());
-				changeMode($("#action").val());
-			});
-			
-		}
-	);
-	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-function editThis(){
-	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
-	if (yesChange == true) {
-		loadRecord($("#collection_object_id").val());
-		$("#selectbrowse").val($("#collection_object_id").val());
-		changeMode('edit');
-	}
-}
 function browseTo(dir){
 	var ix = $("#selectbrowse").prop( "selectedIndex" );
 	if (dir=='next'){
@@ -971,15 +645,8 @@ function browseTo(dir){
 		ix=parseInt(parseInt(ix)-1);
 	}
 	var c = $("#selectbrowse").find("option:eq(" + ix +")" ).val();
-	loadRecord(c);	
+	loadRecordEdit(c);	
 }
-
-
-
-
-
-
-*/
 
 function getRelatedData(id) {
 	var bgDiv = document.createElement('div');
@@ -2362,37 +2029,7 @@ function set_attribute_dropdowns() {
    });	
 }
 function getAttributeStuff (attr,elem) {
-	//console.log('getAttributeStuff');
-	/*
-	 
-	
-	 if (typeof attr !=== null){
-		console.log('typeof attr !=== null=='+ attr);
-	} 
-	 if (typeof attr === null){
-		 console.log('typeof attr === null=='+ attr);
-		 } 
-		 
-	if (!attr) { 
-		console.log('!attr=='+ attr);//
-
-		 }
-		 
-	if(attr==null){
-		console.log('attr==null=='+ attr);//
-		}
-	
-		console.log('attr!==null=='+ attr);
-		}
-
-	
-	 * */
-	
-	
-	
-	
-		
-if(attr!==null && elem!==null){
+	if(attr!==null && elem!==null){
 	//console.log('made it through all checks - attr='+ attr);
 	
 		var optn = document.getElementById(elem);
