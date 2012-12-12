@@ -80,7 +80,7 @@
 				ID Type
 		 		<span class="infoLink" onClick="getCtDoc('ctcoll_other_id_type','')">[ define ]</span>
 			</th>
-			<th>Prefix</th>
+			<th>Prefix or String</th>
 			<th>ID Number (int)</th>
 			<th>Suffix</th>
 			<th>
