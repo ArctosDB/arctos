@@ -185,21 +185,26 @@
 		<cfset thisOTHER_ID_PREFIX = evaluate("OTHER_ID_PREFIX_" & n)>
 		<cfset thisOTHER_ID_SUFFIX = evaluate("OTHER_ID_SUFFIX_" & n)>
 		<cfset thisOTHER_ID_TYPE = evaluate("OTHER_ID_TYPE_" & n)>
-		<cfif isdefined("delete_" & n)>
+		<cfif isdefined("delete_" & n) and evaluate("delete_" & n) is 1>
 			deleting....
+
+			delete from coll_obj_other_id_num WHERE
+			COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
 		<cfelse>
 			updating......
-		</cfif>
+
 			UPDATE
-							coll_obj_other_id_num
-						SET
-							other_id_type = '#thisOTHER_ID_TYPE#',
-							other_id_prefix='#thisOTHER_ID_PREFIX#',
-							other_id_number=#thisOTHER_ID_NUMBER#,
-							other_id_suffix='#thisOTHER_ID_SUFFIX#',
-							id_references='#thisID_REFERENCES#'
-						WHERE
-							COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
+										coll_obj_other_id_num
+									SET
+										other_id_type = '#thisOTHER_ID_TYPE#',
+										other_id_prefix='#thisOTHER_ID_PREFIX#',
+										other_id_number=#thisOTHER_ID_NUMBER#,
+										other_id_suffix='#thisOTHER_ID_SUFFIX#',
+										id_references='#thisID_REFERENCES#'
+									WHERE
+										COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
+		</cfif>
+
 		</cfloop>
 		<!----
 	<cftransaction>
