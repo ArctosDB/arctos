@@ -137,11 +137,11 @@
 </form>
 <b>Add New Identifier:</b>
 <form name="newOID" method="post" action="editIdentifiers.cfm">
-		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		  <input type="hidden" name="Action" value="newOID">
-<table class="newRec">
-	<tr>
-		 <td>
+	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+	<input type="hidden" name="Action" value="newOID">
+	<table class="newRec">
+		<tr>
+			<td>
 				<select name="other_id_type" id="other_id_type" size="1">
 					<cfloop query="ctType">
 						<option	value="#ctType.other_id_type#">#ctType.other_id_type#</option>
@@ -167,10 +167,16 @@
 			</td>
 		</tr>
 	</table>
-	<input type="submit" value="Insert" class="insBtn"
-
+	<input type="submit" value="Insert" class="insBtn">
 </form>
 </cfoutput>
+saveEdits
+<!-------------------------------------------------------->
+<cfif action is "saveEdits">
+<cfoutput>
+	<cfdump var=#form#>
+</cfoutput>
+</cfif>
 <!-------------------------------------------------------->
 <cfif #Action# is "saveCatEdits">
 <cfoutput>
@@ -227,38 +233,31 @@
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------->
-<cfif #Action# is "newOID">
-<cfoutput>
-	<cfquery name="newOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	INSERT INTO coll_obj_other_id_num
-		(collection_object_id,
-		other_id_type,
-		other_id_prefix,
-		other_id_number,
-		other_id_suffix
-	) VALUES (
-		#collection_object_id#,
-		'#other_id_type#',
-		<cfif len(#other_id_prefix#) gt 0>
-			'#other_id_prefix#'
-		<cfelse>
-			NULL
-		</cfif>
-		,
-		<cfif len(#other_id_number#) gt 0>
-			#other_id_number#
-		<cfelse>
-			NULL
-		</cfif>
-		,
-		<cfif len(#other_id_suffix#) gt 0>
-			'#other_id_suffix#'
-		<cfelse>
-			NULL
-		</cfif>)
-	</cfquery>
-	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
-</cfoutput>
+<cfif action is "newOID">
+	<cfoutput>
+		<cfquery name="newOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		INSERT INTO coll_obj_other_id_num
+			(collection_object_id,
+			other_id_type,
+			other_id_prefix,
+			other_id_number,
+			other_id_suffix,
+			id_references
+		) VALUES (
+			#collection_object_id#,
+			'#other_id_type#',
+			'#other_id_prefix#',
+			<cfif len(other_id_number) gt 0>
+				#other_id_number#
+			<cfelse>
+				NULL
+			</cfif>
+			,
+			'#other_id_suffix#',
+			'#id_references#')
+		</cfquery>
+		<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
+	</cfoutput>
 </cfif>
 <!-------------------------------------------------------->
 <cf_customizeIFrame>
