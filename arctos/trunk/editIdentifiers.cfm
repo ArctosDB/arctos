@@ -80,14 +80,15 @@
 			<th>ID Number (int)</th>
 			<th>Suffix</th>
 			<th>ID References</th>
+			<th>Delete</th>
 		</tr>
 		<tr #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
 			<td>Catalog Number</td>
 			<td>#cat.guid_prefix#:</td>
+			<td><input type="text" name="cat_num" value="#cat.cat_num#" class="reqdClr"></td>
 	 		<td>
 		 		<span class="infoLink"onClick="window.open('/tools/findGap.cfm','','width=400,height=338, resizable,scrollbars');">[ find gaps ]</span>
 			</td>
-		 	<td><input type="text" name="cat_num" value="#cat.cat_num#" class="reqdClr"></td>
 		 	<td>self</td>
 		 </tr>
 		<cfloop query="oids">
@@ -117,6 +118,9 @@
 								value="#ctid_references.id_references#">#ctid_references.id_references#</option>
 						</cfloop>
 					</select>
+				</td>
+				<td>
+					<input type="checkbox" id="delete_#i#" name="delete_#i#" value="1">
 				</td>
 			</tr>
 			<cfset i=i+1>
