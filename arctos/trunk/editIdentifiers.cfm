@@ -92,7 +92,7 @@
 		<tr #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
 			<td>Catalog Number</td>
 			<td>#cat.guid_prefix#:</td>
-			<td><input type="text" name="cat_num" value="#cat.cat_num#" class="reqdClr"></td>
+			<td><input type="text" name="cat_num" value="#cat.cat_num#" size="12" class="reqdClr"></td>
 	 		<td>
 		 		<span class="infoLink"onClick="window.open('/tools/findGap.cfm','','width=400,height=338, resizable,scrollbars');">[ find gaps ]</span>
 			</td>
@@ -160,7 +160,8 @@
 			<td>
 				<select name="id_references" id="id_references" size="1">
 					<cfloop query="ctid_references">
-						<option	value="#ctid_references.id_references#">#ctid_references.id_references#</option>
+						<option	<cfif ctid_references.id_references is 'self'> selected="selected" </cfif>
+								value="#ctid_references.id_references#">#ctid_references.id_references#</option>
 					</cfloop>
 				</select>
 			</td>
