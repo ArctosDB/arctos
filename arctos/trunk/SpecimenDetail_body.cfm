@@ -703,7 +703,7 @@
 						coll_obj_other_id_num.display_value
 					end display_value,
 					coll_obj_other_id_num.other_id_type,
-					coll_obj_other_id_num.id_references
+					coll_obj_other_id_num.id_references,
 					case when base_url is not null then
 						ctcoll_other_id_type.base_url || coll_obj_other_id_num.display_value
 					else
