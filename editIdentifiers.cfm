@@ -185,7 +185,7 @@
 		<cfset thisOTHER_ID_PREFIX = evaluate("OTHER_ID_PREFIX_" & n)>
 		<cfset thisOTHER_ID_SUFFIX = evaluate("OTHER_ID_SUFFIX_" & n)>
 		<cfset thisOTHER_ID_TYPE = evaluate("OTHER_ID_TYPE_" & n)>
-		<cfif isdefined(evaluate("delete_" & n))>
+		<cfif isdefined("delete_" & n)>
 			deleting....
 		<cfelse>
 			updating......
