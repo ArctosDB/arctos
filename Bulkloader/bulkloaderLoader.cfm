@@ -1,12 +1,12 @@
 <cfheader statuscode="301" statustext="Moved permanently">
-<cfheader name="Location" value="/BulkloadSpecimens.cfm">
+<cfheader name="Location" value="/Bulkloader/BulkloadSpecimens.cfm">
 <cfabort>
 
 <cfinclude template="/includes/_header.cfm">
 
  <!--- these have to live in CF runtime to be accessable to cfexecute --->
  <!--- relies on a staging table:
- 
+
  create table bulkloader_stage as select * from bulkloader;
  delete from bulkloader_stage;
  create public synonym bulkloader_stage for bulkloader_stage;
@@ -15,10 +15,10 @@
  <!---
  <cfset filename = "/opt/coldfusionmx7/runtime/bin/bulk_data_upload.txt">
  <cfset outFile = "/opt/coldfusionmx7/runtime/bin/bulkData.ctl">
- 
+
  <cfset logfile = "/opt/coldfusionmx7/runtime/bin/bulkData.log">
  <cfset badfile = "/opt/coldfusionmx7/runtime/bin/bulkData.bad">
- 
+
  <cfset webFileName = "/var/www/html/Bulkloader/bulk_data_upload.txt">
  <cfset weboutFile = "/var/www/html/Bulkloader/bulkData.ctl">
  <cfset weblogfile = "/var/www/html/Bulkloader/bulkData.log">
@@ -63,20 +63,20 @@
 	<cfif FileExists("#badFile#")>
 		<cffile action="delete" file="#badFile#">
 	</cfif>
-	
+
     <cffile action="upload" destination="#filename#" nameConflict="overwrite" fileField="Form.FiletoUpload">
 	<cfexecute name="/bin/sh" arguments="/usr/bin/dos2unix #filename#" timeout="240"></cfexecute>
 	<cfquery name="remOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from bulkloader_stage
 	</cfquery>
-	<cfset stoopidLongColumns = "LAT_LONG_REMARKS,COLL_OBJECT_REMARKS">  
+	<cfset stoopidLongColumns = "LAT_LONG_REMARKS,COLL_OBJECT_REMARKS">
 	<cffile action="READ" file="#filename#" variable="fileContent"  charset="iso-8859-1" >
 	<cfset fileContent=replace(fileContent,"#chr(13)##chr(10)#",chr(13), "all")>
 	<cfset fileContent=replace(fileContent,chr(13),chr(10), "all")>
 	<cfset ColumnList = listgetat(#filecontent#,1,"#chr(10)#")>
 	<cfset theseData = replace(filecontent,ColumnList,"","all")>
 	<!---
-	<cfset ColumnList = replace(ColumnList,"#chr(9)#",",","all")>	
+	<cfset ColumnList = replace(ColumnList,"#chr(9)#",",","all")>
 	<cfset theseData = replace(theseData,"#chr(9)#","|","all")>
 	--->
 	<cfloop list="#stoopidLongColumns#" index="c">
@@ -89,7 +89,7 @@
 	<cfset thisHeader = thisHeader & chr(10) & "TRAILING NULLCOLS ">
 	<cfset thisHeader = thisHeader & chr(10) & "(#ColumnList#) ">
 	<cfset thisHeader = thisHeader & chr(10) & "begindata" & theseData>
-	<cffile action="write" file="#controlFile#" addnewline="no" output="#thisHeader#" charset="iso-8859-1">		
+	<cffile action="write" file="#controlFile#" addnewline="no" output="#thisHeader#" charset="iso-8859-1">
 	<cfexecute name="#sqlldrScript#" timeout="240"></cfexecute>
 	<cflocation url="bulkloaderLoader.cfm?action=inStage">
 </cfoutput>
@@ -114,18 +114,18 @@
 		The generated control file is <a href="/Bulkloader/bulkData.ctl" target="_blank">here</a>.
 	</p>
 	<p>
-		If all of that looks reasonable, 
-		click <a href="/Bulkloader/bulkloaderLoader.cfm?action=checkStaged" target="_self">here</a> 
+		If all of that looks reasonable,
+		click <a href="/Bulkloader/bulkloaderLoader.cfm?action=checkStaged" target="_self">here</a>
 		to continue.
 		 It'll take awhile. Maybe a long while. Mashing the button more than once will make it take longer.
 		 Don't do that. You'll probably break something. This means you. Yea, you. #session.username#. <<-- that you.
-		 
+
 		 <p>
 			NOTE: If you're loading a lot of records - more than a few hundred - you may need help from
 			a DBA. Push the button if you're feeling lucky, it'll either time out or work, but
 			won't break anything either way.
 		</p>
-	</p>	
+	</p>
 	</cfoutput>
 </cfif>
 <!---------------------------------------->
@@ -142,8 +142,8 @@
 	<cfoutput>
 		<cfif #anyBads.cnt# gt 0>
 			<cfinclude template="getBulkloaderStageRecs.cfm">
-				#anyBads.cnt# of #allData.cnt# records will not successfully load. 
-				Click <a href="bulkloader.txt" target="_blank">here</a> 
+				#anyBads.cnt# of #allData.cnt# records will not successfully load.
+				Click <a href="bulkloader.txt" target="_blank">here</a>
 				to retrieve all data including error messages. Fix them up and reload them.
 				<p>
 				Click <a href="bulkloaderLoader.cfm?action=loadAnyway">here</a> to load them to the
@@ -169,10 +169,10 @@
 		loaded='BULKLOADED RECORD'. A data administrator can un-flag
 		and load them.
 	</cfif>
-		
-		
+
+
 		<!--- SQL to accomplish above:
-			create or replace PROCEDURE up_bs_id 
+			create or replace PROCEDURE up_bs_id
 			is
 			  BEGIN
 				FOR rec IN (SELECT collection_object_id FROM bulkloader_stage) LOOP
@@ -181,20 +181,20 @@
 				END LOOP;
 			END;
 			/
-			
+
 			exec up_bs_id;
 
 		--->
 		<!--- now move em to the real bulkloader --->
-		
+
 		<!---
 			update bulkloader_stage set loaded = 'BULKLOADED RECORD' where loaded is null;
 		--->
-		
+
 	</cfoutput>
 		<!---
 	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update bulkloader_stage set loaded = 'UNCHECKED BULKLOADED RECORD' 
+		update bulkloader_stage set loaded = 'UNCHECKED BULKLOADED RECORD'
 	</cfquery>
 	<cftry>
 	<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -202,31 +202,31 @@
 	</cfquery>
 		<cfcatch>
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				delete from bulkloader where loaded = 'UNCHECKED BULKLOADED RECORD' 
+				delete from bulkloader where loaded = 'UNCHECKED BULKLOADED RECORD'
 			</cfquery>
 		</cfcatch>
 	</cftry>
-	
-	
-	
+
+
+
 		<cfoutput>
-			
-			
+
+
 				<!--- make the text download file --->
-				
+
 				<!---
 				no download here
 				--->
 				<cfinclude template="getBulkloaderStageRecs.cfm">
-				#anyBads.cnt# of #allData.recordcount# records will not successfully load. 
-				Click <a href="bulkloader.txt" target="_blank">here</a> 
+				#anyBads.cnt# of #allData.recordcount# records will not successfully load.
+				Click <a href="bulkloader.txt" target="_blank">here</a>
 				to retrieve all data including error messages.
 			<cfelse>
-					
+
 					<!--- no problems, move the records into the real bulkloader table --->
 					<!--- first, update collection_object_ids --->
-					
-					
+
+
 			</cfif>
 		</cfoutput>
 		--->
@@ -283,20 +283,20 @@
 		<cfif #whatsThere.cnt# is 0>
 			There are currently #whatsThere.cnt# records in table Bulkloader.
 			That may be because this page loaded before the bulkloading process
-			had completed. 
+			had completed.
 			<a href="bulkloaderLoader.cfm?action=logs">Reload this page</a>
 			 and see if you still get this message. If you do, you've probably really loaded nothing.
 		<cfelse>
 			There are currently #whatsThere.cnt# records in table Bulkloader.
 		</cfif>
-		
+
 	</p>
 	If nothing above scares you, click <a href="Bulkloader.cfm">here</a> to begin bulkloading!
 	<p>
-		If something does scare you, click <a href="bulkloaderLoader.cfm?action=killEmAll">here</a> to delete these records and restart the 
+		If something does scare you, click <a href="bulkloaderLoader.cfm?action=killEmAll">here</a> to delete these records and restart the
 		load process.
 	</p>
 </cfoutput>
-		
+
 </cfif>
  <cfinclude template="/includes/_footer.cfm">
