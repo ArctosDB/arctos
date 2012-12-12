@@ -93,6 +93,7 @@
 		<tr #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
 			<td>Catalog Number</td>
 			<td>#cat.guid_prefix#:</td>
+			<input type="hidden" name="oldcat_num" value="#cat.cat_num#">
 			<td><input type="text" name="cat_num" value="#cat.cat_num#" size="12" class="reqdClr"></td>
 	 		<td>
 		 		<span class="infoLink"onClick="window.open('/tools/findGap.cfm','','width=400,height=338, resizable,scrollbars');">[ find gaps ]</span>
@@ -133,7 +134,8 @@
 			</tr>
 			<cfset i=i+1>
 		</cfloop>
-		<input type="hidden" value="#i#" name="numberOfIDs" id="numberOfIDs">
+		<cfset nid=i-1>
+		<input type="hidden" value="#nid#" name="numberOfIDs" id="numberOfIDs">
 	</table>
 	<input type="submit" value="Save Changes" class="savBtn">
 </form>
@@ -176,110 +178,44 @@
 <!-------------------------------------------------------->
 <cfif action is "saveEdits">
 <cfoutput>
-	<cfdump var=#form#>
-
-	<cfloop from="1" to="#numberOfIDs#" index="n">
-		<cfset thisCOLL_OBJ_OTHER_ID_NUM_ID = evaluate("COLL_OBJ_OTHER_ID_NUM_ID_" & n)>
-		<cfset thisID_REFERENCES = evaluate("ID_REFERENCES_" & n)>
-		<cfset thisOTHER_ID_NUMBER = evaluate("OTHER_ID_NUMBER_" & n)>
-		<cfset thisOTHER_ID_PREFIX = evaluate("OTHER_ID_PREFIX_" & n)>
-		<cfset thisOTHER_ID_SUFFIX = evaluate("OTHER_ID_SUFFIX_" & n)>
-		<cfset thisOTHER_ID_TYPE = evaluate("OTHER_ID_TYPE_" & n)>
-		<cfif isdefined("delete_" & n) and evaluate("delete_" & n) is 1>
-			deleting....
-
-			delete from coll_obj_other_id_num WHERE
-			COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
-		<cfelse>
-			updating......
-
-			UPDATE
-										coll_obj_other_id_num
-									SET
-										other_id_type = '#thisOTHER_ID_TYPE#',
-										other_id_prefix='#thisOTHER_ID_PREFIX#',
-										other_id_number=#thisOTHER_ID_NUMBER#,
-										other_id_suffix='#thisOTHER_ID_SUFFIX#',
-										id_references='#thisID_REFERENCES#'
-									WHERE
-										COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
+	<cftransaction>
+		<!--- save an update if possible --->
+		<cfif oldcat_num is not cat_num>
+			<cfquery name="upCat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				UPDATE cataloged_item SET
+					cat_num = '#cat_num#'
+				WHERE collection_object_id=#collection_object_id#
+			</cfquery>
 		</cfif>
 
+		<cfloop from="1" to="#numberOfIDs#" index="n">
+			<cfset thisCOLL_OBJ_OTHER_ID_NUM_ID = evaluate("COLL_OBJ_OTHER_ID_NUM_ID_" & n)>
+			<cfset thisID_REFERENCES = evaluate("ID_REFERENCES_" & n)>
+			<cfset thisOTHER_ID_NUMBER = evaluate("OTHER_ID_NUMBER_" & n)>
+			<cfset thisOTHER_ID_PREFIX = evaluate("OTHER_ID_PREFIX_" & n)>
+			<cfset thisOTHER_ID_SUFFIX = evaluate("OTHER_ID_SUFFIX_" & n)>
+			<cfset thisOTHER_ID_TYPE = evaluate("OTHER_ID_TYPE_" & n)>
+			<cfif isdefined("delete_" & n) and evaluate("delete_" & n) is 1>
+				<cfquery name="dOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from coll_obj_other_id_num WHERE
+					COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
+				</cfquery>
+			<cfelse>
+				<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					UPDATE
+						coll_obj_other_id_num
+					SET
+						other_id_type = '#thisOTHER_ID_TYPE#',
+						other_id_prefix='#thisOTHER_ID_PREFIX#',
+						other_id_number=#thisOTHER_ID_NUMBER#,
+						other_id_suffix='#thisOTHER_ID_SUFFIX#',
+						id_references='#thisID_REFERENCES#'
+					WHERE
+						COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
+				</cfquery>
+			</cfif>
 		</cfloop>
-		<!----
-	<cftransaction>
 	</cftransaction>
-<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			UPDATE
-				coll_obj_other_id_num
-			SET
-				other_id_type = '#thisOTHER_ID_TYPE#',
-				other_id_prefix='#thisOTHER_ID_PREFIX#',
-				other_id_number=#thisOTHER_ID_NUMBER#,
-				other_id_suffix='#thisOTHER_ID_SUFFIX#',
-				id_references='#thisID_REFERENCES#'
-			WHERE
-				COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
-			</cfquery>
-		---->
-
-
-
-
-</cfoutput>
-</cfif>
-<!-------------------------------------------------------->
-<cfif #Action# is "saveCatEdits">
-<cfoutput>
-	<cftransaction>
-	<cfquery name="upCat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	UPDATE cataloged_item SET
-		cat_num = '#cat_num#',
-		collection_id=#collection_id#
-	WHERE collection_object_id=#collection_object_id#
-	</cfquery>
-	</cftransaction>
-	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
-</cfoutput>
-</cfif>
-<!-------------------------------------------------------->
-<cfif #Action# is "saveOIDEdits">
-<cfoutput>
-	<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		UPDATE
-			coll_obj_other_id_num
-		SET
-			other_id_type = '#other_id_type#'
-			<cfif len(#other_id_prefix#) gt 0>
-				,other_id_prefix='#other_id_prefix#'
-			<cfelse>
-				,other_id_prefix= NULL
-			</cfif>
-			<cfif len(#other_id_number#) gt 0>
-				,other_id_number=#other_id_number#
-			<cfelse>
-				,other_id_number= NULL
-			</cfif>
-			<cfif len(#other_id_suffix#) gt 0>
-				,other_id_suffix='#other_id_suffix#'
-			<cfelse>
-				,other_id_suffix= NULL
-			</cfif>
-		WHERE
-			COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID#
-	</cfquery>
-	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
-</cfoutput>
-</cfif>
-<!-------------------------------------------------------->
-<cfif #Action# is "deleOID">
-<cfoutput>
-<cfquery name="delOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	DELETE FROM
-		coll_obj_other_id_num
-	WHERE
-		COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID#
-	</cfquery>
 	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
