@@ -1,3 +1,0 @@
-<cfoutput>
-		
-</cfoutput>

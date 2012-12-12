@@ -27,7 +27,7 @@
 				<cfset p=listgetat(rdurl,gPos+2,"/")>
 				<cfcatch></cfcatch>
 			</cftry>
-			
+
 			<cfinclude template="/document.cfm">
 			<cfcatch>
 				<cfif listgetat(rdurl,gPos+2,"/")>
@@ -38,13 +38,13 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-		</cfoutput>	
+		</cfoutput>
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
 		<cftry>
 			<cftry>
 				<cfset contentType="text/html">
 				<cfif isdefined("cgi.HTTP_ACCEPT") and cgi.HTTP_ACCEPT contains "application/rdf+xml">
-					<!--- 
+					<!---
 					We can serve only html and rdf - if they won't take rdf, just give them html.
 					If the will accept rdf, pick the prioity based on q and then on order.
 				---->
@@ -86,7 +86,7 @@
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
-		</cftry>				
+		</cftry>
 	<cfelseif listfindnocase(rdurl,'name',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"name","/")>
@@ -114,14 +114,14 @@
 				<cfset niceProjName = listgetat(rdurl,gPos+1,"/")>
 			</cfif>
 			<cfinclude template="/ProjectDetail.cfm">
-			
+
 			<cfcatch><!---
 				<cfinclude template="/errors/404.cfm">
 			---->
 			<cfdump var=#cfcatch#>
 			</cfcatch>
-			
-			
+
+
 		</cftry>
 	<cfelseif listfindnocase(rdurl,'media',"/")>
 		<cftry>
@@ -188,7 +188,7 @@
 			</cfcatch>
 		</cftry>
 		</Cfoutput>
-	<cfelseif cgi.SCRIPT_NAME contains "/DiGIR.php" or rdurl contains "/DiGIR.php">
+	<cfelseif cgi.SCRIPT_NAME contains "/DiGIR.php" or rdurl contains "/DiGIR.php" or rdurl contains "/digir">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://129.237.201.204/arctosdigir/DiGIR.php">
 	<cfelseif FileExists("#Application.webDirectory##rdurl#.cfm")>

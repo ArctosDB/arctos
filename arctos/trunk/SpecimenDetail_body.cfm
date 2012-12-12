@@ -1,7 +1,7 @@
 <cfif not isdefined("toProperCase")>
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
-<cfoutput>	
+<cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
 			Improper call. Aborting.....
@@ -41,19 +41,19 @@
 		PREPARATORS,
 		remarks,
 		flags
-	FROM 
+	FROM
 		#session.flatTableName#
-	WHERE 
+	WHERE
 		#session.flatTableName#.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
 <cfcatch>
-	
+
 	<cfdump var=#cfcatch#>
 </cfcatch>
 
 </cftry>
 <cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select	
+	select
 		attributes.attribute_type,
 		attributes.attribute_value,
 		attributes.attribute_units,
@@ -69,16 +69,16 @@
 		attributes.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
 <cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	SELECT 
-		biol_indiv_relations.biol_indiv_relationship, 
+	SELECT
+		biol_indiv_relations.biol_indiv_relationship,
 		biol_indiv_relations.related_coll_object_id,
 		related_cat_item.cat_num related_cat_num,
 		related_coll.collection as related_collection
-	from		
+	from
 		biol_indiv_relations,
 		cataloged_item related_cat_item,
 		collection related_coll
-	where		
+	where
 		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id AND
 		related_cat_item.collection_id = related_coll.collection_id and
 		biol_indiv_relations.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
@@ -136,7 +136,7 @@
 		specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 	order by
 		specimen_event_type
-</cfquery>		 
+</cfquery>
 <style>
 	.acceptedIdDiv {
 		border:1px dotted green;
@@ -148,7 +148,7 @@
 		font-size:.8em;
 	}
 	.taxDetDiv {
-		padding-left:1em;	
+		padding-left:1em;
 	}
 </style>
 <cfoutput query="one">
@@ -163,7 +163,7 @@
 		<tr>
 			<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
-				<div class="detailCell">				
+				<div class="detailCell">
 					<div class="detailLabel">&nbsp;
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentification');">Edit</span>
@@ -188,12 +188,12 @@
 									publication
 								WHERE
 									identification.publication_id=publication.publication_id (+) and
-									identification.collection_object_id = #collection_object_id# 
+									identification.collection_object_id = #collection_object_id#
 								ORDER BY accepted_id_fg DESC,made_date DESC
 							</cfquery>
 							<cfloop query="identification">
 								<cfquery name="getTaxa_r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-									select 
+									select
 										taxonomy.taxon_name_id,
 										display_name,
 										scientific_name,
@@ -210,7 +210,7 @@
 										identification_id=#identification_id#
 								</cfquery>
 								<cfquery name="getTaxa" dbtype="query">
-									select 
+									select
 										taxon_name_id,
 										display_name,
 										scientific_name,
@@ -231,7 +231,7 @@
 						        	<div class="unAcceptedIdDiv">
 						        </cfif>
 						        <cfif getTaxa.recordcount is 1 and taxa_formula is 'a'>
-									<a href="/name/#getTaxa.scientific_name#" target="_blank">#getTaxa.display_name#</a> 
+									<a href="/name/#getTaxa.scientific_name#" target="_blank">#getTaxa.display_name#</a>
 								<cfelse>
 									<cfset link="">
 									<cfset i=1>
@@ -267,10 +267,10 @@
 												#short_citation#
 											</a><br>
 									</cfif>
-									Identified by #agent_name# 
+									Identified by #agent_name#
 									<cfif len(made_date) gt 0>
 										on #made_date#
-									</cfif>									
+									</cfif>
 									<br>Nature of ID: #nature_of_id#
 									<cfif len(identification_remarks) gt 0>
 										<br>Remarks: #identification_remarks#
@@ -278,7 +278,7 @@
 								</div>
 							</div>
 						</cfloop>
-					</span>				
+					</span>
 				</div>
 			</div>
 <!------------------------------------ citations ---------------------------------------------->
@@ -301,27 +301,27 @@
 				</div>
 				<cfloop query="event">
 					<cfquery name="localityMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select 
-							media_id 
-						from 
-							media_relations 
-						where 
+						select
+							media_id
+						from
+							media_relations
+						where
 							RELATED_PRIMARY_KEY=#locality_id# and
 							MEDIA_RELATIONSHIP like '% locality'
 					</cfquery>
 					<cfquery name="collEventMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select 
-							media_id 
-						from 
-							media_relations 
-						where 
+						select
+							media_id
+						from
+							media_relations
+						where
 							RELATED_PRIMARY_KEY=#collecting_event_id# and
 							MEDIA_RELATIONSHIP like '% collecting_event'
 					</cfquery>
-					
-		
+
+
 					<div style="border:1px solid green; margin:1em;">
-		
+
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
@@ -361,8 +361,8 @@
 								<td id="SDCellRight">#collecting_event_name#</td>
 							</tr>
 						</cfif>
-						
-						
+
+
 						<cfif len(spec_locality) gt 0>
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
@@ -392,15 +392,15 @@
 								<td id="SDCellRight">#LOCALITY_REMARKS#</td>
 							</tr>
 						</cfif>
-						
-						
+
+
 						<cfif len(habitat) gt 0>
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Habitat:</td>
 								<td id="SDCellRight">#habitat#</td>
 							</tr>
 						</cfif>
-						
+
 						<cfif len(collecting_method) gt 0>
 							<div class="detailBlock">
 								<tr class="detailData">
@@ -493,7 +493,7 @@
 														<td align="left">#georeference_protocol#</td>
 													</tr>
 												</cfif>
-												
+
 											</table>
 										</td>
 										<td valign="top" align="right"><!---- map here --->
@@ -509,7 +509,7 @@
 							</td>
 						</tr>
 						<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select * from 
+							select * from
 							geology_attributes,
 							preferred_agent_name
 							where
@@ -520,13 +520,13 @@
 							<tr>
 								 <td id="SDCellLeft" class="innerDetailLabel">#GEOLOGY_ATTRIBUTE#:</td>
 								 <td id="SDCellRight">
-									 #GEO_ATT_VALUE#								 
+									 #GEO_ATT_VALUE#
 								</td>
 							</tr>
 							<tr>
 								<td></td>
 								<td id="SDCellRight" class="detailCellSmall">
-									Determined by 
+									Determined by
 									<cfif len(agent_name) gt 0>
 										#agent_name#
 									<cfelse>
@@ -547,14 +547,14 @@
 					</table>
 				</div>
 			</cfloop>
-				
-				
-								
-					
-					<!--- move this somewhere 
-									
-					
-					
+
+
+
+
+					<!--- move this somewhere
+
+
+
 					<cfif len(one.associated_species) gt 0>
 						<div class="detailBlock">
 							<tr class="detailData">
@@ -563,11 +563,11 @@
 							</tr>
 						</div>
 					</cfif>
-					
+
 					---->
-					
+
 			</div>
-			
+
 <!------------------------------------ collectors ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">Collectors
@@ -605,9 +605,9 @@
 					cat_num,
 					biol_indiv_relations.collection_object_id,
 					BIOL_INDIV_RELATIONSHIP
-				from 
+				from
 					biol_indiv_relations,cataloged_item,collection
-				where 
+				where
 					biol_indiv_relations.collection_object_id = cataloged_item.collection_object_id and
 					cataloged_item.collection_id = collection.collection_id AND
 					RELATED_COLL_OBJECT_ID = #collection_object_id#
@@ -633,7 +633,7 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
-									&nbsp;&nbsp;&nbsp;<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(relns.related_coll_object_id)#" target="_top">"Related To" Specimens List</a>										
+									&nbsp;&nbsp;&nbsp;<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(relns.related_coll_object_id)#" target="_top">"Related To" Specimens List</a>
 							</span>
 						</div>
 					</cfif>
@@ -643,11 +643,11 @@
 							<cfset invReln=left(invReln,len(invReln)-3) & ' IS'>
 						<cfelseif right(invReln,4) is " ate">
 							<cfset invReln=left(invReln,len(invReln)-4) & ' eaten by'>
-						</cfif>						
+						</cfif>
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">#invReln#</span>
-								<a href="/SpecimenDetail.cfm?collection_object_id=#invRel.collection_object_id#" 
+								<a href="/SpecimenDetail.cfm?collection_object_id=#invRel.collection_object_id#"
 									target="_top">#invRel.collection# #invRel.cat_num#</a>
 							</span>
 						</div>
@@ -663,26 +663,26 @@
 				</div>
 			</cfif>
 			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT project_name, project.project_id project_id FROM 
+				SELECT project_name, project.project_id project_id FROM
 				project, project_trans
-				WHERE 
+				WHERE
 				project_trans.project_id = project.project_id AND
 				project_trans.transaction_id=#one.accn_id#
 				GROUP BY project_name, project.project_id
 		  </cfquery>
 		  <cfquery name="isLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT project_name, project.project_id FROM 
+				SELECT project_name, project.project_id FROM
 					loan_item,
 					project,
 					project_trans,
 					specimen_part
-				 WHERE 
+				 WHERE
 				 	specimen_part.derived_from_cat_item = #one.collection_object_id# AND
 					loan_item.transaction_id=project_trans.transaction_id AND
 					project_trans.project_id=project.project_id AND
-					specimen_part.collection_object_id = loan_item.collection_object_id	
-				GROUP BY 
-					project_name, project.project_id		
+					specimen_part.collection_object_id = loan_item.collection_object_id
+				GROUP BY
+					project_name, project.project_id
 		</cfquery>
 		<cfquery name="isLoanedItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT loan_item.collection_object_id FROM
@@ -694,15 +694,16 @@
 		<td valign="top" width="50%">
 	<!------------------------------------ identifiers ---------------------------------------------->
 			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT 
-					case when #oneOfUs# != 1 and 
+				SELECT
+					case when #oneOfUs# != 1 and
 						concatencumbrances(coll_obj_other_id_num.collection_object_id) like '%mask original field number%' and
-						coll_obj_other_id_num.other_id_type = 'original identifier'				
+						coll_obj_other_id_num.other_id_type = 'original identifier'
 						then 'Masked'
 					else
-						coll_obj_other_id_num.display_value  
+						coll_obj_other_id_num.display_value
 					end display_value,
 					coll_obj_other_id_num.other_id_type,
+					coll_obj_other_id_num.id_references
 					case when base_url is not null then
 						ctcoll_other_id_type.base_url || coll_obj_other_id_num.display_value
 					else
@@ -723,7 +724,7 @@
 					<div class="detailLabel">Identifiers
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
-						</cfif>						
+						</cfif>
 					</div>
 					<cfloop query="oid">
 						<div class="detailBlock">
@@ -733,6 +734,7 @@
 								<cfelse>
 									#display_value#
 								</cfif>
+								(#id_references#)
 							</span>
 						</div>
 					</cfloop>
@@ -775,7 +777,7 @@
 		specimen_part.derived_from_cat_item=#one.collection_object_id#
 </cfquery>
 <cfquery name="parts" dbtype="query">
-	select 
+	select
 		part_id,
 		label,
 		part_name,
@@ -808,10 +810,10 @@
 						 ,
 						 ,
 						 ,
-						 
+
 					from
 						,
-						
+
 					where
 						specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
 						collection_object_id=#partID#
@@ -853,20 +855,20 @@
 					<cfelse>
 						--no attributes--
 					</cfif>
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-				---------->	
-					
-					
-					
+
+
+
+
+
+
+
+
+
+
+				---------->
+
+
+
 <cfquery name="mPart" dbtype="query">
 	select * from parts where sampled_from_obj_id is null order by part_name
 </cfquery>
@@ -901,7 +903,7 @@
 									<td>#part_remarks#</td>
 								</tr>
 								<cfquery name="patt" dbtype="query">
-									select 
+									select
 										attribute_type,
 										attribute_value,
 										attribute_units,
@@ -939,16 +941,16 @@
 													<cfif len(attribute_remark) gt 0>
 													 	remark=<strong>#attribute_remark#</strong>
 													</cfif>
-											
+
 												</div>
 											</cfloop>
 										</td>
 									</tr>
 								</cfif>
-	
-	
-	
-								
+
+
+
+
 								<cfquery name="sPart" dbtype="query">
 									select * from parts where sampled_from_obj_id=#part_id#
 								</cfquery>
@@ -1008,7 +1010,7 @@
 												#attribute_remark#
 											</span>
 										</div>
-									</cfif>	
+									</cfif>
 								</span>
 							</div>
 						</cfloop>
@@ -1083,7 +1085,7 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">#attribute_type#:</span>
-								#attribute_value# 
+								#attribute_value#
 								<cfif len(attribute_units) gt 0>
 									#attribute_units#
 								</cfif>
@@ -1108,10 +1110,10 @@
 											#attribute_remark#
 										</span>
 									</div>
-								</cfif>	
-							</div> 
+								</cfif>
+							</div>
 						</span>
-					</cfloop>		
+					</cfloop>
 				</div>
 			</div>
 			</cfif>
@@ -1121,7 +1123,7 @@
 					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('editBiolIndiv');">Edit</span>
 					</cfif>
-					</div>	
+					</div>
 					<cfif len(one.remarks) gt 0>
 						<div class="detailBlock">
 							<span class="detailData">
@@ -1130,7 +1132,7 @@
 							</span>
 						</div>
 					</cfif>
-					
+
 					<cfif oneOfUs is 1>
 						<div class="detailBlock">
 							<span class="detailData">
@@ -1166,7 +1168,7 @@
 				</div>
 <!------------------------------------ accession ---------------------------------------------->
 			<cfquery name="accnMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			    select 
+			    select
 			        media.media_id,
 			        media.media_uri,
 			        media.mime_type,
@@ -1220,7 +1222,7 @@
 						</cfif>
 					</span>
 				</div>
-			</div>		
+			</div>
 <!------------------------------------ usage ---------------------------------------------->
 		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (oneOfUs is 1 and isLoanedItem.collection_object_id gt 0)>
 			<div class="detailCell">
@@ -1245,7 +1247,7 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Loan History:</span>
-									<a href="/Loan.cfm?action=listLoans&collection_object_id=#valuelist(isLoanedItem.collection_object_id)#" 
+									<a href="/Loan.cfm?action=listLoans&collection_object_id=#valuelist(isLoanedItem.collection_object_id)#"
 										target="_mainFrame">Click for loan list</a>
 							</span>
 						</div>
@@ -1254,7 +1256,7 @@
 		</cfif>
 <!------------------------------------ Media ---------------------------------------------->
 <cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    select distinct 
+    select distinct
         media.media_id,
         media.media_uri,
         media.mime_type,
@@ -1277,15 +1279,15 @@
 					<cfinvokeargument name="preview_uri" value="#preview_uri#">
 					<cfinvokeargument name="media_type" value="#media_type#">
 				</cfinvoke>
-				 <span class="detailData">			
+				 <span class="detailData">
 					<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
-		        </span>	
+		        </span>
 			</cfloop>
 		</div>
-	</div>	
+	</div>
 </cfif>
 <cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    select distinct 
+    select distinct
         media.media_id,
         media.media_uri,
         media.mime_type,
@@ -1306,34 +1308,34 @@
 		<div class="detailLabel">Media
 			<cfif oneOfUs is 1>
 				 <cfquery name="hasConfirmedImageAttr"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT 
+					SELECT
 						count(*) c
 					FROM
-						ctattribute_type 
-					where 
+						ctattribute_type
+					where
 						attribute_type='image confirmed' and
 						collection_cde='#one.collection_cde#'
 				</cfquery>
 				<span class="detailEditCell" onclick="window.parent.loadEditApp('MediaSearch');">Edit</span>
 				<cfquery name="isConf"  dbtype="query">
-					SELECT 
+					SELECT
 						count(*) c
 					FROM
-						attribute 
-					where 
+						attribute
+					where
 						attribute_type='image confirmed'
 				</cfquery>
 				<CFIF len(isConf.c) is 0 and hasConfirmedImageAttr.c gt 0>
-					<span class="infoLink" 
-						id="ala_image_confirm" 
+					<span class="infoLink"
+						id="ala_image_confirm"
 						onclick='windowOpener("/ALA_Imaging/confirmImage.cfm?collection_object_id=#collection_object_id#","alaWin","width=700,height=400, resizable,scrollbars,location,toolbar");'>
 						Confirm Image IDs
-					</span> 
+					</span>
 				</CFIF>
 			</cfif>
 		</div>
 		<div class="detailBlock">
-            <span class="detailData">			
+            <span class="detailData">
 				<div class="thumbs">
 					<div class="thumb_spcr">&nbsp;</div>
 					<cfset stuffToNotPlay="audio/x-wav">
@@ -1375,10 +1377,10 @@
 					</cfloop>
 					<div class="thumb_spcr">&nbsp;</div>
 				</div>
-	        </span>		
+	        </span>
 		</div>
 		<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select p.barcode from 
+			select p.barcode from
 			container c,
 			container p,
 			coll_obj_cont_hist,
@@ -1389,7 +1391,7 @@
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 			coll_obj_cont_hist.container_id=c.container_id and
 			c.parent_container_id=p.container_id and
-			cataloged_item.collection_object_id=#collection_object_id#			
+			cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfloop query="barcode">
 			<cfquery name="ocr" datasource="taccocr">
@@ -1397,10 +1399,10 @@
 			</cfquery>
 			<cfif ocr.recordcount is 1>
 				<div class="detailLabel">
-					OCR for #barcode#			
+					OCR for #barcode#
 				</div>
 				<div class="detailBlock">
-		            <span class="detailData">			
+		            <span class="detailData">
 						#replace(ocr.label,chr(10),'<br>','all')#
 			        </span>
 				</div>
@@ -1413,5 +1415,5 @@
 <cfif oneOfUs is 1>
 </form>
 </cfif>
-</cfoutput> 	
+</cfoutput>
 <cf_customizeIFrame>
