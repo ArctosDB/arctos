@@ -1,5 +1,6 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfset title = "Edit Identifiers">
+<cfif action is "nothing">
 <cfquery name="getIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		COLL_OBJ_OTHER_ID_NUM_ID,
@@ -132,6 +133,7 @@
 			</tr>
 			<cfset i=i+1>
 		</cfloop>
+		<input type="hidden" value="#i#" name="numberOfIDs" id="numberOfIDs">
 	</table>
 	<input type="submit" value="Save Changes" class="savBtn">
 </form>
@@ -170,11 +172,55 @@
 	<input type="submit" value="Insert" class="insBtn">
 </form>
 </cfoutput>
-saveEdits
+</cfif>
 <!-------------------------------------------------------->
 <cfif action is "saveEdits">
 <cfoutput>
 	<cfdump var=#form#>
+
+	<cfloop from="1" to="#numberOfIDs#" index="n">
+		<cfset thisCOLL_OBJ_OTHER_ID_NUM_ID = evaluate("COLL_OBJ_OTHER_ID_NUM_ID_" & n)>
+		<cfset thisID_REFERENCES = evaluate("ID_REFERENCES_" & n)>
+		<cfset thisOTHER_ID_NUMBER = evaluate("OTHER_ID_NUMBER_" & n)>
+		<cfset thisOTHER_ID_PREFIX = evaluate("OTHER_ID_PREFIX_" & n)>
+		<cfset thisOTHER_ID_SUFFIX = evaluate("OTHER_ID_SUFFIX_" & n)>
+		<cfset thisOTHER_ID_TYPE = evaluate("OTHER_ID_TYPE_" & n)>
+		<cfif isdefined(evaluate("delete_" & n))>
+			deleting....
+		<cfelse>
+			updating......
+		</cfif>
+			UPDATE
+							coll_obj_other_id_num
+						SET
+							other_id_type = '#thisOTHER_ID_TYPE#',
+							other_id_prefix='#thisOTHER_ID_PREFIX#',
+							other_id_number=#thisOTHER_ID_NUMBER#,
+							other_id_suffix='#thisOTHER_ID_SUFFIX#',
+							id_references='#thisID_REFERENCES#'
+						WHERE
+							COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
+		</cfloop>
+		<!----
+	<cftransaction>
+	</cftransaction>
+<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			UPDATE
+				coll_obj_other_id_num
+			SET
+				other_id_type = '#thisOTHER_ID_TYPE#',
+				other_id_prefix='#thisOTHER_ID_PREFIX#',
+				other_id_number=#thisOTHER_ID_NUMBER#,
+				other_id_suffix='#thisOTHER_ID_SUFFIX#',
+				id_references='#thisID_REFERENCES#'
+			WHERE
+				COLL_OBJ_OTHER_ID_NUM_ID=#thisCOLL_OBJ_OTHER_ID_NUM_ID#
+			</cfquery>
+		---->
+
+
+
+
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------->
