@@ -68,6 +68,7 @@
 	from collection
 </cfquery>
 <cfoutput>
+	<h3>Identifiers</h3>
 <b>Edit existing Identifiers:
 <form name="ids" method="post" action="editIdentifiers.cfm">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -98,7 +99,7 @@
 					<select name="other_id_type_#i#" id="other_id_type_#i#" size="1">
 						<cfloop query="ctType">
 							<option	<cfif ctType.other_id_type is oids.other_id_type> selected="selected" </cfif>
-								value="#ctType.other_id_type#">#ctType.other_id_type#</option>
+								title="i am title" value="#ctType.other_id_type#">#ctType.other_id_type#</option>
 						</cfloop>
 					</select>
 				</td>
