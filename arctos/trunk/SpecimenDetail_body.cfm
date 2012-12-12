@@ -734,7 +734,7 @@
 								<cfelse>
 									#display_value#
 								</cfif>
-								(#id_references#)
+								(is <i>#id_references#</i>)
 							</span>
 						</div>
 					</cfloop>
