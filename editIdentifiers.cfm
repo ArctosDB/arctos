@@ -207,7 +207,11 @@
 					SET
 						other_id_type = '#thisOTHER_ID_TYPE#',
 						other_id_prefix='#thisOTHER_ID_PREFIX#',
-						other_id_number=#thisOTHER_ID_NUMBER#,
+						<cfif len(thisOTHER_ID_NUMBER) gt 0>
+							other_id_number=#thisOTHER_ID_NUMBER#,
+						<cfelse>
+							other_id_number=NULL,
+						</cfif>
 						other_id_suffix='#thisOTHER_ID_SUFFIX#',
 						id_references='#thisID_REFERENCES#'
 					WHERE
