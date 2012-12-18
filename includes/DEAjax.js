@@ -351,7 +351,7 @@ function loadedEditRecord(){
 	if ($("#loaded").val().length==0){
 		$("#loaded").val('waiting approval');
 	}
-	if(loadedMsg){
+	if(loadedMsg && loadedMsg != 'waiting approval'){
 		//console.log('loadedEditRecord+loadedMsg='+loadedMsg);
 		//$("#loadedMsgDiv").show();
 		var prob_array = loadedMsg.split(" ");
