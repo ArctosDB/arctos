@@ -13,10 +13,12 @@
 	<cfargument name="collection_object_id" required="yes">
 	<cfif collection_object_id gt 500><!--- don't check templates/new records--->
 		<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select bulk_check_one(collection_object_id) ld from bulkloader where collection_object_id=#collection_object_id#
+			select nvl(bulk_check_one(collection_object_id),'passed checks') ld from bulkloader where collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfif len(chk.ld) gt 254>
 			<cfset msg=left(chk.ld,200) & '... {snip}'>
+		<cfelseif len(chk.ld) is 0>
+			<cfset msg='passed checks'>
 		<cfelse>
 			<cfset msg=chk.ld>
 		</cfif>
