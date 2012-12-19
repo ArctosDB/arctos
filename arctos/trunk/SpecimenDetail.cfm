@@ -1,5 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
-sdafas
+
+	<div id="mapgohere_#detail.collection_object_id#"></div>
+
+
+
 	<script>
 				jQuery(document).ready(function() {
 					$.each($("div[id^='mapgohere_']"), function() {
@@ -7,7 +11,7 @@ sdafas
 					    console.log('found ' + theElemID);
 					   var theID=this.id.split('_')[1];
 					    console.log('going with ' + theID);
-					    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&collection_object_id=' + theID;
+					    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&size=150x150&collection_object_id=' + theID;
 					    jQuery.get(ptl, function(data){
 							jQuery("#" + theElemID).html(data);
 						});
