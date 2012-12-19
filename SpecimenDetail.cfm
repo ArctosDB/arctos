@@ -2,7 +2,7 @@
 sdafas
 	<script>
 				jQuery(document).ready(function() {
-					$.each($("span[id^='mapgohere_']"), function() {
+					$.each($("div[id^='mapgohere_']"), function() {
 					    var theElemID=this.id;
 					    var theID=this.id.split('_')[2];
 					    console.log('going with ' + id);
