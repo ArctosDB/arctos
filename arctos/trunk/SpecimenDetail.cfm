@@ -4,7 +4,7 @@ sdafas
 				jQuery(document).ready(function() {
 					$.each($("div[id^='mapgohere_']"), function() {
 						 var theElemID=this.id;
-					    console.log(found ' + theElemID);
+					    console.log('found ' + theElemID);
 					   var theID=this.id.split('_')[1];
 					    console.log('going with ' + theID);
 					    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&collection_objec_id=' + theID;
