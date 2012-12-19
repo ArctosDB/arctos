@@ -1,17 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
 
-	<div id="mapgohere_#detail.collection_object_id#"></div>
-
-
 
 	<script>
 				jQuery(document).ready(function() {
 					$.each($("div[id^='mapgohere_']"), function() {
 						 var theElemID=this.id;
 					    console.log('found ' + theElemID);
-					   var theID=this.id.split('_')[1];
-					    console.log('going with ' + theID);
-					    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&size=150x150&collection_object_id=' + theID;
+					   var theIDType=this.id.split('1')[1];
+					   var theID=this.id.split('1')[2];
+					    console.log('going with ' + theIDType + '=' + theID);
+					    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&size=150x150&' + theIDType + '=' + theID;
 					    jQuery.get(ptl, function(data){
 							jQuery("#" + theElemID).html(data);
 						});
@@ -242,7 +240,7 @@ font-weight:bold;
 			<td valign="top" align="right">
 				<div id="SDheaderMap">
 				 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
-					<div id="mapgohere_#detail.collection_object_id#"></div>
+					<div id="mapgohere-collection_object_id-#detail.collection_object_id#"></div>
 					<!---
 					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 						<cfinvokeargument name="collection_object_id" value="#detail.collection_object_id#">

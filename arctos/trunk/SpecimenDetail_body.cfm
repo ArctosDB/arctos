@@ -498,10 +498,13 @@
 										</td>
 										<td valign="top" align="right"><!---- map here --->
 											 <cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
+												<div id="mapgohere-locality_id-#locality_id#"></div>
+												<!----
 												<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 													<cfinvokeargument name="locality_id" value="#locality_id#">
 												</cfinvoke>
 												#contents#
+												---->
 											</cfif>
 										</td>
 									</tr>
