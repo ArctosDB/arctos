@@ -3,9 +3,10 @@ sdafas
 	<script>
 				jQuery(document).ready(function() {
 					$.each($("div[id^='mapgohere_']"), function() {
-					    var theElemID=this.id;
-					    var theID=this.id.split('_')[1];
-					    console.log('going with ' + id);
+						 var theElemID=this.id;
+					    console.log(found ' + theElemID);
+					   var theID=this.id.split('_')[1];
+					    console.log('going with ' + theID);
 					    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&collection_objec_id=' + theID;
 					    jQuery.get(ptl, function(data){
 							jQuery("#" + theElemID).html(data);
