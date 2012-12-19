@@ -1,4 +1,16 @@
 <cfinclude template="/includes/_header.cfm">
+	<script>
+				jQuery(document).ready(function() {
+					$.each($("span[id^='mapgohere_']"), function() {
+					    var theElemID=this.id;
+					    var theID=this.id.split('_')[2];
+					    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&collection_objec_id=' + theID;
+					    jQuery.get(ptl, function(data){
+							jQuery("#" + theElemID).html(data);
+						});
+					});
+				});
+			</script>
 <style>
 	#annotateSpace {
 		font-size:small;
@@ -52,12 +64,12 @@ font-weight:bold;
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select GUID from #session.flatTableName# where collection_object_id=#collection_object_id# 
+			select GUID from #session.flatTableName# where collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/guid/#c.guid#">
 		<cfabort>
-	</cfoutput>	
+	</cfoutput>
 </cfif>
 <cfif isdefined("guid")>
 	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
@@ -68,7 +80,7 @@ font-weight:bold;
 	<cfset checkSql(guid)>
 	<cfif guid contains ":">
 		<cfoutput>
-			<cfset sql="select collection_object_id from 
+			<cfset sql="select collection_object_id from
 					#session.flatTableName#
 				WHERE
 					upper(guid)='#ucase(guid)#'">
@@ -81,7 +93,7 @@ font-weight:bold;
 		<cfset spos=find(" ",reverse(guid))>
 		<cfset cc=left(guid,len(guid)-spos)>
 		<cfset cn=right(guid,spos)>
-		<cfset sql="select collection_object_id from 
+		<cfset sql="select collection_object_id from
 				cataloged_item,
 				collection
 			WHERE
@@ -125,9 +137,9 @@ font-weight:bold;
 <cfif len(session.CustomOtherIdentifier) gt 0>
 	<cfset detSelect = "#detSelect#
 	,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') as	CustomID">
-</cfif>		
-<cfset detSelect = "#detSelect#	
-	FROM 
+</cfif>
+<cfset detSelect = "#detSelect#
+	FROM
 		#session.flatTableName#,
 		collection
 	where
@@ -135,7 +147,7 @@ font-weight:bold;
 		#session.flatTableName#.collection_object_id = #collection_object_id#
 	ORDER BY
 		cat_num">
-<cfset checkSql(detSelect)>	
+<cfset checkSql(detSelect)>
 <cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
@@ -223,12 +235,15 @@ font-weight:bold;
 			<td valign="top" align="right">
 				<div id="SDheaderMap">
 				 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
+					<div id="mapgohere_#detail.collection_object_id#"></div>
+					<!---
 					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 						<cfinvokeargument name="collection_object_id" value="#detail.collection_object_id#">
 						<cfinvokeargument name="size" value="150x150">
 						<cfinvokeargument name="showCaption" value="false">
 					</cfinvoke>
 					#contents#
+					----->
 				</cfif>
 				</div>
 			</td>
@@ -240,7 +255,7 @@ font-weight:bold;
 							where collection_object_id = #detail.collection_object_id#
 						</cfquery>
 						<span class="likeLink" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')">
-							[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]	
+							[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]
 						</span>
 						<cfif existingAnnotations.cnt gt 0>
 							<br>(#existingAnnotations.cnt#&nbsp;annotations)
@@ -273,7 +288,7 @@ font-weight:bold;
 						</cfif>
 						<cfif currPos gt 1>
 							<cfset prevID = listGetAt(session.collObjIdList,currPos - 1)>
-						</cfif>	
+						</cfif>
 						<cfset lastID = listGetAt(session.collObjIdList,lenOfIdList)>
 						<cfif lenOfIdList gt 1>
 							<cfif currPos gt 1>
@@ -296,7 +311,7 @@ font-weight:bold;
 									<cfelse>
 										<th>first</th>
 										<th>prev</th>
-									</cfif>		
+									</cfif>
 									<cfif isNext is "yes">
 										<th>
 											<span onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'">next</span>
@@ -324,7 +339,7 @@ font-weight:bold;
 									<td align="middle">
 										<img src="/images/no_previous.gif" alt="[ inactive button ]">
 									</td>
-								</cfif>		
+								</cfif>
 								<cfif isNext is "yes">
 									<td align="middle">
 										<img src="/images/next.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'" alt="[ Next Record ]">
@@ -360,7 +375,7 @@ font-weight:bold;
 				 </div>
             </td>
         </tr>
-    </table>	
+    </table>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<script language="javascript" type="text/javascript">
 			function closeEditApp() {
@@ -433,7 +448,7 @@ font-weight:bold;
 						<input type="hidden" name="action" value="nothing">
 						<input type="hidden" name="Srch" value="Part">
 						<input type="hidden" name="collecting_event_id" value="#detail.collecting_event_id#">
-						
+
 						<ul id="navbar">
 							<li><span onclick="loadEditApp('editIdentification')" class="likeLink" id="BTN_editIdentification">Taxa</span></li>
 							<li>
@@ -482,6 +497,6 @@ font-weight:bold;
 	<cfif isdefined("showAnnotation") and showAnnotation is "true">
 		<script language="javascript" type="text/javascript">
 			openAnnotation('collection_object_id=#collection_object_id#');
-		</script>		
+		</script>
 	</cfif>
 </cfoutput>
