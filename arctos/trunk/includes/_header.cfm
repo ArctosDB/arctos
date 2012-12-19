@@ -1,16 +1,16 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 	<cfinclude template="/includes/alwaysInclude.cfm">
 	<cfif not isdefined("session.header_color")>
 		<cfset setDbUser()>
 	</cfif>
 	<script language="javascript" type="text/javascript">
-		jQuery(document).ready(function(){ 
-	        jQuery("ul.sf-menu").supersubs({ 
+		jQuery(document).ready(function(){
+	        jQuery("ul.sf-menu").supersubs({
 	            minWidth:    12,
 	            maxWidth:    27,
 	            extraWidth:  1
-	        }).superfish({ 
+	        }).superfish({
 	            delay:       600,
 	            animation:   {opacity:'show',height:'show'},
 	            speed:       0,
@@ -34,7 +34,7 @@
 		<body>
 		<noscript>
 			<div class="browserCheck">
-				JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos, or 
+				JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos, or
 				try our <a target="_top" href="/SpecimenSearchHTML.cfm">HTML SpecimenSearch</a> option.
 			</div>
 		</noscript>
@@ -65,14 +65,14 @@
 										</span>
 									</a>
 								</td>
-							</tr>	
+							</tr>
 							<tr>
 								<td colspan="2" id="creditCell">
 									<span  class="hdrCredit">
 										#session.header_credit#
 									</span>
 								</td>
-							</tr>		 
+							</tr>
 						</table>
 					</td>
 				</tr>
@@ -106,7 +106,7 @@
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
-									<input type="text" name="username" title="Username" value="Username" size="12" 
+									<input type="text" name="username" title="Username" value="Username" size="12"
 										class="loginTxt" onfocus="if(this.value==this.title){this.value=''};">
 								</td>
 								<td>
@@ -117,7 +117,7 @@
 								<td colspan="2" align="center">
 									<div class="loginTxt" style="padding-top:3px;">
 										<input type="submit" value="Log In" class="smallBtn">
-										or	
+										or
 										<input type="button" value="Create Account" class="smallBtn"
 											onClick="logIn.action.value='newUser';submit();">
 									</div>
@@ -147,9 +147,9 @@
 						<cfset r = "'#r#'">
 						<!--- "--->
 						<cfquery name="roles" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-							select form_path from cf_form_permissions 
+							select form_path from cf_form_permissions
 							where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
-							minus select form_path from cf_form_permissions 
+							minus select form_path from cf_form_permissions
 							where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
 						</cfquery>
 						<cfset formList = valuelist(roles.form_path)>
@@ -186,7 +186,9 @@
 											<li><a target="_top" href="/tools/BulkloadMedia.cfm">Bulkload Media</a></li>
 											<li><a target="_top" href="/tools/uploadMedia.cfm">upload images</a></li>
 											<li><a target="_top" href="/tools/BulkloadRelations.cfm">Bulkload Relationships</a></li>
+											<!----
 											<li><a target="_top" href="/tools/BulkloadGeoref.cfm">Bulkload Georeference</a></li>
+											---->
 											<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
 												<li><a target="_top" href="/tools/BulkloadTaxonomy.cfm">Bulk Taxonomy</a></li>
 											</cfif>
@@ -207,7 +209,7 @@
 											<li><a target="_top" href="/Locality.cfm?action=findCO">Find Event</a></li>
 											<li><a target="_top" href="/info/geol_hierarchy.cfm">Geology Attributes Hierarchy</a></li>
 										</ul>
-									</li>			
+									</li>
 								</cfif>
 									<li><a target="_top" href="/agents.cfm">Agents</a>
 									</li>
@@ -223,14 +225,14 @@
 												<li><a target="_top" href="/batchScan.cfm">Batch Scan</a></li>
 												<li><a target="_top" href="/labels2containers.cfm">Label>Container</a></li>
 												<li><a target="_top" href="/part2container.cfm">Object+BC>>Container</a></li>
-											</cfif>	
+											</cfif>
 											<cfif listfind(formList,"/EditContainer.cfm")>
 												<li><a target="_top" href="/LoadBarcodes.cfm">Upload Scan File</a></li>
 												<li><a target="_top" href="/EditContainer.cfm?action=newContainer">Create Container</a></li>
 												<li><a target="_top" href="/CreateContainersForBarcodes.cfm">Create Container Series</a></li>
 												<li><a target="_top" href="/SpecimenContainerLabels.cfm">Clear Part Flags</a></li>
 											</cfif>
-												
+
 										</ul>
 									</li>
 								</cfif>
@@ -278,7 +280,7 @@
 								</cfif>
 								<cfif listfind(formList,"/doc/short_doc.cfm")>
 									<li><a target="_top" href="/doc/short_doc.cfm">Popup Documentation</a></li>
-								</cfif>	
+								</cfif>
 							</ul>
 						<li><a target="_top" href="##">Manage Arctos</a>
 							<ul>
@@ -322,7 +324,7 @@
 									<li><a target="_top" href="/info/queryStats.cfm">Query Stats</a></li>
 									<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
 									<li><a target="_top" href="/tools/downloadData.cfm">Download Tables</a></li>
-									<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>									
+									<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
 				                    <cfif listfind(formList,"/tools/userSQL.cfm")>
 									    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
 				                    </cfif>
@@ -366,7 +368,7 @@
 					</li>
 					<li>
 						<a target="_blank" href="http://arctosdb.org/">About/Help</a>
-					</li>	
+					</li>
 				</ul>
 			</div>
 		</div><!--- end header div --->
