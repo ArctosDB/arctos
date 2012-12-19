@@ -4,6 +4,7 @@
 					$.each($("span[id^='mapgohere_']"), function() {
 					    var theElemID=this.id;
 					    var theID=this.id.split('_')[2];
+					    console.log('going with ' + id);
 					    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&collection_objec_id=' + theID;
 					    jQuery.get(ptl, function(data){
 							jQuery("#" + theElemID).html(data);
