@@ -3,7 +3,7 @@
 
 	<script>
 				jQuery(document).ready(function() {
-					$.each($("div[id^='mapgohere_']"), function() {
+					$.each($("div[id^='mapgohere-']"), function() {
 						 var theElemID=this.id;
 					    console.log('found ' + theElemID);
 					   var theIDType=this.id.split('1')[1];
