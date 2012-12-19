@@ -6,8 +6,8 @@
 					$.each($("div[id^='mapgohere-']"), function() {
 						 var theElemID=this.id;
 					    console.log('found ' + theElemID);
-					   var theIDType=this.id.split('1')[1];
-					   var theID=this.id.split('1')[2];
+					   var theIDType=this.id.split('-')[1];
+					   var theID=this.id.split('-')[2];
 					    console.log('going with ' + theIDType + '=' + theID);
 					    var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&size=150x150&' + theIDType + '=' + theID;
 					    jQuery.get(ptl, function(data){
