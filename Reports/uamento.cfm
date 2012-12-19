@@ -23,18 +23,19 @@
 		get_taxonomy(flat.collection_object_id,'SUBFAMILY') SUBFAMILY,
 		get_taxonomy(flat.collection_object_id,'tribe') TRIBE,
 		flat.SCIENTIFIC_NAME,
-		flat.FAMILY
-	from 
+		flat.FAMILY,
+		concatpartbarcode(flat.collection_object_id) barcodes
+	from
 		flat,
-		#session.specsrchtab# 
-	where 
+		#session.specsrchtab#
+	where
 		flat.collection_object_id=#session.specsrchtab#.collection_object_id
 </cfquery>
 <cfoutput>
 <cfset fname = "uamento.csv">
 <cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 <cfset variables.encoding="UTF-8">
-<cfset header='CAT_NUM,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY'>
+<cfset header='CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY'>
 <cfscript>
 	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	variables.joFileWriter.writeLine(header);
@@ -43,7 +44,7 @@
 	<cfset oneLine = "">
 	<cfloop list="#header#" index="c" delimiters=",">
 		<cfset thisData = evaluate("getData." & c)>
-		<cfset thisData=replace(thisData,'"','""','all')>			
+		<cfset thisData=replace(thisData,'"','""','all')>
 		<cfif len(oneLine) is 0>
 			<cfset oneLine = '"#thisData#"'>
 		<cfelse>
@@ -55,7 +56,7 @@
 		variables.joFileWriter.writeLine(oneLine);
 	</cfscript>
 </cfloop>
-<cfscript>	
+<cfscript>
 	variables.joFileWriter.close();
 </cfscript>
 <cflocation url="/download.cfm?file=#fname#" addtoken="false">
