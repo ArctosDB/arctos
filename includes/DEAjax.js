@@ -1776,8 +1776,10 @@ function checkPickedEvnt(){
 }
 function deChange(id){
 	console.log(id);
-
 	var v=$("#" + id).val();
+	if(v.length>0){
+		console.log('something');
+	}
 	console.log(v);
 	
 	var theNum=id.split('_').pop();
