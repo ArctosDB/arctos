@@ -1384,7 +1384,7 @@ function clearAll () {
 	}	
 }
 function changeSex(sex) {
-	if ($("#collection_cde").val() == 'Bird' && $("#institution_acronym").val()=='MSB') {	
+	if ($("#collection_cde").val() == 'Bird') {	
 		if ($("#attribute_value_7").val().length==0){
 			$("#attribute_7").val('reproductive data');
 			if (sex.indexOf('female') > -1) {
@@ -1634,6 +1634,14 @@ function cleanup () {
 		 */ 
 		
 		/******************************** Mammal Routine ************************************************/
+		// just force these values to the hidden fields - make damned sure no user setting can over-ride a hidden field
+		// do NOT do this part in a try block - it matters
+		$("#attribute_1").val('sex');
+		$("#attribute_2").val('total length');
+		$("#attribute_3").val('tail length');
+		$("#attribute_4").val('hind foot with claw');
+		$("#attribute_5").val('ear from notch');
+		$("#attribute_6").val('weight');
 		try {
 			var theDeterminer=$("#attribute_determiner_1").val();
 			$("#attribute_determiner_2").val(theDeterminer);
@@ -1663,6 +1671,14 @@ function cleanup () {
 		 * 2-5=uncontrolled
 		 * 6=weight
 		 */
+		// just force these values to the hidden fields - make damned sure no user setting can over-ride a hidden field
+		// do NOT do this part in a try block - it matters
+		$("#attribute_1").val('sex');
+		$("#attribute_2").val('age');
+		$("#attribute_3").val('fat deposition');
+		$("#attribute_4").val('molt condition');
+		$("#attribute_5").val('skull ossification');
+		$("#attribute_6").val('weight');
 		try {
 			var theDeterminer=$("#attribute_determiner_1").val();
 			$("#attribute_determiner_2").val(theDeterminer);
