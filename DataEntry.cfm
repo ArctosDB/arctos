@@ -243,8 +243,7 @@
 										<td class="valigntop">
 											<label for="other_id_num_type_5">CustomID Type</label>
 											<select name="other_id_num_type_5" style="width:180px"
-												id="other_id_num_type_5"
-												onChange="deChange(this.id);">
+												id="other_id_num_type_5" onChange="deChange(this.id);">
 												<option value=""></option>
 												<cfloop query="ctOtherIdType">
 													<option value="#other_id_type#">#other_id_type#</option>
@@ -313,8 +312,7 @@
 											<td id="d_other_id_num_#i#">
 												<span class="f11a">OtherID #i#</span>
 												<select name="other_id_num_type_#i#" style="width:250px"
-													id="other_id_num_type_#i#"
-													onChange="this.className='reqdClr';dataEntry.other_id_num_#i#.className='reqdClr';dataEntry.other_id_num_#i#.focus();">
+													id="other_id_num_type_#i#" onChange="deChange(this.id);">
 													<option value=""></option>
 													<cfloop query="ctOtherIdType">
 														<option value="#other_id_type#">#other_id_type#</option>
