@@ -41,7 +41,7 @@ jQuery(document).ready(function() {
 				<tr>
 					<td>
 						<label for="attribute_1">sex</label>
-						<input type="hidden" name="attribute_1" value="sex">
+						<input type="hidden" name="attribute_1" id="attribute_1" value="sex">
 						<select name="attribute_value_1" size="1" onChange="changeSex(this.value)"
 							id="attribute_value_1"
 							class="reqdClr"
