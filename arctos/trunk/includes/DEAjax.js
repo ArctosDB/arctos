@@ -1787,15 +1787,6 @@ function deChange(id){
 		$("#other_id_num_" + theNum).removeClass('reqdClr').focus();
 		
 	}
-	console.log(v);
-	
-	
-	 console.log(theNum);
-	//other_id_num_type_5
-	
-	
-	//onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
-
 }
 function rememberLastOtherId (yesno) {
 	jQuery.getJSON("/component/DataEntry.cfc",
