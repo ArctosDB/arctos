@@ -41,7 +41,9 @@
 		<label for="msg">Your Message for us (20 characters minimum)</label>
 		<cftextarea name="msg" id="msg" rows="10" cols="50" required="true" class="reqdClr"></cftextarea>
 		<label for="captcha">Can't read the text? Just reload to get a new CAPTCHA.</label>
-	    <cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low">
+		<cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low"
+		    	overwrite="yes"
+		    	destination="#application.webdirectory#/temp/captcha.png">
 	   	<br>
 		<label for="captcha">Enter the text above. Case doesn't matter. (required)</label>
 	    <cfinput type="text" name="captcha" id="captcha" value="#v#" class="reqdClr" size="60">
@@ -65,8 +67,8 @@
 			<cfabort>
 		</cfif>
 		<cfmail subject="Arctos Contact"
-			replyto="#email#" 
-			to="#Application.technicalEmail#" 
+			replyto="#email#"
+			to="#Application.technicalEmail#"
 			from="contact@#application.fromEmail#" type="html">
 			Name: #name#
 			<br>Email: #email#
