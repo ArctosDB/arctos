@@ -46,9 +46,6 @@ jQuery(document).ready(function() {
 		}
 	);
 });
-
-
-
 function makeSortable() {
 	$("#left-col,#right-col").sortable({
         handle: '.item .celltitle',
@@ -1718,7 +1715,6 @@ function cleanup () {
 	}
 	var ISOdateFields = new Array();
 	var badDates = "";
-
 	ISOdateFields.push('event_assigned_date');
 	ISOdateFields.push('made_date');
 	ISOdateFields.push('began_date');
@@ -1777,7 +1773,21 @@ function checkPickedEvnt(){
 			pickedEvent();
 		}
 	}
-}			
+}
+function deChange(id){
+	console.log(id);
+
+	var v=$("#" + id).val();
+	console.log(v);
+	
+	var theNum=id.split('_').pop();
+	 console.log(theNum);
+	//other_id_num_type_5
+	
+	
+	//onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
+
+}
 function rememberLastOtherId (yesno) {
 	jQuery.getJSON("/component/DataEntry.cfc",
 		{
