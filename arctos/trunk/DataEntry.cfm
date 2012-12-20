@@ -244,7 +244,7 @@
 											<label for="other_id_num_type_5">CustomID Type</label>
 											<select name="other_id_num_type_5" style="width:180px"
 												id="other_id_num_type_5"
-												onChange="this.className='reqdClr';dataEntry.other_id_num_5.className='reqdClr';dataEntry.other_id_num_5.focus();">
+												onChange="deChange(this.id);">
 												<option value=""></option>
 												<cfloop query="ctOtherIdType">
 													<option value="#other_id_type#">#other_id_type#</option>
