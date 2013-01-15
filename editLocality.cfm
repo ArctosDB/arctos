@@ -13,14 +13,14 @@
 		}
 	</script>
 </cfoutput>
-					
+
 <cfif action is "nothing">
 <cfset title="Edit Locality">
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("select[id^='geology_attribute_']").each(function(e){
-			populateGeology(this.id);			
+			populateGeology(this.id);
 		});
 	    $.each($("input[id^='geo_att_determined_date_']"), function() {
 			$("#" + this.id).datepicker();
@@ -50,7 +50,7 @@
 		var popDiv=document.createElement('div');
 		popDiv.id = 'popDiv';
 		popDiv.className = 'editAppBox';
-		document.body.appendChild(popDiv);	
+		document.body.appendChild(popDiv);
 		var cDiv=document.createElement('div');
 		cDiv.className = 'fancybox-close';
 		cDiv.id='cDiv';
@@ -128,7 +128,7 @@
 				$("select#" + theSelect + idNum).html(s);
 			}
 		);
-	}	
+	}
 
 	function cloneLocality(locality_id) {
 		if(confirm('Are you sure you want to create a copy of this locality which you may then edit?')) {
@@ -137,9 +137,9 @@
 		}
 	}
 </script>
-<cfoutput> 
+<cfoutput>
 	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    	select 
+    	select
 			locality.locality_id,
 			geog_auth_rec.GEOG_AUTH_REC_ID,
 			higher_geog,
@@ -168,25 +168,25 @@
 			s$geography,
 			s$dec_lat,
 			s$dec_long
-		from 
-			locality, 
-			geog_auth_rec 
-		where 
-			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and 
-			locality.locality_id=#locality_id# 
+		from
+			locality,
+			geog_auth_rec
+		where
+			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and
+			locality.locality_id=#locality_id#
 	</cfquery>
 	<cfif locDet.recordcount is not 1>
 		<div class="error">locality not found</div><cfabort>
 	</cfif>
 	<cfquery name="geolDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    	select 
+    	select
 			*
-		from 
+		from
 			geology_attributes,
 			preferred_agent_name
-		where 
+		where
 			geology_attributes.geo_att_determiner_id = preferred_agent_name.agent_id (+) and
-			geology_attributes.locality_id=#locality_id# 
+			geology_attributes.locality_id=#locality_id#
 	</cfquery>
      <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select datum from ctdatum order by datum
@@ -201,15 +201,15 @@
         select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by LAT_LONG_ERROR_UNITS
      </cfquery>
      <cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select georeference_protocol from ctgeoreference_protocol order by georeference_protocol 
+		select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
 	</cfquery>
 	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>
-	
-	
-	
-	
+
+
+
+
 	<cfinvoke component="component.functions" method="getLocalityContents" returnvariable="contents">
 	    <cfinvokeargument name="locality_id" value="#locality_id#">
 	</cfinvoke>
@@ -239,7 +239,7 @@
 			Locality Name
 		</label>
 		<input type="text" id="locality_name" name="locality_name" value="#stripQuotes(locDet.locality_name)#" size="120">
-		
+
 		<cfif len(locDet.locality_name) is 0>
 			<span class="infoLink" onclick="$('##locality_name').val('#CreateUUID()#');">create GUID</span>
 		</cfif>
@@ -328,7 +328,7 @@
 							<option <cfif cterror.LAT_LONG_ERROR_UNITS is locDet.MAX_ERROR_UNITS> selected="selected" </cfif>
 								value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
 						</cfloop>
-					</select> 
+					</select>
 				</td>
 			</tr>
 		</table>
@@ -338,14 +338,14 @@
 			<cfloop query="ctdatum">
 				<option <cfif ctdatum.DATUM is locDet.DATUM> selected="selected" </cfif> value="#ctdatum.DATUM#">#ctdatum.DATUM#</option>
 			</cfloop>
-		</select> 
+		</select>
 		<label for="georeference_source" class="likeLink" onClick="getDocs('lat_long','georeference_source')">georeference_source</label>
 		<input type="text" name="georeference_source" id="georeference_source" size="120" class="reqdClr" value='#preservesinglequotes(locDet.georeference_source)#' />
 		<label for="georeference_protocol" class="likeLink" onClick="getDocs('lat_long','georeference_protocol')">Georeference Protocol</label>
 		<select name="georeference_protocol" id="georeference_protocol" size="1" class="reqdClr">
 			<option value=''></option>
 			<cfloop query="ctgeoreference_protocol">
-				<option 
+				<option
 					<cfif locDet.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
 					value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 			</cfloop>
@@ -355,8 +355,8 @@
 		<cfset slon=locDet.s$dec_long>
 		<cfset sgeo=locDet.s$geography>
 		<cfset sele=locDet.s$elevation>
-		
-		<!---- 
+
+		<!----
 			get calculated coordinates and political stuff from the descriptive data
 		---->
 		<cfset geoList="">
@@ -448,7 +448,7 @@
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
-		<input type="button" value="Add Collecting Event" class="insBtn" 
+		<input type="button" value="Add Collecting Event" class="insBtn"
 			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
 		<input type="button" value="Georeference with GeoLocate" class="insBtn" onClick="geolocate();">
 		<cfif len(locDet.DEC_LONG) gt 0>
@@ -456,7 +456,6 @@
 		</cfif>
 		<br>
 		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a>
-		<a href="http://bg.berkeley.edu/latest/" target="_blank" class="external">[ BioGeoMancer ]</a>
 		<a href="http://manisnet.org/gci2.html" target="_blank" class="external">[ Georef Calculator ]</a>
 		<span class="likeLink" onClick="getDocs('lat_long')">[ lat_long help ]</span>
 	</td><td valign="top">
@@ -466,12 +465,12 @@
 			</cfinvoke>
 		#contents#
 		</cfif>
-		
-		
+
+
 		<div style="border:1px dashed red; padding:1em;background-color:lightgray;">
 		<strong>Webservice Lookup Data</strong>
 		<div style="font-size:small">
-			Data in this box come from various webservices. They are NOT specimen data and come with no guarantees.	
+			Data in this box come from various webservices. They are NOT specimen data and come with no guarantees.
 		</div>
 		<cfif len(slat) gt 0>
 			<figure>
@@ -485,17 +484,17 @@
 		<strong>Elevation:</strong> #sele# m
 		<br><strong>Descriptive:</strong> #sgeo#
 		</div>
-		
+
 		<input type="hidden" name="s$dec_lat" value="#slat#">
 		<input type="hidden" name="s$dec_long" value="#slon#" id="s$dec_long">
 		<input type="hidden" name="s$elevation" value="#sele#" id="s$elevation">
 		<input type="hidden" name="s$geography" value="#sgeo#" id="s$geography">
 	</form>
-	
+
 	</td></tr></table>
 	</span>
 	<hr>
-	<strong>Geology Attributes</strong>	
+	<strong>Geology Attributes</strong>
 	<cfif geolDet.recordcount gt 0>
 		<form name="editGeolAtt" method="post" action="editLocality.cfm">
 			<input type="hidden" name="action" value="editGeol">
@@ -514,7 +513,7 @@
 									<option <cfif #geology_attribute# is geolDet.geology_attribute> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
 								</cfloop>
 							</select>
-							<span class="infoLink" onclick="document.getElementById('geology_attribute_#i#').value='delete'">Delete This</span>	
+							<span class="infoLink" onclick="document.getElementById('geology_attribute_#i#').value='delete'">Delete This</span>
 							<label for="geo_att_value">Value</label>
 							<select name="geo_att_value_#i#" id="geo_att_value_#i#" class="reqdClr">
 								<option value="#geo_att_value#">#geo_att_value#</option>
@@ -576,7 +575,7 @@
 			</td>
 		</tr>
 	</table>
-</cfoutput> 
+</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
 </cfif>
 <!------------------------------------------------------------------------------------------------------>
@@ -591,16 +590,16 @@
 		<cfset thisMethod = #evaluate("geo_att_determined_method_" & n)#>
 		<cfset thisDeterminer = #evaluate("geo_att_determiner_id_" & n)#>
 		<cfset thisRemark = #evaluate("geo_att_remark_" & n)#>
-		
+
 		<cfif #thisAttribute# is "delete">
 			<cfquery name="deleteGeol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from geology_attributes where geology_attribute_id=#thisID#
 			</cfquery>
 		<cfelse>
 			<cfquery name="upGeol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update 
-					geology_attributes 
-				set 
+				update
+					geology_attributes
+				set
 					geology_attribute='#thisAttribute#',
 					geo_att_value='#stripQuotes(thisValue)#'
 					<cfif len(#thisDeterminer#) gt 0>
@@ -650,7 +649,7 @@
 				</cfif>
 			   	<cfif len(#geo_att_remark#) gt 0>
 					,geo_att_remark
-				</cfif>			    
+				</cfif>
 			   ) values (
 			   #locality_id#,
 			   '#geology_attribute#',
@@ -688,7 +687,7 @@
 	<cfelse>
 		<cfset sql = "#sql#,MAX_ERROR_DISTANCE = null">
 	</cfif>
-	
+
 	<cfif len(DEC_LAT) gt 0>
 		<cfset sql = "#sql#,DEC_LAT = #DEC_LAT#">
 	<cfelse>
@@ -699,7 +698,7 @@
 	<cfelse>
 		<cfset sql = "#sql#,DEC_LONG = null">
 	</cfif>
-	
+
 	<cfif len(spec_locality) gt 0>
 		<cfset sql = "#sql#,spec_locality = '#escapeQuotes(spec_locality)#'">
 	  <cfelse>
@@ -745,7 +744,7 @@
 	<cfelse>
 		<cfset sql = "#sql#,s$geography = null">
 	</cfif>
-	
+
 	<cfif len(s$elevation) gt 0>
 		<cfset sql = "#sql#,s$elevation = #s$elevation#">
 	<cfelse>
@@ -761,10 +760,10 @@
 	<cfelse>
 		<cfset sql = "#sql#,s$dec_long = null">
 	</cfif>
-	
+
 	<cfset sql = "#sql# where locality_id = #locality_id#">
 	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		#preservesinglequotes(sql)#		
+		#preservesinglequotes(sql)#
 	</cfquery>
 	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
 	</cfoutput>
@@ -805,7 +804,7 @@
 					MINIMUM_ELEVATION,
 					ORIG_ELEV_UNITS,
 					SPEC_LOCALITY,
-					LOCALITY_REMARKS,					
+					LOCALITY_REMARKS,
 					DEPTH_UNITS,
 					MIN_DEPTH,
 					MAX_DEPTH,
@@ -825,7 +824,7 @@
 						MINIMUM_ELEVATION,
 						ORIG_ELEV_UNITS,
 						SPEC_LOCALITY,
-						LOCALITY_REMARKS,					
+						LOCALITY_REMARKS,
 						DEPTH_UNITS,
 						MIN_DEPTH,
 						MAX_DEPTH,
@@ -842,7 +841,7 @@
 					where
 						locality_id=#locality_id#
 				)
-			</cfquery>		
+			</cfquery>
 		</cftransaction>
 		<cflocation url="editLocality.cfm?locality_id=#lid#" addtoken="false">
 	</cfoutput>
