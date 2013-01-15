@@ -34,8 +34,12 @@
 		<cfset i=1 />
 		<cfloop query="getGeog">
 			<cfset thisName = replace(getGeog.HIGHER_GEOG,"'","\'","all") />
-			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))# class="likeLink"
-				onClick="javascript: opener.document.#formName#.#geogIdFld#.value='#GEOG_AUTH_REC_ID#';opener.document.#formName#.#geogStringFld#.value='#thisName#';opener.document.#formName#.#geogStringFld#.style.background='##8BFEB9';self.close();">#HIGHER_GEOG#</div>
+			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<span class="likeLink"
+					onClick="javascript: opener.document.#formName#.#geogIdFld#.value='#GEOG_AUTH_REC_ID#';opener.document.#formName#.#geogStringFld#.value='#thisName#';opener.document.#formName#.#geogStringFld#.style.background='##8BFEB9';self.close();">
+					#HIGHER_GEOG#
+				</span>
+			</div>
 			<cfset i=i+1 />
 		</cfloop>
 	</cfif>
