@@ -1775,17 +1775,14 @@ function checkPickedEvnt(){
 	}
 }
 function deChange(id){
-	console.log(id);
 	var v=$("#" + id).val();
 	var theNum=id.split('_').pop();
 	if(v.length>0){
-		console.log('something');
 		$("#other_id_num_type_" + theNum).addClass('reqdClr');
 		$("#other_id_num_" + theNum).addClass('reqdClr').focus();
 	} else {
 		$("#other_id_num_type_" + theNum).removeClass('reqdClr');
 		$("#other_id_num_" + theNum).removeClass('reqdClr').focus();
-		
 	}
 }
 function rememberLastOtherId (yesno) {
