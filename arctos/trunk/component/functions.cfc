@@ -1714,7 +1714,8 @@
 					COLLECTING_EVENT_ID,
 					SPECIMEN_EVENT_TYPE,
 					EVENT_ASSIGNED_BY_AGENT,
-					EVENT_ASSIGNED_DATE
+					EVENT_ASSIGNED_DATE,
+					COLLECTING_SOURCE
 					<cfif len(refType) gt 0>
 						,OTHER_ID_NUM_TYPE_1,
 						OTHER_ID_NUM_1,
@@ -1738,7 +1739,8 @@
 						COLLECTING_EVENT_ID,
 						SPECIMEN_EVENT_TYPE,
 						EVENT_ASSIGNED_BY_AGENT,
-						EVENT_ASSIGNED_DATE
+						EVENT_ASSIGNED_DATE,
+						COLLECTING_SOURCE
 						<cfif len(refType) gt 0>
 							,SUBSTR(guid, 1 ,INSTR(guid, ':', 1, 2)-1),
 							cat_num,
