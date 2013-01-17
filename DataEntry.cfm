@@ -330,10 +330,11 @@
 													</select>
 												</td>
 												<td>
-													<input type="text" name="other_id_num_#i#" id="other_id_num_#i#"><select name="refType" id="refType" size="1">
+													<input type="text" name="other_id_num_#i#" id="other_id_num_#i#">
 												</td>
 												<td>
 													<select name="other_id_references_#i#" id="other_id_references_#i#" size="1">
+														<option value=""></option>
 														<cfloop query="ctid_references">
 															<option value="#ctid_references.id_references#">#ctid_references.id_references#</option>
 														</cfloop>
