@@ -1732,8 +1732,8 @@
 						</cfif>
 						nature_of_id,
 						made_date,
-						COLLECTION_CDE,
-						INSTITUTION_ACRONYM,
+						(select COLLECTION_CDE from collection where collection_id=#collection_id#),
+						(select INSTITUTION_ACRONYM from collection where collection_id=#collection_id#),
 						REMARKS,
 						COLLECTING_EVENT_ID,
 						SPECIMEN_EVENT_TYPE,
