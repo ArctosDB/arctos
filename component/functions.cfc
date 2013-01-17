@@ -1942,7 +1942,7 @@
 			<cfif att.recordcount gt 4>
 				<cfset problem="too many attribute: #valuelist(att.ATTRIBUTE_TYPE)#">
 			</cfif>
-			<cfif len() gt 0>
+			<cfif len(problem) gt 0>
 				<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update bulkloader set
 						COLL_OBJECT_REMARKS='#problem#'
