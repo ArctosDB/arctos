@@ -7,9 +7,9 @@
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "cloneCatalogedItem",
-					numRecs: $("#numRecs").val(),
 					collection_object_id : collection_object_id,
-					relationship: $("#cloneReln").val(),
+					numRecs: $("#numRecs").val(),
+					refType: $("#refType").val(),
 					taxon_name: $("#taxon_name").val(),
 					collection_id: $("#collection_id").val(),
 					returnformat : "json",
@@ -45,7 +45,7 @@
 			collection_object_id=#collection_object_id#
 	</cfquery>
 	<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">[ Clone This Record ]</span>
-	<div id="cThis" style="display:none">
+	<div id="cThis" style="display:none; border:2px solid green;">
 		Data from this cataloged item will be inserted into the Bulkloader, where you
 		may further edit the record or flag it to load, as with any other new record.
 		<br>Check specimen remarks in the bulkloader for things that might have been missed - this
@@ -61,9 +61,9 @@
 					<option value="#i#">#i#</option>
 				</cfloop>
 			</select>
-			<label for="cloneReln">OtherID1 (in bulkloader)</label>
-			<select name="cloneID1" id="cloneReln" size="1">
-				<option value="">-NONE-</option>
+			<label for="refType">reference (in bulkloader) to this record</label>
+			<select name="refType" id="refType" size="1">
+				<option value="">-pick one-</option>
 				<cfloop query="ctid_references">
 					<option value="#ctid_references.id_references#">#ctid_references.id_references#</option>
 				</cfloop>

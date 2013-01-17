@@ -1686,8 +1686,8 @@
 <!--------------------------------------------------------------------------------------------------------->
 <cffunction name="cloneCatalogedItem" access="remote" output="true">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
-	<cfargument name="relationship" type="string" required="yes">
 	<cfargument name="numRecs" type="numeric" required="yes">
+	<cfargument name="refType" type="string" required="yes">
 	<cfargument name="taxon_name" type="string" required="yes">
 	<cfargument name="collection_id" type="numeric" required="yes">
 	<cfset status="spiffy">
@@ -1700,6 +1700,23 @@
 			</cfquery>
 			<cfset key=k.c>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+
+
+
+							OTHER_ID_NUM_TYPE_1 = '#r.guid_prefix#',#i#='#display_value#',">
+
+							,RELATIONSHIP='#relationship#',
+							RELATED_TO_NUMBER= (
+											select
+												guid
+											from
+												flat
+											where collection_object_id=#collection_object_id#
+											),
+							RELATED_TO_NUM_TYPE='catalog number'
+						</cfif>
+
+
 				insert into bulkloader (
 					COLLECTION_OBJECT_ID,
 					LOADED,
@@ -1715,12 +1732,21 @@
 					SPECIMEN_EVENT_TYPE,
 					EVENT_ASSIGNED_BY_AGENT,
 					EVENT_ASSIGNED_DATE
+					<cfif len(refType) gt 0>
+						,OTHER_ID_NUM_TYPE_1,
+						OTHER_ID_NUM_1,
+						OTHER_ID_REFERENCES_1
+					</cfif>
 				) (	select
 						#key#,
 						'cloned from ' || guid,
 						'#session.username#',
 						ACCESSION,
-						scientific_name,
+						<cfif len(taxon_name) gt 0>
+							'#taxon_name#' as scientific_name,
+						<cfelse>
+							scientific_name,
+						</cfif>
 						nature_of_id,
 						made_date,
 						COLLECTION_CDE,
@@ -1730,6 +1756,11 @@
 						SPECIMEN_EVENT_TYPE,
 						EVENT_ASSIGNED_BY_AGENT,
 						EVENT_ASSIGNED_DATE
+						<cfif len(refType) gt 0>
+							,SUBSTR(guid, 1 ,INSTR(guid, ':', 1, 2)-1),
+							cat_num,
+							'#refType#
+						</cfif>
 					from
 						flat
 					where
@@ -1767,15 +1798,17 @@
 				from coll_obj_other_id_num
 				where collection_object_id=#collection_object_id#
 			</cfquery>
-
-
 			<cfif oid.recordcount gt 0>
-				<cfset i=1>
+				<!---
+					reserve ID1 for a pointer to the record we're cloning
+					ID5 is custom
+					can use 2, 3, and 4 here
+					---->
+				<cfset i=2>
 				<cfset sql="update bulkloader set ">
 				<cfloop query="oid">
-					<cfif i lt 5>
-						<cfset sql=sql & "OTHER_ID_NUM_TYPE_#i# = '#other_id_type#',
-							OTHER_ID_NUM_#i#='#display_value#',">
+					<cfif i lt 4>
+						<cfset sql=sql & "OTHER_ID_NUM_TYPE_#i# = '#other_id_type#',OTHER_ID_NUM_#i#='#display_value#',">
 						<cfset i=i+1>
 					</cfif>
 				</cfloop>
@@ -1785,7 +1818,7 @@
 					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
-			<cfif oid.recordcount gt 4>
+			<cfif oid.recordcount gte 3>
 				<cfset ids="">
 				<cfloop query="oid">
 					<cfset ids=listappend(ids,"#other_id_type#=#display_value#",";")>
@@ -1926,22 +1959,13 @@
 			<cfif att.recordcount gt 4>
 				<cfset problem="too many attribute: #valuelist(att.ATTRIBUTE_TYPE)#">
 			</cfif>
-			<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update bulkloader set
-					COLL_OBJECT_REMARKS='#problem#'
-					<cfif len(relationship) gt 0>
-						,RELATIONSHIP='#relationship#',
-						RELATED_TO_NUMBER= (
-										select
-											guid
-										from
-											flat
-										where collection_object_id=#collection_object_id#
-										),
-						RELATED_TO_NUM_TYPE='catalog number'
-					</cfif>
-				where collection_object_id=#key#
-			</cfquery>
+			<cfif len() gt 0>
+				<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update bulkloader set
+						COLL_OBJECT_REMARKS='#problem#'
+					where collection_object_id=#key#
+				</cfquery>
+			</cfif>
 		<cfcatch>
 			<cfset status="fail">
 			<CFDUMP VAR=#CFCATCH#>
