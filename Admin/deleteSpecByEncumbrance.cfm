@@ -1,45 +1,45 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "getSQL">
 <cfoutput>
-delete from annotations where collection_object_id IN 
+delete from annotations where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 ;
 
-delete from coll_obj_other_id_num where collection_object_id IN 
+delete from coll_obj_other_id_num where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 ;
 
-delete from attributes where collection_object_id IN 
+delete from attributes where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 ;
 
-delete from collector where collection_object_id IN 
+delete from collector where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 ;
 
-delete from specimen_part where derived_from_cat_item IN 
+delete from specimen_part where derived_from_cat_item IN
 		(
-			select collection_object_id FROM 
+			select collection_object_id FROM
 			coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 ;
 
-delete from identification_taxonomy where identification_id IN 
+delete from identification_taxonomy where identification_id IN
 		(
-			select identification_id FROM identification where collection_object_id IN 
+			select identification_id FROM identification where collection_object_id IN
 			(
 				select collection_object_id FROM coll_object_encumbrance WHERE
 				encumbrance_id = #encumbrance_id#
@@ -47,9 +47,9 @@ delete from identification_taxonomy where identification_id IN
 		)
 ;
 
-delete from identification_agent where identification_id IN 
+delete from identification_agent where identification_id IN
 		(
-			select identification_id FROM identification where collection_object_id IN 
+			select identification_id FROM identification where collection_object_id IN
 			(
 				select collection_object_id FROM coll_object_encumbrance WHERE
 				encumbrance_id = #encumbrance_id#
@@ -58,36 +58,14 @@ delete from identification_agent where identification_id IN
 ;
 
 
-delete from identification where collection_object_id IN 
+delete from identification where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 ;
 
-delete from coll_object_remark where collection_object_id IN 
-		(
-			select collection_object_id FROM coll_object_encumbrance WHERE
-			encumbrance_id = #encumbrance_id#
-		)
-;
-
-
-delete from BIOL_INDIV_RELATIONS where collection_object_id IN 
-		(
-			select collection_object_id FROM coll_object_encumbrance WHERE
-			encumbrance_id = #encumbrance_id#
-		)
-;
-
-delete from BIOL_INDIV_RELATIONS where RELATED_COLL_OBJECT_ID IN 
-		(
-			select collection_object_id FROM coll_object_encumbrance WHERE
-			encumbrance_id = #encumbrance_id#
-		)
-;
-
-delete from media_relations where media_relationship like '% cataloged_item' and related_primary_key IN 
+delete from coll_object_remark where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
@@ -95,13 +73,21 @@ delete from media_relations where media_relationship like '% cataloged_item' and
 ;
 
 
-delete from specimen_event where collection_object_id IN 
+delete from media_relations where media_relationship like '% cataloged_item' and related_primary_key IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 ;
-delete from cataloged_item where collection_object_id IN 
+
+
+delete from specimen_event where collection_object_id IN
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+;
+delete from cataloged_item where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
@@ -124,7 +110,7 @@ drop table temp;
 <cfif #action# is "nothing">
 	<cfoutput>
 		<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				cataloged_item.collection_object_id,
 				cat_num,
 				institution_acronym,
@@ -138,19 +124,19 @@ drop table temp;
 				expiration_date,
 				expiration_event,
 				remarks
-				from 
+				from
 					cataloged_item
-					inner join collection on (cataloged_item.collection_id = collection.collection_id) 
-					inner join identification on (cataloged_item.collection_object_id = identification.collection_object_id) 
-					inner join coll_object_encumbrance on 
-						(cataloged_item.collection_object_id = coll_object_encumbrance.collection_object_id) 
+					inner join collection on (cataloged_item.collection_id = collection.collection_id)
+					inner join identification on (cataloged_item.collection_object_id = identification.collection_object_id)
+					inner join coll_object_encumbrance on
+						(cataloged_item.collection_object_id = coll_object_encumbrance.collection_object_id)
 					inner join encumbrance on (coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id)
-					inner join preferred_agent_name  made_encumbrance_name on 
+					inner join preferred_agent_name  made_encumbrance_name on
 						(encumbrance.encumbering_agent_id = made_encumbrance_name.agent_id)
 				where
 					identification.accepted_id_fg=1
 					and encumbrance.encumbrance_id=#encumbrance_id#
-				
+
 		</cfquery>
 		<table border>
 			<tr>
@@ -183,7 +169,7 @@ drop table temp;
 		</p>
 		<a href="deleteSpecByEncumbrance.cfm?action=goAway&encumbrance_id=#encumbrance_id#">[ delete everything ]</a>
 		<br>
-		
+
 		<a href="deleteSpecByEncumbrance.cfm?action=getSQL&encumbrance_id=#encumbrance_id#">[ get the SQL ]</a>
 	</cfoutput>
 	<cfinclude template="/includes/_footer.cfm">
@@ -192,59 +178,59 @@ drop table temp;
 <cfif #action# is "goAway">
 <cfoutput>
 	<cfquery name="CatCllobjIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			collection_object_id
-		from 
+		from
 			coll_object_encumbrance
 		where
 			encumbrance_id=#encumbrance_id#
 	</cfquery>
-	<cfset catIdList = valuelist(CatCllobjIds.collection_object_id)>	
+	<cfset catIdList = valuelist(CatCllobjIds.collection_object_id)>
 	<cfif listlen(catIdList) gt 999>
 		fail: listlen(catIdList)=#listlen(catIdList)#
 		<cfabort>
 	</cfif>
 <cftransaction>
 <cfquery name="coll_obj_other_id_num" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	delete from annotations where collection_object_id IN 
+	delete from annotations where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
 <cfquery name="coll_obj_other_id_num" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	delete from coll_obj_other_id_num where collection_object_id IN 
+	delete from coll_obj_other_id_num where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
 <cfquery name="attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	delete from attributes where collection_object_id IN 
+	delete from attributes where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
 <cfquery name="collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	delete from collector where collection_object_id IN 
+	delete from collector where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="spcol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
-	delete from specimen_part where derived_from_cat_item IN 
+<cfquery name="spcol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	delete from specimen_part where derived_from_cat_item IN
 		(
-			select collection_object_id FROM 
+			select collection_object_id FROM
 			coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
 <cfquery name="identification_taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	delete from identification_taxonomy where identification_id IN 
+	delete from identification_taxonomy where identification_id IN
 		(
-			select identification_id FROM identification where collection_object_id IN 
+			select identification_id FROM identification where collection_object_id IN
 			(
 				select collection_object_id FROM coll_object_encumbrance WHERE
 				encumbrance_id = #encumbrance_id#
@@ -252,66 +238,52 @@ drop table temp;
 		)
 </cfquery>
 
-<cfquery name="specimen_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
-	delete from specimen_event where collection_object_id IN 
+<cfquery name="specimen_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	delete from specimen_event where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
 <cfquery name="identification_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	delete from identification_agent where identification_id IN 
+	delete from identification_agent where identification_id IN
 		(
-			select identification_id FROM identification where collection_object_id IN 
+			select identification_id FROM identification where collection_object_id IN
 			(
 				select collection_object_id FROM coll_object_encumbrance WHERE
 				encumbrance_id = #encumbrance_id#
 			)
 		)
 </cfquery>
-<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
-	delete from identification where collection_object_id IN 
+<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	delete from identification where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="coll_object_remark" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
-	delete from coll_object_remark where collection_object_id IN 
+<cfquery name="coll_object_remark" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	delete from coll_object_remark where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
-	delete from BIOL_INDIV_RELATIONS where collection_object_id IN 
-		(
-			select collection_object_id FROM coll_object_encumbrance WHERE
-			encumbrance_id = #encumbrance_id#
-		)
-</cfquery>
-<cfquery name="relations_related" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
-	delete from BIOL_INDIV_RELATIONS where RELATED_COLL_OBJECT_ID IN 
-		(
-			select collection_object_id FROM coll_object_encumbrance WHERE
-			encumbrance_id = #encumbrance_id#
-		)
-</cfquery>
-<cfquery name="cataloged_item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
-	delete from cataloged_item where collection_object_id IN 
+<cfquery name="cataloged_item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	delete from cataloged_item where collection_object_id IN
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
 
-<cfquery name="coll_object_encumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
-	delete from coll_object_encumbrance where collection_object_id IN 
+<cfquery name="coll_object_encumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	delete from coll_object_encumbrance where collection_object_id IN
 		(#catIdList#)
 </cfquery>
 
-<cfquery name="coll_object" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">	
-	delete from coll_object where collection_object_id IN 
+<cfquery name="coll_object" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	delete from coll_object where collection_object_id IN
 		(#catIdList#)
 </cfquery>
 
@@ -322,5 +294,4 @@ spiffy
 
 
 
-</cfif>	
-	
+</cfif>

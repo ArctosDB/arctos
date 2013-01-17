@@ -176,10 +176,6 @@
 		<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select orig_elev_units from ctorig_elev_units
 	    </cfquery>
-		<cfquery name="ctbiol_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	      	select BIOL_INDIV_RELATIONSHIP from ctbiol_relations
-			order by BIOL_INDIV_RELATIONSHIP
-	    </cfquery>
 		<cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
 		</cfquery>
@@ -415,28 +411,6 @@
 						<div class="wrapper" id="sort_randomness">
 							<div class="item">
 								<div class="celltitle">Random Junk</div>
-								<table cellpadding="0" cellspacing="0" class="fs"><!--- random admin stuff ---->
-									<tr id="d_relationship">
-										<td align="right"><span class="f11a">Relations</span></td>
-										<td>
-											<select name="relationship" size="1" id="relationship">
-												<option value=""></option>
-												<cfloop query="ctbiol_relations">
-													<option value="#BIOL_INDIV_RELATIONSHIP#">#BIOL_INDIV_RELATIONSHIP#</option>
-												</cfloop>
-											</select>
-											<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:150px">
-												<option value=""></option>
-												<option value="catalog number">catalog number (UAM:Mamm:123 format)</option>
-												<cfloop query="ctOtherIdType">
-													<option value="#other_id_type#">#other_id_type#</option>
-												</cfloop>
-											</select>
-											<input type="text" name="related_to_number" id="related_to_number" size="20" />
-											<span class="likeLink" onclick="getRelatedSpecimenData()">[ pick/use ]</span>
-										</td>
-									</tr>
-								</table><!------ random admin stuff ---------->
 								<table cellpadding="0" cellspacing="0" class="fs"><!------- remarkey stuff --->
 									<tr id="d_coll_object_remarks">
 										<td colspan="2">
