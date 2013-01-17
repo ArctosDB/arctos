@@ -733,12 +733,15 @@
 					<cfloop query="oid">
 						<div class="detailBlock">
 							<span class="innerDetailLabel">#other_id_type#:</span>
+								<cfif id_references is not "self">
+									(<i>#id_references#</i>)
+								</cfif>
 								<cfif len(link) gt 0>
 									<a class="external" href="#link#" target="_blank">#display_value#</a>
 								<cfelse>
 									#display_value#
 								</cfif>
-								(<i>#id_references#</i>)
+
 							</span>
 						</div>
 					</cfloop>
