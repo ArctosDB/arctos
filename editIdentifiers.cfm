@@ -26,6 +26,24 @@
 			);
 		}
 	</script>
+	<cfoutput>
+
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select collection,collection_id from collection ORDER BY COLLECTION
+	</cfquery>
+	<cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select id_references from ctid_references order by id_references
+	</cfquery>
+	<cfquery name="thisrec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			scientific_name,
+			collection_id,
+			collection
+		from
+			flat
+		where
+			collection_object_id=#collection_object_id#
+	</cfquery>
 	<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">[ Clone This Record ]</span>
 	<div id="cThis" style="display:none">
 		Data from this cataloged item will be inserted into the Bulkloader, where you
@@ -43,11 +61,11 @@
 					<option value="#i#">#i#</option>
 				</cfloop>
 			</select>
-			<label for="cloneReln">with Relationship to this record</label>
-			<select name="cloneReln" id="cloneReln" size="1">
+			<label for="cloneReln">OtherID1 (in bulkloader)</label>
+			<select name="cloneID1" id="cloneReln" size="1">
 				<option value="">-NONE-</option>
-				<cfloop query="ctReln">
-					<option value="#ctReln.biol_indiv_relationship#">#ctReln.biol_indiv_relationship#</option>
+				<cfloop query="ctid_references">
+					<option value="#ctid_references.id_references#">#ctid_references.id_references#</option>
 				</cfloop>
 			</select>
 			<input type="hidden" name="nothing">
@@ -88,9 +106,6 @@
 <cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select other_id_type from ctcoll_other_id_type order by other_id_type
 </cfquery>
-<cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select id_references from ctid_references order by id_references
-</cfquery>
 <cfquery name="cat" dbtype="query">
 	select
 		cat_num,
@@ -124,14 +139,6 @@
 		id_references,
 		coll_obj_other_id_num_id
 </cfquery>
-<cfquery name="ctcoll_cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select
-		institution_acronym,
-		collection_cde,
-		collection_id
-	from collection
-</cfquery>
-<cfoutput>
 	<h3>Identifiers</h3>
 <b>Edit existing Identifiers:
 <form name="ids" method="post" action="editIdentifiers.cfm">
