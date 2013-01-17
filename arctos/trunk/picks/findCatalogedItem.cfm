@@ -1,7 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <script language="javascript" type="text/javascript">
 	function setFormVals (onoff) {
-		
+
 		$.getJSON("/component/functions.cfc",
 				{
 					method : "setSessionVar",
@@ -14,12 +14,15 @@
 						$('#browseArctos').html('Suggest Browser disabled. You may turn this feature back on under My Stuff.');
 					} else {
 						alert('An error occured! \n ' + r);
-					}	
+					}
 				}
 			);
 	}
 </script>
 
+<cfif not isdefined("agent_name")>
+	<cfset agent_name=''>
+</cfif>
 <cfif oidNum is "undefined">
 	<cfset oidNum=''>
 </cfif>
@@ -77,11 +80,11 @@
 		<cfabort>
 	</cfif>
 	<cfset sql = "SELECT
-			cat_num, 
+			cat_num,
 			collection,
 			cataloged_item.collection_object_id,
 			scientific_name
-		 FROM 
+		 FROM
 			cataloged_item,
 			identification,
 	        collection">
@@ -91,7 +94,7 @@
 	<cfif oidType is not "catalog_number">
 		<cfset sql = "#sql#	,coll_obj_other_id_num">
 	</cfif>
-	<cfset sql = "#sql#  WHERE 
+	<cfset sql = "#sql#  WHERE
 		cataloged_item.collection_object_id = identification.collection_object_id AND
 		cataloged_item.collection_id=collection.collection_id and
 		identification.accepted_id_fg = 1">
@@ -112,7 +115,7 @@
 	<cfif len(collID) gt 0>
         <cfset sql = "#sql# AND collection='#collID#'">
     </cfif>
-	<cfset sql=sql & " group by cat_num, 
+	<cfset sql=sql & " group by cat_num,
 		collection,
 		cataloged_item.collection_object_id,
 		scientific_name">
