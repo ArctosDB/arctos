@@ -52,7 +52,7 @@
 				<option value="" ">contains</option>
 				<option selected="selected value="IS">is</option>
 			</select>
-			<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
+			<cfif ListContains(session.searchBy, 'bigsearchbox') gt 0>
 				<textarea name="OIDNum" id="OIDNum" rows="6" cols="30" wrap="soft"></textarea>
 			<cfelse>
 				<input type="text" name="OIDNum" id="OIDNum" size="34">
@@ -66,9 +66,9 @@
 		<td class="srch">
 			<select name="id_references" id="id_references" size="1">
 				<option value=""></option>
-				<cfloop query="ctid_references">
+				<cfoutput query="ctid_references">
 					<option value="#ctid_references.id_references#">#ctid_references.id_references#</option>
-				</cfloop>
+				</cfoutput>
 			</select>
 		</td>
 	</tr>
