@@ -21,7 +21,7 @@
 					} else {
 						var q='cloning failed.';
 					}
-					jQuery('##cloned').css("display", "inline").html(q);
+					jQuery('#cloned').css("display", "inline").html(q);
 				}
 			);
 		}
