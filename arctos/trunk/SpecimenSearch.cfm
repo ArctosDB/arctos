@@ -53,7 +53,7 @@
 			</span>
 		</td>
 	</tr>
-</table>	
+</table>
 <form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
 <table>
 	<tr>
@@ -174,12 +174,12 @@
 						<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
 					</cfloop>
 				</select>
-				<span class="helpLink" id="cat_num">Number:</span>
+				<span class="helpLink" id="cat_num">Catalog Number:</span>
 				<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 					<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
 				<cfelse>
 					<input type="text" name="listcatnum" id="listcatnum" size="21" value="">
-				</cfif>			
+				</cfif>
 			</td>
 		</tr>
 	<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
@@ -193,7 +193,7 @@
 					<option value="IS">is</option>
 					<option value="" selected="selected">contains</option>
 					<option value="LIST">in list</option>
-					<option value="BETWEEN">in range</option>								
+					<option value="BETWEEN">in range</option>
 				</select>&nbsp;<input type="text" name="CustomIdentifierValue" id="CustomIdentifierValue" size="50">
 			</td>
 		</tr>
@@ -249,13 +249,13 @@
 					<option value="currentID_is">Current Identification IS</option>
 					<option value="currentID_list">Current Identification IN LIST</option>
 					<option value="currentID_not">Current Identification NOT</option>
-					
-					
+
+
 					<option value="anyID_like">Any Identification CONTAINS</option>
 					<option value="anyID_is">Any Identification IS</option>
 					<option value="anyID_list">Any Identification IN LIST</option>
 					<option value="anyID_not">Any Identification NOT</option>
-					
+
 					<option value="currentTaxonomy">CurrentTaxonomy CONTAINS</option>
 					<option value="relatedTaxonomy">RelatedTaxonomy CONTAINS</option>
 					<option value="common">CommonName CONTAINS</option>
@@ -279,11 +279,11 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">			
+			<td colspan="2">
 			</td>
 		</tr>
 	</table>
-	
+
 </div>
 	--->
 
@@ -296,7 +296,7 @@
 				<span class="secControl" id="c_locality" onclick="showHide('locality',1)">Show More Options</span>
 			</td>
 		</tr>
-		<tr>	
+		<tr>
 			<td class="lbl">
 				<span class="helpLink" id="any_geog_term">Any&nbsp;Geographic&nbsp;Element:</span>
 			</td>
@@ -381,7 +381,7 @@
 						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 					</cfloop>
 				</select>
-				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status', SpecData.type_status.value);">Define</span>	
+				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status', SpecData.type_status.value);">Define</span>
 			</td>
 		</tr>
 	</table>
@@ -407,7 +407,7 @@
 		</table>
 		<div id="e_curatorial"></div>
 	</div>
-</cfif>	
+</cfif>
 <table>
 	<tr>
 		<td valign="top">
@@ -488,7 +488,7 @@
 			</div>
 		</td>
 	</tr>
-</table> 
+</table>
 <cfif isdefined("transaction_id") and len(transaction_id) gt 0>
 	<input type="hidden" name="transaction_id" value="#transaction_id#">
 </cfif>
@@ -517,11 +517,11 @@
 					r_getSpecSrchPref(getResult);
 			}
 		);
-		
+
 			jQuery.get("/form/browse.cfm", function(data){
 				 jQuery('body').append(data);
 			})
-			
+
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
@@ -533,7 +533,7 @@
 		matchContains: true,
 		minChars: 1,
 		selectFirst:false
-	});	
+	});
 	function r_getSpecSrchPref (result){
 		var j=result.split(',');
 		for (var i = 0; i < j.length; i++) {
