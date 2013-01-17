@@ -129,6 +129,10 @@
 		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
 			you don't have an ID. <cfabort>
 		</cfif>
+
+		<cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select id_references from ctid_references order by id_references
+		</cfquery>
 		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select collection_cde,institution_acronym,collection from collection order by collection
 		</cfquery>
@@ -307,22 +311,39 @@
 				            <div class="item">
 								<div class="celltitle">Other IDs  <span class="likeLink" onClick="getDocs('cataloged_item','other_id')">[ documentation ]</span></div>
 									<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
-									<cfloop from="1" to="4" index="i">
 										<tr>
-											<td id="d_other_id_num_#i#">
-												<span class="f11a">OtherID #i#</span>
-												<select name="other_id_num_type_#i#" style="width:250px"
-													id="other_id_num_type_#i#" onChange="deChange(this.id);">
-													<option value=""></option>
-													<cfloop query="ctOtherIdType">
-														<option value="#other_id_type#">#other_id_type#</option>
-													</cfloop>
-												</select>
-												<input type="text" name="other_id_num_#i#" id="other_id_num_#i#">
-												<span class="infoLink" onclick="getRelatedData(#i#)">[ pull ]</span>
-											</td>
+											<th>ID Type</th>
+											<th>ID Number</th>
+											<th>ID References</th>
+											<th></th>
 										</tr>
-									</cfloop>
+										<cfloop from="1" to="4" index="i">
+											<tr>
+												<td id="d_other_id_num_#i#">
+													<span class="f11a">OtherID #i#</span>
+													<select name="other_id_num_type_#i#" style="width:250px"
+														id="other_id_num_type_#i#" onChange="deChange(this.id);">
+														<option value=""></option>
+														<cfloop query="ctOtherIdType">
+															<option value="#other_id_type#">#other_id_type#</option>
+														</cfloop>
+													</select>
+												</td>
+												<td>
+													<input type="text" name="other_id_num_#i#" id="other_id_num_#i#"><select name="refType" id="refType" size="1">
+												</td>
+												<td>
+													<select name="other_id_references_#i#" id="other_id_references_#i#" size="1">
+														<cfloop query="ctid_references">
+															<option value="#ctid_references.id_references#">#ctid_references.id_references#</option>
+														</cfloop>
+													</select>
+												</td>
+												<td>
+													<span class="infoLink" onclick="getRelatedData(#i#)">[ pull ]</span>
+												</td>
+											</tr>
+										</cfloop>
 								</table><!---- /other IDs ---->
 					        </div><!--- end item --->
 				        </div><!--- end sort_otherid --->
