@@ -1750,9 +1750,6 @@
 						collection_object_id = #collection_object_id#
 				)
 			</cfquery>
-
-
-
 			<cfquery name="idby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
 					agent_name
