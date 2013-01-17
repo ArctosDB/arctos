@@ -68,21 +68,6 @@
 		attributes.determined_by_agent_id = attribute_determiner.agent_id and
 		attributes.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
-<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	SELECT
-		biol_indiv_relations.biol_indiv_relationship,
-		biol_indiv_relations.related_coll_object_id,
-		related_cat_item.cat_num related_cat_num,
-		related_coll.collection as related_collection
-	from
-		biol_indiv_relations,
-		cataloged_item related_cat_item,
-		collection related_coll
-	where
-		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id AND
-		related_cat_item.collection_id = related_coll.collection_id and
-		biol_indiv_relations.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
-</cfquery>
 <cfquery name="event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		specimen_event.SPECIMEN_EVENT_ID,
@@ -601,70 +586,7 @@
 					</div>
 				</div>
 			</cfif>
-<!------------------------------------ relationships ---------------------------------------------->
-			<cfquery name="invRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select
-					collection.collection,
-					cat_num,
-					biol_indiv_relations.collection_object_id,
-					BIOL_INDIV_RELATIONSHIP
-				from
-					biol_indiv_relations,cataloged_item,collection
-				where
-					biol_indiv_relations.collection_object_id = cataloged_item.collection_object_id and
-					cataloged_item.collection_id = collection.collection_id AND
-					RELATED_COLL_OBJECT_ID = #collection_object_id#
-			</cfquery>
-			<cfif len(relns.biol_indiv_relationship) gt 0 OR len(invRel.biol_indiv_relationship) gt 0>
-				<div class="detailCell">
-					<div class="detailLabel">Relationships
-						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.loadEditApp('editRelationship');">Edit</span>
-						</cfif>
-					</div>
-					<cfloop query="relns">
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">#biol_indiv_relationship#</span>
-								<a href="/SpecimenDetail.cfm?collection_object_id=#related_coll_object_id#" target="_top">
-									#related_collection# #related_cat_num#
-								</a>
-							</span>
-						</div>
-					</cfloop>
-					<cfif len(relns.biol_indiv_relationship) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel"></span>
-									&nbsp;&nbsp;&nbsp;<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(relns.related_coll_object_id)#" target="_top">"Related To" Specimens List</a>
-							</span>
-						</div>
-					</cfif>
-					<cfloop query="invRel">
-						<cfset invReln=BIOL_INDIV_RELATIONSHIP>
-						<cfif right(invReln,3) is " of">
-							<cfset invReln=left(invReln,len(invReln)-3) & ' IS'>
-						<cfelseif right(invReln,4) is " ate">
-							<cfset invReln=left(invReln,len(invReln)-4) & ' eaten by'>
-						</cfif>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">#invReln#</span>
-								<a href="/SpecimenDetail.cfm?collection_object_id=#invRel.collection_object_id#"
-									target="_top">#invRel.collection# #invRel.cat_num#</a>
-							</span>
-						</div>
-					</cfloop>
-					<cfif len(invRel.biol_indiv_relationship) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel"></span>
-								&nbsp;&nbsp;&nbsp;<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(invRel.collection_object_id)#" target="_top">"Related IS" Specimens List</a>
-							</span>
-						</div>
-					</cfif>
-				</div>
-			</cfif>
+
 			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT project_name, project.project_id project_id FROM
 				project, project_trans
