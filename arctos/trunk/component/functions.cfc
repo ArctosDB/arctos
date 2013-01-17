@@ -1700,23 +1700,6 @@
 			</cfquery>
 			<cfset key=k.c>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-
-
-
-							OTHER_ID_NUM_TYPE_1 = '#r.guid_prefix#',#i#='#display_value#',">
-
-							,RELATIONSHIP='#relationship#',
-							RELATED_TO_NUMBER= (
-											select
-												guid
-											from
-												flat
-											where collection_object_id=#collection_object_id#
-											),
-							RELATED_TO_NUM_TYPE='catalog number'
-						</cfif>
-
-
 				insert into bulkloader (
 					COLLECTION_OBJECT_ID,
 					LOADED,
