@@ -131,7 +131,7 @@
 		</cfif>
 
 		<cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select id_references from ctid_references order by id_references
+			select id_references from ctid_references where id_references != 'self' order by id_references
 		</cfquery>
 		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select collection_cde,institution_acronym,collection from collection order by collection
@@ -334,7 +334,7 @@
 												</td>
 												<td>
 													<select name="other_id_references_#i#" id="other_id_references_#i#" size="1">
-														<option value=""></option>
+														<option value="">self</option>
 														<cfloop query="ctid_references">
 															<option value="#ctid_references.id_references#">#ctid_references.id_references#</option>
 														</cfloop>
