@@ -1,6 +1,72 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfset title = "Edit Identifiers">
 <cfif action is "nothing">
+
+	<script>
+		function cloneCatalogedItem(collection_object_id){
+			jQuery('##cloned').css("display", "inline").html('<img src="/images/indicator.gif">Creating clone(s) - hold tight.....');
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "cloneCatalogedItem",
+					numRecs: $("##numRecs").val(),
+					collection_object_id : collection_object_id,
+					relationship: $("##cloneReln").val(),
+					taxon_name: $("##taxon_name").val(),
+					collection_id: $("##collection_id").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					if (r == 'spiffy') {
+						var q='created ' + $("##numRecs").val() + ' clones in bulkloader.';
+					} else {
+						var q='cloning failed.';
+					}
+					jQuery('##cloned').css("display", "inline").html(q);
+				}
+			);
+		}
+	</script>
+	<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">[ Clone This Record ]</span>
+	<div id="cThis" style="display:none">
+		Data from this cataloged item will be inserted into the Bulkloader, where you
+		may further edit the record or flag it to load, as with any other new record.
+		<br>Check specimen remarks in the bulkloader for things that might have been missed - this
+		application has limited handling of agents, identifiers, attributes, and parts.
+		<br>
+		This might take a minute.
+		Don't get all clicky or you'll make a mess.
+		<br>Create
+		<form name="clone">
+		<label for="numRecs">Number of new records</label>
+		<select name="numRecs" id="numRecs">
+			<cfloop from="1" to="1000" index="i">
+				<option value="#i#">#i#</option>
+			</cfloop>
+		</select>
+		<label for="cloneReln">with Relationship to this record</label>
+		<select name="cloneReln" id="cloneReln" size="1">
+			<option value="">-NONE-</option>
+			<cfloop query="ctReln">
+				<option value="#ctReln.biol_indiv_relationship#">#ctReln.biol_indiv_relationship#</option>
+			</cfloop>
+		</select>
+		<input type="hidden" name="nothing">
+		<label for="taxon_name">as taxon name</label>
+		<input type="text" name="taxon_name"class="reqdClr" size="40" id="taxon_name" value="#thisRec.scientific_name#" onchange="taxaPick('nothing',this.id,'clone',this.value)">
+		 <label for="collection_id">in collection</label>
+		<select name="collection_id" id="collection_id">
+			<cfloop query="c">
+				<option <cfif c.collection_id is thisrec.collection_id> selected="selected" </cfif>value="#collection_id#">#collection#</option>
+			</cfloop>
+		</select>
+		<br><input type="button" onclick="cloneCatalogedItem(#collection_object_id#)" value="Create Clone" class="insBtn">
+		</form>
+	</div>
+
+
+
+
 <cfquery name="getIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		COLL_OBJ_OTHER_ID_NUM_ID,
