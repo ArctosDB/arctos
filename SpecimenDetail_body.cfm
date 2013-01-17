@@ -719,6 +719,7 @@
 					collection_object_id=#one.collection_object_id# and
 					coll_obj_other_id_num.other_id_type=ctcoll_other_id_type.other_id_type (+)
 				ORDER BY
+					id_references,
 					other_id_type,
 					display_value
 			</cfquery>
