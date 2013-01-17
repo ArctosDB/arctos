@@ -1725,7 +1725,7 @@
 						#key#,
 						'cloned from ' || guid,
 						'#session.username#',
-						'[' || SUBSTR(guid, 1 ,INSTR(guid, ':', 1, 2)-1) || ']' || ACCESSION,
+						ACCESSION,
 						<cfif len(taxon_name) gt 0>
 							'#taxon_name#' as scientific_name,
 						<cfelse>
