@@ -1742,7 +1742,7 @@
 						<cfif len(refType) gt 0>
 							,SUBSTR(guid, 1 ,INSTR(guid, ':', 1, 2)-1),
 							cat_num,
-							'#refType#
+							'#refType#'
 						</cfif>
 					from
 						flat
