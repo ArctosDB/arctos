@@ -211,7 +211,7 @@ sho err
 			</cfquery>
 		</cfif>
 		<cfif collObj.recordcount is not 1>
-			<cfset err=listappend(err,"#data.guid_prefix# #data.existing_other_id_number# #data.existing_other_id_type# could not be found.")>
+			<cfset err=listappend(err,"#data.guid_prefix# #data.existing_other_id_number# #data.existing_other_id_type# matches #collObj.recordcount# records.")>
 		</cfif>
 		<cfif len(err) is 0>
 			<cfquery name="isValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
