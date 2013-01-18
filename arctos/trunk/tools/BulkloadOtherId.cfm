@@ -173,11 +173,13 @@ sho err
 	</cfquery>
 	<cfloop query="data">
 		<cfset err="">
-		<cfquery name="new_other_id_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select ID_REFERENCES from CTID_REFERENCES where ID_REFERENCES = '#new_other_id_references#'
-		</cfquery>
-		<cfif new_other_id_references.recordcount is not 1>
-			<cfset err=listappend(err,"new_other_id_references #new_other_id_references# was not found.")>
+		<cfif len(new_other_id_references) gt 0>
+			<cfquery name="new_other_id_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select ID_REFERENCES from CTID_REFERENCES where ID_REFERENCES = '#new_other_id_references#'
+			</cfquery>
+			<cfif new_other_id_references.recordcount is not 1>
+				<cfset err=listappend(err,"new_other_id_references #new_other_id_references# was not found.")>
+			</cfif>
 		</cfif>
 		<cfif existing_other_id_type is not "catalog number">
 			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
