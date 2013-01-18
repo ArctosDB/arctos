@@ -218,7 +218,7 @@ sho err
 				select other_id_type from ctcoll_other_id_type where other_id_type = '#new_other_id_type#'
 			</cfquery>
 			<cfif isValid.recordcount is not 1>
-				<cfset err=listappend(err,"Other ID type #new_other_id_type# was not found.")>
+				<cfset err=listappend(err,"Other ID type #new_other_id_type# matches #isValid.recordcount# records.")>
 			</cfif>
 		</cfif>
 		<cfif len(err) is 0>
