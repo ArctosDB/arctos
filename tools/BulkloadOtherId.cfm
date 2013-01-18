@@ -17,11 +17,12 @@ create table cf_temp_oids (
 	existing_other_id_number varchar2(60) not null,
 	new_other_id_type varchar2(60) not null,
 	new_other_id_number varchar2(60) not null,
-	new_other_id_references varchar2(60)
-	);
+	new_other_id_references varchar2(60),
+	status varchar2(4000)
+);
 
 	create public synonym cf_temp_oids for cf_temp_oids;
-	grant select,insert,update,delete on cf_temp_oids to uam_query,uam_update;
+	grant select,insert,update,delete on cf_temp_oids to manage_specimens;
 
 	 CREATE OR REPLACE TRIGGER cf_temp_oids_key
  before insert  ON cf_temp_oids
@@ -34,7 +35,6 @@ create table cf_temp_oids (
 /
 sho err
 
-alter table cf_temp_oids add status varchar2(4000);
 
 ------>
 <cfif action is "template">
@@ -190,7 +190,7 @@ alter table cf_temp_oids add status varchar2(4000);
 					coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
 					cataloged_item.collection_id = (
 						select collection_id from collection where
-						upper(collection.guid_prefix) = '#ucase(guid_prefix)#' and
+						upper(collection.guid_prefix) = '#ucase(guid_prefix)#') and
 					other_id_type = '#existing_other_id_type#' and
 					display_value = '#existing_other_id_number#'
 			</cfquery>
