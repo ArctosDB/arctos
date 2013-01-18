@@ -586,7 +586,6 @@
 					</div>
 				</div>
 			</cfif>
-
 			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT project_name, project.project_id project_id FROM
 				project, project_trans
@@ -646,7 +645,7 @@
 					display_value
 			</cfquery>
 			<cfif len(oid.other_id_type) gt 0>
-				<div class="detailCell">
+				<div class="detailCell" style="max-height:200px;overflow:auto;">
 					<div class="detailLabel">Identifiers
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
@@ -666,7 +665,6 @@
 								<cfelse>
 									#display_value#
 								</cfif>
-
 						</div>
 					</cfloop>
 				</div>
