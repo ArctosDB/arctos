@@ -1,9 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
-	.redborder {border:2px solid red;}
-	.greenborder {border:2px solid green; padding-left:2em;}
-	.blueborder {border:2px solid blue; padding-left:4em;}
-	.yellowborder {border:2px solid yellow; padding-left:4em;}
+	.redborder {border:2px solid red; margin:1em;}
+	.greenborder {border:2px solid green; padding-left:2em; margin:1em;}
+	.blueborder {border:2px solid blue; padding-left:4em; margin:1em;}
+	.yellowborder {border:2px solid yellow; padding-left:4em; margin:1em;}
 
 
 </style>
@@ -25,7 +25,6 @@
 			order by collection
 	</cfquery>
 	<cfloop query="d">
-		<hr>
 		<label for="">collection</label>
 		<input type="text" size="80" value="#collection#">
 		<div class="redborder">
@@ -69,8 +68,8 @@
 				CONTACT_AGENT_ID=person_id and
 				collection_id=#collection_id#
 			</cfquery>
-			<div class="greenborder">
-				<cfloop query="contacts">
+			<cfloop query="contacts">
+				<div class="greenborder">
 					<label for="">CONTACT_ROLE</label>
 					<input type="text" size="80" value="#CONTACT_ROLE#">
 					<label for="">first_name</label>
@@ -80,8 +79,8 @@
 					<cfquery name="addr" datasource="uam_god">
 						select * from addr where agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
-					<div class="blueborder">
-						<cfloop query="addr">
+					<cfloop query="addr">
+						<div class="blueborder">
 							<label for="">ADDR_TYPE</label>
 							<input type="text" size="80" value="#ADDR_TYPE#">
 							<label for="">VALID_ADDR_FG</label>
@@ -106,21 +105,21 @@
 							<input type="text" size="80" value="#INSTITUTION#">
 							<label for="">DEPARTMENT</label>
 							<input type="text" size="80" value="#DEPARTMENT#">
-						</cfloop>
-					</div>
+						</div>
+					</cfloop>
 					<cfquery name="eaddr" datasource="uam_god">
 						select * from electronic_address where agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
-					<div class="yellowborder">
-						<cfloop query="eaddr">
+					<cfloop query="eaddr">
+						<div class="yellowborder">
 							<label for="">ADDRESS_TYPE</label>
 							<input type="text" size="80" value="#ADDRESS_TYPE#">
 							<label for="">ADDRESS</label>
 							<input type="text" size="80" value="#ADDRESS#">
-						</cfloop>
-					</div>
-				</cfloop>
-			</div>
+						</div>
+					</cfloop>
+				</div>
+			</cfloop>
 		</div>
 	</cfloop>
 </cfoutput>
