@@ -36,7 +36,8 @@
 			loan_policy_url,
 			guid_prefix,
 			allow_prefix_suffix,
-			use_license_id
+			use_license_id,
+			citation_guidelines
  		from collection
   		where
    		collection_id = #collection_id#
@@ -75,6 +76,10 @@
 					<input type="text" name="guid_prefix" id="guid_prefix" value="#colls.guid_prefix#">
 					<label for="descr">Description</label>
 					<textarea name="descr" id="descr" rows="3" cols="40">#colls.descr#</textarea>
+					<label for="citation_guidelines">Citation Guidelines</label>
+					<textarea name="citation_guidelines" id="citation_guidelines" rows="3" cols="40">#colls.citation_guidelines#</textarea>
+
+
 					<label for="web_link">Web Link</label>
 					<cfset thisWebLink = replace(colls.web_link,"'","''",'all')>
 					<input type="text" name="web_link" id="web_link" value="#colls.web_link#" size="50">
@@ -368,7 +373,8 @@
 			web_link_text='#web_link_text#',
 			loan_policy_url='#loan_policy_url#',
 			allow_prefix_suffix=#allow_prefix_suffix#,
-			use_license_id=#use_license_id#
+			use_license_id=#use_license_id#,
+			citation_guidelines='#escapeQuotes(citation_guidelines)#',
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>
