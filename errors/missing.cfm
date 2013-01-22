@@ -1,3 +1,4 @@
+i am missing
 <cfif isdefined("cgi.query_string") and len(cgi.query_string) gt 0>
 	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfif rdurl contains chr(195) & chr(151)>
