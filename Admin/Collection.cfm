@@ -45,7 +45,7 @@
 		select collection_cde from ctcollection_cde order by collection_cde
 	</cfquery>
 	<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
+		select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
 	</cfquery>
 	<table border>
 		<tr>
