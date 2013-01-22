@@ -85,7 +85,7 @@
 					<select name="use_license_id" id="use_license_id">
 						<option value="">-none-</option>
 						<cfloop query="CTMEDIA_LICENSE">
-							<option	<cfif use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
+							<option	<cfif colls.use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
 								value="#DISPLAY#">#DISPLAY#</option>
 						</cfloop>
 					</select>
