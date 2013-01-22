@@ -37,7 +37,7 @@
 			guid_prefix,
 			allow_prefix_suffix,
 			use_license_id,
-			citation_guidelines
+			citation
  		from collection
   		where
    		collection_id = #collection_id#
@@ -76,8 +76,8 @@
 					<input type="text" name="guid_prefix" id="guid_prefix" value="#colls.guid_prefix#">
 					<label for="descr">Description</label>
 					<textarea name="descr" id="descr" rows="3" cols="40">#colls.descr#</textarea>
-					<label for="citation_guidelines">Citation Guidelines</label>
-					<textarea name="citation_guidelines" id="citation_guidelines" rows="3" cols="40">#colls.citation_guidelines#</textarea>
+					<label for="citation">Citation</label>
+					<textarea name="citation" id="citation" rows="3" cols="40">#colls.citation#</textarea>
 
 
 					<label for="web_link">Web Link</label>
@@ -374,7 +374,7 @@
 			loan_policy_url='#loan_policy_url#',
 			allow_prefix_suffix=#allow_prefix_suffix#,
 			use_license_id=#use_license_id#,
-			citation_guidelines='#escapeQuotes(citation_guidelines)#'
+			citation='#escapeQuotes(citation)#'
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>
