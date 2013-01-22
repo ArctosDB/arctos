@@ -1,3 +1,6 @@
+<cfabort>
+
+
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Sync IDs">
 <cfif #action# is "nothing">
@@ -22,7 +25,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 <cfelse>
 </cfif>
 <cfquery name="whatIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select 
+	select
 		pID.scientific_name as parentname,
 		cID.scientific_name as childname,
 		pID.nature_of_id as pNat,
@@ -60,7 +63,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 			AND pCatItem.collection_object_id=#collection_object_id#
 		</cfif>
 		order by pCatnum
-		
+
 </cfquery>
 <cfoutput>
 <table border>
@@ -74,21 +77,21 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
  	<cfloop query="whatIDs">
 		<tr>
 			<td>
-				#parentname# 
+				#parentname#
 				<span style="font-size:small">(#pNat#)</span>
-				
+
 			</td>
 			<td>
-				<a href="/SpecimenDetail.cfm?collection_object_id=#pCollID#">#pInst# #pColl# #pCatnum#</a>	
-				(#session.CustomOtherIdentifier# = #parentCustom#)	
+				<a href="/SpecimenDetail.cfm?collection_object_id=#pCollID#">#pInst# #pColl# #pCatnum#</a>
+				(#session.CustomOtherIdentifier# = #parentCustom#)
 			</td>
 			<td>
-				#childname# 
+				#childname#
 				<span style="font-size:small">(#cNat#)</span>
 			</td>
 			<td>
 				<a href="/SpecimenDetail.cfm?collection_object_id=#cCollID#">#cInst# #cColl# #cCatnum#</a>
-				(#session.CustomOtherIdentifier# = #childCustom#)	
+				(#session.CustomOtherIdentifier# = #childCustom#)
 			</td>
 			<td>
 				<input type="hidden" id="child#cCollID#" name="child_coll_obj_id" />
@@ -117,7 +120,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 				RELATED_COLL_OBJECT_ID = #i#
 			</cfquery>
 			<cfif #numP.c# neq 1>
-				Something's hinky!  
+				Something's hinky!
 				<a href="/SpecimenDetail.cfm?collection_object_id=#i#">this critter</a>
 				 seems to have #numP.c# parents! That may be good data, but I can't handle it here. Update the ID from the link.
 				<cfabort>
@@ -184,7 +187,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 			--->
 		</cfloop>
 	</cfoutput>
-	If there's nothing above, it probably worked. Go 
+	If there's nothing above, it probably worked. Go
 	<a href="parent_child_taxonomy.cfm">here</a>
 	 and see if anything was missed.
 </cfif>
