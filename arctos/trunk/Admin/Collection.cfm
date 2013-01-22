@@ -47,6 +47,12 @@
 	<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
 	</cfquery>
+	<h2>
+		CAUTION!!
+		<br>
+		Misuse of this form can be very dangerous. You can break all links to and from your specimens.
+		<br>If you don't know exactly what you're doing, please <a href="/contact.cfm">ask first</a>.
+	</h2>
 	<table border>
 		<tr>
 			<td valign="top">
