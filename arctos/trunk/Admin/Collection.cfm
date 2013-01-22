@@ -83,7 +83,7 @@
 					</select>
 					<label for="use_license_id">License</label>
 					<select name="use_license_id" id="use_license_id">
-						<option value="">-none-</option>
+						<option value="NULL">-none-</option>
 						<cfloop query="CTMEDIA_LICENSE">
 							<option	<cfif colls.use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
 								value="#DISPLAY#">#DISPLAY#</option>
@@ -361,7 +361,8 @@
 			web_link='#web_link#',
 			web_link_text='#web_link_text#',
 			loan_policy_url='#loan_policy_url#',
-			allow_prefix_suffix=#allow_prefix_suffix#
+			allow_prefix_suffix=#allow_prefix_suffix#,
+			use_license_id=#use_license_id#
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>
