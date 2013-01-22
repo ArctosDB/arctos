@@ -43,7 +43,7 @@
 			</cfquery>
 			<label for="">Geographic  Coverage</label>
 
-			<cfset geocov=replace(valuelist(gc.continent_ocean),"no higher geography recorded")>
+			<cfset geocov=listdeleteat(valuelist(gc.continent_ocean),listfind(valuelist(gc.continent_ocean),"no higher geography recorded")>
 			<input type="text" size="80" value="#geocov#">
 			<cfquery name="tc" datasource="uam_god">
 				select phylclass from flat where collection_id=#collection_id# group by phylclass order by phylclass
