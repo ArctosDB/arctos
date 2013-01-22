@@ -90,7 +90,7 @@
 	<cfelseif listfindnocase(rdurl,'name',"/")>
 		<cfif listlast(rdurl,"/") is "name">
 			<!--- redirect /name to taxonomysearch --->
-			<cflocation url="/TaxonomySearch.cfm">
+			<cflocation url="/TaxonomySearch.cfm" addtoken="false">
 		<cfelse>
 			<cftry>
 				<cfset gPos=listfindnocase(rdurl,"name","/")>
