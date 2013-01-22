@@ -17,12 +17,12 @@
 			order by collection
 	</cfquery>
 	<cfloop query="d">
-	<hr>
+		<hr>
 		<label for="">collection</label>
 		<input type="text" size="80" value="#collection#">
 		<blockquote>
 			<label for="">descr</label>
-			<textarea rows="6" cols="80">descr</textarea>
+			<textarea rows="6" cols="80">#descr#</textarea>
 			<label for="">citation</label>
 			<input type="text" size="80" value="#citation#">
 			<label for="">web_link</label>
@@ -31,66 +31,90 @@
 			<input type="text" size="80" value="#display#">
 			<label for="">license_uri</label>
 			<input type="text" size="80" value="#uri#">
+			<cfquery name="gc" datasource="uam_god">
+				select continent_ocean from flat where collection_id=#collection_id# group by continent_ocean
+			</cfquery>
+			<label for="">Geographic  Coverage</label>
+			<input type="text" size="80" value="#valuelist(gc.continent_ocean)#">
+			<cfquery name="tc" datasource="uam_god">
+				select phylclass from flat where collection_id=#collection_id# group by phylclass
+			</cfquery>
+			<label for="">Taxonomic  Coverage</label>
+			<input type="text" size="80" value="#valuelist(tc.phylclass)#">
+			<cfquery name="tec" datasource="uam_god">
+				select min(began_date) earliest, max(ended_date) latest from flat where collection_id=#collection_id#
+			</cfquery>
+			<label for="">Temporal Coverage - earliest</label>
+			<input type="text" size="80" value="#tec.earliest#">
+			<label for="">Temporal Coverage - latest</label>
+			<input type="text" size="80" value="#tec.latest#">
+			<cfquery name="contacts" datasource="uam_god">
+				select
+					first_name,
+					last_name,
+					CONTACT_ROLE,
+					CONTACT_AGENT_ID
+				from
+					collection_contacts,
+					person
+				where
+				CONTACT_AGENT_ID=person_id and
+				collection_id=#collection_id#
+			</cfquery>
+			<blockquote>
+				<cfloop query="contacts">
+					<label for="">CONTACT_ROLE</label>
+					<input type="text" size="80" value="#CONTACT_ROLE#">
+					<label for="">first_name</label>
+					<input type="text" size="80" value="#first_name#">
+					<label for="">last_name</label>
+					<input type="text" size="80" value="#last_name#">
+					<cfquery name="addr" datasource="uam_god">
+						select * from addr where agent_id=#CONTACT_AGENT_ID#
+					</cfquery>
+					<blockquote>
+						<cfloop query="addr">
+							<label for="">ADDR_TYPE</label>
+							<input type="text" size="80" value="#ADDR_TYPE#">
+							<label for="">VALID_ADDR_FG</label>
+							<input type="text" size="80" value="#VALID_ADDR_FG#">
+							<label for="">JOB_TITLE</label>
+							<input type="text" size="80" value="#JOB_TITLE#">
+							<label for="">STREET_ADDR1</label>
+							<input type="text" size="80" value="#STREET_ADDR1#">
+							<label for="">STREET_ADDR2</label>
+							<input type="text" size="80" value="#STREET_ADDR2#">
+							<label for="">CITY</label>
+							<input type="text" size="80" value="#CITY#">
+							<label for="">STATE</label>
+							<input type="text" size="80" value="#STATE#">
+							<label for="">ZIP</label>
+							<input type="text" size="80" value="#ZIP#">
+							<label for="">COUNTRY_CDE</label>
+							<input type="text" size="80" value="#COUNTRY_CDE#">
+							<label for="">MAIL_STOP</label>
+							<input type="text" size="80" value="#MAIL_STOP#">
+							<label for="">last_name</label>
+							<input type="text" size="80" value="#last_name#">
+							<label for="">INSTITUTION</label>
+							<input type="text" size="80" value="#INSTITUTION#">
+							<label for="">DEPARTMENT</label>
+							<input type="text" size="80" value="#DEPARTMENT#">
+						</cfloop>
+					</blockquote>
+					<cfquery name="eaddr" datasource="uam_god">
+						select * from electronic_address where agent_id=#CONTACT_AGENT_ID#
+					</cfquery>
+					<blockquote>
+						<cfloop query="eaddr">
+							<label for="">ADDRESS_TYPE</label>
+							<input type="text" size="80" value="#ADDRESS_TYPE#">
+							<label for="">ADDRESS</label>
+							<input type="text" size="80" value="#ADDRESS#">
+						</cfloop>
+					</blockquote>
+				</cfloop>
+			</blockquote>
 		</blockquote>
-		<cfquery name="gc" datasource="uam_god">
-			select continent_ocean from flat where collection_id=#collection_id# group by continent_ocean
-		</cfquery>
-		<br>Geographic  Coverage: #valuelist(gc.continent_ocean)#
-		<cfquery name="tc" datasource="uam_god">
-			select phylclass from flat where collection_id=#collection_id# group by phylclass
-		</cfquery>
-		<br>taxonomic  Coverage: #valuelist(tc.phylclass)#
-
-		<cfquery name="tec" datasource="uam_god">
-			select min(began_date) earliest, max(ended_date) latest from flat where collection_id=#collection_id#
-		</cfquery>
-		<br>temporal  Coverage: #tec.earliest# to #tec.latest#
-		<cfquery name="contacts" datasource="uam_god">
-			select
-				first_name,
-				last_name,
-				CONTACT_ROLE,
-				CONTACT_AGENT_ID
-			from
-				collection_contacts,
-				person
-			where
-			CONTACT_AGENT_ID=person_id and
-			collection_id=#collection_id#
-		</cfquery>
-	<br>-----------------------contacts--------------------
-		<cfloop query="contacts">
-		<br>--------person--------------------
-			<br>first_name: #first_name#
-			<br>last_name: #last_name#
-			<br>CONTACT_ROLE: #CONTACT_ROLE#
-			<cfquery name="addr" datasource="uam_god">
-				select * from addr where agent_id=#CONTACT_AGENT_ID#
-			</cfquery>
-			<br>------------addresses--------------------
-			<cfloop query="addr">
-				<br>ADDR_TYPE: #ADDR_TYPE#
-				<br>VALID_ADDR_FG: #VALID_ADDR_FG#
-				<br>JOB_TITLE: #JOB_TITLE#
-				<br>STREET_ADDR1: #STREET_ADDR1#
-				<br>STREET_ADDR2: #STREET_ADDR2#
-				<br>CITY: #CITY#
-				<br>STATE: #STATE#
-				<br>ZIP: #ZIP#
-				<br>COUNTRY_CDE: #COUNTRY_CDE#
-				<br>MAIL_STOP: #MAIL_STOP#
-				<br>INSTITUTION: #INSTITUTION#
-				<br>DEPARTMENT: #DEPARTMENT#
-			</cfloop>
-			<cfquery name="eaddr" datasource="uam_god">
-				select * from electronic_address where agent_id=#CONTACT_AGENT_ID#
-			</cfquery>
-			<br>------------------------electronic addresses-------------------------
-			<cfloop query="eaddr">
-				<br>-----------------------electronic address-------------------
-				<br>ADDRESS_TYPE: #ADDRESS_TYPE#
-				<br>ADDRESS: #ADDRESS#
-			</cfloop>
-		</cfloop>
 	</cfloop>
 </cfoutput>
