@@ -13,13 +13,17 @@
 			ctmedia_license
 		where
 			collection.USE_LICENSE_ID=ctmedia_license.media_license_id (+)
+			and collection_id=17
 	</cfquery>
 <cfdump var=#d#>
 <cfloop query="d">
-	<cfloop list="#d.columnlist#" index="c">
-		<label for="#c#">#c#</label>
-		<textarea name="#c#" rows="6" cols="50">#evaluate(d.c)#</textarea>
-	</cfloop>
+	<br>collection: #collection#
+	<br>descr: #descr#
+	<br>citation: #citation#
+	<br>web_link: #web_link#
+	<br>display: #display#
+	<br>uri: #uri#
+	<br>
 </cfloop>
 <cfabort>
 	</cfoutput>
