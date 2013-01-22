@@ -94,8 +94,6 @@
 							<input type="text" size="80" value="#COUNTRY_CDE#">
 							<label for="">MAIL_STOP</label>
 							<input type="text" size="80" value="#MAIL_STOP#">
-							<label for="">last_name</label>
-							<input type="text" size="80" value="#last_name#">
 							<label for="">INSTITUTION</label>
 							<input type="text" size="80" value="#INSTITUTION#">
 							<label for="">DEPARTMENT</label>
