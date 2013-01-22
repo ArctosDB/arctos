@@ -31,12 +31,12 @@
 	<cfquery name="tc" datasource="uam_god">
 		select phylclass from flat where collection_id=#collection_id# group by phylclass
 	</cfquery>
-	<br>taxonomic  Coverage: #valuelist(gc.phylclass)#
+	<br>taxonomic  Coverage: #valuelist(tc.phylclass)#
 
 	<cfquery name="tec" datasource="uam_god">
 		select min(began_date) earliest, max(ended_date) latest from flat where collection_id=#collection_id#
 	</cfquery>
-	<br>temporal  Coverage: #earliest# to #latest#
+	<br>temporal  Coverage: #tec.earliest# to #tec.latest#
 
 
 	<br>
