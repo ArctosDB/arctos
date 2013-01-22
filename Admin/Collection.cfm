@@ -35,13 +35,17 @@
 			WEB_LINK_TEXT,
 			loan_policy_url,
 			guid_prefix,
-			allow_prefix_suffix
+			allow_prefix_suffix,
+			use_license_id
  		from collection
   		where
    		collection_id = #collection_id#
 	</cfquery>
 	<cfquery name="ctCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select collection_cde from ctcollection_cde
+		select collection_cde from ctcollection_cde order by collection_cde
+	</cfquery>
+	<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
 	</cfquery>
 	<table border>
 		<tr>
@@ -77,6 +81,16 @@
 						<option <cfif colls.allow_prefix_suffix is 0>selected="selected" </cfif>value="0">no</option>
 						<option <cfif colls.allow_prefix_suffix is 1>selected="selected" </cfif>value="1">yes</option>
 					</select>
+					<label for="use_license_id">License</label>
+					<select name="use_license_id" id="use_license_id">
+						<option value="">-none-</option>
+						<cfloop query="CTMEDIA_LICENSE">
+							<option	<cfif use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
+								value="#DISPLAY#">#DISPLAY#</option>
+						</cfloop>
+					</select>
+					<span class="infoLink" onclick="getCtDoc('ctmedia_license',editCollection.use_license_id.value);">Define</span>
+
 					<br><input type="submit" value="Save Changes" class="savBtn">
 					<input type="button" value="Quit" class="qutBtn" onClick="document.location='/Admin/Collection.cfm';">
 				</form>
