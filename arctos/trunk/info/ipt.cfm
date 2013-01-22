@@ -1,9 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
 	.redborder {border:2px solid red; margin:1em;}
-	.greenborder {border:2px solid green; padding-left:2em; margin:1em;}
-	.blueborder {border:2px solid blue; padding-left:4em; margin:1em;}
-	.yellowborder {border:2px solid yellow; padding-left:4em; margin:1em;}
+	.greenborder {border:2px solid green; padding: 1em 1em 1em 2em; margin:1em;}
+	.blueborder {border:2px solid blue; padding: 1em 1em 1em 2em; margin:1em;}
+	.yellowborder {border:2px solid yellow; padding: 1em 1em 1em 2em; margin:1em;}
 
 
 </style>
@@ -25,9 +25,9 @@
 			order by collection
 	</cfquery>
 	<cfloop query="d">
-		<label for="">collection</label>
-		<input type="text" size="80" value="#collection#">
 		<div class="redborder">
+			<label for="">collection</label>
+			<input type="text" size="80" value="#collection#">
 			<label for="">descr</label>
 			<textarea rows="6" cols="80">#descr#</textarea>
 			<label for="">citation</label>
