@@ -42,9 +42,11 @@
 			last_name,
 			CONTACT_AGENT_ID
 		from
-			collection_contacts
+			collection_contacts,
+			person
 		where
-			collection_id=#collection_id#
+		CONTACT_AGENT_ID=person_id and
+		collection_id=#collection_id#
 	</cfquery>
 
 	<cfloop query="contacts">
