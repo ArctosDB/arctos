@@ -19,7 +19,7 @@
 	<cfloop query="d">
 	<hr>
 		<label for="">collection</label>
-		<input type="text" size="80" value="collection">
+		<input type="text" size="80" value="#collection#">
 		<br>descr: #descr#
 		<br>citation: #citation#
 		<br>web_link: #web_link#
