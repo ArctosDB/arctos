@@ -374,7 +374,7 @@
 			loan_policy_url='#loan_policy_url#',
 			allow_prefix_suffix=#allow_prefix_suffix#,
 			use_license_id=#use_license_id#,
-			citation_guidelines='#escapeQuotes(citation_guidelines)#',
+			citation_guidelines='#escapeQuotes(citation_guidelines)#'
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>
