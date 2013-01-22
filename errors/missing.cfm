@@ -88,14 +88,19 @@
 			</cfcatch>
 		</cftry>
 	<cfelseif listfindnocase(rdurl,'name',"/")>
-		<cftry>
-			<cfset gPos=listfindnocase(rdurl,"name","/")>
-			<cfset scientific_name = listgetat(rdurl,gPos+1,"/")>
-			<cfinclude template="/TaxonomyDetails.cfm">
-			<cfcatch>
-				<cfinclude template="/errors/404.cfm">
-			</cfcatch>
-		</cftry>
+		<cfif listlast(rdurl,"/") is "name">
+			<!--- redirect /name to taxonomysearch --->
+			<cflocation url="/TaxonomySearch.cfm">
+		<cfelse>
+			<cftry>
+				<cfset gPos=listfindnocase(rdurl,"name","/")>
+				<cfset scientific_name = listgetat(rdurl,gPos+1,"/")>
+				<cfinclude template="/TaxonomyDetails.cfm">
+				<cfcatch>
+					<cfinclude template="/errors/404.cfm">
+				</cfcatch>
+			</cftry>
+		</cfif>
 	<cfelseif listfindnocase(rdurl,'api',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"api","/")>

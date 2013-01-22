@@ -10,9 +10,7 @@
 		<cfset ipaddress='unknown'>
 	</CFIF>
 	<cfset cTemp="">
-
 	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
-
 	<cfif len(rdurl) gt 0>
 		<cfset cTemp=rdurl>
 	<cfelseif len(cgi.script_name) gt 0>
