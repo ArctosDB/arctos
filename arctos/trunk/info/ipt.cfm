@@ -2,6 +2,7 @@
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select
+			collection.collection_id,
 			collection.collection,
 			collection.descr,
 			collection.citation,
@@ -23,11 +24,30 @@
 	<br>web_link: #web_link#
 	<br>display: #display#
 	<br>uri: #uri#
+	<cfquery name="gc" datasource="uam_god">
+		select continent_ocean from flat where collection_id=#collection_id# group by continent_ocean
+	</cfquery>
+	<br>Geographic  Coverage: #valuelist(gc.continent_ocean)#
+	<cfquery name="tc" datasource="uam_god">
+		select phylclass from flat where collection_id=#collection_id# group by phylclass
+	</cfquery>
+	<br>taxonomic  Coverage: #valuelist(gc.phylclass)#
+
+	<cfquery name="tec" datasource="uam_god">
+		select min(began_date) earliest, max(ended_date) latest from flat where collection_id=#collection_id#
+	</cfquery>
+	<br>temporal  Coverage: #earliest# to #latest#
+
+
 	<br>
 </cfloop>
 <cfabort>
 	</cfoutput>
 
+		    - new text field in Collection
+
+
+			why wouldn't this come from the data?
 
 	    Description* - new text field for Collection (general description about the collection)
 
@@ -86,10 +106,6 @@
 	or just another collection_contact_role
 
 
-	    Geographic  Coverage - new text field in Collection
-
-
-	why wouldn't this come from the data?
 
 
 	    Taxonomic Coverage - new text field in Collection
