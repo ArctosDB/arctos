@@ -14,7 +14,7 @@
 			ctmedia_license
 		where
 			collection.USE_LICENSE_ID=ctmedia_license.media_license_id (+)
-			--and collection_id=29
+			order by collection
 	</cfquery>
 	<cfloop query="d">
 	<hr>
@@ -42,6 +42,7 @@
 			select
 				first_name,
 				last_name,
+				CONTACT_ROLE,
 				CONTACT_AGENT_ID
 			from
 				collection_contacts,
@@ -55,6 +56,7 @@
 		<br>--------person--------------------
 			<br>first_name: #first_name#
 			<br>last_name: #last_name#
+			<br>CONTACT_ROLE: #CONTACT_ROLE#
 			<cfquery name="addr" datasource="uam_god">
 				select * from addr where agent_id=#CONTACT_AGENT_ID#
 			</cfquery>
