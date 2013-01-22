@@ -39,12 +39,14 @@
 			<label for="">license_uri</label>
 			<input type="text" size="80" value="#uri#">
 			<cfquery name="gc" datasource="uam_god">
-				select continent_ocean from flat where collection_id=#collection_id# group by continent_ocean
+				select continent_ocean from flat where collection_id=#collection_id# group by continent_ocean order by continent_ocean
 			</cfquery>
 			<label for="">Geographic  Coverage</label>
-			<input type="text" size="80" value="#valuelist(gc.continent_ocean)#">
+
+			<cfset geocov=replace(valuelist(gc.continent_ocean),"no higher geography recorded")>
+			<input type="text" size="80" value="#geocov#">
 			<cfquery name="tc" datasource="uam_god">
-				select phylclass from flat where collection_id=#collection_id# group by phylclass
+				select phylclass from flat where collection_id=#collection_id# group by phylclass order by phylclass
 			</cfquery>
 			<label for="">Taxonomic  Coverage</label>
 			<input type="text" size="80" value="#valuelist(tc.phylclass)#">
