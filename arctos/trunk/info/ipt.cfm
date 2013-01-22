@@ -46,7 +46,7 @@
 			<cfif listfind(geocov,"no higher geography recorded")>
 				<cfset geocov=listdeleteat(geocov,listfind(geocov,"no higher geography recorded"))>
 			</cfif>
-			<input type="text" size="80" value="#geocov#">
+			<textarea rows="6" cols="80">#geocov#</textarea>
 			<cfquery name="tc" datasource="uam_god">
 				select phylclass from flat where collection_id=#collection_id# group by phylclass order by phylclass
 			</cfquery>
