@@ -20,11 +20,18 @@
 	<hr>
 		<label for="">collection</label>
 		<input type="text" size="80" value="#collection#">
-		<br>descr: #descr#
-		<br>citation: #citation#
-		<br>web_link: #web_link#
-		<br>display: #display#
-		<br>uri: #uri#
+		<blockquote>
+			<label for="">descr</label>
+			<textarea rows="6" cols="80">descr</textarea>
+			<label for="">citation</label>
+			<input type="text" size="80" value="#citation#">
+			<label for="">web_link</label>
+			<input type="text" size="80" value="#web_link#">
+			<label for="">license</label>
+			<input type="text" size="80" value="#display#">
+			<label for="">license_uri</label>
+			<input type="text" size="80" value="#uri#">
+		</blockquote>
 		<cfquery name="gc" datasource="uam_god">
 			select continent_ocean from flat where collection_id=#collection_id# group by continent_ocean
 		</cfquery>
