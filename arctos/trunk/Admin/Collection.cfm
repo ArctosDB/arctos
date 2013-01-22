@@ -14,7 +14,7 @@
 				<option value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
-		<input type="button" value="Submit" class="lnkBtn" onclick="coll.action.value='findColl';submit();">	
+		<input type="button" value="Submit" class="lnkBtn" onclick="coll.action.value='findColl';submit();">
 	</form>
 </cfoutput>
 </cfif>
@@ -25,7 +25,7 @@
 		select * from cf_collection where collection_id=#collection_id#
 	</cfquery>
 	<cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select  
+		select
 			COLLECTION_CDE,
 			INSTITUTION_ACRONYM,
 			DESCR,
@@ -52,7 +52,7 @@
 					<label for="collection_cde">Collection Type</label>
 					<select name="collection_cde" id="collection_cde" size="1">
 						<cfloop query="ctCollCde">
-							<option 
+							<option
 								<cfif ctCollCde.collection_cde is colls.collection_cde> selected </cfif>
 							value="#ctCollCde.collection_cde#">#ctCollCde.collection_cde#</option>
 						</cfloop>
@@ -61,10 +61,10 @@
 					<input type="text" name="institution_acronym" id="institution_acronym" value="#colls.institution_acronym#" class="reqdClr">
 					<label for="collection">Collection</label>
 					<input type="text" name="collection" id="collection" value="#colls.collection#" size="50" class="reqdClr">
-					<label for="guid_prefix">GUID Prefix</label>					
+					<label for="guid_prefix">GUID Prefix</label>
 					<input type="text" name="guid_prefix" id="guid_prefix" value="#colls.guid_prefix#">
 					<label for="descr">Description</label>
-					<input type="text" name="descr" id="descr" value="#colls.descr#" size="50">
+					<textarea name="descr" id="descr" rows="3" cols="40">#colls.descr#</textarea>
 					<label for="web_link">Web Link</label>
 					<cfset thisWebLink = replace(colls.web_link,"'","''",'all')>
 					<input type="text" name="web_link" id="web_link" value="#colls.web_link#" size="50">
@@ -77,13 +77,13 @@
 						<option <cfif colls.allow_prefix_suffix is 0>selected="selected" </cfif>value="0">no</option>
 						<option <cfif colls.allow_prefix_suffix is 1>selected="selected" </cfif>value="1">yes</option>
 					</select>
-					<br><input type="submit" value="Save Changes" class="savBtn">	
-					<input type="button" value="Quit" class="qutBtn" onClick="document.location='/Admin/Collection.cfm';">	
+					<br><input type="submit" value="Save Changes" class="savBtn">
+					<input type="button" value="Quit" class="qutBtn" onClick="document.location='/Admin/Collection.cfm';">
 				</form>
 			</td>
 <td valign="top">
 	<cfquery name="contact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			collection_contact_id,
 			contact_role,
 			contact_agent_id,
@@ -119,12 +119,12 @@
 					onchange="getAgent('contact_agent_id','contact','contact#i#',this.value); return false;"
 			 		onKeyPress="return noenter(event);">
 			</td>
-		
+
 			<td>
 				<select name="contact_role" size="1" class="reqdClr">
 					<cfset thisContactRole = #contact_role#>
 					<cfloop query="ctContactRole">
-						<option 
+						<option
 							<cfif #thisContactRole# is #contact_role#> selected </cfif>
 							value="#contact_role#">#contact_role#</option>
 					</cfloop>
@@ -133,14 +133,14 @@
 			<td colspan="2" align="center" nowrap>
 				<input type="button" value="Save" class="savBtn"
    					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'"
-					onClick="contact#i#.action.value='updateContact';submit();">	
+					onClick="contact#i#.action.value='updateContact';submit();">
 				<input type="button" value="Delete" class="delBtn"
    					onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
 					onClick="contact#i#.action.value='deleteContact';confirmDelete('contact#i#');">
 			</td>
 		</tr>
 		</form>
-		<cfset i=#i#+1>
+		<cfset i=i+1>
 	</cfloop>
 	</table>
 	<form name="newContact" method="post" action="Collection.cfm">
@@ -170,11 +170,10 @@
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
-			<input type="submit" value="Create Contact" class="insBtn"
-   				onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">	
+			<input type="submit" value="Create Contact" class="insBtn">
 		</td>
 	</tr>
-		
+
 	</table>
 	</form>
 	<form name="appearance" method="post" action="Collection.cfm">
@@ -182,8 +181,8 @@
 		<input type="hidden" name="collection_id" value="#collection_id#">
 		<table border>
 			<tr>
-				<td colspan="2">Portal 
-					<span style="font-size:smaller">(You may need DBA help to set this up properly for new collections. 
+				<td colspan="2">Portal
+					<span style="font-size:smaller">(You may need DBA help to set this up properly for new collections.
 					Your settings will be ignored if you don't include enough information. With the help of a DBA, you may also create "portals"
 					for things other than collections - e.g., all mammal collections, or all collections within an institution, or whatever)
 					</span>
@@ -338,18 +337,17 @@
 <cfif #action# is "modifyCollection">
 <cfoutput>
 	<cftransaction>
-	
 	<cfquery name="modColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		UPDATE collection SET 
+		UPDATE collection SET
 			COLLECTION_CDE = '#collection_cde#',
 			guid_prefix = '#guid_prefix#',
 			COLLECTION = '#collection#',
 			INSTITUTION_ACRONYM='#institution_acronym#',
-			DESCR='#descr#',
+			DESCR='#escapeQuotes(descr)#',
 			web_link='#web_link#',
 			web_link_text='#web_link_text#',
 			loan_policy_url='#loan_policy_url#',
-			allow_prefix_suffix=#allow_prefix_suffix#		
+			allow_prefix_suffix=#allow_prefix_suffix#
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>

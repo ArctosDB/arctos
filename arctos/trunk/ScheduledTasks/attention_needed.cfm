@@ -1,3 +1,8 @@
+<!--- replace with "someone made a link to your stuff" ---->
+
+<cfabort>
+
+
 <cfinclude template="/includes/_header.cfm">
 	<cfif dateformat(now(),"dd") is not 1>
 		This only runs on the first day of the month.
@@ -6,7 +11,7 @@
 	<cfoutput>
 		<!--- pending relationships that have been in the table for >30d ---->
 		<cfquery name="contacts" datasource="uam_god">
-			select 
+			select
 				count(*) c,
 				collection,
 				ADDRESS
