@@ -13,7 +13,7 @@
 			ctmedia_license
 		where
 			collection.USE_LICENSE_ID=ctmedia_license.media_license_id (+)
-			and collection_id=17
+			and collection_id=29
 	</cfquery>
 <cfdump var=#d#>
 <cfloop query="d">
