@@ -12,7 +12,7 @@
 			collection,
 			ctmedia_license
 		where
-			collection.USE_LICENSE_ID=ctmedia_license.ctmedia_license_id (+)
+			collection.USE_LICENSE_ID=ctmedia_license.media_license_id (+)
 	</cfquery>
 <cfdump var=#d#>
 <cfloop query="d">
