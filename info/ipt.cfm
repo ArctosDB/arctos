@@ -3,7 +3,7 @@
 	<cfquery name="d" datasource="uam_god">
 		select
 			collection.collection,
-			collection.descr
+			collection.descr,
 			collection.citation,
 			collection.web_link,
 			display,
@@ -12,7 +12,7 @@
 			collection,
 			ctmedia_license
 		where
-		collection.USE_LICENSE_ID=ctmedia_license.ctmedia_license_id (+)
+			collection.USE_LICENSE_ID=ctmedia_license.ctmedia_license_id (+)
 	</cfquery>
 <cfdump var=#d#>
 <cfloop query="d">
