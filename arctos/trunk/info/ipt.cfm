@@ -67,10 +67,10 @@
 			<br>INSTITUTION: #INSTITUTION#
 			<br>DEPARTMENT: #DEPARTMENT#
 		</cfloop>
-		<cfquery name="addr" datasource="uam_god">
+		<cfquery name="eaddr" datasource="uam_god">
 			select * from electronic_address where agent_id=#CONTACT_AGENT_ID#
 		</cfquery>
-		<cfloop query-"addr">
+		<cfloop query="eaddr">
 			<br>ADDRESS_TYPE: #ADDRESS_TYPE#
 			<br>ADDRESS: #ADDRESS#
 		</cfloop>
