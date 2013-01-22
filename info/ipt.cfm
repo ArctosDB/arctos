@@ -43,7 +43,7 @@
 			</cfquery>
 			<label for="">Geographic  Coverage</label>
 			<cfset geocov=valuelist(gc.continent_ocean)>
-			<cfif listfind(geocov>
+			<cfif listfind(geocov,"no higher geography recorded")>
 				<cfset geocov=listdeleteat(geocov,listfind(geocov,"no higher geography recorded"))>
 			</cfif>
 			<input type="text" size="80" value="#geocov#">
