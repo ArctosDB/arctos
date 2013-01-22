@@ -1,4 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
+<style>
+	.redborder {border:2px solid red;}
+	.greenborder {border:2px solid green; padding-left:2em;}
+	.blueborder {border:2px solid blue; padding-left:4em;}
+	.yellowborder {border:2px solid yellow; padding-left:4em;}
+
+
+</style>
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select
@@ -20,7 +28,7 @@
 		<hr>
 		<label for="">collection</label>
 		<input type="text" size="80" value="#collection#">
-		<blockquote>
+		<div class="redborder">
 			<label for="">descr</label>
 			<textarea rows="6" cols="80">#descr#</textarea>
 			<label for="">citation</label>
@@ -61,7 +69,7 @@
 				CONTACT_AGENT_ID=person_id and
 				collection_id=#collection_id#
 			</cfquery>
-			<blockquote>
+			<div class="greenborder">
 				<cfloop query="contacts">
 					<label for="">CONTACT_ROLE</label>
 					<input type="text" size="80" value="#CONTACT_ROLE#">
@@ -72,7 +80,7 @@
 					<cfquery name="addr" datasource="uam_god">
 						select * from addr where agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
-					<blockquote>
+					<div class="blueborder">
 						<cfloop query="addr">
 							<label for="">ADDR_TYPE</label>
 							<input type="text" size="80" value="#ADDR_TYPE#">
@@ -99,20 +107,20 @@
 							<label for="">DEPARTMENT</label>
 							<input type="text" size="80" value="#DEPARTMENT#">
 						</cfloop>
-					</blockquote>
+					</div>
 					<cfquery name="eaddr" datasource="uam_god">
 						select * from electronic_address where agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
-					<blockquote>
+					<div class="yellowborder">
 						<cfloop query="eaddr">
 							<label for="">ADDRESS_TYPE</label>
 							<input type="text" size="80" value="#ADDRESS_TYPE#">
 							<label for="">ADDRESS</label>
 							<input type="text" size="80" value="#ADDRESS#">
 						</cfloop>
-					</blockquote>
+					</div>
 				</cfloop>
-			</blockquote>
-		</blockquote>
+			</div>
+		</div>
 	</cfloop>
 </cfoutput>
