@@ -86,7 +86,7 @@
 						<option value="NULL">-none-</option>
 						<cfloop query="CTMEDIA_LICENSE">
 							<option	<cfif colls.use_license_id is MEDIA_LICENSE_ID> selected="selected" </cfif>
-								value="#DISPLAY#">#DISPLAY#</option>
+								value="#MEDIA_LICENSE_ID#">#DISPLAY#</option>
 						</cfloop>
 					</select>
 					<span class="infoLink" onclick="getCtDoc('ctmedia_license',editCollection.use_license_id.value);">Define</span>
