@@ -203,7 +203,10 @@
 		</cfscript>
 		<cfabort>
 	<cfelse>
+	<cfoutput>
 		#Application.webDirectory##rdurl#.cfm does not exist
+
+		</cfoutput>
 		<cfinclude template="/errors/404.cfm">
 	</cfif>
 <cfelse>
