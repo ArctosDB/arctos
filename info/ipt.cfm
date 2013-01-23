@@ -114,7 +114,7 @@
 						from
 							addr
 						where
-							addr_type = 'correspondence' and
+							addr_type = 'Correspondence' and
 							VALID_ADDR_FG = 1 and
 							agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
