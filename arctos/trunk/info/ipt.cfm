@@ -29,8 +29,8 @@
 
 		stuff
 		<label for="">collection</label>
-					<input type="text" size="80" value="#collection#">
-		<!---------
+		<input type="text" size="80" value="#collection#">
+
 
 			<label for="">descr</label>
 			<textarea rows="6" cols="80">#descr#</textarea>
@@ -76,6 +76,8 @@
 				CONTACT_AGENT_ID=person_id and
 				collection_id=#collection_id#
 			</cfquery>
+
+				<!---------
 			<cfloop query="contacts">
 				<span class="greenborder">
 					<label for="">CONTACT_ROLE</label>
