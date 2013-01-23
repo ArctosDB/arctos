@@ -28,9 +28,10 @@
 		<span class="redborder">
 
 		stuff
+		<label for="">collection</label>
+					<input type="text" size="80" value="#collection#">
 		<!---------
-			<label for="">collection</label>
-			<input type="text" size="80" value="#collection#">
+
 			<label for="">descr</label>
 			<textarea rows="6" cols="80">#descr#</textarea>
 			<label for="">citation</label>
