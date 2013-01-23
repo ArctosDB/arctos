@@ -197,16 +197,11 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://129.237.201.204/arctosdigir/DiGIR.php">
 	<cfelseif FileExists("#Application.webDirectory#/#rdurl#.cfm")>
-		#Application.webDirectory##rdurl#.cfm exists
 		<cfscript>
 			getPageContext().forward("/" & rdurl & ".cfm?" & cgi.redirect_query_string);
 		</cfscript>
 		<cfabort>
 	<cfelse>
-	<cfoutput>
-		#Application.webDirectory##rdurl#.cfm does not exist
-
-		</cfoutput>
 		<cfinclude template="/errors/404.cfm">
 	</cfif>
 <cfelse>
