@@ -25,7 +25,7 @@
 			order by collection
 	</cfquery>
 	<cfloop query="d">
-		<div class="redborder">
+		<span class="redborder">
 			<label for="">collection</label>
 			<input type="text" size="80" value="#collection#">
 			<label for="">descr</label>
@@ -73,7 +73,7 @@
 				collection_id=#collection_id#
 			</cfquery>
 			<cfloop query="contacts">
-				<div class="greenborder">
+				<span class="greenborder">
 					<label for="">CONTACT_ROLE</label>
 					<input type="text" size="80" value="#CONTACT_ROLE#">
 					<label for="">first_name</label>
@@ -84,7 +84,7 @@
 						select * from addr where agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
 					<cfloop query="addr">
-						<div class="blueborder">
+						<span class="blueborder">
 							<label for="">ADDR_TYPE</label>
 							<input type="text" size="80" value="#ADDR_TYPE#">
 							<label for="">VALID_ADDR_FG</label>
@@ -109,21 +109,21 @@
 							<input type="text" size="80" value="#INSTITUTION#">
 							<label for="">DEPARTMENT</label>
 							<input type="text" size="80" value="#DEPARTMENT#">
-						</div>
+						</span>
 					</cfloop>
 					<cfquery name="eaddr" datasource="uam_god">
 						select * from electronic_address where agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
 					<cfloop query="eaddr">
-						<div class="yellowborder">
+						<span class="yellowborder">
 							<label for="">ADDRESS_TYPE</label>
 							<input type="text" size="80" value="#ADDRESS_TYPE#">
 							<label for="">ADDRESS</label>
 							<input type="text" size="80" value="#ADDRESS#">
-						</div>
+						</span>
 					</cfloop>
-				</div>
+				</span>
 			</cfloop>
-		</div>
+		</span>
 	</cfloop>
 </cfoutput>
