@@ -39,7 +39,7 @@
 			<label for="">license_uri</label>
 			<input type="text" size="80" value="#uri#">
 			<cfquery name="gc" datasource="uam_god">
-				select continent_ocean from flat where collection_id=#collection_id# group by continent_ocean order by continent_ocean
+				select continent_ocean from flat where continent_ocean is not null and collection_id=#collection_id# group by continent_ocean order by continent_ocean
 			</cfquery>
 			<label for="">Geographic  Coverage</label>
 			<cfset geocov=valuelist(gc.continent_ocean)>
@@ -48,10 +48,10 @@
 			</cfif>
 			<textarea rows="6" cols="80">#geocov#</textarea>
 			<cfquery name="tc" datasource="uam_god">
-				select phylclass from flat where collection_id=#collection_id# group by phylclass order by phylclass
+				select phylclass from flat where phylclass is not null and collection_id=#collection_id# group by phylclass order by phylclass
 			</cfquery>
 			<label for="">Taxonomic  Coverage</label>
-			<input type="text" size="80" value="#valuelist(tc.phylclass)#">
+			<textarea rows="6" cols="80">#valuelist(tc.phylclass)#</textarea>
 			<cfquery name="tec" datasource="uam_god">
 				select min(began_date) earliest, max(ended_date) latest from flat where collection_id=#collection_id#
 			</cfquery>
