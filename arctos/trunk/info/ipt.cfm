@@ -48,7 +48,7 @@
 			<label for="">license_uri</label>
 			<input type="text" size="80" value="#uri#">
 			<cfquery name="gc" datasource="uam_god">
-				select continent_ocean from flat where continent_ocean is not null and collection_id=#collection_id# group by continent_ocean order by continent_ocean
+				select continent_ocean from flat where continent_ocean is not null and collection_id=#collection_id# group by continent_ocean order by count(*) DESC
 			</cfquery>
 			<label for="">Geographic  Coverage</label>
 			<cfset geocov=valuelist(gc.continent_ocean)>
