@@ -76,9 +76,11 @@
 			correct links - eg, the no-subspecies name
 			should not contain all the subspecies
 		---->
-		#mapurl#
+californicus&taxon_scope=currentID_like&ShowO
 		<cfif mapurl contains "taxon_scope">
 			...it does
+			<cfset mapurl=rereplace(mapurl,'(taxon_scope=.*)&','&')>
+			---------------#mapurl#---------------
 		</cfif>
 		<cfset thisLink="#mapURL#&taxon_scope=currentID_is">
 		<tr>
