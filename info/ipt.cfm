@@ -1,6 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfif not isdefined("session.iptauthenticated")>
+		Top-secret <strong>password</strong> required.
+		<br>This is not your regular Arctos <strong>password</strong>.
+		<br>It's just a light bit of fake security to keep bots and stuff out.
+		<br>That's necessary because we want people without real accounts to be able to use this.
+		<br><a href="/contact.cfm">contact us</a> if you need the <strong>password</strong>.
 		<form method="post" action="ipt.cfm">
 			<label for="password">enter password</label>
 			<input type="password" name="password">
