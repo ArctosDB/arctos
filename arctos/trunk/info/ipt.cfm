@@ -1,9 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
-	.redborder {border:2px solid red; margin:1em;}
-	.greenborder {border:2px solid green; padding: 1em 1em 1em 2em; margin:1em;}
-	.blueborder {border:2px solid blue; padding: 1em 1em 1em 2em; margin:1em;}
-	.yellowborder {border:2px solid yellow; padding: 1em 1em 1em 2em; margin:1em;}
+	.redborder {border:2px solid red; margin:1em;display: inline-block;}
+	.greenborder {border:2px solid green; padding: 1em 1em 1em 2em; margin:1em; display: inline-block;}
+	.blueborder {border:2px solid blue; padding: 1em 1em 1em 2em; margin:1em;display: inline-block;}
+	.yellowborder {border:2px solid yellow; padding: 1em 1em 1em 2em; margin:1em;display: inline-block;}
 
 
 </style>
