@@ -26,6 +26,9 @@
 	</cfquery>
 	<cfloop query="d">
 		<span class="redborder">
+
+		stuff
+		<!---------
 			<label for="">collection</label>
 			<input type="text" size="80" value="#collection#">
 			<label for="">descr</label>
@@ -124,6 +127,8 @@
 					</cfloop>
 				</span>
 			</cfloop>
+
+			--------->
 		</span>
 	</cfloop>
 </cfoutput>
