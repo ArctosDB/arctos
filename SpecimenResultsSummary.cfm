@@ -70,7 +70,7 @@
 	<cfloop query="getData">
 		<cfset thisLink=mapurl>
 		<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
-		<cfset thisLink="#mapURL#">
+		<cfset thisLink="#mapURL#&taxon_scope=currentID_is">
 		<tr>
 			<td>#COUNTOFCATALOGEDITEM#</td>
 			<cfloop list="#groupby#" index="x">
