@@ -1,4 +1,17 @@
 <cfinclude template="/includes/_header.cfm">
+	<cfoutput>
+		<form method="post" action="ipt.cfm">
+	<label for="password">password</label>
+	<input type="password" name="password">
+</form>
+
+<cfif hash(password) is "5F4DCC3B5AA765D61D8327DEB882CF99">
+	spiffy
+	<cfelse>
+	#hash(password)#
+</cfif>
+<cfdump var=#form#>
+<cfabort>
 <style>
 	.redborder {border:2px solid red; margin:1em;display: inline-block;}
 	.greenborder {border:2px solid green; padding: 1em 1em 1em 2em; margin:1em; display: inline-block;}
@@ -7,7 +20,7 @@
 
 
 </style>
-<cfoutput>
+
 	<cfquery name="d" datasource="uam_god">
 		select
 			collection.collection_id,
