@@ -8,7 +8,7 @@
 </cfloop>
 <cfset basFrom = " FROM #session.flatTableName#">
 <cfset basJoin = "">
-<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">	
+<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
 <cfset basQual = "">
 <cfset mapurl="">
 <cfinclude template="includes/SearchSql.cfm">
@@ -36,8 +36,8 @@
 </cfif>
 <!--- ... and abort if there's nothing left --->
 <cfif len(srchTerms) is 0>
-	<CFSETTING ENABLECFOUTPUTONLY=0>			
-	<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
+	<CFSETTING ENABLECFOUTPUTONLY=0>
+	<font color="##FF0000" size="+2">You must enter some search criteria!</font>
 	<cfabort>
 </cfif>
 
@@ -49,7 +49,7 @@
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
 <cfoutput>
-	
+
 
 <cfset dlPath = "#Application.DownloadPath#">
 <cfset variables.encoding="UTF-8">
@@ -57,7 +57,7 @@
 <cfset header ="Count,#groupBy#,Link">
 <cfscript>
 	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-	variables.joFileWriter.writeLine(ListQualify(header,'"')); 
+	variables.joFileWriter.writeLine(ListQualify(header,'"'));
 </cfscript>
 <table border id="t" class="sortable">
 	<tr>
@@ -70,7 +70,7 @@
 	<cfloop query="getData">
 		<cfset thisLink=mapurl>
 		<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
-		<cfset thisLink="#Application.ServerRootURL#/SpecimenResults.cfm?#mapURL#">
+		<cfset thisLink="#mapURL#">
 		<tr>
 			<td>#COUNTOFCATALOGEDITEM#</td>
 			<cfloop list="#groupby#" index="x">
@@ -85,23 +85,23 @@
 			</cfloop>
 			<cfset oneLine=oneline & ',"#thisLink#"'>
 			<cfscript>
-				variables.joFileWriter.writeLine(oneLine); 
+				variables.joFileWriter.writeLine(oneLine);
 			</cfscript>
 			<td><a href="/SpecimenResults.cfm?#thisLink#">specimens</a>
 		</tr>
 	</cfloop>
 </table>
-	
 
 
-	<cfscript>	
+
+	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
-	
+
 	<a href="/download.cfm?file=ArctosSpecimenSummary.csv">get CSV</a>
-	
-	
-	
+
+
+
 </cfoutput>
 
 
