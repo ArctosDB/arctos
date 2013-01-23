@@ -1,26 +1,28 @@
 <cfinclude template="/includes/_header.cfm">
-	<cfoutput>
+<cfoutput>
+	<cfif not isdefined("session.iptauthenticated">
 		<form method="post" action="ipt.cfm">
-	<label for="password">password</label>
-	<input type="password" name="password">
-</form>
-
-<cfif hash(password) is "5F4DCC3B5AA765D61D8327DEB882CF99">
-	spiffy
-	<cfelse>
-	#hash(password)#
-</cfif>
-<cfdump var=#form#>
-<cfabort>
-<style>
-	.redborder {border:2px solid red; margin:1em;display: inline-block;}
-	.greenborder {border:2px solid green; padding: 1em 1em 1em 2em; margin:1em; display: inline-block;}
-	.blueborder {border:2px solid blue; padding: 1em 1em 1em 2em; margin:1em;display: inline-block;}
-	.yellowborder {border:2px solid yellow; padding: 1em 1em 1em 2em; margin:1em;display: inline-block;}
-
-
-</style>
-
+			<label for="password">enter password</label>
+			<input type="password" name="password">
+			<br><input type="submit" value="go">
+		</form>
+		<cfif not isdefined("password")>
+			you did not enter password
+			<cfabort>
+		</cfif>
+		<cfif hash(password) is not "5F4DCC3B5AA765D61D8327DEB882CF99">
+			you did not enter password
+			<cfabort>
+		</cfif>
+		<cfset session.iptauthenticated=true>
+		<cflocation url="/info/ipt.cfm" addtoken="false">
+	</cfif>
+	<style>
+		.redborder {border:2px solid red; margin:1em;display: inline-block;}
+		.greenborder {border:2px solid green; padding: 1em 1em 1em 2em; margin:1em; display: inline-block;}
+		.blueborder {border:2px solid blue; padding: 1em 1em 1em 2em; margin:1em;display: inline-block;}
+		.yellowborder {border:2px solid yellow; padding: 1em 1em 1em 2em; margin:1em;display: inline-block;}
+	</style>
 	<cfquery name="d" datasource="uam_god">
 		select
 			collection.collection_id,
