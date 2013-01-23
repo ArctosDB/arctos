@@ -58,7 +58,7 @@
 			<cfset geocov=replace(geocov,",",", ","all")>
 			<textarea rows="6" cols="80">#geocov#</textarea>
 			<cfquery name="tc" datasource="uam_god">
-				select phylclass from flat where phylclass is not null and collection_id=#collection_id# group by phylclass order by count(*)
+				select phylclass from flat where phylclass is not null and collection_id=#collection_id# group by phylclass order by count(*) DESC
 			</cfquery>
 
 				<cfset taxcov=replace(valuelist(tc.phylclass),",",", ","all")>
