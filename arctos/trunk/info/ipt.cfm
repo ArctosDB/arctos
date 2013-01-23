@@ -32,6 +32,7 @@
 	</cfloop>
 	<cfloop query="d">
 		<br><a name="#institution_acronym#_#collection_cde#" href="##top">scroll to top</a>
+		<br>
 		<span class="redborder">
 			<br>
 			<label for="">collection</label>
@@ -57,7 +58,7 @@
 			<cfset geocov=replace(geocov,",",", ","all")>
 			<textarea rows="6" cols="80">#geocov#</textarea>
 			<cfquery name="tc" datasource="uam_god">
-				select phylclass from flat where phylclass is not null and collection_id=#collection_id# group by phylclass order by phylclass
+				select phylclass from flat where phylclass is not null and collection_id=#collection_id# group by phylclass order by count(*)
 			</cfquery>
 
 				<cfset taxcov=replace(valuelist(tc.phylclass),",",", ","all")>
