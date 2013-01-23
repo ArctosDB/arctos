@@ -324,6 +324,7 @@
 									<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
 									<li><a target="_top" href="/tools/downloadData.cfm">Download Tables</a></li>
 									<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
+									<li><a target="_top" href="/info/ipt.cfm">IPT/collection metadata report</a></li>
 				                    <cfif listfind(formList,"/tools/userSQL.cfm")>
 									    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
 				                    </cfif>
