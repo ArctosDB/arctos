@@ -70,6 +70,16 @@
 	<cfloop query="getData">
 		<cfset thisLink=mapurl>
 		<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
+		<!---
+			mapURL probably contains taxon_scope
+			We have to over-ride that here to get the
+			correct links - eg, the no-subspecies name
+			should not contain all the subspecies
+		---->
+		#mapurl#
+		<cfif mapurl contains "taxon_scope">
+			...it does
+		</cfif>
 		<cfset thisLink="#mapURL#&taxon_scope=currentID_is">
 		<tr>
 			<td>#COUNTOFCATALOGEDITEM#</td>
