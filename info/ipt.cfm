@@ -130,5 +130,6 @@
 
 			--------->
 		</span>
+		<br>
 	</cfloop>
 </cfoutput>
