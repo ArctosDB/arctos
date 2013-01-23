@@ -16,7 +16,9 @@
 			collection.citation,
 			collection.web_link,
 			display,
-			uri
+			uri,
+			collection_cde,
+			institution_acronym
 		from
 			collection,
 			ctmedia_license
@@ -24,10 +26,14 @@
 			collection.USE_LICENSE_ID=ctmedia_license.media_license_id (+)
 			order by collection
 	</cfquery>
+	<a name="top"></a>
 	<cfloop query="d">
-		<br>
+		<br><a href="###institution_acronym#_#colection_cde#">#institution_acronym#_#colection_cde#</a>
+	</cfloop>
+	<cfloop query="d">
+		<br><a name="#institution_acronym#_#colection_cde#" href="##top">scroll to top</a>
 		<span class="redborder">
-
+			<br>
 			<label for="">collection</label>
 			<input type="text" size="80" value="#collection#">
 			<label for="">descr</label>
@@ -77,8 +83,6 @@
 				CONTACT_AGENT_ID=person_id and
 				collection_id=#collection_id#
 			</cfquery>
-
-
 			<cfloop query="contacts">
 				<br>
 				<span class="greenborder">
@@ -89,15 +93,24 @@
 					<label for="">last_name</label>
 					<input type="text" size="80" value="#last_name#">
 					<cfquery name="addr" datasource="uam_god">
-						select * from addr where agent_id=#CONTACT_AGENT_ID#
+						select
+							*
+						from
+							addr
+						where
+							addr_type = 'correspondence' and
+							VALID_ADDR_FG = 1 and
+							agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
 					<cfloop query="addr">
 						<br>
 						<span class="blueborder">
+							<!-----
 							<label for="">ADDR_TYPE</label>
 							<input type="text" size="80" value="#ADDR_TYPE#">
 							<label for="">VALID_ADDR_FG</label>
 							<input type="text" size="80" value="#VALID_ADDR_FG#">
+							----->
 							<label for="">JOB_TITLE</label>
 							<input type="text" size="80" value="#JOB_TITLE#">
 							<label for="">STREET_ADDR1</label>
