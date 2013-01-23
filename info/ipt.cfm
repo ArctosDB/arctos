@@ -1,5 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+	<cfif (isdefined("session.roles") and session.roles contains "coldfusion_user")>
+		<cfset session.iptauthenticated=true>
+	</cfif>
 	<cfif not isdefined("session.iptauthenticated")>
 		Top-secret <strong>password</strong> required.
 		<br>This is not your regular Arctos <strong>password</strong>.
