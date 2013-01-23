@@ -199,7 +199,7 @@
 	<cfelseif FileExists("#Application.webDirectory#/#rdurl#.cfm")>
 		#Application.webDirectory##rdurl#.cfm exists
 		<cfscript>
-			getPageContext().forward(rdurl & ".cfm?" & cgi.redirect_query_string);
+			getPageContext().forward("/" & rdurl & ".cfm?" & cgi.redirect_query_string);
 		</cfscript>
 		<cfabort>
 	<cfelse>
