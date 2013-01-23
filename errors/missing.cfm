@@ -1,4 +1,5 @@
 <cfif isdefined("cgi.query_string") and len(cgi.query_string) gt 0>
+isdef
 	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfif rdurl contains chr(195) & chr(151)>
 		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
