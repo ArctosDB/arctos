@@ -28,10 +28,10 @@
 	</cfquery>
 	<a name="top"></a>
 	<cfloop query="d">
-		<br><a href="###institution_acronym#_#colection_cde#">#institution_acronym#_#colection_cde#</a>
+		<br><a href="###institution_acronym#_#collection_cde#">#institution_acronym#_#collection_cde#</a>
 	</cfloop>
 	<cfloop query="d">
-		<br><a name="#institution_acronym#_#colection_cde#" href="##top">scroll to top</a>
+		<br><a name="#institution_acronym#_#collection_cde#" href="##top">scroll to top</a>
 		<span class="redborder">
 			<br>
 			<label for="">collection</label>
