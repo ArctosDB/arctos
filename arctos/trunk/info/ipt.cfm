@@ -76,7 +76,9 @@
 				CONTACT_AGENT_ID=person_id and
 				collection_id=#collection_id#
 			</cfquery>
-
+					<span class="greenborder">
+						gb
+				</span>
 				<!---------
 			<cfloop query="contacts">
 				<span class="greenborder">
