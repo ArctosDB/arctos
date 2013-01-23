@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	<cfif not isdefined("session.iptauthenticated">
+	<cfif not isdefined("session.iptauthenticated")>
 		<form method="post" action="ipt.cfm">
 			<label for="password">enter password</label>
 			<input type="password" name="password">
