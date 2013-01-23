@@ -76,11 +76,10 @@
 				CONTACT_AGENT_ID=person_id and
 				collection_id=#collection_id#
 			</cfquery>
-					<span class="greenborder">
-						gb
-				</span>
-				<!---------
+
+
 			<cfloop query="contacts">
+				<br>
 				<span class="greenborder">
 					<label for="">CONTACT_ROLE</label>
 					<input type="text" size="80" value="#CONTACT_ROLE#">
@@ -92,6 +91,7 @@
 						select * from addr where agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
 					<cfloop query="addr">
+						<br>
 						<span class="blueborder">
 							<label for="">ADDR_TYPE</label>
 							<input type="text" size="80" value="#ADDR_TYPE#">
@@ -123,6 +123,7 @@
 						select * from electronic_address where agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
 					<cfloop query="eaddr">
+						<br>
 						<span class="yellowborder">
 							<label for="">ADDRESS_TYPE</label>
 							<input type="text" size="80" value="#ADDRESS_TYPE#">
@@ -133,7 +134,6 @@
 				</span>
 			</cfloop>
 
-			--------->
 		</span>
 		<br>
 	</cfloop>
