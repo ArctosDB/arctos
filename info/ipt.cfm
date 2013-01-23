@@ -48,12 +48,15 @@
 			<cfif listfind(geocov,"no higher geography recorded")>
 				<cfset geocov=listdeleteat(geocov,listfind(geocov,"no higher geography recorded"))>
 			</cfif>
+			<cfset geocov=replace(geocov,",",", ","all")>
 			<textarea rows="6" cols="80">#geocov#</textarea>
 			<cfquery name="tc" datasource="uam_god">
 				select phylclass from flat where phylclass is not null and collection_id=#collection_id# group by phylclass order by phylclass
 			</cfquery>
+
+				<cfset taxcov=replace(valuelist(tc.phylclass),",",", ","all")>
 			<label for="">Taxonomic  Coverage</label>
-			<textarea rows="6" cols="80">#valuelist(tc.phylclass)#</textarea>
+			<textarea rows="6" cols="80">#taxcov#</textarea>
 			<cfquery name="tec" datasource="uam_god">
 				select min(began_date) earliest, max(ended_date) latest from flat where collection_id=#collection_id#
 			</cfquery>
