@@ -49,8 +49,8 @@
 		</td>
 		<td class="srch">
 			<select name="oidOper" id="oidOper" size="1">
-				<option value="" ">contains</option>
-				<option selected="selected value="IS">is</option>
+				<option value="">contains</option>
+				<option selected="selected" value="IS">is</option>
 			</select>
 			<cfif ListContains(session.searchBy, 'bigsearchbox') gt 0>
 				<textarea name="OIDNum" id="OIDNum" rows="6" cols="30" wrap="soft"></textarea>
@@ -61,7 +61,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="other_id_num">Other&nbsp;Identifier References:</span>
+			<span class="helpLink" id="id_references">Other&nbsp;Identifier References:</span>
 		</td>
 		<td class="srch">
 			<select name="id_references" id="id_references" size="1">
