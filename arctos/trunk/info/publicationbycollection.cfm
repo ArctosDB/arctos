@@ -214,7 +214,7 @@
 							transaction_id
 					</cfquery>
 					<cfif acnproj.recordcount gt 0>
-						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">Specimens accessioned by projects which use this publication</a>
+						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">Specimens accessioned by projects which use this publication</a><br>
 					</cfif>
 					<cfquery name="loanproj" dbtype="query">
 						select
@@ -228,7 +228,7 @@
 							transaction_id
 					</cfquery>
 					<cfif loanproj.recordcount gt 0>
-						<br><a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">Specimens used by projects which use this publication</a>
+						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">Specimens used by projects which use this publication</a>
 					</cfif>
 				</td>
 
