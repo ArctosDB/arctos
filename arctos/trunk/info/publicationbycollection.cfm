@@ -198,7 +198,7 @@
 
 				<td>
 					<cfif citation.recordcount gt 0>
-						<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#citation.c# specimens</a>
+						<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#citation.c#&nbsp;specimens</a>
 					</cfif>
 				</td>
 				<td>
