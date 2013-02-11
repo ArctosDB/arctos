@@ -28,7 +28,7 @@
 		</cfif>
 		<cfabort>
 	</cfif>
-	<cfset nono="verify-tldnotify,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
+	<cfset nono="wp-admin,wp,verify-tldnotify,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
 	<cfset fourohthree="dll,asp,png,crossdomain">
 	<cfloop list="#rdurl#" delimiters="./&" index="i">
 		<cfif listfindnocase(nono,i)>
