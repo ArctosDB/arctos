@@ -7,6 +7,7 @@
 <cfif not isdefined("collection_id")>
 	<cfset collection_id="">
 </cfif>
+<cfoutput>
 <form name="f" method="post" action="publicationbycollection.cfm">
 	<input type="hidden" name="action"  value="fetch">
 	<label for="collection_id">Collection</label>
@@ -49,4 +50,5 @@
 		</cfloop>
 	</table>
 </cfif>
+	</cfoutput>
 	<cfinclude template="/includes/_footer.cfm">
