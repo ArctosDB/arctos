@@ -46,6 +46,32 @@
 			'citation',
 			DOI,
 			PMID
+		union
+		select
+			FULL_CITATION,
+			publication.publication_id,
+			'accession' linkage,
+			DOI,
+			PMID,
+			count(*) c
+		from
+			publication,
+			project_publication,
+			project_trans,
+			cataloged_item
+		where
+publication.publication_id=project_publication.publication_id and
+project_publication.PROJECT_ID=project_trans.PROJECT_ID and
+project_trans.TRANSACTION_ID=cataloged_item.ACCN_ID and
+cataloged_item.collection_id=#collection_id#
+group by
+			FULL_CITATION,
+			publication.publication_id,
+			'accession',
+			DOI,
+			PMID
+
+
 	</cfquery>
 	<cfif citations.recordcount lt 1>
 		nothing found<cfabort>
@@ -66,7 +92,7 @@
 				<td><a href="/publication/#publication_id#">detail</a></td>
 				<td>#linkage#</td>
 				<td><a href="http://dx.doi.org/#doi#">#doi#</a></td>
-				<td>#pmid#</td>
+				<td><a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=#pmid#">#pmid#</a></td>
 				<td><a href="http://scholar.google.com/scholar?hl=en&q=#FULL_CITATION#">(search by title)</a></td>
 				<td><a href="/SpecimenResults.cfm?publication_id=#publication_id#">#c# specimens</a></td>
 			</tr>
