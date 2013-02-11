@@ -56,6 +56,7 @@
 			<th>Linkage</th>
 			<th>DOI</th>
 			<th>PMID</th>
+			<th>Google Scholar</th>
 			<th>Specimens</th>
 		</tr>
 		<cfloop query="citations">
@@ -64,6 +65,7 @@
 				<td>#linkage#</td>
 				<td>#doi#</td>
 				<td>#pmid#</td>
+				<td><a href="http://scholar.google.com/scholar?hl=en&q=#FULL_CITATION#">(search by title)</a></td>
 				<td><a href="/SpecimenResults.cfm?publication_id=#publication_id#">#c# specimens</a></td>
 			</tr>
 		</cfloop>
