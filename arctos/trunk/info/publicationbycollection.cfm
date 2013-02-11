@@ -212,7 +212,7 @@
 							transaction_id
 					</cfquery>
 					<cfif acnproj.recordcount gt 0>
-						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#">#acnproj.sumc# specimens accessioned</a>
+						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">#acnproj.sumc# specimens accessioned</a>
 					</cfif>
 					<!----
 					<cfif linkage is "citation">
