@@ -117,7 +117,7 @@
 			select
 				FULL_CITATION,
 				publication.publication_id,
-				'specimen loan' linkage,
+				'data loan' linkage,
 				DOI,
 				PMID,
 				loan_item.transaction_id,
@@ -137,7 +137,7 @@
 			group by
 				FULL_CITATION,
 				publication.publication_id,
-				'specimen loan',
+				'data loan',
 				DOI,
 				PMID,
 				loan_item.transaction_id
@@ -149,6 +149,7 @@
 			PMID,
 			transaction_id,
 			c
+		order by FULL_CITATION
 	</cfquery>
 	<cfif citations.recordcount lt 1>
 		nothing found<cfabort>
@@ -171,7 +172,17 @@
 				<td><a href="http://dx.doi.org/#doi#">#doi#</a></td>
 				<td><a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=#pmid#">#pmid#</a></td>
 				<td><a href="http://scholar.google.com/scholar?hl=en&q=#FULL_CITATION#">(search by title)</a></td>
-				<td><a href="/SpecimenResults.cfm?publication_id=#publication_id#">#c# specimens</a></td>
+				<td>
+					<cfif linkage is "citation">
+						<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#c# specimens</a>
+					<cfelseif linkage is "accession project">
+						<a href="/SpecimenResults.cfm?accn_trans_id=#transaction_id#">#c# specimens</a>
+					<cfelseif linkage is "specimen loan">
+						<a href="/SpecimenResults.cfm?loan_trans_id=#transaction_id#">#c# specimens</a>
+					<cfelseif linkage is "data loan">
+						<a href="/SpecimenResults.cfm?loan_trans_id=#transaction_id#">#c# specimens</a>
+					</cfif>
+				</td>
 			</tr>
 		</cfloop>
 	</table>
