@@ -11,8 +11,9 @@
 <form name="f" method="post" action="publicationbycollection.cfm">
 	<label for="collection_id">Collection</label>
 	<select name="collection_id" id="collection_id" size="1">
+		<cfset thiscollectionid=collection_id>
 		<cfloop query="ctcollection">
-			<option <cfif collection_id is ctcollection.collection_id> selected="selected" </cfif>
+			<option <cfif thiscollectionid is ctcollection.collection_id> selected="selected" </cfif>
 				value="#ctcollection.collection_id#">#ctcollection.collection#</option>
 		</cfloop>
 	</select>
@@ -34,6 +35,8 @@
 			publication.publication_id=citation.publication_id and
 			citation.collection_object_id=cataloged_item.collection_object_id and
 			cataloged_item.collection_id=#collection_id#
+		group by
+			FULL_CITATION
 	</cfquery>
 	<cfif citations.recordcount lt 1>
 		nothing found<cfabort>
