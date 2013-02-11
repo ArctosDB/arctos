@@ -53,6 +53,7 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Publication</th>
+			<th>Pub Details</th>
 			<th>Linkage</th>
 			<th>DOI</th>
 			<th>PMID</th>
@@ -62,8 +63,9 @@
 		<cfloop query="citations">
 			<tr>
 				<td>#full_citation#</td>
+				<td><a href="/publication/#publication_id#">detail</a></td>
 				<td>#linkage#</td>
-				<td>#doi#</td>
+				<td><a href="http://dx.doi.org/#doi#">#doi#</a></td>
 				<td>#pmid#</td>
 				<td><a href="http://scholar.google.com/scholar?hl=en&q=#FULL_CITATION#">(search by title)</a></td>
 				<td><a href="/SpecimenResults.cfm?publication_id=#publication_id#">#c# specimens</a></td>
