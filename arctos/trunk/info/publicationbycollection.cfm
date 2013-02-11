@@ -64,7 +64,7 @@
 				<td>#linkage#</td>
 				<td>#doi#</td>
 				<td>#pmid#</td>
-				<td><a href="/SpecimenDetail.cfm?publication_id#publication_id#">#c# specimens</a></td>
+				<td><a href="/SpecimenResults.cfm?publication_id#publication_id#">#c# specimens</a></td>
 			</tr>
 		</cfloop>
 	</table>
