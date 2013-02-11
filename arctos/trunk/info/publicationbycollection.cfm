@@ -26,7 +26,12 @@
 <cfif len(collection_id) gt 0>
 	<cfquery name="citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			FULL_CITATION
+			FULL_CITATION,
+			publication_id,
+			'citation' linkage,
+			DOI,
+			PMID,
+			count(*) c
 		from
 			publication,
 			citation,
@@ -36,18 +41,30 @@
 			citation.collection_object_id=cataloged_item.collection_object_id and
 			cataloged_item.collection_id=#collection_id#
 		group by
-			FULL_CITATION
+			FULL_CITATION,
+			publication_id,
+			'citation' linkage,
+			DOI,
+			PMID
 	</cfquery>
 	<cfif citations.recordcount lt 1>
 		nothing found<cfabort>
 	</cfif>
-	<table border class="sortable">
+	<table border id="t" class="sortable">
 		<tr>
 			<th>Publication</th>
+			<th>Linkage</th>
+			<th>DOI</th>
+			<th>PMID</th>
+			<th>Specimens</th>
 		</tr>
 		<cfloop query="citations">
 			<tr>
 				<td>#full_citation#</td>
+				<td>#linkage#</td>
+				<td>#doi#</td>
+				<td>#pmid#</td>
+				<td><a href="/SpecimenDetail.cfm?publication_id#publication_id#">#c# specimens</a></td>
 			</tr>
 		</cfloop>
 	</table>
