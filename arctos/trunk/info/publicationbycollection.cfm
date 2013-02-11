@@ -148,7 +148,8 @@
 			linkage,
 			DOI,
 			PMID,
-			transaction_id
+			transaction_id,
+			c
 	</cfquery>
 	<cfif citations.recordcount lt 1>
 		nothing found<cfabort>
