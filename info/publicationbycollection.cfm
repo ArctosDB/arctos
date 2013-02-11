@@ -32,8 +32,8 @@
 			DOI,
 			PMID,
 			transaction_id,
-			sum(c) count
-			from
+			c
+			from (
 			select
 				FULL_CITATION,
 				publication.publication_id,
