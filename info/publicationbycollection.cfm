@@ -27,51 +27,100 @@
 	<cfquery name="citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			FULL_CITATION,
-			publication.publication_id,
-			'citation' linkage,
+			publication_id,
+			linkage,
 			DOI,
 			PMID,
-			count(*) c
-		from
-			publication,
-			citation,
-			cataloged_item
-		where
-			publication.publication_id=citation.publication_id and
-			citation.collection_object_id=cataloged_item.collection_object_id and
-			cataloged_item.collection_id=#collection_id#
-		group by
-			FULL_CITATION,
-			publication.publication_id,
-			'citation',
-			DOI,
-			PMID
-		union
-		select
-			FULL_CITATION,
-			publication.publication_id,
-			'accession' linkage,
+			transaction_id
+			sum(c) count
+			from
+			select
+				FULL_CITATION,
+				publication.publication_id,
+				'citation' linkage,
+				DOI,
+				PMID,
+				'' transaction_id
+				count(*) c
+			from
+				publication,
+				citation,
+				cataloged_item
+			where
+				publication.publication_id=citation.publication_id and
+				citation.collection_object_id=cataloged_item.collection_object_id and
+				cataloged_item.collection_id=#collection_id#
+			union
+			select
+				FULL_CITATION,
+				publication.publication_id,
+				'accession project' linkage,
+				DOI,
+				PMID,
+				cataloged_item.ACCN_ID transaction_id
+				count(*) c
+			from
+				publication,
+				project_publication,
+				project_trans,
+				cataloged_item
+			where
+				publication.publication_id=project_publication.publication_id and
+				project_publication.PROJECT_ID=project_trans.PROJECT_ID and
+				project_trans.TRANSACTION_ID=cataloged_item.ACCN_ID and
+				cataloged_item.collection_id=#collection_id#
+			union
+			select
+				FULL_CITATION,
+				publication.publication_id,
+				'specimen loan' linkage,
+				DOI,
+				PMID,
+				loan.transaction_id
+				count(*) c
+			from
+				publication,
+				project_publication,
+				project_trans,
+				loan_item,
+				specimen_part,
+				cataloged_item
+			where
+				publication.publication_id=project_publication.publication_id and
+				project_publication.PROJECT_ID=project_trans.PROJECT_ID and
+				project_trans.TRANSACTION_ID=loan_item.TRANSACTION_ID and
+				loan_item.COLLECTION_OBJECT_ID=specimen_part.COLLECTION_OBJECT_ID and
+				specimen_part.derived_from_cat_item=cataloged_item.COLLECTION_OBJECT_ID and
+				cataloged_item.collection_id=#collection_id#
+			union
+			select
+				FULL_CITATION,
+				publication.publication_id,
+				'specimen loan' linkage,
+				DOI,
+				PMID,
+				loan.transaction_id
+				count(*) c
+			from
+				publication,
+				project_publication,
+				project_trans,
+				loan_item,
+				specimen_part,
+				cataloged_item
+			where
+				publication.publication_id=project_publication.publication_id and
+				project_publication.PROJECT_ID=project_trans.PROJECT_ID and
+				project_trans.TRANSACTION_ID=loan_item.TRANSACTION_ID and
+				loan_item.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID and
+				cataloged_item.collection_id=#collection_id#
+		) group by
+		FULL_CITATION,
+			publication_id,
+			linkage,
 			DOI,
 			PMID,
-			count(*) c
-		from
-			publication,
-			project_publication,
-			project_trans,
-			cataloged_item
-		where
-publication.publication_id=project_publication.publication_id and
-project_publication.PROJECT_ID=project_trans.PROJECT_ID and
-project_trans.TRANSACTION_ID=cataloged_item.ACCN_ID and
-cataloged_item.collection_id=#collection_id#
-group by
-			FULL_CITATION,
-			publication.publication_id,
-			'accession',
-			DOI,
-			PMID
-
-
+			transaction_id
 	</cfquery>
 	<cfif citations.recordcount lt 1>
 		nothing found<cfabort>
