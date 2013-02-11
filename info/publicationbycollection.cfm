@@ -142,18 +142,33 @@
 				PMID,
 				loan_item.transaction_id
 		) group by
-		FULL_CITATION,
+			FULL_CITATION,
 			publication_id,
 			linkage,
 			DOI,
 			PMID,
 			transaction_id,
 			c
-		order by FULL_CITATION
 	</cfquery>
 	<cfif citations.recordcount lt 1>
 		nothing found<cfabort>
 	</cfif>
+	<cfquery name="pubs" dbtype="query">
+		select
+			FULL_CITATION,
+			publication_id,
+			DOI,
+			PMID
+		from
+			citations
+		group by
+			FULL_CITATION,
+			publication_id,
+			DOI,
+			PMID
+		order by
+			full_citation
+	</cfquery>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Publication</th>
@@ -164,7 +179,7 @@
 			<th>Google Scholar</th>
 			<th>Specimens</th>
 		</tr>
-		<cfloop query="citations">
+		<cfloop query="pubs">
 			<tr>
 				<td>#full_citation#</td>
 				<td><a href="/publication/#publication_id#">detail</a></td>
@@ -172,7 +187,20 @@
 				<td><a href="http://dx.doi.org/#doi#">#doi#</a></td>
 				<td><a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=#pmid#">#pmid#</a></td>
 				<td><a href="http://scholar.google.com/scholar?hl=en&q=#FULL_CITATION#">(search by title)</a></td>
+				<cfquery name="links" dbtype="query">
+					select
+						linkage,
+						transaction_id,
+						c
+					from
+						citations
+					where
+						publication_id=#publication_id#
+				</cfquery>
+
 				<td>
+					<cfdump var=#links#>
+					<!----
 					<cfif linkage is "citation">
 						<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#c# specimens</a>
 					<cfelseif linkage is "accession project">
@@ -182,6 +210,7 @@
 					<cfelseif linkage is "data loan">
 						<a href="/SpecimenResults.cfm?loan_trans_id=#transaction_id#">#c# specimens</a>
 					</cfif>
+					---->
 				</td>
 			</tr>
 		</cfloop>
