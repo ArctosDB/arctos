@@ -31,7 +31,7 @@
 			linkage,
 			DOI,
 			PMID,
-			transaction_id
+			transaction_id,
 			sum(c) count
 			from
 			select
@@ -57,7 +57,7 @@
 				'accession project' linkage,
 				DOI,
 				PMID,
-				cataloged_item.ACCN_ID transaction_id
+				cataloged_item.ACCN_ID transaction_id,
 				count(*) c
 			from
 				publication,
@@ -76,7 +76,7 @@
 				'specimen loan' linkage,
 				DOI,
 				PMID,
-				loan.transaction_id
+				loan.transaction_id,
 				count(*) c
 			from
 				publication,
@@ -99,7 +99,7 @@
 				'specimen loan' linkage,
 				DOI,
 				PMID,
-				loan.transaction_id
+				loan.transaction_id,
 				count(*) c
 			from
 				publication,
