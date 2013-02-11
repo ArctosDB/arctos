@@ -1,5 +1,5 @@
 <cfset title="Publications By Collection">
-<cfinclude template="includes/_header.cfm">
+<cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select collection,collection_id from collection order by collection
@@ -49,3 +49,4 @@
 		</cfloop>
 	</table>
 </cfif>
+	<cfinclude template="/includes/_footer.cfm">
