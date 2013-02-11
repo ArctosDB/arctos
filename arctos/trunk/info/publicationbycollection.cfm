@@ -169,6 +169,11 @@
 		order by
 			full_citation
 	</cfquery>
+	<cfquery name="coln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection from collection where collection_id=#collection_id#
+	</cfquery>
+
+	<br>#pubs.recordcount# publications reference the #coln.collection# collection.
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Publication</th>
