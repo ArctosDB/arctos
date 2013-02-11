@@ -9,16 +9,15 @@
 </cfif>
 <cfoutput>
 <form name="f" method="post" action="publicationbycollection.cfm">
-	<input type="hidden" name="action"  value="fetch">
 	<label for="collection_id">Collection</label>
 	<select name="collection_id" id="collection_id" size="1">
 		<cfloop query="ctcollection">
 			<option <cfif variables.collection_id is ctcollection.collection_id> selected="selected" </cfif>
-				value="#ctcollection.collection_id#">#ctcollection.collection_id#</option>
+				value="#ctcollection.collection_id#">#ctcollection.collection#</option>
 		</cfloop>
 	</select>
 	<p />
-	<input type="button"
+	<input type="submit"
 		class="lnkBtn"
 		value="Submit">
 </form>
