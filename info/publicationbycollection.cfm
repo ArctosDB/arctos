@@ -176,7 +176,8 @@
 			<th>DOI</th>
 			<th>PMID</th>
 			<th>Google Scholar</th>
-			<th>Specimens</th>
+			<th>Citations</th>
+			<th>Other Specimens</th>
 		</tr>
 		<cfloop query="pubs">
 			<tr>
@@ -197,12 +198,13 @@
 
 				<td>
 					<cfif citation.recordcount gt 0>
-						<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#citation.c# specimen citations</a>
+						<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#citation.c# specimens</a>
 					</cfif>
+				</td>
+				<td>
 					<cfquery name="acnproj" dbtype="query">
 						select
-							transaction_id,
-							sum(c) sumc
+							transaction_id
 						from
 							citations
 						where
@@ -212,8 +214,24 @@
 							transaction_id
 					</cfquery>
 					<cfif acnproj.recordcount gt 0>
-						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">#acnproj.sumc# specimens accessioned</a>
+						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">Specimens accessioned by projects which use this publication</a>
 					</cfif>
+					<cfquery name="loanproj" dbtype="query">
+						select
+							transaction_id
+						from
+							citations
+						where
+							publication_id=#publication_id# and
+							linkage in ('specimen loan','data loan')
+						group by
+							transaction_id
+					</cfquery>
+					<cfif loanproj.recordcount gt 0>
+						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">Specimens used by projects which use this publication</a>
+					</cfif>
+				</td>
+
 					<!----
 					<cfif linkage is "citation">
 
