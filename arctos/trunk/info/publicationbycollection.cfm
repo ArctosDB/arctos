@@ -127,7 +127,6 @@
 				project_publication,
 				project_trans,
 				loan_item,
-				specimen_part,
 				cataloged_item
 			where
 				publication.publication_id=project_publication.publication_id and
