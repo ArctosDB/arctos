@@ -185,22 +185,38 @@
 				<td><a href="http://dx.doi.org/#doi#">#doi#</a></td>
 				<td><a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=#pmid#">#pmid#</a></td>
 				<td><a href="http://scholar.google.com/scholar?hl=en&q=#FULL_CITATION#">(search by title)</a></td>
-				<cfquery name="links" dbtype="query">
+				<cfquery name="citation" dbtype="query">
 					select
-						linkage,
-						transaction_id,
 						c
 					from
 						citations
 					where
-						publication_id=#publication_id#
+						publication_id=#publication_id# and
+						linkage='citation'
 				</cfquery>
 
 				<td>
-					<cfdump var=#links#>
+					<cfif citation.recordcount gt 0>
+						<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#citation.c# specimen citations</a>
+					</cfif>
+					<cfquery name="acnproj" dbtype="query">
+						select
+							transaction_id,
+							sum(c) sumc
+						from
+							citations
+						where
+							publication_id=#publication_id# and
+							linkage='accession project'
+						group by
+							transaction_id
+					</cfquery>
+					<cfif acnproj.recordcount gt 0>
+						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#">#acnproj.sumc# specimens accessioned</a>
+					</cfif>
 					<!----
 					<cfif linkage is "citation">
-						<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#c# specimens</a>
+
 					<cfelseif linkage is "accession project">
 						<a href="/SpecimenResults.cfm?accn_trans_id=#transaction_id#">#c# specimens</a>
 					<cfelseif linkage is "specimen loan">
