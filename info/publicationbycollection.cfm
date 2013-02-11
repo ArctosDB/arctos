@@ -8,7 +8,7 @@
 	<cfset collection_id="">
 </cfif>
 <cfoutput>
-<form name="f" method="post" action="publicationbycollection.cfm">
+<form name="f" method="get" action="publicationbycollection.cfm">
 	<label for="collection_id">Collection</label>
 	<select name="collection_id" id="collection_id" size="1">
 		<cfset thiscollectionid=collection_id>
@@ -27,7 +27,7 @@
 	<cfquery name="citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			FULL_CITATION,
-			publication_id,
+			publication.publication_id,
 			'citation' linkage,
 			DOI,
 			PMID,
@@ -42,8 +42,8 @@
 			cataloged_item.collection_id=#collection_id#
 		group by
 			FULL_CITATION,
-			publication_id,
-			'citation' linkage,
+			publication.publication_id,
+			'citation',
 			DOI,
 			PMID
 	</cfquery>
