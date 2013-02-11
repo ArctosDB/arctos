@@ -40,7 +40,7 @@
 				'citation' linkage,
 				DOI,
 				PMID,
-				'' transaction_id
+				0 transaction_id,
 				count(*) c
 			from
 				publication,
@@ -50,6 +50,13 @@
 				publication.publication_id=citation.publication_id and
 				citation.collection_object_id=cataloged_item.collection_object_id and
 				cataloged_item.collection_id=#collection_id#
+			group by
+				FULL_CITATION,
+				publication.publication_id,
+				'citation',
+				DOI,
+				PMID,
+				0
 			union
 			select
 				FULL_CITATION,
@@ -69,6 +76,13 @@
 				project_publication.PROJECT_ID=project_trans.PROJECT_ID and
 				project_trans.TRANSACTION_ID=cataloged_item.ACCN_ID and
 				cataloged_item.collection_id=#collection_id#
+			group by
+				FULL_CITATION,
+				publication.publication_id,
+				'accession project',
+				DOI,
+				PMID,
+				cataloged_item.ACCN_ID
 			union
 			select
 				FULL_CITATION,
@@ -76,7 +90,7 @@
 				'specimen loan' linkage,
 				DOI,
 				PMID,
-				loan.transaction_id,
+				loan_item.transaction_id,
 				count(*) c
 			from
 				publication,
@@ -92,6 +106,13 @@
 				loan_item.COLLECTION_OBJECT_ID=specimen_part.COLLECTION_OBJECT_ID and
 				specimen_part.derived_from_cat_item=cataloged_item.COLLECTION_OBJECT_ID and
 				cataloged_item.collection_id=#collection_id#
+			group by
+				FULL_CITATION,
+				publication.publication_id,
+				'specimen loan',
+				DOI,
+				PMID,
+				loan_item.transaction_id
 			union
 			select
 				FULL_CITATION,
@@ -99,7 +120,7 @@
 				'specimen loan' linkage,
 				DOI,
 				PMID,
-				loan.transaction_id,
+				loan_item.transaction_id,
 				count(*) c
 			from
 				publication,
@@ -114,6 +135,13 @@
 				project_trans.TRANSACTION_ID=loan_item.TRANSACTION_ID and
 				loan_item.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID and
 				cataloged_item.collection_id=#collection_id#
+			group by
+				FULL_CITATION,
+				publication.publication_id,
+				'specimen loan',
+				DOI,
+				PMID,
+				loan_item.transaction_id
 		) group by
 		FULL_CITATION,
 			publication_id,
