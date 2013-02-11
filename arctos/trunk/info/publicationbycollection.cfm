@@ -172,12 +172,12 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Publication</th>
-			<th>Pub Details</th>
+			<th>Details</th>
 			<th>DOI</th>
 			<th>PMID</th>
-			<th>Google Scholar</th>
+			<th>Google&nbsp;Scholar</th>
 			<th>Citations</th>
-			<th>Other Specimens</th>
+			<th>Other&nbsp;Specimens</th>
 		</tr>
 		<cfloop query="pubs">
 			<tr>
