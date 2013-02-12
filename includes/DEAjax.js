@@ -623,6 +623,7 @@ function loadRecordEnter(collection_object_id){
 			
 			
 			if ($('#autoinc').prop('checked')){
+				console.log('autoinc');
 				$.getJSON("/component/Bulkloader.cfc",
 					{
 						method : "incrementCustomID",
