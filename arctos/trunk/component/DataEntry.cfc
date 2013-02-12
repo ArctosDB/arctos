@@ -197,16 +197,17 @@
 <!---------------------------------------------------------------------------------------->
 <cffunction name="incrementCustomID" access="remote">
 	<cfargument name="otherID" type="string" required="no">
-	<cfset cVal="">
 	<cftry>
 		<cfif isnumeric(otherID)>
 			<cfset cVal = otherID + 1>
 		<cfelseif isnumeric(right(otherID,len(otherID)-1))>
 			<cfset temp = (right(otherID,len(otherID)-1)) + 1>
 			<cfset cVal = left(otherID,1) & temp>
+		<cfelse>
+			<cfset cVal=otherID>
 		</cfif>
 	<cfcatch>
-		<!--- whatever --->
+		<cfset cVal=otherID>
 	</cfcatch>
 	</cftry>
 	<cfreturn cVal>
