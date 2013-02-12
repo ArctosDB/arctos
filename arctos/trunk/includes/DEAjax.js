@@ -637,7 +637,7 @@ function loadRecordEnter(collection_object_id){
 
 				console.log('NO autoinc');
 		}
-		}
+		
 	);
 	// show URL that they can't try to save or anything clever
 	var theURL='/DataEntry.cfm';
