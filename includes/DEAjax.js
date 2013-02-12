@@ -650,6 +650,7 @@ function getDEAccn() {
 
 function browseTo(dir){
 	var ix = $("#selectbrowse").prop( "selectedIndex" );
+	console.log('ix='+ix);
 	if (dir=='next'){
 		ix=parseInt(parseInt(ix)+1);
 	} else {
