@@ -615,6 +615,30 @@ function loadRecordEnter(collection_object_id){
 				$("#browseThingy").hide();
 				$("#enterMode").show();
 			});
+			
+			$.getJSON("/component/Bulkloader.cfc",
+					{
+						method : "incrementCustomID",
+						returnformat : "json",
+						queryformat : 'column',
+						otherID: r.DATA.OTHER_ID_NUM_5[0]
+					},
+					function(r) {
+						$("#other_id_num_5").VAL(r);
+				);
+				// apply collection-specific customizations
+				setNewRecDefaults();
+				msg('template loaded - enter data','good');
+				
+				// turn some form stuff on/off as appropriate
+				$("#customizeForm").show(); //Save This As A New Record
+				$("#dataEntryContainer").removeClass().addClass('isEnter');
+				$("#theNewButton").show(); //Save This As A New Record
+				$("#theSaveButton").hide(); // Save Edits/Delete Record
+				$("#editMode").hide(); // Clone This Record
+				$("#browseThingy").hide();
+				$("#enterMode").show();
+			});
 		}
 	);
 	// show URL that they can't try to save or anything clever
@@ -1801,7 +1825,7 @@ function rememberLastOtherId (yesno) {
 			if (yesno==0){
 				theSpan.innerHTML='<span class="infoLink" onclick="rememberLastOtherId(1)">Increment This</span>';
 			} else if (yesno == 1) {
-				theSpan.innerHTML='<span class="infoLink" onclick="rememberLastOtherId(0)">Nevermind</span>';
+				theSpan.innerHTML='<span class="infoLink" onclick="rememberLastOtherId(0)">noincrement</span>';
 			} else {
 				alert('Something goofy happened. Remembering your next Other ID may not have worked.');
 			}
