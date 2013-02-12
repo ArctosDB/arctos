@@ -223,6 +223,26 @@ function saveNewRecord () {
 					var o='<option value="' + coid + '">' + coid + '</option>';
 					$("#selectbrowse").append(o);
 					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
+					
+					
+					if ($('#autoinc').is(':checked')){
+						console.log('autoinc');
+						$.getJSON("/component/DataEntry.cfc",
+							{
+								method : "incrementCustomID",
+								otherID: $("#other_id_num_5").val()
+							},
+							function(r) {
+								$("#other_id_num_5").val(r);
+							}
+						);
+					} else
+
+						console.log('NO autoinc');
+					}
+				
+				/*
+				
 					// test/increment customID after successful save
 					$.getJSON("/component/Bulkloader.cfc",
 						{
@@ -238,6 +258,7 @@ function saveNewRecord () {
 							}
 						}
 					);
+					*/
 					// switch to enter mode
 					$("#action").val('enter');
 					// reapple any customizations, etc.
@@ -617,25 +638,6 @@ function loadRecordEnter(collection_object_id){
 			});
 			
 			
-			
-			
-			
-			
-			if ($('#autoinc').is(':checked')){
-				console.log('autoinc');
-				$.getJSON("/component/DataEntry.cfc",
-					{
-						method : "incrementCustomID",
-						otherID: r.DATA.OTHER_ID_NUM_5[0]
-					},
-					function(r) {
-						$("#other_id_num_5").VAL(r);
-					}
-				);
-			} else
-
-				console.log('NO autoinc');
-		}
 		
 	);
 	// show URL that they can't try to save or anything clever
