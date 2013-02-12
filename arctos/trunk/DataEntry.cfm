@@ -1082,14 +1082,18 @@
 						<span id="recCount">#whatIds.recordcount#</span> records <cfif whatIds.recordcount is 1000>(limit)</cfif>
 							<span id="browseThingy">
 								 - Jump to
+								<!----
 								<span class="infoLink" id="pBrowse" onclick="browseTo('previous')">[ previous ]</span>
+								---->
 								<select name="browseRecs" size="1" id="selectbrowse" onchange="loadRecordEdit(this.value);">
 									<cfloop query="whatIds">
 										<option <cfif collection_object_id is whatIds.collection_object_id> selected="selected" </cfif>
 											value="#collection_object_id#">#collection_object_id#</option>
 									</cfloop>
 								</select>
+								<!----
 								<span id="nBrowse" class="infoLink" onclick="browseTo('next')">[ next ]</span>
+								---->
 							</span>
 						</span>
 					</td>

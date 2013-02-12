@@ -647,7 +647,7 @@ function getDEAccn() {
 	var accnNumber=$("#accn").val();
 	getAccn(accnNumber,'accn',InstAcrColnCde);
 }
-
+/*
 function browseTo(dir){
 	var ix = $("#selectbrowse").prop( "selectedIndex" );
 	console.log('ix='+ix);
@@ -659,7 +659,7 @@ function browseTo(dir){
 	var c = $("#selectbrowse").find("option:eq(" + ix +")" ).val();
 	loadRecordEdit(c);	
 }
-
+*/
 function getRelatedData(id) {
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
