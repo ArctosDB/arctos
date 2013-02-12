@@ -633,7 +633,10 @@ function loadRecordEnter(collection_object_id){
 						$("#other_id_num_5").VAL(r);
 					}
 				);
-			}	
+			} else
+
+				console.log('NO autoinc');
+		}
 		}
 	);
 	// show URL that they can't try to save or anything clever
