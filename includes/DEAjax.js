@@ -290,6 +290,7 @@ function setPagePrefs(){
 		}
 	);
 }
+/*
 function loadRecord(collection_object_id){
 	//console.log('loadRecord');
 
@@ -300,6 +301,7 @@ function loadRecord(collection_object_id){
 		loadRecordEdit(collection_object_id);
 	}
 }
+*/
 
 function saveEditedRecord () {
 	// save edited - this happens only from edit and 

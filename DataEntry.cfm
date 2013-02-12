@@ -1102,7 +1102,7 @@
 </form>
 <script language="javascript" type="text/javascript">
 	// fire this off here at init page load
-	loadRecord('#collection_object_id#');
+	loadRecordEnter('#collection_object_id#');
 /*
 	jQuery(document).ready(function() {
 
@@ -1119,7 +1119,7 @@
 		});
 
 
-		loadRecord('#collection_object_id#');
+		loadRecordEnter('#collection_object_id#');
 	});
 
 	*/
