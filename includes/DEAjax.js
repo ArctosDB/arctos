@@ -621,8 +621,7 @@ function loadRecordEnter(collection_object_id){
 			
 			
 			
-			
-			if ($('#autoinc').prop('checked')){
+			if ($('#autoinc').is(':checked')){
 				console.log('autoinc');
 				$.getJSON("/component/DataEntry.cfc",
 					{
