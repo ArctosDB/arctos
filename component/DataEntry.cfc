@@ -196,41 +196,20 @@
 
 <!---------------------------------------------------------------------------------------->
 <cffunction name="incrementCustomID" access="remote">
-	<cfargument name="yesno" type="numeric" required="yes">
-	<cfset session.rememberLastOtherId=yesno>
-	<cfreturn yesno>
-</cffunction>
-					otherID
-
-	<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1 and action is "enter">
-		<cftry>
-			<cfset cVal="">
-			<cfif isnumeric(other_id_num_5)>
-				<cfset cVal = other_id_num_5 + 1>
-			<cfelseif isnumeric(right(other_id_num_5,len(other_id_num_5)-1))>
-				<cfset temp = (right(other_id_num_5,len(other_id_num_5)-1)) + 1>
-				<cfset cVal = left(other_id_num_5,1) & temp>
-			</cfif>
-			<script language="javascript" type="text/javascript">
-				var cid = document.getElementById('other_id_num_5').value='#cVal#';
-			</script>
-		<cfcatch>
-			<cfmail to="arctos.database@gmail.com" subject="data entry catch" from="wtf@#Application.fromEmail#" type="html">
-				other_id_num_5: #other_id_num_5#
-				<cfdump var=#cfcatch#>
-			</cfmail>
-		</cfcatch>
-		</cftry>
-	</cfif>
-	
-	
-	
-	
-<!---------------------------------------------------------------------------------------->
-<cffunction name="rememberLastOtherId" access="remote">
-	<cfargument name="yesno" type="numeric" required="yes">
-	<cfset session.rememberLastOtherId=yesno>
-	<cfreturn yesno>
+	<cfargument name="otherID" type="string" required="no">
+	<cfset cVal="">
+	<cftry>
+		<cfif isnumeric(otherID)>
+			<cfset cVal = otherID + 1>
+		<cfelseif isnumeric(right(otherID,len(otherID)-1))>
+			<cfset temp = (right(otherID,len(otherID)-1)) + 1>
+			<cfset cVal = left(otherID,1) & temp>
+		</cfif>
+	<cfcatch>
+		<!--- whatever --->
+	</cfcatch>
+	</cftry>
+	<cfreturn cVal>
 </cffunction>
 <!---------------------------------------------------------------------------------------->
 <cffunction name="get_picked_event" access="remote">
