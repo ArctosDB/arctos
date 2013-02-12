@@ -634,9 +634,7 @@ function loadRecordEnter(collection_object_id){
 				$("#browseThingy").hide();
 				$("#enterMode").show();
 			});
-			
-			
-		
+		}
 	);
 	// show URL that they can't try to save or anything clever
 	var theURL='/DataEntry.cfm';
