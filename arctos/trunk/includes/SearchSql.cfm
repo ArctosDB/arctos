@@ -1444,9 +1444,9 @@
 	<cfset mapurl = "#mapurl#&loan_trans_id=#loan_trans_id#">
 	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id IN (
 		select derived_from_cat_item from specimen_part,loan_item where
-			specimen_part.collection_object_id=loan_item.collection_object_id and loan_item.transaction_id=#loan_trans_id#
+			specimen_part.collection_object_id=loan_item.collection_object_id and loan_item.transaction_id in (#loan_trans_id#)
 		union
-			select loan_item.collection_object_id from loan_item where loan_item.transaction_id=#loan_trans_id#
+			select loan_item.collection_object_id from loan_item where loan_item.transaction_id in (#loan_trans_id#)
 			)">
 </cfif>
 <cfif isdefined("loan_permit_trans_id") and len(loan_permit_trans_id) gt 0>

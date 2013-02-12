@@ -1,7 +1,7 @@
 <cfset title="Publications By Collection">
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="ctcollection" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select collection,collection_id from collection order by collection
 </cfquery>
 <cfif not isdefined("collection_id")>
@@ -24,7 +24,7 @@
 </form>
 
 <cfif len(collection_id) gt 0>
-	<cfquery name="citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="citations" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			FULL_CITATION,
 			publication_id,
@@ -169,11 +169,14 @@
 		order by
 			full_citation
 	</cfquery>
-	<cfquery name="coln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="coln" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection from collection where collection_id=#collection_id#
 	</cfquery>
+	<cfquery name="countcitations" dbtype="query">
+		select sum(c) n from citations where linkage='citation'
+	</cfquery>
 
-	<br>#pubs.recordcount# publications reference the #coln.collection# collection.
+	<br>#pubs.recordcount# publications containing #countcitations.n# direct citations reference the #coln.collection# collection.
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Publication</th>
@@ -214,12 +217,15 @@
 							citations
 						where
 							publication_id=#publication_id# and
-							linkage='accession project'
+							linkage='accession project' and
+							c>0
 						group by
 							transaction_id
 					</cfquery>
 					<cfif acnproj.recordcount gt 0>
-						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">Specimens accessioned by projects which use this publication</a><br>
+						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">
+							Specimens accessioned by projects which reference this publication
+						</a><br>
 					</cfif>
 					<cfquery name="loanproj" dbtype="query">
 						select
@@ -228,12 +234,14 @@
 							citations
 						where
 							publication_id=#publication_id# and
-							linkage in ('specimen loan','data loan')
-						group by
-							transaction_id
+							linkage in ('specimen loan','data loan') and
+							c>0
+						group by transaction_id
 					</cfquery>
 					<cfif loanproj.recordcount gt 0>
-						<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(acnproj.transaction_id)#&collection_id=#collection_id#">Specimens used by projects which use this publication</a>
+						<a href="/SpecimenResults.cfm?loan_trans_id=#valuelist(loanproj.transaction_id)#&collection_id=#collection_id#">
+							Specimens used by projects which reference this publication
+						</a>
 					</cfif>
 				</td>
 
