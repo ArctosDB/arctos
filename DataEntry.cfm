@@ -1104,28 +1104,7 @@
 <script language="javascript" type="text/javascript">
 	// fire this off here at init page load
 	loadRecordEnter('#collection_object_id#');
-/*
-	jQuery(document).ready(function() {
-
-		jQuery("##georeference_source").autocomplete("/ajax/autocomplete.cfm?term=georeference_source", {
-			width: 320,
-			max: 50,
-			autofill: false,
-			multiple: false,
-			scroll: true,
-			scrollHeight: 300,
-			matchContains: true,
-			minChars: 1,
-			selectFirst:false
-		});
-
-
-		loadRecordEnter('#collection_object_id#');
-	});
-
-	*/
 </script>
-
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
