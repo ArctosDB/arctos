@@ -231,6 +231,7 @@ function saveNewRecord () {
 								otherID: $("#other_id_num_5").val()
 							},
 							function(r) {
+								console.log('back with ' + r);
 								$("#other_id_num_5").val(r);
 							}
 						);
