@@ -223,8 +223,6 @@ function saveNewRecord () {
 					var o='<option value="' + coid + '">' + coid + '</option>';
 					$("#selectbrowse").append(o);
 					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
-					
-					
 					if ($('#autoinc').is(':checked')){
 						console.log('autoinc');
 						$.getJSON("/component/DataEntry.cfc",
@@ -236,7 +234,7 @@ function saveNewRecord () {
 								$("#other_id_num_5").val(r);
 							}
 						);
-					} else
+					} else {
 
 						console.log('NO autoinc');
 					}
