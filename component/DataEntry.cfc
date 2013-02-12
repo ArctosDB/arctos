@@ -195,7 +195,7 @@
 </cffunction>
 
 <!---------------------------------------------------------------------------------------->
-<cffunction name="incrementCustomID" access="remote">
+<cffunction name="incrementCustomID" access="remote" returnFormat="plain">
 	<cfargument name="otherID" type="string" required="no">
 	<cftry>
 		<cfif isnumeric(otherID)>
