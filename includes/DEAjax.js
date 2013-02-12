@@ -615,6 +615,13 @@ function loadRecordEnter(collection_object_id){
 				$("#browseThingy").hide();
 				$("#enterMode").show();
 			});
+			
+			
+			
+			
+			
+			
+			
 			if ($('#autoinc').prop('checked')){
 				$.getJSON("/component/Bulkloader.cfc",
 					{
@@ -623,8 +630,8 @@ function loadRecordEnter(collection_object_id){
 					},
 					function(r) {
 						$("#other_id_num_5").VAL(r);
-					);
-				});
+					}
+				);
 			}	
 		}
 	);
