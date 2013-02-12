@@ -228,7 +228,9 @@ function saveNewRecord () {
 						$.getJSON("/component/DataEntry.cfc",
 							{
 								method : "incrementCustomID",
-								otherID: $("#other_id_num_5").val()
+								otherID: $("#other_id_num_5").val(),
+								returnformat : "json",
+								queryformat : 'column'
 							},
 							function(r) {
 								console.log('back with ' + r);
@@ -236,7 +238,6 @@ function saveNewRecord () {
 							}
 						);
 					} else {
-
 						console.log('NO autoinc');
 					}
 				
