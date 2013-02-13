@@ -224,7 +224,6 @@ function saveNewRecord () {
 					$("#selectbrowse").append(o);
 					$("#recCount").text(parseInt(parseInt($("#recCount").text())+1));
 					if ($('#autoinc').is(':checked')){
-						console.log('autoinc');
 						$.getJSON("/component/DataEntry.cfc",
 							{
 								method : "incrementCustomID",
@@ -237,28 +236,7 @@ function saveNewRecord () {
 								$("#other_id_num_5").val(r);
 							}
 						);
-					} else {
-						console.log('NO autoinc');
 					}
-				
-				/*
-				
-					// test/increment customID after successful save
-					$.getJSON("/component/Bulkloader.cfc",
-						{
-							method : "incrementCustomId",
-							cidType: $("#other_id_num_type_5").val(),
-							cidVal: $("#other_id_num_5").val(),
-							returnformat : "json",
-							queryformat : 'column'								
-						},
-						function(r) {
-							if (r!='') {
-								$("#other_id_num_5").val(r);
-							}
-						}
-					);
-					*/
 					// switch to enter mode
 					$("#action").val('enter');
 					// reapple any customizations, etc.
@@ -268,7 +246,6 @@ function saveNewRecord () {
 		);
 	}
 }
-
 
 function setPagePrefs(){
 	// called only in enter data mode
