@@ -255,13 +255,13 @@
 											<input type="text" name="other_id_num_5" size="8" id="other_id_num_5">
 
 										</td>
-													<td class="valigntop">
-													<label for="autoinc">AutoInc?</label><input type="checkbox" id="autoinc">
+										<td class="valigntop">
+											<label for="autoinc">AutoInc?</label>
+											<input type="checkbox" id="autoinc">
 										</td>
 										<td class="nowrap valigntop">
 											<label for="accn">Accn <span class="infoLink" onclick="getDEAccn();">[ pick ]</span></label>
 											<input type="text" name="accn" size="25" class="reqdClr" id="accn" onchange="getDEAccn();">
-
 										</td>
 									</tr>
 									<tr>
