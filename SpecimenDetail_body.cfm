@@ -639,12 +639,11 @@
 				where
 					collection_object_id=#one.collection_object_id# and
 					coll_obj_other_id_num.other_id_type=ctcoll_other_id_type.other_id_type (+)
-				ORDER BY
-					id_references,
-					other_id_type,
-					display_value
 			</cfquery>
-			<cfif len(oid.other_id_type) gt 0>
+			<cfquery name="ids" dbtype="query">
+				select * from oid where id_references='self' order by other_id_type
+			</cfquery>
+			<cfif len(ids.other_id_type) gt 0>
 				<div class="detailCell" style="max-height:200px;overflow:auto;">
 					<div class="detailLabel">Identifiers
 						<cfif oneOfUs is 1>
@@ -654,17 +653,38 @@
 					<cfloop query="oid">
 						<div class="detailBlock">
 							<span class="innerDetailLabel">
-								<cfif id_references is not "self">
-									(<i>#id_references#</i>)
-								</cfif>
 								#other_id_type#:
 							</span>
+							<cfif len(link) gt 0>
+								<a class="external" href="#link#" target="_blank">#display_value#</a>
+							<cfelse>
+								#display_value#
+							</cfif>
+						</div>
+					</cfloop>
+				</div>
+			</cfif>
+			<cfquery name="rels" dbtype="query">
+				select * from oid where id_references != 'self' order by id_references,other_id_type
+			</cfquery>
+			<cfif len(rels.other_id_type) gt 0>
+				<div class="detailCell" style="max-height:200px;overflow:auto;">
+					<div class="detailLabel">Relationships
+						<cfif oneOfUs is 1>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
+						</cfif>
+					</div>
+					<cfloop query="oid">
+						<div class="detailBlock">
+							<span class="innerDetailLabel">
+								(<i>#id_references#</i>)
+							</span>
 
-								<cfif len(link) gt 0>
-									<a class="external" href="#link#" target="_blank">#display_value#</a>
-								<cfelse>
-									#display_value#
-								</cfif>
+							<cfif len(link) gt 0>
+								<a class="external" href="#link#" target="_blank">#other_id_type#:#display_value#</a>
+							<cfelse>
+								#other_id_type#:#display_value#
+							</cfif>
 						</div>
 					</cfloop>
 				</div>
