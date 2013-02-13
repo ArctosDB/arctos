@@ -650,7 +650,7 @@
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 						</cfif>
 					</div>
-					<cfloop query="oid">
+					<cfloop query="ids">
 						<div class="detailBlock">
 							<span class="innerDetailLabel">
 								#other_id_type#:
@@ -674,7 +674,7 @@
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 						</cfif>
 					</div>
-					<cfloop query="oid">
+					<cfloop query="rels">
 						<div class="detailBlock">
 							<span class="innerDetailLabel">
 								(<i>#id_references#</i>)
