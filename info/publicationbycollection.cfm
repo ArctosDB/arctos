@@ -22,8 +22,8 @@
 	</select>
 	<label for="citationonly">Show publications related by ....</label>
 	<select name="citationonly" id="citationonly" size="1">
-		<option <cfif citationonly is "true"> selected="selected" </cfif> value="true">citations only</option>
-		<option <cfif citationonly is "false"> selected="selected" </cfif> value="true">citations and projects</option>
+		<option <cfif citationonly is true> selected="selected" </cfif> value="true">citations only</option>
+		<option <cfif citationonly is false> selected="selected" </cfif> value="false">citations and projects</option>
 	</select>
 	<p />
 	<input type="submit" class="lnkBtn" value="Find Publications">
