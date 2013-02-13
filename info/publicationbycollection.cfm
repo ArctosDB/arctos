@@ -22,7 +22,7 @@
 	</select>
 	<label for="citationonly">
 		Show publications related by ....
-		(<a href="http://arctosdb.org/documentation/projects/#whatis" target="_blank" class="external infolink">what's this?</a>)</label>
+		(<a href="http://arctosdb.org/documentation/projects/##whatis" target="_blank" class="external infolink">what's this?</a>)</label>
 	<select name="citationonly" id="citationonly" size="1">
 		<option <cfif citationonly is true> selected="selected" </cfif> value="true">citations only</option>
 		<option <cfif citationonly is false> selected="selected" </cfif> value="false">citations and projects</option>
