@@ -61,7 +61,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="id_references">Other&nbsp;Identifier References:</span>
+			<span class="helpLink" id="id_references">Relationship:</span>
 		</td>
 		<td class="srch">
 			<select name="id_references" id="id_references" size="1">
