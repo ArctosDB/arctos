@@ -61,7 +61,7 @@
 					<option value="#i#">#i#</option>
 				</cfloop>
 			</select>
-			<label for="refType">reference (in bulkloader) to this record</label>
+			<label for="refType">relationship (id_references in bulkloader) to this record</label>
 			<select name="refType" id="refType" size="1">
 				<option value="">-pick one-</option>
 				<cfloop query="ctid_references">
@@ -155,7 +155,7 @@
 			<th>ID Number (int)</th>
 			<th>Suffix</th>
 			<th>
-				ID References
+				Relationship
 				<span class="infoLink" onClick="getCtDoc('ctid_references','')">[ define ]</span>
 			</th>
 			<th>Delete</th>

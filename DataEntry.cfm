@@ -314,7 +314,7 @@
 										<tr>
 											<th>ID Type</th>
 											<th>ID Number</th>
-											<th>ID References</th>
+											<th>Relationship</th>
 											<th></th>
 										</tr>
 										<cfloop from="1" to="4" index="i">
