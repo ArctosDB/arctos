@@ -82,6 +82,16 @@ sho err
 			</td>
 		</tr>
 		<tr>
+			<td>existing_other_id_number</td>
+			<td>yes</td>
+			<td>
+				Value of the existing_other_id_type
+			</td>
+			<td>
+				used to find the specimen; in conjunction with existing_other_id_number, must resolve to exactly one cataloged item
+			</td>
+		</tr>
+		<tr>
 			<td>new_other_id_number</td>
 			<td>yes</td>
 			<td>
@@ -116,10 +126,12 @@ sho err
 			<td>new_other_id_references</td>
 			<td>no</td>
 			<td>
-				ID_REFERENCES from <a href="/info/ctDocumentation.cfm?table=CTID_REFERENCES">CTID_REFERENCES</a>
+				ID_REFERENCES from <a href="/info/ctDocumentation.cfm?table=CTID_REFERENCES">CTID_REFERENCES</a>.
 			</td>
 			<td>
-				Used when the other ID references another data object, such as a host's catalog number if existing specimen is a parasite. Creates relationships.
+				Labeled "relationship" in various forms, this defines
+				the current specimen's (existing_other_id_type,existing_other_id_number) relationship to another specimen (given in
+				new_other_id_type,new_other_id_number). Used when the other ID references another data object, such as a host's catalog number if existing specimen is a parasite. Creates relationships.
 				leave blank or use "self" when the ID references this specimen (such as when loading GenBank numbers)
 			</td>
 		</tr>
