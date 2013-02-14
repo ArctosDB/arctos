@@ -7,9 +7,9 @@
 		background-color:#FFFF00;
 		}
 	div.cellDiv {
-		width:100%; 
-		height:100%; 
-		border:1px solid black; 
+		width:100%;
+		height:100%;
+		border:1px solid black;
 		background-color:#F4F4F4;
 		}
 	span.labelSpan {
@@ -77,7 +77,7 @@
 	<cfquery name="aBox" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from container where container_id=#container_id#
 	</cfquery>
-	
+
 	<!---- figure out what they're trying to do and set some variables ---->
 	<cfif #aBox.number_positions# is 100 AND #aBox.container_type# is "freezer box">
 		<cfset goodPositionType = "position">
@@ -95,9 +95,13 @@
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 11>
 		<cfset numberColumns = 3>
+	<cfelseif aBox.number_positions is 100 AND aBox.container_type is "slide box">
+			<cfset goodPositionType = "position">
+			<cfset numberRows = 50>
+			<cfset numberColumns = 2>
 	<cfelse>
 		<p>
-			<strong><font color="##FF0000">This application won't do what you want to do. 
+			<strong><font color="##FF0000">This application won't do what you want to do.
 				<ul>
 					<li>
 						 You must have a container with positons.
@@ -112,7 +116,7 @@
 				</ul>
 			<p>
 			If you have that and you're still getting this error, submit a <a href="/info/bugs.cfm">bug report</a>.
-			</font></strong>	 
+			</font></strong>
 			<cfabort>
 	</cfif>
 	<!---global--->
@@ -125,7 +129,7 @@
 		<cfif #whatPosAreUsed.recordcount# is 0>
 			There's nothing in this container.
 			<form name="allnewPos" method="post" action="containerPositions.cfm">
-				<input type="hidden" name="action" value="allNewPositions">				
+				<input type="hidden" name="action" value="allNewPositions">
 				<input type="hidden" name="container_type" value="#aBox.container_type#">
 				<input type="hidden" name="container_id" value="#aBox.container_id#">
 				<input type="hidden" name="number_positions" value="#aBox.number_positions#">
@@ -137,15 +141,15 @@
 				select container_type from whatPosAreUsed
 				group by container_type
 			</cfquery>
-			<cfif #uContentType.recordcount# is 1 AND 
+			<cfif #uContentType.recordcount# is 1 AND
 				#uContentType.container_type# is '#goodPositionType#'>
 				<!--- keep moving, nothing to see here .... ---->
 			<cfelse>
 				<hr>
 					<font color="##FF0000">
-						There is a problem with the positions in this box. 
-						<br>It contains things other than positions, or inappropriate position types. 
-						This application can't handle that! Get rid of things that 
+						There is a problem with the positions in this box.
+						<br>It contains things other than positions, or inappropriate position types.
+						This application can't handle that! Get rid of things that
 						aren't container_type '#goodPositionType#' or submit a bug report if you feel this container should
 						hold the things listed below:
 						<ul>
@@ -153,7 +157,7 @@
 								<li>#container_type#</li>
 							</cfloop>
 						</ul>
-					</font>	
+					</font>
 					<cfabort>
 			</cfif>
 			<!----it's all positions ---->
@@ -161,11 +165,11 @@
 				<hr>
 				<font color="##FF0000">
 					There is a problem with the positions in this box. Aborting....
-				</font>			
+				</font>
 				<cfabort>
 			<cfelse>
 					<!---- do nothing
-						all positions are used - yea!! 
+						all positions are used - yea!!
 						Now we need to be sure that the labels are numeric. They should be
 						if the box positions have been built by this application.
 					---->
@@ -177,13 +181,13 @@
 			</cfloop>
 			<!---- made it through the checks, now actually do stuff --->
 			<cfquery name="positionContents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
+				select
 					posCon.container_id ,
 					posCon.label contentLabel,
 					posCon.barcode posConBc,
 					pos.label label,
 					pos.container_id position_id
-				from 
+				from
 					container posCon,
 					container pos
 				where
@@ -195,7 +199,7 @@
 				<tr>
 					<td>
 			<table cellpadding="0" cellspacing="0" border="1">
-					
+
 					<input type="hidden" name="action" value="moveScans">
 					<input type="hidden" name="number_positions" value="#aBox.number_positions#">
 					<input type="hidden" name="container_id" id="container_id" value="#aBox.container_id#">
@@ -203,8 +207,8 @@
 						<tr height="50" valign="top">
 							<cfloop from="1" to="#numberRows#" index="row">
 								<td width="60" align="left">
-									<!--- now, we can get the contents of this cell 
-											First, get the container_id for this label from a 
+									<!--- now, we can get the contents of this cell
+											First, get the container_id for this label from a
 											cached query, then get the contents from the DB
 									---->
 									<cfquery name="thisPos" dbtype="query">
@@ -221,17 +225,17 @@
 												<br>#thisPos.posConBc#
 											<cfelse>
 												Barcode:<br>
-												
-												<input type="hidden" 
-													name="position_id#thisLabel#" 
-													id="position_id#thisLabel#" 
+
+												<input type="hidden"
+													name="position_id#thisLabel#"
+													id="position_id#thisLabel#"
 													value="#thisPos.position_id#">
-												<input type="text" 
+												<input type="text"
 													onFocus="this.className='activeCell'"
 													onChange="moveContainer('barcode#thisLabel#',this.value)"
 													name="barcode#thisLabel#"
 													id="barcode#thisLabel#"
-													size="6" 
+													size="6"
 													style="font-size:small;">
 											</cfif>
 										</span>
@@ -239,27 +243,27 @@
 									<cfset thisLabel = #thisLabel# + 1>
 								</td>
 							</cfloop>
-						</tr>							
+						</tr>
 					</cfloop>
-						
+
 					</table>
-				
+
 			</cfif>
 		</td>
 	<td nowrap valign="top">
 	<font size="-1">
 		Label: <strong>#abox.label#</strong>
-		<br>Barcode: 
+		<br>Barcode:
 		<strong>#aBox.barcode#</strong>
-		<br> Type: 
+		<br> Type:
 		<strong>#aBox.container_type#</strong>
 	</font>
 	<p>
-							
+
 	</form>
 	</td>
-	
-	
+
+
 				</tr>
 			</table>
 			</cfoutput>
@@ -280,13 +284,13 @@
 				<cfset thisBarcode = #evaluate("barcode" & bc)#>
 				<cfset thisParentId = #evaluate("position_id" & bc)#>
 				<cfif len(#thisBarcode#) gt 0>
-					
+
 						<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select container_id from container where barcode='#thisBarcode#'
 							<!--- we should only be putting cyrovials in box positions ---->
-							AND container_type = 'cryovial'						
+							AND container_type = 'cryovial'
 						</cfquery>
-							
+
 						<cfif #thisID.recordcount# is 0>
 								<!--- see if it's a label --->
 								<cfquery name="isLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -299,17 +303,17 @@
 										update container set container_type='cryovial'
 										where container_id=#isLabel.container_id#
 									</cfquery>
-									<cfset thisContainerId = #isLabel.container_id#>	
+									<cfset thisContainerId = #isLabel.container_id#>
 								</cfif>
-								<cfset thisContainerId = #isLabel.container_id#>	
+								<cfset thisContainerId = #isLabel.container_id#>
 						<cfelseif #thisID.recordcount# is 1>
-							<cfset thisContainerId = #thisID.container_id#>	
+							<cfset thisContainerId = #thisID.container_id#>
 						<cfelse>
 							bad juju<cfabort>
 						</cfif>
-						
+
 					<cfif len(#thisContainerId#) gt 0>
-						
+
 						<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							INSERT INTO cf_temp_container_location (
 								CONTAINER_ID,
@@ -332,7 +336,7 @@
 			<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from cf_temp_container_location
 			</cfquery>
-			<hr><font color="##FF0000">#oops#</font>			
+			<hr><font color="##FF0000">#oops#</font>
 		<cfelse>
 			<!--- check these, move them, and tell the user to go back ---->
 			<!---- include the mover over application ---->
@@ -366,9 +370,9 @@
 			<cfset position_label = "position">
 			<cfset width = 1.2>
 			<cfset length = 1.2>
-			<cfset height = 4.9>		
+			<cfset height = 4.9>
 		<cfelse>
-			<hr><font color="##FF0000">I can't deal with #number_positions# positions in a #container_type#!</font>			
+			<hr><font color="##FF0000">I can't deal with #number_positions# positions in a #container_type#!</font>
 			<cfabort>
 		</cfif>
 		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
