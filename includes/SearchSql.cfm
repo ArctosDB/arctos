@@ -996,24 +996,22 @@
 	<cfif basJoin does not contain " otherIdSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
 	</cfif>
-	<cfset oidList="">
-	<cfloop list="#OIDNum#" delimiters="," index="i">
-		<cfif oidOper is "LIKE">
+	<cfif oidOper is "LIKE">
+		<cfset basQual = " #basQual# and upper(otherIdSearch.display_value) LIKE '%#ucase(OIDNum)#%'">
+	<cfelseif oidOper is "IS">
+		<cfset basQual = " #basQual# and upper(otherIdSearch.display_value) = '#ucase(OIDNum)#'">
+	<cfelse><!---- list ---->
+		<cfset oidList="">
+		<cfloop list="#OIDNum#" delimiters="," index="i">
 			<cfif len(oidList) is 0>
-				<cfset oidList = "AND ( upper(otherIdSearch.display_value) LIKE '%#ucase(i)#%'">
+				<cfset oidList = "AND ( upper(otherIdSearch.display_value) = '#ucase(i)#'">
 			<cfelse>
-				<cfset oidList = "#oidList# OR upper(otherIdSearch.display_value) LIKE '%#ucase(i)#%'">
+				<cfset oidList = "#oidList# OR upper(otherIdSearch.display_value) = '#ucase(i)#'">
 			</cfif>
-		<cfelse>
-			<cfif len(oidList) is 0>
-				<cfset oidList = "AND ( otherIdSearch.display_value = '#i#'">
-			<cfelse>
-				<cfset oidList = "#oidList# OR otherIdSearch.display_value = '#i#'">
-			</cfif>
-		</cfif>
-	</cfloop>
-	<cfset oidList = "#oidList# )">
-	<cfset basQual = " #basQual# #oidList#">
+		</cfloop>
+		<cfset oidList = "#oidList# )">
+		<cfset basQual = " #basQual# #oidList#">
+	</cfif>
 </cfif>
 <cfif isdefined("continent_ocean") AND len(continent_ocean) gt 0>
 	<cfif compare(continent_ocean,"NULL") is 0>

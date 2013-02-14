@@ -51,6 +51,7 @@
 			<select name="oidOper" id="oidOper" size="1">
 				<option value="">contains</option>
 				<option selected="selected" value="IS">is</option>
+				<option value="list">in list</option>
 			</select>
 			<cfif ListContains(session.searchBy, 'bigsearchbox') gt 0>
 				<textarea name="OIDNum" id="OIDNum" rows="6" cols="30" wrap="soft"></textarea>
