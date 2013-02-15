@@ -373,9 +373,9 @@
 			<cfset height = 4.9>
 		<cfelseif #number_positions# is 100 AND #container_type# is "slide box">
 			<cfset position_label = "position">
-			<cfset width = 1.2>
-			<cfset length = 1.2>
-			<cfset height = 4.9>
+			<cfset width = 3>
+			<cfset length = 78>
+			<cfset height = 27>
 		<cfelse>
 			<hr><font color="##FF0000">I can't deal with #number_positions# positions in a #container_type#!</font>
 			<cfabort>
