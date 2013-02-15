@@ -118,6 +118,7 @@
 		specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 		collecting_event.locality_id=locality.locality_id and
 		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+		specimen_event.specimen_event_type != 'unaccepted place of collection' and
 		specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 	order by
 		specimen_event_type
