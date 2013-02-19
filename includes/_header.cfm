@@ -176,7 +176,7 @@
 											<li><a target="_top" href="/tools/BulkPartSample.cfm">Bulkload Part Subsamples (Lots)</a></li>
 											<li><a target="_top" href="/tools/BulkloadAttributes.cfm">Bulkload Attributes</a></li>
 											<li><a target="_top" href="/tools/BulkloadCitations.cfm">Bulkload Citations</a></li>
-											<li><a target="_top" href="/tools/BulkloadOtherId.cfm">Bulkload Identifiers</a></li>
+											<li><a target="_top" href="/tools/BulkloadOtherId.cfm">Bulkload Identifiers/Relationships</a></li>
 											<li><a target="_top" href="/tools/loanBulkload.cfm">Bulkload Loan Items</a></li>
 											<li><a target="_top" href="/tools/DataLoanBulkload.cfm">Bulkload DataLoan Items</a></li>
 											<li><a target="_top" href="/DataServices/agents.cfm">Bulkload Agents</a></li>
