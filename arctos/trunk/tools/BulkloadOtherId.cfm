@@ -131,7 +131,8 @@ sho err
 			<td>
 				Labeled "relationship" in various forms, this defines
 				the current specimen's (existing_other_id_type,existing_other_id_number) relationship to another specimen (given in
-				new_other_id_type,new_other_id_number). Used when the other ID references another data object, such as a host's catalog number if existing specimen is a parasite. Creates relationships.
+				new_other_id_type,new_other_id_number). Used when the other ID references another data object, such as a host's catalog number if
+				existing specimen is a parasite. Creates relationships.
 				leave blank or use "self" when the ID references this specimen (such as when loading GenBank numbers)
 			</td>
 		</tr>
