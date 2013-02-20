@@ -558,14 +558,14 @@ group by verificationstatus,collection
 	    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
     	<input type="hidden" name="action" value="updateAllVerificationStatus">
 		<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Update Verification Status for ALL specimen_events in this collecting event to....</label>
-					<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-						<option value=""></option>
-						<cfloop query="ctVerificationStatus">
-							<option value="#VerificationStatus#">#VerificationStatus#</option>
-						</cfloop>
-					</select>
-					<br>
-					<input type="submit" value="Update Verification Status for ALL specimen_events in this collecting event to value in pick above">
+		<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+			<option value=""></option>
+			<cfloop query="ctVerificationStatus">
+				<option value="#VerificationStatus#">#VerificationStatus#</option>
+			</cfloop>
+		</select>
+		<br>
+		<input type="submit" class="lnkBtn" value="Update Verification Status for ALL specimen_events in this collecting event to value in pick above">
 </form>
 <hr>
 
