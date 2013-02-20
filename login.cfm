@@ -24,7 +24,7 @@
 	</cfif>
 	<cfif len(username) is 0>
 		<cfset err="Your user name must be at least one character long.">
-	</cfif>	
+	</cfif>
 	<cfif uUser.recordcount gt 0>
 		<cfset err="That username is already in use.">
 	</cfif>
@@ -38,14 +38,14 @@
 	<cfoutput>
 		<cfquery name="newUser" datasource="cf_dbuser">
 			INSERT INTO cf_users (
-				user_id, 
-				username, 
+				user_id,
+				username,
 				password,
 				PW_CHANGE_DATE,
 				last_login
 			) VALUES (
-				#nextUserID.nextid#, 
-				'#username#', 
+				#nextUserID.nextid#,
+				'#username#',
 				'#hash(password)#',
 				sysdate,
 				sysdate
@@ -65,8 +65,10 @@
 			</cfif>
 			<cflocation url="#u#" addtoken="false">
 		</cfif>
-		
+
 		<cfif not isdefined("gotopage") or len(gotopage) is 0>
+		<cfdump var=#request.rdurl#>
+		<cfabort>
 			<cfif isdefined("cgi.HTTP_REFERER") and left(cgi.HTTP_REFERER,(len(application.serverRootUrl))) is application.serverRootUrl>
 				<cfset gotopage=replace(cgi.HTTP_REFERER,application.serverRootUrl,'')>
 				<cfset junk="session.sessionKey">
@@ -92,7 +94,7 @@
 		</cfif>
 		<cfif session.roles contains "coldfusion_user">
 			<cfquery name="getUserData" datasource="cf_dbuser">
-				SELECT   
+				SELECT
 					cf_users.user_id,
 					first_name,
 			        middle_name,
@@ -100,7 +102,7 @@
 			        affiliation,
 					email,
 					PW_CHANGE_DATE
-				FROM 
+				FROM
 					cf_user_data,
 					cf_users
 				WHERE
@@ -139,17 +141,17 @@
 			document.signIn.action.value='newUser';
 			document.signIn.submit();
 		}
-	}	
+	}
 </script>
 <cfoutput>
 	<cfparam name="username" default="">
 	<cfset title="Log In or Create Account">
 	<p><strong>Log In or Create an Account</strong></p>
 	<p>
-		Logging in enables you to turn on, turn off, or otherwise customize many features of 
-		this database. To create an account and log in, simply supply a username and 
+		Logging in enables you to turn on, turn off, or otherwise customize many features of
+		this database. To create an account and log in, simply supply a username and
 		password here and click Create Account.
-	</p>	
+	</p>
 	<cfif not isdefined("gotopage")>
 		<cfset gotopage=''>
 	</cfif>
@@ -174,7 +176,7 @@
 		</cfif>
 		<br>
 		<input type="submit" value="Sign In" class="savBtn" onClick="signIn.action.value='signIn';submit();" tabindex="3">
-		&nbsp;or&nbsp;<input type="button" value="Create an Account" class="insBtn" onClick="isInfo();" tabindex="4">	  
+		&nbsp;or&nbsp;<input type="button" value="Create an Account" class="insBtn" onClick="isInfo();" tabindex="4">
 	</form>
 	<p>
 		<a href="/ChangePassword.cfm">Lost your password?</a> If you created a profile with an email address,
