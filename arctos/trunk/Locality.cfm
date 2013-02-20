@@ -450,17 +450,17 @@
 	</cfoutput>
 </cfif>
 
-	<!---------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------->
 <cfif action is "updateAllVerificationStatus">
 	<cfoutput>
-    <cfquery name="upall" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update specimen_event set VerificationStatus='#VerificationStatus#'
-		where COLLECTING_EVENT_ID='#COLLECTING_EVENT_ID#'
-	</cfquery>
-	<cflocation addtoken="false" url="Locality.cfm?collecting_event_id=#collecting_event_id#">
+	    <cfquery name="upall" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update specimen_event set VerificationStatus='#VerificationStatus#'
+			where COLLECTING_EVENT_ID='#COLLECTING_EVENT_ID#'
+		</cfquery>
+		<cflocation addtoken="false" url="Locality.cfm?collecting_event_id=#collecting_event_id#">
 	</cfoutput>
 </cfif>
-
+<!---------------------------------------------------------------------------------------------------->
 
 
 
@@ -561,8 +561,7 @@ group by verificationstatus,collection
 					<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 						<option value=""></option>
 						<cfloop query="ctVerificationStatus">
-							<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
-								value="#VerificationStatus#">#VerificationStatus#</option>
+							<option value="#VerificationStatus#">#VerificationStatus#</option>
 						</cfloop>
 					</select>
 					<br>
