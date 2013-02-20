@@ -89,7 +89,7 @@
 			<cfset basWhr=basWhr & " and media.media_id=l_year.media_id and
 				l_year.media_label='published year'">
 		</cfif>
-		<cfset basQ=basQ & "and l_year.label_value <= #e_year#">
+		<cfset basQ=basQ & " and l_year.label_value <= #e_year#">
 	</cfif>
 
 
