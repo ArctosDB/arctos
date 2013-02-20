@@ -1,9 +1,7 @@
 <cfinclude template = "includes/_header.cfm">
 <cfoutput>
-<cfif isdefined("cgi.query_string") and len(cgi.query_string) gt 0>
-	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
-</cfif>
-<cfif not listfindnocase(rdurl,"project","/")>
+
+<cfif not listfindnocase(request.rdurl,"project","/")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_name from project where project_id=#project_id#
 	</cfquery>
@@ -16,7 +14,7 @@
 	<cfif redir.recordcount is 1>
 		<cfset project_id=redir.project_id>
 	<cfelse>
-		<cfthrow 
+		<cfthrow
 		    detail = "Project #niceProjName# matches #redir.recordcount# projects."
 		    errorCode = "project_hosed">
 	</cfif>
@@ -42,29 +40,29 @@
 			load(elemAry[i]);
 		}
 	});
-</script>	
+</script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		SELECT 
+		SELECT
 			project.project_id,
 			project_name,
 			project_description,
 			start_date,
 			end_date,
-			preferred_agent_name.agent_name, 
+			preferred_agent_name.agent_name,
 			agent_position,
 			project_agent_role,
 			project_agent_remarks
-		FROM 
+		FROM
 			project,
 			project_agent,
 			preferred_agent_name
-		WHERE 
-			project.project_id = project_agent.project_id (+) AND 
+		WHERE
+			project.project_id = project_agent.project_id (+) AND
 			project_agent.agent_id = preferred_agent_name.agent_id (+) and
-			project.project_id = #project_id# 
+			project.project_id = #project_id#
 	</cfquery>
 	<cfquery name="p" dbtype="query">
-		select 
+		select
 			project_id,
 			project_name,
 			project_description,
@@ -83,23 +81,23 @@
 		select
 			agent_name,
 			project_agent_role
-		from 
+		from
 			proj
 		group by
 			agent_name,
 			project_agent_role
-		order by 
+		order by
 			agent_position
 	</cfquery>
 	<cfquery name="s" dbtype="query">
-		select 
+		select
 			agent_name,
 			project_agent_remarks
 		from
 			proj
 		where
 			project_agent_role='Sponsor'
-		group by			
+		group by
 			agent_name,
 			project_agent_remarks
 	</cfquery>
@@ -110,7 +108,7 @@
 				where project_id = #project_id#
 			</cfquery>
 			<a href="javascript: openAnnotation('project_id=#project_id#')">
-				[Annotate]							
+				[Annotate]
 			<cfif #existingAnnotations.cnt# gt 0>
 				<br>(#existingAnnotations.cnt# existing)
 			</cfif>

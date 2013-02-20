@@ -10,15 +10,6 @@
 	<cfinclude template="/includes/_header.cfm">
 </cfif>
 <cfoutput>
-	<!----
-	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-		<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
-	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
-		<CFSET ipaddress=CGI.Remote_Addr>
-	<cfelse>
-		<cfset ipaddress='unknown'>
-	</CFIF>
-	---->
 	<cfset cTemp="">
 	<cfif len(request.rdurl) gt 0>
 		<cfset cTemp=request.rdurl>

@@ -20,13 +20,6 @@
 	</cfif>
 	<cfif showErr is 1>
 		<cfsavecontent variable="errortext">
-			<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-				<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
-			<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
-				<CFSET ipaddress=CGI.Remote_Addr>
-			<cfelse>
-				<cfset ipaddress='unknown'>
-			</CFIF>
 			<cfoutput>
 				<table border width="800px;">
 					<tr>
@@ -48,9 +41,9 @@
 					<tr>
 						<td>IP</td>
 						<td>
-							#ipaddress#
-							<a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">[ lookup ]</a>
-							<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#ipaddress#">[ blacklist ]</a>
+							#request.ipaddress#
+							<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup ]</a>
+							<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist ]</a>
 						</td>
 					</tr>
 					<cfif isdefined("session.username")>
