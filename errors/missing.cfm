@@ -28,7 +28,7 @@
 
 			<cfinclude template="/document.cfm">
 			<cfcatch>
-				<cfif listgetat(request.rdurl,gPos+2,"/")>
+				<cfif listlen(request.rdur) gt 2 and listgetat(request.rdurl,gPos+2,"/")>
 					<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 				<cfelse>
 					<cfset p=1>
