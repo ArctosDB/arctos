@@ -94,7 +94,7 @@
 
 
 
-	<cfset ssql=basSQL & basFrm & basWhr & basQ & " group by label_value">
+	<cfset ssql=basSQL & basFrm & basWhr & basQ & " group by l_title.label_value">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
