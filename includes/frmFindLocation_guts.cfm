@@ -427,7 +427,7 @@
 									<option value="S">S</option>
 								</select>
 							</td>
-							<td rospan="2">
+							<td rowspan="2" style="vertical-align: middle;">
 								<span class="likeLink" onclick="convertToDD('dms');">convert</span>
 							</td>
 						</tr>
@@ -472,7 +472,7 @@
 									<option value="N">N</option>
 									<option value="S">S</option>
 								</select>
-							</td><td rospan="2">
+							</td><td rowspan="2" style="vertical-align: middle;">
 	                			                									<span class="likeLink" onclick="convertToDD('dm');">convert</span>
 	                			                								</td>
 						</tr>
