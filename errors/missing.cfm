@@ -121,6 +121,7 @@
 			<cfcatch><!---
 				<cfinclude template="/errors/404.cfm">
 			---->
+			i am cfcatch
 			<cfdump var=#cfcatch#>
 			</cfcatch>
 
