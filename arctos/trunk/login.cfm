@@ -67,8 +67,8 @@
 		</cfif>
 
 		<cfif not isdefined("gotopage") or len(gotopage) is 0>
-			<cfif isdefined("cgi.HTTP_REFERER") and left(cgi.HTTP_REFERER,(len(application.serverRootUrl))) is application.serverRootUrl>
-				<cfset gotopage=replace(cgi.HTTP_REFERER,application.serverRootUrl,'')>
+			<cfif len(request.rdurl) gt 0>
+				<cfset gotopage=request.rdurl>
 				<cfset junk="session.sessionKey">
 				<cfloop list="#gotopage#" index="e" delimiters="?&">
 					<cfloop list="#junk#" index="j">
