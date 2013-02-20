@@ -24,6 +24,10 @@
 	</cfoutput>
 </cfif>
 <cfif len(request.rdurl) gt 0>
+
+hello
+
+<cfabort>
 	<cfif rdurl contains chr(195) & chr(151)>
 		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
