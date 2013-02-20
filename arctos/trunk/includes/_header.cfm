@@ -92,6 +92,9 @@
 				<cfelse>
 					<cfif isdefined("ref")><!--- passed in by Application.cfc before termination --->
 						<cfset gtp=ref>
+					<cfelse>
+						<cfset gtp=request.rdurl>
+						<!----
 					<cfelseif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 						<cfset gtp=cgi.REDIRECT_URL>
 					<cfelse>
@@ -99,6 +102,7 @@
 					</cfif>
 					<cfif len(cgi.query_string) gt 0>
 						<cfset gtp=gtp & "?" & cgi.query_string>
+						---->
 					</cfif>
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">
