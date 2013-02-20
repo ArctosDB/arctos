@@ -420,15 +420,21 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 		                		<label for="dec_long">DecLong</label>
 		                		<input type="text" name="dec_long" id="dec_long">
 							</td>
+							<td>
+		                		<label for="search_precision">Search Precision</label>
+   		                		<select name="search_precision" id="search_precision">
+   									<option value="0">round to integer</option>
+   									<option value="2">2 (NN.nn)</option>
+		                			<option value="4">4 (NN.nnnn)</option>
+		                			<option value="exact">exact match only</option>
+   								</select>
+							</td>
 						</tr>
 					</table>
 		            </div>
-		            <div style="border:1px solid black;padding-left:1.5em;">
+		            <div style="border:1px solid black;padding-left:1.5em;background-color:gray;">
 					<table>
 						<tr>
-							<td>
-								<div class="vert">conversion tool</div>
-							</td>
 							<td>
 		                		<label for="lat_deg">LatDeg</label>
 		                		<input type="text" name="lat_deg" id="lat_deg" size="2">
