@@ -428,7 +428,7 @@
 								</select>
 							</td>
 							<td rowspan="2" style="vertical-align: middle;">
-								<span class="likeLink" onclick="convertToDD('dms');">convert</span>
+								<button class="lnkBtn" onclick="convertToDD('dms');">convert to decimal</span>
 							</td>
 						</tr>
                			<tr>
@@ -473,7 +473,7 @@
 									<option value="S">S</option>
 								</select>
 							</td><td rowspan="2" style="vertical-align: middle;">
-	                			                									<span class="likeLink" onclick="convertToDD('dm');">convert</span>
+		                			        <button class="lnkBtn" onclick="convertToDD('dm');">convert to decimal</span>
 	                			                								</td>
 						</tr>
                			<tr>
