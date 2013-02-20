@@ -38,11 +38,11 @@
 			}
 			var dms_longdir=$("#dms_longdir").val();
 
-			var dec_lat = parseInt(lat_deg) + (parseInt(lat_min) / 60) + (parseInt(lat_sec) / 3600);
+			var dec_lat = parseFloat(lat_deg) + (parseFloat(lat_min) / 60) + (parseFloat(lat_sec) / 3600);
             if (dms_latdir == 'S'){
                 dec_lat = dec_lat * -1;
             }
-			var dec_long = parseInt(long_deg) + (parseInt(long_min) / 60) + (parseInt(long_sec) / 3600);
+			var dec_long = parseFloat(long_deg) + (parseFloat(long_min) / 60) + (parseFloat(long_sec) / 3600);
              if (dms_longdir == 'W'){
                 dec_long = dec_long * -1;
             }
@@ -69,11 +69,11 @@
 
 			var dm_longdir=$("#dm_longdir").val();
 
-			var dec_lat = parseInt(dec_lat_deg) + (parseInt(dec_lat_min) / 60);
+			var dec_lat = parseFloat(dec_lat_deg) + (parseFloat(dec_lat_min) / 60);
             if (dm_latdir == 'S'){
                 dec_lat = dec_lat * -1;
             }
-			var dec_long = parseInt(dec_long_deg) + (parseInt(dec_long_min) / 60);
+			var dec_long = parseFloat(dec_long_deg) + (parseFloat(dec_long_min) / 60);
              if (dm_longdir == 'W'){
                 dec_long = dec_long * -1;
             }
