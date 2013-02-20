@@ -528,7 +528,7 @@
 	</cfinvoke>
 	#contents#
 	<br>
-	    	<div style="border:5px solid red">
+	    	<div style="border:5px solid red; background-color:red;">
 	This form will not work if you do not own ALL specimens listed above.
 	<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select verificationstatus,collection,count(*) c from
