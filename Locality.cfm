@@ -457,7 +457,7 @@
 			update specimen_event set VerificationStatus='#VerificationStatus#'
 			where COLLECTING_EVENT_ID='#COLLECTING_EVENT_ID#'
 		</cfquery>
-		<cflocation addtoken="false" url="Locality.cfm?collecting_event_id=#collecting_event_id#">
+		<cflocation addtoken="false" url="Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
