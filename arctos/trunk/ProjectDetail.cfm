@@ -1,8 +1,4 @@
-	 <cfthrow message="This error was thrown from the bugTest action page.">
-
-
-
-<cfoutput>
+<cfinclude template = "includes/_header.cfm">
 
 <cfif not listfindnocase(request.rdurl,"project","/")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -21,20 +17,15 @@
 			Project not found.
 			<br>Try <a href="/SpecimenUsage.cfm">searching</a>
 		</div>
-
+	<cfthrow
+			    detail = "Project #niceProjName# matches #redir.recordcount# projects."
+			    	message="a project is missing"
+			    errorCode = "project_hosed">
 			 <cfabort>
 
 
 
-		<cfinclude template = "includes/_header.cfm">
 
-
-<!----
-		<cfthrow
-		    detail = "Project #niceProjName# matches #redir.recordcount# projects."
-		    	message="a project is missing"
-		    errorCode = "project_hosed">
----->
 
 	</cfif>
 </cfif>
