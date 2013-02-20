@@ -24,22 +24,18 @@
 	</cfoutput>
 </cfif>
 <cfif listlen(request.rdurl,"/") gt 1>
-<cfoutput>#listlen(request.rdurl,"/")#</cfoutput>
-hello
-
-<cfabort>
-	<cfif rdurl contains chr(195) & chr(151)>
-		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
+	<cfif request.rdurl contains chr(195) & chr(151)>
+		<cfset request.rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
-	<cfset gPos=listfindnocase(rdurl,"document","/")>
+	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 	<cftry>
-		<cfset ttl = listgetat(rdurl,gPos+1,"/")>
+		<cfset ttl = listgetat(request.rdurl,gPos+1,"/")>
 		<cfcatch>
 			fail@can't get title
 		</cfcatch>
 	</cftry>
 	<cftry>
-		<cfset p=listgetat(rdurl,gPos+2,"/")>
+		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 		<cfcatch>
 			<cfset p=1>
 		</cfcatch>
