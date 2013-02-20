@@ -432,7 +432,8 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 						</tr>
 					</table>
 		            </div>
-		            <div style="border:1px solid black;padding-left:1.5em;background-color:gray;">
+		            <label for="dmsdiv">Convert to decimal degrees (not included in search)</label>
+		            <div id="dmsdiv" style="border:1px solid black;padding-left:1.5em;background-color:LightGray;">
 					<table>
 						<tr>
 							<td>
@@ -482,7 +483,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 						</tr>
 					</table>
 				            </div>
-				            <div style="border:1px solid black;padding-left:1.5em;">
+				            <div style="border:1px solid black;padding-left:1.5em;background-color:LightGray;">
                 	<table>
 						<tr>
 							<td>
