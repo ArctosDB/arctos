@@ -514,6 +514,33 @@
 	</cfinvoke>
 	#contents#
 	<br>
+	<hr>
+	This for will not work if you do not own ALL specimens listed above.
+	<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select verificationstatus,collection,count(*) c from
+		specimen_event,cataloged_item,collection
+		where
+specimen_event.collection_object_id=cataloged_item.collection_object_id and
+cataloged_item.collection_id=collection.collection_id and
+specimen_event.collecting_event_id=#locDet.collecting_event_id#
+group by verificationstatus,collection
+	</cfquery>
+	<table border>
+		<tr>
+			<th>Collection</th>
+			<th>VerificationStatus</th>
+			<th>NumberSpecimenEvents</th>
+		</tr>
+	<cfloop query="vstat">
+	<tr>
+		<td>#collection#</td>
+		<td>#verificationstatus#</td>
+		<td>#c#</td>
+	</tr>
+	</cfloop>
+
+	</table>
+
 	<cfform name="locality" method="post" action="Locality.cfm">
 		<table width="100%"><tr><td valign="top">
 			<h4>Edit this Collecting Event:</h4>
