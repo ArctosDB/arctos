@@ -6,7 +6,7 @@
 	</cfquery>
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/project/#niceURL(redir.project_name)#">
-<cfelseif isdefined("project_id")>
+<cfelseif isdefined("niceProjName")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_id from project where niceURL(project_name)='#niceProjName#'
 	</cfquery>
