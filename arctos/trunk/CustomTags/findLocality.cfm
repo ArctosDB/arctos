@@ -95,7 +95,23 @@
 		<cfset qual = "#qual# AND upper(geology_attributes.geo_att_value) like '%#ucase(geo_att_value)#%'">
 	</cfif>
 </cfif>
+<cfif isdefined("datum") and len(datum) gt 0>
+	<cfset qual = "#qual# AND locality.datum = '#datum#'">
+</cfif>
+<cfif isdefined("dec_lat") and len(dec_lat) gt 0 and isdefined("dec_long") and len(dec_long) gt 0>
+	<cfif not isdefined("search_precision")>
+		<cfset search_precision=2>
+	</cfif>
+	<cfif search_precision is "0">
+		<cfset qual = "#qual# AND round(locality.dec_lat) = round(#dec_lat#) and round(locality.dec_long)=round(#dec_long#) ">
+	<cfelseif search_precision is "exact">
+		<cfset qual = "#qual# AND locality.dec_lat = #dec_lat# and locality.dec_long=#dec_long# ">
+	<cfelse>
+		<cfset qual = "#qual# AND round(locality.dec_lat,#search_precision#) = round(#dec_lat#,#search_precision#) and
+				round(locality.dec_long,#search_precision#)=round(#dec_long#,#search_precision#) ">
+	</cfif>
 
+</cfif>
 <cfif isdefined("geog_auth_rec_id") and len(#geog_auth_rec_id#) gt 0>
 	<cfset qual = "#qual# AND geog_auth_rec.geog_auth_rec_id = #geog_auth_rec_id#">
 </cfif>
