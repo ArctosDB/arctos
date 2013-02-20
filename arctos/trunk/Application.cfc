@@ -471,11 +471,11 @@
 		<cfset application.blacklist="">
 	</cfif>
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-		<CFSET cgi.ipaddress=CGI.HTTP_X_Forwarded_For>
+		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
 	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
-		<CFSET cgi.ipaddress=CGI.Remote_Addr>
+		<CFSET request.ipaddress=CGI.Remote_Addr>
 	<cfelse>
-		<cfset cgi.ipaddress='unknown'>
+		<cfset request.ipaddress='unknown'>
 	</CFIF>
 
 	<cfif listfindnocase(application.blacklist,ipaddress)>
