@@ -17,7 +17,7 @@
 			Project not found.
 			<br>Try <a href="/SpecimenUsage.cfm">searching</a>
 		</div>
-
+		<cfabort>
 	</cfif>
 </cfif>
 <style>
