@@ -17,8 +17,7 @@
 			Project not found.
 			<br>Try <a href="/SpecimenUsage.cfm">searching</a>
 		</div>
-			 <cfthrow message="Project not found.">
-
+		<cfthrow message="Project not found.">
 		<cfabort>
 	</cfif>
 </cfif>
