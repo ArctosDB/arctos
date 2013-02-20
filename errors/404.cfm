@@ -20,9 +20,8 @@
 	</CFIF>
 	---->
 	<cfset cTemp="">
-	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
-	<cfif len(rdurl) gt 0>
-		<cfset cTemp=rdurl>
+	<cfif len(request.rdurl) gt 0>
+		<cfset cTemp=request.rdurl>
 	<cfelseif len(cgi.script_name) gt 0>
 		<cfset cTemp=cgi.script_name>
 	</cfif>
@@ -40,7 +39,7 @@
 	</cfif>
 	<cfset nono="wp-admin,wp,verify-tldnotify,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
 	<cfset fourohthree="dll,asp,png,crossdomain">
-	<cfloop list="#rdurl#" delimiters="./&" index="i">
+	<cfloop list="#request.rdurl#" delimiters="./&" index="i">
 		<cfif listfindnocase(nono,i)>
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
@@ -75,13 +74,13 @@
 					queryformat : 'column'
 				},
 				function (d) {
-		  			document.location='#rdurl#';
+		  			document.location='#request.rdurl#';
 				}
 			);
 		}
 	</script>
 	<cfset isGuid=false>
-	<cfif len(rdurl) gt 0 and rdurl contains "guid">
+	<cfif len(request.rdurl) gt 0 and request.rdurl contains "guid">
 		<cfset isGuid=true>
 		<cfif session.dbuser is not "pub_usr_all_all">
 			<cfquery name="yourcollid" datasource="cf_dbuser">
@@ -135,7 +134,7 @@
 		<cfset sub="Missing GUID">
 		<cfset frm="dead.guid">
 	</cfif>
-	<cfif rdurl contains 'coldfusion.applets.CFGridApplet.class'>
+	<cfif request.rdurl contains 'coldfusion.applets.CFGridApplet.class'>
 		<cfset sub="stoopid safari">
 		<cfset frm="stoopid.safari">
 	</cfif>
@@ -144,8 +143,8 @@
 		<cfif isdefined("CGI.script_name")>
 			<br>The missing page is #Replace(CGI.script_name, "/", "")#
 		</cfif>
-		<cfif isdefined("rdurl")>
-			<br>rdurl: #rdurl#
+		<cfif isdefined("request.rdurl")>
+			<br>request.rdurl: #request.rdurl#
 		</cfif>
 		<cfif isdefined("session.username")>
 			<br>The username is #session.username#
