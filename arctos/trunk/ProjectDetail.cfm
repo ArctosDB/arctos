@@ -6,7 +6,7 @@
 	</cfquery>
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/project/#niceURL(redir.project_name)#">
-<cfelse>
+<cfelseif isdefined("project_id")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_id from project where niceURL(project_name)='#niceProjName#'
 	</cfquery>
@@ -20,6 +20,13 @@
 		<cfthrow message="Project not found.">
 		<cfabort>
 	</cfif>
+<cfelse>
+	<div class="error">
+		invalid call
+		<br>Try <a href="/SpecimenUsage.cfm">searching</a>
+	</div>
+	<cfthrow message="invalid project cal">
+	<cfabort>
 </cfif>
 <style>
 	.proj_title {font-size:2em;font-weight:900;text-align:center;}
