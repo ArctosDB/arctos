@@ -3,6 +3,7 @@
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
 <cffunction name="onError">
+	i am onerror
 	<cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
 	<cfset showErr=1>
