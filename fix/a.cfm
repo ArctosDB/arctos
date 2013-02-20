@@ -1,5 +1,7 @@
-<cfset 1=2>
 
+	 <cfthrow type="ThrownError" message="This error was thrown from the bugTest action page.">
+
+	 <cfabort>
 <!----
 
 
