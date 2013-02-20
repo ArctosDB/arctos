@@ -1,11 +1,7 @@
 	 <cfthrow message="This error was thrown from the bugTest action page.">
 
 
-					 <cfabort>
 
-
-
-<cfinclude template = "includes/_header.cfm">
 <cfoutput>
 
 <cfif not listfindnocase(request.rdurl,"project","/")>
@@ -25,6 +21,12 @@
 			Project not found.
 			<br>Try <a href="/SpecimenUsage.cfm">searching</a>
 		</div>
+
+			 <cfabort>
+
+
+
+		<cfinclude template = "includes/_header.cfm">
 
 
 <!----
