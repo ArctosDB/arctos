@@ -14,7 +14,7 @@
 			var lat_deg=$("#lat_deg").val();
 			console.log(lat_deg);
 
-			if(lat_deg===null){
+			if(lat_deg==''){
 				lat_deg=0;
 			}
 			var lat_min=$("#lat_min").val();
