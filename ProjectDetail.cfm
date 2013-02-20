@@ -18,12 +18,13 @@
 			Project not found.
 			<br>Try <a href="/SpecimenUsage.cfm">searching</a>
 		</div>
-
+			 <cfthrow type="ThrownError" message="This error was thrown from the bugTest action page.">
+<!----
 		<cfthrow
 		    detail = "Project #niceProjName# matches #redir.recordcount# projects."
 		    	message="a project is missing"
 		    errorCode = "project_hosed">
-
+---->
 
 	</cfif>
 </cfif>
