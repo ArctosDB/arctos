@@ -146,7 +146,6 @@
 <!------------------------------->
 <cfif action is 'show'>
 <cfoutput>
-
 	<cfquery name="doc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			media_uri,
@@ -167,6 +166,11 @@
 		order by
 			to_number(page.label_value)
 	</cfquery>
+	<cfif doc.recordcount is 0>
+		<div class="error">
+			Document #ttl# was not found.
+		</div>
+	</cfif>
 	<cfquery name="pg" dbtype="query">
 		select max(page) npgs from doc
 	</cfquery>
