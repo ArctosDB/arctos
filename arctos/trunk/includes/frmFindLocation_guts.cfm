@@ -18,7 +18,13 @@
 				lat_deg=0;
 			}
 			var lat_min=$("#lat_min").val();
+			if(lat_min==''){
+				lat_min=0;
+			}
 			var lat_sec=$("#lat_sec").val();
+			if(lat_sec==''){
+				lat_sec=0;
+			}
 			var dms_latdir=$("#dms_latdir").val();
 			var long_deg=$("#long_deg").val();
 			var long_min=$("#long_min").val();
