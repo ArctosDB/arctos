@@ -1,6 +1,6 @@
 <cfinclude template = "includes/_header.cfm">
 <cfoutput>
-<cfif not listfindnocase(request.rdurl,"project","/")>
+<cfif not listfindnocase(request.rdurl,"project","/") and isdefined("project_id")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_name from project where project_id=#project_id#
 	</cfquery>
@@ -25,7 +25,7 @@
 		invalid call
 		<br>Try <a href="/SpecimenUsage.cfm">searching</a>
 	</div>
-	<cfthrow message="invalid project cal">
+	<cfthrow message="invalid project call">
 	<cfabort>
 </cfif>
 <style>
