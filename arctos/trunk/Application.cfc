@@ -456,6 +456,7 @@
 		<cfheader name="Location" value="http://arctos.database.museum/">
 	</cfif>
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
+	<cfdump var="#request.rdurl#">
 	<!--- uncomment for a break from googlebot
 
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">

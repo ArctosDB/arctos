@@ -23,8 +23,7 @@
 		</cfif>
 	</cfoutput>
 </cfif>
-	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
-<cfif isdefined("rdurl") and len(rdurl) gt 0>
+<cfif len(request.rdurl) gt 0>
 	<cfif rdurl contains chr(195) & chr(151)>
 		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
