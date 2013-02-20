@@ -21,7 +21,6 @@
 		<cfthrow
 		    detail = "Project #niceProjName# matches #redir.recordcount# projects."
 		    errorCode = "project_hosed">
-		<cfabort>
 	</cfif>
 </cfif>
 <style>
