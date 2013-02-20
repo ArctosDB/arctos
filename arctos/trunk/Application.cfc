@@ -3,11 +3,17 @@
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
 <cffunction name="onError">
-	<cfargument name="exception" required="true">
-    <cfargument name="EventName" type="String" required="true">
+
 	i am onerror
 
 	<!----
+
+
+<cfargument name="exception" required="true">
+    <cfargument name="EventName" type="String" required="true">
+
+
+
 	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
         <cfset showErr=0>
