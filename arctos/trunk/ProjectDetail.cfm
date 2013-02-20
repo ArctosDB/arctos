@@ -19,6 +19,10 @@
 			<br>Try <a href="/SpecimenUsage.cfm">searching</a>
 		</div>
 			 <cfthrow type="ThrownError" message="This error was thrown from the bugTest action page.">
+
+
+				 <cfabort>
+
 <!----
 		<cfthrow
 		    detail = "Project #niceProjName# matches #redir.recordcount# projects."
