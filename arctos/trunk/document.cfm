@@ -44,8 +44,8 @@
 <cfif action is 'srchResult'>
 <cfoutput >
 	<cfset basSQL="select
-		label_value,
-		niceURLNumbers(label_value) ttl ">
+		l_title.label_value,
+		niceURLNumbers(l_title.label_value) ttl ">
 	<cfset basFrm="from
 		media_labels l_title,
 		media">
