@@ -117,14 +117,9 @@
 				<cfset niceProjName = listgetat(request.rdurl,gPos+1,"/")>
 			</cfif>
 			<cfinclude template="/ProjectDetail.cfm">
-
 			<cfcatch>
-				i am cfcatch
 				<cfinclude template="/errors/404.cfm">
-
 			</cfcatch>
-
-
 		</cftry>
 	<cfelseif listfindnocase(request.rdurl,'media',"/")>
 		<cftry>
