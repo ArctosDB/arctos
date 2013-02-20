@@ -13,7 +13,7 @@
 	function toggleGeogDetail(onOff) {
 		if (onOff==0) {
 			$("#geogDetail").hide();
-			$("#geogDetailCtl").attr('onCLick','toggleGeogDetail(1)').html('Show More Options');	
+			$("#geogDetailCtl").attr('onCLick','toggleGeogDetail(1)').html('Show More Options');
 		} else {
 			$("#geogDetail").show();
 			$("#geogDetailCtl").attr('onCLick','toggleGeogDetail(0)').html('Show Fewer Options');
@@ -87,7 +87,7 @@
 			},
 			nada
 		);
-	}	
+	}
 </script>
 <cfoutput>
 <cfif not isdefined("showLocality")>
@@ -131,7 +131,7 @@
 				<input type="text" name="higher_geog" id="higher_geog" size="50">
 			</td>
 		</tr>
-	</table>	
+	</table>
 		<div id="geogDetail" class="noShow">
 		<table cellpadding="0" cellspacign="0">
 			<tr>
@@ -206,7 +206,7 @@
 			</tr>
 		</table>
 		</div>
-	
+
 </div>
 
 <cfif showLocality is 1>
@@ -243,8 +243,8 @@
 		                </cfloop>
 		           	</select>
 				</td>
-				
-			
+
+
 			</tr>
 			<tr>
 				<td>
@@ -254,7 +254,7 @@
 		                <option value="<>">is not</option>
 		                <option value=">">more than</option>
 		                <option value="<">less than</option>
-		             </select> 
+		             </select>
 					<input type="text" name="minimum_elevation" id="minimum_elevation">
 				</td>
 			</tr>
@@ -295,6 +295,22 @@
 			</tr>
 			<tr>
 				<td>
+					<table>
+						<tr>
+							<td>
+		                		<label for="dec_lat">DecLat</label>
+		                		<input type="text" name="dec_lat" id="dec_lat">
+							</td>
+							<td>
+		                		<label for="dec_long">DecLong</label>
+		                		<input type="text" name="dec_long" id="dec_long">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<table cellpadding="0" cellspacing="0">
 						<tr><td>
 					<label for="geology_attribute">Geology Attribute</label>
@@ -305,7 +321,7 @@
 						</cfloop>
 					</select>
 						</td>
-						
+
 						<td>
 							<label for="geo_att_value">Attribute Value</label>
 							<input type="text" name="geo_att_value">
@@ -318,16 +334,16 @@
 					</select>
 						</td>
 						</tr>
-						
+
 					</table>
 				</td>
 			</tr>
 		</table>
 	</div>
-	</div>	
-</cfif>	
+	</div>
+</cfif>
 	<!--------------------------------------- event ----------------------------------------------------------->
-	<cfif showEvent is 1>	
+	<cfif showEvent is 1>
 	<div class="locGroup">
 		<span id="eventDetailCtl" class="infoLink" onclick="toggleEventDetail(1)";>Show More Options</span>
 	<table cellpadding="0" cellspacign="0">
@@ -344,7 +360,7 @@
 	            	<option value="=">is</option>
 	                <option value="<">before</option>
 	                <option value=">">after</option>
-	            </select> 
+	            </select>
 				<input type="text" name="began_date" id="began_date">
 			</td>
 		</tr>
@@ -355,13 +371,13 @@
 	            	<option value="=">is</option>
 	                <option value="<">before</option>
 	                <option value=">">after</option>
-	            </select> 
+	            </select>
 				<input type="text" name="ended_date" id="ended_date">
 			</td>
 		</tr>
 	</table>
 		<div id="eventDetail" class="noShow">
-			<table cellpadding="0" cellspacign="0">	
+			<table cellpadding="0" cellspacign="0">
 			<tr>
 				<td>
 					<label for="verbatim_date">Verbatim Date</label>
@@ -390,11 +406,11 @@
 		</div>
 		</div>
 		</cfif>
-<table cellpadding="0" cellspacign="0">	
+<table cellpadding="0" cellspacign="0">
 	<tr>
 		<td align="center">
-			<input type="submit" 
-				value="Find Matches" 
+			<input type="submit"
+				value="Find Matches"
 				class="schBtn">
            <input type="reset"
 				value="Clear Form"
@@ -405,7 +421,7 @@
 </td></tr></table>
 <cfif isdefined("session.locSrchPrefs") and len(session.locSrchPrefs) gt 0>
 	<cfloop list="#session.locSrchPrefs#" index="i">
-		<cfset r='toggle' & i>	
+		<cfset r='toggle' & i>
 		<script type="text/javascript" language="javascript">
 			#r#(1);
 		</script>
