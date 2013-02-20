@@ -26,10 +26,21 @@
 <!-------------------------------------------------------------------->
 <cfif Action is "findLocality">
 <cfset title = "Select a Locality">
-<br>only the first 10 results have maps
+	<script>
+		jQuery(document).ready(function() {
+			$.each($("div[id^='mapgohere-']"), function() {
+				var theElemID=this.id;
+				var theIDType=this.id.split('-')[1];
+				var theID=this.id.split('-')[2];
+			  	var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&size=150x150&' + theIDType + '=' + theID;
+			    jQuery.get(ptl, function(data){
+					jQuery("#" + theElemID).html(data);
+				});
+			});
+		});
+	</script>
 <cfoutput>
 	<cf_findLocality type="locality">
-	<cfdump var=#localityResults#>
 	<cfquery name="localityResults" dbtype="query">
 		select
 			locality_id,
@@ -83,15 +94,7 @@
 					<br>
 					<span style="font-size:.7em">
 						<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-							<cfif x lte 10>
-								<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-									<cfinvokeargument name="lat" value="#DEC_LAT#">
-									<cfinvokeargument name="long" value="#DEC_LONG#">
-									<cfinvokeargument name="locality_id" value="#locality_id#">
-								</cfinvoke>
-								#contents#
-							</cfif>
-							<cfset x=x+1>
+							<div id="mapgohere-locality_id-#locality_id#"></div>
 							<br>
 							#dec_lat# #dec_long#
 							(#georeference_source# - #georeference_protocol#)
