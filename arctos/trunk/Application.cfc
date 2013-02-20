@@ -9,6 +9,7 @@
 	<cffunction name="onError">
 	    <cfargument name="Exception" required=true/>
 	    <cfargument type="String" name="EventName" required=true/>
+	   <!----
 	    <!--- Log all errors. --->
 	    <cflog file="#This.Name#" type="error"
 	            text="Event Name: #Arguments.Eventname#" >
@@ -16,6 +17,8 @@
 	            text="Message: #Arguments.Exception.message#">
 	    <cflog file="#This.Name#" type="error"
 	        text="Root Cause Message: #Arguments.Exception.rootcause.message#">
+
+	        ---->
 	    <!--- Display an error message if there is a page context. --->
 	    <cfif NOT (Arguments.EventName IS "onSessionEnd") OR
 	            (Arguments.EventName IS "onApplicationEnd")>
