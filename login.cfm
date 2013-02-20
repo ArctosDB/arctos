@@ -67,8 +67,6 @@
 		</cfif>
 
 		<cfif not isdefined("gotopage") or len(gotopage) is 0>
-		<cfdump var=#request.rdurl#>
-		<cfabort>
 			<cfif isdefined("cgi.HTTP_REFERER") and left(cgi.HTTP_REFERER,(len(application.serverRootUrl))) is application.serverRootUrl>
 				<cfset gotopage=replace(cgi.HTTP_REFERER,application.serverRootUrl,'')>
 				<cfset junk="session.sessionKey">
