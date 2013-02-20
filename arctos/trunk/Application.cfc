@@ -4,7 +4,7 @@
 <cfset This.ClientManagement=false>
 <cffunction name="onError">
 	i am onerror
-	<cfreturn>
+	<cfreturn/>
 	<cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
 	<cfset showErr=1>
