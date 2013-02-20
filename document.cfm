@@ -169,7 +169,10 @@
 	<cfif doc.recordcount is 0>
 		<div class="error">
 			Document #ttl# was not found.
+			<br>Try <a href="/document.cfm">searching</a>.
 		</div>
+		<cfthrow message="missing document" detail="document title #ttl# not found">
+		<cfabort>
 	</cfif>
 	<cfquery name="pg" dbtype="query">
 		select max(page) npgs from doc
