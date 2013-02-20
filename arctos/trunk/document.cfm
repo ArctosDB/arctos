@@ -43,22 +43,35 @@
 </cfif>
 <cfif action is 'srchResult'>
 <cfoutput >
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			label_value,
-			niceURLNumbers(label_value) ttl
-		from
-			media_labels,
-			media
+	<cfset basSQL="select
+		label_value,
+		niceURLNumbers(label_value) ttl ">
+	<cfset basFrm="from
+		media_labels,
+		media">
+	<cfset basWhr="
 		where
-			media.media_id=media_labels.media_id and
-			media_type='multi-page document' and
-			media_label='title'
-		<cfif isdefined("mtitle") and len(mtitle) gt 0>
-			and label_value='#mtitle#'
-		</cfif>
-		group by
-			label_value
+					media.media_id=media_labels.media_id and
+					media_type='multi-page document' and
+					media_label='title'">
+	<cfset basQ="">
+
+			<cfif isdefined("mtitle") and len(mtitle) gt 0>
+		<cfset basQ=basQ & "	and label_value='#mtitle#'">
+					</cfif>
+
+				<cfif isdefined("author") and len(author) gt 0>
+			<cfset basQ=basQ & " and label_value='#mtitle#'">
+						</cfif>
+
+						<cfset ssql=basSQL & basFrm & basWhr & basQ & " group by
+				label_value">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+
+		#preservesinglequotes(ssql)#
+
+
+
 	</cfquery>
 	<cfif d.recordcount is 0>
 		Nothing matched your query.
@@ -92,10 +105,13 @@
 		<input type="hidden" name="action" value="srchResult">
 		<label for="mtitle">Title</label>
 		<select name="mtitle" id="mtitle" size="1">
+			<option value=""></option>
 			<cfloop query="titles">
 				<option value="#label_value#">#label_value#</option>
 			</cfloop>
 		</select>
+				<label for="author">Author</label>
+				<input type="text" id="author" name="author">
 		<input type="submit" class="lnkBtn" value="Go">
 	</form>
 </cfoutput>
