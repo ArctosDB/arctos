@@ -478,7 +478,7 @@
 		<cfset request.ipaddress='unknown'>
 	</CFIF>
 
-	<cfif listfindnocase(application.blacklist,ipaddress)>
+	<cfif listfindnocase(application.blacklist,request.ipaddress)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
