@@ -9,6 +9,34 @@
 		}
 </style>
 <script language="javascript" type="text/javascript">
+	function convertToDD(format){
+		if (format=='dms'){
+			var lat_deg=$("#lat_deg").val();
+			var lat_min=$("#lat_min").val();
+			var lat_sec=$("#lat_sec").val();
+			var dms_latdir=$("#dms_latdir").val();
+			var long_deg=$("#long_deg").val();
+			var long_min=$("#long_min").val();
+			var long_sec=$("#long_sec").val();
+			var dms_longdir=$("#dms_longdir").val();
+
+			var dec_lat = lat_deg + (lat_min / 60) + (lat_sec / 3600);
+            if (dms_latdir == 'S'){
+                dec_lat := dec_lat * -1;
+            }
+			var dec_long = long_deg + (long_min / 60) + (long_sec / 3600);
+             if (dms_longdir == 'W'){
+                dec_long := dec_long * -1;
+            }
+            $("#dec_lat").val(dec_lat);
+            $("#dec_long").val(dec_long);
+		}
+
+	}
+
+
+
+
 	function nada(){}
 	function toggleGeogDetail(onOff) {
 		if (onOff==0) {
@@ -347,6 +375,9 @@
 									<option value="N">N</option>
 									<option value="S">S</option>
 								</select>
+							</td>
+							<td>
+								<span class="likeLink" onclick="convertToDD('dms');">convert</span>
 							</td>
 						</tr>
                			<tr>
