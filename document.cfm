@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif isdefined("media_id") and media_id gt 0>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			p.label_value pg,
 			niceURLNumbers(t.label_value) ttl
 		from
@@ -23,8 +23,8 @@
 		</cfif>
 	</cfoutput>
 </cfif>
-<cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
-	<cfset rdurl=cgi.REDIRECT_URL>
+	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
+<cfif isdefined("rdurl") and len(rdurl) gt 0>
 	<cfif rdurl contains chr(195) & chr(151)>
 		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
@@ -40,7 +40,7 @@
 		<cfcatch>
 			<cfset p=1>
 		</cfcatch>
-	</cftry>	
+	</cftry>
 	<cfif action is not "pdf">
 		<cfset action="show">
 	</cfif>
@@ -56,7 +56,7 @@
 			media
 		where
 			media.media_id=media_labels.media_id and
-			media_type='multi-page document' and 
+			media_type='multi-page document' and
 			media_label='title'
 		<cfif isdefined("mtitle") and len(mtitle) gt 0>
 			and label_value='#mtitle#'
@@ -71,7 +71,7 @@
 	<cfelse>
 		<cfloop query="d">
 			<a href="/document/#ttl#">#label_value#</a><br>
-		</cfloop>	
+		</cfloop>
 	</cfif>
 </cfoutput>
 </cfif>
@@ -86,7 +86,7 @@
 			media
 		where
 			media.media_id=media_labels.media_id and
-			media_type='multi-page document' and 
+			media_type='multi-page document' and
 			media_label='title'
 		group by
 			label_value
@@ -107,7 +107,7 @@
 <cfif action is 'pdf'>
 <cfoutput>
 	<cfquery name="doc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			media_uri,
 			title.label_value mtitle,
 			to_number(page.label_value) page
@@ -120,10 +120,10 @@
 			media.media_id=page.media_id and
 			title.media_label='title' and
 			page.media_label='page' and
-			media_type='multi-page document' and 
+			media_type='multi-page document' and
 			niceURLNumbers(title.label_value)='#ttl#'
 		order by
-			to_number(page.label_value)			
+			to_number(page.label_value)
 	</cfquery>
 	<cfloop query="doc">
 		<cfdocument format="PDF" name="p#page#">
@@ -134,10 +134,10 @@
 		<cfloop query="doc">
 			<cfset thisName="p#page#">
 			 <cfpdfparam source="#thisName#">
-		</cfloop> 
+		</cfloop>
 	</cfpdf>
 	<cfset fname = ttl>
-	<cfset filePath="#application.webDirectory#/temp/#fname#.pdf"> 
+	<cfset filePath="#application.webDirectory#/temp/#fname#.pdf">
 	<cffile action="write" file="#filePath#" output="#toBinary(mergedpdf)#">
 	<cfheader name="Content-Disposition" value="attachment; filename=#getFileFromPath(filePath)#">
 	<cfcontent file="#filePath#" type="application/pdf">
@@ -146,9 +146,9 @@
 <!------------------------------->
 <cfif action is 'show'>
 <cfoutput>
-	
+
 	<cfquery name="doc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			media_uri,
 			title.label_value mtitle,
 			to_number(page.label_value) page,
@@ -162,10 +162,10 @@
 			media.media_id=page.media_id and
 			title.media_label='title' and
 			page.media_label='page' and
-			media_type='multi-page document' and 
+			media_type='multi-page document' and
 			niceURLNumbers(title.label_value)='#ttl#'
 		order by
-			to_number(page.label_value)			
+			to_number(page.label_value)
 	</cfquery>
 	<cfquery name="pg" dbtype="query">
 		select max(page) npgs from doc
@@ -189,7 +189,7 @@
 						<option <cfif pg is p> selected="selected" </cfif>value="/document/#ttl#/#pg#">#pg#</option>
 					</cfloop>
 				</select>
-			</td>			
+			</td>
 			<td>
 				<cfif p lt maxPage>
 					<cfset np=p+1>
@@ -207,11 +207,11 @@
 	<a href="/document.cfm?ttl=#ttl#&action=pdf">[ PDF ]</a>
 	<a href="/media/#cpg.media_id#">[ Media Details ]</a>
 	<cfquery name="relMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			media_uri,
 			media_type,
-			related_primary_key from 
-			media,media_relations where 
+			related_primary_key from
+			media,media_relations where
 			media.media_id=media_relations.related_primary_key and
 			mime_type in ('image/tiff','image/dng') and
 			media_relationship = 'derived from media' and media_relations.media_id=#cpg.media_id#
@@ -244,7 +244,7 @@
 	</div>
 	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")) or tag.n gt 0>
 		<script type="text/javascript" language="javascript">
-			jQuery(document).ready(function () {		
+			jQuery(document).ready(function () {
 				loadTAG(#cpg.media_id#,'#cpg.media_uri#');
 			});
 		</script>
