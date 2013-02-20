@@ -5,9 +5,9 @@
 <cffunction name="onError">
 	<cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
+	i am onerror
 
-
-	
+	<!----
 	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
         <cfset showErr=0>
@@ -224,6 +224,7 @@
 			</cfif>
 		</cfif>
 	</cfif>
+	---->
 	<cfreturn/>
 </cffunction>
 <!-------------------------->
