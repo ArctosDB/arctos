@@ -307,6 +307,18 @@
 							</td>
 						</tr>
 					</table>
+					<table>
+							<tr>
+								<td>
+			                		<label for="dec_lat">DecLat</label>
+			                		<input type="text" name="dec_lat" id="dec_lat">
+								</td>
+								<td>
+			                		<label for="dec_long">DecLong</label>
+			                		<input type="text" name="dec_long" id="dec_long">
+								</td>
+							</tr>
+						</table>
 				</td>
 			</tr>
 			<tr>
