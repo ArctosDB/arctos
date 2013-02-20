@@ -427,7 +427,7 @@
 									<option value="S">S</option>
 								</select>
 							</td>
-							<td>
+							<td rospan="2">
 								<span class="likeLink" onclick="convertToDD('dms');">convert</span>
 							</td>
 						</tr>
@@ -451,9 +451,7 @@
 									<option value="W">W</option>
 								</select>
 							</td>
-		                			                								<td>
-		                			                									<span class="likeLink" onclick="convertToDD('dm');">convert</span>
-		                			                								</td>
+
 						</tr>
 					</table>
 				            </div>
@@ -474,7 +472,9 @@
 									<option value="N">N</option>
 									<option value="S">S</option>
 								</select>
-							</td>
+							</td><td rospan="2">
+	                			                									<span class="likeLink" onclick="convertToDD('dm');">convert</span>
+	                			                								</td>
 						</tr>
                			<tr>
 							<td>
