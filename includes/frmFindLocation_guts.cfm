@@ -7,6 +7,24 @@
 		padding:2px;
 		margin:5px;
 		}
+	.vert {
+
+/* Safari */
+-webkit-transform: rotate(-90deg);
+
+/* Firefox */
+-moz-transform: rotate(-90deg);
+
+/* IE */
+-ms-transform: rotate(-90deg);
+
+/* Opera */
+-o-transform: rotate(-90deg);
+
+/* Internet Explorer */
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+}
 </style>
 <script language="javascript" type="text/javascript">
 	function convertToDD(format){
@@ -408,6 +426,9 @@
 		            <div style="border:1px solid black;padding-left:1.5em;">
 					<table>
 						<tr>
+							<td>
+								<div class="vert">conversion tool</div>
+							</td>
 							<td>
 		                		<label for="lat_deg">LatDeg</label>
 		                		<input type="text" name="lat_deg" id="lat_deg" size="2">
