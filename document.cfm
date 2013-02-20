@@ -24,7 +24,7 @@
 	</cfoutput>
 </cfif>
 <cfif listlen(request.rdurl,"/") gt 0>
-
+<cfoutput>#listlen(request.rdurl,"/")#</cfoutput>
 hello
 
 <cfabort>
