@@ -47,16 +47,16 @@
 		label_value,
 		niceURLNumbers(label_value) ttl ">
 	<cfset basFrm="from
-		media_labels,
+		media_labels l_title,
 		media">
 	<cfset basWhr="
 		where
-			media.media_id=media_labels.media_id and
+			media.media_id=l_title.media_id and
 			media_type='multi-page document' and
-			media_label='title'">
+			l_title.media_label='title'">
 	<cfset basQ="">
 	<cfif isdefined("mtitle") and len(mtitle) gt 0>
-		<cfset basQ=basQ & " and label_value='#mtitle#'">
+		<cfset basQ=basQ & " and l_title.label_value='#mtitle#'">
 	</cfif>
 	<cfif isdefined("author") and len(author) gt 0>
 		<cfset basFrm=basFrm & ',media_relations,agent_name'>
@@ -65,6 +65,35 @@
 			media_relations.related_primary_key=agent_name.agent_id ">
 		<cfset basQ=basQ & "and upper(agent_name) like '%#ucase(escapeQuotes(author))#%'">
 	</cfif>
+	<cfif isdefined("b_year") and len(b_year) gt 0>
+		<cfif not isnumeric(b_year) or len(b_year) neq 4>
+			<div class="error">
+				Years must be given as 4-digit integers. Use your back button.
+			</div>
+			<cfabort>
+		</cfif>
+		<cfset basFrm=basFrm & ',media_labels l_year'>
+		<cfset basWhr=basWhr & " and media.media_id=l_year.media_id and
+			l_year.media_label='published year'">
+		<cfset basQ=basQ & "and l_year.label_value >= #b_year#">
+	</cfif>
+	<cfif isdefined("e_year") and len(e_year) gt 0>
+		<cfif not isnumeric(e_year) or len(e_year) neq 4>
+			<div class="error">
+				Years must be given as 4-digit integers. Use your back button.
+			</div>
+			<cfabort>
+		</cfif>
+		<cfif basFrm does not contain "l_year">
+			<cfset basFrm=basFrm & ',media_labels l_year'>
+			<cfset basWhr=basWhr & " and media.media_id=l_year.media_id and
+				l_year.media_label='published year'">
+		</cfif>
+		<cfset basQ=basQ & "and l_year.label_value <= #e_year#">
+	</cfif>
+
+
+
 	<cfset ssql=basSQL & basFrm & basWhr & basQ & " group by label_value">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(ssql)#
@@ -107,8 +136,12 @@
 				<option value="#label_value#">#label_value#</option>
 			</cfloop>
 		</select>
-				<label for="author">Author</label>
-				<input type="text" id="author" name="author">
+		<label for="author">Author</label>
+		<input type="text" id="author" name="author">
+		<label for="b_year">Year (minimum)</label>
+		<input type="text" id="b_year" name="b_year">
+		<label for="e_year">Year (maximum)</label>
+		<input type="text" id="e_year" name="e_year">
 		<input type="submit" class="lnkBtn" value="Go">
 	</form>
 </cfoutput>
