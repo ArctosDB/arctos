@@ -23,7 +23,7 @@
 		</cfif>
 	</cfoutput>
 </cfif>
-<cfif listlen(request.rdurl,"/") gt 0>
+<cfif listlen(request.rdurl,"/") gt 1>
 <cfoutput>#listlen(request.rdurl,"/")#</cfoutput>
 hello
 
