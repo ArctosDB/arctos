@@ -2,7 +2,7 @@
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
-
+	<!----
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
 	<cfargument type="String" name="EventName" required=true/>
@@ -15,20 +15,19 @@
 	        </cfoutput>
 	</cffunction>
 
+			---->
 
-		<!----
 
 <cffunction name="onError">
-		<cfmail subject="errrrrr" to="dustymc@gmail.com" from="SomethingBroke@#Application.fromEmail#" type="html">
-					eraadfasd
-				</cfmail>
-	i am onerror
+	<cfargument name="Exception" required=true/>
+	<cfargument type="String" name="EventName" required=true/>
+		    <cfoutput>
+			            <h2>An unexpected error occurred.</h2>
+			            <p>Please provide the following information to technical support:</p>
+			            <p>Error Event: #Arguments.EventName#</p>
+			            <p>Error details:<br>
+			        </cfoutput>
 
-
-
-
-<cfargument name="exception" required="true">
-    <cfargument name="EventName" type="String" required="true">
 
 
 
@@ -254,7 +253,7 @@
 
 
 
-	            	---->
+
 <!-------------------------->
 <cffunction name="onApplicationStart" returnType="boolean" output="true">
 	<cfscript>
