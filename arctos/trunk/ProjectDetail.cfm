@@ -14,9 +14,14 @@
 	<cfif redir.recordcount is 1>
 		<cfset project_id=redir.project_id>
 	<cfelse>
+		<div class="error">
+			Project not found.
+			<br>Try <a href="/SpecimenUsage.cfm">searching</a>
+		</div>
 		<cfthrow
 		    detail = "Project #niceProjName# matches #redir.recordcount# projects."
 		    errorCode = "project_hosed">
+		<cfabort>
 	</cfif>
 </cfif>
 <style>
