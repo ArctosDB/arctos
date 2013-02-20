@@ -7,10 +7,7 @@
     <cfargument name="EventName" type="String" required="true">
 
 
-	boogity
-
-	<cfreturn/>
-
+	
 	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
         <cfset showErr=0>
