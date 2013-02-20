@@ -3,7 +3,9 @@
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
 <cffunction name="onError">
-
+		<cfmail subject="errrrrr" to="dustymc@gmail.com" from="SomethingBroke@#Application.fromEmail#" type="html">
+					eraadfasd
+				</cfmail>
 	i am onerror
 
 	<!----
