@@ -2,35 +2,9 @@
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
-	<!----
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
 	<cfargument type="String" name="EventName" required=true/>
-
-	        <cfoutput>
-	            <h2>An unexpected error occurred.</h2>
-	            <p>Please provide the following information to technical support:</p>
-	            <p>Error Event: #Arguments.EventName#</p>
-	            <p>Error details:<br>
-	        </cfoutput>
-	</cffunction>
-
-			---->
-
-
-<cffunction name="onError">
-	<cfargument name="Exception" required=true/>
-	<cfargument type="String" name="EventName" required=true/>
-		    <cfoutput>
-			            <h2>An unexpected error occurred.</h2>
-			            <p>Please provide the following information to technical support:</p>
-			            <p>Error Event: #Arguments.EventName#</p>
-			            <p>Error details:<br>
-			        </cfoutput>
-
-
-
-
 	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
         <cfset showErr=0>
