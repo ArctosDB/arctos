@@ -51,28 +51,25 @@
 		media">
 	<cfset basWhr="
 		where
-					media.media_id=media_labels.media_id and
-					media_type='multi-page document' and
-					media_label='title'">
+			media.media_id=media_labels.media_id and
+			media_type='multi-page document' and
+			media_label='title'">
 	<cfset basQ="">
-
-			<cfif isdefined("mtitle") and len(mtitle) gt 0>
-		<cfset basQ=basQ & "	and label_value='#mtitle#'">
-					</cfif>
-
-				<cfif isdefined("author") and len(author) gt 0>
-			<cfset basQ=basQ & " and label_value='#mtitle#'">
-						</cfif>
-
-						<cfset ssql=basSQL & basFrm & basWhr & basQ & " group by
-				label_value">
+	<cfif isdefined("mtitle") and len(mtitle) gt 0>
+		<cfset basQ=basQ & " and label_value='#mtitle#'">
+	</cfif>
+	<cfif isdefined("author") and len(author) gt 0>
+		<cfset basFrm=basFrm & ',media_relations,agent_name'>
+		<cfset basWhr=basWhr & " and media.media_id=media_relations.media_id and
+			media_relations.media_relationship='created by agent' and
+			media_relations.related_primary_key=agent_name.agent_id ">
+		<cfset basQ=basQ & "and upper(agent_name) like '%#ucase(escapeQuotes(author))#%'">
+	</cfif>
+	<cfset ssql=basSQL & basFrm & basWhr & basQ & " group by label_value">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-
 		#preservesinglequotes(ssql)#
-
-
-
 	</cfquery>
+	<cfdump var=#d#>
 	<cfif d.recordcount is 0>
 		Nothing matched your query.
 	<cfelseif d.recordcount is 1>
