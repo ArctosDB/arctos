@@ -308,17 +308,85 @@
 						</tr>
 					</table>
 					<table>
-							<tr>
-								<td>
-			                		<label for="dec_lat">DecLat</label>
-			                		<input type="text" name="dec_lat" id="dec_lat">
-								</td>
-								<td>
-			                		<label for="dec_long">DecLong</label>
-			                		<input type="text" name="dec_long" id="dec_long">
-								</td>
-							</tr>
-						</table>
+						<tr>
+							<td>
+		                		<label for="lat_deg">LatDeg</label>
+		                		<input type="text" name="lat_deg" id="lat_deg">
+							</td>
+							<td>
+		                		<label for="lat_min">LatMin</label>
+		                		<input type="text" name="lat_min" id="lat_min">
+							</td>
+							<td>
+		                		<label for="lat_sec">LatDec</label>
+		                		<input type="text" name="lat_sec" id="lat_sec">
+							</td>
+							<td>
+		                		<label for="lat_dir">LatDir</label>
+		                		<select name="dms_latdir" id="dms_latdir">
+									<option value="N">N</option>
+									<option value="S">S</option>
+								</select>
+							</td>
+						</tr>
+               			<tr>
+							<td>
+		                		<label for="long_deg">LongDeg</label>
+		                		<input type="text" name="long_deg" id="long_deg">
+							</td>
+							<td>
+		                		<label for="long_min">LongMin</label>
+		                		<input type="text" name="long_min" id="long_min">
+							</td>
+							<td>
+		                		<label for="long_sec">LongSec</label>
+		                		<input type="text" name="long_sec" id="long_sec">
+							</td>
+							<td>
+		                		<label for="dms_longdir">LongDir</label>
+		                		<select name="dms_longdir" id="dms_longdir">
+									<option value="E">E</option>
+									<option value="W">W</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+                	<table>
+						<tr>
+							<td>
+		                		<label for="lat_deg">LatDeg</label>
+		                		<input type="text" name="lat_deg" id="lat_deg">
+							</td>
+							<td>
+		                		<label for="dec_lat_min">DecLatMin</label>
+		                		<input type="text" name="dec_lat_min" id="dec_lat_min">
+							</td>
+							<td>
+		                		<label for="dm_latdir">LatDir</label>
+		                		<select name="dm_latdir" id="dm_latdir">
+									<option value="N">N</option>
+									<option value="S">S</option>
+								</select>
+							</td>
+						</tr>
+               			<tr>
+							<td>
+		                		<label for="long_deg">LongDeg</label>
+		                		<input type="text" name="long_deg" id="long_deg">
+							</td>
+							<td>
+		                		<label for="long_min">DecLongMin</label>
+		                		<input type="text" name="long_min" id="long_min">
+							</td>
+							<td>
+		                		<label for="dm_longdir">LongDir</label>
+		                		<select name="dm_longdir" id="dm_longdir">
+									<option value="E">E</option>
+									<option value="W">W</option>
+								</select>
+							</td>
+						</tr>
+					</table>
 				</td>
 			</tr>
 			<tr>
