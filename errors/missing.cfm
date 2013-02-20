@@ -1,37 +1,35 @@
-<cfif isdefined("cgi.query_string") and len(cgi.query_string) gt 0>
+<cfif listlen(request.rdurl,"/") gt 1>
 	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
-	<cfif rdurl contains chr(195) & chr(151)>
-		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
-	</cfif>
-	<cfif listfindnocase(rdurl,'specimen',"/")>
+
+	<cfif listfindnocase(request.rdurl,'specimen',"/")>
 		<cftry>
-			<cfset gPos=listfindnocase(rdurl,"specimen","/")>
-			<cfset	i = listgetat(rdurl,gPos+1,"/")>
-			<cfset	c = listgetat(rdurl,gPos+2,"/")>
-			<cfset	n = listgetat(rdurl,gPos+3,"/")>
+			<cfset gPos=listfindnocase(request.rdurl,"specimen","/")>
+			<cfset	i = listgetat(request.rdurl,gPos+1,"/")>
+			<cfset	c = listgetat(request.rdurl,gPos+2,"/")>
+			<cfset	n = listgetat(request.rdurl,gPos+3,"/")>
 			<cfset guid=i & ":" & c & ":" & n>
 			<cfinclude template="/SpecimenDetail.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-	<cfelseif listfindnocase(rdurl,'document',"/")>
+	<cfelseif listfindnocase(request.rdurl,'document',"/")>
 		<cfoutput>
 		<cftry>
-			<cfset gPos=listfindnocase(rdurl,"document","/")>
+			<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 			<cftry>
-				<cfset ttl = listgetat(rdurl,gPos+1,"/")>
+				<cfset ttl = listgetat(request.rdurl,gPos+1,"/")>
 				<cfcatch></cfcatch>
 			</cftry>
 			<cftry>
-				<cfset p=listgetat(rdurl,gPos+2,"/")>
+				<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 				<cfcatch></cfcatch>
 			</cftry>
 
 			<cfinclude template="/document.cfm">
 			<cfcatch>
-				<cfif listgetat(rdurl,gPos+2,"/")>
-					<cfset p=listgetat(rdurl,gPos+2,"/")>
+				<cfif listgetat(request.rdurl,gPos+2,"/")>
+					<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 				<cfelse>
 					<cfset p=1>
 				</cfif>
@@ -39,7 +37,7 @@
 			</cfcatch>
 		</cftry>
 		</cfoutput>
-	<cfelseif listfindnocase(rdurl,'guid',"/")>
+	<cfelseif listfindnocase(request.rdurl,'guid',"/")>
 		<cftry>
 			<cftry>
 				<cfset contentType="text/html">
@@ -76,8 +74,8 @@
 				<cfset contentType="text/html">
 			</cfcatch>
 			</cftry>
-			<cfset gPos=listfindnocase(rdurl,"guid","/")>
-			<cfset guid = listgetat(rdurl,gPos+1,"/")>
+			<cfset gPos=listfindnocase(request.rdurl,"guid","/")>
+			<cfset guid = listgetat(request.rdurl,gPos+1,"/")>
 			<cfif contentType is "application/rdf+xml">
 				<cfinclude template="/SpecimenDetailRDF.cfm">
 			<cfelse>
@@ -87,36 +85,36 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-	<cfelseif listfindnocase(rdurl,'name',"/")>
-		<cfif listlast(rdurl,"/") is "name">
+	<cfelseif listfindnocase(request.rdurl,'name',"/")>
+		<cfif listlast(request.rdurl,"/") is "name">
 			<!--- redirect /name to taxonomysearch --->
 			<cflocation url="/TaxonomySearch.cfm" addtoken="false">
 		<cfelse>
 			<cftry>
-				<cfset gPos=listfindnocase(rdurl,"name","/")>
-				<cfset scientific_name = listgetat(rdurl,gPos+1,"/")>
+				<cfset gPos=listfindnocase(request.rdurl,"name","/")>
+				<cfset scientific_name = listgetat(request.rdurl,gPos+1,"/")>
 				<cfinclude template="/TaxonomyDetails.cfm">
 				<cfcatch>
 					<cfinclude template="/errors/404.cfm">
 				</cfcatch>
 			</cftry>
 		</cfif>
-	<cfelseif listfindnocase(rdurl,'api',"/")>
+	<cfelseif listfindnocase(request.rdurl,'api',"/")>
 		<cftry>
-			<cfset gPos=listfindnocase(rdurl,"api","/")>
-			<cfif listlen(rdurl,"/") gt 1>
-				<cfset action = listgetat(rdurl,gPos+1,"/")>
+			<cfset gPos=listfindnocase(request.rdurl,"api","/")>
+			<cfif listlen(request.rdurl,"/") gt 1>
+				<cfset action = listgetat(request.rdurl,gPos+1,"/")>
 			</cfif>
 			<cfinclude template="/info/api.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-	<cfelseif listfindnocase(rdurl,'project',"/")>
+	<cfelseif listfindnocase(request.rdurl,'project',"/")>
 		<cftry>
-			<cfset gPos=listfindnocase(rdurl,"project","/")>
-			<cfif listlen(rdurl,"/") gt 1>
-				<cfset niceProjName = listgetat(rdurl,gPos+1,"/")>
+			<cfset gPos=listfindnocase(request.rdurl,"project","/")>
+			<cfif listlen(request.rdurl,"/") gt 1>
+				<cfset niceProjName = listgetat(request.rdurl,gPos+1,"/")>
 			</cfif>
 			<cfinclude template="/ProjectDetail.cfm">
 
@@ -128,22 +126,22 @@
 
 
 		</cftry>
-	<cfelseif listfindnocase(rdurl,'media',"/")>
+	<cfelseif listfindnocase(request.rdurl,'media',"/")>
 		<cftry>
-			<cfset gPos=listfindnocase(rdurl,"media","/")>
-			<cfif listlen(rdurl,"/") gt 1>
-				<cfset media_id = listgetat(rdurl,gPos+1,"/")>
+			<cfset gPos=listfindnocase(request.rdurl,"media","/")>
+			<cfif listlen(request.rdurl,"/") gt 1>
+				<cfset media_id = listgetat(request.rdurl,gPos+1,"/")>
 			</cfif>
 			<cfinclude template="/MediaDetail.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-	<cfelseif listfindnocase(rdurl,'publication',"/")>
+	<cfelseif listfindnocase(request.rdurl,'publication',"/")>
 		<cftry>
-			<cfset gPos=listfindnocase(rdurl,"publication","/")>
-			<cfif listlen(rdurl,"/") gt 1>
-				<cfset publication_id = listgetat(rdurl,gPos+1,"/")>
+			<cfset gPos=listfindnocase(request.rdurl,"publication","/")>
+			<cfif listlen(request.rdurl,"/") gt 1>
+				<cfset publication_id = listgetat(request.rdurl,gPos+1,"/")>
 				<cfset action="search">
 			</cfif>
 			<cfinclude template="/SpecimenUsage.cfm">
@@ -151,12 +149,12 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-	<cfelseif listfindnocase(rdurl,'saved',"/")>
+	<cfelseif listfindnocase(request.rdurl,'saved',"/")>
 		<Cfoutput>
 		<cftry>
-			<cfset gPos=listfindnocase(rdurl,"saved","/")>
-			<cfif listlen(rdurl,"/") gt 1>
-				<cfset sName = listgetat(rdurl,gPos+1,"/")>
+			<cfset gPos=listfindnocase(request.rdurl,"saved","/")>
+			<cfif listlen(request.rdurl,"/") gt 1>
+				<cfset sName = listgetat(request.rdurl,gPos+1,"/")>
 				<cfquery name="d" datasource="cf_dbuser">
 					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 				</cfquery>
@@ -193,12 +191,12 @@
 			</cfcatch>
 		</cftry>
 		</Cfoutput>
-	<cfelseif cgi.SCRIPT_NAME contains "/DiGIR.php" or rdurl contains "/DiGIR.php" or rdurl contains "/digir">
+	<cfelseif cgi.SCRIPT_NAME contains "/DiGIR.php" or request.rdurl contains "/DiGIR.php" or request.rdurl contains "/digir">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://129.237.201.204/arctosdigir/DiGIR.php">
-	<cfelseif FileExists("#Application.webDirectory#/#rdurl#.cfm")>
+	<cfelseif FileExists("#Application.webDirectory#/#request.rdurl#.cfm")>
 		<cfscript>
-			getPageContext().forward("/" & rdurl & ".cfm?" & cgi.redirect_query_string);
+			getPageContext().forward("/" & request.rdurl & ".cfm?" & cgi.redirect_query_string);
 		</cfscript>
 		<cfabort>
 	<cfelse>

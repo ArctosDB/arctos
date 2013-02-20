@@ -24,9 +24,6 @@
 	</cfoutput>
 </cfif>
 <cfif listlen(request.rdurl,"/") gt 1>
-	<cfif request.rdurl contains chr(195) & chr(151)>
-		<cfset request.rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
-	</cfif>
 	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 	<cftry>
 		<cfset ttl = listgetat(request.rdurl,gPos+1,"/")>
