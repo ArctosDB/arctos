@@ -20,7 +20,7 @@
 			var long_sec=$("#long_sec").val();
 			var dms_longdir=$("#dms_longdir").val();
 
-			var dec_lat = lat_deg + (lat_min / 60) + (lat_sec / 3600);
+			var dec_lat = parseInt(lat_deg) + (parseInt(lat_min) / 60) + (parseInt(lat_sec) / 3600);
             if (dms_latdir == 'S'){
                 dec_lat = dec_lat * -1;
             }
