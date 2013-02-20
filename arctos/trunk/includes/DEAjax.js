@@ -300,18 +300,6 @@ function setPagePrefs(){
 		}
 	);
 }
-/*
-function loadRecord(collection_object_id){
-	//console.log('loadRecord');
-
-	// figure out if we're trying to enter or edit and call the appropriate function
-	if($("#action").val()=='enter') {
-		loadRecordEnter(collection_object_id);
-	} else if($("#action").val()=='edit') {
-		loadRecordEdit(collection_object_id);
-	}
-}
-*/
 
 function saveEditedRecord () {
 	// save edited - this happens only from edit and 
@@ -339,7 +327,6 @@ function saveEditedRecord () {
 
 function loadedEditRecord(){
 	console.log('ok');
-	return false;
 	// show errors and set the form up to deal with them if necessary
 	// used by saveEditedRecord and loadRecordEdit
 	// this function is NOT suitable for enter mode calls
