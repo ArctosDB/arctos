@@ -98,12 +98,13 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
-	<cfdump var=#d#>
 	<cfif d.recordcount is 0>
 		Nothing matched your query.
 	<cfelseif d.recordcount is 1>
 		<cflocation url="/document/#d.ttl#" addtoken="false">
 	<cfelse>
+		<cfset title="document search results">
+		Results:<p></p>
 		<cfloop query="d">
 			<a href="/document/#ttl#">#label_value#</a><br>
 		</cfloop>
