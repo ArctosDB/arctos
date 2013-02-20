@@ -102,6 +102,9 @@
 <cfquery name="ctFeature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select distinct(feature) from ctfeature order by feature
 </cfquery>
+	<cfquery name="cDatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+		select datum from cDatum order by datum
+	</cfquery>
 
 <cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select island_group from ctisland_group order by island_group
@@ -293,6 +296,20 @@
 					<input type="text" name="locality_id" id="locality_id">
 				</td>
 			</tr>
+		        			<tr>
+		        				<td>
+		        					<label for="datum">Datum</label>
+		                	<select name="datum" id="datum">
+		                			                							<option value=""></option>
+		                			                							<cfloop query="ctdatum">
+		                			                								<option value = "#ctdatum.datum#">#ctdatum.datum#</option>
+		                			                							</cfloop>
+		                			                						</select>
+		        				</td>
+		        			</tr>
+
+
+
 			<tr>
 				<td>
 					<div style="border:1px solid black;">
