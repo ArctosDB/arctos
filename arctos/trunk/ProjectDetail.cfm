@@ -1,5 +1,5 @@
 <cfinclude template = "includes/_header.cfm">
-
+<cfoutput>
 <cfif not listfindnocase(request.rdurl,"project","/")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select project_name from project where project_id=#project_id#
