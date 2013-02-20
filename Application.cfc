@@ -2,13 +2,43 @@
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
+
+
+
+
+	<cffunction name="onError">
+	    <cfargument name="Exception" required=true/>
+	    <cfargument type="String" name="EventName" required=true/>
+	    <!--- Log all errors. --->
+	    <cflog file="#This.Name#" type="error"
+	            text="Event Name: #Arguments.Eventname#" >
+	    <cflog file="#This.Name#" type="error"
+	            text="Message: #Arguments.Exception.message#">
+	    <cflog file="#This.Name#" type="error"
+	        text="Root Cause Message: #Arguments.Exception.rootcause.message#">
+	    <!--- Display an error message if there is a page context. --->
+	    <cfif NOT (Arguments.EventName IS "onSessionEnd") OR
+	            (Arguments.EventName IS "onApplicationEnd")>
+	        <cfoutput>
+	            <h2>An unexpected error occurred.</h2>
+	            <p>Please provide the following information to technical support:</p>
+	            <p>Error Event: #Arguments.EventName#</p>
+	            <p>Error details:<br>
+	            <cfdump var=#Arguments.Exception#></p>
+	        </cfoutput>
+	    </cfif>
+	</cffunction>
+
+
+		<!----
+
 <cffunction name="onError">
 		<cfmail subject="errrrrr" to="dustymc@gmail.com" from="SomethingBroke@#Application.fromEmail#" type="html">
 					eraadfasd
 				</cfmail>
 	i am onerror
 
-	<!----
+
 
 
 <cfargument name="exception" required="true">
@@ -232,9 +262,13 @@
 			</cfif>
 		</cfif>
 	</cfif>
-	---->
 	<cfreturn/>
 </cffunction>
+
+
+
+
+	            	---->
 <!-------------------------->
 <cffunction name="onApplicationStart" returnType="boolean" output="true">
 	<cfscript>
