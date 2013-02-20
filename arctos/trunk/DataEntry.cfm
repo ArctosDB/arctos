@@ -1106,7 +1106,7 @@
 </form>
 <script language="javascript" type="text/javascript">
 	// fire this off here at init page load
-	loadRecordEnter('#collection_object_id#');
+	loadRecord('#collection_object_id#');
 </script>
 </cfoutput>
 </cfif>

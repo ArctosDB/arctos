@@ -46,6 +46,18 @@ jQuery(document).ready(function() {
 		}
 	);
 });
+function loadRecord(collection_object_id){
+	//console.log('loadRecord');
+
+	// figure out if we're trying to enter or edit and call the appropriate function
+	// this function is called when the page is initially loaded
+	// it cannot be replaced with a direct call to lrEnter or edit
+	if($("#action").val()=='enter') {
+		loadRecordEnter(collection_object_id);
+	} else if($("#action").val()=='edit') {
+		loadRecordEdit(collection_object_id);
+	}
+}
 function makeSortable() {
 	$("#left-col,#right-col").sortable({
         handle: '.item .celltitle',
