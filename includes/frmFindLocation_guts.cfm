@@ -405,7 +405,7 @@
 						</tr>
 					</table>
 		            </div>
-		            <div style="border:1px solid black;padding-left:1em;">
+		            <div style="border:1px solid black;padding-left:1.5em;">
 					<table>
 						<tr>
 							<td>
@@ -455,7 +455,7 @@
 						</tr>
 					</table>
 				            </div>
-				            <div style="border:1px solid black;">
+				            <div style="border:1px solid black;padding-left:1.5em;">
                 	<table>
 						<tr>
 							<td>
