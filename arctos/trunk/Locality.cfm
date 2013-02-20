@@ -528,8 +528,8 @@
 	</cfinvoke>
 	#contents#
 	<br>
-	<hr>
-	This for will not work if you do not own ALL specimens listed above.
+	    	<div style="border:5px solid red">
+	This form will not work if you do not own ALL specimens listed above.
 	<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select verificationstatus,collection,count(*) c from
 		specimen_event,cataloged_item,collection
@@ -567,8 +567,7 @@ group by verificationstatus,collection
 		<br>
 		<input type="submit" class="lnkBtn" value="Update Verification Status for ALL specimen_events in this collecting event to value in pick above">
 </form>
-<hr>
-
+</div>
 
 	<cfform name="locality" method="post" action="Locality.cfm">
 		<table width="100%"><tr><td valign="top">

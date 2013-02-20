@@ -13,15 +13,15 @@
 			$("#" + this.id).datepicker();
 		});
 		$("select[id^='geology_attribute_']").each(function(e){
-			populateGeology(this.id);			
+			populateGeology(this.id);
 		});
 		if (window.addEventListener) {
 			window.addEventListener("message", getGeolocate, false);
 		} else {
 			window.attachEvent("onmessage", getGeolocate);
-		}	
+		}
 	});
-	
+
 
 
 	function populateGeology(id) {
@@ -59,8 +59,8 @@
 				$("select#" + theSelect + idNum).html(s);
 			}
 		);
-	}	
-</script>	
+	}
+</script>
 <span class="pageHelp likeLink" onClick="getDocs('pageHelp/specLocality');">
 	Page Help
 </span>
@@ -84,7 +84,7 @@
 			llMeta.style.display='';
 			if (orig_units == 'decimal degrees') {
 				decdeg.style.display='';
-			} 
+			}
 			else if (orig_units == 'UTM') {
 				//alert(utm.style.display);
 				utm.style.display='';
@@ -98,8 +98,8 @@
 			}
 			else {
 				alert('I have no idea what to do with ' + orig_units);
-			}		
-		}		
+			}
+		}
 	}
 	function geoLocate(){
 		alert('This form is kind of funky. Use Edit Locality if you have access.');
@@ -120,26 +120,26 @@
 				var gpopDiv=document.createElement('div');
 				gpopDiv.id = 'gpopDiv';
 				gpopDiv.className = 'editAppBox';
-				document.body.appendChild(gpopDiv);	
+				document.body.appendChild(gpopDiv);
 				var gcDiv=document.createElement('div');
 				gcDiv.className = 'fancybox-close';
 				gcDiv.id='gcDiv';
 				gcDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
 				$("#gpopDiv").append(gcDiv);
-				
+
 				var ghDiv=document.createElement('div');
 				ghDiv.className = 'fancybox-help';
 				ghDiv.id='ghDiv';
 				ghDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
 				$("#gpopDiv").append(ghDiv);
-				
+
 				$("#gpopDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
 				var gtheFrame = document.createElement('iFrame');
 				gtheFrame.id='gtheFrame';
 				gtheFrame.className = 'editFrame';
 				gtheFrame.src=r;
 				$("#gpopDiv").append(gtheFrame);
-			}	
+			}
 		);
 	}
 	function closeGeoLocate(msg) {
@@ -197,7 +197,7 @@ function useGL(glat,glon,gerr){
 		}
 </script>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    	select 
+    	select
 			 COLLECTING_EVENT.COLLECTING_EVENT_ID,
 			 specimen_event_id,
 			 locality.LOCALITY_ID,
@@ -260,16 +260,16 @@ function useGL(glat,glon,gerr){
 			geog_auth_rec.geog_auth_rec_id,
 			higher_geog,
 			specimen_event_remark
-		from 
+		from
 			geog_auth_rec,
 			locality,
 			geology_attributes,
 			collecting_event,
 			specimen_event
-		where 
+		where
 			geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
 			locality.locality_id=collecting_event.locality_id and
-			locality.locality_id=geology_attributes.locality_id (+) and			
+			locality.locality_id=geology_attributes.locality_id (+) and
 			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 			specimen_event.collection_object_id = #collection_object_id#
 	</cfquery>
@@ -387,9 +387,9 @@ function useGL(glat,glon,gerr){
 		order by
 		specimen_event_type
 	</cfquery>
-			
+
 	<cfquery name="g" dbtype="query">
-		 select 
+		 select
 		 	GEOLOGY_ATTRIBUTE_ID,
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
@@ -419,7 +419,7 @@ function useGL(glat,glon,gerr){
 		select depth_units from ctdepth_units
 	</cfquery>
      <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        select datum from ctdatum 
+        select datum from ctdatum
      </cfquery>
 	<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select georefMethod from ctgeorefmethod
@@ -428,16 +428,16 @@ function useGL(glat,glon,gerr){
 		select VerificationStatus from ctVerificationStatus
 	</cfquery>
      <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS 
+        select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS
      </cfquery>
      <cfquery name="ctew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        select e_or_w from ctew 
+        select e_or_w from ctew
      </cfquery>
      <cfquery name="ctns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        select n_or_s from ctns 
+        select n_or_s from ctns
      </cfquery>
      <cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-        select orig_lat_long_units from ctLAT_LONG_UNITS 
+        select orig_lat_long_units from ctLAT_LONG_UNITS
      </cfquery>
 	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
@@ -449,13 +449,13 @@ function useGL(glat,glon,gerr){
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
 	<cfquery name="se" dbtype="query">
-		select 
-			specimen_event_type,specimen_event_id 
-		from 
-			raw 
-		group by 
-			specimen_event_type,specimen_event_id 
-		order by 
+		select
+			specimen_event_type,specimen_event_id
+		from
+			raw
+		group by
+			specimen_event_type,specimen_event_id
+		order by
 			specimen_event_type,specimen_event_id
 	</cfquery>
 		<a name="top"></a>
@@ -476,10 +476,9 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 			<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
 			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
-		
+
 			<!-------------------------- specimen_event -------------------------->
-			
-			<h4>	
+			<h4>
 				Specimen/Event
 				<a name="specimen_event_#specimen_event_id#" href="##top">[ scroll to top ]</a>
 			</h4>
@@ -492,21 +491,21 @@ function useGL(glat,glon,gerr){
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
 
-			<label for="specimen_event_type">Event Assigned by Agent</label>
+			<label for="specimen_event_type">Event Determiner</label>
 			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
 				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc#f#',this.value); return false;"
 				 onKeyPress="return noenter(event);">
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
-			
-			<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
+
+			<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Determined Date</label>
 			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
-			
+
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
 			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#l.specimen_event_remark#" size="75">
-			
+
 			<label for="habitat">Habitat</label>
 			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
-			
+
 			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
 			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
 				<option value=""></option>
@@ -519,7 +518,7 @@ function useGL(glat,glon,gerr){
 
 			<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
 			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
-			
+
 			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 				<cfloop query="ctVerificationStatus">
@@ -557,8 +556,8 @@ function useGL(glat,glon,gerr){
 				</cfif>
 			</ul>
 			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
-			<input type="button" value="Delete this Specimen/Event" class="delBtn" onclick="loc#f#.action.value='delete';confirmDelete('loc#f#');">			
-			
+			<input type="button" value="Delete this Specimen/Event" class="delBtn" onclick="loc#f#.action.value='delete';confirmDelete('loc#f#');">
+
 	</cfform>
 	</td><td valign="top">
 		<h4>Geography</h4>
@@ -621,21 +620,21 @@ function useGL(glat,glon,gerr){
 					</cfloop>
 				</ul>
 			</cfif>
-			
-			
-	</td>	
+
+
+	</td>
 	</tr></table>
 	</div>
 		<cfset f=f+1>
 	</cfloop>
-	<div style="border:2px solid black; margin:1em;">	
+	<div style="border:2px solid black; margin:1em;">
 		<cfform name="loc_new" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="createSpecEvent">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-			<input type="hidden" name="collecting_event_id" value="">		
+			<input type="hidden" name="collecting_event_id" value="">
 			<!-------------------------- specimen_event -------------------------->
-			<h4>	
+			<h4>
 				Add Specimen/Event
 				<a name="specimen_event_new" href="##top">[ scroll to top ]</a>
 			</h4>
@@ -652,16 +651,16 @@ function useGL(glat,glon,gerr){
 				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
 				 onKeyPress="return noenter(event);">
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
-			
+
 			<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
 			<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
-			
+
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
 			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="" size="75">
-			
+
 			<label for="habitat">Habitat</label>
 			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
-			
+
 			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
 			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
 				<option value=""></option>
@@ -673,7 +672,7 @@ function useGL(glat,glon,gerr){
 
 			<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
 			<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
-			
+
 			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 				<cfloop query="ctVerificationStatus">
@@ -687,12 +686,12 @@ function useGL(glat,glon,gerr){
 			<label for="">Click the button to pick an event. The Verbatim Locality of the event you pick will go here.</label>
 			<input type="text" size="50" name="cepick">
 			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc_new','cepick');">
-			<br><input type="submit" value="Create this Specimen/Event" class="savBtn">	
+			<br><input type="submit" value="Create this Specimen/Event" class="savBtn">
 		</cfform>
 	</div>
-	
-	
-	
+
+
+
 	</cfoutput>
 </cfif>
 
@@ -754,33 +753,33 @@ function useGL(glat,glon,gerr){
 </cfif>
 
 
-		
+
     	<!--------
 <label for="habitat" onClick="getDocs('collecting_event','habitat')" class="infoLink">habitat</label>
 <input type="text" name="habitat" id="habitat" value="#stripQuotes(l.habitat)#"  size="75">
 
 <label for="verbatim_date" class="infoLink" onClick="getDocs('locality','verbatim_date')">Verbatim Date</a></label>
-<cfinput type="text" name="verbatim_date" id="verbatim_date" value="#stripQuotes(l.verbatim_date)#"  
+<cfinput type="text" name="verbatim_date" id="verbatim_date" value="#stripQuotes(l.verbatim_date)#"
 	size="75" required="true" message="Verbatim Date is a required text field.">
 <table>
 	<tr>
 		<td>
 			<label for="began_date" class="infoLink" onClick="getDocs('locality','began_date')">Began Date/Time</label>
-			<input type="text" name="began_date" id="began_date" value="#l.began_date#" class="reqdClr">										
+			<input type="text" name="began_date" id="began_date" value="#l.began_date#" class="reqdClr">
 		</td>
 		<td>
 			<label class="infoLink" for="ended_date" onClick="getDocs('locality','ended_date')">Ended Date/Time</label>
 			<input type="text" name="ended_date" id="ended_date" value="#l.ended_date#" class="reqdClr">
 		</td>
 	</tr>
-</table>								
+</table>
 <label for="verbatim_locality" onClick="getDocs('locality','verbatim_locality')" class="infoLink">
 	Verbatim Locality&nbsp;&nbsp;
 	<a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#l.collecting_event_id#" target="_blank">
 		Edit Collecting Event
 	</a>
 </label>
-<cfinput type="text" name="verbatim_locality" id="verbatim_locality" value="#stripQuotes(l.verbatim_locality)#" size="75" required="true" 
+<cfinput type="text" name="verbatim_locality" id="verbatim_locality" value="#stripQuotes(l.verbatim_locality)#" size="75" required="true"
 	message="Verbatim Locality is required.">
 
 
@@ -793,7 +792,7 @@ function useGL(glat,glon,gerr){
 
 <!-------------------------- geography -------------------------->
 
- 
+
 
 
 <label for="coll_event_remarks">Collecting Event Remarks</label>
@@ -801,8 +800,8 @@ function useGL(glat,glon,gerr){
 
 
 <label for="collecting_event_name">Collecting Event Name</label>
-<input type="text" name="collecting_event_name" id="collecting_event_name" value="#stripQuotes(l.collecting_event_name)#" size="75">							
-  
+<input type="text" name="collecting_event_name" id="collecting_event_name" value="#stripQuotes(l.collecting_event_name)#" size="75">
+
 <table>
 		<tr>
 			<td>
@@ -826,52 +825,52 @@ function useGL(glat,glon,gerr){
 					<a href="editLocality.cfm?locality_id=#l.locality_id#" target="_blank">
 						Edit Locality</a>
 				</label>
-				<cfinput type="text" 
-					name="spec_locality" 
+				<cfinput type="text"
+					name="spec_locality"
 					id="spec_locality"
-					value="#stripQuotes(l.spec_locality)#"  
-					size="75" 
-					required="true" 
+					value="#stripQuotes(l.spec_locality)#"
+					size="75"
+					required="true"
 					message="Specific Locality is required.">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				
+
 			</td>
 		</tr>
 		<tr>
 			<td>
-				
+
 			</td>
 		</tr>
 		<tr>
 			<td>
-				
+
 			</td>
 		</tr>
 		<tr>
 			<td>
-				
+
 			</td>
 		</tr>
 		<tr>
-		
+
 		</tr>
 		<tr>
 			<td>
 				<label for="habitat">
-					<a href="javascript:void(0);" 
+					<a href="javascript:void(0);"
 						onClick="getDocs('collecting_event','habitat')">Habitat</a>
 				</label>
-				<input type="text" 
-					name="habitat" 
+				<input type="text"
+					name="habitat"
 					id="habitat"
-					value="#stripQuotes(l.habitat)#"  
+					value="#stripQuotes(l.habitat)#"
 					size="75">
 			</td>
 		</tr>
-		<tr> 
+		<tr>
             <td>
 				<table>
 					<tr>
@@ -880,12 +879,12 @@ function useGL(glat,glon,gerr){
 								<a href="javascript:void(0);" class="novisit" onClick="getDocs('locality','elevation')">
 									Minimum Elevation</a>
 							</label>
-							<cfinput 
+							<cfinput
 								type="text"
 								name="minimum_elevation"
 								id="minimum_elevation"
 								value="#l.MINIMUM_ELEVATION#"
-								size="5" 
+								size="5"
 								validate="numeric"
 								message="Minimum Elevation is a number.">
 						</td>
@@ -894,11 +893,11 @@ function useGL(glat,glon,gerr){
 								<a href="javascript:void(0);" class="novisit" onClick="getDocs('locality','elevation')">
 									Maximum Elevation</a>
 							</label>
-							<cfinput type="text" 
+							<cfinput type="text"
 								id="maximum_elevation"
-								name="maximum_elevation" 
-								value="#l.MAXIMUM_ELEVATION#" 
-								size="5" 
+								name="maximum_elevation"
+								value="#l.MAXIMUM_ELEVATION#"
+								size="5"
 								validate="numeric"
 								message="Maximum Elevation is a number.">
 						</td>
@@ -919,7 +918,7 @@ function useGL(glat,glon,gerr){
 				</table>
 			</td>
 		</tr>
-		<tr> 
+		<tr>
             <td>
 				<table>
 					<tr>
@@ -927,7 +926,7 @@ function useGL(glat,glon,gerr){
 							<label for="min_depth" onClick="getDocs('locality','depth')" class="likeLink">
 									Minimum Depth
 							</label>
-							<cfinput type="text" name="min_depth" id="min_depth" value="#l.min_depth#" size="3"									
+							<cfinput type="text" name="min_depth" id="min_depth" value="#l.min_depth#" size="3"
 								validate="numeric"
 								message="Minimum Depth is a number.">
 						</td>
@@ -935,8 +934,8 @@ function useGL(glat,glon,gerr){
 							<label for="max_depth"  onClick="getDocs('locality','depth')" class="likeLink">
 									Maximum Depth
 							</label>
-							<cfinput type="text" id="max_depth" name="max_depth" 
-								value="#l.max_depth#" size="3"								
+							<cfinput type="text" id="max_depth" name="max_depth"
+								value="#l.max_depth#" size="3"
 								validate="numeric"
 								message="Maximum Depth is a number.">
 						</td>
@@ -955,8 +954,8 @@ function useGL(glat,glon,gerr){
 					</tr>
 				</table>
 			</td>
-		</tr>	
-		<tr> 
+		</tr>
+		<tr>
         	<td>
 				<label for="locality_remarks">Locality Remarks</label>
 				<input type="text" name="locality_remarks" id="locality_remarks" value="#l.LOCALITY_REMARKS#"  size="75">
@@ -974,17 +973,17 @@ function useGL(glat,glon,gerr){
 				<select name="orig_lat_long_units" id="orig_lat_long_units" size="1" class="reqdClr" onchange="showLLFormat(this.value)">
 	            	<option value="">Not Georeferenced</option>
 	            	<cfloop query="ctunits">
-	                	<option 
+	                	<option
 						  	<cfif l.orig_lat_long_units is ctunits.orig_lat_long_units> selected="selected" </cfif>value="#ctunits.orig_lat_long_units#">#ctunits.orig_lat_long_units#</option>
 	                </cfloop>
 	            </select>
-	            <span class="likeLink" onclick="geoLocate()">GEOLocate</span>			
+	            <span class="likeLink" onclick="geoLocate()">GEOLocate</span>
 			</td>
 		</tr>
-		
-		
-		
-	
+
+
+
+
 	<table>
 	<table id="llMeta" style="display:none;">
 		<tr>
@@ -992,8 +991,8 @@ function useGL(glat,glon,gerr){
 				<label for="coordinate_determiner" class="likeLink" onClick="getDocs('lat_long','determiner')">
 					Coordinate Determiner
 				</label>
-				<input type="text" 
-					name="coordinate_determiner" 
+				<input type="text"
+					name="coordinate_determiner"
 					id="coordinate_determiner"
 					class="reqdClr" value="#l.coordinate_determiner#" size="40"
 					 onchange="getAgent('determined_by_agent_id','coordinate_determiner','loc',this.value); return false;"
@@ -1020,7 +1019,7 @@ function useGL(glat,glon,gerr){
 				        	<option <cfif #cterror.LAT_LONG_ERROR_UNITS# is "#l.MAX_ERROR_UNITS#"> selected </cfif>
 								value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
 				        </cfloop>
-				</select> 
+				</select>
 			</td>
 			<td>
 				<label for="DATUM" class="likeLink" onClick="getDocs('lat_long','datum')">
@@ -1030,10 +1029,10 @@ function useGL(glat,glon,gerr){
 				<select name="DATUM" id="datum" size="1" class="reqdClr">
 					<option value=""></option>
 				    <cfloop query="ctdatum">
-						<option <cfif #ctdatum.DATUM# is "#thisDatum#"> selected </cfif> 
+						<option <cfif #ctdatum.DATUM# is "#thisDatum#"> selected </cfif>
 							value="#ctdatum.DATUM#">#ctdatum.DATUM#</option>
 				    </cfloop>
-				</select> 
+				</select>
 			</td>
 		</tr>
 		<tr>
@@ -1044,7 +1043,7 @@ function useGL(glat,glon,gerr){
 				<cfset thisGeoMeth = #l.georefMethod#>
 				<select name="georefMethod" id="georefmethod" size="1" class="reqdClr">
 					<cfloop query="ctGeorefMethod">
-						<option 
+						<option
 						<cfif #thisGeoMeth# is #ctGeorefMethod.georefMethod#> selected </cfif>
 							value="#georefMethod#">#georefMethod#</option>
 					</cfloop>
@@ -1065,7 +1064,7 @@ function useGL(glat,glon,gerr){
 				<input type="text" name="GpsAccuracy" id="gpsaccuracy" value="#l.GpsAccuracy#" size="7">
 			</td>
 			<td>
-			
+
 			</td>
 		</tr>
 		<tr>
@@ -1077,24 +1076,24 @@ function useGL(glat,glon,gerr){
 					value='#preservesinglequotes(l.LAT_LONG_REF_SOURCE)#' />
 			</td>
 		</tr>
-        <tr> 
+        <tr>
 			<td colspan="3">
 				<label for="LAT_LONG_REMARKS" class="likeLink" onClick="getDocs('lat_long','remarks')">
 					Remarks
 				</label>
-				<input type="text" 
-					name="LAT_LONG_REMARKS" 
+				<input type="text"
+					name="LAT_LONG_REMARKS"
 					id="lat_long_remarks"
-					value='#preservesinglequotes(l.LAT_LONG_REMARKS)#' 
+					value='#preservesinglequotes(l.LAT_LONG_REMARKS)#'
 					size="90">
 			</td>
 		</tr>
 	</table>
 	<table id="decdeg" style="display:none;">
-		<tr> 
+		<tr>
 			<td>
 				<label for="dec_lat">Decimal Latitude</label>
-				<cfinput 
+				<cfinput
 					type="text"
 					name="dec_lat"
 					id="dec_lat"
@@ -1105,7 +1104,7 @@ function useGL(glat,glon,gerr){
 			<td>
 				<label for="dec_long">Decimal Longitude</label>
 				<cfinput
-					type="text" 
+					type="text"
 					name="DEC_LONG"
 					value="#l.DEC_LONG#"
 					id="dec_long"
@@ -1115,7 +1114,7 @@ function useGL(glat,glon,gerr){
 		</tr>
 	</table>
 	<table id="dms" style="display:none;">
-		<tr> 
+		<tr>
 			<td>
 				<label for="lat_deg">Lat. Deg.</label>
 				<cfinput type="text" name="LAT_DEG" value="#l.LAT_DEG#" size="4" id="lat_deg" class="reqdClr"
@@ -1167,7 +1166,7 @@ function useGL(glat,glon,gerr){
 		</tr>
 	</table>
 	<table id="ddm" style="display:none;">
-		<tr> 
+		<tr>
 			<td>
 				<label for="dmlat_deg">Lat. Deg.<label>
 				<input type="text" name="dmLAT_DEG" value="#l.LAT_DEG#" size="4" id="dmlat_deg" class="reqdClr">
@@ -1208,7 +1207,7 @@ function useGL(glat,glon,gerr){
 		</tr>
 	</table>
 	<table id="utm" style="display:none;">
-		<tr> 
+		<tr>
 			<td>
 				<label for="utm_zone">UTM Zone<label>
 				<cfinput type="text" name="UTM_ZONE" value="#l.UTM_ZONE#" id="utm_zone" class="reqdClr"
@@ -1233,7 +1232,7 @@ function useGL(glat,glon,gerr){
 		<td>Attribute</td>
 		<td>Value</td>
 		<td>Determiner</td>
-		<td>Date</td>	
+		<td>Date</td>
 		<td>Method</td>
 		<td>Remark</td>
 		<td></td>
@@ -1242,15 +1241,15 @@ function useGL(glat,glon,gerr){
 	<tr>
 		<td>
 			<cfset thisAttribute=g.geology_attribute>
-			<select name="geology_attribute__#geology_attribute_id#" 
+			<select name="geology_attribute__#geology_attribute_id#"
 				id="geology_attribute__#geology_attribute_id#" size="1" class="reqdClr" onchange="populateGeology(this.id)">
 				<option value="">DELETE THIS ROW</option>
 				<cfloop query="ctgeology_attribute">
-					<option 
+					<option
 					<cfif thisAttribute is geology_attribute> selected="selected" </cfif>
 						value="#geology_attribute#">#geology_attribute#</option>
 				</cfloop>
-			</select>			
+			</select>
 		</td>
 		<td>
 			<select id="geo_att_value__#geology_attribute_id#" class="reqdClr"
@@ -1268,21 +1267,21 @@ function useGL(glat,glon,gerr){
 		</td>
 		<td>
 			<input type="text" id="geo_att_determined_date__#geology_attribute_id#"
-				name="geo_att_determined_date__#geology_attribute_id#" 
+				name="geo_att_determined_date__#geology_attribute_id#"
 				value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#"
 				size="10">
-		</td>	
+		</td>
 		<td>
 			<input type="text" id="geo_att_determined_method__#geology_attribute_id#"
 				name="geo_att_determined_method__#geology_attribute_id#" value="#geo_att_determined_method#"
 				size="10">
-				
+
 		</td>
 		<td>
-			
+
 			<input type="text" id="geo_att_remark__#geology_attribute_id#"
 				name="geo_att_remark__#geology_attribute_id#" value="#geo_att_remark#"
-				size="10">		
+				size="10">
 		</td>
 		<td>
 			<img src="/images/del.gif" class="likeLink" onclick="document.getElementById('geology_attribute__#geology_attribute_id#').value='';">
@@ -1300,7 +1299,7 @@ function useGL(glat,glon,gerr){
 				<cfloop query="ctgeology_attribute">
 					<option value="#geology_attribute#">#geology_attribute#</option>
 				</cfloop>
-			</select>			
+			</select>
 		</td>
 		<td>
 			<select id="geo_att_value" class="reqdClr"  name="geo_att_value">
@@ -1316,20 +1315,20 @@ function useGL(glat,glon,gerr){
 		</td>
 		<td>
 			<input type="text" id="geo_att_determined_date"
-				name="geo_att_determined_date" 
+				name="geo_att_determined_date"
 				size="10">
-		</td>	
+		</td>
 		<td>
 			<input type="text" id="geo_att_determined_method"
 				name="geo_att_determined_method"
-				size="10">	
+				size="10">
 		</td>
 		<td>
 			<input type="text" id="geo_att_remark"
 				name="geo_att_remark"
-				size="10">		
+				size="10">
 		</td>
-		
+
 	</tr>
 
 
@@ -1339,15 +1338,15 @@ function useGL(glat,glon,gerr){
 <cfif #action# is "saveChange___oldBustedThingThatTriedToDoEverything">
 <cfoutput>
 <cfset btime=now()>
-	
+
 	<cfset maxNumGeolAtts=10><!--- wild overestimation of the maximum number of geologic attributes; guess high or this form dies --->
 	<cftransaction>
 		<cfquery name="old"  datasource="uam_god">
-			SELECT 
-				locality_id, 
-				collecting_event_id 
+			SELECT
+				locality_id,
+				collecting_event_id
 			FROM
-	    		spec_with_loc 
+	    		spec_with_loc
 	    	WHERE collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfquery name="geog"  datasource="uam_god">
@@ -1359,8 +1358,8 @@ function useGL(glat,glon,gerr){
 		<cfelse>
 			<cfset nGeogId=geog.geog_auth_rec_id>
 		</cfif>
-		<cfset fLocS="select min(locality_id) locality_id 
-				FROM 
+		<cfset fLocS="select min(locality_id) locality_id
+				FROM
 					loc_acc_lat_long
 				WHERE
     				geog_auth_rec_id = #nGeogId# AND
@@ -1371,20 +1370,20 @@ function useGL(glat,glon,gerr){
 					NVL(MAX_DEPTH,-1) = nvl('#max_depth#',-1) AND
 					NVL(SPEC_LOCALITY,'NULL') = NVL('#escapeQuotes(spec_locality)#','NULL') AND
 					NVL(LOCALITY_REMARKS,'NULL') = NVL('#escapeQuotes(locality_remarks)#','NULL') AND
-					NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND 
+					NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND
 					NVL(NOGEOREFBECAUSE,'NULL') = NVL('#escapeQuotes(nogeorefbecause)#','NULL')  AND
 					NVL(orig_lat_long_units,'NULL') = NVL('#orig_lat_long_units#','NULL') AND
 					NVL(datum,'NULL') = NVL('#datum#','NULL') AND
 					NVL(determined_by_agent_id,-1) = nvl('#determined_by_agent_id#',-1) AND
-					NVL(determined_date,'1600-01-01') = NVL('#determined_date#','1600-01-01') AND 
-					NVL(lat_long_ref_source,'NULL') = NVL('#escapeQuotes(lat_long_ref_source)#','NULL') AND 
-					NVL(lat_long_remarks,'NULL') = NVL('#escapeQuotes(lat_long_remarks)#','NULL')  AND 
+					NVL(determined_date,'1600-01-01') = NVL('#determined_date#','1600-01-01') AND
+					NVL(lat_long_ref_source,'NULL') = NVL('#escapeQuotes(lat_long_ref_source)#','NULL') AND
+					NVL(lat_long_remarks,'NULL') = NVL('#escapeQuotes(lat_long_remarks)#','NULL')  AND
 					NVL(max_error_distance,-1) = nvl('#max_error_distance#',-1) AND
-					NVL(max_error_units,'NULL') = NVL('#max_error_units#','NULL') AND 
+					NVL(max_error_units,'NULL') = NVL('#max_error_units#','NULL') AND
 					NVL(extent,-1) = nvl('#extent#',-1) AND
 					NVL(gpsaccuracy,-1) = nvl('#gpsaccuracy#',-1) AND
-					NVL(georefmethod,'NULL') = NVL('#georefmethod#','NULL')  AND 
-					NVL(verificationstatus,'NULL') = NVL('#escapeQuotes(verificationstatus)#','NULL') AND 
+					NVL(georefmethod,'NULL') = NVL('#georefmethod#','NULL')  AND
+					NVL(verificationstatus,'NULL') = NVL('#escapeQuotes(verificationstatus)#','NULL') AND
 					NVL(DEC_LAT,-1) = nvl('#DEC_LAT#',-1) AND
 					NVL(DEC_LONG,-1) = nvl('#DEC_LONG#',-1) AND
 					NVL(UTM_EW,-1) = nvl('#UTM_EW#',-1) AND
@@ -1434,7 +1433,7 @@ function useGL(glat,glon,gerr){
 						GEOLOGY_ATTRIBUTE='#thisGeoAtt#' and
 						GEO_ATT_VALUE='#escapeQuotes(thisGeoAttValue)#' and
 						nvl(GEO_ATT_DETERMINER_ID,-1)=nvl('#thisGeoDeterminerId#',-1) and
-						NVL(GEO_ATT_DETERMINED_DATE,'1600-01-01') = NVL(to_date('#thisGeoAttDate#'),'1600-01-01') AND 
+						NVL(GEO_ATT_DETERMINED_DATE,'1600-01-01') = NVL(to_date('#thisGeoAttDate#'),'1600-01-01') AND
 						NVL(GEO_ATT_DETERMINED_METHOD,'NULL') = NVL('#escapeQuotes(thisGeoAttMeth)#','NULL') AND
 						NVL(GEO_ATT_REMARK,'NULL') = NVL('#escapeQuotes(thisGeoAttRemark)#','NULL')
 				</cfquery>
@@ -1443,7 +1442,7 @@ function useGL(glat,glon,gerr){
 					<cfset gattlst=listappend(gattlst,-1)>
 				<cfelse>
 					<cfset gattlst=listappend(gattlst,gatt.GEOLOGY_ATTRIBUTE_ID)>
-					<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id IN (select locality_id from 
+					<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id IN (select locality_id from
 						geology_attributes where GEOLOGY_ATTRIBUTE_ID=#gatt.GEOLOGY_ATTRIBUTE_ID#)">
 				</cfif>
 				<cfloop from="1" to="#isGeo#" index="l">
@@ -1459,7 +1458,7 @@ function useGL(glat,glon,gerr){
 					GEOLOGY_ATTRIBUTE='#escapeQuotes(geology_attribute)#' and
 					GEO_ATT_VALUE='#escapeQuotes(geo_att_value)#' and
 					nvl(GEO_ATT_DETERMINER_ID,-1)=nvl('#geo_att_determiner_id#',-1) and
-					NVL(GEO_ATT_DETERMINED_DATE,'1600-01-01') = NVL(to_date('#geo_att_determined_date#'),'1600-01-01') AND 
+					NVL(GEO_ATT_DETERMINED_DATE,'1600-01-01') = NVL(to_date('#geo_att_determined_date#'),'1600-01-01') AND
 					NVL(GEO_ATT_DETERMINED_METHOD,'NULL') = NVL('#escapeQuotes(geo_att_determined_method)#','NULL') AND
 					NVL(GEO_ATT_REMARK,'NULL') = NVL('#escapeQuotes(geo_att_remark)#','NULL')
 			</cfquery>
@@ -1469,17 +1468,17 @@ function useGL(glat,glon,gerr){
 				<cfset gattlst=listappend(gattlst,-1)>
 			<cfelse>
 				<cfset gattlst=listappend(gattlst,gatt.GEOLOGY_ATTRIBUTE_ID)>
-				<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id IN (select locality_id from 
+				<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id IN (select locality_id from
 					geology_attributes where GEOLOGY_ATTRIBUTE_ID=#gatt.GEOLOGY_ATTRIBUTE_ID#)">
 			</cfif>
 		</cfif>
-			
+
 		<cfif hasGeol is 0>
 			hasGeol is 0.....
 			<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id NOT IN (select locality_id from geology_attributes)">
 		<cfelse>
 			hasGeol is NOT 0....
-			<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id NOT IN (select locality_id from 
+			<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id NOT IN (select locality_id from
 				geology_attributes where GEOLOGY_ATTRIBUTE_ID not in (#gattlst#))">
 		</cfif>
 		<cfquery name="isLoc"  datasource="uam_god">
@@ -1501,13 +1500,13 @@ makin a locality....
 			<cfquery name="nlid" datasource="uam_god">
 				select sq_locality_id.nextval nlid from dual
 			</cfquery>
-			
+
 got locid
 <cfset etime=now()>
 <cfset tt=DateDiff("s", btime, etime)>
 <br>Runtime: #tt#
 
-			
+
 			<cfset nLocalityId=nlid.nlid>
 			<cfquery name="nLoc" datasource="uam_god">
 				insert into locality (
@@ -1563,7 +1562,7 @@ made loc....
 			<cfloop from="1" to="#maxNumGeolAtts#" index="i">
 			<cfset isGeo=ListContainsNoCase(ffldn,"GEOLOGY_ATTRIBUTE__")>
 			<cfif isGeo gt 0>
-geology loop....			
+geology loop....
 				<cfset geo=listgetat(ffldn,isGeo)>
 				<cfset thisGeoAttId=replace(geo,"GEOLOGY_ATTRIBUTE__","")>
 				<cfset thisGeoAtt=evaluate("GEOLOGY_ATTRIBUTE__" & thisGeoAttId)>
@@ -1597,13 +1596,13 @@ geology loop....
 						)
 					</cfquery>
 
-				</cfif>				
+				</cfif>
 				<cfloop from="1" to="#isGeo#" index="l">
 					<cfset ffldn=listdeleteat(ffldn,1)>
 				</cfloop>
 			</cfif>
 		</cfloop>
-		
+
 		<cfif len(geology_attribute) gt 0><!--- new attribute --->
 				<cfquery name="newGeo"  datasource="uam_god">
 					insert into geology_attributes (
@@ -1627,24 +1626,24 @@ geology loop....
 						'#escapeQuotes(geo_att_determined_method)#',
 						'#escapeQuotes(geo_att_remark)#'
 					)
-				</cfquery>	
+				</cfquery>
 
 			</cfif>
-			
-			
-			
+
+
+
 			<cfif len(orig_lat_long_units) gt 0>
 coordinates.....
 <cfset etime=now()>
 <cfset tt=DateDiff("s", btime, etime)>
 <br>Runtime: #tt#
-				
+
 got llid....
 <cfset etime=now()>
 <cfset tt=DateDiff("s", btime, etime)>
 <br>Runtime: #tt#
 <br>
-gonna try this:				
+gonna try this:
 				<cfquery name="newCoor" datasource="uam_god">
 					INSERT INTO lat_long (
 						LAT_LONG_ID,
@@ -1685,7 +1684,7 @@ gonna try this:
 								#dmLAT_DEG#,
 							<cfelse>
 								#LAT_DEG#,
-							</cfif>	
+							</cfif>
 						<cfelse>
 							NULL,
 						</cfif>
@@ -1708,7 +1707,7 @@ gonna try this:
 							'#dmLAT_DIR#',
 						<cfelse>
 							'#LAT_DIR#',
-						</cfif>						
+						</cfif>
 						<cfif len(LONG_DEG) gt 0 or len(dmLONG_DEG) gt 0>
 							<cfif orig_lat_long_units is "degrees dec. minutes">
 								#dmLONG_DEG#,
@@ -1798,15 +1797,15 @@ inserted coordinates......
 		</cfif><!--- end make new locality --->
 		<!--- we now have a locality --->
 		<cfquery name="hasColl" datasource="uam_god">
-			select 
+			select
 	 			nvl(min(collecting_event_id),-1) collecting_event_id
-			FROM 
-				collecting_event 
+			FROM
+				collecting_event
 			WHERE
 				locality_id = #nLocalityId# AND
 				NVL(VERBATIM_DATE,'NULL') = NVL('#VERBATIM_DATE#','NULL') AND
-				NVL(BEGAN_DATE,'1600-01-01') = NVL('#BEGAN_DATE#','1600-01-01') AND 
-				NVL(ENDED_DATE,'1600-01-01') = NVL('#ENDED_DATE#','1600-01-01') AND 
+				NVL(BEGAN_DATE,'1600-01-01') = NVL('#BEGAN_DATE#','1600-01-01') AND
+				NVL(ENDED_DATE,'1600-01-01') = NVL('#ENDED_DATE#','1600-01-01') AND
 				NVL(VERBATIM_LOCALITY,'NULL') = NVL('#escapeQuotes(VERBATIM_LOCALITY)#','NULL') AND
 				NVL(COLL_EVENT_REMARKS,'NULL') = NVL('#escapeQuotes(COLL_EVENT_REMARKS)#','NULL') AND
 				NVL(COLLECTING_SOURCE,'NULL') = NVL('#escapeQuotes(COLLECTING_SOURCE)#','NULL') AND
@@ -1845,20 +1844,20 @@ making event....
 					'#escapeQuotes(collecting_method)#',
 					'#escapeQuotes(habitat_desc)#'
 				)
-			</cfquery>	
+			</cfquery>
 		<cfelse>
 			<cfset ncollecting_event_id=hasColl.collecting_event_id>
 		</cfif>
 event spiffy....
 		<cfquery name="upCatItem" datasource="uam_god">
-			update cataloged_item set 
-    			collecting_event_id = #ncollecting_event_id# 
+			update cataloged_item set
+    			collecting_event_id = #ncollecting_event_id#
     		where collection_object_id = #collection_object_id#
 		</cfquery>
-updated catitem....	
+updated catitem....
 		<cfquery name="canKill"  datasource="uam_god">
-			SELECT COUNT(*) c 
-			FROM 
+			SELECT COUNT(*) c
+			FROM
 				cataloged_item,
 				collecting_event,
 				locality
@@ -1892,15 +1891,15 @@ got cankill.....
 					DELETE FROM locality WHERE locality_id=#old.locality_id#
 				</cfquery>
 			<cfcatch></cfcatch>
-			</cftry>	
+			</cftry>
 		</cfif>
 	</cftransaction>
 done.....
 
-	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#">		
+	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#">
 
 <!---
 
 	--->
 </cfoutput>
-</cfif>	  
+</cfif>

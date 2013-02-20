@@ -552,6 +552,7 @@
 	</cfif>
 	<!--- keep people/bots from browsing a dev server
 
+	--->
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "arctos-test.tacc.utexas.edu">
 		<cfset cPath=GetTemplatePath()>
 		<cfif
@@ -565,7 +566,6 @@
 			<cflocation url="/errors/dev_login.cfm">
 		</cfif>
 	</cfif>
-	--->
 	<!--- people still have this thing bookmarked --->
 	<cfif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
 		<cfset rurl="http://arctos.database.museum">

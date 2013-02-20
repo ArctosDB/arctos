@@ -442,8 +442,6 @@
 						</div><!--- end sort_randomness --->
 <!---- ---->
 				    </div><!-- end left-col -->
-
-
 				    <div id="right-col">
 						<div class="wrapper" id="sort_specevent">
 							<div class="item">
@@ -454,7 +452,7 @@
 											<table>
 												<tr>
 													<td align="right">
-														<span class="f11a">Event Assigned By
+														<span class="f11a">Event Determiner</span>
 													</td>
 													<td>
 														<input type="text" name="event_assigned_by_agent" class="reqdClr"
@@ -462,7 +460,7 @@
 															onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 															onkeypress="return noenter(event);">
 													</td>
-													<td align="right"><span class="f11a">On Date</span></td>
+													<td align="right"><span class="f11a">Detr. Date</span></td>
 													<td>
 														<input type="text" name="event_assigned_date" class="reqdClr" id="event_assigned_date">
 														<span class="infoLink" onclick="copyAllDates('event_assigned_date');">Copy2All</span>
