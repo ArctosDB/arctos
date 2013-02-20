@@ -1,3 +1,7 @@
+<!--- over-ride the class=error (pop up in the middle) for this form --->
+<style>
+	.error {border:2px solid purple}
+</style>
 <cfif not isdefined("toProperCase")>
 	<cfinclude template="/includes/_header.cfm">
 </cfif>
