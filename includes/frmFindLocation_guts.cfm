@@ -394,7 +394,7 @@
 														<label for="search_precision">Search Precision</label>
 														<select name="search_precision" id="search_precision">
 															<option value="0">round to integer</option>
-															<option value="2">2 (NN.nn)</option>
+															<option selected="selected" value="2">2 (NN.nn)</option>
 															<option value="4">4 (NN.nnnn)</option>
 															<option value="exact">exact match only</option>
 														</select>

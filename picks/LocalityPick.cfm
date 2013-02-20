@@ -29,8 +29,9 @@
 <br>only the first 10 results have maps
 <cfoutput>
 	<cf_findLocality type="locality">
+	<cfdump var=#localityResults#>
 	<cfquery name="localityResults" dbtype="query">
-		select 
+		select
 			locality_id,
 			geog_auth_rec_id,
 			locality_id,
@@ -45,7 +46,7 @@
 			georeference_protocol,
 			locality_name,
 			geolAtts
-		from 
+		from
 			localityResults
 		group by
 			locality_id,
@@ -64,7 +65,7 @@
 	</cfquery>
 	<table border>
 		<cfset x=1>
-    	 <cfloop query="localityResults"> 
+    	 <cfloop query="localityResults">
       		<tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
        			<td>
 		  			<input type="button" value="Accept" class="lnkBtn"
@@ -72,7 +73,7 @@
 						opener.document.#formName#.#speclocFld#.value='#jsescape(spec_locality)#';
 						self.close();">
 				</td>
-				<td> 
+				<td>
           			<span style="font-size:.7em">#higher_geog#</span>
 					<br>#localityResults.spec_locality#
 					<cfif len(locality_name) gt 0>
@@ -92,7 +93,7 @@
 							</cfif>
 							<cfset x=x+1>
 							<br>
-							#dec_lat# #dec_long# 
+							#dec_lat# #dec_long#
 							(#georeference_source# - #georeference_protocol#)
 						</cfif>
 					</span>
@@ -103,18 +104,18 @@
 						</span>
 					</cfif>
 				</td>
-				
-</tr>   
+
+</tr>
 
 </cfloop>
                           </table>
-  
-  
-		
-		
+
+
+
+
 		<!---
 		<br><a href="javascript: opener.document.#formName#.#localityIdFld#.value='#locality_id#';opener.document.#formName#.#speclocFld#.value='#spec_locality#';self.close();" onClick="">#spec_locality#</a>
 --->
-    </cfoutput> 
+    </cfoutput>
 </cfif>
 <cfinclude template="../includes/_pickFooter.cfm">
