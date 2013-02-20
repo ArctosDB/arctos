@@ -12,7 +12,9 @@
 	function convertToDD(format){
 		if (format=='dms'){
 			var lat_deg=$("#lat_deg").val();
-			if(lat_deg==null){
+			console.log(lat_deg);
+
+			if(lat_deg===null){
 				lat_deg=0;
 			}
 			var lat_min=$("#lat_min").val();
