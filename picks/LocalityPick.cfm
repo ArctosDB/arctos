@@ -26,19 +26,19 @@
 <!-------------------------------------------------------------------->
 <cfif Action is "findLocality">
 <cfset title = "Select a Locality">
-	<script>
-		jQuery(document).ready(function() {
-			$.each($("div[id^='mapgohere-']"), function() {
-				var theElemID=this.id;
-				var theIDType=this.id.split('-')[1];
-				var theID=this.id.split('-')[2];
-			  	var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&size=150x150&' + theIDType + '=' + theID;
-			    jQuery.get(ptl, function(data){
-					jQuery("#" + theElemID).html(data);
-				});
+<script>
+	jQuery(document).ready(function() {
+		$.each($("div[id^='mapgohere-']"), function() {
+			var theElemID=this.id;
+			var theIDType=this.id.split('-')[1];
+			var theID=this.id.split('-')[2];
+		  	var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&size=150x150&' + theIDType + '=' + theID;
+		    jQuery.get(ptl, function(data){
+				jQuery("#" + theElemID).html(data);
 			});
 		});
-	</script>
+	});
+</script>
 <cfoutput>
 	<cf_findLocality type="locality">
 	<cfquery name="localityResults" dbtype="query">
