@@ -62,6 +62,22 @@
 	<cfif not isdefined("collnOper") or len(collnOper) is 0>
 		<cfset collnOper="usedOnlyBy">
 	</cfif>
+	<cfif frm does not contain "locality">
+		<cfset frm=frm & ",locality">
+		<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id ">
+	</cfif>
+	<cfif frm does not contain "collecting_event">
+		<cfset frm=frm & ",collecting_event">
+		<cfset whr=whr & " locality.locality_id=collecting_event.locality_id ">
+	</cfif>
+	<cfif frm does not contain "specimen_event">
+		<cfset whr=whr & " collecting_event.collecting_event_id=specimen_event.collecting_event_id ">
+		<cfset frm=frm & ",specimen_event">
+	</cfif>
+	<cfif frm does not contain "cataloged_item">
+		<cfset frm=frm & ",cataloged_item">
+		<cfset whr=whr & " specimen_event.collection_object_id=cataloged_item.collection_object_id ">
+	</cfif>
 	<cfif collnOper is "usedOnlyBy">
 		<cfset qual = "#qual# AND cataloged_item.collection_id in ( #collection_id# ) and
 			cataloged_item.collection_id not in ( select collection_id from collection minus select #collection_id# from dual)">
