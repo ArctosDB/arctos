@@ -68,15 +68,15 @@
 	</cfif>
 	<cfif frm does not contain "collecting_event">
 		<cfset frm=frm & ",collecting_event">
-		<cfset whr=whr & " locality.locality_id=collecting_event.locality_id ">
+		<cfset whr=whr & " and locality.locality_id=collecting_event.locality_id ">
 	</cfif>
 	<cfif frm does not contain "specimen_event">
-		<cfset whr=whr & " collecting_event.collecting_event_id=specimen_event.collecting_event_id ">
+		<cfset whr=whr & " and collecting_event.collecting_event_id=specimen_event.collecting_event_id ">
 		<cfset frm=frm & ",specimen_event">
 	</cfif>
 	<cfif frm does not contain "cataloged_item">
 		<cfset frm=frm & ",cataloged_item">
-		<cfset whr=whr & " specimen_event.collection_object_id=cataloged_item.collection_object_id ">
+		<cfset whr=whr & " and specimen_event.collection_object_id=cataloged_item.collection_object_id ">
 	</cfif>
 	<cfif collnOper is "usedOnlyBy">
 		<cfset qual = "#qual# AND cataloged_item.collection_id in ( #collection_id# ) and
