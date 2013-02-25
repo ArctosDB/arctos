@@ -204,7 +204,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
+								<cfif listlast(collection,' ') is not 'Portal'>
 							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+								</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -245,7 +247,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
+								<cfif listlast(collection,' ') is not 'Portal'>
 							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+								</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -278,7 +282,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
+								<cfif listlast(collection,' ') is not 'Portal'>
 							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+								</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -318,7 +324,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
+								<cfif listlast(collection,' ') is not 'Portal'>
 							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+								</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -358,7 +366,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
+								<cfif listlast(collection,' ') is not 'Portal'>
 							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+								</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -400,7 +410,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
+								<cfif listlast(collection,' ') is not 'Portal'>
 							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+								</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -442,7 +454,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
-							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+										<cfif listlast(collection,' ') is not 'Portal'>
+									<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+										</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -482,7 +496,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
-							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+									<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+									</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -522,7 +538,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
+								<cfif listlast(collection,' ') is not 'Portal'>
 							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+								</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -563,7 +581,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
+								<cfif listlast(collection,' ') is not 'Portal'>
 							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+								</cfif>
 						</ul>
 					</td>
 				</tr>
