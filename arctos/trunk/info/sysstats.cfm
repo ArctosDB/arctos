@@ -1,15 +1,28 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfquery name="d" datasource="uam_god">
-		select * from collection
+		select
+			collection,
+			institution_acronym,
+			replace(institution_acronym,'Obs') relinst
+		from collection
 	</cfquery>
 
 	<cfdump var=#d#>
 	<cfquery name="i" dbtype="query">
-		select replace(institution_acronym,'obs','') as replia from d group by replace(institution_acronym,'obs','')
+		select institution_acronym, count(*) from d group by institution_acronym
 	</cfquery>
+	<cfdump var=#i#>
 
-<cfdump var=#i#>
 
+		<cfquery name="ri" dbtype="query">
+			select relinst, count(*) from d group by relinst
+		</cfquery>
+		<cfdump var=#ri#>
+
+			<cfquery name="c" dbtype="query">
+						select collection, count(*) from d group by collection
+					</cfquery>
+					<cfdump var=#c#>
 
 	Arctos Basics
 	http://arctosdb.org/
