@@ -204,7 +204,7 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
-							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Impact</li>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
 						</ul>
 					</td>
 				</tr>
@@ -229,25 +229,24 @@ border-bottom:1px solid black;
 						</cfif>
 					</td>
 					<td class="collnSrchCell">
-						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
-						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
-						</cfif>
-					</td>
-					<td class="collnWeblinkCell">
-						<cfif len(web_link) gt 0>
-							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
-						<cfelse>
-							no home page
-						</cfif>
-					</td>
-					<td class="collnLoanPolCell">
-						<cfif len(loan_policy_url) gt 0>
-							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
-						<cfelse>
-							no loan policy
-						</cfif>
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+						</ul>
 					</td>
 				</tr>
 			</cfloop>
@@ -263,25 +262,24 @@ border-bottom:1px solid black;
 						</cfif>
 					</td>
 					<td class="collnSrchCell">
-						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
-						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
-						</cfif>
-					</td>
-					<td class="collnWeblinkCell">
-						<cfif len(web_link) gt 0>
-							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
-						<cfelse>
-							no home page
-						</cfif>
-					</td>
-					<td class="collnLoanPolCell">
-						<cfif len(loan_policy_url) gt 0>
-							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
-						<cfelse>
-							no loan policy
-						</cfif>
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+						</ul>
 					</td>
 				</tr>
 			</cfloop>
@@ -304,25 +302,24 @@ border-bottom:1px solid black;
 						</cfif>
 					</td>
 					<td class="collnSrchCell">
-						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
-						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
-						</cfif>
-					</td>
-					<td class="collnWeblinkCell">
-						<cfif len(web_link) gt 0>
-							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
-						<cfelse>
-							no home page
-						</cfif>
-					</td>
-					<td class="collnLoanPolCell">
-						<cfif len(loan_policy_url) gt 0>
-							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
-						<cfelse>
-							no loan policy
-						</cfif>
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+						</ul>
 					</td>
 				</tr>
 			</cfloop>
@@ -345,25 +342,24 @@ border-bottom:1px solid black;
 						</cfif>
 					</td>
 					<td class="collnSrchCell">
-						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
-						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
-						</cfif>
-					</td>
-					<td class="collnWeblinkCell">
-						<cfif len(web_link) gt 0>
-							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
-						<cfelse>
-							no home page
-						</cfif>
-					</td>
-					<td class="collnLoanPolCell">
-						<cfif len(loan_policy_url) gt 0>
-							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
-						<cfelse>
-							no loan policy
-						</cfif>
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+						</ul>
 					</td>
 				</tr>
 			</cfloop>
@@ -388,25 +384,24 @@ border-bottom:1px solid black;
 						</cfif>
 					</td>
 					<td class="collnSrchCell">
-						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
-						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
-						</cfif>
-					</td>
-					<td class="collnWeblinkCell">
-						<cfif len(web_link) gt 0>
-							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
-						<cfelse>
-							no home page
-						</cfif>
-					</td>
-					<td class="collnLoanPolCell">
-						<cfif len(loan_policy_url) gt 0>
-							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
-						<cfelse>
-							no loan policy
-						</cfif>
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+						</ul>
 					</td>
 				</tr>
 			</cfloop>
@@ -431,25 +426,24 @@ border-bottom:1px solid black;
 						</cfif>
 					</td>
 					<td class="collnSrchCell">
-						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
-						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
-						</cfif>
-					</td>
-					<td class="collnWeblinkCell">
-						<cfif len(web_link) gt 0>
-							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
-						<cfelse>
-							no home page
-						</cfif>
-					</td>
-					<td class="collnLoanPolCell">
-						<cfif len(loan_policy_url) gt 0>
-							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
-						<cfelse>
-							no loan policy
-						</cfif>
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+						</ul>
 					</td>
 				</tr>
 			</cfloop>
@@ -471,26 +465,25 @@ border-bottom:1px solid black;
 							</div>
 						</cfif>
 					</td>
-					<td class="collnSrchCell">
-						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
-						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
-						</cfif>
-					</td>
-					<td class="collnWeblinkCell">
-						<cfif len(web_link) gt 0>
-							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
-						<cfelse>
-							no home page
-						</cfif>
-					</td>
-					<td class="collnLoanPolCell">
-						<cfif len(loan_policy_url) gt 0>
-							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
-						<cfelse>
-							no loan policy
-						</cfif>
+					<td>
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+						</ul>
 					</td>
 				</tr>
 			</cfloop>
@@ -512,26 +505,25 @@ border-bottom:1px solid black;
 							</div>
 						</cfif>
 					</td>
-					<td class="collnSrchCell">
-						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
-						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
-						</cfif>
-					</td>
-					<td class="collnWeblinkCell">
-						<cfif len(web_link) gt 0>
-							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
-						<cfelse>
-							no home page
-						</cfif>
-					</td>
-					<td class="collnLoanPolCell">
-						<cfif len(loan_policy_url) gt 0>
-							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
-						<cfelse>
-							no loan policy
-						</cfif>
+					<td>
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+						</ul>
 					</td>
 				</tr>
 			</cfloop>
@@ -554,26 +546,25 @@ border-bottom:1px solid black;
 							</div>
 						</cfif>
 					</td>
-					<td class="collnSrchCell">
-						<cfif listlast(collection,' ') is not 'Portal'>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a>
-						<cfelse>
-							<a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a>
-						</cfif>
-					</td>
-					<td class="collnWeblinkCell">
-						<cfif len(web_link) gt 0>
-							<a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a>
-						<cfelse>
-							no home page
-						</cfif>
-					</td>
-					<td class="collnLoanPolCell">
-						<cfif len(loan_policy_url) gt 0>
-							<a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a>
-						<cfelse>
-							no loan policy
-						</cfif>
+					<td>
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+						</ul>
 					</td>
 				</tr>
 			</cfloop>
