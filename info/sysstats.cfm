@@ -29,10 +29,10 @@
 										select count(*) c from agent
 									</cfquery>
 
-					<cfquery name="all_objects" datasource="uam_god">
-															select * from all_objects
-														</cfquery>
-<cfdump var=#all_objects#>
+					<cfquery name="user_tables" datasource="uam_god">
+						select * from user_tables
+					</cfquery>
+<cfdump var=#user_tables#>
 	<table border>
 		<tr>
 			<th>Metric</th>
