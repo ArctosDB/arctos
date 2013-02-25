@@ -5,7 +5,7 @@
 
 	<cfdump var=#d#>
 	<cfquery name="i" dbtype="query">
-		select replace(institution_acronym,'obs','') replia from d group by replace(institution_acronym,'obs','')
+		select replace(institution_acronym,'obs','') as replia from d group by replace(institution_acronym,'obs','')
 	</cfquery>
 
 <cfdump var=#i#>
