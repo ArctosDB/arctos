@@ -42,15 +42,20 @@
 				Value
 			</th></tr>
 		<tr>
-			<td>Number Collections</td>
+			<td>
+				Number Collections
+				<a href="##collections" class="infoLink">list</a>
+			</td>
 			<td><input value="#d.recordcount#"></td>
 		</tr>
 		<tr>
-			<td>Number Institutions (raw)</td>
+			<td>Number Institutions (raw)<a href="##rawinst" class="infoLink">list</a></td>
 			<td><input value="#i.recordcount#"></td>
 		</tr>
 		<tr>
-			<td>Number Institutions ("Obs" removed)</td>
+			<td>Number Institutions ("Obs" removed)
+		<a href="##inst" class="infoLink">list</a>
+		</td>
 			<td><input value="#ri.recordcount#"></td>
 		</tr>
 		<tr>
@@ -97,5 +102,33 @@
 		Arctos access data are available from Google Analytics - ask any member of the Advisory Committee for access. http://www.google.com/analytics/
 	</p>
 	<p>Query and Download stats are available under the Reports tab.</p>
+
+
+	<hr>
+	<a name="collections"></a>
+	<p>List of collections in Arctos:</p>
+	<ul>
+		<cfloop query="d">
+			<li>#collection#</li>
+		</cfloop>
+	</ul>
+	<hr>
+	<a name="rawinst"></a>
+	<p>Unmanipulated list of institutions in Arctos:</p>
+	<ul>
+		<cfloop query="i">
+			<li>#institution_acronym#</li>
+		</cfloop>
+	</ul>
+
+	<hr>
+	<a name="inst"></a>
+	<p>List of institutions in Arctos (OBS replaced):</p>
+	<ul>
+		<cfloop query="ri">
+			<li>#relinst#</li>
+		</cfloop>
+	</ul>
+
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
