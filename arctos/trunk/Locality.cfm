@@ -791,6 +791,11 @@ group by verificationstatus,collection
 							</td>
 						</tr>
 					</table>
+					<table>
+						<tr>
+							<td>newtable</td>
+						</tr>
+					</table>
 				</div>
 
 				<script>
