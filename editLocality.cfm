@@ -398,8 +398,7 @@
 							VERBATIM_LOCALITY,
 							COLL_EVENT_REMARKS,
 							VERBATIM_COORDINATES,
-							COLLECTING_EVENT_NAME,
-							ORIG_LAT_LONG_UNITS
+							COLLECTING_EVENT_NAME
 							from
 								collecting_event
 							where
@@ -413,9 +412,25 @@
 								COLLECTING_EVENT_NAME,
 								ORIG_LAT_LONG_UNITS
 					</cfquery>
-					<cfloop query="events">
-						<br>#verbatim_coordinates#---#c#
-					</cfloop>
+					<label for="et">Events using this Locality</label>
+					<table border>
+						<tr>
+							<th>Count</th>
+							<th>Nickname</th>
+							<th>Date</th>
+							<th>Coordinates</th>
+							<th>Remarks</th>
+						</tr>
+						<cfloop query="events">
+							<tr>
+								<td>#c#</td>
+								<td>#COLLECTING_EVENT_NAME#</td>
+								<td>#VERBATIM_DATE#</td>
+								<td>#verbatim_coordinates#</td>
+								<td>#COLL_EVENT_REMARKS#</td>
+							</tr>
+						</cfloop>
+					</table>
 
 				</td>
 			</tr>
