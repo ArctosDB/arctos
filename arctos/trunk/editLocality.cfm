@@ -425,7 +425,7 @@
 						</cfloop>
 					</table>
 					<input type="button" value="Update all events to use locality coordinates" class="lnkBtn"
-						onclick="document.location='/Locality.cfm?action=massEditCollEvent&locality_id=#locDet.locality_id#">
+						onclick="document.location='/Locality.cfm?action=massEditCollEvent&locality_id=#locDet.locality_id#'">
 
 				</td>
 			</tr>
