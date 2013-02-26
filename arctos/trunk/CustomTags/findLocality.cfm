@@ -241,7 +241,6 @@
 <cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(sql)#
 </cfquery>
-<cfdump var=#caller.localityResults#>
 <cfif caller.localityResults.recordcount is 500>
 	<br>This application returns a maximum of 500 rows. Not all results are displayed.<br>
 </cfif>

@@ -1560,6 +1560,21 @@ INSERT INTO geog_auth_rec (
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "findLocality">
+
+	<script>
+		jQuery(document).ready(function() {
+			$.each($("div[id^='mapgohere-']"), function() {
+				var theElemID=this.id;
+				var theIDType=this.id.split('-')[1];
+				var theID=this.id.split('-')[2];
+			  	var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&size=150x150&' + theIDType + '=' + theID;
+			    jQuery.get(ptl, function(data){
+					jQuery("#" + theElemID).html(data);
+				});
+			});
+		});
+	</script>
+
 <cfoutput>
 	<cf_findLocality type="locality">
 	<cfset title="Locality Search Results">
@@ -1602,13 +1617,11 @@ INSERT INTO geog_auth_rec (
 				</td>
 				<td>
 					<div>
-						<cfif len(dec_lat) gt 0>
-							<cfif i lte 25>
-								<cfset contents=getMap.getMap(locality_id=#locality_id#)>
-								#contents#
-							<cfelse>
-								TooManyMatches - no map for you.
-							</cfif>
+						<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
+							<div id="mapgohere-locality_id-#locality_id#"></div>
+							<br>
+							#dec_lat# #dec_long#
+							(#georeference_source# - #georeference_protocol#)
 						</cfif>
 					</div>
 				</td>
