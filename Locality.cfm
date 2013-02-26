@@ -1562,8 +1562,6 @@ INSERT INTO geog_auth_rec (
 <cfif action is "findLocality">
 <cfoutput>
 	<cf_findLocality type="locality">
-
-	<cfdump var=#localityResults#>
 	<cfset title="Locality Search Results">
 	<cfif localityResults.recordcount lt 1000>
 		<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">BerkeleyMapper</a>
