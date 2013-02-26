@@ -799,18 +799,13 @@ group by verificationstatus,collection
 							</td>
 						</tr>
 					</table>
-					<table>
-						<tr>
-							<td>
-								<cfif len(locDet.loclat) gt 0>
-									Locality coordinates are decimal latitude format, #locDet.loclat#/#locDet.loclong# datum #locDet.localityDATUM#
-									<br>
-									<input type="button" onclick="useLocCoords('#locDet.loclat#','#locDet.loclong#','#locDet.localityDATUM#');"
-										 value="use locality coordinates for this event"></button>
-								</cfif>
-							</td>
-						</tr>
-					</table>
+					<cfif len(locDet.loclat) gt 0>
+						<div style="border:1px solid black;margin:.5em;padding:.5em">
+							Locality coordinates are format decimal degrees, #locDet.loclat#/#locDet.loclong# datum #locDet.localityDATUM#
+							<input type="button" onclick="useLocCoords('#locDet.loclat#','#locDet.loclong#','#locDet.localityDATUM#');"
+								 value="use locality coordinates for this event"></button>
+						</div>
+					</cfif>
 				</div>
 
 				<script>
