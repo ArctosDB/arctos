@@ -677,7 +677,9 @@
 			<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 				<cfinvokeargument name="locality_id" value="#locality_id#">
 			</cfinvoke>
-		#contents#
+			#contents#
+			(You need to "own" at least one specimen in this locality to make BerkeleyMapper work. Use
+			<a href="https://maps.google.com/?q=#locDet.dec_lat#,#locDet.dec_long#">Google Maps</a> or GeoLocate.)
 		</cfif>
 
 
