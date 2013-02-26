@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="system statistics">
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select collection, institution_acronym, replace(institution_acronym,'Obs') relinst from collection order by collection
