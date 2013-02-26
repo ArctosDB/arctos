@@ -389,7 +389,35 @@
 					<label for="dec_long">Decimal Longitude</label>
 					<input type="text" name="DEC_LONG" value="#locDet.DEC_LONG#" id="dec_long" class="">
 				</td>
-				<td rowspan="3">hello</td>
+				<td rowspan="3">
+	            	<cfquery name="events" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select
+							count(*) c,
+							verbatim_coordinates,
+							VERBATIM_DATE,
+							VERBATIM_LOCALITY,
+							COLL_EVENT_REMARKS,
+							VERBATIM_COORDINATES,
+							COLLECTING_EVENT_NAME,
+							ORIG_LAT_LONG_UNITS
+							from
+								collecting_event
+							where
+								locality_id=#locDet.locality_id#
+							group by
+								verbatim_coordinates,
+								VERBATIM_DATE,
+								VERBATIM_LOCALITY,
+								COLL_EVENT_REMARKS,
+								VERBATIM_COORDINATES,
+								COLLECTING_EVENT_NAME,
+								ORIG_LAT_LONG_UNITS
+					</cfquery>
+					<cfloop query="events">
+						<br>#verbatim_coordinates#---#c#
+					</cfloop>
+
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
