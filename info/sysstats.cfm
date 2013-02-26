@@ -30,9 +30,13 @@
 									</cfquery>
 
 					<cfquery name="user_tables" datasource="uam_god">
-						select * from user_tables
+						select TABLE_NAME from user_tables
 					</cfquery>
-<cfdump var=#user_tables#>
+
+
+						<cfquery name="ct" dbtype="query">
+							select TABLE_NAME from user_tables where table_name like 'CT%'
+						</cfquery>
 	<table border>
 		<tr>
 			<th>Metric</th>
@@ -76,6 +80,18 @@
 						<td>Number Agents</td>
 						<td><input value="#agent.c#"></td>
 					</tr>
+					<tr>
+							<td>Number Tables * </td>
+							<td><input value="#user_tables.recordcount#"></td>
+						</tr>
+
+							<tr>
+									<td>Number Code Tables * </td>
+									<td><input value="#ct.recordcount#"></td>
+								</tr>
+
+
+
 	</table>
 </cfoutput>
 Arctos Basics http://arctosdb.org/ Arctos is a dynamic collection management information system that is continually evolving and growing.
