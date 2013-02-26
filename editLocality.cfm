@@ -311,7 +311,9 @@
 					<label for="dec_long">Decimal Longitude</label>
 					<input type="text" name="DEC_LONG" value="#locDet.DEC_LONG#" id="dec_long" class="">
 				</td>
-				<td>
+			</tr>
+			<tr>
+				<td colspan="2">
 	                    		<label for="dmsdiv">Convert to decimal degrees</label>
 	                    											<div id="dmsdiv" style="border:1px solid black;padding-left:1.5em;background-color:LightGray;">
 	                    												<table>
