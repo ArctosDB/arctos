@@ -136,6 +136,84 @@
 			document.location=rurl;
 		}
 	}
+
+
+	function convertToDD(format){
+		if (format=='dms'){
+			var lat_deg=$("#lat_deg").val();
+			if(lat_deg==''){
+				lat_deg=0;
+			}
+			var lat_min=$("#lat_min").val();
+			if(lat_min==''){
+				lat_min=0;
+			}
+			var lat_sec=$("#lat_sec").val();
+			if(lat_sec==''){
+				lat_sec=0;
+			}
+			var dms_latdir=$("#dms_latdir").val();
+			var long_deg=$("#long_deg").val();
+			if(long_deg==''){
+				long_deg=0;
+			}
+			var long_min=$("#long_min").val();
+			if(long_min==''){
+				long_min=0;
+			}
+			var long_sec=$("#long_sec").val();
+			if(long_sec==''){
+				long_sec=0;
+			}
+			var dms_longdir=$("#dms_longdir").val();
+
+			var dec_lat = parseFloat(lat_deg) + (parseFloat(lat_min) / 60) + (parseFloat(lat_sec) / 3600);
+	           if (dms_latdir == 'S'){
+	               dec_lat = dec_lat * -1;
+	           }
+			var dec_long = parseFloat(long_deg) + (parseFloat(long_min) / 60) + (parseFloat(long_sec) / 3600);
+	            if (dms_longdir == 'W'){
+	               dec_long = dec_long * -1;
+	           }
+	       }
+	       if (format=='dm'){
+			var dec_lat_deg=$("#dec_lat_deg").val();
+			if(dec_lat_deg==''){
+				dec_lat_deg=0;
+			}
+			var dec_lat_min=$("#dec_lat_min").val();
+			if(dec_lat_min==''){
+				dec_lat_min=0;
+			}
+
+			var dm_latdir=$("#dm_latdir").val();
+			var dec_long_deg=$("#dec_long_deg").val();
+			if(dec_long_deg==''){
+				dec_long_deg=0;
+			}
+			var dec_long_min=$("#dec_long_min").val();
+			if(dec_long_min==''){
+				dec_long_min=0;
+			}
+
+			var dm_longdir=$("#dm_longdir").val();
+
+			var dec_lat = parseFloat(dec_lat_deg) + (parseFloat(dec_lat_min) / 60);
+	           if (dm_latdir == 'S'){
+	               dec_lat = dec_lat * -1;
+	           }
+			var dec_long = parseFloat(dec_long_deg) + (parseFloat(dec_long_min) / 60);
+	            if (dm_longdir == 'W'){
+	               dec_long = dec_long * -1;
+	           }
+
+		}
+
+	           $("#dec_lat").val(dec_lat);
+	           $("#dec_long").val(dec_long);
+
+	}
+
 </script>
 <cfoutput>
 	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
