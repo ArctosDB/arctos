@@ -805,7 +805,7 @@ group by verificationstatus,collection
 								<cfif len(locDet.loclat) gt 0>
 									Locality coordinates are decimal latitude format, #locDet.loclat#/#locDet.loclong# datum #locDet.localityDATUM#
 									<br>
-									<button onclick="useLocCoords('#locDet.loclat#','#locDet.loclong#','#locDet.localityDATUM#');"
+									<input type="button" onclick="useLocCoords('#locDet.loclat#','#locDet.loclong#','#locDet.localityDATUM#');"
 										 value="use locality coordinates for this event"></button>
 								</cfif>
 							</td>
