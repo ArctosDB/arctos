@@ -86,8 +86,7 @@
 			<td><input value="#ct.recordcount#"></td>
 		</tr>
 	</table>
-	* A bit about Arctos structure: The numbers above represent tables owned by the system owner.
-	<br>
+	* The numbers above represent tables owned by the system owner.
 	There are about 85 "data tables" which contain primary specimen data. They're pretty useless by themselves - the other several hundred tables are user info,
 	 VPD settings, user settings and customizations, temp CF bulkloading tables, CF admin stuff, cached data (collection-type-specific code tables),
 	 archives of deletes from various places, snapshots of system objects (eg, audit), and the other stuff that together makes Arctos work. Additionally,
