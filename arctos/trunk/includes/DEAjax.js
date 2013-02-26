@@ -276,7 +276,7 @@ function saveNewRecord () {
 		$.getJSON("/component/Bulkloader.cfc",
 			{
 				method : "saveNewRecord",
-				q : serialized,
+				q : $('#dataEntry').serialize(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
