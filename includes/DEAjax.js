@@ -214,10 +214,16 @@ function saveNewRecord () {
 	if (cleanup()) {
 		msg('saving....','wait');
 		$(".hasProbs").removeClass();
+		
+		$('input', '#dataEntry').each(function(){
+		    $(this).val() == "" && $(this).remove();
+		})
+		var serialized = $('#dataEntry').serialize()
+		
 		$.getJSON("/component/Bulkloader.cfc",
 			{
 				method : "saveNewRecord",
-				q : $("#dataEntry").serialize(),
+				q : serialized,
 				returnformat : "json",
 				queryformat : 'column'
 			},
