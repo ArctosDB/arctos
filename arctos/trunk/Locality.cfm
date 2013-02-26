@@ -793,7 +793,12 @@ group by verificationstatus,collection
 					</table>
 					<table>
 						<tr>
-							<td>newtable</td>
+							<td>
+								<cfif len(locDet.loclat) gt 0>
+									Locality coordinates are decimal latitude format, #locDet.loclat#/#locDet.loclong# datum #locDet.localityDATUM#
+									<br>use
+								</cfif>
+							</td>
 						</tr>
 					</table>
 				</div>
