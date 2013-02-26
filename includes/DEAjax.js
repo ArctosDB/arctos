@@ -258,7 +258,8 @@ function saveNewRecord () {
 					// reapple any customizations, etc.
 					setPagePrefs();
 				}
-			},
+			}
+		},
 		error: function (xhr, textStatus, errorThrown){
 		    // show error
 		    alert(errorThrown);
