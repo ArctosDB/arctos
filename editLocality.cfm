@@ -393,10 +393,8 @@
 	            	<cfquery name="events" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select
 							count(*) c,
-							verbatim_coordinates,
 							VERBATIM_DATE,
 							VERBATIM_LOCALITY,
-							COLL_EVENT_REMARKS,
 							VERBATIM_COORDINATES,
 							COLLECTING_EVENT_NAME
 							from
@@ -404,13 +402,10 @@
 							where
 								locality_id=#locDet.locality_id#
 							group by
-								verbatim_coordinates,
 								VERBATIM_DATE,
 								VERBATIM_LOCALITY,
-								COLL_EVENT_REMARKS,
 								VERBATIM_COORDINATES,
-								COLLECTING_EVENT_NAME,
-								ORIG_LAT_LONG_UNITS
+								COLLECTING_EVENT_NAME
 					</cfquery>
 					<label for="et">Events using this Locality</label>
 					<table border>
@@ -419,7 +414,6 @@
 							<th>Nickname</th>
 							<th>Date</th>
 							<th>Coordinates</th>
-							<th>Remarks</th>
 						</tr>
 						<cfloop query="events">
 							<tr>
@@ -427,10 +421,11 @@
 								<td>#COLLECTING_EVENT_NAME#</td>
 								<td>#VERBATIM_DATE#</td>
 								<td>#verbatim_coordinates#</td>
-								<td>#COLL_EVENT_REMARKS#</td>
 							</tr>
 						</cfloop>
 					</table>
+					<input type="button" value="Update all events to use locality coordinates" class="lnkBtn"
+						onclick="document.location='/Locality.cfm?action=massEditCollEvent&locality_id=#locDet.locality_id#">
 
 				</td>
 			</tr>

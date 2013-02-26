@@ -36,6 +36,9 @@
 		}
 	</script>
 </cfif>
+
+	<cfif action is "massEditCollEvent">hi</cfif>
+
 <cfif action is "findCollEventIdForSpecDetail">
 	<!--- get a collecting event ID and relocate to editCollEvnt --->
 	<cfquery name="ceid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
