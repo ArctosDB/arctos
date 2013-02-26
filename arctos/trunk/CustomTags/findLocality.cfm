@@ -114,7 +114,7 @@
 <cfif isdefined("datum") and len(datum) gt 0>
 	<cfset qual = "#qual# AND locality.datum = '#datum#'">
 </cfif>
-<cfif isdefined("dec_lat") and len(dec_lat) gt 0 and isdefined("dec_long") and len(dec_long) gt 0>
+<cfif isdefined("dec_lat") and len(dec_lat) gt 0 and dec_lat is not "0" and isdefined("dec_long") and len(dec_long) gt 0 and dec_long is not "0">
 	<cfif not isdefined("search_precision")>
 		<cfset search_precision=2>
 	</cfif>
