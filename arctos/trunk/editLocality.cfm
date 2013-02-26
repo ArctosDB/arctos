@@ -389,6 +389,7 @@
 					<label for="dec_long">Decimal Longitude</label>
 					<input type="text" name="DEC_LONG" value="#locDet.DEC_LONG#" id="dec_long" class="">
 				</td>
+				<td rowspan="3">hello</td>
 			</tr>
 			<tr>
 				<td colspan="2">

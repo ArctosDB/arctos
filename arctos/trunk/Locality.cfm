@@ -610,7 +610,7 @@ group by verificationstatus,collection
 				</table>
 				<label for="coll_event_remarks">Collecting Event Remark</label>
 				<input type="text" name="coll_event_remarks" id="coll_event_remarks" value="#locDet.COLL_EVENT_REMARKS#" size="50">
-				<label for="collecting_event_name">collecting_event_name</label>
+				<label for="collecting_event_name">Collecting Event Nickname</label>
 				<input type="text" name="collecting_event_name" id="collecting_event_name" value="#locDet.collecting_event_name#" size="50">
 				<cfif len(locDet.collecting_event_name) is 0>
 					<span class="infoLink" onclick="$('##collecting_event_name').val('#CreateUUID()#');">create GUID</span>
