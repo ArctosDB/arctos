@@ -219,7 +219,7 @@ function saveNewRecord () {
 		
 		$.ajax({
 			url: "/component/Bulkloader.cfc",
-			type: post,
+			type: POST,
 			dataType: "json",
 			data: {
 				method:  "saveNewRecord",
