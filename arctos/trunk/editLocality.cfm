@@ -682,9 +682,11 @@
 				<tr>
 					<td>#contents#</td>
 					<td>
-						Click the map to open BerkeleyMapper. This won't work if you do not own at least one specimen in the locality -
-						tr <a href="https://maps.google.com/?q=#locDet.dec_lat#,#locDet.dec_long#">Google Maps</a> or one of the
-						GeoLocate options to the left.
+						<div style="font-size:smaller;font-weight:bold;">
+							Click the map to open BerkeleyMapper. This won't work if you do not own at least one specimen in the locality -
+							try <a href="https://maps.google.com/?q=#locDet.dec_lat#,#locDet.dec_long#">Google Maps</a> or one of the
+							GeoLocate options to the left.
+						</div>
 					</td>
 				</tr>
 			</table>
