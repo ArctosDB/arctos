@@ -216,9 +216,9 @@ function saveNewRecord () {
 		$(".hasProbs").removeClass();
 		
 		
-		/*
+		
 		$.ajax({
-			url: "/component/Bulkloader.cfc",
+			url: "/component/Bulkloader.cfc?queryformat=column",
 			type: "POST",
 			dataType: "json",
 			data: {
@@ -271,8 +271,8 @@ function saveNewRecord () {
 		
 		
 		
-		*/
 		
+		/*
 		$.getJSON("/component/Bulkloader.cfc",
 			{
 				method : "saveNewRecord",
@@ -315,6 +315,8 @@ function saveNewRecord () {
 				}
 			}
 		);
+		
+		*/
 	}
 }
 
