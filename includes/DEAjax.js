@@ -215,6 +215,9 @@ function saveNewRecord () {
 		msg('saving....','wait');
 		$(".hasProbs").removeClass();
 		
+		
+		
+		
 		$.ajax({
 			url: "/component/Bulkloader.cfc",
 			type: post,
@@ -258,7 +261,6 @@ function saveNewRecord () {
 					// reapple any customizations, etc.
 					setPagePrefs();
 				}
-			}
 		},
 		error: function (xhr, textStatus, errorThrown){
 		    // show error
