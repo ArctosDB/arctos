@@ -1618,7 +1618,9 @@ INSERT INTO geog_auth_rec (
 				<td>
 					<div>
 						<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-							<div id="mapgohere-locality_id-#locality_id#"></div>
+							<div id="mapgohere-locality_id-#locality_id#">
+								<img src="/images/indicator.gif">
+							</div>
 							<br>
 							#dec_lat# #dec_long#
 							(#georeference_source# - #georeference_protocol#)
