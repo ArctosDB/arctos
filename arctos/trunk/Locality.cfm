@@ -66,7 +66,9 @@
 	Updating events used in verified specimen-events will fail. (You can mass-update verificationstatus from edit event.)
 	<p>
 		Use this form to update all specimens in the table below to the locality coordinates. If you need more control, use other tools.
-
+	</p>
+	<p>
+		If you aren't absolutely sure what this form does, find out before clicking anything.
 	</p>
 
 	<p>Locality:</p>
@@ -99,7 +101,13 @@
 		onclick="document.location='/Locality.cfm?action=reallyMassEditCollEvent&locality_id=#locality_id#'">
 </cfif>
 	<cfif action is "reallyMassEditCollEvent">
-		reallyMassEditCollEvent
+		<cfquery name="reallyMassEditCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update collecting_event set
+				( ORIG_LAT_LONG_UNITS, DEC_LAT, DEC_LONG, DATUM)
+				= (select 'decimal degrees', DEC_LAT, DEC_LONG, DATUM from locality where locality_id=#locality_id#)
+			where locality_id=#locality_id#
+		</cfquery>
+		<cflocation addtoken="false" url="editLocality.cfm?locality_id=#locality_id#">
 	</cfif>
 
 <cfif action is "findCollEventIdForSpecDetail">
