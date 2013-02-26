@@ -618,6 +618,14 @@ group by verificationstatus,collection
 				<label>Verbatim Coordinates (These are NOT necessarily the same as the mappable coordinate
 				data given for Locality. Entering verbatim coordinates and picking an appropriate locality are separate tasks.)</label>
 				<script>
+					function useLocCoords(lat,lon,datum) {
+						showLLFormat('decimal degrees');
+						$("#DEC_LAT").val(lat);
+						$("#DEC_LONG").val(lon);
+						$("#datum").val(datum);
+					}
+
+
 					function showLLFormat(orig_units) {
 						$("##dd").hide();
 						$("##dms").hide();
@@ -796,7 +804,9 @@ group by verificationstatus,collection
 							<td>
 								<cfif len(locDet.loclat) gt 0>
 									Locality coordinates are decimal latitude format, #locDet.loclat#/#locDet.loclong# datum #locDet.localityDATUM#
-									<br>use
+									<br>
+									<button onclick="useLocCoords('#locDet.loclat#','#locDet.loclong#','#locDet.localityDATUM#');"
+										 value="use locality coordinates for this event"></button>
 								</cfif>
 							</td>
 						</tr>
