@@ -620,9 +620,9 @@ group by verificationstatus,collection
 				<script>
 					function useLocCoords(lat,lon,datum) {
 						showLLFormat('decimal degrees');
-						$("#DEC_LAT").val(lat);
-						$("#DEC_LONG").val(lon);
-						$("#datum").val(datum);
+						$("##DEC_LAT").val(lat);
+						$("##DEC_LONG").val(lon);
+						$("##datum").val(datum);
 					}
 
 
