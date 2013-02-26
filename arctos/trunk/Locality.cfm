@@ -37,7 +37,70 @@
 	</script>
 </cfif>
 
-	<cfif action is "massEditCollEvent">hi</cfif>
+<cfif action is "massEditCollEvent">
+	<cfquery name="locality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+		SPEC_LOCALITY,
+		DEC_LAT,
+		DEC_LONG,
+		DATUM
+		from locality where locality_id=#locality_id#
+	</cfquery>
+	<cfquery name="events" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			count(*) c,
+			VERBATIM_DATE,
+			VERBATIM_LOCALITY,
+			VERBATIM_COORDINATES,
+			COLLECTING_EVENT_NAME
+		from
+			collecting_event
+		where
+			locality_id=#locality_id#
+		group by
+			VERBATIM_DATE,
+			VERBATIM_LOCALITY,
+			VERBATIM_COORDINATES,
+			COLLECTING_EVENT_NAME
+	</cfquery>
+	Updating events used in verified specimen-events will fail. (You can mass-update verificationstatus from edit event.)
+	<p>
+		Use this form to update all specimens in the table below to the locality coordinates. If you need more control, use other tools.
+
+	</p>
+
+	<p>Locality:</p>
+	<ul>
+		<li>Locality_ID: #locality_id#</li>
+		<li>SPEC_LOCALITY: #locality.SPEC_LOCALITY#</li>
+		<li>DEC_LAT: #locality.DEC_LAT#</li>
+		<li>DEC_LONG: #locality.DEC_LONG#</li>
+		<li>DATUM: #locality.DATUM#</li>
+	</ul>
+
+	<label for="et">Events using this Locality</label>
+	<table id="et" border>
+		<tr>
+			<th>Count</th>
+			<th>Nickname</th>
+			<th>Date</th>
+			<th>Coordinates</th>
+		</tr>
+		<cfloop query="events">
+			<tr>
+				<td>#c#</td>
+				<td>#COLLECTING_EVENT_NAME#</td>
+				<td>#VERBATIM_DATE#</td>
+				<td>#verbatim_coordinates#</td>
+			</tr>
+		</cfloop>
+	</table>
+	<input type="button" value="Continue to update all events to these locality coordinates" class="savBtn"
+		onclick="document.location='/Locality.cfm?action=reallyMassEditCollEvent&locality_id=#locality_id#'">
+</cfif>
+	<cfif action is "reallyMassEditCollEvent">
+		reallyMassEditCollEvent
+	</cfif>
 
 <cfif action is "findCollEventIdForSpecDetail">
 	<!--- get a collecting event ID and relocate to editCollEvnt --->

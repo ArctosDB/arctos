@@ -408,7 +408,7 @@
 								COLLECTING_EVENT_NAME
 					</cfquery>
 					<label for="et">Events using this Locality</label>
-					<table border>
+					<table id="et" border>
 						<tr>
 							<th>Count</th>
 							<th>Nickname</th>
