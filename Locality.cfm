@@ -803,7 +803,7 @@ group by verificationstatus,collection
 						<div style="border:1px solid black;margin:.5em;padding:.5em">
 							Locality coordinates are format <strong>decimal degrees</strong>, <strong>#locDet.loclat#</strong>/<strong>#locDet.loclong#</strong> datum <strong>#locDet.localityDATUM#</strong>
 							<input type="button" onclick="useLocCoords('#locDet.loclat#','#locDet.loclong#','#locDet.localityDATUM#');"
-								 value="use locality coordinates for this event"></button>
+								 style="insBtn" value="Use Locality coordinates for this event"></button>
 						</div>
 					</cfif>
 				</div>
