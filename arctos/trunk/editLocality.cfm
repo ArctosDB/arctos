@@ -672,14 +672,22 @@
 		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a>
 		<a href="http://manisnet.org/gci2.html" target="_blank" class="external">[ Georef Calculator ]</a>
 		<span class="likeLink" onClick="getDocs('lat_long')">[ lat_long help ]</span>
-	</td><td valign="top">
+	</td>
+	<td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
 			<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 				<cfinvokeargument name="locality_id" value="#locality_id#">
 			</cfinvoke>
-			#contents#
-			(You need to "own" at least one specimen in this locality to make BerkeleyMapper work. Use
-			<a href="https://maps.google.com/?q=#locDet.dec_lat#,#locDet.dec_long#">Google Maps</a> or GeoLocate.)
+			<table>
+				<tr>
+					<td>#contents#</td>
+					<td>
+						Click the map to open BerkeleyMapper. This won't work if you do not own at least one specimen in the locality -
+						tr <a href="https://maps.google.com/?q=#locDet.dec_lat#,#locDet.dec_long#">Google Maps</a> or one of the
+						GeoLocate options to the left.
+					</td>
+				</tr>
+			</table>
 		</cfif>
 
 
