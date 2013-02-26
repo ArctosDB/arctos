@@ -217,7 +217,6 @@ function saveNewRecord () {
 		
 		
 		
-		
 		$.ajax({
 			url: "/component/Bulkloader.cfc",
 			type: post,
@@ -227,7 +226,7 @@ function saveNewRecord () {
 				q: $('#dataEntry').serialize(),
 				returnformat : "json",
 				queryformat : 'column'
-			}
+			},
 			success: function(r) {
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
 				var status=r.DATA.RSLT[0];
