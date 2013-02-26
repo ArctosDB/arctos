@@ -223,9 +223,10 @@ function saveNewRecord () {
 			dataType: "json",
 			data: {
 				method:  "saveNewRecord",
-				q: $('#dataEntry').serialize(),
-				returnformat : "json",
-				queryformat : 'column'
+				q: $('#dataEntry').serialize()
+				//,
+				//returnformat : "json",
+				//queryformat : "column"
 			},
 			success: function(r) {
 				var coid=r.DATA.COLLECTION_OBJECT_ID[0];
