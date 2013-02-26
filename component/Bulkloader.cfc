@@ -291,7 +291,7 @@
 	</cfoutput>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
-<cffunction name="saveNewRecord" access="remote">
+<cffunction name="saveNewRecord" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
 	<cfoutput>
 		<cfquery name="getCols" datasource="uam_god">
