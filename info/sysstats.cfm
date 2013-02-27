@@ -139,7 +139,7 @@
 	<cfloop from="1995" to="#dateformat(now(),"YYYY")#" index="y">
 		<cfquery name="qy" datasource="uam_god">
  			select
-				to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) yy
+				to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) yy,
 				count(*) numberSpecimens,
 				count(distinct(collection_id)) numberCollections
 			from
@@ -147,6 +147,8 @@
 				coll_object
 			where cataloged_item.collection_object_id=coll_object.collection_object_id and
 		 		to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) <= #y#
+		 	group by to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY'))
+		 	order by to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY'))
 		</cfquery>
 		<tr>
 			<td>#y#</td>
