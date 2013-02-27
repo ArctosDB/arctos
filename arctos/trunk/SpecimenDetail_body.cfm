@@ -676,7 +676,14 @@
 						</cfif>
 					</div>
 					<cfloop query="rels">
-						<div class="detailBlock">
+						<cfset thisClass="">
+						<cfif id_references is "same individual as">
+							<script>
+								$("body").addClass("isDuplicateRecord");
+							</script>
+							<cfset thisClass="isDuplicateRecord">
+						</cfif>
+						<div class="detailBlock #thisClass#">
 							<span class="innerDetailLabel">
 								(<i>#id_references#</i>)
 							</span>
@@ -684,13 +691,6 @@
 								<a class="external" href="#link#" target="_blank">#other_id_type#:#display_value#</a>
 							<cfelse>
 								#other_id_type#:#display_value#
-							</cfif>
-							<cfif id_references is "same individual as">
-								<script>
-
-									$("body").addClass("isDuplicateRecord");
-									$("##relationshipsCell").addClass("isDuplicateRecord");
-								</script>
 							</cfif>
 						</div>
 					</cfloop>
