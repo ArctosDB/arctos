@@ -136,17 +136,20 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		variables.joFileWriter.writeLine("year,NumberCollections,NumberSpecimens");
 	</cfscript>
-	<cfloop from="1995" to="#dateformat(now(),"YYYY")#" index="y">
-		<cfquery name="qy" datasource="uam_god">
- 			select
-				count(*) numberSpecimens,
-				count(distinct(collection_id)) numberCollections
-			from
-				cataloged_item,
-				coll_object
-			where cataloged_item.collection_object_id=coll_object.collection_object_id and
-		 		to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) <= #y#
-		</cfquery>
+	<cfquery name="qy" datasource="uam_god">
+			select
+			to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) yy
+			count(*) numberSpecimens,
+			count(distinct(collection_id)) numberCollections
+		from
+			cataloged_item,
+			coll_object
+		where cataloged_item.collection_object_id=coll_object.collection_object_id and
+	 		to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) between 1995 and #dateformat(now(),"YYYY")#
+	 	order by
+			to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY'))
+	</cfquery>
+	<cfloop query="qy">
 		<tr>
 			<td>#y#</td>
 			<td>#qy.numberCollections#</td>
