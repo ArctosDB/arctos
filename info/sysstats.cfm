@@ -124,7 +124,7 @@
 	<cfset variables.encoding="UTF-8">
 	<cfset fname = "arctos_by_year.csv">
 	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-	Specimens and collection by year
+	Specimens and collection by year (1995-present)
 	<a href="/download/#fname#">CSV</a>
 	<table border>
 		<tr>
