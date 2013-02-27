@@ -157,9 +157,10 @@
 			variables.joFileWriter.writeLine('"#y#","#qy.numberCollections#","#qy.numberSpecimens#"');
 		</cfscript>
 	</cfloop>
-		<cfscript>
-			variables.joFileWriter.close();
-		</cfscript>
+	</table>
+	<cfscript>
+		variables.joFileWriter.close();
+	</cfscript>
 
 
 	<hr>
