@@ -118,6 +118,49 @@
 	</p>
 	<p>Query and Download stats are available under the Reports tab.</p>
 
+	<hr>
+	<cfset fileDir = "#Application.webDirectory#">
+	<cfset variables.encoding="UTF-8">
+	<cfset fname = "arctos_by_year.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	Specimens and collection by year
+	<a href="/download/#fname#">CSV</a>
+	<table border>
+		<tr>
+			<th>Year</th>
+			<th>Number Collections</th>
+			<th>Number Specimens</th>
+		</tr>
+	</table>
+
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine("year,NumberCollections,NumberSpecimens");
+	</cfscript>
+	<cfloop from="1995" to="#dateformat(now(),"YYYY")#" index="y">
+		<cfquery name="qy" datasource="uam_god">
+ 			select
+				count(*) numberSpecimens,
+				count(distinct(collection_id)) numberCollections
+			from
+				cataloged_item,
+				coll_object
+			where cataloged_item.collection_object_id=coll_object.collection_object_id and
+		 		to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) <= #y#
+		</cfquery>
+		<tr>
+			<td>#y#</td>
+			<td>#qy.numberCollections#</td>
+			<td>#qy.numberSpecimens#</td>
+		</tr>
+		<cfscript>
+			variables.joFileWriter.writeLine('"#y#","#qy.numberCollections#","#qy.numberSpecimens#"');
+		</cfscript>
+	</cfloop>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+
 
 	<hr>
 	<a name="collections"></a>
