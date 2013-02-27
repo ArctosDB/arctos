@@ -131,8 +131,6 @@
 			<th>Number Collections</th>
 			<th>Number Specimens</th>
 		</tr>
-	</table>
-
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		variables.joFileWriter.writeLine("year,NumberCollections,NumberSpecimens");
