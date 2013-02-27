@@ -675,12 +675,6 @@
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 						</cfif>
 					</div>
-
-							background-color:#FFFFFF;
-							:;
-
-
-
 					<cfloop query="rels">
 						<div class="detailBlock">
 							<span class="innerDetailLabel">
