@@ -153,7 +153,7 @@
 	</cfquery>
 	<cfloop query="qy">
 		<tr>
-			<td>#y#</td>
+			<td>#yy#</td>
 			<td>#qy.numberCollections#</td>
 			<td>#qy.numberSpecimens#</td>
 		</tr>
