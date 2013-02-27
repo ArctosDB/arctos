@@ -146,7 +146,7 @@
 				cataloged_item,
 				coll_object
 			where cataloged_item.collection_object_id=coll_object.collection_object_id and
-		 		to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) between 1995 and #dateformat(now(),"YYYY")#
+		 		to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) <= #y#
 		</cfquery>
 		<tr>
 			<td>#y#</td>
