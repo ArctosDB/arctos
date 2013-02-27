@@ -687,8 +687,8 @@
 							</cfif>
 							<cfif id_references is "same individual as">
 								<script>
-									$("body").css("border":"1em solid red","padding":".2em");
-									$("##relationshipsCell").css("border":"1em solid red","padding":".2em");
+									$("body").css("border","1em solid red"); //,"padding":".2em");
+									//$("##relationshipsCell").css("border":"1em solid red","padding":".2em");
 								</script>
 							</cfif>
 						</div>
