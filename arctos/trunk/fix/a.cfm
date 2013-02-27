@@ -3,7 +3,7 @@
 		change the URL to a v parameter.
 		<br>Example: <a href="a.cfm?v=at54h">a.cfm?v=at54h</a>
 	</cfif>
-	<cfset result=FormatBaseN(url.v,36)>
+	<cfset result=InputBaseN(url.v,36)>
 	The base36 value of #url.v# is #result#.
 </cfoutput>
 
