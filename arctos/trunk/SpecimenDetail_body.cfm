@@ -669,22 +669,33 @@
 				select * from oid where id_references != 'self' order by id_references,other_id_type
 			</cfquery>
 			<cfif len(rels.other_id_type) gt 0>
-				<div class="detailCell" style="max-height:200px;overflow:auto;">
+				<div class="detailCell" id="relationshipsCell" style="max-height:200px;overflow:auto;">
 					<div class="detailLabel">Relationships
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 						</cfif>
 					</div>
+
+							background-color:#FFFFFF;
+							:;
+
+
+
 					<cfloop query="rels">
 						<div class="detailBlock">
 							<span class="innerDetailLabel">
 								(<i>#id_references#</i>)
 							</span>
-
 							<cfif len(link) gt 0>
 								<a class="external" href="#link#" target="_blank">#other_id_type#:#display_value#</a>
 							<cfelse>
 								#other_id_type#:#display_value#
+							</cfif>
+							<cfif id_references is "same individual as">
+								<script>
+									$("body").css("border":"1em solid red","padding":".2em");
+									$("##relationshipsCell").css("border":"1em solid red","padding":".2em");
+								</script>
 							</cfif>
 						</div>
 					</cfloop>

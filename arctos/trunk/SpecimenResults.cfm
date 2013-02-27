@@ -368,7 +368,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
-			<span class="controlButton"	id="customizeButton">Customize&nbsp;Form</span>
+			<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
 			<!----onclick="openCustomize();"---->
 		</td>
 		<td>
