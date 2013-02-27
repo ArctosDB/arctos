@@ -158,7 +158,7 @@
 			<td>#qy.numberSpecimens#</td>
 		</tr>
 		<cfscript>
-			variables.joFileWriter.writeLine('"#y#","#qy.numberCollections#","#qy.numberSpecimens#"');
+			variables.joFileWriter.writeLine('"#yy#","#qy.numberCollections#","#qy.numberSpecimens#"');
 		</cfscript>
 	</cfloop>
 	</table>
