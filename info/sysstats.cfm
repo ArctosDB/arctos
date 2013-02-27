@@ -124,7 +124,7 @@
 	<cfset variables.encoding="UTF-8">
 	<cfset fname = "arctos_by_year.csv">
 	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-	Specimens and collection by year (1995-present)
+	Specimens and collection by year
 	<a href="/download/#fname#">CSV</a>
 	<table border>
 		<tr>
@@ -136,29 +136,25 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		variables.joFileWriter.writeLine("year,NumberCollections,NumberSpecimens");
 	</cfscript>
-	<cfquery name="qy" datasource="uam_god">
-			select
-			to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) yy,
-			count(*) numberSpecimens,
-			count(distinct(collection_id)) numberCollections
-		from
-			cataloged_item,
-			coll_object
-		where cataloged_item.collection_object_id=coll_object.collection_object_id and
-	 		to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) >= 1995
-	 	group by
-			to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY'))
-	 	order by
-			to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY'))
-	</cfquery>
-	<cfloop query="qy">
+	<cfloop from="1995" to="#dateformat(now(),"YYYY")#" index="y">
+		<cfquery name="qy" datasource="uam_god">
+ 			select
+				to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) yy
+				count(*) numberSpecimens,
+				count(distinct(collection_id)) numberCollections
+			from
+				cataloged_item,
+				coll_object
+			where cataloged_item.collection_object_id=coll_object.collection_object_id and
+		 		to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) between 1995 and #dateformat(now(),"YYYY")#
+		</cfquery>
 		<tr>
-			<td>#yy#</td>
+			<td>#y#</td>
 			<td>#qy.numberCollections#</td>
 			<td>#qy.numberSpecimens#</td>
 		</tr>
 		<cfscript>
-			variables.joFileWriter.writeLine('"#yy#","#qy.numberCollections#","#qy.numberSpecimens#"');
+			variables.joFileWriter.writeLine('"#y#","#qy.numberCollections#","#qy.numberSpecimens#"');
 		</cfscript>
 	</cfloop>
 	</table>
