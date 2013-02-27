@@ -117,6 +117,7 @@
 		Arctos access data are available from Google Analytics - ask any member of the Advisory Committee for access. http://www.google.com/analytics/
 	</p>
 	<p>Query and Download stats are available under the Reports tab.</p>
+	<a name="growth"></a>
 
 	<hr>
 	<cfset fileDir = "#Application.webDirectory#">
