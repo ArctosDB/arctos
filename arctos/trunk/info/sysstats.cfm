@@ -138,7 +138,7 @@
 	</cfscript>
 	<cfquery name="qy" datasource="uam_god">
 			select
-			to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) yy
+			to_number(to_char(COLL_OBJECT_ENTERED_DATE,'YYYY')) yy,
 			count(*) numberSpecimens,
 			count(distinct(collection_id)) numberCollections
 		from
