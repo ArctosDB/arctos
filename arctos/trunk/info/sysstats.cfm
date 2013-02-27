@@ -28,6 +28,13 @@
 	<cfquery name="agent" datasource="uam_god">
 		select count(*) c from agent
 	</cfquery>
+	<cfquery name="publication" datasource="uam_god">
+		select count(*) c from publication
+	</cfquery>
+
+	<cfquery name="project" datasource="uam_god">
+		select count(*) c from project
+	</cfquery>
 	<cfquery name="user_tables" datasource="uam_god">
 		select TABLE_NAME from user_tables
 	</cfquery>
@@ -81,6 +88,14 @@
 		<tr>
 			<td>Number Agents</td>
 			<td><input value="#agent.c#"></td>
+		</tr>
+		<tr>
+			<td>Number Publications</td>
+			<td><input value="#publication.c#"></td>
+		</tr>
+		<tr>
+			<td>Number Projects</td>
+			<td><input value="#project.c#"></td>
 		</tr>
 		<tr>
 			<td>Number Tables *</td>
