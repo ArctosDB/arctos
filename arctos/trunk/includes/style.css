@@ -1,3 +1,7 @@
+.isDuplicateRecord {
+	border: 1em solid red;
+	padding: .2em;
+}
 .ui-autocomplete {
        max-height: 100px;
        overflow-y: auto;

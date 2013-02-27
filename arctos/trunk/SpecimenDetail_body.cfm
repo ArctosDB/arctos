@@ -688,8 +688,8 @@
 							<cfif id_references is "same individual as">
 								<script>
 
-									$("body").css({border: "1em solid red", padding: ".2em"});
-									$("##relationshipsCell").css({border:"1em solid red",padding:".2em");
+									$("body").addClass("isDuplicateRecord");
+									$("##relationshipsCell").addClass("isDuplicateRecord");
 								</script>
 							</cfif>
 						</div>
