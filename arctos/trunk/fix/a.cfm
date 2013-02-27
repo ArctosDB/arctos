@@ -1,3 +1,13 @@
+<cfoutput>
+	<cfif not isdefined("url.v")>
+		change the URL to a v parameter.
+		<br>Example: <a href="a.cfm?v=at54h">a.cfm?v=at54h</a>
+	</cfif>
+	<cfset result=FormatBaseN(url.v,36)>
+	The base36 value of #url.v# is #result#.
+</cfoutput>
+
+
 
 	 <cfthrow type="ThrownError" message="This error was thrown from the bugTest action page.">
 
