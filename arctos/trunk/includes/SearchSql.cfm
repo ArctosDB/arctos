@@ -127,21 +127,21 @@
 	<cfif taxon_scope is "currentID_like">
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
 	<cfelseif taxon_scope is "currentID_is">
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(taxon_term)#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(escapeQuotes(taxon_term))#'">
 	<cfelseif taxon_scope is "currentID_list">
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(ucase(taxon_term),chr(39))#)">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(ucase(escapeQuotes(taxon_term)),chr(39))#)">
 	<cfelseif taxon_scope is "currentID_not">
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) != '#ucase(taxon_term)#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) != '#ucase(escapeQuotes(taxon_term))#'">
 	<cfelseif taxon_scope is "anyID_like">
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 		</cfif>
-		<cfset basQual = " #basQual# AND upper(identification.scientific_name) LIKE '%#ucase(taxon_term)#%'">
+		<cfset basQual = " #basQual# AND upper(identification.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
 	<cfelseif taxon_scope is "anyID_is">
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 		</cfif>
-		<cfset basQual = " #basQual# AND upper(identification.scientific_name) = '#ucase(taxon_term)#'">
+		<cfset basQual = " #basQual# AND upper(identification.scientific_name) = '#ucase(escapeQuotes(taxon_term))#'">
 	<cfelseif taxon_scope is "anyID_list">
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
@@ -151,9 +151,9 @@
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 		</cfif>
-		<cfset basQual = " #basQual# AND upper(identification.scientific_name) != '#ucase(taxon_term)#'">
+		<cfset basQual = " #basQual# AND upper(identification.scientific_name) != '#ucase(escapeQuotes(taxon_term))#'">
 	<cfelseif taxon_scope is "currentTaxonomy">
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.full_taxon_name) LIKE '%#ucase(taxon_term)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.full_taxon_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
 	<cfelseif taxon_scope is "relatedTaxonomy">
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
@@ -170,10 +170,10 @@
 		<cfset basJoin = " #basJoin# left outer JOIN taxon_relations invrelations ON (taxonomy.taxon_name_id = invrelations.RELATED_TAXON_NAME_ID)">
 		<cfset basJoin = " #basJoin# left outer JOIN taxonomy invrelatedtaxonomy ON (invrelations.taxon_name_id = invrelatedtaxonomy.taxon_name_id)">
 		<cfset basQual = " #basQual# AND (
-			upper(taxonomy.full_taxon_name) LIKE '%#ucase(taxon_term)#%' OR
-			upper(relatedtaxonomy.full_taxon_name) LIKE '%#ucase(taxon_term)#%' OR
-			upper(invrelatedtaxonomy.full_taxon_name) LIKE '%#ucase(taxon_term)#%' OR
-			upper(identification.scientific_name) LIKE '%#ucase(taxon_term)#%'
+			upper(taxonomy.full_taxon_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
+			upper(relatedtaxonomy.full_taxon_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
+			upper(invrelatedtaxonomy.full_taxon_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
+			upper(identification.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
 		)">
 	<cfelseif taxon_scope is "common">
 		<cfif basJoin does not contain " identification ">
