@@ -87,8 +87,8 @@
 		<cfset qual = "#qual# AND cataloged_item.collection_id not in ( #collection_id# )">
 	</cfif>
 </cfif>
-<cfif isdefined("locality_id") and len(#locality_id#) gt 0>
-	<cfset qual = "#qual# AND locality.locality_id = #locality_id#">
+<cfif isdefined("locality_id") and len(locality_id) gt 0>
+	<cfset qual = "#qual# AND locality.locality_id = <cfqueryparam value='#locality_id#' CFSQLType='cf_sql_integer'>">
 </cfif>
 <cfif isdefined("geology_attribute") and len(#geology_attribute#) gt 0>
 	<cfset qual = "#qual# AND geology_attributes.geology_attribute = '#geology_attribute#'">
