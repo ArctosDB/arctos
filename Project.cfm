@@ -4,7 +4,7 @@
 	jQuery(document).ready(function() {
 		jQuery("#start_date").datepicker();
 		jQuery("#end_date").datepicker();
-		jQuery("#ended_date").datepicker();	
+		jQuery("#ended_date").datepicker();
 	});
 	function addProjTaxon() {
 		if (document.getElementById('newTaxId').value.length == 0){
@@ -53,7 +53,7 @@
 				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
 				<input type="text" name="end_date" id="end_date">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">
-					Description (Include what, why, how, who cares. Be <i>descriptive</i>.)
+					Description (Include what, why, how, who cares. Be <i>descriptive</i>. Minimum 100 characters to show up in search.)
 				</label>
 				<textarea name="project_description" id="project_description" cols="80" rows="6"></textarea>
 				<label for="project_remarks">Remarks</label>
@@ -78,7 +78,7 @@
 			<cfif len(#START_DATE#) gt 0>
 				,START_DATE
 			</cfif>
-			
+
 			<cfif len(#END_DATE#) gt 0>
 				,END_DATE
 			</cfif>
@@ -89,13 +89,13 @@
 				,PROJECT_REMARKS
 			</cfif>
 			 )
-		VALUES ( 
+		VALUES (
 			#nextID.nextid#,
 			'#PROJECT_NAME#'
 			<cfif len(#START_DATE#) gt 0>
 				,'#dateformat(START_DATE,"yyyy-mm-dd")#'
 			</cfif>
-			
+
 			<cfif len(#END_DATE#) gt 0>
 				,'#dateformat(END_DATE,"yyyy-mm-dd")#'
 			</cfif>
@@ -105,8 +105,8 @@
 			<cfif len(#PROJECT_REMARKS#) gt 0>
 				,'#PROJECT_REMARKS#'
 			</cfif>
-			 )   
-	</cfquery>  
+			 )
+	</cfquery>
 	<cflocation url="Project.cfm?Action=editProject&project_id=#nextID.nextid#">
 	</cfoutput>
 </cfif>
@@ -116,7 +116,7 @@
 	<cfoutput>
 		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
 		<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
+			SELECT
 				project_agent_id,
 				project.project_id,
 				project_name,
@@ -129,41 +129,41 @@
 				project_remarks,
 				agent_position,
 				project_agent_remarks
-			FROM 
+			FROM
 				project,
 				preferred_agent_name,
-				project_agent					
-			WHERE 
-				project.project_id = project_agent.project_id (+) AND 
+				project_agent
+			WHERE
+				project.project_id = project_agent.project_id (+) AND
 				project_agent.agent_id = preferred_agent_name.agent_id (+) AND
 				project.project_id = #project_id#
 		</cfquery>
 		<cfquery name="agents" dbtype="query">
-			select 
+			select
 				project_agent_id,
-				agent_name, 
-				agent_position, 
-				agent_id, 
+				agent_name,
+				agent_position,
+				agent_id,
 				project_agent_role,
-				project_agent_remarks 
-			from 
-				getDetails 
-			where 
+				project_agent_remarks
+			from
+				getDetails
+			where
 				agent_name is not null
 			group by project_agent_id,agent_name, agent_position, agent_id, project_agent_role,project_agent_remarks
 			order by agent_position
 		</cfquery>
 		<cfquery name="getLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				collection.collection,
 				loan.loan_number,
 				loan.transaction_id,
 				nature_of_material,
 				trans.trans_remarks,
 				loan_description
-			from 
-				project_trans, 
-				loan, 
+			from
+				project_trans,
+				loan,
 				trans,
 				collection
 			where
@@ -174,15 +174,15 @@
 			order by collection, loan_number
 		</cfquery>
 		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				accn_number,
 				collection,
 				accn.transaction_id,
 				nature_of_material,
 				trans_remarks
-			from 
-				project_trans, 
-				accn, 
+			from
+				project_trans,
+				accn,
 				trans,
 				collection
 			where
@@ -193,27 +193,27 @@
 				order by collection, accn_number
 		</cfquery>
 		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				taxonomy.taxon_name_id,
 				scientific_name
-			from 
-				project_taxonomy, 
+			from
+				project_taxonomy,
 				taxonomy
 			where
 				taxonomy.taxon_name_id=project_taxonomy.taxon_name_id and
 				project_id = #getDetails.project_id#
-			order by 
+			order by
 				scientific_name
 		</cfquery>
 		<cfquery name="proj" dbtype="query">
-			SELECT 
+			SELECT
 				project_id,
 				project_name,
 				start_date,
 				end_date,
 				project_description,
 				project_remarks
-			FROM 
+			FROM
 				getDetails
 			group by
 				project_id,
@@ -232,13 +232,13 @@
 			<cfset numberOfAgents = 1>
 		</cfif>
 		<cfquery name="publications" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
-				full_citation, publication.publication_id  
-			FROM 
+			SELECT
+				full_citation, publication.publication_id
+			FROM
 				project_publication,
 				publication
-			WHERE 
-				project_publication.publication_id = publication.publication_id AND 
+			WHERE
+				project_publication.publication_id = publication.publication_id AND
 				project_publication.project_id = #project_id#
 			</cfquery>
 			<form name="project" action="Project.cfm" method="post">
@@ -301,16 +301,16 @@
 						</td>
 						<td>
 							<input type="text" name="agent_name_#i#" id="agent_name_#i#"
-								value="#agent_name#" 
-								class="reqdClr" 
+								value="#agent_name#"
+								class="reqdClr"
 								onchange="getAgent('agent_id_#i#',this.id,'project',this.value); return false;"
 								onKeyPress="return noenter(event);">
 						</td>
 						<td>
 							<select name="project_agent_role_#i#" id="project_agent_role_#i#" size="1" class="reqdClr">
 								<cfloop query="ctProjAgRole">
-								<option 
-									<cfif ctProjAgRole.project_agent_role is agents.project_agent_role> 
+								<option
+									<cfif ctProjAgRole.project_agent_role is agents.project_agent_role>
 										selected="selected"
 									</cfif> value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
 								</option>
@@ -320,8 +320,8 @@
 						<td>
 							<input type="text" name="project_agent_remarks_#i#" id="project_agent_remarks_#i#" value='#project_agent_remarks#'>
 						</td>
-						<td nowrap valign="center">			
-							<input type="button" 
+						<td nowrap valign="center">
+							<input type="button"
 								value="Remove"
 								class="delBtn"
 								onclick="removeAgent(#i#);">
@@ -338,17 +338,17 @@
 				<input type="hidden" name="numNewAgents" value="#numNewAgents#">
 				<cfloop from="1" to="#numNewAgents#" index="x">
 					<tr class="newRec">
-						<td>	
+						<td>
 							##<select name="new_agent_position#x#" size="1" class="reqdClr">
 								<cfloop from="1" to="#numberOfAgents#" index="i">
-									<option 
+									<option
 										<cfif numberOfAgents is i> selected </cfif>	value="#i#">#i#</option>
 								</cfloop>
 							</select>
 						</td>
 						<td>
-							<input type="text" name="new_agent_name#x#" id="new_agent_name#x#" 
-								class="reqdClr" 
+							<input type="text" name="new_agent_name#x#" id="new_agent_name#x#"
+								class="reqdClr"
 								onchange="getAgent('new_agent_id#x#',this.id,'project',this.value); return false;"
 								onKeyPress="return noenter(event);">
 							<input type="hidden" name="new_agent_id#x#" id="new_agent_id#x#">
@@ -370,7 +370,7 @@
 				</cfloop>
 			</table>
 			<input type="button" value="Save Updates" class="savBtn" onclick="document.project.action.value='save';submit();">
-			<cfif agents.recordcount is 0 and 
+			<cfif agents.recordcount is 0 and
 				getAccns.recordcount is 0 and
 				getLoans.recordcount is 0 and
 				publications.recordcount is 0 and
@@ -386,7 +386,7 @@
 				[ <a href="editAccn.cfm?project_id=#getDetails.project_id#">Add Accession</a> ]
 				<cfset i=1>
 				<cfloop query="getAccns">
-	 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>	
+	 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
 							<strong>#collection#  #accn_number#</strong>
 						</a>
@@ -396,7 +396,7 @@
 						<br>
 							#nature_of_material# - #trans_remarks#
 					</div>
-					<cfset i=i+1>		
+					<cfset i=i+1>
 				</cfloop>
 			</p>
 			<p>
@@ -460,7 +460,7 @@
 					</div>
 					<cfset i=i+1>
 				</cfloop>
-			</p>	
+			</p>
 		</cfoutput>
 </cfif>
 
@@ -496,7 +496,7 @@
 						project_agent_role = '#project_agent_role#',
 						agent_position = #agent_position#,
 						project_agent_remarks='#project_agent_remarks#'
-					WHERE 
+					WHERE
 						project_agent_id = #project_agent_id#
 				</cfquery>
 				UPDATE project_agent SET
@@ -504,7 +504,7 @@
 						project_agent_role = '#project_agent_role#',
 						agent_position = #agent_position#,
 						project_agent_remarks='#project_agent_remarks#'
-					WHERE 
+					WHERE
 						project_agent_id = #project_agent_id#
 			</cfif>
 		</cfloop>
@@ -526,11 +526,11 @@
 					 #new_agent_id#,
 					 '#new_role#',
 					 #new_agent_position#,
-					 '#new_project_agent_remarks#'                
-				 	)                 
+					 '#new_project_agent_remarks#'
+				 	)
 				 </cfquery>
 			</cfif>
-		</cfloop>		
+		</cfloop>
   		<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
 		<!----
 	---->
@@ -548,7 +548,7 @@
 		</cfquery>
 	<cflocation url="Project.cfm?Action=editProject&project_id=#project_id###taxonomy" addtoken="false">
 	</cfoutput>
-</cfif>				
+</cfif>
 <!------------------------------------------------------------------------------------------->
 <cfif action is "addtaxon">
 	<cfoutput>
@@ -591,7 +591,7 @@
 	<cfquery name="killProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from project where project_id=#project_id#
 	</cfquery>
-	
+
 	You've deleted the project.
 	<br>
 	<a href="Project.cfm">continue</a>
@@ -615,7 +615,7 @@
 		project_agent_role = '#project_agent_role#',
 		agent_position = #agent_position#,
 		project_agent_remarks='#project_agent_remarks#'
-	WHERE 
+	WHERE
 		project_agent_id = #project_agent_id#
 </cfquery>
 <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###agent" addtoken="false">
@@ -636,8 +636,8 @@ VALUES (
 	 #newAgent_id#,
 	 '#newRole#',
 	 #agent_position#,
-	 '#project_agent_remarks#'                
- 	)                 
+	 '#project_agent_remarks#'
+ 	)
  </cfquery>
  <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###agent" addtoken="false">
  </cfoutput>
@@ -646,7 +646,7 @@ VALUES (
 <cfif #Action# is "saveEdits">
  <cfoutput>
   <cfquery name="upProject" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
- 
+
  UPDATE project SET project_id = #project_id#
  ,project_name = '#project_name#'
  <cfif len(#start_date#) gt 0>
@@ -677,7 +677,7 @@ VALUES (
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "addTrans">
  <cfoutput>
- 
+
 <cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  	INSERT INTO project_trans (project_id, transaction_id) values (#project_id#, #transaction_id#)
 
@@ -688,7 +688,7 @@ VALUES (
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "addPub">
  <cfoutput>
- 
+
 <cfquery name="newPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  	INSERT INTO project_publication (project_id, publication_id) values (#project_id#, #publication_id#)
 
@@ -699,7 +699,7 @@ VALUES (
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "delePub">
  <cfoutput>
- 
+
 <cfquery name="newPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  	DELETE FROM project_publication WHERE project_id = #project_id# and publication_id = #publication_id#
 
