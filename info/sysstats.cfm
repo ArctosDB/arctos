@@ -13,6 +13,15 @@
 	<cfquery name="cataloged_item" datasource="uam_god">
 		select count(*) c from cataloged_item
 	</cfquery>
+
+	<cfquery name="noobs" datasource="uam_god">
+		select count(*) c from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
+		institution_acronym not like '%Obs'
+	</cfquery>
+	<cfquery name="isobs" datasource="uam_god">
+		select count(*) c from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
+		institution_acronym  like '%Obs'
+	</cfquery>
 	<cfquery name="taxonomy" datasource="uam_god">
 		select count(*) c from taxonomy
 	</cfquery>
@@ -66,8 +75,16 @@
 			<td><input value="#ri.recordcount#"></td>
 		</tr>
 		<tr>
-			<td>Number Specimens</td>
+			<td>Total Number Specimens</td>
 			<td><input value="#cataloged_item.c#"></td>
+		</tr>
+		<tr>
+			<td>Number Specimens (institution not like %Obs)</td>
+			<td><input value="#noobs.c#"></td>
+		</tr>
+		<tr>
+			<td>Total Number Observations (institution like %Obs)</td>
+			<td><input value="#isobs.c#"></td>
 		</tr>
 		<tr>
 			<td>Number Taxon Names</td>
