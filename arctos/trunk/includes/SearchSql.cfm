@@ -125,7 +125,7 @@
 	<cfset mapurl = "#mapurl#&taxon_term=#taxon_term#">
 	<cfset mapurl = "#mapurl#&taxon_scope=#taxon_scope#">
 	<cfif taxon_scope is "currentID_like">
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(taxon_term)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
 	<cfelseif taxon_scope is "currentID_is">
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(taxon_term)#'">
 	<cfelseif taxon_scope is "currentID_list">
