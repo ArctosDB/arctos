@@ -88,7 +88,13 @@
 	</cfif>
 </cfif>
 <cfif isdefined("locality_id") and len(locality_id) gt 0>
-	<cfset qual = "#qual# AND locality.locality_id = <cfqueryparam value='#locality_id#' CFSQLType='cf_sql_integer'>">
+	<cfif not isnumeric(locality_id)>
+		<div class="error">
+			bad datatype@locality_id
+		</div>
+		<cfabort>
+	</cfif>
+	<cfset qual = "#qual# AND locality.locality_id = #locality_id#">
 </cfif>
 <cfif isdefined("geology_attribute") and len(#geology_attribute#) gt 0>
 	<cfset qual = "#qual# AND geology_attributes.geology_attribute = '#geology_attribute#'">
