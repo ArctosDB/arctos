@@ -134,7 +134,13 @@
 	</cfif>
 
 </cfif>
-<cfif isdefined("geog_auth_rec_id") and len(#geog_auth_rec_id#) gt 0>
+<cfif isdefined("geog_auth_rec_id") and len(geog_auth_rec_id) gt 0>
+	<cfif not isnumeric(geog_auth_rec_id)>
+		<div class="error">
+			bad datatype@geog_auth_rec_id
+		</div>
+		<cfabort>
+	</cfif>
 	<cfset qual = "#qual# AND geog_auth_rec.geog_auth_rec_id = #geog_auth_rec_id#">
 </cfif>
 <cfif isdefined("collecting_event_id") and len(#collecting_event_id#) gt 0>
