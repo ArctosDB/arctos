@@ -25,7 +25,7 @@
 	</cfquery>
 	 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
         <a href="/media.cfm?action=newMedia">[ create media ]</a>
-    </cfif> 
+    </cfif>
 	<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select SEARCH_NAME,URL
 		from cf_canned_search,cf_users
@@ -43,7 +43,7 @@
 				<option value="#url#">#SEARCH_NAME#</option><br />
 			</cfloop>
 		</select>
-	</cfif>	
+	</cfif>
 	Search for Media &nbsp;&nbsp;
 	<style>
 		.rdoCtl {
@@ -112,7 +112,7 @@
 <cfif not isdefined("session.displayrows")>
 	<cfset session.displayrows=20>
 </cfif>
-<cfoutput>	
+<cfoutput>
 	<cfset sql = "SELECT * FROM media_flat ">
 	<cfset whr ="WHERE 1=1 ">
 	<cfset srch=" ">
@@ -151,7 +151,7 @@
 		<cfelse>
 			<cfset srch="#srch# AND upper(media_flat.keywords) like '%#ucase(keyword)#%'">
 		</cfif>
-		<cfset mapurl="#mapurl#&kwType=#kwType#&keyword=#keyword#">		
+		<cfset mapurl="#mapurl#&kwType=#kwType#&keyword=#keyword#">
 	</cfif>
 	<cfif isdefined("noDNG") and noDNG is 1>
 		<cfset srch="#srch# AND media_flat.mime_type != 'image/dng'">
@@ -191,7 +191,7 @@
 	</cfif>
 	<cfif len(srch) is 0>
 		<div class="error">You must enter search criteria.</div>
-		<cfabort> 
+		<cfabort>
 	</cfif>
 	<cfset srch = "#srch# AND rownum <= 500">
 	<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
@@ -199,6 +199,9 @@
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
+	<cfif session.username is "cfidler">
+		<cfdump var=#findIDs#>
+	</cfif>
 	<table cellpadding="10"><tr>
 	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	    <cfset h="/media.cfm?action=newMedia">
@@ -237,7 +240,7 @@
 		<span class="controlButton"
 			onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 	</td>
-	</tr></table>		
+	</tr></table>
 	<cfset q="">
 	<cfloop list="#StructKeyList(form)#" index="key">
 		<cfif len(form[key]) gt 0 and key is not "FIELDNAMES" and key is not "offset">
@@ -250,42 +253,45 @@
 		 </cfif>
 	</cfloop>
 	<cfsavecontent variable="pager">
-		<cfparam name="URL.offset" default="0"> 
+		<cfparam name="URL.offset" default="0">
+			<cfif session.username is "cfidler" or session.username is "dlm">
+				<cfdump var=#URL#>
+			</cfif>
 		<cfparam name="limit" default="1">
 		<cfif findIDs.recordcount gt 1>
 			<cfset Result_Per_Page=session.displayrows>
-			<cfset Total_Records=findIDs.recordcount> 
-			<cfset limit=URL.offset+Result_Per_Page> 
+			<cfset Total_Records=findIDs.recordcount>
+			<cfset limit=URL.offset+Result_Per_Page>
 			<cfset start_result=URL.offset+1>
 			<div style="margin-left:20%;">
-				Showing results #start_result# - 
-				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records# 
-				<cfif Total_Records GT Result_Per_Page> 
+				Showing results #start_result# -
+				<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records#
+				<cfif Total_Records GT Result_Per_Page>
 					<cfset URL.offset=URL.offset+1>
-					<br> 
-					<cfif URL.offset GT Result_Per_Page> 
-						<cfset prev_link=URL.offset-Result_Per_Page-1> 
+					<br>
+					<cfif URL.offset GT Result_Per_Page>
+						<cfset prev_link=URL.offset-Result_Per_Page-1>
 						<a href="#cgi.script_name#?offset=0&#q#">[ First ]</a>
 						<a href="#cgi.script_name#?offset=#prev_link#&#q#">[ Previous ]</a>
-					</cfif> 
+					</cfif>
 					<cfset Total_Pages=ceiling(Total_Records/Result_Per_Page)>
 					<cfset currentPage=(url.offset + session.displayrows) / session.displayrows>
 					<cfset minI=currentPage-5>
 					<cfset maxI=currentPage+5>
-					<cfloop index="i" from="1" to="#Total_Pages#"> 
-						<cfset j=i-1> 
-						<cfset offset_value=j*Result_Per_Page> 
-						<cfif offset_value EQ URL.offset-1 > 
-							#i# 
+					<cfloop index="i" from="1" to="#Total_Pages#">
+						<cfset j=i-1>
+						<cfset offset_value=j*Result_Per_Page>
+						<cfif offset_value EQ URL.offset-1 >
+							#i#
 						<cfelseif i gt minI and i lt maxI>
 							<a href="#cgi.script_name#?offset=#offset_value#&#q#">#i#</a>
-						</cfif> 
-					</cfloop> 
-					<cfif limit LT Total_Records> 
-						<cfset next_link=URL.offset+Result_Per_Page-1> 
+						</cfif>
+					</cfloop>
+					<cfif limit LT Total_Records>
+						<cfset next_link=URL.offset+Result_Per_Page-1>
 						<a href="#cgi.script_name#?offset=#next_link#&#q#">[ Next ]</a>
 						<a href="#cgi.script_name#?offset=#offset_value#&#q#">[ Last ]</a>
-					</cfif> 
+					</cfif>
 				</cfif>
 			</div>
 		</cfif>
@@ -302,7 +308,7 @@
 	</cfinvoke>
 	<cfset alt=''>
 	<cfset lbl=replace(labels,"==",chr(7),"all")>
-	<cfset rel=replace(relationships,"==",chr(7),"all")>		
+	<cfset rel=replace(relationships,"==",chr(7),"all")>
 	<cfloop list="#lbl#" index="i" delimiters="|">
 		<cfif listgetat(i,1,chr(7)) is "description">
 			<cfset alt=listgetat(i,2,chr(7))>
@@ -327,7 +333,7 @@
 			<br>
 			<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
 		</td>
-		<td align="middle">					
+		<td align="middle">
 			<div id="mapID_#media_uri#">
 				<cfif len(coordinates) gt 0>
 					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
@@ -335,9 +341,9 @@
 					</cfinvoke>
 					#contents#
 				</cfif>
-			</div>			
+			</div>
 		</td>
-		<td>							
+		<td>
 			<div style="max-height:10em;overflow:auto;">
 				<cfset relMedia=''>
 				<cfloop list="#rel#" index="i" delimiters="|">
@@ -353,7 +359,7 @@
 					#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 				</cfloop>
 			</div>
-		<cfif media_type is "multi-page document">	
+		<cfif media_type is "multi-page document">
 			<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
 		</cfif>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
