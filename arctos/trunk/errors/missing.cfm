@@ -4,7 +4,7 @@
 	<cfset x=listfindnocase(request.rdurl,'project',"/")>
 		++#x#++
 
-		<cfif listfindnocase(request.rdurl,'project',"/") is "project">
+		<cfif replace(request.rdurl,"/","","last") is "project">
 		is project
 		<cfelse>
 			is not project
