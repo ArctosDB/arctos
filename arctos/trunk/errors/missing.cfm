@@ -1,14 +1,18 @@
-	---<cfdump var=#request.rdurl#>
-<cfset x=replace(request.rdurl,"/","","last")>
-===<cfdump var=#x#>
-<cfset x=listfindnocase(request.rdurl,'project',"/")>
-	+++<cfdump var=#x#>
+<cfoutput>
+	<cfset x=replace(request.rdurl,"/","","last")>
+	==#x#==
+	<cfset x=listfindnocase(request.rdurl,'project',"/")>
+		++#x#++
 
-	<cfif listfindnocase(request.rdurl,'project',"/") is "project">
-	is project
-	<cfelse>
-		is not project
-	</cfif>
+		<cfif listfindnocase(request.rdurl,'project',"/") is "project">
+		is project
+		<cfelse>
+			is not project
+		</cfif>
+
+</cfoutput>
+---<cfdump var=#request.rdurl#>
+
 <cfif listlen(request.rdurl,"/") gt 1>
 
 	<cfif listfindnocase(request.rdurl,'specimen',"/")>
