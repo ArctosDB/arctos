@@ -528,8 +528,13 @@
 <cfif action is "updateAllVerificationStatus">
 	<cfoutput>
 	    <cfquery name="upall" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update specimen_event set VerificationStatus='#VerificationStatus#'
-			where COLLECTING_EVENT_ID='#COLLECTING_EVENT_ID#'
+			update
+				specimen_event
+			set
+				VerificationStatus='#VerificationStatus#'
+			where
+				COLLECTING_EVENT_ID='#COLLECTING_EVENT_ID#' and
+				COLLECTION_OBJECT_ID in (select COLLECTION_OBJECT_ID from cataloged_item) -- keep things on the right side of the VPD
 		</cfquery>
 		<cflocation addtoken="false" url="Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#">
 	</cfoutput>
@@ -647,7 +652,7 @@
 				</cfloop>
 			</select>
 			<br>
-			<input type="submit" class="lnkBtn" value="Update Verification Status for ALL specimen_events in this collecting event to value in pick above">
+			<input type="submit" class="lnkBtn" value="Update Verification Status for all of your specimen_events in this collecting event to value in pick above">
 		</form>
 	</div>
 	<cfform name="locality" method="post" action="Locality.cfm">
