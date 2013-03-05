@@ -515,7 +515,7 @@
 										<td>
 											<select name="verificationstatus" size="1" class="reqdClr" id="verificationstatus">
 												<cfloop query="ctverificationstatus">
-													<option value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
+													<option <cfif ctverificationstatus.verificationstatus is "unverified">selected="selected" </cfif>value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
 												</cfloop>
 											</select>
 										</td>
