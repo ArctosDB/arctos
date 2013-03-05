@@ -540,9 +540,6 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-
-
-
 <cfif action is "editCollEvnt">
 <cfset title="Edit Collecting Event">
 <cfoutput>
