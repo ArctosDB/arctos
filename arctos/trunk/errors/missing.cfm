@@ -11,31 +11,33 @@
 		</cfcatch>
 	</cftry>
 <cfelseif listfindnocase(request.rdurl,'document',"/")>
-	<cfoutput>
-	<cftry>
-		<cfset gPos=listfindnocase(request.rdurl,"document","/")>
-		<cftry>
-			<cfset ttl = listgetat(request.rdurl,gPos+1,"/")>
-			<cfcatch></cfcatch>
-		</cftry>
-		<cftry>
-			<cfset p=listgetat(request.rdurl,gPos+2,"/")>
-			<cfcatch></cfcatch>
-		</cftry>
-
+	<cfif replace(request.rdurl,"/","","last") is "document">
 		<cfinclude template="/document.cfm">
-		<cfcatch>
-			<cfif listlen(request.rdurl,"/") gt 2 and listgetat(request.rdurl,gPos+2,"/")>
+	<cfelse>
+		<cftry>
+		<cfset gPos=listfindnocase(request.rdurl,"document","/")>
+			<cftry>
+				<cfset ttl = listgetat(request.rdurl,gPos+1,"/")>
+				<cfcatch></cfcatch>
+			</cftry>
+			<cftry>
 				<cfset p=listgetat(request.rdurl,gPos+2,"/")>
-			<cfelse>
-				<cfset p=1>
-			</cfif>
-			<cfinclude template="/errors/404.cfm">
-		</cfcatch>
-	</cftry>
-	</cfoutput>
+				<cfcatch></cfcatch>
+			</cftry>
+
+			<cfinclude template="/document.cfm">
+			<cfcatch>
+				<cfif listlen(request.rdurl,"/") gt 2 and listgetat(request.rdurl,gPos+2,"/")>
+					<cfset p=listgetat(request.rdurl,gPos+2,"/")>
+				<cfelse>
+					<cfset p=1>
+				</cfif>
+				<cfinclude template="/errors/404.cfm">
+			</cfcatch>
+		</cftry>
+	</cfif>
 <cfelseif listfindnocase(request.rdurl,'guid',"/")>
-	<cfif listlast(request.rdurl,"/") is "name">
+	<cfif replace(request.rdurl,"/","","last") is "guid">
 		<cfinclude template="/SpecimenSearch.cfm">
 	<cfelse>
 		<cftry>
@@ -87,7 +89,7 @@
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'name',"/")>
-	<cfif listlast(request.rdurl,"/") is "name">
+	<cfif replace(request.rdurl,"/","","last") is "name">
 		<cfinclude template="/TaxonomySearch.cfm">
 	<cfelse>
 		<cftry>
