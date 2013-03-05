@@ -1,5 +1,8 @@
+	---<cfdump var=#request.rdurl#>
+
+<cfabort>
 <cfif listlen(request.rdurl,"/") gt 1>
-		---<cfdump var=#request.rdurl#>
+
 	<cfif listfindnocase(request.rdurl,'specimen',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"specimen","/")>
