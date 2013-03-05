@@ -1,6 +1,4 @@
 <cfif listlen(request.rdurl,"/") gt 1>
-	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
-
 		---<cfdump var=#request.rdurl#>
 	<cfif listfindnocase(request.rdurl,'specimen',"/")>
 		<cftry>
