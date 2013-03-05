@@ -499,6 +499,11 @@ function loadRecordEdit (collection_object_id) {
 						$("#" + eName).val(cVal);
 						console.log(eName);
 					}
+
+					// deal with retarded coordinates, where the ID can't match the data column name
+					console.log('coordinatey....' + r.DATA.ORIG_LAT_LONG_UNITS[0])
+					
+					
 					msg(r.DATA.LOADED[0]);
 					//$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
 					set_attribute_dropdowns();
@@ -509,8 +514,6 @@ function loadRecordEdit (collection_object_id) {
 					switchActive($("#orig_lat_long_units").val());
 					loadedEditRecord();
 				});
-			// deal with retarded coordinates, where the ID can't match the data column name
-			console.log('coordinatey....' + r.DATA.ORIG_LAT_LONG_UNITS[0])
 			},
 			error: function( result, strError ){
 				alert('The record failed to load - use some other app to edit.\n' + strError);
