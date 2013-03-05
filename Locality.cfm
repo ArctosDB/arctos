@@ -602,48 +602,54 @@
 	</cfinvoke>
 	#contents#
 	<br>
-	    	<div style="border:5px solid red; background-color:red;">
-	This form will not work if you do not own ALL specimens listed above.
-	<br>Red is scary. This form is dangerous. Make sure you know what it's doing before you get all clicky.
-	<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select verificationstatus,collection,count(*) c from
-		specimen_event,cataloged_item,collection
-		where
-specimen_event.collection_object_id=cataloged_item.collection_object_id and
-cataloged_item.collection_id=collection.collection_id and
-specimen_event.collecting_event_id=#locDet.collecting_event_id#
-group by verificationstatus,collection
-	</cfquery>
-	<table border>
-		<tr>
-			<th>Collection</th>
-			<th>VerificationStatus</th>
-			<th>NumberSpecimenEvents</th>
-		</tr>
-	<cfloop query="vstat">
-	<tr>
-		<td>#collection#</td>
-		<td>#verificationstatus#</td>
-		<td>#c#</td>
-	</tr>
-	</cfloop>
-
-	</table>
-<form name="x" method="post" action="Locality.cfm">
-	    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
-    	<input type="hidden" name="action" value="updateAllVerificationStatus">
-		<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Update Verification Status for ALL specimen_events in this collecting event to....</label>
-		<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-			<option value=""></option>
-			<cfloop query="ctVerificationStatus">
-				<option value="#VerificationStatus#">#VerificationStatus#</option>
+	<div style="border:5px solid red; background-color:red;">
+		<br>Red is scary. This form is dangerous. Make sure you know what it's doing before you get all clicky.
+		<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				verificationstatus,
+				collection,
+				count(*) c
+			from
+				specimen_event,
+				cataloged_item,
+				collection
+			where
+				specimen_event.collection_object_id=cataloged_item.collection_object_id and
+				cataloged_item.collection_id=collection.collection_id and
+				specimen_event.collecting_event_id=#locDet.collecting_event_id#
+			group by
+				verificationstatus,
+				collection
+		</cfquery>
+		<label for="dfs">"Your" specimens in this collecting event:</label>
+		<table id="dfs" border>
+			<tr>
+				<th>Collection</th>
+				<th>VerificationStatus</th>
+				<th>NumberSpecimenEvents</th>
+			</tr>
+			<cfloop query="vstat">
+				<tr>
+					<td>#collection#</td>
+					<td>#verificationstatus#</td>
+					<td>#c#</td>
+				</tr>
 			</cfloop>
-		</select>
-		<br>
-		<input type="submit" class="lnkBtn" value="Update Verification Status for ALL specimen_events in this collecting event to value in pick above">
-</form>
-</div>
-
+		</table>
+		<form name="x" method="post" action="Locality.cfm">
+		    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
+	    	<input type="hidden" name="action" value="updateAllVerificationStatus">
+			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Update Verification Status for ALL specimen_events in this collecting event to....</label>
+			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+				<option value=""></option>
+				<cfloop query="ctVerificationStatus">
+					<option value="#VerificationStatus#">#VerificationStatus#</option>
+				</cfloop>
+			</select>
+			<br>
+			<input type="submit" class="lnkBtn" value="Update Verification Status for ALL specimen_events in this collecting event to value in pick above">
+		</form>
+	</div>
 	<cfform name="locality" method="post" action="Locality.cfm">
 		<table width="100%"><tr><td valign="top">
 			<h4>Edit this Collecting Event:</h4>
