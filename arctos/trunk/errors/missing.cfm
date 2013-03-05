@@ -1,5 +1,6 @@
 	---<cfdump var=#request.rdurl#>
-
+<cfset x=replace(request.rdurl,"/","last")>
+===<cfdump var=#x#>
 <cfabort>
 <cfif listlen(request.rdurl,"/") gt 1>
 
