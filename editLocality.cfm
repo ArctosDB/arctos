@@ -865,6 +865,20 @@
 <cfinclude template="/includes/_footer.cfm">
 </cfif>
 <!------------------------------------------------------------------------------------------------------>
+<cfif action is "updateAllVerificationStatus">
+	<cfoutput>
+	    <cfquery name="upall" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update
+				specimen_event
+			set
+				VerificationStatus='#VerificationStatus#'
+			where
+				COLLECTING_EVENT_ID in (select COLLECTING_EVENT_ID from COLLECTING_EVENT where locality_id = #locality_id#) and
+				COLLECTION_OBJECT_ID in (select COLLECTION_OBJECT_ID from cataloged_item) -- keep things on the right side of the VPD
+		</cfquery>
+		<cflocation addtoken="false" url="editLocality.cfm?locality_id=#locality_id#">
+	</cfoutput>
+</cfif>
 <cfif action is "editGeol">
 <cfoutput>
 	<cfloop from="1" to="#number_of_determinations#" index="n">
