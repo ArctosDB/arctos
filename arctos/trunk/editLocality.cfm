@@ -284,6 +284,9 @@
 	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>
+	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select VerificationStatus from ctVerificationStatus order by VerificationStatus
+	</cfquery>
 
 
 
@@ -332,8 +335,8 @@
    					</tr>
    				</cfloop>
    			</table>
-   			<form name="x" method="post" action="Locality.cfm">
-   			    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
+   			<form name="x" method="post" action="editLocality.cfm">
+   			    <input type="hidden" name="locality_id" value="#locDet.locality_id#">
    		    	<input type="hidden" name="action" value="updateAllVerificationStatus">
    				<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Update Verification Status for ALL specimen_events in this collecting event to....</label>
    				<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
