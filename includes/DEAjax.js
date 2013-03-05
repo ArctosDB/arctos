@@ -497,6 +497,7 @@ function loadRecordEdit (collection_object_id) {
 						var cVal=eval("r.DATA." + columns[i]);
 						var eName=cName.toLowerCase();
 						$("#" + eName).val(cVal);
+						console.log(eName);
 					}
 					msg(r.DATA.LOADED[0]);
 					//$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
