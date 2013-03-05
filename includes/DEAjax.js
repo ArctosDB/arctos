@@ -497,20 +497,15 @@ function loadRecordEdit (collection_object_id) {
 						var cVal=eval("r.DATA." + columns[i]);
 						var eName=cName.toLowerCase();
 						$("#" + eName).val(cVal);
-						console.log(eName);
+						//console.log(eName);
 					}
 
 					// deal with retarded coordinates, where the ID can't match the data column name
-					console.log('coordinatey....' + r.DATA.ORIG_LAT_LONG_UNITS[0])
-						$("#decLAT_DEG").val(r.DATA.LATDEG[0]);
-						$("#decLAT_DIR").val(r.DATA.LATDIR[0]);
-						$("#decLONGDEG").val(r.DATA.LONGDEG[0]);
-						$("#decLONGDIR").val(r.DATA.LONGDIR[0]);
+					$("#decLAT_DEG").val(r.DATA.LATDEG[0]);
+					$("#decLAT_DIR").val(r.DATA.LATDIR[0]);
+					$("#decLONGDEG").val(r.DATA.LONGDEG[0]);
+					$("#decLONGDIR").val(r.DATA.LONGDIR[0]);
 						
-						
-						
-							
-					
 					msg(r.DATA.LOADED[0]);
 					//$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
 					set_attribute_dropdowns();
