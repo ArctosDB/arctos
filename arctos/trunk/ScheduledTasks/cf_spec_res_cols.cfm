@@ -2,13 +2,13 @@
 	<cftransaction>
 		<cftry>
 			<cfquery name="attr" datasource="uam_god">
-				select distinct(attribute_type) from attributes order by attribute_type	
+				select distinct(attribute_type) from attributes where attribute_type != 'sex' order by attribute_type
 			</cfquery>
 			<cfquery name="cleanup" datasource="uam_god">
-				delete from cf_spec_res_cols where category='attribute'	
+				delete from cf_spec_res_cols where category='attribute'
 			</cfquery>
 			<cfquery name="nid" datasource="uam_god">
-				select max(disp_order) cid from cf_spec_res_cols	
+				select max(disp_order) cid from cf_spec_res_cols
 			</cfquery>
 			<cfset n=nid.cid + 1>
 			<cfloop query="attr">
@@ -40,11 +40,11 @@
 		</cftry>
 	</cftransaction>
 	<cfquery name="d" datasource="uam_god">
-		select COLUMN_NAME from cf_spec_res_cols where category='attribute' and column_name != 'sex' order by DISP_ORDER	
+		select COLUMN_NAME from cf_spec_res_cols where category='attribute' and column_name != 'sex' order by DISP_ORDER
 	</cfquery>
 	You aren't done here yet. JS variable "attributes" in function "success_getSpecResultsData" (in ajax.js)
 	must be updated to the following attribute list
-	
+
 	<hr>#valuelist(d.COLUMN_NAME)#
 	<hr>
 </cfoutput>
