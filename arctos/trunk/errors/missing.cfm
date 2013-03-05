@@ -1,6 +1,7 @@
 <cfif listlen(request.rdurl,"/") gt 1>
 	<cfset rdurl=replacenocase(cgi.query_string,"path=","","all")>
 
+		---<cfdump var=#request.rdurl#>
 	<cfif listfindnocase(request.rdurl,'specimen',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"specimen","/")>
@@ -111,7 +112,7 @@
 			</cfcatch>
 		</cftry>
 	<cfelseif listfindnocase(request.rdurl,'project',"/")>
-		#request.rdurl#
+		<cfdump var=#request.rdurl#>
 		<cfabort>
 		<cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"project","/")>
