@@ -109,7 +109,7 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-	<cfelseif listfindnocase(request.rdurl,'project',"/")>
+	<cfelseif listfindnocase(request.rdurl,'project',"/") or request.rdurl is "project">
 		<cfif listlast(request.rdurl,"/") is "project">
 			<cflocation url="/SpecimenUsage.cfm" addtoken="false">
 		<cfelse>
