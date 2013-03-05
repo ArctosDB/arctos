@@ -1,7 +1,6 @@
 	---<cfdump var=#request.rdurl#>
 <cfset x=replace(request.rdurl,"/","","last")>
 ===<cfdump var=#x#>
-<cfabort>
 <cfif listlen(request.rdurl,"/") gt 1>
 
 	<cfif listfindnocase(request.rdurl,'specimen',"/")>
@@ -113,7 +112,7 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-	<cfelseif listfindnocase(request.rdurl,'project',"/") or replace(request.rdurl,"/","last") is "project">
+	<cfelseif listfindnocase(request.rdurl,'project',"/") or replace(request.rdurl,"/","","last") is "project">
 		<cfif listlast(request.rdurl,"/") is "project">
 			<cflocation url="/SpecimenUsage.cfm" addtoken="false">
 		<cfelse>
