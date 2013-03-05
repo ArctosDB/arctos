@@ -112,18 +112,20 @@
 			</cfcatch>
 		</cftry>
 	<cfelseif listfindnocase(request.rdurl,'project',"/")>
-		<cfdump var=#request.rdurl#>
-		<cfabort>
-		<cftry>
-			<cfset gPos=listfindnocase(request.rdurl,"project","/")>
-			<cfif listlen(request.rdurl,"/") gt 1>
-				<cfset niceProjName = listgetat(request.rdurl,gPos+1,"/")>
-			</cfif>
-			<cfinclude template="/ProjectDetail.cfm">
-			<cfcatch>
-				<cfinclude template="/errors/404.cfm">
-			</cfcatch>
-		</cftry>
+		<cfif listlast(request.rdurl,"/") is "project">
+			<cflocation url="/SpecimenUsage.cfm" addtoken="false">
+		<cfelse>
+			<cftry>
+				<cfset gPos=listfindnocase(request.rdurl,"project","/")>
+				<cfif listlen(request.rdurl,"/") gt 1>
+					<cfset niceProjName = listgetat(request.rdurl,gPos+1,"/")>
+				</cfif>
+				<cfinclude template="/ProjectDetail.cfm">
+				<cfcatch>
+					<cfinclude template="/errors/404.cfm">
+				</cfcatch>
+			</cftry>
+		</cfif>
 	<cfelseif listfindnocase(request.rdurl,'media',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"media","/")>
