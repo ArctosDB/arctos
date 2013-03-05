@@ -1,6 +1,12 @@
 	---<cfdump var=#request.rdurl#>
 <cfset x=replace(request.rdurl,"/","","last")>
 ===<cfdump var=#x#>
+
+	<cfif listfindnocase(request.rdurl,'project',"/") is "project">
+	is project
+	<cfelse>
+		is not project
+	</cfif>
 <cfif listlen(request.rdurl,"/") gt 1>
 
 	<cfif listfindnocase(request.rdurl,'specimen',"/")>
