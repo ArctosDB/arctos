@@ -402,6 +402,8 @@
 					}
 					rVal=rVal & '</figcaption>';
 				}
+				 rVal+="</figure>";
+				 return rVal'
 			</cfscript>
 			<!----
 			<cfif len(d.locality_id) gt 0>
@@ -418,8 +420,6 @@
 			</cfif>
 			---->
 
-			<cfset rVal=rVal & "</figure>">
-			<cfreturn rVal>
 		</cfoutput>
 	<cfcatch>
 		<cfdump var=#cfcatch#>
