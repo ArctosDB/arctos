@@ -334,7 +334,6 @@ function saveEditedRecord () {
 }
 
 function loadedEditRecord(){
-	console.log('ok');
 	// show errors and set the form up to deal with them if necessary
 	// used by saveEditedRecord and loadRecordEdit
 	// this function is NOT suitable for enter mode calls
