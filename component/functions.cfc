@@ -353,15 +353,13 @@
 				google_private_key
 			from cf_global_settings
 		</cfquery>
-
-
-
 		<cfoutput>
 			<cfscript>
   				baseURL = "http://maps.googleapis.com";
 				remainingURL="/maps/api/staticmap";
 				parameters = 'center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#';
-				parameters&='&sensor=false&maptype=#maptype#&zoom=2&size=#size#&client=#cf_global_settings.google_client_id#';
+					parameters&='&sensor=false&maptype=#maptype#&zoom=2&size=#size#&';
+					parameters&='client=#cf_global_settings.google_client_id#';
 				fullURL = baseURL & remainingURL & "?" & parameters;
 				urlToSign=remainingURL & "?" & parameters;
 				privatekey = cf_global_settings.google_private_key;
