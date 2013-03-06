@@ -310,7 +310,7 @@
 					media_id=<cfqueryparam value = "#media_id#" CFSQLType = "CF_SQL_INTEGER">
 			</cfquery>
 			<cfif len(d.coordinates) eq 0>
-				<cfreturn 'no map for you'>
+				<cfreturn '[ nothing to map ]'>
 			</cfif>
 			<cfquery name="d" dbtype="query">
 					select
@@ -389,13 +389,20 @@
 	  			signatureModified = Replace(Replace(signature,"+","-","all"),"/","_","all");
 	  			theFinalURL=fullURL & "&signature=" & signatureModified;
 	  			mapImage='<img src="#theFinalURL#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">';
+	  			rVal='<figure>';
+	  			if (len(d.locality_id) gt 0)
+	  				rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>';
+	  			else
+	  				rVal=rVal & mapImage;
 			</cfscript>
-			<cfset rVal='<figure>'>
+			<!----
 			<cfif len(d.locality_id) gt 0>
 				<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>'>
 			<cfelse>
 				<cfset rVal=rVal & mapImage>
 			</cfif>
+
+			---->
 			<cfif showCaption>
 				<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#'>
 				<cfif len(d.S$ELEVATION) gt 0>
