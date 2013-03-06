@@ -347,38 +347,24 @@
 			<cfcatch><!--- whatever ---></cfcatch>
 			</cftry>
 		</cfif>
-		<!---
-		<cfquery name="mapcenter" dbtype="query">
+		<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
-				avg(dec_lat) as cdlat,
-				avg(dec_long) as cdlong
-			from
-				d
+				google_client_id,
+				google_private_key
+			from cf_global_settings
 		</cfquery>
-		center=#mapcenter.cdlat#,#mapcenter.cdlong#
-		--->
-		<cfoutput>
 
-			<!----
-			<cfset baseURL = "http://maps.googleapis.com">
-			<cfset remainingURL="/maps/api/staticmap">
-			<cfset parameters = 'center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
-			<cfset parameters = parameters & '&sensor=false&maptype=#maptype#&zoom=2&size=#size#&client=gme-museumofvertebrate1'>
-			<cfset fullURL = baseURL & remainingURL & "?" & parameters>
-			<cfset urlToSign=remainingURL & "?" & parameters>
-			<cfset privatekey = "NSXubfdQUO4jQj1nGbeZVE27enI=">
-			<cfset privatekeyBase64 = Replace(Replace(privatekey,"-","+","all"),"_","/","all")>
-			<cfset decodedKeyBinary = BinaryDecode(privatekeyBase64,"base64")>
-			<cfset  secretKeySpec = CreateObject("java","javax.crypto.spec.SecretKeySpec").init(decodedKeyBinary,"HmacSHA1")>
-			---->
+
+
+		<cfoutput>
 			<cfscript>
   				baseURL = "http://maps.googleapis.com";
 				remainingURL="/maps/api/staticmap";
 				parameters = 'center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#';
-				parameters = parameters & '&sensor=false&maptype=#maptype#&zoom=2&size=#size#&client=gme-museumofvertebrate1';
+				parameters&='&sensor=false&maptype=#maptype#&zoom=2&size=#size#&client=#cf_global_settings.google_client_id#';
 				fullURL = baseURL & remainingURL & "?" & parameters;
 				urlToSign=remainingURL & "?" & parameters;
-				privatekey = "NSXubfdQUO4jQj1nGbeZVE27enI=";
+				privatekey = cf_global_settings.google_private_key;
 				privatekeyBase64 = Replace(Replace(privatekey,"-","+","all"),"_","/","all");
 				decodedKeyBinary = BinaryDecode(privatekeyBase64,"base64");
 				secretKeySpec = CreateObject("java","javax.crypto.spec.SecretKeySpec").init(decodedKeyBinary,"HmacSHA1");
@@ -405,21 +391,6 @@
 				 rVal &= "</figure>";
 				 return rVal;
 			</cfscript>
-			<!----
-			<cfif len(d.locality_id) gt 0>
-				<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>'>
-			<cfelse>
-				<cfset rVal=rVal & mapImage>
-			</cfif>
-<cfif showCaption>
-				<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#'>
-				<cfif len(d.S$ELEVATION) gt 0>
-					<cfset rVal=rVal & '; Elev. #d.S$ELEVATION# m'>
-				</cfif>
-				<cfset rVal=rVal & '</figcaption>'>
-			</cfif>
-			---->
-
 		</cfoutput>
 	<cfcatch>
 		<cfdump var=#cfcatch#>
