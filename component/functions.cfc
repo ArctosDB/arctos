@@ -390,12 +390,11 @@
 	  			theFinalURL=fullURL & "&signature=" & signatureModified;
 	  			mapImage='<img src="#theFinalURL#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">';
 	  			rVal='<figure>';
-	  			if (len(d.locality_id) gt 0)
+	  			if (len(d.locality_id) gt 0) {
 	  				rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>';
-	  			else
+	  			} else {
 	  				rVal+=mapImage;
-
-
+	  			}
 	  			if (showCaption) {
 					rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#';
 					if (len(d.S$ELEVATION) gt 0) {
