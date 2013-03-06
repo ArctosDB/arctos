@@ -111,6 +111,24 @@
 	</cfif>
 	<!----------------------------------------------------------------------------------------->
 	<cfif action is "search">
+
+
+		<script>
+			jQuery(document).ready(function() {
+				$.each($("div[id^='mapgohere-']"), function() {
+					var theElemID=this.id;
+					var theIDType=this.id.split('-')[1];
+					var theID=this.id.split('-')[2];
+				  	var ptl='/component/functions.cfc?method=getMap&showCaption=false&returnformat=plain&size=150x150&' + theIDType + '=' + theID;
+				    jQuery.get(ptl, function(data){
+						jQuery("#" + theElemID).html(data);
+					});
+				});
+			});
+		</script>
+
+
+
 	<cfif not isdefined("session.displayrows") or len(session.displayrows) is 0>
 		<cfset session.displayrows=20>
 	</cfif>
@@ -330,6 +348,8 @@
 				<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
 			</td>
 			<td align="middle">
+					<div id="mapgohere-media_id-#media_id#"></div>
+				<!---------
 				<div id="mapID_#media_uri#">
 					<cfif len(coordinates) gt 0>
 						<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
@@ -338,6 +358,8 @@
 						#contents#
 					</cfif>
 				</div>
+
+				---------->
 			</td>
 			<td>
 				<div style="max-height:10em;overflow:auto;">
