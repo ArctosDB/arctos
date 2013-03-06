@@ -309,7 +309,7 @@
 					COORDINATES is not null and
 					media_id=<cfqueryparam value = "#media_id#" CFSQLType = "CF_SQL_INTEGER">
 			</cfquery>
-			<cfif len(d.coordinates) eg 0>
+			<cfif len(d.coordinates) eq 0>
 				<cfreturn 'no map for you'>
 			</cfif>
 			<cfquery name="d" dbtype="query">
