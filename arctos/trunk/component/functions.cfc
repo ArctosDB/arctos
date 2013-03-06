@@ -403,7 +403,7 @@
 					rVal=rVal & '</figcaption>';
 				}
 				 rVal+="</figure>";
-				 return rVal'
+				 return rVal;
 			</cfscript>
 			<!----
 			<cfif len(d.locality_id) gt 0>
