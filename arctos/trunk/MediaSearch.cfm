@@ -2,7 +2,9 @@
 	<div id="_header">
 	    <cfinclude template="/includes/_header.cfm">
 	</div>
+	<!----
 	<script type='text/javascript' language="javascript" src='/includes/media.js'></script>
+	---->
 	<cfif isdefined("url.collection_object_id")>
 	    <cfoutput>
 	    	<cflocation url="MediaSearch.cfm?action=search&relationships=shows cataloged_item&related_primary_key1=#url.collection_object_id#" addtoken="false">
