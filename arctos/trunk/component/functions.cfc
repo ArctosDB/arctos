@@ -359,6 +359,7 @@
 				remainingURL="/maps/api/staticmap";
 				parameters = 'center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#';
 					parameters&='&sensor=false&maptype=#maptype#&zoom=2&size=#size#&';
+					parameters &= 'markers=color:red|size:tiny';
 					parameters&='client=#cf_global_settings.google_client_id#';
 				fullURL = baseURL & remainingURL & "?" & parameters;
 				urlToSign=remainingURL & "?" & parameters;
