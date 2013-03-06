@@ -354,12 +354,28 @@
 			from cf_global_settings
 		</cfquery>
 		<cfoutput>
+
+			<!--------
+
+
+				<
+  					<cfset mapurl="http://maps.google.com/maps/api/staticmap?markers=color:red|size:tiny">
+			<cfloop query="d">
+				<cfset mapurl=mapurl & "|#d.DEC_LAT#,#d.DEC_LONG#">
+			</cfloop>
+			<cfset mapurl=mapurl & "&sensor=false&size=#size#&maptype=#maptype#&zoom=2">
+
+
+			-------------->
 			<cfscript>
+
+
+
+
   				baseURL = "http://maps.googleapis.com";
 				remainingURL="/maps/api/staticmap";
-				parameters = 'center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#';
+				parameters = 'markers=color:red|size:tiny|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#';
 					parameters&='&sensor=false&maptype=#maptype#&zoom=2&size=#size#&';
-					parameters &= 'markers=color:red|size:tiny&';
 					parameters&='client=#cf_global_settings.google_client_id#';
 				fullURL = baseURL & remainingURL & "?" & parameters;
 				urlToSign=remainingURL & "?" & parameters;
