@@ -393,7 +393,16 @@
 	  			if (len(d.locality_id) gt 0)
 	  				rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>';
 	  			else
-	  				rVal=rVal & mapImage;
+	  				rVal+=mapImage;
+
+
+	  			if (showCaption) {
+					rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#';
+					if (len(d.S$ELEVATION) gt 0) {
+						rVal=rVal & '; Elev. #d.S$ELEVATION# m';
+					}
+					rVal=rVal & '</figcaption>';
+				}
 			</cfscript>
 			<!----
 			<cfif len(d.locality_id) gt 0>
@@ -401,15 +410,15 @@
 			<cfelse>
 				<cfset rVal=rVal & mapImage>
 			</cfif>
-
-			---->
-			<cfif showCaption>
+<cfif showCaption>
 				<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#'>
 				<cfif len(d.S$ELEVATION) gt 0>
 					<cfset rVal=rVal & '; Elev. #d.S$ELEVATION# m'>
 				</cfif>
 				<cfset rVal=rVal & '</figcaption>'>
 			</cfif>
+			---->
+
 			<cfset rVal=rVal & "</figure>">
 			<cfreturn rVal>
 		</cfoutput>
