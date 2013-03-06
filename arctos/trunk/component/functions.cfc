@@ -355,6 +355,8 @@
 		center=#mapcenter.cdlat#,#mapcenter.cdlong#
 		--->
 		<cfoutput>
+
+			<!----
 			<cfset baseURL = "http://maps.googleapis.com">
 			<cfset remainingURL="/maps/api/staticmap">
 			<cfset parameters = 'center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
@@ -365,7 +367,19 @@
 			<cfset privatekeyBase64 = Replace(Replace(privatekey,"-","+","all"),"_","/","all")>
 			<cfset decodedKeyBinary = BinaryDecode(privatekeyBase64,"base64")>
 			<cfset  secretKeySpec = CreateObject("java","javax.crypto.spec.SecretKeySpec").init(decodedKeyBinary,"HmacSHA1")>
+			---->
 			<cfscript>
+  				baseURL = "http://maps.googleapis.com";
+				remainingURL="/maps/api/staticmap";
+				parameters = 'center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#';
+				parameters = parameters & '&sensor=false&maptype=#maptype#&zoom=2&size=#size#&client=gme-museumofvertebrate1';
+				fullURL = baseURL & remainingURL & "?" & parameters;
+				urlToSign=remainingURL & "?" & parameters;
+				privatekey = "NSXubfdQUO4jQj1nGbeZVE27enI=";
+				privatekeyBase64 = Replace(Replace(privatekey,"-","+","all"),"_","/","all");
+				decodedKeyBinary = BinaryDecode(privatekeyBase64,"base64");
+				secretKeySpec = CreateObject("java","javax.crypto.spec.SecretKeySpec").init(decodedKeyBinary,"HmacSHA1");
+
   				Hmac=CreateObject("java","javax.crypto.Mac").getInstance("HmacSHA1");
 				Hmac.init(secretKeySpec);
 				encryptedBytes = Hmac.doFinal(toBinary(toBase64(urlToSign)));
@@ -376,44 +390,6 @@
 
 
 			<cfset mapImage='<img src="#theFinalURL#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
-					<cfset rVal='<figure>'>
-					<cfif len(d.locality_id) gt 0>
-						<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>'>
-					<cfelse>
-						<cfset rVal=rVal & mapImage>
-					</cfif>
-					<cfif showCaption>
-						<cfset rVal=rVal & '<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#'>
-						<cfif len(d.S$ELEVATION) gt 0>
-							<cfset rVal=rVal & '; Elev. #d.S$ELEVATION# m'>
-						</cfif>
-						<cfset rVal=rVal & '</figcaption>'>
-					</cfif>
-					<cfset rVal=rVal & "</figure>">
-					<cfreturn rVal>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			<!----
-			<cfset mapurl="http://maps.google.com/maps/api/staticmap?markers=color:red|size:tiny">
-			<cfloop query="d">
-				<cfset mapurl=mapurl & "|#d.DEC_LAT#,#d.DEC_LONG#">
-			</cfloop>
-			<cfset mapurl=mapurl & "&sensor=false&size=#size#&maptype=#maptype#&zoom=2">
-			<cfset mapImage='<img src="#mapurl#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
 			<cfset rVal='<figure>'>
 			<cfif len(d.locality_id) gt 0>
 				<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>'>
@@ -429,7 +405,6 @@
 			</cfif>
 			<cfset rVal=rVal & "</figure>">
 			<cfreturn rVal>
-			---->
 		</cfoutput>
 	<cfcatch>
 		<cfdump var=#cfcatch#>
