@@ -402,7 +402,7 @@
 					}
 					rVal=rVal & '</figcaption>';
 				}
-				 rVal+="</figure>";
+				 rVal &= "</figure>";
 				 return rVal;
 			</cfscript>
 			<!----
