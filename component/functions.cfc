@@ -379,17 +379,14 @@
 				privatekeyBase64 = Replace(Replace(privatekey,"-","+","all"),"_","/","all");
 				decodedKeyBinary = BinaryDecode(privatekeyBase64,"base64");
 				secretKeySpec = CreateObject("java","javax.crypto.spec.SecretKeySpec").init(decodedKeyBinary,"HmacSHA1");
-
   				Hmac=CreateObject("java","javax.crypto.Mac").getInstance("HmacSHA1");
 				Hmac.init(secretKeySpec);
 				encryptedBytes = Hmac.doFinal(toBinary(toBase64(urlToSign)));
 	  			signature = BinaryEncode(encryptedBytes, "base64");
+	  			signatureModified = Replace(Replace(signature,"+","-","all"),"/","_","all");
+	  			theFinalURL=fullURL & "&signature=" & signatureModified;
+	  			mapImage='<img src="#theFinalURL#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">';
 			</cfscript>
-			<cfset signatureModified = Replace(Replace(signature,"+","-","all"),"/","_","all")>
-			<cfset theFinalURL=fullURL & "&signature=" & signatureModified>
-
-
-			<cfset mapImage='<img src="#theFinalURL#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">'>
 			<cfset rVal='<figure>'>
 			<cfif len(d.locality_id) gt 0>
 				<cfset rVal=rVal & '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>'>
