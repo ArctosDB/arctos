@@ -387,6 +387,40 @@
 	</table>
 	<div id="e_usage"></div>
 </div>
+
+
+<div class="secDiv">
+	<table class="ssrch">
+		<tr>
+			<td colspan="2" class="secHead">
+				<span class="secLabel">Relationships</span>
+				<span class="secControl" id="c_relationships" onclick="showHide('relationships',1)">Show More Options</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="lbl">
+				<span class="helpLink" id="_type_status">Basis of Citation:</span>
+			</td>
+			<td class="srch">
+				<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select type_status from ctcitation_type_status
+				</cfquery>
+				<select name="type_status" id="type_status" size="1">
+					<option value=""></option>
+					<option value="any">Any</option>
+					<option value="type">Any TYPE</option>
+					<cfloop query="ctTypeStatus">
+						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+					</cfloop>
+				</select>
+				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status', SpecData.type_status.value);">Define</span>
+			</td>
+		</tr>
+	</table>
+	<div id="e_relationships"></div>
+</div>
+
+
 <cfif listcontainsnocase(session.roles,"coldfusion_user")>
 	<div class="secDiv">
 		<table class="ssrch">
