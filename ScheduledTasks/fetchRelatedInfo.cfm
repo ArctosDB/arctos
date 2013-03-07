@@ -58,6 +58,7 @@
 				filtered_flat
 			where guid='#OTHER_ID_TYPE#:#DISPLAY_VALUE#'
 		</cfquery>
+		<cfdump var=#newOrStale#>
 		<!---
 			if we get something, update (via delete and insert)
 			if we do NOT get anything, assume the "other system"
