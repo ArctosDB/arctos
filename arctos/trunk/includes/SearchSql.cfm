@@ -979,13 +979,19 @@
 	</cfif>
 	<cfset basQual = " #basQual# and otherIdSearch.id_references='self' AND otherIdSearch.other_id_type in (#listqualify(OIDType,chr(39))#)">
 </cfif>
+
+
+
 <cfif isdefined("id_references") AND len(id_references) gt 0>
 	<cfset mapurl = "#mapurl#&id_references=#id_references#">
-	<cfif basJoin does not contain " otherIdSearch ">
+	<cfif basJoin does not contain " otherIdRefSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdRefSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND otherIdRefSearch.id_references = '#id_references#'">
 </cfif>
+
+
+
 
 <cfif isdefined("OIDNum") and len(OIDNum) gt 0>
 	<cfif not isdefined("oidOper") OR len(oidOper) is 0>
