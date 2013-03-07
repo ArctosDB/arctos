@@ -181,7 +181,7 @@
 							<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
 							<cfif len(dec_lat) gt 0>
 								<div id="mapgohere-locality_id-#locality_id#">
-									<img src="/images/indicator.gif">
+									<img src="/images/indicator.gif"> [#dec_lat#/#dec_long#]
 								</div
 								<!----
 								<br>#dec_lat#/#dec_long#
