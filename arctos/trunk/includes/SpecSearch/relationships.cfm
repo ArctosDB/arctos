@@ -21,7 +21,7 @@
 				<span class="helpLink" id="_related_term_val_1">Value:</span>
 			</td>
 			<td class="srch">
-				<input type="text" name="related_term_val_1" size="60">
+				<input type="text" name="related_term_val_1" id="related_term_val_1" size="60">
 			</td>
 		</tr>
 	</table>

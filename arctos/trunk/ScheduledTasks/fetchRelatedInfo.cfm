@@ -24,7 +24,7 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 		coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID not in (
 			select COLL_OBJ_OTHER_ID_NUM_ID from cf_relations_cache
 		) and
-		rownum<10
+		rownum<1000
 </cfquery>
 <cfoutput>
 	<cfloop query="new">
@@ -79,7 +79,6 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 				</cfquery>
 			</cfif>
 		</cfloop>
-		<cfdump var=#fetch#>
 	</cfloop>
 </cfoutput>
 
