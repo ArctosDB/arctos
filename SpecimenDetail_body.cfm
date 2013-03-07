@@ -699,7 +699,9 @@
 							</cfif>
 							<div class="relCacheDiv">
 								<cfloop query="relcache">
-									#TERM#@#dateformat(CACHEDATE,"yyyy-mm-dd")#: #VALUE#
+									<div class="indivRelCacheTerm">
+										#TERM#@#dateformat(CACHEDATE,"yyyy-mm-dd")#: #VALUE#
+									</div>
 								</cfloop>
 
 							</div>
