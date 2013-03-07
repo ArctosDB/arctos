@@ -40,7 +40,7 @@
 				FAMILY
 			from
 				filtered_flat
-			where guid='#OTHER_ID_TYPE:DISPLAY_VALUE#'
+			where guid='#OTHER_ID_TYPE#:#DISPLAY_VALUE#'
 		</cfquery>
 		<cfdump var=#fetch#>
 	</cfloop>
