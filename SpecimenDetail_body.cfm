@@ -620,6 +620,7 @@
 	<!------------------------------------ identifiers ---------------------------------------------->
 			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT
+					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
 					case when #oneOfUs# != 1 and
 						concatencumbrances(coll_obj_other_id_num.collection_object_id) like '%mask original field number%' and
 						coll_obj_other_id_num.other_id_type = 'original identifier'
@@ -676,6 +677,9 @@
 						</cfif>
 					</div>
 					<cfloop query="rels">
+						<cfquery name="relcache" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+							select * from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID#
+						</cfquery>
 						<cfset thisClass="">
 						<cfif id_references is "same individual as">
 							<script>
@@ -692,6 +696,12 @@
 							<cfelse>
 								#other_id_type#:#display_value#
 							</cfif>
+							<div style="border:2px solid purple">
+								<cfloop query="relcache">
+									#TERM#: #VALUE# (#CACHEDATE#)
+								</cfloop>
+
+							</div>
 						</div>
 					</cfloop>
 				</div>
