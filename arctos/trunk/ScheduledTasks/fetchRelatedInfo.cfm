@@ -9,11 +9,11 @@
 
 <cfquery name="new" datasource="uam_god">
 	select
-		COLL_OBJ_OTHER_ID_NUM_ID,
-		ID_REFERENCES,
-		OTHER_ID_TYPE,
-		DISPLAY_VALUE,
-		BASE_URL
+coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
+coll_obj_other_id_num.ID_REFERENCES,
+coll_obj_other_id_num.OTHER_ID_TYPE,
+coll_obj_other_id_num.DISPLAY_VALUE,
+CTCOLL_OTHER_ID_TYPE.BASE_URL
 	from
 		coll_obj_other_id_num,
 		CTCOLL_OTHER_ID_TYPE
