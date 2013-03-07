@@ -70,7 +70,7 @@
 				that we're going to rebuild
 			---->
 			<cfquery name="ins" datasource="uam_god">
-				delete from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#stale.COLL_OBJ_OTHER_ID_NUM_ID#
+				delete from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#
 			</cfquery>
 			<cfif len(fetch.locality) gt 0>
 				<cfquery name="ins" datasource="uam_god">
