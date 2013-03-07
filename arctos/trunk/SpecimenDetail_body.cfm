@@ -679,6 +679,7 @@
 					<cfloop query="rels">
 						<cfquery name="relcache" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 							select * from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID#
+							order by term
 						</cfquery>
 						<cfset thisClass="">
 						<cfif id_references is "same individual as">
@@ -696,9 +697,9 @@
 							<cfelse>
 								#other_id_type#:#display_value#
 							</cfif>
-							<div style="border:2px solid purple">
+							<div class="relCacheDiv">
 								<cfloop query="relcache">
-									#TERM#: #VALUE# (#CACHEDATE#)
+									#TERM#@#dateformat(CACHEDATE,"yyyy-mm-dd")#: #VALUE#
 								</cfloop>
 
 							</div>
