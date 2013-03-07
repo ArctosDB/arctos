@@ -1,4 +1,7 @@
-.isDuplicateRecord {
+.relCacheDiv {
+	border:2px solid purple;	
+}	
+}.isDuplicateRecord {
 	border: .6em solid red;
 	padding: .2em;
 }
