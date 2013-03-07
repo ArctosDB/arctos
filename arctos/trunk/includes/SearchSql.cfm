@@ -977,7 +977,7 @@
 	<cfif basJoin does not contain " otherIdSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND otherIdSearch.other_id_type in (#listqualify(OIDType,chr(39))#)">
+	<cfset basQual = " #basQual# and otherIdSearch.id_references='self' AND otherIdSearch.other_id_type in (#listqualify(OIDType,chr(39))#)">
 </cfif>
 <cfif isdefined("id_references") AND len(id_references) gt 0>
 	<cfset mapurl = "#mapurl#&id_references=#id_references#">
@@ -997,9 +997,9 @@
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
 	</cfif>
 	<cfif oidOper is "LIKE">
-		<cfset basQual = " #basQual# and upper(otherIdSearch.display_value) LIKE '%#ucase(OIDNum)#%'">
+		<cfset basQual = " #basQual# and otherIdSearch.id_references='self' and upper(otherIdSearch.display_value) LIKE '%#ucase(OIDNum)#%'">
 	<cfelseif oidOper is "IS">
-		<cfset basQual = " #basQual# and upper(otherIdSearch.display_value) = '#ucase(OIDNum)#'">
+		<cfset basQual = " #basQual# and otherIdSearch.id_references='self' and upper(otherIdSearch.display_value) = '#ucase(OIDNum)#'">
 	<cfelse><!---- list ---->
 		<cfset oidList="">
 		<cfloop list="#OIDNum#" delimiters="," index="i">
