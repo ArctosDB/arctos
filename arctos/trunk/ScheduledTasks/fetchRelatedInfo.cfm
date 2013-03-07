@@ -60,7 +60,7 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 						VALUE
 					) values (
 						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
-						'current ID',
+						'identification',
 						'#SCIENTIFIC_NAME#'
 					)
 				</cfquery>
@@ -73,7 +73,7 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 						VALUE
 					) values (
 						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
-						'current family',
+						'family',
 						'#FAMILY#'
 					)
 				</cfquery>
