@@ -44,22 +44,22 @@
  						d+='<br>County: <strong>' + r.DATA.COUNTY[0] + '</strong>';
  					}
  					if(r.DATA.QUAD[0]){
- 						d+='<br>USGS Quad: <strong>' + r.DATA.QUAD[0] + '</strong>'; 						
+ 						d+='<br>USGS Quad: <strong>' + r.DATA.QUAD[0] + '</strong>';
  					}
  					if(r.DATA.FEATURE[0]){
- 						d+='<br>Feature: <strong>' + r.DATA.FEATURE[0] + '</strong>'; 						
+ 						d+='<br>Feature: <strong>' + r.DATA.FEATURE[0] + '</strong>';
  					}
  					if(r.DATA.ISLAND_GROUP[0]){
- 						d+='<br>Island Group: <strong>' + r.DATA.ISLAND_GROUP[0] + '</strong>'; 						
+ 						d+='<br>Island Group: <strong>' + r.DATA.ISLAND_GROUP[0] + '</strong>';
  					}
  					if(r.DATA.ISLAND[0]){
- 						d+='<br>Island: <strong>' + r.DATA.ISLAND[0] + '</strong>'; 						
+ 						d+='<br>Island: <strong>' + r.DATA.ISLAND[0] + '</strong>';
  					}
  					if(r.DATA.SEA[0]){
- 						d+='<br>Sea: <strong>' + r.DATA.SEA[0] + '</strong>'; 						
+ 						d+='<br>Sea: <strong>' + r.DATA.SEA[0] + '</strong>';
  					}
  					if(r.DATA.SOURCE_AUTHORITY[0]){
- 						d+='<br>Source: <strong>' + r.DATA.SOURCE_AUTHORITY[0] + '</strong>'; 						
+ 						d+='<br>Source: <strong>' + r.DATA.SOURCE_AUTHORITY[0] + '</strong>';
  					}
 					$('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
 		            $('<div />').html(d).attr("id","customDiv").addClass('infoPop').appendTo('body');
@@ -81,13 +81,13 @@
 </script>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
-<cfoutput> 
+<cfoutput>
 	<cfset title="Explore Localities">
 	<cfset showLocality=1>
 	<cfset showEvent=1>
 	<strong>Find Localities</strong>
     <form name="getCol" method="post" action="showLocality.cfm">
-		<input type="hidden" name="action" value="srch">	
+		<input type="hidden" name="action" value="srch">
 		<cfinclude template="/includes/frmFindLocation_guts.cfm">
     </form>
 </cfoutput>
@@ -95,6 +95,19 @@
 
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "srch">
+	<script>
+		jQuery(document).ready(function() {
+			$.each($("div[id^='mapgohere-']"), function() {
+				var theElemID=this.id;
+				var theIDType=this.id.split('-')[1];
+				var theID=this.id.split('-')[2];
+			  	var ptl='/component/functions.cfc?method=getMap&showCaption=true&returnformat=plain&size=150x150&' + theIDType + '=' + theID;
+			    jQuery.get(ptl, function(data){
+					jQuery("#" + theElemID).html(data);
+				});
+			});
+		});
+	</script>
 	<cfset title="Locality Information">
 	<cfoutput>
 		<cf_findLocality type="event">
@@ -113,9 +126,9 @@
 				began_date,
 				ended_date,
 				verbatim_date
-			from 
+			from
 				localityResults
-			group by 
+			group by
 				collecting_event_id,
 				higher_geog,
 				geog_auth_rec_id,
@@ -167,6 +180,10 @@
 							</cfif>
 							<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
 							<cfif len(dec_lat) gt 0>
+								<div id="mapgohere-locality_id-#locality_id#">
+									<img src="/images/indicator.gif">
+								</div
+								<!----
 								<br>#dec_lat#/#dec_long#
 								<cfif x lte 25>
 									<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
@@ -174,10 +191,11 @@
 									</cfinvoke>
 									#contents#
 								</cfif>
+								---->
 							</cfif>
 						<cfelse>
 							[no localities]
-						</cfif> 
+						</cfif>
 					<td>
 						<cfif len(collecting_event_id) gt 0>
 							<span class="infoLink" onclick="expand('collecting_event_id', #collecting_event_id#)">[&nbsp;details&nbsp;]</span>
