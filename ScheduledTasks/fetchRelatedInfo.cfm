@@ -45,7 +45,7 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 					TERM,
 					VALUE
 				) values (
-					#COLL_OBJ_OTHER_ID_NUM_ID#,
+					#new.COLL_OBJ_OTHER_ID_NUM_ID#,
 					'locality',
 					'#HIGHER_GEOG#'
 				)
@@ -56,7 +56,7 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 					TERM,
 					VALUE
 				) values (
-					#COLL_OBJ_OTHER_ID_NUM_ID#,
+					#new.COLL_OBJ_OTHER_ID_NUM_ID#,
 					'current ID',
 					'#SCIENTIFIC_NAME#'
 				)
@@ -67,7 +67,7 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 					TERM,
 					VALUE
 				) values (
-					#COLL_OBJ_OTHER_ID_NUM_ID#,
+					#new.COLL_OBJ_OTHER_ID_NUM_ID#,
 					'current family',
 					'#FAMILY#'
 				)
