@@ -31,17 +31,48 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 		<!--- this should be a web fetch, but see above. Try to be nice about encumbrances, get only public data, etc. --->
 		<cfquery name="fetch" datasource="uam_god">
 			select
-				HIGHER_GEOG,
-				SPEC_LOCALITY,
-				DEC_LAT,
-				DEC_LONG,
-				COORDINATEUNCERTAINTYINMETERS,
+				HIGHER_GEOG || ': ' || SPEC_LOCALITY locality,
 				SCIENTIFIC_NAME,
 				FAMILY
 			from
 				filtered_flat
 			where guid='#OTHER_ID_TYPE#:#DISPLAY_VALUE#'
 		</cfquery>
+		<cfloop query="fetch">
+			<cfquery name="ins" datasource="uam_god">
+				insert into cf_relations_cache (
+					COLL_OBJ_OTHER_ID_NUM_ID,
+					TERM,
+					VALUE
+				) values (
+					#COLL_OBJ_OTHER_ID_NUM_ID#,
+					'locality',
+					'#HIGHER_GEOG#'
+				)
+			</cfquery>
+			<cfquery name="ins" datasource="uam_god">
+				insert into cf_relations_cache (
+					COLL_OBJ_OTHER_ID_NUM_ID,
+					TERM,
+					VALUE
+				) values (
+					#COLL_OBJ_OTHER_ID_NUM_ID#,
+					'current ID',
+					'#SCIENTIFIC_NAME#'
+				)
+			</cfquery>
+			<cfquery name="ins" datasource="uam_god">
+				insert into cf_relations_cache (
+					COLL_OBJ_OTHER_ID_NUM_ID,
+					TERM,
+					VALUE
+				) values (
+					#COLL_OBJ_OTHER_ID_NUM_ID#,
+					'current family',
+					'#FAMILY#'
+				)
+			</cfquery>
+		</cfloop>
 		<cfdump var=#fetch#>
 	</cfloop>
 </cfoutput>
